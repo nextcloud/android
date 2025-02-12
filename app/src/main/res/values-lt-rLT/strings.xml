@@ -99,7 +99,6 @@
     <string name="bottom_navigation_menu_favorites_label">Mėgstami</string>
     <string name="bottom_navigation_menu_files_label">Visi failai</string>
     <string name="bottom_navigation_menu_media_label">Medija</string>
-    <string name="brute_force_delay">Uždelsta dėl per didelio neteisingų bandymų skaičiaus</string>
     <string name="calendar">Kalendorius</string>
     <string name="calendars">Kalendoriai</string>
     <string name="certificate_load_problem">Klaida, įkeliant liudijimą.</string>
@@ -901,7 +900,6 @@
     <string name="wait_a_moment">Palaukite…</string>
     <string name="wait_checking_credentials">Dekriptuojami prisijungimo duomenys</string>
     <string name="wait_for_tmp_copy_from_private_storage">Kopijuojamas failas iš privačios saugyklos</string>
-    <string name="webview_version_check_alert_dialog_positive_button_title">Atnaujinti</string>
     <string name="what_s_new_image">Koks naujas vaizdas</string>
     <string name="whats_new_skip">Praleisti</string>
     <string name="whats_new_title">Naujas %1$s</string>

@@ -119,7 +119,6 @@
     <string name="bottom_navigation_menu_favorites_label">Obľúbené</string>
     <string name="bottom_navigation_menu_files_label">Všetky súbory</string>
     <string name="bottom_navigation_menu_media_label">Média</string>
-    <string name="brute_force_delay">Spracovanie oneskorené z dôvodu veľkého množstva chybných požiadavok</string>
     <string name="calendar">Kalendár</string>
     <string name="calendars">Kalendáre</string>
     <string name="certificate_load_problem">Nastal problém s načítaním certifikátu.</string>
@@ -891,7 +890,6 @@
     <string name="stream">Streamovať s…</string>
     <string name="stream_not_possible_headline">Vnútorné streamovanie nie je možné</string>
     <string name="stream_not_possible_message">Médium si namiesto toho stiahnite alebo použite externú aplikáciu.</string>
-    <string name="strict_mode">Striktný mód: HTTP spojenie nie je povolené!</string>
     <string name="sub_folder_rule_day">Rok/Mesiac/Deň</string>
     <string name="sub_folder_rule_month">Rok/Mesiac</string>
     <string name="sub_folder_rule_year">Rok</string>
@@ -1080,9 +1078,6 @@
     <string name="wait_checking_credentials">Overujem uložené prihlasovacie údaje</string>
     <string name="wait_for_tmp_copy_from_private_storage">Kopírovanie súboru z privátneho úložiska</string>
     <string name="warn_rename_extension">Zmena prípony môže spôsobiť, že sa tento súbor otvorí v inej aplikácii</string>
-    <string name="webview_version_check_alert_dialog_message">Pre prihlásenie prosím aktualizujte aplikáciu Android System WebView</string>
-    <string name="webview_version_check_alert_dialog_positive_button_title">Aktualizovať</string>
-    <string name="webview_version_check_alert_dialog_title">Aktualizujte Android System WebView</string>
     <string name="what_s_new_image">Obrázok čo je nové</string>
     <string name="whats_new_skip">Preskočiť</string>
     <string name="whats_new_title">Nové v %1$s</string>

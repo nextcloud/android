@@ -81,7 +81,6 @@
     <string name="bottom_navigation_menu_favorites_label">Ưa thích</string>
     <string name="bottom_navigation_menu_files_label">Tất cả tệp tin</string>
     <string name="bottom_navigation_menu_media_label">Phương tiện</string>
-    <string name="brute_force_delay">Đã bị trì hoãn vì quá nhiều lần thử sai</string>
     <string name="calendar">Lịch</string>
     <string name="calendars">Lịch</string>
     <string name="certificate_load_problem">Có vấn đề khi tải chứng chỉ.</string>
@@ -704,7 +703,6 @@
     <string name="stream">Phát trực tiếp với…</string>
     <string name="stream_not_possible_headline">Không thể phát trực tuyến nội bộ</string>
     <string name="stream_not_possible_message">Vui lòng tải xuống media thay thế hoặc sử dụng ứng dụng bên ngoài.</string>
-    <string name="strict_mode">Chế độ nghiêm ngặt: Kết nối HTTP không được cho phép!</string>
     <string name="sub_folder_rule_year">Năm</string>
     <string name="subject_shared_with_you">\"%1$s\" đã chia sẽ với bạn</string>
     <string name="subject_user_shared_with_you">%1$s đã chia sẽ \"%2$s\" với bạn</string>
@@ -858,7 +856,6 @@
     <string name="wait_a_moment">Đợi một chút…</string>
     <string name="wait_checking_credentials">Kiểm tra thông tin đăng nhập đã lưu trữ</string>
     <string name="wait_for_tmp_copy_from_private_storage">Sao chép tệp từ bộ nhớ riêng</string>
-    <string name="webview_version_check_alert_dialog_positive_button_title">Cập nhật</string>
     <string name="what_s_new_image">Hình ảnh mới là gì</string>
     <string name="whats_new_skip">Bỏ qua</string>
     <string name="whats_new_title">Mới trong %1$s</string>

@@ -82,7 +82,6 @@
     <string name="bottom_navigation_menu_favorites_label">Favoritos</string>
     <string name="bottom_navigation_menu_files_label">Todos os ficheiros</string>
     <string name="bottom_navigation_menu_media_label">Media</string>
-    <string name="brute_force_delay">Suspenso devido a demasiadas tentativas erradas</string>
     <string name="calendar">Calendário</string>
     <string name="calendars">Calendários</string>
     <string name="certificate_load_problem">Ocorreu um problema ao carregar o certificado.</string>
@@ -909,7 +908,6 @@ Aproveite o novo e melhorado envio automático.</string>
     <string name="wait_a_moment">Aguarde um momento…</string>
     <string name="wait_checking_credentials">A verificar as credenciais guardadas</string>
     <string name="wait_for_tmp_copy_from_private_storage">A copiar o ficheiro do armazenamento privado</string>
-    <string name="webview_version_check_alert_dialog_positive_button_title">Atualizar</string>
     <string name="what_s_new_image">Imagem de novidades</string>
     <string name="whats_new_skip">Passar à frente</string>
     <string name="whats_new_title">Novo em %1$s</string>

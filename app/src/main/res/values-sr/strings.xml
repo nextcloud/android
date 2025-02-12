@@ -119,7 +119,6 @@
     <string name="bottom_navigation_menu_favorites_label">Омиљене</string>
     <string name="bottom_navigation_menu_files_label">Сви фајлови</string>
     <string name="bottom_navigation_menu_media_label">Медији</string>
-    <string name="brute_force_delay">Задржано услед превише неуспелих покушаја</string>
     <string name="calendar">Календар</string>
     <string name="calendars">Календари</string>
     <string name="certificate_load_problem">Појавио се проблем приликом учитавања сертификата.</string>
@@ -290,6 +289,7 @@
     <string name="drawer_quota">%1$s од %2$s заузето</string>
     <string name="drawer_quota_unlimited">%1$s искоришћено</string>
     <string name="drawer_synced_folders">Аутоматска отпремања</string>
+    <string name="due_to_too_many_wrong_attempts">%s услед превише неуспелих покушаја</string>
     <string name="e2e_counter_too_old">Бројач је сувише стар</string>
     <string name="e2e_hash_not_found">Није пронађен хеш</string>
     <string name="e2e_not_yet_setup">E2E још увек није подешено</string>
@@ -433,6 +433,7 @@
     <string name="file_not_found">Фајл није нађен</string>
     <string name="file_not_synced">Фајл не може да се синхронизује. Приказујем последњу доступну верзију.</string>
     <string name="file_rename">Преименуј</string>
+    <string name="file_upload_worker_error_notification_title">Отпремање није успело. Нема везе са интернетом</string>
     <string name="file_upload_worker_same_file_already_exists">Исти фајл већ постојим, није откривен конфликт</string>
     <string name="file_version_restored_error">Грешка при враћању верзије фајла!</string>
     <string name="file_version_restored_successfully">Успешно враћена верзија фајла.</string>
@@ -842,6 +843,7 @@
     <string name="sharee_already_added_to_file">Није успело додавање дељења. Овај фајл или фолдер се већ дели са наведеном особом или групом.</string>
     <string name="show_images">Прикажи слике</string>
     <string name="show_video">Прикажи видео снимке</string>
+    <string name="sign_tos_failed">Молимо вас да ручно погледате услове коришћења!</string>
     <string name="signup_with_provider">Пријавите се преко провајдера</string>
     <string name="single_sign_on_request_token" formatted="true">Може ли %1$s да приступи Некстклауд налогу %2$s?</string>
     <string name="sort_by">Разврстај</string>
@@ -890,7 +892,6 @@
     <string name="stream">Стримуј помоћу…</string>
     <string name="stream_not_possible_headline">Интерно стримовање није могуће</string>
     <string name="stream_not_possible_message">Или преузмите медиј или користите спољну апликацију.</string>
-    <string name="strict_mode">Стриктни режим: не дозвољава се HTTP веза!</string>
     <string name="sub_folder_rule_day">Година/месец/дан</string>
     <string name="sub_folder_rule_month">Година/месец</string>
     <string name="sub_folder_rule_year">Година</string>
@@ -928,6 +929,7 @@
     <string name="synced_icon">Синхронизовано</string>
     <string name="tags">Ознаке</string>
     <string name="terms_of_service_title">Услови коришћења</string>
+    <string name="terms_of_services_agree">Слажем се са наведеним условима</string>
     <string name="test_server_button">Испробај везу са сервером</string>
     <string name="thirtyMinutes">30 минута</string>
     <string name="thisWeek">Ове недеље</string>
@@ -1078,9 +1080,6 @@
     <string name="wait_checking_credentials">Проверавам сачуване акредитиве</string>
     <string name="wait_for_tmp_copy_from_private_storage">Копирам фајл из личног складишта</string>
     <string name="warn_rename_extension">Ако се промена екстензија, фајл ће се можда отварати у другој апликацији</string>
-    <string name="webview_version_check_alert_dialog_message">Да бисте се пријавили, молимо вас да ажурирате Андроид апликацију System WebView</string>
-    <string name="webview_version_check_alert_dialog_positive_button_title">Ажурирај</string>
-    <string name="webview_version_check_alert_dialog_title">Ажурирај Андроид System WebView</string>
     <string name="what_s_new_image">Слика шта је ново</string>
     <string name="whats_new_skip">Прескочи</string>
     <string name="whats_new_title">Ново у %1$s</string>
@@ -1190,6 +1189,26 @@
         <item quantity="one">%d одабран</item>
         <item quantity="few">%d одабрана</item>
         <item quantity="other">%d одабраних</item>
+    </plurals>
+    <plurals name="delay_message">
+        <item quantity="one">Задржано %d секунду услед превише неуспелих покушаја</item>
+        <item quantity="few">Задржано %d секунде услед превише неуспелих покушаја</item>
+        <item quantity="other">Задржано %d секунди услед превише неуспелих покушаја</item>
+    </plurals>
+    <plurals name="delay_message_minutes">
+        <item quantity="one">Задржано %d минут услед превише неуспелих покушаја</item>
+        <item quantity="few">Задржано %d минута услед превише неуспелих покушаја</item>
+        <item quantity="other">Задржано %d минута услед превише неуспелих покушаја</item>
+    </plurals>
+    <plurals name="delay_message_minutes_part">
+        <item quantity="one">Задржано %d минут</item>
+        <item quantity="few">Задржано %d минута</item>
+        <item quantity="other">Задржано %d минута</item>
+    </plurals>
+    <plurals name="delay_message_seconds_part">
+        <item quantity="one">%d секунда</item>
+        <item quantity="few">%d секунди</item>
+        <item quantity="other">%d секунди</item>
     </plurals>
     <plurals name="share_download_limit_description">
         <item quantity="one">преостаје још %1$d преузимање</item>

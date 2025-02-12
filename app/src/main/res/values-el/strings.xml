@@ -84,7 +84,6 @@
     <string name="bottom_navigation_menu_favorites_label">Αγαπημένα</string>
     <string name="bottom_navigation_menu_files_label">Όλα τα αρχεία</string>
     <string name="bottom_navigation_menu_media_label">Μέσα ενημέρωσης</string>
-    <string name="brute_force_delay">Καθυστέρηση λόγω πάρα πολλών λανθασμένων προσπαθειών</string>
     <string name="calendar">Ημερολόγιο</string>
     <string name="calendars">Ημερολόγια</string>
     <string name="certificate_load_problem">Πρόβλημα φόρτωσης του πιστοποιητικού.</string>
@@ -744,7 +743,6 @@
     <string name="stream">Ροή με…</string>
     <string name="stream_not_possible_headline">Η εσωτερική ροή δεν είναι δυνατή</string>
     <string name="stream_not_possible_message">Παρακαλούμε να γίνει λήψη των μέσων ή να χρησιμοποιηθεί εξωτερική εφαρμογή</string>
-    <string name="strict_mode">Αυστηρή λειτουργία: δεν επιτρέπεται σύνδεση HTTP!</string>
     <string name="sub_folder_rule_year">Έτος</string>
     <string name="subject_shared_with_you">Ο \"%1$s\" διαμοιράστηκε μαζί σας</string>
     <string name="subject_user_shared_with_you">Ο %1$s διαμοιράστηκε το \"%2$s\" με εσάς</string>
@@ -902,7 +900,6 @@
     <string name="wait_a_moment">Παρακαλούμε περιμένετε…</string>
     <string name="wait_checking_credentials">Γίνεται έλεγχος αποθηκευμένων διαπιστευτηρίων</string>
     <string name="wait_for_tmp_copy_from_private_storage">Γίνεται αντιγραφή αρχείου από ιδιωτικό αποθηκευτικό χώρο</string>
-    <string name="webview_version_check_alert_dialog_positive_button_title">Ενημέρωση</string>
     <string name="what_s_new_image">Ποιά είναι η νέα εικόνα</string>
     <string name="whats_new_skip">Παράλειψη</string>
     <string name="whats_new_title">Τι νέο υπάρχει στο %1$s</string>

@@ -46,6 +46,7 @@
     <string name="app_config_proxy_port_title">プロキシポート</string>
     <string name="app_widget_description">ダッシュボードから一つのウィジェットを表示</string>
     <string name="appbar_search_in">%s の中を検索</string>
+    <string name="assistant_screen_add_task_alert_dialog_title">新しいタスクを追加</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">テキストを入力</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">本当にこのタスクを削除しますか？</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">タスクを削除</string>
@@ -115,7 +116,6 @@
     <string name="bottom_navigation_menu_favorites_label">お気に入り</string>
     <string name="bottom_navigation_menu_files_label">すべてのファイル</string>
     <string name="bottom_navigation_menu_media_label">メディア</string>
-    <string name="brute_force_delay">大量の誤った試みによる遅延</string>
     <string name="calendar">カレンダー</string>
     <string name="calendars">カレンダー</string>
     <string name="certificate_load_problem">証明書の読み込みに問題がありました。</string>
@@ -880,7 +880,6 @@
     <string name="stream">ストリームと...</string>
     <string name="stream_not_possible_headline">内部ストリーミングは不可能</string>
     <string name="stream_not_possible_message">代わりにメディアをダウンロードするか、外部アプリを使用してください。</string>
-    <string name="strict_mode">ストリクトモード：HTTP接続が許可されていません！</string>
     <string name="sub_folder_rule_day">年/月/日</string>
     <string name="sub_folder_rule_month">年/月</string>
     <string name="sub_folder_rule_year">年</string>
@@ -1066,9 +1065,6 @@
     <string name="wait_checking_credentials">保存された資格情報をチェック</string>
     <string name="wait_for_tmp_copy_from_private_storage">プライベートストレージからファイルをコピー中</string>
     <string name="warn_rename_extension">拡張子を変更すると、このファイルが異なるアプリケーションで開かれる可能性があります</string>
-    <string name="webview_version_check_alert_dialog_message">ログインするにはAndroidシステムのWebViewを更新してください</string>
-    <string name="webview_version_check_alert_dialog_positive_button_title">更新</string>
-    <string name="webview_version_check_alert_dialog_title">AndroidシステムのWebViewをアップデート</string>
     <string name="what_s_new_image">新しいイメージとは</string>
     <string name="whats_new_skip">スキップ</string>
     <string name="whats_new_title">%1$sの新機能</string>

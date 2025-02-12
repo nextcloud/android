@@ -82,7 +82,6 @@
     <string name="bottom_navigation_menu_favorites_label">ລາຍການທີ່ມັກ</string>
     <string name="bottom_navigation_menu_files_label">ຟາຍທັງໝົດ</string>
     <string name="bottom_navigation_menu_media_label">ຊື່ມວນຊົນ</string>
-    <string name="brute_force_delay">ລ່າຊ້າ ຍ້ອນຄວາມພະຍາຍາມທີ່ຜິດຫລາຍເກີນ ໄປ</string>
     <string name="calendar">ປະຕິທິນ</string>
     <string name="certificate_load_problem">ມີບັນຫາໃນການໂຫຼດການຢັ້ງຢືນ</string>
     <string name="changelog_dev_version">ເວີຊັ້ນຂອງ Changelog</string>

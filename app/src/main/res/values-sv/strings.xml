@@ -119,7 +119,6 @@
     <string name="bottom_navigation_menu_favorites_label">Favoriter</string>
     <string name="bottom_navigation_menu_files_label">Alla filer</string>
     <string name="bottom_navigation_menu_media_label">Media</string>
-    <string name="brute_force_delay">Fördröjd på grund av för många misslyckade försök</string>
     <string name="calendar">Kalender</string>
     <string name="calendars">Kalendrar</string>
     <string name="certificate_load_problem">Det uppstod ett problem med att läsa in certifikatet.</string>
@@ -290,6 +289,7 @@
     <string name="drawer_quota">%1$s av %2$s använt</string>
     <string name="drawer_quota_unlimited">%1$s använt</string>
     <string name="drawer_synced_folders">Automatisk uppladdning</string>
+    <string name="due_to_too_many_wrong_attempts">%s på grund av för många felaktiga försök</string>
     <string name="e2e_counter_too_old">Räknaren är för gammal</string>
     <string name="e2e_hash_not_found">Hash kunde inte hittas</string>
     <string name="e2e_not_yet_setup">E2E ej inställt än</string>
@@ -433,6 +433,7 @@
     <string name="file_not_found">Filen hittades inte</string>
     <string name="file_not_synced">Filen kunde inte synkroniseras. Visar senaste tillgängliga versionen.</string>
     <string name="file_rename">Byt namn</string>
+    <string name="file_upload_worker_error_notification_title">Uppladdning misslyckades. Ingen internetanslutning</string>
     <string name="file_upload_worker_same_file_already_exists">Samma fil finns redan, ingen konflikt upptäckt</string>
     <string name="file_version_restored_error">Fel vid återställning av filversion!</string>
     <string name="file_version_restored_successfully">Lyckades återställa filversion.</string>
@@ -892,7 +893,6 @@
     <string name="stream">Streama med…</string>
     <string name="stream_not_possible_headline">Intern streaming är inte möjlig</string>
     <string name="stream_not_possible_message">Vänligen hämta media istället eller använd en extern app.</string>
-    <string name="strict_mode">Strikt läge: inga HTTP-anslutningar tillåtna!</string>
     <string name="sub_folder_rule_day">År/Månad/Dag</string>
     <string name="sub_folder_rule_month">År/Månad</string>
     <string name="sub_folder_rule_year">År</string>
@@ -1081,9 +1081,6 @@
     <string name="wait_checking_credentials">Kontrollerar lagrade inloggningsuppgifter</string>
     <string name="wait_for_tmp_copy_from_private_storage">Kopierar fil från privat lagring</string>
     <string name="warn_rename_extension">Att ändra tillägg kan göra att filen öppnas i en annan app</string>
-    <string name="webview_version_check_alert_dialog_message">Uppdatera Android System WebView-appen för inloggning</string>
-    <string name="webview_version_check_alert_dialog_positive_button_title">Uppdatera</string>
-    <string name="webview_version_check_alert_dialog_title">Uppdatera Android System WebView</string>
     <string name="what_s_new_image">Vad är nytt-bild</string>
     <string name="whats_new_skip">Hoppa över</string>
     <string name="whats_new_title">Ny i %1$s</string>
@@ -1173,6 +1170,22 @@
     <plurals name="items_selected_count">
         <item quantity="one">%d vald</item>
         <item quantity="other">%d vald</item>
+    </plurals>
+    <plurals name="delay_message">
+        <item quantity="one">Fördröjd %d sekund på grund av för många felaktiga försök</item>
+        <item quantity="other">Fördröjd %d sekunder på grund av för många felaktiga försök</item>
+    </plurals>
+    <plurals name="delay_message_minutes">
+        <item quantity="one">Fördröjd %d minut på grund av för många felaktiga försök</item>
+        <item quantity="other">Fördröjd %d minuter på grund av för många felaktiga försök</item>
+    </plurals>
+    <plurals name="delay_message_minutes_part">
+        <item quantity="one">Fördröjd %d minut</item>
+        <item quantity="other">Fördröjd %d minuter</item>
+    </plurals>
+    <plurals name="delay_message_seconds_part">
+        <item quantity="one">%d sekund</item>
+        <item quantity="other">%d sekunder</item>
     </plurals>
     <plurals name="share_download_limit_description">
         <item quantity="one">%1$d återstående nedladdning</item>

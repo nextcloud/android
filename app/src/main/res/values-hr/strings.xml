@@ -82,7 +82,6 @@
     <string name="bottom_navigation_menu_favorites_label">Favoriti</string>
     <string name="bottom_navigation_menu_files_label">Sve datoteke</string>
     <string name="bottom_navigation_menu_media_label">Medij</string>
-    <string name="brute_force_delay">Odgođeno zbog previše pogrešnih pokušaja</string>
     <string name="calendar">Kalendar</string>
     <string name="calendars">Kalendari</string>
     <string name="certificate_load_problem">Došlo je do poteškoća prilikom učitavanja vjerodajnice.</string>
@@ -701,7 +700,6 @@
     <string name="stream">Strujanje s...</string>
     <string name="stream_not_possible_headline">Unutarnje strujanje nije moguće</string>
     <string name="stream_not_possible_message">Umjesto toga preuzmite medijske datoteke ili se koristite vanjskom aplikacijom.</string>
-    <string name="strict_mode">Ograničeni način rada: nije dopuštena HTTP veza!</string>
     <string name="sub_folder_rule_year">Godina</string>
     <string name="subject_shared_with_you">\"%1$s\" je dijeljen s vama</string>
     <string name="subject_user_shared_with_you">%1$s dijeli \"%2$s\" s vama</string>
@@ -856,7 +854,6 @@
     <string name="wait_a_moment">Pričekajte…</string>
     <string name="wait_checking_credentials">U tijeku je provjera spremljenih vjerodajnica</string>
     <string name="wait_for_tmp_copy_from_private_storage">Kopiranje datoteke iz osobnog podatkovnog prostora</string>
-    <string name="webview_version_check_alert_dialog_positive_button_title">Ažuriraj</string>
     <string name="what_s_new_image">Što je nova slika</string>
     <string name="whats_new_skip">Preskoči</string>
     <string name="whats_new_title">Novo u %1$s</string>

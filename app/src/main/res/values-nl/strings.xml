@@ -116,7 +116,6 @@
     <string name="bottom_navigation_menu_favorites_label">Favorieten</string>
     <string name="bottom_navigation_menu_files_label">Alle bestanden</string>
     <string name="bottom_navigation_menu_media_label">Media</string>
-    <string name="brute_force_delay">Vertraagd door te veel onjuiste pogingen</string>
     <string name="calendar">Agenda</string>
     <string name="calendars">Agenda\'s</string>
     <string name="certificate_load_problem">Er is een probleem met het laden van het certificaat.</string>
@@ -861,7 +860,6 @@
     <string name="stream">Streamen met…</string>
     <string name="stream_not_possible_headline">Intern streamen niet mogelijk</string>
     <string name="stream_not_possible_message">Download media in plaats van gebruik externe app.</string>
-    <string name="strict_mode">Strict modus: geen HTTP-verbinding toegestaan!</string>
     <string name="sub_folder_rule_day">Jaar/Maand/Dag</string>
     <string name="sub_folder_rule_month">Jaar/Maand</string>
     <string name="sub_folder_rule_year">Jaar</string>
@@ -1037,9 +1035,6 @@
     <string name="wait_a_moment">Wacht even…</string>
     <string name="wait_checking_credentials">Opgeslagen inloggegevens nakijken</string>
     <string name="wait_for_tmp_copy_from_private_storage">Bestand vanaf privéopslag kopiëren</string>
-    <string name="webview_version_check_alert_dialog_message">Update de  Android System WebView app om in te loggen</string>
-    <string name="webview_version_check_alert_dialog_positive_button_title">Update</string>
-    <string name="webview_version_check_alert_dialog_title">Update Android System WebView</string>
     <string name="what_s_new_image">Wat is nieuw afbeelding</string>
     <string name="whats_new_skip">Overslaan</string>
     <string name="whats_new_title">Nieuw in %1$s</string>

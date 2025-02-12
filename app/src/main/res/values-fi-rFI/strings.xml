@@ -101,7 +101,6 @@
     <string name="bottom_navigation_menu_favorites_label">Suosikit</string>
     <string name="bottom_navigation_menu_files_label">Kaikki tiedostot</string>
     <string name="bottom_navigation_menu_media_label">Media</string>
-    <string name="brute_force_delay">Viivästetty liian monen epäonnistuneen yrityksen takia</string>
     <string name="calendar">Kalenteri</string>
     <string name="calendars">Kalenterit</string>
     <string name="certificate_load_problem">Varmennetta ladatessa ilmeni ongelmia.</string>
@@ -812,7 +811,6 @@ GNU yleinen lisenssi, versio 2</string>
     <string name="stream">Suoratoista käyttämällä...</string>
     <string name="stream_not_possible_headline">Suoratoisto internetiin ei onnistu</string>
     <string name="stream_not_possible_message">Ole hyvä ja lataa media tai käytä ulkopuolista sovellusta.</string>
-    <string name="strict_mode">Strict-tila: HTTP-yhteyksiä ei sallita!</string>
     <string name="sub_folder_rule_day">Vuosi/kuukausi/päivä</string>
     <string name="sub_folder_rule_month">Vuosi/kuukausi</string>
     <string name="sub_folder_rule_year">Vuosi</string>
@@ -983,9 +981,6 @@ GNU yleinen lisenssi, versio 2</string>
     <string name="wait_a_moment">Odota hetki…</string>
     <string name="wait_checking_credentials">Tarkistetaan tallennettuja tilitietoja</string>
     <string name="wait_for_tmp_copy_from_private_storage">Kopioidaan tiedostoa yksityisestä tallennustilasta</string>
-    <string name="webview_version_check_alert_dialog_message">Päivitä Android System WebView kirjautuaksesi</string>
-    <string name="webview_version_check_alert_dialog_positive_button_title">Päivitä</string>
-    <string name="webview_version_check_alert_dialog_title">Päivitä Android System WebView</string>
     <string name="what_s_new_image">Mitä uutta -kuva</string>
     <string name="whats_new_skip">Ohita</string>
     <string name="whats_new_title">Uutta versiossa %1$s</string>

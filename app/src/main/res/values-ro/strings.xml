@@ -119,7 +119,6 @@
     <string name="bottom_navigation_menu_favorites_label">Favorite</string>
     <string name="bottom_navigation_menu_files_label">Toate fișierele</string>
     <string name="bottom_navigation_menu_media_label">Media</string>
-    <string name="brute_force_delay">Amânat datorită unui număr prea mare de încercări greșite</string>
     <string name="calendar">Calendar</string>
     <string name="calendars">Calendare</string>
     <string name="certificate_load_problem">Există o problemă la încărcarea certificatului.</string>
@@ -832,7 +831,6 @@
     <string name="stream">Transmite cu...</string>
     <string name="stream_not_possible_headline">Transmisia internă nu este posibilă </string>
     <string name="stream_not_possible_message">Vă rugăm descărcați fișierul media sau folosiți o aplicație externă.</string>
-    <string name="strict_mode">Mod strict: conexiunile HTTP nu sunt permise!</string>
     <string name="sub_folder_rule_day">An/Lună/Zi</string>
     <string name="sub_folder_rule_month">An/Lună</string>
     <string name="sub_folder_rule_year">An</string>
@@ -988,8 +986,6 @@
     <string name="wait_a_moment">Așteaptă un moment…</string>
     <string name="wait_checking_credentials">Se verifică datele de autentificare stocate</string>
     <string name="wait_for_tmp_copy_from_private_storage">Copiere fișier din stocare privată</string>
-    <string name="webview_version_check_alert_dialog_message">Pentru a vă autentifica, actualizați componenta WebView a sistemului Android</string>
-    <string name="webview_version_check_alert_dialog_positive_button_title">Actualizare</string>
     <string name="what_s_new_image">Ce imagine este nouă</string>
     <string name="whats_new_skip">Sari peste</string>
     <string name="whats_new_title">Nou în %1$s</string>
