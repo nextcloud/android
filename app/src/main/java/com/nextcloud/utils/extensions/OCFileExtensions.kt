@@ -29,13 +29,15 @@ fun List<OCFile>.limitToPersonalFiles(userId: String): List<OCFile> =
 fun List<OCFile>.addOfflineOperations(
     storageManager: FileDataStorageManager,
     fileId: Long
-): List<OCFile> {
+) {
     val offlineOperations = storageManager.offlineOperationsRepository.convertToOCFiles(fileId)
     if (offlineOperations.isEmpty()) {
-        return this
+        return
     }
 
-    return offlineOperations.filter { offlineFile ->
+    val result = offlineOperations.filter { offlineFile ->
         none { file -> file.decryptedRemotePath == offlineFile.decryptedRemotePath }
     }
+
+    this.toMutableList().addAll(result)
 }

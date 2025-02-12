@@ -873,7 +873,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             newList = sortOrder.sortCloudFiles(newList);
             prepareListOfHiddenFiles(newList);
             mergeOCFilesForLivePhoto();
-            newList = OCFileExtensionsKt.addOfflineOperations(newList, mStorageManager, directory.getFileId());
+            OCFileExtensionsKt.addOfflineOperations(mFiles, mStorageManager, directory.getFileId());
             currentDirectory = directory;
         } else {
             newList.clear();
