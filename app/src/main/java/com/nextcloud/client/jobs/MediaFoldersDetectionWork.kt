@@ -75,7 +75,7 @@ class MediaFoldersDetectionWork constructor(
 
     private val randomIdGenerator = Random(clock.currentTime)
 
-    @Suppress("LongMethod", "ComplexMethod", "NestedBlockDepth") // legacy code
+    @Suppress("LongMethod", "ComplexMethod", "NestedBlockDepth", "ReturnCount") // legacy code
     override fun doWork(): Result {
         val arbitraryDataProvider: ArbitraryDataProvider = ArbitraryDataProviderImpl(context)
         val gson = Gson()
