@@ -55,5 +55,5 @@ fun List<OCFile>.addOfflineOperations(storageManager: FileDataStorageManager, fi
         none { file -> file.decryptedRemotePath == offlineFile.decryptedRemotePath }
     }
 
-    this.toMutableList().addAll(result)
+    toMutableList().addAll(result)
 }
