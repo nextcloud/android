@@ -9,11 +9,11 @@
  */
 package com.owncloud.android.ui.fragment;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Environment;
-import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -22,6 +22,7 @@ import android.view.ViewGroup;
 
 import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.preferences.AppPreferences;
+import com.nextcloud.utils.extensions.FragmentExtensionsKt;
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.adapter.LocalFileListAdapter;
@@ -364,18 +365,20 @@ public class LocalFileListFragment extends ExtendedListFragment implements
         super.switchToListView();
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     @Override
-    public void setLoading(boolean enabled) {
+    public synchronized void setLoading(boolean enabled) {
         super.setLoading(enabled);
+
         if (enabled) {
             setEmptyListLoadingMessage();
         } else {
-            // ugly hack because setEmptyListLoadingMessage also uses a handler and there's a race condition otherwise
-            new Handler().post(() -> {
+            FragmentExtensionsKt.launchOnMainThread(this, () -> {
                 mAdapter.notifyDataSetChanged();
                 if (mAdapter.getFilesCount() == 0) {
                     setEmptyListMessage(SearchType.LOCAL_SEARCH);
                 }
+                return null;
             });
         }
     }

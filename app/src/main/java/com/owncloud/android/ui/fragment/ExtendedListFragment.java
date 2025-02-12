@@ -66,6 +66,7 @@ import com.owncloud.android.utils.theme.ViewThemeUtils;
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
+import java.util.concurrent.locks.ReentrantLock;
 
 import javax.inject.Inject;
 
@@ -146,9 +147,26 @@ public class ExtendedListFragment extends Fragment implements
         return mRecyclerView;
     }
 
+    private final ReentrantLock lock = new ReentrantLock();
+
     public void setLoading(boolean enabled) {
-        mRefreshListLayout.setRefreshing(enabled);
+        if (!lock.tryLock()) {
+            return;
+        }
+
+        try {
+            final var isRefreshing = mRefreshListLayout.isRefreshing();
+
+            if (isRefreshing && enabled) {
+                return;
+            }
+
+            mRefreshListLayout.setRefreshing(enabled);
+        } finally {
+            lock.unlock();
+        }
     }
+
 
     public void switchToGridView() {
         if (!isGridEnabled()) {
@@ -584,29 +602,31 @@ public class ExtendedListFragment extends Fragment implements
      */
     public void setMessageForEmptyList(@StringRes final int headline, @StringRes final int message,
                                        @DrawableRes final int icon, final boolean tintIcon) {
-        new Handler(Looper.getMainLooper()).post(() -> {
+        if (mEmptyListContainer == null || mEmptyListMessage == null) {
+            return;
+        }
 
-            if (mEmptyListContainer != null && mEmptyListMessage != null) {
-                mEmptyListHeadline.setText(headline);
-                mEmptyListMessage.setText(message);
+        FragmentExtensionsKt.launchOnMainThread(this, () -> {
+            mEmptyListHeadline.setText(headline);
+            mEmptyListMessage.setText(message);
 
-                if (tintIcon) {
-                    if (getContext() != null) {
-                        mEmptyListIcon.setImageDrawable(
-                            viewThemeUtils.platform.tintPrimaryDrawable(getContext(), icon));
-                    }
-                } else {
-                    mEmptyListIcon.setImageResource(icon);
+            if (tintIcon) {
+                if (getContext() != null) {
+                    mEmptyListIcon.setImageDrawable(
+                        viewThemeUtils.platform.tintPrimaryDrawable(getContext(), icon));
                 }
-
-                mEmptyListIcon.setVisibility(View.VISIBLE);
-                mEmptyListMessage.setVisibility(View.VISIBLE);
+            } else {
+                mEmptyListIcon.setImageResource(icon);
             }
+
+            mEmptyListIcon.setVisibility(View.VISIBLE);
+            mEmptyListMessage.setVisibility(View.VISIBLE);
+            return null;
         });
     }
 
-    public void setEmptyListMessage(final SearchType searchType) {
-        new Handler(Looper.getMainLooper()).post(() -> {
+    public synchronized void setEmptyListMessage(final SearchType searchType) {
+        FragmentExtensionsKt.launchOnMainThread(this, () -> {
             if (searchType == SearchType.OFFLINE_MODE) {
                 setMessageForEmptyList(R.string.offline_mode_info_title,
                                        R.string.offline_mode_info_description,
@@ -646,15 +666,16 @@ public class ExtendedListFragment extends Fragment implements
                                        R.string.file_list_empty_local_search,
                                        R.drawable.ic_search_light_grey);
             }
+            return null;
         });
     }
 
     /**
      * Set message for empty list view.
      */
-    public void setEmptyListLoadingMessage() {
-        new Handler(Looper.getMainLooper()).post(() -> {
-            FileActivity fileActivity = FragmentExtensionsKt.getTypedActivity(this, FileActivity.class);
+    public synchronized void setEmptyListLoadingMessage() {
+        FragmentExtensionsKt.launchOnMainThread(this, () -> {
+            FileActivity fileActivity = FragmentExtensionsKt.getTypedActivity(ExtendedListFragment.this, FileActivity.class);
             if (fileActivity != null) {
                 fileActivity.connectivityService.isNetworkAndServerAvailable(result -> {
                     if (!result || mEmptyListContainer == null || mEmptyListMessage == null) return;
@@ -664,6 +685,7 @@ public class ExtendedListFragment extends Fragment implements
                     mEmptyListIcon.setVisibility(View.GONE);
                 });
             }
+            return null;
         });
     }
 
