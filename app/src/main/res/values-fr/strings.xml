@@ -119,7 +119,6 @@
     <string name="bottom_navigation_menu_favorites_label">Favoris</string>
     <string name="bottom_navigation_menu_files_label">Tous les fichiers</string>
     <string name="bottom_navigation_menu_media_label">Médias</string>
-    <string name="brute_force_delay">Retardé à cause de trop d\'essais infructueux</string>
     <string name="calendar">Agenda</string>
     <string name="calendars">Agendas</string>
     <string name="certificate_load_problem">Le chargement du certificat pose problème.</string>
@@ -290,6 +289,7 @@
     <string name="drawer_quota">%1$s utilisés sur %2$s</string>
     <string name="drawer_quota_unlimited">%1$s utilisé</string>
     <string name="drawer_synced_folders">Téléversement automatique</string>
+    <string name="due_to_too_many_wrong_attempts">%s à cause de trop de tentatives ratées</string>
     <string name="e2e_counter_too_old">Le compteur est trop vieux</string>
     <string name="e2e_hash_not_found">Hachage non trouvé</string>
     <string name="e2e_not_yet_setup">E2E pas encore configuré</string>
@@ -433,6 +433,7 @@
     <string name="file_not_found">Fichier non trouvé</string>
     <string name="file_not_synced">Le fichier ne peut pas être synchronisé. Affichage de la dernière version disponible. </string>
     <string name="file_rename">Renommer</string>
+    <string name="file_upload_worker_error_notification_title">Échec du téléversement. Pas de connexion internet</string>
     <string name="file_upload_worker_same_file_already_exists">Le même fichier existe déjà, aucun conflit détecté</string>
     <string name="file_version_restored_error">Erreur, la version du fichier n\'a pas été restaurée !</string>
     <string name="file_version_restored_successfully">Restauration de la version du fichier réussie.</string>
@@ -891,7 +892,6 @@
     <string name="stream">Diffuser avec…</string>
     <string name="stream_not_possible_headline">Diffusion interne impossible</string>
     <string name="stream_not_possible_message">Merci, à la place, de télécharger le média ou d\'utiliser une application externe.</string>
-    <string name="strict_mode">Mode strict : aucune connexion HTTP n\'est autorisée !</string>
     <string name="sub_folder_rule_day">Année/Mois/Jour</string>
     <string name="sub_folder_rule_month">Année/Mois</string>
     <string name="sub_folder_rule_year">Année</string>
@@ -1080,9 +1080,6 @@
     <string name="wait_checking_credentials">Vérification des identifiants enregistrés</string>
     <string name="wait_for_tmp_copy_from_private_storage">Copie du fichier depuis le stockage privé</string>
     <string name="warn_rename_extension">La modification de l\'extension peut entraîner l\'ouverture de ce fichier dans une application différente.</string>
-    <string name="webview_version_check_alert_dialog_message">Veuillez mettre à jour l\'application Android System WebView pour vous connecter</string>
-    <string name="webview_version_check_alert_dialog_positive_button_title">Mise à jour</string>
-    <string name="webview_version_check_alert_dialog_title">Mettre à jour Android System WebView</string>
     <string name="what_s_new_image">Image quoi de neuf</string>
     <string name="whats_new_skip">Ignorer</string>
     <string name="whats_new_title">Nouveautés dans %1$s</string>
@@ -1192,6 +1189,11 @@
         <item quantity="one">%d sélectionné</item>
         <item quantity="many">%d sélectionnés</item>
         <item quantity="other">%d sélectionnés</item>
+    </plurals>
+    <plurals name="delay_message_seconds_part">
+        <item quantity="one">%d seconde</item>
+        <item quantity="many">%d secondes</item>
+        <item quantity="other">%d secondes</item>
     </plurals>
     <plurals name="share_download_limit_description">
         <item quantity="one">%1$d téléchargement restant</item>

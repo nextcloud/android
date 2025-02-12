@@ -118,7 +118,6 @@
     <string name="bottom_navigation_menu_favorites_label">Gogokoak</string>
     <string name="bottom_navigation_menu_files_label">Fitxategi guztiak</string>
     <string name="bottom_navigation_menu_media_label">Media</string>
-    <string name="brute_force_delay">Atzeratuta saiakera oker gehiegi egin direlako</string>
     <string name="calendar">Egutegia</string>
     <string name="calendars">Egutegiak</string>
     <string name="certificate_load_problem">Arazo bat dago ziurtagiria kargatzean.</string>
@@ -885,7 +884,6 @@
     <string name="stream">Transmititu honekin...</string>
     <string name="stream_not_possible_headline">Barneko transmisioa ez da posible</string>
     <string name="stream_not_possible_message">Bestela deskargatu multimedia edo erabili kanpoko aplikazio bat.</string>
-    <string name="strict_mode">Modu zorrotza: ez da HTTP konexiorik onartzen!</string>
     <string name="sub_folder_rule_day">Urtea/Hilabetea/Eguna</string>
     <string name="sub_folder_rule_month">Urtea/Hilabetea</string>
     <string name="sub_folder_rule_year">Urtea</string>
@@ -1071,9 +1069,6 @@
     <string name="wait_checking_credentials">Gordetako nortasun-datuak konprobatzen</string>
     <string name="wait_for_tmp_copy_from_private_storage">Fitxategia biltegiratze pribatutik kopiatzen</string>
     <string name="warn_rename_extension">Luzapena aldatzeak fitxategi hau beste aplikazio batean irekitzea eragin dezake</string>
-    <string name="webview_version_check_alert_dialog_message">Eguneratu Android System WebView aplikazioa saioa hasteko</string>
-    <string name="webview_version_check_alert_dialog_positive_button_title">Eguneratu</string>
-    <string name="webview_version_check_alert_dialog_title">Eguneratu Android System WebView</string>
     <string name="what_s_new_image">Zer da irudi berria</string>
     <string name="whats_new_skip">Salto egin</string>
     <string name="whats_new_title">Berria %1$s-n</string>

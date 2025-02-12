@@ -83,7 +83,6 @@
     <string name="bottom_navigation_menu_favorites_label">รายการโปรด</string>
     <string name="bottom_navigation_menu_files_label">ไฟล์ทั้งหมด</string>
     <string name="bottom_navigation_menu_media_label">สื่อ</string>
-    <string name="brute_force_delay">ล่าช้าเนื่องจากผิดหลายครั้งติดต่อกัน</string>
     <string name="calendar">ปฏิทิน</string>
     <string name="calendars">ปฏิทิน</string>
     <string name="certificate_load_problem">มีปัญหาในการโหลดใบรับรอง</string>
@@ -644,7 +643,6 @@
     <string name="version_dev_download">ดาวน์โหลด</string>
     <string name="wait_a_moment">รอสักครู่…</string>
     <string name="wait_for_tmp_copy_from_private_storage">กำลังคัดลอกไฟล์จากพื้นที่จัดเก็บส่วนตัว</string>
-    <string name="webview_version_check_alert_dialog_positive_button_title">อัปเดต</string>
     <string name="what_s_new_image">รูปภาพมีอะไรใหม่</string>
     <string name="whats_new_skip">ข้าม</string>
     <string name="whats_new_title">มีอะไรใหม่ใน %1$s</string>

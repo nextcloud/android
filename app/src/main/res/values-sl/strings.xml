@@ -86,7 +86,6 @@
     <string name="battery_optimization_title">Optimizacija baterije</string>
     <string name="bottom_navigation_menu_favorites_label">Priljubljeno</string>
     <string name="bottom_navigation_menu_files_label">Vse datoteke</string>
-    <string name="brute_force_delay">Zadržano zaradi preveč napačnih poskusov.</string>
     <string name="calendar">Koledar</string>
     <string name="calendars">Koledarji</string>
     <string name="certificate_load_problem">Prišlo je do težav med nalaganjem potrdila.</string>
@@ -768,7 +767,6 @@
     <string name="stream">Pretakaj s programom…</string>
     <string name="stream_not_possible_headline">Notranji pretok ni mogoč</string>
     <string name="stream_not_possible_message">Poskusite prejeti predstavno vsebino, ali pa uporabiti zunanji program.</string>
-    <string name="strict_mode">Strogi način: povezave HTTP niso dovoljene!</string>
     <string name="sub_folder_rule_day">Leto/Mesec/Dan</string>
     <string name="sub_folder_rule_month">Leto/Mesec</string>
     <string name="sub_folder_rule_year">Leto</string>
@@ -929,9 +927,6 @@
     <string name="wait_a_moment">Počakajte trenutek …</string>
     <string name="wait_checking_credentials">Poteka preverjanje shranjenih poveril</string>
     <string name="wait_for_tmp_copy_from_private_storage">Kopiranje datoteke iz zasebne shrambe</string>
-    <string name="webview_version_check_alert_dialog_message">Za prijavo je treba posodobiti program Android System WebView</string>
-    <string name="webview_version_check_alert_dialog_positive_button_title">Posodobi</string>
-    <string name="webview_version_check_alert_dialog_title">Posodobi program Android System WebView</string>
     <string name="what_s_new_image">Kaj je nova slika</string>
     <string name="whats_new_skip">Preskoči</string>
     <string name="whats_new_title">Novo v %1$s</string>

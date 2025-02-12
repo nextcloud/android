@@ -119,7 +119,6 @@
     <string name="bottom_navigation_menu_favorites_label">Favourites</string>
     <string name="bottom_navigation_menu_files_label">All files</string>
     <string name="bottom_navigation_menu_media_label">Media</string>
-    <string name="brute_force_delay">Delayed due to too many wrong attempts</string>
     <string name="calendar">Calendar</string>
     <string name="calendars">Calendars</string>
     <string name="certificate_load_problem">There is a problem loading the certificate.</string>
@@ -290,6 +289,7 @@
     <string name="drawer_quota">%1$s of %2$s used</string>
     <string name="drawer_quota_unlimited">%1$s used</string>
     <string name="drawer_synced_folders">Auto upload</string>
+    <string name="due_to_too_many_wrong_attempts">%s due to too many wrong attempts</string>
     <string name="e2e_counter_too_old">Counter is too old</string>
     <string name="e2e_hash_not_found">Hash not found</string>
     <string name="e2e_not_yet_setup">E2E not yet setup</string>
@@ -433,6 +433,7 @@
     <string name="file_not_found">File not found</string>
     <string name="file_not_synced">File could not be synced. Showing latest available version.</string>
     <string name="file_rename">Rename</string>
+    <string name="file_upload_worker_error_notification_title">Upload failed. No internet connection</string>
     <string name="file_upload_worker_same_file_already_exists">Same file already exists, no conflict detected</string>
     <string name="file_version_restored_error">Error restoring file version!</string>
     <string name="file_version_restored_successfully">Successfully restored file version.</string>
@@ -891,7 +892,6 @@
     <string name="stream">Stream with…</string>
     <string name="stream_not_possible_headline">Internal streaming not possible</string>
     <string name="stream_not_possible_message">Please download media instead or use external app.</string>
-    <string name="strict_mode">Strict mode: no HTTP connection allowed!</string>
     <string name="sub_folder_rule_day">Year/Month/Day</string>
     <string name="sub_folder_rule_month">Year/Month</string>
     <string name="sub_folder_rule_year">Year</string>
@@ -1080,9 +1080,6 @@
     <string name="wait_checking_credentials">Checking stored credentials</string>
     <string name="wait_for_tmp_copy_from_private_storage">Copying file from private storage</string>
     <string name="warn_rename_extension">Changing the extension might cause this file to open in a different application</string>
-    <string name="webview_version_check_alert_dialog_message">Please update the Android System WebView app for a login</string>
-    <string name="webview_version_check_alert_dialog_positive_button_title">Update</string>
-    <string name="webview_version_check_alert_dialog_title">Update Android System WebView</string>
     <string name="what_s_new_image">What\'s new image</string>
     <string name="whats_new_skip">Skip</string>
     <string name="whats_new_title">New in %1$s</string>
@@ -1172,6 +1169,22 @@
     <plurals name="items_selected_count">
         <item quantity="one">%d selected</item>
         <item quantity="other">%d selected</item>
+    </plurals>
+    <plurals name="delay_message">
+        <item quantity="one">Delayed %d second due to too many wrong attempts</item>
+        <item quantity="other">Delayed %d seconds due to too many wrong attempts</item>
+    </plurals>
+    <plurals name="delay_message_minutes">
+        <item quantity="one">Delayed %d minute due to too many wrong attempts</item>
+        <item quantity="other">Delayed %d minutes due to too many wrong attempts</item>
+    </plurals>
+    <plurals name="delay_message_minutes_part">
+        <item quantity="one">Delayed %d minute</item>
+        <item quantity="other">Delayed %d minutes</item>
+    </plurals>
+    <plurals name="delay_message_seconds_part">
+        <item quantity="one">%d second</item>
+        <item quantity="other">%d seconds</item>
     </plurals>
     <plurals name="share_download_limit_description">
         <item quantity="one">%1$d download remaining</item>

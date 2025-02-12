@@ -118,7 +118,6 @@
     <string name="bottom_navigation_menu_favorites_label">Preferits</string>
     <string name="bottom_navigation_menu_files_label">Tots els fitxers</string>
     <string name="bottom_navigation_menu_media_label">Multimèdia</string>
-    <string name="brute_force_delay">S\'ha endarrerit perquè s\'han produït massa intents erronis</string>
     <string name="calendar">Calendari</string>
     <string name="calendars">Calendaris</string>
     <string name="certificate_load_problem">Hi ha un problema carregant el certificat.</string>
@@ -866,7 +865,6 @@
     <string name="stream">Seqüència amb…</string>
     <string name="stream_not_possible_headline">La seqüenciació interna no és possible</string>
     <string name="stream_not_possible_message">Si us plau, baixeu el mèdia o feu servir una aplicació externa.</string>
-    <string name="strict_mode">Mode estricte: no es permet la connexió HTTP.</string>
     <string name="sub_folder_rule_year">Any</string>
     <string name="subject_shared_with_you">\"%1$s\" us ha estat compartit</string>
     <string name="subject_user_shared_with_you">%1$s us ha compartit %2$s</string>
@@ -1025,7 +1023,6 @@
     <string name="wait_a_moment">Espereu un moment…</string>
     <string name="wait_checking_credentials">S\'estan comprovant les credencials emmagatzemades</string>
     <string name="wait_for_tmp_copy_from_private_storage">S\'està copiant el fitxer des de l\'emmagatzematge privat</string>
-    <string name="webview_version_check_alert_dialog_positive_button_title">Actualitza</string>
     <string name="what_s_new_image">Imatge de novetats</string>
     <string name="whats_new_skip">Omet</string>
     <string name="whats_new_title">Nou a %1$s</string>

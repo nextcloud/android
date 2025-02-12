@@ -119,7 +119,6 @@
     <string name="bottom_navigation_menu_favorites_label">收藏</string>
     <string name="bottom_navigation_menu_files_label">全部文件</string>
     <string name="bottom_navigation_menu_media_label">媒体文件</string>
-    <string name="brute_force_delay">因过多的错误尝试而延误</string>
     <string name="calendar">日历</string>
     <string name="calendars">日历</string>
     <string name="certificate_load_problem">加载证书失败。</string>
@@ -914,7 +913,6 @@ Nextcloud 是一个私有文件同步、共享和通信服务器。它是自由�
     <string name="stream">分享给…</string>
     <string name="stream_not_possible_headline">内部流无效</string>
     <string name="stream_not_possible_message">请下载媒体或者使用外部应用代替。</string>
-    <string name="strict_mode">严格模式:不允许 HTTP 连接!</string>
     <string name="sub_folder_rule_day">年/月/日</string>
     <string name="sub_folder_rule_month">年/月</string>
     <string name="sub_folder_rule_year">年</string>
@@ -1103,9 +1101,6 @@ Nextcloud 是一个私有文件同步、共享和通信服务器。它是自由�
     <string name="wait_checking_credentials">正在检查保存的证书</string>
     <string name="wait_for_tmp_copy_from_private_storage">正在从私有存储中复制文件</string>
     <string name="warn_rename_extension">修改扩展名可能会导致此文件被不同的应用打开</string>
-    <string name="webview_version_check_alert_dialog_message">请更新 Android System WebView 应用程序以进行登录</string>
-    <string name="webview_version_check_alert_dialog_positive_button_title">更新</string>
-    <string name="webview_version_check_alert_dialog_title">更新 Android System WebView</string>
     <string name="what_s_new_image">有什么新图片</string>
     <string name="whats_new_skip">跳过</string>
     <string name="whats_new_title">新建%1$s</string>

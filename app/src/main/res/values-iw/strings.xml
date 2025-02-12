@@ -778,7 +778,6 @@
     <string name="wait_a_moment">נא להמתין רגע…</string>
     <string name="wait_checking_credentials">בודק אישורים שמורים</string>
     <string name="wait_for_tmp_copy_from_private_storage">מעתיק קובץ מאחסון פרטי</string>
-    <string name="webview_version_check_alert_dialog_positive_button_title">עדכון</string>
     <string name="what_s_new_image">תמונת מה חדש</string>
     <string name="whats_new_skip">דלג</string>
     <string name="whats_new_title">חדש ב־%1$s</string>

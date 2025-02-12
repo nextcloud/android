@@ -713,7 +713,6 @@
     <string name="wait_a_moment">Prisni një moment…</string>
     <string name="wait_checking_credentials">Po kontrollohen kredenciale të depozituara</string>
     <string name="wait_for_tmp_copy_from_private_storage">Po kopjohet skedar nga depo private</string>
-    <string name="webview_version_check_alert_dialog_positive_button_title">Përditëso</string>
     <string name="what_s_new_image">Imazhi me çfarë është e re</string>
     <string name="whats_new_skip">Kalo</string>
     <string name="whats_new_title">I ri në %1$s</string>

@@ -113,7 +113,6 @@
     <string name="bottom_navigation_menu_favorites_label">Favoritter</string>
     <string name="bottom_navigation_menu_files_label">Alle filer</string>
     <string name="bottom_navigation_menu_media_label">Media</string>
-    <string name="brute_force_delay">Forsinket grunnet for mange forsøk med feil</string>
     <string name="calendar">Kalender</string>
     <string name="calendars">Kalendere</string>
     <string name="certificate_load_problem">Det er et problem med lasting av sertifikatet.</string>
@@ -860,7 +859,6 @@
     <string name="stream">Strøm med…</string>
     <string name="stream_not_possible_headline">Intern strøming ikke mulig</string>
     <string name="stream_not_possible_message">Vennligst last ned media i stedet, eller bruk ekstern app.</string>
-    <string name="strict_mode">Streng modus: ingen HTTP-tilkobling tillatt!</string>
     <string name="sub_folder_rule_day">År/Måned/Dag</string>
     <string name="sub_folder_rule_month">År/Måned</string>
     <string name="sub_folder_rule_year">År</string>
@@ -1043,9 +1041,6 @@
     <string name="wait_a_moment">Vent et øyeblikk…</string>
     <string name="wait_checking_credentials">Sjekker lagrede påloggingsdetaljer</string>
     <string name="wait_for_tmp_copy_from_private_storage">Kopierer fil fra privat lager</string>
-    <string name="webview_version_check_alert_dialog_message">Vennligst oppdater Android systemets WebView-app for pålogging</string>
-    <string name="webview_version_check_alert_dialog_positive_button_title">Oppdater</string>
-    <string name="webview_version_check_alert_dialog_title">Oppdater Android systemets WebView</string>
     <string name="what_s_new_image">Hva er nytt-bilde</string>
     <string name="whats_new_skip">Hopp over</string>
     <string name="whats_new_title">Nytt i %1$s</string>

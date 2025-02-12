@@ -78,7 +78,6 @@
     <string name="bottom_navigation_menu_favorites_label">Annsachdan</string>
     <string name="bottom_navigation_menu_files_label">Na h-uile faidhle</string>
     <string name="bottom_navigation_menu_media_label">Meadhanan</string>
-    <string name="brute_force_delay">Tha dàil air leis gun deach feuchainn ris ro thric</string>
     <string name="certificate_load_problem">Thachair duilgheadas le luchdadh an teisteanais.</string>
     <string name="changelog_dev_version">Loga nan atharraichean – tionndadh leasachaidh</string>
     <string name="checkbox">Bogsa-cromaige</string>
@@ -626,7 +625,6 @@
     <string name="stream">Sruthaich le…</string>
     <string name="stream_not_possible_headline">Cha ghabh sruthadh inntearnail a dhèanamh</string>
     <string name="stream_not_possible_message">Luchdaich a-nuas meadhan ’na àite no cleachd aplacaid air an taobh a-muigh.</string>
-    <string name="strict_mode">Modh teann: Chan eil ceangal HTTP ceadaichte!</string>
     <string name="subject_shared_with_you">Chaidh “%1$s” a cho-roinneadh leat</string>
     <string name="subject_user_shared_with_you">Cho-roinn %1$s “%2$s” leat</string>
     <string name="sync">Sioncronaich</string>

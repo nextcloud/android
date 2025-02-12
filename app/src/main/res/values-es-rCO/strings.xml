@@ -558,7 +558,6 @@
     <string name="wait_a_moment">Aguarda un momento…</string>
     <string name="wait_checking_credentials">Verificando credenciales almacenadas</string>
     <string name="wait_for_tmp_copy_from_private_storage">Copiando el archivo desde almacenamiento privado</string>
-    <string name="webview_version_check_alert_dialog_positive_button_title">Actualizar</string>
     <string name="what_s_new_image">Imagen de qué es nuevo</string>
     <string name="whats_new_skip">Omitir</string>
     <string name="whats_new_title">Nuevo en %1$s</string>

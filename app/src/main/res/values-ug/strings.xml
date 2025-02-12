@@ -106,7 +106,6 @@
     <string name="bottom_navigation_menu_favorites_label">ياقتۇرىدىغانلار</string>
     <string name="bottom_navigation_menu_files_label">بارلىق ھۆججەتلەر</string>
     <string name="bottom_navigation_menu_media_label">Media</string>
-    <string name="brute_force_delay">بەك كۆپ خاتا ئۇرۇنۇش سەۋەبىدىن كېچىكتۈرۈلدى</string>
     <string name="calendar">كالېندار</string>
     <string name="calendars">كالېندار</string>
     <string name="certificate_load_problem">گۇۋاھنامىنى يۈكلەشتە مەسىلە بار.</string>
@@ -861,7 +860,6 @@
     <string name="stream">Stream with…</string>
     <string name="stream_not_possible_headline">ئىچكى ئېقىم مۇمكىن ئەمەس</string>
     <string name="stream_not_possible_message">ئۇنىڭ ئورنىغا مېدىيا چۈشۈرۈڭ ياكى سىرتقى ئەپنى ئىشلىتىڭ.</string>
-    <string name="strict_mode">قاتتىق ھالەت: HTTP ئۇلىنىشىغا رۇخسەت قىلىنمايدۇ!</string>
     <string name="sub_folder_rule_day">يىل / ئاي / كۈن</string>
     <string name="sub_folder_rule_month">يىل / ئاي</string>
     <string name="sub_folder_rule_year">يىل</string>
@@ -1046,9 +1044,6 @@
     <string name="wait_a_moment">سەل ساقلاپ تۇرۇڭ…</string>
     <string name="wait_checking_credentials">ساقلانغان كىنىشكىنى تەكشۈرۈش</string>
     <string name="wait_for_tmp_copy_from_private_storage">شەخسىي ساقلاشتىن ھۆججەت كۆچۈرۈش</string>
-    <string name="webview_version_check_alert_dialog_message">كىرىش ئۈچۈن ئاندىرويىد سىستېمىسى WebView دېتالىنى يېڭىلاڭ</string>
-    <string name="webview_version_check_alert_dialog_positive_button_title">يېڭىلاش</string>
-    <string name="webview_version_check_alert_dialog_title">ئاندىرويىد سىستېمىسى WebView نى يېڭىلاڭ</string>
     <string name="what_s_new_image">يېڭى رەسىم</string>
     <string name="whats_new_skip">ئاتلاش</string>
     <string name="whats_new_title">%1$s دىكى يېڭى</string>
