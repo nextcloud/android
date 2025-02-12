@@ -373,7 +373,7 @@ public class LocalFileListFragment extends ExtendedListFragment implements
         if (enabled) {
             setEmptyListLoadingMessage();
         } else {
-            FragmentExtensionsKt.launchOnMainThread(this, () -> {
+            FragmentExtensionsKt.runOnUiThread(this, () -> {
                 mAdapter.notifyDataSetChanged();
                 if (mAdapter.getFilesCount() == 0) {
                     setEmptyListMessage(SearchType.LOCAL_SEARCH);

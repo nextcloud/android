@@ -594,7 +594,7 @@ public class ExtendedListFragment extends Fragment implements
             return;
         }
 
-        FragmentExtensionsKt.launchOnMainThread(this, () -> {
+        FragmentExtensionsKt.runOnUiThread(this, () -> {
             mEmptyListHeadline.setText(headline);
             mEmptyListMessage.setText(message);
 
@@ -614,7 +614,7 @@ public class ExtendedListFragment extends Fragment implements
     }
 
     public synchronized void setEmptyListMessage(final SearchType searchType) {
-        FragmentExtensionsKt.launchOnMainThread(this, () -> {
+        FragmentExtensionsKt.runOnUiThread(this, () -> {
             if (searchType == SearchType.OFFLINE_MODE) {
                 setMessageForEmptyList(R.string.offline_mode_info_title,
                                        R.string.offline_mode_info_description,
@@ -662,7 +662,7 @@ public class ExtendedListFragment extends Fragment implements
      * Set message for empty list view.
      */
     public synchronized void setEmptyListLoadingMessage() {
-        FragmentExtensionsKt.launchOnMainThread(this, () -> {
+        FragmentExtensionsKt.runOnUiThread(this, () -> {
             FileActivity fileActivity = FragmentExtensionsKt.getTypedActivity(ExtendedListFragment.this, FileActivity.class);
             if (fileActivity != null) {
                 fileActivity.connectivityService.isNetworkAndServerAvailable(result -> {
