@@ -34,8 +34,6 @@ import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.os.Handler;
-import android.os.Looper;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.TextUtils;
@@ -73,6 +71,7 @@ import com.owncloud.android.datamodel.SyncedFolderProvider;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.lib.resources.files.model.ServerFileInterface;
 import com.owncloud.android.ui.TextDrawable;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.dialog.SortingOrderDialogFragment;
@@ -102,8 +101,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.TimeZone;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -146,9 +143,6 @@ public final class DisplayUtils {
     public static final int SVG_SIZE = 512;
 
     private static Map<String, String> mimeType2HumanReadable;
-
-    private static final ExecutorService executorService = Executors.newCachedThreadPool();
-    private static final Handler mainHandler = new Handler(Looper.getMainLooper());
 
     static {
         mimeType2HumanReadable = new HashMap<>();
@@ -938,22 +932,20 @@ public final class DisplayUtils {
             return;
         }
 
-        executorService.execute(() -> {
-            final var entity = storageManager.offlineOperationDao.getByPath(file.getDecryptedRemotePath());
-            if (entity == null) {
+        final var entity = storageManager.offlineOperationDao.getByPath(file.getDecryptedRemotePath());
+        if (entity == null) {
+            return;
+        }
+
+        if (entity.getType() instanceof OfflineOperationType.CreateFile createFileOperation) {
+            final var bitmap = BitmapUtils.decodeSampledBitmapFromFile(createFileOperation.getLocalPath(), 105, 105);
+            if (bitmap == null) {
                 return;
             }
 
-            if (entity.getType() instanceof OfflineOperationType.CreateFile createFileOperation) {
-                final var bitmap = BitmapUtils.decodeSampledBitmapFromFile(createFileOperation.getLocalPath(), thumbnailView.getWidth(), thumbnailView.getHeight());
-                if (bitmap == null) {
-                    return;
-                }
-
-                final var thumbnail = BitmapUtils.addColorFilter(bitmap, Color.GRAY, 100);
-                mainHandler.post(() -> thumbnailView.setImageBitmap(thumbnail));
-            }
-        });
+            final var thumbnail = BitmapUtils.addColorFilter(bitmap, Color.GRAY, 100);
+            thumbnailView.setImageBitmap(thumbnail);
+        }
     }
 
     private static void setThumbnailForFolder(OCFile file, ImageView thumbnailView, LoaderImageView shimmerThumbnail, User user, SyncedFolderProvider syncedFolderProvider, AppPreferences preferences, Context context, ViewThemeUtils viewThemeUtils) {
@@ -987,7 +979,7 @@ public final class DisplayUtils {
         setThumbnailBackgroundForPNGFileIfNeeded(file, context, thumbnailView);
     }
 
-    private static void setThumbnailBackgroundForPNGFileIfNeeded(OCFile file, Context context, ImageView thumbnailView) {
+    private static void setThumbnailBackgroundForPNGFileIfNeeded(ServerFileInterface file, Context context, ImageView thumbnailView) {
         if ("image/png".equalsIgnoreCase(file.getMimeType())) {
             final var color = ContextCompat.getColor(context, R.color.bg_default);
             thumbnailView.setBackgroundColor(color);
