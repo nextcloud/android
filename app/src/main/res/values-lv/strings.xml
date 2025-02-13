@@ -589,7 +589,6 @@
     <string name="wait_a_moment">Uzgaidiet brītiņu…</string>
     <string name="wait_checking_credentials">Pārbauda saglabātos akredācijas datus</string>
     <string name="wait_for_tmp_copy_from_private_storage">Kopē datni no privātās krātuves</string>
-    <string name="webview_version_check_alert_dialog_positive_button_title">Atjaunināt</string>
     <string name="what_s_new_image">Kas jauns attēls</string>
     <string name="whats_new_skip">Izlaist</string>
     <string name="whats_new_title">Jaunums %1$s</string>

@@ -104,7 +104,6 @@
     <string name="bottom_navigation_menu_assistant_label">Asistente</string>
     <string name="bottom_navigation_menu_favorites_label">Favoritos</string>
     <string name="bottom_navigation_menu_files_label">Todos los archivos</string>
-    <string name="brute_force_delay">Retrasado debido a demasiados intentos erróneos</string>
     <string name="calendar">Calendario</string>
     <string name="calendars">Calendarios</string>
     <string name="certificate_load_problem">Se presentó un problema al cargar el certificado.</string>

@@ -104,7 +104,6 @@
     <string name="bottom_navigation_menu_assistant_label">Skoazeller</string>
     <string name="bottom_navigation_menu_favorites_label">Penndibaboù</string>
     <string name="bottom_navigation_menu_files_label">An holl restroù</string>
-    <string name="brute_force_delay">Ampellet abalamour da daolioù-esae re niverus</string>
     <string name="calendar">Deiziadur</string>
     <string name="calendars">Deiziadurioù</string>
     <string name="certificate_load_problem">Ur gudenn zo bet evit kargañ an testeni.</string>
@@ -840,7 +839,6 @@
     <string name="wait_a_moment">Kortozit un tamm amzer...</string>
     <string name="wait_checking_credentials">O gwiriañ an titouroù identitelez entollet</string>
     <string name="wait_for_tmp_copy_from_private_storage">eilan ar restr diouzh un teuliad prevez</string>
-    <string name="webview_version_check_alert_dialog_positive_button_title">Hizivaat</string>
     <string name="what_s_new_image">Peseurt skeudenn nevez</string>
     <string name="whats_new_skip">Tremen</string>
     <string name="whats_new_title">Nevez e %1$s</string>

@@ -85,7 +85,6 @@
     <string name="bottom_navigation_menu_favorites_label">Favoritos</string>
     <string name="bottom_navigation_menu_files_label">Todos los archivos</string>
     <string name="bottom_navigation_menu_media_label">Multimedia</string>
-    <string name="brute_force_delay">Retrasado debido a demasiados intentos incorrectos</string>
     <string name="calendar">Calendario</string>
     <string name="calendars">Calendarios</string>
     <string name="certificate_load_problem">Se presentó un problema al cargar el certificado.</string>
@@ -746,7 +745,6 @@
     <string name="stream">Transmitir con...</string>
     <string name="stream_not_possible_headline">No es posible la transmisión interna</string>
     <string name="stream_not_possible_message">Por favor, descarga el medio o utiliza una aplicación externa.</string>
-    <string name="strict_mode">¡Modo estricto: no se permite la conexión HTTP!</string>
     <string name="sub_folder_rule_year">Año</string>
     <string name="subject_shared_with_you">\"%1$s\" ha sido compartido contigo</string>
     <string name="subject_user_shared_with_you">%1$s ha compartido \"%2$s\" contigo</string>
@@ -903,7 +901,6 @@
     <string name="wait_a_moment">Aguarda un momento…</string>
     <string name="wait_checking_credentials">Verificando credenciales almacenadas</string>
     <string name="wait_for_tmp_copy_from_private_storage">Copiando el archivo desde almacenamiento privado</string>
-    <string name="webview_version_check_alert_dialog_positive_button_title">Actualizar</string>
     <string name="what_s_new_image">Imagen de qué es nuevo</string>
     <string name="whats_new_skip">Omitir</string>
     <string name="whats_new_title">Nuevo en %1$s</string>

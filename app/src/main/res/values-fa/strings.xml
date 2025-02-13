@@ -89,7 +89,6 @@
     <string name="bottom_navigation_menu_favorites_label">مورد علاقه‌ها</string>
     <string name="bottom_navigation_menu_files_label">تمامی فایل‌ها</string>
     <string name="bottom_navigation_menu_media_label">رسانه‌ها</string>
-    <string name="brute_force_delay">به دلیل تلاش‌های نادرست متعدد، به تاخیر افتاد</string>
     <string name="calendar">تقویم</string>
     <string name="calendars">تقویم‌ها</string>
     <string name="certificate_load_problem">در حال بارگذاری گواهینامه، یک مشکل وجود دارد.</string>
@@ -593,7 +592,7 @@
     <string name="prefs_daily_backup_summary">پشتیبان‌گیری روزانه از مخاطب‌ها و تقویم شما</string>
     <string name="prefs_daily_contact_backup_summary">پشتیبان گیری روزانه از مخاطبین شما</string>
     <string name="prefs_davx5_setup_error">خطای غیرمنتظره هنگام راه‌اندازی DAVx5 (که قبلاً DAVdroid نامیده می‌شد)</string>
-    <string name="prefs_e2e_active">رمزگذاری انتها به انتها راه اندازی شد!</string>
+    <string name="prefs_e2e_active">رمزگذاری سرتاسری  راه اندازی شد!</string>
     <string name="prefs_e2e_mnemonic">E2E حفظی</string>
     <string name="prefs_e2e_no_device_credentials">برای نمایش mnemonic ، مجوز دستگاه را فعال کنید.</string>
     <string name="prefs_enable_media_scan_notifications">نمایش اعلان‌های مربوط به اسکن رسانه</string>
@@ -608,7 +607,7 @@
     <string name="prefs_instant_upload_path_use_date_subfolders_summary">ذخیره در زیر پوشه‌ها بر اساس تاریخ</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">استفاده از زیر پوشه</string>
     <string name="prefs_instant_upload_subfolder_rule_title">گزینه‌های زیر پوشه</string>
-    <string name="prefs_keys_exist">رمزگذاری سرتاسر را به این سرویس گیرنده اضافه کنید.</string>
+    <string name="prefs_keys_exist">رمزگذاری سرتاسری را به این سرویس گیرنده اضافه کنید.</string>
     <string name="prefs_license">مجوز</string>
     <string name="prefs_lock">کد عبور برنامک</string>
     <string name="prefs_lock_device_credentials_enabled">اعتبارنامه‌های دستگاه فعال شد.</string>
@@ -620,7 +619,7 @@
     <string name="prefs_manage_accounts">مدیریت حساب ها </string>
     <string name="prefs_recommend">به یک دوست توصیه کنید</string>
     <string name="prefs_remove_e2e">رمزگذاری را به صورت محلی حذف کنید.</string>
-    <string name="prefs_setup_e2e">رمزگذاری انتها به انتها را تنظیم کنید.</string>
+    <string name="prefs_setup_e2e">رمزگذاری سرتاسری را تنظیم کنید.</string>
     <string name="prefs_show_ecosystem_apps">Show app switcher</string>
     <string name="prefs_show_ecosystem_apps_summary">Nextcloud app suggestions in navigation heading</string>
     <string name="prefs_show_hidden_files">فایل های مخفی را نشان بده </string>
@@ -650,8 +649,8 @@
     <string name="reload">بارگیری مجدد</string>
     <string name="remote">(از راه دور)</string>
     <string name="remote_file_fetch_failed">یافتن پرونده انجام نشد</string>
-    <string name="remove_e2e">می‌توانید رمزگذاری انتها به انتها را به صورت محلی در این سرویس گیرنده حذف کنید.</string>
-    <string name="remove_e2e_message">می‌توانید رمزگذاری انتها به انتها را به صورت محلی در این سرویس گیرنده حذف کنید. فایل‌های رمزگذاری‌شده روی سرور باقی می‌مانند، اما دیگر با این رایانه همگام‌سازی نمی‌شوند.</string>
+    <string name="remove_e2e">می‌توانید رمزگذاری سرتاسری را به صورت محلی در این سرویس گیرنده حذف کنید.</string>
+    <string name="remove_e2e_message">می‌توانید رمزگذاری سرتاسری را به صورت محلی در این سرویس گیرنده حذف کنید. فایل‌های رمزگذاری‌شده روی سرور باقی می‌مانند، اما دیگر با این رایانه همگام‌سازی نمی‌شوند.</string>
     <string name="remove_fail_msg">حذف انجام نشد</string>
     <string name="remove_local_account">حذف حساب محلی</string>
     <string name="remove_local_account_details">حذف حساب از روی دستگاه و پاکسازی همه فایل‌های محلی</string>
@@ -700,7 +699,7 @@
     <string name="set_picture_as">استفاده از تصویر به عنوان</string>
     <string name="set_status">تنظیم وضعیت</string>
     <string name="set_status_message">تنظیم پیام وضعیت</string>
-    <string name="setup_e2e">در طول راه اندازی رمزگذاری انتها به انتها، یک یادگاری تصادفی 12 کلمه ای دریافت خواهید کرد که باید فایل های خود را در دستگاه های دیگر باز کنید. این فقط در این دستگاه ذخیره می شود و می تواند دوباره در این صفحه نمایش داده شود. لطفا آن را در یک مکان امن یادداشت کنید!</string>
+    <string name="setup_e2e">در طول راه اندازی رمزگذاری سرتاسری، یک یادگاری تصادفی 12 کلمه ای دریافت خواهید کرد که باید فایل های خود را در دستگاه های دیگر باز کنید. این فقط در این دستگاه ذخیره می شود و می تواند دوباره در این صفحه نمایش داده شود. لطفا آن را در یک مکان امن یادداشت کنید!</string>
     <string name="share">هم‌رسانی</string>
     <string name="share_copy_link">اشتراک‌گذاری و رونوشت پیوند</string>
     <string name="share_dialog_title">اشتراک گذاری</string>
@@ -795,7 +794,6 @@
     <string name="stream">جریان با…</string>
     <string name="stream_not_possible_headline">جریان داخلی امکان پذیر نیست</string>
     <string name="stream_not_possible_message">لطفاً به جای آن رسانه را دریافت کنید یا از برنامه خارجی استفاده کنید.</string>
-    <string name="strict_mode">حالت سخت‌گیر: اتصال HTTP مجاز نیست!</string>
     <string name="sub_folder_rule_day">سال/ماه/روز</string>
     <string name="sub_folder_rule_month">سال/ماه</string>
     <string name="sub_folder_rule_year">سال</string>
@@ -966,9 +964,6 @@
     <string name="wait_a_moment">یک لحظه صبر کنید...</string>
     <string name="wait_checking_credentials">بررسی اعتبارنامه‌های ذخیره شده</string>
     <string name="wait_for_tmp_copy_from_private_storage">کپی کردن فایل از حافظه خصوصی</string>
-    <string name="webview_version_check_alert_dialog_message">لطفا جهت ورود به حساب، برنامه سیستمی Android WebView را به‌روزرسانی کنید</string>
-    <string name="webview_version_check_alert_dialog_positive_button_title">به‌روز رسانی</string>
-    <string name="webview_version_check_alert_dialog_title">به‌روزرسانی برنامه سیستمی Android WebView</string>
     <string name="what_s_new_image">چه تصویر جدیدی است</string>
     <string name="whats_new_skip">رد شدن</string>
     <string name="whats_new_title">جدید در %1$s</string>

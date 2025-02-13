@@ -105,7 +105,6 @@
     <string name="bottom_navigation_menu_assistant_label">어시스턴트</string>
     <string name="bottom_navigation_menu_favorites_label">즐겨찾기</string>
     <string name="bottom_navigation_menu_files_label">모든 파일</string>
-    <string name="brute_force_delay">시도 횟수가 너무 많아 기다려야 합니다.</string>
     <string name="calendar">일정</string>
     <string name="calendars">일정</string>
     <string name="certificate_load_problem">인증서를 불러올 수 없습니다.</string>
@@ -830,7 +829,6 @@
     <string name="stream">다음과 스트리밍</string>
     <string name="stream_not_possible_headline">내부 스트리밍 불가능</string>
     <string name="stream_not_possible_message">대신 미디어를 다운로드하거나 외부 앱을 사용하십시오.</string>
-    <string name="strict_mode">엄격 모드 : http 연결이 허용되지 않습니다!</string>
     <string name="sub_folder_rule_day">연/월/일</string>
     <string name="sub_folder_rule_month">연/월</string>
     <string name="sub_folder_rule_year">년</string>
@@ -1007,9 +1005,6 @@
     <string name="wait_a_moment">잠시 기다려 주십시오…</string>
     <string name="wait_checking_credentials">저장된 인증 정보 확인 중</string>
     <string name="wait_for_tmp_copy_from_private_storage">개인 저장소에서 파일 복사</string>
-    <string name="webview_version_check_alert_dialog_message">로그인을 위해 Android 시스템 WebView를 업데이트해 주세요</string>
-    <string name="webview_version_check_alert_dialog_positive_button_title">업데이트</string>
-    <string name="webview_version_check_alert_dialog_title">Android 시스템 WebView 업데이트</string>
     <string name="what_s_new_image">새로운 기능 사진</string>
     <string name="whats_new_skip">건너뛰기</string>
     <string name="whats_new_title">%1$s의 새로운 것</string>

@@ -84,7 +84,6 @@
     <string name="bottom_navigation_menu_favorites_label">Preferidos</string>
     <string name="bottom_navigation_menu_files_label">Totu is archìvios</string>
     <string name="bottom_navigation_menu_media_label">Elementos multimediales</string>
-    <string name="brute_force_delay">Lassadu a coa pro tropu proas faddidas</string>
     <string name="calendar">Calendàriu</string>
     <string name="calendars">Calendàrios</string>
     <string name="certificate_load_problem">Problema in su carrigamentu de su tzertificadu.</string>
@@ -680,7 +679,6 @@
     <string name="stream">Direta cun...</string>
     <string name="stream_not_possible_headline">Su flussu internu non est possìbile</string>
     <string name="stream_not_possible_message">Iscàrriga media o imprea s\'aplicatzione de foras.</string>
-    <string name="strict_mode">Modalidade rigurosa: peruna connessione HTTP permìtida!</string>
     <string name="sub_folder_rule_year">Annu</string>
     <string name="subject_shared_with_you">\"%1$s\" dd\'ant cumpartzidu cun tegus</string>
     <string name="subject_user_shared_with_you">%1$s at cumpartzidu \"%2$s\" cun tegus</string>
@@ -833,7 +831,6 @@
     <string name="wait_a_moment">Abeta pagu pagu...</string>
     <string name="wait_checking_credentials">Controllende is credentziales sarvadas</string>
     <string name="wait_for_tmp_copy_from_private_storage">Copiende s\'archìviu dae s\'archiviatzione privada</string>
-    <string name="webview_version_check_alert_dialog_positive_button_title">Agiorna</string>
     <string name="what_s_new_image">Immàgine de ite ddoe est de nou</string>
     <string name="whats_new_skip">Brinca</string>
     <string name="whats_new_title">Prima borta in %1$s</string>

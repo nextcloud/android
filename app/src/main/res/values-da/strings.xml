@@ -119,7 +119,6 @@
     <string name="bottom_navigation_menu_favorites_label">Favoritter</string>
     <string name="bottom_navigation_menu_files_label">Alle filer</string>
     <string name="bottom_navigation_menu_media_label">Medier</string>
-    <string name="brute_force_delay">Udsat på grund af for mange forkerte forsøg</string>
     <string name="calendar">Kalender</string>
     <string name="calendars">Kalendere</string>
     <string name="certificate_load_problem">Der er et problem med lagring af certificering.</string>
@@ -290,6 +289,7 @@
     <string name="drawer_quota">%1$s af %2$s brugt</string>
     <string name="drawer_quota_unlimited">%1$s brugt</string>
     <string name="drawer_synced_folders">Auto upload</string>
+    <string name="due_to_too_many_wrong_attempts">%s på grund af for mange forkerte forsøg</string>
     <string name="e2e_counter_too_old">Tæller er for gammel</string>
     <string name="e2e_hash_not_found">Hash ikke fundet</string>
     <string name="e2e_not_yet_setup">E2E er endnu ikke konfigureret</string>
@@ -433,6 +433,7 @@
     <string name="file_not_found">Fil ikke fundet</string>
     <string name="file_not_synced">Filen kunne ikke synkroniseres. Viser senest tilgængelige version.</string>
     <string name="file_rename">Omdøb</string>
+    <string name="file_upload_worker_error_notification_title">Upload mislykkedes. Ingen internetforbindelse</string>
     <string name="file_upload_worker_same_file_already_exists">Samme fil eksisterer allerede. Ingen konflikt detekteret</string>
     <string name="file_version_restored_error">Fejl ved genskabning af fil version!</string>
     <string name="file_version_restored_successfully">Succes ved genskabning af fil version!</string>
@@ -843,6 +844,7 @@
     <string name="sharee_already_added_to_file">Tilføjelse af deling fejlede. Denne fil eller mapper er allerede blevet delt med denne person eller gruppe.</string>
     <string name="show_images">Vis fotos</string>
     <string name="show_video">Vis videoer</string>
+    <string name="sign_tos_failed">Tjek venligst vilkårene for service manuelt!</string>
     <string name="signup_with_provider">Indskrivning hos udbyder</string>
     <string name="single_sign_on_request_token" formatted="true">Tillad %1$s adgang til din Nextcloud konto %2$s?</string>
     <string name="sort_by">Sortér efter</string>
@@ -891,7 +893,6 @@
     <string name="stream">Stream med...</string>
     <string name="stream_not_possible_headline">Intern streaming ikke mulig</string>
     <string name="stream_not_possible_message">Hent venligst media i stedet, eller brug ekstern app.</string>
-    <string name="strict_mode">Streng tilstand: Ingen http forbindelser tilladt!</string>
     <string name="sub_folder_rule_day">År/Måned/Dag</string>
     <string name="sub_folder_rule_month">År/Måned</string>
     <string name="sub_folder_rule_year">År</string>
@@ -929,6 +930,7 @@
     <string name="synced_icon">Synkroniseret</string>
     <string name="tags">Tags</string>
     <string name="terms_of_service_title">Servicebetingelser</string>
+    <string name="terms_of_services_agree">Jeg accepterer ovenstående servicevilkår</string>
     <string name="test_server_button">Test server forbindelsen</string>
     <string name="thirtyMinutes">30 minutter</string>
     <string name="thisWeek">Denne uge</string>
@@ -1079,9 +1081,6 @@
     <string name="wait_checking_credentials">Undersøger lagrede legitimationsoplysninger</string>
     <string name="wait_for_tmp_copy_from_private_storage">Kopierer fil fra privat lager.</string>
     <string name="warn_rename_extension">Ændring af endelsen kan bevirke at denne fil åbner i en anden applikation</string>
-    <string name="webview_version_check_alert_dialog_message">Opdater Android System WebView appen for at logge på</string>
-    <string name="webview_version_check_alert_dialog_positive_button_title">Opdater</string>
-    <string name="webview_version_check_alert_dialog_title">Opdater Android System WebView</string>
     <string name="what_s_new_image">Hvad nyt billede</string>
     <string name="whats_new_skip">Spring over</string>
     <string name="whats_new_title">Nyt i %1$s</string>
@@ -1171,6 +1170,22 @@
     <plurals name="items_selected_count">
         <item quantity="one">%d valgt</item>
         <item quantity="other">%d valgt</item>
+    </plurals>
+    <plurals name="delay_message">
+        <item quantity="one">Forsinket %d sekund på grund af for mange forkerte forsøg</item>
+        <item quantity="other">Forsinket %d sekunder på grund af for mange forkerte forsøg</item>
+    </plurals>
+    <plurals name="delay_message_minutes">
+        <item quantity="one">Forsinket %d minut på grund af for mange forkerte forsøg</item>
+        <item quantity="other">Forsinket %d minutter på grund af for mange forkerte forsøg</item>
+    </plurals>
+    <plurals name="delay_message_minutes_part">
+        <item quantity="one">Forsinket %d minut</item>
+        <item quantity="other">Forsinket %d minutter</item>
+    </plurals>
+    <plurals name="delay_message_seconds_part">
+        <item quantity="one">%d sekund</item>
+        <item quantity="other">%d sekunder</item>
     </plurals>
     <plurals name="share_download_limit_description">
         <item quantity="one">%1$d resterende downloads</item>

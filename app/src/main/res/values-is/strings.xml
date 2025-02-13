@@ -119,7 +119,6 @@
     <string name="bottom_navigation_menu_favorites_label">Eftirlæti</string>
     <string name="bottom_navigation_menu_files_label">Allar skrár</string>
     <string name="bottom_navigation_menu_media_label">Myndefni</string>
-    <string name="brute_force_delay">Frestað vegna of margra tilrauna</string>
     <string name="calendar">Dagatal</string>
     <string name="calendars">Dagatöl</string>
     <string name="certificate_load_problem">Það kom upp vandamál við að lesa inn skilríkið.</string>
@@ -889,7 +888,6 @@
     <string name="stream">Streyma með…</string>
     <string name="stream_not_possible_headline">Innra streymi er ekki mögulegt</string>
     <string name="stream_not_possible_message">Endilega sæktu frekar gagnamiðil eða notaðu utanaðkomandi forrit.</string>
-    <string name="strict_mode">Strangur hamur: engar HTTP-tengingar leyfðar!</string>
     <string name="sub_folder_rule_day">Ár/Mánuður/Dagur</string>
     <string name="sub_folder_rule_month">Ár/Mánuður</string>
     <string name="sub_folder_rule_year">Ár</string>
@@ -1078,9 +1076,6 @@
     <string name="wait_checking_credentials">Athuga geymd auðkenni</string>
     <string name="wait_for_tmp_copy_from_private_storage">Afrita skrá úr einkageymslu</string>
     <string name="warn_rename_extension">Sé skráarendingunni breytt gæti þessi skrá opnast með öðru forriti</string>
-    <string name="webview_version_check_alert_dialog_message">Uppfærðu WebView-forrit Android-kerfis til að skrá inn</string>
-    <string name="webview_version_check_alert_dialog_positive_button_title">Uppfæra</string>
-    <string name="webview_version_check_alert_dialog_title">Uppfæra WebView Android-kerfis</string>
     <string name="what_s_new_image">Mynd fyrir \'Hvað er nýtt\'</string>
     <string name="whats_new_skip">Sleppa</string>
     <string name="whats_new_title">Nýtt í %1$s</string>

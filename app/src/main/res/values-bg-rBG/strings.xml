@@ -84,7 +84,6 @@
     <string name="battery_optimization_title">Оптимизация на батерията</string>
     <string name="bottom_navigation_menu_favorites_label">Любими</string>
     <string name="bottom_navigation_menu_files_label">Всички файлове</string>
-    <string name="brute_force_delay">Забавяне, поради твърде много грешни опити</string>
     <string name="calendar">Kалендар</string>
     <string name="calendars">Kалендари</string>
     <string name="certificate_load_problem">Проблем при зареждане на сертификата.</string>
@@ -739,7 +738,6 @@
     <string name="stream">Стрийм с...</string>
     <string name="stream_not_possible_headline">Вътрешен стрийм не невъзможен</string>
     <string name="stream_not_possible_message">Моля свалете медиа файла или използвайте външно приложение</string>
-    <string name="strict_mode">Строг режим: не е разрешена HTTP връзка!</string>
     <string name="sub_folder_rule_year">Година</string>
     <string name="subject_shared_with_you">\"%1$s\" бе споделено с вас</string>
     <string name="subject_user_shared_with_you">%1$s сподели с вас \"%2$s\"</string>
@@ -895,7 +893,6 @@
     <string name="wait_a_moment">Моля изчакайте…</string>
     <string name="wait_checking_credentials">Проверка на съхранените пълномощия</string>
     <string name="wait_for_tmp_copy_from_private_storage">Копиране на файла от личното хранилище</string>
-    <string name="webview_version_check_alert_dialog_positive_button_title">Обновяване</string>
     <string name="what_s_new_image">Какво ново</string>
     <string name="whats_new_skip">Пропусни</string>
     <string name="whats_new_title">Ново в %1$s</string>

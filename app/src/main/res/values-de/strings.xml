@@ -119,7 +119,6 @@
     <string name="bottom_navigation_menu_favorites_label">Favoriten</string>
     <string name="bottom_navigation_menu_files_label">Alle Dateien</string>
     <string name="bottom_navigation_menu_media_label">Medien</string>
-    <string name="brute_force_delay">Durch zu viele Fehlversuche verzögert</string>
     <string name="calendar">Kalender</string>
     <string name="calendars">Kalender</string>
     <string name="certificate_load_problem">Beim Laden des Zertifikats ist ein Fehler aufgetreten.</string>
@@ -290,6 +289,7 @@
     <string name="drawer_quota">%1$s von %2$s verwendet</string>
     <string name="drawer_quota_unlimited">%1$s verwendet</string>
     <string name="drawer_synced_folders">Automatisches Hochladen</string>
+    <string name="due_to_too_many_wrong_attempts">%s aufgrund zu vieler Fehlversuche</string>
     <string name="e2e_counter_too_old">Zähler ist zu alt</string>
     <string name="e2e_hash_not_found">Hash nicht gefunden</string>
     <string name="e2e_not_yet_setup">E2E bislang nicht eingerichtet</string>
@@ -433,6 +433,7 @@
     <string name="file_not_found">Datei nicht gefunden</string>
     <string name="file_not_synced">Datei konnte nicht synchronisiert werden. Zeige letzte verfügbare Version. </string>
     <string name="file_rename">Umbenennen</string>
+    <string name="file_upload_worker_error_notification_title">Upload fehlgeschlagen. Keine Internetverbindung</string>
     <string name="file_upload_worker_same_file_already_exists">Dieselbe Datei existiert bereits, kein Konflikt erkannt</string>
     <string name="file_version_restored_error">Fehler beim Wiederherstellen der Dateiversion!</string>
     <string name="file_version_restored_successfully">Dateiversion erfolgreich wiederhergestellt</string>
@@ -891,7 +892,6 @@
     <string name="stream">Streamen mit…</string>
     <string name="stream_not_possible_headline">Internes Streamen nicht möglich</string>
     <string name="stream_not_possible_message">Laden Sie sich den Inhalt herunter oder nutzen Sie eine externe App.</string>
-    <string name="strict_mode">Strikter Modus: keine HTTP-Verbindung erlaubt!</string>
     <string name="sub_folder_rule_day">Jahr/Monat/Tag</string>
     <string name="sub_folder_rule_month">Jahr/Monat</string>
     <string name="sub_folder_rule_year">Jahr</string>
@@ -1080,9 +1080,6 @@
     <string name="wait_checking_credentials">Überprüfe gespeicherte Anmeldeinformationen</string>
     <string name="wait_for_tmp_copy_from_private_storage">Kopiere Datei von privatem Speicher</string>
     <string name="warn_rename_extension">Das Ändern der Erweiterung kann dazu führen, dass diese Datei in einer anderen Anwendung geöffnet wird</string>
-    <string name="webview_version_check_alert_dialog_message">Bitte aktualisieren Sie die Android System WebView-App für eine Anmeldung</string>
-    <string name="webview_version_check_alert_dialog_positive_button_title">Aktualisieren</string>
-    <string name="webview_version_check_alert_dialog_title">Android System WebView aktualisieren</string>
     <string name="what_s_new_image">Was-gibt\'s-Neues-Bild</string>
     <string name="whats_new_skip">Überspringen</string>
     <string name="whats_new_title">Neu in %1$s</string>
@@ -1172,6 +1169,22 @@
     <plurals name="items_selected_count">
         <item quantity="one">%d ausgewählt</item>
         <item quantity="other">%d ausgewählt</item>
+    </plurals>
+    <plurals name="delay_message">
+        <item quantity="one">Um %d Sekunde verzögert aufgrund zu vieler Fehlversuche</item>
+        <item quantity="other">Um %d Sekunden verzögert aufgrund zu vieler Fehlversuche</item>
+    </plurals>
+    <plurals name="delay_message_minutes">
+        <item quantity="one">Um %d Minute verzögert aufgrund zu vieler Fehlversuche</item>
+        <item quantity="other">Um %d Minuten verzögert aufgrund zu vieler Fehlversuche</item>
+    </plurals>
+    <plurals name="delay_message_minutes_part">
+        <item quantity="one">%d Minute verzögert</item>
+        <item quantity="other">%d Minuten verzögert</item>
+    </plurals>
+    <plurals name="delay_message_seconds_part">
+        <item quantity="one">%d Sekunde</item>
+        <item quantity="other">%d Sekunden</item>
     </plurals>
     <plurals name="share_download_limit_description">
         <item quantity="one">%1$d verbleibender Download</item>

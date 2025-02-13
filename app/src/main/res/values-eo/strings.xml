@@ -657,7 +657,6 @@
     <string name="wait_a_moment">Atendu momenton...</string>
     <string name="wait_checking_credentials">Kontrolado de konservitaj akreditiloj</string>
     <string name="wait_for_tmp_copy_from_private_storage">Kopio de dosiero el malpublika konservejo</string>
-    <string name="webview_version_check_alert_dialog_positive_button_title">Ĝisdatigi</string>
     <string name="what_s_new_image">Bildo pri Kio nova</string>
     <string name="whats_new_skip">Preterpasi</string>
     <string name="whats_new_title">Novaĵoj en %1$s</string>

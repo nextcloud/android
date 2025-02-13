@@ -80,7 +80,6 @@
     <string name="bottom_navigation_menu_favorites_label">Halanýanlar</string>
     <string name="bottom_navigation_menu_files_label">Ähli faýllar</string>
     <string name="bottom_navigation_menu_media_label">Mediýa</string>
-    <string name="brute_force_delay">Gaty ýalňyş synanyşyklar sebäpli gijä galdy</string>
     <string name="certificate_load_problem">Şahadatnamany ýüklemekde näsazlyk bar.</string>
     <string name="changelog_dev_version">Özgeriş žurnalynyň gowlaşdyrmak döwri</string>
     <string name="checkbox">Bellik gutusy</string>
@@ -759,8 +758,6 @@
     <string name="wait_checking_credentials">Saklanan şahsyýet maglumatlaryny barlamak</string>
     <string name="wait_for_tmp_copy_from_private_storage">Şahsy ammardan faýly göçürmek</string>
     <string name="warn_rename_extension">Giňeltmäni üýtgetmek, bu faýlyň başga bir programmada açylmagyna sebäp bolup biler</string>
-    <string name="webview_version_check_alert_dialog_message">Giriş üçin Android System WebView programmasyny täzeläň</string>
-    <string name="webview_version_check_alert_dialog_positive_button_title">Täzelemek</string>
     <string name="what_s_new_image">Täze şekil näme</string>
     <string name="whats_new_skip">Geçmek</string>
     <string name="whats_new_title">Täze%1$s-da</string>

@@ -119,7 +119,6 @@
     <string name="bottom_navigation_menu_favorites_label">Favoritos</string>
     <string name="bottom_navigation_menu_files_label">Todos los archivos</string>
     <string name="bottom_navigation_menu_media_label">Multimedia</string>
-    <string name="brute_force_delay">Retrasado debido a los muchos intentos fallidos</string>
     <string name="calendar">Calendario</string>
     <string name="calendars">Calendarios</string>
     <string name="certificate_load_problem">Existe un problema al cargar el certificado.</string>
@@ -890,7 +889,6 @@
     <string name="stream">Retransmisión con...</string>
     <string name="stream_not_possible_headline">La retransmisión interna no es posible</string>
     <string name="stream_not_possible_message">Por favor, descarga el medio o usa una app externa</string>
-    <string name="strict_mode">Modo estricto: ¡ninguna conexión HTTP permitida!</string>
     <string name="sub_folder_rule_day">Año/Mes/Día</string>
     <string name="sub_folder_rule_month">Año/Mes</string>
     <string name="sub_folder_rule_year">Año</string>
@@ -1078,9 +1076,6 @@
     <string name="wait_checking_credentials">Comprobando las credenciales guardadas</string>
     <string name="wait_for_tmp_copy_from_private_storage">Copiando el archivo desde el almacenamiento privado.</string>
     <string name="warn_rename_extension">Cambiar la extensión puede hacer que este archivo se abra con otra aplicación</string>
-    <string name="webview_version_check_alert_dialog_message">Por favor actualiza la aplicación WebView de Sistema Android para iniciar sesión</string>
-    <string name="webview_version_check_alert_dialog_positive_button_title">Actualizar</string>
-    <string name="webview_version_check_alert_dialog_title">Actualiza WebView del Sistema Android</string>
     <string name="what_s_new_image">Imagen de Qué hay de nuevo</string>
     <string name="whats_new_skip">Omitir</string>
     <string name="whats_new_title">Nuevo en %1$s</string>
