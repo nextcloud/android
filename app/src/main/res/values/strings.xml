@@ -29,7 +29,7 @@
     <string name="menu_item_sort_by_date_oldest_first">Oldest first</string>
     <string name="menu_item_sort_by_size_biggest_first">Biggest first</string>
     <string name="menu_item_sort_by_size_smallest_first">Smallest first</string>
-    <string name="oc_file_list_adapter_offline_operation_description_text">Pending Operation</string>
+    <string name="oc_file_list_adapter_offline_operation_description_text">Pending operation</string>
     <string name="ecosystem_apps_display_assistant">Assistant</string>
     <string name="unexpected_error_occurred">Unexpected error occurred</string>
     <string name="app_config_disable_multiaccount_title">Disable Multi Account</string>
@@ -43,9 +43,9 @@
     <string name="app_config_proxy_port_title">Proxy Port</string>
     <string name="app_config_enforce_protection_title">Enforce Protection</string>
     <string name="offline_operations_file_does_not_exists_yet">File does not exists, yet. Please upload the file first.</string>
-    <string name="offline_operations_worker_notification_delete_offline_folder">Delete Offline Folder</string>
-    <string name="offline_operations_worker_notification_conflict_text">Conflicted Folder: %s</string>
-    <string name="offline_operations_worker_notification_start_text">Starting Offline Operations</string>
+    <string name="offline_operations_worker_notification_delete_offline_folder">Delete offline folder</string>
+    <string name="offline_operations_worker_notification_conflict_text">Conflicted folder: %s</string>
+    <string name="offline_operations_worker_notification_start_text">Starting offline operations</string>
     <string name="offline_operations_worker_notification_error_text">The offline operation cannot be completed. %s</string>
     <string name="offline_operations_worker_notification_manager_ticker">Offline Operations</string>
     <string name="offline_operations_worker_progress_text" translatable="false">%1$d / %2$d - %3$s</string>
@@ -55,10 +55,10 @@
     <string name="assistant_screen_task_list_error_state_message">Unable to fetch task list, please check your internet connection.</string>
 
     <string name="assistant_screen_top_bar_title">Assistant</string>
-    <string name="assistant_screen_loading">Task List are loading, please wait</string>
+    <string name="assistant_screen_loading">Task list are loading, please wait</string>
     <string name="assistant_screen_task_output_empty_text">The task output is not ready yet.</string>
     <string name="assistant_screen_no_task_available_text">No task available for %s task type, you can create a new task from bottom right.</string>
-    <string name="assistant_screen_delete_task_alert_dialog_title">Delete Task</string>
+    <string name="assistant_screen_delete_task_alert_dialog_title">Delete task</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Are you sure you want to delete this task?</string>
     <string name="assistant_screen_add_task_alert_dialog_title">Add new task</string>
 
@@ -74,7 +74,7 @@
 
     <string name="assistant_task_detail_screen_input_button_title">Input</string>
     <string name="assistant_task_detail_screen_output_button_title">Output</string>
-    <string name="recommended_files_title">Recommended Files</string>
+    <string name="recommended_files_title">Recommended files</string>
 
     <string name="drawer_item_assistant">Assistant</string>
     <string name="drawer_item_all_files">All files</string>
@@ -201,7 +201,7 @@
     <string name="filedetails_sync_file">Sync</string>
     <string name="filedetails_renamed_in_upload_msg">File renamed %1$s during upload</string>
     <string name="list_layout">Listed layout</string>
-    <string name="action_send_share">Send/Share</string>
+    <string name="action_send_share">Send/share</string>
     <string name="common_yes">Yes</string>
     <string name="common_no">No</string>
     <string name="common_ok">OK</string>
@@ -496,7 +496,7 @@
     <string name="receive_external_files_activity_start_sync_folder_is_not_exists_message">Folder cannot be found, sync operation is cancelled</string>
     <string name="receive_external_files_activity_unable_to_find_file_to_upload">Unable to find file to upload</string>
 
-    <string name="error_cant_bind_to_operations_service">Critical error: Unable to perform operations</string>
+    <string name="error_cant_bind_to_operations_service">Critical error: unable to perform operations</string>
 
     <string name="network_error_socket_exception">An error occurred during connection to the server</string>
     <string name="network_error_socket_timeout_exception">An error occurred while waiting for the server. Could not complete operation.</string>
@@ -549,7 +549,7 @@
     <string name="log_send_no_mail_app">No app for sending logs found. Please install an email client.</string>
     <string name="log_send_mail_subject">%1$s Android app logs</string>
 
-    <string name="actionbar_move_or_copy">Move or Copy</string>
+    <string name="actionbar_move_or_copy">Move or copy</string>
     <string name="file_list_empty_moving">Nothing in here. You can add a folder.</string>
 
     <string name="folder_picker_choose_button_text">Choose</string>
@@ -648,7 +648,7 @@
     <string name="confirmation_remove_folders_alert">Do you really want to delete the selected items and their contents?</string>
     <string name="maintenance_mode">Server is in maintenance mode</string>
     <string name="offline_mode">No internet connection</string>
-    <string name="offline_mode_info_title">You\'re Offline, But Work Continues</string>
+    <string name="offline_mode_info_title">You\'re offline, but work continues</string>
     <string name="offline_mode_info_description">Even without an internet connection, you can organize your folders, create files. Once you\'re back online, your pending actions will automatically sync.</string>
     <string name="uploads_view_upload_status_waiting_for_charging">Awaiting charge</string>
     <string name="actionbar_search">Search</string>
@@ -854,7 +854,7 @@
     <string name="copy_move_to_encrypted_folder_not_supported">Copy/move into encrypted folder currently not supported.</string>
     <string name="untrusted_domain">Access through untrusted domain. Please see documentation for further info.</string>
     <string name="notification_channel_push_name">Push notifications</string>
-    <string name="notification_channel_background_operations_name">Background Operations</string>
+    <string name="notification_channel_background_operations_name">Background operations</string>
     <string name="notification_channel_background_operations_description">Show notifications to interact result of background operations</string>
     <string name="notification_channel_push_description">Show push notifications sent by the server: Mentions in comments, reception of new remote shares, announcements posted by an admin etc.</string>
     <string name="sendbutton_description">Send button icon</string>
@@ -982,7 +982,7 @@
     <string name="remove_notification_failed">Failed to remove notification.</string>
     <string name="notification_action_failed">Failed to execute action.</string>
     <string name="remove_push_notification">Remove</string>
-    <string name="new_notification">New Notification</string>
+    <string name="new_notification">New notification</string>
     <string name="storage_choose_location">Choose storage location</string>
     <string name="storage_internal_storage">Internal storage</string>
     <string name="storage_external_storage">External storage</string>
@@ -1003,7 +1003,7 @@
     <string name="failed_to_print">Failed to print file</string>
     <string name="autoupload_disable_power_save_check">Disable power save check</string>
     <string name="power_save_check_dialog_message">Disabling power save check might result in uploading files when in low battery state!</string>
-    <string name="etm_title">Engineering Test Mode</string>
+    <string name="etm_title">Engineering test mode</string>
     <string name="etm_accounts">Accounts</string>
     <string name="etm_preferences">Preferences</string>
     <string name="etm_background_jobs">Background jobs</string>
@@ -1068,7 +1068,7 @@
     <string name="sync_not_enough_space_dialog_action_free_space">Free up space</string>
     <string name="sync_not_enough_space_dialog_placeholder">%1$s is %2$s, but there is only %3$s available on device.</string>
     <string name="sync_not_enough_space_dialog_title">Not enough space</string>
-    <string name="conflict_folder_headline">Folder Conflict</string>
+    <string name="conflict_folder_headline">Folder conflict</string>
     <string name="conflict_message_description_for_folder">If you select both versions, the local folder will have a number appended to its name.</string>
     <string name="conflict_message_description">If you select both versions, the local file will have a number appended to its name.</string>
     <string name="conflict_local_file">Local file</string>
@@ -1157,13 +1157,13 @@
     <string name="share_permission_can_edit">Can edit</string>
     <string name="share_permission_file_drop">File drop</string>
     <string name="share_permission_secure_file_drop">Secure file drop</string>
-    <string name="share_permissions">Share Permissions</string>
-    <string name="advanced_settings">Advanced Settings</string>
+    <string name="share_permissions">Share permissions</string>
+    <string name="advanced_settings">Advanced settings</string>
     <string name="common_next">Next</string>
-    <string name="send_share">Send Share</string>
+    <string name="send_share">Send share</string>
     <string name="no_share_permission_selected">Please select at least one permission to share.</string>
-    <string name="share_copy_link">Share and Copy Link</string>
-    <string name="set_note">Set Note</string>
+    <string name="share_copy_link">Share and copy link</string>
+    <string name="set_note">Set note</string>
     <string name="share_send_new_email">Send new email</string>
     <string name="link_name">Link Name</string>
     <string name="delete_link">Delete Link</string>
@@ -1231,7 +1231,7 @@
     <string name="error_file_actions">Error showing file actions</string>
     <string name="file_activity_shared_file_cannot_be_updated">Shared file cannot be updated</string>
     <string name="retry">Retry</string>
-    <string name="pin_home">Pin to Home screen</string>
+    <string name="pin_home">Pin to home screen</string>
     <string name="pin_shortcut_label">Open %1$s</string>
     <string name="displays_mnemonic">Displays your 12 word passphrase</string>
     <string name="internet_connection_required_for_encrypted_folder_setup">An internet connection is required to set up the encrypted folder</string>
