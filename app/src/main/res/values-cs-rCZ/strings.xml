@@ -289,6 +289,7 @@
     <string name="drawer_quota">%1$s z %2$s použito</string>
     <string name="drawer_quota_unlimited">%1$s použito</string>
     <string name="drawer_synced_folders">Automatické nahrávání</string>
+    <string name="due_to_too_many_wrong_attempts">%s z důvodu příliš mnoha nezdařených pokusů</string>
     <string name="e2e_counter_too_old">Čítač je příliš starý</string>
     <string name="e2e_hash_not_found">Otisk nenalezen</string>
     <string name="e2e_not_yet_setup">Šifrování mezi koncovými body doposud není nastavené</string>
@@ -432,6 +433,7 @@
     <string name="file_not_found">Soubor nenalezen</string>
     <string name="file_not_synced">Soubor se nepodařilo synchronizovat. Zobrazuje se poslední dostupná verze.</string>
     <string name="file_rename">Přejmenovat</string>
+    <string name="file_upload_worker_error_notification_title">Nahrávání se nezdařilo. Není k dispozici připojení k Internetu</string>
     <string name="file_upload_worker_same_file_already_exists">Stejný soubor už existuje, nezjištěny žádné konflikty</string>
     <string name="file_version_restored_error">Chyba při obnovování verze souboru!</string>
     <string name="file_version_restored_successfully">Verze souboru úspěšně obnovena.</string>
@@ -841,6 +843,7 @@
     <string name="sharee_already_added_to_file">Přidávání sdílení se nezdařilo. Tento soubor či složka už je této osobě či skupině nasdílena.</string>
     <string name="show_images">Zobrazit fotky</string>
     <string name="show_video">Zobrazit videa</string>
+    <string name="sign_tos_failed">Prosíme ručně zkontrolujte všeobecné podmínky!</string>
     <string name="signup_with_provider">Zaregistrovat se u poskytovatele</string>
     <string name="single_sign_on_request_token" formatted="true">Povolit %1$s přístup k vašemu Nextcloud účtu %2$s?</string>
     <string name="sort_by">Řadit podle</string>
@@ -926,6 +929,7 @@
     <string name="synced_icon">Synchronizováno</string>
     <string name="tags">Štítky</string>
     <string name="terms_of_service_title">Všeobecné podmínky</string>
+    <string name="terms_of_services_agree">Souhlasím s výše uvedenými VP</string>
     <string name="test_server_button">Vyzkoušet připojení k serveru</string>
     <string name="thirtyMinutes">30 minut</string>
     <string name="thisWeek">Tento týden</string>
@@ -1205,6 +1209,30 @@
         <item quantity="few">%d vybrány</item>
         <item quantity="many">%d vybraných</item>
         <item quantity="other">%d vybrané</item>
+    </plurals>
+    <plurals name="delay_message">
+        <item quantity="one">Pozdrženo %d sekundu kvůli příliš mnoha chybným pokusům</item>
+        <item quantity="few">Pozdrženo %d sekundy kvůli příliš mnoha chybným pokusům</item>
+        <item quantity="many">Pozdrženo %d sekund kvůli příliš mnoha chybným pokusům</item>
+        <item quantity="other">Pozdrženo %d sekundy kvůli příliš mnoha chybným pokusům</item>
+    </plurals>
+    <plurals name="delay_message_minutes">
+        <item quantity="one">Pozdrženo %d minutu kvůli příliš mnoha chybným pokusům</item>
+        <item quantity="few">Pozdrženo %d minut kvůli příliš mnoha chybným pokusům</item>
+        <item quantity="many">Pozdrženo %d minuty kvůli příliš mnoha chybným pokusům</item>
+        <item quantity="other">Pozdrženo %d minut kvůli příliš mnoha chybným pokusům</item>
+    </plurals>
+    <plurals name="delay_message_minutes_part">
+        <item quantity="one">Odloženo o %d minutu</item>
+        <item quantity="few">Odloženo o %d minuty</item>
+        <item quantity="many">Odloženo o %d minut</item>
+        <item quantity="other">Odloženo o %d minuty</item>
+    </plurals>
+    <plurals name="delay_message_seconds_part">
+        <item quantity="one">%d sekunda</item>
+        <item quantity="few">%d sekundy</item>
+        <item quantity="many">%d sekund</item>
+        <item quantity="other">%d sekundy</item>
     </plurals>
     <plurals name="share_download_limit_description">
         <item quantity="one">Zbývá %1$d stažení</item>

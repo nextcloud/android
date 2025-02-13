@@ -844,7 +844,7 @@
     <string name="sharee_already_added_to_file">Tilføjelse af deling fejlede. Denne fil eller mapper er allerede blevet delt med denne person eller gruppe.</string>
     <string name="show_images">Vis fotos</string>
     <string name="show_video">Vis videoer</string>
-    <string name="sign_tos_failed">Tjek venligst vilkårene for service manuelt!</string>
+    <string name="sign_tos_failed">Tjek venligst servicevilkårene manuelt!</string>
     <string name="signup_with_provider">Indskrivning hos udbyder</string>
     <string name="single_sign_on_request_token" formatted="true">Tillad %1$s adgang til din Nextcloud konto %2$s?</string>
     <string name="sort_by">Sortér efter</string>
