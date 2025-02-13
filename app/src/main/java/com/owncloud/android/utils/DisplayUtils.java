@@ -35,6 +35,8 @@ import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Handler;
+import android.os.Looper;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.TextUtils;
@@ -59,8 +61,10 @@ import com.elyeproj.loaderviewlibrary.LoaderImageView;
 import com.google.android.material.snackbar.Snackbar;
 import com.nextcloud.client.account.CurrentAccountProvider;
 import com.nextcloud.client.account.User;
+import com.nextcloud.client.database.entity.OfflineOperationEntity;
 import com.nextcloud.client.network.ClientFactory;
 import com.nextcloud.client.preferences.AppPreferences;
+import com.nextcloud.model.OfflineOperationType;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
@@ -100,11 +104,14 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.TimeZone;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.appcompat.widget.AppCompatDrawableManager;
+import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -141,6 +148,9 @@ public final class DisplayUtils {
     public static final int SVG_SIZE = 512;
 
     private static Map<String, String> mimeType2HumanReadable;
+
+    private static final ExecutorService executorService = Executors.newCachedThreadPool();
+    private static final Handler mainHandler = new Handler(Looper.getMainLooper());
 
     static {
         mimeType2HumanReadable = new HashMap<>();
@@ -861,50 +871,70 @@ public final class DisplayUtils {
                                     AppPreferences preferences,
                                     ViewThemeUtils viewThemeUtils,
                                     SyncedFolderProvider syncedFolderProvider) {
-        if (file.isFolder()) {
-            stopShimmer(shimmerThumbnail, thumbnailView);
 
-            boolean isAutoUploadFolder = SyncedFolderProvider.isAutoUploadFolder(syncedFolderProvider, file, user);
-            boolean isDarkModeActive = preferences.isDarkModeEnabled();
+        if (file.isOfflineOperation()) {
+            if (file.isFolder()) {
+                Drawable icon = ContextCompat.getDrawable(context, R.drawable.ic_folder_offline);
+                thumbnailView.setImageDrawable(icon);
+            } else {
+                executorService.execute(() -> {
+                    OfflineOperationEntity entity = storageManager.offlineOperationDao.getByPath(file.getDecryptedRemotePath());
 
-            Integer overlayIconId = file.getFileOverlayIconId(isAutoUploadFolder);
-            LayerDrawable fileIcon = MimeTypeUtil.getFolderIcon(isDarkModeActive, overlayIconId, context, viewThemeUtils);
-            thumbnailView.setImageDrawable(fileIcon);
+                    if (entity != null && entity.getType() != null && entity.getType() instanceof OfflineOperationType.CreateFile createFileOperation) {
+                        Bitmap bitmap = BitmapUtils.decodeSampledBitmapFromFile(createFileOperation.getLocalPath(), thumbnailView.getWidth(), thumbnailView.getHeight());
+                        if (bitmap == null) return;
+
+                        Bitmap thumbnail = BitmapUtils.addColorFilter(bitmap, Color.GRAY,100);
+                        mainHandler.post(() -> thumbnailView.setImageBitmap(thumbnail));
+                    }
+                });
+            }
         } else {
-            if (file.getRemoteId() != null && file.isPreviewAvailable()) {
-                // Thumbnail in cache?
-                Bitmap thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(
-                    ThumbnailsCacheManager.PREFIX_THUMBNAIL + file.getRemoteId());
+            if (file.isFolder()) {
+                stopShimmer(shimmerThumbnail, thumbnailView);
 
-                if (thumbnail != null && !file.isUpdateThumbnailNeeded()) {
-                    stopShimmer(shimmerThumbnail, thumbnailView);
+                boolean isAutoUploadFolder = SyncedFolderProvider.isAutoUploadFolder(syncedFolderProvider, file, user);
+                boolean isDarkModeActive = preferences.isDarkModeEnabled();
 
-                    if (MimeTypeUtil.isVideo(file)) {
-                        Bitmap withOverlay = ThumbnailsCacheManager.addVideoOverlay(thumbnail, context);
-                        thumbnailView.setImageBitmap(withOverlay);
-                    } else {
-                        if (gridView) {
-                            BitmapUtils.setRoundedBitmapForGridMode(thumbnail, thumbnailView);
+                Integer overlayIconId = file.getFileOverlayIconId(isAutoUploadFolder);
+                LayerDrawable fileIcon = MimeTypeUtil.getFolderIcon(isDarkModeActive, overlayIconId, context, viewThemeUtils);
+                thumbnailView.setImageDrawable(fileIcon);
+            } else {
+                if (file.getRemoteId() != null && file.isPreviewAvailable()) {
+                    // Thumbnail in cache?
+                    Bitmap thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(
+                        ThumbnailsCacheManager.PREFIX_THUMBNAIL + file.getRemoteId());
+
+                    if (thumbnail != null && !file.isUpdateThumbnailNeeded()) {
+                        stopShimmer(shimmerThumbnail, thumbnailView);
+
+                        if (MimeTypeUtil.isVideo(file)) {
+                            Bitmap withOverlay = ThumbnailsCacheManager.addVideoOverlay(thumbnail, context);
+                            thumbnailView.setImageBitmap(withOverlay);
                         } else {
-                            BitmapUtils.setRoundedBitmap(thumbnail, thumbnailView);
+                            if (gridView) {
+                                BitmapUtils.setRoundedBitmapForGridMode(thumbnail, thumbnailView);
+                            } else {
+                                BitmapUtils.setRoundedBitmap(thumbnail, thumbnailView);
+                            }
                         }
+                    } else {
+                        generateNewThumbnail(file, thumbnailView, user, storageManager, asyncTasks, gridView, context, shimmerThumbnail, preferences, viewThemeUtils);
+                    }
+
+                    if ("image/png".equalsIgnoreCase(file.getMimeType())) {
+                        thumbnailView.setBackgroundColor(context.getResources().getColor(R.color.bg_default));
                     }
                 } else {
-                    generateNewThumbnail(file, thumbnailView, user, storageManager, asyncTasks, gridView, context, shimmerThumbnail, preferences, viewThemeUtils);
-                }
-
-                if ("image/png".equalsIgnoreCase(file.getMimeType())) {
-                    thumbnailView.setBackgroundColor(context.getResources().getColor(R.color.bg_default));
-                }
-            } else {
-                if (file.getRemoteId() != null) {
-                    generateNewThumbnail(file, thumbnailView, user, storageManager, asyncTasks, gridView, context, shimmerThumbnail, preferences, viewThemeUtils);
-                } else {
-                    stopShimmer(shimmerThumbnail, thumbnailView);
-                    thumbnailView.setImageDrawable(MimeTypeUtil.getFileTypeIcon(file.getMimeType(),
-                                                                                file.getFileName(),
-                                                                                context,
-                                                                                viewThemeUtils));
+                    if (file.getRemoteId() != null) {
+                        generateNewThumbnail(file, thumbnailView, user, storageManager, asyncTasks, gridView, context, shimmerThumbnail, preferences, viewThemeUtils);
+                    } else {
+                        stopShimmer(shimmerThumbnail, thumbnailView);
+                        thumbnailView.setImageDrawable(MimeTypeUtil.getFileTypeIcon(file.getMimeType(),
+                                                                                    file.getFileName(),
+                                                                                    context,
+                                                                                    viewThemeUtils));
+                    }
                 }
             }
         }
