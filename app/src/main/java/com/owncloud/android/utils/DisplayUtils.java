@@ -32,7 +32,6 @@ import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
-import android.graphics.drawable.LayerDrawable;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Handler;
@@ -859,6 +858,36 @@ public final class DisplayUtils {
         return df.format(timestamp);
     }
 
+    /**
+     * Sets a thumbnail for a offline file, file or folder with various display options and states.
+     * <p>
+     *
+     * This method handles multiple thumbnail scenarios:
+     *
+     * <p>
+     *
+     * 1. Offline Files:
+     *    - For folders: Shows an offline folder icon
+     *    - For files: Loads thumbnail from local path with a gray filter
+     * <p>
+     *
+     * 2. Folders:
+     *    - Displays folder icon with overlays
+     * <p>
+     *
+     * 3. Files:
+     *    - Checks disk cache for existing thumbnails
+     *    - Handles preview availability and updates
+     *    - Supports grid and list view display modes
+     *    - Generates new thumbnails if needed
+     *    - Sets background color for PNG files
+     *
+     * <p>
+     *
+     * The method uses a shimmer effect while loading thumbnails, which is stopped
+     * once the thumbnail is successfully loaded or if an error occurs.
+     *
+     */
     public static void setThumbnail(OCFile file,
                                     ImageView thumbnailView,
                                     User user,
@@ -892,31 +921,6 @@ public final class DisplayUtils {
         setThumbnailFromCache(file, thumbnailView, storageManager, asyncTasks, gridView, shimmerThumbnail, user, preferences, context, viewThemeUtils);
     }
 
-    private static void setThumbnailFromCache(OCFile file, ImageView thumbnailView, FileDataStorageManager storageManager, List<ThumbnailsCacheManager.ThumbnailGenerationTask> asyncTasks, boolean gridView, LoaderImageView shimmerThumbnail, User user, AppPreferences preferences, Context context, ViewThemeUtils viewThemeUtils) {
-        Bitmap thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(ThumbnailsCacheManager.PREFIX_THUMBNAIL + file.getRemoteId());
-        if (thumbnail != null && !file.isUpdateThumbnailNeeded()) {
-            stopShimmer(shimmerThumbnail, thumbnailView);
-
-            if (MimeTypeUtil.isVideo(file)) {
-                Bitmap withOverlay = ThumbnailsCacheManager.addVideoOverlay(thumbnail, context);
-                thumbnailView.setImageBitmap(withOverlay);
-            } else {
-                if (gridView) {
-                    BitmapUtils.setRoundedBitmapForGridMode(thumbnail, thumbnailView);
-                } else {
-                    BitmapUtils.setRoundedBitmap(thumbnail, thumbnailView);
-                }
-            }
-        } else {
-            generateNewThumbnail(file, thumbnailView, user, storageManager, asyncTasks, gridView, context, shimmerThumbnail, preferences, viewThemeUtils);
-        }
-
-        if ("image/png".equalsIgnoreCase(file.getMimeType())) {
-            final var color = ContextCompat.getColor(context, R.color.bg_default);
-            thumbnailView.setBackgroundColor(color);
-        }
-    }
-
     private static void setThumbnailFirstTimeForFile(OCFile file, ImageView thumbnailView, FileDataStorageManager storageManager, List<ThumbnailsCacheManager.ThumbnailGenerationTask> asyncTasks, boolean gridView, LoaderImageView shimmerThumbnail, User user, AppPreferences preferences, Context context, ViewThemeUtils viewThemeUtils) {
         if (file.getRemoteId() != null) {
             generateNewThumbnail(file, thumbnailView, user, storageManager, asyncTasks, gridView, context, shimmerThumbnail, preferences, viewThemeUtils);
@@ -941,12 +945,12 @@ public final class DisplayUtils {
             }
 
             if (entity.getType() instanceof OfflineOperationType.CreateFile createFileOperation) {
-                Bitmap bitmap = BitmapUtils.decodeSampledBitmapFromFile(createFileOperation.getLocalPath(), thumbnailView.getWidth(), thumbnailView.getHeight());
+                final var bitmap = BitmapUtils.decodeSampledBitmapFromFile(createFileOperation.getLocalPath(), thumbnailView.getWidth(), thumbnailView.getHeight());
                 if (bitmap == null) {
                     return;
                 }
 
-                Bitmap thumbnail = BitmapUtils.addColorFilter(bitmap, Color.GRAY, 100);
+                final var thumbnail = BitmapUtils.addColorFilter(bitmap, Color.GRAY, 100);
                 mainHandler.post(() -> thumbnailView.setImageBitmap(thumbnail));
             }
         });
@@ -958,9 +962,36 @@ public final class DisplayUtils {
         boolean isAutoUploadFolder = SyncedFolderProvider.isAutoUploadFolder(syncedFolderProvider, file, user);
         boolean isDarkModeActive = preferences.isDarkModeEnabled();
 
-        Integer overlayIconId = file.getFileOverlayIconId(isAutoUploadFolder);
-        LayerDrawable fileIcon = MimeTypeUtil.getFolderIcon(isDarkModeActive, overlayIconId, context, viewThemeUtils);
+        final var overlayIconId = file.getFileOverlayIconId(isAutoUploadFolder);
+        final var fileIcon = MimeTypeUtil.getFolderIcon(isDarkModeActive, overlayIconId, context, viewThemeUtils);
         thumbnailView.setImageDrawable(fileIcon);
+    }
+
+    private static void setThumbnailFromCache(OCFile file, ImageView thumbnailView, FileDataStorageManager storageManager, List<ThumbnailsCacheManager.ThumbnailGenerationTask> asyncTasks, boolean gridView, LoaderImageView shimmerThumbnail, User user, AppPreferences preferences, Context context, ViewThemeUtils viewThemeUtils) {
+        final var thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(ThumbnailsCacheManager.PREFIX_THUMBNAIL + file.getRemoteId());
+        if (thumbnail == null || file.isUpdateThumbnailNeeded()) {
+            generateNewThumbnail(file, thumbnailView, user, storageManager, asyncTasks, gridView, context, shimmerThumbnail, preferences, viewThemeUtils);
+            setThumbnailBackgroundForPNGFileIfNeeded(file, context, thumbnailView);
+            return;
+        }
+
+        stopShimmer(shimmerThumbnail, thumbnailView);
+
+        if (MimeTypeUtil.isVideo(file)) {
+            final var withOverlay = ThumbnailsCacheManager.addVideoOverlay(thumbnail, context);
+            thumbnailView.setImageBitmap(withOverlay);
+        } else {
+            BitmapUtils.setRoundedBitmapAccordingToListType(gridView,thumbnail, thumbnailView);
+        }
+
+        setThumbnailBackgroundForPNGFileIfNeeded(file, context, thumbnailView);
+    }
+
+    private static void setThumbnailBackgroundForPNGFileIfNeeded(OCFile file, Context context, ImageView thumbnailView) {
+        if ("image/png".equalsIgnoreCase(file.getMimeType())) {
+            final var color = ContextCompat.getColor(context, R.color.bg_default);
+            thumbnailView.setBackgroundColor(color);
+        }
     }
 
     private static void generateNewThumbnail(OCFile file,
