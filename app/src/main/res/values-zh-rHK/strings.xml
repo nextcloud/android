@@ -730,7 +730,7 @@
     <string name="push_notifications_temp_error">推送通知目前無法使用。</string>
     <string name="qr_could_not_be_read">QR 碼無法讀取！</string>
     <string name="re_enable_auto_upload">自動上傳的更新</string>
-    <string name="re_enable_auto_upload_desc">由于 Google 新的限制，我们不得不移除一个重要权限。我们正在与 Google 沟通以解决该问题并恢复所有功能。\n\n为了重新启动新照片和视频的自动上传：\n在下方对话框或系统设置中选择“允许所有”。\n当提示时，请允许媒体位置，这将允许Nextcloud在上传图像时保存位置信息。\n\n权限对话框仅在必要时显示。如有疑问，请检查系统设置。\n\n自动上传功能仅在使用Google Play版本的Nextcloud应用时才能上传图像和视频文件。\n\n请检查自2024年12月以来可能未上传的任何文件。</string>
+    <string name="re_enable_auto_upload_desc">由於 Google 施加了新的限制，我們不得不移除一個重要的權限。我們目前正與 Google 合作解決此問題，並恢復完整功能。\n\n要重新啟用自動上傳新圖片與影片的功能： \n在下列對話方塊或系統設定中選取「全部允許」。\n如果出現提示，請允許媒體位置，因為這允許 Nextcloud 在上傳圖片時儲存位置資料。\n\n僅在必要時，才會顯示權限對話方塊。如有疑問，請檢查系統設定。\n\n自動上傳只能在使用 Google Play 版本的 Nextcloud 應用程式時上傳圖片與影片檔案。\n\n請檢查是否有自2024年12月以來的未上傳檔案。</string>
     <string name="receive_external_files_activity_start_sync_folder_is_not_exists_message">找不到資料夾，同步操作已取消</string>
     <string name="receive_external_files_activity_unable_to_find_file_to_upload">無法找到要上傳的檔案</string>
     <string name="recommend_subject">在您的裝置上試用 %1$s！</string>
@@ -793,7 +793,7 @@
     <string name="set_picture_as">使用圖片作為</string>
     <string name="set_status">設定狀態</string>
     <string name="set_status_message">設定狀態訊息</string>
-    <string name="setup_e2e">在設置端到端加密期間，您將收到一個隨機的 12 字助記碼，您需要在其他設備上打開文件。這將僅存儲在此設備上，並且可以在此螢幕中再次顯示。請記在安全的地方！</string>
+    <string name="setup_e2e">在設置端到端加密期間，您將收到一個隨機的 12 字助記碼，您需要在其他設備上打開檔案。這將僅存儲在此設備上，並且可以在此螢幕中再次顯示。請記在安全的地方！</string>
     <string name="share">分享</string>
     <string name="share_copy_link">分享並複製連結</string>
     <string name="share_dialog_title">分享</string>
@@ -945,7 +945,7 @@
     <string name="trashbin_file_not_restored">檔案 %1$s 不能被還原！</string>
     <string name="trashbin_file_remove">永久刪除</string>
     <string name="trashbin_loading_failed">載入回收桶失敗！</string>
-    <string name="trashbin_not_emptied">無法永久刪除文件！</string>
+    <string name="trashbin_not_emptied">無法永久刪除檔案！</string>
     <string name="two_way_sync_activity_disable_all_button_title">所有對所有資料夾停用</string>
     <string name="two_way_sync_activity_empty_list_desc">要設置雙向同步資料夾，請在相關資料夾的詳細信息標籤中啟用該功能。</string>
     <string name="two_way_sync_activity_empty_list_title">未設定雙向同步</string>

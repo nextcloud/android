@@ -289,6 +289,7 @@
     <string name="drawer_quota">%1$s 中 %2$s 已使用</string>
     <string name="drawer_quota_unlimited">%1$s 已使用</string>
     <string name="drawer_synced_folders">自动上传</string>
+    <string name="due_to_too_many_wrong_attempts">%s 由于错误尝试太多</string>
     <string name="e2e_counter_too_old">计数器过旧</string>
     <string name="e2e_hash_not_found">未找到哈希值</string>
     <string name="e2e_not_yet_setup">尚未安装端到端加密</string>
@@ -432,6 +433,7 @@
     <string name="file_not_found">无法找到文件</string>
     <string name="file_not_synced">文件无法同步。显示最新的可用版本。</string>
     <string name="file_rename">重命名</string>
+    <string name="file_upload_worker_error_notification_title">上传失败，没有互联网连接</string>
     <string name="file_upload_worker_same_file_already_exists">相同的文件已存在，未检测到冲突</string>
     <string name="file_version_restored_error">恢复文件版本时发生错误！</string>
     <string name="file_version_restored_successfully">成功恢复文件版本。</string>
@@ -1170,6 +1172,18 @@ Nextcloud 是一个私有文件同步、共享和通信服务器。它是自由�
     </plurals>
     <plurals name="items_selected_count">
         <item quantity="other">已选择 %d 个</item>
+    </plurals>
+    <plurals name="delay_message">
+        <item quantity="other">由于错误尝试太多，延迟了 %d 秒</item>
+    </plurals>
+    <plurals name="delay_message_minutes">
+        <item quantity="other">由于错误尝试太多，延迟了 %d 分钟</item>
+    </plurals>
+    <plurals name="delay_message_minutes_part">
+        <item quantity="other">延迟了 %d 分钟</item>
+    </plurals>
+    <plurals name="delay_message_seconds_part">
+        <item quantity="other">%d 秒</item>
     </plurals>
     <plurals name="share_download_limit_description">
         <item quantity="other">剩余 %1$d 个下载</item>
