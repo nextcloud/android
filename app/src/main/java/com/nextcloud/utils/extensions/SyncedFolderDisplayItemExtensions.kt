@@ -19,7 +19,6 @@ import com.owncloud.android.datamodel.SyncedFolderDisplayItem
  *
  * **Example:**
  * ```
- * Given enabled folders: [ "/storage/emulated/0/DCIM/my_folder" ]
  *
  * ✅ /storage/emulated/0/DCIM/my_folder      (Included - explicitly enabled)
  * ❌ /storage/emulated/0/DCIM/my_folder/B    (Excluded - child of an enabled folder)
@@ -49,7 +48,6 @@ fun List<SyncedFolderDisplayItem>.filterEnabledOrWithoutParentInEnabledSet(): Li
  *
  * **Example:**
  * ```
- * Given enabled folders: [ "/storage/emulated/0/DCIM/my_folder" ]
  *
  * ❌ /storage/emulated/0/DCIM/my_folder      (Excluded - explicitly enabled but not a subfolder)
  * ✅ /storage/emulated/0/DCIM/my_folder/B    (Included - child of an enabled folder)
