@@ -113,6 +113,7 @@ public final class AppPreferencesImpl implements AppPreferences {
     private static final String PREF__AUTO_UPLOAD_GPLAY_NOTIFICATION_SHOWN = "auto_upload_gplay_notification_shown";
 
     private static final String PREF__PASSCODE_DELAY_IN_SECONDS = "passcode_delay_in_seconds";
+    private static final String PREF__REMOVE_AUTO_UPLOAD_FOR_SUB_FOLDER_THAT_HAS_ENABLED_PARENT = "remove_auto_upload_for_sub_folder_that_has_enabled_parent";
 
     private static final String LOG_ENTRY = "log_entry";
 
@@ -865,5 +866,15 @@ public final class AppPreferencesImpl implements AppPreferences {
     @Override
     public void setPassCodeDelay(int value) {
         preferences.edit().putInt(PREF__PASSCODE_DELAY_IN_SECONDS, value).apply();
+    }
+
+    @Override
+    public boolean isAutoUploadDisabledForSubFoldersWithEnabledParent() {
+        return preferences.getBoolean(PREF__REMOVE_AUTO_UPLOAD_FOR_SUB_FOLDER_THAT_HAS_ENABLED_PARENT, false);
+    }
+
+    @Override
+    public void setAutoUploadDisabledForSubFoldersWithEnabledParent(boolean value) {
+        preferences.edit().putBoolean(PREF__REMOVE_AUTO_UPLOAD_FOR_SUB_FOLDER_THAT_HAS_ENABLED_PARENT, value).apply();
     }
 }
