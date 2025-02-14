@@ -119,7 +119,6 @@
     <string name="bottom_navigation_menu_favorites_label">Sık kullanılanlar</string>
     <string name="bottom_navigation_menu_files_label">Tüm dosyalar</string>
     <string name="bottom_navigation_menu_media_label">Ortam</string>
-    <string name="brute_force_delay">Çok sayıda hatalı deneme nedeniyle geciktirildi</string>
     <string name="calendar">Takvim</string>
     <string name="calendars">Takvimler</string>
     <string name="certificate_load_problem">Sertifika yüklenirken bir sorun çıktı.</string>
@@ -245,7 +244,7 @@
     <string name="dismiss_notification_description">Bildirimi yok say</string>
     <string name="displays_mnemonic">12 sözcüklü parolanızı görüntüler</string>
     <string name="dnd">Rahatsız etmeyin</string>
-    <string name="document_scan_export_dialog_images">Çok sayıda görsel</string>
+    <string name="document_scan_export_dialog_images">Birkaç görsel</string>
     <string name="document_scan_export_dialog_pdf">PDF dosyası</string>
     <string name="document_scan_export_dialog_title">Dışa aktarma türünü seçin</string>
     <string name="document_scan_pdf_generation_failed">PDF dosyası oluşturulamadı</string>
@@ -290,6 +289,7 @@
     <string name="drawer_quota">%1$s / %2$s kullanıldı</string>
     <string name="drawer_quota_unlimited">%1$s kullanılıyor</string>
     <string name="drawer_synced_folders">Otomatik yükleme</string>
+    <string name="due_to_too_many_wrong_attempts">Çok sayıda hatalı deneme nedeniyle %s</string>
     <string name="e2e_counter_too_old">Sayaç çok eski</string>
     <string name="e2e_hash_not_found">Karma bulunamadı</string>
     <string name="e2e_not_yet_setup">Uçtan uca şifreleme henüz kurulmamış</string>
@@ -433,6 +433,7 @@
     <string name="file_not_found">Dosya bulunamadı</string>
     <string name="file_not_synced">Dosya eşitlenemedi. Kullanılabilen son sürüm görüntüleniyor.</string>
     <string name="file_rename">Yeniden adlandır</string>
+    <string name="file_upload_worker_error_notification_title">Yüklenemedi. İnternet bağlantısı yok</string>
     <string name="file_upload_worker_same_file_already_exists">Aynı dosya zaten var. Herhangi bir çakışma bulunmadı</string>
     <string name="file_version_restored_error">Geri yüklenecek dosya sürümünü seçin!</string>
     <string name="file_version_restored_successfully">Dosya sürümü geri yüklendi.</string>
@@ -891,7 +892,6 @@
     <string name="stream">Şununla akıt …</string>
     <string name="stream_not_possible_headline">İç akış yapılamaz</string>
     <string name="stream_not_possible_message">Onun yerine ortamı indirin ya da dış bir uygulama kullanın.</string>
-    <string name="strict_mode">Kısıtlanmış kip: HTTP bağlantılarına izin verilmez!</string>
     <string name="sub_folder_rule_day">Yıl/Ay/Gün</string>
     <string name="sub_folder_rule_month">Yıl/Ay</string>
     <string name="sub_folder_rule_year">Yıl</string>
@@ -1080,9 +1080,6 @@
     <string name="wait_checking_credentials">Kayıtlı kimlik bilgileri denetleniyor</string>
     <string name="wait_for_tmp_copy_from_private_storage">Dosya kişisel depolamadan kopyalanıyor</string>
     <string name="warn_rename_extension">Uzantının değiştirilmesi bu dosyanın başka bir uygulama ile açılmasına neden olabilir</string>
-    <string name="webview_version_check_alert_dialog_message">Lütfen oturum açmak için Android Sistem Web Görünümü uygulamasını güncelleyin</string>
-    <string name="webview_version_check_alert_dialog_positive_button_title">Güncelle</string>
-    <string name="webview_version_check_alert_dialog_title">Android Sistem Web Görünümü uygulamasını güncelle</string>
     <string name="what_s_new_image">Yenilikler görseli</string>
     <string name="whats_new_skip">Atla</string>
     <string name="whats_new_title">%1$s yenilikleri</string>
@@ -1172,6 +1169,22 @@
     <plurals name="items_selected_count">
         <item quantity="one">%d seçilmiş</item>
         <item quantity="other">%d seçilmiş</item>
+    </plurals>
+    <plurals name="delay_message">
+        <item quantity="one">Çok sayıda hatalı deneme nedeniyle %d saniye geciktirildi</item>
+        <item quantity="other">Çok sayıda hatalı deneme nedeniyle %d saniye geciktirildi</item>
+    </plurals>
+    <plurals name="delay_message_minutes">
+        <item quantity="one">Çok sayıda hatalı deneme nedeniyle %d dakika geciktirildi</item>
+        <item quantity="other">Çok sayıda hatalı deneme nedeniyle %d dakika geciktirildi</item>
+    </plurals>
+    <plurals name="delay_message_minutes_part">
+        <item quantity="one">%d dakika geciktirildi</item>
+        <item quantity="other">%d dakika geciktirildi</item>
+    </plurals>
+    <plurals name="delay_message_seconds_part">
+        <item quantity="one">%d saniye</item>
+        <item quantity="other">%d saniye</item>
     </plurals>
     <plurals name="share_download_limit_description">
         <item quantity="one">%1$d indirme kaldı</item>

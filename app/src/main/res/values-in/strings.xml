@@ -101,7 +101,6 @@ Otomatis unggah hanya bekerja dengan baik apabila Anda mengeluarkan aplikasi ini
     <string name="bottom_navigation_menu_favorites_label">Disukai</string>
     <string name="bottom_navigation_menu_files_label">Semua berkas</string>
     <string name="bottom_navigation_menu_media_label">Media</string>
-    <string name="brute_force_delay">Ditahan karena terlalu banyak percobaan gagal</string>
     <string name="calendar">Kalender</string>
     <string name="calendars">Kalender</string>
     <string name="certificate_load_problem">Terjadi permasalahan memuat sertifikat.</string>
@@ -755,7 +754,6 @@ Otomatis unggah hanya bekerja dengan baik apabila Anda mengeluarkan aplikasi ini
     <string name="stream">Stream menggunakan…</string>
     <string name="stream_not_possible_headline">Streaming internal tidak memungkinkan</string>
     <string name="stream_not_possible_message">Silakan unduh media atau gunakan aplikasi eksternal.</string>
-    <string name="strict_mode">Mode ketat: tidak ada koneksi HTTP yang diizinkan!</string>
     <string name="sub_folder_rule_day">Tahun/Bulan/Hari</string>
     <string name="sub_folder_rule_month">Tahun/Bulan</string>
     <string name="sub_folder_rule_year">Tahun</string>
@@ -917,9 +915,6 @@ Berikut ini adalah daftar berkas lokal, dan berkas jarak jauh di %5$s yang terhu
     <string name="wait_a_moment">Tunggu sebentar…</string>
     <string name="wait_checking_credentials">Mengecek kredensial yang tersimpan</string>
     <string name="wait_for_tmp_copy_from_private_storage">Menyalin berkas dari penyimpanan pribadi</string>
-    <string name="webview_version_check_alert_dialog_message">Harap perbarui aplikasi Android System WebView untuk masuk.</string>
-    <string name="webview_version_check_alert_dialog_positive_button_title">Perbarui</string>
-    <string name="webview_version_check_alert_dialog_title">Perbarui Android System WebView</string>
     <string name="whats_new_skip">Lewat</string>
     <string name="whats_new_title">Apa yang baru di %1$s</string>
     <string name="whats_your_status">Apa status Anda?</string>

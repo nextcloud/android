@@ -115,7 +115,6 @@
     <string name="bottom_navigation_menu_favorites_label">Избранное</string>
     <string name="bottom_navigation_menu_files_label">Все файлы</string>
     <string name="bottom_navigation_menu_media_label">Медиа</string>
-    <string name="brute_force_delay">Слишком много неверных попыток, операция отложена</string>
     <string name="calendar">Календарь</string>
     <string name="calendars">Календари</string>
     <string name="certificate_load_problem">Проблема при загрузке сертификата.</string>
@@ -873,7 +872,6 @@
     <string name="stream">Потоковое вещание…</string>
     <string name="stream_not_possible_headline">Встроенное потоковое вещание невозможно</string>
     <string name="stream_not_possible_message">Скачайте файл или используйте внешнее приложение.</string>
-    <string name="strict_mode">Строгий режим: HTTP-соединение запрещено!</string>
     <string name="sub_folder_rule_day">Год/Месяц/День</string>
     <string name="sub_folder_rule_month">Год/Месяц</string>
     <string name="sub_folder_rule_year">Год</string>
@@ -1058,9 +1056,6 @@
     <string name="wait_a_moment">Подождите немного…</string>
     <string name="wait_checking_credentials">Проверка сохранённых реквизитов учётных данных</string>
     <string name="wait_for_tmp_copy_from_private_storage">Копирование файла из частного хранилища</string>
-    <string name="webview_version_check_alert_dialog_message">Обновите приложение Android System WebView для входа в систему</string>
-    <string name="webview_version_check_alert_dialog_positive_button_title">Изменение</string>
-    <string name="webview_version_check_alert_dialog_title">Обновите приложение Android System WebView</string>
     <string name="what_s_new_image">Изображение «что нового»</string>
     <string name="whats_new_skip">Пропустить</string>
     <string name="whats_new_title">Новое в %1$s</string>

@@ -118,7 +118,6 @@
     <string name="bottom_navigation_menu_favorites_label">Ulubione</string>
     <string name="bottom_navigation_menu_files_label">Wszystkie pliki</string>
     <string name="bottom_navigation_menu_media_label">Multimedia</string>
-    <string name="brute_force_delay">Opóźnienie z powodu zbyt wielu błędnych prób</string>
     <string name="calendar">Kalendarz</string>
     <string name="calendars">Kalendarze</string>
     <string name="certificate_load_problem">Problem podczas ładowania certyfikatu.</string>
@@ -883,7 +882,6 @@
     <string name="stream">Przesyłaj strumieniowo…</string>
     <string name="stream_not_possible_headline">Wewnętrzne przesyłanie strumieniowe nie jest możliwe</string>
     <string name="stream_not_possible_message">Pobierz plik lub użyj zewnętrznej aplikacji.</string>
-    <string name="strict_mode">Tryb wymagający: połączenie HTTP nie jest dozwolone!</string>
     <string name="sub_folder_rule_day">Rok/Miesiąc/Dzień</string>
     <string name="sub_folder_rule_month">Rok/Miesiąc</string>
     <string name="sub_folder_rule_year">Rok</string>
@@ -1069,9 +1067,6 @@
     <string name="wait_checking_credentials">Sprawdzanie danych</string>
     <string name="wait_for_tmp_copy_from_private_storage">Kopiowanie pliku z prywatnego magazynu</string>
     <string name="warn_rename_extension">Zmiana rozszerzenia spowoduje otwarcie pliku w innej aplikacji</string>
-    <string name="webview_version_check_alert_dialog_message">Aby się zalogować, zaktualizuj aplikację WebView systemu Android</string>
-    <string name="webview_version_check_alert_dialog_positive_button_title">Aktualizuj</string>
-    <string name="webview_version_check_alert_dialog_title">Zaktualizuj WebView systemu Android</string>
     <string name="what_s_new_image">Jaki jest nowy obraz</string>
     <string name="whats_new_skip">Pomiń</string>
     <string name="whats_new_title">Co nowego w %1$s</string>

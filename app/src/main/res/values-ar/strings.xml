@@ -121,7 +121,6 @@
     <string name="bottom_navigation_menu_favorites_label">المُفضّلة</string>
     <string name="bottom_navigation_menu_files_label">كل الملفات</string>
     <string name="bottom_navigation_menu_media_label">الوسائط</string>
-    <string name="brute_force_delay">تأخر بسبب المحاولات الخاطئة المستمرة</string>
     <string name="calendar">التقويم</string>
     <string name="calendars">التقاويم</string>
     <string name="certificate_load_problem">هناك مشكلة في تحميل الشهادة</string>
@@ -292,6 +291,7 @@
     <string name="drawer_quota">تم استخدام %1$s من %2$s</string>
     <string name="drawer_quota_unlimited">%1$s مُسّتخدم</string>
     <string name="drawer_synced_folders">تحميل تلقائي</string>
+    <string name="due_to_too_many_wrong_attempts">%s بسبب تجاوز الحد من المحاولات الفاشلة</string>
     <string name="e2e_counter_too_old">العدَّاد قديم جداً</string>
     <string name="e2e_hash_not_found">تعذّر العثور على التجزئة hash</string>
     <string name="e2e_not_yet_setup">التشفير الطرفي E2EE لم تتم تهيئته</string>
@@ -435,6 +435,7 @@
     <string name="file_not_found">تعذر العثور على الملف</string>
     <string name="file_not_synced">الملف لا يمكن مزامنته. عرض آخر إصدار متوفر.</string>
     <string name="file_rename">إعادة التسمية</string>
+    <string name="file_upload_worker_error_notification_title">فشل الرفع. لايوجد اتصال بالإنترنت</string>
     <string name="file_upload_worker_same_file_already_exists">الملف موجود سلفاً. لم يتم اكتشاف أي تعارض</string>
     <string name="file_version_restored_error">حدث خطأ في استيراد إصدار الملف!</string>
     <string name="file_version_restored_successfully">تم استيراد إصدار الملف بنجاح.</string>
@@ -924,7 +925,6 @@
     <string name="stream">بث بإستخدام…</string>
     <string name="stream_not_possible_headline">البث الداخلي غير ممكن</string>
     <string name="stream_not_possible_message">يرجى تنزيل الوسائط بدلاً من ذلك أو استخدام تطبيق خارجي.</string>
-    <string name="strict_mode">الوضع الآمن : اتصال HTTP  غير مسموح!</string>
     <string name="sub_folder_rule_day">سنة/شهر/يوم</string>
     <string name="sub_folder_rule_month">سنة/شهر</string>
     <string name="sub_folder_rule_year">السنة</string>
@@ -1116,9 +1116,6 @@
     <string name="wait_checking_credentials">التحقق من معلومات تسجيل الدخول المحفوظة</string>
     <string name="wait_for_tmp_copy_from_private_storage">نسخ الملف من التخزين الخاص</string>
     <string name="warn_rename_extension">تغيير امتداد الملف يمكن أن يتسبب في فتح الملف باستعمال تطبيق مختلف</string>
-    <string name="webview_version_check_alert_dialog_message">يرجى تحديث تطبيق  WebView في نظام أندرويد لتسجيل الدخول</string>
-    <string name="webview_version_check_alert_dialog_positive_button_title">تحديث</string>
-    <string name="webview_version_check_alert_dialog_title">تحديث تطبيق  WebView في نظام أندرويد</string>
     <string name="what_s_new_image">ما هي الصورة الجديدة</string>
     <string name="whats_new_skip">تخطى</string>
     <string name="whats_new_title">جديد على %1$s</string>
@@ -1288,6 +1285,38 @@
         <item quantity="few">%d محددين</item>
         <item quantity="many">%d محددين</item>
         <item quantity="other">%d محددين</item>
+    </plurals>
+    <plurals name="delay_message">
+        <item quantity="zero">تأخير مقداره %d ثانية بسبب تجاوز الحد من المحاولات الفاشلة</item>
+        <item quantity="one">تأخير مقداره %d ثانية بسبب تجاوز الحد من المحاولات الفاشلة</item>
+        <item quantity="two">تأخير مقداره %d ثانية بسبب تجاوز الحد من المحاولات الفاشلة</item>
+        <item quantity="few">تأخير مقداره %d ثوانٍ بسبب تجاوز الحد من المحاولات الفاشلة</item>
+        <item quantity="many">تأخير مقداره %d ثانية بسبب تجاوز الحد من المحاولات الفاشلة</item>
+        <item quantity="other">تأخير مقداره %d ثانية بسبب تجاوز الحد من المحاولات الفاشلة</item>
+    </plurals>
+    <plurals name="delay_message_minutes">
+        <item quantity="zero">تأخير مقداره %d دقيقة بسبب تجاوز الحد من المحاولات الفاشلة</item>
+        <item quantity="one">تأخير مقداره %d دقيقة بسبب تجاوز الحد من المحاولات الفاشلة</item>
+        <item quantity="two">تأخير مقداره %d دقيقة بسبب تجاوز الحد من المحاولات الفاشلة</item>
+        <item quantity="few">تأخير مقداره %d دقائق بسبب تجاوز الحد من المحاولات الفاشلة</item>
+        <item quantity="many">تأخير مقداره%d دقيقة بسبب تجاوز الحد من المحاولات الفاشلة</item>
+        <item quantity="other">تأخير مقداره %d دقيقة بسبب تجاوز الحد من المحاولات الفاشلة</item>
+    </plurals>
+    <plurals name="delay_message_minutes_part">
+        <item quantity="zero">تأخير قدره %d دقيقة</item>
+        <item quantity="one">تأخير قدره %d دقيقة</item>
+        <item quantity="two">تأخير قدره %d دقيقة</item>
+        <item quantity="few">تأخير قدره %d دقائق</item>
+        <item quantity="many">تأخير قدره %d دقيقة</item>
+        <item quantity="other">تأخير قدره %d دقيقة</item>
+    </plurals>
+    <plurals name="delay_message_seconds_part">
+        <item quantity="zero">%d ثانية</item>
+        <item quantity="one">%d ثانية</item>
+        <item quantity="two">%d ثانيةب</item>
+        <item quantity="few">%d ثوانٍ</item>
+        <item quantity="many">%d ثانية</item>
+        <item quantity="other">%d ثانية</item>
     </plurals>
     <plurals name="share_download_limit_description">
         <item quantity="zero">مازال %1$d تنزيل</item>

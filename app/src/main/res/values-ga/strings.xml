@@ -119,7 +119,6 @@
     <string name="bottom_navigation_menu_favorites_label">Ceanáin</string>
     <string name="bottom_navigation_menu_files_label">Gach comhad</string>
     <string name="bottom_navigation_menu_media_label">Meáin</string>
-    <string name="brute_force_delay">Cuireadh moill orthu mar gheall ar an iomarca iarrachtaí míchearta</string>
     <string name="calendar">Féilire</string>
     <string name="calendars">Féilirí</string>
     <string name="certificate_load_problem">Tharla fadhb agus an teastas á lódáil.</string>
@@ -290,6 +289,7 @@
     <string name="drawer_quota">Úsáideadh %1$s de %2$s</string>
     <string name="drawer_quota_unlimited">%1$s in úsáid</string>
     <string name="drawer_synced_folders">Uaslódáil uathoibríoch</string>
+    <string name="due_to_too_many_wrong_attempts">%s mar gheall ar an iomarca iarrachtaí míchearta</string>
     <string name="e2e_counter_too_old">Tá cuntar ró-shean</string>
     <string name="e2e_hash_not_found">Níor aimsíodh hash</string>
     <string name="e2e_not_yet_setup">E2E gan socrú fós</string>
@@ -433,6 +433,7 @@
     <string name="file_not_found">Comhad gan aimsiú</string>
     <string name="file_not_synced">Níorbh fhéidir an comhad a shioncronú. Ag taispeáint an leagan is déanaí atá ar fáil.</string>
     <string name="file_rename">Athainmnigh</string>
+    <string name="file_upload_worker_error_notification_title">Theip ar an uaslódáil. Gan nasc idirlín</string>
     <string name="file_upload_worker_same_file_already_exists">Tá an comhad céanna ann cheana féin, níor aimsíodh aon choimhlint</string>
     <string name="file_version_restored_error">Earráid agus leagan an chomhaid á athchóiriú!</string>
     <string name="file_version_restored_successfully">D\'éirigh leis an leagan comhaid a athchóiriú.</string>
@@ -891,7 +892,6 @@
     <string name="stream">Sruth le…</string>
     <string name="stream_not_possible_headline">Ní féidir sruthú inmheánach</string>
     <string name="stream_not_possible_message">Íoslódáil na meáin ina ionad sin nó bain úsáid as aip sheachtrach le do thoil.</string>
-    <string name="strict_mode">Modh dian: níl aon cheangal HTTP ceadaithe!</string>
     <string name="sub_folder_rule_day">Bliain/Mí/Lá</string>
     <string name="sub_folder_rule_month">Bliain/Mí</string>
     <string name="sub_folder_rule_year">Bliain</string>
@@ -1080,9 +1080,6 @@
     <string name="wait_checking_credentials">Dintiúir stóráilte a sheiceáil</string>
     <string name="wait_for_tmp_copy_from_private_storage">Comhad á chóipeáil ó stór príobháideach</string>
     <string name="warn_rename_extension">Seans go n-osclóidh an comhad seo i bhfeidhmchlár eile má athraítear an síneadh ama</string>
-    <string name="webview_version_check_alert_dialog_message">Nuashonraigh an aip Android System WebView le haghaidh logáil isteach</string>
-    <string name="webview_version_check_alert_dialog_positive_button_title">Nuashonrú</string>
-    <string name="webview_version_check_alert_dialog_title">Nuashonraigh Android System WebView</string>
     <string name="what_s_new_image">Cad atá íomhá nua</string>
     <string name="whats_new_skip">Scipeáil</string>
     <string name="whats_new_title">Nua i %1$s</string>
@@ -1232,6 +1229,34 @@
         <item quantity="few">%d roghnaithe</item>
         <item quantity="many">%d roghnaithe</item>
         <item quantity="other">%d roghnaithe</item>
+    </plurals>
+    <plurals name="delay_message">
+        <item quantity="one">Cuireadh moill %d soicind mar gheall ar an iomarca iarrachtaí míchearta</item>
+        <item quantity="two">Cuireadh moill %d soicind mar gheall ar an iomarca iarrachtaí míchearta</item>
+        <item quantity="few">Cuireadh moill %d soicind mar gheall ar an iomarca iarrachtaí míchearta</item>
+        <item quantity="many">Cuireadh moill %d soicind mar gheall ar an iomarca iarrachtaí míchearta</item>
+        <item quantity="other">Cuireadh moill %d soicind mar gheall ar an iomarca iarrachtaí míchearta</item>
+    </plurals>
+    <plurals name="delay_message_minutes">
+        <item quantity="one">Cuireadh moill %d nóiméad mar gheall ar an iomarca iarrachtaí míchearta</item>
+        <item quantity="two">Cuireadh moill %d nóiméad mar gheall ar an iomarca iarrachtaí míchearta</item>
+        <item quantity="few">Cuireadh moill %d nóiméad mar gheall ar an iomarca iarrachtaí míchearta</item>
+        <item quantity="many">Cuireadh moill %d nóiméad mar gheall ar an iomarca iarrachtaí míchearta</item>
+        <item quantity="other">Cuireadh moill %d nóiméad mar gheall ar an iomarca iarrachtaí míchearta</item>
+    </plurals>
+    <plurals name="delay_message_minutes_part">
+        <item quantity="one">Moill %d nóiméad</item>
+        <item quantity="two">Moill %d nóiméad</item>
+        <item quantity="few">Moill %d nóiméad</item>
+        <item quantity="many">Moill %d nóiméad</item>
+        <item quantity="other">Moill %d nóiméad</item>
+    </plurals>
+    <plurals name="delay_message_seconds_part">
+        <item quantity="one">%d soicind</item>
+        <item quantity="two">%d soicind</item>
+        <item quantity="few">%d soicind</item>
+        <item quantity="many">%d soicind</item>
+        <item quantity="other">%d soicind</item>
     </plurals>
     <plurals name="share_download_limit_description">
         <item quantity="one">%1$d íosluchtú fágtha</item>

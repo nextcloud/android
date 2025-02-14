@@ -105,7 +105,6 @@
     <string name="bottom_navigation_menu_favorites_label">Favoritos</string>
     <string name="bottom_navigation_menu_files_label">Todos los archivos</string>
     <string name="bottom_navigation_menu_media_label">Multimedia</string>
-    <string name="brute_force_delay">Suspendido debido a múltiples intentos fallidos de inicio de sesión.</string>
     <string name="calendar">Calendario</string>
     <string name="calendars">Calendarios</string>
     <string name="certificate_load_problem">Se presentó un problema al cargar el certificado.</string>
@@ -826,7 +825,6 @@
     <string name="stream">Transmitir con...</string>
     <string name="stream_not_possible_headline">La transmisión interna no es posible</string>
     <string name="stream_not_possible_message">Por favor, descargue el medio o utilice una aplicación externa.</string>
-    <string name="strict_mode">¡Modo estricto: no se permiten conexiones HTTP!</string>
     <string name="sub_folder_rule_day">Año/Mes/Día</string>
     <string name="sub_folder_rule_month">Año/Mes</string>
     <string name="sub_folder_rule_year">Año</string>
@@ -1005,9 +1003,6 @@
     <string name="wait_a_moment">Aguarda un momento…</string>
     <string name="wait_checking_credentials">Verificando credenciales almacenadas</string>
     <string name="wait_for_tmp_copy_from_private_storage">Copiando el archivo desde almacenamiento privado</string>
-    <string name="webview_version_check_alert_dialog_message">Por favor, actualice la aplicación WebView del sistema de Android para iniciar sesión</string>
-    <string name="webview_version_check_alert_dialog_positive_button_title">Actualizar</string>
-    <string name="webview_version_check_alert_dialog_title">Actualice la aplicación WebView del sistema de Android</string>
     <string name="what_s_new_image">Imagen de qué es nuevo</string>
     <string name="whats_new_skip">Omitir</string>
     <string name="whats_new_title">Nuevo en %1$s</string>

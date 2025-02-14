@@ -638,7 +638,6 @@
     <string name="wait_a_moment">Espera un momentu…</string>
     <string name="wait_checking_credentials">Comprobación de credenciales almacenaes</string>
     <string name="wait_for_tmp_copy_from_private_storage">Copiando ficheru dende l\'almacenamientu priváu</string>
-    <string name="webview_version_check_alert_dialog_positive_button_title">Anovar</string>
     <string name="whats_new_skip">Saltar</string>
     <string name="whats_your_status">¿Cuál ye\'l to estáu?</string>
     <string name="widgets_not_available_title">Nun ta disponible</string>

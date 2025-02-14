@@ -117,7 +117,6 @@
     <string name="bottom_navigation_menu_favorites_label">Favoritos</string>
     <string name="bottom_navigation_menu_files_label">Todos os arquivos</string>
     <string name="bottom_navigation_menu_media_label">Meios de comunicação</string>
-    <string name="brute_force_delay">Atrasado devido a muitas tentativas erradas</string>
     <string name="calendar">Calendário</string>
     <string name="calendars">Calendários </string>
     <string name="certificate_load_problem">Existe um problema ao carregar o certificado.</string>
@@ -878,7 +877,6 @@
     <string name="stream">Stream com…</string>
     <string name="stream_not_possible_headline">Streaming interno não é possível</string>
     <string name="stream_not_possible_message">Faça o download da mídia ou use um aplicativo externo.</string>
-    <string name="strict_mode">Modo restrito: nenhuma conexão HTTP permitida! </string>
     <string name="sub_folder_rule_day">Ano/Mês/Dia</string>
     <string name="sub_folder_rule_month">Ano/Mês</string>
     <string name="sub_folder_rule_year">Ano</string>
@@ -1063,9 +1061,6 @@
     <string name="wait_a_moment">Aguarde um momento…</string>
     <string name="wait_checking_credentials">Verificando credenciais salvas</string>
     <string name="wait_for_tmp_copy_from_private_storage">Copiando o arquivo da armazenagem privada</string>
-    <string name="webview_version_check_alert_dialog_message">Atualize o aplicativo Android System WebView para fazer login</string>
-    <string name="webview_version_check_alert_dialog_positive_button_title">Atualizar</string>
-    <string name="webview_version_check_alert_dialog_title">Atualizar WebView do sistema Android</string>
     <string name="what_s_new_image">Imagem nova</string>
     <string name="whats_new_skip">Saltar</string>
     <string name="whats_new_title">Novo em %1$s</string>

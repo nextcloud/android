@@ -302,29 +302,29 @@ public class SynchronizeFileOperation extends SyncOperation {
 
     private void requestForDownload(OCFile file) {
         final var fileDownloadHelper = FileDownloadHelper.Companion.instance();
-        
+        final var filename = file.getFileName();
+
         if (syncInBackgroundWorker) {
-            Log_OC.d("InternalTwoWaySyncWork", "download file: " + file.getFileName());
+            Log_OC.d(TAG, "downloading file without notification: " + filename);
 
             try {
                 final var operation = new DownloadFileOperation(mUser, file, mContext);
-                var result = operation.execute(getClient());
+                final var result = operation.execute(getClient());
 
                 mTransferWasRequested = true;
 
-                String filename = file.getFileName();
-                if (filename != null) {
-                    if (result.isSuccess()) {
-                        fileDownloadHelper.saveFile(file, operation, getStorageManager());
-                        Log_OC.d(TAG, "requestForDownload completed for: " + file.getFileName());
-                    } else {
-                        Log_OC.d(TAG, "requestForDownload failed for: " + file.getFileName());
-                    }
+                if (result.isSuccess()) {
+                    fileDownloadHelper.saveFile(file, operation, getStorageManager());
+                    Log_OC.d(TAG, "requestForDownload completed for: " + filename);
+                } else {
+                    Log_OC.d(TAG, "requestForDownload failed for: " + filename);
                 }
             } catch (Exception e) {
                 Log_OC.d(TAG, "Exception caught at requestForDownload" + e);
             }
         } else {
+            Log_OC.d(TAG, "downloading file with notification: " + filename);
+            mTransferWasRequested = true;
             fileDownloadHelper.downloadFile(mUser, file);
         }
     }

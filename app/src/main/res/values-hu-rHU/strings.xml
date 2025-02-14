@@ -119,7 +119,6 @@
     <string name="bottom_navigation_menu_favorites_label">Kedvencek</string>
     <string name="bottom_navigation_menu_files_label">Összes fájl</string>
     <string name="bottom_navigation_menu_media_label">Média</string>
-    <string name="brute_force_delay">Túl sok hibás próbálkozás miatt halasztva</string>
     <string name="calendar">Naptár</string>
     <string name="calendars">Naptárak</string>
     <string name="certificate_load_problem">Probléma történt a tanúsítvány betöltésekor.</string>
@@ -867,7 +866,6 @@
     <string name="stream">Közvetítés…</string>
     <string name="stream_not_possible_headline">A belső közvetítés nem lehetséges</string>
     <string name="stream_not_possible_message">Helyette töltse le a médiát, vagy használjon külső alkalmazást.</string>
-    <string name="strict_mode">Szigorú mód: a HTTP kapcsolatok nem engedélyezettek.</string>
     <string name="sub_folder_rule_day">Év/hónap/nap</string>
     <string name="sub_folder_rule_month">Év/hónap</string>
     <string name="sub_folder_rule_year">Év</string>
@@ -1032,9 +1030,6 @@
     <string name="wait_a_moment">Egy pillanat…</string>
     <string name="wait_checking_credentials">Tárolt hitelesítő adatok ellenőrzése</string>
     <string name="wait_for_tmp_copy_from_private_storage">Fájl másolása a privát tárolóról</string>
-    <string name="webview_version_check_alert_dialog_message">A bejelentkezéshez frissítse az Android System WebView alkalmazást</string>
-    <string name="webview_version_check_alert_dialog_positive_button_title">Frissítés</string>
-    <string name="webview_version_check_alert_dialog_title">Az Android System WebView frissítése</string>
     <string name="what_s_new_image">Újdonságok kép</string>
     <string name="whats_new_skip">Kihagyás</string>
     <string name="whats_new_title">Új itt: %1$s</string>

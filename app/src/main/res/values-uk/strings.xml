@@ -119,7 +119,6 @@
     <string name="bottom_navigation_menu_favorites_label">Із зірочкою</string>
     <string name="bottom_navigation_menu_files_label">Усі документи</string>
     <string name="bottom_navigation_menu_media_label">Зображення та відео</string>
-    <string name="brute_force_delay">Затримка в доступі через занадто багато неправильних спроб</string>
     <string name="calendar">Календар</string>
     <string name="calendars">Календарі</string>
     <string name="certificate_load_problem">Помилка завантаження сертифіката.</string>
@@ -882,7 +881,6 @@
     <string name="stream">Транслювати з...</string>
     <string name="stream_not_possible_headline">Внутрішня трансляція неможлива</string>
     <string name="stream_not_possible_message">Будь ласка, звантажте мультимедійний файл замість використання зовнішнього застосунку</string>
-    <string name="strict_mode">Строгий режим: з\'єднання HTTP не дозволені!</string>
     <string name="sub_folder_rule_day">Рік/місяць/день</string>
     <string name="sub_folder_rule_month">Рік/місяць</string>
     <string name="sub_folder_rule_year">Рік</string>
@@ -1069,9 +1067,6 @@
     <string name="wait_checking_credentials">Перевірка збережених даних авторизації</string>
     <string name="wait_for_tmp_copy_from_private_storage">Копіювання файлу з приватного сховища</string>
     <string name="warn_rename_extension">Зміна розширення файлу може призвести до того, що його буде відкривати інший застосунок</string>
-    <string name="webview_version_check_alert_dialog_message">Оновіть застосунок Android System WebView для отримання доступу до входу</string>
-    <string name="webview_version_check_alert_dialog_positive_button_title">Оновлення</string>
-    <string name="webview_version_check_alert_dialog_title">Оновити Android System WebView</string>
     <string name="what_s_new_image">Зображення про нові функції</string>
     <string name="whats_new_skip">Пропустити</string>
     <string name="whats_new_title">Нове у %1$s</string>
