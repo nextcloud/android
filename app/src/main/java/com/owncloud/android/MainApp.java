@@ -62,6 +62,7 @@ import com.nextcloud.client.preferences.DarkMode;
 import com.nextcloud.receiver.NetworkChangeListener;
 import com.nextcloud.receiver.NetworkChangeReceiver;
 import com.nextcloud.utils.extensions.ContextExtensionsKt;
+import com.nextcloud.utils.extensions.SyncedFolderDisplayItemExtensionsKt;
 import com.nextcloud.utils.mdm.MDMConfig;
 import com.nmc.android.ui.LauncherActivity;
 import com.owncloud.android.authentication.PassCodeManager;
@@ -664,6 +665,8 @@ public class MainApp extends Application implements HasAndroidInjector, NetworkC
                                                   accountManager,
                                                   connectivityService,
                                                   powerManagementService);
+
+        removeAutoUploadFromSubFoldersWithEnabledParent(clock);
     }
 
     public static void notificationChannels() {
@@ -877,6 +880,27 @@ public class MainApp extends Application implements HasAndroidInjector, NetworkC
                 new SyncedFolderProvider(MainApp.getAppContext().getContentResolver(), preferences, clock);
             syncedFolderProvider.updateAutoUploadPaths(appContext.get());
         }
+    }
+
+    private static void removeAutoUploadFromSubFoldersWithEnabledParent(Clock clock) {
+        final var context = getAppContext();
+        if (context == null) {
+            return;
+        }
+
+        final var preferences = AppPreferencesImpl.fromContext(context);
+        if (preferences.isAutoUploadDisabledForSubFoldersWithEnabledParent()) {
+            return;
+        }
+
+        final var contentResolver = context.getContentResolver();
+        final var syncedFolderProvider = new SyncedFolderProvider(contentResolver, preferences, clock);
+        final var syncedFolders = syncedFolderProvider.getSyncedFolders();
+        final var subFoldersThatHasEnabledParent = SyncedFolderDisplayItemExtensionsKt.getSubFoldersThatHasEnabledParent(syncedFolders);
+        for (SyncedFolder subFolder : subFoldersThatHasEnabledParent) {
+            syncedFolderProvider.deleteSyncedFolder(subFolder.getId());
+        }
+        preferences.setAutoUploadDisabledForSubFoldersWithEnabledParent(true);
     }
 
     private static void splitOutAutoUploadEntries(Clock clock,
