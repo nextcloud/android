@@ -9,6 +9,7 @@ package com.nextcloud.utils.extensions
 
 import com.owncloud.android.datamodel.SyncedFolder
 import com.owncloud.android.datamodel.SyncedFolderDisplayItem
+import java.io.File
 
 /**
  * Returns a filtered list of folders that:
@@ -66,4 +67,12 @@ fun List<SyncedFolder>.filterEnabledSubfoldersWithEnabledParent(): List<SyncedFo
         }
         folder.isEnabled && hasEnabledParent
     }
+}
+
+fun List<SyncedFolder>.isGivenLocalPathHasEnabledParent(localPath: String): Boolean {
+    return find { folder ->
+        val localFile = File(localPath)
+        val file = File(folder.localPath)
+        folder.isEnabled && localFile.exists() && file.exists() && localFile.parentFile == file
+    } != null
 }
