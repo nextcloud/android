@@ -20,7 +20,7 @@ import com.afollestad.sectionedrecyclerview.SectionedRecyclerViewAdapter
 import com.afollestad.sectionedrecyclerview.SectionedViewHolder
 import com.nextcloud.android.common.ui.theme.utils.ColorRole
 import com.nextcloud.client.core.Clock
-import com.nextcloud.utils.extensions.getEnabledOrWithoutEnabledParent
+import com.nextcloud.utils.extensions.filterEnabledOrWithoutParentInEnabledSet
 import com.owncloud.android.R
 import com.owncloud.android.databinding.GridSyncItemBinding
 import com.owncloud.android.databinding.SyncedFoldersEmptyBinding
@@ -73,7 +73,7 @@ class SyncedFolderAdapter(
     }
 
     fun setSyncFolderItems(newList: List<SyncedFolderDisplayItem>) {
-        val filteredList = newList.getEnabledOrWithoutEnabledParent()
+        val filteredList = newList.filterEnabledOrWithoutParentInEnabledSet()
         syncFolderItems.clear()
         syncFolderItems.addAll(filteredList)
 

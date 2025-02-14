@@ -405,6 +405,6 @@ public interface AppPreferences {
     int getPassCodeDelay();
     void setPassCodeDelay(int value);
 
-    boolean isAutoUploadDisabledForSubFoldersWithEnabledParent();
-    void setAutoUploadDisabledForSubFoldersWithEnabledParent(boolean value);
+    boolean hasAutoUploadCleanupRunForSubfolders();
+    void setHasAutoUploadCleanupRunForSubfolders(boolean value);
 }

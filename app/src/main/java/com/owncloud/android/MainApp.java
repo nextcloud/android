@@ -666,7 +666,7 @@ public class MainApp extends Application implements HasAndroidInjector, NetworkC
                                                   connectivityService,
                                                   powerManagementService);
 
-        removeAutoUploadFromSubFoldersWithEnabledParent(clock);
+        disableAutoUploadForSubfoldersWithEnabledParentOnce(clock);
     }
 
     public static void notificationChannels() {
@@ -882,25 +882,25 @@ public class MainApp extends Application implements HasAndroidInjector, NetworkC
         }
     }
 
-    private static void removeAutoUploadFromSubFoldersWithEnabledParent(Clock clock) {
+    private static void disableAutoUploadForSubfoldersWithEnabledParentOnce(Clock clock) {
         final var context = getAppContext();
         if (context == null) {
             return;
         }
 
         final var preferences = AppPreferencesImpl.fromContext(context);
-        if (preferences.isAutoUploadDisabledForSubFoldersWithEnabledParent()) {
+        if (preferences.hasAutoUploadCleanupRunForSubfolders()) {
             return;
         }
 
         final var contentResolver = context.getContentResolver();
         final var syncedFolderProvider = new SyncedFolderProvider(contentResolver, preferences, clock);
         final var syncedFolders = syncedFolderProvider.getSyncedFolders();
-        final var subFoldersThatHasEnabledParent = SyncedFolderDisplayItemExtensionsKt.getSubFoldersThatHasEnabledParent(syncedFolders);
+        final var subFoldersThatHasEnabledParent = SyncedFolderDisplayItemExtensionsKt.filterEnabledSubfoldersWithEnabledParent(syncedFolders);
         for (SyncedFolder subFolder : subFoldersThatHasEnabledParent) {
             syncedFolderProvider.deleteSyncedFolder(subFolder.getId());
         }
-        preferences.setAutoUploadDisabledForSubFoldersWithEnabledParent(true);
+        preferences.setHasAutoUploadCleanupRunForSubfolders(true);
     }
 
     private static void splitOutAutoUploadEntries(Clock clock,
