@@ -7,6 +7,7 @@
 
 package com.nextcloud.utils.extensions
 
+import com.owncloud.android.datamodel.SyncedFolder
 import com.owncloud.android.datamodel.SyncedFolderDisplayItem
 
 fun List<SyncedFolderDisplayItem>.getEnabledOrWithoutEnabledParent(): List<SyncedFolderDisplayItem> {
@@ -17,5 +18,16 @@ fun List<SyncedFolderDisplayItem>.getEnabledOrWithoutEnabledParent(): List<Synce
             folder.localPath.startsWith("$parentPath/")
         }
         folder.isEnabled || !hasEnabledParent
+    }
+}
+
+fun List<SyncedFolder>.getSubFoldersThatHasEnabledParent(): List<SyncedFolder> {
+    val enabledFolders = filter { it.isEnabled }.map { it.localPath }.toSet()
+
+    return filter { folder ->
+        val hasEnabledParent = enabledFolders.any { parentPath ->
+            folder.localPath.startsWith("$parentPath/")
+        }
+        folder.isEnabled && hasEnabledParent
     }
 }
