@@ -461,6 +461,8 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             if (shouldShowOpenInNotes()) {
                 final var listHeaderOpenInBinding = headerBinding.openIn;
 
+                viewThemeUtils.files.themeFilledCardView(listHeaderOpenInBinding.infoCard);
+
                 listHeaderOpenInBinding.infoText.setText(String.format(activity.getString(R.string.folder_best_viewed_in),
                                                                        activity.getString(R.string.ecosystem_apps_notes)));
 

@@ -6,53 +6,63 @@
   ~ SPDX-License-Identifier: AGPL-3.0-or-later
   -->
 
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    style="?attr/materialCardViewFilledStyle"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:backgroundTint="@color/bg_default"
+    android:id="@+id/infoCard">
 
-    <LinearLayout
-        android:id="@+id/infoContainer"
-        android:layout_width="wrap_content"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_margin="@dimen/standard_half_margin">
 
-        <ImageView
-            android:id="@+id/infoIcon"
+        <LinearLayout
+            android:id="@+id/infoContainer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/infoIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/standard_quarter_margin"
+                android:contentDescription="@null"
+                app:srcCompat="@drawable/ic_information_outline" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/infoText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/standard_quarter_margin"
+                tools:text="This folder is best viewed in the Notes app" />
+
+        </LinearLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/openInButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/standard_quarter_margin"
-            android:contentDescription="@null"
-            app:srcCompat="@drawable/ic_information_outline" />
+            tools:text="Open in Notes" />
 
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/infoText"
-            android:layout_width="wrap_content"
+        <androidx.constraintlayout.helper.widget.Flow
+            android:id="@+id/flow"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/standard_quarter_margin"
-            tools:text="This folder is best viewed in the Notes app" />
+            app:constraint_referenced_ids="infoContainer,openInButton"
+            app:flow_firstHorizontalBias="0"
+            app:flow_firstHorizontalStyle="spread_inside"
+            app:flow_horizontalBias="1"
+            app:flow_wrapMode="chain"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/openInButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/standard_quarter_margin"
-        tools:text="Open in Notes" />
-
-    <androidx.constraintlayout.helper.widget.Flow
-        android:id="@+id/flow"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:constraint_referenced_ids="infoContainer,openInButton"
-        app:flow_firstHorizontalBias="0.5"
-        app:flow_firstHorizontalStyle="spread_inside"
-        app:flow_horizontalBias="1"
-        app:flow_wrapMode="chain"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</com.google.android.material.card.MaterialCardView>
