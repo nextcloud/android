@@ -289,6 +289,7 @@
     <string name="drawer_quota">Využité: %1$s z %2$s</string>
     <string name="drawer_quota_unlimited">%1$s použitých</string>
     <string name="drawer_synced_folders">Automatické nahratie</string>
+    <string name="due_to_too_many_wrong_attempts">%s pre príliš veľa chybných pokusov</string>
     <string name="e2e_counter_too_old">Počítadlo je veľmi staré</string>
     <string name="e2e_hash_not_found">Hash nebol nájdený</string>
     <string name="e2e_not_yet_setup">E2E zatiaľ nie je nastavené</string>
@@ -432,6 +433,7 @@
     <string name="file_not_found">Súbor nenájdený</string>
     <string name="file_not_synced">Súbor sa nepodarilo zosynchronizovať.  Zobrazuje sa posledná dostupná verzia.</string>
     <string name="file_rename">Premenovať</string>
+    <string name="file_upload_worker_error_notification_title">Nahrávanie zlyhalo. Žiadne pripojenie k internetu</string>
     <string name="file_upload_worker_same_file_already_exists">Rovnaký súbor už existuje, nezistil sa žiadny konflikt</string>
     <string name="file_version_restored_error">Chyba pri obnove verzie súboru!</string>
     <string name="file_version_restored_successfully">Verzia súboru úspešne obnovená.</string>
@@ -1207,6 +1209,30 @@
         <item quantity="few">%d vybraté</item>
         <item quantity="many">%d vybraných</item>
         <item quantity="other">%d vybraných</item>
+    </plurals>
+    <plurals name="delay_message">
+        <item quantity="one">Oneskorené o %d sekundu v dôsledku príliš veľkého počtu nesprávnych pokusov</item>
+        <item quantity="few">Oneskorené o %d sekundy v dôsledku príliš veľkého počtu nesprávnych pokusov</item>
+        <item quantity="many">Oneskorené o %d sekúnd v dôsledku príliš veľkého počtu nesprávnych pokusov</item>
+        <item quantity="other">Oneskorené o %d sekúnd v dôsledku príliš veľkého počtu nesprávnych pokusov</item>
+    </plurals>
+    <plurals name="delay_message_minutes">
+        <item quantity="one">Oneskorené o %d minútu v dôsledku príliš veľkého počtu nesprávnych pokusov</item>
+        <item quantity="few">Oneskorené o %d minúty v dôsledku príliš veľkého počtu nesprávnych pokusov</item>
+        <item quantity="many">Oneskorené o %d minút v dôsledku príliš veľkého počtu nesprávnych pokusov</item>
+        <item quantity="other">Oneskorené o %d minút v dôsledku príliš veľkého počtu nesprávnych pokusov</item>
+    </plurals>
+    <plurals name="delay_message_minutes_part">
+        <item quantity="one">Oneskorené o %d minútu</item>
+        <item quantity="few">Oneskorené o %d minúty</item>
+        <item quantity="many">Oneskorené o %d minút</item>
+        <item quantity="other">Oneskorené o %d minút</item>
+    </plurals>
+    <plurals name="delay_message_seconds_part">
+        <item quantity="one">%d sekunda</item>
+        <item quantity="few">%d sekundy</item>
+        <item quantity="many">%d sekúnd</item>
+        <item quantity="other">%d sekúnd</item>
     </plurals>
     <plurals name="share_download_limit_description">
         <item quantity="one">%1$d zostáva stiahnuť</item>
