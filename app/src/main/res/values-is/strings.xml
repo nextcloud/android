@@ -289,6 +289,7 @@
     <string name="drawer_quota">%1$s af %2$s notað</string>
     <string name="drawer_quota_unlimited">%s notað</string>
     <string name="drawer_synced_folders">Sjálfvirk innsending</string>
+    <string name="due_to_too_many_wrong_attempts">%s vegna of margra rangra tilrauna</string>
     <string name="e2e_counter_too_old">Teljari er of gamall</string>
     <string name="e2e_hash_not_found">Tætigildi fannst ekki</string>
     <string name="e2e_not_yet_setup">Ekki búið að setja upp E2E</string>
@@ -432,6 +433,7 @@
     <string name="file_not_found">Skrá fannst ekki</string>
     <string name="file_not_synced">Ekki tókst að samstilla skrána. Birti nýjustu tiltæku útgáfuna.</string>
     <string name="file_rename">Endurnefna</string>
+    <string name="file_upload_worker_error_notification_title">Innsending mistókst. Engin internettenging</string>
     <string name="file_upload_worker_same_file_already_exists">Sama skrá er þegar til, engir árekstrar fundust</string>
     <string name="file_version_restored_error">Villa við að endurheimta útgáfu skráar!</string>
     <string name="file_version_restored_successfully">Tókst að endurheimta útgáfu skráar.</string>
@@ -728,6 +730,7 @@
     <string name="push_notifications_temp_error">Ýti-tilkynningar eru ekki tiltækar þessa stundina.</string>
     <string name="qr_could_not_be_read">Ekki tókst að lesa QR-kóða!</string>
     <string name="re_enable_auto_upload">Breytingar á sjálfvirkri innsendingu</string>
+    <string name="re_enable_auto_upload_desc">Vegna nýrra takmarkana sem Google krefst, höfum við neyðst til að fjarlægja mikilvægar heimildir. Við erum að vinna með Google í því að leysa þetta vandamál og ná aftur fullri virkni.\n\nTil að virkja aftur sjálfvirka innsendingu nýrra ljósmynda og myndskeiða:\nVeldu \"Leyfa allt\" í eftirfarandi glugga eða í stillingum kerfisins.\nLeyfðu notkun á staðsetningu myndefnis þegar spurt verður um slíkt, sem mun gera Nextcloud kleift að geyma staðsetningargögn við innsendingu mynda.\n\nHeimildaglugginn er aðeins birtur þegar það er nauðsynlegt. Ef þú ert ekki viss, skaltu skoða stillingar kerfisins.\n\nSjálfvirk innsending getur einungis sent inn myndskrár og myndskeið sé notuð Google Play útgáfa Nextcloud-forritsins.\n\nAthugaðu hvort einhverjar skrár séu til staðar sem ekki hafi verið sendar inn síðan í desember 2024.</string>
     <string name="receive_external_files_activity_start_sync_folder_is_not_exists_message">Mappan finnst ekki, hætt var við samstillingaraðgerð</string>
     <string name="receive_external_files_activity_unable_to_find_file_to_upload">Get ekki fundið skrá til að senda inn</string>
     <string name="recommend_subject">Prófaðu %1$s á snjalltækinu þínu!</string>
@@ -790,6 +793,7 @@
     <string name="set_picture_as">Nota mynd sem</string>
     <string name="set_status">Setja stöðu</string>
     <string name="set_status_message">Setja stöðuskilaboð</string>
+    <string name="setup_e2e">Við uppsetningu á enda-í-enda dulritun muntu fá runu 12 tilviljanakenndra orða, sem þú munt þurfa til að opna skrárnar þínar á öðrum tækjum. Þetta mun einungis vera geymt á þessu tæki; hægt er að birta rununa aftur á þessum skjá. Skrifaðu hana niður og geymdu á öruggum stað!</string>
     <string name="share">Deila</string>
     <string name="share_copy_link">Deila og afrita tengil</string>
     <string name="share_dialog_title">Deiling</string>
@@ -1085,6 +1089,7 @@
     <string name="worker_download">Sæki skrár…</string>
     <string name="write_email">Senda tölvupóst</string>
     <string name="wrong_storage_path">Gagnageymslumappa er ekki til!</string>
+    <string name="wrong_storage_path_desc">Þetta gæti verið af völdum endurheimtingar öryggisafrits á öðru tæki. Nota sjálfgefna varaleið. Athugaðu stillingarnar hvort þurfi að laga geymslumöppu gagna.</string>
     <plurals name="hours">
         <item quantity="one">%d klukkustund</item>
         <item quantity="other">%d klukkustundir</item>
@@ -1164,6 +1169,22 @@
     <plurals name="items_selected_count">
         <item quantity="one">%d valið</item>
         <item quantity="other">%d valið</item>
+    </plurals>
+    <plurals name="delay_message">
+        <item quantity="one">Tafið um %d sekúndu vegna of margra rangra tilrauna</item>
+        <item quantity="other">Tafið um %d sekúndur vegna of margra rangra tilrauna</item>
+    </plurals>
+    <plurals name="delay_message_minutes">
+        <item quantity="one">Tafið um %d mínútu vegna of margra rangra tilrauna</item>
+        <item quantity="other">Tafið um %d mínútur vegna of margra rangra tilrauna</item>
+    </plurals>
+    <plurals name="delay_message_minutes_part">
+        <item quantity="one">Tafið um %d mínútu</item>
+        <item quantity="other">Tafið um %d mínútur</item>
+    </plurals>
+    <plurals name="delay_message_seconds_part">
+        <item quantity="one">%dsekúnda</item>
+        <item quantity="other">%d sekúndur </item>
     </plurals>
     <plurals name="share_download_limit_description">
         <item quantity="one">%1$d niðurhal eftir</item>
