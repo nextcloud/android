@@ -40,6 +40,10 @@
          </trusted-key>
          <trusted-key id="0CDE80149711EB46DFF17AE421A24B3F8B0F594A" group="org.apache" name="apache" version="16"/>
          <trusted-key id="0D35D3F60078655126908E8AF3D1600878E85A3D" group="io.netty"/>
+         <trusted-key id="0F06FF86BEEAF4E71866EE5232EE5355A6BC6E42">
+            <trusting group="androidx.databinding"/>
+            <trusting group="^com[.]android($|([.].*))" regex="true"/>
+         </trusted-key>
          <trusted-key id="0F07D1201BDDAB67CFB84EB479752DB6C966F0B8" group="com.google.android" name="annotations" version="4.1.1.4"/>
          <trusted-key id="10C645B4C93F47C20D15180007AB29E5E5EE5FCF">
             <trusting group="me.zhanghai.android.fastscroll" name="library" version="1.2.0"/>
