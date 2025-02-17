@@ -1823,11 +1823,13 @@ public class FileDisplayActivity extends FileActivity
             onRestoreFileVersionOperationFinish(result);
         }
 
-        OCFileListFragment fileListFragment =
-            (ActivityExtensionsKt.lastFragment(this) instanceof OCFileListFragment fragment) ? fragment : getListOfFilesFragment();
+        if (operation instanceof RemoveFileOperation || operation instanceof RenameFileOperation) {
+            OCFileListFragment fileListFragment =
+                (ActivityExtensionsKt.lastFragment(this) instanceof OCFileListFragment fragment) ? fragment : getListOfFilesFragment();
 
-        if (fileListFragment != null) {
-            fileListFragment.fetchRecommendedFiles();
+            if (fileListFragment != null) {
+                fileListFragment.fetchRecommendedFiles();
+            }
         }
     }
 
