@@ -120,8 +120,16 @@ class ConflictsResolveActivity : FileActivity(), OnConflictDecisionMadeListener 
                 else -> Unit
             }
 
+            updateThumbnailIfNeeded(decision, file)
             dismissConflictResolveNotification(file)
             finish()
+        }
+    }
+
+    private fun updateThumbnailIfNeeded(decision: Decision?, file: OCFile?) {
+        if (decision == Decision.KEEP_BOTH || decision == Decision.KEEP_SERVER) {
+            file?.isUpdateThumbnailNeeded = true
+            fileDataStorageManager.saveFile(file)
         }
     }
 
