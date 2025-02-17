@@ -584,6 +584,10 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
         return 31 * (int) (fileId ^ (fileId >>> 32)) + (int) (parentId ^ (parentId >>> 32));
     }
 
+    public String getThumbnailKey() {
+        return String.valueOf(fileLength) + hashCode();
+    }
+
     @NonNull
     @Override
     public String toString() {

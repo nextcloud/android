@@ -344,7 +344,7 @@ public class DocumentsStorageProvider extends DocumentsProvider {
         OCFile file = document.getFile();
 
         boolean exists = ThumbnailsCacheManager.containsBitmap(ThumbnailsCacheManager.PREFIX_THUMBNAIL
-                                                                   + file.getEtag());
+                                                                   + file.getThumbnailKey());
         if (!exists) {
             ThumbnailsCacheManager.generateThumbnailFromOCFile(file, document.getUser(), getContext());
         }

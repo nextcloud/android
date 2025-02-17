@@ -81,7 +81,7 @@ public class ShareActivity extends FileActivity {
                                                                                 this,
                                                                                 viewThemeUtils));
             if (MimeTypeUtil.isImage(file)) {
-                Bitmap thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(file.getEtag());
+                Bitmap thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(file.getThumbnailKey());
                 if (thumbnail != null) {
                     binding.shareFileIcon.setImageBitmap(thumbnail);
                 }

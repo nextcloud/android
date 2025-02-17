@@ -313,7 +313,7 @@ class PreviewImageFragment : FileFragment(), Injectable {
         while (i < 3 && cachedImage == null) {
             try {
                 cachedImage = ThumbnailsCacheManager.getScaledBitmapFromDiskCache(
-                    ThumbnailsCacheManager.PREFIX_RESIZED_IMAGE + file.etag,
+                    ThumbnailsCacheManager.PREFIX_RESIZED_IMAGE + file.thumbnailKey,
                     scaledWidth,
                     scaledHeight
                 )
@@ -328,7 +328,7 @@ class PreviewImageFragment : FileFragment(), Injectable {
     }
 
     private fun getThumbnailBitmap(file: OCFile): Bitmap? {
-        return ThumbnailsCacheManager.getBitmapFromDiskCache(ThumbnailsCacheManager.PREFIX_THUMBNAIL + file.etag)
+        return ThumbnailsCacheManager.getBitmapFromDiskCache(ThumbnailsCacheManager.PREFIX_THUMBNAIL + file.thumbnailKey)
     }
 
     override fun onStop() {

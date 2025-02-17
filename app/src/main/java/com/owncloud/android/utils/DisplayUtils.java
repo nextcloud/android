@@ -871,10 +871,10 @@ public final class DisplayUtils {
             LayerDrawable fileIcon = MimeTypeUtil.getFolderIcon(isDarkModeActive, overlayIconId, context, viewThemeUtils);
             thumbnailView.setImageDrawable(fileIcon);
         } else {
-            if (file.getEtag() != null && file.isPreviewAvailable()) {
+            if (file.getThumbnailKey() != null && file.isPreviewAvailable()) {
                 // Thumbnail in cache?
                 Bitmap thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(
-                    ThumbnailsCacheManager.PREFIX_THUMBNAIL + file.getEtag());
+                    ThumbnailsCacheManager.PREFIX_THUMBNAIL + file.getThumbnailKey());
 
                 if (thumbnail != null && !file.isUpdateThumbnailNeeded()) {
                     stopShimmer(shimmerThumbnail, thumbnailView);
@@ -897,7 +897,7 @@ public final class DisplayUtils {
                     thumbnailView.setBackgroundColor(context.getResources().getColor(R.color.bg_default));
                 }
             } else {
-                if (file.getEtag() != null) {
+                if (file.getThumbnailKey() != null) {
                     generateNewThumbnail(file, thumbnailView, user, storageManager, asyncTasks, gridView, context, shimmerThumbnail, preferences, viewThemeUtils);
                 } else {
                     stopShimmer(shimmerThumbnail, thumbnailView);
@@ -925,7 +925,7 @@ public final class DisplayUtils {
         }
 
         Bitmap thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(
-            ThumbnailsCacheManager.PREFIX_THUMBNAIL + file.getEtag());
+            ThumbnailsCacheManager.PREFIX_THUMBNAIL + file.getThumbnailKey());
 
         if (thumbnail != null) {
             // If thumbnail is already in cache, display it immediately
@@ -935,8 +935,8 @@ public final class DisplayUtils {
         }
 
         for (ThumbnailsCacheManager.ThumbnailGenerationTask task : asyncTasks) {
-            if (file.getEtag() != null && task.getImageKey() != null &&
-                file.getEtag().equals(task.getImageKey())) {
+            if (file.getThumbnailKey() != null && task.getImageKey() != null &&
+                file.getThumbnailKey().equals(task.getImageKey())) {
                 return;
             }
         }
@@ -948,7 +948,7 @@ public final class DisplayUtils {
                                                                    user,
                                                                    asyncTasks,
                                                                    gridView,
-                                                                   file.getEtag());
+                                                                   file.getThumbnailKey());
             Drawable drawable = MimeTypeUtil.getFileTypeIcon(file.getMimeType(),
                                                              file.getFileName(),
                                                              context,
@@ -995,7 +995,7 @@ public final class DisplayUtils {
             asyncTasks.add(task);
             task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,
                                    new ThumbnailsCacheManager.ThumbnailGenerationTaskObject(file,
-                                                                                            file.getEtag()));
+                                                                                            file.getThumbnailKey()));
         } catch (IllegalArgumentException e) {
             Log_OC.d(TAG, "ThumbnailGenerationTask : " + e.getMessage());
         }

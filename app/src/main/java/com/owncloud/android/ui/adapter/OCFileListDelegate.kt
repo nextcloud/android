@@ -128,7 +128,7 @@ class OCFileListDelegate(
         // cancel previous generation, if view is re-used
         if (ThumbnailsCacheManager.cancelPotentialThumbnailWork(file, thumbnailView)) {
             for (task in asyncTasks) {
-                if (file.etag != null && task.imageKey != null && file.etag == task.imageKey) {
+                if (task.imageKey != null && file.thumbnailKey == task.imageKey) {
                     return
                 }
             }
@@ -138,7 +138,7 @@ class OCFileListDelegate(
                     user,
                     storageManager,
                     asyncGalleryTasks,
-                    file.etag,
+                    file.thumbnailKey,
                     ContextCompat.getColor(context, R.color.bg_default)
                 )
                 var drawable = MimeTypeUtil.getFileTypeIcon(

@@ -287,10 +287,10 @@ public final class ThumbnailsCacheManager {
 
             file = (OCFile) params[0];
 
-            if (file.getEtag() != null || file.isPreviewAvailable()) {
+            if (file.isPreviewAvailable()) {
                 // Thumbnail in cache?
                 thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(
-                    ThumbnailsCacheManager.PREFIX_RESIZED_IMAGE + file.getEtag());
+                    ThumbnailsCacheManager.PREFIX_RESIZED_IMAGE + file.getThumbnailKey());
 
                 if (thumbnail != null && !file.isUpdateThumbnailNeeded())
                     return getThumbnailFromCache(thumbnail);
@@ -650,7 +650,7 @@ public final class ThumbnailsCacheManager {
             ServerFileInterface file = (ServerFileInterface) mFile;
             String imageKey = PREFIX_THUMBNAIL + file.getRemoteId();
             if (file instanceof OCFile ocFile) {
-                imageKey = PREFIX_THUMBNAIL + ocFile.getEtag();
+                imageKey = PREFIX_THUMBNAIL + ocFile.getThumbnailKey();
             }
 
             boolean updateEnforced = (file instanceof OCFile && ((OCFile) file).isUpdateThumbnailNeeded());
@@ -696,7 +696,7 @@ public final class ThumbnailsCacheManager {
                     // check if resized version is available
                     String resizedImageKey = PREFIX_RESIZED_IMAGE + file.getRemoteId();
                     if (file instanceof OCFile ocFile) {
-                        resizedImageKey = PREFIX_RESIZED_IMAGE + ocFile.getEtag();
+                        resizedImageKey = PREFIX_RESIZED_IMAGE + ocFile.getThumbnailKey();
                     }
 
                     Bitmap resizedImage;
@@ -1373,7 +1373,7 @@ public final class ThumbnailsCacheManager {
     private static Bitmap doResizedImageInBackground(OCFile file, FileDataStorageManager storageManager) {
         Bitmap thumbnail;
 
-        String imageKey = PREFIX_RESIZED_IMAGE + file.getEtag();
+        String imageKey = PREFIX_RESIZED_IMAGE + file.getThumbnailKey();
 
         // Check disk cache in background thread
         thumbnail = getBitmapFromDiskCache(imageKey);

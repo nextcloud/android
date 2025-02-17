@@ -168,7 +168,7 @@ public final class MimeTypeUtil {
             return MimeTypeUtil.getFileTypeIcon(file.getMimeType(), file.getFileName(), context, viewThemeUtils);
         }
 
-        Bitmap thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(ThumbnailsCacheManager.PREFIX_THUMBNAIL + file.getEtag());
+        Bitmap thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(ThumbnailsCacheManager.PREFIX_THUMBNAIL + file.getThumbnailKey());
         if (thumbnail == null || file.isUpdateThumbnailNeeded()) {
             return MimeTypeUtil.getFileTypeIcon(file.getMimeType(), file.getFileName(), context, viewThemeUtils);
         }

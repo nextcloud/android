@@ -272,8 +272,8 @@ class FileUploadWorker(
 
             val task = ThumbnailsCacheManager.ThumbnailGenerationTask(storageManager, user)
             val file = File(uploadFileOperation.originalStoragePath)
-            val eTag: String? = uploadFileOperation.file.etag
-            task.execute(ThumbnailsCacheManager.ThumbnailGenerationTaskObject(file, eTag))
+            val thumbnailKey: String? = uploadFileOperation.file.thumbnailKey
+            task.execute(ThumbnailsCacheManager.ThumbnailGenerationTaskObject(file, thumbnailKey))
         } catch (e: Exception) {
             Log_OC.e(TAG, "Error uploading", e)
             result = RemoteOperationResult<Any?>(e)
