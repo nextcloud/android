@@ -9,6 +9,7 @@ package com.owncloud.android.datamodel
 
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotEquals
+import org.junit.Assert.assertNotNull
 import org.junit.Test
 
 class OCFileTest {
@@ -28,5 +29,69 @@ class OCFileTest {
 
         sut.localId = 1234567891011L
         assertEquals(1234567891011L, sut.localId)
+    }
+
+    @Test
+    fun testThumbnailKeyWhenGivenOnlyRemoteIdShouldReturnThumbnailKey() {
+        val sut = OCFile("/abc").apply {
+            remoteId = "00001"
+        }
+
+        assertNotNull(sut.thumbnailKey)
+    }
+
+    @Test
+    fun testThumbnailKeyWhenGivenOnlyRemoteIdForFilesShouldReturnDifferentThumbnailKeys() {
+        val file1 = OCFile("/abc/a1.jpg").apply {
+            remoteId = "00001"
+            fileLength = 100
+        }
+
+        val file2 = OCFile("/abc/a1.jpg").apply {
+            remoteId = "00002"
+            fileLength = 101
+        }
+
+        assert(file1.thumbnailKey != file2.thumbnailKey)
+    }
+
+    @Test
+    fun testThumbnailKeyWhenRenameFileThumbnailKeyShouldNotChange() {
+        val file = OCFile("/abc").apply {
+            fileLength = 100
+            fileName = "a1.jpg"
+        }
+
+        val thumbnailKeyBeforeRename = file.thumbnailKey
+
+        file.fileName = "a2.jpg"
+        val thumbnailKeyAfterRename = file.thumbnailKey
+
+        assert(thumbnailKeyBeforeRename == thumbnailKeyAfterRename)
+    }
+
+    @Test
+    fun testThumbnailKeyWhenGivenEmptyRemoteIdShouldReturnThumbnailKey() {
+        val sut = OCFile("/abc").apply {
+            fileLength = 100
+            fileName = "a1.jpg"
+        }
+
+        assertNotNull(sut.thumbnailKey)
+    }
+
+    @Test
+    fun testThumbnailKeyWhenGivenEmptyRemoteIdForFilesShouldReturnDifferentThumbnailKeys() {
+        val file1 = OCFile("/abc").apply {
+            fileLength = 100
+            fileName = "a1.jpg"
+        }
+
+        val file2 = OCFile("/abc").apply {
+            fileLength = 101
+            fileName = "a2.jpg"
+        }
+
+        assert(file1.thumbnailKey != file2.thumbnailKey)
     }
 }
