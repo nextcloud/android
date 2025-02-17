@@ -973,7 +973,7 @@ public final class DisplayUtils {
             final var withOverlay = ThumbnailsCacheManager.addVideoOverlay(thumbnail, context);
             thumbnailView.setImageBitmap(withOverlay);
         } else {
-            BitmapUtils.setRoundedBitmapAccordingToListType(gridView,thumbnail, thumbnailView);
+            BitmapUtils.setRoundedBitmapAccordingToListType(gridView, thumbnail, thumbnailView);
         }
 
         setThumbnailBackgroundForPNGFileIfNeeded(file, context, thumbnailView);
