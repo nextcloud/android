@@ -127,7 +127,7 @@ class ConflictsResolveActivity : FileActivity(), OnConflictDecisionMadeListener 
     }
 
     private fun updateThumbnailIfNeeded(decision: Decision?, file: OCFile?) {
-        if (decision == Decision.KEEP_BOTH || decision == Decision.KEEP_SERVER) {
+        if (decision == Decision.KEEP_BOTH || decision == Decision.KEEP_LOCAL) {
             file?.isUpdateThumbnailNeeded = true
             fileDataStorageManager.saveFile(file)
         }
