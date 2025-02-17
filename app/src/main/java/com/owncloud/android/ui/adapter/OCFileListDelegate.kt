@@ -256,6 +256,10 @@ class OCFileListDelegate(
         } else {
             configureSharedIconView(gridViewHolder, file)
         }
+
+        if (!file.isOfflineOperation && !file.isFolder) {
+            gridViewHolder.thumbnail.makeRounded(context, 4f)
+        }
     }
 
     private fun bindUnreadComments(file: OCFile, gridViewHolder: ListViewHolder) {
