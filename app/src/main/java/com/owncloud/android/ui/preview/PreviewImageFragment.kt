@@ -328,7 +328,9 @@ class PreviewImageFragment : FileFragment(), Injectable {
     }
 
     private fun getThumbnailBitmap(file: OCFile): Bitmap? {
-        return ThumbnailsCacheManager.getBitmapFromDiskCache(ThumbnailsCacheManager.PREFIX_THUMBNAIL + file.thumbnailKey)
+        return ThumbnailsCacheManager.getBitmapFromDiskCache(
+            ThumbnailsCacheManager.PREFIX_THUMBNAIL + file.thumbnailKey
+        )
     }
 
     override fun onStop() {
