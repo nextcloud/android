@@ -128,7 +128,7 @@ class OCFileListDelegate(
         // cancel previous generation, if view is re-used
         if (ThumbnailsCacheManager.cancelPotentialThumbnailWork(file, thumbnailView)) {
             for (task in asyncTasks) {
-                if (task.imageKey != null && file.thumbnailKey == task.imageKey) {
+                if (file.thumbnailKey != null && task.imageKey != null && file.thumbnailKey == task.imageKey) {
                     return
                 }
             }

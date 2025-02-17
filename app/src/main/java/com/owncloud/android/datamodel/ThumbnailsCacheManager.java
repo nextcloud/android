@@ -287,7 +287,7 @@ public final class ThumbnailsCacheManager {
 
             file = (OCFile) params[0];
 
-            if (file.isPreviewAvailable()) {
+            if (file.getThumbnailKey() != null && file.isPreviewAvailable()) {
                 // Thumbnail in cache?
                 thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(
                     ThumbnailsCacheManager.PREFIX_RESIZED_IMAGE + file.getThumbnailKey());
@@ -1295,7 +1295,7 @@ public final class ThumbnailsCacheManager {
         Point p = getScreenDimension();
         int pxW = p.x;
         int pxH = p.y;
-        String imageKey = PREFIX_RESIZED_IMAGE + file.getEtag();
+        String imageKey = PREFIX_RESIZED_IMAGE + file.getThumbnailKey();
 
         Bitmap bitmap = BitmapUtils.decodeSampledBitmapFromFile(file.getStoragePath(), pxW, pxH);
 
@@ -1313,7 +1313,7 @@ public final class ThumbnailsCacheManager {
         int pxW;
         int pxH;
         pxW = pxH = getThumbnailDimension();
-        String imageKey = PREFIX_THUMBNAIL + file.getEtag();
+        String imageKey = PREFIX_THUMBNAIL + file.getThumbnailKey();
 
         GetMethod getMethod = null;
 
