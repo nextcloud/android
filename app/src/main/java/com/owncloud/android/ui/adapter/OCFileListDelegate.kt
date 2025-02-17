@@ -211,6 +211,7 @@ class OCFileListDelegate(
         )
     }
 
+    @Suppress("MagicNumber")
     fun bindGridViewHolder(
         gridViewHolder: ListViewHolder,
         file: OCFile,
