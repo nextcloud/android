@@ -251,7 +251,6 @@ public final class ThumbnailsCacheManager {
         private final FileDataStorageManager storageManager;
         private final WeakReference<ImageView> imageViewReference;
         private OCFile file;
-        private String imageKey;
         private GalleryListener listener;
         private List<GalleryImageGenerationTask> asyncTasks;
         private int backgroundColor;
@@ -262,13 +261,11 @@ public final class ThumbnailsCacheManager {
             User user,
             FileDataStorageManager storageManager,
             List<GalleryImageGenerationTask> asyncTasks,
-            String imageKey,
             int backgroundColor) {
             this.user = user;
             this.storageManager = storageManager;
             imageViewReference = new WeakReference<>(imageView);
             this.asyncTasks = asyncTasks;
-            this.imageKey = imageKey;
             this.backgroundColor = backgroundColor;
         }
 
@@ -649,11 +646,12 @@ public final class ThumbnailsCacheManager {
             Bitmap thumbnail;
             ServerFileInterface file = (ServerFileInterface) mFile;
             String imageKey = PREFIX_THUMBNAIL + file.getRemoteId();
+
+            boolean updateEnforced = false;
             if (file instanceof OCFile ocFile) {
                 imageKey = PREFIX_THUMBNAIL + ocFile.getThumbnailKey();
+                updateEnforced = ocFile.isUpdateThumbnailNeeded();
             }
-
-            boolean updateEnforced = (file instanceof OCFile && ((OCFile) file).isUpdateThumbnailNeeded());
 
             if (updateEnforced) {
                 thumbnail = null;

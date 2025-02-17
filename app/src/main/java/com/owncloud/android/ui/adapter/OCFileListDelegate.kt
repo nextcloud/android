@@ -138,7 +138,6 @@ class OCFileListDelegate(
                     user,
                     storageManager,
                     asyncGalleryTasks,
-                    file.thumbnailKey,
                     ContextCompat.getColor(context, R.color.bg_default)
                 )
                 var drawable = MimeTypeUtil.getFileTypeIcon(
