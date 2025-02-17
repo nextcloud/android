@@ -80,6 +80,7 @@ class GalleryFragmentIT : AbstractIT() {
         val defaultSize = ThumbnailsCacheManager.getThumbnailDimension().toFloat()
         val file = OCFile("/$id.png").apply {
             fileId = id.toLong()
+            fileLength = (0..100).random().toLong()
             remoteId = "$id"
             mimeType = "image/png"
             isPreviewAvailable = true
