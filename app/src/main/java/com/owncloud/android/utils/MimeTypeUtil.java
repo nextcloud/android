@@ -147,45 +147,6 @@ public final class MimeTypeUtil {
         return determineIconIdByMimeTypeList(possibleMimeTypes);
     }
 
-    /**
-     * Returns a drawable representing a file or folder.
-     * <p>
-     *
-     * - For folders: Returns a folder icon. If an overlay is needed, it includes an overlay icon on the folder.
-     *
-     * <p>
-     * - For files: Returns the file's thumbnail if it exists. Otherwise, it provides a thumbnail based on the file's MIME type.
-     *
-     * @return A drawable for the file or folder.
-     */
-    public static Drawable getOCFileIcon(OCFile file, Context context, ViewThemeUtils viewThemeUtils, boolean isAutoUpload, boolean isDarkModeActive) {
-        if (file.isFolder()) {
-            Integer overlayIconId = file.getFileOverlayIconId(isAutoUpload);
-            return MimeTypeUtil.getFolderIcon(isDarkModeActive, overlayIconId, context, viewThemeUtils);
-        }
-
-        if (!(MimeTypeUtil.isImage(file) || MimeTypeUtil.isVideo(file)) || file.getRemoteId() == null) {
-            return MimeTypeUtil.getFileTypeIcon(file.getMimeType(), file.getFileName(), context, viewThemeUtils);
-        }
-
-        Bitmap thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(ThumbnailsCacheManager.PREFIX_THUMBNAIL + file.getRemoteId());
-        if (thumbnail == null || file.isUpdateThumbnailNeeded()) {
-            return MimeTypeUtil.getFileTypeIcon(file.getMimeType(), file.getFileName(), context, viewThemeUtils);
-        }
-
-        Drawable background = new BitmapDrawable(context.getResources(), thumbnail);
-        if (!MimeTypeUtil.isVideo(file)) {
-            return background;
-        }
-
-        Drawable videoOverlay = ContextCompat.getDrawable(context, R.drawable.video_white);
-        if (videoOverlay == null) {
-            return background;
-        }
-
-        return DrawableUtil.INSTANCE.addDrawableAsOverlay(background, videoOverlay);
-    }
-
     public static Drawable getDefaultFolderIcon(Context context, ViewThemeUtils viewThemeUtils) {
         Drawable drawable = ContextCompat.getDrawable(context, R.drawable.folder);
         assert(drawable != null);
