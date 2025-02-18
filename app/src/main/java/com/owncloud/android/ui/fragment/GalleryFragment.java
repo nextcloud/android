@@ -96,6 +96,7 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
         }
 
         initGallerySearchTask();
+        photoSearchTask.execute(endDate, limit);
         registerRefreshSearchEventReceiver();
     }
 
