@@ -67,7 +67,7 @@
     <string name="authenticator_activity_cancel_login">Atcelt pieteikšanos</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">glabāts oriģinālajā mapē, jo tā ir tikai lasāma</string>
     <string name="auto_upload_on_wifi">Augšupielādēt tikai neirobežotā Wi-Fi</string>
-    <string name="autoupload_configure">Konfigurē</string>
+    <string name="autoupload_configure">Konfigurēt</string>
     <string name="autoupload_create_new_custom_folder">Izveidot jaunu pielāgotu mapes iestatījumu</string>
     <string name="autoupload_custom_folder">Pielāgotas mapes iestatīšana</string>
     <string name="autoupload_disable_power_save_check">Atspējot enerģijas taupīšanas pārbaudi</string>
@@ -75,15 +75,15 @@
     <string name="avatar">Profila attēls</string>
     <string name="battery_optimization_close">Aizvērt</string>
     <string name="battery_optimization_disable">Deaktivēt</string>
-    <string name="battery_optimization_message">Jūsu ierīcē ir iespējota akumulatora optimizācija. Auto augšupielāde pareizi darbosies tikai tad, kad jūs lietotni izņemsiet no šīs opcijas.</string>
+    <string name="battery_optimization_message">Ierīcē varētu būt iespējota akumulatora optimizācija. Automātiskā augšupielāde darbojas pareizi tikai tad, ja lietotne būs izņēmumu sarakstā.</string>
     <string name="battery_optimization_title">Akumulatora optimizācija</string>
     <string name="bottom_navigation_menu_favorites_label">Izlases vienumi</string>
     <string name="bottom_navigation_menu_files_label">Visas datnes</string>
     <string name="calendar">Kalendārs</string>
     <string name="calendars">Kalendāri</string>
     <string name="certificate_load_problem">Radusies problēma, ielādējot sertifikātu.</string>
-    <string name="choose_local_folder">Izvēlies lokālo mapi…</string>
-    <string name="choose_remote_folder">Izvēlies attālināto mapi…</string>
+    <string name="choose_local_folder">Izvēlēties vietēju mapi…</string>
+    <string name="choose_remote_folder">Izvēlēties attālu mapi…</string>
     <string name="clear_notifications_failed">Neizdevās notīrīt paziņojumus.</string>
     <string name="clipboard_label">Teksts kopēts no %1$s</string>
     <string name="clipboard_no_text_to_copy">Nav teksta, ko saglabāt starpliktuvē</string>
@@ -239,7 +239,7 @@
     <string name="file_list_seconds_ago">sekundes atpakaļ</string>
     <string name="file_migration_checking_destination">Pārbauda galamērķi…</string>
     <string name="file_migration_cleaning">Tīra…</string>
-    <string name="file_migration_directory_already_exists">Datu mape jau pastāv. Izvēlies vienu no sekojošām opcijām:</string>
+    <string name="file_migration_directory_already_exists">Datu mape jau pastāv. Jāizvēlas viena no zemāk esošajām:</string>
     <string name="file_migration_failed_dir_already_exists">Nextcloud mape jau pastāv</string>
     <string name="file_migration_failed_not_enough_space">Nepieciešams vairāk vietas</string>
     <string name="file_migration_failed_not_readable">Nevarēja nolasīt avota datni</string>
@@ -271,7 +271,7 @@
     <string name="first_run_1_text">Turi savus datus drošībā un zem savas kontroles</string>
     <string name="folder_confirm_create">Izveidot</string>
     <string name="folder_list_empty_headline">Šeit nav mapju</string>
-    <string name="folder_picker_choose_button_text">Izvēlies</string>
+    <string name="folder_picker_choose_button_text">Izvēlēties</string>
     <string name="folder_picker_copy_button_text">Kopēt</string>
     <string name="folder_picker_move_button_text">Pārvietot</string>
     <string name="forbidden_permissions">Jums nav atļaujas %s</string>
@@ -284,7 +284,7 @@
     <string name="foreign_files_fail">Dažas datnes nevarēja pārvietot</string>
     <string name="foreign_files_local_text">Lokāli: %1$s</string>
     <string name="foreign_files_move">Pārvietot visu</string>
-    <string name="foreign_files_remote_text">Attālināti: %1$s</string>
+    <string name="foreign_files_remote_text">Attāli: %1$s</string>
     <string name="foreign_files_success">Visas datnes tika pārvietotas</string>
     <string name="forward">Turpināt</string>
     <string name="fourHours">4 stundas</string>
@@ -341,7 +341,7 @@
     <string name="network_host_not_available">Nevarēja pabeigt darbību. Serveris nav pieejams.</string>
     <string name="new_comment">Jauna piebilde…</string>
     <string name="new_media_folder_detected">Atrasta jauna %1$s mape.</string>
-    <string name="new_media_folder_photos">fotogrāfiju</string>
+    <string name="new_media_folder_photos">fotoattēlu</string>
     <string name="new_media_folder_videos">video</string>
     <string name="new_version_was_created">Jauna versija izveidota</string>
     <string name="notification_channel_download_name_short">Lejupielādes</string>
@@ -383,8 +383,8 @@
     <string name="prefs_enable_media_scan_notifications_summary">Paziņt par jaunas mediju mapes atrašanu</string>
     <string name="prefs_help">Palīdzība</string>
     <string name="prefs_imprint">Importēt</string>
-    <string name="prefs_instant_behaviour_dialogTitle">Orģinālā datne būs…</string>
-    <string name="prefs_instant_behaviour_title">Orģinālā datne būs…</string>
+    <string name="prefs_instant_behaviour_dialogTitle">Sākotnējā datne būs…</string>
+    <string name="prefs_instant_behaviour_title">Sākotnējā datne būs…</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Lietot apakšmapi</string>
     <string name="prefs_license">Licence</string>
     <string name="prefs_lock_device_credentials_enabled">Ierīces akreditācijas ieslēgta</string>
@@ -395,8 +395,8 @@
     <string name="prefs_manage_accounts">Pārvaldīt kontus</string>
     <string name="prefs_show_hidden_files">Rādīt slēptās datnes</string>
     <string name="prefs_synced_folders_local_path_title">Vietējā mape</string>
-    <string name="prefs_synced_folders_remote_path_title">Attālinātā mape</string>
-    <string name="prefs_theme_title">Motīvs</string>
+    <string name="prefs_synced_folders_remote_path_title">Attālā mape</string>
+    <string name="prefs_theme_title">Izskats</string>
     <string name="prefs_value_theme_dark">Tumšs</string>
     <string name="prefs_value_theme_light">Gaišs</string>
     <string name="preview_image_description">Attēla priekšskatījums</string>
@@ -441,7 +441,7 @@
     <string name="share_password_title">Aizsargāts ar paroli</string>
     <string name="share_permission_can_edit">Var labot</string>
     <string name="share_permission_view_only">Tikai skatīt</string>
-    <string name="share_remote_clarification">%1$s (attālināti)</string>
+    <string name="share_remote_clarification">%1$s (attāli)</string>
     <string name="share_send_note">Piezīme saņēmējam</string>
     <string name="share_settings">Iestatījumi</string>
     <string name="share_via_link_hide_download">Slēpt lejupielādi</string>
@@ -532,7 +532,7 @@
     <string name="upload_list_empty_text_auto_upload">Augšupielādē kaut ko vai ieslēdz automātisko augšupielādi!</string>
     <string name="upload_query_move_foreign_files">Nepietiekama atmiņa neatļauj izvēlētās datnes kopēt uz %1$s mapi. Vai jūs gribat tās tur pārvietot?</string>
     <string name="upload_unknown_error">Nezināma kļūda</string>
-    <string name="uploader_btn_alternative_text">Izvēlies</string>
+    <string name="uploader_btn_alternative_text">Izvēlēties</string>
     <string name="uploader_btn_upload_text">Augšupielādēt</string>
     <string name="uploader_error_message_no_file_to_upload">Saņemtie dati nesatur derīgu datni.</string>
     <string name="uploader_error_message_read_permission_not_granted">%1$s nav atļauts lasīt saņemto datni</string>
@@ -540,7 +540,7 @@
     <string name="uploader_error_message_source_file_not_found">Augšupielādei atlasītā datne netika atrasta. Lūgums pārbaudīt, vai tā pastāv.</string>
     <string name="uploader_error_title_no_file_to_upload">Nav datņu augšupielādei</string>
     <string name="uploader_info_dirname">Mapes nosaukums</string>
-    <string name="uploader_top_message">Izvēlies augšupielādes mapi</string>
+    <string name="uploader_top_message">Izvēlēties augšupielāžu mapi</string>
     <string name="uploader_upload_failed_content_single">Nevarēja augšupielādēt %1$s</string>
     <string name="uploader_upload_failed_credentials_error">Augšupielāde neizdevās, piesakieties vēlreiz.</string>
     <string name="uploader_upload_failed_ticker">Neizdevās augšupielādēt</string>
