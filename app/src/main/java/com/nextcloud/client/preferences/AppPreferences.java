@@ -372,6 +372,8 @@ public interface AppPreferences {
 
     void setInAppReviewData(@NonNull AppReviewShownModel appReviewShownModel);
 
+    boolean isStoragePermissionRequested();
+
     @Nullable
     AppReviewShownModel getInAppReviewData();
 
