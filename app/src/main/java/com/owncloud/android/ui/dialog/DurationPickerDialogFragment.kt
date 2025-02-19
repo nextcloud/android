@@ -19,10 +19,11 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.nextcloud.client.di.Injectable
 import com.owncloud.android.R
 import com.owncloud.android.databinding.DurationPickerBinding
-import com.owncloud.android.utils.TimeUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
+import kotlin.time.DurationUnit
+import kotlin.time.toDuration
 
 class DurationPickerDialogFragment : DialogFragment(), Injectable {
 
@@ -34,11 +35,13 @@ class DurationPickerDialogFragment : DialogFragment(), Injectable {
         get() = TimeUnit.DAYS.toMillis(binding.daysPicker.value.toLong()) +
             TimeUnit.HOURS.toMillis(binding.hoursPicker.value.toLong()) +
             TimeUnit.MINUTES.toMillis(binding.minutesPicker.value.toLong())
-        private set(duration) {
-            val durationParts = TimeUtils.getDurationParts(duration)
-            binding.daysPicker.value = durationParts.days
-            binding.hoursPicker.value = durationParts.hours
-            binding.minutesPicker.value = durationParts.minutes
+        private set(durationMs) {
+            val duration = durationMs.toDuration(DurationUnit.MILLISECONDS)
+            duration.toComponents { days, hours, minutes, _, _ ->
+                binding.daysPicker.value = days.toInt()
+                binding.hoursPicker.value = hours
+                binding.minutesPicker.value = minutes
+            }
         }
 
     @Inject

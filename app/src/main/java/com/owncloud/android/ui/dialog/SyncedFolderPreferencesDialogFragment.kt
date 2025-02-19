@@ -36,10 +36,11 @@ import com.owncloud.android.ui.activity.UploadFilesActivity
 import com.owncloud.android.ui.dialog.parcel.SyncedFolderParcelable
 import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.FileStorageUtils
-import com.owncloud.android.utils.TimeUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import java.io.File
 import javax.inject.Inject
+import kotlin.time.DurationUnit
+import kotlin.time.toDuration
 
 /**
  * Dialog to show the preferences/configuration of a synced folder allowing the user to change the different
@@ -600,25 +601,31 @@ class SyncedFolderPreferencesDialogFragment : DialogFragment(), Injectable {
         }
 
         @Suppress("MagicNumber")
-        private fun getDelaySummary(context: Context, duration: Long): String {
-            if (duration == 0L) {
+        private fun getDelaySummary(context: Context, durationMs: Long): String {
+            if (durationMs == 0L) {
                 return context.getString(R.string.pref_instant_upload_delay_disabled)
             }
-            val durationParts = TimeUtils.getDurationParts(duration)
+
             val durationSummary = StringBuilder()
-            if (durationParts.days > 0) {
-                durationSummary.append(durationParts.days)
-                durationSummary.append(context.getString(R.string.common_days_short))
-                durationSummary.append(' ')
-            }
-            if (durationParts.hours > 0) {
-                durationSummary.append(durationParts.hours)
-                durationSummary.append(context.getString(R.string.common_hours_short))
-                durationSummary.append(' ')
-            }
-            if (durationParts.minutes > 0) {
-                durationSummary.append(durationParts.minutes)
-                durationSummary.append(context.getString(R.string.common_minutes_short))
+            val duration = durationMs.toDuration(DurationUnit.MILLISECONDS)
+            duration.toComponents { days, hours, minutes, _, _ ->
+                if (days > 0) {
+                    durationSummary.append(days)
+                    durationSummary.append(' ')
+                    durationSummary.append(context.getString(R.string.common_days_short))
+                    durationSummary.append(' ')
+                }
+                if (hours > 0) {
+                    durationSummary.append(hours)
+                    durationSummary.append(' ')
+                    durationSummary.append(context.getString(R.string.common_hours_short))
+                    durationSummary.append(' ')
+                }
+                if (minutes > 0) {
+                    durationSummary.append(minutes)
+                    durationSummary.append(' ')
+                    durationSummary.append(context.getString(R.string.common_minutes_short))
+                }
             }
             return context.getString(R.string.pref_instant_upload_delay_enabled, durationSummary.toString().trim())
         }
