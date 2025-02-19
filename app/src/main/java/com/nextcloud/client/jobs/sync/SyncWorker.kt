@@ -54,6 +54,9 @@ class SyncWorker(
     override suspend fun doWork(): Result {
         Log_OC.d(TAG, "SyncWorker started")
 
+        val foregroundInfo = notificationManager.getForegroundInfo()
+        setForeground(foregroundInfo)
+
         withContext(Dispatchers.Main) {
             notificationManager.showStartNotification()
         }
