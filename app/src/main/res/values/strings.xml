@@ -840,7 +840,7 @@
     <string name="account_icon">Account icon</string>
     <string name="file_detail_sharing_fragment_no_contact_app_message">No app available to select contacts</string>
 
-    <string name="end_to_end_encryption_certificate_verification_failed">Certificate verification against the server public key failed</string>
+    <string name="end_to_end_encryption_certificate_verification_failed">Failed to verify public key</string>
     <string name="end_to_end_encryption_server_public_key_unavailable">Unable to retrieve the server public key</string>
     <string name="end_to_end_encryption_server_private_key_unavailable">Unable to retrieve the server private key</string>
     <string name="end_to_end_encryption_certificate_unavailable">Unable to retrieve the certificate</string>
