@@ -88,18 +88,15 @@ class SyncWorkerNotificationManager(private val context: Context) {
     }
 
     @Suppress("MagicNumber")
-    suspend fun showCompletionMessage(success: Boolean) {
-        if (success) {
-            showNotification(
-                R.string.sync_worker_success_notification_title,
-                R.string.sync_worker_success_notification_description
-            )
+    suspend fun showCompletionMessage(folderName: String, success: Boolean) {
+        val title = if (success) {
+            context.getString(R.string.sync_worker_success_notification_title, folderName)
         } else {
-            showNotification(
-                R.string.sync_worker_error_notification_title,
-                R.string.sync_worker_error_notification_description
-            )
+            context.getString(R.string.sync_worker_error_notification_title, folderName)
         }
+
+        val notification = getNotification(title = title)
+        notificationManager.notify(notificationId, notification)
 
         delay(1000)
         dismiss()
@@ -121,15 +118,6 @@ class SyncWorkerNotificationManager(private val context: Context) {
 
         delay(1000)
         dismiss()
-    }
-
-    private fun showNotification(titleId: Int, descriptionId: Int) {
-        val notification = getNotification(
-            context.getString(titleId),
-            context.getString(descriptionId)
-        )
-
-        notificationManager.notify(notificationId, notification)
     }
 
     fun dismiss() {
