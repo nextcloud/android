@@ -87,9 +87,7 @@ class DurationPickerDialogFragment : DialogFragment(), Injectable {
             }
         }
         builder.setNegativeButton(R.string.common_cancel) { _, _ ->
-            if (resultListener != null) {
-                resultListener!!.onDurationPickerResult(Activity.RESULT_CANCELED, 0)
-            }
+            resultListener?.onDurationPickerResult(Activity.RESULT_CANCELED, 0)
         }
         viewThemeUtils.dialog.colorMaterialAlertDialogBackground(binding.root.context, builder)
         return builder.create()
