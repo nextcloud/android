@@ -96,7 +96,7 @@ class SyncWorker(
                 }
 
                 withContext(Dispatchers.Main) {
-                    notificationManager.showCompletionMessage(result)
+                    notificationManager.showCompletionMessage(folder.fileName, result)
                 }
 
                 if (result) {
