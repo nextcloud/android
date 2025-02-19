@@ -82,9 +82,7 @@ class DurationPickerDialogFragment : DialogFragment(), Injectable {
         builder.setTitle(dialogTitle)
         builder.setView(binding.root)
         builder.setPositiveButton(R.string.common_save) { _, _ ->
-            if (resultListener != null) {
-                resultListener!!.onDurationPickerResult(Activity.RESULT_OK, this.duration)
-            }
+            resultListener?.onDurationPickerResult(Activity.RESULT_OK, this.duration)
         }
         builder.setNegativeButton(R.string.common_cancel) { _, _ ->
             resultListener?.onDurationPickerResult(Activity.RESULT_CANCELED, 0)
