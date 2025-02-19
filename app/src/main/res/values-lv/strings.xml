@@ -296,6 +296,7 @@
     <string name="image_preview_unit_fnumber">ƒ/%s</string>
     <string name="image_preview_unit_iso">ISO %s</string>
     <string name="image_preview_unit_millimetres">%s mm</string>
+    <string name="instant_upload_existing">Augšupielādēt arī esošās datnes</string>
     <string name="instant_upload_on_charging">Augšupielādēt tikai uzlādes laikā</string>
     <string name="instant_upload_path">/TūlītējaAugšupielāde</string>
     <string name="invisible">Neredzama</string>
@@ -368,9 +369,15 @@
     <string name="placeholder_media_time">12:23:45</string>
     <string name="placeholder_sentence">Šis ir viettura teksts</string>
     <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
-    <string name="pref_behaviour_entries_delete_file">dzēsts</string>
-    <string name="pref_behaviour_entries_keep_file">paturēt sākotnējā mapē</string>
+    <string name="pref_behaviour_entries_delete_file">izdzēsta</string>
+    <string name="pref_behaviour_entries_keep_file">paturēta sākotnējā mapē</string>
     <string name="pref_behaviour_entries_move">pārvietots uz lietotnes mapi</string>
+    <string name="pref_instant_name_collision_policy_dialogTitle">Ko darīt, ja datne jau pastāv?</string>
+    <string name="pref_instant_name_collision_policy_entries_always_ask">Vaicāt man katru reizi</string>
+    <string name="pref_instant_name_collision_policy_entries_cancel">Izlaist augšupielādēšanu</string>
+    <string name="pref_instant_name_collision_policy_entries_overwrite">Pārrakstīt attālo versiju</string>
+    <string name="pref_instant_name_collision_policy_entries_rename">Pārdēvēt jauno versiju</string>
+    <string name="pref_instant_name_collision_policy_title">Ko darīt, ja datne jau pastāv?</string>
     <string name="prefs_add_account">Pievienot kontu</string>
     <string name="prefs_calendar_contacts_no_store_error">F-Droid vai Google Play nav uzstādīts</string>
     <string name="prefs_category_about">Par</string>
@@ -385,6 +392,7 @@
     <string name="prefs_imprint">Importēt</string>
     <string name="prefs_instant_behaviour_dialogTitle">Sākotnējā datne būs…</string>
     <string name="prefs_instant_behaviour_title">Sākotnējā datne būs…</string>
+    <string name="prefs_instant_upload_path_use_date_subfolders_summary">Glabāt no datuma atkarīgās apakšmapēs</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Lietot apakšmapi</string>
     <string name="prefs_license">Licence</string>
     <string name="prefs_lock_device_credentials_enabled">Ierīces akreditācijas ieslēgta</string>
@@ -394,9 +402,11 @@
     <string name="prefs_lock_using_passcode">Kods</string>
     <string name="prefs_manage_accounts">Pārvaldīt kontus</string>
     <string name="prefs_show_hidden_files">Rādīt slēptās datnes</string>
+    <string name="prefs_sycned_folders_summary">Automātiski augšupielādējamo mapju pārvaldīšana</string>
     <string name="prefs_synced_folders_local_path_title">Vietējā mape</string>
     <string name="prefs_synced_folders_remote_path_title">Attālā mape</string>
     <string name="prefs_theme_title">Izskats</string>
+    <string name="prefs_two_way_sync_summary">Iekšējo mapju divvirzienu sinhronizēšanas pārvaldīšana</string>
     <string name="prefs_value_theme_dark">Tumšs</string>
     <string name="prefs_value_theme_light">Gaišs</string>
     <string name="preview_image_description">Attēla priekšskatījums</string>
