@@ -23,8 +23,6 @@ import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.model.WorkerState
 import com.nextcloud.model.WorkerStateLiveData
 import com.nextcloud.utils.extensions.getPercent
-import com.nextcloud.utils.extensions.showToast
-import com.owncloud.android.R
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.ThumbnailsCacheManager
 import com.owncloud.android.datamodel.UploadsStorageManager
@@ -315,7 +313,7 @@ class FileUploadWorker(
                 context
             )
         ) {
-            context.showToast(R.string.file_upload_worker_same_file_already_exists)
+            uploadFileOperation.handleLocalBehaviour()
             return
         }
 

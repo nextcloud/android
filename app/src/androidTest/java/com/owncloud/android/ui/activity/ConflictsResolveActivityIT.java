@@ -45,11 +45,13 @@ public class ConflictsResolveActivityIT extends AbstractIT {
     @ScreenshotTest
     public void screenshotTextFiles() {
         OCFile newFile = new OCFile("/newFile.txt");
+        newFile.setRemoteId("0001");
         newFile.setFileLength(56000);
         newFile.setModificationTimestamp(1522019340);
         newFile.setStoragePath(FileStorageUtils.getSavePath(user.getAccountName()) + "/nonEmpty.txt");
 
         OCFile existingFile = new OCFile("/newFile.txt");
+        existingFile.setRemoteId("0002");
         existingFile.setFileLength(1024000);
         existingFile.setModificationTimestamp(1582019340);
 
@@ -185,11 +187,13 @@ public class ConflictsResolveActivityIT extends AbstractIT {
                                           user.getAccountName());
 
         OCFile existingFile = new OCFile("/newFile.txt");
+        existingFile.setRemoteId("0001");
         existingFile.setFileLength(1024000);
         existingFile.setModificationTimestamp(1582019340);
 
         OCFile newFile = new OCFile("/newFile.txt");
         newFile.setFileLength(56000);
+        newFile.setRemoteId("0002");
         newFile.setModificationTimestamp(1522019340);
         newFile.setStoragePath(FileStorageUtils.getSavePath(user.getAccountName()) + "/nonEmpty.txt");
 
@@ -276,11 +280,13 @@ public class ConflictsResolveActivityIT extends AbstractIT {
                                           user.getAccountName());
 
         OCFile existingFile = new OCFile("/newFile.txt");
+        existingFile.setRemoteId("0001");
         existingFile.setFileLength(1024000);
         existingFile.setModificationTimestamp(1582019340);
 
         OCFile newFile = new OCFile("/newFile.txt");
         newFile.setFileLength(56000);
+        newFile.setRemoteId("0002");
         newFile.setModificationTimestamp(1522019340);
         newFile.setStoragePath(FileStorageUtils.getSavePath(user.getAccountName()) + "/nonEmpty.txt");
 

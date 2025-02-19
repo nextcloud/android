@@ -289,6 +289,7 @@
     <string name="drawer_quota">Використано %1$s із %2$s</string>
     <string name="drawer_quota_unlimited">%1$sвикористано</string>
     <string name="drawer_synced_folders">Автоматичне завантаження</string>
+    <string name="due_to_too_many_wrong_attempts">%s внаслідок багатьох неправильних спроб.</string>
     <string name="e2e_counter_too_old">Лічильний застарілий</string>
     <string name="e2e_hash_not_found">Не знайдено</string>
     <string name="e2e_not_yet_setup">Наскрізне шифруванння ще не налаштовано</string>
@@ -431,6 +432,7 @@
     <string name="file_not_found">Файл не знайдено</string>
     <string name="file_not_synced">Неможливо синхронізувати файл. Буде показано останню доступну версію.</string>
     <string name="file_rename">Перейменувати</string>
+    <string name="file_upload_worker_error_notification_title">Не вдалося завантажити. Відсутнє з\'єднання з мережею.</string>
     <string name="file_upload_worker_same_file_already_exists">Тотожній файл присутній. Не знайдено конфліктів</string>
     <string name="file_version_restored_error">Помилка під час відновлення версії файлу!</string>
     <string name="file_version_restored_successfully">Успішно відновлено версію файлу.</string>
@@ -833,6 +835,7 @@
     <string name="sharee_already_added_to_file">Не вдалося поділитися цим ресурсом, оскільки він вже у спільному доступі з цим користувачем чи групою. </string>
     <string name="show_images">Показувати зображення</string>
     <string name="show_video">Показувати відео</string>
+    <string name="sign_tos_failed">Перегляньте умови користування вручну!</string>
     <string name="signup_with_provider">Зареєструватися у провайдейра</string>
     <string name="single_sign_on_request_token" formatted="true">Дозволити %1$s мати доступ до вашого облікового запису у Nextcloud %2$s?</string>
     <string name="sort_by">Впорядкувати за</string>
@@ -918,6 +921,7 @@
     <string name="synced_icon">Синхронізований</string>
     <string name="tags">Мітки</string>
     <string name="terms_of_service_title">Умови використання</string>
+    <string name="terms_of_services_agree">Я погоджуюся з умовами користувння</string>
     <string name="test_server_button">Перевірка з\'єднання з сервером</string>
     <string name="thirtyMinutes">30 хвилин</string>
     <string name="thisWeek">Цього тижня</string>
@@ -1197,4 +1201,34 @@
         <item quantity="many">%d вибрано</item>
         <item quantity="other">%d вибрано</item>
     </plurals>
-    </resources>
+    <plurals name="delay_message">
+        <item quantity="one">Павза у %d секунду внаслідок багатьох неправильних спроб</item>
+        <item quantity="few">Павза у %d секунди внаслідок багатьох неправильних спроб</item>
+        <item quantity="many">Павза у %d секунд внаслідок багатьох неправильних спроб</item>
+        <item quantity="other">Павза у %d секунд внаслідок багатьох неправильних спроб</item>
+    </plurals>
+    <plurals name="delay_message_minutes">
+        <item quantity="one">Павза у %d хвилину внаслідок багатьох неправильних спроб</item>
+        <item quantity="few">Павза у %d хвилини внаслідок багатьох неправильних спроб</item>
+        <item quantity="many">Павза у %d хвилин внаслідок багатьох неправильних спроб</item>
+        <item quantity="other">Павза у %d хвилин внаслідок багатьох неправильних спроб</item>
+    </plurals>
+    <plurals name="delay_message_minutes_part">
+        <item quantity="one">Павза у %d хвилину</item>
+        <item quantity="few">Павза у %d хвилини</item>
+        <item quantity="many">Павза у %d хвилин</item>
+        <item quantity="other">Павза у %d хвилин</item>
+    </plurals>
+    <plurals name="delay_message_seconds_part">
+        <item quantity="one">%d секунда</item>
+        <item quantity="few">%d секунди</item>
+        <item quantity="many">%d секунд</item>
+        <item quantity="other">%d секунд</item>
+    </plurals>
+    <plurals name="share_download_limit_description">
+        <item quantity="one">%1$d залишилося завантажити</item>
+        <item quantity="few">%1$d залишилося завантажити</item>
+        <item quantity="many">%1$d залишилося завантажити</item>
+        <item quantity="other">%1$d залишилося завантажити</item>
+    </plurals>
+</resources>

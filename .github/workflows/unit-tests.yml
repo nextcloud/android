@@ -23,7 +23,7 @@ jobs:
         steps:
             -   uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
             -   name: Set up JDK 17
-                uses: actions/setup-java@7a6d8a8234af8eb26422e24e3006232cccaa061b # v4.6.0
+                uses: actions/setup-java@3a4f6e1af504cf6a31855fa899c6aa5355ba6c12 # v4.7.0
                 with:
                     distribution: "temurin"
                     java-version: 17
@@ -42,7 +42,7 @@ jobs:
                     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
                 run: scripts/uploadReport.sh "${{ secrets.LOG_USERNAME }}" "${{ secrets.LOG_PASSWORD }}" ${{github.event.number}} "test" "Unit" ${{github.event.number}}
             -   name: Upload coverage to codecov
-                uses: codecov/codecov-action@1e68e06f1dbfde0e4cefc87efeba9e4643565303 # v5.1.2
+                uses: codecov/codecov-action@13ce06bfc6bbe3ecf90edbbf1bc32fe5978ca1d3 # v5.3.1
                 with:
                     token: ${{ secrets.CODECOV_TOKEN }}
                     flags: unit

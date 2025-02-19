@@ -617,6 +617,7 @@ class FileDetailSharingFragmentIT : AbstractIT() {
         sut.refreshCapabilitiesFromDB()
 
         val userShare = OCShare().apply {
+            remoteId = 1001L
             isFolder = false
             shareType = ShareType.USER
             permissions = 17

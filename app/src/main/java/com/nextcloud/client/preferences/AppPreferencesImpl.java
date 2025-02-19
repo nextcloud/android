@@ -313,11 +313,6 @@ public final class AppPreferencesImpl implements AppPreferences {
     }
 
     @Override
-    public boolean isFingerprintUnlockEnabled() {
-        return preferences.getBoolean(SettingsActivity.PREFERENCE_USE_FINGERPRINT, false);
-    }
-
-    @Override
     public String getFolderLayout(OCFile folder) {
         return getFolderPreference(context,
                                    userAccountManager.getUser(),

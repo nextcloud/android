@@ -109,7 +109,6 @@ public class SettingsActivity extends PreferenceActivity
     public static final String LOCK_DEVICE_CREDENTIALS = "device_credentials";
 
 
-    public final static String PREFERENCE_USE_FINGERPRINT = "use_fingerprint";
     public static final String PREFERENCE_SHOW_MEDIA_SCAN_NOTIFICATIONS = "show_media_scan_notifications";
 
     private static final int ACTION_REQUEST_PASSCODE = 5;

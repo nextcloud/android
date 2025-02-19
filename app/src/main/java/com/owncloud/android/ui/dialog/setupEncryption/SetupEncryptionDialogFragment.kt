@@ -37,6 +37,7 @@ import com.owncloud.android.lib.resources.users.GetPublicKeyRemoteOperation
 import com.owncloud.android.lib.resources.users.GetServerPublicKeyRemoteOperation
 import com.owncloud.android.lib.resources.users.SendCSRRemoteOperation
 import com.owncloud.android.lib.resources.users.StorePrivateKeyRemoteOperation
+import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.EncryptionUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import java.io.IOException
@@ -161,7 +162,13 @@ class SetupEncryptionDialogFragment : DialogFragment(), Injectable {
         binding.encryptionStatus.setText(R.string.end_to_end_encryption_decrypting)
 
         try {
-            val privateKey = task?.get()
+            val taskResult = task?.get()
+            if (taskResult !is DownloadKeyResult.Success) {
+                Log_OC.d(TAG, "DownloadKeyResult is not success")
+                return
+            }
+
+            val privateKey = taskResult.privateKey
             val mnemonicUnchanged = binding.encryptionPasswordInput.text.toString().trim()
             val mnemonic =
                 binding.encryptionPasswordInput.text.toString().replace("\\s".toRegex(), "")
@@ -269,36 +276,64 @@ class SetupEncryptionDialogFragment : DialogFragment(), Injectable {
         super.onSaveInstanceState(outState)
     }
 
+    sealed class DownloadKeyResult(open val descriptionId: Int? = null) {
+        data class CertificateVerificationFailed(
+            override val descriptionId: Int = R.string.end_to_end_encryption_certificate_verification_failed
+        ) : DownloadKeyResult(descriptionId)
+
+        data class ServerPublicKeyUnavailable(
+            override val descriptionId: Int = R.string.end_to_end_encryption_server_public_key_unavailable
+        ) : DownloadKeyResult(descriptionId)
+
+        data class ServerPrivateKeyUnavailable(
+            override val descriptionId: Int = R.string.end_to_end_encryption_server_private_key_unavailable
+        ) : DownloadKeyResult(descriptionId)
+
+        data class CertificateUnavailable(
+            override val descriptionId: Int = R.string.end_to_end_encryption_certificate_unavailable
+        ) : DownloadKeyResult(descriptionId)
+
+        data class UnexpectedError(
+            override val descriptionId: Int = R.string.end_to_end_encryption_unexpected_error_occurred
+        ) : DownloadKeyResult(descriptionId)
+
+        data class Success(val privateKey: String?) : DownloadKeyResult()
+    }
+
+    // TODO - Replace with Coroutines
     @SuppressLint("StaticFieldLeak")
-    inner class DownloadKeysAsyncTask(context: Context) : AsyncTask<Void?, Void?, String?>() {
+    inner class DownloadKeysAsyncTask(context: Context) : AsyncTask<Void?, Void?, DownloadKeyResult>() {
         private val mWeakContext: WeakReference<Context> = WeakReference(context)
 
         @Suppress("ReturnCount", "LongMethod")
         @Deprecated("Deprecated in Java")
-        override fun doInBackground(vararg params: Void?): String? {
+        override fun doInBackground(vararg params: Void?): DownloadKeyResult {
             // fetch private/public key
             // if available
             //  - store public key
             //  - decrypt private key, store unencrypted private key in database
+            val context = mWeakContext.get() ?: return DownloadKeyResult.UnexpectedError()
+            val user = user ?: return DownloadKeyResult.UnexpectedError()
+            val dataProvider = arbitraryDataProvider ?: return DownloadKeyResult.UnexpectedError()
 
-            val context = mWeakContext.get() ?: return null
             val certificateOperation = GetPublicKeyRemoteOperation()
-            val serverPublicKeyOperation = GetServerPublicKeyRemoteOperation()
-            val user = user ?: return null
-
-            val privateKeyOperation = GetPrivateKeyRemoteOperation()
-            val privateKeyResult = privateKeyOperation.executeNextcloudClient(user, context)
             val certificateResult = certificateOperation.executeNextcloudClient(user, context)
-            val serverPublicKeyResult = serverPublicKeyOperation.executeNextcloudClient(user, context)
 
-            var encryptedPrivateKey: com.owncloud.android.lib.ocs.responses.PrivateKey? = null
-            if (privateKeyResult.isSuccess) {
-                encryptedPrivateKey = privateKeyResult.resultData
+            val savedPrivateKey = dataProvider.getValue(user.accountName, EncryptionUtils.PRIVATE_KEY)
+            if (!certificateResult.isSuccess) {
+                // The certificate might not be available on the server yet.
+                // Therefore, the user needs to generate a new passphrase first.
+                return if (savedPrivateKey.isEmpty()) {
+                    DownloadKeyResult.Success(null)
+                } else {
+                    DownloadKeyResult.CertificateUnavailable()
+                }
             }
 
-            if (!certificateResult.isSuccess || !serverPublicKeyResult.isSuccess) {
-                Log_OC.d(TAG, "certificate or server public key not fetched")
-                return null
+            val serverPublicKeyOperation = GetServerPublicKeyRemoteOperation()
+            val serverPublicKeyResult = serverPublicKeyOperation.executeNextcloudClient(user, context)
+            if (!serverPublicKeyResult.isSuccess) {
+                return DownloadKeyResult.ServerPublicKeyUnavailable()
             }
 
             val serverKey = serverPublicKeyResult.resultData
@@ -306,27 +341,25 @@ class SetupEncryptionDialogFragment : DialogFragment(), Injectable {
             val isCertificateValid = certificateValidator?.validate(serverKey, certificateAsString)
 
             if (isCertificateValid == false) {
-                Log_OC.d(TAG, "Could not save certificate, certificate is not valid")
-                return null
+                return DownloadKeyResult.CertificateVerificationFailed()
             }
 
-            if (arbitraryDataProvider == null) {
-                return null
-            }
-
-            arbitraryDataProvider?.storeOrUpdateKeyValue(
+            dataProvider.storeOrUpdateKeyValue(
                 user.accountName,
                 EncryptionUtils.PUBLIC_KEY,
                 certificateAsString
             )
 
-            if (privateKeyResult.isSuccess) {
+            val privateKeyOperation = GetPrivateKeyRemoteOperation()
+            val privateKeyResult = privateKeyOperation.executeNextcloudClient(user, context)
+            return if (privateKeyResult.isSuccess) {
                 Log_OC.d(TAG, "private key successful downloaded for " + user.accountName)
                 keyResult = KEY_EXISTING_USED
-                return encryptedPrivateKey?.getKey()
+                val privateKey = privateKeyResult.resultData?.getKey()
+                DownloadKeyResult.Success(privateKey)
+            } else {
+                DownloadKeyResult.ServerPrivateKeyUnavailable()
             }
-
-            return null
         }
 
         @Deprecated("Deprecated in Java")
@@ -338,8 +371,8 @@ class SetupEncryptionDialogFragment : DialogFragment(), Injectable {
         }
 
         @Deprecated("Deprecated in Java")
-        override fun onPostExecute(privateKey: String?) {
-            super.onPostExecute(privateKey)
+        override fun onPostExecute(result: DownloadKeyResult) {
+            super.onPostExecute(result)
 
             val context = mWeakContext.get()
             if (context == null) {
@@ -347,6 +380,17 @@ class SetupEncryptionDialogFragment : DialogFragment(), Injectable {
                 return
             }
 
+            if (result is DownloadKeyResult.Success) {
+                handlePrivateKey(result.privateKey)
+            } else {
+                val descriptionId = result.descriptionId ?: return
+                val description = getString(descriptionId)
+                dismiss()
+                DisplayUtils.showSnackMessage(requireActivity(), description)
+            }
+        }
+
+        private fun handlePrivateKey(privateKey: String?) {
             if (privateKey == null) {
                 // first show info
                 try {

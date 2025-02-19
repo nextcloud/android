@@ -173,7 +173,6 @@
     <string name="uploader_upload_files_behaviour_only_upload">Keep file in source folder</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Delete file from source folder</string>
     <string name="file_list_seconds_ago">seconds ago</string>
-    <string name="file_upload_worker_same_file_already_exists">Same file already exists, no conflict detected</string>
     <string name="file_list_live">LIVE</string>
     <string name="file_list_empty_headline">No files here</string>
     <string name="folder_list_empty_headline">No folders here</string>
@@ -849,6 +848,13 @@
     <string name="drawer_header_background">Background image of drawer header</string>
     <string name="account_icon">Account icon</string>
     <string name="file_detail_sharing_fragment_no_contact_app_message">No app available to select contacts</string>
+
+    <string name="end_to_end_encryption_certificate_verification_failed">Failed to verify public key</string>
+    <string name="end_to_end_encryption_server_public_key_unavailable">Unable to retrieve public key</string>
+    <string name="end_to_end_encryption_server_private_key_unavailable">Unable to retrieve private key</string>
+    <string name="end_to_end_encryption_certificate_unavailable">Unable to retrieve server certificate</string>
+    <string name="end_to_end_encryption_unexpected_error_occurred">An unexpected error occurred while downloading the keys</string>
+
     <string name="end_to_end_encryption_folder_not_empty">This folder is not empty.</string>
     <string name="end_to_end_encryption_wrong_password">Error while decrypting. Wrong password?</string>
     <string name="end_to_end_encryption_decrypting">Decrypting…</string>

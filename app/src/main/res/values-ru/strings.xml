@@ -36,10 +36,12 @@
     <string name="allow_resharing">Разрешить повторную публикацию</string>
     <string name="app_config_base_url_title">Основной URL</string>
     <string name="app_config_disable_clipboard_title">Отключить буфер обмена</string>
+    <string name="app_config_disable_intro_title">Отключить введение</string>
     <string name="app_config_disable_log_title">Отключить журнал</string>
     <string name="app_config_disable_more_external_site_title">Отключить внешние сайты</string>
     <string name="app_config_disable_multiaccount_title">Отключить мультиаккаунт</string>
     <string name="app_config_disable_sharing_title">Отключить общий доступ</string>
+    <string name="app_config_enforce_protection_title">Усилить защиту</string>
     <string name="app_config_proxy_host_title">Адрес прокси-сервера</string>
     <string name="app_config_proxy_port_title">Порт прокси</string>
     <string name="app_widget_description">Показывает один виджет с главного экрана.</string>
@@ -96,6 +98,7 @@
     <string name="authenticator_activity_please_complete_login_process">Пожалуйста, завершите процесс входа в вашем браузере</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">оставлен в исходном каталоге, т.к. файл только для чтения</string>
     <string name="auto_upload_gplay">Поведение автозагрузки изменено</string>
+    <string name="auto_upload_gplay_desc">Из-за новых ограничений, введенных Google, функция автоматической загрузки больше не сможет автоматически удалять загруженные файлы.</string>
     <string name="auto_upload_on_wifi">Только через безлимит или Wi-Fi</string>
     <string name="auto_upload_path">/Автозагрузка</string>
     <string name="autoupload_configure">Настроить</string>
