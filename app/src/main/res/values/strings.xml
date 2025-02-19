@@ -843,7 +843,7 @@
     <string name="end_to_end_encryption_certificate_verification_failed">Failed to verify public key</string>
     <string name="end_to_end_encryption_server_public_key_unavailable">Unable to retrieve public key</string>
     <string name="end_to_end_encryption_server_private_key_unavailable">Unable to retrieve private key</string>
-    <string name="end_to_end_encryption_certificate_unavailable">Unable to retrieve the certificate</string>
+    <string name="end_to_end_encryption_certificate_unavailable">Unable to retrieve server certificate</string>
     <string name="end_to_end_encryption_unexpected_error_occurred">An unexpected error occurred while downloading the keys</string>
 
     <string name="end_to_end_encryption_folder_not_empty">This folder is not empty.</string>
