@@ -23,6 +23,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.net.toUri
 import com.google.android.material.snackbar.Snackbar
+import com.nextcloud.client.preferences.AppPreferencesImpl
 import com.owncloud.android.R
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.ui.dialog.StoragePermissionDialogFragment
@@ -131,9 +132,11 @@ object PermissionUtil {
     }
 
     fun showStoragePermissionsSnackbarOrRequest(activity: Activity, viewThemeUtils: ViewThemeUtils) {
+        @Suppress("DEPRECATION")
+        val preferences = AppPreferencesImpl.fromContext(activity)
         val permissions = getStoragePermissions()
 
-        if (permissions.any { shouldShowRequestPermissionRationale(activity, it) }) {
+        if (permissions.any { shouldShowRequestPermissionRationale(activity, it) } || !preferences.isStoragePermissionRequested) {
             showStoragePermissionsSnackbar(activity, permissions, viewThemeUtils)
         } else {
             requestPermissions(activity, permissions)
