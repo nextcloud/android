@@ -126,7 +126,7 @@ public class FilesystemDataProvider {
             ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_SENT_FOR_UPLOAD + " = ? and " +
             ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_IS_FOLDER + " = ?";
         String likeParam = localPath + "%";
-        String[] queryParams = new String[]{likeParam, syncedFolderId, "0", "0"};
+        String[] queryParams = {likeParam, syncedFolderId, "0", "0"};
 
         if (minFileAge > 0) {
             query += " and " + ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_MODIFIED + " <= ?";
