@@ -14,7 +14,10 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import androidx.core.app.NotificationCompat
+import androidx.work.ForegroundInfo
+import com.nextcloud.utils.ForegroundServiceHelper
 import com.owncloud.android.R
+import com.owncloud.android.datamodel.ForegroundServiceType
 import com.owncloud.android.ui.notifications.NotificationUtils
 import kotlinx.coroutines.delay
 
@@ -68,6 +71,7 @@ class SyncWorkerNotificationManager(private val context: Context) {
         )
     }
 
+    @Suppress("MagicNumber")
     fun showStartNotification() {
         val notification =
             getNotification(context.getString(R.string.sync_worker_start_notification_title), progress = 0)
@@ -99,6 +103,14 @@ class SyncWorkerNotificationManager(private val context: Context) {
 
         delay(1000)
         dismiss()
+    }
+
+    fun getForegroundInfo(): ForegroundInfo {
+        return ForegroundServiceHelper.createWorkerForegroundInfo(
+            notificationId,
+            getNotification(context.getString(R.string.sync_worker_start_notification_title), progress = 0),
+            ForegroundServiceType.DataSync
+        )
     }
 
     @Suppress("MagicNumber")
