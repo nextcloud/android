@@ -235,11 +235,8 @@
 
     <string name="sync_worker_start_notification_title">Sync Operation Started</string>
 
-    <string name="sync_worker_success_notification_title">Download Complete</string>
-    <string name="sync_worker_success_notification_description">Folder successfully synchronized</string>
-
-    <string name="sync_worker_error_notification_title">Download Failed</string>
-    <string name="sync_worker_error_notification_description">An error occurred during folder synchronization</string>
+    <string name="sync_worker_success_notification_title">%s folder successfully synchronized</string>
+    <string name="sync_worker_error_notification_title">An error occurred during synchronization of the %s folder</string>
 
     <string name="sync_worker_insufficient_disk_space_notification_title">Insufficient disk space, sync operation canceled</string>
 
