@@ -133,8 +133,8 @@ class PassCodeManager(private val preferences: AppPreferences, private val clock
     }
 
     private fun deviceCredentialsAreEnabled(activity: Activity): Boolean {
-        return SettingsActivity.LOCK_DEVICE_CREDENTIALS == preferences.lockPreference ||
-            (preferences.isFingerprintUnlockEnabled && DeviceCredentialUtils.areCredentialsAvailable(activity))
+        return (preferences.lockPreference == SettingsActivity.LOCK_DEVICE_CREDENTIALS) &&
+            DeviceCredentialUtils.areCredentialsAvailable(activity)
     }
 
     private fun getActivityRootView(activity: Activity): View? {
