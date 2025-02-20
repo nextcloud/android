@@ -175,4 +175,19 @@ class AutoRenameTests : AbstractOnServerIT() {
         val expectedFilename = "_file.txt"
         assert(result == expectedFilename) { "Expected $expectedFilename but got $result" }
     }
+
+    @Test
+    fun testRenameExtensionForFolder() {
+        val filename = "/Pictures/@User/SubDir/08.16.07 Ka Yel"
+        val result = AutoRename.rename(filename, capability, true)
+        assert(result == filename) { "Expected $filename but got $result" }
+    }
+
+    @Test
+    fun testRenameExtensionForFile() {
+        val filename = "/Pictures/@User/SubDir/08.16.07 Ka Yel.TXT"
+        val result = AutoRename.rename(filename, capability)
+        val expectedFilename = "/Pictures/@User/SubDir/08.16.07 Ka Yel.txt"
+        assert(result == filename) { "Expected $expectedFilename but got $result" }
+    }
 }
