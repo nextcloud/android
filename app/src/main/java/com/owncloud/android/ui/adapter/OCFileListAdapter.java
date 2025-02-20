@@ -17,7 +17,6 @@ import android.app.Activity;
 import android.content.ContentValues;
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
-import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
@@ -74,7 +73,6 @@ import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.fragment.SearchType;
 import com.owncloud.android.ui.interfaces.OCFileListFragmentInterface;
 import com.owncloud.android.ui.preview.PreviewTextFragment;
-import com.owncloud.android.utils.BitmapUtils;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.FileSortOrder;
 import com.owncloud.android.utils.FileStorageUtils;
@@ -92,14 +90,11 @@ import java.util.Locale;
 import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 import java.util.stream.Collectors;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.VisibleForTesting;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -555,8 +550,6 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 holder.getFileName().setVisibility(View.VISIBLE);
             }
         }
-
-        configureThumbnail(holder, file);
     }
 
     private void bindListItemViewHolder(ListItemViewHolder holder, OCFile file) {
@@ -664,8 +657,6 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         } else {
             holder.getOverflowMenu().setImageResource(R.drawable.ic_dots_vertical);
         }
-
-        configureThumbnail(holder, file);
     }
 
     private void applyChipVisuals(Chip chip, Tag tag) {
@@ -703,45 +694,6 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         }
 
         return activity.getString(R.string.oc_file_list_adapter_offline_operation_description_text);
-    }
-
-    private final ExecutorService executorService = Executors.newCachedThreadPool();
-    private final Handler mainHandler = new Handler(Looper.getMainLooper());
-
-    private void configureThumbnail(ListViewHolder holder, OCFile file) {
-        final var context = MainApp.getAppContext();
-
-        if (file.isOfflineOperation()) {
-            if (file.isFolder()) {
-                Drawable icon = ContextCompat.getDrawable(context, R.drawable.ic_folder_offline);
-                holder.getThumbnail().setImageDrawable(icon);
-            } else {
-                executorService.execute(() -> {
-                    OfflineOperationEntity entity = mStorageManager.offlineOperationDao.getByPath(file.getDecryptedRemotePath());
-
-                    if (entity != null && entity.getType() != null && entity.getType() instanceof OfflineOperationType.CreateFile createFileOperation) {
-                        Bitmap bitmap = BitmapUtils.decodeSampledBitmapFromFile(createFileOperation.getLocalPath(), holder.getThumbnail().getWidth(), holder.getThumbnail().getHeight());
-                        if (bitmap == null) return;
-
-                        Bitmap thumbnail = BitmapUtils.addColorFilter(bitmap, Color.GRAY,100);
-                        mainHandler.post(() -> holder.getThumbnail().setImageBitmap(thumbnail));
-                    }
-                });
-            }
-        } else {
-            boolean isAutoUpload = SyncedFolderProvider.isAutoUploadFolder(syncedFolderProvider, file, user);
-            boolean isDarkModeActive = preferences.isDarkModeEnabled();
-            Drawable icon = MimeTypeUtil.getOCFileIcon(file, context, viewThemeUtils, isAutoUpload, isDarkModeActive);
-            holder.getThumbnail().setImageDrawable(icon);
-
-            if (!file.isFolder()) {
-                ViewExtensionsKt.makeRounded(holder.getThumbnail(), context, 4);
-            }
-        }
-    }
-
-    public void onDestroy() {
-        executorService.shutdown();
     }
 
     @Override

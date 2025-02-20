@@ -168,14 +168,6 @@ public interface AppPreferences {
     String[] getPassCode();
 
     /**
-     * Gets the unlock via fingerprint preference configured by the user.
-     *
-     * @implNote  this is always false
-     * @return useFingerprint     is unlock with fingerprint enabled
-     */
-    boolean isFingerprintUnlockEnabled();
-
-    /**
      * Gets the auto upload paths flag last set.
      *
      * @return ascending order     the legacy cleaning flag, default is false
@@ -210,7 +202,7 @@ public interface AppPreferences {
      * Get preferred folder sort order.
      *
      * @param folder Folder whoch order is being retrieved or null for root folder
-     * @return sort order     the sort order, default is {@link FileSortOrder#sort_a_to_z} (sort by name)
+     * @return sort order     the sort order, default is {@link FileSortOrder# sort_a_to_z} (sort by name)
      */
     FileSortOrder getSortOrderByFolder(@Nullable OCFile folder);
 
@@ -232,7 +224,7 @@ public interface AppPreferences {
     /**
      * Get preferred folder sort order.
      *
-     * @return sort order     the sort order, default is {@link FileSortOrder#sort_a_to_z} (sort by name)
+     * @return sort order     the sort order, default is {@link FileSortOrder# sort_a_to_z} (sort by name)
      */
     FileSortOrder getSortOrderByType(FileSortOrder.Type type, FileSortOrder defaultOrder);
     FileSortOrder getSortOrderByType(FileSortOrder.Type type);
