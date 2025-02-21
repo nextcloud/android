@@ -178,7 +178,8 @@ class DocumentScanViewModel @Inject constructor(
             UploadFileOperation.CREATED_BY_USER,
             false,
             false,
-            NameCollisionPolicy.ASK_USER
+            NameCollisionPolicy.ASK_USER,
+            true
         )
     }
 

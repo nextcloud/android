@@ -247,7 +247,8 @@ public class CopyAndUploadContentUrisTask extends AsyncTask<Object, Void, Result
             UploadFileOperation.CREATED_BY_USER,
             false,
             false,
-            NameCollisionPolicy.ASK_USER);
+            NameCollisionPolicy.ASK_USER,
+            true);
     }
 
     @Override

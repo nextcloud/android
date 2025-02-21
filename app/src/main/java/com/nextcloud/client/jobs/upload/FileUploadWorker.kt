@@ -148,7 +148,6 @@ class FileUploadWorker(
             }
 
             if (canExitEarly()) {
-                Log_OC.d(TAG, "Airplane mode is enabled or no internet connection, stopping worker.")
                 notificationManager.showConnectionErrorNotification()
                 return Result.failure()
             }
@@ -168,37 +167,59 @@ class FileUploadWorker(
         return Result.success()
     }
 
-    private fun canExitEarly(): Boolean {
+    /**
+     * Determines whether the upload operation should exit early based on various conditions.
+     * The default behavior checks if the upload is allowed when airplane mode is active.
+     *
+     * Conditions to exit early:
+     * - No network connectivity
+     * - Internet is blocked (e.g., walled network)
+     * - Worker is stopped
+     * - Airplane mode is enabled (if not allowed)
+     *
+     * @param allowWhenAirplaneModeActive - If true, uploads are allowed in airplane mode. Defaults to true.
+     * @return true if any condition to stop the upload is met, otherwise false.
+     */
+    private fun canExitEarly(allowWhenAirplaneModeActive: Boolean = true): Boolean {
         val result = !connectivityService.isConnected ||
             connectivityService.isInternetWalled ||
             isStopped ||
-            isAirplaneModeEnabled()
+            isAirplaneModeEnabled(allowWhenAirplaneModeActive)
 
-        if (!result) {
+        if (result) {
+            Log_OC.d(TAG, "Not meeting conditions, stopping worker.")
+        } else {
             notificationManager.dismissErrorNotification()
         }
 
         return result
     }
 
-    private fun isAirplaneModeEnabled(): Boolean {
-        return Settings.Global.getInt(context.contentResolver, Settings.Global.AIRPLANE_MODE_ON, 0) != 0
+    /**
+     * Checks whether airplane mode is enabled if user choose the do not allow upload when airplane mode is enabled.
+     */
+    private fun isAirplaneModeEnabled(allowWhenAirplaneModeActive: Boolean): Boolean {
+        return !allowWhenAirplaneModeActive &&
+            Settings.Global.getInt(context.contentResolver, Settings.Global.AIRPLANE_MODE_ON, 0) != 0
     }
 
     @Suppress("NestedBlockDepth")
-    private fun uploadFiles(totalUploadSize: Int, uploadsPerPage: List<OCUpload>, accountName: String) {
+    private fun uploadFiles(
+        totalUploadSize: Int,
+        uploadsPerPage: List<OCUpload>,
+        accountName: String
+    ) {
         val user = userAccountManager.getUser(accountName)
         setWorkerState(user.get(), uploadsPerPage)
 
         if (canExitEarly()) {
-            Log_OC.d(TAG, "Airplane mode is enabled or no internet connection, stopping worker.")
             notificationManager.showConnectionErrorNotification()
             return
         }
 
         run uploads@{
             uploadsPerPage.forEach { upload ->
-                if (canExitEarly()) {
+                if (canExitEarly(upload.isAllowWhenAirplaneModeActive)) {
                     notificationManager.showConnectionErrorNotification()
                     return@uploads
                 }

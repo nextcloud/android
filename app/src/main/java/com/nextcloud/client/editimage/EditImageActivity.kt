@@ -106,7 +106,8 @@ class EditImageActivity :
                 requiresWifi = false,
                 requiresCharging = false,
                 nameCollisionPolicy = NameCollisionPolicy.RENAME,
-                localBehavior = FileUploadWorker.LOCAL_BEHAVIOUR_DELETE
+                localBehavior = FileUploadWorker.LOCAL_BEHAVIOUR_DELETE,
+                allowWhenAirplaneModeActive = true
             )
         }
     }

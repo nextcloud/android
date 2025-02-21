@@ -137,7 +137,8 @@ abstract class FileUploaderIT : AbstractOnServerIT() {
             UploadFileOperation.CREATED_BY_USER,
             false,
             false,
-            NameCollisionPolicy.DEFAULT
+            NameCollisionPolicy.DEFAULT,
+            true
         )
 
         longSleep()
@@ -253,7 +254,8 @@ abstract class FileUploaderIT : AbstractOnServerIT() {
             UploadFileOperation.CREATED_BY_USER,
             false,
             false,
-            NameCollisionPolicy.DEFAULT
+            NameCollisionPolicy.DEFAULT,
+            true
         )
 
         longSleep()
@@ -361,7 +363,8 @@ abstract class FileUploaderIT : AbstractOnServerIT() {
             UploadFileOperation.CREATED_BY_USER,
             false,
             false,
-            NameCollisionPolicy.DEFAULT
+            NameCollisionPolicy.DEFAULT,
+            true
         )
 
         longSleep()
@@ -465,7 +468,8 @@ abstract class FileUploaderIT : AbstractOnServerIT() {
             UploadFileOperation.CREATED_BY_USER,
             false,
             false,
-            NameCollisionPolicy.DEFAULT
+            NameCollisionPolicy.DEFAULT,
+            true
         )
 
         longSleep()

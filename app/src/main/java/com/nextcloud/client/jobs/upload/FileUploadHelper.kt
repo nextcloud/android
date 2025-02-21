@@ -203,7 +203,8 @@ class FileUploadHelper {
         createdBy: Int,
         requiresWifi: Boolean,
         requiresCharging: Boolean,
-        nameCollisionPolicy: NameCollisionPolicy
+        nameCollisionPolicy: NameCollisionPolicy,
+        allowWhenAirplaneModeActive: Boolean
     ) {
         val uploads = localPaths.mapIndexed { index, localPath ->
             OCUpload(localPath, remotePaths[index], user.accountName).apply {
@@ -214,6 +215,7 @@ class FileUploadHelper {
                 this.createdBy = createdBy
                 isCreateRemoteFolder = createRemoteFolder
                 localAction = localBehavior
+                isAllowWhenAirplaneModeActive = allowWhenAirplaneModeActive
             }
         }
         uploadsStorageManager.storeUploads(uploads)

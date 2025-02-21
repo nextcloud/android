@@ -132,7 +132,8 @@ class UriUploader(
             UploadFileOperation.CREATED_BY_USER,
             requiresWifi = false,
             requiresCharging = false,
-            nameCollisionPolicy = NameCollisionPolicy.ASK_USER
+            nameCollisionPolicy = NameCollisionPolicy.ASK_USER,
+            true
         )
     }
 

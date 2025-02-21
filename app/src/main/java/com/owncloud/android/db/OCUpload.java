@@ -121,6 +121,8 @@ public class OCUpload implements Parcelable {
     private long fixedUploadEndTimeStamp;
     private long fixedUploadId;
 
+    private boolean allowUploadWhenAirplaneModeActive;
+
     /**
      * Main constructor.
      *
@@ -172,6 +174,7 @@ public class OCUpload implements Parcelable {
         useWifiOnly = true;
         whileChargingOnly = false;
         folderUnlockToken = "";
+        allowUploadWhenAirplaneModeActive = true;
     }
 
     public void setDataFixed(FileUploadHelper uploadHelper) {
@@ -283,6 +286,7 @@ public class OCUpload implements Parcelable {
         useWifiOnly = source.readInt() == 1;
         whileChargingOnly = source.readInt() == 1;
         folderUnlockToken = source.readString();
+        allowUploadWhenAirplaneModeActive = source.readInt() == 1;
     }
 
     @Override
@@ -308,6 +312,7 @@ public class OCUpload implements Parcelable {
             createdBy == other.createdBy &&
             useWifiOnly == other.useWifiOnly &&
             whileChargingOnly == other.whileChargingOnly &&
+            allowUploadWhenAirplaneModeActive == other.allowUploadWhenAirplaneModeActive &&
             folderUnlockToken.equals(other.folderUnlockToken);
     }
 
@@ -327,6 +332,7 @@ public class OCUpload implements Parcelable {
         dest.writeInt(useWifiOnly ? 1 : 0);
         dest.writeInt(whileChargingOnly ? 1 : 0);
         dest.writeString(folderUnlockToken);
+        dest.writeInt(allowUploadWhenAirplaneModeActive ? 1 : 0);
     }
 
     public long getUploadId() {
@@ -439,5 +445,13 @@ public class OCUpload implements Parcelable {
 
     public void setFolderUnlockToken(String folderUnlockToken) {
         this.folderUnlockToken = folderUnlockToken;
+    }
+
+    public boolean isAllowWhenAirplaneModeActive() {
+        return allowUploadWhenAirplaneModeActive;
+    }
+
+    public void setAllowWhenAirplaneModeActive(boolean allowUploadWhenAirplaneModeActive) {
+        this.allowUploadWhenAirplaneModeActive = allowUploadWhenAirplaneModeActive;
     }
 }
