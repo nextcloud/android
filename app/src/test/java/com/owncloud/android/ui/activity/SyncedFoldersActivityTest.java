@@ -166,6 +166,7 @@ public class SyncedFoldersActivityTest {
                                            false,
                                            SubFolderRule.YEAR_MONTH,
                                            true,
-                                           SyncedFolder.NOT_SCANNED_YET);
+                                           SyncedFolder.NOT_SCANNED_YET,
+                                           true);
     }
 }

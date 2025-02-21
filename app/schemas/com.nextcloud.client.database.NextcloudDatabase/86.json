@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 86,
-    "identityHash": "277489b9d4a6ee84f96d09dea39591ba",
+    "identityHash": "b3bd6057825794d14b63894281843309",
     "entities": [
       {
         "tableName": "arbitrary_data",
@@ -1009,7 +1009,7 @@
       },
       {
         "tableName": "synced_folders",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT, `local_path` TEXT, `remote_path` TEXT, `wifi_only` INTEGER, `charging_only` INTEGER, `existing` INTEGER, `enabled` INTEGER, `enabled_timestamp_ms` INTEGER, `subfolder_by_date` INTEGER, `account` TEXT, `upload_option` INTEGER, `name_collision_policy` INTEGER, `type` INTEGER, `hidden` INTEGER, `sub_folder_rule` INTEGER, `exclude_hidden` INTEGER, `last_scan_timestamp_ms` INTEGER)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT, `local_path` TEXT, `remote_path` TEXT, `wifi_only` INTEGER, `charging_only` INTEGER, `existing` INTEGER, `enabled` INTEGER, `enabled_timestamp_ms` INTEGER, `subfolder_by_date` INTEGER, `account` TEXT, `upload_option` INTEGER, `name_collision_policy` INTEGER, `type` INTEGER, `hidden` INTEGER, `sub_folder_rule` INTEGER, `exclude_hidden` INTEGER, `last_scan_timestamp_ms` INTEGER, `allow_when_airplane_mode_active` INTEGER)",
         "fields": [
           {
             "fieldPath": "id",
@@ -1110,6 +1110,12 @@
           {
             "fieldPath": "lastScanTimestampMs",
             "columnName": "last_scan_timestamp_ms",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "allowWhenAirplaneModeActive",
+            "columnName": "allow_when_airplane_mode_active",
             "affinity": "INTEGER",
             "notNull": false
           }
@@ -1325,7 +1331,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '277489b9d4a6ee84f96d09dea39591ba')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'b3bd6057825794d14b63894281843309')"
     ]
   }
 }

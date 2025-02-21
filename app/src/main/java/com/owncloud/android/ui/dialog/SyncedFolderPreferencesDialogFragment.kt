@@ -313,6 +313,8 @@ class SyncedFolderPreferencesDialogFragment : DialogFragment(), Injectable {
             binding.settingInstantUploadPathUseSubfoldersContainer.alpha = alpha
             binding.settingInstantUploadExcludeHiddenContainer.isEnabled = enable
             binding.settingInstantUploadExcludeHiddenContainer.alpha = alpha
+            binding.settingInstantUploadAllowUploadWhenAirplaneModeActiveContainer.isEnabled = enable
+            binding.settingInstantUploadAllowUploadWhenAirplaneModeActiveContainer.alpha = alpha
             binding.remoteFolderContainer.isEnabled = enable
             binding.remoteFolderContainer.alpha = alpha
             binding.localFolderContainer.isEnabled = enable
@@ -324,6 +326,7 @@ class SyncedFolderPreferencesDialogFragment : DialogFragment(), Injectable {
             binding.settingInstantUploadExistingCheckbox.isEnabled = enable
             binding.settingInstantUploadPathUseSubfoldersCheckbox.isEnabled = enable
             binding.settingInstantUploadExcludeHiddenCheckbox.isEnabled = enable
+            binding.settingInstantUploadAllowUploadWhenAirplaneModeActiveHiddenCheckbox.isEnabled = enable
         }
 
         checkWritableFolder()
