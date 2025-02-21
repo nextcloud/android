@@ -188,6 +188,6 @@ class AutoRenameTests : AbstractOnServerIT() {
         val filename = "/Pictures/@User/SubDir/08.16.07 Ka Yel.TXT"
         val result = AutoRename.rename(filename, capability)
         val expectedFilename = "/Pictures/@User/SubDir/08.16.07 Ka Yel.txt"
-        assert(result == filename) { "Expected $expectedFilename but got $result" }
+        assert(result == expectedFilename) { "Expected $expectedFilename but got $result" }
     }
 }
