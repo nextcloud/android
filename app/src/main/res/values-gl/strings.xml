@@ -304,6 +304,8 @@
     <string name="ecosystem_apps_talk">Parladoiro de Nextcloud</string>
     <string name="email_pick_failed">Produciuse un fallo ao escoller o enderezo de correo.</string>
     <string name="encrypted">Definir como cifrado</string>
+    <string name="end_to_end_encryption_certificate_unavailable">Non é posíbel recuperar o certificado de servidor</string>
+    <string name="end_to_end_encryption_certificate_verification_failed">Produciuse un fallo ao verificar a chave pública</string>
     <string name="end_to_end_encryption_confirm_button">Configurar o cifrado</string>
     <string name="end_to_end_encryption_decrypting">Descifrando…</string>
     <string name="end_to_end_encryption_dialog_close">Pechar</string>
@@ -315,8 +317,11 @@
     <string name="end_to_end_encryption_passphrase_title">Tome nota do seu contrasinal de cifrado de 12 palabras</string>
     <string name="end_to_end_encryption_password">Contrasinal…</string>
     <string name="end_to_end_encryption_retrieving_keys">Recuperando chaves…</string>
+    <string name="end_to_end_encryption_server_private_key_unavailable">Non é posíbel recuperar a chave privada</string>
+    <string name="end_to_end_encryption_server_public_key_unavailable">Non é posíbel recuperar a chave pública</string>
     <string name="end_to_end_encryption_storing_keys">Almacenando as chaves</string>
     <string name="end_to_end_encryption_title">Configurar o cifrado</string>
+    <string name="end_to_end_encryption_unexpected_error_occurred">Produciuse un erro non agardado ao descargar as chaves</string>
     <string name="end_to_end_encryption_unsuccessful">Non foi posíbel gardar as súas chaves. Ténteo de novo</string>
     <string name="end_to_end_encryption_wrong_password">Produciuse un erro ao descifrar. Contrasinal incorrecto?</string>
     <string name="enter_destination_filename">Introduza o nome do ficheiro de destino</string>
