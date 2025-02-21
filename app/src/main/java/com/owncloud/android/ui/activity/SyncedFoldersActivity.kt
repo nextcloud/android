@@ -24,6 +24,7 @@ import androidx.annotation.VisibleForTesting
 import androidx.appcompat.app.AlertDialog
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.nextcloud.client.core.Clock
@@ -56,10 +57,9 @@ import com.owncloud.android.ui.dialog.SyncedFolderPreferencesDialogFragment.OnSy
 import com.owncloud.android.ui.dialog.parcel.SyncedFolderParcelable
 import com.owncloud.android.utils.PermissionUtil
 import com.owncloud.android.utils.SyncedFolderUtils
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.io.File
 import java.util.Locale
 import javax.inject.Inject
@@ -149,7 +149,6 @@ class SyncedFoldersActivity :
     private var dialogFragment: SyncedFolderPreferencesDialogFragment? = null
     private var path: String? = null
     private var type = 0
-    private var loadJob: Job? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -274,9 +273,10 @@ class SyncedFoldersActivity :
         if (adapter.itemCount > 0 && !force) {
             return
         }
+
         showLoadingContent()
-        loadJob = CoroutineScope(Dispatchers.IO).launch {
-            loadJob?.cancel()
+
+        lifecycleScope.launch {
             val mediaFolders = MediaProvider.getImageFolders(
                 contentResolver,
                 perFolderMediaItemLimit,
@@ -293,24 +293,28 @@ class SyncedFoldersActivity :
                     viewThemeUtils
                 )
             )
+
             val syncedFolderArrayList = syncedFolderProvider.syncedFolders
             val currentAccountSyncedFoldersList: MutableList<SyncedFolder> = ArrayList()
             val user = userAccountManager.user
             for (syncedFolder in syncedFolderArrayList) {
                 if (syncedFolder.account == user.accountName) {
+                    val folder = File(syncedFolder.localPath)
+
                     // delete non-existing & disabled synced folders
-                    if (!File(syncedFolder.localPath).exists() && !syncedFolder.isEnabled) {
+                    if (!folder.exists() && !syncedFolder.isEnabled) {
                         syncedFolderProvider.deleteSyncedFolder(syncedFolder.id)
                     } else {
                         currentAccountSyncedFoldersList.add(syncedFolder)
                     }
                 }
             }
+
             val syncFolderItems = sortSyncedFolderItems(
                 mergeFolderData(currentAccountSyncedFoldersList, mediaFolders)
             ).filterNotNull()
 
-            CoroutineScope(Dispatchers.Main).launch {
+            withContext(Dispatchers.Main) {
                 adapter.setSyncFolderItems(syncFolderItems)
                 adapter.notifyDataSetChanged()
                 showList()
@@ -322,14 +326,8 @@ class SyncedFoldersActivity :
                         }
                     }
                 }
-                loadJob = null
             }
         }
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        loadJob?.cancel()
     }
 
     /**
