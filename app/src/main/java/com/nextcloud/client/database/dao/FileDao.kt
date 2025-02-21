@@ -9,6 +9,8 @@ package com.nextcloud.client.database.dao
 
 import androidx.room.Dao
 import androidx.room.Query
+import androidx.room.RawQuery
+import androidx.sqlite.db.SupportSQLiteQuery
 import com.nextcloud.client.database.entity.FileEntity
 import com.owncloud.android.db.ProviderMeta.ProviderTableMeta
 
@@ -32,8 +34,14 @@ interface FileDao {
     @Query("SELECT * FROM filelist WHERE remote_id = :remoteId AND file_owner = :fileOwner LIMIT 1")
     fun getFileByRemoteId(remoteId: String, fileOwner: String): FileEntity?
 
-    @Query("SELECT * FROM filelist WHERE parent = :parentId ORDER BY ${ProviderTableMeta.FILE_DEFAULT_SORT_ORDER}")
+    @Query("SELECT * FROM filelist WHERE parent = :parentId")
     fun getFolderContent(parentId: Long): List<FileEntity>
+
+    @RawQuery
+    fun getFolderContentByQuery(query: SupportSQLiteQuery): List<FileEntity>
+
+    @Query("SELECT count(_id) == 0 FROM filelist WHERE parent = :parentId")
+    fun getFolderIsEmpty(parentId: Long): Boolean
 
     @Query(
         "SELECT * FROM filelist WHERE modified >= :startDate" +

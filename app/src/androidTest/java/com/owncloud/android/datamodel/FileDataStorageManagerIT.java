@@ -20,7 +20,9 @@ import com.owncloud.android.lib.resources.status.CapabilityBooleanType;
 import com.owncloud.android.lib.resources.status.GetCapabilitiesRemoteOperation;
 import com.owncloud.android.lib.resources.status.OCCapability;
 import com.owncloud.android.operations.RefreshFolderOperation;
+import com.owncloud.android.utils.FileSortOrder;
 import com.owncloud.android.utils.FileStorageUtils;
+import com.owncloud.android.utils.MimeType;
 
 import junit.framework.TestCase;
 
@@ -31,6 +33,7 @@ import org.junit.Test;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static com.owncloud.android.lib.resources.files.SearchRemoteOperation.SearchType.GALLERY_SEARCH;
@@ -133,6 +136,232 @@ abstract public class FileDataStorageManagerIT extends AbstractOnServerIT {
                                               targetContext).execute(client).isSuccess());
 
         assertEquals(3, sut.getFolderContent(sut.getFileByDecryptedRemotePath("/1/1/"), false).size());
+    }
+
+    @Test
+    public void testQuery() {
+        assertEquals(0, sut.getAllFiles().size());
+        OCFile root = new OCFile("/");
+        root.setRemoteId("00000001");
+        root.setMimeType(MimeType.WEBDAV_FOLDER);
+        root.setOwnerId(getUserId(user));
+        sut.saveFile(root);
+        root = sut.getFileByEncryptedRemotePath("/");
+
+        OCFile file1 = new OCFile("/1/");
+        file1.setRemoteId("00000002");
+        file1.setMimeType(MimeType.WEBDAV_FOLDER);
+        file1.setParentId(root.getFileId());
+        file1.setOwnerId(getUserId(user));
+        file1.setCreationTimestamp(50L);
+        file1.setFileLength(100L);
+        sut.saveFile(file1);
+
+        OCFile file2 = new OCFile("/2/");
+        file2.setRemoteId("00000003");
+        file2.setMimeType(MimeType.WEBDAV_FOLDER);
+        file2.setParentId(root.getFileId());
+        file2.setOwnerId(getUserId(user));
+        file2.setFavorite(true);
+        file2.setCreationTimestamp(30L);
+        file2.setFileLength(2L);
+        sut.saveFile(file2);
+
+        OCFile file3 = new OCFile("/.hidden/");
+        file3.setRemoteId("00000004");
+        file3.setMimeType(MimeType.WEBDAV_FOLDER);
+        file3.setParentId(root.getFileId());
+        file3.setOwnerId(getUserId(user));
+        file3.setCreationTimestamp(90L);
+        file3.setFileLength(99L);
+        sut.saveFile(file3);
+
+        OCFile file4 = new OCFile("/test.png");
+        file4.setRemoteId("00000005");
+        file4.setMimeType(MimeType.PNG);
+        file4.setParentId(root.getFileId());
+        file4.setCreationTimestamp(22L);
+        file4.setFileLength(12L);
+        sut.saveFile(file4);
+
+        OCFile file5 = new OCFile("/test.jpg");
+        file5.setRemoteId("00000006");
+        file5.setMimeType(MimeType.JPEG);
+        file5.setParentId(root.getFileId());
+        file5.setOwnerId(getUserId(user));
+        file5.setCreationTimestamp(2L);
+        file5.setFileLength(55L);
+        sut.saveFile(file5);
+
+        OCFile file6 = new OCFile("/sharedWithMe/");
+        file6.setRemoteId("00000006");
+        file6.setMimeType(MimeType.WEBDAV_FOLDER);
+        file6.setParentId(root.getFileId());
+        file6.setPermissions("S");
+        file6.setOwnerId(getUserId(user));
+        file6.setCreationTimestamp(100L);
+        file6.setFileLength(111L);
+        sut.saveFile(file6);
+
+        OCFile file7 = new OCFile("/groupfolder/");
+        file7.setRemoteId("00000006");
+        file7.setMimeType(MimeType.WEBDAV_FOLDER);
+        file7.setParentId(root.getFileId());
+        file7.setPermissions("M");
+        file7.setOwnerId(getUserId(user));
+        file7.setCreationTimestamp(120L);
+        file7.setFileLength(90L);
+        sut.saveFile(file7);
+
+        assertEquals(8, sut.getAllFiles().size());
+
+        // all files
+        assertEquals(7, sut.getFolderContent(root,
+                                             false,
+                                             true,
+                                             "",
+                                             false,
+                                             FileSortOrder.SORT_A_TO_Z).size());
+
+        // no hidden files
+        assertEquals(6, sut.getFolderContent(root,
+                                             false,
+                                             false,
+                                             "",
+                                             false,
+                                             FileSortOrder.SORT_A_TO_Z).size());
+
+        // mimetype - PNG
+        assertEquals(1, sut.getFolderContent(root,
+                                             false,
+                                             false,
+                                             MimeType.PNG,
+                                             false,
+                                             FileSortOrder.SORT_A_TO_Z).size());
+
+        // mimetype - all images
+        assertEquals(2, sut.getFolderContent(root,
+                                             false,
+                                             false,
+                                             MimeType.IMAGES,
+                                             false,
+                                             FileSortOrder.SORT_A_TO_Z).size());
+
+        // personal files
+        assertEquals(4, sut.getFolderContent(root,
+                                             false,
+                                             true,
+                                             "",
+                                             true,
+                                             FileSortOrder.SORT_A_TO_Z).size());
+
+        // sort A-Z
+        List<OCFile> sortedA_Z = Arrays.asList(
+            file2,
+            file3,
+            file1,
+            file7,
+            file6,
+            file5,
+            file4
+                                              );
+        List<OCFile> actualA_Z = sut.getFolderContent(root,
+                                                      false,
+                                                      true,
+                                                      "",
+                                                      false,
+                                                      FileSortOrder.SORT_A_TO_Z);
+        assertTrue(testSorting(sortedA_Z, actualA_Z));
+
+        // sort Z-A
+        List<OCFile> sortedZ_A = Arrays.asList(
+            file2,
+            file4,
+            file5,
+            file6,
+            file7,
+            file1,
+            file3
+                                              );
+        List<OCFile> actualZ_A = sut.getFolderContent(root,
+                                                      false,
+                                                      true,
+                                                      "",
+                                                      false,
+                                                      FileSortOrder.SORT_Z_TO_A);
+        assertTrue(testSorting(sortedZ_A, actualZ_A));
+
+        // sort old-new
+        List<OCFile> sortedOld_New = Arrays.asList(
+            file2,
+            file5,
+            file4,
+            file1,
+            file3,
+            file6,
+            file7
+                                                  );
+        List<OCFile> actualOld_New = sut.getFolderContent(root,
+                                                          false,
+                                                          true,
+                                                          "",
+                                                          false,
+                                                          FileSortOrder.SORT_OLD_TO_NEW);
+        assertTrue(testSorting(sortedOld_New, actualOld_New));
+
+        // sort new-old
+        List<OCFile> sortedNew_Old = Arrays.asList(
+            file2,
+            file7,
+            file6,
+            file3,
+            file1,
+            file4,
+            file5
+                                                  );
+        List<OCFile> actualNew_Old = sut.getFolderContent(root,
+                                                          false,
+                                                          true,
+                                                          "",
+                                                          false,
+                                                          FileSortOrder.SORT_NEW_TO_OLD);
+        assertTrue(testSorting(sortedNew_Old, actualNew_Old));
+
+        // sort small-big
+        List<OCFile> sortedSmall_Big = Arrays.asList(
+            file2,
+            file4, // 22
+            file5, // 55
+            file7, // 90
+            file3, // 99
+            file1, // 100
+            file6 // 111
+                                                    );
+        List<OCFile> actualSmall_Big = sut.getFolderContent(root,
+                                                            false,
+                                                            true,
+                                                            "",
+                                                            false,
+                                                            FileSortOrder.SORT_SMALL_TO_BIG);
+        assertTrue(testSorting(sortedSmall_Big, actualSmall_Big));
+
+        // sort big-small
+        List<OCFile> sortedBig_Small = Arrays.asList(
+            file2,
+            file6, // 111
+            file1, // 100
+            file3, // 99
+            file7, // 90
+            file5, // 55
+            file4 // 22
+                                                    );
+        List<OCFile> actualBig_Small = sut.getFolderContent(root,
+                                                            false,
+                                                            true,
+                                                            "",
+                                                            false,
+                                                            FileSortOrder.SORT_BIG_TO_SMALL);
+        assertTrue(testSorting(sortedBig_Small, actualBig_Small));
     }
 
     /**
@@ -355,4 +584,39 @@ abstract public class FileDataStorageManagerIT extends AbstractOnServerIT {
         assertEquals(capability.getUserStatus(), newCapability.getUserStatus());
     }
 
+    private boolean testSorting(List<OCFile> target, List<OCFile> actual) {
+
+        for (int i = 0; i < target.size(); i++) {
+            boolean compare;
+
+            compare = target.get(i).getRemoteId().equals(actual.get(i).getRemoteId());
+
+            if (!compare) {
+
+                System.out.println("target:");
+
+                for (OCFile item : target) {
+                    if (item == null) {
+                        System.out.println("null");
+                    } else {
+                        System.out.println(item.getFileName());
+                    }
+                }
+
+                System.out.println();
+                System.out.println("actual:");
+                for (OCFile item : actual) {
+                    if (item == null) {
+                        System.out.println("null");
+                    } else {
+                        System.out.println(item.getFileName());
+                    }
+                }
+
+                return false;
+            }
+        }
+
+        return true;
+    }
 }

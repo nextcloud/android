@@ -13,7 +13,6 @@ import android.accounts.OperationCanceledException;
 import android.content.ActivityNotFoundException;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.NetworkOnMainThreadException;
 
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
@@ -117,7 +116,7 @@ public abstract class AbstractOnServerIT extends AbstractIT {
 
     @After
     public void after() {
-        deleteAllFilesOnServer();
+        // deleteAllFilesOnServer();
 
         super.after();
     }

@@ -1500,7 +1500,7 @@ public class FileDisplayActivity extends FileActivity
     private void setBackgroundText() {
         final OCFileListFragment ocFileListFragment = getListOfFilesFragment();
         if (ocFileListFragment != null) {
-            if (mSyncInProgress || getFile().getFileLength() > 0 && getStorageManager().getFolderContent(getFile(), false).isEmpty()) {
+            if (mSyncInProgress || getFile().getFileLength() > 0 && getStorageManager().getFolderIsEmpty(getFile())) {
                 ocFileListFragment.setEmptyListLoadingMessage();
             } else {
                 if (MainApp.isOnlyOnDevice()) {

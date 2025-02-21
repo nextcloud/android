@@ -828,16 +828,16 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
         if (mStorageManager != null) {
             // TODO refactor filtering mechanism for mFiles
-            mFiles = mStorageManager.getFolderContent(directory, onlyOnDevice);
-            if (!preferences.isShowHiddenFilesEnabled()) {
-                mFiles = filterHiddenFiles(mFiles);
-            }
-            if (!limitToMimeType.isEmpty()) {
-                mFiles = filterByMimeType(mFiles, limitToMimeType);
-            }
-            if (OCFile.ROOT_PATH.equals(directory.getRemotePath()) && MainApp.isOnlyPersonFiles()) {
-                mFiles = limitToPersonalFiles(mFiles);
-            }
+            boolean showHiddenFiles = preferences.isShowHiddenFilesEnabled();
+            boolean limitToPersonalFiles = OCFile.ROOT_PATH.equals(directory.getRemotePath()) && MainApp.isOnlyPersonFiles();
+            sortOrder = preferences.getSortOrderByFolder(directory);
+
+            mFiles = mStorageManager.getFolderContent(directory,
+                                                      onlyOnDevice,
+                                                      showHiddenFiles,
+                                                      limitToMimeType,
+                                                      limitToPersonalFiles,
+                                                      sortOrder);
 
             // TODO refactor add DrawerState instead of using static menuItemId
             if (DrawerActivity.menuItemId == R.id.nav_shared && currentDirectory != null) {
@@ -846,10 +846,6 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             if (DrawerActivity.menuItemId == R.id.nav_favorites && currentDirectory != null) {
                 mFiles = updatedStorageManager.filter(currentDirectory, OCFileFilterType.Favorite);
             }
-
-            sortOrder = preferences.getSortOrderByFolder(directory);
-            mFiles = sortOrder.sortCloudFiles(mFiles);
-            prepareListOfHiddenFiles();
             mergeOCFilesForLivePhoto();
             mFilesAll.clear();
             addOfflineOperations(directory.getFileId());
