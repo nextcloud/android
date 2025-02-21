@@ -48,5 +48,7 @@ data class SyncedFolderEntity(
     @ColumnInfo(name = ProviderTableMeta.SYNCED_FOLDER_EXCLUDE_HIDDEN)
     val excludeHidden: Int?,
     @ColumnInfo(name = ProviderTableMeta.SYNCED_FOLDER_LAST_SCAN_TIMESTAMP_MS)
-    val lastScanTimestampMs: Long?
+    val lastScanTimestampMs: Long?,
+    @ColumnInfo(name = ProviderTableMeta.SYNCED_FOLDER_ALLOW_WHEN_AIRPLANE_MODE_ACTIVE)
+    val allowWhenAirplaneModeActive: Int?
 )

@@ -345,6 +345,46 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/setting_instant_upload_allow_upload_when_airplane_mode_active_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:baselineAligned="false">
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:padding="@dimen/standard_padding">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="marquee"
+                        android:maxLines="2"
+                        android:text="@string/prefs_instant_upload_allow_when_airplane_mode_active_title"
+                        android:textAppearance="?attr/textAppearanceListItem" />
+
+                </RelativeLayout>
+
+                <!-- Preference should place its actual preference widget here. -->
+                <LinearLayout
+                    android:id="@+id/setting_instant_upload_allow_upload_when_airplane_mode_active_hidden_frame"
+                    android:layout_width="@dimen/synced_folders_control_width"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:padding="@dimen/standard_padding">
+
+                    <androidx.appcompat.widget.AppCompatCheckBox
+                        android:id="@+id/setting_instant_upload_allow_upload_when_airplane_mode_active_hidden_checkbox"
+                        android:layout_width="32dp"
+                        android:layout_height="wrap_content"
+                        android:background="@null"
+                        android:clickable="false"
+                        android:focusable="false" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
                 android:id="@+id/setting_instant_upload_subfolder_rule_container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

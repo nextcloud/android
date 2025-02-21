@@ -37,6 +37,7 @@ public class SyncedFolderParcelable implements Parcelable {
     private int section;
     private SubFolderRule subFolderRule;
     private boolean excludeHidden;
+    private boolean allowWhenAirplaneModeActive;
 
     public SyncedFolderParcelable(SyncedFolderDisplayItem syncedFolderDisplayItem, int section) {
         id = syncedFolderDisplayItem.getId();
@@ -57,6 +58,7 @@ public class SyncedFolderParcelable implements Parcelable {
         hidden = syncedFolderDisplayItem.isHidden();
         subFolderRule = syncedFolderDisplayItem.getSubfolderRule();
         excludeHidden = syncedFolderDisplayItem.isExcludeHidden();
+        allowWhenAirplaneModeActive = syncedFolderDisplayItem.isAllowWhenAirplaneModeActive();
     }
 
     private SyncedFolderParcelable(Parcel read) {
@@ -77,6 +79,7 @@ public class SyncedFolderParcelable implements Parcelable {
         hidden = read.readInt() != 0;
         subFolderRule = SubFolderRule.values()[read.readInt()];
         excludeHidden = read.readInt() != 0;
+        allowWhenAirplaneModeActive = read.readInt() != 0;
     }
 
     public SyncedFolderParcelable() {
@@ -102,6 +105,7 @@ public class SyncedFolderParcelable implements Parcelable {
         dest.writeInt(hidden ? 1 : 0);
         dest.writeInt(subFolderRule.ordinal());
         dest.writeInt(excludeHidden ? 1 : 0);
+        dest.writeInt(allowWhenAirplaneModeActive ? 1 : 0);
     }
 
     public static final Creator<SyncedFolderParcelable> CREATOR =
@@ -277,5 +281,13 @@ public class SyncedFolderParcelable implements Parcelable {
 
     public void setExcludeHidden(boolean excludeHidden) {
         this.excludeHidden = excludeHidden;
+    }
+
+    public boolean isAllowWhenAirplaneModeActive() {
+        return allowWhenAirplaneModeActive;
+    }
+
+    public void setAllowWhenAirplaneModeActive(boolean allowWhenAirplaneModeActive) {
+        this.allowWhenAirplaneModeActive = allowWhenAirplaneModeActive;
     }
 }

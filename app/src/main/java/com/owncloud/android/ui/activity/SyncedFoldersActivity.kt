@@ -393,7 +393,8 @@ class SyncedFoldersActivity :
             syncedFolder.isHidden,
             syncedFolder.subfolderRule,
             syncedFolder.isExcludeHidden,
-            syncedFolder.lastScanTimestampMs
+            syncedFolder.lastScanTimestampMs,
+            syncedFolder.isAllowWhenAirplaneModeActive
         )
     }
 
@@ -425,7 +426,8 @@ class SyncedFoldersActivity :
             syncedFolder.isHidden,
             syncedFolder.subfolderRule,
             syncedFolder.isExcludeHidden,
-            syncedFolder.lastScanTimestampMs
+            syncedFolder.lastScanTimestampMs,
+            syncedFolder.isAllowWhenAirplaneModeActive
         )
     }
 
@@ -456,7 +458,8 @@ class SyncedFoldersActivity :
             false,
             SubFolderRule.YEAR_MONTH,
             false,
-            SyncedFolder.NOT_SCANNED_YET
+            SyncedFolder.NOT_SCANNED_YET,
+            true
         )
     }
 
@@ -550,7 +553,8 @@ class SyncedFoldersActivity :
                         false,
                         SubFolderRule.YEAR_MONTH,
                         false,
-                        SyncedFolder.NOT_SCANNED_YET
+                        SyncedFolder.NOT_SCANNED_YET,
+                        true
                     )
                     onSyncFolderSettingsClick(0, emptyCustomFolder)
                 } else {
@@ -680,7 +684,8 @@ class SyncedFoldersActivity :
                 syncedFolder.isHidden,
                 syncedFolder.subFolderRule,
                 syncedFolder.isExcludeHidden,
-                SyncedFolder.NOT_SCANNED_YET
+                SyncedFolder.NOT_SCANNED_YET,
+                syncedFolder.isAllowWhenAirplaneModeActive
             )
             saveOrUpdateSyncedFolder(newCustomFolder)
             adapter.addSyncFolderItem(newCustomFolder)
@@ -699,7 +704,8 @@ class SyncedFoldersActivity :
                 syncedFolder.nameCollisionPolicy.serialize(),
                 syncedFolder.isEnabled,
                 syncedFolder.subFolderRule,
-                syncedFolder.isExcludeHidden
+                syncedFolder.isExcludeHidden,
+                syncedFolder.isAllowWhenAirplaneModeActive
             )
             saveOrUpdateSyncedFolder(item)
 
@@ -786,7 +792,8 @@ class SyncedFoldersActivity :
         nameCollisionPolicy: Int,
         enabled: Boolean,
         subFolderRule: SubFolderRule,
-        excludeHidden: Boolean
+        excludeHidden: Boolean,
+        allowWhenAirplaneModeActive: Boolean
     ) {
         item.id = id
         item.localPath = localPath
@@ -799,7 +806,8 @@ class SyncedFoldersActivity :
         item.setNameCollisionPolicy(nameCollisionPolicy)
         item.setEnabled(enabled, clock.currentTime)
         item.setSubFolderRule(subFolderRule)
-        item.setExcludeHidden(excludeHidden)
+        item.isExcludeHidden = excludeHidden
+        item.isAllowWhenAirplaneModeActive = allowWhenAirplaneModeActive
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {

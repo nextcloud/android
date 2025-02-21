@@ -25,7 +25,7 @@ import java.util.List;
  */
 public class ProviderMeta {
     public static final String DB_NAME = "filelist";
-    public static final int DB_VERSION = 86;
+    public static final int DB_VERSION = 87;
 
     private ProviderMeta() {
         // No instance
@@ -317,6 +317,7 @@ public class ProviderMeta {
         public static final String SYNCED_FOLDER_SUBFOLDER_RULE = "sub_folder_rule";
         public static final String SYNCED_FOLDER_EXCLUDE_HIDDEN = "exclude_hidden";
         public static final String SYNCED_FOLDER_LAST_SCAN_TIMESTAMP_MS = "last_scan_timestamp_ms";
+        public static final String SYNCED_FOLDER_ALLOW_WHEN_AIRPLANE_MODE_ACTIVE = "allow_when_airplane_mode_active";
 
         // Columns of external links table
         public static final String EXTERNAL_LINKS_ICON_URL = "icon_url";

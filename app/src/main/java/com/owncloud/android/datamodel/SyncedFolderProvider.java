@@ -388,7 +388,8 @@ public class SyncedFolderProvider extends Observable {
                 ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_EXCLUDE_HIDDEN)) == 1;
             long lastScanTimestampMs = cursor.getLong(cursor.getColumnIndexOrThrow(
                 ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_LAST_SCAN_TIMESTAMP_MS));
-
+            boolean allowWhenAirplaneModeActive = cursor.getInt(cursor.getColumnIndexOrThrow(
+                ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_ALLOW_WHEN_AIRPLANE_MODE_ACTIVE)) == 1;
 
             syncedFolder = new SyncedFolder(id,
                                             localPath,
@@ -406,7 +407,8 @@ public class SyncedFolderProvider extends Observable {
                                             hidden,
                                             subFolderRule,
                                             excludeHidden,
-                                            lastScanTimestampMs);
+                                            lastScanTimestampMs,
+                                            allowWhenAirplaneModeActive);
         }
         return syncedFolder;
     }
@@ -437,6 +439,7 @@ public class SyncedFolderProvider extends Observable {
         cv.put(ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_SUBFOLDER_RULE, syncedFolder.getSubfolderRule().ordinal());
         cv.put(ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_EXCLUDE_HIDDEN, syncedFolder.isExcludeHidden());
         cv.put(ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_LAST_SCAN_TIMESTAMP_MS, syncedFolder.getLastScanTimestampMs());
+        cv.put(ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_ALLOW_WHEN_AIRPLANE_MODE_ACTIVE, syncedFolder.isAllowWhenAirplaneModeActive());
         return cv;
     }
 

@@ -41,6 +41,7 @@ public class SyncedFolderDisplayItem extends SyncedFolder {
      * @param hidden          hide item flag
      * @param subFolderRule   whether to filter subFolder by year/month/day
      * @param excludeHidden   exclude hidden file or folder, for {@link MediaFolderType#CUSTOM} only
+     * @param allowWhenAirplaneModeActive allow upload when device is in airplane mode
      */
     public SyncedFolderDisplayItem(long id,
                                    String localPath,
@@ -61,7 +62,8 @@ public class SyncedFolderDisplayItem extends SyncedFolder {
                                    boolean hidden,
                                    SubFolderRule subFolderRule,
                                    boolean excludeHidden,
-                                   long lastScanTimestampMs) {
+                                   long lastScanTimestampMs,
+                                   boolean allowWhenAirplaneModeActive) {
         super(id,
               localPath,
               remotePath,
@@ -78,7 +80,8 @@ public class SyncedFolderDisplayItem extends SyncedFolder {
               hidden,
               subFolderRule,
               excludeHidden,
-              lastScanTimestampMs);
+              lastScanTimestampMs,
+              allowWhenAirplaneModeActive);
         this.filePaths = filePaths;
         this.folderName = folderName;
         this.numberOfFiles = numberOfFiles;
@@ -101,7 +104,8 @@ public class SyncedFolderDisplayItem extends SyncedFolder {
                                    boolean hidden,
                                    SubFolderRule subFolderRule,
                                    boolean excludeHidden,
-                                   long lastScanTimestampMs) {
+                                   long lastScanTimestampMs,
+                                   boolean allowWhenAirplaneModeActive) {
         super(id,
               localPath,
               remotePath,
@@ -118,7 +122,8 @@ public class SyncedFolderDisplayItem extends SyncedFolder {
               hidden,
               subFolderRule,
               excludeHidden,
-              lastScanTimestampMs);
+              lastScanTimestampMs,
+              allowWhenAirplaneModeActive);
         this.folderName = folderName;
     }
 

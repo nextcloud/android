@@ -26,8 +26,6 @@ public class SyncedFolder implements Serializable, Cloneable {
     public static final long NOT_SCANNED_YET = -1;
     private static final long serialVersionUID = -793476118299906429L;
 
-
-
     private long id;
     private String localPath;
     private String remotePath;
@@ -45,6 +43,7 @@ public class SyncedFolder implements Serializable, Cloneable {
     private SubFolderRule subfolderRule;
     private boolean excludeHidden;
     private long lastScanTimestampMs;
+    private boolean allowWhenAirplaneModeActive;
 
     /**
      * constructor for new, to be persisted entity.
@@ -64,6 +63,7 @@ public class SyncedFolder implements Serializable, Cloneable {
      * @param hidden              hide item flag
      * @param subFolderRule   whether to filter subFolder by year/month/day
      * @param excludeHidden   exclude hidden file or folder, for {@link MediaFolderType#CUSTOM} only
+     * @param allowWhenAirplaneModeActive allow upload when device is in airplane mode
      */
     public SyncedFolder(String localPath,
                         String remotePath,
@@ -80,7 +80,8 @@ public class SyncedFolder implements Serializable, Cloneable {
                         boolean hidden,
                         SubFolderRule subFolderRule,
                         boolean excludeHidden,
-                        long lastScanTimestampMs) {
+                        long lastScanTimestampMs,
+                        boolean allowWhenAirplaneModeActive) {
         this(UNPERSISTED_ID,
              localPath,
              remotePath,
@@ -97,7 +98,8 @@ public class SyncedFolder implements Serializable, Cloneable {
              hidden,
              subFolderRule,
              excludeHidden,
-             lastScanTimestampMs);
+             lastScanTimestampMs,
+             allowWhenAirplaneModeActive);
     }
 
     /**
@@ -121,7 +123,8 @@ public class SyncedFolder implements Serializable, Cloneable {
                            boolean hidden,
                            SubFolderRule subFolderRule,
                            boolean excludeHidden,
-                           long lastScanTimestampMs) {
+                           long lastScanTimestampMs,
+                           boolean allowWhenAirplaneModeActive) {
         this.id = id;
         this.localPath = localPath;
         this.remotePath = remotePath;
@@ -138,6 +141,7 @@ public class SyncedFolder implements Serializable, Cloneable {
         this.subfolderRule = subFolderRule;
         this.excludeHidden = excludeHidden;
         this.lastScanTimestampMs = lastScanTimestampMs;
+        this.allowWhenAirplaneModeActive = allowWhenAirplaneModeActive;
     }
 
     /**
@@ -287,4 +291,12 @@ public class SyncedFolder implements Serializable, Cloneable {
     public long getLastScanTimestampMs() { return lastScanTimestampMs; }
 
     public void setLastScanTimestampMs(long lastScanTimestampMs) { this.lastScanTimestampMs = lastScanTimestampMs; }
+
+    public boolean isAllowWhenAirplaneModeActive() {
+        return allowWhenAirplaneModeActive;
+    }
+
+    public void setAllowWhenAirplaneModeActive(boolean allowWhenAirplaneModeActive) {
+        this.allowWhenAirplaneModeActive = allowWhenAirplaneModeActive;
+    }
 }

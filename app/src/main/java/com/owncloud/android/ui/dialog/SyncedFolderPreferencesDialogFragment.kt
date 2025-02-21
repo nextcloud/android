@@ -206,6 +206,7 @@ class SyncedFolderPreferencesDialogFragment : DialogFragment(), Injectable {
             binding.settingInstantUploadExistingCheckbox.isChecked = it.isExisting
             binding.settingInstantUploadPathUseSubfoldersCheckbox.isChecked = it.isSubfolderByDate
             binding.settingInstantUploadExcludeHiddenCheckbox.isChecked = it.isExcludeHidden
+            binding.settingInstantUploadAllowUploadWhenAirplaneModeActiveHiddenCheckbox.isChecked = it.isAllowWhenAirplaneModeActive
 
             binding.settingInstantUploadSubfolderRuleSpinner.setSelection(it.subFolderRule.ordinal)
 
@@ -365,6 +366,10 @@ class SyncedFolderPreferencesDialogFragment : DialogFragment(), Injectable {
                 } else {
                     binding.settingInstantUploadSubfolderRuleContainer.visibility = View.GONE
                 }
+            }
+            binding.settingInstantUploadAllowUploadWhenAirplaneModeActiveContainer.setOnClickListener {
+                syncedFolder.isAllowWhenAirplaneModeActive = !syncedFolder.isAllowWhenAirplaneModeActive
+                binding.settingInstantUploadAllowUploadWhenAirplaneModeActiveHiddenCheckbox.toggle()
             }
             binding.settingInstantUploadExcludeHiddenContainer.setOnClickListener {
                 syncedFolder.isExcludeHidden = !syncedFolder.isExcludeHidden
