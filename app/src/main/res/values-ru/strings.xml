@@ -99,6 +99,7 @@
     <string name="auto_upload_file_behaviour_kept_in_folder">оставлен в исходном каталоге, т.к. файл только для чтения</string>
     <string name="auto_upload_gplay">Поведение автозагрузки изменено</string>
     <string name="auto_upload_gplay_desc">Из-за новых ограничений, введенных Google, функция автоматической загрузки больше не сможет автоматически удалять загруженные файлы.</string>
+    <string name="auto_upload_gplay_desc2">В связи с новыми ограничениями, введенными Google, мы были вынуждены удалить важное разрешение. В результате функция автоматической загрузки сможет загружать только изображения и видеофайлы.\nКроме того, для доступа к информации о местоположении загруженных изображений требуется новое разрешение.\nУбедитесь, что для параметра доступ к мультимедиа установлено значение \"Всегда разрешать все\".</string>
     <string name="auto_upload_on_wifi">Только через безлимит или Wi-Fi</string>
     <string name="auto_upload_path">/Автозагрузка</string>
     <string name="autoupload_configure">Настроить</string>
@@ -132,6 +133,7 @@
     <string name="clear_notifications_failed">Не удалось удалить уведомления.</string>
     <string name="clear_status_message">Очистить сообщение о состоянии</string>
     <string name="clear_status_message_after">Очистить сообщение о состоянии через</string>
+    <string name="click_to_learn_how_to_re_enable_auto_uploads">Повторное включение автоматической загрузки требуется произвести вручную</string>
     <string name="clipboard_label">Текст скопирован из %1$s</string>
     <string name="clipboard_no_text_to_copy">Нет принятого текста для копирования в буфер обмена</string>
     <string name="clipboard_text_copied">Ссылка скопирована</string>
@@ -287,6 +289,7 @@
     <string name="drawer_quota">использовано %1$s из %2$s </string>
     <string name="drawer_quota_unlimited">%1$s использовано</string>
     <string name="drawer_synced_folders">Автоматическая передача</string>
+    <string name="due_to_too_many_wrong_attempts">%s из-за слишком большого количества неудачных попыток</string>
     <string name="e2e_counter_too_old">Счетчик слишком старый</string>
     <string name="e2e_hash_not_found">Хэш не найден</string>
     <string name="e2e_not_yet_setup">Сквозное шифрование не настроено</string>
@@ -301,6 +304,8 @@
     <string name="ecosystem_apps_talk">Конференции для Nextcloud</string>
     <string name="email_pick_failed">Невозможно выбрать адрес электронной почты.</string>
     <string name="encrypted">Зашифровать</string>
+    <string name="end_to_end_encryption_certificate_unavailable">Не удается получить сертификат сервера</string>
+    <string name="end_to_end_encryption_certificate_verification_failed">Не удалось проверить открытый ключ</string>
     <string name="end_to_end_encryption_confirm_button">Параметры шифрования</string>
     <string name="end_to_end_encryption_decrypting">Расшифровка…</string>
     <string name="end_to_end_encryption_dialog_close">Закрыть</string>
@@ -312,8 +317,11 @@
     <string name="end_to_end_encryption_passphrase_title">Запишите свою парольную фразу из двенадцати слов</string>
     <string name="end_to_end_encryption_password">Пароль…</string>
     <string name="end_to_end_encryption_retrieving_keys">Получение ключей…</string>
+    <string name="end_to_end_encryption_server_private_key_unavailable">Не удается проверить приватный ключ</string>
+    <string name="end_to_end_encryption_server_public_key_unavailable">Не удается проверить публичный ключ</string>
     <string name="end_to_end_encryption_storing_keys">Сохранение ключей</string>
     <string name="end_to_end_encryption_title">Параметры шифрования</string>
+    <string name="end_to_end_encryption_unexpected_error_occurred">При загрузке ключей произошла непредвиденная ошибка</string>
     <string name="end_to_end_encryption_unsuccessful">Не удалось сохранить ключи шифрования, попробуйте ещё раз.</string>
     <string name="end_to_end_encryption_wrong_password">Ошибка расшифровывания. Неверный пароль?</string>
     <string name="enter_destination_filename">Введите целевое имя файла</string>
@@ -369,6 +377,7 @@
     <string name="file_already_exists">Файл с таким именем уже существует</string>
     <string name="file_delete">Удалить</string>
     <string name="file_detail_activity_error">Ошибка получения истории событий, связанных с файлом</string>
+    <string name="file_detail_sharing_fragment_no_contact_app_message">Приложение для выбора контактов недоступно</string>
     <string name="file_details_no_content">Не удалось получить подробные сведения</string>
     <string name="file_icon">Файл</string>
     <string name="file_keep">Сохранить</string>
@@ -397,6 +406,7 @@
     <string name="file_management_permission_optional_text">%1$s работает лучше всего при наличии доступа к хранилищу. Вы можете выбрать полный доступ к файлам или доступ только для чтения к фото и видео.</string>
     <string name="file_management_permission_text">%1$s необходимы права на управления файлами, для их загрузки.
 Вы можете выбрать полный доступ к файлам или доступ только для чтения к фото и видео.</string>
+    <string name="file_migration_allow_media_indexing">Разрешить доступ из других приложений</string>
     <string name="file_migration_checking_destination">Проверка назначения…</string>
     <string name="file_migration_cleaning">Очистка…</string>
     <string name="file_migration_dialog_title">Выполняется обновление папки хранения данных</string>
@@ -407,6 +417,7 @@
     <string name="file_migration_failed_not_writable">Не удалось выполнить запись в файл назначения</string>
     <string name="file_migration_failed_while_coping">Не удалось выполнить перенос</string>
     <string name="file_migration_failed_while_updating_index">Не удалось обновить индекс</string>
+    <string name="file_migration_free_space">%1$s\n(%2$s / %3$s)</string>
     <string name="file_migration_migrating">Перемещение данных…</string>
     <string name="file_migration_ok_finished">Завершено</string>
     <string name="file_migration_override_data_folder">Заменить</string>
@@ -428,6 +439,7 @@
     <string name="file_not_found">Файл не найден</string>
     <string name="file_not_synced">Не удалось синхронизировать этот файл, показана его последняя доступная версия.</string>
     <string name="file_rename">Переименовать</string>
+    <string name="file_upload_worker_error_notification_title">Загрузка не удалась. Нет интернет-соединения</string>
     <string name="file_upload_worker_same_file_already_exists">Такой же файл уже существует, конфликт не обнаружен</string>
     <string name="file_version_restored_error">Ошибка восстановления версии файла!</string>
     <string name="file_version_restored_successfully">Версия файла успешно восстановлена</string>
@@ -600,6 +612,7 @@
     <string name="notifications_no_results_headline">Уведомлений нет</string>
     <string name="notifications_no_results_message">Проверьте позже.</string>
     <string name="oc_file_list_adapter_offline_operation_description_text">Ожидаемая операция</string>
+    <string name="oc_file_list_adapter_offline_operation_remove_description_text">Ожидание операции удаления</string>
     <string name="offline_mode">Отсутствует подключение к Интернет</string>
     <string name="offline_mode_info_description">Даже без подключения к Интернету вы можете упорядочивать папки и создавать файлы. Как только вы вернетесь в сеть, ваши действия будут автоматически синхронизированы.</string>
     <string name="offline_mode_info_title">Вы не в сети, но работа продолжается</string>
@@ -628,6 +641,7 @@
     <string name="permission_allow">Разрешить</string>
     <string name="permission_deny">Запретить</string>
     <string name="permission_storage_access">Для отправки и скачивания файлов требуются дополнительные права доступа.</string>
+    <string name="pick_contact_to_share_with">Выберите контакт, которому вы хотите предоставить общий доступ</string>
     <string name="picture_set_as_no_app">Не найдено приложений для обработки изображений</string>
     <string name="pin_home">Закрепить на начальном экране</string>
     <string name="pin_shortcut_label">Открыть %1$s</string>
@@ -662,6 +676,8 @@
     <string name="prefs_category_sync">Синхронизировать</string>
     <string name="prefs_daily_backup_summary">Ежедневное резервное копирование календаря и контактов</string>
     <string name="prefs_daily_contact_backup_summary">Ежедневное сохранение контактов</string>
+    <string name="prefs_data_storage_location">Местоположение хранилища данных</string>
+    <string name="prefs_data_storage_location_summary">Управление местоположением хранилищем данных</string>
     <string name="prefs_davx5_setup_error">Неожиданная ошибка при настройке DAVx5 (ранее известного как DAVdroid)</string>
     <string name="prefs_e2e_active">Сквозное шифрование настроено.</string>
     <string name="prefs_e2e_mnemonic">Мнемофраза E2E</string>
@@ -719,11 +735,14 @@
     <string name="push_notifications_old_login">Нет аккаунтов для уведомлений. Пожалуйста добавьте аккаунт.</string>
     <string name="push_notifications_temp_error">Всплывающие уведомления недоступны</string>
     <string name="qr_could_not_be_read">Не удалось считать QR-код!</string>
+    <string name="re_enable_auto_upload">Изменения в автоматической загрузке</string>
+    <string name="re_enable_auto_upload_desc">В связи с новыми ограничениями, введенными Google, мы были вынуждены удалить важное разрешение. В настоящее время мы работаем с Google над решением этой проблемы и восстановлением полной функциональности.\nЧтобы снова включить автоматическую загрузку для новых фотографий и видео, выберите \"Разрешить все\" в следующем диалоговом окне или в системных настройках.\nПри появлении запроса укажите местоположение носителя, так как это позволяет Nextcloud сохранять данные о местоположении при загрузке изображений.\n\nДиалоговое окно разрешений отображается только при необходимости. Если вы сомневаетесь, проверьте системные настройки.\n\nАвтозагрузка сможет загружать изображения и видеофайлы только при использовании версии приложения Nextcloud для Google Play.\nПожалуйста, проверьте, нет ли файлов, которые, возможно, не загружались с декабря 2024 года.</string>
     <string name="receive_external_files_activity_start_sync_folder_is_not_exists_message">Папка не может быть найдена, операция синхронизации отменена</string>
     <string name="receive_external_files_activity_unable_to_find_file_to_upload">Невозможно найти файл для загрузки</string>
     <string name="recommend_subject">Испытайте %1$s на своём устройстве!</string>
     <string name="recommend_text">Хочу посоветовать использовать %1$s на твоём устройстве!\nСкачай здесь: %2$s</string>
     <string name="recommend_urls">%1$s или %2$s</string>
+    <string name="recommended_files_title">Рекомендуемые файлы</string>
     <string name="refresh_content">Обновить содержимое</string>
     <string name="reload">Перезагрузить</string>
     <string name="remote">(удалённо)</string>
@@ -742,6 +761,7 @@
     <string name="request_account_deletion">Запрос удаления аккаунта</string>
     <string name="request_account_deletion_button">Запросить удаление</string>
     <string name="request_account_deletion_details">Запросить окончательное удаление учетной записи у поставщика услуг</string>
+    <string name="resharing_is_not_allowed">Политика или разрешения запрещают повторное предоставление общего доступа</string>
     <string name="restore">Восстановить файл</string>
     <string name="restore_backup">Восстановить резервную копию</string>
     <string name="restore_button_description">Восстановить удалённый файл</string>
@@ -766,6 +786,7 @@
     <string name="screenshot_06_davdroid_subline">Синхронизация с DAVx5</string>
     <string name="search_error">Ошибка при получении результатов поиска</string>
     <string name="secure_share_not_set_up">Безопасная публикация не настроена для данного пользователя</string>
+    <string name="secure_share_search">Безопасный общий доступ…</string>
     <string name="select_all">Выбрать все</string>
     <string name="select_media_folder">Назначить папку с медиа</string>
     <string name="select_one_template">Пожалуйста, выберите один шаблон</string>
@@ -810,6 +831,7 @@
     <string name="share_permissions">Права на публикацию</string>
     <string name="share_remote_clarification">%1$s (на сервере)</string>
     <string name="share_room_clarification">%1$s (беседа)</string>
+    <string name="share_search">Имя, ID федеративного облака или email адрес…</string>
     <string name="share_send_new_email">Отправить новое письмо</string>
     <string name="share_send_note">Примечание для получателя</string>
     <string name="share_settings">Настройки</string>
@@ -827,6 +849,7 @@
     <string name="sharee_already_added_to_file">Не удалось добавить общий ресурс. Этому пользователю или группе уже предоставлен общий доступ к этому файлу или папке.</string>
     <string name="show_images">Показать фотографии</string>
     <string name="show_video">Показать видео</string>
+    <string name="sign_tos_failed">Пожалуйста, вручную проверьте условия предоставления услуг!</string>
     <string name="signup_with_provider">Подключиться через поставщика услуги</string>
     <string name="single_sign_on_request_token" formatted="true">Разрешить %1$s доступ к вашей учетной записи Nextcloud %2$s?</string>
     <string name="sort_by">Порядок сортировки</string>
@@ -912,6 +935,7 @@
     <string name="synced_icon">Синхронизировано</string>
     <string name="tags">Метки</string>
     <string name="terms_of_service_title">Условия использования</string>
+    <string name="terms_of_services_agree">Я согласен с вышеуказанными условиями</string>
     <string name="test_server_button">Проверить соединение с сервером</string>
     <string name="thirtyMinutes">30 минут</string>
     <string name="thisWeek">Эта неделя</string>
@@ -972,6 +996,8 @@
     <string name="upload_file_dialog_title">Имя и типа файла для автозагрузки </string>
     <string name="upload_files">Отправить файлы</string>
     <string name="upload_global_pause_title">Все загрузки приостановлены</string>
+    <string name="upload_gplay">Права доступа обновлены</string>
+    <string name="upload_gplay_desc">Для доступа к информации о местоположении загруженных изображений требуется новое разрешение.\nУбедитесь, что для доступа к мультимедиа установлено значение \"Всегда разрешать всё\".</string>
     <string name="upload_item_action_button">Кнопка «выгрузить объект»</string>
     <string name="upload_list_delete">Удалить</string>
     <string name="upload_list_empty_headline">Нет файлов, ожидающих передачу на сервер.</string>
@@ -1059,6 +1085,7 @@
     <string name="wait_a_moment">Подождите немного…</string>
     <string name="wait_checking_credentials">Проверка сохранённых реквизитов учётных данных</string>
     <string name="wait_for_tmp_copy_from_private_storage">Копирование файла из частного хранилища</string>
+    <string name="warn_rename_extension">Изменение расширения может привести к открытию этого файла в другом приложении</string>
     <string name="what_s_new_image">Изображение «что нового»</string>
     <string name="whats_new_skip">Пропустить</string>
     <string name="whats_new_title">Новое в %1$s</string>
@@ -1080,6 +1107,24 @@
         <item quantity="few">%d минуты</item>
         <item quantity="many">%d минут </item>
         <item quantity="other">%d минут</item>
+    </plurals>
+    <plurals name="time_seconds_ago">
+        <item quantity="one">1 секунду назад</item>
+        <item quantity="few">%d секунды назад</item>
+        <item quantity="many">%d секунд назад</item>
+        <item quantity="other">%d секунд назад</item>
+    </plurals>
+    <plurals name="time_minutes_ago">
+        <item quantity="one">1 минуту назад</item>
+        <item quantity="few">%d минуты назад</item>
+        <item quantity="many">%d минут назад</item>
+        <item quantity="other">%d минут назад</item>
+    </plurals>
+    <plurals name="time_hours_ago">
+        <item quantity="one">1 час назад</item>
+        <item quantity="few">%d часа назад</item>
+        <item quantity="many">%d часов назад</item>
+        <item quantity="other">%d часов назад</item>
     </plurals>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">Не удалось синхронизировать %1$d файл (конфликтов: %2$d)</item>
@@ -1153,6 +1198,12 @@
         <item quantity="many">%1$d файлов</item>
         <item quantity="other">%1$d файла</item>
     </plurals>
+    <plurals name="trashbin_list__footer__file">
+        <item quantity="one">%1$d объект</item>
+        <item quantity="few">%1$d объекта</item>
+        <item quantity="many">%1$d объектов</item>
+        <item quantity="other">%1$d объектов</item>
+    </plurals>
     <plurals name="synced_folders_show_hidden_folders">
         <item quantity="one">Показать %1$d скрытую папку</item>
         <item quantity="few">Показать %1$d скрытых папки</item>
@@ -1165,4 +1216,34 @@
         <item quantity="many">%d выбрано</item>
         <item quantity="other">%d выбрано</item>
     </plurals>
-    </resources>
+    <plurals name="delay_message">
+        <item quantity="one">Задержка %d секунда из-за слишком большого количества неудачных попыток</item>
+        <item quantity="few">Задержка %d секунды из-за слишком большого количества неудачных попыток</item>
+        <item quantity="many">Задержка %d секунд из-за слишком большого количества неудачных попыток</item>
+        <item quantity="other">Задержка %d секунд из-за слишком большого количества неудачных попыток</item>
+    </plurals>
+    <plurals name="delay_message_minutes">
+        <item quantity="one">Задержка %d минута из-за слишком большого количества неудачных попыток</item>
+        <item quantity="few">Задержка %d минуты из-за слишком большого количества неудачных попыток</item>
+        <item quantity="many">Задержка %d минут из-за слишком большого количества неудачных попыток</item>
+        <item quantity="other">Задержка %d минут из-за слишком большого количества неудачных попыток</item>
+    </plurals>
+    <plurals name="delay_message_minutes_part">
+        <item quantity="one">Задержка %d минута</item>
+        <item quantity="few">Задержка %d минуты</item>
+        <item quantity="many">Задержка %d минут</item>
+        <item quantity="other">Задержка %d минут</item>
+    </plurals>
+    <plurals name="delay_message_seconds_part">
+        <item quantity="one">%d секунда</item>
+        <item quantity="few">%d секунды</item>
+        <item quantity="many">%d секунд</item>
+        <item quantity="other">%d секунд</item>
+    </plurals>
+    <plurals name="share_download_limit_description">
+        <item quantity="one">%1$d загрузка осталась</item>
+        <item quantity="few">%1$d  загрузки осталось</item>
+        <item quantity="many">%1$d  загрузок осталось</item>
+        <item quantity="other">%1$d  загрузок осталось</item>
+    </plurals>
+</resources>

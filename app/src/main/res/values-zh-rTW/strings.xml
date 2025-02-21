@@ -304,6 +304,8 @@
     <string name="ecosystem_apps_talk">Nextcloud Talk</string>
     <string name="email_pick_failed">挑選電子郵件地址失敗。</string>
     <string name="encrypted">設為已加密</string>
+    <string name="end_to_end_encryption_certificate_unavailable">無法擷取伺服器憑證</string>
+    <string name="end_to_end_encryption_certificate_verification_failed">驗證公鑰失敗</string>
     <string name="end_to_end_encryption_confirm_button">設置加密</string>
     <string name="end_to_end_encryption_decrypting">正在解密…</string>
     <string name="end_to_end_encryption_dialog_close">關閉</string>
@@ -315,8 +317,11 @@
     <string name="end_to_end_encryption_passphrase_title">請以紙記下您 12 個字的加密密碼</string>
     <string name="end_to_end_encryption_password">密碼…</string>
     <string name="end_to_end_encryption_retrieving_keys">正在擷取金鑰…</string>
+    <string name="end_to_end_encryption_server_private_key_unavailable">無法擷取私鑰</string>
+    <string name="end_to_end_encryption_server_public_key_unavailable">無法擷取公鑰</string>
     <string name="end_to_end_encryption_storing_keys">儲存金鑰</string>
     <string name="end_to_end_encryption_title">設置加密</string>
+    <string name="end_to_end_encryption_unexpected_error_occurred">下載金鑰時發生了預料之外的錯誤</string>
     <string name="end_to_end_encryption_unsuccessful">無法儲存金鑰，請重試。</string>
     <string name="end_to_end_encryption_wrong_password">解密錯誤。密碼不正確？</string>
     <string name="enter_destination_filename">請輸入目標檔案名稱</string>

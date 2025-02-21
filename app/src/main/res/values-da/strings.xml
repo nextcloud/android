@@ -597,7 +597,7 @@
     <string name="notification_channel_general_name">Generalle notifikationer</string>
     <string name="notification_channel_media_description">Music afspiller fremskridt</string>
     <string name="notification_channel_media_name">Media afspiller</string>
-    <string name="notification_channel_push_description">Vis push notifikationer sent fra serveren: Kommentarer, modtagelse a nye fjerne delinger, annonceringer skrevet af en admin etc. </string>
+    <string name="notification_channel_push_description">Vis push notifikationer sent fra serveren: Omtaler, modtagelse a nye fjerne delinger, annonceringer skrevet af en admin etc. </string>
     <string name="notification_channel_push_name">Pushbeskeder</string>
     <string name="notification_channel_upload_description">Viser afsendings fremskridt</string>
     <string name="notification_channel_upload_name_short">Uploadede filer</string>
