@@ -580,18 +580,18 @@ class SyncedFoldersActivity :
     override fun onSyncFolderSettingsClick(section: Int, syncedFolderDisplayItem: SyncedFolderDisplayItem?) {
         check(Looper.getMainLooper().isCurrentThread) { "This must be called on the main thread!" }
 
-        val fragmentTransaction = supportFragmentManager.beginTransaction().apply {
-            addToBackStack(null)
-        }
-
         dialogFragment = SyncedFolderPreferencesDialogFragment.newInstance(
             syncedFolderDisplayItem,
             section
         )
 
-        dialogFragment?.let {
-            if (isDialogFragmentReady(it)) {
-                it.show(fragmentTransaction, SYNCED_FOLDER_PREFERENCES_DIALOG_TAG)
+        dialogFragment?.let { folderPreferencesDialog ->
+            if (isDialogFragmentReady(folderPreferencesDialog) && lifecycle.currentState.isAtLeast(Lifecycle.State.RESUMED)) {
+                supportFragmentManager
+                    .beginTransaction()
+                    .addToBackStack(null)
+                    .add(folderPreferencesDialog, SYNCED_FOLDER_PREFERENCES_DIALOG_TAG)
+                    .commit()
             } else {
                 Log_OC.d(TAG, "SyncedFolderPreferencesDialogFragment not ready")
             }
