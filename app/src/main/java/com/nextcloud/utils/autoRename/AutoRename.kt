@@ -87,8 +87,12 @@ object AutoRename {
 
     private fun lowercaseFileExtension(filename: String): String {
         val extension = FilenameUtils.getExtension(filename).lowercase()
-        val fileNameWithoutExtension = FilenameUtils.removeExtension(filename)
-        return fileNameWithoutExtension + StringConstants.DOT + extension
+        val filenameWithoutExtension = FilenameUtils.removeExtension(filename)
+        return if (extension.isNotEmpty()) {
+            filenameWithoutExtension + StringConstants.DOT + extension
+        } else {
+            filenameWithoutExtension
+        }
     }
 
     private fun replaceDots(forbiddenExtension: String, segment: String): String {
