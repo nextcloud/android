@@ -152,7 +152,8 @@ class SyncedFolderPreferencesDialogFragment : DialogFragment(), Injectable {
             binding.settingInstantUploadOnChargingCheckbox,
             binding.settingInstantUploadExistingCheckbox,
             binding.settingInstantUploadPathUseSubfoldersCheckbox,
-            binding.settingInstantUploadExcludeHiddenCheckbox
+            binding.settingInstantUploadExcludeHiddenCheckbox,
+            binding.settingInstantUploadAllowUploadWhenAirplaneModeActiveHiddenCheckbox
         )
 
         viewThemeUtils?.material?.colorMaterialButtonPrimaryTonal(binding.btnPositive)
