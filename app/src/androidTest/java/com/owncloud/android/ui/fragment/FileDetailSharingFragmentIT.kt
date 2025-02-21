@@ -288,7 +288,6 @@ class FileDetailSharingFragmentIT : AbstractIT() {
         onView(ViewMatchers.withId(R.id.menu_share_send_new_email)).check(matches(isDisplayed()))
         onView(ViewMatchers.withId(R.id.menu_share_send_link)).check(matches(isDisplayed()))
         onView(ViewMatchers.withId(R.id.menu_share_unshare)).check(matches(isDisplayed()))
-        onView(ViewMatchers.withId(R.id.menu_share_add_another_link)).check(matches(isDisplayed()))
 
         // click event
         onView(ViewMatchers.withId(R.id.menu_share_advanced_permissions)).perform(ViewActions.click())
@@ -416,7 +415,6 @@ class FileDetailSharingFragmentIT : AbstractIT() {
         onView(ViewMatchers.withId(R.id.menu_share_send_new_email)).check(matches(isDisplayed()))
         onView(ViewMatchers.withId(R.id.menu_share_send_link)).check(matches(isDisplayed()))
         onView(ViewMatchers.withId(R.id.menu_share_unshare)).check(matches(isDisplayed()))
-        onView(ViewMatchers.withId(R.id.menu_share_add_another_link)).check(matches(isDisplayed()))
 
         // click event
         onView(ViewMatchers.withId(R.id.menu_share_advanced_permissions)).perform(ViewActions.click())
@@ -531,7 +529,6 @@ class FileDetailSharingFragmentIT : AbstractIT() {
         onView(ViewMatchers.withId(R.id.menu_share_send_new_email)).check(matches(isDisplayed()))
         onView(ViewMatchers.withId(R.id.menu_share_send_link)).check(matches(not(isDisplayed())))
         onView(ViewMatchers.withId(R.id.menu_share_unshare)).check(matches(isDisplayed()))
-        onView(ViewMatchers.withId(R.id.menu_share_add_another_link)).check(matches(not(isDisplayed())))
 
         // click event
         onView(ViewMatchers.withId(R.id.menu_share_advanced_permissions)).perform(ViewActions.click())
@@ -657,7 +654,6 @@ class FileDetailSharingFragmentIT : AbstractIT() {
         onView(ViewMatchers.withId(R.id.menu_share_send_new_email)).check(matches(isDisplayed()))
         onView(ViewMatchers.withId(R.id.menu_share_send_link)).check(matches(not(isDisplayed())))
         onView(ViewMatchers.withId(R.id.menu_share_unshare)).check(matches(isDisplayed()))
-        onView(ViewMatchers.withId(R.id.menu_share_add_another_link)).check(matches(not(isDisplayed())))
 
         // click event
         onView(ViewMatchers.withId(R.id.menu_share_advanced_permissions)).perform(ViewActions.click())
