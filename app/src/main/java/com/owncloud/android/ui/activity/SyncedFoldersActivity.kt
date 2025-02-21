@@ -588,11 +588,12 @@ class SyncedFoldersActivity :
         dialogFragment?.let { folderPreferencesDialog ->
             if (isDialogFragmentReady(folderPreferencesDialog) &&
                 lifecycle.currentState.isAtLeast(Lifecycle.State.RESUMED)) {
-                supportFragmentManager
+
+                val fragmentTransaction = supportFragmentManager
                     .beginTransaction()
                     .addToBackStack(null)
-                    .add(folderPreferencesDialog, SYNCED_FOLDER_PREFERENCES_DIALOG_TAG)
-                    .commit()
+
+                folderPreferencesDialog.show(fragmentTransaction, SYNCED_FOLDER_PREFERENCES_DIALOG_TAG)
             } else {
                 Log_OC.d(TAG, "SyncedFolderPreferencesDialogFragment not ready")
             }
