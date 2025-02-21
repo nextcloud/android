@@ -586,7 +586,8 @@ class SyncedFoldersActivity :
         )
 
         dialogFragment?.let { folderPreferencesDialog ->
-            if (isDialogFragmentReady(folderPreferencesDialog) && lifecycle.currentState.isAtLeast(Lifecycle.State.RESUMED)) {
+            if (isDialogFragmentReady(folderPreferencesDialog) &&
+                lifecycle.currentState.isAtLeast(Lifecycle.State.RESUMED)) {
                 supportFragmentManager
                     .beginTransaction()
                     .addToBackStack(null)
