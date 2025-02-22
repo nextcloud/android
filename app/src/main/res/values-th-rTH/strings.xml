@@ -235,9 +235,7 @@
     <string name="drawer_synced_folders">อัปโหลดอัตโนมัติ</string>
     <string name="e2e_offline">ใช้โดยไม่มีการเชื่อมต่ออินเทอร์เน็ตไม่ได้</string>
     <string name="ecosystem_apps_display_more">เพิ่มเติม</string>
-    <string name="ecosystem_apps_display_notes">โน้ต</string>
     <string name="ecosystem_apps_more">แอพ Nextcloud เพิ่มเติม</string>
-    <string name="ecosystem_apps_notes">Nextcloud โน้ต</string>
     <string name="end_to_end_encryption_decrypting">กำลังถอดรหัส…</string>
     <string name="end_to_end_encryption_dialog_close">ปิด</string>
     <string name="end_to_end_encryption_folder_not_empty">โฟลเดอร์นี้ไม่ว่าง</string>

@@ -297,11 +297,7 @@
     <string name="e2e_signature_does_not_match">Потпис се не подудара</string>
     <string name="ecosystem_apps_display_assistant">Асистент</string>
     <string name="ecosystem_apps_display_more">Више</string>
-    <string name="ecosystem_apps_display_notes">Белешке</string>
-    <string name="ecosystem_apps_display_talk">Разговор</string>
     <string name="ecosystem_apps_more">Још Nextcloud апликација</string>
-    <string name="ecosystem_apps_notes">Некстклауд Белешке</string>
-    <string name="ecosystem_apps_talk">Nextcloud Talk</string>
     <string name="email_pick_failed">Није успело бирање и-мејл адресе.</string>
     <string name="encrypted">Постави као шифровано</string>
     <string name="end_to_end_encryption_certificate_unavailable">Серверски сертификат није могао да се преузме</string>

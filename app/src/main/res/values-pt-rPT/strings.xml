@@ -241,11 +241,7 @@
     <string name="drawer_synced_folders">Carregamento automático</string>
     <string name="e2e_offline">Não é possível sem uma ligação à Internet</string>
     <string name="ecosystem_apps_display_more">Mais</string>
-    <string name="ecosystem_apps_display_notes">Notas</string>
-    <string name="ecosystem_apps_display_talk">Falar</string>
     <string name="ecosystem_apps_more">Mais Aplicações Nextcloud</string>
-    <string name="ecosystem_apps_notes">Nextcloud Notes</string>
-    <string name="ecosystem_apps_talk">Nextcloud Talk</string>
     <string name="encrypted">Definir como encriptado</string>
     <string name="end_to_end_encryption_confirm_button">Definir encriptação</string>
     <string name="end_to_end_encryption_decrypting">Decryption…</string>

@@ -297,11 +297,7 @@
     <string name="e2e_signature_does_not_match">Signaturen matchar inte</string>
     <string name="ecosystem_apps_display_assistant">Assistent</string>
     <string name="ecosystem_apps_display_more">Mer</string>
-    <string name="ecosystem_apps_display_notes">Anteckning</string>
-    <string name="ecosystem_apps_display_talk">Talk</string>
     <string name="ecosystem_apps_more">Fler Nextcloud-appar</string>
-    <string name="ecosystem_apps_notes">Nextcloud anteckningar</string>
-    <string name="ecosystem_apps_talk">Nextcloud Talk</string>
     <string name="email_pick_failed">Det gick inte att välja e-postadress.</string>
     <string name="encrypted">Sätt som krypterad</string>
     <string name="end_to_end_encryption_certificate_unavailable">Kunde inte hämta servercertifikatet</string>

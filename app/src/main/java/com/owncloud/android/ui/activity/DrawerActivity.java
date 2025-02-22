@@ -60,6 +60,7 @@ import com.nextcloud.common.NextcloudClient;
 import com.nextcloud.ui.ChooseAccountDialogFragment;
 import com.nextcloud.ui.composeActivity.ComposeActivity;
 import com.nextcloud.ui.composeActivity.ComposeDestination;
+import com.nextcloud.utils.LinkHelper;
 import com.nextcloud.utils.extensions.ViewExtensionsKt;
 import com.nextcloud.utils.mdm.MDMConfig;
 import com.owncloud.android.MainApp;
@@ -425,9 +426,9 @@ public abstract class DrawerActivity extends ToolbarActivity
         LinearLayout moreView = banner.findViewById(R.id.drawer_ecosystem_more);
         LinearLayout assistantView = banner.findViewById(R.id.drawer_ecosystem_assistant);
 
-        notesView.setOnClickListener(v -> openAppOrStore("it.niedermann.owncloud.notes"));
-        talkView.setOnClickListener(v -> openAppOrStore("com.nextcloud.talk2"));
-        moreView.setOnClickListener(v -> openAppStore("Nextcloud", true));
+        notesView.setOnClickListener(v -> LinkHelper.INSTANCE.openAppOrStore(LinkHelper.APP_NEXTCLOUD_NOTES, getUser(), this));
+        talkView.setOnClickListener(v -> LinkHelper.INSTANCE.openAppOrStore(LinkHelper.APP_NEXTCLOUD_TALK, getUser(), this));
+        moreView.setOnClickListener(v -> LinkHelper.INSTANCE.openAppStore("Nextcloud", true, this));
         assistantView.setOnClickListener(v -> {
             DrawerActivity.menuItemId = Menu.NONE;
             startComposeActivity(ComposeDestination.AssistantScreen, R.string.assistant_screen_top_bar_title);
@@ -457,45 +458,6 @@ public abstract class DrawerActivity extends ToolbarActivity
         }
 
         banner.setVisibility(View.VISIBLE);
-    }
-
-    /**
-     * Open specified app and, if not installed redirect to corresponding download.
-     *
-     * @param packageName of app to be opened
-     */
-    private void openAppOrStore(String packageName) {
-        Intent intent = getPackageManager().getLaunchIntentForPackage(packageName);
-        if (intent != null) {
-            // app installed - open directly
-            intent.putExtra(FileDisplayActivity.KEY_ACCOUNT, getUser().get().hashCode());
-            startActivity(intent);
-        } else {
-            // app not found - open market (Google Play Store, F-Droid, etc.)
-            openAppStore(packageName, false);
-        }
-    }
-
-    /**
-     * Open app store page of specified app or search for specified string. Will attempt to open browser when no app
-     * store is available.
-     *
-     * @param string packageName or url-encoded search string
-     * @param search false -> show app corresponding to packageName; true -> open search for string
-     */
-    private void openAppStore(String string, boolean search) {
-        String suffix = (search ? "search?q=" : "details?id=") + string;
-        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("market://" + suffix));
-        try {
-            startActivity(intent);
-        } catch (android.content.ActivityNotFoundException activityNotFoundException1) {
-            // all is lost: open google play store web page for app
-            if (!search) {
-                suffix = "apps/" + suffix;
-            }
-            intent.setData(Uri.parse("https://play.google.com/store/" + suffix));
-            startActivity(intent);
-        }
     }
 
     private void setDrawerHeaderLogo(Drawable drawable, String serverName) {
@@ -1357,7 +1319,7 @@ public abstract class DrawerActivity extends ToolbarActivity
                 findViewById(R.id.fab_main).callOnClick();
                 break;
             case ACTION_APP_UPDATE:
-                openAppStore(getPackageName(), false);
+                LinkHelper.INSTANCE.openAppStore(getPackageName(), false, this);
                 break;
             case OPEN_NOTIFICATIONS:
                 startActivity(NotificationsActivity.class);

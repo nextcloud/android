@@ -274,11 +274,7 @@
     <string name="e2e_offline">No es posible sin conexión a internet</string>
     <string name="ecosystem_apps_display_assistant">Asistente</string>
     <string name="ecosystem_apps_display_more">Más</string>
-    <string name="ecosystem_apps_display_notes">Notas</string>
-    <string name="ecosystem_apps_display_talk">Hablar</string>
     <string name="ecosystem_apps_more">Más aplicaciones de Nextcloud</string>
-    <string name="ecosystem_apps_notes">Notas de Nextcloud</string>
-    <string name="ecosystem_apps_talk">Nextcloud Talk</string>
     <string name="email_pick_failed">No se pudo seleccionar la dirección de correo electrónico.</string>
     <string name="encrypted">Establecer como encriptado</string>
     <string name="end_to_end_encryption_confirm_button">Configurar la encripción</string>

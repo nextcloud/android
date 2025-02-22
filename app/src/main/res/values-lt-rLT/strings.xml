@@ -255,10 +255,7 @@
     <string name="e2e_offline">Neįmanoma, kai nėra interneto ryšio</string>
     <string name="e2e_signature_does_not_match">Parašas nesutampa</string>
     <string name="ecosystem_apps_display_more">Daugiau</string>
-    <string name="ecosystem_apps_display_notes">Užrašai</string>
-    <string name="ecosystem_apps_display_talk">Kalba</string>
     <string name="ecosystem_apps_more">Daugiau Nextcloud programėlių</string>
-    <string name="ecosystem_apps_notes">Nextcloud užrašai</string>
     <string name="email_pick_failed">Nepavyko pasirinkti el. pašto adreso.</string>
     <string name="encrypted">Nustatyti kaip šifruotą</string>
     <string name="end_to_end_encryption_confirm_button">Nustatyti šifravimą</string>

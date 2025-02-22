@@ -297,11 +297,7 @@
     <string name="e2e_signature_does_not_match">签名不匹配</string>
     <string name="ecosystem_apps_display_assistant">助手</string>
     <string name="ecosystem_apps_display_more">更多</string>
-    <string name="ecosystem_apps_display_notes">笔记</string>
-    <string name="ecosystem_apps_display_talk">通话</string>
     <string name="ecosystem_apps_more">更多 Nextcloud 应用</string>
-    <string name="ecosystem_apps_notes">Nextcloud 笔记</string>
-    <string name="ecosystem_apps_talk">Nextcloud 通话</string>
     <string name="email_pick_failed">未能选择电子邮箱地址</string>
     <string name="encrypted">设置为加密</string>
     <string name="end_to_end_encryption_certificate_unavailable">无法检索服务器证书</string>

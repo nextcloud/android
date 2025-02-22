@@ -297,11 +297,7 @@
     <string name="e2e_signature_does_not_match">Podpis nesúhlasí</string>
     <string name="ecosystem_apps_display_assistant">Asistent</string>
     <string name="ecosystem_apps_display_more">Viac</string>
-    <string name="ecosystem_apps_display_notes">Poznámky</string>
-    <string name="ecosystem_apps_display_talk">Talk /Rozhovor/</string>
     <string name="ecosystem_apps_more">Ďalšie Nextcloud aplikácie</string>
-    <string name="ecosystem_apps_notes">Nextcloud poznámky</string>
-    <string name="ecosystem_apps_talk">Nextcloud Talk /Rozhovor/</string>
     <string name="email_pick_failed">Nepodarilo sa vybrať e-mailovú adresu.</string>
     <string name="encrypted">Nastaviť ako zašifrované</string>
     <string name="end_to_end_encryption_certificate_unavailable">Nepodarilo sa získať certifikát servera</string>

@@ -2315,6 +2315,8 @@ public class FileDataStorageManager {
 
         contentValues.put(ProviderTableMeta.CAPABILITIES_RECOMMENDATION, capability.getRecommendations().getValue());
 
+        contentValues.put(ProviderTableMeta.CAPABILITIES_NOTES_FOLDER_PATH, capability.getNotesFolderPath());
+
         return contentValues;
     }
 
@@ -2490,7 +2492,10 @@ public class FileDataStorageManager {
             capability.setForbiddenFilenameBaseNamesJson(getString(cursor, ProviderTableMeta.CAPABILITIES_FORBIDDEN_FORBIDDEN_FILENAME_BASE_NAMES));
             capability.setFilesDownloadLimit(getBoolean(cursor, ProviderTableMeta.CAPABILITIES_FILES_DOWNLOAD_LIMIT));
             capability.setFilesDownloadLimitDefault(getInt(cursor, ProviderTableMeta.CAPABILITIES_FILES_DOWNLOAD_LIMIT_DEFAULT));
+
             capability.setRecommendations(getBoolean(cursor, ProviderTableMeta.CAPABILITIES_RECOMMENDATION));
+
+            capability.setNotesFolderPath(getString(cursor, ProviderTableMeta.CAPABILITIES_NOTES_FOLDER_PATH));
         }
 
         return capability;

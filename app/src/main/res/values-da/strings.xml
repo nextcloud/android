@@ -297,11 +297,7 @@
     <string name="e2e_signature_does_not_match">Signaturen matcher ikke</string>
     <string name="ecosystem_apps_display_assistant">Assistent</string>
     <string name="ecosystem_apps_display_more">Mere</string>
-    <string name="ecosystem_apps_display_notes">Noter</string>
-    <string name="ecosystem_apps_display_talk">Snak</string>
     <string name="ecosystem_apps_more">Flere Nextcloud apps</string>
-    <string name="ecosystem_apps_notes">Nextcloud noter</string>
-    <string name="ecosystem_apps_talk">Nextcloud Snak</string>
     <string name="email_pick_failed">Kunne ikke plukke e-mailadresse.</string>
     <string name="encrypted">Angiv som krypteret</string>
     <string name="end_to_end_encryption_certificate_unavailable">Servercertifikatet kunne ikke hentes</string>

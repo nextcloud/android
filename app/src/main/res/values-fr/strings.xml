@@ -297,11 +297,7 @@
     <string name="e2e_signature_does_not_match">La signature ne correspond pas</string>
     <string name="ecosystem_apps_display_assistant">Assistant</string>
     <string name="ecosystem_apps_display_more">Plus</string>
-    <string name="ecosystem_apps_display_notes">Notes</string>
-    <string name="ecosystem_apps_display_talk">Discussion</string>
     <string name="ecosystem_apps_more">Plus d\'applications Nextcloud</string>
-    <string name="ecosystem_apps_notes">Nextcloud Notes</string>
-    <string name="ecosystem_apps_talk">Nextcloud Talk</string>
     <string name="email_pick_failed">Le choix de l\'adresse e-mail a échoué.</string>
     <string name="encrypted">Définir comme chiffré</string>
     <string name="end_to_end_encryption_confirm_button">Configurer le chiffrement</string>
