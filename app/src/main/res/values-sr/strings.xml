@@ -304,6 +304,8 @@
     <string name="ecosystem_apps_talk">Nextcloud Talk</string>
     <string name="email_pick_failed">Није успело бирање и-мејл адресе.</string>
     <string name="encrypted">Постави као шифровано</string>
+    <string name="end_to_end_encryption_certificate_unavailable">Серверски сертификат није могао да се преузме</string>
+    <string name="end_to_end_encryption_certificate_verification_failed">Није успело потврђивање јавног кључа</string>
     <string name="end_to_end_encryption_confirm_button">Подесите шифровање</string>
     <string name="end_to_end_encryption_decrypting">Дешифрујем…</string>
     <string name="end_to_end_encryption_dialog_close">Затвори</string>
@@ -315,8 +317,11 @@
     <string name="end_to_end_encryption_passphrase_title">Запишите своју лозинку за шифровање од 12 речи</string>
     <string name="end_to_end_encryption_password">Лозинка…</string>
     <string name="end_to_end_encryption_retrieving_keys">Добављам кључеве…</string>
+    <string name="end_to_end_encryption_server_private_key_unavailable">Приватни кључ није могао да се преузме</string>
+    <string name="end_to_end_encryption_server_public_key_unavailable">Јавни кључ није могао да се преузме</string>
     <string name="end_to_end_encryption_storing_keys">Складиштим кључеве</string>
     <string name="end_to_end_encryption_title">Подесите шифровање</string>
+    <string name="end_to_end_encryption_unexpected_error_occurred">Дошло је до неочекиване грешке током преузимања кључева</string>
     <string name="end_to_end_encryption_unsuccessful">Не могу да сачувам кључеве. Покушајте поново.</string>
     <string name="end_to_end_encryption_wrong_password">Грешка при дешифровању. Погрешна лозинка?</string>
     <string name="enter_destination_filename">Унесите име циљног фајла</string>

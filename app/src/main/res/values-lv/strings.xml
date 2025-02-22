@@ -554,7 +554,7 @@
     <string name="uploader_upload_failed_content_single">Nevarēja augšupielādēt %1$s</string>
     <string name="uploader_upload_failed_credentials_error">Augšupielāde neizdevās, piesakieties vēlreiz.</string>
     <string name="uploader_upload_failed_ticker">Neizdevās augšupielādēt</string>
-    <string name="uploader_upload_files_behaviour">Augšupielādes opcijas:</string>
+    <string name="uploader_upload_files_behaviour">Augšupielādes iespējas:</string>
     <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">Pārvietot datni uz %1$s mapi</string>
     <string name="uploader_upload_files_behaviour_only_upload">Saglabāt datni avota mapē</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Dzēst datni no avota mapes</string>
