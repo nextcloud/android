@@ -249,7 +249,8 @@ class FilesSyncWork(
         // as they are already marked as uploaded in the database.
         val paths = filesystemDataProvider.getFilesForUpload(
             syncedFolder.localPath,
-            syncedFolder.id.toString()
+            syncedFolder.id.toString(),
+            syncedFolder.uploadDelayTimeMs
         )
         if (paths.isEmpty()) {
             return
