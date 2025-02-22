@@ -304,6 +304,8 @@
     <string name="ecosystem_apps_talk">Nextcloud Snak</string>
     <string name="email_pick_failed">Kunne ikke plukke e-mailadresse.</string>
     <string name="encrypted">Angiv som krypteret</string>
+    <string name="end_to_end_encryption_certificate_unavailable">Servercertifikatet kunne ikke hentes</string>
+    <string name="end_to_end_encryption_certificate_verification_failed">Kunne ikke bekræfte den offentlige nøgle</string>
     <string name="end_to_end_encryption_confirm_button">Indstil kryptering</string>
     <string name="end_to_end_encryption_decrypting">Dekrypterer...</string>
     <string name="end_to_end_encryption_dialog_close">Luk</string>
@@ -315,8 +317,11 @@
     <string name="end_to_end_encryption_passphrase_title">Noter dit 12 ords krypterings kodeord</string>
     <string name="end_to_end_encryption_password">Adgangskode...</string>
     <string name="end_to_end_encryption_retrieving_keys">Henter nøgler...</string>
+    <string name="end_to_end_encryption_server_private_key_unavailable">Kunne ikke bekræfte den private nøgle</string>
+    <string name="end_to_end_encryption_server_public_key_unavailable">Kunne ikke hente offentlig nøgle</string>
     <string name="end_to_end_encryption_storing_keys">Gemmer nøgler</string>
     <string name="end_to_end_encryption_title">Indstil kryptering</string>
+    <string name="end_to_end_encryption_unexpected_error_occurred">Der opstod en uventet fejl under download af nøglerne</string>
     <string name="end_to_end_encryption_unsuccessful">Kunne ikke gemme nøgler, prøv venligts igen.</string>
     <string name="end_to_end_encryption_wrong_password">Fejl ved dekryptering. Forkert kodeord?</string>
     <string name="enter_destination_filename">Vælg destinations filnavn</string>

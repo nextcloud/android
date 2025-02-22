@@ -303,6 +303,8 @@
     <string name="ecosystem_apps_talk">Nextcloud Beszélgetés</string>
     <string name="email_pick_failed">Az e-mail-cím kiválasztása sikertelen.</string>
     <string name="encrypted">Titkosítás bekapcsolása</string>
+    <string name="end_to_end_encryption_certificate_unavailable">A kiszolgáló tanúsítványa nem kérhető le</string>
+    <string name="end_to_end_encryption_certificate_verification_failed">A nyilvános kulcs ellenőrzése sikertelen</string>
     <string name="end_to_end_encryption_confirm_button">Titkosítás beállítása</string>
     <string name="end_to_end_encryption_decrypting">Visszafejtés…</string>
     <string name="end_to_end_encryption_dialog_close">Bezárás</string>
@@ -314,8 +316,11 @@
     <string name="end_to_end_encryption_passphrase_title">Jegyezze fel a 12 szavas titkosítási kulcsát</string>
     <string name="end_to_end_encryption_password">Jelszó…</string>
     <string name="end_to_end_encryption_retrieving_keys">Kulcsok begyűjtése…</string>
+    <string name="end_to_end_encryption_server_private_key_unavailable">A privát kulcs lekérése sikertelen</string>
+    <string name="end_to_end_encryption_server_public_key_unavailable">A nyilvános kulcs lekérése sikertelen</string>
     <string name="end_to_end_encryption_storing_keys">Kulcsok tárolása</string>
     <string name="end_to_end_encryption_title">Titkosítás beállítása</string>
+    <string name="end_to_end_encryption_unexpected_error_occurred">Váratlan hiba történt a kulcsok letöltése során</string>
     <string name="end_to_end_encryption_unsuccessful">A kulcsok nem menthetőek, próbálja újra.</string>
     <string name="end_to_end_encryption_wrong_password">Hiba történt a visszafejtéskor. Hibás jelszó?</string>
     <string name="enter_destination_filename">Adja meg a célfájlnevet</string>
@@ -432,6 +437,7 @@
     <string name="file_not_found">A fájl nem található</string>
     <string name="file_not_synced">A fájl nem szinkronizálható. A legfrissebb elérhető verzió megjelenítése.</string>
     <string name="file_rename">Átnevezés</string>
+    <string name="file_upload_worker_error_notification_title">A feltöltés sikertelen. Nincs internetkapcsolat.</string>
     <string name="file_upload_worker_same_file_already_exists">Már létezik ugyanez a fájl, nem észlelhető ütközés</string>
     <string name="file_version_restored_error">Hiba a fájl verziójának visszaállításakor!</string>
     <string name="file_version_restored_successfully">Fájl verzió sikeresen visszaállítva.</string>
@@ -666,7 +672,10 @@
     <string name="prefs_category_general">Általános</string>
     <string name="prefs_category_more">Több</string>
     <string name="prefs_category_sync">Szinkronizálás</string>
+    <string name="prefs_daily_backup_summary">Napi biztonsági mentés a naptáráról és a névjegyeiről</string>
     <string name="prefs_daily_contact_backup_summary">Névjegyek napi biztonsági mentése</string>
+    <string name="prefs_data_storage_location">Adattárolási hely</string>
+    <string name="prefs_data_storage_location_summary">Adattárolási hely kezelése</string>
     <string name="prefs_davx5_setup_error">Váratlan hiba a DAVx5 (előző nevén DAVdroid) beállítása során</string>
     <string name="prefs_e2e_active">A végpontok közti titkosítás beállítva!</string>
     <string name="prefs_e2e_mnemonic">E2E mnemonikus kód</string>
@@ -678,6 +687,8 @@
     <string name="prefs_imprint">Impresszum</string>
     <string name="prefs_instant_behaviour_dialogTitle">Az eredeti fájl…</string>
     <string name="prefs_instant_behaviour_title">Az eredeti fájl…</string>
+    <string name="prefs_instant_upload_exclude_hidden_summary">Rejtett fájlok és mappák kihagyása</string>
+    <string name="prefs_instant_upload_exclude_hidden_title">Rejtettek kihagyása</string>
     <string name="prefs_instant_upload_path_use_date_subfolders_summary">Tárolás dátum szerinti almappákban</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Almappák használata</string>
     <string name="prefs_instant_upload_subfolder_rule_title">Almappabeállítások</string>
@@ -702,15 +713,19 @@
     <string name="prefs_synced_folders_local_path_title">Helyi mappa</string>
     <string name="prefs_synced_folders_remote_path_title">Távoli mappa</string>
     <string name="prefs_theme_title">Téma</string>
+    <string name="prefs_two_way_sync_interval">Időköz</string>
     <string name="prefs_two_way_sync_summary">Belső mappák kezelése kétirányú szinkronizáláshoz</string>
     <string name="prefs_two_way_sync_switch_title">Kétirányú szinkronizálás engedélyezése</string>
     <string name="prefs_value_theme_dark">Sötét</string>
     <string name="prefs_value_theme_light">Világos</string>
     <string name="prefs_value_theme_system">Rendszer követése</string>
     <string name="preview_image_description">Kép előnézete</string>
+    <string name="preview_image_downloading_image_for_edit">A kép letöltése a szerkesztőképernyő elindításához, kis türelmet…</string>
     <string name="preview_image_error_no_local_file">Nincs helyi fájl az előnézethez</string>
     <string name="preview_image_error_unknown_format">A kép nem jeleníthető meg</string>
+    <string name="preview_image_file_is_not_downloaded">A fájl nincs letöltve</string>
     <string name="preview_image_file_is_not_exist">A fájl nem létezik</string>
+    <string name="preview_media_unhandled_http_code_message">A fájlt jelenleg egy másik felhasználó vagy folyamat zárolja, ezért nem törölhető. Próbálja újra később.</string>
     <string name="preview_sorry">Sajnáljuk</string>
     <string name="privacy">Adatvédelem</string>
     <string name="public_share_name">Új név</string>
@@ -718,6 +733,7 @@
     <string name="push_notifications_old_login">Nincsenek leküldéses értesítések, mert a munkamenet lejárt. Adja hozzá újra a fiókját.</string>
     <string name="push_notifications_temp_error">A leküldéses értesítések jelenleg nem érhetőek el.</string>
     <string name="qr_could_not_be_read">A QR-kód nem olvasható.</string>
+    <string name="re_enable_auto_upload">Változások az automatikus feltöltésben</string>
     <string name="recommend_subject">Próbálja ki a %1$sot az eszközén!</string>
     <string name="recommend_text">Meg akarom hívni a %1$s használatára az eszközén.\nTöltse le itt: %2$s</string>
     <string name="recommend_urls">%1$s vagy %2$s</string>

@@ -304,6 +304,8 @@
     <string name="ecosystem_apps_talk">Nextcloud Talk</string>
     <string name="email_pick_failed">Nepodařilo se vybrat e-mailovou adresu.</string>
     <string name="encrypted">Nastavit jako šifrované</string>
+    <string name="end_to_end_encryption_certificate_unavailable">Nedaří se získat certifikát serveru</string>
+    <string name="end_to_end_encryption_certificate_verification_failed">Nepodařilo se ověřit platnost veřejného klíče</string>
     <string name="end_to_end_encryption_confirm_button">Nastavit šifrování</string>
     <string name="end_to_end_encryption_decrypting">Rozšifrovávání…</string>
     <string name="end_to_end_encryption_dialog_close">Zavřít</string>
@@ -315,8 +317,11 @@
     <string name="end_to_end_encryption_passphrase_title">Poznamenejte si někam své 12 slovné šifrovací heslo</string>
     <string name="end_to_end_encryption_password">Heslo…</string>
     <string name="end_to_end_encryption_retrieving_keys">Získávání klíčů…</string>
+    <string name="end_to_end_encryption_server_private_key_unavailable">Nepodařilo se získat soukromý klíč</string>
+    <string name="end_to_end_encryption_server_public_key_unavailable">Nepodařilo se získat veřejný klíč</string>
     <string name="end_to_end_encryption_storing_keys">Ukládání klíčů</string>
     <string name="end_to_end_encryption_title">Nastavit šifrování</string>
+    <string name="end_to_end_encryption_unexpected_error_occurred">Při stahování klíčů došlo k neočekávané chybě</string>
     <string name="end_to_end_encryption_unsuccessful">Nepodařilo se uložit klíče, zkuste to znovu.</string>
     <string name="end_to_end_encryption_wrong_password">Chyba při rozšifrovávání. Nesprávné heslo?</string>
     <string name="enter_destination_filename">Zadejte cílový soubor</string>
