@@ -30,7 +30,7 @@ class DurationPickerDialogFragmentIT : AbstractIT() {
     @Test
     @UiThread
     @ScreenshotTest
-    fun showSyncDelayDurationDialog() {
+    fun showDurationDialog() {
         val initialDuration = DAYS.toMillis(2) + HOURS.toMillis(8) + MINUTES.toMillis(15)
 
         launchActivity<TestActivity>().use { scenario ->
@@ -45,7 +45,7 @@ class DurationPickerDialogFragmentIT : AbstractIT() {
                 dialog.show(transaction, "DURATION_DIALOG")
 
                 onIdleSync {
-                    val screenShotName = createName(testClassName + "_" + "showSyncDelayDurationDialog", "")
+                    val screenShotName = createName(testClassName + "_" + "showDurationDialog", "")
                     onView(isRoot()).check(matches(isDisplayed()))
                     screenshotViaName(sut, screenShotName)
                 }

@@ -34,14 +34,15 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="42dp"
             android:text="@string/common_days_short"
+            android:paddingStart="@dimen/standard_half_padding"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/days_picker"
+            app:layout_constraintEnd_toEndOf="@+id/days_picker"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.5" />
+            app:layout_constraintVertical_bias="0.5"
+            app:layout_constraintWidth_percent="0.125"/>
 
         <NumberPicker
             android:id="@+id/hours_picker"
@@ -52,14 +53,15 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="42dp"
             android:text="@string/common_hours_short"
+            android:paddingStart="@dimen/standard_half_padding"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/hours_picker"
-            app:layout_constraintVertical_bias="0.5" />
+            app:layout_constraintEnd_toEndOf="@+id/hours_picker"
+            app:layout_constraintVertical_bias="0.5"
+            app:layout_constraintWidth_percent="0.125"/>
 
         <NumberPicker
             android:id="@+id/minutes_picker"
@@ -69,24 +71,25 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="42dp"
             android:text="@string/common_minutes_short"
+            android:paddingStart="@dimen/standard_half_padding"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/minutes_picker"
-            app:layout_constraintVertical_bias="0.5" />
+            app:layout_constraintEnd_toEndOf="@+id/minutes_picker"
+            app:layout_constraintVertical_bias="0.5"
+            app:layout_constraintWidth_percent="0.125"/>
 
         <ImageButton
             android:id="@+id/clear"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/standard_margin"
             android:padding="@dimen/standard_half_padding"
             android:src="@drawable/ic_action_cancel_grey"
             android:background="@color/transparent"
             android:contentDescription="@string/common_clear"
+            app:layout_constraintWidth_percent="0.25"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/minutes_picker"
             app:layout_constraintTop_toTopOf="parent" />

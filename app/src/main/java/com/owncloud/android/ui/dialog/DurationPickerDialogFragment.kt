@@ -96,8 +96,11 @@ class DurationPickerDialogFragment : DialogFragment(), Injectable {
 
     private fun setupLimits() {
         binding.daysPicker.maxValue = MAX_DAYS_VALUE
+        binding.daysPicker.displayedValues = getAlignedLeftFromCenterValues(0, MAX_DAYS_VALUE)
         binding.hoursPicker.maxValue = MAX_HOURS_VALUE
+        binding.hoursPicker.displayedValues = getAlignedLeftFromCenterValues(0, MAX_HOURS_VALUE)
         binding.minutesPicker.maxValue = MAX_MINUTES_VALUE
+        binding.minutesPicker.displayedValues = getAlignedLeftFromCenterValues(0, MAX_MINUTES_VALUE)
     }
 
     private fun setHintMessage(hintMessage: String?) {
@@ -105,11 +108,19 @@ class DurationPickerDialogFragment : DialogFragment(), Injectable {
         binding.pickerHint.text = hintMessage
     }
 
+    private fun getAlignedLeftFromCenterValues(min: Int, max :Int): Array<String> {
+        return (min..max).map {
+            val numberOfDigits = it.toString().length
+            "${it}${FIGURE_SPACE.repeat(numberOfDigits)}"
+        }.toTypedArray()
+    }
+
     interface Listener {
         fun onDurationPickerResult(resultCode: Int, duration: Long)
     }
 
     companion object {
+        private const val FIGURE_SPACE = "\u2007"
         private const val MAX_DAYS_VALUE = 30
         private const val MAX_HOURS_VALUE = 24
         private const val MAX_MINUTES_VALUE = 59
