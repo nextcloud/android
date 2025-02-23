@@ -304,6 +304,8 @@
     <string name="ecosystem_apps_talk">Nextcloud 通话</string>
     <string name="email_pick_failed">未能选择电子邮箱地址</string>
     <string name="encrypted">设置为加密</string>
+    <string name="end_to_end_encryption_certificate_unavailable">无法检索服务器证书</string>
+    <string name="end_to_end_encryption_certificate_verification_failed">无法验证公钥</string>
     <string name="end_to_end_encryption_confirm_button">设置加密</string>
     <string name="end_to_end_encryption_decrypting">正在解密…</string>
     <string name="end_to_end_encryption_dialog_close">关闭</string>
@@ -315,8 +317,11 @@
     <string name="end_to_end_encryption_passphrase_title">请记录你的 12 字的加密密码</string>
     <string name="end_to_end_encryption_password">密码…</string>
     <string name="end_to_end_encryption_retrieving_keys">正在检索密钥…</string>
+    <string name="end_to_end_encryption_server_private_key_unavailable">无法检索私钥</string>
+    <string name="end_to_end_encryption_server_public_key_unavailable">无法检索公钥</string>
     <string name="end_to_end_encryption_storing_keys">正在保存密匙</string>
     <string name="end_to_end_encryption_title">设置加密</string>
+    <string name="end_to_end_encryption_unexpected_error_occurred">下载密钥时发生意外错误</string>
     <string name="end_to_end_encryption_unsuccessful">无法保存密钥. 请再次尝试</string>
     <string name="end_to_end_encryption_wrong_password">解密时出错。密码错误？ </string>
     <string name="enter_destination_filename">输入目标文件名</string>
