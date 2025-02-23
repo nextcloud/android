@@ -587,6 +587,7 @@ public class DialogFragmentIT extends AbstractIT {
         }
 
         OCFile ocFile = new OCFile("/test.md");
+        ocFile.setRemoteId("0001");
         final FileActionsBottomSheet sut = FileActionsBottomSheet.newInstance(ocFile, false);
         showDialog(sut);
     }

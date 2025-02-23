@@ -535,6 +535,14 @@ public final class BitmapUtils {
         return bitmap;
     }
 
+    public static void setRoundedBitmapAccordingToListType(boolean gridView, Bitmap thumbnail, ImageView thumbnailView) {
+        if (gridView) {
+            BitmapUtils.setRoundedBitmapForGridMode(thumbnail, thumbnailView);
+        } else {
+            BitmapUtils.setRoundedBitmap(thumbnail, thumbnailView);
+        }
+    }
+
     public static void setRoundedBitmap(Bitmap thumbnail, ImageView imageView) {
         BitmapUtils.setRoundedBitmap(getResources(),
                                      thumbnail,

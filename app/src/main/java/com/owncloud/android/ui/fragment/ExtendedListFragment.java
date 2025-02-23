@@ -369,10 +369,6 @@ public class ExtendedListFragment extends Fragment implements
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
-        var adapter = getRecyclerView().getAdapter();
-        if (adapter instanceof OCFileListAdapter ocFileListAdapter) {
-            ocFileListAdapter.onDestroy();
-        }
     }
 
     private class ScaleListener extends ScaleGestureDetector.SimpleOnScaleGestureListener {
