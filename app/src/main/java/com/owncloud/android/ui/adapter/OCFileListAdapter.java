@@ -142,7 +142,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private final long headerId = UUID.randomUUID().getLeastSignificantBits();
     private final SyncedFolderProvider syncedFolderProvider;
 
-    private final Set<Recommendation> recommendedFiles;
+    private ArrayList<Recommendation> recommendedFiles = new ArrayList<>();
 
     public OCFileListAdapter(
         Activity activity,
@@ -153,9 +153,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         OCFileListFragmentInterface ocFileListFragmentInterface,
         boolean argHideItemOptions,
         boolean gridView,
-        final ViewThemeUtils viewThemeUtils,
-        final Set<Recommendation> recommendedFiles) {
-        this.recommendedFiles = recommendedFiles;
+        final ViewThemeUtils viewThemeUtils) {
         this.ocFileListFragmentInterface = ocFileListFragmentInterface;
         this.activity = activity;
         this.preferences = preferences;
@@ -657,6 +655,11 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         } else {
             holder.getOverflowMenu().setImageResource(R.drawable.ic_dots_vertical);
         }
+    }
+
+    public void updateRecommendedFiles(ArrayList<Recommendation> recommendedFiles) {
+        this.recommendedFiles = recommendedFiles;
+        notifyItemChanged(0);
     }
 
     private void applyChipVisuals(Chip chip, Tag tag) {
