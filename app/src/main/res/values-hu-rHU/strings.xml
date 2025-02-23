@@ -734,9 +734,12 @@
     <string name="push_notifications_temp_error">A leküldéses értesítések jelenleg nem érhetőek el.</string>
     <string name="qr_could_not_be_read">A QR-kód nem olvasható.</string>
     <string name="re_enable_auto_upload">Változások az automatikus feltöltésben</string>
+    <string name="receive_external_files_activity_start_sync_folder_is_not_exists_message">A mappa nem található, a szinkronizálási művelet megszakítva</string>
+    <string name="receive_external_files_activity_unable_to_find_file_to_upload">A feltöltendő fájl nem található</string>
     <string name="recommend_subject">Próbálja ki a %1$sot az eszközén!</string>
     <string name="recommend_text">Meg akarom hívni a %1$s használatára az eszközén.\nTöltse le itt: %2$s</string>
     <string name="recommend_urls">%1$s vagy %2$s</string>
+    <string name="recommended_files_title">Javasolt fájlok</string>
     <string name="refresh_content">Tartalom frissítése</string>
     <string name="reload">Újratöltés</string>
     <string name="remote">(távoli)</string>
@@ -755,6 +758,7 @@
     <string name="request_account_deletion">Fióktörlés kérése</string>
     <string name="request_account_deletion_button">Törlés kérése</string>
     <string name="request_account_deletion_details">A fiók végleges törlésének kérése a szolgáltatótól</string>
+    <string name="resharing_is_not_allowed">Házirend vagy jogosultságok tiltják a továbbosztást</string>
     <string name="restore">Fájl visszaállítása</string>
     <string name="restore_backup">Biztonsági mentés helyreállítása</string>
     <string name="restore_button_description">Törölt fájl visszaállítása</string>
@@ -774,9 +778,12 @@
     <string name="screenshot_04_accounts_heading">Az összes fiókja</string>
     <string name="screenshot_04_accounts_subline">egy helyen</string>
     <string name="screenshot_05_autoUpload_heading">Automatikus feltöltés</string>
+    <string name="screenshot_05_autoUpload_subline">a képeinek és videóinak</string>
     <string name="screenshot_06_davdroid_heading">Naptár és névjegyek</string>
     <string name="screenshot_06_davdroid_subline">Szinkronizálás DAVx5-tel</string>
     <string name="search_error">Hiba a keresési találatok lekérésekor</string>
+    <string name="secure_share_not_set_up">A biztonságos megosztás nincs beállítva ennek a felhasználónak</string>
+    <string name="secure_share_search">Biztonságos megosztás…</string>
     <string name="select_all">Összes kiválasztása</string>
     <string name="select_media_folder">Médiamappa beállítása</string>
     <string name="select_one_template">Válasszon egy sablont</string>
@@ -791,6 +798,7 @@
     <string name="set_status_message">Állapotüzenet beállítása</string>
     <string name="setup_e2e">A végpontok közti titkosítás beállítása során kap egy 12 véletlenszerű szóból álló mnemonikus kódot, amelyre akkor lesz szüksége, ha más eszközökön akarja megnyitni a fájlokat. Ez csak ezen az eszközön lesz tárolva, és újra megjeleníthető ezen a képernyőn. Jegyezze le, és tárolja biztonságos helyen!</string>
     <string name="share">Megosztás</string>
+    <string name="share_copy_link">Megosztás és hivatkozás másolása</string>
     <string name="share_dialog_title">Megosztás</string>
     <string name="share_download_limit">Letöltési korlát beállítása</string>
     <string name="share_expiration_date_format">%1$s</string>
@@ -888,6 +896,7 @@
     <string name="subject_shared_with_you">Megosztották Önnel: „%1$s”</string>
     <string name="subject_user_shared_with_you">%1$s megosztotta Önnel: „%2$s”</string>
     <string name="subtitle_photos_only">Csak fényképek</string>
+    <string name="subtitle_photos_videos">Fényképek és videók</string>
     <string name="subtitle_videos_only">Csak videók</string>
     <string name="suggest">Javaslat</string>
     <string name="sync">Szinkronizálás</string>
@@ -918,6 +927,7 @@
     <string name="synced_icon">Szinkronizálva</string>
     <string name="tags">Címkék</string>
     <string name="terms_of_service_title">Szolgáltatási feltételek</string>
+    <string name="terms_of_services_agree">Egyetértek a fenti szolgáltatási feltételekkel</string>
     <string name="test_server_button">Kiszolgálókapcsolat tesztelése</string>
     <string name="thirtyMinutes">30 perc</string>
     <string name="thisWeek">Ez a hét</string>
@@ -934,6 +944,7 @@
     <string name="trashbin_file_remove">Végleges törlés</string>
     <string name="trashbin_loading_failed">A kuka betöltése sikertelen.</string>
     <string name="trashbin_not_emptied">A fájlok nem törölhetők véglegesen!</string>
+    <string name="two_way_sync_activity_disable_all_button_title">Letiltás az összes mappánál</string>
     <string name="two_way_sync_activity_title">Belső kétirányú szinkronizálás</string>
     <string name="unexpected_error_occurred">Váratlan hiba történt</string>
     <string name="unlock_file">Fájl feloldása</string>

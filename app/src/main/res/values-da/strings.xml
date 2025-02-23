@@ -317,7 +317,7 @@
     <string name="end_to_end_encryption_passphrase_title">Noter dit 12 ords krypterings kodeord</string>
     <string name="end_to_end_encryption_password">Adgangskode...</string>
     <string name="end_to_end_encryption_retrieving_keys">Henter nøgler...</string>
-    <string name="end_to_end_encryption_server_private_key_unavailable">Kunne ikke bekræfte den private nøgle</string>
+    <string name="end_to_end_encryption_server_private_key_unavailable">Kunne ikke hente den private nøgle</string>
     <string name="end_to_end_encryption_server_public_key_unavailable">Kunne ikke hente offentlig nøgle</string>
     <string name="end_to_end_encryption_storing_keys">Gemmer nøgler</string>
     <string name="end_to_end_encryption_title">Indstil kryptering</string>
