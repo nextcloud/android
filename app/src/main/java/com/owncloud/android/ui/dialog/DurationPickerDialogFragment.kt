@@ -108,7 +108,7 @@ class DurationPickerDialogFragment : DialogFragment(), Injectable {
         binding.pickerHint.text = hintMessage
     }
 
-    private fun getAlignedLeftFromCenterValues(min: Int, max :Int): Array<String> {
+    private fun getAlignedLeftFromCenterValues(min: Int, max: Int): Array<String> {
         return (min..max).map {
             val numberOfDigits = it.toString().length
             "${it}${FIGURE_SPACE.repeat(numberOfDigits)}"
