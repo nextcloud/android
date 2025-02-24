@@ -211,6 +211,7 @@ class OCFileListDelegate(
         )
     }
 
+    @Suppress("MagicNumber")
     fun bindGridViewHolder(
         gridViewHolder: ListViewHolder,
         file: OCFile,
@@ -255,6 +256,10 @@ class OCFileListDelegate(
             gridViewHolder.shared.visibility = View.GONE
         } else {
             configureSharedIconView(gridViewHolder, file)
+        }
+
+        if (!file.isOfflineOperation && !file.isFolder) {
+            gridViewHolder.thumbnail.makeRounded(context, 4f)
         }
     }
 
