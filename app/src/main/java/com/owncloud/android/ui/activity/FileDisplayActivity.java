@@ -1227,77 +1227,76 @@ public class FileDisplayActivity extends FileActivity
         Fragment leftFragment = getLeftFragment();
 
         // Listen for sync messages
-        if (leftFragment instanceof OCFileListFragment ocFileListFragment && !ocFileListFragment.isSearchFragment()) {
+        if (!(leftFragment instanceof OCFileListFragment ocFileListFragment) || !ocFileListFragment.isSearchFragment()) {
             initSyncBroadcastReceiver();
+        }
 
-            ocFileListFragment.setLoading(mSyncInProgress);
-            syncAndUpdateFolder(false, true);
-
-            OCFile startFile = null;
-            if (getIntent() != null) {
-                OCFile fileArgs = IntentExtensionsKt.getParcelableArgument(getIntent(), EXTRA_FILE, OCFile.class);
-                if (fileArgs != null) {
-                    startFile = fileArgs;
-                    setFile(startFile);
-                } else if (AUTO_UPLOAD_NOTIFICATION.equals(getIntent().getAction())) {
-                    showReEnableAutoUploadDialog();
-                }
+        if (!(leftFragment instanceof OCFileListFragment)) {
+            if (leftFragment instanceof FileFragment) {
+                super.updateActionBarTitleAndHomeButton(((FileFragment) leftFragment).getFile());
             }
+            return;
+        }
 
-            // Refresh list of files
-            if (searchView != null && !TextUtils.isEmpty(searchQuery)) {
-                searchView.setQuery(searchQuery, false);
-            } else if (!ocFileListFragment.isSearchFragment() && startFile == null) {
-                updateListOfFilesFragment(false);
-                ocFileListFragment.registerFabListener();
-            } else {
-                ocFileListFragment.listDirectory(startFile, false, false);
-                updateActionBarTitleAndHomeButton(startFile);
-            }
+        // If leftFragment is an instance of OCFileListFragment
+        ocFileListFragment.setLoading(mSyncInProgress);
+        syncAndUpdateFolder(false, true);
 
-            // Listen for upload messages
-            IntentFilter uploadIntentFilter = new IntentFilter(FileUploadWorker.Companion.getUploadFinishMessage());
-            mUploadFinishReceiver = new UploadFinishReceiver();
-            localBroadcastManager.registerReceiver(mUploadFinishReceiver, uploadIntentFilter);
-
-            // Listen for download messages
-            IntentFilter downloadIntentFilter = new IntentFilter(FileDownloadWorker.Companion.getDownloadAddedMessage());
-            downloadIntentFilter.addAction(FileDownloadWorker.Companion.getDownloadFinishMessage());
-            mDownloadFinishReceiver = new DownloadFinishReceiver();
-            localBroadcastManager.registerReceiver(mDownloadFinishReceiver, downloadIntentFilter);
-
-            if (menuItemId == Menu.NONE) {
-                setDrawerAllFiles();
-            } else {
-                if (menuItemId == R.id.nav_all_files || menuItemId == R.id.nav_personal_files) {
-                    setupHomeSearchToolbarWithSortAndListButtons();
-                } else {
-                    setupToolbar();
-                }
-            }
-
-            if (ocFileListFragment instanceof GalleryFragment) {
-                updateActionBarTitleAndHomeButtonByString(getString(R.string.drawer_item_gallery));
-            }
-
-        } else {
-            // If it's not an OCFileListFragment, handle other fragment types (e.g., FileFragment)
-            if (leftFragment instanceof FileFragment fileFragment) {
-                super.updateActionBarTitleAndHomeButton(fileFragment.getFile());
-            }
-
-            // Listen for sync messages if it's not a search fragment
-            if (leftFragment instanceof OCFileListFragment) {
-                initSyncBroadcastReceiver();
+        OCFile startFile = null;
+        if (getIntent() != null) {
+            OCFile fileArgs = IntentExtensionsKt.getParcelableArgument(getIntent(), EXTRA_FILE, OCFile.class);
+            if (fileArgs != null) {
+                startFile = fileArgs;
+                setFile(startFile);
+            } else if (AUTO_UPLOAD_NOTIFICATION.equals(getIntent().getAction())) {
+                showReEnableAutoUploadDialog();
             }
         }
-        //show in-app review dialog to user
+
+        // refresh list of files
+        if (searchView != null && !TextUtils.isEmpty(searchQuery)) {
+            searchView.setQuery(searchQuery, false);
+        } else if (!ocFileListFragment.isSearchFragment() && startFile == null) {
+            updateListOfFilesFragment(false);
+            ocFileListFragment.registerFabListener();
+        } else {
+            ocFileListFragment.listDirectory(startFile, false, false);
+            updateActionBarTitleAndHomeButton(startFile);
+        }
+
+        // Listen for upload messages
+        IntentFilter uploadIntentFilter = new IntentFilter(FileUploadWorker.Companion.getUploadFinishMessage());
+        mUploadFinishReceiver = new UploadFinishReceiver();
+        localBroadcastManager.registerReceiver(mUploadFinishReceiver, uploadIntentFilter);
+
+        // Listen for download messages
+        IntentFilter downloadIntentFilter = new IntentFilter(FileDownloadWorker.Companion.getDownloadAddedMessage());
+        downloadIntentFilter.addAction(FileDownloadWorker.Companion.getDownloadFinishMessage());
+        mDownloadFinishReceiver = new DownloadFinishReceiver();
+        localBroadcastManager.registerReceiver(mDownloadFinishReceiver, downloadIntentFilter);
+
+        if (menuItemId == Menu.NONE) {
+            setDrawerAllFiles();
+        } else {
+            if (menuItemId == R.id.nav_all_files || menuItemId == R.id.nav_personal_files) {
+                setupHomeSearchToolbarWithSortAndListButtons();
+            } else {
+                setupToolbar();
+            }
+        }
+
+        if (ocFileListFragment instanceof GalleryFragment) {
+            updateActionBarTitleAndHomeButtonByString(getString(R.string.drawer_item_gallery));
+        }
+
+        // Show in-app review dialog to user
         inAppReviewHelper.showInAppReview(this);
 
         checkNotifications();
 
         Log_OC.v(TAG, "onResume() end");
     }
+
     private void setDrawerAllFiles() {
         if (MainApp.isOnlyPersonFiles()) {
             menuItemId = R.id.nav_personal_files;
