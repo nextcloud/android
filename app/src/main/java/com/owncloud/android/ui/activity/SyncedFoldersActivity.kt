@@ -587,8 +587,8 @@ class SyncedFoldersActivity :
 
         dialogFragment?.let { folderPreferencesDialog ->
             if (isDialogFragmentReady(folderPreferencesDialog) &&
-                lifecycle.currentState.isAtLeast(Lifecycle.State.RESUMED)) {
-
+                lifecycle.currentState.isAtLeast(Lifecycle.State.RESUMED)
+            ) {
                 val fragmentTransaction = supportFragmentManager
                     .beginTransaction()
                     .addToBackStack(null)
