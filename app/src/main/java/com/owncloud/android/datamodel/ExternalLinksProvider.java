@@ -43,31 +43,26 @@ public class ExternalLinksProvider {
      * Stores an external link in database.
      *
      * @param externalLink object to store
-     * @return external link id, -1 if the insert process fails.
      */
-    public long storeExternalLink(ExternalLink externalLink) {
+    public void storeExternalLink(ExternalLink externalLink) {
         Log_OC.v(TAG, "Adding " + externalLink.getName());
 
         ContentValues cv = createContentValuesFromExternalLink(externalLink);
 
         Uri result = mContentResolver.insert(ProviderMeta.ProviderTableMeta.CONTENT_URI_EXTERNAL_LINKS, cv);
 
-        if (result != null) {
-            return Long.parseLong(result.getPathSegments().get(1));
-        } else {
+        if (result == null) {
             Log_OC.e(TAG, "Failed to insert item " + externalLink.getName() + " into external link db.");
-            return -1;
         }
     }
 
     /**
      * Delete all external links from the db
-     * @return numbers of rows deleted
      */
-    public int deleteAllExternalLinks() {
-        return mContentResolver.delete(ProviderMeta.ProviderTableMeta.CONTENT_URI_EXTERNAL_LINKS,
-                                       null,
-                                       null);
+    public void deleteAllExternalLinks() {
+        mContentResolver.delete(ProviderMeta.ProviderTableMeta.CONTENT_URI_EXTERNAL_LINKS,
+                                null,
+                                null);
     }
 
     /**
