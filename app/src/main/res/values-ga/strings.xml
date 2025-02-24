@@ -304,6 +304,8 @@
     <string name="ecosystem_apps_talk">Caint Nextcloud</string>
     <string name="email_pick_failed">Theip ar an seoladh ríomhphoist a phiocadh.</string>
     <string name="encrypted">Socraigh mar criptithe</string>
+    <string name="end_to_end_encryption_certificate_unavailable">Ní féidir teastas an fhreastalaí a fháil</string>
+    <string name="end_to_end_encryption_certificate_verification_failed">Theip ar an eochair phoiblí a fhíorú</string>
     <string name="end_to_end_encryption_confirm_button">Socraigh criptiú</string>
     <string name="end_to_end_encryption_decrypting">Ag díchriptiú…</string>
     <string name="end_to_end_encryption_dialog_close">Dún</string>
@@ -315,8 +317,11 @@
     <string name="end_to_end_encryption_passphrase_title">Déan nóta de do phasfhocal criptithe 12 focal</string>
     <string name="end_to_end_encryption_password">Pasfhocal…</string>
     <string name="end_to_end_encryption_retrieving_keys">Eochracha á n-aisghabháil…</string>
+    <string name="end_to_end_encryption_server_private_key_unavailable">Ní féidir eochair phríobháideach a aisghabháil</string>
+    <string name="end_to_end_encryption_server_public_key_unavailable">Ní féidir eochair phoiblí a fháil</string>
     <string name="end_to_end_encryption_storing_keys">Eochracha a stóráil</string>
     <string name="end_to_end_encryption_title">Socraigh criptiú</string>
+    <string name="end_to_end_encryption_unexpected_error_occurred">Tharla earráid gan choinne agus na heochracha á n-íoslódáil</string>
     <string name="end_to_end_encryption_unsuccessful">Níorbh fhéidir na heochracha a shábháil, bain triail eile as le do thoil.</string>
     <string name="end_to_end_encryption_wrong_password">Earráid agus díchriptithe. Pasfhocal mícheart?</string>
     <string name="enter_destination_filename">Cuir isteach ainm an chomhaid sprice</string>
