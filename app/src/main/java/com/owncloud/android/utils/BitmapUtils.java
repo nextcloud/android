@@ -425,11 +425,10 @@ public final class BitmapUtils {
 
         @Override
         public boolean equals(@Nullable Object obj) {
-            if (!(obj instanceof Color)) {
+            if (!(obj instanceof Color other)) {
                 return false;
             }
 
-            Color other = (Color) obj;
             return this.r == other.r && this.g == other.g && this.b == other.b;
         }
 
@@ -496,8 +495,7 @@ public final class BitmapUtils {
 
     @NonNull
     public static Bitmap drawableToBitmap(Drawable drawable, int desiredWidth, int desiredHeight) {
-        if (drawable instanceof BitmapDrawable) {
-            BitmapDrawable bitmapDrawable = (BitmapDrawable) drawable;
+        if (drawable instanceof BitmapDrawable bitmapDrawable) {
             if (bitmapDrawable.getBitmap() != null) {
                 return bitmapDrawable.getBitmap();
             }
