@@ -50,119 +50,67 @@ public enum UploadResult {
     }
 
     public static UploadResult fromValue(int value) {
-        switch (value) {
-            case -1:
-                return UNKNOWN;
-            case 0:
-                return UPLOADED;
-            case 1:
-                return NETWORK_CONNECTION;
-            case 2:
-                return CREDENTIAL_ERROR;
-            case 3:
-                return FOLDER_ERROR;
-            case 4:
-                return CONFLICT_ERROR;
-            case 5:
-                return FILE_ERROR;
-            case 6:
-                return PRIVILEGES_ERROR;
-            case 7:
-                return CANCELLED;
-            case 8:
-                return FILE_NOT_FOUND;
-            case 9:
-                return DELAYED_FOR_WIFI;
-            case 10:
-                return SERVICE_INTERRUPTED;
-            case 11:
-                return DELAYED_FOR_CHARGING;
-            case 12:
-                return MAINTENANCE_MODE;
-            case 13:
-                return LOCK_FAILED;
-            case 14:
-                return DELAYED_IN_POWER_SAVE_MODE;
-            case 15:
-                return SSL_RECOVERABLE_PEER_UNVERIFIED;
-            case 16:
-                return VIRUS_DETECTED;
-            case 17:
-                return LOCAL_STORAGE_FULL;
-            case 18:
-                return OLD_ANDROID_API;
-            case 19:
-                return SYNC_CONFLICT;
-            case 20:
-                return CANNOT_CREATE_FILE;
-            case 21:
-                return LOCAL_STORAGE_NOT_COPIED;
-            case 22:
-                return QUOTA_EXCEEDED;
-            case 23:
-                return SAME_FILE_CONFLICT;
-        }
-        return UNKNOWN;
+        return switch (value) {
+            case -1 -> UNKNOWN;
+            case 0 -> UPLOADED;
+            case 1 -> NETWORK_CONNECTION;
+            case 2 -> CREDENTIAL_ERROR;
+            case 3 -> FOLDER_ERROR;
+            case 4 -> CONFLICT_ERROR;
+            case 5 -> FILE_ERROR;
+            case 6 -> PRIVILEGES_ERROR;
+            case 7 -> CANCELLED;
+            case 8 -> FILE_NOT_FOUND;
+            case 9 -> DELAYED_FOR_WIFI;
+            case 10 -> SERVICE_INTERRUPTED;
+            case 11 -> DELAYED_FOR_CHARGING;
+            case 12 -> MAINTENANCE_MODE;
+            case 13 -> LOCK_FAILED;
+            case 14 -> DELAYED_IN_POWER_SAVE_MODE;
+            case 15 -> SSL_RECOVERABLE_PEER_UNVERIFIED;
+            case 16 -> VIRUS_DETECTED;
+            case 17 -> LOCAL_STORAGE_FULL;
+            case 18 -> OLD_ANDROID_API;
+            case 19 -> SYNC_CONFLICT;
+            case 20 -> CANNOT_CREATE_FILE;
+            case 21 -> LOCAL_STORAGE_NOT_COPIED;
+            case 22 -> QUOTA_EXCEEDED;
+            case 23 -> SAME_FILE_CONFLICT;
+            default -> UNKNOWN;
+        };
     }
 
     public static UploadResult fromOperationResult(RemoteOperationResult result) {
-        // messy :(
-        switch (result.getCode()) {
-            case OK:
-                return UPLOADED;
-            case NO_NETWORK_CONNECTION:
-            case HOST_NOT_AVAILABLE:
-            case TIMEOUT:
-            case WRONG_CONNECTION:
-            case INCORRECT_ADDRESS:
-            case SSL_ERROR:
-                return NETWORK_CONNECTION;
-            case ACCOUNT_EXCEPTION:
-            case UNAUTHORIZED:
-                return CREDENTIAL_ERROR;
-            case FILE_NOT_FOUND:
-                return FOLDER_ERROR;
-            case LOCAL_FILE_NOT_FOUND:
-                return FILE_NOT_FOUND;
-            case CONFLICT:
-                return CONFLICT_ERROR;
-            case LOCAL_STORAGE_NOT_COPIED:
-                return LOCAL_STORAGE_NOT_COPIED;
-            case LOCAL_STORAGE_FULL:
-                return LOCAL_STORAGE_FULL;
-            case OLD_ANDROID_API:
-                return OLD_ANDROID_API;
-            case SYNC_CONFLICT:
-                return SYNC_CONFLICT;
-            case FORBIDDEN:
-                return PRIVILEGES_ERROR;
-            case CANCELLED:
-                return CANCELLED;
-            case DELAYED_FOR_WIFI:
-                return DELAYED_FOR_WIFI;
-            case DELAYED_FOR_CHARGING:
-                return DELAYED_FOR_CHARGING;
-            case DELAYED_IN_POWER_SAVE_MODE:
-                return DELAYED_IN_POWER_SAVE_MODE;
-            case MAINTENANCE_MODE:
-                return MAINTENANCE_MODE;
-            case SSL_RECOVERABLE_PEER_UNVERIFIED:
-                return SSL_RECOVERABLE_PEER_UNVERIFIED;
-            case UNKNOWN_ERROR:
+        return switch (result.getCode()) {
+            case OK -> UPLOADED;
+            case NO_NETWORK_CONNECTION, HOST_NOT_AVAILABLE, TIMEOUT, WRONG_CONNECTION, INCORRECT_ADDRESS, SSL_ERROR ->
+                NETWORK_CONNECTION;
+            case ACCOUNT_EXCEPTION, UNAUTHORIZED -> CREDENTIAL_ERROR;
+            case FILE_NOT_FOUND -> FOLDER_ERROR;
+            case LOCAL_FILE_NOT_FOUND -> FILE_NOT_FOUND;
+            case CONFLICT -> CONFLICT_ERROR;
+            case LOCAL_STORAGE_NOT_COPIED -> LOCAL_STORAGE_NOT_COPIED;
+            case LOCAL_STORAGE_FULL -> LOCAL_STORAGE_FULL;
+            case OLD_ANDROID_API -> OLD_ANDROID_API;
+            case SYNC_CONFLICT -> SYNC_CONFLICT;
+            case FORBIDDEN -> PRIVILEGES_ERROR;
+            case CANCELLED -> CANCELLED;
+            case DELAYED_FOR_WIFI -> DELAYED_FOR_WIFI;
+            case DELAYED_FOR_CHARGING -> DELAYED_FOR_CHARGING;
+            case DELAYED_IN_POWER_SAVE_MODE -> DELAYED_IN_POWER_SAVE_MODE;
+            case MAINTENANCE_MODE -> MAINTENANCE_MODE;
+            case SSL_RECOVERABLE_PEER_UNVERIFIED -> SSL_RECOVERABLE_PEER_UNVERIFIED;
+            case UNKNOWN_ERROR -> {
                 if (result.getException() instanceof java.io.FileNotFoundException) {
-                    return FILE_ERROR;
+                    yield FILE_ERROR;
                 }
-                return UNKNOWN;
-            case LOCK_FAILED:
-                return LOCK_FAILED;
-            case VIRUS_DETECTED:
-                return VIRUS_DETECTED;
-            case CANNOT_CREATE_FILE:
-                return CANNOT_CREATE_FILE;
-            case QUOTA_EXCEEDED:
-                return QUOTA_EXCEEDED;
-            default:
-                return UNKNOWN;
-        }
+                yield UNKNOWN;
+            }
+            case LOCK_FAILED -> LOCK_FAILED;
+            case VIRUS_DETECTED -> VIRUS_DETECTED;
+            case CANNOT_CREATE_FILE -> CANNOT_CREATE_FILE;
+            case QUOTA_EXCEEDED -> QUOTA_EXCEEDED;
+            default -> UNKNOWN;
+        };
     }
 }
