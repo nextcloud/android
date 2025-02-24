@@ -304,6 +304,8 @@
     <string name="ecosystem_apps_talk">Розмови Nextcloud</string>
     <string name="email_pick_failed">Не вдалося вибрати ел. адресу.</string>
     <string name="encrypted">Позначити як зашифроване</string>
+    <string name="end_to_end_encryption_certificate_unavailable">Неможливо отримати сертифікат сервера</string>
+    <string name="end_to_end_encryption_certificate_verification_failed">Не вдалося перевірити публічний ключ</string>
     <string name="end_to_end_encryption_confirm_button">Налаштування шифрування</string>
     <string name="end_to_end_encryption_decrypting">Розшифровування...</string>
     <string name="end_to_end_encryption_dialog_close">Закрити</string>
@@ -315,8 +317,11 @@
     <string name="end_to_end_encryption_passphrase_title">Занотуйте вашу парольну фразу з 12 слів</string>
     <string name="end_to_end_encryption_password">Пароль...</string>
     <string name="end_to_end_encryption_retrieving_keys">Отримання ключів...</string>
+    <string name="end_to_end_encryption_server_private_key_unavailable">Неможливо отримати приватний ключ</string>
+    <string name="end_to_end_encryption_server_public_key_unavailable">Неможливо отримати публічний ключ</string>
     <string name="end_to_end_encryption_storing_keys">Збереження ключів</string>
     <string name="end_to_end_encryption_title">Налаштування шифрування</string>
+    <string name="end_to_end_encryption_unexpected_error_occurred">Неочікувана помилка під час звантаження ключів</string>
     <string name="end_to_end_encryption_unsuccessful">Не вдалося зберегти ключі, спробуйте ще раз.</string>
     <string name="end_to_end_encryption_wrong_password">Помилка розшифрування. Хибний пароль?</string>
     <string name="enter_destination_filename">Зазначте назву файлу призначення</string>
