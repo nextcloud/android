@@ -115,25 +115,11 @@ public class RichDocumentsTemplateAdapter extends RecyclerView.Adapter<RichDocum
         public void setData(Template template) {
             this.template = template;
 
-            int placeholder;
-
-            switch (type) {
-                case DOCUMENT:
-                    placeholder = R.drawable.file_doc;
-                    break;
-
-                case SPREADSHEET:
-                    placeholder = R.drawable.file_xls;
-                    break;
-
-                case PRESENTATION:
-                    placeholder = R.drawable.file_ppt;
-                    break;
-
-                default:
-                    placeholder = R.drawable.file;
-                    break;
-            }
+            int placeholder = switch (type) {
+                case DOCUMENT -> R.drawable.file_doc;
+                case SPREADSHEET -> R.drawable.file_xls;
+                case PRESENTATION -> R.drawable.file_ppt;
+            };
 
             Glide.with(context).using(new CustomGlideStreamLoader(currentAccountProvider.getUser(), clientFactory))
                 .load(template.getThumbnailLink())
