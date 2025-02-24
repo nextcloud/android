@@ -7,7 +7,7 @@
  */
 package com.owncloud.android.datamodel
 
-data class GalleryRow(val files: List<OCFile>, val defaultHeight: Int, val defaultWidth: Int) {
+data class GalleryRow(var files: List<OCFile>, val defaultHeight: Int, val defaultWidth: Int) {
     fun getMaxHeight(): Float {
         return files.map { it.imageDimension?.height ?: defaultHeight.toFloat() }.maxOrNull() ?: 0f
     }
