@@ -240,7 +240,7 @@ public class FileDisplayActivity extends FileActivity
 
     private SearchView searchView;
     private PlayerServiceConnection mPlayerConnection;
-    private Optional<User> lastDisplayedUser = Optional.empty();
+    private User lastDisplayedUser = null;
 
     @Inject AppPreferences preferences;
 
@@ -2232,7 +2232,7 @@ public class FileDisplayActivity extends FileActivity
         }
     }
 
-    private void startMediaActivity(OCFile file, long startPlaybackPosition, boolean autoplay, Optional<User> user) {
+    private void startMediaActivity(OCFile file, long startPlaybackPosition, boolean autoplay, User user) {
         Intent previewMediaIntent = new Intent(this, PreviewMediaActivity.class);
         previewMediaIntent.putExtra(PreviewMediaActivity.EXTRA_FILE, file);
         previewMediaIntent.putExtra(PreviewMediaActivity.EXTRA_USER, user.get());
@@ -2451,18 +2451,17 @@ public class FileDisplayActivity extends FileActivity
     @Override
     public void onStart() {
         super.onStart();
-        final Optional<User> optionalUser = getUser();
+        final User user = getUser();
         final FileDataStorageManager storageManager = getStorageManager();
-        if (optionalUser.isPresent() && storageManager != null) {
-            /// Check whether the 'main' OCFile handled by the Activity is contained in the
-            // current Account
+        if (user != null && storageManager != null) {
+            // Check whether the 'main' OCFile handled by the Activity is contained in the current Account
             OCFile file = getFile();
             // get parent from path
             String parentPath = "";
             if (file != null) {
                 if (file.isDown() && file.getLastSyncDateForProperties() == 0) {
-                    // upload in progress - right now, files are not inserted in the local
-                    // cache until the upload is successful get parent from path
+                    // upload in progress - right now, files are not inserted in the local cache
+                    // until the upload is successful. Get parent from path
                     parentPath = file.getRemotePath().substring(0, file.getRemotePath().lastIndexOf(file.getFileName()));
                     if (storageManager.getFileByPath(parentPath) == null) {
                         file = null; // not able to know the directory where the file is uploading
@@ -2478,12 +2477,11 @@ public class FileDisplayActivity extends FileActivity
             }
             setFile(file);
 
-            User user = optionalUser.get();
             setupDrawer();
 
             mSwitchAccountButton.setTag(user.getAccountName());
             DisplayUtils.setAvatar(user, this, getResources().getDimension(R.dimen.nav_drawer_menu_avatar_radius), getResources(), mSwitchAccountButton, this);
-            final boolean userChanged = !user.nameEquals(lastDisplayedUser.orElse(null));
+            final boolean userChanged = !user.nameEquals(lastDisplayedUser);
             if (userChanged) {
                 Log_OC.d(TAG, "Initializing Fragments in onAccountChanged..");
                 initFragments();
@@ -2493,8 +2491,8 @@ public class FileDisplayActivity extends FileActivity
             } else {
                 updateActionBarTitleAndHomeButton(file.isFolder() ? null : file);
             }
+            lastDisplayedUser = user;
         }
-        lastDisplayedUser = optionalUser;
 
         EventBus.getDefault().post(new TokenPushEvent());
         checkForNewDevVersionNecessary(getApplicationContext());
