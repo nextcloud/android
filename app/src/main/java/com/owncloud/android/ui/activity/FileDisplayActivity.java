@@ -2214,9 +2214,10 @@ public class FileDisplayActivity extends FileActivity
         if (!user.isPresent()) {
             return; // not reachable under normal conditions
         }
+        User actualUser = user.get();
         if (showPreview && file.isDown() && !file.isDownloading() || streamMedia) {
             if (showInActivity) {
-                startMediaActivity(file, startPlaybackPosition, autoplay, user);
+                startMediaActivity(file, startPlaybackPosition, autoplay, actualUser);
             } else {
                 configureToolbarForPreview(file);
                 Fragment mediaFragment = PreviewMediaFragment.newInstance(file, user.get(), startPlaybackPosition, autoplay, false);
@@ -2488,7 +2489,7 @@ public class FileDisplayActivity extends FileActivity
 
             mSwitchAccountButton.setTag(user.getAccountName());
             DisplayUtils.setAvatar(user, this, getResources().getDimension(R.dimen.nav_drawer_menu_avatar_radius), getResources(), mSwitchAccountButton, this);
-            final boolean userChanged = !user.nameEquals(lastDisplayedUser.orElse(null));
+            final boolean userChanged = !user.nameEquals(lastDisplayedUser);
             if (userChanged) {
                 Log_OC.d(TAG, "Initializing Fragments in onAccountChanged..");
                 initFragments();
@@ -2499,7 +2500,7 @@ public class FileDisplayActivity extends FileActivity
                 updateActionBarTitleAndHomeButton(file.isFolder() ? null : file);
             }
         }
-        lastDisplayedUser = optionalUser;
+        lastDisplayedUser = optionalUser.orElse(null);
 
         EventBus.getDefault().post(new TokenPushEvent());
         checkForNewDevVersionNecessary(getApplicationContext());
