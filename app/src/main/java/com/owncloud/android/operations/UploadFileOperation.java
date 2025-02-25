@@ -1038,27 +1038,28 @@ public class UploadFileOperation extends SyncOperation {
                         result = new RemoteOperationResult(ResultCode.SYNC_CONFLICT);
                     }
                 }
-            } catch (FileNotFoundException e) {
-                Log_OC.d(TAG, mOriginalStoragePath + " not exists anymore");
-                result = new RemoteOperationResult(ResultCode.LOCAL_FILE_NOT_FOUND);
-            } catch (OverlappingFileLockException e) {
-                Log_OC.d(TAG, "Overlapping file lock exception");
-                result = new RemoteOperationResult(ResultCode.LOCK_FAILED);
-            } catch (Exception e) {
-                result = new RemoteOperationResult(e);
-            } finally {
-                mUploadStarted.set(false);
-
-                if (temporalFile != null && !originalFile.equals(temporalFile)) {
-                    temporalFile.delete();
-                }
-
-                if (result == null) {
-                    result = new RemoteOperationResult(ResultCode.UNKNOWN_ERROR);
-                }
-
-                logResult(result, mOriginalStoragePath, mRemotePath);
             }
+        } catch (FileNotFoundException e) {
+            Log_OC.d(TAG, mOriginalStoragePath + " not exists anymore");
+            result = new RemoteOperationResult(ResultCode.LOCAL_FILE_NOT_FOUND);
+        } catch (OverlappingFileLockException e) {
+            Log_OC.d(TAG, "Overlapping file lock exception");
+            result = new RemoteOperationResult(ResultCode.LOCK_FAILED);
+        } catch (Exception e) {
+            result = new RemoteOperationResult(e);
+        } finally {
+            mUploadStarted.set(false);
+
+            if (temporalFile != null && !originalFile.equals(temporalFile)) {
+                temporalFile.delete();
+            }
+
+            if (result == null) {
+                result = new RemoteOperationResult(ResultCode.UNKNOWN_ERROR);
+            }
+
+            logResult(result, mOriginalStoragePath, mRemotePath);
+        }
 
             if (result.isSuccess()) {
                 handleLocalBehaviour(temporalFile, expectedFile, originalFile, client);
