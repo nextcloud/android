@@ -678,7 +678,7 @@
     <string name="prefs_data_storage_location">Umiestnenie úložiska údajov</string>
     <string name="prefs_data_storage_location_summary">Spravovať umiestnenie úložiska údajov</string>
     <string name="prefs_davx5_setup_error">Neočakávaná chyba pri nastavovaní DAVx5 (predtým známy ako DAVdroid)</string>
-    <string name="prefs_e2e_active">End-to-end šifrovanie je nastavené!</string>
+    <string name="prefs_e2e_active">Koncové šifrovanie je nastavené!</string>
     <string name="prefs_e2e_mnemonic">E2E mnemotechnické</string>
     <string name="prefs_e2e_no_device_credentials">Pre zobrazenie mnemotechnické, zapnite prihlasovacie údaje zariadenia.</string>
     <string name="prefs_enable_media_scan_notifications">Zobrazovať notifikácie vyhľadávania médií</string>
