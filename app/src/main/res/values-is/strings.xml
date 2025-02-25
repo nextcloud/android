@@ -304,6 +304,8 @@
     <string name="ecosystem_apps_talk">Nextcloud Talk</string>
     <string name="email_pick_failed">Mistókst að velja tölvupóstfang.</string>
     <string name="encrypted">Setja sem dulritað</string>
+    <string name="end_to_end_encryption_certificate_unavailable">Tókst ekki að ná í skilríki þjónsins</string>
+    <string name="end_to_end_encryption_certificate_verification_failed">Mistókst að sannreyna dreifilykil</string>
     <string name="end_to_end_encryption_confirm_button">Setja upp dulritun</string>
     <string name="end_to_end_encryption_decrypting">Afkóðun</string>
     <string name="end_to_end_encryption_dialog_close">Loka</string>
@@ -315,8 +317,11 @@
     <string name="end_to_end_encryption_passphrase_title">Skrifaðu niður 12 orða dulritunarlykilorðið þitt</string>
     <string name="end_to_end_encryption_password">Lykilorð</string>
     <string name="end_to_end_encryption_retrieving_keys">Sæki dulritunarlykla…</string>
+    <string name="end_to_end_encryption_server_private_key_unavailable">Mistókst að ná í einkalykil</string>
+    <string name="end_to_end_encryption_server_public_key_unavailable">Mistókst að ná í dreifilykil</string>
     <string name="end_to_end_encryption_storing_keys">Geymi dulritunarlykla</string>
     <string name="end_to_end_encryption_title">Setja upp dulritun</string>
+    <string name="end_to_end_encryption_unexpected_error_occurred">Óvænt villa kom upp við að sækja lyklana</string>
     <string name="end_to_end_encryption_unsuccessful">Gat ekki vistað dulritunarlykla, reyndu aftur.</string>
     <string name="end_to_end_encryption_wrong_password">Villa kom upp við afkóðun. Rangt lykilorð?</string>
     <string name="enter_destination_filename">Settu inn heiti móttökuskráar</string>
