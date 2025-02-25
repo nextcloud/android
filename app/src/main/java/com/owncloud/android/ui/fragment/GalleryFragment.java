@@ -272,6 +272,7 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
         }
 
         if (!emptySearch) {
+            Log_OC.d(this, "refreshing the gallery adapter");
             this.showAllGalleryItems();
         }
 
