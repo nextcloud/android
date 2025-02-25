@@ -147,38 +147,4 @@
 
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/menu_share_add_another_link"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/bottom_sheet_item_height"
-        android:background="?android:attr/selectableItemBackground"
-        android:orientation="horizontal"
-        android:paddingLeft="@dimen/standard_padding"
-        android:paddingTop="@dimen/standard_half_padding"
-        android:paddingRight="@dimen/standard_padding"
-        android:paddingBottom="@dimen/standard_half_padding"
-        android:visibility="gone"
-        tools:ignore="UseCompoundDrawables"
-        tools:visibility="visible">
-
-        <ImageView
-            android:id="@+id/menu_icon_add_another_link"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:contentDescription="@null"
-            android:src="@drawable/ic_plus"
-            app:tint="@color/primary" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginStart="@dimen/bottom_sheet_text_start_margin"
-            android:text="@string/add_another_public_share_link"
-            android:textColor="@color/text_color"
-            android:textSize="@dimen/bottom_sheet_text_size" />
-
-    </LinearLayout>
-
 </LinearLayout>

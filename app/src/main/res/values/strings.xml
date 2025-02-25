@@ -631,6 +631,7 @@
     <string name="share_via_link_unset_password">Unset</string>
 
     <string name="share_search">Name, Federated Cloud ID or email address…</string>
+    <string name="share_search_internal">Add users and teams</string>
     <string name="secure_share_search">Secure share…</string>
 
     <string name="share_group_clarification">%1$s (group)</string>
@@ -1082,7 +1083,6 @@
     <string name="conflict_dialog_error">Conflict resolver dialog cannot be created</string>
     <string name="qr_could_not_be_read">QR code could not be read!</string>
     <string name="note_icon_hint">Note icon</string>
-    <string name="add_another_public_share_link">Add another link</string>
     <string name="add_new_public_share">Add new public share link</string>
     <string name="public_share_name">New name</string>
     <string name="share_link_with_label">Share link (%1$s)</string>
@@ -1333,4 +1333,9 @@
     <string name="sign_tos_failed">Please manually check terms of service!</string>
     <string name="terms_of_service_title">Terms of service</string>
     <string name="terms_of_services_agree">I agree to the above ToS</string>
+    <string name="show_all">Show all</string>
+    <string name="show_less">Show less</string>
+    <string name="internal_shares">Internal shares</string>
+    <string name="external_shares">External shares</string>
+    <string name="create_link">Create link</string>
 </resources>
