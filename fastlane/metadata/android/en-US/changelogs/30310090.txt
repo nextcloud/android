@@ -1,0 +1,8 @@
+## 3.31.0 (February 25, 2025)
+
+- New share layout
+- Various bug fixes and performance enhancements
+
+Minimum: NC 18 Server, Android 7.1 Nougat
+
+For a full list, please see https://github.com/nextcloud/android/milestone/100

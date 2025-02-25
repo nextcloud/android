@@ -7,7 +7,7 @@
 -->
 <resources>
     <!-- Beta indicator -->
-    <bool name="is_beta">true</bool>
+    <bool name="is_beta">false</bool>
     <bool name="dev_version_direct_download_enabled">false</bool>
 
     <!-- App name  and other strings-->
