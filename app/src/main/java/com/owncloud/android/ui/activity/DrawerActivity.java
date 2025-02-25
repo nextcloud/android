@@ -899,7 +899,7 @@ public abstract class DrawerActivity extends ToolbarActivity
                     });
 
 
-                    SimpleTarget target = new SimpleTarget<Drawable>() {
+                    SimpleTarget<Drawable> target = new SimpleTarget<>() {
                         @Override
                         public void onResourceReady(Drawable resource, GlideAnimation glideAnimation) {
                             Drawable test = resource.getCurrent();
@@ -1037,7 +1037,7 @@ public abstract class DrawerActivity extends ToolbarActivity
                                                             MENU_ITEM_EXTERNAL_LINK + link.getId(), MENU_ORDER_EXTERNAL_LINKS, link.getName())
                     .setCheckable(true).getItemId();
 
-                MenuSimpleTarget target = new MenuSimpleTarget<Drawable>(id) {
+                MenuSimpleTarget<Drawable> target = new MenuSimpleTarget<>(id) {
                     @Override
                     public void onResourceReady(Drawable resource, GlideAnimation glideAnimation) {
                         setExternalLinkIcon(getIdMenuItem(), resource, greyColor);

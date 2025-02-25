@@ -91,6 +91,7 @@ import java.io.InputStreamReader;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.net.IDN;
 import java.nio.charset.Charset;
 import java.text.DateFormat;
@@ -186,7 +187,7 @@ public final class DisplayUtils {
             }
 
             return new BigDecimal(String.valueOf(result)).setScale(
-                sizeScales[suffixIndex], BigDecimal.ROUND_HALF_UP) + " " + sizeSuffixes[suffixIndex];
+                sizeScales[suffixIndex], RoundingMode.HALF_UP) + " " + sizeSuffixes[suffixIndex];
         }
     }
 
