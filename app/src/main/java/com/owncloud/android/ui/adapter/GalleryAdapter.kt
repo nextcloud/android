@@ -193,7 +193,7 @@ class GalleryAdapter(
             .map { GalleryItems(it.key, transformToRows(it.value)) }
             .sortedBy { it.date }.reversed()
 
-        Handler(Looper.getMainLooper()).post { notifyDataSetChanged() }
+        notifyDataSetChanged()
     }
 
     private fun transformToRows(list: List<OCFile>): List<GalleryRow> {
