@@ -136,7 +136,9 @@ object PermissionUtil {
         val preferences = AppPreferencesImpl.fromContext(activity)
         val permissions = getStoragePermissions()
 
-        if (permissions.any { shouldShowRequestPermissionRationale(activity, it) } || !preferences.isStoragePermissionRequested) {
+        if (permissions.any { shouldShowRequestPermissionRationale(activity, it) } ||
+            !preferences.isStoragePermissionRequested
+        ) {
             showStoragePermissionsSnackbar(activity, permissions, viewThemeUtils)
         } else {
             requestPermissions(activity, permissions)
