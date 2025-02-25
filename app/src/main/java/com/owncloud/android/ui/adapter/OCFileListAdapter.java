@@ -924,8 +924,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
         for (Object shareObject : objects) {
             // check type before cast as of long running data fetch it is possible that old result is filled
-            if (shareObject instanceof OCShare) {
-                OCShare ocShare = (OCShare) shareObject;
+            if (shareObject instanceof OCShare ocShare) {
                 shares.add(ocShare);
             }
         }
