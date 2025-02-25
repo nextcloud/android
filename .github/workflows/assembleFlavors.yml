@@ -28,6 +28,7 @@ jobs:
                 with:
                     distribution: "temurin"
                     java-version: 17
+            -   uses: gradle/actions/wrapper-validation@v4
             -   name: Build ${{ matrix.flavor }}
                 run: |
                     echo "org.gradle.jvmargs=-Xmx6g -XX:+HeapDumpOnOutOfMemoryError -Dfile.encoding=UTF-8 -XX:+UseParallelGC -XX:MaxMetaspaceSize=1g" >> gradle.properties
