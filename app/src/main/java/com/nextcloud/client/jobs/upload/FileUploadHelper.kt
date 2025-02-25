@@ -150,7 +150,7 @@ class FileUploadHelper {
         val connectivity = connectivityService.connectivity
         val batteryStatus = powerManagementService.battery
         val accountNames = accountManager.accounts.filter { account ->
-            accountManager.getUser(account.name).isPresent
+            accountManager.getUser(account.name) != null
         }.map { account ->
             account.name
         }.toHashSet()
@@ -185,8 +185,8 @@ class FileUploadHelper {
 
         accountNames.forEach { accountName ->
             val user = accountManager.getUser(accountName)
-            if (user.isPresent) {
-                backgroundJobManager.startFilesUploadJob(user.get())
+            if (user != null) {
+                backgroundJobManager.startFilesUploadJob(user)
             }
         }
 
@@ -222,7 +222,7 @@ class FileUploadHelper {
 
     fun removeFileUpload(remotePath: String, accountName: String) {
         try {
-            val user = accountManager.getUser(accountName).get()
+            val user = accountManager.getUser(accountName)
 
             // need to update now table in mUploadsStorageManager,
             // since the operation will not get to be run by FileUploader#uploadFile
@@ -252,7 +252,7 @@ class FileUploadHelper {
         }
 
         try {
-            val user = accountManager.getUser(accountName).get()
+            val user = accountManager.getUser(accountName)
             cancelAndRestartUploadJob(user)
         } catch (e: NoSuchElementException) {
             Log_OC.e(TAG, "Error restarting upload job because user does not exist!")
@@ -426,7 +426,7 @@ class FileUploadHelper {
 
     fun cancel(accountName: String) {
         uploadsStorageManager.removeUploads(accountName)
-        cancelAndRestartUploadJob(accountManager.getUser(accountName).get())
+        cancelAndRestartUploadJob(accountManager.getUser(accountName))
     }
 
     fun addUploadTransferProgressListener(listener: OnDatatransferProgressListener, targetKey: String) {

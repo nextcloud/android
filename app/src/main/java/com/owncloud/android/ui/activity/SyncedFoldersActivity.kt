@@ -158,8 +158,8 @@ class SyncedFoldersActivity :
         if (intent != null && intent.extras != null) {
             val accountName = intent.extras!!.getString(NotificationWork.KEY_NOTIFICATION_ACCOUNT)
             val optionalUser = user
-            if (optionalUser.isPresent && accountName != null) {
-                val user = optionalUser.get()
+            if (optionalUser != null && accountName != null) {
+                val user = optionalUser
                 if (!accountName.equals(user.accountName, ignoreCase = true)) {
                     accountManager.setCurrentOwnCloudAccount(accountName)
                     setUser(userAccountManager.user)

@@ -66,7 +66,7 @@ class WidgetRepository @Inject constructor(
     }
 
     fun getWidget(widgetId: Int): WidgetConfiguration {
-        val userOptional: Optional<User> =
+        val userOptional: User? =
             userAccountManager.getUser(preferences.getString(PREF__WIDGET_USER + widgetId, ""))
 
         val addButton = createAddButton(widgetId)

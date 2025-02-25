@@ -101,8 +101,8 @@ class FilesSyncWork(
         }
 
         val user = userAccountManager.getUser(syncedFolder.account)
-        if (user.isPresent) {
-            backgroundJobManager.startFilesUploadJob(user.get())
+        if (user != null) {
+            backgroundJobManager.startFilesUploadJob(user)
         }
 
         // Get changed files from ContentObserverWork (only images and videos) or by scanning filesystem
@@ -232,11 +232,11 @@ class FilesSyncWork(
         val accountName = syncedFolder.account
 
         val optionalUser = userAccountManager.getUser(accountName)
-        if (!optionalUser.isPresent) {
+        if (optionalUser == null) {
             return
         }
 
-        val user = optionalUser.get()
+        val user = optionalUser
         val arbitraryDataProvider = if (lightVersion) {
             ArbitraryDataProviderImpl(context)
         } else {

@@ -102,7 +102,7 @@ class ConflictsResolveActivity : FileActivity(), OnConflictDecisionMadeListener 
             val file = newFile
 
             // version
-            val user = user.orElseThrow { RuntimeException() }
+            val user = requireNotNull(user) { "User not found" }
 
             val offlineOperation = if (offlineOperationPath != null) {
                 fileDataStorageManager.offlineOperationDao.getByPath(offlineOperationPath!!)
@@ -193,7 +193,7 @@ class ConflictsResolveActivity : FileActivity(), OnConflictDecisionMadeListener 
             // Overwrite local file
             file?.let {
                 FileDownloadHelper.instance().downloadFile(
-                    user.orElseThrow { RuntimeException() },
+                    requireNotNull(user) { "User not found" },
                     file,
                     conflictUploadId = conflictUploadId
                 )
@@ -290,7 +290,7 @@ class ConflictsResolveActivity : FileActivity(), OnConflictDecisionMadeListener 
     @SuppressLint("CommitTransaction")
     private fun prepareDialog(): Pair<FragmentTransaction, User> {
         val userOptional = user
-        if (!userOptional.isPresent) {
+        if (userOptional == null) {
             Log_OC.e(TAG, "User not present")
             showErrorAndFinish()
         }
@@ -302,7 +302,7 @@ class ConflictsResolveActivity : FileActivity(), OnConflictDecisionMadeListener 
             fragmentTransaction.remove(prev)
         }
 
-        return fragmentTransaction to user.get()
+        return fragmentTransaction to user
     }
 
     private fun startDialog(remotePath: String) {

@@ -39,15 +39,22 @@ class UriUploaderIT : AbstractIT() {
     }
 
     private fun testPrivatePath(activity: TestActivity, path: String) {
+
+        val user = activity.user
+        if (user == null) {
+            throw RuntimeException("User not found")
+        }
+
         val sut = UriUploader(
             activity,
             listOf(Uri.parse(path)),
             "",
-            activity.user.orElseThrow(::RuntimeException),
+            user,
             FileUploadWorker.LOCAL_BEHAVIOUR_MOVE,
             false,
             null
         )
+
         val uploadResult = sut.uploadUris()
         Assert.assertEquals(
             "Wrong result code",

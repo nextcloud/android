@@ -79,7 +79,11 @@ abstract class AbstractOwnCloudSyncAdapter extends
     public User getUser() {
         Account account = getAccount();
         String accountName = account != null ? account.name : null;
-        return userAccountManager.getUser(accountName).orElseGet(userAccountManager::getAnonymousUser);
+        User user = userAccountManager.getUser(accountName);
+        if (user == null) {
+            user = userAccountManager.getAnonymousUser();
+        }
+        return user;
     }
 
     public ContentProviderClient getContentProviderClient() {

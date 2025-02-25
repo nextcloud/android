@@ -73,10 +73,10 @@ class ContactsBackupWork(
             return Result.failure()
         }
         val optionalUser = accountManager.getUser(accountName)
-        if (!optionalUser.isPresent) {
+        if (optionalUser == null) {
             return Result.failure()
         }
-        val user = optionalUser.get()
+        val user = optionalUser
         val lastExecution = arbitraryDataProvider.getLongValue(
             user,
             ContactsPreferenceActivity.PREFERENCE_CONTACTS_LAST_BACKUP

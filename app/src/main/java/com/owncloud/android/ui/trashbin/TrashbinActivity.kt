@@ -94,13 +94,13 @@ class TrashbinActivity :
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val currentUser = user.orElse(accountProvider!!.user)
+        val currentUser = user ?: accountProvider!!.user
         val targetAccount = intent.getStringExtra(Intent.EXTRA_USER)
 
         if (targetAccount != null && !currentUser.nameEquals(targetAccount)) {
             val targetUser = userAccountManager.getUser(targetAccount)
-            if (targetUser.isPresent) {
-                setUser(targetUser.get())
+            if (targetUser != null) {
+                setUser(targetUser)
             } else {
                 Toast.makeText(this, R.string.associated_account_not_found, Toast.LENGTH_LONG).show()
                 finish()
@@ -109,7 +109,7 @@ class TrashbinActivity :
         }
 
         clientFactory?.let {
-            val trashRepository = RemoteTrashbinRepository(user.orElse(accountProvider!!.user), it)
+            val trashRepository = RemoteTrashbinRepository(user ?: accountProvider!!.user, it)
             trashbinPresenter = TrashbinPresenter(trashRepository, this)
         }
 
@@ -150,7 +150,7 @@ class TrashbinActivity :
             preferences,
             syncedFolderProvider,
             this,
-            user.orElse(accountProvider!!.user),
+            user ?: accountProvider!!.user,
             viewThemeUtils
         )
 
@@ -343,7 +343,7 @@ class TrashbinActivity :
         binding.loadingContent.visibility = View.GONE
         binding.list.visibility = View.VISIBLE
         binding.swipeContainingList.isRefreshing = false
-        binding.emptyList.emptyListViewText.text = user.get().accountName
+        binding.emptyList.emptyListViewText.text = user.accountName
         binding.emptyList.emptyListViewText.visibility = View.VISIBLE
         binding.emptyList.emptyListView.visibility = View.VISIBLE
     }

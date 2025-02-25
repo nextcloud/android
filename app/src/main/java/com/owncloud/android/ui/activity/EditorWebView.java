@@ -107,14 +107,14 @@ public abstract class EditorWebView extends ExternalSiteWebView {
             return;
         }
 
-        Optional<User> user = getUser();
-        if (!user.isPresent()) {
+        User user = getUser();
+        if (user == null) {
             return;
         }
 
         OCFile file = getFile();
         if (file != null) {
-            TextEditorLoadUrlTask task = new TextEditorLoadUrlTask(this, user.get(), file, editorUtils);
+            TextEditorLoadUrlTask task = new TextEditorLoadUrlTask(this, user, file, editorUtils);
             task.execute();
         }
     }
@@ -168,12 +168,12 @@ public abstract class EditorWebView extends ExternalSiteWebView {
             fileName = getFile().getFileName();
         }
 
-        Optional<User> user = getUser();
-        if (!user.isPresent()) {
+        User user = getUser();
+        if (user == null) {
             finish();
             return;
         }
-        initLoadingScreen(user.get());
+        initLoadingScreen(user);
     }
 
     @Override
@@ -237,9 +237,13 @@ public abstract class EditorWebView extends ExternalSiteWebView {
     }
 
     private void openShareDialog() {
+        User user = getUser();
+        if (user == null) {
+            throw new RuntimeException("User not found");
+        }
         Intent intent = new Intent(this, ShareActivity.class);
         intent.putExtra(FileActivity.EXTRA_FILE, getFile());
-        intent.putExtra(FileActivity.EXTRA_USER, getUser().orElseThrow(RuntimeException::new));
+        intent.putExtra(FileActivity.EXTRA_USER, user);
         startActivity(intent);
     }
 

@@ -46,17 +46,17 @@ public final class CapabilityUtils {
      */
     @Deprecated
     public static OCCapability getCapability(Account acc, Context context) {
-        Optional<User> user = Optional.empty();
+        User user = null;
 
         if (acc != null) {
             user = UserAccountManagerImpl.fromContext(context).getUser(acc.name);
         } else if (context != null) {
             // TODO: refactor when dark theme work is completed
-            user = Optional.of(UserAccountManagerImpl.fromContext(context).getUser());
+            user = UserAccountManagerImpl.fromContext(context).getUser();
         }
 
-        if (user.isPresent()) {
-            return getCapability(user.get(), context);
+        if (user != null) {
+            return getCapability(user, context);
         } else {
             return new OCCapability();
         }

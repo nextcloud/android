@@ -197,8 +197,10 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
     }
 
     private void clearTempEncryptedFolder() {
-        Optional<User> user = parentActivity.getUser();
-        user.ifPresent(value -> FileDataStorageManager.clearTempEncryptedFolder(value.getAccountName()));
+        User user = parentActivity.getUser();
+        if (user != null) {
+            FileDataStorageManager.clearTempEncryptedFolder(user.getAccountName());
+        }
     }
 
     // FIXME For e2e resume is not working
@@ -337,12 +339,12 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
         itemViewHolder.binding.uploadDate.setText(dateString);
 
         // account
-        final Optional<User> optionalUser = accountManager.getUser(item.getAccountName());
+        final User optionalUser = accountManager.getUser(item.getAccountName());
         if (showUser) {
             itemViewHolder.binding.uploadAccount.setVisibility(View.VISIBLE);
-            if (optionalUser.isPresent()) {
+            if (optionalUser != null) {
                 itemViewHolder.binding.uploadAccount.setText(
-                    DisplayUtils.getAccountNameDisplayText(optionalUser.get()));
+                    DisplayUtils.getAccountNameDisplayText(optionalUser));
             } else {
                 itemViewHolder.binding.uploadAccount.setText(item.getAccountName());
             }
@@ -423,9 +425,8 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
             if (item.getLastResult() == UploadResult.SYNC_CONFLICT) {
                 itemViewHolder.binding.uploadRightButton.setImageResource(R.drawable.ic_dots_vertical);
                 itemViewHolder.binding.uploadRightButton.setOnClickListener(view -> {
-                    if (optionalUser.isPresent()) {
-                        User user = optionalUser.get();
-                        showItemConflictPopup(user, itemViewHolder, item, status, view);
+                    if (optionalUser != null) {
+                        showItemConflictPopup(optionalUser, itemViewHolder, item, status, view);
                     }
                 });
             } else {
@@ -450,22 +451,23 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
             final UploadResult uploadResult = item.getLastResult();
             itemViewHolder.binding.uploadListItemLayout.setOnClickListener(v -> {
                 if (uploadResult == UploadResult.CREDENTIAL_ERROR) {
-                    final Optional<User> optUser = accountManager.getUser(item.getAccountName());
-                    final User user = optUser.orElseThrow(RuntimeException::new);
+                    User user = accountManager.getUser(item.getAccountName());
+                    if (user == null) {
+                        throw new RuntimeException("User not found");
+                    }
                     parentActivity.getFileOperationsHelper().checkCurrentCredentials(user);
                     return;
-                } else if (uploadResult == UploadResult.SYNC_CONFLICT && optionalUser.isPresent()) {
-                    User user = optionalUser.get();
-                    if (checkAndOpenConflictResolutionDialog(user, itemViewHolder, item, status)) {
+                } else if (uploadResult == UploadResult.SYNC_CONFLICT && optionalUser != null) {
+                    if (checkAndOpenConflictResolutionDialog(optionalUser, itemViewHolder, item, status)) {
                         return;
                     }
                 }
 
                 // not a credentials error
                 File file = new File(item.getLocalPath());
-                Optional<User> user = accountManager.getUser(item.getAccountName());
-                if (file.exists() && user.isPresent()) {
-                    uploadHelper.retryUpload(item, user.get());
+                User user = accountManager.getUser(item.getAccountName());
+                if (file.exists() && user != null) {
+                    uploadHelper.retryUpload(item, user);
                     loadUploadItemsFromDb();
                 } else {
                     DisplayUtils.showSnackMessage(
@@ -507,13 +509,13 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
                 itemViewHolder.binding.thumbnail.setImageBitmap(thumbnail);
             } else {
                 // generate new Thumbnail
-                Optional<User> user = parentActivity.getUser();
-                if (allowedToCreateNewThumbnail && user.isPresent()) {
+                User user = parentActivity.getUser();
+                if (allowedToCreateNewThumbnail && user != null) {
                     final ThumbnailsCacheManager.ThumbnailGenerationTask task =
                         new ThumbnailsCacheManager.ThumbnailGenerationTask(
                             itemViewHolder.binding.thumbnail,
                             parentActivity.getStorageManager(),
-                            user.get()
+                            user
                         );
                     if (thumbnail == null) {
                         if (MimeTypeUtil.isVideo(fakeFileToCheatThumbnailsCacheManagerInterface)) {
@@ -579,7 +581,7 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
                 itemViewHolder.binding.thumbnail.setBackgroundColor(parentActivity.getResources().getColor(R.color.bg_default));
             }
         } else {
-            if (optionalUser.isPresent()) {
+            if (optionalUser != null) {
                 final Drawable icon = MimeTypeUtil.getFileTypeIcon(item.getMimeType(),
                                                                    fileName,
                                                                    parentActivity,
@@ -699,10 +701,10 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
         file.setStoragePath(upload.getLocalPath());
 
         Context context = MainApp.getAppContext();
-        Optional<User> user = accountManager.getUser(upload.getAccountName());
-        if (user.isPresent()) {
+        User user = accountManager.getUser(upload.getAccountName());
+        if (user != null) {
             Intent intent = ConflictsResolveActivity.createIntent(file,
-                                                                  user.get(),
+                                                                  user,
                                                                   upload.getUploadId(),
                                                                   Intent.FLAG_ACTIVITY_NEW_TASK,
                                                                   context);
@@ -895,7 +897,7 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
 
         if (PreviewImageFragment.canBePreviewed(file)) {
             //show image preview and stay in uploads tab
-            Intent intent = FileDisplayActivity.openFileIntent(parentActivity, parentActivity.getUser().get(), file);
+            Intent intent = FileDisplayActivity.openFileIntent(parentActivity, parentActivity.getUser(), file);
             parentActivity.startActivity(intent);
         } else {
             Intent intent = new Intent(parentActivity, FileDisplayActivity.class);

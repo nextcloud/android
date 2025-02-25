@@ -234,7 +234,10 @@ public class DialogFragmentIT extends AbstractIT {
         accountManager.setUserData(newAccount, AccountUtils.Constants.KEY_OC_BASE_URL, SERVER_URL);
         accountManager.setUserData(newAccount, AccountUtils.Constants.KEY_USER_ID, "test");
         accountManager.setAuthToken(newAccount, AccountTypeUtils.getAuthTokenTypePass(newAccount.type), "password");
-        User newUser = userAccountManager.getUser(newAccount.name).orElseThrow(RuntimeException::new);
+        User newUser = userAccountManager.getUser(newAccount.name);
+        if (newUser == null) {
+            throw new RuntimeException("User not found");
+        }
         userAccountManager.setCurrentOwnCloudAccount(newAccount.name);
 
         Account newAccount2 = new Account("user1@nextcloud.localhost", MainApp.getAccountType(targetContext));
@@ -313,7 +316,11 @@ public class DialogFragmentIT extends AbstractIT {
 
         FileDisplayActivity fda = getFileDisplayActivity();
         UserAccountManager userAccountManager = fda.getUserAccountManager();
-        User newUser = userAccountManager.getUser(newAccount.name).get();
+        User newUser = userAccountManager.getUser(newAccount.name);
+        if (newUser == null) {
+            throw new RuntimeException("User not found");
+        }
+
         FileDataStorageManager fileDataStorageManager = new FileDataStorageManager(newUser,
                                                                                    targetContext.getContentResolver());
 

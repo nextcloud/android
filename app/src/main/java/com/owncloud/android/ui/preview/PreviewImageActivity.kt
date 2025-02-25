@@ -195,9 +195,9 @@ class PreviewImageActivity : FileActivity(), FileFragment.ContainerActivity, OnR
 
     @SuppressLint("NotifyDataSetChanged")
     fun setPreviewImagePagerCurrentItem(position: Int) {
-        if (user.isPresent) {
+        if (user != null) {
             Handler(Looper.getMainLooper()).post {
-                initViewPager(user.get())
+                initViewPager(user)
                 viewPager?.setCurrentItem(position, false)
                 viewPager?.adapter?.notifyDataSetChanged()
             }
@@ -233,7 +233,7 @@ class PreviewImageActivity : FileActivity(), FileFragment.ContainerActivity, OnR
     public override fun onStart() {
         super.onStart()
         val optionalUser = user
-        if (optionalUser.isPresent) {
+        if (optionalUser != null) {
             var file: OCFile? = file ?: throw IllegalStateException("Instanced with a NULL OCFile")
             // / Validate handled file (first image to preview)
             require(MimeTypeUtil.isImage(file)) { "Non-image file passed as argument" }
@@ -248,7 +248,7 @@ class PreviewImageActivity : FileActivity(), FileFragment.ContainerActivity, OnR
                 setFile(file) // reset after getting it fresh from storageManager
                 updateActionBarTitle(getFile().fileName)
                 // if (!stateWasRecovered) {
-                initViewPager(optionalUser.get())
+                initViewPager(optionalUser)
 
                 // }
             } else {
@@ -278,8 +278,8 @@ class PreviewImageActivity : FileActivity(), FileFragment.ContainerActivity, OnR
                 }
             }
 
-            if (user.isPresent) {
-                initViewPager(user.get())
+            if (user != null) {
+                initViewPager(user)
             }
 
             viewPager?.setCurrentItem(nextPosition, true)
@@ -390,7 +390,7 @@ class PreviewImageActivity : FileActivity(), FileFragment.ContainerActivity, OnR
     @JvmOverloads
     fun requestForDownload(file: OCFile?, downloadBehaviour: String? = null) {
         if (file == null) return
-        val user = user.orElseThrow { RuntimeException() }
+        val user = checkNotNull(user) { "User not found" }
         FileDownloadHelper.instance().downloadFileIfNotStartedBefore(user, file)
     }
 
@@ -479,8 +479,8 @@ class PreviewImageActivity : FileActivity(), FileFragment.ContainerActivity, OnR
             } else if (downloadWasFine) {
                 val user = user
 
-                if (user.isPresent) {
-                    initViewPager(user.get())
+                if (user != null) {
+                    initViewPager(user)
                     val newPosition = previewImagePagerAdapter?.getFilePosition(file) ?: return
                     if (newPosition >= 0) {
                         viewPager?.currentItem = newPosition

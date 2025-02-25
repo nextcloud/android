@@ -113,7 +113,7 @@ class BackupFragment : FileFragment(), OnDateSetListener, Injectable {
         showCalendarBackup = resources.getBoolean(R.bool.show_calendar_backup)
 
         val contactsPreferenceActivity = requireActivity() as ContactsPreferenceActivity
-        user = contactsPreferenceActivity.user.orElseThrow { RuntimeException() }
+        user = checkNotNull(contactsPreferenceActivity.user) { "User not found" }
 
         setupSwitches(user)
 
@@ -389,8 +389,8 @@ class BackupFragment : FileFragment(), OnDateSetListener, Injectable {
         val activity = activity as ContactsPreferenceActivity?
         if (activity != null) {
             val optionalUser = activity.user
-            if (optionalUser.isPresent) {
-                backgroundJobManager.startImmediateContactsBackup(optionalUser.get())
+            if (optionalUser != null) {
+                backgroundJobManager.startImmediateContactsBackup(optionalUser)
             }
         }
     }
@@ -399,8 +399,8 @@ class BackupFragment : FileFragment(), OnDateSetListener, Injectable {
         val activity = activity as ContactsPreferenceActivity?
         if (activity != null) {
             val optionalUser = activity.user
-            if (optionalUser.isPresent) {
-                backgroundJobManager.startImmediateCalendarBackup(optionalUser.get())
+            if (optionalUser != null) {
+                backgroundJobManager.startImmediateCalendarBackup(optionalUser)
             }
         }
     }
@@ -408,10 +408,10 @@ class BackupFragment : FileFragment(), OnDateSetListener, Injectable {
     private fun setAutomaticBackup(enabled: Boolean) {
         val activity = activity as ContactsPreferenceActivity? ?: return
         val optionalUser = activity.user
-        if (!optionalUser.isPresent) {
+        if (optionalUser == null) {
             return
         }
-        val user = optionalUser.get()
+        val user = optionalUser
         if (enabled) {
             if (isContactsBackupEnabled) {
                 Log_OC.d(TAG, "Scheduling contacts backup job")
@@ -626,7 +626,7 @@ class BackupFragment : FileFragment(), OnDateSetListener, Injectable {
                 R.string.contacts_preferences_no_file_found
             )
         } else {
-            val user = contactsPreferenceActivity.user.orElseThrow { RuntimeException() }
+            val user = checkNotNull(contactsPreferenceActivity.user) { "User not found" }
             val contactListFragment = BackupListFragment.newInstance(backupToRestore.toTypedArray(), user)
 
             contactsPreferenceActivity.supportFragmentManager.beginTransaction()

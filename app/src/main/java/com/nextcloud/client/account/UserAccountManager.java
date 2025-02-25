@@ -67,8 +67,8 @@ public interface UserAccountManager extends CurrentAccountProvider {
      * @param accountName Account name of the requested user
      * @return User or empty optional if user does not exist.
      */
-    @NonNull
-    Optional<User> getUser(CharSequence accountName);
+
+    User getUser(CharSequence accountName);
 
 
     User getAnonymousUser();

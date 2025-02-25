@@ -513,9 +513,9 @@ public class FileDisplayActivity extends FileActivity
     }
 
     private void checkOutdatedServer() {
-        Optional<User> user = getUser();
+        User user = getUser();
         // show outdated warning
-        if (user.isPresent() && CapabilityUtils.checkOutdatedWarning(getResources(), user.get().getServer().getVersion(), getCapabilities().getExtendedSupport().isTrue())) {
+        if (user != null && CapabilityUtils.checkOutdatedWarning(getResources(), user.getServer().getVersion(), getCapabilities().getExtendedSupport().isTrue())) {
             DisplayUtils.showServerOutdatedSnackbar(this, Snackbar.LENGTH_LONG);
         }
     }
@@ -1065,15 +1065,23 @@ public class FileDisplayActivity extends FileActivity
                         return;
                     }
 
-                    FileUploadHelper.Companion.instance().uploadNewFiles(getUser().orElseThrow(RuntimeException::new),
-                                                                         filePaths,
-                                                                         decryptedRemotePaths,
-                                                                         behaviour,
-                                                                         true,
-                                                                         UploadFileOperation.CREATED_BY_USER,
-                                                                         false,
-                                                                         false,
-                                                                         NameCollisionPolicy.ASK_USER);
+                    User user = getUser();
+                    if (user == null) {
+                        throw new RuntimeException("User not found");
+                    }
+
+                    FileUploadHelper.Companion.instance().uploadNewFiles(
+                        user,
+                        filePaths,
+                        decryptedRemotePaths,
+                        behaviour,
+                        true,
+                        UploadFileOperation.CREATED_BY_USER,
+                        false,
+                        false,
+                        NameCollisionPolicy.ASK_USER
+                                                                        );
+
                 } else {
                     fileDataStorageManager.addCreateFileOfflineOperation(filePaths, decryptedRemotePaths);
                 }
@@ -1103,9 +1111,21 @@ public class FileDisplayActivity extends FileActivity
         OCFile currentDir = getCurrentDir();
         String remotePath = (currentDir != null) ? currentDir.getRemotePath() : OCFile.ROOT_PATH;
 
-        UriUploader uploader = new UriUploader(this, streamsToUpload, remotePath, getUser().orElseThrow(RuntimeException::new), behaviour, false, // Not show waiting dialog while file is being copied from private storage
-                                               null  // Not needed copy temp task listener
+        User user = getUser();
+        if (user == null) {
+            throw new RuntimeException("User not found");
+        }
+
+        UriUploader uploader = new UriUploader(
+            this,
+            streamsToUpload,
+            remotePath,
+            user,
+            behaviour,
+            false, // Not show waiting dialog while file is being copied from private storage
+            null  // Not needed copy temp task listener
         );
+
 
         uploader.uploadUris();
 
@@ -1690,7 +1710,10 @@ public class FileDisplayActivity extends FileActivity
      * @param activeTab the active tab in the details view
      */
     public void showDetails(OCFile file, int activeTab) {
-        User currentUser = getUser().orElseThrow(RuntimeException::new);
+        User currentUser = getUser();
+        if (currentUser == null) {
+            throw new RuntimeException("User not found");
+        }
 
         resetScrolling(true);
 
@@ -1960,10 +1983,10 @@ public class FileDisplayActivity extends FileActivity
      * @param result    Result of the renaming.
      */
     private void onRenameFileOperationFinish(RenameFileOperation operation, RemoteOperationResult result) {
-        Optional<User> optionalUser = getUser();
+        User optionalUser = getUser();
         OCFile renamedFile = operation.getFile();
-        if (result.isSuccess() && optionalUser.isPresent()) {
-            final User currentUser = optionalUser.get();
+        if (result.isSuccess() && optionalUser != null) {
+            final User currentUser = optionalUser;
             Fragment leftFragment = getLeftFragment();
             if (leftFragment instanceof FileFragment) {
                 final FileFragment fileFragment = (FileFragment) leftFragment;
@@ -2047,9 +2070,9 @@ public class FileDisplayActivity extends FileActivity
     public void onTransferStateChanged(OCFile file, boolean downloading, boolean uploading) {
         updateListOfFilesFragment(false);
         Fragment leftFragment = getLeftFragment();
-        Optional<User> optionalUser = getUser();
-        if (leftFragment instanceof FileDetailFragment && file.equals(((FileDetailFragment) leftFragment).getFile()) && optionalUser.isPresent()) {
-            final User currentUser = optionalUser.get();
+        User optionalUser = getUser();
+        if (leftFragment instanceof FileDetailFragment && file.equals(((FileDetailFragment) leftFragment).getFile()) && optionalUser != null) {
+            final User currentUser = optionalUser;
             if (downloading || uploading) {
                 ((FileDetailFragment) leftFragment).updateFileDetails(file, currentUser);
             } else {
@@ -2065,7 +2088,11 @@ public class FileDisplayActivity extends FileActivity
 
 
     private void requestForDownload() {
-        User user = getUser().orElseThrow(RuntimeException::new);
+        User user = getUser();
+        if (user == null) {
+            throw new RuntimeException("User not found");
+        }
+
         FileDownloadHelper.Companion.instance().downloadFileIfNotStartedBefore(user, mWaitingToPreview);
     }
 
@@ -2107,11 +2134,11 @@ public class FileDisplayActivity extends FileActivity
 
         // the execution is slightly delayed to allow the activity get the window focus if it's being started
         // or if the method is called from a dialog that is being dismissed
-        if (TextUtils.isEmpty(searchQuery) && getUser().isPresent()) {
+        if (TextUtils.isEmpty(searchQuery) && getUser() != null) {
             getHandler().postDelayed(() -> {
-                Optional<User> user = getUser();
+                User user = getUser();
 
-                if (!ignoreFocus && !hasWindowFocus() || !user.isPresent()) {
+                if (!ignoreFocus && !hasWindowFocus() || user == null) {
                     // do not refresh if the user rotates the device while another window has focus
                     // or if the current user is no longer valid
                     return;
@@ -2121,7 +2148,7 @@ public class FileDisplayActivity extends FileActivity
                 mSyncInProgress = true;
 
                 // perform folder synchronization
-                RemoteOperation refreshFolderOperation = new RefreshFolderOperation(folder, currentSyncTime, false, ignoreETag, getStorageManager(), user.get(), getApplicationContext());
+                RemoteOperation refreshFolderOperation = new RefreshFolderOperation(folder, currentSyncTime, false, ignoreETag, getStorageManager(), user, getApplicationContext());
                 refreshFolderOperation.execute(getAccount(), MainApp.getAppContext(), FileDisplayActivity.this, null, null);
 
                 OCFileListFragment fragment = getListOfFilesFragment();
@@ -2136,7 +2163,11 @@ public class FileDisplayActivity extends FileActivity
     }
 
     private void requestForDownload(OCFile file, String downloadBehaviour, String packageName, String activityName) {
-        final User currentUser = getUser().orElseThrow(RuntimeException::new);
+        final User currentUser = getUser();
+        if (currentUser == null) {
+            throw new RuntimeException("User not found");
+        }
+
         if (!FileDownloadHelper.Companion.instance().isDownloading(currentUser, file)) {
             FileDownloadHelper.Companion.instance().downloadFile(currentUser, file, downloadBehaviour, DownloadType.DOWNLOAD, activityName, packageName, null);
         }
@@ -2172,10 +2203,15 @@ public class FileDisplayActivity extends FileActivity
     }
 
     public void startImagePreview(OCFile file, boolean showPreview) {
+        User user = getUser();
+        if (user == null) {
+            throw new RuntimeException("User not found");
+        }
+
         Intent showDetailsIntent = new Intent(this, PreviewImageActivity.class);
         showDetailsIntent.putExtra(EXTRA_FILE, file);
         showDetailsIntent.putExtra(EXTRA_LIVE_PHOTO_FILE, file.livePhotoVideo);
-        showDetailsIntent.putExtra(EXTRA_USER, getUser().orElseThrow(RuntimeException::new));
+        showDetailsIntent.putExtra(EXTRA_USER, user);
         if (showPreview) {
             startActivity(showDetailsIntent);
         } else {
@@ -2185,10 +2221,14 @@ public class FileDisplayActivity extends FileActivity
     }
 
     public void startImagePreview(OCFile file, VirtualFolderType type, boolean showPreview) {
+        User user = getUser();
+        if (user == null) {
+            throw new RuntimeException("User not found");
+        }
         Intent showDetailsIntent = new Intent(this, PreviewImageActivity.class);
         showDetailsIntent.putExtra(PreviewImageActivity.EXTRA_FILE, file);
         showDetailsIntent.putExtra(EXTRA_LIVE_PHOTO_FILE, file.livePhotoVideo);
-        showDetailsIntent.putExtra(EXTRA_USER, getUser().orElseThrow(RuntimeException::new));
+        showDetailsIntent.putExtra(EXTRA_USER, user);
         showDetailsIntent.putExtra(PreviewImageActivity.EXTRA_VIRTUAL_TYPE, type);
 
         if (showPreview) {
@@ -2210,8 +2250,8 @@ public class FileDisplayActivity extends FileActivity
      * @param autoplay              When 'true', the playback will start without user interactions.
      */
     public void startMediaPreview(OCFile file, long startPlaybackPosition, boolean autoplay, boolean showPreview, boolean streamMedia, boolean showInActivity) {
-        Optional<User> user = getUser();
-        if (!user.isPresent()) {
+        User user = getUser();
+        if (user == null) {
             return; // not reachable under normal conditions
         }
         if (showPreview && file.isDown() && !file.isDownloading() || streamMedia) {
@@ -2219,7 +2259,7 @@ public class FileDisplayActivity extends FileActivity
                 startMediaActivity(file, startPlaybackPosition, autoplay, user);
             } else {
                 configureToolbarForPreview(file);
-                Fragment mediaFragment = PreviewMediaFragment.newInstance(file, user.get(), startPlaybackPosition, autoplay, false);
+                Fragment mediaFragment = PreviewMediaFragment.newInstance(file, user, startPlaybackPosition, autoplay, false);
                 setLeftFragment(mediaFragment, false);
             }
         } else {
@@ -2235,7 +2275,7 @@ public class FileDisplayActivity extends FileActivity
     private void startMediaActivity(OCFile file, long startPlaybackPosition, boolean autoplay, User user) {
         Intent previewMediaIntent = new Intent(this, PreviewMediaActivity.class);
         previewMediaIntent.putExtra(PreviewMediaActivity.EXTRA_FILE, file);
-        previewMediaIntent.putExtra(PreviewMediaActivity.EXTRA_USER, user.get());
+        previewMediaIntent.putExtra(PreviewMediaActivity.EXTRA_USER, user);
         previewMediaIntent.putExtra(PreviewMediaActivity.EXTRA_START_POSITION, startPlaybackPosition);
         previewMediaIntent.putExtra(PreviewMediaActivity.EXTRA_AUTOPLAY, autoplay);
         startActivity(previewMediaIntent);
@@ -2252,12 +2292,12 @@ public class FileDisplayActivity extends FileActivity
      * @param file Text {@link OCFile} to preview.
      */
     public void startTextPreview(OCFile file, boolean showPreview) {
-        Optional<User> optUser = getUser();
-        if (!optUser.isPresent()) {
+        User optUser = getUser();
+        if (optUser == null) {
             // remnants of old unsafe system; do not crash, silently stop
             return;
         }
-        User user = optUser.get();
+        User user = optUser;
         if (showPreview) {
             PreviewTextFileFragment fragment = PreviewTextFileFragment.create(user, file, searchOpen, searchQuery);
             setLeftFragment(fragment, false);
@@ -2285,7 +2325,10 @@ public class FileDisplayActivity extends FileActivity
     }
 
     public void startContactListFragment(OCFile file) {
-        final User user = getUser().orElseThrow(RuntimeException::new);
+        final User user = getUser();
+        if (user == null) {
+            throw new RuntimeException("User not found");
+        }
         ContactsPreferenceActivity.startActivityWithContactsFile(this, user, file);
     }
 
@@ -2311,7 +2354,10 @@ public class FileDisplayActivity extends FileActivity
      * @param parentFolder {@link OCFile} containing above file
      */
     public void startDownloadForPreview(OCFile file, OCFile parentFolder) {
-        final User currentUser = getUser().orElseThrow(RuntimeException::new);
+        final User currentUser = getUser();
+        if (currentUser == null) {
+            throw new RuntimeException("User not found");
+        }
         Fragment detailFragment = FileDetailFragment.newInstance(file, parentFolder, currentUser);
         setLeftFragment(detailFragment, false);
         configureToolbarForPreview(file);
@@ -2536,14 +2582,14 @@ public class FileDisplayActivity extends FileActivity
         if (userName == null && fileId == null && intent.getData() != null) {
             openDeepLink(intent.getData());
         } else {
-            Optional<User> optionalUser = userName == null ? getUser() : getUserAccountManager().getUser(userName);
-            if (optionalUser.isPresent()) {
+            User optionalUser = userName == null ? getUser() : getUserAccountManager().getUser(userName);
+            if (optionalUser != null) {
                 if (!TextUtils.isEmpty(fileId)) {
-                    openFile(optionalUser.get(), fileId);
+                    openFile(optionalUser, fileId);
                 } else if (!TextUtils.isEmpty(filePath)) {
-                    openFileByPath(optionalUser.get(), filePath);
+                    openFileByPath(optionalUser, filePath);
                 } else {
-                    accountClicked(optionalUser.get().hashCode());
+                    accountClicked(optionalUser.hashCode());
                 }
             } else {
                 DisplayUtils.showSnackMessage(this, getString(R.string.associated_account_not_found));

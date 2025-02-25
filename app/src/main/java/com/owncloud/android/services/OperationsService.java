@@ -773,9 +773,9 @@ public class OperationsService extends Service {
     @NonNull
     private User toUser(@Nullable Account account) {
         String accountName = account != null ? account.name : "";
-        Optional<User> optionalUser = accountManager.getUser(accountName);
-        if (optionalUser.isPresent()) {
-            return optionalUser.get();
+        User optionalUser = accountManager.getUser(accountName);
+        if (optionalUser != null) {
+            return optionalUser;
         } else {
             return accountManager.getAnonymousUser();
         }

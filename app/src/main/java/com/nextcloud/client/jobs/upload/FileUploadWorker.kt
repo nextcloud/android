@@ -188,7 +188,7 @@ class FileUploadWorker(
     @Suppress("NestedBlockDepth")
     private fun uploadFiles(totalUploadSize: Int, uploadsPerPage: List<OCUpload>, accountName: String) {
         val user = userAccountManager.getUser(accountName)
-        setWorkerState(user.get(), uploadsPerPage)
+        setWorkerState(user, uploadsPerPage)
 
         if (canExitEarly()) {
             Log_OC.d(TAG, "Airplane mode is enabled or no internet connection, stopping worker.")
@@ -203,8 +203,8 @@ class FileUploadWorker(
                     return@uploads
                 }
 
-                if (user.isPresent) {
-                    val uploadFileOperation = createUploadFileOperation(upload, user.get())
+                if (user != null) {
+                    val uploadFileOperation = createUploadFileOperation(upload, user)
 
                     currentUploadFileOperation = uploadFileOperation
 
@@ -216,7 +216,7 @@ class FileUploadWorker(
                         totalUploadSize = totalUploadSize
                     )
 
-                    val result = upload(uploadFileOperation, user.get())
+                    val result = upload(uploadFileOperation, user)
 
                     if (result.isSuccess) {
                         currentUploadIndex += 1

@@ -265,7 +265,7 @@ open class FolderPickerActivity :
             false,
             ignoreETag,
             storageManager,
-            user.orElseThrow { RuntimeException("User not set") },
+            requireNotNull(user) { "User not found" },
             applicationContext
         ).also {
             it.execute(account, this, null, null)

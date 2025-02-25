@@ -174,7 +174,11 @@ public class FileOperationsHelper {
 
     public void startSyncForFileAndIntent(OCFile file, Intent intent) {
         new Thread(() -> {
-            User user = fileActivity.getUser().orElseThrow(RuntimeException::new);
+            User user = fileActivity.getUser();
+            if (user == null) {
+                throw new RuntimeException("User not found");
+            }
+
             FileDataStorageManager storageManager = new FileDataStorageManager(user,
                                                                                fileActivity.getContentResolver());
 
@@ -271,9 +275,9 @@ public class FileOperationsHelper {
                 queryIntentActivities(openFileWithIntent, PackageManager.GET_RESOLVED_FILTER);
 
             if (launchables.isEmpty()) {
-                Optional<User> optionalUser = fileActivity.getUser();
+                User optionalUser = fileActivity.getUser();
 
-                if (optionalUser.isPresent() && editorUtils.isEditorAvailable(optionalUser.get(), file.getMimeType())) {
+                if (optionalUser != null && editorUtils.isEditorAvailable(optionalUser, file.getMimeType())) {
                     openFileWithTextEditor(file, fileActivity);
                 } else {
                     Account account = fileActivity.getAccount();
@@ -625,9 +629,14 @@ public class FileOperationsHelper {
      * @param file File to share or unshare.
      */
     public void showShareFile(OCFile file) {
+        User user = fileActivity.getUser();
+        if (user == null) {
+            throw new RuntimeException("User not found");
+        }
+
         Intent intent = new Intent(fileActivity, ShareActivity.class);
         intent.putExtra(FileActivity.EXTRA_FILE, file);
-        intent.putExtra(FileActivity.EXTRA_USER, fileActivity.getUser().orElseThrow(RuntimeException::new));
+        intent.putExtra(FileActivity.EXTRA_USER, user);
         fileActivity.startActivity(intent);
     }
 
@@ -976,7 +985,11 @@ public class FileOperationsHelper {
      * @param file OCFile
      */
     public void cancelTransference(OCFile file) {
-        User currentUser = fileActivity.getUser().orElseThrow(IllegalStateException::new);
+        User currentUser = fileActivity.getUser();
+        if (currentUser == null) {
+            throw new RuntimeException("User not found");
+        }
+
         if (file.isFolder()) {
             OperationsService.OperationsServiceBinder opsBinder =
                 fileActivity.getOperationsServiceBinder();

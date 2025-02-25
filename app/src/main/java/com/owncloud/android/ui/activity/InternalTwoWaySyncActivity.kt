@@ -50,7 +50,7 @@ class InternalTwoWaySyncActivity :
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        internalTwoWaySyncAdapter = InternalTwoWaySyncAdapter(fileDataStorageManager, user.get(), this, this)
+        internalTwoWaySyncAdapter = InternalTwoWaySyncAdapter(fileDataStorageManager, user, this, this)
 
         binding = InternalTwoWaySyncLayoutBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -114,7 +114,7 @@ class InternalTwoWaySyncActivity :
             try {
                 backgroundJobManager.cancelTwoWaySyncJob()
 
-                val currentUser = user.get()
+                val currentUser = user
 
                 val folders = fileDataStorageManager.getInternalTwoWaySyncFolders(currentUser)
                 folders.forEach { folder ->
@@ -214,7 +214,7 @@ class InternalTwoWaySyncActivity :
     private fun checkDisableForAllFoldersMenuButtonVisibility() {
         lifecycleScope.launch {
             val folderSize = withContext(Dispatchers.IO) {
-                fileDataStorageManager.getInternalTwoWaySyncFolders(user.get()).size
+                fileDataStorageManager.getInternalTwoWaySyncFolders(user).size
             }
 
             checkDisableForAllFoldersMenuButtonVisibility(preferences.isTwoWaySyncEnabled, folderSize)

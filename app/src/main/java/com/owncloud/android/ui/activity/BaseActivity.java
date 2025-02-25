@@ -188,7 +188,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Injectab
         return sessionMixin.getCurrentAccount();
     }
 
-    public Optional<User> getUser() {
+    public User getUser() {
         return sessionMixin.getUser();
     }
 

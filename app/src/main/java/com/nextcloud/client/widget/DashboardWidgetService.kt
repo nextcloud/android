@@ -84,7 +84,7 @@ class StackRemoteViewsFactory(
 
         widgetConfiguration = widgetRepository.getWidget(appWidgetId)
 
-        if (!widgetConfiguration.user.isPresent) {
+        if (widgetConfiguration.user == null) {
             // TODO show error
             Log_OC.e(this, "No user found!")
         }
@@ -95,12 +95,12 @@ class StackRemoteViewsFactory(
     override fun onDataSetChanged() {
         CoroutineScope(Dispatchers.IO).launch {
             try {
-                if (!widgetConfiguration.user.isPresent) {
+                if (widgetConfiguration.user == null) {
                     Log_OC.w(TAG, "User not present for widget update")
                     return@launch
                 }
 
-                val client = clientFactory.createNextcloudClient(widgetConfiguration.user.get())
+                val client = clientFactory.createNextcloudClient(widgetConfiguration.user)
                 val result = DashboardGetWidgetItemsRemoteOperation(widgetConfiguration.widgetId, LIMIT_SIZE)
                     .execute(client)
                 widgetItems = if (result.isSuccess) {
@@ -213,7 +213,7 @@ class StackRemoteViewsFactory(
 
     private fun loadBitmapIcon(widgetItem: DashboardWidgetItem): FutureTarget<Bitmap> {
         return Glide.with(context)
-            .using(CustomGlideStreamLoader(widgetConfiguration.user.get(), clientFactory))
+            .using(CustomGlideStreamLoader(widgetConfiguration.user, clientFactory))
             .load(widgetItem.iconUrl)
             .asBitmap()
             .into(SVG_SIZE, SVG_SIZE)

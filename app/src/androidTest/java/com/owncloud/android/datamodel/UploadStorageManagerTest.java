@@ -77,7 +77,11 @@ public class UploadStorageManagerTest extends AbstractIT {
         }
 
         final UserAccountManager userAccountManager = UserAccountManagerImpl.fromContext(targetContext);
-        user2 = userAccountManager.getUser("test2@test.com").orElseThrow(ActivityNotFoundException::new);
+        User user = userAccountManager.getUser("test2@test.com");
+        if (user == null) {
+            throw new ActivityNotFoundException("Activity not found");
+        }
+        user2 = user;
     }
 
     @Test

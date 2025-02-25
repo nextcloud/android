@@ -611,11 +611,17 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
     @Override
     public void uploadFiles() {
+        User user = ((FileActivity) getActivity()).getUser();
+        if (user == null) {
+            throw new RuntimeException("User not found");
+        }
+
         UploadFilesActivity.startUploadActivityForResult(
             getActivity(),
-            ((FileActivity) getActivity()).getUser().orElseThrow(RuntimeException::new),
+            user,
             FileDisplayActivity.REQUEST_CODE__SELECT_FILES_FROM_FILE_SYSTEM,
             getCurrentFile().isEncrypted());
+
     }
 
     @Override
@@ -1139,7 +1145,11 @@ public class OCFileListFragment extends ExtendedListFragment implements
         }
 
         if (file.isEncrypted()) {
-            User user = ((FileActivity) mContainerActivity).getUser().orElseThrow(RuntimeException::new);
+            User user = ((FileActivity) mContainerActivity).getUser();
+            if (user == null) {
+                throw new RuntimeException("User not found");
+            }
+
 
             // check if e2e app is enabled
             OCCapability ocCapability = mContainerActivity.getStorageManager()

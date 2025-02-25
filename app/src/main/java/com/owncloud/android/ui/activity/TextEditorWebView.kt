@@ -38,12 +38,12 @@ class TextEditorWebView : EditorWebView() {
     override fun postOnCreate() {
         super.postOnCreate()
 
-        if (!user.isPresent) {
+        if (user == null) {
             Toast.makeText(this, getString(R.string.failed_to_start_editor), Toast.LENGTH_LONG).show()
             finish()
         }
 
-        val editor = editorUtils.getEditor(user.get(), file.mimeType)
+        val editor = editorUtils.getEditor(user, file.mimeType)
 
         if (editor != null && editor.id == "onlyoffice") {
             webView.settings.userAgentString = generateOnlyOfficeUserAgent()
@@ -68,7 +68,7 @@ class TextEditorWebView : EditorWebView() {
 
     override fun loadUrl(url: String?) {
         if (url.isNullOrEmpty()) {
-            TextEditorLoadUrlTask(this, user.get(), file, editorUtils).execute()
+            TextEditorLoadUrlTask(this, user, file, editorUtils).execute()
         }
     }
 

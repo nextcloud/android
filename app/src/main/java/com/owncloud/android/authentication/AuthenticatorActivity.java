@@ -1204,12 +1204,12 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
     private void getUserCapabilitiesAndFinish() {
         final Handler handler = new Handler();
-        final Optional<User> user = accountManager.getUser(mAccount.name);
+        final User user = accountManager.getUser(mAccount.name);
 
-        if (user.isPresent()) {
+        if (user != null) {
             Executors.newSingleThreadExecutor().execute(() -> {
                 try {
-                    final FileDataStorageManager storageManager = new FileDataStorageManager(user.get(), getContentResolver());
+                    final FileDataStorageManager storageManager = new FileDataStorageManager(user, getContentResolver());
                     new GetCapabilitiesOperation(storageManager).execute(MainApp.getAppContext());
                     handler.post(this::endSuccess);
                 } catch (Exception e) {

@@ -95,8 +95,11 @@ public abstract class AbstractOnServerIT extends AbstractIT {
                 throw new ActivityNotFoundException();
             }
 
-            Optional<User> optionalUser = userAccountManager.getUser(account.name);
-            user = optionalUser.orElseThrow(IllegalAccessError::new);
+            User optionalUser = userAccountManager.getUser(account.name);
+            if (optionalUser == null) {
+                throw new IllegalAccessError("User not found");
+            }
+            user = optionalUser;
 
             client = OwnCloudClientFactory.createOwnCloudClient(account, targetContext);
             nextcloudClient = OwnCloudClientFactory.createNextcloudClient(user, targetContext);

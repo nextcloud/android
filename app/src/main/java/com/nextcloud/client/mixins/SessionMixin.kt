@@ -33,9 +33,8 @@ class SessionMixin(
         private set
 
     val capabilities: OCCapability?
-        get() = getUser()
-            .map { CapabilityUtils.getCapability(it, activity) }
-            .orElse(null)
+        get() = getUser()?.let { CapabilityUtils.getCapability(it, activity) }
+
 
     fun setAccount(account: Account) {
         val validAccount = (accountManager.setCurrentOwnCloudAccount(account.name))
@@ -51,9 +50,9 @@ class SessionMixin(
         setAccount(user.toPlatformAccount())
     }
 
-    fun getUser(): Optional<User> {
+    fun getUser(): User? {
         return if (currentAccount.isAnonymous(activity)) {
-            Optional.empty()
+            null
         } else {
             accountManager.getUser(currentAccount.name)
         }

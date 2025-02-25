@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.google.android.material.snackbar.Snackbar;
+import com.nextcloud.client.account.User;
 import com.nextcloud.client.network.ClientFactory;
 import com.nextcloud.common.NextcloudClient;
 import com.owncloud.android.R;
@@ -195,9 +196,17 @@ public class ActivitiesActivity extends DrawerActivity implements ActivityListIn
         } else {
             showDetailsIntent = new Intent(getBaseContext(), FileDisplayActivity.class);
         }
+
         showDetailsIntent.putExtra(EXTRA_FILE, ocFile);
-        showDetailsIntent.putExtra(EXTRA_USER, getUser().orElseThrow(RuntimeException::new));
+
+        User user = getUser();
+        if (user == null) {
+            throw new RuntimeException("User not found");
+        }
+        showDetailsIntent.putExtra(EXTRA_USER, user);
+
         startActivity(showDetailsIntent);
+
 
     }
 

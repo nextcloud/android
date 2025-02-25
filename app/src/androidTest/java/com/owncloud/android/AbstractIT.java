@@ -528,8 +528,11 @@ public abstract class AbstractIT {
     }
 
     protected static User getUser(Account account) {
-        Optional<User> optionalUser = UserAccountManagerImpl.fromContext(targetContext).getUser(account.name);
-        return optionalUser.orElseThrow(IllegalAccessError::new);
+        User optionalUser = UserAccountManagerImpl.fromContext(targetContext).getUser(account.name);
+        if (optionalUser == null) {
+            throw new IllegalAccessError("User not found");
+        }
+        return optionalUser;
     }
 
     protected static Account createAccount(String name) {

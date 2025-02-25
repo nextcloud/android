@@ -271,9 +271,13 @@ public class ReceiveExternalFilesActivity extends FileActivity
         super.onSaveInstanceState(outState);
         outState.putString(KEY_PARENTS, generatePath(mParents));
         outState.putParcelable(KEY_FILE, mFile);
-        if (getUser().isPresent()) {
-            outState.putParcelable(FileActivity.EXTRA_USER, getUser().orElseThrow(RuntimeException::new));
+        User user = getUser();
+        if (user != null) {
+            outState.putParcelable(FileActivity.EXTRA_USER, user);
+        } else {
+            throw new RuntimeException("User not found");
         }
+
 
         Log_OC.d(TAG, "onSaveInstanceState() end");
     }
@@ -302,12 +306,17 @@ public class ReceiveExternalFilesActivity extends FileActivity
                 return;
             }
 
-            if (file.isEncrypted() &&
-                !FileOperationsHelper.isEndToEndEncryptionSetup(this, getUser().orElseThrow(IllegalAccessError::new))) {
-                DisplayUtils.showSnackMessage(this, R.string.e2e_not_yet_setup);
+            User user = getUser();
+            if (user == null) {
+                throw new IllegalAccessError("User not found");
+            }
 
+            if (file.isEncrypted() &&
+                !FileOperationsHelper.isEndToEndEncryptionSetup(this, user)) {
+                DisplayUtils.showSnackMessage(this, R.string.e2e_not_yet_setup);
                 return;
             }
+
 
             startSyncFolderOperation(file);
 
@@ -797,7 +806,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
     private void setupReceiveExternalFilesAdapter(List<OCFile> files) {
         receiveExternalFilesAdapter = new ReceiveExternalFilesAdapter(files,
                                                                       this,
-                                                                      getUser().get(),
+                                                                      getUser(),
                                                                       getStorageManager(),
                                                                       viewThemeUtils,
                                                                       syncedFolderProvider,
@@ -845,14 +854,21 @@ public class ReceiveExternalFilesActivity extends FileActivity
         mSyncInProgress = true;
 
         // perform folder synchronization
-        RemoteOperation syncFolderOp = new RefreshFolderOperation(folder,
-                                                                  currentSyncTime,
-                                                                  false,
-                                                                  false,
-                                                                  getStorageManager(),
-                                                                  getUser().orElseThrow(RuntimeException::new),
-                                                                  getApplicationContext()
+        User user = getUser();
+        if (user == null) {
+            throw new RuntimeException("User not found");
+        }
+
+        RemoteOperation syncFolderOp = new RefreshFolderOperation(
+            folder,
+            currentSyncTime,
+            false,
+            false,
+            getStorageManager(),
+            user,
+            getApplicationContext()
         );
+
         syncFolderOp.execute(getAccount(), this, null, null);
     }
 
@@ -908,8 +924,12 @@ public class ReceiveExternalFilesActivity extends FileActivity
     }
 
     public void uploadFile(String tmpName, String filename) {
+        User user = getUser();
+        if (user == null) {
+            throw new RuntimeException("User not found");
+        }
         FileUploadHelper.Companion.instance().uploadNewFiles(
-            getUser().orElseThrow(RuntimeException::new),
+            user,
             new String[]{ tmpName },
             new String[]{ mFile.getRemotePath() + filename},
             FileUploadWorker.LOCAL_BEHAVIOUR_COPY,
@@ -931,12 +951,16 @@ public class ReceiveExternalFilesActivity extends FileActivity
             DisplayUtils.showSnackMessage(this, R.string.max_file_count_warning_message);
             return;
         }
+        User user = getUser();
+        if (user == null) {
+            throw new RuntimeException("User not found");
+        }
 
         UriUploader uploader = new UriUploader(
             this,
             mStreamsToUpload,
             mUploadPath,
-            getUser().orElseThrow(RuntimeException::new),
+            user,
             FileUploadWorker.LOCAL_BEHAVIOUR_DELETE,
             true, // Show waiting dialog while file is being copied from private storage
             this  // Copy temp task listener

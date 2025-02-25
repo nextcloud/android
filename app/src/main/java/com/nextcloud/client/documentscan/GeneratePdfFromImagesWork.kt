@@ -54,7 +54,7 @@ class GeneratePdfFromImagesWork(
         }
 
         val user = userAccountManager.getUser(accountName)
-        require(user.isPresent && user.get() !is AnonymousUser) { "Invalid or not found user" }
+        require(user!= null && user !is AnonymousUser) { "Invalid or not found user" }
 
         logger.d(
             TAG,
@@ -66,7 +66,7 @@ class GeneratePdfFromImagesWork(
         val result = generatePdfUseCase.execute(inputPaths, outputFilePath)
         notificationManager.cancel(notificationId)
         if (result) {
-            uploadFile(user.get(), uploadFolder, outputFilePath)
+            uploadFile(user, uploadFolder, outputFilePath)
             cleanupImages(inputPaths)
         } else {
             logger.w(TAG, "PDF generation failed")

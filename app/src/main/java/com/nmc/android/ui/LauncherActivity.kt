@@ -66,7 +66,7 @@ class LauncherActivity : BaseActivity() {
 
     private fun scheduleSplashScreen() {
         Handler(Looper.getMainLooper()).postDelayed({
-            if (user.isPresent) {
+            if (user != null) {
                 if (MDMConfig.enforceProtection(this) && appPreferences.lockPreference == SettingsActivity.LOCK_NONE) {
                     startActivity(Intent(this, SettingsActivity::class.java))
                 } else {

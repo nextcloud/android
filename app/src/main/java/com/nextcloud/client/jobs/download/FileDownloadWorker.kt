@@ -104,7 +104,7 @@ class FileDownloadWorker(
     private var downloadProgressListener = FileDownloadProgressListener()
 
     private var user: User? = null
-    private var currentUser = Optional.empty<User>()
+    private var currentUser: User? = null
 
     private var currentUserFileStorageManager: FileDataStorageManager? = null
     private var fileDataStorageManager: FileDataStorageManager? = null
@@ -218,7 +218,7 @@ class FileDownloadWorker(
 
     private fun setUser() {
         val accountName = inputData.keyValueMap[ACCOUNT_NAME] as String
-        user = accountManager.getUser(accountName).get()
+        user = accountManager.getUser(accountName)
         fileDataStorageManager = FileDataStorageManager(user, context.contentResolver)
     }
 
@@ -301,9 +301,9 @@ class FileDownloadWorker(
         val currentDownloadUser = accountManager.getUser(currentDownloadAccount?.name)
         if (currentUser != currentDownloadUser) {
             currentUser = currentDownloadUser
-            currentUserFileStorageManager = FileDataStorageManager(currentUser.get(), context.contentResolver)
+            currentUserFileStorageManager = FileDataStorageManager(currentUser, context.contentResolver)
         }
-        return currentDownloadUser.get().toOwnCloudAccount()
+        return currentDownloadUser.toOwnCloudAccount()
     }
 
     private fun getCurrentFile(): OCFile? {

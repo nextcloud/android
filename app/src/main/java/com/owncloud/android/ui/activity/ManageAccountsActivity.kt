@@ -98,8 +98,8 @@ class ManageAccountsActivity :
         val users = accountManager.allUsers
         originalUsers = toAccountNames(users)
 
-        user.ifPresent {
-            originalCurrentUser = user.get().accountName
+        user?.let {
+            originalCurrentUser = it.accountName
         }
     }
 
@@ -144,7 +144,7 @@ class ManageAccountsActivity :
         }
 
         val account = bundle.getParcelableArgument(UserInfoActivity.KEY_ACCOUNT, Account::class.java) ?: return
-        val user = accountManager.getUser(account.name).orElseThrow { RuntimeException() }
+        val user = checkNotNull(accountManager.getUser(account.name)) { "User not found" }
         accountName = account.name
         performAccountRemoval(user)
     }
@@ -301,7 +301,7 @@ class ManageAccountsActivity :
         accountName?.let {
             val user = accountManager.getUser(it)
 
-            if (!user.isPresent) {
+            if (user == null) {
                 fileUploadHelper.cancel(it)
                 FileDownloadHelper.instance().cancelAllDownloadsForAccount(workerAccountName, workerCurrentDownload)
             }

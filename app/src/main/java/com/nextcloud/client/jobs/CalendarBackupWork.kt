@@ -37,7 +37,7 @@ class CalendarBackupWork(
     override fun doWork(): Result {
         val accountName = inputData.getString(ACCOUNT) ?: ""
         val optionalUser = accountManager.getUser(accountName)
-        if (!optionalUser.isPresent || TextUtils.isEmpty(accountName)) {
+        if (optionalUser == null || TextUtils.isEmpty(accountName)) {
             // no account provided
             Log_OC.d(TAG, "User not present")
             return Result.failure()
@@ -53,7 +53,7 @@ class CalendarBackupWork(
                     applicationContext,
                     calendar,
                     preferences,
-                    optionalUser.get()
+                    optionalUser
                 ).start()
             }
 

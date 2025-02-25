@@ -107,7 +107,7 @@ class NotificationWork constructor(
                             notificationManager.cancelAll()
                         } else {
                             val user = accountManager.getUser(signatureVerification.account?.name)
-                                .orElseThrow { RuntimeException() }
+                                ?: throw RuntimeException("User not found or invalid")
                             fetchCompleteNotification(user, decryptedPushMessage)
                         }
                     }
@@ -231,11 +231,11 @@ class NotificationWork constructor(
     @Suppress("TooGenericExceptionCaught") // legacy code
     private fun fetchCompleteNotification(account: User, decryptedPushMessage: DecryptedPushMessage) {
         val optionalUser = accountManager.getUser(account.accountName)
-        if (!optionalUser.isPresent) {
+        if (optionalUser == null) {
             Log_OC.e(this, "Account may not be null")
             return
         }
-        val user = optionalUser.get()
+        val user = optionalUser
         try {
             val client = OwnCloudClientFactory.createNextcloudClient(user, context)
             val result = GetNotificationRemoteOperation(decryptedPushMessage.nid)
@@ -283,8 +283,8 @@ class NotificationWork constructor(
                         cancel(context, numericNotificationId)
                         try {
                             val optionalUser = accountManager.getUser(accountName)
-                            if (optionalUser.isPresent) {
-                                val user = optionalUser.get()
+                            if (optionalUser != null) {
+                                val user = optionalUser
                                 val client = OwnCloudClientManagerFactory.getDefaultSingleton()
                                     .getClientFor(user.toOwnCloudAccount(), context)
                                 val nextcloudClient = OwnCloudClientFactory.createNextcloudClient(user, context)

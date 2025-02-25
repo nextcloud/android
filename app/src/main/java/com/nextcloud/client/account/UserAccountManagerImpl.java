@@ -293,11 +293,13 @@ public class UserAccountManagerImpl implements UserAccountManager {
     }
 
     @Override
-    @NonNull
-    public Optional<User> getUser(CharSequence accountName) {
+    public User getUser(CharSequence accountName) {
         Account account = getAccountByName(accountName.toString());
         User user = createUserFromAccount(account);
-        return Optional.ofNullable(user);
+        if (user == null) {
+            throw new RuntimeException("User not found");
+        }
+        return user;
     }
 
     @Override

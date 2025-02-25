@@ -75,13 +75,13 @@ class AccountRemovalWork(
             return Result.failure()
         }
         val optionalUser = userAccountManager.getUser(accountName)
-        if (!optionalUser.isPresent) {
+        if (optionalUser == null) {
             // trying to delete non-existing user
             return Result.failure()
         }
         val remoteWipe = inputData.getBoolean(REMOTE_WIPE, false)
         val arbitraryDataProvider: ArbitraryDataProvider = ArbitraryDataProviderImpl(context)
-        val user = optionalUser.get()
+        val user = optionalUser
         backgroundJobManager.cancelPeriodicContactsBackup(user)
         val userRemoved = userAccountManager.removeUser(user)
         val storageManager = FileDataStorageManager(user, context.contentResolver)

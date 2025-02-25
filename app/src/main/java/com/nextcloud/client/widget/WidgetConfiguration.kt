@@ -16,7 +16,7 @@ data class WidgetConfiguration(
     val title: String,
     val iconUrl: String,
     val roundIcon: Boolean,
-    val user: Optional<User>,
+    val user: User?,
     val addButton: DashboardButton?,
     val moreButton: DashboardButton?
 )

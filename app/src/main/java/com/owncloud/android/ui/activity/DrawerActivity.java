@@ -468,7 +468,7 @@ public abstract class DrawerActivity extends ToolbarActivity
         Intent intent = getPackageManager().getLaunchIntentForPackage(packageName);
         if (intent != null) {
             // app installed - open directly
-            intent.putExtra(FileDisplayActivity.KEY_ACCOUNT, getUser().get().hashCode());
+            intent.putExtra(FileDisplayActivity.KEY_ACCOUNT, getUser().hashCode());
             startActivity(intent);
         } else {
             // app not found - open market (Google Play Store, F-Droid, etc.)
@@ -604,9 +604,9 @@ public abstract class DrawerActivity extends ToolbarActivity
             menuItemId = Menu.NONE;
             MenuItem isNewMenuItemChecked = menuItem.setChecked(false);
             Log_OC.d(TAG,"onNavigationItemClicked nav_logout setChecked " + isNewMenuItemChecked);
-            final Optional<User> optionalUser = getUser();
-            if (optionalUser.isPresent()) {
-                UserInfoActivity.openAccountRemovalDialog(optionalUser.get(), getSupportFragmentManager());
+            final User optionalUser = getUser();
+            if (optionalUser != null) {
+                UserInfoActivity.openAccountRemovalDialog(optionalUser, getSupportFragmentManager());
             }
         } else if (itemId == R.id.nav_shared) {
             startSharedSearch(menuItem);

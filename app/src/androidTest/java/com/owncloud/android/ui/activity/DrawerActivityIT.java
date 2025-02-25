@@ -72,7 +72,11 @@ public class DrawerActivityIT extends AbstractIT {
         platformAccountManager.setUserData(temp, AccountUtils.Constants.KEY_USER_ID, loginName); // same as userId
 
         account1 = userAccountManager.getAccountByName(loginName + "@" + baseUrl);
-        user1 = userAccountManager.getUser(account1.name).orElseThrow(IllegalAccessError::new);
+        User user = userAccountManager.getUser(account1.name);
+        if (user == null) {
+            throw new IllegalArgumentException("User not found");
+        }
+        user1 = user;
 
         loginName = "user2";
         password = "user2";
@@ -96,7 +100,7 @@ public class DrawerActivityIT extends AbstractIT {
 
         sut.setUser(user1);
 
-        assertEquals(account1, sut.getUser().get().toPlatformAccount());
+        assertEquals(account1, sut.getUser().toPlatformAccount());
 
         onView(withId(R.id.switch_account_button)).perform(click());
 
@@ -104,7 +108,7 @@ public class DrawerActivityIT extends AbstractIT {
 
         waitForIdleSync();
 
-        assertEquals(account2, sut.getUser().get().toPlatformAccount());
+        assertEquals(account2, sut.getUser().toPlatformAccount());
 
         onView(withId(R.id.switch_account_button)).perform(click());
         onView(withText(account1.name)).perform(click());
