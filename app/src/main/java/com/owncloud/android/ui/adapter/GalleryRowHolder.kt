@@ -46,32 +46,8 @@ class GalleryRowHolder(
 
         // re-use existing ones
         while (binding.rowLayout.childCount < row.files.size) {
-            val shimmer = LoaderImageView(context).apply {
-                setImageResource(R.drawable.background)
-                resetLoader()
-                invalidate()
-            }
-
-            val imageView = ImageView(context).apply {
-                setImageDrawable(
-                    ThumbnailsCacheManager.AsyncGalleryImageDrawable(
-                        context.resources,
-                        BitmapUtils.drawableToBitmap(
-                            ResourcesCompat.getDrawable(resources, R.drawable.file_image, null),
-                            defaultThumbnailSize.toInt(),
-                            defaultThumbnailSize.toInt()
-                        ),
-                        null
-                    )
-                )
-            }
-
-            LinearLayout(context).apply {
-                addView(shimmer)
-                addView(imageView)
-
-                binding.rowLayout.addView(this)
-            }
+            val linearLayout = getLinearLayout()
+            binding.rowLayout.addView(linearLayout)
         }
 
         if (binding.rowLayout.childCount > row.files.size) {
@@ -83,6 +59,31 @@ class GalleryRowHolder(
         for (indexedFile in row.files.withIndex()) {
             adjustFile(indexedFile, shrinkRatio, row)
             processedFileRemoteIds.add(indexedFile.value.remoteId)
+        }
+    }
+
+    private fun getLinearLayout(): LinearLayout {
+        val shimmer = LoaderImageView(context).apply {
+            setImageResource(R.drawable.background)
+            resetLoader()
+            invalidate()
+        }
+
+        val fileDrawable = ResourcesCompat.getDrawable(context.resources, R.drawable.file_image, null)
+        val thumbnailSize = defaultThumbnailSize.toInt()
+        val bitmap = BitmapUtils.drawableToBitmap(fileDrawable, thumbnailSize, thumbnailSize)
+        val drawable = ThumbnailsCacheManager.AsyncGalleryImageDrawable(
+            context.resources,
+            bitmap,
+            null
+        )
+        val imageView = ImageView(context).apply {
+            setImageDrawable(drawable)
+        }
+
+        return LinearLayout(context).apply {
+            addView(shimmer)
+            addView(imageView)
         }
     }
 
@@ -122,12 +123,15 @@ class GalleryRowHolder(
                     2 -> {
                         c = 5 / 2f
                     }
+
                     3 -> {
                         c = 4 / 3f
                     }
+
                     4 -> {
                         c = 4 / 5f
                     }
+
                     5 -> {
                         c = 1f
                     }
