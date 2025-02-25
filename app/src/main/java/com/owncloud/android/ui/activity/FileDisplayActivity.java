@@ -1227,7 +1227,7 @@ public class FileDisplayActivity extends FileActivity
         Fragment leftFragment = getLeftFragment();
 
         // Listen for sync messages
-        if (!(leftFragment instanceof OCFileListFragment ocFileListFragment) || !ocFileListFragment.isSearchFragment()) {
+        if (!(leftFragment instanceof OCFileListFragment) || !((OCFileListFragment) leftFragment).isSearchFragment()) {
             initSyncBroadcastReceiver();
         }
 
@@ -1238,7 +1238,8 @@ public class FileDisplayActivity extends FileActivity
             return;
         }
 
-        // If leftFragment is an instance of OCFileListFragment
+        OCFileListFragment ocFileListFragment = (OCFileListFragment) leftFragment;
+
         ocFileListFragment.setLoading(mSyncInProgress);
         syncAndUpdateFolder(false, true);
 
@@ -1288,15 +1289,13 @@ public class FileDisplayActivity extends FileActivity
         if (ocFileListFragment instanceof GalleryFragment) {
             updateActionBarTitleAndHomeButtonByString(getString(R.string.drawer_item_gallery));
         }
-
-        // Show in-app review dialog to user
+        //show in-app review dialog to user
         inAppReviewHelper.showInAppReview(this);
 
         checkNotifications();
 
         Log_OC.v(TAG, "onResume() end");
     }
-
     private void setDrawerAllFiles() {
         if (MainApp.isOnlyPersonFiles()) {
             menuItemId = R.id.nav_personal_files;
