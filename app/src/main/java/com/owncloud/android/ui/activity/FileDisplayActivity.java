@@ -240,7 +240,7 @@ public class FileDisplayActivity extends FileActivity
 
     private SearchView searchView;
     private PlayerServiceConnection mPlayerConnection;
-    private Optional<User> lastDisplayedUser = Optional.empty();
+    private User lastDisplayedUser = null;
 
     @Inject AppPreferences preferences;
 
@@ -2232,10 +2232,15 @@ public class FileDisplayActivity extends FileActivity
         }
     }
 
-    private void startMediaActivity(OCFile file, long startPlaybackPosition, boolean autoplay, Optional<User> user) {
+    private void startMediaActivity(OCFile file, long startPlaybackPosition, boolean autoplay, User user) {
         Intent previewMediaIntent = new Intent(this, PreviewMediaActivity.class);
         previewMediaIntent.putExtra(PreviewMediaActivity.EXTRA_FILE, file);
-        previewMediaIntent.putExtra(PreviewMediaActivity.EXTRA_USER, user.get());
+
+        // Safely handle the absence of a user
+        if (user != null) {
+            previewMediaIntent.putExtra(PreviewMediaActivity.EXTRA_USER, user);
+        }
+
         previewMediaIntent.putExtra(PreviewMediaActivity.EXTRA_START_POSITION, startPlaybackPosition);
         previewMediaIntent.putExtra(PreviewMediaActivity.EXTRA_AUTOPLAY, autoplay);
         startActivity(previewMediaIntent);
