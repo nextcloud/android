@@ -28,7 +28,6 @@
     <string name="activity_chooser_send_file_title">Отправить</string>
     <string name="activity_chooser_title">Отправить ссылку…</string>
     <string name="activity_icon">События</string>
-    <string name="add_another_public_share_link">Добавить другую ссылку</string>
     <string name="add_new_public_share">Добавить новую общедоступную ссылку</string>
     <string name="add_new_secure_file_drop">Добавить новую защищенную передачу файлов</string>
     <string name="add_to_cloud">Добавить в %1$s</string>
@@ -215,6 +214,7 @@
     <string name="could_not_retrieve_url">Не удалось получить URL</string>
     <string name="create">Создать</string>
     <string name="create_dir_fail_msg">Не удалось создать каталог</string>
+    <string name="create_link">Создать ссылку</string>
     <string name="create_new">Новый</string>
     <string name="create_new_document">Новый документ</string>
     <string name="create_new_folder">Новая папка</string>
@@ -297,11 +297,7 @@
     <string name="e2e_signature_does_not_match">Подпись не совпадает</string>
     <string name="ecosystem_apps_display_assistant">Помощник</string>
     <string name="ecosystem_apps_display_more">Больше</string>
-    <string name="ecosystem_apps_display_notes">Заметки</string>
-    <string name="ecosystem_apps_display_talk">Конференции</string>
     <string name="ecosystem_apps_more">Больше приложений для Nextcloud</string>
-    <string name="ecosystem_apps_notes">Заметки для Nextcloud</string>
-    <string name="ecosystem_apps_talk">Конференции для Nextcloud</string>
     <string name="email_pick_failed">Невозможно выбрать адрес электронной почты.</string>
     <string name="encrypted">Зашифровать</string>
     <string name="end_to_end_encryption_certificate_unavailable">Не удается получить сертификат сервера</string>
@@ -847,7 +843,9 @@
     <string name="shared_with_you_by">С вами поделился %1$s</string>
     <string name="sharee_add_failed">Не удалось открыть общий доступ</string>
     <string name="sharee_already_added_to_file">Не удалось добавить общий ресурс. Этому пользователю или группе уже предоставлен общий доступ к этому файлу или папке.</string>
+    <string name="show_all">Смотреть всё</string>
     <string name="show_images">Показать фотографии</string>
+    <string name="show_less">Показывать меньше</string>
     <string name="show_video">Показать видео</string>
     <string name="sign_tos_failed">Пожалуйста, вручную проверьте условия предоставления услуг!</string>
     <string name="signup_with_provider">Подключиться через поставщика услуги</string>

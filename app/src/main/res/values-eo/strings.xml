@@ -26,7 +26,6 @@
     <string name="activity_chooser_send_file_title">Sendi</string>
     <string name="activity_chooser_title">Sendi ligilon al...</string>
     <string name="activity_icon">Aktivaĵoj</string>
-    <string name="add_another_public_share_link">Aldoni plian ligilon</string>
     <string name="add_to_cloud">Aldoni al %1$s</string>
     <string name="advanced_settings">Detalaj agordoj</string>
     <string name="allow_resharing">Permesi rekunhavigon</string>
@@ -191,8 +190,6 @@
     <string name="drawer_quota">%1$s el %2$s uzataj</string>
     <string name="drawer_quota_unlimited">%1$s uzataj</string>
     <string name="drawer_synced_folders">Aŭtomata alŝuto</string>
-    <string name="ecosystem_apps_display_talk">Paroli</string>
-    <string name="ecosystem_apps_notes">Nextcloud Notoj</string>
     <string name="encrypted">Difini kiel ĉifrita</string>
     <string name="end_to_end_encryption_confirm_button">Agordi ĉifradon</string>
     <string name="end_to_end_encryption_decrypting">Malĉifrado...</string>
@@ -486,6 +483,7 @@
     <string name="shared_icon_shared_via_link">kunhavigita per ligilo</string>
     <string name="shared_with_you_by">Kunhavigita kun vi de %1$s</string>
     <string name="sharee_add_failed">Aldono de kunhavigito malsukecsis</string>
+    <string name="show_less">Montri malpli</string>
     <string name="signup_with_provider">Registriĝi per provizanto</string>
     <string name="single_sign_on_request_token" formatted="true">Ĉu permesi al %1$s aliri al via Nextcloud-konto %2$s?</string>
     <string name="sort_by">Ordigi laŭ</string>

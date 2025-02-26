@@ -28,7 +28,6 @@
     <string name="activity_chooser_send_file_title">Пошаљи</string>
     <string name="activity_chooser_title">Пошаљи везу…</string>
     <string name="activity_icon">Активност</string>
-    <string name="add_another_public_share_link">Додај још једну везу</string>
     <string name="add_new_public_share">Додај везу новог јавног дељења</string>
     <string name="add_new_secure_file_drop">Додај ново безбедно место за спуштање фајлова</string>
     <string name="add_to_cloud">Додај у %1$s</string>
@@ -215,6 +214,7 @@
     <string name="could_not_retrieve_url">Не могу да добавим УРЛ</string>
     <string name="create">Направи</string>
     <string name="create_dir_fail_msg">Не могу да направим фасциклу</string>
+    <string name="create_link">Креирај линк</string>
     <string name="create_new">Нов</string>
     <string name="create_new_document">Нови документ</string>
     <string name="create_new_folder">Нова фасцикла</string>
@@ -297,11 +297,7 @@
     <string name="e2e_signature_does_not_match">Потпис се не подудара</string>
     <string name="ecosystem_apps_display_assistant">Асистент</string>
     <string name="ecosystem_apps_display_more">Више</string>
-    <string name="ecosystem_apps_display_notes">Белешке</string>
-    <string name="ecosystem_apps_display_talk">Разговор</string>
     <string name="ecosystem_apps_more">Још Nextcloud апликација</string>
-    <string name="ecosystem_apps_notes">Некстклауд Белешке</string>
-    <string name="ecosystem_apps_talk">Nextcloud Talk</string>
     <string name="email_pick_failed">Није успело бирање и-мејл адресе.</string>
     <string name="encrypted">Постави као шифровано</string>
     <string name="end_to_end_encryption_certificate_unavailable">Серверски сертификат није могао да се преузме</string>
@@ -366,6 +362,7 @@
     <string name="etm_transfer_type">Пренеси</string>
     <string name="etm_transfer_type_download">Преузми</string>
     <string name="etm_transfer_type_upload">Отпреми</string>
+    <string name="external_shares">Спољна дељења</string>
     <string name="fab_label">Додај или отпреми</string>
     <string name="failed_to_download">Неуспело прослеђивање фајла менаџеру преузимања</string>
     <string name="failed_to_print">Неуспело штампање фајла</string>
@@ -505,6 +502,7 @@
     <string name="instant_upload_existing">Отпреми и постојеће фајлове</string>
     <string name="instant_upload_on_charging">Отпремај само на пуњењу</string>
     <string name="instant_upload_path">/InstantUpload</string>
+    <string name="internal_shares">Интерна дељења</string>
     <string name="internal_two_way_sync">Интерна двосмерна синхронизација</string>
     <string name="internal_two_way_sync_not_yet">Још увек није, ускоро ће се синхронизовати</string>
     <string name="internet_connection_required_for_encrypted_folder_setup">За постављање шифрованог фолдера, неопходна је веза са интернетом</string>
@@ -846,7 +844,9 @@
     <string name="shared_with_you_by">Дели са вама %1$s</string>
     <string name="sharee_add_failed">Додавање особе за дељење није успело</string>
     <string name="sharee_already_added_to_file">Није успело додавање дељења. Овај фајл или фолдер се већ дели са наведеном особом или групом.</string>
+    <string name="show_all">Прикажи све</string>
     <string name="show_images">Прикажи слике</string>
+    <string name="show_less">Прикажи мање</string>
     <string name="show_video">Прикажи видео снимке</string>
     <string name="sign_tos_failed">Молимо вас да ручно погледате услове коришћења!</string>
     <string name="signup_with_provider">Пријавите се преко провајдера</string>

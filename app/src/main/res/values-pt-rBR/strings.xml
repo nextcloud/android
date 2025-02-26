@@ -28,7 +28,6 @@
     <string name="activity_chooser_send_file_title">Enviar</string>
     <string name="activity_chooser_title">Enviar link para…</string>
     <string name="activity_icon">Atividade</string>
-    <string name="add_another_public_share_link">Adicionar outro link</string>
     <string name="add_new_public_share">Adicionar novo link de compartilhamento público</string>
     <string name="add_new_secure_file_drop">Adicionar novo derrubar de arquivo seguro</string>
     <string name="add_to_cloud">Adicionar em %1$s</string>
@@ -212,6 +211,7 @@
     <string name="could_not_retrieve_url">Não foi possível recuperar a URL</string>
     <string name="create">Criar</string>
     <string name="create_dir_fail_msg">Não foi possível criar a pasta</string>
+    <string name="create_link">Criar link</string>
     <string name="create_new">Novo</string>
     <string name="create_new_document">Novo documento</string>
     <string name="create_new_folder">Nova pasta</string>
@@ -293,11 +293,7 @@
     <string name="e2e_signature_does_not_match">A assinatura não corresponde</string>
     <string name="ecosystem_apps_display_assistant">Assistente</string>
     <string name="ecosystem_apps_display_more">Mais</string>
-    <string name="ecosystem_apps_display_notes">Notas </string>
-    <string name="ecosystem_apps_display_talk">Talk</string>
     <string name="ecosystem_apps_more">Mais aplicativos Nextcloud</string>
-    <string name="ecosystem_apps_notes">Notas Nextcloud</string>
-    <string name="ecosystem_apps_talk">Nextcloud Talk</string>
     <string name="email_pick_failed">Falha ao escolher o endereço de e-mail.</string>
     <string name="encrypted">Definir como criptografado</string>
     <string name="end_to_end_encryption_confirm_button">Definir criptografia</string>
@@ -357,6 +353,7 @@
     <string name="etm_transfer_type">Transferir</string>
     <string name="etm_transfer_type_download">Baixar</string>
     <string name="etm_transfer_type_upload">Enviar</string>
+    <string name="external_shares">Compartilhamentos externos</string>
     <string name="fab_label">Adicionar ou enviar</string>
     <string name="failed_to_download">Erro ao enviar o arquivo ao gerenciador de downloads</string>
     <string name="failed_to_print">Erro ao imprimir o arquivo</string>
@@ -493,6 +490,7 @@
     <string name="instant_upload_existing">Enviar arquivos existentes também</string>
     <string name="instant_upload_on_charging">Só enviar quando carregando</string>
     <string name="instant_upload_path">/EnvioAutomático</string>
+    <string name="internal_shares">Compartilhamentos internos</string>
     <string name="internal_two_way_sync">Sincronização interna bidirecional</string>
     <string name="internal_two_way_sync_not_yet">Ainda não, em breve será sincronizado</string>
     <string name="internet_connection_required_for_encrypted_folder_setup">É necessária uma conexão com a internet para configurar a pasta criptografada</string>
@@ -827,7 +825,9 @@
     <string name="shared_with_you_by">Compartilhado com você por %1$s</string>
     <string name="sharee_add_failed">Falha ao compartilhar</string>
     <string name="sharee_already_added_to_file">Falha ao adicionar compartilhamento. Este arquivo ou pasta já foi compartilhado com esta pessoa ou grupo.</string>
+    <string name="show_all">Exibir tudo</string>
     <string name="show_images">Mostrar fotos</string>
+    <string name="show_less">Mostrar menos</string>
     <string name="show_video">Mostrar vídeos</string>
     <string name="signup_with_provider">Registre-se com um provedor</string>
     <string name="single_sign_on_request_token" formatted="true">Permitir %1$s acesso à sua conta %2$s?</string>

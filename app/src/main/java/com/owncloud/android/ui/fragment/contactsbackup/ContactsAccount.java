@@ -24,8 +24,7 @@ public class ContactsAccount {
 
     @Override
     public boolean equals(Object obj) {
-        if (obj instanceof ContactsAccount) {
-            ContactsAccount other = (ContactsAccount) obj;
+        if (obj instanceof ContactsAccount other) {
             return this.name.equalsIgnoreCase(other.name) && this.type.equalsIgnoreCase(other.type);
         } else {
             return false;

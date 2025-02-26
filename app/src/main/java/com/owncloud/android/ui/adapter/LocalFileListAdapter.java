@@ -195,9 +195,7 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
                 gridViewHolder.itemLayout.setOnClickListener(v -> localFileListFragmentInterface
                     .onItemClicked(finalFile));
 
-                if (holder instanceof LocalFileListItemViewHolder) {
-                    LocalFileListItemViewHolder itemViewHolder = (LocalFileListItemViewHolder) holder;
-
+                if (holder instanceof LocalFileListItemViewHolder itemViewHolder) {
                     if (file.isDirectory()) {
                         itemViewHolder.fileSize.setVisibility(View.GONE);
                         itemViewHolder.fileSeparator.setVisibility(View.GONE);
@@ -213,8 +211,7 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
                             file.lastModified()));
                 }
 
-                if (gridViewHolder instanceof LocalFileListGridItemViewHolder) {
-                    LocalFileListGridItemViewHolder itemVH = (LocalFileListGridItemViewHolder) gridViewHolder;
+                if (gridViewHolder instanceof LocalFileListGridItemViewHolder itemVH) {
                     itemVH.fileName.setText(file.getName());
 
                     if (gridView && (MimeTypeUtil.isImage(file) || MimeTypeUtil.isVideo(file) ||

@@ -437,7 +437,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
                 mFileCategory = CATEGORY_URL;
             } else if (isIntentFromGoogleMap(subjectText, extraText)) {
                 String str = getString(R.string.upload_file_dialog_filetype_googlemap_shortcut);
-                String texts[] = extraText.split("\n");
+                String[] texts = extraText.split("\n");
                 mText.add(internetShortcutUrlText(texts[2]));
                 mFilenameBase.add(texts[0]);
                 mFilenameSuffix.add(URL_FILE_SUFFIX);
@@ -567,7 +567,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
         }
 
         private boolean isIntentFromGoogleMap(String subjectText, String extraText) {
-            String texts[] = extraText.split("\n");
+            String[] texts = extraText.split("\n");
             if (texts.length != EXTRA_TEXT_LENGTH) {
                 return false;
             }

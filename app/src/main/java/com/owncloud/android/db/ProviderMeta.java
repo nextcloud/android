@@ -272,6 +272,7 @@ public class ProviderMeta {
         public static final String CAPABILITIES_FORBIDDEN_FORBIDDEN_FILENAME_BASE_NAMES = "forbidden_filename_basenames";
         public static final String CAPABILITIES_FILES_DOWNLOAD_LIMIT = "files_download_limit";
         public static final String CAPABILITIES_FILES_DOWNLOAD_LIMIT_DEFAULT = "files_download_limit_default";
+        public static final String CAPABILITIES_NOTES_FOLDER_PATH = "notes_folder_path";
 
         //Columns of Uploads table
         public static final String UPLOADS_LOCAL_PATH = "local_path";

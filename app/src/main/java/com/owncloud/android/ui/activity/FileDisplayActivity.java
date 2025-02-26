@@ -812,9 +812,8 @@ public class FileDisplayActivity extends FileActivity
 
     protected void refreshDetailsFragmentIfVisible(String downloadEvent, String downloadedRemotePath, boolean success) {
         Fragment leftFragment = getLeftFragment();
-        if (leftFragment instanceof FileDetailFragment) {
+        if (leftFragment instanceof FileDetailFragment detailsFragment) {
             boolean waitedPreview = mWaitingToPreview != null && mWaitingToPreview.getRemotePath().equals(downloadedRemotePath);
-            FileDetailFragment detailsFragment = (FileDetailFragment) leftFragment;
             OCFile fileInFragment = detailsFragment.getFile();
             if (fileInFragment != null && !downloadedRemotePath.equals(fileInFragment.getRemotePath())) {
                 // the user browsed to other file ; forget the automatic preview
@@ -1292,7 +1291,7 @@ public class FileDisplayActivity extends FileActivity
         }
         //show in-app review dialog to user
         inAppReviewHelper.showInAppReview(this);
-        
+
         checkNotifications();
 
         Log_OC.v(TAG, "onResume() end");
@@ -1822,6 +1821,15 @@ public class FileDisplayActivity extends FileActivity
         } else if (operation instanceof RestoreFileVersionRemoteOperation) {
             onRestoreFileVersionOperationFinish(result);
         }
+
+        if (operation instanceof RemoveFileOperation || operation instanceof RenameFileOperation) {
+            OCFileListFragment fileListFragment =
+                (ActivityExtensionsKt.lastFragment(this) instanceof OCFileListFragment fragment) ? fragment : getListOfFilesFragment();
+
+            if (fileListFragment != null) {
+                fileListFragment.fetchRecommendedFiles();
+            }
+        }
     }
 
     private void refreshShowDetails() {
@@ -1897,8 +1905,7 @@ public class FileDisplayActivity extends FileActivity
             startSyncFolderOperation(parent, true, true);
 
             Fragment leftFragment = getLeftFragment();
-            if (leftFragment instanceof FileDetailFragment) {
-                FileDetailFragment fileDetailFragment = (FileDetailFragment) leftFragment;
+            if (leftFragment instanceof FileDetailFragment fileDetailFragment) {
                 fileDetailFragment.getFileDetailActivitiesFragment().reload();
             }
 
@@ -1965,8 +1972,7 @@ public class FileDisplayActivity extends FileActivity
         if (result.isSuccess() && optionalUser.isPresent()) {
             final User currentUser = optionalUser.get();
             Fragment leftFragment = getLeftFragment();
-            if (leftFragment instanceof FileFragment) {
-                final FileFragment fileFragment = (FileFragment) leftFragment;
+            if (leftFragment instanceof FileFragment fileFragment) {
                 if (fileFragment instanceof FileDetailFragment && renamedFile.equals(fileFragment.getFile())) {
                     ((FileDetailFragment) fileFragment).updateFileDetails(renamedFile, currentUser);
                     showDetails(renamedFile);

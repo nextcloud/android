@@ -28,7 +28,6 @@
     <string name="activity_chooser_send_file_title">Надіслати</string>
     <string name="activity_chooser_title">Надіслати посилання до…</string>
     <string name="activity_icon">Ваші дії</string>
-    <string name="add_another_public_share_link">Додати інше посилання</string>
     <string name="add_new_public_share">Додати нове публічне посилання</string>
     <string name="add_new_secure_file_drop">Додайте новий захищений файл</string>
     <string name="add_to_cloud">Додати до хмари %1$s</string>
@@ -215,6 +214,7 @@
     <string name="could_not_retrieve_url">Неможливо отримати посилання</string>
     <string name="create">Створити</string>
     <string name="create_dir_fail_msg">Неможливо створити каталог</string>
+    <string name="create_link">Створити посилання</string>
     <string name="create_new">Створити</string>
     <string name="create_new_document">Новий документ</string>
     <string name="create_new_folder">Новий каталог</string>
@@ -297,13 +297,11 @@
     <string name="e2e_signature_does_not_match">Підпис не збігається</string>
     <string name="ecosystem_apps_display_assistant">Помічник</string>
     <string name="ecosystem_apps_display_more">Більше</string>
-    <string name="ecosystem_apps_display_notes">Нотатки</string>
-    <string name="ecosystem_apps_display_talk">Розмови</string>
     <string name="ecosystem_apps_more">Більше застосунків Nextcloud</string>
-    <string name="ecosystem_apps_notes">Нотатки для Nextcloud</string>
-    <string name="ecosystem_apps_talk">Розмови Nextcloud</string>
     <string name="email_pick_failed">Не вдалося вибрати ел. адресу.</string>
     <string name="encrypted">Позначити як зашифроване</string>
+    <string name="end_to_end_encryption_certificate_unavailable">Неможливо отримати сертифікат сервера</string>
+    <string name="end_to_end_encryption_certificate_verification_failed">Не вдалося перевірити публічний ключ</string>
     <string name="end_to_end_encryption_confirm_button">Налаштування шифрування</string>
     <string name="end_to_end_encryption_decrypting">Розшифровування...</string>
     <string name="end_to_end_encryption_dialog_close">Закрити</string>
@@ -315,8 +313,11 @@
     <string name="end_to_end_encryption_passphrase_title">Занотуйте вашу парольну фразу з 12 слів</string>
     <string name="end_to_end_encryption_password">Пароль...</string>
     <string name="end_to_end_encryption_retrieving_keys">Отримання ключів...</string>
+    <string name="end_to_end_encryption_server_private_key_unavailable">Неможливо отримати приватний ключ</string>
+    <string name="end_to_end_encryption_server_public_key_unavailable">Неможливо отримати публічний ключ</string>
     <string name="end_to_end_encryption_storing_keys">Збереження ключів</string>
     <string name="end_to_end_encryption_title">Налаштування шифрування</string>
+    <string name="end_to_end_encryption_unexpected_error_occurred">Неочікувана помилка під час звантаження ключів</string>
     <string name="end_to_end_encryption_unsuccessful">Не вдалося зберегти ключі, спробуйте ще раз.</string>
     <string name="end_to_end_encryption_wrong_password">Помилка розшифрування. Хибний пароль?</string>
     <string name="enter_destination_filename">Зазначте назву файлу призначення</string>
@@ -361,6 +362,7 @@
     <string name="etm_transfer_type">Передати</string>
     <string name="etm_transfer_type_download">Звантажити</string>
     <string name="etm_transfer_type_upload">Завантажити</string>
+    <string name="external_shares">Зовнішні спільні ресурси</string>
     <string name="fab_label">Додати або завантажити</string>
     <string name="failed_to_download">Не вдалося передати файл до менеджера звантажень</string>
     <string name="failed_to_print">Не вдалося роздрукувати файл</string>
@@ -411,6 +413,7 @@
     <string name="file_migration_failed_not_writable">Неможливо записати до файлу призначення</string>
     <string name="file_migration_failed_while_coping">Помилка під час міграції</string>
     <string name="file_migration_failed_while_updating_index">Неможливо оновити індекс</string>
+    <string name="file_migration_free_space">%1$s\n%2$s/%3$s</string>
     <string name="file_migration_migrating">Переміщення даних…</string>
     <string name="file_migration_ok_finished">Завершено</string>
     <string name="file_migration_override_data_folder">Замінити</string>
@@ -491,10 +494,13 @@
     <string name="image_editor_unable_to_edit_image">Неможливо відредагувати зображення.</string>
     <string name="image_preview_filedetails">Деталі файлу</string>
     <string name="image_preview_image_taking_conditions">Умови отримання зображення</string>
+    <string name="image_preview_unit_fnumber">ƒ/%s</string>
+    <string name="image_preview_unit_iso">ISO %s</string>
     <string name="image_preview_unit_millimetres">%s мм</string>
     <string name="image_preview_unit_seconds">%s с</string>
     <string name="instant_upload_existing">Також завантажити існуючі файли</string>
     <string name="instant_upload_on_charging">Завантаження тільки під час заряджання</string>
+    <string name="internal_shares">Внутрішні спільні ресурси</string>
     <string name="internal_two_way_sync">Внутрішня двостороння синхронізація</string>
     <string name="internal_two_way_sync_not_yet">Поки не впроваджено</string>
     <string name="internet_connection_required_for_encrypted_folder_setup">Налаштування зашифрованого каталогу вимагає з\'єднання з мережею</string>
@@ -635,7 +641,9 @@
     <string name="pin_home">Закріпити на Домівці</string>
     <string name="pin_shortcut_label">Відкрити %1$s</string>
     <string name="placeholder_fileSize">389 КБ</string>
+    <string name="placeholder_media_time">12:23:45</string>
     <string name="placeholder_sentence">Це заповнювач</string>
+    <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
     <string name="player_stop">стоп</string>
     <string name="player_toggle">переключитися</string>
     <string name="please_select_a_server">Виберіть сервер...</string>
@@ -833,7 +841,9 @@
     <string name="shared_with_you_by">%1$s поділив(-ла-)ся з вами</string>
     <string name="sharee_add_failed">Помилка додавання користувача, з яким ви хочете поділитися</string>
     <string name="sharee_already_added_to_file">Не вдалося поділитися цим ресурсом, оскільки він вже у спільному доступі з цим користувачем чи групою. </string>
+    <string name="show_all">Показати все</string>
     <string name="show_images">Показувати зображення</string>
+    <string name="show_less">Показувати менше</string>
     <string name="show_video">Показувати відео</string>
     <string name="sign_tos_failed">Перегляньте умови користування вручну!</string>
     <string name="signup_with_provider">Зареєструватися у провайдейра</string>
@@ -994,6 +1004,7 @@
     <string name="upload_local_storage_not_copied">Неможливо скопіювати файл до внутрішнього сховища</string>
     <string name="upload_lock_failed">Неможливо заблокувати каталог</string>
     <string name="upload_manually_cancelled">Завантаження скасовано користувачем</string>
+    <string name="upload_notification_manager_start_text">%1$d/%2$d-%3$s</string>
     <string name="upload_old_android">Шифрування можливе лише на пристроях з версію Android 5.0+</string>
     <string name="upload_query_move_foreign_files">Нестача місця не дозволяє скопіювати файли до каталогу%1$s. Чи бажаєте перемістити їх замість копіювання?</string>
     <string name="upload_quota_exceeded">Перевищено дозволений обсяг даних для збереження</string>

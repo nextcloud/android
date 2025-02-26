@@ -670,8 +670,7 @@ public final class ThumbnailsCacheManager {
                 int pxH;
                 pxW = pxH = getThumbnailDimension();
 
-                if (file instanceof OCFile) {
-                    OCFile ocFile = (OCFile) file;
+                if (file instanceof OCFile ocFile) {
                     if (ocFile.isDown()) {
                         Bitmap bitmap;
                         if (MimeTypeUtil.isVideo(ocFile)) {
@@ -1151,8 +1150,7 @@ public final class ThumbnailsCacheManager {
     public static ThumbnailGenerationTask getBitmapWorkerTask(ImageView imageView) {
         if (imageView != null) {
             final Drawable drawable = imageView.getDrawable();
-            if (drawable instanceof AsyncThumbnailDrawable) {
-                final AsyncThumbnailDrawable asyncDrawable = (AsyncThumbnailDrawable) drawable;
+            if (drawable instanceof AsyncThumbnailDrawable asyncDrawable) {
                 return asyncDrawable.getBitmapWorkerTask();
             }
         }
@@ -1162,8 +1160,7 @@ public final class ThumbnailsCacheManager {
     private static ResizedImageGenerationTask getResizedImageGenerationWorkerTask(ImageView imageView) {
         if (imageView != null) {
             final Drawable drawable = imageView.getDrawable();
-            if (drawable instanceof AsyncResizedImageDrawable) {
-                final AsyncResizedImageDrawable asyncDrawable = (AsyncResizedImageDrawable) drawable;
+            if (drawable instanceof AsyncResizedImageDrawable asyncDrawable) {
                 return asyncDrawable.getBitmapWorkerTask();
             }
         }
@@ -1173,8 +1170,7 @@ public final class ThumbnailsCacheManager {
     private static GalleryImageGenerationTask getGalleryImageGenerationTask(ImageView imageView) {
         if (imageView != null) {
             final Drawable drawable = imageView.getDrawable();
-            if (drawable instanceof AsyncGalleryImageDrawable) {
-                final AsyncGalleryImageDrawable asyncDrawable = (AsyncGalleryImageDrawable) drawable;
+            if (drawable instanceof AsyncGalleryImageDrawable asyncDrawable) {
                 return asyncDrawable.getBitmapWorkerTask();
             }
         }

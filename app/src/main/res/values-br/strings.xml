@@ -28,7 +28,6 @@
     <string name="activity_chooser_send_file_title">Kas</string>
     <string name="activity_chooser_title">Kas al liamm da ...</string>
     <string name="activity_icon">Obererezh</string>
-    <string name="add_another_public_share_link">Ouzhpennañ ul liamm all</string>
     <string name="add_new_public_share">Ouzhpennañ ul liamm rannañ publik nevez</string>
     <string name="add_new_secure_file_drop">Ouzhpennañ ur fizlec\'h restroù suraet nevez</string>
     <string name="add_to_cloud">Ouzhpennañ da %1$s</string>
@@ -273,11 +272,7 @@
     <string name="e2e_offline">Ne c\'hall ket bezañ graet hep kevreadenn genrouedad</string>
     <string name="ecosystem_apps_display_assistant">Skoazeller</string>
     <string name="ecosystem_apps_display_more">Muioc\'h</string>
-    <string name="ecosystem_apps_display_notes">Notennoù</string>
-    <string name="ecosystem_apps_display_talk">Komz</string>
     <string name="ecosystem_apps_more">Arloadoù Nextcloud all</string>
-    <string name="ecosystem_apps_notes">Notennoù Nextcloud</string>
-    <string name="ecosystem_apps_talk">Flap Nextcloud</string>
     <string name="email_pick_failed">N\'eus ket bet gallet tapout ar chomlec\'h postel</string>
     <string name="encrypted">Merkañ evel sifret</string>
     <string name="end_to_end_encryption_confirm_button">Arventenniñ ar sifradur</string>

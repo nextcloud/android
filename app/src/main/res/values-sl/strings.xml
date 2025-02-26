@@ -28,7 +28,6 @@
     <string name="activity_chooser_send_file_title">Pošlji</string>
     <string name="activity_chooser_title">Pošlji povezavo …</string>
     <string name="activity_icon">Dejavnosti</string>
-    <string name="add_another_public_share_link">Dodaj novo povezavo</string>
     <string name="add_new_public_share">Nova javna povezava za souporabo</string>
     <string name="add_new_secure_file_drop">Dodaj novo mesto varnega pošiljanja</string>
     <string name="add_to_cloud">Dodaj v %1$s</string>
@@ -177,6 +176,7 @@
     <string name="could_not_retrieve_url">Naslova URL ni mogoče pridobiti</string>
     <string name="create">Ustvari</string>
     <string name="create_dir_fail_msg">Ni mogoče ustvariti mape</string>
+    <string name="create_link">Ustvari povezavo</string>
     <string name="create_new">Novo</string>
     <string name="create_new_document">Nov dokument</string>
     <string name="create_new_folder">Nova mapa</string>
@@ -247,11 +247,7 @@
     <string name="e2e_not_yet_setup">Celovito šifriranje E2E ni še nastavljeno.</string>
     <string name="e2e_offline">Opravila ni mogoče izvesti brez vzpostavljene internetne povezave</string>
     <string name="ecosystem_apps_display_more">Več</string>
-    <string name="ecosystem_apps_display_notes">Beležke</string>
-    <string name="ecosystem_apps_display_talk">Pogovor Talk</string>
     <string name="ecosystem_apps_more">Več programov Nexcloud</string>
-    <string name="ecosystem_apps_notes">Nextcloud Beležke</string>
-    <string name="ecosystem_apps_talk">Nextcloud Talk</string>
     <string name="email_pick_failed">Elektronskega naslova ni mogoče izbrati.</string>
     <string name="encrypted">Nastavi kot šifrirano</string>
     <string name="end_to_end_encryption_confirm_button">Nastavitev šifriranja</string>
@@ -718,7 +714,9 @@
     <string name="shared_icon_shared_via_link">v souporabi s povezavo</string>
     <string name="shared_with_you_by">Souporabo omogoča %1$s</string>
     <string name="sharee_add_failed">Dodajanje souporabnika je spodletelo</string>
+    <string name="show_all">Pokaži vse</string>
     <string name="show_images">Pokaži fotografije</string>
+    <string name="show_less">Pokaži manj</string>
     <string name="show_video">Pokaži posnetke</string>
     <string name="signup_with_provider">Prijava prek ponudnika</string>
     <string name="single_sign_on_request_token" formatted="true">Ali dovolite uporabniku %1$s dostop do računa Nextcloud %2$s?</string>

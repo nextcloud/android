@@ -28,7 +28,6 @@
     <string name="activity_chooser_send_file_title">Send</string>
     <string name="activity_chooser_title">Send link to…</string>
     <string name="activity_icon">Activity</string>
-    <string name="add_another_public_share_link">Add another link</string>
     <string name="add_new_public_share">Add new public share link</string>
     <string name="add_new_secure_file_drop">Add new secure file drop</string>
     <string name="add_to_cloud">Add to %1$s</string>
@@ -215,6 +214,7 @@
     <string name="could_not_retrieve_url">Could not retrieve URL</string>
     <string name="create">Create</string>
     <string name="create_dir_fail_msg">Could not create folder</string>
+    <string name="create_link">Create link</string>
     <string name="create_new">New</string>
     <string name="create_new_document">New document</string>
     <string name="create_new_folder">New folder</string>
@@ -297,11 +297,7 @@
     <string name="e2e_signature_does_not_match">Signature does not match</string>
     <string name="ecosystem_apps_display_assistant">Assistant</string>
     <string name="ecosystem_apps_display_more">More</string>
-    <string name="ecosystem_apps_display_notes">Notes</string>
-    <string name="ecosystem_apps_display_talk">Talk</string>
     <string name="ecosystem_apps_more">More Nextcloud Apps</string>
-    <string name="ecosystem_apps_notes">Nextcloud Notes</string>
-    <string name="ecosystem_apps_talk">Nextcloud Talk</string>
     <string name="email_pick_failed">Failed to pick email address.</string>
     <string name="encrypted">Set as encrypted</string>
     <string name="end_to_end_encryption_certificate_unavailable">Unable to retrieve server certificate</string>
@@ -366,6 +362,7 @@
     <string name="etm_transfer_type">Transfer</string>
     <string name="etm_transfer_type_download">Download</string>
     <string name="etm_transfer_type_upload">Upload</string>
+    <string name="external_shares">External shares</string>
     <string name="fab_label">Add or upload</string>
     <string name="failed_to_download">Failed to pass file to download manager</string>
     <string name="failed_to_print">Failed to print file</string>
@@ -505,6 +502,7 @@
     <string name="instant_upload_existing">Also upload existing files</string>
     <string name="instant_upload_on_charging">Only upload when charging</string>
     <string name="instant_upload_path">/InstantUpload</string>
+    <string name="internal_shares">Internal shares</string>
     <string name="internal_two_way_sync">Internal two way sync</string>
     <string name="internal_two_way_sync_not_yet">Not yet, soon to be synced</string>
     <string name="internet_connection_required_for_encrypted_folder_setup">An internet connection is required to set up the encrypted folder</string>
@@ -847,6 +845,7 @@
     <string name="sharee_add_failed">Adding sharee failed</string>
     <string name="sharee_already_added_to_file">Adding share failed. This file or folder has already been shared with this person or group.</string>
     <string name="show_images">Show photos</string>
+    <string name="show_less">Show less</string>
     <string name="show_video">Show videos</string>
     <string name="sign_tos_failed">Please manually check terms of service!</string>
     <string name="signup_with_provider">Sign up with provider</string>

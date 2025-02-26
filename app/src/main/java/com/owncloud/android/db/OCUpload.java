@@ -292,10 +292,9 @@ public class OCUpload implements Parcelable {
 
     @SuppressFBWarnings("SEO_SUBOPTIMAL_EXPRESSION_ORDER")
     public boolean isSame(@Nullable Object obj) {
-        if (!(obj instanceof OCUpload)) {
+        if (!(obj instanceof OCUpload other)) {
             return false;
         }
-        OCUpload other = (OCUpload) obj;
         return this.uploadId == other.uploadId &&
             localPath.equals(other.localPath) &&
             remotePath.equals(other.remotePath) &&

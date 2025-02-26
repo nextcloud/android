@@ -215,11 +215,6 @@ public class UploadListActivity extends FileActivity {
     }
 
     @Override
-    protected void onStart() {
-        super.onStart();
-    }
-
-    @Override
     protected void onResume() {
         Log_OC.v(TAG, "onResume() start");
         super.onResume();

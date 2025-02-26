@@ -28,7 +28,6 @@
     <string name="activity_chooser_send_file_title">傳送</string>
     <string name="activity_chooser_title">傳送連結到…</string>
     <string name="activity_icon">動態</string>
-    <string name="add_another_public_share_link">添加另一個連結</string>
     <string name="add_new_public_share">添加一個新的公共連結</string>
     <string name="add_new_secure_file_drop">新增安全檔案投遞箱</string>
     <string name="add_to_cloud">添加到 %1$s </string>
@@ -215,6 +214,7 @@
     <string name="could_not_retrieve_url">不能取得網址</string>
     <string name="create">建立</string>
     <string name="create_dir_fail_msg">無法新增資料夾</string>
+    <string name="create_link">創建連結</string>
     <string name="create_new">新</string>
     <string name="create_new_document">新文件</string>
     <string name="create_new_folder">新資料夾</string>
@@ -297,11 +297,7 @@
     <string name="e2e_signature_does_not_match">簽名不相符</string>
     <string name="ecosystem_apps_display_assistant">助手</string>
     <string name="ecosystem_apps_display_more">更多</string>
-    <string name="ecosystem_apps_display_notes">備註</string>
-    <string name="ecosystem_apps_display_talk">講座</string>
     <string name="ecosystem_apps_more">更多 Nextcloud 應用程式</string>
-    <string name="ecosystem_apps_notes">Nextcloud 筆記</string>
-    <string name="ecosystem_apps_talk">Nextcloud Talk</string>
     <string name="email_pick_failed">無法挑選電郵地址。</string>
     <string name="encrypted">設為已加密的</string>
     <string name="end_to_end_encryption_certificate_unavailable">無法擷取伺服器證書</string>
@@ -366,6 +362,7 @@
     <string name="etm_transfer_type">轉移</string>
     <string name="etm_transfer_type_download">下載</string>
     <string name="etm_transfer_type_upload">上傳</string>
+    <string name="external_shares">外部分享</string>
     <string name="fab_label">新增或上傳</string>
     <string name="failed_to_download">無法下載</string>
     <string name="failed_to_print">列印失敗</string>
@@ -505,6 +502,7 @@
     <string name="instant_upload_existing">一併上傳存在的檔案</string>
     <string name="instant_upload_on_charging">只在充電時上傳</string>
     <string name="instant_upload_path">/InstantUpload</string>
+    <string name="internal_shares">內部分享</string>
     <string name="internal_two_way_sync">內部雙向同步</string>
     <string name="internal_two_way_sync_not_yet">還沒有，即將同步</string>
     <string name="internet_connection_required_for_encrypted_folder_setup">設定加密資料夾需要網路連接</string>
@@ -846,7 +844,9 @@
     <string name="shared_with_you_by">%1$s 已與您分享</string>
     <string name="sharee_add_failed">分享失敗</string>
     <string name="sharee_already_added_to_file">添加分享失敗。該檔案或資料夾已經與該人或群組共享。</string>
+    <string name="show_all">全部顯示</string>
     <string name="show_images">顯示照片</string>
+    <string name="show_less">顯示較少</string>
     <string name="show_video">顯示影片</string>
     <string name="sign_tos_failed">請人手查閱服務條款！</string>
     <string name="signup_with_provider">使用第三方登入</string>

@@ -26,7 +26,6 @@
     <string name="activity_chooser_send_file_title">Enviar</string>
     <string name="activity_chooser_title">Enviar liga a…</string>
     <string name="activity_icon">Actividad</string>
-    <string name="add_another_public_share_link">Agregar otro enlace</string>
     <string name="add_new_public_share">Agregar nuevo enlace público compartido</string>
     <string name="add_new_secure_file_drop">Agregar nueva carpeta segura de archivos</string>
     <string name="add_to_cloud">Agregar a %1$s</string>
@@ -176,6 +175,7 @@
     <string name="could_not_retrieve_url">No se pudo recuperar la URL</string>
     <string name="create">Crear</string>
     <string name="create_dir_fail_msg">No fue posible crear la carpeta</string>
+    <string name="create_link">Crear enlace</string>
     <string name="create_new">Nuevo</string>
     <string name="create_new_document">Nuevo documento</string>
     <string name="create_new_folder">Carpeta nueva</string>
@@ -243,8 +243,6 @@
     <string name="drawer_synced_folders">Carga automática</string>
     <string name="e2e_not_yet_setup">E2E Encriptación de extremo a extremo aún no configurada</string>
     <string name="e2e_offline">No es posible sin conexión a Internet</string>
-    <string name="ecosystem_apps_display_talk">Hablar</string>
-    <string name="ecosystem_apps_notes">Nextcloud Notes</string>
     <string name="encrypted">Establecer como encriptado</string>
     <string name="end_to_end_encryption_confirm_button">Configurar la encripción</string>
     <string name="end_to_end_encryption_decrypting">Desencriptando…</string>
@@ -697,7 +695,9 @@
     <string name="shared_icon_shared_via_link">compartido mediante enlace</string>
     <string name="shared_with_you_by">Compartido contigo por %1$s</string>
     <string name="sharee_add_failed">Error al agregar destinatario</string>
+    <string name="show_all">Mostrar todo</string>
     <string name="show_images">Mostrar fotos</string>
+    <string name="show_less">Mostrar menos</string>
     <string name="show_video">Mostrar videos</string>
     <string name="signup_with_provider">Registrarse con el proveedor</string>
     <string name="single_sign_on_request_token" formatted="true">¿Permitir que %1$s acceda a tu cuenta de Nextcloud %2$s?</string>

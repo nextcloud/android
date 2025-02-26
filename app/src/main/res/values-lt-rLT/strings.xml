@@ -28,7 +28,6 @@
     <string name="activity_chooser_send_file_title">Siųsti</string>
     <string name="activity_chooser_title">Siųsti nuorodą…</string>
     <string name="activity_icon">Veikla</string>
-    <string name="add_another_public_share_link">Pridėti kitą nuorodą</string>
     <string name="add_to_cloud">Pridėti į %1$s</string>
     <string name="advanced_settings">Išplėstiniai nustatymai</string>
     <string name="allow_resharing">Leisti bendrinti iš naujo</string>
@@ -188,6 +187,7 @@
     <string name="could_not_retrieve_url">Nepavyko nuskaityti URL</string>
     <string name="create">Sukurti</string>
     <string name="create_dir_fail_msg">Nepavyko sukurti failo</string>
+    <string name="create_link">Sukurti nuorodą</string>
     <string name="create_new">Nauja</string>
     <string name="create_new_document">Naujas dokumentas</string>
     <string name="create_new_folder">Naujas aplankas</string>
@@ -255,10 +255,7 @@
     <string name="e2e_offline">Neįmanoma, kai nėra interneto ryšio</string>
     <string name="e2e_signature_does_not_match">Parašas nesutampa</string>
     <string name="ecosystem_apps_display_more">Daugiau</string>
-    <string name="ecosystem_apps_display_notes">Užrašai</string>
-    <string name="ecosystem_apps_display_talk">Kalba</string>
     <string name="ecosystem_apps_more">Daugiau Nextcloud programėlių</string>
-    <string name="ecosystem_apps_notes">Nextcloud užrašai</string>
     <string name="email_pick_failed">Nepavyko pasirinkti el. pašto adreso.</string>
     <string name="encrypted">Nustatyti kaip šifruotą</string>
     <string name="end_to_end_encryption_confirm_button">Nustatyti šifravimą</string>
@@ -696,7 +693,9 @@
     <string name="shared_icon_shared_via_link">bendrinama per nuorodą</string>
     <string name="shared_with_you_by">%1$s bendrina su Jumis.</string>
     <string name="sharee_add_failed">Bendrinimo pridėjimas nepavyko</string>
+    <string name="show_all">Rodyti visus</string>
     <string name="show_images">Rodyti nuotraukas</string>
+    <string name="show_less">Rodyti mažiau</string>
     <string name="show_video">Rodyti vaizdo įrašus</string>
     <string name="signup_with_provider">Registruotis su tiekėju</string>
     <string name="single_sign_on_request_token" formatted="true">Leisti %1$s gauti prieigą prie jūsų Nextcloud paskyros %2$s?</string>

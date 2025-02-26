@@ -83,8 +83,7 @@ public class ActivityAndVersionListAdapter extends ActivityListAdapter {
         for (Object item : items) {
             String time;
 
-            if (item instanceof Activity) {
-                Activity activity = (Activity) item;
+            if (item instanceof Activity activity) {
                 time = getHeaderDateString(context, activity.getDatetime().getTime()).toString();
             } else {
                 FileVersion version = (FileVersion) item;
@@ -115,8 +114,7 @@ public class ActivityAndVersionListAdapter extends ActivityListAdapter {
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        if (holder instanceof VersionViewHolder) {
-            final VersionViewHolder versionViewHolder = (VersionViewHolder) holder;
+        if (holder instanceof VersionViewHolder versionViewHolder) {
             FileVersion fileVersion = (FileVersion) values.get(position);
 
             versionViewHolder.binding.size.setText(DisplayUtils.bytesToHumanReadable(fileVersion.getFileLength()));

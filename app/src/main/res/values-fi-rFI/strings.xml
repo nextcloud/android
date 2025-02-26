@@ -28,7 +28,6 @@
     <string name="activity_chooser_send_file_title">Lähetä</string>
     <string name="activity_chooser_title">Lähetä linkki…</string>
     <string name="activity_icon">Aktiviteetti</string>
-    <string name="add_another_public_share_link">Lisää toinen linkki</string>
     <string name="add_new_public_share">Lisää uusi julkinen jakolinkki</string>
     <string name="add_to_cloud">Lisää kohteeseen %1$s</string>
     <string name="advanced_settings">Lisäasetukset</string>
@@ -193,6 +192,7 @@
     <string name="could_not_retrieve_url">URL:n palautus epännistui</string>
     <string name="create">Luo</string>
     <string name="create_dir_fail_msg">Kansion luominen ei onnistunut</string>
+    <string name="create_link">Luo linkki</string>
     <string name="create_new">Uusi</string>
     <string name="create_new_document">Uusi dokumentti</string>
     <string name="create_new_folder">Uusi kansio</string>
@@ -267,11 +267,7 @@
     <string name="e2e_counter_too_old">Laskuri on liian vanha</string>
     <string name="ecosystem_apps_display_assistant">Avustaja</string>
     <string name="ecosystem_apps_display_more">Lisää</string>
-    <string name="ecosystem_apps_display_notes">Muistiinpanot</string>
-    <string name="ecosystem_apps_display_talk">Talk</string>
     <string name="ecosystem_apps_more">Lisää Nextcloud-sovelluksia</string>
-    <string name="ecosystem_apps_notes">Nextcloud Notes</string>
-    <string name="ecosystem_apps_talk">Nextcloud Talk</string>
     <string name="email_pick_failed">Sähköpostiosoitteen valinta epäonnistui.</string>
     <string name="encrypted">Salaa</string>
     <string name="end_to_end_encryption_confirm_button">Aseta salaus</string>
@@ -762,7 +758,9 @@ GNU yleinen lisenssi, versio 2</string>
     <string name="shared_icon_shared_via_link">jaettu linkin kautta</string>
     <string name="shared_with_you_by">Jaettu sinulle käyttäjältä %1$s</string>
     <string name="sharee_add_failed">Jaon lisääminen epäonnistui</string>
+    <string name="show_all">Näytä kaikki</string>
     <string name="show_images">Näytä kuvat</string>
+    <string name="show_less">Näytä vähemmän</string>
     <string name="show_video">Näytä videot</string>
     <string name="signup_with_provider">Kirjaudu sisään palvelutarjoajan kautta</string>
     <string name="single_sign_on_request_token" formatted="true">Salli käyttäjälle %1$s pääsy Nextcloud -tilillesi %2$s?</string>

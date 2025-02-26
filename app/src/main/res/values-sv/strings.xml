@@ -28,7 +28,6 @@
     <string name="activity_chooser_send_file_title">Skicka</string>
     <string name="activity_chooser_title">Skicka länk till…</string>
     <string name="activity_icon">Aktivitet</string>
-    <string name="add_another_public_share_link">Lägg till en annan länk</string>
     <string name="add_new_public_share">Lägg till en ny publik delad länk</string>
     <string name="add_new_secure_file_drop">Lägg till ny säker gömd fillista</string>
     <string name="add_to_cloud">Lägg till %1$s</string>
@@ -215,6 +214,7 @@
     <string name="could_not_retrieve_url">Kunde inte hämta URL</string>
     <string name="create">Skapa</string>
     <string name="create_dir_fail_msg">Kunde inte skapa mapp</string>
+    <string name="create_link">Skapa länk</string>
     <string name="create_new">Ny</string>
     <string name="create_new_document">Nytt dokument</string>
     <string name="create_new_folder">Ny mapp</string>
@@ -297,11 +297,7 @@
     <string name="e2e_signature_does_not_match">Signaturen matchar inte</string>
     <string name="ecosystem_apps_display_assistant">Assistent</string>
     <string name="ecosystem_apps_display_more">Mer</string>
-    <string name="ecosystem_apps_display_notes">Anteckning</string>
-    <string name="ecosystem_apps_display_talk">Talk</string>
     <string name="ecosystem_apps_more">Fler Nextcloud-appar</string>
-    <string name="ecosystem_apps_notes">Nextcloud anteckningar</string>
-    <string name="ecosystem_apps_talk">Nextcloud Talk</string>
     <string name="email_pick_failed">Det gick inte att välja e-postadress.</string>
     <string name="encrypted">Sätt som krypterad</string>
     <string name="end_to_end_encryption_certificate_unavailable">Kunde inte hämta servercertifikatet</string>
@@ -366,6 +362,7 @@
     <string name="etm_transfer_type">Överför</string>
     <string name="etm_transfer_type_download">Ladda ner</string>
     <string name="etm_transfer_type_upload">Ladda upp</string>
+    <string name="external_shares">Externa delningar</string>
     <string name="fab_label">Lägg till eller ladda upp</string>
     <string name="failed_to_download">Misslyckades skicka filen till hämtningshanteraren</string>
     <string name="failed_to_print">Kunde inte skriva ut filen</string>
@@ -505,6 +502,7 @@
     <string name="instant_upload_existing">Ladda även upp befintliga filer</string>
     <string name="instant_upload_on_charging">Ladda enbart upp när enheten laddas</string>
     <string name="instant_upload_path">/AutomatiskUppladdning</string>
+    <string name="internal_shares">Interna delningar</string>
     <string name="internal_two_way_sync">Intern tvåvägssynk</string>
     <string name="internal_two_way_sync_not_yet">Inte än, synkroniseras snart</string>
     <string name="internet_connection_required_for_encrypted_folder_setup">En internetanslutning krävs för att konfigurera den krypterade mappen</string>
@@ -847,7 +845,9 @@
     <string name="shared_with_you_by">Delad med dig av %1$s</string>
     <string name="sharee_add_failed">Misslyckades lägga till delning</string>
     <string name="sharee_already_added_to_file">Det gick inte att lägga till delning. Den här filen eller mappen har redan delats med den här personen eller gruppen.</string>
+    <string name="show_all">Visa alla</string>
     <string name="show_images">Visa bilder</string>
+    <string name="show_less">Visa mindre</string>
     <string name="show_video">Visa video</string>
     <string name="sign_tos_failed">Vänligen kontrollera användarvillkoren manuellt!</string>
     <string name="signup_with_provider">Registrera hos en leverantör</string>

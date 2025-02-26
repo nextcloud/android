@@ -54,9 +54,7 @@ public class ThemeableSwitchPreference extends SwitchPreference {
         for (int i = 0; i < viewGroup.getChildCount(); i++) {
             View child = viewGroup.getChildAt(i);
 
-            if (child instanceof Switch) {
-                Switch switchView = (Switch) child;
-
+            if (child instanceof Switch switchView) {
                 viewThemeUtils.platform.colorSwitch(switchView);
 
                 break;

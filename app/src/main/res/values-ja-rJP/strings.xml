@@ -28,7 +28,6 @@
     <string name="activity_chooser_send_file_title">送信</string>
     <string name="activity_chooser_title">リンク送信…</string>
     <string name="activity_icon">アクティビティ</string>
-    <string name="add_another_public_share_link">別のリンクを追加</string>
     <string name="add_new_public_share">新規公開共有リンクを追加</string>
     <string name="add_new_secure_file_drop">新しいセキュアなファイルドロップを追加</string>
     <string name="add_to_cloud">%1$s に追加</string>
@@ -291,11 +290,7 @@
     <string name="e2e_signature_does_not_match">署名が一致しません</string>
     <string name="ecosystem_apps_display_assistant">アシスタント</string>
     <string name="ecosystem_apps_display_more">さらに表示</string>
-    <string name="ecosystem_apps_display_notes">ノート</string>
-    <string name="ecosystem_apps_display_talk">トーク</string>
     <string name="ecosystem_apps_more">もっと Nextcloud アプリを見る</string>
-    <string name="ecosystem_apps_notes">Nextcloud ノート</string>
-    <string name="ecosystem_apps_talk">Nextcloud Talk</string>
     <string name="email_pick_failed">メールアドレスの選択に失敗しました。</string>
     <string name="encrypted">暗号化設定</string>
     <string name="end_to_end_encryption_confirm_button">暗号化を設定する</string>
@@ -355,6 +350,7 @@
     <string name="etm_transfer_type">転送</string>
     <string name="etm_transfer_type_download">ダウンロード</string>
     <string name="etm_transfer_type_upload">アップロード</string>
+    <string name="external_shares">外部共有</string>
     <string name="fab_label">追加またはアップロード</string>
     <string name="failed_to_download">ダウンロードマネージャーにファイルを渡せませんでした</string>
     <string name="failed_to_print">ファイルの印刷に失敗</string>
@@ -493,6 +489,7 @@
     <string name="instant_upload_existing">既存のファイルもアップロード</string>
     <string name="instant_upload_on_charging">充電中のみアップロード</string>
     <string name="instant_upload_path">/InstantUpload</string>
+    <string name="internal_shares">内部共有</string>
     <string name="internal_two_way_sync">内部的な双方向同期</string>
     <string name="internal_two_way_sync_not_yet">まだ同期されていませんが、間もなく同期されます</string>
     <string name="internet_connection_required_for_encrypted_folder_setup">暗号化されたフォルダを設定するにはインターネット接続が必要です</string>
@@ -830,7 +827,9 @@
     <string name="shared_with_you_by">%1$sと共有中</string>
     <string name="sharee_add_failed">共有を追加できませんでした</string>
     <string name="sharee_already_added_to_file">共有の追加に失敗しました。このファイルまたはフォルダはすでにその人物またはグループと共有されています。</string>
+    <string name="show_all">全て表示</string>
     <string name="show_images">写真を表示</string>
+    <string name="show_less">表示を減らす</string>
     <string name="show_video">動画を表示</string>
     <string name="signup_with_provider">他のサービスでサインアップ</string>
     <string name="single_sign_on_request_token" formatted="true">%1$s があなたのNextcloudアカウント %2$s にアクセスできるようにしますか？</string>

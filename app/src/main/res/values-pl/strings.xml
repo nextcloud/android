@@ -28,7 +28,6 @@
     <string name="activity_chooser_send_file_title">Wyślij</string>
     <string name="activity_chooser_title">Wyślij link do…</string>
     <string name="activity_icon">Aktywność</string>
-    <string name="add_another_public_share_link">Dodaj kolejny link</string>
     <string name="add_new_public_share">Dodaj nowy link publiczny do udostępnienia</string>
     <string name="add_new_secure_file_drop">Dodaj nowe bezpieczne zrzuty plików</string>
     <string name="add_to_cloud">Dodaj do %1$s</string>
@@ -215,6 +214,7 @@
     <string name="could_not_retrieve_url">Nie można pobrać adresu URL</string>
     <string name="create">Utwórz</string>
     <string name="create_dir_fail_msg">Nie udało się utworzyć katalogu</string>
+    <string name="create_link">Utwórz link</string>
     <string name="create_new">Nowy</string>
     <string name="create_new_document">Nowy dokument</string>
     <string name="create_new_folder">Nowy katalog</string>
@@ -297,13 +297,11 @@
     <string name="e2e_signature_does_not_match">Podpis nie pasuje</string>
     <string name="ecosystem_apps_display_assistant">Asystent</string>
     <string name="ecosystem_apps_display_more">Więcej</string>
-    <string name="ecosystem_apps_display_notes">Notatki</string>
-    <string name="ecosystem_apps_display_talk">Talk</string>
     <string name="ecosystem_apps_more">Więcej aplikacji Nextcloud</string>
-    <string name="ecosystem_apps_notes">Nextcloud Notes</string>
-    <string name="ecosystem_apps_talk">Nextcloud Talk</string>
     <string name="email_pick_failed">Nie udało się wybrać adresu e-mail.</string>
     <string name="encrypted">Ustaw jako zaszyfrowane</string>
+    <string name="end_to_end_encryption_certificate_unavailable">Nie można pobrać certyfikatu serwera</string>
+    <string name="end_to_end_encryption_certificate_verification_failed">Nie udało się zweryfikować klucza publicznego</string>
     <string name="end_to_end_encryption_confirm_button">Włącz szyfrowanie</string>
     <string name="end_to_end_encryption_decrypting">Odszyfrowywanie…</string>
     <string name="end_to_end_encryption_dialog_close">Zamknij</string>
@@ -315,8 +313,11 @@
     <string name="end_to_end_encryption_passphrase_title">Zapisz swoje hasło do szyfrowania z 12-stu słów</string>
     <string name="end_to_end_encryption_password">Hasło…</string>
     <string name="end_to_end_encryption_retrieving_keys">Pobieranie kluczy…</string>
+    <string name="end_to_end_encryption_server_private_key_unavailable">Nie można pobrać klucza prywatnego</string>
+    <string name="end_to_end_encryption_server_public_key_unavailable">Nie można pobrać klucza publicznego</string>
     <string name="end_to_end_encryption_storing_keys">Przechowywanie kluczy</string>
     <string name="end_to_end_encryption_title">Włącz szyfrowanie</string>
+    <string name="end_to_end_encryption_unexpected_error_occurred">Wystąpił nieoczekiwany błąd podczas pobierania kluczy</string>
     <string name="end_to_end_encryption_unsuccessful">Nie można zapisać kluczy, spróbuj ponownie.</string>
     <string name="end_to_end_encryption_wrong_password">Wystąpił błąd podczas deszyfracji. Nieprawidłowe hasło?</string>
     <string name="enter_destination_filename">Wpisz nazwę pliku docelowego</string>
@@ -361,6 +362,7 @@
     <string name="etm_transfer_type">Transfer</string>
     <string name="etm_transfer_type_download">Pobierz</string>
     <string name="etm_transfer_type_upload">Wyślij</string>
+    <string name="external_shares">Udostępnienia zewnętrzne</string>
     <string name="fab_label">Dodaj lub wyślij</string>
     <string name="failed_to_download">Nie udało się przekazać pliku do menedżera pobierania</string>
     <string name="failed_to_print">Nie udało się wydrukować pliku</string>
@@ -500,6 +502,7 @@
     <string name="instant_upload_existing">Wyślij również istniejące pliki</string>
     <string name="instant_upload_on_charging">Wysyłaj tylko podczas ładowania</string>
     <string name="instant_upload_path">/InstantUpload</string>
+    <string name="internal_shares">Udostępnianie wewnętrzne</string>
     <string name="internal_two_way_sync">Synchronizacja dwukierunkowa wewnętrzna</string>
     <string name="internal_two_way_sync_not_yet">Jeszcze nie, niebawem będzie zsynchronizowane</string>
     <string name="internet_connection_required_for_encrypted_folder_setup">Aby ustawić szyfrowany katalog wymagane jest połączenie z Internetem</string>
@@ -841,7 +844,9 @@
     <string name="shared_with_you_by">Udostępnione przez %1$s</string>
     <string name="sharee_add_failed">Udostępnienie nie powiodło się</string>
     <string name="sharee_already_added_to_file">Dodanie współudziału nie powiodło się. Ten plik lub katalog został już udostępniony tej osobie lub grupie.</string>
+    <string name="show_all">Pokaż wszystko</string>
     <string name="show_images">Pokaż zdjęcia</string>
+    <string name="show_less">Pokaż mniej</string>
     <string name="show_video">Pokaż filmy</string>
     <string name="sign_tos_failed">Sprawdź ręcznie warunki korzystania z usługi!</string>
     <string name="signup_with_provider">Zarejestruj się u usługodawcy</string>

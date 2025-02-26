@@ -28,7 +28,6 @@
     <string name="activity_chooser_send_file_title">Envoyer</string>
     <string name="activity_chooser_title">Envoyer le lien vers…</string>
     <string name="activity_icon">Activité</string>
-    <string name="add_another_public_share_link">Ajouter un autre lien</string>
     <string name="add_new_public_share">Ajouter un nouveau lien de partage public</string>
     <string name="add_new_secure_file_drop">Ajouter un nouveau dépôt de fichier sécurisé</string>
     <string name="add_to_cloud">Ajouter à %1$s</string>
@@ -215,6 +214,7 @@
     <string name="could_not_retrieve_url">Impossible de récupérer l\'URL</string>
     <string name="create">Créer</string>
     <string name="create_dir_fail_msg">Le dossier n\'a pas pu être créé</string>
+    <string name="create_link">Créer un lien</string>
     <string name="create_new">Nouveau</string>
     <string name="create_new_document">Nouveau document</string>
     <string name="create_new_folder">Nouveau dossier</string>
@@ -297,13 +297,11 @@
     <string name="e2e_signature_does_not_match">La signature ne correspond pas</string>
     <string name="ecosystem_apps_display_assistant">Assistant</string>
     <string name="ecosystem_apps_display_more">Plus</string>
-    <string name="ecosystem_apps_display_notes">Notes</string>
-    <string name="ecosystem_apps_display_talk">Discussion</string>
     <string name="ecosystem_apps_more">Plus d\'applications Nextcloud</string>
-    <string name="ecosystem_apps_notes">Nextcloud Notes</string>
-    <string name="ecosystem_apps_talk">Nextcloud Talk</string>
     <string name="email_pick_failed">Le choix de l\'adresse e-mail a échoué.</string>
     <string name="encrypted">Définir comme chiffré</string>
+    <string name="end_to_end_encryption_certificate_unavailable">Impossible de retrouver le certificat du serveur</string>
+    <string name="end_to_end_encryption_certificate_verification_failed">Échec de la vérification de la clé publique</string>
     <string name="end_to_end_encryption_confirm_button">Configurer le chiffrement</string>
     <string name="end_to_end_encryption_decrypting">Décryptage…</string>
     <string name="end_to_end_encryption_dialog_close">Fermer</string>
@@ -315,8 +313,11 @@
     <string name="end_to_end_encryption_passphrase_title">Veuillez noter votre phrase secrète de chiffrement de 12 mots</string>
     <string name="end_to_end_encryption_password">Mot de passe…</string>
     <string name="end_to_end_encryption_retrieving_keys">Récupération des clés…</string>
+    <string name="end_to_end_encryption_server_private_key_unavailable">Impossible de retrouver la clé privée</string>
+    <string name="end_to_end_encryption_server_public_key_unavailable">Impossible de retrouver la clé publique</string>
     <string name="end_to_end_encryption_storing_keys">Enregistrement des clés</string>
     <string name="end_to_end_encryption_title">Configurer le chiffrement</string>
+    <string name="end_to_end_encryption_unexpected_error_occurred">Une erreur inattendue est survenue lors du téléchargement des clés</string>
     <string name="end_to_end_encryption_unsuccessful">Impossible d\'enregistrer les clés, veuillez réessayer.</string>
     <string name="end_to_end_encryption_wrong_password">Erreur lors du décryptage. Mauvais mot de passe ?</string>
     <string name="enter_destination_filename">Entrez le nom du fichier de destination</string>
@@ -361,6 +362,7 @@
     <string name="etm_transfer_type">Transfert</string>
     <string name="etm_transfer_type_download">Téléchargement</string>
     <string name="etm_transfer_type_upload">Téléverser</string>
+    <string name="external_shares">Partages externes</string>
     <string name="fab_label">Ajouter ou téléverser</string>
     <string name="failed_to_download">Transmission du fichier au gestionnaire de téléchargement échoué</string>
     <string name="failed_to_print">Impossible d\'imprimer le fichier</string>
@@ -500,6 +502,7 @@
     <string name="instant_upload_existing">Téléverser aussi les fichiers existants</string>
     <string name="instant_upload_on_charging">Téléverser uniquement lors de la recharge</string>
     <string name="instant_upload_path">/InstantUpload</string>
+    <string name="internal_shares">Partages internes</string>
     <string name="internal_two_way_sync">Synchronisation interne bidirectionnelle</string>
     <string name="internal_two_way_sync_not_yet">Pas encore, bientôt synchronisé</string>
     <string name="internet_connection_required_for_encrypted_folder_setup">Une connexion Internet est requise pour configurer le dossier chiffré</string>
@@ -841,7 +844,9 @@
     <string name="shared_with_you_by">Partagé avec vous par %1$s</string>
     <string name="sharee_add_failed">L\'ajout du partage a échoué</string>
     <string name="sharee_already_added_to_file">L\'ajout du partage a échoué. Ce fichier ou dossier a déjà été partagé avec cette personne ou ce groupe.</string>
+    <string name="show_all">Tout afficher</string>
     <string name="show_images">Afficher les photos</string>
+    <string name="show_less">Show less</string>
     <string name="show_video">Afficher les vidéos</string>
     <string name="sign_tos_failed">Veuillez vérifier manuellement les conditions générales d\'utilisation</string>
     <string name="signup_with_provider">Se connecter avec un fournisseur</string>
@@ -1189,6 +1194,11 @@
         <item quantity="one">%d sélectionné</item>
         <item quantity="many">%d sélectionnés</item>
         <item quantity="other">%d sélectionnés</item>
+    </plurals>
+    <plurals name="delay_message">
+        <item quantity="one">Retardé de %d seconde à cause de trop d\'essais infructueux</item>
+        <item quantity="many">Retardé de %d secondes à cause de trop d\'essais infructueux</item>
+        <item quantity="other">Retardé de %d secondes à cause de trop d\'essais infructueux</item>
     </plurals>
     <plurals name="delay_message_seconds_part">
         <item quantity="one">%d seconde</item>
