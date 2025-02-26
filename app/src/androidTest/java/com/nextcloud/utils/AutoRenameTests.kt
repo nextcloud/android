@@ -10,6 +10,7 @@ package com.nextcloud.utils
 import com.nextcloud.utils.autoRename.AutoRename
 import com.owncloud.android.AbstractOnServerIT
 import com.owncloud.android.datamodel.e2e.v2.decrypted.DecryptedFile
+import com.owncloud.android.lib.resources.status.NextcloudVersion
 import com.owncloud.android.lib.resources.status.OCCapability
 import org.junit.Before
 import org.junit.Test
