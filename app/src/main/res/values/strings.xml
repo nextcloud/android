@@ -219,9 +219,6 @@
     <string name="common_skip">Skip</string>
     <string name="common_copy">Copy</string>
     <string name="common_clear">Clear</string>
-    <string name="common_days_short">d</string>
-    <string name="common_hours_short">h</string>
-    <string name="common_minutes_short">m</string>
     <string name="about_title">About</string>
     <string name="remove_local_account">Remove local account</string>
     <string name="remove_local_account_details">Remove account from device and delete all local files</string>
