@@ -564,6 +564,10 @@
     <string name="folder_picker_move_button_text">Move</string>
     <string name="folder_picker_choose_caption_text">Choose target folder</string>
 
+    <string name="duration_picker_days_label">d</string>
+    <string name="duration_picker_hours_label">h</string>
+    <string name="duration_picker_minutes_label">m</string>
+
     <string name="move_file_not_found">Unable to move file. Please check whether it exists.</string>
     <string name="move_file_invalid_into_descendent">It is not possible to move a folder into one of its own underlying folders</string>
     <string name="move_file_invalid_overwrite">The file is already present in the destination folder</string>
