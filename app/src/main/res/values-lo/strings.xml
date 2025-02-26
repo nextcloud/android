@@ -26,7 +26,6 @@
     <string name="activity_chooser_send_file_title">ສົ່ງ</string>
     <string name="activity_chooser_title">ສົ່ງລິ້ງໄປຫາ...</string>
     <string name="activity_icon">ກິດຈະກໍາ</string>
-    <string name="add_another_public_share_link">ເພີ່ມລິງອຶ່ນອີ</string>
     <string name="add_new_public_share">ເພິ່ມການແບ່ງປັນສາທາລະນະໃໝ່</string>
     <string name="add_new_secure_file_drop">ຕື່ມການວາງໄຟລ໌ທີ່ປອດໄພໃໝ່</string>
     <string name="add_to_cloud">ເພີ່ມໃສ່ %1$s</string>

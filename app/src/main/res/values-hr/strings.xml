@@ -26,7 +26,6 @@
     <string name="activity_chooser_send_file_title">Pošalji</string>
     <string name="activity_chooser_title">Pošalji poveznicu na...</string>
     <string name="activity_icon">Aktivnost</string>
-    <string name="add_another_public_share_link">Dodaj drugu poveznicu</string>
     <string name="add_new_public_share">Dodaj novu poveznicu za javno dijeljenje</string>
     <string name="add_to_cloud">Dodaj na %1$s</string>
     <string name="advanced_settings">Napredne postavke</string>
@@ -651,7 +650,9 @@
     <string name="shared_icon_shared_via_link">dijeljeno putem poveznice</string>
     <string name="shared_with_you_by">S vama podijelio %1$s</string>
     <string name="sharee_add_failed">Dodavanje osobe za dijeljenje nije uspjelo</string>
+    <string name="show_all">Prikaži sve</string>
     <string name="show_images">Prikaži fotografije</string>
+    <string name="show_less">Prikaži manje</string>
     <string name="show_video">Prikaži video</string>
     <string name="signup_with_provider">Prijavite se kod davatelja usluga</string>
     <string name="single_sign_on_request_token" formatted="true">Dopusti %1$s pristup Nextcloud računu %2$s?</string>

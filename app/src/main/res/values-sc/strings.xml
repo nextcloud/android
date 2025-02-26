@@ -27,7 +27,6 @@
     <string name="activity_chooser_send_file_title">Imbia</string>
     <string name="activity_chooser_title">Imbia ligòngiu a...</string>
     <string name="activity_icon">Atividades</string>
-    <string name="add_another_public_share_link">Agiunghe un\'àteru ligòngiu</string>
     <string name="add_new_public_share">Agiunghe ligòngiu de cumpartzidura pùblica nou</string>
     <string name="add_to_cloud">Agiunghe a %1$s</string>
     <string name="advanced_settings">Cunfiguratziones avantzadas</string>
@@ -633,7 +632,9 @@
     <string name="shared_icon_shared_via_link">cumpartzidu cun ligòngiu</string>
     <string name="shared_with_you_by">Cumpartzidu cun te dae %1$s</string>
     <string name="sharee_add_failed">Agiunta de cumpartzidura faddida</string>
+    <string name="show_all">Mustra totu</string>
     <string name="show_images">Mustra fotografias</string>
+    <string name="show_less">Mustra prus pagu</string>
     <string name="signup_with_provider">Registra·ti cun su frunidore</string>
     <string name="single_sign_on_request_token" formatted="true">Permìtere a %1$s de intrare in su contu tuo de Nextcloud %2$s?</string>
     <string name="sort_by">Assenta segundu</string>

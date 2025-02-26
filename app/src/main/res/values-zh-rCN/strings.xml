@@ -28,7 +28,6 @@
     <string name="activity_chooser_send_file_title">发送</string>
     <string name="activity_chooser_title">发送链接到…</string>
     <string name="activity_icon">动态</string>
-    <string name="add_another_public_share_link">添加其他链接</string>
     <string name="add_new_public_share">添加新的公共共享链接</string>
     <string name="add_new_secure_file_drop">添加新的安全文件投放箱</string>
     <string name="add_to_cloud">添加%1$s</string>
@@ -366,6 +365,7 @@
     <string name="etm_transfer_type">传输</string>
     <string name="etm_transfer_type_download">下载</string>
     <string name="etm_transfer_type_upload">上传</string>
+    <string name="external_shares">外部共享</string>
     <string name="fab_label">添加或上传</string>
     <string name="failed_to_download">无法将文件传递给下载管理器</string>
     <string name="failed_to_print">打印文件已失败</string>
@@ -505,6 +505,7 @@
     <string name="instant_upload_existing">同时上传现有文件</string>
     <string name="instant_upload_on_charging">仅在充电时上传</string>
     <string name="instant_upload_path">/实时上传</string>
+    <string name="internal_shares">内部共享</string>
     <string name="internal_two_way_sync">内部双向同步</string>
     <string name="internal_two_way_sync_not_yet">还没有，很快就会同步</string>
     <string name="internet_connection_required_for_encrypted_folder_setup">需要互联网连接才能设置加密文件夹</string>
@@ -846,7 +847,9 @@
     <string name="shared_with_you_by">您已通过 %1$s 共享</string>
     <string name="sharee_add_failed">新建共享失败</string>
     <string name="sharee_already_added_to_file">添加共享失败。此文件或文件夹已经与此人或群组共享。</string>
+    <string name="show_all">显示全部</string>
     <string name="show_images">显示照片</string>
+    <string name="show_less">显示更少</string>
     <string name="show_video">显示视频</string>
     <string name="sign_tos_failed">请手动检查服务条款！</string>
     <string name="signup_with_provider">与提供商签约</string>

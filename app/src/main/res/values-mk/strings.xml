@@ -26,7 +26,6 @@
     <string name="activity_chooser_send_file_title">Прати</string>
     <string name="activity_chooser_title">Испрати линк до…</string>
     <string name="activity_icon">Активност</string>
-    <string name="add_another_public_share_link">Додади линк</string>
     <string name="add_new_public_share">Додади нов линк за споделување</string>
     <string name="add_to_cloud">Додади во %1$s</string>
     <string name="advanced_settings">Напредни параметри</string>
@@ -598,6 +597,8 @@
     <string name="shared_icon_shared_via_link">споделено преку линк</string>
     <string name="shared_with_you_by"> %1$s сподели со тебе</string>
     <string name="sharee_add_failed">Грешка при споделувањето</string>
+    <string name="show_all">Прикажи ги сите</string>
+    <string name="show_less">Помалку</string>
     <string name="signup_with_provider">Пријавете се преку провајдер</string>
     <string name="single_sign_on_request_token" formatted="true">Дозволи му на %1$s да пристапи на твојата Nextcloud сметка %2$s?</string>
     <string name="sort_by">Сортирај по</string>

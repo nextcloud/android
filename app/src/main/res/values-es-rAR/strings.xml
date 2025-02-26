@@ -28,7 +28,6 @@
     <string name="activity_chooser_send_file_title">Enviar</string>
     <string name="activity_chooser_title">Enviar Link a…</string>
     <string name="activity_icon">Actividad</string>
-    <string name="add_another_public_share_link">Agregar otro enlace</string>
     <string name="add_new_public_share">Agregar un nuevo enlace publico</string>
     <string name="add_new_secure_file_drop">Agregar nueva carpeta segura de archivos</string>
     <string name="add_to_cloud">Añadir %1$s</string>

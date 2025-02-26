@@ -26,7 +26,6 @@
     <string name="activity_chooser_send_file_title">Αποστολή</string>
     <string name="activity_chooser_title">Αποστολή συνδέσμου σε…</string>
     <string name="activity_icon">Δραστηριότητα</string>
-    <string name="add_another_public_share_link">Προσθήκη άλλου συνδέσμου</string>
     <string name="add_new_public_share">Προσθήκη νέου δημόσιου κοινόχρηστου συνδέσμου</string>
     <string name="add_to_cloud">Προσθήκη στο %1$s</string>
     <string name="advanced_settings">Ρυθμίσεις για προχωρημένους</string>
@@ -693,7 +692,9 @@
     <string name="shared_icon_shared_via_link">Διαμοιράστηκε μέσω συνδέσμου</string>
     <string name="shared_with_you_by">Διαμοιράστηκε με εσάς από τον %1$s</string>
     <string name="sharee_add_failed">Η προσθήκη κοινής χρήσης απέτυχε</string>
+    <string name="show_all">Εμφάνιση όλων</string>
     <string name="show_images">Εμφάνιση φωτογραφιών</string>
+    <string name="show_less">Εμφάνιση λιγότερων</string>
     <string name="show_video">Εμφάνιση βίντεο</string>
     <string name="signup_with_provider">Σύνδεση με πάροχο</string>
     <string name="single_sign_on_request_token" formatted="true">Να επιτραπεί%1$sη πρόσβαση στον λογαριασμό σας Nextcloud %2$s ?</string>

@@ -28,7 +28,6 @@
     <string name="activity_chooser_send_file_title">Send</string>
     <string name="activity_chooser_title">Send link til...</string>
     <string name="activity_icon">Aktivitet</string>
-    <string name="add_another_public_share_link">Tilføj et link mere</string>
     <string name="add_new_public_share">Tilføj nyt offentligt link til deling</string>
     <string name="add_new_secure_file_drop">Tilføj nyt, sikkert fil drop</string>
     <string name="add_to_cloud">Tilføj til %1$s</string>
@@ -215,6 +214,7 @@
     <string name="could_not_retrieve_url">Kunne ikke hente URL</string>
     <string name="create">Opret</string>
     <string name="create_dir_fail_msg">Kunne ikke oprette mappe</string>
+    <string name="create_link">Opret link</string>
     <string name="create_new">Nyt</string>
     <string name="create_new_document">Nyt dokument</string>
     <string name="create_new_folder">Ny mappe</string>
@@ -366,6 +366,7 @@
     <string name="etm_transfer_type">Overførsel</string>
     <string name="etm_transfer_type_download">Download</string>
     <string name="etm_transfer_type_upload">Send</string>
+    <string name="external_shares">Eksterne delinger</string>
     <string name="fab_label">Tilføj eller send</string>
     <string name="failed_to_download">Fejl ved overførsel af fil til download manager</string>
     <string name="failed_to_print">Fejl ved udskrivning af fil</string>
@@ -505,6 +506,7 @@
     <string name="instant_upload_existing">Send også eksisterende filer</string>
     <string name="instant_upload_on_charging">Upload kun under opladning</string>
     <string name="instant_upload_path">/Øjeblikkelig upload</string>
+    <string name="internal_shares">Interne delinger</string>
     <string name="internal_two_way_sync">Intern to-vejs synkronisering</string>
     <string name="internal_two_way_sync_not_yet">Ikke endnu, synkroniseres snart</string>
     <string name="internet_connection_required_for_encrypted_folder_setup">En internetforbindelse er påkrævet for at konfigurere den krypterede mappe</string>

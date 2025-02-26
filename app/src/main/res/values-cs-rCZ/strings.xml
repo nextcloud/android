@@ -28,7 +28,6 @@
     <string name="activity_chooser_send_file_title">Odeslat</string>
     <string name="activity_chooser_title">Poslat odkaz na…</string>
     <string name="activity_icon">Aktivita</string>
-    <string name="add_another_public_share_link">Přidat další odkaz</string>
     <string name="add_new_public_share">Přidat nový veřejný odkaz na sdílení</string>
     <string name="add_new_secure_file_drop">Přidat nové bezpečné předání souborů</string>
     <string name="add_to_cloud">Přidat k %1$s</string>
@@ -215,6 +214,7 @@
     <string name="could_not_retrieve_url">Nepodařilo se získat URL</string>
     <string name="create">Vytvořit</string>
     <string name="create_dir_fail_msg">Nepodařilo se vytvořit složku</string>
+    <string name="create_link">Vytvořit odkaz</string>
     <string name="create_new">Nové</string>
     <string name="create_new_document">Nový dokument</string>
     <string name="create_new_folder">Nová složka</string>
@@ -366,6 +366,7 @@
     <string name="etm_transfer_type">Přenos</string>
     <string name="etm_transfer_type_download">Stáhnout</string>
     <string name="etm_transfer_type_upload">Nahrát</string>
+    <string name="external_shares">Externí sdílení</string>
     <string name="fab_label">Přidat nebo nahrát</string>
     <string name="failed_to_download">Předání souboru správci stahování se nezdařilo</string>
     <string name="failed_to_print">Soubor se nepodařilo vytisknout</string>
@@ -505,6 +506,7 @@
     <string name="instant_upload_existing">Také nahrát už existující soubory</string>
     <string name="instant_upload_on_charging">Nahrávat pouze při nabíjení</string>
     <string name="instant_upload_path">/InstantUpload</string>
+    <string name="internal_shares">Vnitřní sdílení</string>
     <string name="internal_two_way_sync">Interní obousměrná synchronizace</string>
     <string name="internal_two_way_sync_not_yet">Zatím ještě ne, brzy bude synchronizováno</string>
     <string name="internet_connection_required_for_encrypted_folder_setup">Pro nastavení šifrované složky je zapotřebí připojení k Internetu</string>
@@ -846,7 +848,9 @@
     <string name="shared_with_you_by">Nasdílel(a) vám %1$s</string>
     <string name="sharee_add_failed">Přidání sdílejícího se nezdařilo</string>
     <string name="sharee_already_added_to_file">Přidávání sdílení se nezdařilo. Tento soubor či složka už je této osobě či skupině nasdílena.</string>
+    <string name="show_all">Zobrazit vše</string>
     <string name="show_images">Zobrazit fotky</string>
+    <string name="show_less">Zobrazit méně</string>
     <string name="show_video">Zobrazit videa</string>
     <string name="sign_tos_failed">Prosíme ručně zkontrolujte všeobecné podmínky!</string>
     <string name="signup_with_provider">Zaregistrovat se u poskytovatele</string>

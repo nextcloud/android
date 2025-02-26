@@ -28,7 +28,6 @@
     <string name="activity_chooser_send_file_title">寄出</string>
     <string name="activity_chooser_title">傳送連結至…</string>
     <string name="activity_icon">活動狀態</string>
-    <string name="add_another_public_share_link">新增其他連結</string>
     <string name="add_new_public_share">新增公開分享連結</string>
     <string name="add_new_secure_file_drop">新增安全檔案投遞</string>
     <string name="add_to_cloud">新增到 %1$s </string>
@@ -215,6 +214,7 @@
     <string name="could_not_retrieve_url">無法擷取 URL</string>
     <string name="create">建立</string>
     <string name="create_dir_fail_msg">無法建立資料夾</string>
+    <string name="create_link">建立連結</string>
     <string name="create_new">建立新的</string>
     <string name="create_new_document">新增文件</string>
     <string name="create_new_folder">新增資料夾</string>
@@ -366,6 +366,7 @@
     <string name="etm_transfer_type">傳輸</string>
     <string name="etm_transfer_type_download">下載</string>
     <string name="etm_transfer_type_upload">上傳</string>
+    <string name="external_shares">外部分享</string>
     <string name="fab_label">新增或上傳</string>
     <string name="failed_to_download">無法將檔案傳遞給下載管理程式</string>
     <string name="failed_to_print">檔案列印失敗</string>
@@ -505,6 +506,7 @@
     <string name="instant_upload_existing">也同時上傳既有的檔案</string>
     <string name="instant_upload_on_charging">只在充電時上傳</string>
     <string name="instant_upload_path">/InstantUpload</string>
+    <string name="internal_shares">內部分享</string>
     <string name="internal_two_way_sync">內部雙向同步</string>
     <string name="internal_two_way_sync_not_yet">還沒有，即將同步</string>
     <string name="internet_connection_required_for_encrypted_folder_setup">設定加密資料夾需要網際網路連線</string>
@@ -846,7 +848,9 @@
     <string name="shared_with_you_by">由 %1$s 與您分享</string>
     <string name="sharee_add_failed">新增分享失敗</string>
     <string name="sharee_already_added_to_file">新增分享失敗。此檔案或資料夾已與此人或群組分享。</string>
+    <string name="show_all">全部顯示</string>
     <string name="show_images">顯示照片</string>
+    <string name="show_less">顯示較少</string>
     <string name="show_video">顯示影片</string>
     <string name="sign_tos_failed">請手動檢查服務條款！</string>
     <string name="signup_with_provider">向提供者註冊</string>

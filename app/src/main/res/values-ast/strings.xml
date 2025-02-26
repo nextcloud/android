@@ -19,7 +19,6 @@
     <string name="activities_no_results_headline"> Entá nun hai actividá</string>
     <string name="activity_chooser_send_file_title">Unviar</string>
     <string name="activity_icon">Actividá</string>
-    <string name="add_another_public_share_link">Amestar otru enllaz</string>
     <string name="advanced_settings">Configuración avanzada</string>
     <string name="app_config_base_url_title">URL base</string>
     <string name="app_config_proxy_port_title">Puertu del proxy</string>
@@ -487,6 +486,7 @@
     <string name="share_via_link_section_title">Compartir enllaz</string>
     <string name="share_via_link_send_link_label">Unviar l\'enllaz</string>
     <string name="show_images">Amosar les semeyes</string>
+    <string name="show_less">Amosar menos</string>
     <string name="show_video">Amosar los vídeos</string>
     <string name="signup_with_provider">Rexistrase con un fornidor</string>
     <string name="single_sign_on_request_token" formatted="true">¿Quies permitr que %1$s acceda a la cuenta de Nextcloud %2$s?</string>

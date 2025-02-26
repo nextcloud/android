@@ -28,7 +28,6 @@
     <string name="activity_chooser_send_file_title">Enviar</string>
     <string name="activity_chooser_title">Enviar a ligazón a…</string>
     <string name="activity_icon">Actividade</string>
-    <string name="add_another_public_share_link">Engadir outra ligazón</string>
     <string name="add_new_public_share">Engadir unha nova ligazón para compartir pública</string>
     <string name="add_new_secure_file_drop">Engadir unha nova entrega segura de ficheiro</string>
     <string name="add_to_cloud">Engadir en %1$s</string>
@@ -215,6 +214,7 @@
     <string name="could_not_retrieve_url">Non foi posíbel recuperar o URL</string>
     <string name="create">Crear</string>
     <string name="create_dir_fail_msg">Non foi posíbel crear o cartafol</string>
+    <string name="create_link">Crear ligazón</string>
     <string name="create_new">Novo</string>
     <string name="create_new_document">Novo documento</string>
     <string name="create_new_folder">Novo cartafol</string>
@@ -366,6 +366,7 @@
     <string name="etm_transfer_type">Transferencia</string>
     <string name="etm_transfer_type_download">Descargar</string>
     <string name="etm_transfer_type_upload">Enviar</string>
+    <string name="external_shares">Comparticións externas</string>
     <string name="fab_label">Engadir ou enviar</string>
     <string name="failed_to_download">Produciuse un fallo ao pasar o ficheiro para o xestor de descargas</string>
     <string name="failed_to_print">Produciuse un fallo ao imprimir o ficheiro</string>
@@ -505,6 +506,7 @@
     <string name="instant_upload_existing">Envíar tamén os ficheiros existentes</string>
     <string name="instant_upload_on_charging">Enviar só cando estea cargando</string>
     <string name="instant_upload_path">/EnvíoInstantáneo</string>
+    <string name="internal_shares">Comparticións internas</string>
     <string name="internal_two_way_sync">Sincronización interna bidireccional</string>
     <string name="internal_two_way_sync_not_yet">Aínda non, pronto se sincronizará</string>
     <string name="internet_connection_required_for_encrypted_folder_setup">Precisase dunha conexión a Internet para definir o cartafol cifrado</string>
@@ -847,7 +849,9 @@
     <string name="shared_with_you_by">Compartido con Vde. por %1$s</string>
     <string name="sharee_add_failed">Produciuse un fallo ao engadir unha compartición</string>
     <string name="sharee_already_added_to_file">Produciuse un erro ao engadir o contido compartido. Este ficheiro ou cartafol xa foi compartido con esta persoa ou grupo.</string>
+    <string name="show_all">Amosar todo</string>
     <string name="show_images">Amosar as fotos</string>
+    <string name="show_less">Amosar menos</string>
     <string name="show_video">Amosar os vídeos</string>
     <string name="sign_tos_failed">Comprobe manualmente as condicións de servizo.</string>
     <string name="signup_with_provider">Rexistrarse cun provedor</string>

@@ -28,7 +28,6 @@
     <string name="activity_chooser_send_file_title">Enviar</string>
     <string name="activity_chooser_title">Enviar enlace a…</string>
     <string name="activity_icon">Actividad</string>
-    <string name="add_another_public_share_link">Añadir otro enlace</string>
     <string name="add_new_public_share">Añadir un nuevo enlace público</string>
     <string name="add_new_secure_file_drop">Añadir una nueva entrega de archivos segura</string>
     <string name="add_to_cloud">Añadir a %1$s</string>
@@ -215,6 +214,7 @@
     <string name="could_not_retrieve_url">No se ha podido recuperar la URL</string>
     <string name="create">Crear</string>
     <string name="create_dir_fail_msg">No se ha podido crear la carpeta</string>
+    <string name="create_link">Crear Enlace</string>
     <string name="create_new">Nuevo</string>
     <string name="create_new_document">Nuevo documento</string>
     <string name="create_new_folder">Nueva carpeta</string>
@@ -360,6 +360,7 @@
     <string name="etm_transfer_type">Transferir</string>
     <string name="etm_transfer_type_download">Descarga</string>
     <string name="etm_transfer_type_upload">Subir</string>
+    <string name="external_shares">Compartir con el exterior</string>
     <string name="fab_label">Añadir o subir</string>
     <string name="failed_to_download">Error al enviar el fichero al gestor de descargas</string>
     <string name="failed_to_print">Fallo al imprimir el archivo</string>
@@ -498,6 +499,7 @@
     <string name="instant_upload_existing">Subir también archivos existentes</string>
     <string name="instant_upload_on_charging">Subir solo al cargar batería</string>
     <string name="instant_upload_path">/SubidaInstantánea</string>
+    <string name="internal_shares">Compartir internamente</string>
     <string name="internal_two_way_sync">Sincronización interna bidireccional</string>
     <string name="internal_two_way_sync_not_yet">Todavía no, se sincronizará pronto</string>
     <string name="internet_connection_required_for_encrypted_folder_setup">Se necesita una conexión de internet para configurar la carpeta cifrada</string>
@@ -840,6 +842,7 @@
     <string name="sharee_add_failed">Fallo al añadir compartido</string>
     <string name="sharee_already_added_to_file">Error al añadir el recurso compartido. Este archivo o carpeta ya se ha compartido con esta persona o grupo.</string>
     <string name="show_images">Mostrar fotos</string>
+    <string name="show_less">Ver menos</string>
     <string name="show_video">Mostrar vídeos</string>
     <string name="signup_with_provider">Registrarse con un proveedor</string>
     <string name="single_sign_on_request_token" formatted="true">¿Permitir a %1$s acceder a tu cuenta de Nextcloud %2$s?</string>

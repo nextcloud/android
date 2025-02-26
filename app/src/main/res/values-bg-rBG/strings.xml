@@ -26,7 +26,6 @@
     <string name="activity_chooser_send_file_title">Изпращане</string>
     <string name="activity_chooser_title">Изпращане на връзка чрез…</string>
     <string name="activity_icon">Активност</string>
-    <string name="add_another_public_share_link">Добави още една връзка</string>
     <string name="add_new_public_share">Добавете нова връзка за публично споделяне</string>
     <string name="add_new_secure_file_drop">Добавяне на ново, защитено пускане на файлове</string>
     <string name="add_to_cloud">Добави към %1$s</string>
@@ -175,6 +174,7 @@
     <string name="could_not_retrieve_url">URL адресът не може да бъде извлечен</string>
     <string name="create">Създай</string>
     <string name="create_dir_fail_msg">Не може да се създаде папка</string>
+    <string name="create_link">Създаване на връзка</string>
     <string name="create_new">Нов</string>
     <string name="create_new_document">Нов документ</string>
     <string name="create_new_folder">Нова папка</string>
@@ -689,7 +689,9 @@
     <string name="shared_icon_shared_via_link">споделено с връзка</string>
     <string name="shared_with_you_by">Споделено с Вас от %1$s</string>
     <string name="sharee_add_failed">Неуспешно добавяне на споделянето</string>
+    <string name="show_all">Показване на всички</string>
     <string name="show_images">Показване на снимките</string>
+    <string name="show_less">Покажи по-малко</string>
     <string name="show_video">Показване на видеата</string>
     <string name="signup_with_provider">Абониране при доставчик</string>
     <string name="single_sign_on_request_token" formatted="true">Разрешавате ли на %1$s да достъпва вашия Nextcloud профил %2$s?</string>
