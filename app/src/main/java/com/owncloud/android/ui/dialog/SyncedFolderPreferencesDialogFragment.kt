@@ -223,7 +223,7 @@ class SyncedFolderPreferencesDialogFragment : DialogFragment(), Injectable {
             binding.settingInstantNameCollisionPolicySummary.text =
                 nameCollisionPolicyItemStrings[nameCollisionPolicyIndex]
             binding.settingInstantUploadMinFileAgeSummary.text =
-                getDelaySummary(requireContext(), it.uploadMinFileAgeMs)
+                getUploadMinFileAgeSummary(requireContext(), it.uploadMinFileAgeMs)
         }
     }
 
@@ -464,7 +464,8 @@ class SyncedFolderPreferencesDialogFragment : DialogFragment(), Injectable {
                 override fun onDurationPickerResult(resultCode: Int, duration: Long) {
                     if (resultCode == Activity.RESULT_OK) {
                         it.uploadMinFileAgeMs = duration
-                        binding?.settingInstantUploadMinFileAgeSummary?.text = getDelaySummary(requireContext(), duration)
+                        binding?.settingInstantUploadMinFileAgeSummary?.text =
+                            getUploadMinFileAgeSummary(requireContext(), duration)
                     }
                     dialog.dismiss()
                 }
@@ -601,7 +602,7 @@ class SyncedFolderPreferencesDialogFragment : DialogFragment(), Injectable {
         }
 
         @Suppress("MagicNumber")
-        private fun getDelaySummary(context: Context, durationMs: Long): String {
+        private fun getUploadMinFileAgeSummary(context: Context, durationMs: Long): String {
             if (durationMs == 0L) {
                 return context.getString(R.string.pref_instant_upload_min_file_age_disabled)
             }
@@ -627,7 +628,8 @@ class SyncedFolderPreferencesDialogFragment : DialogFragment(), Injectable {
                     durationSummary.append(context.getString(R.string.duration_picker_minutes_label))
                 }
             }
-            return context.getString(R.string.pref_instant_upload_min_file_age_enabled, durationSummary.toString().trim())
+            return context.getString(R.string.pref_instant_upload_min_file_age_enabled,
+                durationSummary.toString().trim())
         }
     }
 }
