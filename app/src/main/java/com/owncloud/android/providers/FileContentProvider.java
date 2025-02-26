@@ -120,43 +120,19 @@ public class FileContentProvider extends ContentProvider {
                 VerificationUtils.verifyWhere(where);
         }
 
-        int count;
-        switch (mUriMatcher.match(uri)) {
-            case SINGLE_FILE:
-                count = deleteSingleFile(db, uri, where, whereArgs);
-                break;
-            case DIRECTORY:
-                count = deleteDirectory(db, uri, where, whereArgs);
-                break;
-            case ROOT_DIRECTORY:
-                count = db.delete(ProviderTableMeta.FILE_TABLE_NAME, where, whereArgs);
-                break;
-            case SHARES:
-                count = db.delete(ProviderTableMeta.OCSHARES_TABLE_NAME, where, whereArgs);
-                break;
-            case CAPABILITIES:
-                count = db.delete(ProviderTableMeta.CAPABILITIES_TABLE_NAME, where, whereArgs);
-                break;
-            case UPLOADS:
-                count = db.delete(ProviderTableMeta.UPLOADS_TABLE_NAME, where, whereArgs);
-                break;
-            case SYNCED_FOLDERS:
-                count = db.delete(ProviderTableMeta.SYNCED_FOLDERS_TABLE_NAME, where, whereArgs);
-                break;
-            case EXTERNAL_LINKS:
-                count = db.delete(ProviderTableMeta.EXTERNAL_LINKS_TABLE_NAME, where, whereArgs);
-                break;
-            case VIRTUAL:
-                count = db.delete(ProviderTableMeta.VIRTUAL_TABLE_NAME, where, whereArgs);
-                break;
-            case FILESYSTEM:
-                count = db.delete(ProviderTableMeta.FILESYSTEM_TABLE_NAME, where, whereArgs);
-                break;
-            default:
-                throw new IllegalArgumentException(String.format(Locale.US, "Unknown uri: %s", uri.toString()));
-        }
-
-        return count;
+        return switch (mUriMatcher.match(uri)) {
+            case SINGLE_FILE -> deleteSingleFile(db, uri, where, whereArgs);
+            case DIRECTORY -> deleteDirectory(db, uri, where, whereArgs);
+            case ROOT_DIRECTORY -> db.delete(ProviderTableMeta.FILE_TABLE_NAME, where, whereArgs);
+            case SHARES -> db.delete(ProviderTableMeta.OCSHARES_TABLE_NAME, where, whereArgs);
+            case CAPABILITIES -> db.delete(ProviderTableMeta.CAPABILITIES_TABLE_NAME, where, whereArgs);
+            case UPLOADS -> db.delete(ProviderTableMeta.UPLOADS_TABLE_NAME, where, whereArgs);
+            case SYNCED_FOLDERS -> db.delete(ProviderTableMeta.SYNCED_FOLDERS_TABLE_NAME, where, whereArgs);
+            case EXTERNAL_LINKS -> db.delete(ProviderTableMeta.EXTERNAL_LINKS_TABLE_NAME, where, whereArgs);
+            case VIRTUAL -> db.delete(ProviderTableMeta.VIRTUAL_TABLE_NAME, where, whereArgs);
+            case FILESYSTEM -> db.delete(ProviderTableMeta.FILESYSTEM_TABLE_NAME, where, whereArgs);
+            default -> throw new IllegalArgumentException(String.format(Locale.US, "Unknown uri: %s", uri.toString()));
+        };
     }
 
     private int deleteDirectory(SupportSQLiteDatabase db, Uri uri, String where, String... whereArgs) {
@@ -218,14 +194,11 @@ public class FileContentProvider extends ContentProvider {
 
     @Override
     public String getType(@NonNull Uri uri) {
-        switch (mUriMatcher.match(uri)) {
-            case ROOT_DIRECTORY:
-                return ProviderTableMeta.CONTENT_TYPE;
-            case SINGLE_FILE:
-                return ProviderTableMeta.CONTENT_TYPE_ITEM;
-            default:
-                throw new IllegalArgumentException(String.format(Locale.US, "Unknown Uri id: %s", uri));
-        }
+        return switch (mUriMatcher.match(uri)) {
+            case ROOT_DIRECTORY -> ProviderTableMeta.CONTENT_TYPE;
+            case SINGLE_FILE -> ProviderTableMeta.CONTENT_TYPE_ITEM;
+            default -> throw new IllegalArgumentException(String.format(Locale.US, "Unknown Uri id: %s", uri));
+        };
     }
 
     @Override
@@ -474,38 +447,20 @@ public class FileContentProvider extends ContentProvider {
         // verify only for those requests that are not internal
         final int uriMatch = mUriMatcher.match(uri);
 
-        String tableName;
-        switch (uriMatch) {
-            case ROOT_DIRECTORY:
-            case DIRECTORY:
-            case SINGLE_FILE:
+        String tableName = switch (uriMatch) {
+            case ROOT_DIRECTORY, DIRECTORY, SINGLE_FILE -> {
                 VerificationUtils.verifyWhere(selection); // prevent injection in public paths
-                tableName = ProviderTableMeta.FILE_TABLE_NAME;
-                break;
-            case SHARES:
-                tableName = ProviderTableMeta.OCSHARES_TABLE_NAME;
-                break;
-            case CAPABILITIES:
-                tableName = ProviderTableMeta.CAPABILITIES_TABLE_NAME;
-                break;
-            case UPLOADS:
-                tableName = ProviderTableMeta.UPLOADS_TABLE_NAME;
-                break;
-            case SYNCED_FOLDERS:
-                tableName = ProviderTableMeta.SYNCED_FOLDERS_TABLE_NAME;
-                break;
-            case EXTERNAL_LINKS:
-                tableName = ProviderTableMeta.EXTERNAL_LINKS_TABLE_NAME;
-                break;
-            case VIRTUAL:
-                tableName = ProviderTableMeta.VIRTUAL_TABLE_NAME;
-                break;
-            case FILESYSTEM:
-                tableName = ProviderTableMeta.FILESYSTEM_TABLE_NAME;
-                break;
-            default:
-                throw new IllegalArgumentException("Unknown uri id: " + uri);
-        }
+                yield ProviderTableMeta.FILE_TABLE_NAME;
+            }
+            case SHARES -> ProviderTableMeta.OCSHARES_TABLE_NAME;
+            case CAPABILITIES -> ProviderTableMeta.CAPABILITIES_TABLE_NAME;
+            case UPLOADS -> ProviderTableMeta.UPLOADS_TABLE_NAME;
+            case SYNCED_FOLDERS -> ProviderTableMeta.SYNCED_FOLDERS_TABLE_NAME;
+            case EXTERNAL_LINKS -> ProviderTableMeta.EXTERNAL_LINKS_TABLE_NAME;
+            case VIRTUAL -> ProviderTableMeta.VIRTUAL_TABLE_NAME;
+            case FILESYSTEM -> ProviderTableMeta.FILESYSTEM_TABLE_NAME;
+            default -> throw new IllegalArgumentException("Unknown uri id: " + uri);
+        };
 
         SupportSQLiteQueryBuilder queryBuilder = SupportSQLiteQueryBuilder.builder(tableName);
 
@@ -520,32 +475,17 @@ public class FileContentProvider extends ContentProvider {
 
         String order;
         if (TextUtils.isEmpty(sortOrder)) {
-            switch (uriMatch) {
-                case SHARES:
-                    order = ProviderTableMeta.OCSHARES_DEFAULT_SORT_ORDER;
-                    break;
-                case CAPABILITIES:
-                    order = ProviderTableMeta.CAPABILITIES_DEFAULT_SORT_ORDER;
-                    break;
-                case UPLOADS:
-                    order = ProviderTableMeta.UPLOADS_DEFAULT_SORT_ORDER;
-                    break;
-                case SYNCED_FOLDERS:
-                    order = ProviderTableMeta.SYNCED_FOLDER_LOCAL_PATH;
-                    break;
-                case EXTERNAL_LINKS:
-                    order = ProviderTableMeta.EXTERNAL_LINKS_NAME;
-                    break;
-                case VIRTUAL:
-                    order = ProviderTableMeta.VIRTUAL_TYPE;
-                    break;
-                default: // Files
-                    order = ProviderTableMeta.FILE_DEFAULT_SORT_ORDER;
-                    break;
-                case FILESYSTEM:
-                    order = ProviderTableMeta.FILESYSTEM_FILE_LOCAL_PATH;
-                    break;
-            }
+            order = switch (uriMatch) {
+                case SHARES -> ProviderTableMeta.OCSHARES_DEFAULT_SORT_ORDER;
+                case CAPABILITIES -> ProviderTableMeta.CAPABILITIES_DEFAULT_SORT_ORDER;
+                case UPLOADS -> ProviderTableMeta.UPLOADS_DEFAULT_SORT_ORDER;
+                case SYNCED_FOLDERS -> ProviderTableMeta.SYNCED_FOLDER_LOCAL_PATH;
+                case EXTERNAL_LINKS -> ProviderTableMeta.EXTERNAL_LINKS_NAME;
+                case VIRTUAL -> ProviderTableMeta.VIRTUAL_TYPE;
+                default -> // Files
+                    ProviderTableMeta.FILE_DEFAULT_SORT_ORDER;
+                case FILESYSTEM -> ProviderTableMeta.FILESYSTEM_FILE_LOCAL_PATH;
+            };
         } else {
             if (uriMatch == ROOT_DIRECTORY || uriMatch == SINGLE_FILE || uriMatch == DIRECTORY) {
                 VerificationUtils.verifySortOrder(sortOrder);
@@ -614,22 +554,21 @@ public class FileContentProvider extends ContentProvider {
                 VerificationUtils.verifyWhere(selection);
         }
 
-        switch (mUriMatcher.match(uri)) {
-            case DIRECTORY:
-                return 0;
-            case SHARES:
-                return db.update(ProviderTableMeta.OCSHARES_TABLE_NAME, SQLiteDatabase.CONFLICT_REPLACE, values, selection, selectionArgs);
-            case CAPABILITIES:
-                return db.update(ProviderTableMeta.CAPABILITIES_TABLE_NAME, SQLiteDatabase.CONFLICT_REPLACE, values, selection, selectionArgs);
-            case UPLOADS:
-                return db.update(ProviderTableMeta.UPLOADS_TABLE_NAME, SQLiteDatabase.CONFLICT_REPLACE, values, selection, selectionArgs);
-            case SYNCED_FOLDERS:
-                return db.update(ProviderTableMeta.SYNCED_FOLDERS_TABLE_NAME, SQLiteDatabase.CONFLICT_REPLACE, values, selection, selectionArgs);
-            case FILESYSTEM:
-                return db.update(ProviderTableMeta.FILESYSTEM_TABLE_NAME, SQLiteDatabase.CONFLICT_REPLACE, values, selection, selectionArgs);
-            default:
-                return db.update(ProviderTableMeta.FILE_TABLE_NAME, SQLiteDatabase.CONFLICT_REPLACE, values, selection, selectionArgs);
-        }
+        return switch (mUriMatcher.match(uri)) {
+            case DIRECTORY -> 0;
+            case SHARES ->
+                db.update(ProviderTableMeta.OCSHARES_TABLE_NAME, SQLiteDatabase.CONFLICT_REPLACE, values, selection, selectionArgs);
+            case CAPABILITIES ->
+                db.update(ProviderTableMeta.CAPABILITIES_TABLE_NAME, SQLiteDatabase.CONFLICT_REPLACE, values, selection, selectionArgs);
+            case UPLOADS ->
+                db.update(ProviderTableMeta.UPLOADS_TABLE_NAME, SQLiteDatabase.CONFLICT_REPLACE, values, selection, selectionArgs);
+            case SYNCED_FOLDERS ->
+                db.update(ProviderTableMeta.SYNCED_FOLDERS_TABLE_NAME, SQLiteDatabase.CONFLICT_REPLACE, values, selection, selectionArgs);
+            case FILESYSTEM ->
+                db.update(ProviderTableMeta.FILESYSTEM_TABLE_NAME, SQLiteDatabase.CONFLICT_REPLACE, values, selection, selectionArgs);
+            default ->
+                db.update(ProviderTableMeta.FILE_TABLE_NAME, SQLiteDatabase.CONFLICT_REPLACE, values, selection, selectionArgs);
+        };
     }
 
     @NonNull
@@ -657,23 +596,13 @@ public class FileContentProvider extends ContentProvider {
     }
 
     private boolean isCallerNotAllowed(Uri uri) {
-        switch (mUriMatcher.match(uri)) {
-            case SHARES:
-            case CAPABILITIES:
-            case UPLOADS:
-            case SYNCED_FOLDERS:
-            case EXTERNAL_LINKS:
-            case VIRTUAL:
-            case FILESYSTEM:
+        return switch (mUriMatcher.match(uri)) {
+            case SHARES, CAPABILITIES, UPLOADS, SYNCED_FOLDERS, EXTERNAL_LINKS, VIRTUAL, FILESYSTEM -> {
                 String callingPackage = mContext.getPackageManager().getNameForUid(Binder.getCallingUid());
-                return callingPackage == null || !callingPackage.equals(mContext.getPackageName());
-
-            case ROOT_DIRECTORY:
-            case SINGLE_FILE:
-            case DIRECTORY:
-            default:
-                return false;
-        }
+                yield callingPackage == null || !callingPackage.equals(mContext.getPackageName());
+            }
+            default -> false;
+        };
     }
 
 
