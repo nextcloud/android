@@ -628,8 +628,10 @@ class SyncedFolderPreferencesDialogFragment : DialogFragment(), Injectable {
                     durationSummary.append(context.getString(R.string.duration_picker_minutes_label))
                 }
             }
-            return context.getString(R.string.pref_instant_upload_min_file_age_enabled,
-                durationSummary.toString().trim())
+            return context.getString(
+                R.string.pref_instant_upload_min_file_age_enabled,
+                durationSummary.toString().trim()
+            )
         }
     }
 }
