@@ -222,9 +222,6 @@
     <string name="drawer_quota_unlimited">%1$s impreadu</string>
     <string name="drawer_synced_folders">Carrigamentu automàticu</string>
     <string name="ecosystem_apps_display_more">Prus</string>
-    <string name="ecosystem_apps_display_notes">Notas</string>
-    <string name="ecosystem_apps_display_talk">Faedda</string>
-    <string name="ecosystem_apps_notes">Notas de Nextcloud</string>
     <string name="encrypted">Cunfigura comente tzifradu</string>
     <string name="end_to_end_encryption_confirm_button">Cunfigura critografia</string>
     <string name="end_to_end_encryption_decrypting">Decritografende…</string>

@@ -297,11 +297,7 @@
     <string name="e2e_signature_does_not_match">A sinatura non coincide</string>
     <string name="ecosystem_apps_display_assistant">Asistente</string>
     <string name="ecosystem_apps_display_more">Máis</string>
-    <string name="ecosystem_apps_display_notes">Notas</string>
-    <string name="ecosystem_apps_display_talk">Parladoiro</string>
     <string name="ecosystem_apps_more">Máis aplicacións de Nextcloud</string>
-    <string name="ecosystem_apps_notes">Notas de Nextcloud</string>
-    <string name="ecosystem_apps_talk">Parladoiro de Nextcloud</string>
     <string name="email_pick_failed">Produciuse un fallo ao escoller o enderezo de correo.</string>
     <string name="encrypted">Definir como cifrado</string>
     <string name="end_to_end_encryption_certificate_unavailable">Non é posíbel recuperar o certificado de servidor</string>

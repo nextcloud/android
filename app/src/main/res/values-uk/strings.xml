@@ -297,11 +297,7 @@
     <string name="e2e_signature_does_not_match">Підпис не збігається</string>
     <string name="ecosystem_apps_display_assistant">Помічник</string>
     <string name="ecosystem_apps_display_more">Більше</string>
-    <string name="ecosystem_apps_display_notes">Нотатки</string>
-    <string name="ecosystem_apps_display_talk">Розмови</string>
     <string name="ecosystem_apps_more">Більше застосунків Nextcloud</string>
-    <string name="ecosystem_apps_notes">Нотатки для Nextcloud</string>
-    <string name="ecosystem_apps_talk">Розмови Nextcloud</string>
     <string name="email_pick_failed">Не вдалося вибрати ел. адресу.</string>
     <string name="encrypted">Позначити як зашифроване</string>
     <string name="end_to_end_encryption_certificate_unavailable">Неможливо отримати сертифікат сервера</string>
