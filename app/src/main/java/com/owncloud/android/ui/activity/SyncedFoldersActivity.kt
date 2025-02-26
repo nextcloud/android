@@ -14,6 +14,7 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
+import android.os.Looper
 import android.os.PowerManager
 import android.provider.Settings
 import android.text.TextUtils
@@ -24,6 +25,7 @@ import androidx.annotation.VisibleForTesting
 import androidx.appcompat.app.AlertDialog
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.nextcloud.client.core.Clock
@@ -56,10 +58,9 @@ import com.owncloud.android.ui.dialog.SyncedFolderPreferencesDialogFragment.OnSy
 import com.owncloud.android.ui.dialog.parcel.SyncedFolderParcelable
 import com.owncloud.android.utils.PermissionUtil
 import com.owncloud.android.utils.SyncedFolderUtils
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.io.File
 import java.util.Locale
 import javax.inject.Inject
@@ -149,7 +150,6 @@ class SyncedFoldersActivity :
     private var dialogFragment: SyncedFolderPreferencesDialogFragment? = null
     private var path: String? = null
     private var type = 0
-    private var loadJob: Job? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -275,8 +275,7 @@ class SyncedFoldersActivity :
             return
         }
         showLoadingContent()
-        loadJob = CoroutineScope(Dispatchers.IO).launch {
-            loadJob?.cancel()
+        lifecycleScope.launch(Dispatchers.IO) {
             val mediaFolders = MediaProvider.getImageFolders(
                 contentResolver,
                 perFolderMediaItemLimit,
@@ -310,10 +309,11 @@ class SyncedFoldersActivity :
                 mergeFolderData(currentAccountSyncedFoldersList, mediaFolders)
             ).filterNotNull()
 
-            CoroutineScope(Dispatchers.Main).launch {
+            withContext(Dispatchers.Main) {
                 adapter.setSyncFolderItems(syncFolderItems)
                 adapter.notifyDataSetChanged()
                 showList()
+
                 if (!TextUtils.isEmpty(path)) {
                     val section = adapter.getSectionByLocalPathAndType(path, type)
                     if (section >= 0) {
@@ -322,14 +322,8 @@ class SyncedFoldersActivity :
                         }
                     }
                 }
-                loadJob = null
             }
         }
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        loadJob?.cancel()
     }
 
     /**
@@ -584,18 +578,22 @@ class SyncedFoldersActivity :
     }
 
     override fun onSyncFolderSettingsClick(section: Int, syncedFolderDisplayItem: SyncedFolderDisplayItem?) {
-        val fragmentTransaction = supportFragmentManager.beginTransaction().apply {
-            addToBackStack(null)
-        }
+        check(Looper.getMainLooper().isCurrentThread) { "This must be called on the main thread!" }
 
         dialogFragment = SyncedFolderPreferencesDialogFragment.newInstance(
             syncedFolderDisplayItem,
             section
         )
 
-        dialogFragment?.let {
-            if (isDialogFragmentReady(it)) {
-                it.show(fragmentTransaction, SYNCED_FOLDER_PREFERENCES_DIALOG_TAG)
+        dialogFragment?.let { folderPreferencesDialog ->
+            if (isDialogFragmentReady(folderPreferencesDialog) &&
+                lifecycle.currentState.isAtLeast(Lifecycle.State.RESUMED)
+            ) {
+                val fragmentTransaction = supportFragmentManager
+                    .beginTransaction()
+                    .addToBackStack(null)
+
+                folderPreferencesDialog.show(fragmentTransaction, SYNCED_FOLDER_PREFERENCES_DIALOG_TAG)
             } else {
                 Log_OC.d(TAG, "SyncedFolderPreferencesDialogFragment not ready")
             }
