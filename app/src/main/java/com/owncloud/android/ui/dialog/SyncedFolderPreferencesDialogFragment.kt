@@ -222,8 +222,8 @@ class SyncedFolderPreferencesDialogFragment : DialogFragment(), Injectable {
             )
             binding.settingInstantNameCollisionPolicySummary.text =
                 nameCollisionPolicyItemStrings[nameCollisionPolicyIndex]
-            binding.settingInstantUploadDelaySummary.text =
-                getDelaySummary(requireContext(), it.uploadDelayTimeMs)
+            binding.settingInstantUploadMinFileAgeSummary.text =
+                getDelaySummary(requireContext(), it.uploadMinFileAgeMs)
         }
     }
 
@@ -329,8 +329,8 @@ class SyncedFolderPreferencesDialogFragment : DialogFragment(), Injectable {
             binding.settingInstantUploadExistingCheckbox.isEnabled = enable
             binding.settingInstantUploadPathUseSubfoldersCheckbox.isEnabled = enable
             binding.settingInstantUploadExcludeHiddenCheckbox.isEnabled = enable
-            binding.settingInstantUploadDelayContainer.isEnabled = enable
-            binding.settingInstantUploadDelayContainer.alpha = alpha
+            binding.settingInstantUploadMinFileAgeContainer.isEnabled = enable
+            binding.settingInstantUploadMinFileAgeContainer.alpha = alpha
         }
 
         checkWritableFolder()
@@ -407,7 +407,7 @@ class SyncedFolderPreferencesDialogFragment : DialogFragment(), Injectable {
 
         binding.settingInstantBehaviourContainer.setOnClickListener { showBehaviourDialog() }
         binding.settingInstantNameCollisionPolicyContainer.setOnClickListener { showNameCollisionPolicyDialog() }
-        binding.settingInstantUploadDelayContainer.setOnClickListener { showUploadDelayDialog() }
+        binding.settingInstantUploadMinFileAgeContainer.setOnClickListener { showUploadMinFileAgeDialog() }
     }
 
     private fun showBehaviourDialog() {
@@ -452,24 +452,24 @@ class SyncedFolderPreferencesDialogFragment : DialogFragment(), Injectable {
         }
     }
 
-    private fun showUploadDelayDialog() {
+    private fun showUploadMinFileAgeDialog() {
         syncedFolder?.let {
             val dialog = DurationPickerDialogFragment.newInstance(
-                it.uploadDelayTimeMs,
-                getString(R.string.pref_instant_upload_delay_dialogTitle),
-                getString(R.string.pref_instant_upload_delay_hint)
+                it.uploadMinFileAgeMs,
+                getString(R.string.pref_instant_upload_min_file_age_dialog_title),
+                getString(R.string.pref_instant_upload_min_file_age_hint)
             )
 
             dialog.setListener(object : DurationPickerDialogFragment.Listener {
                 override fun onDurationPickerResult(resultCode: Int, duration: Long) {
                     if (resultCode == Activity.RESULT_OK) {
-                        it.uploadDelayTimeMs = duration
-                        binding?.settingInstantUploadDelaySummary?.text = getDelaySummary(requireContext(), duration)
+                        it.uploadMinFileAgeMs = duration
+                        binding?.settingInstantUploadMinFileAgeSummary?.text = getDelaySummary(requireContext(), duration)
                     }
                     dialog.dismiss()
                 }
             })
-            dialog.show(parentFragmentManager, "UPLOAD_DELAY_PICKER_DIALOG")
+            dialog.show(parentFragmentManager, "UPLOAD_MIN_FILE_AGE_PICKER_DIALOG")
         }
     }
 
@@ -603,7 +603,7 @@ class SyncedFolderPreferencesDialogFragment : DialogFragment(), Injectable {
         @Suppress("MagicNumber")
         private fun getDelaySummary(context: Context, durationMs: Long): String {
             if (durationMs == 0L) {
-                return context.getString(R.string.pref_instant_upload_delay_disabled)
+                return context.getString(R.string.pref_instant_upload_min_file_age_disabled)
             }
 
             val durationSummary = StringBuilder()
@@ -612,22 +612,22 @@ class SyncedFolderPreferencesDialogFragment : DialogFragment(), Injectable {
                 if (days > 0) {
                     durationSummary.append(days)
                     durationSummary.append(' ')
-                    durationSummary.append(context.getString(R.string.common_days_short))
+                    durationSummary.append(context.getString(R.string.duration_picker_days_label))
                     durationSummary.append(' ')
                 }
                 if (hours > 0) {
                     durationSummary.append(hours)
                     durationSummary.append(' ')
-                    durationSummary.append(context.getString(R.string.common_hours_short))
+                    durationSummary.append(context.getString(R.string.duration_picker_hours_label))
                     durationSummary.append(' ')
                 }
                 if (minutes > 0) {
                     durationSummary.append(minutes)
                     durationSummary.append(' ')
-                    durationSummary.append(context.getString(R.string.common_minutes_short))
+                    durationSummary.append(context.getString(R.string.duration_picker_minutes_label))
                 }
             }
-            return context.getString(R.string.pref_instant_upload_delay_enabled, durationSummary.toString().trim())
+            return context.getString(R.string.pref_instant_upload_min_file_age_enabled, durationSummary.toString().trim())
         }
     }
 }

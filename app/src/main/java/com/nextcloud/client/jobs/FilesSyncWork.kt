@@ -250,7 +250,7 @@ class FilesSyncWork(
         val paths = filesystemDataProvider.getFilesForUpload(
             syncedFolder.localPath,
             syncedFolder.id.toString(),
-            syncedFolder.uploadDelayTimeMs
+            syncedFolder.uploadMinFileAgeMs
         )
         if (paths.isEmpty()) {
             return

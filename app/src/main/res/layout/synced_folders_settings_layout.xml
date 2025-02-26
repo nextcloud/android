@@ -433,7 +433,7 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/setting_instant_upload_delay_container"
+                android:id="@+id/setting_instant_upload_min_file_age_container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:baselineAligned="false"
@@ -444,21 +444,21 @@
                 android:padding="@dimen/standard_padding">
 
                 <TextView
-                    android:id="@+id/setting_instant_upload_delay_title"
+                    android:id="@+id/setting_instant_upload_min_file_age_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:ellipsize="marquee"
                     android:maxLines="2"
-                    android:text="@string/pref_instant_upload_delay_title"
+                    android:text="@string/pref_instant_upload_min_file_age_title"
                     android:textAppearance="?attr/textAppearanceListItem" />
 
                 <TextView
-                    android:id="@+id/setting_instant_upload_delay_summary"
+                    android:id="@+id/setting_instant_upload_min_file_age_summary"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:ellipsize="end"
                     android:maxLines="2"
-                    android:text="@string/pref_instant_upload_delay_disabled"
+                    android:text="@string/pref_instant_upload_min_file_age_disabled"
                     android:textColor="?android:attr/textColorSecondary" />
             </LinearLayout>
         </LinearLayout>
