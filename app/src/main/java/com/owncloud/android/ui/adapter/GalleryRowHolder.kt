@@ -19,22 +19,29 @@ import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.GalleryRow
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.datamodel.ThumbnailsCacheManager
-import com.owncloud.android.lib.resources.files.model.ImageDimension
+import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.utils.BitmapUtils
-import com.owncloud.android.utils.DisplayUtils
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class GalleryRowHolder(
+    private val ioScope: CoroutineScope,
     val binding: GalleryRowBinding,
     private val defaultThumbnailSize: Float,
     private val ocFileListDelegate: OCFileListDelegate,
     val storageManager: FileDataStorageManager,
     private val galleryAdapter: GalleryAdapter
 ) : SectionedViewHolder(binding.root) {
+    private val tag = "GalleryRowHolder"
     val context = galleryAdapter.context
 
     private lateinit var currentRow: GalleryRow
 
     fun bind(row: GalleryRow) {
+        Log_OC.d(tag, "binding gallery row")
+
         currentRow = row
 
         // re-use existing ones
@@ -47,10 +54,16 @@ class GalleryRowHolder(
             binding.rowLayout.removeViewsInLayout(row.files.size - 1, (binding.rowLayout.childCount - row.files.size))
         }
 
-        val shrinkRatio = computeShrinkRatio(row)
+        ioScope.launch {
+            val shrinkRatio = withContext(Dispatchers.Default) {
+                row.computeShrinkRatio(context, defaultThumbnailSize, galleryAdapter.columns)
+            }
 
-        for (indexedFile in row.files.withIndex()) {
-            adjustFile(indexedFile, shrinkRatio, row)
+            withContext(Dispatchers.Main) {
+                for (indexedFile in row.files.withIndex()) {
+                    adjustFile(indexedFile, shrinkRatio, row)
+                }
+            }
         }
     }
 
@@ -81,60 +94,6 @@ class GalleryRowHolder(
 
     fun redraw() {
         bind(currentRow)
-    }
-
-    @SuppressWarnings("MagicNumber", "ComplexMethod")
-    private fun computeShrinkRatio(row: GalleryRow): Float {
-        val screenWidth =
-            DisplayUtils.convertDpToPixel(context.resources.configuration.screenWidthDp.toFloat(), context)
-                .toFloat()
-
-        if (row.files.size > 1) {
-            var newSummedWidth = 0f
-            for (file in row.files) {
-                // first adjust all thumbnails to max height
-                val thumbnail1 = file.imageDimension ?: ImageDimension(defaultThumbnailSize, defaultThumbnailSize)
-
-                val height1 = thumbnail1.height
-                val width1 = thumbnail1.width
-
-                val scaleFactor1 = row.getMaxHeight() / height1
-                val newHeight1 = height1 * scaleFactor1
-                val newWidth1 = width1 * scaleFactor1
-
-                file.imageDimension = ImageDimension(newWidth1, newHeight1)
-
-                newSummedWidth += newWidth1
-            }
-
-            var c = 1f
-            // this ensures that files in last row are better visible,
-            // e.g. when 2 images are there, it uses 2/5 of screen
-            if (galleryAdapter.columns == 5) {
-                when (row.files.size) {
-                    2 -> {
-                        c = 5 / 2f
-                    }
-
-                    3 -> {
-                        c = 4 / 3f
-                    }
-
-                    4 -> {
-                        c = 4 / 5f
-                    }
-
-                    5 -> {
-                        c = 1f
-                    }
-                }
-            }
-
-            return (screenWidth / c) / newSummedWidth
-        } else {
-            val thumbnail1 = row.files[0].imageDimension ?: ImageDimension(defaultThumbnailSize, defaultThumbnailSize)
-            return (screenWidth / galleryAdapter.columns) / thumbnail1.width
-        }
     }
 
     private fun adjustFile(indexedFile: IndexedValue<OCFile>, shrinkRatio: Float, row: GalleryRow) {

@@ -98,6 +98,7 @@ class GalleryAdapter(
             )
         } else {
             GalleryRowHolder(
+                ioScope,
                 GalleryRowBinding.inflate(LayoutInflater.from(parent.context), parent, false),
                 defaultThumbnailSize.toFloat(),
                 ocFileListDelegate,
@@ -168,17 +169,8 @@ class GalleryAdapter(
 
             val filteredList = items.filter { it != null && it.remotePath.startsWith(remotePath) }
 
-            val fileIds = mutableSetOf<String>()
-            files.forEach { row ->
-                row.rows.forEach { galleryRow ->
-                    galleryRow.files.forEach { file ->
-                        fileIds.add(file.remoteId)
-                    }
-                }
-            }
-
-            val newFiles = filteredList.filter { it.remoteId in fileIds }
-            if (newFiles.isEmpty() && files.isNotEmpty()) {
+            val shouldUpdateMediaList = shouldUpdateMediaList(filteredList)
+            if (!shouldUpdateMediaList) {
                 Log_OC.d(tag, "No need to refresh gallery, no new item")
                 return@launch
             }
@@ -191,6 +183,15 @@ class GalleryAdapter(
         }
     }
 
+    private fun shouldUpdateMediaList(filteredList: List<OCFile>): Boolean {
+        if (files.isEmpty()) return true
+
+        val currentFileIds = files.flatMap { it.rows.flatMap { row -> row.files.map { file -> file.remoteId } } }.toSet()
+        val newFileIds = filteredList.map { it.remoteId }.toSet()
+
+        return currentFileIds != newFileIds
+    }
+
     // Set Image/Video List According to Selection of Hide/Show Image/Video
     @SuppressLint("NotifyDataSetChanged")
     private fun setMediaFilter(
@@ -199,6 +200,8 @@ class GalleryAdapter(
         photoFragment: GalleryFragment
     ) {
         ioScope.launch {
+            Log_OC.d(tag, "setMediaFilter")
+
             val finalSortedList: List<OCFile> = when (mediaState) {
                 GalleryFragmentBottomSheetDialog.MediaState.MEDIA_STATE_PHOTOS_ONLY -> {
                     items.filter { MimeTypeUtil.isImage(it.mimeType) }.distinct()
