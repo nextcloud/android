@@ -119,8 +119,7 @@ public class TrashbinListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        if (holder instanceof TrashbinFileViewHolder) {
-            final TrashbinFileViewHolder trashbinFileViewHolder = (TrashbinFileViewHolder) holder;
+        if (holder instanceof TrashbinFileViewHolder trashbinFileViewHolder) {
             TrashbinFile file = files.get(position);
 
             // layout

@@ -522,7 +522,7 @@ public class ContactOperations {
         Organization organization = vcard.getOrganization();
         if (organization != null) {
             List<String> values = organization.getValues();
-            String keys[] = { ContactsContract.CommonDataKinds.Organization.COMPANY, ContactsContract.CommonDataKinds.Organization.DEPARTMENT, ContactsContract.CommonDataKinds.Organization.OFFICE_LOCATION };
+            String[] keys = { ContactsContract.CommonDataKinds.Organization.COMPANY, ContactsContract.CommonDataKinds.Organization.DEPARTMENT, ContactsContract.CommonDataKinds.Organization.OFFICE_LOCATION };
             for (int i = 0; i < values.size(); i++) {
                 String key = keys[i];
                 String value = values.get(i);

@@ -385,8 +385,7 @@ public class ExtendedListFragment extends Fragment implements
     }
 
     protected void setGridViewColumns(float scaleFactor) {
-        if (mRecyclerView.getLayoutManager() instanceof GridLayoutManager) {
-            GridLayoutManager gridLayoutManager = (GridLayoutManager) mRecyclerView.getLayoutManager();
+        if (mRecyclerView.getLayoutManager() instanceof GridLayoutManager gridLayoutManager) {
             if (mScale == -1f) {
                 gridLayoutManager.setSpanCount(GridView.AUTO_FIT);
                 mScale = gridLayoutManager.getSpanCount();

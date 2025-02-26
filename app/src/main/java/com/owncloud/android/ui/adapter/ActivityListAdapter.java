@@ -144,8 +144,7 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        if (holder instanceof ActivityViewHolder) {
-            final ActivityViewHolder activityViewHolder = (ActivityViewHolder) holder;
+        if (holder instanceof ActivityViewHolder activityViewHolder) {
             Activity activity = (Activity) values.get(position);
             activityViewHolder.binding.datetime.setVisibility(View.VISIBLE);
             activityViewHolder.binding.datetime.setText(DateFormat.format("HH:mm", activity.getDatetime().getTime()));

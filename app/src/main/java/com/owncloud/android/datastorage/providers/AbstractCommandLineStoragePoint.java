@@ -44,7 +44,7 @@ abstract class AbstractCommandLineStoragePoint extends AbstractStoragePointProvi
 
             process.waitFor();
             final InputStream is = process.getInputStream();
-            final byte buffer[] = new byte[1024];
+            final byte[] buffer = new byte[1024];
             while (is.read(buffer) != -1) {
                 s.append(new String(buffer, "UTF8"));
             }

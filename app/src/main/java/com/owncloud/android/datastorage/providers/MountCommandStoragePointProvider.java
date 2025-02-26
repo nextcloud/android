@@ -49,7 +49,7 @@ public class MountCommandStoragePointProvider extends AbstractCommandLineStorage
 
         for (String line : mounted.split("\n")) {
             if (!line.toLowerCase(Locale.US).contains("asec") && sPattern.matcher(line).matches()) {
-                String parts[] = line.split(" ");
+                String[] parts = line.split(" ");
                 for (String path : parts) {
                     if (path.length() > 0 && path.charAt(0) == '/' && !path.toLowerCase(Locale.US).contains("vold")) {
                         result.add(path);
