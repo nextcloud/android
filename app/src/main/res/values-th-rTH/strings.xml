@@ -27,7 +27,6 @@
     <string name="activity_chooser_send_file_title">ส่ง</string>
     <string name="activity_chooser_title">ส่งลิงก์ไปยัง...</string>
     <string name="activity_icon">กิจกรรม</string>
-    <string name="add_another_public_share_link">เพิ่มลิงก์อื่น</string>
     <string name="add_new_public_share">เพื่มลิงก์การแชร์แบบสาธารณะ</string>
     <string name="add_to_cloud">เพิ่มไปยัง %1$s</string>
     <string name="advanced_settings">การตั้งค่าขั้นสูง</string>

@@ -28,7 +28,6 @@
     <string name="activity_chooser_send_file_title">보내기</string>
     <string name="activity_chooser_title">다음으로 링크 보내기…</string>
     <string name="activity_icon">활동</string>
-    <string name="add_another_public_share_link">다른 링크 추가</string>
     <string name="add_new_public_share">새 공개된 공유 링크</string>
     <string name="add_new_secure_file_drop">안전한 파일 공유를 새로 추가</string>
     <string name="add_to_cloud">%1$s(으)로 추가</string>
@@ -215,6 +214,7 @@
     <string name="could_not_retrieve_url">주소를 불러올 수 없습니다.</string>
     <string name="create">생성</string>
     <string name="create_dir_fail_msg">폴더를 만들 수 없음</string>
+    <string name="create_link">링크 만들기</string>
     <string name="create_new">새 파일</string>
     <string name="create_new_document">새 문서</string>
     <string name="create_new_folder">새 폴더</string>
@@ -841,7 +841,9 @@
     <string name="shared_with_you_by">다음을 이용해 나와 공유됨 %1$s</string>
     <string name="sharee_add_failed">공유사용자 추가 실패</string>
     <string name="sharee_already_added_to_file">공유를 추가하지 못했습니다. 이 파일 또는 폴더는 이미 이 사람 또는 그룹과 공유되었습니다.</string>
+    <string name="show_all">모두 보기</string>
     <string name="show_images">사진 보기</string>
+    <string name="show_less">적게 보기</string>
     <string name="show_video">영상 보기</string>
     <string name="sign_tos_failed">직접 서비스 이용 약관을 확인해 주세요!</string>
     <string name="signup_with_provider">공급자로 가입</string>

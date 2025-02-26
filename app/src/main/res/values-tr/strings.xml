@@ -28,7 +28,6 @@
     <string name="activity_chooser_send_file_title">Gönder</string>
     <string name="activity_chooser_title">Bağlantıyı şuraya gönder …</string>
     <string name="activity_icon">İşlem</string>
-    <string name="add_another_public_share_link">Başka bir bağlantı ekle</string>
     <string name="add_new_public_share">Yeni herkese açık paylaşım bağlantısı ekle</string>
     <string name="add_new_secure_file_drop">Yeni güvenli dosya bırakma ekle</string>
     <string name="add_to_cloud">%1$s üzerine ekle</string>
@@ -215,6 +214,7 @@
     <string name="could_not_retrieve_url">Adres alınamadı</string>
     <string name="create">Ekle</string>
     <string name="create_dir_fail_msg">Klasör oluşturulamadı</string>
+    <string name="create_link">Bağlantı oluştur</string>
     <string name="create_new">Yeni</string>
     <string name="create_new_document">Yeni belge</string>
     <string name="create_new_folder">Yeni klasör</string>
@@ -361,6 +361,7 @@
     <string name="etm_transfer_type">Aktarım</string>
     <string name="etm_transfer_type_download">İndirme</string>
     <string name="etm_transfer_type_upload">Yükleme</string>
+    <string name="external_shares">Dış paylaşımlar</string>
     <string name="fab_label">Ekle ya da yükle</string>
     <string name="failed_to_download">Dosya indirme yöneticisine aktarılamadı</string>
     <string name="failed_to_print">Dosya yazdırılamadı</string>
@@ -500,6 +501,7 @@
     <string name="instant_upload_existing">Var olan dosyalar da yüklensin</string>
     <string name="instant_upload_on_charging">Yalnızca şarj edilirken yüklensin</string>
     <string name="instant_upload_path">/AnındaYükle</string>
+    <string name="internal_shares">İç paylaşımlar</string>
     <string name="internal_two_way_sync">İç iki yönlü eşitleme</string>
     <string name="internal_two_way_sync_not_yet">Henüz değil, yakında eşitlenecek</string>
     <string name="internet_connection_required_for_encrypted_folder_setup">Şifrelenmiş klasörü ayarlamak için internet bağlantısı gereklidir </string>
@@ -841,7 +843,9 @@
     <string name="shared_with_you_by">Sizinle %1$s ile paylaşılmış</string>
     <string name="sharee_add_failed">Paylaşım eklenemedi</string>
     <string name="sharee_already_added_to_file">Paylaşım eklenemedi. Bu dosya ya da klasör bu kişi ya da grup ile zaten paylaşılmış.</string>
+    <string name="show_all">Tümünü görüntüle</string>
     <string name="show_images">Fotoğraflar görüntülensin</string>
+    <string name="show_less">Daha az görüntüle</string>
     <string name="show_video">Görüntüler görüntülensin</string>
     <string name="sign_tos_failed">Lütfen hizmet koşullarını el ile denetleyin!</string>
     <string name="signup_with_provider">Hizmet sağlayıcı ile hesap aç</string>

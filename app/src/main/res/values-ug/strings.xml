@@ -28,7 +28,6 @@
     <string name="activity_chooser_send_file_title">يوللا</string>
     <string name="activity_chooser_title">ئۇلىنىش ئەۋەتىڭ…</string>
     <string name="activity_icon">پائالىيەت</string>
-    <string name="add_another_public_share_link">باشقا ئۇلىنىش قوشۇڭ</string>
     <string name="add_new_public_share">يېڭى ئاممىۋى ئورتاقلىشىش ئۇلانمىسىنى قوشۇڭ</string>
     <string name="add_new_secure_file_drop">يېڭى بىخەتەر ھۆججەت چۈشۈرۈش</string>
     <string name="add_to_cloud">%1$s غا قوشۇڭ</string>
@@ -201,6 +200,7 @@
     <string name="could_not_retrieve_url">URL نى ئەسلىگە كەلتۈرەلمىدى</string>
     <string name="create">قۇر</string>
     <string name="create_dir_fail_msg">ھۆججەت قىسقۇچ قۇرالمىدى</string>
+    <string name="create_link">ئۇلىنىش قۇر</string>
     <string name="create_new">يېڭى</string>
     <string name="create_new_document">يېڭى ھۆججەت</string>
     <string name="create_new_folder">يېڭى ھۆججەت قىسقۇچ</string>
@@ -810,7 +810,9 @@
     <string name="shared_with_you_by">%1$s بىلەن ئورتاقلاشتى</string>
     <string name="sharee_add_failed">شارنى قوشۇش مەغلۇب بولدى</string>
     <string name="sharee_already_added_to_file">ئورتاقلىشىش مەغلۇب بولدى. بۇ ھۆججەت ياكى ھۆججەت قىسقۇچ بۇ ئادەم ياكى گۇرۇپپا بىلەن ئورتاقلاشقان.</string>
+    <string name="show_all">ھەممىنى كۆرسەت</string>
     <string name="show_images">رەسىملەرنى كۆرسەت</string>
+    <string name="show_less">ئازراق كۆرسەت</string>
     <string name="show_video">سىنلارنى كۆرسەت</string>
     <string name="signup_with_provider">تەمىنلىگۈچى بىلەن تىزىملىتىڭ</string>
     <string name="single_sign_on_request_token" formatted="true">%1$s نىڭ Nextcloud ھېساباتىڭىزنى زىيارەت قىلىشىغا يول قويۇڭ%2$s?</string>

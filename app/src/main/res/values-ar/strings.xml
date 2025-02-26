@@ -28,7 +28,6 @@
     <string name="activity_chooser_send_file_title">إرسال</string>
     <string name="activity_chooser_title">إرسال الرابط إلى…</string>
     <string name="activity_icon">النشاط</string>
-    <string name="add_another_public_share_link">إضافة رابط مشاركة آخر</string>
     <string name="add_new_public_share">إضافة رابط مشاركة عام جديد</string>
     <string name="add_new_secure_file_drop">أضف ملف ألاصل </string>
     <string name="add_to_cloud">إضافة إلى %1$s</string>

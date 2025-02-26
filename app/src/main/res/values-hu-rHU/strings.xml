@@ -28,7 +28,6 @@
     <string name="activity_chooser_send_file_title">Küldés</string>
     <string name="activity_chooser_title">Hivatkozás küldése…</string>
     <string name="activity_icon">Tevékenység</string>
-    <string name="add_another_public_share_link">További hivatkozás hozzáadása</string>
     <string name="add_new_public_share">Új nyilvános megosztási hivatkozás hozzáadása</string>
     <string name="add_new_secure_file_drop">Új biztonsági fájllerakat hozzáadása</string>
     <string name="add_to_cloud">Hozzáadás ehhez: %1$s</string>
@@ -215,6 +214,7 @@
     <string name="could_not_retrieve_url">Az URL nem kérhető le</string>
     <string name="create">Létrehozás</string>
     <string name="create_dir_fail_msg">A mappa létrehozása sikertelen</string>
+    <string name="create_link">Hivatkozás létrehozása</string>
     <string name="create_new">Új</string>
     <string name="create_new_document">Új dokumentum</string>
     <string name="create_new_folder">Új mappa</string>
@@ -841,7 +841,9 @@
     <string name="shared_icon_shared_via_link">hivatkozással megosztva</string>
     <string name="shared_with_you_by">%1$s megosztotta Önnel</string>
     <string name="sharee_add_failed">A megosztás hozzáadása sikertelen</string>
+    <string name="show_all">Összes megjelenítése</string>
     <string name="show_images">Fényképek megjelenítése</string>
+    <string name="show_less">Kevesebb megjelenítése</string>
     <string name="show_video">Videók megjelenítése</string>
     <string name="signup_with_provider">Regisztráció egy szolgáltatóval</string>
     <string name="single_sign_on_request_token" formatted="true">Engedélyezi, hogy a(z) %1$s hozzáférjen a(z) %2$s Nextcloud fiókjához?</string>

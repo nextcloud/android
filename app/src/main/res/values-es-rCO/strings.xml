@@ -25,7 +25,6 @@
     <string name="activity_chooser_send_file_title">Enviar</string>
     <string name="activity_chooser_title">Enviar enlace a…</string>
     <string name="activity_icon">Actividad</string>
-    <string name="add_another_public_share_link">Añadir otro enlace</string>
     <string name="add_new_public_share">Añadir un nuevo enlace público para compartir</string>
     <string name="add_to_cloud">Agregar a %1$s</string>
     <string name="advanced_settings">Configuración avanzada</string>

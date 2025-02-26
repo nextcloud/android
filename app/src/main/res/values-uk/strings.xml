@@ -28,7 +28,6 @@
     <string name="activity_chooser_send_file_title">Надіслати</string>
     <string name="activity_chooser_title">Надіслати посилання до…</string>
     <string name="activity_icon">Ваші дії</string>
-    <string name="add_another_public_share_link">Додати інше посилання</string>
     <string name="add_new_public_share">Додати нове публічне посилання</string>
     <string name="add_new_secure_file_drop">Додайте новий захищений файл</string>
     <string name="add_to_cloud">Додати до хмари %1$s</string>
@@ -215,6 +214,7 @@
     <string name="could_not_retrieve_url">Неможливо отримати посилання</string>
     <string name="create">Створити</string>
     <string name="create_dir_fail_msg">Неможливо створити каталог</string>
+    <string name="create_link">Створити посилання</string>
     <string name="create_new">Створити</string>
     <string name="create_new_document">Новий документ</string>
     <string name="create_new_folder">Новий каталог</string>
@@ -366,6 +366,7 @@
     <string name="etm_transfer_type">Передати</string>
     <string name="etm_transfer_type_download">Звантажити</string>
     <string name="etm_transfer_type_upload">Завантажити</string>
+    <string name="external_shares">Зовнішні спільні ресурси</string>
     <string name="fab_label">Додати або завантажити</string>
     <string name="failed_to_download">Не вдалося передати файл до менеджера звантажень</string>
     <string name="failed_to_print">Не вдалося роздрукувати файл</string>
@@ -503,6 +504,7 @@
     <string name="image_preview_unit_seconds">%s с</string>
     <string name="instant_upload_existing">Також завантажити існуючі файли</string>
     <string name="instant_upload_on_charging">Завантаження тільки під час заряджання</string>
+    <string name="internal_shares">Внутрішні спільні ресурси</string>
     <string name="internal_two_way_sync">Внутрішня двостороння синхронізація</string>
     <string name="internal_two_way_sync_not_yet">Поки не впроваджено</string>
     <string name="internet_connection_required_for_encrypted_folder_setup">Налаштування зашифрованого каталогу вимагає з\'єднання з мережею</string>
@@ -843,7 +845,9 @@
     <string name="shared_with_you_by">%1$s поділив(-ла-)ся з вами</string>
     <string name="sharee_add_failed">Помилка додавання користувача, з яким ви хочете поділитися</string>
     <string name="sharee_already_added_to_file">Не вдалося поділитися цим ресурсом, оскільки він вже у спільному доступі з цим користувачем чи групою. </string>
+    <string name="show_all">Показати все</string>
     <string name="show_images">Показувати зображення</string>
+    <string name="show_less">Показувати менше</string>
     <string name="show_video">Показувати відео</string>
     <string name="sign_tos_failed">Перегляньте умови користування вручну!</string>
     <string name="signup_with_provider">Зареєструватися у провайдейра</string>
