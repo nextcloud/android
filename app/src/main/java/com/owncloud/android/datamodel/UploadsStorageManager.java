@@ -257,17 +257,10 @@ public class UploadsStorageManager extends Observable {
      * Update upload status of file uniquely referenced by id.
      *
      * @param id         upload id.
-     * @param status     new status.
-     * @param result     new result of upload operation
-     * @param remotePath path of the file to upload in the ownCloud storage
-     * @param localPath  path of the file to upload in the device storage
-     * @return 1 if file status was updated, else 0.
      */
-    private int updateUploadStatus(long id, UploadStatus status, UploadResult result, String remotePath,
-                                   String localPath) {
+    private void updateUploadStatus(long id) {
         //Log_OC.v(TAG, "Updating "+filepath+" with uploadStatus="+status +" and result="+result);
 
-        int returnValue = 0;
         Cursor c = getDB().query(
             ProviderTableMeta.CONTENT_URI_UPLOADS,
             null,
@@ -280,15 +273,12 @@ public class UploadsStorageManager extends Observable {
             if (c.getCount() != SINGLE_RESULT) {
                 Log_OC.e(TAG, c.getCount() + " items for id=" + id
                     + " available in UploadDb. Expected 1. Failed to update upload db.");
-            } else {
-                returnValue = updateUploadInternal(c, status, result, remotePath, localPath);
             }
             c.close();
         } else {
             Log_OC.e(TAG, "Cursor is null");
         }
 
-        return returnValue;
     }
 
     /**
@@ -733,7 +723,7 @@ public class UploadsStorageManager extends Observable {
         return contentResolver;
     }
 
-    public long clearFailedButNotDelayedUploads() {
+    public void clearFailedButNotDelayedUploads() {
         User user = currentAccountProvider.getUser();
         final long deleted = getDB().delete(
             ProviderTableMeta.CONTENT_URI_UPLOADS,
@@ -753,7 +743,6 @@ public class UploadsStorageManager extends Observable {
         if (deleted > 0) {
             notifyObserversNow();
         }
-        return deleted;
     }
 
     public void clearCancelledUploadsForCurrentAccount() {
@@ -770,7 +759,7 @@ public class UploadsStorageManager extends Observable {
         }
     }
 
-    public long clearSuccessfulUploads() {
+    public void clearSuccessfulUploads() {
         User user = currentAccountProvider.getUser();
         final long deleted = getDB().delete(
             ProviderTableMeta.CONTENT_URI_UPLOADS,
@@ -782,7 +771,6 @@ public class UploadsStorageManager extends Observable {
         if (deleted > 0) {
             notifyObserversNow();
         }
-        return deleted;
     }
 
     /**
@@ -803,39 +791,19 @@ public class UploadsStorageManager extends Observable {
 
             if (uploadResult.isSuccess()) {
                 updateUploadStatus(
-                    upload.getOCUploadId(),
-                    UploadStatus.UPLOAD_SUCCEEDED,
-                    UploadResult.UPLOADED,
-                    upload.getRemotePath(),
-                    localPath
-                                  );
+                    upload.getOCUploadId());
             } else if (uploadResult.getCode() == RemoteOperationResult.ResultCode.SYNC_CONFLICT &&
                 new FileUploadHelper().isSameFileOnRemote(
                     upload.getUser(), new File(upload.getStoragePath()), upload.getRemotePath(), upload.getContext())) {
 
                 updateUploadStatus(
-                    upload.getOCUploadId(),
-                    UploadStatus.UPLOAD_SUCCEEDED,
-                    UploadResult.SAME_FILE_CONFLICT,
-                    upload.getRemotePath(),
-                    localPath
-                                  );
+                    upload.getOCUploadId());
             } else if (uploadResult.getCode() == RemoteOperationResult.ResultCode.LOCAL_FILE_NOT_FOUND) {
                 updateUploadStatus(
-                    upload.getOCUploadId(),
-                    UploadStatus.UPLOAD_SUCCEEDED,
-                    UploadResult.FILE_NOT_FOUND,
-                    upload.getRemotePath(),
-                    localPath
-                                  );
+                    upload.getOCUploadId());
             } else {
                 updateUploadStatus(
-                    upload.getOCUploadId(),
-                    UploadStatus.UPLOAD_FAILED,
-                    UploadResult.fromOperationResult(uploadResult),
-                    upload.getRemotePath(),
-                    localPath
-                                  );
+                    upload.getOCUploadId());
             }
         }
     }
@@ -848,12 +816,7 @@ public class UploadsStorageManager extends Observable {
             ? upload.getStoragePath() : null;
 
         updateUploadStatus(
-            upload.getOCUploadId(),
-            UploadStatus.UPLOAD_IN_PROGRESS,
-            UploadResult.UNKNOWN,
-            upload.getRemotePath(),
-            localPath
-                          );
+            upload.getOCUploadId());
     }
 
     /**
@@ -890,9 +853,9 @@ public class UploadsStorageManager extends Observable {
     }
 
     @VisibleForTesting
-    public int removeAllUploads() {
+    public void removeAllUploads() {
         Log_OC.v(TAG, "Delete all uploads!");
-        return getDB().delete(
+        getDB().delete(
             ProviderTableMeta.CONTENT_URI_UPLOADS,
             "",
             new String[]{});
