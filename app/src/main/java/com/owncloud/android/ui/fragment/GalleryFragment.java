@@ -35,7 +35,6 @@ import com.owncloud.android.ui.activity.FolderPickerActivity;
 import com.owncloud.android.ui.activity.ToolbarActivity;
 import com.owncloud.android.ui.adapter.CommonOCFileListAdapterInterface;
 import com.owncloud.android.ui.adapter.GalleryAdapter;
-import com.owncloud.android.ui.adapter.OCFileListDelegate;
 import com.owncloud.android.ui.asynctasks.GallerySearchTask;
 import com.owncloud.android.ui.events.ChangeMenuEvent;
 
@@ -428,5 +427,11 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
     @Override
     protected void setGridViewColumns(float scaleFactor) {
         // do nothing
+    }
+
+    @Override
+    public void onDestroy() {
+        mAdapter.cancelJob();
+        super.onDestroy();
     }
 }

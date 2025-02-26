@@ -32,16 +32,9 @@ class GalleryRowHolder(
 ) : SectionedViewHolder(binding.root) {
     val context = galleryAdapter.context
 
-    private var processedFileRemoteIds = mutableSetOf<String>()
     private lateinit var currentRow: GalleryRow
 
     fun bind(row: GalleryRow) {
-        row.files = row.files.filter { file -> file.remoteId !in processedFileRemoteIds }
-
-        if (row.files.isEmpty()) {
-            return
-        }
-
         currentRow = row
 
         // re-use existing ones
@@ -58,7 +51,6 @@ class GalleryRowHolder(
 
         for (indexedFile in row.files.withIndex()) {
             adjustFile(indexedFile, shrinkRatio, row)
-            processedFileRemoteIds.add(indexedFile.value.remoteId)
         }
     }
 
