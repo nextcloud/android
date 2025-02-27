@@ -115,6 +115,29 @@ class OCFileListDelegate(
             ocFileListFragmentInterface.onItemClicked(file)
             GalleryFragment.setLastMediaItemPosition(galleryRowHolder.absoluteAdapterPosition)
         }
+
+        if (!hideItemOptions) {
+            imageView.apply {
+                isLongClickable = true
+                setOnLongClickListener {
+                    ocFileListFragmentInterface.onLongItemClicked(
+                        file
+                    )
+                }
+            }
+        }
+
+        if (checkedFiles.contains(file)) {
+            imageView.scaleX = 0.8f
+            imageView.scaleY = 0.8f
+            imageView.makeRounded(context, context.resources.getDimension(R.dimen.activity_icon_radius))
+            galleryRowHolder.binding.overlayImage.visibility = View.VISIBLE
+        } else {
+            imageView.scaleX = 1.0f
+            imageView.scaleY = 1.0f
+            imageView.makeRounded(context, context.resources.getDimension(R.dimen.zero))
+            galleryRowHolder.binding.overlayImage.visibility = View.GONE
+        }
     }
 
     @Suppress("ComplexMethod")
