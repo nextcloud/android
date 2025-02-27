@@ -267,7 +267,11 @@
     <string name="e2e_counter_too_old">Laskuri on liian vanha</string>
     <string name="ecosystem_apps_display_assistant">Avustaja</string>
     <string name="ecosystem_apps_display_more">Lisää</string>
+    <string name="ecosystem_apps_display_notes">Muistiinpanot</string>
+    <string name="ecosystem_apps_display_talk">Talk</string>
     <string name="ecosystem_apps_more">Lisää Nextcloud-sovelluksia</string>
+    <string name="ecosystem_apps_notes">Nextcloud Notes</string>
+    <string name="ecosystem_apps_talk">Nextcloud Talk</string>
     <string name="email_pick_failed">Sähköpostiosoitteen valinta epäonnistui.</string>
     <string name="encrypted">Salaa</string>
     <string name="end_to_end_encryption_confirm_button">Aseta salaus</string>

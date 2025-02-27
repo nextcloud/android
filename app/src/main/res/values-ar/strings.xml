@@ -216,6 +216,7 @@
     <string name="could_not_retrieve_url">لا يمكن استرجاع الرابط</string>
     <string name="create">إنشاء</string>
     <string name="create_dir_fail_msg">تعذر إنشاء المُجلّد</string>
+    <string name="create_link">أنشِئ رابطاً</string>
     <string name="create_new">جديد</string>
     <string name="create_new_document">مستند جديد</string>
     <string name="create_new_folder">مجلد جديد</string>
@@ -298,7 +299,11 @@
     <string name="e2e_signature_does_not_match">التوقيع غير مُطابق</string>
     <string name="ecosystem_apps_display_assistant">المُساعِد</string>
     <string name="ecosystem_apps_display_more">المزيد</string>
+    <string name="ecosystem_apps_display_notes">الملاحظات</string>
+    <string name="ecosystem_apps_display_talk">محادثة Talk</string>
     <string name="ecosystem_apps_more">المزيد من تطبيقات نكست كلاود</string>
+    <string name="ecosystem_apps_notes">ملاحظات نيكست كلاود</string>
+    <string name="ecosystem_apps_talk">تطبيق \"المحادثة\" talk من نكست كلاود</string>
     <string name="email_pick_failed">تعذّر التقاط عنوان الإيميل.</string>
     <string name="encrypted">عيّنه كَمشفر</string>
     <string name="end_to_end_encryption_certificate_unavailable">يتعذّر استرجاع شهادة الخادوم</string>
@@ -363,6 +368,7 @@
     <string name="etm_transfer_type">نقل</string>
     <string name="etm_transfer_type_download">تنزيل</string>
     <string name="etm_transfer_type_upload">تحميل</string>
+    <string name="external_shares">مشاركات خارجية</string>
     <string name="fab_label">أضف أو ارفع</string>
     <string name="failed_to_download">حدث خطأ في تمرير الملف لمدير التنزيل</string>
     <string name="failed_to_print">حدث خطأ في طباعة الملف</string>
@@ -502,6 +508,7 @@
     <string name="instant_upload_existing">ارفع الملفات الموجودة مسبقاً أيضاً</string>
     <string name="instant_upload_on_charging">ارفع وقت الشحن فقط</string>
     <string name="instant_upload_path">/InstantUpload</string>
+    <string name="internal_shares">مشاركات داخلية</string>
     <string name="internal_two_way_sync">مزامنة داخلية في الاتجاهين</string>
     <string name="internal_two_way_sync_not_yet">ليس بعد. قريباً تتم المزامنة</string>
     <string name="internet_connection_required_for_encrypted_folder_setup">مطلوب اتصال داخلي لإعداد المجلد المشفر </string>
@@ -840,6 +847,7 @@
     <string name="share_remote_clarification">%1$s (بعيد)</string>
     <string name="share_room_clarification">%1$s (محادثة)</string>
     <string name="share_search">الاسم أو مُعرِّف السحابة الاتحادية أو عنوان البريد الإلكتروني ...</string>
+    <string name="share_search_internal">إضافة المُستخدِمين والفِرَق</string>
     <string name="share_send_new_email">إرسال بريد جديد</string>
     <string name="share_send_note">ملاحظة للمستلم</string>
     <string name="share_settings">الإعدادات</string>
@@ -855,7 +863,9 @@
     <string name="shared_with_you_by">مشارك معك بواسطة %1$s</string>
     <string name="sharee_add_failed">فشلت إضافة المشارك</string>
     <string name="sharee_already_added_to_file">تعذّرت إضافة المشاركة بسبب أن هذا الملف أو المجلد سبقت مشاركته مع نفس الشخص أو المجموعة.</string>
+    <string name="show_all">عرض الكل</string>
     <string name="show_images">اعرض الصور</string>
+    <string name="show_less">عرض أقل</string>
     <string name="show_video">اعرض الفيديو</string>
     <string name="sign_tos_failed">رجاءً؛ قم بمراجعة شروط الخدمة يدويّاً!</string>
     <string name="signup_with_provider">التسجيل عبر مزوّد خدمة</string>

@@ -243,6 +243,8 @@
     <string name="drawer_synced_folders">Carga automática</string>
     <string name="e2e_not_yet_setup">E2E Encriptación de extremo a extremo aún no configurada</string>
     <string name="e2e_offline">No es posible sin conexión a Internet</string>
+    <string name="ecosystem_apps_display_talk">Hablar</string>
+    <string name="ecosystem_apps_notes">Nextcloud Notes</string>
     <string name="encrypted">Establecer como encriptado</string>
     <string name="end_to_end_encryption_confirm_button">Configurar la encripción</string>
     <string name="end_to_end_encryption_decrypting">Desencriptando…</string>

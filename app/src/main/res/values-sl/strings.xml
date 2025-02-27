@@ -247,7 +247,11 @@
     <string name="e2e_not_yet_setup">Celovito šifriranje E2E ni še nastavljeno.</string>
     <string name="e2e_offline">Opravila ni mogoče izvesti brez vzpostavljene internetne povezave</string>
     <string name="ecosystem_apps_display_more">Več</string>
+    <string name="ecosystem_apps_display_notes">Beležke</string>
+    <string name="ecosystem_apps_display_talk">Pogovor Talk</string>
     <string name="ecosystem_apps_more">Več programov Nexcloud</string>
+    <string name="ecosystem_apps_notes">Nextcloud Beležke</string>
+    <string name="ecosystem_apps_talk">Nextcloud Talk</string>
     <string name="email_pick_failed">Elektronskega naslova ni mogoče izbrati.</string>
     <string name="encrypted">Nastavi kot šifrirano</string>
     <string name="end_to_end_encryption_confirm_button">Nastavitev šifriranja</string>

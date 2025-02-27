@@ -297,7 +297,11 @@
     <string name="e2e_signature_does_not_match">Signature does not match</string>
     <string name="ecosystem_apps_display_assistant">Assistant</string>
     <string name="ecosystem_apps_display_more">More</string>
+    <string name="ecosystem_apps_display_notes">Notes</string>
+    <string name="ecosystem_apps_display_talk">Talk</string>
     <string name="ecosystem_apps_more">More Nextcloud Apps</string>
+    <string name="ecosystem_apps_notes">Nextcloud Notes</string>
+    <string name="ecosystem_apps_talk">Nextcloud Talk</string>
     <string name="email_pick_failed">Failed to pick email address.</string>
     <string name="encrypted">Set as encrypted</string>
     <string name="end_to_end_encryption_certificate_unavailable">Unable to retrieve server certificate</string>
@@ -844,6 +848,7 @@
     <string name="shared_with_you_by">Shared with you by %1$s</string>
     <string name="sharee_add_failed">Adding sharee failed</string>
     <string name="sharee_already_added_to_file">Adding share failed. This file or folder has already been shared with this person or group.</string>
+    <string name="show_all">Show all</string>
     <string name="show_images">Show photos</string>
     <string name="show_less">Show less</string>
     <string name="show_video">Show videos</string>

@@ -214,6 +214,7 @@
     <string name="could_not_retrieve_url">Kunne ikke hente URL</string>
     <string name="create">Opret</string>
     <string name="create_dir_fail_msg">Kunne ikke oprette mappe</string>
+    <string name="create_link">Opret link</string>
     <string name="create_new">Nyt</string>
     <string name="create_new_document">Nyt dokument</string>
     <string name="create_new_folder">Ny mappe</string>
@@ -296,7 +297,11 @@
     <string name="e2e_signature_does_not_match">Signaturen matcher ikke</string>
     <string name="ecosystem_apps_display_assistant">Assistent</string>
     <string name="ecosystem_apps_display_more">Mere</string>
+    <string name="ecosystem_apps_display_notes">Noter</string>
+    <string name="ecosystem_apps_display_talk">Snak</string>
     <string name="ecosystem_apps_more">Flere Nextcloud apps</string>
+    <string name="ecosystem_apps_notes">Nextcloud noter</string>
+    <string name="ecosystem_apps_talk">Nextcloud Snak</string>
     <string name="email_pick_failed">Kunne ikke plukke e-mailadresse.</string>
     <string name="encrypted">Angiv som krypteret</string>
     <string name="end_to_end_encryption_certificate_unavailable">Servercertifikatet kunne ikke hentes</string>
@@ -361,6 +366,7 @@
     <string name="etm_transfer_type">Overførsel</string>
     <string name="etm_transfer_type_download">Download</string>
     <string name="etm_transfer_type_upload">Send</string>
+    <string name="external_shares">Eksterne delinger</string>
     <string name="fab_label">Tilføj eller send</string>
     <string name="failed_to_download">Fejl ved overførsel af fil til download manager</string>
     <string name="failed_to_print">Fejl ved udskrivning af fil</string>

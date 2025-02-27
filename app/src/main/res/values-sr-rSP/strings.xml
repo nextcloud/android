@@ -198,6 +198,8 @@
     <string name="drawer_quota_unlimited">%1$s iskorišćeno</string>
     <string name="drawer_synced_folders">Automatska otpremanja</string>
     <string name="ecosystem_apps_display_more">Ostalo</string>
+    <string name="ecosystem_apps_display_notes">Beleške</string>
+    <string name="ecosystem_apps_notes">Nekstklaud Beleške</string>
     <string name="encrypted">Postavi kao šifrovano</string>
     <string name="end_to_end_encryption_confirm_button">Podesite šifrovanje</string>
     <string name="end_to_end_encryption_decrypting">Dešifrujem…</string>

@@ -282,7 +282,11 @@
     <string name="e2e_signature_does_not_match">ئىمزا ماس كەلمەيدۇ</string>
     <string name="ecosystem_apps_display_assistant">ياردەمچى</string>
     <string name="ecosystem_apps_display_more">تېخىمۇ كۆپ</string>
+    <string name="ecosystem_apps_display_notes">ئىزاھات</string>
+    <string name="ecosystem_apps_display_talk">پاراڭ</string>
     <string name="ecosystem_apps_more">تېخىمۇ كۆپ Nextcloud ئەپلىرى</string>
+    <string name="ecosystem_apps_notes">Nextcloud Notes</string>
+    <string name="ecosystem_apps_talk">Nextcloud Talk</string>
     <string name="email_pick_failed">ئېلېكترونلۇق خەت ئادرېسىنى تاللىيالمىدى.</string>
     <string name="encrypted">شىفىرلانغان قىلىپ تەڭشەڭ</string>
     <string name="end_to_end_encryption_confirm_button">مەخپىيلەشتۈرۈشنى تەڭشەڭ</string>

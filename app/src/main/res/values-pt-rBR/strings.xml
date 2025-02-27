@@ -293,7 +293,11 @@
     <string name="e2e_signature_does_not_match">A assinatura não corresponde</string>
     <string name="ecosystem_apps_display_assistant">Assistente</string>
     <string name="ecosystem_apps_display_more">Mais</string>
+    <string name="ecosystem_apps_display_notes">Notas </string>
+    <string name="ecosystem_apps_display_talk">Talk</string>
     <string name="ecosystem_apps_more">Mais aplicativos Nextcloud</string>
+    <string name="ecosystem_apps_notes">Notas Nextcloud</string>
+    <string name="ecosystem_apps_talk">Nextcloud Talk</string>
     <string name="email_pick_failed">Falha ao escolher o endereço de e-mail.</string>
     <string name="encrypted">Definir como criptografado</string>
     <string name="end_to_end_encryption_confirm_button">Definir criptografia</string>

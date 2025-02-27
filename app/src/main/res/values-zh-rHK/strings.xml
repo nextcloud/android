@@ -297,7 +297,11 @@
     <string name="e2e_signature_does_not_match">簽名不相符</string>
     <string name="ecosystem_apps_display_assistant">助手</string>
     <string name="ecosystem_apps_display_more">更多</string>
+    <string name="ecosystem_apps_display_notes">備註</string>
+    <string name="ecosystem_apps_display_talk">講座</string>
     <string name="ecosystem_apps_more">更多 Nextcloud 應用程式</string>
+    <string name="ecosystem_apps_notes">Nextcloud 筆記</string>
+    <string name="ecosystem_apps_talk">Nextcloud Talk</string>
     <string name="email_pick_failed">無法挑選電郵地址。</string>
     <string name="encrypted">設為已加密的</string>
     <string name="end_to_end_encryption_certificate_unavailable">無法擷取伺服器證書</string>
@@ -829,6 +833,7 @@
     <string name="share_remote_clarification">%1$s（遠端）</string>
     <string name="share_room_clarification">%1$s﹙對話﹚</string>
     <string name="share_search">名稱、聯合雲端 ID 或電郵地址 …</string>
+    <string name="share_search_internal">添加用戶與團隊</string>
     <string name="share_send_new_email">傳送新電子郵件</string>
     <string name="share_send_note">給接收者的訊息</string>
     <string name="share_settings">設定</string>

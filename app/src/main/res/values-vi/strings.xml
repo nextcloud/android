@@ -231,6 +231,9 @@
     <string name="drawer_synced_folders">Tự động tải lên</string>
     <string name="e2e_not_yet_setup">E2E chưa được thiết lập</string>
     <string name="ecosystem_apps_display_more">Thêm</string>
+    <string name="ecosystem_apps_display_notes">Ghi chú</string>
+    <string name="ecosystem_apps_display_talk">Nói chuyện</string>
+    <string name="ecosystem_apps_notes">Nextcloud Ghi chú</string>
     <string name="encrypted">Đặt mã hóa</string>
     <string name="end_to_end_encryption_confirm_button">Thiết lập mã hóa</string>
     <string name="end_to_end_encryption_decrypting">Đang giải mã…</string>

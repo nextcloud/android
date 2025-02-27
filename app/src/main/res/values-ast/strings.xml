@@ -158,7 +158,11 @@
     <string name="e2e_offline">Nun ye posible ensin la conexón a internet</string>
     <string name="ecosystem_apps_display_assistant">Asistente</string>
     <string name="ecosystem_apps_display_more">Más</string>
+    <string name="ecosystem_apps_display_notes">Notes</string>
+    <string name="ecosystem_apps_display_talk">Charra</string>
     <string name="ecosystem_apps_more">Más aplicaciones de Nextcloud</string>
+    <string name="ecosystem_apps_notes">Nextcloud Notes</string>
+    <string name="ecosystem_apps_talk">Nextcloud Talk</string>
     <string name="email_pick_failed">Nun se pue escoyer la direición de corréu electrónicu.</string>
     <string name="end_to_end_encryption_confirm_button">Configurar el cifráu</string>
     <string name="end_to_end_encryption_decrypting">Descifrando…</string>
@@ -482,6 +486,7 @@
     <string name="share_via_link_section_title">Compartir enllaz</string>
     <string name="share_via_link_send_link_label">Unviar l\'enllaz</string>
     <string name="show_images">Amosar les semeyes</string>
+    <string name="show_less">Amosar menos</string>
     <string name="show_video">Amosar los vídeos</string>
     <string name="signup_with_provider">Rexistrase con un fornidor</string>
     <string name="single_sign_on_request_token" formatted="true">¿Quies permitr que %1$s acceda a la cuenta de Nextcloud %2$s?</string>

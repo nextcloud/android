@@ -244,7 +244,11 @@
     <string name="e2e_not_yet_setup">Το Ε2Ε δεν έχει εγκατασταθεί ακόμη</string>
     <string name="e2e_offline">Δεν είναι δυνατό χωρίς σύνδεση στο διαδίκτυο</string>
     <string name="ecosystem_apps_display_more">Περισσότερα</string>
+    <string name="ecosystem_apps_display_notes">Σημειώσεις</string>
+    <string name="ecosystem_apps_display_talk">Ομιλία</string>
     <string name="ecosystem_apps_more">Περισσότερες εφαρμογές Nextcloud</string>
+    <string name="ecosystem_apps_notes">Nextcloud Σημειώσεις</string>
+    <string name="ecosystem_apps_talk">Nextcloud Talk</string>
     <string name="encrypted">Ορισμός ως κρυπτογραφημένου</string>
     <string name="end_to_end_encryption_confirm_button">Ρύθμιση κρυπτογράφησης</string>
     <string name="end_to_end_encryption_decrypting">Γίνεται αποκρυπτογράφηση…</string>
@@ -688,6 +692,7 @@
     <string name="shared_icon_shared_via_link">Διαμοιράστηκε μέσω συνδέσμου</string>
     <string name="shared_with_you_by">Διαμοιράστηκε με εσάς από τον %1$s</string>
     <string name="sharee_add_failed">Η προσθήκη κοινής χρήσης απέτυχε</string>
+    <string name="show_all">Εμφάνιση όλων</string>
     <string name="show_images">Εμφάνιση φωτογραφιών</string>
     <string name="show_less">Εμφάνιση λιγότερων</string>
     <string name="show_video">Εμφάνιση βίντεο</string>

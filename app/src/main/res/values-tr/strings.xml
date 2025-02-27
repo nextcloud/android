@@ -297,7 +297,11 @@
     <string name="e2e_signature_does_not_match">İmza eşleşmiyor</string>
     <string name="ecosystem_apps_display_assistant">Yardımcı</string>
     <string name="ecosystem_apps_display_more">Diğer</string>
+    <string name="ecosystem_apps_display_notes">Notlar</string>
+    <string name="ecosystem_apps_display_talk">Konuş</string>
     <string name="ecosystem_apps_more">Diğer Nextcloud uygulamaları</string>
+    <string name="ecosystem_apps_notes">Nextcloud Notlar</string>
+    <string name="ecosystem_apps_talk">Nextcloud Sohbet</string>
     <string name="email_pick_failed">E-posta adresi alınamadı.</string>
     <string name="encrypted">Şifrelensin</string>
     <string name="end_to_end_encryption_confirm_button">Şifreleme kurulumu</string>

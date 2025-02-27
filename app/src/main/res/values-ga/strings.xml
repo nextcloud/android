@@ -297,7 +297,11 @@
     <string name="e2e_signature_does_not_match">Ní hionann an síniú</string>
     <string name="ecosystem_apps_display_assistant">Cúntóir</string>
     <string name="ecosystem_apps_display_more">Tuilleadh</string>
+    <string name="ecosystem_apps_display_notes">Nótaí</string>
+    <string name="ecosystem_apps_display_talk">Caint</string>
     <string name="ecosystem_apps_more">Tuilleadh aipeanna Nextcloud</string>
+    <string name="ecosystem_apps_notes">Nótaí Nextcloud</string>
+    <string name="ecosystem_apps_talk">Caint Nextcloud</string>
     <string name="email_pick_failed">Theip ar an seoladh ríomhphoist a phiocadh.</string>
     <string name="encrypted">Socraigh mar criptithe</string>
     <string name="end_to_end_encryption_certificate_unavailable">Ní féidir teastas an fhreastalaí a fháil</string>
@@ -829,6 +833,7 @@
     <string name="share_remote_clarification">%1$s (iargúlta)</string>
     <string name="share_room_clarification">%1$s (comhrá)</string>
     <string name="share_search">Ainm, ID Néal Cónaidhme nó seoladh ríomhphoist…</string>
+    <string name="share_search_internal">Cuir úsáideoirí agus foirne leis</string>
     <string name="share_send_new_email">Seol ríomhphost nua</string>
     <string name="share_send_note">Nóta don fhaighteoir</string>
     <string name="share_settings">Socruithe</string>

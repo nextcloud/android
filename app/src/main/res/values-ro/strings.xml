@@ -295,7 +295,11 @@
     <string name="e2e_signature_does_not_match">Semnătura nu se potrivește</string>
     <string name="ecosystem_apps_display_assistant">Asistent</string>
     <string name="ecosystem_apps_display_more">Mai mult</string>
+    <string name="ecosystem_apps_display_notes">Notițe</string>
+    <string name="ecosystem_apps_display_talk">Discuție</string>
     <string name="ecosystem_apps_more">Mai multe aplicații Nextcloud</string>
+    <string name="ecosystem_apps_notes">Notițe Nextcloud </string>
+    <string name="ecosystem_apps_talk">Nextcloud Talk</string>
     <string name="email_pick_failed">Nu s-a putut alege adresa de e-mail.</string>
     <string name="encrypted">Setați drept criptat</string>
     <string name="end_to_end_encryption_confirm_button">Setează criptarea</string>
