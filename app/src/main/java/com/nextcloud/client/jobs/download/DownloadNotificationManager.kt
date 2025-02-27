@@ -11,6 +11,7 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import com.nextcloud.client.jobs.notification.WorkerNotificationManager
+import com.nextcloud.utils.numberFormatter.NumberFormatter
 import com.owncloud.android.R
 import com.owncloud.android.operations.DownloadFileOperation
 import com.owncloud.android.utils.theme.ViewThemeUtils
@@ -25,17 +26,8 @@ class DownloadNotificationManager(
 ) : WorkerNotificationManager(id, context, viewThemeUtils, R.string.downloader_download_in_progress_ticker) {
 
     @Suppress("MagicNumber")
-    fun prepareForStart(operation: DownloadFileOperation, currentDownloadIndex: Int, totalDownloadSize: Int) {
-        currentOperationTitle = if (totalDownloadSize > 1) {
-            String.format(
-                context.getString(R.string.downloader_notification_manager_download_text),
-                currentDownloadIndex,
-                totalDownloadSize,
-                File(operation.savePath).name
-            )
-        } else {
-            File(operation.savePath).name
-        }
+    fun prepareForStart(operation: DownloadFileOperation) {
+        currentOperationTitle = File(operation.savePath).name
 
         notificationBuilder.run {
             setContentTitle(currentOperationTitle)
@@ -55,7 +47,8 @@ class DownloadNotificationManager(
 
     @Suppress("MagicNumber")
     fun updateDownloadProgress(percent: Int, totalToTransfer: Long) {
-        setProgress(percent, R.string.downloader_notification_manager_in_progress_text, totalToTransfer < 0)
+        val progressText = NumberFormatter.getPercentageText(percent)
+        setProgress(percent, progressText, totalToTransfer < 0)
         showNotification()
     }
 
