@@ -833,6 +833,7 @@
     <string name="share_remote_clarification">%1$s (zdalny)</string>
     <string name="share_room_clarification">%1$s (rozmowa)</string>
     <string name="share_search">Nazwa, ID chmury stowarzyszonej lub adres e-mail</string>
+    <string name="share_search_internal">Dodaj użytkowników i zespoły</string>
     <string name="share_send_new_email">Wyślij nowy e-mail</string>
     <string name="share_send_note">Notatka dla odbiorcy</string>
     <string name="share_settings">Ustawienia</string>

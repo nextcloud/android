@@ -833,6 +833,7 @@
     <string name="share_remote_clarification">%1$s (iargúlta)</string>
     <string name="share_room_clarification">%1$s (comhrá)</string>
     <string name="share_search">Ainm, ID Néal Cónaidhme nó seoladh ríomhphoist…</string>
+    <string name="share_search_internal">Cuir úsáideoirí agus foirne leis</string>
     <string name="share_send_new_email">Seol ríomhphost nua</string>
     <string name="share_send_note">Nóta don fhaighteoir</string>
     <string name="share_settings">Socruithe</string>

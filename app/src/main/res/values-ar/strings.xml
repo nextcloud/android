@@ -847,6 +847,7 @@
     <string name="share_remote_clarification">%1$s (بعيد)</string>
     <string name="share_room_clarification">%1$s (محادثة)</string>
     <string name="share_search">الاسم أو مُعرِّف السحابة الاتحادية أو عنوان البريد الإلكتروني ...</string>
+    <string name="share_search_internal">إضافة المُستخدِمين والفِرَق</string>
     <string name="share_send_new_email">إرسال بريد جديد</string>
     <string name="share_send_note">ملاحظة للمستلم</string>
     <string name="share_settings">الإعدادات</string>

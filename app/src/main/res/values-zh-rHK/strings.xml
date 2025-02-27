@@ -833,6 +833,7 @@
     <string name="share_remote_clarification">%1$s（遠端）</string>
     <string name="share_room_clarification">%1$s﹙對話﹚</string>
     <string name="share_search">名稱、聯合雲端 ID 或電郵地址 …</string>
+    <string name="share_search_internal">添加用戶與團隊</string>
     <string name="share_send_new_email">傳送新電子郵件</string>
     <string name="share_send_note">給接收者的訊息</string>
     <string name="share_settings">設定</string>

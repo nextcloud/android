@@ -834,6 +834,7 @@
     <string name="share_remote_clarification">%1$s (remoto)</string>
     <string name="share_room_clarification">%1$s (conversa)</string>
     <string name="share_search">Nome, ID da nube federada ou enderezo de correo…</string>
+    <string name="share_search_internal">Engadir usuarios e equipos</string>
     <string name="share_send_new_email">Enviar correo-e novo</string>
     <string name="share_send_note">Nota para o destinatario</string>
     <string name="share_settings">Axustes</string>

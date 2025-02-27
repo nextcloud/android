@@ -834,6 +834,7 @@
     <string name="share_remote_clarification">%1$s (extern)</string>
     <string name="share_room_clarification">%1$s (konversation)</string>
     <string name="share_search">Namn, federerat moln-ID eller e-postadress...</string>
+    <string name="share_search_internal">Lägg till användare och team</string>
     <string name="share_send_new_email">Skicka nytt mail</string>
     <string name="share_send_note">Notering till mottagare</string>
     <string name="share_settings">Inställningar</string>

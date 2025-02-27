@@ -833,6 +833,7 @@
     <string name="share_remote_clarification">%1$s (remote)</string>
     <string name="share_room_clarification">%1$s (Unterhaltung)</string>
     <string name="share_search">Name, Federated-Cloud-ID oder E-Mail-Adresse …</string>
+    <string name="share_search_internal">Benutzer oder Teams hinzufügen</string>
     <string name="share_send_new_email">Neue E-Mail senden</string>
     <string name="share_send_note">Notiz an Empfänger</string>
     <string name="share_settings">Einstellungen</string>
