@@ -169,6 +169,7 @@ class OCFileListDelegate(
                 file.remoteId,
                 ContextCompat.getColor(context, R.color.bg_default)
             )
+
             val asyncDrawable = getGalleryDrawable(file, width, task)
 
             if (shimmerThumbnail != null) {
