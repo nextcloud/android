@@ -28,7 +28,6 @@
     <string name="activity_chooser_send_file_title">Odeslat</string>
     <string name="activity_chooser_title">Poslat odkaz na…</string>
     <string name="activity_icon">Aktivita</string>
-    <string name="add_another_public_share_link">Přidat další odkaz</string>
     <string name="add_new_public_share">Přidat nový veřejný odkaz na sdílení</string>
     <string name="add_new_secure_file_drop">Přidat nové bezpečné předání souborů</string>
     <string name="add_to_cloud">Přidat k %1$s</string>
@@ -297,11 +296,7 @@
     <string name="e2e_signature_does_not_match">Signatura se neshoduje</string>
     <string name="ecosystem_apps_display_assistant">Asistent</string>
     <string name="ecosystem_apps_display_more">Další</string>
-    <string name="ecosystem_apps_display_notes">Poznámky</string>
-    <string name="ecosystem_apps_display_talk">Talk</string>
     <string name="ecosystem_apps_more">Další Nextcloud aplikace</string>
-    <string name="ecosystem_apps_notes">Nextcloud poznámky</string>
-    <string name="ecosystem_apps_talk">Nextcloud Talk</string>
     <string name="email_pick_failed">Nepodařilo se vybrat e-mailovou adresu.</string>
     <string name="encrypted">Nastavit jako šifrované</string>
     <string name="end_to_end_encryption_certificate_unavailable">Nedaří se získat certifikát serveru</string>

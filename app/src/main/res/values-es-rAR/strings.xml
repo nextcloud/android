@@ -28,7 +28,6 @@
     <string name="activity_chooser_send_file_title">Enviar</string>
     <string name="activity_chooser_title">Enviar Link a…</string>
     <string name="activity_icon">Actividad</string>
-    <string name="add_another_public_share_link">Agregar otro enlace</string>
     <string name="add_new_public_share">Agregar un nuevo enlace publico</string>
     <string name="add_new_secure_file_drop">Agregar nueva carpeta segura de archivos</string>
     <string name="add_to_cloud">Añadir %1$s</string>
@@ -274,11 +273,7 @@
     <string name="e2e_offline">No es posible sin conexión a Internet</string>
     <string name="ecosystem_apps_display_assistant">Asistente</string>
     <string name="ecosystem_apps_display_more">Más</string>
-    <string name="ecosystem_apps_display_notes">Notas</string>
-    <string name="ecosystem_apps_display_talk">Hablar</string>
     <string name="ecosystem_apps_more">Más apps de Nextcloud</string>
-    <string name="ecosystem_apps_notes">Notas de Nextcloud</string>
-    <string name="ecosystem_apps_talk">Nextcloud Talk</string>
     <string name="email_pick_failed">No se pudo seleccionar la dirección de correo electrónico.</string>
     <string name="encrypted">Establecer como cifrado</string>
     <string name="end_to_end_encryption_confirm_button">Configurar cifrado</string>

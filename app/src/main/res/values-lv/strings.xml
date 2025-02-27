@@ -27,7 +27,6 @@
     <string name="activity_chooser_send_file_title">Sūtīt</string>
     <string name="activity_chooser_title">Sūtīt saiti uz…</string>
     <string name="activity_icon">Darbības</string>
-    <string name="add_another_public_share_link">Pievienot citu saiti</string>
     <string name="add_to_cloud">Pievienot %1$s</string>
     <string name="advanced_settings">Paplašināti iestatījumi</string>
     <string name="allow_resharing">Atļaut atkārtotu koplietošanu</string>
@@ -91,7 +90,7 @@
     <string name="clipboard_unexpected_error">Kopējot starpliktuvē, radās neparedzēta kļūda</string>
     <string name="common_back">Atpakaļ</string>
     <string name="common_cancel">Atcelt</string>
-    <string name="common_cancel_sync">Atsaukt sinhronizāciju</string>
+    <string name="common_cancel_sync">Atcelt sinhronizēšanu</string>
     <string name="common_choose_account">Izvēlieties kontu</string>
     <string name="common_confirm">Apstiprināt</string>
     <string name="common_copy">Kopēt</string>
@@ -199,9 +198,6 @@
     <string name="drawer_quota_unlimited">%1$s izmantoti</string>
     <string name="drawer_synced_folders">Automātiska augšupielāde</string>
     <string name="ecosystem_apps_display_more">Vairāk</string>
-    <string name="ecosystem_apps_display_notes">Piezīmes</string>
-    <string name="ecosystem_apps_display_talk">Runāt</string>
-    <string name="ecosystem_apps_notes">Nextcloud piezīmes</string>
     <string name="encrypted">Uzstādīt kā šifrētu</string>
     <string name="end_to_end_encryption_confirm_button">Uzstādīt šifrēšanu</string>
     <string name="end_to_end_encryption_decrypting">Atšifrē…</string>
@@ -255,7 +251,7 @@
     <string name="file_migration_source_not_readable_title">Avota mape nav lasāma</string>
     <string name="file_migration_updating_index">Atjaunina indkesu…</string>
     <string name="file_migration_use_data_folder">Izmantot</string>
-    <string name="file_migration_waiting_for_unfinished_sync">Gaida pilnu sinhronizāciju…</string>
+    <string name="file_migration_waiting_for_unfinished_sync">Gaida pilnu sinhronizēšanu…</string>
     <string name="file_not_found">Datne nav atrasta</string>
     <string name="file_rename">Pārsaukt</string>
     <string name="filedetails_details">Detaļas</string>
@@ -504,7 +500,7 @@
     <string name="sync_fail_content">Nevarēja sinhronizēt %1$s</string>
     <string name="sync_fail_content_unauthorized">Nepareiza parole kontam %1$s</string>
     <string name="sync_fail_in_favourites_ticker">Kept-in-sync datnes cieta neveiksmi</string>
-    <string name="sync_fail_ticker">Sinhronizācija neizdevās</string>
+    <string name="sync_fail_ticker">Sinhronizēšana neizdevās</string>
     <string name="sync_fail_ticker_unauthorized">Sinhronizācija neizdevās, piesakieties vēlreiz</string>
     <string name="sync_file_nothing_to_do_msg">Datnes saturs jau ir sinhronizēts</string>
     <string name="sync_foreign_files_forgotten_ticker">Dažas lokālās datnes tika aizmirstas</string>

@@ -26,7 +26,6 @@
     <string name="activity_chooser_send_file_title">Изпращане</string>
     <string name="activity_chooser_title">Изпращане на връзка чрез…</string>
     <string name="activity_icon">Активност</string>
-    <string name="add_another_public_share_link">Добави още една връзка</string>
     <string name="add_new_public_share">Добавете нова връзка за публично споделяне</string>
     <string name="add_new_secure_file_drop">Добавяне на ново, защитено пускане на файлове</string>
     <string name="add_to_cloud">Добави към %1$s</string>
@@ -242,9 +241,6 @@
     <string name="drawer_synced_folders">Автоматично качване</string>
     <string name="e2e_not_yet_setup">E2E все още няма настройки</string>
     <string name="ecosystem_apps_display_more">Повече </string>
-    <string name="ecosystem_apps_display_notes">Бележки</string>
-    <string name="ecosystem_apps_display_talk">Разговор</string>
-    <string name="ecosystem_apps_notes">Nextcloud Бележки</string>
     <string name="encrypted">Включване на криптиране</string>
     <string name="end_to_end_encryption_confirm_button">Настройки за криптиране</string>
     <string name="end_to_end_encryption_decrypting">Декриптиране...</string>

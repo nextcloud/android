@@ -28,7 +28,6 @@
     <string name="activity_chooser_send_file_title">Seol</string>
     <string name="activity_chooser_title">Seol nasc chuig…</string>
     <string name="activity_icon">Gníomhaíocht</string>
-    <string name="add_another_public_share_link">Cuir nasc eile leis</string>
     <string name="add_new_public_share">Cuir nasc comhroinnte poiblí nua leis</string>
     <string name="add_new_secure_file_drop">Cuir titim comhad slán nua leis</string>
     <string name="add_to_cloud">Cuir le %1$s</string>
@@ -215,6 +214,7 @@
     <string name="could_not_retrieve_url">Níorbh fhéidir an URL a aisghabháil</string>
     <string name="create">Cruthaigh</string>
     <string name="create_dir_fail_msg">Níorbh fhéidir fillteán a chruthú</string>
+    <string name="create_link">Cruthaigh nasc</string>
     <string name="create_new">Nua</string>
     <string name="create_new_document">Doiciméad nua</string>
     <string name="create_new_folder">Fillteán nua</string>
@@ -297,11 +297,7 @@
     <string name="e2e_signature_does_not_match">Ní hionann an síniú</string>
     <string name="ecosystem_apps_display_assistant">Cúntóir</string>
     <string name="ecosystem_apps_display_more">Tuilleadh</string>
-    <string name="ecosystem_apps_display_notes">Nótaí</string>
-    <string name="ecosystem_apps_display_talk">Caint</string>
     <string name="ecosystem_apps_more">Tuilleadh aipeanna Nextcloud</string>
-    <string name="ecosystem_apps_notes">Nótaí Nextcloud</string>
-    <string name="ecosystem_apps_talk">Caint Nextcloud</string>
     <string name="email_pick_failed">Theip ar an seoladh ríomhphoist a phiocadh.</string>
     <string name="encrypted">Socraigh mar criptithe</string>
     <string name="end_to_end_encryption_certificate_unavailable">Ní féidir teastas an fhreastalaí a fháil</string>
@@ -366,6 +362,7 @@
     <string name="etm_transfer_type">Aistriú</string>
     <string name="etm_transfer_type_download">Íoslódáil</string>
     <string name="etm_transfer_type_upload">Uaslódáil</string>
+    <string name="external_shares">Scaireanna seachtracha</string>
     <string name="fab_label">Cuir leis nó uaslódáil</string>
     <string name="failed_to_download">Theip ar an gcomhad a chur ar aghaidh chuig an mbainisteoir íoslódála</string>
     <string name="failed_to_print">Theip ar an gcomhad a phriontáil</string>
@@ -505,6 +502,7 @@
     <string name="instant_upload_existing">Uaslódáil comhaid atá ann cheana féin freisin</string>
     <string name="instant_upload_on_charging">Íoslódáil ach amháin nuair a mhuirearú</string>
     <string name="instant_upload_path">/Uaslódáil Meandaracha</string>
+    <string name="internal_shares">Scaireanna inmheánacha</string>
     <string name="internal_two_way_sync">Sioncronú inmheánach dhá bhealach</string>
     <string name="internal_two_way_sync_not_yet">Níl go fóill, go luath le synced</string>
     <string name="internet_connection_required_for_encrypted_folder_setup">Tá nasc idirlín ag teastáil chun an fillteán criptithe a shocrú</string>
@@ -846,7 +844,9 @@
     <string name="shared_with_you_by">Roinnte leat faoi %1$s</string>
     <string name="sharee_add_failed">Theip ar an sciar a chur leis</string>
     <string name="sharee_already_added_to_file">Theip ar chomhroinnt a chur leis. Roinneadh an comhad nó an fillteán seo leis an duine nó leis an ngrúpa seo cheana.</string>
+    <string name="show_all">Taispeáin gach rud</string>
     <string name="show_images">Taispeáin grianghraif</string>
+    <string name="show_less">Taispeáin níos lú</string>
     <string name="show_video">Taispeáin físeáin</string>
     <string name="sign_tos_failed">Seiceáil téarmaí seirbhíse de láimh le do thoil!</string>
     <string name="signup_with_provider">Cláraigh leis an soláthraí</string>

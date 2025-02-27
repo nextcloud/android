@@ -28,7 +28,6 @@
     <string name="activity_chooser_send_file_title">إرسال</string>
     <string name="activity_chooser_title">إرسال الرابط إلى…</string>
     <string name="activity_icon">النشاط</string>
-    <string name="add_another_public_share_link">إضافة رابط مشاركة آخر</string>
     <string name="add_new_public_share">إضافة رابط مشاركة عام جديد</string>
     <string name="add_new_secure_file_drop">أضف ملف ألاصل </string>
     <string name="add_to_cloud">إضافة إلى %1$s</string>
@@ -299,11 +298,7 @@
     <string name="e2e_signature_does_not_match">التوقيع غير مُطابق</string>
     <string name="ecosystem_apps_display_assistant">المُساعِد</string>
     <string name="ecosystem_apps_display_more">المزيد</string>
-    <string name="ecosystem_apps_display_notes">الملاحظات</string>
-    <string name="ecosystem_apps_display_talk">محادثة Talk</string>
     <string name="ecosystem_apps_more">المزيد من تطبيقات نكست كلاود</string>
-    <string name="ecosystem_apps_notes">ملاحظات نيكست كلاود</string>
-    <string name="ecosystem_apps_talk">تطبيق \"المحادثة\" talk من نكست كلاود</string>
     <string name="email_pick_failed">تعذّر التقاط عنوان الإيميل.</string>
     <string name="encrypted">عيّنه كَمشفر</string>
     <string name="end_to_end_encryption_certificate_unavailable">يتعذّر استرجاع شهادة الخادوم</string>

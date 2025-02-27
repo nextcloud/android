@@ -28,7 +28,6 @@
     <string name="activity_chooser_send_file_title">ارسال</string>
     <string name="activity_chooser_title">ارسال لینک به ....</string>
     <string name="activity_icon">فعّالیت</string>
-    <string name="add_another_public_share_link">افزودن پیوندی دیگر</string>
     <string name="add_new_public_share">افزودن پیوند هم‌رسانی عمومی جدید</string>
     <string name="add_new_secure_file_drop">دراپ فایل امن جدید اضافه کنید.</string>
     <string name="add_to_cloud">افزودن به %1$s</string>
@@ -181,6 +180,7 @@
     <string name="could_not_retrieve_url">امکان بازیابی URL وجود ندارد</string>
     <string name="create">ساخت</string>
     <string name="create_dir_fail_msg">امکان ساخت پوشه وجود ندارد</string>
+    <string name="create_link">Create link</string>
     <string name="create_new">جدید</string>
     <string name="create_new_document">سند جدید</string>
     <string name="create_new_folder">پوشه جدید</string>
@@ -254,11 +254,7 @@
     <string name="e2e_not_yet_setup">E2E هنوز راه اندازی نشده است.</string>
     <string name="e2e_offline">بدون اتصال به اینترنت امکان پذیر نیست.</string>
     <string name="ecosystem_apps_display_more">بیشتر</string>
-    <string name="ecosystem_apps_display_notes">یادداشت‌ها</string>
-    <string name="ecosystem_apps_display_talk">گفتگو</string>
     <string name="ecosystem_apps_more">More Nextcloud Apps</string>
-    <string name="ecosystem_apps_notes">یادداشت‌های نکست کلود</string>
-    <string name="ecosystem_apps_talk">Nextcloud Talk</string>
     <string name="email_pick_failed">خطا در گرفتن نشانی رایانامه</string>
     <string name="encrypted">به صورت رمزگذاری شده تنظیم شده است</string>
     <string name="end_to_end_encryption_confirm_button">رمزگذاری را تنظیم کنید</string>
@@ -745,7 +741,9 @@
     <string name="shared_icon_shared_via_link">هم‌رسانده با پیوند</string>
     <string name="shared_with_you_by">هم‌رسانده با شما به دست %1$s</string>
     <string name="sharee_add_failed">شکست در افزودن هم‌رسانی</string>
+    <string name="show_all">نمایش همه</string>
     <string name="show_images">نمایش عکس‌ها</string>
+    <string name="show_less">Show less</string>
     <string name="show_video">نمایش ویدیوها</string>
     <string name="signup_with_provider">ثبت‌نام با ارائه دهنده</string>
     <string name="single_sign_on_request_token" formatted="true">اجازه به %1$s برای دسترسی به حساب نکست‌کلود %2$s؟</string>

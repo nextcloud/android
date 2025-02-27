@@ -220,6 +220,23 @@ class FilesSpecificViewThemeUtils @Inject constructor(
         }
     }
 
+    fun themeFilledCardView(cardView: MaterialCardView) {
+        withScheme(cardView) { scheme ->
+            val background = cardView.context.getColor(R.color.grey_200)
+            cardView.backgroundTintList =
+                ColorStateList(
+                    arrayOf(
+                        intArrayOf(android.R.attr.state_checked),
+                        intArrayOf(-android.R.attr.state_checked)
+                    ),
+                    intArrayOf(
+                        scheme.secondaryContainer,
+                        background
+                    )
+                )
+        }
+    }
+
     fun themeAvatarButton(shareImageView: ImageView) {
         withScheme(shareImageView.context) { scheme ->
             shareImageView.background.setColorFilter(scheme.primary, PorterDuff.Mode.SRC_IN)

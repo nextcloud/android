@@ -19,7 +19,6 @@
     <string name="activities_no_results_headline"> Entá nun hai actividá</string>
     <string name="activity_chooser_send_file_title">Unviar</string>
     <string name="activity_icon">Actividá</string>
-    <string name="add_another_public_share_link">Amestar otru enllaz</string>
     <string name="advanced_settings">Configuración avanzada</string>
     <string name="app_config_base_url_title">URL base</string>
     <string name="app_config_proxy_port_title">Puertu del proxy</string>
@@ -159,11 +158,7 @@
     <string name="e2e_offline">Nun ye posible ensin la conexón a internet</string>
     <string name="ecosystem_apps_display_assistant">Asistente</string>
     <string name="ecosystem_apps_display_more">Más</string>
-    <string name="ecosystem_apps_display_notes">Notes</string>
-    <string name="ecosystem_apps_display_talk">Charra</string>
     <string name="ecosystem_apps_more">Más aplicaciones de Nextcloud</string>
-    <string name="ecosystem_apps_notes">Nextcloud Notes</string>
-    <string name="ecosystem_apps_talk">Nextcloud Talk</string>
     <string name="email_pick_failed">Nun se pue escoyer la direición de corréu electrónicu.</string>
     <string name="end_to_end_encryption_confirm_button">Configurar el cifráu</string>
     <string name="end_to_end_encryption_decrypting">Descifrando…</string>

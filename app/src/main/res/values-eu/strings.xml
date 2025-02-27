@@ -28,7 +28,6 @@
     <string name="activity_chooser_send_file_title">Bidali</string>
     <string name="activity_chooser_title">Bidali esteka honi…</string>
     <string name="activity_icon">Jarduera</string>
-    <string name="add_another_public_share_link">Gehitu beste esteka bat</string>
     <string name="add_new_public_share">Gehitu partekatzeko esteka berria</string>
     <string name="add_new_secure_file_drop">Gehitu fitxategi jaregite seguru berria</string>
     <string name="add_to_cloud">Gehitu %1$s</string>
@@ -213,6 +212,7 @@
     <string name="could_not_retrieve_url">Ezin izan da URLa berreskuratu</string>
     <string name="create">Sortu</string>
     <string name="create_dir_fail_msg">Ezin izan da karpeta sortu</string>
+    <string name="create_link">Sortu esteka</string>
     <string name="create_new">Berria</string>
     <string name="create_new_document">Dokumentu berria</string>
     <string name="create_new_folder">Karpeta berria</string>
@@ -294,11 +294,7 @@
     <string name="e2e_signature_does_not_match">Sinadura ez dator bat</string>
     <string name="ecosystem_apps_display_assistant">Morroia</string>
     <string name="ecosystem_apps_display_more">Gehiago</string>
-    <string name="ecosystem_apps_display_notes">Oharrak</string>
-    <string name="ecosystem_apps_display_talk">Hizketaldia</string>
     <string name="ecosystem_apps_more">Nextcloud aplikazio gehiago</string>
-    <string name="ecosystem_apps_notes">Nextcloud Oharrak</string>
-    <string name="ecosystem_apps_talk">Nextcloud Talk</string>
     <string name="email_pick_failed">Ezin izan da helbide elektronikoa hautatu.</string>
     <string name="encrypted">Ezarri zifratu gisa</string>
     <string name="end_to_end_encryption_confirm_button">Konfiguratu zifratzea</string>
@@ -834,7 +830,9 @@
     <string name="shared_with_you_by"> %1$s-(e)k zurekin partekatua</string>
     <string name="sharee_add_failed">Hartzailea gehitzeak huts egin du</string>
     <string name="sharee_already_added_to_file">Ezin izan da partekatzea gehitu. Fitxategi edo karpeta hau pertsona edo talde honekin partekatu da dagoeneko.</string>
+    <string name="show_all">Erakutsi denak</string>
     <string name="show_images">Erakutsi argazkiak</string>
+    <string name="show_less">Erakutsi gutxiago</string>
     <string name="show_video">Erakutsi bideoak</string>
     <string name="signup_with_provider">Erregistratu hornitzaile batekin</string>
     <string name="single_sign_on_request_token" formatted="true">%1$s zure %2$s Nextcloud kontuan sartzea baimendu nahi duzu?</string>

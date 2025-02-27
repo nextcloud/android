@@ -25,7 +25,6 @@
     <string name="activity_chooser_send_file_title">Enviar</string>
     <string name="activity_chooser_title">Enviar enlace a…</string>
     <string name="activity_icon">Actividad</string>
-    <string name="add_another_public_share_link">Añadir otro enlace</string>
     <string name="add_new_public_share">Añadir un nuevo enlace público para compartir</string>
     <string name="add_to_cloud">Agregar a %1$s</string>
     <string name="advanced_settings">Configuración avanzada</string>
@@ -181,8 +180,6 @@
     <string name="drawer_logout">Cerrar sesión</string>
     <string name="drawer_quota">%1$s de %2$s usados</string>
     <string name="drawer_synced_folders">Carga automática</string>
-    <string name="ecosystem_apps_display_notes">Notas</string>
-    <string name="ecosystem_apps_display_talk">Hablar</string>
     <string name="encrypted">Establecer como encriptado</string>
     <string name="end_to_end_encryption_confirm_button">Configurar la encripción</string>
     <string name="end_to_end_encryption_decrypting">Desencriptando…</string>

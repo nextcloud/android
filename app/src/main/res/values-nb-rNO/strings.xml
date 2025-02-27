@@ -28,7 +28,6 @@
     <string name="activity_chooser_send_file_title">Send</string>
     <string name="activity_chooser_title">Send lenke til…</string>
     <string name="activity_icon">Aktivitet</string>
-    <string name="add_another_public_share_link">Legg til en lenke til</string>
     <string name="add_new_public_share">Legg til ny offentlig delt lenke</string>
     <string name="add_new_secure_file_drop">Legg til ny sikker filkasse</string>
     <string name="add_to_cloud">Legg til %1$s</string>
@@ -206,6 +205,7 @@
     <string name="could_not_retrieve_url">Kunne ikke hente URL</string>
     <string name="create">Opprett</string>
     <string name="create_dir_fail_msg">Mappe kunne ikke opprettes</string>
+    <string name="create_link">Lag lenke</string>
     <string name="create_new">Ny</string>
     <string name="create_new_document">Nytt dokument</string>
     <string name="create_new_folder">Ny mappe</string>
@@ -287,11 +287,7 @@
     <string name="e2e_signature_does_not_match">Signatur samsvarer ikke</string>
     <string name="ecosystem_apps_display_assistant">Assistent</string>
     <string name="ecosystem_apps_display_more">Mer</string>
-    <string name="ecosystem_apps_display_notes">Notater</string>
-    <string name="ecosystem_apps_display_talk">Samtale</string>
     <string name="ecosystem_apps_more">Flere Nextcloud apper</string>
-    <string name="ecosystem_apps_notes">Nextcloud Notater</string>
-    <string name="ecosystem_apps_talk">Nextcloud Talk</string>
     <string name="email_pick_failed">Kunne ikke velge e-postadresse.</string>
     <string name="encrypted">Sett som kryptert</string>
     <string name="end_to_end_encryption_confirm_button">Sett opp kryptering</string>
@@ -809,7 +805,9 @@
     <string name="shared_with_you_by">Delt med deg av %1$s</string>
     <string name="sharee_add_failed">Deling feilet</string>
     <string name="sharee_already_added_to_file">Tilføyelse av deling feilet. Denne filen eller mappen er allerede delt med denne personen eller gruppen.</string>
+    <string name="show_all">Vis alt</string>
     <string name="show_images">Vis bilder</string>
+    <string name="show_less">Vis mindre</string>
     <string name="show_video">Vis videoer</string>
     <string name="signup_with_provider">Logg på med tilbyder</string>
     <string name="single_sign_on_request_token" formatted="true">Tillat %1$s  adgang til din Nextcloud konto %2$s?</string>
