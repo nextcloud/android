@@ -27,3 +27,9 @@ fun <T : Any> Fragment.getTypedActivity(type: Class<T>): T? {
         null
     }
 }
+
+fun Fragment.runOnUiThread(action: () -> Unit) {
+    activity?.runOnUiThread {
+        action()
+    }
+}
