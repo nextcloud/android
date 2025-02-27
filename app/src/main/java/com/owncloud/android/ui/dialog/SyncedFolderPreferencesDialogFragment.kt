@@ -9,6 +9,7 @@ package com.owncloud.android.ui.dialog
 
 import android.app.Activity
 import android.app.Dialog
+import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import android.graphics.Typeface
@@ -38,11 +39,14 @@ import com.owncloud.android.utils.FileStorageUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import java.io.File
 import javax.inject.Inject
+import kotlin.time.DurationUnit
+import kotlin.time.toDuration
 
 /**
  * Dialog to show the preferences/configuration of a synced folder allowing the user to change the different
  * parameters.
  */
+@Suppress("TooManyFunctions")
 class SyncedFolderPreferencesDialogFragment : DialogFragment(), Injectable {
 
     @JvmField
@@ -218,6 +222,8 @@ class SyncedFolderPreferencesDialogFragment : DialogFragment(), Injectable {
             )
             binding.settingInstantNameCollisionPolicySummary.text =
                 nameCollisionPolicyItemStrings[nameCollisionPolicyIndex]
+            binding.settingInstantUploadMinFileAgeSummary.text =
+                getUploadMinFileAgeSummary(requireContext(), it.uploadMinFileAgeMs)
         }
     }
 
@@ -323,6 +329,8 @@ class SyncedFolderPreferencesDialogFragment : DialogFragment(), Injectable {
             binding.settingInstantUploadExistingCheckbox.isEnabled = enable
             binding.settingInstantUploadPathUseSubfoldersCheckbox.isEnabled = enable
             binding.settingInstantUploadExcludeHiddenCheckbox.isEnabled = enable
+            binding.settingInstantUploadMinFileAgeContainer.isEnabled = enable
+            binding.settingInstantUploadMinFileAgeContainer.alpha = alpha
         }
 
         checkWritableFolder()
@@ -399,6 +407,7 @@ class SyncedFolderPreferencesDialogFragment : DialogFragment(), Injectable {
 
         binding.settingInstantBehaviourContainer.setOnClickListener { showBehaviourDialog() }
         binding.settingInstantNameCollisionPolicyContainer.setOnClickListener { showNameCollisionPolicyDialog() }
+        binding.settingInstantUploadMinFileAgeContainer.setOnClickListener { showUploadMinFileAgeDialog() }
     }
 
     private fun showBehaviourDialog() {
@@ -440,6 +449,28 @@ class SyncedFolderPreferencesDialogFragment : DialogFragment(), Injectable {
             viewThemeUtils?.dialog?.colorMaterialAlertDialogBackground(requireActivity(), builder)
             behaviourDialog = builder.create()
             behaviourDialog?.show()
+        }
+    }
+
+    private fun showUploadMinFileAgeDialog() {
+        syncedFolder?.let {
+            val dialog = DurationPickerDialogFragment.newInstance(
+                it.uploadMinFileAgeMs,
+                getString(R.string.pref_instant_upload_min_file_age_dialog_title),
+                getString(R.string.pref_instant_upload_min_file_age_hint)
+            )
+
+            dialog.setListener(object : DurationPickerDialogFragment.Listener {
+                override fun onDurationPickerResult(resultCode: Int, duration: Long) {
+                    if (resultCode == Activity.RESULT_OK) {
+                        it.uploadMinFileAgeMs = duration
+                        binding?.settingInstantUploadMinFileAgeSummary?.text =
+                            getUploadMinFileAgeSummary(requireContext(), duration)
+                    }
+                    dialog.dismiss()
+                }
+            })
+            dialog.show(parentFragmentManager, "UPLOAD_MIN_FILE_AGE_PICKER_DIALOG")
         }
     }
 
@@ -568,6 +599,39 @@ class SyncedFolderPreferencesDialogFragment : DialogFragment(), Injectable {
                 0 -> NameCollisionPolicy.ASK_USER
                 else -> NameCollisionPolicy.ASK_USER
             }
+        }
+
+        @Suppress("MagicNumber")
+        private fun getUploadMinFileAgeSummary(context: Context, durationMs: Long): String {
+            if (durationMs == 0L) {
+                return context.getString(R.string.pref_instant_upload_min_file_age_disabled)
+            }
+
+            val durationSummary = StringBuilder()
+            val duration = durationMs.toDuration(DurationUnit.MILLISECONDS)
+            duration.toComponents { days, hours, minutes, _, _ ->
+                if (days > 0) {
+                    durationSummary.append(days)
+                    durationSummary.append(' ')
+                    durationSummary.append(context.getString(R.string.duration_picker_days_label))
+                    durationSummary.append(' ')
+                }
+                if (hours > 0) {
+                    durationSummary.append(hours)
+                    durationSummary.append(' ')
+                    durationSummary.append(context.getString(R.string.duration_picker_hours_label))
+                    durationSummary.append(' ')
+                }
+                if (minutes > 0) {
+                    durationSummary.append(minutes)
+                    durationSummary.append(' ')
+                    durationSummary.append(context.getString(R.string.duration_picker_minutes_label))
+                }
+            }
+            return context.getString(
+                R.string.pref_instant_upload_min_file_age_enabled,
+                durationSummary.toString().trim()
+            )
         }
     }
 }
