@@ -460,6 +460,7 @@
     <string name="first_run_3_text">بريد وب و تقويم و جهات اتصال سهلة الاستخدام</string>
     <string name="first_run_4_text">مشاركة الشاشة والاجتماعات عبر الإنترنت ومؤتمرات الويب</string>
     <string name="folder_already_exists">المجلد موجود مسبقاً</string>
+    <string name="folder_best_viewed_in">أفضَلُ مُشاهَدَةٍ لهذا المُجلَّد في %1$s.</string>
     <string name="folder_confirm_create">إنشاء</string>
     <string name="folder_list_empty_headline">لا توجد مجلدات</string>
     <string name="folder_name_empty">اسم المجلد لا يمكن أن يكون فارغاً</string>
@@ -632,6 +633,7 @@
     <string name="oneHour">ساعة واحدة</string>
     <string name="online">متصل</string>
     <string name="online_status">حالات الاتصال</string>
+    <string name="open_in_app">إفتَح في %1$s</string>
     <string name="outdated_server">وصل الخادم إلى نهاية العمر الافتراضي ، يرجى الترقية!</string>
     <string name="overflow_menu">المزيد من القائمة</string>
     <string name="pass_code_configure_your_pass_code">أدخل رمزك السري</string>

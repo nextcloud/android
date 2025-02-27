@@ -458,6 +458,7 @@
     <string name="first_run_3_text">Benutzerfreundlicher Webmailer, Kalender und Kontakte</string>
     <string name="first_run_4_text">Bildschirmfreigabe, Online-Meetings und Webkonferenzen</string>
     <string name="folder_already_exists">Ordner existiert bereits</string>
+    <string name="folder_best_viewed_in">Dieser Ordner lässt sich am besten in %1$s anzeigen.</string>
     <string name="folder_confirm_create">Erstellen</string>
     <string name="folder_list_empty_headline">Keine Ordner vorhanden</string>
     <string name="folder_name_empty">Der Ordnername darf nicht leer sein</string>
@@ -626,6 +627,7 @@
     <string name="oneHour">1 Stunde</string>
     <string name="online">Online</string>
     <string name="online_status">Online-Status</string>
+    <string name="open_in_app">Öffnen mit %1$s</string>
     <string name="outdated_server">Die Serverversion wird nicht mehr unterstützt, bitte aktualisieren Sie diesen!</string>
     <string name="overflow_menu">Weiteres Menü</string>
     <string name="pass_code_configure_your_pass_code">PIN eingeben</string>
