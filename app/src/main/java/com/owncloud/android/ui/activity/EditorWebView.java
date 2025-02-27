@@ -77,7 +77,10 @@ public abstract class EditorWebView extends ExternalSiteWebView {
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
             }
-            this.getWebView().loadUrl(url);
+
+            if (!url.equals(this.getWebView().getUrl())) {
+                this.getWebView().loadUrl(url);
+            }
 
             new Handler().postDelayed(() -> {
                 if (this.getWebView().getVisibility() != View.VISIBLE) {
