@@ -297,11 +297,7 @@
     <string name="e2e_signature_does_not_match">A sinatura non coincide</string>
     <string name="ecosystem_apps_display_assistant">Asistente</string>
     <string name="ecosystem_apps_display_more">Máis</string>
-    <string name="ecosystem_apps_display_notes">Notas</string>
-    <string name="ecosystem_apps_display_talk">Parladoiro</string>
     <string name="ecosystem_apps_more">Máis aplicacións de Nextcloud</string>
-    <string name="ecosystem_apps_notes">Notas de Nextcloud</string>
-    <string name="ecosystem_apps_talk">Parladoiro de Nextcloud</string>
     <string name="email_pick_failed">Produciuse un fallo ao escoller o enderezo de correo.</string>
     <string name="encrypted">Definir como cifrado</string>
     <string name="end_to_end_encryption_certificate_unavailable">Non é posíbel recuperar o certificado de servidor</string>
@@ -458,6 +454,7 @@
     <string name="first_run_3_text">Correo web, calendario e contactos doados de usar</string>
     <string name="first_run_4_text">Compartir a pantalla, xuntanzas en liña e conferencias web </string>
     <string name="folder_already_exists">Xa existe o cartafol</string>
+    <string name="folder_best_viewed_in">Este cartafol vese mellor en %1$s.</string>
     <string name="folder_confirm_create">Crear</string>
     <string name="folder_list_empty_headline">Aquí non hai cartafoles</string>
     <string name="folder_name_empty">O nome do cartafol non pode estar baleiro</string>
@@ -626,6 +623,7 @@
     <string name="oneHour">1 hora</string>
     <string name="online">En liña</string>
     <string name="online_status">Estado en liña</string>
+    <string name="open_in_app">Abrir en %1$s</string>
     <string name="outdated_server">O servidor acadou a fin da súa vida. Anóveo!</string>
     <string name="overflow_menu">Máis menús</string>
     <string name="pass_code_configure_your_pass_code">Introduza o seu código de acceso</string>
