@@ -458,6 +458,7 @@
     <string name="first_run_3_text">Lättanvänd webmail, kalender och kontakter</string>
     <string name="first_run_4_text">Skärmdelning, onlinemöten och webbkonferenser</string>
     <string name="folder_already_exists">Mapp finns redan</string>
+    <string name="folder_best_viewed_in">Denna mapp visas bäst i %1$s.</string>
     <string name="folder_confirm_create">Skapa</string>
     <string name="folder_list_empty_headline">Inga mappar här</string>
     <string name="folder_name_empty">Mappnamnet får inte vara tomt</string>
@@ -626,6 +627,7 @@
     <string name="oneHour">1 timme</string>
     <string name="online">Online</string>
     <string name="online_status">Online-status</string>
+    <string name="open_in_app">Öpnns i %1$s</string>
     <string name="outdated_server">Servern har nått slutet av livet, vänligen uppgradera!</string>
     <string name="overflow_menu">Mer Meny</string>
     <string name="pass_code_configure_your_pass_code">Skriv in ditt lösenord</string>
