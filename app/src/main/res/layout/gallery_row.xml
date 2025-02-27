@@ -1,34 +1,13 @@
-<?xml version="1.0" encoding="utf-8"?><!--
+<?xml version="1.0" encoding="utf-8"?>
+<!--
   ~ Nextcloud - Android Client
   ~
   ~ SPDX-FileCopyrightText: 2022 Tobias Kaminsky <tobias@kaminsky.me>
   ~ SPDX-FileCopyrightText: 2022 Nextcloud GmbH
   ~ SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
 -->
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/row_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:tools="http://schemas.android.com/tools">
-
-    <LinearLayout
-        android:id="@+id/row_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal" />
-
-    <ImageView
-        android:id="@+id/overlayImage"
-        android:layout_width="@dimen/activity_icon_width"
-        android:layout_height="@dimen/activity_icon_height"
-        android:layout_marginStart="@dimen/standard_half_padding"
-        android:layout_marginTop="@dimen/standard_half_padding"
-        android:visibility="gone"
-        app:tint="@color/primary_button_background_color"
-        tools:visibility="visible"
-        android:layout_gravity="top|start"
-        android:contentDescription="@string/file_icon"
-        android:src="@drawable/ic_check_circle" />
-
-</FrameLayout>
-
+    android:orientation="horizontal" />
