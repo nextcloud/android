@@ -101,8 +101,8 @@ class OCFileListDelegate(
         galleryRowHolder: GalleryRowHolder,
         width: Int
     ) {
-        // thumbnail
         imageView.tag = file.fileId
+
         setGalleryImage(
             file,
             imageView,
@@ -125,18 +125,6 @@ class OCFileListDelegate(
                     )
                 }
             }
-        }
-
-        if (checkedFiles.contains(file)) {
-            imageView.scaleX = 0.8f
-            imageView.scaleY = 0.8f
-            imageView.makeRounded(context, context.resources.getDimension(R.dimen.activity_icon_radius))
-            galleryRowHolder.binding.overlayImage.visibility = View.VISIBLE
-        } else {
-            imageView.scaleX = 1.0f
-            imageView.scaleY = 1.0f
-            imageView.makeRounded(context, context.resources.getDimension(R.dimen.zero))
-            galleryRowHolder.binding.overlayImage.visibility = View.GONE
         }
     }
 
@@ -428,6 +416,7 @@ class OCFileListDelegate(
             file.isSharedWithSharee || file.isSharedWithMe -> {
                 if (showShareAvatar) null else R.drawable.shared_via_users to R.string.shared_icon_shared
             }
+
             file.isSharedViaLink -> R.drawable.shared_via_link to R.string.shared_icon_shared_via_link
             else -> R.drawable.ic_unshared to R.string.shared_icon_share
         }
