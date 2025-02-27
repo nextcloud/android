@@ -1822,6 +1822,15 @@ public class FileDisplayActivity extends FileActivity
         } else if (operation instanceof RestoreFileVersionRemoteOperation) {
             onRestoreFileVersionOperationFinish(result);
         }
+
+        if (operation instanceof RemoveFileOperation || operation instanceof RenameFileOperation) {
+            OCFileListFragment fileListFragment =
+                (ActivityExtensionsKt.lastFragment(this) instanceof OCFileListFragment fragment) ? fragment : getListOfFilesFragment();
+
+            if (fileListFragment != null) {
+                fileListFragment.fetchRecommendedFiles();
+            }
+        }
     }
 
     private void refreshShowDetails() {
