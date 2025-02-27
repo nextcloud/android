@@ -5,7 +5,7 @@
     <string name="about_version">Версія %1$s </string>
     <string name="about_version_with_build">версія %1$s, збірка #%2$s</string>
     <string name="account_creation_failed">Не вдалося створити обліковий запис</string>
-    <string name="account_icon">Зображення облікового запису</string>
+    <string name="account_icon">Зображення користувача</string>
     <string name="account_not_found">Обліковий запис не знайдено!</string>
     <string name="action_edit">Редагувати</string>
     <string name="action_empty_notifications">Очистити всі сповіщення</string>
@@ -297,11 +297,7 @@
     <string name="e2e_signature_does_not_match">Підпис не збігається</string>
     <string name="ecosystem_apps_display_assistant">Помічник</string>
     <string name="ecosystem_apps_display_more">Більше</string>
-    <string name="ecosystem_apps_display_notes">Нотатки</string>
-    <string name="ecosystem_apps_display_talk">Розмови</string>
     <string name="ecosystem_apps_more">Більше застосунків Nextcloud</string>
-    <string name="ecosystem_apps_notes">Нотатки для Nextcloud</string>
-    <string name="ecosystem_apps_talk">Розмови Nextcloud</string>
     <string name="email_pick_failed">Не вдалося вибрати ел. адресу.</string>
     <string name="encrypted">Позначити як зашифроване</string>
     <string name="end_to_end_encryption_certificate_unavailable">Неможливо отримати сертифікат сервера</string>
@@ -458,6 +454,7 @@
     <string name="first_run_3_text">Зручні у користуванні вебзастосунки пошти, календаря та контактів</string>
     <string name="first_run_4_text">Спільний екран, онлайнові зустрічі та вебконференції</string>
     <string name="folder_already_exists">Каталог вже існує</string>
+    <string name="folder_best_viewed_in">Переглядайте каталог у %1$s.</string>
     <string name="folder_confirm_create">Створити</string>
     <string name="folder_list_empty_headline">Тут відсутні каталоги</string>
     <string name="folder_name_empty">Ім\'я каталогу не може бути порожнім</string>
@@ -830,6 +827,7 @@
     <string name="share_remote_clarification">%1$s (віддалено)</string>
     <string name="share_room_clarification">%1$s (розмова)</string>
     <string name="share_search">Ім\'я, ідентифікатор об\'єднаної хмари або ел.адреса...</string>
+    <string name="share_search_internal">Додати користувачів або команди</string>
     <string name="share_send_new_email">Надіслати новий лист</string>
     <string name="share_send_note">Примітка для одержувача</string>
     <string name="share_settings">Налаштування</string>

@@ -198,9 +198,6 @@
     <string name="drawer_quota_unlimited">%1$s izmantoti</string>
     <string name="drawer_synced_folders">Automātiska augšupielāde</string>
     <string name="ecosystem_apps_display_more">Vairāk</string>
-    <string name="ecosystem_apps_display_notes">Piezīmes</string>
-    <string name="ecosystem_apps_display_talk">Runāt</string>
-    <string name="ecosystem_apps_notes">Nextcloud piezīmes</string>
     <string name="encrypted">Uzstādīt kā šifrētu</string>
     <string name="end_to_end_encryption_confirm_button">Uzstādīt šifrēšanu</string>
     <string name="end_to_end_encryption_decrypting">Atšifrē…</string>
