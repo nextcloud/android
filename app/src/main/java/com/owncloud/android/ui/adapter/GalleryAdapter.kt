@@ -51,7 +51,7 @@ class GalleryAdapter(
     ocFileListFragmentInterface: OCFileListFragmentInterface,
     preferences: AppPreferences,
     transferServiceGetter: ComponentsGetter,
-    viewThemeUtils: ViewThemeUtils,
+    private val viewThemeUtils: ViewThemeUtils,
     var columns: Int,
     private val defaultThumbnailSize: Int
 ) : SectionedRecyclerViewAdapter<SectionedViewHolder>(), CommonOCFileListAdapterInterface, PopupTextProvider {
@@ -95,7 +95,8 @@ class GalleryAdapter(
                 defaultThumbnailSize.toFloat(),
                 ocFileListDelegate,
                 storageManager,
-                this
+                this,
+                viewThemeUtils
             )
         }
     }
