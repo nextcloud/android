@@ -688,6 +688,7 @@
     <string name="shared_icon_shared_via_link">Διαμοιράστηκε μέσω συνδέσμου</string>
     <string name="shared_with_you_by">Διαμοιράστηκε με εσάς από τον %1$s</string>
     <string name="sharee_add_failed">Η προσθήκη κοινής χρήσης απέτυχε</string>
+    <string name="show_all">Εμφάνιση όλων</string>
     <string name="show_images">Εμφάνιση φωτογραφιών</string>
     <string name="show_less">Εμφάνιση λιγότερων</string>
     <string name="show_video">Εμφάνιση βίντεο</string>

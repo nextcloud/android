@@ -482,6 +482,7 @@
     <string name="share_via_link_section_title">Compartir enllaz</string>
     <string name="share_via_link_send_link_label">Unviar l\'enllaz</string>
     <string name="show_images">Amosar les semeyes</string>
+    <string name="show_less">Amosar menos</string>
     <string name="show_video">Amosar los vídeos</string>
     <string name="signup_with_provider">Rexistrase con un fornidor</string>
     <string name="single_sign_on_request_token" formatted="true">¿Quies permitr que %1$s acceda a la cuenta de Nextcloud %2$s?</string>

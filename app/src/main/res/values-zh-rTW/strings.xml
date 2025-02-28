@@ -829,6 +829,7 @@
     <string name="share_remote_clarification">%1$s（遠端）</string>
     <string name="share_room_clarification">%1$s（對話）</string>
     <string name="share_search">名稱、聯邦雲端 ID 或電子郵件地址……</string>
+    <string name="share_search_internal">新增使用者與團隊</string>
     <string name="share_send_new_email">傳送新電子郵件</string>
     <string name="share_send_note">給收件人的備註</string>
     <string name="share_settings">設定</string>

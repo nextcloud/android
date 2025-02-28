@@ -837,6 +837,7 @@
     <string name="shared_with_you_by">Compartido contigo por %1$s</string>
     <string name="sharee_add_failed">Fallo al añadir compartido</string>
     <string name="sharee_already_added_to_file">Error al añadir el recurso compartido. Este archivo o carpeta ya se ha compartido con esta persona o grupo.</string>
+    <string name="show_all">Mostrar todo</string>
     <string name="show_images">Mostrar fotos</string>
     <string name="show_less">Ver menos</string>
     <string name="show_video">Mostrar vídeos</string>
