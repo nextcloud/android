@@ -454,6 +454,7 @@
     <string name="first_run_3_text">Łatwe w obsłudze poczta internetowa, kalendarz i kontakty</string>
     <string name="first_run_4_text">Udostępnianie ekranu, spotkania online i konferencje internetowe</string>
     <string name="folder_already_exists">Katalog już istnieje</string>
+    <string name="folder_best_viewed_in">Ten katalog najlepiej oglądać w formacie %1$s.</string>
     <string name="folder_confirm_create">Utwórz</string>
     <string name="folder_list_empty_headline">Brak katalogów</string>
     <string name="folder_name_empty">Nazwa katalogu nie może być pusta</string>
@@ -622,6 +623,7 @@
     <string name="oneHour">1 godzina</string>
     <string name="online">Online</string>
     <string name="online_status">Status online</string>
+    <string name="open_in_app">Otwórz w %1$s</string>
     <string name="outdated_server">Serwer korzysta ze starej wersji. Dokonaj aktualizacji!</string>
     <string name="overflow_menu">Więcej</string>
     <string name="pass_code_configure_your_pass_code">Wprowadź kod PIN</string>

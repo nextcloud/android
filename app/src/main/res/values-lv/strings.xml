@@ -545,6 +545,7 @@
     <string name="uploader_error_message_source_file_not_copied">Nevarēja pārkopēt datni uz pagaidu mapi. Lūdzu mēģini sūtīt vēlreiz.</string>
     <string name="uploader_error_message_source_file_not_found">Augšupielādei atlasītā datne netika atrasta. Lūgums pārbaudīt, vai tā pastāv.</string>
     <string name="uploader_error_title_no_file_to_upload">Nav datņu augšupielādei</string>
+    <string name="uploader_file_not_found_message">Datne netika atrasta. Vai tiešām tā pastāv vai arī nav novērsta iepriekšēja nesaderība?</string>
     <string name="uploader_info_dirname">Mapes nosaukums</string>
     <string name="uploader_top_message">Izvēlēties augšupielāžu mapi</string>
     <string name="uploader_upload_failed_content_single">Nevarēja augšupielādēt %1$s</string>
