@@ -454,6 +454,7 @@
     <string name="first_run_3_text">Easy-to-use webmail, calendar and contacts</string>
     <string name="first_run_4_text">Screensharing, online meetings and web conferences</string>
     <string name="folder_already_exists">Folder already exists</string>
+    <string name="folder_best_viewed_in">This folder is best viewed in %1$s.</string>
     <string name="folder_confirm_create">Create</string>
     <string name="folder_list_empty_headline">No folders here</string>
     <string name="folder_name_empty">Folder name cannot be empty</string>
@@ -622,6 +623,7 @@
     <string name="oneHour">1 hour</string>
     <string name="online">Online</string>
     <string name="online_status">Online status</string>
+    <string name="open_in_app">Open in %1$s</string>
     <string name="outdated_server">The server has reached end of life, please upgrade!</string>
     <string name="overflow_menu">More menu</string>
     <string name="pass_code_configure_your_pass_code">Enter your passcode</string>
@@ -829,6 +831,7 @@
     <string name="share_remote_clarification">%1$s (remote)</string>
     <string name="share_room_clarification">%1$s (conversation)</string>
     <string name="share_search">Name, Federated Cloud ID or email address…</string>
+    <string name="share_search_internal">Add users and teams</string>
     <string name="share_send_new_email">Send new email</string>
     <string name="share_send_note">Note to recipient</string>
     <string name="share_settings">Settings</string>
