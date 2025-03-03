@@ -100,6 +100,7 @@ public final class ThumbnailsCacheManager {
     private static final CompressFormat mCompressFormat = CompressFormat.JPEG;
     private static final int mCompressQuality = 70;
     private static OwnCloudClient mClient;
+    public static final int THUMBNAIL_SIZE = 512;
 
     public static final Bitmap mDefaultImg = BitmapFactory.decodeResource(MainApp.getAppContext().getResources(),
             R.drawable.file_image);
@@ -350,7 +351,7 @@ public final class ThumbnailsCacheManager {
                 result = thumbnail;
             }
 
-            return BitmapExtensionsKt.scaleUntilLessThanEquals512KB(result);
+            return BitmapExtensionsKt.scaleUntil(result, THUMBNAIL_SIZE);
         }
 
         protected void onPostExecute(Bitmap bitmap) {
