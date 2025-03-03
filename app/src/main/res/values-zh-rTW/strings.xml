@@ -454,6 +454,7 @@
     <string name="first_run_3_text">易於使用的網路電子郵件、行事曆、聯絡人</string>
     <string name="first_run_4_text">分享螢幕畫面、線上會議、網路研討會</string>
     <string name="folder_already_exists">資料夾已經存在</string>
+    <string name="folder_best_viewed_in">此資料夾最好在 %1$s 中檢視。</string>
     <string name="folder_confirm_create">建立</string>
     <string name="folder_list_empty_headline">此處無資料夾</string>
     <string name="folder_name_empty">資料夾名稱不能為空</string>
@@ -622,6 +623,7 @@
     <string name="oneHour">1 小時</string>
     <string name="online">上線</string>
     <string name="online_status">上線狀態</string>
+    <string name="open_in_app">在 %1$s 中開啟</string>
     <string name="outdated_server">伺服器版本已達生命週期，請升級！</string>
     <string name="overflow_menu">更多選單</string>
     <string name="pass_code_configure_your_pass_code">請輸入通行碼</string>
