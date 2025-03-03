@@ -36,7 +36,6 @@ import android.widget.ImageView;
 
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.network.ConnectivityService;
-import com.nextcloud.utils.extensions.BitmapExtensionsKt;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.OwnCloudAccount;
@@ -100,7 +99,6 @@ public final class ThumbnailsCacheManager {
     private static final CompressFormat mCompressFormat = CompressFormat.JPEG;
     private static final int mCompressQuality = 70;
     private static OwnCloudClient mClient;
-    public static final int THUMBNAIL_SIZE = 512;
 
     public static final Bitmap mDefaultImg = BitmapFactory.decodeResource(MainApp.getAppContext().getResources(),
             R.drawable.file_image);
@@ -344,14 +342,11 @@ public final class ThumbnailsCacheManager {
                 storageManager.saveFile(file);
             }
 
-            Bitmap result;
             if (MimeTypeUtil.isVideo(file)) {
-                result = ThumbnailsCacheManager.addVideoOverlay(thumbnail, MainApp.getAppContext());
+                return ThumbnailsCacheManager.addVideoOverlay(thumbnail, MainApp.getAppContext());
             } else {
-                result = thumbnail;
+                return thumbnail;
             }
-
-            return BitmapExtensionsKt.scaleUntil(result, THUMBNAIL_SIZE);
         }
 
         protected void onPostExecute(Bitmap bitmap) {
