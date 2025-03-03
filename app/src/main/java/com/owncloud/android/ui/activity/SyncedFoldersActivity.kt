@@ -13,6 +13,7 @@ import android.app.NotificationManager
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.os.Looper
 import android.os.PowerManager
 import android.provider.Settings
 import android.text.TextUtils
