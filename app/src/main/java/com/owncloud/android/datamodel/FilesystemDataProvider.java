@@ -172,39 +172,30 @@ public class FilesystemDataProvider {
                                              );
 
         FileSystemDataSet dataSet = null;
-        if (cursor != null) {
-            if (cursor.moveToFirst()) {
-                int id = cursor.getInt(cursor.getColumnIndexOrThrow(ProviderMeta.ProviderTableMeta._ID));
-                String localPath = cursor.getString(cursor.getColumnIndexOrThrow(
-                    ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_LOCAL_PATH));
-                long modifiedAt = cursor.getLong(cursor.getColumnIndexOrThrow(
-                    ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_MODIFIED));
-                boolean isFolder = false;
-                if (cursor.getInt(cursor.getColumnIndexOrThrow(
-                    ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_IS_FOLDER)) != 0) {
-                    isFolder = true;
-                }
-                long foundAt = cursor.getLong(cursor.getColumnIndexOrThrow(ProviderMeta.
-                                                                               ProviderTableMeta.FILESYSTEM_FILE_FOUND_RECENTLY));
+        if (cursor != null && cursor.moveToFirst()) {
+            int id = cursor.getInt(cursor.getColumnIndexOrThrow(ProviderMeta.ProviderTableMeta._ID));
+            String localPath = cursor.getString(cursor.getColumnIndexOrThrow(
+                ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_LOCAL_PATH));
+            long modifiedAt = cursor.getLong(cursor.getColumnIndexOrThrow(
+                ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_MODIFIED));
+            boolean isFolder = cursor.getInt(cursor.getColumnIndexOrThrow(
+                ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_IS_FOLDER)) != 0;
+            long foundAt = cursor.getLong(cursor.getColumnIndexOrThrow(ProviderMeta.
+                                                                           ProviderTableMeta.FILESYSTEM_FILE_FOUND_RECENTLY));
 
-                boolean isSentForUpload = false;
-                if (cursor.getInt(cursor.getColumnIndexOrThrow(
-                    ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_SENT_FOR_UPLOAD)) != 0) {
-                    isSentForUpload = true;
-                }
+            boolean isSentForUpload = cursor.getInt(cursor.getColumnIndexOrThrow(
+                ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_SENT_FOR_UPLOAD)) != 0;
 
-                String crc32 = cursor.getString(cursor.getColumnIndexOrThrow(ProviderMeta.ProviderTableMeta.FILESYSTEM_CRC32));
+            String crc32 = cursor.getString(cursor.getColumnIndexOrThrow(ProviderMeta.ProviderTableMeta.FILESYSTEM_CRC32));
 
-                if (id == -1) {
-                    Log_OC.e(TAG, "Arbitrary value could not be created from cursor");
-                } else {
-                    dataSet = new FileSystemDataSet(id, localPath, modifiedAt, isFolder, isSentForUpload, foundAt,
-                                                    syncedFolder.getId(), crc32);
-                }
-            }
-            cursor.close();
+            dataSet = new FileSystemDataSet(id, localPath, modifiedAt, isFolder, isSentForUpload, foundAt,
+                                            syncedFolder.getId(), crc32);
         } else {
-            Log_OC.e(TAG, "DB error restoring arbitrary values.");
+            Log_OC.e(TAG, cursor == null ? "DB error restoring arbitrary values." : "Arbitrary value could not be created from cursor");
+        }
+
+        if (cursor != null) {
+            cursor.close();
         }
 
         return dataSet;
