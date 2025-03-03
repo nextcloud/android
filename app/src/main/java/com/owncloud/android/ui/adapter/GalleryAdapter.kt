@@ -78,6 +78,14 @@ class GalleryAdapter(
         )
     }
 
+    fun selectAll(select: Boolean) {
+        if (select) {
+            addAllFilesToCheckedFiles()
+        } else {
+            clearCheckedItems()
+        }
+    }
+
     override fun showFooters(): Boolean = false
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SectionedViewHolder {
@@ -304,6 +312,15 @@ class GalleryAdapter(
     override fun setMultiSelect(boolean: Boolean) {
         ocFileListDelegate.isMultiSelect = boolean
         notifyDataSetChanged()
+    }
+
+    private fun addAllFilesToCheckedFiles() {
+        val allFiles = files.flatMap { galleryItem ->
+            galleryItem.rows.flatMap { row ->
+                row.files
+            }
+        }
+        ocFileListDelegate.addToCheckedFiles(allFiles)
     }
 
     override fun clearCheckedItems() {
