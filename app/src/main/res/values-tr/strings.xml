@@ -485,7 +485,7 @@
     <string name="host_not_available">Sunucu kullanılamıyor</string>
     <string name="host_your_own_server">Kendi sunucunuzu işletin</string>
     <string name="icon_for_empty_list">Boş liste simgesi</string>
-    <string name="icon_of_dashboard_widget">pano bileşeni simgesi</string>
+    <string name="icon_of_dashboard_widget">Pano bileşeni simgesi</string>
     <string name="icon_of_widget_entry">Pano bileşeni kaydı simgesi</string>
     <string name="image_editor_file_edited_suffix">düzenlendi</string>
     <string name="image_editor_flip_horizontal">Yatay çevir</string>

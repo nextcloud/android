@@ -214,6 +214,7 @@
     <string name="could_not_retrieve_url">无法获取地址</string>
     <string name="create">创建</string>
     <string name="create_dir_fail_msg">无法创建文件夹</string>
+    <string name="create_link">创建链接</string>
     <string name="create_new">新建</string>
     <string name="create_new_document">新文档</string>
     <string name="create_new_folder">新建文件夹</string>
@@ -453,6 +454,7 @@
     <string name="first_run_3_text">易于使用的网页邮件、日历和联系人</string>
     <string name="first_run_4_text">屏幕共享，线上见面和网络会议</string>
     <string name="folder_already_exists">目录已经存在</string>
+    <string name="folder_best_viewed_in">此文件夹最好在 %1$s 中查看。</string>
     <string name="folder_confirm_create">创建</string>
     <string name="folder_list_empty_headline">这里没有文件夹</string>
     <string name="folder_name_empty">文件夹名称不能为空</string>
@@ -621,6 +623,7 @@
     <string name="oneHour">1小时</string>
     <string name="online">在线</string>
     <string name="online_status">在线状态</string>
+    <string name="open_in_app">在 %1$s 中打开</string>
     <string name="outdated_server">服务端即将达到使用寿命，请升级！</string>
     <string name="overflow_menu">更多菜单</string>
     <string name="pass_code_configure_your_pass_code">输入安全码</string>
@@ -828,6 +831,7 @@
     <string name="share_remote_clarification">%1$s (远程)</string>
     <string name="share_room_clarification">%1$s (对话)</string>
     <string name="share_search">名称，联合云 ID 或电子邮箱地址…</string>
+    <string name="share_search_internal">添加用户和团队</string>
     <string name="share_send_new_email">发送新邮件</string>
     <string name="share_send_note">收件人备注</string>
     <string name="share_settings">设置</string>
