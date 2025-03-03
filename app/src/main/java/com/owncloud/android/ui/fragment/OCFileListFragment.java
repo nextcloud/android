@@ -90,6 +90,7 @@ import com.owncloud.android.ui.activity.FolderPickerActivity;
 import com.owncloud.android.ui.activity.OnEnforceableRefreshListener;
 import com.owncloud.android.ui.activity.UploadFilesActivity;
 import com.owncloud.android.ui.adapter.CommonOCFileListAdapterInterface;
+import com.owncloud.android.ui.adapter.GalleryAdapter;
 import com.owncloud.android.ui.adapter.OCFileListAdapter;
 import com.owncloud.android.ui.dialog.ChooseRichDocumentsTemplateDialogFragment;
 import com.owncloud.android.ui.dialog.ChooseTemplateDialogFragment;
@@ -2136,22 +2137,18 @@ public class OCFileListFragment extends ExtendedListFragment implements
      *
      * @param select <code>true</code> to select all, <code>false</code> to deselect all
      */
+    @SuppressLint("NotifyDataSetChanged")
     public void selectAllFiles(boolean select) {
-        OCFileListAdapter ocFileListAdapter = (OCFileListAdapter) getRecyclerView().getAdapter();
-        if (ocFileListAdapter == null) {
+        final var adapter = getRecyclerView().getAdapter();
+        if (adapter instanceof  OCFileListAdapter ocFileListAdapter) {
+            ocFileListAdapter.selectAllFiles(select);
+        } else if (adapter instanceof GalleryAdapter galleryAdapter) {
+            galleryAdapter.selectAll(select);
+        } else {
             return;
         }
 
-        if (select) {
-            ocFileListAdapter.addAllFilesToCheckedFiles();
-        } else {
-            ocFileListAdapter.clearCheckedItems();
-        }
-
-        for (int i = 0; i < mAdapter.getItemCount(); i++) {
-            mAdapter.notifyItemChanged(i);
-        }
-
+        adapter.notifyDataSetChanged();
         mActiveActionMode.invalidate();
     }
 
