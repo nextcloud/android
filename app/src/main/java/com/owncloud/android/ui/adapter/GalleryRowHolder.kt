@@ -30,6 +30,7 @@ import com.owncloud.android.utils.BitmapUtils
 import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
 
+@Suppress("LongParameterList")
 class GalleryRowHolder(
     val binding: GalleryRowBinding,
     private val defaultThumbnailSize: Float,
@@ -224,15 +225,17 @@ class GalleryRowHolder(
 
     private fun adjustCheckBox(imageView: ImageView, isChecked: Boolean) {
         if (ocFileListDelegate.isMultiSelect) {
-            val checkboxDrawable = (if (isChecked) {
-                val drawable = ContextCompat.getDrawable(context, R.drawable.ic_checkbox_marked)
-                drawable?.let {
-                    viewThemeUtils.platform.tintDrawable(context, drawable, ColorRole.PRIMARY)
+            val checkboxDrawable = (
+                if (isChecked) {
+                    val drawable = ContextCompat.getDrawable(context, R.drawable.ic_checkbox_marked)
+                    drawable?.let {
+                        viewThemeUtils.platform.tintDrawable(context, drawable, ColorRole.PRIMARY)
+                    }
+                    drawable
+                } else {
+                    ContextCompat.getDrawable(context, R.drawable.ic_checkbox_blank_outline)
                 }
-                drawable
-            } else {
-                ContextCompat.getDrawable(context, R.drawable.ic_checkbox_blank_outline)
-            })?.apply {
+                )?.apply {
                 val margin = standardMargin.toInt()
                 setBounds(margin, margin, margin, margin)
             }
