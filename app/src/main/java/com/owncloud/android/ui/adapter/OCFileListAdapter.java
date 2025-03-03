@@ -214,6 +214,14 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         ocFileListDelegate.removeCheckedFile(file);
     }
 
+    public void selectAllFiles(boolean select) {
+        if (select) {
+            addAllFilesToCheckedFiles();
+        } else {
+            clearCheckedItems();
+        }
+    }
+
     public void addAllFilesToCheckedFiles() {
         ocFileListDelegate.addToCheckedFiles(mFiles);
     }
