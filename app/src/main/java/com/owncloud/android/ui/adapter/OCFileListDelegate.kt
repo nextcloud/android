@@ -129,9 +129,11 @@ class OCFileListDelegate(
         }
     }
 
-    private fun getGalleryDrawable(file: OCFile, width: Int, task: ThumbnailsCacheManager.GalleryImageGenerationTask):
-        ThumbnailsCacheManager.AsyncGalleryImageDrawable {
-
+    private fun getGalleryDrawable(
+        file: OCFile,
+        width: Int,
+        task: ThumbnailsCacheManager.GalleryImageGenerationTask
+    ): ThumbnailsCacheManager.AsyncGalleryImageDrawable {
         val drawable = MimeTypeUtil.getFileTypeIcon(file.mimeType, file.fileName, context, viewThemeUtils)
             ?: ResourcesCompat.getDrawable(context.resources, R.drawable.file_image, null)
             ?: ColorDrawable(Color.GRAY)

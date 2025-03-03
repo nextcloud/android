@@ -78,8 +78,8 @@ class GalleryAdapter(
         )
     }
 
-    fun selectAll(select: Boolean) {
-        if (select) {
+    override fun selectAll(value: Boolean) {
+        if (value) {
             addAllFilesToCheckedFiles()
         } else {
             clearCheckedItems()
