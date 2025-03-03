@@ -90,7 +90,6 @@ import com.owncloud.android.ui.activity.FolderPickerActivity;
 import com.owncloud.android.ui.activity.OnEnforceableRefreshListener;
 import com.owncloud.android.ui.activity.UploadFilesActivity;
 import com.owncloud.android.ui.adapter.CommonOCFileListAdapterInterface;
-import com.owncloud.android.ui.adapter.GalleryAdapter;
 import com.owncloud.android.ui.adapter.OCFileListAdapter;
 import com.owncloud.android.ui.dialog.ChooseRichDocumentsTemplateDialogFragment;
 import com.owncloud.android.ui.dialog.ChooseTemplateDialogFragment;
@@ -2140,16 +2139,11 @@ public class OCFileListFragment extends ExtendedListFragment implements
     @SuppressLint("NotifyDataSetChanged")
     public void selectAllFiles(boolean select) {
         final var adapter = getRecyclerView().getAdapter();
-        if (adapter instanceof  OCFileListAdapter ocFileListAdapter) {
-            ocFileListAdapter.selectAllFiles(select);
-        } else if (adapter instanceof GalleryAdapter galleryAdapter) {
-            galleryAdapter.selectAll(select);
-        } else {
-            return;
+        if (adapter instanceof  CommonOCFileListAdapterInterface commonInterface) {
+            commonInterface.selectAll(select);
+            adapter.notifyDataSetChanged();
+            mActiveActionMode.invalidate();
         }
-
-        adapter.notifyDataSetChanged();
-        mActiveActionMode.invalidate();
     }
 
     /**
