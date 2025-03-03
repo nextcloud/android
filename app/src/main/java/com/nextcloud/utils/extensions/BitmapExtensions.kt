@@ -10,16 +10,19 @@ package com.nextcloud.utils.extensions
 import android.graphics.Bitmap
 
 @Suppress("MagicNumber")
-fun Bitmap.scaleUntilLessThanEquals512KB(): Bitmap {
-    val byteCountInKB = (allocationByteCount / 1024)
-    val targetByteCountInKB = 512
-    if (byteCountInKB <= targetByteCountInKB) {
+fun Bitmap.allocationKilobyte(): Int = allocationByteCount.div(1024)
+
+@Suppress("MagicNumber")
+fun Bitmap.scaleUntil(targetKB: Int): Bitmap {
+    if (allocationKilobyte() <= targetKB) {
         return this
     }
 
-    val newWidth = width / 2
-    val newHeight = height / 2
-    val scaledBitmap = Bitmap.createScaledBitmap(this, newWidth, newHeight, true)
+    // 1.5 is used to gradually scale down while minimizing distortion
+    val scaleRatio = 1.5
+    val width = width.div(scaleRatio).toInt()
+    val height = height.div(scaleRatio).toInt()
 
-    return scaledBitmap.scaleUntilLessThanEquals512KB()
+    val scaledBitmap = Bitmap.createScaledBitmap(this, width, height, true)
+    return scaledBitmap.scaleUntil(targetKB)
 }
