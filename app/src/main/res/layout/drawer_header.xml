@@ -51,30 +51,35 @@
 
     </LinearLayout>
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/drawer_ecosystem_apps"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/standard_margin"
         android:layout_marginBottom="@dimen/standard_half_margin"
         android:orientation="horizontal">
 
         <LinearLayout
             android:id="@+id/drawer_ecosystem_assistant"
-            android:layout_width="wrap_content"
-            android:layout_marginEnd="30dp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:gravity="center"
             android:background="?android:selectableItemBackgroundBorderless"
             android:clickable="true"
             android:focusable="true"
-            android:orientation="vertical">
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toStartOf="@+id/drawer_ecosystem_talk"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintWidth_max="80dp">
 
             <ImageView
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_margin="4dp"
                 android:background="@drawable/white_outline"
-                android:contentDescription="@string/ecosystem_apps_talk"
+                android:contentDescription="@string/ecosystem_apps_display_assistant"
                 android:padding="8dp"
                 android:src="@drawable/ic_assistant"
                 app:tint="@color/white" />
@@ -83,6 +88,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:ellipsize="end"
+                android:lines="1"
                 android:text="@string/ecosystem_apps_display_assistant"
                 android:textColor="@color/white"
                 android:textStyle="bold" />
@@ -91,12 +98,18 @@
 
         <LinearLayout
             android:id="@+id/drawer_ecosystem_talk"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:background="?android:selectableItemBackgroundBorderless"
             android:clickable="true"
             android:focusable="true"
-            android:orientation="vertical">
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toStartOf="@+id/drawer_ecosystem_notes"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/drawer_ecosystem_assistant"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintWidth_max="80dp">
 
             <ImageView
                 android:layout_width="40dp"
@@ -112,6 +125,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:ellipsize="end"
+                android:lines="1"
                 android:text="@string/ecosystem_apps_display_talk"
                 android:textColor="@color/white"
                 android:textStyle="bold" />
@@ -120,13 +135,18 @@
 
         <LinearLayout
             android:id="@+id/drawer_ecosystem_notes"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/standard_double_margin"
             android:background="?android:selectableItemBackgroundBorderless"
             android:clickable="true"
             android:focusable="true"
-            android:orientation="vertical">
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toStartOf="@+id/drawer_ecosystem_more"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/drawer_ecosystem_talk"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintWidth_max="80dp">
 
             <ImageView
                 android:layout_width="40dp"
@@ -142,6 +162,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:ellipsize="end"
+                android:lines="1"
                 android:text="@string/ecosystem_apps_display_notes"
                 android:textColor="@color/white"
                 android:textStyle="bold" />
@@ -150,12 +172,18 @@
 
         <LinearLayout
             android:id="@+id/drawer_ecosystem_more"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:background="?android:selectableItemBackgroundBorderless"
             android:clickable="true"
             android:focusable="true"
-            android:orientation="vertical">
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/drawer_ecosystem_notes"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintWidth_max="80dp">
 
             <ImageView
                 android:layout_width="40dp"
@@ -171,12 +199,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:ellipsize="end"
+                android:lines="1"
                 android:text="@string/ecosystem_apps_display_more"
                 android:textColor="@color/white"
                 android:textStyle="bold" />
 
         </LinearLayout>
 
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </LinearLayout>
