@@ -454,6 +454,7 @@
     <string name="first_run_3_text">Веб пошта лака за коришћење, календар и контакти</string>
     <string name="first_run_4_text">Дељење екрана, састанци на мрежи и веб конференције</string>
     <string name="folder_already_exists">Фасцикла већ постоји</string>
+    <string name="folder_best_viewed_in">Овај фолдер се најбоље приказује у %1$s.</string>
     <string name="folder_confirm_create">Направи</string>
     <string name="folder_list_empty_headline">Нема фасцикли овде</string>
     <string name="folder_name_empty">Назив фолдера не може да буде празно</string>
@@ -622,6 +623,7 @@
     <string name="oneHour">1 сат</string>
     <string name="online">На мрежи</string>
     <string name="online_status">Мрежни статус</string>
+    <string name="open_in_app">Отвори у %1$s</string>
     <string name="outdated_server">Сервер је превише стар. Ажурирајте га!</string>
     <string name="overflow_menu">Додатни мени</string>
     <string name="pass_code_configure_your_pass_code">Унесите кôд</string>
@@ -829,6 +831,7 @@
     <string name="share_remote_clarification">%1$s(удаљено)</string>
     <string name="share_room_clarification">%1$s (разговор)</string>
     <string name="share_search">Име, ИД здруженог облака или адреса е-поште…</string>
+    <string name="share_search_internal">Додај кориснике и тимове</string>
     <string name="share_send_new_email">Пошаљи нови и-мејл</string>
     <string name="share_send_note">Напомена примаоцу</string>
     <string name="share_settings">Поставке</string>

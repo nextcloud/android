@@ -454,6 +454,7 @@
     <string name="first_run_3_text">Snadno použitelný webový e-mailový klient, kalendář a kontakty</string>
     <string name="first_run_4_text">Sdílení obrazovky, online schůzky a webové konference</string>
     <string name="folder_already_exists">Složka už existuje</string>
+    <string name="folder_best_viewed_in">Tuto složku je nejlépe prohlížet si v %1$s.</string>
     <string name="folder_confirm_create">Vytvořit</string>
     <string name="folder_list_empty_headline">Nejsou zde žádné složky</string>
     <string name="folder_name_empty">Název složky je třeba vyplnit</string>
@@ -622,6 +623,7 @@
     <string name="oneHour">1 hodina</string>
     <string name="online">Online</string>
     <string name="online_status">Stav online</string>
+    <string name="open_in_app">Otevřít v %1$s</string>
     <string name="outdated_server">Verze aplikace na straně serveru už je příliš stará na to, aby šla nadále používat – přejděte na novější!</string>
     <string name="overflow_menu">Další nabídka</string>
     <string name="pass_code_configure_your_pass_code">Zadejte svůj bezpečnostní kód</string>
@@ -829,6 +831,7 @@
     <string name="share_remote_clarification">%1$s (vzdálený)</string>
     <string name="share_room_clarification">%1$s (konverzace)</string>
     <string name="share_search">Jméno, identifikátor v rámci federovaného cloudu, nebo e-mailová adresa…</string>
+    <string name="share_search_internal">Přidat uživatele a týmy</string>
     <string name="share_send_new_email">Odeslat nový e-mail</string>
     <string name="share_send_note">Poznámka pro příjemce</string>
     <string name="share_settings">Nastavení</string>
