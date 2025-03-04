@@ -31,7 +31,7 @@ plugins {
     id "org.jetbrains.kotlin.plugin.compose" version "2.1.10"
     id "com.diffplug.spotless" version "6.25.0"
     id "org.jetbrains.kotlin.kapt" version "2.1.10"
-    id 'com.google.devtools.ksp' version '2.1.10-1.0.30' apply false
+    id 'com.google.devtools.ksp' version '2.1.10-1.0.31' apply false
 }
 
 apply plugin: 'com.android.application'

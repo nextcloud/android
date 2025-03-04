@@ -147,6 +147,7 @@
     <string name="common_loading">Caricamento in corso…</string>
     <string name="common_next">Successivo</string>
     <string name="common_no">No</string>
+    <string name="common_now">Ora</string>
     <string name="common_ok">OK</string>
     <string name="common_pending">In corso</string>
     <string name="common_remove">Elimina</string>
@@ -295,6 +296,8 @@
     <string name="ecosystem_apps_more">Altre applicazioni di Nextcloud</string>
     <string name="email_pick_failed">Impossibile scegliere l\'indirizzo di posta.</string>
     <string name="encrypted">Imposta come cifrato</string>
+    <string name="end_to_end_encryption_certificate_unavailable">Impossibile ottenere il certificato del server</string>
+    <string name="end_to_end_encryption_certificate_verification_failed">Verifica della chiave pubblica fallita</string>
     <string name="end_to_end_encryption_confirm_button">Configura la cifratura</string>
     <string name="end_to_end_encryption_decrypting">Decifratura in corso…</string>
     <string name="end_to_end_encryption_dialog_close">Chiudi</string>
@@ -306,8 +309,11 @@
     <string name="end_to_end_encryption_passphrase_title">Annota la tua password di cifratura di 12 parole</string>
     <string name="end_to_end_encryption_password">Password…</string>
     <string name="end_to_end_encryption_retrieving_keys">Recupero delle chiavi in corso…</string>
+    <string name="end_to_end_encryption_server_private_key_unavailable">Impossibile ottenere la chiave privata</string>
+    <string name="end_to_end_encryption_server_public_key_unavailable">Impossibile ottenere la chiave pubblica</string>
     <string name="end_to_end_encryption_storing_keys">Archiviazione chiavi</string>
     <string name="end_to_end_encryption_title">Configura la cifratura</string>
+    <string name="end_to_end_encryption_unexpected_error_occurred">Errore insaspettato durante il download delle chiavi</string>
     <string name="end_to_end_encryption_unsuccessful">Impossibile salvare le chiavi, prova ancora.</string>
     <string name="end_to_end_encryption_wrong_password">Errore durante la decifratura. Password errata?</string>
     <string name="enter_destination_filename">Inserisci il nome file di destinazione</string>
@@ -725,6 +731,7 @@
     <string name="recommend_subject">Prova %1$s sul tuo dispositivo!</string>
     <string name="recommend_text">Vorrei invitarti a utilizzare %1$s sul tuo dispositivo.\nScaricalo qui:%2$s</string>
     <string name="recommend_urls">%1$s o %2$s</string>
+    <string name="recommended_files_title">File Consigliati</string>
     <string name="refresh_content">Ricarica il contenuto</string>
     <string name="reload">Ricarica</string>
     <string name="remote">(remota)</string>
