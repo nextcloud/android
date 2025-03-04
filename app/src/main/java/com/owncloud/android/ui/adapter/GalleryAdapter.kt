@@ -31,6 +31,7 @@ import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.GalleryItems
 import com.owncloud.android.datamodel.GalleryRow
 import com.owncloud.android.datamodel.OCFile
+import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.ui.activity.ComponentsGetter
 import com.owncloud.android.ui.fragment.GalleryFragment
 import com.owncloud.android.ui.fragment.GalleryFragmentBottomSheetDialog
@@ -40,6 +41,11 @@ import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.FileSortOrder
 import com.owncloud.android.utils.MimeTypeUtil
 import com.owncloud.android.utils.theme.ViewThemeUtils
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.cancel
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import me.zhanghai.android.fastscroll.PopupTextProvider
 import java.util.Calendar
 import java.util.Date
@@ -55,13 +61,14 @@ class GalleryAdapter(
     var columns: Int,
     private val defaultThumbnailSize: Int
 ) : SectionedRecyclerViewAdapter<SectionedViewHolder>(), CommonOCFileListAdapterInterface, PopupTextProvider {
+
+    private val tag = "GalleryAdapter"
     var files: List<GalleryItems> = mutableListOf()
     private val ocFileListDelegate: OCFileListDelegate
-    private var storageManager: FileDataStorageManager
+    private var storageManager: FileDataStorageManager = transferServiceGetter.storageManager
+    private val ioScope = CoroutineScope(Dispatchers.IO)
 
     init {
-        storageManager = transferServiceGetter.storageManager
-
         ocFileListDelegate = OCFileListDelegate(
             transferServiceGetter.fileUploaderHelper,
             context,
@@ -91,6 +98,7 @@ class GalleryAdapter(
             )
         } else {
             GalleryRowHolder(
+                ioScope,
                 GalleryRowBinding.inflate(LayoutInflater.from(parent.context), parent, false),
                 defaultThumbnailSize.toFloat(),
                 ocFileListDelegate,
@@ -156,15 +164,32 @@ class GalleryAdapter(
         mediaState: GalleryFragmentBottomSheetDialog.MediaState,
         photoFragment: GalleryFragment
     ) {
-        val items = storageManager.allGalleryItems
+        ioScope.launch {
+            val items = storageManager.allGalleryItems
 
-        val filteredList = items.filter { it != null && it.remotePath.startsWith(remotePath) }
+            val filteredList = items.filter { it != null && it.remotePath.startsWith(remotePath) }
 
-        setMediaFilter(
-            filteredList,
-            mediaState,
-            photoFragment
-        )
+            val shouldUpdateMediaList = shouldUpdateMediaList(filteredList)
+            if (!shouldUpdateMediaList) {
+                Log_OC.d(tag, "No need to refresh gallery, no new item")
+                return@launch
+            }
+
+            setMediaFilter(
+                filteredList,
+                mediaState,
+                photoFragment
+            )
+        }
+    }
+
+    private fun shouldUpdateMediaList(filteredList: List<OCFile>): Boolean {
+        if (files.isEmpty()) return true
+
+        val currentFileIds = files.flatMap { it.rows.flatMap { row -> row.files.map { file -> file.remoteId } } }.toSet()
+        val newFileIds = filteredList.map { it.remoteId }.toSet()
+
+        return currentFileIds != newFileIds
     }
 
     // Set Image/Video List According to Selection of Hide/Show Image/Video
@@ -174,26 +199,35 @@ class GalleryAdapter(
         mediaState: GalleryFragmentBottomSheetDialog.MediaState,
         photoFragment: GalleryFragment
     ) {
-        val finalSortedList: List<OCFile> = when (mediaState) {
-            GalleryFragmentBottomSheetDialog.MediaState.MEDIA_STATE_PHOTOS_ONLY -> {
-                items.filter { MimeTypeUtil.isImage(it.mimeType) }.distinct()
+        ioScope.launch {
+            Log_OC.d(tag, "setMediaFilter")
+
+            val finalSortedList: List<OCFile> = when (mediaState) {
+                GalleryFragmentBottomSheetDialog.MediaState.MEDIA_STATE_PHOTOS_ONLY -> {
+                    items.filter { MimeTypeUtil.isImage(it.mimeType) }.distinct()
+                }
+
+                GalleryFragmentBottomSheetDialog.MediaState.MEDIA_STATE_VIDEOS_ONLY -> {
+                    items.filter { MimeTypeUtil.isVideo(it.mimeType) }.distinct()
+                }
+
+                else -> items
             }
-            GalleryFragmentBottomSheetDialog.MediaState.MEDIA_STATE_VIDEOS_ONLY -> {
-                items.filter { MimeTypeUtil.isVideo(it.mimeType) }.distinct()
+
+            if (finalSortedList.isEmpty()) {
+                photoFragment.setEmptyListMessage(SearchType.GALLERY_SEARCH)
             }
-            else -> items
+
+            val newList = finalSortedList
+                .groupBy { firstOfMonth(it.modificationTimestamp) }
+                .map { GalleryItems(it.key, transformToRows(it.value)) }
+                .sortedBy { it.date }.reversed()
+
+            withContext(Dispatchers.Main) {
+                files = newList
+                notifyDataSetChanged()
+            }
         }
-
-        if (finalSortedList.isEmpty()) {
-            photoFragment.setEmptyListMessage(SearchType.GALLERY_SEARCH)
-        }
-
-        files = finalSortedList
-            .groupBy { firstOfMonth(it.modificationTimestamp) }
-            .map { GalleryItems(it.key, transformToRows(it.value)) }
-            .sortedBy { it.date }.reversed()
-
-        Handler(Looper.getMainLooper()).post { notifyDataSetChanged() }
     }
 
     private fun transformToRows(list: List<OCFile>): List<GalleryRow> {
@@ -316,5 +350,9 @@ class GalleryAdapter(
 
     fun changeColumn(newColumn: Int) {
         columns = newColumn
+    }
+
+    fun cancelJob() {
+        ioScope.cancel()
     }
 }
