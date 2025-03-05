@@ -9,7 +9,6 @@ package com.nextcloud.client.jobs.upload
 
 import android.app.PendingIntent
 import android.content.Context
-import android.provider.Settings
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.work.Worker
 import androidx.work.WorkerParameters
@@ -150,7 +149,6 @@ class FileUploadWorker(
             }
 
             if (canExitEarly()) {
-                Log_OC.d(TAG, "Airplane mode is enabled or no internet connection, stopping worker.")
                 notificationManager.showConnectionErrorNotification()
                 return Result.failure()
             }
@@ -173,18 +171,15 @@ class FileUploadWorker(
     private fun canExitEarly(): Boolean {
         val result = !connectivityService.isConnected ||
             connectivityService.isInternetWalled ||
-            isStopped ||
-            isAirplaneModeEnabled()
+            isStopped
 
-        if (!result) {
+        if (result) {
+            Log_OC.d(TAG, "No internet connection, stopping worker.")
+        } else {
             notificationManager.dismissErrorNotification()
         }
 
         return result
-    }
-
-    private fun isAirplaneModeEnabled(): Boolean {
-        return Settings.Global.getInt(context.contentResolver, Settings.Global.AIRPLANE_MODE_ON, 0) != 0
     }
 
     @Suppress("NestedBlockDepth")
@@ -193,7 +188,6 @@ class FileUploadWorker(
         setWorkerState(user.get(), uploadsPerPage)
 
         if (canExitEarly()) {
-            Log_OC.d(TAG, "Airplane mode is enabled or no internet connection, stopping worker.")
             notificationManager.showConnectionErrorNotification()
             return
         }
