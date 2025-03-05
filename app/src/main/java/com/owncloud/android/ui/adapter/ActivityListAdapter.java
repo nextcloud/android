@@ -16,9 +16,12 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Handler;
 import android.os.Looper;
 import android.text.Spannable;
+import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
 import android.text.TextPaint;
 import android.text.TextUtils;
@@ -35,9 +38,17 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.GenericRequestBuilder;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.model.StreamEncoder;
+import com.bumptech.glide.load.resource.file.FileToStreamDecoder;
+import com.caverock.androidsvg.SVG;
+import com.google.android.material.chip.ChipDrawable;
 import com.nextcloud.client.account.CurrentAccountProvider;
 import com.nextcloud.client.network.ClientFactory;
 import com.nextcloud.common.NextcloudClient;
+import com.nextcloud.utils.text.Spans;
 import com.nextcloud.utils.GlideHelper;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
@@ -57,10 +68,14 @@ import com.owncloud.android.utils.theme.ViewThemeUtils;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.Optional;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.XmlRes;
 import androidx.recyclerview.widget.RecyclerView;
+import third_parties.fresco.BetterImageSpan;
 
 /**
  * Adapter for the activity view.
@@ -150,6 +165,13 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 activityViewHolder.binding.subject.setMovementMethod(LinkMovementMethod.getInstance());
                 activityViewHolder.binding.subject.setText(addClickablePart(activity.getRichSubjectElement()),
                                                            TextView.BufferType.SPANNABLE);
+
+                activityViewHolder.binding.subject.setText(searchAndReplaceWithMentionSpan("actor",
+                                                                                           activity.getRichSubjectElement().getRichSubject(),
+                                                                                           "1",
+                                                                                           "label",
+                                                                                           R.xml.chip_others));
+                
                 activityViewHolder.binding.subject.setVisibility(View.VISIBLE);
             } else if (!TextUtils.isEmpty(activity.getSubject())) {
                 activityViewHolder.binding.subject.setVisibility(View.VISIBLE);
@@ -273,6 +295,85 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         }
 
         return imageView;
+    }
+
+    private void downloadIcon(Activity activity, ImageView itemViewType) {
+        GenericRequestBuilder<Uri, InputStream, SVG, Bitmap> requestBuilder = Glide.with(context)
+            .using(Glide.buildStreamModelLoader(Uri.class, context), InputStream.class)
+            .from(Uri.class)
+            .as(SVG.class)
+            .transcode(new SvgBitmapTranscoder(128, 128), Bitmap.class)
+            .sourceEncoder(new StreamEncoder())
+            .cacheDecoder(new FileToStreamDecoder<>(new SvgDecoder()))
+            .decoder(new SvgDecoder())
+            .placeholder(R.drawable.ic_activity)
+            .error(R.drawable.ic_activity)
+            .animate(android.R.anim.fade_in);
+
+        Uri uri = Uri.parse(activity.getIcon());
+        requestBuilder
+            .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+            .load(uri)
+            .into(itemViewType);
+    }
+
+    /**
+     * c&p from Talk: DisplayUtils:227
+     *
+     * @return Spannable
+     */
+    private Spannable searchAndReplaceWithMentionSpan(
+        String key,
+        String text,
+        String id,
+        String label,
+        @XmlRes int chipXmlRes) {
+        Spannable spannableString = new SpannableString(text);
+        String stringText = text.toString();
+        String keyWithBrackets = "{" + key + "}";
+        Matcher m = Pattern.compile(keyWithBrackets, Pattern.CASE_INSENSITIVE | Pattern.LITERAL | Pattern.MULTILINE)
+            .matcher(spannableString);
+        ClickableSpan clickableSpan = new ClickableSpan() {
+            @Override
+            public void onClick(@NonNull View view) {
+                //EventBus.getDefault().post(new UserMentionClickEvent(id));
+            }
+        };
+
+        int lastStartIndex = 0;
+        Spans.MentionChipSpan mentionChipSpan;
+
+        while (m.find()) {
+            int start = stringText.indexOf(m.group(), lastStartIndex);
+            int end = start + m.group().length();
+            lastStartIndex = end;
+            Drawable drawableForChip = getDrawableForMentionChipSpan(
+                chipXmlRes
+                                                                    );
+            mentionChipSpan = new Spans.MentionChipSpan(
+                drawableForChip,
+                BetterImageSpan.ALIGN_CENTER,
+                id,
+                label
+            );
+            spannableString.setSpan(mentionChipSpan, start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+//            if (chipXmlRes == R.xml.chip_you) {
+//                spannableString.setSpan(
+//                    viewThemeUtils.talk.themeForegroundColorSpan(context),
+//                    start,
+//                    end,
+//                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+//                                       );
+//            }
+//            if ("user" == type && conversationUser.userId != id && !isFederated) {
+//                spannableString.setSpan(clickableSpan, start, end, Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
+//            }
+        }
+        return spannableString;
+    }
+
+    private Drawable getDrawableForMentionChipSpan(int chipResource) {
+        return ChipDrawable.createFromResource(context, chipResource);
     }
 
     private SpannableStringBuilder addClickablePart(RichElement richElement) {

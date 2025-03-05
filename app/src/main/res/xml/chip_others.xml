@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Nextcloud Talk - Android Client
+  ~
+  ~ SPDX-FileCopyrightText: 2017-2018 Mario Danic <mario@lovelyhq.com>
+  ~ SPDX-License-Identifier: GPL-3.0-or-later
+-->
+<chip xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:textAppearance="@style/ChipIncomingTextAppearance"
+    app:chipBackgroundColor="#deffffff"
+    app:chipCornerRadius="@dimen/standard_padding"
+    app:chipStrokeWidth="@dimen/zero"
+    app:closeIconEnabled="false" />
