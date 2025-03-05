@@ -1826,6 +1826,11 @@ public class FileDisplayActivity extends FileActivity
             OCFileListFragment fileListFragment =
                 (ActivityExtensionsKt.lastFragment(this) instanceof OCFileListFragment fragment) ? fragment : getListOfFilesFragment();
 
+            if (fileListFragment instanceof GalleryFragment) {
+                startPhotoSearch(R.id.nav_gallery);
+                return;
+            }
+
             if (fileListFragment != null) {
                 fileListFragment.fetchRecommendedFiles();
             }
