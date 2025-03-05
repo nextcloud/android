@@ -290,14 +290,14 @@ class SyncedFolderAdapter(
                 }
             }
 
-            setupWarningButton(holder, section)
+            initSubFolderWarningButton(holder, section)
         }
     }
 
-    private fun setupWarningButton(holder: HeaderViewHolder, section: Int) {
+    private fun initSubFolderWarningButton(holder: HeaderViewHolder, section: Int) {
         val subFoldersThatHasEnabledParent = filteredSyncFolderItems.filterEnabledSubfoldersWithEnabledParent()
         val hasEnabledParent = subFoldersThatHasEnabledParent.contains(filteredSyncFolderItems[section])
-        holder.binding.warningButton.run {
+        holder.binding.subFolderWarningButton.run {
             setVisibleIf(hasEnabledParent)
             if (isVisible) {
                 viewThemeUtils.platform.themeImageButton(this)
