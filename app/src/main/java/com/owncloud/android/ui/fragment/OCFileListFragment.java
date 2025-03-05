@@ -437,7 +437,9 @@ public class OCFileListFragment extends ExtendedListFragment implements
     public void fetchRecommendedFiles() {
         OCFile folder = getCurrentFile();
 
-        if (getCapabilities().getRecommendations().isFalse() || !folder.isRootDirectory()) {
+        if (mAdapter == null ||
+            getCapabilities().getRecommendations().isFalse() ||
+            (folder != null && !folder.isRootDirectory())) {
             return;
         }
 
