@@ -123,25 +123,25 @@ class AutoRenameTests : AbstractOnServerIT() {
 
     @Test
     fun testMiddleInvalidFolderChar() {
-        val folderPath = "abc/def/kg$forbiddenFilenameCharacter/lmo/pp"
-        val result = AutoRename.rename(folderPath, capability, true)
-        val expectedFolderName = "abc/def/kg_/lmo/pp"
+        val folderPath = "abc/def/kg$forbiddenFilenameCharacter/lmo/pp/"
+        val result = AutoRename.rename(folderPath, capability)
+        val expectedFolderName = "abc/def/kg_/lmo/pp/"
         assert(result == expectedFolderName) { "Expected $expectedFolderName but got $result" }
     }
 
     @Test
     fun testEndInvalidFolderChar() {
-        val folderPath = "abc/def/kg/lmo/pp$forbiddenFilenameCharacter"
-        val result = AutoRename.rename(folderPath, capability, true)
-        val expectedFolderName = "abc/def/kg/lmo/pp_"
+        val folderPath = "abc/def/kg/lmo/pp$forbiddenFilenameCharacter/"
+        val result = AutoRename.rename(folderPath, capability)
+        val expectedFolderName = "abc/def/kg/lmo/pp_/"
         assert(result == expectedFolderName) { "Expected $expectedFolderName but got $result" }
     }
 
     @Test
     fun testStartInvalidFolderChar() {
-        val folderPath = "${forbiddenFilenameCharacter}abc/def/kg/lmo/pp"
-        val result = AutoRename.rename(folderPath, capability, true)
-        val expectedFolderName = "_abc/def/kg/lmo/pp"
+        val folderPath = "${forbiddenFilenameCharacter}abc/def/kg/lmo/pp/"
+        val result = AutoRename.rename(folderPath, capability)
+        val expectedFolderName = "_abc/def/kg/lmo/pp/"
         assert(result == expectedFolderName) { "Expected $expectedFolderName but got $result" }
     }
 
@@ -156,16 +156,16 @@ class AutoRenameTests : AbstractOnServerIT() {
     @Test
     fun testStartsWithPathSeparator() {
         val folderPath = "/abc/def/kg/lmo/pp$forbiddenFilenameCharacter/file.txt/"
-        val result = AutoRename.rename(folderPath, capability, true)
+        val result = AutoRename.rename(folderPath, capability)
         val expectedFolderName = "/abc/def/kg/lmo/pp_/file.txt/"
         assert(result == expectedFolderName) { "Expected $expectedFolderName but got $result" }
     }
 
     @Test
     fun testStartsWithPathSeparatorAndValidFilepath() {
-        val folderPath = "/COm02/2569.webp"
-        val result = AutoRename.rename(folderPath, capability, true)
-        val expectedFolderName = "/COm02/2569.webp"
+        val folderPath = "/COm02/2569.webp/"
+        val result = AutoRename.rename(folderPath, capability)
+        val expectedFolderName = "/COm02/2569.webp/"
         assert(result == expectedFolderName) { "Expected $expectedFolderName but got $result" }
     }
 
@@ -179,8 +179,8 @@ class AutoRenameTests : AbstractOnServerIT() {
 
     @Test
     fun testRenameExtensionForFolder() {
-        val filename = "/Pictures/@User/SubDir/08.16.07 Ka Yel"
-        val result = AutoRename.rename(filename, capability, true)
+        val filename = "/Pictures/@User/SubDir/08.16.07 Ka Yel/"
+        val result = AutoRename.rename(filename, capability)
         assert(result == filename) { "Expected $filename but got $result" }
     }
 
