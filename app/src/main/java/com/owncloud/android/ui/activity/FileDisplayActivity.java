@@ -1167,24 +1167,27 @@ public class FileDisplayActivity extends FileActivity
 
     private void resetSearchAction() {
         Fragment leftFragment = getLeftFragment();
-        if (isSearchOpen() && searchView != null) {
-            searchView.setQuery("", true);
-            searchView.onActionViewCollapsed();
-            searchView.clearFocus();
+        if (!isSearchOpen() || searchView == null) {
+            return;
+        }
 
-            if (isRoot(getCurrentDir()) && leftFragment instanceof OCFileListFragment listOfFiles) {
+        searchView.setQuery("", true);
+        searchView.onActionViewCollapsed();
+        searchView.clearFocus();
 
-                // Remove the list to the original state
-                ArrayList<String> listOfHiddenFiles = listOfFiles.getAdapter().listOfHiddenFiles;
-                listOfFiles.performSearch("", listOfHiddenFiles, true);
+        if (isRoot(getCurrentDir()) && leftFragment instanceof OCFileListFragment listOfFiles) {
 
-                hideSearchView(getCurrentDir());
-                setDrawerIndicatorEnabled(isDrawerIndicatorAvailable());
-            }
-            if (leftFragment instanceof UnifiedSearchFragment) {
-                showSortListGroup(false);
-                super.onBackPressed();
-            }
+            // Remove the list to the original state
+            ArrayList<String> listOfHiddenFiles = listOfFiles.getAdapter().listOfHiddenFiles;
+            listOfFiles.performSearch("", listOfHiddenFiles, true);
+
+            hideSearchView(getCurrentDir());
+            setDrawerIndicatorEnabled(isDrawerIndicatorAvailable());
+        }
+
+        if (leftFragment instanceof UnifiedSearchFragment) {
+            showSortListGroup(false);
+            super.onBackPressed();
         }
     }
 
@@ -1806,18 +1809,18 @@ public class FileDisplayActivity extends FileActivity
     public void onRemoteOperationFinish(RemoteOperation operation, RemoteOperationResult result) {
         super.onRemoteOperationFinish(operation, result);
 
-        if (operation instanceof RemoveFileOperation) {
-            onRemoveFileOperationFinish((RemoveFileOperation) operation, result);
-        } else if (operation instanceof RenameFileOperation) {
-            onRenameFileOperationFinish((RenameFileOperation) operation, result);
-        } else if (operation instanceof SynchronizeFileOperation) {
-            onSynchronizeFileOperationFinish((SynchronizeFileOperation) operation, result);
-        } else if (operation instanceof CreateFolderOperation) {
-            onCreateFolderOperationFinish((CreateFolderOperation) operation, result);
-        } else if (operation instanceof MoveFileOperation) {
-            onMoveFileOperationFinish((MoveFileOperation) operation, result);
-        } else if (operation instanceof CopyFileOperation) {
-            onCopyFileOperationFinish((CopyFileOperation) operation, result);
+        if (operation instanceof RemoveFileOperation removeFileOperation) {
+            onRemoveFileOperationFinish(removeFileOperation, result);
+        } else if (operation instanceof RenameFileOperation renameFileOperation) {
+            onRenameFileOperationFinish(renameFileOperation, result);
+        } else if (operation instanceof SynchronizeFileOperation synchronizeFileOperation) {
+            onSynchronizeFileOperationFinish(synchronizeFileOperation, result);
+        } else if (operation instanceof CreateFolderOperation createFolderOperation) {
+            onCreateFolderOperationFinish(createFolderOperation, result);
+        } else if (operation instanceof MoveFileOperation moveFileOperation) {
+            onMoveFileOperationFinish(moveFileOperation, result);
+        } else if (operation instanceof CopyFileOperation copyFileOperation) {
+            onCopyFileOperationFinish(copyFileOperation, result);
         } else if (operation instanceof RestoreFileVersionRemoteOperation) {
             onRestoreFileVersionOperationFinish(result);
         }
@@ -1985,12 +1988,12 @@ public class FileDisplayActivity extends FileActivity
             final User currentUser = optionalUser.get();
             Fragment leftFragment = getLeftFragment();
             if (leftFragment instanceof FileFragment fileFragment) {
-                if (fileFragment instanceof FileDetailFragment && renamedFile.equals(fileFragment.getFile())) {
-                    ((FileDetailFragment) fileFragment).updateFileDetails(renamedFile, currentUser);
+                if (fileFragment instanceof FileDetailFragment fileDetailFragment && renamedFile.equals(fileFragment.getFile())) {
+                    fileDetailFragment.updateFileDetails(renamedFile, currentUser);
                     showDetails(renamedFile);
 
-                } else if (fileFragment instanceof PreviewMediaFragment && renamedFile.equals(fileFragment.getFile())) {
-                    ((PreviewMediaFragment) fileFragment).updateFile(renamedFile);
+                } else if (fileFragment instanceof PreviewMediaFragment previewMediaFragment && renamedFile.equals(fileFragment.getFile())) {
+                    previewMediaFragment.updateFile(renamedFile);
                     if (PreviewMediaFragment.canBePreviewed(renamedFile)) {
                         long position = ((PreviewMediaFragment) fileFragment).getPosition();
                         startMediaPreview(renamedFile, position, true, true, true, false);
