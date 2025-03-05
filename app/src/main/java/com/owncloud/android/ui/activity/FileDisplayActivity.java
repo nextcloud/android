@@ -2703,7 +2703,10 @@ public class FileDisplayActivity extends FileActivity
             listOfFiles.listDirectory(getCurrentDir(), temp, MainApp.isOnlyOnDevice(), false);
             updateActionBarTitleAndHomeButton(null);
         } else {
-            DisplayUtils.showSnackMessage(listOfFiles.getView(), message);
+            final var view = listOfFiles.getView();
+            if (view != null) {
+                DisplayUtils.showSnackMessage(view, message);
+            }
         }
 
         if (selectedFile != null) {
