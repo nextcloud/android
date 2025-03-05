@@ -44,7 +44,7 @@ import java.util.concurrent.Executors
 /**
  * Adapter to display all auto-synced folders and/or instant upload media folders.
  */
-@Suppress("LongParameterList")
+@Suppress("LongParameterList", "TooManyFunctions")
 class SyncedFolderAdapter(
     private val context: Context,
     private val clock: Clock,
@@ -302,7 +302,8 @@ class SyncedFolderAdapter(
             if (isVisible) {
                 viewThemeUtils.platform.themeImageButton(this)
                 setOnClickListener {
-                    DisplayUtils.showSnackMessage(holder.itemView, context.getString(R.string.auto_upload_sub_folder_warning))
+                    val message = context.getString(R.string.auto_upload_sub_folder_warning)
+                    DisplayUtils.showSnackMessage(holder.itemView, message)
                 }
             }
         }
