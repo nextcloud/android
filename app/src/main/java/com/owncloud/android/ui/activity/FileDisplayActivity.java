@@ -1821,19 +1821,23 @@ public class FileDisplayActivity extends FileActivity
         } else if (operation instanceof RestoreFileVersionRemoteOperation) {
             onRestoreFileVersionOperationFinish(result);
         }
+    }
 
-        if (operation instanceof RemoveFileOperation || operation instanceof RenameFileOperation) {
-            OCFileListFragment fileListFragment =
-                (ActivityExtensionsKt.lastFragment(this) instanceof OCFileListFragment fragment) ? fragment : getListOfFilesFragment();
+    private OCFileListFragment getFileListFragment() {
+        return (ActivityExtensionsKt.lastFragment(this) instanceof OCFileListFragment fragment) ? fragment : getListOfFilesFragment();
+    }
 
-            if (fileListFragment instanceof GalleryFragment) {
-                startPhotoSearch(R.id.nav_gallery);
-                return;
-            }
+    private void refreshGalleryFragmentIfNeeded() {
+        final var fileListFragment = getFileListFragment();
+        if (fileListFragment instanceof GalleryFragment) {
+            startPhotoSearch(R.id.nav_gallery);
+        }
+    }
 
-            if (fileListFragment != null) {
-                fileListFragment.fetchRecommendedFiles();
-            }
+    private void fetchRecommendedFilesIfNeeded() {
+        final var fileListFragment = getFileListFragment();
+        if (fileListFragment != null && !(fileListFragment instanceof GalleryFragment)) {
+            fileListFragment.fetchRecommendedFiles();
         }
     }
 
@@ -1884,6 +1888,8 @@ public class FileDisplayActivity extends FileActivity
                 galleryFragment.onRefresh();
             }
             supportInvalidateOptionsMenu();
+            refreshGalleryFragmentIfNeeded();
+            fetchRecommendedFilesIfNeeded();
         } else {
             if (result.isSslRecoverableException()) {
                 mLastSslUntrustedServerResult = result;
@@ -1955,6 +1961,7 @@ public class FileDisplayActivity extends FileActivity
     private void onCopyFileOperationFinish(CopyFileOperation operation, RemoteOperationResult result) {
         if (result.isSuccess()) {
             updateListOfFilesFragment(false);
+            refreshGalleryFragmentIfNeeded();
         } else {
             try {
                 DisplayUtils.showSnackMessage(this, ErrorMessageAdapter.getErrorCauseMessage(result, operation, getResources()));
@@ -2004,7 +2011,8 @@ public class FileDisplayActivity extends FileActivity
             if (file != null && file.equals(getCurrentDir())) {
                 updateListOfFilesFragment(false);
             }
-
+            refreshGalleryFragmentIfNeeded();
+            fetchRecommendedFilesIfNeeded();
         } else {
             DisplayUtils.showSnackMessage(this, ErrorMessageAdapter.getErrorCauseMessage(result, operation, getResources()));
 
