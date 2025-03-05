@@ -61,6 +61,7 @@ import com.nextcloud.utils.EditorUtils;
 import com.nextcloud.utils.ShortcutUtil;
 import com.nextcloud.utils.extensions.BundleExtensionsKt;
 import com.nextcloud.utils.extensions.FileExtensionsKt;
+import com.nextcloud.utils.extensions.FragmentExtensionsKt;
 import com.nextcloud.utils.extensions.IntentExtensionsKt;
 import com.nextcloud.utils.fileNameValidator.FileNameValidator;
 import com.nextcloud.utils.view.FastScrollUtils;
@@ -696,10 +697,13 @@ public class OCFileListFragment extends ExtendedListFragment implements
                 toHide.add(R.id.action_download_file);
             }
 
-            final FragmentManager childFragmentManager = getChildFragmentManager();
-            FileActionsBottomSheet.newInstance(filesCount, checkedFiles, isOverflow, toHide)
-                .setResultListener(childFragmentManager, this, (id) -> onFileActionChosen(id, checkedFiles))
-                .show(childFragmentManager, "actions");
+            final var childFragmentManager = getChildFragmentManager();
+            final var actionBottomSheet = FileActionsBottomSheet.newInstance(filesCount, checkedFiles, isOverflow, toHide)
+                .setResultListener(childFragmentManager, this, (id) -> onFileActionChosen(id, checkedFiles));
+
+            if (FragmentExtensionsKt.isDialogFragmentReady(this)) {
+                actionBottomSheet.show(childFragmentManager, "actions");
+            }
         });
     }
 
