@@ -17,7 +17,7 @@ import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
 
 class RecommendedFilesAdapter(
-    private val recommendations: Set<Recommendation>,
+    private val recommendations: ArrayList<Recommendation>,
     private val delegate: OCFileListDelegate,
     private val onItemClickListener: OnItemClickListener,
     private val storageManager: FileDataStorageManager
