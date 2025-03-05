@@ -54,7 +54,7 @@
         android:layout_alignParentEnd="true">
 
         <ImageButton
-            android:id="@+id/warningButton"
+            android:id="@+id/subFolderWarningButton"
             android:visibility="gone"
             tools:visibility="visible"
             android:layout_width="wrap_content"
