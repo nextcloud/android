@@ -16,11 +16,14 @@ import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.PopupMenu
 import androidx.annotation.VisibleForTesting
+import androidx.core.view.isVisible
 import com.afollestad.sectionedrecyclerview.SectionedRecyclerViewAdapter
 import com.afollestad.sectionedrecyclerview.SectionedViewHolder
 import com.nextcloud.android.common.ui.theme.utils.ColorRole
 import com.nextcloud.client.core.Clock
 import com.nextcloud.utils.extensions.filterEnabledOrWithoutParentInEnabledSet
+import com.nextcloud.utils.extensions.filterEnabledSubfoldersWithEnabledParent
+import com.nextcloud.utils.extensions.setVisibleIf
 import com.owncloud.android.R
 import com.owncloud.android.databinding.GridSyncItemBinding
 import com.owncloud.android.databinding.SyncedFoldersEmptyBinding
@@ -31,6 +34,7 @@ import com.owncloud.android.datamodel.SyncedFolderDisplayItem
 import com.owncloud.android.datamodel.ThumbnailsCacheManager
 import com.owncloud.android.datamodel.ThumbnailsCacheManager.AsyncMediaThumbnailDrawable
 import com.owncloud.android.datamodel.ThumbnailsCacheManager.MediaThumbnailGenerationTask
+import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import java.io.File
 import java.util.Locale
@@ -283,6 +287,22 @@ class SyncedFolderAdapter(
                         filteredSyncFolderItems[section],
                         v
                     )
+                }
+            }
+
+            setupWarningButton(holder, section)
+        }
+    }
+
+    private fun setupWarningButton(holder: HeaderViewHolder, section: Int) {
+        val subFoldersThatHasEnabledParent = filteredSyncFolderItems.filterEnabledSubfoldersWithEnabledParent()
+        val hasEnabledParent = subFoldersThatHasEnabledParent.contains(filteredSyncFolderItems[section])
+        holder.binding.warningButton.run {
+            setVisibleIf(hasEnabledParent)
+            if (isVisible) {
+                viewThemeUtils.platform.themeImageButton(this)
+                setOnClickListener {
+                    DisplayUtils.showSnackMessage(holder.itemView, context.getString(R.string.auto_upload_sub_folder_warning))
                 }
             }
         }
