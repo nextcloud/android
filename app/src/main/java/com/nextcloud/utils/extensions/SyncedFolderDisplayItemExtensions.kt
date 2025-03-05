@@ -58,7 +58,7 @@ fun List<SyncedFolderDisplayItem>.filterEnabledOrWithoutParentInEnabledSet(): Li
  * @receiver List of [SyncedFolder] representing synced folders.
  * @return A filtered list containing only enabled subfolders of an already enabled parent.
  */
-fun List<SyncedFolder>.filterEnabledSubfoldersWithEnabledParent(): List<SyncedFolder> {
+fun List<SyncedFolderDisplayItem>.filterEnabledSubfoldersWithEnabledParent(): List<SyncedFolderDisplayItem> {
     val enabledFolders = filter { it.isEnabled }.map { it.localPath }.toSet()
 
     return filter { folder ->
@@ -70,8 +70,9 @@ fun List<SyncedFolder>.filterEnabledSubfoldersWithEnabledParent(): List<SyncedFo
 }
 
 fun List<SyncedFolder>.isGivenLocalPathHasEnabledParent(localPath: String): Boolean {
+    val localFile = File(localPath)
+
     return find { folder ->
-        val localFile = File(localPath)
         val file = File(folder.localPath)
         folder.isEnabled && localFile.exists() && file.exists() && localFile.parentFile == file
     } != null
