@@ -404,7 +404,4 @@ public interface AppPreferences {
 
     int getPassCodeDelay();
     void setPassCodeDelay(int value);
-
-    boolean hasAutoUploadCleanupRunForSubfolders();
-    void setHasAutoUploadCleanupRunForSubfolders(boolean value);
 }

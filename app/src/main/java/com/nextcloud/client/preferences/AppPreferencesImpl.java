@@ -113,7 +113,6 @@ public final class AppPreferencesImpl implements AppPreferences {
     private static final String PREF__AUTO_UPLOAD_GPLAY_NOTIFICATION_SHOWN = "auto_upload_gplay_notification_shown";
 
     private static final String PREF__PASSCODE_DELAY_IN_SECONDS = "passcode_delay_in_seconds";
-    private static final String PREF_AUTO_UPLOAD_CLEANUP_SUBFOLDERS = "auto_upload_cleanup_sub_folders";
 
     private static final String LOG_ENTRY = "log_entry";
 
@@ -866,15 +865,5 @@ public final class AppPreferencesImpl implements AppPreferences {
     @Override
     public void setPassCodeDelay(int value) {
         preferences.edit().putInt(PREF__PASSCODE_DELAY_IN_SECONDS, value).apply();
-    }
-
-    @Override
-    public boolean hasAutoUploadCleanupRunForSubfolders() {
-        return preferences.getBoolean(PREF_AUTO_UPLOAD_CLEANUP_SUBFOLDERS, false);
-    }
-
-    @Override
-    public void setHasAutoUploadCleanupRunForSubfolders(boolean value) {
-        preferences.edit().putBoolean(PREF_AUTO_UPLOAD_CLEANUP_SUBFOLDERS, value).apply();
     }
 }

@@ -54,6 +54,19 @@
         android:layout_alignParentEnd="true">
 
         <ImageButton
+            android:id="@+id/warningButton"
+            android:visibility="gone"
+            tools:visibility="visible"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@color/transparent"
+            android:clickable="true"
+            android:contentDescription="@string/sync_warning_button"
+            android:focusable="true"
+            android:padding="@dimen/standard_half_padding"
+            android:src="@drawable/ic_info" />
+
+        <ImageButton
             android:id="@+id/syncStatusButton"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
