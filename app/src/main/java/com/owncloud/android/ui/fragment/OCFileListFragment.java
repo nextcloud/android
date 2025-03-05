@@ -90,6 +90,7 @@ import com.owncloud.android.ui.activity.FolderPickerActivity;
 import com.owncloud.android.ui.activity.OnEnforceableRefreshListener;
 import com.owncloud.android.ui.activity.UploadFilesActivity;
 import com.owncloud.android.ui.adapter.CommonOCFileListAdapterInterface;
+import com.owncloud.android.ui.adapter.GalleryAdapter;
 import com.owncloud.android.ui.adapter.OCFileListAdapter;
 import com.owncloud.android.ui.dialog.ChooseRichDocumentsTemplateDialogFragment;
 import com.owncloud.android.ui.dialog.ChooseTemplateDialogFragment;
@@ -1845,7 +1846,11 @@ public class OCFileListFragment extends ExtendedListFragment implements
             if (remoteOperationResult.isSuccess()) {
                 boolean removeFromList = currentSearchType == FAVORITE_SEARCH && !event.getShouldFavorite();
                 setEmptyListMessage(FAVORITE_SEARCH);
-                mAdapter.setFavoriteAttributeForItemID(event.getRemotePath(), event.getShouldFavorite(), removeFromList);
+                if (this instanceof GalleryFragment galleryFragment) {
+                    galleryFragment.markAsFavorite(event.getRemotePath(), event.getShouldFavorite());
+                } else {
+                    mAdapter.setFavoriteAttributeForItemID(event.getRemotePath(), event.getShouldFavorite(), removeFromList);
+                }
             }
 
         } catch (ClientFactory.CreationException e) {

@@ -427,4 +427,8 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
     protected void setGridViewColumns(float scaleFactor) {
         // do nothing
     }
+
+    public void markAsFavorite(String remotePath, boolean favorite) {
+        mAdapter.markAsFavorite(remotePath, favorite);
+    }
 }
