@@ -473,4 +473,8 @@
         <item name="postSplashScreenTheme">@style/Theme.ownCloud.Launcher</item>
     </style>
 
+    <style name="ChipIncomingTextAppearance" parent="TextAppearance.MaterialComponents.Chip">
+        <item name="android:textColor">#de000000</item>
+    </style>
+
 </resources>

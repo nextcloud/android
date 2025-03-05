@@ -32,17 +32,29 @@
         android:layout_toEndOf="@id/icon"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/subject"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:ellipsize="end"
-            android:paddingStart="@dimen/activity_icon_layout_right_end_margin"
-            android:paddingTop="@dimen/standard_padding"
-            android:paddingEnd="@dimen/zero"
-            android:textAppearance="?android:attr/textAppearanceListItem"
-            android:textSize="@dimen/two_line_primary_text_size"
-            tools:text="@string/placeholder_filename" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="username" />
+
+            <TextView
+                android:id="@+id/subject"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:ellipsize="end"
+                android:paddingStart="@dimen/activity_icon_layout_right_end_margin"
+                android:paddingTop="@dimen/standard_padding"
+                android:paddingEnd="@dimen/zero"
+                android:textAppearance="?android:attr/textAppearanceListItem"
+                android:textSize="@dimen/two_line_primary_text_size"
+                tools:text="@string/placeholder_filename" />
+        </LinearLayout>
 
         <TextView
             android:id="@+id/message"
