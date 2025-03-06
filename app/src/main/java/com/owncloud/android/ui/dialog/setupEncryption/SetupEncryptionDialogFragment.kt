@@ -402,7 +402,7 @@ class SetupEncryptionDialogFragment : DialogFragment(), Injectable {
                     binding.encryptionStatus.setText(R.string.common_error)
                 }
             } else if (privateKey.isNotEmpty()) {
-                binding.encryptionStatus.setText(R.string.end_to_end_encryption_enter_password)
+                binding.encryptionStatus.setText(R.string.end_to_end_encryption_enter_passphrase_to_access_files)
                 binding.encryptionPasswordInputContainer.visibility = View.VISIBLE
                 positiveButton?.visibility = View.VISIBLE
             } else {
