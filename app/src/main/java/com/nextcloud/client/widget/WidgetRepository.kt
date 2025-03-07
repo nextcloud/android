@@ -23,7 +23,7 @@ class WidgetRepository @Inject constructor(
 ) {
     fun saveWidget(widgetId: Int, widget: DashboardWidget, user: User) {
         preferences
-            .edit() {
+            .edit {
                 putString(PREF__WIDGET_ID + widgetId, widget.id)
                     .putString(PREF__WIDGET_TITLE + widgetId, widget.title)
                     .putString(PREF__WIDGET_ICON + widgetId, widget.iconUrl)
@@ -51,7 +51,7 @@ class WidgetRepository @Inject constructor(
 
     fun deleteWidget(widgetId: Int) {
         preferences
-            .edit() {
+            .edit {
                 remove(PREF__WIDGET_ID + widgetId)
                     .remove(PREF__WIDGET_TITLE + widgetId)
                     .remove(PREF__WIDGET_ICON + widgetId)
