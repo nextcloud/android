@@ -274,6 +274,7 @@ class SyncedFoldersActivity :
         if (adapter.itemCount > 0 && !force) {
             return
         }
+
         showLoadingContent()
         lifecycleScope.launch(Dispatchers.IO) {
             val mediaFolders = MediaProvider.getImageFolders(
@@ -292,19 +293,23 @@ class SyncedFoldersActivity :
                     viewThemeUtils
                 )
             )
+
             val syncedFolderArrayList = syncedFolderProvider.syncedFolders
             val currentAccountSyncedFoldersList: MutableList<SyncedFolder> = ArrayList()
             val user = userAccountManager.user
             for (syncedFolder in syncedFolderArrayList) {
                 if (syncedFolder.account == user.accountName) {
+                    val folder = File(syncedFolder.localPath)
+
                     // delete non-existing & disabled synced folders
-                    if (!File(syncedFolder.localPath).exists() && !syncedFolder.isEnabled) {
+                    if (!folder.exists() && !syncedFolder.isEnabled) {
                         syncedFolderProvider.deleteSyncedFolder(syncedFolder.id)
                     } else {
                         currentAccountSyncedFoldersList.add(syncedFolder)
                     }
                 }
             }
+
             val syncFolderItems = sortSyncedFolderItems(
                 mergeFolderData(currentAccountSyncedFoldersList, mediaFolders)
             ).filterNotNull()
