@@ -4,6 +4,7 @@
 # SPDX-FileCopyrightText: 2023-2024 Andy Scherzinger <info@andy-scherzinger.de>
 # SPDX-FileCopyrightText: 2022 Tobias Kaminsky <tobias@kaminsky.me>
 # SPDX-FileCopyrightText: 2022 Álvaro Brey <alvaro@alvarobrey.com>
+# SPDX-FileCopyrightText: 2025 Marcel Hibbe <dev@mhibbe.de>
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 name: "CodeQL"
@@ -22,7 +23,7 @@ permissions:
 jobs:
   analyze:
     name: Analyze
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-latest
     permissions:
       actions: read
       contents: read
@@ -35,6 +36,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
       - name: Set Swap Space
+        if: runner.environment == 'github-hosted'
         uses: pierotofy/set-swap-space@49819abfb41bd9b44fb781159c033dba90353a7c # v1.0
         with:
           swap-size-gb: 10
