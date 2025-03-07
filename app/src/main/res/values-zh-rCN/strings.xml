@@ -242,7 +242,7 @@
     <string name="disable_new_media_folder_detection_notifications">禁用</string>
     <string name="dismiss">忽略</string>
     <string name="dismiss_notification_description">忽略通知</string>
-    <string name="displays_mnemonic">显示您的12字密语</string>
+    <string name="displays_mnemonic">显示您的 12 个单词的密码短语</string>
     <string name="dnd">请勿打扰</string>
     <string name="document_scan_export_dialog_images">多选图片</string>
     <string name="document_scan_export_dialog_pdf">PDF 文件</string>
@@ -305,6 +305,7 @@
     <string name="end_to_end_encryption_confirm_button">设置加密</string>
     <string name="end_to_end_encryption_decrypting">正在解密…</string>
     <string name="end_to_end_encryption_dialog_close">关闭</string>
+    <string name="end_to_end_encryption_enter_passphrase_to_access_files">输入密码短语以访问您的文件</string>
     <string name="end_to_end_encryption_enter_password">请输入密码解锁私有密钥</string>
     <string name="end_to_end_encryption_folder_not_empty">此文件夹不是空的。</string>
     <string name="end_to_end_encryption_generating_keys">正在生成密钥…</string>

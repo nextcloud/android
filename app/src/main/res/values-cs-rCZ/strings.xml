@@ -305,6 +305,7 @@
     <string name="end_to_end_encryption_confirm_button">Nastavit šifrování</string>
     <string name="end_to_end_encryption_decrypting">Rozšifrovávání…</string>
     <string name="end_to_end_encryption_dialog_close">Zavřít</string>
+    <string name="end_to_end_encryption_enter_passphrase_to_access_files">Pro přístup k souborům zadejte svou heslovou frázi</string>
     <string name="end_to_end_encryption_enter_password">Zadejte heslo pro rozšifrování soukromého klíče.</string>
     <string name="end_to_end_encryption_folder_not_empty">Tato složka není prázdná.</string>
     <string name="end_to_end_encryption_generating_keys">Vytváření nových klíčů…</string>

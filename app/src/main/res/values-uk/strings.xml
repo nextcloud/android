@@ -305,6 +305,7 @@
     <string name="end_to_end_encryption_confirm_button">Налаштування шифрування</string>
     <string name="end_to_end_encryption_decrypting">Розшифровування...</string>
     <string name="end_to_end_encryption_dialog_close">Закрити</string>
+    <string name="end_to_end_encryption_enter_passphrase_to_access_files">Введіть пароль для доступу до ваших файлів</string>
     <string name="end_to_end_encryption_enter_password">Будь ласка, зазначте пароль, щоби розшифрувати приватний ключ.</string>
     <string name="end_to_end_encryption_folder_not_empty">Цей каталог не є порожнім</string>
     <string name="end_to_end_encryption_generating_keys">Створення нових ключів...</string>
@@ -621,6 +622,7 @@
     <string name="oneHour">1 година</string>
     <string name="online">Онлайн</string>
     <string name="online_status">Статус онлайну</string>
+    <string name="open_in_app">Відкрити у %1$s</string>
     <string name="outdated_server">Завершилася підтримка серверної версії, будь ласка, встановіть нову! </string>
     <string name="overflow_menu">Більше параметрів</string>
     <string name="pass_code_configure_your_pass_code">Зазначте пароль</string>
