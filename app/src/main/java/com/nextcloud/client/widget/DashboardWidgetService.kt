@@ -15,6 +15,7 @@ import android.net.Uri
 import android.view.View
 import android.widget.RemoteViews
 import android.widget.RemoteViewsService
+import androidx.core.net.toUri
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.model.StreamEncoder
@@ -141,7 +142,7 @@ class StackRemoteViewsFactory(
 
     private fun createLoadMoreView(): RemoteViews {
         return RemoteViews(context.packageName, R.layout.widget_item_load_more).apply {
-            val clickIntent = Intent(Intent.ACTION_VIEW, Uri.parse(widgetConfiguration.moreButton?.link))
+            val clickIntent = Intent(Intent.ACTION_VIEW, widgetConfiguration.moreButton?.link?.toUri())
             setTextViewText(R.id.load_more, widgetConfiguration.moreButton?.text)
             setOnClickFillInIntent(R.id.load_more_container, clickIntent)
         }
@@ -165,7 +166,7 @@ class StackRemoteViewsFactory(
             updateTexts(widgetItem, this)
 
             if (widgetItem.link.isNotEmpty()) {
-                val clickIntent = Intent(Intent.ACTION_VIEW, Uri.parse(widgetItem.link))
+                val clickIntent = Intent(Intent.ACTION_VIEW, widgetItem.link.toUri())
                 setOnClickFillInIntent(R.id.text_container, clickIntent)
             }
         }
@@ -173,7 +174,7 @@ class StackRemoteViewsFactory(
 
     @Suppress("TooGenericExceptionCaught")
     private fun loadIcon(widgetItem: DashboardWidgetItem, remoteViews: RemoteViews) {
-        val isIconSVG = Uri.parse(widgetItem.iconUrl).encodedPath!!.endsWith(".svg")
+        val isIconSVG = widgetItem.iconUrl.toUri().encodedPath!!.endsWith(".svg")
         val source: FutureTarget<Bitmap> = if (isIconSVG) {
             loadSVGIcon(widgetItem)
         } else {
@@ -207,7 +208,7 @@ class StackRemoteViewsFactory(
             .cacheDecoder(FileToStreamDecoder(SvgOrImageDecoder()))
             .decoder(SvgOrImageDecoder())
             .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-            .load(Uri.parse(widgetItem.iconUrl))
+            .load(widgetItem.iconUrl.toUri())
             .into(SVG_SIZE, SVG_SIZE)
     }
 

@@ -12,7 +12,6 @@ import android.annotation.SuppressLint
 import android.app.NotificationManager
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.net.Uri
 import android.os.Bundle
 import android.os.Looper
 import android.os.PowerManager
@@ -23,6 +22,7 @@ import android.view.MenuItem
 import android.view.View
 import androidx.annotation.VisibleForTesting
 import androidx.appcompat.app.AlertDialog
+import androidx.core.net.toUri
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -823,7 +823,7 @@ class SyncedFoldersActivity :
                     @SuppressLint("BatteryLife")
                     val intent = Intent(
                         Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS,
-                        Uri.parse("package:" + BuildConfig.APPLICATION_ID)
+                        ("package:" + BuildConfig.APPLICATION_ID).toUri()
                     )
                     if (intent.resolveActivity(packageManager) != null) {
                         startActivity(intent)
