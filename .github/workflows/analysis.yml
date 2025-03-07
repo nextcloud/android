@@ -4,6 +4,7 @@
 # SPDX-FileCopyrightText: 2023 Tobias Kaminsky <tobias@kaminsky.me>
 # SPDX-FileCopyrightText: 2023 Andy Scherzinger <info@andy-scherzinger.de>
 # SPDX-FileCopyrightText: 2023 Josh Richards <josh.t.richards@gmail.com>
+# SPDX-FileCopyrightText: 2025 Marcel Hibbe <dev@mhibbe.de>
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 name: "Analysis"
@@ -24,7 +25,7 @@ concurrency:
 
 jobs:
     analysis:
-        runs-on: ubuntu-24.04
+        runs-on: ubuntu-latest
         steps:
             -   name: Setup variables
                 id: get-vars
