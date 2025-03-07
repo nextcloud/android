@@ -301,12 +301,13 @@
     <string name="ecosystem_apps_display_more">المزيد</string>
     <string name="ecosystem_apps_more">المزيد من تطبيقات نكست كلاود</string>
     <string name="email_pick_failed">تعذّر التقاط عنوان الإيميل.</string>
-    <string name="encrypted">عيّنه كَمشفر</string>
+    <string name="encrypted">عيّنه كَمُشفَّر</string>
     <string name="end_to_end_encryption_certificate_unavailable">يتعذّر استرجاع شهادة الخادوم</string>
     <string name="end_to_end_encryption_certificate_verification_failed">فشل التحقق من المفتاح العمومي</string>
     <string name="end_to_end_encryption_confirm_button">تنصيب التشفير</string>
     <string name="end_to_end_encryption_decrypting">جارِ فك التشفير …</string>
     <string name="end_to_end_encryption_dialog_close">إغلاق</string>
+    <string name="end_to_end_encryption_enter_passphrase_to_access_files">أدخِل عبارة المرور الخاصة بك للوصول إلى ملفاتك</string>
     <string name="end_to_end_encryption_enter_password">الرجاء أدخل كلمة المرور ليتم فك تشفير المفتاح الخاص</string>
     <string name="end_to_end_encryption_folder_not_empty">هذا المجلد غير فارغ.</string>
     <string name="end_to_end_encryption_generating_keys">جار توليد مفاتيح جديدة…</string>

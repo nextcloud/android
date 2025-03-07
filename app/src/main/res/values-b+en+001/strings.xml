@@ -305,6 +305,7 @@
     <string name="end_to_end_encryption_confirm_button">Set up encryption</string>
     <string name="end_to_end_encryption_decrypting">Decrypting…</string>
     <string name="end_to_end_encryption_dialog_close">Close</string>
+    <string name="end_to_end_encryption_enter_passphrase_to_access_files">Enter your passphrase to access your files</string>
     <string name="end_to_end_encryption_enter_password">Please enter password to decrypt private key.</string>
     <string name="end_to_end_encryption_folder_not_empty">This folder is not empty.</string>
     <string name="end_to_end_encryption_generating_keys">Generating new keys…</string>
