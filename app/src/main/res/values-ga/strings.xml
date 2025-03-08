@@ -305,6 +305,7 @@
     <string name="end_to_end_encryption_confirm_button">Socraigh criptiú</string>
     <string name="end_to_end_encryption_decrypting">Ag díchriptiú…</string>
     <string name="end_to_end_encryption_dialog_close">Dún</string>
+    <string name="end_to_end_encryption_enter_passphrase_to_access_files">Cuir isteach do phasfhrása chun rochtain a fháil ar do chomhaid</string>
     <string name="end_to_end_encryption_enter_password">Cuir isteach pasfhocal chun eochair phríobháideach a dhíchriptiú le do thoil.</string>
     <string name="end_to_end_encryption_folder_not_empty">Níl an fillteán seo folamh.</string>
     <string name="end_to_end_encryption_generating_keys">Eochracha nua á nginiúint…</string>
