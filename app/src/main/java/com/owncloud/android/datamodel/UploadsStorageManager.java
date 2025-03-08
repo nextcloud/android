@@ -590,7 +590,7 @@ public class UploadsStorageManager extends Observable {
 
             String remotePath = c.getString(c.getColumnIndexOrThrow(ProviderTableMeta.UPLOADS_REMOTE_PATH));
             if (capability != null) {
-                remotePath = AutoRename.INSTANCE.rename(remotePath, capability,true);
+                remotePath = AutoRename.INSTANCE.rename(remotePath, capability);
             }
 
             String accountName = c.getString(c.getColumnIndexOrThrow(ProviderTableMeta.UPLOADS_ACCOUNT_NAME));
