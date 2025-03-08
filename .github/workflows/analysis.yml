@@ -1,6 +1,7 @@
 # synced from @nextcloud/android-config
 
 # SPDX-FileCopyrightText: 2023-2024 Nextcloud GmbH and Nextcloud contributors
+# SPDX-FileCopyrightText: 2025 Alper Ozturk <alper.ozturk@nextcloud.com>
 # SPDX-FileCopyrightText: 2023 Tobias Kaminsky <tobias@kaminsky.me>
 # SPDX-FileCopyrightText: 2023 Andy Scherzinger <info@andy-scherzinger.de>
 # SPDX-FileCopyrightText: 2023 Josh Richards <josh.t.richards@gmail.com>
@@ -62,9 +63,11 @@ jobs:
                     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
                 run: |
                     mkdir -p "$HOME/.gradle"
-                    echo "org.gradle.jvmargs=-Xmx6g -XX:+HeapDumpOnOutOfMemoryError -Dfile.encoding=UTF-8 -XX:+UseParallelGC -XX:MaxMetaspaceSize=1g" > "$HOME/.gradle/gradle.properties"
-                    echo "org.gradle.caching=true" >> $HOME/.gradle/gradle.properties
-                    echo "org.gradle.parallel=true" >> $HOME/.gradle/gradle.properties
-                    echo "org.gradle.configureondemand=true" >> $HOME/.gradle/gradle.properties
-                    echo "kapt.incremental.apt=true" >> $HOME/.gradle/gradle.properties
-                    scripts/analysis/analysis-wrapper.sh ${{ steps.get-vars.outputs.branch }} ${{ secrets.LOG_USERNAME }} ${{ secrets.LOG_PASSWORD }} "$GITHUB_RUN_NUMBER" ${{ steps.get-vars.outputs.pr }}
+                    {
+                        echo "org.gradle.jvmargs=-Xmx6g -XX:+HeapDumpOnOutOfMemoryError -Dfile.encoding=UTF-8 -XX:+UseParallelGC -XX:MaxMetaspaceSize=1g"
+                        echo "org.gradle.caching=true"
+                        echo "org.gradle.parallel=true"
+                        echo "org.gradle.configureondemand=true"
+                        echo "kapt.incremental.apt=true"
+                    } > "$HOME/.gradle/gradle.properties"
+                    scripts/analysis/analysis-wrapper.sh "${{ steps.get-vars.outputs.branch }}" "${{ secrets.LOG_USERNAME }}" "${{ secrets.LOG_PASSWORD }}" "$GITHUB_RUN_NUMBER" "${{ steps.get-vars.outputs.pr }}"
