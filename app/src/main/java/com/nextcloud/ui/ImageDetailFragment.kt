@@ -11,7 +11,6 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.graphics.drawable.LayerDrawable
-import android.net.Uri
 import android.os.Bundle
 import android.os.Parcelable
 import android.view.LayoutInflater
@@ -19,6 +18,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.VisibleForTesting
 import androidx.core.content.ContextCompat
+import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
 import com.nextcloud.android.common.ui.theme.utils.ColorRole
 import com.nextcloud.client.NominatimClient
@@ -356,7 +356,7 @@ class ImageDetailFragment : Fragment(), Injectable {
     private fun markerOnGestureListener(latitude: Double, longitude: Double) =
         object : OnItemGestureListener<OverlayItem> {
             override fun onItemSingleTapUp(index: Int, item: OverlayItem): Boolean {
-                val intent = Intent(Intent.ACTION_VIEW, Uri.parse("geo:0,0?q=$latitude,$longitude"))
+                val intent = Intent(Intent.ACTION_VIEW, "geo:0,0?q=$latitude,$longitude".toUri())
                 DisplayUtils.startIntentIfAppAvailable(intent, activity, R.string.no_map_app_availble)
                 return true
             }

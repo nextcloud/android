@@ -19,7 +19,6 @@ import android.content.Intent
 import android.content.res.Configuration
 import android.graphics.BitmapFactory
 import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.AsyncTask
@@ -39,6 +38,8 @@ import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.graphics.drawable.DrawableCompat
+import androidx.core.graphics.drawable.toDrawable
+import androidx.core.net.toUri
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
@@ -269,7 +270,7 @@ class PreviewMediaActivity :
                         ?.apply { setTint(Color.WHITE) }
                 )
 
-                it.setBackgroundDrawable(ColorDrawable(Color.BLACK))
+                it.setBackgroundDrawable(Color.BLACK.toDrawable())
             }
         }
 
@@ -759,7 +760,7 @@ class PreviewMediaActivity :
             return if (!result.isSuccess) {
                 null
             } else {
-                Uri.parse(result.data[0] as String)
+                (result.data[0] as String).toUri()
             }
         }
 
