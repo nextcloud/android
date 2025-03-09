@@ -240,7 +240,7 @@ public class FileDisplayActivity extends FileActivity
 
     private SearchView searchView;
     private PlayerServiceConnection mPlayerConnection;
-    private Optional<User> lastDisplayedUser = Optional.empty();
+    private User lastDisplayedUser = null;
 
     @Inject AppPreferences preferences;
 
@@ -2220,9 +2220,10 @@ public class FileDisplayActivity extends FileActivity
         if (!user.isPresent()) {
             return; // not reachable under normal conditions
         }
+        User actualUser = user.get();
         if (showPreview && file.isDown() && !file.isDownloading() || streamMedia) {
             if (showInActivity) {
-                startMediaActivity(file, startPlaybackPosition, autoplay, user);
+                startMediaActivity(file, startPlaybackPosition, autoplay, actualUser);
             } else {
                 configureToolbarForPreview(file);
                 Fragment mediaFragment = PreviewMediaFragment.newInstance(file, user.get(), startPlaybackPosition, autoplay, false);
@@ -2238,10 +2239,15 @@ public class FileDisplayActivity extends FileActivity
         }
     }
 
-    private void startMediaActivity(OCFile file, long startPlaybackPosition, boolean autoplay, Optional<User> user) {
+    private void startMediaActivity(OCFile file, long startPlaybackPosition, boolean autoplay, User user) {
         Intent previewMediaIntent = new Intent(this, PreviewMediaActivity.class);
         previewMediaIntent.putExtra(PreviewMediaActivity.EXTRA_FILE, file);
-        previewMediaIntent.putExtra(PreviewMediaActivity.EXTRA_USER, user.get());
+
+        // Safely handle the absence of a user
+        if (user != null) {
+            previewMediaIntent.putExtra(PreviewMediaActivity.EXTRA_USER, user);
+        }
+
         previewMediaIntent.putExtra(PreviewMediaActivity.EXTRA_START_POSITION, startPlaybackPosition);
         previewMediaIntent.putExtra(PreviewMediaActivity.EXTRA_AUTOPLAY, autoplay);
         startActivity(previewMediaIntent);
@@ -2489,7 +2495,7 @@ public class FileDisplayActivity extends FileActivity
 
             mSwitchAccountButton.setTag(user.getAccountName());
             DisplayUtils.setAvatar(user, this, getResources().getDimension(R.dimen.nav_drawer_menu_avatar_radius), getResources(), mSwitchAccountButton, this);
-            final boolean userChanged = !user.nameEquals(lastDisplayedUser.orElse(null));
+            final boolean userChanged = !user.nameEquals(lastDisplayedUser);
             if (userChanged) {
                 Log_OC.d(TAG, "Initializing Fragments in onAccountChanged..");
                 initFragments();
@@ -2500,7 +2506,7 @@ public class FileDisplayActivity extends FileActivity
                 updateActionBarTitleAndHomeButton(file.isFolder() ? null : file);
             }
         }
-        lastDisplayedUser = optionalUser;
+        lastDisplayedUser = optionalUser.orElse(null);
 
         EventBus.getDefault().post(new TokenPushEvent());
         checkForNewDevVersionNecessary(getApplicationContext());
