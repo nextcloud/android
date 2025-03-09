@@ -216,7 +216,6 @@
     <string name="end_to_end_encryption_confirm_button">ຕັ້ງການເຂົ້າລະຫັດ</string>
     <string name="end_to_end_encryption_decrypting">ຖອດລະຫັດລັບ</string>
     <string name="end_to_end_encryption_dialog_close">ປິດ</string>
-    <string name="end_to_end_encryption_enter_password">ກະລຸນາໃສ່ລະຫັດຜ່ານເພື່ອຖອດລະຫັດສ່ວນຕົວ.</string>
     <string name="end_to_end_encryption_folder_not_empty">ໂຟນເດີນີ້ເຕັມ.</string>
     <string name="end_to_end_encryption_generating_keys">ກຳລັງສ້າງກະແຈໃໝ່</string>
     <string name="end_to_end_encryption_keywords_description">ທັງຫມົດ 12 ຄໍາສັບຮ່ວມກັນເຮັດໃຫ້ລະຫັດຜ່ານມີຄວາມປອດໄພ, ພຽງແຕ່ທ່ານນໍາໃຊ້ຟາຍທີ່ເຂົ້າລະຫັດຂອງທ່ານ. ກະລຸນາຂຽນລົງ ແລະ ຮັກສາໄວ້ບ່ອນໃດບ່ອນຫນຶ່ງໃຫ້ປອດໄພ.</string>

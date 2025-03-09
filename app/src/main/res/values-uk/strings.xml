@@ -306,7 +306,6 @@
     <string name="end_to_end_encryption_decrypting">Розшифровування...</string>
     <string name="end_to_end_encryption_dialog_close">Закрити</string>
     <string name="end_to_end_encryption_enter_passphrase_to_access_files">Введіть пароль для доступу до ваших файлів</string>
-    <string name="end_to_end_encryption_enter_password">Будь ласка, зазначте пароль, щоби розшифрувати приватний ключ.</string>
     <string name="end_to_end_encryption_folder_not_empty">Цей каталог не є порожнім</string>
     <string name="end_to_end_encryption_generating_keys">Створення нових ключів...</string>
     <string name="end_to_end_encryption_keywords_description">Усі 12 слів утворюють разом дуже сильний пароль, який дозволить лише вам переглядати та використовувати зашифровані файли. Будь ласка, занотуйте його та збережіть у безпечному місці.</string>

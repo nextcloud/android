@@ -260,7 +260,6 @@
     <string name="end_to_end_encryption_confirm_button">رمزگذاری را تنظیم کنید</string>
     <string name="end_to_end_encryption_decrypting">رمزگشایی...</string>
     <string name="end_to_end_encryption_dialog_close">بستن</string>
-    <string name="end_to_end_encryption_enter_password">لطفا رمز عبور را برای رمزگشایی کلید خصوصی وارد کنید.</string>
     <string name="end_to_end_encryption_folder_not_empty">این پوشه خالی نیست.</string>
     <string name="end_to_end_encryption_generating_keys">ایجاد کلیدهای جدید...</string>
     <string name="end_to_end_encryption_keywords_description">همه 12 کلمه در کنار هم یک رمزعبور بسیار قوی ایجاد می کنند و به شما امکان می‌دهد پرونده های رمزگذاری شده خود را مشاهده کرده و از آنها استفاده کنید. لطفاً آن را بنویسید و در جایی امن نگه دارید.</string>

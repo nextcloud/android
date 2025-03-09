@@ -223,7 +223,6 @@
     <string name="end_to_end_encryption_confirm_button">Постави енкрипција</string>
     <string name="end_to_end_encryption_decrypting">Дешифрирање…</string>
     <string name="end_to_end_encryption_dialog_close">Затвори</string>
-    <string name="end_to_end_encryption_enter_password">Внесете лозинка за дешифрирање на приватниот клуч</string>
     <string name="end_to_end_encryption_folder_not_empty">Папката не е празна.</string>
     <string name="end_to_end_encryption_generating_keys">Генерирање на нови клучеви…</string>
     <string name="end_to_end_encryption_keywords_description">Сите 12 зборови заедно прават многу јака лозинка, дозволувајќи ви да ги гледате и да ги користите вашите криптирани датотеки. Ве молиме, запишете го и чувајте го некаде безбедно.</string>

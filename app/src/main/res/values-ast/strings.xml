@@ -163,7 +163,6 @@
     <string name="end_to_end_encryption_confirm_button">Configurar el cifráu</string>
     <string name="end_to_end_encryption_decrypting">Descifrando…</string>
     <string name="end_to_end_encryption_dialog_close">Zarrar</string>
-    <string name="end_to_end_encryption_enter_password">Introduz la contraseña pa descrifrar la clave privada.</string>
     <string name="end_to_end_encryption_folder_not_empty">Esta carpeta nun ta balera.</string>
     <string name="end_to_end_encryption_generating_keys">Xenerando les claves nueves…</string>
     <string name="end_to_end_encryption_password">Contraseña…</string>

@@ -273,7 +273,6 @@
     <string name="end_to_end_encryption_confirm_button">Aseta salaus</string>
     <string name="end_to_end_encryption_decrypting">Puretaan salausta…</string>
     <string name="end_to_end_encryption_dialog_close">Sulje</string>
-    <string name="end_to_end_encryption_enter_password">Anna salasana yksityisen avaimen salauksen purkuun.</string>
     <string name="end_to_end_encryption_folder_not_empty">Kansio ei ole tyhjä.</string>
     <string name="end_to_end_encryption_generating_keys">Luodaan uusia avaimia…</string>
     <string name="end_to_end_encryption_keywords_description">Kaikki 12 sanaa yhdessä on hyvin vahva salasana, jonka avulla pystyy katselemaan ja käyttämään salattuja tiedostoja. Ota ne talteen ja säilytä turvallisessa paikassa. Älä jätä pöydälle!</string>

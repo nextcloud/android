@@ -296,7 +296,6 @@
     <string name="end_to_end_encryption_confirm_button">暗号化を設定する</string>
     <string name="end_to_end_encryption_decrypting">復号化中…</string>
     <string name="end_to_end_encryption_dialog_close">閉じる</string>
-    <string name="end_to_end_encryption_enter_password">秘密鍵を復号化するためのパスワードを入力してください。</string>
     <string name="end_to_end_encryption_folder_not_empty">このフォルダは空ではありません。</string>
     <string name="end_to_end_encryption_generating_keys">新しいキーを生成中…</string>
     <string name="end_to_end_encryption_keywords_description">すべての12単語が非常に強力なパスワードを作成し、暗号化されたファイルを表示して使用するだけです。 それを書き留めて、安全な場所に保管してください。</string>

@@ -199,7 +199,6 @@
     <string name="end_to_end_encryption_confirm_button">Ndërto enkriptimin</string>
     <string name="end_to_end_encryption_decrypting">Duke dekriptuar…</string>
     <string name="end_to_end_encryption_dialog_close">Mbylleni</string>
-    <string name="end_to_end_encryption_enter_password">Ju lutem fusni fjalëkalimin për të dekriptuar çelësin privat.</string>
     <string name="end_to_end_encryption_folder_not_empty">Ky skedar nuk është bosh.</string>
     <string name="end_to_end_encryption_generating_keys">Duke gjeneruar çelsa të rinj…</string>
     <string name="end_to_end_encryption_keywords_description">Të gjitha 12 fjalët së bashku bëjnë një fjalëkalim shumë të fortë, duke lënë vetëm ju të shikoni dhe të përdorni skedarët tuaj të koduar. Ju lutemi shkruani dhe mbajeni diku të sigurt.</string>

@@ -301,7 +301,6 @@
     <string name="end_to_end_encryption_confirm_button">Configura la cifratura</string>
     <string name="end_to_end_encryption_decrypting">Decifratura in corso…</string>
     <string name="end_to_end_encryption_dialog_close">Chiudi</string>
-    <string name="end_to_end_encryption_enter_password">Digita la password per decifrare la chiave privata.</string>
     <string name="end_to_end_encryption_folder_not_empty">Questa cartella non è vuota.</string>
     <string name="end_to_end_encryption_generating_keys">Generazione nuove chiavi in corso…</string>
     <string name="end_to_end_encryption_keywords_description">Le 12 parole insieme compongono una password molto robusta, consentendo solo a te di visualizzare e utilizzare i tuoi file cifrati. Annotala e conservala in un posto sicuro.</string>
