@@ -11,6 +11,7 @@ import android.app.PendingIntent
 import android.content.Context
 import com.nextcloud.client.jobs.notification.WorkerNotificationManager
 import com.nextcloud.utils.extensions.isFileSpecificError
+import com.nextcloud.utils.numberFormatter.NumberFormatter
 import com.owncloud.android.R
 import com.owncloud.android.lib.common.operations.RemoteOperationResult
 import com.owncloud.android.operations.UploadFileOperation
@@ -43,10 +44,7 @@ class UploadNotificationManager(private val context: Context, viewThemeUtils: Vi
             uploadFileOperation.fileName
         }
 
-        val progressText = String.format(
-            context.getString(R.string.upload_notification_manager_upload_in_progress_text),
-            0
-        )
+        val progressText = NumberFormatter.getPercentageText(0)
 
         notificationBuilder.run {
             setProgress(100, 0, false)
@@ -71,7 +69,8 @@ class UploadNotificationManager(private val context: Context, viewThemeUtils: Vi
 
     @Suppress("MagicNumber")
     fun updateUploadProgress(percent: Int, currentOperation: UploadFileOperation?) {
-        setProgress(percent, R.string.upload_notification_manager_upload_in_progress_text, false)
+        val progressText = NumberFormatter.getPercentageText(percent)
+        setProgress(percent, progressText, false)
         showNotification()
         dismissOldErrorNotification(currentOperation)
     }
