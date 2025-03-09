@@ -4,19 +4,19 @@
  * SPDX-FileCopyrightText: 2014-2024 Nextcloud GmbH and Nextcloud contributors
  * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
  */
-rootProject.name = 'Nextcloud'
+rootProject.name = "Nextcloud"
 
-include ':app'
-include ':appscan'
+include ":app"
+include ":appscan"
 
-//includeBuild('../android-common') {
+//includeBuild("../android-common") {
 //    dependencySubstitution {
-//        substitute module('com.github.nextcloud.android-common:ui') using project(':ui')
+//        substitute module("com.github.nextcloud.android-common:ui") using project(":ui")
 //    }
 //}
 
-//includeBuild('../android-library') {
+//includeBuild("../android-library") {
 //    dependencySubstitution {
-//        substitute module('com.github.nextcloud:android-library') using project(':library')
+//        substitute module("com.github.nextcloud:android-library") using project(":library")
 //    }
 //}
