@@ -16,6 +16,7 @@ import android.net.Uri
 import android.os.Build
 import android.view.View
 import android.widget.RemoteViews
+import androidx.core.net.toUri
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.model.StreamEncoder
@@ -50,7 +51,7 @@ class DashboardWidgetUpdater @Inject constructor(
     ) {
         val intent = Intent(context, DashboardWidgetService::class.java).apply {
             putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId)
-            data = Uri.parse(toUri(Intent.URI_INTENT_SCHEME))
+            data = toUri(Intent.URI_INTENT_SCHEME).toUri()
         }
 
         val views = RemoteViews(context.packageName, R.layout.dashboard_widget).apply {
@@ -130,7 +131,7 @@ class DashboardWidgetUpdater @Inject constructor(
         val intent = Intent(context, DashboardWidgetProvider::class.java).apply {
             setPackage(context.packageName)
             action = DashboardWidgetProvider.OPEN_INTENT
-            data = Uri.parse(addButton.link)
+            data = addButton.link.toUri()
         }
 
         return PendingIntent.getBroadcast(
@@ -177,7 +178,7 @@ class DashboardWidgetUpdater @Inject constructor(
             .cacheDecoder(FileToStreamDecoder(SvgOrImageDecoder()))
             .decoder(SvgOrImageDecoder())
             .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-            .load(Uri.parse(iconUrl))
+            .load(iconUrl.toUri())
             .into(iconTarget)
     }
 }

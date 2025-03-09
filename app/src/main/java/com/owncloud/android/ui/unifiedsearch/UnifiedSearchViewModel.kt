@@ -11,6 +11,7 @@ import android.content.Context
 import android.content.res.Resources
 import android.net.Uri
 import androidx.annotation.VisibleForTesting
+import androidx.core.net.toUri
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import com.nextcloud.client.account.CurrentAccountProvider
@@ -145,12 +146,12 @@ class UnifiedSearchViewModel(application: Application) : AndroidViewModel(applic
     }
 
     private fun getResultUri(result: SearchResultEntry): Uri {
-        val uri = Uri.parse(result.resourceUrl)
+        val uri = result.resourceUrl.toUri()
         return when (uri.host) {
             null -> {
                 val serverUrl = currentAccountProvider.user.server.uri.toString()
                 val fullUrl = serverUrl + result.resourceUrl
-                Uri.parse(fullUrl)
+                fullUrl.toUri()
             }
 
             else -> uri

@@ -10,6 +10,7 @@ package com.owncloud.android.ui.fragment.util
 import android.graphics.Canvas
 import android.graphics.Rect
 import android.view.MotionEvent
+import androidx.core.view.isEmpty
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ItemDecoration
@@ -223,7 +224,7 @@ class GalleryFastScrollViewHelper(
     }
 
     private fun getFirstItemAdapterPosition(): Int {
-        if (mView.childCount == 0) {
+        if (mView.isEmpty()) {
             return RecyclerView.NO_POSITION
         }
         val itemView = mView.getChildAt(0)
@@ -231,7 +232,7 @@ class GalleryFastScrollViewHelper(
     }
 
     private fun getFirstItemOffset(): Int {
-        if (mView.childCount == 0) {
+        if (mView.isEmpty()) {
             return RecyclerView.NO_POSITION
         }
         val itemView = mView.getChildAt(0)

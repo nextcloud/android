@@ -32,6 +32,7 @@ import android.view.View.OnTouchListener
 import android.view.ViewGroup
 import androidx.annotation.OptIn
 import androidx.annotation.StringRes
+import androidx.core.net.toUri
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.drawerlayout.widget.DrawerLayout
@@ -476,7 +477,7 @@ class PreviewMediaFragment : FileFragment(), OnTouchListener, Injectable {
                 return null
             }
 
-            return Uri.parse(result?.data?.get(0) as String)
+            return (result?.data?.get(0) as String).toUri()
         }
 
         @Deprecated("Deprecated in Java")

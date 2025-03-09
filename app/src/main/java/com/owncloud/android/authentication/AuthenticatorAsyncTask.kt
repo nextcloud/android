@@ -13,8 +13,8 @@ package com.owncloud.android.authentication
 
 import android.app.Activity
 import android.content.Context
-import android.net.Uri
 import android.os.AsyncTask
+import androidx.core.net.toUri
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.lib.common.OwnCloudClientFactory
 import com.owncloud.android.lib.common.OwnCloudCredentials
@@ -46,7 +46,7 @@ class AuthenticatorAsyncTask(activity: Activity) : AsyncTask<Any?, Void?, Remote
             val context = mWeakContext.get()
 
             // Client
-            val uri = Uri.parse(url)
+            val uri = url.toUri()
             val nextcloudClient = OwnCloudClientFactory.createNextcloudClient(
                 uri,
                 credentials.username,

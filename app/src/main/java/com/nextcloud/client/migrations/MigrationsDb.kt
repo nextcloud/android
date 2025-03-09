@@ -7,6 +7,7 @@
 package com.nextcloud.client.migrations
 
 import android.content.SharedPreferences
+import androidx.core.content.edit
 import java.util.TreeSet
 
 class MigrationsDb(private val migrationsDb: SharedPreferences) {
@@ -39,12 +40,12 @@ class MigrationsDb(private val migrationsDb: SharedPreferences) {
             addAll(oldApplied)
             addAll(migrations.map { it.toString() })
         }
-        migrationsDb.edit().putStringSet(DB_KEY_APPLIED_MIGRATIONS, newApplied).apply()
+        migrationsDb.edit { putStringSet(DB_KEY_APPLIED_MIGRATIONS, newApplied) }
     }
 
     var lastMigratedVersion: Int
         set(value) {
-            migrationsDb.edit().putInt(DB_KEY_LAST_MIGRATED_VERSION, value).apply()
+            migrationsDb.edit { putInt(DB_KEY_LAST_MIGRATED_VERSION, value) }
         }
         get() {
             return migrationsDb.getInt(DB_KEY_LAST_MIGRATED_VERSION, NO_LAST_MIGRATED_VERSION)
@@ -56,17 +57,17 @@ class MigrationsDb(private val migrationsDb: SharedPreferences) {
 
     fun setFailed(id: Int, error: String) {
         migrationsDb
-            .edit()
-            .putBoolean(DB_KEY_FAILED, true)
-            .putString(DB_KEY_FAILED_MIGRATION_ERROR_MESSAGE, error)
-            .putInt(DB_KEY_FAILED_MIGRATION_ID, id)
-            .apply()
+            .edit {
+                putBoolean(DB_KEY_FAILED, true)
+                    .putString(DB_KEY_FAILED_MIGRATION_ERROR_MESSAGE, error)
+                    .putInt(DB_KEY_FAILED_MIGRATION_ID, id)
+            }
     }
 
     fun clearMigrations() {
-        migrationsDb.edit()
-            .putStringSet(DB_KEY_APPLIED_MIGRATIONS, emptySet())
-            .putInt(DB_KEY_LAST_MIGRATED_VERSION, 0)
-            .apply()
+        migrationsDb.edit {
+            putStringSet(DB_KEY_APPLIED_MIGRATIONS, emptySet())
+                .putInt(DB_KEY_LAST_MIGRATED_VERSION, 0)
+        }
     }
 }

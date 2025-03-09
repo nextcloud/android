@@ -16,7 +16,6 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.graphics.Bitmap
-import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.LayerDrawable
 import android.graphics.drawable.PictureDrawable
@@ -35,6 +34,7 @@ import android.widget.LinearLayout
 import androidx.annotation.StringRes
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
+import androidx.core.graphics.drawable.toDrawable
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
@@ -177,6 +177,7 @@ class PreviewImageFragment : FileFragment(), Injectable {
     /**
      * {@inheritDoc}
      */
+    @Deprecated("Deprecated in Java")
     @Suppress("ReturnCount")
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -643,7 +644,7 @@ class PreviewImageFragment : FileFragment(), Injectable {
 
         val bitmapDrawable =
             if (MIME_TYPE_PNG.equals(result.ocFile.mimeType, ignoreCase = true)) {
-                BitmapDrawable(resources, bitmap)
+                bitmap?.toDrawable(resources)
             } else if (MIME_TYPE_SVG.equals(result.ocFile.mimeType, ignoreCase = true)) {
                 result.drawable
             } else if (MIME_TYPE_GIF.equals(result.ocFile.mimeType, ignoreCase = true)) {
@@ -653,7 +654,7 @@ class PreviewImageFragment : FileFragment(), Injectable {
                     result.drawable
                 }
             } else {
-                BitmapDrawable(resources, bitmap)
+                bitmap?.toDrawable(resources)
             }
 
         layers[1] = bitmapDrawable

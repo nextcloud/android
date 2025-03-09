@@ -16,6 +16,7 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -51,9 +52,9 @@ class EtmBackgroundJobsFragment : EtmBaseFragment(), Injectable {
             private val executionLogRow = view.findViewById<View>(R.id.etm_background_execution_logs_row)
             val executionTimesRow = view.findViewById<View>(R.id.etm_background_execution_times_row)
 
-            var progressEnabled: Boolean = progressRow.visibility == View.VISIBLE
+            var progressEnabled: Boolean = progressRow.isVisible
                 get() {
-                    return progressRow.visibility == View.VISIBLE
+                    return progressRow.isVisible
                 }
                 set(value) {
                     field = value
@@ -64,9 +65,9 @@ class EtmBackgroundJobsFragment : EtmBaseFragment(), Injectable {
                     }
                 }
 
-            var logsEnabled: Boolean = executionLogRow.visibility == View.VISIBLE
+            var logsEnabled: Boolean = executionLogRow.isVisible
                 get() {
-                    return executionLogRow.visibility == View.VISIBLE
+                    return executionLogRow.isVisible
                 }
                 set(value) {
                     field = value
@@ -165,11 +166,13 @@ class EtmBackgroundJobsFragment : EtmBaseFragment(), Injectable {
         return view
     }
 
+    @Deprecated("Deprecated in Java")
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.fragment_etm_background_jobs, menu)
     }
 
+    @Deprecated("Deprecated in Java")
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.etm_background_jobs_cancel -> {

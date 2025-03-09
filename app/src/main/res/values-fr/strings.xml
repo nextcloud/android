@@ -305,6 +305,7 @@
     <string name="end_to_end_encryption_confirm_button">Configurer le chiffrement</string>
     <string name="end_to_end_encryption_decrypting">Décryptage…</string>
     <string name="end_to_end_encryption_dialog_close">Fermer</string>
+    <string name="end_to_end_encryption_enter_passphrase_to_access_files">Entrez votre phrase de passe pour accéder à vos fichiers</string>
     <string name="end_to_end_encryption_enter_password">Veuillez entrer le mot de passe pour décrypter la clé privée.</string>
     <string name="end_to_end_encryption_folder_not_empty">Ce dossier n\'est pas vide.</string>
     <string name="end_to_end_encryption_generating_keys">Générer des nouvelles clés…</string>
@@ -454,6 +455,7 @@
     <string name="first_run_3_text">Webmail, agenda, contacts faciles à utiliser</string>
     <string name="first_run_4_text">Partage d\'écran, réunions en ligne et conférences en ligne</string>
     <string name="folder_already_exists">Le dossier existe déjà</string>
+    <string name="folder_best_viewed_in">Ce dossier est mieux visualisé dans %1$s.</string>
     <string name="folder_confirm_create">Créer</string>
     <string name="folder_list_empty_headline">Aucun dossier</string>
     <string name="folder_name_empty">Le nom du dossier ne peut être vide</string>
@@ -622,6 +624,7 @@
     <string name="oneHour">1 heure</string>
     <string name="online">En ligne</string>
     <string name="online_status">Statut en ligne</string>
+    <string name="open_in_app">Ouvrir dans %1$s</string>
     <string name="outdated_server">Le serveur est obsolète, veuillez mettre à jour !</string>
     <string name="overflow_menu">Plus de menu</string>
     <string name="pass_code_configure_your_pass_code">Saisissez votre code de sécurité</string>
@@ -829,6 +832,7 @@
     <string name="share_remote_clarification">%1$s (distant)</string>
     <string name="share_room_clarification">%1$s (conversation)</string>
     <string name="share_search">Nom, identifiant de Cloud fédéré ou adresse e-mail…</string>
+    <string name="share_search_internal">Ajouter des utilisateurs et des équipes</string>
     <string name="share_send_new_email">Envoyer un nouvel e-mail</string>
     <string name="share_send_note">Note au destinataire</string>
     <string name="share_settings">Paramètres</string>
@@ -1199,6 +1203,16 @@
         <item quantity="one">Retardé de %d seconde à cause de trop d\'essais infructueux</item>
         <item quantity="many">Retardé de %d secondes à cause de trop d\'essais infructueux</item>
         <item quantity="other">Retardé de %d secondes à cause de trop d\'essais infructueux</item>
+    </plurals>
+    <plurals name="delay_message_minutes">
+        <item quantity="one">Retardé de %d minute en raison d\'un trop grand nombre de tentatives infructueuses</item>
+        <item quantity="many">Retardé de %d minutes en raison d\'un trop grand nombre de tentatives infructueuses</item>
+        <item quantity="other">Retardé de %d minutes en raison d\'un trop grand nombre de tentatives infructueuses</item>
+    </plurals>
+    <plurals name="delay_message_minutes_part">
+        <item quantity="one">Retardé de %d minute</item>
+        <item quantity="many">Retardé de %d minutes</item>
+        <item quantity="other">Retardé de %d minutes</item>
     </plurals>
     <plurals name="delay_message_seconds_part">
         <item quantity="one">%d seconde</item>

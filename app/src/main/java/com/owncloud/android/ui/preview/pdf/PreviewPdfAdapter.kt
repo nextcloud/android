@@ -13,6 +13,7 @@ import android.graphics.Color
 import android.graphics.pdf.PdfRenderer
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.graphics.createBitmap
 import androidx.recyclerview.widget.RecyclerView
 import com.owncloud.android.databinding.PreviewPdfPageItemBinding
 
@@ -56,11 +57,7 @@ class PreviewPdfAdapter(
     }
 
     private fun createBitmapForPage(page: PdfRenderer.Page): Bitmap {
-        val bitmap = Bitmap.createBitmap(
-            screenWidth,
-            (screenWidth.toFloat() / page.width * page.height).toInt(),
-            Bitmap.Config.ARGB_8888
-        )
+        val bitmap = createBitmap(screenWidth, (screenWidth.toFloat() / page.width * page.height).toInt())
 
         val canvas = Canvas(bitmap)
         canvas.drawColor(Color.WHITE)
