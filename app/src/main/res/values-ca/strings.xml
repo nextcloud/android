@@ -301,7 +301,6 @@
     <string name="end_to_end_encryption_confirm_button">Arranjament de xifrat</string>
     <string name="end_to_end_encryption_decrypting">S\'està desxifrant…</string>
     <string name="end_to_end_encryption_dialog_close">Tanca</string>
-    <string name="end_to_end_encryption_enter_password">Si us plau, introduïu la contrasenya per desxifrar la clau privada.</string>
     <string name="end_to_end_encryption_folder_not_empty">Aquesta carpeta no és buida.</string>
     <string name="end_to_end_encryption_generating_keys">S\'estan generant claus noves…</string>
     <string name="end_to_end_encryption_keywords_description">Les 12 paraules juntes fan una contrasenya molt dificil, fent que només vos ho pugueu veure i fer servir els fitxers xifrats. Anoteu-la i deseu-la en un lloc segur.</string>

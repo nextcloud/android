@@ -301,7 +301,6 @@
     <string name="end_to_end_encryption_confirm_button">Setează criptarea</string>
     <string name="end_to_end_encryption_decrypting">Decryption…</string>
     <string name="end_to_end_encryption_dialog_close">Închide</string>
-    <string name="end_to_end_encryption_enter_password">Introduceti parola pentru decriptare cheie personală.</string>
     <string name="end_to_end_encryption_folder_not_empty">Directorul nu este gol.</string>
     <string name="end_to_end_encryption_generating_keys">Se generează chei noi…</string>
     <string name="end_to_end_encryption_keywords_description">Împreună, cele 12 cuvinte sunt o parolă foarte puternică, ceea ce face ca numai tu să vezi și să utilizezi documentele tale criptate. Te rog scrie-o și păstreaz-o undeva în siguranță.</string>

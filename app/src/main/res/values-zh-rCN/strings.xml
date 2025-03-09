@@ -306,7 +306,6 @@
     <string name="end_to_end_encryption_decrypting">正在解密…</string>
     <string name="end_to_end_encryption_dialog_close">关闭</string>
     <string name="end_to_end_encryption_enter_passphrase_to_access_files">输入密码短语以访问您的文件</string>
-    <string name="end_to_end_encryption_enter_password">请输入密码解锁私有密钥</string>
     <string name="end_to_end_encryption_folder_not_empty">此文件夹不是空的。</string>
     <string name="end_to_end_encryption_generating_keys">正在生成密钥…</string>
     <string name="end_to_end_encryption_keywords_description">这12个单词共同构成了一个非常安全的密码，使得只有您能够查看以及使用您的加密文件。请把它记下并保存到某个安全的地方。</string>

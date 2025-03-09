@@ -299,7 +299,6 @@
     <string name="end_to_end_encryption_confirm_button">Definir criptografia</string>
     <string name="end_to_end_encryption_decrypting">Descriptografando…</string>
     <string name="end_to_end_encryption_dialog_close">Fechar</string>
-    <string name="end_to_end_encryption_enter_password">Digite a senha para descriptografar a chave privada.</string>
     <string name="end_to_end_encryption_folder_not_empty">Esta pasta não está vazia.</string>
     <string name="end_to_end_encryption_generating_keys">Gerando novas chaves…</string>
     <string name="end_to_end_encryption_keywords_description">Todas as 12 palavras juntas fazem uma senha muito forte, permitindo que você use seus arquivos criptografados. Por favor escreva e mantenha-as em um lugar seguro.</string>

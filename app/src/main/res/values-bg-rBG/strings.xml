@@ -246,7 +246,6 @@
     <string name="end_to_end_encryption_confirm_button">Настройки за криптиране</string>
     <string name="end_to_end_encryption_decrypting">Декриптиране...</string>
     <string name="end_to_end_encryption_dialog_close">Затваряне</string>
-    <string name="end_to_end_encryption_enter_password">Моля въведете парола за декриптиране на личния ключ.</string>
     <string name="end_to_end_encryption_folder_not_empty">Папката не е празна.</string>
     <string name="end_to_end_encryption_generating_keys">Генериране на нови ключове...</string>
     <string name="end_to_end_encryption_keywords_description">Всички 12 думи заедно правят много силна парола, позволявайки само Вие да преглеждате и използвате вашите криптирани файлове. Моля запишете я и я пазете на сигурно място.</string>

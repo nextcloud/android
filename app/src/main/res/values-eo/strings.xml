@@ -194,7 +194,6 @@
     <string name="end_to_end_encryption_confirm_button">Agordi ĉifradon</string>
     <string name="end_to_end_encryption_decrypting">Malĉifrado...</string>
     <string name="end_to_end_encryption_dialog_close">Fermi</string>
-    <string name="end_to_end_encryption_enter_password">Bonvolu entajpi pasvorton por malĉifri privatan ŝlosilon.</string>
     <string name="end_to_end_encryption_folder_not_empty">Tiu dosierujo ne malplenas.</string>
     <string name="end_to_end_encryption_generating_keys">Genero de novaj ŝlosiloj...</string>
     <string name="end_to_end_encryption_keywords_description">Tiu 12-vorta frazo estas tre fortika pasvorto, kiu permesas nur al vi vidi kaj uzi viajn ĉifritajn dosierojn. Bonvolu noti tiun frazon kaj konservi ĝin en fidinda loko.</string>

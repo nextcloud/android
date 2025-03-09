@@ -300,7 +300,6 @@
     <string name="end_to_end_encryption_confirm_button">Konfiguratu zifratzea</string>
     <string name="end_to_end_encryption_decrypting">Deszifratzen...</string>
     <string name="end_to_end_encryption_dialog_close">Itxi</string>
-    <string name="end_to_end_encryption_enter_password">Sartu pasahitza gako pribatua deszifratzeko.</string>
     <string name="end_to_end_encryption_folder_not_empty">Karpeta hau ez dago hutsik.</string>
     <string name="end_to_end_encryption_generating_keys">Gako berriak sortzen…</string>
     <string name="end_to_end_encryption_keywords_description">12 hitzek batera pasahitz oso gogorra osatzen dute, zure enkriptatutako fitxategiak zuk bakarrik ikusi eta erabil ditzazun. Idatzi eta gorde itzazu leku seguru batean.</string>

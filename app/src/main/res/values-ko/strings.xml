@@ -303,7 +303,6 @@
     <string name="end_to_end_encryption_confirm_button">암호화 설정</string>
     <string name="end_to_end_encryption_decrypting">복호화중…</string>
     <string name="end_to_end_encryption_dialog_close">닫기</string>
-    <string name="end_to_end_encryption_enter_password">비밀 키를 복호화하려면 암호를 입력하십시오.</string>
     <string name="end_to_end_encryption_folder_not_empty">이 폴더가 비어 있지 않습니다.</string>
     <string name="end_to_end_encryption_generating_keys">새 키 생성 중…</string>
     <string name="end_to_end_encryption_keywords_description">이 12단어 암구호는 암호화된 파일을 보고 사용하는 매우 강력한 암호입니다. 안전한 곳에 적어서 보관해 두십시오.</string>

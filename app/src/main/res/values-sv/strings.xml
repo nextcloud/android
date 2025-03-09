@@ -306,7 +306,6 @@
     <string name="end_to_end_encryption_decrypting">Dekrypterar…</string>
     <string name="end_to_end_encryption_dialog_close">Stäng</string>
     <string name="end_to_end_encryption_enter_passphrase_to_access_files">Ange din lösenfras för att komma åt dina filer</string>
-    <string name="end_to_end_encryption_enter_password">Ange lösenord för att dekryptera privat nyckel.</string>
     <string name="end_to_end_encryption_folder_not_empty">Den här mappen är inte tom.</string>
     <string name="end_to_end_encryption_generating_keys">Generera nya nycklar…</string>
     <string name="end_to_end_encryption_keywords_description">Alla 12 ord tillsammans utgör ett mycket starkt lösenord, så att bara du kan visa och använda dina krypterade filer. Vänligen spara det och förvara det på ett säkert sätt. </string>

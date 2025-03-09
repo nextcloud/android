@@ -217,7 +217,6 @@
     <string name="end_to_end_encryption_confirm_button">Configurar la encripción</string>
     <string name="end_to_end_encryption_decrypting">Desencriptando…</string>
     <string name="end_to_end_encryption_dialog_close">Cerrar</string>
-    <string name="end_to_end_encryption_enter_password">Por favor ingresa la contraseña para desencriptar la llave privada. </string>
     <string name="end_to_end_encryption_folder_not_empty">Esta carpeta no está vacía.</string>
     <string name="end_to_end_encryption_generating_keys">Generando nuevas llaves…</string>
     <string name="end_to_end_encryption_keywords_description">Las 12 palabras juntas hacer una contraseña muy fuerte, permitiéndote solo a ti ver y hacer uso de tus archivos encriptados. Por favor escríbelo y mantenlo en un lugar seguro.</string>

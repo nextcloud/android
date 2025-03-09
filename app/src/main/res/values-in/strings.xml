@@ -269,7 +269,6 @@ Otomatis unggah hanya bekerja dengan baik apabila Anda mengeluarkan aplikasi ini
     <string name="end_to_end_encryption_confirm_button">Buat enkripsi</string>
     <string name="end_to_end_encryption_decrypting">Mendekripsi...</string>
     <string name="end_to_end_encryption_dialog_close">Tutup</string>
-    <string name="end_to_end_encryption_enter_password">Silakan masukkan password untuk mendekripsi kunci pribadi</string>
     <string name="end_to_end_encryption_folder_not_empty">Folder ini tidak kosong.</string>
     <string name="end_to_end_encryption_generating_keys">Membuat kunci baru...</string>
     <string name="end_to_end_encryption_keywords_description">Seluruh 12 kata menghasilkan sandi yang sangat kuat, memungkinkan Anda melihat dan mempergunakan berkas-berkas Anda yang terenkripsi. Harap tulis sandi tersebut dan simpan di tempat aman.</string>

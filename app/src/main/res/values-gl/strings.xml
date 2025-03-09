@@ -306,7 +306,6 @@
     <string name="end_to_end_encryption_decrypting">Descifrando…</string>
     <string name="end_to_end_encryption_dialog_close">Pechar</string>
     <string name="end_to_end_encryption_enter_passphrase_to_access_files">Introduza a súa frase de contrasinal para acceder aos seus ficheiros</string>
-    <string name="end_to_end_encryption_enter_password">Introduza o contrasinal para descifrar a chave privada.</string>
     <string name="end_to_end_encryption_folder_not_empty">Este cartafol non está baleiro</string>
     <string name="end_to_end_encryption_generating_keys">Xerando chave novas…</string>
     <string name="end_to_end_encryption_keywords_description">As 12 palabras xuntas forman un contrasinal moi forte, permitíndolle só a Vde. ver e facer uso dos seus  ficheiros cifrados. Escríbaas e mantéñaas nun lugar seguro.</string>

@@ -253,7 +253,6 @@
     <string name="end_to_end_encryption_confirm_button">Nastavitev šifriranja</string>
     <string name="end_to_end_encryption_decrypting">Poteka odšifriranje…</string>
     <string name="end_to_end_encryption_dialog_close">Zapri</string>
-    <string name="end_to_end_encryption_enter_password">Vpišite geslo za odšifriranje zasebnega ključa.</string>
     <string name="end_to_end_encryption_folder_not_empty">Mapa ni prazna.</string>
     <string name="end_to_end_encryption_generating_keys">Poteka ustvarjanje novih ključev…</string>
     <string name="end_to_end_encryption_keywords_description">Vseh 12 besed skupaj predstavlja izredno močno geslo, s katerim imate le vi možnost ogleda in uporabe šifriranih datotek. Geslo si zapišite in shranite nekje na varnem.</string>
