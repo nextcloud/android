@@ -170,18 +170,20 @@ class CreateFolderDialogFragment : DialogFragment(), DialogInterface.OnClickList
 
     override fun onClick(dialog: DialogInterface, which: Int) {
         if (which == AlertDialog.BUTTON_POSITIVE) {
+            val capabilities = getOCCapability()
+
             var newFolderName = (getDialog()?.findViewById<View>(R.id.user_input) as TextView)
                 .text.toString()
 
             val errorMessage: String? =
-                FileNameValidator.checkFileName(newFolderName, getOCCapability(), requireContext())
+                FileNameValidator.checkFileName(newFolderName, capabilities, requireContext())
 
             if (errorMessage != null) {
                 DisplayUtils.showSnackMessage(requireActivity(), errorMessage)
                 return
             }
 
-            newFolderName = AutoRename.rename(newFolderName, getOCCapability())
+            newFolderName = AutoRename.rename(newFolderName, capabilities)
 
             val path = parentFolder?.decryptedRemotePath + newFolderName + OCFile.PATH_SEPARATOR
             connectivityService.isNetworkAndServerAvailable { result ->
