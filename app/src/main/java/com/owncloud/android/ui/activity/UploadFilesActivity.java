@@ -28,15 +28,19 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.nextcloud.client.account.User;
+import com.nextcloud.client.core.Clock;
 import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.jobs.upload.FileUploadHelper;
 import com.nextcloud.client.jobs.upload.FileUploadWorker;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.utils.extensions.ActivityExtensionsKt;
 import com.nextcloud.utils.extensions.FileExtensionsKt;
+import com.nextcloud.utils.extensions.SyncedFolderDisplayItemExtensionsKt;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.UploadFilesLayoutBinding;
+import com.owncloud.android.datamodel.SyncedFolderProvider;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.adapter.StoragePathAdapter;
 import com.owncloud.android.ui.asynctasks.CheckAvailableSpaceTask;
@@ -94,6 +98,10 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
     private static final String WAIT_DIALOG_TAG = "WAIT";
 
     @Inject AppPreferences preferences;
+
+    @Inject
+    Clock clock;
+
     private Account mAccountOnCreation;
     private ArrayAdapter<String> mDirectories;
     private boolean mLocalFolderPickerMode;
@@ -615,6 +623,17 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
         return isWithinEncryptedFolder;
     }
 
+    private boolean isGivenLocalPathHasEnabledParent() {
+        if (mCurrentDir == null) {
+            return false;
+        }
+
+        final var chosenPath = mCurrentDir.getPath();
+        final var syncedFolderProvider = new SyncedFolderProvider(getContentResolver(), preferences, clock);
+        final var syncedFolders = syncedFolderProvider.getSyncedFolders();
+        return SyncedFolderDisplayItemExtensionsKt.isGivenLocalPathHasEnabledParent(syncedFolders, chosenPath);
+    }
+
     /**
      * Performs corresponding action when user presses 'Cancel' or 'Upload' button
      * <p>
@@ -639,7 +658,13 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
                     }
                     setResult(RESULT_OK, data);
 
-                    finish();
+                    if (isGivenLocalPathHasEnabledParent()) {
+                        Snackbar.make(findViewById(android.R.id.content), getString(R.string.auto_upload_sub_folder_warning), Snackbar.LENGTH_LONG)
+                            .setAction(getString(R.string.common_ok), snackBarView -> finish())
+                            .show();
+                    } else {
+                        finish();
+                    }
                 } else {
                     String[] selectedFilePaths = mFileListFragment.getCheckedFilePaths();
                     boolean isPositionZero = (binding.uploadFilesSpinnerBehaviour.getSelectedItemPosition() == 0);
