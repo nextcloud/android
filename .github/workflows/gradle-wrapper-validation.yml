@@ -1,0 +1,29 @@
+# synced from @nextcloud/android-config
+
+# SPDX-FileCopyrightText: 2023-2024 Nextcloud GmbH and Nextcloud contributors
+# SPDX-FileCopyrightText: 2023 Andy Scherzinger <info@andy-scherzinger.de>
+# SPDX-FileCopyrightText: 2023 Tobias Kaminsky <tobias@kaminsky.me>
+# SPDX-FileCopyrightText: 2023 Álvaro Brey <alvaro@alvarobrey.com>
+# SPDX-License-Identifier: GPL-3.0-or-later
+
+name: "Validate Gradle Wrapper"
+on:
+    pull_request:
+        branches: [ master, stable-* ]
+    push:
+        branches: [ master, stable-* ]
+
+# Declare default permissions as read only.
+permissions: read-all
+
+concurrency: 
+  group: validate-gradle-wrapper-${{ github.head_ref || github.run_id }}
+  cancel-in-progress: true
+
+jobs:
+    validation:
+        name: "Validation"
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+            - uses: gradle/wrapper-validation-action@f9c9c575b8b21b6485636a91ffecd10e558c62f6 # v3.5.0
