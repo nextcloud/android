@@ -146,7 +146,8 @@ class ChooseStorageLocationDialogFragment : DialogFragment(), Injectable {
 
     private fun notifyResult() {
         val newPath =
-            storagePoints.find { it.storageType == selectedStorageType && it.privacyType == selectedPrivacyType } ?: return
+            storagePoints.find { it.storageType == selectedStorageType && it.privacyType == selectedPrivacyType }
+                ?: return
 
         val resultBundle = Bundle().apply {
             putString(KEY_RESULT_STORAGE_LOCATION, newPath.path)
