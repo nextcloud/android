@@ -24,7 +24,6 @@ import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.ui.activity.FileActivity
 import com.owncloud.android.ui.activity.FileDisplayActivity
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment.ConfirmationDialogFragmentListener
-import com.owncloud.android.ui.preview.PreviewImageActivity
 import javax.inject.Inject
 
 /**
@@ -98,7 +97,6 @@ class RemoveFilesDialogFragment : ConfirmationDialogFragment(), ConfirmationDial
         fileActivity?.connectivityService?.isNetworkAndServerAvailable { result ->
             if (result) {
                 if (files.isNotEmpty()) {
-                    getTypedActivity(PreviewImageActivity::class.java)?.showDirectoryWhenDeletionCompleted()
                     fileActivity.fileOperationsHelper?.removeFiles(files, onlyLocalCopy, false)
                 }
 
