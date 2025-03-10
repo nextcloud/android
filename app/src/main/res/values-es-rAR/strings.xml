@@ -279,7 +279,6 @@
     <string name="end_to_end_encryption_confirm_button">Configurar cifrado</string>
     <string name="end_to_end_encryption_decrypting">Decifrando…</string>
     <string name="end_to_end_encryption_dialog_close">Cerrar</string>
-    <string name="end_to_end_encryption_enter_password">Por favor, introduzca la contraseña para descifrar la clave privada.</string>
     <string name="end_to_end_encryption_folder_not_empty">Esta carpeta no está vacía.</string>
     <string name="end_to_end_encryption_generating_keys">Generando nuevas claves…</string>
     <string name="end_to_end_encryption_keywords_description">Los 12 dígitos juntos forman una contraseña muy segura, que solo le permite ver y hacer uso de sus archivos cifrados. Por favor escríbelo y guárdalo en un lugar seguro.</string>

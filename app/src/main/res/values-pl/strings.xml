@@ -305,7 +305,6 @@
     <string name="end_to_end_encryption_confirm_button">Włącz szyfrowanie</string>
     <string name="end_to_end_encryption_decrypting">Odszyfrowywanie…</string>
     <string name="end_to_end_encryption_dialog_close">Zamknij</string>
-    <string name="end_to_end_encryption_enter_password">Wprowadź hasło, aby odszyfrować klucz prywatny.</string>
     <string name="end_to_end_encryption_folder_not_empty">Ten katalog nie jest pusty.</string>
     <string name="end_to_end_encryption_generating_keys">Generowanie nowych kluczy</string>
     <string name="end_to_end_encryption_keywords_description">Wszystkie 12-ście słów utworzy bardzo trudne hasło, które pozwoli na przeglądanie i korzystanie z zaszyfrowanych plików. Zapisz je i przechowuj w bezpiecznym miejscu.</string>

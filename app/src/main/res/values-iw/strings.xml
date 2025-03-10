@@ -228,7 +228,6 @@
     <string name="end_to_end_encryption_confirm_button">הגדרת הצפנה</string>
     <string name="end_to_end_encryption_decrypting">מתבצע פענוח…</string>
     <string name="end_to_end_encryption_dialog_close">סגירה</string>
-    <string name="end_to_end_encryption_enter_password">נא להקליד ססמה כדי לפענח את המפתח הפרטי.</string>
     <string name="end_to_end_encryption_folder_not_empty">התיקייה הזאת אינה ריקה</string>
     <string name="end_to_end_encryption_generating_keys">נוצרים מפתחות חדשים…</string>
     <string name="end_to_end_encryption_keywords_description">כל 12 המילים יחד מתגבשות לכדי ססמה חזקה מאוד, שמאפשרת לך לצפות ולהשתמש בקבצים המוצפנים שלך. נא לכתוב אותה ולשמור במקום בטוח.</string>

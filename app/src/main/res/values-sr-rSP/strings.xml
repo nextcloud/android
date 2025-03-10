@@ -202,7 +202,6 @@
     <string name="end_to_end_encryption_confirm_button">Podesite šifrovanje</string>
     <string name="end_to_end_encryption_decrypting">Dešifrujem…</string>
     <string name="end_to_end_encryption_dialog_close">Zatvori</string>
-    <string name="end_to_end_encryption_enter_password">Unosite lozinku za dešifrujete privatni ključ.</string>
     <string name="end_to_end_encryption_folder_not_empty">Fascikla nije prazna.</string>
     <string name="end_to_end_encryption_generating_keys">Generišem nove ključeve…</string>
     <string name="end_to_end_encryption_keywords_description">Ovih 12 reči čini veoma jaku lozinku koja omogućava da samo Vi imate pun pristup gledanju i korišćenju šifrovanih fajlova. Zapišite je i držite je negde na sigurnom.</string>

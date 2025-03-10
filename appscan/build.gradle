@@ -14,11 +14,11 @@ buildscript {
     }
 }
 
-apply plugin: 'com.android.library'
-apply plugin: 'kotlin-android'
+apply plugin: "com.android.library"
+apply plugin: "kotlin-android"
 
 android {
-    namespace 'com.nextcloud.appscan'
+    namespace "com.nextcloud.appscan"
 
     defaultConfig {
         minSdk 25
@@ -40,7 +40,7 @@ android {
     }
 
     kotlinOptions {
-        jvmTarget = '17'
+        jvmTarget = "17"
     }
 }
 

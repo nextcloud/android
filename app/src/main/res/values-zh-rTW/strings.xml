@@ -306,7 +306,6 @@
     <string name="end_to_end_encryption_decrypting">正在解密…</string>
     <string name="end_to_end_encryption_dialog_close">關閉</string>
     <string name="end_to_end_encryption_enter_passphrase_to_access_files">輸入您的密碼以存取您的檔案</string>
-    <string name="end_to_end_encryption_enter_password">請輸入密碼來解密私鑰。</string>
     <string name="end_to_end_encryption_folder_not_empty">資料夾不是空的。</string>
     <string name="end_to_end_encryption_generating_keys">正在產生新的金鑰…</string>
     <string name="end_to_end_encryption_keywords_description">透過 12 個字的組合來產生安全的密碼，讓您可以安全瀏覽與使用加密檔案。請確保這組密碼只有您知道，並寫在紙上妥善保管。</string>

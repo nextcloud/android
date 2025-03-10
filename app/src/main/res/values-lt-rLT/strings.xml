@@ -261,7 +261,6 @@
     <string name="end_to_end_encryption_confirm_button">Nustatyti šifravimą</string>
     <string name="end_to_end_encryption_decrypting">Iššifruojama…</string>
     <string name="end_to_end_encryption_dialog_close">Užverti</string>
-    <string name="end_to_end_encryption_enter_password">Norėdami iššifruoti privatųjį raktą, įveskite slaptažodį.</string>
     <string name="end_to_end_encryption_folder_not_empty">Šis aplankas nėra tuščias.</string>
     <string name="end_to_end_encryption_generating_keys">Generuojami nauji raktai…</string>
     <string name="end_to_end_encryption_keywords_description"> Visi 12 žodžių sudaro saugų slaptažodį, leidžiantį tik jums peržiūrėti ir naudoti užšifruotus failus. Prašau jį užsirašyti ir saugoti.</string>

@@ -208,7 +208,6 @@
     <string name="end_to_end_encryption_confirm_button">Suidhich an crioptachadh</string>
     <string name="end_to_end_encryption_decrypting">’Ga dhì-chrioptachadh…</string>
     <string name="end_to_end_encryption_dialog_close">Dùin</string>
-    <string name="end_to_end_encryption_enter_password">Cuir a-steach am facal-faire agus an iuchair phrìobhaideach a dhì-chrioptachadh.</string>
     <string name="end_to_end_encryption_folder_not_empty">Chan eil am pasgan seo falamh.</string>
     <string name="end_to_end_encryption_generating_keys">A’ gintinn nan iuchraichean ùra…</string>
     <string name="end_to_end_encryption_keywords_description">Nì an 12 fhacal còmhla facal-faire glè làidir gus nach seall ’s nach cleachd ach thu fhèin na faidhlichean crioptaichte agad. Sgrìobh sìos e is cùm am badeigin sàbhailte e.</string>

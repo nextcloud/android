@@ -304,7 +304,6 @@
     <string name="end_to_end_encryption_confirm_button">Setja upp dulritun</string>
     <string name="end_to_end_encryption_decrypting">Afkóðun</string>
     <string name="end_to_end_encryption_dialog_close">Loka</string>
-    <string name="end_to_end_encryption_enter_password">Settu inn lykilorðið til að afkóða einkalykil.</string>
     <string name="end_to_end_encryption_folder_not_empty">Þessi mappa er ekki tóm.</string>
     <string name="end_to_end_encryption_generating_keys">Útbý nýja dulritunarlykla…</string>
     <string name="end_to_end_encryption_keywords_description">Öll 12 orðin saman gera mjög sterkt lykilorð, þannig að einungis þú getur skoðað og notað dulrituðu skrárnar þínar. Endilega skrifaðu þau niður og geymdu á öruggum stað.</string>

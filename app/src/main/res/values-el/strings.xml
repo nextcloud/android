@@ -251,7 +251,6 @@
     <string name="end_to_end_encryption_confirm_button">Ρύθμιση κρυπτογράφησης</string>
     <string name="end_to_end_encryption_decrypting">Γίνεται αποκρυπτογράφηση…</string>
     <string name="end_to_end_encryption_dialog_close">Κλείσιμο</string>
-    <string name="end_to_end_encryption_enter_password">Παρακαλούμε εισάγετε το συνθηματικό για αποκρυπτογράφηση του ιδιωτικού κλειδιού.</string>
     <string name="end_to_end_encryption_folder_not_empty">Αυτός ο φάκελος δεν είναι κενός.</string>
     <string name="end_to_end_encryption_generating_keys">Γίνεται δημιουργία νέων κλειδιών…</string>
     <string name="end_to_end_encryption_keywords_description">Οι 12 λέξεις μαζί φτιάχνουν έναν πολύ ισχυρό κωδικό πρόσβασης, επιτρέποντας μόνο σε εσάς την προβολή και τη χρήση των κρυπτογραφημένων αρχείων σας. Παρακαλούμε γράψτε το κάπου και κρατήστε το σε ασφαλές μεέρος.</string>

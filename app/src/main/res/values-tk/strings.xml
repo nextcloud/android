@@ -210,7 +210,6 @@
     <string name="end_to_end_encryption_confirm_button">Şifrlemäni gurnamak</string>
     <string name="end_to_end_encryption_decrypting">Şifri açmak...</string>
     <string name="end_to_end_encryption_dialog_close">Ýapmak</string>
-    <string name="end_to_end_encryption_enter_password">Şahsy açary açmak üçin parol giriziň.</string>
     <string name="end_to_end_encryption_folder_not_empty">Bu bukja boş däl</string>
     <string name="end_to_end_encryption_generating_keys">Täze düwmeler döretmek ...</string>
     <string name="end_to_end_encryption_keywords_description">12 sözüň hemmesi bilelikde şifrlenen faýllaryňyzy diňe size görmäge we ulanmaga mümkinçilik berýän gaty güýçli parol ýasaýar. Muny ýazyp alyň we howpsuz ýerde saklaň.</string>

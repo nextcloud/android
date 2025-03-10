@@ -278,7 +278,6 @@
     <string name="end_to_end_encryption_confirm_button">Arventenniñ ar sifradur</string>
     <string name="end_to_end_encryption_decrypting">Disifrañ</string>
     <string name="end_to_end_encryption_dialog_close">Serriñ</string>
-    <string name="end_to_end_encryption_enter_password">Merkit ar ger-tremen evit disifrañ an alc\'hwez prevez.</string>
     <string name="end_to_end_encryption_folder_not_empty">N\'eo ket goullo ar renkell.</string>
     <string name="end_to_end_encryption_generating_keys">O c\'henel alc\'hwezioù nevez...</string>
     <string name="end_to_end_encryption_keywords_description">An 12 ger-mañ a-kevret a ya d\'ober ur ger-tremen kreñv-tre evit ma ne vefe nemedoc\'h o c\'hallout gwelet hag implijout ho restroù sifret. Skrivit anezho ha mirit anezho en ul lec\'h sur.</string>
