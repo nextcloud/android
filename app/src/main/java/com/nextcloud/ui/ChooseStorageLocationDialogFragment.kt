@@ -86,8 +86,9 @@ class ChooseStorageLocationDialogFragment : DialogFragment(), Injectable {
 
     private fun setupLocationSelection() {
         updateStorageTypeSelection()
+        val currentStorageLocation = getCurrentStorageLocation() ?: return
 
-        val radioButton = when (getCurrentStorageLocation().storageType) {
+        val radioButton = when (currentStorageLocation.storageType) {
             StorageType.EXTERNAL -> binding.storageExternalRadio
             else -> binding.storageInternalRadio
         }
@@ -103,7 +104,7 @@ class ChooseStorageLocationDialogFragment : DialogFragment(), Injectable {
         }
 
         val storagePath =
-            storagePoints.firstOrNull { it.storageType == storageType && it.privacyType == privacyType }?.path
+            storagePoints.find { it.storageType == storageType && it.privacyType == privacyType }?.path
 
         return storagePath?.let {
             val file = File(it)
@@ -136,16 +137,16 @@ class ChooseStorageLocationDialogFragment : DialogFragment(), Injectable {
         binding.storageExternalRadio.text = getStoragePointLabel(StorageType.EXTERNAL, selectedPrivacyType)
     }
 
-    private fun getCurrentStorageLocation(): StoragePoint {
+    private fun getCurrentStorageLocation(): StoragePoint? {
         val appContext = MainApp.getAppContext()
         val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(appContext)
         val storagePath = sharedPreferences.getString(AppPreferencesImpl.STORAGE_PATH, appContext.filesDir.absolutePath)
-        return storagePoints.first { it.path == storagePath }
+        return storagePoints.find { it.path == storagePath }
     }
 
     private fun notifyResult() {
         val newPath =
-            storagePoints.first { it.storageType == selectedStorageType && it.privacyType == selectedPrivacyType }
+            storagePoints.find { it.storageType == selectedStorageType && it.privacyType == selectedPrivacyType } ?: return
 
         val resultBundle = Bundle().apply {
             putString(KEY_RESULT_STORAGE_LOCATION, newPath.path)
