@@ -142,11 +142,12 @@ class PreviewImagePagerAdapter : FragmentStateAdapter {
     fun getItem(i: Int): Fragment {
         val file = getFileAt(i)
         val fragment: Fragment
+        val ignoreFirstSavedState = getIgnoreFirstSavedState(i)
 
         if (file == null) {
             fragment = PreviewImageErrorFragment.newInstance()
         } else if (file.isDown) {
-            fragment = PreviewImageFragment.newInstance(file, mObsoletePositions.contains(i), false)
+            fragment = PreviewImageFragment.newInstance(file, ignoreFirstSavedState, false)
         } else {
             addVideoOfLivePhoto(file)
 
@@ -155,11 +156,11 @@ class PreviewImagePagerAdapter : FragmentStateAdapter {
                 (fragment as FileDownloadFragment).setError(true)
             } else {
                 fragment = if (file.isEncrypted) {
-                    FileDownloadFragment.newInstance(file, user, mObsoletePositions.contains(i), i)
+                    FileDownloadFragment.newInstance(file, user, ignoreFirstSavedState, i)
                 } else if (PreviewMediaFragment.canBePreviewed(file)) {
                     PreviewMediaFragment.newInstance(file, user, 0, false, file.livePhotoVideo != null)
                 } else {
-                    PreviewImageFragment.newInstance(file, mObsoletePositions.contains(i), true)
+                    PreviewImageFragment.newInstance(file, ignoreFirstSavedState, true)
                 }
             }
         }
@@ -167,6 +168,8 @@ class PreviewImagePagerAdapter : FragmentStateAdapter {
         mObsoletePositions.remove(i)
         return fragment
     }
+
+    fun getIgnoreFirstSavedState(i: Int): Boolean = mObsoletePositions.contains(i)
 
     fun getFilePosition(file: OCFile): Int {
         return imageFiles.indexOf(file)

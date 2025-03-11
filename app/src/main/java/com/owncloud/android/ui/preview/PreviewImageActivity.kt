@@ -6,21 +6,19 @@
  */
 package com.owncloud.android.ui.preview
 
-import android.annotation.SuppressLint
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.os.Build
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.view.MenuItem
 import android.view.View
 import android.view.WindowInsets
 import android.view.WindowInsetsController
 import androidx.appcompat.app.ActionBar
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.fragment.app.Fragment
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.viewpager2.widget.ViewPager2
 import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
@@ -193,15 +191,10 @@ class PreviewImageActivity : FileActivity(), FileFragment.ContainerActivity, OnR
         }
     }
 
-    @SuppressLint("NotifyDataSetChanged")
-    fun setPreviewImagePagerCurrentItem(position: Int) {
-        if (user.isPresent) {
-            Handler(Looper.getMainLooper()).post {
-                initViewPager(user.get())
-                viewPager?.setCurrentItem(position, false)
-                viewPager?.adapter?.notifyDataSetChanged()
-            }
-        }
+    fun getPreviewFragment(position: Int): Fragment? {
+        val file = previewImagePagerAdapter?.getFileAt(position) ?: return null
+        val ignoreFirstSavedState = previewImagePagerAdapter?.getIgnoreFirstSavedState(position) ?: return null
+        return PreviewImageFragment.newInstance(file, ignoreFirstSavedState, false)
     }
 
     override fun onBackPressed() {

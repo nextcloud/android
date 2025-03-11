@@ -28,4 +28,9 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"/>
 
+    <FrameLayout
+        android:id="@+id/downloaded_image_fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
 </androidx.drawerlayout.widget.DrawerLayout>

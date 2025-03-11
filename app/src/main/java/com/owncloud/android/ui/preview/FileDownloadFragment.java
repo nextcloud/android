@@ -41,6 +41,7 @@ import javax.inject.Inject;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentStatePagerAdapter;
+import androidx.fragment.app.FragmentTransaction;
 
 /**
  * This Fragment is used to monitor the progress of a file downloading.
@@ -173,9 +174,20 @@ public class FileDownloadFragment extends FileFragment implements OnClickListene
             if (state instanceof WorkerState.DownloadFinished &&
                 requireActivity() instanceof PreviewImageActivity activity &&
                 filePosition != null) {
-                activity.setPreviewImagePagerCurrentItem(filePosition);
+                showPreviewFragment(activity);
             }
         });
+    }
+
+    private void showPreviewFragment(PreviewImageActivity activity) {
+        final var fragment = activity.getPreviewFragment(filePosition);
+        if (fragment == null) {
+            return;
+        }
+
+        FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+        transaction.replace(R.id.downloaded_image_fragment_container, fragment);
+        transaction.commit();
     }
 
     @Override
