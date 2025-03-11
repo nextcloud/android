@@ -53,6 +53,7 @@ import com.owncloud.android.files.services.NameCollisionPolicy
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.ui.adapter.SyncedFolderAdapter
 import com.owncloud.android.ui.decoration.MediaGridItemDecoration
+import com.owncloud.android.ui.dialog.ConfirmationDialogFragment
 import com.owncloud.android.ui.dialog.SyncedFolderPreferencesDialogFragment
 import com.owncloud.android.ui.dialog.SyncedFolderPreferencesDialogFragment.OnSyncedFolderPreferenceListener
 import com.owncloud.android.ui.dialog.parcel.SyncedFolderParcelable
@@ -77,6 +78,7 @@ class SyncedFoldersActivity :
 
     companion object {
         private const val SYNCED_FOLDER_PREFERENCES_DIALOG_TAG = "SYNCED_FOLDER_PREFERENCES_DIALOG"
+        private const val SUB_FOLDER_WARNING_DIALOG_TAG = "SUB_FOLDER_WARNING_DIALOG_TAG"
 
         // yes, there is a typo in this value
         private const val KEY_SYNCED_FOLDER_INITIATED_PREFIX = "syncedFolderIntitiated_"
@@ -711,6 +713,21 @@ class SyncedFoldersActivity :
         dialogFragment = null
         if (syncedFolder.isEnabled) {
             showBatteryOptimizationInfo()
+        }
+    }
+
+    override fun showSubFolderWarningDialog() {
+        val dialog = ConfirmationDialogFragment.newInstance(
+            R.string.auto_upload_sub_folder_warning,
+            null,
+            0,
+            R.string.common_ok,
+            -1,
+            -1
+        )
+
+        if (isDialogFragmentReady(dialog)) {
+            dialog.show(supportFragmentManager, SUB_FOLDER_WARNING_DIALOG_TAG)
         }
     }
 

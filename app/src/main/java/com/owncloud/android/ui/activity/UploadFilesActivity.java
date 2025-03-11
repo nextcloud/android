@@ -28,7 +28,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import com.google.android.material.snackbar.Snackbar;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.core.Clock;
 import com.nextcloud.client.di.Injectable;
@@ -64,6 +63,7 @@ import javax.inject.Inject;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.widget.SearchView;
 import androidx.core.view.MenuItemCompat;
@@ -94,6 +94,7 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
     private static final String ENCRYPTED_FOLDER_KEY = "encrypted_folder";
 
     private static final String QUERY_TO_MOVE_DIALOG_TAG = "QUERY_TO_MOVE";
+    private static final String SUB_FOLDER_WARNING_DIALOG_TAG = "SUB_FOLDER_WARNING_DIALOG";
     private static final String TAG = "UploadFilesActivity";
     private static final String WAIT_DIALOG_TAG = "WAIT";
 
@@ -659,9 +660,7 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
                     setResult(RESULT_OK, data);
 
                     if (isGivenLocalPathHasEnabledParent()) {
-                        Snackbar.make(findViewById(android.R.id.content), getString(R.string.auto_upload_sub_folder_warning), Snackbar.LENGTH_LONG)
-                            .setAction(getString(R.string.common_ok), snackBarView -> finish())
-                            .show();
+                        showSubFolderWarningDialog();
                     } else {
                         finish();
                     }
@@ -673,6 +672,32 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
             } else {
                 requestPermissions();
             }
+        }
+    }
+
+    private void showSubFolderWarningDialog() {
+        final var dialog = ConfirmationDialogFragment.newInstance(
+            R.string.auto_upload_sub_folder_warning, null, 0, R.string.common_ok,  R.string.common_cancel, -1);
+        dialog.setOnConfirmationListener(new ConfirmationDialogFragmentListener() {
+            @Override
+            public void onConfirmation(@Nullable String callerTag) {
+                finish();
+            }
+
+            @Override
+            public void onNeutral(@Nullable String callerTag) {
+
+            }
+
+            @Override
+            public void onCancel(@Nullable String callerTag) {
+
+            }
+        });
+
+        final var isDialogFragmentReady = ActivityExtensionsKt.isDialogFragmentReady(this, dialog);
+        if (isDialogFragmentReady) {
+            dialog.show(getSupportFragmentManager(), SUB_FOLDER_WARNING_DIALOG_TAG);
         }
     }
 
