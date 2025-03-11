@@ -281,11 +281,10 @@ public class FileOperationsHelper {
                     if (capability.getRichDocumentsMimeTypeList().contains(file.getMimeType()) &&
                         capability.getRichDocumentsDirectEditing().isTrue()) {
                         openFileAsRichDocument(file, fileActivity);
-                        return;
                     } else {
                         DisplayUtils.showSnackMessage(fileActivity, R.string.file_list_no_app_for_file_type);
-                        return;
                     }
+                    return;
                 }
             }
 
