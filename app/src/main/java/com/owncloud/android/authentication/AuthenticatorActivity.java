@@ -327,8 +327,9 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             }
             
             initServerPreFragment(savedInstanceState);
-            ProcessLifecycleOwner.get().getLifecycle().addObserver(lifecycleEventObserver);
         }
+
+        ProcessLifecycleOwner.get().getLifecycle().addObserver(lifecycleEventObserver);
     }
         
         private void showEnforcedServers() {
