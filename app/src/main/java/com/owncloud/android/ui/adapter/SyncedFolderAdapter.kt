@@ -34,7 +34,6 @@ import com.owncloud.android.datamodel.SyncedFolderDisplayItem
 import com.owncloud.android.datamodel.ThumbnailsCacheManager
 import com.owncloud.android.datamodel.ThumbnailsCacheManager.AsyncMediaThumbnailDrawable
 import com.owncloud.android.datamodel.ThumbnailsCacheManager.MediaThumbnailGenerationTask
-import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import java.io.File
 import java.util.Locale
@@ -302,8 +301,7 @@ class SyncedFolderAdapter(
             if (isVisible) {
                 viewThemeUtils.platform.themeImageButton(this)
                 setOnClickListener {
-                    val message = context.getString(R.string.auto_upload_sub_folder_warning)
-                    DisplayUtils.showSnackMessage(holder.itemView, message)
+                    clickListener.showSubFolderWarningDialog()
                 }
             }
         }
@@ -444,6 +442,7 @@ class SyncedFolderAdapter(
         fun onSyncStatusToggleClick(section: Int, syncedFolderDisplayItem: SyncedFolderDisplayItem?)
         fun onSyncFolderSettingsClick(section: Int, syncedFolderDisplayItem: SyncedFolderDisplayItem?)
         fun onVisibilityToggleClick(section: Int, item: SyncedFolderDisplayItem?)
+        fun showSubFolderWarningDialog()
     }
 
     internal class HeaderViewHolder(var binding: SyncedFoldersItemHeaderBinding) : SectionedViewHolder(
