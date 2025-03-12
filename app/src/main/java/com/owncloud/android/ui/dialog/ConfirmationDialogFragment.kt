@@ -15,6 +15,7 @@ import android.app.Dialog
 import android.content.DialogInterface
 import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -70,9 +71,20 @@ open class ConfirmationDialogFragment : DialogFragment(), Injectable {
         val message = getString(messageId, *messageArguments)
 
         val builder = MaterialAlertDialogBuilder(requireActivity())
-            .setIcon(titleIconId)
-            .setIconAttribute(R.attr.alertDialogIcon)
             .setMessage(message)
+
+        if (titleIconId == com.owncloud.android.R.drawable.ic_warning || titleIconId == -1) {
+            builder
+                .setIcon(titleIconId)
+                .setIconAttribute(R.attr.alertDialogIcon)
+        } else {
+            val icon = ContextCompat.getDrawable(requireContext(), titleIconId)?.apply {
+                setTint(requireContext().getColor(com.owncloud.android.R.color.text_color))
+            }
+
+            builder
+                .setIcon(icon)
+        }
 
         if (titleId == 0) {
             builder.setTitle(R.string.dialog_alert_title)
