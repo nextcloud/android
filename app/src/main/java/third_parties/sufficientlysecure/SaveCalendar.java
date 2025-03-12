@@ -301,7 +301,7 @@ public class SaveCalendar {
             return null;
         }
 
-        PropertyList l = new PropertyList();
+        PropertyList<Property> l = new PropertyList<>();
         l.add(timestamp);
         copyProperty(l, Property.UID, cur, Events.UID_2445);
 
@@ -527,7 +527,7 @@ public class SaveCalendar {
         return dt;
     }
 
-    private String copyProperty(PropertyList l, String evName, Cursor cur, String dbName) {
+    private String copyProperty(PropertyList<Property> l, String evName, Cursor cur, String dbName) {
         // None of the exceptions caught below should be able to be thrown AFAICS.
         try {
             String value = getString(cur, dbName);
@@ -542,7 +542,7 @@ public class SaveCalendar {
         return null;
     }
 
-    private void copyEnumProperty(PropertyList l, String evName, Cursor cur, String dbName,
+    private void copyEnumProperty(PropertyList<Property> l, String evName, Cursor cur, String dbName,
                                   List<String> vals) {
         // None of the exceptions caught below should be able to be thrown AFAICS.
         try {
