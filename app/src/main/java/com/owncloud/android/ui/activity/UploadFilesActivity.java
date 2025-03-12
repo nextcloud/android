@@ -677,7 +677,14 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
 
     private void showSubFolderWarningDialog() {
         final var dialog = ConfirmationDialogFragment.newInstance(
-            R.string.auto_upload_sub_folder_warning, null, 0, R.string.common_ok,  R.string.common_cancel, -1);
+            R.string.auto_upload_sub_folder_warning,
+            null,
+            R.string.sync_duplication,
+            R.drawable.ic_info,
+            R.string.sync_anyway,
+            R.string.common_cancel,
+            -1);
+
         dialog.setOnConfirmationListener(new ConfirmationDialogFragmentListener() {
             @Override
             public void onConfirmation(@Nullable String callerTag) {
