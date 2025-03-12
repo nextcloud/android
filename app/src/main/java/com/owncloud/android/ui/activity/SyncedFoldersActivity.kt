@@ -722,7 +722,7 @@ class SyncedFoldersActivity :
             messageArguments = null,
             titleResId = R.string.sync_duplication,
             titleIconId = R.drawable.ic_info,
-            positiveButtonTextId = R.string.sync_anyway,
+            positiveButtonTextId = R.string.dialog_close,
             negativeButtonTextId = -1,
             neutralButtonTextId = -1
         )
