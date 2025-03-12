@@ -61,7 +61,10 @@ open class ConfirmationDialogFragment : DialogFragment(), Injectable {
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val messageArguments = requireArguments().getStringArray(ARG_MESSAGE_ARGUMENTS) ?: arrayOf<String>()
         val titleId = requireArguments().getInt(ARG_TITLE_ID, -1)
-        val titleIconId = requireArguments().getInt(ARG_TITLE_ICON_ID, -1)
+
+        val defaultTitleIconId = com.owncloud.android.R.drawable.ic_warning
+        val titleIconId = requireArguments().getInt(ARG_TITLE_ICON_ID, defaultTitleIconId)
+
         val messageId = requireArguments().getInt(ARG_MESSAGE_RESOURCE_ID, -1)
         val positiveButtonTextId = requireArguments().getInt(ARG_POSITIVE_BTN_RES, -1)
         val negativeButtonTextId = requireArguments().getInt(ARG_NEGATIVE_BTN_RES, -1)
@@ -73,7 +76,7 @@ open class ConfirmationDialogFragment : DialogFragment(), Injectable {
         val builder = MaterialAlertDialogBuilder(requireActivity())
             .setMessage(message)
 
-        if (titleIconId == com.owncloud.android.R.drawable.ic_warning || titleIconId == -1) {
+        if (titleIconId == defaultTitleIconId) {
             builder
                 .setIcon(titleIconId)
                 .setIconAttribute(R.attr.alertDialogIcon)
@@ -139,11 +142,13 @@ open class ConfirmationDialogFragment : DialogFragment(), Injectable {
          * @param messageArguments     Arguments to complete the message, if it's a format string. May be null.
          * @param titleResId           Resource id for a text to show in the title. 0 for default alert title, -1 for no
          * title.
+         * @param titleIconId          Resource id for a icon to show in the dialog.
          * @param positiveButtonTextId Resource id for the text of the positive button. -1 for no positive button.
          * @param neutralButtonTextId  Resource id for the text of the neutral button. -1 for no neutral button.
          * @param negativeButtonTextId Resource id for the text of the negative button. -1 for no negative button.
          * @return Dialog ready to show.
          */
+        @Suppress("LongParameterList")
         @JvmStatic
         @JvmOverloads
         fun newInstance(
