@@ -718,12 +718,13 @@ class SyncedFoldersActivity :
 
     override fun showSubFolderWarningDialog() {
         val dialog = ConfirmationDialogFragment.newInstance(
-            R.string.auto_upload_sub_folder_warning,
-            null,
-            0,
-            R.string.common_ok,
-            -1,
-            -1
+            messageResId = R.string.auto_upload_sub_folder_warning,
+            messageArguments = null,
+            titleResId = R.string.sync_duplication,
+            titleIconId = R.drawable.ic_info,
+            positiveButtonTextId = R.string.sync_anyway,
+            negativeButtonTextId = -1,
+            neutralButtonTextId = -1
         )
 
         if (isDialogFragmentReady(dialog)) {

@@ -1344,4 +1344,6 @@
     <string name="folder_best_viewed_in">This folder is best viewed in %1$s.</string>
     <string name="open_in_app">Open in %1$s</string>
     <string name="auto_upload_sub_folder_warning">This folder is already included in the parent folder’s sync, which may cause duplicate uploads</string>
+    <string name="sync_anyway">Sync anyway</string>
+    <string name="sync_duplication">Sync duplication</string>
 </resources>
