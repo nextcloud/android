@@ -450,7 +450,7 @@
     <string name="share_remote_clarification">%1$s (attāli)</string>
     <string name="share_send_note">Piezīme saņēmējam</string>
     <string name="share_settings">Iestatījumi</string>
-    <string name="share_via_link_hide_download">Slēpt lejupielādi</string>
+    <string name="share_via_link_hide_download">Paslēpt lejupielādi</string>
     <string name="share_via_link_section_title">Koplietot saiti</string>
     <string name="share_via_link_send_link_label">Sūtīt saiti</string>
     <string name="share_via_link_unset_password">Neuzstādīts</string>
