@@ -160,7 +160,8 @@ class PreviewImagePagerAdapter : FragmentStateAdapter {
                     // without first being downloaded.
                     FileDownloadFragment.newInstance(file, user, ignoreFirstSavedState)
                 } else if (PreviewMediaFragment.canBePreviewed(file)) {
-                    PreviewMediaFragment.newInstance(file, user, 0, false, file.livePhotoVideo != null)
+                    val isLivePhoto = file.livePhotoVideo != null
+                    PreviewMediaFragment.newInstance(file, user, 0, false, isLivePhoto)
                 } else {
                     PreviewImageFragment.newInstance(file, ignoreFirstSavedState, true)
                 }
