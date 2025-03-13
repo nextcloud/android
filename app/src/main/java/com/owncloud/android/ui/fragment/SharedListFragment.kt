@@ -76,7 +76,10 @@ class SharedListFragment : OCFileListFragment(), Injectable {
             val fetchResult = ReadFileRemoteOperation(partialFile.remotePath).execute(user, context)
             if (fetchResult.isSuccess) {
                 val remoteFile = (fetchResult.data[0] as RemoteFile).apply {
-                    etag = ""
+                    val prevETag = mContainerActivity.storageManager.getFileByDecryptedRemotePath(remotePath)
+                    prevETag?.etag?.let {
+                        etag = prevETag.etag
+                    }
                 }
                 val file = FileStorageUtils.fillOCFile(remoteFile)
                 FileStorageUtils.searchForLocalFileInDefaultPath(file, user.accountName)
@@ -102,10 +105,12 @@ class SharedListFragment : OCFileListFragment(), Injectable {
             isLoading = true
             val file = fetchFileData(partialFile)
             isLoading = false
-            if (file != null) {
-                block(file)
-            } else {
-                DisplayUtils.showSnackMessage(requireActivity(), R.string.error_retrieving_file)
+            withContext(Dispatchers.Main) {
+                if (file != null) {
+                    block(file)
+                } else {
+                    DisplayUtils.showSnackMessage(requireActivity(), R.string.error_retrieving_file)
+                }
             }
         }
     }
