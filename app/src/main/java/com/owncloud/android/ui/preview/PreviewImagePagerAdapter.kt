@@ -156,6 +156,8 @@ class PreviewImagePagerAdapter : FragmentStateAdapter {
                 (fragment as FileDownloadFragment).setError(true)
             } else {
                 fragment = if (file.isEncrypted) {
+                    // The FileDownloadFragment is used exclusively for encrypted files, as they cannot be previewed
+                    // without first being downloaded.
                     FileDownloadFragment.newInstance(file, user, ignoreFirstSavedState)
                 } else if (PreviewMediaFragment.canBePreviewed(file)) {
                     PreviewMediaFragment.newInstance(file, user, 0, false, file.livePhotoVideo != null)
