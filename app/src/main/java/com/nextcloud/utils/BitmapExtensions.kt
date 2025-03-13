@@ -8,6 +8,7 @@
 package com.nextcloud.utils
 
 import android.graphics.Bitmap
+import androidx.core.graphics.scale
 
 @Suppress("MagicNumber")
 fun Bitmap.allocationKilobyte(): Int = allocationByteCount.div(1024)
@@ -22,7 +23,5 @@ fun Bitmap.scaleUntil(targetKB: Int): Bitmap {
     val scaleRatio = 1.5
     val width = width.div(scaleRatio).toInt()
     val height = height.div(scaleRatio).toInt()
-
-    val scaledBitmap = Bitmap.createScaledBitmap(this, width, height, true)
-    return scaledBitmap.scaleUntil(targetKB)
+    return scale(width, height)
 }
