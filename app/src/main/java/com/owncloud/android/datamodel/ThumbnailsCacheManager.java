@@ -100,7 +100,7 @@ public final class ThumbnailsCacheManager {
     private static final CompressFormat mCompressFormat = CompressFormat.JPEG;
     private static final int mCompressQuality = 70;
     private static OwnCloudClient mClient;
-    private static final int THUMBNAIL_SIZE = 512;
+    private static final int THUMBNAIL_SIZE_IN_KB = 512;
 
     public static final Bitmap mDefaultImg = BitmapFactory.decodeResource(MainApp.getAppContext().getResources(),
             R.drawable.file_image);
@@ -204,9 +204,16 @@ public final class ThumbnailsCacheManager {
 
     public static void addBitmapToCache(String key, Bitmap bitmap) {
         synchronized (mThumbnailsDiskCacheLock) {
-            if (mThumbnailCache != null) {
-                mThumbnailCache.put(key, bitmap);
+            if (mThumbnailCache == null) {
+                return;
             }
+
+            if (BitmapExtensionsKt.allocationKilobyte(bitmap) > THUMBNAIL_SIZE_IN_KB) {
+                Log_OC.d(TAG, "Scaling bitmap before caching: " + key);
+                bitmap = BitmapExtensionsKt.scaleUntil(bitmap, THUMBNAIL_SIZE_IN_KB);
+            }
+
+            mThumbnailCache.put(key, bitmap);
         }
     }
 
@@ -344,12 +351,17 @@ public final class ThumbnailsCacheManager {
                 storageManager.saveFile(file);
             }
 
+
             Bitmap result;
+
             if (MimeTypeUtil.isVideo(file)) {
-                result = ThumbnailsCacheManager.addVideoOverlay(thumbnail, MainApp.getAppContext());
+                final var thumbnailWithOverlay = ThumbnailsCacheManager.addVideoOverlay(thumbnail, MainApp.getAppContext());
+                result = BitmapExtensionsKt.scaleUntil(thumbnailWithOverlay, THUMBNAIL_SIZE_IN_KB);
             } else {
-                result = BitmapExtensionsKt.scaleUntil(thumbnail, THUMBNAIL_SIZE);
+                result = BitmapExtensionsKt.scaleUntil(thumbnail, THUMBNAIL_SIZE_IN_KB);
             }
+
+            addBitmapToCache(imageKey, result);
 
             return result;
         }
