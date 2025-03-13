@@ -23,5 +23,7 @@ fun Bitmap.scaleUntil(targetKB: Int): Bitmap {
     val scaleRatio = 1.5
     val width = width.div(scaleRatio).toInt()
     val height = height.div(scaleRatio).toInt()
-    return scale(width, height)
+
+    val scaledBitmap = scale(width, height)
+    return scaledBitmap.scaleUntil(targetKB)
 }

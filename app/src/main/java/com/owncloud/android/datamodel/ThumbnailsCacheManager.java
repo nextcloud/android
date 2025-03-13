@@ -208,6 +208,17 @@ public final class ThumbnailsCacheManager {
                 return;
             }
 
+            // Check if the bitmap is already cached
+            Bitmap cachedBitmap = mThumbnailCache.getBitmap(key);
+            if (cachedBitmap == null) {
+                cachedBitmap = mThumbnailCache.getScaledBitmap(key, bitmap.getWidth(), bitmap.getHeight());
+            }
+
+            if (cachedBitmap != null && BitmapExtensionsKt.allocationKilobyte(cachedBitmap) <= THUMBNAIL_SIZE_IN_KB) {
+                Log_OC.d(TAG, "Cached version is already within size limits, no need to scale: " + key);
+                return;
+            }
+
             if (BitmapExtensionsKt.allocationKilobyte(bitmap) > THUMBNAIL_SIZE_IN_KB) {
                 Log_OC.d(TAG, "Scaling bitmap before caching: " + key);
                 bitmap = BitmapExtensionsKt.scaleUntil(bitmap, THUMBNAIL_SIZE_IN_KB);
