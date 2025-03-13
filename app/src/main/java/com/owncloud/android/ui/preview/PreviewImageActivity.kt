@@ -6,15 +6,12 @@
  */
 package com.owncloud.android.ui.preview
 
-import android.annotation.SuppressLint
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.os.Build
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.view.MenuItem
 import android.view.View
 import android.view.WindowInsets
@@ -68,8 +65,7 @@ class PreviewImageActivity : FileActivity(), FileFragment.ContainerActivity, OnR
     private var livePhotoFile: OCFile? = null
     private var viewPager: ViewPager2? = null
     private var previewImagePagerAdapter: PreviewImagePagerAdapter? = null
-    private var savedPosition = 0
-    private var hasSavedPosition = false
+    private var savedPosition: Int? = null
     private var downloadFinishReceiver: DownloadFinishReceiver? = null
     private var fullScreenAnchorView: View? = null
 
@@ -173,10 +169,10 @@ class PreviewImageActivity : FileActivity(), FileFragment.ContainerActivity, OnR
 
         viewPager = findViewById(R.id.fragmentPager)
 
-        var position = if (hasSavedPosition) savedPosition else previewImagePagerAdapter?.getFilePosition(file)
+        var position = if (savedPosition != null) savedPosition else previewImagePagerAdapter?.getFilePosition(file)
         position = position?.toDouble()?.let { max(it, 0.0).toInt() }
 
-        viewPager?.setAdapter(previewImagePagerAdapter)
+        viewPager?.adapter = previewImagePagerAdapter
         viewPager?.registerOnPageChangeCallback(object : OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 selectPage(position)
@@ -190,17 +186,6 @@ class PreviewImageActivity : FileActivity(), FileFragment.ContainerActivity, OnR
             // this is necessary because mViewPager.setCurrentItem(0) just after setting the
             // adapter does not result in a call to #onPageSelected(0)
             screenState = PreviewImageActivityState.WaitingForBinder
-        }
-    }
-
-    @SuppressLint("NotifyDataSetChanged")
-    fun setPreviewImagePagerCurrentItem(position: Int) {
-        if (user.isPresent) {
-            Handler(Looper.getMainLooper()).post {
-                initViewPager(user.get())
-                viewPager?.setCurrentItem(position, false)
-                viewPager?.adapter?.notifyDataSetChanged()
-            }
         }
     }
 
@@ -317,6 +302,8 @@ class PreviewImageActivity : FileActivity(), FileFragment.ContainerActivity, OnR
 
                     if (screenState == PreviewImageActivityState.Edit) {
                         onImageDownloadComplete(state.currentFile)
+                    } else {
+                        setDownloadedItem()
                     }
                 }
 
@@ -324,6 +311,21 @@ class PreviewImageActivity : FileActivity(), FileFragment.ContainerActivity, OnR
                     Log_OC.d(TAG, "Worker stopped")
                     isDownloadWorkStarted = false
                 }
+            }
+        }
+    }
+
+    private fun setDownloadedItem() {
+        savedPosition?.let { position ->
+
+            previewImagePagerAdapter?.run {
+                updateFile(position, file)
+                notifyItemChanged(position)
+            }
+
+            if (user.isPresent) {
+                initViewPager(user.get())
+                viewPager?.currentItem = position
             }
         }
     }
@@ -403,7 +405,6 @@ class PreviewImageActivity : FileActivity(), FileFragment.ContainerActivity, OnR
     fun selectPage(position: Int?) {
         if (position == null) return
         savedPosition = position
-        hasSavedPosition = true
 
         val currentFile = previewImagePagerAdapter?.getFileAt(position)
 
