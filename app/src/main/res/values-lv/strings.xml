@@ -64,6 +64,7 @@
     <string name="auth_unsupported_multiaccount">%1$s neatbalsta vairākus kontus.</string>
     <string name="auth_wrong_connection_title">Neizdevās izveidot savienojumu</string>
     <string name="authenticator_activity_cancel_login">Atcelt pieteikšanos</string>
+    <string name="authenticator_activity_please_complete_login_process">Lūgums pabeigt pieteikšanos savā pārlūkā</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">glabāts oriģinālajā mapē, jo tā ir tikai lasāma</string>
     <string name="auto_upload_on_wifi">Augšupielādēt tikai neirobežotā Wi-Fi</string>
     <string name="autoupload_configure">Konfigurēt</string>
@@ -264,7 +265,10 @@
     <string name="filename_forbidden_characters">Aizliegtās rakstzīmes: / \\ &lt; &gt; : \" | ? *</string>
     <string name="filename_forbidden_charaters_from_server">Datnes nosaukums satur vismaz vienu nederīgu rakstzīmi</string>
     <string name="filename_hint">Datnes nosaukums</string>
-    <string name="first_run_1_text">Turi savus datus drošībā un zem savas kontroles</string>
+    <string name="first_run_1_text">Turi savus datus drošībā un savā uzraudzībā</string>
+    <string name="first_run_2_text">Droša sadarbošanās un datņu apmaiņa</string>
+    <string name="first_run_3_text">Viegli izmantojams tīmekļa pasts, kalendārs un kontaktpersonu saraksts</string>
+    <string name="first_run_4_text">Ekrāna kopīgošana, tiešsaistes sapulces un tīmekļa apspriešanās</string>
     <string name="folder_confirm_create">Izveidot</string>
     <string name="folder_list_empty_headline">Šeit nav mapju</string>
     <string name="folder_picker_choose_button_text">Izvēlēties</string>
@@ -288,6 +292,7 @@
     <string name="hint_note">Piezīme</string>
     <string name="hint_password">Parole</string>
     <string name="host_not_available">Serveris nav pieejams</string>
+    <string name="host_your_own_server">Mitināt savu serveri</string>
     <string name="image_editor_file_edited_suffix">labots</string>
     <string name="image_preview_unit_fnumber">ƒ/%s</string>
     <string name="image_preview_unit_iso">ISO %s</string>
@@ -308,6 +313,7 @@
     <string name="local_folder_list_empty">Tālāku mapju vairs nav.</string>
     <string name="log_send_mail_subject">%1$s Android lietotnes žurnāli</string>
     <string name="login">Pieteikties</string>
+    <string name="login_url_helper_text">Saite uz %1$s tīmekļa saskarni, kad tā tiek atvērta pārlūkā.</string>
     <string name="logs_menu_refresh">Atsvaidzināt</string>
     <string name="logs_status_loading">Notiek ielāde...</string>
     <string name="logs_title">Žurnāli</string>
