@@ -222,4 +222,12 @@ class AutoRenameTests : AbstractOnServerIT() {
         val expectedFilename = "Testfolder ◼️‍⬜"
         assert(result == expectedFilename) { "Expected $expectedFilename but got $result" }
     }
+
+    @Test
+    fun testFilenameWithZeroWidthJoiner() {
+        val filename = "Testfolder\u200D"
+        val result = AutoRename.rename(filename, capability)
+        val expectedFilename = "Testfolder"
+        assert(result == expectedFilename) { "Expected $expectedFilename but got $result" }
+    }
 }
