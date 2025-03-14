@@ -102,7 +102,7 @@ fun TaskView(task: Task, capability: OCCapability, showTaskActions: () -> Unit) 
             TaskStatusView(task, foregroundColor = Color.White, capability)
 
             if (showTaskDetailBottomSheet) {
-                TaskDetailBottomSheet(task, capability, showTaskActions = {
+                TaskDetailBottomSheet(task, showTaskActions = {
                     showTaskDetailBottomSheet = false
                     showTaskActions()
                 }) {
