@@ -262,11 +262,6 @@ private fun EmptyTaskList(
     taskTypes: List<TaskTypeData>?,
     viewModel: AssistantViewModel
 ) {
-    val text = stringResource(
-        id = R.string.assistant_screen_no_task_available_text,
-        selectedTaskType?.name ?: ""
-    )
-
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -280,7 +275,11 @@ private fun EmptyTaskList(
             Spacer(modifier = Modifier.height(8.dp))
         }
 
-        CenterText(text = text)
+        CenterText(
+            text = stringResource(
+                id = R.string.assistant_screen_create_a_new_task_from_bottom_right_text
+            )
+        )
     }
 }
 
