@@ -53,6 +53,7 @@
 
     <string name="assistant_screen_task_types_error_state_message">Unable to fetch task types, please check your internet connection.</string>
     <string name="assistant_screen_task_list_error_state_message">Unable to fetch task list, please check your internet connection.</string>
+    <string name="assistant_screen_task_list_empty_message">Task list is empty.</string>
 
     <string name="assistant_screen_top_bar_title">Assistant</string>
     <string name="assistant_screen_loading">Loading task list…</string>
