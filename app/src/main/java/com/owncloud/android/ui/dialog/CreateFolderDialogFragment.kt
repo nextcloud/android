@@ -25,6 +25,7 @@ import com.google.common.collect.Sets
 import com.nextcloud.client.account.CurrentAccountProvider
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.network.ConnectivityService
+import com.nextcloud.utils.autoRename.AutoRename
 import com.nextcloud.utils.extensions.getParcelableArgument
 import com.nextcloud.utils.extensions.typedActivity
 import com.nextcloud.utils.fileNameValidator.FileNameValidator
@@ -169,16 +170,20 @@ class CreateFolderDialogFragment : DialogFragment(), DialogInterface.OnClickList
 
     override fun onClick(dialog: DialogInterface, which: Int) {
         if (which == AlertDialog.BUTTON_POSITIVE) {
-            val newFolderName = (getDialog()?.findViewById<View>(R.id.user_input) as TextView)
+            val capabilities = getOCCapability()
+
+            var newFolderName = (getDialog()?.findViewById<View>(R.id.user_input) as TextView)
                 .text.toString()
 
             val errorMessage: String? =
-                FileNameValidator.checkFileName(newFolderName, getOCCapability(), requireContext())
+                FileNameValidator.checkFileName(newFolderName, capabilities, requireContext())
 
             if (errorMessage != null) {
                 DisplayUtils.showSnackMessage(requireActivity(), errorMessage)
                 return
             }
+
+            newFolderName = AutoRename.rename(newFolderName, capabilities)
 
             val path = parentFolder?.decryptedRemotePath + newFolderName + OCFile.PATH_SEPARATOR
             connectivityService.isNetworkAndServerAvailable { result ->

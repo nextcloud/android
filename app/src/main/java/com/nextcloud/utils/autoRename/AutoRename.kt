@@ -83,7 +83,7 @@ object AutoRename {
             removeNonPrintableUnicodeCharacters(utf8Result)
         } else {
             result
-        }
+        }.trim()
     }
 
     private fun lowercaseFileExtension(filename: String): String {
