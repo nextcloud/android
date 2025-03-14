@@ -32,7 +32,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -57,7 +56,7 @@ fun TaskView(task: Task, capability: OCCapability, showTaskActions: () -> Unit) 
             modifier = Modifier
                 .fillMaxWidth()
                 .clip(RoundedCornerShape(8.dp))
-                .background(colorResource(R.color.primary))
+                .background(color = colorResource(R.color.task_container))
                 .clickable {
                     showTaskDetailBottomSheet = true
                 }
@@ -68,7 +67,7 @@ fun TaskView(task: Task, capability: OCCapability, showTaskActions: () -> Unit) 
             task.input?.input?.let {
                 Text(
                     text = it.truncateWithEllipsis(30),
-                    color = Color.White,
+                    color = colorResource(R.color.text_color),
                     fontSize = 18.sp,
                     textAlign = TextAlign.Left,
                     maxLines = 1,
@@ -83,7 +82,7 @@ fun TaskView(task: Task, capability: OCCapability, showTaskActions: () -> Unit) 
                 Text(
                     text = it.truncateWithEllipsis(100),
                     fontSize = 18.sp,
-                    color = Color.White,
+                    color = colorResource(R.color.text_color),
                     textAlign = TextAlign.Left,
                     modifier = Modifier
                         .animateContentSize(
@@ -95,7 +94,7 @@ fun TaskView(task: Task, capability: OCCapability, showTaskActions: () -> Unit) 
                 )
             }
 
-            TaskStatusView(task, foregroundColor = Color.White, capability)
+            TaskStatusView(task, capability)
 
             if (showTaskDetailBottomSheet) {
                 TaskDetailBottomSheet(task, showTaskActions = {
@@ -114,7 +113,7 @@ fun TaskView(task: Task, capability: OCCapability, showTaskActions: () -> Unit) 
             Icon(
                 imageVector = Icons.Filled.MoreVert,
                 contentDescription = "More button",
-                tint = Color.White
+                tint = colorResource(R.color.text_color)
             )
         }
     }
