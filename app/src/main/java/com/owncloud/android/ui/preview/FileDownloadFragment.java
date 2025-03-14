@@ -23,8 +23,6 @@ import android.widget.TextView;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.jobs.download.FileDownloadHelper;
-import com.nextcloud.model.WorkerState;
-import com.nextcloud.model.WorkerStateLiveData;
 import com.nextcloud.utils.extensions.BundleExtensionsKt;
 import com.nextcloud.utils.extensions.FileExtensionsKt;
 import com.owncloud.android.R;
@@ -67,17 +65,16 @@ public class FileDownloadFragment extends FileFragment implements OnClickListene
 
     private boolean mIgnoreFirstSavedState;
     private boolean mError;
-    private Integer filePosition;
 
 
     /**
      * Public factory method to create a new fragment that shows the progress of a file download.
-     *
+     * <p>
      * Android strongly recommends keep the empty constructor of fragments as the only public constructor, and
      * use {@link #setArguments(Bundle)} to set the needed arguments.
-     *
+     * <p>
      * This method hides to client objects the need of doing the construction in two steps.
-     *
+     * <p>
      * When 'file' is null creates a dummy layout (useful when a file wasn't tapped before).
      *
      * @param file                      An {@link OCFile} to show in the fragment
@@ -85,11 +82,10 @@ public class FileDownloadFragment extends FileFragment implements OnClickListene
      * @param ignoreFirstSavedState     Flag to work around an unexpected behaviour of {@link FragmentStatePagerAdapter}
      *                                  TODO better solution
      */
-    public static Fragment newInstance(OCFile file, User user, boolean ignoreFirstSavedState, Integer filePosition) {
+    public static Fragment newInstance(OCFile file, User user, boolean ignoreFirstSavedState) {
         FileDownloadFragment frag = new FileDownloadFragment();
         Bundle args = new Bundle();
         args.putParcelable(ARG_FILE, file);
-        args.putInt(ARG_FILE_POSITION, filePosition);
         args.putParcelable(ARG_USER, user);
         args.putBoolean(ARG_IGNORE_FIRST, ignoreFirstSavedState);
         frag.setArguments(args);
@@ -121,9 +117,7 @@ public class FileDownloadFragment extends FileFragment implements OnClickListene
 
         mIgnoreFirstSavedState = args.getBoolean(ARG_IGNORE_FIRST);
         user = BundleExtensionsKt.getParcelableArgument(args, ARG_USER, User.class);
-        filePosition = args.getInt(ARG_FILE_POSITION);
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -163,19 +157,7 @@ public class FileDownloadFragment extends FileFragment implements OnClickListene
             setButtonsForTransferring();
         }
 
-        observeWorkerState();
-
         return mView;
-    }
-
-    private void observeWorkerState() {
-        WorkerStateLiveData.Companion.instance().observe(getViewLifecycleOwner(), state -> {
-            if (state instanceof WorkerState.DownloadFinished &&
-                requireActivity() instanceof PreviewImageActivity activity &&
-                filePosition != null) {
-                activity.setPreviewImagePagerCurrentItem(filePosition);
-            }
-        });
     }
 
     @Override
@@ -183,7 +165,6 @@ public class FileDownloadFragment extends FileFragment implements OnClickListene
         super.onSaveInstanceState(outState);
         FileExtensionsKt.logFileSize(getFile(), TAG);
         outState.putParcelable(FileDownloadFragment.EXTRA_FILE, getFile());
-        outState.putInt(FileDownloadFragment.ARG_FILE_POSITION, filePosition);
         outState.putParcelable(FileDownloadFragment.EXTRA_USER, user);
         outState.putBoolean(FileDownloadFragment.EXTRA_ERROR, mError);
     }
