@@ -82,6 +82,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.FragmentManager;
+import androidx.viewpager.widget.ViewPager;
 import androidx.viewpager2.widget.ViewPager2;
 
 /**
@@ -352,7 +353,17 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
                 }
                 super.onPageScrolled(position, positionOffset, positionOffsetPixels);
             }
+
+            @Override
+            public void onPageSelected(int position) {
+                super.onPageSelected(position);
+                TabLayout.Tab tab = binding.tabLayout.getTabAt(position);
+                if (tab != null) {
+                    tab.select();
+                }
+            }
         });
+
         binding.tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
