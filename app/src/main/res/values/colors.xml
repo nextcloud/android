@@ -52,6 +52,7 @@
     <color name="secondary_button_background_color">#D6D7D7</color>
     <color name="secondary_button_text_color">#000000</color>
     <color name="nc_grey">#ededed</color>
+    <color name="task_container">#F4F4F4</color>
     <color name="icon_on_nc_grey">#000000</color>
     <color name="foreground_highlight">#1D1B1E</color>
     <color name="process_dialog_background">#ffffff</color>

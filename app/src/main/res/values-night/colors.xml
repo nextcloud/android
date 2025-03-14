@@ -13,6 +13,7 @@
     <color name="secondary_text_color">#A5A5A5</color>
     <color name="list_divider_background">#222222</color>
     <color name="assistant_text_container">#F4F4F4</color>
+    <color name="task_container">#222222</color>
 
     <!-- Colors -->
     <color name="dark">#ffffff</color>
