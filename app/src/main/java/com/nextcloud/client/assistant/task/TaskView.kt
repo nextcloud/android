@@ -40,6 +40,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.nextcloud.client.assistant.taskDetail.TaskDetailBottomSheet
+import com.nextcloud.utils.extensions.truncateWithEllipsis
 import com.owncloud.android.R
 import com.owncloud.android.lib.resources.assistant.v2.model.Task
 import com.owncloud.android.lib.resources.assistant.v2.model.TaskInput
@@ -66,10 +67,11 @@ fun TaskView(task: Task, capability: OCCapability, showTaskActions: () -> Unit) 
 
             task.input?.input?.let {
                 Text(
-                    text = it,
+                    text = it.truncateWithEllipsis(30),
                     color = Color.White,
                     fontSize = 18.sp,
                     textAlign = TextAlign.Left,
+                    maxLines = 1,
                     fontWeight = FontWeight.Bold,
                     modifier = Modifier.width(300.dp)
                 )
@@ -78,14 +80,8 @@ fun TaskView(task: Task, capability: OCCapability, showTaskActions: () -> Unit) 
             Spacer(modifier = Modifier.height(12.dp))
 
             task.output?.output?.let {
-                val output = if (it.length >= 100) {
-                    it.take(100) + "..."
-                } else {
-                    it
-                }
-
                 Text(
-                    text = output,
+                    text = it.truncateWithEllipsis(100),
                     fontSize = 18.sp,
                     color = Color.White,
                     textAlign = TextAlign.Left,
