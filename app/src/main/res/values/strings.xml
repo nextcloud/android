@@ -783,6 +783,7 @@
     <string name="overflow_menu">More menu</string>
     <string name="synced_folders_type">Type</string>
     <string name="sync_status_button">Sync status button</string>
+    <string name="sync_warning_button">Sync warning button</string>
     <string name="synced_folder_settings_button">Settings button</string>
     <string name="upload_item_action_button">Upload item action button</string>
     <string name="forward">Forward</string>
@@ -1342,4 +1343,7 @@
     <string name="create_link">Create link</string>
     <string name="folder_best_viewed_in">This folder is best viewed in %1$s.</string>
     <string name="open_in_app">Open in %1$s</string>
+    <string name="auto_upload_sub_folder_warning">This folder is already included in the parent folder’s sync, which may cause duplicate uploads</string>
+    <string name="sync_anyway">Sync anyway</string>
+    <string name="sync_duplication">Sync duplication</string>
 </resources>
