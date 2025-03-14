@@ -16,6 +16,7 @@
     <color name="white_helper_text">#B3FFFFFF</color>
     <color name="text_color">#333333</color>
     <color name="light_grey">#F5F5F5</color>
+    <color name="assistant_text_container">#F4F4F4</color>
     <color name="grid_file_features_icon_color">#303034</color>
     <color name="grid_file_features_background_color">#E9E8EB</color>
     <color name="drawer_text_color">@color/secondary_text_color</color>
