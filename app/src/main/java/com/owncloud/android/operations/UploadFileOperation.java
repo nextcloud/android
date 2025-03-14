@@ -413,7 +413,7 @@ public class UploadFileOperation extends SyncOperation {
 
         String remoteParentPath = new File(getRemotePath()).getParent();
         remoteParentPath = remoteParentPath.endsWith(OCFile.PATH_SEPARATOR) ? remoteParentPath : remoteParentPath + OCFile.PATH_SEPARATOR;
-        remoteParentPath = AutoRename.INSTANCE.rename(remoteParentPath, getCapabilities(), true);
+        remoteParentPath = AutoRename.INSTANCE.rename(remoteParentPath, getCapabilities());
 
         OCFile parent = getStorageManager().getFileByPath(remoteParentPath);
 
