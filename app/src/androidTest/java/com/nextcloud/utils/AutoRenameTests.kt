@@ -206,4 +206,28 @@ class AutoRenameTests : AbstractOnServerIT() {
         val expectedFilename = "a_a.jpg"
         assert(result == expectedFilename) { "Expected $expectedFilename but got $result" }
     }
+
+    @Test
+    fun testFilenameWithEmoji() {
+        val filename = "Testfolder 🔵"
+        val result = AutoRename.rename(filename, capability)
+        val expectedFilename = "Testfolder 🔵"
+        assert(result == expectedFilename) { "Expected $expectedFilename but got $result" }
+    }
+
+    @Test
+    fun testFilenameWithEmojiV2() {
+        val filename = "Testfolder ◼️‍⬜"
+        val result = AutoRename.rename(filename, capability)
+        val expectedFilename = "Testfolder ◼️‍⬜"
+        assert(result == expectedFilename) { "Expected $expectedFilename but got $result" }
+    }
+
+    @Test
+    fun testFilenameWithZeroWidthJoiner() {
+        val filename = "Testfolder\u200D"
+        val result = AutoRename.rename(filename, capability)
+        val expectedFilename = "Testfolder"
+        assert(result == expectedFilename) { "Expected $expectedFilename but got $result" }
+    }
 }
