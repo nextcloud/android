@@ -352,7 +352,19 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
                 }
                 super.onPageScrolled(position, positionOffset, positionOffsetPixels);
             }
+
+            @Override
+            public void onPageSelected(int position) {
+                super.onPageSelected(position);
+                if (binding != null) {
+                    final var tab = binding.tabLayout.getTabAt(position);
+                    if (tab != null) {
+                        tab.select();
+                    }
+                }
+            }
         });
+
         binding.tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
