@@ -422,7 +422,7 @@
     <string name="reload">Reload</string>
     <string name="remove_fail_msg">Dzēšana neizdevās</string>
     <string name="remove_push_notification">Izņemt</string>
-    <string name="remove_success_msg">Dzēstie</string>
+    <string name="remove_success_msg">Izdzēsta</string>
     <string name="rename_dialog_title">Ievadīt jaunu nosaukumu</string>
     <string name="rename_local_fail_msg">Nevarēja pārsaukt vietējo kopiju, jāmēģina cits nosaukums</string>
     <string name="rename_server_fail_msg">Pārsaukšana nav iespējama, nosaukums jau izmantots</string>
@@ -465,7 +465,7 @@
     <string name="sharee_add_failed">Dalībnieka pievienošana neizdevās</string>
     <string name="signup_with_provider">Reģistrēties ar pakalpojumu sniedzēju</string>
     <string name="sort_by">Kārtot pēc</string>
-    <string name="ssl_validator_btn_details_hide">Slēpt</string>
+    <string name="ssl_validator_btn_details_hide">Paslēpt</string>
     <string name="ssl_validator_btn_details_see">Sīkāka informācija</string>
     <string name="ssl_validator_header">Servera identitāti nevarēja pārbaudīt</string>
     <string name="ssl_validator_label_C">Valsts:</string>
