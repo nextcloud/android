@@ -588,7 +588,7 @@ class FileDetailsSharingProcessFragment :
         }
 
         binding.shareProcessPermissionFileDrop.isChecked -> OCShare.CREATE_PERMISSION_FLAG
-        else -> capabilities.defaultPermissions ?: OCShare.NO_PERMISSION
+        else -> permission
     }
 
     private fun updateShare() {
