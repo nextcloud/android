@@ -6,7 +6,7 @@
 
 name: Auto approve sync
 on:
-  pull_request_target:
+  pull_request_target: # zizmor: ignore[dangerous-triggers]
     branches:
       - master
       - main
