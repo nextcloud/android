@@ -23,14 +23,10 @@ public final class PushUtils {
     private PushUtils() {
     }
 
-    public static void updateRegistrationsWithServer(final DrawerActivity activity,
-                                                     final UserAccountManager accountManager,
-                                                     final String pushToken) {
-        // do nothing
-    }
-
-    public static void updateRegistrationsWithServerNoUI(final UserAccountManager accountManager,
-                                                         final String pushToken) {
+    public static void updateRegistrationsWithServer(
+        final Context context,
+        final UserAccountManager accountManager,
+        final String pushToken) {
         // do nothing
     }
 

@@ -601,15 +601,14 @@ public class SettingsActivity extends PreferenceActivity
             Gson gson = new Gson();
             for (Account account : accountManager.getAccounts()) {
                 String providerValue = arbitraryDataProvider.getValue(account.name, KEY_PUSH);
-                if (TextUtils.isEmpty(providerValue) == false) {
+                if (!TextUtils.isEmpty(providerValue)) {
                     PushConfigurationState accountPushData = gson.fromJson(providerValue, PushConfigurationState.class);
                     accountPushData.shouldBeDeleted = true;     // set this so push account will be reset
                     arbitraryDataProvider.storeOrUpdateKeyValue(account.name, KEY_PUSH, gson.toJson(accountPushData));
                 }
             }
 
-            final Activity activity = this;
-            DisplayUtils.showSnackMessage(activity, R.string.prefs_reset_push_done);
+            DisplayUtils.showSnackMessage(this, R.string.prefs_reset_push_done);
             return true;
         });
     }
