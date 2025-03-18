@@ -165,9 +165,10 @@ public final class PushUtils {
         }
     }
 
-    public static void updateRegistrationsWithServer(final DrawerActivity activity,
-                                                     final UserAccountManager accountManager,
-                                                     final String token) {
+    public static void updateRegistrationsWithServer(
+        final Context unusedContext,
+        final UserAccountManager accountManager,
+        final String token) {
         arbitraryDataProvider = new ArbitraryDataProviderImpl(MainApp.getAppContext());
 
         if (!TextUtils.isEmpty(MainApp.getAppContext().getResources().getString(R.string.push_server_url)) &&
@@ -247,11 +248,6 @@ public final class PushUtils {
                 }
             }
         }
-    }
-
-    public static void updateRegistrationsWithServerNoUI(final UserAccountManager accountManager,
-                                                         final String pushToken) {
-        updateRegistrationsWithServer(null, accountManager, pushToken);
     }
 
     public static Key readKeyFromFile(boolean readPublicKey) {

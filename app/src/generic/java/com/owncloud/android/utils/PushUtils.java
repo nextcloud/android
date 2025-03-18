@@ -10,6 +10,7 @@ package com.owncloud.android.utils;
 import android.content.Context;
 
 import android.accounts.Account;
+import android.text.TextUtils;
 
 import com.google.gson.Gson;
 import com.nextcloud.client.account.UserAccountManager;
@@ -29,30 +30,31 @@ public final class PushUtils {
     private PushUtils() {
     }
 
-    public static void updateRegistrationsWithServer(final DrawerActivity activity,
-                                                     final UserAccountManager accountManager,
-                                                     final String pushToken) {
+    public static void updateRegistrationsWithServer(
+        final DrawerActivity activity,
+        final UserAccountManager accountManager,
+        final String pushToken) {
         for (Account account : accountManager.getAccounts()) {
-            PushConfigurationState accountPushData = new Gson().fromJson(
-                new ArbitraryDataProviderImpl(MainApp.getAppContext()).getValue(account.name, KEY_PUSH),
-                PushConfigurationState.class
-            );
-            if ((accountPushData == null) || (accountPushData.isShouldBeDeleted() == false)) {
-                UnifiedPush.Companion.registerForPushMessaging(activity, account.name);
+            String providerValue = new ArbitraryDataProviderImpl(MainApp.getAppContext()).getValue(account.name, KEY_PUSH);
+            PushConfigurationState accountPushData = new Gson().fromJson(providerValue, PushConfigurationState.class);
+
+            // register if no existing account push data or account push data is marked to be deleted
+            if ((accountPushData == null) || !accountPushData.isShouldBeDeleted()) {
+                // registration requires a context for possible dialog
+                if (activity != null)
+                    UnifiedPush.Companion.registerForPushMessaging(
+                        activity,
+                        account.name,
+                        TextUtils.isEmpty(accountPushData.getPushToken()));
             } else {
-                UnifiedPush.Companion.unregisterForPushMessaging(account.name);
+                // else, unregister
+                UnifiedPush.Companion.unregisterForPushMessaging(MainApp.getAppContext(), account.name);
             }
         }
     }
 
-    public static void updateRegistrationsWithServerNoUI(final UserAccountManager accountManager,
-                                                         final String pushToken) {
-        updateRegistrationsWithServer(null, accountManager, pushToken);
-    }
-
     public static void reinitKeys(UserAccountManager accountManager) {
-        Context context = MainApp.getAppContext();
-        AppPreferencesImpl.fromContext(context).setKeysReInitEnabled();
+        AppPreferencesImpl.fromContext(MainApp.getAppContext()).setKeysReInitEnabled();
     }
 
     public static Key readKeyFromFile(boolean readPublicKey) {
@@ -63,8 +65,7 @@ public final class PushUtils {
         final Context context,
         final UserAccountManager accountManager,
         final byte[] signatureBytes,
-        final byte[] subjectBytes
-    ) {
+        final byte[] subjectBytes) {
         return null;
     }
 
