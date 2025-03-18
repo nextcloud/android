@@ -292,9 +292,15 @@ class ConflictsResolveDialog : DialogFragment(), Injectable {
         private const val ARG_USER = "USER"
 
         @JvmStatic
-        fun newInstance(context: Context, leftFile: OCFile, rightFile: OCFile, user: User?): ConflictsResolveDialog {
+        fun newInstance(
+            title: String,
+            context: Context,
+            leftFile: OCFile,
+            rightFile: OCFile,
+            user: User?
+        ): ConflictsResolveDialog {
             val file = File(leftFile.storagePath)
-            val conflictData = getFileConflictData(file, rightFile, context)
+            val conflictData = getFileConflictData(title, file, rightFile, context)
 
             val bundle = Bundle().apply {
                 putParcelable(ARG_CONFLICT_DATA, conflictData)
@@ -308,13 +314,8 @@ class ConflictsResolveDialog : DialogFragment(), Injectable {
             }
         }
 
-        @JvmStatic
-        fun newInstance(
-            context: Context,
-            offlineOperation: OfflineOperationEntity,
-            rightFile: OCFile
-        ): ConflictsResolveDialog {
-            val conflictData = getFolderConflictData(offlineOperation, rightFile, context)
+        fun newInstance(context: Context, leftFile: OfflineOperationEntity, rightFile: OCFile): ConflictsResolveDialog {
+            val conflictData = getFolderConflictData(leftFile, rightFile, context)
 
             val bundle = Bundle().apply {
                 putParcelable(ARG_CONFLICT_DATA, conflictData)
@@ -327,7 +328,6 @@ class ConflictsResolveDialog : DialogFragment(), Injectable {
         }
 
         @Suppress("MagicNumber")
-        @JvmStatic
         private fun getFolderConflictData(
             offlineOperation: OfflineOperationEntity,
             rightFile: OCFile,
@@ -349,11 +349,12 @@ class ConflictsResolveDialog : DialogFragment(), Injectable {
             return ConflictDialogData(null, title, description, Pair(leftCheckBoxData, rightCheckBoxData))
         }
 
-        @JvmStatic
-        private fun getFileConflictData(leftFile: File, rightFile: OCFile, context: Context): ConflictDialogData {
-            // TODO Path needs to be set it correctly for encrypted folders
-            val title = rightFile.decryptedRemotePath
-
+        private fun getFileConflictData(
+            title: String,
+            leftFile: File,
+            rightFile: OCFile,
+            context: Context
+        ): ConflictDialogData {
             val leftTitle = context.getString(R.string.conflict_local_file)
             val leftTimestamp = DisplayUtils.getRelativeTimestamp(context, leftFile.lastModified())
             val leftFileSize = DisplayUtils.bytesToHumanReadable(leftFile.length())
