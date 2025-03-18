@@ -116,12 +116,12 @@ private fun TitleDescriptionBox(title: String, description: String?) {
         modifier = Modifier
             .fillMaxWidth()
             .padding(top = 8.dp)
-            .background(color = colorResource(R.color.assistant_text_container), RoundedCornerShape(8.dp))
+            .background(color = colorResource(R.color.task_container), RoundedCornerShape(8.dp))
             .padding(12.dp)
     ) {
         Text(
             text = description ?: "",
-            color = Color.Black
+            color = colorResource(R.color.text_color)
         )
     }
 }
