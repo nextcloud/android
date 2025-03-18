@@ -48,6 +48,7 @@ import javax.inject.Inject
 /**
  * Wrapper activity which will be launched if keep-in-sync file will be modified by external application.
  */
+@Suppress("TooManyFunctions")
 class ConflictsResolveActivity : FileActivity(), OnConflictDecisionMadeListener {
     @Inject
     lateinit var uploadsStorageManager: UploadsStorageManager
@@ -259,9 +260,9 @@ class ConflictsResolveActivity : FileActivity(), OnConflictDecisionMadeListener 
 
                 val (ft, _) = prepareDialog()
                 val dialog = ConflictsResolveDialog.newInstance(
-                    this,
-                    offlineOperation,
-                    ocFile
+                    context = this,
+                    leftFile = offlineOperation,
+                    rightFile = ocFile
                 )
                 dialog.show(ft, "conflictDialog")
                 return
@@ -318,10 +319,11 @@ class ConflictsResolveActivity : FileActivity(), OnConflictDecisionMadeListener 
 
         if (existingFile != null && storageManager.fileExists(remotePath) && newFile != null) {
             val dialog = ConflictsResolveDialog.newInstance(
-                this,
-                newFile!!,
-                existingFile!!,
-                user
+                title = storageManager.getDecryptedPath(existingFile),
+                context = this,
+                leftFile = newFile!!,
+                rightFile = existingFile!!,
+                user = user
             )
             dialog.show(ft, "conflictDialog")
         } else {

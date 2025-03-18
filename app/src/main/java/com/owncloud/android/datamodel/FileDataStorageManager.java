@@ -2791,4 +2791,13 @@ public class FileDataStorageManager {
 
         return result;
     }
+
+    public String getDecryptedPath(OCFile file) {
+        final var entity = fileDao.getFileByEncryptedRemotePath(file.getRemotePath(), user.getAccountName());
+        if (entity == null) {
+            return file.getDecryptedRemotePath();
+        }
+
+        return entity.getPathDecrypted();
+    }
 }
