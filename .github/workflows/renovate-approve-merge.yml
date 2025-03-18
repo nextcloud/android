@@ -52,7 +52,7 @@ jobs:
 
       # Enable GitHub auto merge
       - name: Auto merge
-        uses: alexwilson/enable-github-automerge-action@main
+        uses: alexwilson/enable-github-automerge-action@56e3117d1ae1540309dc8f7a9f2825bc3c5f06ff # v2.0.0
         if: startsWith(steps.branchname.outputs.branch, 'renovate/')
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
