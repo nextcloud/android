@@ -293,12 +293,8 @@ public final class ThumbnailsCacheManager {
             this.backgroundColor = backgroundColor;
         }
 
-        public void setListener(GalleryImageGenerationTask.GalleryListener listener) {
+        public void setListener(GalleryListener listener) {
             this.listener = listener;
-        }
-
-        public String getImageKey() {
-            return imageKey;
         }
 
         @Override
@@ -362,17 +358,27 @@ public final class ThumbnailsCacheManager {
                 storageManager.saveFile(file);
             }
 
-
-            Bitmap result;
-
+            Bitmap result = thumbnail;
             if (MimeTypeUtil.isVideo(file)) {
-                final var thumbnailWithOverlay = ThumbnailsCacheManager.addVideoOverlay(thumbnail, MainApp.getAppContext());
-                result = BitmapExtensionsKt.scaleUntil(thumbnailWithOverlay, THUMBNAIL_SIZE_IN_KB);
-            } else {
-                result = BitmapExtensionsKt.scaleUntil(thumbnail, THUMBNAIL_SIZE_IN_KB);
+                result = ThumbnailsCacheManager.addVideoOverlay(thumbnail, MainApp.getAppContext());
             }
 
-            addBitmapToCache(imageKey, result);
+            if (BitmapExtensionsKt.allocationKilobyte(thumbnail) > THUMBNAIL_SIZE_IN_KB) {
+                result = getScaledThumbnailAfterSave(result);
+            }
+
+            return result;
+        }
+
+        private Bitmap getScaledThumbnailAfterSave(Bitmap thumbnail) {
+            Bitmap result = BitmapExtensionsKt.scaleUntil(thumbnail, THUMBNAIL_SIZE_IN_KB);
+
+            synchronized (mThumbnailsDiskCacheLock) {
+                if (mThumbnailCache != null) {
+                    Log_OC.d(TAG, "Scaling bitmap before caching: " + imageKey);
+                    mThumbnailCache.put(imageKey, result);
+                }
+            }
 
             return result;
         }
