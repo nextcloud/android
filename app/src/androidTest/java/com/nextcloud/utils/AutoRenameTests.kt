@@ -206,4 +206,28 @@ class AutoRenameTests : AbstractOnServerIT() {
         val expectedFilename = "a_a.jpg"
         assert(result == expectedFilename) { "Expected $expectedFilename but got $result" }
     }
+
+    @Test
+    fun testRemovingLeadingWhitespace() {
+        val filename = " readme.txt"
+        val result = AutoRename.rename(filename, capability)
+        val expectedFilename = "readme.txt"
+        assert(result == expectedFilename) { "Expected $expectedFilename but got $result" }
+    }
+
+    @Test
+    fun testRemovingTrailingWhitespace() {
+        val filename = "readme.txt "
+        val result = AutoRename.rename(filename, capability)
+        val expectedFilename = "readme.txt"
+        assert(result == expectedFilename) { "Expected $expectedFilename but got $result" }
+    }
+
+    @Test
+    fun testRemovingTrailingAndLeadingWhitespace() {
+        val filename = "   readme.txt  "
+        val result = AutoRename.rename(filename, capability)
+        val expectedFilename = "readme.txt"
+        assert(result == expectedFilename) { "Expected $expectedFilename but got $result" }
+    }
 }
