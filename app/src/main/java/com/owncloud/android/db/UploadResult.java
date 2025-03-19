@@ -12,6 +12,8 @@ package com.owncloud.android.db;
 
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 
+import java.util.Map;
+
 public enum UploadResult {
     UNKNOWN(-1),
     UPLOADED(0),
@@ -49,35 +51,34 @@ public enum UploadResult {
         return value;
     }
 
+    private static final Map<Integer, UploadResult> valueMap = Map.ofEntries(
+        Map.entry(0, UPLOADED),
+        Map.entry(1, NETWORK_CONNECTION),
+        Map.entry(2, CREDENTIAL_ERROR),
+        Map.entry(3, FOLDER_ERROR),
+        Map.entry(4, CONFLICT_ERROR),
+        Map.entry(5, FILE_ERROR),
+        Map.entry(6, PRIVILEGES_ERROR),
+        Map.entry(7, CANCELLED),
+        Map.entry(8, FILE_NOT_FOUND),
+        Map.entry(9, DELAYED_FOR_WIFI),
+        Map.entry(10, SERVICE_INTERRUPTED),
+        Map.entry(11, DELAYED_FOR_CHARGING),
+        Map.entry(12, MAINTENANCE_MODE),
+        Map.entry(13, LOCK_FAILED),
+        Map.entry(14, DELAYED_IN_POWER_SAVE_MODE),
+        Map.entry(15, SSL_RECOVERABLE_PEER_UNVERIFIED),
+        Map.entry(16, VIRUS_DETECTED),
+        Map.entry(17, LOCAL_STORAGE_FULL),
+        Map.entry(18, OLD_ANDROID_API),
+        Map.entry(19, SYNC_CONFLICT),
+        Map.entry(20, CANNOT_CREATE_FILE),
+        Map.entry(21, LOCAL_STORAGE_NOT_COPIED),
+        Map.entry(22, QUOTA_EXCEEDED),
+        Map.entry(23, SAME_FILE_CONFLICT)
+                                                                            );
     public static UploadResult fromValue(int value) {
-        return switch (value) {
-            case -1 -> UNKNOWN;
-            case 0 -> UPLOADED;
-            case 1 -> NETWORK_CONNECTION;
-            case 2 -> CREDENTIAL_ERROR;
-            case 3 -> FOLDER_ERROR;
-            case 4 -> CONFLICT_ERROR;
-            case 5 -> FILE_ERROR;
-            case 6 -> PRIVILEGES_ERROR;
-            case 7 -> CANCELLED;
-            case 8 -> FILE_NOT_FOUND;
-            case 9 -> DELAYED_FOR_WIFI;
-            case 10 -> SERVICE_INTERRUPTED;
-            case 11 -> DELAYED_FOR_CHARGING;
-            case 12 -> MAINTENANCE_MODE;
-            case 13 -> LOCK_FAILED;
-            case 14 -> DELAYED_IN_POWER_SAVE_MODE;
-            case 15 -> SSL_RECOVERABLE_PEER_UNVERIFIED;
-            case 16 -> VIRUS_DETECTED;
-            case 17 -> LOCAL_STORAGE_FULL;
-            case 18 -> OLD_ANDROID_API;
-            case 19 -> SYNC_CONFLICT;
-            case 20 -> CANNOT_CREATE_FILE;
-            case 21 -> LOCAL_STORAGE_NOT_COPIED;
-            case 22 -> QUOTA_EXCEEDED;
-            case 23 -> SAME_FILE_CONFLICT;
-            default -> UNKNOWN;
-        };
+        return valueMap.getOrDefault(value, UNKNOWN);
     }
 
     public static UploadResult fromOperationResult(RemoteOperationResult result) {
