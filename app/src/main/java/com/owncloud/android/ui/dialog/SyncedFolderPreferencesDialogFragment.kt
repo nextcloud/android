@@ -9,7 +9,6 @@ package com.owncloud.android.ui.dialog
 
 import android.app.Activity
 import android.app.Dialog
-import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import android.graphics.Typeface
@@ -39,8 +38,6 @@ import com.owncloud.android.utils.FileStorageUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import java.io.File
 import javax.inject.Inject
-import kotlin.time.DurationUnit
-import kotlin.time.toDuration
 
 /**
  * Dialog to show the preferences/configuration of a synced folder allowing the user to change the different
@@ -55,10 +52,13 @@ class SyncedFolderPreferencesDialogFragment : DialogFragment(), Injectable {
 
     private lateinit var uploadBehaviorItemStrings: Array<CharSequence>
     private lateinit var nameCollisionPolicyItemStrings: Array<CharSequence>
+    private lateinit var minFileAgeItemStrings: Array<CharSequence>
+    private lateinit var minFileAgeItemValues: Array<Long>
 
     private var syncedFolder: SyncedFolderParcelable? = null
     private var behaviourDialogShown = false
     private var nameCollisionPolicyDialogShown = false
+    private var minFileAgeDialogShown = false
     private var behaviourDialog: AlertDialog? = null
     private var binding: SyncedFoldersSettingsLayoutBinding? = null
     private var isNeutralButtonActive = true
@@ -87,6 +87,10 @@ class SyncedFolderPreferencesDialogFragment : DialogFragment(), Injectable {
 
         uploadBehaviorItemStrings = resources.getTextArray(R.array.pref_behaviour_entries)
         nameCollisionPolicyItemStrings = resources.getTextArray(R.array.pref_name_collision_policy_entries)
+        minFileAgeItemStrings = resources.getTextArray(R.array.pref_min_file_age_entries)
+        minFileAgeItemValues = resources.getIntArray(R.array.pref_min_file_age_ms_entry_values)
+            .map(Int::toLong)
+            .toTypedArray()
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
@@ -222,8 +226,14 @@ class SyncedFolderPreferencesDialogFragment : DialogFragment(), Injectable {
             )
             binding.settingInstantNameCollisionPolicySummary.text =
                 nameCollisionPolicyItemStrings[nameCollisionPolicyIndex]
-            binding.settingInstantUploadMinFileAgeSummary.text =
-                getUploadMinFileAgeSummary(requireContext(), it.uploadMinFileAgeMs)
+
+            val selectedMinFileAgeItem = minFileAgeItemValues.indexOf(it.uploadMinFileAgeMs)
+            if (selectedMinFileAgeItem >= 0) {
+                binding.settingInstantUploadMinFileAgeSummary.text = minFileAgeItemStrings[selectedMinFileAgeItem]
+            } else {
+                it.uploadMinFileAgeMs = 0
+                binding.settingInstantUploadMinFileAgeSummary.text = minFileAgeItemStrings[0]
+            }
         }
     }
 
@@ -454,23 +464,22 @@ class SyncedFolderPreferencesDialogFragment : DialogFragment(), Injectable {
 
     private fun showUploadMinFileAgeDialog() {
         syncedFolder?.let {
-            val dialog = DurationPickerDialogFragment.newInstance(
-                it.uploadMinFileAgeMs,
-                getString(R.string.pref_instant_upload_min_file_age_dialog_title),
-                getString(R.string.pref_instant_upload_min_file_age_hint)
-            )
-
-            dialog.setListener(object : DurationPickerDialogFragment.Listener {
-                override fun onDurationPickerResult(resultCode: Int, duration: Long) {
-                    if (resultCode == Activity.RESULT_OK) {
-                        it.uploadMinFileAgeMs = duration
-                        binding?.settingInstantUploadMinFileAgeSummary?.text =
-                            getUploadMinFileAgeSummary(requireContext(), duration)
-                    }
+            val builder = MaterialAlertDialogBuilder(requireActivity())
+            val selectedItem = minFileAgeItemValues.indexOf(it.uploadMinFileAgeMs)
+            builder.setTitle(R.string.pref_instant_upload_min_file_age_dialog_title)
+                .setSingleChoiceItems(minFileAgeItemStrings, selectedItem) { dialog: DialogInterface, which: Int ->
+                    it.uploadMinFileAgeMs = minFileAgeItemValues[which]
+                    binding?.settingInstantUploadMinFileAgeSummary?.text = minFileAgeItemStrings[which]
+                    minFileAgeDialogShown = false
                     dialog.dismiss()
                 }
-            })
-            dialog.show(parentFragmentManager, "UPLOAD_MIN_FILE_AGE_PICKER_DIALOG")
+                .setOnCancelListener { minFileAgeDialogShown = false }
+
+            minFileAgeDialogShown = true
+
+            viewThemeUtils?.dialog?.colorMaterialAlertDialogBackground(requireActivity(), builder)
+            behaviourDialog = builder.create()
+            behaviourDialog?.show()
         }
     }
 
@@ -489,6 +498,7 @@ class SyncedFolderPreferencesDialogFragment : DialogFragment(), Injectable {
     override fun onSaveInstanceState(outState: Bundle) {
         outState.putBoolean(BEHAVIOUR_DIALOG_STATE, behaviourDialogShown)
         outState.putBoolean(NAME_COLLISION_POLICY_DIALOG_STATE, nameCollisionPolicyDialogShown)
+        outState.putBoolean(MIN_FILE_AGE_DIALOG_STATE, minFileAgeDialogShown)
     }
 
     override fun onViewStateRestored(savedInstanceState: Bundle?) {
@@ -496,11 +506,16 @@ class SyncedFolderPreferencesDialogFragment : DialogFragment(), Injectable {
             savedInstanceState.getBoolean(BEHAVIOUR_DIALOG_STATE, false)
         nameCollisionPolicyDialogShown = savedInstanceState != null &&
             savedInstanceState.getBoolean(NAME_COLLISION_POLICY_DIALOG_STATE, false)
+        minFileAgeDialogShown = savedInstanceState != null &&
+            savedInstanceState.getBoolean(MIN_FILE_AGE_DIALOG_STATE, false)
         if (behaviourDialogShown) {
             showBehaviourDialog()
         }
         if (nameCollisionPolicyDialogShown) {
             showNameCollisionPolicyDialog()
+        }
+        if (minFileAgeDialogShown) {
+            showUploadMinFileAgeDialog()
         }
 
         super.onViewStateRestored(savedInstanceState)
@@ -551,6 +566,7 @@ class SyncedFolderPreferencesDialogFragment : DialogFragment(), Injectable {
         private val TAG = SyncedFolderPreferencesDialogFragment::class.java.simpleName
         private const val BEHAVIOUR_DIALOG_STATE = "BEHAVIOUR_DIALOG_STATE"
         private const val NAME_COLLISION_POLICY_DIALOG_STATE = "NAME_COLLISION_POLICY_DIALOG_STATE"
+        private const val MIN_FILE_AGE_DIALOG_STATE = "MIN_FILE_AGE_DIALOG_STATE"
         private const val ALPHA_ENABLED = 1.0f
         private const val ALPHA_DISABLED = 0.7f
 
@@ -599,39 +615,6 @@ class SyncedFolderPreferencesDialogFragment : DialogFragment(), Injectable {
                 0 -> NameCollisionPolicy.ASK_USER
                 else -> NameCollisionPolicy.ASK_USER
             }
-        }
-
-        @Suppress("MagicNumber")
-        private fun getUploadMinFileAgeSummary(context: Context, durationMs: Long): String {
-            if (durationMs == 0L) {
-                return context.getString(R.string.pref_instant_upload_min_file_age_disabled)
-            }
-
-            val durationSummary = StringBuilder()
-            val duration = durationMs.toDuration(DurationUnit.MILLISECONDS)
-            duration.toComponents { days, hours, minutes, _, _ ->
-                if (days > 0) {
-                    durationSummary.append(days)
-                    durationSummary.append(' ')
-                    durationSummary.append(context.getString(R.string.duration_picker_days_label))
-                    durationSummary.append(' ')
-                }
-                if (hours > 0) {
-                    durationSummary.append(hours)
-                    durationSummary.append(' ')
-                    durationSummary.append(context.getString(R.string.duration_picker_hours_label))
-                    durationSummary.append(' ')
-                }
-                if (minutes > 0) {
-                    durationSummary.append(minutes)
-                    durationSummary.append(' ')
-                    durationSummary.append(context.getString(R.string.duration_picker_minutes_label))
-                }
-            }
-            return context.getString(
-                R.string.pref_instant_upload_min_file_age_enabled,
-                durationSummary.toString().trim()
-            )
         }
     }
 }

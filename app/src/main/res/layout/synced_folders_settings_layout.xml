@@ -458,7 +458,7 @@
                     android:layout_height="wrap_content"
                     android:ellipsize="end"
                     android:maxLines="2"
-                    android:text="@string/pref_instant_upload_min_file_age_disabled"
+                    android:text="@string/pref_instant_upload_min_file_age_entries_disabled"
                     android:textColor="?android:attr/textColorSecondary" />
             </LinearLayout>
         </LinearLayout>

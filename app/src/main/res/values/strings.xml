@@ -218,7 +218,6 @@
     <string name="common_share">Share</string>
     <string name="common_skip">Skip</string>
     <string name="common_copy">Copy</string>
-    <string name="common_clear">Clear</string>
     <string name="about_title">About</string>
     <string name="remove_local_account">Remove local account</string>
     <string name="remove_local_account_details">Remove account from device and delete all local files</string>
@@ -561,10 +560,6 @@
     <string name="folder_picker_move_button_text">Move</string>
     <string name="folder_picker_choose_caption_text">Choose target folder</string>
 
-    <string name="duration_picker_days_label">d</string>
-    <string name="duration_picker_hours_label">h</string>
-    <string name="duration_picker_minutes_label">m</string>
-
     <string name="move_file_not_found">Unable to move file. Please check whether it exists.</string>
     <string name="move_file_invalid_into_descendent">It is not possible to move a folder into one of its own underlying folders</string>
     <string name="move_file_invalid_overwrite">The file is already present in the destination folder</string>
@@ -619,9 +614,13 @@
 
     <string name="pref_instant_upload_min_file_age_dialog_title">Minimum file age</string>
     <string name="pref_instant_upload_min_file_age_title">Minimum file age</string>
-    <string name="pref_instant_upload_min_file_age_hint">Due to the sync interval, the delay may increase by an additional 15 minutes.</string>
-    <string name="pref_instant_upload_min_file_age_enabled">At least %1$s</string>
-    <string name="pref_instant_upload_min_file_age_disabled">No restrictions</string>
+
+    <string name="pref_instant_upload_min_file_age_entries_disabled">No restrictions</string>
+    <string name="pref_instant_upload_min_file_age_entries_15_minutes">15 minutes</string>
+    <string name="pref_instant_upload_min_file_age_entries_30_minutes">30 minutes</string>
+    <string name="pref_instant_upload_min_file_age_entries_1_hour">1 hour</string>
+    <string name="pref_instant_upload_min_file_age_entries_24_hours">24 hours</string>
+    <string name="pref_instant_upload_min_file_age_entries_1_week">1 week</string>
 
     <string name="pref_instant_name_collision_policy_entries_always_ask">Ask me every time</string>
     <string name="pref_instant_name_collision_policy_entries_rename">Rename new version</string>

@@ -19,6 +19,24 @@
         <item>LOCAL_BEHAVIOUR_DELETE</item>
     </string-array>
 
+    <string-array name="pref_min_file_age_entries" translatable="false">
+        <item>@string/pref_instant_upload_min_file_age_entries_disabled</item>
+        <item>@string/pref_instant_upload_min_file_age_entries_15_minutes</item>
+        <item>@string/pref_instant_upload_min_file_age_entries_30_minutes</item>
+        <item>@string/pref_instant_upload_min_file_age_entries_1_hour</item>
+        <item>@string/pref_instant_upload_min_file_age_entries_24_hours</item>
+        <item>@string/pref_instant_upload_min_file_age_entries_1_week</item>
+    </string-array>
+
+    <integer-array  name="pref_min_file_age_ms_entry_values" translatable="false">
+        <item>0</item>
+        <item>900000</item>
+        <item>1800000</item>
+        <item>3600000</item>
+        <item>86400000</item>
+        <item>604800000</item>
+    </integer-array>
+
     <string-array name="pref_name_collision_policy_entries" translatable="false">
         <item>@string/pref_instant_name_collision_policy_entries_always_ask</item>
         <item>@string/pref_instant_name_collision_policy_entries_overwrite</item>
