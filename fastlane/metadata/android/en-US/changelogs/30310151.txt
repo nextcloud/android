@@ -1,0 +1,7 @@
+## 3.31.1 RC1 (March 18, 2025)
+
+- Various bug fixes and performance enhancements
+
+Minimum: NC 18 Server, Android 7.1 Nougat
+
+For a full list, please see https://github.com/nextcloud/android/milestone/108
