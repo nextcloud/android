@@ -13,6 +13,17 @@ import androidx.core.graphics.scale
 @Suppress("MagicNumber")
 fun Bitmap.allocationKilobyte(): Int = allocationByteCount.div(1024)
 
+/**
+ * Recursively scales down the Bitmap until its size allocation is within the specified size.
+ *
+ * This function checks if the current Bitmap's size (in kilobytes) is already within
+ * the target size. If not, it scales the Bitmap down by a factor of `1.5` in both width and height
+ * and calls itself recursively until the size condition is met.
+ *
+ * @receiver Bitmap The original Bitmap to be resized.
+ * @param targetKB The target size in kilobytes (KB) that the Bitmap should be reduced to.
+ * @return A scaled-down Bitmap that meets the size allocation requirement.
+ */
 @Suppress("MagicNumber")
 fun Bitmap.scaleUntil(targetKB: Int): Bitmap {
     if (allocationKilobyte() <= targetKB) {
