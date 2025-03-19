@@ -11,17 +11,17 @@ import com.owncloud.android.datamodel.SyncedFolder
 import com.owncloud.android.datamodel.SyncedFolderDisplayItem
 import java.io.File
 
-
 fun List<SyncedFolderDisplayItem>.filterEnabledOrWithoutEnabledParent(): List<SyncedFolderDisplayItem> {
     return filter { it.isEnabled || !hasEnabledParent(it.localPath) }
 }
 
+@Suppress("ReturnCount")
 fun List<SyncedFolder>.hasEnabledParent(localPath: String?): Boolean {
     localPath ?: return false
 
     val localFile = File(localPath).takeIf { it.exists() } ?: return false
     val parent = localFile.parentFile ?: return false
 
-    return any { it.isEnabled && File(it.localPath).exists() && File(it.localPath) == parent }
-        || hasEnabledParent(parent.absolutePath)
+    return any { it.isEnabled && File(it.localPath).exists() && File(it.localPath) == parent } ||
+        hasEnabledParent(parent.absolutePath)
 }
