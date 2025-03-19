@@ -69,18 +69,21 @@ class SharedListFragment : OCFileListFragment(), Injectable {
         return GetSharesRemoteOperation()
     }
 
+    @Suppress("DEPRECATION")
     private suspend fun fetchFileData(partialFile: OCFile): OCFile? {
         return withContext(Dispatchers.IO) {
             val user = accountManager.user
             val fetchResult = ReadFileRemoteOperation(partialFile.remotePath).execute(user, context)
-            if (!fetchResult.isSuccess) {
-                logger.e(SHARED_TAG, "Error fetching file")
-                if (fetchResult.isException && fetchResult.exception != null) {
-                    logger.e(SHARED_TAG, "exception: ", fetchResult.exception!!)
+            if (fetchResult.isSuccess) {
+                val remoteFile = (fetchResult.data[0] as RemoteFile).apply {
+                    val prevETag = mContainerActivity.storageManager.getFileByDecryptedRemotePath(remotePath)
+
+                    // Use previous eTag if exists to prevent break checkForChanges logic in RefreshFolderOperation.
+                    // Otherwise RefreshFolderOperation will show empty list
+                    prevETag?.etag?.let {
+                        etag = prevETag.etag
+                    }
                 }
-                null
-            } else {
-                val remoteFile = fetchResult.data[0] as RemoteFile
                 val file = FileStorageUtils.fillOCFile(remoteFile)
                 FileStorageUtils.searchForLocalFileInDefaultPath(file, user.accountName)
                 val savedFile = mContainerActivity.storageManager.saveFileWithParent(file, context)
@@ -90,6 +93,12 @@ class SharedListFragment : OCFileListFragment(), Injectable {
                     sharees = partialFile.sharees
                 }
                 savedFile
+            } else {
+                logger.e(SHARED_TAG, "Error fetching file")
+                if (fetchResult.isException && fetchResult.exception != null) {
+                    logger.e(SHARED_TAG, "exception: ", fetchResult.exception!!)
+                }
+                null
             }
         }
     }
@@ -99,10 +108,12 @@ class SharedListFragment : OCFileListFragment(), Injectable {
             isLoading = true
             val file = fetchFileData(partialFile)
             isLoading = false
-            if (file != null) {
-                block(file)
-            } else {
-                DisplayUtils.showSnackMessage(requireActivity(), R.string.error_retrieving_file)
+            withContext(Dispatchers.Main) {
+                if (file != null) {
+                    block(file)
+                } else {
+                    DisplayUtils.showSnackMessage(requireActivity(), R.string.error_retrieving_file)
+                }
             }
         }
     }
