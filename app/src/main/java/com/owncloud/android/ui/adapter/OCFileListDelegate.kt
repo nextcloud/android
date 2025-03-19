@@ -9,12 +9,12 @@ package com.owncloud.android.ui.adapter
 
 import android.content.Context
 import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.os.AsyncTask
 import android.view.View
 import android.widget.ImageView
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
+import androidx.core.graphics.drawable.toDrawable
 import com.elyeproj.loaderviewlibrary.LoaderImageView
 import com.nextcloud.android.common.ui.theme.utils.ColorRole
 import com.nextcloud.client.account.User
@@ -136,7 +136,7 @@ class OCFileListDelegate(
     ): ThumbnailsCacheManager.AsyncGalleryImageDrawable {
         val drawable = MimeTypeUtil.getFileTypeIcon(file.mimeType, file.fileName, context, viewThemeUtils)
             ?: ResourcesCompat.getDrawable(context.resources, R.drawable.file_image, null)
-            ?: ColorDrawable(Color.GRAY)
+            ?: Color.GRAY.toDrawable()
 
         val thumbnail = BitmapUtils.drawableToBitmap(drawable, width / 2, width / 2)
 
