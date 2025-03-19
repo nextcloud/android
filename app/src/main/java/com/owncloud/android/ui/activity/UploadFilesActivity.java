@@ -36,7 +36,7 @@ import com.nextcloud.client.jobs.upload.FileUploadWorker;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.utils.extensions.ActivityExtensionsKt;
 import com.nextcloud.utils.extensions.FileExtensionsKt;
-import com.nextcloud.utils.extensions.SyncedFolderDisplayItemExtensionsKt;
+import com.nextcloud.utils.extensions.SyncedFolderExtensionsKt;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.UploadFilesLayoutBinding;
 import com.owncloud.android.datamodel.SyncedFolderProvider;
@@ -632,7 +632,7 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
         final var chosenPath = mCurrentDir.getPath();
         final var syncedFolderProvider = new SyncedFolderProvider(getContentResolver(), preferences, clock);
         final var syncedFolders = syncedFolderProvider.getSyncedFolders();
-        return SyncedFolderDisplayItemExtensionsKt.isGivenLocalPathHasEnabledParent(syncedFolders, chosenPath);
+        return SyncedFolderExtensionsKt.hasEnabledParent(syncedFolders, chosenPath);
     }
 
     /**

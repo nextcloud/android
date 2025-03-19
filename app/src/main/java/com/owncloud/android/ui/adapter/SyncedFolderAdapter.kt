@@ -21,8 +21,8 @@ import com.afollestad.sectionedrecyclerview.SectionedRecyclerViewAdapter
 import com.afollestad.sectionedrecyclerview.SectionedViewHolder
 import com.nextcloud.android.common.ui.theme.utils.ColorRole
 import com.nextcloud.client.core.Clock
-import com.nextcloud.utils.extensions.filterEnabledOrWithoutParentInEnabledSet
-import com.nextcloud.utils.extensions.filterEnabledSubfoldersWithEnabledParent
+import com.nextcloud.utils.extensions.filterEnabledOrWithoutEnabledParent
+import com.nextcloud.utils.extensions.hasEnabledParent
 import com.nextcloud.utils.extensions.setVisibleIf
 import com.owncloud.android.R
 import com.owncloud.android.databinding.GridSyncItemBinding
@@ -76,7 +76,7 @@ class SyncedFolderAdapter(
     }
 
     fun setSyncFolderItems(newList: List<SyncedFolderDisplayItem>) {
-        val filteredList = newList.filterEnabledOrWithoutParentInEnabledSet()
+        val filteredList = newList.filterEnabledOrWithoutEnabledParent()
         syncFolderItems.clear()
         syncFolderItems.addAll(filteredList)
 
@@ -294,10 +294,11 @@ class SyncedFolderAdapter(
     }
 
     private fun initSubFolderWarningButton(holder: HeaderViewHolder, section: Int) {
-        val subFoldersThatHasEnabledParent = filteredSyncFolderItems.filterEnabledSubfoldersWithEnabledParent()
-        val hasEnabledParent = subFoldersThatHasEnabledParent.contains(filteredSyncFolderItems[section])
+        val syncFolderItem = filteredSyncFolderItems[section]
+        val isGivenLocalPathHasEnabledParent =
+            filteredSyncFolderItems.hasEnabledParent(syncFolderItem.localPath)
         holder.binding.subFolderWarningButton.run {
-            setVisibleIf(hasEnabledParent)
+            setVisibleIf(isGivenLocalPathHasEnabledParent)
             if (isVisible) {
                 viewThemeUtils.platform.themeImageButton(this)
                 setOnClickListener {
