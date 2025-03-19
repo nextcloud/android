@@ -69,11 +69,15 @@ fun List<SyncedFolderDisplayItem>.filterEnabledSubfoldersWithEnabledParent(): Li
     }
 }
 
-fun List<SyncedFolder>.isGivenLocalPathHasEnabledParent(localPath: String): Boolean {
+fun List<SyncedFolder>.isGivenLocalPathHasEnabledParent(localPath: String?): Boolean {
+    if (localPath == null) return false
+
     val localFile = File(localPath)
+
+    if (!localFile.exists() || localFile.parentFile == null) return false
 
     return find { folder ->
         val file = File(folder.localPath)
-        folder.isEnabled && localFile.exists() && file.exists() && localFile.parentFile == file
-    } != null
+        folder.isEnabled && file.exists() && localFile.parentFile == file
+    } != null || isGivenLocalPathHasEnabledParent(localFile.parentFile?.absolutePath)
 }
