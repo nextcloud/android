@@ -305,7 +305,7 @@
     <string name="end_to_end_encryption_confirm_button">Set up encryption</string>
     <string name="end_to_end_encryption_decrypting">Decrypting…</string>
     <string name="end_to_end_encryption_dialog_close">Close</string>
-    <string name="end_to_end_encryption_enter_password">Please enter password to decrypt private key.</string>
+    <string name="end_to_end_encryption_enter_passphrase_to_access_files">Enter your passphrase to access your files</string>
     <string name="end_to_end_encryption_folder_not_empty">This folder is not empty.</string>
     <string name="end_to_end_encryption_generating_keys">Generating new keys…</string>
     <string name="end_to_end_encryption_keywords_description">All 12 words together make a very strong password, letting only you view and make use of your encrypted files. Please write it down and keep it somewhere safe.</string>
@@ -454,6 +454,7 @@
     <string name="first_run_3_text">Easy-to-use webmail, calendar and contacts</string>
     <string name="first_run_4_text">Screensharing, online meetings and web conferences</string>
     <string name="folder_already_exists">Folder already exists</string>
+    <string name="folder_best_viewed_in">This folder is best viewed in %1$s.</string>
     <string name="folder_confirm_create">Create</string>
     <string name="folder_list_empty_headline">No folders here</string>
     <string name="folder_name_empty">Folder name cannot be empty</string>
@@ -622,6 +623,7 @@
     <string name="oneHour">1 hour</string>
     <string name="online">Online</string>
     <string name="online_status">Online status</string>
+    <string name="open_in_app">Open in %1$s</string>
     <string name="outdated_server">The server has reached end of life, please upgrade!</string>
     <string name="overflow_menu">More menu</string>
     <string name="pass_code_configure_your_pass_code">Enter your passcode</string>
@@ -829,6 +831,7 @@
     <string name="share_remote_clarification">%1$s (remote)</string>
     <string name="share_room_clarification">%1$s (conversation)</string>
     <string name="share_search">Name, Federated Cloud ID or email address…</string>
+    <string name="share_search_internal">Add users and teams</string>
     <string name="share_send_new_email">Send new email</string>
     <string name="share_send_note">Note to recipient</string>
     <string name="share_settings">Settings</string>
@@ -844,6 +847,7 @@
     <string name="shared_with_you_by">Shared with you by %1$s</string>
     <string name="sharee_add_failed">Adding sharee failed</string>
     <string name="sharee_already_added_to_file">Adding share failed. This file or folder has already been shared with this person or group.</string>
+    <string name="show_all">Show all</string>
     <string name="show_images">Show photos</string>
     <string name="show_less">Show less</string>
     <string name="show_video">Show videos</string>

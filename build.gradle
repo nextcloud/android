@@ -10,21 +10,22 @@
  */
 buildscript {
     ext {
-        androidLibraryVersion ="4a8c04815faa818380e019a227e2d80df86ef187"
-        androidPluginVersion = '8.8.1'
-        androidxMediaVersion = '1.5.1'
+        androidLibraryVersion ="55a8c0532461d0742f81c8593f4807e9ba727b9e"
+        androidCommonLibraryVersion = "0.25.0"
+        androidPluginVersion = "8.9.0"
+        androidxMediaVersion = "1.5.1"
         androidxTestVersion = "1.6.1"
-        appCompatVersion = '1.7.0'
+        appCompatVersion = "1.7.0"
         checkerVersion = "3.21.2"
         daggerVersion = "2.55"
         documentScannerVersion = "1.1.1"
         espressoVersion = "3.6.1"
-        jacoco_version = '0.8.12'
-        kotlin_version = '2.1.10'
+        jacoco_version = "0.8.12"
+        kotlin_version = "2.1.10"
         markwonVersion = "4.6.2"
         mockitoVersion = "4.11.0"
         mockitoKotlinVersion = "4.1.0"
-        mockkVersion = "1.13.16"
+        mockkVersion = "1.13.17"
         prismVersion = "2.0.0"
         roomVersion = "2.6.1"
         workRuntime = "2.10.0"
@@ -49,18 +50,18 @@ subprojects {
     }
 }
 
-tasks.register('clean', Delete) {
+tasks.register("clean", Delete) {
     delete rootProject.buildDir
 }
 
-tasks.register('installGitHooks', Copy) {
+tasks.register("installGitHooks", Copy) {
     def sourceFolder = "${rootProject.projectDir}/scripts/hooks"
     def destFolder = "${rootProject.projectDir}/.git/hooks"
 
     description = "Install git hooks"
 
     from(sourceFolder) {
-        include '*'
+        include "*"
     }
     into destFolder
 

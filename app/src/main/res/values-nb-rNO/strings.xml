@@ -293,7 +293,6 @@
     <string name="end_to_end_encryption_confirm_button">Sett opp kryptering</string>
     <string name="end_to_end_encryption_decrypting">Dekrypterer…</string>
     <string name="end_to_end_encryption_dialog_close">Lukk</string>
-    <string name="end_to_end_encryption_enter_password">Skriv inn passord for å dekryptere privat nøkkel.</string>
     <string name="end_to_end_encryption_folder_not_empty">Denne mappen er ikke tom.</string>
     <string name="end_to_end_encryption_generating_keys">Genererer nye nøkler…</string>
     <string name="end_to_end_encryption_keywords_description">Alle 12 ordene sammen utgjør et veldig sterkt passord, som lar bare deg vise og gjøre bruk av dine krypterte filer. Skriv det ned og oppbevar det på en trygg plass.</string>

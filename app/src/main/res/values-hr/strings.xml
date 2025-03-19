@@ -230,7 +230,6 @@
     <string name="end_to_end_encryption_confirm_button">Postavi šifriranje</string>
     <string name="end_to_end_encryption_decrypting">Dešifriranje u tijeku...</string>
     <string name="end_to_end_encryption_dialog_close">Zatvori</string>
-    <string name="end_to_end_encryption_enter_password">Unesite zaporku za dešifriranje privatnog ključa.</string>
     <string name="end_to_end_encryption_folder_not_empty">Ova mapa nije prazna.</string>
     <string name="end_to_end_encryption_generating_keys">Generiranje novih ključeva...</string>
     <string name="end_to_end_encryption_keywords_description">Svih 12 riječi zajedno čine vrlo složenu zaporku koja samo vama omogućuje da pregledavate i koristite se šifriranim datotekama. Zapišite je i čuvajte na sigurnom mjestu.</string>

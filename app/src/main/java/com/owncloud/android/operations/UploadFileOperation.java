@@ -413,7 +413,7 @@ public class UploadFileOperation extends SyncOperation {
 
         String remoteParentPath = new File(getRemotePath()).getParent();
         remoteParentPath = remoteParentPath.endsWith(OCFile.PATH_SEPARATOR) ? remoteParentPath : remoteParentPath + OCFile.PATH_SEPARATOR;
-        remoteParentPath = AutoRename.INSTANCE.rename(remoteParentPath, getCapabilities(), true);
+        remoteParentPath = AutoRename.INSTANCE.rename(remoteParentPath, getCapabilities());
 
         OCFile parent = getStorageManager().getFileByPath(remoteParentPath);
 
@@ -756,7 +756,8 @@ public class UploadFileOperation extends SyncOperation {
         throws InvalidAlgorithmParameterException, UploadException, NoSuchPaddingException, IllegalBlockSizeException, CertificateException,
         NoSuchAlgorithmException, BadPaddingException, InvalidKeyException {
 
-        mFile.setDecryptedRemotePath(e2eFiles.getParentFile().getDecryptedRemotePath() + e2eFiles.getOriginalFile().getName());
+        final var filename = new File(mFile.getRemotePath()).getName();
+        mFile.setDecryptedRemotePath(e2eFiles.getParentFile().getDecryptedRemotePath() + filename);
         mFile.setRemotePath(e2eFiles.getParentFile().getRemotePath() + e2eData.getEncryptedFileName());
 
 

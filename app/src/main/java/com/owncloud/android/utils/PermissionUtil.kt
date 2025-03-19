@@ -14,7 +14,6 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.content.pm.ResolveInfo
-import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Environment
@@ -23,6 +22,7 @@ import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.net.toUri
 import com.google.android.material.snackbar.Snackbar
 import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.client.preferences.AppPreferencesImpl
@@ -277,7 +277,7 @@ object PermissionUtil {
     @RequiresApi(Build.VERSION_CODES.R)
     private fun getManageAllFilesIntent(context: Context) = Intent().apply {
         action = Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION
-        data = Uri.parse("package:${context.applicationContext.packageName}")
+        data = "package:${context.applicationContext.packageName}".toUri()
     }
 
     /**

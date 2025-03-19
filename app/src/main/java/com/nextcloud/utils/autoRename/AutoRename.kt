@@ -14,24 +14,26 @@ import com.nextcloud.utils.extensions.shouldRemoveNonPrintableUnicodeCharactersA
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.lib.resources.status.NextcloudVersion
 import com.owncloud.android.lib.resources.status.OCCapability
+import org.apache.commons.io.FilenameUtils
 import java.util.regex.Pattern
 
 object AutoRename {
     private const val REPLACEMENT = "_"
 
     @Suppress("NestedBlockDepth")
-    fun rename(filename: String, capability: OCCapability, isFolderPath: Boolean = false): String {
+    fun rename(filename: String, capability: OCCapability): String {
         if (!capability.version.isNewerOrEqual(NextcloudVersion.nextcloud_30)) {
             return filename
         }
 
+        val isFolder = filename.endsWith(OCFile.PATH_SEPARATOR)
         val pathSegments = filename.split(OCFile.PATH_SEPARATOR).toMutableList()
 
         capability.run {
             if (forbiddenFilenameCharactersJson != null) {
                 var forbiddenFilenameCharacters = capability.forbiddenFilenameCharacters()
 
-                if (isFolderPath) {
+                if (isFolder) {
                     forbiddenFilenameCharacters = forbiddenFilenameCharacters.filter { it != OCFile.PATH_SEPARATOR }
                 }
 
@@ -70,32 +72,27 @@ object AutoRename {
                             replaceFileExtensions(forbiddenExtension, segment)
                         }
                     }
-
-                pathSegments.replaceAll { segment ->
-                    lowercaseFileExtension(segment)
-                }
             }
         }
 
-        val result = pathSegments.joinToString(OCFile.PATH_SEPARATOR)
+        val filenameWithExtension = pathSegments.joinToString(OCFile.PATH_SEPARATOR)
+        val result = if (isFolder) filenameWithExtension else lowercaseFileExtension(filenameWithExtension)
+
         return if (capability.shouldRemoveNonPrintableUnicodeCharactersAndConvertToUTF8()) {
             val utf8Result = convertToUTF8(result)
             removeNonPrintableUnicodeCharacters(utf8Result)
         } else {
             result
-        }
+        }.trim()
     }
 
-    private fun lowercaseFileExtension(input: String): String {
-        val lastDotIndex = input.lastIndexOf('.')
-
-        return if (lastDotIndex > 0) {
-            val base = input.substring(0, lastDotIndex)
-            val extension = input.substring(lastDotIndex + 1).lowercase() // Convert extension to lowercase
-
-            "$base.$extension"
+    private fun lowercaseFileExtension(filename: String): String {
+        val extension = FilenameUtils.getExtension(filename).lowercase()
+        val filenameWithoutExtension = FilenameUtils.removeExtension(filename)
+        return if (extension.isNotEmpty()) {
+            filenameWithoutExtension + StringConstants.DOT + extension
         } else {
-            input
+            filenameWithoutExtension
         }
     }
 

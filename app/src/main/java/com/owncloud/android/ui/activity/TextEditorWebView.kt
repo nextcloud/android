@@ -8,8 +8,8 @@
 package com.owncloud.android.ui.activity
 
 import android.annotation.SuppressLint
-import android.net.Uri
 import android.widget.Toast
+import androidx.core.net.toUri
 import androidx.webkit.WebSettingsCompat
 import androidx.webkit.WebViewFeature
 import com.nextcloud.android.common.ui.util.PlatformThemeUtil
@@ -61,7 +61,7 @@ class TextEditorWebView : EditorWebView() {
             WebSettingsCompat.setForceDark(webView.settings, WebSettingsCompat.FORCE_DARK_ON)
         }
 
-        webView.setDownloadListener { url, _, _, _, _ -> downloadFile(Uri.parse(url)) }
+        webView.setDownloadListener { url, _, _, _, _ -> downloadFile(url.toUri()) }
 
         loadUrl(intent.getStringExtra(EXTRA_URL))
     }

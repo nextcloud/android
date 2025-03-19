@@ -121,6 +121,7 @@ import javax.inject.Inject;
 import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.core.view.GravityCompat;
@@ -406,7 +407,7 @@ public abstract class DrawerActivity extends ToolbarActivity
         }
 
         // hide ecosystem apps according to user preference or in branded client
-        LinearLayout banner = mNavigationViewHeader.findViewById(R.id.drawer_ecosystem_apps);
+        ConstraintLayout banner = mNavigationViewHeader.findViewById(R.id.drawer_ecosystem_apps);
         boolean shouldHideTopBanner = isClientBranded || !preferences.isShowEcosystemApps();
 
         if (shouldHideTopBanner) {
@@ -416,11 +417,11 @@ public abstract class DrawerActivity extends ToolbarActivity
         }
     }
 
-    private void hideTopBanner(LinearLayout banner) {
+    private void hideTopBanner(ConstraintLayout banner) {
         banner.setVisibility(View.GONE);
     }
 
-    private void showTopBanner(LinearLayout banner, int primaryColor) {
+    private void showTopBanner(ConstraintLayout banner, int primaryColor) {
         LinearLayout notesView = banner.findViewById(R.id.drawer_ecosystem_notes);
         LinearLayout talkView = banner.findViewById(R.id.drawer_ecosystem_talk);
         LinearLayout moreView = banner.findViewById(R.id.drawer_ecosystem_more);
@@ -861,7 +862,7 @@ public abstract class DrawerActivity extends ToolbarActivity
                     });
 
 
-                    SimpleTarget target = new SimpleTarget<Drawable>() {
+                    SimpleTarget<Drawable> target = new SimpleTarget<>() {
                         @Override
                         public void onResourceReady(Drawable resource, GlideAnimation glideAnimation) {
                             Drawable test = resource.getCurrent();
@@ -999,7 +1000,7 @@ public abstract class DrawerActivity extends ToolbarActivity
                                                             MENU_ITEM_EXTERNAL_LINK + link.getId(), MENU_ORDER_EXTERNAL_LINKS, link.getName())
                     .setCheckable(true).getItemId();
 
-                MenuSimpleTarget target = new MenuSimpleTarget<Drawable>(id) {
+                MenuSimpleTarget<Drawable> target = new MenuSimpleTarget<>(id) {
                     @Override
                     public void onResourceReady(Drawable resource, GlideAnimation glideAnimation) {
                         setExternalLinkIcon(getIdMenuItem(), resource, greyColor);

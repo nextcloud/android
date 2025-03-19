@@ -631,7 +631,9 @@ internal class BackgroundJobManagerImpl(
             .setInputData(data)
             .build()
 
-        workManager.enqueueUniqueWork(tag, ExistingWorkPolicy.REPLACE, request)
+        // Since for each file new FileDownloadWorker going to be scheduled,
+        // better to use ExistingWorkPolicy.KEEP policy.
+        workManager.enqueueUniqueWork(tag, ExistingWorkPolicy.KEEP, request)
     }
 
     override fun getFileUploads(user: User): LiveData<List<JobInfo>> {

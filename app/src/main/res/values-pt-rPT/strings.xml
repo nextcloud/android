@@ -246,7 +246,6 @@
     <string name="end_to_end_encryption_confirm_button">Definir encriptação</string>
     <string name="end_to_end_encryption_decrypting">Decryption…</string>
     <string name="end_to_end_encryption_dialog_close">Fechar</string>
-    <string name="end_to_end_encryption_enter_password">Por favor, introduza a sua palavra-passe para desencriptar a chave privada.</string>
     <string name="end_to_end_encryption_folder_not_empty">A pasta não está vazia.</string>
     <string name="end_to_end_encryption_generating_keys">A gerar novas chaves…</string>
     <string name="end_to_end_encryption_keywords_description">As 12 palavras juntas formam uma palavra-passe muito forte, permitindo que apenas você veja e utilize os seus ficheiros encriptados. Por favor, aponte-as e mantenha-as num lugar seguro.</string>

@@ -298,7 +298,6 @@
     <string name="end_to_end_encryption_confirm_button">Instellen versleuteling</string>
     <string name="end_to_end_encryption_decrypting">Ontcijferen…</string>
     <string name="end_to_end_encryption_dialog_close">Sluiten</string>
-    <string name="end_to_end_encryption_enter_password">Voer wachtwoord in om privésleutel te ontgrendelen.</string>
     <string name="end_to_end_encryption_folder_not_empty">Deze map is niet leeg.</string>
     <string name="end_to_end_encryption_generating_keys">Genereren nieuwe sleutels…</string>
     <string name="end_to_end_encryption_keywords_description">Deze zin van 12 woorden is als een heel sterk wachtwoord: het verleent volledige toegang tot je versleutelde bestanden. Schrijf het alsjeblieft op en bewaar het op een veilige plek.</string>

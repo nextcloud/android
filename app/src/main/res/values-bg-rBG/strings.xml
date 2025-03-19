@@ -174,6 +174,7 @@
     <string name="could_not_retrieve_url">URL адресът не може да бъде извлечен</string>
     <string name="create">Създай</string>
     <string name="create_dir_fail_msg">Не може да се създаде папка</string>
+    <string name="create_link">Създаване на връзка</string>
     <string name="create_new">Нов</string>
     <string name="create_new_document">Нов документ</string>
     <string name="create_new_folder">Нова папка</string>
@@ -245,7 +246,6 @@
     <string name="end_to_end_encryption_confirm_button">Настройки за криптиране</string>
     <string name="end_to_end_encryption_decrypting">Декриптиране...</string>
     <string name="end_to_end_encryption_dialog_close">Затваряне</string>
-    <string name="end_to_end_encryption_enter_password">Моля въведете парола за декриптиране на личния ключ.</string>
     <string name="end_to_end_encryption_folder_not_empty">Папката не е празна.</string>
     <string name="end_to_end_encryption_generating_keys">Генериране на нови ключове...</string>
     <string name="end_to_end_encryption_keywords_description">Всички 12 думи заедно правят много силна парола, позволявайки само Вие да преглеждате и използвате вашите криптирани файлове. Моля запишете я и я пазете на сигурно място.</string>
@@ -685,7 +685,9 @@
     <string name="shared_icon_shared_via_link">споделено с връзка</string>
     <string name="shared_with_you_by">Споделено с Вас от %1$s</string>
     <string name="sharee_add_failed">Неуспешно добавяне на споделянето</string>
+    <string name="show_all">Показване на всички</string>
     <string name="show_images">Показване на снимките</string>
+    <string name="show_less">Покажи по-малко</string>
     <string name="show_video">Показване на видеата</string>
     <string name="signup_with_provider">Абониране при доставчик</string>
     <string name="single_sign_on_request_token" formatted="true">Разрешавате ли на %1$s да достъпва вашия Nextcloud профил %2$s?</string>

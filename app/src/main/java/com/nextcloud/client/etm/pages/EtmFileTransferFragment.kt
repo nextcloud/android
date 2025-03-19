@@ -15,6 +15,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -46,9 +47,9 @@ class EtmFileTransferFragment : EtmBaseFragment() {
             val progress = view.findViewById<TextView>(R.id.etm_transfer_progress)
             private val progressRow = view.findViewById<View>(R.id.etm_transfer_progress_row)
 
-            var progressEnabled: Boolean = progressRow.visibility == View.VISIBLE
+            var progressEnabled: Boolean = progressRow.isVisible
                 get() {
-                    return progressRow.visibility == View.VISIBLE
+                    return progressRow.isVisible
                 }
                 set(value) {
                     field = value

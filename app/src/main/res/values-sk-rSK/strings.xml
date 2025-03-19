@@ -305,7 +305,6 @@
     <string name="end_to_end_encryption_confirm_button">Nastavenie šifrovania</string>
     <string name="end_to_end_encryption_decrypting">Dešifrujem…</string>
     <string name="end_to_end_encryption_dialog_close">Zatvoriť</string>
-    <string name="end_to_end_encryption_enter_password">Prosím zadajte heslo na dešifrovanie privátneho kľúča.</string>
     <string name="end_to_end_encryption_folder_not_empty">Tento priečinok nie je prázdny.</string>
     <string name="end_to_end_encryption_generating_keys">Vytvárajú sa nové kľúče…</string>
     <string name="end_to_end_encryption_keywords_description">Táto 12-slovná fráza je veľmi silné heslo, ktoré poskytuje úplný prístup k prezeraniu a používaniu šifrovaných súborov. Napíšte si ju a uschovajte niekde v bezpečí.</string>

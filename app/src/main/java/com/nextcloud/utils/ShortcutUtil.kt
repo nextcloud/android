@@ -14,12 +14,13 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Canvas
-import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import androidx.core.content.pm.ShortcutInfoCompat
 import androidx.core.content.pm.ShortcutManagerCompat
+import androidx.core.graphics.createBitmap
 import androidx.core.graphics.drawable.IconCompat
 import androidx.core.graphics.drawable.toBitmap
+import androidx.core.graphics.drawable.toDrawable
 import com.nextcloud.client.account.User
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.OCFile
@@ -97,8 +98,8 @@ class ShortcutUtil @Inject constructor(private val mContext: Context) {
     private fun bitmapToAdaptiveBitmap(orig: Bitmap): Bitmap {
         val adaptiveIconSize = mContext.resources.getDimensionPixelSize(R.dimen.adaptive_icon_size)
         val adaptiveIconOuterSides = mContext.resources.getDimensionPixelSize(R.dimen.adaptive_icon_padding)
-        val drawable: Drawable = BitmapDrawable(mContext.resources, orig)
-        val bitmap = Bitmap.createBitmap(adaptiveIconSize, adaptiveIconSize, Bitmap.Config.ARGB_8888)
+        val drawable: Drawable = orig.toDrawable(mContext.resources)
+        val bitmap = createBitmap(adaptiveIconSize, adaptiveIconSize)
         val canvas = Canvas(bitmap)
         drawable.setBounds(
             adaptiveIconOuterSides,

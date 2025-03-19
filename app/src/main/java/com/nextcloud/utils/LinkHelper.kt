@@ -10,7 +10,7 @@ package com.nextcloud.utils
 import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
-import android.net.Uri
+import androidx.core.net.toUri
 import com.nextcloud.client.account.User
 import com.owncloud.android.ui.activity.FileDisplayActivity
 import java.util.Optional
@@ -58,7 +58,7 @@ object LinkHelper {
      */
     fun openAppStore(string: String, search: Boolean = false, context: Context) {
         var suffix = (if (search) "search?q=" else "details?id=") + string
-        val intent = Intent(Intent.ACTION_VIEW, Uri.parse("market://$suffix"))
+        val intent = Intent(Intent.ACTION_VIEW, "market://$suffix".toUri())
         try {
             context.startActivity(intent)
         } catch (activityNotFoundException1: ActivityNotFoundException) {
@@ -66,7 +66,7 @@ object LinkHelper {
             if (!search) {
                 suffix = "apps/$suffix"
             }
-            intent.setData(Uri.parse("https://play.google.com/store/$suffix"))
+            intent.setData("https://play.google.com/store/$suffix".toUri())
             context.startActivity(intent)
         }
     }

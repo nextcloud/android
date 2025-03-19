@@ -305,7 +305,6 @@
     <string name="end_to_end_encryption_confirm_button">Włącz szyfrowanie</string>
     <string name="end_to_end_encryption_decrypting">Odszyfrowywanie…</string>
     <string name="end_to_end_encryption_dialog_close">Zamknij</string>
-    <string name="end_to_end_encryption_enter_password">Wprowadź hasło, aby odszyfrować klucz prywatny.</string>
     <string name="end_to_end_encryption_folder_not_empty">Ten katalog nie jest pusty.</string>
     <string name="end_to_end_encryption_generating_keys">Generowanie nowych kluczy</string>
     <string name="end_to_end_encryption_keywords_description">Wszystkie 12-ście słów utworzy bardzo trudne hasło, które pozwoli na przeglądanie i korzystanie z zaszyfrowanych plików. Zapisz je i przechowuj w bezpiecznym miejscu.</string>
@@ -454,6 +453,7 @@
     <string name="first_run_3_text">Łatwe w obsłudze poczta internetowa, kalendarz i kontakty</string>
     <string name="first_run_4_text">Udostępnianie ekranu, spotkania online i konferencje internetowe</string>
     <string name="folder_already_exists">Katalog już istnieje</string>
+    <string name="folder_best_viewed_in">Ten katalog najlepiej oglądać w formacie %1$s.</string>
     <string name="folder_confirm_create">Utwórz</string>
     <string name="folder_list_empty_headline">Brak katalogów</string>
     <string name="folder_name_empty">Nazwa katalogu nie może być pusta</string>
@@ -622,6 +622,7 @@
     <string name="oneHour">1 godzina</string>
     <string name="online">Online</string>
     <string name="online_status">Status online</string>
+    <string name="open_in_app">Otwórz w %1$s</string>
     <string name="outdated_server">Serwer korzysta ze starej wersji. Dokonaj aktualizacji!</string>
     <string name="overflow_menu">Więcej</string>
     <string name="pass_code_configure_your_pass_code">Wprowadź kod PIN</string>
@@ -829,6 +830,7 @@
     <string name="share_remote_clarification">%1$s (zdalny)</string>
     <string name="share_room_clarification">%1$s (rozmowa)</string>
     <string name="share_search">Nazwa, ID chmury stowarzyszonej lub adres e-mail</string>
+    <string name="share_search_internal">Dodaj użytkowników i zespoły</string>
     <string name="share_send_new_email">Wyślij nowy e-mail</string>
     <string name="share_send_note">Notatka dla odbiorcy</string>
     <string name="share_settings">Ustawienia</string>

@@ -214,6 +214,7 @@
     <string name="could_not_retrieve_url">Nepodařilo se získat URL</string>
     <string name="create">Vytvořit</string>
     <string name="create_dir_fail_msg">Nepodařilo se vytvořit složku</string>
+    <string name="create_link">Vytvořit odkaz</string>
     <string name="create_new">Nové</string>
     <string name="create_new_document">Nový dokument</string>
     <string name="create_new_folder">Nová složka</string>
@@ -304,7 +305,7 @@
     <string name="end_to_end_encryption_confirm_button">Nastavit šifrování</string>
     <string name="end_to_end_encryption_decrypting">Rozšifrovávání…</string>
     <string name="end_to_end_encryption_dialog_close">Zavřít</string>
-    <string name="end_to_end_encryption_enter_password">Zadejte heslo pro rozšifrování soukromého klíče.</string>
+    <string name="end_to_end_encryption_enter_passphrase_to_access_files">Pro přístup k souborům zadejte svou heslovou frázi</string>
     <string name="end_to_end_encryption_folder_not_empty">Tato složka není prázdná.</string>
     <string name="end_to_end_encryption_generating_keys">Vytváření nových klíčů…</string>
     <string name="end_to_end_encryption_keywords_description">Všech 12 slov dohromady tvoří velmi silné heslo, které pouze vám umožní prohlížet a používat vaše zašifrované soubory. Poznamenejte si ho a někam bezpečně uložte.</string>
@@ -361,6 +362,7 @@
     <string name="etm_transfer_type">Přenos</string>
     <string name="etm_transfer_type_download">Stáhnout</string>
     <string name="etm_transfer_type_upload">Nahrát</string>
+    <string name="external_shares">Externí sdílení</string>
     <string name="fab_label">Přidat nebo nahrát</string>
     <string name="failed_to_download">Předání souboru správci stahování se nezdařilo</string>
     <string name="failed_to_print">Soubor se nepodařilo vytisknout</string>
@@ -452,6 +454,7 @@
     <string name="first_run_3_text">Snadno použitelný webový e-mailový klient, kalendář a kontakty</string>
     <string name="first_run_4_text">Sdílení obrazovky, online schůzky a webové konference</string>
     <string name="folder_already_exists">Složka už existuje</string>
+    <string name="folder_best_viewed_in">Tuto složku je nejlépe prohlížet si v %1$s.</string>
     <string name="folder_confirm_create">Vytvořit</string>
     <string name="folder_list_empty_headline">Nejsou zde žádné složky</string>
     <string name="folder_name_empty">Název složky je třeba vyplnit</string>
@@ -500,6 +503,7 @@
     <string name="instant_upload_existing">Také nahrát už existující soubory</string>
     <string name="instant_upload_on_charging">Nahrávat pouze při nabíjení</string>
     <string name="instant_upload_path">/InstantUpload</string>
+    <string name="internal_shares">Vnitřní sdílení</string>
     <string name="internal_two_way_sync">Interní obousměrná synchronizace</string>
     <string name="internal_two_way_sync_not_yet">Zatím ještě ne, brzy bude synchronizováno</string>
     <string name="internet_connection_required_for_encrypted_folder_setup">Pro nastavení šifrované složky je zapotřebí připojení k Internetu</string>
@@ -619,6 +623,7 @@
     <string name="oneHour">1 hodina</string>
     <string name="online">Online</string>
     <string name="online_status">Stav online</string>
+    <string name="open_in_app">Otevřít v %1$s</string>
     <string name="outdated_server">Verze aplikace na straně serveru už je příliš stará na to, aby šla nadále používat – přejděte na novější!</string>
     <string name="overflow_menu">Další nabídka</string>
     <string name="pass_code_configure_your_pass_code">Zadejte svůj bezpečnostní kód</string>
@@ -826,6 +831,7 @@
     <string name="share_remote_clarification">%1$s (vzdálený)</string>
     <string name="share_room_clarification">%1$s (konverzace)</string>
     <string name="share_search">Jméno, identifikátor v rámci federovaného cloudu, nebo e-mailová adresa…</string>
+    <string name="share_search_internal">Přidat uživatele a týmy</string>
     <string name="share_send_new_email">Odeslat nový e-mail</string>
     <string name="share_send_note">Poznámka pro příjemce</string>
     <string name="share_settings">Nastavení</string>
@@ -841,7 +847,9 @@
     <string name="shared_with_you_by">Nasdílel(a) vám %1$s</string>
     <string name="sharee_add_failed">Přidání sdílejícího se nezdařilo</string>
     <string name="sharee_already_added_to_file">Přidávání sdílení se nezdařilo. Tento soubor či složka už je této osobě či skupině nasdílena.</string>
+    <string name="show_all">Zobrazit vše</string>
     <string name="show_images">Zobrazit fotky</string>
+    <string name="show_less">Zobrazit méně</string>
     <string name="show_video">Zobrazit videa</string>
     <string name="sign_tos_failed">Prosíme ručně zkontrolujte všeobecné podmínky!</string>
     <string name="signup_with_provider">Zaregistrovat se u poskytovatele</string>

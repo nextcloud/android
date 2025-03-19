@@ -214,6 +214,7 @@
     <string name="could_not_retrieve_url">Konnte URL nicht abrufen</string>
     <string name="create">Erstellen</string>
     <string name="create_dir_fail_msg">Verzeichnis konnte nicht erstellt werden</string>
+    <string name="create_link">Link erstellen</string>
     <string name="create_new">Neu</string>
     <string name="create_new_document">Neues Dokument</string>
     <string name="create_new_folder">Neuer Ordner</string>
@@ -304,7 +305,7 @@
     <string name="end_to_end_encryption_confirm_button">Verschlüsselung einrichten</string>
     <string name="end_to_end_encryption_decrypting">Entschlüssele…</string>
     <string name="end_to_end_encryption_dialog_close">Schließen</string>
-    <string name="end_to_end_encryption_enter_password">Geben Sie bitte das Passwort ein, um den privaten Schlüssel zu entschlüsseln.</string>
+    <string name="end_to_end_encryption_enter_passphrase_to_access_files">Geben Sie Ihre Passphrase ein, um auf Ihre Dateien zuzugreifen</string>
     <string name="end_to_end_encryption_folder_not_empty">Dieser Ordner ist nicht leer.</string>
     <string name="end_to_end_encryption_generating_keys">Neue Schlüssel generieren…</string>
     <string name="end_to_end_encryption_keywords_description">Diese 12 Wörter-Phrase ist wie ein sehr starkes Passwort: Sie bietet vollen Zugriff um Ihre verschlüsselten Dateien anzusehen und zu verwenden. Bitte schreiben Sie sie auf und verwahren sie an einem sicheren Ort.</string>
@@ -361,6 +362,7 @@
     <string name="etm_transfer_type">Übertragen</string>
     <string name="etm_transfer_type_download">Herunterladen</string>
     <string name="etm_transfer_type_upload">Hochladen</string>
+    <string name="external_shares">Externe Freigaben</string>
     <string name="fab_label">Hinzufügen oder hochladen</string>
     <string name="failed_to_download">Datei konnte nicht an den Downloadmanager übergeben werden</string>
     <string name="failed_to_print">Drucken der Datei fehlgeschlagen</string>
@@ -452,6 +454,7 @@
     <string name="first_run_3_text">Benutzerfreundlicher Webmailer, Kalender und Kontakte</string>
     <string name="first_run_4_text">Bildschirmfreigabe, Online-Meetings und Webkonferenzen</string>
     <string name="folder_already_exists">Ordner existiert bereits</string>
+    <string name="folder_best_viewed_in">Dieser Ordner lässt sich am besten in %1$s anzeigen.</string>
     <string name="folder_confirm_create">Erstellen</string>
     <string name="folder_list_empty_headline">Keine Ordner vorhanden</string>
     <string name="folder_name_empty">Der Ordnername darf nicht leer sein</string>
@@ -620,6 +623,7 @@
     <string name="oneHour">1 Stunde</string>
     <string name="online">Online</string>
     <string name="online_status">Online-Status</string>
+    <string name="open_in_app">Öffnen mit %1$s</string>
     <string name="outdated_server">Die Serverversion wird nicht mehr unterstützt, bitte aktualisieren Sie diesen!</string>
     <string name="overflow_menu">Weiteres Menü</string>
     <string name="pass_code_configure_your_pass_code">PIN eingeben</string>
@@ -827,6 +831,7 @@
     <string name="share_remote_clarification">%1$s (remote)</string>
     <string name="share_room_clarification">%1$s (Unterhaltung)</string>
     <string name="share_search">Name, Federated-Cloud-ID oder E-Mail-Adresse …</string>
+    <string name="share_search_internal">Benutzer oder Teams hinzufügen</string>
     <string name="share_send_new_email">Neue E-Mail senden</string>
     <string name="share_send_note">Notiz an Empfänger</string>
     <string name="share_settings">Einstellungen</string>
@@ -842,7 +847,9 @@
     <string name="shared_with_you_by">Geteilt mit Ihnen von %1$s</string>
     <string name="sharee_add_failed">Freigeben fehlgeschlagen</string>
     <string name="sharee_already_added_to_file">Das Hinzufügen der Freigabe ist fehlgeschlagen. Diese Datei oder dieser Ordner wurden bereits für diese Person oder Gruppe freigegeben.</string>
+    <string name="show_all">Alle anzeigen</string>
     <string name="show_images">Fotos anzeigen</string>
+    <string name="show_less">Weniger anzeigen</string>
     <string name="show_video">Videos anzeigen</string>
     <string name="sign_tos_failed">Bitte überprüfen Sie die Nutzungsbedingungen selbst!</string>
     <string name="signup_with_provider">Mit Provider anmelden</string>

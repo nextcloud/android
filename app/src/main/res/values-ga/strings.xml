@@ -305,7 +305,7 @@
     <string name="end_to_end_encryption_confirm_button">Socraigh criptiú</string>
     <string name="end_to_end_encryption_decrypting">Ag díchriptiú…</string>
     <string name="end_to_end_encryption_dialog_close">Dún</string>
-    <string name="end_to_end_encryption_enter_password">Cuir isteach pasfhocal chun eochair phríobháideach a dhíchriptiú le do thoil.</string>
+    <string name="end_to_end_encryption_enter_passphrase_to_access_files">Cuir isteach do phasfhrása chun rochtain a fháil ar do chomhaid</string>
     <string name="end_to_end_encryption_folder_not_empty">Níl an fillteán seo folamh.</string>
     <string name="end_to_end_encryption_generating_keys">Eochracha nua á nginiúint…</string>
     <string name="end_to_end_encryption_keywords_description">Déanann na 12 fhocal ar fad le chéile pasfhocal an-láidir, a ligeann duit féin amháin do chomhaid chriptithe a fheiceáil agus a úsáid. Scríobh síos é le do thoil agus coinnigh áit éigin sábháilte é.</string>
@@ -454,6 +454,7 @@
     <string name="first_run_3_text">Ríomhphost ríomhphoist, féilire agus teagmhálaithe atá éasca le húsáid</string>
     <string name="first_run_4_text">Comhroinnt scáileáin, cruinnithe ar líne agus comhdhálacha gréasáin</string>
     <string name="folder_already_exists">Tá fillteán ann cheana féin</string>
+    <string name="folder_best_viewed_in">Is fearr féachaint ar an bhfillteán seo i %1$s.</string>
     <string name="folder_confirm_create">Cruthaigh</string>
     <string name="folder_list_empty_headline">Níl fillteáin anseo</string>
     <string name="folder_name_empty">Ní féidir ainm fillteáin a bheith folamh</string>
@@ -622,6 +623,7 @@
     <string name="oneHour">1 uair</string>
     <string name="online">Ar líne</string>
     <string name="online_status">Stádas ar líne</string>
+    <string name="open_in_app">Oscail i %1$s</string>
     <string name="outdated_server">Tá deireadh ré sroichte ag an bhfreastalaí, uasghrádaigh le do thoil!</string>
     <string name="overflow_menu">Tuilleadh roghchlár</string>
     <string name="pass_code_configure_your_pass_code">Cuir isteach do phaschód</string>
@@ -829,6 +831,7 @@
     <string name="share_remote_clarification">%1$s (iargúlta)</string>
     <string name="share_room_clarification">%1$s (comhrá)</string>
     <string name="share_search">Ainm, ID Néal Cónaidhme nó seoladh ríomhphoist…</string>
+    <string name="share_search_internal">Cuir úsáideoirí agus foirne leis</string>
     <string name="share_send_new_email">Seol ríomhphost nua</string>
     <string name="share_send_note">Nóta don fhaighteoir</string>
     <string name="share_settings">Socruithe</string>

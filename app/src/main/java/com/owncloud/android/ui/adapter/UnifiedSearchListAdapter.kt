@@ -11,8 +11,8 @@ package com.owncloud.android.ui.adapter
 import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import com.afollestad.sectionedrecyclerview.SectionedRecyclerViewAdapter
 import com.afollestad.sectionedrecyclerview.SectionedViewHolder
 import com.nextcloud.client.account.User
@@ -139,7 +139,7 @@ class UnifiedSearchListAdapter(
     override fun onViewAttachedToWindow(holder: SectionedViewHolder) {
         if (holder is UnifiedSearchItemViewHolder) {
             holder.binding.thumbnailShimmer.run {
-                if (visibility == View.VISIBLE) {
+                if (isVisible) {
                     setImageResource(R.drawable.background)
                     resetLoader()
                 }

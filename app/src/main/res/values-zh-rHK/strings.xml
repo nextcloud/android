@@ -305,7 +305,7 @@
     <string name="end_to_end_encryption_confirm_button">設定加密</string>
     <string name="end_to_end_encryption_decrypting">解密中…</string>
     <string name="end_to_end_encryption_dialog_close">關閉</string>
-    <string name="end_to_end_encryption_enter_password">請輸入密碼來解密私鑰</string>
+    <string name="end_to_end_encryption_enter_passphrase_to_access_files">輸入您的密碼片語碼以存取您的檔案</string>
     <string name="end_to_end_encryption_folder_not_empty">資料夾不為空</string>
     <string name="end_to_end_encryption_generating_keys">正在產生密鑰…</string>
     <string name="end_to_end_encryption_keywords_description">透過組合12個字來產生安全的密碼，使你可以安全的瀏覽與加密檔案。請確保這組密碼只有你知道，並寫記在紙上妥善保管。</string>
@@ -454,6 +454,7 @@
     <string name="first_run_3_text">容易使用的 Webmail，日曆與通訊錄</string>
     <string name="first_run_4_text">螢幕分享、線上對話、多人會議</string>
     <string name="folder_already_exists">資料夾已存在</string>
+    <string name="folder_best_viewed_in">此資料夾在 %1$s 中顯示效果最佳。</string>
     <string name="folder_confirm_create">建立</string>
     <string name="folder_list_empty_headline">這裡沒有資料夾</string>
     <string name="folder_name_empty">資料夾名稱不能為空</string>
@@ -622,6 +623,7 @@
     <string name="oneHour">1 小時</string>
     <string name="online">上線</string>
     <string name="online_status">上線狀態</string>
+    <string name="open_in_app">使用 %1$s 開啟</string>
     <string name="outdated_server">伺服器已過期，請升級！</string>
     <string name="overflow_menu">更多選項單</string>
     <string name="pass_code_configure_your_pass_code">輸入通行碼</string>
@@ -829,6 +831,7 @@
     <string name="share_remote_clarification">%1$s（遠端）</string>
     <string name="share_room_clarification">%1$s﹙對話﹚</string>
     <string name="share_search">名稱、聯合雲端 ID 或電郵地址 …</string>
+    <string name="share_search_internal">添加用戶與團隊</string>
     <string name="share_send_new_email">傳送新電子郵件</string>
     <string name="share_send_note">給接收者的訊息</string>
     <string name="share_settings">設定</string>

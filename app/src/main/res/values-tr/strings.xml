@@ -300,10 +300,12 @@
     <string name="ecosystem_apps_more">Diğer Nextcloud uygulamaları</string>
     <string name="email_pick_failed">E-posta adresi alınamadı.</string>
     <string name="encrypted">Şifrelensin</string>
+    <string name="end_to_end_encryption_certificate_unavailable">Sunucu sertifikası alınamadı</string>
+    <string name="end_to_end_encryption_certificate_verification_failed">Herkese açık anahtar doğrulanamadı</string>
     <string name="end_to_end_encryption_confirm_button">Şifreleme kurulumu</string>
     <string name="end_to_end_encryption_decrypting">Şifre çözülüyor …</string>
     <string name="end_to_end_encryption_dialog_close">Kapat</string>
-    <string name="end_to_end_encryption_enter_password">Kişisel anahtarın şifresinin çözülmesi için parolayı yazın.</string>
+    <string name="end_to_end_encryption_enter_passphrase_to_access_files">Dosyalarınıza erişmek için parola ifadenizi yazın</string>
     <string name="end_to_end_encryption_folder_not_empty">Bu klasör boş değil.</string>
     <string name="end_to_end_encryption_generating_keys">Yeni anahtarlar oluşturuluyor…</string>
     <string name="end_to_end_encryption_keywords_description">12 sözcüklü parola çok güçlüdür ve şifrelenmiş dosyalarınızı yalnızca sizin görüntüleyip kullanabilmenizi sağlar. Lütfen bir yere yazarak güvenli bir yerde saklayın.</string>
@@ -311,8 +313,11 @@
     <string name="end_to_end_encryption_passphrase_title">12 sözcüklü şifreleme parolanızı not edin</string>
     <string name="end_to_end_encryption_password">Parola …</string>
     <string name="end_to_end_encryption_retrieving_keys">Anahtarlar alınıyor …</string>
+    <string name="end_to_end_encryption_server_private_key_unavailable">Kişisel anahtar alınamadı</string>
+    <string name="end_to_end_encryption_server_public_key_unavailable">Herkese açık anahtar alınamadı</string>
     <string name="end_to_end_encryption_storing_keys">Anahtarlar kaydediliyor</string>
     <string name="end_to_end_encryption_title">Şifreleme kurulumu</string>
+    <string name="end_to_end_encryption_unexpected_error_occurred">Anahtarlar indirilirken beklenmeyen bir sorun çıktı</string>
     <string name="end_to_end_encryption_unsuccessful">Anahtarlar kaydedilemedi, lütfen yeniden deneyin.</string>
     <string name="end_to_end_encryption_wrong_password">Şifre çözülürken bir sorun çıktı. Parola yanlış olabilir mi?</string>
     <string name="enter_destination_filename">Hedef dosya adını yazın</string>
@@ -449,6 +454,7 @@
     <string name="first_run_3_text">İnternet üzerinden kolayca kullanılan e-posta, takvim ve kişiler</string>
     <string name="first_run_4_text">Ekran paylaşımı, çevrim içi görüşmeler ve İnternet toplantıları</string>
     <string name="folder_already_exists">Klasör zaten var</string>
+    <string name="folder_best_viewed_in">Bu klasör en iyi %1$s ile görüntülenir.</string>
     <string name="folder_confirm_create">Ekle</string>
     <string name="folder_list_empty_headline">Burada herhangi bir klasör yok</string>
     <string name="folder_name_empty">Klasör adı boş olamaz</string>
@@ -479,7 +485,7 @@
     <string name="host_not_available">Sunucu kullanılamıyor</string>
     <string name="host_your_own_server">Kendi sunucunuzu işletin</string>
     <string name="icon_for_empty_list">Boş liste simgesi</string>
-    <string name="icon_of_dashboard_widget">pano bileşeni simgesi</string>
+    <string name="icon_of_dashboard_widget">Pano bileşeni simgesi</string>
     <string name="icon_of_widget_entry">Pano bileşeni kaydı simgesi</string>
     <string name="image_editor_file_edited_suffix">düzenlendi</string>
     <string name="image_editor_flip_horizontal">Yatay çevir</string>
@@ -617,6 +623,7 @@
     <string name="oneHour">1 saat</string>
     <string name="online">Çevrim içi</string>
     <string name="online_status">Çevrim içi durumu</string>
+    <string name="open_in_app">%1$s ile aç</string>
     <string name="outdated_server">Sunucu ömrünün sonuna geldi, lütfen sürümünü yükseltin!</string>
     <string name="overflow_menu">Diğerleri menüsü</string>
     <string name="pass_code_configure_your_pass_code">Parolanızı yazın</string>
@@ -824,6 +831,7 @@
     <string name="share_remote_clarification">%1$s (uzak)</string>
     <string name="share_room_clarification">%1$s (görüşme)</string>
     <string name="share_search">Ad, birleşik bulut kimliği ya da e-posta adresi…</string>
+    <string name="share_search_internal">Kullanıcılar ve takımlar ekle</string>
     <string name="share_send_new_email">Yeni e-posta gönder</string>
     <string name="share_send_note">Alıcıya not</string>
     <string name="share_settings">Ayarlar</string>

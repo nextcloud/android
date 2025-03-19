@@ -302,7 +302,6 @@
     <string name="end_to_end_encryption_confirm_button">Configurar cifrado</string>
     <string name="end_to_end_encryption_decrypting">Descifrando…</string>
     <string name="end_to_end_encryption_dialog_close">Cerrar</string>
-    <string name="end_to_end_encryption_enter_password">Por favor, introduce la contraseña para descifrar la clave privada.</string>
     <string name="end_to_end_encryption_folder_not_empty">Esta carpeta no está vacía.</string>
     <string name="end_to_end_encryption_generating_keys">Generando claves nuevas…</string>
     <string name="end_to_end_encryption_keywords_description">Las 12 palabras juntas forman una contraseña muy fuerte, permitiéndote solo a ti ver y usar tus archivos cifrados. Por favor, escríbelas y guárdalas en un lugar seguro.</string>
@@ -837,6 +836,7 @@
     <string name="shared_with_you_by">Compartido contigo por %1$s</string>
     <string name="sharee_add_failed">Fallo al añadir compartido</string>
     <string name="sharee_already_added_to_file">Error al añadir el recurso compartido. Este archivo o carpeta ya se ha compartido con esta persona o grupo.</string>
+    <string name="show_all">Mostrar todo</string>
     <string name="show_images">Mostrar fotos</string>
     <string name="show_less">Ver menos</string>
     <string name="show_video">Mostrar vídeos</string>

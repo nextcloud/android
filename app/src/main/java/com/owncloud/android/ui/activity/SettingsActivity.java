@@ -38,9 +38,11 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.webkit.URLUtil;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.nextcloud.android.common.ui.util.extensions.WindowExtensionsKt;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.di.Injectable;
@@ -52,7 +54,6 @@ import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.client.preferences.AppPreferencesImpl;
 import com.nextcloud.client.preferences.DarkMode;
 import com.nextcloud.utils.extensions.ViewExtensionsKt;
-import com.nextcloud.utils.extensions.WindowExtensionsKt;
 import com.nextcloud.utils.mdm.MDMConfig;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
@@ -146,10 +147,15 @@ public class SettingsActivity extends PreferenceActivity
     @SuppressWarnings("deprecation")
     @Override
     public void onCreate(Bundle savedInstanceState) {
+
         boolean isApiLevel35OrHigher = (Build.VERSION.SDK_INT >= 35);
         if (isApiLevel35OrHigher) {
-            WindowExtensionsKt.addSystemBarPaddings(getWindow());
-            WindowExtensionsKt.setNoLimitLayout(getWindow());
+            final var window = getWindow();
+            if (window != null) {
+                WindowExtensionsKt.addSystemBarPaddings(getWindow());
+                final var flag = WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS;
+                window.setFlags(flag, flag);
+            }
         }
 
         super.onCreate(savedInstanceState);

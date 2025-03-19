@@ -214,6 +214,7 @@
     <string name="could_not_retrieve_url">Kunne ikke hente URL</string>
     <string name="create">Opret</string>
     <string name="create_dir_fail_msg">Kunne ikke oprette mappe</string>
+    <string name="create_link">Opret link</string>
     <string name="create_new">Nyt</string>
     <string name="create_new_document">Nyt dokument</string>
     <string name="create_new_folder">Ny mappe</string>
@@ -304,7 +305,6 @@
     <string name="end_to_end_encryption_confirm_button">Indstil kryptering</string>
     <string name="end_to_end_encryption_decrypting">Dekrypterer...</string>
     <string name="end_to_end_encryption_dialog_close">Luk</string>
-    <string name="end_to_end_encryption_enter_password">Indtast venligst kodeord til at dekryptere privat nøgle.</string>
     <string name="end_to_end_encryption_folder_not_empty">Denne folder er ikke tom.</string>
     <string name="end_to_end_encryption_generating_keys">Opretter nye nøgler...</string>
     <string name="end_to_end_encryption_keywords_description">Alle 12 ord udgør tilsammen et meget stærkt kodeord, så kun du kan læse og bruge dine krypterede filer. Venligst skriv det ned og gem det et sikkert sted.</string>
@@ -361,6 +361,7 @@
     <string name="etm_transfer_type">Overførsel</string>
     <string name="etm_transfer_type_download">Download</string>
     <string name="etm_transfer_type_upload">Send</string>
+    <string name="external_shares">Eksterne delinger</string>
     <string name="fab_label">Tilføj eller send</string>
     <string name="failed_to_download">Fejl ved overførsel af fil til download manager</string>
     <string name="failed_to_print">Fejl ved udskrivning af fil</string>

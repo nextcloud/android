@@ -17,6 +17,7 @@ import android.webkit.JavascriptInterface
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.net.toUri
 import com.nextcloud.client.account.CurrentAccountProvider
 import com.nextcloud.client.network.ClientFactory
 import com.nextcloud.utils.extensions.getParcelableArgument
@@ -165,7 +166,7 @@ class RichDocumentsEditorWebView : EditorWebView() {
             try {
                 json ?: return
                 val downloadJson = JSONObject(json)
-                val url = Uri.parse(downloadJson.getString(URL))
+                val url = downloadJson.getString(URL).toUri()
                 when (downloadJson.getString(TYPE)) {
                     PRINT -> printFile(url)
                     SLIDESHOW -> showSlideShow(url)
@@ -203,7 +204,7 @@ class RichDocumentsEditorWebView : EditorWebView() {
                 hyperlink ?: return
                 val url = JSONObject(hyperlink).getString(HYPERLINK)
                 val intent = Intent(Intent.ACTION_VIEW)
-                intent.data = Uri.parse(url)
+                intent.data = url.toUri()
                 startActivity(intent)
             } catch (e: JSONException) {
                 Log_OC.e(this, "Failed to parse download json message: $e")

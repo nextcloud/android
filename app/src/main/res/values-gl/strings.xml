@@ -305,7 +305,7 @@
     <string name="end_to_end_encryption_confirm_button">Configurar o cifrado</string>
     <string name="end_to_end_encryption_decrypting">Descifrando…</string>
     <string name="end_to_end_encryption_dialog_close">Pechar</string>
-    <string name="end_to_end_encryption_enter_password">Introduza o contrasinal para descifrar a chave privada.</string>
+    <string name="end_to_end_encryption_enter_passphrase_to_access_files">Introduza a súa frase de contrasinal para acceder aos seus ficheiros</string>
     <string name="end_to_end_encryption_folder_not_empty">Este cartafol non está baleiro</string>
     <string name="end_to_end_encryption_generating_keys">Xerando chave novas…</string>
     <string name="end_to_end_encryption_keywords_description">As 12 palabras xuntas forman un contrasinal moi forte, permitíndolle só a Vde. ver e facer uso dos seus  ficheiros cifrados. Escríbaas e mantéñaas nun lugar seguro.</string>
@@ -454,6 +454,7 @@
     <string name="first_run_3_text">Correo web, calendario e contactos doados de usar</string>
     <string name="first_run_4_text">Compartir a pantalla, xuntanzas en liña e conferencias web </string>
     <string name="folder_already_exists">Xa existe o cartafol</string>
+    <string name="folder_best_viewed_in">Este cartafol vese mellor en %1$s.</string>
     <string name="folder_confirm_create">Crear</string>
     <string name="folder_list_empty_headline">Aquí non hai cartafoles</string>
     <string name="folder_name_empty">O nome do cartafol non pode estar baleiro</string>
@@ -622,6 +623,7 @@
     <string name="oneHour">1 hora</string>
     <string name="online">En liña</string>
     <string name="online_status">Estado en liña</string>
+    <string name="open_in_app">Abrir en %1$s</string>
     <string name="outdated_server">O servidor acadou a fin da súa vida. Anóveo!</string>
     <string name="overflow_menu">Máis menús</string>
     <string name="pass_code_configure_your_pass_code">Introduza o seu código de acceso</string>
@@ -830,6 +832,7 @@
     <string name="share_remote_clarification">%1$s (remoto)</string>
     <string name="share_room_clarification">%1$s (conversa)</string>
     <string name="share_search">Nome, ID da nube federada ou enderezo de correo…</string>
+    <string name="share_search_internal">Engadir usuarios e equipos</string>
     <string name="share_send_new_email">Enviar correo-e novo</string>
     <string name="share_send_note">Nota para o destinatario</string>
     <string name="share_settings">Axustes</string>
