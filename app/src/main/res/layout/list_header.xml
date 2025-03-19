@@ -34,11 +34,11 @@
     <TextView
         android:id="@+id/recommended_files_title"
         android:text="@string/recommended_files_title"
-        android:textSize="@dimen/large_title_text_size"
-        android:gravity="center|start"
+        android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginBottom="@dimen/standard_margin"
+        android:gravity="center|start"
         android:textColor="@color/text_color" />
 
     <androidx.recyclerview.widget.RecyclerView
@@ -50,10 +50,10 @@
     <TextView
         android:id="@+id/all_files_title"
         android:text="@string/drawer_item_all_files"
-        android:textSize="@dimen/large_title_text_size"
-        android:gravity="center|start"
+        android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:gravity="center|start"
         android:textColor="@color/text_color" />
 
 </LinearLayout>
