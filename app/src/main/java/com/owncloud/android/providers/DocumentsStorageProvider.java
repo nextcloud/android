@@ -288,7 +288,7 @@ public class DocumentsStorageProvider extends DocumentsProvider {
             .execute(document.getUser(), context);
         switch (result.getCode()) {
             case ETAG_CHANGED:
-                return true;
+                return result.getData() != null;
             case ETAG_UNCHANGED:
                 return false;
             case FILE_NOT_FOUND:
