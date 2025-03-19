@@ -233,7 +233,7 @@
     <string name="file_list_folder">mape</string>
     <string name="file_list_loading">Ielādē …</string>
     <string name="file_list_no_app_for_file_type">Neviena lietotne nevar atvērt šo datnes tipu.</string>
-    <string name="file_list_seconds_ago">sekundes atpakaļ</string>
+    <string name="file_list_seconds_ago">pirms vairākām sekundēm</string>
     <string name="file_migration_checking_destination">Pārbauda galamērķi…</string>
     <string name="file_migration_cleaning">Tīra…</string>
     <string name="file_migration_directory_already_exists">Datu mape jau pastāv. Jāizvēlas viena no zemāk esošajām:</string>
