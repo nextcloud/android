@@ -539,11 +539,11 @@ public class FileContentProvider extends ContentProvider {
                 case VIRTUAL:
                     order = ProviderTableMeta.VIRTUAL_TYPE;
                     break;
-                default: // Files
-                    order = ProviderTableMeta.FILE_DEFAULT_SORT_ORDER;
-                    break;
                 case FILESYSTEM:
                     order = ProviderTableMeta.FILESYSTEM_FILE_LOCAL_PATH;
+                    break;
+                default: // Files
+                    order = ProviderTableMeta.FILE_DEFAULT_SORT_ORDER;
                     break;
             }
         } else {
