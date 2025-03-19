@@ -61,6 +61,7 @@ import com.nextcloud.utils.EditorUtils;
 import com.nextcloud.utils.ShortcutUtil;
 import com.nextcloud.utils.extensions.BundleExtensionsKt;
 import com.nextcloud.utils.extensions.FileExtensionsKt;
+import com.nextcloud.utils.extensions.FragmentExtensionsKt;
 import com.nextcloud.utils.extensions.IntentExtensionsKt;
 import com.nextcloud.utils.fileNameValidator.FileNameValidator;
 import com.nextcloud.utils.view.FastScrollUtils;
@@ -90,6 +91,7 @@ import com.owncloud.android.ui.activity.FolderPickerActivity;
 import com.owncloud.android.ui.activity.OnEnforceableRefreshListener;
 import com.owncloud.android.ui.activity.UploadFilesActivity;
 import com.owncloud.android.ui.adapter.CommonOCFileListAdapterInterface;
+import com.owncloud.android.ui.adapter.GalleryAdapter;
 import com.owncloud.android.ui.adapter.OCFileListAdapter;
 import com.owncloud.android.ui.dialog.ChooseRichDocumentsTemplateDialogFragment;
 import com.owncloud.android.ui.dialog.ChooseTemplateDialogFragment;
@@ -437,7 +439,9 @@ public class OCFileListFragment extends ExtendedListFragment implements
     public void fetchRecommendedFiles() {
         OCFile folder = getCurrentFile();
 
-        if (getCapabilities().getRecommendations().isFalse() || !folder.isRootDirectory()) {
+        if (mAdapter == null ||
+            getCapabilities().getRecommendations().isFalse() ||
+            (folder != null && !folder.isRootDirectory())) {
             return;
         }
 
@@ -693,10 +697,13 @@ public class OCFileListFragment extends ExtendedListFragment implements
                 toHide.add(R.id.action_download_file);
             }
 
-            final FragmentManager childFragmentManager = getChildFragmentManager();
-            FileActionsBottomSheet.newInstance(filesCount, checkedFiles, isOverflow, toHide)
-                .setResultListener(childFragmentManager, this, (id) -> onFileActionChosen(id, checkedFiles))
-                .show(childFragmentManager, "actions");
+            final var childFragmentManager = getChildFragmentManager();
+            final var actionBottomSheet = FileActionsBottomSheet.newInstance(filesCount, checkedFiles, isOverflow, toHide)
+                .setResultListener(childFragmentManager, this, (id) -> onFileActionChosen(id, checkedFiles));
+
+            if (FragmentExtensionsKt.isDialogFragmentReady(this)) {
+                actionBottomSheet.show(childFragmentManager, "actions");
+            }
         });
     }
 
@@ -1843,7 +1850,11 @@ public class OCFileListFragment extends ExtendedListFragment implements
             if (remoteOperationResult.isSuccess()) {
                 boolean removeFromList = currentSearchType == FAVORITE_SEARCH && !event.getShouldFavorite();
                 setEmptyListMessage(FAVORITE_SEARCH);
-                mAdapter.setFavoriteAttributeForItemID(event.getRemotePath(), event.getShouldFavorite(), removeFromList);
+                if (this instanceof GalleryFragment galleryFragment) {
+                    galleryFragment.markAsFavorite(event.getRemotePath(), event.getShouldFavorite());
+                } else {
+                    mAdapter.setFavoriteAttributeForItemID(event.getRemotePath(), event.getShouldFavorite(), removeFromList);
+                }
             }
 
         } catch (ClientFactory.CreationException e) {
@@ -2136,23 +2147,14 @@ public class OCFileListFragment extends ExtendedListFragment implements
      *
      * @param select <code>true</code> to select all, <code>false</code> to deselect all
      */
+    @SuppressLint("NotifyDataSetChanged")
     public void selectAllFiles(boolean select) {
-        OCFileListAdapter ocFileListAdapter = (OCFileListAdapter) getRecyclerView().getAdapter();
-        if (ocFileListAdapter == null) {
-            return;
+        final var adapter = getRecyclerView().getAdapter();
+        if (adapter instanceof  CommonOCFileListAdapterInterface commonInterface) {
+            commonInterface.selectAll(select);
+            adapter.notifyDataSetChanged();
+            mActiveActionMode.invalidate();
         }
-
-        if (select) {
-            ocFileListAdapter.addAllFilesToCheckedFiles();
-        } else {
-            ocFileListAdapter.clearCheckedItems();
-        }
-
-        for (int i = 0; i < mAdapter.getItemCount(); i++) {
-            mAdapter.notifyItemChanged(i);
-        }
-
-        mActiveActionMode.invalidate();
     }
 
     /**
