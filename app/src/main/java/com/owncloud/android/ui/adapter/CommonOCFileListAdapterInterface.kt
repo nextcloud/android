@@ -12,6 +12,7 @@ import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.utils.FileSortOrder
 
+@Suppress("TooManyFunctions")
 interface CommonOCFileListAdapterInterface {
     fun isMultiSelect(): Boolean
     fun cancelAllPendingTasks()
@@ -34,4 +35,5 @@ interface CommonOCFileListAdapterInterface {
     fun getFilesCount(): Int
     fun setMultiSelect(boolean: Boolean)
     fun clearCheckedItems()
+    fun selectAll(value: Boolean)
 }

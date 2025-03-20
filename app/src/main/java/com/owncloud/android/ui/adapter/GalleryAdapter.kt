@@ -51,16 +51,15 @@ class GalleryAdapter(
     ocFileListFragmentInterface: OCFileListFragmentInterface,
     preferences: AppPreferences,
     transferServiceGetter: ComponentsGetter,
-    viewThemeUtils: ViewThemeUtils,
+    private val viewThemeUtils: ViewThemeUtils,
     var columns: Int,
     private val defaultThumbnailSize: Int
 ) : SectionedRecyclerViewAdapter<SectionedViewHolder>(), CommonOCFileListAdapterInterface, PopupTextProvider {
     var files: List<GalleryItems> = mutableListOf()
     private val ocFileListDelegate: OCFileListDelegate
-    private var storageManager: FileDataStorageManager
+    private var storageManager: FileDataStorageManager = transferServiceGetter.storageManager
 
     init {
-        storageManager = transferServiceGetter.storageManager
 
         ocFileListDelegate = OCFileListDelegate(
             transferServiceGetter.fileUploaderHelper,
@@ -76,6 +75,14 @@ class GalleryAdapter(
             showShareAvatar = false,
             viewThemeUtils
         )
+    }
+
+    override fun selectAll(value: Boolean) {
+        if (value) {
+            addAllFilesToCheckedFiles()
+        } else {
+            clearCheckedItems()
+        }
     }
 
     override fun showFooters(): Boolean = false
@@ -95,7 +102,8 @@ class GalleryAdapter(
                 defaultThumbnailSize.toFloat(),
                 ocFileListDelegate,
                 storageManager,
-                this
+                this,
+                viewThemeUtils
             )
         }
     }
@@ -178,9 +186,11 @@ class GalleryAdapter(
             GalleryFragmentBottomSheetDialog.MediaState.MEDIA_STATE_PHOTOS_ONLY -> {
                 items.filter { MimeTypeUtil.isImage(it.mimeType) }.distinct()
             }
+
             GalleryFragmentBottomSheetDialog.MediaState.MEDIA_STATE_VIDEOS_ONLY -> {
                 items.filter { MimeTypeUtil.isVideo(it.mimeType) }.distinct()
             }
+
             else -> items
         }
 
@@ -188,11 +198,7 @@ class GalleryAdapter(
             photoFragment.setEmptyListMessage(SearchType.GALLERY_SEARCH)
         }
 
-        files = finalSortedList
-            .groupBy { firstOfMonth(it.modificationTimestamp) }
-            .map { GalleryItems(it.key, transformToRows(it.value)) }
-            .sortedBy { it.date }.reversed()
-
+        files = finalSortedList.toGalleryItems()
         Handler(Looper.getMainLooper()).post { notifyDataSetChanged() }
     }
 
@@ -305,6 +311,17 @@ class GalleryAdapter(
         notifyDataSetChanged()
     }
 
+    private fun getAllFiles(): List<OCFile> = files.flatMap { galleryItem ->
+        galleryItem.rows.flatMap { row ->
+            row.files
+        }
+    }
+
+    private fun addAllFilesToCheckedFiles() {
+        val allFiles = getAllFiles()
+        ocFileListDelegate.addToCheckedFiles(allFiles)
+    }
+
     override fun clearCheckedItems() {
         ocFileListDelegate.clearCheckedItems()
     }
@@ -316,5 +333,26 @@ class GalleryAdapter(
 
     fun changeColumn(newColumn: Int) {
         columns = newColumn
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    fun markAsFavorite(remotePath: String, favorite: Boolean) {
+        val allFiles = getAllFiles()
+        for (file in allFiles) {
+            if (file.remotePath == remotePath) {
+                file.isFavorite = favorite
+                break
+            }
+        }
+
+        files = allFiles.toGalleryItems()
+        Handler(Looper.getMainLooper()).post { notifyDataSetChanged() }
+    }
+
+    private fun List<OCFile>.toGalleryItems(): List<GalleryItems> {
+        return this
+            .groupBy { firstOfMonth(it.modificationTimestamp) }
+            .map { GalleryItems(it.key, transformToRows(it.value)) }
+            .sortedBy { it.date }.reversed()
     }
 }

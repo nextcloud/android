@@ -214,8 +214,13 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         ocFileListDelegate.removeCheckedFile(file);
     }
 
-    public void addAllFilesToCheckedFiles() {
-        ocFileListDelegate.addToCheckedFiles(mFiles);
+    @Override
+    public void selectAll(boolean value) {
+        if (value) {
+            ocFileListDelegate.addToCheckedFiles(mFiles);
+        } else {
+            clearCheckedItems();
+        }
     }
 
     public int getItemPosition(@NonNull OCFile file) {
@@ -825,6 +830,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             ocFileListDelegate.setShowShareAvatar(true);
             this.user = account;
         }
+
         if (mStorageManager != null) {
             // TODO refactor filtering mechanism for mFiles
             mFiles = mStorageManager.getFolderContent(directory, onlyOnDevice);
@@ -860,7 +866,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         }
 
         searchType = null;
-        notifyDataSetChanged();
+        activity.runOnUiThread(this::notifyDataSetChanged);
     }
 
     /**

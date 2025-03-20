@@ -56,6 +56,7 @@ class OCFileListDelegate(
     private var viewThemeUtils: ViewThemeUtils,
     private val syncFolderProvider: SyncedFolderProvider? = null
 ) {
+    private val tag = "OCFileListDelegate"
     private val checkedFiles: MutableSet<OCFile> = HashSet()
     private var highlightedItem: OCFile? = null
     var isMultiSelect = false
@@ -101,8 +102,8 @@ class OCFileListDelegate(
         galleryRowHolder: GalleryRowHolder,
         width: Int
     ) {
-        // thumbnail
         imageView.tag = file.fileId
+
         setGalleryImage(
             file,
             imageView,
@@ -115,6 +116,31 @@ class OCFileListDelegate(
             ocFileListFragmentInterface.onItemClicked(file)
             GalleryFragment.setLastMediaItemPosition(galleryRowHolder.absoluteAdapterPosition)
         }
+
+        if (!hideItemOptions) {
+            imageView.apply {
+                isLongClickable = true
+                setOnLongClickListener {
+                    ocFileListFragmentInterface.onLongItemClicked(
+                        file
+                    )
+                }
+            }
+        }
+    }
+
+    private fun getGalleryDrawable(
+        file: OCFile,
+        width: Int,
+        task: ThumbnailsCacheManager.GalleryImageGenerationTask
+    ): ThumbnailsCacheManager.AsyncGalleryImageDrawable {
+        val drawable = MimeTypeUtil.getFileTypeIcon(file.mimeType, file.fileName, context, viewThemeUtils)
+            ?: ResourcesCompat.getDrawable(context.resources, R.drawable.file_image, null)
+            ?: Color.GRAY.toDrawable()
+
+        val thumbnail = BitmapUtils.drawableToBitmap(drawable, width / 2, width / 2)
+
+        return ThumbnailsCacheManager.AsyncGalleryImageDrawable(context.resources, thumbnail, task)
     }
 
     @Suppress("ComplexMethod")
@@ -125,73 +151,60 @@ class OCFileListDelegate(
         galleryRowHolder: GalleryRowHolder,
         width: Int
     ) {
-        // cancel previous generation, if view is re-used
-        if (ThumbnailsCacheManager.cancelPotentialThumbnailWork(file, thumbnailView)) {
-            for (task in asyncTasks) {
-                if (file.remoteId != null && task.imageKey != null && file.remoteId == task.imageKey) {
-                    return
-                }
-            }
-            try {
-                val task = ThumbnailsCacheManager.GalleryImageGenerationTask(
-                    thumbnailView,
-                    user,
-                    storageManager,
-                    asyncGalleryTasks,
-                    file.remoteId,
-                    ContextCompat.getColor(context, R.color.bg_default)
-                )
-                var drawable = MimeTypeUtil.getFileTypeIcon(
-                    file.mimeType,
-                    file.fileName,
-                    context,
-                    viewThemeUtils
-                )
-                if (drawable == null) {
-                    drawable = ResourcesCompat.getDrawable(
-                        context.resources,
-                        R.drawable.file_image,
-                        null
-                    )
-                }
-                if (drawable == null) {
-                    drawable = Color.GRAY.toDrawable()
-                }
-                val thumbnail = BitmapUtils.drawableToBitmap(drawable, width / 2, width / 2)
-                val asyncDrawable = ThumbnailsCacheManager.AsyncGalleryImageDrawable(
-                    context.resources,
-                    thumbnail,
-                    task
-                )
-                if (shimmerThumbnail != null) {
-                    Log_OC.d("Shimmer", "start Shimmer")
-                    DisplayUtils.startShimmer(shimmerThumbnail, thumbnailView)
-                }
-                task.setListener(object : GalleryListener {
-                    override fun onSuccess() {
-                        galleryRowHolder.binding.rowLayout.invalidate()
-                        Log_OC.d("Shimmer", "stop Shimmer")
-                        DisplayUtils.stopShimmer(shimmerThumbnail, thumbnailView)
-                    }
+        if (!ThumbnailsCacheManager.cancelPotentialThumbnailWork(file, thumbnailView)) {
+            Log_OC.d(tag, "setGalleryImage.cancelPotentialThumbnailWork()")
+            return
+        }
 
-                    override fun onNewGalleryImage() {
-                        galleryRowHolder.redraw()
-                    }
-
-                    override fun onError() {
-                        Log_OC.d("Shimmer", "stop Shimmer")
-                        DisplayUtils.stopShimmer(shimmerThumbnail, thumbnailView)
-                    }
-                })
-                thumbnailView.setImageDrawable(asyncDrawable)
-                asyncGalleryTasks.add(task)
-                task.executeOnExecutor(
-                    AsyncTask.THREAD_POOL_EXECUTOR,
-                    file
-                )
-            } catch (e: IllegalArgumentException) {
-                Log_OC.d(this, "ThumbnailGenerationTask : " + e.message)
+        for (task in asyncTasks) {
+            if (file.remoteId != null && task.imageKey != null && file.remoteId == task.imageKey) {
+                return
             }
+        }
+
+        try {
+            val task = ThumbnailsCacheManager.GalleryImageGenerationTask(
+                thumbnailView,
+                user,
+                storageManager,
+                asyncGalleryTasks,
+                file.remoteId,
+                ContextCompat.getColor(context, R.color.bg_default)
+            )
+
+            val asyncDrawable = getGalleryDrawable(file, width, task)
+
+            if (shimmerThumbnail != null) {
+                Log_OC.d(tag, "setGalleryImage.startShimmer()")
+                DisplayUtils.startShimmer(shimmerThumbnail, thumbnailView)
+            }
+
+            task.setListener(object : GalleryListener {
+                override fun onSuccess() {
+                    galleryRowHolder.binding.rowLayout.invalidate()
+                    Log_OC.d(tag, "setGalleryImage.onSuccess()")
+                    DisplayUtils.stopShimmer(shimmerThumbnail, thumbnailView)
+                }
+
+                override fun onNewGalleryImage() {
+                    Log_OC.d(tag, "setGalleryImage.redraw()")
+                    galleryRowHolder.redraw()
+                }
+
+                override fun onError() {
+                    Log_OC.d(tag, "setGalleryImage.onError()")
+                    DisplayUtils.stopShimmer(shimmerThumbnail, thumbnailView)
+                }
+            })
+
+            thumbnailView.setImageDrawable(asyncDrawable)
+            asyncGalleryTasks.add(task)
+            task.executeOnExecutor(
+                AsyncTask.THREAD_POOL_EXECUTOR,
+                file
+            )
+        } catch (e: IllegalArgumentException) {
+            Log_OC.d(tag, "ThumbnailGenerationTask : " + e.message)
         }
     }
 
@@ -405,6 +418,7 @@ class OCFileListDelegate(
             file.isSharedWithSharee || file.isSharedWithMe -> {
                 if (showShareAvatar) null else R.drawable.shared_via_users to R.string.shared_icon_shared
             }
+
             file.isSharedViaLink -> R.drawable.shared_via_link to R.string.shared_icon_shared_via_link
             else -> R.drawable.ic_unshared to R.string.shared_icon_share
         }

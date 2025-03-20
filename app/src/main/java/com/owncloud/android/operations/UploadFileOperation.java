@@ -756,7 +756,8 @@ public class UploadFileOperation extends SyncOperation {
         throws InvalidAlgorithmParameterException, UploadException, NoSuchPaddingException, IllegalBlockSizeException, CertificateException,
         NoSuchAlgorithmException, BadPaddingException, InvalidKeyException {
 
-        mFile.setDecryptedRemotePath(e2eFiles.getParentFile().getDecryptedRemotePath() + e2eFiles.getOriginalFile().getName());
+        final var filename = new File(mFile.getRemotePath()).getName();
+        mFile.setDecryptedRemotePath(e2eFiles.getParentFile().getDecryptedRemotePath() + filename);
         mFile.setRemotePath(e2eFiles.getParentFile().getRemotePath() + e2eData.getEncryptedFileName());
 
 

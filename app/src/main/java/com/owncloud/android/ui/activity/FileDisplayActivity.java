@@ -1167,24 +1167,27 @@ public class FileDisplayActivity extends FileActivity
 
     private void resetSearchAction() {
         Fragment leftFragment = getLeftFragment();
-        if (isSearchOpen() && searchView != null) {
-            searchView.setQuery("", true);
-            searchView.onActionViewCollapsed();
-            searchView.clearFocus();
+        if (!isSearchOpen() || searchView == null) {
+            return;
+        }
 
-            if (isRoot(getCurrentDir()) && leftFragment instanceof OCFileListFragment listOfFiles) {
+        searchView.setQuery("", true);
+        searchView.onActionViewCollapsed();
+        searchView.clearFocus();
 
-                // Remove the list to the original state
-                ArrayList<String> listOfHiddenFiles = listOfFiles.getAdapter().listOfHiddenFiles;
-                listOfFiles.performSearch("", listOfHiddenFiles, true);
+        if (isRoot(getCurrentDir()) && leftFragment instanceof OCFileListFragment listOfFiles) {
 
-                hideSearchView(getCurrentDir());
-                setDrawerIndicatorEnabled(isDrawerIndicatorAvailable());
-            }
-            if (leftFragment instanceof UnifiedSearchFragment) {
-                showSortListGroup(false);
-                super.onBackPressed();
-            }
+            // Remove the list to the original state
+            ArrayList<String> listOfHiddenFiles = listOfFiles.getAdapter().listOfHiddenFiles;
+            listOfFiles.performSearch("", listOfHiddenFiles, true);
+
+            hideSearchView(getCurrentDir());
+            setDrawerIndicatorEnabled(isDrawerIndicatorAvailable());
+        }
+
+        if (leftFragment instanceof UnifiedSearchFragment) {
+            showSortListGroup(false);
+            super.onBackPressed();
         }
     }
 
@@ -1806,29 +1809,38 @@ public class FileDisplayActivity extends FileActivity
     public void onRemoteOperationFinish(RemoteOperation operation, RemoteOperationResult result) {
         super.onRemoteOperationFinish(operation, result);
 
-        if (operation instanceof RemoveFileOperation) {
-            onRemoveFileOperationFinish((RemoveFileOperation) operation, result);
-        } else if (operation instanceof RenameFileOperation) {
-            onRenameFileOperationFinish((RenameFileOperation) operation, result);
-        } else if (operation instanceof SynchronizeFileOperation) {
-            onSynchronizeFileOperationFinish((SynchronizeFileOperation) operation, result);
-        } else if (operation instanceof CreateFolderOperation) {
-            onCreateFolderOperationFinish((CreateFolderOperation) operation, result);
-        } else if (operation instanceof MoveFileOperation) {
-            onMoveFileOperationFinish((MoveFileOperation) operation, result);
-        } else if (operation instanceof CopyFileOperation) {
-            onCopyFileOperationFinish((CopyFileOperation) operation, result);
+        if (operation instanceof RemoveFileOperation removeFileOperation) {
+            onRemoveFileOperationFinish(removeFileOperation, result);
+        } else if (operation instanceof RenameFileOperation renameFileOperation) {
+            onRenameFileOperationFinish(renameFileOperation, result);
+        } else if (operation instanceof SynchronizeFileOperation synchronizeFileOperation) {
+            onSynchronizeFileOperationFinish(synchronizeFileOperation, result);
+        } else if (operation instanceof CreateFolderOperation createFolderOperation) {
+            onCreateFolderOperationFinish(createFolderOperation, result);
+        } else if (operation instanceof MoveFileOperation moveFileOperation) {
+            onMoveFileOperationFinish(moveFileOperation, result);
+        } else if (operation instanceof CopyFileOperation copyFileOperation) {
+            onCopyFileOperationFinish(copyFileOperation, result);
         } else if (operation instanceof RestoreFileVersionRemoteOperation) {
             onRestoreFileVersionOperationFinish(result);
         }
+    }
 
-        if (operation instanceof RemoveFileOperation || operation instanceof RenameFileOperation) {
-            OCFileListFragment fileListFragment =
-                (ActivityExtensionsKt.lastFragment(this) instanceof OCFileListFragment fragment) ? fragment : getListOfFilesFragment();
+    private OCFileListFragment getFileListFragment() {
+        return (ActivityExtensionsKt.lastFragment(this) instanceof OCFileListFragment fragment) ? fragment : getListOfFilesFragment();
+    }
 
-            if (fileListFragment != null) {
-                fileListFragment.fetchRecommendedFiles();
-            }
+    private void refreshGalleryFragmentIfNeeded() {
+        final var fileListFragment = getFileListFragment();
+        if (fileListFragment instanceof GalleryFragment) {
+            startPhotoSearch(R.id.nav_gallery);
+        }
+    }
+
+    private void fetchRecommendedFilesIfNeeded() {
+        final var fileListFragment = getFileListFragment();
+        if (fileListFragment != null && !(fileListFragment instanceof GalleryFragment)) {
+            fileListFragment.fetchRecommendedFiles();
         }
     }
 
@@ -1879,6 +1891,8 @@ public class FileDisplayActivity extends FileActivity
                 galleryFragment.onRefresh();
             }
             supportInvalidateOptionsMenu();
+            refreshGalleryFragmentIfNeeded();
+            fetchRecommendedFilesIfNeeded();
         } else {
             if (result.isSslRecoverableException()) {
                 mLastSslUntrustedServerResult = result;
@@ -1950,6 +1964,7 @@ public class FileDisplayActivity extends FileActivity
     private void onCopyFileOperationFinish(CopyFileOperation operation, RemoteOperationResult result) {
         if (result.isSuccess()) {
             updateListOfFilesFragment(false);
+            refreshGalleryFragmentIfNeeded();
         } else {
             try {
                 DisplayUtils.showSnackMessage(this, ErrorMessageAdapter.getErrorCauseMessage(result, operation, getResources()));
@@ -1973,12 +1988,12 @@ public class FileDisplayActivity extends FileActivity
             final User currentUser = optionalUser.get();
             Fragment leftFragment = getLeftFragment();
             if (leftFragment instanceof FileFragment fileFragment) {
-                if (fileFragment instanceof FileDetailFragment && renamedFile.equals(fileFragment.getFile())) {
-                    ((FileDetailFragment) fileFragment).updateFileDetails(renamedFile, currentUser);
+                if (fileFragment instanceof FileDetailFragment fileDetailFragment && renamedFile.equals(fileFragment.getFile())) {
+                    fileDetailFragment.updateFileDetails(renamedFile, currentUser);
                     showDetails(renamedFile);
 
-                } else if (fileFragment instanceof PreviewMediaFragment && renamedFile.equals(fileFragment.getFile())) {
-                    ((PreviewMediaFragment) fileFragment).updateFile(renamedFile);
+                } else if (fileFragment instanceof PreviewMediaFragment previewMediaFragment && renamedFile.equals(fileFragment.getFile())) {
+                    previewMediaFragment.updateFile(renamedFile);
                     if (PreviewMediaFragment.canBePreviewed(renamedFile)) {
                         long position = ((PreviewMediaFragment) fileFragment).getPosition();
                         startMediaPreview(renamedFile, position, true, true, true, false);
@@ -1999,7 +2014,8 @@ public class FileDisplayActivity extends FileActivity
             if (file != null && file.equals(getCurrentDir())) {
                 updateListOfFilesFragment(false);
             }
-
+            refreshGalleryFragmentIfNeeded();
+            fetchRecommendedFilesIfNeeded();
         } else {
             DisplayUtils.showSnackMessage(this, ErrorMessageAdapter.getErrorCauseMessage(result, operation, getResources()));
 
@@ -2687,7 +2703,10 @@ public class FileDisplayActivity extends FileActivity
             listOfFiles.listDirectory(getCurrentDir(), temp, MainApp.isOnlyOnDevice(), false);
             updateActionBarTitleAndHomeButton(null);
         } else {
-            DisplayUtils.showSnackMessage(listOfFiles.getView(), message);
+            final var view = listOfFiles.getView();
+            if (view != null) {
+                DisplayUtils.showSnackMessage(view, message);
+            }
         }
 
         if (selectedFile != null) {
