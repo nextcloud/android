@@ -50,7 +50,7 @@ class SyncWorker(
 
     private var notificationManager: SyncWorkerNotificationManager? = null
 
-    @Suppress("TooGenericExceptionCaught")
+    @Suppress("TooGenericExceptionCaught", "ReturnCount")
     override suspend fun doWork(): Result {
         val folderID = inputData.getLong(FOLDER_ID, -1)
         if (folderID == -1L) {
