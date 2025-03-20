@@ -10,7 +10,6 @@
     <string name="action_edit">Redigera</string>
     <string name="action_empty_notifications">Rensa alla aviseringar</string>
     <string name="action_empty_trashbin">Töm papperskorgen</string>
-    <string name="action_send_share">Skicka/Dela</string>
     <string name="action_switch_grid_view">Rutnätsvy</string>
     <string name="action_switch_list_view">Listvy</string>
     <string name="actionbar_calendar_contacts_restore">Återställ kontakter och kalender</string>
@@ -49,7 +48,6 @@
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Skriv någon text</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Är du säker på att du vill ta bort den här uppgiften?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Ta bort uppgift</string>
-    <string name="assistant_screen_loading">Uppgiftslistan laddas, vänta</string>
     <string name="assistant_screen_no_task_available_text">Ingen uppgift tillgänglig för uppgiftstyp %s, du kan skapa en ny uppgift längst ner till höger.</string>
     <string name="assistant_screen_task_create_fail_message">Ett fel uppstod när uppgiften skapades</string>
     <string name="assistant_screen_task_create_success_message">Uppgiften har skapats</string>
@@ -187,7 +185,6 @@
     <string name="confirmation_remove_folders_alert">Vill du verkligen radera de valda objekten och dess innehåll?</string>
     <string name="confirmation_remove_local">Endast lokalt</string>
     <string name="conflict_dialog_error">Dialogrutan för konfliktlösning kan inte skapas</string>
-    <string name="conflict_folder_headline">Mappkonflikt</string>
     <string name="conflict_local_file">Lokal fil</string>
     <string name="conflict_message_description">Om du väljer båda versionerna kommer den lokala filen få ett nummer tillagt i filnamnet.</string>
     <string name="conflict_message_description_for_folder">Om du väljer båda versionerna kommer den lokala mappen få ett nummer tillagt i namnet.</string>
@@ -354,7 +351,6 @@
     <string name="etm_background_jobs_stop_test_job">Stoppa ett provuppdrag</string>
     <string name="etm_migrations">Sammanslagningar (appuppgradering)</string>
     <string name="etm_preferences">Inställningar</string>
-    <string name="etm_title">Teknisk testläge</string>
     <string name="etm_transfer">Filöverföring</string>
     <string name="etm_transfer_enqueue_test_download">Köa testnedladdning</string>
     <string name="etm_transfer_enqueue_test_upload">Köa testuppladdning</string>
@@ -576,7 +572,6 @@
     <string name="new_media_folder_detected">Ny %1$s media-mapp upptäckt.</string>
     <string name="new_media_folder_photos">bild</string>
     <string name="new_media_folder_videos">video</string>
-    <string name="new_notification">Nytt meddelande</string>
     <string name="new_version_was_created">Ny version skapades</string>
     <string name="no_actions">Inga tillgängliga åtgärder för användaren</string>
     <string name="no_browser_available">Ingen app tillgänglig för att hantera länkar</string>
@@ -592,7 +587,6 @@
     <string name="note_icon_hint">Antecknings ikon</string>
     <string name="notification_action_failed">Misslyckades utföra åtgärd.</string>
     <string name="notification_channel_background_operations_description">Visa aviseringar för att interagera resultatet av bakgrundsoperationer</string>
-    <string name="notification_channel_background_operations_name">Bakgrundsoperationer</string>
     <string name="notification_channel_download_description">Visar hämtningsförloppet</string>
     <string name="notification_channel_download_name_short">Nerladdningar</string>
     <string name="notification_channel_file_sync_description">Visar filsynkroniserings förlopp och resultat</string>
@@ -609,17 +603,12 @@
     <string name="notification_icon_description">Det finns olästa aviseringar</string>
     <string name="notifications_no_results_headline">Inga aviseringar</string>
     <string name="notifications_no_results_message">Vänligen kontrollera igen senare.</string>
-    <string name="oc_file_list_adapter_offline_operation_description_text">Väntande operation</string>
     <string name="oc_file_list_adapter_offline_operation_remove_description_text">Väntar på borttagningsåtgärd</string>
     <string name="offline_mode">Ingen internetanslutning</string>
     <string name="offline_mode_info_description">Även utan internetanslutning kan du organisera dina mappar och skapa filer. När du är online igen synkroniseras dina väntande åtgärder automatiskt.</string>
-    <string name="offline_mode_info_title">Du är offline, men kan fortsätta arbeta</string>
     <string name="offline_operations_file_does_not_exists_yet">Filen finns inte ännu. Ladda upp filen först.</string>
-    <string name="offline_operations_worker_notification_conflict_text">Mapp i konflikt: %s</string>
-    <string name="offline_operations_worker_notification_delete_offline_folder">Radera offlinemapp</string>
     <string name="offline_operations_worker_notification_error_text">Offlineåtgärden kan inte slutföras. %s</string>
     <string name="offline_operations_worker_notification_manager_ticker">Offline-operationer</string>
-    <string name="offline_operations_worker_notification_start_text">Starta offline-operationer</string>
     <string name="oneHour">1 timme</string>
     <string name="online">Online</string>
     <string name="online_status">Online-status</string>
@@ -642,7 +631,6 @@
     <string name="permission_storage_access">Ytterligare rättigheter krävs för att ladda upp eller hämta filer</string>
     <string name="pick_contact_to_share_with">Välj kontakt att dela med</string>
     <string name="picture_set_as_no_app">Ingen app hittades för att ställa in en bild med</string>
-    <string name="pin_home">Fäst upp på hemskärmen</string>
     <string name="pin_shortcut_label">Öppna %1$s</string>
     <string name="placeholder_fileSize">389 KB</string>
     <string name="placeholder_filename">placeholder.txt</string>
@@ -792,16 +780,13 @@
     <string name="select_one_template">Vänligen välj en mall</string>
     <string name="select_template">Välj mall</string>
     <string name="send">Skicka</string>
-    <string name="send_share">Skicka delning</string>
     <string name="sendbutton_description">Ikonen för Skicka-knapp</string>
     <string name="set_as">Sätt som</string>
-    <string name="set_note">Ange anteckning</string>
     <string name="set_picture_as">Använd bild som</string>
     <string name="set_status">Sätt status</string>
     <string name="set_status_message">Sätt statusmeddelande</string>
     <string name="setup_e2e">Under inställningen av end-to-end-kryptering kommer du att få en slumpmässig lista med 12 krypteringsord, som du behöver för att öppna dina filer på andra enheter. Orden kommer endast att lagras på den här enheten och kan visas igen på den här skärmen. Vänligen notera krypteringsorden på ett säkert ställe!</string>
     <string name="share">Dela</string>
-    <string name="share_copy_link">Dela och kopiera länk</string>
     <string name="share_dialog_title">Dela</string>
     <string name="share_download_limit">Ställ in nedladdningsgräns</string>
     <string name="share_expiration_date_format">%1$s</string>
@@ -828,7 +813,6 @@
     <string name="share_permission_file_drop">Göm fillista</string>
     <string name="share_permission_secure_file_drop">Säker gömd fillista</string>
     <string name="share_permission_view_only">Skrivskyddat läge</string>
-    <string name="share_permissions">Dela behörigheter</string>
     <string name="share_remote_clarification">%1$s (extern)</string>
     <string name="share_room_clarification">%1$s (konversation)</string>
     <string name="share_search">Namn, federerat moln-ID eller e-postadress...</string>

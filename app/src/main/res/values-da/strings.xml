@@ -10,7 +10,6 @@
     <string name="action_edit">Rediger</string>
     <string name="action_empty_notifications">Ryd alle notifikationer</string>
     <string name="action_empty_trashbin">Tøm papirkurv</string>
-    <string name="action_send_share">Send/Del</string>
     <string name="action_switch_grid_view">Grid visning</string>
     <string name="action_switch_list_view">List visning</string>
     <string name="actionbar_calendar_contacts_restore">Gendan kontakter og kalender</string>
@@ -49,7 +48,6 @@
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Skriv noget tekst</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Er du sikker på du vil slette denne opgave?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Slet opgave</string>
-    <string name="assistant_screen_loading">Opgavelisten indlæser, vent venligst</string>
     <string name="assistant_screen_no_task_available_text">Ingen opgave tilgænge for %s opgavetype. Du kan oprette en ny opgave via bunden til højre.</string>
     <string name="assistant_screen_task_create_fail_message">En fejl opstod under oprettelse af opgaven</string>
     <string name="assistant_screen_task_create_success_message">Opgaven er oprettet</string>
@@ -187,7 +185,6 @@
     <string name="confirmation_remove_folders_alert">Er du sikker på at du vil slette de valgte artikler med indhold?</string>
     <string name="confirmation_remove_local">Kun lokal</string>
     <string name="conflict_dialog_error">Konfliktløserdialog kan ikke oprettes</string>
-    <string name="conflict_folder_headline">Mappekonflikt</string>
     <string name="conflict_local_file">Lokal fil</string>
     <string name="conflict_message_description">Hvis du vælger begge versioner, vil den lokale fil få tilføjet et nummer til sit navn.</string>
     <string name="conflict_message_description_for_folder">Hvis du vælger begge versioner, så vil den lokale mappe få tilføjet et tal til dets navn.</string>
@@ -353,7 +350,6 @@
     <string name="etm_background_jobs_stop_test_job">Stop test job</string>
     <string name="etm_migrations">Migrationer (app upgrade)</string>
     <string name="etm_preferences">Indstillinger</string>
-    <string name="etm_title">Udviklers test tilstand</string>
     <string name="etm_transfer">Fil overførsel</string>
     <string name="etm_transfer_enqueue_test_download">Sæt test download i kø</string>
     <string name="etm_transfer_enqueue_test_upload">Sæt test upload i kø</string>
@@ -574,7 +570,6 @@
     <string name="new_media_folder_detected">Ny %1$s medie mappe opdaget.</string>
     <string name="new_media_folder_photos">photo</string>
     <string name="new_media_folder_videos">video</string>
-    <string name="new_notification">Ny notifikation</string>
     <string name="new_version_was_created">Ny version oprettet</string>
     <string name="no_actions">Ingen handlinger for denne bruger</string>
     <string name="no_browser_available">Ingen App tilgængelig til håndtering af links</string>
@@ -590,7 +585,6 @@
     <string name="note_icon_hint">Note ikon</string>
     <string name="notification_action_failed">Handling fejlede</string>
     <string name="notification_channel_background_operations_description">Vis notifikationer for at interagere med resultat af baggrundshandlinger</string>
-    <string name="notification_channel_background_operations_name">Baggrundshandlinger</string>
     <string name="notification_channel_download_description">Viser overførsels fremskridt </string>
     <string name="notification_channel_download_name_short">Downloads</string>
     <string name="notification_channel_file_sync_description">Viser fil synkronisation fremskridt og resultater</string>
@@ -607,17 +601,12 @@
     <string name="notification_icon_description">Der findes ulæste notifikationer</string>
     <string name="notifications_no_results_headline">Ingen notifikationer</string>
     <string name="notifications_no_results_message">Prøv igen senere.</string>
-    <string name="oc_file_list_adapter_offline_operation_description_text">Afventende handlinger</string>
     <string name="oc_file_list_adapter_offline_operation_remove_description_text">Afventende fjernelseshandling</string>
     <string name="offline_mode">Ingen internetforbindelse</string>
     <string name="offline_mode_info_description">Selv uden internetforbindelse kan du organisere dine mapper, oprette filer. Når du er online igen, synkroniseres dine afventende handlinger automatisk.</string>
-    <string name="offline_mode_info_title">Du er offline, men arbejdet fortsætter</string>
     <string name="offline_operations_file_does_not_exists_yet">Filen eksisterer ikke endnu. Upload venligst filen først.</string>
-    <string name="offline_operations_worker_notification_conflict_text">Konfliktende mappe: %s</string>
-    <string name="offline_operations_worker_notification_delete_offline_folder">Slet offline mappe</string>
     <string name="offline_operations_worker_notification_error_text">Offline handlingen kan ikke gennemføres. %s</string>
     <string name="offline_operations_worker_notification_manager_ticker">Offline handlinger</string>
-    <string name="offline_operations_worker_notification_start_text">Starter offline handlinger</string>
     <string name="oneHour">1 time</string>
     <string name="online">Online</string>
     <string name="online_status">Online status</string>
@@ -639,7 +628,6 @@
     <string name="permission_storage_access">Yderligere tilladelser nødvendige for at hente og sende filer.</string>
     <string name="pick_contact_to_share_with">Vælg en kontakt at dele med</string>
     <string name="picture_set_as_no_app">Ingen apps fundet til at vælge et billede med</string>
-    <string name="pin_home">Fastgør til hjemmeskærm</string>
     <string name="pin_shortcut_label">Åbn %1$s</string>
     <string name="placeholder_fileSize">389 KB</string>
     <string name="placeholder_filename">pladsholder.txt</string>
@@ -789,16 +777,13 @@
     <string name="select_one_template">Vælg venligst en skabelon</string>
     <string name="select_template">Vælg model</string>
     <string name="send">Send</string>
-    <string name="send_share">Send Deling</string>
     <string name="sendbutton_description">Send knap ikon</string>
     <string name="set_as">Sæt som</string>
-    <string name="set_note">Sæt Note</string>
     <string name="set_picture_as">Anvend billede som</string>
     <string name="set_status">Sæt status</string>
     <string name="set_status_message">Sæt statusbesked</string>
     <string name="setup_e2e">Undervejs i opsætningen af end-to-end kryptering, så vil du modtage en tilfældig huskeregel på 12 ord, som du får brug for til at åbne dine filer på andre enheder. Denne vil kun blive gemt på denne enhed, og kan blive vist senere i denne visning. Skriv den venligst ned et sikkert sted!</string>
     <string name="share">Del</string>
-    <string name="share_copy_link">Del og kopier link</string>
     <string name="share_dialog_title">Deling</string>
     <string name="share_download_limit">Indstil downloadgrænse</string>
     <string name="share_expiration_date_format">%1$s</string>
@@ -825,7 +810,6 @@
     <string name="share_permission_file_drop">Fil drop</string>
     <string name="share_permission_secure_file_drop">Sikkert fil drop</string>
     <string name="share_permission_view_only">Kun visning</string>
-    <string name="share_permissions">Del Tilladelser</string>
     <string name="share_remote_clarification">%1$s (ekstern)</string>
     <string name="share_room_clarification">%1$s (samtale)</string>
     <string name="share_search">Navn, sammenkoblings cloud ID eller e-mailadresse…</string>

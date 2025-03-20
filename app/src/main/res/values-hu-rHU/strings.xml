@@ -10,7 +10,6 @@
     <string name="action_edit">Szerkesztés</string>
     <string name="action_empty_notifications">Összes értesítés törlése</string>
     <string name="action_empty_trashbin">Kuka ürítése</string>
-    <string name="action_send_share">Küldés/megosztás</string>
     <string name="action_switch_grid_view">Rács nézet</string>
     <string name="action_switch_list_view">Lista nézet</string>
     <string name="actionbar_calendar_contacts_restore">Névjegyek és naptár helyreállítása</string>
@@ -49,7 +48,6 @@
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Gépeljen be szöveget</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Valóban törölni akarja ezt a feladatot?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Feladat törlése</string>
-    <string name="assistant_screen_loading">A feladatlista betöltődik, kis türelmet</string>
     <string name="assistant_screen_no_task_available_text">Nem érhető el feladat a(z) %s feladattípushoz, a jobb alsó sarokból hozhat létre új feladatot.</string>
     <string name="assistant_screen_task_create_fail_message">Hiba történt egy feladat létrehozása során</string>
     <string name="assistant_screen_task_create_success_message">Feladat sikeresen létrehozva</string>
@@ -187,7 +185,6 @@
     <string name="confirmation_remove_folders_alert">Biztos, hogy törli a kiválasztott elemeket és tartalmukat?</string>
     <string name="confirmation_remove_local">Csak a helyi példány</string>
     <string name="conflict_dialog_error">Az ütközésfeloldási párbeszédablak nem hozható létre</string>
-    <string name="conflict_folder_headline">Mappütközés</string>
     <string name="conflict_local_file">Helyi fájl</string>
     <string name="conflict_message_description">Amennyiben mindkét verziót kiválasztja, a helyi fájl nevéhez egy szám lesz hozzáfűzve.</string>
     <string name="conflict_message_description_for_folder">Amennyiben mindkét verziót kiválasztja, a helyi mappa nevéhez egy szám lesz hozzáfűzve.</string>
@@ -352,7 +349,6 @@
     <string name="etm_background_jobs_stop_test_job">Tesztfeladat leállítása</string>
     <string name="etm_migrations">Migrációk (alkalmazásfrissítés)</string>
     <string name="etm_preferences">Beállítások</string>
-    <string name="etm_title">Mérnöki teszt mód</string>
     <string name="etm_transfer">Fájlátvitel</string>
     <string name="etm_transfer_enqueue_test_download">Tesztletöltés sorba állítása</string>
     <string name="etm_transfer_enqueue_test_upload">Tesztfeltöltés sorba állítva</string>
@@ -571,7 +567,6 @@
     <string name="new_media_folder_detected">Új %1$s médiamappa észlelhető.</string>
     <string name="new_media_folder_photos">fénykép</string>
     <string name="new_media_folder_videos">videó</string>
-    <string name="new_notification">Új értesítés</string>
     <string name="new_version_was_created">Új verzió létrehozva</string>
     <string name="no_actions">Nincsenek műveletek ehhez a felhasználóhoz</string>
     <string name="no_browser_available">Nincs elérhető alkalmazás hivatkozások kezeléséhez</string>
@@ -587,7 +582,6 @@
     <string name="note_icon_hint">Megjegyzés ikon</string>
     <string name="notification_action_failed">A művelet végrehajtása sikertelen.</string>
     <string name="notification_channel_background_operations_description">Értesítések megjelenítése a háttérműveletek eredményének</string>
-    <string name="notification_channel_background_operations_name">Háttérműveletek</string>
     <string name="notification_channel_download_description">Megjeleníti a letöltési folyamatokat</string>
     <string name="notification_channel_download_name_short">Letöltések</string>
     <string name="notification_channel_file_sync_description">Megjeleníti a fájlszinkronizálás folyamatát és az eredményeket</string>
@@ -604,17 +598,12 @@
     <string name="notification_icon_description">Olvasatlan értesítések vannak</string>
     <string name="notifications_no_results_headline">Nincsenek értesítések</string>
     <string name="notifications_no_results_message">Jöjjön vissza később.</string>
-    <string name="oc_file_list_adapter_offline_operation_description_text">Függőben lévő művelet</string>
     <string name="oc_file_list_adapter_offline_operation_remove_description_text">Függőben lévő eltávolítási művelet</string>
     <string name="offline_mode">Nincs internetkapcsolat</string>
     <string name="offline_mode_info_description">Akár internetkapcsolat nélkül is rendszerezheti a mappákat és hozhat létre fájlokat. Amint újra online lesz, a függőben lévő műveletek automatikusan szinkronizálva lesznek.</string>
-    <string name="offline_mode_info_title">Nincs kapcsolat, de a munka folytatódik</string>
     <string name="offline_operations_file_does_not_exists_yet">A fájl még nem létezik. Először töltse fel a fájlt.</string>
-    <string name="offline_operations_worker_notification_conflict_text">Ütköző mappa: %s</string>
-    <string name="offline_operations_worker_notification_delete_offline_folder">Kapcsolat nélküli mappa törlése</string>
     <string name="offline_operations_worker_notification_error_text">A kapcsolat nélküli művelet nem fejezhető be. %s</string>
     <string name="offline_operations_worker_notification_manager_ticker">Kapcsolat nélküli műveletek</string>
-    <string name="offline_operations_worker_notification_start_text">Kapcsolat nélküli műveletek elkezdése</string>
     <string name="oneHour">1 óra</string>
     <string name="online">Elérhető</string>
     <string name="online_status">Online állapot</string>
@@ -636,7 +625,6 @@
     <string name="permission_storage_access">További jogosultságokra van szükség a fájlok fel- és letöltéséhez.</string>
     <string name="pick_contact_to_share_with">Válasszon névjegyet a megosztáshoz</string>
     <string name="picture_set_as_no_app">Nincs alkalmazás a képbeállításhoz</string>
-    <string name="pin_home">Rögzítés a kezdőképernyőre</string>
     <string name="pin_shortcut_label">A(z) %1$s megnyitása</string>
     <string name="placeholder_fileSize">389 kB</string>
     <string name="placeholder_filename">helykitöltő.txt</string>
@@ -734,7 +722,7 @@
     <string name="recommend_subject">Próbálja ki a %1$sot az eszközén!</string>
     <string name="recommend_text">Meg akarom hívni a %1$s használatára az eszközén.\nTöltse le itt: %2$s</string>
     <string name="recommend_urls">%1$s vagy %2$s</string>
-    <string name="recommended_files_title">Javasolt fájlok</string>
+    <string name="recommended_files_title">Ajánlott fájlok</string>
     <string name="refresh_content">Tartalom frissítése</string>
     <string name="reload">Újratöltés</string>
     <string name="remote">(távoli)</string>
@@ -784,16 +772,13 @@
     <string name="select_one_template">Válasszon egy sablont</string>
     <string name="select_template">Válasszon sablont</string>
     <string name="send">Küldés</string>
-    <string name="send_share">Megosztás küldése</string>
     <string name="sendbutton_description">Küldés gomb ikon</string>
     <string name="set_as">Beállítás mint</string>
-    <string name="set_note">Jegyzet beállítása</string>
     <string name="set_picture_as">Kép használata mint</string>
     <string name="set_status">Állapot beállítása</string>
     <string name="set_status_message">Állapotüzenet beállítása</string>
     <string name="setup_e2e">A végpontok közti titkosítás beállítása során kap egy 12 véletlenszerű szóból álló mnemonikus kódot, amelyre akkor lesz szüksége, ha más eszközökön akarja megnyitni a fájlokat. Ez csak ezen az eszközön lesz tárolva, és újra megjeleníthető ezen a képernyőn. Jegyezze le, és tárolja biztonságos helyen!</string>
     <string name="share">Megosztás</string>
-    <string name="share_copy_link">Megosztás és hivatkozás másolása</string>
     <string name="share_dialog_title">Megosztás</string>
     <string name="share_download_limit">Letöltési korlát beállítása</string>
     <string name="share_expiration_date_format">%1$s</string>
@@ -819,7 +804,6 @@
     <string name="share_permission_file_drop">Fájllerakat</string>
     <string name="share_permission_secure_file_drop">Biztonságos fájllerakat</string>
     <string name="share_permission_view_only">Csak megtekintés</string>
-    <string name="share_permissions">Megosztási jogosultságok</string>
     <string name="share_remote_clarification">%1$s (távoli)</string>
     <string name="share_room_clarification">%1$s(beszélgetés)</string>
     <string name="share_send_new_email">Új e-mail küldése</string>

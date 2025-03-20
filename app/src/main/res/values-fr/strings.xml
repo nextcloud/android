@@ -10,7 +10,6 @@
     <string name="action_edit">Modifier</string>
     <string name="action_empty_notifications">Effacer toutes les notifications</string>
     <string name="action_empty_trashbin">Vider la corbeille</string>
-    <string name="action_send_share">Envoyer / Partager</string>
     <string name="action_switch_grid_view">Vue en grille</string>
     <string name="action_switch_list_view">Vue en liste</string>
     <string name="actionbar_calendar_contacts_restore">Restaurer les contacts et l\'agenda</string>
@@ -49,7 +48,6 @@
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Tapez du texte</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Êtes-vous sûr de vouloir supprimer cette tâche ?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Supprimer la tâche</string>
-    <string name="assistant_screen_loading">La liste des tâches charge, veuillez patienter</string>
     <string name="assistant_screen_no_task_available_text">Aucune tâche disponible pour le type de tâche %s, vous pouvez créer une nouvelle tâche en bas à droite.</string>
     <string name="assistant_screen_task_create_fail_message">Une erreur est survenue lors de la création de la tâche</string>
     <string name="assistant_screen_task_create_success_message">La tâche a bien été créée</string>
@@ -187,7 +185,6 @@
     <string name="confirmation_remove_folders_alert">Souhaitez-vous vraiment supprimer les éléments sélectionnés ainsi que leurs contenus ?</string>
     <string name="confirmation_remove_local">Local seulement</string>
     <string name="conflict_dialog_error">Erreur lors de la création de la boîte de dialogue de conflit !</string>
-    <string name="conflict_folder_headline">Conflit de dossiers</string>
     <string name="conflict_local_file">fichier local</string>
     <string name="conflict_message_description">Si vous sélectionnez les deux versions, le fichier local aura un numéro ajouté à son nom.</string>
     <string name="conflict_message_description_for_folder">Si vous sélectionnez les deux versions, le dossier local portera un numéro ajouté à son nom.</string>
@@ -354,7 +351,6 @@
     <string name="etm_background_jobs_stop_test_job">Arrêter la tâche de test</string>
     <string name="etm_migrations">Migrations (app mise à jour)</string>
     <string name="etm_preferences">Préférences</string>
-    <string name="etm_title">Mode test</string>
     <string name="etm_transfer">Transfert de fichiers</string>
     <string name="etm_transfer_enqueue_test_download">Vérification de la liste de téléchargement</string>
     <string name="etm_transfer_enqueue_test_upload">Mise en file d\'attente du téléversement de test</string>
@@ -576,7 +572,6 @@
     <string name="new_media_folder_detected">Nouveau dossier de média %1$s détecté.</string>
     <string name="new_media_folder_photos">photo</string>
     <string name="new_media_folder_videos">vidéo</string>
-    <string name="new_notification">Nouvelle notification</string>
     <string name="new_version_was_created">Une nouvelle version a été créée</string>
     <string name="no_actions">Aucune action pour cet utilisateur</string>
     <string name="no_browser_available">Aucune application n\'est disponible pour ouvrir les liens</string>
@@ -592,7 +587,6 @@
     <string name="note_icon_hint">Icône de note</string>
     <string name="notification_action_failed">Échec lors de l\'exécution de l\'action.</string>
     <string name="notification_channel_background_operations_description">Afficher des notifications pour interagir avec le résultat des opérations en arrière-plan</string>
-    <string name="notification_channel_background_operations_name">Opérations en arrière-plan</string>
     <string name="notification_channel_download_description">Afficher la progression de téléchargement</string>
     <string name="notification_channel_download_name_short">Téléchargements</string>
     <string name="notification_channel_file_sync_description">Afficher les résultats et la progression de synchronisation du fichier</string>
@@ -609,17 +603,12 @@
     <string name="notification_icon_description">Des notifications non lues existent</string>
     <string name="notifications_no_results_headline">Aucune notification</string>
     <string name="notifications_no_results_message">Veuillez revenir plus tard.</string>
-    <string name="oc_file_list_adapter_offline_operation_description_text">Opération en attente</string>
     <string name="oc_file_list_adapter_offline_operation_remove_description_text">Opération de suppression en attente</string>
     <string name="offline_mode">Aucune connexion Internet</string>
     <string name="offline_mode_info_description">Même sans connexion Internet, vous pouvez organiser vos dossiers, créer des fichiers. Dès que vous êtes de nouveau en ligne, vos actions en cours sont automatiquement synchronisées.</string>
-    <string name="offline_mode_info_title">Vous êtes hors ligne, mais le travail continue</string>
     <string name="offline_operations_file_does_not_exists_yet">Le fichier n\'existe pas encore. Veuillez d\'abord téléverser le fichier.</string>
-    <string name="offline_operations_worker_notification_conflict_text">Dossier en conflit : %s</string>
-    <string name="offline_operations_worker_notification_delete_offline_folder">Supprimer le dossier hors ligne</string>
     <string name="offline_operations_worker_notification_error_text">L\'opération hors ligne ne peut être achevée. %s</string>
     <string name="offline_operations_worker_notification_manager_ticker">Opérations hors ligne</string>
-    <string name="offline_operations_worker_notification_start_text">Démarrage des opérations hors ligne</string>
     <string name="oneHour">1 heure</string>
     <string name="online">En ligne</string>
     <string name="online_status">Statut en ligne</string>
@@ -642,7 +631,6 @@
     <string name="permission_storage_access">Des permissions supplémentaires sont exigées pour téléverser et télécharger des fichiers.</string>
     <string name="pick_contact_to_share_with">Choisir un contact avec qui partager</string>
     <string name="picture_set_as_no_app">Aucune application trouvée pour utiliser cette image</string>
-    <string name="pin_home">Épingler sur l\'écran d\'accueil</string>
     <string name="pin_shortcut_label">Ouvrir %1$s</string>
     <string name="placeholder_fileSize">389 Ko</string>
     <string name="placeholder_filename">placeholder.txt</string>
@@ -741,7 +729,6 @@
     <string name="recommend_subject">Essayez %1$s sur votre appareil !</string>
     <string name="recommend_text">J\'aimerais vous inviter à utiliser %1$s sur votre appareil.\nTéléchargez-la ici : %2$s</string>
     <string name="recommend_urls">%1$s ou %2$s</string>
-    <string name="recommended_files_title">Fichiers recommandés</string>
     <string name="refresh_content">Actualiser le contenu</string>
     <string name="reload">Recharger</string>
     <string name="remote">(distant)</string>
@@ -791,16 +778,13 @@
     <string name="select_one_template">Veuillez sélectionner un modèle</string>
     <string name="select_template">Sélectionnez un modèle</string>
     <string name="send">Envoyer</string>
-    <string name="send_share">Envoyer Partager</string>
     <string name="sendbutton_description">Icône du bouton d\'envoi</string>
     <string name="set_as">Utiliser comme</string>
-    <string name="set_note">Définir la note</string>
     <string name="set_picture_as">Utiliser l\'image comme</string>
     <string name="set_status">Définir le statut</string>
     <string name="set_status_message">Enregistrer le message d\'état</string>
     <string name="setup_e2e">Pendant la configuration du chiffrement de bout en bout, vous recevrez une phrase secrète aléatoire de 12 mots dont vous aurez besoin pour ouvrir vos fichiers sur d\'autres appareils. Cette phrase secrète ne sera stockée que sur cet appareil, et pourra être affichée à nouveau sur cet écran. Veuillez la noter en lieu sûr !</string>
     <string name="share">Partager</string>
-    <string name="share_copy_link">Partager et copier le lien</string>
     <string name="share_dialog_title">Partage</string>
     <string name="share_download_limit">Définir le nombre maximal de téléchargements autorisés</string>
     <string name="share_expiration_date_format">%1$s</string>
@@ -827,7 +811,6 @@
     <string name="share_permission_file_drop">Dépôt de fichier</string>
     <string name="share_permission_secure_file_drop">Dépôt sécurisé de fichiers</string>
     <string name="share_permission_view_only">Afficher seulement</string>
-    <string name="share_permissions">Autorisations pour le partage</string>
     <string name="share_remote_clarification">%1$s (distant)</string>
     <string name="share_room_clarification">%1$s (conversation)</string>
     <string name="share_search">Nom, identifiant de Cloud fédéré ou adresse e-mail…</string>

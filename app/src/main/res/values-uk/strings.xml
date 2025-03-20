@@ -10,7 +10,6 @@
     <string name="action_edit">Редагувати</string>
     <string name="action_empty_notifications">Очистити всі сповіщення</string>
     <string name="action_empty_trashbin">Очистити кошик</string>
-    <string name="action_send_share">Поділитися</string>
     <string name="action_switch_grid_view">Показувати сіткою</string>
     <string name="action_switch_list_view">Показувати списком</string>
     <string name="actionbar_calendar_contacts_restore">Відновити контакти та календар</string>
@@ -49,7 +48,6 @@
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Вставте будь-який текст</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Дійсно вилучити це завдання?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Вилучити завдання</string>
-    <string name="assistant_screen_loading">Отримання переліку завдань, зачекайте</string>
     <string name="assistant_screen_no_task_available_text">Відсутні завдання для завдань типу %s. Ви можете додати нове завдання праворуч внизу. </string>
     <string name="assistant_screen_task_create_fail_message">Помилка під час додавання завдання</string>
     <string name="assistant_screen_task_create_success_message">Успішно додано завдання</string>
@@ -187,7 +185,6 @@
     <string name="confirmation_remove_folders_alert">Дійсно вилучити вибрані об\'єкти та їхній вміст?</string>
     <string name="confirmation_remove_local">Лише на пристрої</string>
     <string name="conflict_dialog_error">Неможливо ініціювати діалог розв\'язання конфлікту</string>
-    <string name="conflict_folder_headline">Конфлікт з каталогом</string>
     <string name="conflict_local_file">Файл на пристрої</string>
     <string name="conflict_message_description">Якщо ви виберете обидві версії, то до назви локального файлу буде додано порядковий номер.</string>
     <string name="conflict_message_description_for_folder">Якщо ви виберете обидві версії, до назви каталогу на пристрої буде додано цифру.</string>
@@ -354,7 +351,6 @@
     <string name="etm_background_jobs_stop_test_job">Завершити тестове завдання</string>
     <string name="etm_migrations">Міграція (оновлення застосунку)</string>
     <string name="etm_preferences">Налаштування</string>
-    <string name="etm_title">Режим розробника для тестування</string>
     <string name="etm_transfer">Передавання файлів</string>
     <string name="etm_transfer_enqueue_test_download">Черга тестування звантаження</string>
     <string name="etm_transfer_enqueue_test_upload">Черга тестування завантаження</string>
@@ -574,7 +570,6 @@
     <string name="new_media_folder_detected">Знайдено новий каталог з мультимедійним вмістом %1$s.</string>
     <string name="new_media_folder_photos">світлина</string>
     <string name="new_media_folder_videos">відео</string>
-    <string name="new_notification">Нове сповіщення</string>
     <string name="new_version_was_created">Створено нову версію</string>
     <string name="no_actions">Відсутні дії для цього користувача</string>
     <string name="no_browser_available">Відсутні застосунки для обробки посилань</string>
@@ -590,7 +585,6 @@
     <string name="note_icon_hint">Піктограма нотатки</string>
     <string name="notification_action_failed">Не вдалося виконати дію.</string>
     <string name="notification_channel_background_operations_description">Показувати сповіщення про результати фонових операцій</string>
-    <string name="notification_channel_background_operations_name">Фонові операції</string>
     <string name="notification_channel_download_description">Показує перебіг звантаження</string>
     <string name="notification_channel_download_name_short">Звантаження</string>
     <string name="notification_channel_file_sync_description">Показує перебіг синхронізації файлів та результати</string>
@@ -607,17 +601,12 @@
     <string name="notification_icon_description">У вас є непрочитані повідомлення</string>
     <string name="notifications_no_results_headline">Немає сповіщень</string>
     <string name="notifications_no_results_message">Будь ласка, перейдіть сюди пізніше.</string>
-    <string name="oc_file_list_adapter_offline_operation_description_text">Операції, що тривають</string>
     <string name="oc_file_list_adapter_offline_operation_remove_description_text">Триває операція з вилучення</string>
     <string name="offline_mode">Відсутнє з\'єднання з мережею</string>
     <string name="offline_mode_info_description">Ви можете впорядковувати каталоги, створювати файли без наявного з\'єднання з мережею. Одразу після відновлення доступу завдання, що в очікуванні, буде автоматично виконано, а файли синхронізовано.</string>
-    <string name="offline_mode_info_title">Відсутнє з\'єднанн з мережею, але ви можете продовжити роботу</string>
     <string name="offline_operations_file_does_not_exists_yet">Файли поки відсутні. Спочатку завантажте їх.</string>
-    <string name="offline_operations_worker_notification_conflict_text">Конфлікт з каталогом %s</string>
-    <string name="offline_operations_worker_notification_delete_offline_folder">Вилучити каталог на пристрої</string>
     <string name="offline_operations_worker_notification_error_text">Неможливо виконати офлайнову операцію. %s</string>
     <string name="offline_operations_worker_notification_manager_ticker">Офлайнові операції</string>
-    <string name="offline_operations_worker_notification_start_text">Початок офлайнових операцій</string>
     <string name="oneHour">1 година</string>
     <string name="online">Онлайн</string>
     <string name="online_status">Статус онлайну</string>
@@ -640,7 +629,6 @@
     <string name="permission_storage_access">Додаткові дозволи потрібні для завантаження та звантаження файлів.</string>
     <string name="pick_contact_to_share_with">Виберіть контакт для обміну</string>
     <string name="picture_set_as_no_app">Не знайдено застосунків для встановлення зображення для</string>
-    <string name="pin_home">Закріпити на Домівці</string>
     <string name="pin_shortcut_label">Відкрити %1$s</string>
     <string name="placeholder_fileSize">389 КБ</string>
     <string name="placeholder_media_time">12:23:45</string>
@@ -788,16 +776,13 @@
     <string name="select_one_template">Будь ласка, виберіть один шаблон.</string>
     <string name="select_template">Виберіть шаблон</string>
     <string name="send">Надіслати</string>
-    <string name="send_share">Поділитися</string>
     <string name="sendbutton_description">Зображення кнопки надсилання</string>
     <string name="set_as">Встановити як</string>
-    <string name="set_note">Встановити нотатку</string>
     <string name="set_picture_as">Використати як</string>
     <string name="set_status">Встановити статус</string>
     <string name="set_status_message">Встановити повідомлення про стан</string>
     <string name="setup_e2e">Під час налаштування наскрізного шифрування ви отримаєте парольну фразу з 12 слів, за допомогою якої ви зможете відкривати ваші файлі на інших пристроях. Її буде збережено лише на цьому пристрої та буде показано знову на цьому екрані. Будь ласка, занотуйте цю фразу та збережіть у безпеченому місці!</string>
     <string name="share">Спільний доступ</string>
-    <string name="share_copy_link">Поділитися та копіювати посилання</string>
     <string name="share_dialog_title">Спільне</string>
     <string name="share_download_limit">Встановити обмеження на звантаження</string>
     <string name="share_expiration_date_format">%1$s</string>
@@ -824,7 +809,6 @@
     <string name="share_permission_file_drop">Додати файл</string>
     <string name="share_permission_secure_file_drop">Безпечне додавання файлу</string>
     <string name="share_permission_view_only">Лише перегляд</string>
-    <string name="share_permissions">Поділитися дозволами</string>
     <string name="share_remote_clarification">%1$s (віддалено)</string>
     <string name="share_room_clarification">%1$s (розмова)</string>
     <string name="share_search">Ім\'я, ідентифікатор об\'єднаної хмари або ел.адреса...</string>

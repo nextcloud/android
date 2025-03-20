@@ -10,7 +10,6 @@
     <string name="action_edit">Modìfica</string>
     <string name="action_empty_notifications">Boga·nche totu is notìficas</string>
     <string name="action_empty_trashbin">Bòida s\'àliga</string>
-    <string name="action_send_share">Imbia/Cumpartzi</string>
     <string name="action_switch_grid_view">Visualizatzione a grìllia</string>
     <string name="action_switch_list_view">Visualizatzione a elencu</string>
     <string name="actionbar_mkdir">Cartella noa</string>
@@ -29,11 +28,12 @@
     <string name="activity_icon">Atividades</string>
     <string name="add_new_public_share">Agiunghe ligòngiu de cumpartzidura pùblica nou</string>
     <string name="add_to_cloud">Agiunghe a %1$s</string>
-    <string name="advanced_settings">Cunfiguratziones avantzadas</string>
+    <string name="advanced_settings">Cunfiguratzione avantzada</string>
     <string name="allow_resharing">Permite sa re-cumpartzidura</string>
     <string name="app_config_base_url_title">URL de base</string>
     <string name="app_config_proxy_port_title">Port serbidore intermèdiu</string>
     <string name="appbar_search_in">Chirca in %s</string>
+    <string name="assistant_screen_delete_task_alert_dialog_title">Cantzella faina</string>
     <string name="assistant_screen_no_task_available_text">Peruna faina a disponimentu pro sa genia %s. Nde podes creare una noa dae su cugione in bassu a dereta.</string>
     <string name="associated_account_not_found">Contu assotziadu no agatadu!</string>
     <string name="auth_access_failed">Atzessu faddidu: %1$s</string>
@@ -262,7 +262,6 @@
     <string name="etm_background_jobs_stop_test_job">Firma traballu de proa</string>
     <string name="etm_migrations">Migratziones (agiornamentu de s\'aplicatzione)</string>
     <string name="etm_preferences">Preferèntzias</string>
-    <string name="etm_title">Modalidade Proa tècnica</string>
     <string name="etm_transfer">Tràmuda de archìvios</string>
     <string name="etm_transfer_enqueue_test_download">Pone in fila s\'iscarrigamentu de sa proa</string>
     <string name="etm_transfer_enqueue_test_upload">Pone in fila su carrigamentu de sa proa</string>
@@ -431,7 +430,6 @@
     <string name="new_media_folder_detected">Cartella noa rilevada cun elementos multimediales: %1$s. </string>
     <string name="new_media_folder_photos">fotografia</string>
     <string name="new_media_folder_videos">vìdeu</string>
-    <string name="new_notification">Notìfica noa</string>
     <string name="new_version_was_created">S\'est creada una versione noa</string>
     <string name="no_browser_available">Peruna aplicatzione pro gestire ligòngios a disponimentu</string>
     <string name="no_mutliple_accounts_allowed">Est permìtidu unu contu ebbia</string>
@@ -474,7 +472,6 @@
     <string name="permission_deny">Nega</string>
     <string name="permission_storage_access">Sunt rechertos àteros permissos pro carrigare e iscarrigare documentos.</string>
     <string name="picture_set_as_no_app">Peruna aplicatzione agatada pro cunfigurare un\'immàgine</string>
-    <string name="pin_home">Apica a s\'ischermu printzipale</string>
     <string name="placeholder_fileSize">389 KB</string>
     <string name="placeholder_filename">placeholder.txt</string>
     <string name="placeholder_media_time">12:23:45</string>
@@ -550,6 +547,7 @@
     <string name="recommend_subject">Proa %1$s in su dispositivu tuo!</string>
     <string name="recommend_text">Ti bògio invitare a impreare %1$s in su dispositiu tuo.\nIscarriga·ddu inoghe: %2$s</string>
     <string name="recommend_urls">%1$s o %2$s</string>
+    <string name="recommended_files_title">Documentos cussigiados</string>
     <string name="reload">Torra a carrigare</string>
     <string name="remote">(remotu)</string>
     <string name="remote_file_fetch_failed">Chirca de documentos faddida!</string>

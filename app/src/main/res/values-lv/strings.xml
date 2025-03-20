@@ -10,7 +10,6 @@
     <string name="action_edit">Labot</string>
     <string name="action_empty_notifications">Notīrīt visus paziņojumus</string>
     <string name="action_empty_trashbin">Izdzēst miskastes saturu</string>
-    <string name="action_send_share">Sūtīt/kopīgot</string>
     <string name="action_switch_grid_view">Režģa izkārtojums</string>
     <string name="action_switch_list_view">Saraksta izkārtojums</string>
     <string name="actionbar_calendar_contacts_restore">Atjaunot kontaktpersonas un kalendāru</string>
@@ -32,7 +31,6 @@
     <string name="allow_resharing">Atļaut atkārtotu koplietošanu</string>
     <string name="app_config_proxy_port_title">Starpniekservera ports</string>
     <string name="appbar_search_in">Meklēt %s</string>
-    <string name="assistant_screen_delete_task_alert_dialog_title">Dzēst uzdevumu</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">Dzēst uzdevumu</string>
     <string name="associated_account_not_found">Saistītais konts nav atrasts!</string>
     <string name="auth_access_failed">Piekļuve neizdevās: %1$s</string>
@@ -365,7 +363,6 @@
     <string name="permission_allow">Atļaut</string>
     <string name="permission_storage_access">Nepieciešamas papildus tiesības, lai augšupielādētu un lejupielādētu datnes.</string>
     <string name="picture_set_as_no_app">Nav lietotnes, ar kuru uzstādīt attēlu</string>
-    <string name="pin_home">Piespraust sākuma ekrānam</string>
     <string name="placeholder_fileSize">389 KB</string>
     <string name="placeholder_filename">placeholder.txt</string>
     <string name="placeholder_media_time">12:23:45</string>
@@ -419,6 +416,7 @@
     <string name="recommend_subject">Izmēģini %1$s savā ierīcē!</string>
     <string name="recommend_text">Izmanto %1$s lietotni arī Tu.\nLejuplādē to šeit: %2$s</string>
     <string name="recommend_urls">%1$s vai %2$s</string>
+    <string name="recommended_files_title">Ieteiktās datnes</string>
     <string name="reload">Reload</string>
     <string name="remove_fail_msg">Dzēšana neizdevās</string>
     <string name="remove_push_notification">Izņemt</string>

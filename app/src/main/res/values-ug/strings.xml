@@ -10,7 +10,6 @@
     <string name="action_edit">تەھرىر</string>
     <string name="action_empty_notifications">بارلىق ئۇقتۇرۇشلارنى تازىلاڭ</string>
     <string name="action_empty_trashbin">ئەخلەت ساندۇقى</string>
-    <string name="action_send_share">ئەۋەتىش / ئورتاقلىشىش</string>
     <string name="action_switch_grid_view">كاتەكچە كۆرۈنۈش</string>
     <string name="action_switch_list_view">تىزىملىك كۆرۈنۈشى</string>
     <string name="actionbar_calendar_contacts_restore">ئالاقىلىشىش ۋە كالېندارنى ئەسلىگە كەلتۈرۈش</string>
@@ -40,7 +39,6 @@
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">بەزى تېكىستلەرنى كىرگۈزۈڭ</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">بۇ ۋەزىپىنى ئۆچۈرمەكچىمۇ؟</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">ۋەزىپىنى ئۆچۈرۈڭ</string>
-    <string name="assistant_screen_loading">ۋەزىپە تىزىملىكى يۈكلىنىۋاتىدۇ ، ساقلاپ تۇرۇڭ</string>
     <string name="assistant_screen_no_task_available_text"> %s ۋەزىپە تىپىغا ماس كېلىدىغان ۋەزىپە يوق ، ئاستىدىن ئوڭدىن يېڭى ۋەزىپە قۇرالايسىز.</string>
     <string name="assistant_screen_task_create_fail_message">ۋەزىپە قۇرغاندا خاتالىق كۆرۈلدى</string>
     <string name="assistant_screen_task_create_success_message">ۋەزىپە مۇۋەپپەقىيەتلىك قۇرۇلدى</string>
@@ -173,7 +171,6 @@
     <string name="confirmation_remove_folders_alert">تاللانغان تۈرلەرنى ۋە ئۇلارنىڭ مەزمۇنىنى ئۆچۈرمەكچىمۇ؟</string>
     <string name="confirmation_remove_local">پەقەت يەرلىك</string>
     <string name="conflict_dialog_error">زىددىيەتنى ھەل قىلىش دىئالوگى قۇرغىلى بولمايدۇ</string>
-    <string name="conflict_folder_headline">ھۆججەت قىسقۇچ</string>
     <string name="conflict_local_file">يەرلىك ھۆججەت</string>
     <string name="conflict_message_description">ئەگەر ھەر ئىككى نەشرىنى تاللىسىڭىز ، يەرلىك ھۆججەتنىڭ نامىغا بىر سان قوشۇلىدۇ.</string>
     <string name="conflict_message_description_for_folder">ئەگەر ھەر ئىككى نەشرىنى تاللىسىڭىز ، يەرلىك ھۆججەت قىسقۇچنىڭ نامىغا بىر سان قوشۇلىدۇ.</string>
@@ -333,7 +330,6 @@
     <string name="etm_background_jobs_stop_test_job">سىناق خىزمىتىنى توختىتىڭ</string>
     <string name="etm_migrations">كۆچۈش (ئەپ يېڭىلاش)</string>
     <string name="etm_preferences">مايىللىق</string>
-    <string name="etm_title">قۇرۇلۇش سىناق ھالىتى</string>
     <string name="etm_transfer">ھۆججەت يوللاش</string>
     <string name="etm_transfer_enqueue_test_download">سىناق چۈشۈرۈشنى تەلەپ قىلىڭ</string>
     <string name="etm_transfer_enqueue_test_upload">سىناق يۈكلەش</string>
@@ -548,7 +544,6 @@
     <string name="new_media_folder_detected">يېڭى%1$s مېدىيا ھۆججەت قىسقۇچى بايقالدى.</string>
     <string name="new_media_folder_photos">سۈرەت</string>
     <string name="new_media_folder_videos">video</string>
-    <string name="new_notification">يېڭى ئۇقتۇرۇش</string>
     <string name="new_version_was_created">يېڭى نەشرى قۇرۇلدى</string>
     <string name="no_actions">بۇ ئىشلەتكۈچى ئۈچۈن ھېچقانداق ھەرىكەت يوق</string>
     <string name="no_browser_available">ئۇلىنىشنى بىر تەرەپ قىلىدىغان ئەپ يوق</string>
@@ -564,7 +559,6 @@
     <string name="note_icon_hint">سىنبەلگە</string>
     <string name="notification_action_failed">ھەرىكەتنى ئىجرا قىلالمىدى.</string>
     <string name="notification_channel_background_operations_description">ئارقا كۆرۈنۈش مەشغۇلاتىنىڭ ئۆز-ئارا تەسىر كۆرسىتىدىغان ئۇقتۇرۇشىنى كۆرسىتىڭ</string>
-    <string name="notification_channel_background_operations_name">تەگلىك مەشغۇلاتلىرى</string>
     <string name="notification_channel_download_description">چۈشۈرۈشنىڭ ئىلگىرىلىشىنى كۆرسىتىدۇ</string>
     <string name="notification_channel_download_name_short">چۈشۈرۈش</string>
     <string name="notification_channel_file_sync_description">ھۆججەت ماسقەدەملەش جەريانى ۋە نەتىجىسىنى كۆرسىتىدۇ</string>
@@ -581,16 +575,11 @@
     <string name="notification_icon_description">ئوقۇلمىغان ئۇقتۇرۇشلار مەۋجۇت</string>
     <string name="notifications_no_results_headline">ئۇقتۇرۇش يوق</string>
     <string name="notifications_no_results_message">كېيىن قايتا تەكشۈرۈپ بېقىڭ.</string>
-    <string name="oc_file_list_adapter_offline_operation_description_text">ساقلىنىۋاتقان مەشغۇلات</string>
     <string name="offline_mode">تور ئۇلىنىشى يوق</string>
     <string name="offline_mode_info_description">تورغا ئۇلانمىسىڭىزمۇ ھۆججەت قىسقۇچلىرىڭىزنى رەتلىيەلەيسىز ، ھۆججەت قۇرالايسىز. تورغا قايتىپ كەلگەندىن كېيىن ، ساقلاۋاتقان ھەرىكەتلىرىڭىز ئاپتوماتىك ماسقەدەملىنىدۇ.</string>
-    <string name="offline_mode_info_title">سىز تورسىز ، ئەمما خىزمەت داۋاملىشىدۇ</string>
     <string name="offline_operations_file_does_not_exists_yet">ھۆججەت مەۋجۇت ئەمەس. ئاۋۋال ھۆججەتنى يۈكلەڭ.</string>
-    <string name="offline_operations_worker_notification_conflict_text">زىددىيەتلىك ھۆججەت قىسقۇچ:%s</string>
-    <string name="offline_operations_worker_notification_delete_offline_folder">تورسىز ھۆججەت قىسقۇچنى ئۆچۈرۈڭ</string>
     <string name="offline_operations_worker_notification_error_text">تورسىز مەشغۇلاتنى تاماملىغىلى بولمايدۇ. %s</string>
     <string name="offline_operations_worker_notification_manager_ticker">تورسىز مەشغۇلات</string>
-    <string name="offline_operations_worker_notification_start_text">تورسىز مەشغۇلاتنى باشلاش</string>
     <string name="oneHour">1 سائەت</string>
     <string name="online">توردا</string>
     <string name="online_status">توردىكى ئورنى</string>
@@ -611,7 +600,6 @@
     <string name="permission_deny">رەت قىلىش</string>
     <string name="permission_storage_access">ھۆججەتلەرنى يوللاش ۋە چۈشۈرۈش ئۈچۈن قوشۇمچە ئىجازەتلەر.</string>
     <string name="picture_set_as_no_app">رەسىم ئورنىتىدىغان ھېچقانداق دېتال تېپىلمىدى</string>
-    <string name="pin_home">باش بەت ئېكرانى</string>
     <string name="pin_shortcut_label">%1$s نى ئېچىڭ</string>
     <string name="placeholder_fileSize">389 KB</string>
     <string name="placeholder_filename">placeholder.txt</string>
@@ -704,6 +692,7 @@
     <string name="recommend_subject">ئۈسكۈنىڭىزدە%1$s نى سىناپ بېقىڭ!</string>
     <string name="recommend_text">ئۈسكۈنىڭىزدە%1$s ئىشلىتىشكە تەكلىپ قىلماقچى. \ N بۇ يەرگە چۈشۈرۈڭ:%2$s</string>
     <string name="recommend_urls">%1$s ياك%2$s $ s</string>
+    <string name="recommended_files_title">تەۋسىيە قىلىنغان ھۆججەتلەر</string>
     <string name="refresh_content">مەزمۇننى يېڭىلاش</string>
     <string name="reload">قايتا يۈكلەڭ</string>
     <string name="remote">(remote)</string>
@@ -751,16 +740,13 @@
     <string name="select_one_template">بىر قېلىپنى تاللاڭ</string>
     <string name="select_template">قېلىپنى تاللاڭ</string>
     <string name="send">ئەۋەتىڭ</string>
-    <string name="send_share">ھەمبەھىر ئەۋەتىش</string>
     <string name="sendbutton_description">كۇنۇپكا سىنبەلگىسىنى ئەۋەتىڭ</string>
     <string name="set_as">تەڭشەك</string>
-    <string name="set_note">ئەسكەرتىش</string>
     <string name="set_picture_as">رەسىمنى ئىشلىتىڭ</string>
     <string name="set_status">ھالەت بەلگىلەڭ</string>
     <string name="set_status_message">ھالەت ئۇچۇرىنى بەلگىلەڭ</string>
     <string name="setup_e2e">ئاخىرىدىن ئاخىرىغىچە مەخپىيلەشتۈرۈشنى تەڭشەش جەريانىدا ، ئىختىيارى 12 سۆزلۈك mnemonic تاپشۇرۇۋالىسىز ، بۇ ھۆججەتلەرنى باشقا ئۈسكۈنىلەردە ئېچىشىڭىز كېرەك. بۇ پەقەت بۇ ئۈسكۈنىدە ساقلىنىدۇ ، بۇ ئېكراندا قايتا كۆرسەتكىلى بولىدۇ. ئۇنى بىخەتەر ئورۇنغا خاتىرىلەڭ!</string>
     <string name="share">ھەمبەھىرلەش</string>
-    <string name="share_copy_link">ئۇلىنىشنى ھەمبەھىرلەش ۋە كۆچۈرۈش</string>
     <string name="share_dialog_title">ھەمبەھىر</string>
     <string name="share_download_limit">چۈشۈرۈش چەكلىمىسىنى بەلگىلەڭ</string>
     <string name="share_expiration_date_format">%1$s</string>
@@ -787,7 +773,6 @@
     <string name="share_permission_file_drop">ھۆججەت چۈشۈرۈش</string>
     <string name="share_permission_secure_file_drop">بىخەتەر ھۆججەت چۈشۈرۈش</string>
     <string name="share_permission_view_only">پەقەت كۆرۈش</string>
-    <string name="share_permissions">ئورتاقلىشىش ئىجازەتنامىسى</string>
     <string name="share_remote_clarification">%1$s (يىراق)</string>
     <string name="share_room_clarification">%1$s (سۆھبەت)</string>
     <string name="share_send_new_email">يېڭى ئېلېكترونلۇق خەت ئەۋەتىڭ</string>
