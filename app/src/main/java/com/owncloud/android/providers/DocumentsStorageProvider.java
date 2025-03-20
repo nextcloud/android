@@ -286,16 +286,14 @@ public class DocumentsStorageProvider extends DocumentsProvider {
         OCFile ocFile = document.getFile();
         RemoteOperationResult result = new CheckEtagRemoteOperation(ocFile.getRemotePath(), ocFile.getEtag())
             .execute(document.getUser(), context);
-        switch (result.getCode()) {
-            case ETAG_CHANGED:
-                return true;
-            case ETAG_UNCHANGED:
-                return false;
-            case FILE_NOT_FOUND:
-            default:
+        return switch (result.getCode()) {
+            case ETAG_CHANGED -> true;
+            case ETAG_UNCHANGED -> false;
+            default -> {
                 Log_OC.e(TAG, result.toString());
                 throw new FileNotFoundException("Error synchronizing file: " + ocFile.getFileName());
-        }
+            }
+        };
     }
 
     /**
