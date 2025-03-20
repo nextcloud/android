@@ -13,6 +13,7 @@ import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.preferences.AppPreferencesImpl;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.datamodel.SignatureVerification;
+import com.owncloud.android.ui.activity.DrawerActivity;
 
 import java.security.Key;
 
@@ -22,7 +23,8 @@ public final class PushUtils {
     private PushUtils() {
     }
 
-    public static void pushRegistrationToServer(
+    public static void updateRegistrationsWithServer(
+        final Context context,
         final UserAccountManager accountManager,
         final String pushToken) {
         // do nothing

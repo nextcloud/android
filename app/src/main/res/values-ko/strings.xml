@@ -708,7 +708,6 @@
     <string name="preview_sorry">죄송합니다</string>
     <string name="privacy">개인 정보</string>
     <string name="public_share_name">새 이름</string>
-    <string name="push_notifications_not_implemented">비자유 Google Play 서비스 의존성 때문에 푸시 알림이 비활성화되었습니다.</string>
     <string name="push_notifications_old_login">로그인 세션이 오래되어 푸시 알림이 비활성화되었습니다. 계정을 다시 추가하십시오.</string>
     <string name="push_notifications_temp_error">푸시 알림을 사용할 수 없습니다.</string>
     <string name="qr_could_not_be_read">QR 코드를 읽을 수 없습니다!</string>

@@ -630,7 +630,6 @@
     <string name="preview_sorry">ببخشید</string>
     <string name="privacy">حریم خصوصی</string>
     <string name="public_share_name">اسم جدید</string>
-    <string name="push_notifications_not_implemented">ارسال اعلانات به دلیل وابستگی به خدمات اختصاصی Google Play غیرفعال شده است.</string>
     <string name="push_notifications_old_login">امکان ارسال اعلانات، به دلیل منقضی شدن زمان نشست ورود به سیستم وجود ندارد. لطفاً دوباره حساب خود را اضافه کنید.</string>
     <string name="push_notifications_temp_error">ارسال اعلانات در حال حاضر در دسترس نیست.</string>
     <string name="qr_could_not_be_read">کد QR قابل خواندن نیست!</string>

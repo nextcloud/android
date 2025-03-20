@@ -611,7 +611,6 @@
     <string name="preview_sorry">Na žalost</string>
     <string name="privacy">Zasebnost</string>
     <string name="public_share_name">Novo ime</string>
-    <string name="push_notifications_not_implemented">Potisna obvestila so onemogočena zaradi odvisnosti od storitev Google Play.</string>
     <string name="push_notifications_old_login">Zaradi pretečene prijavne seje ni mogoče prikazati potisnih obvestil. Priporočljivo je ponovno dodati račun med nastavitvami.</string>
     <string name="push_notifications_temp_error">Potisna obvestila trenutno niso na voljo.</string>
     <string name="qr_could_not_be_read">Kode QR ni mogoče prebrati!</string>

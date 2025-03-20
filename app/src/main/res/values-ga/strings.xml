@@ -718,7 +718,6 @@
     <string name="preview_sorry">Tá brón orm</string>
     <string name="privacy">Príobháideacht</string>
     <string name="public_share_name">Ainm nua</string>
-    <string name="push_notifications_not_implemented">Díchumasaíodh fógraí brú de bharr spleáchais ar sheirbhísí dílseánaigh Google Play.</string>
     <string name="push_notifications_old_login">Níl aon bhrúfhógraí mar gheall ar sheisiún logáil isteach atá as dáta. Smaoinigh ar do chuntas a chur leis arís le do thoil.</string>
     <string name="push_notifications_temp_error">Níl fógraí brúigh ar fáil faoi láthair.</string>
     <string name="qr_could_not_be_read">Níorbh fhéidir an cód QR a léamh!</string>

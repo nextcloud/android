@@ -687,7 +687,6 @@
     <string name="preview_sorry">Beklager</string>
     <string name="privacy">Personvern</string>
     <string name="public_share_name">Nytt navn</string>
-    <string name="push_notifications_not_implemented">Push-merknader er avskrudd på grunn av avhengigheter til proprietære Google Play-tjenester.</string>
     <string name="push_notifications_old_login">Ingen push-varsler på grunn av utdatert innloggingsøkt. Du bør vurdere å legge til kontoen på nytt.</string>
     <string name="push_notifications_temp_error">Push-merknader er for tiden ikke tilgjengelige.</string>
     <string name="qr_could_not_be_read">QR-koden kunne ikke leses!</string>

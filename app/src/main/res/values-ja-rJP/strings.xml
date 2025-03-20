@@ -701,7 +701,6 @@
     <string name="preview_sorry">申し訳ありません</string>
     <string name="privacy">プライバシー</string>
     <string name="public_share_name">新しい名前</string>
-    <string name="push_notifications_not_implemented">独自のGoogle Playサービスの依存関係のため、プッシュ通知が無効になっています。</string>
     <string name="push_notifications_old_login">古くなったログインセッションによるプッシュ通知はありません。 アカウントを再追加することを検討してください。</string>
     <string name="push_notifications_temp_error">プッシュ通知は現在利用できません。</string>
     <string name="qr_could_not_be_read">QRコードを読み込めません!</string>
