@@ -99,6 +99,7 @@ public final class AppPreferencesImpl implements AppPreferences {
 
     private static final String PREF__PDF_ZOOM_TIP_SHOWN = "pdf_zoom_tip_shown";
     private static final String PREF__MEDIA_FOLDER_LAST_PATH = "media_folder_last_path";
+
     private static final String PREF__STORAGE_PERMISSION_REQUESTED = "storage_permission_requested";
     private static final String PREF__IN_APP_REVIEW_DATA = "in_app_review_data";
 
@@ -759,6 +760,11 @@ public final class AppPreferencesImpl implements AppPreferences {
     @Override
     public boolean isStoragePermissionRequested() {
         return preferences.getBoolean(PREF__STORAGE_PERMISSION_REQUESTED, false);
+    }
+
+    @Override
+    public void setStoragePermissionRequested(boolean value) {
+        preferences.edit().putBoolean(PREF__STORAGE_PERMISSION_REQUESTED, value).apply();
     }
 
     @VisibleForTesting
