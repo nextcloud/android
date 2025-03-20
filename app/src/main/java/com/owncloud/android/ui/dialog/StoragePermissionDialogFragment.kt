@@ -95,10 +95,7 @@ class StoragePermissionDialogFragment : DialogFragment(), Injectable {
 
     private fun requestMediaReadOnly() {
         activity?.let {
-            PermissionUtil.showStoragePermissionsSnackbarOrRequest(
-                activity = it,
-                viewThemeUtils = viewThemeUtils
-            )
+            PermissionUtil.requestStoragePermissions(activity = it)
         }
     }
 
