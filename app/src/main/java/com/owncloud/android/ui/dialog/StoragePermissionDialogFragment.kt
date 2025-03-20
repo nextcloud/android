@@ -17,6 +17,7 @@ import androidx.fragment.app.DialogFragment
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.nextcloud.client.di.Injectable
+import com.nextcloud.client.preferences.AppPreferences
 import com.owncloud.android.R
 import com.owncloud.android.utils.PermissionUtil
 import com.owncloud.android.utils.PermissionUtil.REQUEST_CODE_MANAGE_ALL_FILES
@@ -30,6 +31,9 @@ class StoragePermissionDialogFragment : DialogFragment(), Injectable {
 
     @Inject
     lateinit var viewThemeUtils: ViewThemeUtils
+
+    @Inject
+    lateinit var appPreferences: AppPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -76,7 +80,8 @@ class StoragePermissionDialogFragment : DialogFragment(), Injectable {
                 requestMediaReadOnly()
                 dismiss()
             }
-            .setNeutralButton(R.string.common_cancel) { _, _ ->
+            .setNeutralButton(R.string.storage_permission_dont_ask_again) { _, _ ->
+                appPreferences.isStoragePermissionRequested = true
                 dismiss()
             }
 
@@ -95,7 +100,7 @@ class StoragePermissionDialogFragment : DialogFragment(), Injectable {
 
     private fun requestMediaReadOnly() {
         activity?.let {
-            PermissionUtil.requestStoragePermissions(activity = it)
+            PermissionUtil.requestStoragePermissions(it, appPreferences.isStoragePermissionRequested)
         }
     }
 

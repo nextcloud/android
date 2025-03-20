@@ -22,6 +22,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.net.toUri
+import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.client.preferences.AppPreferencesImpl
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.ui.dialog.StoragePermissionDialogFragment
@@ -119,21 +120,22 @@ object PermissionUtil {
             return
         }
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R && canRequestAllFilesPermission(activity)) {
+        @Suppress("DEPRECATION")
+        val preferences: AppPreferences = AppPreferencesImpl.fromContext(activity)
+
+        if (!preferences.isStoragePermissionRequested &&
+            Build.VERSION.SDK_INT >= Build.VERSION_CODES.R &&
+            canRequestAllFilesPermission(activity)
+        ) {
             showStoragePermissionDialogFragment(activity, showStrictText)
         } else {
-            requestStoragePermissions(activity)
+            requestStoragePermissions(activity, preferences.isStoragePermissionRequested)
         }
     }
 
-    fun requestStoragePermissions(activity: Activity) {
-        @Suppress("DEPRECATION")
-        val preferences = AppPreferencesImpl.fromContext(activity)
+    fun requestStoragePermissions(activity: Activity, isStoragePermissionRequested: Boolean) {
         val permissions = getStoragePermissions()
-
-        if (permissions.any { shouldShowRequestPermissionRationale(activity, it) } ||
-            !preferences.isStoragePermissionRequested
-        ) {
+        if (permissions.any { shouldShowRequestPermissionRationale(activity, it) } || !isStoragePermissionRequested) {
             requestPermissions(activity, permissions)
         }
     }
