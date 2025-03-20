@@ -64,13 +64,14 @@ public class ConflictsResolveActivityIT extends AbstractIT {
 
         ConflictsResolveActivity sut = activityRule.launchActivity(intent);
 
-        ConflictsResolveDialog dialog = ConflictsResolveDialog.newInstance(targetContext,
-                                                                           newFile,
-                                                                           existingFile,
-                                                                           UserAccountManagerImpl
-                                                                               .fromContext(targetContext)
-                                                                               .getUser()
-                                                                          );
+        ConflictsResolveDialog dialog = ConflictsResolveDialog.newInstance(
+            storageManager.getDecryptedPath(existingFile),
+            targetContext,
+            newFile,
+            existingFile,
+            UserAccountManagerImpl
+                .fromContext(targetContext)
+                .getUser());
         dialog.showDialog(sut);
 
         getInstrumentation().waitForIdleSync();
