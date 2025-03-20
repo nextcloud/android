@@ -370,9 +370,11 @@ public interface AppPreferences {
 
     int getPdfZoomTipShownCount();
 
-    void setInAppReviewData(@NonNull AppReviewShownModel appReviewShownModel);
-
     boolean isStoragePermissionRequested();
+
+    void setStoragePermissionRequested(boolean value);
+
+    void setInAppReviewData(@NonNull AppReviewShownModel appReviewShownModel);
 
     @Nullable
     AppReviewShownModel getInAppReviewData();
