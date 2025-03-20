@@ -198,11 +198,14 @@ class OCFileListDelegate(
             })
 
             thumbnailView.setImageDrawable(asyncDrawable)
-            asyncGalleryTasks.add(task)
-            task.executeOnExecutor(
-                AsyncTask.THREAD_POOL_EXECUTOR,
-                file
-            )
+
+            if (!asyncGalleryTasks.contains(task)) {
+                asyncGalleryTasks.add(task)
+                task.executeOnExecutor(
+                    AsyncTask.THREAD_POOL_EXECUTOR,
+                    file
+                )
+            }
         } catch (e: IllegalArgumentException) {
             Log_OC.d(tag, "ThumbnailGenerationTask : " + e.message)
         }
