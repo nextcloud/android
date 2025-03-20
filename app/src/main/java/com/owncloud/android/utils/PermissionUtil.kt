@@ -111,10 +111,7 @@ object PermissionUtil {
      */
     @JvmStatic
     @JvmOverloads
-    fun requestStoragePermissionIfNeeded(
-        activity: AppCompatActivity,
-        showStrictText: Boolean = false
-    ) {
+    fun requestStoragePermissionIfNeeded(activity: AppCompatActivity, showStrictText: Boolean = false) {
         if (checkStoragePermission(activity)) {
             Log_OC.d(TAG, "Storage permissions are already granted")
             return
