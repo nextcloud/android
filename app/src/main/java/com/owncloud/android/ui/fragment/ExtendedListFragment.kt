@@ -1,6 +1,7 @@
 /*
  * Nextcloud - Android Client
  *
+ * SPDX-FileCopyrightText: 2025 Alper Ozturk <alper.ozturk@nextcloud.com>
  * SPDX-FileCopyrightText: 2022 Álvaro Brey <alvaro.brey@nextcloud.com>
  * SPDX-FileCopyrightText: 2018-2021 Tobias Kaminsky <tobias@kaminsky.me>
  * SPDX-FileCopyrightText: 2019 Chris Narkiewicz <hello@ezaquarii.com>
@@ -13,547 +14,534 @@
  * SPDX-FileCopyrightText: 2012 Bartosz Przybylski <bart.p.pl@gmail.com>
  * SPDX-License-Identifier: GPL-2.0-only AND (AGPL-3.0-or-later OR GPL-2.0-only)
  */
-package com.owncloud.android.ui.fragment;
+package com.owncloud.android.ui.fragment
 
-import android.animation.LayoutTransition;
-import android.app.Activity;
-import android.content.Context;
-import android.content.res.Configuration;
-import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
-import android.text.TextUtils;
-import android.util.DisplayMetrics;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
-import android.view.MotionEvent;
-import android.view.ScaleGestureDetector;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.GridView;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
+import android.animation.LayoutTransition
+import android.annotation.SuppressLint
+import android.app.Activity
+import android.content.Context
+import android.content.res.Configuration
+import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
+import android.text.TextUtils
+import android.util.DisplayMetrics
+import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MotionEvent
+import android.view.ScaleGestureDetector
+import android.view.ScaleGestureDetector.SimpleOnScaleGestureListener
+import android.view.View
+import android.view.View.OnTouchListener
+import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
+import android.widget.AdapterView
+import android.widget.GridView
+import android.widget.ImageView
+import android.widget.LinearLayout
+import android.widget.TextView
+import androidx.annotation.DrawableRes
+import androidx.annotation.StringRes
+import androidx.appcompat.widget.SearchView
+import androidx.core.content.ContextCompat
+import androidx.core.view.MenuItemCompat
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnRefreshListener
+import com.google.android.material.button.MaterialButton
+import com.nextcloud.android.common.ui.theme.utils.ColorRole
+import com.nextcloud.client.account.UserAccountManager
+import com.nextcloud.client.di.Injectable
+import com.nextcloud.client.network.ConnectivityService.GenericCallback
+import com.nextcloud.client.preferences.AppPreferences
+import com.nextcloud.client.preferences.AppPreferencesImpl
+import com.nextcloud.utils.extensions.getTypedActivity
+import com.owncloud.android.MainApp
+import com.owncloud.android.R
+import com.owncloud.android.databinding.ListFragmentBinding
+import com.owncloud.android.lib.common.utils.Log_OC
+import com.owncloud.android.lib.resources.files.SearchRemoteOperation
+import com.owncloud.android.lib.resources.status.OwnCloudVersion
+import com.owncloud.android.ui.EmptyRecyclerView
+import com.owncloud.android.ui.activity.FileActivity
+import com.owncloud.android.ui.activity.FileDisplayActivity
+import com.owncloud.android.ui.activity.FolderPickerActivity
+import com.owncloud.android.ui.activity.OnEnforceableRefreshListener
+import com.owncloud.android.ui.activity.UploadFilesActivity
+import com.owncloud.android.ui.adapter.LocalFileListAdapter
+import com.owncloud.android.ui.adapter.OCFileListAdapter
+import com.owncloud.android.ui.events.SearchEvent
+import com.owncloud.android.utils.theme.ViewThemeUtils
+import org.greenrobot.eventbus.EventBus
+import javax.inject.Inject
+import kotlin.math.max
+import kotlin.math.min
+import kotlin.math.roundToInt
 
-import com.google.android.material.button.MaterialButton;
-import com.nextcloud.client.account.UserAccountManager;
-import com.nextcloud.client.di.Injectable;
-import com.nextcloud.client.preferences.AppPreferences;
-import com.nextcloud.client.preferences.AppPreferencesImpl;
-import com.nextcloud.utils.extensions.FragmentExtensionsKt;
-import com.owncloud.android.MainApp;
-import com.owncloud.android.R;
-import com.owncloud.android.databinding.ListFragmentBinding;
-import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.lib.resources.files.SearchRemoteOperation;
-import com.owncloud.android.lib.resources.status.OwnCloudVersion;
-import com.owncloud.android.ui.EmptyRecyclerView;
-import com.owncloud.android.ui.activity.FileActivity;
-import com.owncloud.android.ui.activity.FileDisplayActivity;
-import com.owncloud.android.ui.activity.FolderPickerActivity;
-import com.owncloud.android.ui.activity.OnEnforceableRefreshListener;
-import com.owncloud.android.ui.activity.UploadFilesActivity;
-import com.owncloud.android.ui.adapter.LocalFileListAdapter;
-import com.owncloud.android.ui.adapter.OCFileListAdapter;
-import com.owncloud.android.ui.events.SearchEvent;
-import com.owncloud.android.utils.theme.ViewThemeUtils;
+@Suppress("MagicNumber", "TooManyFunctions")
+open class ExtendedListFragment : Fragment(), AdapterView.OnItemClickListener, OnEnforceableRefreshListener,
+    SearchView.OnQueryTextListener, SearchView.OnCloseListener, Injectable {
+    private var maxColumnSize = 5
 
-import org.greenrobot.eventbus.EventBus;
+    @Inject
+    lateinit var preferences: AppPreferences
 
-import java.util.ArrayList;
+    @Inject
+    lateinit var accountManager: UserAccountManager
 
-import javax.inject.Inject;
+    @Inject
+    lateinit var viewThemeUtils: ViewThemeUtils
 
-import androidx.annotation.DrawableRes;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.annotation.StringRes;
-import androidx.appcompat.widget.SearchView;
-import androidx.core.content.ContextCompat;
-import androidx.core.view.MenuItemCompat;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+    private var mScaleGestureDetector: ScaleGestureDetector? = null
 
-public class ExtendedListFragment extends Fragment implements
-    OnItemClickListener,
-    OnEnforceableRefreshListener,
-    SearchView.OnQueryTextListener,
-    SearchView.OnCloseListener,
-    Injectable {
+    @JvmField
+    protected var mRefreshListLayout: SwipeRefreshLayout? = null
 
-    protected static final String TAG = ExtendedListFragment.class.getSimpleName();
+    @JvmField
+    protected var mSortButton: MaterialButton? = null
 
-    protected static final String KEY_SAVED_LIST_POSITION = "SAVED_LIST_POSITION";
+    @JvmField
+    protected var mSwitchGridViewButton: MaterialButton? = null
 
-    private static final String KEY_INDEXES = "INDEXES";
-    private static final String KEY_FIRST_POSITIONS = "FIRST_POSITIONS";
-    private static final String KEY_TOPS = "TOPS";
-    private static final String KEY_HEIGHT_CELL = "HEIGHT_CELL";
-    private static final String KEY_EMPTY_LIST_MESSAGE = "EMPTY_LIST_MESSAGE";
-    private static final String KEY_IS_GRID_VISIBLE = "IS_GRID_VISIBLE";
-    public static final float minColumnSize = 2.0f;
-
-    private int maxColumnSize = 5;
-
-    @Inject AppPreferences preferences;
-    @Inject UserAccountManager accountManager;
-    @Inject ViewThemeUtils viewThemeUtils;
-
-    private ScaleGestureDetector mScaleGestureDetector;
-    protected SwipeRefreshLayout mRefreshListLayout;
-    protected MaterialButton mSortButton;
-    protected MaterialButton mSwitchGridViewButton;
-    protected ViewGroup mEmptyListContainer;
-    protected TextView mEmptyListMessage;
-    protected TextView mEmptyListHeadline;
-    protected ImageView mEmptyListIcon;
+    protected var mEmptyListContainer: ViewGroup? = null
+    protected var mEmptyListMessage: TextView? = null
+    protected var mEmptyListHeadline: TextView? = null
+    protected var mEmptyListIcon: ImageView? = null
 
     // Save the state of the scroll in browsing
-    private ArrayList<Integer> mIndexes = new ArrayList<>();
-    private ArrayList<Integer> mFirstPositions = new ArrayList<>();
-    private ArrayList<Integer> mTops = new ArrayList<>();
-    private int mHeightCell = 0;
+    private var mIndexes: ArrayList<Int?>? = ArrayList<Int?>()
+    private var mFirstPositions: ArrayList<Int?>? = ArrayList<Int?>()
+    private var mTops: ArrayList<Int?>? = ArrayList<Int?>()
+    private var mHeightCell = 0
 
-    private SwipeRefreshLayout.OnRefreshListener mOnRefreshListener;
+    private var mOnRefreshListener: OnRefreshListener? = null
 
-    private EmptyRecyclerView mRecyclerView;
+    private var mRecyclerView: EmptyRecyclerView? = null
 
-    protected SearchView searchView;
-    private ImageView closeButton;
-    private final Handler handler = new Handler(Looper.getMainLooper());
+    protected var searchView: SearchView? = null
+    private var closeButton: ImageView? = null
+    private val handler = Handler(Looper.getMainLooper())
 
-    private float mScale = AppPreferencesImpl.DEFAULT_GRID_COLUMN;
+    private var mScale = AppPreferencesImpl.DEFAULT_GRID_COLUMN
 
-    private ListFragmentBinding binding;
+    var binding: ListFragmentBinding? = null
+        private set
 
-    public ListFragmentBinding getBinding() {
-        return binding;
+    protected fun setRecyclerViewAdapter(recyclerViewAdapter: RecyclerView.Adapter<*>?) {
+        mRecyclerView?.setAdapter(recyclerViewAdapter)
     }
 
-    protected void setRecyclerViewAdapter(RecyclerView.Adapter recyclerViewAdapter) {
-        mRecyclerView.setAdapter(recyclerViewAdapter);
+    protected val recyclerView: RecyclerView
+        get() = mRecyclerView!!
+
+    open fun setLoading(enabled: Boolean) {
+        mRefreshListLayout?.isRefreshing = enabled
     }
 
-    protected RecyclerView getRecyclerView() {
-        return mRecyclerView;
-    }
-
-    public void setLoading(boolean enabled) {
-        mRefreshListLayout.setRefreshing(enabled);
-    }
-
-    public void switchToGridView() {
-        if (!isGridEnabled()) {
-            getRecyclerView().setLayoutManager(new GridLayoutManager(getContext(), getColumnsCount()));
+    open fun switchToGridView() {
+        if (!isGridEnabled) {
+            recyclerView.setLayoutManager(GridLayoutManager(context, columnsCount))
         }
     }
 
-    public void switchToListView() {
-        if (isGridEnabled()) {
-            getRecyclerView().setLayoutManager(new LinearLayoutManager(getContext()));
+    open fun switchToListView() {
+        if (isGridEnabled) {
+            recyclerView.setLayoutManager(LinearLayoutManager(context))
         }
     }
 
-    public boolean isGridEnabled() {
-        if (getRecyclerView() != null) {
-            return getRecyclerView().getLayoutManager() instanceof GridLayoutManager;
-        } else {
-            return false;
+    val isGridEnabled: Boolean
+        get() {
+            return recyclerView.layoutManager is GridLayoutManager
         }
-    }
 
-    @Override
-    public void onCreateOptionsMenu(Menu menu, @NonNull MenuInflater inflater) {
-        final MenuItem item = menu.findItem(R.id.action_search);
-        searchView = (SearchView) MenuItemCompat.getActionView(item);
-        viewThemeUtils.androidx.themeToolbarSearchView(searchView);
-        closeButton = searchView.findViewById(androidx.appcompat.R.id.search_close_btn);
-        searchView.setOnQueryTextListener(this);
-        searchView.setOnCloseListener(this);
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        val item = menu.findItem(R.id.action_search)
+        searchView = MenuItemCompat.getActionView(item) as SearchView?
+        viewThemeUtils.androidx.themeToolbarSearchView(searchView!!)
+        closeButton = searchView?.findViewById<ImageView>(androidx.appcompat.R.id.search_close_btn)
+        searchView?.setOnQueryTextListener(this)
+        searchView?.setOnCloseListener(this)
 
-        final Handler handler = new Handler(Looper.getMainLooper());
+        val handler = Handler(Looper.getMainLooper())
 
-        DisplayMetrics displaymetrics = new DisplayMetrics();
-        Activity activity;
-        if ((activity = getActivity()) != null) {
-            activity.getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
-            int width = displaymetrics.widthPixels;
-            if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
-                searchView.setMaxWidth((int) (width * 0.4));
+        val displaymetrics = DisplayMetrics()
+        val activity: Activity?
+        if ((getActivity().also { activity = it }) != null) {
+            activity?.windowManager?.defaultDisplay?.getMetrics(displaymetrics)
+            val width = displaymetrics.widthPixels
+            if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+                searchView?.setMaxWidth((width * 0.4).toInt())
             } else {
-                if (activity instanceof FolderPickerActivity) {
-                    searchView.setMaxWidth((int) (width * 0.8));
+                if (activity is FolderPickerActivity) {
+                    searchView?.setMaxWidth((width * 0.8).toInt())
                 } else {
-                    searchView.setMaxWidth(width);
+                    searchView?.setMaxWidth(width)
                 }
             }
         }
 
-        searchView.setOnQueryTextFocusChangeListener((v, hasFocus) -> handler.post(() -> {
-            if (getActivity() != null && !(getActivity() instanceof FolderPickerActivity)
-                && !(getActivity() instanceof UploadFilesActivity)) {
-                if (getActivity() instanceof FileDisplayActivity) {
-                    Fragment fragment = ((FileDisplayActivity) getActivity()).getLeftFragment();
-                    if (fragment instanceof OCFileListFragment) {
-                        ((OCFileListFragment) fragment).setFabVisible(!hasFocus);
+        searchView?.setOnQueryTextFocusChangeListener(View.OnFocusChangeListener { v: View?, hasFocus: Boolean ->
+            handler.post(
+                Runnable {
+                    if (getActivity() != null &&
+                        (getActivity() !is FolderPickerActivity) &&
+                        (getActivity() !is UploadFilesActivity)
+                    ) {
+                        if (getActivity() is FileDisplayActivity) {
+                            val fragment = (getActivity() as FileDisplayActivity).leftFragment
+                            if (fragment is OCFileListFragment) {
+                                fragment.setFabVisible(!hasFocus)
+                            }
+                        }
+
+                        if (TextUtils.isEmpty(searchView?.query)) {
+                            closeButton?.setVisibility(View.INVISIBLE)
+                        }
                     }
                 }
-                if (TextUtils.isEmpty(searchView.getQuery())) {
-                    closeButton.setVisibility(View.INVISIBLE);
-                }
-            }
-        }));
+            )
+        })
 
         // On close -> empty field, show keyboard and
-        closeButton.setOnClickListener(view -> {
-            searchView.setQuery("", true);
-            searchView.requestFocus();
-            searchView.onActionViewExpanded();
+        closeButton?.setOnClickListener(View.OnClickListener { view: View? ->
+            searchView?.setQuery("", true)
+            searchView?.requestFocus()
+            searchView?.onActionViewExpanded()
 
-            InputMethodManager inputMethodManager =
-                (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+            val inputMethodManager =
+                getActivity()?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager?
+            inputMethodManager?.showSoftInput(searchView, InputMethodManager.SHOW_IMPLICIT)
+        })
 
-            if (inputMethodManager != null) {
-                inputMethodManager.showSoftInput(searchView, InputMethodManager.SHOW_IMPLICIT);
-            }
-        });
-
-        LinearLayout searchBar = searchView.findViewById(R.id.search_bar);
-        searchBar.setLayoutTransition(new LayoutTransition());
+        val searchBar = searchView?.findViewById<LinearLayout>(R.id.search_bar)
+        searchBar?.setLayoutTransition(LayoutTransition())
     }
 
-    public boolean onQueryTextChange(final String query) {
+    override fun onQueryTextChange(query: String): Boolean {
         // After 300 ms, set the query
 
-        closeButton.setVisibility(View.VISIBLE);
+        closeButton?.setVisibility(View.VISIBLE)
         if (query.isEmpty()) {
-            closeButton.setVisibility(View.INVISIBLE);
+            closeButton?.setVisibility(View.INVISIBLE)
         }
-        return false;
+        return false
     }
 
-    @Override
-    public boolean onQueryTextSubmit(String query) {
-        RecyclerView.Adapter adapter = getRecyclerView().getAdapter();
-        if (adapter instanceof OCFileListAdapter) {
-            ArrayList<String> listOfHiddenFiles = ((OCFileListAdapter) adapter).listOfHiddenFiles;
-            performSearch(query, listOfHiddenFiles, false);
-            return true;
+    @Suppress("ReturnCount")
+    override fun onQueryTextSubmit(query: String): Boolean {
+        val adapter = recyclerView.adapter
+        if (adapter is OCFileListAdapter) {
+            val listOfHiddenFiles = adapter.listOfHiddenFiles
+            performSearch(query, listOfHiddenFiles, false)
+            return true
         }
-        if (adapter instanceof LocalFileListAdapter) {
-            performSearch(query, new ArrayList<>(), false);
-            return true;
+        if (adapter is LocalFileListAdapter) {
+            performSearch(query, ArrayList<String?>(), false)
+            return true
         }
-        return false;
+        return false
     }
 
-    public void performSearch(final String query, final ArrayList<String> listOfHiddenFiles, boolean isBackPressed) {
-        handler.removeCallbacksAndMessages(null);
-        RecyclerView.Adapter adapter = getRecyclerView().getAdapter();
-        Activity activity = getActivity();
+    fun performSearch(query: String, listOfHiddenFiles: ArrayList<String?>?, isBackPressed: Boolean) {
+        handler.removeCallbacksAndMessages(null)
+        val adapter = recyclerView.adapter
+        val activity: Activity? = getActivity()
 
         if (activity != null) {
-            if (activity instanceof FileDisplayActivity) {
+            if (activity is FileDisplayActivity) {
                 if (isBackPressed && TextUtils.isEmpty(query)) {
-                    FileDisplayActivity fileDisplayActivity = (FileDisplayActivity) activity;
-                    fileDisplayActivity.resetSearchView();
-                    fileDisplayActivity.updateListOfFilesFragment(true);
+                    val fileDisplayActivity = activity
+                    fileDisplayActivity.resetSearchView()
+                    fileDisplayActivity.updateListOfFilesFragment(true)
                 } else {
-                    handler.post(() -> {
-                        if (adapter instanceof OCFileListAdapter) {
+                    handler.post(Runnable {
+                        if (adapter is OCFileListAdapter) {
                             if (accountManager
-                                .getUser()
-                                .getServer()
-                                .getVersion()
-                                .isNewerOrEqual(OwnCloudVersion.nextcloud_20)
+                                    .user
+                                    .server
+                                    .version
+                                    .isNewerOrEqual(OwnCloudVersion.nextcloud_20)
                             ) {
-                                ((FileDisplayActivity) activity).performUnifiedSearch(query, listOfHiddenFiles);
+                                activity.performUnifiedSearch(query, listOfHiddenFiles)
                             } else {
                                 EventBus.getDefault().post(
-                                    new SearchEvent(query, SearchRemoteOperation.SearchType.FILE_SEARCH)
-                                                          );
+                                    SearchEvent(query, SearchRemoteOperation.SearchType.FILE_SEARCH)
+                                )
                             }
-                        } else if (adapter instanceof LocalFileListAdapter localFileListAdapter) {
-                            localFileListAdapter.filter(query);
+                        } else if (adapter is LocalFileListAdapter) {
+                            adapter.filter(query)
                         }
-                    });
+                    })
 
-                    if (searchView != null) {
-                        searchView.clearFocus();
-                    }
+                    searchView?.clearFocus()
                 }
-            } else if (activity instanceof UploadFilesActivity uploadFilesActivity) {
-                LocalFileListAdapter localFileListAdapter = (LocalFileListAdapter) adapter;
+            } else if (activity is UploadFilesActivity) {
+                val localFileListAdapter = adapter as LocalFileListAdapter?
                 if (localFileListAdapter != null) {
-                    localFileListAdapter.filter(query);
-                    uploadFilesActivity.getFileListFragment().setLoading(false);
+                    localFileListAdapter.filter(query)
+                    activity.fileListFragment.setLoading(false)
                 }
-            } else if (activity instanceof FolderPickerActivity) {
-                ((FolderPickerActivity) activity).search(query);
+            } else if (activity is FolderPickerActivity) {
+                activity.search(query)
             }
         }
     }
 
-    @Override
-    public boolean onClose() {
-        RecyclerView.Adapter adapter = getRecyclerView().getAdapter();
-        if (adapter instanceof OCFileListAdapter) {
-            ArrayList<String> listOfHiddenFiles = ((OCFileListAdapter) adapter).listOfHiddenFiles;
-            performSearch("", listOfHiddenFiles,true);
-            return false;
+    override fun onClose(): Boolean {
+        val adapter = recyclerView.adapter
+        if (adapter is OCFileListAdapter) {
+            val listOfHiddenFiles = adapter.listOfHiddenFiles
+            performSearch("", listOfHiddenFiles, true)
+            return false
         }
-        return true;
+        return true
     }
 
-    @Override
-    public void onAttach(@NonNull Context context) {
-        super.onAttach(context);
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
     }
 
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        Log_OC.d(TAG, "onCreateView");
+    @SuppressLint("ClickableViewAccessibility")
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        Log_OC.d(TAG, "onCreateView")
 
-        binding = ListFragmentBinding.inflate(inflater, container, false);
-        View v = binding.getRoot();
+        binding = ListFragmentBinding.inflate(inflater, container, false)
+        val v = binding!!.getRoot()
 
-        setupEmptyList(v);
+        setupEmptyList()
 
-        mRecyclerView = binding.listRoot;
-        mRecyclerView.setHasFooter(true);
-        mRecyclerView.setEmptyView(binding.emptyList.emptyListView);
-        mRecyclerView.setHasFixedSize(true);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        mRecyclerView = binding?.listRoot
+        mRecyclerView?.setHasFooter(true)
+        mRecyclerView?.setEmptyView(binding?.emptyList?.emptyListView)
+        mRecyclerView?.setHasFixedSize(true)
+        mRecyclerView?.setLayoutManager(LinearLayoutManager(context))
 
-        mScale = preferences.getGridColumns();
-        setGridViewColumns(1f);
+        mScale = preferences.getGridColumns()
+        setGridViewColumns(1f)
 
-        mScaleGestureDetector = new ScaleGestureDetector(MainApp.getAppContext(), new ScaleListener());
+        mScaleGestureDetector = ScaleGestureDetector(MainApp.getAppContext(), ScaleListener())
 
-        getRecyclerView().setOnTouchListener((view, motionEvent) -> {
-            mScaleGestureDetector.onTouchEvent(motionEvent);
-
-            if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
-                view.performClick();
+        recyclerView.setOnTouchListener(OnTouchListener { view: View, motionEvent: MotionEvent ->
+            mScaleGestureDetector?.onTouchEvent(motionEvent)
+            if (motionEvent.action == MotionEvent.ACTION_UP) {
+                view.performClick()
             }
-
-            return false;
-        });
+            false
+        })
 
         // Pull-down to refresh layout
-        mRefreshListLayout = binding.swipeContainingList;
-        viewThemeUtils.androidx.themeSwipeRefreshLayout(mRefreshListLayout);
-        mRefreshListLayout.setOnRefreshListener(this);
-
-        mSortButton = getActivity().findViewById(R.id.sort_button);
-        if (mSortButton != null) {
-            viewThemeUtils.material.colorMaterialTextButton(mSortButton);
-        }
-        mSwitchGridViewButton = getActivity().findViewById(R.id.switch_grid_view_button);
-        if (mSwitchGridViewButton != null) {
-            viewThemeUtils.material.colorMaterialTextButton(mSwitchGridViewButton);
+        mRefreshListLayout = binding?.swipeContainingList
+        mRefreshListLayout?.let {
+            viewThemeUtils.androidx.themeSwipeRefreshLayout(it)
+            it.setOnRefreshListener(this)
         }
 
-        return v;
+        mSortButton = activity?.findViewById<MaterialButton?>(R.id.sort_button)
+        mSortButton?.let {
+            viewThemeUtils.material.colorMaterialTextButton(it)
+        }
+
+        mSwitchGridViewButton = activity?.findViewById<MaterialButton?>(R.id.switch_grid_view_button)
+        mSwitchGridViewButton?.let {
+            viewThemeUtils.material.colorMaterialTextButton(it)
+        }
+
+        return v
     }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        binding = null;
+    override fun onDestroyView() {
+        super.onDestroyView()
+        binding = null
     }
 
-    private class ScaleListener extends ScaleGestureDetector.SimpleOnScaleGestureListener {
-        @Override
-        public boolean onScale(ScaleGestureDetector detector) {
-            setGridViewColumns(detector.getScaleFactor());
+    private inner class ScaleListener : SimpleOnScaleGestureListener() {
+        @SuppressLint("NotifyDataSetChanged")
+        override fun onScale(detector: ScaleGestureDetector): Boolean {
+            setGridViewColumns(detector.getScaleFactor())
 
-            preferences.setGridColumns(mScale);
+            preferences.setGridColumns(mScale)
 
-            getRecyclerView().getAdapter().notifyDataSetChanged();
+            recyclerView.adapter?.notifyDataSetChanged()
 
-            return true;
+            return true
         }
     }
 
-    protected void setGridViewColumns(float scaleFactor) {
-        if (mRecyclerView.getLayoutManager() instanceof GridLayoutManager gridLayoutManager) {
+    @SuppressLint("NotifyDataSetChanged")
+    protected open fun setGridViewColumns(scaleFactor: Float) {
+        if (mRecyclerView?.layoutManager is GridLayoutManager) {
+            val gridLayoutManager = mRecyclerView?.layoutManager as GridLayoutManager
             if (mScale == -1f) {
-                gridLayoutManager.setSpanCount(GridView.AUTO_FIT);
-                mScale = gridLayoutManager.getSpanCount();
+                gridLayoutManager.setSpanCount(GridView.AUTO_FIT)
+                mScale = gridLayoutManager.spanCount.toFloat()
             }
-            mScale *= 1.f - (scaleFactor - 1.f);
-            mScale = Math.max(minColumnSize, Math.min(mScale, maxColumnSize));
-            Integer scaleInt = Math.round(mScale);
-            gridLayoutManager.setSpanCount(scaleInt);
-            mRecyclerView.getAdapter().notifyDataSetChanged();
+            mScale *= 1f - (scaleFactor - 1f)
+            mScale = max(MIN_COLUMN_SIZE.toDouble(), min(mScale.toDouble(), maxColumnSize.toDouble())).toFloat()
+            val scaleInt = mScale.roundToInt()
+            gridLayoutManager.setSpanCount(scaleInt)
+            mRecyclerView?.adapter?.notifyDataSetChanged()
         }
     }
 
-    protected void setupEmptyList(View view) {
-        mEmptyListContainer = binding.emptyList.emptyListView;
-        mEmptyListMessage = binding.emptyList.emptyListViewText;
-        mEmptyListHeadline = binding.emptyList.emptyListViewHeadline;
-        mEmptyListIcon = binding.emptyList.emptyListIcon;
+    protected fun setupEmptyList() {
+        binding?.emptyList?.run {
+            mEmptyListContainer = emptyListView
+            mEmptyListMessage = emptyListViewText
+            mEmptyListHeadline = emptyListViewHeadline
+            mEmptyListIcon = emptyListIcon
+        }
     }
 
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         if (savedInstanceState == null) {
-            return;
+            return
         }
 
-        mIndexes = savedInstanceState.getIntegerArrayList(KEY_INDEXES);
-        mFirstPositions = savedInstanceState.getIntegerArrayList(KEY_FIRST_POSITIONS);
-        mTops = savedInstanceState.getIntegerArrayList(KEY_TOPS);
-        mHeightCell = savedInstanceState.getInt(KEY_HEIGHT_CELL);
-        setMessageForEmptyList(savedInstanceState.getString(KEY_EMPTY_LIST_MESSAGE));
+        mIndexes = savedInstanceState.getIntegerArrayList(KEY_INDEXES)
+        mFirstPositions = savedInstanceState.getIntegerArrayList(KEY_FIRST_POSITIONS)
+        mTops = savedInstanceState.getIntegerArrayList(KEY_TOPS)
+        mHeightCell = savedInstanceState.getInt(KEY_HEIGHT_CELL)
+        setMessageForEmptyList(savedInstanceState.getString(KEY_EMPTY_LIST_MESSAGE))
 
-        if (savedInstanceState.getBoolean(KEY_IS_GRID_VISIBLE, false) && getRecyclerView().getAdapter() != null) {
-            switchToGridView();
+        if (savedInstanceState.getBoolean(KEY_IS_GRID_VISIBLE, false) && recyclerView.adapter != null) {
+            switchToGridView()
         }
 
-        int referencePosition = savedInstanceState.getInt(KEY_SAVED_LIST_POSITION);
-        Log_OC.v(TAG, "Setting grid position " + referencePosition);
-        scrollToPosition(referencePosition);
+        val referencePosition = savedInstanceState.getInt(KEY_SAVED_LIST_POSITION)
+        Log_OC.v(TAG, "Setting grid position $referencePosition")
+        scrollToPosition(referencePosition)
     }
 
-    @Override
-    public void onSaveInstanceState(@NonNull Bundle savedInstanceState) {
-        super.onSaveInstanceState(savedInstanceState);
-        Log_OC.d(TAG, "onSaveInstanceState()");
-        savedInstanceState.putBoolean(KEY_IS_GRID_VISIBLE, isGridEnabled());
-        savedInstanceState.putIntegerArrayList(KEY_INDEXES, mIndexes);
-        savedInstanceState.putIntegerArrayList(KEY_FIRST_POSITIONS, mFirstPositions);
-        savedInstanceState.putIntegerArrayList(KEY_TOPS, mTops);
-        savedInstanceState.putInt(KEY_HEIGHT_CELL, mHeightCell);
-        savedInstanceState.putString(KEY_EMPTY_LIST_MESSAGE, getEmptyViewText());
+    override fun onSaveInstanceState(savedInstanceState: Bundle) {
+        super.onSaveInstanceState(savedInstanceState)
+        Log_OC.d(TAG, "onSaveInstanceState()")
 
-        preferences.setGridColumns(mScale);
-    }
-
-    public int getColumnsCount() {
-        if (mScale == -1) {
-            return Math.round(AppPreferencesImpl.DEFAULT_GRID_COLUMN);
+        savedInstanceState.run {
+            putBoolean(KEY_IS_GRID_VISIBLE, isGridEnabled)
+            putIntegerArrayList(KEY_INDEXES, mIndexes)
+            putIntegerArrayList(KEY_FIRST_POSITIONS, mFirstPositions)
+            putIntegerArrayList(KEY_TOPS, mTops)
+            putInt(KEY_HEIGHT_CELL, mHeightCell)
+            putString(KEY_EMPTY_LIST_MESSAGE, emptyViewText)
         }
-        return Math.round(mScale);
+
+        preferences.setGridColumns(mScale)
     }
+
+    open val columnsCount: Int
+        get() {
+            if (mScale == -1f) {
+                return AppPreferencesImpl.DEFAULT_GRID_COLUMN.roundToInt()
+            }
+            return mScale.roundToInt()
+        }
 
     /*
-     * Restore index and position
-     */
-    protected void restoreIndexAndTopPosition() {
-        if (mIndexes == null || mIndexes.isEmpty()) {
-            Log_OC.d(TAG,"Indexes is null or empty");
-            return;
+    * Restore index and position
+    */
+    protected fun restoreIndexAndTopPosition() {
+        if (mIndexes == null || mIndexes?.isEmpty() == true) {
+            Log_OC.d(TAG, "Indexes is null or empty")
+            return
         }
 
         // needs to be checked; not every browse-up had a browse-down before
+        val index = mIndexes?.removeAt(mIndexes!!.size - 1)
+        val firstPosition = mFirstPositions?.removeAt(mFirstPositions!!.size - 1)!!
+        val top = mTops?.removeAt(mTops!!.size - 1)
 
-        int index = mIndexes.remove(mIndexes.size() - 1);
-        final int firstPosition = mFirstPositions.remove(mFirstPositions.size() - 1);
-        int top = mTops.remove(mTops.size() - 1);
+        Log_OC.v(
+            TAG, ("Setting selection to position: " + firstPosition + "; top: "
+                + top + "; index: " + index)
+        )
 
-        Log_OC.v(TAG, "Setting selection to position: " + firstPosition + "; top: "
-            + top + "; index: " + index);
-
-        scrollToPosition(firstPosition);
+        scrollToPosition(firstPosition)
     }
 
-    private void scrollToPosition(int position) {
-        LinearLayoutManager linearLayoutManager = (LinearLayoutManager) mRecyclerView.getLayoutManager();
+    private fun scrollToPosition(position: Int) {
+        val linearLayoutManager = mRecyclerView?.layoutManager as LinearLayoutManager?
 
         if (linearLayoutManager != null) {
-            int visibleItemCount = linearLayoutManager.findLastCompletelyVisibleItemPosition() -
-                linearLayoutManager.findFirstCompletelyVisibleItemPosition();
-            linearLayoutManager.scrollToPositionWithOffset(position, (visibleItemCount / 2) * mHeightCell);
+            val visibleItemCount = linearLayoutManager.findLastCompletelyVisibleItemPosition() -
+                linearLayoutManager.findFirstCompletelyVisibleItemPosition()
+            linearLayoutManager.scrollToPositionWithOffset(position, (visibleItemCount / 2) * mHeightCell)
         }
     }
 
     /*
      * Save index and top position
      */
-    protected void saveIndexAndTopPosition(int index) {
+    protected fun saveIndexAndTopPosition(index: Int) {
         if (mIndexes != null) {
-            mIndexes.add(index);
+            mIndexes?.add(index)
         }
 
-        RecyclerView.LayoutManager layoutManager = mRecyclerView.getLayoutManager();
-        int firstPosition;
-        if (layoutManager instanceof GridLayoutManager) {
-            firstPosition = ((GridLayoutManager) layoutManager).findFirstCompletelyVisibleItemPosition();
+        val layoutManager = mRecyclerView?.layoutManager
+        val firstPosition: Int = if (layoutManager is GridLayoutManager) {
+            layoutManager.findFirstCompletelyVisibleItemPosition()
         } else {
-            firstPosition = ((LinearLayoutManager) layoutManager).findFirstCompletelyVisibleItemPosition();
+            (layoutManager as LinearLayoutManager).findFirstCompletelyVisibleItemPosition()
         }
 
-        mFirstPositions.add(firstPosition);
+        mFirstPositions?.add(firstPosition)
 
-        View view = mRecyclerView.getChildAt(0);
-        int top = (view == null) ? 0 : view.getTop();
+        val view = mRecyclerView?.getChildAt(0)
+        val top = view?.top ?: 0
 
-        mTops.add(top);
+        mTops?.add(top)
 
         // Save the height of a cell
-        mHeightCell = (view == null || mHeightCell != 0) ? mHeightCell : view.getHeight();
+        mHeightCell = if (view == null || mHeightCell != 0) mHeightCell else view.height
     }
 
-
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+    override fun onItemClick(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
         // to be @overridden
     }
 
-    @Override
-    public void onRefresh() {
-
+    override fun onRefresh() {
         if (searchView != null) {
-            searchView.onActionViewCollapsed();
+            searchView?.onActionViewCollapsed()
 
-            Activity activity;
-            if ((activity = getActivity()) != null && activity instanceof FileDisplayActivity fileDisplayActivity) {
-                fileDisplayActivity.setDrawerIndicatorEnabled(fileDisplayActivity.isDrawerIndicatorAvailable());
-                fileDisplayActivity.hideSearchView(fileDisplayActivity.getCurrentDir());
+            val activity: Activity?
+            if ((getActivity().also { activity = it }) != null && activity is FileDisplayActivity) {
+                activity.setDrawerIndicatorEnabled(activity.isDrawerIndicatorAvailable)
+                activity.hideSearchView(activity.getCurrentDir())
             }
         }
-        if (mOnRefreshListener != null) {
-            mOnRefreshListener.onRefresh();
-        }
+        mOnRefreshListener?.onRefresh()
     }
 
-    public void setOnRefreshListener(OnEnforceableRefreshListener listener) {
-        mOnRefreshListener = listener;
+    fun setOnRefreshListener(listener: OnEnforceableRefreshListener?) {
+        mOnRefreshListener = listener
     }
-
 
     /**
      * Disables swipe gesture.
-     * <p>
+     *
+     *
      * Sets the 'enabled' state of the refresh layouts contained in the fragment.
-     * <p>
+     *
+     *
      * When 'false' is set, prevents user gestures but keeps the option to refresh programmatically,
      *
      * @param enabled Desired state for capturing swipe gesture.
      */
-    public void setSwipeEnabled(boolean enabled) {
-        mRefreshListLayout.setEnabled(enabled);
+    fun setSwipeEnabled(enabled: Boolean) {
+        mRefreshListLayout?.setEnabled(enabled)
     }
 
-
-
     /**
-     * /** Set message for empty list view.
+     * / ** Set message for empty list view.
      */
-    public void setMessageForEmptyList(String message) {
+    fun setMessageForEmptyList(message: String?) {
         if (mEmptyListContainer != null && mEmptyListMessage != null) {
-            mEmptyListMessage.setText(message);
+            mEmptyListMessage?.text = message
         }
     }
 
@@ -564,9 +552,11 @@ public class ExtendedListFragment extends Fragment implements
      * @param message  the message
      * @param icon     the icon to be shown
      */
-    public void setMessageForEmptyList(@StringRes final int headline, @StringRes final int message,
-                                       @DrawableRes final int icon) {
-        setMessageForEmptyList(headline, message, icon, false);
+    fun setMessageForEmptyList(
+        @StringRes headline: Int, @StringRes message: Int,
+        @DrawableRes icon: Int
+    ) {
+        setMessageForEmptyList(headline, message, icon, false)
     }
 
     /**
@@ -577,133 +567,165 @@ public class ExtendedListFragment extends Fragment implements
      * @param icon     the icon to be shown
      * @param tintIcon flag if the given icon should be tinted with primary color
      */
-    public void setMessageForEmptyList(@StringRes final int headline, @StringRes final int message,
-                                       @DrawableRes final int icon, final boolean tintIcon) {
-        new Handler(Looper.getMainLooper()).post(() -> {
-
+    fun setMessageForEmptyList(
+        @StringRes headline: Int, @StringRes message: Int,
+        @DrawableRes icon: Int, tintIcon: Boolean
+    ) {
+        Handler(Looper.getMainLooper()).post(Runnable {
             if (mEmptyListContainer != null && mEmptyListMessage != null) {
-                mEmptyListHeadline.setText(headline);
-                mEmptyListMessage.setText(message);
+                mEmptyListHeadline?.setText(headline)
+                mEmptyListMessage?.setText(message)
 
                 if (tintIcon) {
-                    if (getContext() != null) {
-                        mEmptyListIcon.setImageDrawable(
-                            viewThemeUtils.platform.tintPrimaryDrawable(getContext(), icon));
+                    if (context != null) {
+                        mEmptyListIcon?.setImageDrawable(
+                            viewThemeUtils.platform.tintDrawable(requireContext(), icon, ColorRole.PRIMARY)
+                        )
                     }
                 } else {
-                    mEmptyListIcon.setImageResource(icon);
+                    mEmptyListIcon?.setImageResource(icon)
                 }
 
-                mEmptyListIcon.setVisibility(View.VISIBLE);
-                mEmptyListMessage.setVisibility(View.VISIBLE);
+                mEmptyListIcon?.setVisibility(View.VISIBLE)
+                mEmptyListMessage?.visibility = View.VISIBLE
             }
-        });
+        })
     }
 
-    public void setEmptyListMessage(final SearchType searchType) {
-        new Handler(Looper.getMainLooper()).post(() -> {
+    @Suppress("LongMethod")
+    fun setEmptyListMessage(searchType: SearchType?) {
+        Handler(Looper.getMainLooper()).post(Runnable {
             if (searchType == SearchType.OFFLINE_MODE) {
-                setMessageForEmptyList(R.string.offline_mode_info_title,
-                                       R.string.offline_mode_info_description,
-                                       R.drawable.ic_cloud_sync,
-                                       true);
+                setMessageForEmptyList(
+                    R.string.offline_mode_info_title,
+                    R.string.offline_mode_info_description,
+                    R.drawable.ic_cloud_sync,
+                    true
+                )
             } else if (searchType == SearchType.NO_SEARCH) {
-                setMessageForEmptyList(R.string.file_list_empty_headline,
-                                       R.string.file_list_empty,
-                                       R.drawable.ic_list_empty_folder,
-                                       true);
+                setMessageForEmptyList(
+                    R.string.file_list_empty_headline,
+                    R.string.file_list_empty,
+                    R.drawable.ic_list_empty_folder,
+                    true
+                )
             } else if (searchType == SearchType.FILE_SEARCH) {
-                setMessageForEmptyList(R.string.file_list_empty_headline_server_search,
-                                       R.string.file_list_empty,
-                                       R.drawable.ic_search_light_grey);
+                setMessageForEmptyList(
+                    R.string.file_list_empty_headline_server_search,
+                    R.string.file_list_empty,
+                    R.drawable.ic_search_light_grey
+                )
             } else if (searchType == SearchType.FAVORITE_SEARCH) {
-                setMessageForEmptyList(R.string.file_list_empty_favorite_headline,
-                                       R.string.file_list_empty_favorites_filter_list,
-                                       R.drawable.ic_star_light_yellow);
+                setMessageForEmptyList(
+                    R.string.file_list_empty_favorite_headline,
+                    R.string.file_list_empty_favorites_filter_list,
+                    R.drawable.ic_star_light_yellow
+                )
             } else if (searchType == SearchType.RECENTLY_MODIFIED_SEARCH) {
-                setMessageForEmptyList(R.string.file_list_empty_headline_server_search,
-                                       R.string.file_list_empty_recently_modified,
-                                       R.drawable.ic_list_empty_recent);
+                setMessageForEmptyList(
+                    R.string.file_list_empty_headline_server_search,
+                    R.string.file_list_empty_recently_modified,
+                    R.drawable.ic_list_empty_recent
+                )
             } else if (searchType == SearchType.REGULAR_FILTER) {
-                setMessageForEmptyList(R.string.file_list_empty_headline_search,
-                                       R.string.file_list_empty_search,
-                                       R.drawable.ic_search_light_grey);
+                setMessageForEmptyList(
+                    R.string.file_list_empty_headline_search,
+                    R.string.file_list_empty_search,
+                    R.drawable.ic_search_light_grey
+                )
             } else if (searchType == SearchType.SHARED_FILTER) {
-                setMessageForEmptyList(R.string.file_list_empty_shared_headline,
-                                       R.string.file_list_empty_shared,
-                                       R.drawable.ic_list_empty_shared);
+                setMessageForEmptyList(
+                    R.string.file_list_empty_shared_headline,
+                    R.string.file_list_empty_shared,
+                    R.drawable.ic_list_empty_shared
+                )
             } else if (searchType == SearchType.GALLERY_SEARCH) {
-                setMessageForEmptyList(R.string.file_list_empty_headline_server_search,
-                                       R.string.file_list_empty_gallery,
-                                       R.drawable.file_image);
+                setMessageForEmptyList(
+                    R.string.file_list_empty_headline_server_search,
+                    R.string.file_list_empty_gallery,
+                    R.drawable.file_image
+                )
             } else if (searchType == SearchType.LOCAL_SEARCH) {
-                setMessageForEmptyList(R.string.file_list_empty_headline_server_search,
-                                       R.string.file_list_empty_local_search,
-                                       R.drawable.ic_search_light_grey);
+                setMessageForEmptyList(
+                    R.string.file_list_empty_headline_server_search,
+                    R.string.file_list_empty_local_search,
+                    R.drawable.ic_search_light_grey
+                )
             }
-        });
+        })
     }
 
     /**
      * Set message for empty list view.
      */
-    public void setEmptyListLoadingMessage() {
-        new Handler(Looper.getMainLooper()).post(() -> {
-            FileActivity fileActivity = FragmentExtensionsKt.getTypedActivity(this, FileActivity.class);
-            if (fileActivity != null) {
-                fileActivity.connectivityService.isNetworkAndServerAvailable(result -> {
-                    if (!result || mEmptyListContainer == null || mEmptyListMessage == null) return;
-
-                    mEmptyListHeadline.setText(R.string.file_list_loading);
-                    mEmptyListMessage.setText("");
-                    mEmptyListIcon.setVisibility(View.GONE);
-                });
-            }
-        });
+    fun setEmptyListLoadingMessage() {
+        Handler(Looper.getMainLooper()).post(Runnable {
+            val fileActivity = getTypedActivity<FileActivity>(FileActivity::class.java)
+            fileActivity?.connectivityService?.isNetworkAndServerAvailable(GenericCallback { result: Boolean? ->
+                if (result == false || mEmptyListContainer == null || mEmptyListMessage == null) return@GenericCallback
+                mEmptyListHeadline?.setText(R.string.file_list_loading)
+                mEmptyListMessage?.text = ""
+                mEmptyListIcon?.setVisibility(View.GONE)
+            })
+        })
     }
 
-    /**
-     * Get the text of EmptyListMessage TextView.
-     *
-     * @return String empty text view text-value
-     */
-    public String getEmptyViewText() {
-        return (mEmptyListContainer != null && mEmptyListMessage != null) ? mEmptyListMessage.getText().toString() : "";
-    }
+    val emptyViewText: String
+        /**
+         * Get the text of EmptyListMessage TextView.
+         *
+         * @return String empty text view text-value
+         */
+        get() = if (mEmptyListContainer != null && mEmptyListMessage != null) mEmptyListMessage?.getText()
+            .toString() else ""
 
-    @Override
-    public void onRefresh(boolean ignoreETag) {
+    override fun onRefresh(ignoreETag: Boolean) {
         if (mOnRefreshListener != null) {
-            if (mOnRefreshListener instanceof FileDisplayActivity) {
-                ((FileDisplayActivity) mOnRefreshListener).onRefresh(ignoreETag);
+            if (mOnRefreshListener is FileDisplayActivity) {
+                (mOnRefreshListener as FileDisplayActivity).onRefresh(ignoreETag)
             } else {
-                mOnRefreshListener.onRefresh();
+                mOnRefreshListener?.onRefresh()
             }
         }
     }
 
-    @Override
-    public void onConfigurationChanged(@NonNull Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        super.onConfigurationChanged(newConfig)
 
         if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            maxColumnSize = 10;
+            maxColumnSize = 10
         } else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
-            maxColumnSize = 5;
+            maxColumnSize = 5
         }
 
-        if (isGridEnabled() && getColumnsCount() > maxColumnSize) {
-            ((GridLayoutManager) getRecyclerView().getLayoutManager()).setSpanCount(maxColumnSize);
+        if (isGridEnabled && columnsCount > maxColumnSize) {
+            (recyclerView.layoutManager as GridLayoutManager).setSpanCount(maxColumnSize)
         }
     }
 
-    protected void setGridSwitchButton() {
-        if (isGridEnabled()) {
-            mSwitchGridViewButton.setContentDescription(getString(R.string.action_switch_list_view));
-            mSwitchGridViewButton.setIcon(ContextCompat.getDrawable(requireContext(), R.drawable.ic_view_list));
-        } else {
-            mSwitchGridViewButton.setContentDescription(getString(R.string.action_switch_grid_view));
-            mSwitchGridViewButton.setIcon(ContextCompat.getDrawable(requireContext(), R.drawable.ic_view_module));
+    protected fun setGridSwitchButton() {
+        mSwitchGridViewButton?.let {
+            if (isGridEnabled) {
+                it.setContentDescription(getString(R.string.action_switch_list_view))
+                it.setIcon(ContextCompat.getDrawable(requireContext(), R.drawable.ic_view_list))
+            } else {
+                it.setContentDescription(getString(R.string.action_switch_grid_view))
+                it.setIcon(ContextCompat.getDrawable(requireContext(), R.drawable.ic_view_module))
+            }
         }
+    }
+
+    companion object {
+        protected val TAG: String = ExtendedListFragment::class.java.getSimpleName()
+
+        protected const val KEY_SAVED_LIST_POSITION: String = "SAVED_LIST_POSITION"
+
+        private const val KEY_INDEXES = "INDEXES"
+        private const val KEY_FIRST_POSITIONS = "FIRST_POSITIONS"
+        private const val KEY_TOPS = "TOPS"
+        private const val KEY_HEIGHT_CELL = "HEIGHT_CELL"
+        private const val KEY_EMPTY_LIST_MESSAGE = "EMPTY_LIST_MESSAGE"
+        private const val KEY_IS_GRID_VISIBLE = "IS_GRID_VISIBLE"
+        private const val MIN_COLUMN_SIZE: Float = 2.0f
     }
 }
