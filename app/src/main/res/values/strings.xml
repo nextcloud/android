@@ -233,8 +233,6 @@
 
     <string name="upload_notification_manager_start_text">%1$d / %2$d - %3$s</string>
 
-    <string name="sync_worker_start_notification_title">Sync Operation Started</string>
-
     <string name="sync_worker_success_notification_title">%s folder successfully synchronized</string>
     <string name="sync_worker_error_notification_title">An error occurred during synchronization of the %s folder</string>
 
