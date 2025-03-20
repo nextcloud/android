@@ -59,10 +59,9 @@ public final class MediaProvider {
     public static List<MediaFolder> getImageFolders(ContentResolver contentResolver,
                                                     int itemLimit,
                                                     @Nullable final AppCompatActivity activity,
-                                                    boolean getWithoutActivity,
-                                                    final ViewThemeUtils viewThemeUtils) {
+                                                    boolean getWithoutActivity) {
         // check permissions
-        checkPermissions(activity, viewThemeUtils);
+        checkPermissions(activity);
 
         // query media/image folders
         Cursor cursorFolders = null;
@@ -159,10 +158,9 @@ public final class MediaProvider {
         return filePath != null && filePath.lastIndexOf('/') > 0 && new File(filePath).exists();
     }
 
-    private static void checkPermissions(@Nullable AppCompatActivity activity,
-                                         final ViewThemeUtils viewThemeUtils) {
+    private static void checkPermissions(@Nullable AppCompatActivity activity) {
         if (activity != null) {
-            PermissionUtil.requestStoragePermissionIfNeeded(activity, viewThemeUtils, true);
+            PermissionUtil.requestStoragePermissionIfNeeded(activity, true);
         }
     }
 
@@ -172,7 +170,7 @@ public final class MediaProvider {
                                                     boolean getWithoutActivity,
                                                     final ViewThemeUtils viewThemeUtils) {
         // check permissions
-        checkPermissions(activity, viewThemeUtils);
+        checkPermissions(activity);
 
         // query media/image folders
         Cursor cursorFolders = null;

@@ -193,7 +193,7 @@ class SyncedFoldersActivity :
             setTheme(R.style.FallbackThemingTheme)
         }
         binding.emptyList.emptyListViewAction.setOnClickListener { showHiddenItems() }
-        PermissionUtil.requestStoragePermissionIfNeeded(this, viewThemeUtils, true)
+        PermissionUtil.requestStoragePermissionIfNeeded(this, true)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -283,8 +283,7 @@ class SyncedFoldersActivity :
                 contentResolver,
                 perFolderMediaItemLimit,
                 this@SyncedFoldersActivity,
-                false,
-                viewThemeUtils
+                false
             )
             mediaFolders.addAll(
                 MediaProvider.getVideoFolders(
@@ -555,7 +554,7 @@ class SyncedFoldersActivity :
                     )
                     onSyncFolderSettingsClick(0, emptyCustomFolder)
                 } else {
-                    PermissionUtil.requestStoragePermissionIfNeeded(this, viewThemeUtils, true)
+                    PermissionUtil.requestStoragePermissionIfNeeded(this, true)
                 }
                 result = super.onOptionsItemSelected(item)
             }

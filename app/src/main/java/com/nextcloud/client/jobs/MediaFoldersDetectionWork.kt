@@ -84,8 +84,7 @@ class MediaFoldersDetectionWork constructor(
             contentResolver,
             1,
             null,
-            true,
-            viewThemeUtils
+            true
         )
         val videoMediaFolders = MediaProvider.getVideoFolders(
             contentResolver,
