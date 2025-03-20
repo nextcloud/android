@@ -259,7 +259,7 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
     }
 
     private void requestPermissions() {
-        PermissionUtil.requestStoragePermissionIfNeeded(this, viewThemeUtils, true);
+        PermissionUtil.requestStoragePermissionIfNeeded(this, true);
     }
 
     public void showToolbarSpinner() {
