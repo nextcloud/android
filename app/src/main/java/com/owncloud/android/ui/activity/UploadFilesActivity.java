@@ -566,7 +566,9 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
 
         pushDirname(directory);
         ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
     }
 
     private void checkWritableFolder(File folder) {
