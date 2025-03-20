@@ -10,12 +10,11 @@
     <string name="action_edit">Editar</string>
     <string name="action_empty_notifications">Apagar todas as notificações</string>
     <string name="action_empty_trashbin">Esvaziar lixeira </string>
-    <string name="action_send_share">Enviar/Compartilhar</string>
     <string name="action_switch_grid_view">Vista em grade</string>
     <string name="action_switch_list_view">Lista de visualização</string>
     <string name="actionbar_calendar_contacts_restore">Restaurar contatos e calendário</string>
     <string name="actionbar_mkdir">Nova pasta</string>
-    <string name="actionbar_move_or_copy">Mover ou Copiar</string>
+    <string name="actionbar_move_or_copy">Mover ou copiar</string>
     <string name="actionbar_open_with">Abrir com</string>
     <string name="actionbar_search">Pesquisar</string>
     <string name="actionbar_see_details">Detalhes</string>
@@ -31,7 +30,7 @@
     <string name="add_new_public_share">Adicionar novo link de compartilhamento público</string>
     <string name="add_new_secure_file_drop">Adicionar novo derrubar de arquivo seguro</string>
     <string name="add_to_cloud">Adicionar em %1$s</string>
-    <string name="advanced_settings">Configurações avançadas </string>
+    <string name="advanced_settings">Configurações avançadas</string>
     <string name="allow_resharing">Permitir recompartilhamento</string>
     <string name="app_config_base_url_title">URL base</string>
     <string name="app_config_disable_clipboard_title">Desativar Clipboard</string>
@@ -49,7 +48,6 @@
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Digite algum texto</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Tem certeza de que deseja excluir esta tarefa?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Excluir tarefa</string>
-    <string name="assistant_screen_loading">A lista de tarefas está carregando, aguarde</string>
     <string name="assistant_screen_no_task_available_text">Nenhuma tarefa disponível para o tipo de tarefa %s. Você pode criar uma nova tarefa no canto inferior direito.</string>
     <string name="assistant_screen_task_create_fail_message">Ocorreu um erro ao criar a tarefa</string>
     <string name="assistant_screen_task_create_success_message">Tarefa criada com sucesso</string>
@@ -184,7 +182,6 @@
     <string name="confirmation_remove_folders_alert">Quer realmente excluir os itens selecionados e seus conteúdos?</string>
     <string name="confirmation_remove_local">Somente local</string>
     <string name="conflict_dialog_error">A caixa de diálogo de resolução de conflitos não pode ser criada</string>
-    <string name="conflict_folder_headline">Conflito de Pastas</string>
     <string name="conflict_local_file">Arquivo local</string>
     <string name="conflict_message_description">Se você selecionar as duas versões, o arquivo local terá um número anexado ao seu nome.</string>
     <string name="conflict_message_description_for_folder">Se selecionar ambas as versões, a pasta local terá um número anexado ao nome.</string>
@@ -344,7 +341,6 @@
     <string name="etm_background_jobs_stop_test_job">Parar tarefa de teste</string>
     <string name="etm_migrations">Migrações (atualização do aplicativo)</string>
     <string name="etm_preferences">Preferências</string>
-    <string name="etm_title">Modo de Teste de Engenharia</string>
     <string name="etm_transfer">Transferência de arquivo</string>
     <string name="etm_transfer_enqueue_test_download">Enfileirar o download de teste</string>
     <string name="etm_transfer_enqueue_test_upload">Enfileirar teste e enviar</string>
@@ -562,7 +558,6 @@
     <string name="new_media_folder_detected">Nova pasta de mídia %1$s detectada.</string>
     <string name="new_media_folder_photos">foto</string>
     <string name="new_media_folder_videos">vídeo</string>
-    <string name="new_notification">Nova notificação</string>
     <string name="new_version_was_created">Nova versão criada</string>
     <string name="no_actions">Nenhuma ação para este usuário </string>
     <string name="no_browser_available">Nenhum aplicativo disponível para lidar com links</string>
@@ -578,7 +573,6 @@
     <string name="note_icon_hint">Ícone de anotação</string>
     <string name="notification_action_failed">Erro ao executar a ação.</string>
     <string name="notification_channel_background_operations_description">Mostrar notificações para interagir com o resultado de operações em segundo plano</string>
-    <string name="notification_channel_background_operations_name">Operações em Segundo Plano</string>
     <string name="notification_channel_download_description">Mostra o progresso de download</string>
     <string name="notification_channel_download_name_short">Baixados</string>
     <string name="notification_channel_file_sync_description">Mostra o progresso sincronização de arquivo e resultados</string>
@@ -595,16 +589,11 @@
     <string name="notification_icon_description">Existem notificações não lidas</string>
     <string name="notifications_no_results_headline">Não há notificações</string>
     <string name="notifications_no_results_message">Por favor, verifique mais tarde.</string>
-    <string name="oc_file_list_adapter_offline_operation_description_text">Operação Pendente</string>
     <string name="offline_mode">Sem conexão à internet</string>
     <string name="offline_mode_info_description">Mesmo sem conexão com a internet, você pode organizar suas pastas e criar arquivos. Quando você estiver online novamente, suas ações pendentes serão sincronizadas automaticamente.</string>
-    <string name="offline_mode_info_title">Você Está Offline, Mas o Trabalho Continua</string>
     <string name="offline_operations_file_does_not_exists_yet">O arquivo ainda não existe. Por favor envie o arquivo primeiro.</string>
-    <string name="offline_operations_worker_notification_conflict_text">Pasta Conflitante: %s</string>
-    <string name="offline_operations_worker_notification_delete_offline_folder">Remover Pasta Offline</string>
     <string name="offline_operations_worker_notification_error_text">A operação offline não foi completada. %s</string>
     <string name="offline_operations_worker_notification_manager_ticker">Operações Offline</string>
-    <string name="offline_operations_worker_notification_start_text">Iniciando Operações Offline</string>
     <string name="oneHour">1 hora</string>
     <string name="online">Online</string>
     <string name="online_status">Status online</string>
@@ -625,7 +614,6 @@
     <string name="permission_deny">Negar</string>
     <string name="permission_storage_access">Permissões adicionais são necessárias para enviar ou baixar arquivos.</string>
     <string name="picture_set_as_no_app">Nenhum aplicativo encontrado para definir uma imagem</string>
-    <string name="pin_home">Fixar na tela inicial</string>
     <string name="pin_shortcut_label">Abrir %1$s</string>
     <string name="placeholder_fileSize">389 KB</string>
     <string name="placeholder_filename">placeholder.txt</string>
@@ -720,6 +708,7 @@
     <string name="recommend_subject">Experimente %1$s em seu dispositivo!</string>
     <string name="recommend_text">Quero convidar você a usar %1$s em seu dispositivo.\nBaixe daqui: %2$s</string>
     <string name="recommend_urls">%1$s ou %2$s</string>
+    <string name="recommended_files_title">Arquivos sugeridos</string>
     <string name="refresh_content">Atualizar conteúdo</string>
     <string name="reload">Recarregar</string>
     <string name="remote">(remoto)</string>
@@ -769,16 +758,13 @@
     <string name="select_one_template">Selecione um modelo</string>
     <string name="select_template">Selecionar modelo</string>
     <string name="send">Enviar</string>
-    <string name="send_share">Enviar compartilhamento </string>
     <string name="sendbutton_description">Ícone do botão Enviar</string>
     <string name="set_as">Definir como</string>
-    <string name="set_note">Definir nota </string>
     <string name="set_picture_as">Usar imagem como</string>
     <string name="set_status">Definir status</string>
     <string name="set_status_message">Definir mensagem de status</string>
     <string name="setup_e2e">Durante a configuração da criptografia de ponta a ponta, você receberá um mnemônico aleatório de 12 palavras, necessário para abrir seus arquivos em outros dispositivos. Isso será armazenado apenas neste dispositivo e poderá ser mostrado novamente nesta tela. Por favor, anote-o em um lugar seguro!</string>
     <string name="share">Compartilhar</string>
-    <string name="share_copy_link">Compartilhar e copiar o link</string>
     <string name="share_dialog_title">Compartilhamento</string>
     <string name="share_download_limit">Definir limite de arquivos baixados</string>
     <string name="share_expiration_date_format">%1$s</string>
@@ -805,7 +791,6 @@
     <string name="share_permission_file_drop">Baixar Arquivo </string>
     <string name="share_permission_secure_file_drop">Descarte de arquivo seguro</string>
     <string name="share_permission_view_only">Somente visualização </string>
-    <string name="share_permissions">Permissões de compartilhamento </string>
     <string name="share_remote_clarification">%1$s (remoto)</string>
     <string name="share_room_clarification">%1$s (conversa)</string>
     <string name="share_search">Nome, Federated Cloud ID ou endereço de e-mail…</string>

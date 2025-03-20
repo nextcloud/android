@@ -10,7 +10,6 @@
     <string name="action_edit">Editar</string>
     <string name="action_empty_notifications">Limpar todas as notificacións</string>
     <string name="action_empty_trashbin">Baleirar o lixo</string>
-    <string name="action_send_share">Enviar/compartir</string>
     <string name="action_switch_grid_view">Ver como grade</string>
     <string name="action_switch_list_view">Ver como lista</string>
     <string name="actionbar_calendar_contacts_restore">Restaurar contactos e calendario</string>
@@ -49,7 +48,6 @@
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Escriba algún texto</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Confirma que quere eliminar esta tarefa?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Eliminar tarefa</string>
-    <string name="assistant_screen_loading">Estase a cargar a lista de tarefas, agarde</string>
     <string name="assistant_screen_no_task_available_text">Non hai ningunha tarefa dispoñible para o tipo de tarefa %s, pode crear unha nova desde a parte inferior dereita.</string>
     <string name="assistant_screen_task_create_fail_message">Produciuse un erro ao crear a tarefa</string>
     <string name="assistant_screen_task_create_success_message">A tarefa creouse satisfactoriamente</string>
@@ -187,7 +185,6 @@
     <string name="confirmation_remove_folders_alert">Confirma que quere eliminar os elementos seleccionados e o seu contido?</string>
     <string name="confirmation_remove_local">Só local</string>
     <string name="conflict_dialog_error">Non é posíbel crear o diálogo de resolución de conflitos</string>
-    <string name="conflict_folder_headline">Conflito de cartafol</string>
     <string name="conflict_local_file">Ficheiro local</string>
     <string name="conflict_message_description">Se selecciona ambas versións, o ficheiro local terá un número engadido ao nome.</string>
     <string name="conflict_message_description_for_folder">Se selecciona ambas versións, o cartafol local terá un número engadido ao nome.</string>
@@ -354,7 +351,6 @@
     <string name="etm_background_jobs_stop_test_job">Deter o traballo de proba</string>
     <string name="etm_migrations">Migracións (anovación de aplicación)</string>
     <string name="etm_preferences">Preferencias</string>
-    <string name="etm_title">Modo de proba de enxeñería</string>
     <string name="etm_transfer">Transferencia de ficheiros</string>
     <string name="etm_transfer_enqueue_test_download">Poñer na cola a descarga de proba</string>
     <string name="etm_transfer_enqueue_test_upload">Poñer na cola o envío de proba</string>
@@ -576,7 +572,6 @@
     <string name="new_media_folder_detected">Detectouse un novo cartafol de medios %1$s</string>
     <string name="new_media_folder_photos">foto</string>
     <string name="new_media_folder_videos">vídeo</string>
-    <string name="new_notification">Nova notificación</string>
     <string name="new_version_was_created">Creouse unha versión nova</string>
     <string name="no_actions">Non hai accións para este usuario</string>
     <string name="no_browser_available">Non hai ningunha aplicación dispoñíbel para manexar ligazóns</string>
@@ -592,7 +587,6 @@
     <string name="note_icon_hint">Icona de nota</string>
     <string name="notification_action_failed">Produciuse un fallo ao executar a acción.</string>
     <string name="notification_channel_background_operations_description">Amosar notificacións para interactuar co resultado das operacións en segundo plano</string>
-    <string name="notification_channel_background_operations_name">Operacións en segundo plano</string>
     <string name="notification_channel_download_description">Amosa o progreso da descarga</string>
     <string name="notification_channel_download_name_short">Descargas</string>
     <string name="notification_channel_file_sync_description">Amosa o progreso e os resultados da sincronización de ficheiros</string>
@@ -609,17 +603,12 @@
     <string name="notification_icon_description">Hai notificacións sen ler</string>
     <string name="notifications_no_results_headline">Non hai notificacións</string>
     <string name="notifications_no_results_message">Compróbeo máis adiante.</string>
-    <string name="oc_file_list_adapter_offline_operation_description_text">Operación pendente</string>
     <string name="oc_file_list_adapter_offline_operation_remove_description_text">Operación de retirada pendente</string>
     <string name="offline_mode">Sen conexión a Internet</string>
     <string name="offline_mode_info_description">Mesmo sen conexión a Internet, pode organizar os seus cartafoles, crear ficheiros. Unha vez que volva estar conectado, as túas accións pendentes sincronizaranse automaticamente.</string>
-    <string name="offline_mode_info_title">Está sen conexión, mais o traballo continúa</string>
     <string name="offline_operations_file_does_not_exists_yet">O ficheiro aínda non existe. Envíe primeiro o ficheiro.</string>
-    <string name="offline_operations_worker_notification_conflict_text">Cartafol en conflito: %s</string>
-    <string name="offline_operations_worker_notification_delete_offline_folder">Eliminar o cartafol sen conexión</string>
     <string name="offline_operations_worker_notification_error_text">Non é posíbel completar a operación sen conexión. %s</string>
     <string name="offline_operations_worker_notification_manager_ticker">Operacións sen conexión</string>
-    <string name="offline_operations_worker_notification_start_text">Iniciando operacións sen conexión</string>
     <string name="oneHour">1 hora</string>
     <string name="online">En liña</string>
     <string name="online_status">Estado en liña</string>
@@ -642,7 +631,6 @@
     <string name="permission_storage_access">Precísanse permisos adicionais para enviar e descargar ficheiros.</string>
     <string name="pick_contact_to_share_with">Escolla un contacto co que compartir</string>
     <string name="picture_set_as_no_app">Non se atopou unha aplicación coa que definir unha imaxe</string>
-    <string name="pin_home">Fixar na pantalla de Inicio</string>
     <string name="pin_shortcut_label">Abrir %1$s</string>
     <string name="placeholder_fileSize">389 KB</string>
     <string name="placeholder_filename">marcadordesubstitución.txt</string>
@@ -792,16 +780,13 @@
     <string name="select_one_template">Seleccione un modelo</string>
     <string name="select_template">Seleccionar o modelo</string>
     <string name="send">Enviar</string>
-    <string name="send_share">Enviar o compartido</string>
     <string name="sendbutton_description">Icona do botón de envío</string>
     <string name="set_as">Definir como</string>
-    <string name="set_note">Definir a nota</string>
     <string name="set_picture_as">Usar a imaxe como</string>
     <string name="set_status">Definir o estado</string>
     <string name="set_status_message">Definir a mensaxe de estado</string>
     <string name="setup_e2e">Durante a configuración do cifrado de extremo a extremo, recibirá un mnemotécnico ao chou de 12 palabras, que necesitará para abrir os seus ficheiros noutros dispositivos. Isto só se almacenará neste dispositivo e pódese amosar de novo nesta pantalla. Anóteo nun lugar seguro!</string>
     <string name="share">Compartir</string>
-    <string name="share_copy_link">Compartir e copiar a ligazón</string>
     <string name="share_dialog_title">Compartindo</string>
     <string name="share_download_limit">Definir o límite de descarga</string>
     <string name="share_expiration_date_format">%1$s</string>
@@ -828,7 +813,6 @@
     <string name="share_permission_file_drop">Soltar o ficheiro</string>
     <string name="share_permission_secure_file_drop">Entrega segura de ficheiros</string>
     <string name="share_permission_view_only">Só ver</string>
-    <string name="share_permissions">Permisos ao compartir</string>
     <string name="share_remote_clarification">%1$s (remoto)</string>
     <string name="share_room_clarification">%1$s (conversa)</string>
     <string name="share_search">Nome, ID da nube federada ou enderezo de correo…</string>

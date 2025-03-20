@@ -10,12 +10,10 @@
     <string name="action_edit">Redaktirläň</string>
     <string name="action_empty_notifications">ähli bildirişleri arassala</string>
     <string name="action_empty_trashbin">Boşadylan zibil</string>
-    <string name="action_send_share">Iber / Paýlaş</string>
     <string name="action_switch_grid_view">Gözenegiň görnüşi</string>
     <string name="action_switch_list_view">Sanaw görnüşi</string>
     <string name="actionbar_calendar_contacts_restore">Aragatnaşyklary we senenamany dikelt</string>
     <string name="actionbar_mkdir">Täze papka döretmek</string>
-    <string name="actionbar_move_or_copy">Göçürmek ýa-da Nusga almak</string>
     <string name="actionbar_open_with">Şunyň bilen açyň</string>
     <string name="actionbar_search">Gözlemek</string>
     <string name="actionbar_see_details">Jikme-jiklikleri</string>
@@ -244,7 +242,6 @@
     <string name="etm_background_jobs_stop_test_job">Synag işini bes ediň</string>
     <string name="etm_migrations">Migrasiýa (programmany täzelemek)</string>
     <string name="etm_preferences">Saýlamalar</string>
-    <string name="etm_title">Inženerçilik synag tertibi</string>
     <string name="etm_transfer_enqueue_test_download">Synagy göçürip al</string>
     <string name="etm_transfer_remote_path">Uzak ýol</string>
     <string name="etm_transfer_type_download">Göçürip almak</string>
@@ -394,7 +391,6 @@
     <string name="new_media_folder_detected">Täze %1$smedia bukjasy tapyldy.</string>
     <string name="new_media_folder_photos">Surat</string>
     <string name="new_media_folder_videos">wideo</string>
-    <string name="new_notification">Täze Bildiriş</string>
     <string name="new_version_was_created">Täze wersiýa döredildi</string>
     <string name="no_browser_available">Salgylary dolandyrmak üçin programma ýok</string>
     <string name="no_mutliple_accounts_allowed">Diňe bir hasabyňyza rugsat berildi</string>

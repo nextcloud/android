@@ -10,7 +10,6 @@
     <string name="action_edit">ویرایش</string>
     <string name="action_empty_notifications">پاک کردن تمام اعلانها</string>
     <string name="action_empty_trashbin">خالی کردن سطل زباله</string>
-    <string name="action_send_share">ارسال/اشتراک گذاری</string>
     <string name="action_switch_grid_view">نمایش گرید</string>
     <string name="action_switch_list_view">نمایش لیست</string>
     <string name="actionbar_calendar_contacts_restore">بازیابی مخاطب‌ها و تقویم</string>
@@ -31,13 +30,14 @@
     <string name="add_new_public_share">افزودن پیوند هم‌رسانی عمومی جدید</string>
     <string name="add_new_secure_file_drop">دراپ فایل امن جدید اضافه کنید.</string>
     <string name="add_to_cloud">افزودن به %1$s</string>
-    <string name="advanced_settings">تنظمیات پیش‌رفته</string>
+    <string name="advanced_settings">تنظیمات پیشرفته</string>
     <string name="allow_resharing">مجاز به اشتراک گذاری مجدد</string>
     <string name="app_config_base_url_title">Base URL</string>
     <string name="app_config_proxy_port_title">پورت پروکسی</string>
     <string name="app_widget_description">نمایش یک ابزارک از پیشخوان</string>
     <string name="appbar_search_in">جستجو در %s</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">مقداری متن را تایپ کنید</string>
+    <string name="assistant_screen_delete_task_alert_dialog_title">وظیفه را حذف کنید</string>
     <string name="assistant_screen_task_delete_success_message">Task successfully deleted</string>
     <string name="associated_account_not_found">حساب مرتبط یافت نشد!</string>
     <string name="auth_access_failed">دسترسی خطای  %1$s</string>
@@ -304,7 +304,6 @@
     <string name="etm_background_jobs_stop_test_job">کار آزمایشی را متوقف کن</string>
     <string name="etm_migrations">مهاجرت ها (ارتقا برنامک)</string>
     <string name="etm_preferences">اولویت ها</string>
-    <string name="etm_title">حالت تست مهندسی</string>
     <string name="etm_transfer">انتقال پرونده</string>
     <string name="etm_transfer_enqueue_test_download">صف‌گذاری بارگیری امتحانی</string>
     <string name="etm_transfer_enqueue_test_upload">صف‌گذاری بارگذاری امتحانی</string>
@@ -503,7 +502,6 @@
     <string name="new_media_folder_detected">  پوشه رسانه جدید %1$sشناسایی شد.</string>
     <string name="new_media_folder_photos">عکس</string>
     <string name="new_media_folder_videos">فیلم</string>
-    <string name="new_notification">اعلان جدید</string>
     <string name="new_version_was_created">نسخه جدید ایجاد شد</string>
     <string name="no_actions">هیچ اقدامی برای این کاربر وجود ندارد</string>
     <string name="no_browser_available">هیچ برنامه ای برای کنترل لینک ها در دسترس نیست</string>
@@ -554,7 +552,6 @@
     <string name="permission_deny">غیر مجاز</string>
     <string name="permission_storage_access">نیاز به مجوزهای اضافی برای بارگذاری و دریافت پرونده‌ها می باشد.</string>
     <string name="picture_set_as_no_app">هیچ برنامه ای برای تنظیم عکس یافت نشد</string>
-    <string name="pin_home">به صفحه اصلی پین کنید</string>
     <string name="pin_shortcut_label">باز کنید %1$s</string>
     <string name="placeholder_fileSize">۳۸۹ کیلو بایت</string>
     <string name="placeholder_filename">placeholder.txt</string>
@@ -687,16 +684,13 @@
     <string name="select_one_template">لطفا یک قالب را انتخاب کنید</string>
     <string name="select_template">الگو را انتخاب کنید</string>
     <string name="send">ارسال</string>
-    <string name="send_share">ارسال اشتراک</string>
     <string name="sendbutton_description">ایکون دکمه ارسال</string>
     <string name="set_as">تنظیم به عنوان</string>
-    <string name="set_note">تنظیم یادداشت</string>
     <string name="set_picture_as">استفاده از تصویر به عنوان</string>
     <string name="set_status">تنظیم وضعیت</string>
     <string name="set_status_message">تنظیم پیام وضعیت</string>
     <string name="setup_e2e">در طول راه اندازی رمزگذاری سرتاسری، یک یادگاری تصادفی 12 کلمه ای دریافت خواهید کرد که باید فایل های خود را در دستگاه های دیگر باز کنید. این فقط در این دستگاه ذخیره می شود و می تواند دوباره در این صفحه نمایش داده شود. لطفا آن را در یک مکان امن یادداشت کنید!</string>
     <string name="share">هم‌رسانی</string>
-    <string name="share_copy_link">اشتراک‌گذاری و رونوشت پیوند</string>
     <string name="share_dialog_title">اشتراک گذاری</string>
     <string name="share_download_limit">Set download limit</string>
     <string name="share_expiration_date_format">%1$s</string>
@@ -723,7 +717,6 @@
     <string name="share_permission_file_drop">انداختن پرونده</string>
     <string name="share_permission_secure_file_drop">Secure file drop</string>
     <string name="share_permission_view_only">تنها مشاهده</string>
-    <string name="share_permissions">اجازه‌های هم‌رسانی</string>
     <string name="share_remote_clarification">%1$s (دوردست)</string>
     <string name="share_room_clarification">%1$s (گفت‌وگو)</string>
     <string name="share_send_new_email">فرستادن رایانامهٔ جدید</string>

@@ -10,7 +10,6 @@
     <string name="action_edit">Taisyti</string>
     <string name="action_empty_notifications">Išvalyti visus pranešimus</string>
     <string name="action_empty_trashbin">Išvalyti šiukšlinę</string>
-    <string name="action_send_share">Siųsti/Bendrinti</string>
     <string name="action_switch_grid_view">Tinklelio rodinys</string>
     <string name="action_switch_list_view">Sąrašo rodinys</string>
     <string name="actionbar_calendar_contacts_restore">Atkurti adresatus ir kalendorių</string>
@@ -299,7 +298,6 @@
     <string name="etm_background_jobs_stop_test_job">Sustabdyti testinę užduotį</string>
     <string name="etm_migrations">Perkėlimas (programos atnaujinimas)</string>
     <string name="etm_preferences">Nuostatos</string>
-    <string name="etm_title">Inžinerinis bandymo režimas</string>
     <string name="etm_transfer">Failų persiuntimas</string>
     <string name="etm_transfer_enqueue_test_download">Užbaikite bandomąjį atsisiuntimą</string>
     <string name="etm_transfer_remote_path">Nuotolinis kelias</string>
@@ -489,7 +487,6 @@
     <string name="network_host_not_available">Nepavyko užbaigti operacijos, Serveris nepasiekiamas.</string>
     <string name="new_comment">Naujas komentaras…</string>
     <string name="new_media_folder_detected">Aptiktas naujas %1$s medijos failas.</string>
-    <string name="new_notification">Naujas pranešimas</string>
     <string name="new_version_was_created">Buvo sukurta nauja versija</string>
     <string name="no_browser_available">Nėra programėlės, skirtos apdoroti nuorodas</string>
     <string name="no_calendar_exists">Nėra jokių kalendorių</string>
@@ -608,6 +605,7 @@
     <string name="recommend_subject">Išbandykite %1$s savo įrenginyje!</string>
     <string name="recommend_text">Noriu jus paraginti naudoti %1$s savo įrenginyje.\nAtsisiųskite čia: %2$s</string>
     <string name="recommend_urls">%1$s arba %2$s</string>
+    <string name="recommended_files_title">Rekomenduojami failai</string>
     <string name="refresh_content">Įkelti turinį iš naujo</string>
     <string name="reload">Įkelti iš naujo</string>
     <string name="remote">(nuotolinis)</string>
@@ -649,12 +647,10 @@
     <string name="send">Siųsti</string>
     <string name="sendbutton_description">Siuntimo mygtuko priktograma</string>
     <string name="set_as">Nustatyti kaip</string>
-    <string name="set_note">Įrašyti pastabą</string>
     <string name="set_picture_as">Naudoti paveikslėlį kaip</string>
     <string name="set_status">Nustatyti būseną</string>
     <string name="set_status_message">Nustatyti būsenos žinutę</string>
     <string name="share">Bendrinti</string>
-    <string name="share_copy_link">Bendrinti ir kopijuoti nuorodą</string>
     <string name="share_dialog_title">Bendrinimas</string>
     <string name="share_expiration_date_format">%1$s</string>
     <string name="share_expiration_date_label">Galioja iki %1$s</string>

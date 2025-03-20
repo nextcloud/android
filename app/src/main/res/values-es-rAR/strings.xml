@@ -10,12 +10,10 @@
     <string name="action_edit">Editar</string>
     <string name="action_empty_notifications">Borrar todas las notificaciones</string>
     <string name="action_empty_trashbin">Vaciar la papelera</string>
-    <string name="action_send_share">Enviar/Compartir</string>
     <string name="action_switch_grid_view">Vista de cuadrícula</string>
     <string name="action_switch_list_view">Vista de lista</string>
     <string name="actionbar_calendar_contacts_restore">Restaurar contactos y calendario</string>
     <string name="actionbar_mkdir">Nueva carpeta</string>
-    <string name="actionbar_move_or_copy">Mover o Copiar</string>
     <string name="actionbar_open_with">Abrir con</string>
     <string name="actionbar_search">Buscar</string>
     <string name="actionbar_see_details">Detalles</string>
@@ -31,15 +29,12 @@
     <string name="add_new_public_share">Agregar un nuevo enlace publico</string>
     <string name="add_new_secure_file_drop">Agregar nueva carpeta segura de archivos</string>
     <string name="add_to_cloud">Añadir %1$s</string>
-    <string name="advanced_settings">Configuración avanzada</string>
     <string name="allow_resharing">Permitir volver a compartir</string>
     <string name="app_config_proxy_port_title">Puerto del Proxy</string>
     <string name="app_widget_description">Muestra un widget del panel</string>
     <string name="appbar_search_in">Buscar en %s</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Escriba un texto</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">¿Está seguro que desea eliminar esta tarea?</string>
-    <string name="assistant_screen_delete_task_alert_dialog_title">Eliminar tarea</string>
-    <string name="assistant_screen_loading">Las listas de tareas están cargando, por favor espere</string>
     <string name="assistant_screen_no_task_available_text">No hay tareas del tipo %s, puede crear una nueva tarea desde la parte inferior derecha</string>
     <string name="assistant_screen_task_create_fail_message">Ocurrió un error al crear la tarea</string>
     <string name="assistant_screen_task_create_success_message">Tarea creada exitosamente</string>
@@ -324,7 +319,6 @@
     <string name="etm_background_jobs_stop_test_job">Detener trabajo de prueba</string>
     <string name="etm_migrations">Migraciones (actualización de la aplicación)</string>
     <string name="etm_preferences">Preferencias</string>
-    <string name="etm_title">Modo de prueba de ingeniería</string>
     <string name="etm_transfer">Transferencia de archivos</string>
     <string name="etm_transfer_enqueue_test_download">Test de descarga en cola</string>
     <string name="etm_transfer_enqueue_test_upload">Agregar a la cola la carga de prueba</string>
@@ -527,7 +521,6 @@
     <string name="new_media_folder_detected">Nueva carpeta de medios %1$s detectada</string>
     <string name="new_media_folder_photos">foto</string>
     <string name="new_media_folder_videos">video</string>
-    <string name="new_notification">Nueva notifiación</string>
     <string name="new_version_was_created">Nueva versión fue creada</string>
     <string name="no_actions">No hay acciones para este usuario</string>
     <string name="no_browser_available">No hay aplicación disponible para manejar enlaces</string>
@@ -578,7 +571,6 @@
     <string name="permission_deny">Rechazar</string>
     <string name="permission_storage_access">Se requieren permisos adicionales para cargar y descargar archivos. </string>
     <string name="picture_set_as_no_app">No se encontró ninguna aplicación para establecer una imagen con</string>
-    <string name="pin_home">Anclar a la pantalla de inicio</string>
     <string name="pin_shortcut_label">Abrir %1$s</string>
     <string name="placeholder_fileSize">389 KB</string>
     <string name="placeholder_filename">marcadordeposición.txt</string>
@@ -715,16 +707,13 @@
     <string name="select_one_template">Por favor seleccione una plantilla</string>
     <string name="select_template">Seleccionar plantilla</string>
     <string name="send">Enviar</string>
-    <string name="send_share">Enviar recurso compartido</string>
     <string name="sendbutton_description">Icono de botón de enviar</string>
     <string name="set_as">Establecer Como</string>
-    <string name="set_note">Establecer nota</string>
     <string name="set_picture_as">Usar imagen como</string>
     <string name="set_status">Establecer estado</string>
     <string name="set_status_message">Establecer mensaje de estado</string>
     <string name="setup_e2e">Durante la configuración del cifrado de extremo a extremo, recibirá un mnemónico aleatorio de 12 palabras, que necesitará para abrir sus archivos en otros dispositivos. Esto solo se almacenará en este dispositivo y se puede volver a mostrar en esta pantalla. ¡Por favor anótelo en un lugar seguro!</string>
     <string name="share">Compartir</string>
-    <string name="share_copy_link">Compartir y copiar enlace</string>
     <string name="share_dialog_title">Compartiendo</string>
     <string name="share_expiration_date_format">%1$s</string>
     <string name="share_expiration_date_label">Vence %1$s</string>
@@ -750,7 +739,6 @@
     <string name="share_permission_file_drop">Entrega de archivos</string>
     <string name="share_permission_secure_file_drop">Entrega de archivos segura</string>
     <string name="share_permission_view_only">Solo ver</string>
-    <string name="share_permissions">Permisos del recurso compartido</string>
     <string name="share_remote_clarification">%1$s (remoto)</string>
     <string name="share_room_clarification">%1$s (conversación)</string>
     <string name="share_send_new_email">Enviar nuevo correo electrónico</string>

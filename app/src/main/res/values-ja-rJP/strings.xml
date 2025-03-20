@@ -10,7 +10,6 @@
     <string name="action_edit">編集</string>
     <string name="action_empty_notifications">全ての通知を削除</string>
     <string name="action_empty_trashbin">ゴミ箱を空にする</string>
-    <string name="action_send_share">送信/共有</string>
     <string name="action_switch_grid_view">グリッド表示</string>
     <string name="action_switch_list_view">リスト表示</string>
     <string name="actionbar_calendar_contacts_restore">連絡先とカレンダーを復元</string>
@@ -31,7 +30,7 @@
     <string name="add_new_public_share">新規公開共有リンクを追加</string>
     <string name="add_new_secure_file_drop">新しいセキュアなファイルドロップを追加</string>
     <string name="add_to_cloud">%1$s に追加</string>
-    <string name="advanced_settings">高度な設定</string>
+    <string name="advanced_settings">詳細設定</string>
     <string name="allow_resharing">再共有を許可する</string>
     <string name="app_config_base_url_title">ベース URL</string>
     <string name="app_config_disable_clipboard_title">クリップボードを無効化</string>
@@ -49,7 +48,6 @@
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">テキストを入力</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">本当にこのタスクを削除しますか？</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">タスクを削除</string>
-    <string name="assistant_screen_loading">タスクリストを読み込み中です。しばらくお待ちください</string>
     <string name="assistant_screen_no_task_available_text">タスクタイプ%sに使用できるタスクがありません。右下から新しいタスクを作成できます。</string>
     <string name="assistant_screen_task_create_fail_message">タスクの作成中にエラーが発生しました。</string>
     <string name="assistant_screen_task_create_success_message">タスクは正常に作成されました。</string>
@@ -182,7 +180,6 @@
     <string name="confirmation_remove_folders_alert">本当に選択したアイテムとその内容を削除しますか？</string>
     <string name="confirmation_remove_local">ローカルのみ</string>
     <string name="conflict_dialog_error">競合解決ダイアログを作成できません</string>
-    <string name="conflict_folder_headline">ファルダの競合</string>
     <string name="conflict_local_file">ローカルファイル</string>
     <string name="conflict_message_description">両方のバージョンを選択した場合、ローカルファイルはファイル名に数字が追加されます。</string>
     <string name="conflict_message_description_for_folder">両方のバージョンを選択した場合、ローカルファルダはファルダ名に数字が追加されます。</string>
@@ -341,7 +338,6 @@
     <string name="etm_background_jobs_stop_test_job">テストジョブを中断</string>
     <string name="etm_migrations">マイグレーション（アプリのアップグレード）</string>
     <string name="etm_preferences">環境設定</string>
-    <string name="etm_title">開発者用テストモード</string>
     <string name="etm_transfer">ファイル転送</string>
     <string name="etm_transfer_enqueue_test_download">テストダウンロードをキューに入れる</string>
     <string name="etm_transfer_enqueue_test_upload">テストアップロードをキューに入れる</string>
@@ -561,7 +557,6 @@
     <string name="new_media_folder_detected">新しい %1$s メディアフォルダが検出されました。</string>
     <string name="new_media_folder_photos">写真</string>
     <string name="new_media_folder_videos">ビデオ</string>
-    <string name="new_notification">新しい通知</string>
     <string name="new_version_was_created">新しいバージョンが作成されました</string>
     <string name="no_actions">このユーザーに対するアクションはありません</string>
     <string name="no_browser_available">リンクを処理するアプリがありません</string>
@@ -577,7 +572,6 @@
     <string name="note_icon_hint">アイコンを記録</string>
     <string name="notification_action_failed">アクションの実行に失敗しました。</string>
     <string name="notification_channel_background_operations_description">バックグラウンド操作の結果に対する通知を表示する</string>
-    <string name="notification_channel_background_operations_name">バックグラウンド操作</string>
     <string name="notification_channel_download_description">ダウンロードの進行状況を表示</string>
     <string name="notification_channel_download_name_short">ダウンロード</string>
     <string name="notification_channel_file_sync_description">ファイルの同期の進行状況と結果を表示します</string>
@@ -594,17 +588,12 @@
     <string name="notification_icon_description">未読の通知があります</string>
     <string name="notifications_no_results_headline">通知はありません</string>
     <string name="notifications_no_results_message">後で確認してください。</string>
-    <string name="oc_file_list_adapter_offline_operation_description_text">保留中の操作</string>
     <string name="oc_file_list_adapter_offline_operation_remove_description_text">保留中の削除操作</string>
     <string name="offline_mode">インターネットに接続されていません</string>
     <string name="offline_mode_info_description">インターネット接続がなくてもフォルダの整理やファイルの作成ができます。オンラインに戻ったら、保留中の操作が自動的に同期されます。</string>
-    <string name="offline_mode_info_title">オフラインでも作業は続きます</string>
     <string name="offline_operations_file_does_not_exists_yet">ファイルがまだ存在しません。まずファイルをアップロードしてください。</string>
-    <string name="offline_operations_worker_notification_conflict_text">競合したフォルダ: %s</string>
-    <string name="offline_operations_worker_notification_delete_offline_folder">オフラインフォルダを削除する</string>
     <string name="offline_operations_worker_notification_error_text">オフライン操作を完了できません。%s</string>
     <string name="offline_operations_worker_notification_manager_ticker">オフライン操作</string>
-    <string name="offline_operations_worker_notification_start_text">オフライン操作を開始しています</string>
     <string name="oneHour">1時間</string>
     <string name="online">オンライン</string>
     <string name="online_status">オンラインステータス</string>
@@ -625,7 +614,6 @@
     <string name="permission_deny">拒否</string>
     <string name="permission_storage_access">ファイルをダウンロードとアップロードする追加の権限が必要です。</string>
     <string name="picture_set_as_no_app">画像を設定するアプリが見つかりませんでした</string>
-    <string name="pin_home">ホームスクリーンにピン留めする</string>
     <string name="pin_shortcut_label">%1$sを開く</string>
     <string name="placeholder_fileSize">389 KB</string>
     <string name="placeholder_filename">placeholder.txt</string>
@@ -722,6 +710,7 @@
     <string name="recommend_subject">デバイスで %1$s をお試しください</string>
     <string name="recommend_text">あなたのデバイスで %1$s を使用してください。\nダウンロードはこちらです: %2$s</string>
     <string name="recommend_urls">%1$s または %2$s</string>
+    <string name="recommended_files_title">おすすめファイル</string>
     <string name="refresh_content">コンテンツを更新</string>
     <string name="reload">再読み込み</string>
     <string name="remote">(リモート)</string>
@@ -771,16 +760,13 @@
     <string name="select_one_template">テンプレートを選択してください</string>
     <string name="select_template">テンプレートを選択する</string>
     <string name="send">送信</string>
-    <string name="send_share">共有</string>
     <string name="sendbutton_description">送信ボタンアイコン</string>
     <string name="set_as">として設定され</string>
-    <string name="set_note">ノート</string>
     <string name="set_picture_as">画像を使用する</string>
     <string name="set_status">ステータスを設定</string>
     <string name="set_status_message">メッセージを設定</string>
     <string name="setup_e2e">End-to-End 暗号化の設定中に、12語のランダムなニーモニックが表示されます。これは他のデバイスでファイルを開くために必要です。この情報はこのデバイスにのみ保存され、この画面で再表示することができます。安全な場所にメモしておいてください！</string>
     <string name="share">共有</string>
-    <string name="share_copy_link">リンクをコピーして共有</string>
     <string name="share_dialog_title">共有</string>
     <string name="share_download_limit">ダウンロード制限を設定</string>
     <string name="share_expiration_date_format">%1$s</string>
@@ -807,7 +793,6 @@
     <string name="share_permission_file_drop">ファイルを転送</string>
     <string name="share_permission_secure_file_drop">セキュアなファイルドロップ</string>
     <string name="share_permission_view_only">閲覧のみ</string>
-    <string name="share_permissions">共有権限</string>
     <string name="share_remote_clarification">%1$s (リモート)</string>
     <string name="share_room_clarification">%1$s(会話)</string>
     <string name="share_search">ユーザ名、クラウド統合ID、またはEメールアドレス ...</string>

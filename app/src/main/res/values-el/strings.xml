@@ -10,7 +10,6 @@
     <string name="action_edit">Επεξεργασία</string>
     <string name="action_empty_notifications">Εκκαθάριση ειδοποιήσεων</string>
     <string name="action_empty_trashbin">Άδειασμα απορριμάτων</string>
-    <string name="action_send_share">Αποστολή/Κοινή χρήση</string>
     <string name="action_switch_grid_view">Προβολή πλέγματος</string>
     <string name="action_switch_list_view">Προβολή λίστας</string>
     <string name="actionbar_mkdir">Νέος φάκελος</string>
@@ -28,13 +27,13 @@
     <string name="activity_icon">Δραστηριότητα</string>
     <string name="add_new_public_share">Προσθήκη νέου δημόσιου κοινόχρηστου συνδέσμου</string>
     <string name="add_to_cloud">Προσθήκη στο %1$s</string>
-    <string name="advanced_settings">Ρυθμίσεις για προχωρημένους</string>
     <string name="allow_resharing">Επιτρέπεται ο επαναδιαμοιρασμός</string>
     <string name="app_config_base_url_title">Βασική URL</string>
     <string name="app_config_proxy_port_title">Θύρα διαμεσολαβητή</string>
     <string name="app_widget_description">Εμφάνιση ενός γραφικού στοιχείου από τον πίνακα ελέγχου</string>
     <string name="appbar_search_in">Αναζήτηση στο %s</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Πληκτρολογήστε κάποιο κείμενο</string>
+    <string name="assistant_screen_delete_task_alert_dialog_title">Διαγραφή εργασίας</string>
     <string name="assistant_screen_task_delete_success_message">Η εργασία διαγράφηκε με επιτυχία</string>
     <string name="assistant_task_detail_screen_input_button_title">Είσοδος</string>
     <string name="associated_account_not_found">Δεν βρέθηκε ο συνδεδεμένος λογαριασμός!</string>
@@ -294,7 +293,6 @@
     <string name="etm_background_jobs_stop_test_job">Τερματισμός δοκιμαστικής εργασίας</string>
     <string name="etm_migrations">Μετεγκαταστάσεις (αναβάθμιση εφαρμογής)</string>
     <string name="etm_preferences">Προτιμήσεις</string>
-    <string name="etm_title">Λειτουργία δοκιμής για Τεχνικούς</string>
     <string name="etm_transfer">Μεταφορά αρχείου</string>
     <string name="etm_transfer_enqueue_test_download">Προσθήκη στην ουρά δοκιμαστικής λήψης</string>
     <string name="etm_transfer_enqueue_test_upload">Προσθήκη στην ουρά δοκιμαστικής μεταφόρτωσης</string>
@@ -477,7 +475,6 @@
     <string name="new_media_folder_detected">Εντοπίστηκε νέος φάκελος πολυμέσων %1$s.</string>
     <string name="new_media_folder_photos">φωτογραφία</string>
     <string name="new_media_folder_videos">Βίντεο</string>
-    <string name="new_notification">Νέα ειδοποίηση</string>
     <string name="new_version_was_created">Νέα έκδοση δημιουργήθηκε</string>
     <string name="no_actions">Δεν υπάρχουν ενέργειες για αυτόν τον χρήστη</string>
     <string name="no_browser_available">Δεν υπάρχει διαθέσιμη εφαρμογή για χειρισμό συνδέσμων</string>
@@ -526,7 +523,6 @@
     <string name="permission_deny">Απόρριψη</string>
     <string name="permission_storage_access">Επιπλέον διακαιώματα απαιτούνται για μεταφόρτωση και λήψη αρχείων.</string>
     <string name="picture_set_as_no_app">Δεν βρέθηκε εφαρμογή για τον ορισμό φωτογραφίας</string>
-    <string name="pin_home">Καρφίτσωμα στην αρχική οθόνη</string>
     <string name="pin_shortcut_label">Άνοιγμα %1$s</string>
     <string name="placeholder_fileSize">389 KB</string>
     <string name="placeholder_filename">placeholder.txt</string>
@@ -642,10 +638,8 @@
     <string name="select_one_template">Παρακαλούμε επιλέξτε ένα πρότυπο</string>
     <string name="select_template">Επιλογή προτύπου</string>
     <string name="send">Αποστολή</string>
-    <string name="send_share">Αποστολή/Κοινή χρήση</string>
     <string name="sendbutton_description">Εικονίδιο κουμπιού αποστολής</string>
     <string name="set_as">Ορισμός ως</string>
-    <string name="set_note">Ορισμός Σημείωσης</string>
     <string name="set_picture_as">Χρησιμοποίησε την εικόνα ως</string>
     <string name="set_status">Ορισμός κατάστασης</string>
     <string name="set_status_message">Ορισμός μηνύματος κατάστασης</string>
@@ -674,7 +668,6 @@
     <string name="share_permission_can_edit">Μπορεί να επεξεργαστεί</string>
     <string name="share_permission_file_drop">Απόθεση αρχείου</string>
     <string name="share_permission_view_only">Μόνο προβολή</string>
-    <string name="share_permissions">Δικαιώματα κοινής χρήσης</string>
     <string name="share_remote_clarification">%1$s (απομακρυσμένα)</string>
     <string name="share_room_clarification">%1$s (συνομιλιία)</string>
     <string name="share_send_new_email">Αποστολή νέου email</string>

@@ -10,7 +10,6 @@
     <string name="action_edit">Bewerken</string>
     <string name="action_empty_notifications">Handel alle meldingen af</string>
     <string name="action_empty_trashbin">Prullenbak legen</string>
-    <string name="action_send_share">Versturen/Delen</string>
     <string name="action_switch_grid_view">Rasterindeling </string>
     <string name="action_switch_list_view">Lijstindeling</string>
     <string name="actionbar_calendar_contacts_restore">Herstel contacten en kalender</string>
@@ -49,7 +48,6 @@
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Geef wat tekst in</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Bent u zeker dat u deze taak wilt verwijderen?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Verwijder taak</string>
-    <string name="assistant_screen_loading">Takenlijst wordt geladen, even geduld</string>
     <string name="assistant_screen_no_task_available_text">Geen taak beschikbaar voor %s taaktype, u kunt rechts onder een nieuwe taak aanmaken.</string>
     <string name="assistant_screen_task_create_fail_message">Er is een fout opgetreden bij het aanmaken van de taak</string>
     <string name="assistant_screen_task_create_success_message">Taak succesvol aangemaakt</string>
@@ -183,7 +181,6 @@
     <string name="confirmation_remove_folders_alert">Wil je de geselecteerde objecten en hun inhoud echt verwijderen?</string>
     <string name="confirmation_remove_local">Alleen lokaal</string>
     <string name="conflict_dialog_error">Conflictoplossingsvenster kan niet geladen worden</string>
-    <string name="conflict_folder_headline">Mapconflict</string>
     <string name="conflict_local_file">Lokaal bestand</string>
     <string name="conflict_message_description">Als je beide versies selecteert, zal het lokale bestand een nummer aan de naam toegevoegd krijgen.</string>
     <string name="conflict_message_description_for_folder">Als je beide versies selecteert, zal het lokale bestand een nummer aan de naam toegevoegd krijgen.</string>
@@ -343,7 +340,6 @@
     <string name="etm_background_jobs_stop_test_job">Stop testtaak</string>
     <string name="etm_migrations">Migratie (app upgrade)</string>
     <string name="etm_preferences">Voorkeuren</string>
-    <string name="etm_title">Engineering Testmodus</string>
     <string name="etm_transfer">Gegevenstransport</string>
     <string name="etm_transfer_enqueue_test_download">Testdownload in wachtrij plaatsen</string>
     <string name="etm_transfer_enqueue_test_upload">Testupload in wachtrij plaatsen</string>
@@ -560,7 +556,6 @@
     <string name="new_media_folder_detected">Nieuwe%1$smedia map gevonden.</string>
     <string name="new_media_folder_photos">foto</string>
     <string name="new_media_folder_videos">video</string>
-    <string name="new_notification">Nieuwe Melding</string>
     <string name="new_version_was_created">Nieuwe versie gecreëerd</string>
     <string name="no_actions">Geen acties voor deze gebruiker</string>
     <string name="no_browser_available">Geen app beschikbaar voor het openen van de link</string>
@@ -575,7 +570,6 @@
     <string name="note_could_not_sent">Kon notitie niet versturen</string>
     <string name="note_icon_hint">Notitie icoon</string>
     <string name="notification_action_failed">Niet gelukt om actie uit te voeren</string>
-    <string name="notification_channel_background_operations_name">Achtergrondtaken</string>
     <string name="notification_channel_download_description">Geef download voortgang weer</string>
     <string name="notification_channel_download_name_short">Downloads</string>
     <string name="notification_channel_file_sync_description">Geeft bestand sync voortgang en resultaten weer</string>
@@ -594,7 +588,6 @@
     <string name="notifications_no_results_message">Controleer later opnieuw.</string>
     <string name="offline_mode">Geen internet verbinding</string>
     <string name="offline_mode_info_description">Zelfs zonder internetverbinding kun je je mappen organiseren en bestanden aanmaken. Zodra je weer online bent, worden de wachtende acties automatisch gesynchroniseerd.</string>
-    <string name="offline_operations_worker_notification_delete_offline_folder">Offline Map Verwijderen</string>
     <string name="oneHour">1 uur</string>
     <string name="online">Online</string>
     <string name="online_status">Online status</string>
@@ -616,7 +609,6 @@
     <string name="permission_storage_access">Aanvullende machtigingen vereist voor het uploaden en downloaden van bestanden.</string>
     <string name="pick_contact_to_share_with">Kies contact om mee te delen</string>
     <string name="picture_set_as_no_app">Geen app gevonden om afbeelding in te stellen</string>
-    <string name="pin_home">Toevoegen aan startscherm</string>
     <string name="pin_shortcut_label">Open %1$s</string>
     <string name="placeholder_fileSize">389 KB</string>
     <string name="placeholder_filename">plaatshouder.txt</string>
@@ -707,6 +699,7 @@
     <string name="recommend_subject">Probeer %1$s op je toestel!</string>
     <string name="recommend_text">Ik wil je uitnodigen om %1$s op je smartphone te gebruiken.\nDownload hier: %2$s</string>
     <string name="recommend_urls">%1$s or %2$s</string>
+    <string name="recommended_files_title">Aanbevolen bestanden</string>
     <string name="refresh_content">Inhoud verversen</string>
     <string name="reload">Herladen</string>
     <string name="remote">(remote)</string>
@@ -754,16 +747,13 @@
     <string name="select_one_template">Selecteer een sjabloon</string>
     <string name="select_template">Kies sjabloon</string>
     <string name="send">Versturen</string>
-    <string name="send_share">Stuur share</string>
     <string name="sendbutton_description">Verstuur-knop pictogram</string>
     <string name="set_as">Stel in als</string>
-    <string name="set_note">Instellen notitie</string>
     <string name="set_picture_as">Gebruik afbeelding als</string>
     <string name="set_status">Instellen status</string>
     <string name="set_status_message">Instellen statusbericht</string>
     <string name="setup_e2e">Tijden het instellen van end-to-end versleuteling ontvang je een mnemonic van 12 woorden, die je nodig hebt om bestanden op je apparaat te openen. Dit wordt alleen opgeslagen op dit apparaat en kan in dit scherm opnieuw getoond worden. Noteer het a.u.b. op een veilige plek!</string>
     <string name="share">Delen</string>
-    <string name="share_copy_link">Deel en kopieer link</string>
     <string name="share_dialog_title">Delen</string>
     <string name="share_download_limit">Stel downloadlimiet in</string>
     <string name="share_expiration_date_format">%1$s</string>
@@ -788,7 +778,6 @@
     <string name="share_permission_can_edit">Kan bewerken</string>
     <string name="share_permission_file_drop">Bestandsopslag</string>
     <string name="share_permission_view_only">Alleen bekijken</string>
-    <string name="share_permissions">Deelmachtigingen</string>
     <string name="share_remote_clarification">%1$s (extern)</string>
     <string name="share_room_clarification">%1$s (gesprek)</string>
     <string name="share_send_new_email">Stuur nieuwe e-mail</string>

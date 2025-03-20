@@ -10,11 +10,9 @@
     <string name="action_edit">Modifi</string>
     <string name="action_empty_notifications">Forviŝi ĉiujn sciigojn</string>
     <string name="action_empty_trashbin">Malpleni rubujon</string>
-    <string name="action_send_share">Sendi aŭ kunhavigi</string>
     <string name="action_switch_grid_view">Krada vido</string>
     <string name="action_switch_list_view">Lista vido</string>
     <string name="actionbar_mkdir">Nova dosierujo</string>
-    <string name="actionbar_move_or_copy">Movi aŭ Kopii</string>
     <string name="actionbar_open_with">Malfermi per</string>
     <string name="actionbar_search">Serĉi</string>
     <string name="actionbar_see_details">Detaloj</string>
@@ -27,7 +25,6 @@
     <string name="activity_chooser_title">Sendi ligilon al...</string>
     <string name="activity_icon">Aktivaĵoj</string>
     <string name="add_to_cloud">Aldoni al %1$s</string>
-    <string name="advanced_settings">Detalaj agordoj</string>
     <string name="allow_resharing">Permesi rekunhavigon</string>
     <string name="appbar_search_in">Serĉi en 1%s</string>
     <string name="auth_access_failed">Aliro malsukcesis: %1$s</string>
@@ -340,7 +337,6 @@
     <string name="new_media_folder_detected">Nova aŭdovida dosierujo %1$s eltrovita.</string>
     <string name="new_media_folder_photos">foto</string>
     <string name="new_media_folder_videos">videaĵo</string>
-    <string name="new_notification">Nova sciigo</string>
     <string name="new_version_was_created">Nova versio estis kreita</string>
     <string name="no_browser_available">Neniu aplikaĵo disponeblas por trakti legilojn</string>
     <string name="no_pdf_app_available">Neniu aplikaĵo disponeblas por trakti PDF-dosieron</string>

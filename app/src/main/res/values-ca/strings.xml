@@ -10,12 +10,10 @@
     <string name="action_edit">Edita</string>
     <string name="action_empty_notifications">Neteja totes les notificacions</string>
     <string name="action_empty_trashbin">Buida la paperera</string>
-    <string name="action_send_share">Envia/Comparteix</string>
     <string name="action_switch_grid_view">Vista de graella</string>
     <string name="action_switch_list_view">Vista de llista</string>
     <string name="actionbar_calendar_contacts_restore">Restaura els contactes i el calendari</string>
     <string name="actionbar_mkdir">Crea una carpeta</string>
-    <string name="actionbar_move_or_copy">Mou o copia</string>
     <string name="actionbar_open_with">Obre amb</string>
     <string name="actionbar_search">Cerca</string>
     <string name="actionbar_see_details">Detalls</string>
@@ -30,7 +28,6 @@
     <string name="activity_icon">Activitat</string>
     <string name="add_new_public_share">Afegeix nou enllaç d\'accés públic</string>
     <string name="add_to_cloud">Afegeix a %1$s</string>
-    <string name="advanced_settings">Paràmetres avançats</string>
     <string name="allow_resharing">Permet compartir de nou</string>
     <string name="app_config_base_url_title">URL base</string>
     <string name="app_config_disable_clipboard_title">Inhabilitació del porta-retalls</string>
@@ -47,8 +44,6 @@
     <string name="assistant_screen_add_task_alert_dialog_title">Afegeix una tasca nova</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Escriu una mica de text</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Segur que voleu suprimir aquesta tasca?</string>
-    <string name="assistant_screen_delete_task_alert_dialog_title">Suprimeix la tasca</string>
-    <string name="assistant_screen_loading">S\'està carregant la llista de tasques, espereu</string>
     <string name="assistant_screen_no_task_available_text">No hi ha cap tasca disponible per al tipus de tasca %s. Podeu crear una tasca nova des de baix a la dreta.</string>
     <string name="assistant_screen_task_create_fail_message">S\'ha produït un error en crear la tasca</string>
     <string name="assistant_screen_task_create_success_message">La tasca s\'ha creat correctament</string>
@@ -186,7 +181,6 @@
     <string name="confirmation_remove_folders_alert">Esteu segur que voleu suprimir els elements seleccionats i el seu contingut?</string>
     <string name="confirmation_remove_local">Només local</string>
     <string name="conflict_dialog_error">No es pot crear el quadre de diàleg del solucionador de conflictes</string>
-    <string name="conflict_folder_headline">Conflicte de carpetes</string>
     <string name="conflict_local_file">Fitxer local</string>
     <string name="conflict_message_description">Si seleccioneu ambdues versions, s\'afegirà un numero al nom del fitxer local.</string>
     <string name="conflict_message_description_for_folder">Si seleccioneu ambdues versions, la carpeta local tindrà un número afegit al nom.</string>
@@ -345,7 +339,6 @@
     <string name="etm_background_jobs_stop_test_job">Aturar feina de prova</string>
     <string name="etm_migrations">Migracions (actualització d\'aplicació)</string>
     <string name="etm_preferences">Preferències</string>
-    <string name="etm_title">Mode de proves d\'enginyeria</string>
     <string name="etm_transfer">Transferència de fitxers</string>
     <string name="etm_transfer_enqueue_test_download">Afegeix a la cua una baixada de prova</string>
     <string name="etm_transfer_enqueue_test_upload">Afegeix a la cua una pujada de prova</string>
@@ -565,7 +558,6 @@
     <string name="new_media_folder_detected">S\'ha detectat la nova carpeta multimèdia %1$s.</string>
     <string name="new_media_folder_photos">fotografia</string>
     <string name="new_media_folder_videos">vídeo</string>
-    <string name="new_notification">Nova notificació</string>
     <string name="new_version_was_created">S\'ha creat una nova versió</string>
     <string name="no_actions">No hi ha cap acció per a aquest usuari</string>
     <string name="no_browser_available">No hi ha cap aplicació disponible per manegar els enllaços</string>
@@ -581,7 +573,6 @@
     <string name="note_icon_hint">Icona de nota</string>
     <string name="notification_action_failed">L\'execució de l\'acció ha fallat.</string>
     <string name="notification_channel_background_operations_description">Mostra les notificacions a interactuar com a resultat de les operacions en segon pla</string>
-    <string name="notification_channel_background_operations_name">Operacions en segon pla</string>
     <string name="notification_channel_download_description">Mostra el progrés de les baixades</string>
     <string name="notification_channel_download_name_short">Baixades</string>
     <string name="notification_channel_file_sync_description">Mostra el procés de sincronització de fitxers i els resultats</string>
@@ -598,16 +589,11 @@
     <string name="notification_icon_description">Hi ha notificacions sense llegir</string>
     <string name="notifications_no_results_headline">No hi ha notificacions</string>
     <string name="notifications_no_results_message">Si us plau, comproveu-ho més tard</string>
-    <string name="oc_file_list_adapter_offline_operation_description_text">Operació pendent</string>
     <string name="offline_mode">No hi ha connexió a internet</string>
     <string name="offline_mode_info_description">Fins i tot sense connexió a Internet, podeu organitzar les vostres carpetes i crear fitxers. Quan torneu a estar en línia, les accions pendents se sincronitzaran automàticament.</string>
-    <string name="offline_mode_info_title">Esteu fora de línia, però la feina continua</string>
     <string name="offline_operations_file_does_not_exists_yet">El fitxer encara no existeix. Pugeu primer el fitxer.</string>
-    <string name="offline_operations_worker_notification_conflict_text">Fitxer en conflicte: %s</string>
-    <string name="offline_operations_worker_notification_delete_offline_folder">Suprimeix el fitxer fora de línia</string>
     <string name="offline_operations_worker_notification_error_text">No es pot completar l\'operació fora de línia. %s</string>
     <string name="offline_operations_worker_notification_manager_ticker">Operacions fora de línia</string>
-    <string name="offline_operations_worker_notification_start_text">S\'estan iniciant les operacions fora de línia</string>
     <string name="oneHour">1 hora</string>
     <string name="online">En línia</string>
     <string name="online_status">Estat en línia</string>
@@ -629,7 +615,6 @@
     <string name="permission_storage_access">Es necessiten permisos addicionals per pujada i baixada de fitxers.</string>
     <string name="pick_contact_to_share_with">Trieu el contacte amb què compartir</string>
     <string name="picture_set_as_no_app">No s\'ha trobat cap aplicació per establir-hi la foto</string>
-    <string name="pin_home">Ancora a la pantalla d\'inici</string>
     <string name="pin_shortcut_label">Obre %1$s</string>
     <string name="placeholder_fileSize">389 KB</string>
     <string name="placeholder_filename">placeholder.txt</string>
@@ -763,10 +748,8 @@
     <string name="select_one_template">Seleccioneu una plantilla</string>
     <string name="select_template">Selecciona una plantilla</string>
     <string name="send">Envia</string>
-    <string name="send_share">Envia la compartició</string>
     <string name="sendbutton_description">Icona de botó d\'enviar</string>
     <string name="set_as">Configura com</string>
-    <string name="set_note">Estableix la nota</string>
     <string name="set_picture_as">Fes servir la foto com</string>
     <string name="set_status">Estableix l\'estat</string>
     <string name="set_status_message">Estableix un missatge d\'estat</string>
@@ -796,7 +779,6 @@
     <string name="share_permission_can_edit">Pot editar</string>
     <string name="share_permission_file_drop">Deixa anar el fitxer</string>
     <string name="share_permission_view_only">Només visualització</string>
-    <string name="share_permissions">Compartir permisos</string>
     <string name="share_remote_clarification">%1$s (remot)</string>
     <string name="share_room_clarification">%1$s(conversa)</string>
     <string name="share_send_new_email">Envia un correu nou</string>
