@@ -22,12 +22,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.net.toUri
-import com.google.android.material.snackbar.Snackbar
 import com.nextcloud.client.preferences.AppPreferencesImpl
-import com.owncloud.android.R
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.ui.dialog.StoragePermissionDialogFragment
-import com.owncloud.android.utils.theme.ViewThemeUtils
+import com.owncloud.android.utils.PermissionUtil.PERMISSIONS_EXTERNAL_STORAGE
+import com.owncloud.android.utils.PermissionUtil.REQUEST_CODE_MANAGE_ALL_FILES
 
 @Suppress("TooManyFunctions")
 object PermissionUtil {
@@ -113,7 +112,6 @@ object PermissionUtil {
     @JvmOverloads
     fun requestStoragePermissionIfNeeded(
         activity: AppCompatActivity,
-        viewThemeUtils: ViewThemeUtils,
         showStrictText: Boolean = false
     ) {
         if (checkStoragePermission(activity)) {
@@ -124,14 +122,11 @@ object PermissionUtil {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R && canRequestAllFilesPermission(activity)) {
             showStoragePermissionDialogFragment(activity, showStrictText)
         } else {
-            showStoragePermissionsSnackbarOrRequest(
-                activity,
-                viewThemeUtils
-            )
+            requestStoragePermissions(activity)
         }
     }
 
-    fun showStoragePermissionsSnackbarOrRequest(activity: Activity, viewThemeUtils: ViewThemeUtils) {
+    fun requestStoragePermissions(activity: Activity) {
         @Suppress("DEPRECATION")
         val preferences = AppPreferencesImpl.fromContext(activity)
         val permissions = getStoragePermissions()
@@ -139,8 +134,6 @@ object PermissionUtil {
         if (permissions.any { shouldShowRequestPermissionRationale(activity, it) } ||
             !preferences.isStoragePermissionRequested
         ) {
-            showStoragePermissionsSnackbar(activity, permissions, viewThemeUtils)
-        } else {
             requestPermissions(activity, permissions)
         }
     }
@@ -169,20 +162,6 @@ object PermissionUtil {
         )
     }
 
-    private fun showStoragePermissionsSnackbar(
-        activity: Activity,
-        permissions: Array<String>,
-        viewThemeUtils: ViewThemeUtils
-    ) {
-        Snackbar.make(
-            activity.findViewById(android.R.id.content),
-            R.string.permission_storage_access,
-            Snackbar.LENGTH_INDEFINITE
-        ).setAction(R.string.common_ok) {
-            requestPermissions(activity, permissions)
-        }.also { viewThemeUtils.material.themeSnackbar(it) }.show()
-    }
-
     @RequiresApi(Build.VERSION_CODES.R)
     private fun canRequestAllFilesPermission(context: Context) =
         manifestHasAllFilesPermission(context) && hasManageAllFilesActivity(context)
@@ -199,7 +178,7 @@ object PermissionUtil {
     @RequiresApi(Build.VERSION_CODES.R)
     private fun manifestHasAllFilesPermission(context: Context): Boolean {
         val packageInfo = context.packageManager.getPackageInfo(context.packageName, PackageManager.GET_PERMISSIONS)
-        return packageInfo?.requestedPermissions?.contains(Manifest.permission.MANAGE_EXTERNAL_STORAGE) ?: false
+        return packageInfo?.requestedPermissions?.contains(Manifest.permission.MANAGE_EXTERNAL_STORAGE) == true
     }
 
     @RequiresApi(Build.VERSION_CODES.R)

@@ -451,7 +451,7 @@ public class FileDisplayActivity extends FileActivity
                 if (dialog != null && dialog.isShowing()) {
                     dialog.dismiss();
                     getSupportFragmentManager().beginTransaction().remove(fragment).commitNowAllowingStateLoss();
-                    PermissionUtil.requestStoragePermissionIfNeeded(this, viewThemeUtils);
+                    PermissionUtil.requestStoragePermissionIfNeeded(this);
                 }
             }
         }
@@ -467,7 +467,7 @@ public class FileDisplayActivity extends FileActivity
             // storage permissions handled in onRequestPermissionsResult
             PermissionUtil.requestNotificationPermission(this);
         } else {
-            PermissionUtil.requestStoragePermissionIfNeeded(this, viewThemeUtils);
+            PermissionUtil.requestStoragePermissionIfNeeded(this);
         }
 
         if (IntentExtensionsKt.getParcelableArgument(getIntent(), OCFileListFragment.SEARCH_EVENT, SearchEvent.class) != null) {
@@ -544,7 +544,7 @@ public class FileDisplayActivity extends FileActivity
             case PermissionUtil.PERMISSIONS_POST_NOTIFICATIONS:
                 // handle notification permission on API level >= 33
                 // dialogue was dismissed -> prompt for storage permissions
-                PermissionUtil.requestStoragePermissionIfNeeded(this, viewThemeUtils);
+                PermissionUtil.requestStoragePermissionIfNeeded(this);
                 break;
             case PermissionUtil.PERMISSIONS_EXTERNAL_STORAGE:
                 // If request is cancelled, result arrays are empty.
@@ -684,7 +684,7 @@ public class FileDisplayActivity extends FileActivity
             .setTitle(R.string.re_enable_auto_upload)
             .setMessage(R.string.re_enable_auto_upload_desc)
             .setNegativeButton(R.string.dialog_close, (dialog, which) -> {
-                PermissionUtil.requestStoragePermissionIfNeeded(this, viewThemeUtils);
+                PermissionUtil.requestStoragePermissionIfNeeded(this);
                 PermissionUtil.requestMediaLocationPermission(this);
                 preferences.setAutoUploadGPlayNotificationShown(true);
                 dialog.dismiss();
