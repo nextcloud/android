@@ -53,4 +53,9 @@ class FileDataStorageManagerContentResolverIT : FileDataStorageManagerIT() {
         // check file count is correct
         Assert.assertEquals(MANY_FILES_AMOUNT, sut.getFolderContent(folderA, false).size)
     }
+
+    @Test
+    fun runQuery() {
+        testQuery()
+    }
 }

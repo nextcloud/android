@@ -13,6 +13,7 @@
  */
 package com.owncloud.android.datamodel;
 
+import android.accounts.AccountManager;
 import android.annotation.SuppressLint;
 import android.content.ContentProviderClient;
 import android.content.ContentProviderOperation;
@@ -65,6 +66,7 @@ import com.owncloud.android.lib.resources.status.E2EVersion;
 import com.owncloud.android.lib.resources.status.OCCapability;
 import com.owncloud.android.lib.resources.tags.Tag;
 import com.owncloud.android.operations.RemoteOperationFailedException;
+import com.owncloud.android.utils.FileSortOrder;
 import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.MimeType;
 import com.owncloud.android.utils.MimeTypeUtil;
@@ -87,8 +89,11 @@ import java.util.Set;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.VisibleForTesting;
+import androidx.sqlite.db.SimpleSQLiteQuery;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import kotlin.Pair;
+
+import static com.owncloud.android.lib.common.accounts.AccountUtils.Constants.KEY_USER_ID;
 
 @SuppressFBWarnings("CE")
 public class FileDataStorageManager {
@@ -453,6 +458,28 @@ public class FileDataStorageManager {
         } else {
             return new ArrayList<>();
         }
+    }
+
+    public List<OCFile> getFolderContent(OCFile directory,
+                                         boolean onlyOnDevice,
+                                         boolean showHiddenFiles,
+                                         String mimeType,
+                                         boolean limitToPersonalFiles,
+                                         FileSortOrder sortOrder) {
+        if (directory != null && directory.isFolder() && directory.fileExists()) {
+            return getFolderContent(directory.getFileId(),
+                                    onlyOnDevice,
+                                    showHiddenFiles,
+                                    mimeType,
+                                    limitToPersonalFiles,
+                                    sortOrder);
+        } else {
+            return new ArrayList<>();
+        }
+    }
+
+    public boolean getFolderIsEmpty(OCFile ocFile) {
+        return fileDao.getFolderIsEmpty(ocFile.getFileId());
     }
 
     public OCFile findDuplicatedFile(OCFile parentFolder, ServerFileInterface newFile) {
@@ -1166,6 +1193,72 @@ public class FileDataStorageManager {
         List<OCFile> folderContent = new ArrayList<>();
 
         List<FileEntity> files = fileDao.getFolderContent(parentId);
+        for (FileEntity fileEntity : files) {
+            OCFile child = createFileInstance(fileEntity);
+            if (!onlyOnDevice || child.existsOnDevice()) {
+                folderContent.add(child);
+            }
+        }
+
+        Log_OC.d(TAG, "getFolderContent - finished");
+        return folderContent;
+    }
+
+    private List<OCFile> getFolderContent(long fileId,
+                                          boolean onlyOnDevice,
+                                          boolean showHiddenFiles,
+                                          String mimeType,
+                                          boolean limitToPersonalFiles,
+                                          FileSortOrder sortOrder) {
+        Log_OC.d(TAG, "getFolderContent - start");
+        List<OCFile> folderContent = new ArrayList<>();
+
+        String query = "SELECT * FROM filelist WHERE parent = ?";
+        ArrayList<String> args = new ArrayList<>();
+        args.add(String.valueOf(fileId));
+
+        if (!showHiddenFiles) {
+            query += " AND filename NOT LIKE '.%'";
+        }
+
+        if (!TextUtils.isEmpty(mimeType)) {
+            query += " AND content_type LIKE ?";
+            args.add(mimeType + "%");
+        }
+
+        if (limitToPersonalFiles) {
+            String userId = AccountManager.get(MainApp.getAppContext()).getUserData(user.toPlatformAccount(), KEY_USER_ID);
+            query += " AND owner_id LIKE ? AND (permissions IS NULL OR (permissions NOT LIKE '%S%' AND permissions NOT LIKE '%M%'))";
+            args.add(userId);
+        }
+
+        // sort A-Z
+        if (sortOrder == FileSortOrder.SORT_A_TO_Z) {
+            query += " ORDER BY favorite DESC, filename ASC";
+        }
+
+        if (sortOrder == FileSortOrder.SORT_Z_TO_A) {
+            query += " ORDER BY favorite DESC, filename DESC";
+        }
+
+        if (sortOrder == FileSortOrder.SORT_OLD_TO_NEW) {
+            query += " ORDER BY favorite DESC, created ASC";
+        }
+
+        if (sortOrder == FileSortOrder.SORT_NEW_TO_OLD) {
+            query += " ORDER BY favorite DESC, created DESC";
+        }
+
+        if (sortOrder == FileSortOrder.SORT_SMALL_TO_BIG) {
+            query += " ORDER BY favorite DESC, content_length ASC";
+        }
+
+        if (sortOrder == FileSortOrder.SORT_BIG_TO_SMALL) {
+            query += " ORDER BY favorite DESC, content_length DESC";
+        }
+
+        List<FileEntity> files = fileDao.getFolderContentByQuery(new SimpleSQLiteQuery(query, args.toArray()));
+
         for (FileEntity fileEntity : files) {
             OCFile child = createFileInstance(fileEntity);
             if (!onlyOnDevice || child.existsOnDevice()) {
