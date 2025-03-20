@@ -38,9 +38,9 @@ import com.nextcloud.client.jobs.upload.FileUploadHelper;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.model.OCFileFilterType;
 import com.nextcloud.model.OfflineOperationType;
+import com.nextcloud.utils.LinkHelper;
 import com.nextcloud.utils.extensions.FileDataStorageManagerExtensionsKt;
 import com.nextcloud.utils.extensions.OCFileExtensionsKt;
-import com.nextcloud.utils.LinkHelper;
 import com.nextcloud.utils.extensions.ViewExtensionsKt;
 import com.nextcloud.utils.mdm.MDMConfig;
 import com.owncloud.android.MainApp;
@@ -92,14 +92,10 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 import java.util.UUID;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.stream.Collectors;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.VisibleForTesting;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -145,7 +141,6 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     private final long footerId = UUID.randomUUID().getLeastSignificantBits();
     private final long headerId = UUID.randomUUID().getLeastSignificantBits();
-    private final SyncedFolderProvider syncedFolderProvider;
     private RecyclerView recyclerView = null;
     private ArrayList<Recommendation> recommendedFiles = new ArrayList<>();
 
@@ -181,7 +176,6 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             .get(activity)
             .getUserData(this.user.toPlatformAccount(),
                          AccountUtils.Constants.KEY_USER_ID);
-        this.syncedFolderProvider = syncedFolderProvider;
         this.viewThemeUtils = viewThemeUtils;
         ocFileListDelegate = new OCFileListDelegate(FileUploadHelper.Companion.instance(),
                                                     activity,
@@ -707,44 +701,6 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         }
 
         return activity.getString(R.string.oc_file_list_adapter_offline_operation_description_text);
-    }
-
-    private final ExecutorService executorService = Executors.newCachedThreadPool();
-
-    private void configureThumbnail(ListViewHolder holder, OCFile file) {
-        final var context = MainApp.getAppContext();
-
-        if (file.isOfflineOperation()) {
-            if (file.isFolder()) {
-                Drawable icon = ContextCompat.getDrawable(context, R.drawable.ic_folder_offline);
-                holder.getThumbnail().setImageDrawable(icon);
-            } else {
-                executorService.execute(() -> {
-                    OfflineOperationEntity entity = mStorageManager.offlineOperationDao.getByPath(file.getDecryptedRemotePath());
-
-                    if (entity != null && entity.getType() != null && entity.getType() instanceof OfflineOperationType.CreateFile createFileOperation) {
-                        Bitmap bitmap = BitmapUtils.decodeSampledBitmapFromFile(createFileOperation.getLocalPath(), holder.getThumbnail().getWidth(), holder.getThumbnail().getHeight());
-                        if (bitmap == null) return;
-
-                        Bitmap thumbnail = BitmapUtils.addColorFilter(bitmap, Color.GRAY,100);
-                        activity.runOnUiThread(() -> holder.getThumbnail().setImageBitmap(thumbnail));
-                    }
-                });
-            }
-        } else {
-            boolean isAutoUpload = SyncedFolderProvider.isAutoUploadFolder(syncedFolderProvider, file, user);
-            boolean isDarkModeActive = preferences.isDarkModeEnabled();
-            Drawable icon = MimeTypeUtil.getOCFileIcon(file, context, viewThemeUtils, isAutoUpload, isDarkModeActive);
-            holder.getThumbnail().setImageDrawable(icon);
-
-            if (!file.isFolder()) {
-                ViewExtensionsKt.makeRounded(holder.getThumbnail(), context, 4);
-            }
-        }
-    }
-
-    public void onDestroy() {
-        executorService.shutdown();
     }
 
     @Override
