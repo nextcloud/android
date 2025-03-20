@@ -735,13 +735,15 @@ internal class BackgroundJobManagerImpl(
             .putLong(SyncWorker.FOLDER_ID, folder.fileId)
             .build()
 
-        val request = oneTimeRequestBuilder(SyncWorker::class, JOB_SYNC_FOLDER)
+        val workName = (JOB_SYNC_FOLDER + folder.fileId)
+
+        val request = oneTimeRequestBuilder(SyncWorker::class, workName)
             .addTag(tag)
             .setInputData(data)
             .setConstraints(constraints)
             .build()
 
-        workManager.enqueueUniqueWork(JOB_SYNC_FOLDER, ExistingWorkPolicy.REPLACE, request)
+        workManager.enqueueUniqueWork(workName, ExistingWorkPolicy.REPLACE, request)
     }
 
     override fun cancelSyncFolder(folderId: Long) {

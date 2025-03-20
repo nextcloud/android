@@ -21,12 +21,9 @@ import com.owncloud.android.datamodel.ForegroundServiceType
 import com.owncloud.android.ui.notifications.NotificationUtils
 import kotlinx.coroutines.delay
 
-class SyncWorkerNotificationManager(private val context: Context) {
+class SyncWorkerNotificationManager(private val context: Context, private val notificationId: Int) {
 
     private val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-
-    @Suppress("MagicNumber")
-    private val notificationId = 129
 
     private val channelId = NotificationUtils.NOTIFICATION_CHANNEL_DOWNLOAD
 
@@ -72,18 +69,11 @@ class SyncWorkerNotificationManager(private val context: Context) {
     }
 
     @Suppress("MagicNumber")
-    fun showStartNotification() {
-        val notification =
-            getNotification(context.getString(R.string.sync_worker_start_notification_title), progress = 0)
-        notificationManager.notify(notificationId, notification)
-    }
-
-    @Suppress("MagicNumber")
-    fun showProgressNotification(filename: String, currentIndex: Int, totalFileSize: Int) {
+    fun showProgressNotification(folderName: String, filename: String, currentIndex: Int, totalFileSize: Int) {
         val currentFileIndex = (currentIndex + 1)
         val title = "$currentFileIndex / $totalFileSize - $filename"
         val progress = (currentFileIndex * 100) / totalFileSize
-        val notification = getNotification(title, progress = progress)
+        val notification = getNotification(title = folderName, description = title, progress = progress)
         notificationManager.notify(notificationId, notification)
     }
 
@@ -102,10 +92,10 @@ class SyncWorkerNotificationManager(private val context: Context) {
         dismiss()
     }
 
-    fun getForegroundInfo(): ForegroundInfo {
+    fun getForegroundInfo(folderName: String): ForegroundInfo {
         return ForegroundServiceHelper.createWorkerForegroundInfo(
             notificationId,
-            getNotification(context.getString(R.string.sync_worker_start_notification_title), progress = 0),
+            getNotification(folderName, progress = 0),
             ForegroundServiceType.DataSync
         )
     }

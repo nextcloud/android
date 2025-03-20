@@ -48,28 +48,26 @@ class SyncWorker(
         }
     }
 
-    private val notificationManager = SyncWorkerNotificationManager(context)
+    private var notificationManager: SyncWorkerNotificationManager? = null
 
     @Suppress("TooGenericExceptionCaught")
     override suspend fun doWork(): Result {
+        val folderID = inputData.getLong(FOLDER_ID, -1)
+        if (folderID == -1L) {
+            return Result.failure()
+        }
+        val storageManager = FileDataStorageManager(user, context.contentResolver)
+        val folder = storageManager.getFileById(folderID) ?: return Result.failure()
+
+        notificationManager = SyncWorkerNotificationManager(context, folderID.toInt())
+
         Log_OC.d(TAG, "SyncWorker started")
 
-        val foregroundInfo = notificationManager.getForegroundInfo()
+        val foregroundInfo = notificationManager?.getForegroundInfo(folder.fileName) ?: return Result.failure()
         setForeground(foregroundInfo)
-
-        withContext(Dispatchers.Main) {
-            notificationManager.showStartNotification()
-        }
 
         return withContext(Dispatchers.IO) {
             try {
-                val folderID = inputData.getLong(FOLDER_ID, -1)
-                if (folderID == -1L) {
-                    return@withContext Result.failure()
-                }
-
-                val storageManager = FileDataStorageManager(user, context.contentResolver)
-                val folder = storageManager.getFileById(folderID) ?: return@withContext Result.failure()
                 val files = getFiles(folder, storageManager)
 
                 downloadingFiles = ArrayList(files).apply {
@@ -86,7 +84,7 @@ class SyncWorker(
                     }
 
                     withContext(Dispatchers.Main) {
-                        notificationManager.showProgressNotification(file.fileName, index, files.size)
+                        notificationManager?.showProgressNotification(folder.fileName, file.fileName, index, files.size)
                     }
 
                     val syncFileResult = syncFile(file, client)
@@ -96,7 +94,7 @@ class SyncWorker(
                 }
 
                 withContext(Dispatchers.Main) {
-                    notificationManager.showCompletionMessage(folder.fileName, result)
+                    notificationManager?.showCompletionMessage(folder.fileName, result)
                 }
 
                 if (result) {
@@ -112,7 +110,7 @@ class SyncWorker(
                 Result.failure()
             } finally {
                 downloadingFiles.clear()
-                notificationManager.dismiss()
+                notificationManager?.dismiss()
             }
         }
     }
@@ -132,7 +130,7 @@ class SyncWorker(
         val availableDiskSpace = FileOperationsHelper.getAvailableSpaceOnDevice()
 
         return if (availableDiskSpace < fileSizeInByte) {
-            notificationManager.showNotAvailableDiskSpace()
+            notificationManager?.showNotAvailableDiskSpace()
             false
         } else {
             true
