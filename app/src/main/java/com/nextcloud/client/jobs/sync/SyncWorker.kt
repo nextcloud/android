@@ -98,7 +98,9 @@ class SyncWorker(
                 }
 
                 if (result) {
-                    sendRefreshFolderEvent()
+                    withContext(Dispatchers.Main) {
+                        sendRefreshFolderEvent()
+                    }
                     Log_OC.d(TAG, "SyncWorker completed")
                     Result.success()
                 } else {
@@ -138,16 +140,18 @@ class SyncWorker(
     }
 
     @Suppress("DEPRECATION")
-    private fun syncFile(file: OCFile, client: OwnCloudClient): Boolean {
-        val operation = DownloadFileOperation(user, file, context).execute(client)
-        Log_OC.d(TAG, "Syncing file: " + file.decryptedRemotePath)
+    private suspend fun syncFile(file: OCFile, client: OwnCloudClient): Boolean {
+        return withContext(Dispatchers.IO) {
+            val operation = DownloadFileOperation(user, file, context).execute(client)
+            Log_OC.d(TAG, "Syncing file: " + file.decryptedRemotePath)
 
-        return if (operation.isSuccess) {
-            sendFileDownloadCompletionBroadcast(file)
-            downloadingFiles.remove(file)
-            true
-        } else {
-            false
+            if (operation.isSuccess) {
+                sendFileDownloadCompletionBroadcast(file)
+                downloadingFiles.remove(file)
+                true
+            } else {
+                false
+            }
         }
     }
 
