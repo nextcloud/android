@@ -132,9 +132,10 @@ public class LocalFileListFragment extends ExtendedListFragment implements
             });
 
             FileSortOrder sortOrder = preferences.getSortOrderByType(FileSortOrder.Type.localFileListView);
-            mSortButton.setText(DisplayUtils.getSortOrderStringId(sortOrder));
+            if (sortOrder != null) {
+                mSortButton.setText(DisplayUtils.getSortOrderStringId(sortOrder));
+            }
         }
-
 
         setGridSwitchButton();
 
@@ -317,7 +318,10 @@ public class LocalFileListFragment extends ExtendedListFragment implements
      * @param select <code>true</code> to select all, <code>false</code> to deselect all
      */
     public void selectAllFiles(boolean select) {
-        LocalFileListAdapter localFileListAdapter = (LocalFileListAdapter) getRecyclerView().getAdapter();
+        final var localFileListAdapter = (LocalFileListAdapter) getRecyclerView().getAdapter();
+        if (localFileListAdapter == null) {
+            return;
+        }
 
         if (select) {
             localFileListAdapter.addAllFilesToCheckedFiles();
