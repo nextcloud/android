@@ -104,9 +104,14 @@ open class ExtendedListFragment :
 
     private var mScaleGestureDetector: ScaleGestureDetector? = null
 
-    protected lateinit var mRefreshListLayout: SwipeRefreshLayout
-    protected lateinit var mSortButton: MaterialButton
-    protected lateinit var mSwitchGridViewButton: MaterialButton
+    @JvmField
+    protected var mRefreshListLayout: SwipeRefreshLayout? = null
+
+    @JvmField
+    protected var mSortButton: MaterialButton? = null
+
+    @JvmField
+    protected var mSwitchGridViewButton: MaterialButton? = null
 
     var mEmptyListContainer: ViewGroup? = null
     private var mEmptyListMessage: TextView? = null
@@ -139,7 +144,7 @@ open class ExtendedListFragment :
         get() = mRecyclerView!!
 
     open fun setLoading(enabled: Boolean) {
-        mRefreshListLayout.isRefreshing = enabled
+        mRefreshListLayout?.isRefreshing = enabled
     }
 
     open fun switchToGridView() {
@@ -309,10 +314,6 @@ open class ExtendedListFragment :
         Log_OC.d(TAG, "onCreateView")
 
         binding = ListFragmentBinding.inflate(inflater, container, false)
-        mRefreshListLayout = binding!!.swipeContainingList
-        mSortButton = requireActivity().findViewById(R.id.sort_button)
-        mSwitchGridViewButton = requireActivity().findViewById(R.id.switch_grid_view_button)
-
         val v = binding!!.getRoot()
 
         setupEmptyList()
@@ -338,10 +339,21 @@ open class ExtendedListFragment :
             }
         )
 
-        viewThemeUtils.androidx.themeSwipeRefreshLayout(mRefreshListLayout)
-        mRefreshListLayout.setOnRefreshListener(this)
-        viewThemeUtils.material.colorMaterialTextButton(mSortButton)
-        viewThemeUtils.material.colorMaterialTextButton(mSwitchGridViewButton)
+        mRefreshListLayout = binding?.swipeContainingList
+        mRefreshListLayout?.let {
+            viewThemeUtils.androidx.themeSwipeRefreshLayout(it)
+            it.setOnRefreshListener(this)
+        }
+
+        mSortButton = requireActivity().findViewById(R.id.sort_button)
+        mSortButton?.let {
+            viewThemeUtils.material.colorMaterialTextButton(it)
+        }
+
+        mSwitchGridViewButton = requireActivity().findViewById(R.id.switch_grid_view_button)
+        mSwitchGridViewButton?.let {
+            viewThemeUtils.material.colorMaterialTextButton(it)
+        }
 
         return v
     }
@@ -528,7 +540,7 @@ open class ExtendedListFragment :
      * @param enabled Desired state for capturing swipe gesture.
      */
     fun setSwipeEnabled(enabled: Boolean) {
-        mRefreshListLayout.setEnabled(enabled)
+        mRefreshListLayout?.setEnabled(enabled)
     }
 
     /**
@@ -707,7 +719,7 @@ open class ExtendedListFragment :
     }
 
     protected fun setGridSwitchButton() {
-        mSwitchGridViewButton.let {
+        mSwitchGridViewButton?.let {
             if (isGridEnabled) {
                 it.setContentDescription(getString(R.string.action_switch_list_view))
                 it.setIcon(ContextCompat.getDrawable(requireContext(), R.drawable.ic_view_list))

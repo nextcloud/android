@@ -125,23 +125,29 @@ public class LocalFileListFragment extends ExtendedListFragment implements
 
         listDirectory(mContainerActivity.getInitialDirectory());
 
-        mSortButton.setOnClickListener(v -> {
-            FileSortOrder sortOrder = preferences.getSortOrderByType(FileSortOrder.Type.localFileListView);
-            openSortingOrderDialogFragment(requireFragmentManager(), sortOrder);
-        });
+        if (mSortButton != null) {
+            mSortButton.setOnClickListener(v -> {
+                FileSortOrder sortOrder = preferences.getSortOrderByType(FileSortOrder.Type.localFileListView);
+                openSortingOrderDialogFragment(requireFragmentManager(), sortOrder);
+            });
 
-        FileSortOrder sortOrder = preferences.getSortOrderByType(FileSortOrder.Type.localFileListView);
-        mSortButton.setText(DisplayUtils.getSortOrderStringId(sortOrder));
+            FileSortOrder sortOrder = preferences.getSortOrderByType(FileSortOrder.Type.localFileListView);
+            mSortButton.setText(DisplayUtils.getSortOrderStringId(sortOrder));
+        }
+
 
         setGridSwitchButton();
-        mSwitchGridViewButton.setOnClickListener(v -> {
-            if (isGridEnabled()) {
-                switchToListView();
-            } else {
-                switchToGridView();
-            }
-            setGridSwitchButton();
-        });
+
+        if (mSwitchGridViewButton != null) {
+            mSwitchGridViewButton.setOnClickListener(v -> {
+                if (isGridEnabled()) {
+                    switchToListView();
+                } else {
+                    switchToGridView();
+                }
+                setGridSwitchButton();
+            });
+        }
 
         Log_OC.i(TAG, "onActivityCreated() stop");
     }
@@ -299,7 +305,9 @@ public class LocalFileListFragment extends ExtendedListFragment implements
     }
 
     public void sortFiles(FileSortOrder sortOrder) {
-        mSortButton.setText(DisplayUtils.getSortOrderStringId(sortOrder));
+        if (mSortButton != null) {
+            mSortButton.setText(DisplayUtils.getSortOrderStringId(sortOrder));
+        }
         mAdapter.setSortOrder(sortOrder);
     }
 

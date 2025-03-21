@@ -940,6 +940,10 @@ public class OCFileListFragment extends ExtendedListFragment implements
     }
 
     private void updateSortAndGridMenuItems() {
+        if (mSwitchGridViewButton == null || mSortButton == null) {
+            return;
+        }
+
         switch (menuItemAddRemoveValue) {
             case ADD_GRID_AND_SORT_WITH_SEARCH:
                 mSwitchGridViewButton.setVisibility(View.VISIBLE);
@@ -1583,7 +1587,9 @@ public class OCFileListFragment extends ExtendedListFragment implements
             }
         } else if (isSearchEventSet(searchEvent)) {
             handleSearchEvent(searchEvent);
-            mRefreshListLayout.setRefreshing(false);
+            if (mRefreshListLayout != null) {
+                mRefreshListLayout.setRefreshing(false);
+            }
         }
     }
 
@@ -1618,12 +1624,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
             setGridSwitchButton();
         }
 
-        if (mHideFab) {
-            setFabVisible(false);
-        } else {
-            setFabVisible(true);
-            // registerFabListener();
-        }
+        setFabVisible(!mHideFab);
 
         // FAB
         setFabEnabled(mFile != null && (mFile.canWrite() || mFile.isOfflineOperation()));
@@ -2120,7 +2121,9 @@ public class OCFileListFragment extends ExtendedListFragment implements
         if (searchFragment && isSearchEventSet(searchEvent)) {
             handleSearchEvent(searchEvent);
 
-            mRefreshListLayout.setRefreshing(false);
+            if (mRefreshListLayout != null) {
+                mRefreshListLayout.setRefreshing(false);
+            }
         } else {
             searchFragment = false;
             super.onRefresh();
