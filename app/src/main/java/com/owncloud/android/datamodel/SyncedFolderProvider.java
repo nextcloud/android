@@ -368,6 +368,8 @@ public class SyncedFolderProvider extends Observable {
                     ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_EXISTING)) == 1;
             boolean subfolderByDate = cursor.getInt(cursor.getColumnIndexOrThrow(
                     ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_SUBFOLDER_BY_DATE)) == 1;
+            long uploadMinFileAgeMs = cursor.getLong(cursor.getColumnIndexOrThrow(
+                    ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_UPLOAD_MIN_FILE_AGE_MS));
             String accountName = cursor.getString(cursor.getColumnIndexOrThrow(
                     ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_ACCOUNT));
             int uploadAction = cursor.getInt(cursor.getColumnIndexOrThrow(
@@ -400,6 +402,7 @@ public class SyncedFolderProvider extends Observable {
                                             accountName,
                                             uploadAction,
                                             nameCollisionPolicy,
+                                            uploadMinFileAgeMs,
                                             enabled,
                                             enabledTimestampMs,
                                             type,
@@ -428,6 +431,7 @@ public class SyncedFolderProvider extends Observable {
         cv.put(ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_ENABLED, syncedFolder.isEnabled());
         cv.put(ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_ENABLED_TIMESTAMP_MS, syncedFolder.getEnabledTimestampMs());
         cv.put(ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_SUBFOLDER_BY_DATE, syncedFolder.isSubfolderByDate());
+        cv.put(ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_UPLOAD_MIN_FILE_AGE_MS, syncedFolder.getUploadMinFileAgeMs());
         cv.put(ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_ACCOUNT, syncedFolder.getAccount());
         cv.put(ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_UPLOAD_ACTION, syncedFolder.getUploadAction());
         cv.put(ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_NAME_COLLISION_POLICY,
