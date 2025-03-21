@@ -21,7 +21,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.nextcloud.client.di.Injectable;
-import com.nextcloud.client.preferences.AppPreferences;
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.adapter.LocalFileListAdapter;
@@ -31,8 +30,6 @@ import com.owncloud.android.utils.FileSortOrder;
 
 import java.io.File;
 import java.util.List;
-
-import javax.inject.Inject;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.VisibleForTesting;
@@ -50,8 +47,6 @@ public class LocalFileListFragment extends ExtendedListFragment implements
     Injectable {
 
     private static final String TAG = LocalFileListFragment.class.getSimpleName();
-
-    @Inject AppPreferences preferences;
 
     /** Reference to the Activity which this fragment is attached to. For callbacks */
     private LocalFileListFragment.ContainerActivity mContainerActivity;
