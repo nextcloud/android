@@ -10,10 +10,10 @@
     <string name="action_edit">Editar</string>
     <string name="action_empty_notifications">Borrar todas las notificaciones</string>
     <string name="action_empty_trashbin">Eliminar papelera de reciclaje</string>
-    <string name="action_send_share">Enviar/Compartir</string>
     <string name="action_switch_grid_view">Vista de cuadrícula</string>
     <string name="action_switch_list_view">Vista de lista</string>
     <string name="actionbar_mkdir">Nueva carpeta</string>
+    <string name="actionbar_move_or_copy">Mover o copiar</string>
     <string name="actionbar_open_with">Abrir con</string>
     <string name="actionbar_search">Buscar</string>
     <string name="actionbar_see_details">Detalles</string>
@@ -29,12 +29,12 @@
     <string name="add_new_public_share">Agregar nuevo enlace público compartido</string>
     <string name="add_new_secure_file_drop">Agregar nueva carpeta segura de archivos</string>
     <string name="add_to_cloud">Agregar a %1$s</string>
-    <string name="advanced_settings">Configuración avanzada</string>
     <string name="allow_resharing">Permitir volver a compartir</string>
     <string name="app_config_base_url_title">URL Base</string>
     <string name="app_config_proxy_port_title">Puerto del proxy</string>
     <string name="app_widget_description">Muestra un widget del panel de control</string>
     <string name="appbar_search_in">Compartir en %s</string>
+    <string name="assistant_screen_delete_task_alert_dialog_title">Eliminar tarea</string>
     <string name="assistant_screen_task_delete_success_message">Tarea eliminada con éxito</string>
     <string name="associated_account_not_found">¡Cuenta asociada no encontrada!</string>
     <string name="auth_access_failed">Acceso fallido: %1$s</string>
@@ -290,7 +290,6 @@
     <string name="etm_background_jobs_stop_test_job">Detener prueba de trabajo</string>
     <string name="etm_migrations">Migraciones (actualización de la aplicación)</string>
     <string name="etm_preferences">Preferencias</string>
-    <string name="etm_title">Modo de prueba de ingeniería</string>
     <string name="etm_transfer">Transferencia de archivos</string>
     <string name="etm_transfer_enqueue_test_download">Agregar a la cola la descarga de prueba</string>
     <string name="etm_transfer_enqueue_test_upload">Agregar a la cola la carga de prueba</string>
@@ -476,7 +475,6 @@
     <string name="new_media_folder_detected">Nueva carpeta multimedia %1$s detectada.</string>
     <string name="new_media_folder_photos">foto</string>
     <string name="new_media_folder_videos">video</string>
-    <string name="new_notification">Nueva notificación</string>
     <string name="new_version_was_created">Se creó una nueva versión</string>
     <string name="no_actions">No hay acciones para este usuario</string>
     <string name="no_browser_available">No hay una aplicación disponible para manejar enlaces</string>
@@ -526,7 +524,6 @@
     <string name="permission_deny">Denegar</string>
     <string name="permission_storage_access">Se requieren permisos adicionales para cargar y descargar archivos. </string>
     <string name="picture_set_as_no_app">No se encontró una aplicación con la cual establecer la imagen</string>
-    <string name="pin_home">Anclar a la pantalla de inicio</string>
     <string name="pin_shortcut_label">Abrir %1$s</string>
     <string name="placeholder_fileSize">389 KB</string>
     <string name="placeholder_filename">marcadordeposición.txt</string>
@@ -643,10 +640,8 @@
     <string name="select_one_template">Por favor, selecciona una plantilla</string>
     <string name="select_template">Seleccionar plantilla</string>
     <string name="send">Enviar</string>
-    <string name="send_share">Enviar compartición</string>
     <string name="sendbutton_description">Ícono de botón de envío</string>
     <string name="set_as">Establecer Como</string>
-    <string name="set_note">Establecer nota</string>
     <string name="set_picture_as">Usar imagen como</string>
     <string name="set_status">Establecer estado</string>
     <string name="set_status_message">Establecer mensaje de estado</string>
@@ -677,7 +672,6 @@
     <string name="share_permission_file_drop">Soltar archivo</string>
     <string name="share_permission_secure_file_drop">Soltar archivo seguro</string>
     <string name="share_permission_view_only">Solo vista</string>
-    <string name="share_permissions">Permisos de compartición</string>
     <string name="share_remote_clarification">%1$s (remoto)</string>
     <string name="share_room_clarification">%1$s (conversación)</string>
     <string name="share_send_new_email">Enviar correo electrónico nuevo</string>

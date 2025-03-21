@@ -10,7 +10,6 @@
     <string name="action_edit">Aldatu</string>
     <string name="action_empty_notifications">Garbitu jakinarazpen guztiak</string>
     <string name="action_empty_trashbin">Hustu zakarrontzia</string>
-    <string name="action_send_share">Bidali/Partekatu</string>
     <string name="action_switch_grid_view">Sareta ikuspegia</string>
     <string name="action_switch_list_view">Zerrenda ikuspegia</string>
     <string name="actionbar_calendar_contacts_restore">Berreskuratu kontaktuak eta egutegia</string>
@@ -31,7 +30,6 @@
     <string name="add_new_public_share">Gehitu partekatzeko esteka berria</string>
     <string name="add_new_secure_file_drop">Gehitu fitxategi jaregite seguru berria</string>
     <string name="add_to_cloud">Gehitu %1$s</string>
-    <string name="advanced_settings">Ezarpen aurreratuak</string>
     <string name="allow_resharing">Baimendu birpartekatzea</string>
     <string name="app_config_base_url_title">Oinarri URLa</string>
     <string name="app_config_disable_clipboard_title">Desgaitu arbela</string>
@@ -49,7 +47,6 @@
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Idatzi testu bat</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Ziur zeregin hau ezabatu nahi duzula?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Ezabatu zeregina</string>
-    <string name="assistant_screen_loading">Zereginen zerrenda kargatzen ari da, itxaron mesedez</string>
     <string name="assistant_screen_no_task_available_text">Ez dago zereginik %s zeregin motarako, zeregin berri bat sor dezakezu behean eskuinean.</string>
     <string name="assistant_screen_task_create_fail_message">Errore bat gertatu da zeregina sortzean</string>
     <string name="assistant_screen_task_create_success_message">Zeregina behar bezala sortu da</string>
@@ -185,7 +182,6 @@
     <string name="confirmation_remove_folders_alert">Ziur zaude hautatutako elementuak eta beren edukiak ezabatu nahi dituzula?</string>
     <string name="confirmation_remove_local">Lokala bakarrik</string>
     <string name="conflict_dialog_error">Gatazkak konpontzeko elkarrizketa-koadroa ezin da sortu</string>
-    <string name="conflict_folder_headline">Karpeta gatazka</string>
     <string name="conflict_local_file">Fitxategi lokala</string>
     <string name="conflict_message_description">Bi bertsioak hautatzen badituzu, fitxategi lokalaren izenari zenbaki bat gehituko zaio.</string>
     <string name="conflict_message_description_for_folder">Bi bertsioak hautatzen badituzu, fitxategi lokalaren izenari zenbaki bat gehituko zaio.</string>
@@ -345,7 +341,6 @@
     <string name="etm_background_jobs_stop_test_job">Gelditu probako lana</string>
     <string name="etm_migrations">Migrazioak (aplikazioaren eguneraketa)</string>
     <string name="etm_preferences">Hobespenak</string>
-    <string name="etm_title">Ingeniaritzako proba modua </string>
     <string name="etm_transfer">Fitxategi-transferentzia</string>
     <string name="etm_transfer_enqueue_test_download">Jarri ilaran proba-deskarga</string>
     <string name="etm_transfer_enqueue_test_upload">Jarri ilaran proba-igoera</string>
@@ -563,7 +558,6 @@
     <string name="new_media_folder_detected">%1$s multimedia karpeta berria aurkitu da.</string>
     <string name="new_media_folder_photos">argazkia</string>
     <string name="new_media_folder_videos">bideoa</string>
-    <string name="new_notification">Jakinarazpen berria</string>
     <string name="new_version_was_created">Bertsio berria sortu da</string>
     <string name="no_actions">Ez dago ekintzarik erabiltzaile honentzat</string>
     <string name="no_browser_available">Ez dago eskuragarri estekak kudeatzeko aplikaziorik</string>
@@ -579,7 +573,6 @@
     <string name="note_icon_hint">Oharraren ikonoa</string>
     <string name="notification_action_failed">Huts egin du ekintza exekutatzean.</string>
     <string name="notification_channel_background_operations_description">Erakutsi jakinarazpenak atzeko planoko eragiketen emaitzekin elkarreragiteko</string>
-    <string name="notification_channel_background_operations_name">Atzeko planoko eragiketak</string>
     <string name="notification_channel_download_description">Erakutsi deskarga egoera</string>
     <string name="notification_channel_download_name_short">Deskargak</string>
     <string name="notification_channel_file_sync_description">Fitxategien sinkronizazioaren aurrerapena eta emaitzak erakusten ditu</string>
@@ -596,17 +589,12 @@
     <string name="notification_icon_description">Irakurri gabeko jakinarazpenak daude</string>
     <string name="notifications_no_results_headline">Jakinarazpenik ez</string>
     <string name="notifications_no_results_message">Begiratu beranduago, mesedez.</string>
-    <string name="oc_file_list_adapter_offline_operation_description_text">Eragiketaren zain</string>
     <string name="oc_file_list_adapter_offline_operation_remove_description_text">Kentze eragiketaren zain</string>
     <string name="offline_mode">Internet konexiorik ez</string>
     <string name="offline_mode_info_description">Interneteko konexiorik gabe ere, zure karpetak antola ditzakezu, fitxategiak sortu. Konektatuta berriro zaudenean, zain dauden ekintzak automatikoki sinkronizatuko dira.</string>
-    <string name="offline_mode_info_title">Lineaz kanpo zaude, baina lanak jarraitzen du</string>
     <string name="offline_operations_file_does_not_exists_yet">Fitxategia ez dago oraindik. Kargatu fitxategia lehenik.</string>
-    <string name="offline_operations_worker_notification_conflict_text">Karpeta gatazkan: %s</string>
-    <string name="offline_operations_worker_notification_delete_offline_folder">Ezabatu lineaz kanpoko karpeta</string>
     <string name="offline_operations_worker_notification_error_text">Lineaz kanpoko eragiketa ezin da osatu.. %s</string>
     <string name="offline_operations_worker_notification_manager_ticker">Lineaz kanpoko eragiketak</string>
-    <string name="offline_operations_worker_notification_start_text">Lineaz kanpoko eragiketak hasten</string>
     <string name="oneHour">Ordu 1</string>
     <string name="online">Linean</string>
     <string name="online_status">Online egoera</string>
@@ -628,7 +616,6 @@
     <string name="permission_storage_access">Fitxategiak kargatu eta deskargatzeko baimen gehigarriak behar dira</string>
     <string name="pick_contact_to_share_with">Aukeratu partekatzeko kontaktua</string>
     <string name="picture_set_as_no_app">Ez da aplikaziorik aurkitu irudia ezartzeko</string>
-    <string name="pin_home">Ainguratu hasierako pantailan</string>
     <string name="pin_shortcut_label">Ireki %1$s</string>
     <string name="placeholder_fileSize">389 KB</string>
     <string name="placeholder_filename">leku-marka.txt</string>
@@ -774,16 +761,13 @@
     <string name="select_one_template">Hautatu txantiloi bat</string>
     <string name="select_template">Hautatu txantiloia</string>
     <string name="send">Bidali</string>
-    <string name="send_share">Bidali partekatzea</string>
     <string name="sendbutton_description">Bidali botoiaren ikonoa</string>
     <string name="set_as">Ezarri honela</string>
-    <string name="set_note">Ezarri oharra</string>
     <string name="set_picture_as">Erabili irudia honela</string>
     <string name="set_status">Ezarri egoera</string>
     <string name="set_status_message">Ezarri egoera mezua</string>
     <string name="setup_e2e">Muturretik muturrerako enkriptatzea konfiguratzean, ausazko 12 hitz mnemotekniko jasoko dituzu, zure fitxategiak beste gailu batzuetan irekitzeko beharko dituzunak. Hau gailu honetan bakarrik gordeko da eta pantaila honetan berriro ikusi ahal izango duzu. Apuntatu leku seguru batean!</string>
     <string name="share">Partekatu</string>
-    <string name="share_copy_link">Partekatu eta kopiatu esteka</string>
     <string name="share_dialog_title">Partekatzea</string>
     <string name="share_download_limit">Ezarri deskarga muga</string>
     <string name="share_expiration_date_format">%1$s</string>
@@ -810,7 +794,6 @@
     <string name="share_permission_file_drop">Fitxategiak jaregin</string>
     <string name="share_permission_secure_file_drop">Fitxategi-jartze segurua</string>
     <string name="share_permission_view_only">Ikusi soilik</string>
-    <string name="share_permissions">Partekatze baimenak</string>
     <string name="share_remote_clarification">%1$s (urrunekoa)</string>
     <string name="share_room_clarification">%1$s (elkarrizketa)</string>
     <string name="share_search">Izena, federatutako hodei IDa edo helbide elektronikoa...</string>

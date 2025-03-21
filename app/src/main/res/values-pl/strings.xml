@@ -10,7 +10,6 @@
     <string name="action_edit">Edytuj</string>
     <string name="action_empty_notifications">Wyczyść wszystkie powiadomienia</string>
     <string name="action_empty_trashbin">Opróżnij kosz</string>
-    <string name="action_send_share">Wyślij/Udostępnij</string>
     <string name="action_switch_grid_view">Widok siatki</string>
     <string name="action_switch_list_view">Widok listy</string>
     <string name="actionbar_calendar_contacts_restore">Przywróć kontakty i kalendarz</string>
@@ -49,7 +48,6 @@
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Wpisz jakiś tekst</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Czy na pewno chcesz usunąć to zadanie?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Usuń zadanie</string>
-    <string name="assistant_screen_loading">Trwa wczytywanie listy zadań. Proszę czekać</string>
     <string name="assistant_screen_no_task_available_text">Brak dostępnych zadań dla typu zadania %s. Możesz utworzyć nowe zadanie w prawym dolnym rogu.</string>
     <string name="assistant_screen_task_create_fail_message">Wystąpił błąd podczas tworzenia zadania</string>
     <string name="assistant_screen_task_create_success_message">Zadanie pomyślnie utworzone</string>
@@ -187,7 +185,6 @@
     <string name="confirmation_remove_folders_alert">Czy na pewno chcesz usunąć wybrane pozycje i ich zawartość?</string>
     <string name="confirmation_remove_local">Tylko lokalnie</string>
     <string name="conflict_dialog_error">Nie można utworzyć okna dialogowego rozwiązywania konfliktów</string>
-    <string name="conflict_folder_headline">Konflikt katalogów</string>
     <string name="conflict_local_file">Plik lokalny</string>
     <string name="conflict_message_description">Jeśli wybierzesz obie wersje, to do nazwy pliku lokalnego zostanie dodany numer.</string>
     <string name="conflict_message_description_for_folder">Jeżeli wybierzesz obie wersje, to do nazwy katalogu lokalnego zostanie dodany numer</string>
@@ -305,6 +302,7 @@
     <string name="end_to_end_encryption_confirm_button">Włącz szyfrowanie</string>
     <string name="end_to_end_encryption_decrypting">Odszyfrowywanie…</string>
     <string name="end_to_end_encryption_dialog_close">Zamknij</string>
+    <string name="end_to_end_encryption_enter_passphrase_to_access_files">Wprowadź hasło, aby uzyskać dostęp do plików</string>
     <string name="end_to_end_encryption_folder_not_empty">Ten katalog nie jest pusty.</string>
     <string name="end_to_end_encryption_generating_keys">Generowanie nowych kluczy</string>
     <string name="end_to_end_encryption_keywords_description">Wszystkie 12-ście słów utworzy bardzo trudne hasło, które pozwoli na przeglądanie i korzystanie z zaszyfrowanych plików. Zapisz je i przechowuj w bezpiecznym miejscu.</string>
@@ -353,7 +351,6 @@
     <string name="etm_background_jobs_stop_test_job">Zatrzymaj zadanie testowe</string>
     <string name="etm_migrations">Migracje (aktualizacja aplikacji)</string>
     <string name="etm_preferences">Preferencje</string>
-    <string name="etm_title">Tryb testowy techniczny</string>
     <string name="etm_transfer">Transfer pliku</string>
     <string name="etm_transfer_enqueue_test_download">Dodaj pobieranie testowe do kolejki</string>
     <string name="etm_transfer_enqueue_test_upload">Dodaj wysyłanie testowe do kolejki</string>
@@ -575,7 +572,6 @@
     <string name="new_media_folder_detected">Wykryty nowy katalog multimediów %1$s.</string>
     <string name="new_media_folder_photos">zdjęcie</string>
     <string name="new_media_folder_videos">wideo</string>
-    <string name="new_notification">Nowe powiadomienie</string>
     <string name="new_version_was_created">Utworzono nową wersję</string>
     <string name="no_actions">Brak aktywności dla tego użytkownika</string>
     <string name="no_browser_available">Brak aplikacji obsługującej odnośniki</string>
@@ -591,7 +587,6 @@
     <string name="note_icon_hint">Ikona notatki</string>
     <string name="notification_action_failed">Wykonanie akcji nie powiodło się.</string>
     <string name="notification_channel_background_operations_description">Pokaż powiadomienia o interakcji z wynikami operacji wykonywanych w tle</string>
-    <string name="notification_channel_background_operations_name">Operacje w tle</string>
     <string name="notification_channel_download_description">Pokazuje postęp pobierania</string>
     <string name="notification_channel_download_name_short">Pobrane</string>
     <string name="notification_channel_file_sync_description">Pokazuje postęp synchronizacji plików i jej wynik</string>
@@ -608,17 +603,12 @@
     <string name="notification_icon_description">Nieprzeczytane powiadomienia</string>
     <string name="notifications_no_results_headline">Brak powiadomień</string>
     <string name="notifications_no_results_message">Sprawdź później.</string>
-    <string name="oc_file_list_adapter_offline_operation_description_text">Trwające działania</string>
     <string name="oc_file_list_adapter_offline_operation_remove_description_text">Trwa usuwanie</string>
     <string name="offline_mode">Brak połączenia z Internetem</string>
     <string name="offline_mode_info_description">Nawet bez połączenia internetowego możesz organizować swoje katalogi, tworzyć pliki. Gdy tylko wrócisz do połączenia z internetem, Twoje oczekujące działania zostaną automatycznie zsynchronizowane.</string>
-    <string name="offline_mode_info_title">Jesteś offline, ale praca trwa</string>
     <string name="offline_operations_file_does_not_exists_yet">Plik jeszcze nie istnieje. Wyślij najpierw plik.</string>
-    <string name="offline_operations_worker_notification_conflict_text">Konfliktowy katalog: %s</string>
-    <string name="offline_operations_worker_notification_delete_offline_folder">Usuń katalog offline</string>
     <string name="offline_operations_worker_notification_error_text">Operacja offline nie może zostać ukończona. %s</string>
     <string name="offline_operations_worker_notification_manager_ticker">Operacje offline</string>
-    <string name="offline_operations_worker_notification_start_text">Rozpoczynam operacje offline</string>
     <string name="oneHour">1 godzina</string>
     <string name="online">Online</string>
     <string name="online_status">Status online</string>
@@ -641,7 +631,6 @@
     <string name="permission_storage_access">Wymagane są dodatkowe uprawnienia do pobierania i wysyłania plików.</string>
     <string name="pick_contact_to_share_with">Wybierz kontakt, któremu chcesz udostępnić</string>
     <string name="picture_set_as_no_app">Nie znaleziono aplikacji do ustawienia obrazu</string>
-    <string name="pin_home">Przypnij do ekranu głównego</string>
     <string name="pin_shortcut_label">Otwórz %1$s</string>
     <string name="placeholder_fileSize">389 KB</string>
     <string name="placeholder_filename">tekst_zastępczy.txt</string>
@@ -790,16 +779,13 @@
     <string name="select_one_template">Wybierz jeden szablon</string>
     <string name="select_template">Wybierz szablon</string>
     <string name="send">Wyślij</string>
-    <string name="send_share">Wyślij udostępnienie</string>
     <string name="sendbutton_description">Ikona przycisku wysyłania</string>
     <string name="set_as">Ustaw jako</string>
-    <string name="set_note">Ustaw notatkę</string>
     <string name="set_picture_as">Użyj obrazu jako</string>
     <string name="set_status">Ustaw status</string>
     <string name="set_status_message">Ustaw komunikat statusu</string>
     <string name="setup_e2e">Podczas konfigurowania szyfrowania typu end-to-end otrzymasz losowy mnemonik składający się z 12-stu słów, który będzie potrzebny do otwierania plików na innych urządzeniach. Będzie on przechowywany tylko na tym urządzeniu i można go ponownie wyświetlić na tym ekranie. Zapisz go w bezpiecznym miejscu!</string>
     <string name="share">Udostępnij</string>
-    <string name="share_copy_link">Udostępnij i skopiuj odnośnik</string>
     <string name="share_dialog_title">Udostępnianie</string>
     <string name="share_download_limit">Ustaw limit pobierania</string>
     <string name="share_expiration_date_format">%1$s</string>
@@ -826,7 +812,6 @@
     <string name="share_permission_file_drop">Upuść plik</string>
     <string name="share_permission_secure_file_drop">Bezpieczne upuszczenie pliku</string>
     <string name="share_permission_view_only">Tylko podgląd</string>
-    <string name="share_permissions">Uprawnienia udostępniania</string>
     <string name="share_remote_clarification">%1$s (zdalny)</string>
     <string name="share_room_clarification">%1$s (rozmowa)</string>
     <string name="share_search">Nazwa, ID chmury stowarzyszonej lub adres e-mail</string>

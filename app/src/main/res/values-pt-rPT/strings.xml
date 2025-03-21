@@ -10,10 +10,11 @@
     <string name="action_edit">Editar</string>
     <string name="action_empty_notifications">Limpar todas as notifcações</string>
     <string name="action_empty_trashbin">Esvaziar a reciclagem</string>
-    <string name="action_send_share">Enviar/Partilhar</string>
     <string name="action_switch_grid_view">Visualização em grelha</string>
     <string name="action_switch_list_view">Visualização em lista</string>
+    <string name="actionbar_calendar_contacts_restore">Restaurar contatos e calendário</string>
     <string name="actionbar_mkdir">Nova pasta</string>
+    <string name="actionbar_move_or_copy">Mover ou copiar</string>
     <string name="actionbar_open_with">Abrir com</string>
     <string name="actionbar_search">Procura</string>
     <string name="actionbar_see_details">Detalhes</string>
@@ -29,10 +30,21 @@
     <string name="add_new_public_share">Adicionar nova hiperligação de partilha pública</string>
     <string name="add_new_secure_file_drop">Adicionar nova entrega segura de ficheiros</string>
     <string name="add_to_cloud">Adicionar a %1$s</string>
-    <string name="advanced_settings">Definições Avançadas </string>
+    <string name="advanced_settings">Definições avançadas</string>
     <string name="allow_resharing">Permitir repartilha</string>
+    <string name="app_config_base_url_title">URL Base</string>
+    <string name="app_config_disable_clipboard_title">Desativar Área de Transferência</string>
+    <string name="app_config_disable_intro_title">Desativar Introdução</string>
+    <string name="app_config_disable_log_title">Desativar Registo</string>
+    <string name="app_config_disable_more_external_site_title">Desativar Sites Externos</string>
+    <string name="app_config_disable_multiaccount_title">Desativar Múltiplas Contas</string>
+    <string name="app_config_disable_sharing_title">Desativar Partilha</string>
+    <string name="app_config_enforce_protection_title">Aplicar Proteção</string>
+    <string name="app_config_proxy_host_title">Nome do Hospedeiro do Proxy</string>
+    <string name="app_config_proxy_port_title">Porta do Proxy</string>
     <string name="app_widget_description">Mostra um \'\'widget\'\' do painel</string>
     <string name="appbar_search_in">Procurar em %s</string>
+    <string name="assistant_screen_add_task_alert_dialog_title">Adicionar nova tarefa</string>
     <string name="associated_account_not_found">Conta associada não encontrada!</string>
     <string name="auth_access_failed">Acesso falhou: %1$s</string>
     <string name="auth_account_does_not_exist">A conta ainda não foi adicionada a este dispositivo</string>
@@ -91,7 +103,7 @@
     <string name="choose_remote_folder">Escolher pasta remota…</string>
     <string name="choose_template_helper_text">Por favor, escolha um modelo e insira um nome de ficheiro.</string>
     <string name="choose_which_file">Escolha o ficheiro a manter!</string>
-    <string name="choose_widget">Escolher widget</string>
+    <string name="choose_widget">Escolher Widget</string>
     <string name="clear_notifications_failed">Falha ao limpar notificações.</string>
     <string name="clear_status_message">Limpar mensagem de estado</string>
     <string name="clear_status_message_after">Limpar mensagem de estado após</string>
@@ -179,7 +191,7 @@
     <string name="create_new_spreadsheet">Nova folha de calculo</string>
     <string name="credentials_disabled">Credenciais desativadas</string>
     <string name="daily_backup">Cópia de segurança diária </string>
-    <string name="data_to_back_up">Dados para cópia de segurança</string>
+    <string name="data_to_back_up">Dados para a cópia de segurança</string>
     <string name="default_credentials_wrong">Credenciais incorretas</string>
     <string name="delete_account">Remover conta</string>
     <string name="delete_entries">Apagar entradas</string>
@@ -308,7 +320,7 @@
     <string name="file_keep">Manter</string>
     <string name="file_list_empty">Envie algum conteúdo ou sincronize com os seus dispositivos</string>
     <string name="file_list_empty_favorite_headline">Ainda sem favoritos</string>
-    <string name="file_list_empty_favorites_filter_list">Ficheiros e pastas que marcou como favoritos aparecem aqui.</string>
+    <string name="file_list_empty_favorites_filter_list">Os ficheiros e as pastas que marcou como favoritos serão mostradas aqui.</string>
     <string name="file_list_empty_gallery">Não foram encontrados vídeos ou imagens</string>
     <string name="file_list_empty_headline">Sem ficheiros aqui</string>
     <string name="file_list_empty_headline_search">Sem resultados nesta pasta</string>
@@ -319,17 +331,17 @@
     <string name="file_list_empty_search">Poderá estar numa pasta diferente?</string>
     <string name="file_list_empty_shared">Os ficheiros e as pastas que partilhou serão mostrados aqui.</string>
     <string name="file_list_empty_shared_headline">Ainda sem partilhas</string>
-    <string name="file_list_empty_unified_search_no_results">Nenhum resultado encontrado para a sua consulta</string>
+    <string name="file_list_empty_unified_search_no_results">Não foram encontrados resultados para a sua consulta</string>
     <string name="file_list_folder">pasta</string>
     <string name="file_list_loading">A carregar…</string>
     <string name="file_list_no_app_for_file_type">Nenhuma aplicação para usar este tipo de ficheiro.</string>
     <string name="file_list_seconds_ago">há segundos</string>
     <string name="file_management_permission">Permissões necessárias</string>
     <string name="file_management_permission_optional">Permissões de armazenamento</string>
-    <string name="file_management_permission_text">%1$s precisa de permissões de gestão de ficheiros para carregar ficheiros. Pode escolher acesso total a todos os ficheiros ou acesso só de leitura a fotografias e vídeos.</string>
+    <string name="file_management_permission_text">%1$s precisa de permissões de gestão de ficheiros para enviar os ficheiros. Pode escolher o acesso completo para todos os ficheiros ou acesso só de leitura para as fotografias e vídeos.</string>
     <string name="file_migration_checking_destination">Verificando destino…</string>
     <string name="file_migration_cleaning">Limpando…</string>
-    <string name="file_migration_dialog_title">Atualizar a pasta de armazenamento de dados</string>
+    <string name="file_migration_dialog_title">A atualizar a pasta de armazenamento de dados</string>
     <string name="file_migration_directory_already_exists">Pasta já existe. Escolha uma das seguintes opções:</string>
     <string name="file_migration_failed_dir_already_exists">A pasta já existe na Nextcloud </string>
     <string name="file_migration_failed_not_enough_space">É necessário mais espaço</string>
@@ -369,7 +381,7 @@
     <string name="folder_list_empty_headline">Sem pastas aqui</string>
     <string name="folder_picker_choose_button_text">Escolher</string>
     <string name="folder_picker_choose_caption_text">Escolher pasta de destino</string>
-    <string name="folder_picker_copy_button_text">copiar</string>
+    <string name="folder_picker_copy_button_text">Copiar</string>
     <string name="folder_picker_move_button_text">Mover</string>
     <string name="forbidden_permissions">Não tem permissão %s</string>
     <string name="forbidden_permissions_copy">para copiar este ficheiro</string>
@@ -398,11 +410,11 @@
     <string name="image_editor_file_edited_suffix">editado</string>
     <string name="image_editor_flip_horizontal">Inverter horizontalmente</string>
     <string name="image_editor_flip_vertical">Inverter verticalmente</string>
-    <string name="image_editor_rotate_ccw">Rodar no sentido anti-horário</string>
-    <string name="image_editor_rotate_cw">Rodar no sentido horário</string>
+    <string name="image_editor_rotate_ccw">Rodar no sentido trigonométrico</string>
+    <string name="image_editor_rotate_cw">Rodar no sentido antitrigonométrico</string>
     <string name="image_editor_unable_to_edit_image">Não é possível editar a imagem.</string>
     <string name="image_preview_filedetails">Detalhes do ficheiro</string>
-    <string name="image_preview_image_taking_conditions">Condições de captação de imagens</string>
+    <string name="image_preview_image_taking_conditions">Condições de captação de imagem</string>
     <string name="image_preview_unit_fnumber">ƒ/%s</string>
     <string name="image_preview_unit_iso">ISO %s</string>
     <string name="image_preview_unit_megapixel">%s MP</string>
@@ -417,10 +429,10 @@
     <string name="label_empty">O nome não pode ficar em branco</string>
     <string name="last_backup">Última cópia de segurança: %1$s</string>
     <string name="link">Hiperligação</string>
-    <string name="link_name">Nome da hiperligação</string>
+    <string name="link_name">Nome da Hiperligação</string>
     <string name="link_share_allow_upload_and_editing">Permitir envios e edição</string>
     <string name="link_share_editing">A editar</string>
-    <string name="link_share_file_drop">Pasta de carregamento apenas</string>
+    <string name="link_share_file_drop">Largar ficheiro (apenas envio)</string>
     <string name="link_share_view_only">Visualizar apenas</string>
     <string name="list_layout">Layout listado</string>
     <string name="load_more_results">Carregar mais resultados</string>
@@ -432,7 +444,7 @@
     <string name="lock_expiration_info">Expira: %1$s</string>
     <string name="lock_file">Bloquear ficheiro </string>
     <string name="locked_by">Bloqueado por %1$s</string>
-    <string name="locked_by_app">Bloqueado por aplicação %1$s</string>
+    <string name="locked_by_app">Bloqueado pela aplicação %1$s</string>
     <string name="log_send_mail_subject">%1$s registos de aplicação Android</string>
     <string name="log_send_no_mail_app">Não foi encontrada nenhuma aplicação para o envio de registos. Por favor, Instale um cliente de correio eletrónico.</string>
     <string name="logged_in_as">Autenticado como %1$s</string>
@@ -480,7 +492,6 @@
     <string name="new_media_folder_detected">Nova %1$s pasta multimédia detectada.</string>
     <string name="new_media_folder_photos">photo</string>
     <string name="new_media_folder_videos">vídeo</string>
-    <string name="new_notification">Nova notificação</string>
     <string name="new_version_was_created">Uma nova versão foi criada</string>
     <string name="no_actions">Sem ações para este utilizador</string>
     <string name="no_browser_available">Nenhuma aplicação disponível para lidar com links</string>
@@ -527,7 +538,6 @@
     <string name="permission_deny">Negar</string>
     <string name="permission_storage_access">Necessário permissões adicionais para enviar e transferir ficheiros.</string>
     <string name="picture_set_as_no_app">Nenhuma aplicação encontrada para definir a imagem</string>
-    <string name="pin_home">Afixar no ecrã Início</string>
     <string name="pin_shortcut_label">Abrir %1$s</string>
     <string name="placeholder_fileSize">389 KB</string>
     <string name="placeholder_filename">placeholder.txt</string>
@@ -535,7 +545,7 @@
     <string name="placeholder_sentence">Isto é uma variável</string>
     <string name="placeholder_timestamp">2012/05/18 12:23</string>
     <string name="player_stop">parar</string>
-    <string name="player_toggle">substituir</string>
+    <string name="player_toggle">alternar</string>
     <string name="power_save_check_dialog_message">Desabilitar a verificação de poupança de energia pode resultar no envio de ficheiros quando a carga da bateria está baixa!</string>
     <string name="pref_behaviour_entries_delete_file">eliminado</string>
     <string name="pref_behaviour_entries_keep_file">mantido na pasta original</string>
@@ -608,6 +618,7 @@
     <string name="recommend_subject">Teste %1$s no seu dispositivo!</string>
     <string name="recommend_text">Eu quero convidar-te para utilizares %1$sno teu dispositivo.\nTransfere aqui: %2$s</string>
     <string name="recommend_urls">%1$s ou %2$s</string>
+    <string name="recommended_files_title">Ficheiros recomendados</string>
     <string name="refresh_content">Atualizar conteúdo</string>
     <string name="reload">Recarregar</string>
     <string name="remote">(remoto)</string>
@@ -626,14 +637,14 @@
     <string name="restore_backup">Restaurar cópia de segurança </string>
     <string name="restore_button_description">Restaurar ficheiro apagado</string>
     <string name="restore_item">Restaurar</string>
-    <string name="restore_selected">Restaurar o selecionado</string>
+    <string name="restore_selected">Restaurar selecionado</string>
     <string name="retrieving_file">A obter o ficheiro…</string>
     <string name="retry">Repetir</string>
     <string name="richdocuments_failed_to_load_document">Falha ao carregar o documento!</string>
     <string name="scanQR_description">acesso através de código QR</string>
-    <string name="scan_page">Digitalizar a página</string>
+    <string name="scan_page">Digitalizar página</string>
     <string name="screenshot_01_gridView_heading">A proteger os seus dados</string>
-    <string name="screenshot_01_gridView_subline">aplicações de produtividade instaladas localmente</string>
+    <string name="screenshot_01_gridView_subline">produtividade hospedadas localmente</string>
     <string name="screenshot_02_listView_heading">Navegar e partilhar</string>
     <string name="screenshot_02_listView_subline">todas as ações na ponta dos seus dedos</string>
     <string name="screenshot_03_drawer_heading">Atividades, partilhas, ...</string>
@@ -644,21 +655,19 @@
     <string name="screenshot_06_davdroid_subline">Sincronizar com DAVx5</string>
     <string name="search_error">Erro ao obter resultados da pesquisa</string>
     <string name="select_all">Selecionar tudo</string>
-    <string name="select_media_folder">Definir pasta multimédia</string>
+    <string name="select_media_folder">Definir pasta de multimédia</string>
     <string name="select_one_template">Por favor, selecione um modelo</string>
     <string name="select_template">Seleccionar modelo</string>
     <string name="send">Enviar</string>
-    <string name="send_share">Enviar Partilha</string>
     <string name="sendbutton_description">Botão de envio</string>
     <string name="set_as">Definir como</string>
-    <string name="set_note">Definir Nota</string>
     <string name="set_picture_as">Usar imagem como</string>
     <string name="set_status">Definir estado</string>
     <string name="set_status_message">Defina a mensagem de estado</string>
     <string name="setup_e2e">Durante a configuração da encriptação ponta-a-ponta, receberá uma mnemónica aleatória de 12 palavras, de que necessitará para abrir os seus ficheiros noutros dispositivos. Ela só será guardada neste dispositivo e pode ser mostrada novamente neste ecrã. Por favor, anote-a num local seguro!</string>
     <string name="share">Partilhar</string>
     <string name="share_dialog_title">Partilha</string>
-    <string name="share_download_limit">Definir limite de descargas</string>
+    <string name="share_download_limit">Definir limite de transferências</string>
     <string name="share_expiration_date_format">%1$s</string>
     <string name="share_expiration_date_label">Expira %1$s</string>
     <string name="share_file">Partilhar %1$s</string>
@@ -680,7 +689,6 @@
     <string name="share_password_title">Protegido com Senha</string>
     <string name="share_permission_can_edit">Pode editar</string>
     <string name="share_permission_view_only">Visualizar apenas</string>
-    <string name="share_permissions">Permissões de Partilha</string>
     <string name="share_remote_clarification">%1$s (remoto)</string>
     <string name="share_room_clarification">%1$s (conversação)</string>
     <string name="share_send_new_email">Enviar nova mensagem</string>
@@ -777,7 +785,7 @@
     <string name="synced_folders_configure_folders">Configurar pastas</string>
     <string name="synced_folders_new_info">O envio instantâneo foi completamente renovado. Reconfigure o seu envio automático a partir do menu principal.
 Aproveite o novo e melhorado envio automático.</string>
-    <string name="synced_folders_no_results">Não foram encontradas pastas multimédia</string>
+    <string name="synced_folders_no_results">Não foram encontradas pastas de multimédia</string>
     <string name="synced_folders_preferences_folder_path">Para %1$s</string>
     <string name="synced_folders_type">Tipo</string>
     <string name="synced_icon">Sincronizado</string>
@@ -793,7 +801,7 @@ Aproveite o novo e melhorado envio automático.</string>
     <string name="today">Hoje</string>
     <string name="trashbin_activity_title">Ficheiros eliminados</string>
     <string name="trashbin_empty_headline">Sem ficheiros eliminados.</string>
-    <string name="trashbin_empty_message">É possível recuperar ficheiros eliminados a partir daqui.</string>
+    <string name="trashbin_empty_message">Você poderá recuperar os ficheiros eliminados a partir daqui.</string>
     <string name="trashbin_file_not_deleted">Ficheiro %1$s não pôde ser apagado!</string>
     <string name="trashbin_file_not_restored">Ficheiro %1$s não pôde ser restaurado!</string>
     <string name="trashbin_file_remove">Eliminar permanentemente</string>
@@ -835,7 +843,7 @@ Aproveite o novo e melhorado envio automático.</string>
     <string name="upload_lock_failed">Falha ao trancar pasta</string>
     <string name="upload_old_android">A encriptação só está disponível com > = Android 5.0</string>
     <string name="upload_query_move_foreign_files">Espaço insuficiente não permite que a cópia dos ficheiros selecionados seja efetuada para a pasta %1$s. Pretende mover os ficheiros?</string>
-    <string name="upload_scan_doc_upload">Digitalizar documento a partir da câmara</string>
+    <string name="upload_scan_doc_upload">Digitalizar o documento com a câmara</string>
     <string name="upload_sync_conflict">Conflito de sincronização, por favor, resolva-o manualmente</string>
     <string name="upload_unknown_error">Erro desconhecido</string>
     <string name="uploader_btn_alternative_text">Escolher</string>
@@ -851,7 +859,7 @@ Aproveite o novo e melhorado envio automático.</string>
     <string name="uploader_upload_failed_content_single">Não foi possível enviar %1$s</string>
     <string name="uploader_upload_failed_credentials_error">O envio falhou, inicie novamente a sessão</string>
     <string name="uploader_upload_failed_sync_conflict_error">Conflito de envio do ficheiro</string>
-    <string name="uploader_upload_failed_sync_conflict_error_content">Escolha qual das versões manter %1$s</string>
+    <string name="uploader_upload_failed_sync_conflict_error_content">Escolha qual a versão a manter de %1$s</string>
     <string name="uploader_upload_failed_ticker">Envio falhou</string>
     <string name="uploader_upload_files_behaviour">Opção de envio:</string>
     <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">Mover o ficheiro para a pasta %1$s</string>
@@ -926,22 +934,22 @@ Aproveite o novo e melhorado envio automático.</string>
     <plurals name="processed_n_entries">
         <item quantity="one">Processada %d entrada.</item>
         <item quantity="many">Processadas %dentradas.</item>
-        <item quantity="other">Processadas %d entradas.</item>
+        <item quantity="other">Entradas processadas: %d.</item>
     </plurals>
     <plurals name="found_n_duplicates">
         <item quantity="one">Encontrada %d entrada duplicada.</item>
         <item quantity="many">Encontradas %d entradas duplicadas.</item>
-        <item quantity="other">Encontradas %d entradas duplicadas.</item>
+        <item quantity="other">Entradas duplicadas encontradas: %d. </item>
     </plurals>
     <plurals name="export_successful">
-        <item quantity="one">Exportado %d ficheiro</item>
-        <item quantity="many">Exportados %d ficheiros</item>
-        <item quantity="other">Exportados %d ficheiros</item>
+        <item quantity="one">Exportado %d ficheiro.</item>
+        <item quantity="many">Ficheiros exportados: %d.</item>
+        <item quantity="other">Ficheiros exportados: %d.</item>
     </plurals>
     <plurals name="export_failed">
-        <item quantity="one">Falhou exportação de %d ficheiro</item>
-        <item quantity="many">Falhou exportação de %d ficheiros</item>
-        <item quantity="other">Falhou exportação de %d ficheiros</item>
+        <item quantity="one">Não foi possível exportar %d ficheiro.</item>
+        <item quantity="many">Não foi possível exportar %d ficheiros.</item>
+        <item quantity="other">Não foi possível exportar %d ficheiros.</item>
     </plurals>
     <plurals name="file_list__footer__folder">
         <item quantity="one">%1$d pasta</item>

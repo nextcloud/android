@@ -10,7 +10,6 @@
     <string name="action_edit">편집</string>
     <string name="action_empty_notifications">모든 알림 지우기</string>
     <string name="action_empty_trashbin">휴지통 비우기</string>
-    <string name="action_send_share">보내기/공유</string>
     <string name="action_switch_grid_view">바둑판식 보기</string>
     <string name="action_switch_list_view">목록 보기</string>
     <string name="actionbar_calendar_contacts_restore">연락처 및 캘린더 복원</string>
@@ -48,8 +47,7 @@
     <string name="assistant_screen_add_task_alert_dialog_title">새 작업 추가</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">텍스트 입력</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">이 작업을 삭제하시겠습니까?</string>
-    <string name="assistant_screen_delete_task_alert_dialog_title">작업 삭제</string>
-    <string name="assistant_screen_loading">작업 목록을 로드하는 중입니다. 잠시 기다려 주세요.</string>
+    <string name="assistant_screen_delete_task_alert_dialog_title">결과 삭제</string>
     <string name="assistant_screen_no_task_available_text">%s작업 유형을 위해 사용 가능한 작업이 없습니다, 오른쪽 하단에서 새 작업을 만들 수 있습니다.</string>
     <string name="assistant_screen_task_create_fail_message">작업을 생성하는 중에 오류가 발생했습니다.</string>
     <string name="assistant_screen_task_create_success_message">작업이 성공적으로 생성됨</string>
@@ -187,7 +185,6 @@
     <string name="confirmation_remove_folders_alert">선택한 항목과 포함된 내용을 삭제하시겠습니까?</string>
     <string name="confirmation_remove_local">로컬만</string>
     <string name="conflict_dialog_error">충돌 해결 프로그램 대화 상자를 만들 수 없습니다.</string>
-    <string name="conflict_folder_headline">폴더 충돌</string>
     <string name="conflict_local_file">로컬 파일</string>
     <string name="conflict_message_description">두 버전을 모두 선택하면 기존 파일 이름에 번호가 추가됩니다.</string>
     <string name="conflict_message_description_for_folder">만약 두 버전을 모두 선택하면, 로컬 폴더 이름 뒤에 숫자가 추가됩니다.</string>
@@ -348,7 +345,6 @@
     <string name="etm_background_jobs_stop_test_job">테스트 작업 정지하기</string>
     <string name="etm_migrations">이전 작업 (앱 업그레이드)</string>
     <string name="etm_preferences">환경 설정</string>
-    <string name="etm_title">엔지니어링 테스트 모드</string>
     <string name="etm_transfer">파일 전송</string>
     <string name="etm_transfer_enqueue_test_download">대기열에 테스트 다운로드 넣기</string>
     <string name="etm_transfer_enqueue_test_upload">대기열에 테스트 업로드 넣기</string>
@@ -567,7 +563,6 @@
     <string name="new_media_folder_detected">새 %1$s 미디어 폴더를 발견했습니다.</string>
     <string name="new_media_folder_photos">사진</string>
     <string name="new_media_folder_videos">비디오</string>
-    <string name="new_notification">새 알림</string>
     <string name="new_version_was_created">새 버전 생성됨</string>
     <string name="no_actions">이 사용자를 위한 동작이 없음</string>
     <string name="no_browser_available">이 링크를 실행할 앱이 없습니다.</string>
@@ -583,7 +578,6 @@
     <string name="note_icon_hint">노트 아이콘</string>
     <string name="notification_action_failed">작업을 실행할 수 없음</string>
     <string name="notification_channel_background_operations_description">백그라운드 작업 결과 알림 표시</string>
-    <string name="notification_channel_background_operations_name">백그라운드 작업</string>
     <string name="notification_channel_download_description">다운로드 진행 표시</string>
     <string name="notification_channel_download_name_short">다운로드</string>
     <string name="notification_channel_file_sync_description">파일 동기화 진행 및 결과 표시</string>
@@ -600,17 +594,12 @@
     <string name="notification_icon_description">읽지 않은 알림이 있습니다</string>
     <string name="notifications_no_results_headline">알림 없음</string>
     <string name="notifications_no_results_message">나중에 다시 확인하십시오.</string>
-    <string name="oc_file_list_adapter_offline_operation_description_text">작업 대기중</string>
     <string name="oc_file_list_adapter_offline_operation_remove_description_text">삭제 작업 대기중</string>
     <string name="offline_mode">네트워크에 연결할 수 없음</string>
     <string name="offline_mode_info_description">인터넷 연결이 없더라도, 폴더를 구성하고, 파일을 생성할 수 있습니다. 다시 온라인 상태가 되면 대기 중이던 동작들이 자동적으로 동기화될 것입니다.</string>
-    <string name="offline_mode_info_title">오프라인이지만 작업은 계속됩니다</string>
     <string name="offline_operations_file_does_not_exists_yet">파일이 아직 존재하지 않습니다. 먼저 파일을 업로드해 주세요.</string>
-    <string name="offline_operations_worker_notification_conflict_text">폴더 충돌: %s</string>
-    <string name="offline_operations_worker_notification_delete_offline_folder">오프라인 폴더 삭제</string>
     <string name="offline_operations_worker_notification_error_text">오프라인 작업을 완료할 수 없습니다. %s</string>
     <string name="offline_operations_worker_notification_manager_ticker">오프라인 작업</string>
-    <string name="offline_operations_worker_notification_start_text">오프라인 작업 시작</string>
     <string name="oneHour">1시간</string>
     <string name="online">접속 중</string>
     <string name="online_status">접속 상태</string>
@@ -632,7 +621,6 @@
     <string name="permission_storage_access">파일을 업로드 및 다운로드하려면 추가 권한이 필요합니다.</string>
     <string name="pick_contact_to_share_with">공유할 연락처를 선택</string>
     <string name="picture_set_as_no_app">사진을 설정할 앱을 찾을 수 없음</string>
-    <string name="pin_home">홈 화면에 고정</string>
     <string name="pin_shortcut_label">%1$s 열기</string>
     <string name="placeholder_fileSize">389 KB</string>
     <string name="placeholder_filename">placeholder.txt</string>
@@ -731,7 +719,6 @@
     <string name="recommend_subject">사용하고 있는 장치에서 %1$s을(를) 사용해 보세요!</string>
     <string name="recommend_text">사용하고 있는 장치에서 %1$s을(를) 사용해 보세요.\n다운로드 링크: %2$s</string>
     <string name="recommend_urls">%1$s 및 %2$s</string>
-    <string name="recommended_files_title">추천 파일</string>
     <string name="refresh_content">콘텐츠 새로고침</string>
     <string name="reload">새로 고침</string>
     <string name="remote">(원격)</string>
@@ -781,16 +768,13 @@
     <string name="select_one_template">하나의 템플릿을 선택하세요.</string>
     <string name="select_template">템플릿 선택</string>
     <string name="send">보내기</string>
-    <string name="send_share">공유 전달 </string>
     <string name="sendbutton_description">보내기 버튼 아이콘</string>
     <string name="set_as">다음으로 설정</string>
-    <string name="set_note">메모 설정</string>
     <string name="set_picture_as">다음으로 사진 사용</string>
     <string name="set_status">상태 설정</string>
     <string name="set_status_message">상태 메시지 설정</string>
     <string name="setup_e2e">종단간 암호화를 설정하는 동안, 당신은 다른 장치들에서 당신의 파일들을 열어야 할 무작위의 12 단어 니모닉을 수신할 것입니다. 이것은 당신의 장치에만 저장 될 것이고, 이 스크린에서 다시 보여질 수 있습니다. 이를 안전한 위치에 적어두세요!</string>
     <string name="share">공유</string>
-    <string name="share_copy_link">링크 공유 및 복사</string>
     <string name="share_dialog_title">공유</string>
     <string name="share_download_limit">다운로드 제한 설정</string>
     <string name="share_expiration_date_format">%1$s</string>
@@ -817,7 +801,6 @@
     <string name="share_permission_file_drop">파일 업로드 전용</string>
     <string name="share_permission_secure_file_drop">안전한 파일 공유</string>
     <string name="share_permission_view_only">읽기 전용</string>
-    <string name="share_permissions">공유 권한</string>
     <string name="share_remote_clarification">%1$s(원격)</string>
     <string name="share_room_clarification">%1$s (대화)</string>
     <string name="share_search">이름, 연결된 클라우드 ID 또는 이메일 주소...</string>

@@ -10,7 +10,6 @@
     <string name="action_edit">Rediger</string>
     <string name="action_empty_notifications">Slett alle varsel</string>
     <string name="action_empty_trashbin">Tøm papirkurv</string>
-    <string name="action_send_share">Send/del</string>
     <string name="action_switch_grid_view">Rutenett-visning</string>
     <string name="action_switch_list_view">Listevisning</string>
     <string name="actionbar_calendar_contacts_restore">Opprett kontakter og kalender</string>
@@ -47,7 +46,6 @@
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Skriv inn litt tekst</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Er du sikker på at du vil slette denne oppgaven?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Slett oppgave</string>
-    <string name="assistant_screen_loading">Oppgaveliste lastes inn, vennligst vent</string>
     <string name="assistant_screen_no_task_available_text">Ingen oppgave tilgjengelig for %s-oppgavetype, du kan opprette en ny oppgave fra nede til høyre.</string>
     <string name="assistant_screen_task_create_fail_message">Det oppstod en feil under oppretting av oppgaven</string>
     <string name="assistant_screen_task_create_success_message">Oppgave opprettet</string>
@@ -338,7 +336,6 @@
     <string name="etm_background_jobs_stop_test_job">Stopp test-jobb</string>
     <string name="etm_migrations">Migreringer (appoppgradering)</string>
     <string name="etm_preferences">Innstillinger</string>
-    <string name="etm_title">Testmodus for ingeniørarbeid</string>
     <string name="etm_transfer">Filoverføring</string>
     <string name="etm_transfer_enqueue_test_download">Last ned enqueue test</string>
     <string name="etm_transfer_enqueue_test_upload">Last opp enqueue test</string>
@@ -553,7 +550,6 @@
     <string name="new_media_folder_detected">Ny %1$s media mappe oppdaget.</string>
     <string name="new_media_folder_photos">bilde</string>
     <string name="new_media_folder_videos">video</string>
-    <string name="new_notification">Nytt varsel</string>
     <string name="new_version_was_created">Ny versjon er opprettet</string>
     <string name="no_actions">Ingen hendelser for denne brukeren</string>
     <string name="no_browser_available">Ingen app tilgjengelig for å håndtere lenker</string>
@@ -568,7 +564,6 @@
     <string name="note_could_not_sent">Kan ikke sende melding</string>
     <string name="note_icon_hint">Notatikon</string>
     <string name="notification_action_failed">Feilet å utføre aksjon.</string>
-    <string name="notification_channel_background_operations_name">Bakgrunnsoperasjoner</string>
     <string name="notification_channel_download_description">Viser nedlastingsfremgang</string>
     <string name="notification_channel_download_name_short">Last ned</string>
     <string name="notification_channel_file_sync_description">Viser filsynkroniseringsframdrift og resultater</string>
@@ -607,7 +602,6 @@
     <string name="permission_deny">ikke tillatt</string>
     <string name="permission_storage_access">Flere tillatelser trengs for å laste opp og ned filer.</string>
     <string name="picture_set_as_no_app">Fant ikke noe app å sette bilde med.</string>
-    <string name="pin_home">Fest til hjemmeskjermen</string>
     <string name="pin_shortcut_label">Åpne %1$s</string>
     <string name="placeholder_fileSize">389 KB</string>
     <string name="placeholder_filename">plassholder.txt</string>
@@ -703,6 +697,7 @@
     <string name="recommend_subject">Prøv %1$s på denne enheten.</string>
     <string name="recommend_text">Jeg inviterer deg til å bruke %1$s på enheten din.\nLast ned her: %2$s</string>
     <string name="recommend_urls">%1$s eller %2$s</string>
+    <string name="recommended_files_title">Anbefalte filer</string>
     <string name="refresh_content">Oppdater innhold</string>
     <string name="reload">Last inn på nytt</string>
     <string name="remote">(ekstern)</string>
@@ -750,16 +745,13 @@
     <string name="select_one_template">Velg en mal</string>
     <string name="select_template">Velg mal</string>
     <string name="send">Send</string>
-    <string name="send_share">Send deling</string>
     <string name="sendbutton_description">Ikon for forsendelsesknapp</string>
     <string name="set_as">Bruk som</string>
-    <string name="set_note">Sett merknad</string>
     <string name="set_picture_as">Bruk bilde som</string>
     <string name="set_status">Velg status</string>
     <string name="set_status_message">Velg statusmelding</string>
     <string name="setup_e2e">Under oppsett av ende-til-ende -kryptering så vil du motta et tilfeldig 12-ord-krypteringspassord, som du vil trenge for å få åpner filene dine på andre enheter. Dette vil bare bli lagret på denne enheten. og kan bli vist igjen på denne siden. Vennligst noter det ned på et sikkert sted!</string>
     <string name="share">Del</string>
-    <string name="share_copy_link">Del og kopier kobling</string>
     <string name="share_dialog_title">Deling</string>
     <string name="share_download_limit">Spesifiser nedlastings-grense</string>
     <string name="share_expiration_date_format">%1$s</string>
@@ -786,7 +778,6 @@
     <string name="share_permission_file_drop">Filkasse</string>
     <string name="share_permission_secure_file_drop">Sikker filkasse</string>
     <string name="share_permission_view_only">Kun se</string>
-    <string name="share_permissions">Rettigheter for deling</string>
     <string name="share_remote_clarification">%1$s (ekstern)</string>
     <string name="share_room_clarification">%1$s(samtale)</string>
     <string name="share_send_new_email">Send ny e-post</string>

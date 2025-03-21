@@ -19,7 +19,6 @@
     <string name="activities_no_results_headline"> Entá nun hai actividá</string>
     <string name="activity_chooser_send_file_title">Unviar</string>
     <string name="activity_icon">Actividá</string>
-    <string name="advanced_settings">Configuración avanzada</string>
     <string name="app_config_base_url_title">URL base</string>
     <string name="app_config_proxy_port_title">Puertu del proxy</string>
     <string name="appbar_search_in">Buscar en: %s</string>
@@ -333,7 +332,6 @@
     <string name="new_comment">Comentariu nuevu…</string>
     <string name="new_media_folder_photos">semeya</string>
     <string name="new_media_folder_videos">videu</string>
-    <string name="new_notification">Avisu nuevu</string>
     <string name="new_version_was_created">Creóse la versión</string>
     <string name="no_actions">Nun hai nenguna aición pa esti usuariu</string>
     <string name="no_browser_available">Nun hai nenguna aplicación pa remanar esto</string>

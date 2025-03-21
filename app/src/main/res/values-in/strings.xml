@@ -10,12 +10,11 @@
     <string name="action_edit">Sunting</string>
     <string name="action_empty_notifications">Hapus semua notifikasi</string>
     <string name="action_empty_trashbin">Kosongkan tempat sampah</string>
-    <string name="action_send_share">Kirim/Bagi</string>
     <string name="action_switch_grid_view">Tampilan kotak</string>
     <string name="action_switch_list_view">Tampilan lis</string>
     <string name="actionbar_calendar_contacts_restore">Pulihkan kontak dan kalender</string>
     <string name="actionbar_mkdir">Folder baru</string>
-    <string name="actionbar_move_or_copy">Pindah atau Salin</string>
+    <string name="actionbar_move_or_copy">Pindah atau salin</string>
     <string name="actionbar_open_with">Buka dengan</string>
     <string name="actionbar_search">Cari</string>
     <string name="actionbar_see_details">Rincian</string>
@@ -30,14 +29,12 @@
     <string name="activity_icon">Aktifitas</string>
     <string name="add_new_public_share">Tambahkan tautan berbagi baru</string>
     <string name="add_to_cloud">Tambahkan ke %1$s</string>
-    <string name="advanced_settings">Pengaturan Tambahan</string>
+    <string name="advanced_settings">Pengaturan Lanjutan</string>
     <string name="allow_resharing">Izinkan pembagian ulang</string>
     <string name="app_widget_description">Menampilkan satu gawit dari dasbor</string>
     <string name="appbar_search_in">Cari dalam %s</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Tulis beberapa teks</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Apakah Anda yakin ingin menghapus tugas ini?</string>
-    <string name="assistant_screen_delete_task_alert_dialog_title">Hapus Tugas</string>
-    <string name="assistant_screen_loading">Daftar Tugas sedang dimuat, mohon tunggu</string>
     <string name="assistant_screen_no_task_available_text">Tidak ada tugas yang tersedia untuk jenis tugas %s, Anda dapat membuat tugas baru dari pojok kanan bawah.</string>
     <string name="assistant_screen_task_create_fail_message">Terjadi kesalahan saat membuat tugas</string>
     <string name="assistant_screen_task_create_success_message">Tugas berhasil dibuat</string>
@@ -488,7 +485,6 @@ Otomatis unggah hanya bekerja dengan baik apabila Anda mengeluarkan aplikasi ini
     <string name="new_media_folder_detected">Media baru %1$s terdeteksi.</string>
     <string name="new_media_folder_photos">foto</string>
     <string name="new_media_folder_videos">video</string>
-    <string name="new_notification">Notifikasi Baru</string>
     <string name="new_version_was_created">Versi baru telah dibuat</string>
     <string name="no_actions">Tidak ada aksi untuk pengguna ini</string>
     <string name="no_browser_available">Tidak ada aplikasi yang tersedia untuk menangani tautan</string>
@@ -538,7 +534,6 @@ Otomatis unggah hanya bekerja dengan baik apabila Anda mengeluarkan aplikasi ini
     <string name="permission_deny">Tolak</string>
     <string name="permission_storage_access">Diperlukan ijin tambahan untuk mengunggah dan mengunduh berkas.</string>
     <string name="picture_set_as_no_app">Tidak ada aplikasi untuk menyetel gambar yang ditemukan.</string>
-    <string name="pin_home">Sematkan ke layar Beranda</string>
     <string name="pin_shortcut_label">Buka %1$s</string>
     <string name="placeholder_fileSize">389 KB</string>
     <string name="placeholder_filename">placeholder.txt</string>
@@ -617,6 +612,7 @@ Otomatis unggah hanya bekerja dengan baik apabila Anda mengeluarkan aplikasi ini
     <string name="recommend_subject">Coba %1$s di perangkat mu!</string>
     <string name="recommend_text">Saya ingin mengundang anda untuk menggunakan %1$s di perangkat anda. \nUnduh disini %2$s</string>
     <string name="recommend_urls">%1$s atau %2$s</string>
+    <string name="recommended_files_title">Berkas yang direkomendasikan</string>
     <string name="refresh_content">Segarkan konten</string>
     <string name="reload">Muat ulang</string>
     <string name="remote">remote</string>
@@ -662,7 +658,6 @@ Otomatis unggah hanya bekerja dengan baik apabila Anda mengeluarkan aplikasi ini
     <string name="send">Kirim</string>
     <string name="sendbutton_description">Ikon tombol kirim</string>
     <string name="set_as">Gunakan sebagai</string>
-    <string name="set_note">Setel Catatan</string>
     <string name="set_picture_as">Gunakan gambar sebagai</string>
     <string name="set_status">Tetapkan status</string>
     <string name="set_status_message">Tetapkan status pesan</string>
@@ -688,7 +683,6 @@ Otomatis unggah hanya bekerja dengan baik apabila Anda mengeluarkan aplikasi ini
     <string name="share_password_title">Sandi dilindungi</string>
     <string name="share_permission_can_edit">Can edit</string>
     <string name="share_permission_view_only">Hanya lihat</string>
-    <string name="share_permissions">Bagikan Izin</string>
     <string name="share_remote_clarification">%1$s (remote)</string>
     <string name="share_room_clarification">%1$s (percakapan)</string>
     <string name="share_send_new_email">Kirim surel baru</string>
