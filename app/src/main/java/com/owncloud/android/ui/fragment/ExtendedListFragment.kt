@@ -309,6 +309,10 @@ open class ExtendedListFragment :
         Log_OC.d(TAG, "onCreateView")
 
         binding = ListFragmentBinding.inflate(inflater, container, false)
+        mRefreshListLayout = binding!!.swipeContainingList
+        mSortButton = requireActivity().findViewById(R.id.sort_button)
+        mSwitchGridViewButton = requireActivity().findViewById(R.id.switch_grid_view_button)
+
         val v = binding!!.getRoot()
 
         setupEmptyList()
@@ -334,15 +338,9 @@ open class ExtendedListFragment :
             }
         )
 
-        // Pull-down to refresh layout
-        mRefreshListLayout = binding!!.swipeContainingList
         viewThemeUtils.androidx.themeSwipeRefreshLayout(mRefreshListLayout)
         mRefreshListLayout.setOnRefreshListener(this)
-
-        mSortButton = requireActivity().findViewById<MaterialButton?>(R.id.sort_button)
         viewThemeUtils.material.colorMaterialTextButton(mSortButton)
-
-        mSwitchGridViewButton = requireActivity().findViewById<MaterialButton?>(R.id.switch_grid_view_button)
         viewThemeUtils.material.colorMaterialTextButton(mSwitchGridViewButton)
 
         return v
