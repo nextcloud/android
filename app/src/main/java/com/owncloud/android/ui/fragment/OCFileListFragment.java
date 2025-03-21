@@ -45,7 +45,6 @@ import com.nextcloud.android.lib.resources.files.ToggleFileLockRemoteOperation;
 import com.nextcloud.android.lib.resources.recommendations.GetRecommendationsRemoteOperation;
 import com.nextcloud.android.lib.richWorkspace.RichWorkspaceDirectEditingRemoteOperation;
 import com.nextcloud.client.account.User;
-import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.device.DeviceInfo;
 import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.documentscan.AppScanOptionalFeature;
@@ -53,7 +52,6 @@ import com.nextcloud.client.documentscan.DocumentScanActivity;
 import com.nextcloud.client.editimage.EditImageActivity;
 import com.nextcloud.client.jobs.BackgroundJobManager;
 import com.nextcloud.client.network.ClientFactory;
-import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.client.utils.Throttler;
 import com.nextcloud.common.NextcloudClient;
 import com.nextcloud.ui.fileactions.FileActionsBottomSheet;
@@ -91,7 +89,6 @@ import com.owncloud.android.ui.activity.FolderPickerActivity;
 import com.owncloud.android.ui.activity.OnEnforceableRefreshListener;
 import com.owncloud.android.ui.activity.UploadFilesActivity;
 import com.owncloud.android.ui.adapter.CommonOCFileListAdapterInterface;
-import com.owncloud.android.ui.adapter.GalleryAdapter;
 import com.owncloud.android.ui.adapter.OCFileListAdapter;
 import com.owncloud.android.ui.dialog.ChooseRichDocumentsTemplateDialogFragment;
 import com.owncloud.android.ui.dialog.ChooseTemplateDialogFragment;
@@ -120,7 +117,6 @@ import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.PermissionUtil;
 import com.owncloud.android.utils.theme.ThemeUtils;
-import com.owncloud.android.utils.theme.ViewThemeUtils;
 
 import org.apache.commons.httpclient.HttpStatus;
 import org.greenrobot.eventbus.EventBus;
@@ -208,14 +204,11 @@ public class OCFileListFragment extends ExtendedListFragment implements
     private static final int SINGLE_SELECTION = 1;
     private static final int NOT_ENOUGH_SPACE_FRAG_REQUEST_CODE = 2;
 
-    @Inject AppPreferences preferences;
-    @Inject UserAccountManager accountManager;
     @Inject ClientFactory clientFactory;
     @Inject Throttler throttler;
     @Inject ThemeUtils themeUtils;
     @Inject ArbitraryDataProvider arbitraryDataProvider;
     @Inject BackgroundJobManager backgroundJobManager;
-    @Inject ViewThemeUtils viewThemeUtils;
     @Inject FastScrollUtils fastScrollUtils;
     @Inject EditorUtils editorUtils;
     @Inject ShortcutUtil shortcutUtil;
@@ -947,6 +940,10 @@ public class OCFileListFragment extends ExtendedListFragment implements
     }
 
     private void updateSortAndGridMenuItems() {
+        if (mSwitchGridViewButton == null || mSortButton == null) {
+            return;
+        }
+
         switch (menuItemAddRemoveValue) {
             case ADD_GRID_AND_SORT_WITH_SEARCH:
                 mSwitchGridViewButton.setVisibility(View.VISIBLE);
@@ -1590,7 +1587,9 @@ public class OCFileListFragment extends ExtendedListFragment implements
             }
         } else if (isSearchEventSet(searchEvent)) {
             handleSearchEvent(searchEvent);
-            mRefreshListLayout.setRefreshing(false);
+            if (mRefreshListLayout != null) {
+                mRefreshListLayout.setRefreshing(false);
+            }
         }
     }
 
@@ -1625,12 +1624,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
             setGridSwitchButton();
         }
 
-        if (mHideFab) {
-            setFabVisible(false);
-        } else {
-            setFabVisible(true);
-            // registerFabListener();
-        }
+        setFabVisible(!mHideFab);
 
         // FAB
         setFabEnabled(mFile != null && (mFile.canWrite() || mFile.isOfflineOperation()));
@@ -1645,7 +1639,9 @@ public class OCFileListFragment extends ExtendedListFragment implements
     }
 
     public void sortFiles(FileSortOrder sortOrder) {
-        mSortButton.setText(DisplayUtils.getSortOrderStringId(sortOrder));
+        if (mSortButton != null) {
+            mSortButton.setText(DisplayUtils.getSortOrderStringId(sortOrder));
+        }
         mAdapter.setSortOrder(mFile, sortOrder);
     }
 
@@ -2127,7 +2123,9 @@ public class OCFileListFragment extends ExtendedListFragment implements
         if (searchFragment && isSearchEventSet(searchEvent)) {
             handleSearchEvent(searchEvent);
 
-            mRefreshListLayout.setRefreshing(false);
+            if (mRefreshListLayout != null) {
+                mRefreshListLayout.setRefreshing(false);
+            }
         } else {
             searchFragment = false;
             super.onRefresh();

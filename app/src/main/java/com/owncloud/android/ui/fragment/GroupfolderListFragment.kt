@@ -29,7 +29,6 @@ import com.owncloud.android.ui.asynctasks.GroupfoldersSearchTask
 import com.owncloud.android.ui.interfaces.GroupfolderListInterface
 import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.FileStorageUtils
-import com.owncloud.android.utils.theme.ViewThemeUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -44,9 +43,6 @@ class GroupfolderListFragment : OCFileListFragment(), Injectable, GroupfolderLis
 
     @Inject
     lateinit var logger: Logger
-
-    @Inject
-    lateinit var viewThemeUtils: ViewThemeUtils
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
