@@ -1639,7 +1639,9 @@ public class OCFileListFragment extends ExtendedListFragment implements
     }
 
     public void sortFiles(FileSortOrder sortOrder) {
-        mSortButton.setText(DisplayUtils.getSortOrderStringId(sortOrder));
+        if (mSortButton != null) {
+            mSortButton.setText(DisplayUtils.getSortOrderStringId(sortOrder));
+        }
         mAdapter.setSortOrder(mFile, sortOrder);
     }
 
