@@ -14,6 +14,7 @@
     <string name="action_switch_list_view">List view</string>
     <string name="actionbar_calendar_contacts_restore">Restore contacts and calendar</string>
     <string name="actionbar_mkdir">New folder</string>
+    <string name="actionbar_move_or_copy">Move or copy</string>
     <string name="actionbar_open_with">Open with</string>
     <string name="actionbar_search">Search</string>
     <string name="actionbar_see_details">Details</string>
@@ -29,6 +30,7 @@
     <string name="add_new_public_share">Add new public share link</string>
     <string name="add_new_secure_file_drop">Add new secure file drop</string>
     <string name="add_to_cloud">Add to %1$s</string>
+    <string name="advanced_settings">Advanced settings</string>
     <string name="allow_resharing">Allow resharing</string>
     <string name="app_config_base_url_title">Base URL</string>
     <string name="app_config_disable_clipboard_title">Disable Clipboard</string>
@@ -727,6 +729,7 @@
     <string name="recommend_subject">Try %1$s on your device!</string>
     <string name="recommend_text">I want to invite you to use %1$s on your device.\nDownload here: %2$s</string>
     <string name="recommend_urls">%1$s or %2$s</string>
+    <string name="recommended_files_title">Recommended files</string>
     <string name="refresh_content">Refresh content</string>
     <string name="reload">Reload</string>
     <string name="remote">(remote)</string>

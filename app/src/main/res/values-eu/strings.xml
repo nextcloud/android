@@ -30,6 +30,7 @@
     <string name="add_new_public_share">Gehitu partekatzeko esteka berria</string>
     <string name="add_new_secure_file_drop">Gehitu fitxategi jaregite seguru berria</string>
     <string name="add_to_cloud">Gehitu %1$s</string>
+    <string name="advanced_settings">Ezarpen aurreratuak</string>
     <string name="allow_resharing">Baimendu birpartekatzea</string>
     <string name="app_config_base_url_title">Oinarri URLa</string>
     <string name="app_config_disable_clipboard_title">Desgaitu arbela</string>
@@ -712,6 +713,7 @@
     <string name="recommend_subject">Probatu %1$s zure gailuan!</string>
     <string name="recommend_text">%1$s zure gailuan erabiltzera gonbidatu nahi zaitut.\n Hemendik deskargatu: %2$s</string>
     <string name="recommend_urls">%1$s edo %2$s</string>
+    <string name="recommended_files_title">Fitxategi gomendatuak</string>
     <string name="refresh_content">Freskatu edukia</string>
     <string name="reload">Birkargatu</string>
     <string name="remote">(urrunekoa)</string>

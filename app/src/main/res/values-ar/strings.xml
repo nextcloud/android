@@ -14,6 +14,7 @@
     <string name="action_switch_list_view">عرض على شكل قائمة</string>
     <string name="actionbar_calendar_contacts_restore">إستعادة جهات الاتصال و التقويم</string>
     <string name="actionbar_mkdir">مجلد جديد</string>
+    <string name="actionbar_move_or_copy">نقل أو نسخ</string>
     <string name="actionbar_open_with">فتح باستخدام</string>
     <string name="actionbar_search">بحث</string>
     <string name="actionbar_see_details">تفاصيل</string>
@@ -29,6 +30,7 @@
     <string name="add_new_public_share">إضافة رابط مشاركة عام جديد</string>
     <string name="add_new_secure_file_drop">أضف ملف ألاصل </string>
     <string name="add_to_cloud">إضافة إلى %1$s</string>
+    <string name="advanced_settings">إعدادات متقدمة</string>
     <string name="allow_resharing">السماح بإعادة المشاركة </string>
     <string name="app_config_base_url_title">عنوان URL الأساسي</string>
     <string name="app_config_disable_clipboard_title">تعطيل الحافظة</string>
@@ -45,6 +47,7 @@
     <string name="assistant_screen_add_task_alert_dialog_title">إضافة مهمة جديدة</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">أكتُب أيَّ نص</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">هل أنت متأكد أنك ترغب بحذف هذه المهمة؟</string>
+    <string name="assistant_screen_delete_task_alert_dialog_title">حذف المهمّة</string>
     <string name="assistant_screen_no_task_available_text">لا توجد أي مهام متوفرة من النوع %s. يمكنك إنشاء مهمة جديدة من الشريط السفلي الجانبي.</string>
     <string name="assistant_screen_task_create_fail_message">حدث خطأ أثناء إنشاء المهمة</string>
     <string name="assistant_screen_task_create_success_message">تمّ إنشاء المهمة بنجاح</string>
@@ -740,6 +743,7 @@
     <string name="recommend_text">أريد أن أدعوك لاستخدام %1$s على جهازك
 التنزيل هنا %2$s</string>
     <string name="recommend_urls">%1$s أو %2$s</string>
+    <string name="recommended_files_title">الملفات الموصى بها</string>
     <string name="refresh_content">تحديث المحتوى</string>
     <string name="reload">إعادة تحميل</string>
     <string name="remote">(عن بعد)</string>

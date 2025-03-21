@@ -14,6 +14,7 @@
     <string name="action_switch_list_view">Zobrazení v seznamu</string>
     <string name="actionbar_calendar_contacts_restore">Obnovit kontakty a kalendář</string>
     <string name="actionbar_mkdir">Nová složka</string>
+    <string name="actionbar_move_or_copy">Přesunout nebo zkopírovat</string>
     <string name="actionbar_open_with">Otevřít pomocí</string>
     <string name="actionbar_search">Hledat</string>
     <string name="actionbar_see_details">Podrobnosti</string>
@@ -29,6 +30,7 @@
     <string name="add_new_public_share">Přidat nový veřejný odkaz na sdílení</string>
     <string name="add_new_secure_file_drop">Přidat nové bezpečné předání souborů</string>
     <string name="add_to_cloud">Přidat k %1$s</string>
+    <string name="advanced_settings">Pokročilá nastavení</string>
     <string name="allow_resharing">Povolit sdílet dál dalším</string>
     <string name="app_config_base_url_title">Základní URL</string>
     <string name="app_config_disable_clipboard_title">Zakázat schránku</string>
@@ -727,6 +729,7 @@
     <string name="recommend_subject">Vyzkoušejte %1$s ve svém zařízení!</string>
     <string name="recommend_text">Rád(a) bych Vás/Tě pozval(a) k používání %1$s na vašem/tvém zařízení.\nKe stažení zde: %2$s</string>
     <string name="recommend_urls">%1$s nebo %2$s</string>
+    <string name="recommended_files_title">Doporučené soubory</string>
     <string name="refresh_content">Znovu načíst obsah</string>
     <string name="reload">Načíst znovu</string>
     <string name="remote">(vzdálené)</string>

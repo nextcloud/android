@@ -14,6 +14,7 @@
     <string name="action_switch_list_view">List visning</string>
     <string name="actionbar_calendar_contacts_restore">Gendan kontakter og kalender</string>
     <string name="actionbar_mkdir">Ny mappe</string>
+    <string name="actionbar_move_or_copy">Flyt eller kopier</string>
     <string name="actionbar_open_with">Åbn med</string>
     <string name="actionbar_search">Søg</string>
     <string name="actionbar_see_details">Detaljer</string>
@@ -29,6 +30,7 @@
     <string name="add_new_public_share">Tilføj nyt offentligt link til deling</string>
     <string name="add_new_secure_file_drop">Tilføj nyt, sikkert fil drop</string>
     <string name="add_to_cloud">Tilføj til %1$s</string>
+    <string name="advanced_settings">Avancerede indstillinger</string>
     <string name="allow_resharing">Tillad videredeling</string>
     <string name="app_config_base_url_title">Grund URL</string>
     <string name="app_config_disable_clipboard_title">Deaktiver klippebord</string>
@@ -725,6 +727,7 @@
     <string name="recommend_subject">Prøv %1$s på din enhed!</string>
     <string name="recommend_text">Jeg ønsker at invitere dig til at bruge %1$s på din smartphone!\nHent den her: %2$s</string>
     <string name="recommend_urls">%1$s eller %2$s</string>
+    <string name="recommended_files_title">Anbefalede filer</string>
     <string name="refresh_content">Genopfrisk indhold</string>
     <string name="reload">Genindlæs</string>
     <string name="remote">(fjernt)</string>

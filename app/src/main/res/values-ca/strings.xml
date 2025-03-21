@@ -14,6 +14,7 @@
     <string name="action_switch_list_view">Vista de llista</string>
     <string name="actionbar_calendar_contacts_restore">Restaura els contactes i el calendari</string>
     <string name="actionbar_mkdir">Crea una carpeta</string>
+    <string name="actionbar_move_or_copy">Mou o copia</string>
     <string name="actionbar_open_with">Obre amb</string>
     <string name="actionbar_search">Cerca</string>
     <string name="actionbar_see_details">Detalls</string>
@@ -28,6 +29,7 @@
     <string name="activity_icon">Activitat</string>
     <string name="add_new_public_share">Afegeix nou enllaç d\'accés públic</string>
     <string name="add_to_cloud">Afegeix a %1$s</string>
+    <string name="advanced_settings">Paràmetres avançats</string>
     <string name="allow_resharing">Permet compartir de nou</string>
     <string name="app_config_base_url_title">URL base</string>
     <string name="app_config_disable_clipboard_title">Inhabilitació del porta-retalls</string>
@@ -44,6 +46,7 @@
     <string name="assistant_screen_add_task_alert_dialog_title">Afegeix una tasca nova</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Escriu una mica de text</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Segur que voleu suprimir aquesta tasca?</string>
+    <string name="assistant_screen_delete_task_alert_dialog_title">Suprimeix la tasca</string>
     <string name="assistant_screen_no_task_available_text">No hi ha cap tasca disponible per al tipus de tasca %s. Podeu crear una tasca nova des de baix a la dreta.</string>
     <string name="assistant_screen_task_create_fail_message">S\'ha produït un error en crear la tasca</string>
     <string name="assistant_screen_task_create_success_message">La tasca s\'ha creat correctament</string>
@@ -709,6 +712,7 @@
     <string name="recommend_subject">Proveu %1$s al vostre dispositiu!</string>
     <string name="recommend_text">Us vull convidar a fer servir %1$s al vostre dispositiu.\nDescarregueu-lo d\'aquí: %2$s</string>
     <string name="recommend_urls">%1$s o %2$s</string>
+    <string name="recommended_files_title">Fitxers recomanats</string>
     <string name="refresh_content">Actualitza el contingut</string>
     <string name="reload">Recarrega</string>
     <string name="remote">(remot)</string>

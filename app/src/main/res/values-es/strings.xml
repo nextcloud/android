@@ -14,6 +14,7 @@
     <string name="action_switch_list_view">Vista de lista</string>
     <string name="actionbar_calendar_contacts_restore">Restaurar los contactos y el calendario</string>
     <string name="actionbar_mkdir">Nueva carpeta</string>
+    <string name="actionbar_move_or_copy">Mover o copiar</string>
     <string name="actionbar_open_with">Abrir con</string>
     <string name="actionbar_search">Buscar</string>
     <string name="actionbar_see_details">Detalles</string>
@@ -29,6 +30,7 @@
     <string name="add_new_public_share">Añadir un nuevo enlace público</string>
     <string name="add_new_secure_file_drop">Añadir una nueva entrega de archivos segura</string>
     <string name="add_to_cloud">Añadir a %1$s</string>
+    <string name="advanced_settings">Configuración avanzada</string>
     <string name="allow_resharing">Permitir que se vuelva a compartir</string>
     <string name="app_config_base_url_title">URL base</string>
     <string name="app_config_disable_clipboard_title">Desactivar el portapapeles</string>
@@ -717,6 +719,7 @@
     <string name="recommend_subject">¡Prueba %1$s en tu móvil!</string>
     <string name="recommend_text">Quiero invitarte a usar %1$s en tu móvil.\nDescárgalo aquí: %2$s</string>
     <string name="recommend_urls">%1$s o %2$s</string>
+    <string name="recommended_files_title">Archivos recomendados</string>
     <string name="refresh_content">Refrescar contenido</string>
     <string name="reload">Volver a cargar</string>
     <string name="remote">(remoto)</string>

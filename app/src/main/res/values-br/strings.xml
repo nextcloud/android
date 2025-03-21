@@ -14,6 +14,7 @@
     <string name="action_switch_list_view">Gwel ar roll</string>
     <string name="actionbar_calendar_contacts_restore">Assevel an darempredoù hag an deiziadur</string>
     <string name="actionbar_mkdir">Teuliad nevez</string>
+    <string name="actionbar_move_or_copy">Dilec\'hiañ pe eilañ</string>
     <string name="actionbar_open_with">Digeriñ gant</string>
     <string name="actionbar_search">Klask</string>
     <string name="actionbar_see_details">Munudoù</string>
@@ -576,6 +577,7 @@
     <string name="recommend_subject">Klaskit %1$s war o ardivink</string>
     <string name="recommend_text">Kinnig a reomp deoc\'h implij %1$s war o ardivink.\nPellgargit amañ : %2$s</string>
     <string name="recommend_urls">%1$s pe %2$s</string>
+    <string name="recommended_files_title">Restroù kinniget</string>
     <string name="reload">Adkargañ</string>
     <string name="remote_file_fetch_failed">C\'hwitet da gavout ar restr !</string>
     <string name="remove_fail_msg">Lemel c\'hwitet</string>
