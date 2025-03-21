@@ -22,8 +22,6 @@ import android.app.Activity
 import android.content.Context
 import android.content.res.Configuration
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.text.TextUtils
 import android.util.DisplayMetrics
 import android.view.LayoutInflater
@@ -47,6 +45,7 @@ import androidx.appcompat.widget.SearchView
 import androidx.core.content.ContextCompat
 import androidx.core.view.MenuItemCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -76,6 +75,8 @@ import com.owncloud.android.ui.adapter.LocalFileListAdapter
 import com.owncloud.android.ui.adapter.OCFileListAdapter
 import com.owncloud.android.ui.events.SearchEvent
 import com.owncloud.android.utils.theme.ViewThemeUtils
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import org.greenrobot.eventbus.EventBus
 import javax.inject.Inject
 import kotlin.math.max
@@ -103,19 +104,14 @@ open class ExtendedListFragment :
 
     private var mScaleGestureDetector: ScaleGestureDetector? = null
 
-    @JvmField
-    protected var mRefreshListLayout: SwipeRefreshLayout? = null
-
-    @JvmField
-    protected var mSortButton: MaterialButton? = null
-
-    @JvmField
-    protected var mSwitchGridViewButton: MaterialButton? = null
+    protected lateinit var mRefreshListLayout: SwipeRefreshLayout
+    protected lateinit var mSortButton: MaterialButton
+    protected lateinit var mSwitchGridViewButton: MaterialButton
 
     var mEmptyListContainer: ViewGroup? = null
-    protected var mEmptyListMessage: TextView? = null
-    protected var mEmptyListHeadline: TextView? = null
-    protected var mEmptyListIcon: ImageView? = null
+    private var mEmptyListMessage: TextView? = null
+    private var mEmptyListHeadline: TextView? = null
+    private var mEmptyListIcon: ImageView? = null
 
     // Save the state of the scroll in browsing
     private var mIndexes: ArrayList<Int?>? = ArrayList<Int?>()
@@ -127,9 +123,8 @@ open class ExtendedListFragment :
 
     private var mRecyclerView: EmptyRecyclerView? = null
 
-    protected var searchView: SearchView? = null
+    private var searchView: SearchView? = null
     private var closeButton: ImageView? = null
-    private val handler = Handler(Looper.getMainLooper())
 
     private var mScale = AppPreferencesImpl.DEFAULT_GRID_COLUMN
 
@@ -144,7 +139,7 @@ open class ExtendedListFragment :
         get() = mRecyclerView!!
 
     open fun setLoading(enabled: Boolean) {
-        mRefreshListLayout?.isRefreshing = enabled
+        mRefreshListLayout.isRefreshing = enabled
     }
 
     open fun switchToGridView() {
@@ -172,13 +167,11 @@ open class ExtendedListFragment :
         searchView?.setOnQueryTextListener(this)
         searchView?.setOnCloseListener(this)
 
-        val handler = Handler(Looper.getMainLooper())
-
-        val displaymetrics = DisplayMetrics()
+        val displayMetrics = DisplayMetrics()
         val activity: Activity?
         if ((getActivity().also { activity = it }) != null) {
-            activity?.windowManager?.defaultDisplay?.getMetrics(displaymetrics)
-            val width = displaymetrics.widthPixels
+            activity?.windowManager?.defaultDisplay?.getMetrics(displayMetrics)
+            val width = displayMetrics.widthPixels
             if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
                 searchView?.setMaxWidth((width * 0.4).toInt())
             } else {
@@ -192,25 +185,23 @@ open class ExtendedListFragment :
 
         searchView?.setOnQueryTextFocusChangeListener(
             View.OnFocusChangeListener { v: View?, hasFocus: Boolean ->
-                handler.post(
-                    Runnable {
-                        if (getActivity() != null &&
-                            (getActivity() !is FolderPickerActivity) &&
-                            (getActivity() !is UploadFilesActivity)
-                        ) {
-                            if (getActivity() is FileDisplayActivity) {
-                                val fragment = (getActivity() as FileDisplayActivity).leftFragment
-                                if (fragment is OCFileListFragment) {
-                                    fragment.setFabVisible(!hasFocus)
-                                }
-                            }
-
-                            if (TextUtils.isEmpty(searchView?.query)) {
-                                closeButton?.setVisibility(View.INVISIBLE)
+                lifecycleScope.launch(Dispatchers.Main) {
+                    if (getActivity() != null &&
+                        (getActivity() !is FolderPickerActivity) &&
+                        (getActivity() !is UploadFilesActivity)
+                    ) {
+                        if (getActivity() is FileDisplayActivity) {
+                            val fragment = (getActivity() as FileDisplayActivity).leftFragment
+                            if (fragment is OCFileListFragment) {
+                                fragment.setFabVisible(!hasFocus)
                             }
                         }
+
+                        if (TextUtils.isEmpty(searchView?.query)) {
+                            closeButton?.setVisibility(View.INVISIBLE)
+                        }
                     }
-                )
+                }
             }
         )
 
@@ -257,7 +248,6 @@ open class ExtendedListFragment :
     }
 
     fun performSearch(query: String, listOfHiddenFiles: ArrayList<String?>?, isBackPressed: Boolean) {
-        handler.removeCallbacksAndMessages(null)
         val adapter = recyclerView.adapter
         val activity: Activity? = getActivity()
 
@@ -268,27 +258,24 @@ open class ExtendedListFragment :
                     fileDisplayActivity.resetSearchView()
                     fileDisplayActivity.updateListOfFilesFragment(true)
                 } else {
-                    handler.post(
-                        Runnable {
-                            if (adapter is OCFileListAdapter) {
-                                if (accountManager
-                                        .user
-                                        .server
-                                        .version
-                                        .isNewerOrEqual(OwnCloudVersion.nextcloud_20)
-                                ) {
-                                    activity.performUnifiedSearch(query, listOfHiddenFiles)
-                                } else {
-                                    EventBus.getDefault().post(
-                                        SearchEvent(query, SearchRemoteOperation.SearchType.FILE_SEARCH)
-                                    )
-                                }
-                            } else if (adapter is LocalFileListAdapter) {
-                                adapter.filter(query)
+                    lifecycleScope.launch(Dispatchers.Main) {
+                        if (adapter is OCFileListAdapter) {
+                            if (accountManager
+                                    .user
+                                    .server
+                                    .version
+                                    .isNewerOrEqual(OwnCloudVersion.nextcloud_20)
+                            ) {
+                                activity.performUnifiedSearch(query, listOfHiddenFiles)
+                            } else {
+                                EventBus.getDefault().post(
+                                    SearchEvent(query, SearchRemoteOperation.SearchType.FILE_SEARCH)
+                                )
                             }
+                        } else if (adapter is LocalFileListAdapter) {
+                            adapter.filter(query)
                         }
-                    )
-
+                    }
                     searchView?.clearFocus()
                 }
             } else if (activity is UploadFilesActivity) {
@@ -348,21 +335,15 @@ open class ExtendedListFragment :
         )
 
         // Pull-down to refresh layout
-        mRefreshListLayout = binding?.swipeContainingList
-        mRefreshListLayout?.let {
-            viewThemeUtils.androidx.themeSwipeRefreshLayout(it)
-            it.setOnRefreshListener(this)
-        }
+        mRefreshListLayout = binding!!.swipeContainingList
+        viewThemeUtils.androidx.themeSwipeRefreshLayout(mRefreshListLayout)
+        mRefreshListLayout.setOnRefreshListener(this)
 
-        mSortButton = activity?.findViewById<MaterialButton?>(R.id.sort_button)
-        mSortButton?.let {
-            viewThemeUtils.material.colorMaterialTextButton(it)
-        }
+        mSortButton = requireActivity().findViewById<MaterialButton?>(R.id.sort_button)
+        viewThemeUtils.material.colorMaterialTextButton(mSortButton)
 
-        mSwitchGridViewButton = activity?.findViewById<MaterialButton?>(R.id.switch_grid_view_button)
-        mSwitchGridViewButton?.let {
-            viewThemeUtils.material.colorMaterialTextButton(it)
-        }
+        mSwitchGridViewButton = requireActivity().findViewById<MaterialButton?>(R.id.switch_grid_view_button)
+        viewThemeUtils.material.colorMaterialTextButton(mSwitchGridViewButton)
 
         return v
     }
@@ -549,7 +530,7 @@ open class ExtendedListFragment :
      * @param enabled Desired state for capturing swipe gesture.
      */
     fun setSwipeEnabled(enabled: Boolean) {
-        mRefreshListLayout?.setEnabled(enabled)
+        mRefreshListLayout.setEnabled(enabled)
     }
 
     /**
@@ -586,113 +567,108 @@ open class ExtendedListFragment :
         @DrawableRes icon: Int,
         tintIcon: Boolean
     ) {
-        Handler(Looper.getMainLooper()).post(
-            Runnable {
-                if (mEmptyListContainer != null && mEmptyListMessage != null) {
-                    mEmptyListHeadline?.setText(headline)
-                    mEmptyListMessage?.setText(message)
+        if (mEmptyListContainer == null || mEmptyListMessage == null) {
+            return
+        }
 
-                    if (tintIcon) {
-                        if (context != null) {
-                            mEmptyListIcon?.setImageDrawable(
-                                viewThemeUtils.platform.tintDrawable(requireContext(), icon, ColorRole.PRIMARY)
-                            )
-                        }
-                    } else {
-                        mEmptyListIcon?.setImageResource(icon)
-                    }
+        lifecycleScope.launch(Dispatchers.Main) {
+            mEmptyListHeadline?.setText(headline)
+            mEmptyListMessage?.setText(message)
 
-                    mEmptyListIcon?.setVisibility(View.VISIBLE)
-                    mEmptyListMessage?.visibility = View.VISIBLE
+            if (tintIcon) {
+                context?.let {
+                    val drawable = viewThemeUtils.platform.tintDrawable(it, icon, ColorRole.PRIMARY)
+                    mEmptyListIcon?.setImageDrawable(drawable)
                 }
+            } else {
+                mEmptyListIcon?.setImageResource(icon)
             }
-        )
+
+            mEmptyListIcon?.setVisibility(View.VISIBLE)
+            mEmptyListMessage?.visibility = View.VISIBLE
+        }
     }
 
     @Suppress("LongMethod")
     fun setEmptyListMessage(searchType: SearchType?) {
-        Handler(Looper.getMainLooper()).post(
-            Runnable {
-                if (searchType == SearchType.OFFLINE_MODE) {
-                    setMessageForEmptyList(
-                        R.string.offline_mode_info_title,
-                        R.string.offline_mode_info_description,
-                        R.drawable.ic_cloud_sync,
-                        true
-                    )
-                } else if (searchType == SearchType.NO_SEARCH) {
-                    setMessageForEmptyList(
-                        R.string.file_list_empty_headline,
-                        R.string.file_list_empty,
-                        R.drawable.ic_list_empty_folder,
-                        true
-                    )
-                } else if (searchType == SearchType.FILE_SEARCH) {
-                    setMessageForEmptyList(
-                        R.string.file_list_empty_headline_server_search,
-                        R.string.file_list_empty,
-                        R.drawable.ic_search_light_grey
-                    )
-                } else if (searchType == SearchType.FAVORITE_SEARCH) {
-                    setMessageForEmptyList(
-                        R.string.file_list_empty_favorite_headline,
-                        R.string.file_list_empty_favorites_filter_list,
-                        R.drawable.ic_star_light_yellow
-                    )
-                } else if (searchType == SearchType.RECENTLY_MODIFIED_SEARCH) {
-                    setMessageForEmptyList(
-                        R.string.file_list_empty_headline_server_search,
-                        R.string.file_list_empty_recently_modified,
-                        R.drawable.ic_list_empty_recent
-                    )
-                } else if (searchType == SearchType.REGULAR_FILTER) {
-                    setMessageForEmptyList(
-                        R.string.file_list_empty_headline_search,
-                        R.string.file_list_empty_search,
-                        R.drawable.ic_search_light_grey
-                    )
-                } else if (searchType == SearchType.SHARED_FILTER) {
-                    setMessageForEmptyList(
-                        R.string.file_list_empty_shared_headline,
-                        R.string.file_list_empty_shared,
-                        R.drawable.ic_list_empty_shared
-                    )
-                } else if (searchType == SearchType.GALLERY_SEARCH) {
-                    setMessageForEmptyList(
-                        R.string.file_list_empty_headline_server_search,
-                        R.string.file_list_empty_gallery,
-                        R.drawable.file_image
-                    )
-                } else if (searchType == SearchType.LOCAL_SEARCH) {
-                    setMessageForEmptyList(
-                        R.string.file_list_empty_headline_server_search,
-                        R.string.file_list_empty_local_search,
-                        R.drawable.ic_search_light_grey
-                    )
-                }
+        lifecycleScope.launch(Dispatchers.Main) {
+            if (searchType == SearchType.OFFLINE_MODE) {
+                setMessageForEmptyList(
+                    R.string.offline_mode_info_title,
+                    R.string.offline_mode_info_description,
+                    R.drawable.ic_cloud_sync,
+                    true
+                )
+            } else if (searchType == SearchType.NO_SEARCH) {
+                setMessageForEmptyList(
+                    R.string.file_list_empty_headline,
+                    R.string.file_list_empty,
+                    R.drawable.ic_list_empty_folder,
+                    true
+                )
+            } else if (searchType == SearchType.FILE_SEARCH) {
+                setMessageForEmptyList(
+                    R.string.file_list_empty_headline_server_search,
+                    R.string.file_list_empty,
+                    R.drawable.ic_search_light_grey
+                )
+            } else if (searchType == SearchType.FAVORITE_SEARCH) {
+                setMessageForEmptyList(
+                    R.string.file_list_empty_favorite_headline,
+                    R.string.file_list_empty_favorites_filter_list,
+                    R.drawable.ic_star_light_yellow
+                )
+            } else if (searchType == SearchType.RECENTLY_MODIFIED_SEARCH) {
+                setMessageForEmptyList(
+                    R.string.file_list_empty_headline_server_search,
+                    R.string.file_list_empty_recently_modified,
+                    R.drawable.ic_list_empty_recent
+                )
+            } else if (searchType == SearchType.REGULAR_FILTER) {
+                setMessageForEmptyList(
+                    R.string.file_list_empty_headline_search,
+                    R.string.file_list_empty_search,
+                    R.drawable.ic_search_light_grey
+                )
+            } else if (searchType == SearchType.SHARED_FILTER) {
+                setMessageForEmptyList(
+                    R.string.file_list_empty_shared_headline,
+                    R.string.file_list_empty_shared,
+                    R.drawable.ic_list_empty_shared
+                )
+            } else if (searchType == SearchType.GALLERY_SEARCH) {
+                setMessageForEmptyList(
+                    R.string.file_list_empty_headline_server_search,
+                    R.string.file_list_empty_gallery,
+                    R.drawable.file_image
+                )
+            } else if (searchType == SearchType.LOCAL_SEARCH) {
+                setMessageForEmptyList(
+                    R.string.file_list_empty_headline_server_search,
+                    R.string.file_list_empty_local_search,
+                    R.drawable.ic_search_light_grey
+                )
             }
-        )
+        }
     }
 
     /**
      * Set message for empty list view.
      */
     fun setEmptyListLoadingMessage() {
-        Handler(Looper.getMainLooper()).post(
-            Runnable {
-                val fileActivity = getTypedActivity<FileActivity>(FileActivity::class.java)
-                fileActivity?.connectivityService?.isNetworkAndServerAvailable(
-                    GenericCallback { result: Boolean? ->
-                        if (result == false || mEmptyListContainer == null || mEmptyListMessage == null) {
-                            return@GenericCallback
-                        }
-                        mEmptyListHeadline?.setText(R.string.file_list_loading)
-                        mEmptyListMessage?.text = ""
-                        mEmptyListIcon?.setVisibility(View.GONE)
+        lifecycleScope.launch(Dispatchers.Main) {
+            val fileActivity = getTypedActivity(FileActivity::class.java)
+            fileActivity?.connectivityService?.isNetworkAndServerAvailable(
+                GenericCallback { result: Boolean? ->
+                    if (result == false || mEmptyListContainer == null || mEmptyListMessage == null) {
+                        return@GenericCallback
                     }
-                )
-            }
-        )
+                    mEmptyListHeadline?.setText(R.string.file_list_loading)
+                    mEmptyListMessage?.text = ""
+                    mEmptyListIcon?.setVisibility(View.GONE)
+                }
+            )
+        }
     }
 
     val emptyViewText: String
@@ -733,7 +709,7 @@ open class ExtendedListFragment :
     }
 
     protected fun setGridSwitchButton() {
-        mSwitchGridViewButton?.let {
+        mSwitchGridViewButton.let {
             if (isGridEnabled) {
                 it.setContentDescription(getString(R.string.action_switch_list_view))
                 it.setIcon(ContextCompat.getDrawable(requireContext(), R.drawable.ic_view_list))
