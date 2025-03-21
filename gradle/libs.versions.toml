@@ -1,9 +1,5 @@
-#
-# Nextcloud - Android Client
-#
-# SPDX-FileCopyrightText: 2016-2025 Nextcloud GmbH and Nextcloud contributors
-# SPDX-FileCopyrightText: 2025 Alper Ozturk <alper.ozturk@nextcloud.com>
-#
+# SPDX-FileCopyrightText: 2025 Nextcloud GmbH and Nextcloud contributors
+# SPDX-License-Identifier: AGPL-3.0-or-later
 
 [versions]
 splash-screen = "1.0.1"
