@@ -150,7 +150,7 @@ internal class SharedListFragmentIT : AbstractIT() {
 
         sut.runOnUiThread {
             fragment.isLoading = false
-            fragment.mEmptyListContainer.visibility = View.GONE
+            fragment.mEmptyListContainer?.visibility = View.GONE
             fragment.adapter.setData(
                 shares,
                 SearchType.SHARED_FILTER,
