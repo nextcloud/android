@@ -15,7 +15,6 @@
     <color name="white">#ffffff</color>
     <color name="white_helper_text">#B3FFFFFF</color>
     <color name="text_color">#333333</color>
-    <color name="light_grey">#F5F5F5</color>
     <color name="grid_file_features_icon_color">#303034</color>
     <color name="grid_file_features_background_color">#E9E8EB</color>
     <color name="drawer_text_color">@color/secondary_text_color</color>
@@ -51,6 +50,7 @@
     <color name="secondary_button_background_color">#D6D7D7</color>
     <color name="secondary_button_text_color">#000000</color>
     <color name="nc_grey">#ededed</color>
+    <color name="task_container">#F4F4F4</color>
     <color name="icon_on_nc_grey">#000000</color>
     <color name="foreground_highlight">#1D1B1E</color>
     <color name="process_dialog_background">#ffffff</color>

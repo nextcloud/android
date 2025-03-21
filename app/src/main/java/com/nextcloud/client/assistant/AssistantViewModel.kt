@@ -80,8 +80,13 @@ class AssistantViewModel(
         viewModelScope.launch(Dispatchers.IO) {
             val taskTypesResult = repository.getTaskTypes()
 
-            if (taskTypesResult.isNullOrEmpty()) {
+            if (taskTypesResult == null) {
                 updateSnackbarMessage(R.string.assistant_screen_task_types_error_state_message)
+                return@launch
+            }
+
+            if (taskTypesResult.isEmpty()) {
+                updateSnackbarMessage(R.string.assistant_screen_task_list_empty_message)
                 return@launch
             }
 
