@@ -16,10 +16,14 @@ import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.PopupMenu
 import androidx.annotation.VisibleForTesting
+import androidx.core.view.isVisible
 import com.afollestad.sectionedrecyclerview.SectionedRecyclerViewAdapter
 import com.afollestad.sectionedrecyclerview.SectionedViewHolder
 import com.nextcloud.android.common.ui.theme.utils.ColorRole
 import com.nextcloud.client.core.Clock
+import com.nextcloud.utils.extensions.filterEnabledOrWithoutEnabledParent
+import com.nextcloud.utils.extensions.hasEnabledParent
+import com.nextcloud.utils.extensions.setVisibleIf
 import com.owncloud.android.R
 import com.owncloud.android.databinding.GridSyncItemBinding
 import com.owncloud.android.databinding.SyncedFoldersEmptyBinding
@@ -39,7 +43,7 @@ import java.util.concurrent.Executors
 /**
  * Adapter to display all auto-synced folders and/or instant upload media folders.
  */
-@Suppress("LongParameterList")
+@Suppress("LongParameterList", "TooManyFunctions")
 class SyncedFolderAdapter(
     private val context: Context,
     private val clock: Clock,
@@ -71,11 +75,12 @@ class SyncedFolderAdapter(
         }
     }
 
-    fun setSyncFolderItems(syncFolderItems: List<SyncedFolderDisplayItem>) {
-        this.syncFolderItems.clear()
-        this.syncFolderItems.addAll(syncFolderItems)
+    fun setSyncFolderItems(newList: List<SyncedFolderDisplayItem>) {
+        val filteredList = newList.filterEnabledOrWithoutEnabledParent()
+        syncFolderItems.clear()
+        syncFolderItems.addAll(filteredList)
 
-        filterHiddenItems(this.syncFolderItems, hideItems)?.let {
+        filterHiddenItems(syncFolderItems, hideItems)?.let {
             filteredSyncFolderItems.clear()
             filteredSyncFolderItems.addAll(it)
         }
@@ -283,6 +288,23 @@ class SyncedFolderAdapter(
                     )
                 }
             }
+
+            initSubFolderWarningButton(holder, section)
+        }
+    }
+
+    private fun initSubFolderWarningButton(holder: HeaderViewHolder, section: Int) {
+        val syncFolderItem = filteredSyncFolderItems[section]
+        val isGivenLocalPathHasEnabledParent =
+            filteredSyncFolderItems.hasEnabledParent(syncFolderItem.localPath)
+        holder.binding.subFolderWarningButton.run {
+            setVisibleIf(isGivenLocalPathHasEnabledParent)
+            if (isVisible) {
+                viewThemeUtils.platform.themeImageButton(this)
+                setOnClickListener {
+                    clickListener.showSubFolderWarningDialog()
+                }
+            }
         }
     }
 
@@ -421,6 +443,7 @@ class SyncedFolderAdapter(
         fun onSyncStatusToggleClick(section: Int, syncedFolderDisplayItem: SyncedFolderDisplayItem?)
         fun onSyncFolderSettingsClick(section: Int, syncedFolderDisplayItem: SyncedFolderDisplayItem?)
         fun onVisibilityToggleClick(section: Int, item: SyncedFolderDisplayItem?)
+        fun showSubFolderWarningDialog()
     }
 
     internal class HeaderViewHolder(var binding: SyncedFoldersItemHeaderBinding) : SectionedViewHolder(
