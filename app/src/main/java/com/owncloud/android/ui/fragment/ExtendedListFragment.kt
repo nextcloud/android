@@ -112,7 +112,7 @@ open class ExtendedListFragment :
     @JvmField
     protected var mSwitchGridViewButton: MaterialButton? = null
 
-    protected var mEmptyListContainer: ViewGroup? = null
+    var mEmptyListContainer: ViewGroup? = null
     protected var mEmptyListMessage: TextView? = null
     protected var mEmptyListHeadline: TextView? = null
     protected var mEmptyListIcon: ImageView? = null
