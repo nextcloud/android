@@ -83,8 +83,13 @@ import kotlin.math.min
 import kotlin.math.roundToInt
 
 @Suppress("MagicNumber", "TooManyFunctions")
-open class ExtendedListFragment : Fragment(), AdapterView.OnItemClickListener, OnEnforceableRefreshListener,
-    SearchView.OnQueryTextListener, SearchView.OnCloseListener, Injectable {
+open class ExtendedListFragment :
+    Fragment(),
+    AdapterView.OnItemClickListener,
+    OnEnforceableRefreshListener,
+    SearchView.OnQueryTextListener,
+    SearchView.OnCloseListener,
+    Injectable {
     private var maxColumnSize = 5
 
     @Inject
@@ -185,38 +190,42 @@ open class ExtendedListFragment : Fragment(), AdapterView.OnItemClickListener, O
             }
         }
 
-        searchView?.setOnQueryTextFocusChangeListener(View.OnFocusChangeListener { v: View?, hasFocus: Boolean ->
-            handler.post(
-                Runnable {
-                    if (getActivity() != null &&
-                        (getActivity() !is FolderPickerActivity) &&
-                        (getActivity() !is UploadFilesActivity)
-                    ) {
-                        if (getActivity() is FileDisplayActivity) {
-                            val fragment = (getActivity() as FileDisplayActivity).leftFragment
-                            if (fragment is OCFileListFragment) {
-                                fragment.setFabVisible(!hasFocus)
+        searchView?.setOnQueryTextFocusChangeListener(
+            View.OnFocusChangeListener { v: View?, hasFocus: Boolean ->
+                handler.post(
+                    Runnable {
+                        if (getActivity() != null &&
+                            (getActivity() !is FolderPickerActivity) &&
+                            (getActivity() !is UploadFilesActivity)
+                        ) {
+                            if (getActivity() is FileDisplayActivity) {
+                                val fragment = (getActivity() as FileDisplayActivity).leftFragment
+                                if (fragment is OCFileListFragment) {
+                                    fragment.setFabVisible(!hasFocus)
+                                }
+                            }
+
+                            if (TextUtils.isEmpty(searchView?.query)) {
+                                closeButton?.setVisibility(View.INVISIBLE)
                             }
                         }
-
-                        if (TextUtils.isEmpty(searchView?.query)) {
-                            closeButton?.setVisibility(View.INVISIBLE)
-                        }
                     }
-                }
-            )
-        })
+                )
+            }
+        )
 
         // On close -> empty field, show keyboard and
-        closeButton?.setOnClickListener(View.OnClickListener { view: View? ->
-            searchView?.setQuery("", true)
-            searchView?.requestFocus()
-            searchView?.onActionViewExpanded()
+        closeButton?.setOnClickListener(
+            View.OnClickListener { view: View? ->
+                searchView?.setQuery("", true)
+                searchView?.requestFocus()
+                searchView?.onActionViewExpanded()
 
-            val inputMethodManager =
-                getActivity()?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager?
-            inputMethodManager?.showSoftInput(searchView, InputMethodManager.SHOW_IMPLICIT)
-        })
+                val inputMethodManager =
+                    getActivity()?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager?
+                inputMethodManager?.showSoftInput(searchView, InputMethodManager.SHOW_IMPLICIT)
+            }
+        )
 
         val searchBar = searchView?.findViewById<LinearLayout>(R.id.search_bar)
         searchBar?.setLayoutTransition(LayoutTransition())
@@ -259,24 +268,26 @@ open class ExtendedListFragment : Fragment(), AdapterView.OnItemClickListener, O
                     fileDisplayActivity.resetSearchView()
                     fileDisplayActivity.updateListOfFilesFragment(true)
                 } else {
-                    handler.post(Runnable {
-                        if (adapter is OCFileListAdapter) {
-                            if (accountManager
-                                    .user
-                                    .server
-                                    .version
-                                    .isNewerOrEqual(OwnCloudVersion.nextcloud_20)
-                            ) {
-                                activity.performUnifiedSearch(query, listOfHiddenFiles)
-                            } else {
-                                EventBus.getDefault().post(
-                                    SearchEvent(query, SearchRemoteOperation.SearchType.FILE_SEARCH)
-                                )
+                    handler.post(
+                        Runnable {
+                            if (adapter is OCFileListAdapter) {
+                                if (accountManager
+                                        .user
+                                        .server
+                                        .version
+                                        .isNewerOrEqual(OwnCloudVersion.nextcloud_20)
+                                ) {
+                                    activity.performUnifiedSearch(query, listOfHiddenFiles)
+                                } else {
+                                    EventBus.getDefault().post(
+                                        SearchEvent(query, SearchRemoteOperation.SearchType.FILE_SEARCH)
+                                    )
+                                }
+                            } else if (adapter is LocalFileListAdapter) {
+                                adapter.filter(query)
                             }
-                        } else if (adapter is LocalFileListAdapter) {
-                            adapter.filter(query)
                         }
-                    })
+                    )
 
                     searchView?.clearFocus()
                 }
@@ -326,13 +337,15 @@ open class ExtendedListFragment : Fragment(), AdapterView.OnItemClickListener, O
 
         mScaleGestureDetector = ScaleGestureDetector(MainApp.getAppContext(), ScaleListener())
 
-        recyclerView.setOnTouchListener(OnTouchListener { view: View, motionEvent: MotionEvent ->
-            mScaleGestureDetector?.onTouchEvent(motionEvent)
-            if (motionEvent.action == MotionEvent.ACTION_UP) {
-                view.performClick()
+        recyclerView.setOnTouchListener(
+            OnTouchListener { view: View, motionEvent: MotionEvent ->
+                mScaleGestureDetector?.onTouchEvent(motionEvent)
+                if (motionEvent.action == MotionEvent.ACTION_UP) {
+                    view.performClick()
+                }
+                false
             }
-            false
-        })
+        )
 
         // Pull-down to refresh layout
         mRefreshListLayout = binding?.swipeContainingList
@@ -443,8 +456,8 @@ open class ExtendedListFragment : Fragment(), AdapterView.OnItemClickListener, O
         }
 
     /*
-    * Restore index and position
-    */
+     * Restore index and position
+     */
     protected fun restoreIndexAndTopPosition() {
         if (mIndexes == null || mIndexes?.isEmpty() == true) {
             Log_OC.d(TAG, "Indexes is null or empty")
@@ -457,8 +470,11 @@ open class ExtendedListFragment : Fragment(), AdapterView.OnItemClickListener, O
         val top = mTops?.removeAt(mTops!!.size - 1)
 
         Log_OC.v(
-            TAG, ("Setting selection to position: " + firstPosition + "; top: "
-                + top + "; index: " + index)
+            TAG,
+            (
+                "Setting selection to position: " + firstPosition + "; top: " +
+                    top + "; index: " + index
+                )
         )
 
         scrollToPosition(firstPosition)
@@ -552,10 +568,7 @@ open class ExtendedListFragment : Fragment(), AdapterView.OnItemClickListener, O
      * @param message  the message
      * @param icon     the icon to be shown
      */
-    fun setMessageForEmptyList(
-        @StringRes headline: Int, @StringRes message: Int,
-        @DrawableRes icon: Int
-    ) {
+    fun setMessageForEmptyList(@StringRes headline: Int, @StringRes message: Int, @DrawableRes icon: Int) {
         setMessageForEmptyList(headline, message, icon, false)
     }
 
@@ -568,106 +581,118 @@ open class ExtendedListFragment : Fragment(), AdapterView.OnItemClickListener, O
      * @param tintIcon flag if the given icon should be tinted with primary color
      */
     fun setMessageForEmptyList(
-        @StringRes headline: Int, @StringRes message: Int,
-        @DrawableRes icon: Int, tintIcon: Boolean
+        @StringRes headline: Int,
+        @StringRes message: Int,
+        @DrawableRes icon: Int,
+        tintIcon: Boolean
     ) {
-        Handler(Looper.getMainLooper()).post(Runnable {
-            if (mEmptyListContainer != null && mEmptyListMessage != null) {
-                mEmptyListHeadline?.setText(headline)
-                mEmptyListMessage?.setText(message)
+        Handler(Looper.getMainLooper()).post(
+            Runnable {
+                if (mEmptyListContainer != null && mEmptyListMessage != null) {
+                    mEmptyListHeadline?.setText(headline)
+                    mEmptyListMessage?.setText(message)
 
-                if (tintIcon) {
-                    if (context != null) {
-                        mEmptyListIcon?.setImageDrawable(
-                            viewThemeUtils.platform.tintDrawable(requireContext(), icon, ColorRole.PRIMARY)
-                        )
+                    if (tintIcon) {
+                        if (context != null) {
+                            mEmptyListIcon?.setImageDrawable(
+                                viewThemeUtils.platform.tintDrawable(requireContext(), icon, ColorRole.PRIMARY)
+                            )
+                        }
+                    } else {
+                        mEmptyListIcon?.setImageResource(icon)
                     }
-                } else {
-                    mEmptyListIcon?.setImageResource(icon)
-                }
 
-                mEmptyListIcon?.setVisibility(View.VISIBLE)
-                mEmptyListMessage?.visibility = View.VISIBLE
+                    mEmptyListIcon?.setVisibility(View.VISIBLE)
+                    mEmptyListMessage?.visibility = View.VISIBLE
+                }
             }
-        })
+        )
     }
 
     @Suppress("LongMethod")
     fun setEmptyListMessage(searchType: SearchType?) {
-        Handler(Looper.getMainLooper()).post(Runnable {
-            if (searchType == SearchType.OFFLINE_MODE) {
-                setMessageForEmptyList(
-                    R.string.offline_mode_info_title,
-                    R.string.offline_mode_info_description,
-                    R.drawable.ic_cloud_sync,
-                    true
-                )
-            } else if (searchType == SearchType.NO_SEARCH) {
-                setMessageForEmptyList(
-                    R.string.file_list_empty_headline,
-                    R.string.file_list_empty,
-                    R.drawable.ic_list_empty_folder,
-                    true
-                )
-            } else if (searchType == SearchType.FILE_SEARCH) {
-                setMessageForEmptyList(
-                    R.string.file_list_empty_headline_server_search,
-                    R.string.file_list_empty,
-                    R.drawable.ic_search_light_grey
-                )
-            } else if (searchType == SearchType.FAVORITE_SEARCH) {
-                setMessageForEmptyList(
-                    R.string.file_list_empty_favorite_headline,
-                    R.string.file_list_empty_favorites_filter_list,
-                    R.drawable.ic_star_light_yellow
-                )
-            } else if (searchType == SearchType.RECENTLY_MODIFIED_SEARCH) {
-                setMessageForEmptyList(
-                    R.string.file_list_empty_headline_server_search,
-                    R.string.file_list_empty_recently_modified,
-                    R.drawable.ic_list_empty_recent
-                )
-            } else if (searchType == SearchType.REGULAR_FILTER) {
-                setMessageForEmptyList(
-                    R.string.file_list_empty_headline_search,
-                    R.string.file_list_empty_search,
-                    R.drawable.ic_search_light_grey
-                )
-            } else if (searchType == SearchType.SHARED_FILTER) {
-                setMessageForEmptyList(
-                    R.string.file_list_empty_shared_headline,
-                    R.string.file_list_empty_shared,
-                    R.drawable.ic_list_empty_shared
-                )
-            } else if (searchType == SearchType.GALLERY_SEARCH) {
-                setMessageForEmptyList(
-                    R.string.file_list_empty_headline_server_search,
-                    R.string.file_list_empty_gallery,
-                    R.drawable.file_image
-                )
-            } else if (searchType == SearchType.LOCAL_SEARCH) {
-                setMessageForEmptyList(
-                    R.string.file_list_empty_headline_server_search,
-                    R.string.file_list_empty_local_search,
-                    R.drawable.ic_search_light_grey
-                )
+        Handler(Looper.getMainLooper()).post(
+            Runnable {
+                if (searchType == SearchType.OFFLINE_MODE) {
+                    setMessageForEmptyList(
+                        R.string.offline_mode_info_title,
+                        R.string.offline_mode_info_description,
+                        R.drawable.ic_cloud_sync,
+                        true
+                    )
+                } else if (searchType == SearchType.NO_SEARCH) {
+                    setMessageForEmptyList(
+                        R.string.file_list_empty_headline,
+                        R.string.file_list_empty,
+                        R.drawable.ic_list_empty_folder,
+                        true
+                    )
+                } else if (searchType == SearchType.FILE_SEARCH) {
+                    setMessageForEmptyList(
+                        R.string.file_list_empty_headline_server_search,
+                        R.string.file_list_empty,
+                        R.drawable.ic_search_light_grey
+                    )
+                } else if (searchType == SearchType.FAVORITE_SEARCH) {
+                    setMessageForEmptyList(
+                        R.string.file_list_empty_favorite_headline,
+                        R.string.file_list_empty_favorites_filter_list,
+                        R.drawable.ic_star_light_yellow
+                    )
+                } else if (searchType == SearchType.RECENTLY_MODIFIED_SEARCH) {
+                    setMessageForEmptyList(
+                        R.string.file_list_empty_headline_server_search,
+                        R.string.file_list_empty_recently_modified,
+                        R.drawable.ic_list_empty_recent
+                    )
+                } else if (searchType == SearchType.REGULAR_FILTER) {
+                    setMessageForEmptyList(
+                        R.string.file_list_empty_headline_search,
+                        R.string.file_list_empty_search,
+                        R.drawable.ic_search_light_grey
+                    )
+                } else if (searchType == SearchType.SHARED_FILTER) {
+                    setMessageForEmptyList(
+                        R.string.file_list_empty_shared_headline,
+                        R.string.file_list_empty_shared,
+                        R.drawable.ic_list_empty_shared
+                    )
+                } else if (searchType == SearchType.GALLERY_SEARCH) {
+                    setMessageForEmptyList(
+                        R.string.file_list_empty_headline_server_search,
+                        R.string.file_list_empty_gallery,
+                        R.drawable.file_image
+                    )
+                } else if (searchType == SearchType.LOCAL_SEARCH) {
+                    setMessageForEmptyList(
+                        R.string.file_list_empty_headline_server_search,
+                        R.string.file_list_empty_local_search,
+                        R.drawable.ic_search_light_grey
+                    )
+                }
             }
-        })
+        )
     }
 
     /**
      * Set message for empty list view.
      */
     fun setEmptyListLoadingMessage() {
-        Handler(Looper.getMainLooper()).post(Runnable {
-            val fileActivity = getTypedActivity<FileActivity>(FileActivity::class.java)
-            fileActivity?.connectivityService?.isNetworkAndServerAvailable(GenericCallback { result: Boolean? ->
-                if (result == false || mEmptyListContainer == null || mEmptyListMessage == null) return@GenericCallback
-                mEmptyListHeadline?.setText(R.string.file_list_loading)
-                mEmptyListMessage?.text = ""
-                mEmptyListIcon?.setVisibility(View.GONE)
-            })
-        })
+        Handler(Looper.getMainLooper()).post(
+            Runnable {
+                val fileActivity = getTypedActivity<FileActivity>(FileActivity::class.java)
+                fileActivity?.connectivityService?.isNetworkAndServerAvailable(
+                    GenericCallback { result: Boolean? ->
+                        if (result == false || mEmptyListContainer == null || mEmptyListMessage == null) {
+                            return@GenericCallback
+                        }
+                        mEmptyListHeadline?.setText(R.string.file_list_loading)
+                        mEmptyListMessage?.text = ""
+                        mEmptyListIcon?.setVisibility(View.GONE)
+                    }
+                )
+            }
+        )
     }
 
     val emptyViewText: String
@@ -676,15 +701,19 @@ open class ExtendedListFragment : Fragment(), AdapterView.OnItemClickListener, O
          *
          * @return String empty text view text-value
          */
-        get() = if (mEmptyListContainer != null && mEmptyListMessage != null) mEmptyListMessage?.getText()
-            .toString() else ""
+        get() = if (mEmptyListContainer != null && mEmptyListMessage != null) {
+            mEmptyListMessage?.getText()
+                .toString()
+        } else {
+            ""
+        }
 
     override fun onRefresh(ignoreETag: Boolean) {
-        if (mOnRefreshListener != null) {
-            if (mOnRefreshListener is FileDisplayActivity) {
-                (mOnRefreshListener as FileDisplayActivity).onRefresh(ignoreETag)
+        mOnRefreshListener?.let { listener ->
+            if (listener is FileDisplayActivity) {
+                listener.onRefresh(ignoreETag)
             } else {
-                mOnRefreshListener?.onRefresh()
+                listener.onRefresh()
             }
         }
     }
