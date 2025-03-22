@@ -10,6 +10,7 @@
     <string name="action_edit">編輯</string>
     <string name="action_empty_notifications">清除所有通知訊息</string>
     <string name="action_empty_trashbin">清空回收桶</string>
+    <string name="action_send_share">傳送/分享</string>
     <string name="action_switch_grid_view">網格檢視</string>
     <string name="action_switch_list_view">清單檢視</string>
     <string name="actionbar_calendar_contacts_restore">復原通訊錄與日曆</string>
@@ -48,6 +49,7 @@
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">輸入一些文字</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">您確定要刪除此工作項目嗎？</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">刪除任務</string>
+    <string name="assistant_screen_loading">正在載入任務清單 ...</string>
     <string name="assistant_screen_no_task_available_text">沒有可用於 %s 任務項目類型的任務項目，您可以從右下角建立新任務項目。</string>
     <string name="assistant_screen_task_create_fail_message">建立任務項目時發生錯誤</string>
     <string name="assistant_screen_task_create_success_message">已成功建立任務項目</string>
@@ -185,6 +187,7 @@
     <string name="confirmation_remove_folders_alert">您真的想要刪除所選項目和裡面的內容嗎？</string>
     <string name="confirmation_remove_local">只有近端</string>
     <string name="conflict_dialog_error">無法創建衝突解決程序對話框</string>
+    <string name="conflict_folder_headline">資料夾衝突</string>
     <string name="conflict_local_file">近端檔案</string>
     <string name="conflict_message_description">若您同時選擇兩個版本，近端的檔案會在檔名後附加編號。</string>
     <string name="conflict_message_description_for_folder">若您同時選擇兩個版本，本機的資料夾會在檔名後附加編號。</string>
@@ -351,6 +354,7 @@
     <string name="etm_background_jobs_stop_test_job">停止測試作業</string>
     <string name="etm_migrations">遷移（APP 升級）</string>
     <string name="etm_preferences">設定</string>
+    <string name="etm_title">工程測試模式</string>
     <string name="etm_transfer">檔案轉移</string>
     <string name="etm_transfer_enqueue_test_download">入隊測試下載</string>
     <string name="etm_transfer_enqueue_test_upload">入隊測試上傳</string>
@@ -572,6 +576,7 @@
     <string name="new_media_folder_detected">偵測新媒體資料夾 %1$s</string>
     <string name="new_media_folder_photos">相片</string>
     <string name="new_media_folder_videos">影片</string>
+    <string name="new_notification">新通知</string>
     <string name="new_version_was_created">新版本已建立</string>
     <string name="no_actions">此用戶沒有操作</string>
     <string name="no_browser_available">沒有應用程式可以開啟連結</string>
@@ -587,6 +592,7 @@
     <string name="note_icon_hint">記事本圖示</string>
     <string name="notification_action_failed">無法執行操作。</string>
     <string name="notification_channel_background_operations_description">顯示通知以與背景操作的結果互動</string>
+    <string name="notification_channel_background_operations_name">背景操作</string>
     <string name="notification_channel_download_description">顯示下載進度</string>
     <string name="notification_channel_download_name_short">下載</string>
     <string name="notification_channel_file_sync_description">顯示檔案同步進度和結果</string>
@@ -603,12 +609,17 @@
     <string name="notification_icon_description">有未讀的通知</string>
     <string name="notifications_no_results_headline">沒有通知</string>
     <string name="notifications_no_results_message">請稍候再檢查</string>
+    <string name="oc_file_list_adapter_offline_operation_description_text">擱置中的操作</string>
     <string name="oc_file_list_adapter_offline_operation_remove_description_text">擱置中的移除操作</string>
     <string name="offline_mode">沒有網路連線</string>
     <string name="offline_mode_info_description">即使沒有網路連接，您也可以組織資料夾、建立檔案。一旦您重新上線，您的待處理操作將自動同步。</string>
+    <string name="offline_mode_info_title">您處於離線狀態，但工作仍在繼續</string>
     <string name="offline_operations_file_does_not_exists_yet">檔案不存在。請先上傳檔案。</string>
+    <string name="offline_operations_worker_notification_conflict_text">衝突的資料夾：%s</string>
+    <string name="offline_operations_worker_notification_delete_offline_folder">刪除離線資料夾</string>
     <string name="offline_operations_worker_notification_error_text">無法完成離線操作。%s</string>
     <string name="offline_operations_worker_notification_manager_ticker">離線操作</string>
+    <string name="offline_operations_worker_notification_start_text">開始離線操作</string>
     <string name="oneHour">1 小時</string>
     <string name="online">上線</string>
     <string name="online_status">上線狀態</string>
@@ -631,6 +642,7 @@
     <string name="permission_storage_access">上傳與下載檔案需要額外的權限。</string>
     <string name="pick_contact_to_share_with">挑選要分享的聯絡人</string>
     <string name="picture_set_as_no_app">沒有找到編輯圖片的應用程式</string>
+    <string name="pin_home">釘選至主畫面</string>
     <string name="pin_shortcut_label">公開 %1$s</string>
     <string name="placeholder_fileSize">389 KB</string>
     <string name="placeholder_filename">placeholder.txt</string>
@@ -779,13 +791,16 @@
     <string name="select_one_template">請選擇一個模板</string>
     <string name="select_template">選擇範本</string>
     <string name="send">傳送</string>
+    <string name="send_share">傳送分享</string>
     <string name="sendbutton_description">傳送按鈕圖示</string>
     <string name="set_as">設定為</string>
+    <string name="set_note">設定備註</string>
     <string name="set_picture_as">使用圖片作為</string>
     <string name="set_status">設定狀態</string>
     <string name="set_status_message">設定狀態訊息</string>
     <string name="setup_e2e">在設置端到端加密期間，您將收到一個隨機的 12 字助記碼，您需要在其他設備上打開檔案。這將僅存儲在此設備上，並且可以在此螢幕中再次顯示。請記在安全的地方！</string>
     <string name="share">分享</string>
+    <string name="share_copy_link">分享並複製連結</string>
     <string name="share_dialog_title">分享</string>
     <string name="share_download_limit">設定下載限制</string>
     <string name="share_expiration_date_format">%1$s</string>
@@ -812,6 +827,7 @@
     <string name="share_permission_file_drop">檔案拖放</string>
     <string name="share_permission_secure_file_drop">安全檔案投放</string>
     <string name="share_permission_view_only">僅檢視</string>
+    <string name="share_permissions">分享權限</string>
     <string name="share_remote_clarification">%1$s（遠端）</string>
     <string name="share_room_clarification">%1$s﹙對話﹚</string>
     <string name="share_search">名稱、聯合雲端 ID 或電郵地址 …</string>
