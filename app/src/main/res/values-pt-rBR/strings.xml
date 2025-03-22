@@ -597,6 +597,7 @@
     <string name="oneHour">1 hora</string>
     <string name="online">Online</string>
     <string name="online_status">Status online</string>
+    <string name="open_in_app">Abrir em %1$s</string>
     <string name="outdated_server">O servidor chegou ao fim da vida. Por favor, atualize!</string>
     <string name="overflow_menu">Mais menus</string>
     <string name="pass_code_configure_your_pass_code">Digite o código de acesso</string>

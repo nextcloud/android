@@ -236,6 +236,7 @@
     <string name="drawer_item_home">Αρχική</string>
     <string name="drawer_item_notifications">Ειδοποιήσεις</string>
     <string name="drawer_item_on_device">Στην συσκευή</string>
+    <string name="drawer_item_personal_files">Προσωπικά αρχεία</string>
     <string name="drawer_item_recently_modified">Τροποποιήθηκαν πρόσφατα</string>
     <string name="drawer_item_shared">Κοινόχρηστα</string>
     <string name="drawer_item_trashbin">Διεγραμμένα αρχεία</string>
