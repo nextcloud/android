@@ -10,6 +10,7 @@
     <string name="action_edit">Editar</string>
     <string name="action_empty_notifications">Apagar todas as notificações</string>
     <string name="action_empty_trashbin">Esvaziar lixeira </string>
+    <string name="action_send_share">Enviar/compartilhar</string>
     <string name="action_switch_grid_view">Vista em grade</string>
     <string name="action_switch_list_view">Lista de visualização</string>
     <string name="actionbar_calendar_contacts_restore">Restaurar contatos e calendário</string>
@@ -48,6 +49,7 @@
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Digite algum texto</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Tem certeza de que deseja excluir esta tarefa?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Excluir tarefa</string>
+    <string name="assistant_screen_loading">Carregando a lista de tarefas…</string>
     <string name="assistant_screen_no_task_available_text">Nenhuma tarefa disponível para o tipo de tarefa %s. Você pode criar uma nova tarefa no canto inferior direito.</string>
     <string name="assistant_screen_task_create_fail_message">Ocorreu um erro ao criar a tarefa</string>
     <string name="assistant_screen_task_create_success_message">Tarefa criada com sucesso</string>
@@ -95,6 +97,8 @@
     <string name="authenticator_activity_please_complete_login_process">Conclua o processo de login no seu navegador</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">mantido na pasta original, já que é somente leitura</string>
     <string name="auto_upload_gplay">Comportamento do upload automático alterado</string>
+    <string name="auto_upload_gplay_desc">Devido às novas restrições impostas pelo Google, o recurso de upload automático não poderá mais remover automaticamente os arquivos carregados.</string>
+    <string name="auto_upload_gplay_desc2">Devido às novas restrições impostas pelo Google, fomos forçados a remover uma permissão importante. Como resultado, o upload automático só poderá fazer upload de arquivos de imagem e vídeo.\nAlém disso, é necessária uma nova permissão para acessar as informações de localização das imagens carregadas.\nCertifique-se de que o acesso à mídia esteja definido como \"Sempre permitir tudo\".</string>
     <string name="auto_upload_on_wifi">Enviar só por WiFi não medida</string>
     <string name="auto_upload_path">/AutoEnvio</string>
     <string name="autoupload_configure">Configurar</string>
@@ -128,6 +132,7 @@
     <string name="clear_notifications_failed">Erro ao limpar as notificações.</string>
     <string name="clear_status_message">Limpar mensagem de status</string>
     <string name="clear_status_message_after">Limpar mensagem de status após</string>
+    <string name="click_to_learn_how_to_re_enable_auto_uploads">Intervenção manual necessária para reativar o upload automático</string>
     <string name="clipboard_label">Texto copiado de %1$s</string>
     <string name="clipboard_no_text_to_copy">Nenhum texto foi recebido para copiar para a área de transferência</string>
     <string name="clipboard_text_copied">Link copiado</string>
@@ -182,6 +187,7 @@
     <string name="confirmation_remove_folders_alert">Quer realmente excluir os itens selecionados e seus conteúdos?</string>
     <string name="confirmation_remove_local">Somente local</string>
     <string name="conflict_dialog_error">A caixa de diálogo de resolução de conflitos não pode ser criada</string>
+    <string name="conflict_folder_headline">Conflito de pastas</string>
     <string name="conflict_local_file">Arquivo local</string>
     <string name="conflict_message_description">Se você selecionar as duas versões, o arquivo local terá um número anexado ao seu nome.</string>
     <string name="conflict_message_description_for_folder">Se selecionar ambas as versões, a pasta local terá um número anexado ao nome.</string>
@@ -283,6 +289,7 @@
     <string name="drawer_quota">%1$s de %2$s usados</string>
     <string name="drawer_quota_unlimited">%1$s usados</string>
     <string name="drawer_synced_folders">Autoenvio</string>
+    <string name="due_to_too_many_wrong_attempts">%s devido a muitas tentativas erradas</string>
     <string name="e2e_counter_too_old">O contador é muito antigo</string>
     <string name="e2e_hash_not_found">Hash não encontrado</string>
     <string name="e2e_not_yet_setup">E2E ainda não configurado</string>
@@ -293,9 +300,12 @@
     <string name="ecosystem_apps_more">Mais aplicativos Nextcloud</string>
     <string name="email_pick_failed">Falha ao escolher o endereço de e-mail.</string>
     <string name="encrypted">Definir como criptografado</string>
+    <string name="end_to_end_encryption_certificate_unavailable">Não é possível recuperar o certificado do servidor</string>
+    <string name="end_to_end_encryption_certificate_verification_failed">Falha ao verificar a chave pública</string>
     <string name="end_to_end_encryption_confirm_button">Definir criptografia</string>
     <string name="end_to_end_encryption_decrypting">Descriptografando…</string>
     <string name="end_to_end_encryption_dialog_close">Fechar</string>
+    <string name="end_to_end_encryption_enter_passphrase_to_access_files">Digite sua senha para acessar seus arquivos</string>
     <string name="end_to_end_encryption_folder_not_empty">Esta pasta não está vazia.</string>
     <string name="end_to_end_encryption_generating_keys">Gerando novas chaves…</string>
     <string name="end_to_end_encryption_keywords_description">Todas as 12 palavras juntas fazem uma senha muito forte, permitindo que você use seus arquivos criptografados. Por favor escreva e mantenha-as em um lugar seguro.</string>
@@ -303,8 +313,11 @@
     <string name="end_to_end_encryption_passphrase_title">Anote sua senha de criptografia de 12 palavras</string>
     <string name="end_to_end_encryption_password">Senha…</string>
     <string name="end_to_end_encryption_retrieving_keys">Retornando chaves…</string>
+    <string name="end_to_end_encryption_server_private_key_unavailable">Não é possível recuperar a chave privada</string>
+    <string name="end_to_end_encryption_server_public_key_unavailable">Não é possível recuperar a chave pública</string>
     <string name="end_to_end_encryption_storing_keys">Armazenando chaves</string>
     <string name="end_to_end_encryption_title">Definir criptografia</string>
+    <string name="end_to_end_encryption_unexpected_error_occurred">Ocorreu um erro inesperado durante o download das chaves</string>
     <string name="end_to_end_encryption_unsuccessful">Não foi possível salvar as chaves, tente novamente.</string>
     <string name="end_to_end_encryption_wrong_password">Erro descriptografando. Senha incorreta?</string>
     <string name="enter_destination_filename">Insira o nome do arquivo de destino </string>
@@ -341,6 +354,7 @@
     <string name="etm_background_jobs_stop_test_job">Parar tarefa de teste</string>
     <string name="etm_migrations">Migrações (atualização do aplicativo)</string>
     <string name="etm_preferences">Preferências</string>
+    <string name="etm_title">Modo de teste de engenharia</string>
     <string name="etm_transfer">Transferência de arquivo</string>
     <string name="etm_transfer_enqueue_test_download">Enfileirar o download de teste</string>
     <string name="etm_transfer_enqueue_test_upload">Enfileirar teste e enviar</string>
@@ -360,6 +374,7 @@
     <string name="file_already_exists">O nome do arquivo já existe</string>
     <string name="file_delete">Excluir</string>
     <string name="file_detail_activity_error">Erro ao recuperar atividades do arquivo</string>
+    <string name="file_detail_sharing_fragment_no_contact_app_message">Nenhum aplicativo disponível para selecionar contatos</string>
     <string name="file_details_no_content">Falha ao carregar detalhes</string>
     <string name="file_icon">Arquivo</string>
     <string name="file_keep">Manter</string>
@@ -398,6 +413,7 @@
     <string name="file_migration_failed_not_writable">Não foi possível gravar o arquivo de destino</string>
     <string name="file_migration_failed_while_coping">Falha durante a migração</string>
     <string name="file_migration_failed_while_updating_index">Falha ao atualizar o índice</string>
+    <string name="file_migration_free_space">%1$s\n(%2$s / %3$s)</string>
     <string name="file_migration_migrating">Movendo dados…</string>
     <string name="file_migration_ok_finished">Finalizado</string>
     <string name="file_migration_override_data_folder">Substituir</string>
@@ -419,6 +435,7 @@
     <string name="file_not_found">Arquivo não encontrado</string>
     <string name="file_not_synced">Arquivo não pôde ser sincronizado. Mostrando a última versão disponível.</string>
     <string name="file_rename">Renomear</string>
+    <string name="file_upload_worker_error_notification_title">O upload falhou. Sem conexão com a Internet</string>
     <string name="file_upload_worker_same_file_already_exists">O mesmo arquivo já existe, nenhum conflito detectado</string>
     <string name="file_version_restored_error">Erro recuperando arquivo!</string>
     <string name="file_version_restored_successfully">Arquivo recuperado com sucesso.</string>
@@ -437,6 +454,7 @@
     <string name="first_run_3_text">Webmail, calendário e contatos fáceis de usar</string>
     <string name="first_run_4_text">Compartilhamento de tela, reuniões on-line e conferências na web</string>
     <string name="folder_already_exists">Pasta já existe</string>
+    <string name="folder_best_viewed_in">Essa pasta é melhor visualizada em %1$s.</string>
     <string name="folder_confirm_create">Criar</string>
     <string name="folder_list_empty_headline">Sem pastas aqui</string>
     <string name="folder_name_empty">O nome da pasta não pode ficar vazio</string>
@@ -558,6 +576,7 @@
     <string name="new_media_folder_detected">Nova pasta de mídia %1$s detectada.</string>
     <string name="new_media_folder_photos">foto</string>
     <string name="new_media_folder_videos">vídeo</string>
+    <string name="new_notification">Nova notificação</string>
     <string name="new_version_was_created">Nova versão criada</string>
     <string name="no_actions">Nenhuma ação para este usuário </string>
     <string name="no_browser_available">Nenhum aplicativo disponível para lidar com links</string>
@@ -573,6 +592,7 @@
     <string name="note_icon_hint">Ícone de anotação</string>
     <string name="notification_action_failed">Erro ao executar a ação.</string>
     <string name="notification_channel_background_operations_description">Mostrar notificações para interagir com o resultado de operações em segundo plano</string>
+    <string name="notification_channel_background_operations_name">Operações em segundo plano</string>
     <string name="notification_channel_download_description">Mostra o progresso de download</string>
     <string name="notification_channel_download_name_short">Baixados</string>
     <string name="notification_channel_file_sync_description">Mostra o progresso sincronização de arquivo e resultados</string>
@@ -589,11 +609,17 @@
     <string name="notification_icon_description">Existem notificações não lidas</string>
     <string name="notifications_no_results_headline">Não há notificações</string>
     <string name="notifications_no_results_message">Por favor, verifique mais tarde.</string>
+    <string name="oc_file_list_adapter_offline_operation_description_text">Operação pendente</string>
+    <string name="oc_file_list_adapter_offline_operation_remove_description_text">Operação de Remoção Pendente</string>
     <string name="offline_mode">Sem conexão à internet</string>
     <string name="offline_mode_info_description">Mesmo sem conexão com a internet, você pode organizar suas pastas e criar arquivos. Quando você estiver online novamente, suas ações pendentes serão sincronizadas automaticamente.</string>
+    <string name="offline_mode_info_title">Você está offline, mas o trabalho continua</string>
     <string name="offline_operations_file_does_not_exists_yet">O arquivo ainda não existe. Por favor envie o arquivo primeiro.</string>
+    <string name="offline_operations_worker_notification_conflict_text">Pasta conflitante: %s</string>
+    <string name="offline_operations_worker_notification_delete_offline_folder">Remover pasta offline</string>
     <string name="offline_operations_worker_notification_error_text">A operação offline não foi completada. %s</string>
     <string name="offline_operations_worker_notification_manager_ticker">Operações Offline</string>
+    <string name="offline_operations_worker_notification_start_text">Iniciando operações offline</string>
     <string name="oneHour">1 hora</string>
     <string name="online">Online</string>
     <string name="online_status">Status online</string>
@@ -614,7 +640,9 @@
     <string name="permission_allow">Permitir</string>
     <string name="permission_deny">Negar</string>
     <string name="permission_storage_access">Permissões adicionais são necessárias para enviar ou baixar arquivos.</string>
+    <string name="pick_contact_to_share_with">Escolha um contato para compartilhar</string>
     <string name="picture_set_as_no_app">Nenhum aplicativo encontrado para definir uma imagem</string>
+    <string name="pin_home">Fixar na tela inicial</string>
     <string name="pin_shortcut_label">Abrir %1$s</string>
     <string name="placeholder_fileSize">389 KB</string>
     <string name="placeholder_filename">placeholder.txt</string>
@@ -647,6 +675,8 @@
     <string name="prefs_category_sync">Sincronizar</string>
     <string name="prefs_daily_backup_summary">Backup diário do seu calendário e contatos</string>
     <string name="prefs_daily_contact_backup_summary">Backup diário de seus contatos</string>
+    <string name="prefs_data_storage_location">Local de armazenamento de dados</string>
+    <string name="prefs_data_storage_location_summary">Gerenciar o local de armazenamento de dados</string>
     <string name="prefs_davx5_setup_error">Erro inesperado ao configurar o DAVx5 (anteriormente conhecido como DAVdroid)</string>
     <string name="prefs_e2e_active">A criptografia de ponta a ponta está configurada!</string>
     <string name="prefs_e2e_mnemonic">Mnemônico E2E</string>
@@ -704,6 +734,8 @@
     <string name="push_notifications_old_login">Sem envio de notificações devido à sessão de login desatualizada. Considere readicionar sua conta.</string>
     <string name="push_notifications_temp_error">Atualmente o envio de notificações está indisponível.</string>
     <string name="qr_could_not_be_read">Não foi possível ler o código QR! </string>
+    <string name="re_enable_auto_upload">Alterações no upload automático</string>
+    <string name="re_enable_auto_upload_desc">Devido às novas restrições impostas pelo Google, fomos forçados a remover uma permissão importante. No momento, estamos trabalhando com o Google para resolver esse problema e restaurar a funcionalidade completa.\n\nPara reativar o upload automático de novas fotos e vídeos:\nSelecione \"Permitir tudo\" na caixa de diálogo a seguir ou nas configurações do sistema.\nPermita a localização da mídia quando solicitado, pois isso permite que o Nextcloud armazene dados de localização ao fazer upload de imagens.\n\nA caixa de diálogo de permissões só é exibida quando necessário. Em caso de dúvida, verifique as configurações do sistema.\n\nO upload automático só poderá fazer upload de arquivos de imagem e vídeo ao usar a versão do Google Play do aplicativo Nextcloud.\n\nVerifique se há algum arquivo que não tenha sido carregado desde dezembro de 2024.</string>
     <string name="receive_external_files_activity_start_sync_folder_is_not_exists_message">A pasta não pode ser encontrada, a operação de sincronização foi cancelada</string>
     <string name="receive_external_files_activity_unable_to_find_file_to_upload">Não foi possível encontrar o arquivo para upload</string>
     <string name="recommend_subject">Experimente %1$s em seu dispositivo!</string>
@@ -759,13 +791,16 @@
     <string name="select_one_template">Selecione um modelo</string>
     <string name="select_template">Selecionar modelo</string>
     <string name="send">Enviar</string>
+    <string name="send_share">Enviar compartilhamento</string>
     <string name="sendbutton_description">Ícone do botão Enviar</string>
     <string name="set_as">Definir como</string>
+    <string name="set_note">Definir nota</string>
     <string name="set_picture_as">Usar imagem como</string>
     <string name="set_status">Definir status</string>
     <string name="set_status_message">Definir mensagem de status</string>
     <string name="setup_e2e">Durante a configuração da criptografia de ponta a ponta, você receberá um mnemônico aleatório de 12 palavras, necessário para abrir seus arquivos em outros dispositivos. Isso será armazenado apenas neste dispositivo e poderá ser mostrado novamente nesta tela. Por favor, anote-o em um lugar seguro!</string>
     <string name="share">Compartilhar</string>
+    <string name="share_copy_link">Compartilhar e copiar o link</string>
     <string name="share_dialog_title">Compartilhamento</string>
     <string name="share_download_limit">Definir limite de arquivos baixados</string>
     <string name="share_expiration_date_format">%1$s</string>
@@ -792,9 +827,11 @@
     <string name="share_permission_file_drop">Baixar Arquivo </string>
     <string name="share_permission_secure_file_drop">Descarte de arquivo seguro</string>
     <string name="share_permission_view_only">Somente visualização </string>
+    <string name="share_permissions">Permissões de compartilhamento</string>
     <string name="share_remote_clarification">%1$s (remoto)</string>
     <string name="share_room_clarification">%1$s (conversa)</string>
     <string name="share_search">Nome, Federated Cloud ID ou endereço de e-mail…</string>
+    <string name="share_search_internal">Adicionar usuários e equipes</string>
     <string name="share_send_new_email">Enviar novo e-mail </string>
     <string name="share_send_note">Anotação ao destinatário</string>
     <string name="share_settings">Configurações</string>
@@ -814,6 +851,7 @@
     <string name="show_images">Mostrar fotos</string>
     <string name="show_less">Mostrar menos</string>
     <string name="show_video">Mostrar vídeos</string>
+    <string name="sign_tos_failed">Por favor, verifique manualmente os termos de serviço!</string>
     <string name="signup_with_provider">Registre-se com um provedor</string>
     <string name="single_sign_on_request_token" formatted="true">Permitir %1$s acesso à sua conta %2$s?</string>
     <string name="sort_by">Ordenar por</string>
@@ -899,6 +937,7 @@
     <string name="synced_icon">Sincronizado</string>
     <string name="tags">Etiquetas</string>
     <string name="terms_of_service_title">Termos de serviço</string>
+    <string name="terms_of_services_agree">Eu concordo com os Termos de Serviço acima</string>
     <string name="test_server_button">Teste de conexão ao servidor</string>
     <string name="thirtyMinutes">30 minutos</string>
     <string name="thisWeek">Esta semana</string>
@@ -959,6 +998,8 @@
     <string name="upload_file_dialog_title">Indique o nome e tipo de arquivo a enviar</string>
     <string name="upload_files">Enviar arquivos</string>
     <string name="upload_global_pause_title">Todos os uploads estão pausados</string>
+    <string name="upload_gplay">Alterações de permissão</string>
+    <string name="upload_gplay_desc">É necessária uma nova permissão para acessar as informações de localização das imagens carregadas.\nCertifique-se de que o acesso à mídia esteja definido como \"Sempre permitir tudo\".</string>
     <string name="upload_item_action_button">Enviar botão de ação do item</string>
     <string name="upload_list_delete">Excluir</string>
     <string name="upload_list_empty_headline">Nenhum envio disponível</string>
@@ -1046,6 +1087,7 @@
     <string name="wait_a_moment">Aguarde um momento…</string>
     <string name="wait_checking_credentials">Verificando credenciais salvas</string>
     <string name="wait_for_tmp_copy_from_private_storage">Copiando o arquivo da armazenagem privada</string>
+    <string name="warn_rename_extension">Alterar a extensão pode fazer com que esse arquivo seja aberto em um aplicativo diferente</string>
     <string name="what_s_new_image">Imagem nova</string>
     <string name="whats_new_skip">Saltar</string>
     <string name="whats_new_title">Novo em %1$s</string>
@@ -1155,6 +1197,26 @@
         <item quantity="one">%d selecionado</item>
         <item quantity="many">%d selecionados</item>
         <item quantity="other">%d selecionados</item>
+    </plurals>
+    <plurals name="delay_message">
+        <item quantity="one">Adiado por %d segundo devido a muitas tentativas erradas</item>
+        <item quantity="many">Adiado por %d segundos devido a muitas tentativas erradas</item>
+        <item quantity="other">Adiado por %d segundos devido a muitas tentativas erradas</item>
+    </plurals>
+    <plurals name="delay_message_minutes">
+        <item quantity="one">Adiado por %d minuto devido a muitas tentativas erradas</item>
+        <item quantity="many">Adiado por %d minutos devido a muitas tentativas erradas</item>
+        <item quantity="other">Adiado por %d minutos devido a muitas tentativas erradas</item>
+    </plurals>
+    <plurals name="delay_message_minutes_part">
+        <item quantity="one">Adiado por %d minuto</item>
+        <item quantity="many">Adiado por %d minutos</item>
+        <item quantity="other">Adiado por %d minutos</item>
+    </plurals>
+    <plurals name="delay_message_seconds_part">
+        <item quantity="one">%d segundo</item>
+        <item quantity="many">%d segundos</item>
+        <item quantity="other">%d segundos</item>
     </plurals>
     <plurals name="share_download_limit_description">
         <item quantity="one">%1$d download restante</item>
