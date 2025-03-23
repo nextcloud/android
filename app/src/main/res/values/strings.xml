@@ -611,11 +611,12 @@
     <string name="pref_instant_upload_min_file_age_dialog_title">Minimum file age</string>
     <string name="pref_instant_upload_min_file_age_title">Minimum file age</string>
 
-    <string name="pref_instant_upload_min_file_age_entries_disabled">No restrictions</string>
-    <string name="pref_instant_upload_min_file_age_entries_15_minutes">15 minutes</string>
+    <string name="pref_instant_upload_min_file_age_entries_disabled">Upload immediately</string>
     <string name="pref_instant_upload_min_file_age_entries_30_minutes">30 minutes</string>
     <string name="pref_instant_upload_min_file_age_entries_1_hour">1 hour</string>
+    <string name="pref_instant_upload_min_file_age_entries_6_hours">6 hours</string>
     <string name="pref_instant_upload_min_file_age_entries_24_hours">24 hours</string>
+    <string name="pref_instant_upload_min_file_age_entries_3_days">3 days</string>
     <string name="pref_instant_upload_min_file_age_entries_1_week">1 week</string>
 
     <string name="pref_instant_name_collision_policy_entries_always_ask">Ask me every time</string>
