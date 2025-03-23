@@ -10,7 +10,7 @@
     <string name="action_edit">Redigera</string>
     <string name="action_empty_notifications">Rensa alla aviseringar</string>
     <string name="action_empty_trashbin">Töm papperskorgen</string>
-    <string name="action_send_share">Skicka/Dela</string>
+    <string name="action_send_share">Skicka/dela</string>
     <string name="action_switch_grid_view">Rutnätsvy</string>
     <string name="action_switch_list_view">Listvy</string>
     <string name="actionbar_calendar_contacts_restore">Återställ kontakter och kalender</string>
@@ -49,7 +49,7 @@
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Skriv någon text</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Är du säker på att du vill ta bort den här uppgiften?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Ta bort uppgift</string>
-    <string name="assistant_screen_loading">Uppgiftslistan laddas, vänta</string>
+    <string name="assistant_screen_loading">Laddar uppgiftslista…</string>
     <string name="assistant_screen_no_task_available_text">Ingen uppgift tillgänglig för uppgiftstyp %s, du kan skapa en ny uppgift längst ner till höger.</string>
     <string name="assistant_screen_task_create_fail_message">Ett fel uppstod när uppgiften skapades</string>
     <string name="assistant_screen_task_create_success_message">Uppgiften har skapats</string>
@@ -576,7 +576,7 @@
     <string name="new_media_folder_detected">Ny %1$s media-mapp upptäckt.</string>
     <string name="new_media_folder_photos">bild</string>
     <string name="new_media_folder_videos">video</string>
-    <string name="new_notification">Nytt meddelande</string>
+    <string name="new_notification">Ny avisering</string>
     <string name="new_version_was_created">Ny version skapades</string>
     <string name="no_actions">Inga tillgängliga åtgärder för användaren</string>
     <string name="no_browser_available">Ingen app tillgänglig för att hantera länkar</string>
@@ -642,7 +642,7 @@
     <string name="permission_storage_access">Ytterligare rättigheter krävs för att ladda upp eller hämta filer</string>
     <string name="pick_contact_to_share_with">Välj kontakt att dela med</string>
     <string name="picture_set_as_no_app">Ingen app hittades för att ställa in en bild med</string>
-    <string name="pin_home">Fäst upp på hemskärmen</string>
+    <string name="pin_home">Fäst på hemskärmen</string>
     <string name="pin_shortcut_label">Öppna %1$s</string>
     <string name="placeholder_fileSize">389 KB</string>
     <string name="placeholder_filename">placeholder.txt</string>
@@ -828,7 +828,7 @@
     <string name="share_permission_file_drop">Göm fillista</string>
     <string name="share_permission_secure_file_drop">Säker gömd fillista</string>
     <string name="share_permission_view_only">Skrivskyddat läge</string>
-    <string name="share_permissions">Dela behörigheter</string>
+    <string name="share_permissions">Delningsbehörigheter</string>
     <string name="share_remote_clarification">%1$s (extern)</string>
     <string name="share_room_clarification">%1$s (konversation)</string>
     <string name="share_search">Namn, federerat moln-ID eller e-postadress...</string>

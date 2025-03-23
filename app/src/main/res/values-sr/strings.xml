@@ -10,12 +10,12 @@
     <string name="action_edit">Уреди</string>
     <string name="action_empty_notifications">Очисти сва обавештења</string>
     <string name="action_empty_trashbin">Испразни корпу за отпатке</string>
-    <string name="action_send_share">Слање/Дељење</string>
+    <string name="action_send_share">Слање/дељење</string>
     <string name="action_switch_grid_view">Приказ мреже</string>
     <string name="action_switch_list_view">Приказ листе</string>
     <string name="actionbar_calendar_contacts_restore">Обнови контакте и календар </string>
     <string name="actionbar_mkdir">Нова фасцикла</string>
-    <string name="actionbar_move_or_copy">Премести или копирај</string>
+    <string name="actionbar_move_or_copy">Помери или копирај</string>
     <string name="actionbar_open_with">Отвори помоћу</string>
     <string name="actionbar_search">Претрага</string>
     <string name="actionbar_see_details">Детаљи</string>
@@ -49,7 +49,7 @@
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Откуцајте неки текст</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Да ли сте сигурни да желите да обришете овај задатак?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Обриши задатак</string>
-    <string name="assistant_screen_loading">Листа задатака се учитава, молимо вас сачекајте</string>
+    <string name="assistant_screen_loading">Листа задатака се учитава…</string>
     <string name="assistant_screen_no_task_available_text">Не постоји ниједан задатак типа %s, нови задатак можете да креирате доле десно.</string>
     <string name="assistant_screen_task_create_fail_message">Дошло је до грешке током креирања задатка</string>
     <string name="assistant_screen_task_create_success_message">Задатак је успешно креиран</string>
@@ -642,7 +642,7 @@
     <string name="permission_storage_access">Потребне су дозволе за отпремање и преузимање фајлова.</string>
     <string name="pick_contact_to_share_with">Изаберите контакт са којим желите да поделите</string>
     <string name="picture_set_as_no_app">Нема апликације којом се поставља слика</string>
-    <string name="pin_home">Закачи на Почетни екран</string>
+    <string name="pin_home">Закачи на почетни екран</string>
     <string name="pin_shortcut_label">Отвори %1$s</string>
     <string name="placeholder_fileSize">389 KB</string>
     <string name="placeholder_filename">чувамместо.txt</string>
@@ -791,10 +791,10 @@
     <string name="select_one_template">Молимо вас да изаберете један шаблон</string>
     <string name="select_template">Одаберите шаблон</string>
     <string name="send">Пошаљи</string>
-    <string name="send_share">Пошаљи дељени ресурс</string>
+    <string name="send_share">Пошаљи дељење</string>
     <string name="sendbutton_description">Икона за слање</string>
     <string name="set_as">Постави као</string>
-    <string name="set_note">Пошаљи белешку</string>
+    <string name="set_note">Постави белешку</string>
     <string name="set_picture_as">Постави слику као</string>
     <string name="set_status">Постави статус</string>
     <string name="set_status_message">Постављање статусне поруке</string>

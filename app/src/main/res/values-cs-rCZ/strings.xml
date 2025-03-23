@@ -15,7 +15,7 @@
     <string name="action_switch_list_view">Zobrazení v seznamu</string>
     <string name="actionbar_calendar_contacts_restore">Obnovit kontakty a kalendář</string>
     <string name="actionbar_mkdir">Nová složka</string>
-    <string name="actionbar_move_or_copy">Přesunout</string>
+    <string name="actionbar_move_or_copy">Přesunout nebo zkopírovat</string>
     <string name="actionbar_open_with">Otevřít pomocí</string>
     <string name="actionbar_search">Hledat</string>
     <string name="actionbar_see_details">Podrobnosti</string>
@@ -49,7 +49,7 @@
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Zadejte nějaký text</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Opravdu chcete tuto úlohu smazat?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Smazat úkol</string>
-    <string name="assistant_screen_loading">Načítá se seznam úkolů – vyčkejte</string>
+    <string name="assistant_screen_loading">Načítání seznamu úkolů…</string>
     <string name="assistant_screen_no_task_available_text">Pro typ úkolu %s nejsou k dispozici žádné úkoly – nový úkol je možné vytvořit vpravo dole.</string>
     <string name="assistant_screen_task_create_fail_message">Při vytváření úlohy se vyskytla chyba</string>
     <string name="assistant_screen_task_create_success_message">Úloha byla úspěšně vytvořena</string>
@@ -187,7 +187,7 @@
     <string name="confirmation_remove_folders_alert">Opravdu chcete vybrané položky a jejich obsah odstranit?</string>
     <string name="confirmation_remove_local">Pouze místní</string>
     <string name="conflict_dialog_error">Nepodařilo se vytvořit dialog nástroje pro řešení konfliktu</string>
-    <string name="conflict_folder_headline">Konflikt složek</string>
+    <string name="conflict_folder_headline">Kolize složek</string>
     <string name="conflict_local_file">Místní soubor</string>
     <string name="conflict_message_description">Pokud zvolíte obě verze, k názvu místního souboru bude připojeno číslo.</string>
     <string name="conflict_message_description_for_folder">Pokud zvolíte obě verze, k názvu místní složky bude připojeno číslo.</string>
@@ -791,7 +791,7 @@
     <string name="select_one_template">Vyberte jednu šablonu</string>
     <string name="select_template">Vybrat šablonu</string>
     <string name="send">Odeslat</string>
-    <string name="send_share">Odeslat sdílení</string>
+    <string name="send_share">Poslat sdílení</string>
     <string name="sendbutton_description">Ikona tlačítka pro odesílání</string>
     <string name="set_as">Nastavit jako</string>
     <string name="set_note">Nastavit poznámku</string>

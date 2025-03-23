@@ -49,7 +49,7 @@
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">輸入一些文字</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">您確定要刪除此工作項目嗎？</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">刪除任務</string>
-    <string name="assistant_screen_loading">任務清單加載中，請稍候</string>
+    <string name="assistant_screen_loading">正在載入任務清單 ...</string>
     <string name="assistant_screen_no_task_available_text">沒有可用於 %s 任務項目類型的任務項目，您可以從右下角建立新任務項目。</string>
     <string name="assistant_screen_task_create_fail_message">建立任務項目時發生錯誤</string>
     <string name="assistant_screen_task_create_success_message">已成功建立任務項目</string>
@@ -576,7 +576,7 @@
     <string name="new_media_folder_detected">偵測新媒體資料夾 %1$s</string>
     <string name="new_media_folder_photos">相片</string>
     <string name="new_media_folder_videos">影片</string>
-    <string name="new_notification">新的通知</string>
+    <string name="new_notification">新通知</string>
     <string name="new_version_was_created">新版本已建立</string>
     <string name="no_actions">此用戶沒有操作</string>
     <string name="no_browser_available">沒有應用程式可以開啟連結</string>
@@ -741,7 +741,7 @@
     <string name="recommend_subject">在您的裝置上試用 %1$s！</string>
     <string name="recommend_text">我想邀請您在裝置上使用%1$s。\n在此處下載：%2$s</string>
     <string name="recommend_urls">%1$s或%2$s</string>
-    <string name="recommended_files_title">建議的檔案</string>
+    <string name="recommended_files_title">推薦的檔案</string>
     <string name="refresh_content">更新內容</string>
     <string name="reload">重新載入</string>
     <string name="remote">﹙遠端﹚</string>
@@ -794,7 +794,7 @@
     <string name="send_share">傳送分享</string>
     <string name="sendbutton_description">傳送按鈕圖示</string>
     <string name="set_as">設定為</string>
-    <string name="set_note">設定筆記</string>
+    <string name="set_note">設定備註</string>
     <string name="set_picture_as">使用圖片作為</string>
     <string name="set_status">設定狀態</string>
     <string name="set_status_message">設定狀態訊息</string>

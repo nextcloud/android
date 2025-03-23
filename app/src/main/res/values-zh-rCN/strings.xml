@@ -10,7 +10,7 @@
     <string name="action_edit">编辑</string>
     <string name="action_empty_notifications">清除所有通知</string>
     <string name="action_empty_trashbin">清空回收站</string>
-    <string name="action_send_share">共享</string>
+    <string name="action_send_share">发送/分享</string>
     <string name="action_switch_grid_view">网格视图</string>
     <string name="action_switch_list_view">列表视图</string>
     <string name="actionbar_calendar_contacts_restore">恢复联系人和日历</string>
@@ -49,7 +49,7 @@
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">输入一些文字</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">您确定要删除这些任务吗？</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">删除任务</string>
-    <string name="assistant_screen_loading">任务列表加载中，请稍等</string>
+    <string name="assistant_screen_loading">正在加载任务列表…</string>
     <string name="assistant_screen_no_task_available_text">%s任务类型没有可用任务，你可以从右下角创建新任务。</string>
     <string name="assistant_screen_task_create_fail_message">创建任务时发生错误</string>
     <string name="assistant_screen_task_create_success_message">任务已创建</string>
@@ -613,9 +613,9 @@
     <string name="oc_file_list_adapter_offline_operation_remove_description_text">待定移除操作</string>
     <string name="offline_mode">无网络连接</string>
     <string name="offline_mode_info_description">即使没有互联网连接，你也可以组织文件夹、创建文件。一旦您重新在线，你的待处理操作将自动同步。</string>
-    <string name="offline_mode_info_title">你已离线，但工作仍在继续</string>
+    <string name="offline_mode_info_title">您已离线，但工作仍在继续</string>
     <string name="offline_operations_file_does_not_exists_yet">文件尚不存在。请先上传文件。</string>
-    <string name="offline_operations_worker_notification_conflict_text">冲突文件夹：%s</string>
+    <string name="offline_operations_worker_notification_conflict_text">冲突的文件夹：%s</string>
     <string name="offline_operations_worker_notification_delete_offline_folder">删除离线文件夹</string>
     <string name="offline_operations_worker_notification_error_text">无法完成离线操作。%s</string>
     <string name="offline_operations_worker_notification_manager_ticker">离线操作</string>
@@ -794,13 +794,13 @@
     <string name="send_share">发送共享</string>
     <string name="sendbutton_description">发送按钮的图标</string>
     <string name="set_as">设置</string>
-    <string name="set_note">设置附注</string>
+    <string name="set_note">设置备注</string>
     <string name="set_picture_as">将图片用作</string>
     <string name="set_status">设定状态</string>
     <string name="set_status_message">设定状态信息</string>
     <string name="setup_e2e">在端对端加密期间，你将接收一个随机12字助记字串，您需要这个字符串才能在其它设备上开放您的文件。这将只会存储在该设备上，并可以在此画面中再次展示。请记在安全的地方！</string>
     <string name="share">共享</string>
-    <string name="share_copy_link">共享并复制链接</string>
+    <string name="share_copy_link">分享并复制链接</string>
     <string name="share_dialog_title">共享</string>
     <string name="share_download_limit">设置下载限制</string>
     <string name="share_expiration_date_format">%1$s</string>
@@ -827,7 +827,7 @@
     <string name="share_permission_file_drop">文件拖放</string>
     <string name="share_permission_secure_file_drop">安全文件拖放</string>
     <string name="share_permission_view_only">仅查看</string>
-    <string name="share_permissions">共享权限</string>
+    <string name="share_permissions">分享权限</string>
     <string name="share_remote_clarification">%1$s (远程)</string>
     <string name="share_room_clarification">%1$s (对话)</string>
     <string name="share_search">名称，联合云 ID 或电子邮箱地址…</string>

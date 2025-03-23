@@ -10,12 +10,11 @@
     <string name="action_edit">Embann</string>
     <string name="action_empty_notifications">Lemel an holl gemennadennoù</string>
     <string name="action_empty_trashbin">Pod-lastez goullo</string>
-    <string name="action_send_share">Kas/Rannañ</string>
     <string name="action_switch_grid_view">Gwel ar gael</string>
     <string name="action_switch_list_view">Gwel ar roll</string>
     <string name="actionbar_calendar_contacts_restore">Assevel an darempredoù hag an deiziadur</string>
     <string name="actionbar_mkdir">Teuliad nevez</string>
-    <string name="actionbar_move_or_copy">Dilec\'hiañ pe Eilañ</string>
+    <string name="actionbar_move_or_copy">Dilec\'hiañ pe eilañ</string>
     <string name="actionbar_open_with">Digeriñ gant</string>
     <string name="actionbar_search">Klask</string>
     <string name="actionbar_see_details">Munudoù</string>
@@ -31,15 +30,12 @@
     <string name="add_new_public_share">Ouzhpennañ ul liamm rannañ publik nevez</string>
     <string name="add_new_secure_file_drop">Ouzhpennañ ur fizlec\'h restroù suraet nevez</string>
     <string name="add_to_cloud">Ouzhpennañ da %1$s</string>
-    <string name="advanced_settings">Arventennoù araokaet</string>
     <string name="allow_resharing">Aotren rannañ pelloc\'h</string>
     <string name="app_config_proxy_port_title">Porzh Proksi</string>
     <string name="app_widget_description">Diskouez a ra ur widget dre daolenn-vourzh</string>
     <string name="appbar_search_in">Klask e %s</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Skrivañ un tamm testenn</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Ha sur oc\'h e fell deoc\'h dilemel an trevell-mañ ?</string>
-    <string name="assistant_screen_delete_task_alert_dialog_title">Dilemel an trevell</string>
-    <string name="assistant_screen_loading">O kargañ roll an trevelloù, gortozit ur pennadig</string>
     <string name="assistant_screen_no_task_available_text">N\'eus trevell ebet evit %s seurt trevell, gallout a rit krouiñ unan nevez en traoñ a-zehoùt.</string>
     <string name="assistant_screen_task_create_fail_message">C\'hoarvezet ez eus ur fazi en ur grouiñ an trevell</string>
     <string name="assistant_screen_task_create_success_message">Trevell bet krouet ervat</string>
@@ -323,7 +319,6 @@
     <string name="etm_background_jobs_stop_test_job">Paouez gant al labour amprouiñ</string>
     <string name="etm_migrations">Dilec\'hiañ (hizivaat an arload)</string>
     <string name="etm_preferences">Penndibaboù</string>
-    <string name="etm_title">Mod amprouiñ ijinerezh</string>
     <string name="etm_transfer">Treuzkas ar restr</string>
     <string name="etm_transfer_enqueue_test_download">Lakaat pellgargañ ar prouadoù da c\'hortoz</string>
     <string name="etm_transfer_enqueue_test_upload">Lakaat enporzhiañ ar prouadoù da c\'hortoz</string>
@@ -481,7 +476,6 @@
     <string name="new_media_folder_detected">%1$s teuliad media nevez kavet.</string>
     <string name="new_media_folder_photos">foto</string>
     <string name="new_media_folder_videos">video</string>
-    <string name="new_notification">Kemennadenn nevez</string>
     <string name="new_version_was_created">Ur stumm nevez a zo bet krouet</string>
     <string name="no_browser_available">Meziant dieup ebet evit dougiñ al liamm</string>
     <string name="no_mutliple_accounts_allowed">Ur c\'hont aotreet nemetken</string>
@@ -583,6 +577,7 @@
     <string name="recommend_subject">Klaskit %1$s war o ardivink</string>
     <string name="recommend_text">Kinnig a reomp deoc\'h implij %1$s war o ardivink.\nPellgargit amañ : %2$s</string>
     <string name="recommend_urls">%1$s pe %2$s</string>
+    <string name="recommended_files_title">Restroù kinniget</string>
     <string name="reload">Adkargañ</string>
     <string name="remote_file_fetch_failed">C\'hwitet da gavout ar restr !</string>
     <string name="remove_fail_msg">Lemel c\'hwitet</string>

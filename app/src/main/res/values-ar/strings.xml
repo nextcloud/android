@@ -15,7 +15,7 @@
     <string name="action_switch_list_view">عرض على شكل قائمة</string>
     <string name="actionbar_calendar_contacts_restore">إستعادة جهات الاتصال و التقويم</string>
     <string name="actionbar_mkdir">مجلد جديد</string>
-    <string name="actionbar_move_or_copy">أنقُل أو انسَخ</string>
+    <string name="actionbar_move_or_copy">نقل أو نسخ</string>
     <string name="actionbar_open_with">فتح باستخدام</string>
     <string name="actionbar_search">بحث</string>
     <string name="actionbar_see_details">تفاصيل</string>
@@ -31,7 +31,7 @@
     <string name="add_new_public_share">إضافة رابط مشاركة عام جديد</string>
     <string name="add_new_secure_file_drop">أضف ملف ألاصل </string>
     <string name="add_to_cloud">إضافة إلى %1$s</string>
-    <string name="advanced_settings">الإعدادات المتقدمة</string>
+    <string name="advanced_settings">إعدادات متقدمة</string>
     <string name="allow_resharing">السماح بإعادة المشاركة </string>
     <string name="app_config_base_url_title">عنوان URL الأساسي</string>
     <string name="app_config_disable_clipboard_title">تعطيل الحافظة</string>
@@ -48,8 +48,8 @@
     <string name="assistant_screen_add_task_alert_dialog_title">إضافة مهمة جديدة</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">أكتُب أيَّ نص</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">هل أنت متأكد أنك ترغب بحذف هذه المهمة؟</string>
-    <string name="assistant_screen_delete_task_alert_dialog_title">حذف مهمة</string>
-    <string name="assistant_screen_loading">يتم الآن تحميل قائمة المهام؛ يرجى الانتظار...</string>
+    <string name="assistant_screen_delete_task_alert_dialog_title">حذف المهمّة</string>
+    <string name="assistant_screen_loading">تحميل قائمة المهام ...</string>
     <string name="assistant_screen_no_task_available_text">لا توجد أي مهام متوفرة من النوع %s. يمكنك إنشاء مهمة جديدة من الشريط السفلي الجانبي.</string>
     <string name="assistant_screen_task_create_fail_message">حدث خطأ أثناء إنشاء المهمة</string>
     <string name="assistant_screen_task_create_success_message">تمّ إنشاء المهمة بنجاح</string>
@@ -189,7 +189,7 @@
     <string name="confirmation_remove_folders_alert">هل توَدُّ حقاً حذف العناصر المختارة وما يحتوّه؟</string>
     <string name="confirmation_remove_local">محلياً فقط</string>
     <string name="conflict_dialog_error">تعذّر إنشاء نافذة حوار حل التعارضات</string>
-    <string name="conflict_folder_headline">تعارض مجلد</string>
+    <string name="conflict_folder_headline">تعارض المجلد</string>
     <string name="conflict_local_file">ملف محلي</string>
     <string name="conflict_message_description">إذا قمت باختيار كلا الاصدارين, الملف المحلي سيحتوي على رقم ملحق باسم الملف.</string>
     <string name="conflict_message_description_for_folder">إذا اخترت الاحتفاظ بكلتا النسختين، سيتم إلحاق أرقام تسلسلية في نهاية اسم المجلد المحلي.</string>
@@ -356,7 +356,7 @@
     <string name="etm_background_jobs_stop_test_job">إيقاف المهمة التجريبية</string>
     <string name="etm_migrations">عمليات الترحيل (ترقية التطبيق)</string>
     <string name="etm_preferences">الخيارات</string>
-    <string name="etm_title">وضع الهندسة التجريبي</string>
+    <string name="etm_title">وضعية اختبار الهندسة</string>
     <string name="etm_transfer">نقل الملف</string>
     <string name="etm_transfer_enqueue_test_download">تنزيل اختبار قائمة الانتظار</string>
     <string name="etm_transfer_enqueue_test_upload">رفع اختيار قائمة الانتظار</string>
@@ -598,7 +598,7 @@
     <string name="note_icon_hint">أيقونة الملاحظة</string>
     <string name="notification_action_failed">فشل في تنفيذ الإجراء.</string>
     <string name="notification_channel_background_operations_description">إظهار الإشعارات للتفاعل مع نتائج العمليات في الخلفية</string>
-    <string name="notification_channel_background_operations_name">العمليات في الخلفية</string>
+    <string name="notification_channel_background_operations_name">عمليات في الخلفية</string>
     <string name="notification_channel_download_description">يظهر تقدم التنزيل</string>
     <string name="notification_channel_download_name_short">التنزيلات</string>
     <string name="notification_channel_file_sync_description">يعرض تقدم مزامنة الملف والنتائج</string>
@@ -615,17 +615,17 @@
     <string name="notification_icon_description">توجد إشعارات غير مقروءة</string>
     <string name="notifications_no_results_headline">لا توجد هناك تنبيهات</string>
     <string name="notifications_no_results_message">يرجى التحقق مرة أخرى في وقت لاحق.</string>
-    <string name="oc_file_list_adapter_offline_operation_description_text">عملية مُعلَّقة</string>
+    <string name="oc_file_list_adapter_offline_operation_description_text">عملية مُعلَّقَة</string>
     <string name="oc_file_list_adapter_offline_operation_remove_description_text">تعليق إزالة شخص</string>
     <string name="offline_mode">ليس هناك اتصال بالأنترنت</string>
     <string name="offline_mode_info_description">حتى بدون اتصال بالإنترنت، يمكنك تنظيم مجلداتك وإنشاء ملفات. بمجرد عودة الاتصال بالإنترنت، ستتم مزامنة الإجراءات المعلقة تلقائياً.</string>
-    <string name="offline_mode_info_title">أنت غير متصل بالإنترنت؛ لكن العمل سيستمر</string>
+    <string name="offline_mode_info_title">أنت غير متصل؛ لكن العمل مستمر</string>
     <string name="offline_operations_file_does_not_exists_yet">الملف لم يتوفر حتى الآن. يرجى رفع الملف أولاً.</string>
     <string name="offline_operations_worker_notification_conflict_text">مجلد متعارض: %s</string>
     <string name="offline_operations_worker_notification_delete_offline_folder">حذف مجلد غير متصل</string>
     <string name="offline_operations_worker_notification_error_text">لا يمكن إكمال العملية دون اتصال. %s</string>
     <string name="offline_operations_worker_notification_manager_ticker">عمليات دون اتصال بالإنترنت</string>
-    <string name="offline_operations_worker_notification_start_text">البدء في العمليات دون اتصال بالإنترنت</string>
+    <string name="offline_operations_worker_notification_start_text">بدء عمليات بدون اتصال</string>
     <string name="oneHour">ساعة واحدة</string>
     <string name="online">متصل</string>
     <string name="online_status">حالات الاتصال</string>
@@ -648,7 +648,7 @@
     <string name="permission_storage_access">الصلاحيات الإضافية المطلوبة لتحميل وتنزيل الملفات.</string>
     <string name="pick_contact_to_share_with">إختَر جهة اتصال للمشاركة معها</string>
     <string name="picture_set_as_no_app">لم يتم العثور على تطبيق لتعيين صورة به</string>
-    <string name="pin_home">تثبيت في الشاشة الرئيسية</string>
+    <string name="pin_home">ثبِّت في الشاشة الرئيسية</string>
     <string name="pin_shortcut_label">فتح %1$s</string>
     <string name="placeholder_fileSize">389 ك.ب</string>
     <string name="placeholder_filename">placeholder.txt</string>
@@ -755,7 +755,7 @@
     <string name="recommend_text">أريد أن أدعوك لاستخدام %1$s على جهازك
 التنزيل هنا %2$s</string>
     <string name="recommend_urls">%1$s أو %2$s</string>
-    <string name="recommended_files_title">ملفات مُقتَرَحة</string>
+    <string name="recommended_files_title">الملفات الموصى بها</string>
     <string name="refresh_content">تحديث المحتوى</string>
     <string name="reload">إعادة تحميل</string>
     <string name="remote">(عن بعد)</string>
@@ -805,16 +805,16 @@
     <string name="select_one_template">الرجاء تحديد قالب واحد</string>
     <string name="select_template">حدد قالب</string>
     <string name="send">إرسال</string>
-    <string name="send_share">إرسال مشاركة</string>
+    <string name="send_share">أرسِل المشاركة</string>
     <string name="sendbutton_description">أيقونة زر الإرسال</string>
     <string name="set_as">حفظ كـ</string>
-    <string name="set_note">تعيين ملاحظة</string>
+    <string name="set_note">عيِّن الملاحظة</string>
     <string name="set_picture_as">استخدم الصورة كـ</string>
     <string name="set_status">تعيين الحالة</string>
     <string name="set_status_message">تعيين رسالة الحالة</string>
     <string name="setup_e2e">خلال تجهيز التشفير الطرفي، سوف تصلك جملة عشوائية مُكوّنة من 12 كلمة ستحتاج إليها لفتح ملفاتك على الأجهزة الأخرى. هذه الجملة سوف يتم تخزينها على هذا الجهاز فقط و يمكنك عرضها على الشاشة مرة أخرى. رجاءً، دوّنها و احفظها في مكانٍ آمنٍ!</string>
     <string name="share">مشاركة </string>
-    <string name="share_copy_link">شارك و انسخ الرابط</string>
+    <string name="share_copy_link">شارك وانسخ الرابط</string>
     <string name="share_dialog_title">مشاركة</string>
     <string name="share_download_limit">تعيين حد أقصى للتنزيل</string>
     <string name="share_expiration_date_format">%1$s</string>
@@ -841,7 +841,7 @@
     <string name="share_permission_file_drop">اسقاط الملف</string>
     <string name="share_permission_secure_file_drop">إسقاط آمن للملف</string>
     <string name="share_permission_view_only">للعرض فقط</string>
-    <string name="share_permissions">صلاحيات المشاركة</string>
+    <string name="share_permissions">أذونات المشاركة</string>
     <string name="share_remote_clarification">%1$s (بعيد)</string>
     <string name="share_room_clarification">%1$s (محادثة)</string>
     <string name="share_search">الاسم أو مُعرِّف السحابة الاتحادية أو عنوان البريد الإلكتروني ...</string>

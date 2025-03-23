@@ -10,11 +10,10 @@
     <string name="action_edit">Edit</string>
     <string name="action_empty_notifications">Clear all notifications</string>
     <string name="action_empty_trashbin">Empty trash bin</string>
-    <string name="action_send_share">Send/Share</string>
     <string name="action_switch_grid_view">Grid view</string>
     <string name="action_switch_list_view">List view</string>
     <string name="actionbar_mkdir">New folder</string>
-    <string name="actionbar_move_or_copy">Move or Copy</string>
+    <string name="actionbar_move_or_copy">Move or copy</string>
     <string name="actionbar_open_with">Open with</string>
     <string name="actionbar_search">Search</string>
     <string name="actionbar_see_details">Details</string>
@@ -30,10 +29,11 @@
     <string name="add_new_public_share">Add new public share link</string>
     <string name="add_new_secure_file_drop">Add new secure file drop</string>
     <string name="add_to_cloud">Add to %1$s</string>
-    <string name="advanced_settings">Advanced Settings</string>
+    <string name="advanced_settings">Advanced settings</string>
     <string name="allow_resharing">Allow resharing</string>
     <string name="app_widget_description">Shows one widget from dashboard</string>
     <string name="appbar_search_in">Search in %s</string>
+    <string name="assistant_screen_delete_task_alert_dialog_title">Delete task</string>
     <string name="associated_account_not_found">Associated account not found!</string>
     <string name="auth_access_failed">Access failed: %1$s</string>
     <string name="auth_account_does_not_exist">The account is not added on this device yet</string>
@@ -291,7 +291,6 @@
     <string name="etm_background_jobs_stop_test_job">Stop test job</string>
     <string name="etm_migrations">Migrations (app upgrade)</string>
     <string name="etm_preferences">Preferences</string>
-    <string name="etm_title">Engineering Test Mode</string>
     <string name="etm_transfer">File transfer</string>
     <string name="etm_transfer_enqueue_test_download">Enqueue test download</string>
     <string name="etm_transfer_enqueue_test_upload">Enqueue test upload</string>
@@ -486,7 +485,6 @@
     <string name="new_media_folder_detected">New %1$s media folder detected.</string>
     <string name="new_media_folder_photos">photo</string>
     <string name="new_media_folder_videos">video</string>
-    <string name="new_notification">New Notification</string>
     <string name="new_version_was_created">New version was created</string>
     <string name="no_actions">No actions for this user</string>
     <string name="no_browser_available">No app available to handle links</string>
@@ -537,7 +535,6 @@
     <string name="permission_deny">Deny</string>
     <string name="permission_storage_access">Additional permissions required to upload and download files.</string>
     <string name="picture_set_as_no_app">No app found to set a picture with</string>
-    <string name="pin_home">Pin to Home screen</string>
     <string name="pin_shortcut_label">Open %1$s</string>
     <string name="placeholder_fileSize">389 KB</string>
     <string name="placeholder_filename">placeholder.txt</string>
@@ -662,10 +659,8 @@
     <string name="select_one_template">Please select one template</string>
     <string name="select_template">Select template</string>
     <string name="send">Send</string>
-    <string name="send_share">Send Share</string>
     <string name="sendbutton_description">Send button icon</string>
     <string name="set_as">Set As</string>
-    <string name="set_note">Set Note</string>
     <string name="set_picture_as">Use picture as</string>
     <string name="set_status">Set status</string>
     <string name="set_status_message">Set status message</string>
@@ -695,7 +690,6 @@
     <string name="share_permission_file_drop">File drop</string>
     <string name="share_permission_secure_file_drop">Secure file drop</string>
     <string name="share_permission_view_only">View only</string>
-    <string name="share_permissions">Share Permissions</string>
     <string name="share_remote_clarification">%1$s (remote)</string>
     <string name="share_room_clarification">%1$s (conversation)</string>
     <string name="share_send_new_email">Send new email</string>

@@ -10,10 +10,10 @@
     <string name="action_edit">Променяне</string>
     <string name="action_empty_notifications">Премахнете известията</string>
     <string name="action_empty_trashbin">Изпразване на кошчето</string>
-    <string name="action_send_share">Изпрати/Сподели</string>
     <string name="action_switch_grid_view">Решетъчен изглед</string>
     <string name="action_switch_list_view">Списъчен изглед</string>
     <string name="actionbar_mkdir">Нова папка</string>
+    <string name="actionbar_move_or_copy">Премести или копирай</string>
     <string name="actionbar_open_with">Отвори с</string>
     <string name="actionbar_search">Търсене</string>
     <string name="actionbar_see_details">Подробности</string>
@@ -35,6 +35,7 @@
     <string name="app_config_proxy_port_title">Порт на прокси сървъра</string>
     <string name="app_widget_description">Показва един изпълним модул от таблото за управление</string>
     <string name="appbar_search_in">Търсене в %s</string>
+    <string name="assistant_screen_delete_task_alert_dialog_title">Изтрива задача</string>
     <string name="assistant_screen_task_delete_success_message">Задачата е успешно изтрита</string>
     <string name="associated_account_not_found">Свързания профил не е намерен!</string>
     <string name="auth_access_failed">Достъп неуспешен: %1$s</string>
@@ -288,7 +289,6 @@
     <string name="etm_background_jobs_stop_test_job">Спри тестов процес</string>
     <string name="etm_migrations">Миграции (обновяване на приложение)</string>
     <string name="etm_preferences">Предпочитания</string>
-    <string name="etm_title">Режим на инженерно изпитване</string>
     <string name="etm_transfer">Прехвърляне на файл</string>
     <string name="etm_transfer_enqueue_test_download">Изтегляне на тест поставен в опашка</string>
     <string name="etm_transfer_enqueue_test_upload">Поставяне в опашка на тестово качване</string>
@@ -468,7 +468,6 @@
     <string name="new_media_folder_detected">Намерена е нова папка съдържаща %1$s.</string>
     <string name="new_media_folder_photos">снимки</string>
     <string name="new_media_folder_videos">видео</string>
-    <string name="new_notification">Ново известие</string>
     <string name="new_version_was_created">Създадена е нова версия</string>
     <string name="no_actions">Няма действия за този потребител</string>
     <string name="no_browser_available">Няма налично приложение за обработка на връзките</string>
@@ -517,7 +516,6 @@
     <string name="permission_deny">Не</string>
     <string name="permission_storage_access">Изискват се допълнителни права за изтегляне и сваляне на файлове.</string>
     <string name="picture_set_as_no_app">Няма намерени приложения за задаване на снимка</string>
-    <string name="pin_home">Фиксиране към началния екран</string>
     <string name="pin_shortcut_label">Отваряне на %1$s</string>
     <string name="placeholder_fileSize">389 KB</string>
     <string name="placeholder_filename">placeholder.txt</string>
@@ -594,6 +592,7 @@
     <string name="recommend_subject">Пробвайте%1$sна вашето устройство</string>
     <string name="recommend_text">Каня Ви да използвате %1$s на вашето device.\nDownload тук %2$s</string>
     <string name="recommend_urls">%1$s или %2$s</string>
+    <string name="recommended_files_title">Препоръчани файлове</string>
     <string name="refresh_content">Обновяване на съдържанието</string>
     <string name="reload">Презареди</string>
     <string name="remote">(отдалечен)</string>
@@ -634,10 +633,8 @@
     <string name="select_one_template">Моля, изберете един шаблон </string>
     <string name="select_template">Изберете шаблон</string>
     <string name="send">Изпрати</string>
-    <string name="send_share">Изпращане на Споделяне</string>
     <string name="sendbutton_description">Икона на бутон за изпращане</string>
     <string name="set_as">Задай като</string>
-    <string name="set_note">Задаване на Бележка</string>
     <string name="set_picture_as">Задай като</string>
     <string name="set_status">Задайте състояние</string>
     <string name="set_status_message">Задайте съобщение за състояние</string>
@@ -668,7 +665,6 @@
     <string name="share_permission_file_drop">Пускане/Преместване/ на файл</string>
     <string name="share_permission_secure_file_drop">Защитено пускане на файлове</string>
     <string name="share_permission_view_only">Само изглед</string>
-    <string name="share_permissions">Права за споделяне</string>
     <string name="share_remote_clarification">%1$s (отдалечен)</string>
     <string name="share_room_clarification">%1$s (разговор)</string>
     <string name="share_send_new_email">Изпращане на нов имейл</string>

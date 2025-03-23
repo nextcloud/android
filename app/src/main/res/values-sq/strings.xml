@@ -9,7 +9,6 @@
     <string name="account_not_found">Llogaria nuk u gjet!</string>
     <string name="action_edit">Përpuno</string>
     <string name="action_empty_notifications">Pastro të gjithë njoftimet</string>
-    <string name="action_send_share">Dërgoje/Shpërndaje</string>
     <string name="action_switch_grid_view">Pamje galeri</string>
     <string name="action_switch_list_view">Pamje listë</string>
     <string name="actionbar_mkdir">Dosje e re</string>
@@ -26,7 +25,7 @@
     <string name="activity_chooser_title">Dërgoni lidhje te…</string>
     <string name="activity_icon">Veprimtari</string>
     <string name="add_to_cloud">Shtojeni tek %1$s</string>
-    <string name="advanced_settings">Cilësime të Avancuara</string>
+    <string name="advanced_settings">Rregullime të mëtejshme</string>
     <string name="allow_resharing">Lejo rindarje</string>
     <string name="appbar_search_in">Kërkoni në %s</string>
     <string name="associated_account_not_found">Llogaria e lidhur nuk u gjet!</string>
@@ -233,7 +232,6 @@
     <string name="etm_background_jobs_stop_test_job">Ndaloni punën e provës</string>
     <string name="etm_migrations">Migrimet (azhurnimi i aplikacionit)</string>
     <string name="etm_preferences">Preferencat</string>
-    <string name="etm_title">Provë e mënyrës inxhinierike</string>
     <string name="etm_transfer_type_download">Shkarko</string>
     <string name="etm_transfer_type_upload">Ngarkoni</string>
     <string name="fab_label">Shtoni ose ngarkoni</string>
@@ -369,7 +367,6 @@
     <string name="new_media_folder_detected">Dosja %1$se re e mediave u zbulua.</string>
     <string name="new_media_folder_photos">Foto</string>
     <string name="new_media_folder_videos">Video</string>
-    <string name="new_notification">Njoftim i ri</string>
     <string name="new_version_was_created">U krijua versioni i ri</string>
     <string name="no_browser_available">Nuk ka asnjë aplikacion në dispozicion për të trajtuar lidhjet</string>
     <string name="no_mutliple_accounts_allowed">Vetëm një llogari e lejuar</string>

@@ -10,7 +10,6 @@
     <string name="action_edit">Editare</string>
     <string name="action_empty_notifications">Elimină toate notificările</string>
     <string name="action_empty_trashbin">Golește coșul de gunoi</string>
-    <string name="action_send_share">Trimitere/Distribuire</string>
     <string name="action_switch_grid_view">Afișare în grilă</string>
     <string name="action_switch_list_view">Afișare în listă</string>
     <string name="actionbar_calendar_contacts_restore">Restaurare contacte şi calendar</string>
@@ -48,8 +47,6 @@
     <string name="assistant_screen_add_task_alert_dialog_title"> Adaugă sarcină nouă</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Tastează un text</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Sigur doriți să ștergeți acest task?</string>
-    <string name="assistant_screen_delete_task_alert_dialog_title">Şterge task</string>
-    <string name="assistant_screen_loading">Lista de taskuri se încarcă, așteptați</string>
     <string name="assistant_screen_no_task_available_text">Niciun task disponibil pentru tipul de task %s, puteți crea un task nou din dreapta jos.</string>
     <string name="assistant_screen_task_create_fail_message">A apărut o eroare la crearea taskului</string>
     <string name="assistant_screen_task_create_success_message">Task creat cu succes</string>
@@ -187,7 +184,6 @@
     <string name="confirmation_remove_folders_alert">Doriți să ștergeți elementele selectate și conținutul lor?</string>
     <string name="confirmation_remove_local">Doar local</string>
     <string name="conflict_dialog_error">Dialogul de rezolvare a conflictelor nu poate fi creat</string>
-    <string name="conflict_folder_headline">Conflict de directoare</string>
     <string name="conflict_local_file">Fișier local</string>
     <string name="conflict_message_description">Dacă selectezi ambele variante, atunci fișierul local va avea un număr adăugat la numele său.</string>
     <string name="conflict_message_description_for_folder">Dacă selectați ambele versiuni, folderul local va avea un număr adăugat la numele său.</string>
@@ -346,7 +342,6 @@
     <string name="etm_background_jobs_stop_test_job">Oprește procesul de test</string>
     <string name="etm_migrations">Migrări (upgrade de aplicație)</string>
     <string name="etm_preferences">Preferințe</string>
-    <string name="etm_title">Mod te test pentru ingineri</string>
     <string name="etm_transfer">Transfer de fișiere</string>
     <string name="etm_transfer_enqueue_test_download">Coadă de descărcare</string>
     <string name="etm_transfer_enqueue_test_upload">Coadă de încărcare a testelor</string>
@@ -563,7 +558,6 @@
     <string name="new_media_folder_detected">Noul dosar media %1$s a fost de detectat.</string>
     <string name="new_media_folder_photos">poză</string>
     <string name="new_media_folder_videos">video</string>
-    <string name="new_notification">Notificare nouă</string>
     <string name="new_version_was_created">A fost creată o versiune nouă</string>
     <string name="no_actions">Nici o acțiune pentru acest utilizator</string>
     <string name="no_browser_available">Nu există aplicație disponibilă care să acceseze legăturile</string>
@@ -614,7 +608,6 @@
     <string name="permission_deny">Refuzați</string>
     <string name="permission_storage_access">Sunt necesare drepturi adiționale pentru a încărca și descărca fișiere.</string>
     <string name="picture_set_as_no_app">Nu a fost găsită o aplicație pentru a seta imaginea</string>
-    <string name="pin_home">Fixați pe ecranul de pornire</string>
     <string name="pin_shortcut_label">Deschide %1$s</string>
     <string name="placeholder_fileSize">389 KO</string>
     <string name="placeholder_filename">placeholder.txt</string>
@@ -728,10 +721,8 @@
     <string name="select_one_template">Te rugăm selectează un șablon</string>
     <string name="select_template">Selectează șablon</string>
     <string name="send">Trimite</string>
-    <string name="send_share">Trimite distribuirea</string>
     <string name="sendbutton_description">Pictograma butonului de trimite</string>
     <string name="set_as">Setează ca</string>
-    <string name="set_note">Stabilește notița</string>
     <string name="set_picture_as">Folosește imaginea ca</string>
     <string name="set_status">Setează status</string>
     <string name="set_status_message">Setează statusul mesajelor</string>
@@ -759,7 +750,6 @@
     <string name="share_permission_can_edit">Poate edita</string>
     <string name="share_permission_file_drop">Aducere fișier</string>
     <string name="share_permission_view_only">Numai se vizualizează</string>
-    <string name="share_permissions">Permisiuni de partajare</string>
     <string name="share_remote_clarification">%1$s (remote)</string>
     <string name="share_room_clarification">%1$s (conversație)</string>
     <string name="share_send_new_email">Trimite un email nou</string>

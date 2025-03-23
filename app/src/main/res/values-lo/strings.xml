@@ -10,7 +10,6 @@
     <string name="action_edit">ແກ້ໄຂ</string>
     <string name="action_empty_notifications">ລ້າງການແຈ້ງເຕືອນທັງຫມົດ</string>
     <string name="action_empty_trashbin">ລ້າງຖັງຂີ້ເຫຍື່ອ</string>
-    <string name="action_send_share">ສົ່ງ/ແບ່ງປັນ</string>
     <string name="action_switch_grid_view">ເບິ່ງຕາຕະລາງ</string>
     <string name="action_switch_list_view">ລາຍການທີ່ຈະເບິ່ງ</string>
     <string name="actionbar_mkdir">ໂຟນເດີໃຫມ່</string>
@@ -29,7 +28,6 @@
     <string name="add_new_public_share">ເພິ່ມການແບ່ງປັນສາທາລະນະໃໝ່</string>
     <string name="add_new_secure_file_drop">ຕື່ມການວາງໄຟລ໌ທີ່ປອດໄພໃໝ່</string>
     <string name="add_to_cloud">ເພີ່ມໃສ່ %1$s</string>
-    <string name="advanced_settings">ຕັ້ງ​ຄ່າ​ຂັ້ນ​ສູງ</string>
     <string name="allow_resharing">ອະນຸຍາດໃຫ້ ການແບ່ງປັນຄືນ</string>
     <string name="app_widget_description">ສະແດງໜຶ່ງລາຍການຈາກໜ້າປັດ</string>
     <string name="appbar_search_in">ຄົ້ນຫາໃນ%s</string>
@@ -250,7 +248,6 @@
     <string name="etm_background_jobs_stop_test_job">ຢຸດທົດລອງວຽກ</string>
     <string name="etm_migrations">ການໂອນຍ້າຍ (ການຍົກລະດັບເເອັບ)</string>
     <string name="etm_preferences">ການເລືອກ</string>
-    <string name="etm_title">ການທົດສອບວິສະວະກໍາ</string>
     <string name="etm_transfer_enqueue_test_download">ການທົດສອບດາວໂຫຼດ Enqueue</string>
     <string name="etm_transfer_remote_path">ເສັ້ນທາງໄລຍະໄກ</string>
     <string name="etm_transfer_type_download">ດາວໂຫລດ</string>
@@ -401,7 +398,6 @@
     <string name="new_media_folder_detected">ໂຟນເດີສື່ມວນຊົນໃຫມ່%1$sຖືກກວດພົບ.</string>
     <string name="new_media_folder_photos">ຮຸບພາບ</string>
     <string name="new_media_folder_videos">ວິດິໂອ</string>
-    <string name="new_notification">ແຈ້ງເຕືອນໃໝ່</string>
     <string name="new_version_was_created">ເວີຊັ້ນໃຫມ່ໄດ້ຖືກສ້າງຂຶ້ນ</string>
     <string name="no_browser_available">ບໍ່ມີແອັບພລິເຄຊັນທີ່ສາມາດຈັດການກັບລິ້ງໄດ້</string>
     <string name="no_mutliple_accounts_allowed">ອະນຸຍາດໃຫ້ບັນຊີດຽວເທົ່ານັ້ນ</string>

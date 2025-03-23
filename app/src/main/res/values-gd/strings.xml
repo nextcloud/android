@@ -10,7 +10,6 @@
     <string name="action_edit">Deasaich</string>
     <string name="action_empty_notifications">Falamhaich a h-uile brath</string>
     <string name="action_empty_trashbin">Falamhaich an sgudal</string>
-    <string name="action_send_share">Cuir/Co-roinn</string>
     <string name="action_switch_grid_view">Sealladh griod</string>
     <string name="action_switch_list_view">Sealladh liosta</string>
     <string name="actionbar_mkdir">Pasgan ùr</string>
@@ -242,7 +241,6 @@
     <string name="etm_background_jobs_stop_test_job">Cuir stad air an obair dheuchainneach</string>
     <string name="etm_migrations">Imrichean (àrdachadh aplacaide)</string>
     <string name="etm_preferences">Roghainnean</string>
-    <string name="etm_title">Modh deuchainnean innleadaireachd</string>
     <string name="etm_transfer">Tar-chur fhaidhlichean</string>
     <string name="etm_transfer_enqueue_test_download">Cuir luchdadh a-nuas deuchainneach air a’ chiutha</string>
     <string name="etm_transfer_enqueue_test_upload">Cuir luchdadh suas deuchainneach air a’ chiutha</string>
@@ -399,7 +397,6 @@
     <string name="new_media_folder_detected">Mhothaich sinn do phasgan mheadhanan ùr le %1$s.</string>
     <string name="new_media_folder_photos">dealbh</string>
     <string name="new_media_folder_videos">video</string>
-    <string name="new_notification">Brath ùr</string>
     <string name="new_version_was_created">Chaidh tionndadh ùr dheth a chruthachadh</string>
     <string name="no_browser_available">Chan eil aplacaid ann a làimhsicheas ceanglaichean</string>
     <string name="no_mutliple_accounts_allowed">Chan eil ach aon chunntas ceadaichte</string>

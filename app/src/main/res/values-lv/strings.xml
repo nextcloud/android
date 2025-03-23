@@ -10,7 +10,6 @@
     <string name="action_edit">Labot</string>
     <string name="action_empty_notifications">Notīrīt visus paziņojumus</string>
     <string name="action_empty_trashbin">Izdzēst miskastes saturu</string>
-    <string name="action_send_share">Sūtīt/kopīgot</string>
     <string name="action_switch_grid_view">Režģa izkārtojums</string>
     <string name="action_switch_list_view">Saraksta izkārtojums</string>
     <string name="actionbar_calendar_contacts_restore">Atjaunot kontaktpersonas un kalendāru</string>
@@ -32,7 +31,6 @@
     <string name="allow_resharing">Atļaut atkārtotu koplietošanu</string>
     <string name="app_config_proxy_port_title">Starpniekservera ports</string>
     <string name="appbar_search_in">Meklēt %s</string>
-    <string name="assistant_screen_delete_task_alert_dialog_title">Dzēst uzdevumu</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">Dzēst uzdevumu</string>
     <string name="associated_account_not_found">Saistītais konts nav atrasts!</string>
     <string name="auth_access_failed">Piekļuve neizdevās: %1$s</string>
@@ -354,7 +352,7 @@
     <string name="offline_operations_worker_notification_manager_ticker">Bezsaistes darbības</string>
     <string name="oneHour">1 stunda</string>
     <string name="pass_code_configure_your_pass_code">Ievadiet piekļuves kodu</string>
-    <string name="pass_code_configure_your_pass_code_explanation">Kods tiks pieprasīts katru reizi kad atvērsiet lietotni</string>
+    <string name="pass_code_configure_your_pass_code_explanation">Piekļuves kods tiks pieprasīts katrā lietotnes palaišanas reizē</string>
     <string name="pass_code_enter_pass_code">Lūdzu, ievadiet piekļuves kodu</string>
     <string name="pass_code_mismatch">Šie piekļuves kodi nav vienādi</string>
     <string name="pass_code_reenter_your_pass_code">Lūdzu, atkārtoti ievadiet savu piekļuves kodu</string>
@@ -365,7 +363,6 @@
     <string name="permission_allow">Atļaut</string>
     <string name="permission_storage_access">Nepieciešamas papildus tiesības, lai augšupielādētu un lejupielādētu datnes.</string>
     <string name="picture_set_as_no_app">Nav lietotnes, ar kuru uzstādīt attēlu</string>
-    <string name="pin_home">Piespraust sākuma ekrānam</string>
     <string name="placeholder_fileSize">389 KB</string>
     <string name="placeholder_filename">placeholder.txt</string>
     <string name="placeholder_media_time">12:23:45</string>
@@ -388,6 +385,8 @@
     <string name="prefs_category_more">Vairāk</string>
     <string name="prefs_category_sync">Sinhronizēt</string>
     <string name="prefs_daily_contact_backup_summary">Ikdieniška kontaktu dublēšana</string>
+    <string name="prefs_data_storage_location">Datu krātuves atrašanās vieta</string>
+    <string name="prefs_data_storage_location_summary">Pārvaldīt datu krātuves atrašanās vietu</string>
     <string name="prefs_enable_media_scan_notifications">Rādīt mediju skenēšanas paziņojumus</string>
     <string name="prefs_enable_media_scan_notifications_summary">Paziņt par jaunas mediju mapes atrašanu</string>
     <string name="prefs_help">Palīdzība</string>
@@ -397,12 +396,15 @@
     <string name="prefs_instant_upload_path_use_date_subfolders_summary">Glabāt no datuma atkarīgās apakšmapēs</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Lietot apakšmapi</string>
     <string name="prefs_license">Licence</string>
-    <string name="prefs_lock_device_credentials_enabled">Ierīces akreditācijas ieslēgta</string>
-    <string name="prefs_lock_device_credentials_not_setup">Ierīces akreditācijas dati nav uzstādīti.</string>
+    <string name="prefs_lock">Lietotnes piekļuves kods</string>
+    <string name="prefs_lock_device_credentials_enabled">Ierīces piekļuves dati iespējoti</string>
+    <string name="prefs_lock_device_credentials_not_setup">Ierīces piekļuves dati nav iestatīti.</string>
     <string name="prefs_lock_none">Nav</string>
-    <string name="prefs_lock_using_device_credentials">Ierīces akreditācijas dati</string>
+    <string name="prefs_lock_using_device_credentials">Ierīces piekļuves dati</string>
     <string name="prefs_lock_using_passcode">Kods</string>
     <string name="prefs_manage_accounts">Pārvaldīt kontus</string>
+    <string name="prefs_show_ecosystem_apps">Rādīt lietotņu pārslēdzēju</string>
+    <string name="prefs_show_ecosystem_apps_summary">Nextcloud lietoņu ieteikumi pārvietošanās galvenē</string>
     <string name="prefs_show_hidden_files">Rādīt slēptās datnes</string>
     <string name="prefs_sycned_folders_summary">Automātiski augšupielādējamo mapju pārvaldīšana</string>
     <string name="prefs_synced_folders_local_path_title">Vietējā mape</string>
@@ -411,6 +413,7 @@
     <string name="prefs_two_way_sync_summary">Iekšējo mapju divvirzienu sinhronizēšanas pārvaldīšana</string>
     <string name="prefs_value_theme_dark">Tumšs</string>
     <string name="prefs_value_theme_light">Gaišs</string>
+    <string name="prefs_value_theme_system">Izmantot sistēmas</string>
     <string name="preview_image_description">Attēla priekšskatījums</string>
     <string name="preview_image_error_no_local_file">Nav lokālās datnes lai priekšskatītu</string>
     <string name="preview_image_error_unknown_format">Nevar attēlot attēlu</string>
@@ -419,6 +422,7 @@
     <string name="recommend_subject">Izmēģini %1$s savā ierīcē!</string>
     <string name="recommend_text">Izmanto %1$s lietotni arī Tu.\nLejuplādē to šeit: %2$s</string>
     <string name="recommend_urls">%1$s vai %2$s</string>
+    <string name="recommended_files_title">Ieteiktās datnes</string>
     <string name="reload">Reload</string>
     <string name="remove_fail_msg">Dzēšana neizdevās</string>
     <string name="remove_push_notification">Izņemt</string>
