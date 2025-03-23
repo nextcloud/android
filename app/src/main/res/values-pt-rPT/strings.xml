@@ -12,7 +12,7 @@
     <string name="action_empty_trashbin">Esvaziar a reciclagem</string>
     <string name="action_switch_grid_view">Visualização em grelha</string>
     <string name="action_switch_list_view">Visualização em lista</string>
-    <string name="actionbar_calendar_contacts_restore">Restaurar contatos e calendário</string>
+    <string name="actionbar_calendar_contacts_restore">Restaurar contactos e calendário</string>
     <string name="actionbar_mkdir">Nova pasta</string>
     <string name="actionbar_move_or_copy">Mover ou copiar</string>
     <string name="actionbar_open_with">Abrir com</string>
@@ -30,12 +30,12 @@
     <string name="add_new_public_share">Adicionar nova hiperligação de partilha pública</string>
     <string name="add_new_secure_file_drop">Adicionar nova entrega segura de ficheiros</string>
     <string name="add_to_cloud">Adicionar a %1$s</string>
-    <string name="advanced_settings">Definições avançadas</string>
+    <string name="advanced_settings">Definições Avançadas</string>
     <string name="allow_resharing">Permitir repartilha</string>
     <string name="app_config_base_url_title">URL Base</string>
     <string name="app_config_disable_clipboard_title">Desativar Área de Transferência</string>
     <string name="app_config_disable_intro_title">Desativar Introdução</string>
-    <string name="app_config_disable_log_title">Desativar Registo</string>
+    <string name="app_config_disable_log_title">Desativar Registo de Eventos</string>
     <string name="app_config_disable_more_external_site_title">Desativar Sites Externos</string>
     <string name="app_config_disable_multiaccount_title">Desativar Múltiplas Contas</string>
     <string name="app_config_disable_sharing_title">Desativar Partilha</string>
@@ -484,10 +484,10 @@
     <string name="move_file_invalid_into_descendent">Não é possível mover a pasta para uma das suas próprias pastas internas</string>
     <string name="move_file_invalid_overwrite">O ficheiro já existe na pasta de destino</string>
     <string name="move_file_not_found">Não é possível mover o ficheiro. por favor, verifique se este existe.</string>
-    <string name="network_error_connect_timeout_exception">Erro quando esperava uma resposta do servidor. A operação em curso não foi concluída.</string>
+    <string name="network_error_connect_timeout_exception">Ocorreu um erro enquanto aguardava por uma resposta do servidor. Não foi possível concluir a operação.</string>
     <string name="network_error_socket_exception">Ocorreu um erro durante a ligação ao servidor</string>
-    <string name="network_error_socket_timeout_exception">Erro quando esperava uma resposta do servidor. A operação em curso não foi concluída.</string>
-    <string name="network_host_not_available">Impossível terminar a operação em curso. O servidor está indisponível.</string>
+    <string name="network_error_socket_timeout_exception">Ocorreu um erro enquanto aguardava pelo servidor. Não foi possível concluir a operação.</string>
+    <string name="network_host_not_available">Não foi possível concluir a operação. Servidor indisponível.</string>
     <string name="new_comment">Novo comentário…</string>
     <string name="new_media_folder_detected">Nova %1$s pasta multimédia detectada.</string>
     <string name="new_media_folder_photos">photo</string>
