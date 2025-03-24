@@ -694,9 +694,15 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         }
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     public void updateRecommendedFiles(ArrayList<Recommendation> recommendedFiles) {
         this.recommendedFiles = recommendedFiles;
-        notifyItemChanged(0);
+
+        if (recommendedFiles == null || recommendedFiles.isEmpty()) {
+            notifyDataSetChanged();
+        } else {
+            notifyItemChanged(0);
+        }
     }
 
     private void applyChipVisuals(Chip chip, Tag tag) {
