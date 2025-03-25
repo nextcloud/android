@@ -114,7 +114,6 @@ import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.lifecycle.LifecycleOwner;
 
 import static com.owncloud.android.ui.activity.FileDisplayActivity.TAG_PUBLIC_LINK;
 
