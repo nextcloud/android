@@ -10,6 +10,7 @@
     <string name="action_edit">Upraviť</string>
     <string name="action_empty_notifications">Odstrániť všetky upozornenia</string>
     <string name="action_empty_trashbin">Vyprázdniť kôš</string>
+    <string name="action_send_share">Odoslať/Zdieľať</string>
     <string name="action_switch_grid_view">Zobrazenie mriežky</string>
     <string name="action_switch_list_view">Zobrazenie zoznamu</string>
     <string name="actionbar_calendar_contacts_restore">Obnoviť kontakty a kalendár</string>
@@ -48,6 +49,7 @@
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Napíšte nejaký text</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Naozaj chcete vymazať túto úlohu?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Odstrániť úlohu</string>
+    <string name="assistant_screen_loading">Načítavam zoznam úloh...</string>
     <string name="assistant_screen_no_task_available_text">Pre typ úlohy %s nie je k dispozícii žiadna úloha, môžete vytvoriť novú úlohu vpravo dole.</string>
     <string name="assistant_screen_task_create_fail_message">Pri vytváraní úlohy nastala chyba</string>
     <string name="assistant_screen_task_create_success_message">Úloha bola úspešne vytvorená</string>
@@ -185,6 +187,7 @@
     <string name="confirmation_remove_folders_alert">Naozaj chcete odstrániť vybraté položky a ich obsah?</string>
     <string name="confirmation_remove_local">Iba lokálne</string>
     <string name="conflict_dialog_error">Dialógové okno riešenia konfliktov nemožno vytvoriť</string>
+    <string name="conflict_folder_headline">Konflikt adresárov</string>
     <string name="conflict_local_file">Lokálny súbor</string>
     <string name="conflict_message_description">Ak vyberiete obe verzie, miestny súbor bude mať k svojmu názvu pridané číslo.</string>
     <string name="conflict_message_description_for_folder">Ak vyberiete obe verzie, lokálny priečinok bude mať k názvu pripojené číslo.</string>
@@ -351,6 +354,7 @@
     <string name="etm_background_jobs_stop_test_job">Zastaviť testovaciu úlohu</string>
     <string name="etm_migrations">Migrácie (aktualizácia aplikácie)</string>
     <string name="etm_preferences">Nastavenia</string>
+    <string name="etm_title">Vývojársky testovací režim</string>
     <string name="etm_transfer">Prenos súboru</string>
     <string name="etm_transfer_enqueue_test_download">Zaradiť do poradia testovacie sťahovanie</string>
     <string name="etm_transfer_enqueue_test_upload">Zaradiť do poradia testovacie nahranie súboru</string>
@@ -572,6 +576,7 @@
     <string name="new_media_folder_detected">Nový%1$smediálny priečinok nájdený.</string>
     <string name="new_media_folder_photos">fotografia</string>
     <string name="new_media_folder_videos">video</string>
+    <string name="new_notification">Nové upozornenie</string>
     <string name="new_version_was_created">Nová verzia bola vytvorená</string>
     <string name="no_actions">Žiadne akcie pre tohto užívateľa</string>
     <string name="no_browser_available">Aplikácia na prácu s linkami nenájdená</string>
@@ -587,6 +592,7 @@
     <string name="note_icon_hint">Ikona poznámky</string>
     <string name="notification_action_failed">Nepodarilo sa vykonať akciu.</string>
     <string name="notification_channel_background_operations_description">Zobraziť upozornenia s výsledkami operácií na pozadí</string>
+    <string name="notification_channel_background_operations_name">Operácie na pozadí</string>
     <string name="notification_channel_download_description">Zobrazuje postup sťahovania</string>
     <string name="notification_channel_download_name_short">Stiahnuté</string>
     <string name="notification_channel_file_sync_description">Zobrazuje progres a výsledok synchronizácie súborov</string>
@@ -603,12 +609,17 @@
     <string name="notification_icon_description">Máte neprečítané upozornenia</string>
     <string name="notifications_no_results_headline">Žiadne upozornenia</string>
     <string name="notifications_no_results_message">Prosím skontrolujte znova neskôr.</string>
+    <string name="oc_file_list_adapter_offline_operation_description_text">Čakajúca operácia</string>
     <string name="oc_file_list_adapter_offline_operation_remove_description_text">Pribieha operácia mazania</string>
     <string name="offline_mode">Bez internetového pripojenia</string>
     <string name="offline_mode_info_description">Dokonca aj bez internetového pripojenia môžete organizovať svoje adresáre a vytvárať súbory. Keď budete opäť online, vaše nespracované akcie sa automaticky zosynchronizujú.</string>
+    <string name="offline_mode_info_title">Nie ste pripojený, ale môžete pokračovať v práci</string>
     <string name="offline_operations_file_does_not_exists_yet">Žiadny súbor zatiaľ neexistuje. Prosím, nahrajte prvý súbor.</string>
+    <string name="offline_operations_worker_notification_conflict_text">Konfliktný adresár: %s</string>
+    <string name="offline_operations_worker_notification_delete_offline_folder">Zmazať offline adresár</string>
     <string name="offline_operations_worker_notification_error_text">Offline operácia nemôže byť dokončená. %s</string>
     <string name="offline_operations_worker_notification_manager_ticker">Offline operace</string>
+    <string name="offline_operations_worker_notification_start_text">Spúšťanie offline operácií</string>
     <string name="oneHour">1 hodina</string>
     <string name="online">Pripojené</string>
     <string name="online_status">Stav pripojenia</string>
@@ -631,6 +642,7 @@
     <string name="permission_storage_access">Na nahrávanie a sťahovanie súborov sú potrebné dodatočné oprávnenia.</string>
     <string name="pick_contact_to_share_with">Vybrať kontakt pre zdieľanie</string>
     <string name="picture_set_as_no_app">Aplikácia na nastavenie obrázku sa nenašla</string>
+    <string name="pin_home">Pripnúť na domovskú obrazovku</string>
     <string name="pin_shortcut_label">Otvoriť %1$s</string>
     <string name="placeholder_fileSize">389 KB</string>
     <string name="placeholder_filename">placeholder.txt</string>
@@ -779,13 +791,16 @@
     <string name="select_one_template">Vyberte jednu šablónu</string>
     <string name="select_template">Vybrať šablónu</string>
     <string name="send">Odoslať</string>
+    <string name="send_share">Odoslať zdieľanie</string>
     <string name="sendbutton_description">Ikona tlačidla na odoslanie</string>
     <string name="set_as">Nastaviť ako</string>
+    <string name="set_note">Nastaviť poznámku</string>
     <string name="set_picture_as">Použiť obrázok ako</string>
     <string name="set_status">Nastaviť stav</string>
     <string name="set_status_message">Nastaviť správu o stave</string>
     <string name="setup_e2e">Počas nastavovania end-to-end šifrovania dostanete náhodný 12-slovový mnemotechnický záznam, ktorý budete potrebovať na otvorenie svojich súborov na iných zariadeniach. Tento záznam bude uložený iba na tomto zariadení a môže byť znovu zobrazený na tejto obrazovke. Prosím, zapíšte si ho na bezpečné miesto!</string>
     <string name="share">Zdieľať</string>
+    <string name="share_copy_link">Zdieľať a kopírovať odkaz</string>
     <string name="share_dialog_title">Sprístupnenie</string>
     <string name="share_download_limit">Nastaviť limit sťahovania</string>
     <string name="share_expiration_date_format">%1$s</string>
@@ -812,6 +827,7 @@
     <string name="share_permission_file_drop">Vložiť súbor</string>
     <string name="share_permission_secure_file_drop">Zabezpečený file drop</string>
     <string name="share_permission_view_only">Iba pre čítanie</string>
+    <string name="share_permissions">Zdieľať oprávnenia</string>
     <string name="share_remote_clarification">%1$s (vzdialený)</string>
     <string name="share_room_clarification">%1$s (rozhovor)</string>
     <string name="share_search">Meno, ID v rámci Federatívneho cloudu, alebo e-mailová adresa…</string>
