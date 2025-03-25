@@ -27,12 +27,10 @@ import com.nextcloud.utils.extensions.BundleExtensionsKt;
 import com.nextcloud.utils.extensions.FileExtensionsKt;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.lib.common.network.OnDatatransferProgressListener;
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.ui.adapter.progressListener.DownloadProgressListener;
 import com.owncloud.android.ui.fragment.FileFragment;
 import com.owncloud.android.utils.theme.ViewThemeUtils;
-
-import java.lang.ref.WeakReference;
 
 import javax.inject.Inject;
 
@@ -58,7 +56,7 @@ public class FileDownloadFragment extends FileFragment implements OnClickListene
     private User user;
 
     @Inject ViewThemeUtils viewThemeUtils;
-    public ProgressListener mProgressListener;
+    public DownloadProgressListener mProgressListener;
     private boolean mListening;
 
     private static final String TAG = FileDownloadFragment.class.getSimpleName();
@@ -140,7 +138,7 @@ public class FileDownloadFragment extends FileFragment implements OnClickListene
 
         ProgressBar progressBar = mView.findViewById(R.id.progressBar);
         viewThemeUtils.platform.themeHorizontalProgressBar(progressBar);
-        mProgressListener = new ProgressListener(progressBar);
+        mProgressListener = new DownloadProgressListener(progressBar);
 
         (mView.findViewById(R.id.cancelBtn)).setOnClickListener(this);
 
@@ -250,34 +248,6 @@ public class FileDownloadFragment extends FileFragment implements OnClickListene
             containerActivity.getFileDownloadProgressListener()
                 .removeDataTransferProgressListener(mProgressListener, getFile());
             mListening = false;
-        }
-    }
-
-
-    /**
-     * Helper class responsible for updating the progress bar shown for file uploading or downloading
-     */
-    private class ProgressListener implements OnDatatransferProgressListener {
-        int mLastPercent;
-        WeakReference<ProgressBar> mProgressBar;
-
-        ProgressListener(ProgressBar progressBar) {
-            mProgressBar = new WeakReference<>(progressBar);
-        }
-
-        @Override
-        public void onTransferProgress(
-                long progressRate, long totalTransferredSoFar, long totalToTransfer, String filename
-        ) {
-            int percent = (int)(100.0*((double)totalTransferredSoFar)/((double)totalToTransfer));
-            if (percent != mLastPercent) {
-                ProgressBar pb = mProgressBar.get();
-                if (pb != null) {
-                    pb.setProgress(percent);
-                    pb.postInvalidate();
-                }
-            }
-            mLastPercent = percent;
         }
     }
 
