@@ -17,9 +17,9 @@ import androidx.annotation.NonNull;
  */
 public interface ActivitiesRepository {
     interface LoadActivitiesCallback {
-        void onActivitiesLoaded(List<Object> activities, NextcloudClient client, int lastGiven);
+        void onActivitiesLoaded(List<Object> activities, NextcloudClient client, long lastGiven);
         void onActivitiesLoadedError(String error);
     }
 
-    void getActivities(int lastGiven, @NonNull LoadActivitiesCallback callback);
+    void getActivities(long lastGiven, @NonNull LoadActivitiesCallback callback);
 }

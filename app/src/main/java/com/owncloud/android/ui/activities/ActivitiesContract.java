@@ -15,7 +15,7 @@ import java.util.List;
 public interface ActivitiesContract {
 
     interface View {
-        void showActivities(List<Object> activities, NextcloudClient client, int lastGiven);
+        void showActivities(List<Object> activities, NextcloudClient client, long lastGiven);
         void showActivitiesLoadError(String error);
         void showActivityDetailUI(OCFile ocFile);
         void showActivityDetailUIIsNull();
@@ -28,7 +28,7 @@ public interface ActivitiesContract {
     interface ActionListener {
         int UNDEFINED = -1;
 
-        void loadActivities(int lastGiven);
+        void loadActivities(long lastGiven);
 
         void openActivity(String fileUrl, BaseActivity baseActivity);
 
