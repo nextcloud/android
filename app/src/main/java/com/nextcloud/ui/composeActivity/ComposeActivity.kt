@@ -7,7 +7,6 @@
  */
 package com.nextcloud.ui.composeActivity
 
-import android.content.Context
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.compose.material3.MaterialTheme
@@ -21,16 +20,10 @@ import com.nextcloud.client.assistant.AssistantScreen
 import com.nextcloud.client.assistant.AssistantViewModel
 import com.nextcloud.client.assistant.repository.AssistantRepository
 import com.nextcloud.common.NextcloudClient
-import com.nextcloud.common.User
 import com.nextcloud.utils.extensions.getSerializableArgument
 import com.owncloud.android.R
 import com.owncloud.android.databinding.ActivityComposeBinding
-import com.owncloud.android.lib.common.OwnCloudClientFactory
-import com.owncloud.android.lib.common.accounts.AccountUtils
-import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.ui.activity.DrawerActivity
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 
 class ComposeActivity : DrawerActivity() {
 
@@ -59,7 +52,7 @@ class ComposeActivity : DrawerActivity() {
             MaterialTheme(
                 colorScheme = viewThemeUtils.getColorScheme(this),
                 content = {
-                    Content(destination, storageManager.user, this)
+                    Content(destination)
                 }
             )
         }
@@ -76,16 +69,17 @@ class ComposeActivity : DrawerActivity() {
     }
 
     @Composable
-    private fun Content(destination: ComposeDestination?, user: User, context: Context) {
+    private fun Content(destination: ComposeDestination?) {
         var nextcloudClient by remember { mutableStateOf<NextcloudClient?>(null) }
 
         LaunchedEffect(Unit) {
-            nextcloudClient = getNextcloudClient(user, context)
+            nextcloudClient = clientRepository.getNextcloudClient()
         }
 
         if (destination == ComposeDestination.AssistantScreen) {
-            val assistantMenuItem = binding.bottomNavigation.menu.findItem(R.id.nav_assistant)
-            assistantMenuItem.setChecked(true)
+            binding.bottomNavigation.menu.findItem(R.id.nav_assistant).run {
+                isChecked = true
+            }
 
             nextcloudClient?.let { client ->
                 AssistantScreen(
@@ -95,17 +89,6 @@ class ComposeActivity : DrawerActivity() {
                     activity = this,
                     capability = capabilities
                 )
-            }
-        }
-    }
-
-    private suspend fun getNextcloudClient(user: User, context: Context): NextcloudClient? {
-        return withContext(Dispatchers.IO) {
-            try {
-                OwnCloudClientFactory.createNextcloudClient(user, context)
-            } catch (e: AccountUtils.AccountNotFoundException) {
-                Log_OC.e(this, "Error caught at init of createNextcloudClient", e)
-                null
             }
         }
     }
