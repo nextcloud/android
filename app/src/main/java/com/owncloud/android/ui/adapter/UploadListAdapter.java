@@ -48,6 +48,7 @@ import com.owncloud.android.operations.RefreshFolderOperation;
 import com.owncloud.android.ui.activity.ConflictsResolveActivity;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
+import com.owncloud.android.ui.adapter.progressListener.UploadProgressListener;
 import com.owncloud.android.ui.notifications.NotificationUtils;
 import com.owncloud.android.ui.preview.PreviewImageFragment;
 import com.owncloud.android.utils.DisplayUtils;
@@ -66,7 +67,7 @@ import androidx.annotation.NonNull;
 public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedViewHolder> {
     private static final String TAG = UploadListAdapter.class.getSimpleName();
 
-    private ProgressListener progressListener;
+    private UploadProgressListener uploadProgressListener;
     private final FileActivity parentActivity;
     private final UploadsStorageManager uploadsStorageManager;
     private final FileDataStorageManager storageManager;
@@ -368,24 +369,24 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
                 if (uploadHelper.isUploadingNow(item)) {
                     // really uploading, so...
                     // ... unbind the old progress bar, if any; ...
-                    if (progressListener != null) {
-                        String targetKey = FileUploadHelper.Companion.buildRemoteName(progressListener.getUpload().getAccountName(), progressListener.getUpload().getRemotePath());
-                        uploadHelper.removeUploadTransferProgressListener(progressListener, targetKey);
+                    if (uploadProgressListener != null) {
+                        String targetKey = FileUploadHelper.Companion.buildRemoteName(uploadProgressListener.getUpload().getAccountName(), uploadProgressListener.getUpload().getRemotePath());
+                        uploadHelper.removeUploadTransferProgressListener(uploadProgressListener, targetKey);
                     }
                     // ... then, bind the current progress bar to listen for updates
-                    progressListener = new ProgressListener(item, itemViewHolder.binding.uploadProgressBar);
+                    uploadProgressListener = new UploadProgressListener(item, itemViewHolder.binding.uploadProgressBar);
                     String targetKey = FileUploadHelper.Companion.buildRemoteName(item.getAccountName(), item.getRemotePath());
-                    uploadHelper.addUploadTransferProgressListener(progressListener, targetKey);
+                    uploadHelper.addUploadTransferProgressListener(uploadProgressListener, targetKey);
 
                 } else {
                     // not really uploading; stop listening progress if view is reused!
-                    if (progressListener != null &&
-                        progressListener.isWrapping(itemViewHolder.binding.uploadProgressBar)) {
+                    if (uploadProgressListener != null &&
+                        uploadProgressListener.isWrapping(itemViewHolder.binding.uploadProgressBar)) {
 
-                        String targetKey = FileUploadHelper.Companion.buildRemoteName(progressListener.getUpload().getAccountName(), progressListener.getUpload().getRemotePath());
+                        String targetKey = FileUploadHelper.Companion.buildRemoteName(uploadProgressListener.getUpload().getAccountName(), uploadProgressListener.getUpload().getRemotePath());
 
-                        uploadHelper.removeUploadTransferProgressListener(progressListener, targetKey);
-                        progressListener = null;
+                        uploadHelper.removeUploadTransferProgressListener(uploadProgressListener, targetKey);
+                        uploadProgressListener = null;
                     }
                 }
 
