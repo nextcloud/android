@@ -13,6 +13,7 @@
     <string name="action_switch_grid_view">Решетъчен изглед</string>
     <string name="action_switch_list_view">Списъчен изглед</string>
     <string name="actionbar_mkdir">Нова папка</string>
+    <string name="actionbar_move_or_copy">Премести или копирай</string>
     <string name="actionbar_open_with">Отвори с</string>
     <string name="actionbar_search">Търсене</string>
     <string name="actionbar_see_details">Подробности</string>
@@ -28,11 +29,13 @@
     <string name="add_new_public_share">Добавете нова връзка за публично споделяне</string>
     <string name="add_new_secure_file_drop">Добавяне на ново, защитено пускане на файлове</string>
     <string name="add_to_cloud">Добави към %1$s</string>
+    <string name="advanced_settings">Допълнителни настройки</string>
     <string name="allow_resharing">Може да споделя повторно</string>
     <string name="app_config_base_url_title">Основен URL адрес</string>
     <string name="app_config_proxy_port_title">Порт на прокси сървъра</string>
     <string name="app_widget_description">Показва един изпълним модул от таблото за управление</string>
     <string name="appbar_search_in">Търсене в %s</string>
+    <string name="assistant_screen_delete_task_alert_dialog_title">Изтрива задача</string>
     <string name="assistant_screen_task_delete_success_message">Задачата е успешно изтрита</string>
     <string name="associated_account_not_found">Свързания профил не е намерен!</string>
     <string name="auth_access_failed">Достъп неуспешен: %1$s</string>
@@ -589,6 +592,7 @@
     <string name="recommend_subject">Пробвайте%1$sна вашето устройство</string>
     <string name="recommend_text">Каня Ви да използвате %1$s на вашето device.\nDownload тук %2$s</string>
     <string name="recommend_urls">%1$s или %2$s</string>
+    <string name="recommended_files_title">Препоръчани файлове</string>
     <string name="refresh_content">Обновяване на съдържанието</string>
     <string name="reload">Презареди</string>
     <string name="remote">(отдалечен)</string>

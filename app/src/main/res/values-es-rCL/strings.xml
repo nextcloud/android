@@ -14,6 +14,7 @@
     <string name="action_switch_list_view">Vista de lista</string>
     <string name="actionbar_calendar_contacts_restore">Restaurar contactos y calendario</string>
     <string name="actionbar_mkdir">Nueva carpeta</string>
+    <string name="actionbar_move_or_copy">Mover o copiar</string>
     <string name="actionbar_open_with">Abrir con</string>
     <string name="actionbar_search">Buscar</string>
     <string name="actionbar_see_details">Detalles</string>
@@ -29,6 +30,7 @@
     <string name="add_new_public_share">Añadir un nuevo enlace público</string>
     <string name="add_new_secure_file_drop">Añadir un nuevo archivo seguro</string>
     <string name="add_to_cloud">Agregar a %1$s</string>
+    <string name="advanced_settings">Configuraciones avanzados</string>
     <string name="allow_resharing">Permitir volver a compartir</string>
     <string name="app_config_proxy_port_title">Puerto del Proxy</string>
     <string name="app_widget_description">Muestra un widget del panel de control</string>

@@ -9,6 +9,7 @@
     <string name="action_switch_grid_view">Vista de rexella</string>
     <string name="action_switch_list_view">Vista de llista</string>
     <string name="actionbar_mkdir">Carpeta nueva</string>
+    <string name="actionbar_move_or_copy">Mover o copiar</string>
     <string name="actionbar_open_with">Abrir con</string>
     <string name="actionbar_search">Guetar</string>
     <string name="actionbar_see_details">Detalles</string>
@@ -19,10 +20,12 @@
     <string name="activities_no_results_headline"> Entá nun hai actividá</string>
     <string name="activity_chooser_send_file_title">Unviar</string>
     <string name="activity_icon">Actividá</string>
+    <string name="advanced_settings">Configuración avanzada</string>
     <string name="app_config_base_url_title">URL base</string>
     <string name="app_config_proxy_port_title">Puertu del proxy</string>
     <string name="appbar_search_in">Buscar en: %s</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Escribi daqué</string>
+    <string name="assistant_screen_delete_task_alert_dialog_title">Desaniciar la xera</string>
     <string name="assistant_screen_task_list_error_state_message">Nun ye posible dir en cata de la llista de xeres. Comprueba la conexón a internet.</string>
     <string name="assistant_screen_task_types_error_state_message">Nun ye posible dir en cata de los tipos de xeres. Comprueba la conexón a internet.</string>
     <string name="assistant_screen_top_bar_title">Asistente</string>
@@ -422,6 +425,7 @@
     <string name="qr_could_not_be_read">¡Nun se pudo lleer el códigu QR!</string>
     <string name="recommend_subject">¡Prueba %1$s nel preséu!</string>
     <string name="recommend_urls">%1$s o %2$s</string>
+    <string name="recommended_files_title">Ficheros recomendaos</string>
     <string name="refresh_content">Anovar el conteníu</string>
     <string name="reload">Volver cargar</string>
     <string name="remote">(remotu)</string>
