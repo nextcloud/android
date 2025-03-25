@@ -19,11 +19,12 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
+@Suppress("TooGenericExceptionCaught")
 class ClientRepository(
     private val user: User,
     private val context: Context,
     private val lifecycleOwner: LifecycleOwner
-): ClientRepositoryType {
+) : ClientRepositoryType {
     private val tag = "ClientRepository"
 
     override fun getNextcloudClient(onComplete: (NextcloudClient) -> Unit) {
