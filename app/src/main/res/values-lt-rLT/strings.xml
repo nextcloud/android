@@ -10,6 +10,7 @@
     <string name="action_edit">Taisyti</string>
     <string name="action_empty_notifications">Išvalyti visus pranešimus</string>
     <string name="action_empty_trashbin">Išvalyti šiukšlinę</string>
+    <string name="action_send_share">Siųsti/bendrinti</string>
     <string name="action_switch_grid_view">Tinklelio rodinys</string>
     <string name="action_switch_list_view">Sąrašo rodinys</string>
     <string name="actionbar_calendar_contacts_restore">Atkurti adresatus ir kalendorių</string>

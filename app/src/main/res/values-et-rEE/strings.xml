@@ -332,6 +332,7 @@
     <string name="link_share_allow_upload_and_editing">Luba üleslaadimine ja muutmine</string>
     <string name="link_share_file_drop">Faili lohistamine (ainult üleslaadimine)</string>
     <string name="list_layout">Paigutus loendina</string>
+    <string name="load_more_results">Laadi veel tulemusi</string>
     <string name="local_file_list_empty">Kaustas pole faile.</string>
     <string name="local_folder_friendly_path">%1$s/%2$s</string>
     <string name="local_folder_list_empty">Rohkem kaustu ei ole.</string>
