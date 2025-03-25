@@ -251,7 +251,6 @@ public abstract class FileActivity extends DrawerActivity
                     Context.BIND_AUTO_CREATE);
         registerNetworkChangeReceiver();
 
-        // TODO: Check is recreated if account changed
         clientRepository = new ClientRepository(accountManager.getUser(),this, this);
         filesRepository = new FilesRepository(clientRepository, this);
     }
