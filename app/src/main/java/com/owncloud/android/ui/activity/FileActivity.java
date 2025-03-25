@@ -40,8 +40,6 @@ import com.nextcloud.client.jobs.upload.FileUploadHelper;
 import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.receiver.NetworkChangeListener;
 import com.nextcloud.receiver.NetworkChangeReceiver;
-import com.nextcloud.repository.ClientRepository;
-import com.nextcloud.repository.ClientRepositoryType;
 import com.nextcloud.utils.EditorUtils;
 import com.nextcloud.utils.extensions.ActivityExtensionsKt;
 import com.nextcloud.utils.extensions.BundleExtensionsKt;
@@ -91,8 +89,6 @@ import com.owncloud.android.ui.dialog.SslUntrustedCertDialog;
 import com.owncloud.android.ui.fragment.FileDetailFragment;
 import com.owncloud.android.ui.fragment.FileDetailSharingFragment;
 import com.owncloud.android.ui.fragment.OCFileListFragment;
-import com.owncloud.android.ui.fragment.filesRepository.FilesRepository;
-import com.owncloud.android.ui.fragment.filesRepository.FilesRepositoryType;
 import com.owncloud.android.ui.helpers.FileOperationsHelper;
 import com.owncloud.android.ui.preview.PreviewImageActivity;
 import com.owncloud.android.utils.ClipboardUtil;
@@ -185,10 +181,6 @@ public abstract class FileActivity extends DrawerActivity
     @Inject
     ArbitraryDataProvider arbitraryDataProvider;
 
-    private ClientRepositoryType clientRepository;
-
-    private FilesRepositoryType filesRepository;
-
     private NetworkChangeReceiver networkChangeReceiver;
 
     private void registerNetworkChangeReceiver() {
@@ -249,9 +241,6 @@ public abstract class FileActivity extends DrawerActivity
         bindService(new Intent(this, OperationsService.class), mOperationsServiceConnection,
                     Context.BIND_AUTO_CREATE);
         registerNetworkChangeReceiver();
-
-        clientRepository = new ClientRepository(accountManager.getUser(),this, this);
-        filesRepository = new FilesRepository(clientRepository, this);
     }
 
     @Override
@@ -987,13 +976,5 @@ public abstract class FileActivity extends DrawerActivity
             return (FileDetailFragment) fragment;
         }
         return null;
-    }
-
-    public ClientRepositoryType getClientRepository() {
-        return clientRepository;
-    }
-
-    public FilesRepositoryType getFilesRepository() {
-        return filesRepository;
     }
 }
