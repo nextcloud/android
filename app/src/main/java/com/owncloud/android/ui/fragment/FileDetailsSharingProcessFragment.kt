@@ -481,6 +481,36 @@ class FileDetailsSharingProcessFragment :
                 shareProcessAllowResharingCheckbox.isChecked = isChecked
                 shareDeleteCheckbox.isChecked = isChecked
             }
+
+            shareReadCheckbox.setOnCheckedChangeListener { _, isChecked ->
+                setUserPermission(isChecked, OCShare.READ_PERMISSION_FLAG)
+            }
+
+            shareCreateCheckbox.setOnCheckedChangeListener { _, isChecked ->
+                setUserPermission(isChecked, OCShare.CREATE_PERMISSION_FLAG)
+            }
+
+            shareEditCheckbox.setOnCheckedChangeListener { _, isChecked ->
+                setUserPermission(isChecked, OCShare.UPDATE_PERMISSION_FLAG)
+            }
+
+            shareProcessAllowResharingCheckbox.setOnCheckedChangeListener { _, isChecked ->
+                setUserPermission(isChecked, OCShare.SHARE_PERMISSION_FLAG)
+            }
+
+            shareDeleteCheckbox.setOnCheckedChangeListener { _, isChecked ->
+                setUserPermission(isChecked, OCShare.DELETE_PERMISSION_FLAG)
+            }
+        }
+    }
+
+    private fun setUserPermission(isChecked: Boolean, permissionFlag: Int) {
+        share?.let {
+            it.permissions = if (isChecked) {
+                it.permissions or permissionFlag
+            } else {
+                it.permissions and permissionFlag.inv()
+            }
         }
     }
 
