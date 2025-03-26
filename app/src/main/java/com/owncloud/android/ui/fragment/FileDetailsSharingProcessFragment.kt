@@ -191,7 +191,7 @@ class FileDetailsSharingProcessFragment :
             showShareProcessSecond()
         }
         implementClickEvents()
-
+        setCheckboxStates()
         themeView()
     }
 
@@ -481,6 +481,16 @@ class FileDetailsSharingProcessFragment :
                 shareProcessAllowResharingCheckbox.isChecked = isChecked
                 shareDeleteCheckbox.isChecked = isChecked
             }
+        }
+    }
+
+    private fun setCheckboxStates() {
+        binding.run {
+            shareReadCheckbox.isChecked = (permission and OCShare.READ_PERMISSION_FLAG) != 0
+            shareCreateCheckbox.isChecked = (permission and OCShare.CREATE_PERMISSION_FLAG) != 0
+            shareEditCheckbox.isChecked = (permission and OCShare.UPDATE_PERMISSION_FLAG) != 0
+            shareProcessAllowResharingCheckbox.isChecked = (permission and OCShare.SHARE_PERMISSION_FLAG) != 0
+            shareDeleteCheckbox.isChecked = (permission and OCShare.DELETE_PERMISSION_FLAG) != 0
         }
     }
 
