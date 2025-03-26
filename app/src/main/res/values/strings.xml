@@ -1093,6 +1093,12 @@
     <string name="share_link_with_label">Share link (%1$s)</string>
     <string name="share_link">Share link</string>
     <string name="allow_resharing">Allow resharing</string>
+    <string name="share_custom_permission">Custom permissions</string>
+    <string name="share_read_permission">Read</string>
+    <string name="share_create_permission">Create</string>
+    <string name="share_edit_permission">Edit</string>
+    <string name="share_re_share_permission">Share</string>
+    <string name="share_delete_permission">Delete</string>
     <string name="link_share_view_only">View only</string>
     <string name="link_share_editing">Editing</string>
     <string name="link_share_allow_upload_and_editing">Allow upload and editing</string>
