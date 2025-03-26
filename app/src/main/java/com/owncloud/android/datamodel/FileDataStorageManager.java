@@ -108,7 +108,7 @@ public class FileDataStorageManager {
     private final User user;
 
     public final OfflineOperationDao offlineOperationDao = NextcloudDatabase.getInstance(MainApp.getAppContext()).offlineOperationDao();
-    private final FileDao fileDao = NextcloudDatabase.getInstance(MainApp.getAppContext()).fileDao();
+    public final FileDao fileDao = NextcloudDatabase.getInstance(MainApp.getAppContext()).fileDao();
     private final Gson gson = new Gson();
     public final OfflineOperationsRepositoryType offlineOperationsRepository;
 
@@ -2790,14 +2790,5 @@ public class FileDataStorageManager {
         }
 
         return result;
-    }
-
-    public String getDecryptedPath(OCFile file) {
-        final var entity = fileDao.getFileByEncryptedRemotePath(file.getRemotePath(), user.getAccountName());
-        if (entity == null) {
-            return file.getDecryptedRemotePath();
-        }
-
-        return entity.getPathDecrypted();
     }
 }

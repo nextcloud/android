@@ -10,6 +10,7 @@ package com.owncloud.android.ui.activity;
 import android.content.Intent;
 
 import com.nextcloud.client.account.UserAccountManagerImpl;
+import com.nextcloud.utils.extensions.FileDataStorageManagerExtensionsKt;
 import com.owncloud.android.AbstractIT;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
@@ -65,7 +66,7 @@ public class ConflictsResolveActivityIT extends AbstractIT {
         ConflictsResolveActivity sut = activityRule.launchActivity(intent);
 
         ConflictsResolveDialog dialog = ConflictsResolveDialog.newInstance(
-            storageManager.getDecryptedPath(existingFile),
+            FileDataStorageManagerExtensionsKt.getDecryptedPath(storageManager, existingFile),
             targetContext,
             newFile,
             existingFile,
