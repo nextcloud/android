@@ -21,6 +21,7 @@ import androidx.fragment.app.Fragment
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.utils.extensions.getParcelableArgument
 import com.nextcloud.utils.extensions.getSerializableArgument
+import com.nextcloud.utils.extensions.setVisibilityWithAnimation
 import com.nextcloud.utils.extensions.setVisibleIf
 import com.owncloud.android.R
 import com.owncloud.android.databinding.FileDetailsSharingProcessFragmentBinding
@@ -135,6 +136,7 @@ class FileDetailsSharingProcessFragment :
     private var isReShareShown: Boolean = true // show or hide reShare option
     private var isExpDateShown: Boolean = true // show or hide expiry date option
     private var isSecureShare: Boolean = false
+    private var showCustomPermissions = true
 
     private lateinit var capabilities: OCCapability
 
@@ -192,6 +194,7 @@ class FileDetailsSharingProcessFragment :
         }
         implementClickEvents()
         setCheckboxStates()
+        setCustomPermissionCheckboxesVisibilities()
         themeView()
     }
 
@@ -199,13 +202,12 @@ class FileDetailsSharingProcessFragment :
         viewThemeUtils.platform.run {
             binding.run {
                 colorTextView(shareProcessEditShareLink)
-                colorTextView(shareProcessAdvancePermissionTitle)
+                colorTextView(shareCustomPermissionsText)
 
                 themeRadioButton(shareProcessPermissionReadOnly)
                 themeRadioButton(shareProcessPermissionUploadEditing)
                 themeRadioButton(shareProcessPermissionFileDrop)
 
-                themeCheckbox(shareCustomCheckbox)
                 themeCheckbox(shareReadCheckbox)
                 themeCheckbox(shareCreateCheckbox)
                 themeCheckbox(shareEditCheckbox)
@@ -261,7 +263,7 @@ class FileDetailsSharingProcessFragment :
         }
 
         if (isSecureShare) {
-            binding.shareProcessAdvancePermissionTitle.visibility = View.GONE
+            binding.shareCustomPermissionsText.visibility = View.GONE
         }
 
         // show or hide expiry date
@@ -474,12 +476,12 @@ class FileDetailsSharingProcessFragment :
             shareProcessSelectExpDate.setOnClickListener {
                 showExpirationDateDialog()
             }
-            shareCustomCheckbox.setOnCheckedChangeListener {  _, isChecked ->
-                shareReadCheckbox.isChecked = isChecked
-                shareCreateCheckbox.isChecked = isChecked
-                shareEditCheckbox.isChecked = isChecked
-                shareProcessAllowResharingCheckbox.isChecked = isChecked
-                shareDeleteCheckbox.isChecked = isChecked
+
+            shareCustomPermissionsText.setOnClickListener {
+                showCustomPermissions = !showCustomPermissions
+                val newIcon = if (showCustomPermissions) R.drawable.ic_arrow_up else R.drawable.ic_arrow_down
+                shareCustomPermissionsText.setCompoundDrawablesWithIntrinsicBounds(0, 0, newIcon, 0)
+                setCustomPermissionCheckboxesVisibilities()
             }
 
             shareReadCheckbox.setOnCheckedChangeListener { _, isChecked ->
@@ -504,13 +506,12 @@ class FileDetailsSharingProcessFragment :
         }
     }
 
+    // TODO: check share.permission
     private fun setUserPermission(isChecked: Boolean, permissionFlag: Int) {
-        share?.let {
-            it.permissions = if (isChecked) {
-                it.permissions or permissionFlag
-            } else {
-                it.permissions and permissionFlag.inv()
-            }
+        permission = if (isChecked) {
+            permission or permissionFlag
+        } else {
+            permission and permissionFlag.inv()
         }
     }
 
@@ -521,6 +522,18 @@ class FileDetailsSharingProcessFragment :
             shareEditCheckbox.isChecked = (permission and OCShare.UPDATE_PERMISSION_FLAG) != 0
             shareProcessAllowResharingCheckbox.isChecked = (permission and OCShare.SHARE_PERMISSION_FLAG) != 0
             shareDeleteCheckbox.isChecked = (permission and OCShare.DELETE_PERMISSION_FLAG) != 0
+
+            setCustomPermissionCheckboxesVisibilities()
+        }
+    }
+
+    private fun setCustomPermissionCheckboxesVisibilities() {
+        binding.run {
+            shareReadCheckbox.setVisibilityWithAnimation(showCustomPermissions)
+            shareCreateCheckbox.setVisibilityWithAnimation(showCustomPermissions)
+            shareEditCheckbox.setVisibilityWithAnimation(showCustomPermissions)
+            shareProcessAllowResharingCheckbox.setVisibilityWithAnimation(showCustomPermissions)
+            shareDeleteCheckbox.setVisibilityWithAnimation(showCustomPermissions)
         }
     }
 
@@ -644,6 +657,7 @@ class FileDetailsSharingProcessFragment :
     /**
      *  get the permissions on the basis of selection
      */
+    // TODO: Check logic it should match with new checkboxes action
     private fun getSelectedPermission() = when {
         binding.shareProcessAllowResharingCheckbox.isChecked -> getReSharePermission()
         binding.shareProcessPermissionReadOnly.isChecked -> OCShare.READ_PERMISSION_FLAG
