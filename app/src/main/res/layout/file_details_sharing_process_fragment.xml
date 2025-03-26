@@ -77,11 +77,61 @@
                 android:textStyle="bold"/>
 
             <com.google.android.material.checkbox.MaterialCheckBox
-                android:id="@+id/share_process_allow_resharing_checkbox"
+                android:id="@+id/share_custom_checkbox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:minHeight="@dimen/minimum_size_for_touchable_area"
-                android:text="@string/allow_resharing"
+                android:text="@string/share_custom_permission"
+                android:visibility="visible"
+                tools:visibility="visible" />
+
+            <com.google.android.material.checkbox.MaterialCheckBox
+                android:id="@+id/share_read_checkbox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/standard_margin"
+                android:minHeight="@dimen/minimum_size_for_touchable_area"
+                android:text="@string/share_read_permission"
+                android:visibility="gone"
+                tools:visibility="visible" />
+
+            <com.google.android.material.checkbox.MaterialCheckBox
+                android:id="@+id/share_create_checkbox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/standard_margin"
+                android:minHeight="@dimen/minimum_size_for_touchable_area"
+                android:text="@string/share_create_permission"
+                android:visibility="gone"
+                tools:visibility="visible" />
+
+            <com.google.android.material.checkbox.MaterialCheckBox
+                android:id="@+id/share_edit_checkbox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/standard_margin"
+                android:minHeight="@dimen/minimum_size_for_touchable_area"
+                android:text="@string/share_edit_permission"
+                android:visibility="gone"
+                tools:visibility="visible" />
+
+            <com.google.android.material.checkbox.MaterialCheckBox
+                android:id="@+id/share_process_allow_resharing_checkbox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/standard_margin"
+                android:minHeight="@dimen/minimum_size_for_touchable_area"
+                android:text="@string/share_re_share_permission"
+                android:visibility="gone"
+                tools:visibility="visible" />
+
+            <com.google.android.material.checkbox.MaterialCheckBox
+                android:id="@+id/share_delete_checkbox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/standard_margin"
+                android:minHeight="@dimen/minimum_size_for_touchable_area"
+                android:text="@string/share_delete_permission"
                 android:visibility="gone"
                 tools:visibility="visible" />
 
