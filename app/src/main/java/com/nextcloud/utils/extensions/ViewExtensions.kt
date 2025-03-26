@@ -7,6 +7,8 @@
  */
 package com.nextcloud.utils.extensions
 
+import android.animation.Animator
+import android.animation.AnimatorListenerAdapter
 import android.content.Context
 import android.graphics.Outline
 import android.util.TypedValue
@@ -17,6 +19,30 @@ import android.view.ViewOutlineProvider
 fun View?.setVisibleIf(condition: Boolean) {
     if (this == null) return
     visibility = if (condition) View.VISIBLE else View.GONE
+}
+
+fun View?.setVisibilityWithAnimation(condition: Boolean, duration: Long = 200L) {
+    this ?: return
+
+    if (condition) {
+        this.apply {
+            alpha = 0f
+            visibility = View.VISIBLE
+            animate()
+                .alpha(1f)
+                .setDuration(duration)
+                .setListener(null)
+        }
+    } else {
+        animate()
+            .alpha(0f)
+            .setDuration(duration)
+            .setListener(object : AnimatorListenerAdapter() {
+                override fun onAnimationEnd(animation: Animator) {
+                    visibility = View.GONE
+                }
+            })
+    }
 }
 
 fun View?.makeRounded(context: Context, cornerRadius: Float) {
