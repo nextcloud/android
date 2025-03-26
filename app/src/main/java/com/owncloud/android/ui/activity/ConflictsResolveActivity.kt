@@ -26,6 +26,7 @@ import com.nextcloud.client.jobs.upload.FileUploadHelper
 import com.nextcloud.client.jobs.upload.FileUploadWorker
 import com.nextcloud.client.jobs.upload.UploadNotificationManager
 import com.nextcloud.model.HTTPStatusCodes
+import com.nextcloud.utils.extensions.getDecryptedPath
 import com.nextcloud.utils.extensions.getParcelableArgument
 import com.nextcloud.utils.extensions.logFileSize
 import com.owncloud.android.R
@@ -319,7 +320,7 @@ class ConflictsResolveActivity : FileActivity(), OnConflictDecisionMadeListener 
 
         if (existingFile != null && storageManager.fileExists(remotePath) && newFile != null) {
             val dialog = ConflictsResolveDialog.newInstance(
-                title = storageManager.getDecryptedPath(existingFile),
+                title = storageManager.getDecryptedPath(existingFile!!),
                 context = this,
                 leftFile = newFile!!,
                 rightFile = existingFile!!,
