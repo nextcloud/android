@@ -80,14 +80,16 @@ class FileDetailsSharingProcessFragment :
             shareType: ShareType,
             secureShare: Boolean
         ): FileDetailsSharingProcessFragment {
-            val args = Bundle()
-            args.putParcelable(ARG_OCFILE, file)
-            args.putSerializable(ARG_SHARE_TYPE, shareType)
-            args.putString(ARG_SHAREE_NAME, shareeName)
-            args.putBoolean(ARG_SECURE_SHARE, secureShare)
-            val fragment = FileDetailsSharingProcessFragment()
-            fragment.arguments = args
-            return fragment
+            val bundle = Bundle().apply {
+                putParcelable(ARG_OCFILE, file)
+                putSerializable(ARG_SHARE_TYPE, shareType)
+                putString(ARG_SHAREE_NAME, shareeName)
+                putBoolean(ARG_SECURE_SHARE, secureShare)
+            }
+
+            return FileDetailsSharingProcessFragment().apply {
+                arguments = bundle
+            }
         }
 
         /**
@@ -100,14 +102,16 @@ class FileDetailsSharingProcessFragment :
             isReshareShown: Boolean,
             isExpirationDateShown: Boolean
         ): FileDetailsSharingProcessFragment {
-            val args = Bundle()
-            args.putParcelable(ARG_OCSHARE, share)
-            args.putInt(ARG_SCREEN_TYPE, screenType)
-            args.putBoolean(ARG_RESHARE_SHOWN, isReshareShown)
-            args.putBoolean(ARG_EXP_DATE_SHOWN, isExpirationDateShown)
-            val fragment = FileDetailsSharingProcessFragment()
-            fragment.arguments = args
-            return fragment
+            val bundle = Bundle().apply {
+                putParcelable(ARG_OCSHARE, share)
+                putInt(ARG_SCREEN_TYPE, screenType)
+                putBoolean(ARG_RESHARE_SHOWN, isReshareShown)
+                putBoolean(ARG_EXP_DATE_SHOWN, isExpirationDateShown)
+            }
+
+            return FileDetailsSharingProcessFragment().apply {
+                arguments = bundle
+            }
         }
     }
 
@@ -192,28 +196,44 @@ class FileDetailsSharingProcessFragment :
     }
 
     private fun themeView() {
-        viewThemeUtils.platform.colorTextView(binding.shareProcessEditShareLink)
-        viewThemeUtils.platform.colorTextView(binding.shareProcessAdvancePermissionTitle)
+        viewThemeUtils.platform.run {
+            binding.run {
+                colorTextView(shareProcessEditShareLink)
+                colorTextView(shareProcessAdvancePermissionTitle)
 
-        viewThemeUtils.platform.themeRadioButton(binding.shareProcessPermissionReadOnly)
-        viewThemeUtils.platform.themeRadioButton(binding.shareProcessPermissionUploadEditing)
-        viewThemeUtils.platform.themeRadioButton(binding.shareProcessPermissionFileDrop)
+                themeRadioButton(shareProcessPermissionReadOnly)
+                themeRadioButton(shareProcessPermissionUploadEditing)
+                themeRadioButton(shareProcessPermissionFileDrop)
 
-        viewThemeUtils.platform.themeCheckbox(binding.shareProcessAllowResharingCheckbox)
+                themeCheckbox(shareCustomCheckbox)
+                themeCheckbox(shareReadCheckbox)
+                themeCheckbox(shareCreateCheckbox)
+                themeCheckbox(shareEditCheckbox)
+                themeCheckbox(shareProcessAllowResharingCheckbox)
+                themeCheckbox(shareDeleteCheckbox)
+            }
+        }
 
-        viewThemeUtils.androidx.colorSwitchCompat(binding.shareProcessSetPasswordSwitch)
-        viewThemeUtils.androidx.colorSwitchCompat(binding.shareProcessSetExpDateSwitch)
-        viewThemeUtils.androidx.colorSwitchCompat(binding.shareProcessSetDownloadLimitSwitch)
-        viewThemeUtils.androidx.colorSwitchCompat(binding.shareProcessHideDownloadCheckbox)
-        viewThemeUtils.androidx.colorSwitchCompat(binding.shareProcessChangeNameSwitch)
+        viewThemeUtils.androidx.run {
+            binding.run {
+                colorSwitchCompat(shareProcessSetPasswordSwitch)
+                colorSwitchCompat(shareProcessSetExpDateSwitch)
+                colorSwitchCompat(shareProcessSetDownloadLimitSwitch)
+                colorSwitchCompat(shareProcessHideDownloadCheckbox)
+                colorSwitchCompat(shareProcessChangeNameSwitch)
+            }
+        }
 
-        viewThemeUtils.material.colorTextInputLayout(binding.shareProcessEnterPasswordContainer)
-        viewThemeUtils.material.colorTextInputLayout(binding.shareProcessSetDownloadLimitInputContainer)
-        viewThemeUtils.material.colorTextInputLayout(binding.shareProcessChangeNameContainer)
-        viewThemeUtils.material.colorTextInputLayout(binding.noteContainer)
-
-        viewThemeUtils.material.colorMaterialButtonPrimaryFilled(binding.shareProcessBtnNext)
-        viewThemeUtils.material.colorMaterialButtonPrimaryOutlined(binding.shareProcessBtnCancel)
+        viewThemeUtils.material.run {
+            binding.run {
+                colorTextInputLayout(shareProcessEnterPasswordContainer)
+                colorTextInputLayout(shareProcessSetDownloadLimitInputContainer)
+                colorTextInputLayout(shareProcessChangeNameContainer)
+                colorTextInputLayout(noteContainer)
+                colorMaterialButtonPrimaryFilled(shareProcessBtnNext)
+                colorMaterialButtonPrimaryOutlined(shareProcessBtnCancel)
+            }
+        }
     }
 
     override fun onConfigurationChanged(newConfig: Configuration) {
@@ -245,11 +265,7 @@ class FileDetailsSharingProcessFragment :
         }
 
         // show or hide expiry date
-        if (isExpDateShown && !isSecureShare) {
-            binding.shareProcessSetExpDateSwitch.visibility = View.VISIBLE
-        } else {
-            binding.shareProcessSetExpDateSwitch.visibility = View.GONE
-        }
+        binding.shareProcessSetExpDateSwitch.setVisibleIf(isExpDateShown && !isSecureShare)
         shareProcessStep = SCREEN_TYPE_PERMISSION
     }
 
@@ -432,30 +448,39 @@ class FileDetailsSharingProcessFragment :
     }
 
     private fun implementClickEvents() {
-        binding.shareProcessBtnCancel.setOnClickListener {
-            onCancelClick()
-        }
-        binding.shareProcessBtnNext.setOnClickListener {
-            if (shareProcessStep == SCREEN_TYPE_PERMISSION) {
-                validateShareProcessFirst()
-            } else {
-                validateShareProcessSecond()
+        binding.run {
+            shareProcessBtnCancel.setOnClickListener {
+                onCancelClick()
             }
-        }
-        binding.shareProcessSetPasswordSwitch.setOnCheckedChangeListener { _, isChecked ->
-            showPasswordInput(isChecked)
-        }
-        binding.shareProcessSetExpDateSwitch.setOnCheckedChangeListener { _, isChecked ->
-            showExpirationDateInput(isChecked)
-        }
-        binding.shareProcessSetDownloadLimitSwitch.setOnCheckedChangeListener { _, isChecked ->
-            showFileDownloadLimitInput(isChecked)
-        }
-        binding.shareProcessChangeNameSwitch.setOnCheckedChangeListener { _, isChecked ->
-            showChangeNameInput(isChecked)
-        }
-        binding.shareProcessSelectExpDate.setOnClickListener {
-            showExpirationDateDialog()
+            shareProcessBtnNext.setOnClickListener {
+                if (shareProcessStep == SCREEN_TYPE_PERMISSION) {
+                    validateShareProcessFirst()
+                } else {
+                    validateShareProcessSecond()
+                }
+            }
+            shareProcessSetPasswordSwitch.setOnCheckedChangeListener { _, isChecked ->
+                showPasswordInput(isChecked)
+            }
+            shareProcessSetExpDateSwitch.setOnCheckedChangeListener { _, isChecked ->
+                showExpirationDateInput(isChecked)
+            }
+            shareProcessSetDownloadLimitSwitch.setOnCheckedChangeListener { _, isChecked ->
+                showFileDownloadLimitInput(isChecked)
+            }
+            shareProcessChangeNameSwitch.setOnCheckedChangeListener { _, isChecked ->
+                showChangeNameInput(isChecked)
+            }
+            shareProcessSelectExpDate.setOnClickListener {
+                showExpirationDateDialog()
+            }
+            shareCustomCheckbox.setOnCheckedChangeListener {  _, isChecked ->
+                shareReadCheckbox.isChecked = isChecked
+                shareCreateCheckbox.isChecked = isChecked
+                shareEditCheckbox.isChecked = isChecked
+                shareProcessAllowResharingCheckbox.isChecked = isChecked
+                shareDeleteCheckbox.isChecked = isChecked
+            }
         }
     }
 
@@ -495,8 +520,8 @@ class FileDetailsSharingProcessFragment :
     }
 
     private fun showExpirationDateInput(isChecked: Boolean) {
-        binding.shareProcessSelectExpDate.visibility = if (isChecked) View.VISIBLE else View.GONE
-        binding.shareProcessExpDateDivider.visibility = if (isChecked) View.VISIBLE else View.GONE
+        binding.shareProcessSelectExpDate.setVisibleIf(isChecked)
+        binding.shareProcessExpDateDivider.setVisibleIf(isChecked)
 
         // reset the expiration date if switch is unchecked
         if (!isChecked) {
@@ -529,9 +554,9 @@ class FileDetailsSharingProcessFragment :
     }
 
     private fun getReSharePermission(): Int {
-        val spb = SharePermissionsBuilder()
-        spb.setSharePermission(true)
-        return spb.build()
+        return SharePermissionsBuilder().apply {
+            setSharePermission(true)
+        }.build()
     }
 
     /**
