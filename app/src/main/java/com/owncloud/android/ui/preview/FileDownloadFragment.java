@@ -36,7 +36,6 @@ import javax.inject.Inject;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentStatePagerAdapter;
 
 /**
  * This Fragment is used to monitor the progress of a file downloading.
@@ -50,7 +49,6 @@ public class FileDownloadFragment extends FileFragment implements OnClickListene
     private static final String ARG_FILE = "FILE";
     private static final String ARG_IGNORE_FIRST = "IGNORE_FIRST";
     private static final String ARG_USER = "USER";
-    private static final String ARG_FILE_POSITION = "FILE_POSITION";
 
     private View mView;
     private User user;
@@ -77,7 +75,7 @@ public class FileDownloadFragment extends FileFragment implements OnClickListene
      *
      * @param file                      An {@link OCFile} to show in the fragment
      * @param user                      Nextcloud user; needed to start downloads
-     * @param ignoreFirstSavedState     Flag to work around an unexpected behaviour of {@link FragmentStatePagerAdapter}
+     * @param ignoreFirstSavedState     Flag to work around an unexpected behaviour
      *                                  TODO better solution
      */
     public static Fragment newInstance(OCFile file, User user, boolean ignoreFirstSavedState) {
@@ -93,9 +91,9 @@ public class FileDownloadFragment extends FileFragment implements OnClickListene
 
     /**
      * Creates an empty details fragment.
-     *
+     * <p>
      * It's necessary to keep a public constructor without parameters; the system uses it when tries to
-     * reinstantiate a fragment automatically.
+     * re-instantiate a fragment automatically.
      */
     public FileDownloadFragment() {
         super();
@@ -110,6 +108,10 @@ public class FileDownloadFragment extends FileFragment implements OnClickListene
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Bundle args = getArguments();
+        if (args == null) {
+            return;
+        }
+
         setFile(BundleExtensionsKt.getParcelableArgument(args, ARG_FILE, OCFile.class));
             // TODO better in super, but needs to check ALL the class extending FileFragment; not right now
 
@@ -118,8 +120,7 @@ public class FileDownloadFragment extends FileFragment implements OnClickListene
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
 
         if (getArguments() != null) {
@@ -203,6 +204,10 @@ public class FileDownloadFragment extends FileFragment implements OnClickListene
      * Enables or disables buttons for a file being downloaded
      */
     private void setButtonsForTransferring() {
+        if (getView() == null) {
+            return;
+        }
+
         getView().findViewById(R.id.cancelBtn).setVisibility(View.VISIBLE);
 
         // show the progress bar for the transfer
@@ -218,10 +223,14 @@ public class FileDownloadFragment extends FileFragment implements OnClickListene
 
     /**
      * Enables or disables buttons for a file not locally available
-     *
+     * <p>
      * Currently, this is only used when a download was failed
      */
     private void setButtonsForRemote() {
+        if (getView() == null) {
+            return;
+        }
+
         getView().findViewById(R.id.cancelBtn).setVisibility(View.GONE);
 
         // hides the progress bar and message
