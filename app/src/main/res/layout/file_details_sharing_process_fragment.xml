@@ -68,28 +68,20 @@
             </RadioGroup>
 
             <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/share_process_advance_permission_title"
+                android:id="@+id/share_custom_permissions_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/standard_margin"
-                android:text="@string/advanced_settings"
-                android:textColor="@color/primary"
-                android:textStyle="bold"/>
-
-            <com.google.android.material.checkbox.MaterialCheckBox
-                android:id="@+id/share_custom_checkbox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:minHeight="@dimen/minimum_size_for_touchable_area"
                 android:text="@string/share_custom_permission"
-                android:visibility="visible"
-                tools:visibility="visible" />
+                android:drawableEnd="@drawable/ic_arrow_up"
+                android:textColor="@color/primary"
+                android:drawableTint="@color/primary"
+                android:textStyle="bold"/>
 
             <com.google.android.material.checkbox.MaterialCheckBox
                 android:id="@+id/share_read_checkbox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/standard_margin"
                 android:minHeight="@dimen/minimum_size_for_touchable_area"
                 android:text="@string/share_read_permission"
                 android:visibility="gone"
@@ -99,7 +91,6 @@
                 android:id="@+id/share_create_checkbox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/standard_margin"
                 android:minHeight="@dimen/minimum_size_for_touchable_area"
                 android:text="@string/share_create_permission"
                 android:visibility="gone"
@@ -109,7 +100,6 @@
                 android:id="@+id/share_edit_checkbox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/standard_margin"
                 android:minHeight="@dimen/minimum_size_for_touchable_area"
                 android:text="@string/share_edit_permission"
                 android:visibility="gone"
@@ -119,7 +109,6 @@
                 android:id="@+id/share_process_allow_resharing_checkbox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/standard_margin"
                 android:minHeight="@dimen/minimum_size_for_touchable_area"
                 android:text="@string/share_re_share_permission"
                 android:visibility="gone"
@@ -129,7 +118,6 @@
                 android:id="@+id/share_delete_checkbox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/standard_margin"
                 android:minHeight="@dimen/minimum_size_for_touchable_area"
                 android:text="@string/share_delete_permission"
                 android:visibility="gone"
