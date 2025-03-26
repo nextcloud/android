@@ -25,10 +25,13 @@ fun String.removeFileExtension(): String {
     }
 }
 
+fun String.truncateWithEllipsis(limit: Int) = take(limit) + if (length > limit) StringConstants.THREE_DOT else ""
+
 object StringConstants {
     const val SLASH = "/"
     const val DOT = "."
     const val SPACE = " "
+    const val THREE_DOT = "..."
 }
 
 fun String.getContentOfPublicKey(): String {
