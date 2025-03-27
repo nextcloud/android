@@ -161,6 +161,7 @@
     <string name="dev_version_no_information_available">Informācija nav pieejama.</string>
     <string name="dev_version_no_new_version_available">Jauna versija nav pieejama.</string>
     <string name="dialog_close">Aizvērt</string>
+    <string name="did_not_check_for_dupes">Nepārbaudīja vienumus, kas atkārtojas.</string>
     <string name="digest_algorithm_not_available">Šis algoritms nav pieejams jūsu tālrunī.</string>
     <string name="direct_login_text">Pieteikties %2$s ar %1$s</string>
     <string name="disable_new_media_folder_detection_notifications">Deaktivēt</string>
@@ -255,7 +256,7 @@
     <string name="file_rename">Pārsaukt</string>
     <string name="filedetails_details">Detaļas</string>
     <string name="filedetails_download">Lejupielādēt</string>
-    <string name="filedetails_export">Eksportēt</string>
+    <string name="filedetails_export">Izgūt</string>
     <string name="filedetails_renamed_in_upload_msg">Datne pārsaukta uz %1$s augšupielādes laikā</string>
     <string name="filedetails_sync_file">Sinhronizēt</string>
     <string name="filedisplay_no_file_selected">Netika izvēlēta neviena datne</string>
@@ -613,6 +614,11 @@
     <string name="widgets_not_available_title">Nav pieejams</string>
     <string name="worker_download">Lejupielādē failus…</string>
     <string name="write_email">Sūtīt e-pastu</string>
+    <plurals name="found_n_duplicates">
+        <item quantity="zero">Tika atrasti %d ieraksti, kas atkārtojas.</item>
+        <item quantity="one">Tika atrasts %d ieraksts, kas atkārtojas.</item>
+        <item quantity="other">Tika atrasti %d ieraksti, kas atkārtojas.</item>
+    </plurals>
     <plurals name="file_list__footer__folder">
         <item quantity="zero">%1$d mapes</item>
         <item quantity="one">%1$d mape</item>
