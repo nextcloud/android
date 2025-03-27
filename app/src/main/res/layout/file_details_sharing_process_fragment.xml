@@ -114,6 +114,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:minHeight="@dimen/minimum_size_for_touchable_area"
+                    android:enabled="false"
                     android:text="@string/share_read_permission"
                     tools:visibility="visible" />
 
