@@ -1206,9 +1206,9 @@ public class OCFileListFragment extends ExtendedListFragment implements
                     case GALLERY_SEARCH -> VirtualFolderType.GALLERY;
                     default -> VirtualFolderType.NONE;
                 };
-                ((FileDisplayActivity) mContainerActivity).startImagePreview(file, type, !file.isDown());
+                ((FileDisplayActivity) mContainerActivity).startImagePreview(file, type, file.isDown());
             } else {
-                ((FileDisplayActivity) mContainerActivity).startImagePreview(file, !file.isDown());
+                ((FileDisplayActivity) mContainerActivity).startImagePreview(file, file.isDown());
             }
         } else if (file.isDown() && MimeTypeUtil.isVCard(file)) {
             ((FileDisplayActivity) mContainerActivity).startContactListFragment(file);
