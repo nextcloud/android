@@ -395,6 +395,7 @@ public class ContactOperations {
             String label = null;
             String val = null;
             int mime = 0;
+            int type = 0;
             for (RawProperty property : properties) {
                 String name = property.getPropertyName();
 
@@ -412,7 +413,6 @@ public class ContactOperations {
 
                 if ("X-ABLABEL".equalsIgnoreCase(name)) {
                     val = property.getValue(); // type of value ..Birthday,anniversary
-                    continue;
                 }
             }
 
@@ -423,7 +423,7 @@ public class ContactOperations {
 
                     cv.put(ContactsContract.CommonDataKinds.Event.START_DATE, label);
 
-                    int type = DataMappings.getDateType(val);
+                    type = DataMappings.getDateType(val);
                     cv.put(ContactsContract.CommonDataKinds.Event.TYPE, type);
 
                     break;
