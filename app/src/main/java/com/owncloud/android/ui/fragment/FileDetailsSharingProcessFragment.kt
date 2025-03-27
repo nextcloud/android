@@ -264,7 +264,7 @@ class FileDetailsSharingProcessFragment :
         }
 
         if (isSecureShare) {
-            binding.shareCustomPermissionsText.visibility = View.GONE
+            binding.shareProcessAdvancePermissionTitle.visibility = View.GONE
         }
 
         // show or hide expiry date
