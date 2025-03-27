@@ -719,6 +719,7 @@
     <string name="recommend_subject">사용하고 있는 장치에서 %1$s을(를) 사용해 보세요!</string>
     <string name="recommend_text">사용하고 있는 장치에서 %1$s을(를) 사용해 보세요.\n다운로드 링크: %2$s</string>
     <string name="recommend_urls">%1$s 및 %2$s</string>
+    <string name="recommended_files_title">추천 파일</string>
     <string name="refresh_content">콘텐츠 새로고침</string>
     <string name="reload">새로 고침</string>
     <string name="remote">(원격)</string>
