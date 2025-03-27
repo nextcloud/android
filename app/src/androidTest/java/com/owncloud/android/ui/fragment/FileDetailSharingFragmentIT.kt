@@ -36,6 +36,7 @@ import com.owncloud.android.lib.resources.shares.OCShare.Companion.MAXIMUM_PERMI
 import com.owncloud.android.lib.resources.shares.OCShare.Companion.NO_PERMISSION
 import com.owncloud.android.lib.resources.shares.OCShare.Companion.READ_PERMISSION_FLAG
 import com.owncloud.android.lib.resources.shares.OCShare.Companion.SHARE_PERMISSION_FLAG
+import com.owncloud.android.lib.resources.shares.OCShare.Companion.UPDATE_PERMISSION_FLAG
 import com.owncloud.android.lib.resources.shares.ShareType
 import com.owncloud.android.ui.activity.FileDisplayActivity
 import com.owncloud.android.ui.fragment.util.SharingMenuHelper
@@ -295,6 +296,7 @@ class FileDetailSharingFragmentIT : AbstractIT() {
         // validate view shown on screen
         onView(ViewMatchers.withId(R.id.view_only_radio_button)).check(matches(isDisplayed()))
         onView(ViewMatchers.withId(R.id.editing_radio_button)).check(matches(isDisplayed()))
+        onView(ViewMatchers.withId(R.id.custom_permission_radio_button)).check(matches(isDisplayed()))
         onView(ViewMatchers.withId(R.id.file_drop_radio_button)).check(matches(isDisplayed()))
         onView(ViewMatchers.withId(R.id.share_process_hide_download_checkbox)).check(matches(isDisplayed()))
         onView(ViewMatchers.withId(R.id.share_process_set_password_switch)).check(matches(isDisplayed()))
@@ -304,6 +306,7 @@ class FileDetailSharingFragmentIT : AbstractIT() {
         // read-only
         onView(ViewMatchers.withId(R.id.view_only_radio_button)).check(matches(isChecked()))
         onView(ViewMatchers.withId(R.id.editing_radio_button)).check(matches(isNotChecked()))
+        onView(ViewMatchers.withId(R.id.custom_permission_radio_button)).check(matches(isNotChecked()))
         onView(ViewMatchers.withId(R.id.file_drop_radio_button)).check(matches(isNotChecked()))
         goBack()
 
@@ -312,6 +315,16 @@ class FileDetailSharingFragmentIT : AbstractIT() {
         openAdvancedPermissions(sut, publicShare)
         onView(ViewMatchers.withId(R.id.view_only_radio_button)).check(matches(isNotChecked()))
         onView(ViewMatchers.withId(R.id.editing_radio_button)).check(matches(isChecked()))
+        onView(ViewMatchers.withId(R.id.custom_permission_radio_button)).check(matches(isNotChecked()))
+        onView(ViewMatchers.withId(R.id.file_drop_radio_button)).check(matches(isNotChecked()))
+        goBack()
+
+        // custom permission
+        publicShare.permissions = UPDATE_PERMISSION_FLAG
+        openAdvancedPermissions(sut, publicShare)
+        onView(ViewMatchers.withId(R.id.view_only_radio_button)).check(matches(isNotChecked()))
+        onView(ViewMatchers.withId(R.id.editing_radio_button)).check(matches(isNotChecked()))
+        onView(ViewMatchers.withId(R.id.custom_permission_radio_button)).check(matches(isChecked()))
         onView(ViewMatchers.withId(R.id.file_drop_radio_button)).check(matches(isNotChecked()))
         goBack()
 
@@ -320,6 +333,7 @@ class FileDetailSharingFragmentIT : AbstractIT() {
         openAdvancedPermissions(sut, publicShare)
         onView(ViewMatchers.withId(R.id.view_only_radio_button)).check(matches(isNotChecked()))
         onView(ViewMatchers.withId(R.id.editing_radio_button)).check(matches(isNotChecked()))
+        onView(ViewMatchers.withId(R.id.custom_permission_radio_button)).check(matches(isNotChecked()))
         onView(ViewMatchers.withId(R.id.file_drop_radio_button)).check(matches(isChecked()))
         goBack()
 
@@ -422,6 +436,7 @@ class FileDetailSharingFragmentIT : AbstractIT() {
         // validate view shown on screen
         onView(ViewMatchers.withId(R.id.view_only_radio_button)).check(matches(isDisplayed()))
         onView(ViewMatchers.withId(R.id.editing_radio_button)).check(matches(isDisplayed()))
+        onView(ViewMatchers.withId(R.id.custom_permission_radio_button)).check(matches(isDisplayed()))
         onView(ViewMatchers.withId(R.id.file_drop_radio_button)).check(matches(not(isDisplayed())))
         onView(ViewMatchers.withId(R.id.share_process_hide_download_checkbox)).check(matches(isDisplayed()))
         onView(ViewMatchers.withId(R.id.share_process_set_password_switch)).check(matches(isDisplayed()))
@@ -432,6 +447,7 @@ class FileDetailSharingFragmentIT : AbstractIT() {
         publicShare.permissions = 17 // from server
         onView(ViewMatchers.withId(R.id.view_only_radio_button)).check(matches(isChecked()))
         onView(ViewMatchers.withId(R.id.editing_radio_button)).check(matches(isNotChecked()))
+        onView(ViewMatchers.withId(R.id.custom_permission_radio_button)).check(matches(isNotChecked()))
         goBack()
 
         // editing
@@ -439,6 +455,15 @@ class FileDetailSharingFragmentIT : AbstractIT() {
         openAdvancedPermissions(sut, publicShare)
         onView(ViewMatchers.withId(R.id.view_only_radio_button)).check(matches(isNotChecked()))
         onView(ViewMatchers.withId(R.id.editing_radio_button)).check(matches(isChecked()))
+        onView(ViewMatchers.withId(R.id.custom_permission_radio_button)).check(matches(isNotChecked()))
+        goBack()
+
+        // create
+        publicShare.permissions = CREATE_PERMISSION_FLAG
+        openAdvancedPermissions(sut, publicShare)
+        onView(ViewMatchers.withId(R.id.view_only_radio_button)).check(matches(isNotChecked()))
+        onView(ViewMatchers.withId(R.id.editing_radio_button)).check(matches(isNotChecked()))
+        onView(ViewMatchers.withId(R.id.custom_permission_radio_button)).check(matches(isChecked()))
         goBack()
 
         // hide download
@@ -538,6 +563,7 @@ class FileDetailSharingFragmentIT : AbstractIT() {
         // validate view shown on screen
         onView(ViewMatchers.withId(R.id.view_only_radio_button)).check(matches(isDisplayed()))
         onView(ViewMatchers.withId(R.id.editing_radio_button)).check(matches(isDisplayed()))
+        onView(ViewMatchers.withId(R.id.custom_permission_radio_button)).check(matches(isDisplayed()))
         onView(ViewMatchers.withId(R.id.file_drop_radio_button)).check(matches(not(isDisplayed())))
         onView(ViewMatchers.withId(R.id.share_process_hide_download_checkbox)).check(matches(not(isDisplayed())))
         onView(ViewMatchers.withId(R.id.share_process_set_password_switch)).check(matches(not(isDisplayed())))
@@ -548,6 +574,7 @@ class FileDetailSharingFragmentIT : AbstractIT() {
         userShare.permissions = 17 // from server
         onView(ViewMatchers.withId(R.id.view_only_radio_button)).check(matches(isChecked()))
         onView(ViewMatchers.withId(R.id.editing_radio_button)).check(matches(isNotChecked()))
+        onView(ViewMatchers.withId(R.id.custom_permission_radio_button)).check(matches(isNotChecked()))
         goBack()
 
         // editing
@@ -555,16 +582,19 @@ class FileDetailSharingFragmentIT : AbstractIT() {
         openAdvancedPermissions(sut, userShare)
         onView(ViewMatchers.withId(R.id.view_only_radio_button)).check(matches(isNotChecked()))
         onView(ViewMatchers.withId(R.id.editing_radio_button)).check(matches(isChecked()))
+        onView(ViewMatchers.withId(R.id.custom_permission_radio_button)).check(matches(isNotChecked()))
         goBack()
 
         // allow reshare
         userShare.permissions = 1 // from server
         openAdvancedPermissions(sut, userShare)
+        onView(ViewMatchers.withId(R.id.custom_permission_radio_button)).perform(ViewActions.click())
         onView(ViewMatchers.withId(R.id.share_process_allow_resharing_checkbox)).check(matches(isNotChecked()))
         goBack()
 
         userShare.permissions = 17 // from server
         openAdvancedPermissions(sut, userShare)
+        onView(ViewMatchers.withId(R.id.custom_permission_radio_button)).perform(ViewActions.click())
         onView(ViewMatchers.withId(R.id.share_process_allow_resharing_checkbox)).check(matches(isChecked()))
         goBack()
 
@@ -661,6 +691,7 @@ class FileDetailSharingFragmentIT : AbstractIT() {
         // validate view shown on screen
         onView(ViewMatchers.withId(R.id.view_only_radio_button)).check(matches(isDisplayed()))
         onView(ViewMatchers.withId(R.id.editing_radio_button)).check(matches(isDisplayed()))
+        onView(ViewMatchers.withId(R.id.custom_permission_radio_button)).check(matches(isDisplayed()))
         onView(ViewMatchers.withId(R.id.file_drop_radio_button)).check(matches(isDisplayed()))
         onView(ViewMatchers.withId(R.id.share_process_hide_download_checkbox)).check(matches(not(isDisplayed())))
         onView(ViewMatchers.withId(R.id.share_process_set_password_switch)).check(matches(not(isDisplayed())))
@@ -671,6 +702,7 @@ class FileDetailSharingFragmentIT : AbstractIT() {
         userShare.permissions = 17 // from server
         onView(ViewMatchers.withId(R.id.view_only_radio_button)).check(matches(isChecked()))
         onView(ViewMatchers.withId(R.id.editing_radio_button)).check(matches(isNotChecked()))
+        onView(ViewMatchers.withId(R.id.custom_permission_radio_button)).check(matches(isNotChecked()))
         onView(ViewMatchers.withId(R.id.file_drop_radio_button)).check(matches(isNotChecked()))
         goBack()
 
@@ -679,6 +711,16 @@ class FileDetailSharingFragmentIT : AbstractIT() {
         openAdvancedPermissions(sut, userShare)
         onView(ViewMatchers.withId(R.id.view_only_radio_button)).check(matches(isNotChecked()))
         onView(ViewMatchers.withId(R.id.editing_radio_button)).check(matches(isChecked()))
+        onView(ViewMatchers.withId(R.id.custom_permission_radio_button)).check(matches(isNotChecked()))
+        onView(ViewMatchers.withId(R.id.file_drop_radio_button)).check(matches(isNotChecked()))
+        goBack()
+
+        // create
+        userShare.permissions = CREATE_PERMISSION_FLAG
+        openAdvancedPermissions(sut, userShare)
+        onView(ViewMatchers.withId(R.id.view_only_radio_button)).check(matches(isNotChecked()))
+        onView(ViewMatchers.withId(R.id.editing_radio_button)).check(matches(isNotChecked()))
+        onView(ViewMatchers.withId(R.id.custom_permission_radio_button)).check(matches(isChecked()))
         onView(ViewMatchers.withId(R.id.file_drop_radio_button)).check(matches(isNotChecked()))
         goBack()
 
@@ -687,17 +729,20 @@ class FileDetailSharingFragmentIT : AbstractIT() {
         openAdvancedPermissions(sut, userShare)
         onView(ViewMatchers.withId(R.id.view_only_radio_button)).check(matches(isNotChecked()))
         onView(ViewMatchers.withId(R.id.editing_radio_button)).check(matches(isNotChecked()))
+        onView(ViewMatchers.withId(R.id.custom_permission_radio_button)).check(matches(isNotChecked()))
         onView(ViewMatchers.withId(R.id.file_drop_radio_button)).check(matches(isChecked()))
         goBack()
 
         // allow reshare
         userShare.permissions = 1 // from server
         openAdvancedPermissions(sut, userShare)
+        onView(ViewMatchers.withId(R.id.custom_permission_radio_button)).perform(ViewActions.click())
         onView(ViewMatchers.withId(R.id.share_process_allow_resharing_checkbox)).check(matches(isNotChecked()))
         goBack()
 
         userShare.permissions = 17 // from server
         openAdvancedPermissions(sut, userShare)
+        onView(ViewMatchers.withId(R.id.custom_permission_radio_button)).perform(ViewActions.click())
         onView(ViewMatchers.withId(R.id.share_process_allow_resharing_checkbox)).check(matches(isChecked()))
         goBack()
 
