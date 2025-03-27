@@ -535,22 +535,30 @@ class FileDetailsSharingProcessFragment :
         }
     }
 
-    // TODO: check share.permission
     private fun setUserPermission(isChecked: Boolean, permissionFlag: Int) {
-        permission = if (isChecked) {
-            permission or permissionFlag
+        val currentPermissions = share?.permissions ?: permission
+        val updatedPermissions = if (isChecked) {
+            currentPermissions or permissionFlag
         } else {
-            permission and permissionFlag.inv()
+            currentPermissions and permissionFlag.inv()
+        }
+
+        if (share?.permissions != null) {
+            share!!.permissions = updatedPermissions
+        } else {
+            permission = updatedPermissions
         }
     }
 
     private fun setCheckboxStates() {
+        val currentPermissions = share?.permissions ?: permission
+
         binding.run {
-            shareReadCheckbox.isChecked = (permission and OCShare.READ_PERMISSION_FLAG) != 0
-            shareCreateCheckbox.isChecked = (permission and OCShare.CREATE_PERMISSION_FLAG) != 0
-            shareEditCheckbox.isChecked = (permission and OCShare.UPDATE_PERMISSION_FLAG) != 0
-            shareProcessAllowResharingCheckbox.isChecked = (permission and OCShare.SHARE_PERMISSION_FLAG) != 0
-            shareDeleteCheckbox.isChecked = (permission and OCShare.DELETE_PERMISSION_FLAG) != 0
+            shareReadCheckbox.isChecked = (currentPermissions and OCShare.READ_PERMISSION_FLAG) != 0
+            shareCreateCheckbox.isChecked = (currentPermissions and OCShare.CREATE_PERMISSION_FLAG) != 0
+            shareEditCheckbox.isChecked = (currentPermissions and OCShare.UPDATE_PERMISSION_FLAG) != 0
+            shareProcessAllowResharingCheckbox.isChecked = (currentPermissions and OCShare.SHARE_PERMISSION_FLAG) != 0
+            shareDeleteCheckbox.isChecked = (currentPermissions and OCShare.DELETE_PERMISSION_FLAG) != 0
         }
     }
 
