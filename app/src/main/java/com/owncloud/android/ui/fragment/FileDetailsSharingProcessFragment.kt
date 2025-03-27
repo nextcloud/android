@@ -448,6 +448,7 @@ class FileDetailsSharingProcessFragment :
         shareProcessStep = SCREEN_TYPE_NOTE
     }
 
+    @Suppress("LongMethod")
     private fun implementClickEvents() {
         binding.run {
             shareProcessBtnCancel.setOnClickListener {
@@ -489,7 +490,7 @@ class FileDetailsSharingProcessFragment :
                 setUserPermission(isChecked, OCShare.UPDATE_PERMISSION_FLAG)
             }
 
-            // TODO: Why not OCShare.SHARE_PERMISSION_FLAG?
+            // TODO Why not OCShare.SHARE_PERMISSION_FLAG?
             shareProcessAllowResharingCheckbox.setOnCheckedChangeListener { _, isChecked ->
                 setUserPermission(isChecked, getReSharePermission())
             }
