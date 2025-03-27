@@ -210,8 +210,10 @@ class FileDetailsSharingProcessFragment :
                 themeCheckbox(shareReadCheckbox)
                 themeCheckbox(shareCreateCheckbox)
                 themeCheckbox(shareEditCheckbox)
-                themeCheckbox(shareProcessAllowResharingCheckbox)
+                themeCheckbox(shareCheckbox)
                 themeCheckbox(shareDeleteCheckbox)
+
+                themeCheckbox(shareProcessAllowResharingCheckbox)
             }
         }
 
@@ -490,9 +492,12 @@ class FileDetailsSharingProcessFragment :
                 setUserPermission(isChecked, OCShare.UPDATE_PERMISSION_FLAG)
             }
 
-            // TODO Why not OCShare.SHARE_PERMISSION_FLAG?
             shareProcessAllowResharingCheckbox.setOnCheckedChangeListener { _, isChecked ->
                 setUserPermission(isChecked, getReSharePermission())
+            }
+
+            shareCheckbox.setOnCheckedChangeListener { _, isChecked ->
+                setUserPermission(isChecked, OCShare.SHARE_PERMISSION_FLAG)
             }
 
             shareDeleteCheckbox.setOnCheckedChangeListener { _, isChecked ->
@@ -558,7 +563,7 @@ class FileDetailsSharingProcessFragment :
             shareReadCheckbox.isChecked = (currentPermissions and OCShare.READ_PERMISSION_FLAG) != 0
             shareCreateCheckbox.isChecked = (currentPermissions and OCShare.CREATE_PERMISSION_FLAG) != 0
             shareEditCheckbox.isChecked = (currentPermissions and OCShare.UPDATE_PERMISSION_FLAG) != 0
-            shareProcessAllowResharingCheckbox.isChecked = (currentPermissions and OCShare.SHARE_PERMISSION_FLAG) != 0
+            shareCheckbox.isChecked = (currentPermissions and OCShare.SHARE_PERMISSION_FLAG) != 0
             shareDeleteCheckbox.isChecked = (currentPermissions and OCShare.DELETE_PERMISSION_FLAG) != 0
         }
     }

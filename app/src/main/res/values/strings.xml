@@ -1173,6 +1173,7 @@
     <string name="share_permission_file_drop">File drop</string>
     <string name="share_permission_secure_file_drop">Secure file drop</string>
     <string name="share_permissions">Share permissions</string>
+    <string name="advanced_settings">Advanced settings</string>
     <string name="common_next">Next</string>
     <string name="send_share">Send share</string>
     <string name="no_share_permission_selected">Please select at least one permission to share.</string>

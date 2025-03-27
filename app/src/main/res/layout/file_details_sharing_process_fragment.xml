@@ -74,6 +74,24 @@
 
             </RadioGroup>
 
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/share_process_advance_permission_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/standard_margin"
+                android:text="@string/advanced_settings"
+                android:textColor="@color/primary"
+                android:textStyle="bold"/>
+
+            <com.google.android.material.checkbox.MaterialCheckBox
+                android:id="@+id/share_process_allow_resharing_checkbox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="@dimen/minimum_size_for_touchable_area"
+                android:text="@string/allow_resharing"
+                android:visibility="gone"
+                tools:visibility="visible" />
+
             <LinearLayout
                 android:id="@+id/custom_permission_layout"
                 tools:visibility="visible"
@@ -116,7 +134,7 @@
                     tools:visibility="visible" />
 
                 <com.google.android.material.checkbox.MaterialCheckBox
-                    android:id="@+id/share_process_allow_resharing_checkbox"
+                    android:id="@+id/share_checkbox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:minHeight="@dimen/minimum_size_for_touchable_area"
