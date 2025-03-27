@@ -45,21 +45,28 @@
                 android:orientation="vertical">
 
                 <com.google.android.material.radiobutton.MaterialRadioButton
-                    android:id="@+id/share_process_permission_read_only"
+                    android:id="@+id/view_only_radio_button"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:minHeight="@dimen/minimum_size_for_touchable_area"
                     android:text="@string/link_share_view_only" />
 
                 <com.google.android.material.radiobutton.MaterialRadioButton
-                    android:id="@+id/share_process_permission_upload_editing"
+                    android:id="@+id/editing_radio_button"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:minHeight="@dimen/minimum_size_for_touchable_area"
                     android:text="@string/link_share_allow_upload_and_editing" />
 
                 <com.google.android.material.radiobutton.MaterialRadioButton
-                    android:id="@+id/share_process_permission_file_drop"
+                    android:id="@+id/custom_permission_radio_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:minHeight="@dimen/minimum_size_for_touchable_area"
+                    android:text="@string/share_custom_permission" />
+
+                <com.google.android.material.radiobutton.MaterialRadioButton
+                    android:id="@+id/file_drop_radio_button"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:minHeight="@dimen/minimum_size_for_touchable_area"
@@ -67,61 +74,64 @@
 
             </RadioGroup>
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/share_custom_permissions_text"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/standard_margin"
-                android:text="@string/share_custom_permission"
-                android:drawableEnd="@drawable/ic_arrow_up"
-                android:textColor="@color/primary"
-                android:drawableTint="@color/primary"
-                android:textStyle="bold"/>
-
-            <com.google.android.material.checkbox.MaterialCheckBox
-                android:id="@+id/share_read_checkbox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:minHeight="@dimen/minimum_size_for_touchable_area"
-                android:text="@string/share_read_permission"
+            <LinearLayout
+                android:id="@+id/custom_permission_layout"
+                tools:visibility="visible"
                 android:visibility="gone"
-                tools:visibility="visible" />
-
-            <com.google.android.material.checkbox.MaterialCheckBox
-                android:id="@+id/share_create_checkbox"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:minHeight="@dimen/minimum_size_for_touchable_area"
-                android:text="@string/share_create_permission"
-                android:visibility="gone"
-                tools:visibility="visible" />
+                android:orientation="vertical"
+                android:layout_height="wrap_content">
 
-            <com.google.android.material.checkbox.MaterialCheckBox
-                android:id="@+id/share_edit_checkbox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:minHeight="@dimen/minimum_size_for_touchable_area"
-                android:text="@string/share_edit_permission"
-                android:visibility="gone"
-                tools:visibility="visible" />
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/share_custom_permissions_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/standard_margin"
+                    android:text="@string/share_custom_permission"
+                    android:textColor="@color/primary"
+                    android:textStyle="bold"/>
 
-            <com.google.android.material.checkbox.MaterialCheckBox
-                android:id="@+id/share_process_allow_resharing_checkbox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:minHeight="@dimen/minimum_size_for_touchable_area"
-                android:text="@string/share_re_share_permission"
-                android:visibility="gone"
-                tools:visibility="visible" />
+                <com.google.android.material.checkbox.MaterialCheckBox
+                    android:id="@+id/share_read_checkbox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:minHeight="@dimen/minimum_size_for_touchable_area"
+                    android:text="@string/share_read_permission"
+                    tools:visibility="visible" />
 
-            <com.google.android.material.checkbox.MaterialCheckBox
-                android:id="@+id/share_delete_checkbox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:minHeight="@dimen/minimum_size_for_touchable_area"
-                android:text="@string/share_delete_permission"
-                android:visibility="gone"
-                tools:visibility="visible" />
+                <com.google.android.material.checkbox.MaterialCheckBox
+                    android:id="@+id/share_create_checkbox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:minHeight="@dimen/minimum_size_for_touchable_area"
+                    android:text="@string/share_create_permission"
+                    tools:visibility="visible" />
+
+                <com.google.android.material.checkbox.MaterialCheckBox
+                    android:id="@+id/share_edit_checkbox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:minHeight="@dimen/minimum_size_for_touchable_area"
+                    android:text="@string/share_edit_permission"
+                    tools:visibility="visible" />
+
+                <com.google.android.material.checkbox.MaterialCheckBox
+                    android:id="@+id/share_process_allow_resharing_checkbox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:minHeight="@dimen/minimum_size_for_touchable_area"
+                    android:text="@string/share_re_share_permission"
+                    tools:visibility="visible" />
+
+                <com.google.android.material.checkbox.MaterialCheckBox
+                    android:id="@+id/share_delete_checkbox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:minHeight="@dimen/minimum_size_for_touchable_area"
+                    android:text="@string/share_delete_permission"
+                    tools:visibility="visible" />
+
+            </LinearLayout>
 
             <com.google.android.material.materialswitch.MaterialSwitch
                 android:id="@+id/share_process_set_password_switch"

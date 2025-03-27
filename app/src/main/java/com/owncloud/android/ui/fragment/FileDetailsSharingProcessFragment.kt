@@ -136,7 +136,6 @@ class FileDetailsSharingProcessFragment :
     private var isReShareShown: Boolean = true // show or hide reShare option
     private var isExpDateShown: Boolean = true // show or hide expiry date option
     private var isSecureShare: Boolean = false
-    private var showCustomPermissions = true
 
     private lateinit var capabilities: OCCapability
 
@@ -194,7 +193,6 @@ class FileDetailsSharingProcessFragment :
         }
         implementClickEvents()
         setCheckboxStates()
-        setCustomPermissionCheckboxesVisibilities()
         themeView()
     }
 
@@ -204,9 +202,10 @@ class FileDetailsSharingProcessFragment :
                 colorTextView(shareProcessEditShareLink)
                 colorTextView(shareCustomPermissionsText)
 
-                themeRadioButton(shareProcessPermissionReadOnly)
-                themeRadioButton(shareProcessPermissionUploadEditing)
-                themeRadioButton(shareProcessPermissionFileDrop)
+                themeRadioButton(viewOnlyRadioButton)
+                themeRadioButton(editingRadioButton)
+                themeRadioButton(fileDropRadioButton)
+                themeRadioButton(customPermissionRadioButton)
 
                 themeCheckbox(shareReadCheckbox)
                 themeCheckbox(shareCreateCheckbox)
@@ -276,11 +275,11 @@ class FileDetailsSharingProcessFragment :
 
         // read only / allow upload and editing / file drop
         if (SharingMenuHelper.isUploadAndEditingAllowed(share)) {
-            binding.shareProcessPermissionUploadEditing.isChecked = true
+            binding.editingRadioButton.isChecked = true
         } else if (SharingMenuHelper.isFileDrop(share) && share?.isFolder == true) {
-            binding.shareProcessPermissionFileDrop.isChecked = true
+            binding.fileDropRadioButton.isChecked = true
         } else if (SharingMenuHelper.isReadOnly(share)) {
-            binding.shareProcessPermissionReadOnly.isChecked = true
+            binding.viewOnlyRadioButton.isChecked = true
         }
 
         shareType = share?.shareType ?: ShareType.NO_SHARED
@@ -418,15 +417,15 @@ class FileDetailsSharingProcessFragment :
     }
 
     private fun updateViewForFile() {
-        binding.shareProcessPermissionUploadEditing.text = getString(R.string.link_share_editing)
-        binding.shareProcessPermissionFileDrop.visibility = View.GONE
+        binding.editingRadioButton.text = getString(R.string.link_share_editing)
+        binding.fileDropRadioButton.visibility = View.GONE
     }
 
     private fun updateViewForFolder() {
-        binding.shareProcessPermissionUploadEditing.text = getString(R.string.link_share_allow_upload_and_editing)
-        binding.shareProcessPermissionFileDrop.visibility = View.VISIBLE
+        binding.editingRadioButton.text = getString(R.string.link_share_allow_upload_and_editing)
+        binding.fileDropRadioButton.visibility = View.VISIBLE
         if (isSecureShare) {
-            binding.shareProcessPermissionFileDrop.visibility = View.GONE
+            binding.fileDropRadioButton.visibility = View.GONE
             binding.shareProcessAllowResharingCheckbox.visibility = View.GONE
             binding.shareProcessSetExpDateSwitch.visibility = View.GONE
         }
@@ -477,13 +476,7 @@ class FileDetailsSharingProcessFragment :
                 showExpirationDateDialog()
             }
 
-            shareCustomPermissionsText.setOnClickListener {
-                showCustomPermissions = !showCustomPermissions
-                val newIcon = if (showCustomPermissions) R.drawable.ic_arrow_up else R.drawable.ic_arrow_down
-                shareCustomPermissionsText.setCompoundDrawablesWithIntrinsicBounds(0, 0, newIcon, 0)
-                setCustomPermissionCheckboxesVisibilities()
-            }
-
+            // region Custom Permission Checkboxes
             shareReadCheckbox.setOnCheckedChangeListener { _, isChecked ->
                 setUserPermission(isChecked, OCShare.READ_PERMISSION_FLAG)
             }
@@ -496,13 +489,49 @@ class FileDetailsSharingProcessFragment :
                 setUserPermission(isChecked, OCShare.UPDATE_PERMISSION_FLAG)
             }
 
+            // TODO: Why not OCShare.SHARE_PERMISSION_FLAG?
             shareProcessAllowResharingCheckbox.setOnCheckedChangeListener { _, isChecked ->
-                setUserPermission(isChecked, OCShare.SHARE_PERMISSION_FLAG)
+                setUserPermission(isChecked, getReSharePermission())
             }
 
             shareDeleteCheckbox.setOnCheckedChangeListener { _, isChecked ->
                 setUserPermission(isChecked, OCShare.DELETE_PERMISSION_FLAG)
             }
+            // endregion
+
+            // region RadioButtons
+            shareProcessPermissionRadioGroup.setOnCheckedChangeListener { radioGroup, optionId ->
+                run {
+                    when (optionId) {
+                        R.id.view_only_radio_button -> {
+                            val isChecked = viewOnlyRadioButton.isChecked
+                            customPermissionLayout.visibility = View.GONE
+                            setUserPermission(isChecked, OCShare.READ_PERMISSION_FLAG)
+                        }
+                        R.id.editing_radio_button -> {
+                            val isChecked = editingRadioButton.isChecked
+                            customPermissionLayout.visibility = View.GONE
+
+                            val permissionFlag = if (file?.isFolder == true || share?.isFolder == true) {
+                                OCShare.MAXIMUM_PERMISSIONS_FOR_FOLDER
+                            } else {
+                                OCShare.MAXIMUM_PERMISSIONS_FOR_FILE
+                            }
+
+                            setUserPermission(isChecked, permissionFlag)
+                        }
+                        R.id.file_drop_radio_button -> {
+                            val isChecked = fileDropRadioButton.isChecked
+                            setUserPermission(isChecked, OCShare.CREATE_PERMISSION_FLAG)
+                        }
+                        R.id.custom_permission_radio_button -> {
+                            val isChecked = customPermissionRadioButton.isChecked
+                            customPermissionLayout.setVisibilityWithAnimation(isChecked)
+                        }
+                    }
+                }
+            }
+            // endregion
         }
     }
 
@@ -522,18 +551,6 @@ class FileDetailsSharingProcessFragment :
             shareEditCheckbox.isChecked = (permission and OCShare.UPDATE_PERMISSION_FLAG) != 0
             shareProcessAllowResharingCheckbox.isChecked = (permission and OCShare.SHARE_PERMISSION_FLAG) != 0
             shareDeleteCheckbox.isChecked = (permission and OCShare.DELETE_PERMISSION_FLAG) != 0
-
-            setCustomPermissionCheckboxesVisibilities()
-        }
-    }
-
-    private fun setCustomPermissionCheckboxesVisibilities() {
-        binding.run {
-            shareReadCheckbox.setVisibilityWithAnimation(showCustomPermissions)
-            shareCreateCheckbox.setVisibilityWithAnimation(showCustomPermissions)
-            shareEditCheckbox.setVisibilityWithAnimation(showCustomPermissions)
-            shareProcessAllowResharingCheckbox.setVisibilityWithAnimation(showCustomPermissions)
-            shareDeleteCheckbox.setVisibilityWithAnimation(showCustomPermissions)
         }
     }
 
@@ -550,7 +567,8 @@ class FileDetailsSharingProcessFragment :
     }
 
     private fun showChangeNameInput(isChecked: Boolean) {
-        binding.shareProcessChangeNameContainer.visibility = if (isChecked) View.VISIBLE else View.GONE
+        binding.shareProcessChangeNameContainer.setVisibleIf(isChecked)
+
         if (!isChecked) {
             binding.shareProcessChangeName.setText(R.string.empty)
         }
@@ -593,7 +611,7 @@ class FileDetailsSharingProcessFragment :
     }
 
     private fun showPasswordInput(isChecked: Boolean) {
-        binding.shareProcessEnterPasswordContainer.visibility = if (isChecked) View.VISIBLE else View.GONE
+        binding.shareProcessEnterPasswordContainer.setVisibleIf(isChecked)
 
         // reset the password if switch is unchecked
         if (!isChecked) {
@@ -617,7 +635,6 @@ class FileDetailsSharingProcessFragment :
      */
     @Suppress("ReturnCount")
     private fun validateShareProcessFirst() {
-        permission = getSelectedPermission()
         if (permission == OCShare.NO_PERMISSION) {
             DisplayUtils.showSnackMessage(binding.root, R.string.no_share_permission_selected)
             return
@@ -652,22 +669,6 @@ class FileDetailsSharingProcessFragment :
             // else show step 2 (note screen)
             showShareProcessSecond()
         }
-    }
-
-    /**
-     *  get the permissions on the basis of selection
-     */
-    // TODO: Check logic it should match with new checkboxes action
-    private fun getSelectedPermission() = when {
-        binding.shareProcessAllowResharingCheckbox.isChecked -> getReSharePermission()
-        binding.shareProcessPermissionReadOnly.isChecked -> OCShare.READ_PERMISSION_FLAG
-        binding.shareProcessPermissionUploadEditing.isChecked -> when {
-            file?.isFolder == true || share?.isFolder == true -> OCShare.MAXIMUM_PERMISSIONS_FOR_FOLDER
-            else -> OCShare.MAXIMUM_PERMISSIONS_FOR_FILE
-        }
-
-        binding.shareProcessPermissionFileDrop.isChecked -> OCShare.CREATE_PERMISSION_FLAG
-        else -> permission
     }
 
     private fun updateShare() {
