@@ -516,7 +516,6 @@
     <string name="preview_sorry">Извинете</string>
     <string name="privacy">Приватност</string>
     <string name="public_share_name">Ново име</string>
-    <string name="push_notifications_not_implemented">Push известувањата се оневозможени поради зависноста на Google Play сервисот.</string>
     <string name="push_notifications_old_login">Нема push известувања бидејќи вашата сесија е истечена. Ве молиме повторно најавете се на вашта сметка.</string>
     <string name="push_notifications_temp_error">Не се достапни Push известувања.</string>
     <string name="recommend_subject">Пробајте го %1$s на вашиот уред!</string>

@@ -705,7 +705,6 @@
     <string name="preview_sorry">Ho sento</string>
     <string name="privacy">Privadesa</string>
     <string name="public_share_name">Nou nom</string>
-    <string name="push_notifications_not_implemented">Les notificacions \"push\" s\'han inhabilitat a causa de dependències de serveis propietaris de Google Play.</string>
     <string name="push_notifications_old_login">No hi ha notificacions \"push\" a causa d\'un inici de sessió no actualitzat. Si us plau valoreu tornar a afegir el vostre compte.</string>
     <string name="push_notifications_temp_error">Les notificacions \"push\" no estan disponibles actualment.</string>
     <string name="qr_could_not_be_read">No s\'ha pogut llegir el codi QR!</string>

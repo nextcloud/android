@@ -605,7 +605,6 @@ Otomatis unggah hanya bekerja dengan baik apabila Anda mengeluarkan aplikasi ini
     <string name="preview_sorry">Maaf</string>
     <string name="privacy">Privasi</string>
     <string name="public_share_name">Nama baru</string>
-    <string name="push_notifications_not_implemented">Notifikasi push dinonaktifkan karena ketergantungan pada layanan Google Play bersumber tertutup.</string>
     <string name="push_notifications_old_login">Tidak ada notifikasi push karena sesi masuk sudah usang. Mohon pertimbangkan untuk menambahkan kembali akun Anda.</string>
     <string name="push_notifications_temp_error">Notifikasi push saat ini tidak tersedia.</string>
     <string name="qr_could_not_be_read">Kode QR tidak dapat dibaca!</string>

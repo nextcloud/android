@@ -712,7 +712,6 @@
     <string name="preview_sorry">Sajnáljuk</string>
     <string name="privacy">Adatvédelem</string>
     <string name="public_share_name">Új név</string>
-    <string name="push_notifications_not_implemented">A leküldéses üzenetek ki vannak kapcsolva, mert azok a zárt Google Play szolgáltatásoktól függenek.</string>
     <string name="push_notifications_old_login">Nincsenek leküldéses értesítések, mert a munkamenet lejárt. Adja hozzá újra a fiókját.</string>
     <string name="push_notifications_temp_error">A leküldéses értesítések jelenleg nem érhetőek el.</string>
     <string name="qr_could_not_be_read">A QR-kód nem olvasható.</string>

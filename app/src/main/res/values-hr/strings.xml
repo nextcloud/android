@@ -555,7 +555,6 @@
     <string name="preview_sorry">Oprosti</string>
     <string name="privacy">Privatnost</string>
     <string name="public_share_name">Novi naziv</string>
-    <string name="push_notifications_not_implemented">Push obavijesti su onemogućene zbog ovisnosti o vlasničkim servisima trgovine Google Play.</string>
     <string name="push_notifications_old_login">Nema push obavijesti zbog zastarjele prijave. Razmislite o ponovnom dodavanju računa.</string>
     <string name="push_notifications_temp_error">Push obavijesti trenutno nisu dostupne.</string>
     <string name="qr_could_not_be_read">Čitanje QR kôda nije uspjelo!</string>

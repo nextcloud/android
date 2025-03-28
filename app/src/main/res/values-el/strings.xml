@@ -593,7 +593,6 @@
     <string name="preview_sorry">Σας ζητούμε συγγνώμη</string>
     <string name="privacy">Ιδιωτικότητα</string>
     <string name="public_share_name">Νέο όνομα</string>
-    <string name="push_notifications_not_implemented">Οι ειδοποιήσεις απενεργοποιήθηκαν λόγω εξαρτήσεων στις ιδιόκτητες υπηρεσίες Google Play.</string>
     <string name="push_notifications_old_login">Δεν υπάρχουν ειδοποιήσεις λόγω παρωχημένης συνεδρίας σύνδεσης. Παρακαλούμε επανεξετάσετε το ενδεχόμενο να ξανά προσθέσετε τον λογαριασμό σας.</string>
     <string name="push_notifications_temp_error">Οι ειδοποιήσεις push δεν είναι διαθέσιμες αυτήν τη στιγμή.</string>
     <string name="qr_could_not_be_read">Ο κώδικας QR δεν μπορεί να αναγνωσθεί</string>

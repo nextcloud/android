@@ -704,7 +704,6 @@
     <string name="preview_sorry">Barkatu</string>
     <string name="privacy">Pribatutasuna</string>
     <string name="public_share_name">Izen berria</string>
-    <string name="push_notifications_not_implemented">Push jakinarazpenak Google Play zerbitzu jabedunen menpekotasunengatik desgaituta.</string>
     <string name="push_notifications_old_login">Ez dago push jakinarazpenik saio zaharkituaren ondorioz. Mesedez, kontua berriz gehitu.</string>
     <string name="push_notifications_temp_error">Push jakinarazpenak ez daude eskuragarri.</string>
     <string name="qr_could_not_be_read">Ezin da QR kodea irakurri!</string>

@@ -730,7 +730,6 @@
     <string name="preview_sorry">Entschuldigung</string>
     <string name="privacy">Datenschutz</string>
     <string name="public_share_name">Neuer Name</string>
-    <string name="push_notifications_not_implemented">Push Benachrichtigungen deaktiviert aufgrund der Abhängigkeiten zu proprietären Google Play Diensten.</string>
     <string name="push_notifications_old_login">Keine Push Benachrichtigungen aufgrund veralteter Benutzersitzung. Bitte erwägen Sie das erneute Hinzufügen Ihres Kontos.</string>
     <string name="push_notifications_temp_error">Push Benachrichtigungen aktuell nicht verfügbar.</string>
     <string name="qr_could_not_be_read">QR-Code konnte nicht gelesen werden!</string>

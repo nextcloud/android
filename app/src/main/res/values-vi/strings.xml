@@ -559,7 +559,6 @@
     <string name="preview_sorry">Xin lỗi</string>
     <string name="privacy">Riêng tư</string>
     <string name="public_share_name">Tên mới</string>
-    <string name="push_notifications_not_implemented">Thông báo bị tắt do phụ thuộc vào các dịch vụ độc quyền của Google Play.</string>
     <string name="push_notifications_old_login">Không có thông báo do phiên đăng nhập đã lỗi thời. Vui lòng xem xét việc thêm lại tài khoản của bạn.</string>
     <string name="push_notifications_temp_error">Thông báo hiện không khả dụng.</string>
     <string name="qr_could_not_be_read">Không thể đọc mã QR!</string>

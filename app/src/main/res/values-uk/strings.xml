@@ -715,7 +715,6 @@
     <string name="preview_sorry">Перепрошуємо</string>
     <string name="privacy">Конфіденційність</string>
     <string name="public_share_name">Нова назва</string>
-    <string name="push_notifications_not_implemented">Сповіщення push вимкнено через залежність від служби Google Play</string>
     <string name="push_notifications_old_login">Сповіщення push неактивні, оскільки час сесії вичерпано. Будь ласка, додайте наново ваш обліковий запис.</string>
     <string name="push_notifications_temp_error">Зараз сповіщення push недоступні.</string>
     <string name="qr_could_not_be_read">Неможливо прочитати QR-код!</string>
