@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 86,
-    "identityHash": "277489b9d4a6ee84f96d09dea39591ba",
+      "identityHash": "277489b9d4a6ee84f96d09dea39591ba",
     "entities": [
       {
         "tableName": "arbitrary_data",
@@ -796,7 +796,7 @@
             "_id"
           ]
         },
-        "indices": [],
+          "indices": [],
         "foreignKeys": []
       },
       {
@@ -1325,7 +1325,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '277489b9d4a6ee84f96d09dea39591ba')"
+        "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '277489b9d4a6ee84f96d09dea39591ba')"
     ]
   }
 }

@@ -9,10 +9,14 @@ package com.nextcloud.client.database.entity
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
+import androidx.room.Index
 import androidx.room.PrimaryKey
 import com.owncloud.android.db.ProviderMeta.ProviderTableMeta
 
-@Entity(tableName = ProviderTableMeta.FILE_TABLE_NAME)
+@Entity(
+    tableName = ProviderTableMeta.FILE_TABLE_NAME,
+    indices = [Index(ProviderTableMeta.FILE_PARENT)]
+)
 data class FileEntity(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = ProviderTableMeta._ID)
