@@ -285,6 +285,7 @@
     <string name="etm_transfer_type">Teisalda</string>
     <string name="etm_transfer_type_download">Laadi alla</string>
     <string name="etm_transfer_type_upload">Laadi üles</string>
+    <string name="external_shares">Välised jaoskaustad</string>
     <string name="fab_label">Lisa või laadi üles</string>
     <string name="favorite">Lisa lemmikutesse</string>
     <string name="favorite_icon">Lemmik</string>
@@ -362,6 +363,7 @@
     <string name="instant_upload_existing">Laadi üles ka olemasolevad failid</string>
     <string name="instant_upload_on_charging">Lae ülesse ainult laadimise ajal</string>
     <string name="instant_upload_path">/InstantUpload</string>
+    <string name="internal_shares">Sisemised jaoskaustad</string>
     <string name="internet_connection_required_for_encrypted_folder_setup">Krüptitava kausta seadistamisel peab internetiühendus toimima</string>
     <string name="invisible">Nähtamatu</string>
     <string name="link">Link</string>
