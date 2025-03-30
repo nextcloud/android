@@ -10,6 +10,7 @@
     <string name="action_edit">Cuir in eagar</string>
     <string name="action_empty_notifications">Glan gach fógra</string>
     <string name="action_empty_trashbin">Bruscar folamh</string>
+    <string name="action_send_share">Seol/roinn</string>
     <string name="action_switch_grid_view">Radharc greille</string>
     <string name="action_switch_list_view">Amharc liosta</string>
     <string name="actionbar_calendar_contacts_restore">Athchóirigh teagmhálacha agus féilire</string>
@@ -48,6 +49,7 @@
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Clóscríobh roinnt téacs</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">An bhfuil tú cinnte gur mhaith leat an tasc seo a scriosadh?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Scrios tasc</string>
+    <string name="assistant_screen_loading">Liosta tascanna á lódáil…</string>
     <string name="assistant_screen_no_task_available_text">Níl aon tasc ar fáil do chineál taisc %s, is féidir leat tasc nua a chruthú ón mbun ar dheis.</string>
     <string name="assistant_screen_task_create_fail_message">Tharla earráid agus an tasc á chruthú</string>
     <string name="assistant_screen_task_create_success_message">D\'éirigh leis an tasc a chruthú</string>
@@ -185,6 +187,7 @@
     <string name="confirmation_remove_folders_alert">An bhfuil tú cinnte gur mhaith leat na míreanna roghnaithe agus a bhfuil iontu a scriosadh?</string>
     <string name="confirmation_remove_local">Áitiúil amháin</string>
     <string name="conflict_dialog_error">Ní féidir dialóg réititheora coinbhleachta a chruthú</string>
+    <string name="conflict_folder_headline">Coimhlint fillteáin</string>
     <string name="conflict_local_file">Comhad áitiúil</string>
     <string name="conflict_message_description">Má roghnaíonn tú an dá leagan, beidh uimhir ag gabháil leis an gcomhad áitiúil lena ainm.</string>
     <string name="conflict_message_description_for_folder">Má roghnaíonn tú an dá leagan, beidh uimhir ag gabháil leis an bhfillteán áitiúil lena ainm.</string>
@@ -351,6 +354,7 @@
     <string name="etm_background_jobs_stop_test_job">Stop post tástála</string>
     <string name="etm_migrations">Imirce (uasghrádú aip)</string>
     <string name="etm_preferences">Roghanna</string>
+    <string name="etm_title">Modh tástála innealtóireachta</string>
     <string name="etm_transfer">Aistriú comhad</string>
     <string name="etm_transfer_enqueue_test_download">Íosluchtaigh tástáil enqueue</string>
     <string name="etm_transfer_enqueue_test_upload">Íosluchtaigh tástáil enqueue</string>
@@ -572,6 +576,7 @@
     <string name="new_media_folder_detected">Braitheadh fillteán meán nua %1$s.</string>
     <string name="new_media_folder_photos">grianghraf</string>
     <string name="new_media_folder_videos">físeán</string>
+    <string name="new_notification">Fógra nua</string>
     <string name="new_version_was_created">Cruthaíodh leagan nua</string>
     <string name="no_actions">Níl aon ghníomh don úsáideoir seo</string>
     <string name="no_browser_available">Níl aip ar fáil chun naisc a láimhseáil</string>
@@ -587,6 +592,7 @@
     <string name="note_icon_hint">Deilbhín nóta</string>
     <string name="notification_action_failed">Theip ar an ngníomh a chur i gcrích.</string>
     <string name="notification_channel_background_operations_description">Taispeáin fógraí chun idirghníomhú a dhéanamh ar thoradh oibríochtaí cúlra</string>
+    <string name="notification_channel_background_operations_name">Oibríochtaí cúlra</string>
     <string name="notification_channel_download_description">Léiríonn dul chun cinn íoslódáil</string>
     <string name="notification_channel_download_name_short">Íoslódálacha</string>
     <string name="notification_channel_file_sync_description">Taispeánann sé dul chun cinn agus torthaí sioncronaithe comhad</string>
@@ -603,12 +609,17 @@
     <string name="notification_icon_description">Tá fógraí neamhléite ann</string>
     <string name="notifications_no_results_headline">Gan fógraí</string>
     <string name="notifications_no_results_message">Seiceáil ar ais ar ball le do thoil.</string>
+    <string name="oc_file_list_adapter_offline_operation_description_text">Oibriú ar feitheamh</string>
     <string name="oc_file_list_adapter_offline_operation_remove_description_text">Ar Feitheamh Bain Oibríocht</string>
     <string name="offline_mode">Gan nasc idirlín</string>
     <string name="offline_mode_info_description">Fiú gan nasc idirlín, is féidir leat do fhillteáin a eagrú, comhaid a chruthú. Nuair a bheidh tú ar ais ar líne, déanfar do ghníomhartha ar feitheamh a shioncronú go huathoibríoch.</string>
+    <string name="offline_mode_info_title">Tá tú as líne, ach leanann an obair ar aghaidh</string>
     <string name="offline_operations_file_does_not_exists_yet">Níl an comhad ann, fós. Íoslódáil an comhad ar dtús.</string>
+    <string name="offline_operations_worker_notification_conflict_text">Fillteán contrártha: %s</string>
+    <string name="offline_operations_worker_notification_delete_offline_folder">Scrios fillteán as líne</string>
     <string name="offline_operations_worker_notification_error_text">Ní féidir an oibríocht as líne a chríochnú. %s</string>
     <string name="offline_operations_worker_notification_manager_ticker">Oibríochtaí As Líne</string>
+    <string name="offline_operations_worker_notification_start_text">Oibríochtaí as líne a thosú</string>
     <string name="oneHour">1 uair</string>
     <string name="online">Ar líne</string>
     <string name="online_status">Stádas ar líne</string>
@@ -631,6 +642,7 @@
     <string name="permission_storage_access">Ceadanna breise a theastaíonn chun comhaid a uaslódáil agus a íoslódáil.</string>
     <string name="pick_contact_to_share_with">Roghnaigh teagmháil le roinnt leis</string>
     <string name="picture_set_as_no_app">Níor aimsíodh aon aip chun pictiúr a shocrú leis</string>
+    <string name="pin_home">Pinn chuig an scáileán baile</string>
     <string name="pin_shortcut_label">Oscail %1$s</string>
     <string name="placeholder_fileSize">389 KB</string>
     <string name="placeholder_filename">áitsealbhóir.txt</string>
@@ -729,6 +741,7 @@
     <string name="recommend_subject">Bain triail as %1$s ar do ghléas!</string>
     <string name="recommend_text">Ba mhaith liom cuireadh a thabhairt duit %1$s a úsáid ar do ghléas.\nÍoslódáil anseo: %2$s</string>
     <string name="recommend_urls">%1$s nó %2$s</string>
+    <string name="recommended_files_title">Comhaid molta</string>
     <string name="refresh_content">Ábhar a athnuachan</string>
     <string name="reload">Athlódáil</string>
     <string name="remote">(iargúlta)</string>
@@ -778,13 +791,16 @@
     <string name="select_one_template">Roghnaigh teimpléad amháin le do thoil</string>
     <string name="select_template">Roghnaigh teimpléad</string>
     <string name="send">Seol</string>
+    <string name="send_share">Seol sciar</string>
     <string name="sendbutton_description">Seol deilbhín cnaipe</string>
     <string name="set_as">Socraigh Mar</string>
+    <string name="set_note">Socraigh nóta</string>
     <string name="set_picture_as">Úsáid pictiúr mar</string>
     <string name="set_status">Socraigh stádas</string>
     <string name="set_status_message">Socraigh teachtaireacht stádais</string>
     <string name="setup_e2e">Le linn duit criptiú ceann go deireadh a shocrú, gheobhaidh tú cuimhneachán randamach 12 focal, a bheidh ag teastáil uait chun do chuid comhad a oscailt ar ghléasanna eile. Ní stórálfar é seo ach ar an ngléas seo, agus is féidir é a thaispeáint arís sa scáileán seo. Tabhair faoi deara é síos in áit slán le do thoil!</string>
     <string name="share">Comhroinn</string>
+    <string name="share_copy_link">Roinn agus cóipeáil an nasc</string>
     <string name="share_dialog_title">Roinnt</string>
     <string name="share_download_limit">Socraigh teorainn íoslódáil</string>
     <string name="share_expiration_date_format">%1$s</string>
@@ -811,6 +827,7 @@
     <string name="share_permission_file_drop">Titim comhad</string>
     <string name="share_permission_secure_file_drop">Titim comhad slán</string>
     <string name="share_permission_view_only">Amharc amháin</string>
+    <string name="share_permissions">Ceadanna a roinnt</string>
     <string name="share_remote_clarification">%1$s (iargúlta)</string>
     <string name="share_room_clarification">%1$s (comhrá)</string>
     <string name="share_search">Ainm, ID Néal Cónaidhme nó seoladh ríomhphoist…</string>
