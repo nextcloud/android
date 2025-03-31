@@ -542,17 +542,10 @@ class FileDetailsSharingProcessFragment :
     }
 
     private fun setUserPermission(isChecked: Boolean, permissionFlag: Int) {
-        val currentPermissions = share?.permissions ?: permission
-        val updatedPermissions = if (isChecked) {
-            currentPermissions or permissionFlag
+        permission = if (isChecked) {
+            permission or permissionFlag
         } else {
-            currentPermissions and permissionFlag.inv()
-        }
-
-        if (share?.permissions != null) {
-            share!!.permissions = updatedPermissions
-        } else {
-            permission = updatedPermissions
+            permission and permissionFlag.inv()
         }
     }
 
