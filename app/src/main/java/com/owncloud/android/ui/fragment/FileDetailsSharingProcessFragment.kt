@@ -199,8 +199,10 @@ class FileDetailsSharingProcessFragment :
         themeView()
     }
 
+    private fun isFolder(): Boolean = file?.isFolder == true || share?.isFolder == true
+
     private fun setInitialPermission() {
-        val permissionFlag = if (file?.isFolder == true || share?.isFolder == true) {
+        val permissionFlag = if (isFolder()) {
             OCShare.MAXIMUM_PERMISSIONS_FOR_FOLDER
         } else {
             OCShare.MAXIMUM_PERMISSIONS_FOR_FILE
@@ -500,10 +502,11 @@ class FileDetailsSharingProcessFragment :
                             customPermissionLayout.visibility = View.GONE
                             togglePermission(OCShare.READ_PERMISSION_FLAG)
                         }
+
                         R.id.editing_radio_button -> {
                             customPermissionLayout.visibility = View.GONE
 
-                            val permissionFlag = if (file?.isFolder == true || share?.isFolder == true) {
+                            val permissionFlag = if (isFolder()) {
                                 OCShare.MAXIMUM_PERMISSIONS_FOR_FOLDER
                             } else {
                                 OCShare.MAXIMUM_PERMISSIONS_FOR_FILE
@@ -511,9 +514,11 @@ class FileDetailsSharingProcessFragment :
 
                             togglePermission(permissionFlag)
                         }
+
                         R.id.file_drop_radio_button -> {
                             togglePermission(OCShare.CREATE_PERMISSION_FLAG)
                         }
+
                         R.id.custom_permission_radio_button -> {
                             val isChecked = customPermissionRadioButton.isChecked
                             customPermissionLayout.setVisibilityWithAnimation(isChecked)
@@ -533,11 +538,28 @@ class FileDetailsSharingProcessFragment :
         val currentPermissions = share?.permissions ?: permission
 
         binding.run {
-            shareReadCheckbox.isChecked = (currentPermissions and OCShare.READ_PERMISSION_FLAG) > 0
-            shareCreateCheckbox.isChecked = (currentPermissions and OCShare.CREATE_PERMISSION_FLAG) > 0
-            shareEditCheckbox.isChecked = (currentPermissions and OCShare.UPDATE_PERMISSION_FLAG) > 0
-            shareCheckbox.isChecked = (currentPermissions and OCShare.SHARE_PERMISSION_FLAG) > 0
-            shareDeleteCheckbox.isChecked = (currentPermissions and OCShare.DELETE_PERMISSION_FLAG) > 0
+            if (isFolder()) {
+                // Only for the folder makes sense to have create permission
+                // so that user can create files in the shared folder
+                shareReadCheckbox.isChecked =
+                    sharePermissionManager.hasPermission(currentPermissions, OCShare.READ_PERMISSION_FLAG)
+            } else {
+                shareReadCheckbox.visibility = View.GONE
+            }
+            shareCreateCheckbox.isChecked =
+                sharePermissionManager.hasPermission(currentPermissions, OCShare.CREATE_PERMISSION_FLAG)
+            shareEditCheckbox.isChecked =
+                sharePermissionManager.hasPermission(currentPermissions, OCShare.UPDATE_PERMISSION_FLAG)
+            shareCheckbox.isChecked =
+                sharePermissionManager.hasPermission(currentPermissions, OCShare.SHARE_PERMISSION_FLAG)
+
+            if (isFolder()) {
+                shareDeleteCheckbox.isChecked =
+                    sharePermissionManager.hasPermission(currentPermissions, OCShare.DELETE_PERMISSION_FLAG)
+            } else {
+                shareDeleteCheckbox.isChecked = false
+                shareDeleteCheckbox.isEnabled = false
+            }
         }
 
         setCheckboxesListeners()
