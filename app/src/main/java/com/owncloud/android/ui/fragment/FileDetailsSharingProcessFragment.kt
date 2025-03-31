@@ -533,11 +533,11 @@ class FileDetailsSharingProcessFragment :
         val currentPermissions = share?.permissions ?: permission
 
         binding.run {
-            shareReadCheckbox.isChecked = (currentPermissions and OCShare.READ_PERMISSION_FLAG) != 0
-            shareCreateCheckbox.isChecked = (currentPermissions and OCShare.CREATE_PERMISSION_FLAG) != 0
-            shareEditCheckbox.isChecked = (currentPermissions and OCShare.UPDATE_PERMISSION_FLAG) != 0
-            shareCheckbox.isChecked = (currentPermissions and OCShare.SHARE_PERMISSION_FLAG) != 0
-            shareDeleteCheckbox.isChecked = (currentPermissions and OCShare.DELETE_PERMISSION_FLAG) != 0
+            shareReadCheckbox.isChecked = (currentPermissions and OCShare.READ_PERMISSION_FLAG) > 0
+            shareCreateCheckbox.isChecked = (currentPermissions and OCShare.CREATE_PERMISSION_FLAG) > 0
+            shareEditCheckbox.isChecked = (currentPermissions and OCShare.UPDATE_PERMISSION_FLAG) > 0
+            shareCheckbox.isChecked = (currentPermissions and OCShare.SHARE_PERMISSION_FLAG) > 0
+            shareDeleteCheckbox.isChecked = (currentPermissions and OCShare.DELETE_PERMISSION_FLAG) > 0
         }
 
         setCheckboxesListeners()
