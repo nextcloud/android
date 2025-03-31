@@ -10,6 +10,7 @@
 
 package com.owncloud.android.ui.fragment;
 
+import android.app.Dialog;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,12 +32,15 @@ import java.util.List;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import static com.owncloud.android.lib.resources.shares.OCShare.CREATE_PERMISSION_FLAG;
+import static com.owncloud.android.lib.resources.shares.OCShare.DELETE_PERMISSION_FLAG;
 import static com.owncloud.android.lib.resources.shares.OCShare.MAXIMUM_PERMISSIONS_FOR_FILE;
 import static com.owncloud.android.lib.resources.shares.OCShare.MAXIMUM_PERMISSIONS_FOR_FOLDER;
 import static com.owncloud.android.lib.resources.shares.OCShare.READ_PERMISSION_FLAG;
+import static com.owncloud.android.lib.resources.shares.OCShare.SHARE_PERMISSION_FLAG;
+import static com.owncloud.android.lib.resources.shares.OCShare.UPDATE_PERMISSION_FLAG;
 
 /**
- * File Details Quick Sharing permissions options {@link android.app.Dialog} styled as a bottom sheet for main actions.
+ * File Details Quick Sharing permissions options {@link Dialog} styled as a bottom sheet for main actions.
  */
 public class QuickSharingPermissionsBottomSheetDialog extends BottomSheetDialog {
     private QuickSharingPermissionsBottomSheetFragmentBinding binding;
@@ -103,25 +107,27 @@ public class QuickSharingPermissionsBottomSheetDialog extends BottomSheetDialog 
      * @param position
      */
     private void handlePermissionChanged(List<QuickPermissionModel> quickPermissionModelList, int position) {
-        if (quickPermissionModelList.get(position).getPermissionName().equalsIgnoreCase(fileActivity.getResources().getString(R.string.link_share_allow_upload_and_editing))
-            || quickPermissionModelList.get(position).getPermissionName().equalsIgnoreCase(fileActivity.getResources().getString(R.string.link_share_editing))) {
-            if (ocShare.isFolder()) {
-                actions.onQuickPermissionChanged(ocShare,
-                                                 MAXIMUM_PERMISSIONS_FOR_FOLDER);
-            } else {
-                actions.onQuickPermissionChanged(ocShare,
-                                                 MAXIMUM_PERMISSIONS_FOR_FILE);
-            }
-        } else if (quickPermissionModelList.get(position).getPermissionName().equalsIgnoreCase(fileActivity.getResources().getString(R.string
-                                                                                                                                                                                                                                                                                                                     .link_share_view_only))) {
-            actions.onQuickPermissionChanged(ocShare,
-                                             READ_PERMISSION_FLAG);
+        final var permissionName = quickPermissionModelList.get(position).getPermissionName();
+        final var res = fileActivity.getResources();
 
-        } else if (quickPermissionModelList.get(position).getPermissionName().equalsIgnoreCase(fileActivity.getResources().getString(R.string
-                                                                                                                                         .link_share_file_drop))) {
-            actions.onQuickPermissionChanged(ocShare,
-                                             CREATE_PERMISSION_FLAG);
+        int permissionFlag = 0;
+        if (permissionName.equalsIgnoreCase(res.getString(R.string.link_share_allow_upload_and_editing)) || permissionName.equalsIgnoreCase(res.getString(R.string.link_share_editing))) {
+            permissionFlag = ocShare.isFolder() ? MAXIMUM_PERMISSIONS_FOR_FOLDER : MAXIMUM_PERMISSIONS_FOR_FILE;
+        } else if (permissionName.equalsIgnoreCase(res.getString(R.string.link_share_view_only))) {
+            permissionFlag = READ_PERMISSION_FLAG;
+        } else if (permissionName.equalsIgnoreCase(res.getString(R.string.link_share_file_drop)) || permissionName.equalsIgnoreCase(res.getString(R.string.share_create_permission))) {
+            permissionFlag = CREATE_PERMISSION_FLAG;
+        } else if (permissionName.equalsIgnoreCase(res.getString(R.string.share_edit_permission))) {
+            permissionFlag = UPDATE_PERMISSION_FLAG;
+        } else if (permissionName.equalsIgnoreCase(res.getString(R.string.share_delete_permission))) {
+            permissionFlag = DELETE_PERMISSION_FLAG;
+        } else if (permissionName.equalsIgnoreCase(res.getString(R.string.share_re_share_permission))) {
+            permissionFlag = SHARE_PERMISSION_FLAG;
         }
+
+        // FIXME: Failed to update share
+        actions.onQuickPermissionChanged(ocShare, permissionFlag);
+
         dismiss();
     }
 

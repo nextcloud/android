@@ -12,21 +12,19 @@
 package com.owncloud.android.ui.fragment.util;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.view.MenuItem;
 
 import com.owncloud.android.R;
 import com.owncloud.android.lib.resources.shares.OCShare;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 import static com.owncloud.android.lib.resources.shares.OCShare.CREATE_PERMISSION_FLAG;
+import static com.owncloud.android.lib.resources.shares.OCShare.DELETE_PERMISSION_FLAG;
 import static com.owncloud.android.lib.resources.shares.OCShare.MAXIMUM_PERMISSIONS_FOR_FILE;
 import static com.owncloud.android.lib.resources.shares.OCShare.MAXIMUM_PERMISSIONS_FOR_FOLDER;
 import static com.owncloud.android.lib.resources.shares.OCShare.NO_PERMISSION;
 import static com.owncloud.android.lib.resources.shares.OCShare.READ_PERMISSION_FLAG;
 import static com.owncloud.android.lib.resources.shares.OCShare.SHARE_PERMISSION_FLAG;
+import static com.owncloud.android.lib.resources.shares.OCShare.UPDATE_PERMISSION_FLAG;
 
 /**
  * Helper calls for visibility logic of the sharing menu.
@@ -50,38 +48,6 @@ public final class SharingMenuHelper {
         } else {
             menuItem.setVisible(true);
             menuItem.setChecked(hideFileDownload);
-        }
-    }
-
-    /**
-     * sets up the password {@link MenuItem}'s title based on the fact if a password is present.
-     *
-     * @param password            the password {@link MenuItem}
-     * @param isPasswordProtected flag is a password is present
-     */
-    public static void setupPasswordMenuItem(MenuItem password, boolean isPasswordProtected) {
-        if (isPasswordProtected) {
-            password.setTitle(R.string.share_password_title);
-        } else {
-            password.setTitle(R.string.share_no_password_title);
-        }
-    }
-
-    /**
-     * sets up the expiration date {@link MenuItem}'s title based on the fact if an expiration date is present.
-     *
-     * @param expirationDate      the expiration date {@link MenuItem}
-     * @param expirationDateValue the expiration date
-     * @param res                 Resources to load the corresponding strings.
-     */
-    public static void setupExpirationDateMenuItem(MenuItem expirationDate, long expirationDateValue, Resources res) {
-        if (expirationDateValue > 0) {
-            expirationDate.setTitle(res.getString(
-                R.string.share_expiration_date_label,
-                SimpleDateFormat.getDateInstance().format(new Date(expirationDateValue))
-                                                 ));
-        } else {
-            expirationDate.setTitle(R.string.share_no_expiration_date_label);
         }
     }
 
@@ -119,6 +85,30 @@ public final class SharingMenuHelper {
         return (share.getPermissions() & ~SHARE_PERMISSION_FLAG) == CREATE_PERMISSION_FLAG + READ_PERMISSION_FLAG;
     }
 
+    public static boolean isCreatePermission(OCShare share) {
+        if (share.getPermissions() == NO_PERMISSION) {
+            return false;
+        }
+
+        return (share.getPermissions() & ~SHARE_PERMISSION_FLAG) == CREATE_PERMISSION_FLAG;
+    }
+
+    public static boolean isUpdatePermission(OCShare share) {
+        if (share.getPermissions() == NO_PERMISSION) {
+            return false;
+        }
+
+        return (share.getPermissions() & ~SHARE_PERMISSION_FLAG) == UPDATE_PERMISSION_FLAG;
+    }
+
+    public static boolean isDeletePermission(OCShare share) {
+        if (share.getPermissions() == NO_PERMISSION) {
+            return false;
+        }
+
+        return (share.getPermissions() & ~SHARE_PERMISSION_FLAG) == DELETE_PERMISSION_FLAG;
+    }
+
     public static String getPermissionName(Context context, OCShare share) {
         if (SharingMenuHelper.isUploadAndEditingAllowed(share)) {
             return context.getResources().getString(R.string.share_permission_can_edit);
@@ -147,6 +137,14 @@ public final class SharingMenuHelper {
             return getPermissionIndexFromArray(context, permissionArray, R.string.link_share_view_only);
         } else if (SharingMenuHelper.isFileDrop(share)) {
             return getPermissionIndexFromArray(context, permissionArray, R.string.link_share_file_drop);
+        } else if (SharingMenuHelper.isCreatePermission(share)) {
+            return getPermissionIndexFromArray(context, permissionArray, R.string.share_create_permission);
+        } else if (SharingMenuHelper.isUpdatePermission(share)) {
+            return getPermissionIndexFromArray(context, permissionArray, R.string.share_edit_permission);
+        } else if (SharingMenuHelper.isDeletePermission(share)) {
+            return getPermissionIndexFromArray(context, permissionArray, R.string.share_delete_permission);
+        } else if (SharingMenuHelper.canReshare(share)) {
+            return getPermissionIndexFromArray(context, permissionArray, R.string.share_re_share_permission);
         }
         return 0;//default first item selected
     }
