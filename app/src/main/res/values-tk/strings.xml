@@ -493,7 +493,6 @@
     <string name="preview_sorry">Bagyşlaň</string>
     <string name="privacy">Gizlinlik</string>
     <string name="public_share_name">Täze ady</string>
-    <string name="push_notifications_not_implemented">Hususy Google Play hyzmatlaryna baglylyk sebäpli basma bildirişleri ýapylýar.</string>
     <string name="push_notifications_old_login">Könelen giriş sessiýasy sebäpli itergi habarnamalary ýok. Hasabyňyzy täzeden goşmagy göz öňünde tutmagyňyzy haýyş edýäris.</string>
     <string name="push_notifications_temp_error">Push habarnamalary häzirki wagtda elýeterli däl.</string>
     <string name="recommend_subject">%1$senjamyňyzda synap görüň!</string>

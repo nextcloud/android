@@ -730,7 +730,6 @@
     <string name="preview_sorry">Desculpe</string>
     <string name="privacy">Privacidade</string>
     <string name="public_share_name">Novo nome</string>
-    <string name="push_notifications_not_implemented">Envio de notificações desativado devido a dependências de serviços proprietários do Google Play.</string>
     <string name="push_notifications_old_login">Sem envio de notificações devido à sessão de login desatualizada. Considere readicionar sua conta.</string>
     <string name="push_notifications_temp_error">Atualmente o envio de notificações está indisponível.</string>
     <string name="qr_could_not_be_read">Não foi possível ler o código QR! </string>
