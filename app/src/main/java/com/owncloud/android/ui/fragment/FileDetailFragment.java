@@ -612,8 +612,9 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
         }
 
         setupViewPager();
-        if (getView() != null) {
-            getView().invalidate();
+        final var view = getView();
+        if (view != null) {
+            view.invalidate();
         }
 
         observeWorkerState();
