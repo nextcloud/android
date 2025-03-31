@@ -32,6 +32,7 @@ class SharePermissionManager {
         return result
     }
 
+    @Suppress("ReturnCount")
     private fun isPermissionValid(permission: Int): Boolean {
         // Must have at least READ or CREATE permission.
         if (!hasPermission(permission, OCShare.READ_PERMISSION_FLAG) &&
@@ -42,8 +43,9 @@ class SharePermissionManager {
 
         // Must have READ permission if have UPDATE or DELETE.
         if (!hasPermission(permission, OCShare.READ_PERMISSION_FLAG) &&
-            (hasPermission(permission, OCShare.UPDATE_PERMISSION_FLAG) ||
-                hasPermission(permission, OCShare.DELETE_PERMISSION_FLAG)
+            (
+                hasPermission(permission, OCShare.UPDATE_PERMISSION_FLAG) ||
+                    hasPermission(permission, OCShare.DELETE_PERMISSION_FLAG)
                 )
         ) {
             return false
