@@ -52,7 +52,7 @@ class SharePermissionManager {
         return true
     }
 
-    private fun hasPermission(permission: Int, permissionFlag: Int): Boolean {
+    fun hasPermission(permission: Int, permissionFlag: Int): Boolean {
         return permission != OCShare.NO_PERMISSION && (permission and permissionFlag) == permissionFlag
     }
 }
