@@ -297,7 +297,7 @@ class FileDetailsSharingProcessFragment :
             binding.fileDropRadioButton.isChecked = true
         } else if (SharingMenuHelper.isReadOnly(share)) {
             binding.viewOnlyRadioButton.isChecked = true
-        }
+        } // TODO:
 
         shareType = share?.shareType ?: ShareType.NO_SHARED
 
@@ -541,17 +541,15 @@ class FileDetailsSharingProcessFragment :
             if (isFolder()) {
                 // Only for the folder makes sense to have create permission
                 // so that user can create files in the shared folder
-                shareReadCheckbox.isChecked =
-                    sharePermissionManager.hasPermission(currentPermissions, OCShare.READ_PERMISSION_FLAG)
+                shareCreateCheckbox.isChecked =
+                    sharePermissionManager.hasPermission(currentPermissions, OCShare.CREATE_PERMISSION_FLAG)
             } else {
-                shareReadCheckbox.visibility = View.GONE
+                shareCreateCheckbox.visibility = View.GONE
             }
-            shareCreateCheckbox.isChecked =
-                sharePermissionManager.hasPermission(currentPermissions, OCShare.CREATE_PERMISSION_FLAG)
+            shareReadCheckbox.isChecked =
+                sharePermissionManager.hasPermission(currentPermissions, OCShare.READ_PERMISSION_FLAG)
             shareEditCheckbox.isChecked =
                 sharePermissionManager.hasPermission(currentPermissions, OCShare.UPDATE_PERMISSION_FLAG)
-            shareCheckbox.isChecked =
-                sharePermissionManager.hasPermission(currentPermissions, OCShare.SHARE_PERMISSION_FLAG)
 
             if (isFolder()) {
                 shareDeleteCheckbox.isChecked =
@@ -560,6 +558,9 @@ class FileDetailsSharingProcessFragment :
                 shareDeleteCheckbox.isChecked = false
                 shareDeleteCheckbox.isEnabled = false
             }
+
+            shareCheckbox.isChecked =
+                sharePermissionManager.hasPermission(currentPermissions, OCShare.SHARE_PERMISSION_FLAG)
         }
 
         setCheckboxesListeners()
