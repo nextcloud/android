@@ -73,7 +73,7 @@ class SharePermissionManager {
 
         return when {
             share.isFolder -> hasCreate || hasUpdate || hasDelete || hasShare
-            else -> hasUpdate || hasShare || hasDelete
+            else -> hasUpdate || hasShare
         }
     }
 }
