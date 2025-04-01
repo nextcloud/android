@@ -32,12 +32,9 @@ import java.util.List;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import static com.owncloud.android.lib.resources.shares.OCShare.CREATE_PERMISSION_FLAG;
-import static com.owncloud.android.lib.resources.shares.OCShare.DELETE_PERMISSION_FLAG;
 import static com.owncloud.android.lib.resources.shares.OCShare.MAXIMUM_PERMISSIONS_FOR_FILE;
 import static com.owncloud.android.lib.resources.shares.OCShare.MAXIMUM_PERMISSIONS_FOR_FOLDER;
 import static com.owncloud.android.lib.resources.shares.OCShare.READ_PERMISSION_FLAG;
-import static com.owncloud.android.lib.resources.shares.OCShare.SHARE_PERMISSION_FLAG;
-import static com.owncloud.android.lib.resources.shares.OCShare.UPDATE_PERMISSION_FLAG;
 
 /**
  * File Details Quick Sharing permissions options {@link Dialog} styled as a bottom sheet for main actions.
@@ -119,7 +116,7 @@ public class QuickSharingPermissionsBottomSheetDialog extends BottomSheetDialog 
             permissionFlag = CREATE_PERMISSION_FLAG + READ_PERMISSION_FLAG;
         } else if (permissionName.equalsIgnoreCase(res.getString(R.string.share_custom_permission))) {
             dismiss();
-            actions.openShareDetails(ocShare);
+            actions.openShareDetail(ocShare);
             return;
         }
 
@@ -155,6 +152,6 @@ public class QuickSharingPermissionsBottomSheetDialog extends BottomSheetDialog 
 
     public interface QuickPermissionSharingBottomSheetActions {
         void onQuickPermissionChanged(OCShare share, int permission);
-        void openShareDetails(OCShare share);
+        void openShareDetail(OCShare share);
     }
 }
