@@ -546,6 +546,7 @@ class FileDetailsSharingProcessFragment :
             } else {
                 shareCreateCheckbox.visibility = View.GONE
             }
+
             shareReadCheckbox.isChecked =
                 sharePermissionManager.hasPermission(currentPermissions, OCShare.READ_PERMISSION_FLAG)
             shareEditCheckbox.isChecked =

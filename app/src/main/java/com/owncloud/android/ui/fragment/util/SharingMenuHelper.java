@@ -12,7 +12,6 @@
 package com.owncloud.android.ui.fragment.util;
 
 import android.content.Context;
-import android.view.MenuItem;
 
 import com.owncloud.android.R;
 import com.owncloud.android.lib.resources.shares.OCShare;
@@ -33,22 +32,6 @@ public final class SharingMenuHelper {
 
     private SharingMenuHelper() {
         // utility class -> private constructor
-    }
-
-    /**
-     * Sets checked/visibility state on the given {@link MenuItem} based on the given criteria.
-     *
-     * @param menuItem the {@link MenuItem} to be setup
-     */
-    public static void setupHideFileDownload(MenuItem menuItem,
-                                             boolean hideFileDownload,
-                                             boolean isFileDrop) {
-        if (isFileDrop) {
-            menuItem.setVisible(false);
-        } else {
-            menuItem.setVisible(true);
-            menuItem.setChecked(hideFileDownload);
-        }
     }
 
     public static boolean isUploadAndEditingAllowed(OCShare share) {
@@ -110,14 +93,24 @@ public final class SharingMenuHelper {
     }
 
     public static String getPermissionName(Context context, OCShare share) {
+        final var res = context.getResources();
+
         if (SharingMenuHelper.isUploadAndEditingAllowed(share)) {
-            return context.getResources().getString(R.string.share_permission_can_edit);
+            return res.getString(R.string.share_permission_can_edit);
         } else if (SharingMenuHelper.isReadOnly(share)) {
-            return context.getResources().getString(R.string.share_permission_view_only);
+            return res.getString(R.string.share_permission_view_only);
         } else if (SharingMenuHelper.isSecureFileDrop(share)) {
-            return context.getResources().getString(R.string.share_permission_secure_file_drop);
+            return res.getString(R.string.share_permission_secure_file_drop);
         } else if (SharingMenuHelper.isFileDrop(share)) {
-            return context.getResources().getString(R.string.share_permission_file_drop);
+            return res.getString(R.string.share_permission_file_drop);
+        } else if (SharingMenuHelper.isCreatePermission(share)) {
+            return res.getString(R.string.share_create_permission);
+        } else if (SharingMenuHelper.isUpdatePermission(share)) {
+            return res.getString(R.string.share_edit_permission);
+        } else if (SharingMenuHelper.isDeletePermission(share)) {
+            return res.getString(R.string.share_delete_permission);
+        } else if (SharingMenuHelper.canReshare(share)) {
+            return res.getString(R.string.share_re_share_permission);
         }
         return null;
     }
@@ -127,26 +120,27 @@ public final class SharingMenuHelper {
      *
      */
     public static int getPermissionCheckedItem(Context context, OCShare share, String[] permissionArray) {
+        int permissionName;
+
         if (SharingMenuHelper.isUploadAndEditingAllowed(share)) {
-            if (share.isFolder()) {
-                return getPermissionIndexFromArray(context, permissionArray, R.string.link_share_allow_upload_and_editing);
-            } else {
-                return getPermissionIndexFromArray(context, permissionArray, R.string.link_share_editing);
-            }
+            permissionName = share.isFolder() ? R.string.link_share_allow_upload_and_editing : R.string.link_share_editing;
         } else if (SharingMenuHelper.isReadOnly(share)) {
-            return getPermissionIndexFromArray(context, permissionArray, R.string.link_share_view_only);
+            permissionName = R.string.link_share_view_only;
         } else if (SharingMenuHelper.isFileDrop(share)) {
-            return getPermissionIndexFromArray(context, permissionArray, R.string.link_share_file_drop);
+            permissionName = R.string.link_share_file_drop;
         } else if (SharingMenuHelper.isCreatePermission(share)) {
-            return getPermissionIndexFromArray(context, permissionArray, R.string.share_create_permission);
+            permissionName = R.string.share_create_permission;
         } else if (SharingMenuHelper.isUpdatePermission(share)) {
-            return getPermissionIndexFromArray(context, permissionArray, R.string.share_edit_permission);
+            permissionName = R.string.share_edit_permission;
         } else if (SharingMenuHelper.isDeletePermission(share)) {
-            return getPermissionIndexFromArray(context, permissionArray, R.string.share_delete_permission);
+            permissionName = R.string.share_delete_permission;
         } else if (SharingMenuHelper.canReshare(share)) {
-            return getPermissionIndexFromArray(context, permissionArray, R.string.share_re_share_permission);
+            permissionName = R.string.share_re_share_permission;
+        } else {
+            return 0;
         }
-        return 0;//default first item selected
+
+        return getPermissionIndexFromArray(context, permissionArray, permissionName);
     }
 
     private static int getPermissionIndexFromArray(Context context, String[] permissionArray, int permissionName) {

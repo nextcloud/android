@@ -14,6 +14,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.nextcloud.android.common.ui.theme.utils.ColorRole
+import com.nextcloud.utils.extensions.setVisibleIf
 import com.owncloud.android.databinding.ItemQuickSharePermissionsBinding
 import com.owncloud.android.datamodel.QuickPermissionModel
 import com.owncloud.android.utils.theme.ViewThemeUtils
@@ -44,23 +46,21 @@ class QuickSharingPermissionsAdapter(
         itemView: View,
         val onPermissionChangeListener: OnPermissionChangeListener,
         private val viewThemeUtils: ViewThemeUtils
-    ) :
-        RecyclerView
-            .ViewHolder(itemView) {
+    ) : RecyclerView.ViewHolder(itemView) {
 
         fun bindData(quickPermissionModel: QuickPermissionModel) {
-            binding.tvQuickShareName.text = quickPermissionModel.permissionName
-            if (quickPermissionModel.isSelected) {
-                viewThemeUtils.platform.colorImageView(binding.tvQuickShareCheckIcon)
-                binding.tvQuickShareCheckIcon.visibility = View.VISIBLE
-            } else {
-                binding.tvQuickShareCheckIcon.visibility = View.INVISIBLE
+            binding.run {
+                tvQuickShareName.text = quickPermissionModel.permissionName
+                tvQuickShareCheckIcon.setVisibleIf(quickPermissionModel.isSelected)
+                if (quickPermissionModel.isSelected) {
+                    viewThemeUtils.platform.colorImageView(tvQuickShareCheckIcon, ColorRole.PRIMARY)
+                }
             }
 
             itemView.setOnClickListener {
                 // if user select different options then only update the permission
                 if (!quickPermissionModel.isSelected) {
-                    onPermissionChangeListener.onPermissionChanged(adapterPosition)
+                    onPermissionChangeListener.onPermissionChanged(absoluteAdapterPosition)
                 } else {
                     // dismiss sheet on selection of same permission
                     onPermissionChangeListener.onDismissSheet()
