@@ -71,8 +71,6 @@ class FileDetailsSharingProcessFragment :
         // types of screens to be displayed
         const val SCREEN_TYPE_PERMISSION = 1 // permissions screen
         const val SCREEN_TYPE_NOTE = 2 // note screen
-        const val SCREEN_TYPE_CUSTOM_PERMISSION = 3 // custom permissions screen
-
 
         /**
          * fragment instance to be called while creating new share for internal and external share
@@ -191,11 +189,7 @@ class FileDetailsSharingProcessFragment :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        if (shareProcessStep == SCREEN_TYPE_PERMISSION || shareProcessStep == SCREEN_TYPE_CUSTOM_PERMISSION) {
-            if (shareProcessStep == SCREEN_TYPE_CUSTOM_PERMISSION) {
-                binding.customPermissionRadioButton.isChecked = true
-            }
-
+        if (shareProcessStep == SCREEN_TYPE_PERMISSION) {
             showShareProcessFirst()
         } else {
             showShareProcessSecond()
@@ -297,16 +291,18 @@ class FileDetailsSharingProcessFragment :
         if (share?.isFolder == true) updateViewForFolder() else updateViewForFile()
 
         // custom permissions / read only / allow upload and editing / file drop
-        if (sharePermissionManager.isCustomPermission(share)) {
-            binding.customPermissionRadioButton.isChecked = true
-            binding.customPermissionLayout.setVisibilityWithAnimation(true)
-        } else if (SharingMenuHelper.isUploadAndEditingAllowed(share)) {
-            binding.editingRadioButton.isChecked = true
-        } else if (SharingMenuHelper.isFileDrop(share) && share?.isFolder == true) {
-            binding.fileDropRadioButton.isChecked = true
-        } else if (SharingMenuHelper.isReadOnly(share)) {
-            binding.viewOnlyRadioButton.isChecked = true
-        } // TODO:
+        binding.run {
+            if (sharePermissionManager.isCustomPermission(share)) {
+                customPermissionRadioButton.isChecked = true
+                customPermissionLayout.setVisibilityWithAnimation(true)
+            } else if (SharingMenuHelper.isUploadAndEditingAllowed(share)) {
+                editingRadioButton.isChecked = true
+            } else if (SharingMenuHelper.isFileDrop(share) && share?.isFolder == true) {
+                fileDropRadioButton.isChecked = true
+            } else if (SharingMenuHelper.isReadOnly(share)) {
+                viewOnlyRadioButton.isChecked = true
+            }
+        }
 
         shareType = share?.shareType ?: ShareType.NO_SHARED
 
