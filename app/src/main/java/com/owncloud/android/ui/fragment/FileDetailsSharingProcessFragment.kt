@@ -71,6 +71,8 @@ class FileDetailsSharingProcessFragment :
         // types of screens to be displayed
         const val SCREEN_TYPE_PERMISSION = 1 // permissions screen
         const val SCREEN_TYPE_NOTE = 2 // note screen
+        const val SCREEN_TYPE_CUSTOM_PERMISSION = 3 // custom permissions screen
+
 
         /**
          * fragment instance to be called while creating new share for internal and external share
@@ -189,7 +191,11 @@ class FileDetailsSharingProcessFragment :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        if (shareProcessStep == SCREEN_TYPE_PERMISSION) {
+        if (shareProcessStep == SCREEN_TYPE_PERMISSION || shareProcessStep == SCREEN_TYPE_CUSTOM_PERMISSION) {
+            if (shareProcessStep == SCREEN_TYPE_CUSTOM_PERMISSION) {
+                binding.customPermissionRadioButton.isChecked = true
+            }
+
             showShareProcessFirst()
         } else {
             showShareProcessSecond()
@@ -290,8 +296,11 @@ class FileDetailsSharingProcessFragment :
     private fun setupModificationUI() {
         if (share?.isFolder == true) updateViewForFolder() else updateViewForFile()
 
-        // read only / allow upload and editing / file drop
-        if (SharingMenuHelper.isUploadAndEditingAllowed(share)) {
+        // custom permissions / read only / allow upload and editing / file drop
+        if (sharePermissionManager.isCustomPermission(share)) {
+            binding.customPermissionRadioButton.isChecked = true
+            binding.customPermissionLayout.setVisibilityWithAnimation(true)
+        } else if (SharingMenuHelper.isUploadAndEditingAllowed(share)) {
             binding.editingRadioButton.isChecked = true
         } else if (SharingMenuHelper.isFileDrop(share) && share?.isFolder == true) {
             binding.fileDropRadioButton.isChecked = true
