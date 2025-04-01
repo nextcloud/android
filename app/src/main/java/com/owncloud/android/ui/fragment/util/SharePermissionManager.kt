@@ -57,4 +57,23 @@ class SharePermissionManager {
     fun hasPermission(permission: Int, permissionFlag: Int): Boolean {
         return permission != OCShare.NO_PERMISSION && (permission and permissionFlag) == permissionFlag
     }
+
+    fun isCustomPermission(share: OCShare?): Boolean {
+        if (share == null) return false
+        val permissions = share.permissions
+        if (permissions == OCShare.NO_PERMISSION) return false
+
+        val hasRead = hasPermission(permissions, OCShare.READ_PERMISSION_FLAG)
+        if (!hasRead) return false
+
+        val hasCreate = hasPermission(permissions, OCShare.CREATE_PERMISSION_FLAG)
+        val hasUpdate = hasPermission(permissions, OCShare.UPDATE_PERMISSION_FLAG)
+        val hasDelete = hasPermission(permissions, OCShare.DELETE_PERMISSION_FLAG)
+        val hasShare = hasPermission(permissions, OCShare.SHARE_PERMISSION_FLAG)
+
+        return when {
+            share.isFolder -> hasCreate || hasUpdate || hasDelete || hasShare
+            else -> hasUpdate || hasShare || hasDelete
+        }
+    }
 }
