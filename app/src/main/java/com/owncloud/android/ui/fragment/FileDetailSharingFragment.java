@@ -691,6 +691,11 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
         fileOperationsHelper.setPermissionsToShare(share, permission);
     }
 
+    @Override
+    public void openShareDetails(OCShare share) {
+        modifyExistingShare(share, FileDetailsSharingProcessFragment.SCREEN_TYPE_CUSTOM_PERMISSION);
+    }
+
     //launcher for contact permission
     private final ActivityResultLauncher<String> requestContactPermissionLauncher =
         registerForActivityResult(new ActivityResultContracts.RequestPermission(), isGranted -> {

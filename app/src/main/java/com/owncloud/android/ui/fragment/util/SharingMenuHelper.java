@@ -17,18 +17,18 @@ import com.owncloud.android.R;
 import com.owncloud.android.lib.resources.shares.OCShare;
 
 import static com.owncloud.android.lib.resources.shares.OCShare.CREATE_PERMISSION_FLAG;
-import static com.owncloud.android.lib.resources.shares.OCShare.DELETE_PERMISSION_FLAG;
 import static com.owncloud.android.lib.resources.shares.OCShare.MAXIMUM_PERMISSIONS_FOR_FILE;
 import static com.owncloud.android.lib.resources.shares.OCShare.MAXIMUM_PERMISSIONS_FOR_FOLDER;
 import static com.owncloud.android.lib.resources.shares.OCShare.NO_PERMISSION;
 import static com.owncloud.android.lib.resources.shares.OCShare.READ_PERMISSION_FLAG;
 import static com.owncloud.android.lib.resources.shares.OCShare.SHARE_PERMISSION_FLAG;
-import static com.owncloud.android.lib.resources.shares.OCShare.UPDATE_PERMISSION_FLAG;
 
 /**
  * Helper calls for visibility logic of the sharing menu.
  */
 public final class SharingMenuHelper {
+
+    private static final SharePermissionManager sharePermissionManager = new SharePermissionManager();
 
     private SharingMenuHelper() {
         // utility class -> private constructor
@@ -68,34 +68,12 @@ public final class SharingMenuHelper {
         return (share.getPermissions() & ~SHARE_PERMISSION_FLAG) == CREATE_PERMISSION_FLAG + READ_PERMISSION_FLAG;
     }
 
-    public static boolean isCreatePermission(OCShare share) {
-        if (share.getPermissions() == NO_PERMISSION) {
-            return false;
-        }
-
-        return (share.getPermissions() & ~SHARE_PERMISSION_FLAG) == CREATE_PERMISSION_FLAG;
-    }
-
-    public static boolean isUpdatePermission(OCShare share) {
-        if (share.getPermissions() == NO_PERMISSION) {
-            return false;
-        }
-
-        return (share.getPermissions() & ~SHARE_PERMISSION_FLAG) == UPDATE_PERMISSION_FLAG;
-    }
-
-    public static boolean isDeletePermission(OCShare share) {
-        if (share.getPermissions() == NO_PERMISSION) {
-            return false;
-        }
-
-        return (share.getPermissions() & ~SHARE_PERMISSION_FLAG) == DELETE_PERMISSION_FLAG;
-    }
-
     public static String getPermissionName(Context context, OCShare share) {
         final var res = context.getResources();
 
-        if (SharingMenuHelper.isUploadAndEditingAllowed(share)) {
+        if (sharePermissionManager.isCustomPermission(share)) {
+            return res.getString(R.string.share_custom_permission);
+        } else if (SharingMenuHelper.isUploadAndEditingAllowed(share)) {
             return res.getString(R.string.share_permission_can_edit);
         } else if (SharingMenuHelper.isReadOnly(share)) {
             return res.getString(R.string.share_permission_view_only);
@@ -103,15 +81,8 @@ public final class SharingMenuHelper {
             return res.getString(R.string.share_permission_secure_file_drop);
         } else if (SharingMenuHelper.isFileDrop(share)) {
             return res.getString(R.string.share_permission_file_drop);
-        } else if (SharingMenuHelper.isCreatePermission(share)) {
-            return res.getString(R.string.share_create_permission);
-        } else if (SharingMenuHelper.isUpdatePermission(share)) {
-            return res.getString(R.string.share_edit_permission);
-        } else if (SharingMenuHelper.isDeletePermission(share)) {
-            return res.getString(R.string.share_delete_permission);
-        } else if (SharingMenuHelper.canReshare(share)) {
-            return res.getString(R.string.share_re_share_permission);
         }
+
         return null;
     }
 
@@ -122,20 +93,14 @@ public final class SharingMenuHelper {
     public static int getPermissionCheckedItem(Context context, OCShare share, String[] permissionArray) {
         int permissionName;
 
-        if (SharingMenuHelper.isUploadAndEditingAllowed(share)) {
+        if (sharePermissionManager.isCustomPermission(share)) {
+            permissionName = R.string.share_custom_permission;
+        } else if (SharingMenuHelper.isUploadAndEditingAllowed(share)) {
             permissionName = share.isFolder() ? R.string.link_share_allow_upload_and_editing : R.string.link_share_editing;
         } else if (SharingMenuHelper.isReadOnly(share)) {
             permissionName = R.string.link_share_view_only;
         } else if (SharingMenuHelper.isFileDrop(share)) {
             permissionName = R.string.link_share_file_drop;
-        } else if (SharingMenuHelper.isCreatePermission(share)) {
-            permissionName = R.string.share_create_permission;
-        } else if (SharingMenuHelper.isUpdatePermission(share)) {
-            permissionName = R.string.share_edit_permission;
-        } else if (SharingMenuHelper.isDeletePermission(share)) {
-            permissionName = R.string.share_delete_permission;
-        } else if (SharingMenuHelper.canReshare(share)) {
-            permissionName = R.string.share_re_share_permission;
         } else {
             return 0;
         }
