@@ -116,16 +116,15 @@ public class QuickSharingPermissionsBottomSheetDialog extends BottomSheetDialog 
         } else if (permissionName.equalsIgnoreCase(res.getString(R.string.link_share_view_only))) {
             permissionFlag = READ_PERMISSION_FLAG;
         } else if (permissionName.equalsIgnoreCase(res.getString(R.string.link_share_file_drop)) || permissionName.equalsIgnoreCase(res.getString(R.string.share_create_permission))) {
-            permissionFlag = CREATE_PERMISSION_FLAG;
+            permissionFlag = CREATE_PERMISSION_FLAG + READ_PERMISSION_FLAG;
         } else if (permissionName.equalsIgnoreCase(res.getString(R.string.share_edit_permission))) {
-            permissionFlag = UPDATE_PERMISSION_FLAG;
+            permissionFlag = UPDATE_PERMISSION_FLAG + READ_PERMISSION_FLAG;
         } else if (permissionName.equalsIgnoreCase(res.getString(R.string.share_delete_permission))) {
-            permissionFlag = DELETE_PERMISSION_FLAG;
+            permissionFlag = DELETE_PERMISSION_FLAG + READ_PERMISSION_FLAG;
         } else if (permissionName.equalsIgnoreCase(res.getString(R.string.share_re_share_permission))) {
-            permissionFlag = SHARE_PERMISSION_FLAG;
+            permissionFlag = SHARE_PERMISSION_FLAG + READ_PERMISSION_FLAG;
         }
 
-        // FIXME: Failed to update share
         actions.onQuickPermissionChanged(ocShare, permissionFlag);
 
         dismiss();
@@ -136,18 +135,11 @@ public class QuickSharingPermissionsBottomSheetDialog extends BottomSheetDialog 
      * @return
      */
     private List<QuickPermissionModel> getQuickPermissionList() {
+        int permissionArrayId = ocShare.isFolder() ? R.array.folder_share_permission_dialog_values : R.array.file_share_permission_dialog_values;
+        String[] permissionArray = fileActivity.getResources().getStringArray(permissionArrayId);
 
-        String[] permissionArray;
-        if (ocShare.isFolder()) {
-            permissionArray =
-                fileActivity.getResources().getStringArray(R.array.folder_share_permission_dialog_values);
-        } else {
-            permissionArray =
-                fileActivity.getResources().getStringArray(R.array.file_share_permission_dialog_values);
-        }
-        //get the checked item position
+        // get the checked item position
         int checkedItem = SharingMenuHelper.getPermissionCheckedItem(fileActivity, ocShare, permissionArray);
-
 
         final List<QuickPermissionModel> quickPermissionModelList = new ArrayList<>(permissionArray.length);
         for (int i = 0; i < permissionArray.length; i++) {
@@ -156,7 +148,6 @@ public class QuickSharingPermissionsBottomSheetDialog extends BottomSheetDialog 
         }
         return quickPermissionModelList;
     }
-
 
     @Override
     protected void onStop() {
