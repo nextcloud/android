@@ -693,7 +693,7 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
 
     @Override
     public void openShareDetail(OCShare share) {
-        modifyExistingShare(share, FileDetailsSharingProcessFragment.SCREEN_TYPE_PERMISSION);
+        modifyExistingShare(share, FileDetailsSharingProcessFragment.SCREEN_TYPE_CUSTOM_PERMISSION);
     }
 
     //launcher for contact permission
