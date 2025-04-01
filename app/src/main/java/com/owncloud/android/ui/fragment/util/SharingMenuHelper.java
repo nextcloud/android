@@ -71,9 +71,7 @@ public final class SharingMenuHelper {
     public static String getPermissionName(Context context, OCShare share) {
         final var res = context.getResources();
 
-        if (sharePermissionManager.isCustomPermission(share)) {
-            return res.getString(R.string.share_custom_permission);
-        } else if (SharingMenuHelper.isUploadAndEditingAllowed(share)) {
+        if (SharingMenuHelper.isUploadAndEditingAllowed(share)) {
             return res.getString(R.string.share_permission_can_edit);
         } else if (SharingMenuHelper.isReadOnly(share)) {
             return res.getString(R.string.share_permission_view_only);
@@ -81,6 +79,8 @@ public final class SharingMenuHelper {
             return res.getString(R.string.share_permission_secure_file_drop);
         } else if (SharingMenuHelper.isFileDrop(share)) {
             return res.getString(R.string.share_permission_file_drop);
+        } else if (sharePermissionManager.isCustomPermission(share)) {
+            return res.getString(R.string.share_custom_permission);
         }
 
         return null;
@@ -93,14 +93,14 @@ public final class SharingMenuHelper {
     public static int getPermissionCheckedItem(Context context, OCShare share, String[] permissionArray) {
         int permissionName;
 
-        if (sharePermissionManager.isCustomPermission(share)) {
-            permissionName = R.string.share_custom_permission;
-        } else if (SharingMenuHelper.isUploadAndEditingAllowed(share)) {
+        if (SharingMenuHelper.isUploadAndEditingAllowed(share)) {
             permissionName = share.isFolder() ? R.string.link_share_allow_upload_and_editing : R.string.link_share_editing;
         } else if (SharingMenuHelper.isReadOnly(share)) {
             permissionName = R.string.link_share_view_only;
         } else if (SharingMenuHelper.isFileDrop(share)) {
             permissionName = R.string.link_share_file_drop;
+        } else if (sharePermissionManager.isCustomPermission(share)) {
+            permissionName = R.string.share_custom_permission;
         } else {
             return 0;
         }

@@ -292,15 +292,15 @@ class FileDetailsSharingProcessFragment :
 
         // custom permissions / read only / allow upload and editing / file drop
         binding.run {
-            if (sharePermissionManager.isCustomPermission(share)) {
-                customPermissionRadioButton.isChecked = true
-                customPermissionLayout.setVisibilityWithAnimation(true)
-            } else if (SharingMenuHelper.isUploadAndEditingAllowed(share)) {
+            if (SharingMenuHelper.isUploadAndEditingAllowed(share)) {
                 editingRadioButton.isChecked = true
             } else if (SharingMenuHelper.isFileDrop(share) && share?.isFolder == true) {
                 fileDropRadioButton.isChecked = true
             } else if (SharingMenuHelper.isReadOnly(share)) {
                 viewOnlyRadioButton.isChecked = true
+            } else if (sharePermissionManager.isCustomPermission(share)) {
+                customPermissionRadioButton.isChecked = true
+                customPermissionLayout.setVisibilityWithAnimation(true)
             }
         }
 
