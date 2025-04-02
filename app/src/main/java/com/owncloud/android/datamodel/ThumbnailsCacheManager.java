@@ -36,6 +36,7 @@ import android.widget.ImageView;
 
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.network.ConnectivityService;
+import com.nextcloud.utils.BitmapExtensionsKt;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.OwnCloudAccount;
@@ -99,6 +100,7 @@ public final class ThumbnailsCacheManager {
     private static final CompressFormat mCompressFormat = CompressFormat.JPEG;
     private static final int mCompressQuality = 70;
     private static OwnCloudClient mClient;
+    private static final int THUMBNAIL_SIZE_IN_KB = 512;
 
     public static final Bitmap mDefaultImg = BitmapFactory.decodeResource(MainApp.getAppContext().getResources(),
             R.drawable.file_image);
@@ -202,9 +204,27 @@ public final class ThumbnailsCacheManager {
 
     public static void addBitmapToCache(String key, Bitmap bitmap) {
         synchronized (mThumbnailsDiskCacheLock) {
-            if (mThumbnailCache != null) {
-                mThumbnailCache.put(key, bitmap);
+            if (mThumbnailCache == null) {
+                return;
             }
+
+            // Check if the bitmap is already cached
+            Bitmap cachedBitmap = mThumbnailCache.getBitmap(key);
+            if (cachedBitmap == null) {
+                cachedBitmap = mThumbnailCache.getScaledBitmap(key, bitmap.getWidth(), bitmap.getHeight());
+            }
+
+            if (cachedBitmap != null && BitmapExtensionsKt.allocationKilobyte(cachedBitmap) <= THUMBNAIL_SIZE_IN_KB) {
+                Log_OC.d(TAG, "Cached version is already within size limits, no need to scale: " + key);
+                return;
+            }
+
+            if (BitmapExtensionsKt.allocationKilobyte(bitmap) > THUMBNAIL_SIZE_IN_KB) {
+                Log_OC.d(TAG, "Scaling bitmap before caching: " + key);
+                bitmap = BitmapExtensionsKt.scaleUntil(bitmap, THUMBNAIL_SIZE_IN_KB);
+            }
+
+            mThumbnailCache.put(key, bitmap);
         }
     }
 
@@ -273,12 +293,8 @@ public final class ThumbnailsCacheManager {
             this.backgroundColor = backgroundColor;
         }
 
-        public void setListener(GalleryImageGenerationTask.GalleryListener listener) {
+        public void setListener(GalleryListener listener) {
             this.listener = listener;
-        }
-
-        public String getImageKey() {
-            return imageKey;
         }
 
         @Override
@@ -342,11 +358,29 @@ public final class ThumbnailsCacheManager {
                 storageManager.saveFile(file);
             }
 
+            Bitmap result = thumbnail;
             if (MimeTypeUtil.isVideo(file)) {
-                return ThumbnailsCacheManager.addVideoOverlay(thumbnail, MainApp.getAppContext());
-            } else {
-                return thumbnail;
+                result = ThumbnailsCacheManager.addVideoOverlay(thumbnail, MainApp.getAppContext());
             }
+
+            if (BitmapExtensionsKt.allocationKilobyte(thumbnail) > THUMBNAIL_SIZE_IN_KB) {
+                result = getScaledThumbnailAfterSave(result);
+            }
+
+            return result;
+        }
+
+        private Bitmap getScaledThumbnailAfterSave(Bitmap thumbnail) {
+            Bitmap result = BitmapExtensionsKt.scaleUntil(thumbnail, THUMBNAIL_SIZE_IN_KB);
+
+            synchronized (mThumbnailsDiskCacheLock) {
+                if (mThumbnailCache != null) {
+                    Log_OC.d(TAG, "Scaling bitmap before caching: " + imageKey);
+                    mThumbnailCache.put(imageKey, result);
+                }
+            }
+
+            return result;
         }
 
         protected void onPostExecute(Bitmap bitmap) {
