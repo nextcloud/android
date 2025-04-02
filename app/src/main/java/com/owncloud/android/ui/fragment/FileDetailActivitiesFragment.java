@@ -85,7 +85,7 @@ public class FileDetailActivitiesFragment extends Fragment implements
     private OCFile file;
     private User user;
 
-    private int lastGiven;
+    private long lastGiven;
     private boolean isLoadingActivities;
     private boolean isDataFetched = false;
 
@@ -255,9 +255,9 @@ public class FileDetailActivitiesFragment extends Fragment implements
     }
 
     /**
-     * @param lastGiven int; -1 to disable
+     * @param lastGiven long; -1 to disable
      */
-    private void fetchAndSetData(int lastGiven) {
+    private void fetchAndSetData(long lastGiven) {
         final FragmentActivity activity = getActivity();
 
         if (activity == null) {
@@ -312,7 +312,7 @@ public class FileDetailActivitiesFragment extends Fragment implements
                     final List<Object> data = result.getData();
                     final List<Object> activitiesAndVersions = (ArrayList) data.get(0);
 
-                    this.lastGiven = (int) data.get(1);
+                    this.lastGiven = (long) data.get(1);
 
                     if (activitiesAndVersions.isEmpty()) {
                         this.lastGiven = END_REACHED;
