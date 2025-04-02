@@ -58,6 +58,7 @@ class SharePermissionManager {
         return permission != OCShare.NO_PERMISSION && (permission and permissionFlag) == permissionFlag
     }
 
+    @Suppress("ReturnCount")
     fun isCustomPermission(share: OCShare?): Boolean {
         if (share == null) return false
         val permissions = share.permissions
