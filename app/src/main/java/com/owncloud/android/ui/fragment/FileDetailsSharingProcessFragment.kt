@@ -516,8 +516,8 @@ class FileDetailsSharingProcessFragment :
         }
     }
 
-    private fun togglePermission(permissionFlag: Int) {
-        permission = sharePermissionManager.togglePermission(permission, permissionFlag)
+    private fun togglePermission(isChecked: Boolean, permissionFlag: Int) {
+        permission = sharePermissionManager.togglePermission(isChecked, permission, permissionFlag)
     }
 
     private fun setCheckboxStates() {
@@ -556,23 +556,23 @@ class FileDetailsSharingProcessFragment :
     private fun setCheckboxesListeners() {
         binding.run {
             shareReadCheckbox.setOnCheckedChangeListener { _, isChecked ->
-                togglePermission(OCShare.READ_PERMISSION_FLAG)
+                togglePermission(isChecked, OCShare.READ_PERMISSION_FLAG)
             }
 
             shareCreateCheckbox.setOnCheckedChangeListener { _, isChecked ->
-                togglePermission(OCShare.CREATE_PERMISSION_FLAG)
+                togglePermission(isChecked, OCShare.CREATE_PERMISSION_FLAG)
             }
 
             shareEditCheckbox.setOnCheckedChangeListener { _, isChecked ->
-                togglePermission(OCShare.UPDATE_PERMISSION_FLAG)
+                togglePermission(isChecked, OCShare.UPDATE_PERMISSION_FLAG)
             }
 
             shareCheckbox.setOnCheckedChangeListener { _, isChecked ->
-                togglePermission(OCShare.SHARE_PERMISSION_FLAG)
+                togglePermission(isChecked, OCShare.SHARE_PERMISSION_FLAG)
             }
 
             shareDeleteCheckbox.setOnCheckedChangeListener { _, isChecked ->
-                togglePermission(OCShare.DELETE_PERMISSION_FLAG)
+                togglePermission(isChecked, OCShare.DELETE_PERMISSION_FLAG)
             }
         }
     }
