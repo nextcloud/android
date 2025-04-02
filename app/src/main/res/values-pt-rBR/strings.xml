@@ -955,7 +955,7 @@
     <string name="trashbin_loading_failed">Falha ao carregar a lixeira! </string>
     <string name="trashbin_not_emptied">Os arquivos não puderam ser excluídos permanentemente!</string>
     <string name="two_way_sync_activity_disable_all_button_title">Desative para todas as pastas</string>
-    <string name="two_way_sync_activity_empty_list_desc">Para configurar uma pasta de sincronização de duas vias, ative-a na guia Detalhes da pasta em questão.</string>
+    <string name="two_way_sync_activity_empty_list_desc">Para configurar uma pasta de sincronização de duas vias, ative-a na aba de detalhes da pasta em questão.</string>
     <string name="two_way_sync_activity_empty_list_title">Sincroniza de duas maneiras não configuradas</string>
     <string name="two_way_sync_activity_title">Sincronização interna bidirecional</string>
     <string name="unexpected_error_occurred">Ocorreu um erro inesperado</string>
