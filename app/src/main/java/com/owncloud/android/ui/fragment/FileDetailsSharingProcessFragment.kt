@@ -478,7 +478,7 @@ class FileDetailsSharingProcessFragment :
                 if (shareProcessStep == SCREEN_TYPE_PERMISSION) {
                     validateShareProcessFirst()
                 } else {
-                    createOrUpdateShare()
+                    createShareOrUpdateNoteShare()
                 }
             }
             shareProcessSetPasswordSwitch.setOnCheckedChangeListener { _, isChecked ->
@@ -702,7 +702,7 @@ class FileDetailsSharingProcessFragment :
         }
     }
 
-    private fun createOrUpdateShare() {
+    private fun createShareOrUpdateNoteShare() {
         val noteText = binding.noteText.text.toString().trim()
         // if modifying existing share then directly update the note and send email
         if (share != null && share?.note != noteText) {
