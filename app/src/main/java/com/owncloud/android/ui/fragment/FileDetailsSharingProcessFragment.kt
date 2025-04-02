@@ -218,8 +218,6 @@ class FileDetailsSharingProcessFragment :
                 themeCheckbox(shareEditCheckbox)
                 themeCheckbox(shareCheckbox)
                 themeCheckbox(shareDeleteCheckbox)
-
-                themeCheckbox(shareProcessAllowResharingCheckbox)
             }
         }
 
@@ -267,10 +265,6 @@ class FileDetailsSharingProcessFragment :
             setupModificationUI()
         } else {
             setupUpdateUI()
-        }
-
-        if (isSecureShare) {
-            binding.shareProcessAdvancePermissionTitle.visibility = View.GONE
         }
 
         // show or hide expiry date
@@ -370,25 +364,21 @@ class FileDetailsSharingProcessFragment :
         binding.shareProcessChangeNameSwitch.visibility = View.GONE
         binding.shareProcessChangeNameContainer.visibility = View.GONE
         binding.shareProcessHideDownloadCheckbox.visibility = View.GONE
-        if (isSecureShare) {
-            binding.shareProcessAllowResharingCheckbox.visibility = View.GONE
-        } else {
-            binding.shareProcessAllowResharingCheckbox.visibility = View.VISIBLE
-        }
+        binding.shareCheckbox.setVisibleIf(!isSecureShare)
         binding.shareProcessSetPasswordSwitch.visibility = View.GONE
 
         if (share != null) {
             if (!isReShareShown) {
-                binding.shareProcessAllowResharingCheckbox.visibility = View.GONE
+                binding.shareCheckbox.visibility = View.GONE
             }
-            binding.shareProcessAllowResharingCheckbox.isChecked = SharingMenuHelper.canReshare(share)
+            binding.shareCheckbox.isChecked = SharingMenuHelper.canReshare(share)
         }
     }
 
     private fun updateViewForExternalAndLinkShare() {
         binding.run {
             shareProcessHideDownloadCheckbox.visibility = View.VISIBLE
-            shareProcessAllowResharingCheckbox.visibility = View.GONE
+            shareCheckbox.visibility = View.GONE
             shareProcessSetPasswordSwitch.visibility = View.VISIBLE
 
             if (share != null) {
@@ -444,7 +434,7 @@ class FileDetailsSharingProcessFragment :
             fileDropRadioButton.visibility = View.VISIBLE
             if (isSecureShare) {
                 fileDropRadioButton.visibility = View.GONE
-                shareProcessAllowResharingCheckbox.visibility = View.GONE
+                shareCheckbox.visibility = View.GONE
                 shareProcessSetExpDateSwitch.visibility = View.GONE
             }
         }
@@ -575,10 +565,6 @@ class FileDetailsSharingProcessFragment :
 
             shareEditCheckbox.setOnCheckedChangeListener { _, isChecked ->
                 togglePermission(OCShare.UPDATE_PERMISSION_FLAG)
-            }
-
-            shareProcessAllowResharingCheckbox.setOnCheckedChangeListener { _, isChecked ->
-                permission = sharePermissionManager.getReSharePermission()
             }
 
             shareCheckbox.setOnCheckedChangeListener { _, isChecked ->

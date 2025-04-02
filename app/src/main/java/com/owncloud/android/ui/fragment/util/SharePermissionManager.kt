@@ -9,7 +9,6 @@ package com.owncloud.android.ui.fragment.util
 
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.lib.resources.shares.OCShare
-import com.owncloud.android.lib.resources.shares.SharePermissionsBuilder
 import com.owncloud.android.ui.fragment.FileDetailsSharingProcessFragment.Companion.TAG
 
 class SharePermissionManager {
@@ -76,12 +75,6 @@ class SharePermissionManager {
             share.isFolder -> hasCreate || hasUpdate || hasDelete || hasShare
             else -> hasUpdate || hasShare
         }
-    }
-
-    fun getReSharePermission(): Int {
-        return SharePermissionsBuilder().apply {
-            setSharePermission(true)
-        }.build()
     }
 
     fun getMaximumPermission(isFolder: Boolean): Int {
