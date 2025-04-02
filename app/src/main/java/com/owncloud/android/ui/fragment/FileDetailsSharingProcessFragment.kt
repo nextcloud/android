@@ -148,7 +148,7 @@ class FileDetailsSharingProcessFragment :
         super.onAttach(context)
         try {
             onEditShareListener = context as FileDetailSharingFragment.OnEditShareListener
-        } catch (e: ClassCastException) {
+        } catch (_: ClassCastException) {
             throw IllegalStateException("Calling activity must implement the interface")
         }
     }
