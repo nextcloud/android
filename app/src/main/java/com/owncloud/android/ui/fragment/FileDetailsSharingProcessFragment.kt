@@ -283,7 +283,8 @@ class FileDetailsSharingProcessFragment :
                 SharingMenuHelper.isReadOnly(share) -> viewOnlyRadioButton.isChecked = true
                 else -> {
                     if (sharePermissionManager.isCustomPermission(share) ||
-                        shareProcessStep == SCREEN_TYPE_CUSTOM_PERMISSION) {
+                        shareProcessStep == SCREEN_TYPE_CUSTOM_PERMISSION
+                    ) {
                         customPermissionRadioButton.isChecked = true
                         customPermissionLayout.setVisibilityWithAnimation(true)
                     }
