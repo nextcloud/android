@@ -192,7 +192,7 @@ class FileDetailsSharingProcessFragment :
         if (shareProcessStep == SCREEN_TYPE_PERMISSION || shareProcessStep == SCREEN_TYPE_CUSTOM_PERMISSION) {
             showShareProcessFirst()
         } else {
-            showShareProcessSecond()
+            updateViewForNoteScreenType()
         }
 
         implementClickEvents()
@@ -333,6 +333,7 @@ class FileDetailsSharingProcessFragment :
         showFileDownloadLimitInput(binding.shareProcessSetDownloadLimitSwitch.isChecked)
     }
 
+    // region ViewUpdates
     private fun updateViewForShareType() {
         when (shareType) {
             ShareType.EMAIL -> {
@@ -384,20 +385,19 @@ class FileDetailsSharingProcessFragment :
         }
     }
 
-    /**
-     * update views where share type external or link share
-     */
     private fun updateViewForExternalAndLinkShare() {
-        binding.shareProcessHideDownloadCheckbox.visibility = View.VISIBLE
-        binding.shareProcessAllowResharingCheckbox.visibility = View.GONE
-        binding.shareProcessSetPasswordSwitch.visibility = View.VISIBLE
+        binding.run {
+            shareProcessHideDownloadCheckbox.visibility = View.VISIBLE
+            shareProcessAllowResharingCheckbox.visibility = View.GONE
+            shareProcessSetPasswordSwitch.visibility = View.VISIBLE
 
-        if (share != null) {
-            if (SharingMenuHelper.isFileDrop(share)) {
-                binding.shareProcessHideDownloadCheckbox.visibility = View.GONE
-            } else {
-                binding.shareProcessHideDownloadCheckbox.visibility = View.VISIBLE
-                binding.shareProcessHideDownloadCheckbox.isChecked = share?.isHideFileDownload == true
+            if (share != null) {
+                if (SharingMenuHelper.isFileDrop(share)) {
+                    shareProcessHideDownloadCheckbox.visibility = View.GONE
+                } else {
+                    shareProcessHideDownloadCheckbox.visibility = View.VISIBLE
+                    shareProcessHideDownloadCheckbox.isChecked = share?.isHideFileDownload == true
+                }
             }
         }
     }
@@ -432,37 +432,41 @@ class FileDetailsSharingProcessFragment :
     }
 
     private fun updateViewForFile() {
-        binding.editingRadioButton.text = getString(R.string.link_share_editing)
-        binding.fileDropRadioButton.visibility = View.GONE
+        binding.run {
+            editingRadioButton.text = getString(R.string.link_share_editing)
+            fileDropRadioButton.visibility = View.GONE
+        }
     }
 
     private fun updateViewForFolder() {
-        binding.editingRadioButton.text = getString(R.string.link_share_allow_upload_and_editing)
-        binding.fileDropRadioButton.visibility = View.VISIBLE
-        if (isSecureShare) {
-            binding.fileDropRadioButton.visibility = View.GONE
-            binding.shareProcessAllowResharingCheckbox.visibility = View.GONE
-            binding.shareProcessSetExpDateSwitch.visibility = View.GONE
+        binding.run {
+            editingRadioButton.text = getString(R.string.link_share_allow_upload_and_editing)
+            fileDropRadioButton.visibility = View.VISIBLE
+            if (isSecureShare) {
+                fileDropRadioButton.visibility = View.GONE
+                shareProcessAllowResharingCheckbox.visibility = View.GONE
+                shareProcessSetExpDateSwitch.visibility = View.GONE
+            }
         }
     }
 
-    /**
-     * update views for screen type Note
-     */
-    private fun showShareProcessSecond() {
-        binding.shareProcessGroupOne.visibility = View.GONE
-        binding.shareProcessEditShareLink.visibility = View.GONE
-        binding.shareProcessGroupTwo.visibility = View.VISIBLE
-        if (share != null) {
-            binding.shareProcessBtnNext.text = getString(R.string.set_note)
-            binding.noteText.setText(share?.note)
-        } else {
-            binding.shareProcessBtnNext.text = getString(R.string.send_share)
-            binding.noteText.setText(R.string.empty)
+    private fun updateViewForNoteScreenType() {
+        binding.run {
+            shareProcessGroupOne.visibility = View.GONE
+            shareProcessEditShareLink.visibility = View.GONE
+            shareProcessGroupTwo.visibility = View.VISIBLE
+            if (share != null) {
+                shareProcessBtnNext.text = getString(R.string.set_note)
+                noteText.setText(share?.note)
+            } else {
+                shareProcessBtnNext.text = getString(R.string.send_share)
+                noteText.setText(R.string.empty)
+            }
+            shareProcessStep = SCREEN_TYPE_NOTE
+            shareProcessBtnNext.performClick()
         }
-        shareProcessStep = SCREEN_TYPE_NOTE
-        binding.shareProcessBtnNext.performClick()
     }
+    // endregion
 
     @Suppress("LongMethod")
     private fun implementClickEvents() {
@@ -474,7 +478,7 @@ class FileDetailsSharingProcessFragment :
                 if (shareProcessStep == SCREEN_TYPE_PERMISSION) {
                     validateShareProcessFirst()
                 } else {
-                    validateShareProcessSecond()
+                    createOrUpdateShare()
                 }
             }
             shareProcessSetPasswordSwitch.setOnCheckedChangeListener { _, isChecked ->
@@ -694,8 +698,19 @@ class FileDetailsSharingProcessFragment :
             removeCurrentFragment()
         } else {
             // else show step 2 (note screen)
-            showShareProcessSecond()
+            updateViewForNoteScreenType()
         }
+    }
+
+    private fun createOrUpdateShare() {
+        val noteText = binding.noteText.text.toString().trim()
+        // if modifying existing share then directly update the note and send email
+        if (share != null && share?.note != noteText) {
+            fileOperationsHelper?.updateNoteToShare(share, noteText)
+        } else {
+            createShare(noteText)
+        }
+        removeCurrentFragment()
     }
 
     private fun updateShare() {
@@ -726,31 +741,19 @@ class FileDetailsSharingProcessFragment :
         }
     }
 
-    /**
-     * method to validate step 2 (note screen) information
-     */
-    private fun validateShareProcessSecond() {
-        val noteText = binding.noteText.text.toString().trim()
-        // if modifying existing share then directly update the note and send email
-        if (share != null && share?.note != noteText) {
-            fileOperationsHelper?.updateNoteToShare(share, noteText)
-        } else {
-            // else create new share
-            fileOperationsHelper?.shareFileWithSharee(
-                file,
-                shareeName,
-                shareType,
-                permission,
-                binding
-                    .shareProcessHideDownloadCheckbox.isChecked,
-                binding.shareProcessEnterPassword.text.toString().trim(),
-                chosenExpDateInMills,
-                noteText,
-                binding.shareProcessChangeName.text.toString().trim(),
-                true
-            )
-        }
-        removeCurrentFragment()
+    private fun createShare(noteText: String) {
+        fileOperationsHelper?.shareFileWithSharee(
+            file,
+            shareeName,
+            shareType,
+            permission,
+            binding.shareProcessHideDownloadCheckbox.isChecked,
+            binding.shareProcessEnterPassword.text.toString().trim(),
+            chosenExpDateInMills,
+            noteText,
+            binding.shareProcessChangeName.text.toString().trim(),
+            true
+        )
     }
 
     /**
