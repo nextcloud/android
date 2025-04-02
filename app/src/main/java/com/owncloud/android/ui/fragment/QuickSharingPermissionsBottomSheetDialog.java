@@ -82,6 +82,12 @@ public class QuickSharingPermissionsBottomSheetDialog extends BottomSheetDialog 
             quickPermissionModelList,
             new QuickSharingPermissionsAdapter.QuickSharingPermissionViewHolder.OnPermissionChangeListener() {
                 @Override
+                public void onCustomPermissionSelected() {
+                    dismiss();
+                    actions.openShareDetail(ocShare);
+                }
+
+                @Override
                 public void onPermissionChanged(int position) {
                     handlePermissionChanged(quickPermissionModelList, position);
                 }
@@ -114,10 +120,6 @@ public class QuickSharingPermissionsBottomSheetDialog extends BottomSheetDialog 
             permissionFlag = READ_PERMISSION_FLAG;
         } else if (permissionName.equalsIgnoreCase(res.getString(R.string.link_share_file_drop))) {
             permissionFlag = CREATE_PERMISSION_FLAG + READ_PERMISSION_FLAG;
-        } else if (permissionName.equalsIgnoreCase(res.getString(R.string.share_custom_permission))) {
-            dismiss();
-            actions.openShareDetail(ocShare);
-            return;
         }
 
         actions.onQuickPermissionChanged(ocShare, permissionFlag);
