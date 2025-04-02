@@ -13,7 +13,7 @@ import com.owncloud.android.ui.fragment.FileDetailsSharingProcessFragment.Compan
 
 class SharePermissionManager {
 
-    fun togglePermission(permission: Int, permissionFlag: Int): Int {
+    fun togglePermission(isChecked: Boolean, permission: Int, permissionFlag: Int): Int {
         Log_OC.d(TAG, "togglePermission before: $permission")
 
         if (!isPermissionValid(permission)) {
@@ -21,10 +21,10 @@ class SharePermissionManager {
             return permission
         }
 
-        val result = if (hasPermission(permission, permissionFlag)) {
-            permission and permissionFlag.inv()
-        } else {
+        val result = if (isChecked) {
             permission or permissionFlag
+        } else {
+            permission and permissionFlag.inv()
         }
 
         Log_OC.d(TAG, "togglePermission after: $result")
