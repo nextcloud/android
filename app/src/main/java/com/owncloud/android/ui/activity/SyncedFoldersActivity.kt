@@ -53,6 +53,7 @@ import com.owncloud.android.files.services.NameCollisionPolicy
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.ui.adapter.SyncedFolderAdapter
 import com.owncloud.android.ui.decoration.MediaGridItemDecoration
+import com.owncloud.android.ui.dialog.ConfirmationDialogFragment
 import com.owncloud.android.ui.dialog.SyncedFolderPreferencesDialogFragment
 import com.owncloud.android.ui.dialog.SyncedFolderPreferencesDialogFragment.OnSyncedFolderPreferenceListener
 import com.owncloud.android.ui.dialog.parcel.SyncedFolderParcelable
@@ -77,6 +78,7 @@ class SyncedFoldersActivity :
 
     companion object {
         private const val SYNCED_FOLDER_PREFERENCES_DIALOG_TAG = "SYNCED_FOLDER_PREFERENCES_DIALOG"
+        private const val SUB_FOLDER_WARNING_DIALOG_TAG = "SUB_FOLDER_WARNING_DIALOG_TAG"
 
         // yes, there is a typo in this value
         private const val KEY_SYNCED_FOLDER_INITIATED_PREFIX = "syncedFolderIntitiated_"
@@ -274,6 +276,7 @@ class SyncedFoldersActivity :
         if (adapter.itemCount > 0 && !force) {
             return
         }
+
         showLoadingContent()
         lifecycleScope.launch(Dispatchers.IO) {
             val mediaFolders = MediaProvider.getImageFolders(
@@ -292,19 +295,23 @@ class SyncedFoldersActivity :
                     viewThemeUtils
                 )
             )
+
             val syncedFolderArrayList = syncedFolderProvider.syncedFolders
             val currentAccountSyncedFoldersList: MutableList<SyncedFolder> = ArrayList()
             val user = userAccountManager.user
             for (syncedFolder in syncedFolderArrayList) {
                 if (syncedFolder.account == user.accountName) {
+                    val folder = File(syncedFolder.localPath)
+
                     // delete non-existing & disabled synced folders
-                    if (!File(syncedFolder.localPath).exists() && !syncedFolder.isEnabled) {
+                    if (!folder.exists() && !syncedFolder.isEnabled) {
                         syncedFolderProvider.deleteSyncedFolder(syncedFolder.id)
                     } else {
                         currentAccountSyncedFoldersList.add(syncedFolder)
                     }
                 }
             }
+
             val syncFolderItems = sortSyncedFolderItems(
                 mergeFolderData(currentAccountSyncedFoldersList, mediaFolders)
             ).filterNotNull()
@@ -706,6 +713,22 @@ class SyncedFoldersActivity :
         dialogFragment = null
         if (syncedFolder.isEnabled) {
             showBatteryOptimizationInfo()
+        }
+    }
+
+    override fun showSubFolderWarningDialog() {
+        val dialog = ConfirmationDialogFragment.newInstance(
+            messageResId = R.string.auto_upload_sub_folder_warning,
+            messageArguments = null,
+            titleResId = R.string.sync_duplication,
+            titleIconId = R.drawable.ic_info,
+            positiveButtonTextId = R.string.dialog_close,
+            negativeButtonTextId = -1,
+            neutralButtonTextId = -1
+        )
+
+        if (isDialogFragmentReady(dialog)) {
+            dialog.show(supportFragmentManager, SUB_FOLDER_WARNING_DIALOG_TAG)
         }
     }
 
