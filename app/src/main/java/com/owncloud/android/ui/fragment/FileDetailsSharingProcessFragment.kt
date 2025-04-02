@@ -461,6 +461,7 @@ class FileDetailsSharingProcessFragment :
             binding.noteText.setText(R.string.empty)
         }
         shareProcessStep = SCREEN_TYPE_NOTE
+        binding.shareProcessBtnNext.performClick()
     }
 
     @Suppress("LongMethod")
