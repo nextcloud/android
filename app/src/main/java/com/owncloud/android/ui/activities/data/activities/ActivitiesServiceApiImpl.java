@@ -1,6 +1,7 @@
 /*
  * Nextcloud - Android Client
  *
+ * SPDX-FileCopyrightText: 2025 Alper Ozturk <alper.ozturk@nextcloud.com>
  * SPDX-FileCopyrightText: 2019 Chris Narkiewicz <hello@ezaquarii.com>
  * SPDX-FileCopyrightText: 2018 Edvard Holst <edvard.holst@gmail.com>
  * SPDX-FileCopyrightText: 2025 TSI-mc <surinder.kumar@t-systems.com>
@@ -43,7 +44,7 @@ public class ActivitiesServiceApiImpl implements ActivitiesServiceApi {
     }
 
     @Override
-    public void getAllActivities(int lastGiven, ActivitiesServiceCallback<List<Object>> callback) {
+    public void getAllActivities(long lastGiven, ActivitiesServiceCallback<List<Object>> callback) {
         GetActivityListTask getActivityListTask = new GetActivityListTask(accountManager.getUser(),
                                                                           lastGiven,
                                                                           callback);
@@ -55,12 +56,12 @@ public class ActivitiesServiceApiImpl implements ActivitiesServiceApi {
         private final ActivitiesServiceCallback<List<Object>> callback;
         private List<Object> activities;
         private final User user;
-        private int lastGiven;
+        private long lastGiven;
         private String errorMessage;
         private NextcloudClient client;
 
         private GetActivityListTask(User user,
-                                    int lastGiven,
+                                    long lastGiven,
                                     ActivitiesServiceCallback<List<Object>> callback) {
             this.user = user;
             this.lastGiven = lastGiven;
@@ -90,7 +91,7 @@ public class ActivitiesServiceApiImpl implements ActivitiesServiceApi {
                     final ArrayList<Object> data = result.getData();
                     activities = (ArrayList) data.get(0);
 
-                    lastGiven = (int) data.get(1);
+                    lastGiven = (long) data.get(1);
                     return Boolean.TRUE;
                 } else {
                     Log_OC.d(TAG, result.getLogMessage());

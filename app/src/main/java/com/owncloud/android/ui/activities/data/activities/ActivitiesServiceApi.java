@@ -19,10 +19,10 @@ import java.util.List;
 public interface ActivitiesServiceApi {
 
     interface ActivitiesServiceCallback<T> {
-        void onLoaded(T activities, NextcloudClient client, int lastGiven);
+        void onLoaded(T activities, NextcloudClient client, long lastGiven);
         void onError (String error);
     }
 
-    void getAllActivities(int lastGiven, ActivitiesServiceApi.ActivitiesServiceCallback<List<Object>> callback);
+    void getAllActivities(long lastGiven, ActivitiesServiceApi.ActivitiesServiceCallback<List<Object>> callback);
 
 }
