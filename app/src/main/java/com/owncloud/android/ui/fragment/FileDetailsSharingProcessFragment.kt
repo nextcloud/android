@@ -27,7 +27,6 @@ import com.owncloud.android.R
 import com.owncloud.android.databinding.FileDetailsSharingProcessFragmentBinding
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.lib.resources.shares.OCShare
-import com.owncloud.android.lib.resources.shares.SharePermissionsBuilder
 import com.owncloud.android.lib.resources.shares.ShareType
 import com.owncloud.android.lib.resources.status.OCCapability
 import com.owncloud.android.ui.activity.FileActivity
@@ -175,7 +174,7 @@ class FileDetailsSharingProcessFragment :
 
         fileActivity = activity as FileActivity?
         capabilities = CapabilityUtils.getCapability(context)
-        permission = getMaximumPermission()
+        permission = sharePermissionManager.getMaximumPermission(isFolder())
 
         requireNotNull(fileActivity) { "FileActivity may not be null" }
 
@@ -202,14 +201,6 @@ class FileDetailsSharingProcessFragment :
     }
 
     private fun isFolder(): Boolean = file?.isFolder == true || share?.isFolder == true
-
-    private fun getMaximumPermission(): Int {
-        return if (isFolder()) {
-            OCShare.MAXIMUM_PERMISSIONS_FOR_FOLDER
-        } else {
-            OCShare.MAXIMUM_PERMISSIONS_FOR_FILE
-        }
-    }
 
     private fun themeView() {
         viewThemeUtils.platform.run {
@@ -512,7 +503,7 @@ class FileDetailsSharingProcessFragment :
 
                         R.id.editing_radio_button -> {
                             customPermissionLayout.visibility = View.GONE
-                            permission = getMaximumPermission()
+                            permission = sharePermissionManager.getMaximumPermission(isFolder())
                         }
 
                         R.id.file_drop_radio_button -> {
@@ -582,7 +573,7 @@ class FileDetailsSharingProcessFragment :
             }
 
             shareProcessAllowResharingCheckbox.setOnCheckedChangeListener { _, isChecked ->
-                togglePermission(getReSharePermission())
+                permission = sharePermissionManager.getReSharePermission()
             }
 
             shareCheckbox.setOnCheckedChangeListener { _, isChecked ->
@@ -663,12 +654,6 @@ class FileDetailsSharingProcessFragment :
     private fun removeCurrentFragment() {
         onEditShareListener.onShareProcessClosed()
         fileActivity?.supportFragmentManager?.beginTransaction()?.remove(this)?.commit()
-    }
-
-    private fun getReSharePermission(): Int {
-        return SharePermissionsBuilder().apply {
-            setSharePermission(true)
-        }.build()
     }
 
     /**
