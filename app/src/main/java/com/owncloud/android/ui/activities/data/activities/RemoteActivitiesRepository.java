@@ -22,11 +22,11 @@ public class RemoteActivitiesRepository implements ActivitiesRepository {
 
 
     @Override
-    public void getActivities(int lastGiven, @NonNull LoadActivitiesCallback callback) {
+    public void getActivities(long lastGiven, @NonNull LoadActivitiesCallback callback) {
         activitiesServiceApi.getAllActivities(lastGiven,
                                               new ActivitiesServiceApi.ActivitiesServiceCallback<List<Object>>() {
             @Override
-            public void onLoaded(List<Object> activities, NextcloudClient client, int lastGiven) {
+            public void onLoaded(List<Object> activities, NextcloudClient client, long lastGiven) {
                 callback.onActivitiesLoaded(activities, client, lastGiven);
             }
 

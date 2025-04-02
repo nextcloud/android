@@ -50,7 +50,7 @@ public class ActivitiesActivity extends DrawerActivity implements ActivityListIn
 
     ActivityListLayoutBinding binding;
     private ActivityListAdapter adapter;
-    private int lastGiven;
+    private long lastGiven;
     private boolean isLoadingActivities;
     private ActivitiesContract.ActionListener actionListener;
     private Snackbar snackbar;
@@ -162,7 +162,7 @@ public class ActivitiesActivity extends DrawerActivity implements ActivityListIn
     }
 
     @Override
-    public void showActivities(List<Object> activities, NextcloudClient client, int lastGiven) {
+    public void showActivities(List<Object> activities, NextcloudClient client, long lastGiven) {
         boolean clear = false;
         if (this.lastGiven == ActivitiesContract.ActionListener.UNDEFINED) {
             clear = true;
