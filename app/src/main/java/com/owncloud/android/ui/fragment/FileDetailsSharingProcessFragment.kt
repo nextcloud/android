@@ -174,7 +174,7 @@ class FileDetailsSharingProcessFragment :
 
         fileActivity = activity as FileActivity?
         capabilities = CapabilityUtils.getCapability(context)
-        permission = sharePermissionManager.getMaximumPermission(isFolder())
+        permission = share?.permissions ?: sharePermissionManager.getMaximumPermission(isFolder())
 
         requireNotNull(fileActivity) { "FileActivity may not be null" }
 
