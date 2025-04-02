@@ -16,6 +16,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.nextcloud.android.common.ui.theme.utils.ColorRole
 import com.nextcloud.utils.extensions.setVisibleIf
+import com.owncloud.android.R
 import com.owncloud.android.databinding.ItemQuickSharePermissionsBinding
 import com.owncloud.android.datamodel.QuickPermissionModel
 import com.owncloud.android.utils.theme.ViewThemeUtils
@@ -57,9 +58,15 @@ class QuickSharingPermissionsAdapter(
                 }
             }
 
+            val customPermissionName = itemView.context.getString(R.string.share_custom_permission)
+            val permissionName = quickPermissionModel.permissionName
+            val isCustomPermission = permissionName.equals(customPermissionName, ignoreCase = true)
+
             itemView.setOnClickListener {
-                // if user select different options then only update the permission
-                if (!quickPermissionModel.isSelected) {
+                if (isCustomPermission) {
+                    onPermissionChangeListener.onCustomPermissionSelected()
+                } else if (!quickPermissionModel.isSelected) {
+                    // if user select different options then only update the permission
                     onPermissionChangeListener.onPermissionChanged(absoluteAdapterPosition)
                 } else {
                     // dismiss sheet on selection of same permission
@@ -70,6 +77,7 @@ class QuickSharingPermissionsAdapter(
 
         interface OnPermissionChangeListener {
             fun onPermissionChanged(position: Int)
+            fun onCustomPermissionSelected()
             fun onDismissSheet()
         }
     }
