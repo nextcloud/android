@@ -175,7 +175,7 @@ class FileDetailsSharingProcessFragment :
 
         fileActivity = activity as FileActivity?
         capabilities = CapabilityUtils.getCapability(context)
-        setInitialPermission()
+        permission = getMaximumPermission()
 
         requireNotNull(fileActivity) { "FileActivity may not be null" }
 
@@ -203,14 +203,12 @@ class FileDetailsSharingProcessFragment :
 
     private fun isFolder(): Boolean = file?.isFolder == true || share?.isFolder == true
 
-    private fun setInitialPermission() {
-        val permissionFlag = if (isFolder()) {
+    private fun getMaximumPermission(): Int {
+        return if (isFolder()) {
             OCShare.MAXIMUM_PERMISSIONS_FOR_FOLDER
         } else {
             OCShare.MAXIMUM_PERMISSIONS_FOR_FILE
         }
-
-        permission = permissionFlag
     }
 
     private fun themeView() {
@@ -509,23 +507,16 @@ class FileDetailsSharingProcessFragment :
                     when (optionId) {
                         R.id.view_only_radio_button -> {
                             customPermissionLayout.visibility = View.GONE
-                            togglePermission(OCShare.READ_PERMISSION_FLAG)
+                            permission = OCShare.READ_PERMISSION_FLAG
                         }
 
                         R.id.editing_radio_button -> {
                             customPermissionLayout.visibility = View.GONE
-
-                            val permissionFlag = if (isFolder()) {
-                                OCShare.MAXIMUM_PERMISSIONS_FOR_FOLDER
-                            } else {
-                                OCShare.MAXIMUM_PERMISSIONS_FOR_FILE
-                            }
-
-                            togglePermission(permissionFlag)
+                            permission = getMaximumPermission()
                         }
 
                         R.id.file_drop_radio_button -> {
-                            togglePermission(OCShare.CREATE_PERMISSION_FLAG)
+                            permission = OCShare.CREATE_PERMISSION_FLAG
                         }
 
                         R.id.custom_permission_radio_button -> {
