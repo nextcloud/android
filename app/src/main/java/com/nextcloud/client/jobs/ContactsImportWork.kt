@@ -119,6 +119,7 @@ class ContactsImportWork(
             logger.e(TAG, "Error closing vCard stream", e)
         }
 
+        Log_OC.d(TAG, "ContractsImportWork successfully completed")
         selectedContactsFile.delete()
         return Result.success()
     }
