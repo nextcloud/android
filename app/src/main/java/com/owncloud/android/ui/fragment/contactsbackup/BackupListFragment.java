@@ -54,6 +54,7 @@ import org.greenrobot.eventbus.ThreadMode;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -385,7 +386,7 @@ public class BackupListFragment extends FileFragment implements Injectable {
 
             // Write data to file
             try (FileOutputStream fos = new FileOutputStream(file)) {
-                fos.write(data.getBytes());
+                fos.write(data.getBytes(StandardCharsets.UTF_8));
             }
 
             return file.getAbsolutePath();
