@@ -174,9 +174,9 @@ class FileDetailsSharingProcessFragment :
 
         requireNotNull(fileActivity) { "FileActivity may not be null" }
 
-        permission = share?.permissions ?:
-        capabilities.defaultPermissions ?:
-        sharePermissionManager.getMaximumPermission(isFolder())
+        permission = share?.permissions
+            ?: capabilities.defaultPermissions
+            ?: sharePermissionManager.getMaximumPermission(isFolder())
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
@@ -490,26 +490,24 @@ class FileDetailsSharingProcessFragment :
 
             // region RadioButtons
             shareProcessPermissionRadioGroup.setOnCheckedChangeListener { radioGroup, optionId ->
-                run {
-                    when (optionId) {
-                        R.id.view_only_radio_button -> {
-                            customPermissionLayout.visibility = View.GONE
-                            permission = OCShare.READ_PERMISSION_FLAG
-                        }
+                when (optionId) {
+                    R.id.view_only_radio_button -> {
+                        customPermissionLayout.visibility = View.GONE
+                        permission = OCShare.READ_PERMISSION_FLAG
+                    }
 
-                        R.id.editing_radio_button -> {
-                            customPermissionLayout.visibility = View.GONE
-                            permission = sharePermissionManager.getMaximumPermission(isFolder())
-                        }
+                    R.id.editing_radio_button -> {
+                        customPermissionLayout.visibility = View.GONE
+                        permission = sharePermissionManager.getMaximumPermission(isFolder())
+                    }
 
-                        R.id.file_drop_radio_button -> {
-                            permission = OCShare.CREATE_PERMISSION_FLAG
-                        }
+                    R.id.file_drop_radio_button -> {
+                        permission = OCShare.CREATE_PERMISSION_FLAG
+                    }
 
-                        R.id.custom_permission_radio_button -> {
-                            val isChecked = customPermissionRadioButton.isChecked
-                            customPermissionLayout.setVisibilityWithAnimation(isChecked)
-                        }
+                    R.id.custom_permission_radio_button -> {
+                        val isChecked = customPermissionRadioButton.isChecked
+                        customPermissionLayout.setVisibilityWithAnimation(isChecked)
                     }
                 }
             }
@@ -525,56 +523,40 @@ class FileDetailsSharingProcessFragment :
         val currentPermissions = share?.permissions ?: permission
 
         binding.run {
-            if (isFolder()) {
-                // Only for the folder makes sense to have create permission
-                // so that user can create files in the shared folder
-                shareCreateCheckbox.isChecked =
-                    sharePermissionManager.hasPermission(currentPermissions, OCShare.CREATE_PERMISSION_FLAG)
-            } else {
-                shareCreateCheckbox.visibility = View.GONE
+            sharePermissionManager.run {
+                shareReadCheckbox.isChecked = hasPermission(currentPermissions, OCShare.READ_PERMISSION_FLAG)
+                shareEditCheckbox.isChecked = hasPermission(currentPermissions, OCShare.UPDATE_PERMISSION_FLAG)
+                shareCheckbox.isChecked = hasPermission(currentPermissions, OCShare.SHARE_PERMISSION_FLAG)
+
+                if (isFolder()) {
+                    // Only for the folder makes sense to have create permission
+                    // so that user can create files in the shared folder
+                    shareCreateCheckbox.isChecked = hasPermission(currentPermissions, OCShare.CREATE_PERMISSION_FLAG)
+                    shareDeleteCheckbox.isChecked = hasPermission(currentPermissions, OCShare.DELETE_PERMISSION_FLAG)
+                } else {
+                    shareCreateCheckbox.visibility = View.GONE
+                    shareDeleteCheckbox.apply {
+                        isChecked = false
+                        isEnabled = false
+                    }
+                }
             }
-
-            shareReadCheckbox.isChecked =
-                sharePermissionManager.hasPermission(currentPermissions, OCShare.READ_PERMISSION_FLAG)
-            shareEditCheckbox.isChecked =
-                sharePermissionManager.hasPermission(currentPermissions, OCShare.UPDATE_PERMISSION_FLAG)
-
-            if (isFolder()) {
-                shareDeleteCheckbox.isChecked =
-                    sharePermissionManager.hasPermission(currentPermissions, OCShare.DELETE_PERMISSION_FLAG)
-            } else {
-                shareDeleteCheckbox.isChecked = false
-                shareDeleteCheckbox.isEnabled = false
-            }
-
-            shareCheckbox.isChecked =
-                sharePermissionManager.hasPermission(currentPermissions, OCShare.SHARE_PERMISSION_FLAG)
         }
 
         setCheckboxesListeners()
     }
 
     private fun setCheckboxesListeners() {
-        binding.run {
-            shareReadCheckbox.setOnCheckedChangeListener { _, isChecked ->
-                togglePermission(isChecked, OCShare.READ_PERMISSION_FLAG)
-            }
+        val checkboxes = mapOf(
+            binding.shareReadCheckbox to OCShare.READ_PERMISSION_FLAG,
+            binding.shareCreateCheckbox to OCShare.CREATE_PERMISSION_FLAG,
+            binding.shareEditCheckbox to OCShare.UPDATE_PERMISSION_FLAG,
+            binding.shareCheckbox to OCShare.SHARE_PERMISSION_FLAG,
+            binding.shareDeleteCheckbox to OCShare.DELETE_PERMISSION_FLAG
+        )
 
-            shareCreateCheckbox.setOnCheckedChangeListener { _, isChecked ->
-                togglePermission(isChecked, OCShare.CREATE_PERMISSION_FLAG)
-            }
-
-            shareEditCheckbox.setOnCheckedChangeListener { _, isChecked ->
-                togglePermission(isChecked, OCShare.UPDATE_PERMISSION_FLAG)
-            }
-
-            shareCheckbox.setOnCheckedChangeListener { _, isChecked ->
-                togglePermission(isChecked, OCShare.SHARE_PERMISSION_FLAG)
-            }
-
-            shareDeleteCheckbox.setOnCheckedChangeListener { _, isChecked ->
-                togglePermission(isChecked, OCShare.DELETE_PERMISSION_FLAG)
-            }
+        checkboxes.forEach { (checkbox, flag) ->
+            checkbox.setOnCheckedChangeListener { _, isChecked -> togglePermission(isChecked, flag) }
         }
     }
 
