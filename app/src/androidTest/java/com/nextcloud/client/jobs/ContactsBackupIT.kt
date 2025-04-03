@@ -14,21 +14,24 @@ import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.client.preferences.AppPreferencesImpl
 import com.nextcloud.test.RetryTestRule
 import com.nextcloud.utils.extensions.StringConstants
-import com.owncloud.android.AbstractIT
 import com.owncloud.android.AbstractOnServerIT
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.OCFile
+import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.operations.DownloadFileOperation
 import ezvcard.Ezvcard
 import ezvcard.VCard
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Assert.fail
+import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
+import org.junit.rules.TemporaryFolder
 import java.io.BufferedInputStream
 import java.io.File
 import java.io.FileInputStream
+import java.io.IOException
 
 class ContactsBackupIT : AbstractOnServerIT() {
     private val workManager = WorkManager.getInstance(targetContext)
@@ -44,20 +47,36 @@ class ContactsBackupIT : AbstractOnServerIT() {
     @get:Rule
     val retryTestRule = RetryTestRule() // flaky test
 
+    @get:Rule
+    var folder: TemporaryFolder = TemporaryFolder()
+
     private val vcard: String = "vcard.vcf"
+    private var selectedContactsFile: File? = null
+
+    @Before
+    fun setup() {
+        try {
+            selectedContactsFile = folder.newFile("hashset_cache.txt")
+        } catch (_: IOException) {
+            Log_OC.e("ContactsBackupIT", "error creating temporary test file in ")
+        }
+    }
 
     @Test
     fun importExport() {
         val intArray = intArrayOf(0)
-        val selectedContactsFile = File(targetContext.cacheDir, "hashset_cache.txt")
-        selectedContactsFile.writeText(intArray.joinToString(StringConstants.DELIMITER))
+        if (selectedContactsFile == null) {
+            fail("hashset_cache cannot be found")
+        }
+
+        selectedContactsFile!!.writeText(intArray.joinToString(StringConstants.DELIMITER))
 
         // import file to local contacts
         backgroundJobManager.startImmediateContactsImport(
             null,
             null,
             getFile(vcard).absolutePath,
-            selectedContactsFile.absolutePath
+            selectedContactsFile!!.absolutePath
         )
         longSleep()
 
@@ -94,7 +113,7 @@ class ContactsBackupIT : AbstractOnServerIT() {
             fail("ocFile.storagePath cannot be null")
         }
 
-        assertTrue(DownloadFileOperation(user, ocFile, AbstractIT.targetContext).execute(client).isSuccess)
+        assertTrue(DownloadFileOperation(user, ocFile, targetContext).execute(client).isSuccess)
 
         val file = ocFile?.storagePath?.let { File(it) }
         if (file == null) {

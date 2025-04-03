@@ -21,13 +21,17 @@ import androidx.work.WorkManager
 import com.nextcloud.client.account.User
 import com.nextcloud.client.core.Clock
 import com.nextcloud.utils.extensions.StringConstants
+import com.owncloud.android.lib.common.utils.Log_OC
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
+import org.junit.Assert.fail
 import org.junit.Before
+import org.junit.Rule
 import org.junit.Test
+import org.junit.rules.TemporaryFolder
 import org.junit.runner.RunWith
 import org.junit.runners.Suite
 import org.mockito.ArgumentMatcher
@@ -40,6 +44,7 @@ import org.mockito.kotlin.mock
 import org.mockito.kotlin.verify
 import org.mockito.kotlin.whenever
 import java.io.File
+import java.io.IOException
 import java.util.Date
 import java.util.UUID
 import java.util.concurrent.CountDownLatch
@@ -307,21 +312,35 @@ class BackgroundJobManagerTest {
         private lateinit var jobInfo: LiveData<JobInfo?>
         private lateinit var request: OneTimeWorkRequest
 
+        @get:Rule
+        var folder: TemporaryFolder = TemporaryFolder()
+
         @Before
         fun setUp() {
+            var selectedContactsFile: File? = null
+            try {
+                selectedContactsFile = folder.newFile("hashset_cache.txt")
+            } catch (_: IOException) {
+                Log_OC.e("ImmediateContactsImport", "error creating temporary test file in ")
+                fail("hashset_cache cannot be found")
+            }
+
+            if (selectedContactsFile == null) {
+                fail("hashset_cache cannot be found")
+            }
+
             val requestCaptor: KArgumentCaptor<OneTimeWorkRequest> = argumentCaptor()
             workInfo = MutableLiveData()
             whenever(workManager.getWorkInfoByIdLiveData(any())).thenReturn(workInfo)
 
-            val file = File(context.cacheDir, "hashset_cache.txt")
             val selectedContacts = intArrayOf(1, 2, 3)
-            file.writeText(selectedContacts.joinToString(StringConstants.DELIMITER))
+            selectedContactsFile?.writeText(selectedContacts.joinToString(StringConstants.DELIMITER))
 
             jobInfo = backgroundJobManager.startImmediateContactsImport(
                 contactsAccountName = "name",
                 contactsAccountType = "type",
                 vCardFilePath = "/path/to/vcard/file",
-                selectedContactsFilePath = file.absolutePath
+                selectedContactsFilePath = selectedContactsFile!!.absolutePath
             )
             verify(workManager).enqueueUniqueWork(
                 any(),
