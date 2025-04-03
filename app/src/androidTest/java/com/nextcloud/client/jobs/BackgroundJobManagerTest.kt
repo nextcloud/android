@@ -6,6 +6,7 @@
  */
 package com.nextcloud.client.jobs
 
+import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
@@ -19,6 +20,7 @@ import androidx.work.WorkInfo
 import androidx.work.WorkManager
 import com.nextcloud.client.account.User
 import com.nextcloud.client.core.Clock
+import com.nextcloud.utils.extensions.StringConstants
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNotNull
@@ -37,6 +39,7 @@ import org.mockito.kotlin.eq
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.verify
 import org.mockito.kotlin.whenever
+import java.io.File
 import java.util.Date
 import java.util.UUID
 import java.util.concurrent.CountDownLatch
@@ -82,9 +85,11 @@ class BackgroundJobManagerTest {
         internal lateinit var workManager: WorkManager
         internal lateinit var clock: Clock
         internal lateinit var backgroundJobManager: BackgroundJobManagerImpl
+        internal lateinit var context: Context
 
         @Before
         fun setUpFixture() {
+            context = mock()
             user = mock()
             whenever(user.accountName).thenReturn(USER_ACCOUNT_NAME)
             workManager = mock()
@@ -307,11 +312,16 @@ class BackgroundJobManagerTest {
             val requestCaptor: KArgumentCaptor<OneTimeWorkRequest> = argumentCaptor()
             workInfo = MutableLiveData()
             whenever(workManager.getWorkInfoByIdLiveData(any())).thenReturn(workInfo)
+
+            val file = File(context.cacheDir, "hashset_cache.txt")
+            val selectedContacts = intArrayOf(1, 2, 3)
+            file.writeText(selectedContacts.joinToString(StringConstants.DELIMITER))
+
             jobInfo = backgroundJobManager.startImmediateContactsImport(
                 contactsAccountName = "name",
                 contactsAccountType = "type",
                 vCardFilePath = "/path/to/vcard/file",
-                selectedContacts = intArrayOf(1, 2, 3)
+                selectedContactsFilePath = file.absolutePath
             )
             verify(workManager).enqueueUniqueWork(
                 any(),

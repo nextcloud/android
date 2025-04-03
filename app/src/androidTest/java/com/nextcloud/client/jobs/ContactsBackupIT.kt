@@ -13,6 +13,7 @@ import com.nextcloud.client.core.ClockImpl
 import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.client.preferences.AppPreferencesImpl
 import com.nextcloud.test.RetryTestRule
+import com.nextcloud.utils.extensions.StringConstants
 import com.owncloud.android.AbstractIT
 import com.owncloud.android.AbstractOnServerIT
 import com.owncloud.android.R
@@ -48,9 +49,16 @@ class ContactsBackupIT : AbstractOnServerIT() {
     @Test
     fun importExport() {
         val intArray = intArrayOf(0)
+        val selectedContactsFile = File(targetContext.cacheDir, "hashset_cache.txt")
+        selectedContactsFile.writeText(intArray.joinToString(StringConstants.DELIMITER))
 
         // import file to local contacts
-        backgroundJobManager.startImmediateContactsImport(null, null, getFile(vcard).absolutePath, intArray)
+        backgroundJobManager.startImmediateContactsImport(
+            null,
+            null,
+            getFile(vcard).absolutePath,
+            selectedContactsFile.absolutePath
+        )
         longSleep()
 
         // export contact

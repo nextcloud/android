@@ -10,6 +10,8 @@ package com.owncloud.android.ui.fragment.contactsbackup;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.view.LayoutInflater;
@@ -32,9 +34,11 @@ import com.nextcloud.client.jobs.transfer.TransferManagerConnection;
 import com.nextcloud.client.jobs.transfer.TransferState;
 import com.nextcloud.client.network.ClientFactory;
 import com.nextcloud.utils.extensions.BundleExtensionsKt;
+import com.nextcloud.utils.extensions.StringConstants;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.BackuplistFragmentBinding;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.activity.ContactsPreferenceActivity;
 import com.owncloud.android.ui.asynctasks.LoadContactsTask;
 import com.owncloud.android.ui.events.VCardToggleEvent;
@@ -47,7 +51,12 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -336,20 +345,54 @@ public class BackupListFragment extends FileFragment implements Injectable {
     }
 
     private void importContacts(ContactsAccount account) {
+        final var selectedContractsFilePath = writeCheckedContractsInCacheDir(account);
+        if (selectedContractsFilePath == null) {
+            Snackbar.make(binding.list, R.string.contacts_preferences_import_scheduled_fail, Snackbar.LENGTH_LONG).show();
+            return;
+        }
+
         backgroundJobManager.startImmediateContactsImport(account.getName(),
                                                           account.getType(),
                                                           getFile().getStoragePath(),
-                                                          listAdapter.getCheckedContactsIntArray());
+                                                          selectedContractsFilePath);
 
-        Snackbar
-            .make(
-                binding.list,
-                R.string.contacts_preferences_import_scheduled,
-                Snackbar.LENGTH_LONG
-                 )
-            .show();
-
+        Snackbar.make(binding.list, R.string.contacts_preferences_import_scheduled, Snackbar.LENGTH_LONG).show();
         closeFragment();
+    }
+
+
+    /**
+     * Writes a HashSet of integers to a temporary file in the app's cache directory.
+     * The file stores the data as a comma-separated string. This is necessary because
+     * WorkManager cannot handle large data directly due to its size limit.
+     *
+     * @return the absolute file path of the temporary cache file
+     */
+    private String writeCheckedContractsInCacheDir(ContactsAccount account) {
+        try {
+            final var filename = account.getName() + getFile().getStoragePath() + "selectedContacts" + System.currentTimeMillis();
+            File file = new File(requireContext().getCacheDir(), filename + ".txt");
+
+            final var contracts = listAdapter.getCheckedContactsIntArray();
+            String data = String.join(StringConstants.DELIMITER, Arrays.toString(contracts));
+
+            if (!file.exists()) {
+                boolean success = file.createNewFile();
+                if (success) {
+                    Log_OC.d(TAG, "writeCheckedContractsInCacheDir: temp file successfully created");
+                }
+            }
+
+            // Write data to file
+            try (FileOutputStream fos = new FileOutputStream(file)) {
+                fos.write(data.getBytes());
+            }
+
+            return file.getAbsolutePath();
+        } catch (Exception e) {
+            Log_OC.e(TAG, "Exception writeCheckedContractsInCacheDir: " + e);
+            return null;
+        }
     }
 
     private void importCalendar() {
