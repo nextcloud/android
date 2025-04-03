@@ -75,12 +75,12 @@ public final class SharingMenuHelper {
             return res.getString(R.string.share_permission_can_edit);
         } else if (SharingMenuHelper.isReadOnly(share)) {
             return res.getString(R.string.share_permission_view_only);
+        } else if (sharePermissionManager.isCustomPermission(share)) {
+            return res.getString(R.string.share_custom_permission);
         } else if (SharingMenuHelper.isSecureFileDrop(share)) {
             return res.getString(R.string.share_permission_secure_file_drop);
         } else if (SharingMenuHelper.isFileDrop(share)) {
             return res.getString(R.string.share_permission_file_drop);
-        } else if (sharePermissionManager.isCustomPermission(share)) {
-            return res.getString(R.string.share_custom_permission);
         }
 
         return null;
