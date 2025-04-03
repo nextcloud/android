@@ -1,11 +1,8 @@
 /*
- * Nextcloud Android client application
+ * Nextcloud - Android Client
  *
- * @author TSI-mc
- * Copyright (C) 2021 TSI-mc
- * Copyright (C) 2021 Nextcloud GmbH
- *
- * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
+ * SPDX-FileCopyrightText: 2025 Alper Ozturk <alper.ozturk@nextcloud.com>
+ * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
 package com.owncloud.android.ui.fragment
