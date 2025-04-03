@@ -47,6 +47,7 @@ import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.PermissionUtil;
 import com.owncloud.android.utils.theme.ViewThemeUtils;
 
+import org.apache.commons.io.FileUtils;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -385,9 +386,7 @@ public class BackupListFragment extends FileFragment implements Injectable {
             }
 
             // Write data to file
-            try (FileOutputStream fos = new FileOutputStream(file)) {
-                fos.write(data.getBytes(StandardCharsets.UTF_8));
-            }
+            FileUtils.writeByteArrayToFile(file, data.getBytes(StandardCharsets.UTF_8));
 
             return file.getAbsolutePath();
         } catch (Exception e) {
