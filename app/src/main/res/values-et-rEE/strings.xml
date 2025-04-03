@@ -170,6 +170,7 @@
     <string name="confirmation_remove_folder_alert">Oled sa kindel, et soovid %1$s ja selle sisu kustutada?</string>
     <string name="confirmation_remove_folders_alert">Oled sa kindel, et soovid valitud objektid ja nende sisud kustutada?</string>
     <string name="confirmation_remove_local">Ainult kohalik</string>
+    <string name="conflict_folder_headline">Kaustakonflikt</string>
     <string name="conflict_local_file">Kohalik fail</string>
     <string name="conflict_message_description">Kui valid mõlemad versioonid, siis lisatakse kohaliku faili nimele number.</string>
     <string name="conflict_server_file">Serveri fail</string>
@@ -266,6 +267,7 @@
     <string name="end_to_end_encryption_confirm_button">Võta krüptimine kasutusele</string>
     <string name="end_to_end_encryption_decrypting">Dekrüptime…</string>
     <string name="end_to_end_encryption_dialog_close">Sulge</string>
+    <string name="end_to_end_encryption_enter_passphrase_to_access_files">Ligipääsuks oma failidele sisesta oma salafraas</string>
     <string name="end_to_end_encryption_keywords_description">Kõik 12 sõna kokku annavad tulemuseks väga tugeva salasõna, mille alusel vaid sina saad oma krüptitud faile kasutada ja näha. Palun märgi see üles ning hoia turvaliselt kas moodsas digitaalses salasõnalaekas või vana kooli seifis.</string>
     <string name="end_to_end_encryption_not_enabled">Läbiva krüptimise rakendus on serveris väljalülitatud.</string>
     <string name="end_to_end_encryption_passphrase_title">Palun märgi see 12-sõnaline krüptimise salasõna üles</string>
@@ -334,6 +336,7 @@
     <string name="filename_forbidden_characters">Keelatud sümbolid:  / \\ &lt; &gt; : \" | ? *</string>
     <string name="filename_forbidden_charaters_from_server">Faili nimes on vähemalt üks keelatud märk</string>
     <string name="filename_hint">Failinimi</string>
+    <string name="folder_best_viewed_in">Kausta on kõige parem vaadata siin: %1$s.</string>
     <string name="folder_confirm_create">Loo</string>
     <string name="folder_list_empty_headline">Siin ei ole kaustu</string>
     <string name="folder_picker_choose_button_text">Vali</string>
@@ -410,6 +413,7 @@
     <string name="new_media_folder_photos">photo</string>
     <string name="new_media_folder_videos">video</string>
     <string name="new_notification">Uus teavitus</string>
+    <string name="notification_channel_background_operations_name">Toimingud taustal</string>
     <string name="notification_channel_download_name_short">Allalaadimised</string>
     <string name="notification_channel_push_description">Näita serveri saadetud tõuketeavitusi: mainimised kommentaarides, uute kaugkaustade vastuvõtmine, peakasutaja postitused, jmt.</string>
     <string name="notification_channel_push_name">Tõuketeavitused</string>
@@ -422,7 +426,9 @@
     <string name="oc_file_list_adapter_offline_operation_description_text">Ootel tegevus</string>
     <string name="oc_file_list_adapter_offline_operation_remove_description_text">Ootel eemaldamine</string>
     <string name="offline_mode">Internetiühendus puudub</string>
+    <string name="offline_mode_info_title">Sa pole võrgus, aga töö jätkub</string>
     <string name="offline_operations_file_does_not_exists_yet">Faili pole veel olemas. Esmalt palun laadi fail üles.</string>
+    <string name="offline_operations_worker_notification_conflict_text">Konfliktis oleva kaust: %s</string>
     <string name="offline_operations_worker_notification_delete_offline_folder">Kustuta vallaskaust</string>
     <string name="offline_operations_worker_notification_error_text">Vallasrežiimis tegevust ei õnnestu lõpetada. %s</string>
     <string name="offline_operations_worker_notification_manager_ticker">Vallasrežiimis tegevused</string>
@@ -523,6 +529,8 @@
     <string name="select_all">Vali kõik</string>
     <string name="select_template">Vali mall</string>
     <string name="send">Saada</string>
+    <string name="send_share">Saada jaosmeediat</string>
+    <string name="set_note">Lisa märge</string>
     <string name="set_picture_as">Kasuta pilti kui</string>
     <string name="set_status">Määra staatus</string>
     <string name="set_status_message">Sea staatuse sõnum</string>

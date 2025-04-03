@@ -16,7 +16,7 @@ import org.gradle.internal.jvm.Jvm
 buildscript {
     dependencies {
         classpath "com.android.tools.build:gradle:$androidPluginVersion"
-        classpath "com.github.spotbugs.snom:spotbugs-gradle-plugin:6.1.7"
+        classpath libs.spotbugs.gradle.plugin
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "io.gitlab.arturbosch.detekt:detekt-gradle-plugin:1.23.8"
         classpath "commons-httpclient:commons-httpclient:3.1@jar" // remove after entire switch to lib v2
@@ -28,7 +28,7 @@ buildscript {
 }
 
 plugins {
-    id "org.jetbrains.kotlin.plugin.compose" version "2.1.10"
+    alias(libs.plugins.kotlin.compose)
     id "com.diffplug.spotless" version "6.25.0"
     id "org.jetbrains.kotlin.kapt" version "2.1.10"
     id "com.google.devtools.ksp" version "2.1.10-1.0.31" apply false
@@ -273,12 +273,12 @@ dependencies {
     }
 
     // Jetpack Compose
-    implementation(platform("androidx.compose:compose-bom:2025.02.00"))
-    implementation("androidx.compose.ui:ui")
-    implementation("androidx.compose.ui:ui-graphics")
-    implementation("androidx.compose.material3:material3")
-    debugImplementation("androidx.compose.ui:ui-tooling")
-    implementation("androidx.compose.ui:ui-tooling-preview")
+    implementation(platform(libs.androidx.compose.bom))
+    implementation(libs.androidx.ui)
+    implementation(libs.androidx.ui.graphics)
+    implementation(libs.material3)
+    debugImplementation(libs.androidx.ui.tooling)
+    implementation(libs.androidx.ui.tooling.preview)
 
     compileOnly "org.jbundle.util.osgi.wrapped:org.jbundle.util.osgi.wrapped.org.apache.http.client:4.1.2"
     // remove after entire switch to lib v2
@@ -429,7 +429,7 @@ dependencies {
     implementation "io.coil-kt:coil:2.7.0"
 
     // splash screen dependency ref: https://developer.android.com/develop/ui/views/launch/splash-screen/migrate
-    implementation "androidx.core:core-splashscreen:1.0.1"
+    implementation libs.androidx.core.splashscreen
 }
 
 configurations.configureEach {
