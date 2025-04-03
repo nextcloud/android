@@ -24,40 +24,21 @@
             android:icon="@drawable/all_files"
             android:orderInCategory="0"
             android:title="@string/drawer_item_all_files" />
-
         <item
             android:id="@+id/nav_personal_files"
             android:icon="@drawable/ic_user"
             android:orderInCategory="0"
             android:title="@string/drawer_item_personal_files" />
         <item
-            android:id="@+id/nav_activity"
-            android:icon="@drawable/ic_activity"
-            android:title="@string/drawer_item_activities" />
-        <item
             android:id="@+id/nav_favorites"
             android:icon="@drawable/nav_favorites"
             android:orderInCategory="0"
             android:title="@string/drawer_item_favorites" />
         <item
-            android:id="@+id/nav_gallery"
-            android:icon="@drawable/nav_photos"
-            android:title="@string/drawer_item_gallery" />
-        <item
             android:id="@+id/nav_shared"
             android:orderInCategory="0"
             android:icon="@drawable/nav_shared"
             android:title="@string/drawer_item_shared" />
-        <item
-            android:id="@+id/nav_groupfolders"
-            android:orderInCategory="0"
-            android:icon="@drawable/ic_group"
-            android:title="@string/drawer_item_groupfolders" />
-        <item
-            android:id="@+id/nav_on_device"
-            android:icon="@drawable/nav_on_device"
-            android:orderInCategory="0"
-            android:title="@string/drawer_item_on_device"/>
         <item
             android:id="@+id/nav_recently_modified"
             android:icon="@drawable/nav_recently"
@@ -65,21 +46,38 @@
             android:title="@string/drawer_item_recently_modified"
             android:visible="true"/>
         <item
-            android:id="@+id/nav_assistant"
-            android:icon="@drawable/ic_assistant"
+            android:id="@+id/nav_groupfolders"
             android:orderInCategory="0"
-            android:title="@string/drawer_item_assistant" />
-
+            android:icon="@drawable/ic_group"
+            android:title="@string/drawer_item_groupfolders" />
+    </group>
+    <group
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_activity"
+            android:icon="@drawable/ic_activity"
+            android:orderInCategory="1"
+            android:title="@string/drawer_item_activities" />
+        <item
+            android:id="@+id/nav_gallery"
+            android:icon="@drawable/nav_photos"
+            android:orderInCategory="1"
+            android:title="@string/drawer_item_gallery" />
         <item
             android:id="@+id/nav_uploads"
             android:icon="@drawable/uploads"
-            android:orderInCategory="2"
+            android:orderInCategory="1"
             android:title="@string/drawer_item_uploads_list"/>
         <item
-            android:id="@+id/nav_trashbin"
-            android:icon="@drawable/nav_trashbin"
-            android:orderInCategory="2"
-            android:title="@string/drawer_item_trashbin"/>
+            android:id="@+id/nav_on_device"
+            android:icon="@drawable/nav_on_device"
+            android:orderInCategory="1"
+            android:title="@string/drawer_item_on_device"/>
+        <item
+            android:id="@+id/nav_assistant"
+            android:icon="@drawable/ic_assistant"
+            android:orderInCategory="1"
+            android:title="@string/drawer_item_assistant" />
     </group>
 
     <!--
@@ -96,6 +94,11 @@
     <group
         android:id="@+id/drawer_menu_bottom"
         android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_trashbin"
+            android:icon="@drawable/nav_trashbin"
+            android:orderInCategory="4"
+            android:title="@string/drawer_item_trashbin"/>
         <item
             android:id="@+id/nav_settings"
             android:icon="@drawable/nav_settings"
