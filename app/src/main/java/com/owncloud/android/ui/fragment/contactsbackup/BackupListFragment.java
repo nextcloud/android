@@ -10,8 +10,6 @@ package com.owncloud.android.ui.fragment.contactsbackup;
 
 import android.Manifest;
 import android.app.Activity;
-import android.content.Context;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.view.LayoutInflater;
@@ -34,7 +32,7 @@ import com.nextcloud.client.jobs.transfer.TransferManagerConnection;
 import com.nextcloud.client.jobs.transfer.TransferState;
 import com.nextcloud.client.network.ClientFactory;
 import com.nextcloud.utils.extensions.BundleExtensionsKt;
-import com.nextcloud.utils.extensions.StringConstants;
+import com.nextcloud.utils.extensions.IntExtensionsKt;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.BackuplistFragmentBinding;
 import com.owncloud.android.datamodel.OCFile;
@@ -53,12 +51,7 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -347,7 +340,7 @@ public class BackupListFragment extends FileFragment implements Injectable {
     }
 
     private void importContacts(ContactsAccount account) {
-        final var selectedContractsFilePath = writeCheckedContractsInCacheDir(account);
+        final var selectedContractsFilePath = writeCheckedContractsInCacheDir();
         if (selectedContractsFilePath == null) {
             Snackbar.make(binding.list, R.string.contacts_preferences_import_scheduled_fail, Snackbar.LENGTH_LONG).show();
             return;
@@ -370,23 +363,15 @@ public class BackupListFragment extends FileFragment implements Injectable {
      *
      * @return the absolute file path of the temporary cache file
      */
-    private String writeCheckedContractsInCacheDir(ContactsAccount account) {
+    private String writeCheckedContractsInCacheDir() {
         try {
-            final var filename = account.getName() + getFile().getStoragePath() + "selectedContacts" + System.currentTimeMillis();
+            final var filename = "selectedContacts-" + System.currentTimeMillis();
             File file = new File(requireContext().getCacheDir(), filename + ".txt");
 
             final var contracts = listAdapter.getCheckedContactsIntArray();
-            String data = String.join(StringConstants.DELIMITER, Arrays.toString(contracts));
+            final var contractsAsByteArray = IntExtensionsKt.toByteArray(contracts);
 
-            if (!file.exists()) {
-                boolean success = file.createNewFile();
-                if (success) {
-                    Log_OC.d(TAG, "writeCheckedContractsInCacheDir: temp file successfully created");
-                }
-            }
-
-            // Write data to file
-            FileUtils.writeByteArrayToFile(file, data.getBytes(StandardCharsets.UTF_8));
+            FileUtils.writeByteArrayToFile(file, contractsAsByteArray);
 
             return file.getAbsolutePath();
         } catch (Exception e) {
