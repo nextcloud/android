@@ -174,11 +174,12 @@ class FileDetailsSharingProcessFragment :
 
         fileActivity = activity as FileActivity?
         capabilities = CapabilityUtils.getCapability(context)
-        permission = share?.permissions ?: sharePermissionManager.getMaximumPermission(isFolder())
 
         requireNotNull(fileActivity) { "FileActivity may not be null" }
 
-        permission = capabilities.defaultPermissions ?: OCShare.NO_PERMISSION
+        permission = share?.permissions ?:
+        capabilities.defaultPermissions ?:
+        sharePermissionManager.getMaximumPermission(isFolder())
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
@@ -362,17 +363,19 @@ class FileDetailsSharingProcessFragment :
     }
 
     private fun updateViewForInternalShare() {
-        binding.shareProcessChangeNameSwitch.visibility = View.GONE
-        binding.shareProcessChangeNameContainer.visibility = View.GONE
-        binding.shareProcessHideDownloadCheckbox.visibility = View.GONE
-        binding.shareCheckbox.setVisibleIf(!isSecureShare)
-        binding.shareProcessSetPasswordSwitch.visibility = View.GONE
+        binding.run {
+            shareProcessChangeNameSwitch.visibility = View.GONE
+            shareProcessChangeNameContainer.visibility = View.GONE
+            shareProcessHideDownloadCheckbox.visibility = View.GONE
+            shareCheckbox.setVisibleIf(!isSecureShare)
+            shareProcessSetPasswordSwitch.visibility = View.GONE
 
-        if (share != null) {
-            if (!isReShareShown) {
-                binding.shareCheckbox.visibility = View.GONE
+            if (share != null) {
+                if (!isReShareShown) {
+                    shareCheckbox.visibility = View.GONE
+                }
+                shareCheckbox.isChecked = SharingMenuHelper.canReshare(share)
             }
-            binding.shareCheckbox.isChecked = SharingMenuHelper.canReshare(share)
         }
     }
 
