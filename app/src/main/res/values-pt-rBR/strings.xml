@@ -34,7 +34,7 @@
     <string name="advanced_settings">Configurações avançadas</string>
     <string name="allow_resharing">Permitir recompartilhamento</string>
     <string name="app_config_base_url_title">URL base</string>
-    <string name="app_config_disable_clipboard_title">Desativar Clipboard</string>
+    <string name="app_config_disable_clipboard_title">Desativar Área de Transferência</string>
     <string name="app_config_disable_intro_title">Desativar Introdução</string>
     <string name="app_config_disable_log_title">Desativar Log</string>
     <string name="app_config_disable_more_external_site_title">Desativar Sites Externos</string>
@@ -56,7 +56,7 @@
     <string name="assistant_screen_task_delete_fail_message">Ocorreu um erro ao excluir a tarefa</string>
     <string name="assistant_screen_task_delete_success_message">Tarefa excluída com sucesso</string>
     <string name="assistant_screen_task_list_error_state_message">Não foi possível buscar a lista de tarefas. Verifique sua conexão com a Internet.</string>
-    <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">Excluir tarefa</string>
+    <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">Excluir Tarefa</string>
     <string name="assistant_screen_task_output_empty_text">O resultado da tarefa ainda não está pronto.</string>
     <string name="assistant_screen_task_types_error_state_message">Não foi possível buscar os tipos de tarefas. Verifique sua conexão com a Internet.</string>
     <string name="assistant_screen_top_bar_title">Assistente</string>
@@ -193,7 +193,7 @@
     <string name="conflict_message_description_for_folder">Se selecionar ambas as versões, a pasta local terá um número anexado ao nome.</string>
     <string name="conflict_server_file">Arquivo do servidor</string>
     <string name="contact_backup_title">Backup de contatos</string>
-    <string name="contact_no_permission">É necessária permissão de contato.</string>
+    <string name="contact_no_permission">É necessária a permissão de contato.</string>
     <string name="contactlist_item_icon">Ícone de usuário para a lista de contatos</string>
     <string name="contactlist_no_permission">Nenhuma permissão fornecida, nada foi importado.</string>
     <string name="contacts">Contatos</string>
@@ -252,7 +252,7 @@
     <string name="done">Concluído</string>
     <string name="dontClear">Não limpar</string>
     <string name="download_cannot_create_file">Não foi possível criar o arquivo local</string>
-    <string name="download_download_invalid_local_file_name">Invalid filename for local file</string>
+    <string name="download_download_invalid_local_file_name">Nome de arquivo inválido para o arquivo local</string>
     <string name="download_latest_dev_version">Baixar a última versão dev</string>
     <string name="download_limit">Limite de download </string>
     <string name="downloader_download_failed_content">Não foi possível baixar %1$s</string>
@@ -288,7 +288,7 @@
     <string name="drawer_open">Abrir barra lateral</string>
     <string name="drawer_quota">%1$s de %2$s usados</string>
     <string name="drawer_quota_unlimited">%1$s usados</string>
-    <string name="drawer_synced_folders">Autoenvio</string>
+    <string name="drawer_synced_folders">Upload automático</string>
     <string name="due_to_too_many_wrong_attempts">%s devido a muitas tentativas erradas</string>
     <string name="e2e_counter_too_old">O contador é muito antigo</string>
     <string name="e2e_hash_not_found">Hash não encontrado</string>
@@ -297,7 +297,7 @@
     <string name="e2e_signature_does_not_match">A assinatura não corresponde</string>
     <string name="ecosystem_apps_display_assistant">Assistente</string>
     <string name="ecosystem_apps_display_more">Mais</string>
-    <string name="ecosystem_apps_more">Mais aplicativos Nextcloud</string>
+    <string name="ecosystem_apps_more">Mais Aplicativos Nextcloud</string>
     <string name="email_pick_failed">Falha ao escolher o endereço de e-mail.</string>
     <string name="encrypted">Definir como criptografado</string>
     <string name="end_to_end_encryption_certificate_unavailable">Não é possível recuperar o certificado do servidor</string>
@@ -484,7 +484,7 @@
     <string name="hint_password">Senha</string>
     <string name="host_not_available">Servidor indisponível</string>
     <string name="host_your_own_server">Hospede seu próprio servidor</string>
-    <string name="icon_for_empty_list">ícone para lista vazia</string>
+    <string name="icon_for_empty_list">Ícone para lista vazia</string>
     <string name="icon_of_dashboard_widget">Ícone do widget do painel</string>
     <string name="icon_of_widget_entry">Ícone de entrada do widget</string>
     <string name="image_editor_file_edited_suffix">editado</string>
@@ -504,7 +504,7 @@
     <string name="instant_upload_on_charging">Só enviar quando carregando</string>
     <string name="instant_upload_path">/EnvioAutomático</string>
     <string name="internal_shares">Compartilhamentos internos</string>
-    <string name="internal_two_way_sync">Sincronização interna bidirecional</string>
+    <string name="internal_two_way_sync">Sincronização bidirecional interna</string>
     <string name="internal_two_way_sync_not_yet">Ainda não, em breve será sincronizado</string>
     <string name="internet_connection_required_for_encrypted_folder_setup">É necessária uma conexão com a internet para configurar a pasta criptografada</string>
     <string name="invalid_url">URL inválida</string>
@@ -640,9 +640,9 @@
     <string name="permission_allow">Permitir</string>
     <string name="permission_deny">Negar</string>
     <string name="permission_storage_access">Permissões adicionais são necessárias para enviar ou baixar arquivos.</string>
-    <string name="pick_contact_to_share_with">Escolha um contato para compartilhar</string>
+    <string name="pick_contact_to_share_with">Escolher um contato para compartilhar</string>
     <string name="picture_set_as_no_app">Nenhum aplicativo encontrado para definir uma imagem</string>
-    <string name="pin_home">Fixar na tela inicial</string>
+    <string name="pin_home">Fixar na página inicial</string>
     <string name="pin_shortcut_label">Abrir %1$s</string>
     <string name="placeholder_fileSize">389 KB</string>
     <string name="placeholder_filename">placeholder.txt</string>
@@ -651,7 +651,7 @@
     <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
     <string name="player_stop">para</string>
     <string name="player_toggle">alternar</string>
-    <string name="please_select_a_server">Selecione um servidor...</string>
+    <string name="please_select_a_server">Selecione um servidor…</string>
     <string name="power_save_check_dialog_message">Desativar a verificação de economia de energia pode resultar em uploads com a bateria baixa!</string>
     <string name="pref_behaviour_entries_delete_file">excluído</string>
     <string name="pref_behaviour_entries_keep_file">Mantido na pasta original</string>
@@ -710,12 +710,12 @@
     <string name="prefs_show_ecosystem_apps_summary">Sugestões de aplicativos Nextcloud no título de navegação</string>
     <string name="prefs_show_hidden_files">Mostrar arquivos ocultos</string>
     <string name="prefs_sourcecode">Obter código-fonte</string>
-    <string name="prefs_sycned_folders_summary">Gerenciar pastas para envio automático</string>
+    <string name="prefs_sycned_folders_summary">Gerenciar pastas para upload automático</string>
     <string name="prefs_synced_folders_local_path_title">Pasta local</string>
     <string name="prefs_synced_folders_remote_path_title">Pasta remota</string>
     <string name="prefs_theme_title">Tema</string>
     <string name="prefs_two_way_sync_interval">Intervalo</string>
-    <string name="prefs_two_way_sync_summary">Gerencie pastas internas para sincronização bidirecional</string>
+    <string name="prefs_two_way_sync_summary">Gerenciar pastas internas para sincronização bidirecional</string>
     <string name="prefs_two_way_sync_switch_title">Ativar sincronização bidirecional</string>
     <string name="prefs_value_theme_dark">Escuro</string>
     <string name="prefs_value_theme_light">Claro</string>
@@ -847,7 +847,7 @@
     <string name="shared_with_you_by">Compartilhado com você por %1$s</string>
     <string name="sharee_add_failed">Falha ao compartilhar</string>
     <string name="sharee_already_added_to_file">Falha ao adicionar compartilhamento. Este arquivo ou pasta já foi compartilhado com esta pessoa ou grupo.</string>
-    <string name="show_all">Exibir tudo</string>
+    <string name="show_all">Mostrar tudo</string>
     <string name="show_images">Mostrar fotos</string>
     <string name="show_less">Mostrar menos</string>
     <string name="show_video">Mostrar vídeos</string>
@@ -930,7 +930,7 @@
     <string name="sync_string_files">Arquivos</string>
     <string name="synced_folder_settings_button">Botão de configurações</string>
     <string name="synced_folders_configure_folders">Configurar pastas</string>
-    <string name="synced_folders_new_info">O envio instantâneo foi completamente renovado. Reconfigure seu autoenvio no menu principal.\n\nDesfrute do novo envio automático e estendido.</string>
+    <string name="synced_folders_new_info">O envio instantâneo foi completamente renovado. Reconfigure seu Upload automático no menu principal.\n\nDesfrute do novo e estendido upload automático.</string>
     <string name="synced_folders_no_results">Pastas com mídias não encontradas</string>
     <string name="synced_folders_preferences_folder_path">Para %1$s</string>
     <string name="synced_folders_type">Tipo</string>
@@ -954,10 +954,10 @@
     <string name="trashbin_file_remove">Remover permanentemente</string>
     <string name="trashbin_loading_failed">Falha ao carregar a lixeira! </string>
     <string name="trashbin_not_emptied">Os arquivos não puderam ser excluídos permanentemente!</string>
-    <string name="two_way_sync_activity_disable_all_button_title">Desative para todas as pastas</string>
-    <string name="two_way_sync_activity_empty_list_desc">Para configurar uma pasta de sincronização de duas vias, ative-a na aba de detalhes da pasta em questão.</string>
-    <string name="two_way_sync_activity_empty_list_title">Sincroniza de duas maneiras não configuradas</string>
-    <string name="two_way_sync_activity_title">Sincronização interna bidirecional</string>
+    <string name="two_way_sync_activity_disable_all_button_title">Desativar para todas as pastas</string>
+    <string name="two_way_sync_activity_empty_list_desc">Para configurar uma pasta de sincronização bidirecional, ative-a na aba de detalhes da pasta em questão.</string>
+    <string name="two_way_sync_activity_empty_list_title">Sincronização bidirecional não configurada</string>
+    <string name="two_way_sync_activity_title">Sincronização bidirecional interna</string>
     <string name="unexpected_error_occurred">Ocorreu um erro inesperado</string>
     <string name="unified_search_fragment_calendar_event_not_found">Evento não encontrado, você sempre pode sincronizar para atualizar. Redirecionando para a web…</string>
     <string name="unified_search_fragment_contact_not_found">Contato não encontrado, você sempre pode sincronizar para atualizar. Redirecionando para web…</string>
@@ -966,7 +966,7 @@
     <string name="unread_comments">Existem comentários não lidos</string>
     <string name="unset_encrypted">Definir como não criptografado</string>
     <string name="unset_favorite">Remover dos favoritos</string>
-    <string name="unset_internal_two_way_sync_description">Remova a pasta da sincronização interna de duas maneiras</string>
+    <string name="unset_internal_two_way_sync_description">Remover a pasta da sincronização bidirecional interna</string>
     <string name="unshare_link_file_error">Ocorreu um erro ao tentar descompartilhar este arquivo ou pasta.</string>
     <string name="unshare_link_file_no_exist">Não foi possível descompartilhar. Verifique se o arquivo existe.</string>
     <string name="unshare_link_forbidden_permissions">para descompartilhar este arquivo</string>
@@ -1003,7 +1003,7 @@
     <string name="upload_item_action_button">Enviar botão de ação do item</string>
     <string name="upload_list_delete">Excluir</string>
     <string name="upload_list_empty_headline">Nenhum envio disponível</string>
-    <string name="upload_list_empty_text_auto_upload">Envie algum conteúdo ou ative o envio automático.</string>
+    <string name="upload_list_empty_text_auto_upload">Faça upload de algum conteúdo ou ative o upload automático.</string>
     <string name="upload_list_expand_header">Alternar expansão do cabeçalho</string>
     <string name="upload_list_resolve_conflict">Resolver conflito</string>
     <string name="upload_local_storage_full">O armazenamento local está cheio.</string>
@@ -1083,7 +1083,7 @@
     <string name="userinfo_no_info_text">Adicionar nome, imagem e detalhes de contato na sua página de perfil.</string>
     <string name="username">Nome do usuário</string>
     <string name="version_dev_download">Baixar</string>
-    <string name="video_overlay_icon">ícone de sobreposição de vídeo</string>
+    <string name="video_overlay_icon">Ícone de sobreposição de vídeo</string>
     <string name="wait_a_moment">Aguarde um momento…</string>
     <string name="wait_checking_credentials">Verificando credenciais salvas</string>
     <string name="wait_for_tmp_copy_from_private_storage">Copiando o arquivo da armazenagem privada</string>
