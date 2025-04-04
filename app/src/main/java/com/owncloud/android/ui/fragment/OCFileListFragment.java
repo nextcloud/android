@@ -1238,6 +1238,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
                 mContainerActivity.getFileOperationsHelper().openFileAsRichDocument(file, getContext());
             } else if (mContainerActivity instanceof FileDisplayActivity fileDisplayActivity) {
                 fileDisplayActivity.startDownloadForPreview(file);
+                fileDisplayActivity.setReadyForPreview(true);
             }
         }
     }
