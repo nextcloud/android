@@ -447,12 +447,9 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
 
     /**
      * Pops a directory name from the drop down list
-     *
-     * @return True, unless the stack is empty
      */
-    public boolean popDirname() {
+    public void popDirname() {
         mDirectories.remove(mDirectories.getItem(0));
-        return !mDirectories.isEmpty();
     }
 
     private void updateUploadButtonActive() {
