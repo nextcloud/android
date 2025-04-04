@@ -119,18 +119,13 @@ public class DetectAuthenticationMethodOperation extends RemoteOperation {
     }
 
     private String authenticationMethodToString(AuthenticationMethod value) {
-        switch (value) {
-            case NONE:
-                return "NONE";
-            case BASIC_HTTP_AUTH:
-                return "BASIC_HTTP_AUTH";
-            case BEARER_TOKEN:
-                return "BEARER_TOKEN";
-            case SAML_WEB_SSO:
-                return "SAML_WEB_SSO";
-            default:
-                return "UNKNOWN";
-        }
+        return switch (value) {
+            case NONE -> "NONE";
+            case BASIC_HTTP_AUTH -> "BASIC_HTTP_AUTH";
+            case BEARER_TOKEN -> "BEARER_TOKEN";
+            case SAML_WEB_SSO -> "SAML_WEB_SSO";
+            default -> "UNKNOWN";
+        };
     }
 
 }

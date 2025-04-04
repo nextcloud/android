@@ -138,22 +138,13 @@ public class ExternalLinksProvider {
                     ProviderMeta.ProviderTableMeta.EXTERNAL_LINKS_ICON_URL));
             String language = cursor.getString(cursor.getColumnIndexOrThrow(
                     ProviderMeta.ProviderTableMeta.EXTERNAL_LINKS_LANGUAGE));
-            ExternalLinkType type;
-            switch (cursor.getString(cursor.getColumnIndexOrThrow(
-                    ProviderMeta.ProviderTableMeta.EXTERNAL_LINKS_TYPE))) {
-                case "link":
-                    type = ExternalLinkType.LINK;
-                    break;
-                case "settings":
-                    type = ExternalLinkType.SETTINGS;
-                    break;
-                case "quota":
-                    type = ExternalLinkType.QUOTA;
-                    break;
-                default:
-                    type = ExternalLinkType.UNKNOWN;
-                    break;
-            }
+            ExternalLinkType type = switch (cursor.getString(cursor.getColumnIndexOrThrow(
+                ProviderMeta.ProviderTableMeta.EXTERNAL_LINKS_TYPE))) {
+                case "link" -> ExternalLinkType.LINK;
+                case "settings" -> ExternalLinkType.SETTINGS;
+                case "quota" -> ExternalLinkType.QUOTA;
+                default -> ExternalLinkType.UNKNOWN;
+            };
             String name = cursor.getString(cursor.getColumnIndexOrThrow(ProviderMeta.ProviderTableMeta.EXTERNAL_LINKS_NAME));
             String url = cursor.getString(cursor.getColumnIndexOrThrow(ProviderMeta.ProviderTableMeta.EXTERNAL_LINKS_URL));
             boolean redirect = cursor.getInt(
