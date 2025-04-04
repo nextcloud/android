@@ -41,9 +41,8 @@ class CalendarImportWork(
         val calendarBuilder = CalendarBuilder()
 
         for ((path, selectedCalendarIndex) in calendars) {
-            // Check types
             if (path !is String || selectedCalendarIndex !is Int) {
-                logger.d(TAG, "Skipping wrong calendar import input data: $path - $selectedCalendarIndex")
+                logger.d(TAG, "Skipping wrong input data types: $path - $selectedCalendarIndex")
                 continue
             }
 
