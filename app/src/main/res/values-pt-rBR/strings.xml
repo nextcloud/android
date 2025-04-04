@@ -46,6 +46,7 @@
     <string name="app_widget_description">Mostra um widget do painel</string>
     <string name="appbar_search_in">Pesquisar em %s</string>
     <string name="assistant_screen_add_task_alert_dialog_title">Adicionar nova tarefa</string>
+    <string name="assistant_screen_create_a_new_task_from_bottom_right_text">Criar uma nova tarefa no canto inferior direito</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Digite algum texto</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Tem certeza de que deseja excluir esta tarefa?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Excluir tarefa</string>
@@ -55,6 +56,7 @@
     <string name="assistant_screen_task_create_success_message">Tarefa criada com sucesso</string>
     <string name="assistant_screen_task_delete_fail_message">Ocorreu um erro ao excluir a tarefa</string>
     <string name="assistant_screen_task_delete_success_message">Tarefa excluída com sucesso</string>
+    <string name="assistant_screen_task_list_empty_message">A lista de tarefas está vazia</string>
     <string name="assistant_screen_task_list_error_state_message">Não foi possível buscar a lista de tarefas. Verifique sua conexão com a Internet.</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">Excluir Tarefa</string>
     <string name="assistant_screen_task_output_empty_text">O resultado da tarefa ainda não está pronto.</string>
@@ -101,6 +103,7 @@
     <string name="auto_upload_gplay_desc2">Devido às novas restrições impostas pelo Google, fomos forçados a remover uma permissão importante. Como resultado, o upload automático só poderá fazer upload de arquivos de imagem e vídeo.\nAlém disso, é necessária uma nova permissão para acessar as informações de localização das imagens carregadas.\nCertifique-se de que o acesso à mídia esteja definido como \"Sempre permitir tudo\".</string>
     <string name="auto_upload_on_wifi">Enviar só por WiFi não medida</string>
     <string name="auto_upload_path">/AutoEnvio</string>
+    <string name="auto_upload_sub_folder_warning">Esta pasta já está incluída na sincronização da pasta pai, o que pode causar uploads duplicados</string>
     <string name="autoupload_configure">Configurar</string>
     <string name="autoupload_create_new_custom_folder">Criar nova configuração de pasta personalizada</string>
     <string name="autoupload_custom_folder">Configurar uma pasta personalizada</string>
@@ -910,8 +913,10 @@
     <string name="subtitle_videos_only">Somente vídeos</string>
     <string name="suggest">Sugerir </string>
     <string name="sync">Sincronizar</string>
+    <string name="sync_anyway">Sincronizar mesmo assim</string>
     <string name="sync_conflicts_in_favourites_ticker">Conflitos encontrados</string>
     <string name="sync_current_folder_was_removed">A pasta %1$s não existe mais</string>
+    <string name="sync_duplication">Duplicação de sincronização</string>
     <string name="sync_fail_content">Não foi possível sincronizar %1$s</string>
     <string name="sync_fail_content_unauthorized">Senha incorreta para %1$s</string>
     <string name="sync_fail_in_favourites_ticker">Falha ao manter arquivos sincronizados</string>
@@ -928,6 +933,7 @@
     <string name="sync_not_enough_space_dialog_title">Não há espaço suficiente</string>
     <string name="sync_status_button">Botão de status da sincronização</string>
     <string name="sync_string_files">Arquivos</string>
+    <string name="sync_warning_button">Botão de aviso de sincronização</string>
     <string name="synced_folder_settings_button">Botão de configurações</string>
     <string name="synced_folders_configure_folders">Configurar pastas</string>
     <string name="synced_folders_new_info">O envio instantâneo foi completamente renovado. Reconfigure seu Upload automático no menu principal.\n\nDesfrute do novo e estendido upload automático.</string>

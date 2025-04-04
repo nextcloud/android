@@ -46,6 +46,7 @@
     <string name="app_widget_description">Приказује један виџет са контролне табле</string>
     <string name="appbar_search_in">Тражи у %s</string>
     <string name="assistant_screen_add_task_alert_dialog_title">Додај нови задатак</string>
+    <string name="assistant_screen_create_a_new_task_from_bottom_right_text">Креирај нови задатак од доњег десног</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Откуцајте неки текст</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Да ли сте сигурни да желите да обришете овај задатак?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Обриши задатак</string>
@@ -55,6 +56,7 @@
     <string name="assistant_screen_task_create_success_message">Задатак је успешно креиран</string>
     <string name="assistant_screen_task_delete_fail_message">Дошло је до грешке током брисања задатка</string>
     <string name="assistant_screen_task_delete_success_message">Задатак је успешно завршен</string>
+    <string name="assistant_screen_task_list_empty_message">Листа задатака је празна.</string>
     <string name="assistant_screen_task_list_error_state_message">Не може да се преузме листа задатака, молимо вас да проверите везу са интернетом.</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">Обриши задатак</string>
     <string name="assistant_screen_task_output_empty_text">Излаз задатка још увек није спреман.</string>
@@ -101,6 +103,7 @@
     <string name="auto_upload_gplay_desc2">Услед нових ограничења која је наметнуо Google, приморани смо да уклонимо важну дозволу. Последица тога је да ће аутоматско отпремање моћи да отпреми само фајлове слика и видео клипова.\nУз то, за приступ информацијама о локацији отпремљених слика потребна је нова дозвола.\nОбезбедите да је приступ медијским фајловима подешен на „Увек дозволи све”.</string>
     <string name="auto_upload_on_wifi">Отпремај само на бежичним мрежама без ограничења</string>
     <string name="auto_upload_path">/Аутоматска отпремања</string>
+    <string name="auto_upload_sub_folder_warning">Овај фолдер је већ укључен у синхронизацију фолдера родитеља, па се могу јавити двострука отпремања</string>
     <string name="autoupload_configure">Подеси</string>
     <string name="autoupload_create_new_custom_folder">Направи нову поставку за посебну фасциклу</string>
     <string name="autoupload_custom_folder">Подесите произвољну фасциклу</string>
@@ -910,8 +913,10 @@
     <string name="subtitle_videos_only">Само видео снимци</string>
     <string name="suggest">Предложи</string>
     <string name="sync">Синхронизуј</string>
+    <string name="sync_anyway">Ипак синхронизуј</string>
     <string name="sync_conflicts_in_favourites_ticker">Постоје сукоби</string>
     <string name="sync_current_folder_was_removed">Фасцикла %1$s више не постоји</string>
+    <string name="sync_duplication">Дуплирање синхронизације</string>
     <string name="sync_fail_content">Не могу да синхронизујем %1$s</string>
     <string name="sync_fail_content_unauthorized">Погрешна лозинка за %1$s</string>
     <string name="sync_fail_in_favourites_ticker">Синхронизација није успела</string>
@@ -928,6 +933,7 @@
     <string name="sync_not_enough_space_dialog_title">Нема довољно простора</string>
     <string name="sync_status_button">Дугме статуса синхронизације</string>
     <string name="sync_string_files">Фајлови</string>
+    <string name="sync_warning_button">Дугме упозорења синхронизације</string>
     <string name="synced_folder_settings_button">Дугме поставки</string>
     <string name="synced_folders_configure_folders">Подесите фасцикле</string>
     <string name="synced_folders_new_info">Брзо отпремање је потпуно редизајнирано. Поново подесите аутоматска отпремања из главног менија.\n\nУживајте у новом и надограђеном аутоматском отпремању.</string>

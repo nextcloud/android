@@ -46,6 +46,7 @@
     <string name="app_widget_description">Taispeáin giuirléid amháin ón deais</string>
     <string name="appbar_search_in">Cuardaigh i %s</string>
     <string name="assistant_screen_add_task_alert_dialog_title">Cuir tasc nua leis</string>
+    <string name="assistant_screen_create_a_new_task_from_bottom_right_text">Cruthaigh tasc nua ón mbun ar dheis</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Clóscríobh roinnt téacs</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">An bhfuil tú cinnte gur mhaith leat an tasc seo a scriosadh?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Scrios tasc</string>
@@ -55,6 +56,7 @@
     <string name="assistant_screen_task_create_success_message">D\'éirigh leis an tasc a chruthú</string>
     <string name="assistant_screen_task_delete_fail_message">Tharla earráid agus an tasc á scriosadh</string>
     <string name="assistant_screen_task_delete_success_message">D\'éirigh leis an tasc a scriosadh</string>
+    <string name="assistant_screen_task_list_empty_message">Tá liosta tascanna folamh.</string>
     <string name="assistant_screen_task_list_error_state_message">Ní féidir liosta tascanna a fháil, seiceáil do nasc idirlín le do thoil.</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">Scrios Tasc</string>
     <string name="assistant_screen_task_output_empty_text">Níl an t-aschur tasc réidh fós.</string>
@@ -101,6 +103,7 @@
     <string name="auto_upload_gplay_desc2">De bharr srianta nua a chuir Google i bhfeidhm, b\'éigean dúinn cead tábhachtach a bhaint. Mar thoradh air sin, ní bheidh uaslódáil uathoibríoch in ann ach comhaid íomhá agus físe a uaslódáil.\nChomh maith leis sin, tá cead nua ag teastáil chun rochtain a fháil ar fhaisnéis suímh le haghaidh íomhánna uaslódáilte.\nDéan cinnte go bhfuil rochtain meán socraithe mar \"Ceadaigh gach rud i gcónaí\".</string>
     <string name="auto_upload_on_wifi">Uaslódáil ar Wi-Fi neamh-mhéadraithe amháin</string>
     <string name="auto_upload_path">/Uaslódáil Uathoibríoch</string>
+    <string name="auto_upload_sub_folder_warning">Tá an fillteán seo san áireamh cheana féin i gcomhshioncronú an fhillteáin tuismitheora, rud a d’fhéadfadh uaslódálacha dúblacha a chruthú</string>
     <string name="autoupload_configure">Cumraigh</string>
     <string name="autoupload_create_new_custom_folder">Cruthaigh socrú fillteán saincheaptha nua</string>
     <string name="autoupload_custom_folder">Socraigh fillteán saincheaptha</string>
@@ -910,8 +913,10 @@
     <string name="subtitle_videos_only">Físeáin amháin</string>
     <string name="suggest">Mol</string>
     <string name="sync">Sioncrónaigh</string>
+    <string name="sync_anyway">Sioncrónaigh ar aon nós</string>
     <string name="sync_conflicts_in_favourites_ticker">Coimhlint aimsithe</string>
     <string name="sync_current_folder_was_removed">Níl fillteán %1$s ann a thuilleadh</string>
+    <string name="sync_duplication">Sioncronaigh dúbailt</string>
     <string name="sync_fail_content">Níorbh fhéidir %1$s a shioncronú</string>
     <string name="sync_fail_content_unauthorized">Pasfhocal mícheart le haghaidh %1$s</string>
     <string name="sync_fail_in_favourites_ticker">Kept-in-sync files failed</string>
@@ -928,6 +933,7 @@
     <string name="sync_not_enough_space_dialog_title">Gan spás go leor</string>
     <string name="sync_status_button">Sioncronaigh cnaipe stádais</string>
     <string name="sync_string_files">Comhaid</string>
+    <string name="sync_warning_button">Sioncronaigh cnaipe rabhaidh</string>
     <string name="synced_folder_settings_button">Cnaipe socruithe</string>
     <string name="synced_folders_configure_folders">Cumraigh fillteáin</string>
     <string name="synced_folders_new_info">Athchóiríodh an uaslódáil láithreach go hiomlán. Athchumraigh d\'uaslódáil uathoibríoch laistigh den phríomh-roghchlár.\n\nBain sult as an uaslódáil uathoibríoch nua agus sínte.</string>
