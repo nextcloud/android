@@ -60,7 +60,7 @@ class CalendarImportWork(
             val calendarList = AndroidCalendar.loadAll(contentResolver)
             if (selectedCalendarIndex >= calendarList.size) {
                 logger.d(TAG, "Skipping selectedCalendarIndex out of bound")
-                return Result.failure()
+                continue
             }
 
             val selectedCalendar = calendarList[selectedCalendarIndex]
