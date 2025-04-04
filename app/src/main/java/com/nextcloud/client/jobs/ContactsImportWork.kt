@@ -95,16 +95,21 @@ class ContactsImportWork(
                     cursor.moveToNext()
                 }
             }
+
             for (contactIndex in selectedContactsIndices) {
-                val vCard = vCards[contactIndex]
-                if (BackupListFragment.getDisplayName(vCard).isEmpty()) {
-                    if (!ownContactMap.containsKey(vCard)) {
-                        operations.insertContact(vCard)
+                try {
+                    val vCard = vCards[contactIndex]
+                    if (BackupListFragment.getDisplayName(vCard).isEmpty()) {
+                        if (!ownContactMap.containsKey(vCard)) {
+                            operations.insertContact(vCard)
+                        } else {
+                            operations.updateContact(vCard, ownContactMap[vCard])
+                        }
                     } else {
-                        operations.updateContact(vCard, ownContactMap[vCard])
+                        operations.insertContact(vCard) // Insert All the contacts without name
                     }
-                } else {
-                    operations.insertContact(vCard) // Insert All the contacts without name
+                } catch (t: Throwable) {
+                    Log_OC.e(TAG, "skipping contactIndex: $contactIndex due to: $t")
                 }
             }
         } catch (e: Exception) {
