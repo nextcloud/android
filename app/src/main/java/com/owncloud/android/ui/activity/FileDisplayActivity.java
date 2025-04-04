@@ -1743,8 +1743,17 @@ public class FileDisplayActivity extends FileActivity
             if (state instanceof WorkerState.DownloadStarted) {
                 Log_OC.d(TAG, "Download worker started");
                 handleDownloadWorkerState();
-            } else if (state instanceof WorkerState.DownloadFinished) {
+            } else if (state instanceof WorkerState.DownloadFinished downloadFinished) {
                 fileDownloadProgressListener = null;
+
+                final var file = downloadFinished.getCurrentFile();
+                if (file == null) {
+                    return;
+                }
+
+                if (file.isDown() && MimeTypeUtil.isPDF(file)) {
+                    startPdfPreview(downloadFinished.getCurrentFile());
+                }
             } else if (state instanceof WorkerState.UploadFinished) {
                 refreshList();
             } else if (state instanceof  WorkerState.OfflineOperationsCompleted) {
@@ -2339,9 +2348,9 @@ public class FileDisplayActivity extends FileActivity
      * @param parentFolder {@link OCFile} containing above file
      */
     public void startDownloadForPreview(OCFile file, OCFile parentFolder) {
-        final User currentUser = getUser().orElseThrow(RuntimeException::new);
-        Fragment detailFragment = FileDetailFragment.newInstance(file, parentFolder, currentUser);
-        setLeftFragment(detailFragment, false);
+        //final User currentUser = getUser().orElseThrow(RuntimeException::new);
+        //Fragment detailFragment = FileDetailFragment.newInstance(file, parentFolder, currentUser);
+        //setLeftFragment(detailFragment, false);
         configureToolbarForPreview(file);
         mWaitingToPreview = file;
         requestForDownload();
