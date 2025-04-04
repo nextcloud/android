@@ -10,7 +10,6 @@ package com.owncloud.android.ui.dialog
 import android.app.Dialog
 import android.os.Build
 import android.os.Bundle
-import android.os.Parcelable
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import androidx.core.os.bundleOf
@@ -18,28 +17,28 @@ import androidx.fragment.app.DialogFragment
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.nextcloud.client.di.Injectable
+import com.nextcloud.client.preferences.AppPreferences
 import com.owncloud.android.R
+import com.owncloud.android.utils.PermissionUtil
+import com.owncloud.android.utils.PermissionUtil.REQUEST_CODE_MANAGE_ALL_FILES
 import com.owncloud.android.utils.theme.ViewThemeUtils
-import kotlinx.parcelize.Parcelize
 import javax.inject.Inject
 
-/**
- * Dialog that shows permission options in SDK >= 30
- *
- * Allows choosing "full access" (MANAGE_ALL_FILES) or "read-only media" (READ_EXTERNAL_STORAGE)
- */
 @RequiresApi(Build.VERSION_CODES.R)
 class StoragePermissionDialogFragment : DialogFragment(), Injectable {
 
-    private var permissionRequired = false
+    private var showStrictText = false
 
     @Inject
     lateinit var viewThemeUtils: ViewThemeUtils
 
+    @Inject
+    lateinit var appPreferences: AppPreferences
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            permissionRequired = it.getBoolean(ARG_PERMISSION_REQUIRED, false)
+            showStrictText = it.getBoolean(ARG_SHOW_STRICT_TEXT, false)
         }
     }
 
@@ -61,11 +60,11 @@ class StoragePermissionDialogFragment : DialogFragment(), Injectable {
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val title = when {
-            permissionRequired -> R.string.file_management_permission
+            showStrictText -> R.string.file_management_permission
             else -> R.string.file_management_permission_optional
         }
         val explanationResource = when {
-            permissionRequired -> R.string.file_management_permission_text
+            showStrictText -> R.string.file_management_permission_text
             else -> R.string.file_management_permission_optional_text
         }
         val message = getString(explanationResource, getString(R.string.app_name))
@@ -74,15 +73,15 @@ class StoragePermissionDialogFragment : DialogFragment(), Injectable {
             .setTitle(title)
             .setMessage(message)
             .setPositiveButton(R.string.storage_permission_full_access) { _, _ ->
-                setResult(Result.FULL_ACCESS)
+                requestManageAllFiles()
                 dismiss()
             }
             .setNegativeButton(R.string.storage_permission_media_read_only) { _, _ ->
-                setResult(Result.MEDIA_READ_ONLY)
+                requestMediaReadOnly()
                 dismiss()
             }
-            .setNeutralButton(R.string.common_cancel) { _, _ ->
-                setResult(Result.CANCEL)
+            .setNeutralButton(R.string.storage_permission_dont_ask_again) { _, _ ->
+                appPreferences.isStoragePermissionRequested = true
                 dismiss()
             }
 
@@ -91,29 +90,30 @@ class StoragePermissionDialogFragment : DialogFragment(), Injectable {
         return dialogBuilder.create()
     }
 
-    private fun setResult(result: Result) {
-        parentFragmentManager.setFragmentResult(REQUEST_KEY, bundleOf(RESULT_KEY to result))
+    @Suppress("DEPRECATION")
+    private fun requestManageAllFiles() {
+        activity?.let {
+            val intent = PermissionUtil.getManageAllFilesIntent(it)
+            it.startActivityForResult(intent, REQUEST_CODE_MANAGE_ALL_FILES)
+        }
     }
 
-    @Parcelize
-    enum class Result : Parcelable {
-        CANCEL,
-        FULL_ACCESS,
-        MEDIA_READ_ONLY
+    private fun requestMediaReadOnly() {
+        activity?.let {
+            PermissionUtil.requestStoragePermissions(it, appPreferences.isStoragePermissionRequested)
+        }
     }
 
     companion object {
-        private const val ARG_PERMISSION_REQUIRED = "ARG_PERMISSION_REQUIRED"
-        const val REQUEST_KEY = "REQUEST_KEY_STORAGE_PERMISSION"
-        const val RESULT_KEY = "RESULT"
+        private const val ARG_SHOW_STRICT_TEXT = "ARG_SHOW_STRICT_TEXT"
 
         /**
-         * @param permissionRequired Whether the permission is absolutely required by the calling component.
+         * @param showStrictText Whether the permission is absolutely required by the calling component.
          * This changes the texts to a more strict version.
          */
-        fun newInstance(permissionRequired: Boolean): StoragePermissionDialogFragment {
+        fun newInstance(showStrictText: Boolean): StoragePermissionDialogFragment {
             return StoragePermissionDialogFragment().apply {
-                arguments = bundleOf(ARG_PERMISSION_REQUIRED to permissionRequired)
+                arguments = bundleOf(ARG_SHOW_STRICT_TEXT to showStrictText)
             }
         }
     }
