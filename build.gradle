@@ -13,7 +13,7 @@ buildscript {
         androidLibraryVersion ="e7b8c6f87fe82bc6029808702d561a4dd01aa854"
         androidCommonLibraryVersion = "0.25.0"
         androidPluginVersion = "8.9.1"
-        androidxMediaVersion = "1.5.1"
+        androidxMediaVersion = "1.6.0"
         androidxTestVersion = "1.6.1"
         appCompatVersion = "1.7.0"
         checkerVersion = "3.21.2"
