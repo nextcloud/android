@@ -1237,7 +1237,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
                 capability.getRichDocumentsDirectEditing().isTrue() && !file.isEncrypted()) {
                 mContainerActivity.getFileOperationsHelper().openFileAsRichDocument(file, getContext());
             } else if (mContainerActivity instanceof FileDisplayActivity fileDisplayActivity) {
-                fileDisplayActivity.startDownloadForPreview(file, mFile);
+                fileDisplayActivity.startDownloadForPreview(file);
             }
         }
     }
