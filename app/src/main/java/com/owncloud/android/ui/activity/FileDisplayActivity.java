@@ -253,6 +253,13 @@ public class FileDisplayActivity extends FileActivity
     @Inject Clock clock;
     @Inject SyncedFolderProvider syncedFolderProvider;
 
+    /**
+     * Indicates whether the downloaded file should be previewed immediately.
+     * Since `FileDownloadWorker` can be triggered from multiple sources,
+     * this flag helps determine if an automatic preview is needed after download.
+     */
+    private boolean readyForPreview = false;
+
     public static Intent openFileIntent(Context context, User user, OCFile file) {
         final Intent intent = new Intent(context, PreviewImageActivity.class);
         intent.putExtra(FileActivity.EXTRA_FILE, file);
@@ -295,6 +302,10 @@ public class FileDisplayActivity extends FileActivity
 
         OfflineFolderConflictManager offlineFolderConflictManager = new OfflineFolderConflictManager(this);
         offlineFolderConflictManager.registerRefreshSearchEventReceiver();
+    }
+
+    public void setReadyForPreview(boolean readyForPreview) {
+        this.readyForPreview = readyForPreview;
     }
 
     private void notifyGPlayPermissionChanges() {
@@ -1745,6 +1756,12 @@ public class FileDisplayActivity extends FileActivity
                 handleDownloadWorkerState();
             } else if (state instanceof WorkerState.DownloadFinished downloadFinished) {
                 fileDownloadProgressListener = null;
+
+                if (!readyForPreview) {
+                    return;
+                }
+
+                readyForPreview = false;
 
                 final var file = downloadFinished.getCurrentFile();
                 if (file == null) {
