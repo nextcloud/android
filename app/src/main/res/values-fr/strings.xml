@@ -729,6 +729,7 @@
     <string name="recommend_subject">Essayez %1$s sur votre appareil !</string>
     <string name="recommend_text">J\'aimerais vous inviter à utiliser %1$s sur votre appareil.\nTéléchargez-la ici : %2$s</string>
     <string name="recommend_urls">%1$s ou %2$s</string>
+    <string name="recommended_files_title">Fichiers recommandés</string>
     <string name="refresh_content">Actualiser le contenu</string>
     <string name="reload">Recharger</string>
     <string name="remote">(distant)</string>
