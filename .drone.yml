@@ -73,7 +73,7 @@ name: tests-master
 
 steps:
   - name: gplay
-    image: ghcr.io/nextcloud/continuous-integration-android8:3
+    image: ghcr.io/nextcloud/continuous-integration-android8:4
     privileged: true
     environment:
       LOG_USERNAME:
@@ -183,6 +183,6 @@ name: GIT_TOKEN
 data: XIoa9IYq+xQ+N5iln8dlpWv0jV6ROr7HuE24ioUr4uQ8m8SjyH0yognWYLYLqnbTKrFWlFZiEMQTH/sZiWjRFvV1iL0=
 ---
 kind: signature
-hmac: f6cd11c7ddc393ba391ef5e8f468099d9c45e8bbc18ee9b5a8d58e5fc050dfd4
+hmac: 0f61231f449043f868e000b28033f6d9f8f7b301f4b1a41b5ecffd2a1500897b
 
 ...
