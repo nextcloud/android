@@ -20,8 +20,9 @@ import androidx.work.WorkInfo
 import androidx.work.WorkManager
 import com.nextcloud.client.account.User
 import com.nextcloud.client.core.Clock
-import com.nextcloud.utils.extensions.StringConstants
+import com.nextcloud.utils.extensions.toByteArray
 import com.owncloud.android.lib.common.utils.Log_OC
+import org.apache.commons.io.FileUtils
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNotNull
@@ -334,7 +335,8 @@ class BackgroundJobManagerTest {
             whenever(workManager.getWorkInfoByIdLiveData(any())).thenReturn(workInfo)
 
             val selectedContacts = intArrayOf(1, 2, 3)
-            selectedContactsFile?.writeText(selectedContacts.joinToString(StringConstants.DELIMITER))
+            val contractsAsByteArray = selectedContacts.toByteArray()
+            FileUtils.writeByteArrayToFile(selectedContactsFile, contractsAsByteArray)
 
             jobInfo = backgroundJobManager.startImmediateContactsImport(
                 contactsAccountName = "name",

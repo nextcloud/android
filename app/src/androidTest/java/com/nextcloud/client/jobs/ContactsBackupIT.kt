@@ -13,7 +13,7 @@ import com.nextcloud.client.core.ClockImpl
 import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.client.preferences.AppPreferencesImpl
 import com.nextcloud.test.RetryTestRule
-import com.nextcloud.utils.extensions.StringConstants
+import com.nextcloud.utils.extensions.toByteArray
 import com.owncloud.android.AbstractOnServerIT
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.OCFile
@@ -21,6 +21,7 @@ import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.operations.DownloadFileOperation
 import ezvcard.Ezvcard
 import ezvcard.VCard
+import org.apache.commons.io.FileUtils
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Assert.fail
@@ -69,7 +70,8 @@ class ContactsBackupIT : AbstractOnServerIT() {
             fail("hashset_cache cannot be found")
         }
 
-        selectedContactsFile!!.writeText(intArray.joinToString(StringConstants.DELIMITER))
+        val contractsAsByteArray = intArray.toByteArray()
+        FileUtils.writeByteArrayToFile(selectedContactsFile, contractsAsByteArray)
 
         // import file to local contacts
         backgroundJobManager.startImmediateContactsImport(
