@@ -121,6 +121,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
     private List<Tag> tags = new ArrayList<>();
     private Long internalFolderSyncTimestamp = -1L;
     private String internalFolderSyncResult = "";
+    private String richDocumentURL;
 
     /**
      * URI to the local path of the file contents, if stored in the device; cached after first call to
@@ -199,6 +200,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
         lockTimeout = source.readLong();
         lockToken = source.readString();
         livePhoto = source.readString();
+        richDocumentURL = source.readString();
     }
 
     @Override
@@ -244,6 +246,15 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
         dest.writeLong(lockTimeout);
         dest.writeString(lockToken);
         dest.writeString(livePhoto);
+        dest.writeString(richDocumentURL);
+    }
+
+    public String getRichDocumentURL() {
+        return richDocumentURL;
+    }
+
+    public void setRichDocumentURL(String url) {
+        richDocumentURL = url;
     }
 
     public String getLinkedFileIdForLivePhoto() {

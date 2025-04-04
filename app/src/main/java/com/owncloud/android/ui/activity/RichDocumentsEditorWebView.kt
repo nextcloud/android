@@ -136,7 +136,7 @@ class RichDocumentsEditorWebView : EditorWebView() {
 
     public override fun loadUrl(url: String?) {
         if (TextUtils.isEmpty(url)) {
-            RichDocumentsLoadUrlTask(this, user.get(), file).execute()
+            RichDocumentsLoadUrlTask(this, user.get(), file, fileDataStorageManager).execute()
         } else {
             super.loadUrl(url)
         }
