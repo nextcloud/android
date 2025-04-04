@@ -1,6 +1,7 @@
 /*
  * Nextcloud - Android Client
  *
+ * SPDX-FileCopyrightText: 2025 Alper Ozturk <alper.ozturk@nextcloud.com>
  * SPDX-FileCopyrightText: 2020 Chris Narkiewicz <hello@ezaquarii.com>
  * SPDX-FileCopyrightText: 2017 Tobias Kaminsky
  * SPDX-FileCopyrightText: 2017 Nextcloud GmbH
@@ -28,16 +29,24 @@ class CalendarImportWork(
 
     companion object {
         const val TAG = "CalendarImportWork"
-        const val SELECTED_CALENDARS = "selected_contacts_indices"
     }
 
     override fun doWork(): Result {
-        val calendarPaths = inputData.getStringArray(SELECTED_CALENDARS) ?: arrayOf<String>()
-        val calendars = inputData.keyValueMap as Map<String, AndroidCalendar>
+        val calendars = inputData.keyValueMap as? Map<*, *>
+        if (calendars == null) {
+            logger.d(TAG, "CalendarImportWork cancelled due to null empty input data")
+            return Result.failure()
+        }
 
         val calendarBuilder = CalendarBuilder()
 
-        for ((path, selectedCalendar) in calendars) {
+        for ((path, selectedCalendarIndex) in calendars) {
+            // Check types
+            if (path !is String || selectedCalendarIndex !is Int) {
+                logger.d(TAG, "Skipping wrong calendar import input data: $path - $selectedCalendarIndex")
+                continue
+            }
+
             logger.d(TAG, "Import calendar from $path")
 
             val file = File(path)
@@ -49,7 +58,13 @@ class CalendarImportWork(
                 appContext
             )
 
-            val calendars = AndroidCalendar.loadAll(contentResolver)[0]
+            val calendarList = AndroidCalendar.loadAll(contentResolver)
+            if (selectedCalendarIndex >= calendarList.size) {
+                logger.d(TAG, "Skipping selectedCalendarIndex out of bound")
+                return Result.failure()
+            }
+
+            val selectedCalendar = calendarList[selectedCalendarIndex]
 
             ProcessVEvent(
                 appContext,
@@ -59,6 +74,7 @@ class CalendarImportWork(
             ).run()
         }
 
+        logger.d(TAG, "CalendarImportWork successfully completed")
         return Result.success()
     }
 }
