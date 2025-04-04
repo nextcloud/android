@@ -25,7 +25,7 @@ import java.util.List;
  */
 public class ProviderMeta {
     public static final String DB_NAME = "filelist";
-    public static final int DB_VERSION = 88;
+    public static final int DB_VERSION = 89;
 
     private ProviderMeta() {
         // No instance
@@ -123,6 +123,7 @@ public class ProviderMeta {
         public static final String FILE_E2E_COUNTER = "e2e_counter";
         public static final String FILE_INTERNAL_TWO_WAY_SYNC_TIMESTAMP = "internal_two_way_sync_timestamp";
         public static final String FILE_INTERNAL_TWO_WAY_SYNC_RESULT = "internal_two_way_sync_result";
+        public static final String FILE_RICH_DOCUMENT_URL = "rich_document_url";
 
         public static final List<String> FILE_ALL_COLUMNS = Collections.unmodifiableList(Arrays.asList(
             _ID,

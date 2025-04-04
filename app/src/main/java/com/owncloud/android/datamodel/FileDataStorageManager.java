@@ -1208,6 +1208,7 @@ public class FileDataStorageManager {
 
     private OCFile createFileInstance(FileEntity fileEntity) {
         OCFile ocFile = new OCFile(fileEntity.getPath());
+        ocFile.setRichDocumentURL(fileEntity.getRichDocumentURL());
         ocFile.setDecryptedRemotePath(fileEntity.getPathDecrypted());
         ocFile.setFileId(nullToZero(fileEntity.getId()));
         ocFile.setParentId(nullToZero(fileEntity.getParent()));

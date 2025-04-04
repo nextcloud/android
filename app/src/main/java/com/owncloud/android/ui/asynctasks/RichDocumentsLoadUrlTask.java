@@ -10,6 +10,7 @@ package com.owncloud.android.ui.asynctasks;
 import android.os.AsyncTask;
 
 import com.nextcloud.client.account.User;
+import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.operations.RichDocumentsUrlOperation;
@@ -17,16 +18,20 @@ import com.owncloud.android.ui.activity.EditorWebView;
 
 import java.lang.ref.WeakReference;
 
+import javax.inject.Inject;
+
 public class RichDocumentsLoadUrlTask extends AsyncTask<Void, Void, String> {
 
     private final User user;
-    private WeakReference<EditorWebView> editorWebViewWeakReference;
-    private OCFile file;
+    private final WeakReference<EditorWebView> editorWebViewWeakReference;
+    private final OCFile file;
+    private final FileDataStorageManager fileDataStorageManager;
 
-    public RichDocumentsLoadUrlTask(EditorWebView editorWebView, User user, OCFile file) {
+    public RichDocumentsLoadUrlTask(EditorWebView editorWebView, User user, OCFile file, FileDataStorageManager fileDataStorageManager) {
         this.user = user;
         this.editorWebViewWeakReference = new WeakReference<>(editorWebView);
         this.file = file;
+        this.fileDataStorageManager = fileDataStorageManager;
     }
 
     @Override
@@ -37,13 +42,19 @@ public class RichDocumentsLoadUrlTask extends AsyncTask<Void, Void, String> {
             return "";
         }
 
-        RemoteOperationResult result = new RichDocumentsUrlOperation(file.getLocalId()).execute(user, editorWebView);
+        final var result = new RichDocumentsUrlOperation(file.getLocalId()).execute(user, editorWebView);
 
         if (!result.isSuccess()) {
             return "";
         }
 
-        return (String) result.getData().get(0);
+        final var url = (String) result.getData().get(0);
+        file.setRichDocumentURL(url);
+
+        // FIXME: Update file entity
+        fileDataStorageManager.saveFile(file);
+
+        return url;
     }
 
     @Override
