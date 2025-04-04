@@ -346,8 +346,15 @@ public class BackupListFragment extends FileFragment implements Injectable {
             return;
         }
 
-        backgroundJobManager.startImmediateContactsImport(account.getName(),
-                                                          account.getType(),
+        String name = null;
+        String type = null;
+        if (account != null) {
+            name = account.getName();
+            type = account.getType();
+        }
+
+        backgroundJobManager.startImmediateContactsImport(name,
+                                                          type,
                                                           getFile().getStoragePath(),
                                                           selectedContractsFilePath);
 
