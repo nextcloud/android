@@ -20,7 +20,7 @@ buildscript {
         daggerVersion = "2.55"
         documentScannerVersion = "1.1.1"
         espressoVersion = "3.6.1"
-        jacoco_version = "0.8.12"
+        jacoco_version = "0.8.13"
         kotlin_version = "2.1.20"
         markwonVersion = "4.6.2"
         mockitoVersion = "4.11.0"
