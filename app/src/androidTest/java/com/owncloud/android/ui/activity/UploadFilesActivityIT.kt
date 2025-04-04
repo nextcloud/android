@@ -77,7 +77,7 @@ class UploadFilesActivityIT : AbstractIT() {
         waitForIdleSync()
         longSleep()
 
-        screenshot(sut.fileListFragment.binding.listRoot)
+        screenshot(sut.fileListFragment.binding?.listRoot)
     }
 
     @Test
@@ -153,7 +153,7 @@ class UploadFilesActivityIT : AbstractIT() {
 
         onIdleSync {
             val screenShotName = createName(testClassName + "_" + "selectAll", "")
-            screenshotViaName(sut.fileListFragment.binding.listRoot, screenShotName)
+            screenshotViaName(sut.fileListFragment.binding?.listRoot, screenShotName)
         }
     }
 }
