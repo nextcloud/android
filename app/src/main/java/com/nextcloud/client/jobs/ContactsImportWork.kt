@@ -124,6 +124,7 @@ class ContactsImportWork(
         return Result.success()
     }
 
+    @Suppress("TooGenericExceptionCaught")
     fun readCheckedContractsFromFile(file: File): IntArray {
         return try {
             val fileData = FileUtils.readFileToByteArray(file)
