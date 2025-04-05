@@ -592,6 +592,7 @@
     <string name="uploads_view_upload_status_failed_localfile_error">Lokālā datne nav atrasta</string>
     <string name="uploads_view_upload_status_failed_permission_error">Pieejas tiesību kļuda</string>
     <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">Neuzticams servera sertifikāts</string>
+    <string name="uploads_view_upload_status_fetching_server_version">Iegūst servera versiju…</string>
     <string name="uploads_view_upload_status_service_interrupted">Lietotne aizvērta</string>
     <string name="uploads_view_upload_status_succeeded">Pabeigts</string>
     <string name="uploads_view_upload_status_unknown_fail">Nezināma kļūda</string>

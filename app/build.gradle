@@ -30,8 +30,8 @@ buildscript {
 plugins {
     alias(libs.plugins.kotlin.compose)
     id "com.diffplug.spotless" version "6.25.0"
-    id "org.jetbrains.kotlin.kapt" version "2.1.10"
-    id "com.google.devtools.ksp" version "2.1.10-1.0.31" apply false
+    id "org.jetbrains.kotlin.kapt" version "2.1.20"
+    id "com.google.devtools.ksp" version "2.1.20-1.0.32" apply false
 }
 
 apply plugin: "com.android.application"
