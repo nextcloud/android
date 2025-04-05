@@ -128,7 +128,7 @@
     <string name="confirmation_remove_files_alert">Vai tiešām vēlies dzēst izvēlētos objektus?</string>
     <string name="confirmation_remove_folder_alert">Vai tiešām vēlaties izdzēst %1$s un tā saturu?</string>
     <string name="confirmation_remove_folders_alert">Vai tiešām vēlies dzēst izvēlētos objektus un to saturu?</string>
-    <string name="confirmation_remove_local">Tikai lokālos</string>
+    <string name="confirmation_remove_local">Tikai vietējos</string>
     <string name="conflict_dialog_error">Nevar izveidot nesaderību novēršanas lodziņu</string>
     <string name="contactlist_item_icon">Lietotāja ikona kontaktpersonu sarakstam</string>
     <string name="contactlist_no_permission">Nav dota atļauja, importēšana neizdevās</string>
@@ -169,7 +169,7 @@
     <string name="dismiss">Atmest</string>
     <string name="dismiss_notification_description">Noraidīt paziņojumu</string>
     <string name="document_scan_export_dialog_images">Vairāki attēli</string>
-    <string name="document_scan_export_dialog_pdf">PDF fails</string>
+    <string name="document_scan_export_dialog_pdf">PDF datne</string>
     <string name="done">Pabeigts</string>
     <string name="downloader_download_failed_content">Nevarēja lejupielādēt %1$s</string>
     <string name="downloader_download_failed_credentials_error">Lejupielāde neizdevās, piesakieties vēlreiz.</string>
@@ -205,7 +205,7 @@
     <string name="end_to_end_encryption_dialog_close">Aizvērt</string>
     <string name="end_to_end_encryption_password">Parole…</string>
     <string name="end_to_end_encryption_title">Uzstādīt šifrēšanu</string>
-    <string name="error__upload__local_file_not_copied">%1$s nevar kopēt uz %2$s lokālo mapi</string>
+    <string name="error__upload__local_file_not_copied">%1$s nevarēja pārkopēt uz %2$s vietējo mapi</string>
     <string name="error_cant_bind_to_operations_service">Kritiska kļūda: Nevar veikt darbības</string>
     <string name="error_comment_file">Kļūda komentējot datni</string>
     <string name="error_report_issue_action">Atskaite</string>
@@ -282,7 +282,7 @@
     <string name="forbidden_permissions_rename">lai pārsauktu šo datni</string>
     <string name="foreground_service_upload">Augšupielādē datnes</string>
     <string name="foreign_files_fail">Dažas datnes nevarēja pārvietot</string>
-    <string name="foreign_files_local_text">Lokāli: %1$s</string>
+    <string name="foreign_files_local_text">Vietēji: %1$s</string>
     <string name="foreign_files_move">Pārvietot visu</string>
     <string name="foreign_files_remote_text">Attāli: %1$s</string>
     <string name="foreign_files_success">Visas datnes tika pārvietotas</string>
@@ -309,7 +309,7 @@
     <string name="list_layout">Saraksta izkārtojums</string>
     <string name="load_more_results">Ielādēt vairāk iznākumu</string>
     <string name="local_file_list_empty">Šajā mapē nav datņu</string>
-    <string name="local_file_not_found_message">Datne lokālajā datņu sistēmā netika atrasta</string>
+    <string name="local_file_not_found_message">Datne netika atrasta vietējā datņu sistēmā</string>
     <string name="local_folder_list_empty">Tālāku mapju vairs nav.</string>
     <string name="log_send_mail_subject">%1$s Android lietotnes žurnāli</string>
     <string name="login">Pieteikties</string>
@@ -515,7 +515,7 @@
     <string name="sync_fail_ticker">Sinhronizēšana neizdevās</string>
     <string name="sync_fail_ticker_unauthorized">Sinhronizācija neizdevās, piesakieties vēlreiz</string>
     <string name="sync_file_nothing_to_do_msg">Datnes saturs jau ir sinhronizēts</string>
-    <string name="sync_foreign_files_forgotten_ticker">Dažas lokālās datnes tika aizmirstas</string>
+    <string name="sync_foreign_files_forgotten_ticker">Dažas vietējās datnes tika aizmirstas</string>
     <string name="sync_not_enough_space_dialog_action_free_space">Atbrīvot vietu</string>
     <string name="sync_string_files">Datnes</string>
     <string name="synced_folder_settings_button">Iestatījumu poga</string>
@@ -589,7 +589,7 @@
     <string name="uploads_view_upload_status_failed_credentials_error">Akreditācijas datu kļūda</string>
     <string name="uploads_view_upload_status_failed_file_error">Datnes kļūda</string>
     <string name="uploads_view_upload_status_failed_folder_error">Mapes kļūda</string>
-    <string name="uploads_view_upload_status_failed_localfile_error">Lokālā datne nav atrasta</string>
+    <string name="uploads_view_upload_status_failed_localfile_error">Vietējā datne nav atrasta</string>
     <string name="uploads_view_upload_status_failed_permission_error">Pieejas tiesību kļuda</string>
     <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">Neuzticams servera sertifikāts</string>
     <string name="uploads_view_upload_status_fetching_server_version">Iegūst servera versiju…</string>
@@ -608,7 +608,7 @@
     <string name="userinfo_no_info_headline">Personiskā informācija nav uzstādīta</string>
     <string name="username">Lietotājvārds</string>
     <string name="version_dev_download">Lejupielādēt</string>
-    <string name="wait_a_moment">Uzgaidiet brītiņu…</string>
+    <string name="wait_a_moment">Jāuzgaida kādu brīdi…</string>
     <string name="wait_checking_credentials">Pārbauda saglabātos akredācijas datus</string>
     <string name="wait_for_tmp_copy_from_private_storage">Kopē datni no privātās krātuves</string>
     <string name="what_s_new_image">Kas jauns attēls</string>
@@ -616,7 +616,7 @@
     <string name="whats_new_title">Jaunums %1$s</string>
     <string name="whats_your_status">Kāds ir jūsu statuss?</string>
     <string name="widgets_not_available_title">Nav pieejams</string>
-    <string name="worker_download">Lejupielādē failus…</string>
+    <string name="worker_download">Lejupielādē datnes…</string>
     <string name="write_email">Sūtīt e-pastu</string>
     <plurals name="found_n_duplicates">
         <item quantity="zero">Tika atrasti %d ieraksti, kas atkārtojas.</item>
