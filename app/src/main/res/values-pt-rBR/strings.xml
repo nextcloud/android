@@ -120,7 +120,7 @@
     <string name="bottom_navigation_menu_assistant_label">Assistente</string>
     <string name="bottom_navigation_menu_favorites_label">Favoritos</string>
     <string name="bottom_navigation_menu_files_label">Todos os arquivos</string>
-    <string name="bottom_navigation_menu_media_label">Meios de comunicação</string>
+    <string name="bottom_navigation_menu_media_label">Mídia</string>
     <string name="calendar">Calendário</string>
     <string name="calendars">Calendários </string>
     <string name="certificate_load_problem">Existe um problema ao carregar o certificado.</string>
@@ -253,7 +253,7 @@
     <string name="document_scan_pdf_generation_failed">Falha na geração do PDF</string>
     <string name="document_scan_pdf_generation_in_progress">Gerando PDF…</string>
     <string name="done">Concluído</string>
-    <string name="dontClear">Não limpar</string>
+    <string name="dontClear">Não limpe</string>
     <string name="download_cannot_create_file">Não foi possível criar o arquivo local</string>
     <string name="download_download_invalid_local_file_name">Nome de arquivo inválido para o arquivo local</string>
     <string name="download_latest_dev_version">Baixar a última versão dev</string>
@@ -340,7 +340,7 @@
     <string name="error_showing_encryption_dialog">Erro ao mostrar o diálogo de configuração de criptografia!</string>
     <string name="error_starting_direct_camera_upload">Erro ao inicializar a câmera</string>
     <string name="error_starting_doc_scan">Erro ao iniciar a digitalização do documento</string>
-    <string name="error_uploading_direct_camera_upload">Falha ao carregar mídia tirada</string>
+    <string name="error_uploading_direct_camera_upload">Falha ao fazer upload da mídia tirada</string>
     <string name="etm_accounts">Contas</string>
     <string name="etm_background_execution_count">Os tempos correm em 48h</string>
     <string name="etm_background_job_created">Criada</string>
@@ -455,7 +455,7 @@
     <string name="first_run_1_text">Mantenha seus dados seguros e sob seu controle</string>
     <string name="first_run_2_text">Colaboração segura e troca de arquivos</string>
     <string name="first_run_3_text">Webmail, calendário e contatos fáceis de usar</string>
-    <string name="first_run_4_text">Compartilhamento de tela, reuniões on-line e conferências na web</string>
+    <string name="first_run_4_text">Compartilhamento de tela, reuniões on-line e webconferências</string>
     <string name="folder_already_exists">Pasta já existe</string>
     <string name="folder_best_viewed_in">Essa pasta é melhor visualizada em %1$s.</string>
     <string name="folder_confirm_create">Criar</string>
@@ -535,7 +535,7 @@
     <string name="log_send_no_mail_app">Nenhum aplicativo para envio de registros foi encontrado. Instale um cliente de e-mail.</string>
     <string name="logged_in_as">Conectado como %1$s</string>
     <string name="login">Entrar</string>
-    <string name="login_url_helper_text">O link para a interface da web do seu  %1$s quando você o abre no navegador.</string>
+    <string name="login_url_helper_text">O link da interface da web do seu %1$s quando você o abre no navegador.</string>
     <string name="logs_menu_delete">Excluir logs</string>
     <string name="logs_menu_refresh">Atualizar</string>
     <string name="logs_menu_search">Pesquisar logs</string>
@@ -666,7 +666,7 @@
     <string name="pref_instant_name_collision_policy_entries_rename">Renomear a nova versão</string>
     <string name="pref_instant_name_collision_policy_title">O que fazer se o arquivo já existir?</string>
     <string name="prefs_add_account">Adicionar uma conta</string>
-    <string name="prefs_calendar_contacts">Sincronize calendário e contatos</string>
+    <string name="prefs_calendar_contacts">Sincronizar calendário e contatos</string>
     <string name="prefs_calendar_contacts_no_store_error">Nem o F-Droid nem o Google Play estão instalados</string>
     <string name="prefs_calendar_contacts_summary">Configurar DAVx5 (conhecido como DAVdroid) (v1.3.0+) para a conta atual</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Configuração de sincronização de calendário e contatos</string>
@@ -675,7 +675,7 @@
     <string name="prefs_category_dev">Desenvolvimento</string>
     <string name="prefs_category_general">Geral</string>
     <string name="prefs_category_more">Mais</string>
-    <string name="prefs_category_sync">Sincronizar</string>
+    <string name="prefs_category_sync">Sincronização</string>
     <string name="prefs_daily_backup_summary">Backup diário do seu calendário e contatos</string>
     <string name="prefs_daily_contact_backup_summary">Backup diário de seus contatos</string>
     <string name="prefs_data_storage_location">Local de armazenamento de dados</string>
@@ -782,7 +782,7 @@
     <string name="screenshot_03_drawer_subline">tudo rapidamente acessível</string>
     <string name="screenshot_04_accounts_heading">Todas as suas contas</string>
     <string name="screenshot_04_accounts_subline">em um lugar</string>
-    <string name="screenshot_05_autoUpload_heading">Envio automático</string>
+    <string name="screenshot_05_autoUpload_heading">Upload automático</string>
     <string name="screenshot_05_autoUpload_subline">para suas fotos e vídeos</string>
     <string name="screenshot_06_davdroid_heading">Calendário e contatos</string>
     <string name="screenshot_06_davdroid_subline">Sincronizar com DAVx5</string>
@@ -1105,29 +1105,29 @@
     <string name="wrong_storage_path">A pasta de armazenamento de dados não existe!</string>
     <string name="wrong_storage_path_desc">Isto pode ser decorrente de uma restauração de backup em outro dispositivo. Retornando ao padrão. Verifique as configurações para ajustar a pasta de armazenamento.</string>
     <plurals name="hours">
-        <item quantity="one">%d horas</item>
+        <item quantity="one">%d hora</item>
         <item quantity="many">%d horas</item>
-        <item quantity="other">%d hours</item>
+        <item quantity="other">%d horas</item>
     </plurals>
     <plurals name="minutes">
-        <item quantity="one">%d minutos</item>
+        <item quantity="one">%d minuto</item>
         <item quantity="many">%d minutos</item>
-        <item quantity="other">%d ata</item>
+        <item quantity="other">%d minutos</item>
     </plurals>
     <plurals name="time_seconds_ago">
-        <item quantity="one">1 segundo atrás</item>
-        <item quantity="many">%d segundos atrás</item>
-        <item quantity="other">%d segundos atrás</item>
+        <item quantity="one">há 1 segundo</item>
+        <item quantity="many">há %d segundos</item>
+        <item quantity="other">há %d segundos</item>
     </plurals>
     <plurals name="time_minutes_ago">
-        <item quantity="one">1 minuto atrás</item>
-        <item quantity="many">%d minutos atrás</item>
-        <item quantity="other">%d minutos atrás</item>
+        <item quantity="one">há 1 minuto</item>
+        <item quantity="many">há %d minutos</item>
+        <item quantity="other">há %d minutos</item>
     </plurals>
     <plurals name="time_hours_ago">
-        <item quantity="one">1 hora atrás</item>
-        <item quantity="many">%d horas atrás</item>
-        <item quantity="other">%d horas atrás</item>
+        <item quantity="one">há 1 hora</item>
+        <item quantity="many">há %d horas</item>
+        <item quantity="other">há %d horas</item>
     </plurals>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">Erro ao sincronizar %1$d arquivo (conflitos: %2$d)</item>
