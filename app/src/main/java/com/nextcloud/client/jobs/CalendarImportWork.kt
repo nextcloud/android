@@ -14,6 +14,7 @@ import android.content.Context
 import androidx.work.Worker
 import androidx.work.WorkerParameters
 import com.nextcloud.client.logger.Logger
+import com.owncloud.android.lib.common.utils.Log_OC
 import net.fortuna.ical4j.data.CalendarBuilder
 import third_parties.sufficientlysecure.AndroidCalendar
 import third_parties.sufficientlysecure.CalendarSource
@@ -41,36 +42,40 @@ class CalendarImportWork(
         val calendarBuilder = CalendarBuilder()
 
         for ((path, selectedCalendarIndex) in calendars) {
-            if (path !is String || selectedCalendarIndex !is Int) {
-                logger.d(TAG, "Skipping wrong input data types: $path - $selectedCalendarIndex")
-                continue
+            try {
+                if (path !is String || selectedCalendarIndex !is Int) {
+                    logger.d(TAG, "Skipping wrong input data types: $path - $selectedCalendarIndex")
+                    continue
+                }
+
+                logger.d(TAG, "Import calendar from $path")
+
+                val file = File(path)
+                val calendarSource = CalendarSource(
+                    file.toURI().toURL().toString(),
+                    null,
+                    null,
+                    null,
+                    appContext
+                )
+
+                val calendarList = AndroidCalendar.loadAll(contentResolver)
+                if (selectedCalendarIndex >= calendarList.size) {
+                    logger.d(TAG, "Skipping selectedCalendarIndex out of bound")
+                    continue
+                }
+
+                val selectedCalendar = calendarList[selectedCalendarIndex]
+
+                ProcessVEvent(
+                    appContext,
+                    calendarBuilder.build(calendarSource.stream),
+                    selectedCalendar,
+                    true
+                ).run()
+            } catch (e: Exception) {
+                Log_OC.e(TAG, "skipping calendarIndex: $selectedCalendarIndex due to: $e")
             }
-
-            logger.d(TAG, "Import calendar from $path")
-
-            val file = File(path)
-            val calendarSource = CalendarSource(
-                file.toURI().toURL().toString(),
-                null,
-                null,
-                null,
-                appContext
-            )
-
-            val calendarList = AndroidCalendar.loadAll(contentResolver)
-            if (selectedCalendarIndex >= calendarList.size) {
-                logger.d(TAG, "Skipping selectedCalendarIndex out of bound")
-                continue
-            }
-
-            val selectedCalendar = calendarList[selectedCalendarIndex]
-
-            ProcessVEvent(
-                appContext,
-                calendarBuilder.build(calendarSource.stream),
-                selectedCalendar,
-                true
-            ).run()
         }
 
         logger.d(TAG, "CalendarImportWork successfully completed")
