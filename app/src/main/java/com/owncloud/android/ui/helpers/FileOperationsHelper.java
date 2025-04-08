@@ -331,8 +331,7 @@ public class FileOperationsHelper {
             }
 
             try {
-                // If file already downloaded no need show error message because file is available
-                if (!file.isDown() && !result.isSuccess()) {
+                if (!result.isSuccess()) {
                     DisplayUtils.showSnackMessage(fileActivity, R.string.file_not_synced);
 
                     // Sleep to show snackbar message
@@ -376,11 +375,18 @@ public class FileOperationsHelper {
         context.startActivity(textEditorIntent);
     }
 
+    private Uri getFileUri(OCFile file) {
+        return FileProvider.getUriForFile(
+            fileActivity,
+            fileActivity.getString(R.string.file_provider_authority),
+            new File(file.getStoragePath()));
+    }
+
     @NonNull
     private Intent createOpenFileIntent(OCFile file) {
         String storagePath = file.getStoragePath();
-        Uri fileUri = getFileUri(file, MainApp.getAppContext().getResources().getStringArray(R.array
-                                                                                                 .ms_office_extensions));
+        Uri fileUri = getFileUri(file);
+
         Intent openFileWithIntent = null;
         int lastIndexOfDot = storagePath.lastIndexOf('.');
         if (lastIndexOfDot >= 0) {
@@ -411,6 +417,7 @@ public class FileOperationsHelper {
         return openFileWithIntent;
     }
 
+    // TODO: Why we have to use getLegacyExposedFileUri?
     private Uri getFileUri(OCFile file, String... officeExtensions) {
         if (file.getFileName().contains(".") &&
             Arrays.asList(officeExtensions).contains(file.getFileName().substring(file.getFileName().
