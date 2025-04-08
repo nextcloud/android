@@ -60,8 +60,6 @@ class GalleryAdapter(
     private var storageManager: FileDataStorageManager = transferServiceGetter.storageManager
 
     init {
-        setHasStableIds(true)
-
         ocFileListDelegate = OCFileListDelegate(
             transferServiceGetter.fileUploaderHelper,
             context,
