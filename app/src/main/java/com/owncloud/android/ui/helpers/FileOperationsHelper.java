@@ -325,17 +325,13 @@ public class FileOperationsHelper {
             }
 
             if (availableApps.isEmpty()) {
-                fileActivity.runOnUiThread(() -> {
-                    DisplayUtils.showSnackMessage(fileActivity, R.string.file_list_no_app_for_file_type);
-                });
+                fileActivity.runOnUiThread(() -> DisplayUtils.showSnackMessage(fileActivity, R.string.file_list_no_app_for_file_type));
 
                 return;
             }
 
             if (!result.isSuccess()) {
-                fileActivity.runOnUiThread(() -> {
-                    DisplayUtils.showSnackMessage(fileActivity, R.string.file_not_synced);
-                });
+                fileActivity.runOnUiThread(() -> DisplayUtils.showSnackMessage(fileActivity, R.string.file_not_synced));
 
                 // Sleep to show snackbar message
                 try {
