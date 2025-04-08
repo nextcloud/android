@@ -81,7 +81,6 @@ import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -326,27 +325,34 @@ public class FileOperationsHelper {
             }
 
             if (availableApps.isEmpty()) {
-                DisplayUtils.showSnackMessage(fileActivity, R.string.file_list_no_app_for_file_type);
+                fileActivity.runOnUiThread(() -> {
+                    DisplayUtils.showSnackMessage(fileActivity, R.string.file_list_no_app_for_file_type);
+                });
+
                 return;
             }
 
-            try {
-                if (!result.isSuccess()) {
+            if (!result.isSuccess()) {
+                fileActivity.runOnUiThread(() -> {
                     DisplayUtils.showSnackMessage(fileActivity, R.string.file_not_synced);
+                });
 
-                    // Sleep to show snackbar message
-                    try {
-                        Thread.sleep(3000);
-                    } catch (InterruptedException e) {
-                        Log_OC.e(TAG, "Failed to sleep");
-                    }
+                // Sleep to show snackbar message
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    Log_OC.e(TAG, "Failed to sleep");
                 }
-
-                openFileWithIntent.setFlags(openFileWithIntent.getFlags() | Intent.FLAG_ACTIVITY_NEW_TASK);
-                fileActivity.startActivity(openFileWithIntent);
-            } catch (ActivityNotFoundException exception) {
-                DisplayUtils.showSnackMessage(fileActivity, R.string.file_list_no_app_for_file_type);
             }
+
+            fileActivity.runOnUiThread(() -> {
+                try {
+                    openFileWithIntent.setFlags(openFileWithIntent.getFlags() | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    fileActivity.startActivity(openFileWithIntent);
+                } catch (ActivityNotFoundException exception) {
+                    DisplayUtils.showSnackMessage(fileActivity, R.string.file_list_no_app_for_file_type);
+                }
+            });
         }).start();
     }
 
@@ -375,17 +381,10 @@ public class FileOperationsHelper {
         context.startActivity(textEditorIntent);
     }
 
-    private Uri getFileUri(OCFile file) {
-        return FileProvider.getUriForFile(
-            fileActivity,
-            fileActivity.getString(R.string.file_provider_authority),
-            new File(file.getStoragePath()));
-    }
-
     @NonNull
     private Intent createOpenFileIntent(OCFile file) {
         String storagePath = file.getStoragePath();
-        Uri fileUri = getFileUri(file);
+        Uri fileUri = file.getExposedFileUri(fileActivity);
 
         Intent openFileWithIntent = null;
         int lastIndexOfDot = storagePath.lastIndexOf('.');
@@ -394,10 +393,7 @@ public class FileOperationsHelper {
             String guessedMimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(fileExt);
             if (guessedMimeType != null) {
                 openFileWithIntent = new Intent(Intent.ACTION_VIEW);
-                openFileWithIntent.setDataAndType(
-                    fileUri,
-                    guessedMimeType
-                                                 );
+                openFileWithIntent.setDataAndType(fileUri, guessedMimeType);
             }
         }
 
@@ -407,26 +403,12 @@ public class FileOperationsHelper {
 
         if (openFileWithIntent == null) {
             openFileWithIntent = new Intent(Intent.ACTION_VIEW);
-            openFileWithIntent.setDataAndType(
-                fileUri,
-                file.getMimeType()
-                                             );
+            openFileWithIntent.setDataAndType(fileUri, file.getMimeType());
         }
 
         openFileWithIntent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-        return openFileWithIntent;
-    }
 
-    // TODO: Why we have to use getLegacyExposedFileUri?
-    private Uri getFileUri(OCFile file, String... officeExtensions) {
-        if (file.getFileName().contains(".") &&
-            Arrays.asList(officeExtensions).contains(file.getFileName().substring(file.getFileName().
-                                                                                      lastIndexOf(".") + 1)) &&
-            !file.getStoragePath().startsWith(MainApp.getAppContext().getFilesDir().getAbsolutePath())) {
-            return file.getLegacyExposedFileUri();
-        } else {
-            return file.getExposedFileUri(fileActivity);
-        }
+        return openFileWithIntent;
     }
 
     public void streamMediaFile(OCFile file) {
