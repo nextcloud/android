@@ -46,6 +46,7 @@
     <string name="app_widget_description">Visa en widget från dashboard</string>
     <string name="appbar_search_in">Sök i %s</string>
     <string name="assistant_screen_add_task_alert_dialog_title">Lägg till ny uppgift</string>
+    <string name="assistant_screen_create_a_new_task_from_bottom_right_text">Skapa en ny uppgift från nedre högra hörnet</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Skriv någon text</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Är du säker på att du vill ta bort den här uppgiften?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Ta bort uppgift</string>
@@ -55,6 +56,7 @@
     <string name="assistant_screen_task_create_success_message">Uppgiften har skapats</string>
     <string name="assistant_screen_task_delete_fail_message">Ett fel uppstod när uppgiften skulle tas bort</string>
     <string name="assistant_screen_task_delete_success_message">Uppgiften har raderats</string>
+    <string name="assistant_screen_task_list_empty_message">Uppgiftslistan är tom.</string>
     <string name="assistant_screen_task_list_error_state_message">Det går inte att hämta uppgiftslistan, kontrollera din internetanslutning.</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">Ta bort uppgift</string>
     <string name="assistant_screen_task_output_empty_text">Uppgiftens resultat är inte redo än.</string>
@@ -101,6 +103,7 @@
     <string name="auto_upload_gplay_desc2">På grund av nya begränsningar införda av Google har vi tvingats ta bort en viktig behörighet. Som en följd av detta kommer automatisk uppladdning endast att kunna ladda upp bild- och videofiler.\nDessutom krävs en ny behörighet för att få åtkomst till platsinformation för uppladdade bilder.\nSe till att medieåtkomst är inställd på “Tillåt alltid allt”.</string>
     <string name="auto_upload_on_wifi">Ladda bara upp via obelastad Wi-Fi</string>
     <string name="auto_upload_path">/AutomatiskUppladdning</string>
+    <string name="auto_upload_sub_folder_warning">Denna mapp ingår redan i synkroniseringen av den överordnade mappen, vilket kan orsaka dubbla uppladdningar</string>
     <string name="autoupload_configure">Konfigurera</string>
     <string name="autoupload_create_new_custom_folder">Skapa en ny anpassad mappkonfiguration </string>
     <string name="autoupload_custom_folder">Skapa en anpassad mapp</string>
@@ -911,8 +914,10 @@
     <string name="subtitle_videos_only">Endast videos</string>
     <string name="suggest">Föreslå</string>
     <string name="sync">Synkronisera</string>
+    <string name="sync_anyway">Synkronisera ändå</string>
     <string name="sync_conflicts_in_favourites_ticker">Konflikter uppstod</string>
     <string name="sync_current_folder_was_removed">Mappen %1$s finns inte längre</string>
+    <string name="sync_duplication">Synkroniseringsduplicering</string>
     <string name="sync_fail_content">Kunde inte synkronisera %1$s</string>
     <string name="sync_fail_content_unauthorized">Fel lösenord för %1$s</string>
     <string name="sync_fail_in_favourites_ticker">Filer flaggade som Håll-filen-uppdaterad misslyckades</string>
@@ -929,6 +934,7 @@
     <string name="sync_not_enough_space_dialog_title">Inte tillräckligt med utrymme</string>
     <string name="sync_status_button">Knappen Synkroniseringsstatus</string>
     <string name="sync_string_files">Filer</string>
+    <string name="sync_warning_button">Synkvarningsknapp</string>
     <string name="synced_folder_settings_button">Inställningar-knapp</string>
     <string name="synced_folders_configure_folders">Konfigurera mappar</string>
     <string name="synced_folders_new_info">Direktuppladdning heter numera Automatisk uppladdning och har blivit totalt omgjort. Vänligen se huvudmenyn för att konfigurera Automatisk uppladdning igen. Ledsen för besväret.\n\nNjut av de nya och förbättrade uppladdningsmöjligheterna!</string>
