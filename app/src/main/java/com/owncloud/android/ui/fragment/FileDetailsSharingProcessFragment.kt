@@ -211,6 +211,8 @@ class FileDetailsSharingProcessFragment :
                 themeRadioButton(fileDropRadioButton)
                 themeRadioButton(customPermissionRadioButton)
 
+                themeCheckbox(shareAllowDownloadAndSyncCheckbox)
+
                 themeCheckbox(shareReadCheckbox)
                 themeCheckbox(shareCreateCheckbox)
                 themeCheckbox(shareEditCheckbox)
@@ -486,6 +488,10 @@ class FileDetailsSharingProcessFragment :
             }
             shareProcessSelectExpDate.setOnClickListener {
                 showExpirationDateDialog()
+            }
+
+            shareAllowDownloadAndSyncCheckbox.setOnCheckedChangeListener { _, isChecked ->
+                share
             }
 
             // region RadioButtons
