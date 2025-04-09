@@ -308,13 +308,13 @@ internal class BackgroundJobManagerImpl(
         contactsAccountName: String?,
         contactsAccountType: String?,
         vCardFilePath: String,
-        selectedContacts: IntArray
+        selectedContactsFilePath: String
     ): LiveData<JobInfo?> {
         val data = Data.Builder()
             .putString(ContactsImportWork.ACCOUNT_NAME, contactsAccountName)
             .putString(ContactsImportWork.ACCOUNT_TYPE, contactsAccountType)
             .putString(ContactsImportWork.VCARD_FILE_PATH, vCardFilePath)
-            .putIntArray(ContactsImportWork.SELECTED_CONTACTS_INDICES, selectedContacts)
+            .putString(ContactsImportWork.SELECTED_CONTACTS_FILE_PATH, selectedContactsFilePath)
             .build()
 
         val constraints = Constraints.Builder()

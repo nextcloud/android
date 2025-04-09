@@ -10,6 +10,7 @@
     <string name="action_edit">Uredi</string>
     <string name="action_empty_notifications">Izbriši sve obavijesti</string>
     <string name="action_empty_trashbin">Isprazni kantu za smeće</string>
+    <string name="action_send_share">Šalji/dijeli</string>
     <string name="action_switch_grid_view">Prikaz rešetke</string>
     <string name="action_switch_list_view">Prikaz popisa</string>
     <string name="actionbar_mkdir">Nova mapa</string>

@@ -3,8 +3,8 @@
 
 [versions]
 splash-screen = "1.0.1"
-kotlin = "2.1.10"
-composeBom = "2025.03.00"
+kotlin = "2.1.20"
+composeBom = "2025.03.01"
 spotbugsGradlePlugin = "6.1.7"
 
 [libraries]

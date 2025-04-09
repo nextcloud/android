@@ -46,6 +46,7 @@
     <string name="app_widget_description">عرض أداة واحدة من لوحة المعلومات</string>
     <string name="appbar_search_in">بحث في %s</string>
     <string name="assistant_screen_add_task_alert_dialog_title">إضافة مهمة جديدة</string>
+    <string name="assistant_screen_create_a_new_task_from_bottom_right_text">أنشِئ مهمة جديدة من الأسفل</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">أكتُب أيَّ نص</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">هل أنت متأكد أنك ترغب بحذف هذه المهمة؟</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">حذف المهمّة</string>
@@ -55,6 +56,7 @@
     <string name="assistant_screen_task_create_success_message">تمّ إنشاء المهمة بنجاح</string>
     <string name="assistant_screen_task_delete_fail_message">حدث خطأ أثناء حذف المهمة</string>
     <string name="assistant_screen_task_delete_success_message">تمّ حذف المهمة بنجاح</string>
+    <string name="assistant_screen_task_list_empty_message">قائمة المهام فارغة.</string>
     <string name="assistant_screen_task_list_error_state_message">تعذّر جلب قائمة المهام. قم رجاءً بالتحقُّق من اتصالك بالإنترنت.</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">حذف مهمة</string>
     <string name="assistant_screen_task_output_empty_text">مخرجات المهمة ليست جاهزة بعد.</string>
@@ -103,6 +105,7 @@
 تأكد من تعيين حقل \"الوصول إلى الوسائط\" media access على خيار \"السماح دائمًا للجميع\" Always allow all.</string>
     <string name="auto_upload_on_wifi">قم بالرفع عبر شبكة لاسلكية غير محدودة البيانات فقط</string>
     <string name="auto_upload_path">/رفع تلقائي</string>
+    <string name="auto_upload_sub_folder_warning">هذا المُجلَّد مُضمَّن سَلَفاً في مُزامَنة المُجلَّد الأب؛ الأمر الذي قد يتسبب في تكرار الرفع  </string>
     <string name="autoupload_configure">إعداد</string>
     <string name="autoupload_create_new_custom_folder">أنشئ إعداد مجلد خاص جديد</string>
     <string name="autoupload_custom_folder">إعداد مجلد خاص</string>
@@ -943,8 +946,10 @@
     <string name="subtitle_videos_only">مقاطع الفيديو فقط</string>
     <string name="suggest">اقتراح</string>
     <string name="sync">زامن</string>
+    <string name="sync_anyway">قُم بالمزامنة على أي حالٍ</string>
     <string name="sync_conflicts_in_favourites_ticker">هناك تعارض</string>
     <string name="sync_current_folder_was_removed">المجلد %1$s غير موجود بعد الآن</string>
+    <string name="sync_duplication">تكرار المزامنة</string>
     <string name="sync_fail_content">تعذرت عملية مزامنة %1$s</string>
     <string name="sync_fail_content_unauthorized">رمز سر خاطئ ل%1$s</string>
     <string name="sync_fail_in_favourites_ticker">لم تنجح المزامنة التلقائية للملفات</string>
@@ -961,6 +966,7 @@
     <string name="sync_not_enough_space_dialog_title">مساحة غير كافية</string>
     <string name="sync_status_button">زر حالة المزامنة</string>
     <string name="sync_string_files">الملفات</string>
+    <string name="sync_warning_button">زر تحذير المزامنة</string>
     <string name="synced_folder_settings_button">زر الإعدادات</string>
     <string name="synced_folders_configure_folders">إعداد المجلدات</string>
     <string name="synced_folders_new_info">تم تجديد التحميل الفوري بالكامل. أعد تكوين التحميل التلقائي من القائمة الرئيسية.

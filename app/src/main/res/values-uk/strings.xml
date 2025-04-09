@@ -46,6 +46,7 @@
     <string name="app_widget_description">Показувати один віджет з панелі віджетів</string>
     <string name="appbar_search_in">Пошук у %s</string>
     <string name="assistant_screen_add_task_alert_dialog_title">Додати нове завдання</string>
+    <string name="assistant_screen_create_a_new_task_from_bottom_right_text">Створити нове завдання праворуч внизу</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Вставте будь-який текст</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Дійсно вилучити це завдання?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Вилучити завдання</string>
@@ -55,6 +56,7 @@
     <string name="assistant_screen_task_create_success_message">Успішно додано завдання</string>
     <string name="assistant_screen_task_delete_fail_message">Помилка під час вилучення завдання</string>
     <string name="assistant_screen_task_delete_success_message">Завдання вилучено</string>
+    <string name="assistant_screen_task_list_empty_message">Список завдань порожній</string>
     <string name="assistant_screen_task_list_error_state_message">Неможливо отримати список завдань. Перевірте з\'єднання з мережею</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">Вилучити завдання</string>
     <string name="assistant_screen_task_output_empty_text">Поки неможливо показати завдання</string>
@@ -101,6 +103,7 @@
     <string name="auto_upload_gplay_desc2">Через нові обмеження з боку Google ми вилучили важливий дозвіл. В результаті цього автоматично завантажувати можна тільки зображення та відео.\nКрім того, новий дозвіл вимагається для надання доступу до до місця розташування для завантажених зображень.\nПересвідчитеся, що доступ до медійного контенту встановлено у \"Завжди дозволяти все\".</string>
     <string name="auto_upload_on_wifi">Завантаження тільки через WiFi</string>
     <string name="auto_upload_path">/AutoUpload</string>
+    <string name="auto_upload_sub_folder_warning">Цей каталог вже включено до синхронізації каталогу вищого рівня, що може призвести до задвоєння завантаження</string>
     <string name="autoupload_configure">Налаштування</string>
     <string name="autoupload_create_new_custom_folder">Власний каталог користувача</string>
     <string name="autoupload_custom_folder">Каталог користувача</string>
@@ -907,8 +910,10 @@
     <string name="subtitle_videos_only">Лише відео</string>
     <string name="suggest">Запропонувати</string>
     <string name="sync">Синхронізація</string>
+    <string name="sync_anyway">Синхронізувати попри все</string>
     <string name="sync_conflicts_in_favourites_ticker">Конфліктів знайдено</string>
     <string name="sync_current_folder_was_removed">Каталог %1$s більше недоступний</string>
+    <string name="sync_duplication">Синхронізувати із задвоєнням</string>
     <string name="sync_fail_content">Синхронізація не вдала %1$s</string>
     <string name="sync_fail_content_unauthorized">Неправильний пароль для %1$s</string>
     <string name="sync_fail_in_favourites_ticker">Не вдалося синхронізувати файли</string>
@@ -925,6 +930,7 @@
     <string name="sync_not_enough_space_dialog_title">Недостатньо місця</string>
     <string name="sync_status_button">Кнопка стану синхронізації</string>
     <string name="sync_string_files">Файли</string>
+    <string name="sync_warning_button">Кнопка застереження синхронізації</string>
     <string name="synced_folder_settings_button">Кнопка налаштувань</string>
     <string name="synced_folders_configure_folders">Налаштувати каталоги</string>
     <string name="synced_folders_new_info">Постійне завантаження було повністю перероблено. Переналаштуйте ваше автоматичне завантаження у головному меню.\n\nНасолоджуйтеся оновленим та розширеним автоматичним завантаженням.</string>
