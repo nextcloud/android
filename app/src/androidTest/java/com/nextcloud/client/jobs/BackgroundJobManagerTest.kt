@@ -6,6 +6,7 @@
  */
 package com.nextcloud.client.jobs
 
+import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
@@ -19,13 +20,19 @@ import androidx.work.WorkInfo
 import androidx.work.WorkManager
 import com.nextcloud.client.account.User
 import com.nextcloud.client.core.Clock
+import com.nextcloud.utils.extensions.toByteArray
+import com.owncloud.android.lib.common.utils.Log_OC
+import org.apache.commons.io.FileUtils
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
+import org.junit.Assert.fail
 import org.junit.Before
+import org.junit.Rule
 import org.junit.Test
+import org.junit.rules.TemporaryFolder
 import org.junit.runner.RunWith
 import org.junit.runners.Suite
 import org.mockito.ArgumentMatcher
@@ -37,6 +44,8 @@ import org.mockito.kotlin.eq
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.verify
 import org.mockito.kotlin.whenever
+import java.io.File
+import java.io.IOException
 import java.util.Date
 import java.util.UUID
 import java.util.concurrent.CountDownLatch
@@ -82,9 +91,11 @@ class BackgroundJobManagerTest {
         internal lateinit var workManager: WorkManager
         internal lateinit var clock: Clock
         internal lateinit var backgroundJobManager: BackgroundJobManagerImpl
+        internal lateinit var context: Context
 
         @Before
         fun setUpFixture() {
+            context = mock()
             user = mock()
             whenever(user.accountName).thenReturn(USER_ACCOUNT_NAME)
             workManager = mock()
@@ -302,16 +313,36 @@ class BackgroundJobManagerTest {
         private lateinit var jobInfo: LiveData<JobInfo?>
         private lateinit var request: OneTimeWorkRequest
 
+        @get:Rule
+        var folder: TemporaryFolder = TemporaryFolder()
+
         @Before
         fun setUp() {
+            var selectedContactsFile: File? = null
+            try {
+                selectedContactsFile = folder.newFile("hashset_cache.txt")
+            } catch (_: IOException) {
+                Log_OC.e("ImmediateContactsImport", "error creating temporary test file in ")
+                fail("hashset_cache cannot be found")
+            }
+
+            if (selectedContactsFile == null) {
+                fail("hashset_cache cannot be found")
+            }
+
             val requestCaptor: KArgumentCaptor<OneTimeWorkRequest> = argumentCaptor()
             workInfo = MutableLiveData()
             whenever(workManager.getWorkInfoByIdLiveData(any())).thenReturn(workInfo)
+
+            val selectedContacts = intArrayOf(1, 2, 3)
+            val contractsAsByteArray = selectedContacts.toByteArray()
+            FileUtils.writeByteArrayToFile(selectedContactsFile, contractsAsByteArray)
+
             jobInfo = backgroundJobManager.startImmediateContactsImport(
                 contactsAccountName = "name",
                 contactsAccountType = "type",
                 vCardFilePath = "/path/to/vcard/file",
-                selectedContacts = intArrayOf(1, 2, 3)
+                selectedContactsFilePath = selectedContactsFile!!.absolutePath
             )
             verify(workManager).enqueueUniqueWork(
                 any(),
