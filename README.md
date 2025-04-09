@@ -4,7 +4,7 @@
 -->
 # [Nextcloud](https://nextcloud.com) Android app :iphone:
 
-[![REUSE status](https://api.reuse.software/badge/github.com/nextcloud/android)](https://api.reuse.software/info/github.com/nextcloud/android) [![Build Status](https://drone.nextcloud.com/api/badges/nextcloud/android/status.svg)](https://drone.nextcloud.com/nextcloud/android) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/80401cb343854343b4d94acbfb72d3ec)](https://www.codacy.com/app/Nextcloud/android?utm_source=github.com\&utm_medium=referral\&utm_content=nextcloud/android\&utm_campaign=Badge_Grade) [![Releases](https://img.shields.io/github/release/nextcloud/android.svg)](https://github.com/nextcloud/android/releases/latest)
+[![REUSE status](https://api.reuse.software/badge/github.com/nextcloud/android)](https://api.reuse.software/info/github.com/nextcloud/android) [![Build Status](https://drone.nextcloud.com/api/badges/nextcloud/android/status.svg)](https://drone.nextcloud.com/nextcloud/android) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/80401cb343854343b4d94acbfb72d3ec)](https://www.codacy.com/app/Nextcloud/android?utm_source=github.com\&utm_medium=referral\&utm_content=nextcloud/android\&utm_campaign=Badge_Grade) [![Releases](https://img.shields.io/github/release/nextcloud/android.svg)](https://github.com/nextcloud/android/releases/latest) [![Nextcloud Downloads](https://www.appbrain.com/shield/com.nextcloud.client.svg)](https://www.appbrain.com/app/nextcloud/com.nextcloud.client)
 
 [<img src="https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png" 
 alt="Download from Google Play" 
