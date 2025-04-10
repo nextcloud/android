@@ -736,6 +736,7 @@
     <string name="contacts_preferences_something_strange_happened">Could not find your last backup!</string>
     <string name="contacts_preferences_backup_scheduled">Backup scheduled and will start shortly</string>
     <string name="contacts_preferences_import_scheduled">Import scheduled and will start shortly</string>
+    <string name="contacts_preferences_import_scheduled_fail">Import failed to start. Please try again</string>
     <string name="backup_title">Contacts and calendar backup</string>
     <string name="contact_backup_title">Contacts backup</string>
     <string name="drawer_logout">Log out</string>
