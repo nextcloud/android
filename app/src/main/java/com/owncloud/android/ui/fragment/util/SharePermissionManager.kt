@@ -9,6 +9,9 @@ package com.owncloud.android.ui.fragment.util
 
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.lib.resources.shares.OCShare
+import com.owncloud.android.lib.resources.shares.attributes.ShareAttributes
+import com.owncloud.android.lib.resources.shares.attributes.ShareAttributesJsonHandler
+import com.owncloud.android.lib.resources.shares.attributes.getDownloadAttribute
 import com.owncloud.android.ui.fragment.FileDetailsSharingProcessFragment.Companion.TAG
 
 class SharePermissionManager {
@@ -84,5 +87,33 @@ class SharePermissionManager {
         } else {
             OCShare.MAXIMUM_PERMISSIONS_FOR_FILE
         }
+    }
+
+    fun toggleAllowDownloadAndSync(isChecked: Boolean, share: OCShare?): String? {
+        val shareAttributes = getShareAttributes(share)?.toMutableList()
+        val downloadAttributeIndex = shareAttributes?.indexOf(shareAttributes.getDownloadAttribute())
+        if (downloadAttributeIndex != null && downloadAttributeIndex >= 0) {
+            val updatedAttribute = shareAttributes[downloadAttributeIndex].copy(isEnabled = isChecked)
+            shareAttributes[downloadAttributeIndex] = updatedAttribute
+        }
+
+        if (shareAttributes == null) {
+            return null
+        }
+
+        return ShareAttributesJsonHandler.toJson(shareAttributes)
+    }
+
+    fun isAllowDownloadAndSyncEnabled(share: OCShare?): Boolean {
+        val shareAttributes = getShareAttributes(share)?.toMutableList()
+        return shareAttributes.getDownloadAttribute()?.isEnabled == true
+    }
+
+    private fun getShareAttributes(share: OCShare?): List<ShareAttributes>? {
+        if (share == null || share.attributes == null) {
+            return null
+        }
+
+        return ShareAttributesJsonHandler.parseJson(share.attributes!!)
     }
 }
