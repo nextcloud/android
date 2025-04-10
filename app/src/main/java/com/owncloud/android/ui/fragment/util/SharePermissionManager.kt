@@ -91,21 +91,23 @@ class SharePermissionManager {
 
     fun toggleAllowDownloadAndSync(isChecked: Boolean, share: OCShare?): String? {
         val shareAttributes = getShareAttributes(share)?.toMutableList()
-        val downloadAttributeIndex = shareAttributes?.indexOf(shareAttributes.getDownloadAttribute())
-        if (downloadAttributeIndex != null && downloadAttributeIndex >= 0) {
-            val updatedAttribute = shareAttributes[downloadAttributeIndex].copy(isEnabled = isChecked)
-            shareAttributes[downloadAttributeIndex] = updatedAttribute
+        if (shareAttributes == null) {
+            val downloadAttribute = ShareAttributes.createDownloadAttributes(isChecked)
+            val updatedShareAttributes = listOf(downloadAttribute)
+            return ShareAttributesJsonHandler.toJson(updatedShareAttributes)
         }
 
-        if (shareAttributes == null) {
-            return null
+        val downloadAttributeIndex = shareAttributes.indexOf(shareAttributes.getDownloadAttribute())
+        if (downloadAttributeIndex >= 0) {
+            val updatedAttribute = shareAttributes[downloadAttributeIndex].copy(value = isChecked)
+            shareAttributes[downloadAttributeIndex] = updatedAttribute
         }
 
         return ShareAttributesJsonHandler.toJson(shareAttributes)
     }
 
     fun isAllowDownloadAndSyncEnabled(share: OCShare?): Boolean {
-        return getShareAttributes(share).getDownloadAttribute()?.isEnabled == true
+        return getShareAttributes(share).getDownloadAttribute()?.value == true
     }
 
     private fun getShareAttributes(share: OCShare?): List<ShareAttributes>? {
