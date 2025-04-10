@@ -35,6 +35,7 @@ public class UpdateShareInfoOperation extends SyncOperation {
     private int permissions = -1;
     private String password;
     private String label;
+    private String attributes;
 
     /**
      * Constructor
@@ -93,6 +94,7 @@ public class UpdateShareInfoOperation extends SyncOperation {
         }
         updateOp.setPassword(password);
         updateOp.setLabel(label);
+        updateOp.setAttributes(attributes);
 
         RemoteOperationResult result = updateOp.execute(client);
 
@@ -123,6 +125,10 @@ public class UpdateShareInfoOperation extends SyncOperation {
 
     public void setHideFileDownload(boolean hideFileDownload) {
         this.hideFileDownload = hideFileDownload;
+    }
+
+    public void setAttributes(String attributes) {
+        this.attributes = attributes;
     }
 
     public void setPermissions(int permissions) {

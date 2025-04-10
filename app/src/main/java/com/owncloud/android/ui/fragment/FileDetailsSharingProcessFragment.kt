@@ -490,10 +490,6 @@ class FileDetailsSharingProcessFragment :
                 showExpirationDateDialog()
             }
 
-            shareAllowDownloadAndSyncCheckbox.setOnCheckedChangeListener { _, isChecked ->
-                share
-            }
-
             // region RadioButtons
             shareProcessPermissionRadioGroup.setOnCheckedChangeListener { radioGroup, optionId ->
                 when (optionId) {
@@ -546,6 +542,8 @@ class FileDetailsSharingProcessFragment :
                         isEnabled = false
                     }
                 }
+
+                shareAllowDownloadAndSyncCheckbox.isChecked = isAllowDownloadAndSyncEnabled(share)
             }
         }
 
@@ -563,6 +561,10 @@ class FileDetailsSharingProcessFragment :
 
         checkboxes.forEach { (checkbox, flag) ->
             checkbox.setOnCheckedChangeListener { _, isChecked -> togglePermission(isChecked, flag) }
+        }
+
+        binding.shareAllowDownloadAndSyncCheckbox.setOnCheckedChangeListener { _, isChecked ->
+            share?.attributes = sharePermissionManager.toggleAllowDownloadAndSync(isChecked, share)
         }
     }
 
@@ -726,6 +728,7 @@ class FileDetailsSharingProcessFragment :
             binding.shareProcessEnterPassword.text.toString().trim(),
             chosenExpDateInMills,
             noteText,
+            share?.attributes,
             binding.shareProcessChangeName.text.toString().trim(),
             true
         )
