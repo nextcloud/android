@@ -1601,7 +1601,7 @@ public class FileDataStorageManager {
                                                                 getInt(cursor, ProviderTableMeta.OCSHARES_DOWNLOADLIMIT_COUNT));
         share.setFileDownloadLimit(downloadLimit);
 
-        share.setAttributes(getString(cursor,ProviderTableMeta.OCSHARES_ATTRIBUTES));
+        share.setAttributes(getString(cursor, ProviderTableMeta.OCSHARES_ATTRIBUTES));
 
         return share;
     }
