@@ -114,6 +114,6 @@ class SharePermissionManager {
             return null
         }
 
-        return ShareAttributesJsonHandler.parseJson(share.attributes!!)
+        return ShareAttributesJsonHandler.toList(share.attributes!!)
     }
 }
