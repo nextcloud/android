@@ -14,6 +14,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.nextcloud.android.common.ui.theme.utils.ColorRole
+import com.nextcloud.utils.extensions.setVisibleIf
+import com.owncloud.android.R
 import com.owncloud.android.databinding.ItemQuickSharePermissionsBinding
 import com.owncloud.android.datamodel.QuickPermissionModel
 import com.owncloud.android.utils.theme.ViewThemeUtils
@@ -44,23 +47,27 @@ class QuickSharingPermissionsAdapter(
         itemView: View,
         val onPermissionChangeListener: OnPermissionChangeListener,
         private val viewThemeUtils: ViewThemeUtils
-    ) :
-        RecyclerView
-            .ViewHolder(itemView) {
+    ) : RecyclerView.ViewHolder(itemView) {
 
         fun bindData(quickPermissionModel: QuickPermissionModel) {
-            binding.tvQuickShareName.text = quickPermissionModel.permissionName
-            if (quickPermissionModel.isSelected) {
-                viewThemeUtils.platform.colorImageView(binding.tvQuickShareCheckIcon)
-                binding.tvQuickShareCheckIcon.visibility = View.VISIBLE
-            } else {
-                binding.tvQuickShareCheckIcon.visibility = View.INVISIBLE
+            binding.run {
+                tvQuickShareName.text = quickPermissionModel.permissionName
+                tvQuickShareCheckIcon.setVisibleIf(quickPermissionModel.isSelected)
+                if (quickPermissionModel.isSelected) {
+                    viewThemeUtils.platform.colorImageView(tvQuickShareCheckIcon, ColorRole.PRIMARY)
+                }
             }
 
+            val customPermissionName = itemView.context.getString(R.string.share_custom_permission)
+            val permissionName = quickPermissionModel.permissionName
+            val isCustomPermission = permissionName.equals(customPermissionName, ignoreCase = true)
+
             itemView.setOnClickListener {
-                // if user select different options then only update the permission
-                if (!quickPermissionModel.isSelected) {
-                    onPermissionChangeListener.onPermissionChanged(adapterPosition)
+                if (isCustomPermission) {
+                    onPermissionChangeListener.onCustomPermissionSelected()
+                } else if (!quickPermissionModel.isSelected) {
+                    // if user select different options then only update the permission
+                    onPermissionChangeListener.onPermissionChanged(absoluteAdapterPosition)
                 } else {
                     // dismiss sheet on selection of same permission
                     onPermissionChangeListener.onDismissSheet()
@@ -70,6 +77,7 @@ class QuickSharingPermissionsAdapter(
 
         interface OnPermissionChangeListener {
             fun onPermissionChanged(position: Int)
+            fun onCustomPermissionSelected()
             fun onDismissSheet()
         }
     }
