@@ -546,6 +546,7 @@ public class FileOperationsHelper {
                                     String password,
                                     long expirationTimeInMillis,
                                     String note,
+                                    String attributes,
                                     String label,
                                     boolean showLoadingDialog) {
         if (file != null) {
@@ -567,6 +568,7 @@ public class FileOperationsHelper {
             service.putExtra(OperationsService.EXTRA_SHARE_EXPIRATION_DATE_IN_MILLIS, expirationTimeInMillis);
             service.putExtra(OperationsService.EXTRA_SHARE_NOTE, (note == null) ? "" : note);
             service.putExtra(OperationsService.EXTRA_SHARE_PUBLIC_LABEL, (label == null) ? "" : label);
+            service.putExtra(OperationsService.EXTRA_SHARE_ATTRIBUTES, attributes);
 
             mWaitingForOpId = fileActivity.getOperationsServiceBinder().queueNewOperation(service);
 
@@ -775,6 +777,7 @@ public class FileOperationsHelper {
         updateShareIntent.putExtra(OperationsService.EXTRA_SHARE_PASSWORD, (password == null) ? "" : password);
         updateShareIntent.putExtra(OperationsService.EXTRA_SHARE_EXPIRATION_DATE_IN_MILLIS, expirationTimeInMillis);
         updateShareIntent.putExtra(OperationsService.EXTRA_SHARE_PUBLIC_LABEL, (label == null) ? "" : label);
+        updateShareIntent.putExtra(OperationsService.EXTRA_SHARE_ATTRIBUTES, share.getAttributes());
         queueShareIntent(updateShareIntent);
     }
 

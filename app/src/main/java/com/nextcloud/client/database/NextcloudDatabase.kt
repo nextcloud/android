@@ -71,7 +71,8 @@ import com.owncloud.android.db.ProviderMeta
         AutoMigration(from = 84, to = 85, spec = DatabaseMigrationUtil.DeleteColumnSpec::class),
         AutoMigration(from = 85, to = 86, spec = DatabaseMigrationUtil.ResetCapabilitiesPostMigration::class),
         AutoMigration(from = 86, to = 87, spec = DatabaseMigrationUtil.ResetCapabilitiesPostMigration::class),
-        AutoMigration(from = 87, to = 88, spec = DatabaseMigrationUtil.ResetCapabilitiesPostMigration::class)
+        AutoMigration(from = 87, to = 88, spec = DatabaseMigrationUtil.ResetCapabilitiesPostMigration::class),
+        AutoMigration(from = 88, to = 89)
     ],
     exportSchema = true
 )
