@@ -87,42 +87,48 @@ public class ActivitiesPresenterTest {
 
     @Test
     public void loadInitialActivitiesFromRepositoryIntoView() {
+        long lastGiven = -1L;
+
         // When loading activities from repository is requested from presenter...
-        activitiesPresenter.loadActivities(-1);
+        activitiesPresenter.loadActivities(lastGiven);
         // empty list view is hidden in view
         verify(view).showLoadingMessage();
         // Repository starts retrieving activities from server
-        verify(activitiesRepository).getActivities(eq(-1), loadActivitiesCallbackArgumentCaptor.capture());
+        verify(activitiesRepository).getActivities(eq(lastGiven), loadActivitiesCallbackArgumentCaptor.capture());
         // Repository returns data
-        loadActivitiesCallbackArgumentCaptor.getValue().onActivitiesLoaded(activitiesList, nextcloudClient, -1);
+        loadActivitiesCallbackArgumentCaptor.getValue().onActivitiesLoaded(activitiesList, nextcloudClient, lastGiven);
         // Progress indicator is hidden
         verify(view).setProgressIndicatorState(eq(false));
         // List of activities is shown in view.
-        verify(view).showActivities(eq(activitiesList), eq(nextcloudClient), eq(-1));
+        verify(view).showActivities(eq(activitiesList), eq(nextcloudClient), eq(lastGiven));
     }
 
     @Test
     public void loadFollowUpActivitiesFromRepositoryIntoView() {
+        long lastGiven = 1L;
+
         // When loading activities from repository is requested from presenter...
-        activitiesPresenter.loadActivities(1);
+        activitiesPresenter.loadActivities(lastGiven);
         // Progress indicator is shown in view
         verify(view).setProgressIndicatorState(eq(true));
         // Repository starts retrieving activities from server
-        verify(activitiesRepository).getActivities(eq(1), loadActivitiesCallbackArgumentCaptor.capture());
+        verify(activitiesRepository).getActivities(eq(lastGiven), loadActivitiesCallbackArgumentCaptor.capture());
         // Repository returns data
-        loadActivitiesCallbackArgumentCaptor.getValue().onActivitiesLoaded(activitiesList, nextcloudClient, 1);
+        loadActivitiesCallbackArgumentCaptor.getValue().onActivitiesLoaded(activitiesList, nextcloudClient, lastGiven);
         // Progress indicator is hidden
         verify(view).setProgressIndicatorState(eq(false));
         // List of activities is shown in view.
-        verify(view).showActivities(eq(activitiesList), eq(nextcloudClient), eq(1));
+        verify(view).showActivities(eq(activitiesList), eq(nextcloudClient), eq(lastGiven));
     }
 
     @Test
     public void loadActivitiesFromRepositoryShowError() {
+        long lastGiven = -1L;
+
         // When loading activities from repository is requested from presenter...
-        activitiesPresenter.loadActivities(-1);
+        activitiesPresenter.loadActivities(lastGiven);
         // Repository starts retrieving activities from server
-        verify(activitiesRepository).getActivities(eq(-1), loadActivitiesCallbackArgumentCaptor.capture());
+        verify(activitiesRepository).getActivities(eq(lastGiven), loadActivitiesCallbackArgumentCaptor.capture());
         // Repository returns data
         loadActivitiesCallbackArgumentCaptor.getValue().onActivitiesLoadedError("error");
         // Correct error is shown in view

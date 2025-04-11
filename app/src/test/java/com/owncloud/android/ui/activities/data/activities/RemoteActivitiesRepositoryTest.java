@@ -48,16 +48,20 @@ public class RemoteActivitiesRepositoryTest {
 
     @Test
     public void loadActivitiesReturnSuccess() {
-        mActivitiesRepository.getActivities(-1, mockedLoadActivitiesCallback);
-        verify(serviceApi).getAllActivities(eq(-1), activitiesServiceCallbackCaptor.capture());
-        activitiesServiceCallbackCaptor.getValue().onLoaded(activitiesList, nextcloudClient, -1);
-        verify(mockedLoadActivitiesCallback).onActivitiesLoaded(eq(activitiesList), eq(nextcloudClient), eq(-1));
+        long lastGiven = -1L;
+
+        mActivitiesRepository.getActivities(lastGiven, mockedLoadActivitiesCallback);
+        verify(serviceApi).getAllActivities(eq(lastGiven), activitiesServiceCallbackCaptor.capture());
+        activitiesServiceCallbackCaptor.getValue().onLoaded(activitiesList, nextcloudClient, lastGiven);
+        verify(mockedLoadActivitiesCallback).onActivitiesLoaded(eq(activitiesList), eq(nextcloudClient), eq(lastGiven));
     }
 
     @Test
     public void loadActivitiesReturnError() {
-        mActivitiesRepository.getActivities(-1, mockedLoadActivitiesCallback);
-        verify(serviceApi).getAllActivities(eq(-1), activitiesServiceCallbackCaptor.capture());
+        long lastGiven = -1L;
+
+        mActivitiesRepository.getActivities(lastGiven, mockedLoadActivitiesCallback);
+        verify(serviceApi).getAllActivities(eq(lastGiven), activitiesServiceCallbackCaptor.capture());
         activitiesServiceCallbackCaptor.getValue().onError("error");
         verify(mockedLoadActivitiesCallback).onActivitiesLoadedError(eq("error"));
     }
