@@ -37,7 +37,7 @@ import java.util.Random
 
 class GalleryFragmentIT : AbstractIT() {
     private val testClassName = "com.owncloud.android.ui.fragment.GalleryFragmentIT"
-    val random = Random(1)
+    private val random = Random(1)
 
     @Before
     fun registerIdlingResource() {
