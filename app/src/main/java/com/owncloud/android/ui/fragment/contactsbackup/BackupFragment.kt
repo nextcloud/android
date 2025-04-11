@@ -279,6 +279,23 @@ class BackupFragment :
         }
     }
 
+    /**
+     * Returns backup files from database
+     */
+    private fun getBackupFiles(): List<OCFile> {
+        val contactsPreferenceActivity = activity as ContactsPreferenceActivity?
+        val storageManager = contactsPreferenceActivity?.storageManager ?: return listOf()
+        val contactsBackupFolder = storageManager.getFileByDecryptedRemotePath(contactsBackupFolderPath)
+        val calendarBackupFolder = storageManager.getFileByDecryptedRemotePath(calendarBackupFolderPath)
+
+        val backupFiles = storageManager.getFolderContent(contactsBackupFolder, false)
+        backupFiles.addAll(storageManager.getFolderContent(calendarBackupFolder, false))
+        return backupFiles
+    }
+
+    /**
+     * Refreshes the folder and returns updated backup files
+     */
     @Suppress("TooGenericExceptionCaught")
     private suspend fun fetchBackupFiles(folder: OCFile, storageManager: FileDataStorageManager): List<OCFile> {
         return withContext(Dispatchers.IO) {
@@ -515,12 +532,7 @@ class BackupFragment :
             return
         }
 
-        val storageManager = contactsPreferenceActivity.storageManager
-        val contactsBackupFolder = storageManager.getFileByDecryptedRemotePath(contactsBackupFolderPath)
-        val calendarBackupFolder = storageManager.getFileByDecryptedRemotePath(calendarBackupFolderPath)
-
-        val backupFiles = storageManager.getFolderContent(contactsBackupFolder, false)
-        backupFiles.addAll(storageManager.getFolderContent(calendarBackupFolder, false))
+        val backupFiles = getBackupFiles().toMutableList()
         backupFiles.sortBy { it.modificationTimestamp }
 
         if (backupFiles.isNotEmpty() && backupFiles.last() != null) {
@@ -583,11 +595,7 @@ class BackupFragment :
         }
 
         selectedDate = GregorianCalendar(year, month, dayOfMonth)
-        val storageManager = contactsPreferenceActivity.storageManager
-        val contactsBackupFolder = storageManager.getFileByDecryptedRemotePath(contactsBackupFolderPath)
-        val calendarBackupFolder = storageManager.getFileByDecryptedRemotePath(calendarBackupFolderPath)
-        val backupFiles = storageManager.getFolderContent(contactsBackupFolder, false)
-        backupFiles.addAll(storageManager.getFolderContent(calendarBackupFolder, false))
+        val backupFiles = getBackupFiles()
 
         // find file with modification with date and time between 00:00 and 23:59
         // if more than one file exists, take oldest
