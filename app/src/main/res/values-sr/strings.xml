@@ -203,6 +203,7 @@
     <string name="contacts_backup_button">Направите резерву сада</string>
     <string name="contacts_preferences_backup_scheduled">Прављење резерве је заказано и почеће ускоро</string>
     <string name="contacts_preferences_import_scheduled">Увоз је заказан и почеће ускоро</string>
+    <string name="contacts_preferences_import_scheduled_fail">Није успело покретање увоза. Молимо вас да покушате поново</string>
     <string name="contacts_preferences_no_file_found">Није нађен фајл</string>
     <string name="contacts_preferences_something_strange_happened">Не могу да нађем последњу резерву!</string>
     <string name="copied_to_clipboard">Копирано у клипборд</string>

@@ -203,6 +203,7 @@
     <string name="contacts_backup_button">立刻備份</string>
     <string name="contacts_preferences_backup_scheduled">備份已排定並且會盡快開始</string>
     <string name="contacts_preferences_import_scheduled">匯入已排定並且會盡快開始</string>
+    <string name="contacts_preferences_import_scheduled_fail">匯入無法開始。請再試一次</string>
     <string name="contacts_preferences_no_file_found">找不到檔案</string>
     <string name="contacts_preferences_something_strange_happened">找不到您最新的備份！</string>
     <string name="copied_to_clipboard">已複製到剪貼簿</string>

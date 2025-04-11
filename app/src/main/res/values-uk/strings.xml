@@ -29,7 +29,7 @@
     <string name="activity_chooser_title">Надіслати посилання до…</string>
     <string name="activity_icon">Ваші дії</string>
     <string name="add_new_public_share">Додати нове публічне посилання</string>
-    <string name="add_new_secure_file_drop">Додайте новий захищений файл</string>
+    <string name="add_new_secure_file_drop">Додати новий захищений файл</string>
     <string name="add_to_cloud">Додати до хмари %1$s</string>
     <string name="advanced_settings">Розширені</string>
     <string name="allow_resharing">Дозволяти передавати у спільний доступ іншим</string>
@@ -203,6 +203,7 @@
     <string name="contacts_backup_button">Створити зараз резервну копію</string>
     <string name="contacts_preferences_backup_scheduled">Резервне копіювання додано до розкладу й невдовзі розпочнеться</string>
     <string name="contacts_preferences_import_scheduled">Імпортування додано до розкладу й невдовзі розпочнеться</string>
+    <string name="contacts_preferences_import_scheduled_fail">Не вдалося здійснити імпорт. Спробуйте ще раз</string>
     <string name="contacts_preferences_no_file_found">Файл не знайдено</string>
     <string name="contacts_preferences_something_strange_happened">Неможливо знайти вашу останню резервну копію</string>
     <string name="copied_to_clipboard">Скопійовано</string>
@@ -516,7 +517,7 @@
     <string name="link_name">Назва посилання</string>
     <string name="link_share_allow_upload_and_editing">Може завантажувати та редагувати</string>
     <string name="link_share_editing">Редагування</string>
-    <string name="link_share_file_drop">Сховище (тільки завантажування)</string>
+    <string name="link_share_file_drop">Додати файл (тільки завантажування)</string>
     <string name="link_share_view_only">Лише перегляд</string>
     <string name="list_layout">Шаблон списку</string>
     <string name="load_more_results">Завантажити більше результатів</string>
@@ -823,9 +824,9 @@
     <string name="share_no_password_title">Встановити пароль</string>
     <string name="share_not_allowed_when_file_drop">Повторну передачу у спільний доступ не дозволено під час безпечної передачі файлів</string>
     <string name="share_password_title">Захищено паролем</string>
-    <string name="share_permission_can_edit">Можна редагувати</string>
+    <string name="share_permission_can_edit">Може редагувати</string>
     <string name="share_permission_file_drop">Додати файл</string>
-    <string name="share_permission_secure_file_drop">Безпечне додавання файлу</string>
+    <string name="share_permission_secure_file_drop">Захищене додавання файлу</string>
     <string name="share_permission_view_only">Лише перегляд</string>
     <string name="share_permissions">Права доступу на спільний ресурс</string>
     <string name="share_remote_clarification">%1$s (віддалено)</string>
@@ -1033,7 +1034,7 @@
     <string name="uploader_info_dirname">Назва каталогу</string>
     <string name="uploader_local_files_uploaded">Повторно після помилки завантажити файли, що на пристрої</string>
     <string name="uploader_top_message">Оберіть каталог для завантаження</string>
-    <string name="uploader_upload_failed_content_single">Неможливо завантажити %1$s</string>
+    <string name="uploader_upload_failed_content_single">Не вдалося завантажити %1$s</string>
     <string name="uploader_upload_failed_credentials_error">Помилка під час завантаження, увійдіть ще раз</string>
     <string name="uploader_upload_failed_sync_conflict_error">Конфлікт під час завантаження файлу</string>
     <string name="uploader_upload_failed_sync_conflict_error_content">Виберіть, яку з версій %1$s зберегти</string>

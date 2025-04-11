@@ -203,6 +203,7 @@
     <string name="contacts_backup_button">Zazálohovat nyní</string>
     <string name="contacts_preferences_backup_scheduled">Zálohování naplánováno a brzy začne</string>
     <string name="contacts_preferences_import_scheduled">Import naplánován a brzy začne</string>
+    <string name="contacts_preferences_import_scheduled_fail">Import se nepodařilo spustit. Zkuste to znovu</string>
     <string name="contacts_preferences_no_file_found">Nenalezen žádný soubor</string>
     <string name="contacts_preferences_something_strange_happened">Nepodařilo se najít vaši nejaktuálnější zálohu!</string>
     <string name="copied_to_clipboard">Zkopírováno do schránky</string>

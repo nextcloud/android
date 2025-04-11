@@ -203,6 +203,7 @@
     <string name="contacts_backup_button">现在备份</string>
     <string name="contacts_preferences_backup_scheduled">备份已经排期，稍后将开始</string>
     <string name="contacts_preferences_import_scheduled">导入已经排期，稍后将开始</string>
+    <string name="contacts_preferences_import_scheduled_fail">导入无法开始。请重试</string>
     <string name="contacts_preferences_no_file_found">没有文件被发现</string>
     <string name="contacts_preferences_something_strange_happened">无法找到末次备份</string>
     <string name="copied_to_clipboard">复制到剪贴板</string>
