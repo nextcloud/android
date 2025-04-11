@@ -9,12 +9,10 @@
 package com.owncloud.android.ui.fragment.contactsbackup
 
 import android.Manifest
-import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.app.DatePickerDialog.OnDateSetListener
 import android.content.Context
 import android.content.Intent
-import android.os.AsyncTask
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.MenuItem
@@ -24,10 +22,12 @@ import android.widget.CompoundButton
 import android.widget.DatePicker
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
+import androidx.lifecycle.lifecycleScope
 import com.nextcloud.client.account.User
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.jobs.BackgroundJobManager
 import com.nextcloud.utils.extensions.getSerializableArgument
+import com.nextcloud.utils.extensions.setVisibleIf
 import com.owncloud.android.R
 import com.owncloud.android.databinding.BackupFragmentBinding
 import com.owncloud.android.datamodel.ArbitraryDataProvider
@@ -44,6 +44,9 @@ import com.owncloud.android.utils.PermissionUtil
 import com.owncloud.android.utils.PermissionUtil.checkSelfPermission
 import com.owncloud.android.utils.theme.ThemeUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import third_parties.daveKoeller.AlphanumComparator
 import java.util.Calendar
 import java.util.GregorianCalendar
@@ -98,6 +101,9 @@ class BackupFragment :
             )
         }
 
+    private lateinit var contactsBackupFolderPath: String
+    private lateinit var calendarBackupFolderPath: String
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         // use grey as fallback for elements where custom theming is not available
         if (themeUtils.themingEnabled(context)) {
@@ -105,6 +111,10 @@ class BackupFragment :
         }
 
         binding = BackupFragmentBinding.inflate(inflater, container, false)
+
+        contactsBackupFolderPath = getString(R.string.contacts_backup_folder) + OCFile.PATH_SEPARATOR
+        calendarBackupFolderPath = getString(R.string.calendar_backup_folder) + OCFile.PATH_SEPARATOR
+
         val view: View = binding.root
 
         setHasOptionsMenu(true)
@@ -242,61 +252,65 @@ class BackupFragment :
             openDate(selectedDate)
         }
 
-        val contactsPreferenceActivity = activity as ContactsPreferenceActivity?
-        if (contactsPreferenceActivity != null) {
-            val backupFolderPath = resources.getString(R.string.contacts_backup_folder) + OCFile.PATH_SEPARATOR
+        (activity as? ContactsPreferenceActivity)?.let {
             refreshBackupFolder(
-                backupFolderPath,
-                contactsPreferenceActivity.applicationContext,
-                contactsPreferenceActivity.storageManager
+                it.applicationContext,
+                it.storageManager
             )
         }
     }
 
+    @Suppress("TooGenericExceptionCaught")
     private fun refreshBackupFolder(
-        backupFolderPath: String,
         context: Context,
         storageManager: FileDataStorageManager
     ) {
-        val task: AsyncTask<String, Int, Boolean> =
-            @SuppressLint("StaticFieldLeak")
-            object : AsyncTask<String, Int, Boolean>() {
-                @Deprecated("Deprecated in Java")
-                override fun doInBackground(vararg path: String): Boolean {
-                    val folder = storageManager.getFileByPath(path[0])
-                    return if (folder != null) {
-                        val operation = RefreshFolderOperation(
-                            folder,
-                            System.currentTimeMillis(),
-                            false,
-                            false,
-                            storageManager,
-                            user,
-                            context
-                        )
-                        val result = operation.execute(user, context)
-                        result.isSuccess
-                    } else {
-                        false
-                    }
-                }
+        lifecycleScope.launch(Dispatchers.IO) {
+            var folder: OCFile? = null
 
-                @Deprecated("Deprecated in Java")
-                override fun onPostExecute(result: Boolean) {
-                    if (result) {
-                        val backupFolder = storageManager.getFileByPath(backupFolderPath)
-                        val backupFiles = storageManager.getFolderContent(backupFolder, false)
-                        backupFiles.sortWith(AlphanumComparator())
-                        if (backupFiles.isEmpty()) {
-                            binding.contactsDatepicker.visibility = View.INVISIBLE
-                        } else {
-                            binding.contactsDatepicker.visibility = View.VISIBLE
-                        }
-                    }
-                }
+            val contactsBackupFolder = storageManager.getFileByDecryptedRemotePath(contactsBackupFolderPath)
+            if (contactsBackupFolder != null) {
+                Log_OC.d(TAG, "getting contactsBackupFolder")
+                folder = contactsBackupFolder
             }
 
-        task.execute(backupFolderPath)
+            if (folder == null) {
+                Log_OC.d(TAG, "Folder is null, getting calendarBackupFolderPath")
+                val calendarBackupFolder = storageManager.getFileByDecryptedRemotePath(calendarBackupFolderPath)
+                folder = calendarBackupFolder
+            }
+
+            if (folder == null) {
+                Log_OC.d(TAG, "Folder is null, cancelling refreshBackupFolder")
+                return@launch
+            }
+
+            val operation = RefreshFolderOperation(
+                folder,
+                System.currentTimeMillis(),
+                false,
+                false,
+                storageManager,
+                user,
+                context
+            )
+
+            try {
+                @Suppress("DEPRECATION")
+                val result = operation.execute(user, context)
+
+                if (result.isSuccess) {
+                    val backupFiles = storageManager.getFolderContent(folder, false)
+                    backupFiles.sortWith(AlphanumComparator())
+
+                    withContext(Dispatchers.Main) {
+                        binding.contactsDatepicker.setVisibleIf(backupFiles.isNotEmpty())
+                    }
+                }
+            } catch (e: Exception) {
+                Log_OC.d(TAG, "Exception refreshBackupFolder: $e")
+            }
+        }
     }
 
     @Deprecated("Deprecated in Java")
@@ -504,11 +518,9 @@ class BackupFragment :
             return
         }
 
-        val contactsBackupFolderString = getString(R.string.contacts_backup_folder) + OCFile.PATH_SEPARATOR
-        val calendarBackupFolderString = getString(R.string.calendar_backup_folder) + OCFile.PATH_SEPARATOR
         val storageManager = contactsPreferenceActivity.storageManager
-        val contactsBackupFolder = storageManager.getFileByDecryptedRemotePath(contactsBackupFolderString)
-        val calendarBackupFolder = storageManager.getFileByDecryptedRemotePath(calendarBackupFolderString)
+        val contactsBackupFolder = storageManager.getFileByDecryptedRemotePath(contactsBackupFolderPath)
+        val calendarBackupFolder = storageManager.getFileByDecryptedRemotePath(calendarBackupFolderPath)
 
         val backupFiles = storageManager.getFolderContent(contactsBackupFolder, false)
         backupFiles.addAll(storageManager.getFolderContent(calendarBackupFolder, false))
@@ -574,11 +586,9 @@ class BackupFragment :
         }
 
         selectedDate = GregorianCalendar(year, month, dayOfMonth)
-        val contactsBackupFolderString = getString(R.string.contacts_backup_folder) + OCFile.PATH_SEPARATOR
-        val calendarBackupFolderString = getString(R.string.calendar_backup_folder) + OCFile.PATH_SEPARATOR
         val storageManager = contactsPreferenceActivity.storageManager
-        val contactsBackupFolder = storageManager.getFileByDecryptedRemotePath(contactsBackupFolderString)
-        val calendarBackupFolder = storageManager.getFileByDecryptedRemotePath(calendarBackupFolderString)
+        val contactsBackupFolder = storageManager.getFileByDecryptedRemotePath(contactsBackupFolderPath)
+        val calendarBackupFolder = storageManager.getFileByDecryptedRemotePath(calendarBackupFolderPath)
         val backupFiles = storageManager.getFolderContent(contactsBackupFolder, false)
         backupFiles.addAll(storageManager.getFolderContent(calendarBackupFolder, false))
 
