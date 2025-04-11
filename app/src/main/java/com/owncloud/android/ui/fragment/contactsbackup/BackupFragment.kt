@@ -268,11 +268,6 @@ class BackupFragment :
                     it.sortWith(AlphanumComparator())
                 }
 
-            if (backupFiles.isEmpty()) {
-                Log_OC.d(TAG, "Backup files is empty")
-                return@launch
-            }
-
             withContext(Dispatchers.Main) {
                 binding.contactsDatepicker.setVisibleIf(backupFiles.isNotEmpty())
             }
