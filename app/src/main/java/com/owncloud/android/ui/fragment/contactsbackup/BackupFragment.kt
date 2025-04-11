@@ -188,8 +188,9 @@ class BackupFragment :
     }
 
     private fun setBackupNowButtonVisibility() {
-        binding.backupNow.visibility =
-            if (binding.contacts.isChecked || binding.calendar.isChecked) View.VISIBLE else View.INVISIBLE
+        binding.run {
+            backupNow.isEnabled = (contacts.isChecked || calendar.isChecked)
+        }
     }
 
     private fun setOnClickListeners() {
