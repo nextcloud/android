@@ -60,7 +60,6 @@ class GalleryAdapter(
     private var storageManager: FileDataStorageManager = transferServiceGetter.storageManager
 
     init {
-
         ocFileListDelegate = OCFileListDelegate(
             transferServiceGetter.fileUploaderHelper,
             context,
@@ -75,6 +74,10 @@ class GalleryAdapter(
             showShareAvatar = false,
             viewThemeUtils
         )
+    }
+
+    override fun getItemId(section: Int, position: Int): Long {
+        return files[section].rows[position].calculateHashCode()
     }
 
     override fun selectAll(value: Boolean) {

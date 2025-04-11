@@ -271,10 +271,10 @@ public final class ThumbnailsCacheManager {
         private final FileDataStorageManager storageManager;
         private final WeakReference<ImageView> imageViewReference;
         private OCFile file;
-        private String imageKey;
+        private final String imageKey;
         private GalleryListener listener;
-        private List<GalleryImageGenerationTask> asyncTasks;
-        private int backgroundColor;
+        private final List<GalleryImageGenerationTask> asyncTasks;
+        private final int backgroundColor;
         private boolean newImage = false;
 
         public GalleryImageGenerationTask(
@@ -283,8 +283,7 @@ public final class ThumbnailsCacheManager {
             FileDataStorageManager storageManager,
             List<GalleryImageGenerationTask> asyncTasks,
             String imageKey,
-            int backgroundColor
-                                         ) {
+            int backgroundColor) {
             this.user = user;
             this.storageManager = storageManager;
             imageViewReference = new WeakReference<>(imageView);

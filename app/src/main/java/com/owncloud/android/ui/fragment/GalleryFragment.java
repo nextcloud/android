@@ -175,7 +175,7 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
                                       viewThemeUtils,
                                       columnSize,
                                       ThumbnailsCacheManager.getThumbnailDimension());
-
+        mAdapter.setHasStableIds(true);
         setRecyclerViewAdapter(mAdapter);
 
         //update the footer as there is no footer shown in media view
