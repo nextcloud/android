@@ -26,13 +26,12 @@ class RemoteClientRepository(
     private val lifecycleOwner: LifecycleOwner
 ) : ClientRepository {
     private val tag = "ClientRepository"
+    private val clientFactory = OwnCloudClientManagerFactory.getDefaultSingleton()
 
     override fun getNextcloudClient(onComplete: (NextcloudClient) -> Unit) {
         lifecycleOwner.lifecycle.coroutineScope.launch(Dispatchers.IO) {
             try {
-                val client = OwnCloudClientManagerFactory
-                    .getDefaultSingleton()
-                    .getNextcloudClientFor(user.toOwnCloudAccount(), context)
+                val client = clientFactory.getNextcloudClientFor(user.toOwnCloudAccount(), context)
                 onComplete(client)
             } catch (e: Exception) {
                 Log_OC.d(tag, "Exception caught getNextcloudClient(): $e")
@@ -43,9 +42,7 @@ class RemoteClientRepository(
     override suspend fun getNextcloudClient(): NextcloudClient? {
         return withContext(Dispatchers.IO) {
             try {
-                OwnCloudClientManagerFactory
-                    .getDefaultSingleton()
-                    .getNextcloudClientFor(user.toOwnCloudAccount(), context)
+                clientFactory.getNextcloudClientFor(user.toOwnCloudAccount(), context)
             } catch (e: Exception) {
                 Log_OC.d(tag, "Exception caught getNextcloudClient(): $e")
                 null
@@ -56,9 +53,7 @@ class RemoteClientRepository(
     override fun getOwncloudClient(onComplete: (OwnCloudClient) -> Unit) {
         lifecycleOwner.lifecycle.coroutineScope.launch(Dispatchers.IO) {
             try {
-                val client = OwnCloudClientManagerFactory
-                    .getDefaultSingleton()
-                    .getClientFor(user.toOwnCloudAccount(), context)
+                val client = clientFactory.getClientFor(user.toOwnCloudAccount(), context)
                 onComplete(client)
             } catch (e: Exception) {
                 Log_OC.d(tag, "Exception caught getOwncloudClient(): $e")
@@ -69,9 +64,7 @@ class RemoteClientRepository(
     override suspend fun getOwncloudClient(): OwnCloudClient? {
         return withContext(Dispatchers.IO) {
             try {
-                OwnCloudClientManagerFactory
-                    .getDefaultSingleton()
-                    .getClientFor(user.toOwnCloudAccount(), context)
+                clientFactory.getClientFor(user.toOwnCloudAccount(), context)
             } catch (e: Exception) {
                 Log_OC.d(tag, "Exception caught getOwncloudClient(): $e")
                 null
