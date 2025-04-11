@@ -259,10 +259,7 @@ class BackupFragment : FileFragment(), OnDateSetListener, Injectable {
     }
 
     @Suppress("TooGenericExceptionCaught")
-    private fun refreshBackupFolder(
-        context: Context,
-        storageManager: FileDataStorageManager
-    ) {
+    private fun refreshBackupFolder(context: Context, storageManager: FileDataStorageManager) {
         lifecycleScope.launch(Dispatchers.IO) {
             var folder: OCFile? = null
 
