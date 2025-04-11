@@ -77,7 +77,7 @@ class GalleryAdapter(
     }
 
     override fun getItemId(section: Int, position: Int): Long {
-        return files[section].rows[position].files.sumOf { it.hashCode() }.toLong()
+        return files[section].rows[position].calculateHashCode()
     }
 
     override fun selectAll(value: Boolean) {
