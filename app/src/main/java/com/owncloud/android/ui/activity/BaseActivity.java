@@ -20,13 +20,12 @@ import com.nextcloud.client.mixins.SessionMixin;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.client.preferences.DarkMode;
 import com.nextcloud.repository.ClientRepository;
-import com.nextcloud.repository.ClientRepositoryType;
+import com.nextcloud.repository.RemoteClientRepository;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.status.OCCapability;
 import com.owncloud.android.ui.fragment.filesRepository.FilesRepository;
-import com.owncloud.android.ui.fragment.filesRepository.FilesRepositoryType;
 
 import java.util.Optional;
 
@@ -67,9 +66,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Injectab
         return accountManager;
     }
 
-    private ClientRepositoryType clientRepository;
-
-    private FilesRepositoryType filesRepository;
+    private ClientRepository clientRepository;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -82,8 +79,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Injectab
             mixinRegistry.onCreate(savedInstanceState);
         }
 
-        clientRepository = new ClientRepository(accountManager.getUser(), this, this);
-        filesRepository = new FilesRepository(clientRepository, this);
+        clientRepository = new RemoteClientRepository(accountManager.getUser(), this, this);
     }
 
     @Override
@@ -192,11 +188,8 @@ public abstract class BaseActivity extends AppCompatActivity implements Injectab
         return fileDataStorageManager;
     }
 
-    public ClientRepositoryType getClientRepository() {
+    public ClientRepository getClientRepository() {
         return clientRepository;
     }
 
-    public FilesRepositoryType getFilesRepository() {
-        return filesRepository;
-    }
 }

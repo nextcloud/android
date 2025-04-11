@@ -7,67 +7,39 @@
 
 package com.nextcloud.repository
 
-import android.content.Context
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.coroutineScope
-import com.nextcloud.client.account.User
 import com.nextcloud.common.NextcloudClient
 import com.owncloud.android.lib.common.OwnCloudClient
-import com.owncloud.android.lib.common.OwnCloudClientFactory
-import com.owncloud.android.lib.common.utils.Log_OC
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
-@Suppress("TooGenericExceptionCaught")
-class ClientRepository(
-    private val user: User,
-    private val context: Context,
-    private val lifecycleOwner: LifecycleOwner
-) : ClientRepositoryType {
-    private val tag = "ClientRepository"
+/**
+ * Interface defining methods to retrieve Nextcloud and OwnCloudClient clients.
+ * Provides both callback-based and suspend function versions for flexibility in usage.
+ */
+interface ClientRepository {
+    /**
+     * Retrieves an instance of [NextcloudClient] using a callback.
+     *
+     * @param onComplete A callback function that receives the [NextcloudClient] instance once available.
+     */
+    fun getNextcloudClient(onComplete: (NextcloudClient) -> Unit)
 
-    override fun getNextcloudClient(onComplete: (NextcloudClient) -> Unit) {
-        lifecycleOwner.lifecycle.coroutineScope.launch(Dispatchers.IO) {
-            try {
-                val client = OwnCloudClientFactory.createNextcloudClient(user.toPlatformAccount(), context)
-                onComplete(client)
-            } catch (e: Exception) {
-                Log_OC.d(tag, "Exception caught getNextcloudClient(): $e")
-            }
-        }
-    }
+    /**
+     * Retrieves an instance of [NextcloudClient] as a suspend function.
+     *
+     * @return The [NextcloudClient] instance, or `null` if it cannot be retrieved.
+     */
+    suspend fun getNextcloudClient(): NextcloudClient?
 
-    override suspend fun getNextcloudClient(): NextcloudClient? {
-        return withContext(Dispatchers.IO) {
-            try {
-                OwnCloudClientFactory.createNextcloudClient(user.toPlatformAccount(), context)
-            } catch (e: Exception) {
-                Log_OC.d(tag, "Exception caught getNextcloudClient(): $e")
-                null
-            }
-        }
-    }
+    /**
+     * Retrieves an instance of [OwnCloudClient] using a callback.
+     *
+     * @param onComplete A callback function that receives the [OwnCloudClient] instance once available.
+     */
+    fun getOwncloudClient(onComplete: (OwnCloudClient) -> Unit)
 
-    override fun getOwncloudClient(onComplete: (OwnCloudClient) -> Unit) {
-        lifecycleOwner.lifecycle.coroutineScope.launch(Dispatchers.IO) {
-            try {
-                val client = OwnCloudClientFactory.createOwnCloudClient(user.toPlatformAccount(), context)
-                onComplete(client)
-            } catch (e: Exception) {
-                Log_OC.d(tag, "Exception caught getOwncloudClient(): $e")
-            }
-        }
-    }
-
-    override suspend fun getOwncloudClient(): OwnCloudClient? {
-        return withContext(Dispatchers.IO) {
-            try {
-                OwnCloudClientFactory.createOwnCloudClient(user.toPlatformAccount(), context)
-            } catch (e: Exception) {
-                Log_OC.d(tag, "Exception caught getOwncloudClient(): $e")
-                null
-            }
-        }
-    }
+    /**
+     * Retrieves an instance of [OwnCloudClient] as a suspend function.
+     *
+     * @return The [OwnCloudClient] instance, or `null` if it cannot be retrieved.
+     */
+    suspend fun getOwncloudClient(): OwnCloudClient?
 }
