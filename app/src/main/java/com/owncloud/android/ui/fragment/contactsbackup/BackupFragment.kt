@@ -80,7 +80,7 @@ class BackupFragment : FileFragment(), OnDateSetListener, Injectable {
     private var showCalendarBackup = true
     private var isCalendarBackupEnabled: Boolean
         get() = arbitraryDataProvider.getBooleanValue(user, PREFERENCE_CALENDAR_BACKUP_ENABLED)
-        private set(enabled) {
+        set(enabled) {
             arbitraryDataProvider.storeOrUpdateKeyValue(
                 user.accountName,
                 PREFERENCE_CALENDAR_BACKUP_ENABLED,
@@ -90,7 +90,7 @@ class BackupFragment : FileFragment(), OnDateSetListener, Injectable {
 
     private var isContactsBackupEnabled: Boolean
         get() = arbitraryDataProvider.getBooleanValue(user, PREFERENCE_CONTACTS_BACKUP_ENABLED)
-        private set(enabled) {
+        set(enabled) {
             arbitraryDataProvider.storeOrUpdateKeyValue(
                 user.accountName,
                 PREFERENCE_CONTACTS_BACKUP_ENABLED,
@@ -251,61 +251,58 @@ class BackupFragment : FileFragment(), OnDateSetListener, Injectable {
         }
 
         (activity as? ContactsPreferenceActivity)?.let {
-            refreshBackupFolder(
-                it.applicationContext,
-                it.storageManager
-            )
+            refreshBackupFolder(it.storageManager)
+        }
+    }
+
+    private fun refreshBackupFolder(storageManager: FileDataStorageManager) {
+        lifecycleScope.launch {
+            val backupFiles = listOf(calendarBackupFolderPath, contactsBackupFolderPath)
+                .mapNotNull { path -> storageManager.getFileByDecryptedRemotePath(path) }
+                .flatMap { folder -> fetchBackupFiles(folder, storageManager) }
+                .toMutableList()
+                .also {
+                    it.sortWith(AlphanumComparator())
+                }
+
+            if (backupFiles.isEmpty()) {
+                Log_OC.d(TAG, "Backup files is empty")
+                return@launch
+            }
+
+            withContext(Dispatchers.Main) {
+                binding.contactsDatepicker.setVisibleIf(backupFiles.isNotEmpty())
+            }
         }
     }
 
     @Suppress("TooGenericExceptionCaught")
-    private fun refreshBackupFolder(context: Context, storageManager: FileDataStorageManager) {
-        lifecycleScope.launch(Dispatchers.IO) {
-            var folder: OCFile? = null
-
-            val contactsBackupFolder = storageManager.getFileByDecryptedRemotePath(contactsBackupFolderPath)
-            if (contactsBackupFolder != null) {
-                Log_OC.d(TAG, "getting contactsBackupFolder")
-                folder = contactsBackupFolder
-            }
-
-            if (folder == null) {
-                Log_OC.d(TAG, "Folder is null, getting calendarBackupFolderPath")
-                val calendarBackupFolder = storageManager.getFileByDecryptedRemotePath(calendarBackupFolderPath)
-                folder = calendarBackupFolder
-            }
-
-            if (folder == null) {
-                Log_OC.d(TAG, "Folder is null, cancelling refreshBackupFolder")
-                return@launch
-            }
-
-            val operation = RefreshFolderOperation(
-                folder,
-                System.currentTimeMillis(),
-                false,
-                false,
-                storageManager,
-                user,
-                context
-            )
-
+    private suspend fun fetchBackupFiles(folder: OCFile, storageManager: FileDataStorageManager): List<OCFile> {
+        return withContext(Dispatchers.IO) {
             try {
+                val operation = RefreshFolderOperation(
+                    folder,
+                    System.currentTimeMillis(),
+                    false,
+                    false,
+                    storageManager,
+                    user,
+                    context
+                )
+
                 @Suppress("DEPRECATION")
                 val result = operation.execute(user, context)
 
                 if (result.isSuccess) {
-                    val backupFiles = storageManager.getFolderContent(folder, false)
-                    backupFiles.sortWith(AlphanumComparator())
-
-                    withContext(Dispatchers.Main) {
-                        binding.contactsDatepicker.setVisibleIf(backupFiles.isNotEmpty())
-                    }
+                    Log_OC.d(TAG, "Backup files fetched")
+                    storageManager.getFolderContent(folder, false)
                 } else {
-                    Log_OC.d(TAG, "RefreshFolderOperation failed refreshBackupFolder")
+                    Log_OC.d(TAG, "Backup files cannot be fetched")
+                    listOf()
                 }
             } catch (e: Exception) {
-                Log_OC.d(TAG, "Exception refreshBackupFolder: $e")
+                Log_OC.d(TAG, "Exception fetchBackupFiles: $e")
+                listOf()
             }
         }
     }
