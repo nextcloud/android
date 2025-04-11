@@ -9,7 +9,7 @@ package com.nextcloud.repository
 
 import android.content.Context
 import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.coroutineScope
+import androidx.lifecycle.lifecycleScope
 import com.nextcloud.client.account.User
 import com.nextcloud.common.NextcloudClient
 import com.owncloud.android.lib.common.OwnCloudClient
@@ -23,13 +23,14 @@ import kotlinx.coroutines.withContext
 class RemoteClientRepository(
     private val user: User,
     private val context: Context,
-    private val lifecycleOwner: LifecycleOwner
+    lifecycleOwner: LifecycleOwner
 ) : ClientRepository {
     private val tag = "ClientRepository"
     private val clientFactory = OwnCloudClientManagerFactory.getDefaultSingleton()
+    private val scope = lifecycleOwner.lifecycleScope
 
     override fun getNextcloudClient(onComplete: (NextcloudClient) -> Unit) {
-        lifecycleOwner.lifecycle.coroutineScope.launch(Dispatchers.IO) {
+        scope.launch(Dispatchers.IO) {
             try {
                 val client = clientFactory.getNextcloudClientFor(user.toOwnCloudAccount(), context)
                 onComplete(client)
@@ -51,7 +52,7 @@ class RemoteClientRepository(
     }
 
     override fun getOwncloudClient(onComplete: (OwnCloudClient) -> Unit) {
-        lifecycleOwner.lifecycle.coroutineScope.launch(Dispatchers.IO) {
+        scope.launch(Dispatchers.IO) {
             try {
                 val client = clientFactory.getClientFor(user.toOwnCloudAccount(), context)
                 onComplete(client)

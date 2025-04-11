@@ -20,12 +20,13 @@ import kotlinx.coroutines.withContext
 @Suppress("TooGenericExceptionCaught")
 class RemoteFilesRepository(
     private val clientRepository: ClientRepository,
-    private val lifecycleOwner: LifecycleOwner
+    lifecycleOwner: LifecycleOwner
 ) : FilesRepository {
     private val tag = "FilesRepository"
+    private val scope = lifecycleOwner.lifecycleScope
 
     override fun fetchRecommendedFiles(onCompleted: (ArrayList<Recommendation>) -> Unit) {
-        lifecycleOwner.lifecycleScope.launch(Dispatchers.IO) {
+        scope.launch(Dispatchers.IO) {
             try {
                 val client = clientRepository.getNextcloudClient() ?: return@launch
                 val result = GetRecommendationsRemoteOperation().execute(client)
