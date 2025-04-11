@@ -2,22 +2,54 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
 [versions]
+espressoVersion = "3.6.1"
+media3 = "1.5.1"
+roomVersion = "2.6.1"
 splash-screen = "1.0.1"
 kotlin = "2.1.20"
 composeBom = "2025.03.01"
 spotbugsGradlePlugin = "6.1.7"
+detektGradlePlugin = "1.23.8"
+spotless = "6.25.0"
+ksp = "2.1.20-1.0.32"
 
 [libraries]
-androidx-core-splashscreen = { module = "androidx.core:core-splashscreen", version.ref = "splash-screen" }
+# Splash Screen
+splashscreen = { module = "androidx.core:core-splashscreen", version.ref = "splash-screen" }
 
 # Jetpack Compose
-androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "composeBom" }
-androidx-ui = { module = "androidx.compose.ui:ui" }
-androidx-ui-graphics = { module = "androidx.compose.ui:ui-graphics" }
-androidx-ui-tooling = { module = "androidx.compose.ui:ui-tooling" }
-androidx-ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview" }
-material3 = { module = "androidx.compose.material3:material3" }
+compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "composeBom" }
+compose-ui = { module = "androidx.compose.ui:ui" }
+compose-ui-graphics = { module = "androidx.compose.ui:ui-graphics" }
+compose-ui-tooling = { module = "androidx.compose.ui:ui-tooling" }
+compose-ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview" }
+compose-material3 = { module = "androidx.compose.material3:material3" }
+
+# Media3
+media3-datasource = { module = "androidx.media3:media3-datasource-okhttp", version.ref = "media3" }
+media3-exoplayer = { module = "androidx.media3:media3-exoplayer", version.ref = "media3" }
+media3-session = { module = "androidx.media3:media3-session", version.ref = "media3" }
+media3-ui = { module = "androidx.media3:media3-ui", version.ref = "media3" }
+
+# Room
+room-runtime = { module = "androidx.room:room-runtime", version.ref = "roomVersion" }
+room-testing = { module = "androidx.room:room-testing", version.ref = "roomVersion" }
+
+# Espresso
+espresso-accessibility = { module = "androidx.test.espresso:espresso-accessibility", version.ref = "espressoVersion" }
+espresso-contrib = { module = "androidx.test.espresso:espresso-contrib", version.ref = "espressoVersion" }
+espresso-core = { module = "androidx.test.espresso:espresso-core", version.ref = "espressoVersion" }
+espresso-idling-resource = { module = "androidx.test.espresso:espresso-idling-resource", version.ref = "espressoVersion" }
+espresso-intents = { module = "androidx.test.espresso:espresso-intents", version.ref = "espressoVersion" }
+espresso-web = { module = "androidx.test.espresso:espresso-web", version.ref = "espressoVersion" }
+
+# Gradle Plugins
 spotbugs-gradle-plugin = { module = "com.github.spotbugs.snom:spotbugs-gradle-plugin", version.ref = "spotbugsGradlePlugin" }
+kotlin-gradle-plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
+detekt-gradle-plugin = { module = "io.gitlab.arturbosch.detekt:detekt-gradle-plugin", version.ref = "detektGradlePlugin" }
 
 [plugins]
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+spotless = { id = "com.diffplug.spotless", version.ref = "spotless" }
+kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
+ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
