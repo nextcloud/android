@@ -303,6 +303,8 @@ class BackupFragment : FileFragment(), OnDateSetListener, Injectable {
                     withContext(Dispatchers.Main) {
                         binding.contactsDatepicker.setVisibleIf(backupFiles.isNotEmpty())
                     }
+                } else {
+                    Log_OC.d(TAG, "RefreshFolderOperation failed refreshBackupFolder")
                 }
             } catch (e: Exception) {
                 Log_OC.d(TAG, "Exception refreshBackupFolder: $e")
