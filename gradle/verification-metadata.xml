@@ -44,6 +44,7 @@
             <trusting group="androidx.databinding"/>
             <trusting group="androidx.exifinterface" name="exifinterface" version="1.4.0"/>
             <trusting group="androidx.fragment"/>
+            <trusting group="com.google.firebase" name="firebase-messaging" version="24.1.1"/>
             <trusting group="^androidx[.]compose($|([.].*))" regex="true"/>
             <trusting group="^com[.]android($|([.].*))" regex="true"/>
          </trusted-key>
