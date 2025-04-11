@@ -31,6 +31,7 @@
     <string name="allow_resharing">Atļaut atkārtotu koplietošanu</string>
     <string name="app_config_proxy_port_title">Starpniekservera ports</string>
     <string name="appbar_search_in">Meklēt %s</string>
+    <string name="assistant_screen_add_task_alert_dialog_title">Pievienot jaunu uzdevumu</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">Dzēst uzdevumu</string>
     <string name="associated_account_not_found">Saistītais konts nav atrasts!</string>
     <string name="auth_access_failed">Piekļuve neizdevās: %1$s</string>

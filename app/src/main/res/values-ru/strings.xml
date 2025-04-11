@@ -805,7 +805,7 @@
     <string name="share_not_allowed_when_file_drop">Перенаправление запрещено во время безопасного удаления файлов</string>
     <string name="share_password_title">Защищено паролем</string>
     <string name="share_permission_can_edit">Разрешено редактировать</string>
-    <string name="share_permission_file_drop">Принимать файлы</string>
+    <string name="share_permission_file_drop">Приём файлов</string>
     <string name="share_permission_secure_file_drop">Защищенный очиститель файлов</string>
     <string name="share_permission_view_only">Только просмотр</string>
     <string name="share_remote_clarification">%1$s (на сервере)</string>

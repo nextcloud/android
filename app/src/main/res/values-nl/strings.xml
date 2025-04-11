@@ -53,6 +53,7 @@
     <string name="assistant_screen_task_create_success_message">Taak succesvol aangemaakt</string>
     <string name="assistant_screen_task_delete_fail_message">Er is een fout opgetreden bij het verwijderen van de taak</string>
     <string name="assistant_screen_task_delete_success_message">Taak succesvol verwijderd</string>
+    <string name="assistant_screen_task_list_empty_message">Takenlijst is leeg.</string>
     <string name="assistant_screen_task_list_error_state_message">Kan takenlijst niet ophalen. Controleer je internetverbinding.</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">Verwijder taak</string>
     <string name="assistant_screen_task_types_error_state_message">Kan taken types niet ophalen. Controleer je internetverbinding.</string>
@@ -419,6 +420,7 @@
     <string name="file_not_found">Bestand niet gevonden</string>
     <string name="file_not_synced">Synchroniseren van het gewenste bestand mislukt. Laatst beschikbare versie wordt weergegeven.</string>
     <string name="file_rename">Hernoemen</string>
+    <string name="file_upload_worker_error_notification_title">Upload mislukt. Geen internetverbinding</string>
     <string name="file_upload_worker_same_file_already_exists">Hetzelfde bestand bestaat al, geen conflict gevonden</string>
     <string name="file_version_restored_error">Fout bij herstellen bestandsversie!</string>
     <string name="file_version_restored_successfully">Herstellen bestandsversie succesvol</string>
@@ -1030,6 +1032,10 @@
     <string name="write_email">Stuur e-mail</string>
     <string name="wrong_storage_path">Gegevensopslagmap bestaat niet!</string>
     <string name="wrong_storage_path_desc">Dit kan komen door een back-upherstel op een ander apparaat. Standaardinstelling wordt gebruikt. Controleer de instellingen om de gegevensopslagmap aan te passen.</string>
+    <plurals name="hours">
+        <item quantity="one">%d uur</item>
+        <item quantity="other">%d uren</item>
+    </plurals>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">Kon bestand %1$dniet synchroniseren (conflicten: %2$d)</item>
         <item quantity="other">Kon bestand %1$d niet synchroniseren (conflicten: %2$d)</item>
@@ -1086,4 +1092,12 @@
         <item quantity="one">%d geselecteerd</item>
         <item quantity="other">%d geselecteerd</item>
     </plurals>
-    </resources>
+    <plurals name="delay_message_minutes_part">
+        <item quantity="one">%d minuut vertraagd</item>
+        <item quantity="other">%d minuten vertraagd</item>
+    </plurals>
+    <plurals name="share_download_limit_description">
+        <item quantity="one">%1$d download resterend</item>
+        <item quantity="other">%1$d downloads resterend</item>
+    </plurals>
+</resources>
