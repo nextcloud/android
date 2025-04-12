@@ -203,6 +203,7 @@
     <string name="contacts_backup_button">Jetzt sichern</string>
     <string name="contacts_preferences_backup_scheduled">Sicherung geplant und wird in Kürze starten</string>
     <string name="contacts_preferences_import_scheduled">Import geplant und wird in Kürze starten</string>
+    <string name="contacts_preferences_import_scheduled_fail">Der Import konnte nicht gestartet werden. Bitte erneut versuchen</string>
     <string name="contacts_preferences_no_file_found">Keine Datei gefunden</string>
     <string name="contacts_preferences_something_strange_happened">Wir können Ihr letztes Backup nicht finden!</string>
     <string name="copied_to_clipboard">In die Zwischenablage kopiert</string>
