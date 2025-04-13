@@ -203,6 +203,7 @@
     <string name="contacts_backup_button">Gör backup nu</string>
     <string name="contacts_preferences_backup_scheduled">Backup schemalagt och kommer starta inom kort</string>
     <string name="contacts_preferences_import_scheduled">Importering schemalagt och kommer starta inom kort</string>
+    <string name="contacts_preferences_import_scheduled_fail">Importen kunde inte startas. Försök igen</string>
     <string name="contacts_preferences_no_file_found">Ingen fil funnen</string>
     <string name="contacts_preferences_something_strange_happened">Vi kunde inte hitta din senaste backup!</string>
     <string name="copied_to_clipboard">Kopierat till urklipp</string>
