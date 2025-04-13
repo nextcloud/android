@@ -203,6 +203,7 @@
     <string name="contacts_backup_button">Ar ais suas anois</string>
     <string name="contacts_preferences_backup_scheduled">Cúltaca sceidealta agus cuirfear tús leis go luath</string>
     <string name="contacts_preferences_import_scheduled">Iompórtáil sceidealta agus cuirfear tús leis go luath</string>
+    <string name="contacts_preferences_import_scheduled_fail">Theip ar an iompórtáil. Bain triail eile as</string>
     <string name="contacts_preferences_no_file_found">Níor aimsíodh aon chomhad</string>
     <string name="contacts_preferences_something_strange_happened">Níorbh fhéidir do chúltaca deiridh a aimsiú!</string>
     <string name="copied_to_clipboard">Cóipeáladh chuig an ngearrthaisce</string>
