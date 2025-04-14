@@ -521,6 +521,7 @@ class FileDetailsSharingProcessFragment :
         permission = sharePermissionManager.togglePermission(isChecked, permission, permissionFlag)
     }
 
+    @Suppress("NestedBlockDepth")
     private fun setCheckboxStates() {
         val currentPermissions = share?.permissions ?: permission
 
