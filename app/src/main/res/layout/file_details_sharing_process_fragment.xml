@@ -80,6 +80,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/standard_margin"
                 android:minHeight="@dimen/minimum_size_for_touchable_area"
+                android:visibility="gone"
                 android:text="@string/share_allow_download_and_sync_permission"
                 tools:visibility="visible" />
 

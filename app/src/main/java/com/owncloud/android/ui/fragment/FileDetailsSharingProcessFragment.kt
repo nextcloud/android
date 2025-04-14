@@ -211,7 +211,10 @@ class FileDetailsSharingProcessFragment :
                 themeRadioButton(fileDropRadioButton)
                 themeRadioButton(customPermissionRadioButton)
 
-                themeCheckbox(shareAllowDownloadAndSyncCheckbox)
+                if (shareType != ShareType.PUBLIC_LINK) {
+                    shareAllowDownloadAndSyncCheckbox.visibility = View.VISIBLE
+                    themeCheckbox(shareAllowDownloadAndSyncCheckbox)
+                }
 
                 themeCheckbox(shareReadCheckbox)
                 themeCheckbox(shareCreateCheckbox)
@@ -544,7 +547,9 @@ class FileDetailsSharingProcessFragment :
                     }
                 }
 
-                shareAllowDownloadAndSyncCheckbox.isChecked = isAllowDownloadAndSyncEnabled(share)
+                if (shareType != ShareType.PUBLIC_LINK) {
+                    shareAllowDownloadAndSyncCheckbox.isChecked = isAllowDownloadAndSyncEnabled(share)
+                }
             }
         }
 
@@ -564,8 +569,10 @@ class FileDetailsSharingProcessFragment :
             checkbox.setOnCheckedChangeListener { _, isChecked -> togglePermission(isChecked, flag) }
         }
 
-        binding.shareAllowDownloadAndSyncCheckbox.setOnCheckedChangeListener { _, isChecked ->
-            share?.attributes = sharePermissionManager.toggleAllowDownloadAndSync(isChecked, share)
+        if (shareType != ShareType.PUBLIC_LINK) {
+            binding.shareAllowDownloadAndSyncCheckbox.setOnCheckedChangeListener { _, isChecked ->
+                share?.attributes = sharePermissionManager.toggleAllowDownloadAndSync(isChecked, share)
+            }
         }
     }
 
