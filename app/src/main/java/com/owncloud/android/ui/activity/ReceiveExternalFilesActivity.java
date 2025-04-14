@@ -857,12 +857,12 @@ public class ReceiveExternalFilesActivity extends FileActivity
             }
 
             final var operation = new RefreshFolderOperation(folder,
-                                                                currentSyncTime,
-                                                                false,
-                                                                false,
-                                                                getStorageManager(),
-                                                                optionalUser.get(),
-                                                                context
+                                                             currentSyncTime,
+                                                             false,
+                                                             false,
+                                                             getStorageManager(),
+                                                             optionalUser.get(),
+                                                             context
             );
 
             try {
