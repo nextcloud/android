@@ -1834,6 +1834,7 @@ public class FileDisplayActivity extends FileActivity
      * @param result    Result of the removal.
      */
     @Override
+    @SuppressFBWarnings("ITC")
     public void onRemoteOperationFinish(RemoteOperation operation, RemoteOperationResult result) {
         super.onRemoteOperationFinish(operation, result);
 
