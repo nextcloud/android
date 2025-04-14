@@ -10,6 +10,7 @@
     <string name="action_edit">Edytuj</string>
     <string name="action_empty_notifications">Wyczyść wszystkie powiadomienia</string>
     <string name="action_empty_trashbin">Opróżnij kosz</string>
+    <string name="action_send_share">Wyślij/udostępnij</string>
     <string name="action_switch_grid_view">Widok siatki</string>
     <string name="action_switch_list_view">Widok listy</string>
     <string name="actionbar_calendar_contacts_restore">Przywróć kontakty i kalendarz</string>
@@ -45,14 +46,17 @@
     <string name="app_widget_description">Pokazuje jeden widżet z pulpitu nawigacyjnego</string>
     <string name="appbar_search_in">Szukaj w %s</string>
     <string name="assistant_screen_add_task_alert_dialog_title">Dodaj nowe zadanie</string>
+    <string name="assistant_screen_create_a_new_task_from_bottom_right_text">Utwórz nowe zadanie w prawym dolnym rogu</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Wpisz jakiś tekst</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Czy na pewno chcesz usunąć to zadanie?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Usuń zadanie</string>
+    <string name="assistant_screen_loading">Ładowanie listy zadań…</string>
     <string name="assistant_screen_no_task_available_text">Brak dostępnych zadań dla typu zadania %s. Możesz utworzyć nowe zadanie w prawym dolnym rogu.</string>
     <string name="assistant_screen_task_create_fail_message">Wystąpił błąd podczas tworzenia zadania</string>
     <string name="assistant_screen_task_create_success_message">Zadanie pomyślnie utworzone</string>
     <string name="assistant_screen_task_delete_fail_message">Wystąpił błąd podczas usuwania zadania</string>
     <string name="assistant_screen_task_delete_success_message">Zadanie pomyślnie usunięte</string>
+    <string name="assistant_screen_task_list_empty_message">Lista zadań jest pusta.</string>
     <string name="assistant_screen_task_list_error_state_message">Nie można pobrać listy zadań. Sprawdź swoje połączenie internetowe.</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">Usuń zadanie</string>
     <string name="assistant_screen_task_output_empty_text">Wynik zadanie nie jest jeszcze gotowy</string>
@@ -99,6 +103,7 @@
     <string name="auto_upload_gplay_desc2">Ze względu na nowe ograniczenia nałożone przez Google, zostaliśmy zmuszeni do usunięcia ważnego uprawnienia. W rezultacie automatyczne przesyłanie będzie mogło przesyłać tylko pliki graficzne i wideo.\nDodatkowo, nowe uprawnienie jest wymagane do dostępu do informacji o lokalizacji dla przesłanych obrazów.\nUpewnij się, że dostęp do multimediów jest ustawiony na \"Zawsze zezwalaj na wszystko\".</string>
     <string name="auto_upload_on_wifi">Wysyłaj tylko przez Wi-Fi</string>
     <string name="auto_upload_path">/AutoUpload</string>
+    <string name="auto_upload_sub_folder_warning">Ten katalog jest już uwzględniony w synchronizacji katalogu nadrzędnego, co może powodować duplikowanie wysyłanych plików</string>
     <string name="autoupload_configure">Konfiguruj</string>
     <string name="autoupload_create_new_custom_folder">Utwórz nową niestandardową konfigurację katalogu</string>
     <string name="autoupload_custom_folder">Ustaw własny katalog</string>
@@ -185,6 +190,7 @@
     <string name="confirmation_remove_folders_alert">Czy na pewno chcesz usunąć wybrane pozycje i ich zawartość?</string>
     <string name="confirmation_remove_local">Tylko lokalnie</string>
     <string name="conflict_dialog_error">Nie można utworzyć okna dialogowego rozwiązywania konfliktów</string>
+    <string name="conflict_folder_headline">Konflikt katalogów</string>
     <string name="conflict_local_file">Plik lokalny</string>
     <string name="conflict_message_description">Jeśli wybierzesz obie wersje, to do nazwy pliku lokalnego zostanie dodany numer.</string>
     <string name="conflict_message_description_for_folder">Jeżeli wybierzesz obie wersje, to do nazwy katalogu lokalnego zostanie dodany numer</string>
@@ -197,6 +203,7 @@
     <string name="contacts_backup_button">Utwórz kopię zapasową</string>
     <string name="contacts_preferences_backup_scheduled">Kopia zapasowa została zaplanowana i wkrótce zostanie uruchomiona</string>
     <string name="contacts_preferences_import_scheduled">Importowanie zostało zaplanowane i wkrótce zostanie uruchomione</string>
+    <string name="contacts_preferences_import_scheduled_fail">Nie udało się rozpocząć importu. Spróbuj ponownie</string>
     <string name="contacts_preferences_no_file_found">Nie znaleziono żadnych plików</string>
     <string name="contacts_preferences_something_strange_happened">Nie odnaleziono Twojej ostatniej kopii zapasowej!</string>
     <string name="copied_to_clipboard">Skopiowano do schowka</string>
@@ -351,6 +358,7 @@
     <string name="etm_background_jobs_stop_test_job">Zatrzymaj zadanie testowe</string>
     <string name="etm_migrations">Migracje (aktualizacja aplikacji)</string>
     <string name="etm_preferences">Preferencje</string>
+    <string name="etm_title">Tryb testowy techniczny</string>
     <string name="etm_transfer">Transfer pliku</string>
     <string name="etm_transfer_enqueue_test_download">Dodaj pobieranie testowe do kolejki</string>
     <string name="etm_transfer_enqueue_test_upload">Dodaj wysyłanie testowe do kolejki</string>
@@ -572,6 +580,7 @@
     <string name="new_media_folder_detected">Wykryty nowy katalog multimediów %1$s.</string>
     <string name="new_media_folder_photos">zdjęcie</string>
     <string name="new_media_folder_videos">wideo</string>
+    <string name="new_notification">Nowe powiadomienie</string>
     <string name="new_version_was_created">Utworzono nową wersję</string>
     <string name="no_actions">Brak aktywności dla tego użytkownika</string>
     <string name="no_browser_available">Brak aplikacji obsługującej odnośniki</string>
@@ -587,6 +596,7 @@
     <string name="note_icon_hint">Ikona notatki</string>
     <string name="notification_action_failed">Wykonanie akcji nie powiodło się.</string>
     <string name="notification_channel_background_operations_description">Pokaż powiadomienia o interakcji z wynikami operacji wykonywanych w tle</string>
+    <string name="notification_channel_background_operations_name">Operacje w tle</string>
     <string name="notification_channel_download_description">Pokazuje postęp pobierania</string>
     <string name="notification_channel_download_name_short">Pobrane</string>
     <string name="notification_channel_file_sync_description">Pokazuje postęp synchronizacji plików i jej wynik</string>
@@ -603,12 +613,17 @@
     <string name="notification_icon_description">Nieprzeczytane powiadomienia</string>
     <string name="notifications_no_results_headline">Brak powiadomień</string>
     <string name="notifications_no_results_message">Sprawdź później.</string>
+    <string name="oc_file_list_adapter_offline_operation_description_text">Operacja oczekująca</string>
     <string name="oc_file_list_adapter_offline_operation_remove_description_text">Trwa usuwanie</string>
     <string name="offline_mode">Brak połączenia z Internetem</string>
     <string name="offline_mode_info_description">Nawet bez połączenia internetowego możesz organizować swoje katalogi, tworzyć pliki. Gdy tylko wrócisz do połączenia z internetem, Twoje oczekujące działania zostaną automatycznie zsynchronizowane.</string>
+    <string name="offline_mode_info_title">Jesteś offline, ale praca trwa</string>
     <string name="offline_operations_file_does_not_exists_yet">Plik jeszcze nie istnieje. Wyślij najpierw plik.</string>
+    <string name="offline_operations_worker_notification_conflict_text">Katalog powodujący konflikt: %s</string>
+    <string name="offline_operations_worker_notification_delete_offline_folder">Usuń katalog offline</string>
     <string name="offline_operations_worker_notification_error_text">Operacja offline nie może zostać ukończona. %s</string>
     <string name="offline_operations_worker_notification_manager_ticker">Operacje offline</string>
+    <string name="offline_operations_worker_notification_start_text">Rozpoczęcie operacji offline</string>
     <string name="oneHour">1 godzina</string>
     <string name="online">Online</string>
     <string name="online_status">Status online</string>
@@ -631,6 +646,7 @@
     <string name="permission_storage_access">Wymagane są dodatkowe uprawnienia do pobierania i wysyłania plików.</string>
     <string name="pick_contact_to_share_with">Wybierz kontakt, któremu chcesz udostępnić</string>
     <string name="picture_set_as_no_app">Nie znaleziono aplikacji do ustawienia obrazu</string>
+    <string name="pin_home">Przypnij do ekranu głównego</string>
     <string name="pin_shortcut_label">Otwórz %1$s</string>
     <string name="placeholder_fileSize">389 KB</string>
     <string name="placeholder_filename">tekst_zastępczy.txt</string>
@@ -779,13 +795,16 @@
     <string name="select_one_template">Wybierz jeden szablon</string>
     <string name="select_template">Wybierz szablon</string>
     <string name="send">Wyślij</string>
+    <string name="send_share">Wyślij udostępnienie</string>
     <string name="sendbutton_description">Ikona przycisku wysyłania</string>
     <string name="set_as">Ustaw jako</string>
+    <string name="set_note">Ustaw notatkę</string>
     <string name="set_picture_as">Użyj obrazu jako</string>
     <string name="set_status">Ustaw status</string>
     <string name="set_status_message">Ustaw komunikat statusu</string>
     <string name="setup_e2e">Podczas konfigurowania szyfrowania typu end-to-end otrzymasz losowy mnemonik składający się z 12-stu słów, który będzie potrzebny do otwierania plików na innych urządzeniach. Będzie on przechowywany tylko na tym urządzeniu i można go ponownie wyświetlić na tym ekranie. Zapisz go w bezpiecznym miejscu!</string>
     <string name="share">Udostępnij</string>
+    <string name="share_copy_link">Udostępnij i skopiuj link</string>
     <string name="share_dialog_title">Udostępnianie</string>
     <string name="share_download_limit">Ustaw limit pobierania</string>
     <string name="share_expiration_date_format">%1$s</string>
@@ -812,6 +831,7 @@
     <string name="share_permission_file_drop">Upuść plik</string>
     <string name="share_permission_secure_file_drop">Bezpieczne upuszczenie pliku</string>
     <string name="share_permission_view_only">Tylko podgląd</string>
+    <string name="share_permissions">Uprawnienia udostępniania</string>
     <string name="share_remote_clarification">%1$s (zdalny)</string>
     <string name="share_room_clarification">%1$s (rozmowa)</string>
     <string name="share_search">Nazwa, ID chmury stowarzyszonej lub adres e-mail</string>
@@ -894,8 +914,10 @@
     <string name="subtitle_videos_only">Tylko filmy</string>
     <string name="suggest">Propozycja</string>
     <string name="sync">Synchronizuj</string>
+    <string name="sync_anyway">Synchronizuj mimo wszystko</string>
     <string name="sync_conflicts_in_favourites_ticker">Znaleziono konflikty</string>
     <string name="sync_current_folder_was_removed">Katalog %1$s nie istnieje</string>
+    <string name="sync_duplication">Synchronizuj z duplikowane</string>
     <string name="sync_fail_content">Nie udała się synchronizacja %1$s</string>
     <string name="sync_fail_content_unauthorized">Błędne hasło dla %1$s</string>
     <string name="sync_fail_in_favourites_ticker">Synchronizacja plików nie powiodła się</string>
@@ -912,6 +934,7 @@
     <string name="sync_not_enough_space_dialog_title">Za mało wolnego miejsca</string>
     <string name="sync_status_button">Przycisk statusu synchronizacji</string>
     <string name="sync_string_files">Pliki</string>
+    <string name="sync_warning_button">Przycisk ostrzeżenia synchronizacji</string>
     <string name="synced_folder_settings_button">Przycisk ustawień</string>
     <string name="synced_folders_configure_folders">Skonfiguruj katalogi</string>
     <string name="synced_folders_new_info">Automatyczne wysyłanie zostało całkowicie zmienione. Ponownie skonfiguruj automatyczne wysyłanie z menu głównego.\n\nCiesz się nowym i rozszerzonym automatycznym wysyłaniem.</string>

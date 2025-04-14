@@ -196,7 +196,7 @@
     <string name="drawer_item_trashbin">Izdzēstās datnes</string>
     <string name="drawer_item_uploads_list">Augšupielādes</string>
     <string name="drawer_logout">Izrakstīties</string>
-    <string name="drawer_open">Atvērt malu</string>
+    <string name="drawer_open">Atvērt sānjoslu</string>
     <string name="drawer_quota">%1$s no %2$s lietoti</string>
     <string name="drawer_quota_unlimited">%1$s izmantoti</string>
     <string name="drawer_synced_folders">Automātiska augšupielāde</string>
@@ -357,6 +357,7 @@
     <string name="offline_mode">Nav interneta savienojuma</string>
     <string name="offline_operations_worker_notification_manager_ticker">Bezsaistes darbības</string>
     <string name="oneHour">1 stunda</string>
+    <string name="open_in_app">Atvērt %1$s</string>
     <string name="pass_code_configure_your_pass_code">Ievadiet piekļuves kodu</string>
     <string name="pass_code_configure_your_pass_code_explanation">Piekļuves kods tiks pieprasīts katrā lietotnes palaišanas reizē</string>
     <string name="pass_code_enter_pass_code">Lūdzu, ievadiet piekļuves kodu</string>
@@ -369,6 +370,7 @@
     <string name="permission_allow">Atļaut</string>
     <string name="permission_storage_access">Nepieciešamas papildus tiesības, lai augšupielādētu un lejupielādētu datnes.</string>
     <string name="picture_set_as_no_app">Nav lietotnes, ar kuru uzstādīt attēlu</string>
+    <string name="pin_shortcut_label">Atvērt %1$s</string>
     <string name="placeholder_fileSize">389 KB</string>
     <string name="placeholder_filename">placeholder.txt</string>
     <string name="placeholder_media_time">12:23:45</string>

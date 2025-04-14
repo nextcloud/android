@@ -41,7 +41,7 @@
     <string name="app_config_disable_multiaccount_title">Desativar Múltiplas Contas</string>
     <string name="app_config_disable_sharing_title">Desativar Compartilhamento</string>
     <string name="app_config_enforce_protection_title">Aplicar Proteção</string>
-    <string name="app_config_proxy_host_title">Nome do Host do Proxy</string>
+    <string name="app_config_proxy_host_title">Nome do Host de Proxy</string>
     <string name="app_config_proxy_port_title">Porta do Proxy</string>
     <string name="app_widget_description">Mostra um widget do painel</string>
     <string name="appbar_search_in">Pesquisar em %s</string>
@@ -203,7 +203,7 @@
     <string name="contacts_backup_button">Fazer backup agora</string>
     <string name="contacts_preferences_backup_scheduled">Backup agendado, irá iniciar em breve</string>
     <string name="contacts_preferences_import_scheduled">Importação agendada, irá iniciar em breve</string>
-    <string name="contacts_preferences_import_scheduled_fail">A importação falhou. Por favor, tente novamente.</string>
+    <string name="contacts_preferences_import_scheduled_fail">Falha ao iniciar a importação. Por favor, tente novamente.</string>
     <string name="contacts_preferences_no_file_found">Nenhum arquivo encontrado</string>
     <string name="contacts_preferences_something_strange_happened">Não foi possível encontrar seu último backup!</string>
     <string name="copied_to_clipboard">Copiado para a área de transferência</string>
@@ -343,7 +343,7 @@
     <string name="error_starting_doc_scan">Erro ao iniciar a digitalização do documento</string>
     <string name="error_uploading_direct_camera_upload">Falha ao fazer upload da mídia tirada</string>
     <string name="etm_accounts">Contas</string>
-    <string name="etm_background_execution_count">Os tempos correm em 48h</string>
+    <string name="etm_background_execution_count">Número de execuções em 48 horas</string>
     <string name="etm_background_job_created">Criada</string>
     <string name="etm_background_job_name">Nome da tarefa</string>
     <string name="etm_background_job_progress">Progresso</string>
@@ -463,7 +463,7 @@
     <string name="folder_list_empty_headline">Sem pastas aqui</string>
     <string name="folder_name_empty">O nome da pasta não pode ficar vazio</string>
     <string name="folder_picker_choose_button_text">Escolher</string>
-    <string name="folder_picker_choose_caption_text">Escolher pasta destino</string>
+    <string name="folder_picker_choose_caption_text">Escolher pasta de destino</string>
     <string name="folder_picker_copy_button_text">Copiar</string>
     <string name="folder_picker_move_button_text">Mover</string>
     <string name="forbidden_permissions">Você não tem permissão %s</string>
