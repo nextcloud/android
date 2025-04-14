@@ -865,7 +865,11 @@ public class ReceiveExternalFilesActivity extends FileActivity
                                                                 context
             );
 
-            operation.execute(getAccount(), context, null, null);
+            try {
+                operation.execute(getAccount(), context, null, null);
+            } catch (Exception e) {
+                Log_OC.d(TAG, "Exception startSyncFolderOperation: " + e);
+            }
         });
     }
 
