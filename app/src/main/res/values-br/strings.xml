@@ -380,7 +380,7 @@
     <string name="file_migration_updating_index">O adnevesaat an index...</string>
     <string name="file_migration_use_data_folder">Implij</string>
     <string name="file_migration_waiting_for_unfinished_sync">O gortoz kempredañ pep tra...</string>
-    <string name="file_not_found">N\'eo ket bet kavet ar restr</string>
+    <string name="file_not_found">Restr ebet kavet</string>
     <string name="file_not_synced">N\'eo ket posuple kempredañ ar restr. O diskwell ar stumm diwezha kavet.</string>
     <string name="file_rename">Adenvel</string>
     <string name="file_version_restored_error">Ur fazi zo bet en ur adober stumm ar restr !</string>
@@ -810,7 +810,7 @@
     <string name="uploads_view_upload_status_fetching_server_version">O tapoout stumm ar servijour...</string>
     <string name="uploads_view_upload_status_service_interrupted">Meziant achuet</string>
     <string name="uploads_view_upload_status_succeeded">Achuet</string>
-    <string name="uploads_view_upload_status_unknown_fail">Fazi dizanv</string>
+    <string name="uploads_view_upload_status_unknown_fail">Fazi dianav</string>
     <string name="uploads_view_upload_status_virus_detected">Virus kavet. Ne vo ket achuet ar pellkarga !</string>
     <string name="uploads_view_upload_status_waiting_exit_power_save_mode">O gortoz kuitaat ar mod gwarez tredan</string>
     <string name="uploads_view_upload_status_waiting_for_charging">O gortoz kargañ</string>
