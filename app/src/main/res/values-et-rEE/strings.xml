@@ -464,6 +464,7 @@
     <string name="forward">Edasi</string>
     <string name="fourHours">4 tundi</string>
     <string name="gplay_restriction">Google piirab APK/AAB failide allalaadimist!</string>
+    <string name="hidden_file_name_warning">Sellise nimega lood peidetud faili</string>
     <string name="hint_name">Nimi</string>
     <string name="hint_note">Märge</string>
     <string name="hint_password">Parool</string>
@@ -531,6 +532,7 @@
     <string name="media_err_invalid_progressive_playback">Seda meediafaili ei saa voogedastada</string>
     <string name="media_err_io">Meediafaili lugemine ebaõnnestus</string>
     <string name="media_err_malformed">Sellel meediafailil on viga kodeerig</string>
+    <string name="media_err_timeout">Katse esitada meediafaili aegus</string>
     <string name="media_err_unsupported">Mittetoetatud meedia koodek</string>
     <string name="media_forward_description">Kiire kerimise nupp</string>
     <string name="media_notif_ticker">%1$s muusika pleier</string>
@@ -547,13 +549,22 @@
     <string name="move_file_error">Selle faili või kausta liigutamisel tekkis tõrge</string>
     <string name="move_file_invalid_into_descendent">Kausta ei saa liigutada tema enda alamkausta</string>
     <string name="move_file_invalid_overwrite">See fail on sihtkohas juba olemas.</string>
+    <string name="move_file_not_found">Faili ei õnnestu teisaldada. Palun kontrolli, kas fail ikka on olemas.</string>
+    <string name="network_error_connect_timeout_exception">Serveriühenduse ootamisel tekkis viga. Toimingut pole võimalik lõpetada.</string>
+    <string name="network_error_socket_timeout_exception">Serveriühenduse ootamisel tekkis viga. Toimingut pole võimalik lõpetada.</string>
+    <string name="network_host_not_available">Toimingut pole võimalik lõpetada. Server pole leitav.</string>
     <string name="new_comment">Uus kommentaar...</string>
     <string name="new_media_folder_photos">photo</string>
     <string name="new_media_folder_videos">video</string>
     <string name="new_notification">Uus teavitus</string>
+    <string name="no_actions">Selle kasitaja kohta ei leidu tegevusi</string>
+    <string name="no_calendar_exists">Kalendrit ei leidu</string>
+    <string name="no_email_app_available">E-posti aadressi kasutamiseks ei leidu sobilikku rakendust</string>
     <string name="no_items">Objekte pole</string>
     <string name="no_map_app_availble">Kaartide kuvamiseks ei leidu sobilikku rakendust</string>
     <string name="no_mutliple_accounts_allowed">Lubatud on vaid ühe konto kasutamine</string>
+    <string name="no_send_app">Valitud failide saatmiseks ei leidu sobilikku rakendust</string>
+    <string name="no_share_permission_selected">Palun vali jaosmeedia jaoks vähemalt üks õigus.</string>
     <string name="note_could_not_sent">Ei õnnestunud saata märget</string>
     <string name="note_icon_hint">Märkme ikoon</string>
     <string name="notification_action_failed">Ei õnnestunud käivitada tegevust.</string>
@@ -819,6 +830,7 @@
     <string name="ssl_validator_label_validity_from">Saatja:</string>
     <string name="ssl_validator_label_validity_to">Saaja:</string>
     <string name="ssl_validator_no_info_about_error">- Vea kohta puudub info</string>
+    <string name="ssl_validator_not_saved">Ei õnnestunud salvestada sertifikaati</string>
     <string name="ssl_validator_null_cert">Ei suuda kuvada sertifikaati.</string>
     <string name="ssl_validator_question">Kas sa soovid siiski seda sertifikaati usaldada?</string>
     <string name="ssl_validator_reason_cert_expired">- Serveri sertifikaat on aegunud</string>
@@ -835,6 +847,8 @@
     <string name="storage_internal_storage">Sisemine andmeruum</string>
     <string name="storage_movies">Filmid</string>
     <string name="storage_music">Muusika</string>
+    <string name="storage_permission_full_access">Täisõiguslik ligipääs</string>
+    <string name="storage_permission_media_read_only">Meedium on vaid lugemisõigustes</string>
     <string name="storage_pictures">Pildid</string>
     <string name="sub_folder_rule_day">Aasta/Kuu/Päev</string>
     <string name="sub_folder_rule_month">Aasta/Kuu</string>
@@ -848,12 +862,15 @@
     <string name="sync">Sünkrooni</string>
     <string name="sync_anyway">Sünkrooni ikkagi</string>
     <string name="sync_conflicts_in_favourites_ticker">Leite konflikte</string>
+    <string name="sync_current_folder_was_removed">„%1$s“ kausta pole enam olemas</string>
     <string name="sync_duplication">Sünkroonimisel tuvastatud duplikaat</string>
     <string name="sync_fail_content">%1$s sünkroniseerimine ebaõnnestus</string>
+    <string name="sync_fail_content_unauthorized">„%1$s“ vale salasõna</string>
     <string name="sync_fail_in_favourites_ticker">Sünkroniseeritavad failid ebaõnnestusid</string>
     <string name="sync_fail_ticker">Sünkroniseerimine ebaõnnestus</string>
     <string name="sync_fail_ticker_unauthorized">Sünkroniseerimine ebaõnnestus, logi uuesti sisse</string>
     <string name="sync_file_nothing_to_do_msg">Faili sisu on juba sünkroniseeritud</string>
+    <string name="sync_folder_failed_content">„%1$s“ kausta sünkroniseerimist polnud võimalik lõpetada</string>
     <string name="sync_foreign_files_forgotten_ticker">Osad kohalikud faili ununesid</string>
     <string name="sync_in_progress">Laadime selle faili viimast versiooni.</string>
     <string name="sync_not_enough_space_dialog_action_choose">Vali, mida sünkroniseerida</string>
@@ -894,13 +911,17 @@
     <string name="unified_search_fragment_calendar_event_not_found">Sündmust ei leidu, sa võid andmete uuendamiseks alati sünkroniseerida. Suunan edasi veebi…</string>
     <string name="unified_search_fragment_contact_not_found">Kontakti ei leidu, sa võid andmete uuendamiseks alati sünkroniseerida. Suunan edasi veebi…</string>
     <string name="unified_search_fragment_permission_needed">Otsingutulemuste avamiseks on vajalikud vastavad õigused, vastasel juhul suunan päringu ümber veebi…</string>
+    <string name="unlock_file">Eemalda faili lukustus</string>
     <string name="unread_comments">Leidub lugemata kommentaare</string>
     <string name="unset_encrypted">Eemalda krüpteering</string>
     <string name="unset_favorite">Eemalda lemmikutest</string>
     <string name="unset_internal_two_way_sync_description">Eemalda kaust sisemisest kahepoolsest sünkroonimisest</string>
+    <string name="unshare_link_file_error">Selle faili või kausta jagamise lõpetamisel tekkis viga.</string>
     <string name="unshare_link_file_no_exist">Jagamist ei õnnestunud lõpetada. Palun kontrolli, kas fail ikka on olemas.</string>
     <string name="unshare_link_forbidden_permissions">faili jagamise lõpetamiseks</string>
     <string name="unsharing_failed">Jagamist ei õnnestunud lõpetada</string>
+    <string name="update_link_file_error">Jaosmeedia uuendmisel tekkis viga.</string>
+    <string name="update_link_file_no_exist">Uuendamine ei õnnestu. Palun kontrolli, kas fail päriselt on olemas.</string>
     <string name="update_link_forbidden_permissions">jagamise uuendamiseks</string>
     <string name="updating_share_failed">Jaosmeediat ei õnnestunud uuendada</string>
     <string name="upload_action_cancelled_clear">Eemalda katkestatud üleslaadimised</string>
@@ -977,6 +998,7 @@
     <string name="uploads_view_upload_status_failed_folder_error">Kausta tõrge</string>
     <string name="uploads_view_upload_status_failed_localfile_error">Kohalikku faili ei leitud</string>
     <string name="uploads_view_upload_status_failed_permission_error">Õiguse viga</string>
+    <string name="uploads_view_upload_status_fetching_server_version">Laadin serveris leiduvat versiooni…</string>
     <string name="uploads_view_upload_status_service_interrupted">Rakendus jõuda suletud</string>
     <string name="uploads_view_upload_status_succeeded">Lõpetatud</string>
     <string name="uploads_view_upload_status_succeeded_same_file">Sama fail leidub kaugseadmes, jätan üleslaadimise vahele</string>
@@ -984,6 +1006,7 @@
     <string name="uploads_view_upload_status_virus_detected">Tuvastatu viirus. Üleslaadimist ei saa lõpule viia!</string>
     <string name="uploads_view_upload_status_waiting_exit_power_save_mode">Voolusäästurežiimist väljumise ootamine</string>
     <string name="uploads_view_upload_status_waiting_for_charging">Laadimise ootel</string>
+    <string name="uploads_view_upload_status_waiting_for_wifi">Ootan, kuni mittemahupõhine WiFi ühendus on saadaval</string>
     <string name="user_icon">Kasutaja</string>
     <string name="user_info_address">Aadress</string>
     <string name="user_info_email">Epost</string>
@@ -1021,6 +1044,38 @@
     <plurals name="time_hours_ago">
         <item quantity="one">1 tund tagasi</item>
         <item quantity="other">%d tundi tagasi</item>
+    </plurals>
+    <plurals name="wrote_n_events_to">
+        <item quantity="one">Salvestasin %1$d sündmuse asukohta „%2$s“</item>
+        <item quantity="other">Salvestasin %1$d sündmust asukohta „%2$s“</item>
+    </plurals>
+    <plurals name="created_n_uids_to">
+        <item quantity="one">%1$d uus UID on loodud</item>
+        <item quantity="other">%1$d uut UID-d on loodud</item>
+    </plurals>
+    <plurals name="processed_n_entries">
+        <item quantity="one">Töötlesin %d kirje.</item>
+        <item quantity="other">Töötlesin %d kirjet.</item>
+    </plurals>
+    <plurals name="found_n_duplicates">
+        <item quantity="one">Leidsin %d topeltkirje</item>
+        <item quantity="other">Leidsin %d topeltkirjet</item>
+    </plurals>
+    <plurals name="export_successful">
+        <item quantity="one"> %d fail on eksporditud</item>
+        <item quantity="other"> %d faili on eksporditud</item>
+    </plurals>
+    <plurals name="export_failed">
+        <item quantity="one"> %d faili eksportimine ei õnnestunud</item>
+        <item quantity="other"> %d faili eksportimine ei õnnestunud</item>
+    </plurals>
+    <plurals name="export_partially_failed">
+        <item quantity="one"> %d fail on eksporditud, muud jääd vea tõttu eksportimata</item>
+        <item quantity="other"> %d faili on eksporditud,  muud jääd vea tõttu eksportimata</item>
+    </plurals>
+    <plurals name="export_start">
+        <item quantity="one">Eksportimisele kuulub %d fail. Üksikasjalik info leidub teavituses.</item>
+        <item quantity="other">Eksportimisele kuulub %d faili. Üksikasjalik info leidub teavituses.</item>
     </plurals>
     <plurals name="file_list__footer__folder">
         <item quantity="one">%1$d kaust</item>
