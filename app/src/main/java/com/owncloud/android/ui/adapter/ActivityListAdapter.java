@@ -23,11 +23,11 @@ import android.os.Looper;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
+import android.text.Spanned;
 import android.text.TextPaint;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.text.format.DateUtils;
-import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.StyleSpan;
@@ -162,9 +162,9 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
             if (!TextUtils.isEmpty(activity.getRichSubjectElement().getRichSubject())) {
                 activityViewHolder.binding.subject.setVisibility(View.VISIBLE);
-                activityViewHolder.binding.subject.setMovementMethod(LinkMovementMethod.getInstance());
-                activityViewHolder.binding.subject.setText(addClickablePart(activity.getRichSubjectElement()),
-                                                           TextView.BufferType.SPANNABLE);
+                //  activityViewHolder.binding.subject.setMovementMethod(LinkMovementMethod.getInstance());
+//                activityViewHolder.binding.subject.setText(addClickablePart(activity.getRichSubjectElement()),
+//                                                           TextView.BufferType.SPANNABLE);
 
                 activityViewHolder.binding.subject.setText(searchAndReplaceWithMentionSpan("actor",
                                                                                            activity.getRichSubjectElement().getRichSubject(),
@@ -322,7 +322,7 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
      *
      * @return Spannable
      */
-    private Spannable searchAndReplaceWithMentionSpan(
+    private Spanned searchAndReplaceWithMentionSpan(
         String key,
         String text,
         String id,
@@ -348,8 +348,11 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             int end = start + m.group().length();
             lastStartIndex = end;
             Drawable drawableForChip = getDrawableForMentionChipSpan(
-                chipXmlRes
+                chipXmlRes,
+                label
                                                                     );
+
+
             mentionChipSpan = new Spans.MentionChipSpan(
                 drawableForChip,
                 BetterImageSpan.ALIGN_CENTER,
@@ -372,8 +375,14 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         return spannableString;
     }
 
-    private Drawable getDrawableForMentionChipSpan(int chipResource) {
-        return ChipDrawable.createFromResource(context, chipResource);
+    private Drawable getDrawableForMentionChipSpan(int chipResource, String text) {
+        ChipDrawable chip = ChipDrawable.createFromResource(context, chipResource);
+        chip.setEllipsize(TextUtils.TruncateAt.MIDDLE);
+        chip.setText(text);
+        chip.setChipIconResource(R.drawable.accent_circle);
+        chip.setBounds(0, 0, chip.getIntrinsicWidth(), chip.getIntrinsicHeight());
+
+        return chip;
     }
 
     private SpannableStringBuilder addClickablePart(RichElement richElement) {
