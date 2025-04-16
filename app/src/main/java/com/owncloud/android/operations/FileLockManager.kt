@@ -19,7 +19,6 @@ object FileLockManager {
 
     @Throws(Exception::class)
     fun lockFile(path: String): Pair<FileChannel?, FileLock?> {
-
         val file = File(path)
         val channel = RandomAccessFile(file, "rw").channel
         val lock = channel.lock()
