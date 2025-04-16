@@ -483,7 +483,7 @@ public class UploadFileOperation extends SyncOperation {
 
             if (isEndToEndVersionAtLeastV2()) {
                 if (object == null) {
-                    return new RemoteOperationResult(new IllegalStateException("Metadata does not exist"));
+                    return new RemoteOperationResult<>(new IllegalStateException("Metadata does not exist"));
                 }
             } else {
                 object = getDecryptedFolderMetadataV1(publicKey, object);
@@ -493,7 +493,7 @@ public class UploadFileOperation extends SyncOperation {
 
             List<String> fileNames = getCollidedFileNames(object);
 
-            RemoteOperationResult collisionResult = checkNameCollision(parentFile, client, fileNames, parentFile.isEncrypted());
+            final var collisionResult = checkNameCollision(parentFile, client, fileNames, parentFile.isEncrypted());
             if (collisionResult != null) {
                 result = collisionResult;
                 return collisionResult;
@@ -967,7 +967,7 @@ public class UploadFileOperation extends SyncOperation {
             }
 
             // check name collision
-            RemoteOperationResult collisionResult = checkNameCollision(null, client, null, false);
+            final var collisionResult = checkNameCollision(null, client, null, false);
             if (collisionResult != null) {
                 result = collisionResult;
                 return collisionResult;
@@ -999,10 +999,13 @@ public class UploadFileOperation extends SyncOperation {
 
                 Files.deleteIfExists(Paths.get(temporalFile.getPath()));
                 final var catchBlockCopyResult = copy(originalFile, temporalFile);
-
                 if (catchBlockCopyResult) {
                     result = new RemoteOperationResult<>(ResultCode.OK);
+                } else {
+                    result = new RemoteOperationResult<>(ResultCode.LOCAL_STORAGE_NOT_COPIED);
+                }
 
+                if (catchBlockCopyResult) {
                     if (temporalFile.length() == originalFile.length()) {
                         final var fileChannelFileLockPair = FileLockManager.INSTANCE.lockFile(temporalFile.getAbsolutePath());
                         channel = fileChannelFileLockPair.getFirst();
@@ -1010,13 +1013,15 @@ public class UploadFileOperation extends SyncOperation {
                     } else {
                         result = new RemoteOperationResult<>(ResultCode.LOCK_FAILED);
                     }
-                } else {
-                    result = new RemoteOperationResult<>(ResultCode.LOCAL_STORAGE_NOT_COPIED);
                 }
             }
 
             try {
-                size = channel.size();
+                if (channel != null) {
+                    size = channel.size();
+                } else {
+                    size = 0;
+                }
             } catch (Exception e1) {
                 size = new File(mFile.getStoragePath()).length();
             }
@@ -1059,28 +1064,29 @@ public class UploadFileOperation extends SyncOperation {
                 /// move local temporal file or original file to its corresponding
                 // location in the Nextcloud local folder
                 if (!result.isSuccess() && result.getHttpCode() == HttpStatus.SC_PRECONDITION_FAILED) {
-                    result = new RemoteOperationResult(ResultCode.SYNC_CONFLICT);
+                    result = new RemoteOperationResult<>(ResultCode.SYNC_CONFLICT);
                 }
             }
         } catch (FileNotFoundException e) {
             Log_OC.d(TAG, mOriginalStoragePath + " not exists anymore");
-            result = new RemoteOperationResult(ResultCode.LOCAL_FILE_NOT_FOUND);
+            result = new RemoteOperationResult<>(ResultCode.LOCAL_FILE_NOT_FOUND);
         } catch (OverlappingFileLockException e) {
             Log_OC.d(TAG, "Overlapping file lock exception");
-            result = new RemoteOperationResult(ResultCode.LOCK_FAILED);
+            result = new RemoteOperationResult<>(ResultCode.LOCK_FAILED);
         } catch (Exception e) {
-            result = new RemoteOperationResult(e);
+            result = new RemoteOperationResult<>(e);
         } finally {
             mUploadStarted.set(false);
 
             FileLockManager.INSTANCE.unlockFile(channel, fileLock);
 
             if (temporalFile != null && !originalFile.equals(temporalFile)) {
-                temporalFile.delete();
+                final var isTemporalFileDeleted = temporalFile.delete();
+                Log_OC.d(TAG, "Temporal file deletion: " + isTemporalFileDeleted);
             }
 
             if (result == null) {
-                result = new RemoteOperationResult(ResultCode.UNKNOWN_ERROR);
+                result = new RemoteOperationResult<>(ResultCode.UNKNOWN_ERROR);
             }
 
             logResult(result, mOriginalStoragePath, mRemotePath);
