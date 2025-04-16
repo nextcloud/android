@@ -76,7 +76,6 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.RandomAccessFile;
 import java.nio.channels.FileChannel;
 import java.nio.channels.FileLock;
 import java.nio.channels.OverlappingFileLockException;
@@ -455,6 +454,7 @@ public class UploadFileOperation extends SyncOperation {
         RemoteOperationResult result = null;
         E2EFiles e2eFiles = new E2EFiles(parentFile, null, new File(mOriginalStoragePath), null, null);
         FileLock fileLock = null;
+        FileChannel channel = null;
         long size;
 
         boolean metadataExists = false;
@@ -525,7 +525,7 @@ public class UploadFileOperation extends SyncOperation {
             Triple<FileLock, RemoteOperationResult, FileChannel> channelResult = initFileChannel(result, fileLock, e2eFiles);
             fileLock = channelResult.getFirst();
             result = channelResult.getSecond();
-            FileChannel channel = channelResult.getThird();
+            channel = channelResult.getThird();
 
             size = getChannelSize(channel);
             updateSize(size);
@@ -545,7 +545,7 @@ public class UploadFileOperation extends SyncOperation {
         } catch (Exception e) {
             result = new RemoteOperationResult<>(e);
         } finally {
-            result = cleanupE2EUpload(fileLock, e2eFiles, result, object, client, token);
+            result = cleanupE2EUpload(channel, fileLock, e2eFiles, result, object, client, token);
         }
 
         completeE2EUpload(result, e2eFiles, client);
@@ -670,11 +670,12 @@ public class UploadFileOperation extends SyncOperation {
     private Triple<FileLock, RemoteOperationResult, FileChannel> initFileChannel(RemoteOperationResult result, FileLock fileLock, E2EFiles e2eFiles) throws IOException {
         FileChannel channel = null;
 
-        try (RandomAccessFile randomAccessFile = new RandomAccessFile(mFile.getStoragePath(), "rw")) {
-            channel = randomAccessFile.getChannel();
-            fileLock = channel.tryLock();
-        } catch (IOException ioException) {
-            Log_OC.d(TAG, "Error caught at getChannelFromFile: " + ioException);
+        try  {
+            final var fileChannelFileLockPair = FileLockManager.INSTANCE.lockFile(mFile.getStoragePath());
+            channel = fileChannelFileLockPair.getFirst();
+            fileLock = fileChannelFileLockPair.getSecond();
+        } catch (Exception exception) {
+            Log_OC.d(TAG, "Error caught at getChannelFromFile: " + exception);
 
             // this basically means that the file is on SD card
             // try to copy file to temporary dir if it doesn't exist
@@ -695,10 +696,11 @@ public class UploadFileOperation extends SyncOperation {
 
             if (result.isSuccess()) {
                 if (e2eFiles.getTemporalFile().length() == e2eFiles.getOriginalFile().length()) {
-                    try (RandomAccessFile randomAccessFile = new RandomAccessFile(e2eFiles.getTemporalFile().getAbsolutePath(), "rw")) {
-                        channel = randomAccessFile.getChannel();
-                        fileLock = channel.tryLock();
-                    } catch (IOException e) {
+                    try  {
+                        final var fileChannelFileLockPair = FileLockManager.INSTANCE.lockFile(e2eFiles.getTemporalFile().getAbsolutePath());
+                        channel = fileChannelFileLockPair.getFirst();
+                        fileLock = fileChannelFileLockPair.getSecond();
+                    } catch (Exception e) {
                         Log_OC.d(TAG, "Error caught at getChannelFromFile: " + e);
                     }
                 } else {
@@ -864,17 +866,10 @@ public class UploadFileOperation extends SyncOperation {
         });
     }
 
-    private RemoteOperationResult cleanupE2EUpload(FileLock fileLock, E2EFiles e2eFiles, RemoteOperationResult result, Object object, OwnCloudClient client, String token) {
+    private RemoteOperationResult cleanupE2EUpload(FileChannel fileChannel, FileLock fileLock, E2EFiles e2eFiles, RemoteOperationResult result, Object object, OwnCloudClient client, String token) {
         mUploadStarted.set(false);
 
-        if (fileLock != null) {
-            try {
-                fileLock.release();
-            } catch (IOException e) {
-                Log_OC.e(TAG, "Failed to unlock file with path " + mFile.getStoragePath());
-            }
-        }
-
+        FileLockManager.INSTANCE.unlockFile(fileChannel, fileLock);
         e2eFiles.deleteTemporalFileWithOriginalFileComparison();
 
         if (result == null) {
@@ -994,9 +989,10 @@ public class UploadFileOperation extends SyncOperation {
             final Long creationTimestamp = FileUtil.getCreationTimestamp(originalFile);
 
             try {
-                channel = new RandomAccessFile(mFile.getStoragePath(), "rw").getChannel();
-                fileLock = channel.tryLock();
-            } catch (FileNotFoundException e) {
+                final var fileChannelFileLockPair = FileLockManager.INSTANCE.lockFile(mFile.getStoragePath());
+                channel = fileChannelFileLockPair.getFirst();
+                fileLock = fileChannelFileLockPair.getSecond();
+            } catch (Exception e) {
                 // this basically means that the file is on SD card
                 // try to copy file to temporary dir if it doesn't exist
                 temporalFile = setTemporalPathAndGetFile();
@@ -1008,8 +1004,9 @@ public class UploadFileOperation extends SyncOperation {
                     result = new RemoteOperationResult<>(ResultCode.OK);
 
                     if (temporalFile.length() == originalFile.length()) {
-                        channel = new RandomAccessFile(temporalFile.getAbsolutePath(), "rw").getChannel();
-                        fileLock = channel.tryLock();
+                        final var fileChannelFileLockPair = FileLockManager.INSTANCE.lockFile(temporalFile.getAbsolutePath());
+                        channel = fileChannelFileLockPair.getFirst();
+                        fileLock = fileChannelFileLockPair.getSecond();
                     } else {
                         result = new RemoteOperationResult<>(ResultCode.LOCK_FAILED);
                     }
@@ -1076,21 +1073,7 @@ public class UploadFileOperation extends SyncOperation {
         } finally {
             mUploadStarted.set(false);
 
-            if (fileLock != null) {
-                try {
-                    fileLock.release();
-                } catch (IOException e) {
-                    Log_OC.e(TAG, "Failed to unlock file with path " + mOriginalStoragePath);
-                }
-            }
-
-            if (channel != null) {
-                try {
-                    channel.close();
-                } catch (IOException e) {
-                    Log_OC.w(TAG, "Failed to close file channel");
-                }
-            }
+            FileLockManager.INSTANCE.unlockFile(channel, fileLock);
 
             if (temporalFile != null && !originalFile.equals(temporalFile)) {
                 temporalFile.delete();
