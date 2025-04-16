@@ -19,7 +19,6 @@ import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.ProgressBar;
 
 import com.google.android.material.chip.Chip;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -47,7 +46,6 @@ import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.lib.common.OwnCloudClient;
-import com.owncloud.android.lib.common.network.OnDatatransferProgressListener;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.files.ToggleFavoriteRemoteOperation;
@@ -58,6 +56,7 @@ import com.owncloud.android.ui.activity.DrawerActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.activity.ToolbarActivity;
 import com.owncloud.android.ui.adapter.FileDetailTabAdapter;
+import com.owncloud.android.ui.adapter.progressListener.DownloadProgressListener;
 import com.owncloud.android.ui.dialog.RemoveFilesDialogFragment;
 import com.owncloud.android.ui.dialog.RenameFileDialogFragment;
 import com.owncloud.android.ui.events.FavoriteEvent;
@@ -70,7 +69,6 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -102,7 +100,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
     private boolean previewLoaded;
 
     private FileDetailsFragmentBinding binding;
-    private ProgressListener progressListener;
+    private DownloadProgressListener progressListener;
     private ToolbarActivity toolbarActivity;
     private int activeTab;
 
@@ -273,7 +271,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         if (getFile() != null && user != null) {
             viewThemeUtils.platform.themeHorizontalProgressBar(binding.progressBar);
-            progressListener = new ProgressListener(binding.progressBar);
+            progressListener = new DownloadProgressListener(binding.progressBar);
             binding.cancelBtn.setOnClickListener(this);
             binding.favorite.setOnClickListener(this);
             binding.overflowMenu.setOnClickListener(this);
@@ -614,8 +612,9 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
         }
 
         setupViewPager();
-        if (getView() != null) {
-            getView().invalidate();
+        final var view = getView();
+        if (view != null) {
+            view.invalidate();
         }
 
         observeWorkerState();
@@ -908,32 +907,6 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
         } else {
             // unencrypted files/folders
             return true;
-        }
-    }
-
-    /**
-     * Helper class responsible for updating the progress bar shown for file downloading.
-     */
-    private class ProgressListener implements OnDatatransferProgressListener {
-        private int lastPercent;
-        private WeakReference<ProgressBar> progressBarReference;
-
-        ProgressListener(ProgressBar progressBar) {
-            progressBarReference = new WeakReference<>(progressBar);
-        }
-
-        @Override
-        public void onTransferProgress(long progressRate, long totalTransferredSoFar,
-                                       long totalToTransfer, String filename) {
-            int percent = (int) (100.0 * ((double) totalTransferredSoFar) / ((double) totalToTransfer));
-            if (percent != lastPercent) {
-                ProgressBar pb = progressBarReference.get();
-                if (pb != null) {
-                    pb.setProgress(percent);
-                    pb.postInvalidate();
-                }
-            }
-            lastPercent = percent;
         }
     }
 }
