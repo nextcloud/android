@@ -505,7 +505,7 @@ public class UploadFileOperation extends SyncOperation {
 
             final var copyResult = copyFile(e2eFiles.getOriginalFile(), expectedPath);
             if (!copyResult) {
-                return new RemoteOperationResult<>(ResultCode.LOCK_FAILED);
+                return new RemoteOperationResult<>(ResultCode.LOCAL_STORAGE_NOT_COPIED);
             }
 
             result = new RemoteOperationResult<>(ResultCode.OK);
@@ -980,7 +980,7 @@ public class UploadFileOperation extends SyncOperation {
             if (copyResult) {
                 result = new RemoteOperationResult<>(ResultCode.OK);
             } else {
-                return new RemoteOperationResult<>(ResultCode.LOCK_FAILED);
+                return new RemoteOperationResult<>(ResultCode.LOCAL_STORAGE_NOT_COPIED);
             }
 
             // Get the last modification date of the file from the file system
@@ -1011,7 +1011,7 @@ public class UploadFileOperation extends SyncOperation {
                         result = new RemoteOperationResult<>(ResultCode.LOCK_FAILED);
                     }
                 } else {
-                    result = new RemoteOperationResult<>(ResultCode.LOCK_FAILED);
+                    result = new RemoteOperationResult<>(ResultCode.LOCAL_STORAGE_NOT_COPIED);
                 }
             }
 
