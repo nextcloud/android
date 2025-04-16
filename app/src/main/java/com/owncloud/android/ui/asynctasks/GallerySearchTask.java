@@ -187,8 +187,8 @@ public class GallerySearchTask extends AsyncTask<Void, Void, GallerySearchTask.R
                 " deleted: " + filesDeleted +
                 " unchanged: " + unchangedFiles);
         }
-        final long totalFiles = filesAdded + filesUpdated + filesDeleted + unchangedFiles;
-        return totalFiles <= 0;
+
+        return filesAdded <= 0 && filesUpdated <= 0 && filesDeleted <= 0;
     }
 
     public static class Result {
