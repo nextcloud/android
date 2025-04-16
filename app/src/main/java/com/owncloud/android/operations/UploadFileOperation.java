@@ -13,7 +13,6 @@ package com.owncloud.android.operations;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.text.TextUtils;
 
 import com.nextcloud.client.account.User;
@@ -64,11 +63,11 @@ import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.FileUtil;
 import com.owncloud.android.utils.MimeType;
 import com.owncloud.android.utils.MimeTypeUtil;
-import com.owncloud.android.utils.UriUtils;
 import com.owncloud.android.utils.theme.CapabilityUtils;
 
 import org.apache.commons.httpclient.HttpStatus;
 import org.apache.commons.httpclient.methods.RequestEntity;
+import org.apache.commons.io.FileUtils;
 import org.lukhnos.nnio.file.Files;
 import org.lukhnos.nnio.file.Paths;
 
@@ -77,8 +76,6 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.io.RandomAccessFile;
 import java.nio.channels.FileChannel;
 import java.nio.channels.FileLock;
@@ -506,10 +503,12 @@ public class UploadFileOperation extends SyncOperation {
             String expectedPath = FileStorageUtils.getDefaultSavePathFor(user.getAccountName(), mFile);
             e2eFiles.setExpectedFile(new File(expectedPath));
 
-            result = copyFile(e2eFiles.getOriginalFile(), expectedPath);
-            if (!result.isSuccess()) {
-                return result;
+            final var copyResult = copyFile(e2eFiles.getOriginalFile(), expectedPath);
+            if (!copyResult) {
+                return new RemoteOperationResult<>(ResultCode.LOCK_FAILED);
             }
+
+            result = new RemoteOperationResult<>(ResultCode.OK);
 
             long lastModifiedTimestamp = e2eFiles.getOriginalFile().lastModified() / 1000;
             Long creationTimestamp = FileUtil.getCreationTimestamp(e2eFiles.getOriginalFile());
@@ -539,12 +538,12 @@ public class UploadFileOperation extends SyncOperation {
             }
         } catch (FileNotFoundException e) {
             Log_OC.d(TAG, mFile.getStoragePath() + " does not exist anymore");
-            result = new RemoteOperationResult(ResultCode.LOCAL_FILE_NOT_FOUND);
+            result = new RemoteOperationResult<>(ResultCode.LOCAL_FILE_NOT_FOUND);
         } catch (OverlappingFileLockException e) {
             Log_OC.d(TAG, "Overlapping file lock exception");
-            result = new RemoteOperationResult(ResultCode.LOCK_FAILED);
+            result = new RemoteOperationResult<>(ResultCode.LOCK_FAILED);
         } catch (Exception e) {
-            result = new RemoteOperationResult(e);
+            result = new RemoteOperationResult<>(e);
         } finally {
             result = cleanupE2EUpload(fileLock, e2eFiles, result, object, client, token);
         }
@@ -679,17 +678,20 @@ public class UploadFileOperation extends SyncOperation {
 
             // this basically means that the file is on SD card
             // try to copy file to temporary dir if it doesn't exist
-            String temporalPath = FileStorageUtils.getInternalTemporalPath(user.getAccountName(), mContext) +
-                mFile.getRemotePath();
-            mFile.setStoragePath(temporalPath);
-            e2eFiles.setTemporalFile(new File(temporalPath));
+            final var temporalFile = setTemporalPathAndGetFile();
+            e2eFiles.setTemporalFile(temporalFile);
 
             if (e2eFiles.getTemporalFile() == null) {
                 throw new NullPointerException("Original file cannot be null");
             }
 
-            Files.deleteIfExists(Paths.get(temporalPath));
-            result = copy(e2eFiles.getOriginalFile(), e2eFiles.getTemporalFile());
+            Files.deleteIfExists(Paths.get(temporalFile.getPath()));
+            final var copyResult = copy(e2eFiles.getOriginalFile(), e2eFiles.getTemporalFile());
+            if (copyResult) {
+                result = new RemoteOperationResult<>(ResultCode.OK);
+            } else {
+                result = new RemoteOperationResult<>(ResultCode.LOCAL_STORAGE_NOT_COPIED);
+            }
 
             if (result.isSuccess()) {
                 if (e2eFiles.getTemporalFile().length() == e2eFiles.getOriginalFile().length()) {
@@ -700,7 +702,7 @@ public class UploadFileOperation extends SyncOperation {
                         Log_OC.d(TAG, "Error caught at getChannelFromFile: " + e);
                     }
                 } else {
-                    result = new RemoteOperationResult(ResultCode.LOCK_FAILED);
+                    result = new RemoteOperationResult<>(ResultCode.LOCK_FAILED);
                 }
             }
         }
@@ -979,9 +981,11 @@ public class UploadFileOperation extends SyncOperation {
             String expectedPath = FileStorageUtils.getDefaultSavePathFor(user.getAccountName(), mFile);
             expectedFile = new File(expectedPath);
 
-            result = copyFile(originalFile, expectedPath);
-            if (!result.isSuccess()) {
-                return result;
+            final var copyResult = copyFile(originalFile, expectedPath);
+            if (copyResult) {
+                result = new RemoteOperationResult<>(ResultCode.OK);
+            } else {
+                return new RemoteOperationResult<>(ResultCode.LOCK_FAILED);
             }
 
             // Get the last modification date of the file from the file system
@@ -995,21 +999,22 @@ public class UploadFileOperation extends SyncOperation {
             } catch (FileNotFoundException e) {
                 // this basically means that the file is on SD card
                 // try to copy file to temporary dir if it doesn't exist
-                String temporalPath = FileStorageUtils.getInternalTemporalPath(user.getAccountName(), mContext) +
-                    mFile.getRemotePath();
-                mFile.setStoragePath(temporalPath);
-                temporalFile = new File(temporalPath);
+                temporalFile = setTemporalPathAndGetFile();
 
-                Files.deleteIfExists(Paths.get(temporalPath));
-                result = copy(originalFile, temporalFile);
+                Files.deleteIfExists(Paths.get(temporalFile.getPath()));
+                final var catchBlockCopyResult = copy(originalFile, temporalFile);
 
-                if (result.isSuccess()) {
+                if (catchBlockCopyResult) {
+                    result = new RemoteOperationResult<>(ResultCode.OK);
+
                     if (temporalFile.length() == originalFile.length()) {
                         channel = new RandomAccessFile(temporalFile.getAbsolutePath(), "rw").getChannel();
                         fileLock = channel.tryLock();
                     } else {
-                        result = new RemoteOperationResult(ResultCode.LOCK_FAILED);
+                        result = new RemoteOperationResult<>(ResultCode.LOCK_FAILED);
                     }
+                } else {
+                    result = new RemoteOperationResult<>(ResultCode.LOCK_FAILED);
                 }
             }
 
@@ -1138,14 +1143,15 @@ public class UploadFileOperation extends SyncOperation {
         }
     }
 
-    private RemoteOperationResult copyFile(File originalFile, String expectedPath) throws OperationCancelledException,
-        IOException {
-        if (mLocalBehaviour == FileUploadWorker.LOCAL_BEHAVIOUR_COPY && !mOriginalStoragePath.equals(expectedPath)) {
-            String temporalPath = FileStorageUtils.getInternalTemporalPath(user.getAccountName(), mContext) +
-                mFile.getRemotePath();
-            mFile.setStoragePath(temporalPath);
-            File temporalFile = new File(temporalPath);
+    private File setTemporalPathAndGetFile() {
+        String temporalPath = FileStorageUtils.getInternalTemporalPath(user.getAccountName(), mContext) + mFile.getRemotePath();
+        mFile.setStoragePath(temporalPath);
+        return new File(temporalPath);
+    }
 
+    private boolean copyFile(File originalFile, String expectedPath) throws OperationCancelledException {
+        if (mLocalBehaviour == FileUploadWorker.LOCAL_BEHAVIOUR_COPY && !mOriginalStoragePath.equals(expectedPath)) {
+            File temporalFile = setTemporalPathAndGetFile();
             return copy(originalFile, temporalFile);
         }
 
@@ -1153,7 +1159,7 @@ public class UploadFileOperation extends SyncOperation {
             throw new OperationCancelledException();
         }
 
-        return new RemoteOperationResult(ResultCode.OK);
+        return true;
     }
 
     @CheckResult
@@ -1245,11 +1251,7 @@ public class UploadFileOperation extends SyncOperation {
                         Log_OC.e(TAG, e.getMessage());
                     }
                 } else if (originalFile != null) {
-                    try {
-                        copy(originalFile, expectedFile);
-                    } catch (IOException e) {
-                        Log_OC.e(TAG, e.getMessage());
-                    }
+                    copy(originalFile, expectedFile);
                 }
                 mFile.setStoragePath(expectedFile.getAbsolutePath());
                 saveUploadedFile(client);
@@ -1430,92 +1432,16 @@ public class UploadFileOperation extends SyncOperation {
         }
     }
 
-    /**
-     * As soon as this method return true, upload can be cancel via cancel().
-     */
-    public boolean isUploadInProgress() {
-        return mUploadStarted.get();
-
-    }
-
-    /**
-     * TODO rewrite with homogeneous fail handling, remove dependency on {@link RemoteOperationResult},
-     * TODO     use Exceptions instead
-     *
-     * @param sourceFile Source file to copy.
-     * @param targetFile Target location to copy the file.
-     * @return {@link RemoteOperationResult}
-     * @throws IOException exception if file cannot be accessed
-     */
-    private RemoteOperationResult copy(File sourceFile, File targetFile) throws IOException {
-        Log_OC.d(TAG, "Copying local file");
-
-        if (FileStorageUtils.getUsableSpace() < sourceFile.length()) {
-            return new RemoteOperationResult(ResultCode.LOCAL_STORAGE_FULL); // error when the file should be copied
-        } else {
-            Log_OC.d(TAG, "Creating temporal folder");
-            File temporalParent = targetFile.getParentFile();
-
-            if (!temporalParent.mkdirs() && !temporalParent.isDirectory()) {
-                return new RemoteOperationResult(ResultCode.CANNOT_CREATE_FILE);
-            }
-
-            Log_OC.d(TAG, "Creating temporal file");
-            if (!targetFile.createNewFile() && !targetFile.isFile()) {
-                return new RemoteOperationResult(ResultCode.CANNOT_CREATE_FILE);
-            }
-
-            Log_OC.d(TAG, "Copying file contents");
-            InputStream in = null;
-            OutputStream out = null;
-
-            try {
-                if (!mOriginalStoragePath.equals(targetFile.getAbsolutePath())) {
-                    // In case document provider schema as 'content://'
-                    if (mOriginalStoragePath.startsWith(UriUtils.URI_CONTENT_SCHEME)) {
-                        Uri uri = Uri.parse(mOriginalStoragePath);
-                        in = mContext.getContentResolver().openInputStream(uri);
-                    } else {
-                        in = new FileInputStream(sourceFile);
-                    }
-                    out = new FileOutputStream(targetFile);
-                    int nRead;
-                    byte[] buf = new byte[4096];
-                    while (!mCancellationRequested.get() &&
-                        (nRead = in.read(buf)) > -1) {
-                        out.write(buf, 0, nRead);
-                    }
-                    out.flush();
-
-                } // else: weird but possible situation, nothing to copy
-
-                if (mCancellationRequested.get()) {
-                    return new RemoteOperationResult(new OperationCancelledException());
-                }
-            } catch (Exception e) {
-                return new RemoteOperationResult(ResultCode.LOCAL_STORAGE_NOT_COPIED);
-            } finally {
-                try {
-                    if (in != null) {
-                        in.close();
-                    }
-                } catch (Exception e) {
-                    Log_OC.d(TAG, "Weird exception while closing input stream for " +
-                        mOriginalStoragePath + " (ignoring)", e);
-                }
-                try {
-                    if (out != null) {
-                        out.close();
-                    }
-                } catch (Exception e) {
-                    Log_OC.d(TAG, "Weird exception while closing output stream for " +
-                        targetFile.getAbsolutePath() + " (ignoring)", e);
-                }
-            }
+    private boolean copy(File sourceFile, File targetFile) {
+        try {
+            FileUtils.copyFile(sourceFile, targetFile);
+            Log_OC.d(TAG, "File copied from: " + sourceFile.getAbsolutePath() + " to: " + targetFile.getAbsolutePath());
+            return true;
+        } catch (Exception e) {
+            Log_OC.d(TAG, "Exception copy: " + e);
+            return false;
         }
-        return new RemoteOperationResult(ResultCode.OK);
     }
-
 
     /**
      * TODO rewrite with homogeneous fail handling, remove dependency on {@link RemoteOperationResult},
