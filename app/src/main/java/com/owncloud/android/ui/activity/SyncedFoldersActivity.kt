@@ -193,7 +193,7 @@ class SyncedFoldersActivity :
             setTheme(R.style.FallbackThemingTheme)
         }
         binding.emptyList.emptyListViewAction.setOnClickListener { showHiddenItems() }
-        PermissionUtil.requestExternalStoragePermission(this, viewThemeUtils, true)
+        PermissionUtil.requestStoragePermissionIfNeeded(this, true)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -283,8 +283,7 @@ class SyncedFoldersActivity :
                 contentResolver,
                 perFolderMediaItemLimit,
                 this@SyncedFoldersActivity,
-                false,
-                viewThemeUtils
+                false
             )
             mediaFolders.addAll(
                 MediaProvider.getVideoFolders(
@@ -532,7 +531,7 @@ class SyncedFoldersActivity :
             android.R.id.home -> finish()
             R.id.action_create_custom_folder -> {
                 Log_OC.d(TAG, "Show custom folder dialog")
-                if (PermissionUtil.checkExternalStoragePermission(this)) {
+                if (PermissionUtil.checkStoragePermission(this)) {
                     val emptyCustomFolder = SyncedFolderDisplayItem(
                         SyncedFolder.UNPERSISTED_ID,
                         null,
@@ -555,7 +554,7 @@ class SyncedFoldersActivity :
                     )
                     onSyncFolderSettingsClick(0, emptyCustomFolder)
                 } else {
-                    PermissionUtil.requestExternalStoragePermission(this, viewThemeUtils, true)
+                    PermissionUtil.requestStoragePermissionIfNeeded(this, true)
                 }
                 result = super.onOptionsItemSelected(item)
             }
