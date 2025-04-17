@@ -108,8 +108,7 @@ public class QuickSharingPermissionsBottomSheetDialog extends BottomSheetDialog 
      *
      */
     private void handlePermissionChanged(List<QuickPermission> quickPermissionList, int position) {
-        final var permissionTextId = quickPermissionList.get(position).getType().getTextId();
-        final var permissionName = getContext().getString(permissionTextId);
+        final var permissionName = quickPermissionList.get(position).getText(getContext());
         final var res = fileActivity.getResources();
 
         int permissionFlag = 0;
