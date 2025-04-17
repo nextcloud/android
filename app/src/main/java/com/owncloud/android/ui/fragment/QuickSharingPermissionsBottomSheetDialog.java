@@ -26,7 +26,6 @@ import com.owncloud.android.ui.adapter.QuickSharingPermissionsAdapter;
 import com.owncloud.android.ui.fragment.util.SharingMenuHelper;
 import com.owncloud.android.utils.theme.ViewThemeUtils;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -106,11 +105,13 @@ public class QuickSharingPermissionsBottomSheetDialog extends BottomSheetDialog 
 
     /**
      * handle permission changed on click of selected permission
+     *
      * @param quickPermissionModelList
      * @param position
      */
     private void handlePermissionChanged(List<QuickPermissionModel> quickPermissionModelList, int position) {
-        final var permissionName = quickPermissionModelList.get(position).getPermissionName();
+        final var permissionTextId = quickPermissionModelList.get(position).getTextId();
+        final var permissionName = getContext().getString(permissionTextId);
         final var res = fileActivity.getResources();
 
         int permissionFlag = 0;
@@ -129,21 +130,16 @@ public class QuickSharingPermissionsBottomSheetDialog extends BottomSheetDialog 
 
     /**
      * prepare the list of permissions needs to be displayed on recyclerview
-     * @return
      */
     private List<QuickPermissionModel> getQuickPermissionList() {
-        int permissionArrayId = ocShare.isFolder() ? R.array.folder_share_permission_dialog_values : R.array.file_share_permission_dialog_values;
-        String[] permissionArray = fileActivity.getResources().getStringArray(permissionArrayId);
-
-        // get the checked item position
+        final var result = QuickPermissionModel.Companion.getPermissionModel(ocShare.isFolder());
+        String[] permissionArray = QuickPermissionModel.Companion.getPermissionArray(result, getContext());
         int checkedItem = SharingMenuHelper.getPermissionCheckedItem(fileActivity, ocShare, permissionArray);
-
-        final List<QuickPermissionModel> quickPermissionModelList = new ArrayList<>(permissionArray.length);
-        for (int i = 0; i < permissionArray.length; i++) {
-            QuickPermissionModel quickPermissionModel = new QuickPermissionModel(permissionArray[i], checkedItem == i);
-            quickPermissionModelList.add(quickPermissionModel);
+        for (int i = 0; i < result.size(); i++) {
+            result.get(i).setSelected(checkedItem == i);
         }
-        return quickPermissionModelList;
+
+        return result;
     }
 
     @Override
@@ -154,6 +150,7 @@ public class QuickSharingPermissionsBottomSheetDialog extends BottomSheetDialog 
 
     public interface QuickPermissionSharingBottomSheetActions {
         void onQuickPermissionChanged(OCShare share, int permission);
+
         void openShareDetail(OCShare share);
     }
 }

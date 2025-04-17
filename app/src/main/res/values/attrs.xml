@@ -26,18 +26,6 @@
         <item>@string/pref_instant_name_collision_policy_entries_cancel</item>
     </string-array>
 
-    <string-array name="folder_share_permission_dialog_values" translatable="false">
-        <item>@string/link_share_view_only</item>
-        <item>@string/share_permission_can_edit</item>
-        <item>@string/link_share_file_request</item>
-        <item>@string/share_custom_permission</item>
-    </string-array>
-
-    <string-array name="file_share_permission_dialog_values" translatable="false">
-        <item>@string/link_share_view_only</item>
-        <item>@string/link_share_editing</item>
-        <item>@string/share_custom_permission</item>
-    </string-array>
     <string-array name="sub_folder_rule_values" translatable="false">
         <item>@string/sub_folder_rule_month</item>
         <item>@string/sub_folder_rule_year</item>
