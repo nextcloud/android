@@ -18,11 +18,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.button.MaterialButton
 import com.owncloud.android.R
 import com.owncloud.android.databinding.ItemQuickSharePermissionsBinding
-import com.owncloud.android.datamodel.QuickPermissionModel
+import com.owncloud.android.datamodel.quickPermission.QuickPermission
 import com.owncloud.android.utils.theme.ViewThemeUtils
 
 class QuickSharingPermissionsAdapter(
-    private val quickPermissionList: MutableList<QuickPermissionModel>,
+    private val quickPermissionList: MutableList<QuickPermission>,
     private val onPermissionChangeListener: QuickSharingPermissionViewHolder.OnPermissionChangeListener,
     private val viewThemeUtils: ViewThemeUtils
 ) :
@@ -49,16 +49,16 @@ class QuickSharingPermissionsAdapter(
         private val viewThemeUtils: ViewThemeUtils
     ) : RecyclerView.ViewHolder(itemView) {
 
-        fun bindData(quickPermissionModel: QuickPermissionModel) {
+        fun bindData(quickPermission: QuickPermission) {
             val context = itemView.context
-            val permissionName = context.getString(quickPermissionModel.textId)
+            val permissionName = context.getString(quickPermission.textId)
 
             binding.run {
                 quickPermissionButton.text = permissionName
                 quickPermissionButton.iconGravity = MaterialButton.ICON_GRAVITY_START
-                quickPermissionButton.icon = ContextCompat.getDrawable(context, quickPermissionModel.iconId)
+                quickPermissionButton.icon = ContextCompat.getDrawable(context, quickPermission.iconId)
 
-                if (quickPermissionModel.isSelected) {
+                if (quickPermission.isSelected) {
                     viewThemeUtils.material.colorMaterialButtonPrimaryBorderless(quickPermissionButton)
                 }
             }
@@ -69,7 +69,7 @@ class QuickSharingPermissionsAdapter(
             itemView.setOnClickListener {
                 if (isCustomPermission) {
                     onPermissionChangeListener.onCustomPermissionSelected()
-                } else if (!quickPermissionModel.isSelected) {
+                } else if (!quickPermission.isSelected) {
                     // if user select different options then only update the permission
                     onPermissionChangeListener.onPermissionChanged(absoluteAdapterPosition)
                 } else {

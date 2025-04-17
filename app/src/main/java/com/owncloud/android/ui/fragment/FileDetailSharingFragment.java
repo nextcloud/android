@@ -178,6 +178,8 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
                                                       file.isEncrypted(),
                                                       SharesType.INTERNAL);
 
+        internalShareeListAdapter.setHasStableIds(true);
+
         binding.sharesListInternal.setAdapter(internalShareeListAdapter);
 
         binding.sharesListInternal.setLayoutManager(new LinearLayoutManager(requireContext()));
@@ -190,6 +192,8 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
                               viewThemeUtils,
                               file.isEncrypted(),
                               SharesType.EXTERNAL);
+
+        externalShareeListAdapter.setHasStableIds(true);
         
         binding.sharesListExternal.setAdapter(externalShareeListAdapter);
 

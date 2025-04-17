@@ -14,6 +14,8 @@ package com.owncloud.android.ui.fragment.util;
 import android.content.Context;
 
 import com.owncloud.android.R;
+import com.owncloud.android.datamodel.quickPermission.QuickPermission;
+import com.owncloud.android.datamodel.quickPermission.QuickPermissionType;
 import com.owncloud.android.lib.resources.shares.OCShare;
 
 import static com.owncloud.android.lib.resources.shares.OCShare.CREATE_PERMISSION_FLAG;
@@ -86,35 +88,18 @@ public final class SharingMenuHelper {
         return null;
     }
 
-    /**
-     * method to get the current checked index from the list of permissions
-     *
-     */
-    public static int getPermissionCheckedItem(Context context, OCShare share, String[] permissionArray) {
-        int permissionName;
-
-        if (SharingMenuHelper.isUploadAndEditingAllowed(share)) {
-            permissionName = share.isFolder() ? R.string.share_permission_can_edit : R.string.link_share_editing;
-        } else if (SharingMenuHelper.isReadOnly(share)) {
-            permissionName = R.string.link_share_view_only;
+    public static QuickPermissionType getSelectedType(OCShare share) {
+        if (SharingMenuHelper.isReadOnly(share)) {
+            return QuickPermissionType.VIEW_ONLY;
+        } else if (SharingMenuHelper.isUploadAndEditingAllowed(share)) {
+            return QuickPermissionType.CAN_EDIT;
         } else if (SharingMenuHelper.isFileDrop(share)) {
-            permissionName = R.string.link_share_file_request;
+            return QuickPermissionType.FILE_REQUEST;
         } else if (sharePermissionManager.isCustomPermission(share)) {
-            permissionName = R.string.share_custom_permission;
-        } else {
-            return 0;
+            return QuickPermissionType.CUSTOM_PERMISSIONS;
         }
 
-        return getPermissionIndexFromArray(context, permissionArray, permissionName);
-    }
-
-    private static int getPermissionIndexFromArray(Context context, String[] permissionArray, int permissionName) {
-        for (int i = 0; i < permissionArray.length; i++) {
-            if (permissionArray[i].equalsIgnoreCase(context.getResources().getString(permissionName))) {
-                return i;
-            }
-        }
-        return 0;
+        return QuickPermissionType.NONE;
     }
 
     public static boolean canReshare(OCShare share) {
