@@ -14,7 +14,6 @@ package com.owncloud.android.ui.fragment.util;
 import android.content.Context;
 
 import com.owncloud.android.R;
-import com.owncloud.android.datamodel.quickPermission.QuickPermission;
 import com.owncloud.android.datamodel.quickPermission.QuickPermissionType;
 import com.owncloud.android.lib.resources.shares.OCShare;
 

@@ -7,19 +7,15 @@
 
 package com.owncloud.android.datamodel.quickPermission
 
-data class QuickPermission(val type: QuickPermissionType, val iconId: Int, val textId: Int, var isSelected: Boolean) {
+data class QuickPermission(val type: QuickPermissionType, var isSelected: Boolean) {
     companion object {
-        fun getPermissionModel(isFolder: Boolean, selectedType: QuickPermissionType): List<QuickPermission> {
-            val result = getFolderSharePermissions().toMutableList()
-            if (!isFolder) {
-                result.removeAt(FILE_REQUEST_INDEX)
+        fun getPermissions(isFolder: Boolean, selectedType: QuickPermissionType): List<QuickPermission> {
+            return QuickPermissionType.getAvailablePermissions(isFolder).map { type ->
+                QuickPermission(
+                    type = type,
+                    isSelected = type == selectedType
+                )
             }
-            result.find { it.type == selectedType }?.isSelected = true
-            return result
         }
-
-        private fun getFolderSharePermissions() = QuickPermissionType.getPermissions()
-
-        private const val FILE_REQUEST_INDEX = 2
     }
 }

@@ -9,64 +9,20 @@ package com.owncloud.android.datamodel.quickPermission
 
 import com.owncloud.android.R
 
-enum class QuickPermissionType {
-    NONE,
-    VIEW_ONLY,
-    CAN_EDIT,
-    FILE_REQUEST,
-    CUSTOM_PERMISSIONS;
+enum class QuickPermissionType(
+    val iconId: Int,
+    val textId: Int
+) {
+    NONE(R.drawable.ic_unknown, R.string.unknown),
+    VIEW_ONLY(R.drawable.ic_eye, R.string.link_share_view_only),
+    CAN_EDIT(R.drawable.ic_edit, R.string.share_permission_can_edit),
+    FILE_REQUEST(R.drawable.ic_file_request, R.string.link_share_file_request),
+    CUSTOM_PERMISSIONS(R.drawable.ic_custom_permissions, R.string.share_custom_permission);
 
     companion object {
-        fun getPermissions() = listOf(
-            VIEW_ONLY.getPermission(),
-            CAN_EDIT.getPermission(),
-            FILE_REQUEST.getPermission(),
-            CUSTOM_PERMISSIONS.getPermission()
-        )
-    }
-
-    fun getPermission(): QuickPermission {
-        return when (this) {
-            VIEW_ONLY -> {
-                QuickPermission(
-                    type = this,
-                    iconId = R.drawable.ic_eye,
-                    textId = R.string.link_share_view_only,
-                    isSelected = false
-                )
-            }
-            CAN_EDIT -> {
-                QuickPermission(
-                    type = this,
-                    iconId = R.drawable.ic_edit,
-                    textId = R.string.share_permission_can_edit,
-                    isSelected = false
-                )
-            }
-            FILE_REQUEST -> {
-                QuickPermission(
-                    type = this,
-                    iconId = R.drawable.ic_file_request,
-                    textId = R.string.link_share_file_request,
-                    isSelected = false
-                )
-            }
-            CUSTOM_PERMISSIONS -> {
-                QuickPermission(
-                    type = this,
-                    iconId = R.drawable.ic_custom_permissions,
-                    textId = R.string.share_custom_permission,
-                    isSelected = false
-                )
-            }
-            else -> {
-                QuickPermission(
-                    type = this,
-                    iconId = R.drawable.ic_unknown,
-                    textId = R.string.unknown,
-                    isSelected = false
-                )
-            }
+        fun getAvailablePermissions(isFolder: Boolean): List<QuickPermissionType> {
+            val permissions = listOf(VIEW_ONLY, CAN_EDIT, FILE_REQUEST, CUSTOM_PERMISSIONS)
+            return if (isFolder) permissions else permissions.filter { it != FILE_REQUEST }
         }
     }
 }
