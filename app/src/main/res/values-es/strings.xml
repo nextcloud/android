@@ -203,6 +203,7 @@
     <string name="contacts_backup_button">Hacer copia de seguridad ahora</string>
     <string name="contacts_preferences_backup_scheduled">La copia de seguridad programada comenzará en breve</string>
     <string name="contacts_preferences_import_scheduled">Importación programada. Comenzará en breve</string>
+    <string name="contacts_preferences_import_scheduled_fail">La importación falló al iniciar. Por favor, intente de nuevo</string>
     <string name="contacts_preferences_no_file_found">No se ha encontrado ningún archivo</string>
     <string name="contacts_preferences_something_strange_happened">¡No podemos encontrar tu última copia de seguridad!</string>
     <string name="copied_to_clipboard">Copiado al portapapeles</string>
@@ -292,6 +293,7 @@
     <string name="drawer_quota">%1$s de %2$s utilizados</string>
     <string name="drawer_quota_unlimited">usado %1$s</string>
     <string name="drawer_synced_folders">Carga automática</string>
+    <string name="due_to_too_many_wrong_attempts">%s debido a múltiples intentos fallidos</string>
     <string name="e2e_counter_too_old">El contador es demasiado antiguo</string>
     <string name="e2e_hash_not_found">Hash no encontrado</string>
     <string name="e2e_not_yet_setup">El cifrado de extremo a extremo (E2E) todavía no está configurado</string>
@@ -302,6 +304,7 @@
     <string name="ecosystem_apps_more">Más apps de Nextcloud</string>
     <string name="email_pick_failed">Fallo al seleccionar dirección de correo.</string>
     <string name="encrypted">Establecer como cifrado</string>
+    <string name="end_to_end_encryption_certificate_unavailable">No fue posible recuperar el certificado del servidor</string>
     <string name="end_to_end_encryption_certificate_verification_failed">Fallo al verificar la clave pública</string>
     <string name="end_to_end_encryption_confirm_button">Configurar cifrado</string>
     <string name="end_to_end_encryption_decrypting">Descifrando…</string>

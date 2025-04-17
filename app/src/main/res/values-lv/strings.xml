@@ -32,7 +32,7 @@
     <string name="app_config_proxy_port_title">Starpniekservera ports</string>
     <string name="appbar_search_in">Meklēt %s</string>
     <string name="assistant_screen_add_task_alert_dialog_title">Pievienot jaunu uzdevumu</string>
-    <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">Dzēst uzdevumu</string>
+    <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">Izdzēst uzdevumu</string>
     <string name="associated_account_not_found">Saistītais konts nav atrasts!</string>
     <string name="auth_access_failed">Piekļuve neizdevās: %1$s</string>
     <string name="auth_account_does_not_exist">Konts vēl nav pievienots šai iekārtai</string>
@@ -156,8 +156,8 @@
     <string name="credentials_disabled">Akreditācijas dati atspējoti</string>
     <string name="default_credentials_wrong">Nepareizi akreditācijas dati</string>
     <string name="delete_account">Noņemt kontu</string>
-    <string name="delete_entries">Dzēst ierakstus</string>
-    <string name="delete_link">Dzēst saiti</string>
+    <string name="delete_entries">Izdzēst ierakstus</string>
+    <string name="delete_link">Izdzēst saiti</string>
     <string name="deselect_all">Atcelt atzīmi</string>
     <string name="dev_version_new_version_available">Pieejama jauna versija  </string>
     <string name="dev_version_no_information_available">Informācija nav pieejama.</string>
@@ -220,7 +220,7 @@
     <string name="etm_transfer_type_upload">Augšupielādēt</string>
     <string name="favorite">Pievienot favorītiem</string>
     <string name="favorite_icon">Izlasē</string>
-    <string name="file_delete">Dzēst</string>
+    <string name="file_delete">Izdzēst</string>
     <string name="file_icon">Datne</string>
     <string name="file_keep">Paturēt</string>
     <string name="file_list_empty">Augšupielādē kaut ko vai sinhronizē saturu ar savām ierīcēm!</string>
@@ -355,6 +355,7 @@
     <string name="notification_channel_upload_name_short">Augšupielādes</string>
     <string name="notifications_no_results_headline">Nav paziņojumu</string>
     <string name="offline_mode">Nav interneta savienojuma</string>
+    <string name="offline_operations_worker_notification_error_text">Bezsaistes darbību nevar pabeigt. %s</string>
     <string name="offline_operations_worker_notification_manager_ticker">Bezsaistes darbības</string>
     <string name="oneHour">1 stunda</string>
     <string name="open_in_app">Atvērt %1$s</string>
@@ -534,7 +535,7 @@
     <string name="today">Šodien</string>
     <string name="trashbin_activity_title">Izdzēstās datnes</string>
     <string name="trashbin_empty_headline">Nav dzēstu datņu</string>
-    <string name="trashbin_file_remove">Dzēst pavisam</string>
+    <string name="trashbin_file_remove">Neatgriezeniski izdzēst</string>
     <string name="unexpected_error_occurred">Neparedzēta kļūda</string>
     <string name="unset_encrypted">Atstatīt šifrēšanu</string>
     <string name="unset_favorite">Noņemt no izlases</string>
@@ -551,7 +552,7 @@
     <string name="upload_file_dialog_filetype_internet_shortcut">Interneta saīsnes datne(%s)</string>
     <string name="upload_file_dialog_filetype_snippet_text">Maza teksta datne(.txt)</string>
     <string name="upload_files">Augšupielādē datnes</string>
-    <string name="upload_list_delete">Dzēst</string>
+    <string name="upload_list_delete">Izdzēst</string>
     <string name="upload_list_empty_headline">Augšupielādes nav pieejamas.</string>
     <string name="upload_list_empty_text_auto_upload">Augšupielādē kaut ko vai ieslēdz automātisko augšupielādi!</string>
     <string name="upload_list_resolve_conflict">Atrisināt nesaderību</string>
@@ -574,7 +575,7 @@
     <string name="uploader_upload_files_behaviour">Augšupielādes iespējas:</string>
     <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">Pārvietot datni uz %1$s mapi</string>
     <string name="uploader_upload_files_behaviour_only_upload">Saglabāt datni avota mapē</string>
-    <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Dzēst datni no avota mapes</string>
+    <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Izdzēst datni no avota mapes</string>
     <string name="uploader_upload_forbidden_permissions">lai augšupielādētu šo mapi</string>
     <string name="uploader_upload_in_progress_content">%1$d%% augšupielādē %2$s</string>
     <string name="uploader_upload_in_progress_ticker">Augšupielādē…</string>
@@ -653,6 +654,11 @@
         <item quantity="zero">%1$d mapes</item>
         <item quantity="one">%1$d mape</item>
         <item quantity="other">%1$d mapes</item>
+    </plurals>
+    <plurals name="file_list__footer__file">
+        <item quantity="zero">%1$d datņu</item>
+        <item quantity="one">%1$d datne</item>
+        <item quantity="other">%1$d datnes</item>
     </plurals>
     <plurals name="items_selected_count">
         <item quantity="zero">%d atlasīti</item>
