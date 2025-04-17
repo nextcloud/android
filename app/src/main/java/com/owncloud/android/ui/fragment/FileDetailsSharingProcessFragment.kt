@@ -349,19 +349,24 @@ class FileDetailsSharingProcessFragment :
     }
 
     private fun updateViewForExternalShare() {
-        binding.shareProcessChangeNameSwitch.visibility = View.GONE
-        binding.shareProcessChangeNameContainer.visibility = View.GONE
-        updateViewForExternalAndLinkShare()
+        binding.run {
+            shareProcessChangeNameSwitch.visibility = View.GONE
+            shareProcessChangeNameContainer.visibility = View.GONE
+            updateViewForExternalAndLinkShare()
+        }
     }
 
     private fun updateViewForLinkShare() {
         updateViewForExternalAndLinkShare()
-        binding.shareProcessChangeNameSwitch.visibility = View.VISIBLE
-        if (share != null) {
-            binding.shareProcessChangeName.setText(share?.label)
-            binding.shareProcessChangeNameSwitch.isChecked = !TextUtils.isEmpty(share?.label)
+        binding.run {
+            shareProcessChangeNameSwitch.visibility = View.VISIBLE
+            if (share != null) {
+                shareProcessChangeName.setText(share?.label)
+                shareProcessChangeNameSwitch.isChecked = !TextUtils.isEmpty(share?.label)
+            }
+            shareReadCheckbox.isEnabled = isFolder()
+            showChangeNameInput(shareProcessChangeNameSwitch.isChecked)
         }
-        showChangeNameInput(binding.shareProcessChangeNameSwitch.isChecked)
     }
 
     private fun updateViewForInternalShare() {
