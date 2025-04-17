@@ -704,6 +704,11 @@ class FileDetailsSharingProcessFragment :
     }
 
     private fun updateShare() {
+        // empty string causing fails
+        if (share?.attributes?.isEmpty() == true) {
+            share?.attributes = null
+        }
+
         fileOperationsHelper?.updateShareInformation(
             share,
             permission,
