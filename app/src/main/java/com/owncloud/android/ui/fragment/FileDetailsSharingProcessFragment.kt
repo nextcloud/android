@@ -441,7 +441,7 @@ class FileDetailsSharingProcessFragment :
 
     private fun updateViewForFolder() {
         binding.run {
-            editingRadioButton.text = getString(R.string.link_share_allow_upload_and_editing)
+            editingRadioButton.text = getString(R.string.share_permission_can_edit)
             fileDropRadioButton.visibility = View.VISIBLE
             if (isSecureShare) {
                 fileDropRadioButton.visibility = View.GONE

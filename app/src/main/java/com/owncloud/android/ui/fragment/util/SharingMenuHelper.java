@@ -94,11 +94,11 @@ public final class SharingMenuHelper {
         int permissionName;
 
         if (SharingMenuHelper.isUploadAndEditingAllowed(share)) {
-            permissionName = share.isFolder() ? R.string.link_share_allow_upload_and_editing : R.string.link_share_editing;
+            permissionName = share.isFolder() ? R.string.share_permission_can_edit : R.string.link_share_editing;
         } else if (SharingMenuHelper.isReadOnly(share)) {
             permissionName = R.string.link_share_view_only;
         } else if (SharingMenuHelper.isFileDrop(share)) {
-            permissionName = R.string.link_share_file_drop;
+            permissionName = R.string.link_share_file_request;
         } else if (sharePermissionManager.isCustomPermission(share)) {
             permissionName = R.string.share_custom_permission;
         } else {
