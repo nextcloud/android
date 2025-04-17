@@ -21,7 +21,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.nextcloud.client.di.Injectable;
-import com.nextcloud.client.preferences.AppPreferences;
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.adapter.LocalFileListAdapter;
@@ -31,8 +30,6 @@ import com.owncloud.android.utils.FileSortOrder;
 
 import java.io.File;
 import java.util.List;
-
-import javax.inject.Inject;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.VisibleForTesting;
@@ -50,8 +47,6 @@ public class LocalFileListFragment extends ExtendedListFragment implements
     Injectable {
 
     private static final String TAG = LocalFileListFragment.class.getSimpleName();
-
-    @Inject AppPreferences preferences;
 
     /** Reference to the Activity which this fragment is attached to. For callbacks */
     private LocalFileListFragment.ContainerActivity mContainerActivity;
@@ -130,23 +125,30 @@ public class LocalFileListFragment extends ExtendedListFragment implements
 
         listDirectory(mContainerActivity.getInitialDirectory());
 
-        mSortButton.setOnClickListener(v -> {
-            FileSortOrder sortOrder = preferences.getSortOrderByType(FileSortOrder.Type.localFileListView);
-            openSortingOrderDialogFragment(requireFragmentManager(), sortOrder);
-        });
+        if (mSortButton != null) {
+            mSortButton.setOnClickListener(v -> {
+                FileSortOrder sortOrder = preferences.getSortOrderByType(FileSortOrder.Type.localFileListView);
+                openSortingOrderDialogFragment(requireFragmentManager(), sortOrder);
+            });
 
-        FileSortOrder sortOrder = preferences.getSortOrderByType(FileSortOrder.Type.localFileListView);
-        mSortButton.setText(DisplayUtils.getSortOrderStringId(sortOrder));
+            FileSortOrder sortOrder = preferences.getSortOrderByType(FileSortOrder.Type.localFileListView);
+            if (sortOrder != null) {
+                mSortButton.setText(DisplayUtils.getSortOrderStringId(sortOrder));
+            }
+        }
 
         setGridSwitchButton();
-        mSwitchGridViewButton.setOnClickListener(v -> {
-            if (isGridEnabled()) {
-                switchToListView();
-            } else {
-                switchToGridView();
-            }
-            setGridSwitchButton();
-        });
+
+        if (mSwitchGridViewButton != null) {
+            mSwitchGridViewButton.setOnClickListener(v -> {
+                if (isGridEnabled()) {
+                    switchToListView();
+                } else {
+                    switchToGridView();
+                }
+                setGridSwitchButton();
+            });
+        }
 
         Log_OC.i(TAG, "onActivityCreated() stop");
     }
@@ -304,7 +306,9 @@ public class LocalFileListFragment extends ExtendedListFragment implements
     }
 
     public void sortFiles(FileSortOrder sortOrder) {
-        mSortButton.setText(DisplayUtils.getSortOrderStringId(sortOrder));
+        if (mSortButton != null) {
+            mSortButton.setText(DisplayUtils.getSortOrderStringId(sortOrder));
+        }
         mAdapter.setSortOrder(sortOrder);
     }
 
@@ -314,7 +318,10 @@ public class LocalFileListFragment extends ExtendedListFragment implements
      * @param select <code>true</code> to select all, <code>false</code> to deselect all
      */
     public void selectAllFiles(boolean select) {
-        LocalFileListAdapter localFileListAdapter = (LocalFileListAdapter) getRecyclerView().getAdapter();
+        final var localFileListAdapter = (LocalFileListAdapter) getRecyclerView().getAdapter();
+        if (localFileListAdapter == null) {
+            return;
+        }
 
         if (select) {
             localFileListAdapter.addAllFilesToCheckedFiles();
