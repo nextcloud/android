@@ -420,7 +420,7 @@ class FileDetailsSharingProcessFragment :
     }
 
     private fun updateFileDownloadLimitView() {
-        if (capabilities.filesDownloadLimit.isTrue && share?.isFolder == false) {
+        if (shareType == ShareType.PUBLIC_LINK && capabilities.filesDownloadLimit.isTrue && share?.isFolder == false) {
             binding.shareProcessSetDownloadLimitSwitch.visibility = View.VISIBLE
 
             val currentDownloadLimit = share?.fileDownloadLimit?.limit ?: capabilities.filesDownloadLimitDefault
