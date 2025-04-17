@@ -19,7 +19,7 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.QuickSharingPermissionsBottomSheetFragmentBinding;
-import com.owncloud.android.datamodel.QuickPermissionModel;
+import com.owncloud.android.datamodel.quickPermission.QuickPermission;
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.adapter.QuickSharingPermissionsAdapter;
@@ -76,9 +76,9 @@ public class QuickSharingPermissionsBottomSheetDialog extends BottomSheetDialog 
     }
 
     private void setUpRecyclerView() {
-        List<QuickPermissionModel> quickPermissionModelList = getQuickPermissionList();
+        List<QuickPermission> quickPermissionList = getQuickPermissionList();
         QuickSharingPermissionsAdapter adapter = new QuickSharingPermissionsAdapter(
-            quickPermissionModelList,
+            quickPermissionList,
             new QuickSharingPermissionsAdapter.QuickSharingPermissionViewHolder.OnPermissionChangeListener() {
                 @Override
                 public void onCustomPermissionSelected() {
@@ -88,7 +88,7 @@ public class QuickSharingPermissionsBottomSheetDialog extends BottomSheetDialog 
 
                 @Override
                 public void onPermissionChanged(int position) {
-                    handlePermissionChanged(quickPermissionModelList, position);
+                    handlePermissionChanged(quickPermissionList, position);
                 }
 
                 @Override
@@ -104,13 +104,11 @@ public class QuickSharingPermissionsBottomSheetDialog extends BottomSheetDialog 
     }
 
     /**
-     * handle permission changed on click of selected permission
+     * Handle permission changed on click of selected permission
      *
-     * @param quickPermissionModelList
-     * @param position
      */
-    private void handlePermissionChanged(List<QuickPermissionModel> quickPermissionModelList, int position) {
-        final var permissionTextId = quickPermissionModelList.get(position).getTextId();
+    private void handlePermissionChanged(List<QuickPermission> quickPermissionList, int position) {
+        final var permissionTextId = quickPermissionList.get(position).getTextId();
         final var permissionName = getContext().getString(permissionTextId);
         final var res = fileActivity.getResources();
 
@@ -129,17 +127,11 @@ public class QuickSharingPermissionsBottomSheetDialog extends BottomSheetDialog 
     }
 
     /**
-     * prepare the list of permissions needs to be displayed on recyclerview
+     * Prepare the list of permissions needs to be displayed on recyclerview
      */
-    private List<QuickPermissionModel> getQuickPermissionList() {
-        final var result = QuickPermissionModel.Companion.getPermissionModel(ocShare.isFolder());
-        String[] permissionArray = QuickPermissionModel.Companion.getPermissionArray(result, getContext());
-        int checkedItem = SharingMenuHelper.getPermissionCheckedItem(fileActivity, ocShare, permissionArray);
-        for (int i = 0; i < result.size(); i++) {
-            result.get(i).setSelected(checkedItem == i);
-        }
-
-        return result;
+    private List<QuickPermission> getQuickPermissionList() {
+        final var selectedType = SharingMenuHelper.getSelectedType(ocShare);
+        return QuickPermission.Companion.getPermissionModel(ocShare.isFolder(), selectedType);
     }
 
     @Override
