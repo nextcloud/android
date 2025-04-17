@@ -13,7 +13,6 @@ package com.owncloud.android.ui.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.button.MaterialButton
 import com.owncloud.android.R
@@ -51,12 +50,12 @@ class QuickSharingPermissionsAdapter(
 
         fun bindData(quickPermission: QuickPermission) {
             val context = itemView.context
-            val permissionName = context.getString(quickPermission.type.textId)
+            val permissionName = quickPermission.getText(context)
 
             binding.run {
                 quickPermissionButton.text = permissionName
                 quickPermissionButton.iconGravity = MaterialButton.ICON_GRAVITY_START
-                quickPermissionButton.icon = ContextCompat.getDrawable(context, quickPermission.type.iconId)
+                quickPermissionButton.icon = quickPermission.getIcon(context)
 
                 if (quickPermission.isSelected) {
                     viewThemeUtils.material.colorMaterialButtonPrimaryBorderless(quickPermissionButton)
