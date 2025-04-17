@@ -10,7 +10,11 @@ package com.owncloud.android.datamodel.quickPermission
 import com.owncloud.android.R
 
 enum class QuickPermissionType {
-    NONE, VIEW_ONLY, CAN_EDIT, FILE_REQUEST, CUSTOM_PERMISSIONS;
+    NONE,
+    VIEW_ONLY,
+    CAN_EDIT,
+    FILE_REQUEST,
+    CUSTOM_PERMISSIONS;
 
     companion object {
         fun getPermissions() = listOf(
@@ -22,7 +26,7 @@ enum class QuickPermissionType {
     }
 
     fun getPermission(): QuickPermission {
-        return when(this) {
+        return when (this) {
             VIEW_ONLY -> {
                 QuickPermission(
                     type = this,
