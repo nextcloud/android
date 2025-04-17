@@ -233,6 +233,10 @@ public class RefreshFolderOperation extends RemoteOperation {
         mConflictsFound = 0;
         mForgottenLocalFiles.clear();
 
+        if (mLocalFolder == null || mLocalFolder.getRemotePath() == null) {
+            return new RemoteOperationResult<>(ResultCode.LOCAL_FILE_NOT_FOUND);
+        }
+
         if (OCFile.ROOT_PATH.equals(mLocalFolder.getRemotePath()) && !mSyncFullAccount && !mOnlyFileMetadata) {
             updateOCVersion(client);
             updateUserProfile();
