@@ -108,7 +108,7 @@ public class QuickSharingPermissionsBottomSheetDialog extends BottomSheetDialog 
      *
      */
     private void handlePermissionChanged(List<QuickPermission> quickPermissionList, int position) {
-        final var permissionTextId = quickPermissionList.get(position).getTextId();
+        final var permissionTextId = quickPermissionList.get(position).getType().getTextId();
         final var permissionName = getContext().getString(permissionTextId);
         final var res = fileActivity.getResources();
 
@@ -131,7 +131,7 @@ public class QuickSharingPermissionsBottomSheetDialog extends BottomSheetDialog 
      */
     private List<QuickPermission> getQuickPermissionList() {
         final var selectedType = SharingMenuHelper.getSelectedType(ocShare);
-        return QuickPermission.Companion.getPermissionModel(ocShare.isFolder(), selectedType);
+        return QuickPermission.Companion.getPermissions(ocShare.isFolder(), selectedType);
     }
 
     @Override
