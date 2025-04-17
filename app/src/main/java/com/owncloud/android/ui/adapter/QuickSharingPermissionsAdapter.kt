@@ -13,9 +13,9 @@ package com.owncloud.android.ui.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.nextcloud.android.common.ui.theme.utils.ColorRole
-import com.nextcloud.utils.extensions.setVisibleIf
+import com.google.android.material.button.MaterialButton
 import com.owncloud.android.R
 import com.owncloud.android.databinding.ItemQuickSharePermissionsBinding
 import com.owncloud.android.datamodel.QuickPermissionModel
@@ -43,23 +43,27 @@ class QuickSharingPermissionsAdapter(
     }
 
     class QuickSharingPermissionViewHolder(
-        val binding: ItemQuickSharePermissionsBinding,
+        private val binding: ItemQuickSharePermissionsBinding,
         itemView: View,
-        val onPermissionChangeListener: OnPermissionChangeListener,
+        private val onPermissionChangeListener: OnPermissionChangeListener,
         private val viewThemeUtils: ViewThemeUtils
     ) : RecyclerView.ViewHolder(itemView) {
 
         fun bindData(quickPermissionModel: QuickPermissionModel) {
+            val context = itemView.context
+            val permissionName = context.getString(quickPermissionModel.textId)
+
             binding.run {
-                tvQuickShareName.text = quickPermissionModel.permissionName
-                tvQuickShareCheckIcon.setVisibleIf(quickPermissionModel.isSelected)
+                quickPermissionButton.text = permissionName
+                quickPermissionButton.iconGravity = MaterialButton.ICON_GRAVITY_START
+                quickPermissionButton.icon = ContextCompat.getDrawable(context, quickPermissionModel.iconId)
+
                 if (quickPermissionModel.isSelected) {
-                    viewThemeUtils.platform.colorImageView(tvQuickShareCheckIcon, ColorRole.PRIMARY)
+                    viewThemeUtils.material.colorMaterialButtonPrimaryBorderless(quickPermissionButton)
                 }
             }
 
-            val customPermissionName = itemView.context.getString(R.string.share_custom_permission)
-            val permissionName = quickPermissionModel.permissionName
+            val customPermissionName = context.getString(R.string.share_custom_permission)
             val isCustomPermission = permissionName.equals(customPermissionName, ignoreCase = true)
 
             itemView.setOnClickListener {
