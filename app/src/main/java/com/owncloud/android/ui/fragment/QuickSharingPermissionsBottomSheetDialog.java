@@ -114,11 +114,11 @@ public class QuickSharingPermissionsBottomSheetDialog extends BottomSheetDialog 
         final var res = fileActivity.getResources();
 
         int permissionFlag = 0;
-        if (permissionName.equalsIgnoreCase(res.getString(R.string.link_share_allow_upload_and_editing)) || permissionName.equalsIgnoreCase(res.getString(R.string.link_share_editing))) {
+        if (permissionName.equalsIgnoreCase(res.getString(R.string.share_permission_can_edit)) || permissionName.equalsIgnoreCase(res.getString(R.string.link_share_editing))) {
             permissionFlag = ocShare.isFolder() ? MAXIMUM_PERMISSIONS_FOR_FOLDER : MAXIMUM_PERMISSIONS_FOR_FILE;
         } else if (permissionName.equalsIgnoreCase(res.getString(R.string.link_share_view_only))) {
             permissionFlag = READ_PERMISSION_FLAG;
-        } else if (permissionName.equalsIgnoreCase(res.getString(R.string.link_share_file_drop))) {
+        } else if (permissionName.equalsIgnoreCase(res.getString(R.string.link_share_file_request))) {
             permissionFlag = CREATE_PERMISSION_FLAG + READ_PERMISSION_FLAG;
         }
 
