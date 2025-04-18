@@ -253,6 +253,13 @@ public class FileDisplayActivity extends FileActivity
     @Inject Clock clock;
     @Inject SyncedFolderProvider syncedFolderProvider;
 
+    /**
+     * Indicates whether the downloaded file should be previewed immediately.
+     * Since `FileDownloadWorker` can be triggered from multiple sources,
+     * this flag helps determine if an automatic preview is needed after download.
+     */
+    private boolean readyForPreview = false;
+
     public static Intent openFileIntent(Context context, User user, OCFile file) {
         final Intent intent = new Intent(context, PreviewImageActivity.class);
         intent.putExtra(FileActivity.EXTRA_FILE, file);
@@ -295,6 +302,10 @@ public class FileDisplayActivity extends FileActivity
 
         OfflineFolderConflictManager offlineFolderConflictManager = new OfflineFolderConflictManager(this);
         offlineFolderConflictManager.registerRefreshSearchEventReceiver();
+    }
+
+    public void setReadyForPreview(boolean readyForPreview) {
+        this.readyForPreview = readyForPreview;
     }
 
     private void notifyGPlayPermissionChanges() {
@@ -1743,8 +1754,23 @@ public class FileDisplayActivity extends FileActivity
             if (state instanceof WorkerState.DownloadStarted) {
                 Log_OC.d(TAG, "Download worker started");
                 handleDownloadWorkerState();
-            } else if (state instanceof WorkerState.DownloadFinished) {
+            } else if (state instanceof WorkerState.DownloadFinished downloadFinished) {
                 fileDownloadProgressListener = null;
+
+                if (!readyForPreview) {
+                    return;
+                }
+
+                readyForPreview = false;
+
+                final var file = downloadFinished.getCurrentFile();
+                if (file == null) {
+                    return;
+                }
+
+                if (file.isDown() && MimeTypeUtil.isPDF(file)) {
+                    startPdfPreview(downloadFinished.getCurrentFile());
+                }
             } else if (state instanceof WorkerState.UploadFinished) {
                 refreshList();
             } else if (state instanceof  WorkerState.OfflineOperationsCompleted) {
@@ -2335,13 +2361,9 @@ public class FileDisplayActivity extends FileActivity
      * Requests the download of the received {@link OCFile} , updates the UI to monitor the download progress and
      * prepares the activity to preview or open the file when the download finishes.
      *
-     * @param file         {@link OCFile} to download and preview.
-     * @param parentFolder {@link OCFile} containing above file
+     * @param file {@link OCFile} to download and preview.
      */
-    public void startDownloadForPreview(OCFile file, OCFile parentFolder) {
-        final User currentUser = getUser().orElseThrow(RuntimeException::new);
-        Fragment detailFragment = FileDetailFragment.newInstance(file, parentFolder, currentUser);
-        setLeftFragment(detailFragment, false);
+    public void startDownloadForPreview(OCFile file) {
         configureToolbarForPreview(file);
         mWaitingToPreview = file;
         requestForDownload();
