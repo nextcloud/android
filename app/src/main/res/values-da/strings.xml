@@ -10,6 +10,7 @@
     <string name="action_edit">Rediger</string>
     <string name="action_empty_notifications">Ryd alle notifikationer</string>
     <string name="action_empty_trashbin">Tøm papirkurv</string>
+    <string name="action_send_share">Send/del</string>
     <string name="action_switch_grid_view">Grid visning</string>
     <string name="action_switch_list_view">List visning</string>
     <string name="actionbar_calendar_contacts_restore">Gendan kontakter og kalender</string>
@@ -45,14 +46,17 @@
     <string name="app_widget_description">Viser en widget fra dashboard</string>
     <string name="appbar_search_in">Søg i %s</string>
     <string name="assistant_screen_add_task_alert_dialog_title">Tilføj en ny opgave</string>
+    <string name="assistant_screen_create_a_new_task_from_bottom_right_text">Opret en ny opgave fra bunden til højre</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Skriv noget tekst</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Er du sikker på du vil slette denne opgave?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Slet opgave</string>
+    <string name="assistant_screen_loading">Indlæser opgaveliste...</string>
     <string name="assistant_screen_no_task_available_text">Ingen opgave tilgænge for %s opgavetype. Du kan oprette en ny opgave via bunden til højre.</string>
     <string name="assistant_screen_task_create_fail_message">En fejl opstod under oprettelse af opgaven</string>
     <string name="assistant_screen_task_create_success_message">Opgaven er oprettet</string>
     <string name="assistant_screen_task_delete_fail_message">En fejl opstod under sletning af opgaven</string>
     <string name="assistant_screen_task_delete_success_message">Opgaven er slettet</string>
+    <string name="assistant_screen_task_list_empty_message">Opgavelisten er tom.</string>
     <string name="assistant_screen_task_list_error_state_message">Kan ikke hente ophaveliste. Kontroller venligst din internetforbindelse.</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">Slet opgave</string>
     <string name="assistant_screen_task_output_empty_text">Opgaveoutputtet er endnu ikke klar.</string>
@@ -99,6 +103,7 @@
     <string name="auto_upload_gplay_desc2">På grund af nye restriktioner pålagt af Google, er vi blevet tvunget til at fjerne en vigtig tilladelse. Som følge heraf vil automatisk upload kun være i stand til at uploade billed- og videofiler.\nDerudover kræves der en ny tilladelse for at få adgang til placeringsoplysninger for uploadede billeder.\nSørg for, at medieadgang er indstillet til \"Tillad altid alle\".</string>
     <string name="auto_upload_on_wifi">Upload kun på ubegrænset wifi</string>
     <string name="auto_upload_path">/AutoUpload</string>
+    <string name="auto_upload_sub_folder_warning">Denne mappe er allerede inkluderet i den overordnede mappes synkronisering, hvilket kan medføre dobbelt uploads</string>
     <string name="autoupload_configure">Konfigurer</string>
     <string name="autoupload_create_new_custom_folder">Opret en ny brugerdefineret mappeopsætning</string>
     <string name="autoupload_custom_folder">Opsæt en brugerdefineret mappe</string>
@@ -185,6 +190,7 @@
     <string name="confirmation_remove_folders_alert">Er du sikker på at du vil slette de valgte artikler med indhold?</string>
     <string name="confirmation_remove_local">Kun lokal</string>
     <string name="conflict_dialog_error">Konfliktløserdialog kan ikke oprettes</string>
+    <string name="conflict_folder_headline">Mappekonflikt</string>
     <string name="conflict_local_file">Lokal fil</string>
     <string name="conflict_message_description">Hvis du vælger begge versioner, vil den lokale fil få tilføjet et nummer til sit navn.</string>
     <string name="conflict_message_description_for_folder">Hvis du vælger begge versioner, så vil den lokale mappe få tilføjet et tal til dets navn.</string>
@@ -197,6 +203,7 @@
     <string name="contacts_backup_button">Backup nu</string>
     <string name="contacts_preferences_backup_scheduled">Backup planlagt og starter snart</string>
     <string name="contacts_preferences_import_scheduled">Import planlagt og starter snart</string>
+    <string name="contacts_preferences_import_scheduled_fail">Import kunne ikke starte. Prøv venligst igen</string>
     <string name="contacts_preferences_no_file_found">Ingen fil fundet</string>
     <string name="contacts_preferences_something_strange_happened">Kunne ikke finde din sidste backup!</string>
     <string name="copied_to_clipboard">Kopieret til udklipsholder</string>
@@ -302,6 +309,7 @@
     <string name="end_to_end_encryption_confirm_button">Indstil kryptering</string>
     <string name="end_to_end_encryption_decrypting">Dekrypterer...</string>
     <string name="end_to_end_encryption_dialog_close">Luk</string>
+    <string name="end_to_end_encryption_enter_passphrase_to_access_files">Angiv din adgangsfrase for at tilgå dine filer</string>
     <string name="end_to_end_encryption_folder_not_empty">Denne folder er ikke tom.</string>
     <string name="end_to_end_encryption_generating_keys">Opretter nye nøgler...</string>
     <string name="end_to_end_encryption_keywords_description">Alle 12 ord udgør tilsammen et meget stærkt kodeord, så kun du kan læse og bruge dine krypterede filer. Venligst skriv det ned og gem det et sikkert sted.</string>
@@ -350,6 +358,7 @@
     <string name="etm_background_jobs_stop_test_job">Stop test job</string>
     <string name="etm_migrations">Migrationer (app upgrade)</string>
     <string name="etm_preferences">Indstillinger</string>
+    <string name="etm_title">Ingeniør testtilstand</string>
     <string name="etm_transfer">Fil overførsel</string>
     <string name="etm_transfer_enqueue_test_download">Sæt test download i kø</string>
     <string name="etm_transfer_enqueue_test_upload">Sæt test upload i kø</string>
@@ -449,6 +458,7 @@
     <string name="first_run_3_text">Let-at-anvende webmail, kalender og kontakter</string>
     <string name="first_run_4_text">Skærmdeling, online møder og webkonferencer</string>
     <string name="folder_already_exists">Mappe findes allerede</string>
+    <string name="folder_best_viewed_in">Denne mappe vises bedst i %1$s.</string>
     <string name="folder_confirm_create">Opret</string>
     <string name="folder_list_empty_headline">Ingen mappe her</string>
     <string name="folder_name_empty">Mappenavnet må ikke være tomt</string>
@@ -570,6 +580,7 @@
     <string name="new_media_folder_detected">Ny %1$s medie mappe opdaget.</string>
     <string name="new_media_folder_photos">photo</string>
     <string name="new_media_folder_videos">video</string>
+    <string name="new_notification">Ny notifikation</string>
     <string name="new_version_was_created">Ny version oprettet</string>
     <string name="no_actions">Ingen handlinger for denne bruger</string>
     <string name="no_browser_available">Ingen App tilgængelig til håndtering af links</string>
@@ -585,6 +596,7 @@
     <string name="note_icon_hint">Note ikon</string>
     <string name="notification_action_failed">Handling fejlede</string>
     <string name="notification_channel_background_operations_description">Vis notifikationer for at interagere med resultat af baggrundshandlinger</string>
+    <string name="notification_channel_background_operations_name">Baggrundshandlinger</string>
     <string name="notification_channel_download_description">Viser overførsels fremskridt </string>
     <string name="notification_channel_download_name_short">Downloads</string>
     <string name="notification_channel_file_sync_description">Viser fil synkronisation fremskridt og resultater</string>
@@ -601,15 +613,21 @@
     <string name="notification_icon_description">Der findes ulæste notifikationer</string>
     <string name="notifications_no_results_headline">Ingen notifikationer</string>
     <string name="notifications_no_results_message">Prøv igen senere.</string>
+    <string name="oc_file_list_adapter_offline_operation_description_text">Afventende handling</string>
     <string name="oc_file_list_adapter_offline_operation_remove_description_text">Afventende fjernelseshandling</string>
     <string name="offline_mode">Ingen internetforbindelse</string>
     <string name="offline_mode_info_description">Selv uden internetforbindelse kan du organisere dine mapper, oprette filer. Når du er online igen, synkroniseres dine afventende handlinger automatisk.</string>
+    <string name="offline_mode_info_title">Du er offline, men arbejdet fortsætter</string>
     <string name="offline_operations_file_does_not_exists_yet">Filen eksisterer ikke endnu. Upload venligst filen først.</string>
+    <string name="offline_operations_worker_notification_conflict_text">konfliktende mappe: %s</string>
+    <string name="offline_operations_worker_notification_delete_offline_folder">Slet offline mappe</string>
     <string name="offline_operations_worker_notification_error_text">Offline handlingen kan ikke gennemføres. %s</string>
     <string name="offline_operations_worker_notification_manager_ticker">Offline handlinger</string>
+    <string name="offline_operations_worker_notification_start_text">Starter offline handlinger</string>
     <string name="oneHour">1 time</string>
     <string name="online">Online</string>
     <string name="online_status">Online status</string>
+    <string name="open_in_app">Åben i %1$s</string>
     <string name="outdated_server">Serveren har nået sit livs ende, opgrader venligst!</string>
     <string name="overflow_menu">Mere menu</string>
     <string name="pass_code_configure_your_pass_code">Angiv din passkode</string>
@@ -628,6 +646,7 @@
     <string name="permission_storage_access">Yderligere tilladelser nødvendige for at hente og sende filer.</string>
     <string name="pick_contact_to_share_with">Vælg en kontakt at dele med</string>
     <string name="picture_set_as_no_app">Ingen apps fundet til at vælge et billede med</string>
+    <string name="pin_home">Fastgør til hjemmeskærm</string>
     <string name="pin_shortcut_label">Åbn %1$s</string>
     <string name="placeholder_fileSize">389 KB</string>
     <string name="placeholder_filename">pladsholder.txt</string>
@@ -777,13 +796,16 @@
     <string name="select_one_template">Vælg venligst en skabelon</string>
     <string name="select_template">Vælg model</string>
     <string name="send">Send</string>
+    <string name="send_share">Send deling</string>
     <string name="sendbutton_description">Send knap ikon</string>
     <string name="set_as">Sæt som</string>
+    <string name="set_note">Sæt note</string>
     <string name="set_picture_as">Anvend billede som</string>
     <string name="set_status">Sæt status</string>
     <string name="set_status_message">Sæt statusbesked</string>
     <string name="setup_e2e">Undervejs i opsætningen af end-to-end kryptering, så vil du modtage en tilfældig huskeregel på 12 ord, som du får brug for til at åbne dine filer på andre enheder. Denne vil kun blive gemt på denne enhed, og kan blive vist senere i denne visning. Skriv den venligst ned et sikkert sted!</string>
     <string name="share">Del</string>
+    <string name="share_copy_link">Del og kopier link</string>
     <string name="share_dialog_title">Deling</string>
     <string name="share_download_limit">Indstil downloadgrænse</string>
     <string name="share_expiration_date_format">%1$s</string>
@@ -810,9 +832,11 @@
     <string name="share_permission_file_drop">Fil drop</string>
     <string name="share_permission_secure_file_drop">Sikkert fil drop</string>
     <string name="share_permission_view_only">Kun visning</string>
+    <string name="share_permissions">Delingstilladelser</string>
     <string name="share_remote_clarification">%1$s (ekstern)</string>
     <string name="share_room_clarification">%1$s (samtale)</string>
     <string name="share_search">Navn, sammenkoblings cloud ID eller e-mailadresse…</string>
+    <string name="share_search_internal">Tilføj brugere og teams</string>
     <string name="share_send_new_email">Send ny email</string>
     <string name="share_send_note">Note til modtager</string>
     <string name="share_settings">Indstillinger</string>
@@ -828,7 +852,9 @@
     <string name="shared_with_you_by">Delt med dig af %1$s</string>
     <string name="sharee_add_failed">Tilføj deler fejlet</string>
     <string name="sharee_already_added_to_file">Tilføjelse af deling fejlede. Denne fil eller mapper er allerede blevet delt med denne person eller gruppe.</string>
+    <string name="show_all">Vis alt</string>
     <string name="show_images">Vis fotos</string>
+    <string name="show_less">Vis mindre</string>
     <string name="show_video">Vis videoer</string>
     <string name="sign_tos_failed">Tjek venligst servicevilkårene manuelt!</string>
     <string name="signup_with_provider">Indskrivning hos udbyder</string>
@@ -889,8 +915,10 @@
     <string name="subtitle_videos_only">Kun videoer</string>
     <string name="suggest">Foreslå</string>
     <string name="sync">Synkroniser</string>
+    <string name="sync_anyway">Synkroniser alligevel</string>
     <string name="sync_conflicts_in_favourites_ticker">Konflikter fundet</string>
     <string name="sync_current_folder_was_removed">Mappen %1$s eksistere ikke længere</string>
+    <string name="sync_duplication">Synkroniseringsdublet</string>
     <string name="sync_fail_content">Kunne ikke synkronisere %1$s</string>
     <string name="sync_fail_content_unauthorized">Forkert adgangskode til %1$s</string>
     <string name="sync_fail_in_favourites_ticker">Hold-synkroniseret filer mislykkedes</string>
@@ -907,6 +935,7 @@
     <string name="sync_not_enough_space_dialog_title">Ikke nok plads</string>
     <string name="sync_status_button">Synkroniserer status knap</string>
     <string name="sync_string_files">Filer</string>
+    <string name="sync_warning_button">Synkroniserings advarselsknap</string>
     <string name="synced_folder_settings_button">Indstillinger knap</string>
     <string name="synced_folders_configure_folders">Konfigurer mapper</string>
     <string name="synced_folders_new_info">Øjeblikkelig send er blevet fundamentalt nylanceret. Omkonfigurer din autoupload fra hovedmenuen.\n\nNyd den nye og udvidede auto upload.</string>
