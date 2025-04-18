@@ -178,6 +178,8 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
                                                       file.isEncrypted(),
                                                       SharesType.INTERNAL);
 
+        internalShareeListAdapter.setHasStableIds(true);
+
         binding.sharesListInternal.setAdapter(internalShareeListAdapter);
 
         binding.sharesListInternal.setLayoutManager(new LinearLayoutManager(requireContext()));
@@ -190,6 +192,8 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
                               viewThemeUtils,
                               file.isEncrypted(),
                               SharesType.EXTERNAL);
+
+        externalShareeListAdapter.setHasStableIds(true);
         
         binding.sharesListExternal.setAdapter(externalShareeListAdapter);
 
@@ -689,6 +693,11 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
     @Override
     public void onQuickPermissionChanged(OCShare share, int permission) {
         fileOperationsHelper.setPermissionsToShare(share, permission);
+    }
+
+    @Override
+    public void openShareDetail(OCShare share) {
+        modifyExistingShare(share, FileDetailsSharingProcessFragment.SCREEN_TYPE_CUSTOM_PERMISSION);
     }
 
     //launcher for contact permission

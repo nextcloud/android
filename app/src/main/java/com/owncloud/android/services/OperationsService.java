@@ -101,6 +101,7 @@ public class OperationsService extends Service {
     public static final String EXTRA_SHARE_NOTE = "SHARE_NOTE";
     public static final String EXTRA_IN_BACKGROUND = "IN_BACKGROUND";
     public static final String EXTRA_FILES_DOWNLOAD_LIMIT = "FILES_DOWNLOAD_LIMIT";
+    public static final String EXTRA_SHARE_ATTRIBUTES = "SHARE_ATTRIBUTES";
 
     public static final String ACTION_CREATE_SHARE_VIA_LINK = "CREATE_SHARE_VIA_LINK";
     public static final String ACTION_CREATE_SECURE_FILE_DROP = "CREATE_SECURE_FILE_DROP";
@@ -593,6 +594,8 @@ public class OperationsService extends Service {
                             .getLongExtra(EXTRA_SHARE_EXPIRATION_DATE_IN_MILLIS, 0L);
                         boolean hideFileDownload = operationIntent.getBooleanExtra(EXTRA_SHARE_HIDE_FILE_DOWNLOAD,
                                                                                    false);
+                        String attributes = operationIntent.getStringExtra(EXTRA_SHARE_ATTRIBUTES);
+
                         if (!TextUtils.isEmpty(remotePath)) {
                             CreateShareWithShareeOperation createShareWithShareeOperation =
                                 new CreateShareWithShareeOperation(remotePath,
@@ -603,6 +606,7 @@ public class OperationsService extends Service {
                                                                    sharePassword,
                                                                    expirationDateInMillis,
                                                                    hideFileDownload,
+                                                                   attributes,
                                                                    fileDataStorageManager,
                                                                    getApplicationContext(),
                                                                    user,
@@ -640,6 +644,9 @@ public class OperationsService extends Service {
                             if (operationIntent.hasExtra(EXTRA_SHARE_PUBLIC_LABEL)) {
                                 updateShare.setLabel(operationIntent.getStringExtra(EXTRA_SHARE_PUBLIC_LABEL));
                             }
+
+                            String shareAttributes = operationIntent.getStringExtra(EXTRA_SHARE_ATTRIBUTES);
+                            updateShare.setAttributes(shareAttributes);
 
                             operation = updateShare;
                         }
