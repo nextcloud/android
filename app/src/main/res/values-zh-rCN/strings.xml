@@ -247,7 +247,7 @@
     <string name="dismiss">忽略</string>
     <string name="dismiss_notification_description">忽略通知</string>
     <string name="displays_mnemonic">显示您的 12 个单词的密码短语</string>
-    <string name="dnd">请勿打扰</string>
+    <string name="dnd">勿扰</string>
     <string name="document_scan_export_dialog_images">多选图片</string>
     <string name="document_scan_export_dialog_pdf">PDF 文件</string>
     <string name="document_scan_export_dialog_title">选择导出类型</string>
