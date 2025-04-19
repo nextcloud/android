@@ -419,6 +419,7 @@
     <string name="file_migration_preparing">Valmistan ette üleviimist…</string>
     <string name="file_migration_restoring_accounts_configuration">Taastan kasutajakonto seadistusi…</string>
     <string name="file_migration_saving_accounts_configuration">Salvestan kasutajakonto seadistusi…</string>
+    <string name="file_migration_source_not_readable">Kas sa ikkagi soovid muuta „%1$s“ andmeruumi kaustaks?\n\nMärkus: pead kõik andmed uuesti alla laadima.</string>
     <string name="file_migration_source_not_readable_title">Lähtekaust pole loetav!</string>
     <string name="file_migration_updating_index">Indeksi uuendamine...</string>
     <string name="file_migration_use_data_folder">Kasuta</string>
@@ -540,6 +541,7 @@
     <string name="logs_title">Logid</string>
     <string name="maintenance_mode">Server on hooldusrežiimis</string>
     <string name="manage_space_clear_data">Tühjenda andmed</string>
+    <string name="manage_space_description">Järgnevaga kustutatakse jäädavalt kõik „%1$s“ andmete seadistused, andmebaasikirjed ja sertifikaadid.\n\nAllalaaditud failid jäävad alles.\n\nKogu toiming võib märgatavalt aega võtta.</string>
     <string name="manage_space_title">Ruumi haldamine</string>
     <string name="max_file_count_warning_message">Sa üritad laadida üles enam faile kui võimalik on. Palun laadi korraga üles vähem, kui 500 faili.</string>
     <string name="media_err_invalid_progressive_playback">Seda meediafaili ei saa voogedastada</string>
@@ -665,6 +667,7 @@
     <string name="prefs_calendar_contacts_sync_setup_successful">Kalendri ja kontaktide sünkroniseerimine on seadistatud</string>
     <string name="prefs_category_about">Info</string>
     <string name="prefs_category_details">Üksikasjad</string>
+    <string name="prefs_category_dev">Arendusversioon</string>
     <string name="prefs_category_general">Üldine</string>
     <string name="prefs_category_more">Rohkem</string>
     <string name="prefs_category_sync">Sünkrooni</string>
@@ -691,9 +694,11 @@
     <string name="prefs_keys_exist">Lisa läbiv krüptimine sellele klientrakendusele</string>
     <string name="prefs_license">Litsents</string>
     <string name="prefs_lock">Täiendavat rakenduse salasõna</string>
+    <string name="prefs_lock_device_credentials_enabled">Nutiseadmepõhine autentimine on kasutusel</string>
+    <string name="prefs_lock_device_credentials_not_setup">Nutiseadmepõhist autentimist pole veel seadistatud.</string>
     <string name="prefs_lock_none">Pole</string>
     <string name="prefs_lock_title">Kaitse rakendust kasutades</string>
-    <string name="prefs_lock_using_device_credentials">Seadme mandaadid</string>
+    <string name="prefs_lock_using_device_credentials">Nutiseadmepõhine autentimine</string>
     <string name="prefs_lock_using_passcode">Parooli</string>
     <string name="prefs_manage_accounts">Halda kontosid</string>
     <string name="prefs_recommend">Soovita sõbrale</string>
@@ -882,6 +887,7 @@
     <string name="storage_pictures">Pildid</string>
     <string name="stream">Voogedasta kasutades…</string>
     <string name="stream_not_possible_headline">Sisemine voogedastus pole võimalik</string>
+    <string name="stream_not_possible_message">Selle asemel palun laadi meediafailid alla või kasuta välist rakendust.</string>
     <string name="sub_folder_rule_day">Aasta/Kuu/Päev</string>
     <string name="sub_folder_rule_month">Aasta/Kuu</string>
     <string name="sub_folder_rule_year">Aasta</string>
@@ -913,6 +919,7 @@
     <string name="sync_warning_button">Sünkroonimise hoiatusnupp</string>
     <string name="synced_folder_settings_button">Seadete nupp</string>
     <string name="synced_folders_configure_folders">Seadista kaustu</string>
+    <string name="synced_folders_new_info">Kohese üleslaadimise loogika on täiesti muutunud. Palun seadista oma automaatne üleslaadimine põhimenüüst uuesti.\n\nKasuta uue ja parema automaatse üleslaadimise võimalusi.</string>
     <string name="synced_folders_no_results">Meediakaustu ei leidunud</string>
     <string name="synced_folders_preferences_folder_path">%1$s jaoks</string>
     <string name="synced_folders_type">Tüüp</string>
@@ -975,10 +982,13 @@
     <string name="upload_file_dialog_filetype">Faili tüüp</string>
     <string name="upload_file_dialog_filetype_googlemap_shortcut">Google Mapsi lingi fail (%s)</string>
     <string name="upload_file_dialog_filetype_internet_shortcut">Internetilingi fail (%s)</string>
+    <string name="upload_file_dialog_filetype_snippet_text">Lõigendi tekstifail(.txt)</string>
+    <string name="upload_file_dialog_title">Üleslaadimiseks sisesta failinimi ja -tüüp</string>
     <string name="upload_files">Failide üleslaadimine</string>
     <string name="upload_global_pause_title">Kõik üleslaadimised on peatatud</string>
     <string name="upload_gplay">Õiguste muudatused</string>
     <string name="upload_gplay_desc">Ligipääsuks üleslaaditavate piltide asukohateabele on vajalikud uued õigused.\nPalun kontrolli, et ligipääsuks meediale oled õigusteks valinud „Alati luba kõik“.</string>
+    <string name="upload_item_action_button">Tegevusnupp üleslaadimisel</string>
     <string name="upload_list_delete">Kustuta</string>
     <string name="upload_list_empty_headline">Üleslaadimisi pole saadaval</string>
     <string name="upload_list_empty_text_auto_upload">Lae üles mõned failid või lülita sisse automaatne üleslaadimine.</string>
@@ -990,6 +1000,7 @@
     <string name="upload_manually_cancelled">Kasutaja katkestas üleslaadimise</string>
     <string name="upload_notification_manager_start_text">%1$d / %2$d - %3$s</string>
     <string name="upload_old_android">Krüptimine on võimalik vaid &gt;= Android 5.0 puhul</string>
+    <string name="upload_query_move_foreign_files">Piisava ruumi puudumisel pole võimalik kopeerida valitud faile „%1$s“ kausta. Kas pigem tahaksid nad sinna teisaldada?</string>
     <string name="upload_quota_exceeded">Andmeruumi kvoot on ületatud</string>
     <string name="upload_scan_doc_upload">Skaneeri dokument kaameraga</string>
     <string name="upload_sync_conflict">Sünkroniseerimiskonfikt, palun lahenda see käsitsi</string>
@@ -1062,6 +1073,7 @@
     <string name="version_dev_download">Lae alla</string>
     <string name="video_overlay_icon">Video ülekatte ikoon</string>
     <string name="wait_a_moment">Oota üks hetk…</string>
+    <string name="wait_checking_credentials">Kontrollin salvestatud autentimisviise</string>
     <string name="wait_for_tmp_copy_from_private_storage">Faili kopeerimine privaatsest salvestusalast</string>
     <string name="warn_rename_extension">Selle faililaiendi muutmine võib tekitada olukorra, kus see fail avatakse mõne muu rakendusega</string>
     <string name="what_s_new_image">Mis on uus pilt</string>
