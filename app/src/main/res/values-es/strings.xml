@@ -309,6 +309,7 @@
     <string name="end_to_end_encryption_confirm_button">Configurar cifrado</string>
     <string name="end_to_end_encryption_decrypting">Descifrando…</string>
     <string name="end_to_end_encryption_dialog_close">Cerrar</string>
+    <string name="end_to_end_encryption_enter_passphrase_to_access_files">Ingrese su contraseña para acceder a sus archivos</string>
     <string name="end_to_end_encryption_folder_not_empty">Esta carpeta no está vacía.</string>
     <string name="end_to_end_encryption_generating_keys">Generando claves nuevas…</string>
     <string name="end_to_end_encryption_keywords_description">Las 12 palabras juntas forman una contraseña muy fuerte, permitiéndote solo a ti ver y usar tus archivos cifrados. Por favor, escríbelas y guárdalas en un lugar seguro.</string>
@@ -316,6 +317,7 @@
     <string name="end_to_end_encryption_passphrase_title">Toma nota de tu contraseña de cifrado de 12 palabras</string>
     <string name="end_to_end_encryption_password">Contraseña…</string>
     <string name="end_to_end_encryption_retrieving_keys">Recuperando claves…</string>
+    <string name="end_to_end_encryption_server_private_key_unavailable">No fue posible recuperar la llave privada</string>
     <string name="end_to_end_encryption_storing_keys">Almacenando claves</string>
     <string name="end_to_end_encryption_title">Configurar cifrado</string>
     <string name="end_to_end_encryption_unsuccessful">No se han podido almacenar las claves. Por favor, vuelve a intentarlo.</string>
