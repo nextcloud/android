@@ -7,7 +7,7 @@
     <string name="account_creation_failed">Konto loomine ebaõnnestus</string>
     <string name="account_icon">Konto ikoon</string>
     <string name="account_not_found">Kontot ei leitud!</string>
-    <string name="action_edit">Redigeeri</string>
+    <string name="action_edit">Muuda</string>
     <string name="action_empty_notifications">Kustuta kõik teavitused</string>
     <string name="action_empty_trashbin">Tühjenda prügikast</string>
     <string name="action_send_share">Saada või jaga</string>
@@ -42,7 +42,7 @@
     <string name="app_config_disable_sharing_title">Keela jagamine</string>
     <string name="app_config_proxy_host_title">Proksiserveri aadress</string>
     <string name="app_config_proxy_port_title">Proksiserveri port</string>
-    <string name="app_widget_description">Näitab ühte vidinat juhtpaneelilt</string>
+    <string name="app_widget_description">Näitab ühte vidinat juhtpaneelilt/töölaualt</string>
     <string name="appbar_search_in">Otsi siin: %s</string>
     <string name="assistant_screen_add_task_alert_dialog_title">Lisa uus ülesanne</string>
     <string name="assistant_screen_create_a_new_task_from_bottom_right_text">Loo uus ülesanne all paremal asuvast valikust</string>
@@ -365,7 +365,9 @@
     <string name="etm_transfer_type_upload">Laadi üles</string>
     <string name="external_shares">Välised jaoskaustad</string>
     <string name="fab_label">Lisa või laadi üles</string>
+    <string name="failed_to_download">Ei õnnestunud faili allalaadimishaldurile edasi anda</string>
     <string name="failed_to_print">Faili trükkimine ei õnnestunud</string>
+    <string name="failed_to_start_editor">Ei õnnestunud avada muutmisvaadet</string>
     <string name="failed_update_ui">Kasutajaliidese uuendamine ei õnnestunud</string>
     <string name="favorite">Lisa lemmikutesse</string>
     <string name="favorite_icon">Lemmik</string>
@@ -484,6 +486,7 @@
     <string name="host_not_available">Server pole saadaval</string>
     <string name="host_your_own_server">Võid ka kasutada oma serverit</string>
     <string name="icon_for_empty_list">Tühja loendi ikoon</string>
+    <string name="icon_of_dashboard_widget">Töölauavidina ikoon</string>
     <string name="icon_of_widget_entry">Vidina kirje ikoon</string>
     <string name="image_editor_file_edited_suffix">muudetud</string>
     <string name="image_editor_flip_horizontal">Pööra teistpidi ümber rõhttelje</string>
@@ -719,6 +722,7 @@
     <string name="prefs_value_theme_light">Tume</string>
     <string name="prefs_value_theme_system">Kasuta süsteemi kujundust</string>
     <string name="preview_image_description">Pildi eelvaade</string>
+    <string name="preview_image_downloading_image_for_edit">Muutmisvaate avamiseks laadin alla pilti, palun oota…</string>
     <string name="preview_image_error_no_local_file">Eelvaate jaoks ei leidu kohalikku faili</string>
     <string name="preview_image_error_unknown_format">Pildi näitamine ei õnnestu</string>
     <string name="preview_image_file_is_not_downloaded">Fail pole alla laaditud</string>
@@ -815,7 +819,7 @@
     <string name="share_no_password_title">Määra parool</string>
     <string name="share_not_allowed_when_file_drop">Turvalise failiedastuse puhul pole edasijagamine lubatud</string>
     <string name="share_password_title">Kaitstud salasõnaga</string>
-    <string name="share_permission_can_edit">Võib redigeerida</string>
+    <string name="share_permission_can_edit">Võib muuta</string>
     <string name="share_permission_file_drop">Failiedastus</string>
     <string name="share_permission_secure_file_drop">Turvaline failiedastus</string>
     <string name="share_permission_view_only">Ainult vaatamine</string>
@@ -944,6 +948,7 @@
     <string name="trashbin_loading_failed">Ei õnnestunud laadida prügikasti!</string>
     <string name="trashbin_not_emptied">Ei õnnestunud faile jäädavalt kustutada!</string>
     <string name="two_way_sync_activity_disable_all_button_title">Lülita välja kõikide kaustade puhul</string>
+    <string name="two_way_sync_activity_empty_list_desc">Kahepoolselt sünkroniseeritava kausta seadistamiseks palun lülita see võimalus sisse antud kausta üksikasjade vaatest.</string>
     <string name="two_way_sync_activity_empty_list_title">Luba kahepoolne sünkroonimine pole seadistatud</string>
     <string name="two_way_sync_activity_title">Sisemine kahepoolne sünkroonimine</string>
     <string name="unexpected_error_occurred">Tekkis ootamatu viga</string>
@@ -1080,6 +1085,7 @@
     <string name="whats_new_skip">Jäta vahele</string>
     <string name="whats_new_title">Uus asukohas „%1$s“</string>
     <string name="whats_your_status">Mis on su staatus?</string>
+    <string name="widgets_not_available">Vidinad on saadaval alates %1$si versioonist 25 või Töölauarakenduse kasutamisel</string>
     <string name="widgets_not_available_title">Pole saadaval</string>
     <string name="worker_download">Failide allalaadimine…</string>
     <string name="write_email">Saada kiri</string>
