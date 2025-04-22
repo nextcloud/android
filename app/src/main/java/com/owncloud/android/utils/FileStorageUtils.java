@@ -20,6 +20,7 @@ import android.text.TextUtils;
 import android.webkit.MimeTypeMap;
 
 import com.nextcloud.client.preferences.SubFolderRule;
+import com.nextcloud.utils.extensions.StringConstants;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
@@ -99,7 +100,7 @@ public final class FileStorageUtils {
                 + File.separator
                 + MainApp.getDataFolder()
                 + File.separator
-                + "tmp"
+                + StringConstants.TEMP
                 + File.separator
                 + Uri.encode(accountName, "@");
         // URL encoding is an 'easy fix' to overcome that NTFS and FAT32 don't allow ":" in file names,
@@ -125,7 +126,7 @@ public final class FileStorageUtils {
                 + File.separator
                 + MainApp.getDataFolder()
                 + File.separator
-                + "tmp"
+                + StringConstants.TEMP
                 + File.separator
                 + Uri.encode(accountName, "@");
         // URL encoding is an 'easy fix' to overcome that NTFS and FAT32 don't allow ":" in file names,

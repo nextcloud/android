@@ -21,6 +21,7 @@ import android.os.Parcelable;
 import android.text.TextUtils;
 
 import com.nextcloud.utils.BuildHelper;
+import com.nextcloud.utils.extensions.StringConstants;
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.network.WebdavEntry;
 import com.owncloud.android.lib.common.network.WebdavUtils;
@@ -304,6 +305,22 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
         } else {
             return remotePath;
         }
+    }
+
+    public boolean isTempFile() {
+        if (localPath == null) {
+            return false;
+        }
+
+        String[] parts = localPath.split(OCFile.PATH_SEPARATOR);
+
+        for (String part : parts) {
+            if (!part.isEmpty() && StringConstants.TEMP.contains(part.toLowerCase())) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /**
