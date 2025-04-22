@@ -10,16 +10,98 @@ package com.owncloud.android.utils
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.net.Proxy
+import android.net.Uri
 import android.text.TextUtils
 import android.util.ArrayMap
 import android.util.Log
 import android.webkit.WebView
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.owncloud.android.R
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory
 import java.io.PrintWriter
 import java.io.StringWriter
 
-class WebViewUtil {
+class WebViewUtil(private val context: Context) {
+
+    private val packageName = "com.google.android.webview"
+
+    fun checkWebViewVersion() {
+        if (!isWebViewVersionValid()) {
+            showUpdateDialog()
+        }
+    }
+
+    private fun isWebViewVersionValid(): Boolean {
+        val currentWebViewVersion = getCurrentWebViewMajorVersion() ?: return true
+        val minSupportedWebViewVersion: String = getMinimumSupportedMajorWebViewVersion()
+        return currentWebViewVersion.toInt() >= minSupportedWebViewVersion.toInt()
+    }
+
+    private fun showUpdateDialog() {
+        val builder = MaterialAlertDialogBuilder(context)
+            .setTitle(context.getString(R.string.webview_version_check_alert_dialog_title))
+            .setMessage(context.getString(R.string.webview_version_check_alert_dialog_message))
+            .setCancelable(false)
+            .setPositiveButton(
+                context.getString(R.string.webview_version_check_alert_dialog_positive_button_title)
+            ) { _, _ ->
+                redirectToAndroidSystemWebViewStorePage()
+            }
+
+        val dialog = builder.create()
+        dialog.show()
+    }
+
+    private fun redirectToAndroidSystemWebViewStorePage() {
+        val uri = Uri.parse("market://details?id=$packageName")
+        val intent = Intent(Intent.ACTION_VIEW, uri)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+
+        try {
+            context.startActivity(intent)
+        } catch (e: android.content.ActivityNotFoundException) {
+            redirectToPlayStoreWebsiteForAndroidSystemWebView()
+        }
+    }
+
+    private fun redirectToPlayStoreWebsiteForAndroidSystemWebView() {
+        val playStoreWebUri = Uri.parse("https://play.google.com/store/apps/details?id=$packageName")
+        val webIntent = Intent(Intent.ACTION_VIEW, playStoreWebUri)
+        context.startActivity(webIntent)
+    }
+
+    private fun getCurrentWebViewMajorVersion(): String? {
+        val pm: PackageManager = context.packageManager
+
+        return try {
+            val pi = pm.getPackageInfo("com.google.android.webview", 0)
+            val fullVersion = pi.versionName ?: return null
+
+            // Split the version string by "." and get the first part
+            val versionParts = fullVersion.split("\\.".toRegex()).dropLastWhile { it.isEmpty() }
+                .toTypedArray()
+
+            if (versionParts.isNotEmpty()) {
+                versionParts[0]
+            } else {
+                null
+            }
+        } catch (e: PackageManager.NameNotFoundException) {
+            null
+        }
+    }
+
+    /**
+     * Ideally we should fetch from database, reading actual value
+     * from PlayStore not feasible due to frequently api changes made by
+     * Google
+     *
+     */
+    private fun getMinimumSupportedMajorWebViewVersion(): String {
+        return "118"
+    }
 
     /**
      * From https://stackoverflow.com/a/18453384
