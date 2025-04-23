@@ -87,14 +87,14 @@
     <string name="clipboard_label">Teksts kopēts no %1$s</string>
     <string name="clipboard_no_text_to_copy">Nav teksta, ko saglabāt starpliktuvē</string>
     <string name="clipboard_text_copied">Saite nokopēta</string>
-    <string name="clipboard_unexpected_error">Kopējot starpliktuvē, radās neparedzēta kļūda</string>
+    <string name="clipboard_unexpected_error">Neparedzēta kļūda ievietojot starpliktuvē</string>
     <string name="common_back">Atpakaļ</string>
     <string name="common_cancel">Atcelt</string>
     <string name="common_cancel_sync">Atcelt sinhronizēšanu</string>
     <string name="common_choose_account">Izvēlieties kontu</string>
     <string name="common_confirm">Apstiprināt</string>
     <string name="common_copy">Kopēt</string>
-    <string name="common_delete">Dzēst</string>
+    <string name="common_delete">Izdzēst</string>
     <string name="common_error">Kļūda</string>
     <string name="common_error_out_memory">Nepietiek atmiņas</string>
     <string name="common_error_unknown">Nezināma kļūda</string>
@@ -103,7 +103,7 @@
     <string name="common_no">Nē</string>
     <string name="common_ok">Labi</string>
     <string name="common_pending">Gaida</string>
-    <string name="common_remove">Dzēst</string>
+    <string name="common_remove">Izdzēst</string>
     <string name="common_rename">Pārdēvēt</string>
     <string name="common_save">Saglabāt</string>
     <string name="common_send">Sūtīt</string>
@@ -126,9 +126,9 @@
     <string name="community_testing_report_text">Ziņojiet par problēmu Github</string>
     <string name="configure_new_media_folder_detection_notifications">Konfigurēt</string>
     <string name="confirmation_remove_file_alert">Vai tiešām izdzēst %1$s?</string>
-    <string name="confirmation_remove_files_alert">Vai tiešām vēlies dzēst izvēlētos objektus?</string>
+    <string name="confirmation_remove_files_alert">Vai tiešām izdzēst atlasītos vienumus?</string>
     <string name="confirmation_remove_folder_alert">Vai tiešām izdzēst %1$s un tās saturu?</string>
-    <string name="confirmation_remove_folders_alert">Vai tiešām vēlies dzēst izvēlētos objektus un to saturu?</string>
+    <string name="confirmation_remove_folders_alert">Vai tiešām izdzēst atlasītos vienumus un to saturu?</string>
     <string name="confirmation_remove_local">Tikai vietējos</string>
     <string name="conflict_dialog_error">Nevar izveidot nesaderību novēršanas lodziņu</string>
     <string name="contactlist_item_icon">Lietotāja ikona kontaktpersonu sarakstam</string>
@@ -281,7 +281,7 @@
     <string name="forbidden_permissions">Jums nav atļaujas %s</string>
     <string name="forbidden_permissions_copy">lai kopētu šo datni</string>
     <string name="forbidden_permissions_create">lai izveidotu šo datni</string>
-    <string name="forbidden_permissions_delete">lai dzēstu šo datni</string>
+    <string name="forbidden_permissions_delete">lai izdzēstu šo datni</string>
     <string name="forbidden_permissions_move">lai pārvietotu šo datni</string>
     <string name="forbidden_permissions_rename">lai pārdēvētu šo datni</string>
     <string name="foreground_service_upload">Augšupielādē datnes</string>
@@ -322,7 +322,7 @@
     <string name="logs_status_loading">Notiek ielāde...</string>
     <string name="logs_title">Žurnāli</string>
     <string name="manage_space_clear_data">Notīrīt datus</string>
-    <string name="manage_space_description">Iestatījumi, datubāze un servera sertifikāti no %1$s datiem tiks dzēsti pilnībā. \n\nLejupielādētās datnes paliks neskartas.\n\nŠis proces var aizņemt mazliet laika.</string>
+    <string name="manage_space_description">Iestatījumi, datubāze un servera sertifikāti no %1$s datiem tiks neatgriezeniski izdzēsti. \n\nLejupielādētās datnes paliks neskartas.\n\nŠī darbība var aizņemt kādu laiku.</string>
     <string name="manage_space_title">Pārvaldīt vietu</string>
     <string name="media_err_io">Nevarēja nolasīt medija datni</string>
     <string name="media_err_malformed">Multivides datnei nav pareizs kodējums</string>
@@ -344,7 +344,7 @@
     <string name="move_file_error">Radās kļūda, mēģinot pārvietot šo datni vai mapi</string>
     <string name="move_file_invalid_into_descendent">Nav iespējams pārvietot mapi tās apakšmapē</string>
     <string name="move_file_invalid_overwrite">Datne jau pastāv mērķa mapē</string>
-    <string name="network_error_socket_exception">Radās kļūda, mēģinot izveidot savienojumu ar serveri.</string>
+    <string name="network_error_socket_exception">Atgadījās kļūda mēģinot izveidot savienojumu ar serveri.</string>
     <string name="network_host_not_available">Nevarēja pabeigt darbību. Serveris nav pieejams.</string>
     <string name="new_comment">Jauna piebilde…</string>
     <string name="new_media_folder_detected">Atrasta jauna %1$s mape.</string>
@@ -441,7 +441,7 @@
     <string name="rename_server_fail_msg">Pārsaukšana nav iespējama, nosaukums jau izmantots</string>
     <string name="request_account_deletion">Pieprasīt konta dzēšanu</string>
     <string name="restore">Atjaunot datni</string>
-    <string name="restore_button_description">Atjaunot dzēstu datni</string>
+    <string name="restore_button_description">Atjaunot izdzēstu datni</string>
     <string name="restore_item">Atjaunot</string>
     <string name="retry">Mēģināt vēlreiz</string>
     <string name="search_error">Kļūda meklēšanas iznākuma iegūšanā</string>
@@ -534,7 +534,7 @@
     <string name="thisWeek">Šonedēļ</string>
     <string name="today">Šodien</string>
     <string name="trashbin_activity_title">Izdzēstās datnes</string>
-    <string name="trashbin_empty_headline">Nav dzēstu datņu</string>
+    <string name="trashbin_empty_headline">Nav izdzēstu datņu</string>
     <string name="trashbin_file_remove">Neatgriezeniski izdzēst</string>
     <string name="unexpected_error_occurred">Neparedzēta kļūda</string>
     <string name="unset_encrypted">Atstatīt šifrēšanu</string>
@@ -544,7 +544,7 @@
     <string name="updating_share_failed">Koplietojuma atjaunināšana neizdevās</string>
     <string name="upload_action_failed_clear">Notīrīt neizdevušās augšupielādes</string>
     <string name="upload_action_failed_retry">Atkārtot neizdevušās augšupielādes</string>
-    <string name="upload_chooser_title">Augšupielādēts no…</string>
+    <string name="upload_chooser_title">Augšupielādēt no…</string>
     <string name="upload_direct_camera_video">Video</string>
     <string name="upload_file_dialog_filename">Datnes nosaukums</string>
     <string name="upload_file_dialog_filetype">Datnes veids</string>
@@ -597,7 +597,7 @@
     <string name="uploads_view_upload_status_failed_file_error">Datnes kļūda</string>
     <string name="uploads_view_upload_status_failed_folder_error">Mapes kļūda</string>
     <string name="uploads_view_upload_status_failed_localfile_error">Vietējā datne nav atrasta</string>
-    <string name="uploads_view_upload_status_failed_permission_error">Pieejas tiesību kļuda</string>
+    <string name="uploads_view_upload_status_failed_permission_error">Tiesību kļūda</string>
     <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">Neuzticams servera sertifikāts</string>
     <string name="uploads_view_upload_status_fetching_server_version">Iegūst servera versiju…</string>
     <string name="uploads_view_upload_status_service_interrupted">Lietotne aizvērta</string>
