@@ -46,6 +46,7 @@
     <string name="app_widget_description">Zobrazí jeden widget z hlavného panela</string>
     <string name="appbar_search_in">Hľadať v %s</string>
     <string name="assistant_screen_add_task_alert_dialog_title">Pridať novú úlohu</string>
+    <string name="assistant_screen_create_a_new_task_from_bottom_right_text">Vytvorte novú úlohu vpravo dole</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Napíšte nejaký text</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Naozaj chcete vymazať túto úlohu?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Odstrániť úlohu</string>
@@ -55,6 +56,7 @@
     <string name="assistant_screen_task_create_success_message">Úloha bola úspešne vytvorená</string>
     <string name="assistant_screen_task_delete_fail_message">Pri odstraňovaní úlohy nastala chyba</string>
     <string name="assistant_screen_task_delete_success_message">Úloha bola úspešne odstránená</string>
+    <string name="assistant_screen_task_list_empty_message">Zoznam úloh je prázdny.</string>
     <string name="assistant_screen_task_list_error_state_message">Nie je možné načítať zoznam úloh, skontrolujte svoje internetové pripojenie.</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">Vymazať Úlohu</string>
     <string name="assistant_screen_task_output_empty_text">Výstup úlohy ešte nie je dostupný.</string>
@@ -101,6 +103,7 @@
     <string name="auto_upload_gplay_desc2">Z dôvodu nových obmedzení uložených spoločnosťou Google sme boli nútení odstrániť dôležité práva. Výsledkom je, že automatické nahrávanie bude môcť nahrať iba súbory obrázkov a videí.\nOkrem toho sa vyžadujú nové práva pre prístup k informáciám o polohe pre odovzdané obrázky.\nUistite sa, že prístup k médiám je nastavený na „Vždy povoliť všetky“.</string>
     <string name="auto_upload_on_wifi">Nahrávaj iba na neobmedzenom Wi-Fi</string>
     <string name="auto_upload_path">/AutomatickéNahrávanie</string>
+    <string name="auto_upload_sub_folder_warning">Tento adresár je už zahrnutý v synchronizácii nadradeného adresára, čo môže spôsobiť duplicitné nahrávania</string>
     <string name="autoupload_configure">Nastaviť</string>
     <string name="autoupload_create_new_custom_folder">Nastavenie vytvorenia vlastného priečinku</string>
     <string name="autoupload_custom_folder">Nastaviť vlastný priečinok</string>
@@ -200,6 +203,7 @@
     <string name="contacts_backup_button">Zálohuj teraz</string>
     <string name="contacts_preferences_backup_scheduled">Zálohovanie je naplánované a čoskoro sa začne</string>
     <string name="contacts_preferences_import_scheduled">Importovanie je naplánované a čoskoro sa začne</string>
+    <string name="contacts_preferences_import_scheduled_fail">Spustenie mportu zlyhalo. Prosím skúste to znova</string>
     <string name="contacts_preferences_no_file_found">Nenašiel sa žiadny súbor</string>
     <string name="contacts_preferences_something_strange_happened">Nenašla sa posledná záloha!</string>
     <string name="copied_to_clipboard">Skopírované do schránky</string>
@@ -910,8 +914,10 @@
     <string name="subtitle_videos_only">Iba videá</string>
     <string name="suggest">Navrhnúť</string>
     <string name="sync">Synchronizovať</string>
+    <string name="sync_anyway">Aj napriek tomu synchronizovať</string>
     <string name="sync_conflicts_in_favourites_ticker">Objavené konflikty</string>
     <string name="sync_current_folder_was_removed">Adresár %1$s už neexistuje</string>
+    <string name="sync_duplication">Synchronizovať duplikáty</string>
     <string name="sync_fail_content">Nepodarilo sa synchronizovať %1$s</string>
     <string name="sync_fail_content_unauthorized">Chybné heslo pre %1$s</string>
     <string name="sync_fail_in_favourites_ticker">Automatická synchronizácia súborov zlyhala</string>
@@ -928,6 +934,7 @@
     <string name="sync_not_enough_space_dialog_title">Nedostatok miesta</string>
     <string name="sync_status_button">Tlačidlo stavu synchronizácie</string>
     <string name="sync_string_files">Súbory</string>
+    <string name="sync_warning_button">Tlačidlo upozornenia na synchronizáciu</string>
     <string name="synced_folder_settings_button">Tlačidlo nastavenia</string>
     <string name="synced_folders_configure_folders">Nastavenie priečinkov</string>
     <string name="synced_folders_new_info">Okamžité nahrávanie bolo kompletne prepracované.  Zmente si nastavenie automatického nahrávania cez hlavné menu.\n\nUžite si nové a rozšírene možnosti automatického nahrávania.</string>

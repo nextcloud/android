@@ -46,6 +46,7 @@
     <string name="app_widget_description">顯示儀表板中的一個小工具</string>
     <string name="appbar_search_in">搜尋 %s</string>
     <string name="assistant_screen_add_task_alert_dialog_title">新增任務</string>
+    <string name="assistant_screen_create_a_new_task_from_bottom_right_text">從右下角建立新任務</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">輸入一些文字</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">您確定要刪除此工作項目嗎？</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">刪除工作項目</string>
@@ -55,6 +56,7 @@
     <string name="assistant_screen_task_create_success_message">已成功建立工作項目</string>
     <string name="assistant_screen_task_delete_fail_message">刪除工作項目時發生錯誤</string>
     <string name="assistant_screen_task_delete_success_message">已成功刪除工作項目</string>
+    <string name="assistant_screen_task_list_empty_message">任務清單為空。</string>
     <string name="assistant_screen_task_list_error_state_message">無法擷取工作項目清單，請檢查您的網際網路連線。</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">刪除工作項目</string>
     <string name="assistant_screen_task_output_empty_text">任務輸出尚未就緒。</string>
@@ -101,6 +103,7 @@
     <string name="auto_upload_gplay_desc2">由於 Google 施加了新的限制，我們不得不移除一個重要的權限。因此，自動上傳將只能上傳圖片與視訊檔案。此外，還需要新的權限才能存取上傳圖片的位置資訊。</string>
     <string name="auto_upload_on_wifi">只在非計量收費的 Wi-Fi 上傳</string>
     <string name="auto_upload_path">/AutoUpload</string>
+    <string name="auto_upload_sub_folder_warning">此資料夾已包含在上層資料夾的同步中，這可能會導致重複上傳</string>
     <string name="autoupload_configure">設定</string>
     <string name="autoupload_create_new_custom_folder">新增自訂資料夾</string>
     <string name="autoupload_custom_folder">設置自訂資料夾</string>
@@ -200,6 +203,7 @@
     <string name="contacts_backup_button">立刻備份</string>
     <string name="contacts_preferences_backup_scheduled">備份已排定並且會盡快開始</string>
     <string name="contacts_preferences_import_scheduled">匯入已排定並且會盡快開始</string>
+    <string name="contacts_preferences_import_scheduled_fail">匯入無法開始。請再試一次</string>
     <string name="contacts_preferences_no_file_found">找不到檔案</string>
     <string name="contacts_preferences_something_strange_happened">找不到您最新的備份！</string>
     <string name="copied_to_clipboard">已複製到剪貼簿</string>
@@ -910,8 +914,10 @@
     <string name="subtitle_videos_only">僅限影片</string>
     <string name="suggest">建議</string>
     <string name="sync">同步</string>
+    <string name="sync_anyway">仍要同步</string>
     <string name="sync_conflicts_in_favourites_ticker">出現衝突</string>
     <string name="sync_current_folder_was_removed">資料夾 %1$s 已不存在</string>
+    <string name="sync_duplication">重複同步</string>
     <string name="sync_fail_content">無法同步 %1$s</string>
     <string name="sync_fail_content_unauthorized">%1$s 的密碼錯誤</string>
     <string name="sync_fail_in_favourites_ticker">保持同步檔案失敗</string>
@@ -928,6 +934,7 @@
     <string name="sync_not_enough_space_dialog_title">沒有足夠空間</string>
     <string name="sync_status_button">同步狀態按鈕</string>
     <string name="sync_string_files">檔案</string>
+    <string name="sync_warning_button">同步警告按鈕</string>
     <string name="synced_folder_settings_button">設定按鈕</string>
     <string name="synced_folders_configure_folders">設定資料夾</string>
     <string name="synced_folders_new_info">即時上傳已經完全改版。請在主選單中重新設定自動上傳。\n\n享受全新且強大的自動上傳吧。</string>

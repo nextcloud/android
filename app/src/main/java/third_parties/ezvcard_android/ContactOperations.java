@@ -10,16 +10,23 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.OperationApplicationException;
 import android.graphics.Bitmap;
+import android.os.Build;
 import android.os.RemoteException;
 import android.provider.ContactsContract;
 
+import com.nextcloud.utils.date.DateFormatPattern;
+import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.utils.DisplayUtils;
 
 import java.io.ByteArrayOutputStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.Temporal;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -56,6 +63,7 @@ public class ContactOperations {
 
     private final Context context;
     private final NonEmptyContentValues account;
+    private final String tag = "ContactOperations";
 
     public ContactOperations(Context context) {
         this(context, null, null);
@@ -450,11 +458,12 @@ public class ContactOperations {
     }
 
     private void convertBirthdays(List<NonEmptyContentValues> contentValues, VCard vcard) {
-        @SuppressLint("SimpleDateFormat")
-        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        final var df = new BirthdayDateFormatter();
+
         for (Birthday birthday : vcard.getBirthdays()) {
             Temporal date = birthday.getDate();
             if (date == null) {
+                Log_OC.d(tag,"date is null LocalDate skipping");
                 continue;
             }
 
@@ -462,6 +471,52 @@ public class ContactOperations {
             cv.put(ContactsContract.CommonDataKinds.Event.TYPE, ContactsContract.CommonDataKinds.Event.TYPE_BIRTHDAY);
             cv.put(ContactsContract.CommonDataKinds.Event.START_DATE, df.format(date));
             contentValues.add(cv);
+        }
+    }
+
+    /**
+     * A formatter class to handle the formatting of birthday dates across different Android versions.
+     * This class ensures that:
+     * - For API levels below 26, SimpleDateFormat is used to format dates.
+     * - For API levels 26 and above, DateTimeFormatter is used.
+     * <p>
+     * It also handles the issue where a `java.lang.IllegalArgumentException: Cannot format given Object as a Date`
+     * can be thrown when trying to format a `Temporal` object (e.g., `LocalDate`) directly using `SimpleDateFormat`.
+     * <p>
+     * In the future (post-Android O), this class can be removed entirely, and only DateTimeFormatter should be used.
+     */
+    private static class BirthdayDateFormatter {
+        private final Object formatter = getDateFormatter();
+
+        @SuppressLint("SimpleDateFormat")
+        private Object getDateFormatter() {
+            String pattern = "yyyy-MM-dd";
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                return DateTimeFormatter.ofPattern(pattern)
+                    .withZone(ZoneId.systemDefault());
+            } else {
+                return new SimpleDateFormat(pattern);
+            }
+        }
+
+        public String format(Temporal date) {
+            if (date == null) {
+                return "";
+            }
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && formatter instanceof DateTimeFormatter dateTimeFormatter) {
+                return dateTimeFormatter.format(date);
+            } else if (formatter instanceof SimpleDateFormat simpleDateFormat) {
+                try {
+                    return simpleDateFormat.format(date);
+                } catch (Throwable t) {
+                    Log_OC.d("BirthdayDateFormatter","Exception convertBirthdays: " + t);
+                    return date.toString();
+                }
+            }
+
+            return "";
         }
     }
 

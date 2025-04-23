@@ -89,6 +89,8 @@ import com.owncloud.android.ui.dialog.SslUntrustedCertDialog;
 import com.owncloud.android.ui.fragment.FileDetailFragment;
 import com.owncloud.android.ui.fragment.FileDetailSharingFragment;
 import com.owncloud.android.ui.fragment.OCFileListFragment;
+import com.owncloud.android.ui.fragment.filesRepository.FilesRepository;
+import com.owncloud.android.ui.fragment.filesRepository.RemoteFilesRepository;
 import com.owncloud.android.ui.helpers.FileOperationsHelper;
 import com.owncloud.android.ui.preview.PreviewImageActivity;
 import com.owncloud.android.utils.ClipboardUtil;
@@ -183,6 +185,8 @@ public abstract class FileActivity extends DrawerActivity
 
     private NetworkChangeReceiver networkChangeReceiver;
 
+    private FilesRepository filesRepository;
+
     private void registerNetworkChangeReceiver() {
         IntentFilter filter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
         registerReceiver(networkChangeReceiver, filter);
@@ -241,6 +245,8 @@ public abstract class FileActivity extends DrawerActivity
         bindService(new Intent(this, OperationsService.class), mOperationsServiceConnection,
                     Context.BIND_AUTO_CREATE);
         registerNetworkChangeReceiver();
+
+        filesRepository = new RemoteFilesRepository(getClientRepository(), this);
     }
 
     @Override
@@ -976,5 +982,9 @@ public abstract class FileActivity extends DrawerActivity
             return (FileDetailFragment) fragment;
         }
         return null;
+    }
+
+    public FilesRepository getFilesRepository() {
+        return filesRepository;
     }
 }

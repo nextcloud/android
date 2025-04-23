@@ -46,6 +46,7 @@
     <string name="app_widget_description">显示仪表盘中的一个小部件</string>
     <string name="appbar_search_in">在 %s 中搜索</string>
     <string name="assistant_screen_add_task_alert_dialog_title">添加新任务</string>
+    <string name="assistant_screen_create_a_new_task_from_bottom_right_text">从右下角创建新任务</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">输入一些文字</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">您确定要删除这些任务吗？</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">删除任务</string>
@@ -55,6 +56,7 @@
     <string name="assistant_screen_task_create_success_message">任务已创建</string>
     <string name="assistant_screen_task_delete_fail_message">删除任务时发生错误</string>
     <string name="assistant_screen_task_delete_success_message">任务已删除</string>
+    <string name="assistant_screen_task_list_empty_message">任务列表为空。</string>
     <string name="assistant_screen_task_list_error_state_message">无法获取任务列表，请检查你的互联网连接。</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">删除任务</string>
     <string name="assistant_screen_task_output_empty_text">任务输出尚未就绪。</string>
@@ -101,6 +103,7 @@
     <string name="auto_upload_gplay_desc2">由于 Google 新的限制，我们不得不移除一个重要权限。因此，自动上传将只能上传图片或视频文件。\n此外，还需要新的权限才能访问上传影像的定位信息。\n确保媒体访问权限设置为“总是允许所有”。</string>
     <string name="auto_upload_on_wifi">仅通过无流量限制的 Wi-Fi 上传</string>
     <string name="auto_upload_path">/自动上传</string>
+    <string name="auto_upload_sub_folder_warning">此文件夹已包含在上级文件夹的同步中，这可能会导致重复上传</string>
     <string name="autoupload_configure">配置</string>
     <string name="autoupload_create_new_custom_folder">创建新的自定义文件夹设定</string>
     <string name="autoupload_custom_folder">设置一个自定义文件夹</string>
@@ -200,6 +203,7 @@
     <string name="contacts_backup_button">现在备份</string>
     <string name="contacts_preferences_backup_scheduled">备份已经排期，稍后将开始</string>
     <string name="contacts_preferences_import_scheduled">导入已经排期，稍后将开始</string>
+    <string name="contacts_preferences_import_scheduled_fail">导入无法开始。请重试</string>
     <string name="contacts_preferences_no_file_found">没有文件被发现</string>
     <string name="contacts_preferences_something_strange_happened">无法找到末次备份</string>
     <string name="copied_to_clipboard">复制到剪贴板</string>
@@ -243,7 +247,7 @@
     <string name="dismiss">忽略</string>
     <string name="dismiss_notification_description">忽略通知</string>
     <string name="displays_mnemonic">显示您的 12 个单词的密码短语</string>
-    <string name="dnd">请勿打扰</string>
+    <string name="dnd">勿扰</string>
     <string name="document_scan_export_dialog_images">多选图片</string>
     <string name="document_scan_export_dialog_pdf">PDF 文件</string>
     <string name="document_scan_export_dialog_title">选择导出类型</string>
@@ -545,12 +549,12 @@
     <string name="manage_space_clear_data">清除数据</string>
     <string name="manage_space_description">来自%1$s数据的设置，数据库和服务器证书将被永久删除。\n\n下载的文件将保持不变。\n\n此过程可能需要一段时间。</string>
     <string name="manage_space_title">管理空间</string>
-    <string name="max_file_count_warning_message">你已达到最多文件上传限制。请一次上传少于 500 个文件。</string>
-    <string name="media_err_invalid_progressive_playback">此媒体文件无法被流播放</string>
+    <string name="max_file_count_warning_message">你已达到文件上传数量限制，单次请勿超过500个文件。</string>
+    <string name="media_err_invalid_progressive_playback">此媒体文件无法流播</string>
     <string name="media_err_io">无法读取媒体文件</string>
     <string name="media_err_malformed">媒体文件的编码不正确</string>
     <string name="media_err_timeout">尝试播放文件超时</string>
-    <string name="media_err_unknown">默认的媒体播放器无法播放该媒体文件</string>
+    <string name="media_err_unknown">内置媒体播放器无法播放该媒体文件</string>
     <string name="media_err_unsupported">不支持的媒体编码格式</string>
     <string name="media_forward_description">快进按钮</string>
     <string name="media_notif_ticker">%1$s 音乐播放器</string>
@@ -565,7 +569,7 @@
     <string name="menu_item_sort_by_size_smallest_first">小文件在前</string>
     <string name="more">更多</string>
     <string name="move_file_error">尝试移动该文件或文件夹时发生错误</string>
-    <string name="move_file_invalid_into_descendent">将文件夹移动到其自己的底层文件夹中是不可能的</string>
+    <string name="move_file_invalid_into_descendent">不能将文件夹移动至其子文件夹中。</string>
     <string name="move_file_invalid_overwrite">该文件已存在于目标文件夹中</string>
     <string name="move_file_not_found">无法移动文件。 请检查该文件是否存在。</string>
     <string name="network_error_connect_timeout_exception">等待服务器时发生错误。 无法完成操作。</string>
@@ -591,13 +595,13 @@
     <string name="note_could_not_sent">无法发送笔记</string>
     <string name="note_icon_hint">笔记图标</string>
     <string name="notification_action_failed">执行动作失败。</string>
-    <string name="notification_channel_background_operations_description">显示通知以交互后台操作的结果</string>
+    <string name="notification_channel_background_operations_description">显示通知以便与后台操作的结果交互</string>
     <string name="notification_channel_background_operations_name">后台操作</string>
     <string name="notification_channel_download_description">显示下载进度</string>
     <string name="notification_channel_download_name_short">下载</string>
     <string name="notification_channel_file_sync_description">显示文件同步进度和结果</string>
     <string name="notification_channel_file_sync_name">文件同步</string>
-    <string name="notification_channel_general_description">有新消息时显示通知</string>
+    <string name="notification_channel_general_description">有新媒体目录或类似消息时显示通知</string>
     <string name="notification_channel_general_name">通用提醒</string>
     <string name="notification_channel_media_description">音乐播放器进度</string>
     <string name="notification_channel_media_name">多媒体播放器</string>
@@ -606,8 +610,8 @@
     <string name="notification_channel_upload_description">显示上传进度 </string>
     <string name="notification_channel_upload_name_short">上传</string>
     <string name="notification_icon">通知图标</string>
-    <string name="notification_icon_description">存在未读通知</string>
-    <string name="notifications_no_results_headline">没有提示</string>
+    <string name="notification_icon_description">有未读通知</string>
+    <string name="notifications_no_results_headline">没有通知</string>
     <string name="notifications_no_results_message">请稍后核对</string>
     <string name="oc_file_list_adapter_offline_operation_description_text">待处理操作</string>
     <string name="oc_file_list_adapter_offline_operation_remove_description_text">待定移除操作</string>
@@ -639,7 +643,7 @@
     <string name="pdf_zoom_tip">点击页面以放大</string>
     <string name="permission_allow">允许</string>
     <string name="permission_deny">禁止</string>
-    <string name="permission_storage_access">上传和下载文件所需的其他权限。</string>
+    <string name="permission_storage_access">上传和下载文件需要额外权限。</string>
     <string name="pick_contact_to_share_with">选择需要分享的联系人</string>
     <string name="picture_set_as_no_app">找不到可以设置图片的应用程序</string>
     <string name="pin_home">固定到主屏幕</string>
@@ -933,8 +937,10 @@ Nextcloud 是一个私有文件同步、共享和通信服务器。它是自由�
     <string name="subtitle_videos_only">仅视频</string>
     <string name="suggest">建议</string>
     <string name="sync">同步</string>
+    <string name="sync_anyway">仍要同步</string>
     <string name="sync_conflicts_in_favourites_ticker">发现冲突</string>
     <string name="sync_current_folder_was_removed">文件夹%1$s不再存在</string>
+    <string name="sync_duplication">同步重复</string>
     <string name="sync_fail_content">无法完成 %1$s 的同步</string>
     <string name="sync_fail_content_unauthorized">%1$s 的密码错误</string>
     <string name="sync_fail_in_favourites_ticker">文件同步失败</string>
@@ -951,6 +957,7 @@ Nextcloud 是一个私有文件同步、共享和通信服务器。它是自由�
     <string name="sync_not_enough_space_dialog_title">没有足够的空间</string>
     <string name="sync_status_button">同步状态按钮</string>
     <string name="sync_string_files">文件</string>
+    <string name="sync_warning_button">同步警告按钮</string>
     <string name="synced_folder_settings_button">设置按钮</string>
     <string name="synced_folders_configure_folders">配置文件夹</string>
     <string name="synced_folders_new_info">即时上传已被彻底修改。 从主菜单中重新配置自动上传。\n\n请享受新的可扩展的自动上传。</string>

@@ -85,7 +85,7 @@ public class FileDetailActivitiesFragment extends Fragment implements
     private OCFile file;
     private User user;
 
-    private int lastGiven;
+    private long lastGiven;
     private boolean isLoadingActivities;
     private boolean isDataFetched = false;
 
@@ -255,9 +255,9 @@ public class FileDetailActivitiesFragment extends Fragment implements
     }
 
     /**
-     * @param lastGiven int; -1 to disable
+     * @param lastGiven long; -1 to disable
      */
-    private void fetchAndSetData(int lastGiven) {
+    private void fetchAndSetData(long lastGiven) {
         final FragmentActivity activity = getActivity();
 
         if (activity == null) {
@@ -268,9 +268,7 @@ public class FileDetailActivitiesFragment extends Fragment implements
         final User user = accountManager.getUser();
 
         if (user.isAnonymous()) {
-            activity.runOnUiThread(() -> {
-                setEmptyContent(getString(R.string.common_error), getString(R.string.file_detail_activity_error));
-            });
+            activity.runOnUiThread(() -> setEmptyContent(getString(R.string.common_error), getString(R.string.file_detail_activity_error)));
             return;
         }
         
@@ -294,14 +292,14 @@ public class FileDetailActivitiesFragment extends Fragment implements
                 }
 
                 Log_OC.d(TAG, "BEFORE getRemoteActivitiesOperation.execute");
-                RemoteOperationResult result = nextcloudClient.execute(getRemoteNotificationOperation);
+                final var result = nextcloudClient.execute(getRemoteNotificationOperation);
 
                 ArrayList<Object> versions = null;
                 if (restoreFileVersionSupported) {
                     ReadFileVersionsRemoteOperation readFileVersionsOperation = new ReadFileVersionsRemoteOperation(
                         file.getLocalId());
 
-                    RemoteOperationResult result1 = readFileVersionsOperation.execute(ownCloudClient);
+                    final var result1 = readFileVersionsOperation.execute(ownCloudClient);
 
                     if (result1.isSuccess()) {
                         versions = result1.getData();
@@ -312,7 +310,7 @@ public class FileDetailActivitiesFragment extends Fragment implements
                     final List<Object> data = result.getData();
                     final List<Object> activitiesAndVersions = (ArrayList) data.get(0);
 
-                    this.lastGiven = (int) data.get(1);
+                    this.lastGiven = (long) data.get(1);
 
                     if (activitiesAndVersions.isEmpty()) {
                         this.lastGiven = END_REACHED;
@@ -331,8 +329,8 @@ public class FileDetailActivitiesFragment extends Fragment implements
                     isDataFetched = true;
                 } else {
                     Log_OC.d(TAG, result.getLogMessage());
-                    // show error
-                    String logMessage = result.getLogMessage(requireContext());
+
+                    String logMessage = result.getLogMessage(activity);
                     if (result.getHttpCode() == HttpStatus.SC_NOT_MODIFIED) {
                         logMessage = getString(R.string.activities_no_results_message);
                     }

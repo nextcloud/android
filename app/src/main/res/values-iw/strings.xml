@@ -10,6 +10,7 @@
     <string name="action_edit">עריכה</string>
     <string name="action_empty_notifications">פינוי כל ההתראות</string>
     <string name="action_empty_trashbin">פינוי סל האשפה</string>
+    <string name="action_send_share">שליחה/שיתוף</string>
     <string name="action_switch_grid_view">תצוגת טבלה</string>
     <string name="action_switch_list_view">תצוגת רשימה</string>
     <string name="actionbar_mkdir">תיקייה חדשה</string>
