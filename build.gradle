@@ -10,14 +10,14 @@
  */
 buildscript {
     ext {
-        androidLibraryVersion ="052a1b2d79aa1c78fe86932121845e9f8bae4fd0"
+        androidLibraryVersion ="bf81b54139e8a043e55aa10d04dc47d90d301bcf"
         androidCommonLibraryVersion = "0.25.0"
         androidPluginVersion = "8.9.1"
         androidxMediaVersion = "1.5.1"
         androidxTestVersion = "1.6.1"
         appCompatVersion = "1.7.0"
         checkerVersion = "3.21.2"
-        daggerVersion = "2.56.1"
+        daggerVersion = "2.56.2"
         documentScannerVersion = "1.1.1"
         espressoVersion = "3.6.1"
         jacoco_version = "0.8.13"

@@ -495,7 +495,7 @@
     <string name="image_editor_flip_horizontal">Virar horizontalmente</string>
     <string name="image_editor_flip_vertical">Virar verticalmente</string>
     <string name="image_editor_rotate_ccw">Girar no sentido anti-horário</string>
-    <string name="image_editor_rotate_cw">Rotacionar no sentido dos ponteiros do relógio</string>
+    <string name="image_editor_rotate_cw">Girar no sentido horário</string>
     <string name="image_editor_unable_to_edit_image">Não foi possível editar a imagem.</string>
     <string name="image_preview_filedetails">Detalhes do arquivo</string>
     <string name="image_preview_image_taking_conditions">Condições de captura de imagens</string>
@@ -549,7 +549,7 @@
     <string name="manage_space_clear_data">Limpar dados</string>
     <string name="manage_space_description">Configurações, banco de dados e certificados do servidor de dados de %1$s serão excluídos permanentemente.\n\nArquivos baixados serão mantidos intocados.\n\nEste processo pode levar um tempo.</string>
     <string name="manage_space_title">Gerenciar o espaço</string>
-    <string name="max_file_count_warning_message">Você atingiu o limite máximo de upload de arquivos. Envie menos de 500 arquivos por vez.</string>
+    <string name="max_file_count_warning_message">Você atingiu o limite máximo de upload de arquivos. Por favor, envie menos de 500 arquivos por vez.</string>
     <string name="media_err_invalid_progressive_playback">O arquivo de mídia não pode ser transmitido </string>
     <string name="media_err_io">Não foi possível ler o arquivo de mídia</string>
     <string name="media_err_malformed">O arquivo de mídia tem uma codificação incorreta</string>
@@ -670,7 +670,7 @@
     <string name="prefs_calendar_contacts">Sincronizar calendário e contatos</string>
     <string name="prefs_calendar_contacts_no_store_error">Nem o F-Droid nem o Google Play estão instalados</string>
     <string name="prefs_calendar_contacts_summary">Configurar DAVx5 (conhecido como DAVdroid) (v1.3.0+) para a conta atual</string>
-    <string name="prefs_calendar_contacts_sync_setup_successful">Configuração de sincronização de calendário e contatos</string>
+    <string name="prefs_calendar_contacts_sync_setup_successful">Sincronização de calendário e contatos configurada</string>
     <string name="prefs_category_about">Sobre</string>
     <string name="prefs_category_details">Detalhes</string>
     <string name="prefs_category_dev">Desenvolvimento</string>
@@ -678,11 +678,11 @@
     <string name="prefs_category_more">Mais</string>
     <string name="prefs_category_sync">Sincronização</string>
     <string name="prefs_daily_backup_summary">Backup diário do seu calendário e contatos</string>
-    <string name="prefs_daily_contact_backup_summary">Backup diário de seus contatos</string>
+    <string name="prefs_daily_contact_backup_summary">Backup diário dos seus contatos</string>
     <string name="prefs_data_storage_location">Local de armazenamento de dados</string>
     <string name="prefs_data_storage_location_summary">Gerenciar o local de armazenamento de dados</string>
     <string name="prefs_davx5_setup_error">Erro inesperado ao configurar o DAVx5 (anteriormente conhecido como DAVdroid)</string>
-    <string name="prefs_e2e_active">A criptografia de ponta a ponta está configurada!</string>
+    <string name="prefs_e2e_active">A criptografia de ponta-a-ponta está configurada!</string>
     <string name="prefs_e2e_mnemonic">Mnemônico E2E</string>
     <string name="prefs_e2e_no_device_credentials">Para exibir o mnemônico, ative as credenciais do dispositivo.</string>
     <string name="prefs_enable_media_scan_notifications">Exibir notificações de varredura de mídia</string>
@@ -697,7 +697,7 @@
     <string name="prefs_instant_upload_path_use_date_subfolders_summary">Armazene em subpastas com base na data</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Usar subpastas</string>
     <string name="prefs_instant_upload_subfolder_rule_title">Opções de subpasta</string>
-    <string name="prefs_keys_exist">Adicionar criptografia de ponta a ponta a este cliente</string>
+    <string name="prefs_keys_exist">Adicionar criptografia de ponta-a-ponta a este cliente</string>
     <string name="prefs_license">Licença</string>
     <string name="prefs_lock">Senha do aplicativo</string>
     <string name="prefs_lock_device_credentials_enabled">Credenciais de dispositivo ativadas</string>
@@ -709,7 +709,7 @@
     <string name="prefs_manage_accounts">Gerenciar contas</string>
     <string name="prefs_recommend">Recomendar a um amigo</string>
     <string name="prefs_remove_e2e">Remova a criptografia localmente</string>
-    <string name="prefs_setup_e2e">Configurar criptografia de ponta a ponta</string>
+    <string name="prefs_setup_e2e">Configurar criptografia de ponta-a-ponta</string>
     <string name="prefs_show_ecosystem_apps">Mostrar alternador de aplicativos</string>
     <string name="prefs_show_ecosystem_apps_summary">Sugestões de aplicativos Nextcloud no título de navegação</string>
     <string name="prefs_show_hidden_files">Mostrar arquivos ocultos</string>
@@ -828,7 +828,7 @@
     <string name="share_not_allowed_when_file_drop">Não é permitido compartilhar novamente durante o depósito de arquivos seguro</string>
     <string name="share_password_title">Protegido por senha</string>
     <string name="share_permission_can_edit">Pode editar</string>
-    <string name="share_permission_file_drop">Baixar Arquivo </string>
+    <string name="share_permission_file_drop">Depósito de arquivos</string>
     <string name="share_permission_secure_file_drop">Depósito de arquivos seguro</string>
     <string name="share_permission_view_only">Somente visualização </string>
     <string name="share_permissions">Permissões de compartilhamento</string>
@@ -917,7 +917,7 @@
     <string name="sync_anyway">Sincronizar mesmo assim</string>
     <string name="sync_conflicts_in_favourites_ticker">Conflitos encontrados</string>
     <string name="sync_current_folder_was_removed">A pasta %1$s não existe mais</string>
-    <string name="sync_duplication">Duplicação de sincronização</string>
+    <string name="sync_duplication">Sincronizar duplicação</string>
     <string name="sync_fail_content">Não foi possível sincronizar %1$s</string>
     <string name="sync_fail_content_unauthorized">Senha incorreta para %1$s</string>
     <string name="sync_fail_in_favourites_ticker">Falha ao manter arquivos sincronizados</string>
@@ -993,7 +993,7 @@
     <string name="upload_cannot_create_file">Não foi possível criar o arquivo local</string>
     <string name="upload_chooser_title">Enviar de…</string>
     <string name="upload_content_from_other_apps">Enviar conteúdo de outros aplicativos</string>
-    <string name="upload_direct_camera_photo">Fotografia</string>
+    <string name="upload_direct_camera_photo">Foto</string>
     <string name="upload_direct_camera_promt">Quer tirar uma foto ou gravar um vídeo?</string>
     <string name="upload_direct_camera_upload">Enviar da câmera</string>
     <string name="upload_direct_camera_video">Vídeo</string>
