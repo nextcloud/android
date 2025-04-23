@@ -345,7 +345,7 @@ dependencies {
     huaweiImplementation project(":appscan")
     qaImplementation project(":appscan")
 
-    spotbugsPlugins "com.h3xstream.findsecbugs:findsecbugs-plugin:1.13.0"
+    spotbugsPlugins "com.h3xstream.findsecbugs:findsecbugs-plugin:1.14.0"
     spotbugsPlugins "com.mebigfatguy.fb-contrib:fb-contrib:7.6.9"
 
     implementation "com.google.dagger:dagger:$daggerVersion"
