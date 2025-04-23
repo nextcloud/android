@@ -8,11 +8,6 @@
          <trust group="com.fasterxml.jackson" name="jackson-base" version="2.14.2" reason="no keys available, no pom artifact to create a checksum"/>
          <trust file=".*-sources[.]jar" regex="true"/>
       </trusted-artifacts>
-      <ignored-keys>
-         <ignored-key id="23778689FBFBE047" reason="Key couldn't be downloaded from any key server"/>
-         <ignored-key id="5C504E1210E49773" reason="Key couldn't be downloaded from any key server"/>
-         <ignored-key id="F13D3E721D56BD54" reason="Key couldn't be downloaded from any key server"/>
-      </ignored-keys>
       <trusted-keys>
          <trusted-key id="015479E1055341431B4545AB72475FD306B9CAB7" group="com.googlecode.javaewah" name="JavaEWAH" version="1.2.3"/>
          <trusted-key id="042B29E928995B9DB963C636C7CA19B7B620D787" group="com.github.stephenc.jcip" name="jcip-annotations" version="1.0-1"/>
