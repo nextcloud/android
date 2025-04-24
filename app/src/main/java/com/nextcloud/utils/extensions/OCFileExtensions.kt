@@ -7,16 +7,18 @@
 
 package com.nextcloud.utils.extensions
 
+import com.owncloud.android.MainApp
 import com.owncloud.android.datamodel.OCFile
+import com.owncloud.android.utils.FileStorageUtils
 
 fun List<OCFile>.filterFilenames(): List<OCFile> = distinctBy { it.fileName }
 
 fun List<OCFile>.filterTempFilter(): List<OCFile> = filterNot { it.isTempFile() }
 
 fun OCFile.isTempFile(): Boolean {
-    return storagePath
-        ?.split(OCFile.PATH_SEPARATOR)
-        ?.any { it.isNotEmpty() && StringConstants.TEMP.contains(it.lowercase()) } == true
+    val context = MainApp.getAppContext()
+    val appTempPath = FileStorageUtils.getAppTempDirectoryPath(context)
+    return storagePath?.startsWith(appTempPath) == true
 }
 
 fun List<OCFile>.filterHiddenFiles(): List<OCFile> = filterNot { it.isHidden }.distinct()
