@@ -329,9 +329,11 @@ public class SynchronizeFolderOperation extends SyncOperation {
                                                  (DecryptedFolderMetadataFileV1) object,
                                                  updatedFile);
             } else {
-                RefreshFolderOperation.updateFileNameForEncryptedFile(storageManager,
-                                               (DecryptedFolderMetadataFile) object,
-                                               updatedFile);
+                if (object != null) {
+                    RefreshFolderOperation.updateFileNameForEncryptedFile(storageManager,
+                                                                          (DecryptedFolderMetadataFile) object,
+                                                                          updatedFile);
+                }
             }
 
             // we parse content, so either the folder itself or its direct parent (which we check) must be encrypted
