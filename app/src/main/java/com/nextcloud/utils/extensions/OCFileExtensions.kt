@@ -11,7 +11,7 @@ import com.owncloud.android.datamodel.OCFile
 
 fun List<OCFile>.filterFilenames(): List<OCFile> = distinctBy { it.fileName }
 
-fun List<OCFile>.filterTempFilter(): List<OCFile> = filterNot { it.isTempFile() }.distinct()
+fun List<OCFile>.filterTempFilter(): List<OCFile> = filterNot { it.isTempFile() }
 
 fun OCFile.isTempFile(): Boolean {
     return storagePath
