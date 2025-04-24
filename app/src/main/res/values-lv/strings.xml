@@ -602,6 +602,7 @@
     <string name="uploads_view_upload_status_fetching_server_version">Iegūst servera versiju…</string>
     <string name="uploads_view_upload_status_service_interrupted">Lietotne aizvērta</string>
     <string name="uploads_view_upload_status_succeeded">Pabeigts</string>
+    <string name="uploads_view_upload_status_succeeded_same_file">Atrasta tāda pati attālā datne, izlaiž augšupielādi</string>
     <string name="uploads_view_upload_status_unknown_fail">Nezināma kļūda</string>
     <string name="uploads_view_upload_status_virus_detected">Atrasts Vīruss. Augšupielādi nevar pabeigt!</string>
     <string name="uploads_view_upload_status_waiting_exit_power_save_mode">Gaida lai izietu no enerģijas taupīšanas režīma</string>
