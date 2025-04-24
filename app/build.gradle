@@ -345,7 +345,7 @@ dependencies {
     huaweiImplementation project(":appscan")
     qaImplementation project(":appscan")
 
-    spotbugsPlugins "com.h3xstream.findsecbugs:findsecbugs-plugin:1.13.0"
+    spotbugsPlugins "com.h3xstream.findsecbugs:findsecbugs-plugin:1.14.0"
     spotbugsPlugins "com.mebigfatguy.fb-contrib:fb-contrib:7.6.9"
 
     implementation "com.google.dagger:dagger:$daggerVersion"
@@ -425,7 +425,7 @@ dependencies {
     implementation "com.github.stateless4j:stateless4j:2.6.0"
 
     // upon each update first test: new registration, receive push
-    gplayImplementation "com.google.firebase:firebase-messaging:24.1.0"
+    gplayImplementation "com.google.firebase:firebase-messaging:24.1.1"
     gplayImplementation "com.google.android.gms:play-services-base:18.5.0"
     gplayImplementation "com.google.android.play:review-ktx:2.0.2"
 
