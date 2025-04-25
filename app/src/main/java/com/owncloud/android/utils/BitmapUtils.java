@@ -109,7 +109,7 @@ public final class BitmapUtils {
     public static Bitmap decodeSampledBitmapFromFile(String srcPath, int reqWidth, int reqHeight) {
         final var file = new File(srcPath);
         if (!file.exists()) {
-            Log_OC.w(TAG, "File does not exists, returning null");
+            Log_OC.e(TAG, "File does not exists, returning null");
             return null;
         }
 
