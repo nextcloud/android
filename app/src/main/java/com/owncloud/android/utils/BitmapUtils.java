@@ -77,27 +77,21 @@ public final class BitmapUtils {
     }
 
     @RequiresApi(Build.VERSION_CODES.P)
-    private static Bitmap decodeSampledBitmapViaImageDecoder(String srcPath, int reqWidth, int reqHeight) {
+    private static Bitmap decodeSampledBitmapViaImageDecoder(@NonNull File file, int reqWidth, int reqHeight) {
         try {
             Log_OC.i(TAG, "Decoding Bitmap via ImageDecoder");
 
-            final var file = new File(srcPath);
-            if (file.exists()) {
-                final var imageDecoderSource = ImageDecoder.createSource(file);
-                final var onDecoderListener = new ImageDecoder.OnHeaderDecodedListener() {
-                    @Override
-                    public void onHeaderDecoded(@NonNull ImageDecoder decoder, @NonNull ImageDecoder.ImageInfo info, @NonNull ImageDecoder.Source source) {
-                        decoder.setTargetSize(reqWidth, reqHeight);
-                    }
-                };
-                return ImageDecoder.decodeBitmap(imageDecoderSource, onDecoderListener);
-            }
+            final var imageDecoderSource = ImageDecoder.createSource(file);
+            final var onDecoderListener = new ImageDecoder.OnHeaderDecodedListener() {
+                @Override
+                public void onHeaderDecoded(@NonNull ImageDecoder decoder, @NonNull ImageDecoder.ImageInfo info, @NonNull ImageDecoder.Source source) {
+                    decoder.setTargetSize(reqWidth, reqHeight);
+                }
+            };
 
-            Log_OC.w(TAG, "File does not exists: " + srcPath + " BitmapFactory.decodeFile will be used");
-
-            return null;
+            return ImageDecoder.decodeBitmap(imageDecoderSource, onDecoderListener);
         } catch (IOException exception) {
-            Log_OC.w(TAG, "Warning Decoding Bitmap via ImageDecoder failed, BitmapFactory.decodeFile will be used");
+            Log_OC.w(TAG, "Decoding Bitmap via ImageDecoder failed, BitmapFactory.decodeFile will be used");
             return null;
         }
     }
@@ -112,8 +106,14 @@ public final class BitmapUtils {
      * @return decoded bitmap
      */
     public static Bitmap decodeSampledBitmapFromFile(String srcPath, int reqWidth, int reqHeight) {
+        final var file = new File(srcPath);
+        if (!file.exists()) {
+            Log_OC.w(TAG, "File does not exists, returning empty bitmap");
+            return null;
+        }
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-            final var result = decodeSampledBitmapViaImageDecoder(srcPath, reqWidth, reqHeight);
+            final var result = decodeSampledBitmapViaImageDecoder(file, reqWidth, reqHeight);
             if (result != null) {
                 return result;
             }
@@ -158,8 +158,10 @@ public final class BitmapUtils {
             originalHeight = tempWidth;
         }
 
-        var bitmapResult = decodeSampledBitmapFromFile(
-            storagePath, originalWidth, originalHeight);
+        var bitmapResult = decodeSampledBitmapFromFile(storagePath, originalWidth, originalHeight);
+        if (bitmapResult == null) {
+            return null;
+        }
 
         // Calculate the scaling factors based on screen dimensions
         var widthScaleFactor = (float) minWidth/ bitmapResult.getWidth();
