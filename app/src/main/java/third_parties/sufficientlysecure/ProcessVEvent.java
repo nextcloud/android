@@ -359,18 +359,12 @@ public class ProcessVEvent {
 
         if (hasProperty(e, Property.CLASS)) {
             String access = e.getProperty(Property.CLASS).getValue();
-            int accessLevel = Events.ACCESS_DEFAULT;
-            switch (access) {
-                case "CONFIDENTIAL":
-                    accessLevel = Events.ACCESS_CONFIDENTIAL;
-                    break;
-                case "PRIVATE":
-                    accessLevel = Events.ACCESS_PRIVATE;
-                    break;
-                case "PUBLIC":
-                    accessLevel = Events.ACCESS_PUBLIC;
-                    break;
-            }
+            int accessLevel = switch (access) {
+                case "CONFIDENTIAL" -> Events.ACCESS_CONFIDENTIAL;
+                case "PRIVATE" -> Events.ACCESS_PRIVATE;
+                case "PUBLIC" -> Events.ACCESS_PUBLIC;
+                default -> Events.ACCESS_DEFAULT;
+            };
 
             c.put(Events.ACCESS_LEVEL, accessLevel);
         }

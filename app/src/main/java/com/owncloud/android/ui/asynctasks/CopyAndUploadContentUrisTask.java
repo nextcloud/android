@@ -260,21 +260,12 @@ public class CopyAndUploadContentUrisTask extends AsyncTask<Object, Void, Result
             Log_OC.i(TAG, "User left the caller activity before the temporal copies were finished ");
             if (result != ResultCode.OK) {
                 // if the user left the app, report background error in a Toast
-                int messageId;
-                switch (result) {
-                    case LOCAL_FILE_NOT_FOUND:
-                        messageId = R.string.uploader_error_message_source_file_not_found;
-                        break;
-                    case LOCAL_STORAGE_NOT_COPIED:
-                        messageId = R.string.uploader_error_message_source_file_not_copied;
-                        break;
-                    case FORBIDDEN:
-                        messageId = R.string.uploader_error_message_read_permission_not_granted;
-                        break;
-                    default:
-                        messageId = R.string.common_error_unknown;
-                        break;
-                }
+                int messageId = switch (result) {
+                    case LOCAL_FILE_NOT_FOUND -> R.string.uploader_error_message_source_file_not_found;
+                    case LOCAL_STORAGE_NOT_COPIED -> R.string.uploader_error_message_source_file_not_copied;
+                    case FORBIDDEN -> R.string.uploader_error_message_read_permission_not_granted;
+                    default -> R.string.common_error_unknown;
+                };
                 String message = String.format(
                     mAppContext.getString(messageId),
                     mAppContext.getString(R.string.app_name)
