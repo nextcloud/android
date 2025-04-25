@@ -57,6 +57,7 @@ class FileUploadWorker(
 
         const val NOTIFICATION_ERROR_ID: Int = 413
         const val ACCOUNT = "data_account"
+        const val TOTAL_UPLOAD_SIZE = "total_upload_size"
         var currentUploadFileOperation: UploadFileOperation? = null
 
         private const val UPLOADS_ADDED_MESSAGE = "UPLOADS_ADDED"
@@ -127,7 +128,8 @@ class FileUploadWorker(
     private fun retrievePagesBySortingUploadsByID(): Result {
         val accountName = inputData.getString(ACCOUNT) ?: return Result.failure()
         var uploadsPerPage = uploadsStorageManager.getCurrentUploadsForAccountPageAscById(-1, accountName)
-        val totalUploadSize = uploadsStorageManager.getTotalUploadSize(accountName)
+        val totalUploadSize =
+            inputData.getInt(TOTAL_UPLOAD_SIZE, defaultValue = uploadsStorageManager.getTotalUploadSize(accountName))
 
         Log_OC.d(TAG, "FileUploadWorker:retrievePagesBySortingUploadsByID: $uploadsPerPage")
         Log_OC.d(TAG, "FileUploadWorker:totalUploadSize: $totalUploadSize")
