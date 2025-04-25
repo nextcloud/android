@@ -570,10 +570,19 @@ internal class BackgroundJobManagerImpl(
     override fun isStartFileUploadJobScheduled(user: User): Boolean =
         workManager.isWorkScheduled(startFileUploadJobTag(user))
 
-    override fun startFilesUploadJob(user: User) {
-        val data = workDataOf(FileUploadWorker.ACCOUNT to user.accountName)
+    override fun startFilesUploadJob(user: User) = startFilesUploadJobInternal(user, null)
 
+    override fun startFilesUploadJob(user: User, totalUploadSize: Int) =
+        startFilesUploadJobInternal(user, totalUploadSize)
+
+    private fun startFilesUploadJobInternal(user: User, totalUploadSize: Int?) {
         val tag = startFileUploadJobTag(user)
+        val dataBuilder = Data.Builder()
+            .putString(FileUploadWorker.ACCOUNT, user.accountName)
+
+        totalUploadSize?.let {
+            dataBuilder.putInt(FileUploadWorker.TOTAL_UPLOAD_SIZE, it)
+        }
 
         val constraints = Constraints.Builder()
             .setRequiredNetworkType(NetworkType.CONNECTED)
@@ -581,7 +590,7 @@ internal class BackgroundJobManagerImpl(
 
         val request = oneTimeRequestBuilder(FileUploadWorker::class, JOB_FILES_UPLOAD, user)
             .addTag(tag)
-            .setInputData(data)
+            .setInputData(dataBuilder.build())
             .setConstraints(constraints)
             .build()
 
