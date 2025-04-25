@@ -884,8 +884,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
         for (String a : dirs) {
             full_path.append(a).append(OCFile.PATH_SEPARATOR);
         }
-        String fullpath = full_path.toString();
-        return fullpath;
+        return full_path.toString();
     }
 
     private void prepareStreamsToUpload() {

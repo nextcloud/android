@@ -593,8 +593,7 @@ public class ProcessVEvent {
             reminderValues.append(sep).append(i);
             sep = ",";
         }
-        String remainder = reminderValues.toString();
-        c.put("reminders", remainder);
+        c.put("reminders", reminderValues.toString());
 
         for (Object o : e.getProperties()) {
             Property p = (Property) o;

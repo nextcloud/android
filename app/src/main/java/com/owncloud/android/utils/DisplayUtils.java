@@ -277,7 +277,7 @@ public final class DisplayUtils {
     public static String convertIdn(String url, boolean toASCII) {
 
         String urlNoDots = url;
-        String dots = "";
+        StringBuilder dots = new StringBuilder();
         while (urlNoDots.length() > 0 && urlNoDots.charAt(0) == '.') {
             urlNoDots = url.substring(1);
             dots.append(".");
@@ -298,7 +298,7 @@ public final class DisplayUtils {
         String host = urlNoDots.substring(hostStart, hostEnd);
         host = toASCII ? IDN.toASCII(host) : IDN.toUnicode(host);
 
-        return dots + urlNoDots.substring(0, hostStart) + host + urlNoDots.substring(hostEnd);
+        return dots.toString() + urlNoDots.substring(0, hostStart) + host + urlNoDots.substring(hostEnd);
     }
 
     /**
