@@ -28,11 +28,8 @@ public class VDCStoragePointProvider extends AbstractCommandLineStoragePoint {
 
     @Override
     public List<StoragePoint> getAvailableStoragePoint() {
-        List<StoragePoint> result = new Vector<>();
 
-        result.addAll(getPaths(getCommandLineResult()));
-
-        return result;
+        return new Vector<>(getPaths(getCommandLineResult()));
     }
 
     @Override
