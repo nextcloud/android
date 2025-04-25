@@ -82,6 +82,7 @@ public final class BitmapUtils {
             Log_OC.i(TAG, "Decoding Bitmap via ImageDecoder");
 
             final var imageDecoderSource = ImageDecoder.createSource(file);
+
             final var onDecoderListener = new ImageDecoder.OnHeaderDecodedListener() {
                 @Override
                 public void onHeaderDecoded(@NonNull ImageDecoder decoder, @NonNull ImageDecoder.ImageInfo info, @NonNull ImageDecoder.Source source) {
