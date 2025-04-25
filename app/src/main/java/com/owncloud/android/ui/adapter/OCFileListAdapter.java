@@ -390,17 +390,6 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         switch (viewType) {
-            default -> {
-                if (gridView) {
-                    return new OCFileListGridItemViewHolder(
-                        GridItemBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false)
-                    );
-                } else {
-                    return new OCFileListItemViewHolder(
-                        ListItemBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false)
-                    );
-                }
-            }
             case VIEW_TYPE_IMAGE -> {
                 if (gridView) {
                     return new OCFileListViewHolder(
@@ -424,6 +413,17 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                     false);
 
                 return new OCFileListHeaderViewHolder(binding);
+            }
+            default -> {
+                if (gridView) {
+                    return new OCFileListGridItemViewHolder(
+                        GridItemBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false)
+                    );
+                } else {
+                    return new OCFileListItemViewHolder(
+                        ListItemBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false)
+                    );
+                }
             }
         }
     }
