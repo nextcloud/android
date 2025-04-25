@@ -35,8 +35,8 @@ import com.owncloud.android.lib.resources.users.Status;
 import com.owncloud.android.lib.resources.users.StatusType;
 import com.owncloud.android.ui.StatusDrawable;
 
-
 import java.io.File;
+import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -44,6 +44,7 @@ import java.util.Locale;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.core.graphics.drawable.RoundedBitmapDrawable;
 import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory;
 import androidx.exifinterface.media.ExifInterface;
@@ -75,6 +76,32 @@ public final class BitmapUtils {
         return resultBitmap;
     }
 
+    @RequiresApi(Build.VERSION_CODES.P)
+    private static Bitmap decodeSampledBitmapViaImageDecoder(String srcPath, int reqWidth, int reqHeight) {
+        try {
+            Log_OC.i(TAG, "Decoding Bitmap via ImageDecoder");
+
+            final var file = new File(srcPath);
+            if (file.exists()) {
+                final var imageDecoderSource = ImageDecoder.createSource(file);
+                final var onDecoderListener = new ImageDecoder.OnHeaderDecodedListener() {
+                    @Override
+                    public void onHeaderDecoded(@NonNull ImageDecoder decoder, @NonNull ImageDecoder.ImageInfo info, @NonNull ImageDecoder.Source source) {
+                        decoder.setTargetSize(reqWidth, reqHeight);
+                    }
+                };
+                return ImageDecoder.decodeBitmap(imageDecoderSource, onDecoderListener);
+            }
+
+            Log_OC.w(TAG, "File does not exists: " + srcPath + " BitmapFactory.decodeFile will be used");
+
+            return null;
+        } catch (IOException exception) {
+            Log_OC.w(TAG, "Warning Decoding Bitmap via ImageDecoder failed, BitmapFactory.decodeFile will be used");
+            return null;
+        }
+    }
+
     /**
      * Decodes a bitmap from a file containing it minimizing the memory use, known that the bitmap will be drawn in a
      * surface of reqWidth x reqHeight
@@ -86,17 +113,14 @@ public final class BitmapUtils {
      */
     public static Bitmap decodeSampledBitmapFromFile(String srcPath, int reqWidth, int reqHeight) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-            // For API 28 and above, use ImageDecoder
-            try {
-                return ImageDecoder.decodeBitmap(ImageDecoder.createSource(new File(srcPath)),
-                                                 (decoder, info, source) -> {
-                                                     // Set the target size
-                                                     decoder.setTargetSize(reqWidth, reqHeight);
-                                                 });
-            } catch (Exception exception) {
-                Log_OC.e("BitmapUtil", "Error decoding the bitmap from file: " + srcPath + ", exception: " + exception.getMessage());
+            final var result = decodeSampledBitmapViaImageDecoder(srcPath, reqWidth, reqHeight);
+            if (result != null) {
+                return result;
             }
         }
+
+        Log_OC.i(TAG, "Decoding Bitmap via BitmapFactory.decodeFile");
+
         // set desired options that will affect the size of the bitmap
         final Options options = new Options();
 
