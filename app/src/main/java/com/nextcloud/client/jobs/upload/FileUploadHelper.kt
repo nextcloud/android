@@ -186,7 +186,7 @@ class FileUploadHelper {
         accountNames.forEach { accountName ->
             val user = accountManager.getUser(accountName)
             if (user.isPresent) {
-                backgroundJobManager.startFilesUploadJob(user.get())
+                backgroundJobManager.startFilesUploadJob(user.get(), failedUploads.size)
             }
         }
 
@@ -217,7 +217,7 @@ class FileUploadHelper {
             }
         }
         uploadsStorageManager.storeUploads(uploads)
-        backgroundJobManager.startFilesUploadJob(user)
+        backgroundJobManager.startFilesUploadJob(user, uploads.size)
     }
 
     fun removeFileUpload(remotePath: String, accountName: String) {
@@ -230,7 +230,7 @@ class FileUploadHelper {
 
             cancelAndRestartUploadJob(user)
         } catch (e: NoSuchElementException) {
-            Log_OC.e(TAG, "Error cancelling current upload because user does not exist!")
+            Log_OC.e(TAG, "Error cancelling current upload because user does not exist!: " + e.message)
         }
     }
 
@@ -253,16 +253,21 @@ class FileUploadHelper {
 
         try {
             val user = accountManager.getUser(accountName).get()
-            cancelAndRestartUploadJob(user)
+            cancelAndRestartUploadJob(user, uploads.size)
         } catch (e: NoSuchElementException) {
-            Log_OC.e(TAG, "Error restarting upload job because user does not exist!")
+            Log_OC.e(TAG, "Error restarting upload job because user does not exist!: " + e.message)
         }
     }
 
-    fun cancelAndRestartUploadJob(user: User) {
+    fun cancelAndRestartUploadJob(user: User, totalUploadSize: Int? = null) {
         backgroundJobManager.run {
             cancelFilesUploadJob(user)
-            startFilesUploadJob(user)
+
+            if (totalUploadSize != null) {
+                startFilesUploadJob(user, totalUploadSize)
+            } else {
+                startFilesUploadJob(user)
+            }
         }
     }
 
@@ -377,7 +382,7 @@ class FileUploadHelper {
             }
         }
         uploadsStorageManager.storeUploads(uploads)
-        backgroundJobManager.startFilesUploadJob(user)
+        backgroundJobManager.startFilesUploadJob(user, uploads.size)
     }
 
     /**
