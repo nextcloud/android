@@ -280,7 +280,7 @@ public final class DisplayUtils {
         String dots = "";
         while (urlNoDots.length() > 0 && urlNoDots.charAt(0) == '.') {
             urlNoDots = url.substring(1);
-            dots = dots + ".";
+            dots.append(".");
         }
 
         // Find host name after '//' or '@'

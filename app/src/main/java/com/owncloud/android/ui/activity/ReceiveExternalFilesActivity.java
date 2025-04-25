@@ -879,12 +879,13 @@ public class ReceiveExternalFilesActivity extends FileActivity
     }
 
     private String generatePath(Stack<String> dirs) {
-        String full_path = "";
+        StringBuilder full_path = new StringBuilder();
 
         for (String a : dirs) {
-            full_path += a + OCFile.PATH_SEPARATOR;
+            full_path.append(a).append(OCFile.PATH_SEPARATOR);
         }
-        return full_path;
+        String fullpath = full_path.toString();
+        return fullpath;
     }
 
     private void prepareStreamsToUpload() {
