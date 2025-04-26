@@ -925,18 +925,11 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             resetLastTimestamp();
             preferences.setPhotoSearchTimestamp(0);
 
-            VirtualFolderType type;
-            switch (searchType) {
-                case FAVORITE_SEARCH:
-                    type = VirtualFolderType.FAVORITE;
-                    break;
-                case GALLERY_SEARCH:
-                    type = VirtualFolderType.GALLERY;
-                    break;
-                default:
-                    type = VirtualFolderType.NONE;
-                    break;
-            }
+            VirtualFolderType type = switch (searchType) {
+                case FAVORITE_SEARCH -> VirtualFolderType.FAVORITE;
+                case GALLERY_SEARCH -> VirtualFolderType.GALLERY;
+                default -> VirtualFolderType.NONE;
+            };
 
             if (type != VirtualFolderType.GALLERY) {
                 mStorageManager.deleteVirtuals(type);
