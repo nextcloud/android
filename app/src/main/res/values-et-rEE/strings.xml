@@ -489,7 +489,7 @@
     <string name="host_not_available">Server pole saadaval</string>
     <string name="host_your_own_server">Võid ka kasutada oma serverit</string>
     <string name="icon_for_empty_list">Tühja loendi ikoon</string>
-    <string name="icon_of_dashboard_widget">Töölauavidina ikoon</string>
+    <string name="icon_of_dashboard_widget">Juhtpaneelividina ikoon</string>
     <string name="icon_of_widget_entry">Vidina kirje ikoon</string>
     <string name="image_editor_file_edited_suffix">muudetud</string>
     <string name="image_editor_flip_horizontal">Pööra teistpidi ümber rõhttelje</string>
@@ -1099,7 +1099,7 @@
     <string name="whats_new_skip">Jäta vahele</string>
     <string name="whats_new_title">Uus asukohas „%1$s“</string>
     <string name="whats_your_status">Mis on su staatus?</string>
-    <string name="widgets_not_available">Vidinad on saadaval alates %1$si versioonist 25 või Töölauarakenduse kasutamisel</string>
+    <string name="widgets_not_available">Vidinad on saadaval alates %1$si versioonist 25 või Juhtpaneelirakenduse kasutamisel</string>
     <string name="widgets_not_available_title">Pole saadaval</string>
     <string name="worker_download">Failid on allalaadimisel…</string>
     <string name="write_email">Saada kiri</string>
