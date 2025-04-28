@@ -259,6 +259,7 @@ class FileUploadHelper {
         }
     }
 
+    @JvmOverloads
     fun cancelAndRestartUploadJob(user: User, totalUploadSize: Int? = null) {
         backgroundJobManager.run {
             cancelFilesUploadJob(user)
