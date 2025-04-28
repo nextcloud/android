@@ -684,7 +684,7 @@ public abstract class FileActivity extends DrawerActivity
                                        Integer latestVersion,
                                        boolean openDirectly,
                                        boolean inBackground) {
-        Integer currentVersion = -1;
+        int currentVersion = -1;
         try {
             currentVersion = activity.getPackageManager().getPackageInfo(activity.getPackageName(), 0).versionCode;
         } catch (PackageManager.NameNotFoundException e) {
