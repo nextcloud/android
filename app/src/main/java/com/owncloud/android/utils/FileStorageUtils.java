@@ -69,6 +69,27 @@ public final class FileStorageUtils {
         // utility class -> private constructor
     }
 
+    public static boolean isValidExtFilename(String name) {
+        for (int i = 0; i < name.length(); i++) {
+            char c = name.charAt(i);
+            if (!isValidExtFilenameChar(c)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private static boolean isValidExtFilenameChar(char c) {
+        if ((int) c <= 0x1F) {
+            return false;
+        }
+
+        return switch (c) {
+            case '"', '*', ':', '/', '<', '>', '?', '\\', '|', 0x7F -> false;
+            default -> true;
+        };
+    }
+
     /**
      * Get local owncloud storage path for accountName.
      */
