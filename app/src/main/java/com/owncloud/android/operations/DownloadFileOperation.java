@@ -34,7 +34,6 @@ import com.owncloud.android.utils.FileExportUtils;
 import com.owncloud.android.utils.FileStorageUtils;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.lang.ref.WeakReference;
 import java.util.HashSet;
 import java.util.Iterator;
