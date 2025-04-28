@@ -20,6 +20,7 @@ import android.text.TextUtils;
 import android.webkit.MimeTypeMap;
 
 import com.nextcloud.client.preferences.SubFolderRule;
+import com.nextcloud.utils.extensions.StringConstants;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
@@ -99,7 +100,7 @@ public final class FileStorageUtils {
                 + File.separator
                 + MainApp.getDataFolder()
                 + File.separator
-                + "tmp"
+                + StringConstants.TEMP
                 + File.separator
                 + Uri.encode(accountName, "@");
         // URL encoding is an 'easy fix' to overcome that NTFS and FAT32 don't allow ":" in file names,
@@ -121,15 +122,22 @@ public final class FileStorageUtils {
      * Get absolute path to tmp folder inside app folder for given accountName.
      */
     public static String getInternalTemporalPath(String accountName, Context context) {
-        return context.getFilesDir()
-                + File.separator
-                + MainApp.getDataFolder()
-                + File.separator
-                + "tmp"
-                + File.separator
+        return getAppTempDirectoryPath(context)
                 + Uri.encode(accountName, "@");
         // URL encoding is an 'easy fix' to overcome that NTFS and FAT32 don't allow ":" in file names,
         // that can be in the accountName since 0.1.190B
+    }
+
+    /**
+     * @return /data/user/0/com.nextcloud.client/files/nextcloud/tmp/
+     */
+    public static String getAppTempDirectoryPath(Context context) {
+        return context.getFilesDir()
+            + File.separator
+            + MainApp.getDataFolder()
+            + File.separator
+            + StringConstants.TEMP
+            + File.separator;
     }
 
     /**
