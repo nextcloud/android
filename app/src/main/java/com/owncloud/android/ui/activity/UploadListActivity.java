@@ -277,7 +277,7 @@ public class UploadListActivity extends FileActivity {
 
         for (User user : accountManager.getAllUsers()) {
             if (user != null) {
-                FileUploadHelper.Companion.instance().cancelAndRestartUploadJob(user, null);
+                FileUploadHelper.Companion.instance().cancelAndRestartUploadJob(user);
             }
         }
 
