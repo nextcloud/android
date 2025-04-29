@@ -126,7 +126,8 @@ public class CopyAndUploadContentUrisTask extends AsyncTask<Object, Void, Result
             String[] remotePaths = (String[]) params[2];
             int behaviour = (Integer) params[3];
             ContentResolver leakedContentResolver = (ContentResolver) params[4];
-
+            String[] localPaths = new String[uris.length];
+            String[] currentRemotePaths = new String[uris.length];
             String currentRemotePath;
 
             for (int i = 0; i < uris.length; i++) {
@@ -171,11 +172,22 @@ public class CopyAndUploadContentUrisTask extends AsyncTask<Object, Void, Result
                         }
                     }
 
-                    requestUpload(user, fullTempPath, currentRemotePath, behaviour);
-                    fullTempPath = null;
-                }
-
+                localPaths[i] = fullTempPath;
+                currentRemotePaths[i] = currentRemotePath;
+                fullTempPath = null;
             }
+
+            FileUploadHelper.Companion.instance().uploadNewFiles(
+                user,
+                localPaths,
+                currentRemotePaths,
+                behaviour,
+                false,      // do not create parent folder if not existent
+                UploadFileOperation.CREATED_BY_USER,
+                false,
+                false,
+                NameCollisionPolicy.ASK_USER);
+
             result = ResultCode.OK;
 
         } catch (ArrayIndexOutOfBoundsException e) {
@@ -207,19 +219,6 @@ public class CopyAndUploadContentUrisTask extends AsyncTask<Object, Void, Result
         }
 
         return result;
-    }
-
-    private void requestUpload(User user, String localPath, String remotePath, int behaviour) {
-        FileUploadHelper.Companion.instance().uploadNewFiles(
-            user,
-            new String[]{ localPath },
-            new String[]{ remotePath },
-            behaviour,
-            false,      // do not create parent folder if not existent
-            UploadFileOperation.CREATED_BY_USER,
-            false,
-            false,
-            NameCollisionPolicy.ASK_USER);
     }
 
     @Override
