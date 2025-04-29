@@ -256,9 +256,9 @@ public class FileDisplayActivity extends FileActivity
     /**
      * Indicates whether the downloaded file should be previewed immediately.
      * Since `FileDownloadWorker` can be triggered from multiple sources,
-     * this flag helps determine if an automatic preview is needed after download.
+     * this helps determine if an automatic preview is needed after download.
      */
-    private boolean readyForPreview = false;
+    private long readyFileIdForPreview = -1;
 
     public static Intent openFileIntent(Context context, User user, OCFile file) {
         final Intent intent = new Intent(context, PreviewImageActivity.class);
@@ -304,8 +304,8 @@ public class FileDisplayActivity extends FileActivity
         offlineFolderConflictManager.registerRefreshSearchEventReceiver();
     }
 
-    public void setReadyForPreview(boolean readyForPreview) {
-        this.readyForPreview = readyForPreview;
+    public void setReadyFileIdForPreview(long readyFileIdForPreview) {
+        this.readyFileIdForPreview = readyFileIdForPreview;
     }
 
     private void notifyGPlayPermissionChanges() {
@@ -1757,18 +1757,16 @@ public class FileDisplayActivity extends FileActivity
             } else if (state instanceof WorkerState.DownloadFinished downloadFinished) {
                 fileDownloadProgressListener = null;
 
-                if (!readyForPreview) {
+                if (readyFileIdForPreview == -1) {
                     return;
                 }
 
-                readyForPreview = false;
-
-                final var file = downloadFinished.getCurrentFile();
-                if (file == null) {
+                final var currentFile = downloadFinished.getCurrentFile();
+                if (currentFile == null) {
                     return;
                 }
 
-                if (file.isDown() && MimeTypeUtil.isPDF(file)) {
+                if (readyFileIdForPreview == currentFile.getFileId() && currentFile.isDown() && MimeTypeUtil.isPDF(currentFile)) {
                     startPdfPreview(downloadFinished.getCurrentFile());
                 }
             } else if (state instanceof WorkerState.UploadFinished) {
