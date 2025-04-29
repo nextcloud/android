@@ -1767,6 +1767,7 @@ public class FileDisplayActivity extends FileActivity
                 }
 
                 if (readyFileIdForPreview == currentFile.getFileId() && currentFile.isDown() && MimeTypeUtil.isPDF(currentFile)) {
+                    readyFileIdForPreview = -1;
                     startPdfPreview(downloadFinished.getCurrentFile());
                 }
             } else if (state instanceof WorkerState.UploadFinished) {
