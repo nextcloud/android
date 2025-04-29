@@ -481,10 +481,8 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
         /// includes a pending intent in the notification showing a more detailed explanation
         Intent explanationIntent = new Intent(getContext(), ErrorsWhileCopyingHandlerActivity.class);
         explanationIntent.putExtra(ErrorsWhileCopyingHandlerActivity.EXTRA_USER, getUser());
-        ArrayList<String> remotePaths = new ArrayList<String>();
-        ArrayList<String> localPaths = new ArrayList<String>();
-        remotePaths.addAll(mForgottenLocalFiles.keySet());
-        localPaths.addAll(mForgottenLocalFiles.values());
+        ArrayList<String> remotePaths = new ArrayList<String>(mForgottenLocalFiles.keySet());
+        ArrayList<String> localPaths = new ArrayList<String>(mForgottenLocalFiles.values());
         explanationIntent.putExtra(ErrorsWhileCopyingHandlerActivity.EXTRA_LOCAL_PATHS, localPaths);
         explanationIntent.putExtra(ErrorsWhileCopyingHandlerActivity.EXTRA_REMOTE_PATHS, remotePaths);
         explanationIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
