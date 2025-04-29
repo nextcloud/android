@@ -142,10 +142,10 @@
     <string name="clipboard_unexpected_error">Uventet fejl under kopiering til udklipsholder</string>
     <string name="common_back">Tilbage</string>
     <string name="common_cancel">Annuller</string>
-    <string name="common_cancel_sync">Annuller sync</string>
+    <string name="common_cancel_sync">Annullér synkronisering</string>
     <string name="common_choose_account">Vælg konto</string>
     <string name="common_confirm">Bekræft</string>
-    <string name="common_copy">Kopier</string>
+    <string name="common_copy">Kopiér</string>
     <string name="common_delete">Slet</string>
     <string name="common_error">Fejl</string>
     <string name="common_error_out_memory">Ikke tilstrækkelig hukommelse</string>
@@ -549,7 +549,7 @@
     <string name="manage_space_clear_data">Fjern data</string>
     <string name="manage_space_description">Indstillinger, database og server certifikater fra %1$s\'s data vil blive permanent slettede.\n\nHentede filer vil forblive uberørte.\n\n Denne proces kan tage lidt tid.</string>
     <string name="manage_space_title">Håndter plads</string>
-    <string name="max_file_count_warning_message">Du har nået din maksimale uploadgrænse. Upload venligst mindre en 500 filer på samme tid.</string>
+    <string name="max_file_count_warning_message">Du har nået din maksimale uploadgrænse. Upload venligst mindre end 500 filer på samme tid.</string>
     <string name="media_err_invalid_progressive_playback">Medie filen kan ikke streames.</string>
     <string name="media_err_io">Kunne ikke læse mediefil</string>
     <string name="media_err_malformed">Mediefilen har en ugyldig indkodning.</string>
@@ -627,7 +627,7 @@
     <string name="oneHour">1 time</string>
     <string name="online">Online</string>
     <string name="online_status">Online status</string>
-    <string name="open_in_app">Åben i %1$s</string>
+    <string name="open_in_app">Åbn i %1$s</string>
     <string name="outdated_server">Serveren har nået sit livs ende, opgrader venligst!</string>
     <string name="overflow_menu">Mere menu</string>
     <string name="pass_code_configure_your_pass_code">Angiv din passkode</string>
@@ -676,7 +676,7 @@
     <string name="prefs_category_dev">Udvikling</string>
     <string name="prefs_category_general">Generel</string>
     <string name="prefs_category_more">Mere</string>
-    <string name="prefs_category_sync">Synkroniser</string>
+    <string name="prefs_category_sync">Synkronisér</string>
     <string name="prefs_daily_backup_summary">Daglig backup af din kalender og kontakter</string>
     <string name="prefs_daily_contact_backup_summary">Daglig backup af dine kontakter</string>
     <string name="prefs_data_storage_location">Datalagringslokation</string>
@@ -721,7 +721,7 @@
     <string name="prefs_theme_title">Tema</string>
     <string name="prefs_two_way_sync_interval">Interval</string>
     <string name="prefs_two_way_sync_summary">Styr interne mapper for to-vejs synkronisering</string>
-    <string name="prefs_two_way_sync_switch_title">Aktiver to-vejs synkronisering</string>
+    <string name="prefs_two_way_sync_switch_title">Aktivér to-vejs synkronisering</string>
     <string name="prefs_value_theme_dark">Mørk</string>
     <string name="prefs_value_theme_light">Lys</string>
     <string name="prefs_value_theme_system">Følg system</string>
@@ -914,7 +914,7 @@
     <string name="subtitle_photos_videos">Billeder og videoer</string>
     <string name="subtitle_videos_only">Kun videoer</string>
     <string name="suggest">Foreslå</string>
-    <string name="sync">Synkroniser</string>
+    <string name="sync">Synkronisér</string>
     <string name="sync_anyway">Synkroniser alligevel</string>
     <string name="sync_conflicts_in_favourites_ticker">Konflikter fundet</string>
     <string name="sync_current_folder_was_removed">Mappen %1$s eksistere ikke længere</string>
@@ -995,7 +995,7 @@
     <string name="upload_chooser_title">Sender fra...</string>
     <string name="upload_content_from_other_apps">Send indhold fra andre apps</string>
     <string name="upload_direct_camera_photo">Foto</string>
-    <string name="upload_direct_camera_promt">Ønsker at at tage et foto eller en video?</string>
+    <string name="upload_direct_camera_promt">Ønsker du at tage et foto eller en video?</string>
     <string name="upload_direct_camera_upload">Send fra kamera</string>
     <string name="upload_direct_camera_video">Video</string>
     <string name="upload_file_dialog_filename">Filnavn</string>
@@ -1006,13 +1006,13 @@
     <string name="upload_file_dialog_title">Indtast filnavn og filtype at sende</string>
     <string name="upload_files">Send filer</string>
     <string name="upload_global_pause_title">Alle uploads er pauserede</string>
-    <string name="upload_gplay">Tilladelse ændres</string>
+    <string name="upload_gplay">Tilladelsesændringer</string>
     <string name="upload_gplay_desc">Der kræves en ny tilladelse for at få adgang til placeringsoplysninger for uploadede billeder.\nSørg for, at medieadgang er indstillet til \"Tillad altid alle\".</string>
     <string name="upload_item_action_button">Send artikel knap</string>
     <string name="upload_list_delete">Slet</string>
     <string name="upload_list_empty_headline">Ingen uploads tilgængelige</string>
     <string name="upload_list_empty_text_auto_upload">Upload noget indhold eller aktiver auto upload.</string>
-    <string name="upload_list_expand_header">Skrift udvidelse af header</string>
+    <string name="upload_list_expand_header">Skift udvidelse af overskrift</string>
     <string name="upload_list_resolve_conflict">Løs konflikt</string>
     <string name="upload_local_storage_full">Lokalt lager fuldt</string>
     <string name="upload_local_storage_not_copied">Filen kunne ikke kopieres til lokalt lager</string>
@@ -1036,7 +1036,7 @@
     <string name="uploader_file_not_found_message">Filen ikke fundet. Er du sikker på at denne file eksisterer eller er en tidligere konflikt ikke blevet løst ?</string>
     <string name="uploader_file_not_found_on_server_message">Vi kunne ikke finde filen på serveren. En anden bruger har måske slettet filen</string>
     <string name="uploader_info_dirname">Mappenavn</string>
-    <string name="uploader_local_files_uploaded">Forsøg igen at upload fejlede lokale filer</string>
+    <string name="uploader_local_files_uploaded">Forsøg igen at uploade fejlede lokale filer</string>
     <string name="uploader_top_message">Vælg upload mappe</string>
     <string name="uploader_upload_failed_content_single">Kunne ikke uploade %1$s</string>
     <string name="uploader_upload_failed_credentials_error">Overførelse fejlede, log ind igen</string>
