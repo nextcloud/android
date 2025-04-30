@@ -76,6 +76,7 @@ public final class BitmapUtils {
         return resultBitmap;
     }
 
+    @Nullable
     @RequiresApi(Build.VERSION_CODES.P)
     private static Bitmap decodeSampledBitmapViaImageDecoder(@NonNull File file, int reqWidth, int reqHeight) {
         try {
@@ -106,6 +107,7 @@ public final class BitmapUtils {
      * @param reqHeight Height of the surface where the Bitmap will be drawn on, in pixels.
      * @return decoded bitmap
      */
+    @Nullable
     public static Bitmap decodeSampledBitmapFromFile(String srcPath, int reqWidth, int reqHeight) {
         final var file = new File(srcPath);
         if (!file.exists()) {
