@@ -79,6 +79,16 @@ public final class FileStorageUtils {
         return true;
     }
 
+    /**
+     * Checks whether the given character is valid in an extended file name.
+     * <p>
+     * Reference: <a href="https://cs.android.com/android/platform/superproject/+/master:frameworks/base/core/java/android/os/FileUtils.java;l=997">
+     * android.os.FileUtils#isValidExtFilenameChar(char)
+     * </a> from the Android Open Source Project.
+     *
+     * @param c the character to validate
+     * @return true if the character is valid in a filename, false otherwise
+     */
     private static boolean isValidExtFilenameChar(char c) {
         if ((int) c <= 0x1F) {
             return false;
