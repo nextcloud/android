@@ -571,12 +571,7 @@ internal class BackgroundJobManagerImpl(
     override fun isStartFileUploadJobScheduled(user: User): Boolean =
         workManager.isWorkScheduled(startFileUploadJobTag(user))
 
-    override fun startFilesUploadJob(user: User) = startFilesUploadJobInternal(user, null)
-
-    override fun startFilesUploadJob(user: User, totalUploadSize: Int) =
-        startFilesUploadJobInternal(user, totalUploadSize)
-
-    private fun startFilesUploadJobInternal(user: User, totalUploadSize: Int?) {
+    override fun startFilesUploadJob(user: User, totalUploadSize: Int?) {
         val tag = startFileUploadJobTag(user) + Random.nextLong()
         val dataBuilder = Data.Builder()
             .putString(FileUploadWorker.ACCOUNT, user.accountName)
