@@ -436,7 +436,7 @@ public class UploadFileOperation extends SyncOperation {
         // parent file is not null anymore:
         // - it was created on fresh upload or
         // - resume of encrypted upload, then parent file exists already as unlock is only for direct parent
-
+        assert(parent != null);
         mFile.setParentId(parent.getFileId());
 
         // check if any parent is encrypted
