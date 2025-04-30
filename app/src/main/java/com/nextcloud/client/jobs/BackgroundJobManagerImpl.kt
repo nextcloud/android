@@ -571,6 +571,18 @@ internal class BackgroundJobManagerImpl(
     override fun isStartFileUploadJobScheduled(user: User): Boolean =
         workManager.isWorkScheduled(startFileUploadJobTag(user))
 
+    /**
+     * This method supports initiating uploads for various scenarios, including:
+     * - New upload batches
+     * - Failed uploads
+     * - FilesSyncWork
+     *
+     * A unique tag is generated for each upload job. This is intentional because this job may encapsulate an arbitrary
+     * number of files so it's safer to treat each invocation as an independent job.
+     *
+     * @param user The user for whom the upload job is being created.
+     * @param totalUploadSize Optional total size of the files to upload to track upload progress
+     */
     override fun startFilesUploadJob(user: User, totalUploadSize: Int?) {
         val tag = startFileUploadJobTag(user) + Random.nextLong()
         val dataBuilder = Data.Builder()
