@@ -263,12 +263,7 @@ class FileUploadHelper {
     fun cancelAndRestartUploadJob(user: User, totalUploadSize: Int? = null) {
         backgroundJobManager.run {
             cancelFilesUploadJob(user)
-
-            if (totalUploadSize != null) {
-                startFilesUploadJob(user, totalUploadSize)
-            } else {
-                startFilesUploadJob(user)
-            }
+            startFilesUploadJob(user, totalUploadSize)
         }
     }
 
