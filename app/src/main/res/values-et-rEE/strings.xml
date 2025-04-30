@@ -115,8 +115,8 @@
     <string name="backup_title">Kontaktide ja kalendri varundus</string>
     <string name="battery_optimization_close">Sulge</string>
     <string name="battery_optimization_disable">Lülita välja</string>
-    <string name="battery_optimization_message">Sinu seade võib optimeerida akukasutust. Automaatne üleslaadimine toimib ainult siis, kui see rakendus sellest välistada.</string>
-    <string name="battery_optimization_title">Aku optimeerimine</string>
+    <string name="battery_optimization_message">Sinu seade võib optimeerida akukasutust. Automaatne üleslaadimine toimib ainult siis, kui sa selle rakenduse jaoks akukasutuse optimeerimise keelad.</string>
+    <string name="battery_optimization_title">Akukasutuse optimeerimine</string>
     <string name="bottom_navigation_menu_assistant_label">Assistent</string>
     <string name="bottom_navigation_menu_favorites_label">Lemmikud</string>
     <string name="bottom_navigation_menu_files_label">Kõik failid</string>
