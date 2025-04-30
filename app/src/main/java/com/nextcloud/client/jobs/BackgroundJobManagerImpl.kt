@@ -36,6 +36,7 @@ import com.owncloud.android.operations.DownloadType
 import java.util.Date
 import java.util.UUID
 import java.util.concurrent.TimeUnit
+import kotlin.random.Random
 import kotlin.reflect.KClass
 
 /**
@@ -576,7 +577,7 @@ internal class BackgroundJobManagerImpl(
         startFilesUploadJobInternal(user, totalUploadSize)
 
     private fun startFilesUploadJobInternal(user: User, totalUploadSize: Int?) {
-        val tag = startFileUploadJobTag(user)
+        val tag = startFileUploadJobTag(user) + Random.nextLong()
         val dataBuilder = Data.Builder()
             .putString(FileUploadWorker.ACCOUNT, user.accountName)
 

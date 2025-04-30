@@ -36,6 +36,7 @@ import com.owncloud.android.operations.UploadFileOperation
 import com.owncloud.android.utils.ErrorMessageAdapter
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import java.io.File
+import kotlin.random.Random
 
 @Suppress("LongParameterList")
 class FileUploadWorker(
@@ -86,7 +87,7 @@ class FileUploadWorker(
 
     private var currentUploadIndex: Int = 1
     private var lastPercent = 0
-    private val notificationManager = UploadNotificationManager(context, viewThemeUtils)
+    private val notificationManager = UploadNotificationManager(context, viewThemeUtils, Random.nextInt())
     private val intents = FileUploaderIntents(context)
     private val fileUploaderDelegate = FileUploaderDelegate()
 
