@@ -264,6 +264,7 @@
     <string name="etm_transfer_type">Трансфер</string>
     <string name="etm_transfer_type_download">Преземи</string>
     <string name="etm_transfer_type_upload">Прикачи</string>
+    <string name="external_shares">Надворешни споделувања</string>
     <string name="fab_label">Додади или прикачи</string>
     <string name="failed_to_download">Неуспешно поставување на датотеката во менаџерот за превземање</string>
     <string name="failed_to_print">Неуспешно печатење не датотеката</string>
@@ -356,6 +357,7 @@
     <string name="instant_upload_existing">Прикачување на постоечките датотеки</string>
     <string name="instant_upload_on_charging">Прикачувај само додека се полни</string>
     <string name="instant_upload_path">/InstantUpload</string>
+    <string name="internal_shares">Внатрешни споделувања</string>
     <string name="invalid_url">Неправилна URL</string>
     <string name="invisible">Невидливо</string>
     <string name="link">Линк</string>
