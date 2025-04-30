@@ -1221,8 +1221,6 @@ public class UploadFileOperation extends SyncOperation {
                                       File originalFile,
                                       OwnCloudClient client) {
         switch (mLocalBehaviour) {
-            case FileUploadWorker.LOCAL_BEHAVIOUR_FORGET:
-
             case FileUploadWorker.LOCAL_BEHAVIOUR_DELETE:
                 originalFile.delete();
                 mFile.setStoragePath("");
