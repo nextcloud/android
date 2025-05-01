@@ -457,6 +457,7 @@
     <string name="permission_deny">Забрани</string>
     <string name="permission_storage_access">Потебни се дополнителни привилегии за прикачување и превземање на датотеки.</string>
     <string name="picture_set_as_no_app">Не е пронајдена апликација за поставување на слики</string>
+    <string name="pin_shortcut_label">Отвори %1$s</string>
     <string name="placeholder_fileSize">389 KB</string>
     <string name="placeholder_filename">placeholder.txt</string>
     <string name="placeholder_media_time">12:23:45</string>

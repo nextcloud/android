@@ -234,7 +234,7 @@
     <string name="file_list_empty_shared_headline">Nekas vēl nav koplietots</string>
     <string name="file_list_folder">mape</string>
     <string name="file_list_loading">Ielādē …</string>
-    <string name="file_list_no_app_for_file_type">Neviena lietotne nevar atvērt šo datnes tipu.</string>
+    <string name="file_list_no_app_for_file_type">Šī datņu veida apstrādei nav iestatīta neviena lietotne.</string>
     <string name="file_list_seconds_ago">pirms vairākām sekundēm</string>
     <string name="file_migration_checking_destination">Pārbauda galamērķi…</string>
     <string name="file_migration_cleaning">Tīra…</string>
@@ -370,7 +370,7 @@
     <string name="pass_code_wrong">Nepareizs piekļuves kods</string>
     <string name="permission_allow">Atļaut</string>
     <string name="permission_storage_access">Nepieciešamas papildus tiesības, lai augšupielādētu un lejupielādētu datnes.</string>
-    <string name="picture_set_as_no_app">Nav lietotnes, ar kuru uzstādīt attēlu</string>
+    <string name="picture_set_as_no_app">Nav atrasta neviena lietotne, ar ko iestatīt attēlu</string>
     <string name="pin_shortcut_label">Atvērt %1$s</string>
     <string name="placeholder_fileSize">389 KB</string>
     <string name="placeholder_filename">placeholder.txt</string>
@@ -379,7 +379,7 @@
     <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
     <string name="pref_behaviour_entries_delete_file">izdzēsta</string>
     <string name="pref_behaviour_entries_keep_file">paturēta sākotnējā mapē</string>
-    <string name="pref_behaviour_entries_move">pārvietots uz lietotnes mapi</string>
+    <string name="pref_behaviour_entries_move">pārvietota uz lietotnes mapi</string>
     <string name="pref_instant_name_collision_policy_dialogTitle">Ko darīt, ja datne jau pastāv?</string>
     <string name="pref_instant_name_collision_policy_entries_always_ask">Vaicāt man katru reizi</string>
     <string name="pref_instant_name_collision_policy_entries_cancel">Izlaist augšupielādēšanu</string>
