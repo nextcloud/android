@@ -90,7 +90,7 @@
     <string name="auth_unauthorized">ユーザー名またはパスワードが間違っています</string>
     <string name="auth_unknown_error_exception_title">不明なエラー: %1$s</string>
     <string name="auth_unknown_error_http_title">不明な HTTP エラーが発生しました</string>
-    <string name="auth_unknown_error_title">不明なエラーに発生しました</string>
+    <string name="auth_unknown_error_title">不明なエラーが発生しました</string>
     <string name="auth_unknown_host_title">ホストを見つけられませんでした。</string>
     <string name="auth_unsupported_multiaccount">%1$s は複数アカウントをサポートしていません</string>
     <string name="auth_wrong_connection_title">接続を確立できませんでした</string>
@@ -927,7 +927,7 @@ GooglePlay 版のNextcloudアプリを使用している場合のみ、自動ア
     <string name="sync_fail_content">%1$s を同期できませんでした</string>
     <string name="sync_fail_content_unauthorized">%1$sのパスワードが間違っています</string>
     <string name="sync_fail_in_favourites_ticker">ファイルの同期に失敗しました</string>
-    <string name="sync_fail_ticker">同期の失敗</string>
+    <string name="sync_fail_ticker">同期に失敗しました</string>
     <string name="sync_fail_ticker_unauthorized">同期失敗、要 再ログイン</string>
     <string name="sync_file_nothing_to_do_msg">ファイルコンテンツはすでに同期されています</string>
     <string name="sync_folder_failed_content">%1$sフォルダーの同期を完了できませんでした</string>
