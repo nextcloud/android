@@ -60,7 +60,10 @@ public class DownloadFileOperation extends RemoteOperation {
     private DownloadType downloadType;
 
     private final WeakReference<Context> context;
+
+    // TODO: Is this still needed after conversion from Foreground Services to Worker?
     private Set<OnDatatransferProgressListener> dataTransferListeners = new HashSet<>();
+
     private long modificationTimestamp;
     private DownloadFileRemoteOperation downloadOperation;
 
