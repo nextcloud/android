@@ -208,6 +208,8 @@
     <string name="create_new_folder">Nova pasta</string>
     <string name="create_new_presentation">Nova apresentação</string>
     <string name="create_new_spreadsheet">Nova folha de calculo</string>
+    <string name="create_rich_workspace">Adicionar descrição da pasta</string>
+    <string name="creates_rich_workspace">Adiciona uma descrição à pasta</string>
     <string name="credentials_disabled">Credenciais desativadas</string>
     <string name="daily_backup">Cópia de segurança diária </string>
     <string name="data_to_back_up">Dados para a cópia de segurança</string>
@@ -273,6 +275,8 @@
     <string name="drawer_quota">Usado %1$s de %2$s</string>
     <string name="drawer_quota_unlimited">%1$s utilizado</string>
     <string name="drawer_synced_folders">Carregamento automático</string>
+    <string name="e2e_hash_not_found">Hash não encontrada</string>
+    <string name="e2e_not_yet_setup">Ainda não foi definido E2E</string>
     <string name="e2e_offline">Não é possível sem uma ligação à Internet</string>
     <string name="ecosystem_apps_display_assistant">Assistente</string>
     <string name="ecosystem_apps_display_more">Mais</string>
@@ -518,6 +522,7 @@
     <string name="new_media_folder_detected">Nova %1$s pasta multimédia detectada.</string>
     <string name="new_media_folder_photos">photo</string>
     <string name="new_media_folder_videos">vídeo</string>
+    <string name="new_notification">Nova notificação</string>
     <string name="new_version_was_created">Uma nova versão foi criada</string>
     <string name="no_actions">Sem ações para este utilizador</string>
     <string name="no_browser_available">Nenhuma aplicação disponível para lidar com links</string>
@@ -545,10 +550,12 @@
     <string name="notification_icon">Ícone de notificação</string>
     <string name="notifications_no_results_headline">Sem notificações</string>
     <string name="notifications_no_results_message">Por favor, confirme novamente mais tarde.</string>
+    <string name="oc_file_list_adapter_offline_operation_description_text">Operação pendente</string>
     <string name="offline_mode">Sem ligação à Internet</string>
     <string name="oneHour">1 hora</string>
     <string name="online">On-line</string>
     <string name="online_status">Estado on-line</string>
+    <string name="open_in_app">Abrir em%1$s</string>
     <string name="outdated_server">O servidor chegou ao fim de vida, por favor, actualize-o!</string>
     <string name="overflow_menu">Menu mais</string>
     <string name="pass_code_configure_your_pass_code">Insira o seu código</string>
@@ -626,6 +633,7 @@
     <string name="prefs_synced_folders_local_path_title">Pasta Local</string>
     <string name="prefs_synced_folders_remote_path_title">Pasta Remota</string>
     <string name="prefs_theme_title">Tema</string>
+    <string name="prefs_two_way_sync_interval">Intervalo</string>
     <string name="prefs_value_theme_dark">Escuro</string>
     <string name="prefs_value_theme_light">Claro</string>
     <string name="prefs_value_theme_system">Seguir sistema</string>
@@ -687,6 +695,7 @@
     <string name="send">Enviar</string>
     <string name="sendbutton_description">Botão de envio</string>
     <string name="set_as">Definir como</string>
+    <string name="set_note">Definir nota</string>
     <string name="set_picture_as">Usar imagem como</string>
     <string name="set_status">Definir estado</string>
     <string name="set_status_message">Defina a mensagem de estado</string>
@@ -733,6 +742,7 @@
     <string name="sharee_add_failed">Adição de destinatário da partilha falhou</string>
     <string name="show_all">Mostrar tudo</string>
     <string name="show_images">Mostrar fotografias</string>
+    <string name="show_less">Mostrar menos</string>
     <string name="show_video">Mostrar vídeos</string>
     <string name="signup_with_provider">Registar com fornecedor</string>
     <string name="single_sign_on_request_token" formatted="true">Permitir que %1$s aceda à sua conta Nextcloud %2$s?</string>
@@ -789,6 +799,7 @@
     <string name="subtitle_videos_only">Apenas vídeos</string>
     <string name="suggest">Sugerir </string>
     <string name="sync">Sincronizar</string>
+    <string name="sync_anyway">Sincronizar mesmo assim</string>
     <string name="sync_conflicts_in_favourites_ticker">Encontrados conflitos</string>
     <string name="sync_current_folder_was_removed">A pasta %1$s já não existe</string>
     <string name="sync_fail_content">Não foi possível sincronizar %1$s</string>
@@ -851,7 +862,9 @@ Aproveite o novo e melhorado envio automático.</string>
     <string name="upload_cannot_create_file">Não é possível criar ficheiro local</string>
     <string name="upload_chooser_title">Enviar de…</string>
     <string name="upload_content_from_other_apps">Envie conteúdo a partir de outras aplicações</string>
+    <string name="upload_direct_camera_photo">Fotografia</string>
     <string name="upload_direct_camera_upload">Enviar pela camâra</string>
+    <string name="upload_direct_camera_video">Vídeo</string>
     <string name="upload_file_dialog_filename">Nome do ficheiro</string>
     <string name="upload_file_dialog_filetype">Tipo de ficheiro</string>
     <string name="upload_file_dialog_filetype_googlemap_shortcut">Ficheiro(%s) de atalho do Google Maps</string>
