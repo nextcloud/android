@@ -10,6 +10,7 @@
     <string name="action_edit">Уреди</string>
     <string name="action_empty_notifications">Очисти сва обавештења</string>
     <string name="action_empty_trashbin">Испразни корпу за отпатке</string>
+    <string name="action_send_share">Слање/дељење</string>
     <string name="action_switch_grid_view">Приказ мреже</string>
     <string name="action_switch_list_view">Приказ листе</string>
     <string name="actionbar_calendar_contacts_restore">Обнови контакте и календар </string>
@@ -45,14 +46,17 @@
     <string name="app_widget_description">Приказује један виџет са контролне табле</string>
     <string name="appbar_search_in">Тражи у %s</string>
     <string name="assistant_screen_add_task_alert_dialog_title">Додај нови задатак</string>
+    <string name="assistant_screen_create_a_new_task_from_bottom_right_text">Креирај нови задатак од доњег десног</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Откуцајте неки текст</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Да ли сте сигурни да желите да обришете овај задатак?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Обриши задатак</string>
+    <string name="assistant_screen_loading">Листа задатака се учитава…</string>
     <string name="assistant_screen_no_task_available_text">Не постоји ниједан задатак типа %s, нови задатак можете да креирате доле десно.</string>
     <string name="assistant_screen_task_create_fail_message">Дошло је до грешке током креирања задатка</string>
     <string name="assistant_screen_task_create_success_message">Задатак је успешно креиран</string>
     <string name="assistant_screen_task_delete_fail_message">Дошло је до грешке током брисања задатка</string>
     <string name="assistant_screen_task_delete_success_message">Задатак је успешно завршен</string>
+    <string name="assistant_screen_task_list_empty_message">Листа задатака је празна.</string>
     <string name="assistant_screen_task_list_error_state_message">Не може да се преузме листа задатака, молимо вас да проверите везу са интернетом.</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">Обриши задатак</string>
     <string name="assistant_screen_task_output_empty_text">Излаз задатка још увек није спреман.</string>
@@ -99,6 +103,7 @@
     <string name="auto_upload_gplay_desc2">Услед нових ограничења која је наметнуо Google, приморани смо да уклонимо важну дозволу. Последица тога је да ће аутоматско отпремање моћи да отпреми само фајлове слика и видео клипова.\nУз то, за приступ информацијама о локацији отпремљених слика потребна је нова дозвола.\nОбезбедите да је приступ медијским фајловима подешен на „Увек дозволи све”.</string>
     <string name="auto_upload_on_wifi">Отпремај само на бежичним мрежама без ограничења</string>
     <string name="auto_upload_path">/Аутоматска отпремања</string>
+    <string name="auto_upload_sub_folder_warning">Овај фолдер је већ укључен у синхронизацију фолдера родитеља, па се могу јавити двострука отпремања</string>
     <string name="autoupload_configure">Подеси</string>
     <string name="autoupload_create_new_custom_folder">Направи нову поставку за посебну фасциклу</string>
     <string name="autoupload_custom_folder">Подесите произвољну фасциклу</string>
@@ -185,6 +190,7 @@
     <string name="confirmation_remove_folders_alert">Заиста желите да обришете означене ставке и њихов садржај?</string>
     <string name="confirmation_remove_local">Само локално</string>
     <string name="conflict_dialog_error">Нем оже да се креира дијалог за разрешавање конфилкта</string>
+    <string name="conflict_folder_headline">Конфликт фолдера</string>
     <string name="conflict_local_file">Локални фајл</string>
     <string name="conflict_message_description">Ако изаберете обе верзије, локални фајл имаће број придодат свом називу.</string>
     <string name="conflict_message_description_for_folder">Ако изаберете обе верзије, на крај имена локалног фолдера ће се придодати број.</string>
@@ -197,6 +203,7 @@
     <string name="contacts_backup_button">Направите резерву сада</string>
     <string name="contacts_preferences_backup_scheduled">Прављење резерве је заказано и почеће ускоро</string>
     <string name="contacts_preferences_import_scheduled">Увоз је заказан и почеће ускоро</string>
+    <string name="contacts_preferences_import_scheduled_fail">Није успело покретање увоза. Молимо вас да покушате поново</string>
     <string name="contacts_preferences_no_file_found">Није нађен фајл</string>
     <string name="contacts_preferences_something_strange_happened">Не могу да нађем последњу резерву!</string>
     <string name="copied_to_clipboard">Копирано у клипборд</string>
@@ -351,6 +358,7 @@
     <string name="etm_background_jobs_stop_test_job">Заустави пробни посао</string>
     <string name="etm_migrations">Пресељења (надоградња апликације)</string>
     <string name="etm_preferences">Поставке</string>
+    <string name="etm_title">Инжењерски тест режим</string>
     <string name="etm_transfer">Пренос фајлова</string>
     <string name="etm_transfer_enqueue_test_download">Стави тест преузимање у ред чекања</string>
     <string name="etm_transfer_enqueue_test_upload">Стави тест отпремање у ред</string>
@@ -572,6 +580,7 @@
     <string name="new_media_folder_detected">Нађена је нова медијска фасцикла са %1$s</string>
     <string name="new_media_folder_photos">сликама</string>
     <string name="new_media_folder_videos">видео записима</string>
+    <string name="new_notification">Ново обавештење</string>
     <string name="new_version_was_created">Направљена је нова верзија</string>
     <string name="no_actions">Нема акција за овог корисника</string>
     <string name="no_browser_available">Нема апликације која зна да отвори везу</string>
@@ -587,6 +596,7 @@
     <string name="note_icon_hint">Иконица белешке</string>
     <string name="notification_action_failed">Не могу да извршим радњу.</string>
     <string name="notification_channel_background_operations_description">Прикажи обавештења за интеракцију са резултатом операција у позадини</string>
+    <string name="notification_channel_background_operations_name">Операције у позадини</string>
     <string name="notification_channel_download_description">Приказ напретка преузимања</string>
     <string name="notification_channel_download_name_short">Преузимања</string>
     <string name="notification_channel_file_sync_description">Приказ напретка синхронизације фајла и резултата</string>
@@ -603,12 +613,17 @@
     <string name="notification_icon_description">Постоје обавештења која нису прочитана</string>
     <string name="notifications_no_results_headline">Нема обавештења</string>
     <string name="notifications_no_results_message">Проверите касније.</string>
+    <string name="oc_file_list_adapter_offline_operation_description_text">Операције на чекању</string>
     <string name="oc_file_list_adapter_offline_operation_remove_description_text">Операција уклањања на чекању</string>
     <string name="offline_mode">Нема везе са интернетом</string>
     <string name="offline_mode_info_description">Чак и без везе са интернетом можете да организујете фолдере, креирате фајлове. Када поново будете на мрежи, ваше акције на чекању ће се аутоматски синхронизовати.</string>
+    <string name="offline_mode_info_title">Ван мреже сте, али се рад наставља</string>
     <string name="offline_operations_file_does_not_exists_yet">Фајл још увек не постоји. Молимо вас да најпре отпремите фајл.</string>
+    <string name="offline_operations_worker_notification_conflict_text">Фолдер у конфликту: %s</string>
+    <string name="offline_operations_worker_notification_delete_offline_folder">Обриши фолдер ван мреже</string>
     <string name="offline_operations_worker_notification_error_text">Операција ван мреже не може да се заврши. %s</string>
     <string name="offline_operations_worker_notification_manager_ticker">Операције ван мреже</string>
+    <string name="offline_operations_worker_notification_start_text">Покрећу се операције ван мреже</string>
     <string name="oneHour">1 сат</string>
     <string name="online">На мрежи</string>
     <string name="online_status">Мрежни статус</string>
@@ -631,6 +646,7 @@
     <string name="permission_storage_access">Потребне су дозволе за отпремање и преузимање фајлова.</string>
     <string name="pick_contact_to_share_with">Изаберите контакт са којим желите да поделите</string>
     <string name="picture_set_as_no_app">Нема апликације којом се поставља слика</string>
+    <string name="pin_home">Закачи на почетни екран</string>
     <string name="pin_shortcut_label">Отвори %1$s</string>
     <string name="placeholder_fileSize">389 KB</string>
     <string name="placeholder_filename">чувамместо.txt</string>
@@ -779,13 +795,16 @@
     <string name="select_one_template">Молимо вас да изаберете један шаблон</string>
     <string name="select_template">Одаберите шаблон</string>
     <string name="send">Пошаљи</string>
+    <string name="send_share">Пошаљи дељење</string>
     <string name="sendbutton_description">Икона за слање</string>
     <string name="set_as">Постави као</string>
+    <string name="set_note">Постави белешку</string>
     <string name="set_picture_as">Постави слику као</string>
     <string name="set_status">Постави статус</string>
     <string name="set_status_message">Постављање статусне поруке</string>
     <string name="setup_e2e">Током постављања шифрирања од почетка-до-краја примићете 12 случајних речи за памћење које ће вам бити неопходне да фајлове отворите на осталим уређајима. Ово ће се сачувати само на овом уређају и може поново да се прикаже на овом екрану. Молимо вас да их забележите на неко сигурно место!</string>
     <string name="share">Подели</string>
+    <string name="share_copy_link">Дели и копирај линк</string>
     <string name="share_dialog_title">Дељење</string>
     <string name="share_download_limit">Podesite ograničenje preuzimanja</string>
     <string name="share_expiration_date_format">%1$s</string>
@@ -812,6 +831,7 @@
     <string name="share_permission_file_drop">Место за упуштање фајлова</string>
     <string name="share_permission_secure_file_drop">Сигурно место за упуштање фајлова</string>
     <string name="share_permission_view_only">Само преглед</string>
+    <string name="share_permissions">Дозволе за дељење</string>
     <string name="share_remote_clarification">%1$s(удаљено)</string>
     <string name="share_room_clarification">%1$s (разговор)</string>
     <string name="share_search">Име, ИД здруженог облака или адреса е-поште…</string>
@@ -894,8 +914,10 @@
     <string name="subtitle_videos_only">Само видео снимци</string>
     <string name="suggest">Предложи</string>
     <string name="sync">Синхронизуј</string>
+    <string name="sync_anyway">Ипак синхронизуј</string>
     <string name="sync_conflicts_in_favourites_ticker">Постоје сукоби</string>
     <string name="sync_current_folder_was_removed">Фасцикла %1$s више не постоји</string>
+    <string name="sync_duplication">Дуплирање синхронизације</string>
     <string name="sync_fail_content">Не могу да синхронизујем %1$s</string>
     <string name="sync_fail_content_unauthorized">Погрешна лозинка за %1$s</string>
     <string name="sync_fail_in_favourites_ticker">Синхронизација није успела</string>
@@ -912,6 +934,7 @@
     <string name="sync_not_enough_space_dialog_title">Нема довољно простора</string>
     <string name="sync_status_button">Дугме статуса синхронизације</string>
     <string name="sync_string_files">Фајлови</string>
+    <string name="sync_warning_button">Дугме упозорења синхронизације</string>
     <string name="synced_folder_settings_button">Дугме поставки</string>
     <string name="synced_folders_configure_folders">Подесите фасцикле</string>
     <string name="synced_folders_new_info">Брзо отпремање је потпуно редизајнирано. Поново подесите аутоматска отпремања из главног менија.\n\nУживајте у новом и надограђеном аутоматском отпремању.</string>

@@ -11,6 +11,22 @@ import com.nextcloud.model.OCFileFilterType
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
 
+fun FileDataStorageManager.getDecryptedPath(file: OCFile): String {
+    val paths = mutableListOf<String>()
+    var entity = fileDao.getFileByEncryptedRemotePath(file.remotePath, user.accountName)
+
+    while (entity != null) {
+        entity.name?.takeIf { it.isNotEmpty() }?.let {
+            paths.add(it.removePrefix(OCFile.PATH_SEPARATOR))
+        }
+        entity = entity.parent?.let { fileDao.getFileById(it) } ?: break
+    }
+
+    return paths
+        .reversed()
+        .joinToString(OCFile.PATH_SEPARATOR)
+}
+
 fun FileDataStorageManager.filter(file: OCFile, filterType: OCFileFilterType): List<OCFile> =
     if (!file.isRootDirectory) {
         getFolderContent(file, false)

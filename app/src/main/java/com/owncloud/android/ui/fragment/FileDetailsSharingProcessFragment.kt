@@ -169,6 +169,8 @@ class FileDetailsSharingProcessFragment :
         capabilities = CapabilityUtils.getCapability(context)
 
         requireNotNull(fileActivity) { "FileActivity may not be null" }
+
+        permission = capabilities.defaultPermissions ?: OCShare.NO_PERMISSION
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {

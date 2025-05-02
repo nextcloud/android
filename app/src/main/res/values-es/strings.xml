@@ -10,10 +10,12 @@
     <string name="action_edit">Editar</string>
     <string name="action_empty_notifications">Limpiar todas las notificaciones</string>
     <string name="action_empty_trashbin">Vaciar papelera</string>
+    <string name="action_send_share">Enviar/compartir</string>
     <string name="action_switch_grid_view">Vista en cuadrícula</string>
     <string name="action_switch_list_view">Vista de lista</string>
     <string name="actionbar_calendar_contacts_restore">Restaurar los contactos y el calendario</string>
     <string name="actionbar_mkdir">Nueva carpeta</string>
+    <string name="actionbar_move_or_copy">Mover o copiar</string>
     <string name="actionbar_open_with">Abrir con</string>
     <string name="actionbar_search">Buscar</string>
     <string name="actionbar_see_details">Detalles</string>
@@ -29,6 +31,7 @@
     <string name="add_new_public_share">Añadir un nuevo enlace público</string>
     <string name="add_new_secure_file_drop">Añadir una nueva entrega de archivos segura</string>
     <string name="add_to_cloud">Añadir a %1$s</string>
+    <string name="advanced_settings">Configuración avanzada</string>
     <string name="allow_resharing">Permitir que se vuelva a compartir</string>
     <string name="app_config_base_url_title">URL base</string>
     <string name="app_config_disable_clipboard_title">Desactivar el portapapeles</string>
@@ -43,14 +46,17 @@
     <string name="app_widget_description">Muestra un widget del tablero</string>
     <string name="appbar_search_in">Buscar en %s</string>
     <string name="assistant_screen_add_task_alert_dialog_title">Añadir nueva tarea</string>
+    <string name="assistant_screen_create_a_new_task_from_bottom_right_text">Crear una nueva tarea abajo a la derecha</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Escriba algo de texto</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">¿Está seguro de querer eliminar esta tarea?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Eliminar tarea</string>
+    <string name="assistant_screen_loading">Cargando lista de tareas…</string>
     <string name="assistant_screen_no_task_available_text">No hay tareas disponibles para el tipo de tarea %s, puede crear una nueva tarea abajo a la derecha.</string>
     <string name="assistant_screen_task_create_fail_message">Ocurrió un error al crear la tarea</string>
     <string name="assistant_screen_task_create_success_message">Tarea creada exitosamente</string>
     <string name="assistant_screen_task_delete_fail_message">Ocurrió un error al eliminar la tarea</string>
     <string name="assistant_screen_task_delete_success_message">La tarea fue eliminada exitosamente</string>
+    <string name="assistant_screen_task_list_empty_message">La lista de tareas está vacía.</string>
     <string name="assistant_screen_task_list_error_state_message">No se pudo obtener la lista de tareas, por favor, revise su conexión a internet.</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">Eliminar tarea</string>
     <string name="assistant_screen_task_output_empty_text">El resultado de la tarea no está listo aún.</string>
@@ -97,6 +103,7 @@
     <string name="auto_upload_gplay_desc2">Debido a nuevas restricciones impuestas por Google, nos hemos visto obligados a quitar un permiso importante. Como consecuencia, la subida automática solo podrá subir imágenes y vídeos.\nAdemás, se necesita un nuevo permiso para ver la ubicación en la que se tomaron las imágenes.\nAsegúrate de que el permiso de multimedia está en \"Permitir siempre todo\".</string>
     <string name="auto_upload_on_wifi">Subir sólo con conexión Wi-Fi sin límite de datos</string>
     <string name="auto_upload_path">/CargaAutomática</string>
+    <string name="auto_upload_sub_folder_warning">Esta carpeta ya está incluida en la sincronización de la carpeta principal, lo que puede provocar subidas duplicadas.</string>
     <string name="autoupload_configure">Configurar</string>
     <string name="autoupload_create_new_custom_folder">Crear nueva configuración de una carpeta especifica </string>
     <string name="autoupload_custom_folder">Configure una carpeta especifica </string>
@@ -183,6 +190,7 @@
     <string name="confirmation_remove_folders_alert">¿Estás seguro de que quieres eliminar los elementos seleccionados y sus contenidos?</string>
     <string name="confirmation_remove_local">Solo local</string>
     <string name="conflict_dialog_error">El diálogo de resolución de conflictos no puede ser creado</string>
+    <string name="conflict_folder_headline">Conflicto de carpeta</string>
     <string name="conflict_local_file">Archivo local</string>
     <string name="conflict_message_description">Si seleccionas ambas versiones, el archivo local tendrá un número añadido a su nombre.</string>
     <string name="conflict_message_description_for_folder">Si seleccionas ambas versiones, la carpeta local tendrá un número añadido a su nombre.</string>
@@ -195,6 +203,7 @@
     <string name="contacts_backup_button">Hacer copia de seguridad ahora</string>
     <string name="contacts_preferences_backup_scheduled">La copia de seguridad programada comenzará en breve</string>
     <string name="contacts_preferences_import_scheduled">Importación programada. Comenzará en breve</string>
+    <string name="contacts_preferences_import_scheduled_fail">La importación falló al iniciar. Por favor, intente de nuevo</string>
     <string name="contacts_preferences_no_file_found">No se ha encontrado ningún archivo</string>
     <string name="contacts_preferences_something_strange_happened">¡No podemos encontrar tu última copia de seguridad!</string>
     <string name="copied_to_clipboard">Copiado al portapapeles</string>
@@ -284,6 +293,7 @@
     <string name="drawer_quota">%1$s de %2$s utilizados</string>
     <string name="drawer_quota_unlimited">usado %1$s</string>
     <string name="drawer_synced_folders">Carga automática</string>
+    <string name="due_to_too_many_wrong_attempts">%s debido a múltiples intentos fallidos</string>
     <string name="e2e_counter_too_old">El contador es demasiado antiguo</string>
     <string name="e2e_hash_not_found">Hash no encontrado</string>
     <string name="e2e_not_yet_setup">El cifrado de extremo a extremo (E2E) todavía no está configurado</string>
@@ -294,9 +304,12 @@
     <string name="ecosystem_apps_more">Más apps de Nextcloud</string>
     <string name="email_pick_failed">Fallo al seleccionar dirección de correo.</string>
     <string name="encrypted">Establecer como cifrado</string>
+    <string name="end_to_end_encryption_certificate_unavailable">No fue posible recuperar el certificado del servidor</string>
+    <string name="end_to_end_encryption_certificate_verification_failed">Fallo al verificar la clave pública</string>
     <string name="end_to_end_encryption_confirm_button">Configurar cifrado</string>
     <string name="end_to_end_encryption_decrypting">Descifrando…</string>
     <string name="end_to_end_encryption_dialog_close">Cerrar</string>
+    <string name="end_to_end_encryption_enter_passphrase_to_access_files">Ingrese su contraseña para acceder a sus archivos</string>
     <string name="end_to_end_encryption_folder_not_empty">Esta carpeta no está vacía.</string>
     <string name="end_to_end_encryption_generating_keys">Generando claves nuevas…</string>
     <string name="end_to_end_encryption_keywords_description">Las 12 palabras juntas forman una contraseña muy fuerte, permitiéndote solo a ti ver y usar tus archivos cifrados. Por favor, escríbelas y guárdalas en un lugar seguro.</string>
@@ -304,8 +317,10 @@
     <string name="end_to_end_encryption_passphrase_title">Toma nota de tu contraseña de cifrado de 12 palabras</string>
     <string name="end_to_end_encryption_password">Contraseña…</string>
     <string name="end_to_end_encryption_retrieving_keys">Recuperando claves…</string>
+    <string name="end_to_end_encryption_server_private_key_unavailable">No fue posible recuperar la llave privada</string>
     <string name="end_to_end_encryption_storing_keys">Almacenando claves</string>
     <string name="end_to_end_encryption_title">Configurar cifrado</string>
+    <string name="end_to_end_encryption_unexpected_error_occurred">Ha ocurrido un error inesperado al descargar las claves</string>
     <string name="end_to_end_encryption_unsuccessful">No se han podido almacenar las claves. Por favor, vuelve a intentarlo.</string>
     <string name="end_to_end_encryption_wrong_password">Error al descifrar. ¿Contraseña incorrecta?</string>
     <string name="enter_destination_filename">Introduce el nombre del archivo de destino</string>
@@ -422,6 +437,7 @@
     <string name="file_not_found">Archivo no encontrado</string>
     <string name="file_not_synced">No se ha podido sincronizar el archivo. Se muestra la última versión disponible.</string>
     <string name="file_rename">Renombrar</string>
+    <string name="file_upload_worker_error_notification_title">Subida errónea. Sin conexión a Internet</string>
     <string name="file_upload_worker_same_file_already_exists">Ya existe el mismo archivo, no se detectaron conflictos</string>
     <string name="file_version_restored_error">¡Error al restaurar la versión del archivo!</string>
     <string name="file_version_restored_successfully">Versión del archivo restaurada con éxito.</string>
@@ -561,6 +577,7 @@
     <string name="new_media_folder_detected">Nueva carpeta de medios %1$s detectada.</string>
     <string name="new_media_folder_photos">foto</string>
     <string name="new_media_folder_videos">vídeo</string>
+    <string name="new_notification">Nueva notificación</string>
     <string name="new_version_was_created">Se ha creado una versión nueva</string>
     <string name="no_actions">No hay acciones para este usuario</string>
     <string name="no_browser_available">No hay ninguna app disponible para manejar enlaces</string>
@@ -596,6 +613,7 @@
     <string name="offline_mode">No hay conexión a internet</string>
     <string name="offline_mode_info_description">Incluso sin una conexión a internet, puede sorganizar tus carpetas o crear archivos. Una vez vuelves a estar en línea ,las acciones pendientes se sincronizarán automáticamente.</string>
     <string name="offline_operations_file_does_not_exists_yet">El archivo no existe todavía. Por favor, sube primero el archivo.</string>
+    <string name="offline_operations_worker_notification_delete_offline_folder">Eliminar carpeta sin conexión</string>
     <string name="offline_operations_worker_notification_error_text">La operación sin conexión no se ha podido completar. %s</string>
     <string name="offline_operations_worker_notification_manager_ticker">Operaciones sin conexión</string>
     <string name="oneHour">1 hora</string>
@@ -717,6 +735,7 @@
     <string name="recommend_subject">¡Prueba %1$s en tu móvil!</string>
     <string name="recommend_text">Quiero invitarte a usar %1$s en tu móvil.\nDescárgalo aquí: %2$s</string>
     <string name="recommend_urls">%1$s o %2$s</string>
+    <string name="recommended_files_title">Archivos recomendados</string>
     <string name="refresh_content">Refrescar contenido</string>
     <string name="reload">Volver a cargar</string>
     <string name="remote">(remoto)</string>
@@ -747,7 +766,7 @@
     <string name="scanQR_description">Entrar vía código QR</string>
     <string name="scan_page">Escanear página</string>
     <string name="screenshot_01_gridView_heading">Protegiendo sus datos</string>
-    <string name="screenshot_01_gridView_subline">plataforma de productividad autoalojada</string>
+    <string name="screenshot_01_gridView_subline">plataforma de productividad auto-alojada</string>
     <string name="screenshot_02_listView_heading">Navegar y compartir</string>
     <string name="screenshot_02_listView_subline">todas las acciones en la punta de sus dedos</string>
     <string name="screenshot_03_drawer_heading">Actividad, compartir…</string>
@@ -773,6 +792,7 @@
     <string name="set_status_message">Ajustar el mensaje de estado</string>
     <string name="setup_e2e">Durante la configuración del cifrado de extremo a extremo, recibirá un mnemónico aleatorio de 12 palabras, que necesitará para abrir sus archivos en otros dispositivos. Esto solo se almacenará en este dispositivo y se puede volver a mostrar en esta pantalla. ¡Por favor anótelo en un lugar seguro!</string>
     <string name="share">Compartir</string>
+    <string name="share_copy_link">Compartir y copiar enlace</string>
     <string name="share_dialog_title">Compartir</string>
     <string name="share_download_limit">Establecer el límite de descarga</string>
     <string name="share_expiration_date_format">%1$s</string>
@@ -802,6 +822,7 @@
     <string name="share_remote_clarification">%1$s (remoto)</string>
     <string name="share_room_clarification">%1$s (conversación)</string>
     <string name="share_search">Nombre, ID de nube federada o dirección de correo electrónico...</string>
+    <string name="share_search_internal">Añadir usuarios y equipos</string>
     <string name="share_send_new_email">Enviar nuevo email</string>
     <string name="share_send_note">Nota para el destinatario</string>
     <string name="share_settings">Configuración</string>
@@ -862,10 +883,10 @@
     <string name="storage_permission_full_access">Acceso completo</string>
     <string name="storage_permission_media_read_only">Medios en sólo lectura</string>
     <string name="storage_pictures">Imágenes</string>
-    <string name="store_full_desc">La plataforma de productividad auto hospedada que le mantiene en control.\n\nCaracterísticas;\n* Interfaz moderna y fácil de usar adecuada al tema de su servidor\n* Cargue archivos a su servidor Nextcloud\n* Compártalos con otros\n* Mantenga sus archivos y carpetas favoritas sincronizados\n* Busque en todas las carpetas de su servidor\n* Carga automática para fotos y videos capturados en su dispositivo\n* Manténgase al día con notificaciones\n* Soporte para múltiples cuentas\n* Acceda a su información de forma segura usando su huella dactilar o PIN\n* Integración con DAVx5 (anteriormente conocido como DAVdroid) para configurar fácilmente la sincronización del calendario y contactos\n\nPor favor, reporte cualquier problema en https://github.com/nextcloud/android/issues y discuta acerca de esta aplicación en https://help.nextcloud.com/c/clients/android\n\n¿Es Ud. nuevo en Nextcloud? Nextcloud es un servidor privado para sincronizar y compartir archivos, y comunicación. Es un programa de uso libre, y lo puede hospedar Ud. mismo o pagar a una compañía para hacerlo por Ud. De esa manera, Ud. está en control de sus fotos, su calendario e información de sus contactos, sus documentos y todo lo demás.\n\nConozca Nextcloud en https://nextcloud.com</string>
-    <string name="store_full_dev_desc">La plataforma de productividad autoalojada que te mantiene al mando.\nEsta es la versión oficial de desarrollo, que incluye una muestra diaria de cualquier funcionalidad sin probar, lo que puede causar inestabilidad y pérdida de datos. Esta app es para usuarios que desean probar, e informar de los fallos que ocurran. ¡No la uses para tu trabajo productivo!\n\nTanto la versión normal como la oficial de desarrollo están disponibles en F-Droid y pueden estar instaladas al mismo tiempo.</string>
-    <string name="store_short_desc">La plataforma de productividad autoalojada que te mantiene al mando</string>
-    <string name="store_short_dev_desc">La plataforma de productividad autoalojada que te mantiene al mando (versión de prueba para desarrolladores)</string>
+    <string name="store_full_desc">La plataforma de productividad auto-alojada que le mantiene en control.\n\nCaracterísticas;\n* Interfaz moderna y fácil de usar adecuada al tema de su servidor\n* Suba archivos a su servidor Nextcloud\n* Compártalos con otros\n* Mantenga sus archivos y carpetas favoritas sincronizados\n* Busque en todas las carpetas de su servidor\n* Subida automática para fotos y videos capturados en su dispositivo\n* Manténgase al día con notificaciones\n* Soporte para múltiples cuentas\n* Acceda a su información de forma segura usando su huella dactilar o PIN\n* Integración con DAVx5 (anteriormente conocido como DAVdroid) para configurar fácilmente la sincronización del calendario y contactos\n\nPor favor, reporte cualquier problema en https://github.com/nextcloud/android/issues y discuta acerca de esta aplicación en https://help.nextcloud.com/c/clients/android\n\n¿Es Ud. nuevo en Nextcloud? Nextcloud es un servidor privado para sincronizar y compartir archivos, y comunicación. Es un programa de uso libre, y lo puede hospedar Ud. mismo o pagar a una compañía para hacerlo por Ud. De esa manera, Ud. está en control de sus fotos, su calendario e información de sus contactos, sus documentos y todo lo demás.\n\nConozca Nextcloud en https://nextcloud.com</string>
+    <string name="store_full_dev_desc">La plataforma de productividad auto-alojada que te mantiene al mando.\nEsta es la versión oficial de desarrollo, que incluye una muestra diaria de cualquier funcionalidad sin probar, lo que puede causar inestabilidad y pérdida de datos. Esta app es para usuarios que desean probar, e informar de los fallos que ocurran. ¡No la uses para tu trabajo productivo!\n\nTanto la versión normal como la oficial de desarrollo están disponibles en F-Droid y pueden estar instaladas al mismo tiempo.</string>
+    <string name="store_short_desc">La plataforma de productividad auto-alojada que te mantiene al mando</string>
+    <string name="store_short_dev_desc">La plataforma de productividad auto-alojada que te mantiene al mando (versión de prueba para desarrolladores)</string>
     <string name="stream">Retransmisión con...</string>
     <string name="stream_not_possible_headline">La retransmisión interna no es posible</string>
     <string name="stream_not_possible_message">Por favor, descarga el medio o usa una app externa</string>
@@ -1165,6 +1186,11 @@
         <item quantity="one">%d seleccionado</item>
         <item quantity="many">%d seleccionados</item>
         <item quantity="other">%d seleccionados</item>
+    </plurals>
+    <plurals name="delay_message_seconds_part">
+        <item quantity="one">%dsegundo</item>
+        <item quantity="many">%dsegundos</item>
+        <item quantity="other">%dsegundos</item>
     </plurals>
     <plurals name="share_download_limit_description">
         <item quantity="one">Queda %1$d descarga</item>

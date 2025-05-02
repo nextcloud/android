@@ -9,6 +9,17 @@ package com.nextcloud.utils.extensions
 
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
+import com.owncloud.android.utils.FileStorageUtils
+
+fun List<OCFile>.filterFilenames(): List<OCFile> = distinctBy { it.fileName }
+
+fun List<OCFile>.filterTempFilter(): List<OCFile> = filterNot { it.isTempFile() }
+
+fun OCFile.isTempFile(): Boolean {
+    val context = MainApp.getAppContext()
+    val appTempPath = FileStorageUtils.getAppTempDirectoryPath(context)
+    return storagePath?.startsWith(appTempPath) == true
+}
 
 fun List<OCFile>.setEncryptionAttributeForItemId(
     fileId: String,
@@ -42,7 +53,7 @@ fun List<OCFile>.filterByMimeType(mimeType: String): List<OCFile> =
 fun List<OCFile>.limitToPersonalFiles(userId: String): List<OCFile> = filter { file ->
     file.ownerId?.let { ownerId ->
         ownerId == userId && !file.isSharedWithMe && !file.isGroupFolder
-    } ?: false
+    } == true
 }
 
 fun List<OCFile>.addOfflineOperations(storageManager: FileDataStorageManager, fileId: Long) {

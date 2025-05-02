@@ -13,6 +13,7 @@
     <string name="action_switch_grid_view">Krada vido</string>
     <string name="action_switch_list_view">Lista vido</string>
     <string name="actionbar_mkdir">Nova dosierujo</string>
+    <string name="actionbar_move_or_copy">Movi aŭ kopii</string>
     <string name="actionbar_open_with">Malfermi per</string>
     <string name="actionbar_search">Serĉi</string>
     <string name="actionbar_see_details">Detaloj</string>
@@ -25,6 +26,7 @@
     <string name="activity_chooser_title">Sendi ligilon al...</string>
     <string name="activity_icon">Aktivaĵoj</string>
     <string name="add_to_cloud">Aldoni al %1$s</string>
+    <string name="advanced_settings">Altanivela agordo</string>
     <string name="allow_resharing">Permesi rekunhavigon</string>
     <string name="appbar_search_in">Serĉi en 1%s</string>
     <string name="auth_access_failed">Aliro malsukcesis: %1$s</string>

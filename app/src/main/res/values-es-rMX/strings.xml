@@ -30,6 +30,7 @@
     <string name="add_new_public_share">Añadir un nuevo enlace publico</string>
     <string name="add_new_secure_file_drop">Añadir una nueva entrega de archivos segura</string>
     <string name="add_to_cloud">Agregar a %1$s</string>
+    <string name="advanced_settings">Configuraciones avanzadas</string>
     <string name="allow_resharing">Permitir volver a compartir</string>
     <string name="app_config_proxy_port_title">Puerto del proxy</string>
     <string name="app_widget_description">Muestra un widget del panel</string>
@@ -663,6 +664,7 @@
     <string name="recommend_subject">¡Prueba %1$s en tu dispositivo!</string>
     <string name="recommend_text">Quiero invitarte a usar %1$s en tu dispositivo\nDescárgalo aquí:%2$s </string>
     <string name="recommend_urls">%1$s ó %2$s</string>
+    <string name="recommended_files_title">Archivos recomendados</string>
     <string name="refresh_content">Actualizar contenido</string>
     <string name="reload">Volver a cargar</string>
     <string name="remote">(remoto)</string>

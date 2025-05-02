@@ -10,6 +10,7 @@
     <string name="action_edit">編輯</string>
     <string name="action_empty_notifications">清除所有通知訊息</string>
     <string name="action_empty_trashbin">清空垃圾桶</string>
+    <string name="action_send_share">傳送/分享</string>
     <string name="action_switch_grid_view">格狀檢視</string>
     <string name="action_switch_list_view">清單檢視</string>
     <string name="actionbar_calendar_contacts_restore">復原聯絡人與行事曆</string>
@@ -45,14 +46,17 @@
     <string name="app_widget_description">顯示儀表板中的一個小工具</string>
     <string name="appbar_search_in">搜尋 %s</string>
     <string name="assistant_screen_add_task_alert_dialog_title">新增任務</string>
+    <string name="assistant_screen_create_a_new_task_from_bottom_right_text">從右下角建立新任務</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">輸入一些文字</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">您確定要刪除此工作項目嗎？</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">刪除工作項目</string>
+    <string name="assistant_screen_loading">正在載入工作項目清單……</string>
     <string name="assistant_screen_no_task_available_text">沒有可用於 %s 工作項目類型的工作項目，您可以從右下角建立新工作項目。</string>
     <string name="assistant_screen_task_create_fail_message">建立工作項目時發生錯誤</string>
     <string name="assistant_screen_task_create_success_message">已成功建立工作項目</string>
     <string name="assistant_screen_task_delete_fail_message">刪除工作項目時發生錯誤</string>
     <string name="assistant_screen_task_delete_success_message">已成功刪除工作項目</string>
+    <string name="assistant_screen_task_list_empty_message">任務清單為空。</string>
     <string name="assistant_screen_task_list_error_state_message">無法擷取工作項目清單，請檢查您的網際網路連線。</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">刪除工作項目</string>
     <string name="assistant_screen_task_output_empty_text">任務輸出尚未就緒。</string>
@@ -99,6 +103,7 @@
     <string name="auto_upload_gplay_desc2">由於 Google 施加了新的限制，我們不得不移除一個重要的權限。因此，自動上傳將只能上傳圖片與視訊檔案。此外，還需要新的權限才能存取上傳圖片的位置資訊。</string>
     <string name="auto_upload_on_wifi">只在非計量收費的 Wi-Fi 上傳</string>
     <string name="auto_upload_path">/AutoUpload</string>
+    <string name="auto_upload_sub_folder_warning">此資料夾已包含在上層資料夾的同步中，這可能會導致重複上傳</string>
     <string name="autoupload_configure">設定</string>
     <string name="autoupload_create_new_custom_folder">新增自訂資料夾</string>
     <string name="autoupload_custom_folder">設置自訂資料夾</string>
@@ -185,6 +190,7 @@
     <string name="confirmation_remove_folders_alert">您真的想要刪除所選項目和裡面的內容嗎？</string>
     <string name="confirmation_remove_local">僅本機</string>
     <string name="conflict_dialog_error">建立衝突對話窗時發生錯誤！</string>
+    <string name="conflict_folder_headline">資料夾衝突</string>
     <string name="conflict_local_file">本機檔案</string>
     <string name="conflict_message_description">若您同時選擇兩個版本，本機的檔案會在檔名後附加編號。</string>
     <string name="conflict_message_description_for_folder">若您同時選擇兩個版本，本機的資料夾會在檔名後附加編號。</string>
@@ -197,6 +203,7 @@
     <string name="contacts_backup_button">立刻備份</string>
     <string name="contacts_preferences_backup_scheduled">備份已排定並且會盡快開始</string>
     <string name="contacts_preferences_import_scheduled">匯入已排定並且會盡快開始</string>
+    <string name="contacts_preferences_import_scheduled_fail">匯入無法開始。請再試一次</string>
     <string name="contacts_preferences_no_file_found">找不到檔案</string>
     <string name="contacts_preferences_something_strange_happened">找不到您最新的備份！</string>
     <string name="copied_to_clipboard">已複製到剪貼簿</string>
@@ -351,6 +358,7 @@
     <string name="etm_background_jobs_stop_test_job">停止測試作業</string>
     <string name="etm_migrations">遷移（升級應用程式）</string>
     <string name="etm_preferences">偏好設定</string>
+    <string name="etm_title">工程測試模式</string>
     <string name="etm_transfer">檔案傳輸</string>
     <string name="etm_transfer_enqueue_test_download">排入佇列測試下載</string>
     <string name="etm_transfer_enqueue_test_upload">排入佇列測試上傳</string>
@@ -572,6 +580,7 @@
     <string name="new_media_folder_detected">偵測到新的媒體資料夾 %1$s。</string>
     <string name="new_media_folder_photos">相片</string>
     <string name="new_media_folder_videos">影片</string>
+    <string name="new_notification">新通知</string>
     <string name="new_version_was_created">新版本已建立</string>
     <string name="no_actions">沒有此使用者可用的動作</string>
     <string name="no_browser_available">沒有應用程式可以處理連結</string>
@@ -587,6 +596,7 @@
     <string name="note_icon_hint">備註圖示</string>
     <string name="notification_action_failed">執行動作失敗。</string>
     <string name="notification_channel_background_operations_description">顯示通知以與背景操作的結果互動</string>
+    <string name="notification_channel_background_operations_name">背景操作</string>
     <string name="notification_channel_download_description">顯示下載進度</string>
     <string name="notification_channel_download_name_short">下載</string>
     <string name="notification_channel_file_sync_description">顯示檔案同步進度和結果</string>
@@ -603,12 +613,17 @@
     <string name="notification_icon_description">有未讀的通知</string>
     <string name="notifications_no_results_headline">沒有通知</string>
     <string name="notifications_no_results_message">請稍後再檢查。</string>
+    <string name="oc_file_list_adapter_offline_operation_description_text">擱置中的操作</string>
     <string name="oc_file_list_adapter_offline_operation_remove_description_text">擱置中的移除操作</string>
     <string name="offline_mode">沒有網際網路連線</string>
     <string name="offline_mode_info_description">即使沒有網際網路連線，您也可以整理資料夾、建立檔案。一旦重新連上網際網路，您擱置中的動作將會自動同步。</string>
+    <string name="offline_mode_info_title">您已離線，但工作仍在繼續</string>
     <string name="offline_operations_file_does_not_exists_yet">檔案不存在。請先上傳檔案。</string>
+    <string name="offline_operations_worker_notification_conflict_text">衝突的資料夾：%s</string>
+    <string name="offline_operations_worker_notification_delete_offline_folder">刪除離線資料夾</string>
     <string name="offline_operations_worker_notification_error_text">無法完成離線操作。%s</string>
     <string name="offline_operations_worker_notification_manager_ticker">離線操作</string>
+    <string name="offline_operations_worker_notification_start_text">開始離線操作</string>
     <string name="oneHour">1 小時</string>
     <string name="online">上線</string>
     <string name="online_status">上線狀態</string>
@@ -631,6 +646,7 @@
     <string name="permission_storage_access">上傳與下載檔案需要額外的權能。</string>
     <string name="pick_contact_to_share_with">挑選要分享的聯絡人</string>
     <string name="picture_set_as_no_app">沒有找到圖片可設定的應用程式</string>
+    <string name="pin_home">釘選至主畫面</string>
     <string name="pin_shortcut_label">開啟 %1$s</string>
     <string name="placeholder_fileSize">389 KB</string>
     <string name="placeholder_filename">placeholder.txt</string>
@@ -779,13 +795,16 @@
     <string name="select_one_template">請選取一個範本</string>
     <string name="select_template">選取範本</string>
     <string name="send">傳送</string>
+    <string name="send_share">傳送分享</string>
     <string name="sendbutton_description">傳送按鈕圖示</string>
     <string name="set_as">設定為</string>
+    <string name="set_note">設定備註</string>
     <string name="set_picture_as">使用圖片作為</string>
     <string name="set_status">設定狀態</string>
     <string name="set_status_message">設定狀態訊息</string>
     <string name="setup_e2e">在設置端對端加密過程中，您會收到隨機的 12 字記憶密語，您需要有這段密語才能在其他裝置上開啟檔案。這只會儲存在此裝置上，之後可以在此畫面中再次顯示。請將密語寫下來，妥善存放在安全的地方！</string>
     <string name="share">分享</string>
+    <string name="share_copy_link">分享並複製連結</string>
     <string name="share_dialog_title">分享</string>
     <string name="share_download_limit">設定下載限制</string>
     <string name="share_expiration_date_format">%1$s</string>
@@ -812,6 +831,7 @@
     <string name="share_permission_file_drop">檔案投遞</string>
     <string name="share_permission_secure_file_drop">安全檔案投遞</string>
     <string name="share_permission_view_only">僅供檢視</string>
+    <string name="share_permissions">分享權限</string>
     <string name="share_remote_clarification">%1$s（遠端）</string>
     <string name="share_room_clarification">%1$s（對話）</string>
     <string name="share_search">名稱、聯邦雲端 ID 或電子郵件地址……</string>
@@ -894,8 +914,10 @@
     <string name="subtitle_videos_only">僅限影片</string>
     <string name="suggest">建議</string>
     <string name="sync">同步</string>
+    <string name="sync_anyway">仍要同步</string>
     <string name="sync_conflicts_in_favourites_ticker">出現衝突</string>
     <string name="sync_current_folder_was_removed">資料夾 %1$s 已不存在</string>
+    <string name="sync_duplication">重複同步</string>
     <string name="sync_fail_content">無法同步 %1$s</string>
     <string name="sync_fail_content_unauthorized">%1$s 的密碼錯誤</string>
     <string name="sync_fail_in_favourites_ticker">保持同步檔案失敗</string>
@@ -912,6 +934,7 @@
     <string name="sync_not_enough_space_dialog_title">沒有足夠空間</string>
     <string name="sync_status_button">同步狀態按鈕</string>
     <string name="sync_string_files">檔案</string>
+    <string name="sync_warning_button">同步警告按鈕</string>
     <string name="synced_folder_settings_button">設定按鈕</string>
     <string name="synced_folders_configure_folders">設定資料夾</string>
     <string name="synced_folders_new_info">即時上傳已經完全改版。請在主選單中重新設定自動上傳。\n\n享受全新且強大的自動上傳吧。</string>

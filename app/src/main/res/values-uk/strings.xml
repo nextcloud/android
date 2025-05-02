@@ -10,6 +10,7 @@
     <string name="action_edit">Редагувати</string>
     <string name="action_empty_notifications">Очистити всі сповіщення</string>
     <string name="action_empty_trashbin">Очистити кошик</string>
+    <string name="action_send_share">Надіслати або поділитися</string>
     <string name="action_switch_grid_view">Показувати сіткою</string>
     <string name="action_switch_list_view">Показувати списком</string>
     <string name="actionbar_calendar_contacts_restore">Відновити контакти та календар</string>
@@ -28,7 +29,7 @@
     <string name="activity_chooser_title">Надіслати посилання до…</string>
     <string name="activity_icon">Ваші дії</string>
     <string name="add_new_public_share">Додати нове публічне посилання</string>
-    <string name="add_new_secure_file_drop">Додайте новий захищений файл</string>
+    <string name="add_new_secure_file_drop">Додати новий захищений файл</string>
     <string name="add_to_cloud">Додати до хмари %1$s</string>
     <string name="advanced_settings">Розширені</string>
     <string name="allow_resharing">Дозволяти передавати у спільний доступ іншим</string>
@@ -45,14 +46,17 @@
     <string name="app_widget_description">Показувати один віджет з панелі віджетів</string>
     <string name="appbar_search_in">Пошук у %s</string>
     <string name="assistant_screen_add_task_alert_dialog_title">Додати нове завдання</string>
+    <string name="assistant_screen_create_a_new_task_from_bottom_right_text">Створити нове завдання праворуч внизу</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Вставте будь-який текст</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Дійсно вилучити це завдання?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Вилучити завдання</string>
+    <string name="assistant_screen_loading">Отримання списку завдань...</string>
     <string name="assistant_screen_no_task_available_text">Відсутні завдання для завдань типу %s. Ви можете додати нове завдання праворуч внизу. </string>
     <string name="assistant_screen_task_create_fail_message">Помилка під час додавання завдання</string>
     <string name="assistant_screen_task_create_success_message">Успішно додано завдання</string>
     <string name="assistant_screen_task_delete_fail_message">Помилка під час вилучення завдання</string>
     <string name="assistant_screen_task_delete_success_message">Завдання вилучено</string>
+    <string name="assistant_screen_task_list_empty_message">Список завдань порожній</string>
     <string name="assistant_screen_task_list_error_state_message">Неможливо отримати список завдань. Перевірте з\'єднання з мережею</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">Вилучити завдання</string>
     <string name="assistant_screen_task_output_empty_text">Поки неможливо показати завдання</string>
@@ -99,6 +103,7 @@
     <string name="auto_upload_gplay_desc2">Через нові обмеження з боку Google ми вилучили важливий дозвіл. В результаті цього автоматично завантажувати можна тільки зображення та відео.\nКрім того, новий дозвіл вимагається для надання доступу до до місця розташування для завантажених зображень.\nПересвідчитеся, що доступ до медійного контенту встановлено у \"Завжди дозволяти все\".</string>
     <string name="auto_upload_on_wifi">Завантаження тільки через WiFi</string>
     <string name="auto_upload_path">/AutoUpload</string>
+    <string name="auto_upload_sub_folder_warning">Цей каталог вже включено до синхронізації каталогу вищого рівня, що може призвести до задвоєння завантаження</string>
     <string name="autoupload_configure">Налаштування</string>
     <string name="autoupload_create_new_custom_folder">Власний каталог користувача</string>
     <string name="autoupload_custom_folder">Каталог користувача</string>
@@ -185,6 +190,7 @@
     <string name="confirmation_remove_folders_alert">Дійсно вилучити вибрані об\'єкти та їхній вміст?</string>
     <string name="confirmation_remove_local">Лише на пристрої</string>
     <string name="conflict_dialog_error">Неможливо ініціювати діалог розв\'язання конфлікту</string>
+    <string name="conflict_folder_headline">Конфлікт каталогів</string>
     <string name="conflict_local_file">Файл на пристрої</string>
     <string name="conflict_message_description">Якщо ви виберете обидві версії, то до назви локального файлу буде додано порядковий номер.</string>
     <string name="conflict_message_description_for_folder">Якщо ви виберете обидві версії, до назви каталогу на пристрої буде додано цифру.</string>
@@ -197,6 +203,7 @@
     <string name="contacts_backup_button">Створити зараз резервну копію</string>
     <string name="contacts_preferences_backup_scheduled">Резервне копіювання додано до розкладу й невдовзі розпочнеться</string>
     <string name="contacts_preferences_import_scheduled">Імпортування додано до розкладу й невдовзі розпочнеться</string>
+    <string name="contacts_preferences_import_scheduled_fail">Не вдалося здійснити імпорт. Спробуйте ще раз</string>
     <string name="contacts_preferences_no_file_found">Файл не знайдено</string>
     <string name="contacts_preferences_something_strange_happened">Неможливо знайти вашу останню резервну копію</string>
     <string name="copied_to_clipboard">Скопійовано</string>
@@ -351,6 +358,7 @@
     <string name="etm_background_jobs_stop_test_job">Завершити тестове завдання</string>
     <string name="etm_migrations">Міграція (оновлення застосунку)</string>
     <string name="etm_preferences">Налаштування</string>
+    <string name="etm_title">Режим розробника</string>
     <string name="etm_transfer">Передавання файлів</string>
     <string name="etm_transfer_enqueue_test_download">Черга тестування звантаження</string>
     <string name="etm_transfer_enqueue_test_upload">Черга тестування завантаження</string>
@@ -509,7 +517,7 @@
     <string name="link_name">Назва посилання</string>
     <string name="link_share_allow_upload_and_editing">Може завантажувати та редагувати</string>
     <string name="link_share_editing">Редагування</string>
-    <string name="link_share_file_drop">Сховище (тільки завантажування)</string>
+    <string name="link_share_file_drop">Додати файл (тільки завантажування)</string>
     <string name="link_share_view_only">Лише перегляд</string>
     <string name="list_layout">Шаблон списку</string>
     <string name="load_more_results">Завантажити більше результатів</string>
@@ -570,6 +578,7 @@
     <string name="new_media_folder_detected">Знайдено новий каталог з мультимедійним вмістом %1$s.</string>
     <string name="new_media_folder_photos">світлина</string>
     <string name="new_media_folder_videos">відео</string>
+    <string name="new_notification">Нове сповіщення</string>
     <string name="new_version_was_created">Створено нову версію</string>
     <string name="no_actions">Відсутні дії для цього користувача</string>
     <string name="no_browser_available">Відсутні застосунки для обробки посилань</string>
@@ -585,6 +594,7 @@
     <string name="note_icon_hint">Піктограма нотатки</string>
     <string name="notification_action_failed">Не вдалося виконати дію.</string>
     <string name="notification_channel_background_operations_description">Показувати сповіщення про результати фонових операцій</string>
+    <string name="notification_channel_background_operations_name">Фонові операції</string>
     <string name="notification_channel_download_description">Показує перебіг звантаження</string>
     <string name="notification_channel_download_name_short">Звантаження</string>
     <string name="notification_channel_file_sync_description">Показує перебіг синхронізації файлів та результати</string>
@@ -601,12 +611,17 @@
     <string name="notification_icon_description">У вас є непрочитані повідомлення</string>
     <string name="notifications_no_results_headline">Немає сповіщень</string>
     <string name="notifications_no_results_message">Будь ласка, перейдіть сюди пізніше.</string>
+    <string name="oc_file_list_adapter_offline_operation_description_text">Операції, що виконуються</string>
     <string name="oc_file_list_adapter_offline_operation_remove_description_text">Триває операція з вилучення</string>
     <string name="offline_mode">Відсутнє з\'єднання з мережею</string>
     <string name="offline_mode_info_description">Ви можете впорядковувати каталоги, створювати файли без наявного з\'єднання з мережею. Одразу після відновлення доступу завдання, що в очікуванні, буде автоматично виконано, а файли синхронізовано.</string>
+    <string name="offline_mode_info_title">Ви користуєтеся застосунком без доступу до мережі</string>
     <string name="offline_operations_file_does_not_exists_yet">Файли поки відсутні. Спочатку завантажте їх.</string>
+    <string name="offline_operations_worker_notification_conflict_text">Каталог з конфліктом: %s</string>
+    <string name="offline_operations_worker_notification_delete_offline_folder">Вилучити каталог в режимі офлайну</string>
     <string name="offline_operations_worker_notification_error_text">Неможливо виконати офлайнову операцію. %s</string>
     <string name="offline_operations_worker_notification_manager_ticker">Офлайнові операції</string>
+    <string name="offline_operations_worker_notification_start_text">Запуск операцій в офлайні</string>
     <string name="oneHour">1 година</string>
     <string name="online">Онлайн</string>
     <string name="online_status">Статус онлайну</string>
@@ -629,6 +644,7 @@
     <string name="permission_storage_access">Додаткові дозволи потрібні для завантаження та звантаження файлів.</string>
     <string name="pick_contact_to_share_with">Виберіть контакт для обміну</string>
     <string name="picture_set_as_no_app">Не знайдено застосунків для встановлення зображення для</string>
+    <string name="pin_home">Закріпити на домівці</string>
     <string name="pin_shortcut_label">Відкрити %1$s</string>
     <string name="placeholder_fileSize">389 КБ</string>
     <string name="placeholder_media_time">12:23:45</string>
@@ -776,13 +792,16 @@
     <string name="select_one_template">Будь ласка, виберіть один шаблон.</string>
     <string name="select_template">Виберіть шаблон</string>
     <string name="send">Надіслати</string>
+    <string name="send_share">Надати у спільний доступ</string>
     <string name="sendbutton_description">Зображення кнопки надсилання</string>
     <string name="set_as">Встановити як</string>
+    <string name="set_note">Додати примітку</string>
     <string name="set_picture_as">Використати як</string>
     <string name="set_status">Встановити статус</string>
     <string name="set_status_message">Встановити повідомлення про стан</string>
     <string name="setup_e2e">Під час налаштування наскрізного шифрування ви отримаєте парольну фразу з 12 слів, за допомогою якої ви зможете відкривати ваші файлі на інших пристроях. Її буде збережено лише на цьому пристрої та буде показано знову на цьому екрані. Будь ласка, занотуйте цю фразу та збережіть у безпеченому місці!</string>
     <string name="share">Спільний доступ</string>
+    <string name="share_copy_link">Поділитися та копіювати посилання</string>
     <string name="share_dialog_title">Спільне</string>
     <string name="share_download_limit">Встановити обмеження на звантаження</string>
     <string name="share_expiration_date_format">%1$s</string>
@@ -805,10 +824,11 @@
     <string name="share_no_password_title">Встановити пароль</string>
     <string name="share_not_allowed_when_file_drop">Повторну передачу у спільний доступ не дозволено під час безпечної передачі файлів</string>
     <string name="share_password_title">Захищено паролем</string>
-    <string name="share_permission_can_edit">Можна редагувати</string>
+    <string name="share_permission_can_edit">Може редагувати</string>
     <string name="share_permission_file_drop">Додати файл</string>
-    <string name="share_permission_secure_file_drop">Безпечне додавання файлу</string>
+    <string name="share_permission_secure_file_drop">Захищене додавання файлу</string>
     <string name="share_permission_view_only">Лише перегляд</string>
+    <string name="share_permissions">Права доступу на спільний ресурс</string>
     <string name="share_remote_clarification">%1$s (віддалено)</string>
     <string name="share_room_clarification">%1$s (розмова)</string>
     <string name="share_search">Ім\'я, ідентифікатор об\'єднаної хмари або ел.адреса...</string>
@@ -891,8 +911,10 @@
     <string name="subtitle_videos_only">Лише відео</string>
     <string name="suggest">Запропонувати</string>
     <string name="sync">Синхронізація</string>
+    <string name="sync_anyway">Синхронізувати попри все</string>
     <string name="sync_conflicts_in_favourites_ticker">Конфліктів знайдено</string>
     <string name="sync_current_folder_was_removed">Каталог %1$s більше недоступний</string>
+    <string name="sync_duplication">Синхронізувати із задвоєнням</string>
     <string name="sync_fail_content">Синхронізація не вдала %1$s</string>
     <string name="sync_fail_content_unauthorized">Неправильний пароль для %1$s</string>
     <string name="sync_fail_in_favourites_ticker">Не вдалося синхронізувати файли</string>
@@ -909,6 +931,7 @@
     <string name="sync_not_enough_space_dialog_title">Недостатньо місця</string>
     <string name="sync_status_button">Кнопка стану синхронізації</string>
     <string name="sync_string_files">Файли</string>
+    <string name="sync_warning_button">Кнопка застереження синхронізації</string>
     <string name="synced_folder_settings_button">Кнопка налаштувань</string>
     <string name="synced_folders_configure_folders">Налаштувати каталоги</string>
     <string name="synced_folders_new_info">Постійне завантаження було повністю перероблено. Переналаштуйте ваше автоматичне завантаження у головному меню.\n\nНасолоджуйтеся оновленим та розширеним автоматичним завантаженням.</string>
@@ -1011,7 +1034,7 @@
     <string name="uploader_info_dirname">Назва каталогу</string>
     <string name="uploader_local_files_uploaded">Повторно після помилки завантажити файли, що на пристрої</string>
     <string name="uploader_top_message">Оберіть каталог для завантаження</string>
-    <string name="uploader_upload_failed_content_single">Неможливо завантажити %1$s</string>
+    <string name="uploader_upload_failed_content_single">Не вдалося завантажити %1$s</string>
     <string name="uploader_upload_failed_credentials_error">Помилка під час завантаження, увійдіть ще раз</string>
     <string name="uploader_upload_failed_sync_conflict_error">Конфлікт під час завантаження файлу</string>
     <string name="uploader_upload_failed_sync_conflict_error_content">Виберіть, яку з версій %1$s зберегти</string>

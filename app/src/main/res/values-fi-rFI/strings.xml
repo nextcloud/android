@@ -664,6 +664,7 @@ GNU yleinen lisenssi, versio 2</string>
     <string name="recommend_subject">Kokeile %1$sia laitteellasi!</string>
     <string name="recommend_text">Haluan, että kokeilet %1$sia laitteellasi.\nLataa tästä: %2$s</string>
     <string name="recommend_urls">%1$s tai %2$s</string>
+    <string name="recommended_files_title">Suositellut tiedostot</string>
     <string name="refresh_content">Päivitä sisältö</string>
     <string name="reload">Lataa uudelleen</string>
     <string name="remote">(etä)</string>

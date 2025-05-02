@@ -48,6 +48,7 @@ import com.owncloud.android.operations.RefreshFolderOperation;
 import com.owncloud.android.ui.activity.ConflictsResolveActivity;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
+import com.owncloud.android.ui.adapter.progressListener.UploadProgressListener;
 import com.owncloud.android.ui.notifications.NotificationUtils;
 import com.owncloud.android.ui.preview.PreviewImageFragment;
 import com.owncloud.android.utils.DisplayUtils;
@@ -66,7 +67,7 @@ import androidx.annotation.NonNull;
 public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedViewHolder> {
     private static final String TAG = UploadListAdapter.class.getSimpleName();
 
-    private ProgressListener progressListener;
+    private UploadProgressListener uploadProgressListener;
     private final FileActivity parentActivity;
     private final UploadsStorageManager uploadsStorageManager;
     private final FileDataStorageManager storageManager;
@@ -368,24 +369,24 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
                 if (uploadHelper.isUploadingNow(item)) {
                     // really uploading, so...
                     // ... unbind the old progress bar, if any; ...
-                    if (progressListener != null) {
-                        String targetKey = FileUploadHelper.Companion.buildRemoteName(progressListener.getUpload().getAccountName(), progressListener.getUpload().getRemotePath());
-                        uploadHelper.removeUploadTransferProgressListener(progressListener, targetKey);
+                    if (uploadProgressListener != null) {
+                        String targetKey = FileUploadHelper.Companion.buildRemoteName(uploadProgressListener.getUpload().getAccountName(), uploadProgressListener.getUpload().getRemotePath());
+                        uploadHelper.removeUploadTransferProgressListener(uploadProgressListener, targetKey);
                     }
                     // ... then, bind the current progress bar to listen for updates
-                    progressListener = new ProgressListener(item, itemViewHolder.binding.uploadProgressBar);
+                    uploadProgressListener = new UploadProgressListener(item, itemViewHolder.binding.uploadProgressBar);
                     String targetKey = FileUploadHelper.Companion.buildRemoteName(item.getAccountName(), item.getRemotePath());
-                    uploadHelper.addUploadTransferProgressListener(progressListener, targetKey);
+                    uploadHelper.addUploadTransferProgressListener(uploadProgressListener, targetKey);
 
                 } else {
                     // not really uploading; stop listening progress if view is reused!
-                    if (progressListener != null &&
-                        progressListener.isWrapping(itemViewHolder.binding.uploadProgressBar)) {
+                    if (uploadProgressListener != null &&
+                        uploadProgressListener.isWrapping(itemViewHolder.binding.uploadProgressBar)) {
 
-                        String targetKey = FileUploadHelper.Companion.buildRemoteName(progressListener.getUpload().getAccountName(), progressListener.getUpload().getRemotePath());
+                        String targetKey = FileUploadHelper.Companion.buildRemoteName(uploadProgressListener.getUpload().getAccountName(), uploadProgressListener.getUpload().getRemotePath());
 
-                        uploadHelper.removeUploadTransferProgressListener(progressListener, targetKey);
-                        progressListener = null;
+                        uploadHelper.removeUploadTransferProgressListener(uploadProgressListener, targetKey);
+                        uploadProgressListener = null;
                     }
                 }
 
@@ -755,92 +756,45 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
 
     @NonNull
     private String getUploadFailedStatusText(UploadResult result) {
-        String status;
-        switch (result) {
-            case CREDENTIAL_ERROR:
-                status = parentActivity.getString(R.string.uploads_view_upload_status_failed_credentials_error);
-                break;
-            case FOLDER_ERROR:
-                status = parentActivity.getString(R.string.uploads_view_upload_status_failed_folder_error);
-                break;
-            case FILE_NOT_FOUND:
-                status = parentActivity.getString(R.string.uploads_view_upload_status_failed_localfile_error);
-                break;
-            case FILE_ERROR:
-                status = parentActivity.getString(R.string.uploads_view_upload_status_failed_file_error);
-                break;
-            case PRIVILEGES_ERROR:
-                status = parentActivity.getString(R.string.uploads_view_upload_status_failed_permission_error);
-                break;
-            case NETWORK_CONNECTION:
-                status = parentActivity.getString(R.string.uploads_view_upload_status_failed_connection_error);
-                break;
-            case DELAYED_FOR_WIFI:
-                status = parentActivity.getString(R.string.uploads_view_upload_status_waiting_for_wifi);
-                break;
-            case DELAYED_FOR_CHARGING:
-                status = parentActivity.getString(R.string.uploads_view_upload_status_waiting_for_charging);
-                break;
-            case CONFLICT_ERROR:
-                status = parentActivity.getString(R.string.uploads_view_upload_status_conflict);
-                break;
-            case SERVICE_INTERRUPTED:
-                status = parentActivity.getString(R.string.uploads_view_upload_status_service_interrupted);
-                break;
-            case CANCELLED:
+        return switch (result) {
+            case CREDENTIAL_ERROR ->
+                parentActivity.getString(R.string.uploads_view_upload_status_failed_credentials_error);
+            case FOLDER_ERROR -> parentActivity.getString(R.string.uploads_view_upload_status_failed_folder_error);
+            case FILE_NOT_FOUND -> parentActivity.getString(R.string.uploads_view_upload_status_failed_localfile_error);
+            case FILE_ERROR -> parentActivity.getString(R.string.uploads_view_upload_status_failed_file_error);
+            case PRIVILEGES_ERROR ->
+                parentActivity.getString(R.string.uploads_view_upload_status_failed_permission_error);
+            case NETWORK_CONNECTION ->
+                parentActivity.getString(R.string.uploads_view_upload_status_failed_connection_error);
+            case DELAYED_FOR_WIFI -> parentActivity.getString(R.string.uploads_view_upload_status_waiting_for_wifi);
+            case DELAYED_FOR_CHARGING ->
+                parentActivity.getString(R.string.uploads_view_upload_status_waiting_for_charging);
+            case CONFLICT_ERROR -> parentActivity.getString(R.string.uploads_view_upload_status_conflict);
+            case SERVICE_INTERRUPTED ->
+                parentActivity.getString(R.string.uploads_view_upload_status_service_interrupted);
+            case CANCELLED ->
                 // should not get here ; cancelled uploads should be wiped out
-                status = parentActivity.getString(R.string.uploads_view_upload_status_cancelled);
-                break;
-            case UPLOADED:
+                parentActivity.getString(R.string.uploads_view_upload_status_cancelled);
+            case UPLOADED ->
                 // should not get here ; status should be UPLOAD_SUCCESS
-                status = parentActivity.getString(R.string.uploads_view_upload_status_succeeded);
-                break;
-            case MAINTENANCE_MODE:
-                status = parentActivity.getString(R.string.maintenance_mode);
-                break;
-            case SSL_RECOVERABLE_PEER_UNVERIFIED:
-                status =
-                    parentActivity.getString(
-                        R.string.uploads_view_upload_status_failed_ssl_certificate_not_trusted
-                                            );
-                break;
-            case UNKNOWN:
-                status = parentActivity.getString(R.string.uploads_view_upload_status_unknown_fail);
-                break;
-            case LOCK_FAILED:
-                status = parentActivity.getString(R.string.upload_lock_failed);
-                break;
-            case DELAYED_IN_POWER_SAVE_MODE:
-                status = parentActivity.getString(
-                    R.string.uploads_view_upload_status_waiting_exit_power_save_mode);
-                break;
-            case VIRUS_DETECTED:
-                status = parentActivity.getString(R.string.uploads_view_upload_status_virus_detected);
-                break;
-            case LOCAL_STORAGE_FULL:
-                status = parentActivity.getString(R.string.upload_local_storage_full);
-                break;
-            case OLD_ANDROID_API:
-                status = parentActivity.getString(R.string.upload_old_android);
-                break;
-            case SYNC_CONFLICT:
-                status = parentActivity.getString(R.string.upload_sync_conflict);
-                break;
-            case CANNOT_CREATE_FILE:
-                status = parentActivity.getString(R.string.upload_cannot_create_file);
-                break;
-            case LOCAL_STORAGE_NOT_COPIED:
-                status = parentActivity.getString(R.string.upload_local_storage_not_copied);
-                break;
-            case QUOTA_EXCEEDED:
-                status = parentActivity.getString(R.string.upload_quota_exceeded);
-                break;
-            default:
-                status = parentActivity.getString(R.string.upload_unknown_error);
-                break;
-        }
-
-        return status;
+                parentActivity.getString(R.string.uploads_view_upload_status_succeeded);
+            case MAINTENANCE_MODE -> parentActivity.getString(R.string.maintenance_mode);
+            case SSL_RECOVERABLE_PEER_UNVERIFIED -> parentActivity.getString(
+                R.string.uploads_view_upload_status_failed_ssl_certificate_not_trusted
+                                                                            );
+            case UNKNOWN -> parentActivity.getString(R.string.uploads_view_upload_status_unknown_fail);
+            case LOCK_FAILED -> parentActivity.getString(R.string.upload_lock_failed);
+            case DELAYED_IN_POWER_SAVE_MODE -> parentActivity.getString(
+                R.string.uploads_view_upload_status_waiting_exit_power_save_mode);
+            case VIRUS_DETECTED -> parentActivity.getString(R.string.uploads_view_upload_status_virus_detected);
+            case LOCAL_STORAGE_FULL -> parentActivity.getString(R.string.upload_local_storage_full);
+            case OLD_ANDROID_API -> parentActivity.getString(R.string.upload_old_android);
+            case SYNC_CONFLICT -> parentActivity.getString(R.string.upload_sync_conflict);
+            case CANNOT_CREATE_FILE -> parentActivity.getString(R.string.upload_cannot_create_file);
+            case LOCAL_STORAGE_NOT_COPIED -> parentActivity.getString(R.string.upload_local_storage_not_copied);
+            case QUOTA_EXCEEDED -> parentActivity.getString(R.string.upload_quota_exceeded);
+            default -> parentActivity.getString(R.string.upload_unknown_error);
+        };
     }
 
     @Override

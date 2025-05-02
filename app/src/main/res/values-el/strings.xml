@@ -13,6 +13,7 @@
     <string name="action_switch_grid_view">Προβολή πλέγματος</string>
     <string name="action_switch_list_view">Προβολή λίστας</string>
     <string name="actionbar_mkdir">Νέος φάκελος</string>
+    <string name="actionbar_move_or_copy">Μετακίνηση ή αντιγραφή</string>
     <string name="actionbar_open_with">Άνοιγμα με</string>
     <string name="actionbar_search">Αναζήτηση</string>
     <string name="actionbar_see_details">Λεπτομέρειες</string>
@@ -27,6 +28,7 @@
     <string name="activity_icon">Δραστηριότητα</string>
     <string name="add_new_public_share">Προσθήκη νέου δημόσιου κοινόχρηστου συνδέσμου</string>
     <string name="add_to_cloud">Προσθήκη στο %1$s</string>
+    <string name="advanced_settings">Προχωρημένες ρυθμίσεις</string>
     <string name="allow_resharing">Επιτρέπεται ο επαναδιαμοιρασμός</string>
     <string name="app_config_base_url_title">Βασική URL</string>
     <string name="app_config_proxy_port_title">Θύρα διαμεσολαβητή</string>
@@ -234,6 +236,7 @@
     <string name="drawer_item_home">Αρχική</string>
     <string name="drawer_item_notifications">Ειδοποιήσεις</string>
     <string name="drawer_item_on_device">Στην συσκευή</string>
+    <string name="drawer_item_personal_files">Προσωπικά αρχεία</string>
     <string name="drawer_item_recently_modified">Τροποποιήθηκαν πρόσφατα</string>
     <string name="drawer_item_shared">Κοινόχρηστα</string>
     <string name="drawer_item_trashbin">Διεγραμμένα αρχεία</string>
@@ -597,6 +600,7 @@
     <string name="recommend_subject">Δοκιμάστε το %1$s στη συσκευή σας!</string>
     <string name="recommend_text">Θέλω να σας προσκαλέσω να χρησιμοποιήσετε το %1$s στη συσκευή σας. \nΚατεβάστε εδώ:%2$s</string>
     <string name="recommend_urls">%1$s ή %2$s</string>
+    <string name="recommended_files_title">Προτεινόμενα αρχεία</string>
     <string name="refresh_content">Ανανέωση περιεχομένου</string>
     <string name="reload">Επαναφόρτωση</string>
     <string name="remote">(εξ αποστάσεως)</string>

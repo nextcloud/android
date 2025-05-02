@@ -138,5 +138,7 @@ data class CapabilityEntity(
     @ColumnInfo(name = ProviderTableMeta.CAPABILITIES_RECOMMENDATION)
     val recommendation: Int?,
     @ColumnInfo(name = ProviderTableMeta.CAPABILITIES_NOTES_FOLDER_PATH)
-    val notesFolderPath: String?
+    val notesFolderPath: String?,
+    @ColumnInfo(name = ProviderTableMeta.CAPABILITIES_DEFAULT_PERMISSIONS)
+    val defaultPermissions: Int?
 )

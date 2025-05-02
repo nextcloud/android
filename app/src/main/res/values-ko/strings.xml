@@ -10,6 +10,7 @@
     <string name="action_edit">편집</string>
     <string name="action_empty_notifications">모든 알림 지우기</string>
     <string name="action_empty_trashbin">휴지통 비우기</string>
+    <string name="action_send_share">보내기/공유</string>
     <string name="action_switch_grid_view">바둑판식 보기</string>
     <string name="action_switch_list_view">목록 보기</string>
     <string name="actionbar_calendar_contacts_restore">연락처 및 캘린더 복원</string>
@@ -48,11 +49,13 @@
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">텍스트 입력</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">이 작업을 삭제하시겠습니까?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">결과 삭제</string>
+    <string name="assistant_screen_loading">작업 목록 불러오는 중...</string>
     <string name="assistant_screen_no_task_available_text">%s작업 유형을 위해 사용 가능한 작업이 없습니다, 오른쪽 하단에서 새 작업을 만들 수 있습니다.</string>
     <string name="assistant_screen_task_create_fail_message">작업을 생성하는 중에 오류가 발생했습니다.</string>
     <string name="assistant_screen_task_create_success_message">작업이 성공적으로 생성됨</string>
     <string name="assistant_screen_task_delete_fail_message">작업을 삭제하는 중에 오류가 발생했습니다.</string>
     <string name="assistant_screen_task_delete_success_message">작업이 성공적으로 삭제됨</string>
+    <string name="assistant_screen_task_list_empty_message">작업 목록이 비어있습니다.</string>
     <string name="assistant_screen_task_list_error_state_message">작업 목록을 가져올 수 없습니다. 인터넷 연결을 확인하세요.</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">작업 삭제</string>
     <string name="assistant_screen_task_output_empty_text">작업을 출력할 준비가 되지 않았습니다.</string>
@@ -185,6 +188,7 @@
     <string name="confirmation_remove_folders_alert">선택한 항목과 포함된 내용을 삭제하시겠습니까?</string>
     <string name="confirmation_remove_local">로컬만</string>
     <string name="conflict_dialog_error">충돌 해결 프로그램 대화 상자를 만들 수 없습니다.</string>
+    <string name="conflict_folder_headline">폴더 충돌</string>
     <string name="conflict_local_file">로컬 파일</string>
     <string name="conflict_message_description">두 버전을 모두 선택하면 기존 파일 이름에 번호가 추가됩니다.</string>
     <string name="conflict_message_description_for_folder">만약 두 버전을 모두 선택하면, 로컬 폴더 이름 뒤에 숫자가 추가됩니다.</string>
@@ -307,8 +311,11 @@
     <string name="end_to_end_encryption_passphrase_title">12단어 암구호를 기록해 두십시오</string>
     <string name="end_to_end_encryption_password">암호…</string>
     <string name="end_to_end_encryption_retrieving_keys">키 가져오는 중…</string>
+    <string name="end_to_end_encryption_server_private_key_unavailable">개인 키를 가져올 수 없습니다</string>
+    <string name="end_to_end_encryption_server_public_key_unavailable">공개 키를 가져올 수 없습니다</string>
     <string name="end_to_end_encryption_storing_keys">키 저장 중</string>
     <string name="end_to_end_encryption_title">암호화 설정</string>
+    <string name="end_to_end_encryption_unexpected_error_occurred">키를 다운로드하는데 예상치 못한 오류가 발생했습니다</string>
     <string name="end_to_end_encryption_unsuccessful">키를 저장할 수 없습니다. 다시 시도하십시오.</string>
     <string name="end_to_end_encryption_wrong_password">복호화 중 오류가 발생했습니다. 암호가 올바릅니까?</string>
     <string name="enter_destination_filename">대상 파일 이름 입력</string>
@@ -345,6 +352,7 @@
     <string name="etm_background_jobs_stop_test_job">테스트 작업 정지하기</string>
     <string name="etm_migrations">이전 작업 (앱 업그레이드)</string>
     <string name="etm_preferences">환경 설정</string>
+    <string name="etm_title">엔지니어링 테스트 모드</string>
     <string name="etm_transfer">파일 전송</string>
     <string name="etm_transfer_enqueue_test_download">대기열에 테스트 다운로드 넣기</string>
     <string name="etm_transfer_enqueue_test_upload">대기열에 테스트 업로드 넣기</string>
@@ -352,6 +360,7 @@
     <string name="etm_transfer_type">전송</string>
     <string name="etm_transfer_type_download">다운로드</string>
     <string name="etm_transfer_type_upload">업로드</string>
+    <string name="external_shares">외부 공유</string>
     <string name="fab_label">추가 또는 업로드</string>
     <string name="failed_to_download">다운로드 관리자에게 파일을 전달할 수 없음</string>
     <string name="failed_to_print">파일을 출력할 수 없음</string>
@@ -491,6 +500,7 @@
     <string name="instant_upload_existing">이미 존재하는 파일도 올리기</string>
     <string name="instant_upload_on_charging">충전 중에만 업로드</string>
     <string name="instant_upload_path">/InstantUpload</string>
+    <string name="internal_shares">내부 공유</string>
     <string name="internal_two_way_sync">내부 양방향 동기화</string>
     <string name="internal_two_way_sync_not_yet">아직 동기화가 완료되지 않았습니다</string>
     <string name="internet_connection_required_for_encrypted_folder_setup">암호화된 폴더를 설정하기 위해서는 인터넷 연결이 필요합니다</string>
@@ -563,6 +573,7 @@
     <string name="new_media_folder_detected">새 %1$s 미디어 폴더를 발견했습니다.</string>
     <string name="new_media_folder_photos">사진</string>
     <string name="new_media_folder_videos">비디오</string>
+    <string name="new_notification">새 알림</string>
     <string name="new_version_was_created">새 버전 생성됨</string>
     <string name="no_actions">이 사용자를 위한 동작이 없음</string>
     <string name="no_browser_available">이 링크를 실행할 앱이 없습니다.</string>
@@ -578,6 +589,7 @@
     <string name="note_icon_hint">노트 아이콘</string>
     <string name="notification_action_failed">작업을 실행할 수 없음</string>
     <string name="notification_channel_background_operations_description">백그라운드 작업 결과 알림 표시</string>
+    <string name="notification_channel_background_operations_name">백그라운드 작업</string>
     <string name="notification_channel_download_description">다운로드 진행 표시</string>
     <string name="notification_channel_download_name_short">다운로드</string>
     <string name="notification_channel_file_sync_description">파일 동기화 진행 및 결과 표시</string>
@@ -719,6 +731,7 @@
     <string name="recommend_subject">사용하고 있는 장치에서 %1$s을(를) 사용해 보세요!</string>
     <string name="recommend_text">사용하고 있는 장치에서 %1$s을(를) 사용해 보세요.\n다운로드 링크: %2$s</string>
     <string name="recommend_urls">%1$s 및 %2$s</string>
+    <string name="recommended_files_title">추천 파일</string>
     <string name="refresh_content">콘텐츠 새로고침</string>
     <string name="reload">새로 고침</string>
     <string name="remote">(원격)</string>

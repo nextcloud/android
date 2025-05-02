@@ -637,6 +637,7 @@
     <string name="recommend_subject">امتحان کردن %1$s روی دستگاه شما</string>
     <string name="recommend_text">می خواهم از شما دعوت کنم تا از %1$s در دستگاه خود استفاده کنید. بارگیری در اینجا: %2$s</string>
     <string name="recommend_urls">آدرس %1$s یا %2$s</string>
+    <string name="recommended_files_title">Recommended files</string>
     <string name="refresh_content">مطالب را به روز کنید</string>
     <string name="reload">بارگیری مجدد</string>
     <string name="remote">(از راه دور)</string>

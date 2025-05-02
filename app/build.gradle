@@ -16,9 +16,9 @@ import org.gradle.internal.jvm.Jvm
 buildscript {
     dependencies {
         classpath "com.android.tools.build:gradle:$androidPluginVersion"
-        classpath "com.github.spotbugs.snom:spotbugs-gradle-plugin:6.1.7"
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-        classpath "io.gitlab.arturbosch.detekt:detekt-gradle-plugin:1.23.8"
+        classpath libs.spotbugs.gradle.plugin
+        classpath libs.kotlin.gradle.plugin
+        classpath libs.detekt.gradle.plugin
         classpath "commons-httpclient:commons-httpclient:3.1@jar" // remove after entire switch to lib v2
         classpath "com.karumi:shot:6.1.0"
         classpath "org.jacoco:org.jacoco.core:$jacoco_version"
@@ -28,10 +28,10 @@ buildscript {
 }
 
 plugins {
-    id "org.jetbrains.kotlin.plugin.compose" version "2.1.10"
-    id "com.diffplug.spotless" version "6.25.0"
-    id "org.jetbrains.kotlin.kapt" version "2.1.10"
-    id "com.google.devtools.ksp" version "2.1.10-1.0.31" apply false
+    alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.spotless)
+    alias(libs.plugins.kapt)
+    alias(libs.plugins.ksp) apply false
 }
 
 apply plugin: "com.android.application"
@@ -272,13 +272,35 @@ dependencies {
         exclude group: "org.ogce", module: "xpp3" // unused in Android and brings wrong Junit version
     }
 
+    // splash screen dependency ref: https://developer.android.com/develop/ui/views/launch/splash-screen/migrate
+    implementation libs.splashscreen
+
     // Jetpack Compose
-    implementation(platform("androidx.compose:compose-bom:2025.02.00"))
-    implementation("androidx.compose.ui:ui")
-    implementation("androidx.compose.ui:ui-graphics")
-    implementation("androidx.compose.material3:material3")
-    debugImplementation("androidx.compose.ui:ui-tooling")
-    implementation("androidx.compose.ui:ui-tooling-preview")
+    implementation(platform(libs.compose.bom))
+    implementation(libs.compose.ui)
+    implementation(libs.compose.ui.graphics)
+    implementation(libs.compose.material3)
+    debugImplementation(libs.compose.ui.tooling)
+    implementation(libs.compose.ui.tooling.preview)
+
+    // Media3
+    implementation libs.media3.ui
+    implementation libs.media3.session
+    implementation libs.media3.exoplayer
+    implementation libs.media3.datasource
+
+    // Room
+    implementation libs.room.runtime
+    ksp "androidx.room:room-compiler:$roomVersion"
+    androidTestImplementation libs.room.testing
+
+    // Espresso
+    androidTestImplementation libs.espresso.core
+    androidTestImplementation libs.espresso.contrib
+    androidTestImplementation libs.espresso.web
+    androidTestImplementation libs.espresso.accessibility
+    androidTestImplementation libs.espresso.intents
+    androidTestImplementation libs.espresso.idling.resource
 
     compileOnly "org.jbundle.util.osgi.wrapped:org.jbundle.util.osgi.wrapped.org.apache.http.client:4.1.2"
     // remove after entire switch to lib v2
@@ -304,7 +326,7 @@ dependencies {
     implementation "com.googlecode.ez-vcard:ez-vcard:0.12.1"
     implementation "org.lukhnos:nnio:0.3.1"
     implementation "org.bouncycastle:bcpkix-jdk18on:1.80"
-    implementation "com.google.code.gson:gson:2.12.1"
+    implementation "com.google.code.gson:gson:2.13.1"
     implementation "com.github.nextcloud-deps:sectioned-recyclerview:0.6.1"
     implementation "com.github.chrisbanes:PhotoView:2.3.0"
     implementation "pl.droidsonroids.gif:android-gif-drawable:1.2.29"
@@ -323,7 +345,7 @@ dependencies {
     huaweiImplementation project(":appscan")
     qaImplementation project(":appscan")
 
-    spotbugsPlugins "com.h3xstream.findsecbugs:findsecbugs-plugin:1.13.0"
+    spotbugsPlugins "com.h3xstream.findsecbugs:findsecbugs-plugin:1.14.0"
     spotbugsPlugins "com.mebigfatguy.fb-contrib:fb-contrib:7.6.9"
 
     implementation "com.google.dagger:dagger:$daggerVersion"
@@ -333,11 +355,6 @@ dependencies {
     kapt "com.google.dagger:dagger-android-processor:$daggerVersion"
 
     implementation "org.conscrypt:conscrypt-android:2.5.3"
-
-    implementation "androidx.media3:media3-ui:$androidxMediaVersion"
-    implementation "androidx.media3:media3-session:$androidxMediaVersion"
-    implementation "androidx.media3:media3-exoplayer:$androidxMediaVersion"
-    implementation "androidx.media3:media3-datasource-okhttp:$androidxMediaVersion"
 
     implementation "me.zhanghai.android.fastscroll:library:1.3.0"
 
@@ -389,14 +406,6 @@ dependencies {
     androidTestUtil "androidx.test:orchestrator:1.5.1"
     androidTestImplementation "androidx.test:core-ktx:$androidxTestVersion"
 
-    // Espresso
-    androidTestImplementation "androidx.test.espresso:espresso-core:$espressoVersion"
-    androidTestImplementation "androidx.test.espresso:espresso-contrib:$espressoVersion"
-    androidTestImplementation "androidx.test.espresso:espresso-web:$espressoVersion"
-    androidTestImplementation "androidx.test.espresso:espresso-accessibility:$espressoVersion"
-    androidTestImplementation "androidx.test.espresso:espresso-intents:$espressoVersion"
-    androidTestImplementation "androidx.test.espresso:espresso-idling-resource:$espressoVersion"
-
     // Mocking support
     androidTestImplementation "com.github.tmurakami:dexopener:2.0.5" // required to allow mocking on API 27 and older
     androidTestImplementation "org.mockito.kotlin:mockito-kotlin:$mockitoKotlinVersion"
@@ -416,20 +425,13 @@ dependencies {
     implementation "com.github.stateless4j:stateless4j:2.6.0"
 
     // upon each update first test: new registration, receive push
-    gplayImplementation "com.google.firebase:firebase-messaging:24.1.0"
+    gplayImplementation "com.google.firebase:firebase-messaging:24.1.1"
     gplayImplementation "com.google.android.gms:play-services-base:18.5.0"
     gplayImplementation "com.google.android.play:review-ktx:2.0.2"
 
     implementation "com.github.nextcloud.android-common:ui:$androidCommonLibraryVersion"
 
-    implementation "androidx.room:room-runtime:$roomVersion"
-    ksp "androidx.room:room-compiler:$roomVersion"
-    androidTestImplementation "androidx.room:room-testing:$roomVersion"
-
     implementation "io.coil-kt:coil:2.7.0"
-
-    // splash screen dependency ref: https://developer.android.com/develop/ui/views/launch/splash-screen/migrate
-    implementation "androidx.core:core-splashscreen:1.0.1"
 }
 
 configurations.configureEach {

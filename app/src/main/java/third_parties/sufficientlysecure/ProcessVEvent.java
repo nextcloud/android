@@ -359,18 +359,12 @@ public class ProcessVEvent {
 
         if (hasProperty(e, Property.CLASS)) {
             String access = e.getProperty(Property.CLASS).getValue();
-            int accessLevel = Events.ACCESS_DEFAULT;
-            switch (access) {
-                case "CONFIDENTIAL":
-                    accessLevel = Events.ACCESS_CONFIDENTIAL;
-                    break;
-                case "PRIVATE":
-                    accessLevel = Events.ACCESS_PRIVATE;
-                    break;
-                case "PUBLIC":
-                    accessLevel = Events.ACCESS_PUBLIC;
-                    break;
-            }
+            int accessLevel = switch (access) {
+                case "CONFIDENTIAL" -> Events.ACCESS_CONFIDENTIAL;
+                case "PRIVATE" -> Events.ACCESS_PRIVATE;
+                case "PUBLIC" -> Events.ACCESS_PUBLIC;
+                default -> Events.ACCESS_DEFAULT;
+            };
 
             c.put(Events.ACCESS_LEVEL, accessLevel);
         }
@@ -518,7 +512,7 @@ public class ProcessVEvent {
 
     private Cursor queryEvents(ContentResolver resolver, StringBuilder b, List<String> argsList) {
         final String where = b.toString() + " AND deleted=0";
-        final String[] args = argsList.toArray(new String[argsList.size()]);
+        final String[] args = argsList.toArray(new String[0]);
         return resolver.query(Events.CONTENT_URI, EVENT_QUERY_COLUMNS, where, args, null);
     }
 
@@ -593,13 +587,13 @@ public class ProcessVEvent {
         // This is a test event. Verify it using the embedded meta data.
         Log_OC.i(TAG, "Processing test case " + testName.getValue() + "...");
 
-        String reminderValues = "";
+        StringBuilder reminderValues = new StringBuilder();
         String sep = "";
         for (Integer i : reminders) {
-            reminderValues += sep + i;
+            reminderValues.append(sep).append(i);
             sep = ",";
         }
-        c.put("reminders", reminderValues);
+        c.put("reminders", reminderValues.toString());
 
         for (Object o : e.getProperties()) {
             Property p = (Property) o;

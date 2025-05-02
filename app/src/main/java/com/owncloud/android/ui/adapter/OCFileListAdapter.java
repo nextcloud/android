@@ -661,9 +661,15 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         }
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     public void updateRecommendedFiles(ArrayList<Recommendation> recommendedFiles) {
         this.recommendedFiles = recommendedFiles;
-        notifyItemChanged(0);
+
+        if (recommendedFiles == null || recommendedFiles.isEmpty()) {
+            notifyDataSetChanged();
+        } else {
+            notifyItemChanged(0);
+        }
     }
 
     private void applyChipVisuals(Chip chip, Tag tag) {
@@ -803,13 +809,13 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             // TODO refactor filtering mechanism for mFiles
             newList = mStorageManager.getFolderContent(directory, onlyOnDevice);
             if (!preferences.isShowHiddenFilesEnabled()) {
-                newList = OCFileExtensionsKt.filterHiddenFiles(newList);
+                mFiles = OCFileExtensionsKt.filterHiddenFiles(mFiles);
             }
             if (!limitToMimeType.isEmpty()) {
-                newList = OCFileExtensionsKt.filterByMimeType(newList, limitToMimeType);
+                mFiles = OCFileExtensionsKt.filterByMimeType(mFiles, limitToMimeType);
             }
             if (OCFile.ROOT_PATH.equals(directory.getRemotePath()) && MainApp.isOnlyPersonFiles()) {
-                newList = OCFileExtensionsKt.limitToPersonalFiles(newList, userId);
+                mFiles = OCFileExtensionsKt.limitToPersonalFiles(mFiles, userId);
             }
 
             // TODO refactor add DrawerState instead of using static menuItemId
@@ -819,6 +825,11 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             if (DrawerActivity.menuItemId == R.id.nav_favorites && currentDirectory != null) {
                 newList = FileDataStorageManagerExtensionsKt.filter(updatedStorageManager, currentDirectory, OCFileFilterType.Favorite);
             }
+
+            // Filter out temp files from the list to prevent duplication
+            newList = OCFileExtensionsKt.filterTempFilter(mFiles);
+
+            newList = OCFileExtensionsKt.filterFilenames(mFiles);
 
             sortOrder = preferences.getSortOrderByFolder(directory);
             newList = sortOrder.sortCloudFiles(newList);
