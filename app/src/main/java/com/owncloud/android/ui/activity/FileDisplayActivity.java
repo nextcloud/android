@@ -253,6 +253,12 @@ public class FileDisplayActivity extends FileActivity
     @Inject Clock clock;
     @Inject SyncedFolderProvider syncedFolderProvider;
 
+    /**
+     * Indicates whether the downloaded file should be previewed immediately. Since `FileDownloadWorker` can be
+     * triggered from multiple sources, this helps determine if an automatic preview is needed after download.
+     */
+    private long readyFileIdForPreview = -1;
+
     public static Intent openFileIntent(Context context, User user, OCFile file) {
         final Intent intent = new Intent(context, PreviewImageActivity.class);
         intent.putExtra(FileActivity.EXTRA_FILE, file);
@@ -306,19 +312,19 @@ public class FileDisplayActivity extends FileActivity
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R) {
             return;
         }
-        
+
         if (PermissionUtil.checkSelfPermission(this, Manifest.permission.MANAGE_EXTERNAL_STORAGE)) {
             return;
         }
-        
+
         if (preferences.isAutoUploadGPlayWarningShown()) {
             return;
         }
-        
+
         boolean showInfoDialog = false;
         for (SyncedFolder syncedFolder : syncedFolderProvider.getSyncedFolders()) {
             // move or delete after success
-            if (syncedFolder.getUploadAction() == FileUploadWorker.LOCAL_BEHAVIOUR_MOVE || 
+            if (syncedFolder.getUploadAction() == FileUploadWorker.LOCAL_BEHAVIOUR_MOVE ||
                 syncedFolder.getUploadAction() == FileUploadWorker.LOCAL_BEHAVIOUR_DELETE) {
                 showInfoDialog = true;
                 break;
@@ -388,6 +394,10 @@ public class FileDisplayActivity extends FileActivity
             mSyncInProgress = false;
             mWaitingToSend = null;
         }
+    }
+
+    public void setReadyFileIdForPreview(long readyFileIdForPreview) {
+        this.readyFileIdForPreview = readyFileIdForPreview;
     }
 
     private void initLayout() {
@@ -519,19 +529,19 @@ public class FileDisplayActivity extends FileActivity
             DisplayUtils.showServerOutdatedSnackbar(this, Snackbar.LENGTH_LONG);
         }
     }
-    
+
     private void checkNotifications() {
         new Thread(() -> {
             try {
                 RemoteOperationResult<List<Notification>> result = new GetNotificationsRemoteOperation()
                     .execute(clientFactory.createNextcloudClient(accountManager.getUser()));
-                
+
                 if (result.isSuccess() && !result.getResultData().isEmpty()) {
                     runOnUiThread(() -> mNotificationButton.setVisibility(View.VISIBLE));
                 } else {
                     runOnUiThread(() -> mNotificationButton.setVisibility(View.GONE));
                 }
-                
+
             } catch (ClientFactory.CreationException e) {
                 Log_OC.e(TAG, "Could not fetch notifications!");
             }
@@ -678,7 +688,7 @@ public class FileDisplayActivity extends FileActivity
             }
         }
     }
-    
+
     private void showReEnableAutoUploadDialog() {
         new MaterialAlertDialogBuilder(this, R.style.Theme_ownCloud_Dialog)
             .setTitle(R.string.re_enable_auto_upload)
@@ -1058,7 +1068,7 @@ public class FileDisplayActivity extends FileActivity
 
             connectivityService.isNetworkAndServerAvailable(result -> {
                 if (result) {
-                    boolean isValidFolderPath = FileNameValidator.INSTANCE.checkFolderPath(remotePathBase,getCapabilities(),this);
+                    boolean isValidFolderPath = FileNameValidator.INSTANCE.checkFolderPath(remotePathBase, getCapabilities(), this);
                     if (!isValidFolderPath) {
                         DisplayUtils.showSnackMessage(this, R.string.file_name_validator_error_contains_reserved_names_or_invalid_characters);
                         return;
@@ -1299,6 +1309,7 @@ public class FileDisplayActivity extends FileActivity
 
         Log_OC.v(TAG, "onResume() end");
     }
+
     private void setDrawerAllFiles() {
         if (MainApp.isOnlyPersonFiles()) {
             menuItemId = R.id.nav_personal_files;
@@ -1438,10 +1449,10 @@ public class FileDisplayActivity extends FileActivity
                                         case HOST_NOT_AVAILABLE:
                                             showInfoBox(R.string.host_not_available);
                                             break;
-                                            
+
                                         case SIGNING_TOS_NEEDED:
                                             showTermsOfServiceDialog();
-                                            
+
                                             break;
 
                                         default:
@@ -1487,6 +1498,7 @@ public class FileDisplayActivity extends FileActivity
             }
         }
     }
+
     private void showTermsOfServiceDialog() {
         if (getSupportFragmentManager().findFragmentByTag(DIALOG_TAG_SHOW_TOS) == null) {
             new TermsOfServiceDialog().show(getSupportFragmentManager(), DIALOG_TAG_SHOW_TOS);
@@ -1743,14 +1755,37 @@ public class FileDisplayActivity extends FileActivity
             if (state instanceof WorkerState.DownloadStarted) {
                 Log_OC.d(TAG, "Download worker started");
                 handleDownloadWorkerState();
-            } else if (state instanceof WorkerState.DownloadFinished) {
+            } else if (state instanceof WorkerState.DownloadFinished finishedState) {
                 fileDownloadProgressListener = null;
+                previewFile(finishedState);
             } else if (state instanceof WorkerState.UploadFinished) {
                 refreshList();
-            } else if (state instanceof  WorkerState.OfflineOperationsCompleted) {
+            } else if (state instanceof WorkerState.OfflineOperationsCompleted) {
                 refreshCurrentDirectory();
             }
         });
+    }
+
+    private void previewFile(WorkerState.DownloadFinished finishedState) {
+        if (readyFileIdForPreview == -1) {
+            return;
+        }
+
+        final var currentFile = finishedState.getCurrentFile();
+        if (currentFile == null) {
+            return;
+        }
+
+        if (readyFileIdForPreview != currentFile.getFileId() || !currentFile.isDown()) {
+            return;
+        }
+
+        // FIXME: NPE
+        final var ocFileListFragment = getFileListFragment();
+        if (ocFileListFragment != null) {
+            readyFileIdForPreview = -1;
+            ocFileListFragment.fileOnItemClick(finishedState.getCurrentFile());
+        }
     }
 
     public void refreshCurrentDirectory() {
