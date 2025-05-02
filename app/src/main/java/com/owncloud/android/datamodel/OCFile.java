@@ -51,7 +51,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
     public final static String PERMISSION_CAN_RESHARE = "R";
     private final static String PERMISSION_CAN_WRITE = "CK";
     private final static String PERMISSION_GROUPFOLDER = "M";
-    private final static int ONE_MB = 1024000;
+    private final static int MAX_FILE_SIZE_FOR_IMMEDIATE_PREVIEW_BYTES = 1024000;
 
     public static final String PATH_SEPARATOR = "/";
     public static final String ROOT_PATH = PATH_SEPARATOR;
@@ -697,7 +697,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
     }
 
     public boolean isFileEligibleForImmediatePreview() {
-        return fileLength <= ONE_MB;
+        return fileLength <= MAX_FILE_SIZE_FOR_IMMEDIATE_PREVIEW_BYTES;
     }
 
     public long getCreationTimestamp() {
