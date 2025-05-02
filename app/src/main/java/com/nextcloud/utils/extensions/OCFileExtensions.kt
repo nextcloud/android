@@ -7,6 +7,7 @@
 
 package com.nextcloud.utils.extensions
 
+import com.owncloud.android.MainApp
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.utils.FileStorageUtils

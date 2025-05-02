@@ -501,14 +501,14 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         fileFeaturesLayout.setVisibility(fileFeaturesVisibility);
     }
 
-    private void mergeOCFilesForLivePhoto() {
+    private void mergeOCFilesForLivePhoto(List<OCFile> files) {
         List<OCFile> filesToRemove = new ArrayList<>();
 
-        for (int i = 0; i < mFiles.size(); i++) {
-            OCFile file = mFiles.get(i);
+        for (int i = 0; i < files.size(); i++) {
+            OCFile file = files.get(i);
 
-            for (int j = i + 1; j < mFiles.size(); j++) {
-                OCFile nextFile = mFiles.get(j);
+            for (int j = i + 1; j < files.size(); j++) {
+                OCFile nextFile = files.get(j);
                 String fileLocalId = String.valueOf(file.getLocalId());
                 String nextFileLinkedLocalId = nextFile.getLinkedFileIdForLivePhoto();
 
@@ -524,7 +524,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             }
         }
 
-        mFiles.removeAll(filesToRemove);
+        files.removeAll(filesToRemove);
         filesToRemove.clear();
     }
 
@@ -804,18 +804,16 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         }
 
         List<OCFile> newList = mFiles;
-
         if (mStorageManager != null) {
-            // TODO refactor filtering mechanism for mFiles
             newList = mStorageManager.getFolderContent(directory, onlyOnDevice);
             if (!preferences.isShowHiddenFilesEnabled()) {
-                mFiles = OCFileExtensionsKt.filterHiddenFiles(mFiles);
+                newList = OCFileExtensionsKt.filterHiddenFiles(newList);
             }
             if (!limitToMimeType.isEmpty()) {
-                mFiles = OCFileExtensionsKt.filterByMimeType(mFiles, limitToMimeType);
+                newList = OCFileExtensionsKt.filterByMimeType(newList, limitToMimeType);
             }
             if (OCFile.ROOT_PATH.equals(directory.getRemotePath()) && MainApp.isOnlyPersonFiles()) {
-                mFiles = OCFileExtensionsKt.limitToPersonalFiles(mFiles, userId);
+                newList = OCFileExtensionsKt.limitToPersonalFiles(newList, userId);
             }
 
             // TODO refactor add DrawerState instead of using static menuItemId
@@ -827,22 +825,21 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             }
 
             // Filter out temp files from the list to prevent duplication
-            newList = OCFileExtensionsKt.filterTempFilter(mFiles);
+            newList = OCFileExtensionsKt.filterTempFilter(newList);
 
-            newList = OCFileExtensionsKt.filterFilenames(mFiles);
+            newList = OCFileExtensionsKt.filterFilenames(newList);
 
             sortOrder = preferences.getSortOrderByFolder(directory);
             newList = sortOrder.sortCloudFiles(newList);
             prepareListOfHiddenFiles(newList);
-            mergeOCFilesForLivePhoto();
-            OCFileExtensionsKt.addOfflineOperations(mFiles, mStorageManager, directory.getFileId());
+            mergeOCFilesForLivePhoto(newList);
+            OCFileExtensionsKt.addOfflineOperations(newList, mStorageManager, directory.getFileId());
             currentDirectory = directory;
         } else {
             newList.clear();
         }
 
         searchType = null;
-
         updateList(newList);
     }
 
@@ -1032,6 +1029,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         mStorageManager.saveVirtuals(contentValues);
     }
 
+    // FIXME:  java.lang.IndexOutOfBoundsException: Inconsistency detected. Invalid item position 6(offset:2).state:7
     private void updateList(List<OCFile> newList) {
         final var diffCallback = new OCFileDiffCallback(mFiles, newList);
         final var diff = DiffUtil.calculateDiff(diffCallback);
