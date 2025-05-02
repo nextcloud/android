@@ -2412,9 +2412,11 @@ public class FileDisplayActivity extends FileActivity
      */
     public void startDownloadForPreview(OCFile file, OCFile parentFolder) {
         if (!file.isFileEligibleForImmediatePreview()) {
-            final User currentUser = getUser().orElseThrow(RuntimeException::new);
-            Fragment detailFragment = FileDetailFragment.newInstance(file, parentFolder, currentUser);
-            setLeftFragment(detailFragment, false);
+            final Optional<User> currentUser = getUser();
+            if (currentUser.isPresent()) {
+                Fragment detailFragment = FileDetailFragment.newInstance(file, parentFolder, currentUser.get());
+                setLeftFragment(detailFragment, false);
+            }
         }
 
         configureToolbarForPreview(file);
