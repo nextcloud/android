@@ -7,6 +7,6 @@
 
 package com.owncloud.android.ui
 
-interface Callback {
+interface CompletionCallback {
     fun onComplete(value: Boolean)
 }

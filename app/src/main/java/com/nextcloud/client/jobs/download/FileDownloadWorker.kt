@@ -419,7 +419,7 @@ class FileDownloadWorker(
         setWorkerState(user, lastPercent)
     }
 
-    // TODO: Is this class still needed after conversion from Foreground Services to Worker?
+    // CHECK: Is this class still needed after conversion from Foreground Services to Worker?
     inner class FileDownloadProgressListener : OnDatatransferProgressListener {
         private val boundListeners: MutableMap<Long, OnDatatransferProgressListener> = HashMap()
 
