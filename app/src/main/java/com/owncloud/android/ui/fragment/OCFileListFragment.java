@@ -68,7 +68,6 @@ import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.SyncedFolderProvider;
-import com.owncloud.android.datamodel.VirtualFolderType;
 import com.owncloud.android.datamodel.e2e.v2.decrypted.DecryptedFolderMetadataFile;
 import com.owncloud.android.lib.common.Creator;
 import com.owncloud.android.lib.common.OwnCloudClient;
@@ -106,13 +105,11 @@ import com.owncloud.android.ui.helpers.FileOperationsHelper;
 import com.owncloud.android.ui.interfaces.OCFileListFragmentInterface;
 import com.owncloud.android.ui.preview.PreviewImageFragment;
 import com.owncloud.android.ui.preview.PreviewMediaActivity;
-import com.owncloud.android.ui.preview.PreviewTextFileFragment;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.EncryptionUtils;
 import com.owncloud.android.utils.EncryptionUtilsV2;
 import com.owncloud.android.utils.FileSortOrder;
 import com.owncloud.android.utils.FileStorageUtils;
-import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.PermissionUtil;
 import com.owncloud.android.utils.theme.ThemeUtils;
 
@@ -1196,52 +1193,12 @@ public class OCFileListFragment extends ExtendedListFragment implements
             return;
         }
 
-        if (PreviewImageFragment.canBePreviewed(file)) {
-            previewAndHandleImageFile(file);
-        } else if (file.isDown()) {
-            previewDownloadedFile(file);
+        if (PreviewImageFragment.canBePreviewed(file) && mContainerActivity instanceof FileDisplayActivity fda) {
+            fda.previewAndHandleImageFile(file, searchFragment, currentSearchType);
+        } else if (file.isDown() && mContainerActivity instanceof FileDisplayActivity fda) {
+            fda.previewDownloadedFile(file, this::setFabVisible);
         } else {
             processNotDownloadedFile(file);
-        }
-    }
-
-    private void previewAndHandleImageFile(OCFile file) {
-        if (mContainerActivity instanceof FileDisplayActivity fda) {
-            // preview image - it handles the download, if needed
-            if (searchFragment) {
-                VirtualFolderType type = switch (currentSearchType) {
-                    case FAVORITE_SEARCH -> VirtualFolderType.FAVORITE;
-                    case GALLERY_SEARCH -> VirtualFolderType.GALLERY;
-                    default -> VirtualFolderType.NONE;
-                };
-
-                fda.startImagePreview(file, type, !file.isDown());
-            } else {
-                fda.startImagePreview(file, !file.isDown());
-            }
-        }
-    }
-
-    public void previewDownloadedFile(OCFile file) {
-        if (!file.isDown()) {
-            Log_OC.d(TAG,"File is not downloaded, cannot be previewed");
-            return;
-        }
-
-        if (mContainerActivity instanceof FileDisplayActivity fda) {
-            if (MimeTypeUtil.isVCard(file)) {
-                fda.startContactListFragment(file);
-            } else if (MimeTypeUtil.isPDF(file)) {
-                fda.startPdfPreview(file);
-            } else if (PreviewTextFileFragment.canBePreviewed(file)) {
-                setFabVisible(false);
-                fda.startTextPreview(file, false);
-            } else if (PreviewMediaActivity.Companion.canBePreviewed(file)) {
-                setFabVisible(false);
-                fda.startMediaPreview(file, 0, true, true, false, true);
-            }
-        } else {
-            mContainerActivity.getFileOperationsHelper().openFile(file);
         }
     }
 

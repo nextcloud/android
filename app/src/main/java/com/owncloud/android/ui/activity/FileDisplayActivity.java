@@ -101,6 +101,7 @@ import com.owncloud.android.operations.RenameFileOperation;
 import com.owncloud.android.operations.SynchronizeFileOperation;
 import com.owncloud.android.operations.UploadFileOperation;
 import com.owncloud.android.syncadapter.FileSyncAdapter;
+import com.owncloud.android.ui.Callback;
 import com.owncloud.android.ui.activity.fileDisplayActivity.OfflineFolderConflictManager;
 import com.owncloud.android.ui.asynctasks.CheckAvailableSpaceTask;
 import com.owncloud.android.ui.asynctasks.FetchRemoteFileTask;
@@ -1780,11 +1781,49 @@ public class FileDisplayActivity extends FileActivity
             return;
         }
 
-        // FIXME: NPE
-        final var ocFileListFragment = getFileListFragment();
-        if (ocFileListFragment != null) {
-            readyFileIdForPreview = -1;
-            ocFileListFragment.fileOnItemClick(finishedState.getCurrentFile());
+        readyFileIdForPreview = -1;
+        if (PreviewImageFragment.canBePreviewed(currentFile)) {
+            startImagePreview(currentFile, !currentFile.isDown());
+        } else {
+            previewDownloadedFile(currentFile, value -> {
+                // Do nothing
+            });
+        }
+    }
+
+    public void previewAndHandleImageFile(OCFile file, boolean searchFragment, SearchType currentSearchType) {
+        // preview image - it handles the download, if needed
+        if (searchFragment) {
+            VirtualFolderType type = switch (currentSearchType) {
+                case FAVORITE_SEARCH -> VirtualFolderType.FAVORITE;
+                case GALLERY_SEARCH -> VirtualFolderType.GALLERY;
+                default -> VirtualFolderType.NONE;
+            };
+
+            startImagePreview(file, type, !file.isDown());
+        } else {
+            startImagePreview(file, !file.isDown());
+        }
+    }
+
+    public void previewDownloadedFile(OCFile file, Callback callback) {
+        if (!file.isDown()) {
+            Log_OC.d(TAG,"File is not downloaded, cannot be previewed");
+            return;
+        }
+
+        if (MimeTypeUtil.isVCard(file)) {
+            startContactListFragment(file);
+        } else if (MimeTypeUtil.isPDF(file)) {
+            startPdfPreview(file);
+        } else if (PreviewTextFileFragment.canBePreviewed(file)) {
+            callback.onComplete(false);
+            startTextPreview(file, false);
+        } else if (PreviewMediaActivity.Companion.canBePreviewed(file)) {
+            callback.onComplete(false);
+            startMediaPreview(file, 0, true, true, false, true);
+        } else {
+            getFileOperationsHelper().openFile(file);
         }
     }
 
@@ -2374,9 +2413,12 @@ public class FileDisplayActivity extends FileActivity
      * @param parentFolder {@link OCFile} containing above file
      */
     public void startDownloadForPreview(OCFile file, OCFile parentFolder) {
-        final User currentUser = getUser().orElseThrow(RuntimeException::new);
-        Fragment detailFragment = FileDetailFragment.newInstance(file, parentFolder, currentUser);
-        setLeftFragment(detailFragment, false);
+        if (!file.isFileEligibleForImmediatePreview()) {
+            final User currentUser = getUser().orElseThrow(RuntimeException::new);
+            Fragment detailFragment = FileDetailFragment.newInstance(file, parentFolder, currentUser);
+            setLeftFragment(detailFragment, false);
+        }
+
         configureToolbarForPreview(file);
         mWaitingToPreview = file;
         requestForDownload();
