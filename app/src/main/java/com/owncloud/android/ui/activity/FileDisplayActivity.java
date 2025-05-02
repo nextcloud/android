@@ -1069,7 +1069,7 @@ public class FileDisplayActivity extends FileActivity
 
             connectivityService.isNetworkAndServerAvailable(result -> {
                 if (result) {
-                    boolean isValidFolderPath = FileNameValidator.INSTANCE.checkFolderPath(remotePathBase, getCapabilities(), this);
+                    boolean isValidFolderPath = FileNameValidator.INSTANCE.checkFolderPath(remotePathBase,getCapabilities(),this);
                     if (!isValidFolderPath) {
                         DisplayUtils.showSnackMessage(this, R.string.file_name_validator_error_contains_reserved_names_or_invalid_characters);
                         return;
@@ -1310,7 +1310,6 @@ public class FileDisplayActivity extends FileActivity
 
         Log_OC.v(TAG, "onResume() end");
     }
-
     private void setDrawerAllFiles() {
         if (MainApp.isOnlyPersonFiles()) {
             menuItemId = R.id.nav_personal_files;
@@ -1499,7 +1498,6 @@ public class FileDisplayActivity extends FileActivity
             }
         }
     }
-
     private void showTermsOfServiceDialog() {
         if (getSupportFragmentManager().findFragmentByTag(DIALOG_TAG_SHOW_TOS) == null) {
             new TermsOfServiceDialog().show(getSupportFragmentManager(), DIALOG_TAG_SHOW_TOS);
