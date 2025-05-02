@@ -46,6 +46,7 @@ import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.lib.common.OwnCloudClient;
+import com.owncloud.android.lib.common.network.OnDatatransferProgressListener;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.files.ToggleFavoriteRemoteOperation;
@@ -72,6 +73,7 @@ import org.greenrobot.eventbus.ThreadMode;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.Consumer;
 
 import javax.inject.Inject;
 
@@ -100,6 +102,8 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
     private boolean previewLoaded;
 
     private FileDetailsFragmentBinding binding;
+
+    // TODO: Why we need DownloadProgressListener?
     private DownloadProgressListener progressListener;
     private ToolbarActivity toolbarActivity;
     private int activeTab;
@@ -622,14 +626,24 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
 
     private void observeWorkerState() {
         WorkerStateLiveData.Companion.instance().observe(getViewLifecycleOwner(), state -> {
-            if (state instanceof WorkerState.DownloadStarted) {
-                binding.progressText.setText(R.string.downloader_download_in_progress_ticker);
+            if (state instanceof WorkerState.DownloadStarted downloadState) {
+                updateProgressBar(downloadState);
             } else if (state instanceof WorkerState.UploadStarted) {
                 binding.progressText.setText(R.string.uploader_upload_in_progress_ticker);
             } else {
                 binding.progressBlock.setVisibility(View.GONE);
             }
         });
+    }
+
+    private void updateProgressBar(WorkerState.DownloadStarted downloadState) {
+        if (binding.progressBlock.getVisibility() != View.VISIBLE) {
+            binding.progressBlock.setVisibility(View.VISIBLE);
+        }
+
+        binding.progressText.setText(R.string.downloader_download_in_progress_ticker);
+        binding.progressBar.setProgress(downloadState.getPercent());
+        binding.progressBar.invalidate();
     }
 
     private void setFileModificationTimestamp(OCFile file, boolean showDetailedTimestamp) {
@@ -761,24 +775,27 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
         }
     }
 
+    // TODO: Are these logic still needed after conversion from Foreground Services to Worker?
+    // region TransferProgress
     public void listenForTransferProgress() {
-        if (progressListener != null) {
-            if (containerActivity.getFileDownloadProgressListener() != null) {
-                containerActivity.getFileDownloadProgressListener().
-                    addDataTransferProgressListener(progressListener, getFile());
-            }
-
-            if (containerActivity.getFileUploaderHelper() != null) {
-                OCFile file = getFile();
-                if (user == null || file == null) {
-                    return;
-                }
-
-                String targetKey = FileUploadHelper.Companion.buildRemoteName(user.getAccountName(), file.getRemotePath());
-                containerActivity.getFileUploaderHelper().addUploadTransferProgressListener(progressListener, targetKey);
-            }
-        } else {
+        if (progressListener == null) {
             Log_OC.d(TAG, "progressListener == null");
+            return;
+        }
+
+        if (containerActivity.getFileDownloadProgressListener() != null) {
+            containerActivity.getFileDownloadProgressListener().
+                addDataTransferProgressListener(progressListener, getFile());
+        }
+
+        if (containerActivity.getFileUploaderHelper() != null) {
+            OCFile file = getFile();
+            if (user == null || file == null) {
+                return;
+            }
+
+            String targetKey = FileUploadHelper.Companion.buildRemoteName(user.getAccountName(), file.getRemotePath());
+            containerActivity.getFileUploaderHelper().addUploadTransferProgressListener(progressListener, targetKey);
         }
     }
 
@@ -800,6 +817,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
             }
         }
     }
+    // endregion
 
     private void showEmptyContent() {
         binding.emptyList.emptyListView.setVisibility(View.VISIBLE);
