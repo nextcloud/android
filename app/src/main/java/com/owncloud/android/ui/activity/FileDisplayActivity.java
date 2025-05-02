@@ -101,7 +101,7 @@ import com.owncloud.android.operations.RenameFileOperation;
 import com.owncloud.android.operations.SynchronizeFileOperation;
 import com.owncloud.android.operations.UploadFileOperation;
 import com.owncloud.android.syncadapter.FileSyncAdapter;
-import com.owncloud.android.ui.Callback;
+import com.owncloud.android.ui.CompletionCallback;
 import com.owncloud.android.ui.activity.fileDisplayActivity.OfflineFolderConflictManager;
 import com.owncloud.android.ui.asynctasks.CheckAvailableSpaceTask;
 import com.owncloud.android.ui.asynctasks.FetchRemoteFileTask;
@@ -258,7 +258,7 @@ public class FileDisplayActivity extends FileActivity
      * Indicates whether the downloaded file should be previewed immediately. Since `FileDownloadWorker` can be
      * triggered from multiple sources, this helps determine if an automatic preview is needed after download.
      */
-    private long readyFileIdForPreview = -1;
+    private long fileIDForImmediatePreview = -1;
 
     public static Intent openFileIntent(Context context, User user, OCFile file) {
         final Intent intent = new Intent(context, PreviewImageActivity.class);
@@ -397,8 +397,8 @@ public class FileDisplayActivity extends FileActivity
         }
     }
 
-    public void setReadyFileIdForPreview(long readyFileIdForPreview) {
-        this.readyFileIdForPreview = readyFileIdForPreview;
+    public void setFileIDForImmediatePreview(long fileIDForImmediatePreview) {
+        this.fileIDForImmediatePreview = fileIDForImmediatePreview;
     }
 
     private void initLayout() {
@@ -1766,7 +1766,7 @@ public class FileDisplayActivity extends FileActivity
     }
 
     private void previewFile(WorkerState.DownloadFinished finishedState) {
-        if (readyFileIdForPreview == -1) {
+        if (fileIDForImmediatePreview == -1) {
             return;
         }
 
@@ -1775,21 +1775,19 @@ public class FileDisplayActivity extends FileActivity
             return;
         }
 
-        if (readyFileIdForPreview != currentFile.getFileId() || !currentFile.isDown()) {
+        if (fileIDForImmediatePreview != currentFile.getFileId() || !currentFile.isDown()) {
             return;
         }
 
-        readyFileIdForPreview = -1;
+        fileIDForImmediatePreview = -1;
         if (PreviewImageFragment.canBePreviewed(currentFile)) {
             startImagePreview(currentFile, !currentFile.isDown());
         } else {
-            previewDownloadedFile(currentFile, value -> {
-                // Do nothing
-            });
+            previewFile(currentFile, null);
         }
     }
 
-    public void previewAndHandleImageFile(OCFile file, boolean searchFragment, SearchType currentSearchType) {
+    public void previewImageWithSearchContext(OCFile file, boolean searchFragment, SearchType currentSearchType) {
         // preview image - it handles the download, if needed
         if (searchFragment) {
             VirtualFolderType type = switch (currentSearchType) {
@@ -1804,7 +1802,7 @@ public class FileDisplayActivity extends FileActivity
         }
     }
 
-    public void previewDownloadedFile(OCFile file, Callback callback) {
+    public void previewFile(OCFile file, @Nullable CompletionCallback setFabVisible) {
         if (!file.isDown()) {
             Log_OC.d(TAG,"File is not downloaded, cannot be previewed");
             return;
@@ -1815,10 +1813,16 @@ public class FileDisplayActivity extends FileActivity
         } else if (MimeTypeUtil.isPDF(file)) {
             startPdfPreview(file);
         } else if (PreviewTextFileFragment.canBePreviewed(file)) {
-            callback.onComplete(false);
+            if (setFabVisible != null) {
+                setFabVisible.onComplete(false);
+            }
+
             startTextPreview(file, false);
         } else if (PreviewMediaActivity.Companion.canBePreviewed(file)) {
-            callback.onComplete(false);
+            if (setFabVisible != null) {
+                setFabVisible.onComplete(false);
+            }
+
             startMediaPreview(file, 0, true, true, false, true);
         } else {
             getFileOperationsHelper().openFile(file);

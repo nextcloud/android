@@ -103,7 +103,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
 
     private FileDetailsFragmentBinding binding;
 
-    // TODO: Why we need DownloadProgressListener?
+    // CHECK: Why we need DownloadProgressListener?
     private DownloadProgressListener progressListener;
     private ToolbarActivity toolbarActivity;
     private int activeTab;
@@ -775,7 +775,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
         }
     }
 
-    // TODO: Are these logic still needed after conversion from Foreground Services to Worker?
+    // CHECK: Are these logic still needed after conversion from Foreground Services to Worker?
     // region TransferProgress
     public void listenForTransferProgress() {
         if (progressListener == null) {

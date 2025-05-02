@@ -1194,33 +1194,34 @@ public class OCFileListFragment extends ExtendedListFragment implements
         }
 
         if (PreviewImageFragment.canBePreviewed(file) && mContainerActivity instanceof FileDisplayActivity fda) {
-            fda.previewAndHandleImageFile(file, searchFragment, currentSearchType);
+            fda.previewImageWithSearchContext(file, searchFragment, currentSearchType);
         } else if (file.isDown() && mContainerActivity instanceof FileDisplayActivity fda) {
-            fda.previewDownloadedFile(file, this::setFabVisible);
+            fda.previewFile(file, this::setFabVisible);
         } else {
-            processNotDownloadedFile(file);
+            handlePendingDownloadFile(file);
         }
     }
 
-    private void processNotDownloadedFile(OCFile file) {
+    private void handlePendingDownloadFile(OCFile file) {
         User account = accountManager.getUser();
         OCCapability capability = mContainerActivity.getStorageManager().getCapability(account.getAccountName());
 
-        if (PreviewMediaActivity.Companion.canBePreviewed(file) && !file.isEncrypted()) {
+        if (PreviewMediaActivity.Companion.canBePreviewed(file) && !file.isEncrypted() && mContainerActivity instanceof FileDisplayActivity fda) {
             setFabVisible(false);
-            ((FileDisplayActivity) mContainerActivity).startMediaPreview(file, 0, true, true, true, true);
+            fda.startMediaPreview(file, 0, true, true, true, true);
         } else if (editorUtils.isEditorAvailable(accountManager.getUser(), file.getMimeType()) && !file.isEncrypted()) {
             mContainerActivity.getFileOperationsHelper().openFileWithTextEditor(file, getContext());
-        } else if (capability.getRichDocumentsMimeTypeList().contains(file.getMimeType()) &&
+        } else if (capability.getRichDocumentsMimeTypeList() != null &&
+            capability.getRichDocumentsMimeTypeList().contains(file.getMimeType()) &&
             capability.getRichDocumentsDirectEditing().isTrue() && !file.isEncrypted()) {
             mContainerActivity.getFileOperationsHelper().openFileAsRichDocument(file, getContext());
-        } else if (mContainerActivity instanceof FileDisplayActivity fileDisplayActivity) {
-            fileDisplayActivity.startDownloadForPreview(file, mFile);
+        } else if (mContainerActivity instanceof FileDisplayActivity fda) {
+            fda.startDownloadForPreview(file, mFile);
 
             // Checks if the file is small enough to be previewed immediately without showing progress.
             // If the file is smaller than or equal to 1MB, it can be displayed directly.
             if (file.isFileEligibleForImmediatePreview()) {
-                fileDisplayActivity.setReadyFileIdForPreview(file.getFileId());
+                fda.setFileIDForImmediatePreview(file.getFileId());
             }
         }
     }
