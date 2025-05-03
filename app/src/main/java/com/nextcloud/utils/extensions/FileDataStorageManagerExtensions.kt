@@ -7,6 +7,7 @@
 
 package com.nextcloud.utils.extensions
 
+import com.nextcloud.model.OCFileFilterType
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
 
@@ -25,3 +26,15 @@ fun FileDataStorageManager.getDecryptedPath(file: OCFile): String {
         .reversed()
         .joinToString(OCFile.PATH_SEPARATOR)
 }
+
+fun FileDataStorageManager.filter(file: OCFile, filterType: OCFileFilterType): List<OCFile> =
+    if (!file.isRootDirectory) {
+        getFolderContent(file, false)
+    } else {
+        getAllFiles().filter { ocFile ->
+            when (filterType) {
+                OCFileFilterType.Shared -> ocFile.isShared
+                OCFileFilterType.Favorite -> ocFile.isFavorite
+            }
+        }
+    }

@@ -19,7 +19,6 @@ import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
 import android.text.TextUtils;
@@ -40,6 +39,7 @@ import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.model.OCFileFilterType;
 import com.nextcloud.model.OfflineOperationType;
 import com.nextcloud.utils.LinkHelper;
+import com.nextcloud.utils.extensions.FileDataStorageManagerExtensionsKt;
 import com.nextcloud.utils.extensions.OCFileExtensionsKt;
 import com.nextcloud.utils.extensions.ViewExtensionsKt;
 import com.nextcloud.utils.mdm.MDMConfig;
@@ -60,7 +60,6 @@ import com.owncloud.android.datamodel.e2e.v2.decrypted.DecryptedFolderMetadataFi
 import com.owncloud.android.db.ProviderMeta;
 import com.owncloud.android.lib.common.OwnCloudClientFactory;
 import com.owncloud.android.lib.common.accounts.AccountUtils;
-import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.files.model.RemoteFile;
 import com.owncloud.android.lib.resources.shares.OCShare;
@@ -91,14 +90,13 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
-import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.VisibleForTesting;
+import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -117,7 +115,6 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private final AppPreferences preferences;
     private final OCCapability capability;
     private List<OCFile> mFiles = new ArrayList<>();
-    private final List<OCFile> mFilesAll = new ArrayList<>();
     private final boolean hideItemOptions;
     private long lastTimestamp;
     private boolean gridView;
@@ -144,8 +141,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     private final long footerId = UUID.randomUUID().getLeastSignificantBits();
     private final long headerId = UUID.randomUUID().getLeastSignificantBits();
-    private final SyncedFolderProvider syncedFolderProvider;
-
+    private RecyclerView recyclerView = null;
     private ArrayList<Recommendation> recommendedFiles = new ArrayList<>();
 
     public OCFileListAdapter(
@@ -175,11 +171,11 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             mStorageManager = new FileDataStorageManager(user, activity.getContentResolver());
         }
 
+        //noinspection deprecation
         userId = AccountManager
             .get(activity)
             .getUserData(this.user.toPlatformAccount(),
                          AccountUtils.Constants.KEY_USER_ID);
-        this.syncedFolderProvider = syncedFolderProvider;
         this.viewThemeUtils = viewThemeUtils;
         ocFileListDelegate = new OCFileListDelegate(FileUploadHelper.Companion.instance(),
                                                     activity,
@@ -198,6 +194,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         setHasStableIds(true);
 
         // initialise thumbnails cache on background thread
+        //noinspection deprecation
         new ThumbnailsCacheManager.InitDiskCacheTask().execute();
     }
 
@@ -241,18 +238,6 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             if (file.getRemotePath().equals(remotePath)) {
                 file.setFavorite(favorite);
 
-                if (removeFromList) {
-                    filesToDelete.add(file);
-                }
-
-                break;
-            }
-        }
-
-        for (OCFile file : mFilesAll) {
-            if (file.getRemotePath().equals(remotePath)) {
-                file.setFavorite(favorite);
-
                 mStorageManager.saveFile(file);
 
                 if (removeFromList) {
@@ -265,9 +250,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
         FileSortOrder sortOrder = preferences.getSortOrderByFolder(currentDirectory);
         if (searchType == SearchType.SHARED_FILTER) {
-            Collections.sort(mFiles,
-                             (o1, o2) -> Long.compare(o2.getFirstShareTimestamp(), o1.getFirstShareTimestamp())
-                            );
+            mFiles.sort((o1, o2) -> Long.compare(o2.getFirstShareTimestamp(), o1.getFirstShareTimestamp()));
         } else {
             mFiles = sortOrder.sortCloudFiles(mFiles);
         }
@@ -279,42 +262,25 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     }
 
     public void refreshCommentsCount(String fileId) {
-        for (OCFile file : mFiles) {
-            if (file.getRemoteId().equals(fileId)) {
-                file.setUnreadCommentsCount(0);
-                break;
-            }
-        }
-
-        for (OCFile file : mFilesAll) {
-            if (file.getRemoteId().equals(fileId)) {
-                file.setUnreadCommentsCount(0);
-                break;
-            }
-        }
-
-        new Handler(Looper.getMainLooper()).post(this::notifyDataSetChanged);
+        OCFileExtensionsKt.refreshCommentsCount(mFiles, fileId);
+        activity.runOnUiThread(this::notifyDataSetChanged);
     }
 
     public void setEncryptionAttributeForItemID(String fileId, boolean encrypted) {
-        for (OCFile file : mFiles) {
-            if (file.getRemoteId().equals(fileId)) {
-                file.setEncrypted(encrypted);
-                file.setE2eCounter(0L);
-                mStorageManager.saveFile(file);
+        OCFileExtensionsKt.setEncryptionAttributeForItemId(mFiles, fileId, encrypted, mStorageManager);
+        activity.runOnUiThread(this::notifyDataSetChanged);
+    }
 
-                break;
-            }
-        }
+    @Override
+    public void onAttachedToRecyclerView(@NonNull RecyclerView recyclerView) {
+        super.onAttachedToRecyclerView(recyclerView);
+        this.recyclerView = recyclerView;
+    }
 
-        for (OCFile file : mFilesAll) {
-            if (file.getRemoteId().equals(fileId)) {
-                file.setEncrypted(encrypted);
-                file.setE2eCounter(0L);
-            }
-        }
-
-        new Handler(Looper.getMainLooper()).post(this::notifyDataSetChanged);
+    @Override
+    public void onDetachedFromRecyclerView(@NonNull RecyclerView recyclerView) {
+        super.onDetachedFromRecyclerView(recyclerView);
+        this.recyclerView = null;
     }
 
     @Override
@@ -390,17 +356,6 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         switch (viewType) {
-            default -> {
-                if (gridView) {
-                    return new OCFileListGridItemViewHolder(
-                        GridItemBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false)
-                    );
-                } else {
-                    return new OCFileListItemViewHolder(
-                        ListItemBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false)
-                    );
-                }
-            }
             case VIEW_TYPE_IMAGE -> {
                 if (gridView) {
                     return new OCFileListViewHolder(
@@ -424,6 +379,17 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                     false);
 
                 return new OCFileListHeaderViewHolder(binding);
+            }
+            default -> {
+                if (gridView) {
+                    return new OCFileListGridItemViewHolder(
+                        GridItemBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false)
+                    );
+                } else {
+                    return new OCFileListItemViewHolder(
+                        ListItemBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false)
+                    );
+                }
             }
         }
     }
@@ -535,14 +501,14 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         fileFeaturesLayout.setVisibility(fileFeaturesVisibility);
     }
 
-    private void mergeOCFilesForLivePhoto() {
+    private void mergeOCFilesForLivePhoto(List<OCFile> files) {
         List<OCFile> filesToRemove = new ArrayList<>();
 
-        for (int i = 0; i < mFiles.size(); i++) {
-            OCFile file = mFiles.get(i);
+        for (int i = 0; i < files.size(); i++) {
+            OCFile file = files.get(i);
 
-            for (int j = i + 1; j < mFiles.size(); j++) {
-                OCFile nextFile = mFiles.get(j);
+            for (int j = i + 1; j < files.size(); j++) {
+                OCFile nextFile = files.get(j);
                 String fileLocalId = String.valueOf(file.getLocalId());
                 String nextFileLinkedLocalId = nextFile.getLinkedFileIdForLivePhoto();
 
@@ -558,7 +524,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             }
         }
 
-        mFiles.removeAll(filesToRemove);
+        files.removeAll(filesToRemove);
         filesToRemove.clear();
     }
 
@@ -823,7 +789,6 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
      * @param updatedStorageManager Optional updated storage manager; used to replace
      * @param limitToMimeType       show only files of this mimeType
      */
-    @SuppressLint("NotifyDataSetChanged")
     public void swapDirectory(
         @NonNull User account,
         @NonNull OCFile directory,
@@ -838,78 +803,44 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             this.user = account;
         }
 
+        List<OCFile> newList = mFiles;
         if (mStorageManager != null) {
-            // TODO refactor filtering mechanism for mFiles
-            mFiles = mStorageManager.getFolderContent(directory, onlyOnDevice);
+            newList = mStorageManager.getFolderContent(directory, onlyOnDevice);
             if (!preferences.isShowHiddenFilesEnabled()) {
-                mFiles = OCFileExtensionsKt.filterHiddenFiles(mFiles);
+                newList = OCFileExtensionsKt.filterHiddenFiles(newList);
             }
             if (!limitToMimeType.isEmpty()) {
-                mFiles = OCFileExtensionsKt.filterByMimeType(mFiles, limitToMimeType);
+                newList = OCFileExtensionsKt.filterByMimeType(newList, limitToMimeType);
             }
             if (OCFile.ROOT_PATH.equals(directory.getRemotePath()) && MainApp.isOnlyPersonFiles()) {
-                mFiles = OCFileExtensionsKt.limitToPersonalFiles(mFiles, userId);
+                newList = OCFileExtensionsKt.limitToPersonalFiles(newList, userId);
             }
 
             // TODO refactor add DrawerState instead of using static menuItemId
             if (DrawerActivity.menuItemId == R.id.nav_shared && currentDirectory != null) {
-                mFiles = updatedStorageManager.filter(currentDirectory, OCFileFilterType.Shared);
+                newList = FileDataStorageManagerExtensionsKt.filter(updatedStorageManager, currentDirectory, OCFileFilterType.Shared);
             }
             if (DrawerActivity.menuItemId == R.id.nav_favorites && currentDirectory != null) {
-                mFiles = updatedStorageManager.filter(currentDirectory, OCFileFilterType.Favorite);
+                newList = FileDataStorageManagerExtensionsKt.filter(updatedStorageManager, currentDirectory, OCFileFilterType.Favorite);
             }
 
             // Filter out temp files from the list to prevent duplication
-            mFiles = OCFileExtensionsKt.filterTempFilter(mFiles);
+            newList = OCFileExtensionsKt.filterTempFilter(newList);
 
-            mFiles = OCFileExtensionsKt.filterFilenames(mFiles);
+            newList = OCFileExtensionsKt.filterFilenames(newList);
 
             sortOrder = preferences.getSortOrderByFolder(directory);
-            mFiles = sortOrder.sortCloudFiles(mFiles);
-            prepareListOfHiddenFiles();
-            mergeOCFilesForLivePhoto();
-            mFilesAll.clear();
-            addOfflineOperations(directory.getFileId());
-
-            mFilesAll.addAll(mFiles);
+            newList = sortOrder.sortCloudFiles(newList);
+            prepareListOfHiddenFiles(newList);
+            mergeOCFilesForLivePhoto(newList);
+            OCFileExtensionsKt.addOfflineOperations(newList, mStorageManager, directory.getFileId());
             currentDirectory = directory;
         } else {
-            mFiles.clear();
-            mFilesAll.clear();
+            newList.clear();
         }
 
         searchType = null;
-        activity.runOnUiThread(this::notifyDataSetChanged);
-    }
-
-    /**
-     * Converts Offline Operations to OCFiles and adds them to the adapter for visual feedback.
-     * This function creates pending OCFiles, but they may not consistently appear in the UI.
-     * The issue arises when  {@link RefreshFolderOperation} deletes pending Offline Operations, while some may still exist in the table.
-     * If only this function is used, it cause crash in {@link FileDisplayActivity mSyncBroadcastReceiver.onReceive}.
-     * <p>
-     * These function also need to be used: {@link FileDataStorageManager#createPendingDirectory(String, long, long)}, {@link FileDataStorageManager#createPendingFile(String, String, long, long)}.
-     */
-    private void addOfflineOperations(long fileId) {
-        List<OCFile> offlineOperations = mStorageManager.offlineOperationsRepository.convertToOCFiles(fileId);
-        if (offlineOperations.isEmpty()) {
-            return;
-        }
-
-        List<OCFile> newFiles;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
-            newFiles = offlineOperations.stream()
-                .filter(offlineFile -> mFilesAll.stream()
-                    .noneMatch(file -> Objects.equals(file.getDecryptedRemotePath(), offlineFile.getDecryptedRemotePath())))
-                .toList();
-        } else {
-            newFiles = offlineOperations.stream()
-                .filter(offlineFile -> mFilesAll.stream()
-                    .noneMatch(file -> Objects.equals(file.getDecryptedRemotePath(), offlineFile.getDecryptedRemotePath())))
-                .collect(Collectors.toList());
-        }
-
-        mFilesAll.addAll(newFiles);
+        updateList(newList);
     }
 
     public void setData(List<Object> objects,
@@ -944,7 +875,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         }
 
         // early exit
-        if (objects.size() > 0 && mStorageManager != null) {
+        if (!objects.isEmpty() && mStorageManager != null) {
             if (searchType == SearchType.SHARED_FILTER) {
                 parseShares(objects);
             } else {
@@ -964,10 +895,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
         this.searchType = searchType;
 
-        mFilesAll.clear();
-        mFilesAll.addAll(mFiles);
-
-        new Handler(Looper.getMainLooper()).post(this::notifyDataSetChanged);
+        activity.runOnUiThread(this::notifyDataSetChanged);
     }
 
     private void parseShares(List<Object> objects) {
@@ -1031,6 +959,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
                 OCFile parentFolder = mStorageManager.getFileById(ocFile.getParentId());
                 if (parentFolder != null && (ocFile.isEncrypted() || parentFolder.isEncrypted())) {
+                    //noinspection deprecation
                     Object object = RefreshFolderOperation.getDecryptedFolderMetadata(
                         true,
                         parentFolder,
@@ -1061,13 +990,14 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                     // also sync folder content
                     if (ocFile.isFolder()) {
                         long currentSyncTime = System.currentTimeMillis();
-                        RemoteOperation refreshFolderOperation = new RefreshFolderOperation(ocFile,
+                        final var refreshFolderOperation = new RefreshFolderOperation(ocFile,
                                                                                             currentSyncTime,
                                                                                             true,
                                                                                             false,
                                                                                             mStorageManager,
                                                                                             user,
                                                                                             activity);
+                        //noinspection deprecation
                         refreshFolderOperation.execute(user, activity);
                     }
                 }
@@ -1099,28 +1029,28 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         mStorageManager.saveVirtuals(contentValues);
     }
 
-    public void showVirtuals(VirtualFolderType type, boolean onlyImages, FileDataStorageManager storageManager) {
-        mFiles = storageManager.getVirtualFolderContent(type, onlyImages);
+    // FIXME:  java.lang.IndexOutOfBoundsException: Inconsistency detected. Invalid item position 6(offset:2).state:7
+    private void updateList(List<OCFile> newList) {
+        final var diffCallback = new OCFileDiffCallback(mFiles, newList);
+        final var diff = DiffUtil.calculateDiff(diffCallback);
+        mFiles.clear();
+        mFiles.addAll(newList);
+        diff.dispatchUpdatesTo(this);
 
-        if (VirtualFolderType.GALLERY == type) {
-            mFiles = FileStorageUtils.sortOcFolderDescDateModifiedWithoutFavoritesFirst(mFiles);
+        if (recyclerView != null) {
+            recyclerView.scrollToPosition(0);
         }
-
-        mFilesAll.clear();
-        mFilesAll.addAll(mFiles);
-
-        new Handler(Looper.getMainLooper()).post(this::notifyDataSetChanged);
     }
 
-
-    public void setSortOrder(@Nullable OCFile folder, FileSortOrder sortOrder) {
+    @SuppressLint("NotifyDataSetChanged")
+    public void setSortOrder(@Nullable OCFile folder, @NonNull FileSortOrder sortOrder) {
         preferences.setSortOrder(folder, sortOrder);
         mFiles = sortOrder.sortCloudFiles(mFiles);
         notifyDataSetChanged();
-
         this.sortOrder = sortOrder;
     }
 
+    @NonNull
     public Set<OCFile> getCheckedItems() {
         return ocFileListDelegate.getCheckedItems();
     }
@@ -1141,14 +1071,9 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         return mFiles;
     }
 
-    private void prepareListOfHiddenFiles() {
+    private void prepareListOfHiddenFiles(List<OCFile> list) {
         listOfHiddenFiles.clear();
-
-        mFiles.forEach(file -> {
-            if (file.shouldHide()) {
-                listOfHiddenFiles.add(file.getFileName());
-            }
-        });
+        listOfHiddenFiles.addAll(OCFileExtensionsKt.getHiddenFilenames(list));
     }
 
     public void resetLastTimestamp() {
@@ -1178,15 +1103,15 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         return ((ImageView) callContext).getTag().equals(tag);
     }
 
-    public boolean isCheckedFile(OCFile file) {
+    public boolean isCheckedFile(@NonNull OCFile file) {
         return ocFileListDelegate.isCheckedFile(file);
     }
 
-    public void addCheckedFile(OCFile file) {
+    public void addCheckedFile(@NonNull OCFile file) {
         ocFileListDelegate.addCheckedFile(file);
     }
 
-    public void setHighlightedItem(OCFile file) {
+    public void setHighlightedItem(@NonNull OCFile file) {
         ocFileListDelegate.setHighlightedItem(file);
     }
 
@@ -1204,7 +1129,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     @NonNull
     @Override
-    public String getPopupText(View view, int position) {
+    public String getPopupText(@NonNull View view, int position) {
         OCFile file = getItem(position);
 
         if (file == null || sortOrder == null) {
@@ -1231,20 +1156,6 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         ocFileListDelegate.setShowShareAvatar(bool);
     }
 
-    @VisibleForTesting
-    public void setCurrentDirectory(OCFile folder) {
-        currentDirectory = folder;
-    }
-
-    @SuppressFBWarnings("EI_EXPOSE_REP")
-    public List<OCFile> getAllFiles() {
-        return mFilesAll;
-    }
-
-    public OCFile getCurrentDirectory() {
-        return currentDirectory;
-    }
-
     @Override
     public int getFilesCount() {
         return mFiles.size();
@@ -1263,5 +1174,14 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     @Override
     public void showRecommendedFileMoreActions(@NonNull OCFile file, @NonNull View view) {
         ocFileListFragmentInterface.onOverflowIconClicked(file, view);
+    }
+
+    @VisibleForTesting
+    public void setCurrentDirectory(OCFile folder) {
+        currentDirectory = folder;
+    }
+
+    public OCFile getCurrentDirectory() {
+        return currentDirectory;
     }
 }
