@@ -385,6 +385,7 @@ class SyncedFoldersActivity :
             syncedFolder.account,
             syncedFolder.uploadAction,
             syncedFolder.nameCollisionPolicyInt,
+            syncedFolder.uploadMinFileAgeMs,
             syncedFolder.isEnabled,
             clock.currentTime,
             filePaths,
@@ -417,6 +418,7 @@ class SyncedFoldersActivity :
             syncedFolder.account,
             syncedFolder.uploadAction,
             syncedFolder.nameCollisionPolicyInt,
+            syncedFolder.uploadMinFileAgeMs,
             syncedFolder.isEnabled,
             clock.currentTime,
             mediaFolder.filePaths,
@@ -448,6 +450,7 @@ class SyncedFoldersActivity :
             account.name,
             FileUploadWorker.LOCAL_BEHAVIOUR_FORGET,
             NameCollisionPolicy.ASK_USER.serialize(),
+            0,
             false,
             clock.currentTime,
             mediaFolder.filePaths,
@@ -544,6 +547,7 @@ class SyncedFoldersActivity :
                         account.name,
                         FileUploadWorker.LOCAL_BEHAVIOUR_FORGET,
                         NameCollisionPolicy.ASK_USER.serialize(),
+                        0,
                         false,
                         clock.currentTime,
                         null,
@@ -678,6 +682,7 @@ class SyncedFoldersActivity :
                 syncedFolder.account,
                 syncedFolder.uploadAction,
                 syncedFolder.nameCollisionPolicy.serialize(),
+                syncedFolder.uploadMinFileAgeMs,
                 syncedFolder.isEnabled,
                 clock.currentTime,
                 File(syncedFolder.localPath).name,
@@ -702,6 +707,7 @@ class SyncedFoldersActivity :
                 syncedFolder.isSubfolderByDate,
                 syncedFolder.uploadAction,
                 syncedFolder.nameCollisionPolicy.serialize(),
+                syncedFolder.uploadMinFileAgeMs,
                 syncedFolder.isEnabled,
                 syncedFolder.subFolderRule,
                 syncedFolder.isExcludeHidden
@@ -790,6 +796,7 @@ class SyncedFoldersActivity :
      * @param subfolderByDate created sub folders
      * @param uploadAction    upload action
      * @param nameCollisionPolicy what to do on name collision
+     * @param uploadMinFileAgeMs minimal age of file to upload
      * @param enabled         is sync enabled
      * @param excludeHidden   exclude hidden file or folder, for {@link MediaFolderType#CUSTOM} only
      */
@@ -805,6 +812,7 @@ class SyncedFoldersActivity :
         subfolderByDate: Boolean,
         uploadAction: Int,
         nameCollisionPolicy: Int,
+        uploadMinFileAgeMs: Long,
         enabled: Boolean,
         subFolderRule: SubFolderRule,
         excludeHidden: Boolean
@@ -818,6 +826,7 @@ class SyncedFoldersActivity :
         item.isSubfolderByDate = subfolderByDate
         item.uploadAction = uploadAction
         item.setNameCollisionPolicy(nameCollisionPolicy)
+        item.uploadMinFileAgeMs = uploadMinFileAgeMs
         item.setEnabled(enabled, clock.currentTime)
         item.setSubFolderRule(subFolderRule)
         item.setExcludeHidden(excludeHidden)
