@@ -575,9 +575,11 @@ public class RefreshFolderOperation extends RemoteOperation {
                                                  (DecryptedFolderMetadataFileV1) object,
                                                  updatedFile);
             } else {
-                updateFileNameForEncryptedFile(fileDataStorageManager,
-                                               (DecryptedFolderMetadataFile) object,
-                                               updatedFile);
+                if (object != null) {
+                    updateFileNameForEncryptedFile(fileDataStorageManager,
+                                                   (DecryptedFolderMetadataFile) object,
+                                                   updatedFile);
+                }
                 if (localFile != null) {
                     updatedFile.setE2eCounter(localFile.getE2eCounter());
                 }
@@ -598,9 +600,11 @@ public class RefreshFolderOperation extends RemoteOperation {
                                              (DecryptedFolderMetadataFileV1) object,
                                              mLocalFolder);
         } else {
-            updateFileNameForEncryptedFile(fileDataStorageManager,
-                                           (DecryptedFolderMetadataFile) object,
-                                           mLocalFolder);
+            if (object != null) {
+                updateFileNameForEncryptedFile(fileDataStorageManager,
+                                               (DecryptedFolderMetadataFile) object,
+                                               mLocalFolder);
+            }
         }
         fileDataStorageManager.saveFolder(remoteFolder, updatedFiles, localFilesMap.values());
 
