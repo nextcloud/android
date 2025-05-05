@@ -353,7 +353,7 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
                 // permission was granted
                 showLocalStoragePathPickerDialog();
             } else {
-                DisplayUtils.showSnackMessage(this, R.string.permission_storage_access);
+                PermissionUtil.INSTANCE.showPermissionDeniedSnackbar(this);
             }
         } else {
             super.onRequestPermissionsResult(requestCode, permissions, grantResults);

@@ -14,6 +14,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.content.pm.ResolveInfo
+import android.net.Uri
 import android.os.Build
 import android.os.Environment
 import android.provider.Settings
@@ -22,8 +23,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.net.toUri
+import com.google.android.material.snackbar.Snackbar
 import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.client.preferences.AppPreferencesImpl
+import com.owncloud.android.R
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.ui.dialog.StoragePermissionDialogFragment
 import com.owncloud.android.utils.PermissionUtil.PERMISSIONS_EXTERNAL_STORAGE
@@ -119,11 +122,12 @@ object PermissionUtil {
 
         @Suppress("DEPRECATION")
         val preferences: AppPreferences = AppPreferencesImpl.fromContext(activity)
+        if (preferences.isStoragePermissionRequested) {
+            showPermissionDeniedSnackbar(activity)
+            return
+        }
 
-        if (!preferences.isStoragePermissionRequested &&
-            Build.VERSION.SDK_INT >= Build.VERSION_CODES.R &&
-            canRequestAllFilesPermission(activity)
-        ) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R && canRequestAllFilesPermission(activity)) {
             showStoragePermissionDialogFragment(activity, showStrictText)
         } else {
             requestStoragePermissions(activity, preferences.isStoragePermissionRequested)
@@ -135,6 +139,21 @@ object PermissionUtil {
         if (permissions.any { shouldShowRequestPermissionRationale(activity, it) } || !isStoragePermissionRequested) {
             requestPermissions(activity, permissions)
         }
+    }
+
+    fun showPermissionDeniedSnackbar(activity: AppCompatActivity) {
+        Snackbar.make(
+            activity.findViewById(android.R.id.content),
+            R.string.permission_storage_access, Snackbar.LENGTH_SHORT
+        )
+            .setAction(R.string.actionbar_settings) { v ->
+                val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS).apply {
+                    data = Uri.fromParts("package", activity.packageName, null)
+                }
+
+                activity.startActivity(intent)
+            }
+            .show()
     }
 
     private fun getStoragePermissions() = when {
