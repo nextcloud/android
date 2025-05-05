@@ -235,6 +235,7 @@
     <string name="drawer_item_home">Začetna stran</string>
     <string name="drawer_item_notifications">Obvestila</string>
     <string name="drawer_item_on_device">Na napravi</string>
+    <string name="drawer_item_personal_files">Osebne datoteke</string>
     <string name="drawer_item_recently_modified">Nedavno spremenjeno</string>
     <string name="drawer_item_shared">V souporabi</string>
     <string name="drawer_item_trashbin">Izbrisane datoteke</string>
