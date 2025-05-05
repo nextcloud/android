@@ -320,6 +320,7 @@
     <string name="end_to_end_encryption_server_private_key_unavailable">No fue posible recuperar la llave privada</string>
     <string name="end_to_end_encryption_storing_keys">Almacenando claves</string>
     <string name="end_to_end_encryption_title">Configurar cifrado</string>
+    <string name="end_to_end_encryption_unexpected_error_occurred">Ha ocurrido un error inesperado al descargar las claves</string>
     <string name="end_to_end_encryption_unsuccessful">No se han podido almacenar las claves. Por favor, vuelve a intentarlo.</string>
     <string name="end_to_end_encryption_wrong_password">Error al descifrar. ¿Contraseña incorrecta?</string>
     <string name="enter_destination_filename">Introduce el nombre del archivo de destino</string>
