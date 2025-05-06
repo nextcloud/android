@@ -44,16 +44,19 @@ public class QuickSharingPermissionsBottomSheetDialog extends BottomSheetDialog 
     private final FileActivity fileActivity;
     private final OCShare ocShare;
     private final ViewThemeUtils viewThemeUtils;
+    private final boolean hasFileRequestPermission;
 
     public QuickSharingPermissionsBottomSheetDialog(FileActivity fileActivity,
                                                     QuickPermissionSharingBottomSheetActions actions,
                                                     OCShare ocShare,
-                                                    ViewThemeUtils viewThemeUtils) {
+                                                    ViewThemeUtils viewThemeUtils,
+                                                    boolean hasFileRequestPermission) {
         super(fileActivity);
         this.actions = actions;
         this.ocShare = ocShare;
         this.fileActivity = fileActivity;
         this.viewThemeUtils = viewThemeUtils;
+        this.hasFileRequestPermission = hasFileRequestPermission;
     }
 
     @Override
@@ -105,7 +108,6 @@ public class QuickSharingPermissionsBottomSheetDialog extends BottomSheetDialog 
 
     /**
      * Handle permission changed on click of selected permission
-     *
      */
     private void handlePermissionChanged(List<QuickPermission> quickPermissionList, int position) {
         final var permissionName = quickPermissionList.get(position).getText(getContext());
@@ -130,7 +132,7 @@ public class QuickSharingPermissionsBottomSheetDialog extends BottomSheetDialog 
      */
     private List<QuickPermission> getQuickPermissionList() {
         final var selectedType = SharingMenuHelper.getSelectedType(ocShare);
-        return QuickPermission.Companion.getPermissions(ocShare.isFolder(), selectedType);
+        return QuickPermission.Companion.getPermissions(hasFileRequestPermission, selectedType);
     }
 
     @Override
