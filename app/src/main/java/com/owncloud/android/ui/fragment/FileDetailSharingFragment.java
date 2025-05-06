@@ -426,11 +426,7 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
      */
     @Override
     public void showPermissionsDialog(OCShare share) {
-        boolean hasFileRequestPermission = false;
-        if (share.isFolder()) {
-            hasFileRequestPermission = sharePermissionManager.hasPermission(share.getPermissions(), OCShare.CREATE_PERMISSION_FLAG);
-        }
-        new QuickSharingPermissionsBottomSheetDialog(fileActivity, this, share, viewThemeUtils, hasFileRequestPermission).show();
+        new QuickSharingPermissionsBottomSheetDialog(fileActivity, this, share, viewThemeUtils).show();
     }
 
     /**
