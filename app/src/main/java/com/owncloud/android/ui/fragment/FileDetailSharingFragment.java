@@ -60,6 +60,7 @@ import com.owncloud.android.ui.adapter.ShareeListAdapterListener;
 import com.owncloud.android.ui.asynctasks.RetrieveHoverCardAsyncTask;
 import com.owncloud.android.ui.dialog.SharePasswordDialogFragment;
 import com.owncloud.android.ui.fragment.util.FileDetailSharingFragmentHelper;
+import com.owncloud.android.ui.fragment.util.SharePermissionManager;
 import com.owncloud.android.ui.helpers.FileOperationsHelper;
 import com.owncloud.android.utils.ClipboardUtil;
 import com.owncloud.android.utils.DisplayUtils;
@@ -104,6 +105,7 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
     private ShareeListAdapter internalShareeListAdapter;
     
     private ShareeListAdapter externalShareeListAdapter;
+    private final SharePermissionManager sharePermissionManager = new SharePermissionManager();
 
     @Inject UserAccountManager accountManager;
     @Inject ClientFactory clientFactory;
@@ -424,7 +426,11 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
      */
     @Override
     public void showPermissionsDialog(OCShare share) {
-        new QuickSharingPermissionsBottomSheetDialog(fileActivity, this, share, viewThemeUtils).show();
+        boolean hasFileRequestPermission = false;
+        if (share.isFolder()) {
+            hasFileRequestPermission = sharePermissionManager.hasPermission(share.getPermissions(), OCShare.CREATE_PERMISSION_FLAG);
+        }
+        new QuickSharingPermissionsBottomSheetDialog(fileActivity, this, share, viewThemeUtils, hasFileRequestPermission).show();
     }
 
     /**

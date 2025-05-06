@@ -20,9 +20,9 @@ enum class QuickPermissionType(
     CUSTOM_PERMISSIONS(R.drawable.ic_custom_permissions, R.string.share_custom_permission);
 
     companion object {
-        fun getAvailablePermissions(isFolder: Boolean): List<QuickPermissionType> {
+        fun getAvailablePermissions(hasFileRequestPermission: Boolean): List<QuickPermissionType> {
             val permissions = listOf(VIEW_ONLY, CAN_EDIT, FILE_REQUEST, CUSTOM_PERMISSIONS)
-            return if (isFolder) permissions else permissions.filter { it != FILE_REQUEST }
+            return if (hasFileRequestPermission) permissions else permissions.filter { it != FILE_REQUEST }
         }
     }
 }
