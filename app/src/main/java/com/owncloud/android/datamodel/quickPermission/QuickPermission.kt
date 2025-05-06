@@ -13,8 +13,11 @@ import androidx.core.content.ContextCompat
 
 data class QuickPermission(val type: QuickPermissionType, var isSelected: Boolean) {
     companion object {
-        fun getPermissions(isFolder: Boolean, selectedType: QuickPermissionType): List<QuickPermission> {
-            return QuickPermissionType.getAvailablePermissions(isFolder).map { type ->
+        fun getPermissions(
+            hasFileRequestPermission: Boolean,
+            selectedType: QuickPermissionType
+        ): List<QuickPermission> {
+            return QuickPermissionType.getAvailablePermissions(hasFileRequestPermission).map { type ->
                 QuickPermission(
                     type = type,
                     isSelected = (type == selectedType)
