@@ -17,10 +17,12 @@ import android.view.ViewGroup;
 
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.nextcloud.utils.OCShareExtensionsKt;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.QuickSharingPermissionsBottomSheetFragmentBinding;
 import com.owncloud.android.datamodel.quickPermission.QuickPermission;
 import com.owncloud.android.lib.resources.shares.OCShare;
+import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.adapter.QuickSharingPermissionsAdapter;
 import com.owncloud.android.ui.fragment.util.SharingMenuHelper;
@@ -44,19 +46,16 @@ public class QuickSharingPermissionsBottomSheetDialog extends BottomSheetDialog 
     private final FileActivity fileActivity;
     private final OCShare ocShare;
     private final ViewThemeUtils viewThemeUtils;
-    private final boolean hasFileRequestPermission;
 
     public QuickSharingPermissionsBottomSheetDialog(FileActivity fileActivity,
                                                     QuickPermissionSharingBottomSheetActions actions,
                                                     OCShare ocShare,
-                                                    ViewThemeUtils viewThemeUtils,
-                                                    boolean hasFileRequestPermission) {
+                                                    ViewThemeUtils viewThemeUtils) {
         super(fileActivity);
         this.actions = actions;
         this.ocShare = ocShare;
         this.fileActivity = fileActivity;
         this.viewThemeUtils = viewThemeUtils;
-        this.hasFileRequestPermission = hasFileRequestPermission;
     }
 
     @Override
@@ -132,6 +131,7 @@ public class QuickSharingPermissionsBottomSheetDialog extends BottomSheetDialog 
      */
     private List<QuickPermission> getQuickPermissionList() {
         final var selectedType = SharingMenuHelper.getSelectedType(ocShare);
+        final var hasFileRequestPermission = OCShareExtensionsKt.hasFileRequestPermission(ocShare);
         return QuickPermission.Companion.getPermissions(hasFileRequestPermission, selectedType);
     }
 

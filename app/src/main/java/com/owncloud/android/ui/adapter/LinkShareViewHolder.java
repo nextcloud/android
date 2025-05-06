@@ -67,7 +67,9 @@ class LinkShareViewHolder extends RecyclerView.ViewHolder {
                 String text = String.format(context.getString(R.string.share_link_with_label), publicShare.getLabel());
                 binding.name.setText(text);
             } else {
-                if (SharingMenuHelper.isSecureFileDrop(publicShare)) {
+                if (SharingMenuHelper.isFileRequest(publicShare)) {
+                    binding.name.setText(context.getResources().getString(R.string.link_share_file_request));
+                } else if (SharingMenuHelper.isSecureFileDrop(publicShare)) {
                     binding.name.setText(context.getResources().getString(R.string.share_permission_secure_file_drop));
                 } else {
                     binding.name.setText(R.string.share_link);
