@@ -196,9 +196,15 @@ class FileDetailsSharingProcessFragment :
         implementClickEvents()
         setCheckboxStates()
         themeView()
+        setVisibilitiesOfShareOption()
     }
 
-    private fun isFolder(): Boolean = file?.isFolder == true || share?.isFolder == true
+    private fun setVisibilitiesOfShareOption() {
+        binding.run {
+            shareAllowDownloadAndSyncCheckbox.setVisibleIf(!isPublicShare())
+            fileRequestRadioButton.setVisibleIf(isPublicShare() && isFolder())
+        }
+    }
 
     private fun themeView() {
         viewThemeUtils.platform.run {
@@ -208,12 +214,14 @@ class FileDetailsSharingProcessFragment :
 
                 themeRadioButton(viewOnlyRadioButton)
                 themeRadioButton(editingRadioButton)
-                themeRadioButton(fileDropRadioButton)
                 themeRadioButton(customPermissionRadioButton)
 
-                if (shareType != ShareType.PUBLIC_LINK) {
-                    shareAllowDownloadAndSyncCheckbox.visibility = View.VISIBLE
+                if (!isPublicShare()) {
                     themeCheckbox(shareAllowDownloadAndSyncCheckbox)
+                }
+
+                if (isPublicShare() && isFolder()) {
+                    themeRadioButton(fileRequestRadioButton)
                 }
 
                 themeCheckbox(shareReadCheckbox)
@@ -278,11 +286,11 @@ class FileDetailsSharingProcessFragment :
     private fun setupModificationUI() {
         if (share?.isFolder == true) updateViewForFolder() else updateViewForFile()
 
-        // custom permissions / read only / allow upload and editing / file drop
+        // custom permissions / read only / allow upload and editing / file request
         binding.run {
             when {
                 SharingMenuHelper.isUploadAndEditingAllowed(share) -> editingRadioButton.isChecked = true
-                SharingMenuHelper.isFileDrop(share) && share?.isFolder == true -> fileDropRadioButton.isChecked = true
+                SharingMenuHelper.isFileRequest(share) && share?.isFolder == true -> fileRequestRadioButton.isChecked = true
                 SharingMenuHelper.isReadOnly(share) -> viewOnlyRadioButton.isChecked = true
                 else -> {
                     if (sharePermissionManager.isCustomPermission(share) ||
@@ -300,7 +308,7 @@ class FileDetailsSharingProcessFragment :
         // show different text for link share and other shares
         // because we have link to share in Public Link
         binding.shareProcessBtnNext.text = getString(
-            if (shareType == ShareType.PUBLIC_LINK) {
+            if (isPublicShare()) {
                 R.string.share_copy_link
             } else {
                 R.string.common_confirm
@@ -393,7 +401,7 @@ class FileDetailsSharingProcessFragment :
             shareProcessSetPasswordSwitch.visibility = View.VISIBLE
 
             if (share != null) {
-                if (SharingMenuHelper.isFileDrop(share)) {
+                if (SharingMenuHelper.isFileRequest(share)) {
                     shareProcessHideDownloadCheckbox.visibility = View.GONE
                 } else {
                     shareProcessHideDownloadCheckbox.visibility = View.VISIBLE
@@ -420,7 +428,7 @@ class FileDetailsSharingProcessFragment :
     }
 
     private fun updateFileDownloadLimitView() {
-        if (shareType == ShareType.PUBLIC_LINK && capabilities.filesDownloadLimit.isTrue && share?.isFolder == false) {
+        if (isPublicShare() && capabilities.filesDownloadLimit.isTrue && share?.isFolder == false) {
             binding.shareProcessSetDownloadLimitSwitch.visibility = View.VISIBLE
 
             val currentDownloadLimit = share?.fileDownloadLimit?.limit ?: capabilities.filesDownloadLimitDefault
@@ -435,16 +443,14 @@ class FileDetailsSharingProcessFragment :
     private fun updateViewForFile() {
         binding.run {
             editingRadioButton.text = getString(R.string.link_share_editing)
-            fileDropRadioButton.visibility = View.GONE
         }
     }
 
     private fun updateViewForFolder() {
         binding.run {
             editingRadioButton.text = getString(R.string.share_permission_can_edit)
-            fileDropRadioButton.visibility = View.VISIBLE
+
             if (isSecureShare) {
-                fileDropRadioButton.visibility = View.GONE
                 shareCheckbox.visibility = View.GONE
                 shareProcessSetExpDateSwitch.visibility = View.GONE
             }
@@ -511,7 +517,7 @@ class FileDetailsSharingProcessFragment :
                         permission = sharePermissionManager.getMaximumPermission(isFolder())
                     }
 
-                    R.id.file_drop_radio_button -> {
+                    R.id.file_request_radio_button -> {
                         permission = OCShare.CREATE_PERMISSION_FLAG
                     }
 
@@ -552,7 +558,7 @@ class FileDetailsSharingProcessFragment :
                     }
                 }
 
-                if (shareType != ShareType.PUBLIC_LINK) {
+                if (!isPublicShare()) {
                     shareAllowDownloadAndSyncCheckbox.isChecked = isAllowDownloadAndSyncEnabled(share)
                 }
             }
@@ -574,7 +580,7 @@ class FileDetailsSharingProcessFragment :
             checkbox.setOnCheckedChangeListener { _, isChecked -> togglePermission(isChecked, flag) }
         }
 
-        if (shareType != ShareType.PUBLIC_LINK) {
+        if (!isPublicShare()) {
             binding.shareAllowDownloadAndSyncCheckbox.setOnCheckedChangeListener { _, isChecked ->
                 share?.attributes = sharePermissionManager.toggleAllowDownloadAndSync(isChecked, share)
             }
@@ -770,4 +776,10 @@ class FileDetailsSharingProcessFragment :
     override fun onDateUnSet() {
         binding.shareProcessSetExpDateSwitch.isChecked = false
     }
+
+    // region Helpers
+    private fun isFolder(): Boolean = file?.isFolder == true || share?.isFolder == true
+
+    private fun isPublicShare(): Boolean = (shareType == ShareType.PUBLIC_LINK)
+    // endregion
 }

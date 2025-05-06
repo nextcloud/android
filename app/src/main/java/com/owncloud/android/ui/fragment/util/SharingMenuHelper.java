@@ -53,7 +53,7 @@ public final class SharingMenuHelper {
         return (share.getPermissions() & ~SHARE_PERMISSION_FLAG) == READ_PERMISSION_FLAG;
     }
 
-    public static boolean isFileDrop(OCShare share) {
+    public static boolean isFileRequest(OCShare share) {
         if (share.getPermissions() == NO_PERMISSION) {
             return false;
         }
@@ -80,8 +80,8 @@ public final class SharingMenuHelper {
             return res.getString(R.string.share_custom_permission);
         } else if (SharingMenuHelper.isSecureFileDrop(share)) {
             return res.getString(R.string.share_permission_secure_file_drop);
-        } else if (SharingMenuHelper.isFileDrop(share)) {
-            return res.getString(R.string.share_permission_file_drop);
+        } else if (SharingMenuHelper.isFileRequest(share)) {
+            return res.getString(R.string.link_share_file_request);
         }
 
         return null;
@@ -92,7 +92,7 @@ public final class SharingMenuHelper {
             return QuickPermissionType.VIEW_ONLY;
         } else if (SharingMenuHelper.isUploadAndEditingAllowed(share)) {
             return QuickPermissionType.CAN_EDIT;
-        } else if (SharingMenuHelper.isFileDrop(share)) {
+        } else if (SharingMenuHelper.isFileRequest(share)) {
             return QuickPermissionType.FILE_REQUEST;
         } else if (sharePermissionManager.isCustomPermission(share)) {
             return QuickPermissionType.CUSTOM_PERMISSIONS;

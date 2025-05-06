@@ -66,8 +66,9 @@
                     android:text="@string/share_custom_permission" />
 
                 <com.google.android.material.radiobutton.MaterialRadioButton
-                    android:id="@+id/file_drop_radio_button"
+                    android:id="@+id/file_request_radio_button"
                     android:layout_width="match_parent"
+                    android:visibility="gone"
                     android:layout_height="wrap_content"
                     android:minHeight="@dimen/minimum_size_for_touchable_area"
                     android:text="@string/link_share_file_request" />
