@@ -23,6 +23,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.text.InputType;
@@ -60,7 +61,6 @@ import com.owncloud.android.ui.adapter.ShareeListAdapterListener;
 import com.owncloud.android.ui.asynctasks.RetrieveHoverCardAsyncTask;
 import com.owncloud.android.ui.dialog.SharePasswordDialogFragment;
 import com.owncloud.android.ui.fragment.util.FileDetailSharingFragmentHelper;
-import com.owncloud.android.ui.fragment.util.SharePermissionManager;
 import com.owncloud.android.ui.helpers.FileOperationsHelper;
 import com.owncloud.android.utils.ClipboardUtil;
 import com.owncloud.android.utils.DisplayUtils;
@@ -69,6 +69,8 @@ import com.owncloud.android.utils.theme.ViewThemeUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import javax.inject.Inject;
 
@@ -105,7 +107,6 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
     private ShareeListAdapter internalShareeListAdapter;
     
     private ShareeListAdapter externalShareeListAdapter;
-    private final SharePermissionManager sharePermissionManager = new SharePermissionManager();
 
     @Inject UserAccountManager accountManager;
     @Inject ClientFactory clientFactory;
@@ -220,10 +221,11 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
         if (!(getActivity() instanceof FileActivity)) {
             throw new IllegalArgumentException("Calling activity must be of type FileActivity");
         }
+
         try {
             onEditShareListener = (OnEditShareListener) context;
-        } catch (Exception ignored) {
-            throw new IllegalArgumentException("Calling activity must implement the interface", ignored);
+        } catch (Exception e) {
+            throw new IllegalArgumentException("Calling activity must implement the interface" + e);
         }
     }
 
@@ -523,7 +525,8 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
             DisplayUtils.showSnackMessage(getView(), getString(R.string.could_not_retrieve_shares));
             return;
         }
-        internalShareeListAdapter.getShares().clear();
+
+        internalShareeListAdapter.removeAll();
 
         // to show share with users/groups info
         List<OCShare> shares = fileDataStorageManager.getSharesWithForAFile(file.getRemotePath(),
@@ -550,25 +553,24 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
         }
         
         internalShareeListAdapter.addShares(internalShares);
+        ViewExtensionsKt.setVisibleIf(binding.sharesListInternalShowAll, internalShareeListAdapter.getShares().size() > 3);
+        addExternalAndInternalShares(externalShares);
+        ViewExtensionsKt.setVisibleIf(binding.sharesListExternalShowAll, externalShareeListAdapter.getShares().size() > 3);
+    }
 
-        ViewExtensionsKt.setVisibleIf(binding.sharesListInternalShowAll,
-                                      internalShareeListAdapter.getShares().size() > 3
-                                     );
+    private void addExternalAndInternalShares(List<OCShare> externalShares) {
+        List<OCShare> publicShares = fileDataStorageManager.getSharesByPathAndType(file.getRemotePath(), ShareType.PUBLIC_LINK, "");
 
-        externalShareeListAdapter.getShares().clear();
-
-        // Get public share
-        List<OCShare> publicShares = fileDataStorageManager.getSharesByPathAndType(file.getRemotePath(),
-                                                                                   ShareType.PUBLIC_LINK,
-                                                                                   "");
-
-        externalShareeListAdapter.addShares(externalShares);
-
-        externalShareeListAdapter.addShares(publicShares);
-
-        ViewExtensionsKt.setVisibleIf(binding.sharesListExternalShowAll,
-                                      externalShareeListAdapter.getShares().size() > 3
-                                     );
+        externalShareeListAdapter.removeAll();
+        Stream<OCShare> combinedStream = Stream.concat(externalShares.stream(), publicShares.stream())
+            .distinct();
+        List<OCShare> combinedShares;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
+            combinedShares = combinedStream.toList();
+        } else {
+            combinedShares = combinedStream.collect(Collectors.toList());
+        }
+        externalShareeListAdapter.addShares(combinedShares);
     }
 
     private void checkContactPermission() {
@@ -655,7 +657,6 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
     public void advancedPermissions(OCShare share) {
         modifyExistingShare(share, FileDetailsSharingProcessFragment.SCREEN_TYPE_PERMISSION);
     }
-
 
     @Override
     public void sendNewEmail(OCShare share) {
