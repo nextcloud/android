@@ -420,23 +420,20 @@ public class UploadFileOperation extends SyncOperation {
         // in case of a fresh upload with subfolder, where parent does not exist yet
         if (parent == null && (mFolderUnlockToken == null || mFolderUnlockToken.isEmpty())) {
             // try to create folder
-            RemoteOperationResult result = grantFolderExistence(remoteParentPath, client);
+            final var result = grantFolderExistence(remoteParentPath, client);
 
             if (!result.isSuccess()) {
                 return result;
             }
 
             parent = getStorageManager().getFileByPath(remoteParentPath);
-
-            if (parent == null) {
-                return new RemoteOperationResult(false, "Parent folder not found", HttpStatus.SC_NOT_FOUND);
-            }
         }
 
-        // parent file is not null anymore:
-        // - it was created on fresh upload or
+        if (parent == null) {
+            return new RemoteOperationResult<>(false, "Parent folder not found", HttpStatus.SC_NOT_FOUND);
+        }
+
         // - resume of encrypted upload, then parent file exists already as unlock is only for direct parent
-        assert(parent != null);
         mFile.setParentId(parent.getFileId());
 
         // check if any parent is encrypted
