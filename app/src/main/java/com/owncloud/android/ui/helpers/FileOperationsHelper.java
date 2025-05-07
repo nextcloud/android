@@ -590,16 +590,13 @@ public class FileOperationsHelper {
      *
      * @param file The file to unshare.
      */
-    public void unshareShare(OCFile file, OCShare share) {
-
-        // Unshare the file: Create the intent
-        Intent unshareService = new Intent(fileActivity, OperationsService.class);
-        unshareService.setAction(OperationsService.ACTION_UNSHARE);
-        unshareService.putExtra(OperationsService.EXTRA_ACCOUNT, fileActivity.getAccount());
-        unshareService.putExtra(OperationsService.EXTRA_REMOTE_PATH, file.getRemotePath());
-        unshareService.putExtra(OperationsService.EXTRA_SHARE_ID, share.getId());
-
-        queueShareIntent(unshareService);
+    public void unShareShare(OCFile file, OCShare share) {
+        Intent intent = new Intent(fileActivity, OperationsService.class);
+        intent.setAction(OperationsService.ACTION_UNSHARE);
+        intent.putExtra(OperationsService.EXTRA_ACCOUNT, fileActivity.getAccount());
+        intent.putExtra(OperationsService.EXTRA_REMOTE_PATH, file.getRemotePath());
+        intent.putExtra(OperationsService.EXTRA_SHARE_ID, share.getId());
+        queueShareIntent(intent);
     }
 
     private void queueShareIntent(Intent shareIntent) {

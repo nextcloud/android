@@ -244,10 +244,12 @@ public class ShareeListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         return false;
     }
 
-    @SuppressLint("NotifyDataSetChanged")
     public void remove(OCShare share) {
-        shares.remove(share);
-        notifyDataSetChanged();
+        int position = shares.indexOf(share);
+        if (position != -1) {
+            shares.remove(position);
+            notifyItemRemoved(position);
+        }
     }
 
     /**
