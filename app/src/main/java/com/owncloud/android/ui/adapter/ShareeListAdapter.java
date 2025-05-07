@@ -33,7 +33,9 @@ import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.theme.ViewThemeUtils;
 
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -169,6 +171,7 @@ public class ShareeListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             return;
         }
 
+
         if (holder instanceof LinkShareViewHolder publicShareViewHolder) {
             publicShareViewHolder.bind(share, listener);
         } else if (holder instanceof InternalShareViewHolder internalShareViewHolder) {
@@ -204,7 +207,7 @@ public class ShareeListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     @SuppressLint("NotifyDataSetChanged")
     public void toggleShowAll() {
-        this.showAll = !this.showAll;
+        showAll = !showAll;
         notifyDataSetChanged();
     }
 
@@ -216,6 +219,12 @@ public class ShareeListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     public void addShares(List<OCShare> sharesToAdd) {
         shares.addAll(sharesToAdd);
         sortShares();
+        notifyDataSetChanged();
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    public void removeAll() {
+        shares.clear();
         notifyDataSetChanged();
     }
 
@@ -272,14 +281,5 @@ public class ShareeListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     public List<OCShare> getShares() {
         return shares;
-    }
-
-    public void removeNewPublicShare() {
-        for (OCShare share : shares) {
-            if (share.getShareType() == ShareType.NEW_PUBLIC_LINK) {
-                shares.remove(share);
-                break;
-            }
-        }
     }
 }
