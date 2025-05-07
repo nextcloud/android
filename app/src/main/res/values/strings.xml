@@ -11,7 +11,10 @@
     <string name="bottom_navigation_menu_assistant_label">Assistant</string>
     <string name="bottom_navigation_menu_media_label">Media</string>
 
-
+    <string name="webview_version_check_alert_dialog_title">Update Android System WebView</string>
+    <string name="webview_version_check_alert_dialog_message">Please update the Android System WebView app for a login</string>
+    <string name="webview_version_check_alert_dialog_positive_button_title">Update</string>
+    <string name="strict_mode">Strict mode: no HTTP connection allowed!</string>
     <string name="about_android">%1$s Android app</string>
     <string name="about_version">version %1$s</string>
     <string name="about_version_with_build">version %1$s, build #%2$s</string>
