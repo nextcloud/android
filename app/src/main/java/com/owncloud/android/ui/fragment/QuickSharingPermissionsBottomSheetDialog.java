@@ -22,7 +22,6 @@ import com.owncloud.android.R;
 import com.owncloud.android.databinding.QuickSharingPermissionsBottomSheetFragmentBinding;
 import com.owncloud.android.datamodel.quickPermission.QuickPermission;
 import com.owncloud.android.lib.resources.shares.OCShare;
-import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.adapter.QuickSharingPermissionsAdapter;
 import com.owncloud.android.ui.fragment.util.SharingMenuHelper;

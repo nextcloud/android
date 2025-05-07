@@ -13,3 +13,7 @@ import com.owncloud.android.lib.resources.shares.ShareType
 fun OCShare.hasFileRequestPermission(): Boolean {
     return (isFolder && (shareType == ShareType.PUBLIC_LINK || shareType == ShareType.EMAIL))
 }
+
+fun List<OCShare>.mergeDistinctByToken(other: List<OCShare>): List<OCShare> {
+    return (this + other).distinctBy { it.token }
+}
