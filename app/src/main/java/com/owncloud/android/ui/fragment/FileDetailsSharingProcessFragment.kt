@@ -176,7 +176,7 @@ class FileDetailsSharingProcessFragment :
 
         permission = share?.permissions
             ?: capabilities.defaultPermissions
-                ?: sharePermissionManager.getMaximumPermission(isFolder())
+            ?: sharePermissionManager.getMaximumPermission(isFolder())
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
@@ -290,8 +290,9 @@ class FileDetailsSharingProcessFragment :
         binding.run {
             when {
                 SharingMenuHelper.isUploadAndEditingAllowed(share) -> editingRadioButton.isChecked = true
-                SharingMenuHelper.isFileRequest(share) && share?.isFolder == true -> fileRequestRadioButton.isChecked =
-                    true
+                SharingMenuHelper.isFileRequest(share) && share?.isFolder == true ->
+                    fileRequestRadioButton.isChecked =
+                        true
 
                 SharingMenuHelper.isReadOnly(share) -> viewOnlyRadioButton.isChecked = true
                 else -> {
