@@ -890,22 +890,22 @@ class FileDetailSharingFragmentIT : AbstractIT() {
         val share = OCShare().apply {
             permissions = MAXIMUM_PERMISSIONS_FOR_FOLDER
         }
-        assertTrue(SharingMenuHelper.isUploadAndEditingAllowed(share))
+        assertTrue(SharingMenuHelper.canEdit(share))
 
         share.permissions = NO_PERMISSION
-        assertFalse(SharingMenuHelper.isUploadAndEditingAllowed(share))
+        assertFalse(SharingMenuHelper.canEdit(share))
 
         share.permissions = READ_PERMISSION_FLAG
-        assertFalse(SharingMenuHelper.isUploadAndEditingAllowed(share))
+        assertFalse(SharingMenuHelper.canEdit(share))
 
         share.permissions = CREATE_PERMISSION_FLAG
-        assertFalse(SharingMenuHelper.isUploadAndEditingAllowed(share))
+        assertFalse(SharingMenuHelper.canEdit(share))
 
         share.permissions = DELETE_PERMISSION_FLAG
-        assertFalse(SharingMenuHelper.isUploadAndEditingAllowed(share))
+        assertFalse(SharingMenuHelper.canEdit(share))
 
         share.permissions = SHARE_PERMISSION_FLAG
-        assertFalse(SharingMenuHelper.isUploadAndEditingAllowed(share))
+        assertFalse(SharingMenuHelper.canEdit(share))
     }
 
     @Test

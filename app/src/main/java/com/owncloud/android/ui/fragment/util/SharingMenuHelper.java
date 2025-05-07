@@ -35,7 +35,7 @@ public final class SharingMenuHelper {
         // utility class -> private constructor
     }
 
-    public static boolean isUploadAndEditingAllowed(OCShare share) {
+    public static boolean canEdit(OCShare share) {
         if (share.getPermissions() == NO_PERMISSION) {
             return false;
         }
@@ -72,7 +72,7 @@ public final class SharingMenuHelper {
     public static String getPermissionName(Context context, OCShare share) {
         final var res = context.getResources();
 
-        if (SharingMenuHelper.isUploadAndEditingAllowed(share)) {
+        if (SharingMenuHelper.canEdit(share)) {
             return res.getString(R.string.share_permission_can_edit);
         } else if (SharingMenuHelper.isViewOnly(share)) {
             return res.getString(R.string.share_permission_view_only);
@@ -90,7 +90,7 @@ public final class SharingMenuHelper {
     public static QuickPermissionType getSelectedType(OCShare share) {
         if (SharingMenuHelper.isViewOnly(share)) {
             return QuickPermissionType.VIEW_ONLY;
-        } else if (SharingMenuHelper.isUploadAndEditingAllowed(share)) {
+        } else if (SharingMenuHelper.canEdit(share)) {
             return QuickPermissionType.CAN_EDIT;
         } else if (SharingMenuHelper.isFileRequest(share)) {
             return QuickPermissionType.FILE_REQUEST;
