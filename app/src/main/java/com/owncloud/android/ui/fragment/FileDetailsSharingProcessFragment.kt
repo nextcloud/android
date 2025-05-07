@@ -289,7 +289,7 @@ class FileDetailsSharingProcessFragment :
         // custom permissions / read only / allow upload and editing / file request
         binding.run {
             when {
-                SharingMenuHelper.isUploadAndEditingAllowed(share) -> editingRadioButton.isChecked = true
+                SharingMenuHelper.canEdit(share) -> editingRadioButton.isChecked = true
                 SharingMenuHelper.isFileRequest(share) && share?.isFolder == true ->
                     fileRequestRadioButton.isChecked =
                         true
