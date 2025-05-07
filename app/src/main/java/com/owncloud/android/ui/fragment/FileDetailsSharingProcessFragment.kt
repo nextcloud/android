@@ -197,6 +197,7 @@ class FileDetailsSharingProcessFragment :
         setCheckboxStates()
         themeView()
         setVisibilitiesOfShareOption()
+        checkNextButtonAvailability()
     }
 
     private fun setVisibilitiesOfShareOption() {
@@ -529,6 +530,8 @@ class FileDetailsSharingProcessFragment :
                         customPermissionLayout.setVisibilityWithAnimation(isChecked)
                     }
                 }
+
+                toggleNextButtonAvailability(true)
             }
             // endregion
         }
@@ -536,6 +539,22 @@ class FileDetailsSharingProcessFragment :
 
     private fun togglePermission(isChecked: Boolean, permissionFlag: Int) {
         permission = sharePermissionManager.togglePermission(isChecked, permission, permissionFlag)
+        toggleNextButtonAvailability(true)
+    }
+
+    private fun checkNextButtonAvailability() {
+        var hasAnyPermission = false
+        if (share != null) {
+            hasAnyPermission = SharingMenuHelper.getPermissionName(requireContext(), share) != null
+        }
+        toggleNextButtonAvailability(hasAnyPermission)
+    }
+
+    private fun toggleNextButtonAvailability(value: Boolean) {
+        binding.run {
+            shareProcessBtnNext.isEnabled = value
+            shareProcessBtnNext.isClickable = value
+        }
     }
 
     @Suppress("NestedBlockDepth")
