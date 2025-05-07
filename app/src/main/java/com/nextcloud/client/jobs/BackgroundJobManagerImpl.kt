@@ -36,6 +36,7 @@ import com.owncloud.android.operations.DownloadType
 import java.util.Date
 import java.util.UUID
 import java.util.concurrent.TimeUnit
+import kotlin.random.Random
 import kotlin.reflect.KClass
 
 /**
@@ -579,10 +580,26 @@ internal class BackgroundJobManagerImpl(
         return workManager.isWorkScheduled(startFileUploadJobTag(user))
     }
 
-    override fun startFilesUploadJob(user: User) {
-        val data = workDataOf(FileUploadWorker.ACCOUNT to user.accountName)
+    /**
+     * This method supports initiating uploads for various scenarios, including:
+     * - New upload batches
+     * - Failed uploads
+     * - FilesSyncWork
+     *
+     * A unique tag is generated for each upload job. This is intentional because this job may encapsulate an arbitrary
+     * number of files so it's safer to treat each invocation as an independent job.
+     *
+     * @param user The user for whom the upload job is being created.
+     * @param totalUploadSize Optional total size of the files to upload to track upload progress
+     */
+    override fun startFilesUploadJob(user: User, totalUploadSize: Int?) {
+        val tag = startFileUploadJobTag(user) + Random.nextLong()
+        val dataBuilder = Data.Builder()
+            .putString(FileUploadWorker.ACCOUNT, user.accountName)
 
-        val tag = startFileUploadJobTag(user)
+        totalUploadSize?.let {
+            dataBuilder.putInt(FileUploadWorker.TOTAL_UPLOAD_SIZE, it)
+        }
 
         val constraints = Constraints.Builder()
             .setRequiredNetworkType(NetworkType.CONNECTED)
@@ -590,7 +607,7 @@ internal class BackgroundJobManagerImpl(
 
         val request = oneTimeRequestBuilder(FileUploadWorker::class, JOB_FILES_UPLOAD, user)
             .addTag(tag)
-            .setInputData(data)
+            .setInputData(dataBuilder.build())
             .setConstraints(constraints)
             .build()
 
