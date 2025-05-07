@@ -486,7 +486,9 @@ class FileDetailSharingFragmentIT : AbstractIT() {
                     // validate view shown on screen
                     onView(ViewMatchers.withId(R.id.view_only_radio_button)).check(matches(isDisplayed()))
                     onView(ViewMatchers.withId(R.id.editing_radio_button)).check(matches(isDisplayed()))
-                    onView(ViewMatchers.withId(R.id.`@+id/file_request_radio_button`)).check(matches(not(isDisplayed())))
+                    onView(
+                        ViewMatchers.withId(R.id.`@+id/file_request_radio_button`)
+                    ).check(matches(not(isDisplayed())))
                     onView(ViewMatchers.withId(R.id.share_process_hide_download_checkbox)).check(matches(isDisplayed()))
                     onView(ViewMatchers.withId(R.id.share_process_set_password_switch)).check(matches(isDisplayed()))
                     onView(ViewMatchers.withId(R.id.share_process_change_name_switch)).check(matches(isDisplayed()))
@@ -616,7 +618,9 @@ class FileDetailSharingFragmentIT : AbstractIT() {
                     // validate view shown on screen
                     onView(ViewMatchers.withId(R.id.view_only_radio_button)).check(matches(isDisplayed()))
                     onView(ViewMatchers.withId(R.id.editing_radio_button)).check(matches(isDisplayed()))
-                    onView(ViewMatchers.withId(R.id.`@+id/file_request_radio_button`)).check(matches(not(isDisplayed())))
+                    onView(
+                        ViewMatchers.withId(R.id.`@+id/file_request_radio_button`)
+                    ).check(matches(not(isDisplayed())))
                     onView(
                         ViewMatchers.withId(R.id.share_process_hide_download_checkbox)
                     ).check(matches(not(isDisplayed())))
