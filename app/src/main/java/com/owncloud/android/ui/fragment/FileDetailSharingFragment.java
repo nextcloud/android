@@ -552,11 +552,12 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
         
         internalShareeListAdapter.addShares(internalShares);
         ViewExtensionsKt.setVisibleIf(binding.sharesListInternalShowAll, internalShareeListAdapter.getShares().size() > 3);
-        addExternalAndInternalShares(externalShares);
+
+        addExternalAndPublicShares(externalShares);
         ViewExtensionsKt.setVisibleIf(binding.sharesListExternalShowAll, externalShareeListAdapter.getShares().size() > 3);
     }
 
-    private void addExternalAndInternalShares(List<OCShare> externalShares) {
+    private void addExternalAndPublicShares(List<OCShare> externalShares) {
         final var publicShares = fileDataStorageManager.getSharesByPathAndType(file.getRemotePath(), ShareType.PUBLIC_LINK, "");
         externalShareeListAdapter.removeAll();
         final var shares = OCShareExtensionsKt.mergeDistinctByToken(externalShares, publicShares);
