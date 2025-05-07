@@ -14,8 +14,8 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.content.pm.ResolveInfo
+import android.net.Uri
 import android.os.Build
-import android.os.Bundle
 import android.os.Environment
 import android.provider.Settings
 import androidx.annotation.RequiresApi
@@ -26,12 +26,16 @@ import androidx.core.net.toUri
 import com.google.android.material.snackbar.Snackbar
 import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.client.preferences.AppPreferencesImpl
-import com.nextcloud.utils.extensions.getParcelableArgument
 import com.owncloud.android.R
+import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.ui.dialog.StoragePermissionDialogFragment
-import com.owncloud.android.utils.theme.ViewThemeUtils
+import com.owncloud.android.utils.PermissionUtil.PERMISSIONS_EXTERNAL_STORAGE
+import com.owncloud.android.utils.PermissionUtil.REQUEST_CODE_MANAGE_ALL_FILES
 
+@Suppress("TooManyFunctions")
 object PermissionUtil {
+    private const val TAG = "PermissionUtil"
+
     const val PERMISSIONS_EXTERNAL_STORAGE = 1
     const val PERMISSIONS_READ_CONTACTS_AUTOMATIC = 2
     const val PERMISSIONS_WRITE_CONTACTS = 4
@@ -72,7 +76,7 @@ object PermissionUtil {
         ActivityCompat.shouldShowRequestPermissionRationale(activity, permission)
 
     /**
-     * Determine whether the app has been granted external storage permissions depending on SDK.
+     * Determine whether the app has been granted storage permissions depending on SDK.
      *
      * For sdk >= 30 we use the storage manager special permission for full access, or READ_EXTERNAL_STORAGE
      * for limited access
@@ -82,7 +86,7 @@ object PermissionUtil {
      * @return `true` if app has the permission, or `false` if not.
      */
     @JvmStatic
-    fun checkExternalStoragePermission(context: Context): Boolean = when {
+    fun checkStoragePermission(context: Context): Boolean = when {
         Build.VERSION.SDK_INT >= Build.VERSION_CODES.R -> Environment.isExternalStorageManager() ||
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                 checkSelfPermission(context, Manifest.permission.READ_MEDIA_IMAGES) || checkSelfPermission(
@@ -101,99 +105,79 @@ object PermissionUtil {
     }
 
     /**
-     * Request relevant external storage permission depending on SDK, if needed.
+     * Request relevant storage permission depending on SDK, if needed.
      *
      * Activities should implement [Activity.onRequestPermissionsResult]
      * and handle the [PERMISSIONS_EXTERNAL_STORAGE] code, as well as [Activity.onActivityResult]
      * with `requestCode=`[REQUEST_CODE_MANAGE_ALL_FILES]
      *
-     * @param activity The target activity.
-     * @param permissionRequired for SDK >=30 specifically, show again even if already denied in the past
      */
     @JvmStatic
     @JvmOverloads
-    fun requestExternalStoragePermission(
-        activity: AppCompatActivity,
-        viewThemeUtils: ViewThemeUtils,
-        permissionRequired: Boolean = false
-    ) {
-        if (!checkExternalStoragePermission(activity)) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R && canRequestAllFilesPermission(activity)) {
-                // can request All Files, show choice
-                showPermissionChoiceDialog(activity, permissionRequired, viewThemeUtils)
-            } else {
-                // can not request all files, request read-only access
-                requestStoragePermission(
-                    activity,
-                    Build.VERSION.SDK_INT >= Build.VERSION_CODES.R,
-                    permissionRequired,
-                    viewThemeUtils
-                )
-            }
+    fun requestStoragePermissionIfNeeded(activity: AppCompatActivity, showStrictText: Boolean = false) {
+        if (checkStoragePermission(activity)) {
+            Log_OC.d(TAG, "Storage permissions are already granted")
+            return
+        }
+
+        @Suppress("DEPRECATION")
+        val preferences: AppPreferences = AppPreferencesImpl.fromContext(activity)
+        if (preferences.isStoragePermissionRequested) {
+            showPermissionDeniedSnackbar(activity)
+            return
+        }
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R && canRequestAllFilesPermission(activity)) {
+            showStoragePermissionDialogFragment(activity, showStrictText)
+        } else {
+            requestStoragePermissions(activity, preferences.isStoragePermissionRequested)
         }
     }
 
-    /**
-     * Request a storage permission
-     */
-    // TODO inject this class to avoid passing ViewThemeUtils around
-    @Suppress("NestedBlockDepth")
-    private fun requestStoragePermission(
-        activity: Activity,
-        readOnly: Boolean,
-        permissionRequired: Boolean,
-        viewThemeUtils: ViewThemeUtils
-    ) {
-        val preferences: AppPreferences = AppPreferencesImpl.fromContext(activity)
-
-        if (permissionRequired || !preferences.isStoragePermissionRequested) {
-            // determine required permissions
-            val permissions = if (readOnly && Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                    // use granular media permissions
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
-                        arrayOf(
-                            Manifest.permission.READ_MEDIA_IMAGES,
-                            Manifest.permission.READ_MEDIA_VIDEO,
-                            Manifest.permission.READ_MEDIA_VISUAL_USER_SELECTED
-                        )
-                    } else {
-                        arrayOf(
-                            Manifest.permission.READ_MEDIA_IMAGES,
-                            Manifest.permission.READ_MEDIA_VIDEO
-                        )
-                    }
-                } else {
-                    arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE)
-                }
-            } else {
-                arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE)
-            }
-
-            fun doRequest() {
-                ActivityCompat.requestPermissions(
-                    activity,
-                    permissions,
-                    PERMISSIONS_EXTERNAL_STORAGE
-                )
-                preferences.isStoragePermissionRequested = true
-            }
-
-            // Check if we should show an explanation
-            if (permissions.any { shouldShowRequestPermissionRationale(activity, it) }) {
-                // Show explanation to the user and then request permission
-                Snackbar.make(
-                    activity.findViewById(android.R.id.content),
-                    R.string.permission_storage_access,
-                    Snackbar.LENGTH_INDEFINITE
-                ).setAction(R.string.common_ok) {
-                    doRequest()
-                }.also { viewThemeUtils.material.themeSnackbar(it) }.show()
-            } else {
-                // No explanation needed, request the permission.
-                doRequest()
-            }
+    fun requestStoragePermissions(activity: Activity, isStoragePermissionRequested: Boolean) {
+        val permissions = getStoragePermissions()
+        if (permissions.any { shouldShowRequestPermissionRationale(activity, it) } || !isStoragePermissionRequested) {
+            requestPermissions(activity, permissions)
         }
+    }
+
+    fun showPermissionDeniedSnackbar(activity: AppCompatActivity) {
+        Snackbar.make(
+            activity.findViewById(android.R.id.content),
+            R.string.permission_storage_access, Snackbar.LENGTH_SHORT
+        )
+            .setAction(R.string.actionbar_settings) { v ->
+                val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS).apply {
+                    data = Uri.fromParts("package", activity.packageName, null)
+                }
+
+                activity.startActivity(intent)
+            }
+            .show()
+    }
+
+    private fun getStoragePermissions() = when {
+        Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE -> arrayOf(
+            Manifest.permission.READ_MEDIA_VISUAL_USER_SELECTED,
+            Manifest.permission.READ_MEDIA_IMAGES,
+            Manifest.permission.READ_MEDIA_VIDEO
+        )
+        Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU -> arrayOf(
+            Manifest.permission.READ_MEDIA_IMAGES,
+            Manifest.permission.READ_MEDIA_VIDEO
+        )
+        else -> arrayOf(
+            Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            Manifest.permission.READ_EXTERNAL_STORAGE
+        )
+    }
+
+    private fun requestPermissions(activity: Activity, permissions: Array<String>) {
+        ActivityCompat.requestPermissions(
+            activity,
+            permissions,
+            PERMISSIONS_EXTERNAL_STORAGE
+        )
     }
 
     @RequiresApi(Build.VERSION_CODES.R)
@@ -212,70 +196,24 @@ object PermissionUtil {
     @RequiresApi(Build.VERSION_CODES.R)
     private fun manifestHasAllFilesPermission(context: Context): Boolean {
         val packageInfo = context.packageManager.getPackageInfo(context.packageName, PackageManager.GET_PERMISSIONS)
-        return packageInfo?.requestedPermissions?.contains(Manifest.permission.MANAGE_EXTERNAL_STORAGE) ?: false
+        return packageInfo?.requestedPermissions?.contains(Manifest.permission.MANAGE_EXTERNAL_STORAGE) == true
     }
 
-    /**
-     * sdk >= 30: Choice between All Files access or read_external_storage
-     */
     @RequiresApi(Build.VERSION_CODES.R)
-    private fun showPermissionChoiceDialog(
-        activity: AppCompatActivity,
-        permissionRequired: Boolean,
-        viewThemeUtils: ViewThemeUtils
-    ) {
-        val preferences: AppPreferences = AppPreferencesImpl.fromContext(activity)
-        val shouldRequestPermission = !preferences.isStoragePermissionRequested || permissionRequired
-        if (shouldRequestPermission &&
-            activity.supportFragmentManager.findFragmentByTag(PERMISSION_CHOICE_DIALOG_TAG) == null
-        ) {
-            val listener: (requestKey: String, result: Bundle) -> Unit = { _, resultBundle ->
-                val result: StoragePermissionDialogFragment.Result? =
-                    resultBundle.getParcelableArgument(
-                        StoragePermissionDialogFragment.RESULT_KEY,
-                        StoragePermissionDialogFragment.Result::class.java
-                    )
-                if (result != null) {
-                    preferences.isStoragePermissionRequested = true
-                    when (result) {
-                        StoragePermissionDialogFragment.Result.FULL_ACCESS -> {
-                            val intent = getManageAllFilesIntent(activity)
-                            activity.startActivityForResult(intent, REQUEST_CODE_MANAGE_ALL_FILES)
-                        }
+    private fun showStoragePermissionDialogFragment(activity: AppCompatActivity, showStrictText: Boolean) {
+        activity.runOnUiThread {
+            val existingDialog = activity.supportFragmentManager.findFragmentByTag(PERMISSION_CHOICE_DIALOG_TAG)
 
-                        StoragePermissionDialogFragment.Result.MEDIA_READ_ONLY -> requestStoragePermission(
-                            activity = activity,
-                            readOnly = true,
-                            permissionRequired = true,
-                            viewThemeUtils = viewThemeUtils
-                        )
-
-                        else -> {}
-                    }
-                }
-            }
-
-            activity.runOnUiThread {
-                activity.supportFragmentManager.setFragmentResultListener(
-                    StoragePermissionDialogFragment.REQUEST_KEY,
-                    activity,
-                    listener
-                )
-
-                // Check if the dialog is already added to the FragmentManager.
-                val existingDialog = activity.supportFragmentManager.findFragmentByTag(PERMISSION_CHOICE_DIALOG_TAG)
-
-                // Only show the dialog if it's not already shown.
-                if (existingDialog == null) {
-                    val dialogFragment = StoragePermissionDialogFragment.newInstance(permissionRequired)
-                    dialogFragment.show(activity.supportFragmentManager, PERMISSION_CHOICE_DIALOG_TAG)
+            if (existingDialog == null) {
+                StoragePermissionDialogFragment.newInstance(showStrictText).run {
+                    show(activity.supportFragmentManager, PERMISSION_CHOICE_DIALOG_TAG)
                 }
             }
         }
     }
 
     @RequiresApi(Build.VERSION_CODES.R)
-    private fun getManageAllFilesIntent(context: Context) = Intent().apply {
+    fun getManageAllFilesIntent(context: Context) = Intent().apply {
         action = Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION
         data = "package:${context.applicationContext.packageName}".toUri()
     }
