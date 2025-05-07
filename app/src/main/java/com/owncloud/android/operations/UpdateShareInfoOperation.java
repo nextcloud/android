@@ -79,7 +79,7 @@ public class UpdateShareInfoOperation extends SyncOperation {
 
         if (share == null) {
             // TODO try to get remote share before failing?
-            return new RemoteOperationResult(RemoteOperationResult.ResultCode.SHARE_NOT_FOUND);
+            return new RemoteOperationResult<>(RemoteOperationResult.ResultCode.SHARE_NOT_FOUND);
         }
 
         // Update remote share
@@ -96,10 +96,10 @@ public class UpdateShareInfoOperation extends SyncOperation {
         updateOp.setLabel(label);
         updateOp.setAttributes(attributes);
 
-        RemoteOperationResult result = updateOp.execute(client);
+        var result = updateOp.execute(client);
 
         if (result.isSuccess()) {
-            RemoteOperation getShareOp = new GetShareRemoteOperation(share.getRemoteId());
+            final var getShareOp = new GetShareRemoteOperation(share.getRemoteId());
             result = getShareOp.execute(client);
 
             //only update the share in storage if shareId is available

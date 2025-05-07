@@ -176,7 +176,7 @@ class FileDetailsSharingProcessFragment :
 
         permission = share?.permissions
             ?: capabilities.defaultPermissions
-            ?: sharePermissionManager.getMaximumPermission(isFolder())
+                ?: sharePermissionManager.getMaximumPermission(isFolder())
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
@@ -290,7 +290,9 @@ class FileDetailsSharingProcessFragment :
         binding.run {
             when {
                 SharingMenuHelper.isUploadAndEditingAllowed(share) -> editingRadioButton.isChecked = true
-                SharingMenuHelper.isFileRequest(share) && share?.isFolder == true -> fileRequestRadioButton.isChecked = true
+                SharingMenuHelper.isFileRequest(share) && share?.isFolder == true -> fileRequestRadioButton.isChecked =
+                    true
+
                 SharingMenuHelper.isReadOnly(share) -> viewOnlyRadioButton.isChecked = true
                 else -> {
                     if (sharePermissionManager.isCustomPermission(share) ||
@@ -428,7 +430,7 @@ class FileDetailsSharingProcessFragment :
     }
 
     private fun updateFileDownloadLimitView() {
-        if (isPublicShare() && capabilities.filesDownloadLimit.isTrue && share?.isFolder == false) {
+        if (canSetDownloadLimit()) {
             binding.shareProcessSetDownloadLimitSwitch.visibility = View.VISIBLE
 
             val currentDownloadLimit = share?.fileDownloadLimit?.limit ?: capabilities.filesDownloadLimitDefault
@@ -724,7 +726,7 @@ class FileDetailsSharingProcessFragment :
             binding.shareProcessChangeName.text.toString().trim()
         )
 
-        if (capabilities.filesDownloadLimit.isTrue) {
+        if (canSetDownloadLimit()) {
             val downloadLimitInput = binding.shareProcessSetDownloadLimitInput.text.toString().trim()
             val downloadLimit =
                 if (binding.shareProcessSetDownloadLimitSwitch.isChecked && downloadLimitInput.isNotEmpty()) {
@@ -779,6 +781,9 @@ class FileDetailsSharingProcessFragment :
 
     // region Helpers
     private fun isFolder(): Boolean = (file?.isFolder == true || share?.isFolder == true)
+
+    private fun canSetDownloadLimit(): Boolean =
+        (isPublicShare() && capabilities.filesDownloadLimit.isTrue && share?.isFolder == false)
 
     private fun isPublicShare(): Boolean = (shareType == ShareType.PUBLIC_LINK)
     // endregion
