@@ -468,8 +468,8 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
         setupView();
     }
 
-    private void unshareWith(OCShare share) {
-        fileOperationsHelper.unshareShare(file, share);
+    private void unShareWith(OCShare share) {
+        fileOperationsHelper.unShareShare(file, share);
     }
 
     /**
@@ -665,13 +665,15 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
 
     @Override
     public void unShare(OCShare share) {
-        unshareWith(share);
-        ShareeListAdapter adapter = (ShareeListAdapter) binding.sharesListInternal.getAdapter();
-        if (adapter == null) {
+        unShareWith(share);
+
+        if (binding.sharesListInternal.getAdapter() instanceof ShareeListAdapter adapter) {
+            adapter.remove(share);
+        } else if (binding.sharesListExternal.getAdapter() instanceof ShareeListAdapter adapter) {
+            adapter.remove(share);
+        } else {
             DisplayUtils.showSnackMessage(getView(), getString(R.string.failed_update_ui));
-            return;
         }
-        adapter.remove(share);
     }
 
     @Override
