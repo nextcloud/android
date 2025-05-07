@@ -914,28 +914,28 @@ class FileDetailSharingFragmentIT : AbstractIT() {
         val share = OCShare().apply {
             permissions = 17
         }
-        assertTrue(SharingMenuHelper.isReadOnly(share))
+        assertTrue(SharingMenuHelper.isViewOnly(share))
 
         share.permissions = NO_PERMISSION
-        assertFalse(SharingMenuHelper.isReadOnly(share))
+        assertFalse(SharingMenuHelper.isViewOnly(share))
 
         share.permissions = READ_PERMISSION_FLAG
-        assertTrue(SharingMenuHelper.isReadOnly(share))
+        assertTrue(SharingMenuHelper.isViewOnly(share))
 
         share.permissions = CREATE_PERMISSION_FLAG
-        assertFalse(SharingMenuHelper.isReadOnly(share))
+        assertFalse(SharingMenuHelper.isViewOnly(share))
 
         share.permissions = DELETE_PERMISSION_FLAG
-        assertFalse(SharingMenuHelper.isReadOnly(share))
+        assertFalse(SharingMenuHelper.isViewOnly(share))
 
         share.permissions = SHARE_PERMISSION_FLAG
-        assertFalse(SharingMenuHelper.isReadOnly(share))
+        assertFalse(SharingMenuHelper.isViewOnly(share))
 
         share.permissions = MAXIMUM_PERMISSIONS_FOR_FOLDER
-        assertFalse(SharingMenuHelper.isReadOnly(share))
+        assertFalse(SharingMenuHelper.isViewOnly(share))
 
         share.permissions = MAXIMUM_PERMISSIONS_FOR_FILE
-        assertFalse(SharingMenuHelper.isReadOnly(share))
+        assertFalse(SharingMenuHelper.isViewOnly(share))
     }
 
     @Test

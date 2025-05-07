@@ -45,7 +45,7 @@ public final class SharingMenuHelper {
             MAXIMUM_PERMISSIONS_FOR_FILE);
     }
 
-    public static boolean isReadOnly(OCShare share) {
+    public static boolean isViewOnly(OCShare share) {
         if (share.getPermissions() == NO_PERMISSION) {
             return false;
         }
@@ -74,7 +74,7 @@ public final class SharingMenuHelper {
 
         if (SharingMenuHelper.isUploadAndEditingAllowed(share)) {
             return res.getString(R.string.share_permission_can_edit);
-        } else if (SharingMenuHelper.isReadOnly(share)) {
+        } else if (SharingMenuHelper.isViewOnly(share)) {
             return res.getString(R.string.share_permission_view_only);
         } else if (sharePermissionManager.isCustomPermission(share)) {
             return res.getString(R.string.share_custom_permission);
@@ -88,7 +88,7 @@ public final class SharingMenuHelper {
     }
 
     public static QuickPermissionType getSelectedType(OCShare share) {
-        if (SharingMenuHelper.isReadOnly(share)) {
+        if (SharingMenuHelper.isViewOnly(share)) {
             return QuickPermissionType.VIEW_ONLY;
         } else if (SharingMenuHelper.isUploadAndEditingAllowed(share)) {
             return QuickPermissionType.CAN_EDIT;

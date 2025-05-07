@@ -294,7 +294,7 @@ class FileDetailsSharingProcessFragment :
                     fileRequestRadioButton.isChecked =
                         true
 
-                SharingMenuHelper.isReadOnly(share) -> viewOnlyRadioButton.isChecked = true
+                SharingMenuHelper.isViewOnly(share) -> viewOnlyRadioButton.isChecked = true
                 else -> {
                     if (sharePermissionManager.isCustomPermission(share) ||
                         shareProcessStep == SCREEN_TYPE_CUSTOM_PERMISSION
