@@ -778,7 +778,7 @@ class FileDetailsSharingProcessFragment :
     }
 
     // region Helpers
-    private fun isFolder(): Boolean = file?.isFolder == true || share?.isFolder == true
+    private fun isFolder(): Boolean = (file?.isFolder == true || share?.isFolder == true)
 
     private fun isPublicShare(): Boolean = (shareType == ShareType.PUBLIC_LINK)
     // endregion
