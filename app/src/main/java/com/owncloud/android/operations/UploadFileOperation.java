@@ -1224,12 +1224,6 @@ public class UploadFileOperation extends SyncOperation {
                                       File originalFile,
                                       OwnCloudClient client) {
         switch (mLocalBehaviour) {
-            case FileUploadWorker.LOCAL_BEHAVIOUR_FORGET:
-            default:
-                mFile.setStoragePath("");
-                saveUploadedFile(client);
-                break;
-
             case FileUploadWorker.LOCAL_BEHAVIOUR_DELETE:
                 originalFile.delete();
                 mFile.setStoragePath("");
@@ -1273,6 +1267,11 @@ public class UploadFileOperation extends SyncOperation {
                 if (MimeTypeUtil.isMedia(mFile.getMimeType())) {
                     FileDataStorageManager.triggerMediaScan(newFile.getAbsolutePath());
                 }
+                break;
+
+            default:
+                mFile.setStoragePath("");
+                saveUploadedFile(client);
                 break;
         }
     }
