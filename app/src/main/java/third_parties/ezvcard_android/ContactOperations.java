@@ -13,20 +13,15 @@ import android.graphics.Bitmap;
 import android.os.Build;
 import android.os.RemoteException;
 import android.provider.ContactsContract;
-
-import com.nextcloud.utils.date.DateFormatPattern;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.utils.DisplayUtils;
 
 import java.io.ByteArrayOutputStream;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.Temporal;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
