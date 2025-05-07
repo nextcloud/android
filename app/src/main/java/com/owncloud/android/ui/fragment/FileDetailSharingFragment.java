@@ -23,7 +23,6 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.text.InputType;
@@ -36,6 +35,7 @@ import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.network.ClientFactory;
+import com.nextcloud.utils.OCShareExtensionsKt;
 import com.nextcloud.utils.extensions.BundleExtensionsKt;
 import com.nextcloud.utils.extensions.FileExtensionsKt;
 import com.nextcloud.utils.extensions.ViewExtensionsKt;
@@ -69,8 +69,6 @@ import com.owncloud.android.utils.theme.ViewThemeUtils;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import javax.inject.Inject;
 
@@ -559,18 +557,10 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
     }
 
     private void addExternalAndInternalShares(List<OCShare> externalShares) {
-        List<OCShare> publicShares = fileDataStorageManager.getSharesByPathAndType(file.getRemotePath(), ShareType.PUBLIC_LINK, "");
-
+        final var publicShares = fileDataStorageManager.getSharesByPathAndType(file.getRemotePath(), ShareType.PUBLIC_LINK, "");
         externalShareeListAdapter.removeAll();
-        Stream<OCShare> combinedStream = Stream.concat(externalShares.stream(), publicShares.stream())
-            .distinct();
-        List<OCShare> combinedShares;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
-            combinedShares = combinedStream.toList();
-        } else {
-            combinedShares = combinedStream.collect(Collectors.toList());
-        }
-        externalShareeListAdapter.addShares(combinedShares);
+        final var shares = OCShareExtensionsKt.mergeDistinctByToken(externalShares, publicShares);
+        externalShareeListAdapter.addShares(shares);
     }
 
     private void checkContactPermission() {
