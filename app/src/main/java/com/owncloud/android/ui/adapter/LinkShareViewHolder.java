@@ -36,6 +36,7 @@ class LinkShareViewHolder extends RecyclerView.ViewHolder {
     private FileDetailsShareLinkShareItemBinding binding;
     private Context context;
     private ViewThemeUtils viewThemeUtils;
+    private boolean encrypted;
 
     public LinkShareViewHolder(@NonNull View itemView) {
         super(itemView);
@@ -43,11 +44,13 @@ class LinkShareViewHolder extends RecyclerView.ViewHolder {
 
     public LinkShareViewHolder(FileDetailsShareLinkShareItemBinding binding,
                                Context context,
-                               final ViewThemeUtils viewThemeUtils) {
+                               final ViewThemeUtils viewThemeUtils,
+                               boolean encrypted) {
         this(binding.getRoot());
         this.binding = binding;
         this.context = context;
         this.viewThemeUtils = viewThemeUtils;
+        this.encrypted = encrypted;
     }
 
     public void bind(OCShare publicShare, ShareeListAdapterListener listener) {
@@ -90,7 +93,7 @@ class LinkShareViewHolder extends RecyclerView.ViewHolder {
             binding.subline.setVisibility(View.GONE);
         }
 
-        String permissionName = SharingMenuHelper.getPermissionName(context, publicShare);
+        String permissionName = SharingMenuHelper.getPermissionName(context, publicShare, encrypted);
         setPermissionName(publicShare, permissionName);
 
         binding.overflowMenu.setOnClickListener(v -> listener.showSharingMenuActionSheet(publicShare));
