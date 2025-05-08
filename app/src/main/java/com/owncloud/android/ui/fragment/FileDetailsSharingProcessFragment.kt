@@ -724,6 +724,7 @@ class FileDetailsSharingProcessFragment :
         }
     }
 
+    @Suppress("ReturnCount")
     private fun createShareOrUpdateNoteShare() {
         if (!isAnyShareOptionChecked()) {
             DisplayUtils.showSnackMessage(requireActivity(), R.string.share_option_required)
