@@ -214,7 +214,7 @@ class FileDetailsSharingProcessFragment :
                 colorTextView(shareCustomPermissionsText)
 
                 themeRadioButton(viewOnlyRadioButton)
-                themeRadioButton(editingRadioButton)
+                themeRadioButton(canEditRadioButton)
                 themeRadioButton(customPermissionRadioButton)
 
                 if (!isPublicShare()) {
@@ -290,7 +290,7 @@ class FileDetailsSharingProcessFragment :
         // custom permissions / read only / allow upload and editing / file request
         binding.run {
             when {
-                SharingMenuHelper.canEdit(share) -> editingRadioButton.isChecked = true
+                SharingMenuHelper.canEdit(share) -> canEditRadioButton.isChecked = true
                 SharingMenuHelper.isFileRequest(share) && share?.isFolder == true ->
                     fileRequestRadioButton.isChecked =
                         true
@@ -446,13 +446,13 @@ class FileDetailsSharingProcessFragment :
 
     private fun updateViewForFile() {
         binding.run {
-            editingRadioButton.text = getString(R.string.link_share_editing)
+            canEditRadioButton.text = getString(R.string.link_share_editing)
         }
     }
 
     private fun updateViewForFolder() {
         binding.run {
-            editingRadioButton.text = getString(R.string.share_permission_can_edit)
+            canEditRadioButton.text = getString(R.string.share_permission_can_edit)
 
             if (isSecureShare) {
                 shareCheckbox.visibility = View.GONE
@@ -509,28 +509,23 @@ class FileDetailsSharingProcessFragment :
             }
 
             // region RadioButtons
-            shareProcessPermissionRadioGroup.setOnCheckedChangeListener { radioGroup, optionId ->
+            shareProcessPermissionRadioGroup.setOnCheckedChangeListener { _, optionId ->
                 when (optionId) {
                     R.id.view_only_radio_button -> {
-                        customPermissionLayout.visibility = View.GONE
                         permission = OCShare.READ_PERMISSION_FLAG
                     }
 
-                    R.id.editing_radio_button -> {
-                        customPermissionLayout.visibility = View.GONE
+                    R.id.can_edit_radio_button -> {
                         permission = sharePermissionManager.getMaximumPermission(isFolder())
                     }
 
                     R.id.file_request_radio_button -> {
                         permission = OCShare.CREATE_PERMISSION_FLAG
                     }
-
-                    R.id.custom_permission_radio_button -> {
-                        val isChecked = customPermissionRadioButton.isChecked
-                        customPermissionLayout.setVisibilityWithAnimation(isChecked)
-                    }
                 }
 
+                val isCustomPermissionSelected = (optionId == R.id.custom_permission_radio_button)
+                customPermissionLayout.setVisibilityWithAnimation(isCustomPermissionSelected)
                 toggleNextButtonAvailability(true)
             }
             // endregion
