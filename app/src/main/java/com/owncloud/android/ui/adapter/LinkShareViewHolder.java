@@ -72,7 +72,7 @@ class LinkShareViewHolder extends RecyclerView.ViewHolder {
             } else {
                 if (SharingMenuHelper.isFileRequest(publicShare)) {
                     binding.name.setText(context.getResources().getString(R.string.link_share_file_request));
-                } else if (SharingMenuHelper.isSecureFileDrop(publicShare)) {
+                } else if (SharingMenuHelper.isSecureFileDrop(publicShare) && encrypted) {
                     binding.name.setText(context.getResources().getString(R.string.share_permission_secure_file_drop));
                 } else {
                     binding.name.setText(R.string.share_link);
@@ -97,7 +97,7 @@ class LinkShareViewHolder extends RecyclerView.ViewHolder {
         setPermissionName(publicShare, permissionName);
 
         binding.overflowMenu.setOnClickListener(v -> listener.showSharingMenuActionSheet(publicShare));
-        if (!SharingMenuHelper.isSecureFileDrop(publicShare)) {
+        if (!SharingMenuHelper.isSecureFileDrop(publicShare) && !encrypted) {
             binding.shareByLinkContainer.setOnClickListener(v -> listener.showPermissionsDialog(publicShare));
         }
 
@@ -109,12 +109,13 @@ class LinkShareViewHolder extends RecyclerView.ViewHolder {
     }
 
     private void setPermissionName(OCShare publicShare, String permissionName) {
-        if (!TextUtils.isEmpty(permissionName) && !SharingMenuHelper.isSecureFileDrop(publicShare)) {
-            binding.permissionName.setText(permissionName);
-            binding.permissionName.setVisibility(View.VISIBLE);
-            viewThemeUtils.androidx.colorPrimaryTextViewElement(binding.permissionName);
-        } else {
+        if (TextUtils.isEmpty(permissionName) || (SharingMenuHelper.isSecureFileDrop(publicShare) && encrypted)) {
             binding.permissionName.setVisibility(View.GONE);
+            return;
         }
+
+        binding.permissionName.setText(permissionName);
+        binding.permissionName.setVisibility(View.VISIBLE);
+        viewThemeUtils.androidx.colorPrimaryTextViewElement(binding.permissionName);
     }
 }
