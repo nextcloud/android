@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.nextcloud.android.common.ui.theme.utils.ColorRole;
 import com.nextcloud.utils.mdm.MDMConfig;
 import com.owncloud.android.databinding.FileDetailsSharingMenuBottomSheetFragmentBinding;
 import com.owncloud.android.lib.resources.shares.OCShare;
@@ -32,14 +33,18 @@ public class FileDetailSharingMenuBottomSheetDialog extends BottomSheetDialog {
     private final FileDetailsSharingMenuBottomSheetActions actions;
     private final OCShare ocShare;
     private final ViewThemeUtils viewThemeUtils;
+    private final boolean encrypted;
+
     public FileDetailSharingMenuBottomSheetDialog(FileActivity fileActivity,
                                                   FileDetailsSharingMenuBottomSheetActions actions,
                                                   OCShare ocShare,
-                                                  ViewThemeUtils viewThemeUtils) {
+                                                  ViewThemeUtils viewThemeUtils,
+                                                  boolean encrypted) {
         super(fileActivity);
         this.actions = actions;
         this.ocShare = ocShare;
         this.viewThemeUtils = viewThemeUtils;
+        this.encrypted = encrypted;
     }
 
     @Override
@@ -54,10 +59,10 @@ public class FileDetailSharingMenuBottomSheetDialog extends BottomSheetDialog {
 
         viewThemeUtils.platform.themeDialog(binding.getRoot());
 
-        viewThemeUtils.platform.colorImageView(binding.menuIconAdvancedPermissions);
-        viewThemeUtils.platform.colorImageView(binding.menuIconSendLink);
-        viewThemeUtils.platform.colorImageView(binding.menuIconUnshare);
-        viewThemeUtils.platform.colorImageView(binding.menuIconSendNewEmail);
+        viewThemeUtils.platform.colorImageView(binding.menuIconAdvancedPermissions, ColorRole.PRIMARY);
+        viewThemeUtils.platform.colorImageView(binding.menuIconSendLink, ColorRole.PRIMARY);
+        viewThemeUtils.platform.colorImageView(binding.menuIconUnshare, ColorRole.PRIMARY);
+        viewThemeUtils.platform.colorImageView(binding.menuIconSendNewEmail, ColorRole.PRIMARY);
 
         updateUI();
 
@@ -78,7 +83,7 @@ public class FileDetailSharingMenuBottomSheetDialog extends BottomSheetDialog {
             binding.menuShareSendLink.setVisibility(View.GONE);
         }
 
-        if (SharingMenuHelper.isSecureFileDrop(ocShare)) {
+        if (SharingMenuHelper.isSecureFileDrop(ocShare) && encrypted) {
             binding.menuShareAdvancedPermissions.setVisibility(View.GONE);
         }
     }
