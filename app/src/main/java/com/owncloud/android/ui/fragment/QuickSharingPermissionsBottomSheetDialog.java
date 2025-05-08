@@ -21,6 +21,7 @@ import com.nextcloud.utils.extensions.OCShareExtensionsKt;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.QuickSharingPermissionsBottomSheetFragmentBinding;
 import com.owncloud.android.datamodel.quickPermission.QuickPermission;
+import com.owncloud.android.datamodel.quickPermission.QuickPermissionType;
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.adapter.QuickSharingPermissionsAdapter;
@@ -45,16 +46,19 @@ public class QuickSharingPermissionsBottomSheetDialog extends BottomSheetDialog 
     private final FileActivity fileActivity;
     private final OCShare ocShare;
     private final ViewThemeUtils viewThemeUtils;
+    private final boolean encrypted;
 
     public QuickSharingPermissionsBottomSheetDialog(FileActivity fileActivity,
                                                     QuickPermissionSharingBottomSheetActions actions,
                                                     OCShare ocShare,
-                                                    ViewThemeUtils viewThemeUtils) {
+                                                    ViewThemeUtils viewThemeUtils,
+                                                    boolean encrypted) {
         super(fileActivity);
         this.actions = actions;
         this.ocShare = ocShare;
         this.fileActivity = fileActivity;
         this.viewThemeUtils = viewThemeUtils;
+        this.encrypted = encrypted;
     }
 
     @Override
@@ -108,15 +112,15 @@ public class QuickSharingPermissionsBottomSheetDialog extends BottomSheetDialog 
      * Handle permission changed on click of selected permission
      */
     private void handlePermissionChanged(List<QuickPermission> quickPermissionList, int position) {
-        final var permissionName = quickPermissionList.get(position).getText(getContext());
+        final var permissionName = quickPermissionList.get(position).getType().getText(getContext());
         final var res = fileActivity.getResources();
 
         int permissionFlag = 0;
         if (permissionName.equalsIgnoreCase(res.getString(R.string.share_permission_can_edit)) || permissionName.equalsIgnoreCase(res.getString(R.string.link_share_editing))) {
             permissionFlag = ocShare.isFolder() ? MAXIMUM_PERMISSIONS_FOR_FOLDER : MAXIMUM_PERMISSIONS_FOR_FILE;
-        } else if (permissionName.equalsIgnoreCase(res.getString(R.string.link_share_view_only))) {
+        } else if (permissionName.equalsIgnoreCase(res.getString(R.string.share_permission_view_only))) {
             permissionFlag = READ_PERMISSION_FLAG;
-        } else if (permissionName.equalsIgnoreCase(res.getString(R.string.link_share_file_request))) {
+        } else if (permissionName.equalsIgnoreCase(res.getString(R.string.share_permission_file_request))) {
             permissionFlag = CREATE_PERMISSION_FLAG + READ_PERMISSION_FLAG;
         }
 
@@ -129,9 +133,9 @@ public class QuickSharingPermissionsBottomSheetDialog extends BottomSheetDialog 
      * Prepare the list of permissions needs to be displayed on recyclerview
      */
     private List<QuickPermission> getQuickPermissionList() {
-        final var selectedType = SharingMenuHelper.getSelectedType(ocShare);
+        final var selectedType = SharingMenuHelper.getSelectedType(ocShare, encrypted);
         final var hasFileRequestPermission = OCShareExtensionsKt.hasFileRequestPermission(ocShare);
-        return QuickPermission.Companion.getPermissions(hasFileRequestPermission, selectedType);
+        return QuickPermissionType.Companion.getAvailablePermissions(hasFileRequestPermission, selectedType);
     }
 
     @Override

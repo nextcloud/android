@@ -24,6 +24,7 @@ import com.nextcloud.utils.extensions.setVisibleIf
 import com.owncloud.android.R
 import com.owncloud.android.databinding.FileDetailsSharingProcessFragmentBinding
 import com.owncloud.android.datamodel.OCFile
+import com.owncloud.android.datamodel.quickPermission.QuickPermissionType
 import com.owncloud.android.lib.resources.shares.OCShare
 import com.owncloud.android.lib.resources.shares.ShareType
 import com.owncloud.android.lib.resources.status.OCCapability
@@ -541,7 +542,7 @@ class FileDetailsSharingProcessFragment :
     private fun checkNextButtonAvailability() {
         var hasAnyPermission = false
         if (share != null) {
-            hasAnyPermission = SharingMenuHelper.getPermissionName(requireContext(), share, isSecureShare) != null
+            hasAnyPermission = SharingMenuHelper.getSelectedType(share, isSecureShare) != QuickPermissionType.NONE
         }
         toggleNextButtonAvailability(hasAnyPermission)
     }

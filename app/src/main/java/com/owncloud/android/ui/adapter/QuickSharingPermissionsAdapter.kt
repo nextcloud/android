@@ -50,12 +50,12 @@ class QuickSharingPermissionsAdapter(
 
         fun bindData(quickPermission: QuickPermission) {
             val context = itemView.context
-            val permissionName = quickPermission.getText(context)
+            val permissionName = quickPermission.type.getText(context)
 
             binding.run {
                 quickPermissionButton.text = permissionName
                 quickPermissionButton.iconGravity = MaterialButton.ICON_GRAVITY_START
-                quickPermissionButton.icon = quickPermission.getIcon(context)
+                quickPermissionButton.icon = quickPermission.type.getIcon(context)
 
                 if (quickPermission.isSelected) {
                     viewThemeUtils.material.colorMaterialButtonPrimaryBorderless(quickPermissionButton)

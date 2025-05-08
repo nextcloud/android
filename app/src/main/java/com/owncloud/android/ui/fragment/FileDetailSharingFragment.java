@@ -426,7 +426,7 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
      */
     @Override
     public void showPermissionsDialog(OCShare share) {
-        new QuickSharingPermissionsBottomSheetDialog(fileActivity, this, share, viewThemeUtils).show();
+        new QuickSharingPermissionsBottomSheetDialog(fileActivity, this, share, viewThemeUtils, file.isEncrypted()).show();
     }
 
     /**

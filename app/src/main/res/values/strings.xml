@@ -1071,6 +1071,11 @@
     <string name="create_new">New</string>
     <string name="editor_placeholder" translatable="false">%1$s %2$s</string>
 
+    <string name="share_permission_file_request">File request</string>
+    <string name="share_permission_view_only">View only</string>
+    <string name="share_permission_can_edit">Can edit</string>
+    <string name="share_permission_secure_file_drop">Secure file drop</string>
+
     <string name="sync_not_enough_space_dialog_action_choose">Choose what to sync</string>
     <string name="sync_not_enough_space_dialog_action_free_space">Free up space</string>
     <string name="sync_not_enough_space_dialog_placeholder">%1$s is %2$s, but there is only %3$s available on device.</string>
@@ -1097,9 +1102,7 @@
     <string name="share_edit_permission">Edit</string>
     <string name="share_re_share_permission">Share</string>
     <string name="share_delete_permission">Delete</string>
-    <string name="link_share_view_only">View only</string>
     <string name="link_share_editing">Editing</string>
-    <string name="link_share_file_request">File request</string>
     <string name="could_not_retrieve_shares">Could not retrieve shares</string>
     <string name="failed_update_ui">Failed to update UI</string>
     <string name="email_pick_failed">Failed to pick email address.</string>
@@ -1165,9 +1168,6 @@
     <string name="create">Create</string>
     <string name="select_one_template">Please select one template</string>
     <string name="choose_template_helper_text">Please choose a template and enter a file name.</string>
-    <string name="share_permission_view_only">View only</string>
-    <string name="share_permission_can_edit">Can edit</string>
-    <string name="share_permission_secure_file_drop">Secure file drop</string>
     <string name="share_permissions">Share permissions</string>
     <string name="common_next">Next</string>
     <string name="send_share">Send share</string>
