@@ -23,6 +23,7 @@ import com.nextcloud.android.lib.resources.files.FileDownloadLimit;
 import com.nextcloud.utils.mdm.MDMConfig;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.FileDetailsShareLinkShareItemBinding;
+import com.owncloud.android.datamodel.quickPermission.QuickPermissionType;
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.ui.fragment.util.SharingMenuHelper;
@@ -71,7 +72,7 @@ class LinkShareViewHolder extends RecyclerView.ViewHolder {
                 binding.name.setText(text);
             } else {
                 if (SharingMenuHelper.isFileRequest(publicShare)) {
-                    binding.name.setText(context.getResources().getString(R.string.link_share_file_request));
+                    binding.name.setText(context.getResources().getString(R.string.share_permission_file_request));
                 } else if (SharingMenuHelper.isSecureFileDrop(publicShare) && encrypted) {
                     binding.name.setText(context.getResources().getString(R.string.share_permission_secure_file_drop));
                 } else {
@@ -93,8 +94,8 @@ class LinkShareViewHolder extends RecyclerView.ViewHolder {
             binding.subline.setVisibility(View.GONE);
         }
 
-        String permissionName = SharingMenuHelper.getPermissionName(context, publicShare, encrypted);
-        setPermissionName(publicShare, permissionName);
+        QuickPermissionType quickPermissionType = SharingMenuHelper.getSelectedType(publicShare, encrypted);
+        setPermissionName(publicShare, quickPermissionType.getText(context));
 
         binding.overflowMenu.setOnClickListener(v -> listener.showSharingMenuActionSheet(publicShare));
         if (!SharingMenuHelper.isSecureFileDrop(publicShare) && !encrypted) {

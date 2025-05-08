@@ -11,9 +11,6 @@
 
 package com.owncloud.android.ui.fragment.util;
 
-import android.content.Context;
-
-import com.owncloud.android.R;
 import com.owncloud.android.datamodel.quickPermission.QuickPermissionType;
 import com.owncloud.android.lib.resources.shares.OCShare;
 
@@ -69,31 +66,15 @@ public final class SharingMenuHelper {
         return (share.getPermissions() & ~SHARE_PERMISSION_FLAG) == CREATE_PERMISSION_FLAG + READ_PERMISSION_FLAG;
     }
 
-    public static String getPermissionName(Context context, OCShare share, boolean encrypted) {
-        final var res = context.getResources();
-
+    public static QuickPermissionType getSelectedType(OCShare share, boolean encrypted) {
         if (SharingMenuHelper.canEdit(share)) {
-            return res.getString(R.string.share_permission_can_edit);
-        } else if (encrypted && SharingMenuHelper.isSecureFileDrop(share)) {
-            return res.getString(R.string.share_permission_secure_file_drop);
-        } else if (SharingMenuHelper.isFileRequest(share)) {
-            return res.getString(R.string.link_share_file_request);
-        } else if (SharingMenuHelper.isViewOnly(share)) {
-            return res.getString(R.string.share_permission_view_only);
-        } else if (sharePermissionManager.isCustomPermission(share)) {
-            return res.getString(R.string.share_custom_permission);
-        }
-
-        return null;
-    }
-
-    public static QuickPermissionType getSelectedType(OCShare share) {
-        if (SharingMenuHelper.isViewOnly(share)) {
-            return QuickPermissionType.VIEW_ONLY;
-        } else if (SharingMenuHelper.canEdit(share)) {
             return QuickPermissionType.CAN_EDIT;
+        } else if (encrypted && SharingMenuHelper.isSecureFileDrop(share)) {
+            return QuickPermissionType.SECURE_FILE_DROP;
         } else if (SharingMenuHelper.isFileRequest(share)) {
             return QuickPermissionType.FILE_REQUEST;
+        } else if (SharingMenuHelper.isViewOnly(share)) {
+            return QuickPermissionType.VIEW_ONLY;
         } else if (sharePermissionManager.isCustomPermission(share)) {
             return QuickPermissionType.CUSTOM_PERMISSIONS;
         }
