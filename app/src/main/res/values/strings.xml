@@ -1097,6 +1097,9 @@
     <string name="share_link">Share link</string>
     <string name="share_custom_permission">Custom permissions</string>
     <string name="share_read_permission">Read</string>
+    <string name="file_not_found_cannot_share">File not found. Unable to create a share.</string>
+    <string name="share_cannot_update_empty_note">We couldn’t update the share. Please add a note and try again.</string>
+    <string name="share_option_required">Please select at least one sharing option before continuing.</string>
     <string name="share_allow_download_and_sync_permission">Allow download and sync</string>
     <string name="share_create_permission">Create</string>
     <string name="share_edit_permission">Edit</string>

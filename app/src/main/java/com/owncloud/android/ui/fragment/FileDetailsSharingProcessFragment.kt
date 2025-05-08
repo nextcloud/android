@@ -24,7 +24,6 @@ import com.nextcloud.utils.extensions.setVisibleIf
 import com.owncloud.android.R
 import com.owncloud.android.databinding.FileDetailsSharingProcessFragmentBinding
 import com.owncloud.android.datamodel.OCFile
-import com.owncloud.android.datamodel.quickPermission.QuickPermissionType
 import com.owncloud.android.lib.resources.shares.OCShare
 import com.owncloud.android.lib.resources.shares.ShareType
 import com.owncloud.android.lib.resources.status.OCCapability
@@ -199,7 +198,7 @@ class FileDetailsSharingProcessFragment :
         setCheckboxStates()
         themeView()
         setVisibilitiesOfShareOption()
-        checkNextButtonAvailability()
+        toggleNextButtonAvailability(isAnyShareOptionChecked())
     }
 
     private fun setVisibilitiesOfShareOption() {
@@ -539,12 +538,20 @@ class FileDetailsSharingProcessFragment :
         toggleNextButtonAvailability(true)
     }
 
-    private fun checkNextButtonAvailability() {
-        var hasAnyPermission = false
-        if (share != null) {
-            hasAnyPermission = SharingMenuHelper.getSelectedType(share, isSecureShare) != QuickPermissionType.NONE
+    private fun isAnyShareOptionChecked(): Boolean {
+        return binding.run {
+            val isCustomPermissionChecked = customPermissionRadioButton.isChecked &&
+                (shareReadCheckbox.isChecked ||
+                    shareCreateCheckbox.isChecked ||
+                    shareEditCheckbox.isChecked ||
+                    shareCheckbox.isChecked ||
+                    shareDeleteCheckbox.isChecked)
+
+            viewOnlyRadioButton.isChecked ||
+                canEditRadioButton.isChecked ||
+                fileRequestRadioButton.isChecked ||
+                isCustomPermissionChecked
         }
-        toggleNextButtonAvailability(hasAnyPermission)
     }
 
     private fun toggleNextButtonAvailability(value: Boolean) {
@@ -718,13 +725,31 @@ class FileDetailsSharingProcessFragment :
     }
 
     private fun createShareOrUpdateNoteShare() {
-        val noteText = binding.noteText.text.toString().trim()
-        // if modifying existing share then directly update the note and send email
-        if (share != null && share?.note != noteText) {
-            fileOperationsHelper?.updateNoteToShare(share, noteText)
-        } else {
-            createShare(noteText)
+        if (!isAnyShareOptionChecked()) {
+            DisplayUtils.showSnackMessage(requireActivity(), R.string.share_option_required)
+            return
         }
+
+        val noteText = binding.noteText.text.toString().trim()
+        if (file == null && (share != null && share?.note == noteText)) {
+            DisplayUtils.showSnackMessage(requireActivity(), R.string.share_cannot_update_empty_note)
+            return
+        }
+
+        when {
+            // if modifying existing share then directly update the note and send email
+            share != null && share?.note != noteText -> {
+                fileOperationsHelper?.updateNoteToShare(share, noteText)
+            }
+            file == null -> {
+                DisplayUtils.showSnackMessage(requireActivity(), R.string.file_not_found_cannot_share)
+                return
+            }
+            else -> {
+                createShare(noteText)
+            }
+        }
+
         removeCurrentFragment()
     }
 
