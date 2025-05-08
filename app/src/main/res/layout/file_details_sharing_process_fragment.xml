@@ -49,7 +49,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:minHeight="@dimen/minimum_size_for_touchable_area"
-                    android:text="@string/link_share_view_only" />
+                    android:text="@string/share_permission_view_only" />
 
                 <com.google.android.material.radiobutton.MaterialRadioButton
                     android:id="@+id/can_edit_radio_button"
@@ -64,7 +64,7 @@
                     android:visibility="gone"
                     android:layout_height="wrap_content"
                     android:minHeight="@dimen/minimum_size_for_touchable_area"
-                    android:text="@string/link_share_file_request" />
+                    android:text="@string/share_permission_file_request" />
 
                 <com.google.android.material.radiobutton.MaterialRadioButton
                     android:id="@+id/custom_permission_radio_button"
