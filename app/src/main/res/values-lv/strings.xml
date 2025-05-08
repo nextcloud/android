@@ -74,6 +74,7 @@
     <string name="autoupload_hide_folder">Paslēpt mapi</string>
     <string name="avatar">Profila attēls</string>
     <string name="backup_settings">Rezerves kopēšanas iestatījumi</string>
+    <string name="backup_title">Kontaktpersonu un kalendāra rezerves kopēšana</string>
     <string name="battery_optimization_close">Aizvērt</string>
     <string name="battery_optimization_disable">Deaktivēt</string>
     <string name="battery_optimization_message">Ierīcē var būt iespējota akumulatora optimizēšana. Automātiskā augšupielāde darbojas pareizi tikai tad, ja lietotne būs izņēmumu sarakstā.</string>
@@ -207,6 +208,7 @@
     <string name="end_to_end_encryption_confirm_button">Uzstādīt šifrēšanu</string>
     <string name="end_to_end_encryption_decrypting">Atšifrē…</string>
     <string name="end_to_end_encryption_dialog_close">Aizvērt</string>
+    <string name="end_to_end_encryption_enter_passphrase_to_access_files">Ievadi savu paroles vārdkopu, lai piekļūtu savām datnēm</string>
     <string name="end_to_end_encryption_password">Parole…</string>
     <string name="end_to_end_encryption_title">Uzstādīt šifrēšanu</string>
     <string name="error__upload__local_file_not_copied">%1$s nevarēja pārkopēt uz %2$s vietējo mapi</string>
@@ -404,7 +406,10 @@
     <string name="pref_instant_name_collision_policy_entries_rename">Pārdēvēt jauno versiju</string>
     <string name="pref_instant_name_collision_policy_title">Ko darīt, ja datne jau pastāv?</string>
     <string name="prefs_add_account">Pievienot kontu</string>
+    <string name="prefs_calendar_contacts">Sinhronizēt kalendāru un kontaktpersonas</string>
     <string name="prefs_calendar_contacts_no_store_error">F-Droid vai Google Play nav uzstādīts</string>
+    <string name="prefs_calendar_contacts_summary">Iestatīt DAVx⁵ (iepriekš zināma kā DAVdroid) (v1.3.0+) pašreizējam kontam</string>
+    <string name="prefs_calendar_contacts_sync_setup_successful">Kalendāra un kontaktpersonu sinhronizēšanas iestatīšana</string>
     <string name="prefs_category_about">Par</string>
     <string name="prefs_category_details">Detaļas</string>
     <string name="prefs_category_general">Vispārīgi</string>
@@ -414,6 +419,7 @@
     <string name="prefs_daily_contact_backup_summary">Ikdienas kontaktpersonu rezerves kopēšana</string>
     <string name="prefs_data_storage_location">Datu krātuves atrašanās vieta</string>
     <string name="prefs_data_storage_location_summary">Pārvaldīt datu krātuves atrašanās vietu</string>
+    <string name="prefs_davx5_setup_error">Neparedzēta kļūda DAVx⁵ (iepriekš zināma kā DAVdroid) iestatīšanas laikā</string>
     <string name="prefs_enable_media_scan_notifications">Rādīt mediju skenēšanas paziņojumus</string>
     <string name="prefs_enable_media_scan_notifications_summary">Paziņt par jaunas mediju mapes atrašanu</string>
     <string name="prefs_gpl_v2">GNU vispārējā publiskā licence, 2. versija</string>
@@ -438,6 +444,7 @@
     <string name="prefs_show_ecosystem_apps">Rādīt lietotņu pārslēdzēju</string>
     <string name="prefs_show_ecosystem_apps_summary">Nextcloud lietoņu ieteikumi pārvietošanās galvenē</string>
     <string name="prefs_show_hidden_files">Rādīt slēptās datnes</string>
+    <string name="prefs_sourcecode">Iegūt pirmkodu</string>
     <string name="prefs_sycned_folders_summary">Automātiski augšupielādējamo mapju pārvaldīšana</string>
     <string name="prefs_synced_folders_local_path_title">Vietējā mape</string>
     <string name="prefs_synced_folders_remote_path_title">Attālā mape</string>
@@ -501,6 +508,7 @@
     <string name="shared_icon_shared">koplietots</string>
     <string name="sharee_add_failed">Dalībnieka pievienošana neizdevās</string>
     <string name="signup_with_provider">Reģistrēties ar pakalpojumu sniedzēju</string>
+    <string name="single_sign_on_request_token" formatted="true">Ļaut %1$s piekļūt Tavam Nextcloud kontam %2$s?</string>
     <string name="sort_by">Kārtot pēc</string>
     <string name="ssl_validator_btn_details_hide">Paslēpt</string>
     <string name="ssl_validator_btn_details_see">Sīkāka informācija</string>
@@ -657,6 +665,21 @@
     <string name="widgets_not_available_title">Nav pieejams</string>
     <string name="worker_download">Lejupielādē datnes…</string>
     <string name="write_email">Nosūtīt e-pasta ziņojumu</string>
+    <plurals name="time_seconds_ago">
+        <item quantity="zero">pirms %d sekundēm</item>
+        <item quantity="one">pirms sekundes</item>
+        <item quantity="other">pirms %d sekundēm</item>
+    </plurals>
+    <plurals name="time_minutes_ago">
+        <item quantity="zero">pirms %d minūtēm</item>
+        <item quantity="one">pirms minūtes</item>
+        <item quantity="other">pirms %d minūtēm</item>
+    </plurals>
+    <plurals name="time_hours_ago">
+        <item quantity="zero">pirms %d stundām</item>
+        <item quantity="one">pirms stundas</item>
+        <item quantity="other">pirms %d stundām</item>
+    </plurals>
     <plurals name="found_n_duplicates">
         <item quantity="zero">Tika atrasti %d ieraksti, kas atkārtojas.</item>
         <item quantity="one">Tika atrasts %d ieraksts, kas atkārtojas.</item>
