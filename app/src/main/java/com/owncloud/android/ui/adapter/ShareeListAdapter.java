@@ -33,9 +33,7 @@ import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.theme.ViewThemeUtils;
 
 import java.util.ArrayList;
-import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.Set;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -106,50 +104,35 @@ public class ShareeListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         boolean shareViaLink = MDMConfig.INSTANCE.shareViaLink(fileActivity);
+        final var parentViewGroup = LayoutInflater.from(fileActivity);
 
-        if (shareViaLink) {
-            switch (ShareType.fromValue(viewType)) {
-                case PUBLIC_LINK, EMAIL -> {
-                    return new LinkShareViewHolder(
-                        FileDetailsShareLinkShareItemBinding.inflate(LayoutInflater.from(fileActivity),
-                                                                     parent,
-                                                                     false),
-                        fileActivity,
-                        viewThemeUtils);
-                }
-                case NEW_PUBLIC_LINK -> {
-                    if (encrypted) {
-                        return new NewSecureFileDropViewHolder(
-                            FileDetailsShareSecureFileDropAddNewItemBinding.inflate(LayoutInflater.from(fileActivity),
-                                                                                    parent,
-                                                                                    false)
-                        );
-                    } else {
-                        return new NewLinkShareViewHolder(
-                            FileDetailsSharePublicLinkAddNewItemBinding.inflate(LayoutInflater.from(fileActivity),
-                                                                                parent,
-                                                                                false)
-                        );
-                    }
-                }
-                case INTERNAL -> {
-                    return new InternalShareViewHolder(
-                        FileDetailsShareInternalShareLinkBinding.inflate(LayoutInflater.from(fileActivity), parent, false),
-                        fileActivity);
-                }
-                default -> {
-                    return new ShareViewHolder(FileDetailsShareShareItemBinding.inflate(LayoutInflater.from(fileActivity),
-                                                                                        parent,
-                                                                                        false),
-                                               user,
-                                               fileActivity,
-                                               viewThemeUtils);
+        if (!shareViaLink) {
+            final var binding = FileDetailsShareInternalShareLinkBinding.inflate(parentViewGroup, parent, false);
+            return new InternalShareViewHolder(binding, fileActivity);
+        }
+
+        switch (ShareType.fromValue(viewType)) {
+            case PUBLIC_LINK, EMAIL -> {
+                final var binding = FileDetailsShareLinkShareItemBinding.inflate(parentViewGroup, parent, false);
+                return new LinkShareViewHolder(binding, fileActivity, viewThemeUtils, encrypted);
+            }
+            case NEW_PUBLIC_LINK -> {
+                if (encrypted) {
+                    final var binding = FileDetailsShareSecureFileDropAddNewItemBinding.inflate(parentViewGroup, parent, false);
+                    return new NewSecureFileDropViewHolder(binding);
+                } else {
+                    final var binding = FileDetailsSharePublicLinkAddNewItemBinding.inflate(parentViewGroup, parent, false);
+                    return new NewLinkShareViewHolder(binding);
                 }
             }
-        } else {
-            return new InternalShareViewHolder(
-                FileDetailsShareInternalShareLinkBinding.inflate(LayoutInflater.from(fileActivity), parent, false),
-                fileActivity);
+            case INTERNAL -> {
+                final var binding = FileDetailsShareInternalShareLinkBinding.inflate(parentViewGroup, parent, false);
+                return new InternalShareViewHolder(binding, fileActivity);
+            }
+            default -> {
+                final var binding = FileDetailsShareShareItemBinding.inflate(parentViewGroup, parent, false);
+                return new ShareViewHolder(binding, user, fileActivity, viewThemeUtils, encrypted);
+            }
         }
     }
 

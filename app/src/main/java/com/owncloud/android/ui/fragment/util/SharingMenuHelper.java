@@ -69,19 +69,19 @@ public final class SharingMenuHelper {
         return (share.getPermissions() & ~SHARE_PERMISSION_FLAG) == CREATE_PERMISSION_FLAG + READ_PERMISSION_FLAG;
     }
 
-    public static String getPermissionName(Context context, OCShare share) {
+    public static String getPermissionName(Context context, OCShare share, boolean encrypted) {
         final var res = context.getResources();
 
         if (SharingMenuHelper.canEdit(share)) {
             return res.getString(R.string.share_permission_can_edit);
+        } else if (encrypted && SharingMenuHelper.isSecureFileDrop(share)) {
+            return res.getString(R.string.share_permission_secure_file_drop);
+        } else if (SharingMenuHelper.isFileRequest(share)) {
+            return res.getString(R.string.link_share_file_request);
         } else if (SharingMenuHelper.isViewOnly(share)) {
             return res.getString(R.string.share_permission_view_only);
         } else if (sharePermissionManager.isCustomPermission(share)) {
             return res.getString(R.string.share_custom_permission);
-        } else if (SharingMenuHelper.isSecureFileDrop(share)) {
-            return res.getString(R.string.share_permission_secure_file_drop);
-        } else if (SharingMenuHelper.isFileRequest(share)) {
-            return res.getString(R.string.link_share_file_request);
         }
 
         return null;

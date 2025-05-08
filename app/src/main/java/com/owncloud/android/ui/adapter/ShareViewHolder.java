@@ -37,6 +37,7 @@ class ShareViewHolder extends RecyclerView.ViewHolder {
     private User user;
     private Context context;
     private ViewThemeUtils viewThemeUtils;
+    private boolean encrypted;
 
     public ShareViewHolder(@NonNull View itemView) {
         super(itemView);
@@ -45,12 +46,14 @@ class ShareViewHolder extends RecyclerView.ViewHolder {
     public ShareViewHolder(FileDetailsShareShareItemBinding binding,
                            User user,
                            Context context,
-                           final ViewThemeUtils viewThemeUtils) {
+                           final ViewThemeUtils viewThemeUtils,
+                           boolean encrypted) {
         this(binding.getRoot());
         this.binding = binding;
         this.user = user;
         this.context = context;
         this.viewThemeUtils = viewThemeUtils;
+        this.encrypted = encrypted;
     }
 
     public void bind(OCShare share,
@@ -106,7 +109,7 @@ class ShareViewHolder extends RecyclerView.ViewHolder {
         if (share.getShareWith().equalsIgnoreCase(userId) || share.getUserId().equalsIgnoreCase(userId)) {
             binding.overflowMenu.setVisibility(View.VISIBLE);
 
-            String permissionName = SharingMenuHelper.getPermissionName(context, share);
+            String permissionName = SharingMenuHelper.getPermissionName(context, share, encrypted);
             setPermissionName(permissionName);
 
             // bind listener to edit privileges

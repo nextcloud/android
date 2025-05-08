@@ -176,7 +176,7 @@ class FileDetailsSharingProcessFragment :
 
         permission = share?.permissions
             ?: capabilities.defaultPermissions
-            ?: sharePermissionManager.getMaximumPermission(isFolder())
+                ?: sharePermissionManager.getMaximumPermission(isFolder())
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
@@ -545,7 +545,7 @@ class FileDetailsSharingProcessFragment :
     private fun checkNextButtonAvailability() {
         var hasAnyPermission = false
         if (share != null) {
-            hasAnyPermission = SharingMenuHelper.getPermissionName(requireContext(), share) != null
+            hasAnyPermission = SharingMenuHelper.getPermissionName(requireContext(), share, isSecureShare) != null
         }
         toggleNextButtonAvailability(hasAnyPermission)
     }
