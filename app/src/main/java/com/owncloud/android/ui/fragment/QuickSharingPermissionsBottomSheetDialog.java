@@ -17,7 +17,7 @@ import android.view.ViewGroup;
 
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
-import com.nextcloud.utils.OCShareExtensionsKt;
+import com.nextcloud.utils.extensions.OCShareExtensionsKt;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.QuickSharingPermissionsBottomSheetFragmentBinding;
 import com.owncloud.android.datamodel.quickPermission.QuickPermission;

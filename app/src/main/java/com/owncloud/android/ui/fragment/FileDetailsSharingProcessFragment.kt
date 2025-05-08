@@ -18,6 +18,7 @@ import androidx.fragment.app.Fragment
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.utils.extensions.getParcelableArgument
 import com.nextcloud.utils.extensions.getSerializableArgument
+import com.nextcloud.utils.extensions.isPublicOrMail
 import com.nextcloud.utils.extensions.setVisibilityWithAnimation
 import com.nextcloud.utils.extensions.setVisibleIf
 import com.owncloud.android.R
@@ -203,7 +204,7 @@ class FileDetailsSharingProcessFragment :
     private fun setVisibilitiesOfShareOption() {
         binding.run {
             shareAllowDownloadAndSyncCheckbox.setVisibleIf(!isPublicShare())
-            fileRequestRadioButton.setVisibleIf(isPublicShare() && isFolder())
+            fileRequestRadioButton.setVisibleIf(canSetFileRequest())
         }
     }
 
@@ -221,7 +222,7 @@ class FileDetailsSharingProcessFragment :
                     themeCheckbox(shareAllowDownloadAndSyncCheckbox)
                 }
 
-                if (isPublicShare() && isFolder()) {
+                if (canSetFileRequest()) {
                     themeRadioButton(fileRequestRadioButton)
                 }
 
@@ -796,6 +797,8 @@ class FileDetailsSharingProcessFragment :
 
     // region Helpers
     private fun isFolder(): Boolean = (file?.isFolder == true || share?.isFolder == true)
+
+    private fun canSetFileRequest(): Boolean = isFolder() && shareType.isPublicOrMail()
 
     private fun canSetDownloadLimit(): Boolean =
         (isPublicShare() && capabilities.filesDownloadLimit.isTrue && share?.isFolder == false)

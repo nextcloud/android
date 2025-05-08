@@ -1,17 +1,16 @@
 /*
  * Nextcloud - Android Client
  *
- * SPDX-FileCopyrightText: 2025 Alper Ozturk <alper.ozturk@nextcloud.com>
+ * SPDX-FileCopyrightText: 2025 Your Name <your@email.com>
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-package com.nextcloud.utils
+package com.nextcloud.utils.extensions
 
 import com.owncloud.android.lib.resources.shares.OCShare
-import com.owncloud.android.lib.resources.shares.ShareType
 
 fun OCShare.hasFileRequestPermission(): Boolean {
-    return (isFolder && (shareType == ShareType.PUBLIC_LINK || shareType == ShareType.EMAIL))
+    return (isFolder && shareType?.isPublicOrMail() == true)
 }
 
 fun List<OCShare>.mergeDistinctByToken(other: List<OCShare>): List<OCShare> {
