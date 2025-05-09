@@ -1055,18 +1055,6 @@
         <item quantity="one">%d perc</item>
         <item quantity="other">%d perc</item>
     </plurals>
-    <plurals name="time_seconds_ago">
-        <item quantity="one">1 másodperccel ezelőtt</item>
-        <item quantity="other">%d másodperccel ezelőtt</item>
-    </plurals>
-    <plurals name="time_minutes_ago">
-        <item quantity="one">egy perccel ezelőtt</item>
-        <item quantity="other">%d perccel ezelőtt</item>
-    </plurals>
-    <plurals name="time_hours_ago">
-        <item quantity="one">1 órája</item>
-        <item quantity="other">%d órával ezelőtt</item>
-    </plurals>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">Nem sikerült szinkronizálni %1$d fájlt (ütközések: %2$d)</item>
         <item quantity="other">Nem sikerült szinkronizálni %1$d fájlt (ütközések: %2$d)</item>

@@ -669,7 +669,7 @@
     <string name="prefs_add_account">Adicionar uma conta</string>
     <string name="prefs_calendar_contacts">Sincronizar calendário e contatos</string>
     <string name="prefs_calendar_contacts_no_store_error">Nem o F-Droid nem o Google Play estão instalados</string>
-    <string name="prefs_calendar_contacts_summary">Configurar DAVx5 (conhecido como DAVdroid) (v1.3.0+) para a conta atual</string>
+    <string name="prefs_calendar_contacts_summary">Configurar DAVx⁵ (conhecido como DAVdroid) (v1.3.0+) para a conta atual</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Sincronização de calendário e contatos configurada</string>
     <string name="prefs_category_about">Sobre</string>
     <string name="prefs_category_details">Detalhes</string>
@@ -681,7 +681,7 @@
     <string name="prefs_daily_contact_backup_summary">Backup diário dos seus contatos</string>
     <string name="prefs_data_storage_location">Local de armazenamento de dados</string>
     <string name="prefs_data_storage_location_summary">Gerenciar o local de armazenamento de dados</string>
-    <string name="prefs_davx5_setup_error">Erro inesperado ao configurar o DAVx5 (anteriormente conhecido como DAVdroid)</string>
+    <string name="prefs_davx5_setup_error">Erro inesperado ao configurar o DAVx⁵ (anteriormente conhecido como DAVdroid)</string>
     <string name="prefs_e2e_active">A criptografia de ponta-a-ponta está configurada!</string>
     <string name="prefs_e2e_mnemonic">Mnemônico E2E</string>
     <string name="prefs_e2e_no_device_credentials">Para exibir o mnemônico, ative as credenciais do dispositivo.</string>
@@ -1114,21 +1114,6 @@
         <item quantity="one">%d minuto</item>
         <item quantity="many">%d minutos</item>
         <item quantity="other">%d minutos</item>
-    </plurals>
-    <plurals name="time_seconds_ago">
-        <item quantity="one">há 1 segundo</item>
-        <item quantity="many">há %d segundos</item>
-        <item quantity="other">há %d segundos</item>
-    </plurals>
-    <plurals name="time_minutes_ago">
-        <item quantity="one">há 1 minuto</item>
-        <item quantity="many">há %d minutos</item>
-        <item quantity="other">há %d minutos</item>
-    </plurals>
-    <plurals name="time_hours_ago">
-        <item quantity="one">há 1 hora</item>
-        <item quantity="many">há %d horas</item>
-        <item quantity="other">há %d horas</item>
     </plurals>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">Erro ao sincronizar %1$d arquivo (conflitos: %2$d)</item>

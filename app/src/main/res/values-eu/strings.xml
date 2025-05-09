@@ -1069,18 +1069,6 @@
         <item quantity="one">minutu %d</item>
         <item quantity="other">%d minutu</item>
     </plurals>
-    <plurals name="time_seconds_ago">
-        <item quantity="one">duela segundo 1</item>
-        <item quantity="other">duela %d segundo</item>
-    </plurals>
-    <plurals name="time_minutes_ago">
-        <item quantity="one">duela minutu 1</item>
-        <item quantity="other">duela %d minutu</item>
-    </plurals>
-    <plurals name="time_hours_ago">
-        <item quantity="one">duela ordu 1</item>
-        <item quantity="other">duela %d ordu</item>
-    </plurals>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">Ezin izan da %1$d fitxategia sinkronizatu (gatazkak: %2$d)</item>
         <item quantity="other">Ezin izan dira %1$d fitxategi sinkronizatu (gatazkak: %2$d)</item>

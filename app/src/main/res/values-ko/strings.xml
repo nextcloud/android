@@ -1089,15 +1089,6 @@
     <plurals name="minutes">
         <item quantity="other">%d분</item>
     </plurals>
-    <plurals name="time_seconds_ago">
-        <item quantity="other">%d초 전</item>
-    </plurals>
-    <plurals name="time_minutes_ago">
-        <item quantity="other">%d분 전</item>
-    </plurals>
-    <plurals name="time_hours_ago">
-        <item quantity="other">%d시간 전</item>
-    </plurals>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="other">파일 %1$d개의 내용을 동기화할 수 없음(충돌 %2$d개)</item>
     </plurals>

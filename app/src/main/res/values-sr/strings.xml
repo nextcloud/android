@@ -1115,21 +1115,6 @@
         <item quantity="few">%d минута</item>
         <item quantity="other">%d минута</item>
     </plurals>
-    <plurals name="time_seconds_ago">
-        <item quantity="one">пре 1 секунде</item>
-        <item quantity="few">пре %d секунде</item>
-        <item quantity="other">пре %d секунди</item>
-    </plurals>
-    <plurals name="time_minutes_ago">
-        <item quantity="one">пре минут</item>
-        <item quantity="few">пре %d минута</item>
-        <item quantity="other">пре %d минута</item>
-    </plurals>
-    <plurals name="time_hours_ago">
-        <item quantity="one">пре сат времена</item>
-        <item quantity="few">пре %d сата</item>
-        <item quantity="other">пре %d сати</item>
-    </plurals>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">Не могу да синхронизујем %1$d фајл (конфликата: %2$d)</item>
         <item quantity="few">Не могу да синхронизујем %1$d фајла (конфликата: %2$d)</item>

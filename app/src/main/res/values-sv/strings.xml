@@ -1114,18 +1114,6 @@
         <item quantity="one">%d minut</item>
         <item quantity="other">%d minuter</item>
     </plurals>
-    <plurals name="time_seconds_ago">
-        <item quantity="one">1 sekund sedan</item>
-        <item quantity="other">%d sekunder sedan</item>
-    </plurals>
-    <plurals name="time_minutes_ago">
-        <item quantity="one">1 minut sedan</item>
-        <item quantity="other">%d minuter sedan</item>
-    </plurals>
-    <plurals name="time_hours_ago">
-        <item quantity="one">1 timme sedan</item>
-        <item quantity="other">%d timmar sedan</item>
-    </plurals>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">Kunde inte synkronisera %1$d fil (konflikter: %2$d)</item>
         <item quantity="other">Kunde inte synkronisera %1$d filer (konflikter: %2$d)</item>
