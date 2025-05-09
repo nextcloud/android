@@ -134,17 +134,17 @@
     </plurals>
 
     <plurals name="time_seconds_ago">
-        <item quantity="one">1 second ago</item>
+        <item quantity="one">%d second ago</item>
         <item quantity="other">%d seconds ago</item>
     </plurals>
 
     <plurals name="time_minutes_ago">
-        <item quantity="one">1 minute ago</item>
+        <item quantity="one">%d minute ago</item>
         <item quantity="other">%d minutes ago</item>
     </plurals>
 
     <plurals name="time_hours_ago">
-        <item quantity="one">1 hour ago</item>
+        <item quantity="one">%d hour ago</item>
         <item quantity="other">%d hours ago</item>
     </plurals>
 
