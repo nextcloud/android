@@ -1073,18 +1073,6 @@
         <item quantity="one">%d minuut</item>
         <item quantity="other">%d minuten</item>
     </plurals>
-    <plurals name="time_seconds_ago">
-        <item quantity="one">1 seconde geleden</item>
-        <item quantity="other">%d seconden geleden</item>
-    </plurals>
-    <plurals name="time_minutes_ago">
-        <item quantity="one">1 minuut geleden</item>
-        <item quantity="other">%d minuten geleden</item>
-    </plurals>
-    <plurals name="time_hours_ago">
-        <item quantity="one">1 uur geleden</item>
-        <item quantity="other">%d uur geleden</item>
-    </plurals>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">Kon bestand %1$dniet synchroniseren (conflicten: %2$d)</item>
         <item quantity="other">Kon bestand %1$d niet synchroniseren (conflicten: %2$d)</item>

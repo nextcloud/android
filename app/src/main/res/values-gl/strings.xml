@@ -1091,18 +1091,6 @@
         <item quantity="one">%d minuto</item>
         <item quantity="other">%d minutos</item>
     </plurals>
-    <plurals name="time_seconds_ago">
-        <item quantity="one">Hai 1 segundo</item>
-        <item quantity="other">Hai %d segundos</item>
-    </plurals>
-    <plurals name="time_minutes_ago">
-        <item quantity="one">Hai 1 minuto</item>
-        <item quantity="other">Hai %d minutos</item>
-    </plurals>
-    <plurals name="time_hours_ago">
-        <item quantity="one">Hai 1 hora</item>
-        <item quantity="other">Hai %d horas</item>
-    </plurals>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">Non foi posíbel sincronizar  %1$d ficheiro (conflitos: %2$d)</item>
         <item quantity="other">Non foi posíbel sincronizar  %1$d ficheiros (conflitos: %2$d)</item>

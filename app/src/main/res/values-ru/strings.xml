@@ -1101,24 +1101,6 @@
         <item quantity="many">%d минут </item>
         <item quantity="other">%d минут</item>
     </plurals>
-    <plurals name="time_seconds_ago">
-        <item quantity="one">1 секунду назад</item>
-        <item quantity="few">%d секунды назад</item>
-        <item quantity="many">%d секунд назад</item>
-        <item quantity="other">%d секунд назад</item>
-    </plurals>
-    <plurals name="time_minutes_ago">
-        <item quantity="one">1 минуту назад</item>
-        <item quantity="few">%d минуты назад</item>
-        <item quantity="many">%d минут назад</item>
-        <item quantity="other">%d минут назад</item>
-    </plurals>
-    <plurals name="time_hours_ago">
-        <item quantity="one">1 час назад</item>
-        <item quantity="few">%d часа назад</item>
-        <item quantity="many">%d часов назад</item>
-        <item quantity="other">%d часов назад</item>
-    </plurals>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">Не удалось синхронизировать %1$d файл (конфликтов: %2$d)</item>
         <item quantity="few">Не удалось синхронизировать %1$d файлов (конфликтов: %2$d)</item>

@@ -1114,24 +1114,6 @@
         <item quantity="many">%d хвилин</item>
         <item quantity="other">%d хвилин</item>
     </plurals>
-    <plurals name="time_seconds_ago">
-        <item quantity="one">1 секунду тому</item>
-        <item quantity="few">%d секунди тому</item>
-        <item quantity="many">%d секунд тому</item>
-        <item quantity="other">%d секунд тому</item>
-    </plurals>
-    <plurals name="time_minutes_ago">
-        <item quantity="one">1 хвилину тому</item>
-        <item quantity="few">%d хвилини тому</item>
-        <item quantity="many">%d хвилин тому</item>
-        <item quantity="other">%d хвилин тому</item>
-    </plurals>
-    <plurals name="time_hours_ago">
-        <item quantity="one">1 годину тому</item>
-        <item quantity="few">%d години тому</item>
-        <item quantity="many">%d годин тому</item>
-        <item quantity="other">%d годин тому</item>
-    </plurals>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">Не вдалося синхронізувати %1$d файл (конфлікти: %2$d)</item>
         <item quantity="few">Не вдалося синхронізувати %1$d файлів (конфлікти: %2$d)</item>

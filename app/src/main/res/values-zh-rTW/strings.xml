@@ -1111,15 +1111,6 @@
     <plurals name="minutes">
         <item quantity="other">%d分鐘</item>
     </plurals>
-    <plurals name="time_seconds_ago">
-        <item quantity="other">%d秒前</item>
-    </plurals>
-    <plurals name="time_minutes_ago">
-        <item quantity="other">%d分鐘前</item>
-    </plurals>
-    <plurals name="time_hours_ago">
-        <item quantity="other">%d小時前</item>
-    </plurals>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="other">無法同步 %1$d 個檔案（衝突：%2$d）</item>
     </plurals>

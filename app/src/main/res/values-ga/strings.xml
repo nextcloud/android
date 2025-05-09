@@ -1119,27 +1119,6 @@
         <item quantity="many">%d nóiméad</item>
         <item quantity="other">%d nóiméad</item>
     </plurals>
-    <plurals name="time_seconds_ago">
-        <item quantity="one">1 soicind ó shin</item>
-        <item quantity="two">%d soicind ó shin</item>
-        <item quantity="few">%d soicind ó shin</item>
-        <item quantity="many">%d soicind ó shin</item>
-        <item quantity="other">%d soicind ó shin</item>
-    </plurals>
-    <plurals name="time_minutes_ago">
-        <item quantity="one">1 nóiméad ó shin</item>
-        <item quantity="two">%d nóiméad ó shin</item>
-        <item quantity="few">%d nóiméad ó shin</item>
-        <item quantity="many">%d nóiméad ó shin</item>
-        <item quantity="other">%d nóiméad ó shin</item>
-    </plurals>
-    <plurals name="time_hours_ago">
-        <item quantity="one">1 uair ó shin</item>
-        <item quantity="two">%d uair ó shin</item>
-        <item quantity="few">%d uair ó shin</item>
-        <item quantity="many">%d uair ó shin</item>
-        <item quantity="other">%d uair ó shin</item>
-    </plurals>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">Níorbh fhéidir comhad %1$d a shioncronú (coimhlint: %2$d)</item>
         <item quantity="two">Níorbh fhéidir %1$d comhad a shioncronú (coimhlint: %2$d)</item>

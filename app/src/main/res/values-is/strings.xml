@@ -1085,18 +1085,6 @@
         <item quantity="one">%d mínúta</item>
         <item quantity="other">%d mínútur</item>
     </plurals>
-    <plurals name="time_seconds_ago">
-        <item quantity="one">fyrir 1 sekúndu síðan</item>
-        <item quantity="other">fyrir %d sekúndum síðan</item>
-    </plurals>
-    <plurals name="time_minutes_ago">
-        <item quantity="one">fyrir 1 mínútu síðan</item>
-        <item quantity="other">fyrir %d mínútum síðan</item>
-    </plurals>
-    <plurals name="time_hours_ago">
-        <item quantity="one">fyrir 1 klukkustund síðan</item>
-        <item quantity="other">fyrir %d klukkustundum síðan</item>
-    </plurals>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">Ekki var hægt að samstilla %1$d skrá (árekstrar: %2$d)</item>
         <item quantity="other">Ekki var hægt að samstilla %1$d skrár (árekstrar: %2$d)</item>

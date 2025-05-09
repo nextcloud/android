@@ -998,18 +998,6 @@ GNU yleinen lisenssi, versio 2</string>
         <item quantity="one">%d minuutti</item>
         <item quantity="other">%d minuuttia</item>
     </plurals>
-    <plurals name="time_seconds_ago">
-        <item quantity="one">1 sekunti sitten</item>
-        <item quantity="other">%d sekuntia sitten</item>
-    </plurals>
-    <plurals name="time_minutes_ago">
-        <item quantity="one">1 minuutti sitten</item>
-        <item quantity="other">%d minuuttia sitten</item>
-    </plurals>
-    <plurals name="time_hours_ago">
-        <item quantity="one">1 tunti sitten</item>
-        <item quantity="other">%d tuntia sitten</item>
-    </plurals>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">Ei voitu synkronoida %1$d tiedosto (ristiriita: %2$d)</item>
         <item quantity="other">Ei voitu synkronoida %1$d tiedostoa (ristiriidat: %2$d)</item>

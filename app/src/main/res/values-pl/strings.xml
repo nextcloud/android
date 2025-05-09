@@ -1117,24 +1117,6 @@
         <item quantity="many">%d minut</item>
         <item quantity="other">%d minut</item>
     </plurals>
-    <plurals name="time_seconds_ago">
-        <item quantity="one">1 sekunda temu</item>
-        <item quantity="few">%d sekundy temu</item>
-        <item quantity="many">%d sekund temu</item>
-        <item quantity="other">%d sekund temu</item>
-    </plurals>
-    <plurals name="time_minutes_ago">
-        <item quantity="one">1 minuta temu</item>
-        <item quantity="few">%d minuty temu</item>
-        <item quantity="many">%d minut temu</item>
-        <item quantity="other">%d minut temu</item>
-    </plurals>
-    <plurals name="time_hours_ago">
-        <item quantity="one">1 godzina temu</item>
-        <item quantity="few">%d godziny temu</item>
-        <item quantity="many">%d godzin temu</item>
-        <item quantity="other">%d godzin temu</item>
-    </plurals>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">Nie udała się synchronizacja %1$d pliku (konflikty: %2$d)</item>
         <item quantity="few">Nie udała się synchronizacja %1$d plików (konflikty: %2$d)</item>

@@ -1113,18 +1113,6 @@
         <item quantity="one">%d Minute</item>
         <item quantity="other">%d Minuten</item>
     </plurals>
-    <plurals name="time_seconds_ago">
-        <item quantity="one">Vor 1 Sekunde</item>
-        <item quantity="other">Vor %d Sekunden</item>
-    </plurals>
-    <plurals name="time_minutes_ago">
-        <item quantity="one">Vor 1 Minute</item>
-        <item quantity="other">Vor %d Minuten</item>
-    </plurals>
-    <plurals name="time_hours_ago">
-        <item quantity="one">Vor 1 Stunde</item>
-        <item quantity="other">Vor %d Stunden</item>
-    </plurals>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">Inhalte von %1$d Datei konnten nicht synchronisiert werden (Konflikte: %2$d)</item>
         <item quantity="other">Inhalte von %1$d Dateien konnten nicht synchronisiert werden (Konflikte: %2$d)</item>

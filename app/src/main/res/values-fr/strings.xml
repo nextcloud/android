@@ -1112,21 +1112,6 @@
         <item quantity="many">%d minutes</item>
         <item quantity="other">%d minutes</item>
     </plurals>
-    <plurals name="time_seconds_ago">
-        <item quantity="one">Il y a une seconde</item>
-        <item quantity="many">Il y a %d secondes</item>
-        <item quantity="other">Il y a %d secondes</item>
-    </plurals>
-    <plurals name="time_minutes_ago">
-        <item quantity="one">Il y a une minute</item>
-        <item quantity="many">Il y a %d minutes</item>
-        <item quantity="other">Il y a %d minutes</item>
-    </plurals>
-    <plurals name="time_hours_ago">
-        <item quantity="one">il y a une heure</item>
-        <item quantity="many">Il y a %d heures</item>
-        <item quantity="other">Il y a %d heures</item>
-    </plurals>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">Impossible de synchroniser %1$d fichier (conflits : %2$d)</item>
         <item quantity="many">Impossible de synchroniser %1$d fichiers (conflits : %2$d)</item>

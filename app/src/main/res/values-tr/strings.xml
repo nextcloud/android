@@ -1113,18 +1113,6 @@
         <item quantity="one">%d dakika</item>
         <item quantity="other">%d dakika</item>
     </plurals>
-    <plurals name="time_seconds_ago">
-        <item quantity="one">1 saniye önce</item>
-        <item quantity="other">%d saniye önce</item>
-    </plurals>
-    <plurals name="time_minutes_ago">
-        <item quantity="one">1 dakika önce</item>
-        <item quantity="other">%d dakika önce</item>
-    </plurals>
-    <plurals name="time_hours_ago">
-        <item quantity="one">1 saat önce</item>
-        <item quantity="other">%d saat önce</item>
-    </plurals>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">%1$d dosya eşitlenemedi (çakışma: %2$d)</item>
         <item quantity="other">%1$d dosya eşitlenemedi (çakışma: %2$d)</item>

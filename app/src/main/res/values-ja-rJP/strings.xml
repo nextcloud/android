@@ -1117,15 +1117,6 @@ GooglePlay 版のNextcloudアプリを使用している場合のみ、自動ア
     <plurals name="minutes">
         <item quantity="other">%d 分</item>
     </plurals>
-    <plurals name="time_seconds_ago">
-        <item quantity="other">%d 秒前</item>
-    </plurals>
-    <plurals name="time_minutes_ago">
-        <item quantity="other">%d 分前</item>
-    </plurals>
-    <plurals name="time_hours_ago">
-        <item quantity="other">%d 時間前</item>
-    </plurals>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="other">%1$d 個のファイルを同期出ません (コンフリクト: %2$d)</item>
     </plurals>
