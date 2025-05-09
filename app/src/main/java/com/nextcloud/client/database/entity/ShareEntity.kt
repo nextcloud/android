@@ -58,5 +58,7 @@ data class ShareEntity(
     @ColumnInfo(name = ProviderTableMeta.OCSHARES_DOWNLOADLIMIT_LIMIT)
     val downloadLimitLimit: Int?,
     @ColumnInfo(name = ProviderTableMeta.OCSHARES_DOWNLOADLIMIT_COUNT)
-    val downloadLimitCount: Int?
+    val downloadLimitCount: Int?,
+    @ColumnInfo(name = ProviderTableMeta.OCSHARES_ATTRIBUTES)
+    val attributes: String?
 )

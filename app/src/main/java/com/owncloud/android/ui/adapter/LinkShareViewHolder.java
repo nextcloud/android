@@ -23,6 +23,7 @@ import com.nextcloud.android.lib.resources.files.FileDownloadLimit;
 import com.nextcloud.utils.mdm.MDMConfig;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.FileDetailsShareLinkShareItemBinding;
+import com.owncloud.android.datamodel.quickPermission.QuickPermissionType;
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.ui.fragment.util.SharingMenuHelper;
@@ -36,6 +37,7 @@ class LinkShareViewHolder extends RecyclerView.ViewHolder {
     private FileDetailsShareLinkShareItemBinding binding;
     private Context context;
     private ViewThemeUtils viewThemeUtils;
+    private boolean encrypted;
 
     public LinkShareViewHolder(@NonNull View itemView) {
         super(itemView);
@@ -43,11 +45,13 @@ class LinkShareViewHolder extends RecyclerView.ViewHolder {
 
     public LinkShareViewHolder(FileDetailsShareLinkShareItemBinding binding,
                                Context context,
-                               final ViewThemeUtils viewThemeUtils) {
+                               final ViewThemeUtils viewThemeUtils,
+                               boolean encrypted) {
         this(binding.getRoot());
         this.binding = binding;
         this.context = context;
         this.viewThemeUtils = viewThemeUtils;
+        this.encrypted = encrypted;
     }
 
     public void bind(OCShare publicShare, ShareeListAdapterListener listener) {
@@ -67,7 +71,9 @@ class LinkShareViewHolder extends RecyclerView.ViewHolder {
                 String text = String.format(context.getString(R.string.share_link_with_label), publicShare.getLabel());
                 binding.name.setText(text);
             } else {
-                if (SharingMenuHelper.isSecureFileDrop(publicShare)) {
+                if (SharingMenuHelper.isFileRequest(publicShare)) {
+                    binding.name.setText(context.getResources().getString(R.string.share_permission_file_request));
+                } else if (SharingMenuHelper.isSecureFileDrop(publicShare) && encrypted) {
                     binding.name.setText(context.getResources().getString(R.string.share_permission_secure_file_drop));
                 } else {
                     binding.name.setText(R.string.share_link);
@@ -88,11 +94,11 @@ class LinkShareViewHolder extends RecyclerView.ViewHolder {
             binding.subline.setVisibility(View.GONE);
         }
 
-        String permissionName = SharingMenuHelper.getPermissionName(context, publicShare);
-        setPermissionName(publicShare, permissionName);
+        QuickPermissionType quickPermissionType = SharingMenuHelper.getSelectedType(publicShare, encrypted);
+        setPermissionName(publicShare, quickPermissionType.getText(context));
 
         binding.overflowMenu.setOnClickListener(v -> listener.showSharingMenuActionSheet(publicShare));
-        if (!SharingMenuHelper.isSecureFileDrop(publicShare)) {
+        if (!SharingMenuHelper.isSecureFileDrop(publicShare) && !encrypted) {
             binding.shareByLinkContainer.setOnClickListener(v -> listener.showPermissionsDialog(publicShare));
         }
 
@@ -104,12 +110,13 @@ class LinkShareViewHolder extends RecyclerView.ViewHolder {
     }
 
     private void setPermissionName(OCShare publicShare, String permissionName) {
-        if (!TextUtils.isEmpty(permissionName) && !SharingMenuHelper.isSecureFileDrop(publicShare)) {
-            binding.permissionName.setText(permissionName);
-            binding.permissionName.setVisibility(View.VISIBLE);
-            viewThemeUtils.androidx.colorPrimaryTextViewElement(binding.permissionName);
-        } else {
+        if (TextUtils.isEmpty(permissionName) || (SharingMenuHelper.isSecureFileDrop(publicShare) && encrypted)) {
             binding.permissionName.setVisibility(View.GONE);
+            return;
         }
+
+        binding.permissionName.setText(permissionName);
+        binding.permissionName.setVisibility(View.VISIBLE);
+        viewThemeUtils.androidx.colorPrimaryTextViewElement(binding.permissionName);
     }
 }

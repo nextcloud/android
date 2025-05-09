@@ -21,6 +21,7 @@ import android.widget.ImageView;
 import com.nextcloud.client.account.User;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.FileDetailsShareShareItemBinding;
+import com.owncloud.android.datamodel.quickPermission.QuickPermissionType;
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.ui.TextDrawable;
 import com.owncloud.android.ui.fragment.util.SharingMenuHelper;
@@ -37,6 +38,7 @@ class ShareViewHolder extends RecyclerView.ViewHolder {
     private User user;
     private Context context;
     private ViewThemeUtils viewThemeUtils;
+    private boolean encrypted;
 
     public ShareViewHolder(@NonNull View itemView) {
         super(itemView);
@@ -45,12 +47,14 @@ class ShareViewHolder extends RecyclerView.ViewHolder {
     public ShareViewHolder(FileDetailsShareShareItemBinding binding,
                            User user,
                            Context context,
-                           final ViewThemeUtils viewThemeUtils) {
+                           final ViewThemeUtils viewThemeUtils,
+                           boolean encrypted) {
         this(binding.getRoot());
         this.binding = binding;
         this.user = user;
         this.context = context;
         this.viewThemeUtils = viewThemeUtils;
+        this.encrypted = encrypted;
     }
 
     public void bind(OCShare share,
@@ -106,8 +110,8 @@ class ShareViewHolder extends RecyclerView.ViewHolder {
         if (share.getShareWith().equalsIgnoreCase(userId) || share.getUserId().equalsIgnoreCase(userId)) {
             binding.overflowMenu.setVisibility(View.VISIBLE);
 
-            String permissionName = SharingMenuHelper.getPermissionName(context, share);
-            setPermissionName(permissionName);
+            QuickPermissionType quickPermissionType = SharingMenuHelper.getSelectedType(share, encrypted);
+            setPermissionName(quickPermissionType.getText(context));
 
             // bind listener to edit privileges
             binding.overflowMenu.setOnClickListener(v -> listener.showSharingMenuActionSheet(share));

@@ -56,6 +56,7 @@ public class CreateShareWithShareeOperation extends SyncOperation {
     private String label;
     private final Context context;
     private final User user;
+    private String attributes;
 
     private ArbitraryDataProvider arbitraryDataProvider;
 
@@ -85,6 +86,7 @@ public class CreateShareWithShareeOperation extends SyncOperation {
                                           String sharePassword,
                                           long expirationDateInMillis,
                                           boolean hideFileDownload,
+                                          String attributes,
                                           FileDataStorageManager storageManager,
                                           Context context,
                                           User user,
@@ -105,6 +107,7 @@ public class CreateShareWithShareeOperation extends SyncOperation {
         this.context = context;
         this.user = user;
         this.arbitraryDataProvider = arbitraryDataProvider;
+        this.attributes = attributes;
     }
 
     @Override
@@ -156,7 +159,8 @@ public class CreateShareWithShareeOperation extends SyncOperation {
             false,
             sharePassword,
             permissions,
-            noteMessage
+            noteMessage,
+            attributes
         );
         operation.setGetShareDetails(true);
         RemoteOperationResult shareResult = operation.execute(client);

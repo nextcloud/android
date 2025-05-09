@@ -37,6 +37,7 @@ import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.network.ClientFactory;
 import com.nextcloud.utils.extensions.BundleExtensionsKt;
 import com.nextcloud.utils.extensions.FileExtensionsKt;
+import com.nextcloud.utils.extensions.OCShareExtensionsKt;
 import com.nextcloud.utils.extensions.ViewExtensionsKt;
 import com.nextcloud.utils.mdm.MDMConfig;
 import com.owncloud.android.R;
@@ -178,6 +179,8 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
                                                       file.isEncrypted(),
                                                       SharesType.INTERNAL);
 
+        internalShareeListAdapter.setHasStableIds(true);
+
         binding.sharesListInternal.setAdapter(internalShareeListAdapter);
 
         binding.sharesListInternal.setLayoutManager(new LinearLayoutManager(requireContext()));
@@ -190,6 +193,8 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
                               viewThemeUtils,
                               file.isEncrypted(),
                               SharesType.EXTERNAL);
+
+        externalShareeListAdapter.setHasStableIds(true);
         
         binding.sharesListExternal.setAdapter(externalShareeListAdapter);
 
@@ -214,10 +219,11 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
         if (!(getActivity() instanceof FileActivity)) {
             throw new IllegalArgumentException("Calling activity must be of type FileActivity");
         }
+
         try {
             onEditShareListener = (OnEditShareListener) context;
-        } catch (Exception ignored) {
-            throw new IllegalArgumentException("Calling activity must implement the interface", ignored);
+        } catch (Exception e) {
+            throw new IllegalArgumentException("Calling activity must implement the interface" + e);
         }
     }
 
@@ -409,7 +415,7 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
     @VisibleForTesting
     public void showSharingMenuActionSheet(OCShare share) {
         if (fileActivity != null && !fileActivity.isFinishing()) {
-            new FileDetailSharingMenuBottomSheetDialog(fileActivity, this, share, viewThemeUtils).show();
+            new FileDetailSharingMenuBottomSheetDialog(fileActivity, this, share, viewThemeUtils, file.isEncrypted()).show();
         }
     }
 
@@ -420,7 +426,7 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
      */
     @Override
     public void showPermissionsDialog(OCShare share) {
-        new QuickSharingPermissionsBottomSheetDialog(fileActivity, this, share, viewThemeUtils).show();
+        new QuickSharingPermissionsBottomSheetDialog(fileActivity, this, share, viewThemeUtils, file.isEncrypted()).show();
     }
 
     /**
@@ -460,8 +466,8 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
         setupView();
     }
 
-    private void unshareWith(OCShare share) {
-        fileOperationsHelper.unshareShare(file, share);
+    private void unShareWith(OCShare share) {
+        fileOperationsHelper.unShareShare(file, share);
     }
 
     /**
@@ -517,7 +523,8 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
             DisplayUtils.showSnackMessage(getView(), getString(R.string.could_not_retrieve_shares));
             return;
         }
-        internalShareeListAdapter.getShares().clear();
+
+        internalShareeListAdapter.removeAll();
 
         // to show share with users/groups info
         List<OCShare> shares = fileDataStorageManager.getSharesWithForAFile(file.getRemotePath(),
@@ -544,25 +551,17 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
         }
         
         internalShareeListAdapter.addShares(internalShares);
+        ViewExtensionsKt.setVisibleIf(binding.sharesListInternalShowAll, internalShareeListAdapter.getShares().size() > 3);
 
-        ViewExtensionsKt.setVisibleIf(binding.sharesListInternalShowAll,
-                                      internalShareeListAdapter.getShares().size() > 3
-                                     );
+        addExternalAndPublicShares(externalShares);
+        ViewExtensionsKt.setVisibleIf(binding.sharesListExternalShowAll, externalShareeListAdapter.getShares().size() > 3);
+    }
 
-        externalShareeListAdapter.getShares().clear();
-
-        // Get public share
-        List<OCShare> publicShares = fileDataStorageManager.getSharesByPathAndType(file.getRemotePath(),
-                                                                                   ShareType.PUBLIC_LINK,
-                                                                                   "");
-
-        externalShareeListAdapter.addShares(externalShares);
-
-        externalShareeListAdapter.addShares(publicShares);
-
-        ViewExtensionsKt.setVisibleIf(binding.sharesListExternalShowAll,
-                                      externalShareeListAdapter.getShares().size() > 3
-                                     );
+    private void addExternalAndPublicShares(List<OCShare> externalShares) {
+        final var publicShares = fileDataStorageManager.getSharesByPathAndType(file.getRemotePath(), ShareType.PUBLIC_LINK, "");
+        externalShareeListAdapter.removeAll();
+        final var shares = OCShareExtensionsKt.mergeDistinctByToken(externalShares, publicShares);
+        externalShareeListAdapter.addShares(shares);
     }
 
     private void checkContactPermission() {
@@ -650,7 +649,6 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
         modifyExistingShare(share, FileDetailsSharingProcessFragment.SCREEN_TYPE_PERMISSION);
     }
 
-
     @Override
     public void sendNewEmail(OCShare share) {
         modifyExistingShare(share, FileDetailsSharingProcessFragment.SCREEN_TYPE_NOTE);
@@ -658,13 +656,15 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
 
     @Override
     public void unShare(OCShare share) {
-        unshareWith(share);
-        ShareeListAdapter adapter = (ShareeListAdapter) binding.sharesListInternal.getAdapter();
-        if (adapter == null) {
+        unShareWith(share);
+
+        if (binding.sharesListInternal.getAdapter() instanceof ShareeListAdapter adapter) {
+            adapter.remove(share);
+        } else if (binding.sharesListExternal.getAdapter() instanceof ShareeListAdapter adapter) {
+            adapter.remove(share);
+        } else {
             DisplayUtils.showSnackMessage(getView(), getString(R.string.failed_update_ui));
-            return;
         }
-        adapter.remove(share);
     }
 
     @Override
@@ -689,6 +689,11 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
     @Override
     public void onQuickPermissionChanged(OCShare share, int permission) {
         fileOperationsHelper.setPermissionsToShare(share, permission);
+    }
+
+    @Override
+    public void openShareDetail(OCShare share) {
+        modifyExistingShare(share, FileDetailsSharingProcessFragment.SCREEN_TYPE_CUSTOM_PERMISSION);
     }
 
     //launcher for contact permission

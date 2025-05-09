@@ -113,6 +113,8 @@ public class UnshareOperation extends SyncOperation {
 
             RemoveShareRemoteOperation operation = new RemoveShareRemoteOperation(share.getRemoteId());
             result = operation.execute(client);
+            boolean isFileExists = existsFile(client, file.getRemotePath());
+            boolean isShareExists = getStorageManager().getShareById(shareId) != null;
 
             if (result.isSuccess()) {
                 // E2E: unlock folder
@@ -140,10 +142,12 @@ public class UnshareOperation extends SyncOperation {
 
                 getStorageManager().saveFile(file);
                 getStorageManager().removeShare(share);
-
-            } else if (result.getCode() != ResultCode.MAINTENANCE_MODE && !existsFile(client, file.getRemotePath())) {
-                // unshare failed because file was deleted before
+            } else if (result.getCode() != ResultCode.MAINTENANCE_MODE && !isFileExists) {
+                // UnShare failed because file was deleted before
                 getStorageManager().removeFile(file, true, true);
+            } else if (isShareExists && result.getCode() == ResultCode.FILE_NOT_FOUND) {
+                // UnShare failed because share was deleted before
+                getStorageManager().removeShare(share);
             }
 
         } else {
