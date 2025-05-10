@@ -1113,6 +1113,18 @@
         <item quantity="one">%d minut</item>
         <item quantity="other">%d minutit</item>
     </plurals>
+    <plurals name="time_seconds_ago">
+        <item quantity="one">%d sekund tagasi</item>
+        <item quantity="other">%d sekundit tagasi</item>
+    </plurals>
+    <plurals name="time_minutes_ago">
+        <item quantity="one">%d minut tagasi</item>
+        <item quantity="other">%d minutit tagasi</item>
+    </plurals>
+    <plurals name="time_hours_ago">
+        <item quantity="one">%d tunni eest</item>
+        <item quantity="other">%d tunni eest</item>
+    </plurals>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">Ei õnnestunud sünkroniseerida „%1$d“ faili (failikonflikt: „%2$d“)</item>
         <item quantity="other">Ei õnnestunud sünkroniseerida „%1$d“ faili (failikonflikt: „%2$d“)</item>
