@@ -153,8 +153,8 @@ class FileDownloadWorker(
         )
     }
 
-    private fun setWorkerState(user: User?) {
-        WorkerStateLiveData.instance().setWorkState(WorkerState.DownloadStarted(user, currentDownload))
+    private fun setWorkerState(user: User?, percent: Int) {
+        WorkerStateLiveData.instance().setWorkState(WorkerState.DownloadStarted(user, currentDownload, percent))
     }
 
     private fun setIdleWorkerState() {
@@ -253,7 +253,7 @@ class FileDownloadWorker(
             return
         }
 
-        setWorkerState(user)
+        setWorkerState(user, 0)
         Log_OC.e(TAG, "FilesDownloadWorker downloading: $downloadKey")
 
         val isAccountExist = accountManager.exists(currentDownload?.user?.toPlatformAccount())
@@ -416,8 +416,10 @@ class FileDownloadWorker(
         }
 
         lastPercent = percent
+        setWorkerState(user, lastPercent)
     }
 
+    // CHECK: Is this class still needed after conversion from Foreground Services to Worker?
     inner class FileDownloadProgressListener : OnDatatransferProgressListener {
         private val boundListeners: MutableMap<Long, OnDatatransferProgressListener> = HashMap()
 
