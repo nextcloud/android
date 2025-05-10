@@ -53,7 +53,7 @@
     <string name="assistant_screen_loading">Lade Aufgabenliste…</string>
     <string name="assistant_screen_no_task_available_text">Für den Aufgabentyp %s ist keine Aufgabe verfügbar. Sie können unten rechts eine neue Aufgabe erstellen.</string>
     <string name="assistant_screen_task_create_fail_message">Es ist ein Fehler beim Erstellen der Aufgabe aufgetreten</string>
-    <string name="assistant_screen_task_create_success_message">Aufgabe erfolgreich erstellt</string>
+    <string name="assistant_screen_task_create_success_message">Aufgabe erstellt</string>
     <string name="assistant_screen_task_delete_fail_message">Es ist ein Fehler beim Löschen der Aufgabe aufgetreten</string>
     <string name="assistant_screen_task_delete_success_message">Aufgabe gelöscht</string>
     <string name="assistant_screen_task_list_empty_message">Aufgabenliste ist leer.</string>
@@ -91,7 +91,7 @@
     <string name="auth_unknown_error_exception_title">Unbekannter Fehler: %1$s</string>
     <string name="auth_unknown_error_http_title">Es ist ein unbekannter HTTP-Fehler aufgetreten!</string>
     <string name="auth_unknown_error_title">Es ist ein unbekannter Fehler aufgetreten.</string>
-    <string name="auth_unknown_host_title">Konnte den Host nicht finden</string>
+    <string name="auth_unknown_host_title">Host konnte nicht gefunden werden</string>
     <string name="auth_unsupported_multiaccount">%1$s unterstützt nicht mehrere Benutzerkonten</string>
     <string name="auth_wrong_connection_title">Verbindung konnte nicht hergestellt werden</string>
     <string name="authenticator_activity_cancel_login">Anmelden abbrechen</string>
@@ -214,8 +214,8 @@
     <string name="copy_link">Link kopieren</string>
     <string name="copy_move_to_encrypted_folder_not_supported">In verschlüsselten Ordner kopieren/verschieben wird aktuell nicht unterstützt.</string>
     <string name="could_not_download_image">Originalbild konnte nicht heruntergeladen werden</string>
-    <string name="could_not_retrieve_shares">Konnte die Freigaben nicht abrufen</string>
-    <string name="could_not_retrieve_url">Konnte URL nicht abrufen</string>
+    <string name="could_not_retrieve_shares">Freigaben konnten nicht abgerufen werden</string>
+    <string name="could_not_retrieve_url">URL konnte nicht abgerufen werden</string>
     <string name="create">Erstellen</string>
     <string name="create_dir_fail_msg">Verzeichnis konnte nicht erstellt werden</string>
     <string name="create_link">Link erstellen</string>
@@ -442,7 +442,7 @@
     <string name="file_upload_worker_error_notification_title">Upload fehlgeschlagen. Keine Internetverbindung</string>
     <string name="file_upload_worker_same_file_already_exists">Dieselbe Datei existiert bereits, kein Konflikt erkannt</string>
     <string name="file_version_restored_error">Fehler beim Wiederherstellen der Dateiversion!</string>
-    <string name="file_version_restored_successfully">Dateiversion erfolgreich wiederhergestellt</string>
+    <string name="file_version_restored_successfully">Dateiversion wiederhergestellt</string>
     <string name="filedetails_details">Details</string>
     <string name="filedetails_download">Herunterladen</string>
     <string name="filedetails_export">Exportieren</string>
@@ -551,7 +551,7 @@
     <string name="manage_space_title">Verwalte Speicherplatz</string>
     <string name="max_file_count_warning_message">Sie haben die maximale Anzahl an Datei-Uploads erreicht. Bitte laden Sie weniger als 500 Dateien gleichzeitig hoch.</string>
     <string name="media_err_invalid_progressive_playback">Die Mediendatei kann nicht gestreamt werden</string>
-    <string name="media_err_io">Konnte die Mediendatei nicht lesen</string>
+    <string name="media_err_io">Die Mediendatei konnte nicht gelesen werden</string>
     <string name="media_err_malformed">Mediendatei ist nicht korrekt encodiert</string>
     <string name="media_err_timeout">Wartezeit beim Abspielversuch abgelaufen</string>
     <string name="media_err_unknown">Der interne Player kann die Mediendatei nicht abspielen</string>
@@ -583,13 +583,13 @@
     <string name="new_notification">Neue Benachrichtigung</string>
     <string name="new_version_was_created">Neue Version erstellt</string>
     <string name="no_actions">Keine Aktionen für diesen Benutzer</string>
-    <string name="no_browser_available">Keine App verfügbar um Links zu öffnen</string>
+    <string name="no_browser_available">Keine App zum Öffnen von Links verfügbar</string>
     <string name="no_calendar_exists">Es existieren keine Kalender</string>
     <string name="no_email_app_available">Keine App verfügbar, um E-Mail-Adressen zu verarbeiten</string>
     <string name="no_items">Keine Elemente</string>
     <string name="no_map_app_availble">Keine App zur Kartenverwaltung verfügbar</string>
     <string name="no_mutliple_accounts_allowed">Nur ein Konto zulässig</string>
-    <string name="no_pdf_app_available">Keine App verfügbar um PDFs anzuzeigen</string>
+    <string name="no_pdf_app_available">Keine App zum Öffnen von PDFs verfügbar</string>
     <string name="no_send_app">Keine App zum Senden der ausgewählten Dateien verfügbar</string>
     <string name="no_share_permission_selected">Bitte mindestens eine Berechtigung zum Teilen auswählen.</string>
     <string name="note_could_not_sent">Notiz konnte nicht versandt werden</string>
@@ -1112,6 +1112,18 @@
     <plurals name="minutes">
         <item quantity="one">%d Minute</item>
         <item quantity="other">%d Minuten</item>
+    </plurals>
+    <plurals name="time_seconds_ago">
+        <item quantity="one">Vor %d Sekunde</item>
+        <item quantity="other">Vor %d Sekunden</item>
+    </plurals>
+    <plurals name="time_minutes_ago">
+        <item quantity="one">Vor %d Minute</item>
+        <item quantity="other">Vor %d Minuten</item>
+    </plurals>
+    <plurals name="time_hours_ago">
+        <item quantity="one">Vor %d Stunde</item>
+        <item quantity="other">Vor %d Stunden</item>
     </plurals>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">Inhalte von %1$d Datei konnten nicht synchronisiert werden (Konflikte: %2$d)</item>

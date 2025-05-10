@@ -1115,6 +1115,21 @@
         <item quantity="many">%d minutos</item>
         <item quantity="other">%d minutos</item>
     </plurals>
+    <plurals name="time_seconds_ago">
+        <item quantity="one">há %d segundo</item>
+        <item quantity="many">há %d segundos</item>
+        <item quantity="other">há %d segundos</item>
+    </plurals>
+    <plurals name="time_minutes_ago">
+        <item quantity="one">há %d minuto</item>
+        <item quantity="many">há %d minutos</item>
+        <item quantity="other">há %d minutos</item>
+    </plurals>
+    <plurals name="time_hours_ago">
+        <item quantity="one">há %d hora</item>
+        <item quantity="many">há %d horas</item>
+        <item quantity="other">há %d horas</item>
+    </plurals>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">Erro ao sincronizar %1$d arquivo (conflitos: %2$d)</item>
         <item quantity="many">Erro ao sincronizar %1$d arquivos (conflitos: %2$d)</item>
