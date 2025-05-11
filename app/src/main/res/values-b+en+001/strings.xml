@@ -203,6 +203,7 @@
     <string name="contacts_backup_button">Back up now</string>
     <string name="contacts_preferences_backup_scheduled">Backup scheduled and will start shortly</string>
     <string name="contacts_preferences_import_scheduled">Import scheduled and will start shortly</string>
+    <string name="contacts_preferences_import_scheduled_fail">Import failed to start. Please try again</string>
     <string name="contacts_preferences_no_file_found">No file found</string>
     <string name="contacts_preferences_something_strange_happened">Could not find your last backup!</string>
     <string name="copied_to_clipboard">Copied to clipboard</string>
@@ -1111,6 +1112,18 @@
     <plurals name="minutes">
         <item quantity="one">%d minute</item>
         <item quantity="other">%d minutes</item>
+    </plurals>
+    <plurals name="time_seconds_ago">
+        <item quantity="one">%d second ago</item>
+        <item quantity="other">%d seconds ago</item>
+    </plurals>
+    <plurals name="time_minutes_ago">
+        <item quantity="one">%d minute ago</item>
+        <item quantity="other">%d minutes ago</item>
+    </plurals>
+    <plurals name="time_hours_ago">
+        <item quantity="one">%d hour ago</item>
+        <item quantity="other">%d hours ago</item>
     </plurals>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">Could not sync %1$d file (conflicts: %2$d)</item>

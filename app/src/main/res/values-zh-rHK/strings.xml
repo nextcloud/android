@@ -203,6 +203,7 @@
     <string name="contacts_backup_button">立刻備份</string>
     <string name="contacts_preferences_backup_scheduled">備份已排定並且會盡快開始</string>
     <string name="contacts_preferences_import_scheduled">匯入已排定並且會盡快開始</string>
+    <string name="contacts_preferences_import_scheduled_fail">匯入無法開始。請再試一次</string>
     <string name="contacts_preferences_no_file_found">無檔案</string>
     <string name="contacts_preferences_something_strange_happened">找不到您最新的備份</string>
     <string name="copied_to_clipboard">已複製到剪貼板</string>
@@ -1109,6 +1110,15 @@
     </plurals>
     <plurals name="minutes">
         <item quantity="other">%d 分鐘</item>
+    </plurals>
+    <plurals name="time_seconds_ago">
+        <item quantity="other">%d 秒前</item>
+    </plurals>
+    <plurals name="time_minutes_ago">
+        <item quantity="other">%d 分鐘前</item>
+    </plurals>
+    <plurals name="time_hours_ago">
+        <item quantity="other">%d 小時前</item>
     </plurals>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="other">無法同步 %1$d 檔案（抵觸： %2$d）</item>

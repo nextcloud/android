@@ -1117,6 +1117,24 @@
         <item quantity="many">%d minút</item>
         <item quantity="other">%d minút</item>
     </plurals>
+    <plurals name="time_seconds_ago">
+        <item quantity="one">pred %d sekundou</item>
+        <item quantity="few">pred %d sekundami</item>
+        <item quantity="many">pred %d sekundami</item>
+        <item quantity="other">pred %d sekundami</item>
+    </plurals>
+    <plurals name="time_minutes_ago">
+        <item quantity="one">pred %d minútou</item>
+        <item quantity="few">pred %d minútami</item>
+        <item quantity="many">pred %d minútami</item>
+        <item quantity="other">pred %d minútami</item>
+    </plurals>
+    <plurals name="time_hours_ago">
+        <item quantity="one">pred %d hodinou</item>
+        <item quantity="few">pred %d hodinami</item>
+        <item quantity="many">pred %d hodinami</item>
+        <item quantity="other">pred %d hodinami</item>
+    </plurals>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">Nie je možné synchronizovať %1$d súbor (konflikty: %2$d)</item>
         <item quantity="few">Nie je možné synchronizovať %1$d súbory (konflikty: %2$d)</item>
