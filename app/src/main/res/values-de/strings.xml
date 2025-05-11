@@ -1083,7 +1083,7 @@
     <string name="user_info_address">Adresse</string>
     <string name="user_info_email">E-Mail</string>
     <string name="user_info_phone">Telefonnummer</string>
-    <string name="user_info_twitter">Twitter</string>
+    <string name="user_info_twitter">X</string>
     <string name="user_info_website">Webseite</string>
     <string name="user_information_retrieval_error">Fehler beim Laden der Nutzer-Informationen</string>
     <string name="userinfo_no_info_headline">Keine persönlichen Infos eingestellt</string>
