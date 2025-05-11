@@ -1209,6 +1209,7 @@
     <string name="pdf_zoom_tip">Tap on a page to zoom in</string>
     <string name="storage_permission_full_access">Full access</string>
     <string name="storage_permission_media_read_only">Media read-only</string>
+    <string name="storage_permission_dont_ask_again">Don\'t ask again</string>
     <string name="subtitle_photos_videos">Photos and videos</string>
     <string name="show_images">Show photos</string>
     <string name="subtitle_photos_only">Photos only</string>
