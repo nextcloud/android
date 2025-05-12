@@ -7,12 +7,10 @@
 
 package com.owncloud.android.utils;
 
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 import org.lukhnos.nnio.file.FileVisitResult;
 import org.lukhnos.nnio.file.Path;
-import org.lukhnos.nnio.file.Paths;
 import org.lukhnos.nnio.file.SimpleFileVisitor;
 import org.lukhnos.nnio.file.attribute.BasicFileAttributes;
 import org.mockito.Mock;
@@ -23,7 +21,6 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.util.Arrays;
 
 import static com.owncloud.android.utils.FilesSyncHelper.walkFileTreeRandomly;
 import static org.junit.Assert.fail;

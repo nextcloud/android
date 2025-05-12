@@ -53,7 +53,7 @@
     <string name="assistant_screen_loading">Lade Aufgabenliste…</string>
     <string name="assistant_screen_no_task_available_text">Für den Aufgabentyp %s ist keine Aufgabe verfügbar. Sie können unten rechts eine neue Aufgabe erstellen.</string>
     <string name="assistant_screen_task_create_fail_message">Es ist ein Fehler beim Erstellen der Aufgabe aufgetreten</string>
-    <string name="assistant_screen_task_create_success_message">Aufgabe erfolgreich erstellt</string>
+    <string name="assistant_screen_task_create_success_message">Aufgabe erstellt</string>
     <string name="assistant_screen_task_delete_fail_message">Es ist ein Fehler beim Löschen der Aufgabe aufgetreten</string>
     <string name="assistant_screen_task_delete_success_message">Aufgabe gelöscht</string>
     <string name="assistant_screen_task_list_empty_message">Aufgabenliste ist leer.</string>
@@ -91,7 +91,7 @@
     <string name="auth_unknown_error_exception_title">Unbekannter Fehler: %1$s</string>
     <string name="auth_unknown_error_http_title">Es ist ein unbekannter HTTP-Fehler aufgetreten!</string>
     <string name="auth_unknown_error_title">Es ist ein unbekannter Fehler aufgetreten.</string>
-    <string name="auth_unknown_host_title">Konnte den Host nicht finden</string>
+    <string name="auth_unknown_host_title">Host konnte nicht gefunden werden</string>
     <string name="auth_unsupported_multiaccount">%1$s unterstützt nicht mehrere Benutzerkonten</string>
     <string name="auth_wrong_connection_title">Verbindung konnte nicht hergestellt werden</string>
     <string name="authenticator_activity_cancel_login">Anmelden abbrechen</string>
@@ -132,7 +132,7 @@
     <string name="choose_template_helper_text">Bitte eine Vorlage auswählen und einen Dateinamen eingeben.</string>
     <string name="choose_which_file">Wählen Sie, welche Datei behalten werden soll!</string>
     <string name="choose_widget">Widget auswählen</string>
-    <string name="clear_notifications_failed">Löschen der Benachrichtigungen fehlgeschlagen.</string>
+    <string name="clear_notifications_failed">Benachrichtigungen konnten nicht gelöscht werden</string>
     <string name="clear_status_message">Statusnachricht löschen</string>
     <string name="clear_status_message_after">Statusnachricht löschen nach</string>
     <string name="click_to_learn_how_to_re_enable_auto_uploads">Manueller Eingriff erforderlich, um das automatische Hochladen wieder zu aktivieren</string>
@@ -214,8 +214,8 @@
     <string name="copy_link">Link kopieren</string>
     <string name="copy_move_to_encrypted_folder_not_supported">In verschlüsselten Ordner kopieren/verschieben wird aktuell nicht unterstützt.</string>
     <string name="could_not_download_image">Originalbild konnte nicht heruntergeladen werden</string>
-    <string name="could_not_retrieve_shares">Konnte die Freigaben nicht abrufen</string>
-    <string name="could_not_retrieve_url">Konnte URL nicht abrufen</string>
+    <string name="could_not_retrieve_shares">Freigaben konnten nicht abgerufen werden</string>
+    <string name="could_not_retrieve_url">URL konnte nicht abgerufen werden</string>
     <string name="create">Erstellen</string>
     <string name="create_dir_fail_msg">Verzeichnis konnte nicht erstellt werden</string>
     <string name="create_link">Link erstellen</string>
@@ -230,8 +230,8 @@
     <string name="daily_backup">Tägliche Sicherung</string>
     <string name="data_to_back_up">Zu sichernde Daten</string>
     <string name="default_credentials_wrong">Zugangsdaten falsch</string>
-    <string name="delete_account">Benutzerkonto löschen</string>
-    <string name="delete_entries">Einträgen entfernen</string>
+    <string name="delete_account">Konto entfernen</string>
+    <string name="delete_entries">Einträge löschen</string>
     <string name="delete_link">Link löschen</string>
     <string name="deselect_all">Auswahl aufheben</string>
     <string name="destination_filename">Ziel-Dateiname</string>
@@ -305,7 +305,7 @@
     <string name="email_pick_failed">E-Mail-Adresse konnte nicht ausgewählt werden.</string>
     <string name="encrypted">Als verschlüsselt festlegen</string>
     <string name="end_to_end_encryption_certificate_unavailable">Serverzertifikat kann nicht abgerufen werden</string>
-    <string name="end_to_end_encryption_certificate_verification_failed">Überprüfung des öffentlichen Schlüssels fehlgeschlagen</string>
+    <string name="end_to_end_encryption_certificate_verification_failed">Der öffentliche Schlüssel konnte nicht verifiziert werden.</string>
     <string name="end_to_end_encryption_confirm_button">Verschlüsselung einrichten</string>
     <string name="end_to_end_encryption_decrypting">Entschlüssele…</string>
     <string name="end_to_end_encryption_dialog_close">Schließen</string>
@@ -341,7 +341,7 @@
     <string name="error_showing_encryption_dialog">Fehler beim Anzeigen des Setup-Dialogs für Verschlüsselung!</string>
     <string name="error_starting_direct_camera_upload">Fehler beim Starten der Kamera</string>
     <string name="error_starting_doc_scan">Start des Dokumentenscans fehlgeschlagen</string>
-    <string name="error_uploading_direct_camera_upload">Fehler beim Hochladen aufgenommener Medien</string>
+    <string name="error_uploading_direct_camera_upload">Aufgenommene Medien konnten nicht hochgeladen werden</string>
     <string name="etm_accounts">Konten</string>
     <string name="etm_background_execution_count">Zeit gelaufen in 48 Stunden</string>
     <string name="etm_background_job_created">Erzeugt</string>
@@ -369,8 +369,8 @@
     <string name="external_shares">Externe Freigaben</string>
     <string name="fab_label">Hinzufügen oder hochladen</string>
     <string name="failed_to_download">Datei konnte nicht an den Downloadmanager übergeben werden</string>
-    <string name="failed_to_print">Drucken der Datei fehlgeschlagen</string>
-    <string name="failed_to_start_editor">Starten des Editors fehlgeschlagen</string>
+    <string name="failed_to_print">Datei konnte nicht gedruckt werden</string>
+    <string name="failed_to_start_editor">Editor konnte nicht gestartet werden</string>
     <string name="failed_update_ui">Oberfläche konnte nicht aktualisiert werden</string>
     <string name="favorite">Zu den Favoriten hinzufügen</string>
     <string name="favorite_icon">Favoriten</string>
@@ -379,7 +379,7 @@
     <string name="file_delete">Löschen</string>
     <string name="file_detail_activity_error">Fehler beim Abrufen der Aktivitäten für die Datei</string>
     <string name="file_detail_sharing_fragment_no_contact_app_message">Keine App zum Auswählen von Kontakten verfügbar</string>
-    <string name="file_details_no_content">Fehler beim Laden der Details</string>
+    <string name="file_details_no_content">Details konnten nicht geladen werden</string>
     <string name="file_icon">Datei</string>
     <string name="file_keep">Behalten</string>
     <string name="file_list_empty">Laden Sie Inhalt hoch oder synchronisieren Sie mit Ihren Geräten.</string>
@@ -416,7 +416,7 @@
     <string name="file_migration_failed_not_readable">Quelldatei kann nicht gelesen werden</string>
     <string name="file_migration_failed_not_writable">Für das Ziel existieren keine Schreibrechte</string>
     <string name="file_migration_failed_while_coping">Migration fehlgeschlagen</string>
-    <string name="file_migration_failed_while_updating_index">Aktualisierung des Index fehlgeschlagen</string>
+    <string name="file_migration_failed_while_updating_index">Index konnte nicht aktualisiert werden</string>
     <string name="file_migration_free_space">%1$s\n(%2$s / %3$s)</string>
     <string name="file_migration_migrating">Verschiebe Daten…</string>
     <string name="file_migration_ok_finished">Abgeschlossen</string>
@@ -442,7 +442,7 @@
     <string name="file_upload_worker_error_notification_title">Upload fehlgeschlagen. Keine Internetverbindung</string>
     <string name="file_upload_worker_same_file_already_exists">Dieselbe Datei existiert bereits, kein Konflikt erkannt</string>
     <string name="file_version_restored_error">Fehler beim Wiederherstellen der Dateiversion!</string>
-    <string name="file_version_restored_successfully">Dateiversion erfolgreich wiederhergestellt</string>
+    <string name="file_version_restored_successfully">Dateiversion wiederhergestellt</string>
     <string name="filedetails_details">Details</string>
     <string name="filedetails_download">Herunterladen</string>
     <string name="filedetails_export">Exportieren</string>
@@ -551,7 +551,7 @@
     <string name="manage_space_title">Verwalte Speicherplatz</string>
     <string name="max_file_count_warning_message">Sie haben die maximale Anzahl an Datei-Uploads erreicht. Bitte laden Sie weniger als 500 Dateien gleichzeitig hoch.</string>
     <string name="media_err_invalid_progressive_playback">Die Mediendatei kann nicht gestreamt werden</string>
-    <string name="media_err_io">Konnte die Mediendatei nicht lesen</string>
+    <string name="media_err_io">Die Mediendatei konnte nicht gelesen werden</string>
     <string name="media_err_malformed">Mediendatei ist nicht korrekt encodiert</string>
     <string name="media_err_timeout">Wartezeit beim Abspielversuch abgelaufen</string>
     <string name="media_err_unknown">Der interne Player kann die Mediendatei nicht abspielen</string>
@@ -583,18 +583,18 @@
     <string name="new_notification">Neue Benachrichtigung</string>
     <string name="new_version_was_created">Neue Version erstellt</string>
     <string name="no_actions">Keine Aktionen für diesen Benutzer</string>
-    <string name="no_browser_available">Keine App verfügbar um Links zu öffnen</string>
+    <string name="no_browser_available">Keine App zum Öffnen von Links verfügbar</string>
     <string name="no_calendar_exists">Es existieren keine Kalender</string>
     <string name="no_email_app_available">Keine App verfügbar, um E-Mail-Adressen zu verarbeiten</string>
     <string name="no_items">Keine Elemente</string>
     <string name="no_map_app_availble">Keine App zur Kartenverwaltung verfügbar</string>
     <string name="no_mutliple_accounts_allowed">Nur ein Konto zulässig</string>
-    <string name="no_pdf_app_available">Keine App verfügbar um PDFs anzuzeigen</string>
+    <string name="no_pdf_app_available">Keine App zum Öffnen von PDFs verfügbar</string>
     <string name="no_send_app">Keine App zum Senden der ausgewählten Dateien verfügbar</string>
     <string name="no_share_permission_selected">Bitte mindestens eine Berechtigung zum Teilen auswählen.</string>
     <string name="note_could_not_sent">Notiz konnte nicht versandt werden</string>
     <string name="note_icon_hint">Notiz-Symbol</string>
-    <string name="notification_action_failed">Ausführen der Aktion fehlgeschlagen.</string>
+    <string name="notification_action_failed">Aktion konnte nicht ausgeführt werden</string>
     <string name="notification_channel_background_operations_description">Benachrichtigungen anzeigen, um auf die Ergebnisse von Hintergrundoperationen zu reagieren</string>
     <string name="notification_channel_background_operations_name">Hintergrundvorgänge</string>
     <string name="notification_channel_download_description">Zeigt den Herunterlade-Fortschritt an</string>
@@ -640,7 +640,7 @@
     <string name="pass_code_stored">PIN gespeichert</string>
     <string name="pass_code_wrong">PIN nicht korrekt</string>
     <string name="pdf_password_protected">Passwortgeschützte PDF-Datei konnte nicht geöffnet werden. Bitte verwenden Sie einen externen PDF-Viewer.</string>
-    <string name="pdf_zoom_tip">Auf eine Seite klicken um hereinzuzoomen</string>
+    <string name="pdf_zoom_tip">Auf eine Seite klicken, um hereinzuzoomen</string>
     <string name="permission_allow">Zulassen</string>
     <string name="permission_deny">Ablehnen</string>
     <string name="permission_storage_access">Sie haben nicht die erforderlichen Rechte, um Dateien hoch- oder herunterzuladen.</string>
@@ -755,7 +755,7 @@
     <string name="remove_fail_msg">Löschung fehlgeschlagen</string>
     <string name="remove_local_account">Lokales Konto entfernen</string>
     <string name="remove_local_account_details">Das Konto vom Gerät entfernen und alle lokalen Dateien löschen</string>
-    <string name="remove_notification_failed">Entfernen der Benachrichtigungen fehlgeschlagen.</string>
+    <string name="remove_notification_failed">Benachrichtigungen konnten nicht entfernt werden</string>
     <string name="remove_push_notification">Entfernen</string>
     <string name="remove_success_msg">Gelöscht</string>
     <string name="rename_dialog_title">Geben Sie einen neuen Namen ein</string>
@@ -772,7 +772,7 @@
     <string name="restore_selected">Ausgewählte wiederherstellen</string>
     <string name="retrieving_file">Abrufen der Datei…</string>
     <string name="retry">Wiederholen</string>
-    <string name="richdocuments_failed_to_load_document">Laden des Dokuments fehlgeschlagen!</string>
+    <string name="richdocuments_failed_to_load_document">Das Dokument konnte nicht geladen werden!</string>
     <string name="scanQR_description">Anmelden mit QR-Code</string>
     <string name="scan_page">Seite scannen</string>
     <string name="screenshot_01_gridView_heading">Schützt Ihre Daten</string>
@@ -1083,7 +1083,7 @@
     <string name="user_info_address">Adresse</string>
     <string name="user_info_email">E-Mail</string>
     <string name="user_info_phone">Telefonnummer</string>
-    <string name="user_info_twitter">Twitter</string>
+    <string name="user_info_twitter">X</string>
     <string name="user_info_website">Webseite</string>
     <string name="user_information_retrieval_error">Fehler beim Laden der Nutzer-Informationen</string>
     <string name="userinfo_no_info_headline">Keine persönlichen Infos eingestellt</string>
@@ -1114,15 +1114,15 @@
         <item quantity="other">%d Minuten</item>
     </plurals>
     <plurals name="time_seconds_ago">
-        <item quantity="one">Vor 1 Sekunde</item>
+        <item quantity="one">Vor %d Sekunde</item>
         <item quantity="other">Vor %d Sekunden</item>
     </plurals>
     <plurals name="time_minutes_ago">
-        <item quantity="one">Vor 1 Minute</item>
+        <item quantity="one">Vor %d Minute</item>
         <item quantity="other">Vor %d Minuten</item>
     </plurals>
     <plurals name="time_hours_ago">
-        <item quantity="one">Vor 1 Stunde</item>
+        <item quantity="one">Vor %d Stunde</item>
         <item quantity="other">Vor %d Stunden</item>
     </plurals>
     <plurals name="sync_fail_in_favourites_content">
@@ -1130,7 +1130,7 @@
         <item quantity="other">Inhalte von %1$d Dateien konnten nicht synchronisiert werden (Konflikte: %2$d)</item>
     </plurals>
     <plurals name="sync_foreign_files_forgotten_content">
-        <item quantity="one">%1$d Datei im %2$s-Verzeichnis konnten nicht kopiert werden nach </item>
+        <item quantity="one">%1$d Datei im %2$s-Verzeichnis konnte nicht kopiert werden nach </item>
         <item quantity="other">%1$d Dateien im %2$s-Verzeichnis konnten nicht kopiert werden nach </item>
     </plurals>
     <plurals name="wrote_n_events_to">

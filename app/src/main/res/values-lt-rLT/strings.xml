@@ -41,12 +41,19 @@
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Įrašykite kokį nors tekstą</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Ar tikrai norite ištrinti šią užduotį?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Ištrinti užduotį</string>
+    <string name="assistant_screen_loading">Įkeliamas užduočių sąrašas…</string>
+    <string name="assistant_screen_no_task_available_text">Nėra užduoties tipo %s . Galite sukurti naują užduotį apačioje dešinėje.</string>
     <string name="assistant_screen_task_create_fail_message">Kuriant užduotį, įvyko klaida</string>
     <string name="assistant_screen_task_create_success_message">Užduotis sėkmingai sukurta</string>
     <string name="assistant_screen_task_delete_fail_message">Ištrinant užduotį, įvyko klaida</string>
     <string name="assistant_screen_task_delete_success_message">Užduotis sėkmingai ištrinta</string>
+    <string name="assistant_screen_task_list_empty_message">Užduočių sąrašas tuščias.</string>
     <string name="assistant_screen_task_list_error_state_message">Nepavyko gauti užduočių sąrašo, patikrinkite savo interneto ryšį.</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">Ištrinti užduotį</string>
+    <string name="assistant_screen_task_output_empty_text">Išvestis dar neparuošta.</string>
+    <string name="assistant_screen_task_types_error_state_message">Negalima gauti užduočių tipų. Patikrinkite interneto ryšį.</string>
+    <string name="assistant_screen_top_bar_title">Asistentas.</string>
+    <string name="assistant_task_detail_screen_input_button_title">Įvestis</string>
     <string name="assistant_task_detail_screen_output_button_title">Išvestis</string>
     <string name="associated_account_not_found">Susieta paskyra nerasta!</string>
     <string name="auth_access_failed">Prieiga nepavyko: %1$s</string>
@@ -95,6 +102,7 @@
     <string name="battery_optimization_message">Gali būti, kad Jūsų įrenginyje įjungta akumuliatriaus energijos naudojimo optimizacija. Automatinis įkėlimas tinkamai veikia tik tuo atveju, jei iš jo pašalinsite šią programą.
  </string>
     <string name="battery_optimization_title">Akumuliatoriaus energijos optimizacija</string>
+    <string name="bottom_navigation_menu_assistant_label">Asistentas.</string>
     <string name="bottom_navigation_menu_favorites_label">Mėgstami</string>
     <string name="bottom_navigation_menu_files_label">Visi failai</string>
     <string name="bottom_navigation_menu_media_label">Medija</string>
@@ -236,6 +244,7 @@
     <string name="drawer_header_background">Stalčiaus antraštės foninis paveikslas</string>
     <string name="drawer_item_activities">Veiklos</string>
     <string name="drawer_item_all_files">Visi failai</string>
+    <string name="drawer_item_assistant">Asistentas.</string>
     <string name="drawer_item_favorites">Mėgstami</string>
     <string name="drawer_item_gallery">Medija</string>
     <string name="drawer_item_home">Namai</string>
@@ -254,6 +263,7 @@
     <string name="e2e_hash_not_found">Maiša nerasta</string>
     <string name="e2e_offline">Neįmanoma, kai nėra interneto ryšio</string>
     <string name="e2e_signature_does_not_match">Parašas nesutampa</string>
+    <string name="ecosystem_apps_display_assistant">Asistentas.</string>
     <string name="ecosystem_apps_display_more">Daugiau</string>
     <string name="ecosystem_apps_more">Daugiau Nextcloud programėlių</string>
     <string name="email_pick_failed">Nepavyko pasirinkti el. pašto adreso.</string>
@@ -375,6 +385,7 @@
     <string name="filedetails_download">Atsisiųsti</string>
     <string name="filedetails_export">Eksportuoti</string>
     <string name="filedetails_renamed_in_upload_msg">Failas pervadintas kaip %1$s įkėlimo metu</string>
+    <string name="filedetails_sync_file">Sinchronizuoti</string>
     <string name="filedisplay_no_file_selected">Neįkeltas joks failas</string>
     <string name="filename_empty">Failo pavadinimas negali būti tuščias</string>
     <string name="filename_forbidden_characters">Neleistini simboliai: / \\ &lt; &gt; : \" | ? *</string>
@@ -421,6 +432,7 @@
     <string name="instant_upload_existing">Taip pat įkelkite esamus failus</string>
     <string name="instant_upload_on_charging">Įkelti failus tik kai kraunasi</string>
     <string name="instant_upload_path">/InstantUpload</string>
+    <string name="internal_two_way_sync">Vidinis dvipusis sinchronizavimas</string>
     <string name="invalid_url">Neteisingas URL</string>
     <string name="invisible">Nematoma</string>
     <string name="label_empty">Etiketė negali būti tuščia</string>
@@ -459,6 +471,7 @@
     <string name="manage_space_clear_data">Išvalyti duomenis</string>
     <string name="manage_space_description">Nustatymai, duomenų bazė ir serverio sertifikatai iš %1$s duomenų bus ištrinti negrįžtamai. \n\nAtsisiųsti failai bus išsaugoti.\n\nŠis procesas gali užtrukti.</string>
     <string name="manage_space_title">Tvarkyti vietą</string>
+    <string name="max_file_count_warning_message">Pasiektas įkeliamų failų limitas. Kelkite mažiau nei 500 failų.</string>
     <string name="media_err_invalid_progressive_playback">Medijos failas negali būti transliuojamas</string>
     <string name="media_err_io">Nepavyko perskaityti medijos failo.
 </string>
@@ -560,6 +573,7 @@
     <string name="prefs_category_dev">Dev</string>
     <string name="prefs_category_general">Bendra</string>
     <string name="prefs_category_more">Daugiau</string>
+    <string name="prefs_category_sync">Sinchronizuoti</string>
     <string name="prefs_daily_contact_backup_summary">Kasdieninė Jūsų kontaktų atsarginė kopija</string>
     <string name="prefs_e2e_mnemonic">E2E mnemoninis</string>
     <string name="prefs_e2e_no_device_credentials">Norėdami parodyti \"mnemoniką\", įjunkite įrenginio prisijungimo duomenis.</string>
@@ -588,6 +602,9 @@
     <string name="prefs_synced_folders_local_path_title">Aplankas vietinis</string>
     <string name="prefs_synced_folders_remote_path_title">Nuotolinis aplankas</string>
     <string name="prefs_theme_title">Apipavidalinimas</string>
+    <string name="prefs_two_way_sync_interval">Intervalas.</string>
+    <string name="prefs_two_way_sync_summary">Administruoti vidines dvipusio sinchronizavimo direktorijas</string>
+    <string name="prefs_two_way_sync_switch_title">Įjungti dvipusį sinchronizavimą.</string>
     <string name="prefs_value_theme_dark">Tamsus</string>
     <string name="prefs_value_theme_light">Šviesus</string>
     <string name="prefs_value_theme_system">Pagal sistemą</string>
@@ -603,6 +620,8 @@
     <string name="push_notifications_old_login">Nėra pranešimų dėl pasenusios prisijungimo sesijos. Pasvarstykite galimybę iš naujo pridėti prisijungimo duomenis.</string>
     <string name="push_notifications_temp_error">Stumti pranešimus funkcija šiuo metu negalima</string>
     <string name="qr_could_not_be_read">Nepavyko perskaityti QR kodo!</string>
+    <string name="receive_external_files_activity_start_sync_folder_is_not_exists_message">Direktorija nerasta. Sinchronizacija atšaukta.</string>
+    <string name="receive_external_files_activity_unable_to_find_file_to_upload">Negalima rasti failo įkėlimui.</string>
     <string name="recommend_subject">Išbandykite %1$s savo įrenginyje!</string>
     <string name="recommend_text">Noriu jus paraginti naudoti %1$s savo įrenginyje.\nAtsisiųskite čia: %2$s</string>
     <string name="recommend_urls">%1$s arba %2$s</string>
@@ -672,6 +691,8 @@
     <string name="share_no_password_title">Nustatyti slaptažodį</string>
     <string name="share_password_title">Apsaugota slaptažodžiu</string>
     <string name="share_permission_can_edit">Galima redaguoti</string>
+    <string name="share_permission_file_drop">Failų įkėlimas</string>
+    <string name="share_permission_secure_file_drop">Saugus failų įkėlimas</string>
     <string name="share_permission_view_only">Tik peržiūrėti</string>
     <string name="share_remote_clarification">%1$s (nuotolinis)</string>
     <string name="share_room_clarification">%1$s (pokalbis)</string>
@@ -740,6 +761,8 @@
     <string name="stream">Srautas su ...</string>
     <string name="stream_not_possible_headline">Vidinis perdavimimas negalimas</string>
     <string name="stream_not_possible_message">Prašome, parsisiųskite media arba naudokite išorinę programą.</string>
+    <string name="sub_folder_rule_day">Metai/Mėnesis/Diena</string>
+    <string name="sub_folder_rule_month">Metai/Mėnesis</string>
     <string name="sub_folder_rule_year">Metai</string>
     <string name="subject_shared_with_you">„%1$s“ yra bendrinama su jumis</string>
     <string name="subject_user_shared_with_you">%1$s pradėjo bendrinti su jumis „%2$s“</string>
@@ -747,6 +770,8 @@
     <string name="subtitle_photos_videos">Nuotraukos ir vaizdo įrašai</string>
     <string name="subtitle_videos_only">Tik vaizdo įrašai</string>
     <string name="suggest">Siūlyti</string>
+    <string name="sync">Sinchronizuoti</string>
+    <string name="sync_anyway">Vis tiek sinchronizuoti</string>
     <string name="sync_conflicts_in_favourites_ticker">Rastas konfliktas</string>
     <string name="sync_current_folder_was_removed">Aplanko %1$s nebėra</string>
     <string name="sync_fail_content">Nepavyko sinchronizuoti %1$s</string>
@@ -772,8 +797,9 @@
     <string name="synced_folders_preferences_folder_path">Dėl %1$s</string>
     <string name="synced_folders_type">Tipas</string>
     <string name="synced_icon">Sinchronizuota</string>
-    <string name="tags">Žymės</string>
+    <string name="tags">Žymos</string>
     <string name="terms_of_service_title">Naudojimosi sąlygos</string>
+    <string name="terms_of_services_agree">Sutinku su šiomis sąlygomis</string>
     <string name="test_server_button">Prisijunkite prie serverio</string>
     <string name="thirtyMinutes">30 minučių</string>
     <string name="thisWeek">Šią savaitę</string>
@@ -790,6 +816,9 @@
     <string name="trashbin_file_remove">Ištrinti negrįžtamai</string>
     <string name="trashbin_loading_failed">Nepavyko įkelti šiukšlinės!</string>
     <string name="trashbin_not_emptied">Nepavyko ištrinti failų visam laikui!</string>
+    <string name="two_way_sync_activity_disable_all_button_title">Išjungti visoms direktorijoms</string>
+    <string name="two_way_sync_activity_empty_list_title">Dvipusis sinchronizavimas neįjungtas</string>
+    <string name="two_way_sync_activity_title">Vidinis dvipusis sinchronizavimas</string>
     <string name="unexpected_error_occurred">Įvyko netikėta klaida</string>
     <string name="unlock_file">Atrakinti failą</string>
     <string name="unread_comments">Yra neskaitytų komentarų</string>
@@ -804,8 +833,12 @@
     <string name="update_link_file_no_exist">Nepavyko atnaujinti. Patikrinkite, ar failas egzistuoja.</string>
     <string name="update_link_forbidden_permissions">atnaujinti šį viešinį</string>
     <string name="updating_share_failed">Viešinio atnaujinimas nepavyko</string>
+    <string name="upload_action_cancelled_clear">Ištrinti atšauktus įkėlimus</string>
+    <string name="upload_action_cancelled_resume">Pratęsti atšauktus įkėlimus</string>
     <string name="upload_action_failed_clear">Išvalyti nepavykusius įkėlimus</string>
     <string name="upload_action_failed_retry">Pabandyti iš naujo nepavykusius įkėlimus</string>
+    <string name="upload_action_global_upload_pause">Sustabdyti visus įkėlimus</string>
+    <string name="upload_action_global_upload_resume">Pratęsti visus įkėlimus</string>
     <string name="upload_cannot_create_file">Nepavyksta sukurti vietinį failą</string>
     <string name="upload_chooser_title">Įkelti iš…</string>
     <string name="upload_content_from_other_apps">Įkelti turinį iš kitų programėlių</string>
@@ -826,6 +859,7 @@
     <string name="upload_local_storage_full">Vietinė saugykla pilna</string>
     <string name="upload_local_storage_not_copied">Nepavyko nukopijuoti failo į vietinę saugyklą</string>
     <string name="upload_lock_failed">Nepavyko užrakinti aplanko</string>
+    <string name="upload_manually_cancelled">Įkelimas buvo atšauktas vartotojo</string>
     <string name="upload_old_android">Šifravimas įmanomas tik naudojant &gt;= Android 5.0</string>
     <string name="upload_query_move_foreign_files">Nepakankamas vietos kiekis neleidžia kopijuoti pasirinktų failų į %1$s aplanką. Ar norėtumėte vietoje to juos perkelti?</string>
     <string name="upload_sync_conflict">Sinchronizavimo konfliktas, išspręskite rankiniu būdu</string>

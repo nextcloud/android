@@ -8,8 +8,6 @@
  */
 package com.owncloud.android;
 
-import android.os.NetworkOnMainThreadException;
-
 import com.nextcloud.client.account.UserAccountManagerImpl;
 import com.nextcloud.client.device.BatteryStatus;
 import com.nextcloud.client.device.PowerManagementService;

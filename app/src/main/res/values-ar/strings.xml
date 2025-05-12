@@ -1156,30 +1156,6 @@
         <item quantity="many">%d دقيقة</item>
         <item quantity="other">%d دقيقة</item>
     </plurals>
-    <plurals name="time_seconds_ago">
-        <item quantity="zero">%d ثوانٍ مضت</item>
-        <item quantity="one">1 ثانية مضت</item>
-        <item quantity="two">%d ثوانٍ مضت</item>
-        <item quantity="few">%d ثوانٍ مضت</item>
-        <item quantity="many">%d ثوانٍ مضت</item>
-        <item quantity="other">%d ثوانٍ مضت</item>
-    </plurals>
-    <plurals name="time_minutes_ago">
-        <item quantity="zero">%d دقائق مضت</item>
-        <item quantity="one">1 دقيقة مضت</item>
-        <item quantity="two">%d دقائق مضت</item>
-        <item quantity="few">%d دقائق مضت</item>
-        <item quantity="many">%d دقائق مضت</item>
-        <item quantity="other">%d دقائق مضت</item>
-    </plurals>
-    <plurals name="time_hours_ago">
-        <item quantity="zero">%d ساعات مضت</item>
-        <item quantity="one">1 ساعة مضت</item>
-        <item quantity="two">%d ساعات مضت</item>
-        <item quantity="few">%d ساعات مضت</item>
-        <item quantity="many">%d ساعات مضت</item>
-        <item quantity="other">%d ساعات مضت</item>
-    </plurals>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="zero">تعذرت مزامنة الملفات %1$d (التعارضات:%2$d)</item>
         <item quantity="one">تعذرت مزامنة الملفات %1$d (التعارضات:%2$d)</item>

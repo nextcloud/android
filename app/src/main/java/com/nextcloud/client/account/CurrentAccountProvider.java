@@ -9,7 +9,6 @@ package com.nextcloud.client.account;
 import android.accounts.Account;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 
 /**
  * This interface provides access to currently selected user.

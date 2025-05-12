@@ -473,9 +473,6 @@ public class SyncedFolderProvider extends Observable {
         } else {
             if (cursor == null) {
                 Log_OC.e(TAG, "Sync folder db cursor for remote path = " + remotePath + " in NULL.");
-            } else {
-                Log_OC.e(TAG, cursor.getCount() + " items for remote path = " + remotePath
-                    + " available in sync folder db. Expected 1 or greater than 1. Failed to update sync folder db.");
             }
         }
 

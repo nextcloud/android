@@ -128,15 +128,12 @@ public class SyncedFolderParcelable implements Parcelable {
     }
 
     public Integer getUploadActionInteger() {
-        switch (uploadAction) {
-            case FileUploadWorker.LOCAL_BEHAVIOUR_FORGET:
-                return 0;
-            case FileUploadWorker.LOCAL_BEHAVIOUR_MOVE:
-                return 1;
-            case FileUploadWorker.LOCAL_BEHAVIOUR_DELETE:
-                return 2;
-        }
-        return 0;
+        return switch (uploadAction) {
+            case FileUploadWorker.LOCAL_BEHAVIOUR_FORGET -> 0;
+            case FileUploadWorker.LOCAL_BEHAVIOUR_MOVE -> 1;
+            case FileUploadWorker.LOCAL_BEHAVIOUR_DELETE -> 2;
+            default -> 0;
+        };
     }
 
     public void setUploadAction(String uploadAction) {

@@ -254,19 +254,12 @@ public abstract class AbstractIT {
             file.mkdirs();
             return file;
         } else {
-            switch (name) {
-                case "empty.txt":
-                    return createFile("empty.txt", 0);
-
-                case "nonEmpty.txt":
-                    return createFile("nonEmpty.txt", 100);
-
-                case "chunkedFile.txt":
-                    return createFile("chunkedFile.txt", 500000);
-
-                default:
-                    return createFile(name, 0);
-            }
+            return switch (name) {
+                case "empty.txt" -> createFile("empty.txt", 0);
+                case "nonEmpty.txt" -> createFile("nonEmpty.txt", 100);
+                case "chunkedFile.txt" -> createFile("chunkedFile.txt", 500000);
+                default -> createFile(name, 0);
+            };
         }
     }
 

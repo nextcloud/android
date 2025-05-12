@@ -32,6 +32,7 @@ object StringConstants {
     const val DOT = "."
     const val SPACE = " "
     const val THREE_DOT = "..."
+    const val TEMP = "tmp"
 }
 
 fun String.getContentOfPublicKey(): String {

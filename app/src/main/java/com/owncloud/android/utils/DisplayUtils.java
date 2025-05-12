@@ -277,10 +277,10 @@ public final class DisplayUtils {
     public static String convertIdn(String url, boolean toASCII) {
 
         String urlNoDots = url;
-        String dots = "";
+        StringBuilder dots = new StringBuilder();
         while (urlNoDots.length() > 0 && urlNoDots.charAt(0) == '.') {
             urlNoDots = url.substring(1);
-            dots = dots + ".";
+            dots.append(".");
         }
 
         // Find host name after '//' or '@'
@@ -298,7 +298,7 @@ public final class DisplayUtils {
         String host = urlNoDots.substring(hostStart, hostEnd);
         host = toASCII ? IDN.toASCII(host) : IDN.toUnicode(host);
 
-        return dots + urlNoDots.substring(0, hostStart) + host + urlNoDots.substring(hostEnd);
+        return dots.toString() + urlNoDots.substring(0, hostStart) + host + urlNoDots.substring(hostEnd);
     }
 
     /**
@@ -821,21 +821,14 @@ public final class DisplayUtils {
     }
 
     public static @StringRes int getSortOrderStringId(FileSortOrder sortOrder) {
-        switch (sortOrder.name) {
-            case SORT_Z_TO_A_ID:
-                return R.string.menu_item_sort_by_name_z_a;
-            case SORT_NEW_TO_OLD_ID:
-                return R.string.menu_item_sort_by_date_newest_first;
-            case SORT_OLD_TO_NEW_ID:
-                return R.string.menu_item_sort_by_date_oldest_first;
-            case SORT_BIG_TO_SMALL_ID:
-                return R.string.menu_item_sort_by_size_biggest_first;
-            case SORT_SMALL_TO_BIG_ID:
-                return R.string.menu_item_sort_by_size_smallest_first;
-            case SORT_A_TO_Z_ID:
-            default:
-                return R.string.menu_item_sort_by_name_a_z;
-        }
+        return switch (sortOrder.name) {
+            case SORT_Z_TO_A_ID -> R.string.menu_item_sort_by_name_z_a;
+            case SORT_NEW_TO_OLD_ID -> R.string.menu_item_sort_by_date_newest_first;
+            case SORT_OLD_TO_NEW_ID -> R.string.menu_item_sort_by_date_oldest_first;
+            case SORT_BIG_TO_SMALL_ID -> R.string.menu_item_sort_by_size_biggest_first;
+            case SORT_SMALL_TO_BIG_ID -> R.string.menu_item_sort_by_size_smallest_first;
+            default -> R.string.menu_item_sort_by_name_a_z;
+        };
     }
 
     public static String getDateByPattern(long timestamp, String pattern) {

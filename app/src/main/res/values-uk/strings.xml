@@ -110,7 +110,7 @@
     <string name="autoupload_disable_power_save_check">Вимкнути перевірку режиму енергозаощадження</string>
     <string name="autoupload_hide_folder">Приховати каталог</string>
     <string name="avatar">Світлина</string>
-    <string name="away">Піти</string>
+    <string name="away">Відсутній(-я)</string>
     <string name="backup_settings">Налаштування резервного збереження</string>
     <string name="backup_title">Резервна копія контактів та календаря</string>
     <string name="battery_optimization_close">Закрити</string>
@@ -133,7 +133,7 @@
     <string name="choose_which_file">Виберіть, який файл зберегти!</string>
     <string name="choose_widget">Виберіть віджет</string>
     <string name="clear_notifications_failed">Неможливо очистити сповіщення.</string>
-    <string name="clear_status_message">Очистити повідомлення про стан</string>
+    <string name="clear_status_message">Прибрати статус</string>
     <string name="clear_status_message_after">Очистити повідомлення про стан після</string>
     <string name="click_to_learn_how_to_re_enable_auto_uploads">Потрібна ручна дія для повторного увімкнення автоматичного завантаження.</string>
     <string name="clipboard_label">Текст скопійовано з %1$s</string>
@@ -254,7 +254,7 @@
     <string name="document_scan_pdf_generation_failed">Не вдалося зґенерувати PDF</string>
     <string name="document_scan_pdf_generation_in_progress">Створення PDF...</string>
     <string name="done">Готово</string>
-    <string name="dontClear">Не очистувати</string>
+    <string name="dontClear">Не очищати</string>
     <string name="download_cannot_create_file">Неможливо створити файл на пристрої</string>
     <string name="download_download_invalid_local_file_name">Недійсна назва локального файлу</string>
     <string name="download_latest_dev_version">Отримати останню версію для розробників</string>
@@ -798,7 +798,7 @@
     <string name="set_note">Додати примітку</string>
     <string name="set_picture_as">Використати як</string>
     <string name="set_status">Встановити статус</string>
-    <string name="set_status_message">Встановити повідомлення про стан</string>
+    <string name="set_status_message">Оновити статус</string>
     <string name="setup_e2e">Під час налаштування наскрізного шифрування ви отримаєте парольну фразу з 12 слів, за допомогою якої ви зможете відкривати ваші файлі на інших пристроях. Її буде збережено лише на цьому пристрої та буде показано знову на цьому екрані. Будь ласка, занотуйте цю фразу та збережіть у безпеченому місці!</string>
     <string name="share">Спільний доступ</string>
     <string name="share_copy_link">Поділитися та копіювати посилання</string>
@@ -1113,24 +1113,6 @@
         <item quantity="few">%d хвилини</item>
         <item quantity="many">%d хвилин</item>
         <item quantity="other">%d хвилин</item>
-    </plurals>
-    <plurals name="time_seconds_ago">
-        <item quantity="one">1 секунду тому</item>
-        <item quantity="few">%d секунди тому</item>
-        <item quantity="many">%d секунд тому</item>
-        <item quantity="other">%d секунд тому</item>
-    </plurals>
-    <plurals name="time_minutes_ago">
-        <item quantity="one">1 хвилину тому</item>
-        <item quantity="few">%d хвилини тому</item>
-        <item quantity="many">%d хвилин тому</item>
-        <item quantity="other">%d хвилин тому</item>
-    </plurals>
-    <plurals name="time_hours_ago">
-        <item quantity="one">1 годину тому</item>
-        <item quantity="few">%d години тому</item>
-        <item quantity="many">%d годин тому</item>
-        <item quantity="other">%d годин тому</item>
     </plurals>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">Не вдалося синхронізувати %1$d файл (конфлікти: %2$d)</item>
