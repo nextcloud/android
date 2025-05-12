@@ -1756,7 +1756,7 @@ public class FileDisplayActivity extends FileActivity
             (ActivityExtensionsKt.lastFragment(this) instanceof OCFileListFragment fragment) ? fragment : getListOfFilesFragment();
 
         if (fileListFragment != null) {
-            fileListFragment.listDirectory(currentDir, false, false);
+            fileListFragment.listDirectory(currentDir, MainApp.isOnlyOnDevice(), false);
         }
     }
 

@@ -104,12 +104,16 @@ class RemoveFilesDialogFragment : ConfirmationDialogFragment(), ConfirmationDial
                     fda?.refreshCurrentDirectory()
                 }
             } else {
-                files.forEach { file ->
-                    fileDataStorageManager.addRemoveFileOfflineOperation(
-                        file.decryptedRemotePath,
-                        file.fileName,
-                        file.parentId
-                    )
+                if (onlyLocalCopy) {
+                    fileActivity.fileOperationsHelper?.removeFiles(files, true, false)
+                } else {
+                    files.forEach { file ->
+                        fileDataStorageManager.addRemoveFileOfflineOperation(
+                            file.decryptedRemotePath,
+                            file.fileName,
+                            file.parentId
+                        )
+                    }
                 }
 
                 fda?.refreshCurrentDirectory()
