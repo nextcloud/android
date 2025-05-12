@@ -753,11 +753,13 @@ public class FileDataStorageManager {
      * @see #createContentValuesForFile(OCFile)
      * @see #createContentValuesForFolder(OCFile)
      */
+    @SuppressFBWarnings("CE")
     private ContentValues createContentValuesBase(OCFile fileOrFolder) {
         final ContentValues cv = new ContentValues();
         cv.put(ProviderTableMeta.FILE_MODIFIED, fileOrFolder.getModificationTimestamp());
         cv.put(ProviderTableMeta.FILE_MODIFIED_AT_LAST_SYNC_FOR_DATA, fileOrFolder.getModificationTimestampAtLastSyncForData());
         cv.put(ProviderTableMeta.FILE_PARENT, fileOrFolder.getParentId());
+        cv.put(ProviderTableMeta.FILE_UPLOADED, fileOrFolder.getUploadTimestamp());
         cv.put(ProviderTableMeta.FILE_CREATION, fileOrFolder.getCreationTimestamp());
         cv.put(ProviderTableMeta.FILE_CONTENT_TYPE, fileOrFolder.getMimeType());
         cv.put(ProviderTableMeta.FILE_NAME, fileOrFolder.getFileName());
@@ -1227,6 +1229,7 @@ public class FileDataStorageManager {
             }
         }
         ocFile.setFileLength(nullToZero(fileEntity.getContentLength()));
+        ocFile.setUploadTimestamp(nullToZero(fileEntity.getUploaded()));
         ocFile.setCreationTimestamp(nullToZero(fileEntity.getCreation()));
         ocFile.setModificationTimestamp(nullToZero(fileEntity.getModified()));
         ocFile.setModificationTimestampAtLastSyncForData(nullToZero(fileEntity.getModifiedAtLastSyncForData()));

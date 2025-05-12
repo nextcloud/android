@@ -467,7 +467,7 @@ public class UploadIT extends AbstractOnServerIT {
 
         assertEquals(remotePath, ocFile.getRemotePath());
         assertEquals(creationTimestamp, ocFile.getCreationTimestamp());
-        assertTrue(uploadTimestamp - 10 < ocFile.getUploadTimestamp() ||
+        assertTrue(uploadTimestamp - 10 < ocFile.getUploadTimestamp() &&
                            uploadTimestamp + 10 > ocFile.getUploadTimestamp());
     }
 

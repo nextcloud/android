@@ -25,7 +25,7 @@ import java.util.List;
  */
 public class ProviderMeta {
     public static final String DB_NAME = "filelist";
-    public static final int DB_VERSION = 88;
+    public static final int DB_VERSION = 89;
 
     private ProviderMeta() {
         // No instance
@@ -77,6 +77,7 @@ public class ProviderMeta {
         public static final String FILE_ENCRYPTED_NAME = "encrypted_filename";
         public static final String FILE_CREATION = "created";
         public static final String FILE_MODIFIED = "modified";
+        public static final String FILE_UPLOADED = "uploaded";
         public static final String FILE_MODIFIED_AT_LAST_SYNC_FOR_DATA = "modified_at_last_sync_for_data";
         public static final String FILE_CONTENT_LENGTH = "content_length";
         public static final String FILE_CONTENT_TYPE = "content_type";
@@ -129,6 +130,7 @@ public class ProviderMeta {
             FILE_PARENT,
             FILE_NAME,
             FILE_ENCRYPTED_NAME,
+            FILE_UPLOADED,
             FILE_CREATION,
             FILE_MODIFIED,
             FILE_MODIFIED_AT_LAST_SYNC_FOR_DATA,
