@@ -81,7 +81,6 @@ import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -263,89 +262,94 @@ public class FileOperationsHelper {
         return !launchables.isEmpty();
     }
 
+    private void openRichDocumentFileWithoutAvailableApps(@NonNull OCFile file) {
+        Account account = fileActivity.getAccount();
+        OCCapability capability = fileActivity.getStorageManager().getCapability(account.name);
+        final var richDocumentMimeTypeList = capability.getRichDocumentsMimeTypeList();
+
+        if (richDocumentMimeTypeList != null &&
+            richDocumentMimeTypeList.contains(file.getMimeType()) &&
+            capability.getRichDocumentsDirectEditing().isTrue()) {
+            openFileAsRichDocument(file, fileActivity);
+        } else {
+            DisplayUtils.showSnackMessage(fileActivity, R.string.file_list_no_app_for_file_type);
+        }
+    }
+
     public void openFile(OCFile file) {
-        if (file != null) {
-            final Intent openFileWithIntent = createOpenFileIntent(file);
+        if (file == null) {
+            Log_OC.e(TAG, "Trying to open a NULL OCFile");
+            return;
+        }
 
-            List<ResolveInfo> launchables = fileActivity.getPackageManager().
-                queryIntentActivities(openFileWithIntent, PackageManager.GET_RESOLVED_FILTER);
+        final Intent openFileWithIntent = createOpenFileIntent(file);
 
-            if (launchables.isEmpty()) {
-                Optional<User> optionalUser = fileActivity.getUser();
+        List<ResolveInfo> availableApps = fileActivity.getPackageManager().
+            queryIntentActivities(openFileWithIntent, PackageManager.GET_RESOLVED_FILTER);
 
-                if (optionalUser.isPresent() && editorUtils.isEditorAvailable(optionalUser.get(), file.getMimeType())) {
-                    openFileWithTextEditor(file, fileActivity);
-                } else {
-                    Account account = fileActivity.getAccount();
-                    OCCapability capability = fileActivity.getStorageManager().getCapability(account.name);
-                    if (capability.getRichDocumentsMimeTypeList().contains(file.getMimeType()) &&
-                        capability.getRichDocumentsDirectEditing().isTrue()) {
-                        openFileAsRichDocument(file, fileActivity);
-                        return;
-                    } else {
-                        DisplayUtils.showSnackMessage(fileActivity, R.string.file_list_no_app_for_file_type);
-                        return;
-                    }
+        if (availableApps.isEmpty()) {
+            Optional<User> optionalUser = fileActivity.getUser();
+
+            if (optionalUser.isPresent() && editorUtils.isEditorAvailable(optionalUser.get(), file.getMimeType())) {
+                openFileWithTextEditor(file, fileActivity);
+                return;
+            }
+
+            openRichDocumentFileWithoutAvailableApps(file);
+
+            return;
+        }
+
+        fileActivity.showLoadingDialog(fileActivity.getResources().getString(R.string.sync_in_progress));
+
+        new Thread(() -> {
+            User user = currentAccount.getUser();
+            final var storageManager = new FileDataStorageManager(user, fileActivity.getContentResolver());
+            // a fresh object is needed; many things could have occurred to the file
+            // since it was registered to observe again, assuming that local files
+            // are linked to a remote file AT MOST, SOMETHING TO BE DONE;
+            final var sfo = new SynchronizeFileOperation(file,null, user, true, fileActivity, storageManager, false);
+            final var result = sfo.execute(fileActivity);
+
+            fileActivity.dismissLoadingDialog();
+            if (result.getCode() == RemoteOperationResult.ResultCode.SYNC_CONFLICT) {
+                // ISSUE 5: if the user is not running the app (this is a service!),
+                // this can be very intrusive; a notification should be preferred
+                Intent intent = ConflictsResolveActivity.createIntent(file,
+                                                                      user,
+                                                                      -1,
+                                                                      Intent.FLAG_ACTIVITY_NEW_TASK,
+                                                                      fileActivity);
+                fileActivity.startActivity(intent);
+                return;
+            }
+
+            if (availableApps.isEmpty()) {
+                fileActivity.runOnUiThread(() -> DisplayUtils.showSnackMessage(fileActivity, R.string.file_list_no_app_for_file_type));
+
+                return;
+            }
+
+            if (!result.isSuccess()) {
+                fileActivity.runOnUiThread(() -> DisplayUtils.showSnackMessage(fileActivity, R.string.file_not_synced));
+
+                // Sleep to show snackbar message
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    Log_OC.e(TAG, "Failed to sleep");
                 }
             }
 
-            fileActivity.showLoadingDialog(fileActivity.getResources().getString(R.string.sync_in_progress));
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    User user = currentAccount.getUser();
-                    FileDataStorageManager storageManager =
-                        new FileDataStorageManager(user, fileActivity.getContentResolver());
-                    // a fresh object is needed; many things could have occurred to the file
-                    // since it was registered to observe again, assuming that local files
-                    // are linked to a remote file AT MOST, SOMETHING TO BE DONE;
-                    SynchronizeFileOperation sfo = new SynchronizeFileOperation(file,
-                                                                                null,
-                                                                                user,
-                                                                                true,
-                                                                                fileActivity,
-                                                                                storageManager,
-                                                                                false);
-                    RemoteOperationResult result = sfo.execute(fileActivity);
-                    fileActivity.dismissLoadingDialog();
-                    if (result.getCode() == RemoteOperationResult.ResultCode.SYNC_CONFLICT) {
-                        // ISSUE 5: if the user is not running the app (this is a service!),
-                        // this can be very intrusive; a notification should be preferred
-                        Intent intent = ConflictsResolveActivity.createIntent(file,
-                                                                              user,
-                                                                              -1,
-                                                                              Intent.FLAG_ACTIVITY_NEW_TASK,
-                                                                              fileActivity);
-                        fileActivity.startActivity(intent);
-                    } else {
-                        if (!launchables.isEmpty()) {
-                            try {
-                                if (!result.isSuccess()) {
-                                    DisplayUtils.showSnackMessage(fileActivity, R.string.file_not_synced);
-                                    try {
-                                        Thread.sleep(3000);
-                                    } catch (InterruptedException e) {
-                                        Log_OC.e(TAG, "Failed to sleep");
-                                    }
-                                }
-
-                                openFileWithIntent.setFlags(openFileWithIntent.getFlags() |
-                                                                Intent.FLAG_ACTIVITY_NEW_TASK);
-                                fileActivity.startActivity(openFileWithIntent);
-                            } catch (ActivityNotFoundException exception) {
-                                DisplayUtils.showSnackMessage(fileActivity, R.string.file_list_no_app_for_file_type);
-                            }
-                        } else {
-                            DisplayUtils.showSnackMessage(fileActivity, R.string.file_list_no_app_for_file_type);
-                        }
-                    }
-
+            fileActivity.runOnUiThread(() -> {
+                try {
+                    openFileWithIntent.setFlags(openFileWithIntent.getFlags() | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    fileActivity.startActivity(openFileWithIntent);
+                } catch (ActivityNotFoundException exception) {
+                    DisplayUtils.showSnackMessage(fileActivity, R.string.file_list_no_app_for_file_type);
                 }
-            }).start();
-
-        } else {
-            Log_OC.e(TAG, "Trying to open a NULL OCFile");
-        }
+            });
+        }).start();
     }
 
     public void openFileAsRichDocument(OCFile file, Context context) {
@@ -376,8 +380,8 @@ public class FileOperationsHelper {
     @NonNull
     private Intent createOpenFileIntent(OCFile file) {
         String storagePath = file.getStoragePath();
-        Uri fileUri = getFileUri(file, MainApp.getAppContext().getResources().getStringArray(R.array
-                                                                                                 .ms_office_extensions));
+        Uri fileUri = file.getExposedFileUri(fileActivity);
+
         Intent openFileWithIntent = null;
         int lastIndexOfDot = storagePath.lastIndexOf('.');
         if (lastIndexOfDot >= 0) {
@@ -385,10 +389,7 @@ public class FileOperationsHelper {
             String guessedMimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(fileExt);
             if (guessedMimeType != null) {
                 openFileWithIntent = new Intent(Intent.ACTION_VIEW);
-                openFileWithIntent.setDataAndType(
-                    fileUri,
-                    guessedMimeType
-                                                 );
+                openFileWithIntent.setDataAndType(fileUri, guessedMimeType);
             }
         }
 
@@ -398,25 +399,12 @@ public class FileOperationsHelper {
 
         if (openFileWithIntent == null) {
             openFileWithIntent = new Intent(Intent.ACTION_VIEW);
-            openFileWithIntent.setDataAndType(
-                fileUri,
-                file.getMimeType()
-                                             );
+            openFileWithIntent.setDataAndType(fileUri, file.getMimeType());
         }
 
         openFileWithIntent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-        return openFileWithIntent;
-    }
 
-    private Uri getFileUri(OCFile file, String... officeExtensions) {
-        if (file.getFileName().contains(".") &&
-            Arrays.asList(officeExtensions).contains(file.getFileName().substring(file.getFileName().
-                                                                                      lastIndexOf(".") + 1)) &&
-            !file.getStoragePath().startsWith(MainApp.getAppContext().getFilesDir().getAbsolutePath())) {
-            return file.getLegacyExposedFileUri();
-        } else {
-            return file.getExposedFileUri(fileActivity);
-        }
+        return openFileWithIntent;
     }
 
     public void streamMediaFile(OCFile file) {
@@ -1063,7 +1051,7 @@ public class FileOperationsHelper {
         File cameraFile = createCameraFile(activity, isVideo);
 
         Uri cameraUri = FileProvider.getUriForFile(activity.getApplicationContext(),
-                                                  activity.getResources().getString(R.string.file_provider_authority), cameraFile);
+                                                   activity.getResources().getString(R.string.file_provider_authority), cameraFile);
         intent.putExtra(MediaStore.EXTRA_OUTPUT, cameraUri);
 
         if (intent.resolveActivity(activity.getPackageManager()) != null) {
