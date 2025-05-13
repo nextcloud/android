@@ -467,7 +467,6 @@
     <string name="pref_instant_name_collision_policy_title">מה לעשות אם הקובץ כבר קיים?מה לעשות אם הקובץ קיים?</string>
     <string name="prefs_add_account">הוספת חשבון</string>
     <string name="prefs_calendar_contacts_no_store_error">לא מותקנים F-Droid או Google Play</string>
-    <string name="prefs_calendar_contacts_summary">הגדרת DAVx5 (לשעבר DAVdroid) (v1.3.0+‎) לחשבון הנוכחי</string>
     <string name="prefs_category_about">על אודות</string>
     <string name="prefs_category_details">פרטים</string>
     <string name="prefs_category_dev">פיתוח</string>
@@ -540,7 +539,6 @@
     <string name="screenshot_04_accounts_heading">כל החשבונות שלך</string>
     <string name="screenshot_04_accounts_subline">במקום אחד</string>
     <string name="screenshot_05_autoUpload_heading">העלאה אוטומטית</string>
-    <string name="screenshot_06_davdroid_subline">סנכרון עם DAVx5</string>
     <string name="select_all">בחר הכל</string>
     <string name="select_template">בחירת תבנית</string>
     <string name="send">שליחה</string>

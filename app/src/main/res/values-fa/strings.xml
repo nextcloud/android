@@ -573,7 +573,6 @@
     <string name="prefs_add_account">ایحاد حساب کاربری</string>
     <string name="prefs_calendar_contacts">همگام‌سازی مخاطب‌ها و تقویم</string>
     <string name="prefs_calendar_contacts_no_store_error">" هیچ‌کدام از برنامک‌های F-Droid و Google Play نصب نشده‌اند."</string>
-    <string name="prefs_calendar_contacts_summary">" تنظیم DAVx5 برای حساب جاری(که قبلاً با نام DAVdroid شناخته می‌شد) (v1.3.0 +) "</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">تنظیم همگام‌سازی تقویم و مخاطب‌ها</string>
     <string name="prefs_category_about">درباره</string>
     <string name="prefs_category_details">جزئیات</string>
@@ -583,7 +582,6 @@
     <string name="prefs_category_sync">همگام‌سازی</string>
     <string name="prefs_daily_backup_summary">پشتیبان‌گیری روزانه از مخاطب‌ها و تقویم شما</string>
     <string name="prefs_daily_contact_backup_summary">پشتیبان گیری روزانه از مخاطبین شما</string>
-    <string name="prefs_davx5_setup_error">خطای غیرمنتظره هنگام راه‌اندازی DAVx5 (که قبلاً DAVdroid نامیده می‌شد)</string>
     <string name="prefs_e2e_active">رمزگذاری سرتاسری  راه اندازی شد!</string>
     <string name="prefs_e2e_mnemonic">E2E حفظی</string>
     <string name="prefs_e2e_no_device_credentials">برای نمایش mnemonic ، مجوز دستگاه را فعال کنید.</string>
@@ -677,7 +675,6 @@
     <string name="screenshot_05_autoUpload_heading">بارگذاری خودکار</string>
     <string name="screenshot_05_autoUpload_subline">برای تصاویر و ویدیوهای شما</string>
     <string name="screenshot_06_davdroid_heading">تقویم و مخاطب‌ها</string>
-    <string name="screenshot_06_davdroid_subline">همگام سازی با DAVx5</string>
     <string name="search_error">خطا در دریافت نتایج جستجو</string>
     <string name="secure_share_not_set_up">اشتراک‌گذاری امن برای این حساب تنظیم نشده است</string>
     <string name="select_all">انتخاب همه</string>

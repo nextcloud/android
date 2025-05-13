@@ -669,7 +669,6 @@
     <string name="prefs_add_account">Lisa konto</string>
     <string name="prefs_calendar_contacts">Sünkroniseeri kalendrit ja kontakte</string>
     <string name="prefs_calendar_contacts_no_store_error">F-Droid ega Google Play ei ole paigaldatud</string>
-    <string name="prefs_calendar_contacts_summary">Seadista DAVx⁵ (vana nimega DAVdroid) (v1.3.0+) selle kasutajakonto jaoks</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Kalendri ja kontaktide sünkroniseerimine on seadistatud</string>
     <string name="prefs_category_about">Info</string>
     <string name="prefs_category_details">Üksikasjad</string>
@@ -681,7 +680,6 @@
     <string name="prefs_daily_contact_backup_summary">Igapäevane varundus sinu kontaktidest</string>
     <string name="prefs_data_storage_location">Salvestusruumi asukoht</string>
     <string name="prefs_data_storage_location_summary">Halda salvestusruumi asukohta</string>
-    <string name="prefs_davx5_setup_error">Ootamatu viga DAVx⁵ (varasema nimega DAVdroid) seadistamisel</string>
     <string name="prefs_e2e_active">Läbiv krüptimine on nüüd kasutusel!</string>
     <string name="prefs_e2e_mnemonic">Läbiva krüptimise mnemofraas</string>
     <string name="prefs_e2e_no_device_credentials">Mnemofraasi nägemiseks palun võta kasutusele seadmepõhine autentimine</string>
@@ -786,7 +784,6 @@
     <string name="screenshot_05_autoUpload_heading">Automaatne üleslaadimine</string>
     <string name="screenshot_05_autoUpload_subline">sinu fotode ja videode jaoks</string>
     <string name="screenshot_06_davdroid_heading">Kalender ja kontaktid</string>
-    <string name="screenshot_06_davdroid_subline">Sünkroniseeri DAVx⁵ rakendusega</string>
     <string name="search_error">Viga otsingutulemuste laadimisel</string>
     <string name="secure_share_not_set_up">Selle kasutaja jaoks pole turvaline jagamine seadistatud</string>
     <string name="secure_share_search">Turvaline jagamine…</string>
@@ -897,7 +894,6 @@
     <string name="storage_permission_full_access">Täisõiguslik ligipääs</string>
     <string name="storage_permission_media_read_only">Meedium on vaid lugemisõigustes</string>
     <string name="storage_pictures">Pildid</string>
-    <string name="store_full_desc">Tarbetarkvara sinu serveris ja sinu kontrolli all.\n\nOmadused:\n* Lihtne ja moodne kasutajaliides, mille välimus ühtib serveris seadistatud kujundusega\n* Laadi oma failid üles enda Nextcloudi serverisse\n* Jaga oma faile teistega\n* Hoia oma lemmikfailid ja -kaustad sünkroonis\n* Otsi kõigist kaustadest oma serveris\n* Oma seadmega tehtud piltide ja videode automaatne üleslaadimine\n* Hoia end kursis uuenduste abil\n* Mitme konto kasutamise võimalus\n* Muuda oma andmetele ligipääs turvalisemaks kasutades sõrmejälge või PIN-koodi\n* Lõiming DAVx⁵ rakendusega (vana nimega DAVdroid), mis võimaldab lihtsalt kalender ja kontaktid sünkroonis hoida\n\nTeavita kõigist probleemidest aadressil https://github.com/nextcloud/android/issues ja osale rakenduse kohta käivas arutelus aadressil https://help.nextcloud.com/c/clients/android\n\nKas Nextcloud on sinu jaoks midagi uut? Nextcloud on privaatne failide sünkroniseerimise ja jagamise ning suhtlusserver. Lahendus on vaba tarkvara ja põhineb avatud lähtekoodil ning sa saad selle oma serverisse püsti panna või lasta seda kellelgi teisel teha või osta lahendus valmisteenusena. Nii omad kontrolli oma piltide, kalendri, kontaktandmete, dokumentide ja kõige muu üle.\n\nUuri Nextcloudi kohta aadressil https://nextcloud.com</string>
     <string name="store_full_dev_desc">Tarbetarkvara sinu serveris ja sinu kontrolli all.\nSee on ametlik arendusversioon, milles leidub uut ja testimata funktsionaalsust ning mis võib põhjustada töö katkemist ja andmekadu. Rakenduse see variant sobib kasutajatele, kes on huvitatud testimisest ja soovivad leitud vigadest arendajatele teada anda. Palun ära kasuta seda oma igapäevasteks tegemisteks!\n\nNii tavaversioon kui arendusversioon leiduvad F-Droidis ja sa saad neid paigaldada samaaegselt.</string>
     <string name="store_short_desc">Tarbetarkvara platvorm sinu omas serveris ja sinu kontrolli all</string>
     <string name="store_short_dev_desc">Tarbetarkvara platvorm sinu omas serveris ja sinu kontrolli all (arendusversioon)</string>

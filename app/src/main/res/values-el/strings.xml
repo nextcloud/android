@@ -546,7 +546,6 @@
     <string name="pref_instant_name_collision_policy_title">Τι να κάνετε όταν το αρχείο υπάρχει ήδη;</string>
     <string name="prefs_add_account">Προσθήκη λογαριασμού</string>
     <string name="prefs_calendar_contacts_no_store_error">Δεν είναι εγκατεστημένο το Google Play ή το F-Droid</string>
-    <string name="prefs_calendar_contacts_summary">Ρύθμιση του DAVx5 (γνωστό και ως DAVdroid) (v1.3.0+) για τον παρόν λογαριασμό</string>
     <string name="prefs_category_about">Περί</string>
     <string name="prefs_category_details">Λεπτομέρειες</string>
     <string name="prefs_category_dev">Dev</string>
@@ -635,7 +634,6 @@
     <string name="screenshot_04_accounts_subline">σε ένα σημείο</string>
     <string name="screenshot_05_autoUpload_heading">Αυτόματη μεταφόρτωση</string>
     <string name="screenshot_06_davdroid_heading">Ημερολόγιο και Επαφές</string>
-    <string name="screenshot_06_davdroid_subline">Συγχρονισμός με DAVx5</string>
     <string name="search_error">Σφάλμα λήψης αποτελεσμάτων αναζήτησης</string>
     <string name="select_all">Επιλογή όλων</string>
     <string name="select_media_folder">Επίλεξε φάκελο πολυμέσων</string>
@@ -733,7 +731,6 @@
     <string name="storage_permission_full_access">Πλήρης πρόσβαση </string>
     <string name="storage_permission_media_read_only">Media μόνο για ανάγνωση</string>
     <string name="storage_pictures">Φωτογραφίες</string>
-    <string name="store_full_desc">Η αυτο-φιλοξενούμενη πλατφόρμα παραγωγικότητας που δίνει τον έλεγχο σε εσάς.\n\nΔυνατότητες:\n* Εύκολη, σύγχρονη διεπαφή, κατάλληλη για το θέμα του διακομιστή σας\n* Ανεβάστε αρχεία στον διακομιστή Nextcloud\n* Μοιραστείτε τα με άλλους\n* Διατηρήστε τα αγαπημένα σας αρχεία και φακέλους συγχρονισμένα\n* Αναζήτηση σε όλους τους φακέλους του διακομιστή σας\n* Αυτόματη μεταφόρτωση φωτογραφιών και βίντεο που τραβήξατε από τη συσκευή σας\n* Μείνετε ενημερωμένοι με τις ειδοποιήσεις\n* Υποστήριξη πολλών λογαριασμών\n* Ασφαλής πρόσβαση στα δεδομένα σας με δακτυλικό αποτύπωμα ή PIN\n* Ενσωμάτωση με DAVx5 (παλαιότερα γνωστό ως DAVdroid) για εύκολη ρύθμιση του ημερολογίου και του συγχρονισμού επαφών\n\nΠαρακαλώ αναφέρετε όλα τα προβλήματα στη διεύθυνση https://github.com/nextcloud/android/issues και συζητήστε για αυτήν την εφαρμογή στη διεύθυνση https://help.nextcloud.com/c/clients/android\n\nNew to Nextcloud? Το Nextcloud είναι ένας ιδιωτικός διακομιστής συγχρονισμού και κοινής χρήσης αρχείων και επικοινωνίας. Είναι ένα δωρεάν λογισμικό και μπορείτε να το φιλοξενήσετε μόνοι σας ή να πληρώσετε μια εταιρεία για να το κάνει για εσάς. Με αυτόν τον τρόπο, έχετε τον έλεγχο των φωτογραφιών σας, του ημερολογίου και των δεδομένων των επαφών σας, των εγγράφων σας και οτιδήποτε άλλο.\n\nΡίξτε μια ματιά στο Nextcloud στη διεύθυνση https://nextcloud.com</string>
     <string name="store_full_dev_desc">Η αυτόνομη πλατφόρμα λειτουργικότητας που σας κρατά υπό έλεγχο. \nΑυτή είναι η επίσημη αναπτυξιακή έκδοση, που περιλαμβάνει καθημερινό δείγμα οποιασδήποτε νέας μη δοκιμασμένης λειτουργικότητας, η οποία μπορεί να προκαλέσει αστάθεια και απώλεια δεδομένων. Η εφαρμογή προορίζεται για χρήστες που είναι πρόθυμοι να δοκιμάσουν και να αναφέρουν σφάλματα όταν προκύψουν. Μην το χρησιμοποιείτε για την κανονική εργασία σας! \n\nΗ επίσημη έκδοση dev και η κανονική έκδοση είναι διαθέσιμες στο F-droid και μπορούν να εγκατασταθούν ταυτόχρονα.</string>
     <string name="store_short_desc">Η αυτόνομη πλατφόρμα λειτουργικότητας που σας κρατά υπό έλεγχο.</string>
     <string name="store_short_dev_desc">Η αυτόνομη πλατφόρμα λειτουργικότητας που σας κρατά υπό έλεγχο (προεπισκόπηση έκδοσης dev)</string>

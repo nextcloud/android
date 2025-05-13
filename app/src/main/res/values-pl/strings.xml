@@ -669,7 +669,6 @@
     <string name="prefs_add_account">Dodaj konto</string>
     <string name="prefs_calendar_contacts">Synchronizacja kalendarza i kontaktów</string>
     <string name="prefs_calendar_contacts_no_store_error">Brak w systemie F-Droid i Google Play</string>
-    <string name="prefs_calendar_contacts_summary">Skonfiguruj DAVx5 (wcześniej znany jako DAVdroid) (v1.3.0 +) dla bieżącego konta</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Skonfigurowano synchronizację kalendarza i kontaktów</string>
     <string name="prefs_category_about">O aplikacji</string>
     <string name="prefs_category_details">Szczegóły</string>
@@ -681,7 +680,6 @@
     <string name="prefs_daily_contact_backup_summary">Codzienne tworzenie kopii zapasowej kontaktów</string>
     <string name="prefs_data_storage_location">Miejsce przechowywania danych</string>
     <string name="prefs_data_storage_location_summary">Zarządzaj lokalizacją przechowywania danych</string>
-    <string name="prefs_davx5_setup_error">Nieoczekiwany błąd podczas konfigurowania DAVx5 (wcześniej znanego jako DAVdroid)</string>
     <string name="prefs_e2e_active">Szyfrowanie end-to-end jest skonfigurowane!</string>
     <string name="prefs_e2e_mnemonic">Mnemonik E2E</string>
     <string name="prefs_e2e_no_device_credentials">Aby pokazać mnemonik włącz poświadczenia urządzenia.</string>
@@ -786,7 +784,6 @@
     <string name="screenshot_05_autoUpload_heading">Automatyczne wysyłanie</string>
     <string name="screenshot_05_autoUpload_subline">dla Twoich zdjęć i filmów</string>
     <string name="screenshot_06_davdroid_heading">Kalendarz i kontakty</string>
-    <string name="screenshot_06_davdroid_subline">Synchronizuj z DAVx5</string>
     <string name="search_error">Błąd podczas pobierania wyników wyszukiwania</string>
     <string name="secure_share_not_set_up">Dla tego użytkownika nie skonfigurowano bezpiecznego udostępniania</string>
     <string name="secure_share_search">Bezpieczne udostępnianie…</string>
@@ -897,7 +894,6 @@
     <string name="storage_permission_full_access">Pełny dostęp</string>
     <string name="storage_permission_media_read_only">Multimedia tylko do odczytu</string>
     <string name="storage_pictures">Obrazy</string>
-    <string name="store_full_desc">Oprogramowanie biurowe uruchamiane na własnym serwerze, które daje Ci pełną kontrolę nad swoimi danymi.\n\nCechy:\n* Łatwy, nowoczesny interfejs, dostosowany do wyglądu Twojego serwera\n* Wysyłanie plików na serwer Nextcloud\n* Udostępnianie ich innym\n* Synchronizacja ulubionych plików i katalogów\n* Przeszukiwanie wszystkich katalogów na serwerze\n* Automatyczne przesyłanie zdjęć i filmów zrobionych przez urządzenie\n* Otrzymywanie na bieżąco powiadomień\n* Obsługa wielu kont\n* Bezpieczny dostęp do danych za pomocą odcisku palca lub kodu PIN\n* Integracja z DAVx5 (wcześniej znany jako DAVdroid) dla łatwej konfiguracji kalendarza i synchronizacji kontaktów\n\nZgłaszaj problemy na https://github.com/nextcloud/android/issues i omów tę aplikację na https://help.nextcloud.com/c/clients/android\n\nNie znasz jeszcze Nextcloud? Nextcloud to prywatny serwer do synchronizacji plików i komunikacji. Jest darmowym oprogramowaniem, które możesz utrzymywać samodzielnie lub zapłacić firmie, która zrobi to za Ciebie. Dzięki temu posiadasz pełną kontrolę nad swoimi zdjęciami, kalendarzem, kontaktami, dokumentami i nad wszystkim innym.\n\nSprawdź Nextcloud na https://nextcloud.com</string>
     <string name="store_full_dev_desc">Oprogramowanie biurowe uruchamiane na własnym hostingu, który zapewnia kontrolę.\nJest to oficjalna wersja deweloperska, zawierająca codzienną próbkę każdej nowej niesprawdzonej funkcji, która może powodować niestabilność i utratę danych. Aplikacja jest przeznaczona dla użytkowników chcących przetestować i zgłosić błędy w przypadku ich wystąpienia. Nie używaj jej do ciągłej pracy!\n\nZarówno oficjalna wersja dev jak i zwykła są dostępne na F-droid i mogą być instalowane równocześnie.</string>
     <string name="store_short_desc">Oprogramowanie biurowe uruchamiane na własnym hostingu, który zapewnia kontrolę</string>
     <string name="store_short_dev_desc">Oprogramowanie biurowe uruchamiane na własnym hostingu, które zapewnia kontrolę (wersja deweloperska)</string>

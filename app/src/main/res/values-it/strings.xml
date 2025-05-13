@@ -649,7 +649,6 @@
     <string name="prefs_add_account">Aggiungi account</string>
     <string name="prefs_calendar_contacts">Sincronizza calendario e contatti</string>
     <string name="prefs_calendar_contacts_no_store_error">F-Droid o Google Play non installato</string>
-    <string name="prefs_calendar_contacts_summary">Configura DAVx5 (originariamente conosciuto come DAVdroid) (v1.3.0+) per l\'account corrente</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Sincronizzazione calendario e contatti configurata</string>
     <string name="prefs_category_about">Informazioni</string>
     <string name="prefs_category_details">Dettagli</string>
@@ -661,7 +660,6 @@
     <string name="prefs_daily_contact_backup_summary">Backup giornaliero dei tuoi contatti</string>
     <string name="prefs_data_storage_location">Posizione di archiviazione dei dati</string>
     <string name="prefs_data_storage_location_summary">Gestisci la posizione di archiviazione dei dati</string>
-    <string name="prefs_davx5_setup_error">Errore inaspettato nella configurazione di Davx5 (precedentemente DAVdroid)</string>
     <string name="prefs_e2e_active">La cifratura end-to-end è impostata!</string>
     <string name="prefs_e2e_mnemonic">Codice mnemonico E2E</string>
     <string name="prefs_e2e_no_device_credentials">Per mostrare il codice mnemonico, abilita le credenziali del dispositivo.</string>
@@ -765,7 +763,6 @@
     <string name="screenshot_05_autoUpload_heading">Caricamento automatico</string>
     <string name="screenshot_05_autoUpload_subline">per le tue foto e video</string>
     <string name="screenshot_06_davdroid_heading">Calendario e contatti</string>
-    <string name="screenshot_06_davdroid_subline">Sincronizza con DAVx5</string>
     <string name="search_error">Errore nel recuperare i risultati della ricerca</string>
     <string name="secure_share_not_set_up">La condivisione sicura non è configurata per questo utente</string>
     <string name="secure_share_search">Condivisione sicura...</string>
@@ -871,7 +868,6 @@
     <string name="storage_permission_full_access">Accesso completo</string>
     <string name="storage_permission_media_read_only">Multimediali in sola lettura</string>
     <string name="storage_pictures">Immagini</string>
-    <string name="store_full_desc">La piattaforma di produttività self-hosted che ti mantiene sotto controllo.\n\nCaratteristiche:\n* Interfaccia semplice e moderna, adatta al tema del tuo server\n* Carica file sul tuo server Nextcloud\n* Condividili con altri\n * Mantieni sincronizzati i tuoi file e le tue cartelle preferiti\n* Cerca in tutte le cartelle sul tuo server\n* Caricamento automatico delle foto e dei video acquisiti dal tuo dispositivo\n* Tieniti aggiornato con le notifiche\n* Supporto per più account\n* Accesso sicuro ai tuoi dati con l\'impronta digitale o PIN\n* Integrazione con DAVx5 (precedentemente noto come DAVdroid) per una facile configurazione della sincronizzazione del calendario e dei contatti\n\nSegnala tutti i problemi su https://github.com/nextcloud/android/issues e discuti questa app su https://help.nextcloud.com/c/clients/android\n\nNuovo su Nextcloud? Nextcloud è un server privato di sincronizzazione, condivisione e comunicazione di file. È un software gratuito e puoi ospitarlo tu stesso o pagare un\'azienda per farlo per te. In questo modo, hai il controllo delle tue foto, del tuo calendario, dei dati di contatto, dei tuoi documenti e di tutto il resto.\n\nDai un\'occhiata a Nextcloud su https://nextcloud.com</string>
     <string name="store_full_dev_desc">La piattaforma di produttività auto-gestita che ti lascia al comando.\nQuesta è la versione di sviluppo ufficiale e include funzionalità nuove, non testate che potrebbero provocare instabilità e perdite di dati. Questa applicazione è pensata per gli utenti che desiderano provare le nuove funzionalità e segnalare bug, se si verificano. Non utilizzarla in ambienti di produzione!\n\nSia la versione di sviluppo che quella normale sono disponibili su F-droid, e possono essere installate contemporaneamente.</string>
     <string name="store_short_desc">La piattaforma di produttività auto-gestita che ti lascia al comando</string>
     <string name="store_short_dev_desc">La piattaforma di produttività auto-gestita che ti lascia al comando (versione in anteprima di sviluppo)</string>

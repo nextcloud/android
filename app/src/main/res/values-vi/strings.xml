@@ -513,7 +513,6 @@
     <string name="pref_instant_name_collision_policy_title">Làm gì nếu tập tin đã tồn tại?</string>
     <string name="prefs_add_account">Thêm tài khoản</string>
     <string name="prefs_calendar_contacts_no_store_error">Không có F-Droid hoặc Google Play nào được cài đặt</string>
-    <string name="prefs_calendar_contacts_summary">Thiết lập DAVx5 (trước kia được biết đến là DAVdroid) (phiên bản 1.3.0+) cho tài khoản hiện tại</string>
     <string name="prefs_category_about">Thông tin</string>
     <string name="prefs_category_details">Chi tiết</string>
     <string name="prefs_category_dev">Phát triển</string>
@@ -596,7 +595,6 @@
     <string name="screenshot_04_accounts_heading">Tất cả các tài khoản của bạn</string>
     <string name="screenshot_04_accounts_subline">ở một nơi</string>
     <string name="screenshot_05_autoUpload_heading">Tải lên tự động</string>
-    <string name="screenshot_06_davdroid_subline">Đồng bộ với DAVx5</string>
     <string name="search_error">Lỗi khi lấy kết quả tìm kiếm</string>
     <string name="select_all">Chọn tất cả</string>
     <string name="select_one_template">Vui lòng chọn một mẫu</string>

@@ -494,7 +494,6 @@
     <string name="prefs_add_account">Agiunghe contu</string>
     <string name="prefs_calendar_contacts">Sincroniza su calendàriu e is cuntatos</string>
     <string name="prefs_calendar_contacts_no_store_error">Nen F-Droid nen Google Play sunt installados</string>
-    <string name="prefs_calendar_contacts_summary">Cunfigura DAVx5 (antis connotu comente DAVdroid) (v1.3.0+) pro custu contu</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Cunfiguratzione de sincronizatzione de calendàriu e cuntatos</string>
     <string name="prefs_category_about">In contu de</string>
     <string name="prefs_category_details">Detàllios</string>
@@ -579,7 +578,6 @@
     <string name="screenshot_05_autoUpload_heading">Carrigamentu automàticu</string>
     <string name="screenshot_05_autoUpload_subline">pro is fotografias e vìdeos tuos</string>
     <string name="screenshot_06_davdroid_heading">Calendàriu e cuntatos</string>
-    <string name="screenshot_06_davdroid_subline">Sincroniza cun DAVx5</string>
     <string name="select_all">Seletziona totu</string>
     <string name="select_media_folder">Cunfigura sa cartella de is elementos multimediales</string>
     <string name="select_one_template">Sèbera unu tema</string>

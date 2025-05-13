@@ -640,7 +640,6 @@
     <string name="prefs_add_account">Afegeix compte</string>
     <string name="prefs_calendar_contacts">Sincronitza el calendari i els contactes</string>
     <string name="prefs_calendar_contacts_no_store_error">Ni F-Droid ni Google Play estan instal·lats</string>
-    <string name="prefs_calendar_contacts_summary">Arranja DAVx5 (conegut anterioment com a DAVdroid) (v1.3.0+) per al compte actual</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Configuració de sincronització de calendari i contactes</string>
     <string name="prefs_category_about">Quant a</string>
     <string name="prefs_category_details">Detalls</string>
@@ -652,7 +651,6 @@
     <string name="prefs_daily_contact_backup_summary">Còpia de seguretat diària dels vostres contactes</string>
     <string name="prefs_data_storage_location">Ubicació de l\'emmagatzematge de dades</string>
     <string name="prefs_data_storage_location_summary">Gestioneu la ubicació de l\'emmagatzematge de dades</string>
-    <string name="prefs_davx5_setup_error">S\'ha produït un error inesperat en configurar DAVx5 (anteriorment anomenat DAVdroid)</string>
     <string name="prefs_e2e_active">S\'ha configurat el xifratge d\'extrem a extrem</string>
     <string name="prefs_e2e_mnemonic">E2E mnemònic</string>
     <string name="prefs_e2e_no_device_credentials">Per mostrar els mnemònics, si us plau habiliteu les credencials del dispositiu.</string>
@@ -745,7 +743,6 @@
     <string name="screenshot_04_accounts_heading">Tots els vostres comptes</string>
     <string name="screenshot_04_accounts_subline">En un sol lloc</string>
     <string name="screenshot_05_autoUpload_heading">Pujada automàtica</string>
-    <string name="screenshot_06_davdroid_subline">Sincronitza amb DAVx5</string>
     <string name="search_error">S\'ha produït un error en obtenir els resultats de la cerca</string>
     <string name="select_all">Selecciona-ho tot</string>
     <string name="select_media_folder">Configura la carpeta multimèdia</string>

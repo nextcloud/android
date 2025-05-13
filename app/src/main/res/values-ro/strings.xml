@@ -628,7 +628,6 @@
     <string name="pref_instant_name_collision_policy_title">Ce să facem dacă fișierul deja există?</string>
     <string name="prefs_add_account">Adaugă cont</string>
     <string name="prefs_calendar_contacts_no_store_error">Nici F-Droid, nici Google Play nu sunt instalate</string>
-    <string name="prefs_calendar_contacts_summary">Setează DAVx5 (cunoscut în trecut ca DAVdroid) (v1.3.0+) pentru acest cont</string>
     <string name="prefs_category_about">Despre</string>
     <string name="prefs_category_details">Detalii</string>
     <string name="prefs_category_dev">Dev</string>
@@ -714,7 +713,6 @@
     <string name="screenshot_04_accounts_heading">Toate conturile tale</string>
     <string name="screenshot_04_accounts_subline">într-un singur loc</string>
     <string name="screenshot_05_autoUpload_heading">Încărcare automată</string>
-    <string name="screenshot_06_davdroid_subline">Sincronizează folosind DAXx5</string>
     <string name="search_error">Eroare la returnarea rezultatelor căutării</string>
     <string name="select_all">Selectează tot</string>
     <string name="select_media_folder">Setează dosarul pentru media</string>

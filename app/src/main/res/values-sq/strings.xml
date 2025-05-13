@@ -416,7 +416,6 @@
     <string name="pref_behaviour_entries_move">u kalua te dosja e aplikacionit</string>
     <string name="prefs_add_account">Shtoni llogari</string>
     <string name="prefs_calendar_contacts_no_store_error">Nuk janë instaluar as Google Play Store as F-Droid</string>
-    <string name="prefs_calendar_contacts_summary">Konfiguro DAVx5 (i njohur më parë si DAVdroid) (v1.3.0+) për llogarinë rrjedhëse</string>
     <string name="prefs_category_about">Rreth </string>
     <string name="prefs_category_details">Hollësi</string>
     <string name="prefs_category_dev">Dev</string>
@@ -487,7 +486,6 @@
     <string name="screenshot_04_accounts_heading">Të gjitha llogaritë tuaja</string>
     <string name="screenshot_04_accounts_subline">në një vend</string>
     <string name="screenshot_05_autoUpload_heading">Ngarkimi automatik</string>
-    <string name="screenshot_06_davdroid_subline">Sinkronizo me DAVx5</string>
     <string name="select_all">Zgjidhi të gjitha</string>
     <string name="select_template">Zgjidh shabllonin</string>
     <string name="send">Dërgo</string>

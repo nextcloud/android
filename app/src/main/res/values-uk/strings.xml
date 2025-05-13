@@ -666,7 +666,6 @@
     <string name="prefs_add_account">Додати обліковий запис</string>
     <string name="prefs_calendar_contacts">Синхронізувати календар та контакти</string>
     <string name="prefs_calendar_contacts_no_store_error">Не встановлено ані F-Droid, ані Google Play</string>
-    <string name="prefs_calendar_contacts_summary">Встановити DAVx5 (раніше відомий як DAVdroid) (v1.3.0+) для цього облікового запису</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Налаштування синхронізації календаря та контактів</string>
     <string name="prefs_category_about">Про застосунок</string>
     <string name="prefs_category_details">Деталі</string>
@@ -678,7 +677,6 @@
     <string name="prefs_daily_contact_backup_summary">Щоденне резервне копіювання ваших контактів</string>
     <string name="prefs_data_storage_location">Місце збереження даних</string>
     <string name="prefs_data_storage_location_summary">Керувати місцем збереження даних</string>
-    <string name="prefs_davx5_setup_error">Неочікувана помилка під час налаштування DAVx5 (раніше відомого як DAVdroid)</string>
     <string name="prefs_e2e_active">Наскрізне шифрування налаштовано!</string>
     <string name="prefs_e2e_mnemonic">Мнемоніка E2E</string>
     <string name="prefs_e2e_no_device_credentials">Щоб показати мнемоніку, будь ласка, активуйте дані авторизації пристрою</string>
@@ -783,7 +781,6 @@
     <string name="screenshot_05_autoUpload_heading">Автоматичне завантаження</string>
     <string name="screenshot_05_autoUpload_subline">для ваших світлин та відеозаписів</string>
     <string name="screenshot_06_davdroid_heading">Календар та контакти</string>
-    <string name="screenshot_06_davdroid_subline">Синхронізувати з DAVx5</string>
     <string name="search_error">Помилка під час отримання результатів</string>
     <string name="secure_share_not_set_up">Безпечну передачу у спільний доступ не налаштовано для цього користувача</string>
     <string name="secure_share_search">Безпечний спільний доступ...</string>
@@ -894,7 +891,6 @@
     <string name="storage_permission_full_access">Повний доступ</string>
     <string name="storage_permission_media_read_only">Мультимедія лише для читання</string>
     <string name="storage_pictures">Зображення</string>
-    <string name="store_full_desc">Власна платформа продуктивності, яка дозволяє вам контролювати.\n\nФункції:\n* Простий, сучасний інтерфейс, який підходить до теми вашого сервера\n* Завантажуйте файли на свій сервер Nextcloud\n* Поділіться ними з іншими\n * Синхронізуйте улюблені файли та папки\n* Шукайте в усіх папках на сервері\n* Автоматичне завантаження фотографій і відео, знятих вашим пристроєм\n* Будьте в курсі подій за допомогою сповіщення\n* Підтримка кількох облікових записів\n* Безпечний доступ до ваших даних за допомогою відбитків пальців або PIN-коду\n* Інтеграція з DAVx5 (раніше відомий як DAVdroid) для легкого налаштування календаря та синхронізації контактів\n\nБудь ласка, повідомляйте про всі проблеми на https: //github.com/nextcloud/android/issues і обговорити цю програму за адресою https://help.nextcloud.com/c/clients/android\n\nВперше користуєтеся Nextcloud? Nextcloud — це приватний сервер для синхронізації та обміну файлами та спілкування. Це безкоштовне програмне забезпечення, і ви можете розмістити його самостійно або заплатити компанії, яка зробить це за вас. Таким чином ви керуєте своїми фотографіями, календарем і контактними даними, документами та всім іншим.\n\nПерегляньте Nextcloud на https://nextcloud.com</string>
     <string name="store_full_dev_desc">Самостійна платформа продуктивності, яка тримає вас під контролем.\nЦе офіційна версія для розробки, що містить щоденний зразок будь-якої нової неперевіреної функціональності, яка може спричинити нестабільність та втрату даних. Застосунок призначено для користувачів, які бажають протестувати, і повідомляти про помилки у разі їх виникнення. Не використовуйте його для своєї продуктивної роботи!\n\ nОфіційна розробка та звичайна версія доступні на F-droid і можуть бути встановлені одночасно.</string>
     <string name="store_short_desc">Платформа з власним хостингом, яка надає можливість контролювати ваші ресурси</string>
     <string name="store_short_dev_desc">Платформа з власним хостингом, яка надає можливість контролювати ваші ресурси (версія для попереднього ознайомлення)</string>

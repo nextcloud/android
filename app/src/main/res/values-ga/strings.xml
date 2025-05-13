@@ -669,7 +669,6 @@
     <string name="prefs_add_account">Cuir cuntas leis</string>
     <string name="prefs_calendar_contacts">Sioncrónaigh féilire agus teagmhálacha</string>
     <string name="prefs_calendar_contacts_no_store_error">Níl F-Droid ná Google Play suiteáilte</string>
-    <string name="prefs_calendar_contacts_summary">Socraigh DAVx5 (ar a dtugtaí DAVdroid roimhe seo) (v1.3.0+) don chuntas reatha</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Féilire agus sioncrónú teagmhálaithe socraithe</string>
     <string name="prefs_category_about">Faoi</string>
     <string name="prefs_category_details">Sonraí</string>
@@ -681,7 +680,6 @@
     <string name="prefs_daily_contact_backup_summary">Cúltaca laethúil de do theagmhálaithe</string>
     <string name="prefs_data_storage_location">Suíomh stórála sonraí</string>
     <string name="prefs_data_storage_location_summary">Bainistigh suíomh stórála sonraí</string>
-    <string name="prefs_davx5_setup_error">Earráid gan choinne agus DAVx5 á shocrú (ar a dtugtaí DAVdroid roimhe seo)</string>
     <string name="prefs_e2e_active">Tá criptiú ceann go ceann socraithe!</string>
     <string name="prefs_e2e_mnemonic">Cuimhneachán E2E</string>
     <string name="prefs_e2e_no_device_credentials">Cumasaigh dintiúir gléis le do thoil chun cuimhneachán a thaispeáint.</string>
@@ -786,7 +784,6 @@
     <string name="screenshot_05_autoUpload_heading">Uaslódáil uathoibríoch</string>
     <string name="screenshot_05_autoUpload_subline">do grianghraif agus físeáin</string>
     <string name="screenshot_06_davdroid_heading">Féilire agus teagmhálacha</string>
-    <string name="screenshot_06_davdroid_subline">Sioncrónaigh le DAVx5</string>
     <string name="search_error">Earráid agus torthaí cuardaigh á bhfáil</string>
     <string name="secure_share_not_set_up">Níl comhroinnt shlán socraithe don úsáideoir seo</string>
     <string name="secure_share_search">Comhroinn slán…</string>
@@ -897,7 +894,6 @@
     <string name="storage_permission_full_access">Rochtain iomlán</string>
     <string name="storage_permission_media_read_only">Meáin inléite amháin</string>
     <string name="storage_pictures">Pictiúir</string>
-    <string name="store_full_desc">An t-ardán táirgiúlachta féin-óstach a choinníonn smacht ort.\n\nGnéithe:\n* Comhéadan éasca, nua-aimseartha, a oireann do théama do fhreastalaí\n* Uaslódáil comhaid chuig do fhreastalaí Nextcloud\n* Roinn iad le daoine eile\n * Coinnigh na comhaid agus na fillteáin is fearr leat sioncronaithe\n* Déan cuardach thar gach fillteán ar do fhreastalaí\n* Uaslódáil Uathoibríoch le haghaidh grianghraif agus físeáin a ghlac do ghléas\n* Coinnigh suas chun dáta le fógraí\n* Tacaíocht ilchuntais\n* Rochtain shlán ar do shonraí le méarloirg nó PIN\n* Comhtháthú le DAVx5 (ar a dtugtaí DAVdroid roimhe seo) chun féilire agus sioncrónú teagmhálaithe a shocrú go héasca\n\nle do thoil Tuairiscigh gach saincheist ag https://github.com/nextcloud/android/issues agus an aip seo a phlé ag https://help.nextcloud.com/c/clients/android\n\nNew to Nextcloud? Is freastalaí príobháideach sioncronaithe agus comhroinnte agus cumarsáide é Nextcloud. Is bogearraí saora é, agus is féidir leat é a óstáil tú féin nó cuideachta a íoc chun é a dhéanamh duitse. Ar an mbealach sin, tá tú i gceannas ar do ghrianghraif, d\'fhéilire agus do shonraí teagmhála, do dhoiciméid agus gach rud eile.\n\nSeiceáil Nextcloud ag https://nextcloud.com</string>
     <string name="store_full_dev_desc">An t-ardán táirgiúlachta féin-óstáilte a choinníonn smacht ort.\nSeo an leagan forbartha oifigiúil, ina bhfuil sampla laethúil d\'aon fheidhmiúlacht nua neamhthástáilte, a d\'fhéadfadh a bheith ina chúis le héagobhsaíocht agus caillteanas sonraí. Tá an aip le haghaidh úsáideoirí atá sásta tástáil a dhéanamh, agus tuairisc a thabhairt ar fhabhtanna má tharlaíonn siad. Ná húsáid le haghaidh do chuid oibre táirgiúla!\n\nTá an leagan oifigiúil agus an leagan rialta araon ar fáil ar F-droid, agus is féidir iad a shuiteáil ag an am céanna.</string>
     <string name="store_short_desc">An t-ardán táirgiúlachta féin-óstáilte a choinníonn tú i gceannas</string>
     <string name="store_short_dev_desc">An t-ardán táirgiúlachta féin-óstach a choinníonn smacht ort (leagan réamhamhairc dev)</string>
