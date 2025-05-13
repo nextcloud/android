@@ -567,7 +567,6 @@
     <string name="prefs_add_account">Pridėti paskyrą</string>
     <string name="prefs_calendar_contacts">Sinchronizuoti kalendorių ir adresatus</string>
     <string name="prefs_calendar_contacts_no_store_error">Nėra įdiegta nei F-Droid, nei Google Play</string>
-    <string name="prefs_calendar_contacts_summary">Dabartinei paskyrai nustatykite „DAVx5“ (anksčiau žinomą kaip „DAVdroid“) (v1.3.0 +)</string>
     <string name="prefs_category_about">Apie</string>
     <string name="prefs_category_details">Informacija</string>
     <string name="prefs_category_dev">Dev</string>
@@ -659,7 +658,6 @@
     <string name="screenshot_04_accounts_subline">vienoje vietoje</string>
     <string name="screenshot_05_autoUpload_heading">Automatinis įkėlimas</string>
     <string name="screenshot_06_davdroid_heading">Kalendorius ir adresatai</string>
-    <string name="screenshot_06_davdroid_subline">Sinchronizacija su DAVx5</string>
     <string name="search_error">Klaida gaunant paieškos rezultatus</string>
     <string name="select_all">Pažymėti viską</string>
     <string name="select_one_template">Pasirinkite vieną šabloną</string>

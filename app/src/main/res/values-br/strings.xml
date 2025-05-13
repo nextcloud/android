@@ -530,7 +530,6 @@
     <string name="pref_instant_name_collision_policy_title">Petra ober m\'az eus eus ar restr dija ?</string>
     <string name="prefs_add_account">Ouzhpenn ur c\'hont</string>
     <string name="prefs_calendar_contacts_no_store_error">N\'eo stalied na F-Droid na Google Play</string>
-    <string name="prefs_calendar_contacts_summary">Lakaat DAVx5 (anavezhet DAVdroid) (v1.3.0+) evit ar c\'hont</string>
     <string name="prefs_category_about">Diwar-benn</string>
     <string name="prefs_category_details">Munudoù</string>
     <string name="prefs_category_dev">Diorenn</string>
@@ -603,7 +602,6 @@
     <string name="screenshot_04_accounts_heading">Tout o c\'hontoù</string>
     <string name="screenshot_04_accounts_subline">en ul lec\'h</string>
     <string name="screenshot_05_autoUpload_heading">Pellkas otomatek</string>
-    <string name="screenshot_06_davdroid_subline">Kemprenet gant DAVx5</string>
     <string name="select_all">Dibab pep tra</string>
     <string name="select_template">Choaz ur stumm skouer</string>
     <string name="send">Kas</string>

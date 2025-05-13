@@ -667,7 +667,6 @@
     <string name="prefs_add_account">Ajouter un compte</string>
     <string name="prefs_calendar_contacts">Synchroniser l\'agenda et les contacts</string>
     <string name="prefs_calendar_contacts_no_store_error">Ni Google Play Store ou F-Droid ne sont installés</string>
-    <string name="prefs_calendar_contacts_summary">Configurer DAVx5 (autrefois connu comme DAVdroid) (v1.3.0+) pour le compte actuel</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">La synchronisation de l\'agenda et des contacts a bien été configurée.</string>
     <string name="prefs_category_about">À propos</string>
     <string name="prefs_category_details">Préférences</string>
@@ -679,7 +678,6 @@
     <string name="prefs_daily_contact_backup_summary">Sauvegarde quotidienne de vos contacts</string>
     <string name="prefs_data_storage_location">Emplacement de stockage des données</string>
     <string name="prefs_data_storage_location_summary">Gérer l\'emplacement de stockage des données</string>
-    <string name="prefs_davx5_setup_error">Erreur inattendue lors de la configuration de DAVx5 (anciennement connu sous le nom de DAVdroid)</string>
     <string name="prefs_e2e_active">Le chiffrement de bout en bout est configuré !</string>
     <string name="prefs_e2e_mnemonic">Phrase secrète E2E</string>
     <string name="prefs_e2e_no_device_credentials">Afin d\'afficher la phrase secrète, merci d\'activer les informations d\'identification de l\'appareil.</string>
@@ -784,7 +782,6 @@
     <string name="screenshot_05_autoUpload_heading">Téléversement automatique</string>
     <string name="screenshot_05_autoUpload_subline">pour vos photos et vidéos</string>
     <string name="screenshot_06_davdroid_heading">Agenda et contacts</string>
-    <string name="screenshot_06_davdroid_subline">Synchroniser avec DAVx5</string>
     <string name="search_error">Erreur lors de l\'obtention des résultats de recherche</string>
     <string name="secure_share_not_set_up">Le partage sécurité n\'est pas configuré pour cet utilisateur</string>
     <string name="secure_share_search">Partage sécurisé…</string>
@@ -895,7 +892,6 @@
     <string name="storage_permission_full_access">Accès complet</string>
     <string name="storage_permission_media_read_only">Média en lecture seule</string>
     <string name="storage_pictures">Images</string>
-    <string name="store_full_desc">La plateforme de productivité auto-hébergée qui vous redonne le contrôle.\n\nFonctionnalités: \n* Intuitif, interface moderne, adaptée au thème de votre serveur.\n* Envoyez des fichiers sur votre serveur Nextcloud\n* Partagez avec d\'autres personnes\n* Gardez vos fichiers et dossiers préférés synchronisés\n* Recherchez dans tous les dossiers de votre serveur\n* Téléversement automatique des photos et vidéos prises par votre appareil\n* Restez à jour avec les notifications\n* Supporte plusieurs comptes simultanément\n* Accès sécurisé avec votre empreinte digitale ou un PIN\n* Intégration avec DAVx5 (ancien nom : DAVdroid) pour configurer facilement l\'agenda&amp;et synchroniser les contacts\n\nMerci de signaler les problèmes sur https://github.com/nextcloud/android/issues et discutez de cette application sur https://help.nextcloud.com/c/clients/android\n\nNew sur Nextcloud ? Nextcloud est un serveur privé de synchronisation de fichiers&amp;de partage et de communications. C\'est un logiciel libre, et vous pouvez l\'héberger vous-même ou payer une entreprise pour le faire à votre place. De cette façon, vous avez le contrôle de vos photos, votre agenda et vos données de contacts, vos documents et tout le reste.\n\nApprenez en plus sur Nextcloud sur https://nextcloud.com</string>
     <string name="store_full_dev_desc">La plateforme de productivité auto-hébergée qui vous permet de garder le contrôle.\nCeci est la version officielle de développement, qui présente chaque jour quelques-unes des fonctionnalités non-testées les plus récentes, causant parfois des instabilités ou des pertes de données. Cette application s\'adresse aux utilisateurs volontaires souhaitant tester et rapporter les problèmes qui peuvent arriver. Ne l\'utilisez jamais pour un environnement de production!\n\nLes versions officielles et en développement sont disponibles sur F-droid, et peuvent être utilisées en même temps.</string>
     <string name="store_short_desc">La plateforme de productivité auto-hébergée qui vous permet de garder le contrôle</string>
     <string name="store_short_dev_desc">La plateforme de productivité auto-hébergée qui vous permet de garder le contrôle (version de développement en démonstration)</string>

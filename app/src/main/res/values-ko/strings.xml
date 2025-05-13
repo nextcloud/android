@@ -655,7 +655,6 @@
     <string name="prefs_add_account">계정 추가</string>
     <string name="prefs_calendar_contacts">캘린더 및 연락처 동기화</string>
     <string name="prefs_calendar_contacts_no_store_error">F-Droid 및 Google Play를 사용할 수 없음</string>
-    <string name="prefs_calendar_contacts_summary">현재 계정에 대해 DAVx5 (이전의 DAVdroid) (v1.3.0 +) 설정</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">갤린더와 연락처 동기화 설정</string>
     <string name="prefs_category_about">정보</string>
     <string name="prefs_category_details">자세한 정보</string>
@@ -667,7 +666,6 @@
     <string name="prefs_daily_contact_backup_summary">연락처 일간 백업</string>
     <string name="prefs_data_storage_location">데이터 저장소 위치</string>
     <string name="prefs_data_storage_location_summary">데이터 저장소 위치 관리</string>
-    <string name="prefs_davx5_setup_error">DAVx5를 설정하는 동안 발생한 예기치 못한 오류</string>
     <string name="prefs_e2e_active">종단간 암호화가 설정됩니다!</string>
     <string name="prefs_e2e_mnemonic">E2E 연상 기호</string>
     <string name="prefs_e2e_no_device_credentials">연상 기호를 표시하려면 장치 자격 증명을 활성화하십시오.</string>
@@ -772,7 +770,6 @@
     <string name="screenshot_05_autoUpload_heading">자동 업로드</string>
     <string name="screenshot_05_autoUpload_subline">사진과 동영상을 위해</string>
     <string name="screenshot_06_davdroid_heading">캘린더와 연락처</string>
-    <string name="screenshot_06_davdroid_subline">DAVx5와 동기화</string>
     <string name="search_error">검색 결과 조회 오류</string>
     <string name="secure_share_not_set_up">이 사용자에 대해 보안 공유가 설정되지 않았습니다</string>
     <string name="secure_share_search">보안 공유...</string>
@@ -878,7 +875,6 @@
     <string name="storage_permission_full_access">완전한 접근</string>
     <string name="storage_permission_media_read_only">읽기 전용 미디어 접근</string>
     <string name="storage_pictures">그림</string>
-    <string name="store_full_desc">통제력을 유지하는 자체 호스팅 생산성 플랫폼입니다.\n\n특징:\n* 귀하의 서버 테마에 적합한 쉽고 현대적인 인터페이스\n* Nextcloud 서버에 파일 업로드\n* 다른 사람들과 공유\n*즐겨찾는 파일과 폴더를 동기화 상태로 유지\n* 서버의 모든 폴더에서 검색\n* 기기로 촬영한 사진과 동영상 자동 업로드\n* 알림으로 최신 상태 유지\n* 다중 계정 지원\n* 지문이나 PIN으로 데이터에 안전하게 액세스n*캘린더 및 연락처 동기화를 쉽게 설정할 수 있도록 DAVx5(이전의 DAVdroid)와 통합\n\nhttps://github.com/nextcloud/android/issues에서 모든 문제를 보고하고 https://help.nextcloud.com/c/clients/android\n\nNextcloud에서 이 앱에 대해 토론하세요.?Nextcloud는 개인 파일 동기화, 공유 및 통신 서버입니다. 이는 자유 소프트웨어이므로 직접 호스팅할 수도 있고 비용을 지불하여 회사에 대신 호스팅할 수도 있습니다. 이렇게 하면 사진, 캘린더, 연락처 데이터, 문서 및 기타 모든 것을 제어할 수 있습니다.\n\nhttps://nextcloud.com에서 Nextcloud를 확인하세요.</string>
     <string name="store_full_dev_desc">컨트롤 가능한 자체 호스팅 생산성 플랫폼.\n이는 공식 개발 버전으로, 테스트되지 않은 새로운 기능을 매일 샘플로 제공하므로 불안정과 데이터 손실이 발생할 수 있습니다. 이 애플리케이션은 기꺼이 테스트하고 버그가 발생하면 보고하는 사용자를 대상으로 합니다. 생산적인 작업에는 사용하지 마십시오!\n\n공식 개발 버전 및 일반 버전은 모두 F-droid에서 사용할 수 있으며, 동시에 설치할 수 있습니다.</string>
     <string name="store_short_desc">컨트롤 가능한 자체 호스팅 생산성 플랫폼</string>
     <string name="store_short_dev_desc">컨트롤 가능한 자체 호스팅 생산성 플랫폼 (디바이스 미리 보기 버전)</string>

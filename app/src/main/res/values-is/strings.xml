@@ -649,7 +649,6 @@
     <string name="prefs_add_account">Bæta við notandaaðgangi</string>
     <string name="prefs_calendar_contacts">Samstilla dagatal og tengiliði</string>
     <string name="prefs_calendar_contacts_no_store_error">Hvorki F-Droid né Google Play eru uppsett</string>
-    <string name="prefs_calendar_contacts_summary">Setja upp DAVx5 (áður þekkt sem DAVdroid) (v1.3.0+) fyrir þennan aðgang</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Samstillingar dagatals og tengiliða eru uppsettar</string>
     <string name="prefs_category_about">Um hugbúnaðinn</string>
     <string name="prefs_category_details">Nánar</string>
@@ -661,7 +660,6 @@
     <string name="prefs_daily_contact_backup_summary">Daglegt öryggisafrit af tengiliðum</string>
     <string name="prefs_data_storage_location">Staðsetning gagnageymslu</string>
     <string name="prefs_data_storage_location_summary">Sýsla með staðsetningu gagnageymslu</string>
-    <string name="prefs_davx5_setup_error">Óvænt villa við að setja upp DAVx5 (áður þekkt sem DAVdroid)</string>
     <string name="prefs_e2e_active">Enda-í-enda dulritun er virk!</string>
     <string name="prefs_e2e_mnemonic">E2E minnistækni</string>
     <string name="prefs_e2e_no_device_credentials">Til að birta minnishjálp skaltu virkja auðkenningu tækisins.</string>
@@ -766,7 +764,6 @@
     <string name="screenshot_05_autoUpload_heading">Sjálfvirk innsending</string>
     <string name="screenshot_05_autoUpload_subline">fyrir myndirnar þínar og myndskeið</string>
     <string name="screenshot_06_davdroid_heading">Dagatal og tengiliðir</string>
-    <string name="screenshot_06_davdroid_subline">Samstilla með DAVx5</string>
     <string name="search_error">Villa við að sækja leitarniðurstöður</string>
     <string name="secure_share_not_set_up">Örugg deiling er ekki sett upp fyrir þennan notanda</string>
     <string name="secure_share_search">Örugg sameign…</string>
@@ -872,7 +869,6 @@
     <string name="storage_permission_full_access">Fullur aðgangur</string>
     <string name="storage_permission_media_read_only">Skrifvarinn gagnamiðill</string>
     <string name="storage_pictures">Ljósmyndir</string>
-    <string name="store_full_desc">Sjálfhýsta Nextcloud-kerfið er opið og frjálst, og heldur þér við stjórnvölinn.\n\nEiginleikar:\n* Auðvelt, nútímalegt viðmót, sem hentar þema netþjónsins þíns\n* Sendu skrár inn á Nextcloud-þjóninn þinn\n* Deildu þeim með öðrum\n* Haltu eftirlætisskránum þínum og möppum samstilltum\n* Leitaðu í öllum möppum á netþjóninum þínum\n* Sjálfvirk innsending á myndum og myndskeiðum sem þú tekur á snjalltækinu þínu\n* Haltu öllu uppfærðu í gegnum tilkynningar\n* Styður marga aðganga fyrir hvern notanda\n* Tryggðu aðgang að gögnunum þínum með fingrafari eða PIN-númeri\n* Samþætting við DAVx5 (áður þekkt sem DAVdroid) fyrir auðvelda uppssetningu á samstilltu dagatali og tengiliðum\n\nTilkynntu öll vandamál á https://github.com/nextcloud/android/issues og ræddu um þennan hugbúnað á https://help.nextcloud.com/c/clients/android\n\nEr Nextcloud nýtt fyrir þér? Nextcloud er þinn eiginn netþjónn til að samstilla skrár og deila í samstarfs og samskiptaumhverfi. Þetta er frjáls hugbúnaður sem þú getur hýst sjálf/ur eða borgað þjónustuaðila fyrir að gera fyrir þig. Með þessu ert það þú sem ert við stjórnvölinn með gögnin sem þú vilt hafa aðgengileg í gegnum netið, hvort sem það eru ljósmyndir, dagatal, tengiliðir, skjölin þín, og margt fleira.\n\nSkoðaðu Nextcloud á https://nextcloud.com</string>
     <string name="store_full_dev_desc">Sjálfhýsta Nextcloud-kerfið er opið og frjálst, og heldur þér við stjórnvölinn.\nÞetta er opinbera þróunarútgáfan, sem kemur með daglegan skammt af óprófuðum nýjum eiginleikum, sem aftur gætu mögulega valdið truflunum og gagnatapi. Forritið er fyrir þá notendur sem vilja taka þátt í að prófa og tilkynna um villur, ef þær eiga sér stað. Ekki nota þetta í alvöru vinnuumhverfi!\n\nBæði opinbera þróunarútgáfan og venjulega útgáfan eru tiltækar á F-droid, og er hægt að setja þær upp samhliða hvorri annarri.</string>
     <string name="store_short_desc">Sjálfhýsta Nextcloud-kerfið er opið og frjálst, og heldur þér við stjórnvölinn</string>
     <string name="store_short_dev_desc">Sjálfhýsta Nextcloud-kerfið er opið og frjálst, og heldur þér við stjórnvölinn (forútgáfa fyrir hönnuði)</string>

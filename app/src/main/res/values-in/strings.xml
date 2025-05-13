@@ -553,7 +553,6 @@ Otomatis unggah hanya bekerja dengan baik apabila Anda mengeluarkan aplikasi ini
     <string name="pref_instant_name_collision_policy_title">Apa yang harus dilakukan jika berkas sudah ada?</string>
     <string name="prefs_add_account">Tambah akun</string>
     <string name="prefs_calendar_contacts_no_store_error">F-Droid maupun Google Play tidak terinstal</string>
-    <string name="prefs_calendar_contacts_summary">Siapkan DAVx⁵ (sebelumnya DAVdroid) (v1.3.0+) untuk akun saat ini</string>
     <string name="prefs_category_about">Tentang</string>
     <string name="prefs_category_details">Rincian</string>
     <string name="prefs_category_dev">Pengembang</string>
@@ -561,7 +560,6 @@ Otomatis unggah hanya bekerja dengan baik apabila Anda mengeluarkan aplikasi ini
     <string name="prefs_category_more">Lainnya</string>
     <string name="prefs_category_sync">Sinkron</string>
     <string name="prefs_daily_contact_backup_summary">Cadangkan kontak harian</string>
-    <string name="prefs_davx5_setup_error">Terjadi kesalahan saat menyiapkan DAVx⁵ (sebelumnya DAVdroid)</string>
     <string name="prefs_e2e_active">Enkripsi end-to-end telah disetel!</string>
     <string name="prefs_e2e_mnemonic">E2E mnemonic</string>
     <string name="prefs_e2e_no_device_credentials">Untuk menampilkan mnemonik, harap aktifkan kredensial perangkat.</string>
@@ -649,7 +647,6 @@ Otomatis unggah hanya bekerja dengan baik apabila Anda mengeluarkan aplikasi ini
     <string name="screenshot_04_accounts_heading">Semua akun Anda</string>
     <string name="screenshot_04_accounts_subline">di satu tempat</string>
     <string name="screenshot_05_autoUpload_heading">Unggah otomatis</string>
-    <string name="screenshot_06_davdroid_subline">Sinkronkan dengan DAVx5</string>
     <string name="search_error">Kesalahan saat mendapatkan hasil pencarian</string>
     <string name="select_all">Pilih semua</string>
     <string name="select_media_folder">Setel folder media</string>

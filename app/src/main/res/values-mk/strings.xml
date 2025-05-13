@@ -477,7 +477,6 @@
     <string name="pref_instant_name_collision_policy_title">Што ако датотеката веќе постои?</string>
     <string name="prefs_add_account">Додади сметка</string>
     <string name="prefs_calendar_contacts_no_store_error">Neither F-Droid nor Google Play is installed</string>
-    <string name="prefs_calendar_contacts_summary">Подеси DAVx5 (Порано познат под името DAVdroid) (v1.3.0+) за оваа сметка</string>
     <string name="prefs_category_about">За</string>
     <string name="prefs_category_details">Детали:</string>
     <string name="prefs_category_dev">Dev</string>

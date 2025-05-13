@@ -513,7 +513,6 @@
     <string name="pref_instant_name_collision_policy_title">Što učiniti ako datoteka već postoji?</string>
     <string name="prefs_add_account">Dodaj račun</string>
     <string name="prefs_calendar_contacts_no_store_error">Nisu instalirani F-Droid ni Google Play</string>
-    <string name="prefs_calendar_contacts_summary">Postavite DAVx5 (ranije poznat kao DAVdroid) (v1.3.0+) za predmetni račun</string>
     <string name="prefs_category_about">Informacije</string>
     <string name="prefs_category_details">Pojedinosti</string>
     <string name="prefs_category_dev">Dev</string>
@@ -592,7 +591,6 @@
     <string name="screenshot_04_accounts_heading">Svi vaši računi</string>
     <string name="screenshot_04_accounts_subline">na jednom mjestu</string>
     <string name="screenshot_05_autoUpload_heading">Automatsko otpremanje</string>
-    <string name="screenshot_06_davdroid_subline">Sinkronizacija s DAVx5</string>
     <string name="search_error">Pogreška pri dohvaćanju rezultata pretraživanja</string>
     <string name="select_all">Odaberi sve</string>
     <string name="select_media_folder">Podesi mapu za medijske datoteke</string>

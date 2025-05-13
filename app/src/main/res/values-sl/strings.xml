@@ -559,7 +559,6 @@
     <string name="pref_instant_name_collision_policy_title">Kaj storiti, če datoteka že obstaja?</string>
     <string name="prefs_add_account">Dodaj račun</string>
     <string name="prefs_calendar_contacts_no_store_error">Ni nameščenega ne programa F-Droid ne Google Play</string>
-    <string name="prefs_calendar_contacts_summary">Nastavitev DAVx5 (prej znan kot DAVdroid) (v1.3.0+) za trenutni račun</string>
     <string name="prefs_category_about">O projektu</string>
     <string name="prefs_category_details">Podrobnosti</string>
     <string name="prefs_category_dev">Dev</string>
@@ -567,7 +566,6 @@
     <string name="prefs_category_more">Več</string>
     <string name="prefs_category_sync">Uskladi</string>
     <string name="prefs_daily_contact_backup_summary">Dnevno usklajevanje stikov</string>
-    <string name="prefs_davx5_setup_error">Nepričakovana napaka pri nastavljanju DAVx5 (prej poznano kot DAVdroid)</string>
     <string name="prefs_e2e_active">Celovito šifriranje E2E je nastavljeno!</string>
     <string name="prefs_e2e_mnemonic">Mnemonika E2E</string>
     <string name="prefs_e2e_no_device_credentials">Za prikaz mnemonike izberite poverila naprave.</string>
@@ -654,7 +652,6 @@
     <string name="screenshot_04_accounts_subline">na enem mestu</string>
     <string name="screenshot_05_autoUpload_heading">Samodejno pošiljanje</string>
     <string name="screenshot_06_davdroid_heading">Koledar in stiki</string>
-    <string name="screenshot_06_davdroid_subline">Uskladi z DAVx5</string>
     <string name="search_error">Napaka pridobivanja zadetkov iskanja</string>
     <string name="select_all">Izberi vse</string>
     <string name="select_media_folder">Nastavi mapo predstavne vsebine</string>

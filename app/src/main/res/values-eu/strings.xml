@@ -639,7 +639,6 @@
     <string name="prefs_add_account">Gehitu kontua</string>
     <string name="prefs_calendar_contacts">Sinkronizatu egutegia eta kontaktuak</string>
     <string name="prefs_calendar_contacts_no_store_error">Ez F-Droid, ez Google Play, ez daude instalatuta</string>
-    <string name="prefs_calendar_contacts_summary">Konfiguratu DAVx5 (lehen DAVdroid izenarekin ezagutzen zena) (v1.3.0+) kontu honetarako</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Egutegiaren eta kontaktuen sinkronizazioa konfiguratuta</string>
     <string name="prefs_category_about">Honi buruz</string>
     <string name="prefs_category_details">Xehetasunak</string>
@@ -651,7 +650,6 @@
     <string name="prefs_daily_contact_backup_summary">Zure kontaktuen eguneroko babeskopia</string>
     <string name="prefs_data_storage_location">Datu biltegiaren kokapena</string>
     <string name="prefs_data_storage_location_summary">Kudeatu data biltegiaren kokapena</string>
-    <string name="prefs_davx5_setup_error">Ustekabeko errorea DAVx5 konfiguratzean (lehen DAVdroid izenez ezagutzen zena)</string>
     <string name="prefs_e2e_active">Muturretik muturrerako enkriptatzea konfiguratuta dago!</string>
     <string name="prefs_e2e_mnemonic">E2E mnemoteknikoa</string>
     <string name="prefs_e2e_no_device_credentials">Mnemoteknikoa erakusteko, gaitu gailuaren kredentzialak.</string>
@@ -754,7 +752,6 @@
     <string name="screenshot_05_autoUpload_heading">Igoera automatikoa</string>
     <string name="screenshot_05_autoUpload_subline">zure argazki eta bideoentzat</string>
     <string name="screenshot_06_davdroid_heading">Egutegia eta kontaktuak</string>
-    <string name="screenshot_06_davdroid_subline">Sinkronizatu DAVx5ekin</string>
     <string name="search_error">Errorea bilaketaren emaitzak lortzean</string>
     <string name="secure_share_not_set_up">Partekatze segurua ez dago konfiguratuta erabiltzaile honentzat</string>
     <string name="secure_share_search">Partekatze segurua...</string>
@@ -859,7 +856,6 @@
     <string name="storage_permission_full_access">Sarbide osoa</string>
     <string name="storage_permission_media_read_only">Mutimediak irakurtzeko soilik</string>
     <string name="storage_pictures">Irudiak</string>
-    <string name="store_full_desc">Zure datuak kontrolpean mantentzen dituen norberak ostatatutako produktibitate plataforma.\n\n Ezaugarriak:\n* Interfazea erraza eta modernoa, zure zerbitzariaren gaira egokitzen dena\n* Kargatu fitxategiak Nextcloud zerbitzarira\n* Partekatu itzazu besteekin\n* Mantendu zure gogoko fitxategiak eta karpetak sinkronizatuta\n* Bilatu zure zerbitzariko karpeta guztietan\n* Kargatu automatikoki zure gailuan ateratako argazkiak eta bideoak\n* Egunean egon jakinarazpenen bidez\n* Hainbat kontu erabili daitezke\n* Sarbide segurua zure datuetarako hatz-marka edo PIN bidez\n* DAVx5-rekin integratua (lehenago DAVdroid izenarekin ezagutzen zena) egutegia erraz konfiguratzeko eta kontaktuak sinkronizatzeko\n\n Eman arazoen berri https://github.com/nextcloud/android/issues orrian eta eztabaidatu aplikazio hau https://help.nextcloud.com/c/clients/android orrian\n\n Berria Nextcloud-en? Nextcloud fitxategiak sinkronizatu eta partekatzeko eta komunikaziorako zerbitzari pribatu bat da. Software librea da, eta zuk zeuk ostatatu dezakezu edo enpresa bat ordaindu zure ordez ostatatzeko. Horrela, zure argazkiak, zure egutegia eta kontaktuen datuak, zure dokumentuak eta gainerako guztia zuk kontrolatzen dituzu.\n\n Ezagutu Nextcloud https://nextcloud.com helbidean</string>
     <string name="store_full_dev_desc">Kontrola zuri ematen dizun norberak ostatatutako produktibitate-plataforma.\nHau garapeneko bertsio ofiziala da. Probatu gabeko funtzionalitateen eguneroko lagina hartzen du, eta horrek ezegonkortasuna eta datu-galera eragin ditzake. Aplikazio hau probatu eta gertatzen diren akatsen berri eman nahi duten erabiltzaileentzat da. Ez erabili zure produkzio-lanerako!\n\nBi bertsio ofizialak, garapenekoa eta normala, F-Droiden daude eskuragarri eta aldi berean instalatu daitezke.</string>
     <string name="store_short_desc">Kontrola zuri ematen dizun norberak ostatutako produktibitate plataforma</string>
     <string name="store_short_dev_desc">Kontrola zuri ematen dizun norberak ostatutako produktibitate plataforma (garapeneko aurrerapen bertsioa)</string>

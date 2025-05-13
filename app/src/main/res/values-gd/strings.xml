@@ -457,7 +457,6 @@
     <string name="pref_instant_name_collision_policy_title">Dè nì sinn nuair a bhios faidhle ann mu thràth?</string>
     <string name="prefs_add_account">Cuir cunntas ris</string>
     <string name="prefs_calendar_contacts_no_store_error">Cha deach F-Droid no Google Play a stàladh</string>
-    <string name="prefs_calendar_contacts_summary">Suidhich DAVx5 (air a bhiodh DAVdroid) (v1.3.0+) dhan chunntas làithreach</string>
     <string name="prefs_category_about">Mu dhèidhinn</string>
     <string name="prefs_category_details">Mion-fhiosrachadh</string>
     <string name="prefs_category_dev">Leasachadh</string>
@@ -529,7 +528,6 @@
     <string name="screenshot_04_accounts_heading">Na cunntasan agad uile</string>
     <string name="screenshot_04_accounts_subline">air an aon àite</string>
     <string name="screenshot_05_autoUpload_heading">Luchdadh suas fèin-obrachail</string>
-    <string name="screenshot_06_davdroid_subline">Sioncronaich le DAVx5</string>
     <string name="select_all">Tagh na h-uile</string>
     <string name="select_one_template">Tagh teamplaid</string>
     <string name="select_template">Tagh teamplaid</string>

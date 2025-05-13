@@ -622,7 +622,6 @@
     <string name="prefs_add_account">ھېسابات قوشۇڭ</string>
     <string name="prefs_calendar_contacts">كالېندار ۋە ئالاقىداش</string>
     <string name="prefs_calendar_contacts_no_store_error">F-Droid ياكى Google Play ئورنىتىلمىغان</string>
-    <string name="prefs_calendar_contacts_summary">نۆۋەتتىكى ھېسابات ئۈچۈن DAVx5 (ئىلگىرى DAVdroid دەپ ئاتالغان) (v1.3.0 +) نى تەڭشەڭ</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">كالېندار ۋە ئالاقىداش ماسقەدەملەندى</string>
     <string name="prefs_category_about">ھەققىدە</string>
     <string name="prefs_category_details">تەپسىلاتى</string>
@@ -632,7 +631,6 @@
     <string name="prefs_category_sync">ماسقەدەملەش</string>
     <string name="prefs_daily_backup_summary">كالېندارىڭىز ۋە ئالاقىداشلىرىڭىزنىڭ كۈندىلىك زاپاسلىنىشى</string>
     <string name="prefs_daily_contact_backup_summary">ئالاقىلىرىڭىزنىڭ كۈندىلىك زاپاسلىنىشى</string>
-    <string name="prefs_davx5_setup_error">DAVx5 نى تەڭشىگەندە كۈتۈلمىگەن خاتالىق (ئىلگىرى DAVdroid دەپ ئاتالغان)</string>
     <string name="prefs_e2e_active">ئاخىرىغىچە مەخپىيلەشتۈرۈش قۇرۇلدى!</string>
     <string name="prefs_e2e_mnemonic">E2E mnemonic</string>
     <string name="prefs_e2e_no_device_credentials">مونونىكنى كۆرسىتىش ئۈچۈن ئۈسكۈنىنىڭ سالاھىيىتىنى قوزغىتىڭ.</string>
@@ -732,7 +730,6 @@
     <string name="screenshot_05_autoUpload_heading">ئاپتوماتىك يوللاش</string>
     <string name="screenshot_05_autoUpload_subline">رەسىم ۋە سىنلىرىڭىز ئۈچۈن</string>
     <string name="screenshot_06_davdroid_heading">كالېندار ۋە ئالاقىداشلار</string>
-    <string name="screenshot_06_davdroid_subline">DAVx5 بىلەن ماسقەدەملەش</string>
     <string name="search_error">ئىزدەش نەتىجىسىگە ئېرىشىشتە خاتالىق</string>
     <string name="secure_share_not_set_up">بۇ ئىشلەتكۈچى ئۈچۈن بىخەتەر ئورتاقلىشىش ئورنىتىلمىغان</string>
     <string name="select_all">ھەممىنى تاللاڭ</string>
@@ -835,7 +832,6 @@
     <string name="storage_permission_full_access">تولۇق زىيارەت</string>
     <string name="storage_permission_media_read_only">مېدىيا ئوقۇشقىلا بولىدۇ</string>
     <string name="storage_pictures">رەسىملەر</string>
-    <string name="store_full_desc">سىزنى كونترول قىلىدىغان ئۆزى ساھىبخانلىق قىلىدىغان ئىشلەپچىقىرىش سۇپىسى. \ N \ n ئالاھىدىلىكى: \ n * مۇلازىمىتىرىڭىزنىڭ تېمىغا ماس كېلىدىغان ئاسان ، زامانىۋى كۆرۈنمە يۈزى \ n * ھۆججەتلەرنى Nextcloud مۇلازىمېتىرىڭىزغا يۈكلەڭ \ n * ئۇلارنى باشقىلار بىلەن ئورتاقلىشىڭ \ n * ئۆزىڭىز ياقتۇرىدىغان ھۆججەت ۋە ھۆججەت قىسقۇچلارنى ماس قەدەمدە ساقلاڭ \ n * مۇلازىمېتىرىڭىزدىكى بارلىق ھۆججەت قىسقۇچلارنى ئىزدەڭ \ n * ئۈسكۈنىڭىز تارتقان رەسىم ۋە سىنلارنى ئاپتوماتىك يۈكلەش \ n * ئۇقتۇرۇشنى يېڭىلاپ تۇرۇڭ \ n * كۆپ ھېسابات قوللاش \ n * كالېندار ۋە ئالاقىنى ماس قەدەمدە تەڭشەش ئۈچۈن بارماق ئىزى ياكى PIN \ n * DAVx5 (ئىلگىرى DAVdroid دەپمۇ ئاتىلىدۇ) ئارقىلىق سانلىق مەلۇماتلىرىڭىزنى بىخەتەر زىيارەت قىلالايسىز \ n \ n بارلىق مەسىلىلەرنى https://github.com/nextcloud/android/issues دىن دوكلات قىلىڭ. ھەمدە بۇ ئەپنى https://help.nextcloud.com/c/clients/android\n\n دىكى Nextcloud غا يېڭىلا مۇلاھىزە قىلىڭ؟ Nextcloud شەخسىي ھۆججەت ماسقەدەملەش ۋە ئورتاقلىشىش ۋە ئالاقە مۇلازىمىتىرى. ئۇ ھەقسىز يۇمشاق دېتال ، ئۇنى ئۆزىڭىز ساھىبخانلىق قىلالايسىز ياكى شىركەت ئۈچۈن پۇل تۆلەپ بەرسىڭىز بولىدۇ. شۇنداق قىلسىڭىز ، رەسىملىرىڭىز ، كالېندارىڭىز ۋە ئالاقىلىشىش ئۇچۇرلىرىڭىز ، ھۆججەتلىرىڭىز ۋە باشقا نەرسىلەرنىڭ ھەممىسىنى كونترول قىلىسىز. \ N \ n https://nextcloud.com دىكى Nextcloud نى تەكشۈرۈپ بېقىڭ.</string>
     <string name="store_full_dev_desc">ئۆزى كونترول قىلىدىغان ئىشلەپچىقىرىش سۇپىسى سىزنى كونترول قىلىدۇ. \ N بۇ رەسمىي تەرەققىيات نۇسخىسى بولۇپ ، ھەر كۈنى يېڭى سىناقتىن ئۆتمىگەن ئىقتىدارلارنىڭ ئەۋرىشكىسى بار ، بۇ مۇقىمسىزلىق ۋە سانلىق مەلۇماتلارنىڭ يوقىلىشىنى كەلتۈرۈپ چىقىرىشى مۇمكىن. بۇ ئەپ سىناق قىلىشنى خالايدىغان ئىشلەتكۈچىلەر ئۈچۈن بولۇپ ، خاتالىق كۆرۈلسە دوكلات قىلىدۇ. ئۇنى ئىشلەپچىقىرىش خىزمىتىڭىزگە ئىشلەتمەڭ! \ N \ n ھەر ئىككىلىسى رەسمىي dev ۋە دائىملىق نۇسخىسى F-droid دا بار ، بىرلا ۋاقىتتا ئورنىتىشقا بولىدۇ.</string>
     <string name="store_short_desc">ئۆزىڭىزنى كونترول قىلىدىغان ئۆزى ساھىبخانلىق ئىشلەپچىقىرىش سۇپىسى</string>
     <string name="store_short_dev_desc">سىزنى كونترول قىلىدىغان ئۆزى ساھىبخانلىق قىلغان ئىشلەپچىقىرىش سۇپىسى (dev ئالدىن كۆرۈش نۇسخىسى)</string>
