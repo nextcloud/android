@@ -655,7 +655,6 @@
     <string name="prefs_add_account">Account toevoegen</string>
     <string name="prefs_calendar_contacts">Synchroniseer agenda en contactpersonen</string>
     <string name="prefs_calendar_contacts_no_store_error">Noch F-Droid, noch Google Play is geïnstalleerd</string>
-    <string name="prefs_calendar_contacts_summary">DAVx5 (vroeger bekend als DAVdroid) (v1.3.0+) voor het huidige account instellen</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Agenda en contactpersonen synchronisatie instellingen</string>
     <string name="prefs_category_about">Over</string>
     <string name="prefs_category_details">Details</string>
@@ -667,7 +666,6 @@
     <string name="prefs_daily_contact_backup_summary">Dagelijkse back-up van je contactpersonen</string>
     <string name="prefs_data_storage_location">Gegevensopslaglocatie</string>
     <string name="prefs_data_storage_location_summary">Beheer gegevensopslaglocatie</string>
-    <string name="prefs_davx5_setup_error">Onverwachte fout bij het instellen van DAVx5 (voorheen bekend als DAVdroid)</string>
     <string name="prefs_e2e_active">End-to-end versleuteling is ingesteld!</string>
     <string name="prefs_e2e_mnemonic">E2E mnemonic</string>
     <string name="prefs_e2e_no_device_credentials">Om de mnemonic te tonen moet je apparaatinloggegevens inschakelen.</string>
@@ -768,7 +766,6 @@
     <string name="screenshot_05_autoUpload_heading">Automatisch uploaden</string>
     <string name="screenshot_05_autoUpload_subline">voor foto\'s en video\'s</string>
     <string name="screenshot_06_davdroid_heading">Agenda en contactpersonen</string>
-    <string name="screenshot_06_davdroid_subline">Sync met DAVx5</string>
     <string name="search_error">Fout bij het ophalen van de zoekresultaten</string>
     <string name="secure_share_not_set_up">Veilig delen is niet ingesteld voor deze gebruiker</string>
     <string name="select_all">Alles selecteren</string>

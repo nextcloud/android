@@ -674,7 +674,6 @@
     <string name="prefs_add_account">أضف حساباً</string>
     <string name="prefs_calendar_contacts">مُزامنة التقويم و جهات الاتصال</string>
     <string name="prefs_calendar_contacts_no_store_error">كلا من تطبيقي أف-دويد و متجر غوغل عير منصبين</string>
-    <string name="prefs_calendar_contacts_summary">قم بإعداد DAVx5 (المعروف سابقًا باسم DAVdroid) (v1.3.0 +) للحساب الجاري</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">التجهيز لمزامنة التقويم و جهات الاتصال</string>
     <string name="prefs_category_about">حول</string>
     <string name="prefs_category_details">تفاصيل</string>
@@ -686,7 +685,6 @@
     <string name="prefs_daily_contact_backup_summary">نسخ أحتياطي يومي لجهات الإتصال</string>
     <string name="prefs_data_storage_location">موضع تخزين البيانات</string>
     <string name="prefs_data_storage_location_summary">إدارة موضع تخزين البيانات</string>
-    <string name="prefs_davx5_setup_error">خطأ غير متوقع عند تجهيز DAVx5 ( الذي كان معروفاً سابقاً باسم DAVdroid)</string>
     <string name="prefs_e2e_active">التشفير الطرفي E2EE جاهز!</string>
     <string name="prefs_e2e_mnemonic">تذكيري ل E2E</string>
     <string name="prefs_e2e_no_device_credentials">لإظهار الذاكرة ، يرجى تمكين معلومات تسجيل الدخول إلى الجهاز.</string>
@@ -799,7 +797,6 @@
     <string name="screenshot_05_autoUpload_heading">تحميل تلقائي</string>
     <string name="screenshot_05_autoUpload_subline">للصور مقاطع الفيديو الخاصة بك</string>
     <string name="screenshot_06_davdroid_heading">القويم و جهات الاتصال</string>
-    <string name="screenshot_06_davdroid_subline">مزامنة مع DAVx5</string>
     <string name="search_error">خطاء في الحصول على نتائج البحث</string>
     <string name="secure_share_not_set_up">المشاركة الآمنة لم يتم إعدادها بالنسبة لهذا المستخدِم</string>
     <string name="secure_share_search">مشاركة آمنة ...</string>
@@ -910,26 +907,6 @@
     <string name="storage_permission_full_access">النفاذ الكامل</string>
     <string name="storage_permission_media_read_only">الوسائط للقراءة فقط</string>
     <string name="storage_pictures">الصور</string>
-    <string name="store_full_desc">منصة الإنتاجية المستضافة ذاتياً و التي تبقيك مسيطراً.
-
-الميزات:
-* واجهة سهلة وحديثة ومناسبة لتيمات خادومك
-* تحميل الملفات إلى خادوم نكست كلاود خاصتك
-* مشاركتها مع الآخرين
-* المحافظة على مزامنة الملفات و المجلدات المفضلة لديك
-* البحث عبر كافة المجلدات الموجودة على خادومك
-* التحميل التلقائي للصور و مقاطع الفيديو التي تم التقاطها بواسطة جهازك
-* البقاء على اطلاع دائم من خلال الإشعارات
-* دعم الحسابات المتعددة
-* الوصول الآمن إلى بياناتك باستخدام بصمة الأصابع أو المُعرِّف الشخصي
-* التكامل مع DAVx5 (المعروف سابقًا باسم DAVdroid) لإعداد سهل لمزامنة التقويم و جهات الاتصال
-
-يرجى الإبلاغ عن جميع المشكلات على https://github.com/nextcloud/android/issues  
-كما يمكنك مناقشة هذا التطبيق على https://help.nextcloud.com/c/clients/android\n\nNew 
-
-و إذا كنت جديداً على نكست كلاود، فإننا نُعلِمُك بأنه خادوم لمزامنة الملفات و مشاركتها و اتصالاتها. و هو برنامج مجاني؛ يُمكِّنُك من الاستضافة الذاتية بنفسك أو الدفع لشركة للقيام بذلك نيابةً عنك. و بهذه الطريقة، يمكنك التحكم في صورك و تقويمك و جهاتك اتصالك و مستنداتك و كل شيء آخر.
-
-للمزيد من المعلومات، أنظُر https://nextcloud.com</string>
     <string name="store_full_dev_desc">منصة الإنتاجية ذاتية الاستضافة التي تبقيك تحت السيطرة.\nهذه هي النسخة التطويرية الرسمية ، وتضم عينة يومية من أي وظيفة جديدة غير مختبرة ، والتي قد تسبب عدم الاستقرار وفقدان البيانات. التطبيق مخصص للمستخدمين الراغبين في الاختبار والإبلاغ عن الأخطاء في حالة حدوثها. لا تستخدمه لعملك الإنتاجي!\n\nيتوفر كل من النسخة الرسمية والنسخة التطويرية على F-droid، ويمكن تثبيتهما في نفس الوقت.</string>
     <string name="store_short_desc">منصة إنتاجية ذاتية الاستضافة تبقيك متحكمًا</string>
     <string name="store_short_dev_desc">منصة إنتاجية ذاتية الاستضافة تبقيك متحكمًا (نسخة المطوريين)</string>

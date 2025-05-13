@@ -624,7 +624,6 @@
     <string name="prefs_add_account">Legg til en konto</string>
     <string name="prefs_calendar_contacts">Synkroniser kalender og kontakter</string>
     <string name="prefs_calendar_contacts_no_store_error">Hverken F-Droid eller Google Play er installert</string>
-    <string name="prefs_calendar_contacts_summary">Konfigurer DAVx5 (tidligere DAVdroid) (v1.3.0+)  for gjeldende konto</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Oppsett av synkronisering av kalender og kontakter</string>
     <string name="prefs_category_about">Om</string>
     <string name="prefs_category_details">Detaljer</string>
@@ -634,7 +633,6 @@
     <string name="prefs_category_sync">Synkroniser</string>
     <string name="prefs_daily_backup_summary">Daglig sikkerhetskopiering av din kalender og kontakter</string>
     <string name="prefs_daily_contact_backup_summary">Daglig sikkerhetskopiering av kontakter</string>
-    <string name="prefs_davx5_setup_error">Uventet feil under oppsett av DAVx5 (tidligere kjent som DAVdroid)</string>
     <string name="prefs_e2e_active">Ende-til-ende -kryptering er satt opp!</string>
     <string name="prefs_e2e_mnemonic">E2E mnemonic (hjelper for ende-til-ende kryptering til å huske legitimasjon)</string>
     <string name="prefs_e2e_no_device_credentials">For å vise mnemonic, ver vennlig å aktiver enhet legitimasjon.</string>
@@ -737,7 +735,6 @@
     <string name="screenshot_05_autoUpload_heading">Automatisk opplastning</string>
     <string name="screenshot_05_autoUpload_subline">for dine bilder og videoer</string>
     <string name="screenshot_06_davdroid_heading">Kalender og kontakter</string>
-    <string name="screenshot_06_davdroid_subline">Synkroniser med DAVx5</string>
     <string name="search_error">Feil ved henting av søke resultat</string>
     <string name="secure_share_not_set_up">Sikker deling er ikke konfigurert for denne brukeren</string>
     <string name="select_all">Velg alle</string>
@@ -840,7 +837,6 @@
     <string name="storage_permission_full_access">Full tilgang</string>
     <string name="storage_permission_media_read_only">Skrivebeskyttet media</string>
     <string name="storage_pictures">Bilder</string>
-    <string name="store_full_desc">Den selvstyrte produktivitetsplattformen som du har kontroll over.\n\nFunksjoner:\n* Enkelt, moderne grensesnitt, tilpasset temaet for serveren din\n * Last opp filer til din Nextcloud server\n * Del dem med andre\n * Hold favorittfilene og -mappene dine synkronisert\n* Søk i alle mappene på serverenn* Automatisk opplasting for bilder og videoer tatt med enheten\n* Hold deg oppdatert med varsler\n* Støtte for flere kontoer\n* Sikker tilgang til dataene dine med fingeravtrykk eller PIN\n* Integrasjon med DAVx5 (tidligere kjent som DAVdroid) for enkelt oppsett av kalender og kontakter synkronisering\n\nVennligst rapporter alle problemer på https://github.com/nextcloud/android/issues og diskuter dette programmet på https://help.nextcloud.com/c/clients/android\n\nNew på Nextcloud? Nextcloud er en privat filsynkronisering og delings- og kommunikasjonsserver. Det er fri programvare, og du kan være vert for det selv eller betale et selskap for å gjøre det for deg. På den måten har du kontroll over bildene dine, kalenderen og kontaktdataene dine, dokumentene dine og alt annet. Sjekk ut Nextcloud på https://nextcloud.com</string>
     <string name="store_full_dev_desc">Den selvstyrte produktivitetsplattformen som du har kontroll over.\nDette er den offisielle utviklingsversjonen, med et daglig utvalg av ny uprøvd funksjonalitet, som kan forårsake ustabilitet og tap av data. Appen er for brukere som er villige til å teste, og rapporterer feil hvis de skulle oppstå. Ikke bruk den til ditt produktive arbeid!\n\nBåde den offisielle utvikler versjonen og den vanlige versjonen er tilgjengelig på F-droid, og kan installeres samtidig.</string>
     <string name="store_short_desc">Den selvstyrte produktivitetsplattformen som du har kontroll over</string>
     <string name="store_short_dev_desc">Den selvstyrte produktivitetsplattformen som du har kontroll over (dev forhåndsvisningsversjon)</string>

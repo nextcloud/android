@@ -458,7 +458,6 @@
     <string name="pref_instant_name_collision_policy_title">ຈະເຮັດແນວໃດຖ້າຟາຍມີຢູ່ແລ້ວ?</string>
     <string name="prefs_add_account">ເພີ່ມບັນຊີ</string>
     <string name="prefs_calendar_contacts_no_store_error">ທັງ F-Droid ແລະ Google Play ບໍ່ໄດ້ຖືກຕິດຕັ້ງ</string>
-    <string name="prefs_calendar_contacts_summary">ຕັ້ງ DAVx5 (ເຄີຍເປັນທີ່ຮູ້ຈັກໃນຊື່ DAVdroid) (v1.3.0+) ສໍາລັບບັນຊີປະຈຸບັນ</string>
     <string name="prefs_category_about">ກ່ຽວກັບ</string>
     <string name="prefs_category_details">ລາຍລະອຽດ</string>
     <string name="prefs_category_dev">Dev</string>
@@ -530,7 +529,6 @@
     <string name="screenshot_04_accounts_heading">ບັນຊີທັງໝົດ</string>
     <string name="screenshot_04_accounts_subline">ໃນບ່ອນດຽວ</string>
     <string name="screenshot_05_autoUpload_heading">ອັບໂຫຼດອັດຕະໂນມັັດ</string>
-    <string name="screenshot_06_davdroid_subline">Sync ກັບ DAVx5</string>
     <string name="select_all">ເລືອກທັງໝົດ</string>
     <string name="select_one_template">ເລືອກຕົວຢ່າງ1 ອັນ</string>
     <string name="select_template">ເລືອກຕົວຢ່າງ</string>

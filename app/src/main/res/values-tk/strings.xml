@@ -451,7 +451,6 @@
     <string name="pref_instant_name_collision_policy_title">Faýl eýýäm bar bolsa näme etmeli?</string>
     <string name="prefs_add_account">Hasap goşuň</string>
     <string name="prefs_calendar_contacts_no_store_error">Ne F-Droid, ne-de Google Play ýüklenmedik</string>
-    <string name="prefs_calendar_contacts_summary">Häzirki hasap üçin DAVx5 (öň DAVdroid ady bilen tanalýardy) (v1.3.0 +) guruň</string>
     <string name="prefs_category_about">Hakynda</string>
     <string name="prefs_category_details">Jikme-jiklikler</string>
     <string name="prefs_category_dev">Dev</string>
@@ -522,7 +521,6 @@
     <string name="screenshot_04_accounts_heading">Siziň ähli hasaplaryňyz</string>
     <string name="screenshot_04_accounts_subline">bir ýerde</string>
     <string name="screenshot_05_autoUpload_heading">Awtomatiki ýüklemek</string>
-    <string name="screenshot_06_davdroid_subline">DAVx5 bilen sinhronlaň</string>
     <string name="select_all">Hemmesini saýlaň</string>
     <string name="select_one_template">Bir şablon saýlaň</string>
     <string name="select_template">Şablon saýlaň</string>

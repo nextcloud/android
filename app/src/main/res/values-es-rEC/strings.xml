@@ -545,7 +545,6 @@
     <string name="pref_instant_name_collision_policy_title">¿Qué hacer si el archivo ya existe?</string>
     <string name="prefs_add_account">Agregar cuenta</string>
     <string name="prefs_calendar_contacts_no_store_error">No ha sido instalado ni F-Droid o Google Play </string>
-    <string name="prefs_calendar_contacts_summary">Configurar DAVx5 (antes conocido como DAVdroid) (v1.3.0+) para la cuenta actual</string>
     <string name="prefs_category_about">Acerca de</string>
     <string name="prefs_category_details">Detalles</string>
     <string name="prefs_category_dev">Desarrollo</string>
@@ -553,7 +552,6 @@
     <string name="prefs_category_more">Más</string>
     <string name="prefs_category_sync">Sincronizar</string>
     <string name="prefs_daily_contact_backup_summary">Respaldo diario de tus contactos</string>
-    <string name="prefs_davx5_setup_error">Ocurrió un error inesperado al configurar DAVx5 (antes conocido como DAVdroid)</string>
     <string name="prefs_e2e_active">¡Se configuró la encriptación de extremo a extremo!</string>
     <string name="prefs_e2e_mnemonic">Memónico de E2E</string>
     <string name="prefs_e2e_no_device_credentials">Para mostrar el memónico, por favor, habilita las credenciales del dispositivo.</string>
@@ -635,7 +633,6 @@
     <string name="screenshot_04_accounts_heading">Todas tus cuentas</string>
     <string name="screenshot_04_accounts_subline">en un solo lugar</string>
     <string name="screenshot_05_autoUpload_heading">Carga automática</string>
-    <string name="screenshot_06_davdroid_subline">Sincronizar con DAVx5</string>
     <string name="search_error">Error al obtener los resultados de búsqueda</string>
     <string name="select_all">Seleccionar todo</string>
     <string name="select_media_folder">Configurar carpeta multimedia</string>

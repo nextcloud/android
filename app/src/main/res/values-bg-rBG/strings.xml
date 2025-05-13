@@ -536,7 +536,6 @@
     <string name="pref_instant_name_collision_policy_title">Какво да направите, ако файлът вече съществува?</string>
     <string name="prefs_add_account">Добавяне на профил</string>
     <string name="prefs_calendar_contacts_no_store_error">Нито F-Droid, нито Google play са инсталирани</string>
-    <string name="prefs_calendar_contacts_summary">Настройка на DAVx5 (преди известен като DAVdroid) (v1.3.0+) за текущ профил</string>
     <string name="prefs_category_about">Относно</string>
     <string name="prefs_category_details">Подробности</string>
     <string name="prefs_category_dev">Разработка</string>
@@ -544,7 +543,6 @@
     <string name="prefs_category_more">Още</string>
     <string name="prefs_category_sync">Синхронизиране</string>
     <string name="prefs_daily_contact_backup_summary">Дневно копие на вашите контакти</string>
-    <string name="prefs_davx5_setup_error">Възникна неочаквана грешка при настройката на DAVx5 (известен преди, като DAVdroid)</string>
     <string name="prefs_e2e_active">Настроено е цялостно криптиране!</string>
     <string name="prefs_e2e_mnemonic">E2E мнемоника </string>
     <string name="prefs_e2e_no_device_credentials">Моля, да активирате идентификационните данни на устройството, за да се покаже мнемоника.</string>
@@ -626,7 +624,6 @@
     <string name="screenshot_04_accounts_heading">Всичките ви профили</string>
     <string name="screenshot_04_accounts_subline">на едно място</string>
     <string name="screenshot_05_autoUpload_heading">Автоматично качване</string>
-    <string name="screenshot_06_davdroid_subline">Синхронизиране с DAVx5</string>
     <string name="search_error">Грешка при получаване на резултатите от търсенето</string>
     <string name="select_all">Избери всички</string>
     <string name="select_media_folder">Задаване на медийна папка</string>

@@ -669,7 +669,6 @@
     <string name="prefs_add_account">Add account</string>
     <string name="prefs_calendar_contacts">Sync calendar and contacts</string>
     <string name="prefs_calendar_contacts_no_store_error">Neither F-Droid nor Google Play is installed</string>
-    <string name="prefs_calendar_contacts_summary">Set up DAVx5 (formerly known as DAVdroid) (v1.3.0+) for current account</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Calendar and contacts sync set up</string>
     <string name="prefs_category_about">About</string>
     <string name="prefs_category_details">Details</string>
@@ -681,7 +680,6 @@
     <string name="prefs_daily_contact_backup_summary">Daily backup of your contacts</string>
     <string name="prefs_data_storage_location">Data storage location</string>
     <string name="prefs_data_storage_location_summary">Manage data storage location</string>
-    <string name="prefs_davx5_setup_error">Unexpected error while setting up DAVx5 (formerly known as DAVdroid)</string>
     <string name="prefs_e2e_active">End-to-end encryption is set up!</string>
     <string name="prefs_e2e_mnemonic">E2E mnemonic</string>
     <string name="prefs_e2e_no_device_credentials">To show mnemonic please enable device credentials.</string>
@@ -786,7 +784,6 @@
     <string name="screenshot_05_autoUpload_heading">Automatic upload</string>
     <string name="screenshot_05_autoUpload_subline">for your photos and videos</string>
     <string name="screenshot_06_davdroid_heading">Calendar and contacts</string>
-    <string name="screenshot_06_davdroid_subline">Sync with DAVx5</string>
     <string name="search_error">Error getting search results</string>
     <string name="secure_share_not_set_up">Secure sharing is not set up for this user</string>
     <string name="secure_share_search">Secure share…</string>
@@ -897,7 +894,6 @@
     <string name="storage_permission_full_access">Full access</string>
     <string name="storage_permission_media_read_only">Media read-only</string>
     <string name="storage_pictures">Pictures</string>
-    <string name="store_full_desc">The self-hosted productivity platform that keeps you in control.\n\nFeatures:\n* Easy, modern interface, suited to the theme of your server\n* Upload files to your Nextcloud server\n* Share them with others\n* Keep your favorite files and folders synced\n* Search across all folders on your server\n* Auto Upload for photos and videos taken by your device\n* Keep up to date with notifications\n* Multi-account support\n* Secure access to your data with fingerprint or PIN\n* Integration with DAVx5 (formerly known as DAVdroid) for easy setup of calendar and contacts synchronization\n\nPlease report all issues at https://github.com/nextcloud/android/issues and discuss this app at https://help.nextcloud.com/c/clients/android\n\nNew to Nextcloud? Nextcloud is a private file sync and share and communication server. It is libre software, and you can host it yourself or pay a company to do it for you. That way, you are in control of your photos, your calendar and contact data, your documents and everything else.\n\nCheck out Nextcloud at https://nextcloud.com</string>
     <string name="store_full_dev_desc">The self-hosted productivity platform that keeps you in control.\nThis is the official development version, featuring a daily sample of any new untested functionality, which may cause instability and data loss. The app is for users willing to test, and report bugs should they occur. Do not use it for your productive work!\n\nBoth the official dev and regular version are available on F-droid, and can be installed at the same time.</string>
     <string name="store_short_desc">The self-hosted productivity platform that keeps you in control</string>
     <string name="store_short_dev_desc">The self-hosted productivity platform that keeps you in control (dev preview version)</string>

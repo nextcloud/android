@@ -386,7 +386,6 @@
     <string name="pref_behaviour_entries_move">movita al aplikaĵa dosierujo</string>
     <string name="prefs_add_account">Aldoni konton</string>
     <string name="prefs_calendar_contacts_no_store_error">Nek „F-Droid“ nek „Google Play“ estas instalita</string>
-    <string name="prefs_calendar_contacts_summary">Agordi aplikaĵon DAVx5 (eks-DAVdroid) (versio 1.3.0 kaj posta) por la nuna konto</string>
     <string name="prefs_category_about">Pri</string>
     <string name="prefs_category_details">Detaloj</string>
     <string name="prefs_category_dev">Programado</string>
