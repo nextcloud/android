@@ -669,6 +669,7 @@
     <string name="prefs_add_account">Cuir cuntas leis</string>
     <string name="prefs_calendar_contacts">Sioncrónaigh féilire agus teagmhálacha</string>
     <string name="prefs_calendar_contacts_no_store_error">Níl F-Droid ná Google Play suiteáilte</string>
+    <string name="prefs_calendar_contacts_summary">Socraigh DAVx⁵ (ar a dtugtaí DAVdroid roimhe seo) (v1.3.0+) don chuntas reatha</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Féilire agus sioncrónú teagmhálaithe socraithe</string>
     <string name="prefs_category_about">Faoi</string>
     <string name="prefs_category_details">Sonraí</string>
@@ -680,6 +681,7 @@
     <string name="prefs_daily_contact_backup_summary">Cúltaca laethúil de do theagmhálaithe</string>
     <string name="prefs_data_storage_location">Suíomh stórála sonraí</string>
     <string name="prefs_data_storage_location_summary">Bainistigh suíomh stórála sonraí</string>
+    <string name="prefs_davx5_setup_error">Earráid gan choinne agus DAVx⁵ (DAVdroid roimhe seo) á chur ar bun</string>
     <string name="prefs_e2e_active">Tá criptiú ceann go ceann socraithe!</string>
     <string name="prefs_e2e_mnemonic">Cuimhneachán E2E</string>
     <string name="prefs_e2e_no_device_credentials">Cumasaigh dintiúir gléis le do thoil chun cuimhneachán a thaispeáint.</string>
@@ -784,6 +786,7 @@
     <string name="screenshot_05_autoUpload_heading">Uaslódáil uathoibríoch</string>
     <string name="screenshot_05_autoUpload_subline">do grianghraif agus físeáin</string>
     <string name="screenshot_06_davdroid_heading">Féilire agus teagmhálacha</string>
+    <string name="screenshot_06_davdroid_subline">Sioncrónaigh le DAVx⁵</string>
     <string name="search_error">Earráid agus torthaí cuardaigh á bhfáil</string>
     <string name="secure_share_not_set_up">Níl comhroinnt shlán socraithe don úsáideoir seo</string>
     <string name="secure_share_search">Comhroinn slán…</string>
@@ -894,6 +897,7 @@
     <string name="storage_permission_full_access">Rochtain iomlán</string>
     <string name="storage_permission_media_read_only">Meáin inléite amháin</string>
     <string name="storage_pictures">Pictiúir</string>
+    <string name="store_full_desc">An t-ardán táirgiúlachta féinóstáilte a choinníonn tú i gceannas.\n\nGnéithe:\n* Comhéadan éasca, nua-aimseartha, oiriúnach do théama do fhreastalaí\n* Uaslódáil comhaid chuig do fhreastalaí Nextcloud\n* Roinn iad le daoine eile\n* Coinnigh do chuid comhad agus fillteáin is fearr leat sioncrónaithe\n* Cuardaigh trasna na bhfillteán go léir ar do fhreastalaí\n* Uaslódáil Uathoibríoch le haghaidh grianghraif agus físeáin a thóg do ghléas\n* Coinnigh suas chun dáta le fógraí\n* Tacaíocht ilchuntais\n* Rochtain shlán ar do shonraí le méarloirg nó PIN\n* Comhtháthú le DAVx⁵ (ar a dtugtaí DAVdroid roimhe seo) le haghaidh socrú éasca ar shioncrónú féilire agus teagmhálacha\n\nTuairiscigh gach fadhb ag https://github.com/nextcloud/android/issues agus pléigh an aip seo ag https://help.nextcloud.com/c/clients/android\n\nNua le Nextcloud? Is freastalaí príobháideach sioncrónaithe, comhroinnte agus cumarsáide comhad é Nextcloud. Is bogearraí saor in aisce é, agus is féidir leat é a óstáil tú féin nó cuideachta a íoc chun é a dhéanamh duit. Ar an mbealach sin, tá smacht agat ar do ghrianghraif, do shonraí féilire agus teagmhála, do dhoiciméid agus gach rud eile.\n\nFéach ar Nextcloud ag https://nextcloud.com</string>
     <string name="store_full_dev_desc">An t-ardán táirgiúlachta féin-óstáilte a choinníonn smacht ort.\nSeo an leagan forbartha oifigiúil, ina bhfuil sampla laethúil d\'aon fheidhmiúlacht nua neamhthástáilte, a d\'fhéadfadh a bheith ina chúis le héagobhsaíocht agus caillteanas sonraí. Tá an aip le haghaidh úsáideoirí atá sásta tástáil a dhéanamh, agus tuairisc a thabhairt ar fhabhtanna má tharlaíonn siad. Ná húsáid le haghaidh do chuid oibre táirgiúla!\n\nTá an leagan oifigiúil agus an leagan rialta araon ar fáil ar F-droid, agus is féidir iad a shuiteáil ag an am céanna.</string>
     <string name="store_short_desc">An t-ardán táirgiúlachta féin-óstáilte a choinníonn tú i gceannas</string>
     <string name="store_short_dev_desc">An t-ardán táirgiúlachta féin-óstach a choinníonn smacht ort (leagan réamhamhairc dev)</string>
@@ -1114,6 +1118,27 @@
         <item quantity="few">%d nóiméad</item>
         <item quantity="many">%d nóiméad</item>
         <item quantity="other">%d nóiméad</item>
+    </plurals>
+    <plurals name="time_seconds_ago">
+        <item quantity="one">%d soicind ó shin</item>
+        <item quantity="two">%d soicind ó shin</item>
+        <item quantity="few">%d soicind ó shin</item>
+        <item quantity="many">%d soicind ó shin</item>
+        <item quantity="other">%d soicind ó shin</item>
+    </plurals>
+    <plurals name="time_minutes_ago">
+        <item quantity="one">%d nóiméad ó shin</item>
+        <item quantity="two">%d nóiméad ó shin</item>
+        <item quantity="few">%d nóiméad ó shin</item>
+        <item quantity="many">%d nóiméad ó shin</item>
+        <item quantity="other">%d nóiméad ó shin</item>
+    </plurals>
+    <plurals name="time_hours_ago">
+        <item quantity="one">%d uair an chloig ó shin</item>
+        <item quantity="two">%d uair an chloig ó shin</item>
+        <item quantity="few">%d uair an chloig ó shin</item>
+        <item quantity="many">%d uair an chloig ó shin</item>
+        <item quantity="other">%d uair an chloig ó shin</item>
     </plurals>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">Níorbh fhéidir comhad %1$d a shioncronú (coimhlint: %2$d)</item>
