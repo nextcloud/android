@@ -669,6 +669,7 @@
     <string name="prefs_add_account">Adicionar uma conta</string>
     <string name="prefs_calendar_contacts">Sincronizar calendário e contatos</string>
     <string name="prefs_calendar_contacts_no_store_error">Nem o F-Droid nem o Google Play estão instalados</string>
+    <string name="prefs_calendar_contacts_summary">Configurar DAVx⁵ (conhecido como DAVdroid) (v1.3.0+) para a conta atual</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Sincronização de calendário e contatos configurada</string>
     <string name="prefs_category_about">Sobre</string>
     <string name="prefs_category_details">Detalhes</string>
@@ -680,6 +681,7 @@
     <string name="prefs_daily_contact_backup_summary">Backup diário dos seus contatos</string>
     <string name="prefs_data_storage_location">Local de armazenamento de dados</string>
     <string name="prefs_data_storage_location_summary">Gerenciar o local de armazenamento de dados</string>
+    <string name="prefs_davx5_setup_error">Erro inesperado ao configurar o DAVx⁵ (anteriormente conhecido como DAVdroid)</string>
     <string name="prefs_e2e_active">A criptografia de ponta-a-ponta está configurada!</string>
     <string name="prefs_e2e_mnemonic">Mnemônico E2E</string>
     <string name="prefs_e2e_no_device_credentials">Para exibir o mnemônico, ative as credenciais do dispositivo.</string>
@@ -784,6 +786,7 @@
     <string name="screenshot_05_autoUpload_heading">Upload automático</string>
     <string name="screenshot_05_autoUpload_subline">para suas fotos e vídeos</string>
     <string name="screenshot_06_davdroid_heading">Calendário e contatos</string>
+    <string name="screenshot_06_davdroid_subline">Sincronizar com DAVx⁵</string>
     <string name="search_error">Erro ao obter os resultados da pesquisa </string>
     <string name="secure_share_not_set_up">O compartilhamento seguro não está configurado para este usuário</string>
     <string name="secure_share_search">Compartilhamento seguro…</string>
@@ -894,6 +897,7 @@
     <string name="storage_permission_full_access">Acesso total</string>
     <string name="storage_permission_media_read_only">Mídia somente leitura</string>
     <string name="storage_pictures">Imagens</string>
+    <string name="store_full_desc">A plataforma de produtividade auto-hospedada que mantém você no controle.\n\nRecursos:\n* Interface fácil e moderna, adequada ao tema do seu servidor\n* Faça upload de arquivos para o seu servidor Nextcloud\n* Compartilhe-os com outras pessoas\n * Mantenha seus arquivos e pastas favoritos sincronizados\n* Pesquise todas as pastas do seu servidor\n* Faça upload automático de fotos e vídeos feitos pelo seu dispositivo\n* Mantenha-se atualizado com notificações\n* Suporte para várias contas\n* Acesso seguro aos seus dados com impressão digital ou PIN\n* Integração com DAVx⁵ (anteriormente conhecido como DAVdroid) para facilitar a configuração de sincronização de calendário e contatos\n\nPor favor, relate todos os problemas em https://github.com/nextcloud/android/issues e discuta este aplicativo em https://help.nextcloud.com/c/clients/android\n\n Novo no Nextcloud? Nextcloud é um servidor privado de sincronização e compartilhamento de arquivos e de comunicação. É um software livre e você pode hospedá-lo sozinho ou pagar uma empresa para fazer isso por você. Dessa forma, você controla suas fotos, sua agenda e dados de contatos, seus documentos e tudo mais.\n\nConheça o Nextcloud em https://nextcloud.com</string>
     <string name="store_full_dev_desc">A plataforma de produtividade auto-hospedada que mantém você no controle.\nEsta é a versão oficial de desenvolvimento, apresentando uma amostra diária de qualquer nova funcionalidade não testada e que pode causar instabilidade e perda de dados. O aplicativo é para usuários dispostos a testar e relatar erros caso eles ocorram. Não o use para o seu trabalho produtivo!\n\nOs aplicativos oficiais e a versão regular estão disponíveis no F-droid e podem ser instalados ao mesmo tempo.</string>
     <string name="store_short_desc">A plataforma de produtividade auto-hospedada que mantém você no controle</string>
     <string name="store_short_dev_desc">A plataforma de produtividade auto-hospedada que mantém você no controle (versão preview)</string>
