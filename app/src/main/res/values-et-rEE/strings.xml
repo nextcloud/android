@@ -749,7 +749,7 @@
     <string name="refresh_content">Uuenda sisu</string>
     <string name="reload">Laadi uuesti</string>
     <string name="remote">(kaugseade)</string>
-    <string name="remote_file_fetch_failed">Ei õnnestunud leida faili!</string>
+    <string name="remote_file_fetch_failed">Faili ei õnnestunud leida!</string>
     <string name="remove_e2e">Sa võid läbiva krüptimise sellest kohalikust klientrakendusest eemaldada</string>
     <string name="remove_e2e_message">Sa võid läbiva krüptimise sellest kohalikust klientrakendusest eemaldada. Krüptitud failid jäävad serverisse alles, aga neid enam siia arvutisse või seadmesse ei sünkroniseerita.</string>
     <string name="remove_fail_msg">Kustutamine ei õnnestunud</string>

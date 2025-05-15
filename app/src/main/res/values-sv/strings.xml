@@ -669,6 +669,7 @@
     <string name="prefs_add_account">Lägg till konto</string>
     <string name="prefs_calendar_contacts">Synkronisera kalender och kontakter</string>
     <string name="prefs_calendar_contacts_no_store_error">Varken F-Droid eller Google Play är installerad</string>
+    <string name="prefs_calendar_contacts_summary">Sätt upp DAVx⁵ (tidigare DAVdroid) (v1.3.0 +) för nuvarande konto</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Synkronisera kalender och kontakter</string>
     <string name="prefs_category_about">Om</string>
     <string name="prefs_category_details">Detaljer</string>
@@ -680,6 +681,7 @@
     <string name="prefs_daily_contact_backup_summary">Daglig backup av dina kontakter</string>
     <string name="prefs_data_storage_location">Datalagringsplats</string>
     <string name="prefs_data_storage_location_summary">Hantera plats för datalagring</string>
+    <string name="prefs_davx5_setup_error">Oväntat fel vid installation av DAVx⁵ (tidigare känd som DAVdroid)</string>
     <string name="prefs_e2e_active">End-to-end-kryptering är inställd!</string>
     <string name="prefs_e2e_mnemonic">E2E krypteringsord</string>
     <string name="prefs_e2e_no_device_credentials">För att visa krypteringsord vänligen aktivera enhetsuppgifter.</string>
@@ -785,6 +787,7 @@
     <string name="screenshot_05_autoUpload_heading">Automatisk uppladdning</string>
     <string name="screenshot_05_autoUpload_subline">för dina bilder och videor</string>
     <string name="screenshot_06_davdroid_heading">Kalender och kontakter</string>
+    <string name="screenshot_06_davdroid_subline">Synka med DAVx⁵</string>
     <string name="search_error">Ett fel uppstod vid sökning</string>
     <string name="secure_share_not_set_up">Säker delning är inte konfigurerad för denna användare</string>
     <string name="secure_share_search">Säker delning...</string>
