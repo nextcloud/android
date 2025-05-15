@@ -32,7 +32,6 @@ import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.core.Clock
 import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.client.preferences.AppPreferencesImpl
-import com.nextcloud.utils.BuildHelper
 import com.owncloud.android.MainApp
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.ArbitraryDataProvider
@@ -191,17 +190,6 @@ class MediaFoldersDetectionWork constructor(
                 KEY_MEDIA_FOLDERS,
                 gson.toJson(mediaFoldersModel)
             )
-        }
-
-        // only send notification when synced folder is setup, gplay flavor and not branded client
-        @Suppress("ComplexMethod")
-        if (syncedFolderProvider.syncedFolders.isNotEmpty() &&
-            BuildHelper.isFlavourGPlay() &&
-            !preferences.isAutoUploadGPlayNotificationShown &&
-            !MainApp.isClientBranded()
-        ) {
-            sendAutoUploadNotification()
-            preferences.setAutoUploadGPlayNotificationShown(true)
         }
 
         return Result.success()
