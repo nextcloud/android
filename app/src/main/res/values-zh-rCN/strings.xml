@@ -669,7 +669,7 @@
     <string name="prefs_add_account">添加账号</string>
     <string name="prefs_calendar_contacts">同步日历和联系人</string>
     <string name="prefs_calendar_contacts_no_store_error">F-droid 和 Google Play 都没有安装</string>
-    <string name="prefs_calendar_contacts_summary">为当前账号设置 DAVx5（前身为 DAVdroid）(v1.3.0+)</string>
+    <string name="prefs_calendar_contacts_summary">为当前账号设置 DAVx⁵（以前称为 DAVdroid）（v1.3.0+）</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">日历和联系人同步设置</string>
     <string name="prefs_category_about">关于</string>
     <string name="prefs_category_details">详细信息</string>
@@ -681,7 +681,7 @@
     <string name="prefs_daily_contact_backup_summary">每日备份您的联系人</string>
     <string name="prefs_data_storage_location">数据存储位置</string>
     <string name="prefs_data_storage_location_summary">管理数据存储位置</string>
-    <string name="prefs_davx5_setup_error">设置 DAVx5（以前为 DAVdroid）时出现意外错误</string>
+    <string name="prefs_davx5_setup_error">设置 DAVx⁵（以前称为 DAVdroid）时出现意外错误</string>
     <string name="prefs_e2e_active">端对端加密已设置完成</string>
     <string name="prefs_e2e_mnemonic">端到端加密</string>
     <string name="prefs_e2e_no_device_credentials">启用端到端加密请打开设备认证</string>
@@ -786,7 +786,7 @@
     <string name="screenshot_05_autoUpload_heading">自动上传</string>
     <string name="screenshot_05_autoUpload_subline">您的照片和视频</string>
     <string name="screenshot_06_davdroid_heading">日历和联系人</string>
-    <string name="screenshot_06_davdroid_subline">与DAVx5同步</string>
+    <string name="screenshot_06_davdroid_subline">与 DAVx⁵ 同步</string>
     <string name="search_error">获取搜索结果时出错</string>
     <string name="secure_share_not_set_up">还未为此用户设置安全共享功能</string>
     <string name="secure_share_search">安全共享…</string>
@@ -897,27 +897,7 @@
     <string name="storage_permission_full_access">完整存取权限</string>
     <string name="storage_permission_media_read_only">媒体只读权限</string>
     <string name="storage_pictures">图片</string>
-    <string name="store_full_desc">Nextcloud - 自托管的生产力平台，让您掌控一切。
-
-特性：
-* 简易现代的界面，可适应您的服务器主题
-* 将您的文件上传到您的 Nextcloud 服务器
-* 与他人共享您的文件
-* 保持您喜爱的文件和文件夹同步
-* 搜索服务器上的所有文件夹
-* 自动上传设备拍摄的照片和视频
-* 及时接收通知
-* 多账号支持
-* 使用指纹或密码安全访问您的数据
-* 与 DAVx5 (前身为 DAVdroid) 集成，轻松设置日历和联系人同步
-
-什么是 Nextcloud?
-
-Nextcloud 是一个私有文件同步、共享和通信服务器。它是自由软件，您可以自己托管它，也可以付费让公司为您托管。这样，您可以掌控您的照片、日历和联系人数据、文档以及所有其他内容。
-
-了解更多:
-
-请访问 https://nextcloud.com 了解 Nextcloud</string>
+    <string name="store_full_desc">自托管生产力平台，让您掌控一切。\n\n特征：\n* 简单、现代的界面，适合您的服务器主题\n* 将文件上传到您的 Nextcloud 服务器\n* 与他人分享\n* 保持您喜爱的文件和文件夹同步\n* 搜索服务器上的所有文件夹\n* 自动上传您设备拍摄的照片和视频\n* 随时接收通知\n* 多账号支持\n* 使用指纹或 PIN 安全访问您的数据\n*与 DAVx⁵ 集成（以前称为 DAVdroid），用于轻松设置日历和联系人同步\n\n请在 https://github.com/nextcloud/android/issues 上报告所有问题，并在 https://help.nextcloud.com/c/clients/android 上讨论此应用\n\n您是 Nextcloud 的新用户吗？Nextcloud 是一个私人文件同步、分享和通信服务器。它是自由软件，您可以自行托管，也可以付费让公司为您托管。这样，您就可以掌控您的照片、日历和联系人数据、文档以及其他所有内容。\n\n访问 https://nextcloud.com 查看 Nextcloud</string>
     <string name="store_full_dev_desc">让您掌控全局的自托管生产力平台。
 这是官方开发版本，每天都会对新的未经测试的功能进行取样，这些功能可能导致不稳定和数据丢失。此应用主要面向愿意测试以及在发现bug时能提交报告的用户。请不要用于生产性工作！
 

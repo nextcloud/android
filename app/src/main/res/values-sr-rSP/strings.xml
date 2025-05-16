@@ -401,7 +401,6 @@
     <string name="pref_behaviour_entries_move">premešten u fasciklu aplikacije</string>
     <string name="prefs_add_account">Dodaj nalog</string>
     <string name="prefs_calendar_contacts_no_store_error">Ni F-droid ni Gugl plej prodavnica nisu instalirane</string>
-    <string name="prefs_calendar_contacts_summary">Podesi DAVx5 (ranije znan i kao DAVdroid) (v1.3.0+) za trenutni nalog</string>
     <string name="prefs_category_about">O programu</string>
     <string name="prefs_category_details">Podaci</string>
     <string name="prefs_category_dev">Razvojno</string>
@@ -470,7 +469,6 @@
     <string name="screenshot_04_accounts_heading">Svi Vaši nalozi</string>
     <string name="screenshot_04_accounts_subline">na jednom mestu</string>
     <string name="screenshot_05_autoUpload_heading">Automatska otpremanja</string>
-    <string name="screenshot_06_davdroid_subline">Sinhronizacija sa DAVx5</string>
     <string name="select_all">Označi sve</string>
     <string name="select_template">Odaberite šablon</string>
     <string name="send">Pošalji</string>

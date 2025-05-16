@@ -669,7 +669,7 @@
     <string name="prefs_add_account">Lägg till konto</string>
     <string name="prefs_calendar_contacts">Synkronisera kalender och kontakter</string>
     <string name="prefs_calendar_contacts_no_store_error">Varken F-Droid eller Google Play är installerad</string>
-    <string name="prefs_calendar_contacts_summary">Sätt upp DAVx5 (tidigare DAVdroid) (v1.3.0 +) för nuvarande konto</string>
+    <string name="prefs_calendar_contacts_summary">Sätt upp DAVx⁵ (tidigare DAVdroid) (v1.3.0 +) för nuvarande konto</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Synkronisera kalender och kontakter</string>
     <string name="prefs_category_about">Om</string>
     <string name="prefs_category_details">Detaljer</string>
@@ -681,7 +681,7 @@
     <string name="prefs_daily_contact_backup_summary">Daglig backup av dina kontakter</string>
     <string name="prefs_data_storage_location">Datalagringsplats</string>
     <string name="prefs_data_storage_location_summary">Hantera plats för datalagring</string>
-    <string name="prefs_davx5_setup_error">Oväntat fel vid installation av DAVx5 (tidigare känd som DAVdroid)</string>
+    <string name="prefs_davx5_setup_error">Oväntat fel vid installation av DAVx⁵ (tidigare känd som DAVdroid)</string>
     <string name="prefs_e2e_active">End-to-end-kryptering är inställd!</string>
     <string name="prefs_e2e_mnemonic">E2E krypteringsord</string>
     <string name="prefs_e2e_no_device_credentials">För att visa krypteringsord vänligen aktivera enhetsuppgifter.</string>
@@ -787,7 +787,7 @@
     <string name="screenshot_05_autoUpload_heading">Automatisk uppladdning</string>
     <string name="screenshot_05_autoUpload_subline">för dina bilder och videor</string>
     <string name="screenshot_06_davdroid_heading">Kalender och kontakter</string>
-    <string name="screenshot_06_davdroid_subline">Synka med DAVx5</string>
+    <string name="screenshot_06_davdroid_subline">Synka med DAVx⁵</string>
     <string name="search_error">Ett fel uppstod vid sökning</string>
     <string name="secure_share_not_set_up">Säker delning är inte konfigurerad för denna användare</string>
     <string name="secure_share_search">Säker delning...</string>
@@ -898,7 +898,6 @@
     <string name="storage_permission_full_access">Fullständig åtkomst</string>
     <string name="storage_permission_media_read_only">En läsåtkomst till media</string>
     <string name="storage_pictures">Bilder</string>
-    <string name="store_full_desc">En produktivitetsplattform du kan driva själv och som ger dig kontroll.\n\nFunktioner:\n* Enkelt, modernt gränssnitt, anpassat till temat på din server\n* Ladda upp filer till din Nextcloud-server\n* Dela dem med andra\n* Håll dina favoritfiler och mappar synkade\n* Sök i alla mappar på din server\n* Automatisk uppladdning av foton och videor från enheten\n* Håll dig uppdaterad med aviseringar\n* Stöd för flera konton\n* Säker åtkomst till ditt data med fingeravtryck eller PIN-kod\n* Integration med DAVx5 (tidigare känd som DAVdroid) för att enkelt synkronisering av kalender och kontakter\n\nRapportera gärna de problem du upplever på https://github.com/nextcloud/android/issues och diskutera den här appen på https://help.nextcloud.com/c/clients/android\n\nNy på Nextcloud? Nextcloud ger integritet på egen server för synkronisering och delning av filer samt kommunikation. Den är fri programvara och du kan driva den själv eller betala ett företag för att göra det åt dig. På så sätt har du kontroll över dina foton, din kalender och dina kontaktuppgifter, dina dokument och allt annat.\n\nKolla in Nextcloud på https://nextcloud.com</string>
     <string name="store_full_dev_desc">Produktivitetsplattformen där du är din egen värd och håller dig i kontroll.\nDetta är den officiella utvecklingsversionen, med ett dagligt urval av någon ny otestad funktionalitet, vilket kan orsaka instabilitet och dataförlust. Appen är för användare som är villiga att testa, och rapportera fel om de inträffar. Använd inte det för ditt produktiva arbete!\n\nBåde den officiella dev och regelbunden versionen finns på F-droid, och kan installeras samtidigt.</string>
     <string name="store_short_desc">Produktivitetsplattformen där du är din egen värd och håller dig i kontroll</string>
     <string name="store_short_dev_desc">Produktivitetsplattformen där du är din egen värd och håller dig i kontroll (dev förhandsversion)</string>
@@ -1115,15 +1114,15 @@
         <item quantity="other">%d minuter</item>
     </plurals>
     <plurals name="time_seconds_ago">
-        <item quantity="one">1 sekund sedan</item>
+        <item quantity="one">%d sekund sedan</item>
         <item quantity="other">%d sekunder sedan</item>
     </plurals>
     <plurals name="time_minutes_ago">
-        <item quantity="one">1 minut sedan</item>
+        <item quantity="one">%d minut sedan</item>
         <item quantity="other">%d minuter sedan</item>
     </plurals>
     <plurals name="time_hours_ago">
-        <item quantity="one">1 timme sedan</item>
+        <item quantity="one">%d timme sedan</item>
         <item quantity="other">%d timmar sedan</item>
     </plurals>
     <plurals name="sync_fail_in_favourites_content">

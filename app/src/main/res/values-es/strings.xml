@@ -318,6 +318,7 @@
     <string name="end_to_end_encryption_password">Contraseña…</string>
     <string name="end_to_end_encryption_retrieving_keys">Recuperando claves…</string>
     <string name="end_to_end_encryption_server_private_key_unavailable">No fue posible recuperar la llave privada</string>
+    <string name="end_to_end_encryption_server_public_key_unavailable">No fue posible recuperar la llave pública</string>
     <string name="end_to_end_encryption_storing_keys">Almacenando claves</string>
     <string name="end_to_end_encryption_title">Configurar cifrado</string>
     <string name="end_to_end_encryption_unexpected_error_occurred">Ha ocurrido un error inesperado al descargar las claves</string>
@@ -357,6 +358,7 @@
     <string name="etm_background_jobs_stop_test_job">Parar trabajo de prueba</string>
     <string name="etm_migrations">Migraciones (actualizar app)</string>
     <string name="etm_preferences">Preferencias</string>
+    <string name="etm_title">Modo de prueba de ingeniería</string>
     <string name="etm_transfer">Transferencia de archivo</string>
     <string name="etm_transfer_enqueue_test_download">Poner en cola el test de descarga</string>
     <string name="etm_transfer_enqueue_test_upload">Poner en cola el test de subida</string>
@@ -456,6 +458,7 @@
     <string name="first_run_3_text">Correo web, calendario y contactos fáciles de usar</string>
     <string name="first_run_4_text">Compartir pantalla, reuniones en línea y conferencias web</string>
     <string name="folder_already_exists">La carpeta ya existe</string>
+    <string name="folder_best_viewed_in">Esta carpeta se ve mejor en %1$s.</string>
     <string name="folder_confirm_create">Crear</string>
     <string name="folder_list_empty_headline">No hay carpetas aquí</string>
     <string name="folder_name_empty">El nombre de la carpeta no puede estar vacío</string>
@@ -593,6 +596,7 @@
     <string name="note_icon_hint">Icono de la nota</string>
     <string name="notification_action_failed">Fallo al ejecutar la acción.</string>
     <string name="notification_channel_background_operations_description">Muestra notificaciones para  interactuar como resultado de operaciones en segundo plano</string>
+    <string name="notification_channel_background_operations_name">Operaciones en segundo plano</string>
     <string name="notification_channel_download_description">Muestra el progreso de la descarga</string>
     <string name="notification_channel_download_name_short">Descargas</string>
     <string name="notification_channel_file_sync_description">Muestra progreso y resultados de la sincronización de archivos</string>
@@ -609,16 +613,21 @@
     <string name="notification_icon_description">Existen notificaciones no leídas</string>
     <string name="notifications_no_results_headline">No hay notificaciones</string>
     <string name="notifications_no_results_message">Por favor, comprúebalo más tarde.</string>
+    <string name="oc_file_list_adapter_offline_operation_description_text">Operación pendiente</string>
     <string name="oc_file_list_adapter_offline_operation_remove_description_text">Operación de borrado pendiente</string>
     <string name="offline_mode">No hay conexión a internet</string>
     <string name="offline_mode_info_description">Incluso sin una conexión a internet, puede sorganizar tus carpetas o crear archivos. Una vez vuelves a estar en línea ,las acciones pendientes se sincronizarán automáticamente.</string>
+    <string name="offline_mode_info_title">Está desconectado, pero el trabajo continúa</string>
     <string name="offline_operations_file_does_not_exists_yet">El archivo no existe todavía. Por favor, sube primero el archivo.</string>
+    <string name="offline_operations_worker_notification_conflict_text">Carpeta en conflicto: %s</string>
     <string name="offline_operations_worker_notification_delete_offline_folder">Eliminar carpeta sin conexión</string>
     <string name="offline_operations_worker_notification_error_text">La operación sin conexión no se ha podido completar. %s</string>
     <string name="offline_operations_worker_notification_manager_ticker">Operaciones sin conexión</string>
+    <string name="offline_operations_worker_notification_start_text">Iniciando operaciones sin conexión</string>
     <string name="oneHour">1 hora</string>
     <string name="online">En línea</string>
     <string name="online_status">Estado en línea</string>
+    <string name="open_in_app">Abrir en %1$s</string>
     <string name="outdated_server">El servidor ha alcanzado su final de vida. ¡Por favor, actualiza!</string>
     <string name="overflow_menu">Menú</string>
     <string name="pass_code_configure_your_pass_code">Introduce tu código de acceso</string>
@@ -637,6 +646,7 @@
     <string name="permission_storage_access">Se necesitan permisos adicionales para subir y descargar archivos.</string>
     <string name="pick_contact_to_share_with">Elige un contacto con quien compartir</string>
     <string name="picture_set_as_no_app">No se ha encontrado una app para establecer con ella la imagen</string>
+    <string name="pin_home">Anclar a la pantalla de inicio</string>
     <string name="pin_shortcut_label">Abrir %1$s</string>
     <string name="placeholder_fileSize">389 KB</string>
     <string name="placeholder_filename">placeholder.txt</string>
@@ -659,7 +669,6 @@
     <string name="prefs_add_account">Agregar cuenta</string>
     <string name="prefs_calendar_contacts">Sincronizar calendario y contactos</string>
     <string name="prefs_calendar_contacts_no_store_error">Ni F-Droid ni Google Play están instalados</string>
-    <string name="prefs_calendar_contacts_summary">Configurar DAVx5 (antes conocido como DAVdroid) (v1.3.0+) para la cuenta actual</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Sincronización de calendario y contactos configurada</string>
     <string name="prefs_category_about">Acerca de</string>
     <string name="prefs_category_details">Detalles</string>
@@ -671,7 +680,6 @@
     <string name="prefs_daily_contact_backup_summary">Respaldo diario de sus contactos</string>
     <string name="prefs_data_storage_location">Ubicación donde guardar los datos</string>
     <string name="prefs_data_storage_location_summary">Gestionar ubicación de almacenamiento de datos</string>
-    <string name="prefs_davx5_setup_error">Error inesperado al configurar DAVx5 (anteriormente conocido como DAVdroid)</string>
     <string name="prefs_e2e_active">¡Se ha configurado el cifrado de extremo a extremo!</string>
     <string name="prefs_e2e_mnemonic">Regla mnemotécnica del cifrado E2E</string>
     <string name="prefs_e2e_no_device_credentials">Para mostrar la regla mnemotécnica, habilite las credenciales del dispositivo</string>
@@ -776,7 +784,6 @@
     <string name="screenshot_05_autoUpload_heading">Subida automática</string>
     <string name="screenshot_05_autoUpload_subline">para sus fotos y videos</string>
     <string name="screenshot_06_davdroid_heading">Calendario y contactos</string>
-    <string name="screenshot_06_davdroid_subline">Sincronizar con DAVx5</string>
     <string name="search_error">Error al cargar resultados de búsqueda</string>
     <string name="secure_share_not_set_up">Compartir en modo seguro no está configurado para este usuario</string>
     <string name="secure_share_search">Compartir de forma segura...</string>
@@ -785,8 +792,10 @@
     <string name="select_one_template">Por favor, selecciona una plantilla</string>
     <string name="select_template">Escoge plantilla</string>
     <string name="send">Mandar</string>
+    <string name="send_share">Enviar recurso compartido</string>
     <string name="sendbutton_description">Icono del botón de enviar</string>
     <string name="set_as">Establecer como</string>
+    <string name="set_note">Establecer nota</string>
     <string name="set_picture_as">Usar imagen como</string>
     <string name="set_status">Configurar estado</string>
     <string name="set_status_message">Ajustar el mensaje de estado</string>
@@ -819,6 +828,7 @@
     <string name="share_permission_file_drop">Entrega de archivos</string>
     <string name="share_permission_secure_file_drop">Entrega de archivos segura</string>
     <string name="share_permission_view_only">Solo lectura</string>
+    <string name="share_permissions">Permisos del recurso compartido</string>
     <string name="share_remote_clarification">%1$s (remoto)</string>
     <string name="share_room_clarification">%1$s (conversación)</string>
     <string name="share_search">Nombre, ID de nube federada o dirección de correo electrónico...</string>
@@ -842,6 +852,7 @@
     <string name="show_images">Mostrar fotos</string>
     <string name="show_less">Ver menos</string>
     <string name="show_video">Mostrar vídeos</string>
+    <string name="sign_tos_failed">¡Por favor, revise manualmente los términos de servicio!</string>
     <string name="signup_with_provider">Registrarse con un proveedor</string>
     <string name="single_sign_on_request_token" formatted="true">¿Permitir a %1$s acceder a tu cuenta de Nextcloud %2$s?</string>
     <string name="sort_by">Ordenar por</string>
@@ -883,7 +894,6 @@
     <string name="storage_permission_full_access">Acceso completo</string>
     <string name="storage_permission_media_read_only">Medios en sólo lectura</string>
     <string name="storage_pictures">Imágenes</string>
-    <string name="store_full_desc">La plataforma de productividad auto-alojada que le mantiene en control.\n\nCaracterísticas;\n* Interfaz moderna y fácil de usar adecuada al tema de su servidor\n* Suba archivos a su servidor Nextcloud\n* Compártalos con otros\n* Mantenga sus archivos y carpetas favoritas sincronizados\n* Busque en todas las carpetas de su servidor\n* Subida automática para fotos y videos capturados en su dispositivo\n* Manténgase al día con notificaciones\n* Soporte para múltiples cuentas\n* Acceda a su información de forma segura usando su huella dactilar o PIN\n* Integración con DAVx5 (anteriormente conocido como DAVdroid) para configurar fácilmente la sincronización del calendario y contactos\n\nPor favor, reporte cualquier problema en https://github.com/nextcloud/android/issues y discuta acerca de esta aplicación en https://help.nextcloud.com/c/clients/android\n\n¿Es Ud. nuevo en Nextcloud? Nextcloud es un servidor privado para sincronizar y compartir archivos, y comunicación. Es un programa de uso libre, y lo puede hospedar Ud. mismo o pagar a una compañía para hacerlo por Ud. De esa manera, Ud. está en control de sus fotos, su calendario e información de sus contactos, sus documentos y todo lo demás.\n\nConozca Nextcloud en https://nextcloud.com</string>
     <string name="store_full_dev_desc">La plataforma de productividad auto-alojada que te mantiene al mando.\nEsta es la versión oficial de desarrollo, que incluye una muestra diaria de cualquier funcionalidad sin probar, lo que puede causar inestabilidad y pérdida de datos. Esta app es para usuarios que desean probar, e informar de los fallos que ocurran. ¡No la uses para tu trabajo productivo!\n\nTanto la versión normal como la oficial de desarrollo están disponibles en F-Droid y pueden estar instaladas al mismo tiempo.</string>
     <string name="store_short_desc">La plataforma de productividad auto-alojada que te mantiene al mando</string>
     <string name="store_short_dev_desc">La plataforma de productividad auto-alojada que te mantiene al mando (versión de prueba para desarrolladores)</string>
@@ -900,8 +910,10 @@
     <string name="subtitle_videos_only">Solo vídeos</string>
     <string name="suggest">Sugerir</string>
     <string name="sync">Sincronizar</string>
+    <string name="sync_anyway">Sincronizar de todas formas</string>
     <string name="sync_conflicts_in_favourites_ticker">Se han encontrado conflictos</string>
     <string name="sync_current_folder_was_removed">La carpeta %1$s ya no existe</string>
+    <string name="sync_duplication">Duplicación de sincronización</string>
     <string name="sync_fail_content">No se ha podido sincronizar %1$s</string>
     <string name="sync_fail_content_unauthorized">Contraseña errónea para %1$s</string>
     <string name="sync_fail_in_favourites_ticker">Fallos en la sincronización de contenidos</string>
@@ -918,6 +930,7 @@
     <string name="sync_not_enough_space_dialog_title">Espacio insuficiente</string>
     <string name="sync_status_button">Botón de estado de la sincronización</string>
     <string name="sync_string_files">Archivos</string>
+    <string name="sync_warning_button">Botón de alerta de sincronización</string>
     <string name="synced_folder_settings_button">Botón de configuración</string>
     <string name="synced_folders_configure_folders">Configurar carpetas</string>
     <string name="synced_folders_new_info">Carga instantánea ha sido modificado por completo. Re-configura tu carga automática desde el menú principal. \n\nDisfruta la nueva y extendida carga automática.</string>
@@ -927,6 +940,7 @@
     <string name="synced_icon">Sincronizado</string>
     <string name="tags">Etiquetas</string>
     <string name="terms_of_service_title">Términos del servicio</string>
+    <string name="terms_of_services_agree">Acepto los Términos de Servicio</string>
     <string name="test_server_button">Probar conexión con servidor</string>
     <string name="thirtyMinutes">30 minutos</string>
     <string name="thisWeek">Esta semana</string>
@@ -1097,21 +1111,6 @@
         <item quantity="many">%d minutos</item>
         <item quantity="other">%d minutos</item>
     </plurals>
-    <plurals name="time_seconds_ago">
-        <item quantity="one">Hace 1 segundo</item>
-        <item quantity="many">Hace %d segundos</item>
-        <item quantity="other">Hace %d segundos</item>
-    </plurals>
-    <plurals name="time_minutes_ago">
-        <item quantity="one">Hace 1 minuto</item>
-        <item quantity="many">Hace %d minutos</item>
-        <item quantity="other">Hace %d minutos</item>
-    </plurals>
-    <plurals name="time_hours_ago">
-        <item quantity="one">Hace 1 hora</item>
-        <item quantity="many">Hace %d horas</item>
-        <item quantity="other">Hace %d horas</item>
-    </plurals>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">No se ha podido sincronizar %1$d archivo (conflicto con %2$d)</item>
         <item quantity="many">No se ha podido sincronizar %1$d archivos (conflicto con %2$d)</item>
@@ -1186,6 +1185,21 @@
         <item quantity="one">%d seleccionado</item>
         <item quantity="many">%d seleccionados</item>
         <item quantity="other">%d seleccionados</item>
+    </plurals>
+    <plurals name="delay_message">
+        <item quantity="one">Retrasado por %d segundo debido a múltiples intentos fallidos</item>
+        <item quantity="many">Retrasado por %d segundos debido a múltiples intentos fallidos</item>
+        <item quantity="other">Retrasado por %d segundos debido a múltiples intentos fallidos</item>
+    </plurals>
+    <plurals name="delay_message_minutes">
+        <item quantity="one">Retrasado por %d minuto debido a múltiples intentos fallidos</item>
+        <item quantity="many">Retrasado por %d minutos debido a múltiples intentos fallidos</item>
+        <item quantity="other">Retrasado por %d minutos debido a múltiples intentos fallidos</item>
+    </plurals>
+    <plurals name="delay_message_minutes_part">
+        <item quantity="one">Retrasado por %d minuto</item>
+        <item quantity="many">Retrasado por %d minutos</item>
+        <item quantity="other">Retrasado por %d minutos</item>
     </plurals>
     <plurals name="delay_message_seconds_part">
         <item quantity="one">%dsegundo</item>

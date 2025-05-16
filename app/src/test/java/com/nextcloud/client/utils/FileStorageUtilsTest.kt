@@ -10,11 +10,43 @@ package com.nextcloud.client.utils
 import com.nextcloud.client.preferences.SubFolderRule
 import com.owncloud.android.utils.FileStorageUtils
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
+import org.junit.Assert.assertTrue
 import org.junit.Test
 import java.io.File
 import java.util.Locale
 
 class FileStorageUtilsTest {
+    @Test
+    fun testValidFilenames() {
+        assertTrue(FileStorageUtils.isValidExtFilename("example.txt"))
+        assertTrue(FileStorageUtils.isValidExtFilename("file_name-123"))
+        assertTrue(FileStorageUtils.isValidExtFilename("normalFile"))
+    }
+
+    @Test
+    fun testInvalidFilenamesWithSpecialChars() {
+        assertFalse(FileStorageUtils.isValidExtFilename("file:name.txt"))
+        assertFalse(FileStorageUtils.isValidExtFilename("file*name"))
+        assertFalse(FileStorageUtils.isValidExtFilename("file/name"))
+        assertFalse(FileStorageUtils.isValidExtFilename("file\\name"))
+        assertFalse(FileStorageUtils.isValidExtFilename("file|name"))
+        assertFalse(FileStorageUtils.isValidExtFilename("file\"name"))
+        assertFalse(FileStorageUtils.isValidExtFilename("file<name>"))
+        assertFalse(FileStorageUtils.isValidExtFilename("file?name"))
+    }
+
+    @Test
+    fun testFilenamesWithControlCharacters() {
+        assertFalse(FileStorageUtils.isValidExtFilename("file\u0001name"))
+        assertFalse(FileStorageUtils.isValidExtFilename("file\u001Fname"))
+    }
+
+    @Test
+    fun testEmptyFilename() {
+        assertTrue(FileStorageUtils.isValidExtFilename(""))
+    }
+
     @Test
     fun testInstantUploadPathSubfolder() {
         val file = File("/sdcard/DCIM/subfolder/file.jpg")

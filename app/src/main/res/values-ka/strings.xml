@@ -555,7 +555,6 @@
     <string name="pref_instant_name_collision_policy_title">What to do if the file already exists?</string>
     <string name="prefs_add_account">Add account</string>
     <string name="prefs_calendar_contacts_no_store_error">Neither F-Droid nor Google Play is installed</string>
-    <string name="prefs_calendar_contacts_summary">Set up DAVx5 (formerly known as DAVdroid) (v1.3.0+) for current account</string>
     <string name="prefs_category_about">About</string>
     <string name="prefs_category_details">Details</string>
     <string name="prefs_category_dev">Dev</string>
@@ -563,7 +562,6 @@
     <string name="prefs_category_more">More</string>
     <string name="prefs_category_sync">Sync</string>
     <string name="prefs_daily_contact_backup_summary">Daily backup of your contacts</string>
-    <string name="prefs_davx5_setup_error">Unexpected error while setting up DAVx5 (formerly known as DAVdroid)</string>
     <string name="prefs_e2e_active">End-to-end encryption is set up!</string>
     <string name="prefs_e2e_mnemonic">E2E mnemonic</string>
     <string name="prefs_e2e_no_device_credentials">To show mnemonic please enable device credentials.</string>
@@ -652,7 +650,6 @@
     <string name="screenshot_04_accounts_heading">All your accounts</string>
     <string name="screenshot_04_accounts_subline">in one place</string>
     <string name="screenshot_05_autoUpload_heading">Automatic upload</string>
-    <string name="screenshot_06_davdroid_subline">Sync with DAVx5</string>
     <string name="search_error">Error getting search results</string>
     <string name="select_all">Select all</string>
     <string name="select_media_folder">Set media folder</string>
@@ -924,6 +921,14 @@
     <string name="write_email">Send email</string>
     <string name="wrong_storage_path">Data storage folder does not exist!</string>
     <string name="wrong_storage_path_desc">This might be due to a backup restore on another device. Falling back to default. Please check settings to adjust data storage folder.</string>
+    <plurals name="time_minutes_ago">
+        <item quantity="one">%d minute ago</item>
+        <item quantity="other">%d minutes ago</item>
+    </plurals>
+    <plurals name="time_hours_ago">
+        <item quantity="one">%d hour ago</item>
+        <item quantity="other">%d hours ago</item>
+    </plurals>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">Could not sync %1$d file (conflicts: %2$d)</item>
         <item quantity="other">Could not sync %1$d files (conflicts: %2$d)</item>

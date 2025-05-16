@@ -61,7 +61,7 @@
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">Kustuta ülesanne</string>
     <string name="assistant_screen_task_output_empty_text">Ülesande väljund pole veel valmis.</string>
     <string name="assistant_screen_task_types_error_state_message">Ülesannete tüüpide laadimine ei õnnestunud. Palun kontrolli oma nutiseadme internetiühenduse toimivust.</string>
-    <string name="assistant_screen_top_bar_title">Assistent</string>
+    <string name="assistant_screen_top_bar_title">Abiline</string>
     <string name="assistant_task_detail_screen_input_button_title">Sisend</string>
     <string name="assistant_task_detail_screen_output_button_title">Väljund</string>
     <string name="associated_account_not_found">Seotud kontot ei leitud!</string>
@@ -117,7 +117,7 @@
     <string name="battery_optimization_disable">Lülita välja</string>
     <string name="battery_optimization_message">Sinu seade võib optimeerida akukasutust. Automaatne üleslaadimine toimib ainult siis, kui sa selle rakenduse jaoks akukasutuse optimeerimise keelad.</string>
     <string name="battery_optimization_title">Akukasutuse optimeerimine</string>
-    <string name="bottom_navigation_menu_assistant_label">Assistent</string>
+    <string name="bottom_navigation_menu_assistant_label">Abiline</string>
     <string name="bottom_navigation_menu_favorites_label">Lemmikud</string>
     <string name="bottom_navigation_menu_files_label">Kõik failid</string>
     <string name="bottom_navigation_menu_media_label">Meedia</string>
@@ -276,7 +276,7 @@
     <string name="drawer_header_background">Päiseriba taustapilt</string>
     <string name="drawer_item_activities">Tegevused</string>
     <string name="drawer_item_all_files">Kõik failid</string>
-    <string name="drawer_item_assistant">Assistent</string>
+    <string name="drawer_item_assistant">Abiline</string>
     <string name="drawer_item_favorites">Lemmikud</string>
     <string name="drawer_item_gallery">Meedia</string>
     <string name="drawer_item_groupfolders">Grupikaustad</string>
@@ -299,7 +299,7 @@
     <string name="e2e_not_yet_setup">Läbiv krüptimine pole veel seadistatud</string>
     <string name="e2e_offline">Seda ei saa teha ilma internetiühenduseta</string>
     <string name="e2e_signature_does_not_match">Allkirjad ei klapi</string>
-    <string name="ecosystem_apps_display_assistant">Assistent</string>
+    <string name="ecosystem_apps_display_assistant">Abiline</string>
     <string name="ecosystem_apps_display_more">Veel</string>
     <string name="ecosystem_apps_more">Veel Nextcloudi rakendusi</string>
     <string name="email_pick_failed">Ei õnnestu valida e-posti aadressi</string>
@@ -749,7 +749,7 @@
     <string name="refresh_content">Uuenda sisu</string>
     <string name="reload">Laadi uuesti</string>
     <string name="remote">(kaugseade)</string>
-    <string name="remote_file_fetch_failed">Ei õnnestunud leida faili!</string>
+    <string name="remote_file_fetch_failed">Faili ei õnnestunud leida!</string>
     <string name="remove_e2e">Sa võid läbiva krüptimise sellest kohalikust klientrakendusest eemaldada</string>
     <string name="remove_e2e_message">Sa võid läbiva krüptimise sellest kohalikust klientrakendusest eemaldada. Krüptitud failid jäävad serverisse alles, aga neid enam siia arvutisse või seadmesse ei sünkroniseerita.</string>
     <string name="remove_fail_msg">Kustutamine ei õnnestunud</string>
@@ -1114,16 +1114,16 @@
         <item quantity="other">%d minutit</item>
     </plurals>
     <plurals name="time_seconds_ago">
-        <item quantity="one">1 sekund tagasi</item>
+        <item quantity="one">%d sekund tagasi</item>
         <item quantity="other">%d sekundit tagasi</item>
     </plurals>
     <plurals name="time_minutes_ago">
-        <item quantity="one">1 minut tagasi</item>
+        <item quantity="one">%d minut tagasi</item>
         <item quantity="other">%d minutit tagasi</item>
     </plurals>
     <plurals name="time_hours_ago">
-        <item quantity="one">1 tund tagasi</item>
-        <item quantity="other">%d tundi tagasi</item>
+        <item quantity="one">%d tunni eest</item>
+        <item quantity="other">%d tunni eest</item>
     </plurals>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">Ei õnnestunud sünkroniseerida „%1$d“ faili (failikonflikt: „%2$d“)</item>

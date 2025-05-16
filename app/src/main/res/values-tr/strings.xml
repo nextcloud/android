@@ -669,7 +669,6 @@
     <string name="prefs_add_account">Hesap ekle</string>
     <string name="prefs_calendar_contacts">Takvim ve kişi eşitleme</string>
     <string name="prefs_calendar_contacts_no_store_error">F-Droid ya da Google Play kurulmamış</string>
-    <string name="prefs_calendar_contacts_summary">Geçerli hesap için DAVx5 (eski adı DAVdroid) (v1.3.0+) kurulumu</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Takvim ve kişi eşitleme ayarları</string>
     <string name="prefs_category_about">Hakkında</string>
     <string name="prefs_category_details">Ayrıntılar</string>
@@ -681,7 +680,6 @@
     <string name="prefs_daily_contact_backup_summary">Kişilerinizin günlük yedeği</string>
     <string name="prefs_data_storage_location">Veri depolama konumu</string>
     <string name="prefs_data_storage_location_summary">Veri depolama konumunu yönet</string>
-    <string name="prefs_davx5_setup_error">DAVx5 (eski adıyla DAVdroid) kurulurken beklenmeyen bir sorun çıktı</string>
     <string name="prefs_e2e_active">Uçtan uca şifreleme kuruldu!</string>
     <string name="prefs_e2e_mnemonic">E2E belleği</string>
     <string name="prefs_e2e_no_device_credentials">Belleğin görüntülenmesi için aygıt kimlik doğrulama bilgilerini kullanıma alın.</string>
@@ -786,7 +784,6 @@
     <string name="screenshot_05_autoUpload_heading">Otomatik yükleme</string>
     <string name="screenshot_05_autoUpload_subline">fotoğraflarınız ve görüntüleriniz için</string>
     <string name="screenshot_06_davdroid_heading">Takvim ve kişiler</string>
-    <string name="screenshot_06_davdroid_subline">DAVx5 ile eşitleme</string>
     <string name="search_error">Arama sonuçları alınırken sorun çıktı</string>
     <string name="secure_share_not_set_up">Bu kullanıcı için güvenli paylaşım kurulmamış</string>
     <string name="secure_share_search">Güvenli paylaşım…</string>
@@ -897,7 +894,6 @@
     <string name="storage_permission_full_access">Tüm dosyalara erişim</string>
     <string name="storage_permission_media_read_only">Ortam dosyalarına salt okunur erişim</string>
     <string name="storage_pictures">Fotoğraflar</string>
-    <string name="store_full_desc">Sizin kontrolunuz altında barındırılan üretkenlik platformu.\n\nÖzellikleri:\n* Sunucunuzun temasına uygun, kolay kullanılan, modern arayüz\n* Dosyaları Nextcloud sunucunuza yükleme\n* Başkaları ile paylaşma\n* İstediğiniz dosya ve klasörleri eşitleme\n* Sunucunuzdaki tüm klasörlerde arama\n* Aygıtınızdaki fotoğraf ve görüntüleri otomatik olarak yükleme\n* Güncelleme bildirimleri\n* Birden çok hesap desteği\n* Verilere parmak izi ya da PIN kodu ile güvenli erişim\n* Kolay takvim ve kişi eşitleme kurulumu için DAVx5 bütünleştirmesi (eski adı DAVdroid)\n\nLütfen olabilecek sorunları https://github.com/nextcloud/android/issues adresine bildirin ve uygulama ile ilgili görüşlerinizi https://help.nextcloud.com/c/clients/android adresine yazın\n\nNextcloud kullanmaya yeni mi başladınız? Nextcloud kişisel dosyaları eşitlemek ve paylaşmak için kullanılan bir iletişim sunucusudur. Özgür bir yazılımdır ve kendiniz barındırabileceğiniz gibi bir kuruluş üzerinde ücretli olarak barındırabilirsiniz. Böylece fotoğraflarınız, takviminiz, kişi bilgileriniz ve belgeleriniz gibi pek çok veriyi kendi kontrolunuz altında tutabilirsiniz.\n\nNextcloud hakkında bilgi almak için https://nextcloud.com sitesine bakabilirsiniz.</string>
     <string name="store_full_dev_desc">Sizin kontrolunuz altında barındırılan üretkenlik platformu.\nBu sürüm resmi Nextcloud uygulamasının geliştirici sürümü olduğundan, kararsız çalışabilir ve veri kaybına yol açabilecek yeterince sınanmamış yeni özellikler bulundurur. Bu sürüm yeni özellikleri sınamak ve hataları bildirmek isteyen kullanıcılar için tasarlanmıştır. Bu sürümü günlük işleriniz için kullanmayın!\n\nNormal ve Geliştirici sürümleri F-Droid üzerinde bulunur ve aynı anda kurulup kullanılabilir.</string>
     <string name="store_short_desc">Sizin kontrolunuz altında barındırılan üretkenlik platformu</string>
     <string name="store_short_dev_desc">Sizin denetiminiz altında barındırılan üretkenlik platformu (geliştirici ön izlemesi)</string>
@@ -1112,18 +1108,6 @@
     <plurals name="minutes">
         <item quantity="one">%d dakika</item>
         <item quantity="other">%d dakika</item>
-    </plurals>
-    <plurals name="time_seconds_ago">
-        <item quantity="one">1 saniye önce</item>
-        <item quantity="other">%d saniye önce</item>
-    </plurals>
-    <plurals name="time_minutes_ago">
-        <item quantity="one">1 dakika önce</item>
-        <item quantity="other">%d dakika önce</item>
-    </plurals>
-    <plurals name="time_hours_ago">
-        <item quantity="one">1 saat önce</item>
-        <item quantity="other">%d saat önce</item>
     </plurals>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">%1$d dosya eşitlenemedi (çakışma: %2$d)</item>

@@ -74,12 +74,14 @@
     <string name="autoupload_hide_folder">Paslēpt mapi</string>
     <string name="avatar">Profila attēls</string>
     <string name="backup_settings">Rezerves kopēšanas iestatījumi</string>
+    <string name="backup_title">Kontaktpersonu un kalendāra rezerves kopēšana</string>
     <string name="battery_optimization_close">Aizvērt</string>
     <string name="battery_optimization_disable">Deaktivēt</string>
     <string name="battery_optimization_message">Ierīcē var būt iespējota akumulatora optimizēšana. Automātiskā augšupielāde darbojas pareizi tikai tad, ja lietotne būs izņēmumu sarakstā.</string>
     <string name="battery_optimization_title">Akumulatora optimizēšana</string>
     <string name="bottom_navigation_menu_favorites_label">Izlases vienumi</string>
     <string name="bottom_navigation_menu_files_label">Visas datnes</string>
+    <string name="bottom_navigation_menu_media_label">Informācijas nesēji</string>
     <string name="calendar">Kalendārs</string>
     <string name="calendars">Kalendāri</string>
     <string name="certificate_load_problem">Radusies problēma, ielādējot sertifikātu.</string>
@@ -188,7 +190,8 @@
     <string name="drawer_community">Kopiena</string>
     <string name="drawer_item_activities">Darbības</string>
     <string name="drawer_item_all_files">Visas datnes</string>
-    <string name="drawer_item_favorites">Iecienītie</string>
+    <string name="drawer_item_favorites">Izlase</string>
+    <string name="drawer_item_gallery">Informācijas nesēji</string>
     <string name="drawer_item_home">Mājas</string>
     <string name="drawer_item_notifications">Paziņojumi</string>
     <string name="drawer_item_on_device">Ierīcē</string>
@@ -200,19 +203,21 @@
     <string name="drawer_logout">Izrakstīties</string>
     <string name="drawer_open">Atvērt sānjoslu</string>
     <string name="drawer_quota">%1$s no %2$s lietoti</string>
-    <string name="drawer_quota_unlimited">%1$s izmantoti</string>
+    <string name="drawer_quota_unlimited">Izmantoti %1$s</string>
     <string name="drawer_synced_folders">Automātiska augšupielāde</string>
     <string name="ecosystem_apps_display_more">Vairāk</string>
     <string name="encrypted">Uzstādīt kā šifrētu</string>
     <string name="end_to_end_encryption_confirm_button">Uzstādīt šifrēšanu</string>
     <string name="end_to_end_encryption_decrypting">Atšifrē…</string>
     <string name="end_to_end_encryption_dialog_close">Aizvērt</string>
+    <string name="end_to_end_encryption_enter_passphrase_to_access_files">Ievadi savu paroles vārdkopu, lai piekļūtu savām datnēm</string>
     <string name="end_to_end_encryption_password">Parole…</string>
     <string name="end_to_end_encryption_title">Uzstādīt šifrēšanu</string>
     <string name="error__upload__local_file_not_copied">%1$s nevarēja pārkopēt uz %2$s vietējo mapi</string>
     <string name="error_cant_bind_to_operations_service">Kritiska kļūda: Nevar veikt darbības</string>
     <string name="error_comment_file">Kļūda komentējot datni</string>
     <string name="error_report_issue_action">Atskaite</string>
+    <string name="error_uploading_direct_camera_upload">Neizdevās augšupielādēt uzņemto informācijas nesēju</string>
     <string name="etm_accounts">Konti</string>
     <string name="etm_background_job_progress">Progress</string>
     <string name="etm_background_job_state">Stāvoklis</string>
@@ -228,8 +233,8 @@
     <string name="file_list_empty">Augšupielādē kaut ko vai sinhronizē saturu ar savām ierīcēm!</string>
     <string name="file_list_empty_favorite_headline">Izlasē vēl nekā nav</string>
     <string name="file_list_empty_headline">Šeit nav datņu</string>
-    <string name="file_list_empty_headline_search">Nav rezultātu šajā mapē</string>
-    <string name="file_list_empty_headline_server_search">Nav rezultātu</string>
+    <string name="file_list_empty_headline_search">Šajā mapē nav iznākuma</string>
+    <string name="file_list_empty_headline_server_search">Nav iznākuma</string>
     <string name="file_list_empty_local_search">Nav datņu vai mapju, kas atbilstu meklētajam</string>
     <string name="file_list_empty_moving">Šeit nekā nav. Var pievienot mapi.</string>
     <string name="file_list_empty_recently_modified">Neatrada nevienu datni, kas izmainīta pēdējās 7 dienās</string>
@@ -330,11 +335,12 @@
     <string name="manage_space_clear_data">Notīrīt datus</string>
     <string name="manage_space_description">Iestatījumi, datubāze un servera sertifikāti no %1$s datiem tiks neatgriezeniski izdzēsti. \n\nLejupielādētās datnes paliks neskartas.\n\nŠī darbība var aizņemt kādu laiku.</string>
     <string name="manage_space_title">Pārvaldīt vietu</string>
-    <string name="media_err_io">Nevarēja nolasīt medija datni</string>
-    <string name="media_err_malformed">Multivides datnei nav pareizs kodējums</string>
+    <string name="media_err_invalid_progressive_playback">Informācijas nesēja datni nevar straumēt</string>
+    <string name="media_err_io">Nevarēja nolasīt informācijas nesēja datni</string>
+    <string name="media_err_malformed">Informācijas nesēja datnei ir nepareizs kodējums</string>
     <string name="media_err_timeout">Mēģinājums atskaņot datni noilga</string>
     <string name="media_err_unknown">Iegultais atskaņotājs nevarēja atvērt datni.</string>
-    <string name="media_err_unsupported">Neatbalstīts mediju kodekss</string>
+    <string name="media_err_unsupported">Neatbalstīts informācijas nesēju kodekss</string>
     <string name="media_forward_description">Patīšanas poga</string>
     <string name="media_notif_ticker">%1$s mūzikas atskaņotājs</string>
     <string name="media_play_pause_description">Atskaņot vai pauzēt</string>
@@ -355,11 +361,13 @@
     <string name="network_error_socket_timeout_exception">Atgadījās kļūda, kamēr gaidīja uz serveri. Nevarēja pabeigt darbību.</string>
     <string name="network_host_not_available">Nevarēja pabeigt darbību. Serveris nav pieejams.</string>
     <string name="new_comment">Jauna piebilde…</string>
-    <string name="new_media_folder_detected">Atrasta jauna %1$s mape.</string>
+    <string name="new_media_folder_detected">Noteikta jauna %1$s informācijas nesēju mape.</string>
     <string name="new_media_folder_photos">fotoattēlu</string>
     <string name="new_media_folder_videos">video</string>
     <string name="new_version_was_created">Tika izveidota jauna versija</string>
     <string name="notification_channel_download_name_short">Lejupielādes</string>
+    <string name="notification_channel_general_description">Rādīt paziņojumus par jaunām informācijas nesēju mapēm un līdzīgi</string>
+    <string name="notification_channel_media_name">Atskaņotājs</string>
     <string name="notification_channel_upload_name_short">Augšupielādes</string>
     <string name="notifications_no_results_headline">Nav paziņojumu</string>
     <string name="offline_mode">Nav interneta savienojuma</string>
@@ -404,7 +412,9 @@
     <string name="pref_instant_name_collision_policy_entries_rename">Pārdēvēt jauno versiju</string>
     <string name="pref_instant_name_collision_policy_title">Ko darīt, ja datne jau pastāv?</string>
     <string name="prefs_add_account">Pievienot kontu</string>
+    <string name="prefs_calendar_contacts">Sinhronizēt kalendāru un kontaktpersonas</string>
     <string name="prefs_calendar_contacts_no_store_error">F-Droid vai Google Play nav uzstādīts</string>
+    <string name="prefs_calendar_contacts_sync_setup_successful">Kalendāra un kontaktpersonu sinhronizēšanas iestatīšana</string>
     <string name="prefs_category_about">Par</string>
     <string name="prefs_category_details">Detaļas</string>
     <string name="prefs_category_general">Vispārīgi</string>
@@ -414,15 +424,15 @@
     <string name="prefs_daily_contact_backup_summary">Ikdienas kontaktpersonu rezerves kopēšana</string>
     <string name="prefs_data_storage_location">Datu krātuves atrašanās vieta</string>
     <string name="prefs_data_storage_location_summary">Pārvaldīt datu krātuves atrašanās vietu</string>
-    <string name="prefs_enable_media_scan_notifications">Rādīt mediju skenēšanas paziņojumus</string>
-    <string name="prefs_enable_media_scan_notifications_summary">Paziņt par jaunas mediju mapes atrašanu</string>
+    <string name="prefs_enable_media_scan_notifications">Rādīt informācijas nesēju noteikšanas paziņojumus</string>
+    <string name="prefs_enable_media_scan_notifications_summary">Paziņot par jaunu informācijas nesēju mapju atrašanu</string>
     <string name="prefs_gpl_v2">GNU vispārējā publiskā licence, 2. versija</string>
     <string name="prefs_help">Palīdzība</string>
     <string name="prefs_imprint">Importēt</string>
     <string name="prefs_instant_behaviour_dialogTitle">Sākotnējā datne tiks…</string>
     <string name="prefs_instant_behaviour_title">Sākotnējā datne tiks…</string>
-    <string name="prefs_instant_upload_exclude_hidden_summary">Neiekļaut paslēptās datnes un mapes</string>
-    <string name="prefs_instant_upload_exclude_hidden_title">Neiekļaut paslēptās</string>
+    <string name="prefs_instant_upload_exclude_hidden_summary">Neiekļaut slēptās datnes un mapes</string>
+    <string name="prefs_instant_upload_exclude_hidden_title">Neiekļaut slēptās</string>
     <string name="prefs_instant_upload_path_use_date_subfolders_summary">Glabāt no datuma atkarīgās apakšmapēs</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Lietot apakšmapi</string>
     <string name="prefs_license">Licence</string>
@@ -438,6 +448,7 @@
     <string name="prefs_show_ecosystem_apps">Rādīt lietotņu pārslēdzēju</string>
     <string name="prefs_show_ecosystem_apps_summary">Nextcloud lietoņu ieteikumi pārvietošanās galvenē</string>
     <string name="prefs_show_hidden_files">Rādīt slēptās datnes</string>
+    <string name="prefs_sourcecode">Iegūt pirmkodu</string>
     <string name="prefs_sycned_folders_summary">Automātiski augšupielādējamo mapju pārvaldīšana</string>
     <string name="prefs_synced_folders_local_path_title">Vietējā mape</string>
     <string name="prefs_synced_folders_remote_path_title">Attālā mape</string>
@@ -501,6 +512,7 @@
     <string name="shared_icon_shared">koplietots</string>
     <string name="sharee_add_failed">Dalībnieka pievienošana neizdevās</string>
     <string name="signup_with_provider">Reģistrēties ar pakalpojumu sniedzēju</string>
+    <string name="single_sign_on_request_token" formatted="true">Ļaut %1$s piekļūt Tavam Nextcloud kontam %2$s?</string>
     <string name="sort_by">Kārtot pēc</string>
     <string name="ssl_validator_btn_details_hide">Paslēpt</string>
     <string name="ssl_validator_btn_details_see">Sīkāka informācija</string>
@@ -657,6 +669,58 @@
     <string name="widgets_not_available_title">Nav pieejams</string>
     <string name="worker_download">Lejupielādē datnes…</string>
     <string name="write_email">Nosūtīt e-pasta ziņojumu</string>
+    <string name="wrong_storage_path">Datu krātuves mape nepastāv.</string>
+    <string name="wrong_storage_path_desc">Tas varētu būt rezerves kopijas atjaunošanas citā ierīcē dēļ. Tiks izmantots noklusējums. Lūgums pārbaudīt iestatījumus, lai uzstādītu datu krātuves mapi.</string>
+    <plurals name="hours">
+        <item quantity="zero">%d stundu</item>
+        <item quantity="one">%d stunda</item>
+        <item quantity="other">%d stundas</item>
+    </plurals>
+    <plurals name="minutes">
+        <item quantity="zero">%d minūšu</item>
+        <item quantity="one">%d minūte</item>
+        <item quantity="other">%d minūtes</item>
+    </plurals>
+    <plurals name="time_seconds_ago">
+        <item quantity="zero">pirms %d sekundēm</item>
+        <item quantity="one">pirms %d sekundes</item>
+        <item quantity="other">pirms %d sekundēm</item>
+    </plurals>
+    <plurals name="time_minutes_ago">
+        <item quantity="zero">pirms %d minūtēm</item>
+        <item quantity="one">pirms %d minūtes</item>
+        <item quantity="other">pirms %d minūtēm</item>
+    </plurals>
+    <plurals name="time_hours_ago">
+        <item quantity="zero">pirms %d stundām</item>
+        <item quantity="one">pirms %d stundas</item>
+        <item quantity="other">pirms %d stundām</item>
+    </plurals>
+    <plurals name="sync_fail_in_favourites_content">
+        <item quantity="zero">Nevarēja sinhronizēt %1$d datņu (nesaderības: %2$d)</item>
+        <item quantity="one">Nevarēja sinhronizēt %1$d datni (nesaderības: %2$d)</item>
+        <item quantity="other">Nevarēja sinhronizēt %1$d datnes (nesaderības: %2$d)</item>
+    </plurals>
+    <plurals name="sync_foreign_files_forgotten_content">
+        <item quantity="zero">Neizdevās %1$d datņu kopēšana no mapes \"%2$s\"</item>
+        <item quantity="one">Neizdevās %1$d datnes kopēšana no mapes \"%2$s\"</item>
+        <item quantity="other">Neizdevās %1$d datņu kopēšana no mapes \"%2$s\"</item>
+    </plurals>
+    <plurals name="wrote_n_events_to">
+        <item quantity="zero">%1$d notikumu ierakstīti %2$s</item>
+        <item quantity="one">%1$d notikums ierakstīts %2$s</item>
+        <item quantity="other">%1$d notikumi ierakstīti %2$s</item>
+    </plurals>
+    <plurals name="created_n_uids_to">
+        <item quantity="zero">Izveidoja %1$d jaunus UID</item>
+        <item quantity="one">Izveidoja %1$d jaunu UID</item>
+        <item quantity="other">Izveidoja %1$d jaunus UID</item>
+    </plurals>
+    <plurals name="processed_n_entries">
+        <item quantity="zero">Apstrādāja %d ierakstu</item>
+        <item quantity="one">Apstrādāja %d ierakstu</item>
+        <item quantity="other">Apstrādāja %d ierakstus</item>
+    </plurals>
     <plurals name="found_n_duplicates">
         <item quantity="zero">Tika atrasti %d ieraksti, kas atkārtojas.</item>
         <item quantity="one">Tika atrasts %d ieraksts, kas atkārtojas.</item>

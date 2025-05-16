@@ -12,10 +12,14 @@
 package com.owncloud.android.operations;
 
 import android.content.Context;
+import android.os.Handler;
+import android.os.Looper;
 import android.text.TextUtils;
 import android.webkit.MimeTypeMap;
 
 import com.nextcloud.client.account.User;
+import com.nextcloud.utils.extensions.ContextExtensionsKt;
+import com.owncloud.android.R;
 import com.owncloud.android.datamodel.ArbitraryDataProviderImpl;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
@@ -34,7 +38,6 @@ import com.owncloud.android.utils.FileExportUtils;
 import com.owncloud.android.utils.FileStorageUtils;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.lang.ref.WeakReference;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -63,8 +66,8 @@ public class DownloadFileOperation extends RemoteOperation {
     private Set<OnDatatransferProgressListener> dataTransferListeners = new HashSet<>();
     private long modificationTimestamp;
     private DownloadFileRemoteOperation downloadOperation;
-
     private final AtomicBoolean cancellationRequested = new AtomicBoolean(false);
+    private final Handler mainThreadHandler = new Handler(Looper.getMainLooper());
 
     public DownloadFileOperation(User user,
                                  OCFile file,
@@ -163,13 +166,19 @@ public class DownloadFileOperation extends RemoteOperation {
         /// perform the download
         synchronized(cancellationRequested) {
             if (cancellationRequested.get()) {
-                return new RemoteOperationResult(new OperationCancelledException());
+                return new RemoteOperationResult<>(new OperationCancelledException());
             }
+        }
+
+        final var isValidExtFilename = FileStorageUtils.isValidExtFilename(file.getFileName());
+        if (!isValidExtFilename) {
+            mainThreadHandler.post(() -> ContextExtensionsKt.showToast(context.get(), R.string.download_download_invalid_local_file_name));
+            return new RemoteOperationResult<>(RemoteOperationResult.ResultCode.INVALID_CHARACTER_IN_NAME);
         }
 
         Context operationContext = context.get();
         if (operationContext == null) {
-            return new RemoteOperationResult(RemoteOperationResult.ResultCode.UNKNOWN_ERROR);
+            return new RemoteOperationResult<>(RemoteOperationResult.ResultCode.UNKNOWN_ERROR);
         }
 
         RemoteOperationResult result;

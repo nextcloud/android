@@ -53,7 +53,7 @@
     <string name="assistant_screen_loading">Lade Aufgabenliste…</string>
     <string name="assistant_screen_no_task_available_text">Für den Aufgabentyp %s ist keine Aufgabe verfügbar. Sie können unten rechts eine neue Aufgabe erstellen.</string>
     <string name="assistant_screen_task_create_fail_message">Es ist ein Fehler beim Erstellen der Aufgabe aufgetreten</string>
-    <string name="assistant_screen_task_create_success_message">Aufgabe erfolgreich erstellt</string>
+    <string name="assistant_screen_task_create_success_message">Aufgabe erstellt</string>
     <string name="assistant_screen_task_delete_fail_message">Es ist ein Fehler beim Löschen der Aufgabe aufgetreten</string>
     <string name="assistant_screen_task_delete_success_message">Aufgabe gelöscht</string>
     <string name="assistant_screen_task_list_empty_message">Aufgabenliste ist leer.</string>
@@ -91,7 +91,7 @@
     <string name="auth_unknown_error_exception_title">Unbekannter Fehler: %1$s</string>
     <string name="auth_unknown_error_http_title">Es ist ein unbekannter HTTP-Fehler aufgetreten!</string>
     <string name="auth_unknown_error_title">Es ist ein unbekannter Fehler aufgetreten.</string>
-    <string name="auth_unknown_host_title">Konnte den Host nicht finden</string>
+    <string name="auth_unknown_host_title">Host konnte nicht gefunden werden</string>
     <string name="auth_unsupported_multiaccount">%1$s unterstützt nicht mehrere Benutzerkonten</string>
     <string name="auth_wrong_connection_title">Verbindung konnte nicht hergestellt werden</string>
     <string name="authenticator_activity_cancel_login">Anmelden abbrechen</string>
@@ -214,8 +214,8 @@
     <string name="copy_link">Link kopieren</string>
     <string name="copy_move_to_encrypted_folder_not_supported">In verschlüsselten Ordner kopieren/verschieben wird aktuell nicht unterstützt.</string>
     <string name="could_not_download_image">Originalbild konnte nicht heruntergeladen werden</string>
-    <string name="could_not_retrieve_shares">Konnte die Freigaben nicht abrufen</string>
-    <string name="could_not_retrieve_url">Konnte URL nicht abrufen</string>
+    <string name="could_not_retrieve_shares">Freigaben konnten nicht abgerufen werden</string>
+    <string name="could_not_retrieve_url">URL konnte nicht abgerufen werden</string>
     <string name="create">Erstellen</string>
     <string name="create_dir_fail_msg">Verzeichnis konnte nicht erstellt werden</string>
     <string name="create_link">Link erstellen</string>
@@ -442,7 +442,7 @@
     <string name="file_upload_worker_error_notification_title">Upload fehlgeschlagen. Keine Internetverbindung</string>
     <string name="file_upload_worker_same_file_already_exists">Dieselbe Datei existiert bereits, kein Konflikt erkannt</string>
     <string name="file_version_restored_error">Fehler beim Wiederherstellen der Dateiversion!</string>
-    <string name="file_version_restored_successfully">Dateiversion erfolgreich wiederhergestellt</string>
+    <string name="file_version_restored_successfully">Dateiversion wiederhergestellt</string>
     <string name="filedetails_details">Details</string>
     <string name="filedetails_download">Herunterladen</string>
     <string name="filedetails_export">Exportieren</string>
@@ -551,7 +551,7 @@
     <string name="manage_space_title">Verwalte Speicherplatz</string>
     <string name="max_file_count_warning_message">Sie haben die maximale Anzahl an Datei-Uploads erreicht. Bitte laden Sie weniger als 500 Dateien gleichzeitig hoch.</string>
     <string name="media_err_invalid_progressive_playback">Die Mediendatei kann nicht gestreamt werden</string>
-    <string name="media_err_io">Konnte die Mediendatei nicht lesen</string>
+    <string name="media_err_io">Die Mediendatei konnte nicht gelesen werden</string>
     <string name="media_err_malformed">Mediendatei ist nicht korrekt encodiert</string>
     <string name="media_err_timeout">Wartezeit beim Abspielversuch abgelaufen</string>
     <string name="media_err_unknown">Der interne Player kann die Mediendatei nicht abspielen</string>
@@ -583,13 +583,13 @@
     <string name="new_notification">Neue Benachrichtigung</string>
     <string name="new_version_was_created">Neue Version erstellt</string>
     <string name="no_actions">Keine Aktionen für diesen Benutzer</string>
-    <string name="no_browser_available">Keine App verfügbar um Links zu öffnen</string>
+    <string name="no_browser_available">Keine App zum Öffnen von Links verfügbar</string>
     <string name="no_calendar_exists">Es existieren keine Kalender</string>
     <string name="no_email_app_available">Keine App verfügbar, um E-Mail-Adressen zu verarbeiten</string>
     <string name="no_items">Keine Elemente</string>
     <string name="no_map_app_availble">Keine App zur Kartenverwaltung verfügbar</string>
     <string name="no_mutliple_accounts_allowed">Nur ein Konto zulässig</string>
-    <string name="no_pdf_app_available">Keine App verfügbar um PDFs anzuzeigen</string>
+    <string name="no_pdf_app_available">Keine App zum Öffnen von PDFs verfügbar</string>
     <string name="no_send_app">Keine App zum Senden der ausgewählten Dateien verfügbar</string>
     <string name="no_share_permission_selected">Bitte mindestens eine Berechtigung zum Teilen auswählen.</string>
     <string name="note_could_not_sent">Notiz konnte nicht versandt werden</string>
@@ -669,7 +669,7 @@
     <string name="prefs_add_account">Konto hinzufügen</string>
     <string name="prefs_calendar_contacts">Kalender und Kontakte synchronisieren</string>
     <string name="prefs_calendar_contacts_no_store_error">Weder F-Droid noch Google-Play sind installiert</string>
-    <string name="prefs_calendar_contacts_summary">DAVx5 (zuvor bekannt als DAVdroid) (v1.3.0+) für aktuelles Konto einrichten</string>
+    <string name="prefs_calendar_contacts_summary">DAVx⁵ (früher bekannt als DAVdroid) (v1.3.0+) für aktuelles Konto einrichten</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Synchronisierung von Kalender und Kontakten einrichten</string>
     <string name="prefs_category_about">Über</string>
     <string name="prefs_category_details">Details</string>
@@ -681,7 +681,7 @@
     <string name="prefs_daily_contact_backup_summary">Tägliche Sicherung Ihrer Kontakte</string>
     <string name="prefs_data_storage_location">Speicherort der Daten</string>
     <string name="prefs_data_storage_location_summary">Speicherort der Daten verwalten</string>
-    <string name="prefs_davx5_setup_error">Unerwarteter Fehler beim Einrichten von DAVx5 (früher bekannt als DAVdroid)</string>
+    <string name="prefs_davx5_setup_error">Unerwarteter Fehler beim Einrichten von DAVx⁵ (früher bekannt als DAVdroid)</string>
     <string name="prefs_e2e_active">Ende-zu-Ende-Verschlüsselung ist eingerichtet!</string>
     <string name="prefs_e2e_mnemonic">E2E-Gedächtnisstütze</string>
     <string name="prefs_e2e_no_device_credentials">Um die Gedächtnisstütze anzuzeigen, aktivieren Sie bitte Geräte-Zugangsdaten</string>
@@ -786,7 +786,7 @@
     <string name="screenshot_05_autoUpload_heading">Automatisches Hochladen</string>
     <string name="screenshot_05_autoUpload_subline">für Ihre Fotos und Videos</string>
     <string name="screenshot_06_davdroid_heading">Kalender und Kontakte</string>
-    <string name="screenshot_06_davdroid_subline">Synchronisiere mit DAVx5</string>
+    <string name="screenshot_06_davdroid_subline">Synchronisation mit DAVx⁵</string>
     <string name="search_error">Fehler beim Abrufen der Suchergebnisse</string>
     <string name="secure_share_not_set_up">Sicheres teilen ist für diesen Benutzer nicht eingerichtet</string>
     <string name="secure_share_search">Sicheres teilen …</string>
@@ -897,7 +897,7 @@
     <string name="storage_permission_full_access">Voller Zugriff</string>
     <string name="storage_permission_media_read_only">Medien schreibgeschützt</string>
     <string name="storage_pictures">Bilder</string>
-    <string name="store_full_desc">Die selbst gehostete Produktivitätsplattform, mit der Sie die Kontrolle behalten.\n\nFunktionen:\n* Einfache, moderne Benutzeroberfläche, passend zum Design Ihres Servers\n* Laden Sie Dateien auf Ihren Nextcloud-Server hoch\n* Teilen Sie sie mit anderen\n * Halten Sie Ihre Lieblingsdateien und -ordner synchronisiert\n* Durchsuchen Sie alle Ordner auf Ihrem Server\n* Automatisches Hochladen von Fotos und Videos, die mit Ihrem Gerät aufgenommen wurden\n* Bleiben Sie mittels Benachrichtigungen auf dem Laufenden\n* Unterstützung für mehrere Konten\n* Sicherer Zugriff auf Ihre Daten mit Fingerabdruck oder PIN\n* Integration mit DAVx5 (früher bekannt als DAVdroid) zur einfachen Einrichtung der Kalender- und Kontaktsynchronisierung\n\nBitte melden Sie alle Probleme unter https://github.com/nextcloud/android/issues und diskutieren Sie über diese App unter https://help.nextcloud.com/c/clients/android\n\nNeu bei Nextcloud? Nextcloud ist ein privater Dateisynchronisierungs-, Freigabe- und Kommunikationsserver. Es handelt sich um kostenlose Software, die Sie selbst, oder gegen Gebühr bei einem Dienstleister hosten können. So oder so haben Sie die Kontrolle über Ihre Fotos, Ihre Kalender- und Kontaktdaten, Ihre Dokumente und alles andere.\n\nSehen Sie sich Nextcloud unter https://nextcloud.com an</string>
+    <string name="store_full_desc">Die selbstgehostete Produktivitätsplattform, mit der Sie die Kontrolle behalten.\n\nFunktionen:\n* Einfache, moderne Benutzeroberfläche, die an das Design Ihres Servers angepasst ist\n* Laden Sie Dateien auf Ihren Nextcloud-Server hoch\n* Teilen Sie sie mit anderen\n * Halten Sie Ihre Lieblingsdateien und -ordner synchronisiert\n* Durchsuchen Sie alle Ordner auf Ihrem Server\n* Automatisches Hochladen von Fotos und Videos, die mit Ihrem Gerät aufgenommen wurden\n* Bleiben Sie mit Benachrichtigungen auf dem Laufenden\n* Unterstützung für mehrere Konten\n* Sicherer Zugriff auf Ihre Daten mit Fingerabdruck oder PIN\n* Integration mit DAVx⁵ (früher bekannt als DAVdroid) zur einfachen Einrichtung der Kalender- und Kontaktsynchronisierung\n\nBitte melden Sie alle Probleme unter https://github.com/nextcloud/android/issues und diskutieren Sie über diese App unter https://help.nextcloud.com/c/clients/android\n\nNeu bei Nextcloud? Nextcloud ist ein privater Dateisynchronisierungs-, Freigabe- und Kommunikationsserver. Es handelt sich um kostenlose Software, die Sie selbst, oder gegen Gebühr bei einem Dienstleister hosten können. Auf diese Weise haben Sie die Kontrolle über Ihre Fotos, Ihre Kalender- und Kontaktdaten, Ihre Dokumente und alles andere.\n\nSehen Sie sich Nextcloud unter https://nextcloud.com an.</string>
     <string name="store_full_dev_desc">Die selbst gehostete Produktivitätsplattform gibt Ihnen die volle Kontrolle.\nDies ist die offizielle Entwicklungsversion und bietet neue, ungetestete Funkitionen. Dies kann zu Instabilitäten und Datenverlust führen. Die App ist für alle Benutzer, die Testen wollen und falls nötig Fehlerberichte erstellen. Nutzen Sie diese Version nicht für Ihre Produktivarbeit!\n\nSowohl die reguläre als auch die Entwicklerversion sind auf F-droid verfügbar und können parallel installiert werden.</string>
     <string name="store_short_desc">Die selbst gehostete Produktivitätsplattform gibt Ihnen die volle Kontrolle</string>
     <string name="store_short_dev_desc">Die selbst gehostete Produktivitätsplattform gibt Ihnen die volle Kontrolle (Vorab- Entwicklungsversion)</string>
@@ -1083,7 +1083,7 @@
     <string name="user_info_address">Adresse</string>
     <string name="user_info_email">E-Mail</string>
     <string name="user_info_phone">Telefonnummer</string>
-    <string name="user_info_twitter">Twitter</string>
+    <string name="user_info_twitter">X</string>
     <string name="user_info_website">Webseite</string>
     <string name="user_information_retrieval_error">Fehler beim Laden der Nutzer-Informationen</string>
     <string name="userinfo_no_info_headline">Keine persönlichen Infos eingestellt</string>
@@ -1114,15 +1114,15 @@
         <item quantity="other">%d Minuten</item>
     </plurals>
     <plurals name="time_seconds_ago">
-        <item quantity="one">Vor 1 Sekunde</item>
+        <item quantity="one">Vor %d Sekunde</item>
         <item quantity="other">Vor %d Sekunden</item>
     </plurals>
     <plurals name="time_minutes_ago">
-        <item quantity="one">Vor 1 Minute</item>
+        <item quantity="one">Vor %d Minute</item>
         <item quantity="other">Vor %d Minuten</item>
     </plurals>
     <plurals name="time_hours_ago">
-        <item quantity="one">Vor 1 Stunde</item>
+        <item quantity="one">Vor %d Stunde</item>
         <item quantity="other">Vor %d Stunden</item>
     </plurals>
     <plurals name="sync_fail_in_favourites_content">

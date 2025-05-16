@@ -25,7 +25,6 @@ import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.status.OCCapability;
-import com.owncloud.android.ui.fragment.filesRepository.FilesRepository;
 
 import java.util.Optional;
 

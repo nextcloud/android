@@ -10,7 +10,7 @@ Features:
 * Keep up to date with notifications
 * Multi-account support
 * Secure access to your data with fingerprint or PIN
-* Integration with DAVx5 (formerly known as DAVdroid) for easy setup of calendar and contacts synchronization
+* Integration with DAVx⁵ (formerly known as DAVdroid) for easy setup of calendar and contacts synchronization
 
 Please report all issues at https://github.com/nextcloud/android/issues and discuss this app at https://help.nextcloud.com/c/clients/android
 

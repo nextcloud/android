@@ -597,7 +597,6 @@
     <string name="prefs_add_account">Lisää tili</string>
     <string name="prefs_calendar_contacts">Synkronoi kalenteri ja yhteystiedot</string>
     <string name="prefs_calendar_contacts_no_store_error">Sekä F-Droid että Google Play asentamatta</string>
-    <string name="prefs_calendar_contacts_summary">Aseta DAVx5 (tunnettu nimellä DAVdroid) (v1.3.0+) nykyiselle tilille</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Kalenterin ja yhteystietojen synkronointi asetettu</string>
     <string name="prefs_category_about">Tietoja</string>
     <string name="prefs_category_details">Tiedot</string>
@@ -607,7 +606,6 @@
     <string name="prefs_category_sync">Synkronoi</string>
     <string name="prefs_daily_backup_summary">Päivittäinen kalenterin ja yhteystietojen varmuuskopiointi</string>
     <string name="prefs_daily_contact_backup_summary">Päivittäinen varmuuskopio yhteystiedoistasi</string>
-    <string name="prefs_davx5_setup_error">Odottamaton virhe määritettäessä DAVx5:tä (aiemmin DAVdroid)</string>
     <string name="prefs_e2e_active">Päästä päähän -salaus on määritetty!</string>
     <string name="prefs_e2e_mnemonic">E2E-avainkoodi</string>
     <string name="prefs_e2e_no_device_credentials">Jos haluat näyttää avainkoodin, ota käyttöön laitteen valtuudet.</string>
@@ -704,7 +702,6 @@ GNU yleinen lisenssi, versio 2</string>
     <string name="screenshot_05_autoUpload_heading">Automaattinen lähetys</string>
     <string name="screenshot_05_autoUpload_subline">kuvillesi ja videoillesi</string>
     <string name="screenshot_06_davdroid_heading">Kalenteri ja yhteystiedot</string>
-    <string name="screenshot_06_davdroid_subline">Synkronoi DAVx5:llä</string>
     <string name="search_error">Virhe hakutulosten noutamisessa</string>
     <string name="secure_share_not_set_up">Turvallsta jakoa ei ole asetettu tälle käyttäjälle</string>
     <string name="select_all">Valitse kaikki</string>
@@ -997,18 +994,6 @@ GNU yleinen lisenssi, versio 2</string>
     <plurals name="minutes">
         <item quantity="one">%d minuutti</item>
         <item quantity="other">%d minuuttia</item>
-    </plurals>
-    <plurals name="time_seconds_ago">
-        <item quantity="one">1 sekunti sitten</item>
-        <item quantity="other">%d sekuntia sitten</item>
-    </plurals>
-    <plurals name="time_minutes_ago">
-        <item quantity="one">1 minuutti sitten</item>
-        <item quantity="other">%d minuuttia sitten</item>
-    </plurals>
-    <plurals name="time_hours_ago">
-        <item quantity="one">1 tunti sitten</item>
-        <item quantity="other">%d tuntia sitten</item>
     </plurals>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">Ei voitu synkronoida %1$d tiedosto (ristiriita: %2$d)</item>

@@ -671,7 +671,6 @@
     <string name="prefs_add_account">アカウントを追加</string>
     <string name="prefs_calendar_contacts">カレンダーと連絡先を同期</string>
     <string name="prefs_calendar_contacts_no_store_error">F-Droid も Google Play もインストールされていません</string>
-    <string name="prefs_calendar_contacts_summary">DAVx5 (旧称 DAVdroid) (v1.3.0+) を現在のアカウントに設定する</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">カレンダーと連絡先の同期セットアップ</string>
     <string name="prefs_category_about">アプリについて</string>
     <string name="prefs_category_details">詳細</string>
@@ -683,7 +682,6 @@
     <string name="prefs_daily_contact_backup_summary">連絡先のデイリーバックアップ</string>
     <string name="prefs_data_storage_location">データの保存場所</string>
     <string name="prefs_data_storage_location_summary">データの保存場所を管理する</string>
-    <string name="prefs_davx5_setup_error">DAVx5（以前はDAVdroidとして知られていました）設定中の予期しないエラー</string>
     <string name="prefs_e2e_active">End-to-end 暗号化を設定中！</string>
     <string name="prefs_e2e_mnemonic">E2Eニーモニック</string>
     <string name="prefs_e2e_no_device_credentials">ニーモニックを表示するには、デバイスクレデンシャルを有効にしてください。</string>
@@ -792,7 +790,6 @@ GooglePlay 版のNextcloudアプリを使用している場合のみ、自動ア
     <string name="screenshot_05_autoUpload_heading">自動アップロード</string>
     <string name="screenshot_05_autoUpload_subline">あなたの写真とビデオのために</string>
     <string name="screenshot_06_davdroid_heading">カレンダーと連絡先</string>
-    <string name="screenshot_06_davdroid_subline">DAVx5で同期</string>
     <string name="search_error">検索結果の取得中にエラーが発生しました</string>
     <string name="secure_share_not_set_up">このユーザのためにセキュアな共有が設定されていません</string>
     <string name="secure_share_search">セキュアシェア...</string>
@@ -903,7 +900,6 @@ GooglePlay 版のNextcloudアプリを使用している場合のみ、自動ア
     <string name="storage_permission_full_access">フルアクセス</string>
     <string name="storage_permission_media_read_only">メディア読み取り専用</string>
     <string name="storage_pictures">写真</string>
-    <string name="store_full_desc">あなたの作業を強力に管理する、自己ホスト型の生産性向上プラットフォーム\n\n特徴：\n* あなたのサーバと同調した、分かりやすくモダンなインターフェース\n* あなたのNextcloudサーバーにファイルをアップロード\n* それらのファイルの共有\n* お気に入りのファイルやフォルダーをいつでも同期\n* サーバーのすべてのフォルダーをまとめて検索\n* 撮影した写真やビデオの自動アップロード\n* 更新の通知\n* 複数アカウントのサポート\n* 指紋やPIN認証であなたのデータに安全にアクセス\n* DAVx5 (旧称 DAVdroid) との統合によりカレンダー連絡先の同期を簡単にセットアップ\n\n問題の報告は https://github.com/nextcloud/android/issues 、アプリについての議論は https://help.nextcloud.com/c/clients/android まで\n\nNextcloudは初めてですか? Nextcloud は個人ファイルの同期共有とコミュニケーションのためのサーバです。無償のソフトウェアにより自分でホストをたてたり、そのための有償サービスを企業から受けることが出来ます。これにより、あなたの写真やカレンダー、連絡先、ドキュメントその他あらゆるファイルを自身でコントロールできます。\n\n詳細はNextcloud（https://nextcloud.com）まで。</string>
     <string name="store_full_dev_desc">あなたの作業を強力に管理する、自己ホスト型の生産性向上プラットフォーム。\nこれは公式の開発バージョンです。まだ十分なテストをしていない新しいサンプル機能を毎日提供しており、不安定な挙動やデータの消失を招く可能性があります。 このアプリはテストユーザーのためのもので、不具合が発生した場合にレポートを必要とします。 実業務では使用しないでください！\n\n公式開発の正規バージョンはF-droidからもインストールできます。</string>
     <string name="store_short_desc">あなたの作業を強力に管理する、自己ホスト型の生産性向上プラットフォーム</string>
     <string name="store_short_dev_desc">あなたの作業を強力に管理する、自己ホスト型の生産性向上プラットフォーム（開発プレビューバージョン）</string>
@@ -1116,15 +1112,6 @@ GooglePlay 版のNextcloudアプリを使用している場合のみ、自動ア
     </plurals>
     <plurals name="minutes">
         <item quantity="other">%d 分</item>
-    </plurals>
-    <plurals name="time_seconds_ago">
-        <item quantity="other">%d 秒前</item>
-    </plurals>
-    <plurals name="time_minutes_ago">
-        <item quantity="other">%d 分前</item>
-    </plurals>
-    <plurals name="time_hours_ago">
-        <item quantity="other">%d 時間前</item>
     </plurals>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="other">%1$d 個のファイルを同期出ません (コンフリクト: %2$d)</item>

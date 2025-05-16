@@ -659,7 +659,6 @@
     <string name="prefs_add_account">Добавить аккаунт</string>
     <string name="prefs_calendar_contacts">Синхронизировать календарь и контакты</string>
     <string name="prefs_calendar_contacts_no_store_error">Ни F-Droid, ни Google Play не установлены</string>
-    <string name="prefs_calendar_contacts_summary">Настроить DAVx5 (ранее называвшийся DAVdroid) (v1.3.0+) для текущей учётной записи</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Настройка синхронизации календаря и контактов</string>
     <string name="prefs_category_about">О программе</string>
     <string name="prefs_category_details">Дополнительные</string>
@@ -671,7 +670,6 @@
     <string name="prefs_daily_contact_backup_summary">Ежедневное сохранение контактов</string>
     <string name="prefs_data_storage_location">Местоположение хранилища данных</string>
     <string name="prefs_data_storage_location_summary">Управление местоположением хранилищем данных</string>
-    <string name="prefs_davx5_setup_error">Неожиданная ошибка при настройке DAVx5 (ранее известного как DAVdroid)</string>
     <string name="prefs_e2e_active">Сквозное шифрование настроено.</string>
     <string name="prefs_e2e_mnemonic">Мнемофраза E2E</string>
     <string name="prefs_e2e_no_device_credentials">Для просмотра мнемофразы включите системную защитную блокировку.</string>
@@ -776,7 +774,6 @@
     <string name="screenshot_05_autoUpload_heading">Автоматическая загрузка</string>
     <string name="screenshot_05_autoUpload_subline">для ваших фотографий и видео</string>
     <string name="screenshot_06_davdroid_heading">Календарь и контакты</string>
-    <string name="screenshot_06_davdroid_subline">Синхронизация с DAVx5</string>
     <string name="search_error">Ошибка при получении результатов поиска</string>
     <string name="secure_share_not_set_up">Безопасная публикация не настроена для данного пользователя</string>
     <string name="secure_share_search">Безопасный общий доступ…</string>
@@ -884,7 +881,6 @@
     <string name="storage_permission_full_access">Полный доступ</string>
     <string name="storage_permission_media_read_only">Носитель только для чтения</string>
     <string name="storage_pictures">Изображения</string>
-    <string name="store_full_desc">Устанавливаемая на свой сервер платформа для повышения продуктивности, которая позволяет держать все под контролем.\n\nFeatures:\n* Простой, современный интерфейс, соответствующий тематике вашего сервера\n* Загрузите файлы на свой сервер Nextcloud\n* Делитесь ими с другими\n* Синхронизируйте ваши любимые файлы и папки\n* Поиск во всех папках на вашем сервере\n* Автоматическая отправка фотографий и видео с вашего устройства\n* Будьте в курсе с уведомлениями\n* Поддержка нескольких учетных записей\n* Безопасный доступ к вашим данным с помощью отпечатка пальцев или PIN-кода\n* Интеграция с DAVx5 (ранее известен как DAVdroid) для легкой настройки синхронизации календаря и контактов\n\nПожалуйста, сообщите обо всех проблемах на https://github.com/nextcloud/android/issues и обсудите это приложение на https://help.nextcloud.com/c/clients/android\n\nНовичок в Nextcloud? Nextcloud - это частный сервер синхронизации и обмена файлами и коммуникационный сервер. Это свободное программное обеспечение, и вы можете разместить его самостоятельно или заплатить компании, чтобы это сделали за вас. Таким образом, вы управляете своими фотографиями, календарем и контактными данными, документами и всем остальным.\n\nОзнакомьтесь с Nextcloud по адресу https://nextcloud.com</string>
     <string name="store_full_dev_desc">Платформа, размещаемая на собственных ресурсах и позволяющая самостоятельно управлять данными.\nЭто разрабатываемая версия официального приложения Nextcloud, содержащая новые возможности, тестирование которых не ещё завершено. Разрабатываемая версия может быть нестабильна и её использование может привести к потере данных. Это приложение предназначено для пользователей, которые хотят познакомиться с новыми возможности и сообщать об обнаруженных ошибках. Не используйте его для работы!\n\nРазрабатываемая версия может быть установлена совместно с официальным приложением Nextcloud, которое также доступно в F-Droid.</string>
     <string name="store_short_desc">Платформа, размещаемая на собственных ресурсах и позволяющая самостоятельно управлять данными</string>
     <string name="store_short_dev_desc">Платформа, размещаемая на собственных ресурсах и позволяющая самостоятельно управлять данными (разрабатываемая версия)</string>
@@ -1100,24 +1096,6 @@
         <item quantity="few">%d минуты</item>
         <item quantity="many">%d минут </item>
         <item quantity="other">%d минут</item>
-    </plurals>
-    <plurals name="time_seconds_ago">
-        <item quantity="one">1 секунду назад</item>
-        <item quantity="few">%d секунды назад</item>
-        <item quantity="many">%d секунд назад</item>
-        <item quantity="other">%d секунд назад</item>
-    </plurals>
-    <plurals name="time_minutes_ago">
-        <item quantity="one">1 минуту назад</item>
-        <item quantity="few">%d минуты назад</item>
-        <item quantity="many">%d минут назад</item>
-        <item quantity="other">%d минут назад</item>
-    </plurals>
-    <plurals name="time_hours_ago">
-        <item quantity="one">1 час назад</item>
-        <item quantity="few">%d часа назад</item>
-        <item quantity="many">%d часов назад</item>
-        <item quantity="other">%d часов назад</item>
     </plurals>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">Не удалось синхронизировать %1$d файл (конфликтов: %2$d)</item>

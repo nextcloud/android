@@ -203,6 +203,7 @@
     <string name="contacts_backup_button">立刻備份</string>
     <string name="contacts_preferences_backup_scheduled">備份已排定並且會盡快開始</string>
     <string name="contacts_preferences_import_scheduled">匯入已排定並且會盡快開始</string>
+    <string name="contacts_preferences_import_scheduled_fail">匯入無法開始。請再試一次</string>
     <string name="contacts_preferences_no_file_found">無檔案</string>
     <string name="contacts_preferences_something_strange_happened">找不到您最新的備份</string>
     <string name="copied_to_clipboard">已複製到剪貼板</string>
@@ -668,7 +669,6 @@
     <string name="prefs_add_account">新增帳戶</string>
     <string name="prefs_calendar_contacts">同步日曆與通訊錄</string>
     <string name="prefs_calendar_contacts_no_store_error">尚未安裝 F-Droid 或 Google Play</string>
-    <string name="prefs_calendar_contacts_summary">為目前用戶帳戶設定 DAVx5 協定（以前稱為 DAVdroid）（版本 v1.3.0 以上）</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">日曆與通訊錄同步設定</string>
     <string name="prefs_category_about">關於</string>
     <string name="prefs_category_details">詳細資料</string>
@@ -680,7 +680,6 @@
     <string name="prefs_daily_contact_backup_summary">每日通訊錄備份</string>
     <string name="prefs_data_storage_location">資料儲存位置</string>
     <string name="prefs_data_storage_location_summary">管理資料儲存位置</string>
-    <string name="prefs_davx5_setup_error">設置 DAVx5（以前稱為 DAVdroid）時出現意外錯誤</string>
     <string name="prefs_e2e_active">端到端加密設置完畢！</string>
     <string name="prefs_e2e_mnemonic">端到端助記碼</string>
     <string name="prefs_e2e_no_device_credentials">裝置若要顯示助記碼請啟用裝置身分驗證。</string>
@@ -785,7 +784,6 @@
     <string name="screenshot_05_autoUpload_heading">自動上傳</string>
     <string name="screenshot_05_autoUpload_subline">您的照片與視像</string>
     <string name="screenshot_06_davdroid_heading">日曆與通訊錄</string>
-    <string name="screenshot_06_davdroid_subline">跟 DAVx5 同步</string>
     <string name="search_error">獲取搜索結果時出錯</string>
     <string name="secure_share_not_set_up">尚未為此用戶設定安全分享功能。</string>
     <string name="secure_share_search">安全分享 …</string>
@@ -896,7 +894,6 @@
     <string name="storage_permission_full_access">完整存取權限</string>
     <string name="storage_permission_media_read_only">僅媒體唯讀</string>
     <string name="storage_pictures">圖片</string>
-    <string name="store_full_desc">可自架且始終讓您掌控一切的生產力平台。\n功能：\n* 簡潔、現代的用戶界面，適合您伺服器的佈景主題\n* 上傳檔案到您的 Nextcloud 伺服器\n* 與其他人分享檔案\n* 讓您最愛的檔案與資料夾同步\n* 搜尋您伺服器上所有的資料夾\n* 以通知訊息保持更新\n* 多帳戶支援\n* 使用指紋或 PIN 碼安全存取您的資料\n* 與 DAVx5 整合（先前被稱為 DAVdroid），可輕易設定行事曆與聯絡人同步\n\n請至 https://github.com/nextcloud/android/issues 舉報所有問題，並於 https://help.nextcloud.com/c/clients/android 討論此應用程式\n\n您是 Nextcloud 新手嗎？Nextcloud 是一個私人的檔案同步、共享與通訊的伺服器。它是自由軟體，您可以自行架設，或是付費請專業公司協助您建置。如此，您便可完全掌控您的照片、行事曆與聯絡人資料、您的文件與其他任何東西。\n\n請造訪 https://nextcloud.com 以取得更多資訊</string>
     <string name="store_full_dev_desc">可自架且始終讓您掌控一切的生產力平台。\n這是官方的開發版本，每天都會提供未經測試的任何新功能的範例，可能造成不穩定或資料遺失。此應用程式適合願意測試且舉報遇到的問題的用戶。不要將其用於您的生產力工作！\n\nF-Droid 同時提供了官方的開發版本與一般版本，可同時安裝。</string>
     <string name="store_short_desc">讓你能完全掌控、自建且具生產力的平台</string>
     <string name="store_short_dev_desc">讓你能完全掌控、自建且具生產力的平台（開發者預覽版）</string>

@@ -172,6 +172,8 @@
     <string name="create_new_folder">Cartella noa</string>
     <string name="create_new_presentation">Presentatzione noa</string>
     <string name="create_new_spreadsheet">Fògiu eletrònicu nou</string>
+    <string name="create_rich_workspace">Agiunghe una descritzione de sa cartella</string>
+    <string name="creates_rich_workspace">Agiunghet una descritzione de sa cartella</string>
     <string name="credentials_disabled">Credentziales disativadas</string>
     <string name="default_credentials_wrong">Credentziales isballiadas</string>
     <string name="delete_account">Boga·nche su contu</string>
@@ -492,7 +494,6 @@
     <string name="prefs_add_account">Agiunghe contu</string>
     <string name="prefs_calendar_contacts">Sincroniza su calendàriu e is cuntatos</string>
     <string name="prefs_calendar_contacts_no_store_error">Nen F-Droid nen Google Play sunt installados</string>
-    <string name="prefs_calendar_contacts_summary">Cunfigura DAVx5 (antis connotu comente DAVdroid) (v1.3.0+) pro custu contu</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Cunfiguratzione de sincronizatzione de calendàriu e cuntatos</string>
     <string name="prefs_category_about">In contu de</string>
     <string name="prefs_category_details">Detàllios</string>
@@ -577,7 +578,6 @@
     <string name="screenshot_05_autoUpload_heading">Carrigamentu automàticu</string>
     <string name="screenshot_05_autoUpload_subline">pro is fotografias e vìdeos tuos</string>
     <string name="screenshot_06_davdroid_heading">Calendàriu e cuntatos</string>
-    <string name="screenshot_06_davdroid_subline">Sincroniza cun DAVx5</string>
     <string name="select_all">Seletziona totu</string>
     <string name="select_media_folder">Cunfigura sa cartella de is elementos multimediales</string>
     <string name="select_one_template">Sèbera unu tema</string>
@@ -721,6 +721,7 @@
     <string name="trashbin_file_remove">Cantzella in manera definitiva</string>
     <string name="trashbin_loading_failed">Carrigamentu de s\'àliga faddidu!</string>
     <string name="trashbin_not_emptied">No at fatu a cantzellare is archìvios in manera permanente!</string>
+    <string name="two_way_sync_activity_disable_all_button_title">Disativa pro totu is cartellas</string>
     <string name="two_way_sync_activity_title">Sincronizatzione interna in duas diretziones</string>
     <string name="unexpected_error_occurred">B\'at àpidu un\'errore ispantosu</string>
     <string name="unlock_file">Isbloca su documentu</string>
