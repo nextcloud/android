@@ -86,12 +86,6 @@ public final class BitmapUtils {
                 decoder.setTargetSize(reqWidth, reqHeight);
             }
             );
-//            final var onDecoderListener = new ImageDecoder.OnHeaderDecodedListener() {
-//                @Override
-//                public void onHeaderDecoded(@NonNull ImageDecoder decoder, @NonNull ImageDecoder.ImageInfo info, @NonNull ImageDecoder.Source source) {
-//                    decoder.setTargetSize(reqWidth, reqHeight);
-//                }
-//            };
 
         } catch (IOException exception) {
             Log_OC.w(TAG, "Decoding Bitmap via ImageDecoder failed, BitmapFactory.decodeFile will be used");
