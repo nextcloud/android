@@ -46,8 +46,9 @@
     <string name="app_widget_description">Affiche un widget du tableau de bord</string>
     <string name="appbar_search_in">Recherche dans %s</string>
     <string name="assistant_screen_add_task_alert_dialog_title">Ajouter une nouvelle tâche</string>
+    <string name="assistant_screen_create_a_new_task_from_bottom_right_text">Créer une nouvelle tâche en bas à droite</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Tapez du texte</string>
-    <string name="assistant_screen_delete_task_alert_dialog_description">Êtes-vous sûr de vouloir supprimer cette tâche ?</string>
+    <string name="assistant_screen_delete_task_alert_dialog_description">Êtes-vous sûr de vouloir supprimer cette tâche ?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Supprimer la tâche</string>
     <string name="assistant_screen_loading">Chargement de la liste des tâches...</string>
     <string name="assistant_screen_no_task_available_text">Aucune tâche disponible pour le type de tâche %s, vous pouvez créer une nouvelle tâche en bas à droite.</string>
@@ -99,7 +100,7 @@
     <string name="auto_upload_file_behaviour_kept_in_folder">conservé dans le dossier original (puisqu\'il est en lecture seule)</string>
     <string name="auto_upload_gplay">Le comportement du téléversement automatique a changé</string>
     <string name="auto_upload_gplay_desc">À cause de nouvelles restrictions imposées par Google, la fonctionnalité de téléversement automatique ne pourra plus automatiquement supprimer les fichiers téléversés.</string>
-    <string name="auto_upload_gplay_desc2">A cause de nouvelles restrictions imposées par Google, nous avons été forcé de retirer une permission importante. En conséquence, le téléversement automatique ne sera disponible que pour les fichiers image et vidéo.\nDe plus, une nouvelle permission est requise pour accéder aux informations de localisation pour les images téléversées.\nVérifier que l\'accès au média est défini à \"Toujours autoriser tous\".</string>
+    <string name="auto_upload_gplay_desc2">A cause de nouvelles restrictions imposées par Google, nous avons été forcé de retirer une permission importante. En conséquence, le téléversement automatique ne sera disponible que pour les fichiers images et vidéos.\nDe plus, une nouvelle permission est requise pour accéder aux informations de localisation pour les images téléversées.\nVérifiez que l\'accès au média est défini à \"Toujours tout autoriser\".</string>
     <string name="auto_upload_on_wifi">Téléverser par Wi-Fi uniquement</string>
     <string name="auto_upload_path">/TéléversementAuto</string>
     <string name="auto_upload_sub_folder_warning">Ce dossier fait partie de la synchronisation du dossier parent, ce qui peut créer des doublons.</string>
@@ -357,6 +358,7 @@
     <string name="etm_background_jobs_stop_test_job">Arrêter la tâche de test</string>
     <string name="etm_migrations">Migrations (app mise à jour)</string>
     <string name="etm_preferences">Préférences</string>
+    <string name="etm_title">Mode test technique</string>
     <string name="etm_transfer">Transfert de fichiers</string>
     <string name="etm_transfer_enqueue_test_download">Vérification de la liste de téléchargement</string>
     <string name="etm_transfer_enqueue_test_upload">Mise en file d\'attente du téléversement de test</string>
@@ -667,6 +669,7 @@
     <string name="prefs_add_account">Ajouter un compte</string>
     <string name="prefs_calendar_contacts">Synchroniser l\'agenda et les contacts</string>
     <string name="prefs_calendar_contacts_no_store_error">Ni Google Play Store ou F-Droid ne sont installés</string>
+    <string name="prefs_calendar_contacts_summary">Configurer DAVx⁵ (anciennement connu sous le nom de DAVdroid) (v1.3.0+) pour le compte courant</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">La synchronisation de l\'agenda et des contacts a bien été configurée.</string>
     <string name="prefs_category_about">À propos</string>
     <string name="prefs_category_details">Préférences</string>
@@ -678,6 +681,7 @@
     <string name="prefs_daily_contact_backup_summary">Sauvegarde quotidienne de vos contacts</string>
     <string name="prefs_data_storage_location">Emplacement de stockage des données</string>
     <string name="prefs_data_storage_location_summary">Gérer l\'emplacement de stockage des données</string>
+    <string name="prefs_davx5_setup_error">Erreur inattendue lors de la configuration de DAVx⁵ (anciennement connu sous le nom de DAVdroid)</string>
     <string name="prefs_e2e_active">Le chiffrement de bout en bout est configuré !</string>
     <string name="prefs_e2e_mnemonic">Phrase secrète E2E</string>
     <string name="prefs_e2e_no_device_credentials">Afin d\'afficher la phrase secrète, merci d\'activer les informations d\'identification de l\'appareil.</string>
@@ -782,6 +786,7 @@
     <string name="screenshot_05_autoUpload_heading">Téléversement automatique</string>
     <string name="screenshot_05_autoUpload_subline">pour vos photos et vidéos</string>
     <string name="screenshot_06_davdroid_heading">Agenda et contacts</string>
+    <string name="screenshot_06_davdroid_subline">Synchroniser avec DAVx⁵</string>
     <string name="search_error">Erreur lors de l\'obtention des résultats de recherche</string>
     <string name="secure_share_not_set_up">Le partage sécurité n\'est pas configuré pour cet utilisateur</string>
     <string name="secure_share_search">Partage sécurisé…</string>
@@ -892,6 +897,7 @@
     <string name="storage_permission_full_access">Accès complet</string>
     <string name="storage_permission_media_read_only">Média en lecture seule</string>
     <string name="storage_pictures">Images</string>
+    <string name="store_full_desc">La plateforme de productivité auto-hébergée qui vous permet de garder le contrôle.\n\nFonctionnalités :\n* Interface simple et moderne, adaptée au thème de votre serveur\n* Importez des fichiers sur votre serveur Nextcloud\n* Partagez-les avec d\'autres personnes\n* Synchronisez vos fichiers et dossiers favoris\n* Recherchez dans tous les dossiers de votre serveur\n* Import automatique des photos et vidéos prises par votre appareil\n* Restez informé grâce aux notifications\n* Prise en charge multi-comptes\n* Accès sécurisé à vos données par empreinte digitale ou code PIN\n* Intégration à DAVx⁵ (anciennement DAVdroid) pour une configuration facile de la synchronisation du calendrier et des contacts\n\nVeuillez signaler tous les problèmes sur https://github.com/nextcloud/android/issues et discuter de cette application sur https://help.nextcloud.com/c/clients/android\n\nNouveauté sur Nextcloud ? Nextcloud est un serveur privé de synchronisation, de partage et de communication de fichiers. C\'est un logiciel libre, et vous pouvez l\'héberger vous-même ou faire appel à une entreprise pour le faire pour vous. De cette façon, vous contrôlez vos photos, votre calendrier et vos données de contact, vos documents et tout le reste.\n\nConsultez Nextcloud sur https://nextcloud.com</string>
     <string name="store_full_dev_desc">La plateforme de productivité auto-hébergée qui vous permet de garder le contrôle.\nCeci est la version officielle de développement, qui présente chaque jour quelques-unes des fonctionnalités non-testées les plus récentes, causant parfois des instabilités ou des pertes de données. Cette application s\'adresse aux utilisateurs volontaires souhaitant tester et rapporter les problèmes qui peuvent arriver. Ne l\'utilisez jamais pour un environnement de production!\n\nLes versions officielles et en développement sont disponibles sur F-droid, et peuvent être utilisées en même temps.</string>
     <string name="store_short_desc">La plateforme de productivité auto-hébergée qui vous permet de garder le contrôle</string>
     <string name="store_short_dev_desc">La plateforme de productivité auto-hébergée qui vous permet de garder le contrôle (version de développement en démonstration)</string>
@@ -911,6 +917,7 @@
     <string name="sync_anyway">Synchroniser quand même</string>
     <string name="sync_conflicts_in_favourites_ticker">Des conflits ont été trouvés</string>
     <string name="sync_current_folder_was_removed">Le dossier %1$s n\'existe plus</string>
+    <string name="sync_duplication">Duplication de synchronisation</string>
     <string name="sync_fail_content">Impossible de synchroniser %1$s</string>
     <string name="sync_fail_content_unauthorized">Mauvais mot de passe pour %1$s</string>
     <string name="sync_fail_in_favourites_ticker">La synchronisation des fichiers a échoué</string>
@@ -959,7 +966,7 @@
     <string name="two_way_sync_activity_empty_list_title">La synchronisation bidirectionnelle n\'est pas configurée</string>
     <string name="two_way_sync_activity_title">Synchronisation interne bidirectionnelle</string>
     <string name="unexpected_error_occurred">Une erreur est survenue</string>
-    <string name="unified_search_fragment_calendar_event_not_found">Événement introuvable; vous pouvez toujours synchroniser pour mettre à jour. Redirection au web…</string>
+    <string name="unified_search_fragment_calendar_event_not_found">Événement introuvable, vous pouvez toujours synchroniser pour mettre à jour. Redirection au web…</string>
     <string name="unified_search_fragment_contact_not_found">Contact introuvable, vous pouvez toujours synchroniser pour mettre à jour. Redirection au web...</string>
     <string name="unified_search_fragment_permission_needed">Des permissions sont requises pour ouvrir le résultat de recherche, autrement ceci redirigera au web…</string>
     <string name="unlock_file">Déverrouiller le fichier</string>
@@ -999,7 +1006,7 @@
     <string name="upload_files">Téléverser des fichiers</string>
     <string name="upload_global_pause_title">Tous les téléversements sont suspendus</string>
     <string name="upload_gplay">Modification des permissions</string>
-    <string name="upload_gplay_desc">Une nouvelle permission est requise pour accéder à l\'information de localisation pour les images téléversées.\nVérifier que l\'accès au média est défini à \"Toujours autoriser tous\".</string>
+    <string name="upload_gplay_desc">Une nouvelle permission est requise pour accéder à l\'information de localisation pour les images téléversées.\nVérifiez que l\'accès au média est défini à \"Toujours tout autoriser\".</string>
     <string name="upload_item_action_button">Bouton d\'action d\'upload</string>
     <string name="upload_list_delete">Supprimer</string>
     <string name="upload_list_empty_headline">Aucun téléversement disponible</string>
@@ -1108,6 +1115,21 @@
         <item quantity="many">%d minutes</item>
         <item quantity="other">%d minutes</item>
     </plurals>
+    <plurals name="time_seconds_ago">
+        <item quantity="one">Il y a %d seconde</item>
+        <item quantity="many">Il y a %d secondes</item>
+        <item quantity="other">Il y a %d secondes</item>
+    </plurals>
+    <plurals name="time_minutes_ago">
+        <item quantity="one">Il y a %d minute</item>
+        <item quantity="many">Il y a %d minutes</item>
+        <item quantity="other">Il y a %d minutes</item>
+    </plurals>
+    <plurals name="time_hours_ago">
+        <item quantity="one">Il y a %d heure</item>
+        <item quantity="many">Il y a %d heures</item>
+        <item quantity="other">Il y a %d heures</item>
+    </plurals>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">Impossible de synchroniser %1$d fichier (conflits : %2$d)</item>
         <item quantity="many">Impossible de synchroniser %1$d fichiers (conflits : %2$d)</item>
@@ -1186,7 +1208,7 @@
     <plurals name="delay_message">
         <item quantity="one">Retardé de %d seconde à cause de trop d\'essais infructueux</item>
         <item quantity="many">Retardé de %d secondes à cause de trop d\'essais infructueux</item>
-        <item quantity="other">Retardé de %d secondes à cause de trop d\'essais infructueux</item>
+        <item quantity="other">Retardé de %d secondes à cause d\'un nombre trop important d\'essais infructueux</item>
     </plurals>
     <plurals name="delay_message_minutes">
         <item quantity="one">Retardé de %d minute en raison d\'un trop grand nombre de tentatives infructueuses</item>

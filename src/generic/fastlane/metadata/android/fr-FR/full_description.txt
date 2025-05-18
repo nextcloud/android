@@ -1,19 +1,19 @@
-La plateforme de productivité auto-hébergée qui vous redonne le contrôle.
+La plateforme de productivité auto-hébergée qui vous permet de garder le contrôle.
 
-Fonctionnalités: 
-* Intuitif, interface moderne, adaptée au thème de votre serveur.
-* Envoyez des fichiers sur votre serveur Nextcloud
-* Partagez avec d'autres personnes
-* Gardez vos fichiers et dossiers préférés synchronisés
+Fonctionnalités :
+* Interface simple et moderne, adaptée au thème de votre serveur
+* Importez des fichiers sur votre serveur Nextcloud
+* Partagez-les avec d'autres personnes
+* Synchronisez vos fichiers et dossiers favoris
 * Recherchez dans tous les dossiers de votre serveur
-* Téléversement automatique des photos et vidéos prises par votre appareil
-* Restez à jour avec les notifications
-* Supporte plusieurs comptes simultanément
-* Accès sécurisé avec votre empreinte digitale ou un PIN
-* Intégration avec DAVx5 (ancien nom : DAVdroid) pour configurer facilement l'agenda&et synchroniser les contacts
+* Import automatique des photos et vidéos prises par votre appareil
+* Restez informé grâce aux notifications
+* Prise en charge multi-comptes
+* Accès sécurisé à vos données par empreinte digitale ou code PIN
+* Intégration à DAVx⁵ (anciennement DAVdroid) pour une configuration facile de la synchronisation du calendrier et des contacts
 
-Merci de signaler les problèmes sur https://github.com/nextcloud/android/issues et discutez de cette application sur https://help.nextcloud.com/c/clients/android
+Veuillez signaler tous les problèmes sur https://github.com/nextcloud/android/issues et discuter de cette application sur https://help.nextcloud.com/c/clients/android
 
-New sur Nextcloud ? Nextcloud est un serveur privé de synchronisation de fichiers&de partage et de communications. C'est un logiciel libre, et vous pouvez l'héberger vous-même ou payer une entreprise pour le faire à votre place. De cette façon, vous avez le contrôle de vos photos, votre agenda et vos données de contacts, vos documents et tout le reste.
+Nouveauté sur Nextcloud ? Nextcloud est un serveur privé de synchronisation, de partage et de communication de fichiers. C'est un logiciel libre, et vous pouvez l'héberger vous-même ou faire appel à une entreprise pour le faire pour vous. De cette façon, vous contrôlez vos photos, votre calendrier et vos données de contact, vos documents et tout le reste.
 
-Apprenez en plus sur Nextcloud sur https://nextcloud.com
+Consultez Nextcloud sur https://nextcloud.com
