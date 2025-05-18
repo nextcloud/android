@@ -339,7 +339,8 @@ public class MainApp extends Application implements HasAndroidInjector, NetworkC
         }
 
         // initialise thumbnails cache on background thread
-        new ThumbnailsCacheManager.InitDiskCacheTask().execute();
+        ThumbnailsCacheManager.initDiskCacheAsync();
+
 
         if (MDMConfig.INSTANCE.isLogEnabled(this)) {
             // use app writable dir, no permissions needed

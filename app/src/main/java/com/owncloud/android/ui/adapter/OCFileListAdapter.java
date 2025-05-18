@@ -198,7 +198,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         setHasStableIds(true);
 
         // initialise thumbnails cache on background thread
-        new ThumbnailsCacheManager.InitDiskCacheTask().execute();
+        ThumbnailsCacheManager.initDiskCacheAsync();
     }
 
     public boolean isMultiSelect() {
