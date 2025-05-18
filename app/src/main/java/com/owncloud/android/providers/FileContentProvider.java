@@ -482,9 +482,9 @@ public class FileContentProvider extends ContentProvider {
                 case SYNCED_FOLDERS -> ProviderTableMeta.SYNCED_FOLDER_LOCAL_PATH;
                 case EXTERNAL_LINKS -> ProviderTableMeta.EXTERNAL_LINKS_NAME;
                 case VIRTUAL -> ProviderTableMeta.VIRTUAL_TYPE;
+                case FILESYSTEM -> ProviderTableMeta.FILESYSTEM_FILE_LOCAL_PATH;
                 default -> // Files
                     ProviderTableMeta.FILE_DEFAULT_SORT_ORDER;
-                case FILESYSTEM -> ProviderTableMeta.FILESYSTEM_FILE_LOCAL_PATH;
             };
         } else {
             if (uriMatch == ROOT_DIRECTORY || uriMatch == SINGLE_FILE || uriMatch == DIRECTORY) {

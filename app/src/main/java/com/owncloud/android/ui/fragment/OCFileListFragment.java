@@ -1902,10 +1902,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
 
     protected RemoteOperation getSearchRemoteOperation(final User currentUser, final SearchEvent event) {
-        boolean searchOnlyFolders = false;
-        if (getArguments() != null && getArguments().getBoolean(ARG_SEARCH_ONLY_FOLDER, false)) {
-            searchOnlyFolders = true;
-        }
+        boolean searchOnlyFolders = getArguments() != null && getArguments().getBoolean(ARG_SEARCH_ONLY_FOLDER, false);
 
         OCCapability ocCapability = mContainerActivity.getStorageManager()
             .getCapability(currentUser.getAccountName());
