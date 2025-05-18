@@ -808,12 +808,10 @@ public class RefreshFolderOperation extends RemoteOperation {
      * Syncs the Share resources for the files contained in the folder refreshed (children, not deeper descendants).
      *
      * @param client Handler of a session with an OC server.
-     * @return The result of the remote operation retrieving the Share resources in the folder refreshed by the
-     * operation.
      */
-    private RemoteOperationResult refreshSharesForFolder(OwnCloudClient client) {
+    private void refreshSharesForFolder(OwnCloudClient client) {
         GetSharesForFileOperation operation = new GetSharesForFileOperation(mLocalFolder.getRemotePath(), true, true, fileDataStorageManager);
-        return operation.execute(client);
+        operation.execute(client);
     }
 
     /**
