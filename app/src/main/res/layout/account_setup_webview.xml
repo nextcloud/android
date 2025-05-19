@@ -12,6 +12,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical">
 
+    <!-- Login Flow V1 -->
+    <WebView
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/login_webview"></WebView>
+
     <include
         tools:visibility="visible"
         android:visibility="gone"
