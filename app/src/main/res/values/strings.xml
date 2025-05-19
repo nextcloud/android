@@ -1169,6 +1169,7 @@
     <string name="delete_link">Delete Link</string>
     <string name="share_settings">Settings</string>
     <string name="common_confirm">Confirm</string>
+    <string name="strict_mode">Strict mode: no HTTP connection allowed!</string>
     <string name="destination_filename">Destination filename</string>
     <string name="suggest">Suggest</string>
     <string name="enter_destination_filename">Enter destination filename</string>
