@@ -10,6 +10,7 @@
     <string name="action_edit">Aldatu</string>
     <string name="action_empty_notifications">Garbitu jakinarazpen guztiak</string>
     <string name="action_empty_trashbin">Hustu zakarrontzia</string>
+    <string name="action_send_share">Bidali/partekatu</string>
     <string name="action_switch_grid_view">Sareta ikuspegia</string>
     <string name="action_switch_list_view">Zerrenda ikuspegia</string>
     <string name="actionbar_calendar_contacts_restore">Berreskuratu kontaktuak eta egutegia</string>
@@ -45,14 +46,17 @@
     <string name="app_widget_description">Paneleko trepeta bat erakusten du</string>
     <string name="appbar_search_in">Bilatu %s(e)n</string>
     <string name="assistant_screen_add_task_alert_dialog_title">Gehitu zeregin berria</string>
+    <string name="assistant_screen_create_a_new_task_from_bottom_right_text">Sortu zeregin berri bat eskuineko botoiarekin</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Idatzi testu bat</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Ziur zeregin hau ezabatu nahi duzula?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Ezabatu zeregina</string>
+    <string name="assistant_screen_loading">Zereginen zerrenda kargatzen...</string>
     <string name="assistant_screen_no_task_available_text">Ez dago zereginik %s zeregin motarako, zeregin berri bat sor dezakezu behean eskuinean.</string>
     <string name="assistant_screen_task_create_fail_message">Errore bat gertatu da zeregina sortzean</string>
     <string name="assistant_screen_task_create_success_message">Zeregina behar bezala sortu da</string>
     <string name="assistant_screen_task_delete_fail_message">Errore bat gertatu da zeregina ezabatzean</string>
     <string name="assistant_screen_task_delete_success_message">Zeregina ongi ezabatu da</string>
+    <string name="assistant_screen_task_list_empty_message">Zereginen zerrenda hutsik dago.</string>
     <string name="assistant_screen_task_list_error_state_message">Ezin da zereginen zerrenda eskuratu. Egiaztatu Interneteko konexioa.</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">Ezabatu zeregina</string>
     <string name="assistant_screen_task_output_empty_text">Zereginaren irteera ez dago prest oraindik.</string>
@@ -96,8 +100,10 @@
     <string name="auto_upload_file_behaviour_kept_in_folder">Jatorrizko karpetan mantendu da, soilik irakurtzeko delako</string>
     <string name="auto_upload_gplay">Igoera automatikoaren portaera aldatu da</string>
     <string name="auto_upload_gplay_desc">Googlek ezarritako murrizketa berrien ondorioz, auto-igoera ezaugarriak ezingo ditu igotako fitxategiak automatikoki ezabatu.</string>
+    <string name="auto_upload_gplay_desc2">Google-k ezarritako murrizketa berriak direla eta, baimen garrantzitsua bat kendu behar izan dugu. Ondorioz, fitxategien karga automatikoak bakarrik funtzionatuko du irudiekin eta bideoekin.\n Gainera, baimen berria beharrezkoa da kargatutako irudien kokapenari buruzko informazioa eskuratzeko.\n  Ziurtatu multimedia fitxategiek \"baimendu beti guztiak\" ezarrita dutela.</string>
     <string name="auto_upload_on_wifi">Kargatu soilik mugarik gabeko Wi-Fi bidez</string>
     <string name="auto_upload_path">/Auto-karga</string>
+    <string name="auto_upload_sub_folder_warning">Karpeta hau dagoeneko guraso-karpetaren sinkronizazioan sartuta dago, eta horrek karga bikoiztuak sor ditzake</string>
     <string name="autoupload_configure">Konfiguratu</string>
     <string name="autoupload_create_new_custom_folder">Sortu karpeta pertsonalizatu berriaren konfigurazioa</string>
     <string name="autoupload_custom_folder">Konfiguratu karpeta berria</string>
@@ -129,6 +135,7 @@
     <string name="clear_notifications_failed">Huts egin du jakinarazpenak garbitzean.</string>
     <string name="clear_status_message">Garbitu egoera mezua</string>
     <string name="clear_status_message_after">Egoera mezua noiz garbitu</string>
+    <string name="click_to_learn_how_to_re_enable_auto_uploads">Karga automatikoa berriro aktibatzeko eskuzko esku-hartzea beharrezkoa da</string>
     <string name="clipboard_label">Testua hemendik kopiatua: %1$s</string>
     <string name="clipboard_no_text_to_copy">Ez da jaso testurik arbelera kopiatzeko</string>
     <string name="clipboard_text_copied">Esteka kopiatu da</string>
@@ -183,6 +190,7 @@
     <string name="confirmation_remove_folders_alert">Ziur zaude hautatutako elementuak eta beren edukiak ezabatu nahi dituzula?</string>
     <string name="confirmation_remove_local">Lokala bakarrik</string>
     <string name="conflict_dialog_error">Gatazkak konpontzeko elkarrizketa-koadroa ezin da sortu</string>
+    <string name="conflict_folder_headline">Karpeten gatazka</string>
     <string name="conflict_local_file">Fitxategi lokala</string>
     <string name="conflict_message_description">Bi bertsioak hautatzen badituzu, fitxategi lokalaren izenari zenbaki bat gehituko zaio.</string>
     <string name="conflict_message_description_for_folder">Bi bertsioak hautatzen badituzu, fitxategi lokalaren izenari zenbaki bat gehituko zaio.</string>
@@ -195,6 +203,7 @@
     <string name="contacts_backup_button">Egin babeskopia orain</string>
     <string name="contacts_preferences_backup_scheduled">Babeskopia programatuta eta segituan abiatuko da</string>
     <string name="contacts_preferences_import_scheduled">Inportazioa programatuta eta segituan abiatuko da</string>
+    <string name="contacts_preferences_import_scheduled_fail">Inportazioak huts egin du abiaraztean. Mesedez, saiatu berriro</string>
     <string name="contacts_preferences_no_file_found">Ez da fitxategirik aurkitu</string>
     <string name="contacts_preferences_something_strange_happened">Ezin izan da zure azken babeskopia aurkitu!</string>
     <string name="copied_to_clipboard">Arbelera kopiatua</string>
@@ -284,6 +293,7 @@
     <string name="drawer_quota">%1$s / %2$s erabilita</string>
     <string name="drawer_quota_unlimited">%1$s erabilita</string>
     <string name="drawer_synced_folders">Kargatu automatikoki</string>
+    <string name="due_to_too_many_wrong_attempts">%s okerreko saiakera gehiegi direla eta</string>
     <string name="e2e_counter_too_old">Kontagailua zaharregia da</string>
     <string name="e2e_hash_not_found">Traola ez da aurkitu</string>
     <string name="e2e_not_yet_setup">MME (E2E) ez dago konfiguratuta</string>
@@ -294,9 +304,12 @@
     <string name="ecosystem_apps_more">Nextcloud aplikazio gehiago</string>
     <string name="email_pick_failed">Ezin izan da helbide elektronikoa hautatu.</string>
     <string name="encrypted">Ezarri zifratu gisa</string>
+    <string name="end_to_end_encryption_certificate_unavailable">Ezin da zerbitzariaren ziurtagiria berreskuratu</string>
+    <string name="end_to_end_encryption_certificate_verification_failed">Ezin izan da gako publikoa egiaztatu</string>
     <string name="end_to_end_encryption_confirm_button">Konfiguratu zifratzea</string>
     <string name="end_to_end_encryption_decrypting">Deszifratzen...</string>
     <string name="end_to_end_encryption_dialog_close">Itxi</string>
+    <string name="end_to_end_encryption_enter_passphrase_to_access_files">Sartu zure pasaesaldia zure fitxategietara sartzeko</string>
     <string name="end_to_end_encryption_folder_not_empty">Karpeta hau ez dago hutsik.</string>
     <string name="end_to_end_encryption_generating_keys">Gako berriak sortzen…</string>
     <string name="end_to_end_encryption_keywords_description">12 hitzek batera pasahitz oso gogorra osatzen dute, zure enkriptatutako fitxategiak zuk bakarrik ikusi eta erabil ditzazun. Idatzi eta gorde itzazu leku seguru batean.</string>
@@ -304,8 +317,11 @@
     <string name="end_to_end_encryption_passphrase_title">Gogoratu zure 12 hitzeko enkriptatze-pasahitza</string>
     <string name="end_to_end_encryption_password">Pasahitza…</string>
     <string name="end_to_end_encryption_retrieving_keys">Gakoak eskuratzen…</string>
+    <string name="end_to_end_encryption_server_private_key_unavailable">Ezin da gako pribatua berreskuratu</string>
+    <string name="end_to_end_encryption_server_public_key_unavailable">Ezin da gako publikoa berreskuratu</string>
     <string name="end_to_end_encryption_storing_keys">Gakoak gordetzen</string>
     <string name="end_to_end_encryption_title">Konfiguratu zifratzea</string>
+    <string name="end_to_end_encryption_unexpected_error_occurred">Ustekabeko errorea gertatu da gakoak deskargatzean</string>
     <string name="end_to_end_encryption_unsuccessful">Ezin izan dira gakoak gorde, saiatu berriro.</string>
     <string name="end_to_end_encryption_wrong_password">Errorea deszifratzean. Okerreko pasahitza?</string>
     <string name="enter_destination_filename">Sartu helburuko fitxategiaren izena</string>
@@ -342,6 +358,7 @@
     <string name="etm_background_jobs_stop_test_job">Gelditu probako lana</string>
     <string name="etm_migrations">Migrazioak (aplikazioaren eguneraketa)</string>
     <string name="etm_preferences">Hobespenak</string>
+    <string name="etm_title">Ingeniaritza proba modua</string>
     <string name="etm_transfer">Fitxategi-transferentzia</string>
     <string name="etm_transfer_enqueue_test_download">Jarri ilaran proba-deskarga</string>
     <string name="etm_transfer_enqueue_test_upload">Jarri ilaran proba-igoera</string>
@@ -349,6 +366,7 @@
     <string name="etm_transfer_type">Transferitu</string>
     <string name="etm_transfer_type_download">Deskargatu</string>
     <string name="etm_transfer_type_upload">Igo</string>
+    <string name="external_shares">Kanpoko partekatzeak</string>
     <string name="fab_label">Gehitu edo igo</string>
     <string name="failed_to_download">Huts egin du fitxategia deskarga-kudeatzailera pasatzean</string>
     <string name="failed_to_print">Huts egin du fitxategia inprimatzean</string>
@@ -421,6 +439,7 @@
     <string name="file_not_found">Fitxategia ez da aurkitu</string>
     <string name="file_not_synced">Fitxategia ezin izan da sinkronizatu. Eskuragarri dagoen azken bertsioa erakusten.</string>
     <string name="file_rename">Aldatu izena</string>
+    <string name="file_upload_worker_error_notification_title">Igoerak huts egin du. Ez dago internet konexiorik</string>
     <string name="file_upload_worker_same_file_already_exists">Dagoeneko fitxategi bera dago, ez da gatazkarik hauteman</string>
     <string name="file_version_restored_error">Errorea fitxategiaren bertsioa berreskuratzean!</string>
     <string name="file_version_restored_successfully">Fitxategiaren bertsioa ondo berreskuratu da.</string>
@@ -439,6 +458,7 @@
     <string name="first_run_3_text">Web posta, egutegi eta kontaktu erabilerrazak</string>
     <string name="first_run_4_text">Pantaila partekatzea, online bilerak eta web konferentziak</string>
     <string name="folder_already_exists">Karpeta dagoeneko existitzen da</string>
+    <string name="folder_best_viewed_in">Karpeta hau hobe ikusten da %1$s-n.</string>
     <string name="folder_confirm_create">Sortu</string>
     <string name="folder_list_empty_headline">Ez dago karpetarik hemen</string>
     <string name="folder_name_empty">Karpeta izena ezin da hutsik egon</string>
@@ -487,6 +507,7 @@
     <string name="instant_upload_existing">Existitzen diren fitxategiak ere igo</string>
     <string name="instant_upload_on_charging">Igo bakarrik gailua kargatzean</string>
     <string name="instant_upload_path">/InstantUpload</string>
+    <string name="internal_shares">Barneko partekatzeak</string>
     <string name="internal_two_way_sync">Barneko bi norabideko sinkronizazioa</string>
     <string name="internal_two_way_sync_not_yet">Oraindik ez, laster sinkronizatuko da</string>
     <string name="internet_connection_required_for_encrypted_folder_setup">Interneteko konexioa behar da enkriptatutako karpeta konfiguratzeko</string>
@@ -559,6 +580,7 @@
     <string name="new_media_folder_detected">%1$s multimedia karpeta berria aurkitu da.</string>
     <string name="new_media_folder_photos">argazkia</string>
     <string name="new_media_folder_videos">bideoa</string>
+    <string name="new_notification">Jakinarazpen berria</string>
     <string name="new_version_was_created">Bertsio berria sortu da</string>
     <string name="no_actions">Ez dago ekintzarik erabiltzaile honentzat</string>
     <string name="no_browser_available">Ez dago eskuragarri estekak kudeatzeko aplikaziorik</string>
@@ -574,6 +596,7 @@
     <string name="note_icon_hint">Oharraren ikonoa</string>
     <string name="notification_action_failed">Huts egin du ekintza exekutatzean.</string>
     <string name="notification_channel_background_operations_description">Erakutsi jakinarazpenak atzeko planoko eragiketen emaitzekin elkarreragiteko</string>
+    <string name="notification_channel_background_operations_name">Atzeko planoko ekintzak</string>
     <string name="notification_channel_download_description">Erakutsi deskarga egoera</string>
     <string name="notification_channel_download_name_short">Deskargak</string>
     <string name="notification_channel_file_sync_description">Fitxategien sinkronizazioaren aurrerapena eta emaitzak erakusten ditu</string>
@@ -590,15 +613,21 @@
     <string name="notification_icon_description">Irakurri gabeko jakinarazpenak daude</string>
     <string name="notifications_no_results_headline">Jakinarazpenik ez</string>
     <string name="notifications_no_results_message">Begiratu beranduago, mesedez.</string>
+    <string name="oc_file_list_adapter_offline_operation_description_text">Egiteke dagoen eragiketa</string>
     <string name="oc_file_list_adapter_offline_operation_remove_description_text">Kentze eragiketaren zain</string>
     <string name="offline_mode">Internet konexiorik ez</string>
     <string name="offline_mode_info_description">Interneteko konexiorik gabe ere, zure karpetak antola ditzakezu, fitxategiak sortu. Konektatuta berriro zaudenean, zain dauden ekintzak automatikoki sinkronizatuko dira.</string>
+    <string name="offline_mode_info_title">Konexiorik gabe zaude, baina lanak aurrera jarraitzen du</string>
     <string name="offline_operations_file_does_not_exists_yet">Fitxategia ez dago oraindik. Kargatu fitxategia lehenik.</string>
+    <string name="offline_operations_worker_notification_conflict_text">Karpeta gatazkatsua: %s</string>
+    <string name="offline_operations_worker_notification_delete_offline_folder">Ezabatu konexiorik gabeko karpeta</string>
     <string name="offline_operations_worker_notification_error_text">Lineaz kanpoko eragiketa ezin da osatu.. %s</string>
     <string name="offline_operations_worker_notification_manager_ticker">Lineaz kanpoko eragiketak</string>
+    <string name="offline_operations_worker_notification_start_text">Konexiorik gabeko eragiketak hastea</string>
     <string name="oneHour">Ordu 1</string>
     <string name="online">Linean</string>
     <string name="online_status">Online egoera</string>
+    <string name="open_in_app">Ireki %1$s-n</string>
     <string name="outdated_server">Zerbitzaria bizitzaren amaierara iritsi da, bertsio-berritu!</string>
     <string name="overflow_menu">Gehiago menua</string>
     <string name="pass_code_configure_your_pass_code">Sartu zure pasahitza</string>
@@ -617,6 +646,7 @@
     <string name="permission_storage_access">Fitxategiak kargatu eta deskargatzeko baimen gehigarriak behar dira</string>
     <string name="pick_contact_to_share_with">Aukeratu partekatzeko kontaktua</string>
     <string name="picture_set_as_no_app">Ez da aplikaziorik aurkitu irudia ezartzeko</string>
+    <string name="pin_home">Finkatu pantaila nagusian</string>
     <string name="pin_shortcut_label">Ireki %1$s</string>
     <string name="placeholder_fileSize">389 KB</string>
     <string name="placeholder_filename">leku-marka.txt</string>
@@ -639,6 +669,7 @@
     <string name="prefs_add_account">Gehitu kontua</string>
     <string name="prefs_calendar_contacts">Sinkronizatu egutegia eta kontaktuak</string>
     <string name="prefs_calendar_contacts_no_store_error">Ez F-Droid, ez Google Play, ez daude instalatuta</string>
+    <string name="prefs_calendar_contacts_summary">Konfiguratu DAVx⁵ (lehenago DAVdroid izenarekin ezagutzen zena) (v1.3.0 +) uneko  kontuarentzat</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Egutegiaren eta kontaktuen sinkronizazioa konfiguratuta</string>
     <string name="prefs_category_about">Honi buruz</string>
     <string name="prefs_category_details">Xehetasunak</string>
@@ -650,6 +681,7 @@
     <string name="prefs_daily_contact_backup_summary">Zure kontaktuen eguneroko babeskopia</string>
     <string name="prefs_data_storage_location">Datu biltegiaren kokapena</string>
     <string name="prefs_data_storage_location_summary">Kudeatu data biltegiaren kokapena</string>
+    <string name="prefs_davx5_setup_error">Ustekabeko errorea gertatu da DAVx⁵ (lehenago DAVdroid izenarekin ezaguna)</string>
     <string name="prefs_e2e_active">Muturretik muturrerako enkriptatzea konfiguratuta dago!</string>
     <string name="prefs_e2e_mnemonic">E2E mnemoteknikoa</string>
     <string name="prefs_e2e_no_device_credentials">Mnemoteknikoa erakusteko, gaitu gailuaren kredentzialak.</string>
@@ -706,6 +738,8 @@
     <string name="push_notifications_old_login">Ez dago push jakinarazpenik saio zaharkituaren ondorioz. Mesedez, kontua berriz gehitu.</string>
     <string name="push_notifications_temp_error">Push jakinarazpenak ez daude eskuragarri.</string>
     <string name="qr_could_not_be_read">Ezin da QR kodea irakurri!</string>
+    <string name="re_enable_auto_upload">Aldatzen du igoera automatikora</string>
+    <string name="re_enable_auto_upload_desc">Google-k ezarritako murrizketa berriak direla eta, baimen garrantzitsua kendu behar izan dugu. Google-rekin lan egiten ari gara gai hau konpontzeko eta funtzionaltasun osoa berreskuratzeko.\n\n Berriro gaitzeko argazki eta bideo berrien igoera automatikoa:\nHautatu \"Baimendu dena\", hau da, irudiak kargatzean kokapen datuak gordetzeko aukera ematen duen moduan. Zalantzarik izanez gero, egiaztatu sistemaren ezarpenak.\nIrudi eta bideo fitxategiak automatikoki kargatu ahal izango dira NextCoud aplikazioaren Google Play bertsioa erabiltzerakoan.\n\n 2024ko abenduaz geroztik kargatu ez diren fitxategiak egiaztatu.</string>
     <string name="receive_external_files_activity_start_sync_folder_is_not_exists_message">Ezin da karpeta aurkitu, sinkronizazio lana bertan behera geratu da</string>
     <string name="receive_external_files_activity_unable_to_find_file_to_upload">Ezin da aurkitu igotzeko fitxategia</string>
     <string name="recommend_subject">Probatu %1$s zure gailuan!</string>
@@ -752,6 +786,7 @@
     <string name="screenshot_05_autoUpload_heading">Igoera automatikoa</string>
     <string name="screenshot_05_autoUpload_subline">zure argazki eta bideoentzat</string>
     <string name="screenshot_06_davdroid_heading">Egutegia eta kontaktuak</string>
+    <string name="screenshot_06_davdroid_subline">Sinkronizatu DAVx⁵-ren bidez</string>
     <string name="search_error">Errorea bilaketaren emaitzak lortzean</string>
     <string name="secure_share_not_set_up">Partekatze segurua ez dago konfiguratuta erabiltzaile honentzat</string>
     <string name="secure_share_search">Partekatze segurua...</string>
@@ -760,13 +795,16 @@
     <string name="select_one_template">Hautatu txantiloi bat</string>
     <string name="select_template">Hautatu txantiloia</string>
     <string name="send">Bidali</string>
+    <string name="send_share">Bidali partekatzea</string>
     <string name="sendbutton_description">Bidali botoiaren ikonoa</string>
     <string name="set_as">Ezarri honela</string>
+    <string name="set_note">Ezarri oharra</string>
     <string name="set_picture_as">Erabili irudia honela</string>
     <string name="set_status">Ezarri egoera</string>
     <string name="set_status_message">Ezarri egoera mezua</string>
     <string name="setup_e2e">Muturretik muturrerako enkriptatzea konfiguratzean, ausazko 12 hitz mnemotekniko jasoko dituzu, zure fitxategiak beste gailu batzuetan irekitzeko beharko dituzunak. Hau gailu honetan bakarrik gordeko da eta pantaila honetan berriro ikusi ahal izango duzu. Apuntatu leku seguru batean!</string>
     <string name="share">Partekatu</string>
+    <string name="share_copy_link">Partekatu eta kopiatu esteka</string>
     <string name="share_dialog_title">Partekatzea</string>
     <string name="share_download_limit">Ezarri deskarga muga</string>
     <string name="share_expiration_date_format">%1$s</string>
@@ -793,9 +831,11 @@
     <string name="share_permission_file_drop">Fitxategiak jaregin</string>
     <string name="share_permission_secure_file_drop">Fitxategi-jartze segurua</string>
     <string name="share_permission_view_only">Ikusi soilik</string>
+    <string name="share_permissions">Partekatu baimenak</string>
     <string name="share_remote_clarification">%1$s (urrunekoa)</string>
     <string name="share_room_clarification">%1$s (elkarrizketa)</string>
     <string name="share_search">Izena, federatutako hodei IDa edo helbide elektronikoa...</string>
+    <string name="share_search_internal">Gehitu erabiltzaileak eta taldeak</string>
     <string name="share_send_new_email">Bidali posta-mezu berria</string>
     <string name="share_send_note">Oharra hartzailearentzat</string>
     <string name="share_settings">Ezarpenak</string>
@@ -815,6 +855,7 @@
     <string name="show_images">Erakutsi argazkiak</string>
     <string name="show_less">Erakutsi gutxiago</string>
     <string name="show_video">Erakutsi bideoak</string>
+    <string name="sign_tos_failed">Mesedez, egiaztatu zerbitzuko baldintzak!</string>
     <string name="signup_with_provider">Erregistratu hornitzaile batekin</string>
     <string name="single_sign_on_request_token" formatted="true">%1$s zure %2$s Nextcloud kontuan sartzea baimendu nahi duzu?</string>
     <string name="sort_by">Ordenatu honen arabera</string>
@@ -856,6 +897,9 @@
     <string name="storage_permission_full_access">Sarbide osoa</string>
     <string name="storage_permission_media_read_only">Mutimediak irakurtzeko soilik</string>
     <string name="storage_pictures">Irudiak</string>
+    <string name="store_full_desc"> 
+
+Zure kontrola bermatzen dituzten auto-ostatatutako produktibitate-plataformak.\n\nEzaugarriak:\n* Interfaze erraza, modernoa, zure zerbitzariaren gaira egokitua\n* Igo fitxategiak zure Nextcloud zerbitzarira\n* Partekatu beste batzuekin\n* Mantendu zure fitxategi eta karpeta sinkronizatuak\n* Bilatu zure zerbitzariko karpeta guztietan\n* Igo automatikoki zure gailuz hartutako argazki eta bideoak\n* Eguneratuta egon jakinarazpenekin\n* Kontu anitzak onartzen dira\n* Datu seguruak zure zerbitzarian hatz-marka edo PINaren bidez* Davx⁵-ekin integratzea (lehenago Davdroid izenarekin ezagutzen dena) egutegiaren eta kontaktuen sinkronizazioa erraz konfiguratzeko\n\n Mesedez akatsen berri eman  https://github.com/extCloud/android web orrian eta eztabaidatu aplikazio honi buruz https://help.nextCoud.com/c/clients/android web orrian\n\n Berria Nextclouden?  Nextcloud fitxategi pribatuen sinkronizatu eta partekatzeko zerbitzaria da. Software librea da, eta zuk zeuk ostatatu edo ordaindu dezakezu enpresa bati zure ordez egiteko. Horrela, zure argazkiak, egutegia eta harremanetarako datuak, dokumentuak eta gainerako guztia kontrolatzen ahal dituzu.\n\nBegiratu Nextcloud informazioa https://nextcloud.com webgunean.</string>
     <string name="store_full_dev_desc">Kontrola zuri ematen dizun norberak ostatatutako produktibitate-plataforma.\nHau garapeneko bertsio ofiziala da. Probatu gabeko funtzionalitateen eguneroko lagina hartzen du, eta horrek ezegonkortasuna eta datu-galera eragin ditzake. Aplikazio hau probatu eta gertatzen diren akatsen berri eman nahi duten erabiltzaileentzat da. Ez erabili zure produkzio-lanerako!\n\nBi bertsio ofizialak, garapenekoa eta normala, F-Droiden daude eskuragarri eta aldi berean instalatu daitezke.</string>
     <string name="store_short_desc">Kontrola zuri ematen dizun norberak ostatutako produktibitate plataforma</string>
     <string name="store_short_dev_desc">Kontrola zuri ematen dizun norberak ostatutako produktibitate plataforma (garapeneko aurrerapen bertsioa)</string>
@@ -872,8 +916,10 @@
     <string name="subtitle_videos_only">Bideoak soilik</string>
     <string name="suggest">Iradokitu</string>
     <string name="sync">Sinkronizatu</string>
+    <string name="sync_anyway">Sinkronizatu hala ere</string>
     <string name="sync_conflicts_in_favourites_ticker">Gatazkak aurkitu dira</string>
     <string name="sync_current_folder_was_removed">%1$s karpeta ez da existitzen jadanik</string>
+    <string name="sync_duplication">Sinkronizatu bikoizketa</string>
     <string name="sync_fail_content">Ezin izan da %1$s sinkronizatu</string>
     <string name="sync_fail_content_unauthorized">%1$s(r)entzako pasahitz desegokia</string>
     <string name="sync_fail_in_favourites_ticker">Edukien sinkronizazioak huts egin du</string>
@@ -890,6 +936,7 @@
     <string name="sync_not_enough_space_dialog_title">Ez dago leku libre nahikorik</string>
     <string name="sync_status_button">Sinkronizazio egoeraren botoia</string>
     <string name="sync_string_files">Fitxategiak</string>
+    <string name="sync_warning_button">Sinkronizatu abisua botoia</string>
     <string name="synced_folder_settings_button">Ezarpenak botoia</string>
     <string name="synced_folders_configure_folders">Konfiguratu karpetak</string>
     <string name="synced_folders_new_info">Berehalako igotzeak guztiz aldatu dira. Konfiguratu berriro zure igotze automatikoa menu nagusitik.\n\nGozatu igotze automatiko berri eta hedatuaz. </string>
@@ -899,6 +946,7 @@
     <string name="synced_icon">Sinkronizatua</string>
     <string name="tags">Etiketak</string>
     <string name="terms_of_service_title">Erabilera baldintzak</string>
+    <string name="terms_of_services_agree">Aurreko guztiarekin ados nago</string>
     <string name="test_server_button">Probatu zerbitzariaren konexioa</string>
     <string name="thirtyMinutes">30 minutu</string>
     <string name="thisWeek">Aste honetan</string>
@@ -959,6 +1007,8 @@
     <string name="upload_file_dialog_title">Sartu igoko den fitxategi-izena eta fitxategi mota</string>
     <string name="upload_files">Igo fitxategiak</string>
     <string name="upload_global_pause_title">Igoera guztiak pausatuta daude</string>
+    <string name="upload_gplay">Baimenen aldaketak</string>
+    <string name="upload_gplay_desc">Baimen berri bat behar da kargatutako irudien kokapen-informazioa eskuratzeko.\nZiurtatu multimedia-sarbidea \"Beti baimendu guztiak\" gisa konfiguratuta dagoela.</string>
     <string name="upload_item_action_button">Elementua igotzeko ekintza botoia</string>
     <string name="upload_list_delete">Ezabatu</string>
     <string name="upload_list_empty_headline">Ezin dira fitxategiak igo</string>
@@ -1065,6 +1115,18 @@
         <item quantity="one">minutu %d</item>
         <item quantity="other">%d minutu</item>
     </plurals>
+    <plurals name="time_seconds_ago">
+        <item quantity="one">Duela segundo %d</item>
+        <item quantity="other">Duela %d segundo</item>
+    </plurals>
+    <plurals name="time_minutes_ago">
+        <item quantity="one">Duela minutu %d</item>
+        <item quantity="other">Duela %d minutu</item>
+    </plurals>
+    <plurals name="time_hours_ago">
+        <item quantity="one">Duela ordu %d</item>
+        <item quantity="other">Duela %d ordu</item>
+    </plurals>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">Ezin izan da %1$d fitxategia sinkronizatu (gatazkak: %2$d)</item>
         <item quantity="other">Ezin izan dira %1$d fitxategi sinkronizatu (gatazkak: %2$d)</item>
@@ -1125,4 +1187,24 @@
         <item quantity="one">aukeratuta %d</item>
         <item quantity="other">%d aukeratuta</item>
     </plurals>
-    </resources>
+    <plurals name="delay_message">
+        <item quantity="one">Segundo %d-ez atzeratua saiakera oker gehiegi direla eta</item>
+        <item quantity="other">%dsegundoz atzeratua saiakera oker gehiegi direla eta</item>
+    </plurals>
+    <plurals name="delay_message_minutes">
+        <item quantity="one">Segundo %d-ez atzeratua saiakera oker gehiegi direla eta</item>
+        <item quantity="other">%d segundoz atzeratua saiakera oker gehiegi direla eta</item>
+    </plurals>
+    <plurals name="delay_message_minutes_part">
+        <item quantity="one">Minutu %d-ez atzeratua</item>
+        <item quantity="other">%d minutuz atzeratua</item>
+    </plurals>
+    <plurals name="delay_message_seconds_part">
+        <item quantity="one">Segundo %d</item>
+        <item quantity="other">%d segundo</item>
+    </plurals>
+    <plurals name="share_download_limit_description">
+        <item quantity="one">Deskarga %1$d falta da</item>
+        <item quantity="other">%1$d deskarga falta dira</item>
+    </plurals>
+</resources>

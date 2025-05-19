@@ -1,19 +1,20 @@
-Zure datuak kontrolpean mantentzen dituen norberak ostatatutako produktibitate plataforma.
+ 
 
- Ezaugarriak:
-* Interfazea erraza eta modernoa, zure zerbitzariaren gaira egokitzen dena
-* Kargatu fitxategiak Nextcloud zerbitzarira
-* Partekatu itzazu besteekin
-* Mantendu zure gogoko fitxategiak eta karpetak sinkronizatuta
+Zure kontrola bermatzen dituzten auto-ostatatutako produktibitate-plataformak.
+
+Ezaugarriak:
+* Interfaze erraza, modernoa, zure zerbitzariaren gaira egokitua
+* Igo fitxategiak zure Nextcloud zerbitzarira
+* Partekatu beste batzuekin
+* Mantendu zure fitxategi eta karpeta sinkronizatuak
 * Bilatu zure zerbitzariko karpeta guztietan
-* Kargatu automatikoki zure gailuan ateratako argazkiak eta bideoak
-* Egunean egon jakinarazpenen bidez
-* Hainbat kontu erabili daitezke
-* Sarbide segurua zure datuetarako hatz-marka edo PIN bidez
-* DAVx5-rekin integratua (lehenago DAVdroid izenarekin ezagutzen zena) egutegia erraz konfiguratzeko eta kontaktuak sinkronizatzeko
+* Igo automatikoki zure gailuz hartutako argazki eta bideoak
+* Eguneratuta egon jakinarazpenekin
+* Kontu anitzak onartzen dira
+* Datu seguruak zure zerbitzarian hatz-marka edo PINaren bidez* Davx⁵-ekin integratzea (lehenago Davdroid izenarekin ezagutzen dena) egutegiaren eta kontaktuen sinkronizazioa erraz konfiguratzeko
 
- Eman arazoen berri https://github.com/nextcloud/android/issues orrian eta eztabaidatu aplikazio hau https://help.nextcloud.com/c/clients/android orrian
+ Mesedez akatsen berri eman  https://github.com/extCloud/android web orrian eta eztabaidatu aplikazio honi buruz https://help.nextCoud.com/c/clients/android web orrian
 
- Berria Nextcloud-en? Nextcloud fitxategiak sinkronizatu eta partekatzeko eta komunikaziorako zerbitzari pribatu bat da. Software librea da, eta zuk zeuk ostatatu dezakezu edo enpresa bat ordaindu zure ordez ostatatzeko. Horrela, zure argazkiak, zure egutegia eta kontaktuen datuak, zure dokumentuak eta gainerako guztia zuk kontrolatzen dituzu.
+ Berria Nextclouden?  Nextcloud fitxategi pribatuen sinkronizatu eta partekatzeko zerbitzaria da. Software librea da, eta zuk zeuk ostatatu edo ordaindu dezakezu enpresa bati zure ordez egiteko. Horrela, zure argazkiak, egutegia eta harremanetarako datuak, dokumentuak eta gainerako guztia kontrolatzen ahal dituzu.
 
- Ezagutu Nextcloud https://nextcloud.com helbidean
+Begiratu Nextcloud informazioa https://nextcloud.com webgunean.

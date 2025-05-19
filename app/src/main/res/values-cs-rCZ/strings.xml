@@ -784,6 +784,7 @@
     <string name="screenshot_05_autoUpload_heading">Automatické nahrávání</string>
     <string name="screenshot_05_autoUpload_subline">pro vaše fotky a videa</string>
     <string name="screenshot_06_davdroid_heading">Kalendář a kontakty</string>
+    <string name="screenshot_06_davdroid_subline">Synchronizace s DAVx⁵</string>
     <string name="search_error">Chyba při získávání výsledků hledání</string>
     <string name="secure_share_not_set_up">Zabezpečené sdílení není pro tohoto uživatele nastaveno</string>
     <string name="secure_share_search">Zabezpečené sdílení…</string>
