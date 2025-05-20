@@ -669,6 +669,7 @@
     <string name="prefs_add_account">Додај налог</string>
     <string name="prefs_calendar_contacts">Синхронизација календара и контаката</string>
     <string name="prefs_calendar_contacts_no_store_error">Ни Ф-дроид ни Гугл плеј продавница нису инсталиране</string>
+    <string name="prefs_calendar_contacts_summary">Подеси DAVx⁵ (раније познат и као DAVdroid) (в1.3.0+) за тренутни налог</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Синхронизација календара и контаката је подешена</string>
     <string name="prefs_category_about">О програму</string>
     <string name="prefs_category_details">Детаљи</string>
@@ -680,6 +681,7 @@
     <string name="prefs_daily_contact_backup_summary">Дневно архивирање ваших контаката</string>
     <string name="prefs_data_storage_location">Локација складишта података</string>
     <string name="prefs_data_storage_location_summary">Управљање локацијом складишта података</string>
+    <string name="prefs_davx5_setup_error">Неочекивана грешка приликом подешавања DAVx⁵ (раније познатог под именом DAVdroid)</string>
     <string name="prefs_e2e_active">Подешено је шифрирање од почетка-до-краја!</string>
     <string name="prefs_e2e_mnemonic">Е2Е мнемоник</string>
     <string name="prefs_e2e_no_device_credentials">За приказивање мнемоника, омогућите акредитиве на уређају.</string>
@@ -784,6 +786,7 @@
     <string name="screenshot_05_autoUpload_heading">Аутоматска отпремања</string>
     <string name="screenshot_05_autoUpload_subline">слика и видео записа</string>
     <string name="screenshot_06_davdroid_heading">Календар и контакти</string>
+    <string name="screenshot_06_davdroid_subline">Синхронизација помоћу DAVx⁵</string>
     <string name="search_error">Грешка приликом добијања резултата претраге</string>
     <string name="secure_share_not_set_up">За овог корисника није подешено безбедно дељење</string>
     <string name="secure_share_search">Безбедно дељење</string>
@@ -894,6 +897,7 @@
     <string name="storage_permission_full_access">Пуни приступ</string>
     <string name="storage_permission_media_read_only">Само читање медија</string>
     <string name="storage_pictures">Слике</string>
+    <string name="store_full_desc">Платформа продуктивности на вашем серверу и под вашом контролом.\nОсобине:\n* Једноставан и модеран интерфејс, усклађен са темом на серверу\n* Отпремање фајлова на Nextcloud сервер\n* Дељење фајлова са другима\n* Синхронизација омиљених фајлова и фасцикли\n* Претрага кроз све фасцикле на серверу\n* Аутоматско отпремање слика и видео записа са уређаја\n* Обавештења са сервера\n* Подршка за више налога\n* Безбедан приступ свим подацима преко отиска прста или пина\n* Интеграција са DAVx⁵ (раније познатом као DAVdroid) за лако подешавање синхронизације календара и контаката\n\nСве проблеме можете да пријавите на https://github.com/nextcloud/android/issues а о апликацији дискутујте на https://help.nextcloud.com/c/clients/android\n\nНови сте на Nextcloud? Nextcloud је лични сервер за синхронизацију, дељење фајлова и комуникацију. То је слободан софтвер и можете га сами поставити на свој сервер или платити компанији да то учини уместо вас. На тај начин, сами контролишете своје слике, календаре, контакте, документа и све остало.\n\nПогледајте Nextcloud на https://nextcloud.com</string>
     <string name="store_full_dev_desc">Платформа продуктивности на вашем серверу и под вашом контролом.\nОво је званична развојна верзија, која свакодневно доноси нове нетестиране могућности, које могу изазвати нестабилност или губитак података. Ова апликација је за кориснике који желе да тестирају и пријављују грешке, уколико до њих дође. Не користите је за свакодневни посао!\n\nИ званична и развојна верзија су доступне на Ф-Дроид порталу и могу бити инсталиране истовремено.</string>
     <string name="store_short_desc">Платформа продуктивности под вашом контролом</string>
     <string name="store_short_dev_desc">Платформа продуктивности под вашом контролом (развојна верзија)</string>
@@ -1110,6 +1114,21 @@
         <item quantity="one">%d минут</item>
         <item quantity="few">%d минута</item>
         <item quantity="other">%d минута</item>
+    </plurals>
+    <plurals name="time_seconds_ago">
+        <item quantity="one">пре %d секунде</item>
+        <item quantity="few">пре %d секунде</item>
+        <item quantity="other">пре %d секунди</item>
+    </plurals>
+    <plurals name="time_minutes_ago">
+        <item quantity="one">пре %d минута</item>
+        <item quantity="few">пре %d минута</item>
+        <item quantity="other">пре %d минута</item>
+    </plurals>
+    <plurals name="time_hours_ago">
+        <item quantity="one">пре %d сат</item>
+        <item quantity="few">пре %d сата</item>
+        <item quantity="other">пре %d сати</item>
     </plurals>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">Не могу да синхронизујем %1$d фајл (конфликата: %2$d)</item>
