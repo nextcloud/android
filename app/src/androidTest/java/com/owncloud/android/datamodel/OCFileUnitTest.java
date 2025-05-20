@@ -36,6 +36,7 @@ public class OCFileUnitTest {
     private static final String STORAGE_PATH = "/mnt/sd/localpath/to/a/file.txt";
     private static final String MIME_TYPE = "text/plain";
     private static final long FILE_LENGTH = 9876543210L;
+    private static final long UPLOADED_TIMESTAMP = 8765431109L;
     private static final long CREATION_TIMESTAMP = 8765432109L;
     private static final long MODIFICATION_TIMESTAMP = 7654321098L;
     private static final long MODIFICATION_TIMESTAMP_AT_LAST_SYNC_FOR_DATA = 6543210987L;
@@ -63,6 +64,7 @@ public class OCFileUnitTest {
         mFile.setStoragePath(STORAGE_PATH);
         mFile.setMimeType(MIME_TYPE);
         mFile.setFileLength(FILE_LENGTH);
+        mFile.setUploadTimestamp(UPLOADED_TIMESTAMP);
         mFile.setCreationTimestamp(CREATION_TIMESTAMP);
         mFile.setModificationTimestamp(MODIFICATION_TIMESTAMP);
         mFile.setModificationTimestampAtLastSyncForData(MODIFICATION_TIMESTAMP_AT_LAST_SYNC_FOR_DATA);
@@ -93,6 +95,7 @@ public class OCFileUnitTest {
         assertThat(fileReadFromParcel.getStoragePath(), is(STORAGE_PATH));
         assertThat(fileReadFromParcel.getMimeType(), is(MIME_TYPE));
         assertThat(fileReadFromParcel.getFileLength(), is(FILE_LENGTH));
+        assertThat(fileReadFromParcel.getUploadTimestamp(), is(UPLOADED_TIMESTAMP));
         assertThat(fileReadFromParcel.getCreationTimestamp(), is(CREATION_TIMESTAMP));
         assertThat(fileReadFromParcel.getModificationTimestamp(), is(MODIFICATION_TIMESTAMP));
         assertThat(

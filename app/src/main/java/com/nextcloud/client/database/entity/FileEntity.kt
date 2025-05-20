@@ -119,5 +119,7 @@ data class FileEntity(
     @ColumnInfo(name = ProviderTableMeta.FILE_INTERNAL_TWO_WAY_SYNC_TIMESTAMP)
     val internalTwoWaySync: Long?,
     @ColumnInfo(name = ProviderTableMeta.FILE_INTERNAL_TWO_WAY_SYNC_RESULT)
-    val internalTwoWaySyncResult: String?
+    val internalTwoWaySyncResult: String?,
+    @ColumnInfo(name = ProviderTableMeta.FILE_UPLOADED)
+    val uploaded: Long?
 )
