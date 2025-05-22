@@ -350,7 +350,7 @@
     <string name="etm_background_job_state">Status</string>
     <string name="etm_background_job_user">Benutzer</string>
     <string name="etm_background_job_uuid">UUID</string>
-    <string name="etm_background_jobs">Hintergrund-Aufgaben</string>
+    <string name="etm_background_jobs">Hintergrundaufgaben</string>
     <string name="etm_background_jobs_cancel_all">Alle Aufgaben abbrechen</string>
     <string name="etm_background_jobs_prune">Inaktive Aufgaben bereinigen</string>
     <string name="etm_background_jobs_schedule_test_job">Test-Aufgabe planen</string>
@@ -669,6 +669,7 @@
     <string name="prefs_add_account">Konto hinzufügen</string>
     <string name="prefs_calendar_contacts">Kalender und Kontakte synchronisieren</string>
     <string name="prefs_calendar_contacts_no_store_error">Weder F-Droid noch Google-Play sind installiert</string>
+    <string name="prefs_calendar_contacts_summary">DAVx⁵ (früher bekannt als DAVdroid) (v1.3.0+) für aktuelles Konto einrichten</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Synchronisierung von Kalender und Kontakten einrichten</string>
     <string name="prefs_category_about">Über</string>
     <string name="prefs_category_details">Details</string>
@@ -680,6 +681,7 @@
     <string name="prefs_daily_contact_backup_summary">Tägliche Sicherung Ihrer Kontakte</string>
     <string name="prefs_data_storage_location">Speicherort der Daten</string>
     <string name="prefs_data_storage_location_summary">Speicherort der Daten verwalten</string>
+    <string name="prefs_davx5_setup_error">Unerwarteter Fehler beim Einrichten von DAVx⁵ (früher bekannt als DAVdroid)</string>
     <string name="prefs_e2e_active">Ende-zu-Ende-Verschlüsselung ist eingerichtet!</string>
     <string name="prefs_e2e_mnemonic">E2E-Gedächtnisstütze</string>
     <string name="prefs_e2e_no_device_credentials">Um die Gedächtnisstütze anzuzeigen, aktivieren Sie bitte Geräte-Zugangsdaten</string>
@@ -784,6 +786,7 @@
     <string name="screenshot_05_autoUpload_heading">Automatisches Hochladen</string>
     <string name="screenshot_05_autoUpload_subline">für Ihre Fotos und Videos</string>
     <string name="screenshot_06_davdroid_heading">Kalender und Kontakte</string>
+    <string name="screenshot_06_davdroid_subline">Synchronisation mit DAVx⁵</string>
     <string name="search_error">Fehler beim Abrufen der Suchergebnisse</string>
     <string name="secure_share_not_set_up">Sicheres teilen ist für diesen Benutzer nicht eingerichtet</string>
     <string name="secure_share_search">Sicheres teilen …</string>
@@ -855,7 +858,7 @@
     <string name="sign_tos_failed">Bitte überprüfen Sie die Nutzungsbedingungen selbst!</string>
     <string name="signup_with_provider">Mit Provider anmelden</string>
     <string name="single_sign_on_request_token" formatted="true">Zulassen, dass %1$s auf Ihr Nextcloud Konto %2$s zugreifen darf?</string>
-    <string name="sort_by">Sortiere nach</string>
+    <string name="sort_by">Sortieren nach</string>
     <string name="ssl_validator_btn_details_hide">Ausblenden</string>
     <string name="ssl_validator_btn_details_see">Details</string>
     <string name="ssl_validator_header">Die Identität des Servers konnte nicht verifiziert werden</string>
@@ -894,6 +897,7 @@
     <string name="storage_permission_full_access">Voller Zugriff</string>
     <string name="storage_permission_media_read_only">Medien schreibgeschützt</string>
     <string name="storage_pictures">Bilder</string>
+    <string name="store_full_desc">Die selbstgehostete Produktivitätsplattform, mit der Sie die Kontrolle behalten.\n\nFunktionen:\n* Einfache, moderne Benutzeroberfläche, die an das Design Ihres Servers angepasst ist\n* Laden Sie Dateien auf Ihren Nextcloud-Server hoch\n* Teilen Sie sie mit anderen\n * Halten Sie Ihre Lieblingsdateien und -ordner synchronisiert\n* Durchsuchen Sie alle Ordner auf Ihrem Server\n* Automatisches Hochladen von Fotos und Videos, die mit Ihrem Gerät aufgenommen wurden\n* Bleiben Sie mit Benachrichtigungen auf dem Laufenden\n* Unterstützung für mehrere Konten\n* Sicherer Zugriff auf Ihre Daten mit Fingerabdruck oder PIN\n* Integration mit DAVx⁵ (früher bekannt als DAVdroid) zur einfachen Einrichtung der Kalender- und Kontaktsynchronisierung\n\nBitte melden Sie alle Probleme unter https://github.com/nextcloud/android/issues und diskutieren Sie über diese App unter https://help.nextcloud.com/c/clients/android\n\nNeu bei Nextcloud? Nextcloud ist ein privater Dateisynchronisierungs-, Freigabe- und Kommunikationsserver. Es handelt sich um kostenlose Software, die Sie selbst, oder gegen Gebühr bei einem Dienstleister hosten können. Auf diese Weise haben Sie die Kontrolle über Ihre Fotos, Ihre Kalender- und Kontaktdaten, Ihre Dokumente und alles andere.\n\nSehen Sie sich Nextcloud unter https://nextcloud.com an.</string>
     <string name="store_full_dev_desc">Die selbst gehostete Produktivitätsplattform gibt Ihnen die volle Kontrolle.\nDies ist die offizielle Entwicklungsversion und bietet neue, ungetestete Funkitionen. Dies kann zu Instabilitäten und Datenverlust führen. Die App ist für alle Benutzer, die Testen wollen und falls nötig Fehlerberichte erstellen. Nutzen Sie diese Version nicht für Ihre Produktivarbeit!\n\nSowohl die reguläre als auch die Entwicklerversion sind auf F-droid verfügbar und können parallel installiert werden.</string>
     <string name="store_short_desc">Die selbst gehostete Produktivitätsplattform gibt Ihnen die volle Kontrolle</string>
     <string name="store_short_dev_desc">Die selbst gehostete Produktivitätsplattform gibt Ihnen die volle Kontrolle (Vorab- Entwicklungsversion)</string>

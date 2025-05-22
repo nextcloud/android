@@ -160,6 +160,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
         fileId = source.readLong();
         parentId = source.readLong();
         fileLength = source.readLong();
+        uploadTimestamp = source.readLong();
         creationTimestamp = source.readLong();
         modificationTimestamp = source.readLong();
         modificationTimestampAtLastSyncForData = source.readLong();
@@ -205,6 +206,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
         dest.writeLong(fileId);
         dest.writeLong(parentId);
         dest.writeLong(fileLength);
+        dest.writeLong(uploadTimestamp);
         dest.writeLong(creationTimestamp);
         dest.writeLong(modificationTimestamp);
         dest.writeLong(modificationTimestampAtLastSyncForData);
@@ -482,6 +484,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
         localPath = null;
         mimeType = null;
         fileLength = 0;
+        uploadTimestamp = 0;
         creationTimestamp = 0;
         modificationTimestamp = 0;
         modificationTimestampAtLastSyncForData = 0;
@@ -701,10 +704,6 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
      */
     public long getModificationTimestamp() {
         return this.modificationTimestamp;
-    }
-
-    public long getUploadTimestamp() {
-        return this.uploadTimestamp;
     }
 
     public long getModificationTimestampAtLastSyncForData() {
@@ -1080,5 +1079,13 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
         } else {
             return false;
         }
+    }
+
+    public long getUploadTimestamp() {
+        return uploadTimestamp;
+    }
+
+    public void setUploadTimestamp(long uploadTimestamp) {
+        this.uploadTimestamp = uploadTimestamp;
     }
 }

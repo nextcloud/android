@@ -1,19 +1,19 @@
-Die selbst gehostete Produktivitätsplattform, mit der Sie die Kontrolle behalten.
+Die selbstgehostete Produktivitätsplattform, mit der Sie die Kontrolle behalten.
 
 Funktionen:
-* Einfache, moderne Benutzeroberfläche, passend zum Design Ihres Servers
+* Einfache, moderne Benutzeroberfläche, die an das Design Ihres Servers angepasst ist
 * Laden Sie Dateien auf Ihren Nextcloud-Server hoch
 * Teilen Sie sie mit anderen
  * Halten Sie Ihre Lieblingsdateien und -ordner synchronisiert
 * Durchsuchen Sie alle Ordner auf Ihrem Server
 * Automatisches Hochladen von Fotos und Videos, die mit Ihrem Gerät aufgenommen wurden
-* Bleiben Sie mittels Benachrichtigungen auf dem Laufenden
+* Bleiben Sie mit Benachrichtigungen auf dem Laufenden
 * Unterstützung für mehrere Konten
 * Sicherer Zugriff auf Ihre Daten mit Fingerabdruck oder PIN
-* Integration mit DAVx5 (früher bekannt als DAVdroid) zur einfachen Einrichtung der Kalender- und Kontaktsynchronisierung
+* Integration mit DAVx⁵ (früher bekannt als DAVdroid) zur einfachen Einrichtung der Kalender- und Kontaktsynchronisierung
 
 Bitte melden Sie alle Probleme unter https://github.com/nextcloud/android/issues und diskutieren Sie über diese App unter https://help.nextcloud.com/c/clients/android
 
-Neu bei Nextcloud? Nextcloud ist ein privater Dateisynchronisierungs-, Freigabe- und Kommunikationsserver. Es handelt sich um kostenlose Software, die Sie selbst, oder gegen Gebühr bei einem Dienstleister hosten können. So oder so haben Sie die Kontrolle über Ihre Fotos, Ihre Kalender- und Kontaktdaten, Ihre Dokumente und alles andere.
+Neu bei Nextcloud? Nextcloud ist ein privater Dateisynchronisierungs-, Freigabe- und Kommunikationsserver. Es handelt sich um kostenlose Software, die Sie selbst, oder gegen Gebühr bei einem Dienstleister hosten können. Auf diese Weise haben Sie die Kontrolle über Ihre Fotos, Ihre Kalender- und Kontaktdaten, Ihre Dokumente und alles andere.
 
-Sehen Sie sich Nextcloud unter https://nextcloud.com an
+Sehen Sie sich Nextcloud unter https://nextcloud.com an.
