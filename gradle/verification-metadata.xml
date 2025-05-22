@@ -355,7 +355,10 @@
          <trusted-key id="D54A395B5CF3F86EB45F6E426B1B008864323B92" group="org.antlr"/>
          <trusted-key id="D6F1BC78607808EC8E9F69437A8860944FAD5F62" group="org.apache.commons" name="commons-parent"/>
          <trusted-key id="D75E25B78EBB19E47C0A99BCA7764F502A938C99" group="com.google.protobuf"/>
-         <trusted-key id="D878D4A823EAE731B729D1A8D2151178A123C97F" group="com.github.spotbugs.snom" name="spotbugs-gradle-plugin" version="6.1.9"/>
+         <trusted-key id="D878D4A823EAE731B729D1A8D2151178A123C97F">
+            <trusting group="com.github.spotbugs.snom" name="spotbugs-gradle-plugin" version="6.1.12"/>
+            <trusting group="com.github.spotbugs.snom" name="spotbugs-gradle-plugin" version="6.1.9"/>
+         </trusted-key>
          <trusted-key id="DA7A1BB85B19E4FB05073431205C8673DC742C7C" group="org.apache" name="apache" version="9"/>
          <trusted-key id="DB0597E3144342256BC81E3EC727D053C4481CF5" group="org.tensorflow" name="tensorflow-lite-metadata"/>
          <trusted-key id="DBD744ACE7ADE6AA50DD591F66B50994442D2D40" group="^com[.]squareup($|([.].*))" regex="true"/>
