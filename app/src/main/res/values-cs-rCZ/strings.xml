@@ -669,6 +669,7 @@
     <string name="prefs_add_account">Přidat účet</string>
     <string name="prefs_calendar_contacts">Synchronizovat kalendář a kontakty</string>
     <string name="prefs_calendar_contacts_no_store_error">F-Droid ani Google Play není nainstalováno</string>
+    <string name="prefs_calendar_contacts_summary">Nastavit pro stávající účet DAVx⁵ (dříve známé pod názvem DAVdroid) (verze 1.3.0 a novější)</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Nastavení synchronizace kalendáře a kontaktů</string>
     <string name="prefs_category_about">O aplikaci</string>
     <string name="prefs_category_details">Podrobnosti</string>
@@ -680,6 +681,7 @@
     <string name="prefs_daily_contact_backup_summary">Každodenní záloha vašich kontaktů</string>
     <string name="prefs_data_storage_location">Umístění úložiště dat</string>
     <string name="prefs_data_storage_location_summary">Spravovat umístění úložiště dat</string>
+    <string name="prefs_davx5_setup_error">Neočekávaná chyba při nastavování DAVx⁵ (dříve známého jako  DAVdroid)</string>
     <string name="prefs_e2e_active">Šifrování mezi koncovými body je nastaveno!</string>
     <string name="prefs_e2e_mnemonic">E2E mnemotechnická</string>
     <string name="prefs_e2e_no_device_credentials">Pokud chcete zobrazit mnemotechnickou, zapněte přihlašovací údaje zařízení.</string>
