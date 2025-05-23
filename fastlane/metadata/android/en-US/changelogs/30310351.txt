@@ -1,0 +1,9 @@
+## 3.31.3 RC1 (May 23, 2025)
+
+- fix simple sign up
+- bugfixes
+- update translations
+
+Minimum: NC 18 Server, Android 7.1 Nougat
+
+For a full list, please see https://github.com/nextcloud/android/milestone/110
