@@ -23,7 +23,6 @@ import android.text.TextUtils;
 import com.nextcloud.utils.BuildHelper;
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.network.WebdavEntry;
-import com.owncloud.android.lib.common.network.WebdavUtils;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.files.model.FileLockType;
 import com.owncloud.android.lib.resources.files.model.GeoLocation;
@@ -386,26 +385,11 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
         return localUri;
     }
 
-
-    public Uri getLegacyExposedFileUri() {
-        if (TextUtils.isEmpty(localPath)) {
-            return null;
-        }
-
-        if (exposedFileUri == null) {
-            return Uri.parse(ContentResolver.SCHEME_FILE + "://" + WebdavUtils.encodePath(localPath));
-        }
-
-        return exposedFileUri;
-
-    }
-    /*
-        Partly disabled because not all apps understand paths that we get via this method for now
-     */
     public Uri getExposedFileUri(Context context) {
         if (TextUtils.isEmpty(localPath)) {
             return null;
         }
+
         if (exposedFileUri == null) {
             try {
                 exposedFileUri = FileProvider.getUriForFile(
@@ -413,9 +397,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
                         context.getString(R.string.file_provider_authority),
                         new File(localPath));
             } catch (IllegalArgumentException ex) {
-                // Could not share file using FileProvider URI scheme.
-                // Fall back to legacy URI parsing.
-                getLegacyExposedFileUri();
+                Log_OC.d(TAG, "Given File is outside the paths supported by the provider");
             }
         }
 

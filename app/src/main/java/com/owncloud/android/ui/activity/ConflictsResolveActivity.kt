@@ -48,6 +48,7 @@ import javax.inject.Inject
 /**
  * Wrapper activity which will be launched if keep-in-sync file will be modified by external application.
  */
+@Suppress("Detekt.TooManyFunctions")
 class ConflictsResolveActivity : FileActivity(), OnConflictDecisionMadeListener {
     @Inject
     lateinit var uploadsStorageManager: UploadsStorageManager
