@@ -35,6 +35,8 @@ import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.webkit.CookieManager;
 import android.webkit.URLUtil;
+import android.webkit.WebResourceError;
+import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -122,7 +124,6 @@ import javax.inject.Inject;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.VisibleForTesting;
@@ -230,11 +231,6 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     @Inject ClientFactory clientFactory;
 
     private String token;
-    private boolean strictMode = false;
-
-    @SuppressLint("ResourceAsColor") @ColorInt
-    private int primaryColor = R.color.primary;
-
     private boolean onlyAdd = false;
 
     private ViewThemeUtils viewThemeUtils;
@@ -463,6 +459,11 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (accountSetupWebviewBinding != null && event.getAction() == KeyEvent.ACTION_DOWN &&
             keyCode == KeyEvent.KEYCODE_BACK) {
+            if (accountSetupWebviewBinding.loginWebview.canGoBack()) {
+                accountSetupWebviewBinding.loginWebview.goBack();
+            } else {
+                finish();
+            }
             return true;
         }
         return super.onKeyDown(keyCode, event);
@@ -471,7 +472,8 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     private void setClient() {
         accountSetupWebviewBinding.loginWebview.setWebViewClient(new NextcloudWebViewClient(getSupportFragmentManager()) {
             @Override
-            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+            public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
+                String url = request.getUrl().toString();
                 if (url.startsWith(getString(R.string.login_data_own_scheme) + PROTOCOL_SUFFIX + "login/")) {
                     parseAndLoginFromWebView(url);
                     return true;
@@ -485,18 +487,10 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
                 accountSetupWebviewBinding.loginWebviewProgressBar.setVisibility(View.GONE);
                 accountSetupWebviewBinding.loginWebview.setVisibility(View.VISIBLE);
-
-//                if (mServerInfo.mVersion != null && mServerInfo.mVersion.isOlderThan(NextcloudVersion.nextcloud_25)) {
-//                    viewThemeUtils.platform.colorStatusBar(AuthenticatorActivity.this, primaryColor);
-//                    getWindow().setNavigationBarColor(primaryColor);
-//                } else {
-//                    viewThemeUtils.platform.resetStatusBar(AuthenticatorActivity.this);
-//                    getWindow().setNavigationBarColor(ContextCompat.getColor(AuthenticatorActivity.this, R.color.bg_default));
-//                }
             }
 
             @Override
-            public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
+            public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
                 accountSetupWebviewBinding.loginWebviewProgressBar.setVisibility(View.GONE);
                 accountSetupWebviewBinding.loginWebview.setVisibility(View.VISIBLE);
 
