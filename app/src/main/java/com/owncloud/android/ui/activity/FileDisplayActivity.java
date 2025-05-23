@@ -2401,7 +2401,7 @@ public class FileDisplayActivity extends FileActivity
 
         startSyncFolderOperation(folder, ignoreETag, ignoreFocus);
 
-        if (getCapabilities().getRecommendations().isTrue() && folder.isRootDirectory()) {
+        if (getCapabilities() != null && getCapabilities().getRecommendations().isTrue() && folder.isRootDirectory()) {
             listOfFiles.fetchRecommendedFiles();
         }
     }
