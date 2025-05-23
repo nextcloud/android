@@ -1,0 +1,7 @@
+## 3.31.2 RC1 (May 15, 2025)
+
+- bring back MANAGE_EXTERNAL_STORAGE permission
+
+Minimum: NC 18 Server, Android 7.1 Nougat
+
+For a full list, please see https://github.com/nextcloud/android/milestone/108
