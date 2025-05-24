@@ -23,7 +23,7 @@ import com.owncloud.android.databinding.UnifiedSearchFooterBinding
 import com.owncloud.android.databinding.UnifiedSearchHeaderBinding
 import com.owncloud.android.databinding.UnifiedSearchItemBinding
 import com.owncloud.android.datamodel.FileDataStorageManager
-import com.owncloud.android.datamodel.ThumbnailsCacheManager.InitDiskCacheTask
+import com.owncloud.android.datamodel.ThumbnailsCacheManager
 import com.owncloud.android.ui.interfaces.UnifiedSearchListInterface
 import com.owncloud.android.ui.unifiedsearch.UnifiedSearchSection
 import com.owncloud.android.utils.theme.ViewThemeUtils
@@ -155,6 +155,6 @@ class UnifiedSearchListAdapter(
 
     init {
         // initialise thumbnails cache on background thread
-        InitDiskCacheTask().execute()
+        ThumbnailsCacheManager.initDiskCacheAsync()
     }
 }

@@ -67,6 +67,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.lang.ref.WeakReference;
 import java.util.List;
+import java.util.Objects;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -111,9 +114,11 @@ public final class ThumbnailsCacheManager {
     private ThumbnailsCacheManager() {
     }
 
-    public static class InitDiskCacheTask extends AsyncTask<File, Void, Void> {
-        @Override
-        protected Void doInBackground(File... params) {
+
+    private static final ExecutorService executor = Executors.newSingleThreadExecutor();
+
+    public static void initDiskCacheAsync() {
+        executor.execute(() -> {
             synchronized (mThumbnailsDiskCacheLock) {
                 mThumbnailCacheStarting = true;
 
@@ -150,8 +155,7 @@ public final class ThumbnailsCacheManager {
                 mThumbnailCacheStarting = false; // Finished initialization
                 mThumbnailsDiskCacheLock.notifyAll(); // Wake any waiting threads
             }
-            return null;
-        }
+        });
     }
 
     /**
@@ -383,7 +387,7 @@ public final class ThumbnailsCacheManager {
         }
 
         protected void onPostExecute(Bitmap bitmap) {
-            if (bitmap != null && imageViewReference != null) {
+            if (bitmap != null) {
                 final ImageView imageView = imageViewReference.get();
                 final GalleryImageGenerationTask bitmapWorkerTask = getGalleryImageGenerationTask(imageView);
 
@@ -480,40 +484,38 @@ public final class ThumbnailsCacheManager {
         }
 
         protected void onPostExecute(Bitmap bitmap) {
-            if (imageViewReference != null) {
-                final ImageView imageView = imageViewReference.get();
-                final FrameLayout frameLayout = frameLayoutReference.get();
+            final ImageView imageView = imageViewReference.get();
+            final FrameLayout frameLayout = frameLayoutReference.get();
 
-                if (bitmap != null) {
-                    final ResizedImageGenerationTask bitmapWorkerTask = getResizedImageGenerationWorkerTask(imageView);
+            if (bitmap != null) {
+                final ResizedImageGenerationTask bitmapWorkerTask = getResizedImageGenerationWorkerTask(imageView);
 
-                    if (this == bitmapWorkerTask) {
-                        String tagId = String.valueOf(file.getFileId());
+                if (this == bitmapWorkerTask) {
+                    String tagId = String.valueOf(file.getFileId());
 
-                        if (String.valueOf(imageView.getTag()).equals(tagId)) {
-                            imageView.setVisibility(View.VISIBLE);
-                            imageView.setImageBitmap(bitmap);
-                            imageView.setBackgroundColor(backgroundColor);
+                    if (String.valueOf(imageView.getTag()).equals(tagId)) {
+                        imageView.setVisibility(View.VISIBLE);
+                        imageView.setImageBitmap(bitmap);
+                        imageView.setBackgroundColor(backgroundColor);
 
-                            if (frameLayout != null) {
-                                frameLayout.setVisibility(View.GONE);
-                            }
+                        if (frameLayout != null) {
+                            frameLayout.setVisibility(View.GONE);
                         }
                     }
-                } else {
-                    new Thread(() -> {
-                        if (connectivityService.isInternetWalled()) {
-                            if (fileFragment instanceof PreviewImageFragment) {
-                                ((PreviewImageFragment) fileFragment).setNoConnectionErrorMessage();
-                            }
-                        } else {
-                            if (fileFragment instanceof PreviewImageFragment) {
-                                ((PreviewImageFragment) fileFragment).handleUnsupportedImage();
-                            }
-                        }
-                    }).start();
-
                 }
+            } else {
+                new Thread(() -> {
+                    if (connectivityService.isInternetWalled()) {
+                        if (fileFragment instanceof PreviewImageFragment) {
+                            ((PreviewImageFragment) fileFragment).setNoConnectionErrorMessage();
+                        }
+                    } else {
+                        if (fileFragment instanceof PreviewImageFragment) {
+                            ((PreviewImageFragment) fileFragment).handleUnsupportedImage();
+                        }
+                    }
+                }).start();
+
             }
         }
     }
@@ -814,11 +816,7 @@ public final class ThumbnailsCacheManager {
             File file = (File)mFile;
 
             final String imageKey;
-            if (mImageKey != null) {
-                imageKey = mImageKey;
-            } else {
-                imageKey = String.valueOf(file.hashCode());
-            }
+            imageKey = Objects.requireNonNullElseGet(mImageKey, () -> String.valueOf(file.hashCode()));
 
             // local file should always generate a thumbnail
             mImageKey = PREFIX_THUMBNAIL + mImageKey;
@@ -931,12 +929,7 @@ public final class ThumbnailsCacheManager {
 
         private Bitmap doFileInBackground(File file, Type type) {
             final String imageKey;
-
-            if (mImageKey != null) {
-                imageKey = mImageKey;
-            } else {
-                imageKey = String.valueOf(file.hashCode());
-            }
+            imageKey = Objects.requireNonNullElseGet(mImageKey, () -> String.valueOf(file.hashCode()));
 
             // Check disk cache in background thread
             Bitmap thumbnail = getBitmapFromDiskCache(imageKey);
@@ -1047,17 +1040,6 @@ public final class ThumbnailsCacheManager {
                     }
                 }
             }
-        }
-
-        /**
-         * Converts size of file icon from dp to pixel
-         *
-         * @return int
-         */
-        private int getAvatarDimension() {
-            // Converts dp to pixel
-            Resources r = MainApp.getAppContext().getResources();
-            return Math.round(r.getDimension(R.dimen.file_avatar_size));
         }
 
         private @NonNull
