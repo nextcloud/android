@@ -139,10 +139,18 @@ public abstract class ToolbarActivity extends BaseActivity implements Injectable
      * Updates title bar and home buttons (state and icon).
      */
     protected void updateActionBarTitleAndHomeButton(OCFile chosenFile) {
-        String title;
+        String title = "";
         boolean isRoot = isRoot(chosenFile);
 
-        title = isRoot ? themeUtils.getDefaultDisplayNameForRootFolder(this) : fileDataStorageManager.getFilenameConsideringOfflineOperation(chosenFile);
+
+        if (isRoot) {
+            title = themeUtils.getDefaultDisplayNameForRootFolder(this);
+        } else if (chosenFile.isFolder()) {
+            title = fileDataStorageManager.getFilenameConsideringOfflineOperation(chosenFile);
+        } else {
+            title = fileDataStorageManager.getFilenameConsideringOfflineOperation(fileDataStorageManager.getFileById(chosenFile.getParentId()));
+        }
+        
         updateActionBarTitleAndHomeButtonByString(title);
 
         if (mAppBar != null) {
