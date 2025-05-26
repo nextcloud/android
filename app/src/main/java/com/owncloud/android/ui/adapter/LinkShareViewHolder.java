@@ -30,6 +30,7 @@ import com.owncloud.android.ui.fragment.util.SharingMenuHelper;
 import com.owncloud.android.utils.theme.ViewThemeUtils;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -54,30 +55,34 @@ class LinkShareViewHolder extends RecyclerView.ViewHolder {
         this.encrypted = encrypted;
     }
 
-    public void bind(OCShare publicShare, ShareeListAdapterListener listener) {
+    public void bind(OCShare publicShare, ShareeListAdapterListener listener, int position) {
         if (ShareType.EMAIL == publicShare.getShareType()) {
+            final var res = context.getResources();
             binding.name.setText(publicShare.getSharedWithDisplayName());
-            binding.icon.setImageDrawable(ResourcesCompat.getDrawable(context.getResources(),
-                                                                      R.drawable.ic_email,
-                                                                      null));
+
+            final var emailDrawable = ResourcesCompat.getDrawable(res, R.drawable.ic_email, null);
+            binding.icon.setImageDrawable(emailDrawable);
             binding.copyLink.setVisibility(View.GONE);
 
-            binding.icon.getBackground().setColorFilter(context.getResources().getColor(R.color.nc_grey),
-                                                        PorterDuff.Mode.SRC_IN);
-            binding.icon.getDrawable().mutate().setColorFilter(context.getResources().getColor(R.color.icon_on_nc_grey),
-                                                               PorterDuff.Mode.SRC_IN);
+            final var backgroundColor = ContextCompat.getColor(context, R.color.nc_grey);
+            binding.icon.getBackground().setColorFilter(backgroundColor, PorterDuff.Mode.SRC_IN);
+
+            final var drawableColor = ContextCompat.getColor(context, R.color.icon_on_nc_grey);
+            binding.icon.getDrawable().mutate().setColorFilter(drawableColor, PorterDuff.Mode.SRC_IN);
         } else {
-            if (!TextUtils.isEmpty(publicShare.getLabel())) {
-                String text = String.format(context.getString(R.string.share_link_with_label), publicShare.getLabel());
-                binding.name.setText(text);
+            String label = publicShare.getLabel();
+
+            if (!TextUtils.isEmpty(label)) {
+                binding.name.setText(context.getString(R.string.share_link_with_label, label));
+            } else if (SharingMenuHelper.isFileRequest(publicShare)) {
+                binding.name.setText(R.string.share_permission_file_request);
+            } else if (SharingMenuHelper.isSecureFileDrop(publicShare) && encrypted) {
+                binding.name.setText(R.string.share_permission_secure_file_drop);
             } else {
-                if (SharingMenuHelper.isFileRequest(publicShare)) {
-                    binding.name.setText(context.getResources().getString(R.string.share_permission_file_request));
-                } else if (SharingMenuHelper.isSecureFileDrop(publicShare) && encrypted) {
-                    binding.name.setText(context.getResources().getString(R.string.share_permission_secure_file_drop));
-                } else {
-                    binding.name.setText(R.string.share_link);
-                }
+                int textRes = (position == 0) ? R.string.share_link : R.string.share_link_with_label;
+                Object arg = (position == 0) ? null : String.valueOf(position);
+                binding.name.setText((position == 0) ? context.getString(textRes)
+                                         : context.getString(textRes, arg));
             }
 
             viewThemeUtils.platform.colorImageViewBackgroundAndIcon(binding.icon);
