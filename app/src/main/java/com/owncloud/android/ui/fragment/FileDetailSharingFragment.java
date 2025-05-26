@@ -253,23 +253,15 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
         viewThemeUtils.material.colorMaterialTextButton(binding.sharesListInternalShowAll);
         binding.sharesListInternalShowAll.setOnClickListener(view -> {
             internalShareeListAdapter.toggleShowAll();
-
-            if (internalShareeListAdapter.isShowAll()) {
-                binding.sharesListInternalShowAll.setText(R.string.show_less);
-            } else {
-                binding.sharesListInternalShowAll.setText(R.string.show_all);
-            }
+            int textRes = internalShareeListAdapter.isShowAll() ? R.string.show_less : R.string.show_all;
+            binding.sharesListInternalShowAll.setText(textRes);
         });
-        
+
         viewThemeUtils.material.colorMaterialTextButton(binding.sharesListExternalShowAll);
         binding.sharesListExternalShowAll.setOnClickListener(view -> {
             externalShareeListAdapter.toggleShowAll();
-
-            if (internalShareeListAdapter.isShowAll()) {
-                binding.sharesListExternalShowAll.setText(R.string.show_less);
-            } else {
-                binding.sharesListExternalShowAll.setText(R.string.show_all);
-            }
+            int textRes = externalShareeListAdapter.isShowAll() ? R.string.show_less : R.string.show_all;
+            binding.sharesListExternalShowAll.setText(textRes);
         });
 
         if (file.canReshare() && !FileDetailSharingFragmentHelper.isPublicShareDisabled(capabilities)) {
