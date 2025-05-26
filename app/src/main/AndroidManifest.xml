@@ -17,20 +17,6 @@
         android:name="android.hardware.camera2"
         android:required="false"
         tools:node="replace" />
-    <!--
- WRITE_EXTERNAL_STORAGE may be enabled or disabled by the user after installation in
-        API >= 23; the app needs to handle this
-    -->
-    <uses-permission
-        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
-        android:maxSdkVersion="29"
-        tools:ignore="ScopedStorage" />
-    <uses-permission
-        android:name="android.permission.MANAGE_EXTERNAL_STORAGE"
-        tools:ignore="ScopedStorage" />
-    <uses-permission
-        android:name="android.permission.READ_EXTERNAL_STORAGE"
-        android:maxSdkVersion="32" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.VIBRATE" /> <!-- Next permissions are always approved in installation time, the apps needs to do nothing special in runtime -->
     <uses-permission android:name="android.permission.INTERNET" />
@@ -52,11 +38,32 @@
  Apps that target Android 9 (API level 28) or higher and use foreground services
     must request the FOREGROUND_SERVICE permission
     -->
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" /> <!-- Runtime permissions introduced in Android 13 (API level 33) -->
-    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
-    <uses-permission android:name="android.permission.READ_MEDIA_VIDEO" /> <!-- Needed for Android 14 (API level 34) -->
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC" />
+
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+
+
+    <!-- WRITE_EXTERNAL_STORAGE may be enabled or disabled by the user after installation in API >= 23; the app needs to handle this-->
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="29"
+        tools:ignore="ScopedStorage" />
+
+    <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" tools:ignore="ScopedStorage" />
+
+    <!-- Devices running Android 12L (API level 32) or lower  -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" android:maxSdkVersion="32" />
+
+    <!-- Devices running Android 13 (API level 33) or higher -->
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
+    <uses-permission android:name="android.permission.READ_MEDIA_VIDEO" />
+
+    <!-- To handle the reselection within the app on devices running Android 14
+     or higher if your app targets Android 14 (API level 34) or higher.  -->
+    <uses-permission android:name="android.permission.READ_MEDIA_VISUAL_USER_SELECTED" />
+
+
     <!--
  Some Chromebooks don't support touch. Although not essential,
          it's a good idea to explicitly include this declaration.
