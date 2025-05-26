@@ -836,6 +836,7 @@
     <string name="drawer_header_background">Background image of drawer header</string>
     <string name="account_icon">Account icon</string>
     <string name="file_detail_sharing_fragment_no_contact_app_message">No app available to select contacts</string>
+    <string name="file_detail_share_already_active">You cannot create a share, sharing is already active from this user.</string>
 
     <string name="end_to_end_encryption_certificate_verification_failed">Failed to verify public key</string>
     <string name="end_to_end_encryption_server_public_key_unavailable">Unable to retrieve public key</string>
