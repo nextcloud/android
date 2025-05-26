@@ -15,7 +15,6 @@
 package com.owncloud.android.ui.adapter;
 
 import android.content.Context;
-import android.graphics.PorterDuff;
 import android.text.TextUtils;
 import android.view.View;
 
@@ -30,7 +29,6 @@ import com.owncloud.android.ui.fragment.util.SharingMenuHelper;
 import com.owncloud.android.utils.theme.ViewThemeUtils;
 
 import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -63,12 +61,6 @@ class LinkShareViewHolder extends RecyclerView.ViewHolder {
             final var emailDrawable = ResourcesCompat.getDrawable(res, R.drawable.ic_email, null);
             binding.icon.setImageDrawable(emailDrawable);
             binding.copyLink.setVisibility(View.GONE);
-
-            final var backgroundColor = ContextCompat.getColor(context, R.color.nc_grey);
-            binding.icon.getBackground().setColorFilter(backgroundColor, PorterDuff.Mode.SRC_IN);
-
-            final var drawableColor = ContextCompat.getColor(context, R.color.icon_on_nc_grey);
-            binding.icon.getDrawable().mutate().setColorFilter(drawableColor, PorterDuff.Mode.SRC_IN);
         } else {
             String label = publicShare.getLabel();
 
@@ -84,9 +76,9 @@ class LinkShareViewHolder extends RecyclerView.ViewHolder {
                 binding.name.setText((position == 0) ? context.getString(textRes)
                                          : context.getString(textRes, arg));
             }
-
-            viewThemeUtils.platform.colorImageViewBackgroundAndIcon(binding.icon);
         }
+
+        viewThemeUtils.platform.colorImageViewBackgroundAndIcon(binding.icon);
 
         FileDownloadLimit downloadLimit = publicShare.getFileDownloadLimit();
         if (downloadLimit != null && downloadLimit.getLimit() > 0) {
