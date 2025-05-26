@@ -144,7 +144,8 @@ object PermissionUtil {
     fun showPermissionDeniedSnackbar(activity: AppCompatActivity) {
         Snackbar.make(
             activity.findViewById(android.R.id.content),
-            R.string.permission_storage_access, Snackbar.LENGTH_SHORT
+            R.string.permission_storage_access,
+            Snackbar.LENGTH_SHORT
         )
             .setAction(R.string.actionbar_settings) { v ->
                 val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS).apply {
