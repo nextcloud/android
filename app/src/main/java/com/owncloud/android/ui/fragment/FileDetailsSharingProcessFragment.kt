@@ -30,7 +30,6 @@ import com.owncloud.android.lib.resources.status.OCCapability
 import com.owncloud.android.ui.activity.FileActivity
 import com.owncloud.android.ui.dialog.ExpirationDatePickerDialogFragment
 import com.owncloud.android.ui.fragment.util.SharePermissionManager
-import com.owncloud.android.ui.fragment.util.SharingMenuHelper
 import com.owncloud.android.ui.helpers.FileOperationsHelper
 import com.owncloud.android.utils.ClipboardUtil
 import com.owncloud.android.utils.DisplayUtils
@@ -135,7 +134,6 @@ class FileDetailsSharingProcessFragment :
     private var isReShareShown: Boolean = true // show or hide reShare option
     private var isExpDateShown: Boolean = true // show or hide expiry date option
     private var isSecureShare: Boolean = false
-    private val sharePermissionManager = SharePermissionManager()
 
     private lateinit var capabilities: OCCapability
 
@@ -177,7 +175,7 @@ class FileDetailsSharingProcessFragment :
 
         permission = share?.permissions
             ?: capabilities.defaultPermissions
-            ?: sharePermissionManager.getMaximumPermission(isFolder())
+            ?: SharePermissionManager.getMaximumPermission(isFolder())
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
@@ -291,14 +289,14 @@ class FileDetailsSharingProcessFragment :
         // custom permissions / read only / allow upload and editing / file request
         binding.run {
             when {
-                SharingMenuHelper.canEdit(share) -> canEditRadioButton.isChecked = true
-                SharingMenuHelper.isFileRequest(share) && share?.isFolder == true ->
+                SharePermissionManager.canEdit(share) -> canEditRadioButton.isChecked = true
+                SharePermissionManager.isFileRequest(share) && share?.isFolder == true ->
                     fileRequestRadioButton.isChecked =
                         true
 
-                SharingMenuHelper.isViewOnly(share) -> viewOnlyRadioButton.isChecked = true
+                SharePermissionManager.isViewOnly(share) -> viewOnlyRadioButton.isChecked = true
                 else -> {
-                    if (sharePermissionManager.isCustomPermission(share) ||
+                    if (SharePermissionManager.isCustomPermission(share) ||
                         shareProcessStep == SCREEN_TYPE_CUSTOM_PERMISSION
                     ) {
                         customPermissionRadioButton.isChecked = true
@@ -394,7 +392,7 @@ class FileDetailsSharingProcessFragment :
                 if (!isReShareShown) {
                     shareCheckbox.visibility = View.GONE
                 }
-                shareCheckbox.isChecked = SharingMenuHelper.canReshare(share)
+                shareCheckbox.isChecked = SharePermissionManager.canReshare(share)
             }
         }
     }
@@ -406,7 +404,7 @@ class FileDetailsSharingProcessFragment :
             shareProcessSetPasswordSwitch.visibility = View.VISIBLE
 
             if (share != null) {
-                if (SharingMenuHelper.isFileRequest(share)) {
+                if (SharePermissionManager.isFileRequest(share)) {
                     shareProcessHideDownloadCheckbox.visibility = View.GONE
                 } else {
                     shareProcessHideDownloadCheckbox.visibility = View.VISIBLE
@@ -517,7 +515,7 @@ class FileDetailsSharingProcessFragment :
                     }
 
                     R.id.can_edit_radio_button -> {
-                        permission = sharePermissionManager.getMaximumPermission(isFolder())
+                        permission = SharePermissionManager.getMaximumPermission(isFolder())
                     }
 
                     R.id.file_request_radio_button -> {
@@ -534,7 +532,7 @@ class FileDetailsSharingProcessFragment :
     }
 
     private fun togglePermission(isChecked: Boolean, permissionFlag: Int) {
-        permission = sharePermissionManager.togglePermission(isChecked, permission, permissionFlag)
+        permission = SharePermissionManager.togglePermission(isChecked, permission, permissionFlag)
         toggleNextButtonAvailability(true)
     }
 
@@ -568,7 +566,7 @@ class FileDetailsSharingProcessFragment :
         val currentPermissions = share?.permissions ?: permission
 
         binding.run {
-            sharePermissionManager.run {
+            SharePermissionManager.run {
                 shareReadCheckbox.isChecked = hasPermission(currentPermissions, OCShare.READ_PERMISSION_FLAG)
                 shareEditCheckbox.isChecked = hasPermission(currentPermissions, OCShare.UPDATE_PERMISSION_FLAG)
                 shareCheckbox.isChecked = hasPermission(currentPermissions, OCShare.SHARE_PERMISSION_FLAG)
@@ -610,7 +608,7 @@ class FileDetailsSharingProcessFragment :
 
         if (!isPublicShare()) {
             binding.shareAllowDownloadAndSyncCheckbox.setOnCheckedChangeListener { _, isChecked ->
-                share?.attributes = sharePermissionManager.toggleAllowDownloadAndSync(isChecked, share)
+                share?.attributes = SharePermissionManager.toggleAllowDownloadAndSync(isChecked, share)
             }
         }
     }

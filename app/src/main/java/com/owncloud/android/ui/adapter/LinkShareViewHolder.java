@@ -25,7 +25,7 @@ import com.owncloud.android.databinding.FileDetailsShareLinkShareItemBinding;
 import com.owncloud.android.datamodel.quickPermission.QuickPermissionType;
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.lib.resources.shares.ShareType;
-import com.owncloud.android.ui.fragment.util.SharingMenuHelper;
+import com.owncloud.android.ui.fragment.util.SharePermissionManager;
 import com.owncloud.android.utils.theme.ViewThemeUtils;
 
 import androidx.annotation.NonNull;
@@ -66,9 +66,9 @@ class LinkShareViewHolder extends RecyclerView.ViewHolder {
 
             if (!TextUtils.isEmpty(label)) {
                 binding.name.setText(context.getString(R.string.share_link_with_label, label));
-            } else if (SharingMenuHelper.isFileRequest(publicShare)) {
+            } else if (SharePermissionManager.INSTANCE.isFileRequest(publicShare)) {
                 binding.name.setText(R.string.share_permission_file_request);
-            } else if (SharingMenuHelper.isSecureFileDrop(publicShare) && encrypted) {
+            } else if (SharePermissionManager.INSTANCE.isSecureFileDrop(publicShare) && encrypted) {
                 binding.name.setText(R.string.share_permission_secure_file_drop);
             } else {
                 int textRes = (position == 0) ? R.string.share_link : R.string.share_link_with_label;
@@ -91,11 +91,11 @@ class LinkShareViewHolder extends RecyclerView.ViewHolder {
             binding.subline.setVisibility(View.GONE);
         }
 
-        QuickPermissionType quickPermissionType = SharingMenuHelper.getSelectedType(publicShare, encrypted);
+        QuickPermissionType quickPermissionType = SharePermissionManager.INSTANCE.getSelectedType(publicShare, encrypted);
         setPermissionName(publicShare, quickPermissionType.getText(context));
 
         binding.overflowMenu.setOnClickListener(v -> listener.showSharingMenuActionSheet(publicShare));
-        if (!SharingMenuHelper.isSecureFileDrop(publicShare) && !encrypted) {
+        if (!SharePermissionManager.INSTANCE.isSecureFileDrop(publicShare) && !encrypted) {
             binding.shareByLinkContainer.setOnClickListener(v -> listener.showPermissionsDialog(publicShare));
         }
 
@@ -107,7 +107,7 @@ class LinkShareViewHolder extends RecyclerView.ViewHolder {
     }
 
     private void setPermissionName(OCShare publicShare, String permissionName) {
-        if (TextUtils.isEmpty(permissionName) || (SharingMenuHelper.isSecureFileDrop(publicShare) && encrypted)) {
+        if (TextUtils.isEmpty(permissionName) || (SharePermissionManager.INSTANCE.isSecureFileDrop(publicShare) && encrypted)) {
             binding.permissionName.setVisibility(View.GONE);
             return;
         }
