@@ -38,7 +38,6 @@ import com.nextcloud.test.RandomStringGenerator;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.ArbitraryDataProviderImpl;
 import com.owncloud.android.datamodel.FileDataStorageManager;
-import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.UploadsStorageManager;
 import com.owncloud.android.db.OCUpload;
 import com.owncloud.android.files.services.NameCollisionPolicy;
@@ -348,7 +347,7 @@ public abstract class AbstractIT {
         }
     }
 
-    public OCFile createFolder(String remotePath) {
+    public void createFolder(String remotePath) {
         RemoteOperationResult check = new ExistenceCheckRemoteOperation(remotePath, false).execute(client);
 
         if (!check.isSuccess()) {
@@ -356,8 +355,6 @@ public abstract class AbstractIT {
                            .execute(client)
                            .isSuccess());
         }
-
-        return getStorageManager().getFileByDecryptedRemotePath(remotePath.endsWith("/") ? remotePath : remotePath + "/");
     }
 
     public void uploadFile(File file, String remotePath) {
