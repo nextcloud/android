@@ -21,11 +21,7 @@ import org.junit.Test
 
 class SharePermissionManagerTest {
 
-    private fun createShare(
-        sharePermission: Int,
-        isFolder: Boolean = false,
-        attributesJson: String? = null
-    ): OCShare {
+    private fun createShare(sharePermission: Int, isFolder: Boolean = false, attributesJson: String? = null): OCShare {
         return if (isFolder) {
             OCShare("/test")
                 .apply {
