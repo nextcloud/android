@@ -84,14 +84,11 @@ public final class BitmapUtils {
 
             final var imageDecoderSource = ImageDecoder.createSource(file);
 
-            final var onDecoderListener = new ImageDecoder.OnHeaderDecodedListener() {
-                @Override
-                public void onHeaderDecoded(@NonNull ImageDecoder decoder, @NonNull ImageDecoder.ImageInfo info, @NonNull ImageDecoder.Source source) {
-                    decoder.setTargetSize(reqWidth, reqHeight);
-                }
-            };
+            return ImageDecoder.decodeBitmap(imageDecoderSource, (decoder, info, source1) -> {
+                decoder.setTargetSize(reqWidth, reqHeight);
+            }
+            );
 
-            return ImageDecoder.decodeBitmap(imageDecoderSource, onDecoderListener);
         } catch (IOException exception) {
             Log_OC.w(TAG, "Decoding Bitmap via ImageDecoder failed, BitmapFactory.decodeFile will be used");
             return null;
@@ -161,25 +158,18 @@ public final class BitmapUtils {
             originalHeight = tempWidth;
         }
 
-        var bitmapResult = decodeSampledBitmapFromFile(storagePath, originalWidth, originalHeight);
-        if (bitmapResult == null) {
-            return null;
-        }
-
         // Calculate the scaling factors based on screen dimensions
-        var widthScaleFactor = (float) minWidth/ bitmapResult.getWidth();
-        var heightScaleFactor = (float) minHeight / bitmapResult.getHeight();
+        var widthScaleFactor = (float) minWidth/ originalWidth;
+        var heightScaleFactor = (float) minHeight / originalHeight;
 
         // Use the smaller scaling factor to maintain aspect ratio
         var scaleFactor = Math.min(widthScaleFactor, heightScaleFactor);
 
         // Calculate the new scaled width and height
-        var scaledWidth = (int) (bitmapResult.getWidth() * scaleFactor);
-        var scaledHeight = (int) (bitmapResult.getHeight() * scaleFactor);
+        var scaledWidth = (int) (originalWidth * scaleFactor);
+        var scaledHeight = (int) (originalHeight * scaleFactor);
 
-        bitmapResult = scaleBitmap(bitmapResult,scaledWidth,scaledHeight);
-
-        return bitmapResult;
+        return decodeSampledBitmapFromFile(storagePath, scaledWidth, scaledHeight);
     }
     /**
      * Calculates a proper value for options.inSampleSize in order to decode a Bitmap minimizing the memory overload and
