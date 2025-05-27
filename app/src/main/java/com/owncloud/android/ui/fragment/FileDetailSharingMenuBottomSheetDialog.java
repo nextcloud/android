@@ -22,7 +22,7 @@ import com.owncloud.android.databinding.FileDetailsSharingMenuBottomSheetFragmen
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.ui.activity.FileActivity;
-import com.owncloud.android.ui.fragment.util.SharingMenuHelper;
+import com.owncloud.android.ui.fragment.util.SharePermissionManager;
 import com.owncloud.android.utils.theme.ViewThemeUtils;
 
 /**
@@ -83,7 +83,7 @@ public class FileDetailSharingMenuBottomSheetDialog extends BottomSheetDialog {
             binding.menuShareSendLink.setVisibility(View.GONE);
         }
 
-        if (SharingMenuHelper.isSecureFileDrop(ocShare) && encrypted) {
+        if (SharePermissionManager.INSTANCE.isSecureFileDrop(ocShare) && encrypted) {
             binding.menuShareAdvancedPermissions.setVisibility(View.GONE);
         }
     }

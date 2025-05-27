@@ -25,7 +25,7 @@ import com.owncloud.android.databinding.FileDetailsShareShareItemBinding;
 import com.owncloud.android.datamodel.quickPermission.QuickPermissionType;
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.ui.TextDrawable;
-import com.owncloud.android.ui.fragment.util.SharingMenuHelper;
+import com.owncloud.android.ui.fragment.util.SharePermissionManager;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.theme.ViewThemeUtils;
 
@@ -116,7 +116,7 @@ class ShareViewHolder extends RecyclerView.ViewHolder {
             share.getUserId() != null && share.getUserId().equalsIgnoreCase(userId)) {
             binding.overflowMenu.setVisibility(View.VISIBLE);
 
-            QuickPermissionType quickPermissionType = SharingMenuHelper.getSelectedType(share, encrypted);
+            QuickPermissionType quickPermissionType = SharePermissionManager.INSTANCE.getSelectedType(share, encrypted);
             setPermissionName(quickPermissionType.getText(context));
 
             // bind listener to edit privileges

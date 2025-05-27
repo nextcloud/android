@@ -25,7 +25,7 @@ import com.owncloud.android.datamodel.quickPermission.QuickPermissionType;
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.adapter.QuickSharingPermissionsAdapter;
-import com.owncloud.android.ui.fragment.util.SharingMenuHelper;
+import com.owncloud.android.ui.fragment.util.SharePermissionManager;
 import com.owncloud.android.utils.theme.ViewThemeUtils;
 
 import java.util.List;
@@ -133,7 +133,7 @@ public class QuickSharingPermissionsBottomSheetDialog extends BottomSheetDialog 
      * Prepare the list of permissions needs to be displayed on recyclerview
      */
     private List<QuickPermission> getQuickPermissionList() {
-        final var selectedType = SharingMenuHelper.getSelectedType(ocShare, encrypted);
+        final var selectedType = SharePermissionManager.INSTANCE.getSelectedType(ocShare, encrypted);
         final var hasFileRequestPermission = OCShareExtensionsKt.hasFileRequestPermission(ocShare);
         return QuickPermissionType.Companion.getAvailablePermissions(hasFileRequestPermission, selectedType);
     }

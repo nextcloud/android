@@ -41,7 +41,7 @@ import com.owncloud.android.lib.resources.shares.OCShare.Companion.READ_PERMISSI
 import com.owncloud.android.lib.resources.shares.OCShare.Companion.SHARE_PERMISSION_FLAG
 import com.owncloud.android.lib.resources.shares.ShareType
 import com.owncloud.android.ui.activity.FileDisplayActivity
-import com.owncloud.android.ui.fragment.util.SharingMenuHelper
+import com.owncloud.android.ui.fragment.util.SharePermissionManager
 import com.owncloud.android.utils.EspressoIdlingResource
 import com.owncloud.android.utils.ScreenshotTest
 import org.hamcrest.CoreMatchers.allOf
@@ -890,22 +890,22 @@ class FileDetailSharingFragmentIT : AbstractIT() {
         val share = OCShare().apply {
             permissions = MAXIMUM_PERMISSIONS_FOR_FOLDER
         }
-        assertTrue(SharingMenuHelper.canEdit(share))
+        assertTrue(SharePermissionManager.canEdit(share))
 
         share.permissions = NO_PERMISSION
-        assertFalse(SharingMenuHelper.canEdit(share))
+        assertFalse(SharePermissionManager.canEdit(share))
 
         share.permissions = READ_PERMISSION_FLAG
-        assertFalse(SharingMenuHelper.canEdit(share))
+        assertFalse(SharePermissionManager.canEdit(share))
 
         share.permissions = CREATE_PERMISSION_FLAG
-        assertFalse(SharingMenuHelper.canEdit(share))
+        assertFalse(SharePermissionManager.canEdit(share))
 
         share.permissions = DELETE_PERMISSION_FLAG
-        assertFalse(SharingMenuHelper.canEdit(share))
+        assertFalse(SharePermissionManager.canEdit(share))
 
         share.permissions = SHARE_PERMISSION_FLAG
-        assertFalse(SharingMenuHelper.canEdit(share))
+        assertFalse(SharePermissionManager.canEdit(share))
     }
 
     @Test
@@ -914,28 +914,28 @@ class FileDetailSharingFragmentIT : AbstractIT() {
         val share = OCShare().apply {
             permissions = 17
         }
-        assertTrue(SharingMenuHelper.isViewOnly(share))
+        assertTrue(SharePermissionManager.isViewOnly(share))
 
         share.permissions = NO_PERMISSION
-        assertFalse(SharingMenuHelper.isViewOnly(share))
+        assertFalse(SharePermissionManager.isViewOnly(share))
 
         share.permissions = READ_PERMISSION_FLAG
-        assertTrue(SharingMenuHelper.isViewOnly(share))
+        assertTrue(SharePermissionManager.isViewOnly(share))
 
         share.permissions = CREATE_PERMISSION_FLAG
-        assertFalse(SharingMenuHelper.isViewOnly(share))
+        assertFalse(SharePermissionManager.isViewOnly(share))
 
         share.permissions = DELETE_PERMISSION_FLAG
-        assertFalse(SharingMenuHelper.isViewOnly(share))
+        assertFalse(SharePermissionManager.isViewOnly(share))
 
         share.permissions = SHARE_PERMISSION_FLAG
-        assertFalse(SharingMenuHelper.isViewOnly(share))
+        assertFalse(SharePermissionManager.isViewOnly(share))
 
         share.permissions = MAXIMUM_PERMISSIONS_FOR_FOLDER
-        assertFalse(SharingMenuHelper.isViewOnly(share))
+        assertFalse(SharePermissionManager.isViewOnly(share))
 
         share.permissions = MAXIMUM_PERMISSIONS_FOR_FILE
-        assertFalse(SharingMenuHelper.isViewOnly(share))
+        assertFalse(SharePermissionManager.isViewOnly(share))
     }
 
     @Test
@@ -944,27 +944,27 @@ class FileDetailSharingFragmentIT : AbstractIT() {
         val share = OCShare().apply {
             permissions = 4
         }
-        assertTrue(SharingMenuHelper.isFileRequest(share))
+        assertTrue(SharePermissionManager.isFileRequest(share))
 
         share.permissions = NO_PERMISSION
-        assertFalse(SharingMenuHelper.isFileRequest(share))
+        assertFalse(SharePermissionManager.isFileRequest(share))
 
         share.permissions = READ_PERMISSION_FLAG
-        assertFalse(SharingMenuHelper.isFileRequest(share))
+        assertFalse(SharePermissionManager.isFileRequest(share))
 
         share.permissions = CREATE_PERMISSION_FLAG
-        assertTrue(SharingMenuHelper.isFileRequest(share))
+        assertTrue(SharePermissionManager.isFileRequest(share))
 
         share.permissions = DELETE_PERMISSION_FLAG
-        assertFalse(SharingMenuHelper.isFileRequest(share))
+        assertFalse(SharePermissionManager.isFileRequest(share))
 
         share.permissions = SHARE_PERMISSION_FLAG
-        assertFalse(SharingMenuHelper.isFileRequest(share))
+        assertFalse(SharePermissionManager.isFileRequest(share))
 
         share.permissions = MAXIMUM_PERMISSIONS_FOR_FOLDER
-        assertFalse(SharingMenuHelper.isFileRequest(share))
+        assertFalse(SharePermissionManager.isFileRequest(share))
 
         share.permissions = MAXIMUM_PERMISSIONS_FOR_FILE
-        assertFalse(SharingMenuHelper.isFileRequest(share))
+        assertFalse(SharePermissionManager.isFileRequest(share))
     }
 }
