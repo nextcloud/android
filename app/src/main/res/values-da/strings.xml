@@ -669,6 +669,7 @@
     <string name="prefs_add_account">Tilføj konto</string>
     <string name="prefs_calendar_contacts">Synkroniser kalender og kontakter</string>
     <string name="prefs_calendar_contacts_no_store_error">Hverken F-droid eller Google Play er installeret</string>
+    <string name="prefs_calendar_contacts_summary">Opsæt DAVx⁵ (tidligere kendt som DAVdroid) (v1.3.0+) for aktuel konto</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Kalender og kontakt synkronisering sat op</string>
     <string name="prefs_category_about">Om</string>
     <string name="prefs_category_details">Detaljer</string>
@@ -680,6 +681,7 @@
     <string name="prefs_daily_contact_backup_summary">Daglig backup af dine kontakter</string>
     <string name="prefs_data_storage_location">Datalagringslokation</string>
     <string name="prefs_data_storage_location_summary">Styre datalagringslokation</string>
+    <string name="prefs_davx5_setup_error">Uventet fejl under opsætning af DAVx⁵ (tidligere kendt som DAVdroid)</string>
     <string name="prefs_e2e_active">End-to-end kryptering er blevet konfigureret!</string>
     <string name="prefs_e2e_mnemonic">E2E mnemonic</string>
     <string name="prefs_e2e_no_device_credentials">For at vise mnemonic, så aktiver venligst enhedslegitimationsoplysninger</string>
@@ -785,6 +787,7 @@
     <string name="screenshot_05_autoUpload_heading">Automatisk upload</string>
     <string name="screenshot_05_autoUpload_subline">for dine billeder og videoer</string>
     <string name="screenshot_06_davdroid_heading">Kalender og kontakter</string>
+    <string name="screenshot_06_davdroid_subline">Synk med DAVx⁵</string>
     <string name="search_error">Fejl ved indhenting af søgeresultater</string>
     <string name="secure_share_not_set_up">Sikker deling er ikke sat op for denne bruger</string>
     <string name="secure_share_search">Sikker deling...</string>
@@ -895,6 +898,7 @@
     <string name="storage_permission_full_access">Fuld adgang</string>
     <string name="storage_permission_media_read_only">Medie skrivebeskyttet</string>
     <string name="storage_pictures">Billeder</string>
+    <string name="store_full_desc">Den selv-hostede produktivitetsplatform som sikrer dig kontrol.\n\nFunktioner:\n* Let, moderne interface, passende til temaet for din server\n* Upload filer til din Nextcloud server\n* Del dem med andre\n* Hold dine favorit filer og mapper synkroniserede\n* Søg på tværs af mapper på din server\n* Auto upload for billeder og videoer taget af dit apparat\n* Hold dig opdateret med notifikationer\n* Multi-konti understøttelse\n* Sikker adgang til dine data med fingeraftryk eller PIN\n* Integration med DAVx⁵ (tidligere kendt som DAVdroid) for let opsætning af kalender- og kontaktsynkronisering\n\nRapporter venligst alle problemer på https://github.com/nextcloud/android/issues og diskuter denne app på https://help.nextcloud.com/c/clients/android\n\nNy i forhold til Nextcloud? Nextcloud er en privat filsynkroniserings, delings- og kommunikationsserver. Det er gratis software, og du kan selv hoste eller betale et firma for at gøre det for dig. På den måde har du fuldstændig kontrol over dine billeder, kalendere, kontaktdata, dine dokumenter og alt andet.\n\nSe Nextcloud på https://nextcloud.com</string>
     <string name="store_full_dev_desc">Produktivitets platformen der giver dig fuld kontrol.\nDette er den officielle udvikler version som indeholder et dagligt udvalg af nye utestede funktioner der kan medføre ustabilitet og tab af data. Denne er app er kun til brugere villige til at teste og indrapportere fejl og mangler. Brug den ikke i dit produktionsmiljø!\n\nBåde den officielle udvikler og almindelige version er tilgængelig på F-droid og kan begge være installeret på samme tid.</string>
     <string name="store_short_desc">Vært i eget hus produktivitets platform, hvor du bevarer kontrollen.</string>
     <string name="store_short_dev_desc">Vært i eget hus produktivitets platform, hvor du bevarer kontrollen. (tidlig udviklingsversion)</string>
@@ -1109,6 +1113,18 @@
     <plurals name="minutes">
         <item quantity="one">%d minut</item>
         <item quantity="other">%d minutter</item>
+    </plurals>
+    <plurals name="time_seconds_ago">
+        <item quantity="one">%d sekund siden</item>
+        <item quantity="other">%d sekunder siden</item>
+    </plurals>
+    <plurals name="time_minutes_ago">
+        <item quantity="one">%d minut sidenago</item>
+        <item quantity="other">%d minutter siden</item>
+    </plurals>
+    <plurals name="time_hours_ago">
+        <item quantity="one">%d time sidenago</item>
+        <item quantity="other">%d timer sidenago</item>
     </plurals>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">Kunne ikke synkronisere %1$d fil (konflikter: %2$d)</item>
