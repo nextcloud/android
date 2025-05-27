@@ -39,7 +39,7 @@
                 android:textStyle="bold" />
 
             <RadioGroup
-                android:id="@+id/share_process_permission_radio_group"
+                android:id="@+id/share_radio_group"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
