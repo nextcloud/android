@@ -287,7 +287,7 @@ public class DocumentsStorageProvider extends DocumentsProvider {
         RemoteOperationResult result = new CheckEtagRemoteOperation(ocFile.getRemotePath(), ocFile.getEtag())
             .execute(document.getUser(), context);
         return switch (result.getCode()) {
-            case ETAG_CHANGED -> true;
+            case ETAG_CHANGED -> result.getData() != null;
             case ETAG_UNCHANGED -> false;
             default -> {
                 Log_OC.e(TAG, result.toString());
