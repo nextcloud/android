@@ -107,6 +107,10 @@ object SharePermissionManager {
     }
 
     fun isFileRequest(share: OCShare?): Boolean {
+        if (share?.isFolder == false) {
+            return false
+        }
+
         return share?.permissions != OCShare.NO_PERMISSION && share?.permissions == OCShare.CREATE_PERMISSION_FLAG
     }
 
