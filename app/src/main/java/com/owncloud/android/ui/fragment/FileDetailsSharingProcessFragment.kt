@@ -524,6 +524,9 @@ class FileDetailsSharingProcessFragment :
                 }
 
                 val isCustomPermissionSelected = (optionId == R.id.custom_permission_radio_button)
+                if (isCustomPermissionSelected) {
+                    permission = SharePermissionManager.getMaximumPermission(isFolder())
+                }
                 customPermissionLayout.setVisibilityWithAnimation(isCustomPermissionSelected)
                 toggleNextButtonAvailability(true)
             }
