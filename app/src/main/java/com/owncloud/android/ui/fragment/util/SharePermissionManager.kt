@@ -17,6 +17,7 @@ import com.owncloud.android.ui.fragment.FileDetailsSharingProcessFragment.Compan
 
 object SharePermissionManager {
 
+    // region Permission change
     fun togglePermission(isChecked: Boolean, permission: Int, permissionFlag: Int): Int {
         Log_OC.d(TAG, "togglePermission before: $permission")
 
@@ -34,6 +35,12 @@ object SharePermissionManager {
         Log_OC.d(TAG, "togglePermission after: $result")
 
         return result
+    }
+    // endregion
+
+    // region Permission check
+    fun hasPermission(permission: Int, permissionFlag: Int): Boolean {
+        return permission != OCShare.NO_PERMISSION && (permission and permissionFlag) == permissionFlag
     }
 
     @Suppress("ReturnCount")
@@ -57,19 +64,9 @@ object SharePermissionManager {
 
         return true
     }
+    // endregion
 
-    fun hasPermission(permission: Int, permissionFlag: Int): Boolean {
-        return permission != OCShare.NO_PERMISSION && (permission and permissionFlag) == permissionFlag
-    }
-
-    fun getMaximumPermission(isFolder: Boolean): Int {
-        return if (isFolder) {
-            OCShare.MAXIMUM_PERMISSIONS_FOR_FOLDER
-        } else {
-            OCShare.MAXIMUM_PERMISSIONS_FOR_FILE
-        }
-    }
-
+    // region DownloadAttribute
     fun toggleAllowDownloadAndSync(isChecked: Boolean, share: OCShare?): String? {
         val shareAttributes = getShareAttributes(share)?.toMutableList()
         if (shareAttributes == null) {
@@ -91,19 +88,18 @@ object SharePermissionManager {
         return getShareAttributes(share).getDownloadAttribute()?.value == true
     }
 
+    private fun getShareAttributes(share: OCShare?): List<ShareAttributes>? {
+        return share?.attributes?.let { ShareAttributesJsonHandler.toList(it) }
+    }
+    // endregion
+
     // region Helper Methods
     fun canEdit(share: OCShare?): Boolean {
         if (share == null) {
             return false
         }
 
-        val permissionToCheck = if (share.isFolder) {
-            OCShare.MAXIMUM_PERMISSIONS_FOR_FOLDER
-        } else {
-            OCShare.MAXIMUM_PERMISSIONS_FOR_FILE
-        }
-
-        return hasPermission(share.permissions, permissionToCheck)
+        return hasPermission(share.permissions, getMaximumPermission(share.isFolder))
     }
 
     fun isViewOnly(share: OCShare?): Boolean {
@@ -165,9 +161,13 @@ object SharePermissionManager {
             else -> hasUpdate || hasShare
         }
     }
-    // endregion
 
-    private fun getShareAttributes(share: OCShare?): List<ShareAttributes>? {
-        return share?.attributes?.let { ShareAttributesJsonHandler.toList(it) }
+    fun getMaximumPermission(isFolder: Boolean): Int {
+        return if (isFolder) {
+            OCShare.MAXIMUM_PERMISSIONS_FOR_FOLDER
+        } else {
+            OCShare.MAXIMUM_PERMISSIONS_FOR_FILE
+        }
     }
+    // endregion
 }
