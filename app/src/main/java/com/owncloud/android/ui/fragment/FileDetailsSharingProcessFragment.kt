@@ -187,9 +187,9 @@ class FileDetailsSharingProcessFragment :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         if (shareProcessStep == SCREEN_TYPE_PERMISSION || shareProcessStep == SCREEN_TYPE_CUSTOM_PERMISSION) {
-            showShareProcessFirst()
+            setupUI()
         } else {
-            updateViewForNoteScreenType()
+            setupUIForNoteScreenType()
         }
 
         implementClickEvents()
@@ -267,15 +267,15 @@ class FileDetailsSharingProcessFragment :
         }
     }
 
-    private fun showShareProcessFirst() {
+    private fun setupUI() {
         binding.shareProcessGroupOne.visibility = View.VISIBLE
         binding.shareProcessEditShareLink.visibility = View.VISIBLE
         binding.shareProcessGroupTwo.visibility = View.GONE
 
         if (share != null) {
-            setupModificationUI()
+            setupUIForUpdate()
         } else {
-            setupUpdateUI()
+            setupUIForCreate()
         }
 
         // show or hide expiry date
@@ -283,7 +283,7 @@ class FileDetailsSharingProcessFragment :
         shareProcessStep = SCREEN_TYPE_PERMISSION
     }
 
-    private fun setupModificationUI() {
+    private fun setupUIForUpdate() {
         if (share?.isFolder == true) updateViewForFolder() else updateViewForFile()
 
         // custom permissions / read only / allow upload and editing / file request
@@ -327,7 +327,7 @@ class FileDetailsSharingProcessFragment :
         showFileDownloadLimitInput(binding.shareProcessSetDownloadLimitSwitch.isChecked)
     }
 
-    private fun setupUpdateUI() {
+    private fun setupUIForCreate() {
         binding.shareProcessBtnNext.text = getString(R.string.common_next)
         file.let {
             if (file?.isFolder == true) {
@@ -340,6 +340,14 @@ class FileDetailsSharingProcessFragment :
         showPasswordInput(binding.shareProcessSetPasswordSwitch.isChecked)
         showExpirationDateInput(binding.shareProcessSetExpDateSwitch.isChecked)
         showFileDownloadLimitInput(binding.shareProcessSetDownloadLimitSwitch.isChecked)
+        setMaxPermissionsIfDefaultPermissionExists()
+    }
+
+    private fun setMaxPermissionsIfDefaultPermissionExists() {
+        if (capabilities.defaultPermissions != null) {
+            binding.canEditRadioButton.isChecked = true
+            permission = SharePermissionManager.getMaximumPermission(isFolder())
+        }
     }
 
     // region ViewUpdates
@@ -460,7 +468,7 @@ class FileDetailsSharingProcessFragment :
         }
     }
 
-    private fun updateViewForNoteScreenType() {
+    private fun setupUIForNoteScreenType() {
         binding.run {
             shareProcessGroupOne.visibility = View.GONE
             shareProcessEditShareLink.visibility = View.GONE
@@ -508,7 +516,7 @@ class FileDetailsSharingProcessFragment :
             }
 
             // region RadioButtons
-            shareProcessPermissionRadioGroup.setOnCheckedChangeListener { _, optionId ->
+            shareRadioGroup.setOnCheckedChangeListener { _, optionId ->
                 when (optionId) {
                     R.id.view_only_radio_button -> {
                         permission = OCShare.READ_PERMISSION_FLAG
@@ -645,7 +653,7 @@ class FileDetailsSharingProcessFragment :
         // and if user is in step 1 (permission screen) then remove the fragment
         else {
             if (shareProcessStep == SCREEN_TYPE_NOTE) {
-                showShareProcessFirst()
+                setupUI()
             } else {
                 removeCurrentFragment()
             }
@@ -723,7 +731,7 @@ class FileDetailsSharingProcessFragment :
             removeCurrentFragment()
         } else {
             // else show step 2 (note screen)
-            updateViewForNoteScreenType()
+            setupUIForNoteScreenType()
         }
     }
 
