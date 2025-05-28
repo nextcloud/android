@@ -253,12 +253,12 @@ public class SyncedFolderProvider extends Observable {
      *
      * @param id for the synced folder.
      */
-    private int deleteSyncFolderWithId(long id) {
-        return mContentResolver.delete(
-                ProviderMeta.ProviderTableMeta.CONTENT_URI_SYNCED_FOLDERS,
-                ProviderMeta.ProviderTableMeta._ID + " = ?",
-                new String[]{String.valueOf(id)}
-        );
+    private void deleteSyncFolderWithId(long id) {
+        mContentResolver.delete(
+            ProviderMeta.ProviderTableMeta.CONTENT_URI_SYNCED_FOLDERS,
+            ProviderMeta.ProviderTableMeta._ID + " = ?",
+            new String[]{String.valueOf(id)}
+                               );
     }
 
 

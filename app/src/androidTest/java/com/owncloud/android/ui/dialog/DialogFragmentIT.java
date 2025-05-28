@@ -592,7 +592,7 @@ public class DialogFragmentIT extends AbstractIT {
         showDialog(sut);
     }
 
-    private FileDisplayActivity showDialog(DialogFragment dialog) {
+    private void showDialog(DialogFragment dialog) {
         Intent intent = new Intent(targetContext, FileDisplayActivity.class);
 
         FileDisplayActivity sut = activityRule.getActivity();
@@ -601,10 +601,10 @@ public class DialogFragmentIT extends AbstractIT {
             sut = activityRule.launchActivity(intent);
         }
 
-        return showDialog(sut, dialog);
+        showDialog(sut, dialog);
     }
 
-    private FileDisplayActivity showDialog(FileDisplayActivity sut, DialogFragment dialog) {
+    private void showDialog(FileDisplayActivity sut, DialogFragment dialog) {
         dialog.show(sut.getSupportFragmentManager(), "");
 
         getInstrumentation().waitForIdleSync();
@@ -615,7 +615,6 @@ public class DialogFragmentIT extends AbstractIT {
 
         screenshot(Objects.requireNonNull(dialog.requireDialog().getWindow()).getDecorView());
 
-        return sut;
     }
 
     private void hideCursors(ViewGroup viewGroup) {
