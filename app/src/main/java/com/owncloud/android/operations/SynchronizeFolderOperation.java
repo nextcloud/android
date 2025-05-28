@@ -324,14 +324,10 @@ public class SynchronizeFolderOperation extends SyncOperation {
             FileStorageUtils.searchForLocalFileInDefaultPath(updatedFile, user.getAccountName());
 
             // update file name for encrypted files
-            if (e2EVersion == E2EVersion.V1_2) {
-                RefreshFolderOperation.updateFileNameForEncryptedFileV1(storageManager,
-                                                 (DecryptedFolderMetadataFileV1) object,
-                                                 updatedFile);
-            } else {
-                RefreshFolderOperation.updateFileNameForEncryptedFile(storageManager,
-                                               (DecryptedFolderMetadataFile) object,
-                                               updatedFile);
+            if (object instanceof DecryptedFolderMetadataFileV1 metadataFile) {
+                RefreshFolderOperation.updateFileNameForEncryptedFileV1(storageManager, metadataFile, updatedFile);
+            } else if (object instanceof DecryptedFolderMetadataFile metadataFile) {
+                RefreshFolderOperation.updateFileNameForEncryptedFile(storageManager, metadataFile, updatedFile);
             }
 
             // we parse content, so either the folder itself or its direct parent (which we check) must be encrypted
@@ -345,14 +341,10 @@ public class SynchronizeFolderOperation extends SyncOperation {
         }
 
         // update file name for encrypted files
-        if (e2EVersion == E2EVersion.V1_2) {
-            RefreshFolderOperation.updateFileNameForEncryptedFileV1(storageManager,
-                                                                    (DecryptedFolderMetadataFileV1) object,
-                                                                    mLocalFolder);
-        } else {
-            RefreshFolderOperation.updateFileNameForEncryptedFile(storageManager,
-                                                                  (DecryptedFolderMetadataFile) object,
-                                                                  mLocalFolder);
+        if (object instanceof DecryptedFolderMetadataFileV1 metadataFile) {
+            RefreshFolderOperation.updateFileNameForEncryptedFileV1(storageManager, metadataFile, mLocalFolder);
+        } else if (object instanceof DecryptedFolderMetadataFile metadataFile) {
+            RefreshFolderOperation.updateFileNameForEncryptedFile(storageManager, metadataFile, mLocalFolder);
         }
 
         // save updated contents in local database
