@@ -163,10 +163,7 @@ public class ActivitiesActivity extends DrawerActivity implements ActivityListIn
 
     @Override
     public void showActivities(List<Object> activities, NextcloudClient client, long lastGiven) {
-        boolean clear = false;
-        if (this.lastGiven == ActivitiesContract.ActionListener.UNDEFINED) {
-            clear = true;
-        }
+        boolean clear = this.lastGiven == ActivitiesContract.ActionListener.UNDEFINED;
         adapter.setActivityItems(activities, client, clear);
         this.lastGiven = lastGiven;
 

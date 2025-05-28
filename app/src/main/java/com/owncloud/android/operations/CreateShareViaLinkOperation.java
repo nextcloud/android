@@ -75,11 +75,7 @@ public class CreateShareViaLinkOperation extends SyncOperation {
     private void updateData(OCShare share) {
         // Update DB with the response
         share.setPath(path);
-        if (path.endsWith(FileUtils.PATH_SEPARATOR)) {
-            share.setFolder(true);
-        } else {
-            share.setFolder(false);
-        }
+        share.setFolder(path.endsWith(FileUtils.PATH_SEPARATOR));
 
         getStorageManager().saveShare(share);
 

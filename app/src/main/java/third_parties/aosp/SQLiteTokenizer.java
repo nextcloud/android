@@ -82,10 +82,9 @@ public class SQLiteTokenizer {
             // Regular token.
             if (isAlpha(ch)) {
                 final int start = pos;
-                pos++;
-                while (isAlNum(peek(sql, pos))) {
+                do {
                     pos++;
-                }
+                } while (isAlNum(peek(sql, pos)));
                 final int end = pos;
 
                 final String token = sql.substring(start, end);

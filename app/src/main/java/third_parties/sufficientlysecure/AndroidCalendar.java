@@ -129,7 +129,7 @@ public class AndroidCalendar {
         if (lhs == null) {
             return rhs != null;
         }
-        return rhs == null || !lhs.equals(rhs);
+        return !lhs.equals(rhs);
     }
 
     public boolean differsFrom(AndroidCalendar other) {

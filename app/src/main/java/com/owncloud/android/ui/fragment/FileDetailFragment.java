@@ -897,13 +897,9 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
             if (parentFolder == null) {
                 parentFolder = storageManager.getFileById(getFile().getParentId());
             }
-            if (EncryptionUtils.supportsSecureFiledrop(getFile(), user) && !parentFolder.isEncrypted()) {
-                return true;
-            } else {
-                // sharing not allowed for encrypted files, thus only show first tab (activities)
-                // sharing not allowed for encrypted subfolders
-                return false;
-            }
+            // sharing not allowed for encrypted files, thus only show first tab (activities)
+            // sharing not allowed for encrypted subfolders
+            return EncryptionUtils.supportsSecureFiledrop(getFile(), user) && !parentFolder.isEncrypted();
         } else {
             // unencrypted files/folders
             return true;
