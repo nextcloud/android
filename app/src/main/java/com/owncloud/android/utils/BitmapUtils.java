@@ -219,18 +219,6 @@ public final class BitmapUtils {
     }
 
     /**
-     * scales a given bitmap depending on the given size parameters.
-     *
-     * @param bitmap the bitmap to be scaled
-     * @param width  the width
-     * @param height the height
-     * @return the scaled bitmap
-     */
-    public static Bitmap scaleBitmap(Bitmap bitmap, int width, int height) {
-        return Bitmap.createScaledBitmap(bitmap, width, height, true);
-    }
-
-    /**
      * Rotate bitmap according to EXIF orientation. Cf. http://www.daveperrett.com/articles/2012/07/28/exif-orientation-handling-is-a-ghetto/
      *
      * @param bitmap      Bitmap to be rotated
