@@ -147,6 +147,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private final SyncedFolderProvider syncedFolderProvider;
 
     private ArrayList<Recommendation> recommendedFiles = new ArrayList<>();
+    private boolean isMultipleFileSelectedForCopyOrMove = false;
 
     public OCFileListAdapter(
         Activity activity,
@@ -486,7 +487,6 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             }
 
             ocFileListDelegate.bindGridViewHolder(gridViewHolder, file, currentDirectory, searchType);
-            ViewExtensionsKt.setVisibleIf(gridViewHolder.getMore(), !isMultiSelect());
             checkVisibilityOfFileFeaturesLayout(gridViewHolder);
 
             if (holder instanceof ListItemViewHolder itemViewHolder) {
@@ -495,9 +495,11 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
             if (holder instanceof ListGridItemViewHolder gridItemViewHolder) {
                 bindListGridItemViewHolder(gridItemViewHolder, file);
-                ViewExtensionsKt.setVisibleIf(gridItemViewHolder.getMore(), !isMultiSelect());
                 checkVisibilityOfFileFeaturesLayout(gridItemViewHolder);
             }
+
+            boolean showMoreOptions = (!isMultiSelect() && !isMultipleFileSelectedForCopyOrMove);
+            ViewExtensionsKt.setVisibleIf(gridViewHolder.getMore(), showMoreOptions);
 
             updateLivePhotoIndicators(gridViewHolder, file);
 
@@ -1180,6 +1182,12 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     public boolean isCheckedFile(OCFile file) {
         return ocFileListDelegate.isCheckedFile(file);
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    public void setIsMultipleFileSelectedForCopyOrMove(boolean value) {
+        isMultipleFileSelectedForCopyOrMove = value;
+        notifyDataSetChanged();
     }
 
     public void addCheckedFile(OCFile file) {
