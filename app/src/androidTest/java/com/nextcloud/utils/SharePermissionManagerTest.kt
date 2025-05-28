@@ -19,6 +19,7 @@ import junit.framework.TestCase.assertNotNull
 import junit.framework.TestCase.assertTrue
 import org.junit.Test
 
+@Suppress("TooManyFunctions")
 class SharePermissionManagerTest {
 
     private fun createShare(sharePermission: Int, isFolder: Boolean = false, attributesJson: String? = null): OCShare {
