@@ -33,6 +33,7 @@
     <string name="app_config_proxy_port_title">Starpniekservera ports</string>
     <string name="appbar_search_in">Meklēt %s</string>
     <string name="assistant_screen_add_task_alert_dialog_title">Pievienot jaunu uzdevumu</string>
+    <string name="assistant_screen_task_list_error_state_message">Nevar iegūt uzdevumu sarakstu, lūgums pārbaudīt savienojumu ar internetu.</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">Izdzēst uzdevumu</string>
     <string name="associated_account_not_found">Saistītais konts nav atrasts!</string>
     <string name="auth_access_failed">Piekļuve neizdevās: %1$s</string>
@@ -150,6 +151,7 @@
     <string name="could_not_retrieve_url">Neizdevās iegūt URL </string>
     <string name="create">Izveidot</string>
     <string name="create_dir_fail_msg">Nevarēja izveidot mapi</string>
+    <string name="create_link">Izveidot saiti</string>
     <string name="create_new">Jauns</string>
     <string name="create_new_document">Jauns dokuments</string>
     <string name="create_new_folder">Jauna mape</string>
@@ -225,6 +227,7 @@
     <string name="etm_background_job_uuid">UUID</string>
     <string name="etm_transfer_type_download">Lejupielādēt</string>
     <string name="etm_transfer_type_upload">Augšupielādēt</string>
+    <string name="external_shares">Ārējie koplietojumi</string>
     <string name="favorite">Pievienot izlasei</string>
     <string name="favorite_icon">Izlasē</string>
     <string name="file_delete">Izdzēst</string>
@@ -272,7 +275,7 @@
     <string name="filedetails_export">Izgūt</string>
     <string name="filedetails_renamed_in_upload_msg">Datne augšupielādes laikā pārdēvēta par %1$s</string>
     <string name="filedetails_sync_file">Sinhronizēt</string>
-    <string name="filedisplay_no_file_selected">Netika izvēlēta neviena datne</string>
+    <string name="filedisplay_no_file_selected">Nav atlasīta neviena datne</string>
     <string name="filename_empty">Datnes nosaukums nevar būt tukšs</string>
     <string name="filename_forbidden_characters">Aizliegtās rakstzīmes: / \\ &lt; &gt; : \" | ? *</string>
     <string name="filename_forbidden_charaters_from_server">Datnes nosaukums satur vismaz vienu nederīgu rakstzīmi</string>
@@ -312,6 +315,7 @@
     <string name="instant_upload_existing">Augšupielādēt arī esošās datnes</string>
     <string name="instant_upload_on_charging">Augšupielādēt tikai uzlādes laikā</string>
     <string name="instant_upload_path">/TūlītējaAugšupielāde</string>
+    <string name="internal_shares">Iekšējie koplietojumi</string>
     <string name="internal_two_way_sync">Iekšējā divvirzienu sinhronizēšana</string>
     <string name="internal_two_way_sync_not_yet">Tiks sinhronizēta drīzumā</string>
     <string name="invisible">Neredzama</string>
@@ -486,14 +490,16 @@
     <string name="set_picture_as">Izmantot attēlu kā</string>
     <string name="set_status">Iestatīt stāvokli</string>
     <string name="set_status_message">Iestatīt stāvokļa ziņojumu</string>
-    <string name="share">Dalīties</string>
+    <string name="share">Kopīgot</string>
     <string name="share_dialog_title">Koplietošana</string>
     <string name="share_expiration_date_label">Beidzas %1$s</string>
     <string name="share_file">Koplietots %1$s</string>
     <string name="share_group_clarification">%1$s (grupa)</string>
+    <string name="share_internal_link">Kopīgot iekšēju saiti</string>
     <string name="share_internal_link_to_file_text">Iekšējās kopīgošanas saite darbojas tikai lietotājiem, kuriem ir piekļuve šai datnei</string>
+    <string name="share_internal_link_to_folder_text">Iekšēja kopīgošanas saite darbojas tikai lietotājiem, kuriem ir piekļuve šai mapei</string>
     <string name="share_link">Koplietot saiti</string>
-    <string name="share_link_empty_password">Jums ir jāievada paroli</string>
+    <string name="share_link_empty_password">Ir jāievada parole</string>
     <string name="share_link_forbidden_permissions">lai koplietotu šo datni</string>
     <string name="share_link_password_title">Ievadiet paroli</string>
     <string name="share_no_expiration_date_label">Uzstādīt beigu termiņu</string>
@@ -502,6 +508,8 @@
     <string name="share_permission_can_edit">Var labot</string>
     <string name="share_permission_view_only">Tikai skatīt</string>
     <string name="share_remote_clarification">%1$s (attāli)</string>
+    <string name="share_search_internal">Pievienot lietotājus un komandas</string>
+    <string name="share_send_new_email">Nosūtīt jaunu e-pasta ziņojumu</string>
     <string name="share_send_note">Piezīme saņēmējam</string>
     <string name="share_settings">Iestatījumi</string>
     <string name="share_via_link_hide_download">Paslēpt lejupielādi</string>
@@ -539,7 +547,7 @@
     <string name="ssl_validator_reason_cert_not_trusted">- Nav uzticības servera sertifikātam</string>
     <string name="ssl_validator_reason_cert_not_yet_valid">- Servera sertifikāta datumi ir nākotnē</string>
     <string name="ssl_validator_reason_hostname_not_verified">- URL sertifikātā neatbilst datora nosaukumam</string>
-    <string name="status_message">Statusa ziņojums</string>
+    <string name="status_message">Stāvokļa ziņojums</string>
     <string name="storage_description_default">Noklusējuma</string>
     <string name="storage_downloads">Lejupielādes</string>
     <string name="storage_external_storage">Ārējā krātuve</string>
