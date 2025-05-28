@@ -138,6 +138,7 @@ class FileDetailsSharingProcessFragment :
     private lateinit var capabilities: OCCapability
 
     private var expirationDatePickerFragment: ExpirationDatePickerDialogFragment? = null
+    private var downloadAttribute: String? = null
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -619,7 +620,9 @@ class FileDetailsSharingProcessFragment :
 
         if (!isPublicShare()) {
             binding.shareAllowDownloadAndSyncCheckbox.setOnCheckedChangeListener { _, isChecked ->
-                share?.attributes = SharePermissionManager.toggleAllowDownloadAndSync(isChecked, share)
+                val result = SharePermissionManager.toggleAllowDownloadAndSync(isChecked, share)
+                share?.attributes = result
+                downloadAttribute = result
             }
         }
     }
@@ -808,7 +811,7 @@ class FileDetailsSharingProcessFragment :
             binding.shareProcessEnterPassword.text.toString().trim(),
             chosenExpDateInMills,
             noteText,
-            share?.attributes,
+            downloadAttribute,
             binding.shareProcessChangeName.text.toString().trim(),
             true
         )
