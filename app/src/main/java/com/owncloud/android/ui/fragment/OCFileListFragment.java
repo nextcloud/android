@@ -1206,9 +1206,9 @@ public class OCFileListFragment extends ExtendedListFragment implements
                     case GALLERY_SEARCH -> VirtualFolderType.GALLERY;
                     default -> VirtualFolderType.NONE;
                 };
-                ((FileDisplayActivity) mContainerActivity).startImagePreview(file, type, !file.isDown());
+                ((FileDisplayActivity) mContainerActivity).startImagePreview(file, type, file.isDown());
             } else {
-                ((FileDisplayActivity) mContainerActivity).startImagePreview(file, !file.isDown());
+                ((FileDisplayActivity) mContainerActivity).startImagePreview(file, file.isDown());
             }
         } else if (file.isDown() && MimeTypeUtil.isVCard(file)) {
             ((FileDisplayActivity) mContainerActivity).startContactListFragment(file);
@@ -1902,10 +1902,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
 
     protected RemoteOperation getSearchRemoteOperation(final User currentUser, final SearchEvent event) {
-        boolean searchOnlyFolders = false;
-        if (getArguments() != null && getArguments().getBoolean(ARG_SEARCH_ONLY_FOLDER, false)) {
-            searchOnlyFolders = true;
-        }
+        boolean searchOnlyFolders = getArguments() != null && getArguments().getBoolean(ARG_SEARCH_ONLY_FOLDER, false);
 
         OCCapability ocCapability = mContainerActivity.getStorageManager()
             .getCapability(currentUser.getAccountName());
