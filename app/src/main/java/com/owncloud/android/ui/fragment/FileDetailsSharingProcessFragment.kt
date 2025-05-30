@@ -25,6 +25,7 @@ import com.owncloud.android.R
 import com.owncloud.android.databinding.FileDetailsSharingProcessFragmentBinding
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.datamodel.quickPermission.QuickPermissionType
+import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.lib.resources.shares.OCShare
 import com.owncloud.android.lib.resources.shares.ShareType
 import com.owncloud.android.lib.resources.status.OCCapability
@@ -198,6 +199,18 @@ class FileDetailsSharingProcessFragment :
         themeView()
         setVisibilitiesOfShareOption()
         toggleNextButtonAvailability(isAnyShareOptionChecked())
+        logShareInfo()
+    }
+
+    private fun logShareInfo() {
+        share?.run {
+            Log_OC.i(TAG, "-----BEFORE UPDATE SHARE-----")
+            Log_OC.i(TAG, "ID: $id")
+            Log_OC.i(TAG, "Permission: $permissions")
+            Log_OC.i(TAG, "Hide File Download: $isHideFileDownload")
+            Log_OC.i(TAG, "Label: $label")
+            Log_OC.i(TAG, "Attributes: $attributes")
+        }
     }
 
     private fun setVisibilitiesOfShareOption() {
