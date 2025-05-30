@@ -750,19 +750,33 @@ public class FileOperationsHelper {
      *                               leaving the link unrestricted. Zero makes no change.
      * @param label                  new label
      */
-    public void updateShareInformation(OCShare share, int permissions,
-                                       boolean hideFileDownload, String password, long expirationTimeInMillis,
+    public void updateShareInformation(OCShare share,
+                                       int permissions,
+                                       boolean hideFileDownload,
+                                       String password,
+                                       long expirationTimeInMillis,
                                        String label) {
+        final var id = share.getId();
+        final var attributes = share.getAttributes();
+
+        Log_OC.i(TAG, "-----AFTER UPDATE SHARE-----");
+        Log_OC.i(TAG, "ID: " + id);
+        Log_OC.i(TAG, "Permission: " + permissions);
+        Log_OC.i(TAG, "Hide File Download: " + hideFileDownload);
+        Log_OC.i(TAG, "Label: " + label);
+        Log_OC.i(TAG, "Attributes: " + attributes);
+
+
         Intent updateShareIntent = new Intent(fileActivity, OperationsService.class);
         updateShareIntent.setAction(OperationsService.ACTION_UPDATE_SHARE_INFO);
         updateShareIntent.putExtra(OperationsService.EXTRA_ACCOUNT, fileActivity.getAccount());
-        updateShareIntent.putExtra(OperationsService.EXTRA_SHARE_ID, share.getId());
+        updateShareIntent.putExtra(OperationsService.EXTRA_SHARE_ID, id);
         updateShareIntent.putExtra(OperationsService.EXTRA_SHARE_PERMISSIONS, permissions);
         updateShareIntent.putExtra(OperationsService.EXTRA_SHARE_HIDE_FILE_DOWNLOAD, hideFileDownload);
         updateShareIntent.putExtra(OperationsService.EXTRA_SHARE_PASSWORD, (password == null) ? "" : password);
         updateShareIntent.putExtra(OperationsService.EXTRA_SHARE_EXPIRATION_DATE_IN_MILLIS, expirationTimeInMillis);
         updateShareIntent.putExtra(OperationsService.EXTRA_SHARE_PUBLIC_LABEL, (label == null) ? "" : label);
-        updateShareIntent.putExtra(OperationsService.EXTRA_SHARE_ATTRIBUTES, share.getAttributes());
+        updateShareIntent.putExtra(OperationsService.EXTRA_SHARE_ATTRIBUTES, attributes);
         queueShareIntent(updateShareIntent);
     }
 
