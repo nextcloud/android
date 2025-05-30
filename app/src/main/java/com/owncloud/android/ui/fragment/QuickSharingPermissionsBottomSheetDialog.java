@@ -88,7 +88,7 @@ public class QuickSharingPermissionsBottomSheetDialog extends BottomSheetDialog 
                 @Override
                 public void onCustomPermissionSelected() {
                     dismiss();
-                    actions.openShareDetail(ocShare);
+                    actions.openShareDetailWithCustomPermissions(ocShare);
                 }
 
                 @Override
@@ -147,6 +147,6 @@ public class QuickSharingPermissionsBottomSheetDialog extends BottomSheetDialog 
     public interface QuickPermissionSharingBottomSheetActions {
         void onQuickPermissionChanged(OCShare share, int permission);
 
-        void openShareDetail(OCShare share);
+        void openShareDetailWithCustomPermissions(OCShare share);
     }
 }
