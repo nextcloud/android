@@ -36,6 +36,7 @@ import com.owncloud.android.operations.UploadFileOperation
 import com.owncloud.android.utils.ErrorMessageAdapter
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import java.io.File
+import kotlin.random.Random
 
 @Suppress("LongParameterList")
 class FileUploadWorker(
@@ -56,6 +57,7 @@ class FileUploadWorker(
 
         const val NOTIFICATION_ERROR_ID: Int = 413
         const val ACCOUNT = "data_account"
+        const val TOTAL_UPLOAD_SIZE = "total_upload_size"
         var currentUploadFileOperation: UploadFileOperation? = null
 
         private const val UPLOADS_ADDED_MESSAGE = "UPLOADS_ADDED"
@@ -90,7 +92,7 @@ class FileUploadWorker(
 
     private var currentUploadIndex: Int = 1
     private var lastPercent = 0
-    private val notificationManager = UploadNotificationManager(context, viewThemeUtils)
+    private val notificationManager = UploadNotificationManager(context, viewThemeUtils, Random.nextInt())
     private val intents = FileUploaderIntents(context)
     private val fileUploaderDelegate = FileUploaderDelegate()
 
@@ -133,7 +135,8 @@ class FileUploadWorker(
     private fun retrievePagesBySortingUploadsByID(): Result {
         val accountName = inputData.getString(ACCOUNT) ?: return Result.failure()
         var uploadsPerPage = uploadsStorageManager.getCurrentUploadsForAccountPageAscById(-1, accountName)
-        val totalUploadSize = uploadsStorageManager.getTotalUploadSize(accountName)
+        val totalUploadSize =
+            inputData.getInt(TOTAL_UPLOAD_SIZE, defaultValue = uploadsStorageManager.getTotalUploadSize(accountName))
 
         Log_OC.d(TAG, "Total upload size: $totalUploadSize")
 
