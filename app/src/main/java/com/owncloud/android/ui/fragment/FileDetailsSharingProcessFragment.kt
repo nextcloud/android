@@ -821,21 +821,25 @@ class FileDetailsSharingProcessFragment :
         )
 
         if (canSetDownloadLimit()) {
-            val downloadLimitInput = binding.shareProcessSetDownloadLimitInput.text.toString().trim()
-            val downloadLimit =
-                if (binding.shareProcessSetDownloadLimitSwitch.isChecked && downloadLimitInput.isNotEmpty()) {
-                    downloadLimitInput.toInt()
-                } else {
-                    0
-                }
-
-            fileOperationsHelper?.updateFilesDownloadLimit(share, downloadLimit)
+            setDownloadLimit()
         }
 
         // copy the share link if available
         if (!TextUtils.isEmpty(share?.shareLink)) {
             ClipboardUtil.copyToClipboard(requireActivity(), share?.shareLink)
         }
+    }
+
+    private fun setDownloadLimit() {
+        val downloadLimitInput = binding.shareProcessSetDownloadLimitInput.text.toString().trim()
+        val downloadLimit =
+            if (binding.shareProcessSetDownloadLimitSwitch.isChecked && downloadLimitInput.isNotEmpty()) {
+                downloadLimitInput.toInt()
+            } else {
+                0
+            }
+
+        fileOperationsHelper?.updateFilesDownloadLimit(share, downloadLimit)
     }
 
     private fun createShare(noteText: String) {
