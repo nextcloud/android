@@ -441,8 +441,7 @@ public class OperationsService extends Service {
                         if (!result.isSuccess()) {
                             final var code = "code: " + result.getCode();
                             final var httpCode = "HTTP_CODE: " + result.getHttpCode();
-                            final var exception = "exception: " + result.getException().getLocalizedMessage();
-                            Log_OC.e(TAG,"Operation failed " + code + httpCode + exception);
+                            Log_OC.e(TAG,"Operation failed " + code + httpCode);
                         }
                     } catch (UnsupportedOperationException e) {
                         // TODO remove - added to aid in transition to NextcloudClient
