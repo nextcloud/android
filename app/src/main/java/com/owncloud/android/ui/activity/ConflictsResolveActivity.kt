@@ -31,6 +31,7 @@ import com.nextcloud.utils.extensions.getParcelableArgument
 import com.nextcloud.utils.extensions.logFileSize
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.OCFile
+import com.owncloud.android.datamodel.ThumbnailsCacheManager
 import com.owncloud.android.datamodel.UploadsStorageManager
 import com.owncloud.android.db.OCUpload
 import com.owncloud.android.files.services.NameCollisionPolicy
@@ -116,20 +117,28 @@ class ConflictsResolveActivity : FileActivity(), OnConflictDecisionMadeListener 
                 Decision.KEEP_LOCAL -> keepLocal(file, upload, user)
                 Decision.KEEP_BOTH -> keepBoth(file, upload, user)
                 Decision.KEEP_SERVER -> keepServer(file, upload)
-                Decision.KEEP_OFFLINE_FOLDER -> keepOfflineFolder(newFile, offlineOperation)
+                Decision.KEEP_OFFLINE_FOLDER -> keepOfflineFolder(file, offlineOperation)
                 Decision.KEEP_SERVER_FOLDER -> keepServerFile(offlineOperation)
-                Decision.KEEP_BOTH_FOLDER -> keepBothFolder(offlineOperation, newFile)
+                Decision.KEEP_BOTH_FOLDER -> keepBothFolder(offlineOperation, file)
                 else -> Unit
             }
 
-            updateThumbnailIfNeeded(decision, file)
+            val oldFile = storageManager.getFileByDecryptedRemotePath(upload?.remotePath)
+
+            updateThumbnailIfNeeded(decision, file, oldFile)
             dismissConflictResolveNotification(file)
             finish()
         }
     }
 
-    private fun updateThumbnailIfNeeded(decision: Decision?, file: OCFile?) {
+    private fun updateThumbnailIfNeeded(decision: Decision?, file: OCFile?, oldFile: OCFile?) {
         if (decision == Decision.KEEP_BOTH || decision == Decision.KEEP_LOCAL) {
+            // When the user chooses to replace the remote file with the new local file,
+            // remove the old file's thumbnail so a new one can be generated
+            if (decision == Decision.KEEP_LOCAL) {
+                ThumbnailsCacheManager.removeFromCache(oldFile)
+            }
+
             file?.isUpdateThumbnailNeeded = true
             fileDataStorageManager.saveFile(file)
         }
