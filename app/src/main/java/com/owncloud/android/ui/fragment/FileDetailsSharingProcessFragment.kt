@@ -162,7 +162,7 @@ class FileDetailsSharingProcessFragment :
 
         permission = share?.permissions
             ?: capabilities.defaultPermissions
-            ?: SharePermissionManager.getMaximumPermission(isFolder())
+                ?: SharePermissionManager.getMaximumPermission(isFolder())
     }
 
     private fun initArguments() {
@@ -192,9 +192,7 @@ class FileDetailsSharingProcessFragment :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        if (shareProcessStep == SCREEN_TYPE_PERMISSION ||
-            shareProcessStep == SCREEN_TYPE_PERMISSION_WITH_CUSTOM_PERMISSION
-        ) {
+        if (isShareProcessStepIsPermission()) {
             setupUI()
         } else {
             updateViewForNoteScreenType()
@@ -342,7 +340,7 @@ class FileDetailsSharingProcessFragment :
 
         selectRadioButtonAccordingToPermission()
 
-        if (shareProcessStep == SCREEN_TYPE_PERMISSION_WITH_CUSTOM_PERMISSION) {
+        if (isShareProcessStepIsCustomPermission()) {
             selectCustomPermissionLayout()
         }
 
@@ -374,15 +372,19 @@ class FileDetailsSharingProcessFragment :
                 QuickPermissionType.VIEW_ONLY -> {
                     viewOnlyRadioButton.isChecked = true
                 }
+
                 QuickPermissionType.CAN_EDIT -> {
                     canEditRadioButton.isChecked = true
                 }
+
                 QuickPermissionType.FILE_REQUEST -> {
                     fileRequestRadioButton.isChecked = true
                 }
+
                 QuickPermissionType.CUSTOM_PERMISSIONS -> {
                     selectCustomPermissionLayout()
                 }
+
                 else -> Unit
             }
         }
@@ -532,7 +534,7 @@ class FileDetailsSharingProcessFragment :
                 onCancelClick()
             }
             shareProcessBtnNext.setOnClickListener {
-                if (shareProcessStep == SCREEN_TYPE_PERMISSION) {
+                if (isShareProcessStepIsPermission()) {
                     validateShareProcessFirst()
                 } else {
                     createShareOrUpdateNoteShare()
@@ -687,10 +689,11 @@ class FileDetailsSharingProcessFragment :
         if (share != null) {
             removeCurrentFragment()
         }
+
         // else we have to check if user is in step 2(note screen) then show step 1 (permission screen)
         // and if user is in step 1 (permission screen) then remove the fragment
         else {
-            if (shareProcessStep == SCREEN_TYPE_NOTE) {
+            if (isShareProcessStepIsNote()) {
                 setupUI()
             } else {
                 removeCurrentFragment()
@@ -791,10 +794,12 @@ class FileDetailsSharingProcessFragment :
             share != null && share?.note != noteText -> {
                 fileOperationsHelper?.updateNoteToShare(share, noteText)
             }
+
             file == null -> {
                 DisplayUtils.showSnackMessage(requireActivity(), R.string.file_not_found_cannot_share)
                 return
             }
+
             else -> {
                 createShare(noteText)
             }
@@ -876,6 +881,14 @@ class FileDetailsSharingProcessFragment :
     }
 
     // region Helpers
+    private fun isShareProcessStepIsPermission(): Boolean = (shareProcessStep == SCREEN_TYPE_PERMISSION ||
+        isShareProcessStepIsCustomPermission())
+
+    private fun isShareProcessStepIsCustomPermission(): Boolean =
+        (shareProcessStep == SCREEN_TYPE_PERMISSION_WITH_CUSTOM_PERMISSION)
+
+    private fun isShareProcessStepIsNote(): Boolean = (shareProcessStep == SCREEN_TYPE_NOTE)
+
     private fun isFolder(): Boolean = (file?.isFolder == true || share?.isFolder == true)
 
     private fun canSetFileRequest(): Boolean = isFolder() && shareType.isPublicOrMail()
