@@ -130,7 +130,7 @@ object SharePermissionManager {
         return (share.permissions and OCShare.Companion.SHARE_PERMISSION_FLAG) > 0
     }
 
-    fun getSelectedType(share: OCShare, encrypted: Boolean): QuickPermissionType {
+    fun getSelectedType(share: OCShare?, encrypted: Boolean): QuickPermissionType {
         return if (canEdit(share)) {
             QuickPermissionType.CAN_EDIT
         } else if (encrypted && isSecureFileDrop(share)) {
