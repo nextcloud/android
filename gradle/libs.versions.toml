@@ -2,6 +2,9 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
 [versions]
+androidCommonLibraryVersion = "0.25.0"
+androidLibraryVersion = "2d47aa4a368b49465320c16609ad4427dd64ca86"
+daggerVersion = "2.56.2"
 espressoVersion = "3.6.1"
 media3 = "1.5.1"
 roomVersion = "2.6.1"
@@ -47,6 +50,15 @@ espresso-web = { module = "androidx.test.espresso:espresso-web", version.ref = "
 spotbugs-gradle-plugin = { module = "com.github.spotbugs.snom:spotbugs-gradle-plugin", version.ref = "spotbugsGradlePlugin" }
 kotlin-gradle-plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
 detekt-gradle-plugin = { module = "io.gitlab.arturbosch.detekt:detekt-gradle-plugin", version.ref = "detektGradlePlugin" }
+
+# Android Library
+android-library = { module = "com.github.nextcloud:android-library", version.ref = "androidLibraryVersion" }
+android-common = { module = "com.github.nextcloud.android-common:ui", version.ref = "androidCommonLibraryVersion" }
+
+# Dagger
+dagger = { module = "com.google.dagger:dagger", version.ref = "daggerVersion" }
+dagger-android = { module = "com.google.dagger:dagger-android", version.ref = "daggerVersion" }
+dagger-android-support = { module = "com.google.dagger:dagger-android-support", version.ref = "daggerVersion" }
 
 [plugins]
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
