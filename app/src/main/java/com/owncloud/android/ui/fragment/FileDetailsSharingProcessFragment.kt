@@ -69,6 +69,7 @@ class FileDetailsSharingProcessFragment :
         // types of screens to be displayed
         const val SCREEN_TYPE_PERMISSION = 1 // permissions screen
         const val SCREEN_TYPE_NOTE = 2 // note screen
+        const val SCREEN_TYPE_PERMISSION_WITH_CUSTOM_PERMISSION = 3 // permissions screen with custom permission
 
         /**
          * fragment instance to be called while creating new share for internal and external share
@@ -153,6 +154,18 @@ class FileDetailsSharingProcessFragment :
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        initArguments()
+        fileActivity = activity as FileActivity?
+        capabilities = CapabilityUtils.getCapability(context)
+
+        requireNotNull(fileActivity) { "FileActivity may not be null" }
+
+        permission = share?.permissions
+            ?: capabilities.defaultPermissions
+            ?: SharePermissionManager.getMaximumPermission(isFolder())
+    }
+
+    private fun initArguments() {
         arguments?.let {
             file = it.getParcelableArgument(ARG_OCFILE, OCFile::class.java)
             shareeName = it.getString(ARG_SHAREE_NAME)
@@ -169,15 +182,6 @@ class FileDetailsSharingProcessFragment :
             isExpDateShown = it.getBoolean(ARG_EXP_DATE_SHOWN, true)
             isSecureShare = it.getBoolean(ARG_SECURE_SHARE, false)
         }
-
-        fileActivity = activity as FileActivity?
-        capabilities = CapabilityUtils.getCapability(context)
-
-        requireNotNull(fileActivity) { "FileActivity may not be null" }
-
-        permission = share?.permissions
-            ?: capabilities.defaultPermissions
-            ?: SharePermissionManager.getMaximumPermission(isFolder())
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
@@ -188,7 +192,8 @@ class FileDetailsSharingProcessFragment :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        if (shareProcessStep == SCREEN_TYPE_PERMISSION) {
+        if (shareProcessStep == SCREEN_TYPE_PERMISSION ||
+            shareProcessStep == SCREEN_TYPE_PERMISSION_WITH_CUSTOM_PERMISSION) {
             setupUI()
         } else {
             updateViewForNoteScreenType()
@@ -282,19 +287,25 @@ class FileDetailsSharingProcessFragment :
     }
 
     private fun setupUI() {
-        binding.shareProcessGroupOne.visibility = View.VISIBLE
-        binding.shareProcessEditShareLink.visibility = View.VISIBLE
-        binding.shareProcessGroupTwo.visibility = View.GONE
+        binding.run {
+            shareProcessGroupOne.visibility = View.VISIBLE
+            shareProcessEditShareLink.visibility = View.VISIBLE
+            shareProcessGroupTwo.visibility = View.GONE
+        }
 
+        updateView()
+
+        // show or hide expiry date
+        binding.shareProcessSetExpDateSwitch.setVisibleIf(isExpDateShown && !isSecureShare)
+        shareProcessStep = SCREEN_TYPE_PERMISSION
+    }
+
+    private fun updateView() {
         if (share != null) {
             updateViewForUpdate()
         } else {
             updateViewForCreate()
         }
-
-        // show or hide expiry date
-        binding.shareProcessSetExpDateSwitch.setVisibleIf(isExpDateShown && !isSecureShare)
-        shareProcessStep = SCREEN_TYPE_PERMISSION
     }
 
     private fun setMaxPermissionsIfDefaultPermissionExists() {
@@ -307,43 +318,31 @@ class FileDetailsSharingProcessFragment :
     // region ViewUpdates
     private fun updateViewForCreate() {
         binding.shareProcessBtnNext.text = getString(R.string.common_next)
-        file.let {
-            if (file?.isFolder == true) {
-                updateViewForFolder()
-            } else {
-                updateViewForFile()
-            }
-            updateViewForShareType()
-        }
+        updateViewAccordingToFile()
         showPasswordInput(binding.shareProcessSetPasswordSwitch.isChecked)
         showExpirationDateInput(binding.shareProcessSetExpDateSwitch.isChecked)
         showFileDownloadLimitInput(binding.shareProcessSetDownloadLimitSwitch.isChecked)
         setMaxPermissionsIfDefaultPermissionExists()
     }
 
+    private fun updateViewAccordingToFile() {
+        file?.run {
+            if (isFolder == true) {
+                updateViewForFolder()
+            } else {
+                updateViewForFile()
+            }
+            updateViewForShareType()
+        }
+    }
+
     private fun updateViewForUpdate() {
         if (share?.isFolder == true) updateViewForFolder() else updateViewForFile()
 
-        // custom permissions / read only / allow upload and editing / file request
-        val selectedType = SharePermissionManager.getSelectedType(share, encrypted = file?.isEncrypted == true)
-        binding.run {
-            when (selectedType) {
-                QuickPermissionType.VIEW_ONLY -> {
-                    viewOnlyRadioButton.isChecked = true
-                }
-                QuickPermissionType.CAN_EDIT -> {
-                    canEditRadioButton.isChecked = true
-                }
-                QuickPermissionType.FILE_REQUEST -> {
-                    fileRequestRadioButton.isChecked = true
-                }
-                QuickPermissionType.CUSTOM_PERMISSIONS -> {
-                    customPermissionRadioButton.isChecked = true
-                    customPermissionLayout.setVisibilityWithAnimation(true)
-                }
-                else -> {
-                }
-            }
+        selectRadioButtonAccordingToPermission()
+
+        if (shareProcessStep == SCREEN_TYPE_PERMISSION_WITH_CUSTOM_PERMISSION) {
+            selectCustomPermissionLayout()
         }
 
         shareType = share?.shareType ?: ShareType.NO_SHARED
@@ -365,6 +364,32 @@ class FileDetailsSharingProcessFragment :
         showExpirationDateInput(binding.shareProcessSetExpDateSwitch.isChecked)
         updateFileDownloadLimitView()
         showFileDownloadLimitInput(binding.shareProcessSetDownloadLimitSwitch.isChecked)
+    }
+
+    private fun selectRadioButtonAccordingToPermission() {
+        val selectedType = SharePermissionManager.getSelectedType(share, encrypted = file?.isEncrypted == true)
+        binding.run {
+            when (selectedType) {
+                QuickPermissionType.VIEW_ONLY -> {
+                    viewOnlyRadioButton.isChecked = true
+                }
+                QuickPermissionType.CAN_EDIT -> {
+                    canEditRadioButton.isChecked = true
+                }
+                QuickPermissionType.FILE_REQUEST -> {
+                    fileRequestRadioButton.isChecked = true
+                }
+                QuickPermissionType.CUSTOM_PERMISSIONS -> {
+                    selectCustomPermissionLayout()
+                }
+                else -> Unit
+            }
+        }
+    }
+
+    private fun selectCustomPermissionLayout() {
+        binding.customPermissionRadioButton.isChecked = true
+        binding.customPermissionLayout.setVisibilityWithAnimation(true)
     }
 
     private fun updateViewForShareType() {
