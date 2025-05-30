@@ -162,7 +162,7 @@ class FileDetailsSharingProcessFragment :
 
         permission = share?.permissions
             ?: capabilities.defaultPermissions
-                ?: SharePermissionManager.getMaximumPermission(isFolder())
+            ?: SharePermissionManager.getMaximumPermission(isFolder())
     }
 
     private fun initArguments() {
@@ -881,8 +881,10 @@ class FileDetailsSharingProcessFragment :
     }
 
     // region Helpers
-    private fun isShareProcessStepIsPermission(): Boolean = (shareProcessStep == SCREEN_TYPE_PERMISSION ||
-        isShareProcessStepIsCustomPermission())
+    private fun isShareProcessStepIsPermission(): Boolean = (
+        shareProcessStep == SCREEN_TYPE_PERMISSION ||
+            isShareProcessStepIsCustomPermission()
+        )
 
     private fun isShareProcessStepIsCustomPermission(): Boolean =
         (shareProcessStep == SCREEN_TYPE_PERMISSION_WITH_CUSTOM_PERMISSION)
