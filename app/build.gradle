@@ -268,39 +268,56 @@ android {
 }
 
 dependencies {
-    implementation("com.github.nextcloud:android-library:$androidLibraryVersion") {
+    // region Nextcloud Libs
+    implementation(libs.android.library) {
         exclude group: "org.ogce", module: "xpp3" // unused in Android and brings wrong Junit version
     }
 
-    // splash screen dependency ref: https://developer.android.com/develop/ui/views/launch/splash-screen/migrate
-    implementation libs.splashscreen
+    implementation libs.android.common
+    // endregion
 
-    // Jetpack Compose
+    // region Splash screen dependency ref: https://developer.android.com/develop/ui/views/launch/splash-screen/migrate
+    implementation libs.splashscreen
+    // endregion
+
+    // region Jetpack Compose
     implementation(platform(libs.compose.bom))
     implementation(libs.compose.ui)
     implementation(libs.compose.ui.graphics)
     implementation(libs.compose.material3)
     debugImplementation(libs.compose.ui.tooling)
     implementation(libs.compose.ui.tooling.preview)
+    // endregion
 
-    // Media3
+    // region Media3
     implementation libs.media3.ui
     implementation libs.media3.session
     implementation libs.media3.exoplayer
     implementation libs.media3.datasource
+    // endregion
 
-    // Room
+    // region Room
     implementation libs.room.runtime
     ksp "androidx.room:room-compiler:$roomVersion"
     androidTestImplementation libs.room.testing
+    // endregion
 
-    // Espresso
+    // region Espresso
     androidTestImplementation libs.espresso.core
     androidTestImplementation libs.espresso.contrib
     androidTestImplementation libs.espresso.web
     androidTestImplementation libs.espresso.accessibility
     androidTestImplementation libs.espresso.intents
     androidTestImplementation libs.espresso.idling.resource
+    // endregion
+
+    // region Dagger
+    implementation libs.dagger
+    implementation libs.dagger.android
+    implementation libs.dagger.android.support
+    kapt "com.google.dagger:dagger-compiler:$daggerVersion"
+    kapt "com.google.dagger:dagger-android-processor:$daggerVersion"
+    // endregion
 
     compileOnly "org.jbundle.util.osgi.wrapped:org.jbundle.util.osgi.wrapped.org.apache.http.client:4.1.2"
     // remove after entire switch to lib v2
@@ -347,12 +364,6 @@ dependencies {
 
     spotbugsPlugins "com.h3xstream.findsecbugs:findsecbugs-plugin:1.14.0"
     spotbugsPlugins "com.mebigfatguy.fb-contrib:fb-contrib:7.6.9"
-
-    implementation "com.google.dagger:dagger:$daggerVersion"
-    implementation "com.google.dagger:dagger-android:$daggerVersion"
-    implementation "com.google.dagger:dagger-android-support:$daggerVersion"
-    kapt "com.google.dagger:dagger-compiler:$daggerVersion"
-    kapt "com.google.dagger:dagger-android-processor:$daggerVersion"
 
     implementation "org.conscrypt:conscrypt-android:2.5.3"
 
@@ -428,8 +439,6 @@ dependencies {
     gplayImplementation "com.google.firebase:firebase-messaging:24.1.1"
     gplayImplementation "com.google.android.gms:play-services-base:18.5.0"
     gplayImplementation "com.google.android.play:review-ktx:2.0.2"
-
-    implementation "com.github.nextcloud.android-common:ui:$androidCommonLibraryVersion"
 
     implementation "io.coil-kt:coil:2.7.0"
 }
