@@ -327,7 +327,7 @@ class FileDetailsSharingProcessFragment :
         // custom permissions / read only / allow upload and editing / file request
         val selectedType = SharePermissionManager.getSelectedType(share, encrypted = file?.isEncrypted == true)
         binding.run {
-            when(selectedType) {
+            when (selectedType) {
                 QuickPermissionType.VIEW_ONLY -> {
                     viewOnlyRadioButton.isChecked = true
                 }
@@ -342,7 +342,6 @@ class FileDetailsSharingProcessFragment :
                     customPermissionLayout.setVisibilityWithAnimation(true)
                 }
                 else -> {
-
                 }
             }
         }
