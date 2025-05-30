@@ -1569,6 +1569,8 @@ public class FileDataStorageManager {
             contentValues.putNull(ProviderTableMeta.OCSHARES_DOWNLOADLIMIT_COUNT);
         }
 
+        contentValues.put(ProviderTableMeta.OCSHARES_ATTRIBUTES, share.getAttributes());
+
         return contentValues;
     }
 
@@ -1598,6 +1600,8 @@ public class FileDataStorageManager {
                                                                 getInt(cursor, ProviderTableMeta.OCSHARES_DOWNLOADLIMIT_LIMIT),
                                                                 getInt(cursor, ProviderTableMeta.OCSHARES_DOWNLOADLIMIT_COUNT));
         share.setFileDownloadLimit(downloadLimit);
+
+        share.setAttributes(getString(cursor, ProviderTableMeta.OCSHARES_ATTRIBUTES));
 
         return share;
     }

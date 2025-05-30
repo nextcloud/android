@@ -426,8 +426,10 @@ public abstract class FileActivity extends DrawerActivity
             onCreateShareViaLinkOperationFinish((CreateShareViaLinkOperation) operation, result);
         } else if (operation instanceof CreateShareWithShareeOperation) {
             onUpdateShareInformation(result, R.string.sharee_add_failed);
-        } else if (operation instanceof UpdateShareViaLinkOperation || operation instanceof UpdateShareInfoOperation || operation instanceof SetFilesDownloadLimitOperation) {
+        } else if (operation instanceof UpdateShareViaLinkOperation || operation instanceof UpdateShareInfoOperation) {
             onUpdateShareInformation(result, R.string.updating_share_failed);
+        } else if (operation instanceof SetFilesDownloadLimitOperation) {
+            onUpdateShareInformation(result, R.string.set_download_limit_failed);
         } else if (operation instanceof UpdateSharePermissionsOperation) {
             onUpdateShareInformation(result, R.string.updating_share_failed);
         } else if (operation instanceof UnshareOperation) {

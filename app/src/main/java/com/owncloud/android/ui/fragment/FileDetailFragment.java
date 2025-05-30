@@ -72,6 +72,7 @@ import org.greenrobot.eventbus.ThreadMode;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 import javax.inject.Inject;
 
@@ -509,11 +510,11 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
             setFileModificationTimestamp(getFile(), showDetailedTimestamp);
         } else if (id == R.id.folder_sync_button) {
             if (binding.folderSyncButton.isChecked()) {
-                getFile().setInternalFolderSyncTimestamp(0L);    
+                getFile().setInternalFolderSyncTimestamp(0L);
             } else {
                 getFile().setInternalFolderSyncTimestamp(-1L);
             }
-            
+
             storageManager.saveFile(getFile());
         } else {
             Log_OC.e(TAG, "Incorrect view clicked!");
@@ -598,11 +599,11 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
             if (fabMain != null) {
                 fabMain.hide();
             }
-            
+
             binding.syncBlock.setVisibility(file.isFolder() ? View.VISIBLE : View.GONE);
-            
+
             if (file.isInternalFolderSync()) {
-                binding.folderSyncButton.setChecked(file.isInternalFolderSync());    
+                binding.folderSyncButton.setChecked(file.isInternalFolderSync());
             } else {
                 if (storageManager.isPartOfInternalTwoWaySync(file)) {
                     binding.folderSyncButton.setChecked(true);
@@ -814,18 +815,27 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
     /**
      * open the sharing process fragment for creating new share
      *
-     * @param shareeName
-     * @param shareType
      */
     public void initiateSharingProcess(String shareeName,
                                        ShareType shareType,
                                        boolean secureShare) {
-        requireActivity().getSupportFragmentManager().beginTransaction().add(R.id.sharing_frame_container,
-                                                                             FileDetailsSharingProcessFragment.newInstance(getFile(),
-                                                                                                                           shareeName,
-                                                                                                                           shareType,
-                                                                                                                           secureShare),
-                                                                             FileDetailsSharingProcessFragment.TAG)
+        if (getFile() == null) {
+            DisplayUtils.showSnackMessage(requireView(), R.string.file_not_found_cannot_share);
+            return;
+        }
+
+        final var file = getFile();
+        if (Objects.equals(file.getOwnerId(), shareeName)) {
+            DisplayUtils.showSnackMessage(requireView(), R.string.file_detail_share_already_active);
+            return;
+        }
+
+        final var fileShareDetailFragment = FileDetailsSharingProcessFragment.newInstance(file, shareeName, shareType, secureShare);
+
+        requireActivity()
+            .getSupportFragmentManager()
+            .beginTransaction()
+            .add(R.id.sharing_frame_container, fileShareDetailFragment, FileDetailsSharingProcessFragment.TAG)
             .commit();
 
         showHideFragmentView(true);
