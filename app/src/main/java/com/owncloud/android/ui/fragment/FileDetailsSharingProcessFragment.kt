@@ -193,7 +193,8 @@ class FileDetailsSharingProcessFragment :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         if (shareProcessStep == SCREEN_TYPE_PERMISSION ||
-            shareProcessStep == SCREEN_TYPE_PERMISSION_WITH_CUSTOM_PERMISSION) {
+            shareProcessStep == SCREEN_TYPE_PERMISSION_WITH_CUSTOM_PERMISSION
+        ) {
             setupUI()
         } else {
             updateViewForNoteScreenType()
