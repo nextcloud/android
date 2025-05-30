@@ -232,7 +232,11 @@ open class FolderPickerActivity :
             val listOfFiles = supportFragmentManager.findFragmentByTag(TAG_LIST_OF_FOLDERS)
 
             return if (listOfFiles != null) {
-                return listOfFiles as OCFileListFragment?
+                return (listOfFiles as OCFileListFragment?).also {
+                    val pickedFileSize = targetFilePaths?.size ?: 0
+                    val isMultipleFileSelectedForCopyOrMove = (pickedFileSize > 1)
+                    it?.adapter?.setIsMultipleFileSelectedForCopyOrMove(isMultipleFileSelectedForCopyOrMove)
+                }
             } else {
                 Log_OC.e(TAG, "Access to non existing list of files fragment!!")
                 null
