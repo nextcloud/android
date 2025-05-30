@@ -101,6 +101,7 @@ import com.owncloud.android.operations.RenameFileOperation;
 import com.owncloud.android.operations.SynchronizeFileOperation;
 import com.owncloud.android.operations.UploadFileOperation;
 import com.owncloud.android.syncadapter.FileSyncAdapter;
+import com.owncloud.android.ui.CompletionCallback;
 import com.owncloud.android.ui.activity.fileDisplayActivity.OfflineFolderConflictManager;
 import com.owncloud.android.ui.asynctasks.CheckAvailableSpaceTask;
 import com.owncloud.android.ui.asynctasks.FetchRemoteFileTask;
@@ -253,6 +254,12 @@ public class FileDisplayActivity extends FileActivity
     @Inject Clock clock;
     @Inject SyncedFolderProvider syncedFolderProvider;
 
+    /**
+     * Indicates whether the downloaded file should be previewed immediately. Since `FileDownloadWorker` can be
+     * triggered from multiple sources, this helps determine if an automatic preview is needed after download.
+     */
+    private long fileIDForImmediatePreview = -1;
+
     public static Intent openFileIntent(Context context, User user, OCFile file) {
         final Intent intent = new Intent(context, PreviewImageActivity.class);
         intent.putExtra(FileActivity.EXTRA_FILE, file);
@@ -306,19 +313,19 @@ public class FileDisplayActivity extends FileActivity
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R) {
             return;
         }
-        
+
         if (PermissionUtil.checkSelfPermission(this, Manifest.permission.MANAGE_EXTERNAL_STORAGE)) {
             return;
         }
-        
+
         if (preferences.isAutoUploadGPlayWarningShown()) {
             return;
         }
-        
+
         boolean showInfoDialog = false;
         for (SyncedFolder syncedFolder : syncedFolderProvider.getSyncedFolders()) {
             // move or delete after success
-            if (syncedFolder.getUploadAction() == FileUploadWorker.LOCAL_BEHAVIOUR_MOVE || 
+            if (syncedFolder.getUploadAction() == FileUploadWorker.LOCAL_BEHAVIOUR_MOVE ||
                 syncedFolder.getUploadAction() == FileUploadWorker.LOCAL_BEHAVIOUR_DELETE) {
                 showInfoDialog = true;
                 break;
@@ -388,6 +395,10 @@ public class FileDisplayActivity extends FileActivity
             mSyncInProgress = false;
             mWaitingToSend = null;
         }
+    }
+
+    public void setFileIDForImmediatePreview(long fileIDForImmediatePreview) {
+        this.fileIDForImmediatePreview = fileIDForImmediatePreview;
     }
 
     private void initLayout() {
@@ -519,19 +530,19 @@ public class FileDisplayActivity extends FileActivity
             DisplayUtils.showServerOutdatedSnackbar(this, Snackbar.LENGTH_LONG);
         }
     }
-    
+
     private void checkNotifications() {
         new Thread(() -> {
             try {
                 RemoteOperationResult<List<Notification>> result = new GetNotificationsRemoteOperation()
                     .execute(clientFactory.createNextcloudClient(accountManager.getUser()));
-                
+
                 if (result.isSuccess() && !result.getResultData().isEmpty()) {
                     runOnUiThread(() -> mNotificationButton.setVisibility(View.VISIBLE));
                 } else {
                     runOnUiThread(() -> mNotificationButton.setVisibility(View.GONE));
                 }
-                
+
             } catch (ClientFactory.CreationException e) {
                 Log_OC.e(TAG, "Could not fetch notifications!");
             }
@@ -678,7 +689,7 @@ public class FileDisplayActivity extends FileActivity
             }
         }
     }
-    
+
     private void showReEnableAutoUploadDialog() {
         new MaterialAlertDialogBuilder(this, R.style.Theme_ownCloud_Dialog)
             .setTitle(R.string.re_enable_auto_upload)
@@ -1438,10 +1449,10 @@ public class FileDisplayActivity extends FileActivity
                                         case HOST_NOT_AVAILABLE:
                                             showInfoBox(R.string.host_not_available);
                                             break;
-                                            
+
                                         case SIGNING_TOS_NEEDED:
                                             showTermsOfServiceDialog();
-                                            
+
                                             break;
 
                                         default:
@@ -1743,14 +1754,79 @@ public class FileDisplayActivity extends FileActivity
             if (state instanceof WorkerState.DownloadStarted) {
                 Log_OC.d(TAG, "Download worker started");
                 handleDownloadWorkerState();
-            } else if (state instanceof WorkerState.DownloadFinished) {
+            } else if (state instanceof WorkerState.DownloadFinished finishedState) {
                 fileDownloadProgressListener = null;
+                previewFile(finishedState);
             } else if (state instanceof WorkerState.UploadFinished) {
                 refreshList();
-            } else if (state instanceof  WorkerState.OfflineOperationsCompleted) {
+            } else if (state instanceof WorkerState.OfflineOperationsCompleted) {
                 refreshCurrentDirectory();
             }
         });
+    }
+
+    private void previewFile(WorkerState.DownloadFinished finishedState) {
+        if (fileIDForImmediatePreview == -1) {
+            return;
+        }
+
+        final var currentFile = finishedState.getCurrentFile();
+        if (currentFile == null) {
+            return;
+        }
+
+        if (fileIDForImmediatePreview != currentFile.getFileId() || !currentFile.isDown()) {
+            return;
+        }
+
+        fileIDForImmediatePreview = -1;
+        if (PreviewImageFragment.canBePreviewed(currentFile)) {
+            startImagePreview(currentFile, currentFile.isDown());
+        } else {
+            previewFile(currentFile, null);
+        }
+    }
+
+    public void previewImageWithSearchContext(OCFile file, boolean searchFragment, SearchType currentSearchType) {
+        // preview image - it handles the download, if needed
+        if (searchFragment) {
+            VirtualFolderType type = switch (currentSearchType) {
+                case FAVORITE_SEARCH -> VirtualFolderType.FAVORITE;
+                case GALLERY_SEARCH -> VirtualFolderType.GALLERY;
+                default -> VirtualFolderType.NONE;
+            };
+
+            startImagePreview(file, type, file.isDown());
+        } else {
+            startImagePreview(file, file.isDown());
+        }
+    }
+
+    public void previewFile(OCFile file, @Nullable CompletionCallback setFabVisible) {
+        if (!file.isDown()) {
+            Log_OC.d(TAG,"File is not downloaded, cannot be previewed");
+            return;
+        }
+
+        if (MimeTypeUtil.isVCard(file)) {
+            startContactListFragment(file);
+        } else if (MimeTypeUtil.isPDF(file)) {
+            startPdfPreview(file);
+        } else if (PreviewTextFileFragment.canBePreviewed(file)) {
+            if (setFabVisible != null) {
+                setFabVisible.onComplete(false);
+            }
+
+            startTextPreview(file, false);
+        } else if (PreviewMediaActivity.Companion.canBePreviewed(file)) {
+            if (setFabVisible != null) {
+                setFabVisible.onComplete(false);
+            }
+
+            startMediaPreview(file, 0, true, true, false, true);
+        } else {
+            getFileOperationsHelper().openFile(file);
+        }
     }
 
     public void refreshCurrentDirectory() {
@@ -2339,9 +2415,14 @@ public class FileDisplayActivity extends FileActivity
      * @param parentFolder {@link OCFile} containing above file
      */
     public void startDownloadForPreview(OCFile file, OCFile parentFolder) {
-        final User currentUser = getUser().orElseThrow(RuntimeException::new);
-        Fragment detailFragment = FileDetailFragment.newInstance(file, parentFolder, currentUser);
-        setLeftFragment(detailFragment, false);
+        if (!file.isFileEligibleForImmediatePreview()) {
+            final Optional<User> currentUser = getUser();
+            if (currentUser.isPresent()) {
+                Fragment detailFragment = FileDetailFragment.newInstance(file, parentFolder, currentUser.get());
+                setLeftFragment(detailFragment, false);
+            }
+        }
+
         configureToolbarForPreview(file);
         mWaitingToPreview = file;
         requestForDownload();

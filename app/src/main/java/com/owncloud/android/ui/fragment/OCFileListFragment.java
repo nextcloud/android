@@ -68,7 +68,6 @@ import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.SyncedFolderProvider;
-import com.owncloud.android.datamodel.VirtualFolderType;
 import com.owncloud.android.datamodel.e2e.v2.decrypted.DecryptedFolderMetadataFile;
 import com.owncloud.android.lib.common.Creator;
 import com.owncloud.android.lib.common.OwnCloudClient;
@@ -106,13 +105,11 @@ import com.owncloud.android.ui.helpers.FileOperationsHelper;
 import com.owncloud.android.ui.interfaces.OCFileListFragmentInterface;
 import com.owncloud.android.ui.preview.PreviewImageFragment;
 import com.owncloud.android.ui.preview.PreviewMediaActivity;
-import com.owncloud.android.ui.preview.PreviewTextFileFragment;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.EncryptionUtils;
 import com.owncloud.android.utils.EncryptionUtilsV2;
 import com.owncloud.android.utils.FileSortOrder;
 import com.owncloud.android.utils.FileStorageUtils;
-import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.PermissionUtil;
 import com.owncloud.android.utils.theme.ThemeUtils;
 
@@ -1192,52 +1189,39 @@ public class OCFileListFragment extends ExtendedListFragment implements
     private void fileOnItemClick(OCFile file) {
         Integer errorMessageId = checkFileBeforeOpen(file);
         if (errorMessageId != null) {
-            Snackbar.make(getRecyclerView(),
-                          errorMessageId,
-                          Snackbar.LENGTH_LONG).show();
+            Snackbar.make(getRecyclerView(), errorMessageId, Snackbar.LENGTH_LONG).show();
             return;
         }
 
-        if (PreviewImageFragment.canBePreviewed(file)) {
-            // preview image - it handles the download, if needed
-            if (searchFragment) {
-                VirtualFolderType type = switch (currentSearchType) {
-                    case FAVORITE_SEARCH -> VirtualFolderType.FAVORITE;
-                    case GALLERY_SEARCH -> VirtualFolderType.GALLERY;
-                    default -> VirtualFolderType.NONE;
-                };
-                ((FileDisplayActivity) mContainerActivity).startImagePreview(file, type, file.isDown());
-            } else {
-                ((FileDisplayActivity) mContainerActivity).startImagePreview(file, file.isDown());
-            }
-        } else if (file.isDown() && MimeTypeUtil.isVCard(file)) {
-            ((FileDisplayActivity) mContainerActivity).startContactListFragment(file);
-        } else if (file.isDown() && MimeTypeUtil.isPDF(file)) {
-            ((FileDisplayActivity) mContainerActivity).startPdfPreview(file);
-        } else if (PreviewTextFileFragment.canBePreviewed(file)) {
-            setFabVisible(false);
-            ((FileDisplayActivity) mContainerActivity).startTextPreview(file, false);
-        } else if (file.isDown()) {
-            if (PreviewMediaActivity.Companion.canBePreviewed(file)) {
-                setFabVisible(false);
-                ((FileDisplayActivity) mContainerActivity).startMediaPreview(file, 0, true, true, false, true);
-            } else {
-                mContainerActivity.getFileOperationsHelper().openFile(file);
-            }
+        if (PreviewImageFragment.canBePreviewed(file) && mContainerActivity instanceof FileDisplayActivity fda) {
+            fda.previewImageWithSearchContext(file, searchFragment, currentSearchType);
+        } else if (file.isDown() && mContainerActivity instanceof FileDisplayActivity fda) {
+            fda.previewFile(file, this::setFabVisible);
         } else {
-            User account = accountManager.getUser();
-            OCCapability capability = mContainerActivity.getStorageManager().getCapability(account.getAccountName());
+            handlePendingDownloadFile(file);
+        }
+    }
 
-            if (PreviewMediaActivity.Companion.canBePreviewed(file) && !file.isEncrypted()) {
-                setFabVisible(false);
-                ((FileDisplayActivity) mContainerActivity).startMediaPreview(file, 0, true, true, true, true);
-            } else if (editorUtils.isEditorAvailable(accountManager.getUser(), file.getMimeType()) && !file.isEncrypted()) {
-                mContainerActivity.getFileOperationsHelper().openFileWithTextEditor(file, getContext());
-            } else if (capability.getRichDocumentsMimeTypeList().contains(file.getMimeType()) &&
-                capability.getRichDocumentsDirectEditing().isTrue() && !file.isEncrypted()) {
-                mContainerActivity.getFileOperationsHelper().openFileAsRichDocument(file, getContext());
-            } else if (mContainerActivity instanceof FileDisplayActivity fileDisplayActivity) {
-                fileDisplayActivity.startDownloadForPreview(file, mFile);
+    private void handlePendingDownloadFile(OCFile file) {
+        User account = accountManager.getUser();
+        OCCapability capability = mContainerActivity.getStorageManager().getCapability(account.getAccountName());
+
+        if (PreviewMediaActivity.Companion.canBePreviewed(file) && !file.isEncrypted() && mContainerActivity instanceof FileDisplayActivity fda) {
+            setFabVisible(false);
+            fda.startMediaPreview(file, 0, true, true, true, true);
+        } else if (editorUtils.isEditorAvailable(accountManager.getUser(), file.getMimeType()) && !file.isEncrypted()) {
+            mContainerActivity.getFileOperationsHelper().openFileWithTextEditor(file, getContext());
+        } else if (capability.getRichDocumentsMimeTypeList() != null &&
+            capability.getRichDocumentsMimeTypeList().contains(file.getMimeType()) &&
+            capability.getRichDocumentsDirectEditing().isTrue() && !file.isEncrypted()) {
+            mContainerActivity.getFileOperationsHelper().openFileAsRichDocument(file, getContext());
+        } else if (mContainerActivity instanceof FileDisplayActivity fda) {
+            fda.startDownloadForPreview(file, mFile);
+
+            // Checks if the file is small enough to be previewed immediately without showing progress.
+            // If the file is smaller than or equal to 1MB, it can be displayed directly.
+            if (file.isFileEligibleForImmediatePreview()) {
+                fda.setFileIDForImmediatePreview(file.getFileId());
             }
         }
     }
@@ -1902,7 +1886,10 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
 
     protected RemoteOperation getSearchRemoteOperation(final User currentUser, final SearchEvent event) {
-        boolean searchOnlyFolders = getArguments() != null && getArguments().getBoolean(ARG_SEARCH_ONLY_FOLDER, false);
+        boolean searchOnlyFolders = false;
+        if (getArguments() != null && getArguments().getBoolean(ARG_SEARCH_ONLY_FOLDER, false)) {
+            searchOnlyFolders = true;
+        }
 
         OCCapability ocCapability = mContainerActivity.getStorageManager()
             .getCapability(currentUser.getAccountName());
