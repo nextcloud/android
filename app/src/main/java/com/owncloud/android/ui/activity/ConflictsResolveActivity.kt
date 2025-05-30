@@ -133,7 +133,6 @@ class ConflictsResolveActivity : FileActivity(), OnConflictDecisionMadeListener 
 
     private fun updateThumbnailIfNeeded(decision: Decision?, file: OCFile?, oldFile: OCFile?) {
         if (decision == Decision.KEEP_BOTH || decision == Decision.KEEP_LOCAL) {
-
             // When the user chooses to replace the remote file with the new local file,
             // remove the old file's thumbnail so a new one can be generated
             if (decision == Decision.KEEP_LOCAL) {
