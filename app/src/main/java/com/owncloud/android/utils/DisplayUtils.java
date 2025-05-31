@@ -348,7 +348,6 @@ public final class DisplayUtils {
                                                          int flags,
                                                          boolean showFuture) {
 
-        CharSequence dateString = "";
 
         // in Future
         if (!showFuture && time > System.currentTimeMillis()) {
@@ -359,7 +358,7 @@ public final class DisplayUtils {
         if (diff > 0 && diff < 60 * 1000 && minResolution == DateUtils.SECOND_IN_MILLIS) {
             return c.getString(R.string.file_list_seconds_ago);
         } else {
-            dateString = DateUtils.getRelativeDateTimeString(c, time, minResolution, transitionResolution, flags);
+            CharSequence dateString = DateUtils.getRelativeDateTimeString(c, time, minResolution, transitionResolution, flags);
         }
 
         String[] parts = dateString.toString().split(",");

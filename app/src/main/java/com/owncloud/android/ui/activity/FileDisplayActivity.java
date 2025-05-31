@@ -2486,12 +2486,11 @@ public class FileDisplayActivity extends FileActivity
             // current Account
             OCFile file = getFile();
             // get parent from path
-            String parentPath = "";
             if (file != null) {
                 if (file.isDown() && file.getLastSyncDateForProperties() == 0) {
                     // upload in progress - right now, files are not inserted in the local
                     // cache until the upload is successful get parent from path
-                    parentPath = file.getRemotePath().substring(0, file.getRemotePath().lastIndexOf(file.getFileName()));
+                    String parentPath = file.getRemotePath().substring(0, file.getRemotePath().lastIndexOf(file.getFileName()));
                     if (storageManager.getFileByPath(parentPath) == null) {
                         file = null; // not able to know the directory where the file is uploading
                     }

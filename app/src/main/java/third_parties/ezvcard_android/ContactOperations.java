@@ -150,13 +150,12 @@ public class ContactOperations {
         convertOrganization(contentValues, vcard);
 
         ArrayList<ContentProviderOperation> operations = new ArrayList<ContentProviderOperation>(contentValues.size());
-        ContentValues cv = account.getContentValues();
         //ContactsContract.RawContact.CONTENT_URI needed to add account, backReference is also not needed
         long contactID = key;
         ContentProviderOperation operation;
 
         for (NonEmptyContentValues values : contentValues) {
-            cv = values.getContentValues();
+            ContentValues cv = values.getContentValues();
             if (cv.size() == 0) {
                 continue;
             }
@@ -398,7 +397,7 @@ public class ContactOperations {
             String label = null;
             String val = null;
             int mime = 0;
-            int type = 0;
+            int type;
 
             for (RawProperty property : properties) {
                 String name = property.getPropertyName();
