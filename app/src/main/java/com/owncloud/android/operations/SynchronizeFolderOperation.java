@@ -284,11 +284,9 @@ public class SynchronizeFolderOperation extends SyncOperation {
         E2EVersion e2EVersion;
 
         if (object instanceof DecryptedFolderMetadataFileV1) {
-            e2EVersion = E2EVersion.V1_2;
             localFilesMap = RefreshFolderOperation.prefillLocalFilesMap((DecryptedFolderMetadataFileV1) object,
                                                                         storageManager.getFolderContent(mLocalFolder, false));
         } else {
-            e2EVersion = E2EVersion.V2_0;
             localFilesMap = RefreshFolderOperation.prefillLocalFilesMap((DecryptedFolderMetadataFile) object,
                                                                         storageManager.getFolderContent(mLocalFolder, false));
         }
