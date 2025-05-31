@@ -238,7 +238,7 @@ public class OCUpload implements Parcelable {
     /****
      *
      */
-    public static final Parcelable.Creator<OCUpload> CREATOR = new Parcelable.Creator<OCUpload>() {
+    public static final Parcelable.Creator<OCUpload> CREATOR = new Parcelable.Creator<>() {
 
         @Override
         public OCUpload createFromParcel(Parcel source) {
