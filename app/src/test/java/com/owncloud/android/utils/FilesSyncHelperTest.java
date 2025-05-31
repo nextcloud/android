@@ -44,7 +44,7 @@ public class FilesSyncHelperTest {
         Mockito.when(mockFile.listFiles()).thenReturn(null);
         Mockito.when(mockFile.canRead()).thenReturn(true);
 
-        SimpleFileVisitor<Path> visitor = new SimpleFileVisitor<Path>() {
+        SimpleFileVisitor<Path> visitor = new SimpleFileVisitor<>() {
             @Override
             public FileVisitResult visitFile(Path path, BasicFileAttributes attrs) {
                 return FileVisitResult.CONTINUE;
