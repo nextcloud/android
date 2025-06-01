@@ -666,6 +666,7 @@
     <string name="prefs_add_account">Додати обліковий запис</string>
     <string name="prefs_calendar_contacts">Синхронізувати календар та контакти</string>
     <string name="prefs_calendar_contacts_no_store_error">Не встановлено ані F-Droid, ані Google Play</string>
+    <string name="prefs_calendar_contacts_summary">Встановити DAVx⁵ (раніше відомий як DAVdroid) (v1.3.0+) для поточного користувача</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Налаштування синхронізації календаря та контактів</string>
     <string name="prefs_category_about">Про застосунок</string>
     <string name="prefs_category_details">Деталі</string>
@@ -677,6 +678,7 @@
     <string name="prefs_daily_contact_backup_summary">Щоденне резервне копіювання ваших контактів</string>
     <string name="prefs_data_storage_location">Місце збереження даних</string>
     <string name="prefs_data_storage_location_summary">Керувати місцем збереження даних</string>
+    <string name="prefs_davx5_setup_error">Неочікувана помилка під час встановлення DAVx⁵ (раніше відомий як DAVdroid)</string>
     <string name="prefs_e2e_active">Наскрізне шифрування налаштовано!</string>
     <string name="prefs_e2e_mnemonic">Мнемоніка E2E</string>
     <string name="prefs_e2e_no_device_credentials">Щоб показати мнемоніку, будь ласка, активуйте дані авторизації пристрою</string>
@@ -781,6 +783,7 @@
     <string name="screenshot_05_autoUpload_heading">Автоматичне завантаження</string>
     <string name="screenshot_05_autoUpload_subline">для ваших світлин та відеозаписів</string>
     <string name="screenshot_06_davdroid_heading">Календар та контакти</string>
+    <string name="screenshot_06_davdroid_subline">Синхронізувати з DAVx⁵</string>
     <string name="search_error">Помилка під час отримання результатів</string>
     <string name="secure_share_not_set_up">Безпечну передачу у спільний доступ не налаштовано для цього користувача</string>
     <string name="secure_share_search">Безпечний спільний доступ...</string>
@@ -1109,6 +1112,24 @@
         <item quantity="few">%d хвилини</item>
         <item quantity="many">%d хвилин</item>
         <item quantity="other">%d хвилин</item>
+    </plurals>
+    <plurals name="time_seconds_ago">
+        <item quantity="one">%d секунду тому</item>
+        <item quantity="few">%d секунди тому</item>
+        <item quantity="many">%d секунд тому</item>
+        <item quantity="other">%d секунд тому</item>
+    </plurals>
+    <plurals name="time_minutes_ago">
+        <item quantity="one">%d хвилину тому</item>
+        <item quantity="few">%d хвилини тому</item>
+        <item quantity="many">%d хвилин тому</item>
+        <item quantity="other">%d хвилин тому</item>
+    </plurals>
+    <plurals name="time_hours_ago">
+        <item quantity="one">%d годину тому</item>
+        <item quantity="few">%d години тому</item>
+        <item quantity="many">%d годин тому</item>
+        <item quantity="other">%d годин тому</item>
     </plurals>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">Не вдалося синхронізувати %1$d файл (конфлікти: %2$d)</item>
