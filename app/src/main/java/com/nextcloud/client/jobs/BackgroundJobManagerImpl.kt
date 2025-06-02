@@ -590,16 +590,13 @@ internal class BackgroundJobManagerImpl(
      * number of files so it's safer to treat each invocation as an independent job.
      *
      * @param user The user for whom the upload job is being created.
-     * @param totalUploadSize Optional total size of the files to upload to track upload progress
+     * @param uploadIds array of upload ids
      */
-    override fun startFilesUploadJob(user: User, totalUploadSize: Int?) {
+    override fun startFilesUploadJob(user: User, uploadIds: LongArray) {
         val tag = startFileUploadJobTag(user) + Random.nextLong()
         val dataBuilder = Data.Builder()
             .putString(FileUploadWorker.ACCOUNT, user.accountName)
-
-        totalUploadSize?.let {
-            dataBuilder.putInt(FileUploadWorker.TOTAL_UPLOAD_SIZE, it)
-        }
+            .putLongArray(FileUploadWorker.UPLOAD_IDS, uploadIds)
 
         val constraints = Constraints.Builder()
             .setRequiredNetworkType(NetworkType.CONNECTED)
