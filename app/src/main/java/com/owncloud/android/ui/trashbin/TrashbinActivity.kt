@@ -31,6 +31,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.nextcloud.client.account.CurrentAccountProvider
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.network.ClientFactory
+import com.nextcloud.client.network.ConnectivityService
 import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.client.utils.Throttler
 import com.nextcloud.ui.trashbinFileActions.TrashbinFileActionsBottomSheet
@@ -74,6 +75,9 @@ class TrashbinActivity :
 
     @Inject
     lateinit var throttler: Throttler
+
+    @Inject
+    lateinit var connectivityService: ConnectivityService
 
     private var trashbinListAdapter: TrashbinListAdapter? = null
 
@@ -350,23 +354,43 @@ class TrashbinActivity :
 
     override fun showError(message: Int) {
         if (active) {
-            trashbinListAdapter?.removeAllFiles()
-            binding.loadingContent.visibility = View.GONE
-            binding.list.visibility = View.VISIBLE
-            binding.swipeContainingList.isRefreshing = false
-            binding.emptyList.emptyListViewHeadline.setText(R.string.common_error)
-            binding.emptyList.emptyListIcon.setImageDrawable(
-                ResourcesCompat.getDrawable(
-                    resources,
-                    R.drawable.ic_list_empty_error,
-                    null
-                )
-            )
-            binding.emptyList.emptyListViewText.setText(message)
-            binding.emptyList.emptyListViewText.visibility = View.VISIBLE
-            binding.emptyList.emptyListIcon.visibility = View.VISIBLE
-            binding.emptyList.emptyListView.visibility = View.VISIBLE
+            connectivityService.isNetworkAndServerAvailable { result: Boolean? ->
+                if (result == true) {
+                    trashbinListAdapter?.removeAllFiles()
+                    binding.loadingContent.visibility = View.GONE
+                    binding.list.visibility = View.VISIBLE
+                    binding.swipeContainingList.isRefreshing = false
+                    binding.emptyList.emptyListViewHeadline.setText(R.string.common_error)
+                    binding.emptyList.emptyListIcon.setImageDrawable(
+                        ResourcesCompat.getDrawable(
+                            resources,
+                            R.drawable.ic_list_empty_error,
+                            null
+                        )
+                    )
+                    binding.emptyList.emptyListViewText.setText(message)
+                    binding.emptyList.emptyListViewText.visibility = View.VISIBLE
+                    binding.emptyList.emptyListIcon.visibility = View.VISIBLE
+                    binding.emptyList.emptyListView.visibility = View.VISIBLE
+                } else {
+                    showEmptyContent(
+                        getString(R.string.server_not_reachable),
+                        getString(R.string.server_not_reachable_content)
+                    )
+                }
+            }
         }
+    }
+
+    private fun showEmptyContent(headline: String, message: String) {
+        binding.emptyList.emptyListViewHeadline.text = headline
+        binding.emptyList.emptyListViewText.text = message
+        binding.loadingContent.visibility = View.GONE
+        binding.emptyList.emptyListIcon.visibility = View.VISIBLE
+        binding.emptyList.emptyListViewHeadline.visibility = View.VISIBLE
+        binding.emptyList.emptyListViewText.visibility = View.VISIBLE
+        binding.emptyList.emptyListView.visibility = View.VISIBLE
+        binding.emptyList.emptyListIcon.setImageResource(R.drawable.ic_cloud_sync_off)
     }
 
     private fun openActionsMenu(filesCount: Int, checkedFiles: Set<TrashbinFile>) {
