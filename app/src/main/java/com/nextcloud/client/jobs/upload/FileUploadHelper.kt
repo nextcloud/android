@@ -18,6 +18,7 @@ import com.nextcloud.client.jobs.BackgroundJobManager
 import com.nextcloud.client.jobs.upload.FileUploadWorker.Companion.currentUploadFileOperation
 import com.nextcloud.client.network.Connectivity
 import com.nextcloud.client.network.ConnectivityService
+import com.nextcloud.utils.extensions.getUploadIds
 import com.owncloud.android.MainApp
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
@@ -182,7 +183,7 @@ class FileUploadHelper {
         accountNames.forEach { accountName ->
             val user = accountManager.getUser(accountName)
             if (user.isPresent) {
-                backgroundJobManager.startFilesUploadJob(user.get(), failedUploads.size)
+                backgroundJobManager.startFilesUploadJob(user.get(), failedUploads.getUploadIds())
             }
         }
 
@@ -213,7 +214,7 @@ class FileUploadHelper {
             }
         }
         uploadsStorageManager.storeUploads(uploads)
-        backgroundJobManager.startFilesUploadJob(user, uploads.size)
+        backgroundJobManager.startFilesUploadJob(user, uploads.getUploadIds())
     }
 
     fun removeFileUpload(remotePath: String, accountName: String) {
@@ -223,8 +224,8 @@ class FileUploadHelper {
             // need to update now table in mUploadsStorageManager,
             // since the operation will not get to be run by FileUploader#uploadFile
             uploadsStorageManager.removeUpload(accountName, remotePath)
-
-            cancelAndRestartUploadJob(user)
+            val uploadIds = uploadsStorageManager.getCurrentUploadIds(user.accountName)
+            cancelAndRestartUploadJob(user, uploadIds)
         } catch (e: NoSuchElementException) {
             Log_OC.e(TAG, "Error cancelling current upload because user does not exist!: " + e.message)
         }
@@ -249,17 +250,16 @@ class FileUploadHelper {
 
         try {
             val user = accountManager.getUser(accountName).get()
-            cancelAndRestartUploadJob(user, uploads.size)
+            cancelAndRestartUploadJob(user, uploads.getUploadIds())
         } catch (e: NoSuchElementException) {
             Log_OC.e(TAG, "Error restarting upload job because user does not exist!: " + e.message)
         }
     }
 
-    @JvmOverloads
-    fun cancelAndRestartUploadJob(user: User, totalUploadSize: Int? = null) {
+    fun cancelAndRestartUploadJob(user: User, uploadIds: LongArray) {
         backgroundJobManager.run {
             cancelFilesUploadJob(user)
-            startFilesUploadJob(user, totalUploadSize)
+            startFilesUploadJob(user, uploadIds)
         }
     }
 
@@ -374,7 +374,8 @@ class FileUploadHelper {
             }
         }
         uploadsStorageManager.storeUploads(uploads)
-        backgroundJobManager.startFilesUploadJob(user, uploads.size)
+        val uploadIds: LongArray = uploads.filterNotNull().map { it.uploadId }.toLongArray()
+        backgroundJobManager.startFilesUploadJob(user, uploadIds)
     }
 
     /**
@@ -418,12 +419,13 @@ class FileUploadHelper {
         upload.uploadStatus = UploadStatus.UPLOAD_IN_PROGRESS
         uploadsStorageManager.updateUpload(upload)
 
-        backgroundJobManager.startFilesUploadJob(user)
+        backgroundJobManager.startFilesUploadJob(user, longArrayOf(upload.uploadId))
     }
 
     fun cancel(accountName: String) {
         uploadsStorageManager.removeUploads(accountName)
-        cancelAndRestartUploadJob(accountManager.getUser(accountName).get())
+        val uploadIds = uploadsStorageManager.getCurrentUploadIds(accountName)
+        cancelAndRestartUploadJob(accountManager.getUser(accountName).get(), uploadIds)
     }
 
     fun addUploadTransferProgressListener(listener: OnDatatransferProgressListener, targetKey: String) {
