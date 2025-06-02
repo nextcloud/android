@@ -68,6 +68,7 @@ import com.owncloud.android.datamodel.VirtualFolderType
 import com.owncloud.android.db.ProviderMeta
 import com.owncloud.android.lib.common.OwnCloudClient
 import com.owncloud.android.lib.common.utils.Log_OC
+import com.owncloud.android.lib.resources.albums.ReadAlbumItemsRemoteOperation
 import com.owncloud.android.lib.resources.albums.RemoveAlbumFileRemoteOperation
 import com.owncloud.android.lib.resources.albums.ToggleAlbumFavoriteRemoteOperation
 import com.owncloud.android.lib.resources.files.model.RemoteFile
@@ -90,6 +91,7 @@ import com.owncloud.android.ui.preview.PreviewImageFragment
 import com.owncloud.android.ui.preview.PreviewMediaActivity.Companion.canBePreviewed
 import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.ErrorMessageAdapter
+import com.owncloud.android.utils.FileStorageUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.FlowPreview
@@ -270,6 +272,7 @@ class AlbumItemsFragment :
 
                     else -> false
                 }
+            }
 
                 override fun onPrepareMenu(menu: Menu) {
                     super.onPrepareMenu(menu)
@@ -330,6 +333,7 @@ class AlbumItemsFragment :
         binding.listRoot.setEmptyView(binding.emptyList.emptyListView)
         val layoutManager = GridLayoutManager(requireContext(), 1)
         binding.listRoot.layoutManager = layoutManager
+        fetchAndSetData()
     }
 
     private fun setupContainingList() {
@@ -378,6 +382,7 @@ class AlbumItemsFragment :
 
                         contentValues.add(cv)
                     }
+                    ocFileList.add(ocFile!!)
                 }
 
                 mContainerActivity?.storageManager?.saveVirtuals(contentValues)
@@ -515,6 +520,7 @@ class AlbumItemsFragment :
     override fun onDestroyView() {
         lastMediaItemPosition = 0
         super.onDestroyView()
+        lastMediaItemPosition = 0
     }
 
     override fun getColumnsCount(): Int = columnSize
