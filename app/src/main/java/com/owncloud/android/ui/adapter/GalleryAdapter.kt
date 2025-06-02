@@ -6,7 +6,7 @@
  * @author TSI-mc
  * Copyright (C) 2022 Tobias Kaminsky
  * Copyright (C) 2022 Nextcloud GmbH
- * Copyright (C) 2023 TSI-mc
+ * Copyright (C) 2023-2025 TSI-mc <surinder.kumar@t-systems.com>
  *
  * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
  */
@@ -205,6 +205,14 @@ class GalleryAdapter(
         Handler(Looper.getMainLooper()).post { notifyDataSetChanged() }
     }
 
+    @SuppressLint("NotifyDataSetChanged")
+    fun showAlbumItems(
+        albumItems: List<OCFile>,
+    ) {
+        files = albumItems.toGalleryItems()
+        Handler(Looper.getMainLooper()).post { notifyDataSetChanged() }
+    }
+
     private fun transformToRows(list: List<OCFile>): List<GalleryRow> {
         return list
             .sortedBy { it.modificationTimestamp }
@@ -302,6 +310,10 @@ class GalleryAdapter(
 
     override fun notifyItemChanged(file: OCFile) {
         notifyItemChanged(getItemPosition(file))
+    }
+
+    fun setCheckedItem(files: Set<OCFile>?) {
+       ocFileListDelegate.setCheckedItem(files)
     }
 
     override fun getFilesCount(): Int {

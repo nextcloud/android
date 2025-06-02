@@ -165,7 +165,9 @@ open class ExtendedListFragment :
         }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        val item = menu.findItem(R.id.action_search)
+        // while picking Media files from Gallery Fragment through AlbumPickerActivity
+        // there will be no search option so it we have to return it
+        val item = menu.findItem(R.id.action_search) ?: return
         searchView = MenuItemCompat.getActionView(item) as SearchView?
         viewThemeUtils.androidx.themeToolbarSearchView(searchView!!)
         closeButton = searchView?.findViewById<ImageView>(androidx.appcompat.R.id.search_close_btn)
