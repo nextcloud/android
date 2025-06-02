@@ -30,7 +30,7 @@ import ezvcard.property.Telephone;
 public class DataMappings {
     private static final Map<TelephoneType, Integer> phoneTypeMappings;
     static {
-        Map<TelephoneType, Integer> m = new HashMap<TelephoneType, Integer>();
+        Map<TelephoneType, Integer> m = new HashMap<>();
         m.put(TelephoneType.BBS, ContactsContract.CommonDataKinds.Phone.TYPE_CUSTOM);
         m.put(TelephoneType.CAR, ContactsContract.CommonDataKinds.Phone.TYPE_CAR);
         m.put(TelephoneType.CELL, ContactsContract.CommonDataKinds.Phone.TYPE_MOBILE);
@@ -51,7 +51,7 @@ public class DataMappings {
 
     private static final Map<String, Integer> websiteTypeMappings;
     static {
-        Map<String, Integer> m = new HashMap<String, Integer>();
+        Map<String, Integer> m = new HashMap<>();
         m.put("home", ContactsContract.CommonDataKinds.Website.TYPE_HOME);
         m.put("work", ContactsContract.CommonDataKinds.Website.TYPE_WORK);
         m.put("homepage", ContactsContract.CommonDataKinds.Website.TYPE_HOMEPAGE);
@@ -61,7 +61,7 @@ public class DataMappings {
 
     private static final Map<EmailType, Integer> emailTypeMappings;
     static {
-        Map<EmailType, Integer> m = new HashMap<EmailType, Integer>();
+        Map<EmailType, Integer> m = new HashMap<>();
         m.put(EmailType.HOME, ContactsContract.CommonDataKinds.Email.TYPE_HOME);
         m.put(EmailType.WORK, ContactsContract.CommonDataKinds.Email.TYPE_WORK);
         emailTypeMappings = Collections.unmodifiableMap(m);
@@ -69,7 +69,7 @@ public class DataMappings {
 
     private static final Map<AddressType, Integer> addressTypeMappings;
     static {
-        Map<AddressType, Integer> m = new HashMap<AddressType, Integer>();
+        Map<AddressType, Integer> m = new HashMap<>();
         m.put(AddressType.HOME, ContactsContract.CommonDataKinds.StructuredPostal.TYPE_HOME);
         m.put(AddressType.get("business"), ContactsContract.CommonDataKinds.StructuredPostal.TYPE_WORK);
         m.put(AddressType.WORK, ContactsContract.CommonDataKinds.StructuredPostal.TYPE_WORK);
@@ -79,7 +79,7 @@ public class DataMappings {
 
     private static final Map<String, Integer> abRelatedNamesMappings;
     static {
-        Map<String, Integer> m = new HashMap<String, Integer>();
+        Map<String, Integer> m = new HashMap<>();
         m.put("father", ContactsContract.CommonDataKinds.Relation.TYPE_FATHER);
         m.put("spouse", ContactsContract.CommonDataKinds.Relation.TYPE_SPOUSE);
         m.put("mother", ContactsContract.CommonDataKinds.Relation.TYPE_MOTHER);
@@ -95,7 +95,7 @@ public class DataMappings {
 
     private static final Map<String, Integer> abDateMappings;
     static {
-        Map<String, Integer> m = new HashMap<String, Integer>();
+        Map<String, Integer> m = new HashMap<>();
         m.put("anniversary", ContactsContract.CommonDataKinds.Event.TYPE_ANNIVERSARY);
         m.put("other", ContactsContract.CommonDataKinds.Event.TYPE_OTHER);
         abDateMappings = Collections.unmodifiableMap(m);
@@ -103,7 +103,7 @@ public class DataMappings {
 
     private static final Map<String, Integer> imPropertyNameMappings;
     static{
-        Map<String, Integer> m = new HashMap<String, Integer>();
+        Map<String, Integer> m = new HashMap<>();
         m.put("X-AIM", ContactsContract.CommonDataKinds.Im.PROTOCOL_AIM);
         m.put("X-ICQ", ContactsContract.CommonDataKinds.Im.PROTOCOL_ICQ);
         m.put("X-QQ", ContactsContract.CommonDataKinds.Im.PROTOCOL_ICQ);
@@ -120,7 +120,7 @@ public class DataMappings {
 
     private static final Map<String, Integer> imProtocolMappings;
     static{
-        Map<String, Integer> m = new HashMap<String, Integer>();
+        Map<String, Integer> m = new HashMap<>();
         m.put("aim", ContactsContract.CommonDataKinds.Im.PROTOCOL_AIM);
         m.put("icq", ContactsContract.CommonDataKinds.Im.PROTOCOL_ICQ);
         m.put("msn", ContactsContract.CommonDataKinds.Im.PROTOCOL_MSN);
