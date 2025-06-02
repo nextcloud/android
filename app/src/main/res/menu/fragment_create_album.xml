@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Nextcloud - Android Client
+  ~
+  ~ SPDX-FileCopyrightText: 2025 TSI-mc <surinder.kumar@t-systems.com>
+  ~ SPDX-License-Identifier: AGPL-3.0-or-later
+-->
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/action_create_new_album"
+        android:contentDescription="@string/create_new"
+        android:title="@string/create_new"
+        app:showAsAction="always" />
+
+</menu>
