@@ -573,7 +573,6 @@ public class MainApp extends Application implements HasAndroidInjector, NetworkC
                             if (storagePoint.getPrivacyType() == StoragePoint.PrivacyType.PUBLIC) {
                                 preferences.setStoragePath(storagePoint.getPath());
                                 preferences.removeKeysMigrationPreference();
-                                set = true;
                                 break;
                             }
                         }

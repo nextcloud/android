@@ -280,18 +280,7 @@ public class SynchronizeFolderOperation extends SyncOperation {
         }
 
         // get current data about local contents of the folder to synchronize
-        Map<String, OCFile> localFilesMap;
-        E2EVersion e2EVersion;
-
-        if (object instanceof DecryptedFolderMetadataFileV1) {
-            e2EVersion = E2EVersion.V1_2;
-            localFilesMap = RefreshFolderOperation.prefillLocalFilesMap((DecryptedFolderMetadataFileV1) object,
-                                                                        storageManager.getFolderContent(mLocalFolder, false));
-        } else {
-            e2EVersion = E2EVersion.V2_0;
-            localFilesMap = RefreshFolderOperation.prefillLocalFilesMap((DecryptedFolderMetadataFile) object,
-                                                                        storageManager.getFolderContent(mLocalFolder, false));
-        }
+        Map<String, OCFile> localFilesMap = RefreshFolderOperation.prefillLocalFilesMap(object,storageManager.getFolderContent(mLocalFolder, false));
 
         // loop to synchronize every child
         List<OCFile> updatedFiles = new ArrayList<>(folderAndFiles.size() - 1);
