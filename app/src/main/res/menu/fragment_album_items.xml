@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Nextcloud - Android Client
+  ~
+  ~ SPDX-FileCopyrightText: 2025 TSI-mc <surinder.kumar@t-systems.com>
+  ~ SPDX-License-Identifier: AGPL-3.0-or-later
+-->
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/action_add_more_photos"
+        android:contentDescription="@string/add_more"
+        android:icon="@drawable/ic_plus"
+        android:orderInCategory="1"
+        android:title="@string/add_more"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/action_three_dot_icon"
+        android:contentDescription="@string/more"
+        android:icon="@drawable/ic_dots_vertical"
+        android:orderInCategory="1"
+        android:title="@string/more"
+        app:showAsAction="always" />
+
+</menu>
