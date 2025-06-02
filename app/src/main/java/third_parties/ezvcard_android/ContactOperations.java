@@ -605,12 +605,9 @@ public class ContactOperations {
                 continue;
             }
 
-            List<T> groupPropertiesList = groupedProperties.get(group);
-            if (groupPropertiesList == null) {
-                groupPropertiesList = new ArrayList<T>();
-                groupedProperties.put(group, groupPropertiesList);
-            }
-            groupPropertiesList.add(property);
+            groupedProperties
+                .computeIfAbsent(group, k -> new ArrayList<T>())
+                .add(property);
         }
 
         return groupedProperties;

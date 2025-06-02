@@ -84,10 +84,8 @@ public final class BitmapUtils {
 
             final var imageDecoderSource = ImageDecoder.createSource(file);
 
-            return ImageDecoder.decodeBitmap(imageDecoderSource, (decoder, info, source1) -> {
-                decoder.setTargetSize(reqWidth, reqHeight);
-            }
-            );
+            return ImageDecoder.decodeBitmap(imageDecoderSource, (decoder, info, source1) ->
+                decoder.setTargetSize(reqWidth, reqHeight));
 
         } catch (IOException exception) {
             Log_OC.w(TAG, "Decoding Bitmap via ImageDecoder failed, BitmapFactory.decodeFile will be used");

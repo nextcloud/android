@@ -329,9 +329,7 @@ public class FileDisplayActivity extends FileActivity
             new MaterialAlertDialogBuilder(this, R.style.Theme_ownCloud_Dialog)
                 .setTitle(R.string.auto_upload_gplay)
                 .setMessage(R.string.auto_upload_gplay_desc)
-                .setNegativeButton(R.string.dialog_close, (dialog, which) -> {
-                    dialog.dismiss();
-                })
+                .setNegativeButton(R.string.dialog_close, (dialog, which) -> dialog.dismiss())
                 .setIcon(R.drawable.nav_synced_folders)
                 .create()
                 .show();
