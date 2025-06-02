@@ -55,6 +55,7 @@ class AlbumsPickerActivity :
 
         initBinding()
         setupToolbar()
+        setupActionBar()
         setupAction()
         setupActionBar()
 
@@ -202,6 +203,7 @@ class AlbumsPickerActivity :
             Intent(context, AlbumsPickerActivity::class.java).apply {
                 putExtra(EXTRA_ACTION, CHOOSE_ALBUM)
             }
+        }
 
         fun intentForPickingMediaFiles(context: FragmentActivity): Intent =
             Intent(context, AlbumsPickerActivity::class.java).apply {
