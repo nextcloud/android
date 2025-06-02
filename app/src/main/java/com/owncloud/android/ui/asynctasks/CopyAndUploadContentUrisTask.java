@@ -95,7 +95,7 @@ public class CopyAndUploadContentUrisTask extends AsyncTask<Object, Void, Result
             user,
             sourceUris,
             remotePaths,
-            Integer.valueOf(behaviour),
+            behaviour,
             contentResolver
         };
     }

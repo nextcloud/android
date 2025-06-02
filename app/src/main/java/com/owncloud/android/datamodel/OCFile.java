@@ -566,7 +566,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
 
     @Override
     public int hashCode() {
-        return 31 * (int) (fileId ^ (fileId >>> 32)) + (int) (parentId ^ (parentId >>> 32));
+        return 31 * Long.hashCode(fileId) + Long.hashCode(parentId);
     }
 
     @NonNull

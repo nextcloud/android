@@ -55,7 +55,7 @@ public class LoadContactsTask extends AsyncTask<Void, Void, Boolean> {
                 } else {
                     vCards.addAll(Ezvcard.parse(new BufferedInputStream(new FileInputStream((file)))).all());
                 }
-                Collections.sort(vCards, new VCardComparator());
+                vCards.sort(new VCardComparator());
             } catch (IOException e) {
                 Log_OC.e(this, "IO Exception: " + file.getAbsolutePath());
                 return Boolean.FALSE;
