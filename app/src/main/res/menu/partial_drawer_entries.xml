@@ -3,6 +3,7 @@
   ~ Nextcloud - Android Client
   ~
   ~ SPDX-FileCopyrightText: 2016-2025 Andy Scherzinger <info@andy-scherzinger.de>
+  ~ SPDX-FileCopyrightText: 2025 TSI-mc <surinder.kumar@t-systems.com>
   ~ SPDX-FileCopyrightText: 2018-2024 Tobias Kaminsky <tobias@kaminsky.me>
   ~ SPDX-FileCopyrightText: 2024 Alper Ozturk <alper.ozturk@nextcloud.com>
   ~ SPDX-FileCopyrightText: 2024 Bhavesh Kumawat <kumawatbhavesh1000@gmail.com>
@@ -62,6 +63,11 @@
             android:icon="@drawable/selector_media"
             android:orderInCategory="1"
             android:title="@string/drawer_item_gallery" />
+        <item
+            android:id="@+id/nav_album"
+            android:icon="@drawable/nav_photos"
+            android:orderInCategory="1"
+            android:title="@string/drawer_item_album" />
         <item
             android:id="@+id/nav_uploads"
             android:icon="@drawable/uploads"

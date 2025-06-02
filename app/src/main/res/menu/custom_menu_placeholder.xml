@@ -2,12 +2,18 @@
 <!--
   ~ Nextcloud - Android Client
   ~
+  ~ SPDX-FileCopyrightText: 2025 TSI-mc <surinder.kumar@t-systems.com>
   ~ SPDX-FileCopyrightText: 2022 Álvaro Brey <alvaro@alvarobrey.com>
   ~ SPDX-FileCopyrightText: 2022 Nextcloud GmbH
   ~ SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
 -->
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/add_to_album"
+        android:title="@string/add_to_album"
+        android:visible="false"
+        app:showAsAction="always" />
     <!-- This is a "fake" menu so that we can implement custom actions on menu click, while still behaving and looking like a traditional menu item -->
     <item
         android:id="@+id/custom_menu_placeholder_item"

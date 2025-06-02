@@ -1,7 +1,7 @@
 /*
  * Nextcloud - Android Client
  *
- * SPDX-FileCopyrightText: 2024 TSI-mc <surinder.kumar@t-systems.com>
+ * SPDX-FileCopyrightText: 2024-2025 TSI-mc <surinder.kumar@t-systems.com>
  * SPDX-FileCopyrightText: 2020 Chris Narkiewicz <hello@ezaquarii.com>
  * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
  */
@@ -32,6 +32,7 @@ import com.nextcloud.ui.ChooseStorageLocationDialogFragment;
 import com.nextcloud.ui.ImageDetailFragment;
 import com.nextcloud.ui.SetOnlineStatusBottomSheet;
 import com.nextcloud.ui.SetStatusMessageBottomSheet;
+import com.nextcloud.ui.albumItemActions.AlbumItemActionsBottomSheet;
 import com.nextcloud.ui.composeActivity.ComposeActivity;
 import com.nextcloud.ui.fileactions.FileActionsBottomSheet;
 import com.nextcloud.ui.trashbinFileActions.TrashbinFileActionsBottomSheet;
@@ -82,6 +83,7 @@ import com.owncloud.android.ui.dialog.ChooseRichDocumentsTemplateDialogFragment;
 import com.owncloud.android.ui.dialog.ChooseTemplateDialogFragment;
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment;
 import com.owncloud.android.ui.dialog.ConflictsResolveDialog;
+import com.owncloud.android.ui.dialog.CreateAlbumDialogFragment;
 import com.owncloud.android.ui.dialog.CreateFolderDialogFragment;
 import com.owncloud.android.ui.dialog.ExpirationDatePickerDialogFragment;
 import com.owncloud.android.ui.dialog.IndeterminateProgressDialog;
@@ -115,6 +117,9 @@ import com.owncloud.android.ui.fragment.OCFileListBottomSheetDialog;
 import com.owncloud.android.ui.fragment.OCFileListFragment;
 import com.owncloud.android.ui.fragment.SharedListFragment;
 import com.owncloud.android.ui.fragment.UnifiedSearchFragment;
+import com.owncloud.android.ui.fragment.albums.AlbumItemsFragment;
+import com.owncloud.android.ui.fragment.albums.AlbumsFragment;
+import com.owncloud.android.ui.activity.AlbumsPickerActivity;
 import com.owncloud.android.ui.fragment.contactsbackup.BackupFragment;
 import com.owncloud.android.ui.fragment.contactsbackup.BackupListFragment;
 import com.owncloud.android.ui.preview.FileDownloadFragment;
@@ -509,4 +514,19 @@ abstract class ComponentsModule {
 
     @ContributesAndroidInjector
     abstract SetStatusMessageBottomSheet setStatusMessageBottomSheet();
+
+    @ContributesAndroidInjector
+    abstract AlbumsPickerActivity albumsPickerActivity();
+
+    @ContributesAndroidInjector
+    abstract CreateAlbumDialogFragment createAlbumDialogFragment();
+
+    @ContributesAndroidInjector
+    abstract AlbumsFragment albumsFragment();
+
+    @ContributesAndroidInjector
+    abstract AlbumItemsFragment albumItemsFragment();
+
+    @ContributesAndroidInjector
+    abstract AlbumItemActionsBottomSheet albumItemActionsBottomSheet();
 }
