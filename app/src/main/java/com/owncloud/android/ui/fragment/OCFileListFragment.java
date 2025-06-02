@@ -1,7 +1,7 @@
 /*
  * Nextcloud - Android Client
  *
- * SPDX-FileCopyrightText: 2023 TSI-mc
+ * SPDX-FileCopyrightText: 2023-2025 TSI-mc <surinder.kumar@t-systems.com>
  * SPDX-FileCopyrightText: 2018-2023 Tobias Kaminsky <tobias@kaminsky.me>
  * SPDX-FileCopyrightText: 2022 Álvaro Brey <alvaro@alvarobrey.com>
  * SPDX-FileCopyrightText: 2020 Joris Bodin <joris.bodin@infomaniak.com>
@@ -496,7 +496,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
                 Log_OC.w(TAG, "currentDir is null cannot open bottom sheet dialog");
                 return;
             }
-            
+
             final OCFileListBottomSheetDialog dialog = new OCFileListBottomSheetDialog(fileActivity,
                                                                                        this,
                                                                                        deviceInfo,
@@ -816,6 +816,11 @@ public class OCFileListFragment extends ExtendedListFragment implements
             // hide FAB in multi selection mode
             setFabVisible(false);
 
+            if (OCFileListFragment.this instanceof GalleryFragment) {
+                final MenuItem addAlbumItem = menu.findItem(R.id.add_to_album);
+                addAlbumItem.setVisible(true);
+            }
+
             getCommonAdapter().setMultiSelect(true);
             return true;
         }
@@ -852,6 +857,10 @@ public class OCFileListFragment extends ExtendedListFragment implements
             final Set<OCFile> checkedFiles = getCommonAdapter().getCheckedItems();
             if (item.getItemId() == R.id.custom_menu_placeholder_item) {
                 openActionsMenu(getCommonAdapter().getFilesCount(), checkedFiles, false);
+            } else if (item.getItemId() == R.id.add_to_album){
+                if (OCFileListFragment.this instanceof GalleryFragment galleryFragment) {
+                    galleryFragment.addImagesToAlbum(checkedFiles);
+                }
             }
             return true;
         }
@@ -1583,7 +1592,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
         invalidateActionMode();
     }
-    
+
     private void updateSortButton() {
         if (mSortButton != null) {
             FileSortOrder sortOrder;
@@ -2166,6 +2175,14 @@ public class OCFileListFragment extends ExtendedListFragment implements
     public void setFabVisible(final boolean visible) {
         if (mFabMain == null) {
             // is not available in FolderPickerActivity
+            return;
+        }
+
+        // to hide the fab if user is on Albums Fragment
+        if (requireActivity() instanceof FileDisplayActivity fda
+            && (fda.isAlbumsFragment()
+            || fda.isAlbumItemsFragment())) {
+            mFabMain.hide();
             return;
         }
 
