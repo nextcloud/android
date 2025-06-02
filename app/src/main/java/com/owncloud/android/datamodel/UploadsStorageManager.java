@@ -638,6 +638,33 @@ public class UploadsStorageManager extends Observable {
         return getUploadPage(QUERY_PAGE_SIZE, afterId, false, selection, accountName);
     }
 
+    public long[] getCurrentUploadIds(String accountName) {
+        List<Long> uploadIds = new ArrayList<>();
+        long lastId = -1L;
+
+        do {
+            List<OCUpload> page = getCurrentUploadsForAccountPageAscById(lastId, accountName);
+            if (page.isEmpty()) {
+                break;
+            }
+
+            for (OCUpload upload : page) {
+                uploadIds.add(upload.getUploadId());
+            }
+
+            lastId = uploadIds.get(uploadIds.size() - 1);
+
+            Log_OC.d(TAG, "Fetched " + page.size() + " uploads. Last ID: " + lastId);
+        } while (true);
+
+        long[] result = new long[uploadIds.size()];
+        for (int i = 0; i < uploadIds.size(); i++) {
+            result[i] = uploadIds.get(i);
+        }
+
+        return result;
+    }
+
 
     /**
      * Gets a page of uploads after <code>afterId</code>, where uploads are sorted by ascending upload id.
