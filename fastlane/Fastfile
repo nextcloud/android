@@ -80,7 +80,7 @@ end
 
 desc "Release phase 2 for FINAL: checks, tag, upload gplay to playstore with values from build.gradle"
 lane :Final_releasePhase2 do |options|
-    # checkReleaseRequirements_Final()
+    checkReleaseRequirements_Final()
     info = androidVersion
     promptVersion(info)
     checkChangelog(info)
@@ -90,9 +90,9 @@ lane :Final_releasePhase2 do |options|
     tag(info)
     uploadToPlaystore_Final(info)
     createGithubRelease_Final(info)
-    # fdroidMergeRequest_Final(info)
-    # createChangelogPullRequest_Final(info)
-    # uploadToHuawei_Final(info)
+    fdroidMergeRequest_Final(info)
+    createChangelogPullRequest_Final(info)
+    uploadToHuawei_Final(info)
 end
 
 desc "Makes gplay and generic releases in ../releases/"
@@ -284,11 +284,11 @@ private_lane :tag do |options|
 end
 
 private_lane :disableLogger do
-    sh("sed -i '' -e 's#<bool name=\"logger_enabled\">false</bool>#<bool name=\"logger_enabled\">true</bool>#' ../app/src/main/res/values/setup.xml")
+    sh("sed -i s'#<bool name=\"logger_enabled\">false</bool>#<bool name=\"logger_enabled\">true</bool>#' ../app/src/main/res/values/setup.xml")
 end
 
 private_lane :enableLogger do
-    sh("sed -i '' -e 's#<bool name=\"logger_enabled\">true</bool>#<bool name=\"logger_enabled\">false</bool>#' ../app/src/main/res/values/setup.xml")
+    sh("sed -i s'#<bool name=\"logger_enabled\">true</bool>#<bool name=\"logger_enabled\">false</bool>#' ../app/src/main/res/values/setup.xml")
 end
 
 desc "Upload to play store (beta)"
