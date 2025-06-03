@@ -205,6 +205,24 @@ public final class ThumbnailsCacheManager {
         return thumbnail;
     }
 
+    public static void removeFromCache(@Nullable OCFile file) {
+        if (file == null) {
+            return;
+        }
+
+        final var keys = new String[] { PREFIX_RESIZED_IMAGE + file.getRemoteId(), PREFIX_THUMBNAIL + file.getRemoteId() };
+
+        synchronized (mThumbnailsDiskCacheLock) {
+            if (mThumbnailCache == null) {
+                return;
+            }
+
+            for (String key: keys) {
+                mThumbnailCache.removeKey(key);
+            }
+        }
+    }
+
     public static void addBitmapToCache(String key, Bitmap bitmap) {
         synchronized (mThumbnailsDiskCacheLock) {
             if (mThumbnailCache == null) {
