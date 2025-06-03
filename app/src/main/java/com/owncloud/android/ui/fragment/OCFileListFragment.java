@@ -833,13 +833,13 @@ public class OCFileListFragment extends ExtendedListFragment implements
             final int checkedCount = checkedFiles.size();
             String title = getResources().getQuantityString(R.plurals.items_selected_count, checkedCount, checkedCount);
             mode.setTitle(title);
-            isMultipleFileSelectedForCopyOrMove = true;
 
             // Determine if we need to finish the action mode because there are no items selected
             if (checkedCount == 0 && !mIsActionModeNew) {
                 exitSelectionMode();
-                isMultipleFileSelectedForCopyOrMove = false;
             }
+
+            isMultipleFileSelectedForCopyOrMove = (checkedCount > 0);
 
             return true;
         }
