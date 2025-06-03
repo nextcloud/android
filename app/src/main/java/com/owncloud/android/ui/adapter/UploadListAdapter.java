@@ -113,7 +113,7 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
         switch (group.type) {
             case CURRENT, FINISHED -> headerViewHolder.binding.uploadListAction.setImageResource(R.drawable.ic_close);
             case CANCELLED, FAILED ->
-                headerViewHolder.binding.uploadListAction.setImageResource(R.drawable.ic_dots_vertical);
+                headerViewHolder.binding.uploadListAction.setImageResource(R.drawable.ic_action_refresh);
 
         }
 
@@ -422,7 +422,7 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
 
         } else if (item.getUploadStatus() == UploadStatus.UPLOAD_FAILED) {
             if (item.getLastResult() == UploadResult.SYNC_CONFLICT) {
-                itemViewHolder.binding.uploadRightButton.setImageResource(R.drawable.ic_dots_vertical);
+               // itemViewHolder.binding.uploadRightButton.setImageResource(R.drawable.ic_dots_vertical);
                 itemViewHolder.binding.uploadRightButton.setOnClickListener(view -> {
                     if (optionalUser.isPresent()) {
                         User user = optionalUser.get();

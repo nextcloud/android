@@ -73,6 +73,7 @@ import com.owncloud.android.operations.RemoteOperationFailedException;
 import com.owncloud.android.ui.activity.ComponentsGetter;
 import com.owncloud.android.ui.activity.DrawerActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
+import com.owncloud.android.ui.fragment.OCFileListFragment;
 import com.owncloud.android.ui.fragment.SearchType;
 import com.owncloud.android.ui.interfaces.OCFileListFragmentInterface;
 import com.owncloud.android.ui.preview.PreviewTextFragment;
@@ -147,7 +148,6 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private final SyncedFolderProvider syncedFolderProvider;
 
     private ArrayList<Recommendation> recommendedFiles = new ArrayList<>();
-    private boolean isMultipleFileSelectedForCopyOrMove = false;
 
     public OCFileListAdapter(
         Activity activity,
@@ -498,14 +498,13 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 checkVisibilityOfFileFeaturesLayout(gridItemViewHolder);
             }
 
-            boolean showMoreOptions = (!isMultiSelect() && !isMultipleFileSelectedForCopyOrMove);
-            ViewExtensionsKt.setVisibleIf(gridViewHolder.getMore(), showMoreOptions);
-
             updateLivePhotoIndicators(gridViewHolder, file);
 
             if (!MDMConfig.INSTANCE.sharingSupport(activity)) {
                 gridViewHolder.getShared().setVisibility(View.GONE);
             }
+
+            setVisibilityOfMoreOption(gridViewHolder);
         }
     }
 
@@ -694,6 +693,18 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             holder.getOverflowMenu().setImageResource(R.drawable.ic_locked_dots_small);
         } else {
             holder.getOverflowMenu().setImageResource(R.drawable.ic_dots_vertical);
+        }
+
+        setVisibilityOfMoreOption(holder);
+    }
+
+    private void setVisibilityOfMoreOption(Object holder) {
+        boolean showMoreOptions = (!isMultiSelect() && !OCFileListFragment.isMultipleFileSelectedForCopyOrMove);
+
+        if (holder instanceof ListItemViewHolder itemViewHolder) {
+            ViewExtensionsKt.setVisibleIf(itemViewHolder.getOverflowMenu(), showMoreOptions);
+        } else if (holder instanceof ListViewHolder viewHolder) {
+            ViewExtensionsKt.setVisibleIf(viewHolder.getMore(), showMoreOptions);
         }
     }
 
@@ -1182,12 +1193,6 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     public boolean isCheckedFile(OCFile file) {
         return ocFileListDelegate.isCheckedFile(file);
-    }
-
-    @SuppressLint("NotifyDataSetChanged")
-    public void setIsMultipleFileSelectedForCopyOrMove(boolean value) {
-        isMultipleFileSelectedForCopyOrMove = value;
-        notifyDataSetChanged();
     }
 
     public void addCheckedFile(OCFile file) {

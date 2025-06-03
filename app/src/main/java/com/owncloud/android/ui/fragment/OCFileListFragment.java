@@ -246,6 +246,8 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
     private List<MenuItem> mOriginalMenuItems = new ArrayList<>();
 
+    public static boolean isMultipleFileSelectedForCopyOrMove = false;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -831,10 +833,12 @@ public class OCFileListFragment extends ExtendedListFragment implements
             final int checkedCount = checkedFiles.size();
             String title = getResources().getQuantityString(R.plurals.items_selected_count, checkedCount, checkedCount);
             mode.setTitle(title);
+            isMultipleFileSelectedForCopyOrMove = true;
 
             // Determine if we need to finish the action mode because there are no items selected
             if (checkedCount == 0 && !mIsActionModeNew) {
                 exitSelectionMode();
+                isMultipleFileSelectedForCopyOrMove = false;
             }
 
             return true;
