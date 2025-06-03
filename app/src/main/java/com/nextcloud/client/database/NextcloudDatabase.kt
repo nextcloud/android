@@ -104,7 +104,6 @@ abstract class NextcloudDatabase : RoomDatabase() {
                     .addLegacyMigrations(clock, context)
                     .addMigrations(RoomMigration())
                     .addMigrations(Migration67to68())
-                    .fallbackToDestructiveMigration()
                     .build()
             }
             return instance!!
