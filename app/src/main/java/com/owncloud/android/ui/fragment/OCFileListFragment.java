@@ -246,8 +246,6 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
     private List<MenuItem> mOriginalMenuItems = new ArrayList<>();
 
-    public static boolean isMultipleFileSelectedForCopyOrMove = false;
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -838,8 +836,6 @@ public class OCFileListFragment extends ExtendedListFragment implements
             if (checkedCount == 0 && !mIsActionModeNew) {
                 exitSelectionMode();
             }
-
-            isMultipleFileSelectedForCopyOrMove = (checkedCount > 0);
 
             return true;
         }
