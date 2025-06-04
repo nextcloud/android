@@ -229,8 +229,7 @@ public class SaveCalendar {
                                  where, args, sortBy);
         } catch (Exception except) {
             Log_OC.w(TAG, "Calendar provider is missing columns, continuing anyway");
-            int n = 0;
-            for (n = 0; n < EVENT_COLS.length; ++n) {
+            for (int n = 0; n < EVENT_COLS.length; ++n) {
                 if (EVENT_COLS[n] == null) {
                     Log_OC.e(TAG, "Invalid EVENT_COLS index " + Integer.toString(n));
                 }

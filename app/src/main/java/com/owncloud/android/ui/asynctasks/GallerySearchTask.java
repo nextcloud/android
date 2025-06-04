@@ -139,7 +139,7 @@ public class GallerySearchTask extends AsyncTask<Void, Void, GallerySearchTask.R
 
         Map<String, OCFile> localFilesMap = RefreshFolderOperation.prefillLocalFilesMap(null, localFiles);
 
-        long filesAdded = 0, filesUpdated = 0, filesDeleted = 0, unchangedFiles = 0;
+        long filesAdded = 0, filesUpdated = 0, unchangedFiles = 0;
 
         for (Object file : remoteFiles) {
             OCFile ocFile = FileStorageUtils.fillOCFile((RemoteFile) file);
@@ -170,7 +170,7 @@ public class GallerySearchTask extends AsyncTask<Void, Void, GallerySearchTask.R
         }
 
         // existing files to remove
-        filesDeleted = localFilesMap.values().size();
+        long filesDeleted = localFilesMap.size();
 
         for (OCFile file : localFilesMap.values()) {
             if (BuildConfig.DEBUG) {

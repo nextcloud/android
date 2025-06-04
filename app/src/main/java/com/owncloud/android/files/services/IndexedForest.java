@@ -184,10 +184,7 @@ public class IndexedForest<V> {
     }
 
     private void removeDescendants(Node<V> removed) {
-        Iterator<Node<V>> childrenIt = removed.getChildren().iterator();
-        Node<V> child = null;
-        while (childrenIt.hasNext()) {
-            child = childrenIt.next();
+        for (Node<V> child : removed.getChildren()) {
             mMap.remove(child.getKey());
             removeDescendants(child);
         }

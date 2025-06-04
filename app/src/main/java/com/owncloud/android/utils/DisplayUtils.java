@@ -348,7 +348,6 @@ public final class DisplayUtils {
                                                          int flags,
                                                          boolean showFuture) {
 
-        CharSequence dateString = "";
 
         // in Future
         if (!showFuture && time > System.currentTimeMillis()) {
@@ -359,19 +358,19 @@ public final class DisplayUtils {
         if (diff > 0 && diff < 60 * 1000 && minResolution == DateUtils.SECOND_IN_MILLIS) {
             return c.getString(R.string.file_list_seconds_ago);
         } else {
-            dateString = DateUtils.getRelativeDateTimeString(c, time, minResolution, transitionResolution, flags);
-        }
+            CharSequence dateString = DateUtils.getRelativeDateTimeString(c, time, minResolution, transitionResolution, flags);
 
-        String[] parts = dateString.toString().split(",");
-        if (parts.length == DATE_TIME_PARTS_SIZE) {
-            if (parts[1].contains(":") && !parts[0].contains(":")) {
-                return parts[0];
-            } else if (parts[0].contains(":") && !parts[1].contains(":")) {
-                return parts[1];
+            String[] parts = dateString.toString().split(",");
+            if (parts.length == DATE_TIME_PARTS_SIZE) {
+                if (parts[1].contains(":") && !parts[0].contains(":")) {
+                    return parts[0];
+                } else if (parts[0].contains(":") && !parts[1].contains(":")) {
+                    return parts[1];
+                }
             }
+            // dateString contains unexpected format. fallback: use relative date time string from android api as is.
+            return dateString.toString();
         }
-        // dateString contains unexpected format. fallback: use relative date time string from android api as is.
-        return dateString.toString();
     }
 
     /**
