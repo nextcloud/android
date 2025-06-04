@@ -24,10 +24,13 @@ import kotlinx.coroutines.delay
 class SyncWorkerNotificationManager(private val context: Context, private val notificationId: Int) {
 
     private val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-
     private val channelId = NotificationUtils.NOTIFICATION_CHANNEL_DOWNLOAD
 
-    @Suppress("MagicNumber")
+    companion object {
+        private const val MAX_PROGRESS = 100
+        private const val DELAY = 1000L
+    }
+
     private fun getNotification(title: String, description: String? = null, progress: Int? = null): Notification {
         return NotificationCompat.Builder(context, channelId).apply {
             setSmallIcon(R.drawable.ic_sync)
@@ -38,7 +41,7 @@ class SyncWorkerNotificationManager(private val context: Context, private val no
             }
 
             progress?.let {
-                setProgress(100, progress, false)
+                setProgress(MAX_PROGRESS, progress, false)
 
                 addAction(
                     android.R.drawable.ic_menu_close_clear_cancel,
@@ -68,16 +71,14 @@ class SyncWorkerNotificationManager(private val context: Context, private val no
         )
     }
 
-    @Suppress("MagicNumber")
     fun showProgressNotification(folderName: String, filename: String, currentIndex: Int, totalFileSize: Int) {
         val currentFileIndex = (currentIndex + 1)
         val description = context.getString(R.string.sync_worker_counter, currentFileIndex, totalFileSize, filename)
-        val progress = (currentFileIndex * 100) / totalFileSize
+        val progress = (currentFileIndex * MAX_PROGRESS) / totalFileSize
         val notification = getNotification(title = folderName, description = description, progress = progress)
         notificationManager.notify(notificationId, notification)
     }
 
-    @Suppress("MagicNumber")
     suspend fun showCompletionMessage(folderName: String, success: Boolean) {
         val title = if (success) {
             context.getString(R.string.sync_worker_success_notification_title, folderName)
@@ -88,7 +89,7 @@ class SyncWorkerNotificationManager(private val context: Context, private val no
         val notification = getNotification(title = title)
         notificationManager.notify(notificationId, notification)
 
-        delay(1000)
+        delay(DELAY)
         dismiss()
     }
 
@@ -100,13 +101,12 @@ class SyncWorkerNotificationManager(private val context: Context, private val no
         )
     }
 
-    @Suppress("MagicNumber")
     suspend fun showNotAvailableDiskSpace() {
         val notification =
             getNotification(context.getString(R.string.sync_worker_insufficient_disk_space_notification_title))
         notificationManager.notify(notificationId, notification)
 
-        delay(1000)
+        delay(DELAY)
         dismiss()
     }
 
