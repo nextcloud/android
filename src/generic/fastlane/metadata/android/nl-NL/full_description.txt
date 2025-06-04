@@ -1,19 +1,19 @@
-Het eigen-hosting productiviteitsplatform waarmee je zelf in control bent.
+Het zelf-gehoste productiviteitsplatform dat je de controle geeft.
 
-Functies:
-* Eenvoudige, moderne interface, passend bij het thema van jouw server
-* Upload bestanden naar je Nextcloud server
+Kenmerken:
+* Eenvoudige, moderne interface, afgestemd op het thema van jouw server
+* Bestanden uploaden naar je Nextcloud-server
 * Deel ze met anderen
-* Hou je favoriete bestanden en mappen gesynchroniseerd
+* Houd je favoriete bestanden en mappen gesynchroniseerd
 * Zoek in alle mappen op je server
-* Auto Upload voor foto's en video's op je toestel
-* Blijf bij met meldingen
-* Multi-account ondersteuning
-* veilige toegang tot je gegevens door vingerafdruk of  PIN
-* Integratie met DAVx5 (vroeger bekend als DAVdroid) vooreenvoudig instellen van je agenda& Contactpersonensynchronisatie
+* Auto-upload voor foto's en video's gemaakt door je apparaat
+* Blijf op de hoogte met meldingen
+* Ondersteuning voor meerdere accounts
+* Veilige toegang tot je gegevens met vingerafdruk of PIN
+* Integratie met DAVx⁵ (voorheen bekend als DAVdroid) voor een gemakkelijke installatie van kalender- en contactensynchronisatie
 
-Meld alle problemen op https://github.com/nextcloud/android/issues en bespreek deze app op https://help.nextcloud.com/c/clients/android
+Rapporteer alle problemen op https://github.com/nextcloud/android/issues en bespreek deze app op https://help.nextcloud.com/c/clients/android
 
-Nieuw bij Nextcloud? Nextcloud is een persoonlijk bestandensync- & -deel en communicatieserver. het is vrije software, die je zelf kunt draaien of bij een betaalde provider. Hierdoor ben je zelf in control van jouw foto's, jouw agenda en contactgegevens, jouw documenten en al het andere.
+Nieuw bij Nextcloud? Nextcloud is een privé server voor bestandssynchronisatie en -deling en communicatie. Het is libre software en je kunt het zelf hosten of een bedrijf betalen om het voor je te doen. Op die manier heb je de controle over je foto's, je agenda en contactgegevens, je documenten en alles wat erbij hoort.
 
 Bekijk Nextcloud op https://nextcloud.com

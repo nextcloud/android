@@ -44,7 +44,7 @@
     <string name="app_config_proxy_host_title">Vekil sunucu adı</string>
     <string name="app_config_proxy_port_title">Vekil sunucu bağlantı noktası</string>
     <string name="app_widget_description">Panodan bir pano bileşeni görüntüler</string>
-    <string name="appbar_search_in">%s içinde arama</string>
+    <string name="appbar_search_in">%s içinde ara</string>
     <string name="assistant_screen_add_task_alert_dialog_title">Yeni görev ekle</string>
     <string name="assistant_screen_create_a_new_task_from_bottom_right_text">Sağ alttan yeni bir görev oluşturun</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Bir şeyler yazın</string>
