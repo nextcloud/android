@@ -13,6 +13,7 @@ import android.view.View;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.nextcloud.client.network.ClientFactory;
+import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.common.NextcloudClient;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.ActivityListLayoutBinding;
@@ -58,6 +59,7 @@ public class ActivitiesActivity extends DrawerActivity implements ActivityListIn
     @Inject ActivitiesRepository activitiesRepository;
     @Inject FilesRepository filesRepository;
     @Inject ClientFactory clientFactory;
+    @Inject ConnectivityService connectivityService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -181,7 +183,16 @@ public class ActivitiesActivity extends DrawerActivity implements ActivityListIn
 
     @Override
     public void showActivitiesLoadError(String error) {
-        snackbar = DisplayUtils.showSnackMessage(this, error);
+        connectivityService.isNetworkAndServerAvailable(result -> {
+            if (result) {
+                snackbar = DisplayUtils.showSnackMessage(this, error);
+            } else {
+                showEmptyContent(getString(R.string.server_not_reachable),
+                                 getString(R.string.server_not_reachable_content));
+                binding.emptyList.emptyListIcon.setImageResource(R.drawable.ic_cloud_sync_off);
+            }
+        });
+        
     }
 
     @Override
