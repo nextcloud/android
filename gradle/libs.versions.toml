@@ -3,7 +3,7 @@
 
 [versions]
 androidCommonLibraryVersion = "0.25.0"
-androidLibraryVersion = "8e561c7e65f208492c20b106eb25cfbe43dc7189"
+androidLibraryVersion = "cb9ebaa0c8839c8593ac5fe5930e633bf8b41328"
 daggerVersion = "2.56.2"
 espressoVersion = "3.6.1"
 media3 = "1.5.1"
