@@ -30,7 +30,7 @@ class SyncWorkerNotificationManager(private val context: Context, private val no
     @Suppress("MagicNumber")
     private fun getNotification(title: String, description: String? = null, progress: Int? = null): Notification {
         return NotificationCompat.Builder(context, channelId).apply {
-            setSmallIcon(android.R.drawable.stat_sys_download_done)
+            setSmallIcon(R.drawable.ic_sync)
             setContentTitle(title)
 
             description?.let {
@@ -71,9 +71,9 @@ class SyncWorkerNotificationManager(private val context: Context, private val no
     @Suppress("MagicNumber")
     fun showProgressNotification(folderName: String, filename: String, currentIndex: Int, totalFileSize: Int) {
         val currentFileIndex = (currentIndex + 1)
-        val title = "$currentFileIndex / $totalFileSize - $filename"
+        val description = context.getString(R.string.sync_worker_counter, currentFileIndex, totalFileSize, filename)
         val progress = (currentFileIndex * 100) / totalFileSize
-        val notification = getNotification(title = folderName, description = title, progress = progress)
+        val notification = getNotification(title = folderName, description = description, progress = progress)
         notificationManager.notify(notificationId, notification)
     }
 
