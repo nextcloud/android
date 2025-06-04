@@ -338,7 +338,7 @@ dependencies {
     implementation "com.caverock:androidsvg:1.4"
     implementation "androidx.annotation:annotation:1.9.1"
     implementation "com.vanniktech:emoji-google:0.21.0"
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.8.7")
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.9.1")
 
     // document scanner not available on FDroid (generic) due to OpenCV binaries
     gplayImplementation project(":appscan")
