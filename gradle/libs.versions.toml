@@ -3,7 +3,7 @@
 
 [versions]
 espressoVersion = "3.6.1"
-media3 = "1.5.1"
+media3 = "1.7.1"
 roomVersion = "2.6.1"
 splash-screen = "1.0.1"
 kotlin = "2.1.20"
