@@ -44,7 +44,7 @@
     <string name="app_config_proxy_host_title">Vekil sunucu adı</string>
     <string name="app_config_proxy_port_title">Vekil sunucu bağlantı noktası</string>
     <string name="app_widget_description">Panodan bir pano bileşeni görüntüler</string>
-    <string name="appbar_search_in">%s içinde arama</string>
+    <string name="appbar_search_in">%s içinde ara</string>
     <string name="assistant_screen_add_task_alert_dialog_title">Yeni görev ekle</string>
     <string name="assistant_screen_create_a_new_task_from_bottom_right_text">Sağ alttan yeni bir görev oluşturun</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Bir şeyler yazın</string>
@@ -115,7 +115,7 @@
     <string name="backup_title">Kişiler ve takvim yedeği</string>
     <string name="battery_optimization_close">Kapat</string>
     <string name="battery_optimization_disable">Kullanımdan kaldır</string>
-    <string name="battery_optimization_message">Aygıtınızda pil kullanımı iyileştirmesi kullanılıyor olabilir. Otomatik yükleme yalnızca bu uygulamayı pil kullanımı iyileştirmesinin dışında tuttuğunuzda düzgün çalışır.</string>
+    <string name="battery_optimization_message">Aygıtınızda pil eniyileştirmesi etkin olabilir. Otomatik yükleme yalnızca bu uygulamayı hariç tutarsanız düzgün çalışır.</string>
     <string name="battery_optimization_title">Pil kullanımı iyileştirmesi</string>
     <string name="bottom_navigation_menu_assistant_label">Yardımcı</string>
     <string name="bottom_navigation_menu_favorites_label">Sık kullanılanlar</string>
@@ -313,7 +313,7 @@
     <string name="end_to_end_encryption_folder_not_empty">Bu klasör boş değil.</string>
     <string name="end_to_end_encryption_generating_keys">Yeni anahtarlar oluşturuluyor…</string>
     <string name="end_to_end_encryption_keywords_description">12 sözcüklü parola çok güçlüdür ve şifrelenmiş dosyalarınızı yalnızca sizin görüntüleyip kullanabilmenizi sağlar. Lütfen bir yere yazarak güvenli bir yerde saklayın.</string>
-    <string name="end_to_end_encryption_not_enabled">Sunucu üzerinde uçtan uca şifreleme kullanımdan kaldırılmış.</string>
+    <string name="end_to_end_encryption_not_enabled">Sunucu üzerinde uçtan uca şifreleme devre dışı bırakılmış.</string>
     <string name="end_to_end_encryption_passphrase_title">12 sözcüklü şifreleme parolanızı not edin</string>
     <string name="end_to_end_encryption_password">Parola …</string>
     <string name="end_to_end_encryption_retrieving_keys">Anahtarlar alınıyor …</string>
@@ -547,7 +547,7 @@
     <string name="logs_title">Günlükler</string>
     <string name="maintenance_mode">Sunucu bakım kipinde</string>
     <string name="manage_space_clear_data">Verileri temizle</string>
-    <string name="manage_space_description">%1$s verilerinden ayarlar, veri tabanı ve sunucu sertifikaları kalıcı olarak silinecek. \n\nİndirilen dosyalara dokunulmayacak.\n\nBu işlem biraz zaman alabilir.</string>
+    <string name="manage_space_description">%1$s verilerinden ayarlar, veritabanı ve sunucu sertifikaları kalıcı olarak silinecek. \n\nİndirilen dosyalara dokunulmayacak.\n\nBu işlem biraz zaman alabilir.</string>
     <string name="manage_space_title">Alan yönetimi</string>
     <string name="max_file_count_warning_message">Yüklenebilecek dosya sayısı sınırına ulaştınız. Lütfen bir seferde 500 taneden az dosya yükleyin.</string>
     <string name="media_err_invalid_progressive_playback">Ortam dosyası akışı sağlanamadı</string>
@@ -658,7 +658,7 @@
     <string name="please_select_a_server">Lütfen bir sunucu seçin…</string>
     <string name="power_save_check_dialog_message">Güç koruma denetiminin kapatılması pil düzeyi düşükken dosyaların yüklenmesine neden olabilir!</string>
     <string name="pref_behaviour_entries_delete_file">silindi</string>
-    <string name="pref_behaviour_entries_keep_file">özgün klasöründe korundu</string>
+    <string name="pref_behaviour_entries_keep_file">özgün klasöründe korunacak</string>
     <string name="pref_behaviour_entries_move">app klasörüne taşındı</string>
     <string name="pref_instant_name_collision_policy_dialogTitle">Dosya zaten varsa ne yapılsın?</string>
     <string name="pref_instant_name_collision_policy_entries_always_ask">Her defasında sorulsun</string>
@@ -682,14 +682,14 @@
     <string name="prefs_data_storage_location_summary">Veri depolama konumunu yönet</string>
     <string name="prefs_e2e_active">Uçtan uca şifreleme kuruldu!</string>
     <string name="prefs_e2e_mnemonic">E2E belleği</string>
-    <string name="prefs_e2e_no_device_credentials">Belleğin görüntülenmesi için aygıt kimlik doğrulama bilgilerini kullanıma alın.</string>
+    <string name="prefs_e2e_no_device_credentials">Nimonik görüntülenmesi için aygıt kimlik doğrulama bilgilerini etkinleştirin.</string>
     <string name="prefs_enable_media_scan_notifications">Ortam tarama bildirimleri görüntülensin</string>
     <string name="prefs_enable_media_scan_notifications_summary">Yeni bulunan ortam klasörleri bildirilsin</string>
     <string name="prefs_gpl_v2">GNU Genel Kamu Lisansı 2. Sürüm</string>
     <string name="prefs_help">Yardım</string>
     <string name="prefs_imprint">İzlenim</string>
-    <string name="prefs_instant_behaviour_dialogTitle">Özgün dosya şu olacak …</string>
-    <string name="prefs_instant_behaviour_title">Özgün dosya şu olacak …</string>
+    <string name="prefs_instant_behaviour_dialogTitle">Özgün dosya…</string>
+    <string name="prefs_instant_behaviour_title">Özgün dosya…</string>
     <string name="prefs_instant_upload_exclude_hidden_summary">Gizli dosya ve klasörler katılmasın</string>
     <string name="prefs_instant_upload_exclude_hidden_title">Gizliler katılmasın</string>
     <string name="prefs_instant_upload_path_use_date_subfolders_summary">Tarihe göre alt klasörlere kaydedilsin</string>
@@ -732,12 +732,12 @@
     <string name="preview_sorry">Ne yazık ki</string>
     <string name="privacy">Gizlilik</string>
     <string name="public_share_name">Yeni ad</string>
-    <string name="push_notifications_not_implemented">Anında bildirimler Google Play hizmetlerine ait olan bağımlılıklar nedeniyle kullanımdan kaldırıldı.</string>
+    <string name="push_notifications_not_implemented">Anında bildirimler Google Play hizmetlerine ait olan bağımlılıklar nedeniyle devre dışı bırakıldı.</string>
     <string name="push_notifications_old_login">Oturumunuzun süresi dolduğundan anında bildirimler gönderilemez. Lütfen hesabınızı yeniden eklemeyi düşünün.</string>
     <string name="push_notifications_temp_error">Anında bildirimler şu anda kullanılamıyor.</string>
     <string name="qr_could_not_be_read">QR kodu okunamadı!</string>
     <string name="re_enable_auto_upload">Otomatik yüklenecek değişiklikler</string>
-    <string name="re_enable_auto_upload_desc">Google tarafından getirilen yeni kısıtlamalar nedeniyle önemli bir izni kaldırmak zorunda kaldık. Şu anda bu sorunu çözmek ve tam özellikleri yeniden kullanabilmek için Google ile birlikte çalışıyoruz.\n\nYeni fotoğrafları ve videoları otomatik yüklemeyi yeniden kullanıma almak için:\nAşağıdaki pencereden veya sistem ayarlarından \"Tümüne izin verilsin\" seçeneğini seçin.\nSorulduğunda medya konumu iznini verin: Böylece Nextcloud görselleri yüklerken konum verilerini kaydedebilir.\n\nİzin penceresi yalnızca gerektiğinde görüntülenir. Şüpheniz varsa, lütfen sistem ayarları bölümünden yeniden kontrol edin.\n\nOtomatik yükleme, yalnızca Nextcloud uygulamasının Google Play sürümünü kullanırken görsel ve video dosyalarını yükleyebilir.\n\nLütfen 2024 Aralık ayından sonra yüklenmemiş olabilecek dosyaları kontrol edin.</string>
+    <string name="re_enable_auto_upload_desc">Google tarafından getirilen yeni kısıtlamalar nedeniyle önemli bir izni kaldırmak zorunda kaldık. Şu anda bu sorunu çözmek ve tam özellikleri yeniden kullanabilmek için Google ile birlikte çalışıyoruz.\n\nYeni fotoğrafları ve videoları otomatik yüklemeyi yeniden etkinleştirmek için:\nAşağıdaki pencereden veya sistem ayarlarından \"Tümüne izin verilsin\" seçeneğini seçin.\nSorulduğunda medya konumu iznini verin: Böylece Nextcloud görselleri yüklerken konum verilerini kaydedebilir.\n\nİzin penceresi yalnızca gerektiğinde görüntülenir. Şüpheniz varsa, lütfen sistem ayarları bölümünden yeniden kontrol edin.\n\nOtomatik yükleme, yalnızca Nextcloud uygulamasının Google Play sürümünü kullanırken görsel ve video dosyalarını yükleyebilir.\n\nLütfen 2024 Aralık ayından sonra yüklenmemiş olabilecek dosyaları kontrol edin.</string>
     <string name="receive_external_files_activity_start_sync_folder_is_not_exists_message">Klasör bulunamadı. Eşitleme işlemi iptal edildi</string>
     <string name="receive_external_files_activity_unable_to_find_file_to_upload">Yüklenecek dosya bulunamadı</string>
     <string name="recommend_subject">%1$s uygulamasını aygıtınız üzerinde deneyin!</string>
@@ -1006,7 +1006,7 @@
     <string name="upload_item_action_button">Öge yükleme işlemi düğmesi</string>
     <string name="upload_list_delete">Sil</string>
     <string name="upload_list_empty_headline">Herhangi bir yükleme yok</string>
-    <string name="upload_list_empty_text_auto_upload">Bazı içerikler yükleyin ya da otomatik yükleme özelliğini kullanıma alın.</string>
+    <string name="upload_list_empty_text_auto_upload">Bazı içerikler yükleyin ya da otomatik yükleme özelliğini etkinleştirin.</string>
     <string name="upload_list_expand_header">Başlık genişlemesini aç/kapat</string>
     <string name="upload_list_resolve_conflict">Çakışmayı çöz</string>
     <string name="upload_local_storage_full">Yerel depolama alanı doldu</string>
@@ -1095,7 +1095,7 @@
     <string name="whats_new_skip">Atla</string>
     <string name="whats_new_title">%1$s yenilikleri</string>
     <string name="whats_your_status">Durumunuz nedir?</string>
-    <string name="widgets_not_available">Pano bileşenlerinin kullanılabilmesi için %1$s 25 veya üzeri sürümlerde Pano uygulaması kullanıma alınmalıdır</string>
+    <string name="widgets_not_available">Pano bileşenlerinin kullanılabilmesi için %1$s 25 veya üzeri sürümlerde Pano uygulaması etkinleştirilmelidir</string>
     <string name="widgets_not_available_title">Kullanılamaz</string>
     <string name="worker_download">Dosyalar indiriliyor…</string>
     <string name="write_email">E-posta gönder</string>
