@@ -3,12 +3,12 @@
     <string name="about_android">%1$s Android app</string>
     <string name="about_title">Over</string>
     <string name="about_version">versie %1$s</string>
-    <string name="about_version_with_build">versie %1$s, build #%2$s</string>
+    <string name="about_version_with_build">versie %1$s, bouwnummer %2$s </string>
     <string name="account_creation_failed">Account aanmaken mislukt</string>
     <string name="account_icon">Accountpictogram</string>
     <string name="account_not_found">Account niet gevonden!</string>
     <string name="action_edit">Bewerken</string>
-    <string name="action_empty_notifications">Handel alle meldingen af</string>
+    <string name="action_empty_notifications">Ale meldingen wissen</string>
     <string name="action_empty_trashbin">Prullenbak legen</string>
     <string name="action_send_share">Versturen/delen</string>
     <string name="action_switch_grid_view">Rasterindeling </string>
@@ -26,7 +26,7 @@
     <string name="activities_no_results_headline">Nog geen activiteit</string>
     <string name="activities_no_results_message">Er zijn nog geen gebeurtenissen zoals toevoegingen, wijzigingen en shares.</string>
     <string name="activity_chooser_send_file_title">Versturen</string>
-    <string name="activity_chooser_title">Verstuur link naar…</string>
+    <string name="activity_chooser_title">Link versturen naar…</string>
     <string name="activity_icon">Activiteit</string>
     <string name="add_new_public_share">Voeg een nieuwe openbare deellink toe</string>
     <string name="add_new_secure_file_drop">Beveiligde bestands-drop</string>
@@ -704,7 +704,7 @@
     <string name="prefs_lock_device_credentials_not_setup">Er zijn geen apparaatinloggegevens ingesteld</string>
     <string name="prefs_lock_none">Geen</string>
     <string name="prefs_lock_title">Bescherm app met</string>
-    <string name="prefs_lock_using_device_credentials">Toestelgegevens</string>
+    <string name="prefs_lock_using_device_credentials">Toestelreferenties</string>
     <string name="prefs_lock_using_passcode">Toegangscode</string>
     <string name="prefs_manage_accounts">Accounts beheren</string>
     <string name="prefs_recommend">Aanbevelen bij een vriend</string>
@@ -779,7 +779,7 @@
     <string name="screenshot_01_gridView_subline">self-hosting productiviteit</string>
     <string name="screenshot_02_listView_heading">Blader en deel</string>
     <string name="screenshot_02_listView_subline">alle taken onder je vindertoppen</string>
-    <string name="screenshot_03_drawer_heading">Activiteiten, delen, ...</string>
+    <string name="screenshot_03_drawer_heading">Activiteiten, delen, …</string>
     <string name="screenshot_03_drawer_subline">alles snel toegankelijk</string>
     <string name="screenshot_04_accounts_heading">Al je accounts</string>
     <string name="screenshot_04_accounts_subline">op één plek</string>
@@ -803,7 +803,7 @@
     <string name="set_status_message">Instellen statusbericht</string>
     <string name="setup_e2e">Tijden het instellen van end-to-end versleuteling ontvang je een mnemonic van 12 woorden, die je nodig hebt om bestanden op je apparaat te openen. Dit wordt alleen opgeslagen op dit apparaat en kan in dit scherm opnieuw getoond worden. Noteer het a.u.b. op een veilige plek!</string>
     <string name="share">Delen</string>
-    <string name="share_copy_link">Link delen en kopiëren</string>
+    <string name="share_copy_link">Delen en link kopiëren</string>
     <string name="share_dialog_title">Delen</string>
     <string name="share_download_limit">Stel downloadlimiet in</string>
     <string name="share_expiration_date_format">%1$s</string>
