@@ -24,5 +24,6 @@ if [[ $betaCount -gt 0 ]] ; then
     echo "Beta is set in setup.xml"
     exit 1
 fi
+
 exit 0
 
