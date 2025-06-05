@@ -232,6 +232,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
     protected AsyncTask<Void, Void, Boolean> remoteOperationAsyncTask;
     protected String mLimitToMimeType;
     private FloatingActionButton mFabMain;
+    public static boolean isMultipleFileSelectedForCopyOrMove = false;
 
     @Inject DeviceInfo deviceInfo;
 
@@ -853,9 +854,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
                 exitSelectionMode();
             }
 
-            if (getCommonAdapter() != null) {
-                getCommonAdapter().setMultiSelect(checkedCount > 0);
-            }
+            isMultipleFileSelectedForCopyOrMove = (checkedCount > 0);
 
             return true;
         }
@@ -891,6 +890,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
             getCommonAdapter().setMultiSelect(false);
             getCommonAdapter().clearCheckedItems();
+            isMultipleFileSelectedForCopyOrMove = false;
         }
 
         public void storeStateIn(Bundle outState) {

@@ -83,6 +83,8 @@ open class FolderPickerActivity :
             folderPickerBinding = FilesFolderPickerBinding.inflate(layoutInflater)
             setContentView(folderPickerBinding.root)
         }
+
+        OCFileListFragment.isMultipleFileSelectedForCopyOrMove = true
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -104,6 +106,11 @@ open class FolderPickerActivity :
         updateActionBarTitleAndHomeButtonByString(captionText)
         setBackgroundText()
         handleOnBackPressed()
+    }
+
+    override fun onDestroy() {
+        OCFileListFragment.isMultipleFileSelectedForCopyOrMove = false
+        super.onDestroy()
     }
 
     private fun setupActionBar() {
@@ -290,7 +297,7 @@ open class FolderPickerActivity :
             localBroadcastManager.registerReceiver(it, intentFilter)
         }
 
-        listOfFilesFragment?.commonAdapter?.setMultiSelect(true)
+        // listOfFilesFragment?.commonAdapter?.setMultiSelect(true)
         Log_OC.d(TAG, "onResume() end")
     }
 
