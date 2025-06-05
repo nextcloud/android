@@ -161,7 +161,7 @@ If automatic backport fails, it will create a comment.
 For speeding up developing, we do use a master snapshot of nextcloud-library, provided by jitpack.io.
 This means that if a breaking change is merged on library, master branch of the app will fail.
 To limit this risk please follow this approach:
-- on app PR: first use a reference to your library branch in build.gradle: ext -> androidLibraryVersion, e.g. androidLibraryVersion = "changeSearch-SNAPSHOT"
+- on app PR: first use a reference to your library branch in gradle/libs.versions.toml: ext -> androidLibraryVersion, e.g. androidLibraryVersion = "changeSearch-SNAPSHOT"
 - on library PR: use label "client change required" to indicate that this is breaking change. This will prevent GitHub from merging it.
 
 Once both PRs are reviewed and ready to merge:
