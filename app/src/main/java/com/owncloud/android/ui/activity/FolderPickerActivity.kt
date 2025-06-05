@@ -297,7 +297,6 @@ open class FolderPickerActivity :
             localBroadcastManager.registerReceiver(it, intentFilter)
         }
 
-        // listOfFilesFragment?.commonAdapter?.setMultiSelect(true)
         Log_OC.d(TAG, "onResume() end")
     }
 
