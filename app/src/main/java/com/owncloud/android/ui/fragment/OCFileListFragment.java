@@ -807,7 +807,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
             inflater.inflate(R.menu.custom_menu_placeholder, menu);
             final MenuItem item = menu.findItem(R.id.custom_menu_placeholder_item);
             item.setIcon(viewThemeUtils.platform.colorDrawable(item.getIcon(), ContextCompat.getColor(requireContext(), R.color.white)));
-            mode.invalidate();
+            mActiveActionMode.invalidate();
 
             //set actionMode color
             viewThemeUtils.platform.colorStatusBar(
@@ -829,8 +829,11 @@ public class OCFileListFragment extends ExtendedListFragment implements
         public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
             Set<OCFile> checkedFiles = getCommonAdapter().getCheckedItems();
             final int checkedCount = checkedFiles.size();
-            String title = getResources().getQuantityString(R.plurals.items_selected_count, checkedCount, checkedCount);
-            mode.setTitle(title);
+
+            if (mActiveActionMode != null) {
+                String title = getResources().getQuantityString(R.plurals.items_selected_count, checkedCount, checkedCount);
+                mActiveActionMode.setTitle(title);
+            }
 
             // Determine if we need to finish the action mode because there are no items selected
             if (checkedCount == 0 && !mIsActionModeNew) {
