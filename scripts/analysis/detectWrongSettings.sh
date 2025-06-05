@@ -6,7 +6,7 @@
 
 snapshotCount=$(./gradlew dependencies | grep SNAPSHOT -c)
 betaCount=$(grep "<bool name=\"is_beta\">true</bool>" app/src/main/res/values/setup.xml -c)
-libraryHash=$(grep androidLibraryVersion /gradle/libs.versions.toml | cut -d= -f2 | tr -d \")
+libraryHash=$(grep androidLibraryVersion libs.versions.toml | cut -d= -f2 | tr -d \")
 
 lastHashes=$(curl "https://api.github.com/repos/nextcloud/android-library/commits?sha=$baseBranch" | jq ".[] .sha" | head -n 20)
 baseBranch="master"
