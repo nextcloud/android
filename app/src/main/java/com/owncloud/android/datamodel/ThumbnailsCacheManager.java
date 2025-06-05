@@ -963,20 +963,12 @@ public final class ThumbnailsCacheManager {
                         thumbnail = addThumbnailToCache(imageKey, bitmap, file.getPath(), px, px);
                     }
                 } else if (Type.VIDEO == type) {
-                    MediaMetadataRetriever retriever = new MediaMetadataRetriever();
-                    try {
+                    try (MediaMetadataRetriever retriever = new MediaMetadataRetriever()) {
                         retriever.setDataSource(file.getAbsolutePath());
                         thumbnail = retriever.getFrameAtTime(-1);
                     } catch (Exception ex) {
                         // can't create a bitmap
                         Log_OC.w(TAG, "Failed to create bitmap from video " + file.getAbsolutePath());
-                    } finally {
-                        try {
-                            retriever.release();
-                        } catch (RuntimeException | IOException ex) {
-                            // Ignore failure at this point.
-                            Log_OC.w(TAG, "Failed release MediaMetadataRetriever for " + file.getAbsolutePath());
-                        }
                     }
 
                     if (thumbnail != null) {
