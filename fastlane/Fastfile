@@ -261,12 +261,12 @@ end
 
 desc "check if library is set correctly"
 private_lane :checkLibrary_RC do
-    sh(" if [ $(egrep 'androidLibraryVersion.*master.*' ../gradle/libs.versions.toml -c) -eq 1 ] ; then echo 'Library is set to master tag; aborting!' ; exit 1 ; fi")
+    sh(" if [ $(egrep 'androidLibraryVersion.*master.*' ../build.gradle -c) -eq 1 ] ; then echo 'Library is set to master tag; aborting!' ; exit 1 ; fi")
 end
 
 desc "check if library is set correctly: must NOT contain master nor rc"
 private_lane :checkLibrary_Final do
-    sh(" if [ $(grep 'androidLibraryVersion' ../gradle/libs.versions.toml | egrep 'master|rc' -c) -eq 1 ] ; then echo 'Library is still set to rc tag; aborting!' ; exit 1 ; fi")
+    sh(" if [ $(grep 'androidLibraryVersion' ../build.gradle | egrep 'master|rc' -c) -eq 1 ] ; then echo 'Library is still set to rc tag; aborting!' ; exit 1 ; fi")
 end
 
 desc "check if screenshots exists and exit"

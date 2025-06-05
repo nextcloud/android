@@ -268,8 +268,7 @@ android {
 }
 
 dependencies {
-    // region Nextcloud Libs
-    implementation(libs.android.library) {
+    implementation("com.github.nextcloud:android-library:$androidLibraryVersion") {
         exclude group: "org.ogce", module: "xpp3" // unused in Android and brings wrong Junit version
     }
 
