@@ -73,7 +73,6 @@ import com.owncloud.android.operations.RemoteOperationFailedException;
 import com.owncloud.android.ui.activity.ComponentsGetter;
 import com.owncloud.android.ui.activity.DrawerActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
-import com.owncloud.android.ui.activity.FolderPickerActivity;
 import com.owncloud.android.ui.fragment.SearchType;
 import com.owncloud.android.ui.interfaces.OCFileListFragmentInterface;
 import com.owncloud.android.ui.preview.PreviewTextFragment;
@@ -699,7 +698,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     }
 
     private void setVisibilityOfMoreOption(Object holder) {
-        boolean showMoreOptions = (!isMultiSelect() && !FolderPickerActivity.isMultipleFileSelectedForCopyOrMove);
+        boolean showMoreOptions = (!isMultiSelect());
 
         if (holder instanceof ListItemViewHolder itemViewHolder) {
             ViewExtensionsKt.setVisibleIf(itemViewHolder.getOverflowMenu(), showMoreOptions);

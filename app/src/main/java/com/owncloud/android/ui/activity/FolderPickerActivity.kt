@@ -83,8 +83,6 @@ open class FolderPickerActivity :
             folderPickerBinding = FilesFolderPickerBinding.inflate(layoutInflater)
             setContentView(folderPickerBinding.root)
         }
-
-        isMultipleFileSelectedForCopyOrMove = true
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -164,11 +162,6 @@ open class FolderPickerActivity :
                 }
             }
         )
-    }
-
-    override fun onDestroy() {
-        isMultipleFileSelectedForCopyOrMove = false
-        super.onDestroy()
     }
 
     override fun onActionModeStarted(mode: ActionMode) {
@@ -297,6 +290,7 @@ open class FolderPickerActivity :
             localBroadcastManager.registerReceiver(it, intentFilter)
         }
 
+        listOfFilesFragment?.commonAdapter?.setMultiSelect(true)
         Log_OC.d(TAG, "onResume() end")
     }
 
@@ -677,9 +671,6 @@ open class FolderPickerActivity :
     }
 
     companion object {
-        @JvmField
-        var isMultipleFileSelectedForCopyOrMove = false
-
         @JvmField
         val EXTRA_FOLDER = FolderPickerActivity::class.java.canonicalName?.plus(".EXTRA_FOLDER")
 

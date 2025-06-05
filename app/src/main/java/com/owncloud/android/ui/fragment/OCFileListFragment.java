@@ -837,6 +837,10 @@ public class OCFileListFragment extends ExtendedListFragment implements
                 exitSelectionMode();
             }
 
+            if (getCommonAdapter() != null) {
+                getCommonAdapter().setMultiSelect(checkedCount > 0);
+            }
+
             return true;
         }
 
