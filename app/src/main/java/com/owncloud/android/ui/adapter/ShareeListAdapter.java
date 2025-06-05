@@ -79,57 +79,60 @@ public class ShareeListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     @Override
     public int getItemViewType(int position) {
-        return shares.get(position).getShareType().getValue();
+        if (shares == null) {
+            return 0;
+        }
+
+        if (position < 0 || position >= shares.size()) {
+            return 0;
+        }
+
+        final var share = shares.get(position);
+        if (share == null) {
+            return 0;
+        }
+
+        final var shareType = share.getShareType();
+        if (shareType == null) {
+            return 0;
+        }
+
+        return shareType.getValue();
     }
 
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         boolean shareViaLink = MDMConfig.INSTANCE.shareViaLink(fileActivity);
+        final var parentViewGroup = LayoutInflater.from(fileActivity);
 
-        if (shareViaLink) {
-            switch (ShareType.fromValue(viewType)) {
-                case PUBLIC_LINK, EMAIL -> {
-                    return new LinkShareViewHolder(
-                        FileDetailsShareLinkShareItemBinding.inflate(LayoutInflater.from(fileActivity),
-                                                                     parent,
-                                                                     false),
-                        fileActivity,
-                        viewThemeUtils);
-                }
-                case NEW_PUBLIC_LINK -> {
-                    if (encrypted) {
-                        return new NewSecureFileDropViewHolder(
-                            FileDetailsShareSecureFileDropAddNewItemBinding.inflate(LayoutInflater.from(fileActivity),
-                                                                                    parent,
-                                                                                    false)
-                        );
-                    } else {
-                        return new NewLinkShareViewHolder(
-                            FileDetailsSharePublicLinkAddNewItemBinding.inflate(LayoutInflater.from(fileActivity),
-                                                                                parent,
-                                                                                false)
-                        );
-                    }
-                }
-                case INTERNAL -> {
-                    return new InternalShareViewHolder(
-                        FileDetailsShareInternalShareLinkBinding.inflate(LayoutInflater.from(fileActivity), parent, false),
-                        fileActivity);
-                }
-                default -> {
-                    return new ShareViewHolder(FileDetailsShareShareItemBinding.inflate(LayoutInflater.from(fileActivity),
-                                                                                        parent,
-                                                                                        false),
-                                               user,
-                                               fileActivity,
-                                               viewThemeUtils);
+        if (!shareViaLink) {
+            final var binding = FileDetailsShareInternalShareLinkBinding.inflate(parentViewGroup, parent, false);
+            return new InternalShareViewHolder(binding, fileActivity);
+        }
+
+        switch (ShareType.fromValue(viewType)) {
+            case PUBLIC_LINK, EMAIL -> {
+                final var binding = FileDetailsShareLinkShareItemBinding.inflate(parentViewGroup, parent, false);
+                return new LinkShareViewHolder(binding, fileActivity, viewThemeUtils, encrypted);
+            }
+            case NEW_PUBLIC_LINK -> {
+                if (encrypted) {
+                    final var binding = FileDetailsShareSecureFileDropAddNewItemBinding.inflate(parentViewGroup, parent, false);
+                    return new NewSecureFileDropViewHolder(binding);
+                } else {
+                    final var binding = FileDetailsSharePublicLinkAddNewItemBinding.inflate(parentViewGroup, parent, false);
+                    return new NewLinkShareViewHolder(binding);
                 }
             }
-        } else {
-            return new InternalShareViewHolder(
-                FileDetailsShareInternalShareLinkBinding.inflate(LayoutInflater.from(fileActivity), parent, false),
-                fileActivity);
+            case INTERNAL -> {
+                final var binding = FileDetailsShareInternalShareLinkBinding.inflate(parentViewGroup, parent, false);
+                return new InternalShareViewHolder(binding, fileActivity);
+            }
+            default -> {
+                final var binding = FileDetailsShareShareItemBinding.inflate(parentViewGroup, parent, false);
+                return new ShareViewHolder(binding, user, fileActivity, viewThemeUtils, encrypted);
+            }
         }
     }
 
@@ -152,7 +155,7 @@ public class ShareeListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         }
 
         if (holder instanceof LinkShareViewHolder publicShareViewHolder) {
-            publicShareViewHolder.bind(share, listener);
+            publicShareViewHolder.bind(share, listener, position);
         } else if (holder instanceof InternalShareViewHolder internalShareViewHolder) {
             internalShareViewHolder.bind(share, listener);
         } else if (holder instanceof NewLinkShareViewHolder newLinkShareViewHolder) {
@@ -186,7 +189,7 @@ public class ShareeListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     @SuppressLint("NotifyDataSetChanged")
     public void toggleShowAll() {
-        this.showAll = !this.showAll;
+        showAll = !showAll;
         notifyDataSetChanged();
     }
 
@@ -198,6 +201,12 @@ public class ShareeListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     public void addShares(List<OCShare> sharesToAdd) {
         shares.addAll(sharesToAdd);
         sortShares();
+        notifyDataSetChanged();
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    public void removeAll() {
+        shares.clear();
         notifyDataSetChanged();
     }
 
@@ -217,10 +226,12 @@ public class ShareeListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         return false;
     }
 
-    @SuppressLint("NotifyDataSetChanged")
     public void remove(OCShare share) {
-        shares.remove(share);
-        notifyDataSetChanged();
+        int position = shares.indexOf(share);
+        if (position != -1) {
+            shares.remove(position);
+            notifyItemRemoved(position);
+        }
     }
 
     /**
@@ -254,14 +265,5 @@ public class ShareeListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     public List<OCShare> getShares() {
         return shares;
-    }
-
-    public void removeNewPublicShare() {
-        for (OCShare share : shares) {
-            if (share.getShareType() == ShareType.NEW_PUBLIC_LINK) {
-                shares.remove(share);
-                break;
-            }
-        }
     }
 }
