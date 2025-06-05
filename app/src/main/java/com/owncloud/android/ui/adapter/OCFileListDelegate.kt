@@ -243,8 +243,8 @@ class OCFileListDelegate(
         bindUnreadComments(file, gridViewHolder)
 
         // multiSelect (Checkbox)
-        val isFolderPickerActivity = (context !is FolderPickerActivity)
-        gridViewHolder.checkbox.setVisibleIf(isMultiSelect && isFolderPickerActivity)
+        val isFolderPickerActivity = (context is FolderPickerActivity)
+        gridViewHolder.checkbox.setVisibleIf(isMultiSelect && !isFolderPickerActivity)
 
         // download state
         gridViewHolder.localFileIndicator.visibility = View.GONE // default first
