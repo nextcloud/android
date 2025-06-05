@@ -737,7 +737,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
         /**
          * Selected items in list when action mode is closed by drawer
          */
-        private Set<OCFile> mSelectionWhenActionModeClosedByDrawer = new HashSet<>();
+        private final Set<OCFile> mSelectionWhenActionModeClosedByDrawer = new HashSet<>();
 
         @Override
         public void onDrawerSlide(@NonNull View drawerView, float slideOffset) {
@@ -757,16 +757,22 @@ public class OCFileListFragment extends ExtendedListFragment implements
          */
         @Override
         public void onDrawerClosed(@NonNull View drawerView) {
-            if (mActionModeClosedByDrawer && mSelectionWhenActionModeClosedByDrawer.size() > 0) {
-                FragmentActivity actionBarActivity = getActivity();
-                actionBarActivity.startActionMode(mMultiChoiceModeListener);
-
-                getAdapter().setCheckedItem(mSelectionWhenActionModeClosedByDrawer);
-
-                mActiveActionMode.invalidate();
-
-                mSelectionWhenActionModeClosedByDrawer.clear();
+            if (!mActionModeClosedByDrawer || mSelectionWhenActionModeClosedByDrawer.isEmpty()) {
+                return;
             }
+
+            FragmentActivity actionBarActivity = getActivity();
+            if (actionBarActivity != null) {
+                actionBarActivity.startActionMode(mMultiChoiceModeListener);
+            }
+
+            getAdapter().setCheckedItem(mSelectionWhenActionModeClosedByDrawer);
+
+            if (mActiveActionMode != null) {
+                mActiveActionMode.invalidate();
+            }
+
+            mSelectionWhenActionModeClosedByDrawer.clear();
         }
 
         /**
@@ -777,12 +783,16 @@ public class OCFileListFragment extends ExtendedListFragment implements
          */
         @Override
         public void onDrawerStateChanged(int newState) {
-            if (DrawerLayout.STATE_DRAGGING == newState && mActiveActionMode != null) {
-                mSelectionWhenActionModeClosedByDrawer.addAll(((OCFileListAdapter) getRecyclerView().getAdapter())
-                                                                  .getCheckedItems());
-                mActiveActionMode.finish();
-                mActionModeClosedByDrawer = true;
+            if (DrawerLayout.STATE_DRAGGING != newState || mActiveActionMode == null) {
+                return;
             }
+
+            if (getRecyclerView().getAdapter() instanceof OCFileListAdapter fileListAdapter) {
+                mSelectionWhenActionModeClosedByDrawer.addAll(fileListAdapter.getCheckedItems());
+            }
+
+            mActiveActionMode.finish();
+            mActionModeClosedByDrawer = true;
         }
 
         /**
@@ -803,16 +813,19 @@ public class OCFileListFragment extends ExtendedListFragment implements
             mIsActionModeNew = true;
 
             // fake menu to be able to use bottom sheet instead
-            MenuInflater inflater = getActivity().getMenuInflater();
+            MenuInflater inflater = requireActivity().getMenuInflater();
             inflater.inflate(R.menu.custom_menu_placeholder, menu);
+
             final MenuItem item = menu.findItem(R.id.custom_menu_placeholder_item);
-            item.setIcon(viewThemeUtils.platform.colorDrawable(item.getIcon(), ContextCompat.getColor(requireContext(), R.color.white)));
+            if (item.getIcon() != null) {
+                item.setIcon(viewThemeUtils.platform.colorDrawable(item.getIcon(), ContextCompat.getColor(requireContext(), R.color.white)));
+            }
+
             mActiveActionMode.invalidate();
 
             //set actionMode color
-            viewThemeUtils.platform.colorStatusBar(
-                getActivity(),
-                ContextCompat.getColor(getContext(), R.color.action_mode_background));
+            int statusBarColor = ContextCompat.getColor(requireContext(), R.color.action_mode_background);
+            viewThemeUtils.platform.colorStatusBar(requireActivity(), statusBarColor);
 
             // hide FAB in multi selection mode
             setFabVisible(false);
