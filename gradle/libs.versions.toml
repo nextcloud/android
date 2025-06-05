@@ -3,7 +3,6 @@
 
 [versions]
 androidCommonLibraryVersion = "0.25.0"
-androidLibraryVersion = "cb9ebaa0c8839c8593ac5fe5930e633bf8b41328"
 daggerVersion = "2.56.2"
 espressoVersion = "3.6.1"
 media3 = "1.5.1"
@@ -52,7 +51,6 @@ kotlin-gradle-plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", v
 detekt-gradle-plugin = { module = "io.gitlab.arturbosch.detekt:detekt-gradle-plugin", version.ref = "detektGradlePlugin" }
 
 # Android Library
-android-library = { module = "com.github.nextcloud:android-library", version.ref = "androidLibraryVersion" }
 android-common = { module = "com.github.nextcloud.android-common:ui", version.ref = "androidCommonLibraryVersion" }
 
 # Dagger
