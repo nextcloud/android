@@ -1375,7 +1375,7 @@ public class FileDisplayActivity extends FileActivity
                 final String accountName = intent.getStringExtra(FileSyncAdapter.EXTRA_ACCOUNT_NAME);
                 final String syncFolderRemotePath = intent.getStringExtra(FileSyncAdapter.EXTRA_FOLDER_PATH);
                 final String id = intent.getStringExtra(FileSyncAdapter.EXTRA_RESULT);
-                final var syncResult = (RemoteOperationResult) DataHolderUtil.getInstance().retrieve(id);
+                final Object syncResult = DataHolderUtil.getInstance().retrieve(id);
                 final boolean sameAccount = getAccount() != null && accountName != null && accountName.equals(getAccount().name) && getStorageManager() != null;
                 final OCFileListFragment fileListFragment = getListOfFilesFragment();
                 // endregion
@@ -1384,8 +1384,8 @@ public class FileDisplayActivity extends FileActivity
                     handleSyncEvent(event, syncFolderRemotePath, id, fileListFragment, syncResult);
                 }
 
-                if (syncResult != null && syncResult.getCode() == ResultCode.SSL_RECOVERABLE_PEER_UNVERIFIED) {
-                    mLastSslUntrustedServerResult = syncResult;
+                if (syncResult instanceof RemoteOperationResult<?> operation && operation.getCode() == ResultCode.SSL_RECOVERABLE_PEER_UNVERIFIED) {
+                    mLastSslUntrustedServerResult = operation;
                 }
             } catch (RuntimeException e) {
                 safelyDeleteResult(intent);
@@ -1402,7 +1402,7 @@ public class FileDisplayActivity extends FileActivity
         }
     }
 
-    private void handleSyncEvent(String event, String syncFolderRemotePath, String id, OCFileListFragment fileListFragment, RemoteOperationResult syncResult) {
+    private void handleSyncEvent(String event, String syncFolderRemotePath, String id, OCFileListFragment fileListFragment, Object syncResult) {
         if (FileSyncAdapter.EVENT_FULL_SYNC_START.equals(event)) {
             mSyncInProgress = true;
             return;
@@ -1474,12 +1474,12 @@ public class FileDisplayActivity extends FileActivity
         resetScrolling(false);
     }
 
-    private void handleSyncResult(String event, RemoteOperationResult syncResult) {
+    private void handleSyncResult(String event, Object syncResult) {
         if (!RefreshFolderOperation.EVENT_SINGLE_FOLDER_CONTENTS_SYNCED.equals(event) || syncResult == null) {
             return;
         }
 
-        if (syncResult.isSuccess()) {
+        if (syncResult instanceof RemoteOperationResult<?> operation && operation.isSuccess()) {
             hideInfoBox();
             return;
         }
@@ -1487,7 +1487,7 @@ public class FileDisplayActivity extends FileActivity
         handleFailedSyncResult(syncResult);
     }
 
-    private void handleFailedSyncResult(RemoteOperationResult syncResult) {
+    private void handleFailedSyncResult(Object syncResult) {
         if (checkForRemoteOperationError(syncResult)) {
             requestCredentialsUpdate();
         } else {
@@ -1495,10 +1495,14 @@ public class FileDisplayActivity extends FileActivity
         }
     }
 
-    private void handleNonCredentialSyncErrors(RemoteOperationResult syncResult) {
-        switch (syncResult.getCode()) {
+    private void handleNonCredentialSyncErrors(Object syncResult) {
+        if (!(syncResult instanceof RemoteOperationResult<?> operation)) {
+            return;
+        }
+
+        switch (operation.getCode()) {
             case SSL_RECOVERABLE_PEER_UNVERIFIED:
-                showUntrustedCertDialog(syncResult);
+                showUntrustedCertDialog(operation);
                 break;
 
             case MAINTENANCE_MODE:
@@ -1528,8 +1532,12 @@ public class FileDisplayActivity extends FileActivity
         }
     }
 
-    private boolean checkForRemoteOperationError(RemoteOperationResult syncResult) {
-        return ResultCode.UNAUTHORIZED == syncResult.getCode() || (syncResult.isException() && syncResult.getException() instanceof AuthenticatorException);
+    private boolean checkForRemoteOperationError(Object syncResult) {
+        if (!(syncResult instanceof RemoteOperationResult<?> operation)) {
+            return false;
+        }
+
+        return ResultCode.UNAUTHORIZED == operation.getCode() || (operation.isException() && operation.getException() instanceof AuthenticatorException);
     }
 
     /**
