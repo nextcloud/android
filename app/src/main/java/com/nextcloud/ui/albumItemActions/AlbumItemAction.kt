@@ -23,7 +23,7 @@ enum class AlbumItemAction(@IdRes val id: Int, @StringRes val title: Int, @Drawa
         @JvmField
         val SORTED_VALUES = listOf(
             RENAME_ALBUM,
-            DELETE_ALBUM,
+            DELETE_ALBUM
         )
     }
 }
