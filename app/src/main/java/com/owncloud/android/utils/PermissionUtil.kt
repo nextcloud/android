@@ -130,6 +130,7 @@ object PermissionUtil {
         requestPermissions(activity, permissions)
     }
 
+    // TODO: Maybe we should warn user ...
     fun showPermissionDeniedSnackbar(activity: AppCompatActivity) {
         Snackbar.make(
             activity.findViewById(android.R.id.content),
