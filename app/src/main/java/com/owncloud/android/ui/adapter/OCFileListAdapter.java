@@ -119,7 +119,6 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private List<OCFile> mFiles = new ArrayList<>();
     private final List<OCFile> mFilesAll = new ArrayList<>();
     private final boolean hideItemOptions;
-    private long lastTimestamp;
     private boolean gridView;
     public ArrayList<String> listOfHiddenFiles = new ArrayList<>();
     private FileDataStorageManager mStorageManager;
@@ -144,7 +143,6 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     private final long footerId = UUID.randomUUID().getLeastSignificantBits();
     private final long headerId = UUID.randomUUID().getLeastSignificantBits();
-    private final SyncedFolderProvider syncedFolderProvider;
 
     private ArrayList<Recommendation> recommendedFiles = new ArrayList<>();
 
@@ -179,7 +177,6 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             .get(activity)
             .getUserData(this.user.toPlatformAccount(),
                          AccountUtils.Constants.KEY_USER_ID);
-        this.syncedFolderProvider = syncedFolderProvider;
         this.viewThemeUtils = viewThemeUtils;
         ocFileListDelegate = new OCFileListDelegate(FileUploadHelper.Companion.instance(),
                                                     activity,
@@ -929,7 +926,6 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
         if (clear) {
             mFiles.clear();
-            resetLastTimestamp();
             preferences.setPhotoSearchTimestamp(0);
 
             VirtualFolderType type = switch (searchType) {
@@ -944,7 +940,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         }
 
         // early exit
-        if (objects.size() > 0 && mStorageManager != null) {
+        if (!objects.isEmpty() && mStorageManager != null) {
             if (searchType == SearchType.SHARED_FILTER) {
                 parseShares(objects);
             } else {
@@ -1004,16 +1000,6 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             case GALLERY_SEARCH:
                 type = VirtualFolderType.GALLERY;
                 onlyMedia = true;
-
-                int lastPosition = objects.size() - 1;
-
-                if (lastPosition < 0) {
-                    lastTimestamp = -1;
-                    break;
-                }
-
-                RemoteFile lastFile = (RemoteFile) objects.get(lastPosition);
-                lastTimestamp = lastFile.getModifiedTimestamp() / 1000;
                 break;
             default:
                 type = VirtualFolderType.NONE;
@@ -1099,20 +1085,6 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         mStorageManager.saveVirtuals(contentValues);
     }
 
-    public void showVirtuals(VirtualFolderType type, boolean onlyImages, FileDataStorageManager storageManager) {
-        mFiles = storageManager.getVirtualFolderContent(type, onlyImages);
-
-        if (VirtualFolderType.GALLERY == type) {
-            mFiles = FileStorageUtils.sortOcFolderDescDateModifiedWithoutFavoritesFirst(mFiles);
-        }
-
-        mFilesAll.clear();
-        mFilesAll.addAll(mFiles);
-
-        new Handler(Looper.getMainLooper()).post(this::notifyDataSetChanged);
-    }
-
-
     public void setSortOrder(@Nullable OCFile folder, FileSortOrder sortOrder) {
         preferences.setSortOrder(folder, sortOrder);
         mFiles = sortOrder.sortCloudFiles(mFiles);
@@ -1149,14 +1121,6 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 listOfHiddenFiles.add(file.getFileName());
             }
         });
-    }
-
-    public void resetLastTimestamp() {
-        lastTimestamp = -1;
-    }
-
-    public long getLastTimestamp() {
-        return lastTimestamp;
     }
 
     @Override
@@ -1229,20 +1193,6 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     @VisibleForTesting
     public void setShowShareAvatar(boolean bool) {
         ocFileListDelegate.setShowShareAvatar(bool);
-    }
-
-    @VisibleForTesting
-    public void setCurrentDirectory(OCFile folder) {
-        currentDirectory = folder;
-    }
-
-    @SuppressFBWarnings("EI_EXPOSE_REP")
-    public List<OCFile> getAllFiles() {
-        return mFilesAll;
-    }
-
-    public OCFile getCurrentDirectory() {
-        return currentDirectory;
     }
 
     @Override
