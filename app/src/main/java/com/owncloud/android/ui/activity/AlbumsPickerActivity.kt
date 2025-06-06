@@ -143,7 +143,11 @@ class AlbumsPickerActivity : FileActivity(), FileFragment.ContainerActivity, OnE
      * @param operation Creation operation performed.
      * @param result    Result of the creation.
      */
-    private fun onCreateAlbumOperationFinish(operation: CreateNewAlbumRemoteOperation, result: RemoteOperationResult<*>) {
+    @Suppress("MaxLineLength")
+    private fun onCreateAlbumOperationFinish(
+        operation: CreateNewAlbumRemoteOperation,
+        result: RemoteOperationResult<*>
+    ) {
         if (result.isSuccess) {
             val fileListFragment = listOfFilesFragment
             fileListFragment?.refreshAlbums()

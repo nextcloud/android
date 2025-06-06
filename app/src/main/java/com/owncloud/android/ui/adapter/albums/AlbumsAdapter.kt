@@ -26,6 +26,7 @@ import com.owncloud.android.lib.resources.albums.PhotoAlbumEntry
 import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
 
+@Suppress("LongParameterList")
 class AlbumsAdapter(
     val context: Context,
     private val storageManager: FileDataStorageManager?,
@@ -60,7 +61,8 @@ class AlbumsAdapter(
         gridViewHolder.thumbnail.tag = file.lastPhoto
         gridViewHolder.albumInfo.text = String.format(
             context.resources.getString(R.string.album_items_text),
-            file.nbItems, file.createdDate
+            file.nbItems,
+            file.createdDate
         )
 
         if (file.lastPhoto > 0) {

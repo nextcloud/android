@@ -85,6 +85,7 @@ import org.greenrobot.eventbus.ThreadMode
 import java.util.Optional
 import javax.inject.Inject
 
+@Suppress("TooManyFunctions")
 class AlbumItemsFragment : Fragment(), OCFileListFragmentInterface, Injectable {
 
     private var adapter: GalleryAdapter? = null
@@ -127,7 +128,8 @@ class AlbumItemsFragment : Fragment(), OCFileListFragmentInterface, Injectable {
         } catch (e: ClassCastException) {
             throw IllegalArgumentException(
                 context.toString() + " must implement " +
-                    FileFragment.ContainerActivity::class.java.simpleName, e
+                    FileFragment.ContainerActivity::class.java.simpleName,
+                e
             )
         }
         arguments?.let {
@@ -182,51 +184,55 @@ class AlbumItemsFragment : Fragment(), OCFileListFragmentInterface, Injectable {
 
     private fun createMenu() {
         val menuHost: MenuHost = requireActivity()
-        menuHost.addMenuProvider(object : MenuProvider {
-            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
-                menu.clear() // important: clears any existing activity menu
-                menuInflater.inflate(R.menu.fragment_album_items, menu)
-            }
+        menuHost.addMenuProvider(
+            object : MenuProvider {
+                override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+                    menu.clear() // important: clears any existing activity menu
+                    menuInflater.inflate(R.menu.fragment_album_items, menu)
+                }
 
-            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
-                return when (menuItem.itemId) {
-                    R.id.action_three_dot_icon -> {
-                        openAlbumActionsMenu()
-                        true
+                override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+                    return when (menuItem.itemId) {
+                        R.id.action_three_dot_icon -> {
+                            openAlbumActionsMenu()
+                            true
+                        }
+
+                        R.id.action_add_more_photos -> {
+                            // open Gallery fragment as selection then add items to current album
+                            openGalleryToAddMedia()
+                            true
+                        }
+
+                        else -> false
                     }
+                }
 
-                    R.id.action_add_more_photos -> {
-                        // open Gallery fragment as selection then add items to current album
-                        openGalleryToAddMedia()
-                        true
+                override fun onPrepareMenu(menu: Menu) {
+                    super.onPrepareMenu(menu)
+                    val moreMenu = menu.findItem(R.id.action_three_dot_icon)
+                    moreMenu.icon?.let {
+                        moreMenu.setIcon(
+                            viewThemeUtils.platform.colorDrawable(
+                                it,
+                                ContextCompat.getColor(requireActivity(), R.color.black)
+                            )
+                        )
                     }
-
-                    else -> false
-                }
-            }
-
-            override fun onPrepareMenu(menu: Menu) {
-                super.onPrepareMenu(menu)
-                val moreMenu = menu.findItem(R.id.action_three_dot_icon)
-                moreMenu.icon?.let {
-                    moreMenu.setIcon(
-                        viewThemeUtils.platform.colorDrawable(
-                            it,
-                            ContextCompat.getColor(requireActivity(), R.color.black)
+                    val add = menu.findItem(R.id.action_add_more_photos)
+                    add.icon?.let {
+                        add.setIcon(
+                            viewThemeUtils.platform.colorDrawable(
+                                it,
+                                ContextCompat.getColor(requireActivity(), R.color.black)
+                            )
                         )
-                    )
+                    }
                 }
-                val add = menu.findItem(R.id.action_add_more_photos)
-                add.icon?.let {
-                    add.setIcon(
-                        viewThemeUtils.platform.colorDrawable(
-                            it,
-                            ContextCompat.getColor(requireActivity(), R.color.black)
-                        )
-                    )
-                }
-            }
-        }, viewLifecycleOwner, Lifecycle.State.RESUMED)
+            },
+            viewLifecycleOwner,
+            Lifecycle.State.RESUMED
+        )
     }
 
     private fun openAlbumActionsMenu() {
@@ -258,7 +264,7 @@ class AlbumItemsFragment : Fragment(), OCFileListFragmentInterface, Injectable {
 
             // action to delete album
             R.id.action_delete -> {
-                mContainerActivity?.getFileOperationsHelper()?.removeAlbum(albumName);
+                mContainerActivity?.getFileOperationsHelper()?.removeAlbum(albumName)
                 true
             }
 
@@ -391,8 +397,10 @@ class AlbumItemsFragment : Fragment(), OCFileListFragmentInterface, Injectable {
     }
 
     private fun setMessageForEmptyList(
-        @StringRes headline: Int, message: String,
-        @DrawableRes icon: Int, tintIcon: Boolean
+        @StringRes headline: Int,
+        message: String,
+        @DrawableRes icon: Int,
+        tintIcon: Boolean
     ) {
         binding.emptyList.emptyListViewHeadline.setText(headline)
         binding.emptyList.emptyListViewText.text = message
@@ -579,7 +587,8 @@ class AlbumItemsFragment : Fragment(), OCFileListFragmentInterface, Injectable {
             val childFragmentManager = childFragmentManager
             val actionBottomSheet = newInstance(filesCount, checkedFiles, true, toHide)
                 .setResultListener(
-                    childFragmentManager, this
+                    childFragmentManager,
+                    this
                 ) { id: Int -> onFileActionChosen(id, checkedFiles) }
             if (this.isDialogFragmentReady()) {
                 actionBottomSheet.show(childFragmentManager, "actions")
@@ -587,6 +596,7 @@ class AlbumItemsFragment : Fragment(), OCFileListFragmentInterface, Injectable {
         }
     }
 
+    @Suppress("ReturnCount")
     private fun onFileActionChosen(@IdRes itemId: Int, checkedFiles: Set<OCFile>): Boolean {
         if (checkedFiles.isEmpty()) {
             return false
@@ -642,7 +652,8 @@ class AlbumItemsFragment : Fragment(), OCFileListFragmentInterface, Injectable {
             val user = accountManager.user
             val client = clientFactory.create(user)
             val toggleFavoriteOperation = ToggleAlbumFavoriteRemoteOperation(
-                event.shouldFavorite, event.remotePath
+                event.shouldFavorite,
+                event.remotePath
             )
             val remoteOperationResult = toggleFavoriteOperation.execute(client)
 
@@ -675,8 +686,10 @@ class AlbumItemsFragment : Fragment(), OCFileListFragmentInterface, Injectable {
                     if (!remoteOperationResult.isSuccess) {
                         withContext(Dispatchers.Main) {
                             DisplayUtils.showSnackMessage(
-                                requireActivity(), ErrorMessageAdapter.getErrorCauseMessage(
-                                    remoteOperationResult, removeAlbumFileRemoteOperation,
+                                requireActivity(),
+                                ErrorMessageAdapter.getErrorCauseMessage(
+                                    remoteOperationResult,
+                                    removeAlbumFileRemoteOperation,
                                     resources
                                 )
                             )
@@ -703,7 +716,8 @@ class AlbumItemsFragment : Fragment(), OCFileListFragmentInterface, Injectable {
             withContext(Dispatchers.Main) {
                 if (removeFailedFiles.isNotEmpty()) {
                     DisplayUtils.showSnackMessage(
-                        requireActivity(), requireContext().resources.getString(R.string.album_delete_failed_message)
+                        requireActivity(),
+                        requireContext().resources.getString(R.string.album_delete_failed_message)
                     )
                 }
                 showDialog(false)
@@ -716,12 +730,15 @@ class AlbumItemsFragment : Fragment(), OCFileListFragmentInterface, Injectable {
 
     private fun showDialog(isShow: Boolean) {
         if (requireActivity() is FileDisplayActivity) {
-            if (isShow) (requireActivity() as FileDisplayActivity).showLoadingDialog(
-                requireContext().resources.getString(
-                    R.string.wait_a_moment
+            if (isShow) {
+                (requireActivity() as FileDisplayActivity).showLoadingDialog(
+                    requireContext().resources.getString(
+                        R.string.wait_a_moment
+                    )
                 )
-            )
-            else (requireActivity() as FileDisplayActivity).dismissLoadingDialog()
+            } else {
+                (requireActivity() as FileDisplayActivity).dismissLoadingDialog()
+            }
         }
     }
 
@@ -941,7 +958,7 @@ class AlbumItemsFragment : Fragment(), OCFileListFragmentInterface, Injectable {
         viewLifecycleOwner.lifecycleScope.launch {
             // short delay to let other transactions finish
             // else showLoadingDialog will throw exception
-            delay(100)
+            delay(SLEEP_DELAY)
             mContainerActivity?.fileOperationsHelper?.albumCopyFiles(filePaths, albumName)
         }
     }
@@ -958,6 +975,8 @@ class AlbumItemsFragment : Fragment(), OCFileListFragmentInterface, Injectable {
 
         private const val MAX_COLUMN_SIZE_LANDSCAPE: Int = 5
         private const val MAX_COLUMN_SIZE_PORTRAIT: Int = 2
+
+        private const val SLEEP_DELAY = 100L
 
         fun newInstance(albumName: String, isNewAlbum: Boolean = false): AlbumItemsFragment {
             val args = Bundle()

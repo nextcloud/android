@@ -97,7 +97,6 @@ class CreateAlbumDialogFragment : DialogFragment(), DialogInterface.OnClickListe
         val inflater = requireActivity().layoutInflater
         binding = EditBoxDialogBinding.inflate(inflater, null, false)
 
-
         binding.userInput.setText(albumName ?: "")
         viewThemeUtils.material.colorTextInputLayout(binding.userInputContainer)
         albumName?.let {
@@ -194,7 +193,7 @@ class CreateAlbumDialogFragment : DialogFragment(), DialogInterface.OnClickListe
         fun newInstance(albumName: String? = null): CreateAlbumDialogFragment {
             return CreateAlbumDialogFragment().apply {
                 val argsBundle = bundleOf(
-                    ARG_ALBUM_NAME to albumName,
+                    ARG_ALBUM_NAME to albumName
                 )
                 arguments = argsBundle
             }
