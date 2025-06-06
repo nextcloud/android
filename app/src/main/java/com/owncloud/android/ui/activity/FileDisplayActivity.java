@@ -1371,29 +1371,25 @@ public class FileDisplayActivity extends FileActivity
         @Override
         public void onReceive(Context context, Intent intent) {
             try {
-                String event = intent.getAction();
+                final String event = intent.getAction();
                 Log_OC.d(TAG, "Received broadcast " + event);
-                String accountName = intent.getStringExtra(FileSyncAdapter.EXTRA_ACCOUNT_NAME);
 
-                String synchFolderRemotePath = intent.getStringExtra(FileSyncAdapter.EXTRA_FOLDER_PATH);
-                RemoteOperationResult synchResult = (RemoteOperationResult) DataHolderUtil.getInstance().retrieve(intent.getStringExtra(FileSyncAdapter.EXTRA_RESULT));
-                boolean sameAccount = getAccount() != null && accountName.equals(getAccount().name) && getStorageManager() != null;
+                final String accountName = intent.getStringExtra(FileSyncAdapter.EXTRA_ACCOUNT_NAME);
+                final String syncFolderRemotePath = intent.getStringExtra(FileSyncAdapter.EXTRA_FOLDER_PATH);
+                final String id = intent.getStringExtra(FileSyncAdapter.EXTRA_RESULT);
+                final var syncResult = (RemoteOperationResult) DataHolderUtil.getInstance().retrieve(id);
+                final boolean sameAccount = getAccount() != null && accountName != null && accountName.equals(getAccount().name) && getStorageManager() != null;
+                final OCFileListFragment fileListFragment = getListOfFilesFragment();
 
                 if (sameAccount) {
-
                     if (FileSyncAdapter.EVENT_FULL_SYNC_START.equals(event)) {
                         mSyncInProgress = true;
-
                     } else {
                         OCFile currentFile = (getFile() == null) ? null : getStorageManager().getFileByPath(getFile().getRemotePath());
-                        OCFile currentDir = (getCurrentDir() == null) ? null : getStorageManager().getFileByPath(getCurrentDir().getRemotePath());
+                        final OCFile currentDir = (getCurrentDir() == null) ? null : getStorageManager().getFileByPath(getCurrentDir().getRemotePath());
 
                         if (currentDir == null) {
-                            // current folder was removed from the server
-                            DisplayUtils.showSnackMessage(getActivity(), R.string.sync_current_folder_was_removed, synchFolderRemotePath);
-
-                            browseToRoot();
-
+                            handleRemovedFolder(syncFolderRemotePath);
                         } else {
                             if (currentFile == null && !getFile().isFolder()) {
                                 // currently selected file was removed in the server, and now we
@@ -1402,82 +1398,28 @@ public class FileDisplayActivity extends FileActivity
                                 currentFile = currentDir;
                             }
 
-                            if (currentDir.getRemotePath().equals(synchFolderRemotePath)) {
-                                OCFileListFragment fileListFragment = getListOfFilesFragment();
-                                if (fileListFragment != null) {
-                                    fileListFragment.listDirectory(currentDir, MainApp.isOnlyOnDevice(), false);
-                                }
-                            }
+                            updateFileList(fileListFragment, currentDir, syncFolderRemotePath);
                             setFile(currentFile);
                         }
 
+                        handleSyncResult(event, syncResult);
+
+                        DataHolderUtil.getInstance().delete(id);
+
                         mSyncInProgress = !FileSyncAdapter.EVENT_FULL_SYNC_END.equals(event) && !RefreshFolderOperation.EVENT_SINGLE_FOLDER_SHARES_SYNCED.equals(event);
-
-                        if (RefreshFolderOperation.EVENT_SINGLE_FOLDER_CONTENTS_SYNCED.equals(event) && synchResult != null) {
-
-                            if (synchResult.isSuccess()) {
-                                hideInfoBox();
-                            } else {
-                                // TODO refactor and make common
-                                if (checkForRemoteOperationError(synchResult)) {
-                                    requestCredentialsUpdate();
-                                } else {
-                                    switch (synchResult.getCode()) {
-                                        case SSL_RECOVERABLE_PEER_UNVERIFIED:
-                                            showUntrustedCertDialog(synchResult);
-                                            break;
-
-                                        case MAINTENANCE_MODE:
-                                            showInfoBox(R.string.maintenance_mode);
-                                            break;
-
-                                        case NO_NETWORK_CONNECTION:
-                                            showInfoBox(R.string.offline_mode);
-                                            break;
-
-                                        case HOST_NOT_AVAILABLE:
-                                            showInfoBox(R.string.host_not_available);
-                                            break;
-                                            
-                                        case SIGNING_TOS_NEEDED:
-                                            showTermsOfServiceDialog();
-                                            
-                                            break;
-
-                                        default:
-                                            // nothing to do
-                                            break;
-                                    }
-                                }
-                            }
-                        }
-                        DataHolderUtil.getInstance().delete(intent.getStringExtra(FileSyncAdapter.EXTRA_RESULT));
-
                         Log_OC.d(TAG, "Setting progress visibility to " + mSyncInProgress);
 
-                        OCFileListFragment ocFileListFragment = getListOfFilesFragment();
-                        if (ocFileListFragment != null) {
-                            ocFileListFragment.setLoading(mSyncInProgress);
-                            if (!mSyncInProgress && !ocFileListFragment.isLoading()) {
-                                // update scrolling when load finishes
-                                if (ocFileListFragment.isEmpty()) {
-                                    lockScrolling();
-                                } else {
-                                    resetScrolling(false);
-                                }
-                            }
-                        }
+                        handleScrollBehaviour(fileListFragment);
                         setBackgroundText();
                     }
                 }
 
-                if (synchResult != null && synchResult.getCode() == ResultCode.SSL_RECOVERABLE_PEER_UNVERIFIED) {
-                    mLastSslUntrustedServerResult = synchResult;
+                if (syncResult != null && syncResult.getCode() == ResultCode.SSL_RECOVERABLE_PEER_UNVERIFIED) {
+                    mLastSslUntrustedServerResult = syncResult;
                 }
             } catch (RuntimeException e) {
                 // avoid app crashes after changing the serial id of RemoteOperationResult
                 // in owncloud library with broadcast notifications pending to process
-
                 try {
                     DataHolderUtil.getInstance().delete(intent.getStringExtra(FileSyncAdapter.EXTRA_RESULT));
                 } catch (RuntimeException re) {
@@ -1487,6 +1429,90 @@ public class FileDisplayActivity extends FileActivity
             }
         }
     }
+
+    private void handleRemovedFolder(String syncFolderRemotePath) {
+        DisplayUtils.showSnackMessage(getActivity(), R.string.sync_current_folder_was_removed, syncFolderRemotePath);
+        browseToRoot();
+    }
+
+    private void updateFileList(OCFileListFragment ocFileListFragment, OCFile currentDir, String syncFolderRemotePath) {
+        if (!currentDir.getRemotePath().equals(syncFolderRemotePath)) {
+            return;
+        }
+
+        if (ocFileListFragment == null) {
+            return;
+        }
+
+        ocFileListFragment.listDirectory(currentDir, MainApp.isOnlyOnDevice(), false);
+    }
+
+    private void handleScrollBehaviour(OCFileListFragment ocFileListFragment) {
+        if (ocFileListFragment == null) {
+            return;
+        }
+
+        ocFileListFragment.setLoading(mSyncInProgress);
+        if (mSyncInProgress || ocFileListFragment.isLoading()) {
+            return;
+        }
+
+        if (ocFileListFragment.isEmpty()) {
+            lockScrolling();
+            return;
+        }
+
+        resetScrolling(false);
+    }
+
+    private void handleSyncResult(String event, RemoteOperationResult syncResult) {
+        if (!RefreshFolderOperation.EVENT_SINGLE_FOLDER_CONTENTS_SYNCED.equals(event) || syncResult == null) {
+            return;
+        }
+
+        if (syncResult.isSuccess()) {
+            hideInfoBox();
+            return;
+        }
+
+        handleFailedSyncResult(syncResult);
+    }
+
+    private void handleFailedSyncResult(RemoteOperationResult syncResult) {
+        if (checkForRemoteOperationError(syncResult)) {
+            requestCredentialsUpdate();
+        } else {
+            handleNonCredentialSyncErrors(syncResult);
+        }
+    }
+
+    private void handleNonCredentialSyncErrors(RemoteOperationResult syncResult) {
+        switch (syncResult.getCode()) {
+            case SSL_RECOVERABLE_PEER_UNVERIFIED:
+                showUntrustedCertDialog(syncResult);
+                break;
+
+            case MAINTENANCE_MODE:
+                showInfoBox(R.string.maintenance_mode);
+                break;
+
+            case NO_NETWORK_CONNECTION:
+                showInfoBox(R.string.offline_mode);
+                break;
+
+            case HOST_NOT_AVAILABLE:
+                showInfoBox(R.string.host_not_available);
+                break;
+
+            case SIGNING_TOS_NEEDED:
+                showTermsOfServiceDialog();
+                break;
+
+            default:
+                break;
+        }
+    }
+
     private void showTermsOfServiceDialog() {
         if (getSupportFragmentManager().findFragmentByTag(DIALOG_TAG_SHOW_TOS) == null) {
             new TermsOfServiceDialog().show(getSupportFragmentManager(), DIALOG_TAG_SHOW_TOS);
