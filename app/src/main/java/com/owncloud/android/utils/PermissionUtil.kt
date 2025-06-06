@@ -147,7 +147,7 @@ object PermissionUtil {
             R.string.permission_storage_access,
             Snackbar.LENGTH_SHORT
         )
-            .setAction(R.string.actionbar_settings) { v ->
+            .setAction(R.string.actionbar_settings) {
                 val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS).apply {
                     data = Uri.fromParts("package", activity.packageName, null)
                 }
