@@ -1362,11 +1362,8 @@ public class FileDisplayActivity extends FileActivity
         startDownloadForSending(file, OCFileListFragment.DOWNLOAD_SEND, packageName, activityName);
     }
 
+    // region SyncBroadcastReceiver
     private class SyncBroadcastReceiver extends BroadcastReceiver {
-
-        /**
-         * {@link BroadcastReceiver} to enable syncing feedback in UI
-         */
         @SuppressLint("VisibleForTests")
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -1374,60 +1371,72 @@ public class FileDisplayActivity extends FileActivity
                 final String event = intent.getAction();
                 Log_OC.d(TAG, "Received broadcast " + event);
 
+                // region EventData
                 final String accountName = intent.getStringExtra(FileSyncAdapter.EXTRA_ACCOUNT_NAME);
                 final String syncFolderRemotePath = intent.getStringExtra(FileSyncAdapter.EXTRA_FOLDER_PATH);
                 final String id = intent.getStringExtra(FileSyncAdapter.EXTRA_RESULT);
                 final var syncResult = (RemoteOperationResult) DataHolderUtil.getInstance().retrieve(id);
                 final boolean sameAccount = getAccount() != null && accountName != null && accountName.equals(getAccount().name) && getStorageManager() != null;
                 final OCFileListFragment fileListFragment = getListOfFilesFragment();
+                // endregion
 
                 if (sameAccount) {
-                    if (FileSyncAdapter.EVENT_FULL_SYNC_START.equals(event)) {
-                        mSyncInProgress = true;
-                    } else {
-                        OCFile currentFile = (getFile() == null) ? null : getStorageManager().getFileByPath(getFile().getRemotePath());
-                        final OCFile currentDir = (getCurrentDir() == null) ? null : getStorageManager().getFileByPath(getCurrentDir().getRemotePath());
-
-                        if (currentDir == null) {
-                            handleRemovedFolder(syncFolderRemotePath);
-                        } else {
-                            if (currentFile == null && !getFile().isFolder()) {
-                                // currently selected file was removed in the server, and now we
-                                // know it
-                                resetTitleBarAndScrolling();
-                                currentFile = currentDir;
-                            }
-
-                            updateFileList(fileListFragment, currentDir, syncFolderRemotePath);
-                            setFile(currentFile);
-                        }
-
-                        handleSyncResult(event, syncResult);
-
-                        DataHolderUtil.getInstance().delete(id);
-
-                        mSyncInProgress = !FileSyncAdapter.EVENT_FULL_SYNC_END.equals(event) && !RefreshFolderOperation.EVENT_SINGLE_FOLDER_SHARES_SYNCED.equals(event);
-                        Log_OC.d(TAG, "Setting progress visibility to " + mSyncInProgress);
-
-                        handleScrollBehaviour(fileListFragment);
-                        setBackgroundText();
-                    }
+                    handleSyncEvent(event, syncFolderRemotePath, id, fileListFragment, syncResult);
                 }
 
                 if (syncResult != null && syncResult.getCode() == ResultCode.SSL_RECOVERABLE_PEER_UNVERIFIED) {
                     mLastSslUntrustedServerResult = syncResult;
                 }
             } catch (RuntimeException e) {
-                // avoid app crashes after changing the serial id of RemoteOperationResult
-                // in owncloud library with broadcast notifications pending to process
-                try {
-                    DataHolderUtil.getInstance().delete(intent.getStringExtra(FileSyncAdapter.EXTRA_RESULT));
-                } catch (RuntimeException re) {
-                    // we did not send this intent, so ignoring
-                    Log_OC.i(TAG, "Ignoring error deleting data");
-                }
+                safelyDeleteResult(intent);
             }
         }
+    }
+
+    // avoid app crashes after changing the serial id of RemoteOperationResult in owncloud library with broadcast notifications pending to process
+    private void safelyDeleteResult(Intent intent) {
+        try {
+            DataHolderUtil.getInstance().delete(intent.getStringExtra(FileSyncAdapter.EXTRA_RESULT));
+        } catch (RuntimeException re) {
+            Log_OC.i(TAG, "Ignoring error deleting data");
+        }
+    }
+
+    private void handleSyncEvent(String event, String syncFolderRemotePath, String id, OCFileListFragment fileListFragment, RemoteOperationResult syncResult) {
+        if (FileSyncAdapter.EVENT_FULL_SYNC_START.equals(event)) {
+            mSyncInProgress = true;
+            return;
+        }
+
+        OCFile currentFile = (getFile() == null) ? null : getStorageManager().getFileByPath(getFile().getRemotePath());
+        final OCFile currentDir = (getCurrentDir() == null) ? null : getStorageManager().getFileByPath(getCurrentDir().getRemotePath());
+
+        if (currentDir == null) {
+            handleRemovedFolder(syncFolderRemotePath);
+        } else {
+            currentFile = handleRemovedFileFromServer(currentFile, currentDir);
+            updateFileList(fileListFragment, currentDir, syncFolderRemotePath);
+            setFile(currentFile);
+        }
+
+        handleSyncResult(event, syncResult);
+
+        DataHolderUtil.getInstance().delete(id);
+
+        mSyncInProgress = !FileSyncAdapter.EVENT_FULL_SYNC_END.equals(event) && !RefreshFolderOperation.EVENT_SINGLE_FOLDER_SHARES_SYNCED.equals(event);
+        Log_OC.d(TAG, "Setting progress visibility to " + mSyncInProgress);
+
+        handleScrollBehaviour(fileListFragment);
+        setBackgroundText();
+    }
+
+    private OCFile handleRemovedFileFromServer(OCFile currentFile, OCFile currentDir) {
+        if (currentFile == null && !getFile().isFolder()) {
+            resetTitleBarAndScrolling();
+            return currentDir;
+        }
+
+        return currentFile;
     }
 
     private void handleRemovedFolder(String syncFolderRemotePath) {
@@ -1548,6 +1557,7 @@ public class FileDisplayActivity extends FileActivity
             Log_OC.e(TAG, "OCFileListFragment is null");
         }
     }
+    // endregion
 
     /**
      * Once the file upload has finished -> update view
