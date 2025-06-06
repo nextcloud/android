@@ -352,8 +352,6 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 // permission was granted
                 showLocalStoragePathPickerDialog();
-            } else {
-                PermissionUtil.INSTANCE.showPermissionDeniedSnackbar(this);
             }
         } else {
             super.onRequestPermissionsResult(requestCode, permissions, grantResults);

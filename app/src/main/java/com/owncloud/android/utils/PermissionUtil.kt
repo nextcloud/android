@@ -24,8 +24,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.net.toUri
 import com.google.android.material.snackbar.Snackbar
-import com.nextcloud.client.preferences.AppPreferences
-import com.nextcloud.client.preferences.AppPreferencesImpl
+import com.nextcloud.utils.extensions.appPref
 import com.owncloud.android.R
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.ui.dialog.StoragePermissionDialogFragment
@@ -76,28 +75,30 @@ object PermissionUtil {
         ActivityCompat.shouldShowRequestPermissionRationale(activity, permission)
 
     /**
-     * Determine whether the app has been granted storage permissions depending on SDK.
+     * Checks if the application has storage/media access permissions.
      *
-     * For sdk >= 30 we use the storage manager special permission for full access, or READ_EXTERNAL_STORAGE
-     * for limited access
-     *
-     * Under sdk 30 we use WRITE_EXTERNAL_STORAGE
-     *
-     * @return `true` if app has the permission, or `false` if not.
+     * This function handles the evolution of Android storage permissions across different API levels:
+     * - Android 11+ (API 30+): Checks for MANAGE_EXTERNAL_STORAGE (full file system access)
+     * - Android 13+ (API 33+): Checks for granular media permissions (READ_MEDIA_IMAGES, READ_MEDIA_VIDEO)
+     * - Android 14+ (API 34+): Also checks for limited/partial media access (READ_MEDIA_VISUAL_USER_SELECTED)
+     * - Below Android 11: Uses legacy WRITE_EXTERNAL_STORAGE permission
      */
     @JvmStatic
-    fun checkStoragePermission(context: Context): Boolean = when {
-        Build.VERSION.SDK_INT >= Build.VERSION_CODES.R -> Environment.isExternalStorageManager() ||
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                checkSelfPermission(context, Manifest.permission.READ_MEDIA_IMAGES) || checkSelfPermission(
-                    context,
-                    Manifest.permission.READ_MEDIA_VIDEO
-                )
-            } else {
-                checkSelfPermission(context, Manifest.permission.READ_EXTERNAL_STORAGE)
-            }
+    fun checkStoragePermission(context: Context): Boolean {
+        // Check if we have full storage manager access (Android 11+)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R && Environment.isExternalStorageManager()) {
+            return true
+        }
 
-        else -> checkSelfPermission(context, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+        // For Android 13+, check all media permissions (full OR limited access)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            return checkSelfPermission(context, Manifest.permission.READ_MEDIA_IMAGES) ||
+                checkSelfPermission(context, Manifest.permission.READ_MEDIA_VIDEO) ||
+                (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE &&
+                    checkSelfPermission(context, Manifest.permission.READ_MEDIA_VISUAL_USER_SELECTED))
+        }
+
+        return checkSelfPermission(context, Manifest.permission.WRITE_EXTERNAL_STORAGE)
     }
 
     fun checkPermissions(context: Context, permissions: Array<String>): Boolean = permissions.all {
@@ -120,23 +121,22 @@ object PermissionUtil {
             return
         }
 
-        @Suppress("DEPRECATION")
-        val preferences: AppPreferences = AppPreferencesImpl.fromContext(activity)
-        if (preferences.isStoragePermissionRequested) {
-            showPermissionDeniedSnackbar(activity)
+        if (activity.appPref.dontAskStoragePermissionAgain) {
+            Log_OC.d(TAG, "User has chosen not to be prompted again for storage permission")
             return
         }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R && canRequestAllFilesPermission(activity)) {
             showStoragePermissionDialogFragment(activity, showStrictText)
-        } else {
-            requestStoragePermissions(activity, preferences.isStoragePermissionRequested)
+            return
         }
+
+        requestRequiredStoragePermissions(activity)
     }
 
-    fun requestStoragePermissions(activity: Activity, isStoragePermissionRequested: Boolean) {
-        val permissions = getStoragePermissions()
-        if (permissions.any { shouldShowRequestPermissionRationale(activity, it) } || !isStoragePermissionRequested) {
+    fun requestRequiredStoragePermissions(activity: Activity) {
+        val permissions = getRequiredStoragePermissions()
+        if (permissions.any { shouldShowRequestPermissionRationale(activity, it) }) {
             requestPermissions(activity, permissions)
         }
     }
@@ -157,7 +157,7 @@ object PermissionUtil {
             .show()
     }
 
-    private fun getStoragePermissions() = when {
+    private fun getRequiredStoragePermissions() = when {
         Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE -> arrayOf(
             Manifest.permission.READ_MEDIA_VISUAL_USER_SELECTED,
             Manifest.permission.READ_MEDIA_IMAGES,
@@ -261,6 +261,10 @@ object PermissionUtil {
     @Suppress("ReturnCount")
     @JvmStatic
     fun requestMediaLocationPermission(activity: Activity) {
+        if (activity.appPref.dontAskStoragePermissionAgain) {
+            return
+        }
+
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
             return
         }

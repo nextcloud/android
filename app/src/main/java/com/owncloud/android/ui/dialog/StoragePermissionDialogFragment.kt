@@ -77,11 +77,11 @@ class StoragePermissionDialogFragment : DialogFragment(), Injectable {
                 dismiss()
             }
             .setNegativeButton(R.string.storage_permission_media_read_only) { _, _ ->
-                requestMediaReadOnly()
+                requestRequiredStoragePermissions()
                 dismiss()
             }
             .setNeutralButton(R.string.storage_permission_dont_ask_again) { _, _ ->
-                appPreferences.isStoragePermissionRequested = true
+                appPreferences.dontAskStoragePermissionAgain = true
                 dismiss()
             }
 
@@ -98,9 +98,13 @@ class StoragePermissionDialogFragment : DialogFragment(), Injectable {
         }
     }
 
-    private fun requestMediaReadOnly() {
+    private fun requestRequiredStoragePermissions() {
+        if (appPreferences.dontAskStoragePermissionAgain) {
+            return
+        }
+
         activity?.let {
-            PermissionUtil.requestStoragePermissions(it, appPreferences.isStoragePermissionRequested)
+            PermissionUtil.requestRequiredStoragePermissions(it)
         }
     }
 
