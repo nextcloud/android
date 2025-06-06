@@ -254,9 +254,7 @@ class GalleryAdapter(
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    fun showAlbumItems(
-        albumItems: List<OCFile>,
-    ) {
+    fun showAlbumItems(albumItems: List<OCFile>) {
         files = albumItems.toGalleryItems()
         Handler(Looper.getMainLooper()).post { notifyDataSetChanged() }
     }
