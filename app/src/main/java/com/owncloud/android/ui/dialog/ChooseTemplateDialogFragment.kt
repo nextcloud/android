@@ -344,9 +344,9 @@ class ChooseTemplateDialogFragment : DialogFragment(), View.OnClickListener, Tem
             }
 
             val editorWebView = Intent(MainApp.getAppContext(), TextEditorWebView::class.java).apply {
+                putExtra(ExternalSiteWebView.EXTRA_FILE_ID, file?.fileId)
                 putExtra(ExternalSiteWebView.EXTRA_TITLE, "Text")
                 putExtra(ExternalSiteWebView.EXTRA_URL, url)
-                putExtra(ExternalSiteWebView.EXTRA_FILE, file)
                 putExtra(ExternalSiteWebView.EXTRA_SHOW_SIDEBAR, false)
             }
 

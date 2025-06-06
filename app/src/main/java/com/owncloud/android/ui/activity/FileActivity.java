@@ -43,6 +43,7 @@ import com.nextcloud.receiver.NetworkChangeReceiver;
 import com.nextcloud.utils.EditorUtils;
 import com.nextcloud.utils.extensions.ActivityExtensionsKt;
 import com.nextcloud.utils.extensions.BundleExtensionsKt;
+import com.nextcloud.utils.extensions.FileActivityExtensionsKt;
 import com.nextcloud.utils.extensions.FileExtensionsKt;
 import com.nextcloud.utils.extensions.IntentExtensionsKt;
 import com.nextcloud.utils.mdm.MDMConfig;
@@ -123,6 +124,7 @@ public abstract class FileActivity extends DrawerActivity
     implements OnRemoteOperationListener, ComponentsGetter, SslUntrustedCertDialog.OnSslUntrustedCertListener,
     LoadingVersionNumberTask.VersionDevInterface, FileDetailSharingFragment.OnEditShareListener, NetworkChangeListener {
 
+    public static final String EXTRA_FILE_ID = "com.owncloud.android.ui.activity.FILE_ID";
     public static final String EXTRA_FILE = "com.owncloud.android.ui.activity.FILE";
     public static final String EXTRA_LIVE_PHOTO_FILE = "com.owncloud.android.ui.activity.LIVE.PHOTO.FILE";
     public static final String EXTRA_USER = "com.owncloud.android.ui.activity.USER";
@@ -221,21 +223,19 @@ public abstract class FileActivity extends DrawerActivity
         mFileOperationsHelper = new FileOperationsHelper(this, getUserAccountManager(), connectivityService, editorUtils);
         User user;
 
+        mFile = FileActivityExtensionsKt.initFile(this, savedInstanceState);
+
         if (savedInstanceState != null) {
-            mFile = BundleExtensionsKt.getParcelableArgument(savedInstanceState, FileActivity.EXTRA_FILE, OCFile.class);
             mFromNotification = savedInstanceState.getBoolean(FileActivity.EXTRA_FROM_NOTIFICATION);
-            mFileOperationsHelper.setOpIdWaitingFor(
-                savedInstanceState.getLong(KEY_WAITING_FOR_OP_ID, Long.MAX_VALUE)
-                                                   );
+            mFileOperationsHelper.setOpIdWaitingFor(savedInstanceState.getLong(KEY_WAITING_FOR_OP_ID, Long.MAX_VALUE));
             final ActionBar actionBar = getSupportActionBar();
-            if (actionBar != null && !(this instanceof PreviewImageActivity)) {
-                viewThemeUtils.files.themeActionBar(this, actionBar, savedInstanceState.getString(KEY_ACTION_BAR_TITLE));
+            final String actionBarTitle = savedInstanceState.getString(KEY_ACTION_BAR_TITLE);
+            if (actionBarTitle != null && actionBar != null && !(this instanceof PreviewImageActivity)) {
+                viewThemeUtils.files.themeActionBar(this, actionBar, actionBarTitle);
             }
         } else {
             user = IntentExtensionsKt.getParcelableArgument(getIntent(), FileActivity.EXTRA_USER, User.class);
-            mFile = IntentExtensionsKt.getParcelableArgument(getIntent(), FileActivity.EXTRA_FILE, OCFile.class);
-            mFromNotification = getIntent().getBooleanExtra(FileActivity.EXTRA_FROM_NOTIFICATION,
-                                                            false);
+            mFromNotification = getIntent().getBooleanExtra(FileActivity.EXTRA_FROM_NOTIFICATION, false);
 
             if (user != null) {
                 setUser(user);
@@ -248,6 +248,14 @@ public abstract class FileActivity extends DrawerActivity
         registerNetworkChangeReceiver();
 
         filesRepository = new RemoteFilesRepository(getClientRepository(), this);
+    }
+
+    private void initFile(Bundle savedInstanceState) {
+        if (savedInstanceState != null) {
+            BundleExtensionsKt.getParcelableArgument(savedInstanceState, FileActivity.EXTRA_FILE, OCFile.class);
+        } else {
+            IntentExtensionsKt.getParcelableArgument(getIntent(), FileActivity.EXTRA_FILE, OCFile.class);
+        }
     }
 
     @Override
