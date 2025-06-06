@@ -270,9 +270,9 @@ class AlbumItemsFragment :
                         true
                     }
 
-                    else -> false
+                        else -> false
+                    }
                 }
-            }
 
                 override fun onPrepareMenu(menu: Menu) {
                     super.onPrepareMenu(menu)
