@@ -392,7 +392,7 @@ class OCFileListFragmentStaticServerIT : AbstractIT() {
 
             testFolder.richWorkspace = "1"
             activity.storageManager.saveFile(testFolder)
-            sut.adapter.currentDirectory = testFolder
+            sut.adapter.setCurrentDirectory(testFolder)
             Assert.assertTrue(sut.adapter.shouldShowHeader())
         }
     }
