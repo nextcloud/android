@@ -8,8 +8,10 @@
 package com.nextcloud.utils.extensions
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.BroadcastReceiver
 import android.content.Context
+import android.content.ContextWrapper
 import android.content.Intent
 import android.content.IntentFilter
 import android.os.Build
@@ -64,3 +66,11 @@ fun Context.showToast(message: String) {
 }
 
 fun Context.showToast(messageId: Int) = showToast(getString(messageId))
+
+fun Context.getActivity(): Activity? {
+    return when (this) {
+        is Activity -> this
+        is ContextWrapper -> baseContext.getActivity()
+        else -> null
+    }
+}

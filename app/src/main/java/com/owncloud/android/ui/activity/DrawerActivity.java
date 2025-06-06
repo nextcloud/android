@@ -61,6 +61,7 @@ import com.nextcloud.ui.ChooseAccountDialogFragment;
 import com.nextcloud.ui.composeActivity.ComposeActivity;
 import com.nextcloud.ui.composeActivity.ComposeDestination;
 import com.nextcloud.utils.LinkHelper;
+import com.nextcloud.utils.extensions.ActivityExtensionsKt;
 import com.nextcloud.utils.extensions.ViewExtensionsKt;
 import com.nextcloud.utils.mdm.MDMConfig;
 import com.owncloud.android.MainApp;
@@ -120,6 +121,7 @@ import javax.inject.Inject;
 
 import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
@@ -260,6 +262,8 @@ public abstract class DrawerActivity extends ToolbarActivity
         bottomNavigationView.setOnItemSelectedListener(menuItem -> {
             menuItemId = menuItem.getItemId();
 
+            exitSelectionMode();
+
             if (menuItemId == R.id.nav_all_files) {
                 showFiles(false,false);
                 if (this instanceof FileDisplayActivity fda) {
@@ -283,6 +287,28 @@ public abstract class DrawerActivity extends ToolbarActivity
 
             return false;
         });
+    }
+
+    @Nullable
+    public OCFileListFragment getOCFileListFragment() {
+        Fragment fragment = ActivityExtensionsKt.lastFragment(this);
+        if (fragment instanceof OCFileListFragment fileListFragment) {
+            return fileListFragment;
+        }
+
+        fragment = getSupportFragmentManager().findFragmentByTag(FileDisplayActivity.TAG_LIST_OF_FILES);
+        if (fragment instanceof OCFileListFragment fileListFragment) {
+            return fileListFragment;
+        }
+
+        return null;
+    }
+
+    private void exitSelectionMode() {
+        Fragment fragment = getOCFileListFragment();
+        if (fragment instanceof OCFileListFragment fileListFragment) {
+            fileListFragment.exitSelectionMode();
+        }
     }
 
     /**
