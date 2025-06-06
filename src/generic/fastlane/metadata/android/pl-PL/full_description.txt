@@ -1,19 +1,19 @@
-Oprogramowanie biurowe uruchamiane na własnym serwerze, które daje Ci pełną kontrolę nad swoimi danymi.
+Samodzielnie hostowana platforma produktywności, która zapewnia Ci kontrolę.
 
-Cechy:
-* Łatwy, nowoczesny interfejs, dostosowany do wyglądu Twojego serwera
-* Wysyłanie plików na serwer Nextcloud
-* Udostępnianie ich innym
-* Synchronizacja ulubionych plików i katalogów
-* Przeszukiwanie wszystkich katalogów na serwerze
-* Automatyczne przesyłanie zdjęć i filmów zrobionych przez urządzenie
-* Otrzymywanie na bieżąco powiadomień
+Funkcje:
+* Łatwy, nowoczesny interfejs, dostosowany do motywu Twojego serwera
+* Przesyłaj pliki na serwer Nextcloud
+* Udostępniaj je innym
+* Synchronizuj ulubione pliki i katalogi
+* Przeszukuj wszystkie katalogi na serwerze
+* Automatyczne przesyłanie zdjęć i filmów wykonanych Twoim urządzeniem
+* Bądź na bieżąco dzięki powiadomieniom
 * Obsługa wielu kont
 * Bezpieczny dostęp do danych za pomocą odcisku palca lub kodu PIN
-* Integracja z DAVx5 (wcześniej znany jako DAVdroid) dla łatwej konfiguracji kalendarza i synchronizacji kontaktów
+* Integracja z DAVx⁵ (dawniej znanym jako DAVdroid) w celu łatwej konfiguracji synchronizacji kalendarza i kontaktów
 
-Zgłaszaj problemy na https://github.com/nextcloud/android/issues i omów tę aplikację na https://help.nextcloud.com/c/clients/android
+Wszystkie problemy należy zgłaszać na stronie https://github.com/nextcloud/android/issues, a dyskusje na temat tej aplikacji na stronie https://help.nextcloud.com/c/clients/android
 
-Nie znasz jeszcze Nextcloud? Nextcloud to prywatny serwer do synchronizacji plików i komunikacji. Jest darmowym oprogramowaniem, które możesz utrzymywać samodzielnie lub zapłacić firmie, która zrobi to za Ciebie. Dzięki temu posiadasz pełną kontrolę nad swoimi zdjęciami, kalendarzem, kontaktami, dokumentami i nad wszystkim innym.
+Jesteś nowy w Nextcloud? Nextcloud to prywatny serwer do synchronizacji, udostępniania i komunikacji plików. To wolne oprogramowanie, możesz je hostować samodzielnie lub zapłacić firmie, aby zrobiła to za Ciebie. W ten sposób masz kontrolę nad swoimi zdjęciami, kalendarzem i danymi kontaktowymi, dokumentami i wszystkim innym.
 
 Sprawdź Nextcloud na https://nextcloud.com
