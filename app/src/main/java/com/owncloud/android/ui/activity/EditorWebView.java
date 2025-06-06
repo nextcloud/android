@@ -26,6 +26,7 @@ import android.widget.Toast;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.nextcloud.client.account.User;
+import com.nextcloud.utils.extensions.FileActivityExtensionsKt;
 import com.nextcloud.utils.extensions.IntentExtensionsKt;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.RichdocumentsWebviewBinding;
@@ -158,8 +159,6 @@ public abstract class EditorWebView extends ExternalSiteWebView {
                 return true;
             }
         });
-
-        setFile(IntentExtensionsKt.getParcelableArgument(getIntent(), ExternalSiteWebView.EXTRA_FILE, OCFile.class));
 
         if (getFile() == null) {
             Toast.makeText(getApplicationContext(),
