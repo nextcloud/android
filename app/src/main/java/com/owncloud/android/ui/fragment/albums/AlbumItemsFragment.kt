@@ -61,16 +61,16 @@ import com.owncloud.android.lib.resources.albums.ReadAlbumItemsRemoteOperation
 import com.owncloud.android.lib.resources.albums.RemoveAlbumFileRemoteOperation
 import com.owncloud.android.lib.resources.albums.ToggleAlbumFavoriteRemoteOperation
 import com.owncloud.android.ui.activity.AlbumsPickerActivity
+import com.owncloud.android.ui.activity.AlbumsPickerActivity.Companion.intentForPickingMediaFiles
 import com.owncloud.android.ui.activity.FileActivity
 import com.owncloud.android.ui.activity.FileDisplayActivity
 import com.owncloud.android.ui.adapter.GalleryAdapter
 import com.owncloud.android.ui.dialog.CreateAlbumDialogFragment
 import com.owncloud.android.ui.events.FavoriteEvent
 import com.owncloud.android.ui.fragment.FileFragment
-import com.owncloud.android.ui.activity.AlbumsPickerActivity.Companion.intentForPickingMediaFiles
 import com.owncloud.android.ui.interfaces.OCFileListFragmentInterface
 import com.owncloud.android.ui.preview.PreviewImageFragment
-import com.owncloud.android.ui.preview.PreviewMediaActivity
+import com.owncloud.android.ui.preview.PreviewMediaActivity.Companion.canBePreviewed
 import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.ErrorMessageAdapter
 import com.owncloud.android.utils.FileStorageUtils
@@ -484,13 +484,17 @@ class AlbumItemsFragment : Fragment(), OCFileListFragmentInterface, Injectable {
             if (PreviewImageFragment.canBePreviewed(file)) {
                 (mContainerActivity as FileDisplayActivity).startImagePreview(file, !file.isDown)
             } else if (file.isDown) {
-                if (PreviewMediaActivity.canBePreviewed(file)) {
+                if (canBePreviewed(file)) {
                     (mContainerActivity as FileDisplayActivity).startMediaPreview(file, 0, true, true, false, true)
                 } else {
                     mContainerActivity?.getFileOperationsHelper()?.openFile(file)
                 }
             } else {
-                Log_OC.d(TAG, "Couldn't handle item click")
+                if (canBePreviewed(file) && !file.isEncrypted) {
+                    (mContainerActivity as FileDisplayActivity).startMediaPreview(file, 0, true, true, true, true)
+                } else {
+                    Log_OC.d(TAG, "Couldn't handle item click")
+                }
             }
         }
     }
