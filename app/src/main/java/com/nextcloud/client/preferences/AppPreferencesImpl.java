@@ -758,12 +758,12 @@ public final class AppPreferencesImpl implements AppPreferences {
     }
 
     @Override
-    public boolean isStoragePermissionRequested() {
+    public boolean getDontAskStoragePermissionAgain() {
         return preferences.getBoolean(PREF__STORAGE_PERMISSION_REQUESTED, false);
     }
 
     @Override
-    public void setStoragePermissionRequested(boolean value) {
+    public void setDontAskStoragePermissionAgain(boolean value) {
         preferences.edit().putBoolean(PREF__STORAGE_PERMISSION_REQUESTED, value).apply();
     }
 
