@@ -82,6 +82,7 @@ import com.owncloud.android.lib.resources.files.ToggleFavoriteRemoteOperation;
 import com.owncloud.android.lib.resources.status.E2EVersion;
 import com.owncloud.android.lib.resources.status.OCCapability;
 import com.owncloud.android.lib.resources.status.Type;
+import com.owncloud.android.ui.activity.AlbumsPickerActivity;
 import com.owncloud.android.ui.activity.DrawerActivity;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
@@ -827,7 +828,13 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
             if (OCFileListFragment.this instanceof GalleryFragment) {
                 final MenuItem addAlbumItem = menu.findItem(R.id.add_to_album);
+                // show add to album button for gallery to add media to Album
                 addAlbumItem.setVisible(true);
+
+                // hide the 3 dot menu icon while picking media for Albums
+                if (requireActivity() instanceof AlbumsPickerActivity) {
+                    item.setVisible(false);
+                }
             }
 
             getCommonAdapter().setMultiSelect(true);
