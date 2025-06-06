@@ -60,21 +60,6 @@ object PermissionUtil {
         ContextCompat.checkSelfPermission(context, permission) == PackageManager.PERMISSION_GRANTED
 
     /**
-     * Wrapper method for ActivityCompat.shouldShowRequestPermissionRationale().
-     * Gets whether you should show UI with rationale for requesting a permission.
-     * You should do this only if you do not have the permission and the context in
-     * which the permission is requested does not clearly communicate to the user
-     * what would be the benefit from granting this permission.
-     *
-     * @param activity   The target activity.
-     * @param permission A permission to be requested.
-     * @return Whether to show permission rationale UI.
-     */
-    @JvmStatic
-    fun shouldShowRequestPermissionRationale(activity: Activity, permission: String): Boolean =
-        ActivityCompat.shouldShowRequestPermissionRationale(activity, permission)
-
-    /**
      * Checks if the application has storage/media access permissions.
      *
      * This function handles the evolution of Android storage permissions across different API levels:
@@ -116,13 +101,15 @@ object PermissionUtil {
     @JvmStatic
     @JvmOverloads
     fun requestStoragePermissionIfNeeded(activity: AppCompatActivity, showStrictText: Boolean = false) {
-        if (checkStoragePermission(activity)) {
-            Log_OC.d(TAG, "Storage permissions are already granted")
+        if (activity.appPref.dontAskStoragePermissionAgain) {
+            Log_OC.d(TAG, "User has chosen not to be prompted again for storage permission")
             return
         }
 
-        if (activity.appPref.dontAskStoragePermissionAgain) {
-            Log_OC.d(TAG, "User has chosen not to be prompted again for storage permission")
+        requestMediaLocationPermissionIfNeeded(activity)
+
+        if (checkStoragePermission(activity)) {
+            Log_OC.d(TAG, "Storage permissions are already granted")
             return
         }
 
@@ -136,9 +123,11 @@ object PermissionUtil {
 
     fun requestRequiredStoragePermissions(activity: Activity) {
         val permissions = getRequiredStoragePermissions()
-        if (permissions.any { shouldShowRequestPermissionRationale(activity, it) }) {
-            requestPermissions(activity, permissions)
+        if (checkPermissions(activity, permissions)) {
+            return
         }
+
+        requestPermissions(activity, permissions)
     }
 
     fun showPermissionDeniedSnackbar(activity: AppCompatActivity) {
@@ -253,23 +242,22 @@ object PermissionUtil {
     }
 
     /**
-     * Request media location permission. Required on API level >= 34.
-     * Does not have any effect on API level < 34.
+     * Requests ACCESS_MEDIA_LOCATION permission for accessing photo/video location metadata.
      *
-     * @param activity target activity
+     * This is an OPTIONAL permission that provides access to EXIF location data in media files.
+     * Notes:
+     * - Can be granted with FULL media access (not with "limited/partial" access)
+     * - NOT mandatory for basic file upload functionality
+     *
+     * Note: This permission is intentionally excluded from requestRequiredStoragePermissions()
+     * since the app can function normally without location metadata access.
+     *
+     * @see Manifest.permission.ACCESS_MEDIA_LOCATION
+     * @since Android 10 (API 29)
      */
-    @Suppress("ReturnCount")
     @JvmStatic
-    fun requestMediaLocationPermission(activity: Activity) {
-        if (activity.appPref.dontAskStoragePermissionAgain) {
-            return
-        }
-
+    fun requestMediaLocationPermissionIfNeeded(activity: Activity) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
-            return
-        }
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R && Environment.isExternalStorageManager()) {
             return
         }
 

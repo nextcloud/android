@@ -365,7 +365,7 @@ public class FileDisplayActivity extends FileActivity
                 .setTitle(title)
                 .setMessage(message)
                 .setNegativeButton(R.string.dialog_close, (dialog, which) -> {
-                    PermissionUtil.requestMediaLocationPermission(this);
+                    PermissionUtil.requestMediaLocationPermissionIfNeeded(this);
                     preferences.setAutoUploadGPlayWarning2Shown(true);
                     dialog.dismiss();
                 })
@@ -685,7 +685,6 @@ public class FileDisplayActivity extends FileActivity
             .setMessage(R.string.re_enable_auto_upload_desc)
             .setNegativeButton(R.string.dialog_close, (dialog, which) -> {
                 PermissionUtil.requestStoragePermissionIfNeeded(this);
-                PermissionUtil.requestMediaLocationPermission(this);
                 preferences.setAutoUploadGPlayNotificationShown(true);
                 dialog.dismiss();
             })
