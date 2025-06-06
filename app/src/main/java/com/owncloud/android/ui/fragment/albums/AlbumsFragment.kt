@@ -12,6 +12,9 @@ import android.content.Context
 import android.content.Intent
 import android.content.res.Configuration
 import android.os.Bundle
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.style.ForegroundColorSpan
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuInflater
@@ -19,6 +22,7 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.VisibleForTesting
+import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
@@ -137,6 +141,17 @@ class AlbumsFragment : Fragment(), AlbumFragmentInterface, Injectable {
                 override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
                     menu.clear() // important: clears any existing activity menu
                     menuInflater.inflate(R.menu.fragment_create_album, menu)
+
+                    val addItem = menu.findItem(R.id.action_create_new_album)
+                    val coloredTitle = SpannableString(addItem.title).apply {
+                        setSpan(
+                            ForegroundColorSpan(ContextCompat.getColor(requireContext(), R.color.primary)),
+                            0,
+                            length,
+                            Spannable.SPAN_INCLUSIVE_INCLUSIVE
+                        )
+                    }
+                    addItem.title = coloredTitle
                 }
 
                 override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
