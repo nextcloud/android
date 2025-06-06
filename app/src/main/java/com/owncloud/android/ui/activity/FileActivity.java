@@ -42,7 +42,6 @@ import com.nextcloud.receiver.NetworkChangeListener;
 import com.nextcloud.receiver.NetworkChangeReceiver;
 import com.nextcloud.utils.EditorUtils;
 import com.nextcloud.utils.extensions.ActivityExtensionsKt;
-import com.nextcloud.utils.extensions.BundleExtensionsKt;
 import com.nextcloud.utils.extensions.FileActivityExtensionsKt;
 import com.nextcloud.utils.extensions.FileExtensionsKt;
 import com.nextcloud.utils.extensions.IntentExtensionsKt;
@@ -248,14 +247,6 @@ public abstract class FileActivity extends DrawerActivity
         registerNetworkChangeReceiver();
 
         filesRepository = new RemoteFilesRepository(getClientRepository(), this);
-    }
-
-    private void initFile(Bundle savedInstanceState) {
-        if (savedInstanceState != null) {
-            BundleExtensionsKt.getParcelableArgument(savedInstanceState, FileActivity.EXTRA_FILE, OCFile.class);
-        } else {
-            IntentExtensionsKt.getParcelableArgument(getIntent(), FileActivity.EXTRA_FILE, OCFile.class);
-        }
     }
 
     @Override
