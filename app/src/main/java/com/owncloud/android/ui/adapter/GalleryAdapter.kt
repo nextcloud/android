@@ -206,9 +206,7 @@ class GalleryAdapter(
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    fun showAlbumItems(
-        albumItems: List<OCFile>,
-    ) {
+    fun showAlbumItems(albumItems: List<OCFile>) {
         files = albumItems.toGalleryItems()
         Handler(Looper.getMainLooper()).post { notifyDataSetChanged() }
     }
@@ -313,7 +311,7 @@ class GalleryAdapter(
     }
 
     fun setCheckedItem(files: Set<OCFile>?) {
-       ocFileListDelegate.setCheckedItem(files)
+        ocFileListDelegate.setCheckedItem(files)
     }
 
     override fun getFilesCount(): Int {
