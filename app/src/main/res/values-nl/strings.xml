@@ -481,14 +481,14 @@
     <string name="forward">Doorsturen</string>
     <string name="fourHours">4 uur</string>
     <string name="gplay_restriction">Google heeft het downloaden van APK/AAB files beperkt!</string>
-    <string name="grid_file_features_live_photo_content_description">Dit icoon geeft de beschikbaarheid van live foto aan</string>
+    <string name="grid_file_features_live_photo_content_description">Dit pictogram geeft de beschikbaarheid van live foto aan</string>
     <string name="hidden_file_name_warning">Naam resulteert in een verborgen bestand</string>
     <string name="hint_name">Naam</string>
     <string name="hint_note">Notitie</string>
     <string name="hint_password">Wachtwoord</string>
     <string name="host_not_available">Server niet beschikbaar</string>
     <string name="host_your_own_server">Host je eigen server</string>
-    <string name="icon_for_empty_list">Icoon voor lege lijst</string>
+    <string name="icon_for_empty_list">Pictogram voor lege lijst</string>
     <string name="icon_of_dashboard_widget">Pictogram van dashboard widget</string>
     <string name="icon_of_widget_entry">Pictogram van widget vermelding</string>
     <string name="image_editor_file_edited_suffix">Bewerkt</string>
@@ -593,7 +593,7 @@
     <string name="no_send_app">Geen app gevonden om de geselecteerde bestanden mee te verzenden</string>
     <string name="no_share_permission_selected">Gelieve ten minste één machtiging te selecteren om te delen</string>
     <string name="note_could_not_sent">Kon notitie niet versturen</string>
-    <string name="note_icon_hint">Notitie icoon</string>
+    <string name="note_icon_hint">Notitie-pictogram</string>
     <string name="notification_action_failed">Niet gelukt om actie uit te voeren</string>
     <string name="notification_channel_background_operations_description">Meldingen met de resultaten van achtergrondoperaties tonen</string>
     <string name="notification_channel_background_operations_name">Achtergrondtaken</string>
@@ -795,6 +795,7 @@
     <string name="select_one_template">Selecteer een sjabloon</string>
     <string name="select_template">Kies sjabloon</string>
     <string name="send">Versturen</string>
+    <string name="send_share">Share versturen</string>
     <string name="sendbutton_description">Verstuur-knop pictogram</string>
     <string name="set_as">Stel in als</string>
     <string name="set_note">Aantekening instellen</string>
@@ -808,9 +809,9 @@
     <string name="share_download_limit">Stel downloadlimiet in</string>
     <string name="share_expiration_date_format">%1$s</string>
     <string name="share_expiration_date_label">Vervalt op %1$s</string>
-    <string name="share_file">Deel %1$s</string>
+    <string name="share_file">Delen %1$s</string>
     <string name="share_group_clarification">%1$s (groep)</string>
-    <string name="share_internal_link">Deel interne link</string>
+    <string name="share_internal_link">Interne link delen</string>
     <string name="share_internal_link_to_file_text">Interne link voor delen werkt alleen voor gebruikers met toegang tot dit bestand</string>
     <string name="share_internal_link_to_folder_text">Interne link voor delen werkt alleen voor gebruikers met toegang tot deze map</string>
     <string name="share_known_remote_on_clarification">op %1$s</string>
@@ -1089,7 +1090,7 @@
     <string name="userinfo_no_info_text">Voeg naam, foto en contact details op je profielpagina toe.</string>
     <string name="username">Gebruikersnaam</string>
     <string name="version_dev_download">Download</string>
-    <string name="video_overlay_icon">Video overlay icon</string>
+    <string name="video_overlay_icon">Video overlaypictogram</string>
     <string name="wait_a_moment">Wacht even…</string>
     <string name="wait_checking_credentials">Opgeslagen inloggegevens nakijken</string>
     <string name="wait_for_tmp_copy_from_private_storage">Bestand vanaf privéopslag kopiëren</string>
