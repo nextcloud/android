@@ -73,6 +73,10 @@ class FilesSpecificViewThemeUtils @Inject constructor(
                 createAvatarBase(R.drawable.ic_group)
                 androidViewThemeUtils.colorImageViewBackgroundAndIcon(avatar)
             }
+            ShareType.FEDERATED_GROUP -> {
+                createAvatarBase(R.drawable.ic_group)
+                androidViewThemeUtils.colorImageViewBackgroundAndIcon(avatar)
+            }
             ShareType.ROOM -> {
                 createAvatarBase(R.drawable.first_run_talk, AvatarPadding.LARGE)
                 androidViewThemeUtils.colorImageViewBackgroundAndIcon(avatar)
