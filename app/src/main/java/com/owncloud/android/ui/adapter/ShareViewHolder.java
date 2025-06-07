@@ -83,6 +83,10 @@ class ShareViewHolder extends RecyclerView.ViewHolder {
                 name = context.getString(R.string.share_remote_clarification, name);
                 setImage(binding.icon, share.getSharedWithDisplayName(), R.drawable.ic_user);
                 break;
+            case FEDERATED_GROUP:
+                name = context.getString(R.string.share_remote_clarification, name);
+                setImage(binding.icon, share.getSharedWithDisplayName(), R.drawable.ic_user);
+                break;
             case USER:
                 binding.icon.setTag(share.getShareWith());
                 float avatarRadius = context.getResources().getDimension(R.dimen.list_item_avatar_icon_radius);
