@@ -669,6 +669,7 @@
     <string name="prefs_add_account">Agregar cuenta</string>
     <string name="prefs_calendar_contacts">Sincronizar calendario y contactos</string>
     <string name="prefs_calendar_contacts_no_store_error">Ni F-Droid ni Google Play están instalados</string>
+    <string name="prefs_calendar_contacts_summary">Configurar DAVx⁵ (antes conocido como DAVdroid) (v1.3.0+) para la cuenta actual</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Sincronización de calendario y contactos configurada</string>
     <string name="prefs_category_about">Acerca de</string>
     <string name="prefs_category_details">Detalles</string>
@@ -680,6 +681,7 @@
     <string name="prefs_daily_contact_backup_summary">Respaldo diario de sus contactos</string>
     <string name="prefs_data_storage_location">Ubicación donde guardar los datos</string>
     <string name="prefs_data_storage_location_summary">Gestionar ubicación de almacenamiento de datos</string>
+    <string name="prefs_davx5_setup_error">Error inesperado al configurar DAVx⁵ (anteriormente conocido como DAVdroid)</string>
     <string name="prefs_e2e_active">¡Se ha configurado el cifrado de extremo a extremo!</string>
     <string name="prefs_e2e_mnemonic">Regla mnemotécnica del cifrado E2E</string>
     <string name="prefs_e2e_no_device_credentials">Para mostrar la regla mnemotécnica, habilite las credenciales del dispositivo</string>
@@ -784,6 +786,7 @@
     <string name="screenshot_05_autoUpload_heading">Subida automática</string>
     <string name="screenshot_05_autoUpload_subline">para sus fotos y videos</string>
     <string name="screenshot_06_davdroid_heading">Calendario y contactos</string>
+    <string name="screenshot_06_davdroid_subline">Sincronizar con DAVx⁵</string>
     <string name="search_error">Error al cargar resultados de búsqueda</string>
     <string name="secure_share_not_set_up">Compartir en modo seguro no está configurado para este usuario</string>
     <string name="secure_share_search">Compartir de forma segura...</string>
@@ -1110,6 +1113,21 @@
         <item quantity="one">%d minuto</item>
         <item quantity="many">%d minutos</item>
         <item quantity="other">%d minutos</item>
+    </plurals>
+    <plurals name="time_seconds_ago">
+        <item quantity="one">Hace %d segundo</item>
+        <item quantity="many">Hace %d segundos</item>
+        <item quantity="other">Hace %d segundos</item>
+    </plurals>
+    <plurals name="time_minutes_ago">
+        <item quantity="one">Hace %d minuto</item>
+        <item quantity="many">Hace %d minutos</item>
+        <item quantity="other">Hace %d minutos</item>
+    </plurals>
+    <plurals name="time_hours_ago">
+        <item quantity="one">Hace %d hora</item>
+        <item quantity="many">Hace %d horas</item>
+        <item quantity="other">Hace %d horas</item>
     </plurals>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">No se ha podido sincronizar %1$d archivo (conflicto con %2$d)</item>

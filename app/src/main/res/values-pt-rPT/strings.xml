@@ -46,6 +46,7 @@
     <string name="app_widget_description">Mostra um \'\'widget\'\' do painel</string>
     <string name="appbar_search_in">Procurar em %s</string>
     <string name="assistant_screen_add_task_alert_dialog_title">Adicionar nova tarefa</string>
+    <string name="assistant_screen_create_a_new_task_from_bottom_right_text">Criar uma nova tarefa a partir do canto inferior direito</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Digite algum texto</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Tem a certeza que deseja eliminar esta tarefa?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Eliminar tarefa</string>
@@ -56,6 +57,7 @@
     <string name="assistant_screen_task_delete_success_message">Tarefa eliminada com sucesso</string>
     <string name="assistant_screen_task_list_empty_message">A lista de tarefas está vazia.</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">Eliminar Tarefa</string>
+    <string name="assistant_screen_task_output_empty_text">O resultado da tarefa ainda não está pronto.</string>
     <string name="assistant_screen_top_bar_title">Assistente</string>
     <string name="assistant_task_detail_screen_input_button_title">Entrada</string>
     <string name="assistant_task_detail_screen_output_button_title">Saída</string>
@@ -262,6 +264,7 @@
     <string name="drawer_item_assistant">Assistente</string>
     <string name="drawer_item_favorites">Favoritos</string>
     <string name="drawer_item_gallery">Media</string>
+    <string name="drawer_item_groupfolders">Pastas de grupo</string>
     <string name="drawer_item_home">Início</string>
     <string name="drawer_item_notifications">Notificações</string>
     <string name="drawer_item_on_device">No dispositivo</string>
@@ -275,16 +278,22 @@
     <string name="drawer_quota">Usado %1$s de %2$s</string>
     <string name="drawer_quota_unlimited">%1$s utilizado</string>
     <string name="drawer_synced_folders">Carregamento automático</string>
+    <string name="e2e_counter_too_old">Contador é muito antigo</string>
     <string name="e2e_hash_not_found">Hash não encontrada</string>
     <string name="e2e_not_yet_setup">Ainda não foi definido E2E</string>
     <string name="e2e_offline">Não é possível sem uma ligação à Internet</string>
+    <string name="e2e_signature_does_not_match">Assinatura não coincide</string>
     <string name="ecosystem_apps_display_assistant">Assistente</string>
     <string name="ecosystem_apps_display_more">Mais</string>
     <string name="ecosystem_apps_more">Mais Aplicações Nextcloud</string>
+    <string name="email_pick_failed">Erro ao escolher endereço de email.</string>
     <string name="encrypted">Definir como encriptado</string>
+    <string name="end_to_end_encryption_certificate_unavailable">Não foi possível obter o certificado do servidor</string>
+    <string name="end_to_end_encryption_certificate_verification_failed">Erro ao verificar a chave pública</string>
     <string name="end_to_end_encryption_confirm_button">Definir encriptação</string>
     <string name="end_to_end_encryption_decrypting">Decryption…</string>
     <string name="end_to_end_encryption_dialog_close">Fechar</string>
+    <string name="end_to_end_encryption_enter_passphrase_to_access_files">Introduza a sua frase-chave para aceder aos seus ficheiros</string>
     <string name="end_to_end_encryption_folder_not_empty">A pasta não está vazia.</string>
     <string name="end_to_end_encryption_generating_keys">A gerar novas chaves…</string>
     <string name="end_to_end_encryption_keywords_description">As 12 palavras juntas formam uma palavra-passe muito forte, permitindo que apenas você veja e utilize os seus ficheiros encriptados. Por favor, aponte-as e mantenha-as num lugar seguro.</string>
@@ -292,6 +301,8 @@
     <string name="end_to_end_encryption_passphrase_title">Tome nota da sua palavra-passe de encriptação de 12 palavras</string>
     <string name="end_to_end_encryption_password">Palavra-passe…</string>
     <string name="end_to_end_encryption_retrieving_keys">A extrair chaves…</string>
+    <string name="end_to_end_encryption_server_private_key_unavailable">Não foi possível obter a chave privada</string>
+    <string name="end_to_end_encryption_server_public_key_unavailable">Não foi possível obter a chave pública</string>
     <string name="end_to_end_encryption_storing_keys">A guardar chaves</string>
     <string name="end_to_end_encryption_title">Definir encriptação</string>
     <string name="end_to_end_encryption_unsuccessful">Não foi possível guardar as chaves, por favor, tente novamente.</string>
