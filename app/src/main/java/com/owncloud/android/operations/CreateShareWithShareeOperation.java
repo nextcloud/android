@@ -63,6 +63,7 @@ public class CreateShareWithShareeOperation extends SyncOperation {
     private static final Set<ShareType> supportedShareTypes = new HashSet<>(Arrays.asList(ShareType.USER,
                                                                                           ShareType.GROUP,
                                                                                           ShareType.FEDERATED,
+                                                                                          ShareType.FEDERATED_GROUP,
                                                                                           ShareType.EMAIL,
                                                                                           ShareType.ROOM,
                                                                                           ShareType.CIRCLE));
