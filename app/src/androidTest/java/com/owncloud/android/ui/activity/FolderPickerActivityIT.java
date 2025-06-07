@@ -117,9 +117,7 @@ public class FolderPickerActivityIT extends AbstractIT {
         OCFile origin = new OCFile("/test/file.txt");
         sut.setFile(origin);
 
-        sut.runOnUiThread(() -> {
-            sut.findViewById(R.id.folder_picker_btn_copy).requestFocus();
-        });
+        sut.runOnUiThread(() -> sut.findViewById(R.id.folder_picker_btn_copy).requestFocus());
         waitForIdleSync();
         screenshot(sut);
     }
