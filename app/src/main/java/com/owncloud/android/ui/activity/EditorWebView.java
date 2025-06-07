@@ -26,6 +26,7 @@ import android.widget.Toast;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.nextcloud.client.account.User;
+import com.nextcloud.utils.extensions.FileActivityExtensionsKt;
 import com.nextcloud.utils.extensions.IntentExtensionsKt;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.RichdocumentsWebviewBinding;
@@ -159,8 +160,6 @@ public abstract class EditorWebView extends ExternalSiteWebView {
             }
         });
 
-        setFile(IntentExtensionsKt.getParcelableArgument(getIntent(), ExternalSiteWebView.EXTRA_FILE, OCFile.class));
-
         if (getFile() == null) {
             Toast.makeText(getApplicationContext(),
                            R.string.richdocuments_failed_to_load_document, Toast.LENGTH_LONG).show();
@@ -241,7 +240,7 @@ public abstract class EditorWebView extends ExternalSiteWebView {
 
     private void openShareDialog() {
         Intent intent = new Intent(this, ShareActivity.class);
-        intent.putExtra(FileActivity.EXTRA_FILE, getFile());
+        intent.putExtra(FileActivity.EXTRA_FILE_ID, getFile().getFileId());
         intent.putExtra(FileActivity.EXTRA_USER, getUser().orElseThrow(RuntimeException::new));
         startActivity(intent);
     }
