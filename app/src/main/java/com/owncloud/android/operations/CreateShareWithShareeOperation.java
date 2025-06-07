@@ -156,7 +156,8 @@ public class CreateShareWithShareeOperation extends SyncOperation {
             false,
             sharePassword,
             permissions,
-            noteMessage
+            noteMessage,
+            ""
         );
         operation.setGetShareDetails(true);
         RemoteOperationResult shareResult = operation.execute(client);
