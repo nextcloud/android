@@ -265,12 +265,12 @@ public class RefreshFolderOperation extends RemoteOperation {
             sendLocalBroadcast(EVENT_SINGLE_FOLDER_CONTENTS_SYNCED, mLocalFolder.getRemotePath(), result);
         }
 
-        if (result.isSuccess() && !mSyncFullAccount && !mOnlyFileMetadata) {
-            refreshSharesForFolder(client); // share result is ignored
-        }
-
         if (!mSyncFullAccount) {
             sendLocalBroadcast(EVENT_SINGLE_FOLDER_SHARES_SYNCED, mLocalFolder.getRemotePath(), result);
+        }
+
+        if (result.isSuccess() && !mSyncFullAccount && !mOnlyFileMetadata) {
+            refreshSharesForFolder(client); // share result is ignored
         }
 
         return result;
