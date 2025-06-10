@@ -49,8 +49,7 @@ import org.hamcrest.CoreMatchers.anyOf
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.CoreMatchers.not
 import org.junit.After
-import org.junit.Assert.assertFalse
-import org.junit.Assert.assertTrue
+import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -887,84 +886,60 @@ class FileDetailSharingFragmentIT : AbstractIT() {
 
     @Test
     fun testUploadAndEditingSharePermissions() {
-        val share = OCShare().apply {
-            permissions = MAXIMUM_PERMISSIONS_FOR_FOLDER
+        val testCases = mapOf(
+            MAXIMUM_PERMISSIONS_FOR_FOLDER to true,
+            NO_PERMISSION to false,
+            READ_PERMISSION_FLAG to false,
+            CREATE_PERMISSION_FLAG to false,
+            DELETE_PERMISSION_FLAG to false,
+            SHARE_PERMISSION_FLAG to false
+        )
+
+        val share = OCShare()
+        for ((permission, expected) in testCases) {
+            share.permissions = permission
+            assertEquals("Failed for permission: $permission", expected, SharePermissionManager.canEdit(share))
         }
-        assertTrue(SharePermissionManager.canEdit(share))
-
-        share.permissions = NO_PERMISSION
-        assertFalse(SharePermissionManager.canEdit(share))
-
-        share.permissions = READ_PERMISSION_FLAG
-        assertFalse(SharePermissionManager.canEdit(share))
-
-        share.permissions = CREATE_PERMISSION_FLAG
-        assertFalse(SharePermissionManager.canEdit(share))
-
-        share.permissions = DELETE_PERMISSION_FLAG
-        assertFalse(SharePermissionManager.canEdit(share))
-
-        share.permissions = SHARE_PERMISSION_FLAG
-        assertFalse(SharePermissionManager.canEdit(share))
     }
 
     @Test
-    @Suppress("MagicNumber")
     fun testReadOnlySharePermissions() {
-        val share = OCShare().apply {
-            permissions = 17
+        val testCases = mapOf(
+            READ_PERMISSION_FLAG to true,
+            NO_PERMISSION to false,
+            CREATE_PERMISSION_FLAG to false,
+            DELETE_PERMISSION_FLAG to false,
+            SHARE_PERMISSION_FLAG to false,
+            MAXIMUM_PERMISSIONS_FOR_FOLDER to false,
+            MAXIMUM_PERMISSIONS_FOR_FILE to false
+        )
+
+        val share = OCShare()
+        for ((permission, expected) in testCases) {
+            share.permissions = permission
+            assertEquals("Failed for permission: $permission", expected, SharePermissionManager.isViewOnly(share))
         }
-        assertTrue(SharePermissionManager.isViewOnly(share))
-
-        share.permissions = NO_PERMISSION
-        assertFalse(SharePermissionManager.isViewOnly(share))
-
-        share.permissions = READ_PERMISSION_FLAG
-        assertTrue(SharePermissionManager.isViewOnly(share))
-
-        share.permissions = CREATE_PERMISSION_FLAG
-        assertFalse(SharePermissionManager.isViewOnly(share))
-
-        share.permissions = DELETE_PERMISSION_FLAG
-        assertFalse(SharePermissionManager.isViewOnly(share))
-
-        share.permissions = SHARE_PERMISSION_FLAG
-        assertFalse(SharePermissionManager.isViewOnly(share))
-
-        share.permissions = MAXIMUM_PERMISSIONS_FOR_FOLDER
-        assertFalse(SharePermissionManager.isViewOnly(share))
-
-        share.permissions = MAXIMUM_PERMISSIONS_FOR_FILE
-        assertFalse(SharePermissionManager.isViewOnly(share))
     }
 
     @Test
-    @Suppress("MagicNumber")
-    fun testFileDropSharePermissions() {
+    fun testFileRequestSharePermission() {
+        val testCases = mapOf(
+            CREATE_PERMISSION_FLAG to true,
+            NO_PERMISSION to false,
+            READ_PERMISSION_FLAG to false,
+            DELETE_PERMISSION_FLAG to false,
+            SHARE_PERMISSION_FLAG to false,
+            MAXIMUM_PERMISSIONS_FOR_FOLDER to false,
+            MAXIMUM_PERMISSIONS_FOR_FILE to false
+        )
+
         val share = OCShare().apply {
-            permissions = 4
+            isFolder = true
         }
-        assertTrue(SharePermissionManager.isFileRequest(share))
 
-        share.permissions = NO_PERMISSION
-        assertFalse(SharePermissionManager.isFileRequest(share))
-
-        share.permissions = READ_PERMISSION_FLAG
-        assertFalse(SharePermissionManager.isFileRequest(share))
-
-        share.permissions = CREATE_PERMISSION_FLAG
-        assertTrue(SharePermissionManager.isFileRequest(share))
-
-        share.permissions = DELETE_PERMISSION_FLAG
-        assertFalse(SharePermissionManager.isFileRequest(share))
-
-        share.permissions = SHARE_PERMISSION_FLAG
-        assertFalse(SharePermissionManager.isFileRequest(share))
-
-        share.permissions = MAXIMUM_PERMISSIONS_FOR_FOLDER
-        assertFalse(SharePermissionManager.isFileRequest(share))
-
-        share.permissions = MAXIMUM_PERMISSIONS_FOR_FILE
-        assertFalse(SharePermissionManager.isFileRequest(share))
+        for ((permission, expected) in testCases) {
+            share.permissions = permission
+            assertEquals("Failed for permission: $permission", expected, SharePermissionManager.isFileRequest(share))
+        }
     }
 }
