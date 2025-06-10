@@ -418,6 +418,7 @@
     <string name="prefs_add_account">Pievienot kontu</string>
     <string name="prefs_calendar_contacts">Sinhronizēt kalendāru un kontaktpersonas</string>
     <string name="prefs_calendar_contacts_no_store_error">F-Droid vai Google Play nav uzstādīts</string>
+    <string name="prefs_calendar_contacts_summary">Iestatīt DAVx⁵ (iepriekš zināmu kā DAVdroid) (v1.3.0+) pašreizējam kontam</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Kalendāra un kontaktpersonu sinhronizēšanas iestatīšana</string>
     <string name="prefs_category_about">Par</string>
     <string name="prefs_category_details">Detaļas</string>
@@ -428,6 +429,7 @@
     <string name="prefs_daily_contact_backup_summary">Ikdienas kontaktpersonu rezerves kopēšana</string>
     <string name="prefs_data_storage_location">Datu krātuves atrašanās vieta</string>
     <string name="prefs_data_storage_location_summary">Pārvaldīt datu krātuves atrašanās vietu</string>
+    <string name="prefs_davx5_setup_error">Neparedzēta kļūda DAVx⁵ (iepriekš zināmas kā DAVdroid) iestatīšanā</string>
     <string name="prefs_enable_media_scan_notifications">Rādīt informācijas nesēju noteikšanas paziņojumus</string>
     <string name="prefs_enable_media_scan_notifications_summary">Paziņot par jaunu informācijas nesēju mapju atrašanu</string>
     <string name="prefs_gpl_v2">GNU vispārējā publiskā licence, 2. versija</string>
@@ -637,7 +639,7 @@
     <string name="uploader_wrn_no_account_title">Nav atrastu kontu</string>
     <string name="uploads_view_group_current_uploads">Pašreizējās</string>
     <string name="uploads_view_group_failed_uploads">Neizdevās/gaida atsākšanu</string>
-    <string name="uploads_view_group_finished_uploads">Augšupielādēts</string>
+    <string name="uploads_view_group_finished_uploads">Augšupielādētas</string>
     <string name="uploads_view_group_manually_cancelled_uploads">Atcelts</string>
     <string name="uploads_view_later_waiting_to_upload">Gaida augšupielādi</string>
     <string name="uploads_view_title">Augšupielādes</string>
