@@ -1,7 +1,7 @@
 /*
  * Nextcloud - Android Client
  *
- * SPDX-FileCopyrightText: 2021-2024 TSI-mc <surinder.kumar@t-systems.com>
+ * SPDX-FileCopyrightText: 2021-2025 TSI-mc <surinder.kumar@t-systems.com>
  * SPDX-FileCopyrightText: 2020 Infomaniak Network SA
  * SPDX-FileCopyrightText: 2020 Chris Narkiewicz <hello@ezaquarii.com>
  * SPDX-FileCopyrightText: 2017 Tobias Kaminsky <tobias@kaminsky.me>
@@ -93,6 +93,8 @@ import com.owncloud.android.ui.fragment.GalleryFragment;
 import com.owncloud.android.ui.fragment.GroupfolderListFragment;
 import com.owncloud.android.ui.fragment.OCFileListFragment;
 import com.owncloud.android.ui.fragment.SharedListFragment;
+import com.owncloud.android.ui.fragment.albums.AlbumItemsFragment;
+import com.owncloud.android.ui.fragment.albums.AlbumsFragment;
 import com.owncloud.android.ui.preview.PreviewTextStringFragment;
 import com.owncloud.android.ui.trashbin.TrashbinActivity;
 import com.owncloud.android.utils.BitmapUtils;
@@ -127,6 +129,7 @@ import androidx.core.content.res.ResourcesCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import hct.Hct;
 
@@ -261,17 +264,15 @@ public abstract class DrawerActivity extends ToolbarActivity
             menuItemId = menuItem.getItemId();
 
             if (menuItemId == R.id.nav_all_files) {
-                showFiles(false,false);
-                if (this instanceof FileDisplayActivity fda) {
-                    fda.browseToRoot();
-                }
-                EventBus.getDefault().post(new ChangeMenuEvent());
+                onNavigationItemClicked(menuItem);
             } else if (menuItemId == R.id.nav_favorites) {
                 handleSearchEvents(new SearchEvent("", SearchRemoteOperation.SearchType.FAVORITE_SEARCH), menuItemId);
             } else if (menuItemId == R.id.nav_assistant && !(this instanceof ComposeActivity)) {
                 startComposeActivity(ComposeDestination.AssistantScreen, R.string.assistant_screen_top_bar_title);
             } else if (menuItemId == R.id.nav_gallery) {
                 startPhotoSearch(menuItem.getItemId());
+            } else if (menuItemId == R.id.nav_album) {
+                replaceAlbumFragment();
             }
 
             // Remove extra icon from the action bar
@@ -526,7 +527,8 @@ public abstract class DrawerActivity extends ToolbarActivity
                 !(((FileDisplayActivity) this).getLeftFragment() instanceof GalleryFragment) &&
                 !(((FileDisplayActivity) this).getLeftFragment() instanceof SharedListFragment) &&
                 !(((FileDisplayActivity) this).getLeftFragment() instanceof GroupfolderListFragment) &&
-                !(((FileDisplayActivity) this).getLeftFragment() instanceof PreviewTextStringFragment)) {
+                !(((FileDisplayActivity) this).getLeftFragment() instanceof PreviewTextStringFragment) &&
+                !isAlbumsFragment() && !isAlbumItemsFragment()) {
                 showFiles(false, itemId == R.id.nav_personal_files);
                 ((FileDisplayActivity) this).browseToRoot();
                 EventBus.getDefault().post(new ChangeMenuEvent());
@@ -550,6 +552,8 @@ public abstract class DrawerActivity extends ToolbarActivity
                                menuItem.getItemId());
         } else if (itemId == R.id.nav_gallery) {
             startPhotoSearch(menuItem.getItemId());
+        } else if (itemId == R.id.nav_album) {
+            replaceAlbumFragment();
         } else if (itemId == R.id.nav_on_device) {
             EventBus.getDefault().post(new ChangeMenuEvent());
             showFiles(true, false);
@@ -592,6 +596,26 @@ public abstract class DrawerActivity extends ToolbarActivity
                 Log_OC.w(TAG, "Unknown drawer menu item clicked: " + menuItem.getTitle());
             }
         }
+    }
+
+    private void replaceAlbumFragment() {
+        if (isAlbumsFragment()) {
+            return;
+        }
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.addToBackStack(null);
+        transaction.replace(R.id.left_fragment_container, AlbumsFragment.Companion.newInstance(false), AlbumsFragment.Companion.getTAG());
+        transaction.commit();
+    }
+
+    public boolean isAlbumsFragment() {
+        Fragment albumsFragment = getSupportFragmentManager().findFragmentByTag(AlbumsFragment.Companion.getTAG());
+        return albumsFragment instanceof AlbumsFragment && albumsFragment.isVisible();
+    }
+
+    public boolean isAlbumItemsFragment() {
+        Fragment albumItemsFragment = getSupportFragmentManager().findFragmentByTag(AlbumItemsFragment.Companion.getTAG());
+        return albumItemsFragment instanceof AlbumItemsFragment && albumItemsFragment.isVisible();
     }
 
     private void startComposeActivity(ComposeDestination destination, int titleId) {
@@ -655,7 +679,8 @@ public abstract class DrawerActivity extends ToolbarActivity
     private void handleSearchEvents(SearchEvent searchEvent, int menuItemId) {
         if (this instanceof FileDisplayActivity) {
             final Fragment leftFragment = ((FileDisplayActivity) this).getLeftFragment();
-            if (leftFragment instanceof GalleryFragment || leftFragment instanceof SharedListFragment) {
+            if (leftFragment instanceof GalleryFragment || leftFragment instanceof SharedListFragment
+                || isAlbumsFragment() || isAlbumItemsFragment()) {
                 launchActivityForSearch(searchEvent, menuItemId);
             } else {
                 EventBus.getDefault().post(searchEvent);

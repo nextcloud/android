@@ -2,7 +2,7 @@
 <!--
   ~ Nextcloud - Android Client
   ~
-  ~ SPDX-FileCopyrightText: 2024 TSI-mc <surinder.kumar@t-systems.com>
+  ~ SPDX-FileCopyrightText: 2024-2025 TSI-mc <surinder.kumar@t-systems.com>
   ~ SPDX-FileCopyrightText: 2016-2024 Nextcloud GmbH and Nextcloud contributors
   ~ SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
 -->
@@ -592,6 +592,9 @@
             android:launchMode="singleTop"
             android:theme="@style/Theme.ownCloud.Dialog.NoTitle"
             android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".ui.activity.AlbumsPickerActivity"
+            android:exported="false" />
         <activity
             android:name=".ui.activity.ShareActivity"
             android:exported="false"
