@@ -1535,6 +1535,48 @@ public class FileDataStorageManager {
         return shares;
     }
 
+    private ContentValues createContentValueForRemoteFile(RemoteFile remoteFile) {
+        ContentValues contentValues = new ContentValues();
+
+        // Aligned properties between RemoteFile and OCShare
+        contentValues.put(ProviderTableMeta.OCSHARES_PATH, remoteFile.getRemotePath());
+        contentValues.put(ProviderTableMeta.OCSHARES_PERMISSIONS, remoteFile.getPermissions());
+        contentValues.put(ProviderTableMeta.OCSHARES_IS_DIRECTORY,
+                          "DIR".equals(remoteFile.getMimeType()) ? 1 : 0);
+        contentValues.put(ProviderTableMeta.OCSHARES_USER_ID, remoteFile.getOwnerId());
+        contentValues.put(ProviderTableMeta.OCSHARES_NOTE, remoteFile.getNote());
+        contentValues.put(ProviderTableMeta.OCSHARES_HIDE_DOWNLOAD, remoteFile.isHasPreview());
+
+        // Handle FileDownloadLimit - RemoteFile has a List while OCShare has a single object
+        List<FileDownloadLimit> downloadLimits = remoteFile.getFileDownloadLimit();
+        if (!downloadLimits.isEmpty()) {
+            FileDownloadLimit downloadLimit = downloadLimits.get(0); // Take the first one
+            contentValues.put(ProviderTableMeta.OCSHARES_DOWNLOADLIMIT_LIMIT, downloadLimit.getLimit());
+            contentValues.put(ProviderTableMeta.OCSHARES_DOWNLOADLIMIT_COUNT, downloadLimit.getCount());
+        } else {
+            contentValues.putNull(ProviderTableMeta.OCSHARES_DOWNLOADLIMIT_LIMIT);
+            contentValues.putNull(ProviderTableMeta.OCSHARES_DOWNLOADLIMIT_COUNT);
+        }
+
+        // Set default/null values for non-matching OCShare fields
+        contentValues.putNull(ProviderTableMeta.OCSHARES_FILE_SOURCE);
+        contentValues.putNull(ProviderTableMeta.OCSHARES_ITEM_SOURCE);
+        contentValues.putNull(ProviderTableMeta.OCSHARES_SHARE_TYPE);
+        contentValues.putNull(ProviderTableMeta.OCSHARES_SHARE_WITH);
+        contentValues.putNull(ProviderTableMeta.OCSHARES_SHARED_DATE);
+        contentValues.putNull(ProviderTableMeta.OCSHARES_EXPIRATION_DATE);
+        contentValues.putNull(ProviderTableMeta.OCSHARES_TOKEN);
+        contentValues.putNull(ProviderTableMeta.OCSHARES_SHARE_WITH_DISPLAY_NAME);
+        contentValues.putNull(ProviderTableMeta.OCSHARES_ID_REMOTE_SHARED);
+        contentValues.put(ProviderTableMeta.OCSHARES_ACCOUNT_OWNER, user.getAccountName()); // Assuming user is available
+        contentValues.put(ProviderTableMeta.OCSHARES_IS_PASSWORD_PROTECTED, 0);
+        contentValues.putNull(ProviderTableMeta.OCSHARES_SHARE_LINK);
+        contentValues.putNull(ProviderTableMeta.OCSHARES_SHARE_LABEL);
+        contentValues.putNull(ProviderTableMeta.OCSHARES_ATTRIBUTES);
+
+        return contentValues;
+    }
+
     private ContentValues createContentValueForShare(OCShare share) {
         ContentValues contentValues = new ContentValues();
         contentValues.put(ProviderTableMeta.OCSHARES_FILE_SOURCE, share.getFileSource());
@@ -1743,6 +1785,29 @@ public class FileDataStorageManager {
         }
     }
 
+    public void saveSharesFromRemoteFile(List<RemoteFile> shares) {
+        final ArrayList<ContentProviderOperation> operations = prepareInsertSharesFromRemoteFile(shares);
+        if (operations.isEmpty()) {
+            return;
+        }
+        applyBatch(operations);
+    }
+
+    private ArrayList<ContentProviderOperation> prepareInsertSharesFromRemoteFile(Iterable<RemoteFile> remoteFiles) {
+        final ArrayList<ContentProviderOperation> operations = new ArrayList<>();
+
+        ContentValues contentValues;
+        for (RemoteFile remoteFile : remoteFiles) {
+            contentValues = createContentValueForRemoteFile(remoteFile);
+            operations.add(ContentProviderOperation
+                               .newInsert(ProviderTableMeta.CONTENT_URI_SHARE)
+                               .withValues(contentValues)
+                               .build());
+        }
+
+        return operations;
+    }
+
     public void saveSharesDB(List<OCShare> shares) {
         ArrayList<ContentProviderOperation> operations = new ArrayList<>();
 
@@ -1759,20 +1824,39 @@ public class FileDataStorageManager {
         // Add operations to insert shares
         operations = prepareInsertShares(shares, operations);
 
+        if (operations.isEmpty()) {
+            return;
+        }
+
         // apply operations in batch
-        if (operations.size() > 0) {
-            Log_OC.d(TAG, String.format(Locale.ENGLISH, SENDING_TO_FILECONTENTPROVIDER_MSG, operations.size()));
-            try {
-                if (getContentResolver() != null) {
-                    getContentResolver().applyBatch(MainApp.getAuthority(), operations);
+        Log_OC.d(TAG, String.format(Locale.ENGLISH, SENDING_TO_FILECONTENTPROVIDER_MSG, operations.size()));
+        applyBatch(operations);
+    }
 
-                } else {
-                    getContentProviderClient().applyBatch(operations);
-                }
-
-            } catch (OperationApplicationException | RemoteException e) {
-                Log_OC.e(TAG, EXCEPTION_MSG + e.getMessage(), e);
+    // TODO check:
+    private void resetShareFlags(List<String> sharePaths) {
+        ArrayList<ContentProviderOperation> operations = new ArrayList<>();
+        String filePath = "";
+        for (String sharePath : sharePaths) {
+            if (!filePath.equals(sharePath)) {
+                filePath = sharePath;
+                resetShareFlagInAFile(filePath);
+                prepareRemoveSharesInFile(filePath, operations);
             }
+        }
+    }
+
+    private void applyBatch(ArrayList<ContentProviderOperation> operations) {
+        try {
+            if (getContentResolver() != null) {
+                getContentResolver().applyBatch(MainApp.getAuthority(), operations);
+
+            } else {
+                getContentProviderClient().applyBatch(operations);
+            }
+
+        } catch (OperationApplicationException | RemoteException e) {
+            Log_OC.e(TAG, EXCEPTION_MSG + e.getMessage(), e);
         }
     }
 
@@ -1830,8 +1914,7 @@ public class FileDataStorageManager {
      * @param operations List of operations
      * @return
      */
-    private ArrayList<ContentProviderOperation> prepareInsertShares(
-        Iterable<OCShare> shares, ArrayList<ContentProviderOperation> operations) {
+    private ArrayList<ContentProviderOperation> prepareInsertShares(Iterable<OCShare> shares, ArrayList<ContentProviderOperation> operations) {
 
         ContentValues contentValues;
         // prepare operations to insert or update files to save in the given folder
