@@ -39,6 +39,7 @@ import com.nextcloud.client.database.dao.FileDao;
 import com.nextcloud.client.database.dao.OfflineOperationDao;
 import com.nextcloud.client.database.entity.FileEntity;
 import com.nextcloud.client.database.entity.OfflineOperationEntity;
+import com.nextcloud.client.database.entity.ShareEntity;
 import com.nextcloud.client.jobs.offlineOperations.repository.OfflineOperationsRepository;
 import com.nextcloud.client.jobs.offlineOperations.repository.OfflineOperationsRepositoryType;
 import com.nextcloud.model.OCFileFilterType;
@@ -83,6 +84,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Set;
+import java.util.function.Consumer;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -1538,41 +1540,33 @@ public class FileDataStorageManager {
     private ContentValues createContentValueForRemoteFile(RemoteFile remoteFile) {
         ContentValues contentValues = new ContentValues();
 
-        // Aligned properties between RemoteFile and OCShare
         contentValues.put(ProviderTableMeta.OCSHARES_PATH, remoteFile.getRemotePath());
-        contentValues.put(ProviderTableMeta.OCSHARES_PERMISSIONS, remoteFile.getPermissions());
-        contentValues.put(ProviderTableMeta.OCSHARES_IS_DIRECTORY,
-                          "DIR".equals(remoteFile.getMimeType()) ? 1 : 0);
-        contentValues.put(ProviderTableMeta.OCSHARES_USER_ID, remoteFile.getOwnerId());
-        contentValues.put(ProviderTableMeta.OCSHARES_NOTE, remoteFile.getNote());
-        contentValues.put(ProviderTableMeta.OCSHARES_HIDE_DOWNLOAD, remoteFile.isHasPreview());
+        boolean isDirectory = MimeTypeUtil.isFolder(remoteFile.getMimeType());
+        contentValues.put(ProviderTableMeta.OCSHARES_IS_DIRECTORY, isDirectory);
+        contentValues.put(ProviderTableMeta.OCSHARES_ACCOUNT_OWNER, user.getAccountName());
 
-        // Handle FileDownloadLimit - RemoteFile has a List while OCShare has a single object
-        List<FileDownloadLimit> downloadLimits = remoteFile.getFileDownloadLimit();
-        if (!downloadLimits.isEmpty()) {
-            FileDownloadLimit downloadLimit = downloadLimits.get(0); // Take the first one
-            contentValues.put(ProviderTableMeta.OCSHARES_DOWNLOADLIMIT_LIMIT, downloadLimit.getLimit());
-            contentValues.put(ProviderTableMeta.OCSHARES_DOWNLOADLIMIT_COUNT, downloadLimit.getCount());
-        } else {
-            contentValues.putNull(ProviderTableMeta.OCSHARES_DOWNLOADLIMIT_LIMIT);
-            contentValues.putNull(ProviderTableMeta.OCSHARES_DOWNLOADLIMIT_COUNT);
+        if (remoteFile.getSharees().length > 0) {
+            final var sharee = remoteFile.getSharees()[0];
+            contentValues.put(ProviderTableMeta.OCSHARES_SHARE_WITH_DISPLAY_NAME, sharee.getDisplayName());
+
+            ShareType shareType = sharee.getShareType();
+            if (shareType != null) {
+                contentValues.put(ProviderTableMeta.OCSHARES_SHARE_TYPE, shareType.getValue());
+            }
+
+            contentValues.put(ProviderTableMeta.OCSHARES_USER_ID, sharee.getUserId());
         }
 
-        // Set default/null values for non-matching OCShare fields
-        contentValues.putNull(ProviderTableMeta.OCSHARES_FILE_SOURCE);
-        contentValues.putNull(ProviderTableMeta.OCSHARES_ITEM_SOURCE);
-        contentValues.putNull(ProviderTableMeta.OCSHARES_SHARE_TYPE);
-        contentValues.putNull(ProviderTableMeta.OCSHARES_SHARE_WITH);
-        contentValues.putNull(ProviderTableMeta.OCSHARES_SHARED_DATE);
-        contentValues.putNull(ProviderTableMeta.OCSHARES_EXPIRATION_DATE);
-        contentValues.putNull(ProviderTableMeta.OCSHARES_TOKEN);
-        contentValues.putNull(ProviderTableMeta.OCSHARES_SHARE_WITH_DISPLAY_NAME);
-        contentValues.putNull(ProviderTableMeta.OCSHARES_ID_REMOTE_SHARED);
-        contentValues.put(ProviderTableMeta.OCSHARES_ACCOUNT_OWNER, user.getAccountName()); // Assuming user is available
-        contentValues.put(ProviderTableMeta.OCSHARES_IS_PASSWORD_PROTECTED, 0);
-        contentValues.putNull(ProviderTableMeta.OCSHARES_SHARE_LINK);
-        contentValues.putNull(ProviderTableMeta.OCSHARES_SHARE_LABEL);
-        contentValues.putNull(ProviderTableMeta.OCSHARES_ATTRIBUTES);
+        if (!remoteFile.getFileDownloadLimit().isEmpty()) {
+            FileDownloadLimit downloadLimit = remoteFile.getFileDownloadLimit().get(0);
+            if (downloadLimit != null) {
+                contentValues.put(ProviderTableMeta.OCSHARES_DOWNLOADLIMIT_LIMIT, downloadLimit.getLimit());
+                contentValues.put(ProviderTableMeta.OCSHARES_DOWNLOADLIMIT_COUNT, downloadLimit.getCount());
+            } else {
+                contentValues.putNull(ProviderTableMeta.OCSHARES_DOWNLOADLIMIT_LIMIT);
+                contentValues.putNull(ProviderTableMeta.OCSHARES_DOWNLOADLIMIT_COUNT);
+            }
+        }
 
         return contentValues;
     }
@@ -1648,25 +1642,6 @@ public class FileDataStorageManager {
         share.setAttributes(getString(cursor, ProviderTableMeta.OCSHARES_ATTRIBUTES));
 
         return share;
-    }
-
-    private void resetShareFlagsInAllFiles() {
-        ContentValues cv = new ContentValues();
-        cv.put(ProviderTableMeta.FILE_SHARED_VIA_LINK, Boolean.FALSE);
-        cv.put(ProviderTableMeta.FILE_SHARED_WITH_SHAREE, Boolean.FALSE);
-        String where = ProviderTableMeta.FILE_ACCOUNT_OWNER + "=?";
-        String[] whereArgs = new String[]{user.getAccountName()};
-
-        if (getContentResolver() != null) {
-            getContentResolver().update(ProviderTableMeta.CONTENT_URI, cv, where, whereArgs);
-
-        } else {
-            try {
-                getContentProviderClient().update(ProviderTableMeta.CONTENT_URI, cv, where, whereArgs);
-            } catch (RemoteException e) {
-                Log_OC.e(TAG, "Exception in resetShareFlagsInAllFiles" + e.getMessage(), e);
-            }
-        }
     }
 
     private void resetShareFlagsInFolder(OCFile folder) {
@@ -1786,10 +1761,16 @@ public class FileDataStorageManager {
     }
 
     public void saveSharesFromRemoteFile(List<RemoteFile> shares) {
+        if (shares == null || shares.isEmpty()) {
+            return;
+        }
+
         final ArrayList<ContentProviderOperation> operations = prepareInsertSharesFromRemoteFile(shares);
+
         if (operations.isEmpty()) {
             return;
         }
+
         applyBatch(operations);
     }
 

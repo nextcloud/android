@@ -345,7 +345,13 @@ public class FileContentProvider extends ContentProvider {
 
     private void updateFilesTableAccordingToShareInsertion(SupportSQLiteDatabase db, ContentValues newShare) {
         ContentValues fileValues = new ContentValues();
-        ShareType newShareType = ShareType.fromValue(newShare.getAsInteger(ProviderTableMeta.OCSHARES_SHARE_TYPE));
+        Integer shareTypeValue = newShare.getAsInteger(ProviderTableMeta.OCSHARES_SHARE_TYPE);
+        if (shareTypeValue == null) {
+            Log_OC.w(TAG, "Share type is null. Skipping file update.");
+            return;
+        }
+
+        ShareType newShareType = ShareType.fromValue(shareTypeValue);
 
         switch (newShareType) {
             case PUBLIC_LINK:
