@@ -47,6 +47,7 @@
             <trusting group="androidx.fragment"/>
             <trusting group="androidx.lifecycle"/>
             <trusting group="androidx.savedstate"/>
+            <trusting group="androidx.work"/>
             <trusting group="com.google.firebase" name="firebase-messaging" version="24.1.1"/>
             <trusting group="^androidx[.]compose($|([.].*))" regex="true"/>
             <trusting group="^com[.]android($|([.].*))" regex="true"/>
