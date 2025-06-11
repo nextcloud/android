@@ -1544,17 +1544,17 @@ public class FileDataStorageManager {
         boolean isDirectory = MimeTypeUtil.isFolder(remoteFile.getMimeType());
         contentValues.put(ProviderTableMeta.OCSHARES_IS_DIRECTORY, isDirectory);
         contentValues.put(ProviderTableMeta.OCSHARES_ACCOUNT_OWNER, user.getAccountName());
+        contentValues.put(ProviderTableMeta.OCSHARES_USER_ID, remoteFile.getOwnerId());
 
         if (remoteFile.getSharees().length > 0) {
             final var sharee = remoteFile.getSharees()[0];
             contentValues.put(ProviderTableMeta.OCSHARES_SHARE_WITH_DISPLAY_NAME, sharee.getDisplayName());
+            contentValues.put(ProviderTableMeta.OCSHARES_SHARE_WITH, sharee.getUserId());
 
             ShareType shareType = sharee.getShareType();
             if (shareType != null) {
                 contentValues.put(ProviderTableMeta.OCSHARES_SHARE_TYPE, shareType.getValue());
             }
-
-            contentValues.put(ProviderTableMeta.OCSHARES_USER_ID, sharee.getUserId());
         }
 
         if (!remoteFile.getFileDownloadLimit().isEmpty()) {
