@@ -1545,6 +1545,7 @@ public class FileDataStorageManager {
         contentValues.put(ProviderTableMeta.OCSHARES_IS_DIRECTORY, isDirectory);
         contentValues.put(ProviderTableMeta.OCSHARES_ACCOUNT_OWNER, user.getAccountName());
         contentValues.put(ProviderTableMeta.OCSHARES_USER_ID, remoteFile.getOwnerId());
+        contentValues.put(ProviderTableMeta.OCSHARES_NOTE, remoteFile.getNote());
 
         if (remoteFile.getSharees().length > 0) {
             final var sharee = remoteFile.getSharees()[0];
