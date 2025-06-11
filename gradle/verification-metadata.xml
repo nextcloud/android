@@ -309,6 +309,7 @@
             <trusting group="com.github.mangstadt"/>
             <trusting group="com.googlecode.ez-vcard"/>
          </trusted-key>
+         <trusted-key id="AEFEB87890CDFDF2BC08C4AABDD2A76422470515" group="com.mebigfatguy.fb-contrib" name="fb-contrib" version="7.6.10"/>
          <trusted-key id="AFCC4C7594D09E2182C60E0F7A01B0F236E5430F" group="com.google.code.gson"/>
          <trusted-key id="B01128C8FD304FE48E6EED2C347CD0EAED975C5F" group="org.antlr"/>
          <trusted-key id="B02335AA54CCF21E52BBF9ABD9C565AA72BA2FDD" group="io.grpc"/>
