@@ -61,6 +61,8 @@ import com.owncloud.android.ui.adapter.ShareeListAdapter;
 import com.owncloud.android.ui.adapter.ShareeListAdapterListener;
 import com.owncloud.android.ui.asynctasks.RetrieveHoverCardAsyncTask;
 import com.owncloud.android.ui.dialog.SharePasswordDialogFragment;
+import com.owncloud.android.ui.fragment.share.RemoteShareRepository;
+import com.owncloud.android.ui.fragment.share.ShareRepository;
 import com.owncloud.android.ui.fragment.util.FileDetailSharingFragmentHelper;
 import com.owncloud.android.ui.helpers.FileOperationsHelper;
 import com.owncloud.android.utils.ClipboardUtil;
@@ -150,6 +152,10 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
         if (fileActivity == null) {
             throw new IllegalArgumentException("FileActivity may not be null");
         }
+
+        fileDataStorageManager = fileActivity.getStorageManager();
+        ShareRepository shareRepository = new RemoteShareRepository(fileActivity.getClientRepository(), fileActivity, fileDataStorageManager);
+        shareRepository.refreshSharesForFolder(file.getParentRemotePath());
     }
 
     @Override
@@ -165,7 +171,6 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
         binding = FileDetailsSharingFragmentBinding.inflate(inflater, container, false);
 
         fileOperationsHelper = fileActivity.getFileOperationsHelper();
-        fileDataStorageManager = fileActivity.getStorageManager();
 
         AccountManager accountManager = AccountManager.get(requireContext());
         String userId = accountManager.getUserData(user.toPlatformAccount(),
