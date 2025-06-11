@@ -10,22 +10,24 @@
 
 package com.owncloud.android.ui.fragment;
 
+import android.app.Dialog;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.nextcloud.utils.extensions.OCShareExtensionsKt;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.QuickSharingPermissionsBottomSheetFragmentBinding;
-import com.owncloud.android.datamodel.QuickPermissionModel;
+import com.owncloud.android.datamodel.quickPermission.QuickPermission;
+import com.owncloud.android.datamodel.quickPermission.QuickPermissionType;
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.adapter.QuickSharingPermissionsAdapter;
-import com.owncloud.android.ui.fragment.util.SharingMenuHelper;
+import com.owncloud.android.ui.fragment.util.SharePermissionManager;
 import com.owncloud.android.utils.theme.ViewThemeUtils;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -36,7 +38,7 @@ import static com.owncloud.android.lib.resources.shares.OCShare.MAXIMUM_PERMISSI
 import static com.owncloud.android.lib.resources.shares.OCShare.READ_PERMISSION_FLAG;
 
 /**
- * File Details Quick Sharing permissions options {@link android.app.Dialog} styled as a bottom sheet for main actions.
+ * File Details Quick Sharing permissions options {@link Dialog} styled as a bottom sheet for main actions.
  */
 public class QuickSharingPermissionsBottomSheetDialog extends BottomSheetDialog {
     private QuickSharingPermissionsBottomSheetFragmentBinding binding;
@@ -44,16 +46,19 @@ public class QuickSharingPermissionsBottomSheetDialog extends BottomSheetDialog 
     private final FileActivity fileActivity;
     private final OCShare ocShare;
     private final ViewThemeUtils viewThemeUtils;
+    private final boolean encrypted;
 
     public QuickSharingPermissionsBottomSheetDialog(FileActivity fileActivity,
                                                     QuickPermissionSharingBottomSheetActions actions,
                                                     OCShare ocShare,
-                                                    ViewThemeUtils viewThemeUtils) {
+                                                    ViewThemeUtils viewThemeUtils,
+                                                    boolean encrypted) {
         super(fileActivity);
         this.actions = actions;
         this.ocShare = ocShare;
         this.fileActivity = fileActivity;
         this.viewThemeUtils = viewThemeUtils;
+        this.encrypted = encrypted;
     }
 
     @Override
@@ -76,13 +81,19 @@ public class QuickSharingPermissionsBottomSheetDialog extends BottomSheetDialog 
     }
 
     private void setUpRecyclerView() {
-        List<QuickPermissionModel> quickPermissionModelList = getQuickPermissionList();
+        List<QuickPermission> quickPermissionList = getQuickPermissionList();
         QuickSharingPermissionsAdapter adapter = new QuickSharingPermissionsAdapter(
-            quickPermissionModelList,
+            quickPermissionList,
             new QuickSharingPermissionsAdapter.QuickSharingPermissionViewHolder.OnPermissionChangeListener() {
                 @Override
+                public void onCustomPermissionSelected() {
+                    dismiss();
+                    actions.openShareDetailWithCustomPermissions(ocShare);
+                }
+
+                @Override
                 public void onPermissionChanged(int position) {
-                    handlePermissionChanged(quickPermissionModelList, position);
+                    handlePermissionChanged(quickPermissionList, position);
                 }
 
                 @Override
@@ -98,59 +109,34 @@ public class QuickSharingPermissionsBottomSheetDialog extends BottomSheetDialog 
     }
 
     /**
-     * handle permission changed on click of selected permission
-     * @param quickPermissionModelList
-     * @param position
+     * Handle permission changed on click of selected permission
      */
-    private void handlePermissionChanged(List<QuickPermissionModel> quickPermissionModelList, int position) {
-        if (quickPermissionModelList.get(position).getPermissionName().equalsIgnoreCase(fileActivity.getResources().getString(R.string.link_share_allow_upload_and_editing))
-            || quickPermissionModelList.get(position).getPermissionName().equalsIgnoreCase(fileActivity.getResources().getString(R.string.link_share_editing))) {
-            if (ocShare.isFolder()) {
-                actions.onQuickPermissionChanged(ocShare,
-                                                 MAXIMUM_PERMISSIONS_FOR_FOLDER);
-            } else {
-                actions.onQuickPermissionChanged(ocShare,
-                                                 MAXIMUM_PERMISSIONS_FOR_FILE);
-            }
-        } else if (quickPermissionModelList.get(position).getPermissionName().equalsIgnoreCase(fileActivity.getResources().getString(R.string
-                                                                                                                                                                                                                                                                                                                     .link_share_view_only))) {
-            actions.onQuickPermissionChanged(ocShare,
-                                             READ_PERMISSION_FLAG);
+    private void handlePermissionChanged(List<QuickPermission> quickPermissionList, int position) {
+        final var permissionName = quickPermissionList.get(position).getType().getText(getContext());
+        final var res = fileActivity.getResources();
 
-        } else if (quickPermissionModelList.get(position).getPermissionName().equalsIgnoreCase(fileActivity.getResources().getString(R.string
-                                                                                                                                         .link_share_file_drop))) {
-            actions.onQuickPermissionChanged(ocShare,
-                                             CREATE_PERMISSION_FLAG);
+        int permissionFlag = 0;
+        if (permissionName.equalsIgnoreCase(res.getString(R.string.share_permission_can_edit)) || permissionName.equalsIgnoreCase(res.getString(R.string.link_share_editing))) {
+            permissionFlag = ocShare.isFolder() ? MAXIMUM_PERMISSIONS_FOR_FOLDER : MAXIMUM_PERMISSIONS_FOR_FILE;
+        } else if (permissionName.equalsIgnoreCase(res.getString(R.string.share_permission_view_only))) {
+            permissionFlag = READ_PERMISSION_FLAG;
+        } else if (permissionName.equalsIgnoreCase(res.getString(R.string.share_permission_file_request))) {
+            permissionFlag = CREATE_PERMISSION_FLAG + READ_PERMISSION_FLAG;
         }
+
+        actions.onQuickPermissionChanged(ocShare, permissionFlag);
+
         dismiss();
     }
 
     /**
-     * prepare the list of permissions needs to be displayed on recyclerview
-     * @return
+     * Prepare the list of permissions needs to be displayed on recyclerview
      */
-    private List<QuickPermissionModel> getQuickPermissionList() {
-
-        String[] permissionArray;
-        if (ocShare.isFolder()) {
-            permissionArray =
-                fileActivity.getResources().getStringArray(R.array.folder_share_permission_dialog_values);
-        } else {
-            permissionArray =
-                fileActivity.getResources().getStringArray(R.array.file_share_permission_dialog_values);
-        }
-        //get the checked item position
-        int checkedItem = SharingMenuHelper.getPermissionCheckedItem(fileActivity, ocShare, permissionArray);
-
-
-        final List<QuickPermissionModel> quickPermissionModelList = new ArrayList<>(permissionArray.length);
-        for (int i = 0; i < permissionArray.length; i++) {
-            QuickPermissionModel quickPermissionModel = new QuickPermissionModel(permissionArray[i], checkedItem == i);
-            quickPermissionModelList.add(quickPermissionModel);
-        }
-        return quickPermissionModelList;
+    private List<QuickPermission> getQuickPermissionList() {
+        final var selectedType = SharePermissionManager.INSTANCE.getSelectedType(ocShare, encrypted);
+        final var hasFileRequestPermission = OCShareExtensionsKt.hasFileRequestPermission(ocShare);
+        return QuickPermissionType.Companion.getAvailablePermissions(hasFileRequestPermission, selectedType);
     }
-
 
     @Override
     protected void onStop() {
@@ -160,5 +146,7 @@ public class QuickSharingPermissionsBottomSheetDialog extends BottomSheetDialog 
 
     public interface QuickPermissionSharingBottomSheetActions {
         void onQuickPermissionChanged(OCShare share, int permission);
+
+        void openShareDetailWithCustomPermissions(OCShare share);
     }
 }
