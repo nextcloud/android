@@ -784,6 +784,8 @@ public class RefreshFolderOperation extends RemoteOperation {
     /**
      * Syncs the Share resources for the files contained in the folder refreshed (children, not deeper descendants).
      *
+     *
+     * fetch in the details only for one file
      * @param client Handler of a session with an OC server.
      */
     private void refreshSharesForFolder(OwnCloudClient client) {
