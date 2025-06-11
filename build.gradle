@@ -15,7 +15,7 @@ buildscript {
         androidPluginVersion = "8.9.2"
         androidxMediaVersion = "1.5.1"
         androidxTestVersion = "1.6.1"
-        appCompatVersion = "1.7.0"
+        appCompatVersion = "1.7.1"
         checkerVersion = "3.21.2"
         daggerVersion = "2.56.2"
         documentScannerVersion = "1.1.1"
