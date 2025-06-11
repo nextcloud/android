@@ -318,7 +318,7 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-service:2.9.1"
     implementation "androidx.work:work-runtime:$workRuntime"
     implementation "androidx.work:work-runtime-ktx:$workRuntime"
-    implementation "androidx.fragment:fragment-ktx:1.8.6"
+    implementation "androidx.fragment:fragment-ktx:1.8.8"
     implementation "com.github.albfernandez:juniversalchardet:2.0.3" // need this version for Android <7
     compileOnly "com.google.code.findbugs:annotations:3.0.1u2"
     implementation "commons-io:commons-io:2.18.0"
