@@ -787,7 +787,7 @@
     <string name="screenshot_05_autoUpload_heading">Automatisk upload</string>
     <string name="screenshot_05_autoUpload_subline">for dine billeder og videoer</string>
     <string name="screenshot_06_davdroid_heading">Kalender og kontakter</string>
-    <string name="screenshot_06_davdroid_subline">Synk med DAVx⁵</string>
+    <string name="screenshot_06_davdroid_subline">Synkronisér med DAVx⁵ </string>
     <string name="search_error">Fejl ved indhenting af søgeresultater</string>
     <string name="secure_share_not_set_up">Sikker deling er ikke sat op for denne bruger</string>
     <string name="secure_share_search">Sikker deling...</string>
@@ -1119,12 +1119,12 @@
         <item quantity="other">%d sekunder siden</item>
     </plurals>
     <plurals name="time_minutes_ago">
-        <item quantity="one">%d minut sidenago</item>
+        <item quantity="one">%d minut siden</item>
         <item quantity="other">%d minutter siden</item>
     </plurals>
     <plurals name="time_hours_ago">
-        <item quantity="one">%d time sidenago</item>
-        <item quantity="other">%d timer sidenago</item>
+        <item quantity="one">%d time siden</item>
+        <item quantity="other">%d timer siden</item>
     </plurals>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">Kunne ikke synkronisere %1$d fil (konflikter: %2$d)</item>
