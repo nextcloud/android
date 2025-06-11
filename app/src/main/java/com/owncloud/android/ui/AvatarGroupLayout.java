@@ -110,6 +110,7 @@ public class AvatarGroupLayout extends RelativeLayout implements DisplayUtils.Av
                         viewThemeUtils.files.createAvatar(sharee.getShareType(), avatar, context);
                         break;
                     case FEDERATED:
+                    case FEDERATED_GROUP:
                         showFederatedShareAvatar(context,
                                                  sharee.getUserId(),
                                                  avatarRadius,
