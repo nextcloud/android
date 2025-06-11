@@ -266,7 +266,9 @@ public class RefreshFolderOperation extends RemoteOperation {
         }
 
         if (result.isSuccess() && !mSyncFullAccount && !mOnlyFileMetadata) {
-            refreshSharesForFolder(client); // share result is ignored
+            final ArrayList<RemoteFile> remoteFiles = result.getData();
+            fileDataStorageManager.saveSharesFromRemoteFile(remoteFiles);
+            // refreshSharesForFolder(client); // share result is ignored
         }
 
         if (!mSyncFullAccount) {
