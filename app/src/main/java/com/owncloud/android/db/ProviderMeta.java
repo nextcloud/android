@@ -25,7 +25,7 @@ import java.util.List;
  */
 public class ProviderMeta {
     public static final String DB_NAME = "filelist";
-    public static final int DB_VERSION = 89;
+    public static final int DB_VERSION = 90;
 
     private ProviderMeta() {
         // No instance
@@ -203,6 +203,7 @@ public class ProviderMeta {
         public static final String OCSHARES_SHARE_LABEL = "share_label";
         public static final String OCSHARES_DOWNLOADLIMIT_LIMIT = "download_limit_limit";
         public static final String OCSHARES_DOWNLOADLIMIT_COUNT = "download_limit_count";
+        public static final String OCSHARES_ATTRIBUTES = "attributes";
 
         public static final String OCSHARES_DEFAULT_SORT_ORDER = OCSHARES_FILE_SOURCE
             + " collate nocase asc";

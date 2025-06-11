@@ -534,6 +534,7 @@ public class FileOperationsHelper {
                                     String password,
                                     long expirationTimeInMillis,
                                     String note,
+                                    String attributes,
                                     String label,
                                     boolean showLoadingDialog) {
         if (file != null) {
@@ -555,6 +556,7 @@ public class FileOperationsHelper {
             service.putExtra(OperationsService.EXTRA_SHARE_EXPIRATION_DATE_IN_MILLIS, expirationTimeInMillis);
             service.putExtra(OperationsService.EXTRA_SHARE_NOTE, (note == null) ? "" : note);
             service.putExtra(OperationsService.EXTRA_SHARE_PUBLIC_LABEL, (label == null) ? "" : label);
+            service.putExtra(OperationsService.EXTRA_SHARE_ATTRIBUTES, attributes);
 
             mWaitingForOpId = fileActivity.getOperationsServiceBinder().queueNewOperation(service);
 
@@ -588,16 +590,13 @@ public class FileOperationsHelper {
      *
      * @param file The file to unshare.
      */
-    public void unshareShare(OCFile file, OCShare share) {
-
-        // Unshare the file: Create the intent
-        Intent unshareService = new Intent(fileActivity, OperationsService.class);
-        unshareService.setAction(OperationsService.ACTION_UNSHARE);
-        unshareService.putExtra(OperationsService.EXTRA_ACCOUNT, fileActivity.getAccount());
-        unshareService.putExtra(OperationsService.EXTRA_REMOTE_PATH, file.getRemotePath());
-        unshareService.putExtra(OperationsService.EXTRA_SHARE_ID, share.getId());
-
-        queueShareIntent(unshareService);
+    public void unShareShare(OCFile file, OCShare share) {
+        Intent intent = new Intent(fileActivity, OperationsService.class);
+        intent.setAction(OperationsService.ACTION_UNSHARE);
+        intent.putExtra(OperationsService.EXTRA_ACCOUNT, fileActivity.getAccount());
+        intent.putExtra(OperationsService.EXTRA_REMOTE_PATH, file.getRemotePath());
+        intent.putExtra(OperationsService.EXTRA_SHARE_ID, share.getId());
+        queueShareIntent(intent);
     }
 
     private void queueShareIntent(Intent shareIntent) {
@@ -751,18 +750,33 @@ public class FileOperationsHelper {
      *                               leaving the link unrestricted. Zero makes no change.
      * @param label                  new label
      */
-    public void updateShareInformation(OCShare share, int permissions,
-                                       boolean hideFileDownload, String password, long expirationTimeInMillis,
+    public void updateShareInformation(OCShare share,
+                                       int permissions,
+                                       boolean hideFileDownload,
+                                       String password,
+                                       long expirationTimeInMillis,
                                        String label) {
+        final var id = share.getId();
+        final var attributes = share.getAttributes();
+
+        Log_OC.i(TAG, "-----AFTER UPDATE SHARE-----");
+        Log_OC.i(TAG, "ID: " + id);
+        Log_OC.i(TAG, "Permission: " + permissions);
+        Log_OC.i(TAG, "Hide File Download: " + hideFileDownload);
+        Log_OC.i(TAG, "Label: " + label);
+        Log_OC.i(TAG, "Attributes: " + attributes);
+
+
         Intent updateShareIntent = new Intent(fileActivity, OperationsService.class);
         updateShareIntent.setAction(OperationsService.ACTION_UPDATE_SHARE_INFO);
         updateShareIntent.putExtra(OperationsService.EXTRA_ACCOUNT, fileActivity.getAccount());
-        updateShareIntent.putExtra(OperationsService.EXTRA_SHARE_ID, share.getId());
+        updateShareIntent.putExtra(OperationsService.EXTRA_SHARE_ID, id);
         updateShareIntent.putExtra(OperationsService.EXTRA_SHARE_PERMISSIONS, permissions);
         updateShareIntent.putExtra(OperationsService.EXTRA_SHARE_HIDE_FILE_DOWNLOAD, hideFileDownload);
         updateShareIntent.putExtra(OperationsService.EXTRA_SHARE_PASSWORD, (password == null) ? "" : password);
         updateShareIntent.putExtra(OperationsService.EXTRA_SHARE_EXPIRATION_DATE_IN_MILLIS, expirationTimeInMillis);
         updateShareIntent.putExtra(OperationsService.EXTRA_SHARE_PUBLIC_LABEL, (label == null) ? "" : label);
+        updateShareIntent.putExtra(OperationsService.EXTRA_SHARE_ATTRIBUTES, attributes);
         queueShareIntent(updateShareIntent);
     }
 

@@ -269,6 +269,7 @@
     <string name="file_name_validator_current_path_is_invalid">Pašreizējais mapes nosaukums ir nederīgs, lūgums pārdēvēt mapi. Pārvirza uz sākumu...</string>
     <string name="file_name_validator_rename_before_move_or_copy">%s. Lūgums pirms pārvietošanas vai kopēšanas pārdēvēt datni</string>
     <string name="file_not_found">Datne nav atrasta</string>
+    <string name="file_not_synced">Datni nevarēja sinhronizēt. Rāda pēdējo pieejamo versiju.</string>
     <string name="file_rename">Pārdēvēt</string>
     <string name="filedetails_details">Detaļas</string>
     <string name="filedetails_download">Lejupielādēt</string>
