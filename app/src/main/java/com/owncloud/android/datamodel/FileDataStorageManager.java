@@ -39,7 +39,6 @@ import com.nextcloud.client.database.dao.FileDao;
 import com.nextcloud.client.database.dao.OfflineOperationDao;
 import com.nextcloud.client.database.entity.FileEntity;
 import com.nextcloud.client.database.entity.OfflineOperationEntity;
-import com.nextcloud.client.database.entity.ShareEntity;
 import com.nextcloud.client.jobs.offlineOperations.repository.OfflineOperationsRepository;
 import com.nextcloud.client.jobs.offlineOperations.repository.OfflineOperationsRepositoryType;
 import com.nextcloud.model.OCFileFilterType;
@@ -84,7 +83,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Set;
-import java.util.function.Consumer;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -1818,19 +1816,6 @@ public class FileDataStorageManager {
         // apply operations in batch
         Log_OC.d(TAG, String.format(Locale.ENGLISH, SENDING_TO_FILECONTENTPROVIDER_MSG, operations.size()));
         applyBatch(operations);
-    }
-
-    // TODO check:
-    private void resetShareFlags(List<String> sharePaths) {
-        ArrayList<ContentProviderOperation> operations = new ArrayList<>();
-        String filePath = "";
-        for (String sharePath : sharePaths) {
-            if (!filePath.equals(sharePath)) {
-                filePath = sharePath;
-                resetShareFlagInAFile(filePath);
-                prepareRemoveSharesInFile(filePath, operations);
-            }
-        }
     }
 
     private void applyBatch(ArrayList<ContentProviderOperation> operations) {
