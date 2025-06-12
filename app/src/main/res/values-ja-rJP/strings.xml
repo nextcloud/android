@@ -807,9 +807,14 @@ GooglePlay 版のNextcloudアプリを使用している場合のみ、自動ア
     <string name="set_status_message">メッセージを設定</string>
     <string name="setup_e2e">End-to-End 暗号化の設定中に、12語のランダムなニーモニックが表示されます。これは他のデバイスでファイルを開くために必要です。この情報はこのデバイスにのみ保存され、この画面で再表示することができます。安全な場所にメモしておいてください！</string>
     <string name="share">共有</string>
+    <string name="share_allow_download_and_sync_permission">ダウンロードと同期を許可</string>
     <string name="share_copy_link">リンクをコピーして共有</string>
+    <string name="share_create_permission">作成</string>
+    <string name="share_custom_permission">カスタム権限</string>
+    <string name="share_delete_permission">削除</string>
     <string name="share_dialog_title">共有</string>
     <string name="share_download_limit">ダウンロード制限を設定</string>
+    <string name="share_edit_permission">編集</string>
     <string name="share_expiration_date_format">%1$s</string>
     <string name="share_expiration_date_label">有効期限%1$s</string>
     <string name="share_file">%1$s を共有</string>
@@ -832,9 +837,12 @@ GooglePlay 版のNextcloudアプリを使用している場合のみ、自動ア
     <string name="share_password_title">パスワード保護</string>
     <string name="share_permission_can_edit">編集可能</string>
     <string name="share_permission_file_drop">ファイルを転送</string>
+    <string name="share_permission_file_request">ファイルリクエスト</string>
     <string name="share_permission_secure_file_drop">セキュアなファイルドロップ</string>
     <string name="share_permission_view_only">閲覧のみ</string>
     <string name="share_permissions">共有権限</string>
+    <string name="share_re_share_permission">共有</string>
+    <string name="share_read_permission">読み込み</string>
     <string name="share_remote_clarification">%1$s (リモート)</string>
     <string name="share_room_clarification">%1$s(会話)</string>
     <string name="share_search">ユーザ名、クラウド統合ID、またはEメールアドレス ...</string>

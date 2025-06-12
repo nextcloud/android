@@ -804,9 +804,14 @@
     <string name="set_status_message">設定狀態訊息</string>
     <string name="setup_e2e">在設置端對端加密過程中，您會收到隨機的 12 字記憶密語，您需要有這段密語才能在其他裝置上開啟檔案。這只會儲存在此裝置上，之後可以在此畫面中再次顯示。請將密語寫下來，妥善存放在安全的地方！</string>
     <string name="share">分享</string>
+    <string name="share_allow_download_and_sync_permission">允許下載與同步</string>
     <string name="share_copy_link">分享並複製連結</string>
+    <string name="share_create_permission">建立</string>
+    <string name="share_custom_permission">自訂權限</string>
+    <string name="share_delete_permission">刪除</string>
     <string name="share_dialog_title">分享</string>
     <string name="share_download_limit">設定下載限制</string>
+    <string name="share_edit_permission">編輯</string>
     <string name="share_expiration_date_format">%1$s</string>
     <string name="share_expiration_date_label">到期 %1$s</string>
     <string name="share_file">分享 %1$s</string>
@@ -829,9 +834,12 @@
     <string name="share_password_title">受密碼保護</string>
     <string name="share_permission_can_edit">可以編輯</string>
     <string name="share_permission_file_drop">檔案投遞</string>
+    <string name="share_permission_file_request">檔案請求</string>
     <string name="share_permission_secure_file_drop">安全檔案投遞</string>
     <string name="share_permission_view_only">僅供檢視</string>
     <string name="share_permissions">分享權限</string>
+    <string name="share_re_share_permission">分享</string>
+    <string name="share_read_permission">讀取</string>
     <string name="share_remote_clarification">%1$s（遠端）</string>
     <string name="share_room_clarification">%1$s（對話）</string>
     <string name="share_search">名稱、聯邦雲端 ID 或電子郵件地址……</string>

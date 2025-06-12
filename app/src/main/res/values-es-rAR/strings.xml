@@ -715,6 +715,7 @@
     <string name="setup_e2e">Durante la configuración del cifrado de extremo a extremo, recibirá un mnemónico aleatorio de 12 palabras, que necesitará para abrir sus archivos en otros dispositivos. Esto solo se almacenará en este dispositivo y se puede volver a mostrar en esta pantalla. ¡Por favor anótelo en un lugar seguro!</string>
     <string name="share">Compartir</string>
     <string name="share_dialog_title">Compartiendo</string>
+    <string name="share_edit_permission">Editar</string>
     <string name="share_expiration_date_format">%1$s</string>
     <string name="share_expiration_date_label">Vence %1$s</string>
     <string name="share_file">Compartir %1$s</string>
@@ -739,6 +740,7 @@
     <string name="share_permission_file_drop">Entrega de archivos</string>
     <string name="share_permission_secure_file_drop">Entrega de archivos segura</string>
     <string name="share_permission_view_only">Solo ver</string>
+    <string name="share_read_permission">Leer</string>
     <string name="share_remote_clarification">%1$s (remoto)</string>
     <string name="share_room_clarification">%1$s (conversación)</string>
     <string name="share_send_new_email">Enviar nuevo correo electrónico</string>

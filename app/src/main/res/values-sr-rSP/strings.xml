@@ -478,7 +478,9 @@
     <string name="set_status">Postavi status</string>
     <string name="set_status_message">Postavi statusnu poruku</string>
     <string name="share">Podeli</string>
+    <string name="share_delete_permission">Obriši</string>
     <string name="share_dialog_title">Deljenje</string>
+    <string name="share_edit_permission">Izmeni</string>
     <string name="share_expiration_date_label">Ističe na %1$s</string>
     <string name="share_file">Podeli %1$s</string>
     <string name="share_group_clarification">%1$s (grupa)</string>
@@ -492,6 +494,8 @@
     <string name="share_no_password_title">Postavi lozinku</string>
     <string name="share_password_title">Zaštićeno lozinkom</string>
     <string name="share_permission_can_edit">Can edit</string>
+    <string name="share_re_share_permission">Deli</string>
+    <string name="share_read_permission">Čitaj</string>
     <string name="share_remote_clarification">%1$s(udaljeno)</string>
     <string name="share_room_clarification">%1$s (razgovor)</string>
     <string name="share_send_note">Beleška primaocu</string>

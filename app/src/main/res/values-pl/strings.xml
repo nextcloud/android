@@ -804,9 +804,14 @@
     <string name="set_status_message">Ustaw komunikat statusu</string>
     <string name="setup_e2e">Podczas konfigurowania szyfrowania typu end-to-end otrzymasz losowy mnemonik składający się z 12-stu słów, który będzie potrzebny do otwierania plików na innych urządzeniach. Będzie on przechowywany tylko na tym urządzeniu i można go ponownie wyświetlić na tym ekranie. Zapisz go w bezpiecznym miejscu!</string>
     <string name="share">Udostępnij</string>
+    <string name="share_allow_download_and_sync_permission">Zezwalaj na pobieranie i synchronizację</string>
     <string name="share_copy_link">Udostępnij i skopiuj link</string>
+    <string name="share_create_permission">Utwórz</string>
+    <string name="share_custom_permission">Uprawnienia niestandardowe</string>
+    <string name="share_delete_permission">Usuń</string>
     <string name="share_dialog_title">Udostępnianie</string>
     <string name="share_download_limit">Ustaw limit pobierania</string>
+    <string name="share_edit_permission">Edycja</string>
     <string name="share_expiration_date_format">%1$s</string>
     <string name="share_expiration_date_label">Wygaśnie o %1$s</string>
     <string name="share_file">Udostępnij %1$s</string>
@@ -829,9 +834,12 @@
     <string name="share_password_title">Zabezpieczone hasłem</string>
     <string name="share_permission_can_edit">Może modyfikować</string>
     <string name="share_permission_file_drop">Upuść plik</string>
+    <string name="share_permission_file_request">Prośba o plik</string>
     <string name="share_permission_secure_file_drop">Bezpieczne upuszczenie pliku</string>
     <string name="share_permission_view_only">Tylko podgląd</string>
     <string name="share_permissions">Uprawnienia udostępniania</string>
+    <string name="share_re_share_permission">Udostępnij</string>
+    <string name="share_read_permission">Czytaj</string>
     <string name="share_remote_clarification">%1$s (zdalny)</string>
     <string name="share_room_clarification">%1$s (rozmowa)</string>
     <string name="share_search">Nazwa, ID chmury stowarzyszonej lub adres e-mail</string>

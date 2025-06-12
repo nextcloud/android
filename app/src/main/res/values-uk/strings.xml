@@ -801,9 +801,14 @@
     <string name="set_status_message">Оновити статус</string>
     <string name="setup_e2e">Під час налаштування наскрізного шифрування ви отримаєте парольну фразу з 12 слів, за допомогою якої ви зможете відкривати ваші файлі на інших пристроях. Її буде збережено лише на цьому пристрої та буде показано знову на цьому екрані. Будь ласка, занотуйте цю фразу та збережіть у безпеченому місці!</string>
     <string name="share">Спільний доступ</string>
+    <string name="share_allow_download_and_sync_permission">Дозволити звантаження та синхронізацію</string>
     <string name="share_copy_link">Поділитися та копіювати посилання</string>
+    <string name="share_create_permission">Створювати</string>
+    <string name="share_custom_permission">Спеціальні дозволи</string>
+    <string name="share_delete_permission">Вилучати</string>
     <string name="share_dialog_title">Спільне</string>
     <string name="share_download_limit">Встановити обмеження на звантаження</string>
+    <string name="share_edit_permission">Редагувати</string>
     <string name="share_expiration_date_format">%1$s</string>
     <string name="share_expiration_date_label">Дійсне до %1$s</string>
     <string name="share_file">Спільне %1$s</string>
@@ -826,9 +831,12 @@
     <string name="share_password_title">Захищено паролем</string>
     <string name="share_permission_can_edit">Може редагувати</string>
     <string name="share_permission_file_drop">Додати файл</string>
+    <string name="share_permission_file_request">Запит на файл</string>
     <string name="share_permission_secure_file_drop">Захищене додавання файлу</string>
     <string name="share_permission_view_only">Лише перегляд</string>
     <string name="share_permissions">Права доступу на спільний ресурс</string>
+    <string name="share_re_share_permission">Спільний доступ</string>
+    <string name="share_read_permission">Читати</string>
     <string name="share_remote_clarification">%1$s (віддалено)</string>
     <string name="share_room_clarification">%1$s (розмова)</string>
     <string name="share_search">Ім\'я, ідентифікатор об\'єднаної хмари або ел.адреса...</string>

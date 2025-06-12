@@ -784,8 +784,12 @@
     <string name="set_status_message">Definir a mensaxe de estado</string>
     <string name="setup_e2e">Durante a configuración do cifrado de extremo a extremo, recibirá un mnemotécnico ao chou de 12 palabras, que necesitará para abrir os seus ficheiros noutros dispositivos. Isto só se almacenará neste dispositivo e pódese amosar de novo nesta pantalla. Anóteo nun lugar seguro!</string>
     <string name="share">Compartir</string>
+    <string name="share_allow_download_and_sync_permission">Permitir a descarga e a sincronización</string>
+    <string name="share_custom_permission">Permisos personalizados</string>
+    <string name="share_delete_permission">Eliminar</string>
     <string name="share_dialog_title">Compartindo</string>
     <string name="share_download_limit">Definir o límite de descarga</string>
+    <string name="share_edit_permission">Editar</string>
     <string name="share_expiration_date_format">%1$s</string>
     <string name="share_expiration_date_label">Caduca o %1$s</string>
     <string name="share_file">Compartir %1$s</string>
@@ -808,8 +812,10 @@
     <string name="share_password_title">Protexido con contrasinal</string>
     <string name="share_permission_can_edit">Pode editar</string>
     <string name="share_permission_file_drop">Soltar o ficheiro</string>
+    <string name="share_permission_file_request">Solicitude de ficheiro</string>
     <string name="share_permission_secure_file_drop">Entrega segura de ficheiros</string>
     <string name="share_permission_view_only">Só ver</string>
+    <string name="share_read_permission">Ler</string>
     <string name="share_remote_clarification">%1$s (remoto)</string>
     <string name="share_room_clarification">%1$s (conversa)</string>
     <string name="share_search">Nome, ID da nube federada ou enderezo de correo…</string>

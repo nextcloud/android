@@ -589,7 +589,11 @@
     <string name="set_status">Cunfigura s\'istadu</string>
     <string name="set_status_message">Cunfigura unu messàgiu de istadu</string>
     <string name="share">Cumpartzi</string>
+    <string name="share_create_permission">Crea</string>
+    <string name="share_custom_permission">Permissos personalizados</string>
+    <string name="share_delete_permission">Cantzella</string>
     <string name="share_dialog_title">Cumpartzende</string>
+    <string name="share_edit_permission">Modìfica</string>
     <string name="share_expiration_date_label">Iscadet %1$s</string>
     <string name="share_file">Cumpartzi %1$s</string>
     <string name="share_group_clarification">%1$s (grupu)</string>
@@ -610,6 +614,8 @@
     <string name="share_password_title">Amparadu dae una crae</string>
     <string name="share_permission_can_edit">Podet modificare</string>
     <string name="share_permission_view_only">Isceti in visualizatzione</string>
+    <string name="share_re_share_permission">Cumpartzidura</string>
+    <string name="share_read_permission">Leghe</string>
     <string name="share_remote_clarification">%1$s (remotu)</string>
     <string name="share_room_clarification">%1$s (tzarrada)</string>
     <string name="share_send_new_email">Imbia messàgiu de posta nou</string>

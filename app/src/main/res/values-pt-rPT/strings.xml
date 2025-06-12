@@ -709,8 +709,12 @@
     <string name="set_status_message">Defina a mensagem de estado</string>
     <string name="setup_e2e">Durante a configuração da encriptação ponta-a-ponta, receberá uma mnemónica aleatória de 12 palavras, de que necessitará para abrir os seus ficheiros noutros dispositivos. Ela só será guardada neste dispositivo e pode ser mostrada novamente neste ecrã. Por favor, anote-a num local seguro!</string>
     <string name="share">Partilhar</string>
+    <string name="share_allow_download_and_sync_permission">Permitir transferência e sincronizar</string>
+    <string name="share_create_permission">Criar</string>
+    <string name="share_delete_permission">Eliminar</string>
     <string name="share_dialog_title">Partilha</string>
     <string name="share_download_limit">Definir limite de transferências</string>
+    <string name="share_edit_permission">Editar</string>
     <string name="share_expiration_date_format">%1$s</string>
     <string name="share_expiration_date_label">Expira %1$s</string>
     <string name="share_file">Partilhar %1$s</string>
@@ -732,6 +736,8 @@
     <string name="share_password_title">Protegido com Senha</string>
     <string name="share_permission_can_edit">Pode editar</string>
     <string name="share_permission_view_only">Visualizar apenas</string>
+    <string name="share_re_share_permission">Partilhar</string>
+    <string name="share_read_permission">Ler</string>
     <string name="share_remote_clarification">%1$s (remoto)</string>
     <string name="share_room_clarification">%1$s (conversação)</string>
     <string name="share_send_new_email">Enviar nova mensagem</string>

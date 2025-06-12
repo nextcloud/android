@@ -804,9 +804,14 @@
     <string name="set_status_message">Definir mensagem de status</string>
     <string name="setup_e2e">Durante a configuração da criptografia de ponta-a-ponta, você receberá um mnemônico aleatório de 12 palavras, que será necessário para abrir seus arquivos em outros dispositivos. Ele será armazenado apenas neste dispositivo e poderá ser mostrado novamente nesta tela. Por favor, anote-o em um lugar seguro!</string>
     <string name="share">Compartilhar</string>
+    <string name="share_allow_download_and_sync_permission">Permitir baixar e sincronizar</string>
     <string name="share_copy_link">Compartilhar e copiar link</string>
+    <string name="share_create_permission">Criar</string>
+    <string name="share_custom_permission">Permissões personalizadas</string>
+    <string name="share_delete_permission">Excluir</string>
     <string name="share_dialog_title">Compartilhamento</string>
     <string name="share_download_limit">Definir limite de download</string>
+    <string name="share_edit_permission">Editar</string>
     <string name="share_expiration_date_format">%1$s</string>
     <string name="share_expiration_date_label">Expira em %1$s</string>
     <string name="share_file">Compartilhar %1$s</string>
@@ -829,9 +834,12 @@
     <string name="share_password_title">Protegido por senha</string>
     <string name="share_permission_can_edit">Pode editar</string>
     <string name="share_permission_file_drop">Depósito de arquivos</string>
+    <string name="share_permission_file_request">Solicitação de arquivo</string>
     <string name="share_permission_secure_file_drop">Depósito de arquivos seguro</string>
     <string name="share_permission_view_only">Somente visualização </string>
     <string name="share_permissions">Permissões do compartilhamento</string>
+    <string name="share_re_share_permission">Compartilhar</string>
+    <string name="share_read_permission">Ler</string>
     <string name="share_remote_clarification">%1$s (remoto)</string>
     <string name="share_room_clarification">%1$s (conversa)</string>
     <string name="share_search">Nome, ID de Nuvem Federada ou endereço de e-mail…</string>

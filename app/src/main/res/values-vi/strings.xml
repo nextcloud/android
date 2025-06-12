@@ -606,7 +606,11 @@
     <string name="set_status">Đặt trạng thái</string>
     <string name="set_status_message">Đặt thông báo trạng thái</string>
     <string name="share">Chia sẻ</string>
+    <string name="share_create_permission">Tạo</string>
+    <string name="share_custom_permission">Quyền tùy chỉnh</string>
+    <string name="share_delete_permission">Xóa</string>
     <string name="share_dialog_title">Chia sẻ</string>
+    <string name="share_edit_permission">Chỉnh sửa</string>
     <string name="share_expiration_date_format">%1$s</string>
     <string name="share_expiration_date_label">Hết hạn %1$s</string>
     <string name="share_file">Chia sẽ %1$s</string>
@@ -629,6 +633,8 @@
     <string name="share_permission_can_edit">Có thể chỉnh sửa</string>
     <string name="share_permission_file_drop">Thả file</string>
     <string name="share_permission_view_only">Chỉ xem</string>
+    <string name="share_re_share_permission">Chia sẻ</string>
+    <string name="share_read_permission">Đọc</string>
     <string name="share_remote_clarification">%1$s (từ xa)</string>
     <string name="share_room_clarification">%1$s (cuộc hội thoại)</string>
     <string name="share_send_new_email">Gửi email mới</string>

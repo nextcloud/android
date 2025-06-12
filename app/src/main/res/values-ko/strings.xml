@@ -785,8 +785,13 @@
     <string name="set_status_message">상태 메시지 설정</string>
     <string name="setup_e2e">종단간 암호화를 설정하는 동안, 당신은 다른 장치들에서 당신의 파일들을 열어야 할 무작위의 12 단어 니모닉을 수신할 것입니다. 이것은 당신의 장치에만 저장 될 것이고, 이 스크린에서 다시 보여질 수 있습니다. 이를 안전한 위치에 적어두세요!</string>
     <string name="share">공유</string>
+    <string name="share_allow_download_and_sync_permission">다운로드와 동기화 허용</string>
+    <string name="share_create_permission">생성</string>
+    <string name="share_custom_permission">사용자 지정 권한</string>
+    <string name="share_delete_permission">삭제</string>
     <string name="share_dialog_title">공유</string>
     <string name="share_download_limit">다운로드 제한 설정</string>
+    <string name="share_edit_permission">편집</string>
     <string name="share_expiration_date_format">%1$s</string>
     <string name="share_expiration_date_label">%1$s 에 만료됨</string>
     <string name="share_file">%1$s 공유</string>
@@ -809,8 +814,11 @@
     <string name="share_password_title">비밀번호로 보호</string>
     <string name="share_permission_can_edit">편집 허용</string>
     <string name="share_permission_file_drop">파일 업로드 전용</string>
+    <string name="share_permission_file_request">파일 요청</string>
     <string name="share_permission_secure_file_drop">안전한 파일 공유</string>
     <string name="share_permission_view_only">읽기 전용</string>
+    <string name="share_re_share_permission">공유하기</string>
+    <string name="share_read_permission">읽기</string>
     <string name="share_remote_clarification">%1$s(원격)</string>
     <string name="share_room_clarification">%1$s (대화)</string>
     <string name="share_search">이름, 연결된 클라우드 ID 또는 이메일 주소...</string>

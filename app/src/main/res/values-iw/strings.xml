@@ -548,7 +548,9 @@
     <string name="set_status">הגדרת מצב</string>
     <string name="set_status_message">הגדרת הודעת מצב</string>
     <string name="share">שיתוף</string>
+    <string name="share_delete_permission">מחיקה</string>
     <string name="share_dialog_title">שיתוף</string>
+    <string name="share_edit_permission">עריכה</string>
     <string name="share_expiration_date_format">%1$s</string>
     <string name="share_expiration_date_label">תפוגה ב־%1$s</string>
     <string name="share_file">שיתוף %1$s</string>
@@ -566,6 +568,8 @@
     <string name="share_password_title">מוגן בססמה</string>
     <string name="share_permission_can_edit">ניתן לערוך</string>
     <string name="share_permission_view_only">לצפיה בלבד</string>
+    <string name="share_re_share_permission">שתף</string>
+    <string name="share_read_permission">קריאה</string>
     <string name="share_remote_clarification">%1$s (נשלט מרחוק)</string>
     <string name="share_room_clarification">%1$s (דיון)</string>
     <string name="share_send_note">מסר לנמען</string>

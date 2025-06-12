@@ -804,6 +804,7 @@
     <string name="set_status_message">Statusnachricht setzen</string>
     <string name="setup_e2e">Während der Einrichtung der Ende-zu-Ende-Verschlüsselung erhalten Sie eine zufällige 12-Wörter-Gedächtnisstütze, die Sie benötigen, um Ihre Dateien auf anderen Geräten zu öffnen. Diese wird nur auf diesem Gerät gespeichert und kann in diesem Bildschirm erneut angezeigt werden. Bitte notieren Sie es an einem sicheren Ort!</string>
     <string name="share">Teilen</string>
+    <string name="share_allow_download_and_sync_permission">Herunterladen und synchronisieren zulassen</string>
     <string name="share_copy_link">Teilen und Link kopieren</string>
     <string name="share_dialog_title">Teilen</string>
     <string name="share_download_limit">Download-Limit festlegen</string>
@@ -829,6 +830,7 @@
     <string name="share_password_title">Passwortgeschützt</string>
     <string name="share_permission_can_edit">Kann bearbeiten</string>
     <string name="share_permission_file_drop">Dateiablage</string>
+    <string name="share_permission_file_request">Dateianfrage</string>
     <string name="share_permission_secure_file_drop">Sichere Dateiablage</string>
     <string name="share_permission_view_only">Nur anzeigen</string>
     <string name="share_permissions">Berechtigungen zum Teilen</string>

@@ -493,7 +493,10 @@
     <string name="set_as">Vendos Si</string>
     <string name="set_picture_as">Vendos fotografinë</string>
     <string name="share">Ndaje</string>
+    <string name="share_create_permission">Krijo</string>
+    <string name="share_delete_permission">Fshi</string>
     <string name="share_dialog_title">Ndarje me të tjerët</string>
+    <string name="share_edit_permission">Përpuno</string>
     <string name="share_expiration_date_label">Skadon%1$s</string>
     <string name="share_file">Ndajeni %1$s</string>
     <string name="share_group_clarification">%1$s (grup)</string>
@@ -509,6 +512,8 @@
     <string name="share_no_password_title">Vendos fjalëkalimin</string>
     <string name="share_password_title">Mbrojtur me fjalëkalim</string>
     <string name="share_permission_can_edit">Can edit</string>
+    <string name="share_re_share_permission">Ndaj</string>
+    <string name="share_read_permission">Lexoni</string>
     <string name="share_remote_clarification">%1$s (i largët)</string>
     <string name="share_room_clarification">%1$s (bisedë)</string>
     <string name="share_send_note">Shënim për marrësin</string>

@@ -495,7 +495,10 @@
     <string name="set_status">กำหนดสถานะ</string>
     <string name="set_status_message">กำหนดข้อความสถานะ</string>
     <string name="share">แชร์</string>
+    <string name="share_create_permission">สร้าง</string>
+    <string name="share_delete_permission">ลบ</string>
     <string name="share_dialog_title">แชร์ข้อมูล</string>
+    <string name="share_edit_permission">แก้ไข</string>
     <string name="share_group_clarification">%1$s (กลุ่ม)</string>
     <string name="share_link">แชร์ลิงก์</string>
     <string name="share_link_empty_password">คุณจะต้องใส่รหัสผ่าน</string>
@@ -505,6 +508,7 @@
     <string name="share_no_password_title">ตั้งรหัสผ่าน</string>
     <string name="share_permission_can_edit">สามารถแก้ไข</string>
     <string name="share_permission_view_only">ดูเท่านั้น</string>
+    <string name="share_read_permission">อ่าน</string>
     <string name="share_remote_clarification">%1$s (รีโมท)</string>
     <string name="share_settings">การตั้งค่า</string>
     <string name="share_via_link_section_title">แชร์ลิงค์</string>

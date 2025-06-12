@@ -804,9 +804,14 @@
     <string name="set_status_message">设定状态信息</string>
     <string name="setup_e2e">在端对端加密期间，你将接收一个随机12字助记字串，您需要这个字符串才能在其它设备上开放您的文件。这将只会存储在该设备上，并可以在此画面中再次展示。请记在安全的地方！</string>
     <string name="share">共享</string>
+    <string name="share_allow_download_and_sync_permission">允许下载和同步</string>
     <string name="share_copy_link">分享并复制链接</string>
+    <string name="share_create_permission">创建</string>
+    <string name="share_custom_permission">自定义权限</string>
+    <string name="share_delete_permission">删除</string>
     <string name="share_dialog_title">共享</string>
     <string name="share_download_limit">设置下载限制</string>
+    <string name="share_edit_permission">编辑</string>
     <string name="share_expiration_date_format">%1$s</string>
     <string name="share_expiration_date_label">过期 %1$s</string>
     <string name="share_file">共享 %1$s</string>
@@ -829,9 +834,12 @@
     <string name="share_password_title">密码已受保护</string>
     <string name="share_permission_can_edit">可以编辑</string>
     <string name="share_permission_file_drop">文件拖放</string>
+    <string name="share_permission_file_request">文件请求</string>
     <string name="share_permission_secure_file_drop">安全文件拖放</string>
     <string name="share_permission_view_only">仅查看</string>
     <string name="share_permissions">分享权限</string>
+    <string name="share_re_share_permission">共享</string>
+    <string name="share_read_permission">读取</string>
     <string name="share_remote_clarification">%1$s (远程)</string>
     <string name="share_room_clarification">%1$s (对话)</string>
     <string name="share_search">名称，联合云 ID 或电子邮箱地址…</string>

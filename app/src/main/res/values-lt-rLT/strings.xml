@@ -669,7 +669,11 @@
     <string name="set_status">Nustatyti būseną</string>
     <string name="set_status_message">Nustatyti būsenos žinutę</string>
     <string name="share">Bendrinti</string>
+    <string name="share_create_permission">Sukurti</string>
+    <string name="share_custom_permission">Tinkinti leidimai</string>
+    <string name="share_delete_permission">Ištrinti</string>
     <string name="share_dialog_title">Bendrinimas</string>
+    <string name="share_edit_permission">Taisyti</string>
     <string name="share_expiration_date_format">%1$s</string>
     <string name="share_expiration_date_label">Galioja iki %1$s</string>
     <string name="share_file">Bendrinti %1$s</string>
@@ -692,6 +696,8 @@
     <string name="share_permission_file_drop">Failų įkėlimas</string>
     <string name="share_permission_secure_file_drop">Saugus failų įkėlimas</string>
     <string name="share_permission_view_only">Tik peržiūrėti</string>
+    <string name="share_re_share_permission">Bendrinti</string>
+    <string name="share_read_permission">Skaityti</string>
     <string name="share_remote_clarification">%1$s (nuotolinis)</string>
     <string name="share_room_clarification">%1$s (pokalbis)</string>
     <string name="share_send_new_email">Siųsti naują elektroninį laišką</string>

@@ -660,7 +660,10 @@ Otomatis unggah hanya bekerja dengan baik apabila Anda mengeluarkan aplikasi ini
     <string name="set_status_message">Tetapkan status pesan</string>
     <string name="setup_e2e">Selama penyiapan enkripsi end-to-end, Anda akan menerima sebuah mnemonik acak berupa 12 kata, yang akan Anda butuhkan untuk membuka berkas Anda di perangkat lain. Mnemonik tersebut hanya akan disimpan di perangkat ini, dan dapat ditampilkan kembali di layar ini. Harap catat di tempat yang aman!</string>
     <string name="share">Bagikan</string>
+    <string name="share_create_permission">Buat</string>
+    <string name="share_delete_permission">Hapus</string>
     <string name="share_dialog_title">Berbagi</string>
+    <string name="share_edit_permission">Sunting</string>
     <string name="share_expiration_date_label">Kadaluarsa %1$s</string>
     <string name="share_file">Bagikan %1$s</string>
     <string name="share_group_clarification">%1$s (grup)</string>
@@ -680,6 +683,7 @@ Otomatis unggah hanya bekerja dengan baik apabila Anda mengeluarkan aplikasi ini
     <string name="share_password_title">Sandi dilindungi</string>
     <string name="share_permission_can_edit">Can edit</string>
     <string name="share_permission_view_only">Hanya lihat</string>
+    <string name="share_read_permission">Baca</string>
     <string name="share_remote_clarification">%1$s (remote)</string>
     <string name="share_room_clarification">%1$s (percakapan)</string>
     <string name="share_send_new_email">Kirim surel baru</string>

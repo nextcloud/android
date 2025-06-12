@@ -804,9 +804,12 @@
     <string name="set_status_message">Lisa olekuteade</string>
     <string name="setup_e2e">Läbiva krüptimise kasutuselevõtmisel saad sa juhusliku 12-sõnalise mnemofraasi ehk salafraasi, mille alusel vaid sina saad oma krüptitud faile teistes seadmetes kasutada ja näha. Ta on salvestatud vaid siin seadmes ja on uuesti vaadatav vaid siin vaates. Palun märgi see üles ning hoia turvaliselt kas moodsas digitaalses salasõnalaekas või vana kooli seifis.</string>
     <string name="share">Jaga</string>
+    <string name="share_allow_download_and_sync_permission">Luba allalaadimine ja sünkroonimine</string>
     <string name="share_copy_link">Jaga ja kopeeri link</string>
+    <string name="share_custom_permission">Kohandatud õigused</string>
     <string name="share_dialog_title">Jagamine</string>
     <string name="share_download_limit">Määra allalaadimiste piirang</string>
+    <string name="share_edit_permission">Muuda</string>
     <string name="share_expiration_date_format">%1$s</string>
     <string name="share_expiration_date_label">Aegub %1$s</string>
     <string name="share_file">Jaga %1$s</string>
@@ -829,9 +832,11 @@
     <string name="share_password_title">Kaitstud salasõnaga</string>
     <string name="share_permission_can_edit">Võib muuta</string>
     <string name="share_permission_file_drop">Failiedastus</string>
+    <string name="share_permission_file_request">Failipäring</string>
     <string name="share_permission_secure_file_drop">Turvaline failiedastus</string>
     <string name="share_permission_view_only">Ainult vaatamine</string>
     <string name="share_permissions">Jagamisõigused</string>
+    <string name="share_read_permission">Lugemine</string>
     <string name="share_remote_clarification">%1$s (kaugseadmes)</string>
     <string name="share_room_clarification">%1$s (vestlus)</string>
     <string name="share_search">Nimi, tunnus liitpilves või e-posti aadress...</string>

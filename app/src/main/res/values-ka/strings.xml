@@ -663,7 +663,11 @@
     <string name="set_status_message">Set status message</string>
     <string name="setup_e2e">During setup of end-to-end encryption, you will receive a random 12 word mnemonic, which you will need to open your files on other devices. This will only be stored on this device, and can be shown again in this screen. Please note it down in a secure place!</string>
     <string name="share">Share</string>
+    <string name="share_create_permission">Create</string>
+    <string name="share_custom_permission">Custom permissions</string>
+    <string name="share_delete_permission">წაშლა</string>
     <string name="share_dialog_title">Sharing</string>
+    <string name="share_edit_permission">Edit</string>
     <string name="share_expiration_date_format">%1$s</string>
     <string name="share_expiration_date_label">Expires %1$s</string>
     <string name="share_file">Share %1$s</string>
@@ -687,6 +691,8 @@
     <string name="share_permission_file_drop">File drop</string>
     <string name="share_permission_secure_file_drop">Secure file drop</string>
     <string name="share_permission_view_only">View only</string>
+    <string name="share_re_share_permission">გაზიარება</string>
+    <string name="share_read_permission">Read</string>
     <string name="share_remote_clarification">%1$s (remote)</string>
     <string name="share_room_clarification">%1$s (conversation)</string>
     <string name="share_send_new_email">Send new email</string>

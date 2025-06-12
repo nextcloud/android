@@ -603,7 +603,10 @@
     <string name="set_status">Postavi status</string>
     <string name="set_status_message">Postavi poruku statusa</string>
     <string name="share">Dijeli</string>
+    <string name="share_create_permission">Stvori</string>
+    <string name="share_delete_permission">Izbriši</string>
     <string name="share_dialog_title">Dijeljenje</string>
+    <string name="share_edit_permission">Uredi</string>
     <string name="share_expiration_date_format">%1$s</string>
     <string name="share_expiration_date_label">Istječe %1$s</string>
     <string name="share_file">Dijeli %1$s</string>
@@ -626,6 +629,8 @@
     <string name="share_permission_can_edit">Uređivanje moguće</string>
     <string name="share_permission_file_drop">Povlačenje datoteke</string>
     <string name="share_permission_view_only">Samo za gledanje</string>
+    <string name="share_re_share_permission">Dijeli</string>
+    <string name="share_read_permission">Čitaj</string>
     <string name="share_remote_clarification">%1$s (udaljeno)</string>
     <string name="share_room_clarification">%1$s (razgovor)</string>
     <string name="share_send_new_email">Pošalji novu poruku e-pošte</string>

@@ -801,9 +801,14 @@
     <string name="set_status_message">Durum iletisini ayarla</string>
     <string name="setup_e2e">Uçtan uca şifrelemenin kurulumu sırasında, dosyalarınızı diğer aygıtlarda açabilmeniz için rastgele 12 sözcükten oluşan bir parola alacaksınız. Bu parola yalnızca bu aygıta kaydedilir ve bu sayfadan yeniden görülebilir. Lütfen güvenli bir yere not edin!</string>
     <string name="share">Paylaş</string>
+    <string name="share_allow_download_and_sync_permission">İndirmeye izin ver ve eşitle</string>
     <string name="share_copy_link">Paylaş ve bağlantıyı kopyala</string>
+    <string name="share_create_permission">Ekleme</string>
+    <string name="share_custom_permission">Özel izinler</string>
+    <string name="share_delete_permission">Sil</string>
     <string name="share_dialog_title">Paylaşım</string>
     <string name="share_download_limit">İndirme sınırını ayarla</string>
+    <string name="share_edit_permission">Düzenle</string>
     <string name="share_expiration_date_format">%1$s</string>
     <string name="share_expiration_date_label">Geçerlilik süresi %1$s zamanında dolacak</string>
     <string name="share_file">%1$s paylaş</string>
@@ -826,9 +831,12 @@
     <string name="share_password_title">Parola korumalı</string>
     <string name="share_permission_can_edit">Düzenleyebilir</string>
     <string name="share_permission_file_drop">Dosya bırakma</string>
+    <string name="share_permission_file_request">Dosya isteği</string>
     <string name="share_permission_secure_file_drop">Güvenli dosya bırakma</string>
     <string name="share_permission_view_only">Yalnızca görüntüleme</string>
     <string name="share_permissions">Paylaşım izinleri</string>
+    <string name="share_re_share_permission">Paylaşma</string>
+    <string name="share_read_permission">Okuma</string>
     <string name="share_remote_clarification">%1$s (uzak)</string>
     <string name="share_room_clarification">%1$s (görüşme)</string>
     <string name="share_search">Ad, birleşik bulut kimliği ya da e-posta adresi…</string>
