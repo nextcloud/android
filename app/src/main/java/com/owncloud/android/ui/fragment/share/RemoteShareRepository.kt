@@ -27,7 +27,13 @@ class RemoteShareRepository(
     override fun refreshSharesForFolder(remotePath: String) {
         scope.launch(Dispatchers.IO) {
             val client = clientRepository.getOwncloudClient() ?: return@launch
-            val operation = GetSharesForFileOperation(remotePath, true, false, fileDataStorageManager)
+            val operation =
+                GetSharesForFileOperation(
+                    path = remotePath,
+                    reshares = true,
+                    subfiles = false,
+                    storageManager = fileDataStorageManager
+                )
 
             @Suppress("DEPRECATION")
             val result = operation.execute(client)
