@@ -10,7 +10,6 @@ import android.app.PendingIntent
 import android.app.Service
 import android.content.Intent
 import android.media.AudioManager
-import android.os.Build
 import android.os.Bundle
 import android.os.IBinder
 import android.widget.MediaController
@@ -184,10 +183,7 @@ class PlayerService : Service() {
             setOngoing(true)
             setContentTitle(ticker)
             setContentText(content)
-
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                setChannelId(NotificationUtils.NOTIFICATION_CHANNEL_MEDIA)
-            }
+            setChannelId(NotificationUtils.NOTIFICATION_CHANNEL_MEDIA)
         }
 
         ForegroundServiceHelper.startService(

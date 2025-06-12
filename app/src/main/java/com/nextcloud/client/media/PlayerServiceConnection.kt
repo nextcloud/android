@@ -10,9 +10,9 @@ import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.content.ServiceConnection
-import android.os.Build
 import android.os.IBinder
 import android.widget.MediaController
+import androidx.core.content.ContextCompat
 import com.nextcloud.client.account.User
 import com.owncloud.android.datamodel.OCFile
 
@@ -133,10 +133,6 @@ class PlayerServiceConnection(private val context: Context) : MediaController.Me
     // endregion
 
     private fun startForegroundService(i: Intent) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            context.startForegroundService(i)
-        } else {
-            context.startService(i)
-        }
+        ContextCompat.startForegroundService(context, i)
     }
 }
