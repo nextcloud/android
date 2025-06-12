@@ -31,12 +31,12 @@ class RemoteShareRepository(
             val result = operation.execute(client)
 
             if (result.isSuccess) {
-                Log_OC.d(tag, "Successfully refreshed shares for the specified remote path.");
+                Log_OC.d(tag, "Successfully refreshed shares for the specified remote path.")
             } else {
                 Log_OC.w(
                     tag,
                     "Failed to refresh shares for the specified remote path. An error occurred during the operation."
-                );
+                )
             }
         }
     }
