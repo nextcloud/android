@@ -286,8 +286,6 @@ public class FileDisplayActivity extends FileActivity
         mPlayerConnection = new PlayerServiceConnection(this);
 
         checkStoragePath();
-        notifyGPlayPermissionChanges();
-        showAutoUploadWarningForGPlayFlavour();
 
         initSyncBroadcastReceiver();
         observeWorkerState();
