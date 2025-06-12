@@ -1540,6 +1540,11 @@ public class FileDataStorageManager {
     private ContentValues createContentValueForRemoteFile(RemoteFile remoteFile) {
         ContentValues contentValues = new ContentValues();
 
+        OCFile ocFile = getFileByDecryptedRemotePath(remoteFile.getRemotePath());
+        if (ocFile != null) {
+            contentValues.put(ProviderTableMeta.OCSHARES_FILE_SOURCE, ocFile.getFileId());
+        }
+
         contentValues.put(ProviderTableMeta.OCSHARES_PATH, remoteFile.getRemotePath());
         boolean isDirectory = MimeTypeUtil.isFolder(remoteFile.getMimeType());
         contentValues.put(ProviderTableMeta.OCSHARES_IS_DIRECTORY, isDirectory);
