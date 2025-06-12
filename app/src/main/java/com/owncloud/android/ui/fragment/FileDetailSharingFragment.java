@@ -155,7 +155,7 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
 
         fileDataStorageManager = fileActivity.getStorageManager();
         ShareRepository shareRepository = new RemoteShareRepository(fileActivity.getClientRepository(), fileActivity, fileDataStorageManager);
-        shareRepository.refreshSharesForFolder(file.getParentRemotePath());
+        shareRepository.refreshSharesForFolder(file.getRemotePath());
     }
 
     @Override
