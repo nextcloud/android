@@ -27,8 +27,12 @@ class RemoteShareRepository(
     override fun refreshSharesForFolder(remotePath: String) {
         scope.launch(Dispatchers.IO) {
             val client = clientRepository.getOwncloudClient() ?: return@launch
-            val operation = GetSharesForFileOperation(remotePath, true, true, fileDataStorageManager)
+            val operation = GetSharesForFileOperation(remotePath, true, false, fileDataStorageManager)
+
+            @Suppress("DEPRECATION")
             val result = operation.execute(client)
+
+            Log_OC.i(tag, "Remote path for the refresh shares: $remotePath")
 
             if (result.isSuccess) {
                 Log_OC.d(tag, "Successfully refreshed shares for the specified remote path.")
