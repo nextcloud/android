@@ -49,7 +49,7 @@ import javax.inject.Inject
  * configuration at one time.
  * 2. This will handle both Advanced Permissions and Send New Email functionality for existing shares to modify them.
  */
-@Suppress("TooManyFunctions")
+@Suppress("TooManyFunctions", "LargeClass")
 class FileDetailsSharingProcessFragment :
     Fragment(),
     Injectable,
