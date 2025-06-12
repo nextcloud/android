@@ -50,11 +50,7 @@ public class LoadContactsTask extends AsyncTask<Void, Void, Boolean> {
         if (!isCancelled()) {
             File file = new File(ocFile.getStoragePath());
             try {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                    vCards.addAll(Ezvcard.parse(new BufferedInputStream(Files.newInputStream(file.toPath()))).all());
-                } else {
-                    vCards.addAll(Ezvcard.parse(new BufferedInputStream(new FileInputStream((file)))).all());
-                }
+                vCards.addAll(Ezvcard.parse(new BufferedInputStream(Files.newInputStream(file.toPath()))).all());
                 Collections.sort(vCards, new VCardComparator());
             } catch (IOException e) {
                 Log_OC.e(this, "IO Exception: " + file.getAbsolutePath());
