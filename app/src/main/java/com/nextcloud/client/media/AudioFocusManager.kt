@@ -8,6 +8,7 @@ package com.nextcloud.client.media
 
 import android.media.AudioFocusRequest
 import android.media.AudioManager
+import android.os.Build
 
 /**
  * Wrapper around audio manager exposing simplified audio focus API and
@@ -38,10 +39,12 @@ internal class AudioFocusManager(
     private var focusRequest: AudioFocusRequest? = null
 
     init {
-        focusRequest = AudioFocusRequest.Builder(AudioManager.AUDIOFOCUS_GAIN).run {
-            setWillPauseWhenDucked(true)
-            setOnAudioFocusChangeListener(focusListener)
-        }.build()
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            focusRequest = AudioFocusRequest.Builder(AudioManager.AUDIOFOCUS_GAIN).run {
+                setWillPauseWhenDucked(true)
+                setOnAudioFocusChangeListener(focusListener)
+            }.build()
+        }
     }
 
     /**
@@ -49,8 +52,12 @@ internal class AudioFocusManager(
      * If focus cannot be gained, lost of focus is reported.
      */
     fun requestFocus() {
-        val requestResult =
+        val requestResult = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             focusRequest?.let { audioManger.requestAudioFocus(it) }
+        } else {
+            audioManger.requestAudioFocus(focusListener, AudioManager.STREAM_MUSIC, AudioManager.AUDIOFOCUS_GAIN)
+        }
+
         if (requestResult == AudioManager.AUDIOFOCUS_REQUEST_GRANTED) {
             focusListener.onAudioFocusChange(AudioManager.AUDIOFOCUS_GAIN)
         } else {
@@ -62,9 +69,13 @@ internal class AudioFocusManager(
      * Release audio focus. Loss of focus is reported via callback.
      */
     fun releaseFocus() {
-        focusRequest?.let {
-            audioManger.abandonAudioFocusRequest(it)
-        } ?: AudioManager.AUDIOFOCUS_REQUEST_FAILED
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            focusRequest?.let {
+                audioManger.abandonAudioFocusRequest(it)
+            } ?: AudioManager.AUDIOFOCUS_REQUEST_FAILED
+        } else {
+            audioManger.abandonAudioFocus(focusListener)
+        }
         focusListener.onAudioFocusChange(AudioManager.AUDIOFOCUS_LOSS)
     }
 }
