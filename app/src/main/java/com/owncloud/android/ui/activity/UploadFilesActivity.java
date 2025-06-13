@@ -268,7 +268,7 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
     }
 
     private void requestPermissions() {
-        PermissionUtil.requestExternalStoragePermission(this, viewThemeUtils, true);
+        PermissionUtil.requestStoragePermissionIfNeeded(this, true);
     }
 
     public void showToolbarSpinner() {
@@ -328,7 +328,7 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
     }
 
     private void checkLocalStoragePathPickerPermission() {
-        if (!PermissionUtil.checkExternalStoragePermission(this)) {
+        if (!PermissionUtil.checkStoragePermission(this)) {
             requestPermissions();
         } else {
             showLocalStoragePathPickerDialog();
@@ -352,8 +352,6 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 // permission was granted
                 showLocalStoragePathPickerDialog();
-            } else {
-                DisplayUtils.showSnackMessage(this, R.string.permission_storage_access);
             }
         } else {
             super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -566,7 +564,9 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
 
         pushDirname(directory);
         ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
     }
 
     private void checkWritableFolder(File folder) {
@@ -645,7 +645,7 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
             finish();
 
         } else if (v.getId() == R.id.upload_files_btn_upload) {
-            if (PermissionUtil.checkExternalStoragePermission(this)) {
+            if (PermissionUtil.checkStoragePermission(this)) {
                 if (mCurrentDir != null) {
                     preferences.setUploadFromLocalLastPath(mCurrentDir.getAbsolutePath());
                 }

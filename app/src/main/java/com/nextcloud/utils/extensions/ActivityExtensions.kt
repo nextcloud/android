@@ -11,6 +11,8 @@ import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import com.nextcloud.client.preferences.AppPreferences
+import com.nextcloud.client.preferences.AppPreferencesImpl
 
 fun AppCompatActivity.isDialogFragmentReady(fragment: Fragment): Boolean = isActive() && !fragment.isStateSaved
 
@@ -29,3 +31,7 @@ fun Activity.showShareIntent(text: String?) {
     val shareIntent = Intent.createChooser(sendIntent, null)
     startActivity(shareIntent)
 }
+
+@Suppress("DEPRECATION")
+val Activity.appPref: AppPreferences
+    get() = AppPreferencesImpl.fromContext(this)
