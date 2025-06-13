@@ -48,7 +48,8 @@ class RemoteShareRepository(
                 } else {
                     Log_OC.w(
                         tag,
-                        "Failed to refresh shares for the specified remote path. An error occurred during the operation."
+                        "Failed to refresh shares for the specified remote path. " +
+                            "An error occurred during the operation."
                     )
                     onError()
                 }
