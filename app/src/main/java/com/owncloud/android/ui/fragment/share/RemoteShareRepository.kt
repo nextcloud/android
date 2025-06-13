@@ -25,7 +25,7 @@ class RemoteShareRepository(
     private val tag = "RemoteShareRepository"
     private val scope = lifecycleOwner.lifecycleScope
 
-    override fun refreshSharesForFile(remotePath: String, onCompleted: () -> Unit, onError: () -> Unit) {
+    override fun fetchSharees(remotePath: String, onCompleted: () -> Unit, onError: () -> Unit) {
         scope.launch(Dispatchers.IO) {
             val client = clientRepository.getOwncloudClient() ?: return@launch
             val operation =
