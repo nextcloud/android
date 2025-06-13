@@ -101,6 +101,7 @@ import com.owncloud.android.operations.RenameFileOperation;
 import com.owncloud.android.operations.SynchronizeFileOperation;
 import com.owncloud.android.operations.UploadFileOperation;
 import com.owncloud.android.syncadapter.FileSyncAdapter;
+import com.owncloud.android.ui.CompletionCallback;
 import com.owncloud.android.ui.activity.fileDisplayActivity.OfflineFolderConflictManager;
 import com.owncloud.android.ui.asynctasks.CheckAvailableSpaceTask;
 import com.owncloud.android.ui.asynctasks.FetchRemoteFileTask;
@@ -251,6 +252,16 @@ public class FileDisplayActivity extends FileActivity
     @Inject AsyncRunner asyncRunner;
     @Inject Clock clock;
     @Inject SyncedFolderProvider syncedFolderProvider;
+
+    /**
+     * Indicates whether the downloaded file should be previewed immediately. Since `FileDownloadWorker` can be
+     * triggered from multiple sources, this helps determine if an automatic preview is needed after download.
+     */
+    private long fileIDForImmediatePreview = -1;
+
+    public void setFileIDForImmediatePreview(long fileIDForImmediatePreview) {
+        this.fileIDForImmediatePreview = fileIDForImmediatePreview;
+    }
 
     public static Intent openFileIntent(Context context, User user, OCFile file) {
         final Intent intent = new Intent(context, PreviewImageActivity.class);
@@ -1689,14 +1700,79 @@ public class FileDisplayActivity extends FileActivity
             if (state instanceof WorkerState.DownloadStarted) {
                 Log_OC.d(TAG, "Download worker started");
                 handleDownloadWorkerState();
-            } else if (state instanceof WorkerState.DownloadFinished) {
+            } else if (state instanceof WorkerState.DownloadFinished finishedState) {
                 fileDownloadProgressListener = null;
+                previewFile(finishedState);
             } else if (state instanceof WorkerState.UploadFinished) {
                 refreshList();
             } else if (state instanceof  WorkerState.OfflineOperationsCompleted) {
                 refreshCurrentDirectory();
             }
         });
+    }
+
+    private void previewFile(WorkerState.DownloadFinished finishedState) {
+        if (fileIDForImmediatePreview == -1) {
+            return;
+        }
+
+        final var currentFile = finishedState.getCurrentFile();
+        if (currentFile == null) {
+            return;
+        }
+
+        if (fileIDForImmediatePreview != currentFile.getFileId() || !currentFile.isDown()) {
+            return;
+        }
+
+        fileIDForImmediatePreview = -1;
+        if (PreviewImageFragment.canBePreviewed(currentFile)) {
+            startImagePreview(currentFile, currentFile.isDown());
+        } else {
+            previewFile(currentFile, null);
+        }
+    }
+
+    public void previewImageWithSearchContext(OCFile file, boolean searchFragment, SearchType currentSearchType) {
+        // preview image - it handles the download, if needed
+        if (searchFragment) {
+            VirtualFolderType type = switch (currentSearchType) {
+                case FAVORITE_SEARCH -> VirtualFolderType.FAVORITE;
+                case GALLERY_SEARCH -> VirtualFolderType.GALLERY;
+                default -> VirtualFolderType.NONE;
+            };
+
+            startImagePreview(file, type, file.isDown());
+        } else {
+            startImagePreview(file, file.isDown());
+        }
+    }
+
+    public void previewFile(OCFile file, @Nullable CompletionCallback setFabVisible) {
+        if (!file.isDown()) {
+            Log_OC.d(TAG,"File is not downloaded, cannot be previewed");
+            return;
+        }
+
+        if (MimeTypeUtil.isVCard(file)) {
+            startContactListFragment(file);
+        } else if (MimeTypeUtil.isPDF(file)) {
+            startPdfPreview(file);
+        } else if (PreviewTextFileFragment.canBePreviewed(file)) {
+            if (setFabVisible != null) {
+                setFabVisible.onComplete(false);
+            }
+
+            startTextPreview(file, false);
+        } else if (PreviewMediaActivity.Companion.canBePreviewed(file)) {
+            if (setFabVisible != null) {
+                setFabVisible.onComplete(false);
+            }
+
+            startMediaPreview(file, 0, true, true, false, true);
+        } else {
+            getFileOperationsHelper().openFile(file);
+        }
     }
 
     public void refreshCurrentDirectory() {
@@ -2285,9 +2361,14 @@ public class FileDisplayActivity extends FileActivity
      * @param parentFolder {@link OCFile} containing above file
      */
     public void startDownloadForPreview(OCFile file, OCFile parentFolder) {
-        final User currentUser = getUser().orElseThrow(RuntimeException::new);
-        Fragment detailFragment = FileDetailFragment.newInstance(file, parentFolder, currentUser);
-        setLeftFragment(detailFragment, false);
+        if (!file.isFileEligibleForImmediatePreview()) {
+            final Optional<User> currentUser = getUser();
+            if (currentUser.isPresent()) {
+                Fragment detailFragment = FileDetailFragment.newInstance(file, parentFolder, currentUser.get());
+                setLeftFragment(detailFragment, false);
+            }
+        }
+
         configureToolbarForPreview(file);
         mWaitingToPreview = file;
         requestForDownload();
