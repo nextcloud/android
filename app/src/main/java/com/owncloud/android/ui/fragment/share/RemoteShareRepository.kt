@@ -15,6 +15,7 @@ import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.operations.GetSharesForFileOperation
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class RemoteShareRepository(
     private val clientRepository: ClientRepository,
@@ -24,7 +25,7 @@ class RemoteShareRepository(
     private val tag = "RemoteShareRepository"
     private val scope = lifecycleOwner.lifecycleScope
 
-    override fun refreshSharesForFolder(remotePath: String) {
+    override fun refreshSharesForFile(remotePath: String, onCompleted: () -> Unit, onError: () -> Unit) {
         scope.launch(Dispatchers.IO) {
             val client = clientRepository.getOwncloudClient() ?: return@launch
             val operation =
@@ -40,13 +41,17 @@ class RemoteShareRepository(
 
             Log_OC.i(tag, "Remote path for the refresh shares: $remotePath")
 
-            if (result.isSuccess) {
-                Log_OC.d(tag, "Successfully refreshed shares for the specified remote path.")
-            } else {
-                Log_OC.w(
-                    tag,
-                    "Failed to refresh shares for the specified remote path. An error occurred during the operation."
-                )
+            withContext(Dispatchers.Main) {
+                if (result.isSuccess) {
+                    Log_OC.d(tag, "Successfully refreshed shares for the specified remote path.")
+                    onCompleted()
+                } else {
+                    Log_OC.w(
+                        tag,
+                        "Failed to refresh shares for the specified remote path. An error occurred during the operation."
+                    )
+                    onError()
+                }
             }
         }
     }
