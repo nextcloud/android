@@ -32,6 +32,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.LinearLayout;
 
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
@@ -157,8 +158,12 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
         }
 
         fileDataStorageManager = fileActivity.getStorageManager();
+        fetchSharees();
+    }
+
+    private void fetchSharees() {
         ShareRepository shareRepository = new RemoteShareRepository(fileActivity.getClientRepository(), fileActivity, fileDataStorageManager);
-        shareRepository.refreshSharesForFile(file.getRemotePath(), () -> {
+        shareRepository.fetchSharees(file.getRemotePath(), () -> {
             refreshCapabilitiesFromDB();
             refreshSharesFromDB();
             showShareContainer();
@@ -175,8 +180,10 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
             return;
         }
 
-        binding.shimmerLayout.clearAnimation();
-        binding.shimmerLayout.setVisibility(View.GONE);
+        final LinearLayout shimmerLayout = binding.shimmerLayout.getRoot();
+        shimmerLayout.clearAnimation();
+        shimmerLayout.setVisibility(View.GONE);
+
         binding.shareContainer.setVisibility(View.VISIBLE);
     }
 
@@ -185,7 +192,7 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
         binding = FileDetailsSharingFragmentBinding.inflate(inflater, container, false);
 
         final Animation blinkAnimation = AnimationUtils.loadAnimation(requireContext(), R.anim.blink);
-        binding.shimmerLayout.startAnimation(blinkAnimation);
+        binding.shimmerLayout.getRoot().startAnimation(blinkAnimation);
 
         fileOperationsHelper = fileActivity.getFileOperationsHelper();
 

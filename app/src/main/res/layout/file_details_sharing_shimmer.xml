@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Nextcloud - Android Client
+  ~
+  ~ SPDX-FileCopyrightText: 2025 Alper Ozturk <alper.ozturk@nextcloud.com>
+  ~ SPDX-License-Identifier: AGPL-3.0-or-later
+  -->
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:visibility="visible"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <include layout="@layout/share_list_item_shimmer" />
+
+    <include layout="@layout/share_list_item_shimmer" />
+
+    <include layout="@layout/loading_text_shimmer" />
+
+    <include layout="@layout/share_list_item_shimmer" />
+
+    <include layout="@layout/share_list_item_shimmer" />
+
+</LinearLayout>
