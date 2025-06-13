@@ -623,14 +623,24 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
 
     private void observeWorkerState() {
         WorkerStateLiveData.Companion.instance().observe(getViewLifecycleOwner(), state -> {
-            if (state instanceof WorkerState.DownloadStarted) {
-                binding.progressText.setText(R.string.downloader_download_in_progress_ticker);
+            if (state instanceof WorkerState.DownloadStarted downloadState) {
+                updateProgressBar(downloadState);
             } else if (state instanceof WorkerState.UploadStarted) {
                 binding.progressText.setText(R.string.uploader_upload_in_progress_ticker);
             } else {
                 binding.progressBlock.setVisibility(View.GONE);
             }
         });
+    }
+
+    private void updateProgressBar(WorkerState.DownloadStarted downloadState) {
+        if (binding.progressBlock.getVisibility() != View.VISIBLE) {
+            binding.progressBlock.setVisibility(View.VISIBLE);
+        }
+
+        binding.progressText.setText(R.string.downloader_download_in_progress_ticker);
+        binding.progressBar.setProgress(downloadState.getPercent());
+        binding.progressBar.invalidate();
     }
 
     private void setFileModificationTimestamp(OCFile file, boolean showDetailedTimestamp) {
@@ -763,23 +773,24 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
     }
 
     public void listenForTransferProgress() {
-        if (progressListener != null) {
-            if (containerActivity.getFileDownloadProgressListener() != null) {
-                containerActivity.getFileDownloadProgressListener().
-                    addDataTransferProgressListener(progressListener, getFile());
-            }
-
-            if (containerActivity.getFileUploaderHelper() != null) {
-                OCFile file = getFile();
-                if (user == null || file == null) {
-                    return;
-                }
-
-                String targetKey = FileUploadHelper.Companion.buildRemoteName(user.getAccountName(), file.getRemotePath());
-                containerActivity.getFileUploaderHelper().addUploadTransferProgressListener(progressListener, targetKey);
-            }
-        } else {
+        if (progressListener == null) {
             Log_OC.d(TAG, "progressListener == null");
+            return;
+        }
+
+        if (containerActivity.getFileDownloadProgressListener() != null) {
+            containerActivity.getFileDownloadProgressListener().
+                addDataTransferProgressListener(progressListener, getFile());
+        }
+
+        if (containerActivity.getFileUploaderHelper() != null) {
+            OCFile file = getFile();
+            if (user == null || file == null) {
+                return;
+            }
+
+            String targetKey = FileUploadHelper.Companion.buildRemoteName(user.getAccountName(), file.getRemotePath());
+            containerActivity.getFileUploaderHelper().addUploadTransferProgressListener(progressListener, targetKey);
         }
     }
 
