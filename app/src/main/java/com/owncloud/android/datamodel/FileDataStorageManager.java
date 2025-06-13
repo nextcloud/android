@@ -1562,13 +1562,7 @@ public class FileDataStorageManager {
 
         if (!remoteFile.getFileDownloadLimit().isEmpty()) {
             FileDownloadLimit downloadLimit = remoteFile.getFileDownloadLimit().get(0);
-            if (downloadLimit != null) {
-                contentValues.put(ProviderTableMeta.OCSHARES_DOWNLOADLIMIT_LIMIT, downloadLimit.getLimit());
-                contentValues.put(ProviderTableMeta.OCSHARES_DOWNLOADLIMIT_COUNT, downloadLimit.getCount());
-            } else {
-                contentValues.putNull(ProviderTableMeta.OCSHARES_DOWNLOADLIMIT_LIMIT);
-                contentValues.putNull(ProviderTableMeta.OCSHARES_DOWNLOADLIMIT_COUNT);
-            }
+            setDownloadLimitToContentValues(contentValues, downloadLimit);
         }
 
         return contentValues;
@@ -1602,13 +1596,7 @@ public class FileDataStorageManager {
         contentValues.put(ProviderTableMeta.OCSHARES_SHARE_LABEL, share.getLabel());
 
         FileDownloadLimit downloadLimit = share.getFileDownloadLimit();
-        if (downloadLimit != null) {
-            contentValues.put(ProviderTableMeta.OCSHARES_DOWNLOADLIMIT_LIMIT, downloadLimit.getLimit());
-            contentValues.put(ProviderTableMeta.OCSHARES_DOWNLOADLIMIT_COUNT, downloadLimit.getCount());
-        } else {
-            contentValues.putNull(ProviderTableMeta.OCSHARES_DOWNLOADLIMIT_LIMIT);
-            contentValues.putNull(ProviderTableMeta.OCSHARES_DOWNLOADLIMIT_COUNT);
-        }
+        setDownloadLimitToContentValues(contentValues, downloadLimit);
 
         contentValues.put(ProviderTableMeta.OCSHARES_ATTRIBUTES, share.getAttributes());
 
@@ -1645,6 +1633,17 @@ public class FileDataStorageManager {
         share.setAttributes(getString(cursor, ProviderTableMeta.OCSHARES_ATTRIBUTES));
 
         return share;
+    }
+
+    private void setDownloadLimitToContentValues(ContentValues contentValues, FileDownloadLimit downloadLimit) {
+        if (downloadLimit != null) {
+            contentValues.put(ProviderTableMeta.OCSHARES_DOWNLOADLIMIT_LIMIT, downloadLimit.getLimit());
+            contentValues.put(ProviderTableMeta.OCSHARES_DOWNLOADLIMIT_COUNT, downloadLimit.getCount());
+            return;
+        }
+
+        contentValues.putNull(ProviderTableMeta.OCSHARES_DOWNLOADLIMIT_LIMIT);
+        contentValues.putNull(ProviderTableMeta.OCSHARES_DOWNLOADLIMIT_COUNT);
     }
 
     @Nullable
