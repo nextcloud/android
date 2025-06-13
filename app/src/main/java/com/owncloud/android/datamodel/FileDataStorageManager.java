@@ -1617,6 +1617,10 @@ public class FileDataStorageManager {
 
     @Nullable
     private FileDownloadLimit getDownloadLimitFromCursor(Cursor cursor, String token) {
+        if (token == null || cursor == null) {
+            return null;
+        }
+
         int limit = getIntOrDefault(cursor, ProviderTableMeta.OCSHARES_DOWNLOADLIMIT_LIMIT);
         int count = getIntOrDefault(cursor, ProviderTableMeta.OCSHARES_DOWNLOADLIMIT_COUNT);
         if (limit != DEFAULT_CURSOR_INT_VALUE && count != DEFAULT_CURSOR_INT_VALUE) {

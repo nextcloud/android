@@ -39,7 +39,7 @@ data class ShareeEntry(
             val result = arrayListOf<ContentValues>()
 
             for (share in remoteFile.sharees) {
-                val shareType: ShareType? = share.shareType
+                val shareType: ShareType? = share?.shareType
                 if (shareType == null) {
                     continue
                 }
