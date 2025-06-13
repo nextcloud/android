@@ -57,7 +57,7 @@ public class CopyAndUploadContentUrisTask extends AsyncTask<Object, Void, Result
 
     /**
      * Helper method building a correct array of parameters to be passed to {@link #execute(Object[])} )}
-     *
+     * <p>
      * Just packages the received parameters in correct order, doesn't check anything about them.
      *
      * @param   user                user uploading shared files
@@ -66,19 +66,19 @@ public class CopyAndUploadContentUrisTask extends AsyncTask<Object, Void, Result
      * @param   behaviour           Indicates what to do with the local file once uploaded.
      * @param   contentResolver     {@link ContentResolver} instance with appropriate permissions to open the
      *                              URIs in 'sourceUris'.
-     *
+     * <p>
      * Handling this parameter in {@link #doInBackground(Object[])} keeps an indirect reference to the
      * caller Activity, what is technically wrong, since it will be held in memory
      * (with all its associated resources) until the task finishes even though the user leaves the Activity.
-     *
+     * <p>
      * But we really, really, really want that the files are copied to temporary files in the OC folder and then
      * uploaded, even if the user gets bored of waiting while the copy finishes. And we can't forward the job to
      * another {@link Context}, because if any of the content:// URIs is constrained by a TEMPORARY READ PERMISSION,
      * trying to open it will fail with a {@link SecurityException} after the user leaves the ReceiveExternalFilesActivity Activity. We
      * really tried it.
-     *
+     * <p>
      * So we are doomed to leak here for the best interest of the user. Please, don't do similar in other places.
-     *
+     * <p>
      * Any idea to prevent this while keeping the functionality will be welcome.
      *
      * @return Correct array of parameters to be passed to {@link #execute(Object[])}
@@ -88,22 +88,17 @@ public class CopyAndUploadContentUrisTask extends AsyncTask<Object, Void, Result
         Uri[] sourceUris,
         String[] remotePaths,
         int behaviour,
-        ContentResolver contentResolver
-                                              ) {
-
+        ContentResolver contentResolver) {
         return new Object[]{
             user,
             sourceUris,
             remotePaths,
-            Integer.valueOf(behaviour),
+            behaviour,
             contentResolver
         };
     }
 
-    public CopyAndUploadContentUrisTask(
-        OnCopyTmpFilesTaskListener listener,
-        Context context
-                                       ) {
+    public CopyAndUploadContentUrisTask(OnCopyTmpFilesTaskListener listener, Context context) {
         mListener = new WeakReference<>(listener);
         mAppContext = context.getApplicationContext();
     }
@@ -148,16 +143,23 @@ public class CopyAndUploadContentUrisTask extends AsyncTask<Object, Void, Result
                 fullTempPath = FileStorageUtils.getTemporalPath(user.getAccountName()) + currentRemotePath;
                 File cacheFile = new File(fullTempPath);
                 File tempDir = cacheFile.getParentFile();
-                if (!tempDir.exists()) {
-                    tempDir.mkdirs();
+                if (tempDir != null && !tempDir.exists()) {
+                    boolean isTempFileCreated = tempDir.mkdirs();
+                    Log_OC.d(TAG, "Temp file creation result: " + isTempFileCreated);
                 }
-                cacheFile.createNewFile();
+
+                boolean isCacheFileCreated = cacheFile.createNewFile();
+                Log_OC.d(TAG, "Cache file creation result: " + isCacheFileCreated);
+
                 try (InputStream inputStream = leakedContentResolver.openInputStream(currentUri);
                      FileOutputStream outputStream = new FileOutputStream(fullTempPath)) {
                     byte[] buffer = new byte[4096];
                     int count;
-                    while ((count = inputStream.read(buffer)) > 0) {
-                        outputStream.write(buffer, 0, count);
+
+                    if (inputStream != null) {
+                        while ((count = inputStream.read(buffer)) > 0) {
+                            outputStream.write(buffer, 0, count);
+                        }
                     }
 
                     if (lastModified != 0) {
@@ -172,9 +174,10 @@ public class CopyAndUploadContentUrisTask extends AsyncTask<Object, Void, Result
                         }
                     }
 
-                localPaths[i] = fullTempPath;
-                currentRemotePaths[i] = currentRemotePath;
-                fullTempPath = null;
+                    localPaths[i] = fullTempPath;
+                    currentRemotePaths[i] = currentRemotePath;
+                    fullTempPath = null;
+                }
             }
 
             FileUploadHelper.Companion.instance().uploadNewFiles(
@@ -192,30 +195,23 @@ public class CopyAndUploadContentUrisTask extends AsyncTask<Object, Void, Result
 
         } catch (ArrayIndexOutOfBoundsException e) {
             Log_OC.e(TAG, "Wrong number of arguments received ", e);
-
         } catch (ClassCastException e) {
             Log_OC.e(TAG, "Wrong parameter received ", e);
-
         } catch (FileNotFoundException e) {
             Log_OC.e(TAG, "Could not find source file " + currentUri, e);
             result = ResultCode.LOCAL_FILE_NOT_FOUND;
-
         } catch (SecurityException e) {
             Log_OC.e(TAG, "Not enough permissions to read source file " + currentUri, e);
             result = ResultCode.FORBIDDEN;
-
         } catch (Exception e) {
             Log_OC.e(TAG, "Exception while copying " + currentUri + " to temporary file", e);
             result = ResultCode.LOCAL_STORAGE_NOT_COPIED;
-
-            // clean
             if (fullTempPath != null) {
                 File f = new File(fullTempPath);
                 if (f.exists() && !f.delete()) {
                     Log_OC.e(TAG, "Could not delete temporary file " + fullTempPath);
                 }
             }
-
         }
 
         return result;
