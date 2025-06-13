@@ -63,7 +63,6 @@
                         android:id="@+id/shared_with_you_username"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/shared_with_you_by"
                         android:textSize="@dimen/two_line_primary_text_size" />
 
                     <LinearLayout
@@ -206,35 +205,10 @@
                 android:text="@string/show_all" />
         </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/shimmer_layout"
-            android:visibility="visible"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+        <include
+            layout="@layout/file_details_sharing_shimmer"
+            android:id="@+id/shimmer_layout"/>
 
-            <include layout="@layout/share_list_item_shimmer" />
-
-            <include layout="@layout/share_list_item_shimmer" />
-
-            <TextView
-                android:id="@+id/empty_list_view_headline"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:ellipsize="end"
-                android:gravity="center"
-                android:maxLines="2"
-                android:paddingTop="@dimen/standard_padding"
-                android:paddingBottom="@dimen/standard_half_padding"
-                android:text="@string/file_list_loading"
-                android:textSize="26sp" />
-
-            <include layout="@layout/share_list_item_shimmer" />
-
-            <include layout="@layout/share_list_item_shimmer" />
-
-        </LinearLayout>
     </FrameLayout>
 
 
