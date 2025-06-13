@@ -196,34 +196,35 @@
                 android:text="@string/show_all" />
         </LinearLayout>
 
-        <FrameLayout
+        <LinearLayout
             android:id="@+id/shimmer_layout"
             android:visibility="visible"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-            <LinearLayout
-                android:id="@+id/loading_content"
+            <include layout="@layout/share_list_item_shimmer" />
+
+            <include layout="@layout/share_list_item_shimmer" />
+
+            <TextView
+                android:id="@+id/empty_list_view_headline"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:visibility="visible">
+                android:layout_gravity="center_horizontal"
+                android:ellipsize="end"
+                android:gravity="center"
+                android:maxLines="2"
+                android:paddingTop="@dimen/standard_padding"
+                android:paddingBottom="@dimen/standard_half_padding"
+                android:text="@string/file_list_loading"
+                android:textSize="26sp" />
 
-                <include layout="@layout/activity_list_item_shimmer" />
+            <include layout="@layout/share_list_item_shimmer" />
 
-                <include layout="@layout/activity_list_item_shimmer" />
+            <include layout="@layout/share_list_item_shimmer" />
 
-                <include layout="@layout/activity_list_item_shimmer" />
-
-                <include layout="@layout/activity_list_item_shimmer" />
-
-            </LinearLayout>
-
-            <include
-                android:id="@+id/empty_list"
-                layout="@layout/empty_list" />
-
-        </FrameLayout>
+        </LinearLayout>
     </FrameLayout>
 
 
