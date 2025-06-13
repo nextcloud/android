@@ -1779,7 +1779,7 @@ public class FileDataStorageManager {
     /**
      * Prepares a list of ContentProviderOperation insert operations based on share information
      * found in the given iterable of RemoteFile objects.
-     *
+     * <p>
      * Each RemoteFile may have multiple share entries (sharees), and for each one,
      * a corresponding ContentProviderOperation is created for insertion into the shares table.
      *
