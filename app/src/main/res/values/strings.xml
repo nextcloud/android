@@ -885,6 +885,7 @@
     <string name="create_new_folder">New folder</string>
     <string name="uploads_view_upload_status_virus_detected">Virus detected. Upload cannot be completed!</string>
     <string name="tags">Tags</string>
+    <string name="error_fetching_sharees">Unable to fetch sharees.</string>
     <string name="sharee_add_failed">Adding sharee failed</string>
     <string name="sharee_already_added_to_file">Adding share failed. This file or folder has already been shared with this person or group.</string>
     <string name="unsharing_failed">Unsharing failed</string>

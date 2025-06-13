@@ -84,6 +84,7 @@ import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import kotlin.Unit;
 
 public class FileDetailSharingFragment extends Fragment implements ShareeListAdapterListener,
     DisplayUtils.AvatarGenerationListener,
@@ -155,15 +156,14 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
 
         fileDataStorageManager = fileActivity.getStorageManager();
         ShareRepository shareRepository = new RemoteShareRepository(fileActivity.getClientRepository(), fileActivity, fileDataStorageManager);
-        shareRepository.refreshSharesForFolder(file.getRemotePath());
-    }
-
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-
-        refreshCapabilitiesFromDB();
-        refreshSharesFromDB();
+        shareRepository.refreshSharesForFile(file.getRemotePath(), () -> {
+            refreshCapabilitiesFromDB();
+            refreshSharesFromDB();
+            return Unit.INSTANCE;
+        }, () -> {
+            DisplayUtils.showSnackMessage(getView(), R.string.error_fetching_sharees);
+            return Unit.INSTANCE;
+        });
     }
 
     @Override
@@ -201,7 +201,7 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
                               SharesType.EXTERNAL);
 
         externalShareeListAdapter.setHasStableIds(true);
-        
+
         binding.sharesListExternal.setAdapter(externalShareeListAdapter);
 
         binding.sharesListExternal.setLayoutManager(new LinearLayoutManager(requireContext()));

@@ -1771,13 +1771,29 @@ public class FileDataStorageManager {
             return;
         }
 
-        final ArrayList<ContentProviderOperation> operations = prepareInsertSharesFromRemoteFile(shares);
-
-        if (operations.isEmpty()) {
-            return;
+        // Prepare reset operations
+        Set<String> uniquePaths = new HashSet<>();
+        for (RemoteFile share : shares) {
+            uniquePaths.add(share.getRemotePath());
         }
 
-        applyBatch(operations);
+        ArrayList<ContentProviderOperation> resetOperations = new ArrayList<>();
+        for (String path : uniquePaths) {
+            resetShareFlagInAFile(path);
+            var removeOps = prepareRemoveSharesInFile(path, new ArrayList<>());
+            if (!removeOps.isEmpty()) {
+                resetOperations.addAll(removeOps);
+            }
+        }
+        if (!resetOperations.isEmpty()) {
+            applyBatch(resetOperations);
+        }
+
+        // Prepare insert operations
+        ArrayList<ContentProviderOperation> insertOperations = prepareInsertSharesFromRemoteFile(shares);
+        if (!insertOperations.isEmpty()) {
+            applyBatch(insertOperations);
+        }
     }
 
     /**
@@ -1800,7 +1816,7 @@ public class FileDataStorageManager {
             contentValueList.addAll(contentValues);
         }
 
-        final ArrayList<ContentProviderOperation> operations = new ArrayList<>();
+        ArrayList<ContentProviderOperation> operations = new ArrayList<>();
         for (ContentValues contentValues : contentValueList) {
             operations.add(ContentProviderOperation
                                .newInsert(ProviderTableMeta.CONTENT_URI_SHARE)

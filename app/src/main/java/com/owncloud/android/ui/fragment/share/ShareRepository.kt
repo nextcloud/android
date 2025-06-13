@@ -8,5 +8,5 @@
 package com.owncloud.android.ui.fragment.share
 
 interface ShareRepository {
-    fun refreshSharesForFolder(remotePath: String)
+    fun refreshSharesForFile(remotePath: String, onCompleted: () -> Unit, onError: () -> Unit)
 }
