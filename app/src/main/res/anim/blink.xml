@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Nextcloud - Android Client
+  ~
+  ~ SPDX-FileCopyrightText: 2025 Alper Ozturk <alper.ozturk@nextcloud.com>
+  ~ SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
+-->
+<alpha xmlns:android="http://schemas.android.com/apk/res/android"
+    android:duration="1000"
+    android:fromAlpha="1.0"
+    android:toAlpha="0.0"
+    android:repeatMode="reverse"
+    android:repeatCount="infinite" />
