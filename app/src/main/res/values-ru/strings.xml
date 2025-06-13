@@ -805,9 +805,14 @@
     <string name="set_status_message">Установить сообщение о состоянии</string>
     <string name="setup_e2e">При настройке сквозного шифрования будет создана  мнемофраза из 12 слов, которая понадобится для открытия файлов на других устройствах. Мнемофраза будет сохранена  только на этом устройстве и может быть просмотрена повторно. Сохраните мнемофразу в надежном месте!</string>
     <string name="share">Общий ресурс</string>
+    <string name="share_allow_download_and_sync_permission">Разрешить загрузку и синхронизацию</string>
     <string name="share_copy_link">Создать и скопировать ссылку</string>
+    <string name="share_create_permission">Создать</string>
+    <string name="share_custom_permission">Пользовательские права доступа</string>
+    <string name="share_delete_permission">Удалить</string>
     <string name="share_dialog_title">Общий доступ</string>
     <string name="share_download_limit">Установите лимит загрузки</string>
+    <string name="share_edit_permission">Редактирование</string>
     <string name="share_expiration_date_format">%1$s</string>
     <string name="share_expiration_date_label">Истекает %1$s</string>
     <string name="share_file">Общий ресурс «%1$s»</string>
@@ -830,9 +835,12 @@
     <string name="share_password_title">Защищено паролем</string>
     <string name="share_permission_can_edit">Разрешено редактировать</string>
     <string name="share_permission_file_drop">Приём файлов</string>
+    <string name="share_permission_file_request">Запрос файла</string>
     <string name="share_permission_secure_file_drop">Защищенный очиститель файлов</string>
     <string name="share_permission_view_only">Только просмотр</string>
     <string name="share_permissions">Права на публикацию</string>
+    <string name="share_re_share_permission">Поделиться</string>
+    <string name="share_read_permission">Чтение</string>
     <string name="share_remote_clarification">%1$s (на сервере)</string>
     <string name="share_room_clarification">%1$s (беседа)</string>
     <string name="share_search">Имя, ID федеративного облака или email адрес…</string>

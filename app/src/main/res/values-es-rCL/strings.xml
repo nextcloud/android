@@ -424,6 +424,7 @@
     <string name="set_picture_as">Usar imagen como</string>
     <string name="share">Compartir</string>
     <string name="share_dialog_title">Compartiendo</string>
+    <string name="share_edit_permission">Editar</string>
     <string name="share_file">Compartir %1$s</string>
     <string name="share_group_clarification">%1$s (grupo)</string>
     <string name="share_link">Compartir liga</string>
@@ -433,6 +434,7 @@
     <string name="share_no_expiration_date_label">Establecer fecha de expiración</string>
     <string name="share_no_password_title">Establecer contraseña</string>
     <string name="share_permission_can_edit">Puede editar</string>
+    <string name="share_read_permission">Leer</string>
     <string name="share_remote_clarification">%1$s (remoto)</string>
     <string name="share_settings">Configuraciones </string>
     <string name="share_via_link_section_title">Compartir liga</string>

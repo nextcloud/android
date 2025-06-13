@@ -725,7 +725,11 @@
     <string name="set_status">Setează status</string>
     <string name="set_status_message">Setează statusul mesajelor</string>
     <string name="share">Partajează</string>
+    <string name="share_create_permission">Crează</string>
+    <string name="share_custom_permission">Permisiuni particularizate</string>
+    <string name="share_delete_permission">Șterge</string>
     <string name="share_dialog_title">Partajare</string>
+    <string name="share_edit_permission">Editează</string>
     <string name="share_expiration_date_format">%1$s</string>
     <string name="share_expiration_date_label">Expiră %1$s</string>
     <string name="share_file">Partajare %1$s</string>
@@ -748,6 +752,8 @@
     <string name="share_permission_can_edit">Poate edita</string>
     <string name="share_permission_file_drop">Aducere fișier</string>
     <string name="share_permission_view_only">Numai se vizualizează</string>
+    <string name="share_re_share_permission">Partajează</string>
+    <string name="share_read_permission">Citit</string>
     <string name="share_remote_clarification">%1$s (remote)</string>
     <string name="share_room_clarification">%1$s (conversație)</string>
     <string name="share_send_new_email">Trimite un email nou</string>

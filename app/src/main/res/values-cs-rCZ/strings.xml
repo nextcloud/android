@@ -804,6 +804,7 @@
     <string name="set_status_message">Nastavit stavovou zprávu</string>
     <string name="setup_e2e">V průběhu nastavování šifrování mezi koncovými body obdržíte náhodnou 12 slovnou mnemotechnickou frázi, které bude zapotřebí pro otevírání souborů na ostatních zařízeních. Ta bude uložena pouze na tomto zařízení a je možné ji na této obrazovce znovu zobrazit. Prosím poznamenejte si jí na bezpečné místo!</string>
     <string name="share">Nasdílet</string>
+    <string name="share_allow_download_and_sync_permission">Povolit stahování a synchronizaci</string>
     <string name="share_copy_link">Nasdílet a zkopírovat odkaz</string>
     <string name="share_dialog_title">Sdílení</string>
     <string name="share_download_limit">Nastavit limit pro stahování</string>
@@ -829,6 +830,7 @@
     <string name="share_password_title">Chráněno heslem</string>
     <string name="share_permission_can_edit">Může upravovat</string>
     <string name="share_permission_file_drop">Předání souboru</string>
+    <string name="share_permission_file_request">Žádost o soubor</string>
     <string name="share_permission_secure_file_drop">Bezpečné předání souborů</string>
     <string name="share_permission_view_only">Pouze prohlížet</string>
     <string name="share_permissions">Oprávnění pro sdílení</string>

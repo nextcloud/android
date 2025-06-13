@@ -453,6 +453,7 @@
     <string name="set_picture_as">Uzi la bildon kiel</string>
     <string name="share">Kunhavigi</string>
     <string name="share_dialog_title">Kunhavigo</string>
+    <string name="share_edit_permission">Modifi</string>
     <string name="share_expiration_date_label">Senvalidiĝas je %1$s</string>
     <string name="share_file">Kunhavigi %1$s</string>
     <string name="share_group_clarification">%1$s (grupo)</string>
@@ -464,6 +465,7 @@
     <string name="share_no_password_title">Uzi pasvorton</string>
     <string name="share_password_title">Pasvorte protektita</string>
     <string name="share_permission_can_edit">Povas redakti</string>
+    <string name="share_read_permission">Legi</string>
     <string name="share_remote_clarification">%1$s (fora)</string>
     <string name="share_room_clarification">%1$s (konversacio)</string>
     <string name="share_send_note">Noto por la ricevonto</string>

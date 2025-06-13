@@ -73,6 +73,7 @@ import com.owncloud.android.operations.RemoteOperationFailedException;
 import com.owncloud.android.ui.activity.ComponentsGetter;
 import com.owncloud.android.ui.activity.DrawerActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
+import com.owncloud.android.ui.fragment.OCFileListFragment;
 import com.owncloud.android.ui.fragment.SearchType;
 import com.owncloud.android.ui.interfaces.OCFileListFragmentInterface;
 import com.owncloud.android.ui.preview.PreviewTextFragment;
@@ -483,7 +484,6 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             }
 
             ocFileListDelegate.bindGridViewHolder(gridViewHolder, file, currentDirectory, searchType);
-            ViewExtensionsKt.setVisibleIf(gridViewHolder.getMore(), !isMultiSelect());
             checkVisibilityOfFileFeaturesLayout(gridViewHolder);
 
             if (holder instanceof ListItemViewHolder itemViewHolder) {
@@ -492,7 +492,6 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
             if (holder instanceof ListGridItemViewHolder gridItemViewHolder) {
                 bindListGridItemViewHolder(gridItemViewHolder, file);
-                ViewExtensionsKt.setVisibleIf(gridItemViewHolder.getMore(), !isMultiSelect());
                 checkVisibilityOfFileFeaturesLayout(gridItemViewHolder);
             }
 
@@ -501,6 +500,8 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             if (!MDMConfig.INSTANCE.sharingSupport(activity)) {
                 gridViewHolder.getShared().setVisibility(View.GONE);
             }
+
+            setVisibilityOfMoreOption(gridViewHolder);
         }
     }
 
@@ -689,6 +690,18 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             holder.getOverflowMenu().setImageResource(R.drawable.ic_locked_dots_small);
         } else {
             holder.getOverflowMenu().setImageResource(R.drawable.ic_dots_vertical);
+        }
+
+        setVisibilityOfMoreOption(holder);
+    }
+
+    private void setVisibilityOfMoreOption(Object holder) {
+        boolean showMoreOptions = (!isMultiSelect() && !OCFileListFragment.isMultipleFileSelectedForCopyOrMove);
+
+        if (holder instanceof ListItemViewHolder itemViewHolder) {
+            ViewExtensionsKt.setVisibleIf(itemViewHolder.getOverflowMenu(), showMoreOptions);
+        } else if (holder instanceof ListViewHolder viewHolder) {
+            ViewExtensionsKt.setVisibleIf(viewHolder.getMore(), showMoreOptions);
         }
     }
 

@@ -805,6 +805,7 @@
     <string name="set_status_message">Sæt statusbesked</string>
     <string name="setup_e2e">Undervejs i opsætningen af end-to-end kryptering, så vil du modtage en tilfældig huskeregel på 12 ord, som du får brug for til at åbne dine filer på andre enheder. Denne vil kun blive gemt på denne enhed, og kan blive vist senere i denne visning. Skriv den venligst ned et sikkert sted!</string>
     <string name="share">Del</string>
+    <string name="share_allow_download_and_sync_permission">Tillad download og synkronisering</string>
     <string name="share_copy_link">Del og kopier link</string>
     <string name="share_dialog_title">Deling</string>
     <string name="share_download_limit">Indstil downloadgrænse</string>
@@ -830,6 +831,7 @@
     <string name="share_password_title">Beskyttet med adgangskode</string>
     <string name="share_permission_can_edit">Kan redigere</string>
     <string name="share_permission_file_drop">Fil drop</string>
+    <string name="share_permission_file_request">Filforespørgsler</string>
     <string name="share_permission_secure_file_drop">Sikkert fil drop</string>
     <string name="share_permission_view_only">Kun visning</string>
     <string name="share_permissions">Delingstilladelser</string>

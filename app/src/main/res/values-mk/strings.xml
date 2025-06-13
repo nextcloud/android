@@ -561,8 +561,13 @@
     <string name="set_status">Постави статус</string>
     <string name="set_status_message">Постави статус порака</string>
     <string name="share">Сподели</string>
+    <string name="share_allow_download_and_sync_permission">Дозволете преземање и синхронизирање</string>
+    <string name="share_create_permission">Креирај</string>
+    <string name="share_custom_permission">Прилагодени дозволи</string>
+    <string name="share_delete_permission">Избриши</string>
     <string name="share_dialog_title">Споделување</string>
     <string name="share_download_limit">Постави лимит за преземања</string>
+    <string name="share_edit_permission">Уреди</string>
     <string name="share_expiration_date_format">%1$s</string>
     <string name="share_expiration_date_label">Истекува на %1$s</string>
     <string name="share_file">Сподели %1$s</string>
@@ -580,7 +585,10 @@
     <string name="share_password_title">Заштитено со лозинка</string>
     <string name="share_permission_can_edit">Може да се уредува</string>
     <string name="share_permission_file_drop">Повлечи и прикачи</string>
+    <string name="share_permission_file_request">Барање за датотека</string>
     <string name="share_permission_view_only">Само за гледање</string>
+    <string name="share_re_share_permission">Сподели</string>
+    <string name="share_read_permission">Прочитана</string>
     <string name="share_remote_clarification">%1$s (далечински)</string>
     <string name="share_room_clarification">%1$s (разговор)</string>
     <string name="share_send_note">Белешка до примачот</string>

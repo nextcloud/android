@@ -779,8 +779,13 @@
     <string name="set_status_message">Setja stöðuskilaboð</string>
     <string name="setup_e2e">Við uppsetningu á enda-í-enda dulritun muntu fá runu 12 tilviljanakenndra orða, sem þú munt þurfa til að opna skrárnar þínar á öðrum tækjum. Þetta mun einungis vera geymt á þessu tæki; hægt er að birta rununa aftur á þessum skjá. Skrifaðu hana niður og geymdu á öruggum stað!</string>
     <string name="share">Deila</string>
+    <string name="share_allow_download_and_sync_permission">Leyfa niðurhal og samstillingu</string>
+    <string name="share_create_permission">Búa til</string>
+    <string name="share_custom_permission">Sérsniðnar heimildir</string>
+    <string name="share_delete_permission">Eyða</string>
     <string name="share_dialog_title">Deiling</string>
     <string name="share_download_limit">Setja takmörk niðurhals</string>
+    <string name="share_edit_permission">Breyta</string>
     <string name="share_expiration_date_format">%1$s</string>
     <string name="share_expiration_date_label">Rennur út %1$s</string>
     <string name="share_file">Deila %1$s</string>
@@ -803,8 +808,11 @@
     <string name="share_password_title">Verja með lykilorði</string>
     <string name="share_permission_can_edit">Getur breytt</string>
     <string name="share_permission_file_drop">Slepping skráa</string>
+    <string name="share_permission_file_request">Beiðni um skrá</string>
     <string name="share_permission_secure_file_drop">Örugg slepping skráa</string>
     <string name="share_permission_view_only">Einungis skoða</string>
+    <string name="share_re_share_permission">Deila</string>
+    <string name="share_read_permission">Lesa</string>
     <string name="share_remote_clarification">%1$s (fjartengt)</string>
     <string name="share_room_clarification">%1$s (samtal)</string>
     <string name="share_search">Nafn, skýjasambandsauðkenni eða tölvupóstfang …</string>

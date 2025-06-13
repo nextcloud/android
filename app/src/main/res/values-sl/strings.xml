@@ -665,8 +665,12 @@
     <string name="set_status_message">Nastavi sporočilo stanja</string>
     <string name="setup_e2e">Med nastavitvijo šifriranja E2E boste prejeli naključno 12-mestno besedno geslo, brez katerega na drugih napravah datotek ne bo mogoče odpreti. To geslo bo shranjeno izključno na tej napravi in ga bo mogoče ponovno prikazati na tem zaslonu. Priporočljivo ga je zabeležiti na varno mesto!</string>
     <string name="share">Souporaba</string>
+    <string name="share_create_permission">Ustvari</string>
+    <string name="share_custom_permission">Dovoljenja po meri</string>
+    <string name="share_delete_permission">Izbriši</string>
     <string name="share_dialog_title">Souporaba</string>
     <string name="share_download_limit">Nastavi omejitev prejema</string>
+    <string name="share_edit_permission">Uredi</string>
     <string name="share_expiration_date_format">%1$s</string>
     <string name="share_expiration_date_label">Preteče %1$s</string>
     <string name="share_file">Omogoči souporabo %1$s</string>
@@ -690,6 +694,8 @@
     <string name="share_permission_file_drop">Poteg datotek v mapo</string>
     <string name="share_permission_secure_file_drop">Varno pošiljanje daottek</string>
     <string name="share_permission_view_only">Le ogled</string>
+    <string name="share_re_share_permission">Souporaba</string>
+    <string name="share_read_permission">Branje</string>
     <string name="share_remote_clarification">%1$s (oddaljeno)</string>
     <string name="share_room_clarification">%1$s (pogovor)</string>
     <string name="share_send_new_email">Pošlji novo elektronsko sporočilo</string>

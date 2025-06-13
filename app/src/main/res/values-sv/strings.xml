@@ -805,9 +805,14 @@
     <string name="set_status_message">Sätt statusmeddelande</string>
     <string name="setup_e2e">Under inställningen av end-to-end-kryptering kommer du att få en slumpmässig lista med 12 krypteringsord, som du behöver för att öppna dina filer på andra enheter. Orden kommer endast att lagras på den här enheten och kan visas igen på den här skärmen. Vänligen notera krypteringsorden på ett säkert ställe!</string>
     <string name="share">Dela</string>
+    <string name="share_allow_download_and_sync_permission">Tillåt nedladdning och synkronisering</string>
     <string name="share_copy_link">Dela och kopiera länk</string>
+    <string name="share_create_permission">Skapa</string>
+    <string name="share_custom_permission">Anpassade behörigheter</string>
+    <string name="share_delete_permission">Radera</string>
     <string name="share_dialog_title">Dela</string>
     <string name="share_download_limit">Ställ in nedladdningsgräns</string>
+    <string name="share_edit_permission">Redigera</string>
     <string name="share_expiration_date_format">%1$s</string>
     <string name="share_expiration_date_label">Gick ut %1$s</string>
     <string name="share_file">Dela %1$s</string>
@@ -830,9 +835,12 @@
     <string name="share_password_title">Lösenordsskyddad</string>
     <string name="share_permission_can_edit">Kan ändra</string>
     <string name="share_permission_file_drop">Filinkast</string>
+    <string name="share_permission_file_request">Filförfrågan</string>
     <string name="share_permission_secure_file_drop">Säkert filinkast</string>
     <string name="share_permission_view_only">Skrivskyddat läge</string>
     <string name="share_permissions">Delningsbehörigheter</string>
+    <string name="share_re_share_permission">Dela</string>
+    <string name="share_read_permission">Läs</string>
     <string name="share_remote_clarification">%1$s (extern)</string>
     <string name="share_room_clarification">%1$s (konversation)</string>
     <string name="share_search">Namn, federerat moln-ID eller e-postadress...</string>

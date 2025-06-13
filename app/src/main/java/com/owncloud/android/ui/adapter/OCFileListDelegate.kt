@@ -22,6 +22,7 @@ import com.nextcloud.client.jobs.download.FileDownloadHelper
 import com.nextcloud.client.jobs.upload.FileUploadHelper
 import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.utils.extensions.makeRounded
+import com.nextcloud.utils.extensions.setVisibleIf
 import com.nextcloud.utils.mdm.MDMConfig
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.FileDataStorageManager
@@ -31,6 +32,7 @@ import com.owncloud.android.datamodel.ThumbnailsCacheManager
 import com.owncloud.android.datamodel.ThumbnailsCacheManager.GalleryImageGenerationTask.GalleryListener
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.ui.activity.ComponentsGetter
+import com.owncloud.android.ui.activity.FolderPickerActivity
 import com.owncloud.android.ui.fragment.GalleryFragment
 import com.owncloud.android.ui.fragment.SearchType
 import com.owncloud.android.ui.interfaces.OCFileListFragmentInterface
@@ -241,11 +243,8 @@ class OCFileListDelegate(
         bindUnreadComments(file, gridViewHolder)
 
         // multiSelect (Checkbox)
-        if (isMultiSelect) {
-            gridViewHolder.checkbox.visibility = View.VISIBLE
-        } else {
-            gridViewHolder.checkbox.visibility = View.GONE
-        }
+        val isFolderPickerActivity = (context is FolderPickerActivity)
+        gridViewHolder.checkbox.setVisibleIf(isMultiSelect && !isFolderPickerActivity)
 
         // download state
         gridViewHolder.localFileIndicator.visibility = View.GONE // default first

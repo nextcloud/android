@@ -776,8 +776,12 @@
     <string name="set_status_message">Állapotüzenet beállítása</string>
     <string name="setup_e2e">A végpontok közti titkosítás beállítása során kap egy 12 véletlenszerű szóból álló mnemonikus kódot, amelyre akkor lesz szüksége, ha más eszközökön akarja megnyitni a fájlokat. Ez csak ezen az eszközön lesz tárolva, és újra megjeleníthető ezen a képernyőn. Jegyezze le, és tárolja biztonságos helyen!</string>
     <string name="share">Megosztás</string>
+    <string name="share_create_permission">Létrehozás</string>
+    <string name="share_custom_permission">Egyéni jogosultságok</string>
+    <string name="share_delete_permission">Törlés</string>
     <string name="share_dialog_title">Megosztás</string>
     <string name="share_download_limit">Letöltési korlát beállítása</string>
+    <string name="share_edit_permission">Szerkesztés</string>
     <string name="share_expiration_date_format">%1$s</string>
     <string name="share_expiration_date_label">Lejárat: %1$s</string>
     <string name="share_file">%1$s megosztása</string>
@@ -801,6 +805,8 @@
     <string name="share_permission_file_drop">Fájllerakat</string>
     <string name="share_permission_secure_file_drop">Biztonságos fájllerakat</string>
     <string name="share_permission_view_only">Csak megtekintés</string>
+    <string name="share_re_share_permission">Megosztás</string>
+    <string name="share_read_permission">Olvasás</string>
     <string name="share_remote_clarification">%1$s (távoli)</string>
     <string name="share_room_clarification">%1$s(beszélgetés)</string>
     <string name="share_send_new_email">Új e-mail küldése</string>

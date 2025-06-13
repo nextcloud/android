@@ -804,9 +804,12 @@
     <string name="set_status_message">Ezarri egoera mezua</string>
     <string name="setup_e2e">Muturretik muturrerako enkriptatzea konfiguratzean, ausazko 12 hitz mnemotekniko jasoko dituzu, zure fitxategiak beste gailu batzuetan irekitzeko beharko dituzunak. Hau gailu honetan bakarrik gordeko da eta pantaila honetan berriro ikusi ahal izango duzu. Apuntatu leku seguru batean!</string>
     <string name="share">Partekatu</string>
+    <string name="share_allow_download_and_sync_permission">Baimendu deskargatu eta sinkronizatzea</string>
     <string name="share_copy_link">Partekatu eta kopiatu esteka</string>
+    <string name="share_custom_permission">Baimen pertsonalizatuak</string>
     <string name="share_dialog_title">Partekatzea</string>
     <string name="share_download_limit">Ezarri deskarga muga</string>
+    <string name="share_edit_permission">Editatu</string>
     <string name="share_expiration_date_format">%1$s</string>
     <string name="share_expiration_date_label">Iraungitzen da %1$s</string>
     <string name="share_file">Partekatu %1$s</string>
@@ -829,9 +832,11 @@
     <string name="share_password_title">Pasahitzez babestua</string>
     <string name="share_permission_can_edit">Editatu dezake</string>
     <string name="share_permission_file_drop">Fitxategiak jaregin</string>
+    <string name="share_permission_file_request">Fitxategi eskaera</string>
     <string name="share_permission_secure_file_drop">Fitxategi-jartze segurua</string>
     <string name="share_permission_view_only">Ikusi soilik</string>
     <string name="share_permissions">Partekatu baimenak</string>
+    <string name="share_read_permission">Irakurri</string>
     <string name="share_remote_clarification">%1$s (urrunekoa)</string>
     <string name="share_room_clarification">%1$s (elkarrizketa)</string>
     <string name="share_search">Izena, federatutako hodei IDa edo helbide elektronikoa...</string>

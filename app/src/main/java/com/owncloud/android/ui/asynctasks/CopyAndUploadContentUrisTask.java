@@ -117,9 +117,6 @@ public class CopyAndUploadContentUrisTask extends AsyncTask<Object, Void, Result
     protected ResultCode doInBackground(Object[] params) {
 
         ResultCode result = ResultCode.UNKNOWN_ERROR;
-
-        InputStream inputStream = null;
-        FileOutputStream outputStream = null;
         String fullTempPath = null;
         Uri currentUri = null;
 
@@ -137,11 +134,7 @@ public class CopyAndUploadContentUrisTask extends AsyncTask<Object, Void, Result
                 currentRemotePath = remotePaths[i];
 
                 long lastModified = 0;
-                try (Cursor cursor = leakedContentResolver.query(currentUri,
-                                                                 null,
-                                                                 null,
-                                                                 null,
-                                                                 null)) {
+                try (Cursor cursor = leakedContentResolver.query(currentUri, null, null, null, null)) {
                     if (cursor != null && cursor.moveToFirst()) {
                         // this check prevents a crash when last modification time is not available on certain phones
                         int columnIndex = cursor.getColumnIndex(DocumentsContract.Document.COLUMN_LAST_MODIFIED);
@@ -152,42 +145,37 @@ public class CopyAndUploadContentUrisTask extends AsyncTask<Object, Void, Result
                 }
 
                 fullTempPath = FileStorageUtils.getTemporalPath(user.getAccountName()) + currentRemotePath;
-                inputStream = leakedContentResolver.openInputStream(currentUri);
                 File cacheFile = new File(fullTempPath);
                 File tempDir = cacheFile.getParentFile();
                 if (!tempDir.exists()) {
                     tempDir.mkdirs();
                 }
                 cacheFile.createNewFile();
-                outputStream = new FileOutputStream(fullTempPath);
-                byte[] buffer = new byte[4096];
-
-                int count;
-                while ((count = inputStream.read(buffer)) > 0) {
-                    outputStream.write(buffer, 0, count);
-                }
-
-                if (lastModified != 0) {
-                    try {
-                        if (!cacheFile.setLastModified(lastModified)) {
-                            Log_OC.w(TAG, "Could not change mtime of cacheFile");
-                        }
-                    } catch (SecurityException e) {
-                        Log_OC.e(TAG, "Not enough permissions to change mtime of cacheFile", e);
-                    } catch (IllegalArgumentException e) {
-                        Log_OC.e(TAG, "Could not change mtime of cacheFile, mtime is negativ: "+lastModified, e);
+                try (InputStream inputStream = leakedContentResolver.openInputStream(currentUri);
+                     FileOutputStream outputStream = new FileOutputStream(fullTempPath)) {
+                    byte[] buffer = new byte[4096];
+                    int count;
+                    while ((count = inputStream.read(buffer)) > 0) {
+                        outputStream.write(buffer, 0, count);
                     }
+
+                    if (lastModified != 0) {
+                        try {
+                            if (!cacheFile.setLastModified(lastModified)) {
+                                Log_OC.w(TAG, "Could not change mtime of cacheFile");
+                            }
+                        } catch (SecurityException e) {
+                            Log_OC.e(TAG, "Not enough permissions to change mtime of cacheFile", e);
+                        } catch (IllegalArgumentException e) {
+                            Log_OC.e(TAG, "Could not change mtime of cacheFile, mtime is negativ: " + lastModified, e);
+                        }
+                    }
+
+                    requestUpload(user, fullTempPath, currentRemotePath, behaviour);
+                    fullTempPath = null;
                 }
 
-                requestUpload(
-                    user,
-                    fullTempPath,
-                    currentRemotePath,
-                    behaviour
-                );
-                fullTempPath = null;
             }
-
             result = ResultCode.OK;
 
         } catch (ArrayIndexOutOfBoundsException e) {
@@ -206,7 +194,7 @@ public class CopyAndUploadContentUrisTask extends AsyncTask<Object, Void, Result
 
         } catch (Exception e) {
             Log_OC.e(TAG, "Exception while copying " + currentUri + " to temporary file", e);
-            result =  ResultCode.LOCAL_STORAGE_NOT_COPIED;
+            result = ResultCode.LOCAL_STORAGE_NOT_COPIED;
 
             // clean
             if (fullTempPath != null) {
@@ -216,22 +204,6 @@ public class CopyAndUploadContentUrisTask extends AsyncTask<Object, Void, Result
                 }
             }
 
-        } finally {
-            if (inputStream != null) {
-                try {
-                    inputStream.close();
-                } catch (Exception e) {
-                    Log_OC.w(TAG, "Ignoring exception of inputStream closure");
-                }
-            }
-
-            if (outputStream != null) {
-                try {
-                    outputStream.close();
-                } catch (Exception e) {
-                    Log_OC.w(TAG, "Ignoring exception of outStream closure");
-                }
-            }
         }
 
         return result;

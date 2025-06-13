@@ -804,9 +804,11 @@
     <string name="set_status_message">Set status message</string>
     <string name="setup_e2e">During setup of end-to-end encryption, you will receive a random 12 word mnemonic, which you will need to open your files on other devices. This will only be stored on this device, and can be shown again in this screen. Please note it down in a secure place!</string>
     <string name="share">Share</string>
+    <string name="share_allow_download_and_sync_permission">Allow download and sync</string>
     <string name="share_copy_link">Share and copy link</string>
     <string name="share_dialog_title">Sharing</string>
     <string name="share_download_limit">Set download limit</string>
+    <string name="share_edit_permission">Edit</string>
     <string name="share_expiration_date_format">%1$s</string>
     <string name="share_expiration_date_label">Expires %1$s</string>
     <string name="share_file">Share %1$s</string>
@@ -829,9 +831,11 @@
     <string name="share_password_title">Password-protected</string>
     <string name="share_permission_can_edit">Can edit</string>
     <string name="share_permission_file_drop">File drop</string>
+    <string name="share_permission_file_request">File request</string>
     <string name="share_permission_secure_file_drop">Secure file drop</string>
     <string name="share_permission_view_only">View only</string>
     <string name="share_permissions">Share permissions</string>
+    <string name="share_read_permission">Read</string>
     <string name="share_remote_clarification">%1$s (remote)</string>
     <string name="share_room_clarification">%1$s (conversation)</string>
     <string name="share_search">Name, Federated Cloud ID or email address…</string>

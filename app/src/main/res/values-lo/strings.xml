@@ -539,7 +539,10 @@
     <string name="set_status">ຕັ້ງຄ່າສະຖານະພາບ</string>
     <string name="set_status_message">ຕັ້ງຄ່າສະຖານະພາບຂໍ້ຄວາມ</string>
     <string name="share">ແບ່ງປັນ</string>
+    <string name="share_create_permission">ສ້າງ</string>
+    <string name="share_delete_permission">ລຶບ</string>
     <string name="share_dialog_title">ການແບ່ງປັນ</string>
+    <string name="share_edit_permission">ແກ້ໄຂ</string>
     <string name="share_expiration_date_label">ສິ້ນສຸດ%1$s</string>
     <string name="share_file">ແບ່ງປັນ%1$s</string>
     <string name="share_group_clarification"> (ກຸ່ມ)%1$s</string>
@@ -559,6 +562,7 @@
     <string name="share_no_password_title">ກຳນົດລະຫັດຜ່ານ</string>
     <string name="share_password_title">ລະຫັດປ້ອງກັນ</string>
     <string name="share_permission_can_edit">ແກ້ໄຂໄດ້</string>
+    <string name="share_re_share_permission">ແບ່ງປັນ</string>
     <string name="share_remote_clarification"> %1$s(ໄລຍະໄກ)</string>
     <string name="share_room_clarification"> %1$s(ສົນທະນາ)</string>
     <string name="share_send_note">ລະບຸຜູ້ຮັບ</string>

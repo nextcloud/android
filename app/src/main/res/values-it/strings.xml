@@ -778,8 +778,13 @@
     <string name="set_status_message">Imposta messaggio di stato</string>
     <string name="setup_e2e">Configurando la cifratura end-to-end, riceverai una frase di 12 parole mnemoniche casuali, che ti servirà per aprire i tuoi file su altri dispositivi. Questa sarà conservata solo su questo dispositivo, e può essere mostrata di nuovo in questa schermata. Annotala in un posto sicuro!</string>
     <string name="share">Condividi</string>
+    <string name="share_allow_download_and_sync_permission">Consenti scaricamento e sincr.</string>
+    <string name="share_create_permission">Crea</string>
+    <string name="share_custom_permission">Autorizzazioni personalizzate</string>
+    <string name="share_delete_permission">Elimina</string>
     <string name="share_dialog_title">Condivisione</string>
     <string name="share_download_limit">Imposta il limite di scaricamento</string>
+    <string name="share_edit_permission">Modifica</string>
     <string name="share_expiration_date_format">%1$s</string>
     <string name="share_expiration_date_label">Scade il %1$s</string>
     <string name="share_file">Condividi %1$s</string>
@@ -802,8 +807,11 @@
     <string name="share_password_title">Protetta da password</string>
     <string name="share_permission_can_edit">Può modificare</string>
     <string name="share_permission_file_drop">Elimina file</string>
+    <string name="share_permission_file_request">Richiesta file</string>
     <string name="share_permission_secure_file_drop">File drop sicuro</string>
     <string name="share_permission_view_only">Sola lettura</string>
+    <string name="share_re_share_permission">Condividi</string>
+    <string name="share_read_permission">Lettura</string>
     <string name="share_remote_clarification">%1$s (remota)</string>
     <string name="share_room_clarification">%1$s (conversazione)</string>
     <string name="share_search">Nome, Federated Cloud ID o indirizzo e-mail...</string>

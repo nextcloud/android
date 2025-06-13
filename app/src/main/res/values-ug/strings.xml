@@ -744,8 +744,13 @@
     <string name="set_status_message">ھالەت ئۇچۇرىنى بەلگىلەڭ</string>
     <string name="setup_e2e">ئاخىرىدىن ئاخىرىغىچە مەخپىيلەشتۈرۈشنى تەڭشەش جەريانىدا ، ئىختىيارى 12 سۆزلۈك mnemonic تاپشۇرۇۋالىسىز ، بۇ ھۆججەتلەرنى باشقا ئۈسكۈنىلەردە ئېچىشىڭىز كېرەك. بۇ پەقەت بۇ ئۈسكۈنىدە ساقلىنىدۇ ، بۇ ئېكراندا قايتا كۆرسەتكىلى بولىدۇ. ئۇنى بىخەتەر ئورۇنغا خاتىرىلەڭ!</string>
     <string name="share">ھەمبەھىرلەش</string>
+    <string name="share_allow_download_and_sync_permission">چۈشۈرۈش ۋە ماسقەدەملەشكە يول قويۇڭ</string>
+    <string name="share_create_permission">قۇر</string>
+    <string name="share_custom_permission">ئىختىيارى ئىجازەت</string>
+    <string name="share_delete_permission">ئۆچۈر</string>
     <string name="share_dialog_title">ھەمبەھىر</string>
     <string name="share_download_limit">چۈشۈرۈش چەكلىمىسىنى بەلگىلەڭ</string>
+    <string name="share_edit_permission">تەھرىر</string>
     <string name="share_expiration_date_format">%1$s</string>
     <string name="share_expiration_date_label">ۋاقتى%1$s</string>
     <string name="share_file">ئورتاقلىشىش%1$s</string>
@@ -768,8 +773,11 @@
     <string name="share_password_title">پارول بىلەن قوغدىلىدۇ</string>
     <string name="share_permission_can_edit">تەھرىرلىيەلەيدۇ</string>
     <string name="share_permission_file_drop">ھۆججەت چۈشۈرۈش</string>
+    <string name="share_permission_file_request">ھۆججەت تەلىپى</string>
     <string name="share_permission_secure_file_drop">بىخەتەر ھۆججەت چۈشۈرۈش</string>
     <string name="share_permission_view_only">پەقەت كۆرۈش</string>
+    <string name="share_re_share_permission">ھەمبەھىرلەش</string>
+    <string name="share_read_permission">ئوقۇ</string>
     <string name="share_remote_clarification">%1$s (يىراق)</string>
     <string name="share_room_clarification">%1$s (سۆھبەت)</string>
     <string name="share_send_new_email">يېڭى ئېلېكترونلۇق خەت ئەۋەتىڭ</string>

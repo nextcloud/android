@@ -804,9 +804,14 @@
     <string name="set_status_message">Instellen statusbericht</string>
     <string name="setup_e2e">Tijden het instellen van end-to-end versleuteling ontvang je een mnemonic van 12 woorden, die je nodig hebt om bestanden op je apparaat te openen. Dit wordt alleen opgeslagen op dit apparaat en kan in dit scherm opnieuw getoond worden. Noteer het a.u.b. op een veilige plek!</string>
     <string name="share">Delen</string>
+    <string name="share_allow_download_and_sync_permission">Download en synchroniseren toestaan</string>
     <string name="share_copy_link">Delen en link kopiëren</string>
+    <string name="share_create_permission">Creëer</string>
+    <string name="share_custom_permission">Aangepaste machtigingen</string>
+    <string name="share_delete_permission">Verwijderen</string>
     <string name="share_dialog_title">Delen</string>
     <string name="share_download_limit">Stel downloadlimiet in</string>
+    <string name="share_edit_permission">Bewerken</string>
     <string name="share_expiration_date_format">%1$s</string>
     <string name="share_expiration_date_label">Vervalt op %1$s</string>
     <string name="share_file">Delen %1$s</string>
@@ -829,9 +834,12 @@
     <string name="share_password_title">Wachtwoord beveiligd</string>
     <string name="share_permission_can_edit">Kan bewerken</string>
     <string name="share_permission_file_drop">Bestandsopslag</string>
+    <string name="share_permission_file_request">Bestandsaanvraag</string>
     <string name="share_permission_secure_file_drop">Veilige bestandoverdracht</string>
     <string name="share_permission_view_only">Alleen bekijken</string>
     <string name="share_permissions">Machtigingen delen</string>
+    <string name="share_re_share_permission">Delen</string>
+    <string name="share_read_permission">Lezen</string>
     <string name="share_remote_clarification">%1$s (extern)</string>
     <string name="share_room_clarification">%1$s (gesprek)</string>
     <string name="share_search">Naam, Federated Cloud ID of e-mailadres…</string>

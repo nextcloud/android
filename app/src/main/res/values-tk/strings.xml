@@ -531,7 +531,10 @@
     <string name="set_status">Status ýagdaýy düzüň</string>
     <string name="set_status_message">Status habaryny düzüň</string>
     <string name="share">Paýlaş</string>
+    <string name="share_create_permission">Dörediň</string>
+    <string name="share_delete_permission">Pozmak</string>
     <string name="share_dialog_title">Paýlaşmak</string>
+    <string name="share_edit_permission">Redaktirläň</string>
     <string name="share_expiration_date_label">Möhleti%1$s-da gutarýar</string>
     <string name="share_file">Paýlaş%1$s</string>
     <string name="share_group_clarification">%1$s(topar)</string>
@@ -550,6 +553,7 @@
     <string name="share_no_expiration_date_label">Möhlet möhletini belläň</string>
     <string name="share_no_password_title">Paroly düzüň</string>
     <string name="share_password_title">Parol bilen goralan</string>
+    <string name="share_re_share_permission">Paýlaş</string>
     <string name="share_remote_clarification">(uzakdan)%1$s</string>
     <string name="share_room_clarification">(söhbetdeşlik)%1$s</string>
     <string name="share_send_note">Alyja bellik</string>

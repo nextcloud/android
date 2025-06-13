@@ -801,9 +801,14 @@
     <string name="set_status_message">Nastaviť správu o stave</string>
     <string name="setup_e2e">Počas nastavovania end-to-end šifrovania dostanete náhodný 12-slovový mnemotechnický záznam, ktorý budete potrebovať na otvorenie svojich súborov na iných zariadeniach. Tento záznam bude uložený iba na tomto zariadení a môže byť znovu zobrazený na tejto obrazovke. Prosím, zapíšte si ho na bezpečné miesto!</string>
     <string name="share">Zdieľať</string>
+    <string name="share_allow_download_and_sync_permission">Povoliť sťahovanie a synchronizáciu</string>
     <string name="share_copy_link">Zdieľať a kopírovať odkaz</string>
+    <string name="share_create_permission">Vytvoriť</string>
+    <string name="share_custom_permission">Vlastné oprávnenia</string>
+    <string name="share_delete_permission">Vymazať</string>
     <string name="share_dialog_title">Sprístupnenie</string>
     <string name="share_download_limit">Nastaviť limit sťahovania</string>
+    <string name="share_edit_permission">Upraviť</string>
     <string name="share_expiration_date_format">%1$s</string>
     <string name="share_expiration_date_label">Vyprší %1$s</string>
     <string name="share_file">Sprístupni %1$s</string>
@@ -826,9 +831,12 @@
     <string name="share_password_title">Chránené heslom</string>
     <string name="share_permission_can_edit">Môže upravovať</string>
     <string name="share_permission_file_drop">Vložiť súbor</string>
+    <string name="share_permission_file_request">Žiadosť o súbor</string>
     <string name="share_permission_secure_file_drop">Zabezpečený file drop</string>
     <string name="share_permission_view_only">Iba pre čítanie</string>
     <string name="share_permissions">Zdieľať oprávnenia</string>
+    <string name="share_re_share_permission">Zdieľať</string>
+    <string name="share_read_permission">Čítanie</string>
     <string name="share_remote_clarification">%1$s (vzdialený)</string>
     <string name="share_room_clarification">%1$s (rozhovor)</string>
     <string name="share_search">Meno, ID v rámci Federatívneho cloudu, alebo e-mailová adresa…</string>

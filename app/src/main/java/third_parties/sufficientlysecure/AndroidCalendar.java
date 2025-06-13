@@ -113,11 +113,9 @@ public class AndroidCalendar {
 
     private static boolean missing(ContentResolver resolver, Uri uri) {
         // Determine if a provider is missing
-        ContentProviderClient provider = resolver.acquireContentProviderClient(uri);
-        if (provider != null) {
-            provider.release();
+        try (ContentProviderClient provider = resolver.acquireContentProviderClient(uri)) {
+            return provider == null;
         }
-        return provider == null;
     }
 
     @Override

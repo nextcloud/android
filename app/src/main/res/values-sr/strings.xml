@@ -804,9 +804,14 @@
     <string name="set_status_message">Постављање статусне поруке</string>
     <string name="setup_e2e">Током постављања шифрирања од почетка-до-краја примићете 12 случајних речи за памћење које ће вам бити неопходне да фајлове отворите на осталим уређајима. Ово ће се сачувати само на овом уређају и може поново да се прикаже на овом екрану. Молимо вас да их забележите на неко сигурно место!</string>
     <string name="share">Подели</string>
+    <string name="share_allow_download_and_sync_permission">Дозволи преузимање и сихронизацију</string>
     <string name="share_copy_link">Дели и копирај линк</string>
+    <string name="share_create_permission">Креирање</string>
+    <string name="share_custom_permission">Произвољне дозволе</string>
+    <string name="share_delete_permission">Избриши</string>
     <string name="share_dialog_title">Дељење</string>
     <string name="share_download_limit">Podesite ograničenje preuzimanja</string>
+    <string name="share_edit_permission">Измени</string>
     <string name="share_expiration_date_format">%1$s</string>
     <string name="share_expiration_date_label">Истиче %1$s</string>
     <string name="share_file">Подели %1$s</string>
@@ -829,9 +834,12 @@
     <string name="share_password_title">Заштићено лозинком</string>
     <string name="share_permission_can_edit">Може да уређује</string>
     <string name="share_permission_file_drop">Место за упуштање фајлова</string>
+    <string name="share_permission_file_request">Захтев за фајл</string>
     <string name="share_permission_secure_file_drop">Сигурно место за упуштање фајлова</string>
     <string name="share_permission_view_only">Само преглед</string>
     <string name="share_permissions">Дозволе за дељење</string>
+    <string name="share_re_share_permission">Пдели</string>
+    <string name="share_read_permission">Читање</string>
     <string name="share_remote_clarification">%1$s(удаљено)</string>
     <string name="share_room_clarification">%1$s (разговор)</string>
     <string name="share_search">Име, ИД здруженог облака или адреса е-поште…</string>

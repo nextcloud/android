@@ -804,9 +804,13 @@
     <string name="set_status_message">Enregistrer le message d\'état</string>
     <string name="setup_e2e">Pendant la configuration du chiffrement de bout en bout, vous recevrez une phrase secrète aléatoire de 12 mots dont vous aurez besoin pour ouvrir vos fichiers sur d\'autres appareils. Cette phrase secrète ne sera stockée que sur cet appareil, et pourra être affichée à nouveau sur cet écran. Veuillez la noter en lieu sûr !</string>
     <string name="share">Partager</string>
+    <string name="share_allow_download_and_sync_permission">Autoriser le téléchargement et la synchronisation</string>
     <string name="share_copy_link">Partager et copier le lien</string>
+    <string name="share_custom_permission">Permissions personnalisées</string>
+    <string name="share_delete_permission">Supprimer</string>
     <string name="share_dialog_title">Partage</string>
     <string name="share_download_limit">Définir le nombre maximal de téléchargements autorisés</string>
+    <string name="share_edit_permission">Éditer</string>
     <string name="share_expiration_date_format">%1$s</string>
     <string name="share_expiration_date_label">Expire le %1$s</string>
     <string name="share_file">Partager %1$s</string>
@@ -829,9 +833,11 @@
     <string name="share_password_title">Protégé par mot de passe</string>
     <string name="share_permission_can_edit">Peut modifier</string>
     <string name="share_permission_file_drop">Dépôt de fichier</string>
+    <string name="share_permission_file_request">Demande de fichier</string>
     <string name="share_permission_secure_file_drop">Dépôt sécurisé de fichiers</string>
     <string name="share_permission_view_only">Afficher seulement</string>
     <string name="share_permissions">Autorisations pour le partage</string>
+    <string name="share_read_permission">Lire</string>
     <string name="share_remote_clarification">%1$s (distant)</string>
     <string name="share_room_clarification">%1$s (conversation)</string>
     <string name="share_search">Nom, identifiant de Cloud fédéré ou adresse e-mail…</string>

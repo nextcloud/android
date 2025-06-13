@@ -804,9 +804,13 @@
     <string name="set_status_message">Socraigh teachtaireacht stádais</string>
     <string name="setup_e2e">Le linn duit criptiú ceann go deireadh a shocrú, gheobhaidh tú cuimhneachán randamach 12 focal, a bheidh ag teastáil uait chun do chuid comhad a oscailt ar ghléasanna eile. Ní stórálfar é seo ach ar an ngléas seo, agus is féidir é a thaispeáint arís sa scáileán seo. Tabhair faoi deara é síos in áit slán le do thoil!</string>
     <string name="share">Comhroinn</string>
+    <string name="share_allow_download_and_sync_permission">Ceadaigh íoslódáil agus sioncrónú</string>
     <string name="share_copy_link">Roinn agus cóipeáil an nasc</string>
+    <string name="share_custom_permission">Ceadanna saincheaptha</string>
+    <string name="share_delete_permission">Scrios</string>
     <string name="share_dialog_title">Roinnt</string>
     <string name="share_download_limit">Socraigh teorainn íoslódáil</string>
+    <string name="share_edit_permission">Cuir in eagar</string>
     <string name="share_expiration_date_format">%1$s</string>
     <string name="share_expiration_date_label">In éag %1$s</string>
     <string name="share_file">Roinn %1$s</string>
@@ -829,9 +833,11 @@
     <string name="share_password_title">Pasfhocal cosanta</string>
     <string name="share_permission_can_edit">Is féidir eagarthóireacht a dhéanamh</string>
     <string name="share_permission_file_drop">Titim comhad</string>
+    <string name="share_permission_file_request">Iarratas comhad</string>
     <string name="share_permission_secure_file_drop">Titim comhad slán</string>
     <string name="share_permission_view_only">Amharc amháin</string>
     <string name="share_permissions">Ceadanna a roinnt</string>
+    <string name="share_read_permission">Léigh</string>
     <string name="share_remote_clarification">%1$s (iargúlta)</string>
     <string name="share_room_clarification">%1$s (comhrá)</string>
     <string name="share_search">Ainm, ID Néal Cónaidhme nó seoladh ríomhphoist…</string>

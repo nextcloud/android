@@ -494,7 +494,9 @@
     <string name="set_status">Iestatīt stāvokli</string>
     <string name="set_status_message">Iestatīt stāvokļa ziņojumu</string>
     <string name="share">Kopīgot</string>
+    <string name="share_delete_permission">Izdzēst</string>
     <string name="share_dialog_title">Koplietošana</string>
+    <string name="share_edit_permission">Labot</string>
     <string name="share_expiration_date_label">Beidzas %1$s</string>
     <string name="share_file">Koplietots %1$s</string>
     <string name="share_group_clarification">%1$s (grupa)</string>
@@ -510,6 +512,8 @@
     <string name="share_password_title">Aizsargāts ar paroli</string>
     <string name="share_permission_can_edit">Var labot</string>
     <string name="share_permission_view_only">Tikai skatīt</string>
+    <string name="share_re_share_permission">Kopīgot</string>
+    <string name="share_read_permission">Lasīt</string>
     <string name="share_remote_clarification">%1$s (attāli)</string>
     <string name="share_search_internal">Pievienot lietotājus un komandas</string>
     <string name="share_send_new_email">Nosūtīt jaunu e-pasta ziņojumu</string>

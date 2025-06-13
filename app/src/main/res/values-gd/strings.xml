@@ -538,7 +538,9 @@
     <string name="set_status">Suidhich an staid</string>
     <string name="set_status_message">Suidhich teachdaireachd na staide</string>
     <string name="share">Co-roinn</string>
+    <string name="share_delete_permission">Sguab às</string>
     <string name="share_dialog_title">Co-roinneadh</string>
+    <string name="share_edit_permission">Deasaich</string>
     <string name="share_expiration_date_label">Falbhaidh an ùine air %1$s</string>
     <string name="share_file">Co-roinn %1$s</string>
     <string name="share_group_clarification">%1$s (buidheann)</string>

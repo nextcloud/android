@@ -648,6 +648,7 @@
     <string name="share">Compartir</string>
     <string name="share_dialog_title">Compartiendo</string>
     <string name="share_download_limit">Establecer límite de descarga</string>
+    <string name="share_edit_permission">Editar</string>
     <string name="share_expiration_date_format">%1$s</string>
     <string name="share_expiration_date_label">Vence %1$s</string>
     <string name="share_file">Compartir %1$s</string>
@@ -671,6 +672,7 @@
     <string name="share_permission_file_drop">Soltar archivo</string>
     <string name="share_permission_secure_file_drop">Soltar archivo seguro</string>
     <string name="share_permission_view_only">Solo vista</string>
+    <string name="share_read_permission">Leer</string>
     <string name="share_remote_clarification">%1$s (remoto)</string>
     <string name="share_room_clarification">%1$s (conversación)</string>
     <string name="share_send_new_email">Enviar correo electrónico nuevo</string>
