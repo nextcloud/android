@@ -63,7 +63,13 @@ object OCShareToOCFileConverter {
             file.isSharedWithSharee = true
             file.sharees = shares
                 .filter { it.shareType != ShareType.PUBLIC_LINK && it.shareType != ShareType.EMAIL }
-                .map { ShareeUser(it.shareWith, it.sharedWithDisplayName, it.shareType) }
+                .map {
+                    ShareeUser(
+                        userId = it.userId,
+                        displayName = it.sharedWithDisplayName,
+                        shareType = it.shareType
+                    )
+                }
         }
         return file
     }
