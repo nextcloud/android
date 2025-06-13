@@ -129,7 +129,7 @@ import static com.owncloud.android.ui.activity.ContactsPreferenceActivity.PREFER
  * Contains methods to build the "static" strings. These strings were before constants in different classes.
  */
 public class MainApp extends Application implements HasAndroidInjector, NetworkChangeListener {
-    public static final OwnCloudVersion OUTDATED_SERVER_VERSION = NextcloudVersion.nextcloud_28;
+    public static final OwnCloudVersion OUTDATED_SERVER_VERSION = NextcloudVersion.nextcloud_29;
     public static final OwnCloudVersion MINIMUM_SUPPORTED_SERVER_VERSION = OwnCloudVersion.nextcloud_18;
 
     private static final String TAG = MainApp.class.getSimpleName();
@@ -667,7 +667,7 @@ public class MainApp extends Application implements HasAndroidInjector, NetworkC
     }
 
     public static void notificationChannels() {
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O && getAppContext() != null) {
+        if (getAppContext() != null) {
             Context context = getAppContext();
             NotificationManager notificationManager = (NotificationManager)
                 context.getSystemService(Context.NOTIFICATION_SERVICE);
@@ -718,8 +718,7 @@ public class MainApp extends Application implements HasAndroidInjector, NetworkC
     private static void createChannel(NotificationManager notificationManager,
                                       String channelId, int channelName,
                                       int channelDescription, Context context, int importance) {
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O
-            && getAppContext() != null) {
+        if (getAppContext() != null) {
             CharSequence name = context.getString(channelName);
             String description = context.getString(channelDescription);
             NotificationChannel channel = new NotificationChannel(channelId, name, importance);
