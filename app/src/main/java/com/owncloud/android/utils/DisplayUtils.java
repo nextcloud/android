@@ -467,30 +467,39 @@ public final class DisplayUtils {
                                  Resources resources,
                                  Object callContext,
                                  Context context) {
-        if (callContext instanceof View) {
-            ((View) callContext).setContentDescription(String.valueOf(user.toPlatformAccount().hashCode()));
+        if (callContext instanceof View v) {
+            v.setContentDescription(String.valueOf(user.toPlatformAccount().hashCode()));
         }
-
-        ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProviderImpl(context);
 
         final String accountName = user.getAccountName();
         String serverName = accountName.substring(accountName.lastIndexOf('@') + 1);
-        String eTag = arbitraryDataProvider.getValue(userId + "@" + serverName, ThumbnailsCacheManager.AVATAR);
-        String avatarKey = "a_" + userId + "_" + serverName + "_" + eTag;
+        Drawable avatar;
 
-        // first show old one
-        Drawable avatar = BitmapUtils.bitmapToCircularBitmapDrawable(resources,
-                                                                     ThumbnailsCacheManager.getBitmapFromDiskCache(avatarKey));
+        if (userId.isEmpty()) {
+            avatar = ContextCompat.getDrawable(context, R.drawable.ic_link);
+            if (avatar != null) {
+                int tintColor = ContextCompat.getColor(context, R.color.icon_on_nc_grey);
+                avatar.setTint(tintColor);
+            }
+        } else {
+            ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProviderImpl(context);
+            String eTag = arbitraryDataProvider.getValue(userId + "@" + serverName, ThumbnailsCacheManager.AVATAR);
+            String avatarKey = "a_" + userId + "_" + serverName + "_" + eTag;
 
-        // if no one exists, show colored icon with initial char
-        if (avatar == null) {
-            try {
-                avatar = TextDrawable.createAvatarByUserId(displayName, avatarRadius);
-            } catch (Exception e) {
-                Log_OC.e(TAG, "Error calculating RGB value for active account icon.", e);
-                avatar = ResourcesCompat.getDrawable(resources,
-                                                     R.drawable.account_circle_white,
-                                                     null);
+            // first show old one
+            avatar = BitmapUtils.bitmapToCircularBitmapDrawable(resources,
+                                                                ThumbnailsCacheManager.getBitmapFromDiskCache(avatarKey));
+
+            // if no one exists, show colored icon with initial char
+            if (avatar == null) {
+                try {
+                    avatar = TextDrawable.createAvatarByUserId(displayName, avatarRadius);
+                } catch (Exception e) {
+                    Log_OC.e(TAG, "Error calculating RGB value for active account icon.", e);
+                    avatar = ResourcesCompat.getDrawable(resources,
+                                                         R.drawable.account_circle_white,
+                                                         null);
+                }
             }
         }
 
