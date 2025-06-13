@@ -159,8 +159,12 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
         shareRepository.refreshSharesForFile(file.getRemotePath(), () -> {
             refreshCapabilitiesFromDB();
             refreshSharesFromDB();
+            binding.shimmerLayout.setVisibility(View.GONE);
+            binding.shareContainer.setVisibility(View.VISIBLE);
             return Unit.INSTANCE;
         }, () -> {
+            binding.shimmerLayout.setVisibility(View.GONE);
+            binding.shareContainer.setVisibility(View.VISIBLE);
             DisplayUtils.showSnackMessage(getView(), R.string.error_fetching_sharees);
             return Unit.INSTANCE;
         });
