@@ -111,6 +111,7 @@ public class FileDataStorageManager {
     public final FileDao fileDao = NextcloudDatabase.getInstance(MainApp.getAppContext()).fileDao();
     private final Gson gson = new Gson();
     public final OfflineOperationsRepositoryType offlineOperationsRepository;
+    private final static int DEFAULT_CURSOR_INT_VALUE = -1;
 
     public FileDataStorageManager(User user, ContentResolver contentResolver) {
         this.contentProviderClient = null;
@@ -1638,14 +1639,45 @@ public class FileDataStorageManager {
         share.setShareLink(getString(cursor, ProviderTableMeta.OCSHARES_SHARE_LINK));
         share.setLabel(getString(cursor, ProviderTableMeta.OCSHARES_SHARE_LABEL));
 
-        FileDownloadLimit downloadLimit = new FileDownloadLimit(token,
-                                                                getInt(cursor, ProviderTableMeta.OCSHARES_DOWNLOADLIMIT_LIMIT),
-                                                                getInt(cursor, ProviderTableMeta.OCSHARES_DOWNLOADLIMIT_COUNT));
-        share.setFileDownloadLimit(downloadLimit);
+        FileDownloadLimit fileDownloadLimit = getDownloadLimitFromCursor(cursor, token);
+        if (fileDownloadLimit != null) {
+            share.setFileDownloadLimit(fileDownloadLimit);
+        }
 
         share.setAttributes(getString(cursor, ProviderTableMeta.OCSHARES_ATTRIBUTES));
 
         return share;
+    }
+
+    @Nullable
+    private FileDownloadLimit getDownloadLimitFromCursor(Cursor cursor, String token) {
+        int limit = getIntOrDefault(cursor, ProviderTableMeta.OCSHARES_DOWNLOADLIMIT_LIMIT);
+        int count = getIntOrDefault(cursor, ProviderTableMeta.OCSHARES_DOWNLOADLIMIT_COUNT);
+        if (limit != DEFAULT_CURSOR_INT_VALUE && count != DEFAULT_CURSOR_INT_VALUE) {
+            return new FileDownloadLimit(token, limit, count);
+        }
+
+        return null;
+    }
+
+    /**
+     * Retrieves an integer value from the specified column in the cursor.
+     * <p>
+     * If the column does not exist (i.e., {@code cursor.getColumnIndex(columnName)} returns -1),
+     * this method returns {@code -1} as a default value.
+     * </p>
+     *
+     * @param cursor     The Cursor from which to retrieve the value.
+     * @param columnName The name of the column to retrieve the integer from.
+     * @return The integer value from the column, or {@code -1} if the column is not found.
+     */
+    private int getIntOrDefault(Cursor cursor, String columnName) {
+        int index = cursor.getColumnIndex(columnName);
+        if (index == DEFAULT_CURSOR_INT_VALUE) {
+            return DEFAULT_CURSOR_INT_VALUE;
+        }
+
+        return cursor.getInt(index);
     }
 
     private void resetShareFlagsInFolder(OCFile folder) {
