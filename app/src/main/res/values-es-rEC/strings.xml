@@ -646,6 +646,9 @@
     <string name="set_status_message">Establecer mensaje de estado</string>
     <string name="setup_e2e">Al configurar la encriptación de extremo a extremo, recibirás un memónico aleatorio de 12 palabras, que necesitarás para abrir tus archivos en otros dispositivos. Este solo se almacenará en este dispositivo y se puede mostrar nuevamente en esta pantalla. ¡Tómalo nota en un lugar seguro!</string>
     <string name="share">Compartir</string>
+    <string name="share_create_permission">Crear</string>
+    <string name="share_custom_permission">Permisos personalizados</string>
+    <string name="share_delete_permission">Borrar</string>
     <string name="share_dialog_title">Compartiendo</string>
     <string name="share_download_limit">Establecer límite de descarga</string>
     <string name="share_edit_permission">Editar</string>

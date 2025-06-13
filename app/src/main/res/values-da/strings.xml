@@ -807,8 +807,12 @@
     <string name="share">Del</string>
     <string name="share_allow_download_and_sync_permission">Tillad download og synkronisering</string>
     <string name="share_copy_link">Del og kopier link</string>
+    <string name="share_create_permission">Opret</string>
+    <string name="share_custom_permission">Brugerdefinerede rettigheder</string>
+    <string name="share_delete_permission">Slet</string>
     <string name="share_dialog_title">Deling</string>
     <string name="share_download_limit">Indstil downloadgrænse</string>
+    <string name="share_edit_permission">Redigér</string>
     <string name="share_expiration_date_format">%1$s</string>
     <string name="share_expiration_date_label">Udløber %1$s</string>
     <string name="share_file">Del %1$s</string>
@@ -835,6 +839,8 @@
     <string name="share_permission_secure_file_drop">Sikkert fil drop</string>
     <string name="share_permission_view_only">Kun visning</string>
     <string name="share_permissions">Delingstilladelser</string>
+    <string name="share_re_share_permission">Del</string>
+    <string name="share_read_permission">Læs</string>
     <string name="share_remote_clarification">%1$s (ekstern)</string>
     <string name="share_room_clarification">%1$s (samtale)</string>
     <string name="share_search">Navn, sammenkoblings cloud ID eller e-mailadresse…</string>

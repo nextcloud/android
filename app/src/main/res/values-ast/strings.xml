@@ -460,7 +460,11 @@
     <string name="set_status">Afitar l\'estáu</string>
     <string name="set_status_message">Afitar el mensaxe del estáu</string>
     <string name="share">Compartir</string>
+    <string name="share_create_permission">Crear</string>
+    <string name="share_custom_permission">Personlizar los permisos</string>
+    <string name="share_delete_permission">Desaniciar</string>
     <string name="share_dialog_title">Compartiendo</string>
+    <string name="share_edit_permission">Editar</string>
     <string name="share_expiration_date_format">%1$s</string>
     <string name="share_file">Compartir %1$s</string>
     <string name="share_group_clarification">%1$s (gropu)</string>
@@ -474,7 +478,10 @@
     <string name="share_no_password_title">Afitar la contraseña</string>
     <string name="share_permission_can_edit">Pue editar</string>
     <string name="share_permission_file_drop">Suelta de ficheros</string>
+    <string name="share_permission_file_request">Solicitú de ficheru</string>
     <string name="share_permission_view_only">Ver namás</string>
+    <string name="share_re_share_permission">Compartir</string>
+    <string name="share_read_permission">Lleer</string>
     <string name="share_remote_clarification">%1$s (remotu)</string>
     <string name="share_room_clarification">%1$s (conversación)</string>
     <string name="share_send_note">Nota al destinatariu</string>

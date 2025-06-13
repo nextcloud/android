@@ -806,8 +806,12 @@
     <string name="share">Nasdílet</string>
     <string name="share_allow_download_and_sync_permission">Povolit stahování a synchronizaci</string>
     <string name="share_copy_link">Nasdílet a zkopírovat odkaz</string>
+    <string name="share_create_permission">Vytvářet</string>
+    <string name="share_custom_permission">Uživatelsky určená oprávnění</string>
+    <string name="share_delete_permission">Smazat</string>
     <string name="share_dialog_title">Sdílení</string>
     <string name="share_download_limit">Nastavit limit pro stahování</string>
+    <string name="share_edit_permission">Upravit</string>
     <string name="share_expiration_date_format">%1$s</string>
     <string name="share_expiration_date_label">Platnost skončí %1$s</string>
     <string name="share_file">Nasdílet %1$s</string>
@@ -834,6 +838,8 @@
     <string name="share_permission_secure_file_drop">Bezpečné předání souborů</string>
     <string name="share_permission_view_only">Pouze prohlížet</string>
     <string name="share_permissions">Oprávnění pro sdílení</string>
+    <string name="share_re_share_permission">Nasdílet</string>
+    <string name="share_read_permission">Nastavit jako přečtené</string>
     <string name="share_remote_clarification">%1$s (vzdálený)</string>
     <string name="share_room_clarification">%1$s (konverzace)</string>
     <string name="share_search">Jméno, identifikátor v rámci federovaného cloudu, nebo e-mailová adresa…</string>

@@ -806,6 +806,9 @@
     <string name="share">Compartir</string>
     <string name="share_allow_download_and_sync_permission">Permitir descarga y sincronización</string>
     <string name="share_copy_link">Compartir y copiar enlace</string>
+    <string name="share_create_permission">Crear</string>
+    <string name="share_custom_permission">Permisos personalizados</string>
+    <string name="share_delete_permission">Eliminar</string>
     <string name="share_dialog_title">Compartir</string>
     <string name="share_download_limit">Establecer el límite de descarga</string>
     <string name="share_edit_permission">Editar</string>
@@ -835,6 +838,7 @@
     <string name="share_permission_secure_file_drop">Entrega de archivos segura</string>
     <string name="share_permission_view_only">Solo lectura</string>
     <string name="share_permissions">Permisos del recurso compartido</string>
+    <string name="share_re_share_permission">Compartir</string>
     <string name="share_read_permission">Leer</string>
     <string name="share_remote_clarification">%1$s (remoto)</string>
     <string name="share_room_clarification">%1$s (conversación)</string>

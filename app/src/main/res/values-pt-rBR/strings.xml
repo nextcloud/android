@@ -804,7 +804,7 @@
     <string name="set_status_message">Definir mensagem de status</string>
     <string name="setup_e2e">Durante a configuração da criptografia de ponta-a-ponta, você receberá um mnemônico aleatório de 12 palavras, que será necessário para abrir seus arquivos em outros dispositivos. Ele será armazenado apenas neste dispositivo e poderá ser mostrado novamente nesta tela. Por favor, anote-o em um lugar seguro!</string>
     <string name="share">Compartilhar</string>
-    <string name="share_allow_download_and_sync_permission">Permitir baixar e sincronizar</string>
+    <string name="share_allow_download_and_sync_permission">Permitir download e sincronização</string>
     <string name="share_copy_link">Compartilhar e copiar link</string>
     <string name="share_create_permission">Criar</string>
     <string name="share_custom_permission">Permissões personalizadas</string>

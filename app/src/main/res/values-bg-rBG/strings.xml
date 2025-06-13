@@ -637,8 +637,12 @@
     <string name="set_status_message">Задайте съобщение за състояние</string>
     <string name="setup_e2e">По време на настройката на цялостното криптиране ще получите мнемоника от 12 произволни думи , която ще ви е необходима, за да отваряте файловете си на други устройства. Тя ще бъде съхранена само на това устройство и може да бъде показана отново на този екран. Моля, запишете я на сигурно място!</string>
     <string name="share">Сподели</string>
+    <string name="share_create_permission">Създаване</string>
+    <string name="share_custom_permission">Персонализиране на права</string>
+    <string name="share_delete_permission">Изтриване</string>
     <string name="share_dialog_title">Споделяне</string>
     <string name="share_download_limit">Задаване на ограничение за изтегляне</string>
+    <string name="share_edit_permission">Редактиране</string>
     <string name="share_expiration_date_format">%1$s</string>
     <string name="share_expiration_date_label">Изтича %1$s</string>
     <string name="share_file">Споделяне на %1$s</string>
@@ -662,6 +666,8 @@
     <string name="share_permission_file_drop">Пускане/Преместване/ на файл</string>
     <string name="share_permission_secure_file_drop">Защитено пускане на файлове</string>
     <string name="share_permission_view_only">Само изглед</string>
+    <string name="share_re_share_permission">Споделяне</string>
+    <string name="share_read_permission">Прочитане</string>
     <string name="share_remote_clarification">%1$s (отдалечен)</string>
     <string name="share_room_clarification">%1$s (разговор)</string>
     <string name="share_send_new_email">Изпращане на нов имейл</string>

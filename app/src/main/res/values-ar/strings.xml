@@ -814,9 +814,14 @@
     <string name="set_status_message">تعيين رسالة الحالة</string>
     <string name="setup_e2e">خلال تجهيز التشفير الطرفي، سوف تصلك جملة عشوائية مُكوّنة من 12 كلمة ستحتاج إليها لفتح ملفاتك على الأجهزة الأخرى. هذه الجملة سوف يتم تخزينها على هذا الجهاز فقط و يمكنك عرضها على الشاشة مرة أخرى. رجاءً، دوّنها و احفظها في مكانٍ آمنٍ!</string>
     <string name="share">مشاركة </string>
+    <string name="share_allow_download_and_sync_permission">السماح بالتنزيل و المزامنة</string>
     <string name="share_copy_link">شارك وانسخ الرابط</string>
+    <string name="share_create_permission">إنشاء</string>
+    <string name="share_custom_permission">أذونات مخصصة</string>
+    <string name="share_delete_permission">حذف</string>
     <string name="share_dialog_title">مشاركة</string>
     <string name="share_download_limit">تعيين حد أقصى للتنزيل</string>
+    <string name="share_edit_permission">تحرير</string>
     <string name="share_expiration_date_format">%1$s</string>
     <string name="share_expiration_date_label">تنتهي %1$s</string>
     <string name="share_file">شارك %1$s</string>
@@ -839,9 +844,12 @@
     <string name="share_password_title">محمي بكلمة مرور</string>
     <string name="share_permission_can_edit">يمكن تعديله</string>
     <string name="share_permission_file_drop">اسقاط الملف</string>
+    <string name="share_permission_file_request">طلب الملف</string>
     <string name="share_permission_secure_file_drop">إسقاط آمن للملف</string>
     <string name="share_permission_view_only">للعرض فقط</string>
     <string name="share_permissions">أذونات المشاركة</string>
+    <string name="share_re_share_permission">مُشارَكة</string>
+    <string name="share_read_permission">قراءة</string>
     <string name="share_remote_clarification">%1$s (بعيد)</string>
     <string name="share_room_clarification">%1$s (محادثة)</string>
     <string name="share_search">الاسم أو مُعرِّف السحابة الاتحادية أو عنوان البريد الإلكتروني ...</string>

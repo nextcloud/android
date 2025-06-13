@@ -646,8 +646,12 @@
     <string name="set_status">Ορισμός κατάστασης</string>
     <string name="set_status_message">Ορισμός μηνύματος κατάστασης</string>
     <string name="share">Διαμοιρασμός</string>
+    <string name="share_create_permission">Δημιουργία</string>
+    <string name="share_custom_permission">Προσαρμοσμένα δικαιώματα</string>
+    <string name="share_delete_permission">Διαγραφή</string>
     <string name="share_dialog_title">Γίνεται διαμοιρασμός</string>
     <string name="share_download_limit">Ορισμός ορίου λήψης</string>
+    <string name="share_edit_permission">Επεξεργασία</string>
     <string name="share_expiration_date_format">%1$s</string>
     <string name="share_expiration_date_label">Λήγει στις %1$s</string>
     <string name="share_file">Διαμοιρασμός %1$s</string>
@@ -670,6 +674,8 @@
     <string name="share_permission_can_edit">Μπορεί να επεξεργαστεί</string>
     <string name="share_permission_file_drop">Απόθεση αρχείου</string>
     <string name="share_permission_view_only">Μόνο προβολή</string>
+    <string name="share_re_share_permission">Διαμοιρασμός</string>
+    <string name="share_read_permission">Ανάγνωση</string>
     <string name="share_remote_clarification">%1$s (απομακρυσμένα)</string>
     <string name="share_room_clarification">%1$s (συνομιλιία)</string>
     <string name="share_send_new_email">Αποστολή νέου email</string>

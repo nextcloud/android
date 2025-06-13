@@ -756,8 +756,13 @@
     <string name="set_status_message">Estableix un missatge d\'estat</string>
     <string name="setup_e2e">Durant la configuració del xifratge d\'extrem a extrem, rebreu un mnemotècnic de 12 paraules a l\'atzar, que necessitareu per obrir els vostres fitxers en altres dispositius. Només s\'emmagatzemarà en aquest dispositiu i es podrà tornar a mostrar en aquesta pantalla. Anoteu-vos-el en un lloc segur!</string>
     <string name="share">Comparteix</string>
+    <string name="share_allow_download_and_sync_permission">Permet la baixada i la sincronització</string>
+    <string name="share_create_permission">Crea</string>
+    <string name="share_custom_permission">Permisos personalitzats</string>
+    <string name="share_delete_permission">Suprimir</string>
     <string name="share_dialog_title">S\'està compartint</string>
     <string name="share_download_limit">Estableix el límit de baixada</string>
+    <string name="share_edit_permission">Edició</string>
     <string name="share_expiration_date_format">%1$s</string>
     <string name="share_expiration_date_label">Caduca el %1$s</string>
     <string name="share_file">Comparteix %1$s</string>
@@ -779,7 +784,10 @@
     <string name="share_password_title">Protegit per contrasenya</string>
     <string name="share_permission_can_edit">Pot editar</string>
     <string name="share_permission_file_drop">Deixa anar el fitxer</string>
+    <string name="share_permission_file_request">Sol·licitud de fitxer</string>
     <string name="share_permission_view_only">Només visualització</string>
+    <string name="share_re_share_permission">Comparteix</string>
+    <string name="share_read_permission">Lectura</string>
     <string name="share_remote_clarification">%1$s (remot)</string>
     <string name="share_room_clarification">%1$s(conversa)</string>
     <string name="share_send_new_email">Envia un correu nou</string>
