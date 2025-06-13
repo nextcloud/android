@@ -1636,6 +1636,7 @@ public class UploadFileOperation extends SyncOperation {
         file.setEtag(remoteFile.getEtag());
         file.setRemoteId(remoteFile.getRemoteId());
         file.setPermissions(remoteFile.getPermissions());
+        file.setUploadTimestamp(remoteFile.getUploadTimestamp());
     }
 
     public interface OnRenameListener {
