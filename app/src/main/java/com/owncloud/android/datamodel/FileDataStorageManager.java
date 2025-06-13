@@ -44,6 +44,7 @@ import com.nextcloud.client.jobs.offlineOperations.repository.OfflineOperationsR
 import com.nextcloud.model.OCFileFilterType;
 import com.nextcloud.model.OfflineOperationRawType;
 import com.nextcloud.model.OfflineOperationType;
+import com.nextcloud.model.ShareeEntry;
 import com.nextcloud.utils.date.DateFormatPattern;
 import com.nextcloud.utils.extensions.DateExtensionsKt;
 import com.owncloud.android.MainApp;
@@ -1536,40 +1537,6 @@ public class FileDataStorageManager {
         return shares;
     }
 
-    private ContentValues createContentValueForRemoteFile(RemoteFile remoteFile) {
-        ContentValues contentValues = new ContentValues();
-
-        OCFile ocFile = getFileByDecryptedRemotePath(remoteFile.getRemotePath());
-        if (ocFile != null) {
-            contentValues.put(ProviderTableMeta.OCSHARES_FILE_SOURCE, ocFile.getFileId());
-        }
-
-        contentValues.put(ProviderTableMeta.OCSHARES_PATH, remoteFile.getRemotePath());
-        boolean isDirectory = MimeTypeUtil.isFolder(remoteFile.getMimeType());
-        contentValues.put(ProviderTableMeta.OCSHARES_IS_DIRECTORY, isDirectory);
-        contentValues.put(ProviderTableMeta.OCSHARES_ACCOUNT_OWNER, user.getAccountName());
-        contentValues.put(ProviderTableMeta.OCSHARES_USER_ID, remoteFile.getOwnerId());
-        contentValues.put(ProviderTableMeta.OCSHARES_NOTE, remoteFile.getNote());
-
-        if (remoteFile.getSharees().length > 0) {
-            final var sharee = remoteFile.getSharees()[0];
-            contentValues.put(ProviderTableMeta.OCSHARES_SHARE_WITH_DISPLAY_NAME, sharee.getDisplayName());
-            contentValues.put(ProviderTableMeta.OCSHARES_SHARE_WITH, sharee.getUserId());
-
-            ShareType shareType = sharee.getShareType();
-            if (shareType != null) {
-                contentValues.put(ProviderTableMeta.OCSHARES_SHARE_TYPE, shareType.getValue());
-            }
-        }
-
-        if (!remoteFile.getFileDownloadLimit().isEmpty()) {
-            FileDownloadLimit downloadLimit = remoteFile.getFileDownloadLimit().get(0);
-            setDownloadLimitToContentValues(contentValues, downloadLimit);
-        }
-
-        return contentValues;
-    }
-
     private ContentValues createContentValueForShare(OCShare share) {
         ContentValues contentValues = new ContentValues();
         contentValues.put(ProviderTableMeta.OCSHARES_FILE_SOURCE, share.getFileSource());
@@ -1809,12 +1776,28 @@ public class FileDataStorageManager {
         applyBatch(operations);
     }
 
+    /**
+     * Prepares a list of ContentProviderOperation insert operations based on share information
+     * found in the given iterable of RemoteFile objects.
+     *
+     * Each RemoteFile may have multiple share entries (sharees), and for each one,
+     * a corresponding ContentProviderOperation is created for insertion into the shares table.
+     *
+     * @param remoteFiles An iterable list of RemoteFile objects containing sharee data.
+     * @return A list of ContentProviderOperation objects for batch insertion into the content provider.
+     */
     private ArrayList<ContentProviderOperation> prepareInsertSharesFromRemoteFile(Iterable<RemoteFile> remoteFiles) {
-        final ArrayList<ContentProviderOperation> operations = new ArrayList<>();
-
-        ContentValues contentValues;
+        final ArrayList<ContentValues> contentValueList = new ArrayList<>();
         for (RemoteFile remoteFile : remoteFiles) {
-            contentValues = createContentValueForRemoteFile(remoteFile);
+            final var contentValues = ShareeEntry.Companion.getContentValues(remoteFile, user.getAccountName());
+            if (contentValues == null) {
+                continue;
+            }
+            contentValueList.addAll(contentValues);
+        }
+
+        final ArrayList<ContentProviderOperation> operations = new ArrayList<>();
+        for (ContentValues contentValues : contentValueList) {
             operations.add(ContentProviderOperation
                                .newInsert(ProviderTableMeta.CONTENT_URI_SHARE)
                                .withValues(contentValues)
