@@ -194,7 +194,7 @@ class MediaFoldersDetectionWork constructor(
         }
 
         // only send notification when synced folder is setup, gplay flavor and not branded client
-        @Suppress("ComplexMethod")
+        @Suppress("ComplexMethod", "ComplexCondition")
         if (syncedFolderProvider.syncedFolders.isNotEmpty() &&
             BuildHelper.isFlavourGPlay() &&
             !preferences.isAutoUploadGPlayNotificationShown &&
