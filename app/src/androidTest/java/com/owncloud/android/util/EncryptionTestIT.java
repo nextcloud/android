@@ -79,6 +79,7 @@ import static junit.framework.Assert.assertTrue;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertArrayEquals;
 
 public class EncryptionTestIT extends AbstractIT {
     @Rule public RetryTestRule retryTestRule = new RetryTestRule();
@@ -149,7 +150,7 @@ public class EncryptionTestIT extends AbstractIT {
 
         byte[] key2 = decodeStringToBase64Bytes(decryptedString);
 
-        assertTrue(Arrays.equals(key1, key2));
+        assertArrayEquals(key1, key2);
     }
 
     @Test
@@ -164,7 +165,7 @@ public class EncryptionTestIT extends AbstractIT {
 
         byte[] key2 = decodeStringToBase64Bytes(decryptedString);
 
-        assertTrue(Arrays.equals(key1, key2));
+        assertArrayEquals(key1, key2);
     }
 
     @Test(expected = BadPaddingException.class)
