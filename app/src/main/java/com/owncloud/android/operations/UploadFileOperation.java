@@ -998,8 +998,8 @@ public class UploadFileOperation extends SyncOperation {
                     if (result.isSuccess()) {
                         if (temporalFile.length() == originalFile.length()) {
                             // Acquire lock on temporary file
-                            try (RandomAccessFile randomAccessFile = new RandomAccessFile(temporalFile.getAbsolutePath(), "rw");
-                                FileChannel tempChannel = randomAccessFile.getChannel();
+                            try (RandomAccessFile randomAccessTemporalFile = new RandomAccessFile(temporalFile.getAbsolutePath(), "rw");
+                                FileChannel tempChannel = randomAccessTemporalFile.getChannel();
                                  FileLock tempFileLock = tempChannel.tryLock()) {
                                 if (tempFileLock != null) {
                                     // Use the temporary channel for the upload
