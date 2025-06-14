@@ -1398,9 +1398,7 @@ public final class EncryptionUtils {
                                                                               User user,
                                                                               Context context,
                                                                               ArbitraryDataProvider arbitraryDataProvider)
-        throws UploadException, Throwable,
-        InvalidAlgorithmParameterException, NoSuchAlgorithmException, NoSuchPaddingException, BadPaddingException,
-        IllegalBlockSizeException, InvalidKeyException, InvalidKeySpecException, CertificateException {
+        throws Throwable {
         long localId = parentFile.getLocalId();
 
         GetMetadataRemoteOperation getMetadataOperation = new GetMetadataRemoteOperation(localId);
