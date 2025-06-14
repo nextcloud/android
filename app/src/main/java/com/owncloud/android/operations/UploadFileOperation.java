@@ -983,7 +983,8 @@ public class UploadFileOperation extends SyncOperation {
 
             // Initialize channel and fileLock in try-with-resources
             try (
-                FileChannel channel = new RandomAccessFile(mFile.getStoragePath(), "rw").getChannel();
+                RandomAccessFile randomAccessFile = new RandomAccessFile(mFile.getStoragePath(), "rw");
+                FileChannel channel = randomAccessFile.getChannel();
                 FileLock fileLock = channel.tryLock()
             ) {
                 if (fileLock == null) {
@@ -998,8 +999,10 @@ public class UploadFileOperation extends SyncOperation {
                     if (result.isSuccess()) {
                         if (temporalFile.length() == originalFile.length()) {
                             // Acquire lock on temporary file
-                            try (FileChannel tempChannel = new RandomAccessFile(temporalFile.getAbsolutePath(), "rw").getChannel();
-                                 FileLock tempFileLock = tempChannel.tryLock()) {
+                            try (
+                                RandomAccessFile randomAccessTemporalFile = new RandomAccessFile(temporalFile.getAbsolutePath(), "rw");
+                                FileChannel tempChannel = randomAccessTemporalFile.getChannel();
+                                FileLock tempFileLock = tempChannel.tryLock()) {
                                 if (tempFileLock != null) {
                                     // Use the temporary channel for the upload
                                     size = tempChannel.size();
@@ -1546,8 +1549,10 @@ public class UploadFileOperation extends SyncOperation {
                     // try to copy and then delete
                     targetFile.createNewFile();
                     try (
-                        FileChannel inChannel = new FileInputStream(sourceFile).getChannel();
-                        FileChannel outChannel = new FileOutputStream(targetFile).getChannel()
+                        FileInputStream fis = new FileInputStream(sourceFile);
+                        FileOutputStream fos = new FileOutputStream(targetFile);
+                        FileChannel inChannel = fis.getChannel();
+                        FileChannel outChannel = fos.getChannel()
                     ) {
                         inChannel.transferTo(0, inChannel.size(), outChannel);
                         sourceFile.delete();
