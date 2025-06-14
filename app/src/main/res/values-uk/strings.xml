@@ -378,6 +378,7 @@
     <string name="file_already_exists">Файл з таким ім\'ям вже присутній</string>
     <string name="file_delete">Вилучити</string>
     <string name="file_detail_activity_error">Помилка з отриманням дії для файлу</string>
+    <string name="file_detail_share_already_active">Ви не можете створити спільний ресурс, оскільки його вже надано цьому користувачеві.</string>
     <string name="file_detail_sharing_fragment_no_contact_app_message">Відсутній застосунок для вибору контактів</string>
     <string name="file_details_no_content">Не вдалося завантажити подробиці</string>
     <string name="file_icon">Файл</string>
@@ -437,6 +438,7 @@
     <string name="file_name_validator_error_reserved_names">%s не є дозволеним ім\'ям</string>
     <string name="file_name_validator_rename_before_move_or_copy">%s. Перейменуйте файл перед переміщенням або копіюванням</string>
     <string name="file_not_found">Файл не знайдено</string>
+    <string name="file_not_found_cannot_share">Файл не знайдено. Неможливо поділитися.</string>
     <string name="file_not_synced">Неможливо синхронізувати файл. Буде показано останню доступну версію.</string>
     <string name="file_rename">Перейменувати</string>
     <string name="file_upload_worker_error_notification_title">Не вдалося завантажити. Відсутнє з\'єднання з мережею.</string>
@@ -795,6 +797,7 @@
     <string name="send_share">Надати у спільний доступ</string>
     <string name="sendbutton_description">Зображення кнопки надсилання</string>
     <string name="set_as">Встановити як</string>
+    <string name="set_download_limit_failed">Неможливо встановити обмеження на звантаження. Перевірте доступні вам функції.</string>
     <string name="set_note">Додати примітку</string>
     <string name="set_picture_as">Використати як</string>
     <string name="set_status">Встановити статус</string>
@@ -802,6 +805,7 @@
     <string name="setup_e2e">Під час налаштування наскрізного шифрування ви отримаєте парольну фразу з 12 слів, за допомогою якої ви зможете відкривати ваші файлі на інших пристроях. Її буде збережено лише на цьому пристрої та буде показано знову на цьому екрані. Будь ласка, занотуйте цю фразу та збережіть у безпеченому місці!</string>
     <string name="share">Спільний доступ</string>
     <string name="share_allow_download_and_sync_permission">Дозволити звантаження та синхронізацію</string>
+    <string name="share_cannot_update_empty_note">Не вдалося оновити спільний ресурс. Додайте примітку та спробуйте ще раз.</string>
     <string name="share_copy_link">Поділитися та копіювати посилання</string>
     <string name="share_create_permission">Створювати</string>
     <string name="share_custom_permission">Спеціальні дозволи</string>
@@ -828,6 +832,7 @@
     <string name="share_no_expiration_date_label">Встановити термін дії</string>
     <string name="share_no_password_title">Встановити пароль</string>
     <string name="share_not_allowed_when_file_drop">Повторну передачу у спільний доступ не дозволено під час безпечної передачі файлів</string>
+    <string name="share_option_required">Перед продовженням виберіть щонайменше одну опцію надання у спільний доступ.</string>
     <string name="share_password_title">Захищено паролем</string>
     <string name="share_permission_can_edit">Може редагувати</string>
     <string name="share_permission_file_drop">Додати файл</string>
