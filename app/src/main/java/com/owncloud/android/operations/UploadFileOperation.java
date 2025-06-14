@@ -982,7 +982,8 @@ public class UploadFileOperation extends SyncOperation {
             final Long creationTimestamp = FileUtil.getCreationTimestamp(originalFile);
 
             // Initialize channel and fileLock in try-with-resources
-            try (RandomAccessFile randomAccessFile = new RandomAccessFile(mFile.getStoragePath(), "rw");
+            try (
+                RandomAccessFile randomAccessFile = new RandomAccessFile(mFile.getStoragePath(), "rw");
                 FileChannel channel = randomAccessFile.getChannel();
                 FileLock fileLock = channel.tryLock()
             ) {
@@ -998,9 +999,10 @@ public class UploadFileOperation extends SyncOperation {
                     if (result.isSuccess()) {
                         if (temporalFile.length() == originalFile.length()) {
                             // Acquire lock on temporary file
-                            try (RandomAccessFile randomAccessTemporalFile = new RandomAccessFile(temporalFile.getAbsolutePath(), "rw");
+                            try (
+                                RandomAccessFile randomAccessTemporalFile = new RandomAccessFile(temporalFile.getAbsolutePath(), "rw");
                                 FileChannel tempChannel = randomAccessTemporalFile.getChannel();
-                                 FileLock tempFileLock = tempChannel.tryLock()) {
+                                FileLock tempFileLock = tempChannel.tryLock()) {
                                 if (tempFileLock != null) {
                                     // Use the temporary channel for the upload
                                     size = tempChannel.size();
