@@ -52,17 +52,18 @@ public class ScreenshotsIT extends AbstractOnServerIT {
 
     @Test
     public void gridViewScreenshot() {
-        ActivityScenario.launch(FileDisplayActivity.class);
+        try (ActivityScenario<FileDisplayActivity> ignored = ActivityScenario.launch(FileDisplayActivity.class)) {
 
-        onView(anyOf(withText(R.string.action_switch_grid_view), withId(R.id.switch_grid_view_button))).perform(click());
+            onView(anyOf(withText(R.string.action_switch_grid_view), withId(R.id.switch_grid_view_button))).perform(click());
 
-        shortSleep();
+            shortSleep();
 
-        Screengrab.screenshot("01_gridView");
+            Screengrab.screenshot("01_gridView");
 
-        onView(anyOf(withText(R.string.action_switch_list_view), withId(R.id.switch_grid_view_button))).perform(click());
+            onView(anyOf(withText(R.string.action_switch_list_view), withId(R.id.switch_grid_view_button))).perform(click());
 
-        Assert.assertTrue(true); // if we reach this, everything is ok
+            Assert.assertTrue(true); // if we reach this, everything is ok
+        }
     }
 
     @Test
@@ -77,61 +78,66 @@ public class ScreenshotsIT extends AbstractOnServerIT {
             assertTrue(result.isSuccess());
         }
 
-        ActivityScenario.launch(FileDisplayActivity.class);
+        try (ActivityScenario<FileDisplayActivity> ignored = ActivityScenario.launch(FileDisplayActivity.class)) {
 
-        // go into work folder
-        onView(withId(R.id.list_root)).perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));
+            // go into work folder
+            onView(withId(R.id.list_root)).perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));
 
-        Screengrab.screenshot("02_listView");
+            Screengrab.screenshot("02_listView");
 
-        Assert.assertTrue(true); // if we reach this, everything is ok
+            Assert.assertTrue(true); // if we reach this, everything is ok
+        }
     }
 
     @Test
     public void drawerScreenshot() {
-        ActivityScenario.launch(FileDisplayActivity.class);
+        try (ActivityScenario<FileDisplayActivity> ignored = ActivityScenario.launch(FileDisplayActivity.class)) {
 
-        onView(withId(R.id.drawer_layout)).perform(DrawerActions.open());
+            onView(withId(R.id.drawer_layout)).perform(DrawerActions.open());
 
-        Screengrab.screenshot("03_drawer");
+            Screengrab.screenshot("03_drawer");
 
-        onView(withId(R.id.drawer_layout)).perform(DrawerActions.close());
+            onView(withId(R.id.drawer_layout)).perform(DrawerActions.close());
 
-        Assert.assertTrue(true); // if we reach this, everything is ok
+            Assert.assertTrue(true); // if we reach this, everything is ok
+        }
     }
 
     @Test
     public void multipleAccountsScreenshot() {
-        ActivityScenario.launch(FileDisplayActivity.class);
+        try (ActivityScenario<FileDisplayActivity> ignored = ActivityScenario.launch(FileDisplayActivity.class)) {
 
-        onView(withId(R.id.switch_account_button)).perform(click());
+            onView(withId(R.id.switch_account_button)).perform(click());
 
-        Screengrab.screenshot("04_accounts");
+            Screengrab.screenshot("04_accounts");
 
-        pressBack();
+            pressBack();
 
-        Assert.assertTrue(true); // if we reach this, everything is ok
+            Assert.assertTrue(true); // if we reach this, everything is ok
+        }
     }
 
     @Test
     public void autoUploadScreenshot() {
-        ActivityScenario.launch(SyncedFoldersActivity.class);
+        try (ActivityScenario<SyncedFoldersActivity> ignored = ActivityScenario.launch(SyncedFoldersActivity.class)) {
 
-        Screengrab.screenshot("05_autoUpload");
+            Screengrab.screenshot("05_autoUpload");
 
-        Assert.assertTrue(true); // if we reach this, everything is ok
+            Assert.assertTrue(true); // if we reach this, everything is ok
+        }
     }
 
     @Test
     public void davdroidScreenshot() {
-        ActivityScenario.launch(SettingsActivity.class);
+        try (ActivityScenario<SettingsActivity> ignored = ActivityScenario.launch(SettingsActivity.class)) {
 
-        onData(PreferenceMatchers.withTitle(R.string.prefs_category_more)).perform(ViewActions.scrollTo());
+            onData(PreferenceMatchers.withTitle(R.string.prefs_category_more)).perform(ViewActions.scrollTo());
 
-        shortSleep();
+            shortSleep();
 
-        Screengrab.screenshot("06_davdroid");
+            Screengrab.screenshot("06_davdroid");
 
-        Assert.assertTrue(true); // if we reach this, everything is ok
+            Assert.assertTrue(true); // if we reach this, everything is ok
+        }
     }
 }
