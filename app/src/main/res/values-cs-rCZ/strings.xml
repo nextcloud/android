@@ -378,6 +378,7 @@
     <string name="file_already_exists">Takto nazvaný soubor už zde existuje</string>
     <string name="file_delete">Smazat</string>
     <string name="file_detail_activity_error">Při načítání aktivit u souboru došlo k chybě</string>
+    <string name="file_detail_share_already_active">Sdílení není možné vytvořit – to už je aktivní od tohoto uživatele.</string>
     <string name="file_detail_sharing_fragment_no_contact_app_message">Pro označené kontakty není k dispozici žádná aplikace</string>
     <string name="file_details_no_content">Nepodařilo se načíst podrobnosti.</string>
     <string name="file_icon">Soubor</string>
@@ -437,6 +438,7 @@
     <string name="file_name_validator_error_reserved_names">%s je nepovolený název</string>
     <string name="file_name_validator_rename_before_move_or_copy">%s. Před přesunutím nebo kopírováním soubor přejmenujte</string>
     <string name="file_not_found">Soubor nenalezen</string>
+    <string name="file_not_found_cannot_share">Soubor nenalezen. Sdílení proto není možné vytvořit.</string>
     <string name="file_not_synced">Soubor se nepodařilo synchronizovat. Zobrazuje se poslední dostupná verze.</string>
     <string name="file_rename">Přejmenovat</string>
     <string name="file_upload_worker_error_notification_title">Nahrávání se nezdařilo. Není k dispozici připojení k Internetu</string>
@@ -798,6 +800,7 @@
     <string name="send_share">Poslat sdílení</string>
     <string name="sendbutton_description">Ikona tlačítka pro odesílání</string>
     <string name="set_as">Nastavit jako</string>
+    <string name="set_download_limit_failed">Nebylo možné nastavit limit počtu stahování. Zkontrolujte schopnosti.</string>
     <string name="set_note">Nastavit poznámku</string>
     <string name="set_picture_as">Použít obrázek jako</string>
     <string name="set_status">Nastavit stav</string>
@@ -805,6 +808,7 @@
     <string name="setup_e2e">V průběhu nastavování šifrování mezi koncovými body obdržíte náhodnou 12 slovnou mnemotechnickou frázi, které bude zapotřebí pro otevírání souborů na ostatních zařízeních. Ta bude uložena pouze na tomto zařízení a je možné ji na této obrazovce znovu zobrazit. Prosím poznamenejte si jí na bezpečné místo!</string>
     <string name="share">Nasdílet</string>
     <string name="share_allow_download_and_sync_permission">Povolit stahování a synchronizaci</string>
+    <string name="share_cannot_update_empty_note">Aktualizovat toto sdílení nebylo možné. Přidejte poznámku a zkuste to znovu.</string>
     <string name="share_copy_link">Nasdílet a zkopírovat odkaz</string>
     <string name="share_create_permission">Vytvářet</string>
     <string name="share_custom_permission">Uživatelsky určená oprávnění</string>
@@ -831,6 +835,7 @@
     <string name="share_no_expiration_date_label">Nastavit datum skončení platnosti</string>
     <string name="share_no_password_title">Nastavit heslo</string>
     <string name="share_not_allowed_when_file_drop">V případě zabezpečeného odhozu souboru není sdílení dál dalším dovoleno</string>
+    <string name="share_option_required">Aby bylo možné pokračovat, vyberte alespoň jednu možnost sdílení</string>
     <string name="share_password_title">Chráněno heslem</string>
     <string name="share_permission_can_edit">Může upravovat</string>
     <string name="share_permission_file_drop">Předání souboru</string>
