@@ -1354,4 +1354,6 @@
     <string name="auto_upload_sub_folder_warning">This folder is already included in the parent folder’s sync, which may cause duplicate uploads</string>
     <string name="sync_anyway">Sync anyway</string>
     <string name="sync_duplication">Sync duplication</string>
+    <string name="server_not_reachable">Could not load content</string>
+    <string name="server_not_reachable_content">The device is likely not connected to the internet</string>
 </resources>
