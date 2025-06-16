@@ -8,6 +8,7 @@
 package com.nextcloud.utils.extensions
 
 import com.nextcloud.client.database.entity.OfflineOperationEntity
+import com.nextcloud.model.OfflineOperationType
 import com.owncloud.android.MainApp
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.FileDataStorageManager
@@ -26,25 +27,27 @@ fun Pair<RemoteOperationResult<*>?, RemoteOperation<*>?>?.getErrorMessage(): Str
     return ErrorMessageAdapter.getErrorCauseMessage(result, operation, MainApp.getAppContext().resources)
 }
 
-@Suppress("NestedBlockDepth")
 fun RemoteOperationResult<*>?.getConflictedRemoteIdsWithOfflineOperations(
     offlineOperations: List<OfflineOperationEntity>,
     fileDataStorageManager: FileDataStorageManager
 ): HashMap<String, String>? {
-    val newFiles = toOCFile() ?: return null
-    val result = hashMapOf<String, String>()
+    val relevantOperations = offlineOperations
+        .filter {
+            it.type is OfflineOperationType.CreateFile || it.type is OfflineOperationType.CreateFolder
+        }
+        .filter { fileDataStorageManager.fileExists(it.path) }
+        .groupBy { it.filename }
 
-    offlineOperations.forEach { operation ->
-        newFiles.forEach { file ->
-            if (fileDataStorageManager.fileExists(operation.path) && operation.filename == file.fileName) {
-                operation.path?.let { path ->
-                    result[file.remoteId] = path
-                }
-            }
+    val newFiles = toOCFile() ?: return null
+
+    val result = HashMap<String, String>()
+    for (file in newFiles) {
+        relevantOperations[file.fileName]?.forEach { op ->
+            op.path?.let { result[file.remoteId] = it }
         }
     }
 
-    return result.ifEmpty { null }
+    return if (result.isEmpty()) null else result
 }
 
 fun ResultCode.isFileSpecificError(): Boolean {
