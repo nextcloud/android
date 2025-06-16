@@ -259,7 +259,9 @@ public class RefreshFolderOperation extends RemoteOperation {
             fileDataStorageManager.saveFile(mLocalFolder);
         }
 
-        checkFolderConflictData(result);
+        if (result.getCode() == ResultCode.SYNC_CONFLICT) {
+            checkFolderConflictData(result);
+        }
 
         if (!mSyncFullAccount && mRemoteFolderChanged) {
             sendLocalBroadcast(EVENT_SINGLE_FOLDER_CONTENTS_SYNCED, mLocalFolder.getRemotePath(), result);
@@ -280,7 +282,9 @@ public class RefreshFolderOperation extends RemoteOperation {
 
     private void checkFolderConflictData(RemoteOperationResult result) {
         var offlineOperations = fileDataStorageManager.offlineOperationDao.getAll();
-        if (offlineOperations.isEmpty()) return;
+        if (offlineOperations.isEmpty()) {
+            return;
+        }
 
         var conflictData = RemoteOperationResultExtensionsKt.getConflictedRemoteIdsWithOfflineOperations(result, offlineOperations, fileDataStorageManager);
         if (conflictData != null && !conflictData.equals(lastConflictData)) {
