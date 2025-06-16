@@ -43,7 +43,8 @@
     <string name="app_config_proxy_port_title">Proxy Port</string>
     <string name="app_config_enforce_protection_title">Enforce Protection</string>
     <string name="offline_operations_file_does_not_exists_yet">File does not exists, yet. Please upload the file first.</string>
-    <string name="offline_operations_worker_notification_delete_offline_folder">Delete offline folder</string>
+    <string name="offline_operations_worker_notification_delete_folder">Delete folder</string>
+    <string name="offline_operations_worker_notification_delete_file">Delete file</string>
     <string name="offline_operations_worker_notification_conflict_text">Conflicting folder: %s</string>
     <string name="offline_operations_worker_notification_start_text">Starting offline operations</string>
     <string name="offline_operations_worker_notification_error_text">The offline operation cannot be completed. %s</string>
