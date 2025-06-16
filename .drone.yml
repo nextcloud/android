@@ -74,7 +74,7 @@ name: tests-master
 
 steps:
   - name: gplay
-    image: ghcr.io/nextcloud/continuous-integration-android8:3
+    image: ghcr.io/nextcloud/continuous-integration-android8:4
     privileged: true
     environment:
       LOG_USERNAME:
