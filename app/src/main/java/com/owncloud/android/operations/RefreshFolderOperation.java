@@ -269,9 +269,7 @@ public class RefreshFolderOperation extends RemoteOperation {
             }
         }
 
-        if (result.getCode() == ResultCode.SYNC_CONFLICT) {
-            checkFolderConflictData(result);
-        }
+        detectConflictsBetweenRemoteAndOfflineOperations(result);
 
         if (!mSyncFullAccount && mRemoteFolderChanged && mLocalFolder != null) {
             sendLocalBroadcast(EVENT_SINGLE_FOLDER_CONTENTS_SYNCED, mLocalFolder.getRemotePath(), result);
@@ -290,13 +288,29 @@ public class RefreshFolderOperation extends RemoteOperation {
 
     private static HashMap<String, String> lastConflictData = new HashMap<>();
 
-    private void checkFolderConflictData(RemoteOperationResult result) {
+    /**
+     * Detects file conflicts between newly fetched remote files and locally stored offline operations.
+     *
+     * <p>
+     *     This method compares files fetched in a remote operation result with pending offline operations.
+     * </p>
+     *
+     * <p>If new conflicts are found and differ from the previous detection, they are cached and a conflict
+     * broadcast event is triggered.</p>
+     *
+     * @param result The result of a remote operation, containing potentially updated or new remote files.
+     */
+    private void detectConflictsBetweenRemoteAndOfflineOperations(Object result) {
+        if (!(result instanceof RemoteOperationResult<?> remoteOperationResult)) {
+            return;
+        }
+
         var offlineOperations = fileDataStorageManager.offlineOperationDao.getAll();
         if (offlineOperations.isEmpty()) {
             return;
         }
 
-        var conflictData = RemoteOperationResultExtensionsKt.getConflictedRemoteIdsWithOfflineOperations(result, offlineOperations, fileDataStorageManager);
+        var conflictData = RemoteOperationResultExtensionsKt.getConflictedRemoteIdsWithOfflineOperations(remoteOperationResult, offlineOperations, fileDataStorageManager);
         if (conflictData != null && !conflictData.equals(lastConflictData)) {
             lastConflictData = new HashMap<>(conflictData);
             sendFolderSyncConflictEventBroadcast(conflictData);
