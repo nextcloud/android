@@ -1326,9 +1326,6 @@
     <string name="oc_file_list_adapter_offline_operation_remove_description_text">Pending Remove Operation</string>
     <string name="warn_rename_extension">Changing the extension might cause this file to open in a different application</string>
     <string name="pick_contact_to_share_with">Pick contact to share with</string>
-    <string name="upload_gplay">Permission changes</string>
-    <string name="upload_gplay_desc">A new permission is required to access location information for uploaded images.\nMake sure that media access is set to \"Always allow all\".</string>
-    <string name="click_to_learn_how_to_re_enable_auto_uploads">Manual intervention required to re-enable auto-upload</string>
     <string name="share_download_limit">Set download limit</string>
     <string name="set_download_limit_failed">Unable to set download limit. Please check capabilities.</string>
     <string name="download_limit">Download limit</string>
