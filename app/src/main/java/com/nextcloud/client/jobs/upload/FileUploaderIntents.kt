@@ -12,7 +12,6 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import com.owncloud.android.authentication.AuthenticatorActivity
-import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode
 import com.owncloud.android.operations.UploadFileOperation
 import com.owncloud.android.ui.activity.ConflictsResolveActivity.Companion.createIntent
 import com.owncloud.android.ui.activity.UploadListActivity
@@ -54,32 +53,6 @@ class FileUploaderIntents(private val context: Context) {
             System.currentTimeMillis().toInt(),
             intent,
             PendingIntent.FLAG_ONE_SHOT or PendingIntent.FLAG_IMMUTABLE
-        )
-    }
-
-    fun resultIntent(resultCode: ResultCode, operation: UploadFileOperation): PendingIntent {
-        val intent = if (resultCode == ResultCode.SYNC_CONFLICT) {
-            createIntent(
-                operation.file,
-                operation.user,
-                operation.ocUploadId,
-                Intent.FLAG_ACTIVITY_CLEAR_TOP,
-                context
-            )
-        } else {
-            UploadListActivity.createIntent(
-                operation.file,
-                operation.user,
-                Intent.FLAG_ACTIVITY_CLEAR_TOP,
-                context
-            )
-        }
-
-        return PendingIntent.getActivity(
-            context,
-            System.currentTimeMillis().toInt(),
-            intent,
-            PendingIntent.FLAG_IMMUTABLE
         )
     }
 
