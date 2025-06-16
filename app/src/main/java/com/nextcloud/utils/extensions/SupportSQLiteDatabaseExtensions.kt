@@ -10,11 +10,7 @@ package com.nextcloud.utils.extensions
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.nextcloud.client.database.migrations.model.SQLiteColumnType
 
-fun SupportSQLiteDatabase.addColumnIfNotExists(
-    tableName: String,
-    columnName: String,
-    columnType: SQLiteColumnType
-) {
+fun SupportSQLiteDatabase.addColumnIfNotExists(tableName: String, columnName: String, columnType: SQLiteColumnType) {
     val cursor = query("PRAGMA table_info($tableName)")
     var columnExists = false
 
