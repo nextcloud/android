@@ -6,7 +6,6 @@
  */
 package com.owncloud.android.utils;
 
-import android.os.Build;
 import android.text.TextUtils;
 
 import com.owncloud.android.lib.common.utils.Log_OC;
@@ -49,10 +48,6 @@ public final class FileUtil {
 
     public static @Nullable
     Long getCreationTimestamp(File file) {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
-            return null;
-        }
-
         try {
             return Files.readAttributes(file.toPath(), BasicFileAttributes.class)
                 .creationTime()

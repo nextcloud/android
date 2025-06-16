@@ -30,7 +30,7 @@ class GetSharesForFileOperation(
     storageManager: FileDataStorageManager
 ) : SyncOperation(storageManager) {
 
-    @Suppress("DEPRECATION")
+    @Suppress("DEPRECATION", "NestedBlockDepth")
     @Deprecated("Deprecated in Java")
     override fun run(client: OwnCloudClient): RemoteOperationResult<List<OCShare>> {
         val result = GetSharesForFileRemoteOperation(path, reshares, subfiles).execute(client)

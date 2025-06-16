@@ -8,7 +8,6 @@ package com.nextcloud.client.media
 
 import android.media.AudioFocusRequest
 import android.media.AudioManager
-import android.os.Build
 
 /**
  * Wrapper around audio manager exposing simplified audio focus API and
@@ -19,45 +18,29 @@ import android.os.Build
  */
 internal class AudioFocusManager(
     private val audioManger: AudioManager,
-    private val onFocusChange: (AudioFocus) -> Unit
+    private val onFocusChange: (AudioFocus) -> Unit,
+    requestBuilder: AudioFocusRequest.Builder = AudioFocusRequest.Builder(AudioManager.AUDIOFOCUS_GAIN)
 ) {
-
-    private val focusListener = object : AudioManager.OnAudioFocusChangeListener {
-        override fun onAudioFocusChange(focusChange: Int) {
-            val focus = when (focusChange) {
-                AudioManager.AUDIOFOCUS_GAIN -> AudioFocus.FOCUS
-                AudioManager.AUDIOFOCUS_GAIN_TRANSIENT -> AudioFocus.FOCUS
-                AudioManager.AUDIOFOCUS_GAIN_TRANSIENT_MAY_DUCK -> AudioFocus.FOCUS
-                AudioManager.AUDIOFOCUS_LOSS -> AudioFocus.LOST
-                AudioManager.AUDIOFOCUS_LOSS_TRANSIENT -> AudioFocus.LOST
-                AudioManager.AUDIOFOCUS_LOSS_TRANSIENT_CAN_DUCK -> AudioFocus.DUCK
-                else -> null
-            }
-            focus?.let { onFocusChange(it) }
+    private val focusListener = AudioManager.OnAudioFocusChangeListener { focusChange ->
+        val focus = when (focusChange) {
+            AudioManager.AUDIOFOCUS_GAIN,
+            AudioManager.AUDIOFOCUS_GAIN_TRANSIENT,
+            AudioManager.AUDIOFOCUS_GAIN_TRANSIENT_MAY_DUCK -> AudioFocus.FOCUS
+            AudioManager.AUDIOFOCUS_LOSS,
+            AudioManager.AUDIOFOCUS_LOSS_TRANSIENT -> AudioFocus.LOST
+            AudioManager.AUDIOFOCUS_LOSS_TRANSIENT_CAN_DUCK -> AudioFocus.DUCK
+            else -> null
         }
-    }
-    private var focusRequest: AudioFocusRequest? = null
-
-    init {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            focusRequest = AudioFocusRequest.Builder(AudioManager.AUDIOFOCUS_GAIN).run {
-                setWillPauseWhenDucked(true)
-                setOnAudioFocusChangeListener(focusListener)
-            }.build()
-        }
+        focus?.let { onFocusChange(it) }
     }
 
-    /**
-     * Request audio focus. Focus is reported via callback.
-     * If focus cannot be gained, lost of focus is reported.
-     */
+    private val focusRequest = requestBuilder
+        .setWillPauseWhenDucked(true)
+        .setOnAudioFocusChangeListener(focusListener)
+        .build()
+
     fun requestFocus() {
-        val requestResult = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            focusRequest?.let { audioManger.requestAudioFocus(it) }
-        } else {
-            audioManger.requestAudioFocus(focusListener, AudioManager.STREAM_MUSIC, AudioManager.AUDIOFOCUS_GAIN)
-        }
-
+        val requestResult = audioManger.requestAudioFocus(focusRequest)
         if (requestResult == AudioManager.AUDIOFOCUS_REQUEST_GRANTED) {
             focusListener.onAudioFocusChange(AudioManager.AUDIOFOCUS_GAIN)
         } else {
@@ -65,17 +48,8 @@ internal class AudioFocusManager(
         }
     }
 
-    /**
-     * Release audio focus. Loss of focus is reported via callback.
-     */
     fun releaseFocus() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            focusRequest?.let {
-                audioManger.abandonAudioFocusRequest(it)
-            } ?: AudioManager.AUDIOFOCUS_REQUEST_FAILED
-        } else {
-            audioManger.abandonAudioFocus(focusListener)
-        }
+        audioManger.abandonAudioFocusRequest(focusRequest)
         focusListener.onAudioFocusChange(AudioManager.AUDIOFOCUS_LOSS)
     }
 }
