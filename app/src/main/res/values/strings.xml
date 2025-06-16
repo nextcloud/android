@@ -1325,14 +1325,9 @@
     <string name="two_way_sync_activity_disable_all_button_title">Disable for all folders</string>
     <string name="oc_file_list_adapter_offline_operation_remove_description_text">Pending Remove Operation</string>
     <string name="warn_rename_extension">Changing the extension might cause this file to open in a different application</string>
-    <string name="auto_upload_gplay">Auto upload behaviour changed</string>
-    <string name="auto_upload_gplay_desc">Due to new restrictions imposed by Google, the auto upload feature will no longer be able to automatically remove uploaded files.</string>
     <string name="pick_contact_to_share_with">Pick contact to share with</string>
-    <string name="auto_upload_gplay_desc2">Due to new restrictions imposed by Google, we have been forced to remove an important permission. As a result, auto upload will only be able to upload image and video files.\nAdditionally, a new permission is required to access location information for uploaded images.\nMake sure that media access is set to \"Always allow all\".</string>
     <string name="upload_gplay">Permission changes</string>
     <string name="upload_gplay_desc">A new permission is required to access location information for uploaded images.\nMake sure that media access is set to \"Always allow all\".</string>
-    <string name="re_enable_auto_upload">Changes to auto upload</string>
-    <string name="re_enable_auto_upload_desc">Due to new restrictions imposed by Google, we have been forced to remove an important permission. We are currently working with Google to resolve this issue and restore full functionality.\n\nTo re-enable auto upload for new photos and videos:\nSelect \"Allow all\" in the following dialogue or the system settings.\nAllow media location when prompted, as this allows Nextcloud to store location data when uploading images.\n\nThe permissions dialogue is only displayed when necessary. If in doubt, check the system settings.\n\nAuto upload will only be able to upload image and video files when using the Google Play version of the Nextcloud app.\n\nPlease check for any files that may not have been uploaded since December 2024.</string>
     <string name="click_to_learn_how_to_re_enable_auto_uploads">Manual intervention required to re-enable auto-upload</string>
     <string name="share_download_limit">Set download limit</string>
     <string name="set_download_limit_failed">Unable to set download limit. Please check capabilities.</string>

@@ -41,7 +41,6 @@ import com.owncloud.android.datamodel.MediaFoldersModel
 import com.owncloud.android.datamodel.MediaProvider
 import com.owncloud.android.datamodel.SyncedFolderProvider
 import com.owncloud.android.lib.common.utils.Log_OC
-import com.owncloud.android.ui.activity.FileDisplayActivity
 import com.owncloud.android.ui.activity.ManageAccountsActivity
 import com.owncloud.android.ui.activity.SyncedFoldersActivity
 import com.owncloud.android.ui.notifications.NotificationUtils
@@ -193,38 +192,6 @@ class MediaFoldersDetectionWork constructor(
         }
 
         return Result.success()
-    }
-
-    @Suppress("MagicNumber")
-    private fun sendAutoUploadNotification() {
-        val notificationId = 326
-        val intent = Intent(context, FileDisplayActivity::class.java).apply {
-            flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
-            action = FileDisplayActivity.AUTO_UPLOAD_NOTIFICATION
-        }
-        val pendingIntent = PendingIntent.getActivity(
-            context,
-            0,
-            intent,
-            PendingIntent.FLAG_ONE_SHOT or PendingIntent.FLAG_IMMUTABLE
-        )
-
-        val notificationBuilder = NotificationCompat.Builder(
-            context,
-            NotificationUtils.NOTIFICATION_CHANNEL_GENERAL
-        )
-            .setSmallIcon(R.drawable.notification_icon)
-            .setLargeIcon(BitmapFactory.decodeResource(context.resources, R.drawable.notification_icon))
-            .setContentTitle(context.getString(R.string.re_enable_auto_upload))
-            .setContentText(context.getString(R.string.click_to_learn_how_to_re_enable_auto_uploads))
-            .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
-            .setAutoCancel(true)
-            .setContentIntent(pendingIntent)
-
-        viewThemeUtils.androidx.themeNotificationCompatBuilder(context, notificationBuilder)
-
-        val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-        notificationManager.notify(notificationId, notificationBuilder.build())
     }
 
     @Suppress("LongMethod")
