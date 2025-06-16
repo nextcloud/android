@@ -202,6 +202,7 @@ class OfflineOperationsWorker(
                 fileDataStorageManager.getFileByDecryptedRemotePath(operationType.path)?.let { ocFile ->
                     repository.deleteOperation(ocFile)
                 }
+                notificationManager.dismissNotification(operation.id)
             } else {
                 repository.updateNextOperations(operation)
             }
