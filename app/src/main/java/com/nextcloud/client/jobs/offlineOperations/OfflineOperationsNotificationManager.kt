@@ -88,30 +88,8 @@ class OfflineOperationsNotificationManager(private val context: Context, viewThe
             return
         }
 
-        val resolveConflictIntent = ConflictsResolveActivity.createIntent(file, path, context)
-        val resolveConflictPendingIntent = PendingIntent.getActivity(
-            context,
-            id,
-            resolveConflictIntent,
-            PendingIntent.FLAG_IMMUTABLE
-        )
-        val resolveConflictAction = NotificationCompat.Action(
-            R.drawable.ic_cloud_upload,
-            context.getString(R.string.upload_list_resolve_conflict),
-            resolveConflictPendingIntent
-        )
-
-        val deleteIntent = Intent(context, OfflineOperationActionReceiver::class.java).apply {
-            putExtra(OfflineOperationActionReceiver.FILE_PATH, path)
-            putExtra(OfflineOperationActionReceiver.USER, user)
-        }
-        val deletePendingIntent =
-            PendingIntent.getBroadcast(context, 0, deleteIntent, PendingIntent.FLAG_IMMUTABLE)
-        val deleteAction = NotificationCompat.Action(
-            R.drawable.ic_delete,
-            context.getString(R.string.offline_operations_worker_notification_delete_offline_folder),
-            deletePendingIntent
-        )
+        val resolveConflictAction = getResolveConflictAction(file, id, path)
+        val deleteAction = getDeleteAction(file.isFolder, path, user)
 
         val title = context.getString(
             R.string.offline_operations_worker_notification_conflict_text,
@@ -121,11 +99,48 @@ class OfflineOperationsNotificationManager(private val context: Context, viewThe
         notificationBuilder
             .clearActions()
             .setContentTitle(title)
-            .setContentIntent(resolveConflictPendingIntent)
+            .setContentIntent(resolveConflictAction.actionIntent)
             .addAction(deleteAction)
             .addAction(resolveConflictAction)
 
         notificationManager.notify(id, notificationBuilder.build())
+    }
+
+    private fun getResolveConflictAction(file: OCFile, id: Int, path: String): NotificationCompat.Action {
+        val intent = ConflictsResolveActivity.createIntent(file, path, context)
+        val pendingIntent = PendingIntent.getActivity(
+            context,
+            id,
+            intent,
+            PendingIntent.FLAG_IMMUTABLE
+        )
+
+        return NotificationCompat.Action(
+            R.drawable.ic_cloud_upload,
+            context.getString(R.string.upload_list_resolve_conflict),
+            pendingIntent
+        )
+    }
+
+    private fun getDeleteAction(isFolder: Boolean, path: String?, user: User): NotificationCompat.Action {
+        val intent = Intent(context, OfflineOperationActionReceiver::class.java).apply {
+            putExtra(OfflineOperationActionReceiver.FILE_PATH, path)
+            putExtra(OfflineOperationActionReceiver.USER, user)
+        }
+
+        val pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_IMMUTABLE)
+
+        val textId = if (isFolder) {
+            R.string.offline_operations_worker_notification_delete_folder
+        } else {
+            R.string.offline_operations_worker_notification_delete_file
+        }
+
+        return NotificationCompat.Action(
+            R.drawable.ic_delete,
+            context.getString(textId),
+            pendingIntent
+        )
     }
 
     fun dismissNotification(id: Int?) {
