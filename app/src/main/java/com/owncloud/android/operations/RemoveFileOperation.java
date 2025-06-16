@@ -102,10 +102,18 @@ public class RemoveFileOperation extends SyncOperation {
             }
             result = operation.execute(client);
             if (result.isSuccess() || result.getCode() == ResultCode.FILE_NOT_FOUND) {
-                localRemovalFailed = !(getStorageManager().removeFile(fileToRemove, true, true));
+                if (fileToRemove.isFolder()) {
+                    localRemovalFailed = !(getStorageManager().removeFolder(fileToRemove, true, true));
+                } else {
+                    localRemovalFailed = !(getStorageManager().removeFile(fileToRemove, true, true));
+                }
             }
         } else {
-            localRemovalFailed = !(getStorageManager().removeFile(fileToRemove, false, true));
+            if (fileToRemove.isFolder()) {
+                localRemovalFailed = !(getStorageManager().removeFolder(fileToRemove, false, true));
+            } else {
+                localRemovalFailed = !(getStorageManager().removeFile(fileToRemove, false, true));
+            }
             if (!localRemovalFailed) {
                 result = new RemoteOperationResult(ResultCode.OK);
             }

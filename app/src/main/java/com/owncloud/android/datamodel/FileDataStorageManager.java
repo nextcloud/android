@@ -911,6 +911,7 @@ public class FileDataStorageManager {
         // for recursive deletion
         String where = ProviderTableMeta.FILE_ACCOUNT_OWNER + AND + ProviderTableMeta.FILE_PATH + "=?";
         String[] whereArgs = new String[]{user.getAccountName(), folder.getRemotePath()};
+        
         int deleted = 0;
         if (getContentProviderClient() != null) {
             try {

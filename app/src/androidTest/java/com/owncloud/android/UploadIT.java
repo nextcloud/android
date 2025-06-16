@@ -200,6 +200,23 @@ public class UploadIT extends AbstractOnServerIT {
     }
 
     @Test
+    public void testUploadInNonExistingParentFolder() {
+        createFolder(FOLDER + "2/3/4/");
+        assertTrue(new RemoveFileOperation(getStorageManager().getFileByPath(FOLDER),
+                                           false,
+                                           user,
+                                           false,
+                                           targetContext,
+                                           getStorageManager()
+        ).execute(client).isSuccess());
+
+        OCUpload ocUpload = new OCUpload(FileStorageUtils.getTemporalPath(account.name) + "/empty.txt",
+                                         FOLDER + "2/3/4/1.txt", account.name);
+
+        uploadOCUpload(ocUpload);
+    }
+
+    @Test
     public void testUploadOnChargingOnlyButNotCharging() {
         OCUpload ocUpload = new OCUpload(FileStorageUtils.getTemporalPath(account.name) + "/empty.txt",
                                          FOLDER + "notCharging.txt", account.name);
