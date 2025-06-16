@@ -112,11 +112,7 @@ class RemoveFilesDialogFragment :
                     fileActivity.fileOperationsHelper?.removeFiles(files, true, false)
                 } else {
                     files.forEach { file ->
-                        fileDataStorageManager.addRemoveFileOfflineOperation(
-                            file.decryptedRemotePath,
-                            file.fileName,
-                            file.parentId
-                        )
+                        fileDataStorageManager.addRemoveFileOfflineOperation(file)
                     }
                 }
 
