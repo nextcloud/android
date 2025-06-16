@@ -32,6 +32,7 @@
     <string name="advanced_settings">Допълнителни настройки</string>
     <string name="allow_resharing">Може да споделя повторно</string>
     <string name="app_config_base_url_title">Основен URL адрес</string>
+    <string name="app_config_disable_intro_title">Изключи въведението</string>
     <string name="app_config_proxy_port_title">Порт на прокси сървъра</string>
     <string name="app_widget_description">Показва един изпълним модул от таблото за управление</string>
     <string name="appbar_search_in">Търсене в %s</string>
@@ -232,6 +233,7 @@
     <string name="drawer_item_home">Начало</string>
     <string name="drawer_item_notifications">Известия</string>
     <string name="drawer_item_on_device">На устройството</string>
+    <string name="drawer_item_personal_files">Лични файлове</string>
     <string name="drawer_item_recently_modified">Последно преработени</string>
     <string name="drawer_item_shared">Споделени</string>
     <string name="drawer_item_trashbin">Изтрити файлове</string>
@@ -316,6 +318,7 @@
     <string name="file_list_empty_headline">Няма файлове</string>
     <string name="file_list_empty_headline_search">Няма намерени резултати в тази папла</string>
     <string name="file_list_empty_headline_server_search">Няма резултат</string>
+    <string name="file_list_empty_local_search">Не бяха открити файлове или папки, които да отговарят на търсенето</string>
     <string name="file_list_empty_moving">Тук няма нищо. Можете да добавите папка.</string>
     <string name="file_list_empty_on_device">Свалените файлове и папки ще се показват тук.</string>
     <string name="file_list_empty_recently_modified">Няма модифицирани файлове през последните 7 дни</string>
@@ -389,6 +392,7 @@
     <string name="foreign_files_success">Всички файлове са преместени.</string>
     <string name="forward">Напред</string>
     <string name="fourHours">4 часа</string>
+    <string name="grid_file_features_live_photo_content_description">Иконата служи за индикация дали \"live photo\" е налична</string>
     <string name="hidden_file_name_warning">Името ще доведе до скрит файл</string>
     <string name="hint_name">Име</string>
     <string name="hint_note">Бележка</string>
@@ -428,7 +432,7 @@
     <string name="login_url_helper_text">Връзката към вашия %1$sуеб интерфейс, когато го отворите в браузъра.</string>
     <string name="logs_menu_delete">Изтрий журналите</string>
     <string name="logs_menu_refresh">Опресни</string>
-    <string name="logs_menu_search">Търсене на журнали</string>
+    <string name="logs_menu_search">Търсене в регистрите</string>
     <string name="logs_menu_send">Изпращане на журнали по имейл</string>
     <string name="logs_status_filtered">Журнали:%1$d kB, заявката съвпада%2$d /%3$d в%4$d ms</string>
     <string name="logs_status_loading">Зареждане…</string>
@@ -590,7 +594,7 @@
     <string name="recommend_subject">Пробвайте%1$sна вашето устройство</string>
     <string name="recommend_text">Каня Ви да използвате %1$s на вашето device.\nDownload тук %2$s</string>
     <string name="recommend_urls">%1$s или %2$s</string>
-    <string name="recommended_files_title">Препоръчани файлове</string>
+    <string name="recommended_files_title">Файлове</string>
     <string name="refresh_content">Обновяване на съдържанието</string>
     <string name="reload">Презареди</string>
     <string name="remote">(отдалечен)</string>
@@ -670,6 +674,7 @@
     <string name="share_read_permission">Прочитане</string>
     <string name="share_remote_clarification">%1$s (отдалечен)</string>
     <string name="share_room_clarification">%1$s (разговор)</string>
+    <string name="share_search_internal">Добави потребители и екипи</string>
     <string name="share_send_new_email">Изпращане на нов имейл</string>
     <string name="share_send_note">Бележка за получателя</string>
     <string name="share_settings">Настройки</string>
