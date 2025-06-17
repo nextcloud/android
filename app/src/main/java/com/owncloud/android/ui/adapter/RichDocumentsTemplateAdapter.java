@@ -20,7 +20,6 @@ import com.owncloud.android.databinding.TemplateButtonBinding;
 import com.owncloud.android.datamodel.Template;
 import com.owncloud.android.ui.dialog.ChooseRichDocumentsTemplateDialogFragment;
 import com.owncloud.android.utils.NextcloudServer;
-import com.owncloud.android.utils.glide.CustomGlideStreamLoader;
 import com.owncloud.android.utils.theme.ViewThemeUtils;
 
 import java.util.ArrayList;
@@ -121,7 +120,7 @@ public class RichDocumentsTemplateAdapter extends RecyclerView.Adapter<RichDocum
                 case PRESENTATION -> R.drawable.file_ppt;
             };
 
-            Glide.with(context).using(new CustomGlideStreamLoader(currentAccountProvider.getUser(), clientFactory))
+            Glide.with(context)
                 .load(template.getThumbnailLink())
                 .placeholder(placeholder)
                 .error(placeholder)

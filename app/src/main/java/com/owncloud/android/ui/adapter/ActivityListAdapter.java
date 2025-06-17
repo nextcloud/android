@@ -13,7 +13,6 @@ package com.owncloud.android.ui.adapter;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.content.res.Resources;
-import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.net.Uri;
@@ -34,12 +33,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.bumptech.glide.GenericRequestBuilder;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.load.model.StreamEncoder;
-import com.bumptech.glide.load.resource.file.FileToStreamDecoder;
-import com.caverock.androidsvg.SVG;
 import com.nextcloud.client.account.CurrentAccountProvider;
 import com.nextcloud.client.network.ClientFactory;
 import com.nextcloud.common.NextcloudClient;
@@ -55,12 +50,8 @@ import com.owncloud.android.lib.resources.activities.models.PreviewObject;
 import com.owncloud.android.ui.interfaces.ActivityListInterface;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
-import com.owncloud.android.utils.glide.CustomGlideStreamLoader;
-import com.owncloud.android.utils.svg.SvgBitmapTranscoder;
-import com.owncloud.android.utils.svg.SvgDecoder;
 import com.owncloud.android.utils.theme.ViewThemeUtils;
 
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -247,7 +238,7 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             } else {
                 placeholder = R.drawable.file_movie;
             }
-            Glide.with(context).using(new CustomGlideStreamLoader(currentAccountProvider.getUser(), clientFactory))
+            Glide.with(context)
                 .load(previewObject.getSource())
                 .placeholder(placeholder)
                 .error(placeholder)
@@ -269,21 +260,9 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     }
 
     private void downloadIcon(Activity activity, ImageView itemViewType) {
-        GenericRequestBuilder<Uri, InputStream, SVG, Bitmap> requestBuilder = Glide.with(context)
-            .using(Glide.buildStreamModelLoader(Uri.class, context), InputStream.class)
-            .from(Uri.class)
-            .as(SVG.class)
-            .transcode(new SvgBitmapTranscoder(128, 128), Bitmap.class)
-            .sourceEncoder(new StreamEncoder())
-            .cacheDecoder(new FileToStreamDecoder<>(new SvgDecoder()))
-            .decoder(new SvgDecoder())
-            .placeholder(R.drawable.ic_activity)
-            .error(R.drawable.ic_activity)
-            .animate(android.R.anim.fade_in);
-
         Uri uri = Uri.parse(activity.getIcon());
-        requestBuilder
-            .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+        
+        Glide.with(context)
             .load(uri)
             .into(itemViewType);
     }

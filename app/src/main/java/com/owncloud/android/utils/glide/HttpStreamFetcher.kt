@@ -8,6 +8,7 @@
 package com.owncloud.android.utils.glide
 
 import com.bumptech.glide.Priority
+import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.data.DataFetcher
 import com.nextcloud.client.account.User
 import com.nextcloud.client.network.ClientFactory
@@ -29,7 +30,7 @@ class HttpStreamFetcher internal constructor(
     private val url: String
 ) : DataFetcher<InputStream?> {
     @Throws(Exception::class)
-    override fun loadData(priority: Priority): InputStream? {
+    override fun loadData(priority: Priority, callback: DataFetcher.DataCallback<in InputStream?>) {
         val client = clientFactory.create(user)
 
         if (client != null && url.isNotBlank()) {
@@ -40,7 +41,7 @@ class HttpStreamFetcher internal constructor(
                 get.setRequestHeader(RemoteOperation.OCS_API_HEADER, RemoteOperation.OCS_API_HEADER_VALUE)
                 val status = client.executeMethod(get)
                 if (status == HttpStatus.SC_OK) {
-                    return getResponseAsInputStream(get)
+                    callback.onDataReady(getResponseAsInputStream(get))
                 } else {
                     client.exhaustResponse(get.responseBodyAsStream)
                 }
@@ -50,7 +51,6 @@ class HttpStreamFetcher internal constructor(
                 get?.releaseConnection()
             }
         }
-        return null
     }
 
     private fun getResponseAsInputStream(getMethod: GetMethod): ByteArrayInputStream {
@@ -68,12 +68,20 @@ class HttpStreamFetcher internal constructor(
         Log_OC.i(TAG, "Cleanup")
     }
 
-    override fun getId(): String {
+    fun getId(): String {
         return url
     }
 
     override fun cancel() {
         Log_OC.i(TAG, "Cancel")
+    }
+
+    override fun getDataClass(): Class<InputStream?> {
+        TODO("Not yet implemented")
+    }
+
+    override fun getDataSource(): DataSource {
+        TODO("Not yet implemented")
     }
 
     companion object {
