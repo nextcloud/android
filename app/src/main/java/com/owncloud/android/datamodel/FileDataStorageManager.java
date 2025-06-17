@@ -302,6 +302,7 @@ public class FileDataStorageManager {
             createFolderType.setPath(newPath);
         } else if (entity.getType() instanceof OfflineOperationType.CreateFile createFileType) {
             createFileType.setRemotePath(newPath);
+            createFileType.setMimeType(file.getMimeType());
         }
         entity.setType(entity.getType());
 
