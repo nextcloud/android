@@ -28,7 +28,6 @@
     <string name="add_new_public_share">ເພິ່ມການແບ່ງປັນສາທາລະນະໃໝ່</string>
     <string name="add_new_secure_file_drop">ຕື່ມການວາງໄຟລ໌ທີ່ປອດໄພໃໝ່</string>
     <string name="add_to_cloud">ເພີ່ມໃສ່ %1$s</string>
-    <string name="allow_resharing">ອະນຸຍາດໃຫ້ ການແບ່ງປັນຄືນ</string>
     <string name="app_widget_description">ສະແດງໜຶ່ງລາຍການຈາກໜ້າປັດ</string>
     <string name="appbar_search_in">ຄົ້ນຫາໃນ%s</string>
     <string name="associated_account_not_found">ບໍ່ພົບບັນຊີທີ່ກ່ຽວຂ້ອງ!</string>
@@ -348,8 +347,6 @@
     <string name="invisible">ເບິ່ງບໍ່ເຫັນ</string>
     <string name="label_empty">Label ບໍ່ສາມາດເປົ່າວ່າງໄດ້</string>
     <string name="link">ລິງ</string>
-    <string name="link_share_allow_upload_and_editing">ອະນຸຍາດໃຫ້ ອັບ ໂຫຼດ ແລະ  ແກ້ ໄຂໄດ້</string>
-    <string name="link_share_file_drop">ການຖິ້ືມຟາຍ (ອັງໂຫຼດຢ່າງດຽວ)</string>
     <string name="list_layout">ລາຍຊື່</string>
     <string name="load_more_results">ຜົນLoad ເພີ່ມເຕີມ</string>
     <string name="local_file_list_empty">ບໍ່ມີຟາຍໃນໂຟນເດີນີ້.</string>
@@ -543,7 +540,6 @@
     <string name="share_delete_permission">ລຶບ</string>
     <string name="share_dialog_title">ການແບ່ງປັນ</string>
     <string name="share_edit_permission">ແກ້ໄຂ</string>
-    <string name="share_expiration_date_label">ສິ້ນສຸດ%1$s</string>
     <string name="share_file">ແບ່ງປັນ%1$s</string>
     <string name="share_group_clarification"> (ກຸ່ມ)%1$s</string>
     <string name="share_internal_link">ແບ່ງປັນລິງພາຍໃນ</string>
@@ -560,7 +556,6 @@
     <string name="share_link_with_label">ແບ່ງປັນ(%1$s)</string>
     <string name="share_no_expiration_date_label">ກໍານົດວັນໝົດອາຍຸ</string>
     <string name="share_no_password_title">ກຳນົດລະຫັດຜ່ານ</string>
-    <string name="share_password_title">ລະຫັດປ້ອງກັນ</string>
     <string name="share_permission_can_edit">ແກ້ໄຂໄດ້</string>
     <string name="share_re_share_permission">ແບ່ງປັນ</string>
     <string name="share_remote_clarification"> %1$s(ໄລຍະໄກ)</string>

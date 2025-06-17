@@ -31,8 +31,6 @@
     <string name="add_new_public_share">Dodaj nowy link publiczny do udostępnienia</string>
     <string name="add_new_secure_file_drop">Dodaj nowe bezpieczne zrzuty plików</string>
     <string name="add_to_cloud">Dodaj do %1$s</string>
-    <string name="advanced_settings">Ustawienia zaawansowane</string>
-    <string name="allow_resharing">Zezwalaj na udostępnianie dalej</string>
     <string name="app_config_base_url_title">Podstawowy adres URL</string>
     <string name="app_config_disable_clipboard_title">Wyłącz schowek</string>
     <string name="app_config_disable_intro_title">Wyłącz intro</string>
@@ -51,7 +49,6 @@
     <string name="assistant_screen_delete_task_alert_dialog_description">Czy na pewno chcesz usunąć to zadanie?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Usuń zadanie</string>
     <string name="assistant_screen_loading">Ładowanie listy zadań…</string>
-    <string name="assistant_screen_no_task_available_text">Brak dostępnych zadań dla typu zadania %s. Możesz utworzyć nowe zadanie w prawym dolnym rogu.</string>
     <string name="assistant_screen_task_create_fail_message">Wystąpił błąd podczas tworzenia zadania</string>
     <string name="assistant_screen_task_create_success_message">Zadanie pomyślnie utworzone</string>
     <string name="assistant_screen_task_delete_fail_message">Wystąpił błąd podczas usuwania zadania</string>
@@ -98,9 +95,6 @@
     <string name="authenticator_activity_login_error">Wystąpił problem podczas przetwarzania żądania logowania. Spróbuj ponownie później.</string>
     <string name="authenticator_activity_please_complete_login_process">Dokończ proces logowania w przeglądarce</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">zachowany w oryginalnym katalogu, jak jest tylko do odczytu</string>
-    <string name="auto_upload_gplay">Zmieniono zachowanie automatycznego przesyłania</string>
-    <string name="auto_upload_gplay_desc">Ze względu na nowe ograniczenia nałożone przez Google funkcja automatycznego przesyłania nie będzie już w stanie automatycznie usuwać przesłanych plików.</string>
-    <string name="auto_upload_gplay_desc2">Ze względu na nowe ograniczenia nałożone przez Google, zostaliśmy zmuszeni do usunięcia ważnego uprawnienia. W rezultacie automatyczne przesyłanie będzie mogło przesyłać tylko pliki graficzne i wideo.\nDodatkowo, nowe uprawnienie jest wymagane do dostępu do informacji o lokalizacji dla przesłanych obrazów.\nUpewnij się, że dostęp do multimediów jest ustawiony na \"Zawsze zezwalaj na wszystko\".</string>
     <string name="auto_upload_on_wifi">Wysyłaj tylko przez Wi-Fi</string>
     <string name="auto_upload_path">/AutoUpload</string>
     <string name="auto_upload_sub_folder_warning">Ten katalog jest już uwzględniony w synchronizacji katalogu nadrzędnego, co może powodować duplikowanie wysyłanych plików</string>
@@ -135,7 +129,6 @@
     <string name="clear_notifications_failed">Wyczyszczenie powiadomień nie powiodło się.</string>
     <string name="clear_status_message">Wyczyść komunikat statusu</string>
     <string name="clear_status_message_after">Wyczyść komunikat statusu po</string>
-    <string name="click_to_learn_how_to_re_enable_auto_uploads">Aby ponownie włączyć automatyczne przesyłanie, wymagana jest ręczna interwencja</string>
     <string name="clipboard_label">Skopiowano tekst z %1$s</string>
     <string name="clipboard_no_text_to_copy">Nie otrzymano tekstu do skopiowania do schowka</string>
     <string name="clipboard_text_copied">Link skopiowany</string>
@@ -440,7 +433,6 @@
     <string name="file_not_synced">Nie można zsynchronizować pliku. Pokazana jest najnowsza dostępna wersja.</string>
     <string name="file_rename">Zmień nazwę</string>
     <string name="file_upload_worker_error_notification_title">Przesyłanie nie powiodło się. Brak połączenia internetowego</string>
-    <string name="file_upload_worker_same_file_already_exists">Ten sam plik już istnieje, nie wykryto konfliktu</string>
     <string name="file_version_restored_error">Wystąpił błąd podczas przywracania wersji pliku!</string>
     <string name="file_version_restored_successfully">Pomyślnie przywrócono wersję pliku.</string>
     <string name="filedetails_details">Szczegóły</string>
@@ -517,10 +509,7 @@
     <string name="last_backup">Ostatnia kopia zapasowa: %1$s</string>
     <string name="link">Odnośnik</string>
     <string name="link_name">Nazwa linku</string>
-    <string name="link_share_allow_upload_and_editing">Zezwalaj na wysyłanie i edytowanie</string>
     <string name="link_share_editing">Edytowanie</string>
-    <string name="link_share_file_drop">Upuszczanie pliku (tylko wysyłanie)</string>
-    <string name="link_share_view_only">Tylko podgląd</string>
     <string name="list_layout">Wygląd listy</string>
     <string name="load_more_results">Wczytaj więcej wyników</string>
     <string name="local_file_list_empty">Nie ma plików w tym katalogu.</string>
@@ -738,8 +727,6 @@
     <string name="push_notifications_old_login">Brak powiadomień Push z powodu nieaktualnej sesji logowania. Rozważ ponowne dodanie swojego konta.</string>
     <string name="push_notifications_temp_error">Powiadomienia Push nie są obecnie dostępne.</string>
     <string name="qr_could_not_be_read">Nie można odczytać kodu QR!</string>
-    <string name="re_enable_auto_upload">Zmiany w automatycznym przesyłaniu</string>
-    <string name="re_enable_auto_upload_desc">Ze względu na nowe ograniczenia nałożone przez Google zostaliśmy zmuszeni do usunięcia ważnego uprawnienia. Obecnie współpracujemy z Google, aby rozwiązać ten problem i przywrócić pełną funkcjonalność.\n\nAby ponownie włączyć automatyczne przesyłanie nowych zdjęć i filmów:\nWybierz \"Zezwalaj na wszystko\" w następującym oknie dialogowym lub ustawieniach systemowych.\nZezwól na lokalizację multimediów, gdy pojawi się monit, ponieważ umożliwia to Nextcloud przechowywanie danych o lokalizacji podczas przesyłania obrazów.\n\nOkno dialogowe uprawnień jest wyświetlane tylko wtedy, gdy jest to konieczne. W razie wątpliwości sprawdź ustawienia systemowe.\n\nAutomatyczne przesyłanie będzie mogło przesyłać pliki obrazów i wideo tylko podczas korzystania z wersji Google Play aplikacji Nextcloud.\n\nSprawdź, czy nie ma plików, które nie zostały przesłane od grudnia 2024 r.</string>
     <string name="receive_external_files_activity_start_sync_folder_is_not_exists_message">Nie można znaleźć katalogu, operacja synchronizacji została anulowana</string>
     <string name="receive_external_files_activity_unable_to_find_file_to_upload">Nie można znaleźć pliku do wysłania</string>
     <string name="recommend_subject">Wypróbuj %1$s na swoim urządzeniu!</string>
@@ -813,7 +800,6 @@
     <string name="share_download_limit">Ustaw limit pobierania</string>
     <string name="share_edit_permission">Edycja</string>
     <string name="share_expiration_date_format">%1$s</string>
-    <string name="share_expiration_date_label">Wygaśnie o %1$s</string>
     <string name="share_file">Udostępnij %1$s</string>
     <string name="share_group_clarification">%1$s (grupa)</string>
     <string name="share_internal_link">Udostępnij link wewnętrzny</string>
@@ -831,9 +817,7 @@
     <string name="share_no_expiration_date_label">Ustaw datę wygaśnięcia</string>
     <string name="share_no_password_title">Ustaw hasło</string>
     <string name="share_not_allowed_when_file_drop">Ponowne udostępnianie nie jest dozwolone podczas bezpiecznego upuszczania plików</string>
-    <string name="share_password_title">Zabezpieczone hasłem</string>
     <string name="share_permission_can_edit">Może modyfikować</string>
-    <string name="share_permission_file_drop">Upuść plik</string>
     <string name="share_permission_file_request">Prośba o plik</string>
     <string name="share_permission_secure_file_drop">Bezpieczne upuszczenie pliku</string>
     <string name="share_permission_view_only">Tylko podgląd</string>
@@ -1013,8 +997,6 @@
     <string name="upload_file_dialog_title">Wprowadź nazwę i typ pliku do wysłania</string>
     <string name="upload_files">Wyślij pliki</string>
     <string name="upload_global_pause_title">Wszystkie przesyłania zostały wstrzymane</string>
-    <string name="upload_gplay">Zmiany uprawnień</string>
-    <string name="upload_gplay_desc">Aby uzyskać dostęp do informacji o lokalizacji przesłanych zdjęć, wymagane jest nowe uprawnienie.\nUpewnij się, że dostęp do multimediów jest ustawiony na \"Zawsze zezwalaj na wszystko\".</string>
     <string name="upload_item_action_button">Przycisk wysyłania elementu</string>
     <string name="upload_list_delete">Usuń</string>
     <string name="upload_list_empty_headline">Brak wysłanych plików</string>

@@ -31,8 +31,6 @@
     <string name="add_new_public_share">Добавить новую общедоступную ссылку</string>
     <string name="add_new_secure_file_drop">Добавить новую защищенную передачу файлов</string>
     <string name="add_to_cloud">Добавить в %1$s</string>
-    <string name="advanced_settings">Расширенные параметры</string>
-    <string name="allow_resharing">Разрешить повторную публикацию</string>
     <string name="app_config_base_url_title">Основной URL</string>
     <string name="app_config_disable_clipboard_title">Отключить буфер обмена</string>
     <string name="app_config_disable_intro_title">Отключить введение</string>
@@ -51,7 +49,6 @@
     <string name="assistant_screen_delete_task_alert_dialog_description">Вы уверены, что хотите удалить эту задачу?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Удалить задачу</string>
     <string name="assistant_screen_loading">Загрузить список задач…</string>
-    <string name="assistant_screen_no_task_available_text">Нет доступной задачи для типа задачи %s, вы можете создать новую задачу в правом нижнем углу.</string>
     <string name="assistant_screen_task_create_fail_message">Произошла ошибка при создании задачи</string>
     <string name="assistant_screen_task_create_success_message">Задача успешно создана</string>
     <string name="assistant_screen_task_delete_fail_message">Произошла ошибка во время удаления задачи</string>
@@ -98,9 +95,6 @@
     <string name="authenticator_activity_login_error">При обработке вашего запроса на вход возникла проблема. Пожалуйста, повторите попытку позже.</string>
     <string name="authenticator_activity_please_complete_login_process">Пожалуйста, завершите процесс входа в вашем браузере</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">оставлен в исходном каталоге, т.к. файл только для чтения</string>
-    <string name="auto_upload_gplay">Поведение автозагрузки изменено</string>
-    <string name="auto_upload_gplay_desc">Из-за новых ограничений, введенных Google, функция автоматической загрузки больше не сможет автоматически удалять загруженные файлы.</string>
-    <string name="auto_upload_gplay_desc2">В связи с новыми ограничениями, введенными Google, мы были вынуждены удалить важное разрешение. В результате функция автоматической загрузки сможет загружать только изображения и видеофайлы.\nКроме того, для доступа к информации о местоположении загруженных изображений требуется новое разрешение.\nУбедитесь, что для параметра доступ к мультимедиа установлено значение \"Всегда разрешать все\".</string>
     <string name="auto_upload_on_wifi">Только через безлимит или Wi-Fi</string>
     <string name="auto_upload_path">/Автозагрузка</string>
     <string name="auto_upload_sub_folder_warning">Эта папка уже включена в синхронизацию родительской папки, что может привести к дублированию загрузок</string>
@@ -135,7 +129,6 @@
     <string name="clear_notifications_failed">Не удалось удалить уведомления.</string>
     <string name="clear_status_message">Очистить сообщение о состоянии</string>
     <string name="clear_status_message_after">Очистить сообщение о состоянии через</string>
-    <string name="click_to_learn_how_to_re_enable_auto_uploads">Повторное включение автоматической загрузки требуется произвести вручную</string>
     <string name="clipboard_label">Текст скопирован из %1$s</string>
     <string name="clipboard_no_text_to_copy">Нет принятого текста для копирования в буфер обмена</string>
     <string name="clipboard_text_copied">Ссылка скопирована</string>
@@ -441,7 +434,6 @@
     <string name="file_not_synced">Не удалось синхронизировать этот файл, показана его последняя доступная версия.</string>
     <string name="file_rename">Переименовать</string>
     <string name="file_upload_worker_error_notification_title">Загрузка не удалась. Нет интернет-соединения</string>
-    <string name="file_upload_worker_same_file_already_exists">Такой же файл уже существует, конфликт не обнаружен</string>
     <string name="file_version_restored_error">Ошибка восстановления версии файла!</string>
     <string name="file_version_restored_successfully">Версия файла успешно восстановлена</string>
     <string name="filedetails_details">Свойства</string>
@@ -518,10 +510,7 @@
     <string name="last_backup">Последняя резервная копия: %1$s</string>
     <string name="link">Ссылка</string>
     <string name="link_name">Название ссылки</string>
-    <string name="link_share_allow_upload_and_editing">Разрешить загрузку и редактирование</string>
     <string name="link_share_editing">Редактирование</string>
-    <string name="link_share_file_drop">Хранилище (только загрузка файлов)</string>
-    <string name="link_share_view_only">Для просмотра</string>
     <string name="list_layout">Вид списком</string>
     <string name="load_more_results">Показать больше результатов</string>
     <string name="local_file_list_empty">В этом каталоге нет файлов.</string>
@@ -739,8 +728,6 @@
     <string name="push_notifications_old_login">Нет аккаунтов для уведомлений. Пожалуйста добавьте аккаунт.</string>
     <string name="push_notifications_temp_error">Всплывающие уведомления недоступны</string>
     <string name="qr_could_not_be_read">Не удалось считать QR-код!</string>
-    <string name="re_enable_auto_upload">Изменения в автоматической загрузке</string>
-    <string name="re_enable_auto_upload_desc">В связи с новыми ограничениями, введенными Google, мы были вынуждены удалить важное разрешение. В настоящее время мы работаем с Google над решением этой проблемы и восстановлением полной функциональности.\nЧтобы снова включить автоматическую загрузку для новых фотографий и видео, выберите \"Разрешить все\" в следующем диалоговом окне или в системных настройках.\nПри появлении запроса укажите местоположение носителя, так как это позволяет Nextcloud сохранять данные о местоположении при загрузке изображений.\n\nДиалоговое окно разрешений отображается только при необходимости. Если вы сомневаетесь, проверьте системные настройки.\n\nАвтозагрузка сможет загружать изображения и видеофайлы только при использовании версии приложения Nextcloud для Google Play.\nПожалуйста, проверьте, нет ли файлов, которые, возможно, не загружались с декабря 2024 года.</string>
     <string name="receive_external_files_activity_start_sync_folder_is_not_exists_message">Папка не может быть найдена, операция синхронизации отменена</string>
     <string name="receive_external_files_activity_unable_to_find_file_to_upload">Невозможно найти файл для загрузки</string>
     <string name="recommend_subject">Испытайте %1$s на своём устройстве!</string>
@@ -814,7 +801,6 @@
     <string name="share_download_limit">Установите лимит загрузки</string>
     <string name="share_edit_permission">Редактирование</string>
     <string name="share_expiration_date_format">%1$s</string>
-    <string name="share_expiration_date_label">Истекает %1$s</string>
     <string name="share_file">Общий ресурс «%1$s»</string>
     <string name="share_group_clarification">%1$s (группа)</string>
     <string name="share_internal_link">Опубликовать внутреннюю ссылку</string>
@@ -832,9 +818,7 @@
     <string name="share_no_expiration_date_label">Установить срок действия</string>
     <string name="share_no_password_title">Задать пароль</string>
     <string name="share_not_allowed_when_file_drop">Перенаправление запрещено во время безопасного удаления файлов</string>
-    <string name="share_password_title">Защищено паролем</string>
     <string name="share_permission_can_edit">Разрешено редактировать</string>
-    <string name="share_permission_file_drop">Приём файлов</string>
     <string name="share_permission_file_request">Запрос файла</string>
     <string name="share_permission_secure_file_drop">Защищенный очиститель файлов</string>
     <string name="share_permission_view_only">Только просмотр</string>
@@ -1014,8 +998,6 @@
     <string name="upload_file_dialog_title">Имя и типа файла для автозагрузки </string>
     <string name="upload_files">Отправить файлы</string>
     <string name="upload_global_pause_title">Все загрузки приостановлены</string>
-    <string name="upload_gplay">Права доступа обновлены</string>
-    <string name="upload_gplay_desc">Для доступа к информации о местоположении загруженных изображений требуется новое разрешение.\nУбедитесь, что для доступа к мультимедиа установлено значение \"Всегда разрешать всё\".</string>
     <string name="upload_item_action_button">Кнопка «выгрузить объект»</string>
     <string name="upload_list_delete">Удалить</string>
     <string name="upload_list_empty_headline">Нет файлов, ожидающих передачу на сервер.</string>

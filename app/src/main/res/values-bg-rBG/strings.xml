@@ -29,8 +29,6 @@
     <string name="add_new_public_share">Добавете нова връзка за публично споделяне</string>
     <string name="add_new_secure_file_drop">Добавяне на ново, защитено пускане на файлове</string>
     <string name="add_to_cloud">Добави към %1$s</string>
-    <string name="advanced_settings">Допълнителни настройки</string>
-    <string name="allow_resharing">Може да споделя повторно</string>
     <string name="app_config_base_url_title">Основен URL адрес</string>
     <string name="app_config_disable_intro_title">Изключи въведението</string>
     <string name="app_config_proxy_port_title">Порт на прокси сървъра</string>
@@ -97,7 +95,7 @@
     <string name="choose_which_file">Изберете кой файл да бъде запазен!</string>
     <string name="choose_widget">Избор на изпълним модул</string>
     <string name="clear_notifications_failed">Изтриването на известията не бе успешно.</string>
-    <string name="clear_status_message">Изчистване на съобщението за състоянието</string>
+    <string name="clear_status_message">Изчисти състоянието</string>
     <string name="clear_status_message_after">Изчистване на съобщение за състоянието след това</string>
     <string name="clipboard_label">Текста е копиран от %1$s</string>
     <string name="clipboard_no_text_to_copy">Няма получен текст за копиране в клипборда</string>
@@ -391,7 +389,7 @@
     <string name="foreign_files_remote_text">Отдалечен: %1$s</string>
     <string name="foreign_files_success">Всички файлове са преместени.</string>
     <string name="forward">Напред</string>
-    <string name="fourHours">4 часа</string>
+    <string name="fourHours">4 чàса</string>
     <string name="grid_file_features_live_photo_content_description">Иконата служи за индикация дали \"live photo\" е налична</string>
     <string name="hidden_file_name_warning">Името ще доведе до скрит файл</string>
     <string name="hint_name">Име</string>
@@ -411,10 +409,7 @@
     <string name="last_backup">Последно архивиране: %1$s</string>
     <string name="link">Връзка</string>
     <string name="link_name">Име на Връзка</string>
-    <string name="link_share_allow_upload_and_editing">За качване и редактиране</string>
     <string name="link_share_editing">Редактиране</string>
-    <string name="link_share_file_drop">Само за качване</string>
-    <string name="link_share_view_only">Само преглед</string>
     <string name="list_layout">Оформление на списъка с емисии</string>
     <string name="load_more_results">Зареждане на още резултати</string>
     <string name="local_file_list_empty">В папката няма файлове.</string>
@@ -503,7 +498,7 @@
     <string name="offline_mode">Няма връзка с Интернет</string>
     <string name="oneHour">1 час</string>
     <string name="online">На линия</string>
-    <string name="online_status">Състояние на линия</string>
+    <string name="online_status">Състояние</string>
     <string name="outdated_server">Сървърът е достигнал края на живота си, моля, надстройте!</string>
     <string name="overflow_menu">Повече</string>
     <string name="pass_code_configure_your_pass_code">Въведете кода за достъп</string>
@@ -648,7 +643,6 @@
     <string name="share_download_limit">Задаване на ограничение за изтегляне</string>
     <string name="share_edit_permission">Редактиране</string>
     <string name="share_expiration_date_format">%1$s</string>
-    <string name="share_expiration_date_label">Изтича %1$s</string>
     <string name="share_file">Споделяне на %1$s</string>
     <string name="share_group_clarification">%1$s (група)</string>
     <string name="share_internal_link">Сподели вътрешна връзка</string>
@@ -665,9 +659,7 @@
     <string name="share_link_with_label">Споделяне на линк (%1$s)</string>
     <string name="share_no_expiration_date_label">Срок на валидност</string>
     <string name="share_no_password_title">Задайте парола</string>
-    <string name="share_password_title">Защитена с парола</string>
     <string name="share_permission_can_edit">Може да редактира</string>
-    <string name="share_permission_file_drop">Пускане/Преместване/ на файл</string>
     <string name="share_permission_secure_file_drop">Защитено пускане на файлове</string>
     <string name="share_permission_view_only">Само изглед</string>
     <string name="share_re_share_permission">Споделяне</string>
@@ -898,7 +890,7 @@
     <string name="what_s_new_image">Какво ново</string>
     <string name="whats_new_skip">Пропусни</string>
     <string name="whats_new_title">Ново в %1$s</string>
-    <string name="whats_your_status">Какъв е вашият статус?</string>
+    <string name="whats_your_status">Какво е вашето състояние?</string>
     <string name="widgets_not_available_title">Не е наличен</string>
     <string name="worker_download">Сваляне на файлове...</string>
     <string name="write_email">Изпращане на имейл</string>

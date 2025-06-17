@@ -30,8 +30,6 @@
     <string name="add_new_public_share">افزودن پیوند هم‌رسانی عمومی جدید</string>
     <string name="add_new_secure_file_drop">دراپ فایل امن جدید اضافه کنید.</string>
     <string name="add_to_cloud">افزودن به %1$s</string>
-    <string name="advanced_settings">تنظیمات پیشرفته</string>
-    <string name="allow_resharing">مجاز به اشتراک گذاری مجدد</string>
     <string name="app_config_base_url_title">Base URL</string>
     <string name="app_config_proxy_port_title">پورت پروکسی</string>
     <string name="app_widget_description">نمایش یک ابزارک از پیشخوان</string>
@@ -440,10 +438,7 @@
     <string name="last_backup">آخرین پشتیبان: %1$s</string>
     <string name="link">پیوند</string>
     <string name="link_name">نام پیوند</string>
-    <string name="link_share_allow_upload_and_editing">مجاز به بارگذاری و ویرایش</string>
     <string name="link_share_editing">ویرایش کردن</string>
-    <string name="link_share_file_drop">انداختن فایل (فقط آپلود)</string>
-    <string name="link_share_view_only">تنها مشاهده</string>
     <string name="list_layout">Listed layout</string>
     <string name="load_more_results">بار کردن نتیحه‌های بیش‌تر</string>
     <string name="local_file_list_empty">هیچ فایلی در این پوشه نیست.</string>
@@ -696,7 +691,6 @@
     <string name="share_download_limit">تنظیم محدودیت دانلود</string>
     <string name="share_edit_permission">ویرایش</string>
     <string name="share_expiration_date_format">%1$s</string>
-    <string name="share_expiration_date_label">منقضی در %1$s</string>
     <string name="share_file">هم‌رسانی %1$s</string>
     <string name="share_group_clarification">%1$s (گروه)</string>
     <string name="share_internal_link">هم‌رسانی پیوند داخلی</string>
@@ -714,9 +708,7 @@
     <string name="share_no_expiration_date_label">تنظیم تاریخ انقضا</string>
     <string name="share_no_password_title">تنظیم گذرواژه</string>
     <string name="share_not_allowed_when_file_drop">اشتراک‌گذاری مجدد در حین ارائه فایل به صورت امن امکان‌پذیر نمی‌باشد</string>
-    <string name="share_password_title">محافظت شده با گذرواژه</string>
     <string name="share_permission_can_edit">توانایی ویرایش</string>
-    <string name="share_permission_file_drop">انداختن پرونده</string>
     <string name="share_permission_secure_file_drop">دراپ فایل امن</string>
     <string name="share_permission_view_only">تنها مشاهده</string>
     <string name="share_re_share_permission">اشتراک‌گذاری</string>

@@ -31,8 +31,6 @@
     <string name="add_new_public_share">Adicionar novo link de compartilhamento público</string>
     <string name="add_new_secure_file_drop">Adicionar novo depósito de arquivos seguro</string>
     <string name="add_to_cloud">Adicionar em %1$s</string>
-    <string name="advanced_settings">Configurações avançadas</string>
-    <string name="allow_resharing">Permitir recompartilhamento</string>
     <string name="app_config_base_url_title">URL base</string>
     <string name="app_config_disable_clipboard_title">Desativar Área de Transferência</string>
     <string name="app_config_disable_intro_title">Desativar Introdução</string>
@@ -51,7 +49,6 @@
     <string name="assistant_screen_delete_task_alert_dialog_description">Tem certeza de que deseja excluir esta tarefa?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Excluir tarefa</string>
     <string name="assistant_screen_loading">Carregando a lista de tarefas…</string>
-    <string name="assistant_screen_no_task_available_text">Nenhuma tarefa disponível para o tipo de tarefa %s. Você pode criar uma nova tarefa no canto inferior direito.</string>
     <string name="assistant_screen_task_create_fail_message">Ocorreu um erro ao criar a tarefa</string>
     <string name="assistant_screen_task_create_success_message">Tarefa criada com sucesso</string>
     <string name="assistant_screen_task_delete_fail_message">Ocorreu um erro ao excluir a tarefa</string>
@@ -98,9 +95,6 @@
     <string name="authenticator_activity_login_error">Houve um problema ao processar sua solicitação de login. Tente novamente mais tarde.</string>
     <string name="authenticator_activity_please_complete_login_process">Por favor, conclua o processo de login no seu navegador</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">mantido na pasta original, já que é somente leitura</string>
-    <string name="auto_upload_gplay">Comportamento do upload automático alterado</string>
-    <string name="auto_upload_gplay_desc">Devido às novas restrições impostas pelo Google, o recurso de upload automático não poderá mais remover automaticamente os arquivos carregados.</string>
-    <string name="auto_upload_gplay_desc2">Devido às novas restrições impostas pelo Google, fomos forçados a remover uma permissão importante. Como resultado, o upload automático só poderá fazer upload de arquivos de imagem e vídeo.\nAlém disso, é necessária uma nova permissão para acessar as informações de localização das imagens carregadas.\nCertifique-se de que o acesso à mídia esteja definido como \"Sempre permitir tudo\".</string>
     <string name="auto_upload_on_wifi">Enviar só por WiFi não medida</string>
     <string name="auto_upload_path">/UploadAutomático</string>
     <string name="auto_upload_sub_folder_warning">Esta pasta já está incluída na sincronização da pasta pai, o que pode causar uploads duplicados</string>
@@ -135,7 +129,6 @@
     <string name="clear_notifications_failed">Erro ao limpar as notificações.</string>
     <string name="clear_status_message">Limpar mensagem de status</string>
     <string name="clear_status_message_after">Limpar mensagem de status após</string>
-    <string name="click_to_learn_how_to_re_enable_auto_uploads">Intervenção manual necessária para reativar o upload automático</string>
     <string name="clipboard_label">Texto copiado de %1$s</string>
     <string name="clipboard_no_text_to_copy">Nenhum texto foi recebido para copiar para a área de transferência</string>
     <string name="clipboard_text_copied">Link copiado</string>
@@ -442,7 +435,6 @@
     <string name="file_not_synced">Arquivo não pôde ser sincronizado. Mostrando a última versão disponível.</string>
     <string name="file_rename">Renomear</string>
     <string name="file_upload_worker_error_notification_title">O upload falhou. Sem conexão com a Internet</string>
-    <string name="file_upload_worker_same_file_already_exists">O mesmo arquivo já existe, nenhum conflito detectado</string>
     <string name="file_version_restored_error">Erro recuperando arquivo!</string>
     <string name="file_version_restored_successfully">Arquivo recuperado com sucesso.</string>
     <string name="filedetails_details">Detalhes</string>
@@ -519,10 +511,7 @@
     <string name="last_backup">Último backup: %1$s</string>
     <string name="link">Link</string>
     <string name="link_name">Nome do link </string>
-    <string name="link_share_allow_upload_and_editing">Permitir uploads e edição</string>
     <string name="link_share_editing">Editando </string>
-    <string name="link_share_file_drop">Depósito de arquivos (somente uploads)</string>
-    <string name="link_share_view_only">Somente visualização </string>
     <string name="list_layout">Layout listado</string>
     <string name="load_more_results">Carregar mais resultados </string>
     <string name="local_file_list_empty">Não existe nenhum arquivo nesta pasta.</string>
@@ -740,8 +729,6 @@
     <string name="push_notifications_old_login">Não há notificações push devido a uma sessão de login desatualizada. Considere a possibilidade de adicionar sua conta novamente.</string>
     <string name="push_notifications_temp_error">No momento, as notificações push não estão disponíveis.</string>
     <string name="qr_could_not_be_read">Não foi possível ler o código QR! </string>
-    <string name="re_enable_auto_upload">Alterações no upload automático</string>
-    <string name="re_enable_auto_upload_desc">Devido às novas restrições impostas pelo Google, fomos forçados a remover uma permissão importante. No momento, estamos trabalhando com o Google para resolver este problema e restaurar a funcionalidade completa.\n\nPara reativar o upload automático de novas fotos e vídeos:\nSelecione \"Permitir tudo\" na caixa de diálogo a seguir ou nas configurações do sistema.\nPermita a localização da mídia quando solicitado, pois isso permite que o Nextcloud armazene dados de localização ao fazer upload de imagens.\n\nA caixa de diálogo de permissões só é exibida quando necessário. Em caso de dúvida, verifique as configurações do sistema.\n\nO upload automático só poderá fazer upload de arquivos de imagem e vídeo ao usar a versão do Google Play do aplicativo Nextcloud.\n\nVerifique se há algum arquivo que não tenha sido carregado desde dezembro de 2024.</string>
     <string name="receive_external_files_activity_start_sync_folder_is_not_exists_message">A pasta não pode ser encontrada, a operação de sincronização foi cancelada</string>
     <string name="receive_external_files_activity_unable_to_find_file_to_upload">Não foi possível encontrar o arquivo para upload</string>
     <string name="recommend_subject">Experimente %1$s em seu dispositivo!</string>
@@ -808,6 +795,7 @@
     <string name="setup_e2e">Durante a configuração da criptografia de ponta-a-ponta, você receberá um mnemônico aleatório de 12 palavras, que será necessário para abrir seus arquivos em outros dispositivos. Ele será armazenado apenas neste dispositivo e poderá ser mostrado novamente nesta tela. Por favor, anote-o em um lugar seguro!</string>
     <string name="share">Compartilhar</string>
     <string name="share_allow_download_and_sync_permission">Permitir download e sincronização</string>
+    <string name="share_cannot_update_empty_note">Não foi possível atualizar o compartilhamento. Adicione uma nota e tente novamente.</string>
     <string name="share_copy_link">Compartilhar e copiar link</string>
     <string name="share_create_permission">Criar</string>
     <string name="share_custom_permission">Permissões personalizadas</string>
@@ -816,7 +804,6 @@
     <string name="share_download_limit">Definir limite de download</string>
     <string name="share_edit_permission">Editar</string>
     <string name="share_expiration_date_format">%1$s</string>
-    <string name="share_expiration_date_label">Expira em %1$s</string>
     <string name="share_file">Compartilhar %1$s</string>
     <string name="share_group_clarification">%1$s (grupo)</string>
     <string name="share_internal_link">Compartilhar link interno</string>
@@ -834,9 +821,8 @@
     <string name="share_no_expiration_date_label">Definir data de expiração</string>
     <string name="share_no_password_title">Definir senha</string>
     <string name="share_not_allowed_when_file_drop">Recompartilhamento não é permitido durante o depósito de arquivos seguro</string>
-    <string name="share_password_title">Protegido por senha</string>
+    <string name="share_option_required">Selecione pelo menos uma opção de compartilhamento antes de continuar.</string>
     <string name="share_permission_can_edit">Pode editar</string>
-    <string name="share_permission_file_drop">Depósito de arquivos</string>
     <string name="share_permission_file_request">Solicitação de arquivo</string>
     <string name="share_permission_secure_file_drop">Depósito de arquivos seguro</string>
     <string name="share_permission_view_only">Somente visualização </string>
@@ -1016,8 +1002,6 @@
     <string name="upload_file_dialog_title">Indique o nome e tipo de arquivo a enviar</string>
     <string name="upload_files">Enviar arquivos</string>
     <string name="upload_global_pause_title">Todos os uploads estão pausados</string>
-    <string name="upload_gplay">Alterações de permissões</string>
-    <string name="upload_gplay_desc">É necessária uma nova permissão para acessar as informações de localização das imagens carregadas.\nCertifique-se de que o acesso à mídia esteja definido como \"Sempre permitir tudo\".</string>
     <string name="upload_item_action_button">Enviar botão de ação do item</string>
     <string name="upload_list_delete">Excluir</string>
     <string name="upload_list_empty_headline">Nenhum upload disponível</string>

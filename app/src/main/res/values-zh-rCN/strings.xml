@@ -31,8 +31,6 @@
     <string name="add_new_public_share">添加新的公共共享链接</string>
     <string name="add_new_secure_file_drop">添加新的安全文件投放箱</string>
     <string name="add_to_cloud">添加%1$s</string>
-    <string name="advanced_settings">高级设置</string>
-    <string name="allow_resharing">允许再次共享</string>
     <string name="app_config_base_url_title">基础 URL</string>
     <string name="app_config_disable_clipboard_title">禁用剪贴板</string>
     <string name="app_config_disable_intro_title">禁用简介</string>
@@ -51,7 +49,6 @@
     <string name="assistant_screen_delete_task_alert_dialog_description">您确定要删除这些任务吗？</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">删除任务</string>
     <string name="assistant_screen_loading">正在加载任务列表…</string>
-    <string name="assistant_screen_no_task_available_text">%s任务类型没有可用任务，你可以从右下角创建新任务。</string>
     <string name="assistant_screen_task_create_fail_message">创建任务时发生错误</string>
     <string name="assistant_screen_task_create_success_message">任务已创建</string>
     <string name="assistant_screen_task_delete_fail_message">删除任务时发生错误</string>
@@ -98,9 +95,6 @@
     <string name="authenticator_activity_login_error">处理你的登录请求时出现问题。请稍后再试。</string>
     <string name="authenticator_activity_please_complete_login_process">请在浏览器中完成登录流程</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">保持为原始的文件夹，即使它是只读的</string>
-    <string name="auto_upload_gplay">自动上传行为已更改</string>
-    <string name="auto_upload_gplay_desc">由于谷歌施加的新限制，自动上传功能将不再能够自动删除已上传的文件。</string>
-    <string name="auto_upload_gplay_desc2">由于 Google 新的限制，我们不得不移除一个重要权限。因此，自动上传将只能上传图片或视频文件。\n此外，还需要新的权限才能访问上传影像的定位信息。\n确保媒体访问权限设置为“总是允许所有”。</string>
     <string name="auto_upload_on_wifi">仅通过无流量限制的 Wi-Fi 上传</string>
     <string name="auto_upload_path">/自动上传</string>
     <string name="auto_upload_sub_folder_warning">此文件夹已包含在上级文件夹的同步中，这可能会导致重复上传</string>
@@ -135,7 +129,6 @@
     <string name="clear_notifications_failed">清除通知失败</string>
     <string name="clear_status_message">清除状态信息</string>
     <string name="clear_status_message_after">清除状态信息于</string>
-    <string name="click_to_learn_how_to_re_enable_auto_uploads">重新启动自动上传需要手动操作</string>
     <string name="clipboard_label">从%1$s复制文本</string>
     <string name="clipboard_no_text_to_copy">没有收到要复制到剪贴板的文本</string>
     <string name="clipboard_text_copied">已复制链接</string>
@@ -442,7 +435,6 @@
     <string name="file_not_synced">文件无法同步。显示最新的可用版本。</string>
     <string name="file_rename">重命名</string>
     <string name="file_upload_worker_error_notification_title">上传失败，没有互联网连接</string>
-    <string name="file_upload_worker_same_file_already_exists">相同的文件已存在，未检测到冲突</string>
     <string name="file_version_restored_error">恢复文件版本时发生错误！</string>
     <string name="file_version_restored_successfully">成功恢复文件版本。</string>
     <string name="filedetails_details">详情</string>
@@ -519,10 +511,7 @@
     <string name="last_backup">上次备份：%1$s</string>
     <string name="link">链接</string>
     <string name="link_name">链接名称</string>
-    <string name="link_share_allow_upload_and_editing">允许上传和编辑</string>
     <string name="link_share_editing">编辑</string>
-    <string name="link_share_file_drop">文件拖拽（仅上传）</string>
-    <string name="link_share_view_only">仅查看</string>
     <string name="list_layout">列出的布局</string>
     <string name="load_more_results">加载更多结果</string>
     <string name="local_file_list_empty">此文件夹中没有文件。</string>
@@ -740,8 +729,6 @@
     <string name="push_notifications_old_login">由于登录会话已过期，因此没有推送通知。请考虑重新添加你的账号。</string>
     <string name="push_notifications_temp_error">推送通知目前不可用。</string>
     <string name="qr_could_not_be_read">无法读取二维码！</string>
-    <string name="re_enable_auto_upload">自动上传变更</string>
-    <string name="re_enable_auto_upload_desc">由于 Google 新的限制，我们不得不移除一个重要权限。我们正在与 Google 沟通以解决该问题并恢复所有功能。\n\n为了重新启动新照片和视频的自动上传：\n在下方对话框或系统设置中选择“允许所有”。\n当提示时，请允许媒体位置，这将允许Nextcloud在上传图像时保存位置信息。\n\n权限对话框仅在必要时显示。如有疑问，请检查系统设置。\n\n自动上传功能仅在使用Google Play版本的Nextcloud应用时才能上传图像和视频文件。\n\n请检查自2024年12月以来可能未上传的任何文件。</string>
     <string name="receive_external_files_activity_start_sync_folder_is_not_exists_message">找不到文件夹，同步操作已取消</string>
     <string name="receive_external_files_activity_unable_to_find_file_to_upload">无法找到要上传的文件</string>
     <string name="recommend_subject">在你的设备上尝试%1$s！</string>
@@ -817,7 +804,6 @@
     <string name="share_download_limit">设置下载限制</string>
     <string name="share_edit_permission">编辑</string>
     <string name="share_expiration_date_format">%1$s</string>
-    <string name="share_expiration_date_label">过期 %1$s</string>
     <string name="share_file">共享 %1$s</string>
     <string name="share_group_clarification">%1$s (群组)</string>
     <string name="share_internal_link">共享内部链接</string>
@@ -836,9 +822,7 @@
     <string name="share_no_password_title">设置密码</string>
     <string name="share_not_allowed_when_file_drop">在安全文件传输期间不允许重新分享</string>
     <string name="share_option_required">请在继续之前至少选择一个共享选项。</string>
-    <string name="share_password_title">密码已受保护</string>
     <string name="share_permission_can_edit">可以编辑</string>
-    <string name="share_permission_file_drop">文件拖放</string>
     <string name="share_permission_file_request">文件请求</string>
     <string name="share_permission_secure_file_drop">安全文件拖放</string>
     <string name="share_permission_view_only">仅查看</string>
@@ -1021,8 +1005,6 @@
     <string name="upload_file_dialog_title">输入要上传的文件名和文件类型</string>
     <string name="upload_files">上传文件</string>
     <string name="upload_global_pause_title">所有上传已暂停</string>
-    <string name="upload_gplay">权限更改</string>
-    <string name="upload_gplay_desc">需要新权限才能访问上传图片的位置信息。\n确保媒体访问设置为“始终允许全部”。</string>
     <string name="upload_item_action_button">上传项操作按钮</string>
     <string name="upload_list_delete">删除</string>
     <string name="upload_list_empty_headline">没有可以上传的</string>

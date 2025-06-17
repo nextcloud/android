@@ -20,7 +20,6 @@
     <string name="activities_no_results_headline"> Entá nun hai actividá</string>
     <string name="activity_chooser_send_file_title">Unviar</string>
     <string name="activity_icon">Actividá</string>
-    <string name="advanced_settings">Configuración avanzada</string>
     <string name="app_config_base_url_title">URL base</string>
     <string name="app_config_proxy_port_title">Puertu del proxy</string>
     <string name="appbar_search_in">Buscar en: %s</string>
@@ -299,9 +298,6 @@
     <string name="label_empty">La etiqueta nun pue tar baleru</string>
     <string name="link">Enllaz</string>
     <string name="link_name">Nome del enllaz</string>
-    <string name="link_share_allow_upload_and_editing">Permitir la xuba y la edición</string>
-    <string name="link_share_file_drop">Suelta de ficheros (namás xuba)</string>
-    <string name="link_share_view_only">Ver namás</string>
     <string name="load_more_results">Cargar más resultaos</string>
     <string name="local_file_list_empty">Nun hai ficheros nesta carpeta.</string>
     <string name="local_folder_friendly_path">%1$s/%2$s</string>
@@ -477,7 +473,6 @@
     <string name="share_no_expiration_date_label">Afitar la data de caducidá</string>
     <string name="share_no_password_title">Afitar la contraseña</string>
     <string name="share_permission_can_edit">Pue editar</string>
-    <string name="share_permission_file_drop">Suelta de ficheros</string>
     <string name="share_permission_file_request">Solicitú de ficheru</string>
     <string name="share_permission_view_only">Ver namás</string>
     <string name="share_re_share_permission">Compartir</string>
