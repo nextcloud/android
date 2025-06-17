@@ -175,7 +175,6 @@ class OfflineOperationsWorker(
                     RemoveFileOperation(ocFile, false, user, true, context, fileDataStorageManager)
                 }
 
-
                 checkFileBeforeExecution(operation.path, removeFileOperation.execute(client) to removeFileOperation)
             }
 
@@ -190,8 +189,14 @@ class OfflineOperationsWorker(
         path: String?,
         result: Pair<RemoteOperationResult<*>?, RemoteOperation<*>?>?
     ): Pair<RemoteOperationResult<*>?, RemoteOperation<*>?>? {
-        val file = fileDataStorageManager.getFileByDecryptedRemotePath(path) ?: return null
-        return if (isFileChanged(file)) null else result
+        val file = fileDataStorageManager.getFileByDecryptedRemotePath(path)
+
+        if (file == null && path != null) {
+            fileDataStorageManager.offlineOperationDao.deleteByPath(path)
+            return null
+        }
+
+        return if (file != null && !isFileChanged(file)) result else null
     }
 
     private fun handleResult(
