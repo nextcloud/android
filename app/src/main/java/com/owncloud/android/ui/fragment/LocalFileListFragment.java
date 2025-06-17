@@ -318,6 +318,10 @@ public class LocalFileListFragment extends ExtendedListFragment implements
      * @param select <code>true</code> to select all, <code>false</code> to deselect all
      */
     public void selectAllFiles(boolean select) {
+        if (getRecyclerView() == null) {
+            return;
+        }
+
         final var localFileListAdapter = (LocalFileListAdapter) getRecyclerView().getAdapter();
         if (localFileListAdapter == null) {
             return;
@@ -336,8 +340,12 @@ public class LocalFileListFragment extends ExtendedListFragment implements
 
     @Override
     public void switchToGridView() {
+        if (getRecyclerView() == null) {
+            return;
+        }
+
         mAdapter.setGridView(true);
-        /**
+        /*
          * Set recyclerview adapter again to force new view for items. If this is not done
          * a few items keep their old view.
          *
@@ -365,8 +373,12 @@ public class LocalFileListFragment extends ExtendedListFragment implements
 
     @Override
     public void switchToListView() {
+        if (getRecyclerView() == null) {
+            return;
+        }
+
         mAdapter.setGridView(false);
-        /** Same problem here, see switchToGridView() */
+        /* Same problem here, see switchToGridView() */
         getRecyclerView().setAdapter(mAdapter);
         super.switchToListView();
     }

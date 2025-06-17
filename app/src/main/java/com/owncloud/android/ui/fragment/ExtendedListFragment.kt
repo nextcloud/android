@@ -140,8 +140,8 @@ open class ExtendedListFragment :
         mRecyclerView?.setAdapter(recyclerViewAdapter)
     }
 
-    protected val recyclerView: RecyclerView
-        get() = mRecyclerView!!
+    protected val recyclerView: RecyclerView?
+        get() = mRecyclerView
 
     open fun setLoading(enabled: Boolean) {
         mRefreshListLayout?.isRefreshing = enabled
@@ -149,19 +149,19 @@ open class ExtendedListFragment :
 
     open fun switchToGridView() {
         if (!isGridEnabled) {
-            recyclerView.setLayoutManager(GridLayoutManager(context, columnsCount))
+            recyclerView?.layoutManager = GridLayoutManager(context, columnsCount)
         }
     }
 
     open fun switchToListView() {
         if (isGridEnabled) {
-            recyclerView.setLayoutManager(LinearLayoutManager(context))
+            recyclerView?.layoutManager = LinearLayoutManager(context)
         }
     }
 
     val isGridEnabled: Boolean
         get() {
-            return recyclerView.layoutManager is GridLayoutManager
+            return recyclerView?.layoutManager is GridLayoutManager
         }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -239,7 +239,7 @@ open class ExtendedListFragment :
 
     @Suppress("ReturnCount")
     override fun onQueryTextSubmit(query: String): Boolean {
-        val adapter = recyclerView.adapter
+        val adapter = recyclerView?.adapter
         if (adapter is OCFileListAdapter) {
             val listOfHiddenFiles = adapter.listOfHiddenFiles
             performSearch(query, listOfHiddenFiles, false)
@@ -253,7 +253,7 @@ open class ExtendedListFragment :
     }
 
     fun performSearch(query: String, listOfHiddenFiles: ArrayList<String?>?, isBackPressed: Boolean) {
-        val adapter = recyclerView.adapter
+        val adapter = recyclerView?.adapter
         val activity: Activity? = getActivity()
 
         if (activity != null) {
@@ -296,7 +296,7 @@ open class ExtendedListFragment :
     }
 
     override fun onClose(): Boolean {
-        val adapter = recyclerView.adapter
+        val adapter = recyclerView?.adapter
         if (adapter is OCFileListAdapter) {
             val listOfHiddenFiles = adapter.listOfHiddenFiles
             performSearch("", listOfHiddenFiles, true)
@@ -322,14 +322,14 @@ open class ExtendedListFragment :
         mRecyclerView?.setHasFooter(true)
         mRecyclerView?.setEmptyView(binding?.emptyList?.emptyListView)
         mRecyclerView?.setHasFixedSize(true)
-        mRecyclerView?.setLayoutManager(LinearLayoutManager(context))
+        mRecyclerView?.layoutManager = LinearLayoutManager(context)
 
         mScale = preferences.getGridColumns()
         setGridViewColumns(1f)
 
         mScaleGestureDetector = ScaleGestureDetector(MainApp.getAppContext(), ScaleListener())
 
-        recyclerView.setOnTouchListener(
+        recyclerView?.setOnTouchListener(
             OnTouchListener { view: View, motionEvent: MotionEvent ->
                 mScaleGestureDetector?.onTouchEvent(motionEvent)
                 if (motionEvent.action == MotionEvent.ACTION_UP) {
@@ -370,7 +370,7 @@ open class ExtendedListFragment :
 
             preferences.setGridColumns(mScale)
 
-            recyclerView.adapter?.notifyDataSetChanged()
+            recyclerView?.adapter?.notifyDataSetChanged()
 
             return true
         }
@@ -413,7 +413,7 @@ open class ExtendedListFragment :
         mHeightCell = savedInstanceState.getInt(KEY_HEIGHT_CELL)
         setMessageForEmptyList(savedInstanceState.getString(KEY_EMPTY_LIST_MESSAGE))
 
-        if (savedInstanceState.getBoolean(KEY_IS_GRID_VISIBLE, false) && recyclerView.adapter != null) {
+        if (savedInstanceState.getBoolean(KEY_IS_GRID_VISIBLE, false) && recyclerView?.adapter != null) {
             switchToGridView()
         }
 
@@ -714,7 +714,7 @@ open class ExtendedListFragment :
         }
 
         if (isGridEnabled && columnsCount > maxColumnSize) {
-            (recyclerView.layoutManager as GridLayoutManager).setSpanCount(maxColumnSize)
+            (recyclerView?.layoutManager as GridLayoutManager).spanCount = maxColumnSize
         }
     }
 
