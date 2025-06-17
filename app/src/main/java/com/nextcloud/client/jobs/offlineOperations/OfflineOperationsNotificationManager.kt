@@ -10,7 +10,6 @@ package com.nextcloud.client.jobs.offlineOperations
 import android.app.PendingIntent
 import android.content.Context
 import androidx.core.app.NotificationCompat
-import com.nextcloud.client.account.User
 import com.nextcloud.client.database.entity.OfflineOperationEntity
 import com.nextcloud.client.jobs.notification.WorkerNotificationManager
 import com.nextcloud.utils.extensions.getErrorMessage
@@ -78,7 +77,7 @@ class OfflineOperationsNotificationManager(private val context: Context, viewThe
         }
     }
 
-    fun showConflictResolveNotification(file: OCFile, entity: OfflineOperationEntity?, user: User) {
+    fun showConflictResolveNotification(file: OCFile, entity: OfflineOperationEntity?) {
         val path = entity?.path
         val id = entity?.id
 
