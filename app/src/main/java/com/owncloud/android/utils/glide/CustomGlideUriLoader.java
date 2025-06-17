@@ -9,28 +9,41 @@ package com.owncloud.android.utils.glide;
 
 import android.net.Uri;
 
-import com.bumptech.glide.load.data.DataFetcher;
-import com.bumptech.glide.load.model.stream.StreamModelLoader;
+import com.bumptech.glide.load.Options;
+import com.bumptech.glide.load.model.ModelLoader;
+import com.bumptech.glide.signature.ObjectKey;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.network.ClientFactory;
 
 import java.io.InputStream;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 /**
  * Custom Model for authenticated fetching from Uri
  */
-public class CustomGlideUriLoader implements StreamModelLoader<Uri> {
+public class CustomGlideUriLoader implements ModelLoader<Uri, InputStream> {
 
     private final User user;
     private final ClientFactory clientFactory;
+    
+    
 
     public CustomGlideUriLoader(User user, ClientFactory clientFactory) {
         this.user = user;
         this.clientFactory = clientFactory;
     }
 
+
+    @Nullable
     @Override
-    public DataFetcher<InputStream> getResourceFetcher(Uri url, int width, int height) {
-        return new HttpStreamFetcher(user, clientFactory, url.toString());
+    public LoadData<InputStream> buildLoadData(@NonNull Uri uri, int width, int height, @NonNull Options options) {
+        return new LoadData<>(new ObjectKey(uri), new HttpStreamFetcher(user, clientFactory, uri.toString()));
+    }
+
+    @Override
+    public boolean handles(@NonNull Uri uri) {
+        return false;
     }
 }
