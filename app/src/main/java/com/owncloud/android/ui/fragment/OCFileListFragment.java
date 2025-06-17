@@ -462,7 +462,9 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
         setRecyclerViewAdapter(mAdapter);
 
-        fastScrollUtils.applyFastScroll(getRecyclerView());
+        if (getRecyclerView() != null) {
+            fastScrollUtils.applyFastScroll(getRecyclerView());
+        }
     }
 
     protected void prepareCurrentSearch(SearchEvent event) {
@@ -788,7 +790,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
                 return;
             }
 
-            if (getRecyclerView().getAdapter() instanceof OCFileListAdapter fileListAdapter) {
+            if (getRecyclerView() != null && getRecyclerView().getAdapter() instanceof OCFileListAdapter fileListAdapter) {
                 mSelectionWhenActionModeClosedByDrawer.addAll(fileListAdapter.getCheckedItems());
             }
 
@@ -1156,8 +1158,12 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
             if (ocCapability.getEndToEndEncryption().isFalse() ||
                 ocCapability.getEndToEndEncryption().isUnknown()) {
-                Snackbar.make(getRecyclerView(), R.string.end_to_end_encryption_not_enabled,
-                              Snackbar.LENGTH_LONG).show();
+
+                if (getRecyclerView() != null) {
+                    Snackbar.make(getRecyclerView(), R.string.end_to_end_encryption_not_enabled,
+                                  Snackbar.LENGTH_LONG).show();
+                }
+
                 return;
             }
             // check if keys are stored
@@ -1169,9 +1175,12 @@ public class OCFileListFragment extends ExtendedListFragment implements
                 if (mContainerActivity instanceof FolderPickerActivity &&
                     ((FolderPickerActivity) mContainerActivity)
                         .isDoNotEnterEncryptedFolder()) {
-                    Snackbar.make(getRecyclerView(),
-                                  R.string.copy_move_to_encrypted_folder_not_supported,
-                                  Snackbar.LENGTH_LONG).show();
+
+                    if (getRecyclerView() != null) {
+                        Snackbar.make(getRecyclerView(),
+                                      R.string.copy_move_to_encrypted_folder_not_supported,
+                                      Snackbar.LENGTH_LONG).show();
+                    }
                 } else {
                     browseToFolder(file, position);
                 }
@@ -1211,7 +1220,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
     private void fileOnItemClick(OCFile file) {
         Integer errorMessageId = checkFileBeforeOpen(file);
-        if (errorMessageId != null) {
+        if (errorMessageId != null && getRecyclerView() != null) {
             Snackbar.make(getRecyclerView(),
                           errorMessageId,
                           Snackbar.LENGTH_LONG).show();
@@ -1583,10 +1592,10 @@ public class OCFileListFragment extends ExtendedListFragment implements
             if (file != null) {
                 mAdapter.setHighlightedItem(file);
                 int position = mAdapter.getItemPosition(file);
-                if (position != -1) {
+                if (position != -1 && getRecyclerView() != null) {
                     getRecyclerView().scrollToPosition(position);
                 }
-            } else if (previousDirectory == null || !previousDirectory.equals(directory)) {
+            } else if (getRecyclerView() != null && (previousDirectory == null || !previousDirectory.equals(directory))) {
                 getRecyclerView().scrollToPosition(0);
             }
         } else if (isSearchEventSet(searchEvent)) {
@@ -1682,10 +1691,11 @@ public class OCFileListFragment extends ExtendedListFragment implements
         }
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     public void switchLayoutManager(boolean grid) {
         int position = 0;
 
-        if (getRecyclerView().getLayoutManager() != null) {
+        if (getRecyclerView() != null && getRecyclerView().getLayoutManager() != null) {
             position = ((LinearLayoutManager) getRecyclerView().getLayoutManager())
                 .findFirstCompletelyVisibleItemPosition();
         }
@@ -1709,11 +1719,13 @@ public class OCFileListFragment extends ExtendedListFragment implements
             layoutManager = new LinearLayoutManager(getContext());
         }
 
-        getRecyclerView().setLayoutManager(layoutManager);
-        getRecyclerView().scrollToPosition(position);
-        getAdapter().setGridView(grid);
-        getRecyclerView().setAdapter(getAdapter());
-        getAdapter().notifyDataSetChanged();
+        if (getRecyclerView() != null) {
+            getRecyclerView().setLayoutManager(layoutManager);
+            getRecyclerView().scrollToPosition(position);
+            getAdapter().setGridView(grid);
+            getRecyclerView().setAdapter(getAdapter());
+            getAdapter().notifyDataSetChanged();
+        }
     }
 
     public CommonOCFileListAdapterInterface getCommonAdapter() {
@@ -2034,14 +2046,18 @@ public class OCFileListFragment extends ExtendedListFragment implements
                 }
 
                 requireActivity().runOnUiThread(() -> mAdapter.setEncryptionAttributeForItemID(remoteId, shouldBeEncrypted));
-            } else if (remoteOperationResult.getHttpCode() == HttpStatus.SC_FORBIDDEN) {
+            } else if (remoteOperationResult.getHttpCode() == HttpStatus.SC_FORBIDDEN && getRecyclerView() != null) {
                 requireActivity().runOnUiThread(() -> Snackbar.make(getRecyclerView(),
                                                             R.string.end_to_end_encryption_folder_not_empty,
                                                             Snackbar.LENGTH_LONG).show());
             } else {
-                requireActivity().runOnUiThread(() -> Snackbar.make(getRecyclerView(),
-                                                            R.string.common_error_unknown,
-                                                            Snackbar.LENGTH_LONG).show());
+                requireActivity().runOnUiThread(() -> {{
+                    if (getRecyclerView() != null) {
+                        Snackbar.make(getRecyclerView(),
+                                      R.string.common_error_unknown,
+                                      Snackbar.LENGTH_LONG).show();
+                    }
+                }});
             }
 
         } catch (Throwable e) {
@@ -2062,7 +2078,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
             if (result.isSuccess()) {
                 // TODO only refresh the modified file?
                 new Handler(Looper.getMainLooper()).post(this::onRefresh);
-            } else {
+            } else if (getRecyclerView() != null) {
                 Snackbar.make(getRecyclerView(),
                               R.string.error_file_lock,
                               Snackbar.LENGTH_LONG).show();
@@ -2070,9 +2086,12 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
         } catch (ClientFactory.CreationException e) {
             Log_OC.e(TAG, "Cannot create client", e);
-            Snackbar.make(getRecyclerView(),
-                          R.string.error_file_lock,
-                          Snackbar.LENGTH_LONG).show();
+
+            if (getRecyclerView() != null) {
+                Snackbar.make(getRecyclerView(),
+                              R.string.error_file_lock,
+                              Snackbar.LENGTH_LONG).show();
+            }
         } finally {
             new Handler(Looper.getMainLooper()).post(() -> setLoading(false));
         }
@@ -2148,6 +2167,10 @@ public class OCFileListFragment extends ExtendedListFragment implements
      */
     @SuppressLint("NotifyDataSetChanged")
     public void selectAllFiles(boolean select) {
+        if (getRecyclerView() == null) {
+            return;
+        }
+
         final var adapter = getRecyclerView().getAdapter();
         if (adapter instanceof  CommonOCFileListAdapterInterface commonInterface) {
             commonInterface.selectAll(select);
