@@ -16,7 +16,7 @@ sealed class OfflineOperationType {
         override val type: String,
         val localPath: String,
         var remotePath: String,
-        val mimeType: String
+        var mimeType: String
     ) : OfflineOperationType()
 
     data class RenameFile(override val type: String, var ocFileId: Long, val newName: String) : OfflineOperationType()
