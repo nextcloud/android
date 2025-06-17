@@ -74,6 +74,7 @@ import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.dialog.SortingOrderDialogFragment;
 import com.owncloud.android.ui.events.SearchEvent;
 import com.owncloud.android.ui.fragment.OCFileListFragment;
+import com.owncloud.android.utils.glide.GlideApp;
 import com.owncloud.android.utils.theme.ViewThemeUtils;
 
 import org.greenrobot.eventbus.EventBus;
@@ -541,7 +542,7 @@ public final class DisplayUtils {
     }
 
     private static void downloadPNGIcon(Context context, String iconUrl, SimpleTarget imageView, int placeholder) {
-        Glide
+        GlideApp
             .with(context)
             .load(iconUrl)
             .centerCrop()
@@ -558,7 +559,7 @@ public final class DisplayUtils {
                                         int placeholder) {
         Uri uri = Uri.parse(iconUrl);
         
-        Glide.with(context)
+        GlideApp.with(context)
             .as(SVG.class)
             .placeholder(placeholder)
             .error(placeholder)
