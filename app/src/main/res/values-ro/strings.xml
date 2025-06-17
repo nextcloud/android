@@ -30,8 +30,6 @@
     <string name="add_new_public_share">Adaugă un link public partajat nou</string>
     <string name="add_new_secure_file_drop">Adaugă o nouă încărcare securizată de fișier</string>
     <string name="add_to_cloud">Adaugă la 1 %1$s</string>
-    <string name="advanced_settings">Setări avansate</string>
-    <string name="allow_resharing">Permite repartajarea</string>
     <string name="app_config_base_url_title">URL-ul de bază</string>
     <string name="app_config_disable_clipboard_title">Dezactivează clipboard</string>
     <string name="app_config_disable_intro_title">Deactivează introducerea</string>
@@ -47,7 +45,6 @@
     <string name="assistant_screen_add_task_alert_dialog_title"> Adaugă sarcină nouă</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Tastează un text</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Sigur doriți să ștergeți acest task?</string>
-    <string name="assistant_screen_no_task_available_text">Niciun task disponibil pentru tipul de task %s, puteți crea un task nou din dreapta jos.</string>
     <string name="assistant_screen_task_create_fail_message">A apărut o eroare la crearea taskului</string>
     <string name="assistant_screen_task_create_success_message">Task creat cu succes</string>
     <string name="assistant_screen_task_delete_fail_message">A apărut o eroare la ștergerea taskului</string>
@@ -93,9 +90,6 @@
     <string name="authenticator_activity_login_error">A apărut o problemă la procesarea solicitării dvs. de conectare. Vă rugăm să încercați din nou mai târziu.</string>
     <string name="authenticator_activity_please_complete_login_process">Vă rugăm să finalizați procesul de conectare în browser</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">păstrează în directorul original deoarece este disponibil doar pentru citire</string>
-    <string name="auto_upload_gplay">Comportamentul de încărcare automată s-a schimbat</string>
-    <string name="auto_upload_gplay_desc">Din cauza noilor restricții impuse de Google, funcția de încărcare automată nu va mai putea elimina automat fișierele încărcate.</string>
-    <string name="auto_upload_gplay_desc2">Din cauza noilor restricții impuse de Google, am fost forțați să eliminăm o permisiune importantă. Ca rezultat, încărcarea automată va putea încărca numai fișiere de imagine și video.\nÎn plus, este necesară o nouă permisiune pentru a accesa informațiile despre locație pentru imaginile încărcate.\nAsigurați-vă că accesul media este setat la „Permiteți întotdeauna toate”.</string>
     <string name="auto_upload_on_wifi">Se încarcă numai pe Wi-Fi nelimitat</string>
     <string name="auto_upload_path">/AutoÎncărcare</string>
     <string name="autoupload_configure">Configurează</string>
@@ -129,7 +123,6 @@
     <string name="clear_notifications_failed">Eroare la ștergerea notificărilor.</string>
     <string name="clear_status_message">Șterge mesajul de stare</string>
     <string name="clear_status_message_after">Șterge mesajul de stare după</string>
-    <string name="click_to_learn_how_to_re_enable_auto_uploads">Este necesară intervenția manuală pentru a reactiva încărcarea automată</string>
     <string name="clipboard_label">Text copiat din %1$s</string>
     <string name="clipboard_no_text_to_copy">Nici un text disponibil pentru copiere</string>
     <string name="clipboard_text_copied">Link copiat</string>
@@ -420,7 +413,6 @@
     <string name="file_not_found">Fișierul nu a fost găsit</string>
     <string name="file_not_synced">Fișierul nu a putut fi sincronizat. Aceastea sunt ultimile versiuni disponibile.</string>
     <string name="file_rename">Redenumire</string>
-    <string name="file_upload_worker_same_file_already_exists">Același fișier există deja, nu a fost detectat niciun conflict</string>
     <string name="file_version_restored_error">Eroare în restaurarea acestei versiuni a fisierului!</string>
     <string name="file_version_restored_successfully">S-a restaurat cu succes versiunea acestui fișier.</string>
     <string name="filedetails_details">Detalii</string>
@@ -495,10 +487,7 @@
     <string name="last_backup">Ultima copie de rezervă: %1$s</string>
     <string name="link">Legătură</string>
     <string name="link_name">Numele legăturii</string>
-    <string name="link_share_allow_upload_and_editing">Permite încărcarea și editarea</string>
     <string name="link_share_editing">Se modifică</string>
-    <string name="link_share_file_drop">Trage fișierul (numai încărcare)</string>
-    <string name="link_share_view_only">Numai se vizualizează</string>
     <string name="list_layout">Aranjare listată</string>
     <string name="load_more_results">Încarcă mai multe rezultate</string>
     <string name="local_file_list_empty">În acest folder nu sunt fișiere.</string>
@@ -731,7 +720,6 @@
     <string name="share_dialog_title">Partajare</string>
     <string name="share_edit_permission">Editează</string>
     <string name="share_expiration_date_format">%1$s</string>
-    <string name="share_expiration_date_label">Expiră %1$s</string>
     <string name="share_file">Partajare %1$s</string>
     <string name="share_group_clarification">%1$s (grup)</string>
     <string name="share_internal_link">Trimite link intern</string>
@@ -748,9 +736,7 @@
     <string name="share_link_with_label">Trimite link (%1$s)</string>
     <string name="share_no_expiration_date_label">Specifică data expirării</string>
     <string name="share_no_password_title">Setare parolă</string>
-    <string name="share_password_title">Protejat cu parolă</string>
     <string name="share_permission_can_edit">Poate edita</string>
-    <string name="share_permission_file_drop">Aducere fișier</string>
     <string name="share_permission_view_only">Numai se vizualizează</string>
     <string name="share_re_share_permission">Partajează</string>
     <string name="share_read_permission">Citit</string>

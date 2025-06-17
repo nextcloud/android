@@ -29,8 +29,6 @@
     <string name="activity_chooser_title">Siųsti nuorodą…</string>
     <string name="activity_icon">Veikla</string>
     <string name="add_to_cloud">Pridėti į %1$s</string>
-    <string name="advanced_settings">Išplėstiniai nustatymai</string>
-    <string name="allow_resharing">Leisti bendrinti iš naujo</string>
     <string name="app_config_disable_clipboard_title">Išjungti iškarpinę</string>
     <string name="app_config_disable_log_title">Išjungti žurnalą</string>
     <string name="app_config_disable_sharing_title">Išjungti bendrinimą</string>
@@ -42,7 +40,6 @@
     <string name="assistant_screen_delete_task_alert_dialog_description">Ar tikrai norite ištrinti šią užduotį?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Ištrinti užduotį</string>
     <string name="assistant_screen_loading">Įkeliamas užduočių sąrašas…</string>
-    <string name="assistant_screen_no_task_available_text">Nėra užduoties tipo %s . Galite sukurti naują užduotį apačioje dešinėje.</string>
     <string name="assistant_screen_task_create_fail_message">Kuriant užduotį, įvyko klaida</string>
     <string name="assistant_screen_task_create_success_message">Užduotis sėkmingai sukurta</string>
     <string name="assistant_screen_task_delete_fail_message">Ištrinant užduotį, įvyko klaida</string>
@@ -439,10 +436,7 @@
     <string name="last_backup">Paskutinė atsarginė kopija: %1$s</string>
     <string name="link">Nuoroda</string>
     <string name="link_name">Nuorodos pavadinimas</string>
-    <string name="link_share_allow_upload_and_editing">Leisti įkelti ir redaguoti</string>
     <string name="link_share_editing">Redagavimas</string>
-    <string name="link_share_file_drop">Failų įmetimas (tik įkėlimas)</string>
-    <string name="link_share_view_only">Tik peržiūrėti</string>
     <string name="list_layout">Išdėstymas sąraše</string>
     <string name="load_more_results">Įkelti daugiau rezultatų</string>
     <string name="local_file_list_empty">Šiame aplanke nėra failų.</string>
@@ -675,7 +669,6 @@
     <string name="share_dialog_title">Bendrinimas</string>
     <string name="share_edit_permission">Taisyti</string>
     <string name="share_expiration_date_format">%1$s</string>
-    <string name="share_expiration_date_label">Galioja iki %1$s</string>
     <string name="share_file">Bendrinti %1$s</string>
     <string name="share_group_clarification">%1$s (grupė)</string>
     <string name="share_internal_link_to_file_text">Vidinė viešinio nuoroda veikia tik tiems naudotojams, kurie turi prieigą prie šio failo</string>
@@ -691,9 +684,7 @@
     <string name="share_link_with_label">Viešinio nuoroda (%1$s)</string>
     <string name="share_no_expiration_date_label">Nustatyti galiojimo pabaigos datą</string>
     <string name="share_no_password_title">Nustatyti slaptažodį</string>
-    <string name="share_password_title">Apsaugota slaptažodžiu</string>
     <string name="share_permission_can_edit">Galima redaguoti</string>
-    <string name="share_permission_file_drop">Failų įkėlimas</string>
     <string name="share_permission_secure_file_drop">Saugus failų įkėlimas</string>
     <string name="share_permission_view_only">Tik peržiūrėti</string>
     <string name="share_re_share_permission">Bendrinti</string>

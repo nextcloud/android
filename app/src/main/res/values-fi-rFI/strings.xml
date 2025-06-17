@@ -29,8 +29,6 @@
     <string name="activity_icon">Aktiviteetti</string>
     <string name="add_new_public_share">Lisää uusi julkinen jakolinkki</string>
     <string name="add_to_cloud">Lisää kohteeseen %1$s</string>
-    <string name="advanced_settings">Lisäasetukset</string>
-    <string name="allow_resharing">Salli uudelleenjakaminen</string>
     <string name="app_config_disable_clipboard_title">Poista leikepöytä käytöstä</string>
     <string name="app_config_proxy_port_title">Välityspalvelimen portti</string>
     <string name="app_widget_description">Näyttää yhden pienoissovelluksen konsolista</string>
@@ -464,10 +462,7 @@
     <string name="last_backup">Viimeisin varmuuskopio: %1$s</string>
     <string name="link">Linkki</string>
     <string name="link_name">Linkin nimi</string>
-    <string name="link_share_allow_upload_and_editing">Salli lähetys ja muokkaus</string>
     <string name="link_share_editing">Muokataan</string>
-    <string name="link_share_file_drop">Tiedostojen pudotus (vain lähetys)</string>
-    <string name="link_share_view_only">Vain katselu</string>
     <string name="list_layout">Luettelonäkymä</string>
     <string name="load_more_results">Lataa lisää tuloksia</string>
     <string name="local_file_list_empty">Tässä kansiossa ei ole tiedostoja</string>
@@ -715,13 +710,13 @@ GNU yleinen lisenssi, versio 2</string>
     <string name="set_status">Aseta tilatieto</string>
     <string name="set_status_message">Aseta tilaviesti</string>
     <string name="share">Jaa</string>
+    <string name="share_create_permission">Luo</string>
     <string name="share_custom_permission">Mukautetut oikeudet</string>
     <string name="share_delete_permission">Poista</string>
     <string name="share_dialog_title">Jakaminen</string>
     <string name="share_download_limit">Aseta latausraja</string>
     <string name="share_edit_permission">Muokkaa</string>
     <string name="share_expiration_date_format">%1$s</string>
-    <string name="share_expiration_date_label">Vanhenee %1$s</string>
     <string name="share_file">Jaa %1$s</string>
     <string name="share_group_clarification">%1$s (ryhmä)</string>
     <string name="share_internal_link">Jaa sisäinen linkki</string>
@@ -737,10 +732,9 @@ GNU yleinen lisenssi, versio 2</string>
     <string name="share_link_with_label">Jaa linkki (%1$s)</string>
     <string name="share_no_expiration_date_label">Aseta vanhenemispäivä</string>
     <string name="share_no_password_title">Aseta salasana</string>
-    <string name="share_password_title">Salasanasuojattu</string>
     <string name="share_permission_can_edit">Voi muokata</string>
-    <string name="share_permission_file_drop">Tiedoston pudotus</string>
     <string name="share_permission_view_only">Vain katselu</string>
+    <string name="share_re_share_permission">Jaa</string>
     <string name="share_read_permission">Lue</string>
     <string name="share_remote_clarification">%1$s (etä)</string>
     <string name="share_room_clarification">%1$s (keskustelu)</string>

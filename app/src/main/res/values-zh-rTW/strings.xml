@@ -31,8 +31,6 @@
     <string name="add_new_public_share">新增公開分享連結</string>
     <string name="add_new_secure_file_drop">新增安全檔案投遞</string>
     <string name="add_to_cloud">新增到 %1$s </string>
-    <string name="advanced_settings">進階設定</string>
-    <string name="allow_resharing">允許轉發分享</string>
     <string name="app_config_base_url_title">基礎 URL</string>
     <string name="app_config_disable_clipboard_title">停用剪貼簿</string>
     <string name="app_config_disable_intro_title">停用簡介</string>
@@ -51,7 +49,6 @@
     <string name="assistant_screen_delete_task_alert_dialog_description">您確定要刪除此工作項目嗎？</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">刪除工作項目</string>
     <string name="assistant_screen_loading">正在載入工作項目清單……</string>
-    <string name="assistant_screen_no_task_available_text">沒有可用於 %s 工作項目類型的工作項目，您可以從右下角建立新工作項目。</string>
     <string name="assistant_screen_task_create_fail_message">建立工作項目時發生錯誤</string>
     <string name="assistant_screen_task_create_success_message">已成功建立工作項目</string>
     <string name="assistant_screen_task_delete_fail_message">刪除工作項目時發生錯誤</string>
@@ -98,9 +95,6 @@
     <string name="authenticator_activity_login_error">處理您的登入請求時出現問題。請稍後再試。</string>
     <string name="authenticator_activity_please_complete_login_process">請在瀏覽器中完成登入流程</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">以唯讀模式保留在原本的資料夾</string>
-    <string name="auto_upload_gplay">自動上傳行為已變更</string>
-    <string name="auto_upload_gplay_desc">由於 Google 施加的新限制，自動上傳功能將無法再自動移除已上傳的檔案。</string>
-    <string name="auto_upload_gplay_desc2">由於 Google 施加了新的限制，我們不得不移除一個重要的權限。因此，自動上傳將只能上傳圖片與視訊檔案。此外，還需要新的權限才能存取上傳圖片的位置資訊。</string>
     <string name="auto_upload_on_wifi">只在非計量收費的 Wi-Fi 上傳</string>
     <string name="auto_upload_path">/AutoUpload</string>
     <string name="auto_upload_sub_folder_warning">此資料夾已包含在上層資料夾的同步中，這可能會導致重複上傳</string>
@@ -135,7 +129,6 @@
     <string name="clear_notifications_failed">清除通知訊息失敗。</string>
     <string name="clear_status_message">清除狀態訊息</string>
     <string name="clear_status_message_after">在多久後清除狀態訊息</string>
-    <string name="click_to_learn_how_to_re_enable_auto_uploads">重新啟用自動上傳功能需要手動介入</string>
     <string name="clipboard_label">文字已從 %1$s 複製</string>
     <string name="clipboard_no_text_to_copy">沒有收到要複製到剪貼簿的文字</string>
     <string name="clipboard_text_copied">連結已複製</string>
@@ -442,7 +435,6 @@
     <string name="file_not_synced">檔案無法同步。將顯示最新可用版本。</string>
     <string name="file_rename">重新命名</string>
     <string name="file_upload_worker_error_notification_title">上傳失敗。沒有網際網路連線</string>
-    <string name="file_upload_worker_same_file_already_exists">已存在相同的檔案，未偵測到衝突</string>
     <string name="file_version_restored_error">檔案版本復原錯誤！</string>
     <string name="file_version_restored_successfully">成功回復檔案版本。</string>
     <string name="filedetails_details">詳細資訊</string>
@@ -519,10 +511,7 @@
     <string name="last_backup">上次備份：%1$s</string>
     <string name="link">連結</string>
     <string name="link_name">連結名稱</string>
-    <string name="link_share_allow_upload_and_editing">允許上傳及編輯</string>
     <string name="link_share_editing">編輯</string>
-    <string name="link_share_file_drop">檔案投遞（僅供上傳）</string>
-    <string name="link_share_view_only">僅供檢視</string>
     <string name="list_layout">列表版面配置</string>
     <string name="load_more_results">載入更多結果</string>
     <string name="local_file_list_empty">這個資料夾中沒有任何檔案。</string>
@@ -740,8 +729,6 @@
     <string name="push_notifications_old_login">因為登入工作階段已過期，故無推播通知。請考慮重新加入您的帳號。</string>
     <string name="push_notifications_temp_error">推播通知目前無法使用。</string>
     <string name="qr_could_not_be_read">無法讀取 QR Code！</string>
-    <string name="re_enable_auto_upload">自動上傳的變更</string>
-    <string name="re_enable_auto_upload_desc">由於 Google 施加了新的限制，我們不得不移除一個重要的權限。我們目前正與 Google 合作解決此問題，並恢復完整功能。\n\n要重新啟用自動上傳新圖片與影片的功能： \n在下列對話方塊或系統設定中選取「全部允許」。\n如果出現提示，請允許媒體位置，因為這允許 Nextcloud 在上傳圖片時儲存位置資料。\n\n僅在必要時，才會顯示權限對話方塊。如有疑問，請檢查系統設定。\n\n自動上傳只能在使用 Google Play 版本的 Nextcloud 應用程式時上傳圖片與影片檔案。\n\n請檢查是否有自2024年12月以來的未上傳檔案。</string>
     <string name="receive_external_files_activity_start_sync_folder_is_not_exists_message">找不到資料夾，同步操作已取消</string>
     <string name="receive_external_files_activity_unable_to_find_file_to_upload">找不到要上傳的檔案</string>
     <string name="recommend_subject">在您的裝置上試用 %1$s！</string>
@@ -817,7 +804,6 @@
     <string name="share_download_limit">設定下載限制</string>
     <string name="share_edit_permission">編輯</string>
     <string name="share_expiration_date_format">%1$s</string>
-    <string name="share_expiration_date_label">到期 %1$s</string>
     <string name="share_file">分享 %1$s</string>
     <string name="share_group_clarification">%1$s（群組）</string>
     <string name="share_internal_link">分享內部連結</string>
@@ -836,9 +822,7 @@
     <string name="share_no_password_title">設定密碼</string>
     <string name="share_not_allowed_when_file_drop">在安全檔案投遞時不允許轉分享</string>
     <string name="share_option_required">請在繼續前至少選取一個分享選項。</string>
-    <string name="share_password_title">受密碼保護</string>
     <string name="share_permission_can_edit">可以編輯</string>
-    <string name="share_permission_file_drop">檔案投遞</string>
     <string name="share_permission_file_request">檔案請求</string>
     <string name="share_permission_secure_file_drop">安全檔案投遞</string>
     <string name="share_permission_view_only">僅供檢視</string>
@@ -1018,8 +1002,6 @@
     <string name="upload_file_dialog_title">輸入上傳的檔案名稱和類型</string>
     <string name="upload_files">上傳檔案</string>
     <string name="upload_global_pause_title">所有上傳皆已暫停</string>
-    <string name="upload_gplay">權限變更</string>
-    <string name="upload_gplay_desc">要存取上傳圖片的位置資訊，需要新的權限。\n確定媒體存取已設定為「一律全部允許」。</string>
     <string name="upload_item_action_button">上傳項目動作按鈕</string>
     <string name="upload_list_delete">刪除</string>
     <string name="upload_list_empty_headline">沒有上傳的檔案</string>

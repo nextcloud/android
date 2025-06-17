@@ -28,7 +28,6 @@
     <string name="add_to_cloud">Dodaj u %1$s</string>
     <string name="appbar_search_in">Pretraga u %s</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Da li ste sigurni da želite da izbrišete ovaj zadatak?</string>
-    <string name="assistant_screen_no_task_available_text">Nijedan zadatak nije dostupan za %s tip zadatka, možete kreirati novi zadatak dole desno.</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">Izbriši zadatak</string>
     <string name="associated_account_not_found">Pridruženi nalog nije nađen!</string>
     <string name="auth_access_failed">Neuspeo pristup: %1$s</string>
@@ -481,7 +480,6 @@
     <string name="share_delete_permission">Obriši</string>
     <string name="share_dialog_title">Deljenje</string>
     <string name="share_edit_permission">Izmeni</string>
-    <string name="share_expiration_date_label">Ističe na %1$s</string>
     <string name="share_file">Podeli %1$s</string>
     <string name="share_group_clarification">%1$s (grupa)</string>
     <string name="share_internal_link">Podeli internu vezu</string>
@@ -492,7 +490,6 @@
     <string name="share_link_password_title">Unesite lozinku</string>
     <string name="share_no_expiration_date_label">Postavi datum isteka</string>
     <string name="share_no_password_title">Postavi lozinku</string>
-    <string name="share_password_title">Zaštićeno lozinkom</string>
     <string name="share_permission_can_edit">Can edit</string>
     <string name="share_re_share_permission">Deli</string>
     <string name="share_read_permission">Čitaj</string>

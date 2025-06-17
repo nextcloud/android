@@ -31,8 +31,6 @@
     <string name="add_new_public_share">Tilføj nyt offentligt link til deling</string>
     <string name="add_new_secure_file_drop">Tilføj nyt, sikkert fil drop</string>
     <string name="add_to_cloud">Tilføj til %1$s</string>
-    <string name="advanced_settings">Avancerede indstillinger</string>
-    <string name="allow_resharing">Tillad videredeling</string>
     <string name="app_config_base_url_title">Grund URL</string>
     <string name="app_config_disable_clipboard_title">Deaktiver klippebord</string>
     <string name="app_config_disable_intro_title">Deaktiver intro</string>
@@ -51,7 +49,6 @@
     <string name="assistant_screen_delete_task_alert_dialog_description">Er du sikker på du vil slette denne opgave?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Slet opgave</string>
     <string name="assistant_screen_loading">Indlæser opgaveliste...</string>
-    <string name="assistant_screen_no_task_available_text">Ingen opgave tilgænge for %s opgavetype. Du kan oprette en ny opgave via bunden til højre.</string>
     <string name="assistant_screen_task_create_fail_message">En fejl opstod under oprettelse af opgaven</string>
     <string name="assistant_screen_task_create_success_message">Opgaven er oprettet</string>
     <string name="assistant_screen_task_delete_fail_message">En fejl opstod under sletning af opgaven</string>
@@ -98,9 +95,6 @@
     <string name="authenticator_activity_login_error">Der opstod et problem i forbindelse med din log på forespørgsel. Prøv venligst igen senere.</string>
     <string name="authenticator_activity_please_complete_login_process">Gennemfør venligst log på processen i din browser</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">Forblevet i oprindelig folder, da den er skrivebeskyttet</string>
-    <string name="auto_upload_gplay">Auto upload opførsel ændret</string>
-    <string name="auto_upload_gplay_desc">På grund af nye begrænsninger fra Google, så vil auto upload funktionen ikke længere automatisk kunne fjerne uploadede filer.</string>
-    <string name="auto_upload_gplay_desc2">På grund af nye restriktioner pålagt af Google, er vi blevet tvunget til at fjerne en vigtig tilladelse. Som følge heraf vil automatisk upload kun være i stand til at uploade billed- og videofiler.\nDerudover kræves der en ny tilladelse for at få adgang til placeringsoplysninger for uploadede billeder.\nSørg for, at medieadgang er indstillet til \"Tillad altid alle\".</string>
     <string name="auto_upload_on_wifi">Upload kun på ubegrænset wifi</string>
     <string name="auto_upload_path">/AutoUpload</string>
     <string name="auto_upload_sub_folder_warning">Denne mappe er allerede inkluderet i den overordnede mappes synkronisering, hvilket kan medføre dobbelt uploads</string>
@@ -135,7 +129,6 @@
     <string name="clear_notifications_failed">Rydning af alle notifikationer fejlede</string>
     <string name="clear_status_message">Ryd status notifikation</string>
     <string name="clear_status_message_after">Ryd status notifikationer efter</string>
-    <string name="click_to_learn_how_to_re_enable_auto_uploads">Manuel indgriben påkrævet for at genaktivere automatisk upload</string>
     <string name="clipboard_label">Tekst kopieret fra %1$s</string>
     <string name="clipboard_no_text_to_copy">Modtog ingen tekst til kopiering til udklipsholder</string>
     <string name="clipboard_text_copied">Link kopieret</string>
@@ -440,7 +433,6 @@
     <string name="file_not_synced">Filen kunne ikke synkroniseres. Viser senest tilgængelige version.</string>
     <string name="file_rename">Omdøb</string>
     <string name="file_upload_worker_error_notification_title">Upload mislykkedes. Ingen internetforbindelse</string>
-    <string name="file_upload_worker_same_file_already_exists">Samme fil eksisterer allerede. Ingen konflikt detekteret</string>
     <string name="file_version_restored_error">Fejl ved genskabning af fil version!</string>
     <string name="file_version_restored_successfully">Succes ved genskabning af fil version!</string>
     <string name="filedetails_details">Detaljer</string>
@@ -517,10 +509,7 @@
     <string name="last_backup">Seneste backup: %1$s</string>
     <string name="link">Link</string>
     <string name="link_name">Link Navn</string>
-    <string name="link_share_allow_upload_and_editing">Tillad upload og redigering</string>
     <string name="link_share_editing">Redigering</string>
-    <string name="link_share_file_drop">Fil drop (kun upload)</string>
-    <string name="link_share_view_only">Kun visning</string>
     <string name="list_layout">Liste layout</string>
     <string name="load_more_results">Indlæs flere resultater</string>
     <string name="local_file_list_empty">Der er ingen filer i denne mappe.</string>
@@ -739,8 +728,6 @@
     <string name="push_notifications_old_login">Ingen push notifikationer fordi login sessionen er udløbet. Venligst overvej at genintaste din konto.</string>
     <string name="push_notifications_temp_error">Push notifikationer ikke tilgængelige nu.</string>
     <string name="qr_could_not_be_read">QR koden kunne ikke læses!</string>
-    <string name="re_enable_auto_upload">Ændringer til automatisk upload</string>
-    <string name="re_enable_auto_upload_desc">På grund af nye restriktioner pålagt af Google, er vi blevet tvunget til at fjerne en vigtig tilladelse. Vi arbejder i øjeblikket sammen med Google for at løse dette problem og gendanne fuld funktionalitet.\n\nFor at genaktivere automatisk upload for nye billeder og videoer:\nVælg \"Tillad alle\" i den følgende dialog eller systemindstillingerne.\nTillad medieplacering, når bedt om, da dette giver Nextcloud mulighed for at gemme lokalitetsdata ved upload af billeder.\n\nTilladelsesdialogen vises kun, når det er nødvendigt. Hvis du er i tvivl, så tjek systemindstillingerne.\n\nAutomatisk upload vil kun være i stand til at uploade billed- og videofiler, når du bruger Google Play-versionen af ​​Nextcloud-appen.\n\nTjek venligst for filer, der muligvis ikke er blevet uploadet siden december 2024.</string>
     <string name="receive_external_files_activity_start_sync_folder_is_not_exists_message">Mappenavn kan ikke findes. Synkroniseringshandlingen er annulleret</string>
     <string name="receive_external_files_activity_unable_to_find_file_to_upload">Kan ikke finde fil til upload</string>
     <string name="recommend_subject">Prøv %1$s på din enhed!</string>
@@ -812,9 +799,8 @@
     <string name="share_delete_permission">Slet</string>
     <string name="share_dialog_title">Deling</string>
     <string name="share_download_limit">Indstil downloadgrænse</string>
-    <string name="share_edit_permission">Redigér</string>
+    <string name="share_edit_permission">Rediger</string>
     <string name="share_expiration_date_format">%1$s</string>
-    <string name="share_expiration_date_label">Udløber %1$s</string>
     <string name="share_file">Del %1$s</string>
     <string name="share_group_clarification">%1$s (gruppe)</string>
     <string name="share_internal_link">Del internt link</string>
@@ -832,9 +818,7 @@
     <string name="share_no_expiration_date_label">Angiv udløbsdato</string>
     <string name="share_no_password_title">Skift adgangskode</string>
     <string name="share_not_allowed_when_file_drop">Gen-deling er ikke tilladt under sikke fil drop</string>
-    <string name="share_password_title">Beskyttet med adgangskode</string>
     <string name="share_permission_can_edit">Kan redigere</string>
-    <string name="share_permission_file_drop">Fil drop</string>
     <string name="share_permission_file_request">Filforespørgsler</string>
     <string name="share_permission_secure_file_drop">Sikkert fil drop</string>
     <string name="share_permission_view_only">Kun visning</string>
@@ -1014,8 +998,6 @@
     <string name="upload_file_dialog_title">Indtast filnavn og filtype at sende</string>
     <string name="upload_files">Send filer</string>
     <string name="upload_global_pause_title">Alle uploads er pauserede</string>
-    <string name="upload_gplay">Tilladelsesændringer</string>
-    <string name="upload_gplay_desc">Der kræves en ny tilladelse for at få adgang til placeringsoplysninger for uploadede billeder.\nSørg for, at medieadgang er indstillet til \"Tillad altid alle\".</string>
     <string name="upload_item_action_button">Send artikel knap</string>
     <string name="upload_list_delete">Slet</string>
     <string name="upload_list_empty_headline">Ingen uploads tilgængelige</string>

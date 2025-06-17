@@ -28,8 +28,6 @@
     <string name="activity_icon">Активност</string>
     <string name="add_new_public_share">Додади нов линк за споделување</string>
     <string name="add_to_cloud">Додади во %1$s</string>
-    <string name="advanced_settings">Напредни параметри</string>
-    <string name="allow_resharing">Дозволи повторно споделување</string>
     <string name="app_config_proxy_port_title">Proxy порта</string>
     <string name="app_widget_description">Прикажува еден виџет од контролната табла</string>
     <string name="appbar_search_in">Барај во %s</string>
@@ -361,9 +359,6 @@
     <string name="invalid_url">Неправилна URL</string>
     <string name="invisible">Невидливо</string>
     <string name="link">Линк</string>
-    <string name="link_share_allow_upload_and_editing">Дозволи прикачување и уредување</string>
-    <string name="link_share_file_drop">Испуши датотека (само за прикачување)</string>
-    <string name="link_share_view_only">Само за гледање</string>
     <string name="list_layout">Listed layout</string>
     <string name="load_more_results">Вчитај повеќе резултати</string>
     <string name="local_file_list_empty">Нема датотеки во оваа папка.</string>
@@ -569,7 +564,6 @@
     <string name="share_download_limit">Постави лимит за преземања</string>
     <string name="share_edit_permission">Уреди</string>
     <string name="share_expiration_date_format">%1$s</string>
-    <string name="share_expiration_date_label">Истекува на %1$s</string>
     <string name="share_file">Сподели %1$s</string>
     <string name="share_group_clarification">%1$s (група)</string>
     <string name="share_internal_link">Сподели внатрешен линк</string>
@@ -582,9 +576,7 @@
     <string name="share_link_with_label">Сподели линк (%1$s)</string>
     <string name="share_no_expiration_date_label">Постави рок на траење</string>
     <string name="share_no_password_title">Поставете лозинка</string>
-    <string name="share_password_title">Заштитено со лозинка</string>
     <string name="share_permission_can_edit">Може да се уредува</string>
-    <string name="share_permission_file_drop">Повлечи и прикачи</string>
     <string name="share_permission_file_request">Барање за датотека</string>
     <string name="share_permission_view_only">Само за гледање</string>
     <string name="share_re_share_permission">Сподели</string>

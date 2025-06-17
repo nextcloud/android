@@ -31,8 +31,6 @@
     <string name="add_new_public_share">Voeg een nieuwe openbare deellink toe</string>
     <string name="add_new_secure_file_drop">Beveiligde bestands-drop</string>
     <string name="add_to_cloud">Voeg toe aan %1$s</string>
-    <string name="advanced_settings">Geavanceerde instellingen</string>
-    <string name="allow_resharing">Opnieuw delen toestaan</string>
     <string name="app_config_base_url_title">Basis URL</string>
     <string name="app_config_disable_clipboard_title">Klembord uitschakelen</string>
     <string name="app_config_disable_intro_title">Intro uitschakelen</string>
@@ -51,7 +49,6 @@
     <string name="assistant_screen_delete_task_alert_dialog_description">Bent u zeker dat u deze taak wilt verwijderen?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Verwijder taak</string>
     <string name="assistant_screen_loading">Laden takenlijst...</string>
-    <string name="assistant_screen_no_task_available_text">Geen taak beschikbaar voor %s taaktype, u kunt rechts onder een nieuwe taak aanmaken.</string>
     <string name="assistant_screen_task_create_fail_message">Er is een fout opgetreden bij het aanmaken van de taak</string>
     <string name="assistant_screen_task_create_success_message">Taak succesvol aangemaakt</string>
     <string name="assistant_screen_task_delete_fail_message">Er is een fout opgetreden bij het verwijderen van de taak</string>
@@ -98,9 +95,6 @@
     <string name="authenticator_activity_login_error">Er was een probleem met het verwerken van je aanmelding. Probeer het later nog eens.</string>
     <string name="authenticator_activity_please_complete_login_process">Vervolg de aanmelding in je browser</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">bewaard worden in originele map, omdat die Alleen-lezen is</string>
-    <string name="auto_upload_gplay">Auto-upload gedrag gewijzigd</string>
-    <string name="auto_upload_gplay_desc">Vanwege nieuwe beperkingen opgelegd door Google, is de automatische uploadfunctie niet langer in staat om geüploade bestanden automatisch te verwijderen.</string>
-    <string name="auto_upload_gplay_desc2">Vanwege nieuwe beperkingen opgelegd door Google, zijn we genoodzaakt een belangrijke machtiging te verwijderen. Als gevolg hiervan kan automatische upload alleen afbeelding- en videobestanden uploaden.\nDaarnaast is een nieuwe machtiging vereist om toegang te krijgen tot locatie-informatie voor geüploade afbeeldingen.\nZorg ervoor dat media-toegang is ingesteld op \"Altijd alles toestaan\".</string>
     <string name="auto_upload_on_wifi">Upload alleen met Wi-Fi</string>
     <string name="auto_upload_path">/AutomatischUploaden</string>
     <string name="auto_upload_sub_folder_warning">Deze map is al opgenomen in de synchronisatie van de bovenliggende map, wat kan leiden tot dubbele uploads.</string>
@@ -135,7 +129,6 @@
     <string name="clear_notifications_failed">Niet gelukt om alle meldingen af te handelen</string>
     <string name="clear_status_message">Statusberichten wissen</string>
     <string name="clear_status_message_after">Statusbericht wissen na</string>
-    <string name="click_to_learn_how_to_re_enable_auto_uploads">Handmatige tussenkomst vereist om automatische upload opnieuw in te schakelen</string>
     <string name="clipboard_label">Tekst gekopieerd uit %1$s</string>
     <string name="clipboard_no_text_to_copy">Geen tekst ontvangen om te kopiëren naar het klembord</string>
     <string name="clipboard_text_copied">Link gekopieerd</string>
@@ -440,7 +433,6 @@
     <string name="file_not_synced">Synchroniseren van het gewenste bestand mislukt. Laatst beschikbare versie wordt weergegeven.</string>
     <string name="file_rename">Hernoemen</string>
     <string name="file_upload_worker_error_notification_title">Upload mislukt. Geen internetverbinding</string>
-    <string name="file_upload_worker_same_file_already_exists">Hetzelfde bestand bestaat al, geen conflict gevonden</string>
     <string name="file_version_restored_error">Fout bij herstellen bestandsversie!</string>
     <string name="file_version_restored_successfully">Herstellen bestandsversie succesvol</string>
     <string name="filedetails_details">Details</string>
@@ -517,10 +509,7 @@
     <string name="last_backup">Laatste backup: %1$s</string>
     <string name="link">Link</string>
     <string name="link_name">Linknaam</string>
-    <string name="link_share_allow_upload_and_editing">Uploaden en bewerken toestaan</string>
     <string name="link_share_editing">Bewerken</string>
-    <string name="link_share_file_drop">Bestand droppen (alleen uploaden)</string>
-    <string name="link_share_view_only">Alleen bekijken</string>
     <string name="list_layout">Lijstoverzicht</string>
     <string name="load_more_results">Laad meer resultaten</string>
     <string name="local_file_list_empty">Er staan geen bestanden in deze map.</string>
@@ -738,8 +727,6 @@
     <string name="push_notifications_old_login">Geen push-notificaties als gevolg van de verouderde inlogsessie. Overweeg het opnieuw toevoegen van je account.</string>
     <string name="push_notifications_temp_error">Push notificaties momenteel niet beschikbaar.</string>
     <string name="qr_could_not_be_read">QR code kan niet worden gelezen!</string>
-    <string name="re_enable_auto_upload">Wijzigingen aan auto-upload</string>
-    <string name="re_enable_auto_upload_desc">Vanwege nieuwe beperkingen opgelegd door Google, zijn we gedwongen om een belangrijke machtiging te verwijderen. We werken momenteel samen met Google om dit probleem op te lossen en de volledige functionaliteit te herstellen.\n\nOm automatische upload voor nieuwe foto\'s en video\'s opnieuw in te schakelen:\nSelecteer \"Sta alles toe\" in de volgende dialoog of in de systeeminstellingen.\nSta mediagegevenslocatie toe wanneer hierom wordt gevraagd, omdat dit Nextcloud in staat stelt om locatiegegevens op te slaan bij het uploaden van afbeeldingen\n\n.De machtigingsdialoog wordt alleen weergegeven wanneer dat nodig is. Bij twijfel, controleer de systeeminstellingen.\n\nAutomatische upload kan alleen afbeeldings- en videobestanden uploaden wanneer de Google Play-versie van de Nextcloud-app wordt gebruikt.\n\nControleer of er bestanden zijn die mogelijk niet zijn geüpload sinds december 2024.</string>
     <string name="receive_external_files_activity_start_sync_folder_is_not_exists_message">Map is niet gevonden. Synchronisatie is geannuleerd</string>
     <string name="receive_external_files_activity_unable_to_find_file_to_upload">Kan het bestand voor uploaden niet vinden</string>
     <string name="recommend_subject">Probeer %1$s op je toestel!</string>
@@ -813,7 +800,6 @@
     <string name="share_download_limit">Stel downloadlimiet in</string>
     <string name="share_edit_permission">Bewerken</string>
     <string name="share_expiration_date_format">%1$s</string>
-    <string name="share_expiration_date_label">Vervalt op %1$s</string>
     <string name="share_file">Delen %1$s</string>
     <string name="share_group_clarification">%1$s (groep)</string>
     <string name="share_internal_link">Interne link delen</string>
@@ -831,9 +817,7 @@
     <string name="share_no_expiration_date_label">Stel vervaldatum in</string>
     <string name="share_no_password_title">Instellen wachtwoord</string>
     <string name="share_not_allowed_when_file_drop">Opnieuw delen is niet toegestaan tijdens de veilige bestandoverdracht.</string>
-    <string name="share_password_title">Wachtwoord beveiligd</string>
     <string name="share_permission_can_edit">Kan bewerken</string>
-    <string name="share_permission_file_drop">Bestandsopslag</string>
     <string name="share_permission_file_request">Bestandsaanvraag</string>
     <string name="share_permission_secure_file_drop">Veilige bestandoverdracht</string>
     <string name="share_permission_view_only">Alleen bekijken</string>
@@ -1013,8 +997,6 @@
     <string name="upload_file_dialog_title">Opgeven upload bestandsnaam en bestandstype</string>
     <string name="upload_files">Bestanden uploaden</string>
     <string name="upload_global_pause_title">Alle uploads zijn gepauzeerd</string>
-    <string name="upload_gplay">Wijzigingen in machtigingen</string>
-    <string name="upload_gplay_desc">Voor toegang tot locatie-informatie voor geüploade afbeeldingen is een nieuwe toestemming vereist.\nZorg ervoor dat de media-toegang is ingesteld op \"Altijd toestaan\".</string>
     <string name="upload_item_action_button">Upload object actie knop</string>
     <string name="upload_list_delete">Verwijderen</string>
     <string name="upload_list_empty_headline">Geen uploads beschikbaar</string>

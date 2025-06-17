@@ -30,8 +30,6 @@
     <string name="add_new_public_share">Új nyilvános megosztási hivatkozás hozzáadása</string>
     <string name="add_new_secure_file_drop">Új biztonsági fájllerakat hozzáadása</string>
     <string name="add_to_cloud">Hozzáadás ehhez: %1$s</string>
-    <string name="advanced_settings">Speciális beállítások</string>
-    <string name="allow_resharing">Újra megosztás engedélyezése</string>
     <string name="app_config_base_url_title">Alap webcím</string>
     <string name="app_config_disable_clipboard_title">Vágólap letiltása</string>
     <string name="app_config_disable_intro_title">Bevezető kikapcsolása</string>
@@ -48,7 +46,6 @@
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Gépeljen be szöveget</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Valóban törölni akarja ezt a feladatot?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Feladat törlése</string>
-    <string name="assistant_screen_no_task_available_text">Nem érhető el feladat a(z) %s feladattípushoz, a jobb alsó sarokból hozhat létre új feladatot.</string>
     <string name="assistant_screen_task_create_fail_message">Hiba történt egy feladat létrehozása során</string>
     <string name="assistant_screen_task_create_success_message">Feladat sikeresen létrehozva</string>
     <string name="assistant_screen_task_delete_fail_message">Hiba történt a feladat törlése során</string>
@@ -94,9 +91,6 @@
     <string name="authenticator_activity_login_error">Probléma volt a bejelentkezési kérés feldolgozása során. Próbálja újra később.</string>
     <string name="authenticator_activity_please_complete_login_process">Fejezze be a bejelentkezési folyamatot a böngészőben</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">megtartva az eredeti mappában, mivel csak olvasható</string>
-    <string name="auto_upload_gplay">Az automatikus feltöltés viselkedése megváltozott</string>
-    <string name="auto_upload_gplay_desc">A Google által bevezetett új korlátozások miatt az automatikus feltöltési funkció többé már nem lesz képes a feltöltött fájlok automatikus eltávolítására.</string>
-    <string name="auto_upload_gplay_desc2">A Google által bevezetett új korlátozások miatt kénytelenek voltunk eltávolítani egy fontos engedélyt. Ennek eredményeképp az automatikus feltöltés csak kép- és videófájlokat fog tudni feltölteni.\nTovábbá egy új engedély szükséges a feltöltött képek helyadatainak eléréséhez.\nGyőződjön meg arról, hogy a média-hozzáférés „Engedélyezés mindig” beállításra van állítva.</string>
     <string name="auto_upload_on_wifi">Feltöltés csak forgalomkorlát nélküli Wi-Fin</string>
     <string name="auto_upload_path">/AutoUpload</string>
     <string name="autoupload_configure">Beállítás</string>
@@ -130,7 +124,6 @@
     <string name="clear_notifications_failed">Az értesítések törlése sikertelen.</string>
     <string name="clear_status_message">Állapotüzenet törlése</string>
     <string name="clear_status_message_after">Állapotüzenet törlése ennyi idő után:</string>
-    <string name="click_to_learn_how_to_re_enable_auto_uploads">Kézi beavatkozás szükséges az automatikus feltöltés újbóli engedélyezéséhez</string>
     <string name="clipboard_label">Szöveg másolva innen: %1$s</string>
     <string name="clipboard_no_text_to_copy">Nem érkezett szöveg a vágólapra másoláshoz</string>
     <string name="clipboard_text_copied">Hivatkozás másolva</string>
@@ -429,7 +422,6 @@
     <string name="file_not_synced">A fájl nem szinkronizálható. A legfrissebb elérhető verzió megjelenítése.</string>
     <string name="file_rename">Átnevezés</string>
     <string name="file_upload_worker_error_notification_title">A feltöltés sikertelen. Nincs internetkapcsolat.</string>
-    <string name="file_upload_worker_same_file_already_exists">Már létezik ugyanez a fájl, nem észlelhető ütközés</string>
     <string name="file_version_restored_error">Hiba a fájl verziójának visszaállításakor!</string>
     <string name="file_version_restored_successfully">Fájl verzió sikeresen visszaállítva.</string>
     <string name="filedetails_details">Részletek</string>
@@ -504,10 +496,7 @@
     <string name="last_backup">Utolsó biztonsági mentés: %1$s</string>
     <string name="link">Hivatkozás</string>
     <string name="link_name">Hivatkozás neve</string>
-    <string name="link_share_allow_upload_and_editing">Feltöltés és szerkesztés engedélyezése</string>
     <string name="link_share_editing">Szerkesztés</string>
-    <string name="link_share_file_drop">Fájlelhelyezés (csak feltöltés)</string>
-    <string name="link_share_view_only">Csak megtekintés</string>
     <string name="list_layout">Listás elrendezés</string>
     <string name="load_more_results">További találatok betöltése</string>
     <string name="local_file_list_empty">Nincs fájl ebben a mappában.</string>
@@ -714,7 +703,6 @@
     <string name="push_notifications_old_login">Nincsenek leküldéses értesítések, mert a munkamenet lejárt. Adja hozzá újra a fiókját.</string>
     <string name="push_notifications_temp_error">A leküldéses értesítések jelenleg nem érhetőek el.</string>
     <string name="qr_could_not_be_read">A QR-kód nem olvasható.</string>
-    <string name="re_enable_auto_upload">Változások az automatikus feltöltésben</string>
     <string name="receive_external_files_activity_start_sync_folder_is_not_exists_message">A mappa nem található, a szinkronizálási művelet megszakítva</string>
     <string name="receive_external_files_activity_unable_to_find_file_to_upload">A feltöltendő fájl nem található</string>
     <string name="recommend_subject">Próbálja ki a %1$sot az eszközén!</string>
@@ -783,7 +771,6 @@
     <string name="share_download_limit">Letöltési korlát beállítása</string>
     <string name="share_edit_permission">Szerkesztés</string>
     <string name="share_expiration_date_format">%1$s</string>
-    <string name="share_expiration_date_label">Lejárat: %1$s</string>
     <string name="share_file">%1$s megosztása</string>
     <string name="share_group_clarification">%1$s (csoport)</string>
     <string name="share_internal_link">Belső hivatkozás megosztása</string>
@@ -800,9 +787,7 @@
     <string name="share_link_with_label">Megosztási hivatkozás (%1$s)</string>
     <string name="share_no_expiration_date_label">Lejárati idő beállítása</string>
     <string name="share_no_password_title">Jelszó beállítása</string>
-    <string name="share_password_title">Jelszóval védett</string>
     <string name="share_permission_can_edit">Szerkesztheti</string>
-    <string name="share_permission_file_drop">Fájllerakat</string>
     <string name="share_permission_secure_file_drop">Biztonságos fájllerakat</string>
     <string name="share_permission_view_only">Csak megtekintés</string>
     <string name="share_re_share_permission">Megosztás</string>

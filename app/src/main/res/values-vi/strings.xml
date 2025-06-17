@@ -28,8 +28,6 @@
     <string name="activity_icon">Hoạt động</string>
     <string name="add_new_public_share">Thêm liên kết chia sẻ công khai mới</string>
     <string name="add_to_cloud">Thêm vào %1$s</string>
-    <string name="advanced_settings">Cài đặt nâng cao</string>
-    <string name="allow_resharing">Cho phép chia sẻ lại</string>
     <string name="app_widget_description">Hiện thị lối tắt từ dashboard</string>
     <string name="appbar_search_in">Tìm kiếm trong %s</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Xóa nhiệm vụ</string>
@@ -388,10 +386,7 @@
     <string name="last_backup">Lần sao lưu cuối: %1$s</string>
     <string name="link">Liên kết</string>
     <string name="link_name">Tên liên kết</string>
-    <string name="link_share_allow_upload_and_editing">Cho phép tải lên và chỉnh sửa</string>
     <string name="link_share_editing">Chỉnh sửa</string>
-    <string name="link_share_file_drop">Kéo thả file (chỉ áp dụng trong trường hợp tải lên)</string>
-    <string name="link_share_view_only">Chỉ xem</string>
     <string name="list_layout">Bố cục được liệt kê</string>
     <string name="load_more_results">Tải thêm kết quả</string>
     <string name="local_file_list_empty">Không có tệp nào trong thư mục này.</string>
@@ -612,7 +607,6 @@
     <string name="share_dialog_title">Chia sẻ</string>
     <string name="share_edit_permission">Chỉnh sửa</string>
     <string name="share_expiration_date_format">%1$s</string>
-    <string name="share_expiration_date_label">Hết hạn %1$s</string>
     <string name="share_file">Chia sẽ %1$s</string>
     <string name="share_group_clarification">%1$s (nhóm)</string>
     <string name="share_internal_link">Chia sẻ liên kết nội bộ</string>
@@ -629,9 +623,7 @@
     <string name="share_link_with_label">Chi sẻ liên kết (%1$s)</string>
     <string name="share_no_expiration_date_label">Đặt ngày hết hạn</string>
     <string name="share_no_password_title">Đặt mật khẩu</string>
-    <string name="share_password_title">Mật khẩu được bảo vệ</string>
     <string name="share_permission_can_edit">Có thể chỉnh sửa</string>
-    <string name="share_permission_file_drop">Thả file</string>
     <string name="share_permission_view_only">Chỉ xem</string>
     <string name="share_re_share_permission">Chia sẻ</string>
     <string name="share_read_permission">Đọc</string>
