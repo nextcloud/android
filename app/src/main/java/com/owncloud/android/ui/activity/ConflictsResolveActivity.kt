@@ -123,9 +123,11 @@ class ConflictsResolveActivity : FileActivity(), OnConflictDecisionMadeListener 
                 else -> Unit
             }
 
-            val oldFile = storageManager.getFileByDecryptedRemotePath(upload?.remotePath)
+            upload?.remotePath?.let { oldFilePath ->
+                val oldFile = storageManager.getFileByDecryptedRemotePath(oldFilePath)
+                updateThumbnailIfNeeded(decision, file, oldFile)
+            }
 
-            updateThumbnailIfNeeded(decision, file, oldFile)
             dismissConflictResolveNotification(file)
             finish()
         }
