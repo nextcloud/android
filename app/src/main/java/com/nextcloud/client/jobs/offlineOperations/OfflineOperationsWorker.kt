@@ -18,11 +18,15 @@ import com.nextcloud.client.network.ConnectivityService
 import com.nextcloud.model.OfflineOperationType
 import com.nextcloud.model.WorkerState
 import com.nextcloud.model.WorkerStateLiveData
+import com.nextcloud.utils.extensions.toOCFile
 import com.owncloud.android.datamodel.FileDataStorageManager
+import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.lib.common.OwnCloudClient
 import com.owncloud.android.lib.common.operations.RemoteOperation
 import com.owncloud.android.lib.common.operations.RemoteOperationResult
 import com.owncloud.android.lib.common.utils.Log_OC
+import com.owncloud.android.lib.resources.files.ReadFileRemoteOperation
+import com.owncloud.android.lib.resources.files.ReadFolderRemoteOperation
 import com.owncloud.android.lib.resources.files.UploadFileRemoteOperation
 import com.owncloud.android.operations.CreateFolderOperation
 import com.owncloud.android.operations.RemoveFileOperation
@@ -161,7 +165,7 @@ class OfflineOperationsWorker(
                     }
                 }
 
-                renameFileOperation?.execute(client) to renameFileOperation
+                checkFileBeforeExecution(operation.path, renameFileOperation?.execute(client) to renameFileOperation)
             }
 
             is OfflineOperationType.RemoveFile -> {
@@ -171,7 +175,8 @@ class OfflineOperationsWorker(
                     RemoveFileOperation(ocFile, false, user, true, context, fileDataStorageManager)
                 }
 
-                removeFileOperation.execute(client) to removeFileOperation
+
+                checkFileBeforeExecution(operation.path, removeFileOperation.execute(client) to removeFileOperation)
             }
 
             else -> {
@@ -179,6 +184,14 @@ class OfflineOperationsWorker(
                 null
             }
         }
+    }
+
+    private fun checkFileBeforeExecution(
+        path: String?,
+        result: Pair<RemoteOperationResult<*>?, RemoteOperation<*>?>?
+    ): Pair<RemoteOperationResult<*>?, RemoteOperation<*>?>? {
+        val file = fileDataStorageManager.getFileByDecryptedRemotePath(path) ?: return null
+        return if (isFileChanged(file)) null else result
     }
 
     private fun handleResult(
@@ -218,5 +231,18 @@ class OfflineOperationsWorker(
         }
 
         return result.isSuccess
+    }
+
+    @Suppress("DEPRECATION")
+    private fun isFileChanged(file: OCFile): Boolean {
+        val client = ClientFactoryImpl(context).create(user)
+        val remoteFile = if (file.isFolder) {
+            ReadFolderRemoteOperation(file.remotePath).execute(client)
+        } else {
+            ReadFileRemoteOperation(file.remotePath).execute(client)
+        }
+
+        val remoteETag = remoteFile.toOCFile()?.get(0)?.etag
+        return file.etag != remoteETag
     }
 }
