@@ -47,7 +47,7 @@ class OfflineFolderConflictManager(private val activity: FileDisplayActivity) {
             file?.let {
                 val entity = activity.storageManager.offlineOperationDao.getByPath(path)
                 if (activity.user.isPresent) {
-                    notificationManager.showConflictResolveNotification(file, entity, activity.user.get())
+                    notificationManager.showConflictResolveNotification(file, entity)
                 }
             }
         }
