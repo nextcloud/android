@@ -9,12 +9,10 @@ package com.nextcloud.client.jobs.offlineOperations
 
 import android.app.PendingIntent
 import android.content.Context
-import android.content.Intent
 import androidx.core.app.NotificationCompat
 import com.nextcloud.client.account.User
 import com.nextcloud.client.database.entity.OfflineOperationEntity
 import com.nextcloud.client.jobs.notification.WorkerNotificationManager
-import com.nextcloud.receiver.OfflineOperationActionReceiver
 import com.nextcloud.utils.extensions.getErrorMessage
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.OCFile
@@ -89,7 +87,6 @@ class OfflineOperationsNotificationManager(private val context: Context, viewThe
         }
 
         val resolveConflictAction = getResolveConflictAction(file, id, path)
-        val deleteAction = getDeleteAction(file.isFolder, path, user)
 
         val title = context.getString(
             R.string.offline_operations_worker_notification_conflict_text,
@@ -100,7 +97,6 @@ class OfflineOperationsNotificationManager(private val context: Context, viewThe
             .clearActions()
             .setContentTitle(title)
             .setContentIntent(resolveConflictAction.actionIntent)
-            .addAction(deleteAction)
             .addAction(resolveConflictAction)
 
         notificationManager.notify(id, notificationBuilder.build())
@@ -118,27 +114,6 @@ class OfflineOperationsNotificationManager(private val context: Context, viewThe
         return NotificationCompat.Action(
             R.drawable.ic_cloud_upload,
             context.getString(R.string.upload_list_resolve_conflict),
-            pendingIntent
-        )
-    }
-
-    private fun getDeleteAction(isFolder: Boolean, path: String?, user: User): NotificationCompat.Action {
-        val intent = Intent(context, OfflineOperationActionReceiver::class.java).apply {
-            putExtra(OfflineOperationActionReceiver.FILE_PATH, path)
-            putExtra(OfflineOperationActionReceiver.USER, user)
-        }
-
-        val pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_IMMUTABLE)
-
-        val textId = if (isFolder) {
-            R.string.offline_operations_worker_notification_delete_folder
-        } else {
-            R.string.offline_operations_worker_notification_delete_file
-        }
-
-        return NotificationCompat.Action(
-            R.drawable.ic_delete,
-            context.getString(textId),
             pendingIntent
         )
     }
