@@ -10,16 +10,12 @@ package com.nextcloud.client.widget
 import android.appwidget.AppWidgetManager
 import android.content.Context
 import android.content.Intent
-import android.graphics.Bitmap
-import android.net.Uri
+import android.graphics.drawable.Drawable
 import android.view.View
 import android.widget.RemoteViews
 import android.widget.RemoteViewsService
 import androidx.core.net.toUri
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.bumptech.glide.load.model.StreamEncoder
-import com.bumptech.glide.load.resource.file.FileToStreamDecoder
 import com.bumptech.glide.request.FutureTarget
 import com.nextcloud.android.lib.resources.dashboard.DashboardGetWidgetItemsRemoteOperation
 import com.nextcloud.android.lib.resources.dashboard.DashboardWidgetItem
@@ -27,18 +23,12 @@ import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.network.ClientFactory
 import com.owncloud.android.R
 import com.owncloud.android.lib.common.utils.Log_OC
-import com.owncloud.android.utils.BitmapUtils
 import com.owncloud.android.utils.DisplayUtils.SVG_SIZE
-import com.owncloud.android.utils.glide.CustomGlideStreamLoader
-import com.owncloud.android.utils.glide.CustomGlideUriLoader
 import com.owncloud.android.utils.svg.SVGorImage
-import com.owncloud.android.utils.svg.SvgOrImageBitmapTranscoder
-import com.owncloud.android.utils.svg.SvgOrImageDecoder
 import dagger.android.AndroidInjection
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import java.io.InputStream
 import javax.inject.Inject
 
 class DashboardWidgetService : RemoteViewsService() {
@@ -175,48 +165,42 @@ class StackRemoteViewsFactory(
     @Suppress("TooGenericExceptionCaught")
     private fun loadIcon(widgetItem: DashboardWidgetItem, remoteViews: RemoteViews) {
         val isIconSVG = widgetItem.iconUrl.toUri().encodedPath!!.endsWith(".svg")
-        val source: FutureTarget<Bitmap> = if (isIconSVG) {
+        val source: FutureTarget<out Any> = if (isIconSVG) {
             loadSVGIcon(widgetItem)
         } else {
             loadBitmapIcon(widgetItem)
         }
 
         try {
-            val bitmap: Bitmap = if (widgetConfiguration.roundIcon) {
-                BitmapUtils.roundBitmap(source.get())
-            } else {
-                source.get()
-            }
+            // val bitmap: Bitmap = if (widgetConfiguration.roundIcon) {
+            //     BitmapUtils.roundBitmap(source.get())
+            // } else {
+            //     source.get()
+            // }
 
-            remoteViews.setImageViewBitmap(R.id.icon, bitmap)
+            remoteViews.setImageViewBitmap(R.id.icon, null)
         } catch (e: Exception) {
             Log_OC.d(TAG, "Error setting icon", e)
             remoteViews.setImageViewResource(R.id.icon, R.drawable.ic_dashboard)
         }
     }
 
-    private fun loadSVGIcon(widgetItem: DashboardWidgetItem): FutureTarget<Bitmap> {
+    // TODO GLIDE
+    private fun loadSVGIcon(widgetItem: DashboardWidgetItem): FutureTarget<SVGorImage> {
         return Glide.with(context)
-            .using(
-                CustomGlideUriLoader(userAccountManager.user, clientFactory),
-                InputStream::class.java
-            )
-            .from(Uri::class.java)
             .`as`(SVGorImage::class.java)
-            .transcode(SvgOrImageBitmapTranscoder(SVG_SIZE, SVG_SIZE), Bitmap::class.java)
-            .sourceEncoder(StreamEncoder())
-            .cacheDecoder(FileToStreamDecoder(SvgOrImageDecoder()))
-            .decoder(SvgOrImageDecoder())
-            .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+            //.transcode(SvgOrImageBitmapTranscoder(SVG_SIZE, SVG_SIZE), Bitmap::class.java)
+            //.sourceEncoder(StreamEncoder())
+            //.cacheDecoder(FileToStreamDecoder(SvgOrImageDecoder()))
+            //.decoder(SvgOrImageDecoder())
+            //.diskCacheStrategy(DiskCacheStrategy.SOURCE)
             .load(widgetItem.iconUrl.toUri())
             .into(SVG_SIZE, SVG_SIZE)
     }
 
-    private fun loadBitmapIcon(widgetItem: DashboardWidgetItem): FutureTarget<Bitmap> {
+    private fun loadBitmapIcon(widgetItem: DashboardWidgetItem): FutureTarget<Drawable> {
         return Glide.with(context)
-            .using(CustomGlideStreamLoader(widgetConfiguration.user.get(), clientFactory))
             .load(widgetItem.iconUrl)
-            .asBitmap()
             .into(SVG_SIZE, SVG_SIZE)
     }
 

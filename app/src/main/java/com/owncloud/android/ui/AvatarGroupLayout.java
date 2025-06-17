@@ -165,8 +165,9 @@ public class AvatarGroupLayout extends RelativeLayout implements DisplayUtils.Av
         }
 
         avatar.setTag(null);
-        Glide.with(context).load(url)
+        Glide.with(context)
             .asBitmap()
+            .load(url)
             .placeholder(placeholder)
             .error(placeholder)
             .into(new BitmapImageViewTarget(avatar) {
