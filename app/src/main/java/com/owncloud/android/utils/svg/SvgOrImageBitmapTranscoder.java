@@ -10,12 +10,16 @@ package com.owncloud.android.utils.svg;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 
+import com.bumptech.glide.load.Options;
 import com.bumptech.glide.load.engine.Resource;
 import com.bumptech.glide.load.resource.SimpleResource;
 import com.bumptech.glide.load.resource.transcode.ResourceTranscoder;
 import com.caverock.androidsvg.SVG;
 import com.caverock.androidsvg.SVGParseException;
 import com.owncloud.android.lib.common.utils.Log_OC;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 /**
  * Convert the {@link SVG}'s internal representation to a Bitmap.
@@ -29,8 +33,9 @@ public class SvgOrImageBitmapTranscoder implements ResourceTranscoder<SVGorImage
         this.height = height;
     }
 
+    @Nullable
     @Override
-    public Resource<Bitmap> transcode(Resource<SVGorImage> toTranscode) {
+    public Resource<Bitmap> transcode(@NonNull Resource<SVGorImage> toTranscode, @NonNull Options options) {
         SVGorImage svGorImage = toTranscode.get();
 
         if (svGorImage.getSVG() != null) {
@@ -58,8 +63,5 @@ public class SvgOrImageBitmapTranscoder implements ResourceTranscoder<SVGorImage
         }
     }
 
-    @Override
-    public String getId() {
-        return "";
-    }
+
 }

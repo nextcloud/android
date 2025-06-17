@@ -39,13 +39,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.bumptech.glide.GenericRequestBuilder;
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.load.model.StreamEncoder;
-import com.bumptech.glide.load.resource.file.FileToStreamDecoder;
-import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.transition.Transition;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.navigation.NavigationView;
@@ -101,9 +97,6 @@ import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.DrawerMenuUtil;
 import com.owncloud.android.utils.FilesSyncHelper;
 import com.owncloud.android.utils.svg.MenuSimpleTarget;
-import com.owncloud.android.utils.svg.SVGorImage;
-import com.owncloud.android.utils.svg.SvgOrImageBitmapTranscoder;
-import com.owncloud.android.utils.svg.SvgOrImageDecoder;
 import com.owncloud.android.utils.theme.CapabilityUtils;
 
 import org.greenrobot.eventbus.EventBus;
@@ -111,7 +104,6 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -393,20 +385,12 @@ public abstract class DrawerActivity extends ToolbarActivity
             drawerHeader.setBackgroundColor(primaryColor);
 
             if (!TextUtils.isEmpty(logo) && URLUtil.isValidUrl(logo)) {
-                // background image
-                GenericRequestBuilder<Uri, InputStream, SVGorImage, Bitmap> requestBuilder = Glide.with(this)
-                    .using(Glide.buildStreamModelLoader(Uri.class, this), InputStream.class)
-                    .from(Uri.class)
-                    .as(SVGorImage.class)
-                    .transcode(new SvgOrImageBitmapTranscoder(128, 128), Bitmap.class)
-                    .sourceEncoder(new StreamEncoder())
-                    .cacheDecoder(new FileToStreamDecoder<>(new SvgOrImageDecoder()))
-                    .decoder(new SvgOrImageDecoder());
+                
 
                 // background image
                 SimpleTarget<Bitmap> target = new SimpleTarget<>() {
                     @Override
-                    public void onResourceReady(Bitmap resource, GlideAnimation glideAnimation) {
+                    public void onResourceReady(Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
 
                         Bitmap logo = resource;
                         int width = resource.getWidth();
@@ -425,8 +409,9 @@ public abstract class DrawerActivity extends ToolbarActivity
                     }
                 };
 
-                requestBuilder
-                    .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+                // background image
+                Glide.with(this)
+                    .as(Bitmap.class)
                     .load(Uri.parse(logo))
                     .into(target);
             }
@@ -886,17 +871,17 @@ public abstract class DrawerActivity extends ToolbarActivity
                     });
 
 
-                    SimpleTarget<Drawable> target = new SimpleTarget<>() {
+                    SimpleTarget<Drawable> target = new SimpleTarget<Drawable>() {
                         @Override
-                        public void onResourceReady(Drawable resource, GlideAnimation glideAnimation) {
+                        public void onResourceReady(Drawable resource, @Nullable Transition<? super Drawable> transition) {
                             Drawable test = resource.getCurrent();
                             test.setBounds(0, 0, size, size);
                             mQuotaTextLink.setCompoundDrawablesWithIntrinsicBounds(test, null, null, null);
                         }
 
                         @Override
-                        public void onLoadFailed(Exception e, Drawable errorDrawable) {
-                            super.onLoadFailed(e, errorDrawable);
+                        public void onLoadFailed(@Nullable Drawable errorDrawable) {
+                            super.onLoadFailed(errorDrawable);
 
                             Drawable test = errorDrawable.getCurrent();
                             test.setBounds(0, 0, size, size);
@@ -1026,13 +1011,13 @@ public abstract class DrawerActivity extends ToolbarActivity
 
                 MenuSimpleTarget<Drawable> target = new MenuSimpleTarget<>(id) {
                     @Override
-                    public void onResourceReady(Drawable resource, GlideAnimation glideAnimation) {
+                    public void onResourceReady(Drawable resource, @Nullable Transition<? super Drawable> transition) {
                         setExternalLinkIcon(getIdMenuItem(), resource, greyColor);
                     }
 
                     @Override
-                    public void onLoadFailed(Exception e, Drawable errorDrawable) {
-                        super.onLoadFailed(e, errorDrawable);
+                    public void onLoadFailed(@Nullable Drawable errorDrawable) {
+                        super.onLoadFailed(errorDrawable);
                         setExternalLinkIcon(getIdMenuItem(), errorDrawable, greyColor);
                     }
                 };
