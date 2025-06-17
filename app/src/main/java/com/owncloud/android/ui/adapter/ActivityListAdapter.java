@@ -15,7 +15,7 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
-import android.net.Uri;
+import android.graphics.drawable.PictureDrawable;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.TextPaint;
@@ -32,6 +32,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import com.owncloud.android.utils.glide.GlideApp;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -50,6 +51,7 @@ import com.owncloud.android.lib.resources.activities.models.PreviewObject;
 import com.owncloud.android.ui.interfaces.ActivityListInterface;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
+import com.owncloud.android.utils.svg.SvgSoftwareLayerSetter;
 import com.owncloud.android.utils.theme.ViewThemeUtils;
 
 import java.util.ArrayList;
@@ -260,10 +262,11 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     }
 
     private void downloadIcon(Activity activity, ImageView itemViewType) {
-        Uri uri = Uri.parse(activity.getIcon());
-        
-        Glide.with(context)
-            .load(uri)
+        GlideApp.with(context)
+            .as(PictureDrawable.class)
+//            .fitCenter()
+            .listener(new SvgSoftwareLayerSetter())
+            .load(activity.getIcon())
             .into(itemViewType);
     }
 
