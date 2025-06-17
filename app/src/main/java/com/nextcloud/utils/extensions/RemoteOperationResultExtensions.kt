@@ -8,7 +8,6 @@
 package com.nextcloud.utils.extensions
 
 import com.nextcloud.client.database.entity.OfflineOperationEntity
-import com.nextcloud.model.OfflineOperationType
 import com.owncloud.android.MainApp
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.FileDataStorageManager
@@ -32,9 +31,6 @@ fun RemoteOperationResult<*>?.getConflictedRemoteIdsWithOfflineOperations(
     fileDataStorageManager: FileDataStorageManager
 ): HashMap<String, String>? {
     val relevantOperations = offlineOperations
-        .filter {
-            it.type is OfflineOperationType.CreateFile || it.type is OfflineOperationType.CreateFolder
-        }
         .filter { fileDataStorageManager.fileExists(it.path) }
         .groupBy { it.filename }
 
