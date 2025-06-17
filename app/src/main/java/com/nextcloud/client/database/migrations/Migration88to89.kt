@@ -10,17 +10,18 @@ package com.nextcloud.client.database.migrations
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.nextcloud.client.database.migrations.model.SQLiteColumnType
-import com.nextcloud.utils.extensions.addColumnIfNotExists
 import com.owncloud.android.db.ProviderMeta.ProviderTableMeta
 
 val MIGRATION_88_89 = object : Migration(88, 89) {
     override fun migrate(database: SupportSQLiteDatabase) {
-        database.addColumnIfNotExists(
+        DatabaseMigrationUtil.addColumnIfNotExists(
+            database,
             ProviderTableMeta.FILE_TABLE_NAME,
             ProviderTableMeta.FILE_UPLOADED,
             SQLiteColumnType.INTEGER_DEFAULT_NULL
         )
-        database.addColumnIfNotExists(
+        DatabaseMigrationUtil.addColumnIfNotExists(
+            database,
             ProviderTableMeta.CAPABILITIES_TABLE_NAME,
             ProviderTableMeta.CAPABILITIES_NOTES_FOLDER_PATH,
             SQLiteColumnType.TEXT_DEFAULT_NULL
