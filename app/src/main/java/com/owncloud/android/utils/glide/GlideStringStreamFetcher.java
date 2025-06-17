@@ -7,11 +7,10 @@
 
 package com.owncloud.android.utils.glide;
 
-import android.net.Uri;
-
 import com.bumptech.glide.Priority;
 import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.data.DataFetcher;
+import com.nextcloud.client.account.UserAccountManagerImpl;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.OwnCloudClient;
@@ -43,7 +42,9 @@ public class GlideStringStreamFetcher implements DataFetcher<InputStream> {
         
         GetMethod get = null;
         try {
-        OwnCloudClient client = OwnCloudClientManagerFactory.getDefaultSingleton().getClientFor(new OwnCloudAccount(Uri.EMPTY, null), MainApp.getAppContext());
+            
+            OwnCloudAccount ownCloudAccount = UserAccountManagerImpl.fromContext(MainApp.getAppContext()).getCurrentOwnCloudAccount();
+            OwnCloudClient client = OwnCloudClientManagerFactory.getDefaultSingleton().getClientFor(ownCloudAccount, MainApp.getAppContext());
             get = new GetMethod(url);
             get.setRequestHeader("Cookie", "nc_sameSiteCookielax=true;nc_sameSiteCookiestrict=true");
             get.setRequestHeader(RemoteOperation.OCS_API_HEADER, RemoteOperation.OCS_API_HEADER_VALUE);

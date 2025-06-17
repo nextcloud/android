@@ -42,6 +42,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
+import com.caverock.androidsvg.SVG;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.navigation.NavigationView;
@@ -1009,10 +1010,11 @@ public abstract class DrawerActivity extends ToolbarActivity
                                                             MENU_ITEM_EXTERNAL_LINK + link.getId(), MENU_ORDER_EXTERNAL_LINKS, link.getName())
                     .setCheckable(true).getItemId();
 
-                MenuSimpleTarget<Drawable> target = new MenuSimpleTarget<>(id) {
+                MenuSimpleTarget<SVG> target = new MenuSimpleTarget<>(id) {
                     @Override
-                    public void onResourceReady(Drawable resource, @Nullable Transition<? super Drawable> transition) {
-                        setExternalLinkIcon(getIdMenuItem(), resource, greyColor);
+                    public void onResourceReady(SVG resource, @Nullable Transition<? super SVG> transition) {
+                        // TODO Glide
+                        //setExternalLinkIcon(getIdMenuItem(), resource, greyColor);
                     }
 
                     @Override
