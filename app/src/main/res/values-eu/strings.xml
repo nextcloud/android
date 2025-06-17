@@ -806,7 +806,9 @@
     <string name="share">Partekatu</string>
     <string name="share_allow_download_and_sync_permission">Baimendu deskargatu eta sinkronizatzea</string>
     <string name="share_copy_link">Partekatu eta kopiatu esteka</string>
+    <string name="share_create_permission">Sortu</string>
     <string name="share_custom_permission">Baimen pertsonalizatuak</string>
+    <string name="share_delete_permission">Ezabatu</string>
     <string name="share_dialog_title">Partekatzea</string>
     <string name="share_download_limit">Ezarri deskarga muga</string>
     <string name="share_edit_permission">Editatu</string>
@@ -836,6 +838,7 @@
     <string name="share_permission_secure_file_drop">Fitxategi-jartze segurua</string>
     <string name="share_permission_view_only">Ikusi soilik</string>
     <string name="share_permissions">Partekatu baimenak</string>
+    <string name="share_re_share_permission">Partekatu</string>
     <string name="share_read_permission">Irakurri</string>
     <string name="share_remote_clarification">%1$s (urrunekoa)</string>
     <string name="share_room_clarification">%1$s (elkarrizketa)</string>

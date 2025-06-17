@@ -716,7 +716,9 @@
     <string name="set_status_message">Establecer mensaje de estado</string>
     <string name="setup_e2e">Durante la configuración del cifrado punto a punto, recibirá un mnemotécnico aleatorio de 12 palabras, que necesitará para abrir sus archivos en otros dispositivos. Esto sólo se almacenará en este dispositivo y se puede volver a mostrar en esta pantalla. ¡Por favor, guárdelo en un lugar seguro!</string>
     <string name="share">Compartir</string>
+    <string name="share_create_permission">Crear</string>
     <string name="share_custom_permission">Permisos personalizados</string>
+    <string name="share_delete_permission">Eliminar</string>
     <string name="share_dialog_title">Compartiendo</string>
     <string name="share_edit_permission">Editar</string>
     <string name="share_expiration_date_format">%1$s</string>
@@ -744,6 +746,7 @@
     <string name="share_permission_file_request">Solicitud de archivo</string>
     <string name="share_permission_secure_file_drop">Entrega de archivos segura</string>
     <string name="share_permission_view_only">Sólo lectura</string>
+    <string name="share_re_share_permission">Compartir</string>
     <string name="share_read_permission">Leer</string>
     <string name="share_remote_clarification">%1$s (remoto)</string>
     <string name="share_room_clarification">%1$s (conversación)</string>

@@ -13,7 +13,6 @@ import android.content.Context
 import android.content.Intent
 import android.content.res.Resources
 import android.graphics.BitmapFactory
-import android.os.Build
 import androidx.core.app.NotificationCompat
 import com.nextcloud.client.account.User
 import com.owncloud.android.R
@@ -38,11 +37,8 @@ class AppNotificationManagerImpl @Inject constructor(
     }
 
     private fun builder(channelId: String): NotificationCompat.Builder {
-        val builder = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        val builder =
             NotificationCompat.Builder(context, channelId)
-        } else {
-            NotificationCompat.Builder(context)
-        }
         viewThemeUtils.androidx.themeNotificationCompatBuilder(context, builder)
         return builder
     }

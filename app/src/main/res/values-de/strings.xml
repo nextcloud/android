@@ -378,6 +378,7 @@
     <string name="file_already_exists">Dateiname bereits vorhanden</string>
     <string name="file_delete">Löschen</string>
     <string name="file_detail_activity_error">Fehler beim Abrufen der Aktivitäten für die Datei</string>
+    <string name="file_detail_share_already_active">Sie können keine Freigabe erstellen, die Freigabe ist von diesem Benutzer bereits aktiviert.</string>
     <string name="file_detail_sharing_fragment_no_contact_app_message">Keine App zum Auswählen von Kontakten verfügbar</string>
     <string name="file_details_no_content">Details konnten nicht geladen werden</string>
     <string name="file_icon">Datei</string>
@@ -437,6 +438,7 @@
     <string name="file_name_validator_error_reserved_names">%s ist ein unzulässiger Name</string>
     <string name="file_name_validator_rename_before_move_or_copy">%s. Bitte Datei umbenennen, bevor diese verschoben oder kopiert wird</string>
     <string name="file_not_found">Datei nicht gefunden</string>
+    <string name="file_not_found_cannot_share">Datei nicht gefunden. Freigabe kann nicht erstellt werden.</string>
     <string name="file_not_synced">Datei konnte nicht synchronisiert werden. Zeige letzte verfügbare Version. </string>
     <string name="file_rename">Umbenennen</string>
     <string name="file_upload_worker_error_notification_title">Upload fehlgeschlagen. Keine Internetverbindung</string>
@@ -798,6 +800,7 @@
     <string name="send_share">Freigabe senden</string>
     <string name="sendbutton_description">Icon für den Senden-Button</string>
     <string name="set_as">Setze als</string>
+    <string name="set_download_limit_failed">Download-Limit konnte nicht festgelegt werden. Bitte die Leistungsfähigkeit prüfen.</string>
     <string name="set_note">Notiz setzen</string>
     <string name="set_picture_as">Nutze Bild als</string>
     <string name="set_status">Status setzen</string>
@@ -805,9 +808,14 @@
     <string name="setup_e2e">Während der Einrichtung der Ende-zu-Ende-Verschlüsselung erhalten Sie eine zufällige 12-Wörter-Gedächtnisstütze, die Sie benötigen, um Ihre Dateien auf anderen Geräten zu öffnen. Diese wird nur auf diesem Gerät gespeichert und kann in diesem Bildschirm erneut angezeigt werden. Bitte notieren Sie es an einem sicheren Ort!</string>
     <string name="share">Teilen</string>
     <string name="share_allow_download_and_sync_permission">Herunterladen und synchronisieren zulassen</string>
+    <string name="share_cannot_update_empty_note">Die Freigabe konnte nicht aktualisiert werden. Bitte eine Notiz hinzufügen und erneut versuchen.</string>
     <string name="share_copy_link">Teilen und Link kopieren</string>
+    <string name="share_create_permission">Erstellen</string>
+    <string name="share_custom_permission">Benutzerdefinierte Berechtigungen</string>
+    <string name="share_delete_permission">Löschen</string>
     <string name="share_dialog_title">Teilen</string>
     <string name="share_download_limit">Download-Limit festlegen</string>
+    <string name="share_edit_permission">Bearbeiten</string>
     <string name="share_expiration_date_format">%1$s</string>
     <string name="share_expiration_date_label">Läuft am %1$s ab</string>
     <string name="share_file">Teile %1$s</string>
@@ -827,6 +835,7 @@
     <string name="share_no_expiration_date_label">Ablaufdatum setzen</string>
     <string name="share_no_password_title">Passwort setzen</string>
     <string name="share_not_allowed_when_file_drop">Erneutes teilen ist für die sichere Dateiablage nicht zugelassen</string>
+    <string name="share_option_required">Bitte mindestens eine Freigabeoption wählen, bevor Sie fortfahren.</string>
     <string name="share_password_title">Passwortgeschützt</string>
     <string name="share_permission_can_edit">Kann bearbeiten</string>
     <string name="share_permission_file_drop">Dateiablage</string>
@@ -834,6 +843,8 @@
     <string name="share_permission_secure_file_drop">Sichere Dateiablage</string>
     <string name="share_permission_view_only">Nur anzeigen</string>
     <string name="share_permissions">Berechtigungen zum Teilen</string>
+    <string name="share_re_share_permission">Teilen</string>
+    <string name="share_read_permission">Lesen</string>
     <string name="share_remote_clarification">%1$s (remote)</string>
     <string name="share_room_clarification">%1$s (Unterhaltung)</string>
     <string name="share_search">Name, Federated-Cloud-ID oder E-Mail-Adresse …</string>

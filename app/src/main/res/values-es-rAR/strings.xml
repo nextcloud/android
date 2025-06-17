@@ -714,6 +714,7 @@
     <string name="set_status_message">Establecer mensaje de estado</string>
     <string name="setup_e2e">Durante la configuración del cifrado de extremo a extremo, recibirá un mnemónico aleatorio de 12 palabras, que necesitará para abrir sus archivos en otros dispositivos. Esto solo se almacenará en este dispositivo y se puede volver a mostrar en esta pantalla. ¡Por favor anótelo en un lugar seguro!</string>
     <string name="share">Compartir</string>
+    <string name="share_delete_permission">Eliminar</string>
     <string name="share_dialog_title">Compartiendo</string>
     <string name="share_edit_permission">Editar</string>
     <string name="share_expiration_date_format">%1$s</string>

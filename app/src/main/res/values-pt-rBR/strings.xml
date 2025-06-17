@@ -378,6 +378,7 @@
     <string name="file_already_exists">O nome do arquivo já existe</string>
     <string name="file_delete">Excluir</string>
     <string name="file_detail_activity_error">Erro ao recuperar atividades do arquivo</string>
+    <string name="file_detail_share_already_active">Não é possível criar um compartilhamento, pois o compartilhamento já está ativo para este usuário.</string>
     <string name="file_detail_sharing_fragment_no_contact_app_message">Nenhum aplicativo disponível para selecionar contatos</string>
     <string name="file_details_no_content">Falha ao carregar detalhes</string>
     <string name="file_icon">Arquivo</string>
@@ -437,6 +438,7 @@
     <string name="file_name_validator_error_reserved_names">%s é um nome proibido</string>
     <string name="file_name_validator_rename_before_move_or_copy">%s. Por favor, renomeie o arquivo antes de mover ou copiar</string>
     <string name="file_not_found">Arquivo não encontrado</string>
+    <string name="file_not_found_cannot_share">Arquivo não encontrado. Não é possível criar um compartilhamento.</string>
     <string name="file_not_synced">Arquivo não pôde ser sincronizado. Mostrando a última versão disponível.</string>
     <string name="file_rename">Renomear</string>
     <string name="file_upload_worker_error_notification_title">O upload falhou. Sem conexão com a Internet</string>
@@ -798,13 +800,14 @@
     <string name="send_share">Enviar compartilhamento</string>
     <string name="sendbutton_description">Ícone do botão Enviar</string>
     <string name="set_as">Definir como</string>
+    <string name="set_download_limit_failed">Não foi possível definir o limite de download. Verifique as capacidades.</string>
     <string name="set_note">Definir nota</string>
     <string name="set_picture_as">Usar imagem como</string>
     <string name="set_status">Definir status</string>
     <string name="set_status_message">Definir mensagem de status</string>
     <string name="setup_e2e">Durante a configuração da criptografia de ponta-a-ponta, você receberá um mnemônico aleatório de 12 palavras, que será necessário para abrir seus arquivos em outros dispositivos. Ele será armazenado apenas neste dispositivo e poderá ser mostrado novamente nesta tela. Por favor, anote-o em um lugar seguro!</string>
     <string name="share">Compartilhar</string>
-    <string name="share_allow_download_and_sync_permission">Permitir baixar e sincronizar</string>
+    <string name="share_allow_download_and_sync_permission">Permitir download e sincronização</string>
     <string name="share_copy_link">Compartilhar e copiar link</string>
     <string name="share_create_permission">Criar</string>
     <string name="share_custom_permission">Permissões personalizadas</string>

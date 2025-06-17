@@ -689,7 +689,9 @@
     <string name="set_status_message">تنظیم پیام وضعیت</string>
     <string name="setup_e2e">در طول راه اندازی رمزگذاری سرتاسری، یک یادگاری تصادفی ۱۲ کلمه‌ای دریافت خواهید کرد که باید فایل‌های خود را در دستگاه‌های دیگر باز کنید. این فقط در این دستگاه ذخیره می شود و می تواند دوباره در این صفحه نمایش داده شود. لطفا آن را در یک مکان امن یادداشت کنید!</string>
     <string name="share">هم‌رسانی</string>
+    <string name="share_create_permission">ایجاد</string>
     <string name="share_custom_permission">Custom permissions</string>
+    <string name="share_delete_permission">حذف</string>
     <string name="share_dialog_title">اشتراک گذاری</string>
     <string name="share_download_limit">تنظیم محدودیت دانلود</string>
     <string name="share_edit_permission">ویرایش</string>
@@ -717,6 +719,7 @@
     <string name="share_permission_file_drop">انداختن پرونده</string>
     <string name="share_permission_secure_file_drop">دراپ فایل امن</string>
     <string name="share_permission_view_only">تنها مشاهده</string>
+    <string name="share_re_share_permission">اشتراک‌گذاری</string>
     <string name="share_read_permission">خواندن</string>
     <string name="share_remote_clarification">%1$s (دوردست)</string>
     <string name="share_room_clarification">%1$s (گفت‌وگو)</string>

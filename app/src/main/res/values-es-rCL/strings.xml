@@ -423,6 +423,7 @@
     <string name="set_as">Establecer Como</string>
     <string name="set_picture_as">Usar imagen como</string>
     <string name="share">Compartir</string>
+    <string name="share_delete_permission">Eliminar</string>
     <string name="share_dialog_title">Compartiendo</string>
     <string name="share_edit_permission">Editar</string>
     <string name="share_file">Compartir %1$s</string>

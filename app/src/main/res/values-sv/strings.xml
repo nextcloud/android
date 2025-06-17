@@ -378,6 +378,7 @@
     <string name="file_already_exists">Filnamnet finns redan</string>
     <string name="file_delete">Ta bort</string>
     <string name="file_detail_activity_error">Fel vid hämtning av aktiviteter för fil</string>
+    <string name="file_detail_share_already_active">Du kan inte skapa en delning, användaren har redan en aktiv delning.</string>
     <string name="file_detail_sharing_fragment_no_contact_app_message">Ingen app tillgänglig för att välja kontakter</string>
     <string name="file_details_no_content">Kunde inte läsa in detaljer</string>
     <string name="file_icon">Fil</string>
@@ -437,6 +438,7 @@
     <string name="file_name_validator_error_reserved_names">%s är ett förbjudet namn</string>
     <string name="file_name_validator_rename_before_move_or_copy">%s. Byt namn på filen innan du flyttar eller kopierar</string>
     <string name="file_not_found">Filen hittades inte</string>
+    <string name="file_not_found_cannot_share">Filen hittades inte. Det gick inte att skapa en delning.</string>
     <string name="file_not_synced">Filen kunde inte synkroniseras. Visar senaste tillgängliga versionen.</string>
     <string name="file_rename">Byt namn</string>
     <string name="file_upload_worker_error_notification_title">Uppladdning misslyckades. Ingen internetanslutning</string>
@@ -799,6 +801,7 @@
     <string name="send_share">Skicka delning</string>
     <string name="sendbutton_description">Ikonen för Skicka-knapp</string>
     <string name="set_as">Sätt som</string>
+    <string name="set_download_limit_failed">Det gick inte att ange nedladdningsgräns. Kontrollera tillgängliga funktioner.</string>
     <string name="set_note">Ange anteckning</string>
     <string name="set_picture_as">Använd bild som</string>
     <string name="set_status">Sätt status</string>
@@ -806,6 +809,7 @@
     <string name="setup_e2e">Under inställningen av end-to-end-kryptering kommer du att få en slumpmässig lista med 12 krypteringsord, som du behöver för att öppna dina filer på andra enheter. Orden kommer endast att lagras på den här enheten och kan visas igen på den här skärmen. Vänligen notera krypteringsorden på ett säkert ställe!</string>
     <string name="share">Dela</string>
     <string name="share_allow_download_and_sync_permission">Tillåt nedladdning och synkronisering</string>
+    <string name="share_cannot_update_empty_note">Vi kunde inte uppdatera delningen. Lägg till en anteckning och försök igen.</string>
     <string name="share_copy_link">Dela och kopiera länk</string>
     <string name="share_create_permission">Skapa</string>
     <string name="share_custom_permission">Anpassade behörigheter</string>
@@ -832,6 +836,7 @@
     <string name="share_no_expiration_date_label">Välj utgångsdatum</string>
     <string name="share_no_password_title">Sätt lösenord</string>
     <string name="share_not_allowed_when_file_drop">Återdelning är inte tillåtet inuti ett säkert filinkast</string>
+    <string name="share_option_required">Välj minst ett delningsalternativ innan du fortsätter.</string>
     <string name="share_password_title">Lösenordsskyddad</string>
     <string name="share_permission_can_edit">Kan ändra</string>
     <string name="share_permission_file_drop">Filinkast</string>

@@ -523,11 +523,7 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
     private void showNotification(int id, NotificationCompat.Builder builder) {
         NotificationManager notificationManager = (NotificationManager) getContext().
                 getSystemService(Context.NOTIFICATION_SERVICE);
-
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-            builder.setChannelId(NotificationUtils.NOTIFICATION_CHANNEL_FILE_SYNC);
-        }
-
+        builder.setChannelId(NotificationUtils.NOTIFICATION_CHANNEL_FILE_SYNC);
         notificationManager.notify(id, builder.build());
     }
     /**

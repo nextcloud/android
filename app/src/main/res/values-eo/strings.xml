@@ -452,6 +452,7 @@
     <string name="set_as">Uzi kiel</string>
     <string name="set_picture_as">Uzi la bildon kiel</string>
     <string name="share">Kunhavigi</string>
+    <string name="share_delete_permission">Forigi</string>
     <string name="share_dialog_title">Kunhavigo</string>
     <string name="share_edit_permission">Modifi</string>
     <string name="share_expiration_date_label">Senvalidiĝas je %1$s</string>

@@ -609,7 +609,9 @@
     <string name="set_as">Lakaat evel</string>
     <string name="set_picture_as">Implij skeudenn evel</string>
     <string name="share">Rannan</string>
+    <string name="share_delete_permission">Dilemel</string>
     <string name="share_dialog_title">Rannan</string>
+    <string name="share_edit_permission">Embann</string>
     <string name="share_expiration_date_label">Termen %1$s</string>
     <string name="share_file">Rannañ %1$s</string>
     <string name="share_group_clarification">%1$s (strollad)</string>
@@ -627,6 +629,7 @@
     <string name="share_no_password_title">Termeniñ ur ger-tremen</string>
     <string name="share_password_title">Gwarezet gant ur ger-tremen</string>
     <string name="share_permission_can_edit">Posuple eo embann</string>
+    <string name="share_re_share_permission">Rannañ</string>
     <string name="share_remote_clarification">%1$s (pell)</string>
     <string name="share_room_clarification">%1$s (diviz)</string>
     <string name="share_send_note">Kemenañ d\'an degemerer</string>

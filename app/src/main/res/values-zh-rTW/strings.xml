@@ -378,6 +378,7 @@
     <string name="file_already_exists">檔案名稱已經存在</string>
     <string name="file_delete">刪除</string>
     <string name="file_detail_activity_error">取得檔案活動狀態時發生錯誤</string>
+    <string name="file_detail_share_already_active">您無法建立分享，來自此使用者的分享已在作用中。</string>
     <string name="file_detail_sharing_fragment_no_contact_app_message">沒有應用程式可選取聯絡人</string>
     <string name="file_details_no_content">載入詳細資訊失敗</string>
     <string name="file_icon">檔案</string>
@@ -437,6 +438,7 @@
     <string name="file_name_validator_error_reserved_names">%s 是禁止的名稱</string>
     <string name="file_name_validator_rename_before_move_or_copy">%s。請在移動或複製前重新命名檔案</string>
     <string name="file_not_found">找不到檔案</string>
+    <string name="file_not_found_cannot_share">找不到檔案。無法建立分享。</string>
     <string name="file_not_synced">檔案無法同步。將顯示最新可用版本。</string>
     <string name="file_rename">重新命名</string>
     <string name="file_upload_worker_error_notification_title">上傳失敗。沒有網際網路連線</string>
@@ -798,6 +800,7 @@
     <string name="send_share">傳送分享</string>
     <string name="sendbutton_description">傳送按鈕圖示</string>
     <string name="set_as">設定為</string>
+    <string name="set_download_limit_failed">無法設定分享限制。請檢查功能。</string>
     <string name="set_note">設定備註</string>
     <string name="set_picture_as">使用圖片作為</string>
     <string name="set_status">設定狀態</string>
@@ -805,6 +808,7 @@
     <string name="setup_e2e">在設置端對端加密過程中，您會收到隨機的 12 字記憶密語，您需要有這段密語才能在其他裝置上開啟檔案。這只會儲存在此裝置上，之後可以在此畫面中再次顯示。請將密語寫下來，妥善存放在安全的地方！</string>
     <string name="share">分享</string>
     <string name="share_allow_download_and_sync_permission">允許下載與同步</string>
+    <string name="share_cannot_update_empty_note">我們無法更新分享。請新增備註並重試。</string>
     <string name="share_copy_link">分享並複製連結</string>
     <string name="share_create_permission">建立</string>
     <string name="share_custom_permission">自訂權限</string>
@@ -831,6 +835,7 @@
     <string name="share_no_expiration_date_label">設定到期日</string>
     <string name="share_no_password_title">設定密碼</string>
     <string name="share_not_allowed_when_file_drop">在安全檔案投遞時不允許轉分享</string>
+    <string name="share_option_required">請在繼續前至少選取一個分享選項。</string>
     <string name="share_password_title">受密碼保護</string>
     <string name="share_permission_can_edit">可以編輯</string>
     <string name="share_permission_file_drop">檔案投遞</string>

@@ -378,6 +378,7 @@
     <string name="file_already_exists">Filename already exists</string>
     <string name="file_delete">Delete</string>
     <string name="file_detail_activity_error">Error retrieving activities for file</string>
+    <string name="file_detail_share_already_active">You cannot create a share, sharing is already active from this user.</string>
     <string name="file_detail_sharing_fragment_no_contact_app_message">No app available to select contacts</string>
     <string name="file_details_no_content">Failed to load details</string>
     <string name="file_icon">File</string>
@@ -437,6 +438,7 @@
     <string name="file_name_validator_error_reserved_names">%s is a forbidden name</string>
     <string name="file_name_validator_rename_before_move_or_copy">%s. Please rename the file before moving or copying</string>
     <string name="file_not_found">File not found</string>
+    <string name="file_not_found_cannot_share">File not found. Unable to create a share.</string>
     <string name="file_not_synced">File could not be synced. Showing latest available version.</string>
     <string name="file_rename">Rename</string>
     <string name="file_upload_worker_error_notification_title">Upload failed. No internet connection</string>
@@ -798,6 +800,7 @@
     <string name="send_share">Send share</string>
     <string name="sendbutton_description">Send button icon</string>
     <string name="set_as">Set As</string>
+    <string name="set_download_limit_failed">Unable to set download limit. Please check capabilities.</string>
     <string name="set_note">Set note</string>
     <string name="set_picture_as">Use picture as</string>
     <string name="set_status">Set status</string>
@@ -805,7 +808,11 @@
     <string name="setup_e2e">During setup of end-to-end encryption, you will receive a random 12 word mnemonic, which you will need to open your files on other devices. This will only be stored on this device, and can be shown again in this screen. Please note it down in a secure place!</string>
     <string name="share">Share</string>
     <string name="share_allow_download_and_sync_permission">Allow download and sync</string>
+    <string name="share_cannot_update_empty_note">We couldn’t update the share. Please add a note and try again.</string>
     <string name="share_copy_link">Share and copy link</string>
+    <string name="share_create_permission">Create</string>
+    <string name="share_custom_permission">Custom permissions</string>
+    <string name="share_delete_permission">Delete</string>
     <string name="share_dialog_title">Sharing</string>
     <string name="share_download_limit">Set download limit</string>
     <string name="share_edit_permission">Edit</string>
@@ -828,6 +835,7 @@
     <string name="share_no_expiration_date_label">Set expiration date</string>
     <string name="share_no_password_title">Set password</string>
     <string name="share_not_allowed_when_file_drop">Resharing is not allowed during secure file drop</string>
+    <string name="share_option_required">Please select at least one sharing option before continuing.</string>
     <string name="share_password_title">Password-protected</string>
     <string name="share_permission_can_edit">Can edit</string>
     <string name="share_permission_file_drop">File drop</string>
@@ -835,6 +843,7 @@
     <string name="share_permission_secure_file_drop">Secure file drop</string>
     <string name="share_permission_view_only">View only</string>
     <string name="share_permissions">Share permissions</string>
+    <string name="share_re_share_permission">Share</string>
     <string name="share_read_permission">Read</string>
     <string name="share_remote_clarification">%1$s (remote)</string>
     <string name="share_room_clarification">%1$s (conversation)</string>
