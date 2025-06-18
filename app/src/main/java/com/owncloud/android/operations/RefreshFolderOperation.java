@@ -265,8 +265,16 @@ public class RefreshFolderOperation extends RemoteOperation {
             sendLocalBroadcast(EVENT_SINGLE_FOLDER_CONTENTS_SYNCED, mLocalFolder.getRemotePath(), result);
         }
 
-        if (result.isSuccess() && !mSyncFullAccount && !mOnlyFileMetadata) {
-            refreshSharesForFolder(client); // share result is ignored
+        if (result.isSuccess() && result.getData() != null && !mSyncFullAccount && !mOnlyFileMetadata) {
+            final var remoteObject = result.getData();
+            final ArrayList<RemoteFile> remoteFiles = new ArrayList<>();
+            for (Object object: remoteObject) {
+                if (object instanceof RemoteFile remoteFile) {
+                    remoteFiles.add(remoteFile);
+                }
+            }
+
+            fileDataStorageManager.saveSharesFromRemoteFile(remoteFiles);
         }
 
         if (!mSyncFullAccount) {
@@ -804,15 +812,6 @@ public class RefreshFolderOperation extends RemoteOperation {
         }
     }
 
-    /**
-     * Syncs the Share resources for the files contained in the folder refreshed (children, not deeper descendants).
-     *
-     * @param client Handler of a session with an OC server.
-     */
-    private void refreshSharesForFolder(OwnCloudClient client) {
-        GetSharesForFileOperation operation = new GetSharesForFileOperation(mLocalFolder.getRemotePath(), true, true, fileDataStorageManager);
-        operation.execute(client);
-    }
 
     /**
      * Sends a message to any application component interested in the progress of the synchronization.
