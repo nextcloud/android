@@ -179,19 +179,31 @@ class OfflineOperationsWorker(
         operation: OfflineOperationEntity,
         client: OwnCloudClient
     ): OfflineOperationResult {
-        val renameFileOperation = withContext(NonCancellable) {
-            val operationType = (operation.type as OfflineOperationType.RenameFile)
-            fileDataStorageManager.getFileById(operationType.ocFileId)?.remotePath?.let { updatedRemotePath ->
-                RenameFileOperation(
-                    updatedRemotePath,
-                    operationType.newName,
-                    fileDataStorageManager
-                )
-            }
+        val operationType = (operation.type as OfflineOperationType.RenameFile)
+        val ocFile = fileDataStorageManager.getFileById(operationType.ocFileId)
+
+        if (ocFile == null) {
+            Log_OC.w(TAG, "Rename offline operation is cancelled and deleted from the offline operations table")
+            fileDataStorageManager.offlineOperationDao.delete(operation)
+            return null
         }
 
-        val result = (renameFileOperation?.execute(client) to renameFileOperation)
-        return checkFileBeforeExecution(operation.path, result)
+        if (isFileChanged(ocFile)) {
+            Log_OC.w(TAG, "Cant execute rename operation, file is changed")
+            return null
+        }
+
+        val ocFileRemotePath = ocFile.remotePath
+        if (ocFileRemotePath == null) {
+            Log_OC.w(TAG, "Rename offline operation is cancelled, remote path is null")
+            return null
+        }
+
+        val renameFileOperation = withContext(NonCancellable) {
+            RenameFileOperation(ocFileRemotePath, operationType.newName, fileDataStorageManager)
+        }
+
+        return renameFileOperation.execute(client) to renameFileOperation
     }
 
     @Suppress("DEPRECATION")
@@ -199,28 +211,25 @@ class OfflineOperationsWorker(
         operation: OfflineOperationEntity,
         client: OwnCloudClient
     ): OfflineOperationResult {
-        val removeFileOperation = withContext(NonCancellable) {
-            val operationType = (operation.type as OfflineOperationType.RemoveFile)
-            val ocFile = fileDataStorageManager.getFileByDecryptedRemotePath(operationType.path)
-            RemoveFileOperation(ocFile, false, user, true, context, fileDataStorageManager)
-        }
+        val operationType = (operation.type as OfflineOperationType.RemoveFile)
+        val ocFile = fileDataStorageManager.getFileByDecryptedRemotePath(operationType.path)
 
-        val result = (removeFileOperation.execute(client) to removeFileOperation)
-        return checkFileBeforeExecution(operation.path, result)
-    }
-
-    private fun checkFileBeforeExecution(
-        path: String?,
-        result: OfflineOperationResult
-    ): OfflineOperationResult {
-        val file = fileDataStorageManager.getFileByDecryptedRemotePath(path)
-
-        if (file == null && path != null) {
-            fileDataStorageManager.offlineOperationDao.deleteByPath(path)
+        if (ocFile == null) {
+            Log_OC.w(TAG, "Remove offline operation is cancelled and deleted from the offline operations table")
+            fileDataStorageManager.offlineOperationDao.delete(operation)
             return null
         }
 
-        return if (file != null && !isFileChanged(file)) result else null
+        if (isFileChanged(ocFile)) {
+            Log_OC.w(TAG, "Cant execute remove operation, file is changed")
+            return null
+        }
+
+        val removeFileOperation = withContext(NonCancellable) {
+            RemoveFileOperation(ocFile, false, user, true, context, fileDataStorageManager)
+        }
+
+        return removeFileOperation.execute(client) to removeFileOperation
     }
     // endregion
 
