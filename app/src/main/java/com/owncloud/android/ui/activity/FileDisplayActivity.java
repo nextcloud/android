@@ -182,8 +182,6 @@ public class FileDisplayActivity extends FileActivity
     public static final String LIST_GROUPFOLDERS = "LIST_GROUPFOLDERS";
     public static final int SINGLE_USER_SIZE = 1;
     public static final String OPEN_FILE = "NC_OPEN_FILE";
-    public static final String FOLDER_SYNC_CONFLICT = "FOLDER_SYNC_CONFLICT";
-    public static final String FOLDER_SYNC_CONFLICT_ARG_REMOTE_IDS_TO_OPERATION_PATHS = "FOLDER_SYNC_CONFLICT_ARG_REMOTE_IDS_TO_OPERATION_PATHS";
 
     private FilesBinding binding;
 
@@ -289,9 +287,6 @@ public class FileDisplayActivity extends FileActivity
         initSyncBroadcastReceiver();
         observeWorkerState();
         registerRefreshFolderEventReceiver();
-
-        OfflineFolderConflictManager offlineFolderConflictManager = new OfflineFolderConflictManager(this);
-        offlineFolderConflictManager.registerRefreshSearchEventReceiver();
     }
 
     @SuppressWarnings("unchecked")
