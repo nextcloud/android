@@ -121,13 +121,29 @@ class OfflineOperationsWorker(
         operation: OfflineOperationEntity,
         client: OwnCloudClient
     ): OfflineOperationResult? = withContext(Dispatchers.IO) {
-        when (operation.type) {
+        val ocFile = fileDataStorageManager.getFileByDecryptedRemotePath(operation.path)
+
+        // it checks if file exists on remote and eTag is changed or not
+        if (ocFile != null && ocFile.remoteId != null && isFileChanged(ocFile)) {
+            Log_OC.w(TAG, "Offline operation skipped, file already exists: $operation")
+            notificationManager.showConflictResolveNotification(ocFile, operation)
+            return@withContext null
+        }
+
+        // worker cannot rename or remove non existing file thus operation needs to be removed
+        if ((ocFile == null || ocFile.remoteId == null) &&
+            (operation.type is OfflineOperationType.RenameFile || operation.type is OfflineOperationType.RemoveFile)) {
+            fileDataStorageManager.offlineOperationDao.delete(operation)
+            return@withContext null
+        }
+
+        return@withContext when (val type = operation.type) {
             is OfflineOperationType.CreateFolder -> createFolder(operation, client)
             is OfflineOperationType.CreateFile -> createFile(operation, client)
-            is OfflineOperationType.RenameFile -> renameFile(operation, client)
-            is OfflineOperationType.RemoveFile -> removeFile(operation, client)
+            is OfflineOperationType.RenameFile -> ocFile?.let { renameFile(operation, it, client) }
+            is OfflineOperationType.RemoveFile -> ocFile?.let { removeFile(it, client) }
             else -> {
-                Log_OC.d(TAG, "Unsupported operation type: ${operation.type}")
+                Log_OC.d(TAG, "Unsupported operation type: $type")
                 null
             }
         }
@@ -139,13 +155,6 @@ class OfflineOperationsWorker(
         client: OwnCloudClient
     ): OfflineOperationResult {
         val operationType = (operation.type as OfflineOperationType.CreateFolder)
-        val ocFile = fileDataStorageManager.getFileByDecryptedRemotePath(operationType.path)
-        if (ocFile != null) {
-            Log_OC.w(TAG, "Folder already exists, offline operation skipped: $operation")
-            notificationManager.showConflictResolveNotification(ocFile, operation)
-            return null
-        }
-
         val createFolderOperation = withContext(NonCancellable) {
             CreateFolderOperation(operationType.path, user, context, fileDataStorageManager)
         }
@@ -159,12 +168,6 @@ class OfflineOperationsWorker(
         client: OwnCloudClient
     ): OfflineOperationResult {
         val operationType = (operation.type as OfflineOperationType.CreateFile)
-        val ocFile = fileDataStorageManager.getFileByDecryptedRemotePath(operationType.remotePath)
-        if (ocFile != null) {
-            Log_OC.w(TAG, "File already exists, offline operation skipped: $operation")
-            notificationManager.showConflictResolveNotification(ocFile, operation)
-            return null
-        }
 
         val createFileOperation = withContext(NonCancellable) {
             val lastModificationDate = System.currentTimeMillis() / ONE_SECOND
@@ -186,23 +189,9 @@ class OfflineOperationsWorker(
     @Suppress("DEPRECATION")
     private suspend fun renameFile(
         operation: OfflineOperationEntity,
+        ocFile: OCFile,
         client: OwnCloudClient
     ): OfflineOperationResult {
-        val operationType = (operation.type as OfflineOperationType.RenameFile)
-        val ocFile = fileDataStorageManager.getFileById(operationType.ocFileId)
-
-        if (ocFile == null) {
-            Log_OC.w(TAG, "Rename offline operation is cancelled and deleted from the offline operations table")
-            fileDataStorageManager.offlineOperationDao.delete(operation)
-            return null
-        }
-
-        if (isFileChanged(ocFile)) {
-            Log_OC.w(TAG, "Cant execute rename operation, file is changed")
-            notificationManager.showConflictResolveNotification(ocFile, operation)
-            return null
-        }
-
         val ocFileRemotePath = ocFile.remotePath
         if (ocFileRemotePath == null) {
             Log_OC.w(TAG, "Rename offline operation is cancelled, remote path is null")
@@ -210,6 +199,7 @@ class OfflineOperationsWorker(
         }
 
         val renameFileOperation = withContext(NonCancellable) {
+            val operationType = (operation.type as OfflineOperationType.RenameFile)
             RenameFileOperation(ocFileRemotePath, operationType.newName, fileDataStorageManager)
         }
 
@@ -218,24 +208,9 @@ class OfflineOperationsWorker(
 
     @Suppress("DEPRECATION")
     private suspend fun removeFile(
-        operation: OfflineOperationEntity,
+        ocFile: OCFile,
         client: OwnCloudClient
     ): OfflineOperationResult {
-        val operationType = (operation.type as OfflineOperationType.RemoveFile)
-        val ocFile = fileDataStorageManager.getFileByDecryptedRemotePath(operationType.path)
-
-        if (ocFile == null) {
-            Log_OC.w(TAG, "Remove offline operation is cancelled and deleted from the offline operations table")
-            fileDataStorageManager.offlineOperationDao.delete(operation)
-            return null
-        }
-
-        if (isFileChanged(ocFile)) {
-            Log_OC.w(TAG, "Cant execute remove operation, file is changed")
-            notificationManager.showConflictResolveNotification(ocFile, operation)
-            return null
-        }
-
         val removeFileOperation = withContext(NonCancellable) {
             RemoveFileOperation(ocFile, false, user, true, context, fileDataStorageManager)
         }
