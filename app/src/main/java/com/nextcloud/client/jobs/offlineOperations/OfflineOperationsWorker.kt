@@ -117,6 +117,7 @@ class OfflineOperationsWorker(
     }
 
     // region Operation Execution
+    @Suppress("ComplexCondition")
     private suspend fun executeOperation(
         operation: OfflineOperationEntity,
         client: OwnCloudClient
@@ -132,7 +133,8 @@ class OfflineOperationsWorker(
 
         // worker cannot rename or remove non existing file thus operation needs to be removed
         if ((ocFile == null || ocFile.remoteId == null) &&
-            (operation.type is OfflineOperationType.RenameFile || operation.type is OfflineOperationType.RemoveFile)) {
+            (operation.type is OfflineOperationType.RenameFile || operation.type is OfflineOperationType.RemoveFile)
+        ) {
             fileDataStorageManager.offlineOperationDao.delete(operation)
             return@withContext null
         }
@@ -163,10 +165,7 @@ class OfflineOperationsWorker(
     }
 
     @Suppress("DEPRECATION")
-    private suspend fun createFile(
-        operation: OfflineOperationEntity,
-        client: OwnCloudClient
-    ): OfflineOperationResult {
+    private suspend fun createFile(operation: OfflineOperationEntity, client: OwnCloudClient): OfflineOperationResult {
         val operationType = (operation.type as OfflineOperationType.CreateFile)
 
         val createFileOperation = withContext(NonCancellable) {
@@ -207,10 +206,7 @@ class OfflineOperationsWorker(
     }
 
     @Suppress("DEPRECATION")
-    private suspend fun removeFile(
-        ocFile: OCFile,
-        client: OwnCloudClient
-    ): OfflineOperationResult {
+    private suspend fun removeFile(ocFile: OCFile, client: OwnCloudClient): OfflineOperationResult {
         val removeFileOperation = withContext(NonCancellable) {
             RemoveFileOperation(ocFile, false, user, true, context, fileDataStorageManager)
         }
