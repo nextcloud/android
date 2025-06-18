@@ -371,6 +371,7 @@
     <string name="file_already_exists">Файл с таким именем уже существует</string>
     <string name="file_delete">Удалить</string>
     <string name="file_detail_activity_error">Ошибка получения истории событий, связанных с файлом</string>
+    <string name="file_detail_share_already_active">Вы не можете создать общий ресурс — общий доступ уже активен от этого пользователя.</string>
     <string name="file_detail_sharing_fragment_no_contact_app_message">Приложение для выбора контактов недоступно</string>
     <string name="file_details_no_content">Не удалось получить подробные сведения</string>
     <string name="file_icon">Файл</string>
@@ -431,6 +432,7 @@
     <string name="file_name_validator_error_reserved_names">%s это запрещенное имя</string>
     <string name="file_name_validator_rename_before_move_or_copy">%s. Пожалуйста, переименуйте файл перед перемещением или копированием</string>
     <string name="file_not_found">Файл не найден</string>
+    <string name="file_not_found_cannot_share">Файл не найден. Не удалось создать общий ресурс.</string>
     <string name="file_not_synced">Не удалось синхронизировать этот файл, показана его последняя доступная версия.</string>
     <string name="file_rename">Переименовать</string>
     <string name="file_upload_worker_error_notification_title">Загрузка не удалась. Нет интернет-соединения</string>
@@ -785,7 +787,10 @@
     <string name="send">Отправить</string>
     <string name="send_share">Отправить ссылку</string>
     <string name="sendbutton_description">Значок кнопки «отправить»</string>
+    <string name="server_not_reachable">Не удалось загрузить содержимое.</string>
+    <string name="server_not_reachable_content">Возможно, устройство не подключено к интернету.</string>
     <string name="set_as">Установить как</string>
+    <string name="set_download_limit_failed">Не удалось задать лимит загрузки. Пожалуйста, проверьте доступные возможности.</string>
     <string name="set_note">Создать заметку</string>
     <string name="set_picture_as">Использовать изображение</string>
     <string name="set_status">Установить состояние</string>
@@ -793,6 +798,7 @@
     <string name="setup_e2e">При настройке сквозного шифрования будет создана  мнемофраза из 12 слов, которая понадобится для открытия файлов на других устройствах. Мнемофраза будет сохранена  только на этом устройстве и может быть просмотрена повторно. Сохраните мнемофразу в надежном месте!</string>
     <string name="share">Общий ресурс</string>
     <string name="share_allow_download_and_sync_permission">Разрешить загрузку и синхронизацию</string>
+    <string name="share_cannot_update_empty_note">Не удалось обновить общий ресурс. Пожалуйста, добавьте примечание и попробуйте снова.</string>
     <string name="share_copy_link">Создать и скопировать ссылку</string>
     <string name="share_create_permission">Создать</string>
     <string name="share_custom_permission">Пользовательские права доступа</string>
@@ -818,6 +824,7 @@
     <string name="share_no_expiration_date_label">Установить срок действия</string>
     <string name="share_no_password_title">Задать пароль</string>
     <string name="share_not_allowed_when_file_drop">Перенаправление запрещено во время безопасного удаления файлов</string>
+    <string name="share_option_required">Пожалуйста, выберите хотя бы один вариант общего доступа перед продолжением.</string>
     <string name="share_permission_can_edit">Разрешено редактировать</string>
     <string name="share_permission_file_request">Запрос файла</string>
     <string name="share_permission_secure_file_drop">Защищенный очиститель файлов</string>

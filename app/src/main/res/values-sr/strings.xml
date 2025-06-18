@@ -786,6 +786,8 @@
     <string name="send">Пошаљи</string>
     <string name="send_share">Пошаљи дељење</string>
     <string name="sendbutton_description">Икона за слање</string>
+    <string name="server_not_reachable">Није могао да се учита садржај</string>
+    <string name="server_not_reachable_content">Изгледа да уређај није повезан са интернетом</string>
     <string name="set_as">Постави као</string>
     <string name="set_download_limit_failed">Не може да се постави ограничење преузимања. Молимо вас да проверите могућности.</string>
     <string name="set_note">Постави белешку</string>

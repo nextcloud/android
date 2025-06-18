@@ -786,6 +786,8 @@
     <string name="send">傳送</string>
     <string name="send_share">傳送分享</string>
     <string name="sendbutton_description">傳送按鈕圖示</string>
+    <string name="server_not_reachable">無法載入內容</string>
+    <string name="server_not_reachable_content">裝置似乎無法連線至網際網路</string>
     <string name="set_as">設定為</string>
     <string name="set_download_limit_failed">無法設定分享限制。請檢查功能。</string>
     <string name="set_note">設定備註</string>
