@@ -61,56 +61,49 @@ class OfflineOperationsWorker(
     private val notificationManager = OfflineOperationsNotificationManager(context, viewThemeUtils)
     private var repository = OfflineOperationsRepository(fileDataStorageManager)
 
-    @Suppress("TooGenericExceptionCaught")
     override suspend fun doWork(): Result = withContext(Dispatchers.IO) {
         val jobName = inputData.getString(JOB_NAME)
-        Log_OC.d(
-            TAG,
-            "$jobName -----------------------------------\n" +
-                "OfflineOperationsWorker started" +
-                "\n-----------------------------------"
-        )
+        Log_OC.d(TAG, "$jobName --- OfflineOperationsWorker started ---")
 
         if (!isNetworkAndServerAvailable()) {
-            Log_OC.d(TAG, "OfflineOperationsWorker cancelled, no internet connection")
+            Log_OC.w(TAG, "No internet connection. Retrying later.")
             return@withContext Result.retry()
         }
 
         val client = clientFactory.create(user)
+
         notificationManager.start()
-
         var operations = fileDataStorageManager.offlineOperationDao.getAll()
-        val totalOperations = operations.size
+        val result = processOperations(operations, client)
+        notificationManager.dismissNotification()
 
-        return@withContext try {
-            for (index in 0..<operations.size) {
+        return@withContext result
+    }
+
+    @Suppress("TooGenericExceptionCaught")
+    private suspend fun processOperations(operations: List<OfflineOperationEntity>, client: OwnCloudClient): Result {
+        val totalOperationSize = operations.size
+
+        return try {
+            operations.forEachIndexed { index, operation ->
                 try {
-                    val operation = operations[index]
                     val result = executeOperation(operation, client)
-                    val isSuccess = handleResult(
-                        operation,
-                        totalOperations,
-                        index,
-                        result
-                    )
+                    val success = handleResult(operation, totalOperationSize, index, result)
 
-                    if (!isSuccess) {
-                        Log_OC.e(TAG, "Offline operation skipped: $operation")
-                        continue
+                    if (!success) {
+                        Log_OC.e(TAG, "Skipped (failed to handle result): $operation")
                     }
                 } catch (e: Exception) {
-                    Log_OC.e(TAG, "Offline operation skipped, exception caught: $e")
+                    Log_OC.e(TAG, "Skipped (exception): $e")
                 }
             }
 
-            Log_OC.i(TAG, "OfflineOperationsWorker successfully completed")
+            Log_OC.i(TAG, "OfflineOperationsWorker completed successfully.")
             WorkerStateLiveData.instance().setWorkState(WorkerState.OfflineOperationsCompleted)
             Result.success()
         } catch (e: Exception) {
-            Log_OC.e(TAG, "OfflineOperationsWorker terminated: $e")
+            Log_OC.e(TAG, "Processing failed: $e")
             Result.failure()
-        } finally {
-            notificationManager.dismissNotification()
         }
     }
 
@@ -159,7 +152,8 @@ class OfflineOperationsWorker(
     }
 
     private fun isCreateConflict(operation: OfflineOperationEntity, ocFile: OCFile?): Boolean {
-        return ocFile != null && operation.filename == ocFile.fileName && operation.isCreate()
+        return ocFile != null && ocFile.remoteId != null && (operation.filename == ocFile.fileName)
+            && operation.isCreate()
     }
 
     private fun isNonExistentFileForRenameOrRemove(operation: OfflineOperationEntity, ocFile: OCFile?): Boolean {
