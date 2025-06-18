@@ -9,6 +9,7 @@ package com.nextcloud.client.jobs
 import android.provider.MediaStore
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.map
+import androidx.work.BackoffPolicy
 import androidx.work.Constraints
 import androidx.work.Data
 import androidx.work.ExistingPeriodicWorkPolicy
@@ -103,6 +104,7 @@ internal class BackgroundJobManagerImpl(
         const val DEFAULT_PERIODIC_JOB_INTERVAL_MINUTES = 15L
         const val OFFLINE_OPERATIONS_PERIODIC_JOB_INTERVAL_MINUTES = 5L
         const val DEFAULT_IMMEDIATE_JOB_DELAY_SEC = 3L
+        const val DEFAULT_BACKOFF_CRITERIA_DELAY_SEC = 60L
 
         private const val KEEP_LOG_MILLIS = 1000 * 60 * 60 * 24 * 3L
 
@@ -441,8 +443,19 @@ internal class BackgroundJobManagerImpl(
             .setRequiredNetworkType(NetworkType.CONNECTED)
             .build()
 
+        // Backoff criteria define how the system should retry the task if it fails.
+        // LINEAR means each retry will be delayed linearly (e.g., 10s, 20s, 30s...)
+        // DEFAULT_PERIODIC_JOB_INTERVAL_MINUTES is used as the initial delay duration.
+        val backoffCriteriaPolicy = BackoffPolicy.LINEAR
+        val backoffCriteriaDelay = DEFAULT_BACKOFF_CRITERIA_DELAY_SEC
+
         val request =
             oneTimeRequestBuilder(OfflineOperationsWorker::class, JOB_OFFLINE_OPERATIONS, constraints = constraints)
+                .setBackoffCriteria(
+                    backoffCriteriaPolicy,
+                    backoffCriteriaDelay,
+                    TimeUnit.SECONDS
+                )
                 .setInputData(inputData)
                 .build()
 
