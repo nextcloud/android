@@ -36,4 +36,12 @@ data class OfflineOperationEntity(
 
     @ColumnInfo(name = ProviderTableMeta.OFFLINE_OPERATION_MODIFIED_AT)
     var modifiedAt: Long? = null
-)
+) {
+    fun isRenameOrRemove(): Boolean {
+        return (type is OfflineOperationType.RenameFile || type is OfflineOperationType.RemoveFile)
+    }
+
+    fun isCreate(): Boolean {
+        return (type is OfflineOperationType.CreateFile || type is OfflineOperationType.CreateFolder)
+    }
+}
