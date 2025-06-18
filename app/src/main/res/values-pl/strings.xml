@@ -371,6 +371,7 @@
     <string name="file_already_exists">Nazwa pliku już istnieje</string>
     <string name="file_delete">Usuń</string>
     <string name="file_detail_activity_error">Błąd podczas pobierania aktywności dla pliku</string>
+    <string name="file_detail_share_already_active">Nie można utworzyć udostępnienia — udostępnianie jest już aktywne dla tego użytkownika.</string>
     <string name="file_detail_sharing_fragment_no_contact_app_message">Brak aplikacji dla wybranego kontaktu</string>
     <string name="file_details_no_content">Nie udało się załadować szczegółów</string>
     <string name="file_icon">Plik</string>
@@ -430,6 +431,7 @@
     <string name="file_name_validator_error_reserved_names">%sjest zabronioną nazwą</string>
     <string name="file_name_validator_rename_before_move_or_copy">%s. Zmień nazwę pliku przed przeniesieniem lub skopiowaniem</string>
     <string name="file_not_found">Nie znaleziono pliku</string>
+    <string name="file_not_found_cannot_share">Nie znaleziono pliku. Nie można utworzyć udostępnienia.</string>
     <string name="file_not_synced">Nie można zsynchronizować pliku. Pokazana jest najnowsza dostępna wersja.</string>
     <string name="file_rename">Zmień nazwę</string>
     <string name="file_upload_worker_error_notification_title">Przesyłanie nie powiodło się. Brak połączenia internetowego</string>
@@ -784,7 +786,10 @@
     <string name="send">Wyślij</string>
     <string name="send_share">Wyślij udostępnienie</string>
     <string name="sendbutton_description">Ikona przycisku wysyłania</string>
+    <string name="server_not_reachable">Nie można załadować zawartości</string>
+    <string name="server_not_reachable_content">Urządzenie prawdopodobnie nie jest połączone z Internetem</string>
     <string name="set_as">Ustaw jako</string>
+    <string name="set_download_limit_failed">Nie można ustawić limitu pobierania. Sprawdź dostępne możliwości.</string>
     <string name="set_note">Ustaw notatkę</string>
     <string name="set_picture_as">Użyj obrazu jako</string>
     <string name="set_status">Ustaw status</string>
@@ -792,6 +797,7 @@
     <string name="setup_e2e">Podczas konfigurowania szyfrowania typu end-to-end otrzymasz losowy mnemonik składający się z 12-stu słów, który będzie potrzebny do otwierania plików na innych urządzeniach. Będzie on przechowywany tylko na tym urządzeniu i można go ponownie wyświetlić na tym ekranie. Zapisz go w bezpiecznym miejscu!</string>
     <string name="share">Udostępnij</string>
     <string name="share_allow_download_and_sync_permission">Zezwalaj na pobieranie i synchronizację</string>
+    <string name="share_cannot_update_empty_note">Nie udało się zaktualizować udostępnienia. Dodaj notatkę i spróbuj ponownie.</string>
     <string name="share_copy_link">Udostępnij i skopiuj link</string>
     <string name="share_create_permission">Utwórz</string>
     <string name="share_custom_permission">Uprawnienia niestandardowe</string>
@@ -817,6 +823,7 @@
     <string name="share_no_expiration_date_label">Ustaw datę wygaśnięcia</string>
     <string name="share_no_password_title">Ustaw hasło</string>
     <string name="share_not_allowed_when_file_drop">Ponowne udostępnianie nie jest dozwolone podczas bezpiecznego upuszczania plików</string>
+    <string name="share_option_required">Wybierz co najmniej jedną opcję udostępniania przed kontynuacją.</string>
     <string name="share_permission_can_edit">Może modyfikować</string>
     <string name="share_permission_file_request">Prośba o plik</string>
     <string name="share_permission_secure_file_drop">Bezpieczne upuszczenie pliku</string>

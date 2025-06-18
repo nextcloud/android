@@ -783,6 +783,8 @@
     <string name="send">Надіслати</string>
     <string name="send_share">Надати у спільний доступ</string>
     <string name="sendbutton_description">Зображення кнопки надсилання</string>
+    <string name="server_not_reachable">Не вдалося завантажити вміст</string>
+    <string name="server_not_reachable_content">Схоже, пристрій не під\'єднано до Інтернету</string>
     <string name="set_as">Встановити як</string>
     <string name="set_download_limit_failed">Неможливо встановити обмеження на звантаження. Перевірте доступні вам функції.</string>
     <string name="set_note">Додати примітку</string>
