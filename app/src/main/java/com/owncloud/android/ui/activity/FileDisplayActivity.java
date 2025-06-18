@@ -13,7 +13,6 @@
  */
 package com.owncloud.android.ui.activity;
 
-import android.Manifest;
 import android.accounts.Account;
 import android.accounts.AuthenticatorException;
 import android.annotation.SuppressLint;
@@ -65,7 +64,6 @@ import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.client.utils.IntentUtil;
 import com.nextcloud.model.WorkerState;
 import com.nextcloud.model.WorkerStateLiveData;
-import com.nextcloud.utils.BuildHelper;
 import com.nextcloud.utils.extensions.ActivityExtensionsKt;
 import com.nextcloud.utils.extensions.BundleExtensionsKt;
 import com.nextcloud.utils.extensions.FileExtensionsKt;
@@ -76,9 +74,7 @@ import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.FilesBinding;
 import com.owncloud.android.datamodel.FileDataStorageManager;
-import com.owncloud.android.datamodel.MediaFolderType;
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.datamodel.SyncedFolder;
 import com.owncloud.android.datamodel.SyncedFolderProvider;
 import com.owncloud.android.datamodel.VirtualFolderType;
 import com.owncloud.android.files.services.NameCollisionPolicy;
@@ -102,7 +98,6 @@ import com.owncloud.android.operations.SynchronizeFileOperation;
 import com.owncloud.android.operations.UploadFileOperation;
 import com.owncloud.android.syncadapter.FileSyncAdapter;
 import com.owncloud.android.ui.CompletionCallback;
-import com.owncloud.android.ui.activity.fileDisplayActivity.OfflineFolderConflictManager;
 import com.owncloud.android.ui.asynctasks.CheckAvailableSpaceTask;
 import com.owncloud.android.ui.asynctasks.FetchRemoteFileTask;
 import com.owncloud.android.ui.asynctasks.GetRemoteFileTask;
@@ -183,8 +178,6 @@ public class FileDisplayActivity extends FileActivity
     public static final String LIST_GROUPFOLDERS = "LIST_GROUPFOLDERS";
     public static final int SINGLE_USER_SIZE = 1;
     public static final String OPEN_FILE = "NC_OPEN_FILE";
-    public static final String FOLDER_SYNC_CONFLICT = "FOLDER_SYNC_CONFLICT";
-    public static final String FOLDER_SYNC_CONFLICT_ARG_REMOTE_IDS_TO_OPERATION_PATHS = "FOLDER_SYNC_CONFLICT_ARG_REMOTE_IDS_TO_OPERATION_PATHS";
 
     private FilesBinding binding;
 
@@ -300,9 +293,6 @@ public class FileDisplayActivity extends FileActivity
         initSyncBroadcastReceiver();
         observeWorkerState();
         registerRefreshFolderEventReceiver();
-
-        OfflineFolderConflictManager offlineFolderConflictManager = new OfflineFolderConflictManager(this);
-        offlineFolderConflictManager.registerRefreshSearchEventReceiver();
     }
 
     @SuppressWarnings("unchecked")
