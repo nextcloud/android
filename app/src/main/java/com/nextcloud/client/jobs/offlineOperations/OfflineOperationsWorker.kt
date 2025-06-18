@@ -34,6 +34,7 @@ import com.owncloud.android.operations.RenameFileOperation
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.NonCancellable
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.withContext
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
@@ -89,8 +90,7 @@ class OfflineOperationsWorker(
                     operation,
                     totalOperations,
                     index,
-                    result?.first,
-                    result?.second
+                    result
                 )
 
                 if (!isSuccess) {
@@ -116,6 +116,24 @@ class OfflineOperationsWorker(
         }
     }
 
+    // region Operation Execution
+    private suspend fun executeOperation(
+        operation: OfflineOperationEntity,
+        client: OwnCloudClient
+    ): OfflineOperationResult? = withContext(Dispatchers.IO) {
+        when (operation.type) {
+            is OfflineOperationType.CreateFolder -> createFolder(operation, client)
+            is OfflineOperationType.CreateFile -> createFile(operation, client)
+            is OfflineOperationType.RenameFile -> renameFile(operation, client)
+            is OfflineOperationType.RemoveFile -> removeFile(operation, client)
+            else -> {
+                Log_OC.d(TAG, "Unsupported operation type: ${operation.type}")
+                null
+            }
+        }
+    }
+
+    @Suppress("DEPRECATION")
     private suspend fun createFolder(
         operation: OfflineOperationEntity,
         client: OwnCloudClient
@@ -133,22 +151,7 @@ class OfflineOperationsWorker(
         return createFolderOperation.execute(client) to createFolderOperation
     }
 
-    private suspend fun executeOperation(
-        operation: OfflineOperationEntity,
-        client: OwnCloudClient
-    ): OfflineOperationResult? = withContext(Dispatchers.IO) {
-        when (operation.type) {
-            is OfflineOperationType.CreateFolder -> createFolder(operation, client)
-            is OfflineOperationType.CreateFile -> createFile(operation, client)
-            is OfflineOperationType.RenameFile -> renameFile(operation, client)
-            is OfflineOperationType.RemoveFile -> removeFile(operation, client)
-            else -> {
-                Log_OC.d(TAG, "Unsupported operation type: ${operation.type}")
-                null
-            }
-        }
-    }
-
+    @Suppress("DEPRECATION")
     private suspend fun createFile(
         operation: OfflineOperationEntity,
         client: OwnCloudClient
@@ -171,6 +174,7 @@ class OfflineOperationsWorker(
         return createFileOperation.execute(client) to createFileOperation
     }
 
+    @Suppress("DEPRECATION")
     private suspend fun renameFile(
         operation: OfflineOperationEntity,
         client: OwnCloudClient
@@ -190,6 +194,7 @@ class OfflineOperationsWorker(
         return checkFileBeforeExecution(operation.path, result)
     }
 
+    @Suppress("DEPRECATION")
     private suspend fun removeFile(
         operation: OfflineOperationEntity,
         client: OwnCloudClient
@@ -206,8 +211,8 @@ class OfflineOperationsWorker(
 
     private fun checkFileBeforeExecution(
         path: String?,
-        result: Pair<RemoteOperationResult<*>?, RemoteOperation<*>?>?
-    ): Pair<RemoteOperationResult<*>?, RemoteOperation<*>?>? {
+        result: OfflineOperationResult
+    ): OfflineOperationResult {
         val file = fileDataStorageManager.getFileByDecryptedRemotePath(path)
 
         if (file == null && path != null) {
@@ -217,45 +222,58 @@ class OfflineOperationsWorker(
 
         return if (file != null && !isFileChanged(file)) result else null
     }
+    // endregion
 
-    private fun handleResult(
+    private suspend fun handleResult(
         operation: OfflineOperationEntity,
         totalOperations: Int,
         currentSuccessfulOperationIndex: Int,
-        result: RemoteOperationResult<*>?,
-        remoteOperation: RemoteOperation<*>?
+        result: OfflineOperationResult
     ): Boolean {
-        if (result == null) {
-            Log_OC.d(TAG, "Operation not completed, result is null")
-            return false
-        }
+        val operationResult = result?.first ?: return false
 
-        val logMessage = if (result.isSuccess) "Operation completed" else "Operation failed"
+        val logMessage = if (operationResult.isSuccess == true) "Operation completed" else "Operation failed"
         Log_OC.d(TAG, "$logMessage filename: ${operation.filename}, type: ${operation.type}")
 
-        if (result.isSuccess) {
-            if (operation.type is OfflineOperationType.RemoveFile) {
-                val operationType = operation.type as OfflineOperationType.RemoveFile
-                fileDataStorageManager.getFileByDecryptedRemotePath(operationType.path)?.let { ocFile ->
-                    repository.deleteOperation(ocFile)
-                }
-                notificationManager.dismissNotification(operation.id)
-            } else {
-                repository.updateNextOperations(operation)
-            }
-
-            fileDataStorageManager.offlineOperationDao.delete(operation)
-            notificationManager.update(totalOperations, currentSuccessfulOperationIndex, operation.filename ?: "")
-
+        return if (result.first?.isSuccess == true) {
+            handleSuccessResult(operation, totalOperations, currentSuccessfulOperationIndex)
+            true
         } else {
-            val excludedErrorCodes = listOf(RemoteOperationResult.ResultCode.FOLDER_ALREADY_EXISTS)
+            handleErrorResult(result)
+            false
+        }
+    }
 
-            if (remoteOperation != null && !excludedErrorCodes.contains(result.code)) {
-                notificationManager.showNewNotification(result, remoteOperation)
+    private suspend fun handleSuccessResult(
+        operation: OfflineOperationEntity,
+        totalOperations: Int,
+        currentSuccessfulOperationIndex: Int
+    ) {
+        if (operation.type is OfflineOperationType.RemoveFile) {
+            val operationType = operation.type as OfflineOperationType.RemoveFile
+            fileDataStorageManager.getFileByDecryptedRemotePath(operationType.path)?.let { ocFile ->
+                repository.deleteOperation(ocFile)
             }
+        } else {
+            repository.updateNextOperations(operation)
         }
 
-        return result.isSuccess
+        fileDataStorageManager.offlineOperationDao.delete(operation)
+
+        notificationManager.update(totalOperations, currentSuccessfulOperationIndex, operation.filename ?: "")
+        delay(ONE_SECOND)
+        notificationManager.dismissNotification(operation.id)
+    }
+
+    private fun handleErrorResult(result: OfflineOperationResult) {
+        val operationResult = result?.first ?: return
+        val operation = result.second ?: return
+
+        val excludedErrorCodes = listOf(RemoteOperationResult.ResultCode.FOLDER_ALREADY_EXISTS)
+
+        if (!excludedErrorCodes.contains(operationResult.code)) {
+            notificationManager.showNewNotification(operationResult, operation)
+        }
     }
 
     @Suppress("DEPRECATION")
