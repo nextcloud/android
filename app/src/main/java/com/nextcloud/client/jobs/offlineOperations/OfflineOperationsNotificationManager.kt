@@ -31,19 +31,19 @@ class OfflineOperationsNotificationManager(private val context: Context, viewThe
     companion object {
         private const val ID = 121
         private const val ERROR_ID = 122
+
+        private const val ONE_HUNDRED_PERCENT = 100
     }
 
-    @Suppress("MagicNumber")
     fun start() {
         notificationBuilder.run {
             setContentTitle(context.getString(R.string.offline_operations_worker_notification_start_text))
-            setProgress(100, 0, false)
+            setProgress(ONE_HUNDRED_PERCENT, 0, false)
         }
 
         showNotification()
     }
 
-    @Suppress("MagicNumber")
     fun update(totalOperationSize: Int, currentOperationIndex: Int, filename: String) {
         val title = if (totalOperationSize > 1) {
             String.format(
@@ -56,11 +56,11 @@ class OfflineOperationsNotificationManager(private val context: Context, viewThe
             filename
         }
 
-        val progress = (currentOperationIndex * 100) / totalOperationSize
+        val progress = (currentOperationIndex * ONE_HUNDRED_PERCENT) / totalOperationSize
 
         notificationBuilder.run {
             setContentTitle(title)
-            setProgress(100, progress, false)
+            setProgress(ONE_HUNDRED_PERCENT, progress, false)
         }
 
         showNotification()
@@ -93,6 +93,8 @@ class OfflineOperationsNotificationManager(private val context: Context, viewThe
         )
 
         notificationBuilder
+            .setProgress(0, 0, false)
+            .setOngoing(false)
             .clearActions()
             .setContentTitle(title)
             .setContentIntent(resolveConflictAction.actionIntent)
