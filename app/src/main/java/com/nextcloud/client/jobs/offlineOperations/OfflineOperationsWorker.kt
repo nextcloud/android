@@ -38,6 +38,8 @@ import kotlinx.coroutines.withContext
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
 
+private typealias OfflineOperationResult = Pair<RemoteOperationResult<*>?, RemoteOperation<*>?>?
+
 class OfflineOperationsWorker(
     private val user: User,
     private val context: Context,
@@ -49,6 +51,8 @@ class OfflineOperationsWorker(
     companion object {
         private val TAG = OfflineOperationsWorker::class.java.simpleName
         const val JOB_NAME = "JOB_NAME"
+
+        private const val ONE_SECOND = 1000L
     }
 
     private val fileDataStorageManager = FileDataStorageManager(user, context.contentResolver)
@@ -112,74 +116,92 @@ class OfflineOperationsWorker(
         }
     }
 
-    @Suppress("Deprecation", "MagicNumber")
+    private suspend fun createFolder(
+        operation: OfflineOperationEntity,
+        client: OwnCloudClient
+    ): OfflineOperationResult {
+        val createFolderOperation = withContext(NonCancellable) {
+            val operationType = (operation.type as OfflineOperationType.CreateFolder)
+            CreateFolderOperation(
+                operationType.path,
+                user,
+                context,
+                fileDataStorageManager
+            )
+        }
+
+        return createFolderOperation.execute(client) to createFolderOperation
+    }
+
     private suspend fun executeOperation(
         operation: OfflineOperationEntity,
         client: OwnCloudClient
-    ): Pair<RemoteOperationResult<*>?, RemoteOperation<*>?>? = withContext(Dispatchers.IO) {
-        return@withContext when (operation.type) {
-            is OfflineOperationType.CreateFolder -> {
-                val createFolderOperation = withContext(NonCancellable) {
-                    val operationType = (operation.type as OfflineOperationType.CreateFolder)
-                    CreateFolderOperation(
-                        operationType.path,
-                        user,
-                        context,
-                        fileDataStorageManager
-                    )
-                }
-                createFolderOperation.execute(client) to createFolderOperation
-            }
-
-            is OfflineOperationType.CreateFile -> {
-                val createFileOperation = withContext(NonCancellable) {
-                    val operationType = (operation.type as OfflineOperationType.CreateFile)
-                    val lastModificationDate = System.currentTimeMillis() / 1000
-
-                    UploadFileRemoteOperation(
-                        operationType.localPath,
-                        operationType.remotePath,
-                        operationType.mimeType,
-                        "",
-                        operation.modifiedAt ?: lastModificationDate,
-                        operation.createdAt ?: System.currentTimeMillis(),
-                        true
-                    )
-                }
-
-                createFileOperation.execute(client) to createFileOperation
-            }
-
-            is OfflineOperationType.RenameFile -> {
-                val renameFileOperation = withContext(NonCancellable) {
-                    val operationType = (operation.type as OfflineOperationType.RenameFile)
-                    fileDataStorageManager.getFileById(operationType.ocFileId)?.remotePath?.let { updatedRemotePath ->
-                        RenameFileOperation(
-                            updatedRemotePath,
-                            operationType.newName,
-                            fileDataStorageManager
-                        )
-                    }
-                }
-
-                checkFileBeforeExecution(operation.path, renameFileOperation?.execute(client) to renameFileOperation)
-            }
-
-            is OfflineOperationType.RemoveFile -> {
-                val removeFileOperation = withContext(NonCancellable) {
-                    val operationType = (operation.type as OfflineOperationType.RemoveFile)
-                    val ocFile = fileDataStorageManager.getFileByDecryptedRemotePath(operationType.path)
-                    RemoveFileOperation(ocFile, false, user, true, context, fileDataStorageManager)
-                }
-
-                checkFileBeforeExecution(operation.path, removeFileOperation.execute(client) to removeFileOperation)
-            }
-
+    ): OfflineOperationResult? = withContext(Dispatchers.IO) {
+        when (operation.type) {
+            is OfflineOperationType.CreateFolder -> createFolder(operation, client)
+            is OfflineOperationType.CreateFile -> createFile(operation, client)
+            is OfflineOperationType.RenameFile -> renameFile(operation, client)
+            is OfflineOperationType.RemoveFile -> removeFile(operation, client)
             else -> {
                 Log_OC.d(TAG, "Unsupported operation type: ${operation.type}")
                 null
             }
         }
+    }
+
+    private suspend fun createFile(
+        operation: OfflineOperationEntity,
+        client: OwnCloudClient
+    ): OfflineOperationResult {
+        val createFileOperation = withContext(NonCancellable) {
+            val operationType = (operation.type as OfflineOperationType.CreateFile)
+            val lastModificationDate = System.currentTimeMillis() / ONE_SECOND
+
+            UploadFileRemoteOperation(
+                operationType.localPath,
+                operationType.remotePath,
+                operationType.mimeType,
+                "",
+                operation.modifiedAt ?: lastModificationDate,
+                operation.createdAt ?: System.currentTimeMillis(),
+                true
+            )
+        }
+
+        return createFileOperation.execute(client) to createFileOperation
+    }
+
+    private suspend fun renameFile(
+        operation: OfflineOperationEntity,
+        client: OwnCloudClient
+    ): OfflineOperationResult {
+        val renameFileOperation = withContext(NonCancellable) {
+            val operationType = (operation.type as OfflineOperationType.RenameFile)
+            fileDataStorageManager.getFileById(operationType.ocFileId)?.remotePath?.let { updatedRemotePath ->
+                RenameFileOperation(
+                    updatedRemotePath,
+                    operationType.newName,
+                    fileDataStorageManager
+                )
+            }
+        }
+
+        val result = (renameFileOperation?.execute(client) to renameFileOperation)
+        return checkFileBeforeExecution(operation.path, result)
+    }
+
+    private suspend fun removeFile(
+        operation: OfflineOperationEntity,
+        client: OwnCloudClient
+    ): OfflineOperationResult {
+        val removeFileOperation = withContext(NonCancellable) {
+            val operationType = (operation.type as OfflineOperationType.RemoveFile)
+            val ocFile = fileDataStorageManager.getFileByDecryptedRemotePath(operationType.path)
+            RemoveFileOperation(ocFile, false, user, true, context, fileDataStorageManager)
+        }
+
+        val result = (removeFileOperation.execute(client) to removeFileOperation)
+        return checkFileBeforeExecution(operation.path, result)
     }
 
     private fun checkFileBeforeExecution(
@@ -224,6 +246,7 @@ class OfflineOperationsWorker(
 
             fileDataStorageManager.offlineOperationDao.delete(operation)
             notificationManager.update(totalOperations, currentSuccessfulOperationIndex, operation.filename ?: "")
+
         } else {
             val excludedErrorCodes = listOf(RemoteOperationResult.ResultCode.FOLDER_ALREADY_EXISTS)
 
