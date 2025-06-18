@@ -76,36 +76,33 @@ class OfflineOperationsWorker(
 
         var operations = fileDataStorageManager.offlineOperationDao.getAll()
         val totalOperations = operations.size
-        var currentSuccessfulOperationIndex = 0
 
         return@withContext try {
-            while (operations.isNotEmpty()) {
-                val operation = operations.first()
+            for (index in 0..<operations.size) {
+                val operation = operations[index]
                 val result = executeOperation(operation, client)
                 val isSuccess = handleResult(
                     operation,
                     totalOperations,
-                    currentSuccessfulOperationIndex,
+                    index,
                     result?.first,
                     result?.second
                 )
 
-                operations = if (isSuccess) {
-                    currentSuccessfulOperationIndex++
-                    fileDataStorageManager.offlineOperationDao.getAll()
-                } else {
-                    operations.filter { it != operation }
+                if (!isSuccess) {
+                    Log_OC.e(TAG, "Offline operation skipped: $operation")
+                    continue
                 }
             }
 
-            Log_OC.d(TAG, "OfflineOperationsWorker successfully completed")
-            notificationManager.dismissNotification()
+            Log_OC.i(TAG, "OfflineOperationsWorker successfully completed")
             WorkerStateLiveData.instance().setWorkState(WorkerState.OfflineOperationsCompleted)
             Result.success()
         } catch (e: Exception) {
-            Log_OC.d(TAG, "OfflineOperationsWorker terminated: $e")
-            notificationManager.dismissNotification()
+            Log_OC.e(TAG, "OfflineOperationsWorker terminated: $e")
             Result.failure()
+        } finally {
+            notificationManager.dismissNotification()
         }
     }
 
