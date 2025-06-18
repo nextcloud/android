@@ -31,8 +31,6 @@
     <string name="add_new_public_share">Ajouter un nouveau lien de partage public</string>
     <string name="add_new_secure_file_drop">Ajouter un nouveau dépôt de fichier sécurisé</string>
     <string name="add_to_cloud">Ajouter à %1$s</string>
-    <string name="advanced_settings">Paramètres avancés</string>
-    <string name="allow_resharing">Autoriser le repartage</string>
     <string name="app_config_base_url_title">URL de base</string>
     <string name="app_config_disable_clipboard_title">Désactiver le Presse-papiers</string>
     <string name="app_config_disable_intro_title">Désactiver l\'introduction</string>
@@ -51,7 +49,6 @@
     <string name="assistant_screen_delete_task_alert_dialog_description">Êtes-vous sûr de vouloir supprimer cette tâche ?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Supprimer la tâche</string>
     <string name="assistant_screen_loading">Chargement de la liste des tâches...</string>
-    <string name="assistant_screen_no_task_available_text">Aucune tâche disponible pour le type de tâche %s, vous pouvez créer une nouvelle tâche en bas à droite.</string>
     <string name="assistant_screen_task_create_fail_message">Une erreur est survenue lors de la création de la tâche</string>
     <string name="assistant_screen_task_create_success_message">La tâche a bien été créée</string>
     <string name="assistant_screen_task_delete_fail_message">Une erreur est survenue lors de la suppression de la tâche</string>
@@ -98,9 +95,6 @@
     <string name="authenticator_activity_login_error">Un problème est survenu lors du traitement de votre demande de connexion. Veuillez réessayer plus tard.</string>
     <string name="authenticator_activity_please_complete_login_process">Veuillez finaliser la connexion dans votre navigateur</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">conservé dans le dossier original (puisqu\'il est en lecture seule)</string>
-    <string name="auto_upload_gplay">Le comportement du téléversement automatique a changé</string>
-    <string name="auto_upload_gplay_desc">À cause de nouvelles restrictions imposées par Google, la fonctionnalité de téléversement automatique ne pourra plus automatiquement supprimer les fichiers téléversés.</string>
-    <string name="auto_upload_gplay_desc2">A cause de nouvelles restrictions imposées par Google, nous avons été forcé de retirer une permission importante. En conséquence, le téléversement automatique ne sera disponible que pour les fichiers images et vidéos.\nDe plus, une nouvelle permission est requise pour accéder aux informations de localisation pour les images téléversées.\nVérifiez que l\'accès au média est défini à \"Toujours tout autoriser\".</string>
     <string name="auto_upload_on_wifi">Téléverser par Wi-Fi uniquement</string>
     <string name="auto_upload_path">/TéléversementAuto</string>
     <string name="auto_upload_sub_folder_warning">Ce dossier fait partie de la synchronisation du dossier parent, ce qui peut créer des doublons.</string>
@@ -135,7 +129,6 @@
     <string name="clear_notifications_failed">Erreur lors de l\'effacement des notifications.</string>
     <string name="clear_status_message">Effacer le message d\'état</string>
     <string name="clear_status_message_after">Effacer le message d\'état après</string>
-    <string name="click_to_learn_how_to_re_enable_auto_uploads">Intervention manuelle requise pour réactiver le téléversement automatique</string>
     <string name="clipboard_label">Texte copié depuis %1$s</string>
     <string name="clipboard_no_text_to_copy">Aucun texte n\'a été reçu pour copier dans le presse-papier</string>
     <string name="clipboard_text_copied">Lien copié</string>
@@ -440,7 +433,6 @@
     <string name="file_not_synced">Le fichier ne peut pas être synchronisé. Affichage de la dernière version disponible. </string>
     <string name="file_rename">Renommer</string>
     <string name="file_upload_worker_error_notification_title">Échec du téléversement. Pas de connexion internet</string>
-    <string name="file_upload_worker_same_file_already_exists">Le même fichier existe déjà, aucun conflit détecté</string>
     <string name="file_version_restored_error">Erreur, la version du fichier n\'a pas été restaurée !</string>
     <string name="file_version_restored_successfully">Restauration de la version du fichier réussie.</string>
     <string name="filedetails_details">Détails</string>
@@ -517,10 +509,7 @@
     <string name="last_backup">Dernière sauvegarde : %1$s</string>
     <string name="link">Lien</string>
     <string name="link_name">Nom du lien</string>
-    <string name="link_share_allow_upload_and_editing">Autoriser le téléversement et la modification</string>
     <string name="link_share_editing">Modification</string>
-    <string name="link_share_file_drop">Dépôt de fichier (téléversement seulement)</string>
-    <string name="link_share_view_only">Afficher seulement</string>
     <string name="list_layout">Affichage en liste</string>
     <string name="load_more_results">Charger plus de résultats</string>
     <string name="local_file_list_empty">Aucun fichier n\'est présent dans ce dossier.</string>
@@ -738,8 +727,6 @@
     <string name="push_notifications_old_login">Aucune notification push à cause d\'une connexion expirée. Veuillez ajouter de nouveau votre compte. </string>
     <string name="push_notifications_temp_error">Les notifications push ne sont pas disponibles actuellement.</string>
     <string name="qr_could_not_be_read">Le code QR ne peut être lu</string>
-    <string name="re_enable_auto_upload">Modifications du téléversement automatique</string>
-    <string name="re_enable_auto_upload_desc">En raison des nouvelles restrictions imposées par Google, nous avons été contraints de supprimer une autorisation importante. Nous travaillons actuellement avec Google pour résoudre ce problème et restaurer toutes les fonctionnalités.\n\nPour réactiver le téléversement automatique pour les nouvelles photos et vidéos :\nSélectionnez \"Tout autoriser\" dans la boîte de dialogue suivante ou dans les paramètres du système.\nAutorisez l\'emplacement des médias lorsque vous y êtes invité, car cela permet à Nextcloud de stocker les données de localisation lors du téléversement des images.\n\nLa boîte de dialogue des autorisations n\'est affichée que lorsque cela s\'avère nécessaire. En cas de doute, vérifiez les paramètres du système.\n\nLe téléversement automatique ne pourra téléverser des fichiers image et vidéo que si vous utilisez la version Google Play de l\'application Nextcloud.\n\nVérifiez s\'il y a des fichiers qui n\'ont pas été téléversés depuis décembre 2024.</string>
     <string name="receive_external_files_activity_start_sync_folder_is_not_exists_message">Le dossier est introuvable, l\'opération de synchronisation est annulée.</string>
     <string name="receive_external_files_activity_unable_to_find_file_to_upload">Impossible de trouver le fichier à téléverser</string>
     <string name="recommend_subject">Essayez %1$s sur votre appareil !</string>
@@ -806,13 +793,13 @@
     <string name="share">Partager</string>
     <string name="share_allow_download_and_sync_permission">Autoriser le téléchargement et la synchronisation</string>
     <string name="share_copy_link">Partager et copier le lien</string>
+    <string name="share_create_permission">Créer</string>
     <string name="share_custom_permission">Permissions personnalisées</string>
     <string name="share_delete_permission">Supprimer</string>
     <string name="share_dialog_title">Partage</string>
     <string name="share_download_limit">Définir le nombre maximal de téléchargements autorisés</string>
     <string name="share_edit_permission">Éditer</string>
     <string name="share_expiration_date_format">%1$s</string>
-    <string name="share_expiration_date_label">Expire le %1$s</string>
     <string name="share_file">Partager %1$s</string>
     <string name="share_group_clarification">%1$s (groupe)</string>
     <string name="share_internal_link">Partager le lien interne</string>
@@ -830,13 +817,12 @@
     <string name="share_no_expiration_date_label">Définir une date d\'expiration</string>
     <string name="share_no_password_title">Définir un mot de passe</string>
     <string name="share_not_allowed_when_file_drop">Le repartage n\'est pas autorisé pendant le dépôt d\'un fichier sécurisé</string>
-    <string name="share_password_title">Protégé par mot de passe</string>
     <string name="share_permission_can_edit">Peut modifier</string>
-    <string name="share_permission_file_drop">Dépôt de fichier</string>
     <string name="share_permission_file_request">Demande de fichier</string>
     <string name="share_permission_secure_file_drop">Dépôt sécurisé de fichiers</string>
     <string name="share_permission_view_only">Afficher seulement</string>
     <string name="share_permissions">Autorisations pour le partage</string>
+    <string name="share_re_share_permission">Partager</string>
     <string name="share_read_permission">Lire</string>
     <string name="share_remote_clarification">%1$s (distant)</string>
     <string name="share_room_clarification">%1$s (conversation)</string>
@@ -1011,8 +997,6 @@
     <string name="upload_file_dialog_title">Spécifiez le nom et le type du fichier à téléverser</string>
     <string name="upload_files">Téléverser des fichiers</string>
     <string name="upload_global_pause_title">Tous les téléversements sont suspendus</string>
-    <string name="upload_gplay">Modification des permissions</string>
-    <string name="upload_gplay_desc">Une nouvelle permission est requise pour accéder à l\'information de localisation pour les images téléversées.\nVérifiez que l\'accès au média est défini à \"Toujours tout autoriser\".</string>
     <string name="upload_item_action_button">Bouton d\'action d\'upload</string>
     <string name="upload_list_delete">Supprimer</string>
     <string name="upload_list_empty_headline">Aucun téléversement disponible</string>

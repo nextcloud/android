@@ -30,8 +30,6 @@
     <string name="add_new_public_share">يېڭى ئاممىۋى ئورتاقلىشىش ئۇلانمىسىنى قوشۇڭ</string>
     <string name="add_new_secure_file_drop">يېڭى بىخەتەر ھۆججەت چۈشۈرۈش</string>
     <string name="add_to_cloud">%1$s غا قوشۇڭ</string>
-    <string name="advanced_settings">ئىلغار تەڭشەكلەر</string>
-    <string name="allow_resharing">قايتا تولۇقلاشقا يول قويۇڭ</string>
     <string name="app_config_base_url_title">ئاساسى URL</string>
     <string name="app_config_proxy_port_title">ۋاكالەتچى ئېغىز</string>
     <string name="app_widget_description">باشقۇرۇش تاختىسىدىكى بىر كىچىك قورالنى كۆرسىتىدۇ</string>
@@ -39,7 +37,6 @@
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">بەزى تېكىستلەرنى كىرگۈزۈڭ</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">بۇ ۋەزىپىنى ئۆچۈرمەكچىمۇ؟</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">ۋەزىپىنى ئۆچۈرۈڭ</string>
-    <string name="assistant_screen_no_task_available_text"> %s ۋەزىپە تىپىغا ماس كېلىدىغان ۋەزىپە يوق ، ئاستىدىن ئوڭدىن يېڭى ۋەزىپە قۇرالايسىز.</string>
     <string name="assistant_screen_task_create_fail_message">ۋەزىپە قۇرغاندا خاتالىق كۆرۈلدى</string>
     <string name="assistant_screen_task_create_success_message">ۋەزىپە مۇۋەپپەقىيەتلىك قۇرۇلدى</string>
     <string name="assistant_screen_task_delete_fail_message">ۋەزىپىنى ئۆچۈرگەندە خاتالىق كۆرۈلدى</string>
@@ -406,7 +403,6 @@
     <string name="file_not_found">ھۆججەت تېپىلمىدى</string>
     <string name="file_not_synced">ھۆججەت ماسقەدەملەنمىدى. ئەڭ يېڭى نەشرىنى كۆرسىتىش.</string>
     <string name="file_rename">ئىسىم ئۆزگەرتىش</string>
-    <string name="file_upload_worker_same_file_already_exists">ئوخشاش ھۆججەت مەۋجۇت ، توقۇنۇش بايقالمىدى</string>
     <string name="file_version_restored_error">ھۆججەت نەشرىنى ئەسلىگە كەلتۈرۈشتە خاتالىق!</string>
     <string name="file_version_restored_successfully">ھۆججەت نەشرى مۇۋەپپەقىيەتلىك ئەسلىگە كەلتۈرۈلدى.</string>
     <string name="filedetails_details">تەپسىلاتى</string>
@@ -481,10 +477,7 @@
     <string name="last_backup">ئاخىرقى زاپاسلاش:%1$s</string>
     <string name="link">ئۇلىنىش</string>
     <string name="link_name">ئۇلىنىش ئىسمى</string>
-    <string name="link_share_allow_upload_and_editing">يوللاش ۋە تەھرىرلەشكە يول قويۇڭ</string>
     <string name="link_share_editing">تەھرىرلەش</string>
-    <string name="link_share_file_drop">ھۆججەت چۈشۈرۈش (پەقەت يوللاش)</string>
-    <string name="link_share_view_only">پەقەت كۆرۈش</string>
     <string name="list_layout">تىزىملىكتىكى ئورۇنلاشتۇرۇش</string>
     <string name="load_more_results">تېخىمۇ كۆپ نەتىجىلەرنى يۈكلەڭ</string>
     <string name="local_file_list_empty">بۇ ھۆججەت قىسقۇچتا ھۆججەت يوق.</string>
@@ -752,7 +745,6 @@
     <string name="share_download_limit">چۈشۈرۈش چەكلىمىسىنى بەلگىلەڭ</string>
     <string name="share_edit_permission">تەھرىر</string>
     <string name="share_expiration_date_format">%1$s</string>
-    <string name="share_expiration_date_label">ۋاقتى%1$s</string>
     <string name="share_file">ئورتاقلىشىش%1$s</string>
     <string name="share_group_clarification">%1$s (گۇرۇپپا)</string>
     <string name="share_internal_link">ئىچكى ئۇلىنىشنى ئورتاقلىشىش</string>
@@ -770,9 +762,7 @@
     <string name="share_no_expiration_date_label">ۋاقتى توشىدۇ</string>
     <string name="share_no_password_title">پارول بەلگىلەڭ</string>
     <string name="share_not_allowed_when_file_drop">بىخەتەر ھۆججەت چۈشۈرۈش جەريانىدا قايتا ئىشلىتىشكە بولمايدۇ</string>
-    <string name="share_password_title">پارول بىلەن قوغدىلىدۇ</string>
     <string name="share_permission_can_edit">تەھرىرلىيەلەيدۇ</string>
-    <string name="share_permission_file_drop">ھۆججەت چۈشۈرۈش</string>
     <string name="share_permission_file_request">ھۆججەت تەلىپى</string>
     <string name="share_permission_secure_file_drop">بىخەتەر ھۆججەت چۈشۈرۈش</string>
     <string name="share_permission_view_only">پەقەت كۆرۈش</string>

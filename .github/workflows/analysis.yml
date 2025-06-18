@@ -29,7 +29,7 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - name: Disabled on forks
-              if: ${{ github.event.pull_request.head.repo.full_name != github.repository }}
+              if: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name != github.repository }}
               run: |
                   echo 'Can not analyze PRs from forks'
                   exit 1

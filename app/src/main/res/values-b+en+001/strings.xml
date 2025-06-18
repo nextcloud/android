@@ -31,8 +31,6 @@
     <string name="add_new_public_share">Add new public share link</string>
     <string name="add_new_secure_file_drop">Add new secure file drop</string>
     <string name="add_to_cloud">Add to %1$s</string>
-    <string name="advanced_settings">Advanced settings</string>
-    <string name="allow_resharing">Allow resharing</string>
     <string name="app_config_base_url_title">Base URL</string>
     <string name="app_config_disable_clipboard_title">Disable Clipboard</string>
     <string name="app_config_disable_intro_title">Disable Intro</string>
@@ -51,7 +49,6 @@
     <string name="assistant_screen_delete_task_alert_dialog_description">Are you sure you want to delete this task?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Delete task</string>
     <string name="assistant_screen_loading">Loading task list…</string>
-    <string name="assistant_screen_no_task_available_text">No task available for %s task type, you can create a new task from bottom right.</string>
     <string name="assistant_screen_task_create_fail_message">An error occurred while creating the task</string>
     <string name="assistant_screen_task_create_success_message">Task successfully created</string>
     <string name="assistant_screen_task_delete_fail_message">An error occurred while deleting the task</string>
@@ -98,9 +95,6 @@
     <string name="authenticator_activity_login_error">There was an issue processing your login request. Please try again later.</string>
     <string name="authenticator_activity_please_complete_login_process">Please complete login process in your browser</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">kept in original folder, as it is readonly</string>
-    <string name="auto_upload_gplay">Auto upload behaviour changed</string>
-    <string name="auto_upload_gplay_desc">Due to new restrictions imposed by Google, the auto upload feature will no longer be able to automatically remove uploaded files.</string>
-    <string name="auto_upload_gplay_desc2">Due to new restrictions imposed by Google, we have been forced to remove an important permission. As a result, auto upload will only be able to upload image and video files.\nAdditionally, a new permission is required to access location information for uploaded images.\nMake sure that media access is set to \"Always allow all\".</string>
     <string name="auto_upload_on_wifi">Only upload on unmetered Wi-Fi</string>
     <string name="auto_upload_path">/AutoUpload</string>
     <string name="auto_upload_sub_folder_warning">This folder is already included in the parent folder’s sync, which may cause duplicate uploads</string>
@@ -135,7 +129,6 @@
     <string name="clear_notifications_failed">Failed to clear notifications.</string>
     <string name="clear_status_message">Clear status message</string>
     <string name="clear_status_message_after">Clear status message after</string>
-    <string name="click_to_learn_how_to_re_enable_auto_uploads">Manual intervention required to re-enable auto-upload</string>
     <string name="clipboard_label">Text copied from %1$s</string>
     <string name="clipboard_no_text_to_copy">Received no text to copy to clipboard</string>
     <string name="clipboard_text_copied">Link copied</string>
@@ -442,7 +435,6 @@
     <string name="file_not_synced">File could not be synced. Showing latest available version.</string>
     <string name="file_rename">Rename</string>
     <string name="file_upload_worker_error_notification_title">Upload failed. No internet connection</string>
-    <string name="file_upload_worker_same_file_already_exists">Same file already exists, no conflict detected</string>
     <string name="file_version_restored_error">Error restoring file version!</string>
     <string name="file_version_restored_successfully">Successfully restored file version.</string>
     <string name="filedetails_details">Details</string>
@@ -519,10 +511,7 @@
     <string name="last_backup">Last backup: %1$s</string>
     <string name="link">Link</string>
     <string name="link_name">Link Name</string>
-    <string name="link_share_allow_upload_and_editing">Allow upload and editing</string>
     <string name="link_share_editing">Editing</string>
-    <string name="link_share_file_drop">File drop (upload only)</string>
-    <string name="link_share_view_only">View only</string>
     <string name="list_layout">Listed layout</string>
     <string name="load_more_results">Load more results</string>
     <string name="local_file_list_empty">There are no files in this folder.</string>
@@ -740,8 +729,6 @@
     <string name="push_notifications_old_login">No push notifications due to outdated login session. Please consider re-adding your account.</string>
     <string name="push_notifications_temp_error">Push notifications currently not available.</string>
     <string name="qr_could_not_be_read">QR code could not be read!</string>
-    <string name="re_enable_auto_upload">Changes to auto upload</string>
-    <string name="re_enable_auto_upload_desc">Due to new restrictions imposed by Google, we have been forced to remove an important permission. We are currently working with Google to resolve this issue and restore full functionality.\n\nTo re-enable auto upload for new photos and videos:\nSelect \"Allow all\" in the following dialogue or the system settings.\nAllow media location when prompted, as this allows Nextcloud to store location data when uploading images.\n\nThe permissions dialogue is only displayed when necessary. If in doubt, check the system settings.\n\nAuto upload will only be able to upload image and video files when using the Google Play version of the Nextcloud app.\n\nPlease check for any files that may not have been uploaded since December 2024.</string>
     <string name="receive_external_files_activity_start_sync_folder_is_not_exists_message">Folder cannot be found, sync operation is cancelled</string>
     <string name="receive_external_files_activity_unable_to_find_file_to_upload">Unable to find file to upload</string>
     <string name="recommend_subject">Try %1$s on your device!</string>
@@ -817,7 +804,6 @@
     <string name="share_download_limit">Set download limit</string>
     <string name="share_edit_permission">Edit</string>
     <string name="share_expiration_date_format">%1$s</string>
-    <string name="share_expiration_date_label">Expires %1$s</string>
     <string name="share_file">Share %1$s</string>
     <string name="share_group_clarification">%1$s (group)</string>
     <string name="share_internal_link">Share internal link</string>
@@ -836,9 +822,7 @@
     <string name="share_no_password_title">Set password</string>
     <string name="share_not_allowed_when_file_drop">Resharing is not allowed during secure file drop</string>
     <string name="share_option_required">Please select at least one sharing option before continuing.</string>
-    <string name="share_password_title">Password-protected</string>
     <string name="share_permission_can_edit">Can edit</string>
-    <string name="share_permission_file_drop">File drop</string>
     <string name="share_permission_file_request">File request</string>
     <string name="share_permission_secure_file_drop">Secure file drop</string>
     <string name="share_permission_view_only">View only</string>
@@ -1018,8 +1002,6 @@
     <string name="upload_file_dialog_title">Input filename and filetype to upload</string>
     <string name="upload_files">Upload files</string>
     <string name="upload_global_pause_title">All uploads are paused</string>
-    <string name="upload_gplay">Permission changes</string>
-    <string name="upload_gplay_desc">A new permission is required to access location information for uploaded images.\nMake sure that media access is set to \"Always allow all\".</string>
     <string name="upload_item_action_button">Upload item action button</string>
     <string name="upload_list_delete">Delete</string>
     <string name="upload_list_empty_headline">No uploads available</string>

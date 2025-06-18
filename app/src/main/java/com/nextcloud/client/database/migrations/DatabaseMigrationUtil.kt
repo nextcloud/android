@@ -10,6 +10,7 @@ package com.nextcloud.client.database.migrations
 import androidx.room.DeleteColumn
 import androidx.room.migration.AutoMigrationSpec
 import androidx.sqlite.db.SupportSQLiteDatabase
+import com.nextcloud.client.database.migrations.model.SQLiteColumnType
 
 object DatabaseMigrationUtil {
 
@@ -17,6 +18,32 @@ object DatabaseMigrationUtil {
     const val TYPE_INTEGER = "INTEGER"
     const val TYPE_INTEGER_PRIMARY_KEY = "INTEGER PRIMARY KEY"
     const val KEYWORD_NOT_NULL = "NOT NULL"
+
+    fun addColumnIfNotExists(
+        db: SupportSQLiteDatabase,
+        tableName: String,
+        columnName: String,
+        columnType: SQLiteColumnType
+    ) {
+        val cursor = db.query("PRAGMA table_info($tableName)")
+        var columnExists = false
+
+        while (cursor.moveToNext()) {
+            val nameIndex = cursor.getColumnIndex("name")
+            if (nameIndex != -1) {
+                val existingColumnName = cursor.getString(nameIndex)
+                if (existingColumnName == columnName) {
+                    columnExists = true
+                    break
+                }
+            }
+        }
+        cursor.close()
+
+        if (!columnExists) {
+            db.execSQL("ALTER TABLE $tableName ADD COLUMN `$columnName` ${columnType.value}")
+        }
+    }
 
     /**
      * Utility method to add or remove columns from a table

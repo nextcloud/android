@@ -29,8 +29,6 @@
     <string name="activity_icon">Activitat</string>
     <string name="add_new_public_share">Afegeix nou enllaç d\'accés públic</string>
     <string name="add_to_cloud">Afegeix a %1$s</string>
-    <string name="advanced_settings">Paràmetres avançats</string>
-    <string name="allow_resharing">Permet compartir de nou</string>
     <string name="app_config_base_url_title">URL base</string>
     <string name="app_config_disable_clipboard_title">Inhabilitació del porta-retalls</string>
     <string name="app_config_disable_intro_title">Inhabilitació de la introducció</string>
@@ -47,7 +45,6 @@
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Escriu una mica de text</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Segur que voleu suprimir aquesta tasca?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Suprimeix la tasca</string>
-    <string name="assistant_screen_no_task_available_text">No hi ha cap tasca disponible per al tipus de tasca %s. Podeu crear una tasca nova des de baix a la dreta.</string>
     <string name="assistant_screen_task_create_fail_message">S\'ha produït un error en crear la tasca</string>
     <string name="assistant_screen_task_create_success_message">La tasca s\'ha creat correctament</string>
     <string name="assistant_screen_task_delete_fail_message">S\'ha produït un error en suprimir la tasca</string>
@@ -93,9 +90,6 @@
     <string name="authenticator_activity_login_error">S\'ha produït un error en processar la sol·licitud d\'inici de sessió. Torneu-ho a provar més tard.</string>
     <string name="authenticator_activity_please_complete_login_process">Completeu el procés d\'inici de sessió al navegador</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">manté a la carpeta original, ja que és només de lectura</string>
-    <string name="auto_upload_gplay">S\'ha canviat el comportament de la càrrega automàtica</string>
-    <string name="auto_upload_gplay_desc">A causa de les noves restriccions imposades per Google, la funció de càrrega automàtica ja no podrà eliminar automàticament els fitxers carregats.</string>
-    <string name="auto_upload_gplay_desc2">A causa de les noves restriccions imposades per Google, ens hem vist obligats a eliminar un permís important. Per consegüent, la pujada automàtica només podrà pujar fitxers d\'imatge i vídeo.\nA més a més, es requereix un altre permís per accedir a la informació d\'ubicació de les imatges pujades.\nComproveu que l\'accés multimèdia estigui establert a \"Permet sempre tot\".</string>
     <string name="auto_upload_on_wifi">Pujada només quan hi hagi Wi-Fi sense límits</string>
     <string name="auto_upload_path">/Càrrega automàtica</string>
     <string name="autoupload_configure">Configura</string>
@@ -129,7 +123,6 @@
     <string name="clear_notifications_failed">No s\'han pogut carregar les notificacions.</string>
     <string name="clear_status_message">Esborrar el missatge d\'estat</string>
     <string name="clear_status_message_after">Esborra el missatge d\'estat després</string>
-    <string name="click_to_learn_how_to_re_enable_auto_uploads">Cal la intervenció manual per tornar a habilitar la pujada automàtica</string>
     <string name="clipboard_label">Text copiat des de %1$s</string>
     <string name="clipboard_no_text_to_copy">No s\'ha rebut cap text per copiar al porta-retalls</string>
     <string name="clipboard_text_copied">Enllaç copiat</string>
@@ -422,7 +415,6 @@
     <string name="file_not_found">Fitxer no trobat</string>
     <string name="file_not_synced">El fitxer no s\'ha pogut sincronitzar. Se\'n mostra la darrera versió disponible.</string>
     <string name="file_rename">Canvia el nom</string>
-    <string name="file_upload_worker_same_file_already_exists">Ja existeix el mateix fitxer, no s\'ha detectat cap conflicte</string>
     <string name="file_version_restored_error">S\'ha produït un error restaurant la versió del fitxer!</string>
     <string name="file_version_restored_successfully">Versió del fitxer restaurada amb èxit.</string>
     <string name="filedetails_details">Detalls</string>
@@ -498,10 +490,7 @@
     <string name="last_backup">Última còpia de seguretat%1$s</string>
     <string name="link">Enllaç</string>
     <string name="link_name">Nom de l\'enllaç</string>
-    <string name="link_share_allow_upload_and_editing">Permet la pujada i l\'edició</string>
     <string name="link_share_editing">Edició</string>
-    <string name="link_share_file_drop">Arrossegament de fitxers (només pujada)</string>
-    <string name="link_share_view_only">Només visualitació</string>
     <string name="list_layout">Disposició llistada</string>
     <string name="load_more_results">Carregar més resultats</string>
     <string name="local_file_list_empty">No hi ha fitxers en aquesta carpeta</string>
@@ -764,7 +753,6 @@
     <string name="share_download_limit">Estableix el límit de baixada</string>
     <string name="share_edit_permission">Edició</string>
     <string name="share_expiration_date_format">%1$s</string>
-    <string name="share_expiration_date_label">Caduca el %1$s</string>
     <string name="share_file">Comparteix %1$s</string>
     <string name="share_group_clarification">%1$s (grup)</string>
     <string name="share_internal_link">Compartir l\'enllaç intern</string>
@@ -781,9 +769,7 @@
     <string name="share_link_with_label">Compartir enllaç (%1$s)</string>
     <string name="share_no_expiration_date_label">Establiu una data de caducitat</string>
     <string name="share_no_password_title">Estableix la contrasenya</string>
-    <string name="share_password_title">Protegit per contrasenya</string>
     <string name="share_permission_can_edit">Pot editar</string>
-    <string name="share_permission_file_drop">Deixa anar el fitxer</string>
     <string name="share_permission_file_request">Sol·licitud de fitxer</string>
     <string name="share_permission_view_only">Només visualització</string>
     <string name="share_re_share_permission">Comparteix</string>

@@ -28,8 +28,6 @@
     <string name="activity_icon">กิจกรรม</string>
     <string name="add_new_public_share">เพื่มลิงก์การแชร์แบบสาธารณะ</string>
     <string name="add_to_cloud">เพิ่มไปยัง %1$s</string>
-    <string name="advanced_settings">การตั้งค่าขั้นสูง</string>
-    <string name="allow_resharing">อนุญาตให้แชร์ซ้ำ</string>
     <string name="app_widget_description">แสดงหนึ่งวิดเจ็ตจากแดชบอร์ด</string>
     <string name="appbar_search_in">ค้นหาใน %s</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">พิมพ์ข้อความของคุณ</string>
@@ -362,10 +360,7 @@
     <string name="last_backup">สำรองข้อมูลล่าสุด: %1$s</string>
     <string name="link">ลิงก์</string>
     <string name="link_name">ชื่อลิงก์</string>
-    <string name="link_share_allow_upload_and_editing">อนุญาตให้อัปโหลดและแก้ไข</string>
     <string name="link_share_editing">กำลังแก้ไข</string>
-    <string name="link_share_file_drop">ลากไฟล์ลง (อัปโหลดเท่านั้น)</string>
-    <string name="link_share_view_only">ดูเท่านั้น</string>
     <string name="load_more_results">โหลดผลลัพธ์เพิ่มเติม</string>
     <string name="local_file_list_empty">ยังไม่มีไฟล์ในโฟลเดอร์นี้</string>
     <string name="local_file_not_found_message">ไม่พบไฟล์ในระบบไฟล์ในเครื่อง</string>
