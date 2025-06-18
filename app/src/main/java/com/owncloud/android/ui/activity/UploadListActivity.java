@@ -201,9 +201,7 @@ public class UploadListActivity extends FileActivity {
                     connectivityService,
                     accountManager,
                     powerManagementService);
-                this.runOnUiThread(() -> {
-                    uploadListAdapter.loadUploadItemsFromDb();
-                });
+                this.runOnUiThread(() -> uploadListAdapter.loadUploadItemsFromDb());
             }).start();
             DisplayUtils.showSnackMessage(this, R.string.uploader_local_files_uploaded);
         }
@@ -352,9 +350,7 @@ public class UploadListActivity extends FileActivity {
         @Override
         public void onReceive(Context context, Intent intent) {
 
-            throttler.run("update_upload_list", () -> {
-                uploadListAdapter.loadUploadItemsFromDb();
-            });
+            throttler.run("update_upload_list", () -> uploadListAdapter.loadUploadItemsFromDb());
         }
     }
 }
