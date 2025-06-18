@@ -22,7 +22,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  */
 
 public class DataHolderUtil {
-    private Map<String, WeakReference<Object>> data = new HashMap<String, WeakReference<Object>>();
+    private Map<String, WeakReference<Object>> data = new HashMap<>();
 
     private static DataHolderUtil instance;
 
@@ -38,7 +38,7 @@ public class DataHolderUtil {
     }
 
     public void save(String id, Object object) {
-        data.put(id, new WeakReference<Object>(object));
+        data.put(id, new WeakReference<>(object));
     }
 
     public Object retrieve(String id) {

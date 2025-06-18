@@ -73,7 +73,7 @@ public class ContactOperations {
     public void insertContact(VCard vcard) throws RemoteException, OperationApplicationException {
         // TODO handle Raw properties - Raw properties include various extension which start with "X-" like X-ASSISTANT, X-AIM, X-SPOUSE
 
-        List<NonEmptyContentValues> contentValues = new ArrayList<NonEmptyContentValues>();
+        List<NonEmptyContentValues> contentValues = new ArrayList<>();
         convertName(contentValues, vcard);
         convertNickname(contentValues, vcard);
         convertPhones(contentValues, vcard);
@@ -95,7 +95,7 @@ public class ContactOperations {
         convertPhotos(contentValues, vcard);
         convertOrganization(contentValues, vcard);
 
-        ArrayList<ContentProviderOperation> operations = new ArrayList<ContentProviderOperation>(contentValues.size());
+        ArrayList<ContentProviderOperation> operations = new ArrayList<>(contentValues.size());
         ContentValues cv = account.getContentValues();
         //ContactsContract.RawContact.CONTENT_URI needed to add account, backReference is also not needed
         ContentProviderOperation operation =
@@ -125,7 +125,7 @@ public class ContactOperations {
 
     public void updateContact(VCard vcard, Long key) throws RemoteException, OperationApplicationException {
 
-        List<NonEmptyContentValues> contentValues = new ArrayList<NonEmptyContentValues>();
+        List<NonEmptyContentValues> contentValues = new ArrayList<>();
         convertName(contentValues, vcard);
         convertNickname(contentValues, vcard);
         convertPhones(contentValues, vcard);
@@ -147,7 +147,7 @@ public class ContactOperations {
         convertPhotos(contentValues, vcard);
         convertOrganization(contentValues, vcard);
 
-        ArrayList<ContentProviderOperation> operations = new ArrayList<ContentProviderOperation>(contentValues.size());
+        ArrayList<ContentProviderOperation> operations = new ArrayList<>(contentValues.size());
         //ContactsContract.RawContact.CONTENT_URI needed to add account, backReference is also not needed
         long contactID = key;
         ContentProviderOperation operation;
@@ -558,7 +558,7 @@ public class ContactOperations {
      * belong to that group
      */
     private <T extends VCardProperty> Map<String, List<T>> orderPropertiesByGroup(Iterable<T> properties) {
-        Map<String, List<T>> groupedProperties = new HashMap<String, List<T>>();
+        Map<String, List<T>> groupedProperties = new HashMap<>();
 
         for (T property : properties) {
             String group = property.getGroup();
@@ -568,7 +568,7 @@ public class ContactOperations {
 
             List<T> groupPropertiesList = groupedProperties.get(group);
             if (groupPropertiesList == null) {
-                groupPropertiesList = new ArrayList<T>();
+                groupPropertiesList = new ArrayList<>();
                 groupedProperties.put(group, groupPropertiesList);
             }
             groupPropertiesList.add(property);

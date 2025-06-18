@@ -667,7 +667,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
         }
     }
 
-    public static final Parcelable.Creator<OCFile> CREATOR = new Parcelable.Creator<OCFile>() {
+    public static final Parcelable.Creator<OCFile> CREATOR = new Parcelable.Creator<>() {
 
         @Override
         public OCFile createFromParcel(Parcel source) {
