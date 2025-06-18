@@ -124,18 +124,21 @@ class OfflineOperationsWorker(
     ): OfflineOperationResult? = withContext(Dispatchers.IO) {
         val ocFile = fileDataStorageManager.getFileByDecryptedRemotePath(operation.path)
 
-        // it checks if file exists on remote and eTag is changed or not
-        if (ocFile != null && ocFile.remoteId != null && isFileChanged(ocFile)) {
+        if (isCreateConflict(operation, ocFile)) {
             Log_OC.w(TAG, "Offline operation skipped, file already exists: $operation")
-            notificationManager.showConflictResolveNotification(ocFile, operation)
+            notificationManager.showConflictResolveNotification(ocFile!!, operation)
             return@withContext null
         }
 
-        // worker cannot rename or remove non existing file thus operation needs to be removed
-        if ((ocFile == null || ocFile.remoteId == null) &&
-            (operation.type is OfflineOperationType.RenameFile || operation.type is OfflineOperationType.RemoveFile)
-        ) {
+        if (isNonExistentFileForRenameOrRemove(operation, ocFile)) {
+            Log_OC.w(TAG, "Offline operation skipped, same file name used for create operation: $operation")
             fileDataStorageManager.offlineOperationDao.delete(operation)
+            return@withContext null
+        }
+
+        if (isFileChangedForRenameOrRemove(operation, ocFile)) {
+            Log_OC.w(TAG, "Offline operation skipped, file changed: $operation")
+            notificationManager.showConflictResolveNotification(ocFile!!, operation)
             return@withContext null
         }
 
@@ -149,6 +152,18 @@ class OfflineOperationsWorker(
                 null
             }
         }
+    }
+
+    private fun isCreateConflict(operation: OfflineOperationEntity, ocFile: OCFile?): Boolean {
+        return ocFile != null && operation.filename == ocFile.fileName && operation.isCreate()
+    }
+
+    private fun isNonExistentFileForRenameOrRemove(operation: OfflineOperationEntity, ocFile: OCFile?): Boolean {
+        return operation.isRenameOrRemove() && (ocFile == null || ocFile.remoteId == null)
+    }
+
+    private fun isFileChangedForRenameOrRemove(operation: OfflineOperationEntity, ocFile: OCFile?): Boolean {
+        return operation.isRenameOrRemove() && ocFile?.remoteId != null && isFileChanged(ocFile)
     }
 
     @Suppress("DEPRECATION")
