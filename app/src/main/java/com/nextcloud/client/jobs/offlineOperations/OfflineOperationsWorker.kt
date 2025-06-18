@@ -138,14 +138,16 @@ class OfflineOperationsWorker(
         operation: OfflineOperationEntity,
         client: OwnCloudClient
     ): OfflineOperationResult {
+        val operationType = (operation.type as OfflineOperationType.CreateFolder)
+        val ocFile = fileDataStorageManager.getFileByDecryptedRemotePath(operationType.path)
+        if (ocFile != null) {
+            Log_OC.w(TAG, "Folder already exists, offline operation skipped: $operation")
+            notificationManager.showConflictResolveNotification(ocFile, operation)
+            return null
+        }
+
         val createFolderOperation = withContext(NonCancellable) {
-            val operationType = (operation.type as OfflineOperationType.CreateFolder)
-            CreateFolderOperation(
-                operationType.path,
-                user,
-                context,
-                fileDataStorageManager
-            )
+            CreateFolderOperation(operationType.path, user, context, fileDataStorageManager)
         }
 
         return createFolderOperation.execute(client) to createFolderOperation
@@ -156,8 +158,15 @@ class OfflineOperationsWorker(
         operation: OfflineOperationEntity,
         client: OwnCloudClient
     ): OfflineOperationResult {
+        val operationType = (operation.type as OfflineOperationType.CreateFile)
+        val ocFile = fileDataStorageManager.getFileByDecryptedRemotePath(operationType.remotePath)
+        if (ocFile != null) {
+            Log_OC.w(TAG, "File already exists, offline operation skipped: $operation")
+            notificationManager.showConflictResolveNotification(ocFile, operation)
+            return null
+        }
+
         val createFileOperation = withContext(NonCancellable) {
-            val operationType = (operation.type as OfflineOperationType.CreateFile)
             val lastModificationDate = System.currentTimeMillis() / ONE_SECOND
 
             UploadFileRemoteOperation(
@@ -190,6 +199,7 @@ class OfflineOperationsWorker(
 
         if (isFileChanged(ocFile)) {
             Log_OC.w(TAG, "Cant execute rename operation, file is changed")
+            notificationManager.showConflictResolveNotification(ocFile, operation)
             return null
         }
 
@@ -222,6 +232,7 @@ class OfflineOperationsWorker(
 
         if (isFileChanged(ocFile)) {
             Log_OC.w(TAG, "Cant execute remove operation, file is changed")
+            notificationManager.showConflictResolveNotification(ocFile, operation)
             return null
         }
 

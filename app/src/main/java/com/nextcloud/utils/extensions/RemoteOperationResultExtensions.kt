@@ -7,10 +7,8 @@
 
 package com.nextcloud.utils.extensions
 
-import com.nextcloud.client.database.entity.OfflineOperationEntity
 import com.owncloud.android.MainApp
 import com.owncloud.android.R
-import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.lib.common.operations.RemoteOperation
 import com.owncloud.android.lib.common.operations.RemoteOperationResult
@@ -24,26 +22,6 @@ fun Pair<RemoteOperationResult<*>?, RemoteOperation<*>?>?.getErrorMessage(): Str
     val result = this?.first ?: return MainApp.string(R.string.unexpected_error_occurred)
     val operation = this.second ?: return MainApp.string(R.string.unexpected_error_occurred)
     return ErrorMessageAdapter.getErrorCauseMessage(result, operation, MainApp.getAppContext().resources)
-}
-
-fun RemoteOperationResult<*>?.getConflictedRemoteIdsWithOfflineOperations(
-    offlineOperations: List<OfflineOperationEntity>,
-    fileDataStorageManager: FileDataStorageManager
-): HashMap<String, String>? {
-    val relevantOperations = offlineOperations
-        .filter { fileDataStorageManager.fileExists(it.path) }
-        .groupBy { it.filename }
-
-    val newFiles = toOCFile() ?: return null
-
-    val result = HashMap<String, String>()
-    for (file in newFiles) {
-        relevantOperations[file.fileName]?.forEach { op ->
-            op.path?.let { result[file.remoteId] = it }
-        }
-    }
-
-    return if (result.isEmpty()) null else result
 }
 
 fun ResultCode.isFileSpecificError(): Boolean {
