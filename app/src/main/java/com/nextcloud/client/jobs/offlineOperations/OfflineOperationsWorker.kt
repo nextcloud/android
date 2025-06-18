@@ -84,18 +84,22 @@ class OfflineOperationsWorker(
 
         return@withContext try {
             for (index in 0..<operations.size) {
-                val operation = operations[index]
-                val result = executeOperation(operation, client)
-                val isSuccess = handleResult(
-                    operation,
-                    totalOperations,
-                    index,
-                    result
-                )
+                try {
+                    val operation = operations[index]
+                    val result = executeOperation(operation, client)
+                    val isSuccess = handleResult(
+                        operation,
+                        totalOperations,
+                        index,
+                        result
+                    )
 
-                if (!isSuccess) {
-                    Log_OC.e(TAG, "Offline operation skipped: $operation")
-                    continue
+                    if (!isSuccess) {
+                        Log_OC.e(TAG, "Offline operation skipped: $operation")
+                        continue
+                    }
+                } catch (e: Exception) {
+                    Log_OC.e(TAG, "Offline operation skipped, exception caught: $e")
                 }
             }
 
