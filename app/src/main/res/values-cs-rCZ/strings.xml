@@ -786,6 +786,8 @@
     <string name="send">Odeslat</string>
     <string name="send_share">Poslat sdílení</string>
     <string name="sendbutton_description">Ikona tlačítka pro odesílání</string>
+    <string name="server_not_reachable">Nepodařilo se načíst obsah</string>
+    <string name="server_not_reachable_content">Zařízení pravděpodobně není připojené k Internetu</string>
     <string name="set_as">Nastavit jako</string>
     <string name="set_download_limit_failed">Nebylo možné nastavit limit počtu stahování. Zkontrolujte schopnosti.</string>
     <string name="set_note">Nastavit poznámku</string>

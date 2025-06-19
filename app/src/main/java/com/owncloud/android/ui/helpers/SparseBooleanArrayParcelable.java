@@ -19,28 +19,28 @@ public class SparseBooleanArrayParcelable implements Parcelable {
 
     @SuppressWarnings("PMD.SuspiciousConstantFieldName")
     public static Parcelable.Creator<SparseBooleanArrayParcelable> CREATOR =
-        new Parcelable.Creator<SparseBooleanArrayParcelable>() {
+        new Parcelable.Creator<>() {
 
-        @Override
-        public SparseBooleanArrayParcelable createFromParcel(Parcel source) {
-            // read size of array from source
-            int size = source.readInt();
+            @Override
+            public SparseBooleanArrayParcelable createFromParcel(Parcel source) {
+                // read size of array from source
+                int size = source.readInt();
 
-            // then pairs of (key, value)s, in the object to wrap
-            SparseBooleanArray sba = new SparseBooleanArray();
-            for (int i = 0; i < size; i++) {
-                sba.put(source.readInt(), source.readInt() != 0);
+                // then pairs of (key, value)s, in the object to wrap
+                SparseBooleanArray sba = new SparseBooleanArray();
+                for (int i = 0; i < size; i++) {
+                    sba.put(source.readInt(), source.readInt() != 0);
+                }
+
+                // wrap SparseBooleanArray
+                return new SparseBooleanArrayParcelable(sba);
             }
 
-            // wrap SparseBooleanArray
-            return new SparseBooleanArrayParcelable(sba);
-        }
-
-        @Override
-        public SparseBooleanArrayParcelable[] newArray(int size) {
-            return new SparseBooleanArrayParcelable[size];
-        }
-    };
+            @Override
+            public SparseBooleanArrayParcelable[] newArray(int size) {
+                return new SparseBooleanArrayParcelable[size];
+            }
+        };
 
     private final SparseBooleanArray mSba;
 

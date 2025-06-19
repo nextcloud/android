@@ -786,6 +786,8 @@
     <string name="send">Saada</string>
     <string name="send_share">Saada jaosmeediat</string>
     <string name="sendbutton_description">Saatmisnupu ikoon</string>
+    <string name="server_not_reachable">Sisu laadimine ei õnnestunud</string>
+    <string name="server_not_reachable_content">Seadmes ilmselt puudub internetiühendus</string>
     <string name="set_as">Määra kui</string>
     <string name="set_download_limit_failed">Allalaadimispiirangu määramine ei õnnestu. Palun kontrolli selle konteksti tegelikke võimalusi.</string>
     <string name="set_note">Lisa märge</string>

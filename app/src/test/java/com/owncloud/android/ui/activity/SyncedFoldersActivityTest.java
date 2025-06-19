@@ -159,7 +159,7 @@ public class SyncedFoldersActivityTest {
                                            NameCollisionPolicy.ASK_USER.serialize(),
                                            enabled,
                                            System.currentTimeMillis(),
-                                           new ArrayList<String>(),
+                                           new ArrayList<>(),
                                            folderName,
                                            2,
                                            MediaFolderType.IMAGE,

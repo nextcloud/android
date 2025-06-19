@@ -502,7 +502,7 @@ public class EncryptionTestIT extends AbstractIT {
 
         // de-serialize
         EncryptedFolderMetadataFileV1 encryptedFolderMetadata2 = deserializeJSON(encryptedJson,
-                                                                                 new TypeToken<EncryptedFolderMetadataFileV1>() {
+                                                                                 new TypeToken<>() {
                                                                                  });
 
         // decrypt

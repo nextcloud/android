@@ -596,11 +596,25 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
     @Override
     public void uploadFiles() {
-        UploadFilesActivity.startUploadActivityForResult(
-            getActivity(),
-            ((FileActivity) getActivity()).getUser().orElseThrow(RuntimeException::new),
-            FileDisplayActivity.REQUEST_CODE__SELECT_FILES_FROM_FILE_SYSTEM,
-            getCurrentFile().isEncrypted());
+        if (!(getActivity() instanceof FileActivity fileActivity)) {
+            Log_OC.w(TAG,"Activity is null, cant upload files");
+            return;
+        }
+
+        final var user = fileActivity.getUser();
+        if (user.isEmpty()) {
+            Log_OC.w(TAG,"User not exist, cant upload files");
+            return;
+        }
+
+        final var file = getCurrentFile();
+        if (file == null) {
+            Log_OC.w(TAG,"File is null cannot determine isWithinEncryptedFolder, cant upload files");
+            return;
+        }
+
+        boolean isWithinEncryptedFolder = getCurrentFile().isEncrypted();
+        UploadFilesActivity.startUploadActivityForResult(fileActivity, user.get(), FileDisplayActivity.REQUEST_CODE__SELECT_FILES_FROM_FILE_SYSTEM, isWithinEncryptedFolder);
     }
 
     @Override
@@ -1220,53 +1234,40 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
     private void fileOnItemClick(OCFile file) {
         Integer errorMessageId = checkFileBeforeOpen(file);
-        if (errorMessageId != null && getRecyclerView() != null) {
-            Snackbar.make(getRecyclerView(),
-                          errorMessageId,
-                          Snackbar.LENGTH_LONG).show();
+        if (getRecyclerView() != null && errorMessageId != null) {
+            Snackbar.make(getRecyclerView(), errorMessageId, Snackbar.LENGTH_LONG).show();
             return;
         }
 
-        if (PreviewImageFragment.canBePreviewed(file)) {
-            // preview image - it handles the download, if needed
-            if (searchFragment) {
-                VirtualFolderType type = switch (currentSearchType) {
-                    case FAVORITE_SEARCH -> VirtualFolderType.FAVORITE;
-                    case GALLERY_SEARCH -> VirtualFolderType.GALLERY;
-                    default -> VirtualFolderType.NONE;
-                };
-                ((FileDisplayActivity) mContainerActivity).startImagePreview(file, type, file.isDown());
-            } else {
-                ((FileDisplayActivity) mContainerActivity).startImagePreview(file, file.isDown());
-            }
-        } else if (file.isDown() && MimeTypeUtil.isVCard(file)) {
-            ((FileDisplayActivity) mContainerActivity).startContactListFragment(file);
-        } else if (file.isDown() && MimeTypeUtil.isPDF(file)) {
-            ((FileDisplayActivity) mContainerActivity).startPdfPreview(file);
-        } else if (PreviewTextFileFragment.canBePreviewed(file)) {
-            setFabVisible(false);
-            ((FileDisplayActivity) mContainerActivity).startTextPreview(file, false);
-        } else if (file.isDown()) {
-            if (PreviewMediaActivity.Companion.canBePreviewed(file)) {
-                setFabVisible(false);
-                ((FileDisplayActivity) mContainerActivity).startMediaPreview(file, 0, true, true, false, true);
-            } else {
-                mContainerActivity.getFileOperationsHelper().openFile(file);
-            }
+        if (PreviewImageFragment.canBePreviewed(file) && mContainerActivity instanceof FileDisplayActivity fda) {
+            fda.previewImageWithSearchContext(file, searchFragment, currentSearchType);
+        } else if (file.isDown() && mContainerActivity instanceof FileDisplayActivity fda) {
+            fda.previewFile(file, this::setFabVisible);
         } else {
-            User account = accountManager.getUser();
-            OCCapability capability = mContainerActivity.getStorageManager().getCapability(account.getAccountName());
+            handlePendingDownloadFile(file);
+        }
+    }
 
-            if (PreviewMediaActivity.Companion.canBePreviewed(file) && !file.isEncrypted()) {
-                setFabVisible(false);
-                ((FileDisplayActivity) mContainerActivity).startMediaPreview(file, 0, true, true, true, true);
-            } else if (editorUtils.isEditorAvailable(accountManager.getUser(), file.getMimeType()) && !file.isEncrypted()) {
-                mContainerActivity.getFileOperationsHelper().openFileWithTextEditor(file, getContext());
-            } else if (capability.getRichDocumentsMimeTypeList().contains(file.getMimeType()) &&
-                capability.getRichDocumentsDirectEditing().isTrue() && !file.isEncrypted()) {
-                mContainerActivity.getFileOperationsHelper().openFileAsRichDocument(file, getContext());
-            } else if (mContainerActivity instanceof FileDisplayActivity fileDisplayActivity) {
-                fileDisplayActivity.startDownloadForPreview(file, mFile);
+    private void handlePendingDownloadFile(OCFile file) {
+        User account = accountManager.getUser();
+        OCCapability capability = mContainerActivity.getStorageManager().getCapability(account.getAccountName());
+
+        if (PreviewMediaActivity.Companion.canBePreviewed(file) && !file.isEncrypted() && mContainerActivity instanceof FileDisplayActivity fda) {
+            setFabVisible(false);
+            fda.startMediaPreview(file, 0, true, true, true, true);
+        } else if (editorUtils.isEditorAvailable(accountManager.getUser(), file.getMimeType()) && !file.isEncrypted()) {
+            mContainerActivity.getFileOperationsHelper().openFileWithTextEditor(file, getContext());
+        } else if (capability.getRichDocumentsMimeTypeList() != null &&
+            capability.getRichDocumentsMimeTypeList().contains(file.getMimeType()) &&
+            capability.getRichDocumentsDirectEditing().isTrue() && !file.isEncrypted()) {
+            mContainerActivity.getFileOperationsHelper().openFileAsRichDocument(file, getContext());
+        } else if (mContainerActivity instanceof FileDisplayActivity fda) {
+            fda.startDownloadForPreview(file, mFile);
+
+            // Checks if the file is small enough to be previewed immediately without showing progress.
+            // If the file is smaller than or equal to 1MB, it can be displayed directly.
+            if (file.isFileEligibleForImmediatePreview()) {
+                fda.setFileIDForImmediatePreview(file.getFileId());
             }
         }
     }
@@ -1934,7 +1935,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
 
     protected RemoteOperation getSearchRemoteOperation(final User currentUser, final SearchEvent event) {
-        boolean searchOnlyFolders = getArguments() != null && getArguments().getBoolean(ARG_SEARCH_ONLY_FOLDER, false);
+        boolean searchOnlyFolders = (getArguments() != null && getArguments().getBoolean(ARG_SEARCH_ONLY_FOLDER, false));
 
         OCCapability ocCapability = mContainerActivity.getStorageManager()
             .getCapability(currentUser.getAccountName());

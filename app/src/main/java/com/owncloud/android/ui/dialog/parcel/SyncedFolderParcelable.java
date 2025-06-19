@@ -105,7 +105,7 @@ public class SyncedFolderParcelable implements Parcelable {
     }
 
     public static final Creator<SyncedFolderParcelable> CREATOR =
-            new Creator<SyncedFolderParcelable>() {
+            new Creator<>() {
 
                 @Override
                 public SyncedFolderParcelable createFromParcel(Parcel source) {

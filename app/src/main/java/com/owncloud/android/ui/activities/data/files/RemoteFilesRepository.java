@@ -22,16 +22,16 @@ public class RemoteFilesRepository implements FilesRepository {
 
     @Override
     public void readRemoteFile(String path, BaseActivity activity, @NonNull ReadRemoteFileCallback callback) {
-        filesServiceApi.readRemoteFile(path, activity, new FilesServiceApi.FilesServiceCallback<OCFile>() {
-                    @Override
-                    public void onLoaded(OCFile ocFile) {
-                        callback.onFileLoaded(ocFile);
-                    }
+        filesServiceApi.readRemoteFile(path, activity, new FilesServiceApi.FilesServiceCallback<>() {
+            @Override
+            public void onLoaded(OCFile ocFile) {
+                callback.onFileLoaded(ocFile);
+            }
 
-                    @Override
-                    public void onError(String error) {
-                        callback.onFileLoadError(error);
-                    }
-                });
+            @Override
+            public void onError(String error) {
+                callback.onFileLoadError(error);
+            }
+        });
     }
 }
