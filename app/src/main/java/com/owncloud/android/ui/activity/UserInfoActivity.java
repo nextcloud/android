@@ -26,8 +26,8 @@ import android.webkit.URLUtil;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.transition.Transition;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.preferences.AppPreferences;
@@ -58,6 +58,7 @@ import javax.inject.Inject;
 
 import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.ActionBar;
 import androidx.core.content.res.ResourcesCompat;
@@ -195,7 +196,7 @@ public class UserInfoActivity extends DrawerActivity implements Injectable {
                     // background image
                     SimpleTarget target = new SimpleTarget<Drawable>() {
                         @Override
-                        public void onResourceReady(Drawable resource, GlideAnimation glideAnimation) {
+                        public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
                             Drawable[] drawables = {
                                 viewThemeUtils.platform.getPrimaryColorDrawable(backgroundImageView.getContext()),
                                 resource};
@@ -204,7 +205,7 @@ public class UserInfoActivity extends DrawerActivity implements Injectable {
                         }
 
                         @Override
-                        public void onLoadFailed(Exception e, Drawable errorDrawable) {
+                        public void onLoadFailed(@Nullable Drawable errorDrawable) {
                             Drawable[] drawables = {
                                 viewThemeUtils.platform.getPrimaryColorDrawable(backgroundImageView.getContext()),
                                 ResourcesCompat.getDrawable(getResources(),
@@ -220,7 +221,6 @@ public class UserInfoActivity extends DrawerActivity implements Injectable {
                             .centerCrop()
                             .placeholder(R.drawable.background)
                             .error(R.drawable.background)
-                            .crossFade()
                             .into(target);
                 } else {
                     // plain color

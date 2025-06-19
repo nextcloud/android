@@ -10,29 +10,44 @@
  */
 package com.owncloud.android.utils.svg;
 
-import android.graphics.drawable.Drawable;
+import android.graphics.drawable.PictureDrawable;
 import android.widget.ImageView;
 
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.ImageViewTarget;
 import com.bumptech.glide.request.target.Target;
 
-public class SvgSoftwareLayerSetter<T> implements RequestListener<T, Drawable> {
+import androidx.annotation.NonNull;
+
+/**
+ * Listener which updates the {@link ImageView} to be software rendered, because {@link
+ * com.caverock.androidsvg.SVG SVG}/{@link android.graphics.Picture Picture} can't render on a
+ * hardware backed {@link android.graphics.Canvas Canvas}.
+ */
+public class SvgSoftwareLayerSetter implements RequestListener<PictureDrawable> {
 
     @Override
-    public boolean onException(Exception e, T model, Target<Drawable> target, boolean isFirstResource) {
+    public boolean onLoadFailed(
+        GlideException e,
+        Object model,
+        @NonNull Target<PictureDrawable> target,
+        boolean isFirstResource) {
         ImageView view = ((ImageViewTarget<?>) target).getView();
         view.setLayerType(ImageView.LAYER_TYPE_NONE, null);
-
         return false;
     }
 
     @Override
-    public boolean onResourceReady(Drawable resource, T model, Target<Drawable> target,
-                                   boolean isFromMemoryCache, boolean isFirstResource) {
+    public boolean onResourceReady(
+        @NonNull PictureDrawable resource,
+        @NonNull Object model,
+        Target<PictureDrawable> target,
+        @NonNull DataSource dataSource,
+        boolean isFirstResource) {
         ImageView view = ((ImageViewTarget<?>) target).getView();
         view.setLayerType(ImageView.LAYER_TYPE_SOFTWARE, null);
-
         return false;
     }
 }
