@@ -786,6 +786,8 @@
     <string name="send">Senden</string>
     <string name="send_share">Freigabe senden</string>
     <string name="sendbutton_description">Icon für den Senden-Button</string>
+    <string name="server_not_reachable">Inhalt konnte nicht geladen werden</string>
+    <string name="server_not_reachable_content">Das Gerät scheint nicht mit dem Internet verbunden zu sein</string>
     <string name="set_as">Setze als</string>
     <string name="set_download_limit_failed">Download-Limit konnte nicht festgelegt werden. Bitte die Leistungsfähigkeit prüfen.</string>
     <string name="set_note">Notiz setzen</string>

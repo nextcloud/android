@@ -415,10 +415,10 @@
     <string name="file_migration_use_data_folder">Usar</string>
     <string name="file_migration_waiting_for_unfinished_sync">Agardando que rematen as sincronizacións…</string>
     <string name="file_name_validator_current_path_is_invalid">O nome actual do cartafol non é válido, cambie o nome do cartafol. Redirixindo ao cartafol principal…</string>
-    <string name="file_name_validator_error_contains_reserved_names_or_invalid_characters">A ruta do cartafol contén nomes reservados ou caracteres non válidos</string>
+    <string name="file_name_validator_error_contains_reserved_names_or_invalid_characters">A ruta do cartafol contén nomes reservados ou caracteres non aceptados</string>
     <string name="file_name_validator_error_forbidden_file_extensions">.%s é unha extensión de ficheiro prohibida</string>
     <string name="file_name_validator_error_forbidden_space_character_extensions">Os nomes de ficheiros non deben conter espazos nin no principio nin no final</string>
-    <string name="file_name_validator_error_invalid_character">O nome contén caracteres non válidos: %s</string>
+    <string name="file_name_validator_error_invalid_character">O nome contén caracteres non aceptados: %s</string>
     <string name="file_name_validator_error_reserved_names">%s é un nome prohibido.</string>
     <string name="file_name_validator_rename_before_move_or_copy">%s. Cambie o nome do ficheiro antes de mover ou copiar</string>
     <string name="file_not_found">Non se atopou o ficheiro</string>
@@ -435,7 +435,7 @@
     <string name="filedisplay_no_file_selected">Non seleccionou ningún ficheiro</string>
     <string name="filename_empty">O nome de ficheiro non pode estar baleiro</string>
     <string name="filename_forbidden_characters">Caracteres non permitidos: / \\ &lt; &gt; : \" | ? *</string>
-    <string name="filename_forbidden_charaters_from_server">O nome de ficheiro contén algún carácter incorrecto</string>
+    <string name="filename_forbidden_charaters_from_server">O nome de ficheiro contén algún carácter non aceptado</string>
     <string name="filename_hint">Nome do ficheiro</string>
     <string name="first_run_1_text">Manteña os seus dados seguros e baixo o seu control</string>
     <string name="first_run_2_text">Colaboración segura e intercambio de ficheiros</string>
