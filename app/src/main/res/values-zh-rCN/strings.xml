@@ -127,8 +127,8 @@
     <string name="choose_which_file">选择保留的文件！</string>
     <string name="choose_widget">选择小部件</string>
     <string name="clear_notifications_failed">清除通知失败</string>
-    <string name="clear_status_message">清除状态信息</string>
-    <string name="clear_status_message_after">清除状态信息于</string>
+    <string name="clear_status_message">清除状态消息</string>
+    <string name="clear_status_message_after">在多久后清除状态消息</string>
     <string name="clipboard_label">从%1$s复制文本</string>
     <string name="clipboard_no_text_to_copy">没有收到要复制到剪贴板的文本</string>
     <string name="clipboard_text_copied">已复制链接</string>
@@ -786,12 +786,14 @@
     <string name="send">发送</string>
     <string name="send_share">发送共享</string>
     <string name="sendbutton_description">发送按钮的图标</string>
+    <string name="server_not_reachable">无法加载内容</string>
+    <string name="server_not_reachable_content">设备可能未连接到互联网</string>
     <string name="set_as">设置</string>
     <string name="set_download_limit_failed">无法设置下载限制。请检查功能。</string>
     <string name="set_note">设置备注</string>
     <string name="set_picture_as">将图片用作</string>
     <string name="set_status">设定状态</string>
-    <string name="set_status_message">设定状态信息</string>
+    <string name="set_status_message">设置状态消息</string>
     <string name="setup_e2e">在端对端加密期间，你将接收一个随机12字助记字串，您需要这个字符串才能在其它设备上开放您的文件。这将只会存储在该设备上，并可以在此画面中再次展示。请记在安全的地方！</string>
     <string name="share">共享</string>
     <string name="share_allow_download_and_sync_permission">允许下载和同步</string>
@@ -881,7 +883,7 @@
     <string name="ssl_validator_reason_cert_not_trusted">- 不受信任的服务器证书</string>
     <string name="ssl_validator_reason_cert_not_yet_valid">- 服务器证书时间比当前时间还晚</string>
     <string name="ssl_validator_reason_hostname_not_verified">- 网址与证书中的主机名不匹配</string>
-    <string name="status_message">状态信息</string>
+    <string name="status_message">状态消息</string>
     <string name="storage_camera">相机</string>
     <string name="storage_choose_location">选择存储位置</string>
     <string name="storage_description_default">默认</string>
