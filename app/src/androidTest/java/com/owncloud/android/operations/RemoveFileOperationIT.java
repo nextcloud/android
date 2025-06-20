@@ -15,7 +15,9 @@ import org.junit.Test;
 
 import java.io.IOException;
 
+import static junit.framework.TestCase.assertEquals;
 import static junit.framework.TestCase.assertNotNull;
+import static junit.framework.TestCase.assertNull;
 import static junit.framework.TestCase.assertTrue;
 
 public class RemoveFileOperationIT extends AbstractOnServerIT {
@@ -50,6 +52,50 @@ public class RemoveFileOperationIT extends AbstractOnServerIT {
                                            getStorageManager())
                        .execute(client)
                        .isSuccess());
+
+        assertNull(getStorageManager().getFileByPath(parent));
+        assertNull(getStorageManager().getFileByPath(path));
+        assertNotNull(getStorageManager().getFileByPath("/"));
+    }
+
+    @Test
+    public void deleteOnlyParentFolder() {
+        // create some more data
+        createFolder("/test1/");
+        createFolder("/test2/");
+        
+        String parent = "/test/";
+        String path = parent + "folder1/";
+
+        OCFile parentFolder = getStorageManager().getFileByPath(parent);
+        assertNull(parentFolder);
+
+        OCFile folder = getStorageManager().getFileByPath(path);
+        assertNull(folder);
+
+        createFolder(path);
+        folder = getStorageManager().getFileByPath(path);
+        assertNotNull(folder);
+
+        parentFolder = getStorageManager().getFileByPath(parent);
+        assertNotNull(parentFolder);
+        
+        assertEquals(5, getStorageManager().getAllFiles().size());
+
+        assertTrue(new RemoveFileOperation(parentFolder,
+                                           false,
+                                           user,
+                                           false,
+                                           targetContext,
+                                           getStorageManager())
+                       .execute(client)
+                       .isSuccess());
+
+        assertNull(getStorageManager().getFileByPath(parent));
+        assertNull(getStorageManager().getFileByPath(path));
+        assertNotNull(getStorageManager().getFileByPath("/"));
+
+        assertEquals(3, getStorageManager().getAllFiles().size());
     }
 
     @Test
