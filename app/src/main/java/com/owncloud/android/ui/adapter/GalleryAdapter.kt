@@ -95,7 +95,7 @@ class GalleryAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SectionedViewHolder {
         val inflater = LayoutInflater.from(parent.context)
 
-        return when(viewType) {
+        return when (viewType) {
             VIEW_TYPE_HEADER -> {
                 val binding = GalleryHeaderBinding.inflate(inflater, parent, false)
                 GalleryHeaderViewHolder(binding)
