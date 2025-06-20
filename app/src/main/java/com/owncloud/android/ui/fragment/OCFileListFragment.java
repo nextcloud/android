@@ -596,11 +596,25 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
     @Override
     public void uploadFiles() {
-        UploadFilesActivity.startUploadActivityForResult(
-            getActivity(),
-            ((FileActivity) getActivity()).getUser().orElseThrow(RuntimeException::new),
-            FileDisplayActivity.REQUEST_CODE__SELECT_FILES_FROM_FILE_SYSTEM,
-            getCurrentFile().isEncrypted());
+        if (!(getActivity() instanceof FileActivity fileActivity)) {
+            Log_OC.w(TAG,"Activity is null, cant upload files");
+            return;
+        }
+
+        final var user = fileActivity.getUser();
+        if (user.isEmpty()) {
+            Log_OC.w(TAG,"User not exist, cant upload files");
+            return;
+        }
+
+        final var file = getCurrentFile();
+        if (file == null) {
+            Log_OC.w(TAG,"File is null cannot determine isWithinEncryptedFolder, cant upload files");
+            return;
+        }
+
+        boolean isWithinEncryptedFolder = getCurrentFile().isEncrypted();
+        UploadFilesActivity.startUploadActivityForResult(fileActivity, user.get(), FileDisplayActivity.REQUEST_CODE__SELECT_FILES_FROM_FILE_SYSTEM, isWithinEncryptedFolder);
     }
 
     @Override
