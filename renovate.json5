@@ -9,10 +9,7 @@
         "dependencies",
         "3. to review"
     ],
-    "packageRules": [
-        {
-            "automerge": true,
-            "automergeType": "pr"
-        }
-    ],
+    autoApprove: true,
+    "automerge": true,
+    "automergeType": "pr"
 }
