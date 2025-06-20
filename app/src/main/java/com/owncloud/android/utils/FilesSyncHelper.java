@@ -271,13 +271,13 @@ public final class FilesSyncHelper {
                                               final ConnectivityService connectivityService,
                                               final PowerManagementService powerManagementService) {
         
-        new Thread(() -> {
+        new Thread(() ->
             FileUploadHelper.Companion.instance().retryFailedUploads(
                 uploadsStorageManager,
                 connectivityService,
                 accountManager,
-                powerManagementService);
-        }).start();
+                powerManagementService)
+        ).start();
     }
 
     public static void scheduleFilesSyncForAllFoldersIfNeeded(Context context, SyncedFolderProvider syncedFolderProvider, BackgroundJobManager jobManager) {

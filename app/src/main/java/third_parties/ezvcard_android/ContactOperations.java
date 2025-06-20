@@ -4,18 +4,20 @@
  */
 package third_parties.ezvcard_android;
 
+import android.annotation.SuppressLint;
 import android.content.ContentProviderOperation;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.OperationApplicationException;
 import android.graphics.Bitmap;
+import android.os.Build;
 import android.os.RemoteException;
 import android.provider.ContactsContract;
-
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.utils.DisplayUtils;
 
 import java.io.ByteArrayOutputStream;
+import java.text.SimpleDateFormat;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.Temporal;
@@ -73,7 +75,7 @@ public class ContactOperations {
     public void insertContact(VCard vcard) throws RemoteException, OperationApplicationException {
         // TODO handle Raw properties - Raw properties include various extension which start with "X-" like X-ASSISTANT, X-AIM, X-SPOUSE
 
-        List<NonEmptyContentValues> contentValues = new ArrayList<>();
+        List<NonEmptyContentValues> contentValues = new ArrayList<NonEmptyContentValues>();
         convertName(contentValues, vcard);
         convertNickname(contentValues, vcard);
         convertPhones(contentValues, vcard);
@@ -95,7 +97,7 @@ public class ContactOperations {
         convertPhotos(contentValues, vcard);
         convertOrganization(contentValues, vcard);
 
-        ArrayList<ContentProviderOperation> operations = new ArrayList<>(contentValues.size());
+        ArrayList<ContentProviderOperation> operations = new ArrayList<ContentProviderOperation>(contentValues.size());
         ContentValues cv = account.getContentValues();
         //ContactsContract.RawContact.CONTENT_URI needed to add account, backReference is also not needed
         ContentProviderOperation operation =
@@ -125,7 +127,7 @@ public class ContactOperations {
 
     public void updateContact(VCard vcard, Long key) throws RemoteException, OperationApplicationException {
 
-        List<NonEmptyContentValues> contentValues = new ArrayList<>();
+        List<NonEmptyContentValues> contentValues = new ArrayList<NonEmptyContentValues>();
         convertName(contentValues, vcard);
         convertNickname(contentValues, vcard);
         convertPhones(contentValues, vcard);
@@ -147,7 +149,7 @@ public class ContactOperations {
         convertPhotos(contentValues, vcard);
         convertOrganization(contentValues, vcard);
 
-        ArrayList<ContentProviderOperation> operations = new ArrayList<>(contentValues.size());
+        ArrayList<ContentProviderOperation> operations = new ArrayList<ContentProviderOperation>(contentValues.size());
         //ContactsContract.RawContact.CONTENT_URI needed to add account, backReference is also not needed
         long contactID = key;
         ContentProviderOperation operation;
@@ -452,6 +454,8 @@ public class ContactOperations {
     }
 
     private void convertBirthdays(List<NonEmptyContentValues> contentValues, VCard vcard) {
+        final var df = new BirthdayDateFormatter();
+
         for (Birthday birthday : vcard.getBirthdays()) {
             Temporal date = birthday.getDate();
             if (date == null) {
@@ -461,20 +465,55 @@ public class ContactOperations {
 
             NonEmptyContentValues cv = new NonEmptyContentValues(ContactsContract.CommonDataKinds.Event.CONTENT_ITEM_TYPE);
             cv.put(ContactsContract.CommonDataKinds.Event.TYPE, ContactsContract.CommonDataKinds.Event.TYPE_BIRTHDAY);
-            cv.put(ContactsContract.CommonDataKinds.Event.START_DATE, formatBirthday(date));
+            cv.put(ContactsContract.CommonDataKinds.Event.START_DATE, df.format(date));
             contentValues.add(cv);
         }
     }
 
-    private String formatBirthday(Temporal date) {
-        if (date == null) {
-            return "";
+    /**
+     * A formatter class to handle the formatting of birthday dates across different Android versions.
+     * This class ensures that:
+     * - For API levels below 26, SimpleDateFormat is used to format dates.
+     * - For API levels 26 and above, DateTimeFormatter is used.
+     * <p>
+     * It also handles the issue where a `java.lang.IllegalArgumentException: Cannot format given Object as a Date`
+     * can be thrown when trying to format a `Temporal` object (e.g., `LocalDate`) directly using `SimpleDateFormat`.
+     * <p>
+     * In the future (post-Android O), this class can be removed entirely, and only DateTimeFormatter should be used.
+     */
+    private static class BirthdayDateFormatter {
+        private final Object formatter = getDateFormatter();
+
+        @SuppressLint("SimpleDateFormat")
+        private Object getDateFormatter() {
+            String pattern = "yyyy-MM-dd";
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                return DateTimeFormatter.ofPattern(pattern)
+                    .withZone(ZoneId.systemDefault());
+            } else {
+                return new SimpleDateFormat(pattern);
+            }
         }
 
-        final String pattern = "yyyy-MM-dd";
-        final DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern).withZone(ZoneId.systemDefault());
+        public String format(Temporal date) {
+            if (date == null) {
+                return "";
+            }
 
-        return formatter.format(date);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && formatter instanceof DateTimeFormatter dateTimeFormatter) {
+                return dateTimeFormatter.format(date);
+            } else if (formatter instanceof SimpleDateFormat simpleDateFormat) {
+                try {
+                    return simpleDateFormat.format(date);
+                } catch (Throwable t) {
+                    Log_OC.d("BirthdayDateFormatter","Exception convertBirthdays: " + t);
+                    return date.toString();
+                }
+            }
+
+            return "";
+        }
     }
 
     private void convertWebsites(List<NonEmptyContentValues> contentValues, VCard vcard) {
@@ -558,7 +597,7 @@ public class ContactOperations {
      * belong to that group
      */
     private <T extends VCardProperty> Map<String, List<T>> orderPropertiesByGroup(Iterable<T> properties) {
-        Map<String, List<T>> groupedProperties = new HashMap<>();
+        Map<String, List<T>> groupedProperties = new HashMap<String, List<T>>();
 
         for (T property : properties) {
             String group = property.getGroup();
