@@ -223,7 +223,7 @@ open class ExtendedListFragment :
             }
         )
 
-        val searchBar = searchView?.findViewById<LinearLayout>(R.id.search_bar)
+        val searchBar = searchView?.findViewById<LinearLayout>(androidx.appcompat.R.id.search_bar)
         searchBar?.setLayoutTransition(LayoutTransition())
     }
 
