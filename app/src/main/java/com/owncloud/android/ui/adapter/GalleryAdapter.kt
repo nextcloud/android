@@ -25,8 +25,10 @@ import com.afollestad.sectionedrecyclerview.SectionedRecyclerViewAdapter
 import com.afollestad.sectionedrecyclerview.SectionedViewHolder
 import com.nextcloud.client.account.User
 import com.nextcloud.client.preferences.AppPreferences
+import com.owncloud.android.R
 import com.owncloud.android.databinding.GalleryHeaderBinding
 import com.owncloud.android.databinding.GalleryRowBinding
+import com.owncloud.android.databinding.ListFooterBinding
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.GalleryItems
 import com.owncloud.android.datamodel.GalleryRow
@@ -99,7 +101,7 @@ class GalleryAdapter(
                     false
                 )
             )
-        } else {
+        } else if (viewType == VIEW_TYPE_ITEM) {
             GalleryRowHolder(
                 GalleryRowBinding.inflate(LayoutInflater.from(parent.context), parent, false),
                 defaultThumbnailSize.toFloat(),
@@ -107,6 +109,10 @@ class GalleryAdapter(
                 storageManager,
                 this,
                 viewThemeUtils
+            )
+        } else {
+            OCFileListFooterViewHolder(
+                ListFooterBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false)
             )
         }
     }
@@ -117,9 +123,36 @@ class GalleryAdapter(
         relativePosition: Int,
         absolutePosition: Int
     ) {
-        if (holder != null) {
-            val rowHolder = holder as GalleryRowHolder
-            rowHolder.bind(files[section].rows[relativePosition])
+        if (holder == null) {
+            return
+        }
+
+        when (holder) {
+            is GalleryRowHolder -> {
+                holder.bind(files[section].rows[relativePosition])
+            }
+
+            is OCFileListFooterViewHolder -> {
+                val totalItemCount = files.sumOf { it.rows.sumOf { row -> row.files.size } }
+                val footerText = context
+                    .resources
+                    .getQuantityString(R.plurals.file_list__footer__file, totalItemCount, totalItemCount)
+                holder.footerText.text = footerText
+
+                val padding = context.resources.getDimensionPixelSize(R.dimen.standard_padding)
+                holder.binding.root.setPadding(0, padding, 0, padding * 2)
+            }
+        }
+    }
+
+    override fun getItemViewType(section: Int, relativePosition: Int, absolutePosition: Int): Int {
+        val isLastSection = section == files.size - 1
+        val isLastItemInSection = relativePosition == files[section].rows.size - 1
+
+        return if (isLastSection && isLastItemInSection) {
+            VIEW_TYPE_FOOTER
+        } else {
+            VIEW_TYPE_ITEM
         }
     }
 

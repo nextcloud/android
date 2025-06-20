@@ -7,10 +7,10 @@
  */
 package com.owncloud.android.ui.adapter
 
-import androidx.recyclerview.widget.RecyclerView
+import com.afollestad.sectionedrecyclerview.SectionedViewHolder
 import com.owncloud.android.databinding.ListFooterBinding
 
-internal class OCFileListFooterViewHolder(var binding: ListFooterBinding) : RecyclerView.ViewHolder(
+internal class OCFileListFooterViewHolder(var binding: ListFooterBinding) : SectionedViewHolder(
     binding.root
 ) {
     val footerText
