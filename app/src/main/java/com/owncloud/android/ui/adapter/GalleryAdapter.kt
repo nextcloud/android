@@ -90,30 +90,32 @@ class GalleryAdapter(
         }
     }
 
-    override fun showFooters(): Boolean = false
+    override fun showFooters(): Boolean = true
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SectionedViewHolder {
-        return if (viewType == VIEW_TYPE_HEADER) {
-            GalleryHeaderViewHolder(
-                GalleryHeaderBinding.inflate(
-                    LayoutInflater.from(parent.context),
-                    parent,
-                    false
+        val inflater = LayoutInflater.from(parent.context)
+
+        return when(viewType) {
+            VIEW_TYPE_HEADER -> {
+                val binding = GalleryHeaderBinding.inflate(inflater, parent, false)
+                GalleryHeaderViewHolder(binding)
+            }
+            VIEW_TYPE_ITEM -> {
+                val binding = GalleryRowBinding.inflate(inflater, parent, false)
+                GalleryRowHolder(
+                    binding,
+                    defaultThumbnailSize.toFloat(),
+                    ocFileListDelegate,
+                    storageManager,
+                    this,
+                    viewThemeUtils
                 )
-            )
-        } else if (viewType == VIEW_TYPE_ITEM) {
-            GalleryRowHolder(
-                GalleryRowBinding.inflate(LayoutInflater.from(parent.context), parent, false),
-                defaultThumbnailSize.toFloat(),
-                ocFileListDelegate,
-                storageManager,
-                this,
-                viewThemeUtils
-            )
-        } else {
-            OCFileListFooterViewHolder(
-                ListFooterBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false)
-            )
+            }
+            VIEW_TYPE_FOOTER -> {
+                val binding = ListFooterBinding.inflate(inflater, parent, false)
+                OCFileListFooterViewHolder(binding)
+            }
+            else -> throw IllegalArgumentException("Unsupported view type: $viewType")
         }
     }
 
@@ -131,28 +133,6 @@ class GalleryAdapter(
             is GalleryRowHolder -> {
                 holder.bind(files[section].rows[relativePosition])
             }
-
-            is OCFileListFooterViewHolder -> {
-                val totalItemCount = files.sumOf { it.rows.sumOf { row -> row.files.size } }
-                val footerText = context
-                    .resources
-                    .getQuantityString(R.plurals.file_list__footer__file, totalItemCount, totalItemCount)
-                holder.footerText.text = footerText
-
-                val padding = context.resources.getDimensionPixelSize(R.dimen.standard_padding)
-                holder.binding.root.setPadding(0, padding, 0, padding * 2)
-            }
-        }
-    }
-
-    override fun getItemViewType(section: Int, relativePosition: Int, absolutePosition: Int): Int {
-        val isLastSection = section == files.size - 1
-        val isLastItemInSection = relativePosition == files[section].rows.size - 1
-
-        return if (isLastSection && isLastItemInSection) {
-            VIEW_TYPE_FOOTER
-        } else {
-            VIEW_TYPE_ITEM
         }
     }
 
@@ -191,7 +171,16 @@ class GalleryAdapter(
     }
 
     override fun onBindFooterViewHolder(holder: SectionedViewHolder?, section: Int) {
-        TODO("Not yet implemented")
+        if (holder is OCFileListFooterViewHolder) {
+            val totalItemCount = files.sumOf { it.rows.sumOf { row -> row.files.size } }
+            val footerText = context
+                .resources
+                .getQuantityString(R.plurals.file_list__footer__file, totalItemCount, totalItemCount)
+            holder.footerText.text = footerText
+
+            val padding = context.resources.getDimensionPixelSize(R.dimen.standard_padding)
+            holder.binding.root.setPadding(0, padding, 0, padding * 2)
+        }
     }
 
     @SuppressLint("NotifyDataSetChanged")
