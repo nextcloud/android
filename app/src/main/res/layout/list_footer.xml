@@ -12,6 +12,7 @@
     android:layout_gravity="center_horizontal"
     android:gravity="center_horizontal"
     android:orientation="vertical"
+    android:layout_marginBottom="@dimen/standard_double_margin"
     android:showDividers="none">
 
     <ProgressBar

@@ -25,8 +25,10 @@ import com.afollestad.sectionedrecyclerview.SectionedRecyclerViewAdapter
 import com.afollestad.sectionedrecyclerview.SectionedViewHolder
 import com.nextcloud.client.account.User
 import com.nextcloud.client.preferences.AppPreferences
+import com.owncloud.android.R
 import com.owncloud.android.databinding.GalleryHeaderBinding
 import com.owncloud.android.databinding.GalleryRowBinding
+import com.owncloud.android.databinding.ListFooterBinding
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.GalleryItems
 import com.owncloud.android.datamodel.GalleryRow
@@ -88,26 +90,32 @@ class GalleryAdapter(
         }
     }
 
-    override fun showFooters(): Boolean = false
+    override fun showFooters(): Boolean = true
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SectionedViewHolder {
-        return if (viewType == VIEW_TYPE_HEADER) {
-            GalleryHeaderViewHolder(
-                GalleryHeaderBinding.inflate(
-                    LayoutInflater.from(parent.context),
-                    parent,
-                    false
+        val inflater = LayoutInflater.from(parent.context)
+
+        return when (viewType) {
+            VIEW_TYPE_HEADER -> {
+                val binding = GalleryHeaderBinding.inflate(inflater, parent, false)
+                GalleryHeaderViewHolder(binding)
+            }
+            VIEW_TYPE_ITEM -> {
+                val binding = GalleryRowBinding.inflate(inflater, parent, false)
+                GalleryRowHolder(
+                    binding,
+                    defaultThumbnailSize.toFloat(),
+                    ocFileListDelegate,
+                    storageManager,
+                    this,
+                    viewThemeUtils
                 )
-            )
-        } else {
-            GalleryRowHolder(
-                GalleryRowBinding.inflate(LayoutInflater.from(parent.context), parent, false),
-                defaultThumbnailSize.toFloat(),
-                ocFileListDelegate,
-                storageManager,
-                this,
-                viewThemeUtils
-            )
+            }
+            VIEW_TYPE_FOOTER -> {
+                val binding = ListFooterBinding.inflate(inflater, parent, false)
+                OCFileListFooterViewHolder(binding)
+            }
+            else -> throw IllegalArgumentException("Unsupported view type: $viewType")
         }
     }
 
@@ -117,9 +125,14 @@ class GalleryAdapter(
         relativePosition: Int,
         absolutePosition: Int
     ) {
-        if (holder != null) {
-            val rowHolder = holder as GalleryRowHolder
-            rowHolder.bind(files[section].rows[relativePosition])
+        if (holder == null) {
+            return
+        }
+
+        when (holder) {
+            is GalleryRowHolder -> {
+                holder.bind(files[section].rows[relativePosition])
+            }
         }
     }
 
@@ -158,7 +171,16 @@ class GalleryAdapter(
     }
 
     override fun onBindFooterViewHolder(holder: SectionedViewHolder?, section: Int) {
-        TODO("Not yet implemented")
+        if (holder is OCFileListFooterViewHolder) {
+            val totalItemCount = files.sumOf { it.rows.sumOf { row -> row.files.size } }
+            val footerText = context
+                .resources
+                .getQuantityString(R.plurals.file_list__footer__file, totalItemCount, totalItemCount)
+            holder.footerText.text = footerText
+
+            val padding = context.resources.getDimensionPixelSize(R.dimen.standard_padding)
+            holder.binding.root.setPadding(0, padding, 0, padding * 2)
+        }
     }
 
     @SuppressLint("NotifyDataSetChanged")
