@@ -46,7 +46,7 @@ jobs:
 
       # GitHub actions bot approve
       - uses: hmarr/auto-approve-action@f0939ea97e9205ef24d872e76833fa908a770363 # v4.0.0
-        if: github.actor == 'renovate'
+        if: github.actor == 'renovate[bot]'
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
@@ -56,7 +56,7 @@ jobs:
 
       # Enable GitHub auto merge
       - name: Enable Pull Request Automerge
-        if: github.actor == 'renovate'
+        if: github.actor == 'renovate[bot]'
         run: gh pr merge --merge --auto
         env:
             GH_TOKEN: ${{ secrets.AUTOMERGE }}
