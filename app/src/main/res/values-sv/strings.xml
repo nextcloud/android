@@ -787,6 +787,8 @@
     <string name="send">Skicka</string>
     <string name="send_share">Skicka delning</string>
     <string name="sendbutton_description">Ikonen för Skicka-knapp</string>
+    <string name="server_not_reachable">Kunde inte ladda innehåll</string>
+    <string name="server_not_reachable_content">Den här enheten är troligen inte ansluten till internet</string>
     <string name="set_as">Sätt som</string>
     <string name="set_download_limit_failed">Det gick inte att ange nedladdningsgräns. Kontrollera tillgängliga funktioner.</string>
     <string name="set_note">Ange anteckning</string>
