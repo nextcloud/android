@@ -324,10 +324,10 @@ class SetStatusDialogFragment :
 
     private fun clearTopStatus() {
         context?.let {
-            binding.onlineHeadline.setTextColor(resources.getColor(R.color.high_emphasis_text))
-            binding.awayHeadline.setTextColor(resources.getColor(R.color.high_emphasis_text))
-            binding.dndHeadline.setTextColor(resources.getColor(R.color.high_emphasis_text))
-            binding.invisibleHeadline.setTextColor(resources.getColor(R.color.high_emphasis_text))
+            binding.onlineHeadline.setTextColor(resources.getColor(com.nextcloud.android.common.ui.R.color.high_emphasis_text))
+            binding.awayHeadline.setTextColor(resources.getColor(com.nextcloud.android.common.ui.R.color.high_emphasis_text))
+            binding.dndHeadline.setTextColor(resources.getColor(com.nextcloud.android.common.ui.R.color.high_emphasis_text))
+            binding.invisibleHeadline.setTextColor(resources.getColor(com.nextcloud.android.common.ui.R.color.high_emphasis_text))
 
             binding.onlineIcon.imageTintList = null
             binding.awayIcon.imageTintList = null

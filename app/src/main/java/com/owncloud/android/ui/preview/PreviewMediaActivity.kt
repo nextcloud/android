@@ -493,8 +493,8 @@ class PreviewMediaActivity :
 
     private fun applyWindowInsets() {
         val playerView = binding.exoplayerView
-        val exoControls = playerView.findViewById<FrameLayout>(R.id.exo_bottom_bar)
-        val exoProgress = playerView.findViewById<DefaultTimeBar>(R.id.exo_progress)
+        val exoControls = playerView.findViewById<FrameLayout>(androidx.media3.ui.R.id.exo_bottom_bar)
+        val exoProgress = playerView.findViewById<DefaultTimeBar>(androidx.media3.ui.R.id.exo_progress)
         val progressBottomMargin = exoProgress.marginBottom
 
         ViewCompat.setOnApplyWindowInsetsListener(binding.root) { _, windowInsets ->

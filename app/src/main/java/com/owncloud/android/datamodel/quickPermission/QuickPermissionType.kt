@@ -16,7 +16,8 @@ enum class QuickPermissionType(
     val iconId: Int,
     val textId: Int
 ) {
-    NONE(R.drawable.ic_unknown, R.string.unknown),
+    //TODO: R.string.unknown resource referenced from osmdroid library. Ideally it should be part of this app resource.
+    NONE(R.drawable.ic_unknown, org.osmdroid.library.R.string.unknown),
     VIEW_ONLY(R.drawable.ic_eye, R.string.share_permission_view_only),
     CAN_EDIT(R.drawable.ic_edit, R.string.share_permission_can_edit),
     FILE_REQUEST(R.drawable.ic_file_request, R.string.share_permission_file_request),
