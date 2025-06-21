@@ -9,4 +9,7 @@
         "dependencies",
         "3. to review"
     ],
+    autoApprove: true,
+    "automerge": true,
+    "automergeType": "pr"
 }
