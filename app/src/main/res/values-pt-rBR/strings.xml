@@ -834,7 +834,7 @@
     <string name="share_search">Nome, ID de Nuvem Federada ou endereço de e-mail…</string>
     <string name="share_search_internal">Adicionar usuários e equipes</string>
     <string name="share_send_new_email">Enviar novo e-mail </string>
-    <string name="share_send_note">Anotação ao destinatário</string>
+    <string name="share_send_note">Nota para o destinatário</string>
     <string name="share_settings">Configurações</string>
     <string name="share_via_link_hide_download">Ocultar download</string>
     <string name="share_via_link_section_title">Compartilhar link</string>

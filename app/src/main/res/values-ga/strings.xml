@@ -786,6 +786,8 @@
     <string name="send">Seol</string>
     <string name="send_share">Seol sciar</string>
     <string name="sendbutton_description">Seol deilbhín cnaipe</string>
+    <string name="server_not_reachable">Níorbh fhéidir an t-ábhar a lódáil</string>
+    <string name="server_not_reachable_content">Is dócha nach bhfuil an gléas ceangailte leis an idirlíon</string>
     <string name="set_as">Socraigh Mar</string>
     <string name="set_download_limit_failed">Ní féidir teorainn íoslódála a shocrú. Seiceáil na cumais le do thoil.</string>
     <string name="set_note">Socraigh nóta</string>
