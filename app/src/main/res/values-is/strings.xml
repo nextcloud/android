@@ -30,8 +30,6 @@
     <string name="add_new_public_share">Bæta við nýjum opinberum tengli</string>
     <string name="add_new_secure_file_drop">Bæta við nýrri öruggri sleppingu skráa</string>
     <string name="add_to_cloud">Bæta við %1$s</string>
-    <string name="advanced_settings">Ítarlegri valkostir</string>
-    <string name="allow_resharing">Leyfa endurdeilingu</string>
     <string name="app_config_base_url_title">Grunnslóð</string>
     <string name="app_config_disable_clipboard_title">Gera klippispjald óvirkt</string>
     <string name="app_config_disable_intro_title">Gera kynningu óvirka</string>
@@ -48,7 +46,6 @@
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Skrifaðu einhvern texta</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Ertu viss um að þú viljir eyða þessu verki?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Eyða verki</string>
-    <string name="assistant_screen_no_task_available_text">Ekkert verk tiltækt fyrir %s gerð verks, þú getur búið til nýtt verk neðst til hægri.</string>
     <string name="assistant_screen_task_create_fail_message">Villa kom upp við að búa til verkið</string>
     <string name="assistant_screen_task_create_success_message">Tókst að búa til verk</string>
     <string name="assistant_screen_task_delete_fail_message">Villa kom upp við að eyða verkinu</string>
@@ -94,9 +91,6 @@
     <string name="authenticator_activity_login_error">Upp kom vandamál við vinnslu á innskráningarbeiðnarinnar þinnar. Reyndu aftur síðar.</string>
     <string name="authenticator_activity_please_complete_login_process">Ljúktu innskráningarferlinu í vafranum þínum</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">haldið áfram í upprunalegri möppu, því hún er skrifvarin</string>
-    <string name="auto_upload_gplay">Breytingar á hegðun sjálfvirkra innsendinga</string>
-    <string name="auto_upload_gplay_desc">Vegna nýrra takmarkana sem Google hefur krafist, mun eiginleikinn fyrir sjálfvirkar innsendingar ekki lengur geta eytt innsendum skrám sjálfkrafa.</string>
-    <string name="auto_upload_gplay_desc2">Vegna nýrra takmarkana sem Google krefst, höfum við neyðst til að fjarlægja mikilvægar heimildir. Þar af leiðir mun sjálfvirk innsending einungis geta sent inn myndskrár og myndskeið.\nAð auki er ný heimild nauðsynleg til að komast í staðsetningarupplýsingar fyrir innsendar myndir.\nGakktu úr skugga um að aðgangur að myndefni sé stilltur á \"Alltaf leyfa allt\".</string>
     <string name="auto_upload_on_wifi">Aðeins senda inn á gjaldfrjálsu WiFi-neti</string>
     <string name="auto_upload_path">/SjálfvirkInnsending</string>
     <string name="autoupload_configure">Stilla</string>
@@ -130,7 +124,6 @@
     <string name="clear_notifications_failed">Mistókst að hreinsa tilkynningar.</string>
     <string name="clear_status_message">Hreinsa stöðuskilaboð</string>
     <string name="clear_status_message_after">Hreinsa stöðuskilaboð eftir</string>
-    <string name="click_to_learn_how_to_re_enable_auto_uploads">Handvirk aðgerð er nauðsynleg til að virkja aftur sjálfvirkar innsendingar</string>
     <string name="clipboard_label">Texti afritaður úr %1$s</string>
     <string name="clipboard_no_text_to_copy">Fékk engan texta til að afrita á klippispjald</string>
     <string name="clipboard_text_copied">Tengill afritaður</string>
@@ -430,7 +423,6 @@
     <string name="file_not_synced">Ekki tókst að samstilla skrána. Birti nýjustu tiltæku útgáfuna.</string>
     <string name="file_rename">Endurnefna</string>
     <string name="file_upload_worker_error_notification_title">Innsending mistókst. Engin internettenging</string>
-    <string name="file_upload_worker_same_file_already_exists">Sama skrá er þegar til, engir árekstrar fundust</string>
     <string name="file_version_restored_error">Villa við að endurheimta útgáfu skráar!</string>
     <string name="file_version_restored_successfully">Tókst að endurheimta útgáfu skráar.</string>
     <string name="filedetails_details">Nánar</string>
@@ -506,10 +498,7 @@
     <string name="last_backup">Síðasta öryggisafrit: %1$s</string>
     <string name="link">Tengill</string>
     <string name="link_name">Heiti tengils</string>
-    <string name="link_share_allow_upload_and_editing">Leyfa innsendingu og breytingar</string>
     <string name="link_share_editing">Breytingar</string>
-    <string name="link_share_file_drop">Slepping skráa (einungis innsending)</string>
-    <string name="link_share_view_only">Einungis skoða</string>
     <string name="list_layout">Framsetning sem listi</string>
     <string name="load_more_results">Hlaða inn fleiri niðurstöðum</string>
     <string name="local_file_list_empty">Það eru engar skrár í þessari möppu.</string>
@@ -716,8 +705,6 @@
     <string name="push_notifications_old_login">Engar ýtitilkynningar vegna útrunnirnnar innskráningarsetu. Íhugaðu að setja aðganginn þinn inn aftur.</string>
     <string name="push_notifications_temp_error">Ýti-tilkynningar eru ekki tiltækar þessa stundina.</string>
     <string name="qr_could_not_be_read">Ekki tókst að lesa QR-kóða!</string>
-    <string name="re_enable_auto_upload">Breytingar á sjálfvirkri innsendingu</string>
-    <string name="re_enable_auto_upload_desc">Vegna nýrra takmarkana sem Google krefst, höfum við neyðst til að fjarlægja mikilvægar heimildir. Við erum að vinna með Google í því að leysa þetta vandamál og ná aftur fullri virkni.\n\nTil að virkja aftur sjálfvirka innsendingu nýrra ljósmynda og myndskeiða:\nVeldu \"Leyfa allt\" í eftirfarandi glugga eða í stillingum kerfisins.\nLeyfðu notkun á staðsetningu myndefnis þegar spurt verður um slíkt, sem mun gera Nextcloud kleift að geyma staðsetningargögn við innsendingu mynda.\n\nHeimildaglugginn er aðeins birtur þegar það er nauðsynlegt. Ef þú ert ekki viss, skaltu skoða stillingar kerfisins.\n\nSjálfvirk innsending getur einungis sent inn myndskrár og myndskeið sé notuð Google Play útgáfa Nextcloud-forritsins.\n\nAthugaðu hvort einhverjar skrár séu til staðar sem ekki hafi verið sendar inn síðan í desember 2024.</string>
     <string name="receive_external_files_activity_start_sync_folder_is_not_exists_message">Mappan finnst ekki, hætt var við samstillingaraðgerð</string>
     <string name="receive_external_files_activity_unable_to_find_file_to_upload">Get ekki fundið skrá til að senda inn</string>
     <string name="recommend_subject">Prófaðu %1$s á snjalltækinu þínu!</string>
@@ -779,10 +766,14 @@
     <string name="set_status_message">Setja stöðuskilaboð</string>
     <string name="setup_e2e">Við uppsetningu á enda-í-enda dulritun muntu fá runu 12 tilviljanakenndra orða, sem þú munt þurfa til að opna skrárnar þínar á öðrum tækjum. Þetta mun einungis vera geymt á þessu tæki; hægt er að birta rununa aftur á þessum skjá. Skrifaðu hana niður og geymdu á öruggum stað!</string>
     <string name="share">Deila</string>
+    <string name="share_allow_download_and_sync_permission">Leyfa niðurhal og samstillingu</string>
+    <string name="share_create_permission">Búa til</string>
+    <string name="share_custom_permission">Sérsniðnar heimildir</string>
+    <string name="share_delete_permission">Eyða</string>
     <string name="share_dialog_title">Deiling</string>
     <string name="share_download_limit">Setja takmörk niðurhals</string>
+    <string name="share_edit_permission">Breyta</string>
     <string name="share_expiration_date_format">%1$s</string>
-    <string name="share_expiration_date_label">Rennur út %1$s</string>
     <string name="share_file">Deila %1$s</string>
     <string name="share_group_clarification">%s hópurinn</string>
     <string name="share_internal_link">Deila innri tengli</string>
@@ -800,11 +791,12 @@
     <string name="share_no_expiration_date_label">Setja gildistíma</string>
     <string name="share_no_password_title">Skrá lykilorð</string>
     <string name="share_not_allowed_when_file_drop">Endurdeiling er ekki leyfð á meðan öruggri sleppingu stendur</string>
-    <string name="share_password_title">Verja með lykilorði</string>
     <string name="share_permission_can_edit">Getur breytt</string>
-    <string name="share_permission_file_drop">Slepping skráa</string>
+    <string name="share_permission_file_request">Beiðni um skrá</string>
     <string name="share_permission_secure_file_drop">Örugg slepping skráa</string>
     <string name="share_permission_view_only">Einungis skoða</string>
+    <string name="share_re_share_permission">Deila</string>
+    <string name="share_read_permission">Lesa</string>
     <string name="share_remote_clarification">%1$s (fjartengt)</string>
     <string name="share_room_clarification">%1$s (samtal)</string>
     <string name="share_search">Nafn, skýjasambandsauðkenni eða tölvupóstfang …</string>
@@ -973,8 +965,6 @@
     <string name="upload_file_dialog_title">Settu inn skráarheiti og skráategund fyrir innsendingu</string>
     <string name="upload_files">Hlaða inn skrám</string>
     <string name="upload_global_pause_title">Allar innsendingar eru í bið</string>
-    <string name="upload_gplay">Breyting á heimildum</string>
-    <string name="upload_gplay_desc">Ný heimild er nauðsynleg til að komast í staðsetningarupplýsingar fyrir innsendar myndir.\nGakktu úr skugga um að aðgangur að myndefni sé stilltur á \"Alltaf leyfa allt\".</string>
     <string name="upload_item_action_button">Aðgerðarhnappur til að senda inn atriði</string>
     <string name="upload_list_delete">Eyða</string>
     <string name="upload_list_empty_headline">Engar innsendingar tiltækar</string>

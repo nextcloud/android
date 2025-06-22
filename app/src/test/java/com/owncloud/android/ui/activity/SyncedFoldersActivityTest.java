@@ -160,7 +160,7 @@ public class SyncedFoldersActivityTest {
                                            0,
                                            enabled,
                                            System.currentTimeMillis(),
-                                           new ArrayList<String>(),
+                                           new ArrayList<>(),
                                            folderName,
                                            2,
                                            MediaFolderType.IMAGE,

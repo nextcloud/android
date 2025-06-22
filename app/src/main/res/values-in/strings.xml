@@ -29,13 +29,10 @@
     <string name="activity_icon">Aktifitas</string>
     <string name="add_new_public_share">Tambahkan tautan berbagi baru</string>
     <string name="add_to_cloud">Tambahkan ke %1$s</string>
-    <string name="advanced_settings">Pengaturan Lanjutan</string>
-    <string name="allow_resharing">Izinkan pembagian ulang</string>
     <string name="app_widget_description">Menampilkan satu gawit dari dasbor</string>
     <string name="appbar_search_in">Cari dalam %s</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Tulis beberapa teks</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Apakah Anda yakin ingin menghapus tugas ini?</string>
-    <string name="assistant_screen_no_task_available_text">Tidak ada tugas yang tersedia untuk jenis tugas %s, Anda dapat membuat tugas baru dari pojok kanan bawah.</string>
     <string name="assistant_screen_task_create_fail_message">Terjadi kesalahan saat membuat tugas</string>
     <string name="assistant_screen_task_create_success_message">Tugas berhasil dibuat</string>
     <string name="assistant_screen_task_delete_fail_message">Terjadi kesalahan saat menghapus tugas</string>
@@ -425,9 +422,6 @@ Otomatis unggah hanya bekerja dengan baik apabila Anda mengeluarkan aplikasi ini
     <string name="last_backup">Pencadangan terakhir: %1$s</string>
     <string name="link">Tautan</string>
     <string name="link_name">Nama Tautan</string>
-    <string name="link_share_allow_upload_and_editing">Izinkan pengunggahan dan penyuntingan</string>
-    <string name="link_share_file_drop">Lepaskan berkas (hanya unggah)</string>
-    <string name="link_share_view_only">Hanya lihat</string>
     <string name="list_layout">Daftar tampilan</string>
     <string name="load_more_results">Muat lebih banyak hasil</string>
     <string name="local_file_list_empty">Tidak ada satupun berkas dalam folder ini.</string>
@@ -660,8 +654,10 @@ Otomatis unggah hanya bekerja dengan baik apabila Anda mengeluarkan aplikasi ini
     <string name="set_status_message">Tetapkan status pesan</string>
     <string name="setup_e2e">Selama penyiapan enkripsi end-to-end, Anda akan menerima sebuah mnemonik acak berupa 12 kata, yang akan Anda butuhkan untuk membuka berkas Anda di perangkat lain. Mnemonik tersebut hanya akan disimpan di perangkat ini, dan dapat ditampilkan kembali di layar ini. Harap catat di tempat yang aman!</string>
     <string name="share">Bagikan</string>
+    <string name="share_create_permission">Buat</string>
+    <string name="share_delete_permission">Hapus</string>
     <string name="share_dialog_title">Berbagi</string>
-    <string name="share_expiration_date_label">Kadaluarsa %1$s</string>
+    <string name="share_edit_permission">Sunting</string>
     <string name="share_file">Bagikan %1$s</string>
     <string name="share_group_clarification">%1$s (grup)</string>
     <string name="share_internal_link">Bagikan tautan internal</string>
@@ -677,9 +673,9 @@ Otomatis unggah hanya bekerja dengan baik apabila Anda mengeluarkan aplikasi ini
     <string name="share_link_with_label">Bagikan tautan (%1$s)</string>
     <string name="share_no_expiration_date_label">Atur tanggal kedaluwarsa</string>
     <string name="share_no_password_title">Atur kata sandi</string>
-    <string name="share_password_title">Sandi dilindungi</string>
     <string name="share_permission_can_edit">Can edit</string>
     <string name="share_permission_view_only">Hanya lihat</string>
+    <string name="share_read_permission">Baca</string>
     <string name="share_remote_clarification">%1$s (remote)</string>
     <string name="share_room_clarification">%1$s (percakapan)</string>
     <string name="share_send_new_email">Kirim surel baru</string>

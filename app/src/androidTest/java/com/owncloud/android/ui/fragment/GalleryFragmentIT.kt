@@ -23,7 +23,6 @@ import com.nextcloud.test.TestActivity
 import com.owncloud.android.AbstractIT
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.datamodel.ThumbnailsCacheManager
-import com.owncloud.android.datamodel.ThumbnailsCacheManager.InitDiskCacheTask
 import com.owncloud.android.datamodel.ThumbnailsCacheManager.PREFIX_RESIZED_IMAGE
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.lib.resources.files.model.ImageDimension
@@ -45,7 +44,7 @@ class GalleryFragmentIT : AbstractIT() {
 
         // initialise thumbnails cache on background thread
         @Suppress("DEPRECATION")
-        InitDiskCacheTask().execute()
+        ThumbnailsCacheManager.initDiskCacheAsync()
     }
 
     @After

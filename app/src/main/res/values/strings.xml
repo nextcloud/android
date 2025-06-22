@@ -627,12 +627,10 @@
 
     <string name="share_dialog_title">Sharing</string>
     <string name="share_file">Share %1$s</string>
-    <string name="share_expiration_date_label">Expires %1$s</string>
     <string name="share_expiration_date_format">%1$s</string>
     <string name="share_no_expiration_date_label">Set expiration date</string>
     <string name="share_via_link_section_title">Share link</string>
     <string name="share_via_link_send_link_label">Send link</string>
-    <string name="share_password_title">Password-protected</string>
     <string name="share_no_password_title">Set password</string>
     <string name="share_with_title">Share with…</string>
     <string name="share_via_link_unset_password">Unset</string>
@@ -849,6 +847,7 @@
     <string name="drawer_header_background">Background image of drawer header</string>
     <string name="account_icon">Account icon</string>
     <string name="file_detail_sharing_fragment_no_contact_app_message">No app available to select contacts</string>
+    <string name="file_detail_share_already_active">You cannot create a share, sharing is already active from this user.</string>
 
     <string name="end_to_end_encryption_certificate_verification_failed">Failed to verify public key</string>
     <string name="end_to_end_encryption_server_public_key_unavailable">Unable to retrieve public key</string>
@@ -1084,6 +1083,11 @@
     <string name="create_new">New</string>
     <string name="editor_placeholder" translatable="false">%1$s %2$s</string>
 
+    <string name="share_permission_file_request">File request</string>
+    <string name="share_permission_view_only">View only</string>
+    <string name="share_permission_can_edit">Can edit</string>
+    <string name="share_permission_secure_file_drop">Secure file drop</string>
+
     <string name="sync_not_enough_space_dialog_action_choose">Choose what to sync</string>
     <string name="sync_not_enough_space_dialog_action_free_space">Free up space</string>
     <string name="sync_not_enough_space_dialog_placeholder">%1$s is %2$s, but there is only %3$s available on device.</string>
@@ -1103,11 +1107,17 @@
     <string name="public_share_name">New name</string>
     <string name="share_link_with_label">Share link (%1$s)</string>
     <string name="share_link">Share link</string>
-    <string name="allow_resharing">Allow resharing</string>
-    <string name="link_share_view_only">View only</string>
+    <string name="share_custom_permission">Custom permissions</string>
+    <string name="share_read_permission">Read</string>
+    <string name="file_not_found_cannot_share">File not found. Unable to create a share.</string>
+    <string name="share_cannot_update_empty_note">We couldn’t update the share. Please add a note and try again.</string>
+    <string name="share_option_required">Please select at least one sharing option before continuing.</string>
+    <string name="share_allow_download_and_sync_permission">Allow download and sync</string>
+    <string name="share_create_permission">Create</string>
+    <string name="share_edit_permission">Edit</string>
+    <string name="share_re_share_permission">Share</string>
+    <string name="share_delete_permission">Delete</string>
     <string name="link_share_editing">Editing</string>
-    <string name="link_share_allow_upload_and_editing">Allow upload and editing</string>
-    <string name="link_share_file_drop">File drop (upload only)</string>
     <string name="could_not_retrieve_shares">Could not retrieve shares</string>
     <string name="failed_update_ui">Failed to update UI</string>
     <string name="email_pick_failed">Failed to pick email address.</string>
@@ -1173,12 +1183,7 @@
     <string name="create">Create</string>
     <string name="select_one_template">Please select one template</string>
     <string name="choose_template_helper_text">Please choose a template and enter a file name.</string>
-    <string name="share_permission_view_only">View only</string>
-    <string name="share_permission_can_edit">Can edit</string>
-    <string name="share_permission_file_drop">File drop</string>
-    <string name="share_permission_secure_file_drop">Secure file drop</string>
     <string name="share_permissions">Share permissions</string>
-    <string name="advanced_settings">Advanced settings</string>
     <string name="common_next">Next</string>
     <string name="send_share">Send share</string>
     <string name="no_share_permission_selected">Please select at least one permission to share.</string>
@@ -1331,16 +1336,9 @@
     <string name="two_way_sync_activity_disable_all_button_title">Disable for all folders</string>
     <string name="oc_file_list_adapter_offline_operation_remove_description_text">Pending Remove Operation</string>
     <string name="warn_rename_extension">Changing the extension might cause this file to open in a different application</string>
-    <string name="auto_upload_gplay">Auto upload behaviour changed</string>
-    <string name="auto_upload_gplay_desc">Due to new restrictions imposed by Google, the auto upload feature will no longer be able to automatically remove uploaded files.</string>
     <string name="pick_contact_to_share_with">Pick contact to share with</string>
-    <string name="auto_upload_gplay_desc2">Due to new restrictions imposed by Google, we have been forced to remove an important permission. As a result, auto upload will only be able to upload image and video files.\nAdditionally, a new permission is required to access location information for uploaded images.\nMake sure that media access is set to \"Always allow all\".</string>
-    <string name="upload_gplay">Permission changes</string>
-    <string name="upload_gplay_desc">A new permission is required to access location information for uploaded images.\nMake sure that media access is set to \"Always allow all\".</string>
-    <string name="re_enable_auto_upload">Changes to auto upload</string>
-    <string name="re_enable_auto_upload_desc">Due to new restrictions imposed by Google, we have been forced to remove an important permission. We are currently working with Google to resolve this issue and restore full functionality.\n\nTo re-enable auto upload for new photos and videos:\nSelect \"Allow all\" in the following dialogue or the system settings.\nAllow media location when prompted, as this allows Nextcloud to store location data when uploading images.\n\nThe permissions dialogue is only displayed when necessary. If in doubt, check the system settings.\n\nAuto upload will only be able to upload image and video files when using the Google Play version of the Nextcloud app.\n\nPlease check for any files that may not have been uploaded since December 2024.</string>
-    <string name="click_to_learn_how_to_re_enable_auto_uploads">Manual intervention required to re-enable auto-upload</string>
     <string name="share_download_limit">Set download limit</string>
+    <string name="set_download_limit_failed">Unable to set download limit. Please check capabilities.</string>
     <string name="download_limit">Download limit</string>
     <plurals name="share_download_limit_description">
         <item quantity="one">%1$d download remaining</item>
@@ -1359,4 +1357,6 @@
     <string name="auto_upload_sub_folder_warning">This folder is already included in the parent folder’s sync, which may cause duplicate uploads</string>
     <string name="sync_anyway">Sync anyway</string>
     <string name="sync_duplication">Sync duplication</string>
+    <string name="server_not_reachable">Could not load content</string>
+    <string name="server_not_reachable_content">The device is likely not connected to the internet</string>
 </resources>

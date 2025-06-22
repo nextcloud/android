@@ -31,8 +31,6 @@
     <string name="add_new_public_share">Añadir un nuevo enlace público</string>
     <string name="add_new_secure_file_drop">Añadir una nueva entrega de archivos segura</string>
     <string name="add_to_cloud">Añadir a %1$s</string>
-    <string name="advanced_settings">Configuración avanzada</string>
-    <string name="allow_resharing">Permitir que se vuelva a compartir</string>
     <string name="app_config_base_url_title">URL base</string>
     <string name="app_config_disable_clipboard_title">Desactivar el portapapeles</string>
     <string name="app_config_disable_intro_title">Desactivar la introducción</string>
@@ -51,7 +49,6 @@
     <string name="assistant_screen_delete_task_alert_dialog_description">¿Está seguro de querer eliminar esta tarea?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Eliminar tarea</string>
     <string name="assistant_screen_loading">Cargando lista de tareas…</string>
-    <string name="assistant_screen_no_task_available_text">No hay tareas disponibles para el tipo de tarea %s, puede crear una nueva tarea abajo a la derecha.</string>
     <string name="assistant_screen_task_create_fail_message">Ocurrió un error al crear la tarea</string>
     <string name="assistant_screen_task_create_success_message">Tarea creada exitosamente</string>
     <string name="assistant_screen_task_delete_fail_message">Ocurrió un error al eliminar la tarea</string>
@@ -98,9 +95,6 @@
     <string name="authenticator_activity_login_error">Ha habido un problema al procesar tu petición de acceso. Por favor, vuelve a intentarlo más tarde.</string>
     <string name="authenticator_activity_please_complete_login_process">Por favor, complete el proceso de inicio de sesión en su navegador</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">se mantiene en la carpeta original, pues es de solo lectura</string>
-    <string name="auto_upload_gplay">Comportamiento de subida automática cambiado</string>
-    <string name="auto_upload_gplay_desc">Debido a nuevas restricciones impuestas por Google, la subida automática ya no podrá borrar automáticamente los archivos subidos.</string>
-    <string name="auto_upload_gplay_desc2">Debido a nuevas restricciones impuestas por Google, nos hemos visto obligados a quitar un permiso importante. Como consecuencia, la subida automática solo podrá subir imágenes y vídeos.\nAdemás, se necesita un nuevo permiso para ver la ubicación en la que se tomaron las imágenes.\nAsegúrate de que el permiso de multimedia está en \"Permitir siempre todo\".</string>
     <string name="auto_upload_on_wifi">Subir sólo con conexión Wi-Fi sin límite de datos</string>
     <string name="auto_upload_path">/CargaAutomática</string>
     <string name="auto_upload_sub_folder_warning">Esta carpeta ya está incluida en la sincronización de la carpeta principal, lo que puede provocar subidas duplicadas.</string>
@@ -135,7 +129,6 @@
     <string name="clear_notifications_failed">Fallo al limpiar notificaciones.</string>
     <string name="clear_status_message">Borrar mensaje de estado</string>
     <string name="clear_status_message_after">Borrar mensaje de estado después de</string>
-    <string name="click_to_learn_how_to_re_enable_auto_uploads">Intervención manual necesaria para reactivar la subida automática</string>
     <string name="clipboard_label">Texto copiado de %1$s</string>
     <string name="clipboard_no_text_to_copy">No se ha recibido ningún mensaje para copiar al portapapeles</string>
     <string name="clipboard_text_copied">Enlace copiado</string>
@@ -440,7 +433,6 @@
     <string name="file_not_synced">No se ha podido sincronizar el archivo. Se muestra la última versión disponible.</string>
     <string name="file_rename">Renombrar</string>
     <string name="file_upload_worker_error_notification_title">Subida errónea. Sin conexión a Internet</string>
-    <string name="file_upload_worker_same_file_already_exists">Ya existe el mismo archivo, no se detectaron conflictos</string>
     <string name="file_version_restored_error">¡Error al restaurar la versión del archivo!</string>
     <string name="file_version_restored_successfully">Versión del archivo restaurada con éxito.</string>
     <string name="filedetails_details">Detalles</string>
@@ -517,10 +509,7 @@
     <string name="last_backup">Última copia de seguridad: %1$s</string>
     <string name="link">Enlace</string>
     <string name="link_name">Nombre del enlace</string>
-    <string name="link_share_allow_upload_and_editing">Permitir la subida y la edición</string>
     <string name="link_share_editing">Editando</string>
-    <string name="link_share_file_drop">Entrega de archivos (solo subida)</string>
-    <string name="link_share_view_only">Solo lectura</string>
     <string name="list_layout">Formato de lista</string>
     <string name="load_more_results">Cargar más resultados</string>
     <string name="local_file_list_empty">No hay archivos en esta carpeta.</string>
@@ -669,6 +658,7 @@
     <string name="prefs_add_account">Agregar cuenta</string>
     <string name="prefs_calendar_contacts">Sincronizar calendario y contactos</string>
     <string name="prefs_calendar_contacts_no_store_error">Ni F-Droid ni Google Play están instalados</string>
+    <string name="prefs_calendar_contacts_summary">Configurar DAVx⁵ (antes conocido como DAVdroid) (v1.3.0+) para la cuenta actual</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Sincronización de calendario y contactos configurada</string>
     <string name="prefs_category_about">Acerca de</string>
     <string name="prefs_category_details">Detalles</string>
@@ -680,6 +670,7 @@
     <string name="prefs_daily_contact_backup_summary">Respaldo diario de sus contactos</string>
     <string name="prefs_data_storage_location">Ubicación donde guardar los datos</string>
     <string name="prefs_data_storage_location_summary">Gestionar ubicación de almacenamiento de datos</string>
+    <string name="prefs_davx5_setup_error">Error inesperado al configurar DAVx⁵ (anteriormente conocido como DAVdroid)</string>
     <string name="prefs_e2e_active">¡Se ha configurado el cifrado de extremo a extremo!</string>
     <string name="prefs_e2e_mnemonic">Regla mnemotécnica del cifrado E2E</string>
     <string name="prefs_e2e_no_device_credentials">Para mostrar la regla mnemotécnica, habilite las credenciales del dispositivo</string>
@@ -736,8 +727,6 @@
     <string name="push_notifications_old_login">No hay notificaciones push debido a que la sesión está caducada. Por favor, considera volver a añadir la cuenta.</string>
     <string name="push_notifications_temp_error">Notificaciones push actualmente no disponibles.</string>
     <string name="qr_could_not_be_read">¡No se ha podido leer el código QR!</string>
-    <string name="re_enable_auto_upload">Cambios a la subida automática</string>
-    <string name="re_enable_auto_upload_desc">Debido a nuevas restricciones impuestas por Google, nos hemos visto obligados a quitar un permiso importante. Estamos trabajando con Google para resolver este problema y restaurar la funcionalidad completa.\n\nPara reactivar la subida automática para nuevas fotos y vídeos:\nSelecciona \"Permitir todo\" en el siguiente diálogo o en los ajustes del sistema.\nPermite ubicación de multimedia cuando se te indique, para que Nextcloud pueda incluir la ubicación de las fotos que son subidas.\n\nEl diálogo de permisos solo se muestra cuando es necesario. En caso de duda, comprueba los ajustes de permisos del sistema.\n\nLa subida automática solo podrá subir fotos y vídeos al utilizar la versión de la aplicación de Nextcloud descargada de Google Play.\n\nPor favor, comprueba si algún archivo no ha sido subido desde diciembre 2024.</string>
     <string name="receive_external_files_activity_start_sync_folder_is_not_exists_message">No se puede encontrar la carpeta, la operación de sincronización se ha cancelado</string>
     <string name="receive_external_files_activity_unable_to_find_file_to_upload">No se ha podido encontrar el archivo para subir</string>
     <string name="recommend_subject">¡Prueba %1$s en tu móvil!</string>
@@ -784,6 +773,7 @@
     <string name="screenshot_05_autoUpload_heading">Subida automática</string>
     <string name="screenshot_05_autoUpload_subline">para sus fotos y videos</string>
     <string name="screenshot_06_davdroid_heading">Calendario y contactos</string>
+    <string name="screenshot_06_davdroid_subline">Sincronizar con DAVx⁵</string>
     <string name="search_error">Error al cargar resultados de búsqueda</string>
     <string name="secure_share_not_set_up">Compartir en modo seguro no está configurado para este usuario</string>
     <string name="secure_share_search">Compartir de forma segura...</string>
@@ -801,11 +791,15 @@
     <string name="set_status_message">Ajustar el mensaje de estado</string>
     <string name="setup_e2e">Durante la configuración del cifrado de extremo a extremo, recibirá un mnemónico aleatorio de 12 palabras, que necesitará para abrir sus archivos en otros dispositivos. Esto solo se almacenará en este dispositivo y se puede volver a mostrar en esta pantalla. ¡Por favor anótelo en un lugar seguro!</string>
     <string name="share">Compartir</string>
+    <string name="share_allow_download_and_sync_permission">Permitir descarga y sincronización</string>
     <string name="share_copy_link">Compartir y copiar enlace</string>
+    <string name="share_create_permission">Crear</string>
+    <string name="share_custom_permission">Permisos personalizados</string>
+    <string name="share_delete_permission">Eliminar</string>
     <string name="share_dialog_title">Compartir</string>
     <string name="share_download_limit">Establecer el límite de descarga</string>
+    <string name="share_edit_permission">Editar</string>
     <string name="share_expiration_date_format">%1$s</string>
-    <string name="share_expiration_date_label">Caduca el %1$s</string>
     <string name="share_file">Compartir %1$s</string>
     <string name="share_group_clarification">%1$s (grupo)</string>
     <string name="share_internal_link">Compartir enlace interno</string>
@@ -823,12 +817,13 @@
     <string name="share_no_expiration_date_label">Fijar fecha de caducidad</string>
     <string name="share_no_password_title">Establecer contraseña</string>
     <string name="share_not_allowed_when_file_drop">No se permite volver a compartir durante la entrega segura de archivos</string>
-    <string name="share_password_title">Protegido con contraseña</string>
     <string name="share_permission_can_edit">Puede editar</string>
-    <string name="share_permission_file_drop">Entrega de archivos</string>
+    <string name="share_permission_file_request">Solicitud de archivo</string>
     <string name="share_permission_secure_file_drop">Entrega de archivos segura</string>
     <string name="share_permission_view_only">Solo lectura</string>
     <string name="share_permissions">Permisos del recurso compartido</string>
+    <string name="share_re_share_permission">Compartir</string>
+    <string name="share_read_permission">Leer</string>
     <string name="share_remote_clarification">%1$s (remoto)</string>
     <string name="share_room_clarification">%1$s (conversación)</string>
     <string name="share_search">Nombre, ID de nube federada o dirección de correo electrónico...</string>
@@ -1001,8 +996,6 @@
     <string name="upload_file_dialog_title">Introduce el nombre y tipo de archivo para subir</string>
     <string name="upload_files">Subir archivos</string>
     <string name="upload_global_pause_title">Todas las cargas están pausadas</string>
-    <string name="upload_gplay">Cambios de permisos</string>
-    <string name="upload_gplay_desc">Un nuevo permiso es necesario para acceder a la ubicación donde se hicieron las fotos subidas.\nComprueba que el acceso a multimedia sea \"Permitir todo siempre\".</string>
     <string name="upload_item_action_button">Botón de acción de subida de objeto</string>
     <string name="upload_list_delete">Eliminar</string>
     <string name="upload_list_empty_headline">No hay subidas disponibles</string>
@@ -1110,6 +1103,21 @@
         <item quantity="one">%d minuto</item>
         <item quantity="many">%d minutos</item>
         <item quantity="other">%d minutos</item>
+    </plurals>
+    <plurals name="time_seconds_ago">
+        <item quantity="one">Hace %d segundo</item>
+        <item quantity="many">Hace %d segundos</item>
+        <item quantity="other">Hace %d segundos</item>
+    </plurals>
+    <plurals name="time_minutes_ago">
+        <item quantity="one">Hace %d minuto</item>
+        <item quantity="many">Hace %d minutos</item>
+        <item quantity="other">Hace %d minutos</item>
+    </plurals>
+    <plurals name="time_hours_ago">
+        <item quantity="one">Hace %d hora</item>
+        <item quantity="many">Hace %d horas</item>
+        <item quantity="other">Hace %d horas</item>
     </plurals>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">No se ha podido sincronizar %1$d archivo (conflicto con %2$d)</item>

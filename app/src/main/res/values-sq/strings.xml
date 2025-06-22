@@ -25,8 +25,6 @@
     <string name="activity_chooser_title">Dërgoni lidhje te…</string>
     <string name="activity_icon">Veprimtari</string>
     <string name="add_to_cloud">Shtojeni tek %1$s</string>
-    <string name="advanced_settings">Rregullime të mëtejshme</string>
-    <string name="allow_resharing">Lejo rindarje</string>
     <string name="appbar_search_in">Kërkoni në %s</string>
     <string name="associated_account_not_found">Llogaria e lidhur nuk u gjet!</string>
     <string name="auth_access_failed">Hyrja dështoi: %1$s</string>
@@ -324,8 +322,6 @@
     <string name="invalid_url">URL e pavlefshme</string>
     <string name="invisible">I padukshëm</string>
     <string name="link">Link</string>
-    <string name="link_share_allow_upload_and_editing">Lejo ngarkim dhe editim</string>
-    <string name="link_share_file_drop">Lësho skedar (vetëm ngarkim)</string>
     <string name="list_layout">Strukturë e listuar</string>
     <string name="local_file_list_empty">Në këtë dosje s’ka skedar.</string>
     <string name="local_file_not_found_message">Skedari s’u gjet te sistemi vendor i skedarëve</string>
@@ -493,8 +489,10 @@
     <string name="set_as">Vendos Si</string>
     <string name="set_picture_as">Vendos fotografinë</string>
     <string name="share">Ndaje</string>
+    <string name="share_create_permission">Krijo</string>
+    <string name="share_delete_permission">Fshi</string>
     <string name="share_dialog_title">Ndarje me të tjerët</string>
-    <string name="share_expiration_date_label">Skadon%1$s</string>
+    <string name="share_edit_permission">Përpuno</string>
     <string name="share_file">Ndajeni %1$s</string>
     <string name="share_group_clarification">%1$s (grup)</string>
     <string name="share_internal_link">Shpërnda linkun e brendshëm</string>
@@ -507,8 +505,9 @@
     <string name="share_link_password_title">Jepni një fjalëkalim</string>
     <string name="share_no_expiration_date_label">Caktoni datë skadimi</string>
     <string name="share_no_password_title">Vendos fjalëkalimin</string>
-    <string name="share_password_title">Mbrojtur me fjalëkalim</string>
     <string name="share_permission_can_edit">Can edit</string>
+    <string name="share_re_share_permission">Ndaj</string>
+    <string name="share_read_permission">Lexoni</string>
     <string name="share_remote_clarification">%1$s (i largët)</string>
     <string name="share_room_clarification">%1$s (bisedë)</string>
     <string name="share_send_note">Shënim për marrësin</string>

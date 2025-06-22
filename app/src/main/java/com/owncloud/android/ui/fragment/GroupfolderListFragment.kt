@@ -65,7 +65,7 @@ class GroupfolderListFragment : OCFileListFragment(), Injectable, GroupfolderLis
         setRecyclerViewAdapter(adapter)
 
         val layoutManager = LinearLayoutManager(context)
-        recyclerView.layoutManager = layoutManager
+        recyclerView?.layoutManager = layoutManager
         (recyclerView as EmptyRecyclerView).setHasFooter(false)
     }
 

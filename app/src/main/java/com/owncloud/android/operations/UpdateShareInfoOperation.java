@@ -35,6 +35,7 @@ public class UpdateShareInfoOperation extends SyncOperation {
     private int permissions = -1;
     private String password;
     private String label;
+    private String attributes;
 
     /**
      * Constructor
@@ -78,7 +79,7 @@ public class UpdateShareInfoOperation extends SyncOperation {
 
         if (share == null) {
             // TODO try to get remote share before failing?
-            return new RemoteOperationResult(RemoteOperationResult.ResultCode.SHARE_NOT_FOUND);
+            return new RemoteOperationResult<>(RemoteOperationResult.ResultCode.SHARE_NOT_FOUND);
         }
 
         // Update remote share
@@ -93,11 +94,12 @@ public class UpdateShareInfoOperation extends SyncOperation {
         }
         updateOp.setPassword(password);
         updateOp.setLabel(label);
+        updateOp.setAttributes(attributes);
 
-        RemoteOperationResult result = updateOp.execute(client);
+        var result = updateOp.execute(client);
 
         if (result.isSuccess()) {
-            RemoteOperation getShareOp = new GetShareRemoteOperation(share.getRemoteId());
+            final var getShareOp = new GetShareRemoteOperation(share.getRemoteId());
             result = getShareOp.execute(client);
 
             //only update the share in storage if shareId is available
@@ -123,6 +125,10 @@ public class UpdateShareInfoOperation extends SyncOperation {
 
     public void setHideFileDownload(boolean hideFileDownload) {
         this.hideFileDownload = hideFileDownload;
+    }
+
+    public void setAttributes(String attributes) {
+        this.attributes = attributes;
     }
 
     public void setPermissions(int permissions) {

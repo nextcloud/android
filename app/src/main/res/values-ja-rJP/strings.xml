@@ -31,8 +31,6 @@
     <string name="add_new_public_share">新規公開共有リンクを追加</string>
     <string name="add_new_secure_file_drop">新しいセキュアなファイルドロップを追加</string>
     <string name="add_to_cloud">%1$s に追加</string>
-    <string name="advanced_settings">詳細設定</string>
-    <string name="allow_resharing">再共有を許可する</string>
     <string name="app_config_base_url_title">ベース URL</string>
     <string name="app_config_disable_clipboard_title">クリップボードを無効化</string>
     <string name="app_config_disable_intro_title">イントロを無効化</string>
@@ -51,7 +49,6 @@
     <string name="assistant_screen_delete_task_alert_dialog_description">本当にこのタスクを削除しますか？</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">タスクを削除</string>
     <string name="assistant_screen_loading">タスクリストを読み込み中...</string>
-    <string name="assistant_screen_no_task_available_text">タスクタイプ%sに使用できるタスクがありません。右下から新しいタスクを作成できます。</string>
     <string name="assistant_screen_task_create_fail_message">タスクの作成中にエラーが発生しました。</string>
     <string name="assistant_screen_task_create_success_message">タスクは正常に作成されました。</string>
     <string name="assistant_screen_task_delete_fail_message">タスクの削除中にエラーが発生しました。</string>
@@ -98,11 +95,6 @@
     <string name="authenticator_activity_login_error">ログイン要求の処理中に問題が発生しました。しばらくたってからもう一度お試しください。</string>
     <string name="authenticator_activity_please_complete_login_process">ブラウザでログインプロセスを完了してください</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">読み取り専用のため元のフォルダに残しました</string>
-    <string name="auto_upload_gplay">自動アップロード設定が変更されました</string>
-    <string name="auto_upload_gplay_desc">Googleによる新たな制限のため、自動アップロード機能はアップロードされたファイルを自動的に削除することができなくなります.</string>
-    <string name="auto_upload_gplay_desc2">Googleによる新たな制限により、重要な権限を削除せざるを得なくなりました。その結果、自動アップロードは画像と動画ファイルのみ可能となります。
-さらに、画像の位置情報にアクセスする新たな権限が必要となります。
-メディアへのアクセスが「常に許可」に設定されていることを確認してください。</string>
     <string name="auto_upload_on_wifi">定額制 Wi-Fi でのみアップロード</string>
     <string name="auto_upload_path">/AutoUpload</string>
     <string name="auto_upload_sub_folder_warning">このフォルダは既に親の同期に含まれているため、重複してアップロードされる可能性があります</string>
@@ -137,7 +129,6 @@
     <string name="clear_notifications_failed">通知の削除に失敗</string>
     <string name="clear_status_message">メッセージを消去</string>
     <string name="clear_status_message_after">ステータスメッセージの有効期限</string>
-    <string name="click_to_learn_how_to_re_enable_auto_uploads">自動アップロードの再有効化には必ず操作が必要</string>
     <string name="clipboard_label">%1$s からテキストをコピー</string>
     <string name="clipboard_no_text_to_copy">クリップボードにコピーするテキストを受け取らなかった</string>
     <string name="clipboard_text_copied">リンクをコピーしました</string>
@@ -442,7 +433,6 @@
     <string name="file_not_synced">ファイルを同期できませんでした。 最新の利用可能なバージョンを表示します。</string>
     <string name="file_rename">名前を変更</string>
     <string name="file_upload_worker_error_notification_title">アップロードに失敗しました。インターネット接続がありません</string>
-    <string name="file_upload_worker_same_file_already_exists">同じファイルがすでに存在します、競合は検出されませんでした</string>
     <string name="file_version_restored_error">ファイルバージョンの復元中にエラーが発生しました。</string>
     <string name="file_version_restored_successfully">ファイルバージョンが正常に復元されました。</string>
     <string name="filedetails_details">詳細</string>
@@ -519,10 +509,7 @@
     <string name="last_backup">前回のバックアップ: %1$s</string>
     <string name="link">リンク</string>
     <string name="link_name">リンク名</string>
-    <string name="link_share_allow_upload_and_editing">アップロードと編集を許可</string>
     <string name="link_share_editing">編集中</string>
-    <string name="link_share_file_drop">ファイルドロップ(アップロードのみ)</string>
-    <string name="link_share_view_only">閲覧のみ</string>
     <string name="list_layout">リスト表示</string>
     <string name="load_more_results">結果をさらに読み込む</string>
     <string name="local_file_list_empty">このフォルダーにはファイルがありません。</string>
@@ -738,12 +725,6 @@
     <string name="push_notifications_old_login">古くなったログインセッションによるプッシュ通知はありません。 アカウントを再追加することを検討してください。</string>
     <string name="push_notifications_temp_error">プッシュ通知は現在利用できません。</string>
     <string name="qr_could_not_be_read">QRコードを読み込めません!</string>
-    <string name="re_enable_auto_upload">自動アップロードへ変更</string>
-    <string name="re_enable_auto_upload_desc">Googleによる新たな制限のため、重要な権限を削除せざるを得なくなりました。現在、この問題を解決し、完全な機能を回復するためにGoogleと協力しています。
-新しい写真や動画の自動アップロードを再度有効にするには、以下のダイアログまたはシステム設定で「すべて許可」を選択してください。Nextcloudが画像をアップロードする際に位置情報を保存できるようになります。
-許可ダイアログは必要なときだけ表示されます。不明な場合はシステム設定を確認してください。
-GooglePlay 版のNextcloudアプリを使用している場合のみ、自動アップロードで画像と動画ファイルをアップロードすることができます。
-2024年12月以降にアップロードされていないファイルがないか確認してください。</string>
     <string name="receive_external_files_activity_start_sync_folder_is_not_exists_message">フォルダが見つからないため、同期操作はキャンセルされました</string>
     <string name="receive_external_files_activity_unable_to_find_file_to_upload">アップロードするファイルが見つかりません</string>
     <string name="recommend_subject">デバイスで %1$s をお試しください</string>
@@ -807,11 +788,15 @@ GooglePlay 版のNextcloudアプリを使用している場合のみ、自動ア
     <string name="set_status_message">メッセージを設定</string>
     <string name="setup_e2e">End-to-End 暗号化の設定中に、12語のランダムなニーモニックが表示されます。これは他のデバイスでファイルを開くために必要です。この情報はこのデバイスにのみ保存され、この画面で再表示することができます。安全な場所にメモしておいてください！</string>
     <string name="share">共有</string>
+    <string name="share_allow_download_and_sync_permission">ダウンロードと同期を許可</string>
     <string name="share_copy_link">リンクをコピーして共有</string>
+    <string name="share_create_permission">作成</string>
+    <string name="share_custom_permission">カスタム権限</string>
+    <string name="share_delete_permission">削除</string>
     <string name="share_dialog_title">共有</string>
     <string name="share_download_limit">ダウンロード制限を設定</string>
+    <string name="share_edit_permission">編集</string>
     <string name="share_expiration_date_format">%1$s</string>
-    <string name="share_expiration_date_label">有効期限%1$s</string>
     <string name="share_file">%1$s を共有</string>
     <string name="share_group_clarification">%1$s (グループ)</string>
     <string name="share_internal_link">内部リンクを共有</string>
@@ -829,12 +814,13 @@ GooglePlay 版のNextcloudアプリを使用している場合のみ、自動ア
     <string name="share_no_expiration_date_label">有効期限を設定</string>
     <string name="share_no_password_title">パスワードを設定</string>
     <string name="share_not_allowed_when_file_drop">セキュアファイルドロップ中は再共有できません。</string>
-    <string name="share_password_title">パスワード保護</string>
     <string name="share_permission_can_edit">編集可能</string>
-    <string name="share_permission_file_drop">ファイルを転送</string>
+    <string name="share_permission_file_request">ファイルリクエスト</string>
     <string name="share_permission_secure_file_drop">セキュアなファイルドロップ</string>
     <string name="share_permission_view_only">閲覧のみ</string>
     <string name="share_permissions">共有権限</string>
+    <string name="share_re_share_permission">共有</string>
+    <string name="share_read_permission">読み込み</string>
     <string name="share_remote_clarification">%1$s (リモート)</string>
     <string name="share_room_clarification">%1$s(会話)</string>
     <string name="share_search">ユーザ名、クラウド統合ID、またはEメールアドレス ...</string>
@@ -1007,8 +993,6 @@ GooglePlay 版のNextcloudアプリを使用している場合のみ、自動ア
     <string name="upload_file_dialog_title">アップロードするファイル名とファイルタイプを入力</string>
     <string name="upload_files">アップロードファイル</string>
     <string name="upload_global_pause_title">すべてのアップロードが一時停止しています</string>
-    <string name="upload_gplay">アクセス権限が変更されます</string>
-    <string name="upload_gplay_desc">アップロードされた画像の位置情報にアクセスするには、新しい権限が必要です。\nメディアへのアクセスが「常にすべて許可」に設定されていることを確認してください。</string>
     <string name="upload_item_action_button">アイテムアクションのアップロードボタン</string>
     <string name="upload_list_delete">削除</string>
     <string name="upload_list_empty_headline">アップロードは利用できません</string>

@@ -51,6 +51,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
     public final static String PERMISSION_CAN_RESHARE = "R";
     private final static String PERMISSION_CAN_WRITE = "CK";
     private final static String PERMISSION_GROUPFOLDER = "M";
+    private final static int MAX_FILE_SIZE_FOR_IMMEDIATE_PREVIEW_BYTES = 1024000;
 
     public static final String PATH_SEPARATOR = "/";
     public static final String ROOT_PATH = PATH_SEPARATOR;
@@ -667,7 +668,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
         }
     }
 
-    public static final Parcelable.Creator<OCFile> CREATOR = new Parcelable.Creator<OCFile>() {
+    public static final Parcelable.Creator<OCFile> CREATOR = new Parcelable.Creator<>() {
 
         @Override
         public OCFile createFromParcel(Parcel source) {
@@ -693,6 +694,10 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
 
     public long getFileLength() {
         return this.fileLength;
+    }
+
+    public boolean isFileEligibleForImmediatePreview() {
+        return fileLength <= MAX_FILE_SIZE_FOR_IMMEDIATE_PREVIEW_BYTES;
     }
 
     public long getCreationTimestamp() {

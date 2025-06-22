@@ -29,8 +29,6 @@
     <string name="activity_icon">פעילות</string>
     <string name="add_new_public_share">הוסף קישור שיתוף ציבורי חדש</string>
     <string name="add_to_cloud">הוספה אל %1$s</string>
-    <string name="advanced_settings">הגדרות מתקדמות</string>
-    <string name="allow_resharing">לאפשר שיתוף מחדש</string>
     <string name="app_config_base_url_title">כתובת בסיס</string>
     <string name="app_config_proxy_port_title">פתחת מתווך</string>
     <string name="app_widget_description">מצג וידג׳ט אחד מלוח הבקרה</string>
@@ -363,9 +361,6 @@
     <string name="invalid_url">כתובת שגויה</string>
     <string name="invisible">נסתרת</string>
     <string name="link">קישור</string>
-    <string name="link_share_allow_upload_and_editing">לאפשר העלאה ועריכה</string>
-    <string name="link_share_file_drop">השלכת קבצים (העלאה בלבד)</string>
-    <string name="link_share_view_only">לצפיה בלבד</string>
     <string name="list_layout">פריסה מוצגת</string>
     <string name="load_more_results">לטעון עוד תוצאות</string>
     <string name="local_file_list_empty">אין קבצים בתיקייה זו:</string>
@@ -548,9 +543,10 @@
     <string name="set_status">הגדרת מצב</string>
     <string name="set_status_message">הגדרת הודעת מצב</string>
     <string name="share">שיתוף</string>
+    <string name="share_delete_permission">מחיקה</string>
     <string name="share_dialog_title">שיתוף</string>
+    <string name="share_edit_permission">עריכה</string>
     <string name="share_expiration_date_format">%1$s</string>
-    <string name="share_expiration_date_label">תפוגה ב־%1$s</string>
     <string name="share_file">שיתוף %1$s</string>
     <string name="share_group_clarification">%1$s (קבוצה)</string>
     <string name="share_internal_link">שיתוף קישור פנימי</string>
@@ -563,9 +559,10 @@
     <string name="share_link_password_title">הכנסת סיסמא</string>
     <string name="share_no_expiration_date_label">הגדרת תאריך תפוגה</string>
     <string name="share_no_password_title">הגדרת ססמה</string>
-    <string name="share_password_title">מוגן בססמה</string>
     <string name="share_permission_can_edit">ניתן לערוך</string>
     <string name="share_permission_view_only">לצפיה בלבד</string>
+    <string name="share_re_share_permission">שתף</string>
+    <string name="share_read_permission">קריאה</string>
     <string name="share_remote_clarification">%1$s (נשלט מרחוק)</string>
     <string name="share_room_clarification">%1$s (דיון)</string>
     <string name="share_send_note">מסר לנמען</string>

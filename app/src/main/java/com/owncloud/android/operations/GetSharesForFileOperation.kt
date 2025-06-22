@@ -1,6 +1,7 @@
 /*
  * Nextcloud - Android Client
  *
+ * SPDX-FileCopyrightText: 2025 Alper Ozturk <alper.ozturk@nextcloud.com>
  * SPDX-FileCopyrightText: 2021 Tobias Kaminsky <tobias@kaminsky.me>
  * SPDX-FileCopyrightText: 2015 ownCloud Inc.
  * SPDX-FileCopyrightText: 2014-2015 María Asensio Valverde <masensio@solidgear.es>
@@ -28,28 +29,27 @@ class GetSharesForFileOperation(
     private val subfiles: Boolean,
     storageManager: FileDataStorageManager
 ) : SyncOperation(storageManager) {
+
+    @Suppress("DEPRECATION", "NestedBlockDepth")
     @Deprecated("Deprecated in Java")
     override fun run(client: OwnCloudClient): RemoteOperationResult<List<OCShare>> {
-        val getSharesForFileRemoteOperation = GetSharesForFileRemoteOperation(path, reshares, subfiles)
-
-        val result = getSharesForFileRemoteOperation.execute(client)
+        val result = GetSharesForFileRemoteOperation(path, reshares, subfiles).execute(client)
 
         if (result.isSuccess) {
             // Update DB with the response
             val shares = result.resultData
-            Log_OC.d(TAG, "File = " + path + " Share list size  " + shares.size)
+            Log_OC.d(TAG, "File = $path Share list size ${shares.size}")
 
             val capability = storageManager.getCapability(storageManager.user)
-
             if (capability.filesDownloadLimit.isTrue && shares.any { it.shareType == ShareType.PUBLIC_LINK }) {
-                val getFilesDownloadLimitRemoteOperation = GetFilesDownloadLimitRemoteOperation(path, subfiles)
-                val remoteOperationResult = getFilesDownloadLimitRemoteOperation.execute(client)
-                val fileDownloadLimits = remoteOperationResult.resultData
-
-                fileDownloadLimits.forEach { downloadLimit ->
-                    shares.find { share ->
-                        share.token == downloadLimit.token
-                    }?.fileDownloadLimit = downloadLimit
+                val downloadLimitResult = GetFilesDownloadLimitRemoteOperation(path, subfiles).execute(client)
+                if (downloadLimitResult.isSuccess) {
+                    val downloadLimits = downloadLimitResult.resultData
+                    downloadLimits.forEach { downloadLimit ->
+                        shares.find { share ->
+                            share.token == downloadLimit.token
+                        }?.fileDownloadLimit = downloadLimit
+                    }
                 }
             }
 

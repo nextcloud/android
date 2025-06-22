@@ -1569,6 +1569,8 @@ public class FileDataStorageManager {
             contentValues.putNull(ProviderTableMeta.OCSHARES_DOWNLOADLIMIT_COUNT);
         }
 
+        contentValues.put(ProviderTableMeta.OCSHARES_ATTRIBUTES, share.getAttributes());
+
         return contentValues;
     }
 
@@ -1598,6 +1600,8 @@ public class FileDataStorageManager {
                                                                 getInt(cursor, ProviderTableMeta.OCSHARES_DOWNLOADLIMIT_LIMIT),
                                                                 getInt(cursor, ProviderTableMeta.OCSHARES_DOWNLOADLIMIT_COUNT));
         share.setFileDownloadLimit(downloadLimit);
+
+        share.setAttributes(getString(cursor, ProviderTableMeta.OCSHARES_ATTRIBUTES));
 
         return share;
     }
@@ -1705,15 +1709,13 @@ public class FileDataStorageManager {
 
         // apply operations in batch
         if (operations.size() > 0) {
-            @SuppressWarnings("unused")
-            ContentProviderResult[] results = null;
             Log_OC.d(TAG, String.format(Locale.ENGLISH, SENDING_TO_FILECONTENTPROVIDER_MSG, operations.size()));
             try {
                 if (getContentResolver() != null) {
-                    results = getContentResolver().applyBatch(MainApp.getAuthority(),
+                    getContentResolver().applyBatch(MainApp.getAuthority(),
                                                               operations);
                 } else {
-                    results = getContentProviderClient().applyBatch(operations);
+                    getContentProviderClient().applyBatch(operations);
                 }
 
             } catch (OperationApplicationException | RemoteException e) {
@@ -1901,7 +1903,7 @@ public class FileDataStorageManager {
             Integer.toString(ShareType.CIRCLE.getValue())
         };
 
-        Cursor cursor = null;
+        Cursor cursor;
         if (getContentResolver() != null) {
             cursor = getContentResolver().query(ProviderTableMeta.CONTENT_URI_SHARE,
                                                 null,
@@ -2065,7 +2067,7 @@ public class FileDataStorageManager {
                     stringBuilder.append("?)");
 
                     if (getContentResolver() != null) {
-                        updated = getContentResolver().update(
+                        getContentResolver().update(
                             ProviderTableMeta.CONTENT_URI_FILE,
                             cv,
                             stringBuilder.toString(),
@@ -2073,7 +2075,7 @@ public class FileDataStorageManager {
                                                              );
                     } else {
                         try {
-                            updated = getContentProviderClient().update(
+                            getContentProviderClient().update(
                                 ProviderTableMeta.CONTENT_URI_FILE,
                                 cv,
                                 stringBuilder.toString(),
@@ -2128,7 +2130,7 @@ public class FileDataStorageManager {
                     if (descendentsInConflict == null || descendentsInConflict.getCount() == 0) {
                         Log_OC.d(TAG, "NO MORE conflicts in " + parentPath);
                         if (getContentResolver() != null) {
-                            updated = getContentResolver().update(
+                            getContentResolver().update(
                                 ProviderTableMeta.CONTENT_URI_FILE,
                                 cv,
                                 ProviderTableMeta.FILE_ACCOUNT_OWNER + AND +
@@ -2137,7 +2139,7 @@ public class FileDataStorageManager {
                                                                  );
                         } else {
                             try {
-                                updated = getContentProviderClient().update(
+                                getContentProviderClient().update(
                                     ProviderTableMeta.CONTENT_URI_FILE,
                                     cv,
                                     ProviderTableMeta.FILE_ACCOUNT_OWNER + AND +

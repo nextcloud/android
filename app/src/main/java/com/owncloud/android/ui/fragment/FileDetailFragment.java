@@ -72,6 +72,7 @@ import org.greenrobot.eventbus.ThreadMode;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 import javax.inject.Inject;
 
@@ -509,11 +510,11 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
             setFileModificationTimestamp(getFile(), showDetailedTimestamp);
         } else if (id == R.id.folder_sync_button) {
             if (binding.folderSyncButton.isChecked()) {
-                getFile().setInternalFolderSyncTimestamp(0L);    
+                getFile().setInternalFolderSyncTimestamp(0L);
             } else {
                 getFile().setInternalFolderSyncTimestamp(-1L);
             }
-            
+
             storageManager.saveFile(getFile());
         } else {
             Log_OC.e(TAG, "Incorrect view clicked!");
@@ -598,11 +599,11 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
             if (fabMain != null) {
                 fabMain.hide();
             }
-            
+
             binding.syncBlock.setVisibility(file.isFolder() ? View.VISIBLE : View.GONE);
-            
+
             if (file.isInternalFolderSync()) {
-                binding.folderSyncButton.setChecked(file.isInternalFolderSync());    
+                binding.folderSyncButton.setChecked(file.isInternalFolderSync());
             } else {
                 if (storageManager.isPartOfInternalTwoWaySync(file)) {
                     binding.folderSyncButton.setChecked(true);
@@ -622,14 +623,24 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
 
     private void observeWorkerState() {
         WorkerStateLiveData.Companion.instance().observe(getViewLifecycleOwner(), state -> {
-            if (state instanceof WorkerState.DownloadStarted) {
-                binding.progressText.setText(R.string.downloader_download_in_progress_ticker);
+            if (state instanceof WorkerState.DownloadStarted downloadState) {
+                updateProgressBar(downloadState);
             } else if (state instanceof WorkerState.UploadStarted) {
                 binding.progressText.setText(R.string.uploader_upload_in_progress_ticker);
             } else {
                 binding.progressBlock.setVisibility(View.GONE);
             }
         });
+    }
+
+    private void updateProgressBar(WorkerState.DownloadStarted downloadState) {
+        if (binding.progressBlock.getVisibility() != View.VISIBLE) {
+            binding.progressBlock.setVisibility(View.VISIBLE);
+        }
+
+        binding.progressText.setText(R.string.downloader_download_in_progress_ticker);
+        binding.progressBar.setProgress(downloadState.getPercent());
+        binding.progressBar.invalidate();
     }
 
     private void setFileModificationTimestamp(OCFile file, boolean showDetailedTimestamp) {
@@ -762,23 +773,24 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
     }
 
     public void listenForTransferProgress() {
-        if (progressListener != null) {
-            if (containerActivity.getFileDownloadProgressListener() != null) {
-                containerActivity.getFileDownloadProgressListener().
-                    addDataTransferProgressListener(progressListener, getFile());
-            }
-
-            if (containerActivity.getFileUploaderHelper() != null) {
-                OCFile file = getFile();
-                if (user == null || file == null) {
-                    return;
-                }
-
-                String targetKey = FileUploadHelper.Companion.buildRemoteName(user.getAccountName(), file.getRemotePath());
-                containerActivity.getFileUploaderHelper().addUploadTransferProgressListener(progressListener, targetKey);
-            }
-        } else {
+        if (progressListener == null) {
             Log_OC.d(TAG, "progressListener == null");
+            return;
+        }
+
+        if (containerActivity.getFileDownloadProgressListener() != null) {
+            containerActivity.getFileDownloadProgressListener().
+                addDataTransferProgressListener(progressListener, getFile());
+        }
+
+        if (containerActivity.getFileUploaderHelper() != null) {
+            OCFile file = getFile();
+            if (user == null || file == null) {
+                return;
+            }
+
+            String targetKey = FileUploadHelper.Companion.buildRemoteName(user.getAccountName(), file.getRemotePath());
+            containerActivity.getFileUploaderHelper().addUploadTransferProgressListener(progressListener, targetKey);
         }
     }
 
@@ -814,18 +826,27 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
     /**
      * open the sharing process fragment for creating new share
      *
-     * @param shareeName
-     * @param shareType
      */
     public void initiateSharingProcess(String shareeName,
                                        ShareType shareType,
                                        boolean secureShare) {
-        requireActivity().getSupportFragmentManager().beginTransaction().add(R.id.sharing_frame_container,
-                                                                             FileDetailsSharingProcessFragment.newInstance(getFile(),
-                                                                                                                           shareeName,
-                                                                                                                           shareType,
-                                                                                                                           secureShare),
-                                                                             FileDetailsSharingProcessFragment.TAG)
+        if (getFile() == null) {
+            DisplayUtils.showSnackMessage(requireView(), R.string.file_not_found_cannot_share);
+            return;
+        }
+
+        final var file = getFile();
+        if (Objects.equals(file.getOwnerId(), shareeName)) {
+            DisplayUtils.showSnackMessage(requireView(), R.string.file_detail_share_already_active);
+            return;
+        }
+
+        final var fileShareDetailFragment = FileDetailsSharingProcessFragment.newInstance(file, shareeName, shareType, secureShare);
+
+        requireActivity()
+            .getSupportFragmentManager()
+            .beginTransaction()
+            .add(R.id.sharing_frame_container, fileShareDetailFragment, FileDetailsSharingProcessFragment.TAG)
             .commit();
 
         showHideFragmentView(true);
@@ -897,13 +918,9 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
             if (parentFolder == null) {
                 parentFolder = storageManager.getFileById(getFile().getParentId());
             }
-            if (EncryptionUtils.supportsSecureFiledrop(getFile(), user) && !parentFolder.isEncrypted()) {
-                return true;
-            } else {
-                // sharing not allowed for encrypted files, thus only show first tab (activities)
-                // sharing not allowed for encrypted subfolders
-                return false;
-            }
+            // sharing not allowed for encrypted files, thus only show first tab (activities)
+            // sharing not allowed for encrypted subfolders
+            return EncryptionUtils.supportsSecureFiledrop(getFile(), user) && !parentFolder.isEncrypted();
         } else {
             // unencrypted files/folders
             return true;

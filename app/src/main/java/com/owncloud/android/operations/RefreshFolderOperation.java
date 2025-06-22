@@ -233,6 +233,11 @@ public class RefreshFolderOperation extends RemoteOperation {
         mConflictsFound = 0;
         mForgottenLocalFiles.clear();
 
+        if (mLocalFolder == null) {
+            Log_OC.e(TAG, "Local folder is null, cannot run refresh folder operation");
+            return new RemoteOperationResult(ResultCode.FILE_NOT_FOUND);
+        }
+
         if (OCFile.ROOT_PATH.equals(mLocalFolder.getRemotePath()) && !mSyncFullAccount && !mOnlyFileMetadata) {
             updateOCVersion(client);
             updateUserProfile();
@@ -255,21 +260,26 @@ public class RefreshFolderOperation extends RemoteOperation {
                 mLocalFolder.setEtag("");
             }
 
-            mLocalFolder.setLastSyncDateForData(System.currentTimeMillis());
-            fileDataStorageManager.saveFile(mLocalFolder);
+            if (mLocalFolder != null) {
+                mLocalFolder.setLastSyncDateForData(System.currentTimeMillis());
+                fileDataStorageManager.saveFile(mLocalFolder);
+            } else {
+                Log_OC.e(TAG, "Local folder is null, cannot set last sync date nor save file");
+                result = new RemoteOperationResult(ResultCode.FILE_NOT_FOUND);
+            }
         }
 
         checkFolderConflictData(result);
 
-        if (!mSyncFullAccount && mRemoteFolderChanged) {
+        if (!mSyncFullAccount && mRemoteFolderChanged && mLocalFolder != null) {
             sendLocalBroadcast(EVENT_SINGLE_FOLDER_CONTENTS_SYNCED, mLocalFolder.getRemotePath(), result);
         }
 
-        if (result.isSuccess() && !mSyncFullAccount && !mOnlyFileMetadata) {
+        if (result.isSuccess() && !mSyncFullAccount && !mOnlyFileMetadata && mLocalFolder != null) {
             refreshSharesForFolder(client); // share result is ignored
         }
 
-        if (!mSyncFullAccount) {
+        if (!mSyncFullAccount && mLocalFolder != null) {
             sendLocalBroadcast(EVENT_SINGLE_FOLDER_SHARES_SYNCED, mLocalFolder.getRemotePath(), result);
         }
 
@@ -808,12 +818,10 @@ public class RefreshFolderOperation extends RemoteOperation {
      * Syncs the Share resources for the files contained in the folder refreshed (children, not deeper descendants).
      *
      * @param client Handler of a session with an OC server.
-     * @return The result of the remote operation retrieving the Share resources in the folder refreshed by the
-     * operation.
      */
-    private RemoteOperationResult refreshSharesForFolder(OwnCloudClient client) {
+    private void refreshSharesForFolder(OwnCloudClient client) {
         GetSharesForFileOperation operation = new GetSharesForFileOperation(mLocalFolder.getRemotePath(), true, true, fileDataStorageManager);
-        return operation.execute(client);
+        operation.execute(client);
     }
 
     /**

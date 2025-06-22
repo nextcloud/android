@@ -29,8 +29,6 @@
     <string name="add_new_public_share">Add new public share link</string>
     <string name="add_new_secure_file_drop">Add new secure file drop</string>
     <string name="add_to_cloud">Add to %1$s</string>
-    <string name="advanced_settings">Advanced settings</string>
-    <string name="allow_resharing">Allow resharing</string>
     <string name="app_widget_description">Shows one widget from dashboard</string>
     <string name="appbar_search_in">Search in %s</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Delete task</string>
@@ -423,10 +421,7 @@
     <string name="last_backup">Last backup: %1$s</string>
     <string name="link">Link</string>
     <string name="link_name">Link Name</string>
-    <string name="link_share_allow_upload_and_editing">Allow upload and editing</string>
     <string name="link_share_editing">Editing</string>
-    <string name="link_share_file_drop">File drop (upload only)</string>
-    <string name="link_share_view_only">View only</string>
     <string name="list_layout">Listed layout</string>
     <string name="load_more_results">Load more results</string>
     <string name="local_file_list_empty">There are no files in this folder.</string>
@@ -663,9 +658,12 @@
     <string name="set_status_message">Set status message</string>
     <string name="setup_e2e">During setup of end-to-end encryption, you will receive a random 12 word mnemonic, which you will need to open your files on other devices. This will only be stored on this device, and can be shown again in this screen. Please note it down in a secure place!</string>
     <string name="share">Share</string>
+    <string name="share_create_permission">Create</string>
+    <string name="share_custom_permission">Custom permissions</string>
+    <string name="share_delete_permission">წაშლა</string>
     <string name="share_dialog_title">Sharing</string>
+    <string name="share_edit_permission">Edit</string>
     <string name="share_expiration_date_format">%1$s</string>
-    <string name="share_expiration_date_label">Expires %1$s</string>
     <string name="share_file">Share %1$s</string>
     <string name="share_group_clarification">%1$s (group)</string>
     <string name="share_internal_link">Share internal link</string>
@@ -682,11 +680,11 @@
     <string name="share_link_with_label">Share link (%1$s)</string>
     <string name="share_no_expiration_date_label">Set expiration date</string>
     <string name="share_no_password_title">Set password</string>
-    <string name="share_password_title">Password-protected</string>
     <string name="share_permission_can_edit">Can edit</string>
-    <string name="share_permission_file_drop">File drop</string>
     <string name="share_permission_secure_file_drop">Secure file drop</string>
     <string name="share_permission_view_only">View only</string>
+    <string name="share_re_share_permission">გაზიარება</string>
+    <string name="share_read_permission">Read</string>
     <string name="share_remote_clarification">%1$s (remote)</string>
     <string name="share_room_clarification">%1$s (conversation)</string>
     <string name="share_send_new_email">Send new email</string>

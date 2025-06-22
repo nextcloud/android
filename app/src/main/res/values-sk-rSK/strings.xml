@@ -31,8 +31,6 @@
     <string name="add_new_public_share">Pridajte nový odkaz na verejné zdieľanie</string>
     <string name="add_new_secure_file_drop">Pridať nový zabezpečený file drop</string>
     <string name="add_to_cloud">Pridaj do %1$s</string>
-    <string name="advanced_settings">Rozšírené nastavenia</string>
-    <string name="allow_resharing">Povoliť zdieľanie ďalej</string>
     <string name="app_config_base_url_title">Základná URL</string>
     <string name="app_config_disable_clipboard_title">Zakázať Schránku</string>
     <string name="app_config_disable_intro_title">Zakázať intro</string>
@@ -51,7 +49,6 @@
     <string name="assistant_screen_delete_task_alert_dialog_description">Naozaj chcete vymazať túto úlohu?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Odstrániť úlohu</string>
     <string name="assistant_screen_loading">Načítavam zoznam úloh...</string>
-    <string name="assistant_screen_no_task_available_text">Pre typ úlohy %s nie je k dispozícii žiadna úloha, môžete vytvoriť novú úlohu vpravo dole.</string>
     <string name="assistant_screen_task_create_fail_message">Pri vytváraní úlohy nastala chyba</string>
     <string name="assistant_screen_task_create_success_message">Úloha bola úspešne vytvorená</string>
     <string name="assistant_screen_task_delete_fail_message">Pri odstraňovaní úlohy nastala chyba</string>
@@ -98,9 +95,6 @@
     <string name="authenticator_activity_login_error">Pri spracovaní vašej žiadosti o prihlásenie sa vyskytol problém. Skúste to znova neskôr.</string>
     <string name="authenticator_activity_please_complete_login_process">Prosím, dokončite proces prihlasovania vo vašom prehliadači</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">ponechané v pôvodnom priečinku, pretože je iba na čítanie</string>
-    <string name="auto_upload_gplay">Správanie automatického nahrávania sa zmenilo</string>
-    <string name="auto_upload_gplay_desc">Z dôvodu nových obmedzení uložených spoločnosťou Google už funkcia automatického nahrávania nebude môcť automaticky odstraňovať nahrané súbory.</string>
-    <string name="auto_upload_gplay_desc2">Z dôvodu nových obmedzení uložených spoločnosťou Google sme boli nútení odstrániť dôležité práva. Výsledkom je, že automatické nahrávanie bude môcť nahrať iba súbory obrázkov a videí.\nOkrem toho sa vyžadujú nové práva pre prístup k informáciám o polohe pre odovzdané obrázky.\nUistite sa, že prístup k médiám je nastavený na „Vždy povoliť všetky“.</string>
     <string name="auto_upload_on_wifi">Nahrávaj iba na neobmedzenom Wi-Fi</string>
     <string name="auto_upload_path">/AutomatickéNahrávanie</string>
     <string name="auto_upload_sub_folder_warning">Tento adresár je už zahrnutý v synchronizácii nadradeného adresára, čo môže spôsobiť duplicitné nahrávania</string>
@@ -135,7 +129,6 @@
     <string name="clear_notifications_failed">Odstránenie upozornení zlyhalo.</string>
     <string name="clear_status_message">Vyčistiť správu o stave</string>
     <string name="clear_status_message_after">Vyčistiť správu o stave po</string>
-    <string name="click_to_learn_how_to_re_enable_auto_uploads">Na opätovné zapnutie automatického nahrávania je potrebný manuálny zásah</string>
     <string name="clipboard_label">Text kopírovaný z %1$s</string>
     <string name="clipboard_no_text_to_copy">Nebol prijatý žiadny text pri kopírovaní do schránky</string>
     <string name="clipboard_text_copied">Odkaz skopírovaný</string>
@@ -440,7 +433,6 @@
     <string name="file_not_synced">Súbor sa nepodarilo zosynchronizovať.  Zobrazuje sa posledná dostupná verzia.</string>
     <string name="file_rename">Premenovať</string>
     <string name="file_upload_worker_error_notification_title">Nahrávanie zlyhalo. Žiadne pripojenie k internetu</string>
-    <string name="file_upload_worker_same_file_already_exists">Rovnaký súbor už existuje, nezistil sa žiadny konflikt</string>
     <string name="file_version_restored_error">Chyba pri obnove verzie súboru!</string>
     <string name="file_version_restored_successfully">Verzia súboru úspešne obnovená.</string>
     <string name="filedetails_details">Podrobnosti</string>
@@ -517,10 +509,7 @@
     <string name="last_backup">Posledná záloha: %1$s</string>
     <string name="link">Odkaz</string>
     <string name="link_name">Názov odkazu</string>
-    <string name="link_share_allow_upload_and_editing">Povoliť nahrávanie a úpravy</string>
     <string name="link_share_editing">Úprava</string>
-    <string name="link_share_file_drop">Odovzdávanie súborov (len nahrávanie)</string>
-    <string name="link_share_view_only">Iba pre čítanie</string>
     <string name="list_layout">Náhľad zoznamu</string>
     <string name="load_more_results">Načítať viac výsledkov</string>
     <string name="local_file_list_empty">V tomto priečinku nie sú žiadne súbory.</string>
@@ -736,8 +725,6 @@
     <string name="push_notifications_old_login">Žiadne push notifikácie z dôvodu zastaraného prihlásenia.  Prosím skúste znova pridať váš účet.</string>
     <string name="push_notifications_temp_error">Push notifikácie sú v súčasnosti nedostupné.</string>
     <string name="qr_could_not_be_read">QR kód nie je možné načítať!</string>
-    <string name="re_enable_auto_upload">Zmeny v automatickom nahrávaní</string>
-    <string name="re_enable_auto_upload_desc">Z dôvodu nových obmedzení uložených spoločnosťou Google sme boli nútení odstrániť dôležité práva. Momentálne spolupracujeme so spoločnosťou Google na vyriešení tohto problému a obnovení plnej funkčnosti.\n\nAk chcete znova povoliť automatické nahrávanie nových fotiek a videí:\nV nasledujúcom dialógovom okne alebo v systémových nastaveniach vyberte možnosť „Povoliť všetko“.\nPovoliť umiestnenie médií, keď sa zobrazí výzva, pretože to Nextcloudu umožní ukladať údaje o polohe pri nahrávaní obrázkov.\n\nDialóg povolení sa zobrazuje iba v prípade potreby. Ak máte pochybnosti, skontrolujte nastavenia systému.\n\nAutomatické nahrávanie bude môcť nahrať súbory s obrázkami a videami iba pri použití verzie aplikácie Nextcloud pre Google Play.\n\nSkontrolujte všetky súbory, ktoré možno neboli odvtedy nahrané z decembra 2024.</string>
     <string name="receive_external_files_activity_start_sync_folder_is_not_exists_message">Adresár sa nenašiel, operácia synchronizácie bola prerušená</string>
     <string name="receive_external_files_activity_unable_to_find_file_to_upload">Nepodarilo sa nájisť súbor pre nahratie</string>
     <string name="recommend_subject">Vyskúšajte %1$s na vašom zariadení!</string>
@@ -801,11 +788,15 @@
     <string name="set_status_message">Nastaviť správu o stave</string>
     <string name="setup_e2e">Počas nastavovania end-to-end šifrovania dostanete náhodný 12-slovový mnemotechnický záznam, ktorý budete potrebovať na otvorenie svojich súborov na iných zariadeniach. Tento záznam bude uložený iba na tomto zariadení a môže byť znovu zobrazený na tejto obrazovke. Prosím, zapíšte si ho na bezpečné miesto!</string>
     <string name="share">Zdieľať</string>
+    <string name="share_allow_download_and_sync_permission">Povoliť sťahovanie a synchronizáciu</string>
     <string name="share_copy_link">Zdieľať a kopírovať odkaz</string>
+    <string name="share_create_permission">Vytvoriť</string>
+    <string name="share_custom_permission">Vlastné oprávnenia</string>
+    <string name="share_delete_permission">Vymazať</string>
     <string name="share_dialog_title">Sprístupnenie</string>
     <string name="share_download_limit">Nastaviť limit sťahovania</string>
+    <string name="share_edit_permission">Upraviť</string>
     <string name="share_expiration_date_format">%1$s</string>
-    <string name="share_expiration_date_label">Vyprší %1$s</string>
     <string name="share_file">Sprístupni %1$s</string>
     <string name="share_group_clarification">%1$s (skupina)</string>
     <string name="share_internal_link">Sprístupniť interný odkaz</string>
@@ -823,12 +814,13 @@
     <string name="share_no_expiration_date_label">Nastaviť dátum expirácie</string>
     <string name="share_no_password_title">Nastaviť heslo</string>
     <string name="share_not_allowed_when_file_drop">Opakované zdieľanie nie je povolené počas bezpečného odovzdávania súborov.</string>
-    <string name="share_password_title">Chránené heslom</string>
     <string name="share_permission_can_edit">Môže upravovať</string>
-    <string name="share_permission_file_drop">Vložiť súbor</string>
+    <string name="share_permission_file_request">Žiadosť o súbor</string>
     <string name="share_permission_secure_file_drop">Zabezpečený file drop</string>
     <string name="share_permission_view_only">Iba pre čítanie</string>
     <string name="share_permissions">Zdieľať oprávnenia</string>
+    <string name="share_re_share_permission">Zdieľať</string>
+    <string name="share_read_permission">Čítanie</string>
     <string name="share_remote_clarification">%1$s (vzdialený)</string>
     <string name="share_room_clarification">%1$s (rozhovor)</string>
     <string name="share_search">Meno, ID v rámci Federatívneho cloudu, alebo e-mailová adresa…</string>
@@ -1001,8 +993,6 @@
     <string name="upload_file_dialog_title">Zadaj meno a typ súboru na nahratie</string>
     <string name="upload_files">Nahrať súbory</string>
     <string name="upload_global_pause_title">Všetky nahrávania sú pozastavené.</string>
-    <string name="upload_gplay">Zmeny v právach</string>
-    <string name="upload_gplay_desc">Pre prístup k informáciám o polohe nahraných obrázkov sa vyžadujú nové práva.\nUistite sa, že prístup k médiám je nastavený na „Vždy povoliť všetko“.</string>
     <string name="upload_item_action_button">Tlačítko akcie Nahrať položku</string>
     <string name="upload_list_delete">Zmazať</string>
     <string name="upload_list_empty_headline">Žiadne súbory na nahratie nie sú dostupné</string>

@@ -31,8 +31,6 @@
     <string name="add_new_public_share">Додати нове публічне посилання</string>
     <string name="add_new_secure_file_drop">Додати новий захищений файл</string>
     <string name="add_to_cloud">Додати до хмари %1$s</string>
-    <string name="advanced_settings">Розширені</string>
-    <string name="allow_resharing">Дозволяти передавати у спільний доступ іншим</string>
     <string name="app_config_base_url_title">Основний URL</string>
     <string name="app_config_disable_clipboard_title">Вимкнути буфер обміну</string>
     <string name="app_config_disable_intro_title">Вимкнути презентацію</string>
@@ -51,7 +49,6 @@
     <string name="assistant_screen_delete_task_alert_dialog_description">Дійсно вилучити це завдання?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Вилучити завдання</string>
     <string name="assistant_screen_loading">Отримання списку завдань...</string>
-    <string name="assistant_screen_no_task_available_text">Відсутні завдання для завдань типу %s. Ви можете додати нове завдання праворуч внизу. </string>
     <string name="assistant_screen_task_create_fail_message">Помилка під час додавання завдання</string>
     <string name="assistant_screen_task_create_success_message">Успішно додано завдання</string>
     <string name="assistant_screen_task_delete_fail_message">Помилка під час вилучення завдання</string>
@@ -98,9 +95,6 @@
     <string name="authenticator_activity_login_error">Помилка під час обробки запиту на вхід. Спробуйте пізніше.</string>
     <string name="authenticator_activity_please_complete_login_process">Завершити авторизацію у бравзері</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">залишено у вихідному каталозі, оскільки він доступний лише для читання</string>
-    <string name="auto_upload_gplay">Режим автоматичного завантаження змінено</string>
-    <string name="auto_upload_gplay_desc">Через нові обмеження, які було запроваджено Google, в процесі автоматичного завантаження завантажені файли неможливо буде вилучити.</string>
-    <string name="auto_upload_gplay_desc2">Через нові обмеження з боку Google ми вилучили важливий дозвіл. В результаті цього автоматично завантажувати можна тільки зображення та відео.\nКрім того, новий дозвіл вимагається для надання доступу до до місця розташування для завантажених зображень.\nПересвідчитеся, що доступ до медійного контенту встановлено у \"Завжди дозволяти все\".</string>
     <string name="auto_upload_on_wifi">Завантаження тільки через WiFi</string>
     <string name="auto_upload_path">/AutoUpload</string>
     <string name="auto_upload_sub_folder_warning">Цей каталог вже включено до синхронізації каталогу вищого рівня, що може призвести до задвоєння завантаження</string>
@@ -135,7 +129,6 @@
     <string name="clear_notifications_failed">Неможливо очистити сповіщення.</string>
     <string name="clear_status_message">Прибрати статус</string>
     <string name="clear_status_message_after">Очистити повідомлення про стан після</string>
-    <string name="click_to_learn_how_to_re_enable_auto_uploads">Потрібна ручна дія для повторного увімкнення автоматичного завантаження.</string>
     <string name="clipboard_label">Текст скопійовано з %1$s</string>
     <string name="clipboard_no_text_to_copy">Відсутній текст для копіювання до буферу обміну</string>
     <string name="clipboard_text_copied">Посилання скопійовано</string>
@@ -378,6 +371,7 @@
     <string name="file_already_exists">Файл з таким ім\'ям вже присутній</string>
     <string name="file_delete">Вилучити</string>
     <string name="file_detail_activity_error">Помилка з отриманням дії для файлу</string>
+    <string name="file_detail_share_already_active">Ви не можете створити спільний ресурс, оскільки його вже надано цьому користувачеві.</string>
     <string name="file_detail_sharing_fragment_no_contact_app_message">Відсутній застосунок для вибору контактів</string>
     <string name="file_details_no_content">Не вдалося завантажити подробиці</string>
     <string name="file_icon">Файл</string>
@@ -437,10 +431,10 @@
     <string name="file_name_validator_error_reserved_names">%s не є дозволеним ім\'ям</string>
     <string name="file_name_validator_rename_before_move_or_copy">%s. Перейменуйте файл перед переміщенням або копіюванням</string>
     <string name="file_not_found">Файл не знайдено</string>
+    <string name="file_not_found_cannot_share">Файл не знайдено. Неможливо поділитися.</string>
     <string name="file_not_synced">Неможливо синхронізувати файл. Буде показано останню доступну версію.</string>
     <string name="file_rename">Перейменувати</string>
     <string name="file_upload_worker_error_notification_title">Не вдалося завантажити. Відсутнє з\'єднання з мережею.</string>
-    <string name="file_upload_worker_same_file_already_exists">Тотожній файл присутній. Не знайдено конфліктів</string>
     <string name="file_version_restored_error">Помилка під час відновлення версії файлу!</string>
     <string name="file_version_restored_successfully">Успішно відновлено версію файлу.</string>
     <string name="filedetails_details">Деталі</string>
@@ -515,10 +509,7 @@
     <string name="last_backup">Останню резервну копію створено %1$s</string>
     <string name="link">Посилання</string>
     <string name="link_name">Назва посилання</string>
-    <string name="link_share_allow_upload_and_editing">Може завантажувати та редагувати</string>
     <string name="link_share_editing">Редагування</string>
-    <string name="link_share_file_drop">Додати файл (тільки завантажування)</string>
-    <string name="link_share_view_only">Лише перегляд</string>
     <string name="list_layout">Шаблон списку</string>
     <string name="load_more_results">Завантажити більше результатів</string>
     <string name="local_file_list_empty">У цьому каталозі відсутні файли.</string>
@@ -666,6 +657,7 @@
     <string name="prefs_add_account">Додати обліковий запис</string>
     <string name="prefs_calendar_contacts">Синхронізувати календар та контакти</string>
     <string name="prefs_calendar_contacts_no_store_error">Не встановлено ані F-Droid, ані Google Play</string>
+    <string name="prefs_calendar_contacts_summary">Встановити DAVx⁵ (раніше відомий як DAVdroid) (v1.3.0+) для поточного користувача</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Налаштування синхронізації календаря та контактів</string>
     <string name="prefs_category_about">Про застосунок</string>
     <string name="prefs_category_details">Деталі</string>
@@ -677,6 +669,7 @@
     <string name="prefs_daily_contact_backup_summary">Щоденне резервне копіювання ваших контактів</string>
     <string name="prefs_data_storage_location">Місце збереження даних</string>
     <string name="prefs_data_storage_location_summary">Керувати місцем збереження даних</string>
+    <string name="prefs_davx5_setup_error">Неочікувана помилка під час встановлення DAVx⁵ (раніше відомий як DAVdroid)</string>
     <string name="prefs_e2e_active">Наскрізне шифрування налаштовано!</string>
     <string name="prefs_e2e_mnemonic">Мнемоніка E2E</string>
     <string name="prefs_e2e_no_device_credentials">Щоб показати мнемоніку, будь ласка, активуйте дані авторизації пристрою</string>
@@ -733,8 +726,6 @@
     <string name="push_notifications_old_login">Сповіщення push неактивні, оскільки час сесії вичерпано. Будь ласка, додайте наново ваш обліковий запис.</string>
     <string name="push_notifications_temp_error">Зараз сповіщення push недоступні.</string>
     <string name="qr_could_not_be_read">Неможливо прочитати QR-код!</string>
-    <string name="re_enable_auto_upload">Зміни до автоматичного завантаження</string>
-    <string name="re_enable_auto_upload_desc">Через нові обмеження з боку Google ми вилучили важливий дозвіл. Ми зараз працюємо з Google над вирішенням цієї проблеми та відновленням повноцінної функціональности.\n\nДля повторного увімкнення автоматичного завантаження для нових зображень та відео:\nВиберіть \"Дозволити все\" у наступному меню вибору або у системних налаштуваннях.\nУ разі запиту надайте дозвіл до місця розташування, що дозволить Nextcloud зберігати інформацію про місце розташування для зображень, які ви завантажуєте.\n\nАвтоматичне завантаження буде доступне виключно для зображень та відео, якщо ви встановили офіційну версію застосунку Nextcloud з крамниці застосунків Google Play.\n\nПеревірте всі файли, які можливо не було завантажено, починаючи з грудня 2024 р.</string>
     <string name="receive_external_files_activity_start_sync_folder_is_not_exists_message">Неможливо знайти каталог, синхронізацію скасовано</string>
     <string name="receive_external_files_activity_unable_to_find_file_to_upload">Неможливо знайти файл для завантаження</string>
     <string name="recommend_subject">Спробуйте %1$s на Вашому пристрої!</string>
@@ -781,6 +772,7 @@
     <string name="screenshot_05_autoUpload_heading">Автоматичне завантаження</string>
     <string name="screenshot_05_autoUpload_subline">для ваших світлин та відеозаписів</string>
     <string name="screenshot_06_davdroid_heading">Календар та контакти</string>
+    <string name="screenshot_06_davdroid_subline">Синхронізувати з DAVx⁵</string>
     <string name="search_error">Помилка під час отримання результатів</string>
     <string name="secure_share_not_set_up">Безпечну передачу у спільний доступ не налаштовано для цього користувача</string>
     <string name="secure_share_search">Безпечний спільний доступ...</string>
@@ -791,18 +783,26 @@
     <string name="send">Надіслати</string>
     <string name="send_share">Надати у спільний доступ</string>
     <string name="sendbutton_description">Зображення кнопки надсилання</string>
+    <string name="server_not_reachable">Не вдалося завантажити вміст</string>
+    <string name="server_not_reachable_content">Схоже, пристрій не під\'єднано до Інтернету</string>
     <string name="set_as">Встановити як</string>
+    <string name="set_download_limit_failed">Неможливо встановити обмеження на звантаження. Перевірте доступні вам функції.</string>
     <string name="set_note">Додати примітку</string>
     <string name="set_picture_as">Використати як</string>
     <string name="set_status">Встановити статус</string>
     <string name="set_status_message">Оновити статус</string>
     <string name="setup_e2e">Під час налаштування наскрізного шифрування ви отримаєте парольну фразу з 12 слів, за допомогою якої ви зможете відкривати ваші файлі на інших пристроях. Її буде збережено лише на цьому пристрої та буде показано знову на цьому екрані. Будь ласка, занотуйте цю фразу та збережіть у безпеченому місці!</string>
     <string name="share">Спільний доступ</string>
+    <string name="share_allow_download_and_sync_permission">Дозволити звантаження та синхронізацію</string>
+    <string name="share_cannot_update_empty_note">Не вдалося оновити спільний ресурс. Додайте примітку та спробуйте ще раз.</string>
     <string name="share_copy_link">Поділитися та копіювати посилання</string>
+    <string name="share_create_permission">Створювати</string>
+    <string name="share_custom_permission">Спеціальні дозволи</string>
+    <string name="share_delete_permission">Вилучати</string>
     <string name="share_dialog_title">Спільне</string>
     <string name="share_download_limit">Встановити обмеження на звантаження</string>
+    <string name="share_edit_permission">Редагувати</string>
     <string name="share_expiration_date_format">%1$s</string>
-    <string name="share_expiration_date_label">Дійсне до %1$s</string>
     <string name="share_file">Спільне %1$s</string>
     <string name="share_group_clarification">%1$s (група)</string>
     <string name="share_internal_link">Поділитися внутрішнім посиланням</string>
@@ -820,12 +820,14 @@
     <string name="share_no_expiration_date_label">Встановити термін дії</string>
     <string name="share_no_password_title">Встановити пароль</string>
     <string name="share_not_allowed_when_file_drop">Повторну передачу у спільний доступ не дозволено під час безпечної передачі файлів</string>
-    <string name="share_password_title">Захищено паролем</string>
+    <string name="share_option_required">Перед продовженням виберіть щонайменше одну опцію надання у спільний доступ.</string>
     <string name="share_permission_can_edit">Може редагувати</string>
-    <string name="share_permission_file_drop">Додати файл</string>
+    <string name="share_permission_file_request">Запит на файл</string>
     <string name="share_permission_secure_file_drop">Захищене додавання файлу</string>
     <string name="share_permission_view_only">Лише перегляд</string>
     <string name="share_permissions">Права доступу на спільний ресурс</string>
+    <string name="share_re_share_permission">Спільний доступ</string>
+    <string name="share_read_permission">Читати</string>
     <string name="share_remote_clarification">%1$s (віддалено)</string>
     <string name="share_room_clarification">%1$s (розмова)</string>
     <string name="share_search">Ім\'я, ідентифікатор об\'єднаної хмари або ел.адреса...</string>
@@ -998,8 +1000,6 @@
     <string name="upload_file_dialog_title">Зазначте ім\'я та тип файлу для завантаження</string>
     <string name="upload_files">Завантажити файл</string>
     <string name="upload_global_pause_title">Всі завантаження призупинено</string>
-    <string name="upload_gplay">Зміни в дозволах</string>
-    <string name="upload_gplay_desc">Новий дозвіл потрібний для доступу до інформації про місце розташування для завантажених зображень.\nПересвідчіться, що налаштування встановлено у \"Завжди дозволяти все\".</string>
     <string name="upload_item_action_button">Кнопка завантаження</string>
     <string name="upload_list_delete">Вилучити</string>
     <string name="upload_list_empty_headline">Ви ще нічого не завантажили</string>
@@ -1109,6 +1109,24 @@
         <item quantity="few">%d хвилини</item>
         <item quantity="many">%d хвилин</item>
         <item quantity="other">%d хвилин</item>
+    </plurals>
+    <plurals name="time_seconds_ago">
+        <item quantity="one">%d секунду тому</item>
+        <item quantity="few">%d секунди тому</item>
+        <item quantity="many">%d секунд тому</item>
+        <item quantity="other">%d секунд тому</item>
+    </plurals>
+    <plurals name="time_minutes_ago">
+        <item quantity="one">%d хвилину тому</item>
+        <item quantity="few">%d хвилини тому</item>
+        <item quantity="many">%d хвилин тому</item>
+        <item quantity="other">%d хвилин тому</item>
+    </plurals>
+    <plurals name="time_hours_ago">
+        <item quantity="one">%d годину тому</item>
+        <item quantity="few">%d години тому</item>
+        <item quantity="many">%d годин тому</item>
+        <item quantity="other">%d годин тому</item>
     </plurals>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">Не вдалося синхронізувати %1$d файл (конфлікти: %2$d)</item>

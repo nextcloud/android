@@ -263,11 +263,10 @@ public class UploadsStorageManager extends Observable {
      * @param localPath  path of the file to upload in the device storage
      * @return 1 if file status was updated, else 0.
      */
-    private int updateUploadStatus(long id, UploadStatus status, UploadResult result, String remotePath,
+    private void updateUploadStatus(long id, UploadStatus status, UploadResult result, String remotePath,
                                    String localPath) {
         //Log_OC.v(TAG, "Updating "+filepath+" with uploadStatus="+status +" and result="+result);
 
-        int returnValue = 0;
         Cursor c = getDB().query(
             ProviderTableMeta.CONTENT_URI_UPLOADS,
             null,
@@ -281,14 +280,13 @@ public class UploadsStorageManager extends Observable {
                 Log_OC.e(TAG, c.getCount() + " items for id=" + id
                     + " available in UploadDb. Expected 1. Failed to update upload db.");
             } else {
-                returnValue = updateUploadInternal(c, status, result, remotePath, localPath);
+                updateUploadInternal(c, status, result, remotePath, localPath);
             }
             c.close();
         } else {
             Log_OC.e(TAG, "Cursor is null");
         }
 
-        return returnValue;
     }
 
     /**
@@ -733,7 +731,7 @@ public class UploadsStorageManager extends Observable {
         return contentResolver;
     }
 
-    public long clearFailedButNotDelayedUploads() {
+    public void clearFailedButNotDelayedUploads() {
         User user = currentAccountProvider.getUser();
         final long deleted = getDB().delete(
             ProviderTableMeta.CONTENT_URI_UPLOADS,
@@ -753,7 +751,6 @@ public class UploadsStorageManager extends Observable {
         if (deleted > 0) {
             notifyObserversNow();
         }
-        return deleted;
     }
 
     public void clearCancelledUploadsForCurrentAccount() {
@@ -770,7 +767,7 @@ public class UploadsStorageManager extends Observable {
         }
     }
 
-    public long clearSuccessfulUploads() {
+    public void clearSuccessfulUploads() {
         User user = currentAccountProvider.getUser();
         final long deleted = getDB().delete(
             ProviderTableMeta.CONTENT_URI_UPLOADS,
@@ -782,7 +779,6 @@ public class UploadsStorageManager extends Observable {
         if (deleted > 0) {
             notifyObserversNow();
         }
-        return deleted;
     }
 
     /**
@@ -890,9 +886,9 @@ public class UploadsStorageManager extends Observable {
     }
 
     @VisibleForTesting
-    public int removeAllUploads() {
+    public void removeAllUploads() {
         Log_OC.v(TAG, "Delete all uploads!");
-        return getDB().delete(
+        getDB().delete(
             ProviderTableMeta.CONTENT_URI_UPLOADS,
             "",
             new String[]{});

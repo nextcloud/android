@@ -31,8 +31,6 @@
     <string name="add_new_public_share">새 공개된 공유 링크</string>
     <string name="add_new_secure_file_drop">안전한 파일 공유를 새로 추가</string>
     <string name="add_to_cloud">%1$s(으)로 추가</string>
-    <string name="advanced_settings">고급 설정</string>
-    <string name="allow_resharing">다시 공유 허용</string>
     <string name="app_config_base_url_title">기본 URL</string>
     <string name="app_config_disable_clipboard_title">클립보드 비활성화</string>
     <string name="app_config_disable_intro_title">소개 비활성화</string>
@@ -50,7 +48,6 @@
     <string name="assistant_screen_delete_task_alert_dialog_description">이 작업을 삭제하시겠습니까?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">결과 삭제</string>
     <string name="assistant_screen_loading">작업 목록 불러오는 중...</string>
-    <string name="assistant_screen_no_task_available_text">%s작업 유형을 위해 사용 가능한 작업이 없습니다, 오른쪽 하단에서 새 작업을 만들 수 있습니다.</string>
     <string name="assistant_screen_task_create_fail_message">작업을 생성하는 중에 오류가 발생했습니다.</string>
     <string name="assistant_screen_task_create_success_message">작업이 성공적으로 생성됨</string>
     <string name="assistant_screen_task_delete_fail_message">작업을 삭제하는 중에 오류가 발생했습니다.</string>
@@ -97,9 +94,6 @@
     <string name="authenticator_activity_login_error">로그인 요청을 처리하는 동안 문제가 발생했습니다. 나중에 다시 시도해 주세요.</string>
     <string name="authenticator_activity_please_complete_login_process">브라우저에서 로그인 절차를 완료하세요.</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">읽기 전용 파일이므로 기존 폴더에 유지됩니다.</string>
-    <string name="auto_upload_gplay">자동 업로드 동작이 변경되었습니다</string>
-    <string name="auto_upload_gplay_desc">구글의 새로운 제한 정책에 의해, 자동 업로드 기능이 더 이상 자동으로 업로드된 파일을 삭제할 수 없습니다.</string>
-    <string name="auto_upload_gplay_desc2">구글의 새로운 제한 정책에 의해, 우린 중요한 앱 권한을 삭제할 수밖에 없었습니다. 때문에 자동 업로드는 오직 사진과 영상에 대해서만 가능합니다.\n더하여, 사진 업로드를 위해서는 위치 정보 액세스 권한이 필요합니다.\n미디어 액세스 권한이 \"항상 허용\"으로 설정되어 있는지 확인해 주십시오.</string>
     <string name="auto_upload_on_wifi">Wi-Fi에서만 업로드</string>
     <string name="auto_upload_path">/자동 업로드</string>
     <string name="autoupload_configure">구성</string>
@@ -133,7 +127,6 @@
     <string name="clear_notifications_failed">알림을 지우는데 실패했습니다.</string>
     <string name="clear_status_message">상태 메시지 지움</string>
     <string name="clear_status_message_after">상태 메시지 지우기 예약</string>
-    <string name="click_to_learn_how_to_re_enable_auto_uploads">자동 업로드 기능을 다시 활성화하기 위해서는 수동 설정이 필요합니다</string>
     <string name="clipboard_label">%1$s에서 텍스트를 복사함</string>
     <string name="clipboard_no_text_to_copy">클립보드에 복사할 텍스트가 없음</string>
     <string name="clipboard_text_copied">링크 복사됨</string>
@@ -434,7 +427,6 @@
     <string name="file_not_synced">파일을 동기화할 수 없습니다. 마지막으로 불러온 버전을 표시합니다.</string>
     <string name="file_rename">이름 바꾸기</string>
     <string name="file_upload_worker_error_notification_title">업로드 실패. 인터넷에 연결되지 않았습니다</string>
-    <string name="file_upload_worker_same_file_already_exists">동일한 파일이 이미 존재하나 충돌이 감지되지 않음</string>
     <string name="file_version_restored_error">파일 버전을 되돌리는데 오류가 발생했습니다.</string>
     <string name="file_version_restored_successfully">성공적으로 파일 버전을 되돌렸습니다.</string>
     <string name="filedetails_details">세부사항</string>
@@ -510,10 +502,7 @@
     <string name="last_backup">마지막 백업: %1$s</string>
     <string name="link">링크</string>
     <string name="link_name">링크 이름</string>
-    <string name="link_share_allow_upload_and_editing">업로드와 수정 허용</string>
     <string name="link_share_editing">글 수정</string>
-    <string name="link_share_file_drop">파일 업로드 전용</string>
-    <string name="link_share_view_only">읽기 전용</string>
     <string name="list_layout">목록 보기</string>
     <string name="load_more_results">더 많은 결과 불러오기</string>
     <string name="local_file_list_empty">이 폴더에 파일이 없습니다.</string>
@@ -722,8 +711,6 @@
     <string name="push_notifications_old_login">로그인 세션이 오래되어 푸시 알림이 비활성화되었습니다. 계정을 다시 추가하십시오.</string>
     <string name="push_notifications_temp_error">푸시 알림을 사용할 수 없습니다.</string>
     <string name="qr_could_not_be_read">QR 코드를 읽을 수 없습니다!</string>
-    <string name="re_enable_auto_upload">자동 업로드 변경</string>
-    <string name="re_enable_auto_upload_desc">구글의 새로운 제한 정책에 의해, 우린 중요한 앱 권한을 삭제할 수밖에 없었습니다. 우린 이 문제를 해결하고 완전한 기능을 복구하기 위해 구글과 협력하고 있습니다.\n\n새로운 사진 및 동영상 자동 업로드 재설정: 아래 창이나 시스템 설정에서 \"모두 허용\"을 선택해 주세요.\nNextcloud가 업로드 된 사진의 위치 정보를 저장할 수 있도록, 메시지가 나타나면 미디어 위치 권한을 허용해 주세요.\n\n권한 허용 알림창은 오직 불가피한 경우에만 표시됩니다. 의심스럽다면 시스템 설정을 확인해 주세요.\n\n자동 업로드는 오직 Google Play에서 Nextcloud를 다운로드 받은 경우에만 가능합니다.\n\n2024년 12월 이후 업로드되지 않은 파일이 있는지 확인해 주시기 바랍니다.</string>
     <string name="receive_external_files_activity_start_sync_folder_is_not_exists_message">폴더를 찾을 수 없습니다. 동기화 작업이 취소되었습니다.</string>
     <string name="receive_external_files_activity_unable_to_find_file_to_upload">업로드할 파일을 찾을 수 없습니다</string>
     <string name="recommend_subject">사용하고 있는 장치에서 %1$s을(를) 사용해 보세요!</string>
@@ -785,10 +772,14 @@
     <string name="set_status_message">상태 메시지 설정</string>
     <string name="setup_e2e">종단간 암호화를 설정하는 동안, 당신은 다른 장치들에서 당신의 파일들을 열어야 할 무작위의 12 단어 니모닉을 수신할 것입니다. 이것은 당신의 장치에만 저장 될 것이고, 이 스크린에서 다시 보여질 수 있습니다. 이를 안전한 위치에 적어두세요!</string>
     <string name="share">공유</string>
+    <string name="share_allow_download_and_sync_permission">다운로드와 동기화 허용</string>
+    <string name="share_create_permission">생성</string>
+    <string name="share_custom_permission">사용자 지정 권한</string>
+    <string name="share_delete_permission">삭제</string>
     <string name="share_dialog_title">공유</string>
     <string name="share_download_limit">다운로드 제한 설정</string>
+    <string name="share_edit_permission">편집</string>
     <string name="share_expiration_date_format">%1$s</string>
-    <string name="share_expiration_date_label">%1$s 에 만료됨</string>
     <string name="share_file">%1$s 공유</string>
     <string name="share_group_clarification">%1$s(그룹)</string>
     <string name="share_internal_link">내부 링크 공유</string>
@@ -806,11 +797,12 @@
     <string name="share_no_expiration_date_label">만료기한 설정</string>
     <string name="share_no_password_title">비밀번호 설정</string>
     <string name="share_not_allowed_when_file_drop">업로드 전용 보안 공유는 재공유가 허용되지 않습니다</string>
-    <string name="share_password_title">비밀번호로 보호</string>
     <string name="share_permission_can_edit">편집 허용</string>
-    <string name="share_permission_file_drop">파일 업로드 전용</string>
+    <string name="share_permission_file_request">파일 요청</string>
     <string name="share_permission_secure_file_drop">안전한 파일 공유</string>
     <string name="share_permission_view_only">읽기 전용</string>
+    <string name="share_re_share_permission">공유하기</string>
+    <string name="share_read_permission">읽기</string>
     <string name="share_remote_clarification">%1$s(원격)</string>
     <string name="share_room_clarification">%1$s (대화)</string>
     <string name="share_search">이름, 연결된 클라우드 ID 또는 이메일 주소...</string>
@@ -979,8 +971,6 @@
     <string name="upload_file_dialog_title">업로드할 파일 이름과 형식 입력</string>
     <string name="upload_files">파일 업로드</string>
     <string name="upload_global_pause_title">모든 업로드가 일시 정지됨</string>
-    <string name="upload_gplay">권한 변경</string>
-    <string name="upload_gplay_desc">업로드 된 이미지의 위치 정보에 액세스하기 위해서는 새 권한이 필요합니다.\n미디어 액세스 설정이 \"항상 허용\"으로 설정되어 있는지 확인하세요.</string>
     <string name="upload_item_action_button">항목 업로드 동작 단추</string>
     <string name="upload_list_delete">삭제</string>
     <string name="upload_list_empty_headline">업로드 없음</string>

@@ -35,6 +35,9 @@ import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.webkit.CookieManager;
 import android.webkit.URLUtil;
+import android.webkit.WebResourceError;
+import android.webkit.WebResourceRequest;
+import android.webkit.WebView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
@@ -90,6 +93,7 @@ import com.owncloud.android.operations.GetServerInfoOperation;
 import com.owncloud.android.providers.DocumentsStorageProvider;
 import com.owncloud.android.services.OperationsService;
 import com.owncloud.android.services.OperationsService.OperationsServiceBinder;
+import com.owncloud.android.ui.NextcloudWebViewClient;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.activity.SettingsActivity;
 import com.owncloud.android.ui.dialog.IndeterminateProgressDialog;
@@ -98,14 +102,18 @@ import com.owncloud.android.ui.dialog.SslUntrustedCertDialog.OnSslUntrustedCertL
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.ErrorMessageAdapter;
 import com.owncloud.android.utils.PermissionUtil;
+import com.owncloud.android.utils.WebViewUtil;
 import com.owncloud.android.utils.theme.CapabilityUtils;
 import com.owncloud.android.utils.theme.ViewThemeUtils;
 
 import org.json.JSONObject;
 
+import java.io.InputStream;
 import java.net.URLDecoder;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.concurrent.Executors;
@@ -223,7 +231,6 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     @Inject ClientFactory clientFactory;
 
     private String token;
-
     private boolean onlyAdd = false;
 
     private ViewThemeUtils viewThemeUtils;
@@ -452,9 +459,49 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (accountSetupWebviewBinding != null && event.getAction() == KeyEvent.ACTION_DOWN &&
             keyCode == KeyEvent.KEYCODE_BACK) {
+            if (accountSetupWebviewBinding.loginWebview.canGoBack()) {
+                accountSetupWebviewBinding.loginWebview.goBack();
+            } else {
+                finish();
+            }
             return true;
         }
         return super.onKeyDown(keyCode, event);
+    }
+
+    private void setClient() {
+        accountSetupWebviewBinding.loginWebview.setWebViewClient(new NextcloudWebViewClient(getSupportFragmentManager()) {
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
+                String url = request.getUrl().toString();
+                if (url.startsWith(getString(R.string.login_data_own_scheme) + PROTOCOL_SUFFIX + "login/")) {
+                    parseAndLoginFromWebView(url);
+                    return true;
+                }
+                return false;
+            }
+
+            @Override
+            public void onPageFinished(WebView view, String url) {
+                super.onPageFinished(view, url);
+
+                accountSetupWebviewBinding.loginWebviewProgressBar.setVisibility(View.GONE);
+                accountSetupWebviewBinding.loginWebview.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
+                accountSetupWebviewBinding.loginWebviewProgressBar.setVisibility(View.GONE);
+                accountSetupWebviewBinding.loginWebview.setVisibility(View.VISIBLE);
+
+                InputStream resources = getResources().openRawResource(R.raw.custom_error);
+                String customError = DisplayUtils.getData(resources);
+
+                if (!customError.isEmpty()) {
+                    accountSetupWebviewBinding.loginWebview.loadData(customError, "text/html; charset=UTF-8", null);
+                }
+            }
+        });
     }
 
     private void parseAndLoginFromWebView(String dataString) {
@@ -679,8 +726,34 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         if (intent.getBooleanExtra(EXTRA_USE_PROVIDER_AS_WEBLOGIN, false)) {
             accountSetupWebviewBinding = AccountSetupWebviewBinding.inflate(getLayoutInflater());
             setContentView(accountSetupWebviewBinding.getRoot());
-            anonymouslyPostLoginRequest(getString(R.string.provider_registration_server));
+            initSimpleSignupLogin();
         }
+    }
+
+    @SuppressFBWarnings("ANDROID_WEB_VIEW_JAVASCRIPT")
+    @SuppressLint("SetJavaScriptEnabled")
+    private void initSimpleSignupLogin() {
+        viewThemeUtils.platform.colorCircularProgressBar(accountSetupWebviewBinding.loginWebviewProgressBar, ColorRole.ON_PRIMARY_CONTAINER);
+        accountSetupWebviewBinding.loginWebview.setVisibility(View.GONE);
+        new WebViewUtil().setProxyKKPlus(accountSetupWebviewBinding.loginWebview);
+
+        accountSetupWebviewBinding.loginWebview.getSettings().setAllowFileAccess(false);
+        accountSetupWebviewBinding.loginWebview.getSettings().setJavaScriptEnabled(true);
+        accountSetupWebviewBinding.loginWebview.getSettings().setDomStorageEnabled(true);
+
+        accountSetupWebviewBinding.loginWebview.getSettings().setUserAgentString(MainApp.getUserAgent());
+        accountSetupWebviewBinding.loginWebview.getSettings().setSaveFormData(false);
+        accountSetupWebviewBinding.loginWebview.getSettings().setSavePassword(false);
+
+        Map<String, String> headers = new HashMap<>();
+        headers.put(RemoteOperation.OCS_API_HEADER, RemoteOperation.OCS_API_HEADER_VALUE);
+
+        new WebViewUtil().setProxyKKPlus(accountSetupWebviewBinding.loginWebview);
+
+        accountSetupWebviewBinding.loginWebview.loadUrl(getString(R.string.provider_registration_server), headers);
+        accountSetupWebviewBinding.loginFlowV2.loginFlowInfoV2.setVisibility(View.GONE);
+
+        setClient();
     }
 
     private boolean checkIfViaSSO(Intent intent) {

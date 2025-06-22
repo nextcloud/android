@@ -170,53 +170,55 @@ public class FilesystemDataProvider {
     }
 
     private FileSystemDataSet getFilesystemDataSet(String localPathParam, SyncedFolder syncedFolder) {
+        String[] projection = {
+            ProviderMeta.ProviderTableMeta._ID,
+            ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_LOCAL_PATH,
+            ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_MODIFIED,
+            ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_IS_FOLDER,
+            ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_FOUND_RECENTLY,
+            ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_SENT_FOR_UPLOAD,
+            ProviderMeta.ProviderTableMeta.FILESYSTEM_CRC32
+        };
 
-        Cursor cursor = contentResolver.query(
+        String selection = ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_LOCAL_PATH + " = ? AND " +
+            ProviderMeta.ProviderTableMeta.FILESYSTEM_SYNCED_FOLDER_ID + " = ?";
+        String[] selectionArgs = { localPathParam, String.valueOf(syncedFolder.getId()) };
+
+        try (Cursor cursor = contentResolver.query(
             ProviderMeta.ProviderTableMeta.CONTENT_URI_FILESYSTEM,
-            null,
-            ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_LOCAL_PATH + " = ? and " +
-                ProviderMeta.ProviderTableMeta.FILESYSTEM_SYNCED_FOLDER_ID + " = ?",
-            new String[]{localPathParam, Long.toString(syncedFolder.getId())},
+            projection,
+            selection,
+            selectionArgs,
             null
-                                             );
-
-        FileSystemDataSet dataSet = null;
-        if (cursor != null) {
-            if (cursor.moveToFirst()) {
+                                                  )) {
+            if (cursor != null && cursor.moveToFirst()) {
                 int id = cursor.getInt(cursor.getColumnIndexOrThrow(ProviderMeta.ProviderTableMeta._ID));
+                if (id == -1) {
+                    Log_OC.e(TAG, "Arbitrary value could not be created from cursor");
+                    return null;
+                }
+
                 String localPath = cursor.getString(cursor.getColumnIndexOrThrow(
                     ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_LOCAL_PATH));
                 long modifiedAt = cursor.getLong(cursor.getColumnIndexOrThrow(
                     ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_MODIFIED));
-                boolean isFolder = false;
-                if (cursor.getInt(cursor.getColumnIndexOrThrow(
-                    ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_IS_FOLDER)) != 0) {
-                    isFolder = true;
-                }
-                long foundAt = cursor.getLong(cursor.getColumnIndexOrThrow(ProviderMeta.
-                                                                               ProviderTableMeta.FILESYSTEM_FILE_FOUND_RECENTLY));
+                boolean isFolder = cursor.getInt(cursor.getColumnIndexOrThrow(
+                    ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_IS_FOLDER)) != 0;
+                long foundAt = cursor.getLong(cursor.getColumnIndexOrThrow(
+                    ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_FOUND_RECENTLY));
+                boolean isSentForUpload = cursor.getInt(cursor.getColumnIndexOrThrow(
+                    ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_SENT_FOR_UPLOAD)) != 0;
+                String crc32 = cursor.getString(cursor.getColumnIndexOrThrow(
+                    ProviderMeta.ProviderTableMeta.FILESYSTEM_CRC32));
 
-                boolean isSentForUpload = false;
-                if (cursor.getInt(cursor.getColumnIndexOrThrow(
-                    ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_SENT_FOR_UPLOAD)) != 0) {
-                    isSentForUpload = true;
-                }
-
-                String crc32 = cursor.getString(cursor.getColumnIndexOrThrow(ProviderMeta.ProviderTableMeta.FILESYSTEM_CRC32));
-
-                if (id == -1) {
-                    Log_OC.e(TAG, "Arbitrary value could not be created from cursor");
-                } else {
-                    dataSet = new FileSystemDataSet(id, localPath, modifiedAt, isFolder, isSentForUpload, foundAt,
-                                                    syncedFolder.getId(), crc32);
-                }
+                return new FileSystemDataSet(id, localPath, modifiedAt, isFolder, isSentForUpload, foundAt,
+                                             syncedFolder.getId(), crc32);
             }
-            cursor.close();
-        } else {
-            Log_OC.e(TAG, "DB error restoring arbitrary values.");
+        } catch (Exception e) {
+            Log_OC.e(TAG, "DB error restoring arbitrary values.", e);
         }
 
-        return dataSet;
+        return null;
     }
 
     private long getFileChecksum(String filepath) {

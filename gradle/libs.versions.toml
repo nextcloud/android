@@ -3,15 +3,15 @@
 
 [versions]
 espressoVersion = "3.6.1"
-media3 = "1.5.1"
-roomVersion = "2.6.1"
+media3 = "1.7.1"
+roomVersion = "2.7.1"
 splash-screen = "1.0.1"
-kotlin = "2.1.20"
-composeBom = "2025.04.01"
-spotbugsGradlePlugin = "6.1.12"
+kotlin = "2.1.21"
+composeBom = "2025.06.00"
+spotbugsGradlePlugin = "6.2.0"
 detektGradlePlugin = "1.23.8"
 spotless = "6.25.0"
-ksp = "2.1.20-1.0.32"
+ksp = "2.1.21-2.0.2"
 
 [libraries]
 # Splash Screen

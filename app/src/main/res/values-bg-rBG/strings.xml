@@ -29,9 +29,8 @@
     <string name="add_new_public_share">Добавете нова връзка за публично споделяне</string>
     <string name="add_new_secure_file_drop">Добавяне на ново, защитено пускане на файлове</string>
     <string name="add_to_cloud">Добави към %1$s</string>
-    <string name="advanced_settings">Допълнителни настройки</string>
-    <string name="allow_resharing">Може да споделя повторно</string>
     <string name="app_config_base_url_title">Основен URL адрес</string>
+    <string name="app_config_disable_intro_title">Изключи въведението</string>
     <string name="app_config_proxy_port_title">Порт на прокси сървъра</string>
     <string name="app_widget_description">Показва един изпълним модул от таблото за управление</string>
     <string name="appbar_search_in">Търсене в %s</string>
@@ -96,7 +95,7 @@
     <string name="choose_which_file">Изберете кой файл да бъде запазен!</string>
     <string name="choose_widget">Избор на изпълним модул</string>
     <string name="clear_notifications_failed">Изтриването на известията не бе успешно.</string>
-    <string name="clear_status_message">Изчистване на съобщението за състоянието</string>
+    <string name="clear_status_message">Изчисти състоянието</string>
     <string name="clear_status_message_after">Изчистване на съобщение за състоянието след това</string>
     <string name="clipboard_label">Текста е копиран от %1$s</string>
     <string name="clipboard_no_text_to_copy">Няма получен текст за копиране в клипборда</string>
@@ -232,6 +231,7 @@
     <string name="drawer_item_home">Начало</string>
     <string name="drawer_item_notifications">Известия</string>
     <string name="drawer_item_on_device">На устройството</string>
+    <string name="drawer_item_personal_files">Лични файлове</string>
     <string name="drawer_item_recently_modified">Последно преработени</string>
     <string name="drawer_item_shared">Споделени</string>
     <string name="drawer_item_trashbin">Изтрити файлове</string>
@@ -316,6 +316,7 @@
     <string name="file_list_empty_headline">Няма файлове</string>
     <string name="file_list_empty_headline_search">Няма намерени резултати в тази папла</string>
     <string name="file_list_empty_headline_server_search">Няма резултат</string>
+    <string name="file_list_empty_local_search">Не бяха открити файлове или папки, които да отговарят на търсенето</string>
     <string name="file_list_empty_moving">Тук няма нищо. Можете да добавите папка.</string>
     <string name="file_list_empty_on_device">Свалените файлове и папки ще се показват тук.</string>
     <string name="file_list_empty_recently_modified">Няма модифицирани файлове през последните 7 дни</string>
@@ -388,7 +389,8 @@
     <string name="foreign_files_remote_text">Отдалечен: %1$s</string>
     <string name="foreign_files_success">Всички файлове са преместени.</string>
     <string name="forward">Напред</string>
-    <string name="fourHours">4 часа</string>
+    <string name="fourHours">4 чàса</string>
+    <string name="grid_file_features_live_photo_content_description">Иконата служи за индикация дали \"live photo\" е налична</string>
     <string name="hidden_file_name_warning">Името ще доведе до скрит файл</string>
     <string name="hint_name">Име</string>
     <string name="hint_note">Бележка</string>
@@ -407,10 +409,7 @@
     <string name="last_backup">Последно архивиране: %1$s</string>
     <string name="link">Връзка</string>
     <string name="link_name">Име на Връзка</string>
-    <string name="link_share_allow_upload_and_editing">За качване и редактиране</string>
     <string name="link_share_editing">Редактиране</string>
-    <string name="link_share_file_drop">Само за качване</string>
-    <string name="link_share_view_only">Само преглед</string>
     <string name="list_layout">Оформление на списъка с емисии</string>
     <string name="load_more_results">Зареждане на още резултати</string>
     <string name="local_file_list_empty">В папката няма файлове.</string>
@@ -428,7 +427,7 @@
     <string name="login_url_helper_text">Връзката към вашия %1$sуеб интерфейс, когато го отворите в браузъра.</string>
     <string name="logs_menu_delete">Изтрий журналите</string>
     <string name="logs_menu_refresh">Опресни</string>
-    <string name="logs_menu_search">Търсене на журнали</string>
+    <string name="logs_menu_search">Търсене в регистрите</string>
     <string name="logs_menu_send">Изпращане на журнали по имейл</string>
     <string name="logs_status_filtered">Журнали:%1$d kB, заявката съвпада%2$d /%3$d в%4$d ms</string>
     <string name="logs_status_loading">Зареждане…</string>
@@ -499,7 +498,7 @@
     <string name="offline_mode">Няма връзка с Интернет</string>
     <string name="oneHour">1 час</string>
     <string name="online">На линия</string>
-    <string name="online_status">Състояние на линия</string>
+    <string name="online_status">Състояние</string>
     <string name="outdated_server">Сървърът е достигнал края на живота си, моля, надстройте!</string>
     <string name="overflow_menu">Повече</string>
     <string name="pass_code_configure_your_pass_code">Въведете кода за достъп</string>
@@ -590,7 +589,7 @@
     <string name="recommend_subject">Пробвайте%1$sна вашето устройство</string>
     <string name="recommend_text">Каня Ви да използвате %1$s на вашето device.\nDownload тук %2$s</string>
     <string name="recommend_urls">%1$s или %2$s</string>
-    <string name="recommended_files_title">Препоръчани файлове</string>
+    <string name="recommended_files_title">Файлове</string>
     <string name="refresh_content">Обновяване на съдържанието</string>
     <string name="reload">Презареди</string>
     <string name="remote">(отдалечен)</string>
@@ -637,10 +636,13 @@
     <string name="set_status_message">Задайте съобщение за състояние</string>
     <string name="setup_e2e">По време на настройката на цялостното криптиране ще получите мнемоника от 12 произволни думи , която ще ви е необходима, за да отваряте файловете си на други устройства. Тя ще бъде съхранена само на това устройство и може да бъде показана отново на този екран. Моля, запишете я на сигурно място!</string>
     <string name="share">Сподели</string>
+    <string name="share_create_permission">Създаване</string>
+    <string name="share_custom_permission">Персонализиране на права</string>
+    <string name="share_delete_permission">Изтриване</string>
     <string name="share_dialog_title">Споделяне</string>
     <string name="share_download_limit">Задаване на ограничение за изтегляне</string>
+    <string name="share_edit_permission">Редактиране</string>
     <string name="share_expiration_date_format">%1$s</string>
-    <string name="share_expiration_date_label">Изтича %1$s</string>
     <string name="share_file">Споделяне на %1$s</string>
     <string name="share_group_clarification">%1$s (група)</string>
     <string name="share_internal_link">Сподели вътрешна връзка</string>
@@ -657,13 +659,14 @@
     <string name="share_link_with_label">Споделяне на линк (%1$s)</string>
     <string name="share_no_expiration_date_label">Срок на валидност</string>
     <string name="share_no_password_title">Задайте парола</string>
-    <string name="share_password_title">Защитена с парола</string>
     <string name="share_permission_can_edit">Може да редактира</string>
-    <string name="share_permission_file_drop">Пускане/Преместване/ на файл</string>
     <string name="share_permission_secure_file_drop">Защитено пускане на файлове</string>
     <string name="share_permission_view_only">Само изглед</string>
+    <string name="share_re_share_permission">Споделяне</string>
+    <string name="share_read_permission">Прочитане</string>
     <string name="share_remote_clarification">%1$s (отдалечен)</string>
     <string name="share_room_clarification">%1$s (разговор)</string>
+    <string name="share_search_internal">Добави потребители и екипи</string>
     <string name="share_send_new_email">Изпращане на нов имейл</string>
     <string name="share_send_note">Бележка за получателя</string>
     <string name="share_settings">Настройки</string>
@@ -887,7 +890,7 @@
     <string name="what_s_new_image">Какво ново</string>
     <string name="whats_new_skip">Пропусни</string>
     <string name="whats_new_title">Ново в %1$s</string>
-    <string name="whats_your_status">Какъв е вашият статус?</string>
+    <string name="whats_your_status">Какво е вашето състояние?</string>
     <string name="widgets_not_available_title">Не е наличен</string>
     <string name="worker_download">Сваляне на файлове...</string>
     <string name="write_email">Изпращане на имейл</string>
