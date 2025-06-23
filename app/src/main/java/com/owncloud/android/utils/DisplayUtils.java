@@ -32,6 +32,7 @@ import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.PictureDrawable;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.text.Spannable;
@@ -48,6 +49,8 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
+import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.Target;
 import com.caverock.androidsvg.SVG;
 import com.elyeproj.loaderviewlibrary.LoaderImageView;
@@ -73,6 +76,7 @@ import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.dialog.SortingOrderDialogFragment;
 import com.owncloud.android.ui.events.SearchEvent;
 import com.owncloud.android.ui.fragment.OCFileListFragment;
+import com.owncloud.android.utils.svg.SvgSoftwareLayerSetter;
 import com.owncloud.android.utils.theme.ViewThemeUtils;
 
 import org.greenrobot.eventbus.EventBus;
@@ -522,15 +526,13 @@ public final class DisplayUtils {
         task.execute(userId);
     }
 
-    public static void downloadIcon(CurrentAccountProvider currentAccountProvider,
-                                    ClientFactory clientFactory,
-                                    Context context,
+    public static void downloadIcon(Context context,
                                     String iconUrl,
                                     Target imageView,
                                     int placeholder) {
         try {
             if (Uri.parse(iconUrl).getEncodedPath().endsWith(".svg")) {
-                downloadSVGIcon(currentAccountProvider, clientFactory, context, iconUrl, imageView, placeholder);
+                downloadSVGIcon(context, iconUrl, imageView, placeholder);
             } else {
                 downloadPNGIcon(context, iconUrl, imageView, placeholder);
             }
@@ -539,7 +541,7 @@ public final class DisplayUtils {
         }
     }
 
-    private static void downloadPNGIcon(Context context, String iconUrl, Target imageView, int placeholder) {
+    private static void downloadPNGIcon(Context context, String iconUrl, Target<Drawable> imageView, int placeholder) {
         Glide
             .with(context)
             .load(iconUrl)
@@ -549,31 +551,30 @@ public final class DisplayUtils {
             .into(imageView);
     }
 
-    private static void downloadSVGIcon(CurrentAccountProvider currentAccountProvider,
-                                        ClientFactory clientFactory,
-                                        Context context,
-                                        String iconUrl,
-                                        Target imageView,
-                                        int placeholder) {
-        Uri uri = Uri.parse(iconUrl);
-        
-        Glide
-            .with(context)
-            .as(SVG.class)
+    public static void downloadSVGIcon(Context context,
+                                       String iconUrl,
+                                       Target<PictureDrawable> target,
+                                       int placeholder) {
+
+        Glide.with(context)
+            .as(PictureDrawable.class)
+            .load(Uri.parse(iconUrl))
             .placeholder(placeholder)
             .error(placeholder)
-            .load(uri)
-            .into(imageView);
+            .transition(DrawableTransitionOptions.withCrossFade(android.R.anim.fade_in))
+            .listener(new SvgSoftwareLayerSetter())
+            .into(target);
     }
 
     public static Bitmap downloadImageSynchronous(Context context, String imageUrl) {
         try {
-            return Glide.with(context)
+            return Glide
+                .with(context)
                 .asBitmap()
                 .load(imageUrl)
                 .diskCacheStrategy(DiskCacheStrategy.NONE)
                 .skipMemoryCache(true)
-                .into(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL)
+                .submit(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL)
                 .get();
         } catch (Exception e) {
             Log_OC.e(TAG, "Could not download image " + imageUrl);
