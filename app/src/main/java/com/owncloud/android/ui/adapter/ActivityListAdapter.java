@@ -35,6 +35,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.nextcloud.client.account.CurrentAccountProvider;
 import com.nextcloud.client.network.ClientFactory;
 import com.nextcloud.common.NextcloudClient;
@@ -177,7 +178,7 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             }
 
 
-            if (activity.getRichSubjectElement().getRichObjectList().size() > 0) {
+            if (!activity.getRichSubjectElement().getRichObjectList().isEmpty()) {
                 activityViewHolder.binding.list.setVisibility(View.VISIBLE);
                 activityViewHolder.binding.list.removeAllViews();
 
@@ -263,7 +264,9 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     private void downloadIcon(Activity activity, ImageView itemViewType) {
         Glide.with(context)
             .as(PictureDrawable.class)
-//            .fitCenter()
+            .placeholder(R.drawable.ic_activity)
+            .error(R.drawable.ic_activity)
+            .transition(DrawableTransitionOptions.withCrossFade())
             .listener(new SvgSoftwareLayerSetter())
             .load(activity.getIcon())
             .into(itemViewType);
