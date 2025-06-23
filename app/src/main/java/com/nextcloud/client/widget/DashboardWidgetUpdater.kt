@@ -16,6 +16,8 @@ import android.os.Build
 import android.view.View
 import android.widget.RemoteViews
 import androidx.core.net.toUri
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.target.AppWidgetTarget
 import com.bumptech.glide.request.transition.Transition
 import com.nextcloud.android.lib.resources.dashboard.DashboardButton
@@ -51,7 +53,7 @@ class DashboardWidgetUpdater @Inject constructor(
             setAddButton(addButton, appWidgetId, this)
             setPendingReload(this, appWidgetId)
             setPendingClick(this)
-            loadIcon(appWidgetId, iconUrl, this)
+            loadIcon(iconUrl, this)
         }
 
         appWidgetManager.run {
@@ -145,22 +147,19 @@ class DashboardWidgetUpdater @Inject constructor(
     }
     // endregion
 
-    private fun loadIcon(appWidgetId: Int, iconUrl: String, remoteViews: RemoteViews) {
+    private fun loadIcon(iconUrl: String, remoteViews: RemoteViews) {
         val iconTarget = object : AppWidgetTarget(context, R.id.icon, remoteViews) {
             override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
                 val tintedBitmap = BitmapUtils.tintImage(resource, R.color.black)
                 super.onResourceReady(tintedBitmap, transition)
             }
         }
-        
-//         Glide.with(context)
-//             .`as`(SVGorImage::class.java)
-// //            .transcode(SvgOrImageBitmapTranscoder(SVG_SIZE, SVG_SIZE), Bitmap::class.java)
-//   //          .sourceEncoder(StreamEncoder())
-// //            .cacheDecoder(FileToStreamDecoder(SvgOrImageDecoder()))
-// //            .decoder(SvgOrImageDecoder())
-// //            .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-//             .load(iconUrl.toUri())
-//             .into(iconTarget)
+
+        Glide
+            .with(context)
+            .asBitmap()
+            .load(iconUrl.toUri())
+            .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+            .into(iconTarget)
     }
 }
