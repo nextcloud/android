@@ -552,12 +552,12 @@ public final class DisplayUtils {
                                        Target<PictureDrawable> target,
                                        int placeholder) {
 
-        Glide.with(context)
+        Glide
+            .with(context)
             .as(PictureDrawable.class)
             .load(Uri.parse(iconUrl))
             .placeholder(placeholder)
             .error(placeholder)
-            .transition(DrawableTransitionOptions.withCrossFade(android.R.anim.fade_in))
             .listener(new SvgSoftwareLayerSetter())
             .into(target);
     }
