@@ -16,6 +16,7 @@ import androidx.core.net.toUri
 import com.bumptech.glide.Glide
 import com.bumptech.glide.RequestBuilder
 import com.bumptech.glide.request.target.Target
+import com.owncloud.android.utils.DisplayUtils.SVG_SIZE
 import com.owncloud.android.utils.svg.SvgSoftwareLayerSetter
 
 object GlideHelper {
@@ -31,6 +32,18 @@ object GlideHelper {
             .placeholder(placeholder)
             .error(placeholder)
             .listener(SvgSoftwareLayerSetter())
+    }
+
+    fun createPictureDrawable(context: Context, icon: String?): PictureDrawable? {
+        val uri = icon?.toUri() ?: return null
+
+        return Glide
+            .with(context)
+            .`as`(PictureDrawable::class.java)
+            .load(uri)
+            .override(SVG_SIZE, SVG_SIZE)
+            .submit()
+            .get()
     }
 
     fun loadSvg(context: Context, icon: String?, imageView: ImageView, @DrawableRes placeholder: Int) {
