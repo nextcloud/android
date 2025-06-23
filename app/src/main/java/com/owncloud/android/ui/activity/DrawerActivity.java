@@ -43,7 +43,6 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.CustomTarget;
 import com.bumptech.glide.request.target.Target;
 import com.bumptech.glide.request.transition.Transition;
-import com.caverock.androidsvg.SVG;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.navigation.NavigationView;
@@ -98,7 +97,6 @@ import com.owncloud.android.utils.BitmapUtils;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.DrawerMenuUtil;
 import com.owncloud.android.utils.FilesSyncHelper;
-import com.owncloud.android.utils.svg.MenuSimpleTarget;
 import com.owncloud.android.utils.theme.CapabilityUtils;
 
 import org.greenrobot.eventbus.EventBus;
@@ -1017,50 +1015,68 @@ public abstract class DrawerActivity extends ToolbarActivity
     }
 
     private void updateExternalLinksInDrawer() {
-        if (drawerNavigationView != null && MDMConfig.INSTANCE.externalSiteSupport(this)) {
-            drawerNavigationView.getMenu().removeGroup(R.id.drawer_menu_external_links);
-
-            int greyColor = ContextCompat.getColor(this, R.color.drawer_menu_icon);
-
-            for (final ExternalLink link : externalLinksProvider.getExternalLink(ExternalLinkType.LINK)) {
-                int id = drawerNavigationView.getMenu().add(R.id.drawer_menu_external_links,
-                                                            MENU_ITEM_EXTERNAL_LINK + link.getId(), MENU_ORDER_EXTERNAL_LINKS, link.getName())
-                    .setCheckable(true).getItemId();
-
-                MenuSimpleTarget<SVG> target = new MenuSimpleTarget<>(id) {
-                    @Override
-                    public void onResourceReady(SVG resource, @Nullable Transition<? super SVG> transition) {
-                        // TODO Glide
-                        //setExternalLinkIcon(getIdMenuItem(), resource, greyColor);
-                    }
-
-                    @Override
-                    public void onLoadFailed(@Nullable Drawable errorDrawable) {
-                        super.onLoadFailed(errorDrawable);
-                        setExternalLinkIcon(getIdMenuItem(), errorDrawable, greyColor);
-                    }
-                };
-
-                DisplayUtils.downloadIcon(getUserAccountManager(),
-                                          clientFactory,
-                                          this,
-                                          link.getIconUrl(),
-                                          target,
-                                          R.drawable.ic_link);
-            }
+        if (drawerNavigationView == null || !MDMConfig.INSTANCE.externalSiteSupport(this)) {
+            return;
         }
+
+        drawerNavigationView.getMenu().removeGroup(R.id.drawer_menu_external_links);
+
+        int greyColor = ContextCompat.getColor(this, R.color.drawer_menu_icon);
+
+        for (final ExternalLink link : externalLinksProvider.getExternalLink(ExternalLinkType.LINK)) {
+            int id = drawerNavigationView
+                .getMenu()
+                .add(R.id.drawer_menu_external_links,
+                     MENU_ITEM_EXTERNAL_LINK +
+                         link.getId(), MENU_ORDER_EXTERNAL_LINKS,
+                     link.getName()
+                    )
+                .setCheckable(true)
+                .getItemId();
+
+            Target<Drawable> iconTarget = createMenuItemTarget(id, greyColor);
+
+            DisplayUtils.downloadIcon(
+                getUserAccountManager(),
+                clientFactory,
+                this,
+                link.getIconUrl(),
+                iconTarget,
+                R.drawable.ic_link);
+        }
+    }
+
+    private Target<Drawable> createMenuItemTarget(int menuItemId, int tintColor) {
+        return new CustomTarget<>() {
+            @Override
+            public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
+                setExternalLinkIcon(menuItemId, resource, tintColor);
+            }
+
+            @Override
+            public void onLoadFailed(@Nullable Drawable errorDrawable) {
+                setExternalLinkIcon(menuItemId, errorDrawable, tintColor);
+            }
+
+            @Override
+            public void onLoadCleared(@Nullable Drawable placeholder) {
+
+            }
+        };
     }
 
     private void setExternalLinkIcon(int id, Drawable drawable, int greyColor) {
         MenuItem menuItem = drawerNavigationView.getMenu().findItem(id);
-
-        if (menuItem != null) {
-            if (drawable != null) {
-                menuItem.setIcon(viewThemeUtils.platform.colorDrawable(drawable, greyColor));
-            } else {
-                menuItem.setIcon(R.drawable.ic_link);
-            }
+        if (menuItem == null) {
+            return;
         }
+
+        if (drawable == null) {
+            menuItem.setIcon(R.drawable.ic_link);
+            return;
+        }
+
+        menuItem.setIcon(viewThemeUtils.platform.colorDrawable(drawable, greyColor));
     }
 
     @Override
