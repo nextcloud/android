@@ -11,8 +11,8 @@ import com.bumptech.glide.load.model.ModelLoaderFactory
 import com.bumptech.glide.load.model.MultiModelLoaderFactory
 import java.io.InputStream
 
-class StringModelLoaderFactory : ModelLoaderFactory<String?, InputStream?> {
-    override fun build(unused: MultiModelLoaderFactory): ModelLoader<String?, InputStream?> {
+class StringModelLoaderFactory : ModelLoaderFactory<String, InputStream> {
+    override fun build(unused: MultiModelLoaderFactory): ModelLoader<String, InputStream> {
         return GlideStringStreamLoader()
     }
 
