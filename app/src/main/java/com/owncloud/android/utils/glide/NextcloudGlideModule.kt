@@ -21,20 +21,22 @@ import com.owncloud.android.utils.svg.SvgDrawableTranscoder
 import com.owncloud.android.utils.svg.SvgOrImageBitmapTranscoder
 import java.io.InputStream
 
-/**
- * Module for generating api.
- */
 @GlideModule
 class NextcloudGlideModule : AppGlideModule() {
     override fun registerComponents(context: Context, glide: Glide, registry: Registry) {
-        registry.prepend<String?, InputStream?>(String::class.java, InputStream::class.java, StringModelLoaderFactory())
-        registry.register<SVGorImage?, Bitmap?>(
+        registry
+            .prepend<String, InputStream>(String::class.java, InputStream::class.java, StringModelLoaderFactory())
+
+        registry
+            .register<SVGorImage, Bitmap>(
             SVGorImage::class.java, Bitmap::class.java, SvgOrImageBitmapTranscoder(
                 SVG_SIZE, SVG_SIZE
             )
         )
-        registry.register<SVG?, PictureDrawable?>(SVG::class.java, PictureDrawable::class.java, SvgDrawableTranscoder())
-            .append<InputStream?, SVG?>(InputStream::class.java, SVG::class.java, SvgDecoder())
+
+        registry
+            .register<SVG, PictureDrawable>(SVG::class.java, PictureDrawable::class.java, SvgDrawableTranscoder())
+            .append<InputStream, SVG>(InputStream::class.java, SVG::class.java, SvgDecoder())
     }
 
     // Disable manifest parsing to avoid adding similar modules twice.
