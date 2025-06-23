@@ -388,7 +388,12 @@ public class OCFileListFragment extends ExtendedListFragment implements
         if (mHideFab) {
             setFabVisible(false);
         } else {
-            setFabVisible(true);
+            if (mFile != null) {
+                setFabVisible(mFile.canWrite());
+            } else {
+                setFabVisible(true);
+            }
+
             registerFabListener();
         }
 
@@ -896,7 +901,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
             // show FAB on multi selection mode exit
             if (!mHideFab && !searchFragment) {
-                setFabVisible(true);
+                setFabVisible(mFile.canWrite());
             }
 
             Activity activity = getActivity();
@@ -1522,7 +1527,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
     public void refreshDirectory() {
         searchFragment = false;
 
-        setFabVisible(true);
+        setFabVisible(mFile.canWrite());
         listDirectory(getCurrentFile(), MainApp.isOnlyOnDevice(), false);
     }
 
@@ -1831,7 +1836,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
             arguments.putParcelable(OCFileListFragment.SEARCH_EVENT, null);
         }
 
-        setFabVisible(true);
+        setFabVisible(mFile.canWrite());
     }
 
     private void resetMenuItems() {
