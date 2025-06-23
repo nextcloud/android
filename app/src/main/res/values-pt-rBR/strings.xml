@@ -786,6 +786,7 @@
     <string name="send">Enviar</string>
     <string name="send_share">Enviar compartilhamento</string>
     <string name="sendbutton_description">Ícone do botão Enviar</string>
+    <string name="server_not_reachable">Não foi possível carregar o conteúdo</string>
     <string name="set_as">Definir como</string>
     <string name="set_download_limit_failed">Não foi possível definir o limite de download. Verifique as capacidades.</string>
     <string name="set_note">Definir nota</string>
