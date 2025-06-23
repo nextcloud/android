@@ -10,11 +10,9 @@
  */
 package com.owncloud.android.ui.adapter;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Typeface;
-import android.graphics.drawable.PictureDrawable;
 import android.net.Uri;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
@@ -25,15 +23,12 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.google.android.material.button.MaterialButton;
 import com.nextcloud.android.common.ui.theme.utils.ColorRole;
 import com.nextcloud.common.NextcloudClient;
+import com.nextcloud.utils.GlideHelper;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.NotificationListItemBinding;
 import com.owncloud.android.lib.resources.notifications.models.Action;
@@ -44,7 +39,6 @@ import com.owncloud.android.ui.activity.NotificationsActivity;
 import com.owncloud.android.ui.asynctasks.DeleteNotificationTask;
 import com.owncloud.android.ui.asynctasks.NotificationExecuteActionTask;
 import com.owncloud.android.utils.DisplayUtils;
-import com.owncloud.android.utils.svg.SvgSoftwareLayerSetter;
 import com.owncloud.android.utils.theme.ViewThemeUtils;
 
 import java.util.ArrayList;
@@ -135,7 +129,7 @@ public class NotificationListAdapter extends RecyclerView.Adapter<NotificationLi
         }
 
         if (!TextUtils.isEmpty(notification.getIcon())) {
-            downloadIcon(notification.getIcon(), holder.binding.icon, notificationsActivity);
+            GlideHelper.INSTANCE.loadSvg(notificationsActivity, notification.getIcon(), holder.binding.icon, R.drawable.ic_notification);
         }
 
         viewThemeUtils.platform.colorImageView(holder.binding.icon, ColorRole.ON_SURFACE_VARIANT);
@@ -341,19 +335,6 @@ public class NotificationListAdapter extends RecyclerView.Adapter<NotificationLi
         for (int i = 0; i < holder.binding.buttons.getChildCount(); i++) {
             holder.binding.buttons.getChildAt(i).setEnabled(enabled);
         }
-    }
-
-    private void downloadIcon(String icon, ImageView itemViewType, Context context) {
-        Uri uri = Uri.parse(icon);
-
-        Glide
-            .with(context)
-            .as(PictureDrawable.class)
-            .load(uri)
-            .placeholder(R.drawable.ic_notification)
-            .error(R.drawable.ic_notification)
-            .listener(new SvgSoftwareLayerSetter())
-            .into(itemViewType);
     }
 
     @Override
