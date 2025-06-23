@@ -54,7 +54,6 @@ class HttpStreamFetcher internal constructor(
                 client.exhaustResponse(get.responseBodyAsStream)
                 callback.onLoadFailed(IOException("Unexpected HTTP status $status"))
             }
-
         } catch (e: Exception) {
             Log_OC.e(TAG, e.message, e)
             callback.onLoadFailed(e)
