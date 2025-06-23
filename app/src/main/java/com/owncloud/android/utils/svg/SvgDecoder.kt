@@ -8,50 +8,39 @@
  * https://github.com/bumptech/glide/blob/master/samples/svg/src/main/java/com/bumptech/glide/samples/svg/
  * SvgDecoder.java
  */
-package com.owncloud.android.utils.svg;
+package com.owncloud.android.utils.svg
 
-import com.bumptech.glide.load.Options;
-import com.bumptech.glide.load.ResourceDecoder;
-import com.bumptech.glide.load.engine.Resource;
-import com.bumptech.glide.load.resource.SimpleResource;
-import com.caverock.androidsvg.PreserveAspectRatio;
-import com.caverock.androidsvg.SVG;
-import com.caverock.androidsvg.SVGParseException;
-
-import java.io.IOException;
-import java.io.InputStream;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
+import com.bumptech.glide.load.Options
+import com.bumptech.glide.load.ResourceDecoder
+import com.bumptech.glide.load.engine.Resource
+import com.bumptech.glide.load.resource.SimpleResource
+import com.caverock.androidsvg.PreserveAspectRatio
+import com.caverock.androidsvg.SVG
+import com.caverock.androidsvg.SVGParseException
+import java.io.IOException
+import java.io.InputStream
 
 /**
- * Decodes an SVG internal representation from an {@link InputStream}.
+ * Decodes an SVG internal representation from an [InputStream].
  */
-public class SvgDecoder implements ResourceDecoder<InputStream, SVG> {
-    public SvgDecoder() {
-        // empty constructor
-    }
-
-    @Nullable
-    @Override
-    public Resource<SVG> decode(@NonNull InputStream source, int width, int height, @NonNull Options options) throws IOException {
+class SvgDecoder : ResourceDecoder<InputStream?, SVG?> {
+    @Throws(IOException::class)
+    override fun decode(source: InputStream, width: Int, height: Int, options: Options): Resource<SVG?>? {
         try {
-            SVG svg = SVG.getFromInputStream(source);
-            svg.setDocumentViewBox(0, 0, svg.getDocumentWidth(), svg.getDocumentHeight());
-            svg.setDocumentWidth("100%");
-            svg.setDocumentHeight("100%");
-            svg.setDocumentPreserveAspectRatio(PreserveAspectRatio.LETTERBOX);
+            val svg = SVG.getFromInputStream(source)
+            svg.setDocumentViewBox(0f, 0f, svg.documentWidth, svg.documentHeight)
+            svg.setDocumentWidth("100%")
+            svg.setDocumentHeight("100%")
+            svg.documentPreserveAspectRatio = PreserveAspectRatio.LETTERBOX
 
-            return new SimpleResource<>(svg);
-        } catch (SVGParseException ex) {
-            throw new IOException("Cannot load SVG from stream", ex);
+            return SimpleResource<SVG?>(svg)
+        } catch (ex: SVGParseException) {
+            throw IOException("Cannot load SVG from stream", ex)
         }
     }
 
-    @Override
-    public boolean handles(@NonNull InputStream source, @NonNull Options options) throws IOException {
-        return true;
+    @Throws(IOException::class)
+    override fun handles(source: InputStream, options: Options): Boolean {
+        return true
     }
-
-    
 }
