@@ -46,6 +46,6 @@ android {
 
 dependencies {
     implementation "androidx.appcompat:appcompat:$appCompatVersion"
-    implementation "com.github.zynkware:Document-Scanning-Android-SDK:$documentScannerVersion"
+    implementation "com.github.Hazzatur:Document-Scanning-Android-SDK:$documentScannerVersion"
     implementation "com.github.nextcloud.android-common:ui:$androidCommonLibraryVersion"
 }
