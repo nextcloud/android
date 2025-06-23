@@ -23,9 +23,9 @@ import java.io.InputStream
 /**
  * Decodes an SVG internal representation from an [InputStream].
  */
-class SvgDecoder : ResourceDecoder<InputStream?, SVG?> {
+class SvgDecoder : ResourceDecoder<InputStream, SVG> {
     @Throws(IOException::class)
-    override fun decode(source: InputStream, width: Int, height: Int, options: Options): Resource<SVG?>? {
+    override fun decode(source: InputStream, width: Int, height: Int, options: Options): Resource<SVG> {
         try {
             val svg = SVG.getFromInputStream(source)
             svg.setDocumentViewBox(0f, 0f, svg.documentWidth, svg.documentHeight)
@@ -33,7 +33,7 @@ class SvgDecoder : ResourceDecoder<InputStream?, SVG?> {
             svg.setDocumentHeight("100%")
             svg.documentPreserveAspectRatio = PreserveAspectRatio.LETTERBOX
 
-            return SimpleResource<SVG?>(svg)
+            return SimpleResource<SVG>(svg)
         } catch (ex: SVGParseException) {
             throw IOException("Cannot load SVG from stream", ex)
         }
