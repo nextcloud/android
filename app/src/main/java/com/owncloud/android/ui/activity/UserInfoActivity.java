@@ -26,7 +26,8 @@ import android.webkit.URLUtil;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.target.CustomTarget;
+import com.bumptech.glide.request.target.Target;
 import com.bumptech.glide.request.transition.Transition;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.di.Injectable;
@@ -185,51 +186,63 @@ public class UserInfoActivity extends DrawerActivity implements Injectable {
     }
 
     private void setHeaderImage() {
-        if (getStorageManager().getCapability(user.getAccountName()).getServerBackground() != null) {
-            ImageView backgroundImageView = findViewById(R.id.userinfo_background);
-
-            if (backgroundImageView != null) {
-
-                String background = getStorageManager().getCapability(user.getAccountName()).getServerBackground();
-
-                if (URLUtil.isValidUrl(background)) {
-                    // background image
-                    SimpleTarget target = new SimpleTarget<Drawable>() {
-                        @Override
-                        public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
-                            Drawable[] drawables = {
-                                viewThemeUtils.platform.getPrimaryColorDrawable(backgroundImageView.getContext()),
-                                resource};
-                            LayerDrawable layerDrawable = new LayerDrawable(drawables);
-                            backgroundImageView.setImageDrawable(layerDrawable);
-                        }
-
-                        @Override
-                        public void onLoadFailed(@Nullable Drawable errorDrawable) {
-                            Drawable[] drawables = {
-                                viewThemeUtils.platform.getPrimaryColorDrawable(backgroundImageView.getContext()),
-                                ResourcesCompat.getDrawable(getResources(),
-                                                            R.drawable.background,
-                                                            null)};
-                            LayerDrawable layerDrawable = new LayerDrawable(drawables);
-                            backgroundImageView.setImageDrawable(layerDrawable);
-                        }
-                    };
-
-                    Glide.with(this)
-                            .load(background)
-                            .centerCrop()
-                            .placeholder(R.drawable.background)
-                            .error(R.drawable.background)
-                            .into(target);
-                } else {
-                    // plain color
-                    backgroundImageView.setImageDrawable(
-                        viewThemeUtils.platform.getPrimaryColorDrawable(backgroundImageView.getContext()));
-                }
-            }
+        if (getStorageManager().getCapability(user.getAccountName()).getServerBackground() == null) {
+            return;
         }
+
+        ImageView backgroundImageView = findViewById(R.id.userinfo_background);
+        if (backgroundImageView == null) {
+            return;
+        }
+
+        String background = getStorageManager().getCapability(user.getAccountName()).getServerBackground();
+        if (!URLUtil.isValidUrl(background)) {
+            final Drawable drawable = viewThemeUtils.platform.getPrimaryColorDrawable(backgroundImageView.getContext());
+            backgroundImageView.setImageDrawable(drawable);
+            return;
+        }
+
+        Target<Drawable> backgroundImageTarget = createBackgroundImageTarget(backgroundImageView);
+
+        Glide.with(this)
+            .load(background)
+            .centerCrop()
+            .placeholder(R.drawable.background)
+            .error(R.drawable.background)
+            .into(backgroundImageTarget);
     }
+
+    private Target<Drawable> createBackgroundImageTarget(ImageView backgroundImageView) {
+        return new CustomTarget<>() {
+            @Override
+            public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
+                Drawable[] drawables = {
+                    viewThemeUtils.platform.getPrimaryColorDrawable(backgroundImageView.getContext()),
+                    resource
+                };
+                LayerDrawable layerDrawable = new LayerDrawable(drawables);
+                backgroundImageView.setImageDrawable(layerDrawable);
+            }
+
+            @Override
+            public void onLoadFailed(@Nullable Drawable errorDrawable) {
+                Drawable fallback = ResourcesCompat.getDrawable(backgroundImageView.getResources(), R.drawable.background, null);
+
+                Drawable[] drawables = {
+                    viewThemeUtils.platform.getPrimaryColorDrawable(backgroundImageView.getContext()),
+                    fallback
+                };
+                LayerDrawable layerDrawable = new LayerDrawable(drawables);
+                backgroundImageView.setImageDrawable(layerDrawable);
+            }
+
+            @Override
+            public void onLoadCleared(@Nullable Drawable placeholder) {
+
+            }
+        };
+    }
+
 
     private void populateUserInfoUi(UserInfo userInfo) {
         binding.userinfoUsername.setText(user.getAccountName());
