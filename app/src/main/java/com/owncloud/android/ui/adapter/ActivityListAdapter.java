@@ -266,7 +266,7 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             .as(PictureDrawable.class)
             .placeholder(R.drawable.ic_activity)
             .error(R.drawable.ic_activity)
-            .transition(DrawableTransitionOptions.withCrossFade())
+            .transition(DrawableTransitionOptions.withCrossFade(android.R.anim.fade_in))
             .listener(new SvgSoftwareLayerSetter())
             .load(activity.getIcon())
             .into(itemViewType);

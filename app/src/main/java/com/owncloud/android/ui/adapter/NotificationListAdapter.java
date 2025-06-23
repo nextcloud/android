@@ -352,7 +352,7 @@ public class NotificationListAdapter extends RecyclerView.Adapter<NotificationLi
             .load(uri)
             .placeholder(R.drawable.ic_notification)
             .error(R.drawable.ic_notification)
-            .transition(DrawableTransitionOptions.withCrossFade())
+            .transition(DrawableTransitionOptions.withCrossFade(android.R.anim.fade_in))
             .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
             .listener(new SvgSoftwareLayerSetter())
             .into(itemViewType);
