@@ -7,6 +7,7 @@
  */
 package com.owncloud.android.ui.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,27 +35,20 @@ import androidx.recyclerview.widget.RecyclerView;
 public class RichDocumentsTemplateAdapter extends RecyclerView.Adapter<RichDocumentsTemplateAdapter.ViewHolder> {
 
     private List<Template> templateList = new ArrayList<>();
-    private ClickListener clickListener;
-    private Context context;
-    private ChooseRichDocumentsTemplateDialogFragment.Type type;
-    private CurrentAccountProvider currentAccountProvider;
-    private ClientFactory clientFactory;
+    private final ClickListener clickListener;
+    private final Context context;
+    private final ChooseRichDocumentsTemplateDialogFragment.Type type;
     private Template selectedTemplate;
-    private ViewThemeUtils viewThemeUtils;
+    private final ViewThemeUtils viewThemeUtils;
 
     public RichDocumentsTemplateAdapter(
         ChooseRichDocumentsTemplateDialogFragment.Type type,
         ClickListener clickListener,
         Context context,
-        CurrentAccountProvider currentAccountProvider,
-        ClientFactory clientFactory,
-        ViewThemeUtils viewThemeUtils
-                                       ) {
+        ViewThemeUtils viewThemeUtils) {
         this.clickListener = clickListener;
         this.type = type;
         this.context = context;
-        this.currentAccountProvider = currentAccountProvider;
-        this.clientFactory = clientFactory;
         this.viewThemeUtils = viewThemeUtils;
     }
 
@@ -78,6 +72,7 @@ public class RichDocumentsTemplateAdapter extends RecyclerView.Adapter<RichDocum
         this.templateList = templateList;
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     public void setTemplateAsActive(Template template) {
         selectedTemplate = template;
         notifyDataSetChanged();
