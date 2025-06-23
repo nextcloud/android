@@ -36,6 +36,7 @@ import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.Toast;
 
+import com.google.android.material.behavior.HideBottomViewOnScrollBehavior;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -59,7 +60,6 @@ import com.nextcloud.utils.extensions.BundleExtensionsKt;
 import com.nextcloud.utils.extensions.FileExtensionsKt;
 import com.nextcloud.utils.extensions.FragmentExtensionsKt;
 import com.nextcloud.utils.extensions.IntentExtensionsKt;
-import com.nextcloud.utils.extensions.ViewExtensionsKt;
 import com.nextcloud.utils.fileNameValidator.FileNameValidator;
 import com.nextcloud.utils.view.FastScrollUtils;
 import com.owncloud.android.MainApp;
@@ -68,6 +68,7 @@ import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.SyncedFolderProvider;
+import com.owncloud.android.datamodel.VirtualFolderType;
 import com.owncloud.android.datamodel.e2e.v2.decrypted.DecryptedFolderMetadataFile;
 import com.owncloud.android.lib.common.Creator;
 import com.owncloud.android.lib.common.OwnCloudClient;
@@ -105,11 +106,13 @@ import com.owncloud.android.ui.helpers.FileOperationsHelper;
 import com.owncloud.android.ui.interfaces.OCFileListFragmentInterface;
 import com.owncloud.android.ui.preview.PreviewImageFragment;
 import com.owncloud.android.ui.preview.PreviewMediaActivity;
+import com.owncloud.android.ui.preview.PreviewTextFileFragment;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.EncryptionUtils;
 import com.owncloud.android.utils.EncryptionUtilsV2;
 import com.owncloud.android.utils.FileSortOrder;
 import com.owncloud.android.utils.FileStorageUtils;
+import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.PermissionUtil;
 import com.owncloud.android.utils.theme.ThemeUtils;
 
@@ -137,6 +140,7 @@ import androidx.annotation.Nullable;
 import androidx.annotation.OptIn;
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.ActionBar;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.content.ContextCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentActivity;
@@ -394,7 +398,12 @@ public class OCFileListFragment extends ExtendedListFragment implements
         if (mHideFab) {
             setFabVisible(false);
         } else {
-            setFabVisible(true);
+            if (mFile != null) {
+                setFabVisible(mFile.canWrite());
+            } else {
+                setFabVisible(true);
+            }
+
             registerFabListener();
         }
 
@@ -902,7 +911,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
             // show FAB on multi selection mode exit
             if (!mHideFab && !searchFragment) {
-                setFabVisible(true);
+                setFabVisible(mFile.canWrite());
             }
 
             Activity activity = getActivity();
@@ -1532,7 +1541,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
     public void refreshDirectory() {
         searchFragment = false;
 
-        setFabVisible(true);
+        setFabVisible(mFile.canWrite());
         listDirectory(getCurrentFile(), MainApp.isOnlyOnDevice(), false);
     }
 
@@ -1649,10 +1658,9 @@ public class OCFileListFragment extends ExtendedListFragment implements
         }
 
         setFabVisible(!mHideFab);
-        slideHideBottomBehaviourForBottomNavigationView(!mHideFab);
 
-        final var showBottomLayoutItems = (mFile != null && (mFile.canWrite() || mFile.isOfflineOperation()));
-        setFabEnabled(showBottomLayoutItems);
+        // FAB
+        setFabEnabled(mFile != null && (mFile.canWrite() || mFile.isOfflineOperation()));
 
         invalidateActionMode();
     }
@@ -1842,8 +1850,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
             arguments.putParcelable(OCFileListFragment.SEARCH_EVENT, null);
         }
 
-        setFabVisible(true);
-        slideHideBottomBehaviourForBottomNavigationView(true);
+        setFabVisible(mFile.canWrite());
     }
 
     private void resetMenuItems() {
@@ -2253,26 +2260,40 @@ public class OCFileListFragment extends ExtendedListFragment implements
             return;
         }
 
-        final var activity = getActivity();
-        if (activity == null) {
-            return;
+        if (getActivity() != null) {
+            getActivity().runOnUiThread(() -> {
+                if (visible) {
+                    mFabMain.show();
+                    viewThemeUtils.material.themeFAB(mFabMain);
+                } else {
+                    mFabMain.hide();
+                }
+
+                showFabWithBehavior(visible);
+            });
         }
-
-        activity.runOnUiThread(() -> {
-            if (visible) {
-                mFabMain.show();
-                viewThemeUtils.material.themeFAB(mFabMain);
-            } else {
-                mFabMain.hide();
-            }
-
-            ViewExtensionsKt.slideHideBottomBehavior(mFabMain, visible);
-        });
     }
 
-    public void slideHideBottomBehaviourForBottomNavigationView(boolean visible) {
-        if (getActivity() instanceof DrawerActivity drawerActivity) {
-            ViewExtensionsKt.slideHideBottomBehavior(drawerActivity.getBottomNavigationView(), visible);
+    /**
+     * Remove this, if HideBottomViewOnScrollBehavior is fix by Google
+     *
+     * @param visible flag if FAB should be shown or hidden
+     */
+    private void showFabWithBehavior(boolean visible) {
+        ViewGroup.LayoutParams layoutParams = mFabMain.getLayoutParams();
+        if (layoutParams instanceof CoordinatorLayout.LayoutParams) {
+            CoordinatorLayout.Behavior coordinatorLayoutBehavior =
+                ((CoordinatorLayout.LayoutParams) layoutParams).getBehavior();
+            if (coordinatorLayoutBehavior instanceof HideBottomViewOnScrollBehavior) {
+                @SuppressWarnings("unchecked")
+                HideBottomViewOnScrollBehavior<FloatingActionButton> behavior =
+                    (HideBottomViewOnScrollBehavior<FloatingActionButton>) coordinatorLayoutBehavior;
+                if (visible) {
+                    behavior.slideUp(mFabMain);
+                } else {
+                    behavior.slideDown(mFabMain);
+                }
+            }
         }
     }
 
