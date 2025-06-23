@@ -40,7 +40,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.CustomTarget;
 import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.target.Target;
 import com.bumptech.glide.request.transition.Transition;
 import com.caverock.androidsvg.SVG;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -386,35 +388,13 @@ public abstract class DrawerActivity extends ToolbarActivity
             drawerHeader.setBackgroundColor(primaryColor);
 
             if (!TextUtils.isEmpty(logo) && URLUtil.isValidUrl(logo)) {
-                
+                Target<Bitmap> logoTarget = createLogoTarget(primaryColor, capability);
 
-                // background image
-                SimpleTarget<Bitmap> target = new SimpleTarget<>() {
-                    @Override
-                    public void onResourceReady(Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
-
-                        Bitmap logo = resource;
-                        int width = resource.getWidth();
-                        int height = resource.getHeight();
-                        int max = Math.max(width, height);
-                        if (max > MAX_LOGO_SIZE_PX) {
-                            logo = BitmapUtils.scaleBitmap(resource, MAX_LOGO_SIZE_PX, width, height, max);
-                        }
-
-                        Drawable[] drawables = {new ColorDrawable(primaryColor),
-                            new BitmapDrawable(getResources(), logo)};
-                        LayerDrawable layerDrawable = new LayerDrawable(drawables);
-
-                        String name = capability.getServerName();
-                        setDrawerHeaderLogo(layerDrawable, name);
-                    }
-                };
-
-                // background image
-                Glide.with(this)
+                Glide
+                    .with(this)
                     .as(Bitmap.class)
                     .load(Uri.parse(logo))
-                    .into(target);
+                    .into(logoTarget);
             }
         }
 
@@ -427,6 +407,34 @@ public abstract class DrawerActivity extends ToolbarActivity
         } else {
             showTopBanner(banner, primaryColor);
         }
+    }
+
+    private Target<Bitmap> createLogoTarget(int primaryColor, OCCapability capability) {
+        return new CustomTarget<>() {
+            @Override
+            public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
+                Bitmap logo = resource;
+                int width = resource.getWidth();
+                int height = resource.getHeight();
+                int max = Math.max(width, height);
+                if (max > MAX_LOGO_SIZE_PX) {
+                    logo = BitmapUtils.scaleBitmap(resource, MAX_LOGO_SIZE_PX, width, height, max);
+                }
+
+                Drawable[] drawables = {
+                    new ColorDrawable(primaryColor),
+                    new BitmapDrawable(getResources(), logo)
+                };
+                LayerDrawable layerDrawable = new LayerDrawable(drawables);
+
+                String name = capability.getServerName();
+                setDrawerHeaderLogo(layerDrawable, name);
+            }
+
+            @Override
+            public void onLoadCleared(@Nullable Drawable placeholder) {
+            }
+        };
     }
 
     private void hideTopBanner(ConstraintLayout banner) {
