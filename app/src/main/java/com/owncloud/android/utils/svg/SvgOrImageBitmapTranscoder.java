@@ -57,7 +57,7 @@ public class SvgOrImageBitmapTranscoder implements ResourceTranscoder<SVGorImage
 
             return new SimpleResource<>(bitmap);
         } else {
-            Bitmap bitmap = svGorImage.getBitmap();
+            Bitmap bitmap = svGorImage.bitmap;
 
             return new SimpleResource<>(bitmap);
         }
