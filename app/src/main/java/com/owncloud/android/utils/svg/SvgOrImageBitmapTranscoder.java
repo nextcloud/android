@@ -62,6 +62,4 @@ public class SvgOrImageBitmapTranscoder implements ResourceTranscoder<SVGorImage
             return new SimpleResource<>(bitmap);
         }
     }
-
-
 }

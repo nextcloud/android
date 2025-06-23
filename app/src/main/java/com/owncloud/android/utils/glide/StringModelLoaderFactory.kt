@@ -1,30 +1,22 @@
 /*
  * Nextcloud - Android Client
  *
- * SPDX-FileCopyrightText: 2025 Your Name <your@email.com>
+ * SPDX-FileCopyrightText: 2025 Alper Ozturk <alper.ozturk@nextcloud.com>
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
+package com.owncloud.android.utils.glide
 
-package com.owncloud.android.utils.glide;
+import com.bumptech.glide.load.model.ModelLoader
+import com.bumptech.glide.load.model.ModelLoaderFactory
+import com.bumptech.glide.load.model.MultiModelLoaderFactory
+import java.io.InputStream
 
-import com.bumptech.glide.load.model.ModelLoader;
-import com.bumptech.glide.load.model.ModelLoaderFactory;
-import com.bumptech.glide.load.model.MultiModelLoaderFactory;
-
-import java.io.InputStream;
-
-import androidx.annotation.NonNull;
-
-public class StringModelLoaderFactory implements ModelLoaderFactory<String, InputStream> {
-
-    @NonNull
-    @Override
-    public ModelLoader<String, InputStream> build(@NonNull MultiModelLoaderFactory unused) {
-        return new GlideStringStreamLoader();
+class StringModelLoaderFactory : ModelLoaderFactory<String?, InputStream?> {
+    override fun build(unused: MultiModelLoaderFactory): ModelLoader<String?, InputStream?> {
+        return GlideStringStreamLoader()
     }
 
-    @Override
-    public void teardown() {
+    override fun teardown() {
         // Do nothing.
     }
 }
