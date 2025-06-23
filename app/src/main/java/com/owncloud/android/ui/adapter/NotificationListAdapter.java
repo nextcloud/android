@@ -14,6 +14,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Typeface;
+import android.graphics.drawable.PictureDrawable;
 import android.net.Uri;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
@@ -28,6 +29,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.google.android.material.button.MaterialButton;
 import com.nextcloud.android.common.ui.theme.utils.ColorRole;
 import com.nextcloud.common.NextcloudClient;
@@ -41,6 +44,7 @@ import com.owncloud.android.ui.activity.NotificationsActivity;
 import com.owncloud.android.ui.asynctasks.DeleteNotificationTask;
 import com.owncloud.android.ui.asynctasks.NotificationExecuteActionTask;
 import com.owncloud.android.utils.DisplayUtils;
+import com.owncloud.android.utils.svg.SvgSoftwareLayerSetter;
 import com.owncloud.android.utils.theme.ViewThemeUtils;
 
 import java.util.ArrayList;
@@ -341,8 +345,16 @@ public class NotificationListAdapter extends RecyclerView.Adapter<NotificationLi
 
     private void downloadIcon(String icon, ImageView itemViewType, Context context) {
         Uri uri = Uri.parse(icon);
-        Glide.with(notificationsActivity)
+
+        Glide
+            .with(context)
+            .as(PictureDrawable.class)
             .load(uri)
+            .placeholder(R.drawable.ic_notification)
+            .error(R.drawable.ic_notification)
+            .transition(DrawableTransitionOptions.withCrossFade())
+            .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+            .listener(new SvgSoftwareLayerSetter())
             .into(itemViewType);
     }
 
