@@ -14,7 +14,6 @@ import com.bumptech.glide.load.Options
 import com.bumptech.glide.load.ResourceDecoder
 import com.bumptech.glide.load.engine.Resource
 import com.bumptech.glide.load.resource.SimpleResource
-import com.caverock.androidsvg.PreserveAspectRatio
 import com.caverock.androidsvg.SVG
 import com.caverock.androidsvg.SVGParseException
 import java.io.IOException
@@ -28,11 +27,6 @@ class SvgDecoder : ResourceDecoder<InputStream, SVG> {
     override fun decode(source: InputStream, width: Int, height: Int, options: Options): Resource<SVG> {
         try {
             val svg = SVG.getFromInputStream(source)
-            svg.setDocumentViewBox(0f, 0f, svg.documentWidth, svg.documentHeight)
-            svg.setDocumentWidth("100%")
-            svg.setDocumentHeight("100%")
-            svg.documentPreserveAspectRatio = PreserveAspectRatio.LETTERBOX
-
             return SimpleResource<SVG>(svg)
         } catch (ex: SVGParseException) {
             throw IOException("Cannot load SVG from stream", ex)

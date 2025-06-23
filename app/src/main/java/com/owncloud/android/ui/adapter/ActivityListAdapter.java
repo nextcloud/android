@@ -262,11 +262,11 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     }
 
     private void downloadIcon(Activity activity, ImageView itemViewType) {
-        Glide.with(context)
+        Glide
+            .with(context)
             .as(PictureDrawable.class)
             .placeholder(R.drawable.ic_activity)
             .error(R.drawable.ic_activity)
-            .transition(DrawableTransitionOptions.withCrossFade(android.R.anim.fade_in))
             .listener(new SvgSoftwareLayerSetter())
             .load(activity.getIcon())
             .into(itemViewType);

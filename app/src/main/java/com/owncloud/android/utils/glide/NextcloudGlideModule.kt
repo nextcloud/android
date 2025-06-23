@@ -25,10 +25,10 @@ import java.io.InputStream
 class NextcloudGlideModule : AppGlideModule() {
     override fun registerComponents(context: Context, glide: Glide, registry: Registry) {
         registry
-            .prepend<String, InputStream>(String::class.java, InputStream::class.java, StringModelLoaderFactory())
+            .prepend(String::class.java, InputStream::class.java, StringModelLoaderFactory())
 
         registry
-            .register<SVGorImage, Bitmap>(
+            .register(
                 SVGorImage::class.java,
                 Bitmap::class.java,
                 SvgOrImageBitmapTranscoder(
@@ -38,8 +38,8 @@ class NextcloudGlideModule : AppGlideModule() {
             )
 
         registry
-            .register<SVG, PictureDrawable>(SVG::class.java, PictureDrawable::class.java, SvgDrawableTranscoder())
-            .append<InputStream, SVG>(InputStream::class.java, SVG::class.java, SvgDecoder())
+            .register(SVG::class.java, PictureDrawable::class.java, SvgDrawableTranscoder())
+            .append(InputStream::class.java, SVG::class.java, SvgDecoder())
     }
 
     // Disable manifest parsing to avoid adding similar modules twice.
