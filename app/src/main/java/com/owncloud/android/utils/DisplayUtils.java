@@ -48,7 +48,6 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.target.Target;
 import com.caverock.androidsvg.SVG;
 import com.elyeproj.loaderviewlibrary.LoaderImageView;
@@ -527,7 +526,7 @@ public final class DisplayUtils {
                                     ClientFactory clientFactory,
                                     Context context,
                                     String iconUrl,
-                                    SimpleTarget imageView,
+                                    Target imageView,
                                     int placeholder) {
         try {
             if (Uri.parse(iconUrl).getEncodedPath().endsWith(".svg")) {
@@ -540,7 +539,7 @@ public final class DisplayUtils {
         }
     }
 
-    private static void downloadPNGIcon(Context context, String iconUrl, SimpleTarget imageView, int placeholder) {
+    private static void downloadPNGIcon(Context context, String iconUrl, Target imageView, int placeholder) {
         Glide
             .with(context)
             .load(iconUrl)
@@ -554,7 +553,7 @@ public final class DisplayUtils {
                                         ClientFactory clientFactory,
                                         Context context,
                                         String iconUrl,
-                                        SimpleTarget imageView,
+                                        Target imageView,
                                         int placeholder) {
         Uri uri = Uri.parse(iconUrl);
         

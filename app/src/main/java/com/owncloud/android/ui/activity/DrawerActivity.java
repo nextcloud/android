@@ -41,7 +41,6 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.CustomTarget;
-import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.target.Target;
 import com.bumptech.glide.request.transition.Transition;
 import com.caverock.androidsvg.SVG;
@@ -865,7 +864,7 @@ public abstract class DrawerActivity extends ToolbarActivity
                 float density = getResources().getDisplayMetrics().density;
                 final int size = Math.round(24 * density);
 
-                if (quotas.size() > 0) {
+                if (!quotas.isEmpty()) {
                     final ExternalLink firstQuota = quotas.get(0);
                     mQuotaTextLink.setText(firstQuota.getName());
                     mQuotaTextLink.setClickable(true);
@@ -879,31 +878,13 @@ public abstract class DrawerActivity extends ToolbarActivity
                         startActivity(externalWebViewIntent);
                     });
 
-
-                    SimpleTarget<Drawable> target = new SimpleTarget<Drawable>() {
-                        @Override
-                        public void onResourceReady(Drawable resource, @Nullable Transition<? super Drawable> transition) {
-                            Drawable test = resource.getCurrent();
-                            test.setBounds(0, 0, size, size);
-                            mQuotaTextLink.setCompoundDrawablesWithIntrinsicBounds(test, null, null, null);
-                        }
-
-                        @Override
-                        public void onLoadFailed(@Nullable Drawable errorDrawable) {
-                            super.onLoadFailed(errorDrawable);
-
-                            Drawable test = errorDrawable.getCurrent();
-                            test.setBounds(0, 0, size, size);
-
-                            mQuotaTextLink.setCompoundDrawablesWithIntrinsicBounds(test, null, null, null);
-                        }
-                    };
+                    Target<Drawable> quotaTarget = createQuotaDrawableTarget(size, mQuotaTextLink);
 
                     DisplayUtils.downloadIcon(getUserAccountManager(),
                                               clientFactory,
                                               this,
                                               firstQuota.getIconUrl(),
-                                              target,
+                                              quotaTarget,
                                               R.drawable.ic_link);
 
                 } else {
@@ -914,6 +895,34 @@ public abstract class DrawerActivity extends ToolbarActivity
             }
         }
     }
+
+    private Target<Drawable> createQuotaDrawableTarget(int size, TextView quotaTextLink) {
+        return new CustomTarget<>() {
+            @Override
+            public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
+                Drawable drawable = resource.getCurrent();
+                drawable.setBounds(0, 0, size, size);
+                quotaTextLink.setCompoundDrawablesWithIntrinsicBounds(drawable, null, null, null);
+            }
+
+            @Override
+            public void onLoadCleared(@Nullable Drawable placeholder) {
+
+            }
+
+            @Override
+            public void onLoadFailed(@Nullable Drawable errorDrawable) {
+                super.onLoadFailed(errorDrawable);
+
+                Drawable drawable = errorDrawable != null ? errorDrawable.getCurrent() : null;
+                if (drawable != null) {
+                    drawable.setBounds(0, 0, size, size);
+                    quotaTextLink.setCompoundDrawablesWithIntrinsicBounds(drawable, null, null, null);
+                }
+            }
+        };
+    }
+
 
     /**
      * Sets the menu item as checked in both the drawer and bottom navigation views, if applicable.
