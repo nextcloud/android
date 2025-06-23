@@ -32,7 +32,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import com.owncloud.android.utils.glide.GlideApp;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -262,7 +261,7 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     }
 
     private void downloadIcon(Activity activity, ImageView itemViewType) {
-        GlideApp.with(context)
+        Glide.with(context)
             .as(PictureDrawable.class)
 //            .fitCenter()
             .listener(new SvgSoftwareLayerSetter())
