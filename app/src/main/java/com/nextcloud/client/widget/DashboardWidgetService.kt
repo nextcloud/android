@@ -174,9 +174,9 @@ class StackRemoteViewsFactory(
 
         try {
             val bitmap: Bitmap = if (widgetConfiguration.roundIcon) {
-                 BitmapUtils.roundBitmap(source.get())
+                BitmapUtils.roundBitmap(source.get())
             } else {
-                 source.get()
+                source.get()
             }
 
             remoteViews.setImageViewBitmap(R.id.icon, bitmap)

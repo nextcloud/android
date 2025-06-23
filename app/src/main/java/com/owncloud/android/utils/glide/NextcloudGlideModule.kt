@@ -29,10 +29,13 @@ class NextcloudGlideModule : AppGlideModule() {
 
         registry
             .register<SVGorImage, Bitmap>(
-            SVGorImage::class.java, Bitmap::class.java, SvgOrImageBitmapTranscoder(
-                SVG_SIZE, SVG_SIZE
+                SVGorImage::class.java,
+                Bitmap::class.java,
+                SvgOrImageBitmapTranscoder(
+                    SVG_SIZE,
+                    SVG_SIZE
+                )
             )
-        )
 
         registry
             .register<SVG, PictureDrawable>(SVG::class.java, PictureDrawable::class.java, SvgDrawableTranscoder())

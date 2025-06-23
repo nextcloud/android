@@ -128,20 +128,9 @@ class UnifiedSearchItemViewHolder(
     }
 
     private inner class RoundIfNeededListener(private val entry: SearchResultEntry) : RequestListener<Bitmap> {
-        override fun onLoadFailed(
-            p0: GlideException?,
-            p1: Any?,
-            p2: Target<Bitmap?>,
-            p3: Boolean
-        ): Boolean = false
+        override fun onLoadFailed(p0: GlideException?, p1: Any?, p2: Target<Bitmap?>, p3: Boolean): Boolean = false
 
-        override fun onResourceReady(
-            p0: Bitmap,
-            p1: Any,
-            p2: Target<Bitmap?>?,
-            p3: DataSource,
-            p4: Boolean
-        ): Boolean {
+        override fun onResourceReady(p0: Bitmap, p1: Any, p2: Target<Bitmap?>?, p3: DataSource, p4: Boolean): Boolean {
             if (entry.rounded) {
                 val drawable = BitmapUtils.bitmapToCircularBitmapDrawable(context.resources, p0)
                 binding.thumbnail.setImageDrawable(drawable)
