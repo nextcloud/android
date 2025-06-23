@@ -21,6 +21,7 @@ import com.owncloud.android.lib.common.utils.Log_OC
 /**
  * Convert the [SVG]'s internal representation to a Bitmap.
  */
+@Suppress("ReturnCount")
 class SvgOrImageBitmapTranscoder(private val width: Int, private val height: Int) :
     ResourceTranscoder<SVGorImage, Bitmap> {
     override fun transcode(toTranscode: Resource<SVGorImage>, options: Options): Resource<Bitmap>? {
