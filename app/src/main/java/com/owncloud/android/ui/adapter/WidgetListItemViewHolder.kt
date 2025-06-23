@@ -11,7 +11,7 @@ import android.content.Context
 import android.graphics.PorterDuff
 import android.graphics.drawable.Drawable
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.request.target.SimpleTarget
+import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
 import com.nextcloud.android.lib.resources.dashboard.DashboardWidget
 import com.nextcloud.client.account.UserAccountManager
@@ -34,9 +34,14 @@ class WidgetListItemViewHolder(
     ) {
         binding.layout.setOnClickListener { dashboardWidgetConfigurationInterface.onItemClicked(dashboardWidget) }
 
-        val target = object : SimpleTarget<Drawable>() {
+        val target = object : CustomTarget<Drawable>() {
             override fun onResourceReady(resource: Drawable, transition: Transition<in Drawable>?) {
                 binding.icon.setImageDrawable(resource)
+                binding.icon.setColorFilter(context.getColor(R.color.dark), PorterDuff.Mode.SRC_ATOP)
+            }
+
+            override fun onLoadCleared(placeholder: Drawable?) {
+                binding.icon.setImageDrawable(placeholder)
                 binding.icon.setColorFilter(context.getColor(R.color.dark), PorterDuff.Mode.SRC_ATOP)
             }
 
@@ -48,13 +53,12 @@ class WidgetListItemViewHolder(
         }
 
         DisplayUtils.downloadIcon(
-            accountManager,
-            clientFactory,
             context,
             dashboardWidget.iconUrl,
             target,
             R.drawable.ic_dashboard
         )
+
         binding.name.text = dashboardWidget.title
     }
 }

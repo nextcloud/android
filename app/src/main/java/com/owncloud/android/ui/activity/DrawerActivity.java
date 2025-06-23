@@ -880,9 +880,7 @@ public abstract class DrawerActivity extends ToolbarActivity
 
                     Target<Drawable> quotaTarget = createQuotaDrawableTarget(size, mQuotaTextLink);
 
-                    DisplayUtils.downloadIcon(getUserAccountManager(),
-                                              clientFactory,
-                                              this,
+                    DisplayUtils.downloadIcon(this,
                                               firstQuota.getIconUrl(),
                                               quotaTarget,
                                               R.drawable.ic_link);
@@ -1039,8 +1037,6 @@ public abstract class DrawerActivity extends ToolbarActivity
             Target<Drawable> iconTarget = createMenuItemTarget(id, greyColor);
 
             DisplayUtils.downloadIcon(
-                getUserAccountManager(),
-                clientFactory,
                 this,
                 link.getIconUrl(),
                 iconTarget,

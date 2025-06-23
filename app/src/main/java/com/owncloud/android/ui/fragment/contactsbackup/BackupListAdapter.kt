@@ -22,7 +22,7 @@ import android.widget.CheckedTextView
 import android.widget.ImageView
 import com.afollestad.sectionedrecyclerview.SectionedRecyclerViewAdapter
 import com.afollestad.sectionedrecyclerview.SectionedViewHolder
-import com.bumptech.glide.request.target.SimpleTarget
+import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.network.ClientFactory
@@ -240,9 +240,13 @@ class BackupListAdapter(
             )
             imageView.setImageDrawable(drawable)
         } else if (url != null) {
-            val target = object : SimpleTarget<Drawable>() {
+            val target = object : CustomTarget<Drawable>() {
                 override fun onResourceReady(resource: Drawable, transition: Transition<in Drawable>?) {
                     imageView.setImageDrawable(resource)
+                }
+
+                override fun onLoadCleared(placeholder: Drawable?) {
+                    imageView.setImageDrawable(placeholder)
                 }
 
                 override fun onLoadFailed(errorDrawable: Drawable?) {
@@ -252,8 +256,6 @@ class BackupListAdapter(
             }
 
             DisplayUtils.downloadIcon(
-                accountManager,
-                clientFactory,
                 context,
                 url,
                 target,
