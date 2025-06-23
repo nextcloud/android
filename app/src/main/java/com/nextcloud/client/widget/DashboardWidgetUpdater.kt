@@ -53,7 +53,10 @@ class DashboardWidgetUpdater @Inject constructor(
             setAddButton(addButton, appWidgetId, this)
             setPendingReload(this, appWidgetId)
             setPendingClick(this)
-            loadIcon(iconUrl, this)
+
+            if (iconUrl.isNotEmpty()) {
+                loadIcon(appWidgetId, iconUrl, this)
+            }
         }
 
         appWidgetManager.run {
@@ -147,8 +150,8 @@ class DashboardWidgetUpdater @Inject constructor(
     }
     // endregion
 
-    private fun loadIcon(iconUrl: String, remoteViews: RemoteViews) {
-        val iconTarget = object : AppWidgetTarget(context, R.id.icon, remoteViews) {
+    private fun loadIcon(appWidgetId: Int, iconUrl: String, remoteViews: RemoteViews) {
+        val iconTarget = object : AppWidgetTarget(context, R.id.icon, remoteViews, appWidgetId) {
             override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
                 val tintedBitmap = BitmapUtils.tintImage(resource, R.color.black)
                 super.onResourceReady(tintedBitmap, transition)
