@@ -27,8 +27,6 @@ public class CustomGlideUriLoader implements ModelLoader<Uri, InputStream> {
 
     private final User user;
     private final ClientFactory clientFactory;
-    
-    
 
     public CustomGlideUriLoader(User user, ClientFactory clientFactory) {
         this.user = user;
