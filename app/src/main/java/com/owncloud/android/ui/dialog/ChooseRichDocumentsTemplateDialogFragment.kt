@@ -170,8 +170,6 @@ class ChooseRichDocumentsTemplateDialogFragment :
             type,
             this,
             context,
-            currentAccount,
-            clientFactory,
             viewThemeUtils
         )
         binding.list.adapter = adapter

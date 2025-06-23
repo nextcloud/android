@@ -10,4 +10,4 @@ package com.owncloud.android.utils.svg
 import android.graphics.Bitmap
 import com.caverock.androidsvg.SVG
 
-class SVGorImage(val sVG: SVG, @JvmField val bitmap: Bitmap)
+class SVGorImage(val sVG: SVG?, @JvmField val bitmap: Bitmap?)
