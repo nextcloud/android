@@ -23,31 +23,29 @@ import com.owncloud.android.lib.common.utils.Log_OC
  */
 class SvgOrImageBitmapTranscoder(private val width: Int, private val height: Int) :
     ResourceTranscoder<SVGorImage, Bitmap> {
-    override fun transcode(toTranscode: Resource<SVGorImage>, options: Options): Resource<Bitmap> {
+    override fun transcode(toTranscode: Resource<SVGorImage>, options: Options): Resource<Bitmap>? {
         val svGorImage = toTranscode.get()
-
-        if (svGorImage.sVG != null) {
-            val svg: SVG? = svGorImage.sVG
-
-            try {
-                svg!!.setDocumentHeight("100%")
-                svg.setDocumentWidth("100%")
-            } catch (e: SVGParseException) {
-                Log_OC.e(this, "Could not set document size. Output might have wrong size")
-            }
-
-            // Create a canvas to draw onto
-            val bitmap = createBitmap(width, height)
-            val canvas = Canvas(bitmap)
-
-            // Render our document onto our canvas
-            svg!!.renderToCanvas(canvas)
-
-            return SimpleResource<Bitmap>(bitmap)
-        } else {
-            val bitmap = svGorImage.bitmap
-
+        if (svGorImage.sVG == null) {
+            val bitmap = svGorImage.bitmap ?: return null
             return SimpleResource<Bitmap>(bitmap)
         }
+
+        val svg: SVG? = svGorImage.sVG
+
+        try {
+            svg?.setDocumentHeight("100%")
+            svg?.setDocumentWidth("100%")
+        } catch (e: SVGParseException) {
+            Log_OC.e(this, "Could not set document size. Output might have wrong size: $e")
+        }
+
+        // Create a canvas to draw onto
+        val bitmap = createBitmap(width, height)
+        val canvas = Canvas(bitmap)
+
+        // Render our document onto our canvas
+        svg!!.renderToCanvas(canvas)
+
+        return SimpleResource<Bitmap>(bitmap)
     }
 }
