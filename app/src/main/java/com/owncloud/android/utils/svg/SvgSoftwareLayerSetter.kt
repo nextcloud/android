@@ -8,46 +8,45 @@
  * https://github.com/bumptech/glide/blob/master/samples/svg/src/main/java/com/bumptech/glide/samples/svg/
  * SvgSoftwareLayerSetter.java
  */
-package com.owncloud.android.utils.svg;
+package com.owncloud.android.utils.svg
 
-import android.graphics.drawable.PictureDrawable;
-import android.widget.ImageView;
-
-import com.bumptech.glide.load.DataSource;
-import com.bumptech.glide.load.engine.GlideException;
-import com.bumptech.glide.request.RequestListener;
-import com.bumptech.glide.request.target.ImageViewTarget;
-import com.bumptech.glide.request.target.Target;
-
-import androidx.annotation.NonNull;
+import android.graphics.drawable.PictureDrawable
+import android.widget.ImageView
+import com.bumptech.glide.load.DataSource
+import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.request.RequestListener
+import com.bumptech.glide.request.target.ImageViewTarget
+import com.bumptech.glide.request.target.Target
 
 /**
- * Listener which updates the {@link ImageView} to be software rendered, because {@link
- * com.caverock.androidsvg.SVG SVG}/{@link android.graphics.Picture Picture} can't render on a
- * hardware backed {@link android.graphics.Canvas Canvas}.
+ * Listener which updates the [ImageView] to be software rendered, because [ ]/[Picture][android.graphics.Picture]
+ * can't render on a hardware backed [Canvas][android.graphics.Canvas].
  */
-public class SvgSoftwareLayerSetter implements RequestListener<PictureDrawable> {
+class SvgSoftwareLayerSetter : RequestListener<PictureDrawable?> {
+    override fun onLoadFailed(
+        e: GlideException?,
+        model: Any?,
+        target: Target<PictureDrawable?>,
+        isFirstResource: Boolean
+    ): Boolean {
+        if (target is ImageViewTarget) {
+            target.view.setLayerType(ImageView.LAYER_TYPE_NONE, null)
+        }
 
-    @Override
-    public boolean onLoadFailed(
-        GlideException e,
-        Object model,
-        @NonNull Target<PictureDrawable> target,
-        boolean isFirstResource) {
-        ImageView view = ((ImageViewTarget<?>) target).getView();
-        view.setLayerType(ImageView.LAYER_TYPE_NONE, null);
-        return false;
+        return false
     }
 
-    @Override
-    public boolean onResourceReady(
-        @NonNull PictureDrawable resource,
-        @NonNull Object model,
-        Target<PictureDrawable> target,
-        @NonNull DataSource dataSource,
-        boolean isFirstResource) {
-        ImageView view = ((ImageViewTarget<?>) target).getView();
-        view.setLayerType(ImageView.LAYER_TYPE_SOFTWARE, null);
-        return false;
+    override fun onResourceReady(
+        resource: PictureDrawable,
+        model: Any,
+        target: Target<PictureDrawable?>,
+        dataSource: DataSource,
+        isFirstResource: Boolean
+    ): Boolean {
+        if (target is ImageViewTarget) {
+            target.view.setLayerType(ImageView.LAYER_TYPE_SOFTWARE, null)
+        }
+
+        return false
     }
 }
