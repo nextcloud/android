@@ -103,7 +103,7 @@ internal class BackgroundJobManagerImpl(
         const val DEFAULT_PERIODIC_JOB_INTERVAL_MINUTES = 15L
         const val OFFLINE_OPERATIONS_PERIODIC_JOB_INTERVAL_MINUTES = 5L
         const val DEFAULT_IMMEDIATE_JOB_DELAY_SEC = 3L
-        const val DEFAULT_BACKOFF_CRITERIA_DELAY_SEC = 60L
+        const val DEFAULT_BACKOFF_CRITERIA_DELAY_SEC = 300L
 
         private const val KEEP_LOG_MILLIS = 1000 * 60 * 60 * 24 * 3L
 
