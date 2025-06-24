@@ -36,8 +36,61 @@ import com.owncloud.android.utils.svg.SvgSoftwareLayerSetter
  * Provides methods for loading images into `ImageView`, `Target<Drawable>`, `Target<Bitmap>` ...
  * from both URLs and URIs.
  */
+@Suppress("TooManyFunctions")
 object GlideHelper {
     private const val TAG = "GlideHelper"
+
+    // region Validation
+    /**
+     * Validates if a string can be converted to a valid URI
+     */
+    @Suppress("ComplexCondition", "TooGenericExceptionCaught")
+    private fun validateAndGetURI(uriString: String?): Uri? {
+        if (uriString.isNullOrBlank()) {
+            Log_OC.w(TAG, "Given uriString is null or blank")
+            return null
+        }
+
+        return try {
+            val uri = uriString.toUri()
+            if (uri.scheme != null && (
+                    uri.scheme == "http" || uri.scheme == "https" || uri.scheme == "file" ||
+                        uri.scheme == "content"
+                    )
+            ) {
+                uri
+            } else {
+                null
+            }
+        } catch (e: Exception) {
+            Log_OC.w(TAG, "Invalid URI string: $uriString -- $e")
+            null
+        }
+    }
+
+    /**
+     * Validates if a URL string is valid
+     */
+    @Suppress("TooGenericExceptionCaught")
+    private fun validateAndGetURL(url: String?): String? {
+        if (url.isNullOrBlank()) {
+            Log_OC.w(TAG, "Given url is null or blank")
+            return null
+        }
+
+        return try {
+            val uri = url.toUri()
+            if (uri.scheme != null && (uri.scheme == "http" || uri.scheme == "https")) {
+                url
+            } else {
+                null
+            }
+        } catch (e: Exception) {
+            Log_OC.w(TAG, "Invalid URL: $url -- $e")
+            null
+        }
+    }
+    // endregion
 
     // region SVG
 
@@ -49,18 +102,24 @@ object GlideHelper {
      * @param placeholder Resource ID of the drawable to be used as a placeholder and error fallback.
      * @return A configured [RequestBuilder] for [PictureDrawable], or null if parameters are invalid.
      */
+    @Suppress("TooGenericExceptionCaught")
     private fun createSvgRequestBuilder(
         context: Context,
         uri: Uri,
         @DrawableRes placeholder: Int
     ): RequestBuilder<PictureDrawable>? {
-        return Glide
-            .with(context)
-            .`as`(PictureDrawable::class.java)
-            .load(uri)
-            .placeholder(placeholder)
-            .error(placeholder)
-            .listener(SvgSoftwareLayerSetter())
+        return try {
+            Glide
+                .with(context)
+                .`as`(PictureDrawable::class.java)
+                .load(uri)
+                .placeholder(placeholder)
+                .error(placeholder)
+                .listener(SvgSoftwareLayerSetter())
+        } catch (e: Exception) {
+            Log_OC.e(TAG, "Failed to create SVG request builder for URI: $uri -- $e")
+            null
+        }
     }
 
     /**
@@ -77,7 +136,7 @@ object GlideHelper {
         imageView: ImageView,
         @DrawableRes placeholder: Int
     ) {
-        val uri = uriString?.toUri() ?: return
+        val uri = validateAndGetURI(uriString) ?: return
         val svgRequestBuilder = createSvgRequestBuilder(context, uri, placeholder)
         svgRequestBuilder?.into(imageView)
     }
@@ -96,7 +155,7 @@ object GlideHelper {
         target: Target<PictureDrawable?>,
         placeholder: Int
     ) {
-        val uri = uriString?.toUri() ?: return
+        val uri = validateAndGetURI(uriString) ?: return
         val svgRequestBuilder = createSvgRequestBuilder(context, uri, placeholder)
         svgRequestBuilder?.into(target)
     }
@@ -111,7 +170,7 @@ object GlideHelper {
      * @return A [PictureDrawable] if loading is successful, or null otherwise.
      */
     fun createPictureDrawable(context: Context, uriString: String?): PictureDrawable? {
-        val uri = uriString?.toUri() ?: return null
+        val uri = validateAndGetURI(uriString) ?: return null
 
         return Glide
             .with(context)
@@ -137,9 +196,11 @@ object GlideHelper {
         target: Target<Drawable>,
         @DrawableRes placeholder: Int
     ) {
+        val validatedURL = validateAndGetURL(url) ?: return
+
         Glide
             .with(context)
-            .load(url)
+            .load(validatedURL)
             .centerCrop()
             .placeholder(placeholder)
             .error(placeholder)
@@ -157,9 +218,11 @@ object GlideHelper {
      * @param placeholder A [Drawable] used for placeholder and error.
      */
     fun loadViaURLIntoImageView(context: Context, url: String, imageView: ImageView, placeholder: Drawable) {
+        val validatedURL = validateAndGetURL(url) ?: return
+
         Glide
             .with(context)
-            .load(url)
+            .load(validatedURL)
             .placeholder(placeholder)
             .error(placeholder)
             .diskCacheStrategy(DiskCacheStrategy.NONE)
@@ -178,9 +241,11 @@ object GlideHelper {
      * @param placeholder Resource ID of the drawable used for placeholder and error.
      */
     fun loadViaURLIntoImageView(context: Context, url: String, imageView: ImageView, @DrawableRes placeholder: Int) {
+        val validatedURL = validateAndGetURL(url) ?: return
+
         Glide
             .with(context)
-            .load(url)
+            .load(validatedURL)
             .placeholder(placeholder)
             .error(placeholder)
             .diskCacheStrategy(DiskCacheStrategy.NONE)
@@ -197,16 +262,15 @@ object GlideHelper {
      * @param url The image URL as a string. If null, returns null immediately.
      * @return The downloaded [Bitmap], or null if an error occurs.
      */
+    @Suppress("TooGenericExceptionCaught", "ReturnCount")
     fun downloadImageSynchronous(context: Context, url: String?): Bitmap? {
-        if (url == null) {
-            return null
-        }
+        val validatedURL = validateAndGetURL(url) ?: return null
 
         try {
             return Glide
                 .with(context)
                 .asBitmap()
-                .load(url)
+                .load(validatedURL)
                 .diskCacheStrategy(DiskCacheStrategy.NONE)
                 .skipMemoryCache(true)
                 .submit(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL)
@@ -232,9 +296,11 @@ object GlideHelper {
         imageView: ImageView,
         placeholder: Drawable
     ) {
+        val validatedURL = validateAndGetURL(url) ?: return
+
         Glide.with(context)
             .asBitmap()
-            .load(url)
+            .load(validatedURL)
             .placeholder(placeholder)
             .error(placeholder)
             .into(object : BitmapImageViewTarget(imageView) {
@@ -257,7 +323,7 @@ object GlideHelper {
      * @param target The [Target] load into.
      */
     fun loadViaURIIntoBitmapTarget(context: Context, uriString: String, target: Target<Bitmap>) {
-        val uri = uriString.toUri()
+        val uri = validateAndGetURI(uriString) ?: return
 
         Glide
             .with(context)
@@ -282,10 +348,12 @@ object GlideHelper {
         placeholder: Drawable,
         listener: RequestListener<Bitmap>
     ) {
+        val validatedURL = validateAndGetURL(url) ?: return
+
         Glide
             .with(context)
             .asBitmap()
-            .load(url)
+            .load(validatedURL)
             .placeholder(placeholder)
             .error(placeholder)
             .transition(BitmapTransitionOptions.withCrossFade(android.R.anim.fade_in))
@@ -324,7 +392,7 @@ object GlideHelper {
      * @param target The [AppWidgetTarget] to load into.
      */
     fun loadViaURIIntoAppWidgetTarget(context: Context, uriString: String, target: AppWidgetTarget) {
-        val uri = uriString.toUri()
+        val uri = validateAndGetURI(uriString) ?: return
 
         Glide
             .with(context)
