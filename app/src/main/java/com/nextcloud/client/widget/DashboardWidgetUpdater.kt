@@ -16,13 +16,12 @@ import android.os.Build
 import android.view.View
 import android.widget.RemoteViews
 import androidx.core.net.toUri
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.target.AppWidgetTarget
 import com.bumptech.glide.request.transition.Transition
 import com.nextcloud.android.lib.resources.dashboard.DashboardButton
 import com.nextcloud.client.account.CurrentAccountProvider
 import com.nextcloud.client.network.ClientFactory
+import com.nextcloud.utils.GlideHelper
 import com.owncloud.android.R
 import com.owncloud.android.utils.BitmapUtils
 import javax.inject.Inject
@@ -151,18 +150,13 @@ class DashboardWidgetUpdater @Inject constructor(
     // endregion
 
     private fun loadIcon(appWidgetId: Int, iconUrl: String, remoteViews: RemoteViews) {
-        val iconTarget = object : AppWidgetTarget(context, R.id.icon, remoteViews, appWidgetId) {
+        val target = object : AppWidgetTarget(context, R.id.icon, remoteViews, appWidgetId) {
             override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
                 val tintedBitmap = BitmapUtils.tintImage(resource, R.color.black)
                 super.onResourceReady(tintedBitmap, transition)
             }
         }
 
-        Glide
-            .with(context)
-            .asBitmap()
-            .load(iconUrl.toUri())
-            .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
-            .into(iconTarget)
+        GlideHelper.loadViaURIIntoAppWidgetTarget(context, iconUrl, target)
     }
 }

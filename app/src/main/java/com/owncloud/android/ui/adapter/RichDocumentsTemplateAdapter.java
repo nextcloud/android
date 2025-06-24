@@ -13,9 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.bumptech.glide.Glide;
-import com.nextcloud.client.account.CurrentAccountProvider;
-import com.nextcloud.client.network.ClientFactory;
+import com.nextcloud.utils.GlideHelper;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.TemplateButtonBinding;
 import com.owncloud.android.datamodel.Template;
@@ -115,12 +113,7 @@ public class RichDocumentsTemplateAdapter extends RecyclerView.Adapter<RichDocum
                 case PRESENTATION -> R.drawable.file_ppt;
             };
 
-            Glide.with(context)
-                .load(template.getThumbnailLink())
-                .placeholder(placeholder)
-                .error(placeholder)
-                .into(binding.template);
-
+            GlideHelper.INSTANCE.loadViaURLIntoImageView(context, template.getThumbnailLink(), binding.template, placeholder);
             binding.templateName.setText(template.getName());
             binding.templateContainer.setChecked(template == selectedTemplate);
         }
