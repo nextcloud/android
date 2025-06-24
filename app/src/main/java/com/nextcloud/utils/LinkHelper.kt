@@ -75,10 +75,15 @@ object LinkHelper {
     }
 
     // region Validation
+    private const val HTTP = "http"
+    private const val HTTPS = "https"
+    private const val FILE = "file"
+    private const val CONTENT = "content"
+
     /**
      * Validates if a string can be converted to a valid URI
      */
-    @Suppress("ComplexCondition", "TooGenericExceptionCaught")
+    @Suppress("TooGenericExceptionCaught", "ReturnCount")
     fun validateAndGetURI(uriString: String?): Uri? {
         if (uriString.isNullOrBlank()) {
             Log_OC.w(TAG, "Given uriString is null or blank")
@@ -87,15 +92,12 @@ object LinkHelper {
 
         return try {
             val uri = uriString.toUri()
-            if (uri.scheme != null && (
-                    uri.scheme == "http" || uri.scheme == "https" || uri.scheme == "file" ||
-                        uri.scheme == "content"
-                    )
-            ) {
-                uri
-            } else {
-                null
+            if (uri.scheme == null) {
+                return null
             }
+
+            val validSchemes = listOf(HTTP, HTTPS, FILE, CONTENT)
+            if (uri.scheme in validSchemes) uri else null
         } catch (e: Exception) {
             Log_OC.e(TAG, "Invalid URI string: $uriString -- $e")
             null
@@ -105,7 +107,7 @@ object LinkHelper {
     /**
      * Validates if a URL string is valid
      */
-    @Suppress("TooGenericExceptionCaught")
+    @Suppress("TooGenericExceptionCaught", "ReturnCount")
     fun validateAndGetURL(url: String?): String? {
         if (url.isNullOrBlank()) {
             Log_OC.w(TAG, "Given url is null or blank")
@@ -114,11 +116,11 @@ object LinkHelper {
 
         return try {
             val uri = url.toUri()
-            if (uri.scheme != null && (uri.scheme == "http" || uri.scheme == "https")) {
-                url
-            } else {
-                null
+            if (uri.scheme == null) {
+                return null
             }
+            val validSchemes = listOf(HTTP, HTTPS)
+            if (uri.scheme in validSchemes) url else null
         } catch (e: Exception) {
             Log_OC.e(TAG, "Invalid URL: $url -- $e")
             null
