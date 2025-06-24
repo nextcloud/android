@@ -799,7 +799,7 @@
     <string name="share_delete_permission">Slet</string>
     <string name="share_dialog_title">Deling</string>
     <string name="share_download_limit">Indstil downloadgrænse</string>
-    <string name="share_edit_permission">Rediger</string>
+    <string name="share_edit_permission">Redigér</string>
     <string name="share_expiration_date_format">%1$s</string>
     <string name="share_file">Del %1$s</string>
     <string name="share_group_clarification">%1$s (gruppe)</string>
