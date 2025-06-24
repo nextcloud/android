@@ -285,6 +285,7 @@
     <string name="drawer_quota">%1$s felhasználva ennyiből: %2$s</string>
     <string name="drawer_quota_unlimited">%1$s használt</string>
     <string name="drawer_synced_folders">Automatikus feltöltés</string>
+    <string name="due_to_too_many_wrong_attempts">%s a túl sok hibás próbálkozás miatt</string>
     <string name="e2e_counter_too_old">A számláló túl régi</string>
     <string name="e2e_hash_not_found">Az ujjlenyomat nem található</string>
     <string name="e2e_not_yet_setup">A végpontok közti titkosítás még nincs beállítva</string>
@@ -300,6 +301,7 @@
     <string name="end_to_end_encryption_confirm_button">Titkosítás beállítása</string>
     <string name="end_to_end_encryption_decrypting">Visszafejtés…</string>
     <string name="end_to_end_encryption_dialog_close">Bezárás</string>
+    <string name="end_to_end_encryption_enter_passphrase_to_access_files">Adja meg a jelmondatát a fájljai eléréséhez</string>
     <string name="end_to_end_encryption_folder_not_empty">Ez a mappa nem üres.</string>
     <string name="end_to_end_encryption_generating_keys">Új kulcsok előállítása…</string>
     <string name="end_to_end_encryption_keywords_description">A 12 szó együtt nagyon erős jelszót alkot, amivel megtekintheti és használhatja a titkosított fájljait. Kérjük írja le, és őrizze biztonságos helyen.</string>
@@ -785,11 +787,16 @@
     <string name="server_not_reachable">A tartalom nem tölthető be</string>
     <string name="server_not_reachable_content">Az eszköz valószínűleg nem kapcsolódik az internethez</string>
     <string name="set_as">Beállítás mint</string>
+    <string name="set_download_limit_failed">A letöltési korlát nem állítható be. Ellenőrizze az elérhető funkciókat.</string>
+    <string name="set_note">Jegyzet beállítása</string>
     <string name="set_picture_as">Kép használata mint</string>
     <string name="set_status">Állapot beállítása</string>
     <string name="set_status_message">Állapotüzenet beállítása</string>
     <string name="setup_e2e">A végpontok közti titkosítás beállítása során kap egy 12 véletlenszerű szóból álló mnemonikus kódot, amelyre akkor lesz szüksége, ha más eszközökön akarja megnyitni a fájlokat. Ez csak ezen az eszközön lesz tárolva, és újra megjeleníthető ezen a képernyőn. Jegyezze le, és tárolja biztonságos helyen!</string>
     <string name="share">Megosztás</string>
+    <string name="share_allow_download_and_sync_permission">Letöltés és szinkronizálás engedélyezése</string>
+    <string name="share_cannot_update_empty_note">A megosztás frissítése sikertelen. Adjon hozzá egy jegyzetet, és próbálja újra.</string>
+    <string name="share_copy_link">Hivatkozás megosztása és másolása</string>
     <string name="share_create_permission">Létrehozás</string>
     <string name="share_custom_permission">Egyéni jogosultságok</string>
     <string name="share_delete_permission">Törlés</string>
@@ -813,13 +820,18 @@
     <string name="share_link_with_label">Megosztási hivatkozás (%1$s)</string>
     <string name="share_no_expiration_date_label">Lejárati idő beállítása</string>
     <string name="share_no_password_title">Jelszó beállítása</string>
+    <string name="share_option_required">A folytatás előtt válasszon legalább egy megosztási lehetőséget.</string>
     <string name="share_permission_can_edit">Szerkesztheti</string>
+    <string name="share_permission_file_request">Fájlkérés</string>
     <string name="share_permission_secure_file_drop">Biztonságos fájllerakat</string>
     <string name="share_permission_view_only">Csak megtekintés</string>
+    <string name="share_permissions">Megosztási jogosultságok</string>
     <string name="share_re_share_permission">Megosztás</string>
     <string name="share_read_permission">Olvasás</string>
     <string name="share_remote_clarification">%1$s (távoli)</string>
     <string name="share_room_clarification">%1$s(beszélgetés)</string>
+    <string name="share_search">Név, egyesített felhőazonosító vagy e-mail-cím…</string>
+    <string name="share_search_internal">Felhasználók és csapatok hozzáadása</string>
     <string name="share_send_new_email">Új e-mail küldése</string>
     <string name="share_send_note">Jegyzet a címzettnek</string>
     <string name="share_settings">Beállítások</string>
@@ -834,10 +846,12 @@
     <string name="shared_icon_shared_via_link">hivatkozással megosztva</string>
     <string name="shared_with_you_by">%1$s megosztotta Önnel</string>
     <string name="sharee_add_failed">A megosztás hozzáadása sikertelen</string>
+    <string name="sharee_already_added_to_file">A megosztás hozzáadása sikertelen. A fájl vagy mappa már meg van osztva ezzel a személlyel vagy csoporttal.</string>
     <string name="show_all">Összes megjelenítése</string>
     <string name="show_images">Fényképek megjelenítése</string>
     <string name="show_less">Kevesebb megjelenítése</string>
     <string name="show_video">Videók megjelenítése</string>
+    <string name="sign_tos_failed">Kézileg nézze meg a szolgáltatási feltételeket!</string>
     <string name="signup_with_provider">Regisztráció egy szolgáltatóval</string>
     <string name="single_sign_on_request_token" formatted="true">Engedélyezi, hogy a(z) %1$s hozzáférjen a(z) %2$s Nextcloud fiókjához?</string>
     <string name="sort_by">Rendezés elve</string>
@@ -879,6 +893,25 @@
     <string name="storage_permission_full_access">Teljes hozzáférés</string>
     <string name="storage_permission_media_read_only">Írásvédett média</string>
     <string name="storage_pictures">Képek</string>
+    <string name="store_full_desc">A saját üzemeltetésű irodai platform, amely az Ön kezébe adja az irányítást.
+
+Szolgáltatások:
+* Egyszerű, modern felület, mely igazodik a kiszolgáló témájához.
+* Fájlok feltöltése a Nextcloud kiszolgálójára
+* Fájlmegosztás másokkal
+* Kedvenc fájljai és mappái szinkronizálása
+* Keresés a kiszolgáló mappái között
+* Az eszközzel készített videók és képek automatikus feltöltése
+* Értesítések fogadása
+* Több fiók támogatása
+* Biztonságosa adatelérés PIN-kód vagy ujjlenyomat segítségével
+* Kapcsolódás DAVx⁵-tel (régi nevén DAVdroid) a naptár- és névjegy-szinkronizálás megkönnyítéséhez
+
+Jelentsen minden hibát a https://github.com/nextcloud/android/issues címen, és beszélgessen az alkalmazásról itt: https://help.nextcloud.com/c/clients/android
+
+Új Önnek a Nextcloud? A Nextcloud egy privát fájlszinkronizáló, -megosztó és kommunikációs kiszolgáló. Teljesen szabad szoftver, melyet saját maga is futtathat, vagy fizethet más cégeknek, hogy megtegyék Ön helyett. Segítségével teljesen ura lehet a saját képeinek, naptárainak, névjegyeinek, fájljainak és minden egyebedének.
+
+A Nextcloud itt érhető el: https://nextcloud.com</string>
     <string name="store_full_dev_desc">A saját üzemeltetésű irodai platform, amely az Ön kezébe adja az irányítást.\nEz a hivatalos fejlesztői változat, amely napi mintát ad a nem tesztelt, új funkciókról, melyek instabilitást és adatvesztést okozhatnak. Az alkalmazások azoknak a felhasználóknak készült, akik hajlandóak tesztelni, és hibákat bejelenteni, ha azok előfordulnak. Ne használja éles munkához!\n\nMind a hivatalos fejlesztői, mind a szokásos verzió elérhető az F-droidon, és egyszerre is telepíthetőek.</string>
     <string name="store_short_desc">A saját üzemeltetésű irodai platform, amely az Ön kezébe adja az irányítást</string>
     <string name="store_short_dev_desc">A saját üzemeltetésű irodai platform, amely az Ön kezébe adja az irányítást (fejlesztői előzetes verzió)</string>
@@ -895,8 +928,10 @@
     <string name="subtitle_videos_only">Csak videók</string>
     <string name="suggest">Javaslat</string>
     <string name="sync">Szinkronizálás</string>
+    <string name="sync_anyway">Szinkronizálás mindenképpen</string>
     <string name="sync_conflicts_in_favourites_ticker">Ütközések vannak</string>
     <string name="sync_current_folder_was_removed">A(z) %1$s mappa már nem létezik</string>
+    <string name="sync_duplication">Szinkronizálási duplikációk</string>
     <string name="sync_fail_content">A(z) %1$s szinkronizálása sikertelen</string>
     <string name="sync_fail_content_unauthorized">Hibás jelszó ehhez: %1$s</string>
     <string name="sync_fail_in_favourites_ticker">A szinkronizálandó fájlok szinkronizálása sikertelen</string>
@@ -913,6 +948,7 @@
     <string name="sync_not_enough_space_dialog_title">Nincs elég hely.</string>
     <string name="sync_status_button">Szinkronizálás állapota gomb</string>
     <string name="sync_string_files">Fájlok</string>
+    <string name="sync_warning_button">Szinkronizálási frissítési gomb</string>
     <string name="synced_folder_settings_button">Beállítások gomb</string>
     <string name="synced_folders_configure_folders">Mappák beállítása</string>
     <string name="synced_folders_new_info">Az azonnali feltöltés teljesen át lett dolgozva. Állítsa be újra az automatikus feltöltést a főmenüben.\n\nÉlvezze az új és kibővített automatikus feltöltést.</string>
@@ -956,12 +992,20 @@
     <string name="update_link_file_no_exist">Nem lehet frissíteni. Ellenőrizze, hogy a fájl létezik-e</string>
     <string name="update_link_forbidden_permissions">megosztás frissítése</string>
     <string name="updating_share_failed">A megosztás frissítése sikertelen</string>
+    <string name="upload_action_cancelled_clear">Megszakított feltöltések eltávolítása</string>
+    <string name="upload_action_cancelled_resume">Megszakított feltöltések folytatása</string>
     <string name="upload_action_failed_clear">Sikertelen feltöltések eltávolítása</string>
     <string name="upload_action_failed_retry">Sikertelen feltöltések újrapróbálása</string>
+    <string name="upload_action_file_not_exist_message">Egyes fájlok már nem léteznek. Ezek a feltöltések nem folytathatóak.</string>
+    <string name="upload_action_global_upload_pause">Összes feltöltés szüneteltetése</string>
+    <string name="upload_action_global_upload_resume">Összes feltöltés folytatása</string>
     <string name="upload_cannot_create_file">A helyi fájlt nem lehet létrehozni</string>
     <string name="upload_chooser_title">Feltöltés innen…</string>
     <string name="upload_content_from_other_apps">Más alkalmazásból származó tartalom feltöltése</string>
+    <string name="upload_direct_camera_photo">Fénykép</string>
+    <string name="upload_direct_camera_promt">Fényképet vagy videót akar készíteni?</string>
     <string name="upload_direct_camera_upload">Feltöltés kameráról</string>
+    <string name="upload_direct_camera_video">Videó</string>
     <string name="upload_file_dialog_filename">Fájlnév</string>
     <string name="upload_file_dialog_filetype">Fájltípus</string>
     <string name="upload_file_dialog_filetype_googlemap_shortcut">Google Térkép parancsikon fájl(%s)</string>
@@ -969,15 +1013,18 @@
     <string name="upload_file_dialog_filetype_snippet_text">Töredék szövegfájl(.txt)</string>
     <string name="upload_file_dialog_title">Adja meg a feltöltendő fájl nevét és típusát</string>
     <string name="upload_files">Fájlok feltöltése</string>
+    <string name="upload_global_pause_title">Összes feltöltés szüneteltetve</string>
     <string name="upload_item_action_button">Elem feltöltése műveletgomb</string>
     <string name="upload_list_delete">Törlés</string>
     <string name="upload_list_empty_headline">Nincsenek feltöltések</string>
     <string name="upload_list_empty_text_auto_upload">Töltsön fel valamilyen tartalmat, vagy aktiválja az automatikus feltöltést.</string>
+    <string name="upload_list_expand_header">Fejléc kibontása be/ki</string>
     <string name="upload_list_resolve_conflict">Ütközés feloldása</string>
     <string name="upload_local_storage_full">A helyi tároló megtelt</string>
     <string name="upload_local_storage_not_copied">A fájlt nem lehet a helyi tárolóra másolni</string>
     <string name="upload_lock_failed">A mappa zárolása sikertelen</string>
     <string name="upload_manually_cancelled">Feltöltés megszakítva a felhasználó által</string>
+    <string name="upload_notification_manager_start_text">%1$d / %2$d – %3$s</string>
     <string name="upload_old_android">A titkosítás csak 5.0-s vagy újabb Android esetén lehetséges</string>
     <string name="upload_query_move_foreign_files">Nincs elég hely a fájlok ebbe a mappába másolásához: %1$s. Áthelyezi inkább őket?</string>
     <string name="upload_quota_exceeded">Tárhelykvóta túllépve</string>
@@ -995,6 +1042,7 @@
     <string name="uploader_file_not_found_message">A fájl nem található. Biztos, hogy létezik ez a fájl, vagy egy előző ütközés nem lett feloldva?</string>
     <string name="uploader_file_not_found_on_server_message">A fájl nem található a kiszolgálón. Lehet, hogy egy másik felhasználó törölte a fájlt.</string>
     <string name="uploader_info_dirname">Mappa neve</string>
+    <string name="uploader_local_files_uploaded">Sikertelen helyi fájlok újbóli feltöltése</string>
     <string name="uploader_top_message">Válasszon feltöltési mappát</string>
     <string name="uploader_upload_failed_content_single">%1$s feltöltése sikertelen.</string>
     <string name="uploader_upload_failed_credentials_error">Feltöltés sikertelen, újra be kell jelentkeznie.</string>
