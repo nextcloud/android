@@ -15,7 +15,6 @@ import android.view.View
 import android.widget.RemoteViews
 import android.widget.RemoteViewsService
 import androidx.core.net.toUri
-import com.bumptech.glide.Glide
 import com.bumptech.glide.request.FutureTarget
 import com.nextcloud.android.lib.resources.dashboard.DashboardGetWidgetItemsRemoteOperation
 import com.nextcloud.android.lib.resources.dashboard.DashboardWidgetItem
@@ -26,7 +25,6 @@ import com.nextcloud.utils.extensions.toBitmap
 import com.owncloud.android.R
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.utils.BitmapUtils
-import com.owncloud.android.utils.DisplayUtils.SVG_SIZE
 import dagger.android.AndroidInjection
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -174,7 +172,7 @@ class StackRemoteViewsFactory(
             return
         }
 
-        val source: FutureTarget<Bitmap> = loadBitmapIcon(widgetItem)
+        val source: FutureTarget<Bitmap> = GlideHelper.createBitmapFromDashboardWidgetItem(context, widgetItem)
         remoteViews.setRemoteImageView(source.get())
     }
 
@@ -191,15 +189,6 @@ class StackRemoteViewsFactory(
             Log_OC.d(TAG, "Error setting icon", e)
             setImageViewResource(R.id.icon, R.drawable.ic_dashboard)
         }
-    }
-
-    private fun loadBitmapIcon(widgetItem: DashboardWidgetItem): FutureTarget<Bitmap> {
-        return Glide
-            .with(context)
-            .asBitmap()
-            .load(widgetItem.iconUrl)
-            .override(SVG_SIZE, SVG_SIZE)
-            .submit()
     }
 
     private fun updateTexts(widgetItem: DashboardWidgetItem, remoteViews: RemoteViews) {

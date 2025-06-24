@@ -46,8 +46,6 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.target.Target;
 import com.elyeproj.loaderviewlibrary.LoaderImageView;
 import com.google.android.material.snackbar.Snackbar;
@@ -67,13 +65,8 @@ import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.files.model.ServerFileInterface;
 import com.owncloud.android.ui.TextDrawable;
-import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.dialog.SortingOrderDialogFragment;
-import com.owncloud.android.ui.events.SearchEvent;
-import com.owncloud.android.ui.fragment.OCFileListFragment;
 import com.owncloud.android.utils.theme.ViewThemeUtils;
-
-import org.greenrobot.eventbus.EventBus;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -526,49 +519,12 @@ public final class DisplayUtils {
                                     int placeholder) {
         try {
             if (Uri.parse(iconUrl).getEncodedPath().endsWith(".svg")) {
-                GlideHelper.INSTANCE.loadSvg(context,iconUrl, imageView, placeholder);
+                GlideHelper.INSTANCE.loadViaURISVGIntoImageView(context, iconUrl, imageView, placeholder);
             } else {
-                downloadPNGIcon(context, iconUrl, imageView, placeholder);
+                GlideHelper.INSTANCE.loadViaURLIntoDrawableTarget(context,iconUrl,imageView, placeholder);
             }
         } catch (Exception e) {
             Log_OC.d(TAG, "not setting image as activity is destroyed");
-        }
-    }
-
-    private static void downloadPNGIcon(Context context, String iconUrl, Target<Drawable> imageView, int placeholder) {
-        Glide
-            .with(context)
-            .load(iconUrl)
-            .centerCrop()
-            .placeholder(placeholder)
-            .error(placeholder)
-            .into(imageView);
-    }
-
-    public static Bitmap downloadImageSynchronous(Context context, String imageUrl) {
-        try {
-            return Glide
-                .with(context)
-                .asBitmap()
-                .load(imageUrl)
-                .diskCacheStrategy(DiskCacheStrategy.NONE)
-                .skipMemoryCache(true)
-                .submit(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL)
-                .get();
-        } catch (Exception e) {
-            Log_OC.e(TAG, "Could not download image " + imageUrl);
-            return null;
-        }
-    }
-
-    private static void switchToSearchFragment(Activity activity, SearchEvent event) {
-        if (activity instanceof FileDisplayActivity) {
-            EventBus.getDefault().post(event);
-        } else {
-            Intent recentlyAddedIntent = new Intent(activity.getBaseContext(), FileDisplayActivity.class);
-            recentlyAddedIntent.putExtra(OCFileListFragment.SEARCH_EVENT, event);
-            recentlyAddedIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            activity.startActivity(recentlyAddedIntent);
         }
     }
 

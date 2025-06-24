@@ -25,7 +25,6 @@ import android.view.ViewGroup;
 import android.webkit.URLUtil;
 import android.widget.ImageView;
 
-import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.CustomTarget;
 import com.bumptech.glide.request.target.Target;
 import com.bumptech.glide.request.transition.Transition;
@@ -33,6 +32,7 @@ import com.nextcloud.client.account.User;
 import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.common.NextcloudClient;
+import com.nextcloud.utils.GlideHelper;
 import com.nextcloud.utils.extensions.BundleExtensionsKt;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.UserInfoDetailsTableItemBinding;
@@ -195,21 +195,19 @@ public class UserInfoActivity extends DrawerActivity implements Injectable {
             return;
         }
 
-        String background = getStorageManager().getCapability(user.getAccountName()).getServerBackground();
-        if (!URLUtil.isValidUrl(background)) {
+        String backgroundURL = getStorageManager().getCapability(user.getAccountName()).getServerBackground();
+        if (backgroundURL == null) {
+            return;
+        }
+
+        if (!URLUtil.isValidUrl(backgroundURL)) {
             final Drawable drawable = viewThemeUtils.platform.getPrimaryColorDrawable(backgroundImageView.getContext());
             backgroundImageView.setImageDrawable(drawable);
             return;
         }
 
         Target<Drawable> backgroundImageTarget = createBackgroundImageTarget(backgroundImageView);
-
-        Glide.with(this)
-            .load(background)
-            .centerCrop()
-            .placeholder(R.drawable.background)
-            .error(R.drawable.background)
-            .into(backgroundImageTarget);
+        GlideHelper.INSTANCE.loadViaURLIntoDrawableTarget(this, backgroundURL, backgroundImageTarget,R.drawable.background);
     }
 
     private Target<Drawable> createBackgroundImageTarget(ImageView backgroundImageView) {
