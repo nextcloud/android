@@ -77,6 +77,23 @@ class OfflineOperationsNotificationManager(private val context: Context, viewThe
         }
     }
 
+    fun showConflictNotificationForDeleteOrRemoveOperation(entity: OfflineOperationEntity?) {
+        val id = entity?.id
+        if (id == null) {
+            return
+        }
+
+        val title = entity.getConflictText(context)
+
+        notificationBuilder
+            .setProgress(0, 0, false)
+            .setOngoing(false)
+            .clearActions()
+            .setContentTitle(title)
+
+        notificationManager.notify(id, notificationBuilder.build())
+    }
+
     fun showConflictResolveNotification(file: OCFile, entity: OfflineOperationEntity?) {
         val path = entity?.path
         val id = entity?.id
@@ -87,10 +104,7 @@ class OfflineOperationsNotificationManager(private val context: Context, viewThe
 
         val resolveConflictAction = getResolveConflictAction(file, id, path)
 
-        val title = context.getString(
-            R.string.offline_operations_worker_notification_conflict_text,
-            file.fileName
-        )
+        val title = entity.getConflictText(context)
 
         notificationBuilder
             .setProgress(0, 0, false)
