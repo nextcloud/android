@@ -15,7 +15,6 @@ import android.net.Uri
 import android.widget.ImageView
 import androidx.annotation.DrawableRes
 import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory
-import androidx.core.net.toUri
 import com.bumptech.glide.Glide
 import com.bumptech.glide.RequestBuilder
 import com.bumptech.glide.load.engine.DiskCacheStrategy
@@ -26,6 +25,8 @@ import com.bumptech.glide.request.target.AppWidgetTarget
 import com.bumptech.glide.request.target.BitmapImageViewTarget
 import com.bumptech.glide.request.target.Target
 import com.nextcloud.android.lib.resources.dashboard.DashboardWidgetItem
+import com.nextcloud.utils.LinkHelper.validateAndGetURI
+import com.nextcloud.utils.LinkHelper.validateAndGetURL
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.utils.DisplayUtils.SVG_SIZE
 import com.owncloud.android.utils.svg.SvgSoftwareLayerSetter
@@ -40,60 +41,7 @@ import com.owncloud.android.utils.svg.SvgSoftwareLayerSetter
 object GlideHelper {
     private const val TAG = "GlideHelper"
 
-    // region Validation
-    /**
-     * Validates if a string can be converted to a valid URI
-     */
-    @Suppress("ComplexCondition", "TooGenericExceptionCaught")
-    private fun validateAndGetURI(uriString: String?): Uri? {
-        if (uriString.isNullOrBlank()) {
-            Log_OC.w(TAG, "Given uriString is null or blank")
-            return null
-        }
-
-        return try {
-            val uri = uriString.toUri()
-            if (uri.scheme != null && (
-                    uri.scheme == "http" || uri.scheme == "https" || uri.scheme == "file" ||
-                        uri.scheme == "content"
-                    )
-            ) {
-                uri
-            } else {
-                null
-            }
-        } catch (e: Exception) {
-            Log_OC.w(TAG, "Invalid URI string: $uriString -- $e")
-            null
-        }
-    }
-
-    /**
-     * Validates if a URL string is valid
-     */
-    @Suppress("TooGenericExceptionCaught")
-    private fun validateAndGetURL(url: String?): String? {
-        if (url.isNullOrBlank()) {
-            Log_OC.w(TAG, "Given url is null or blank")
-            return null
-        }
-
-        return try {
-            val uri = url.toUri()
-            if (uri.scheme != null && (uri.scheme == "http" || uri.scheme == "https")) {
-                url
-            } else {
-                null
-            }
-        } catch (e: Exception) {
-            Log_OC.w(TAG, "Invalid URL: $url -- $e")
-            null
-        }
-    }
-    // endregion
-
     // region SVG
-
     /**
      * Creates a Glide request builder specifically for loading SVG images from a [Uri].
      *

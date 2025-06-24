@@ -10,8 +10,10 @@ package com.nextcloud.utils
 import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import androidx.core.net.toUri
 import com.nextcloud.client.account.User
+import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.ui.activity.FileDisplayActivity
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
@@ -19,6 +21,7 @@ import kotlin.jvm.optionals.getOrNull
 object LinkHelper {
     const val APP_NEXTCLOUD_NOTES = "it.niedermann.owncloud.notes"
     const val APP_NEXTCLOUD_TALK = "com.nextcloud.talk2"
+    private const val TAG = "LinkHelper"
 
     /**
      * Open specified app and, if not installed redirect to corresponding download.
@@ -70,4 +73,56 @@ object LinkHelper {
             context.startActivity(intent)
         }
     }
+
+    // region Validation
+    /**
+     * Validates if a string can be converted to a valid URI
+     */
+    @Suppress("ComplexCondition", "TooGenericExceptionCaught")
+    fun validateAndGetURI(uriString: String?): Uri? {
+        if (uriString.isNullOrBlank()) {
+            Log_OC.w(TAG, "Given uriString is null or blank")
+            return null
+        }
+
+        return try {
+            val uri = uriString.toUri()
+            if (uri.scheme != null && (
+                    uri.scheme == "http" || uri.scheme == "https" || uri.scheme == "file" ||
+                        uri.scheme == "content"
+                    )
+            ) {
+                uri
+            } else {
+                null
+            }
+        } catch (e: Exception) {
+            Log_OC.e(TAG, "Invalid URI string: $uriString -- $e")
+            null
+        }
+    }
+
+    /**
+     * Validates if a URL string is valid
+     */
+    @Suppress("TooGenericExceptionCaught")
+    fun validateAndGetURL(url: String?): String? {
+        if (url.isNullOrBlank()) {
+            Log_OC.w(TAG, "Given url is null or blank")
+            return null
+        }
+
+        return try {
+            val uri = url.toUri()
+            if (uri.scheme != null && (uri.scheme == "http" || uri.scheme == "https")) {
+                url
+            } else {
+                null
+            }
+        } catch (e: Exception) {
+            Log_OC.e(TAG, "Invalid URL: $url -- $e")
+            null
+        }
+    }
+    // endregion
 }
