@@ -16,9 +16,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.bumptech.glide.Glide;
 import com.nextcloud.client.account.CurrentAccountProvider;
 import com.nextcloud.client.network.ClientFactory;
+import com.nextcloud.utils.GlideHelper;
 import com.owncloud.android.databinding.TemplateButtonBinding;
 import com.owncloud.android.lib.common.Template;
 import com.owncloud.android.lib.common.TemplateList;
@@ -122,12 +122,7 @@ public class TemplateAdapter extends RecyclerView.Adapter<TemplateAdapter.ViewHo
                                                                 context,
                                                                 viewThemeUtils);
 
-            Glide.with(context)
-                .load(template.getPreview())
-                .placeholder(placeholder)
-                .error(placeholder)
-                .into(binding.template);
-
+            GlideHelper.INSTANCE.loadViaURLIntoImageView(context, template.getPreview(), binding.template, placeholder);
             binding.templateName.setText(template.getTitle());
             binding.templateContainer.setChecked(template == selectedTemplate);
         }

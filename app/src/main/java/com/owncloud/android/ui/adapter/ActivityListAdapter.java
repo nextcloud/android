@@ -32,8 +32,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.nextcloud.client.account.CurrentAccountProvider;
 import com.nextcloud.client.network.ClientFactory;
 import com.nextcloud.common.NextcloudClient;
@@ -161,7 +159,7 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             }
 
             if (!TextUtils.isEmpty(activity.getIcon())) {
-                GlideHelper.INSTANCE.loadSvg(context, activity.getIcon(), activityViewHolder.binding.icon, R.drawable.ic_activity);
+                GlideHelper.INSTANCE.loadViaURISVGIntoImageView(context, activity.getIcon(), activityViewHolder.binding.icon, R.drawable.ic_activity);
             }
 
             int nightModeFlag = context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
@@ -238,13 +236,10 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             } else {
                 placeholder = R.drawable.file_movie;
             }
-            Glide.with(context)
-                .load(previewObject.getSource())
-                .placeholder(placeholder)
-                .error(placeholder)
-                .diskCacheStrategy(DiskCacheStrategy.NONE)
-                .skipMemoryCache(true)
-                .into(imageView);
+
+            if (previewObject.getSource() != null) {
+                GlideHelper.INSTANCE.loadViaURLIntoImageView(context, previewObject.getSource(), imageView, placeholder);
+            }
         } else {
             if (MimeTypeUtil.isFolder(previewObject.getMimeType())) {
                 imageView.setImageDrawable(MimeTypeUtil.getDefaultFolderIcon(context, viewThemeUtils));

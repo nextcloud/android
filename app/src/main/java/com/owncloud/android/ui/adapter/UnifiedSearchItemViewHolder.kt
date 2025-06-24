@@ -13,10 +13,8 @@ import android.graphics.drawable.Drawable
 import android.view.View
 import androidx.core.content.res.ResourcesCompat
 import com.afollestad.sectionedrecyclerview.SectionedViewHolder
-import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
-import com.bumptech.glide.load.resource.bitmap.BitmapTransitionOptions
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 import com.nextcloud.android.common.ui.theme.utils.ColorRole
@@ -25,6 +23,7 @@ import com.nextcloud.client.network.ClientFactory
 import com.nextcloud.model.SearchResultEntryType
 import com.nextcloud.utils.CalendarEventManager
 import com.nextcloud.utils.ContactManager
+import com.nextcloud.utils.GlideHelper
 import com.nextcloud.utils.extensions.getType
 import com.owncloud.android.databinding.UnifiedSearchItemBinding
 import com.owncloud.android.datamodel.FileDataStorageManager
@@ -68,16 +67,8 @@ class UnifiedSearchItemViewHolder(
 
         val entryType = entry.getType()
         val placeholder = getPlaceholder(entry, entryType, mimetype)
-
-        Glide
-            .with(context)
-            .asBitmap()
-            .load(entry.thumbnailUrl)
-            .placeholder(placeholder)
-            .error(placeholder)
-            .transition(BitmapTransitionOptions.withCrossFade(android.R.anim.fade_in))
-            .listener(RoundIfNeededListener(entry))
-            .into(binding.thumbnail)
+        val entryRequestListener = RoundIfNeededListener(entry)
+        GlideHelper.loadViaURLIntoImageView(context, entry.thumbnailUrl, binding.thumbnail, placeholder, entryRequestListener)
 
         if (entry.isFile) {
             binding.more.visibility = View.VISIBLE

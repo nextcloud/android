@@ -129,7 +129,7 @@ public class NotificationListAdapter extends RecyclerView.Adapter<NotificationLi
         }
 
         if (!TextUtils.isEmpty(notification.getIcon())) {
-            GlideHelper.INSTANCE.loadSvg(notificationsActivity, notification.getIcon(), holder.binding.icon, R.drawable.ic_notification);
+            GlideHelper.INSTANCE.loadViaURISVGIntoImageView(notificationsActivity, notification.getIcon(), holder.binding.icon, R.drawable.ic_notification);
         }
 
         viewThemeUtils.platform.colorImageView(holder.binding.icon, ColorRole.ON_SURFACE_VARIANT);

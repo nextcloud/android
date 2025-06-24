@@ -39,7 +39,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.CustomTarget;
 import com.bumptech.glide.request.target.Target;
 import com.bumptech.glide.request.transition.Transition;
@@ -57,6 +56,7 @@ import com.nextcloud.common.NextcloudClient;
 import com.nextcloud.ui.ChooseAccountDialogFragment;
 import com.nextcloud.ui.composeActivity.ComposeActivity;
 import com.nextcloud.ui.composeActivity.ComposeDestination;
+import com.nextcloud.utils.GlideHelper;
 import com.nextcloud.utils.LinkHelper;
 import com.nextcloud.utils.extensions.ActivityExtensionsKt;
 import com.nextcloud.utils.extensions.ViewExtensionsKt;
@@ -378,20 +378,15 @@ public abstract class DrawerActivity extends ToolbarActivity
             getCapabilities().getServerBackground() != null && !isClientBranded) {
 
             OCCapability capability = getCapabilities();
-            String logo = capability.getServerLogo();
+            String serverLogoURL = capability.getServerLogo();
 
             // set background to primary color
             LinearLayout drawerHeader = mNavigationViewHeader.findViewById(R.id.drawer_header_view);
             drawerHeader.setBackgroundColor(primaryColor);
 
-            if (!TextUtils.isEmpty(logo) && URLUtil.isValidUrl(logo)) {
-                Target<Bitmap> logoTarget = createLogoTarget(primaryColor, capability);
-
-                Glide
-                    .with(this)
-                    .as(Bitmap.class)
-                    .load(Uri.parse(logo))
-                    .into(logoTarget);
+            if (!TextUtils.isEmpty(serverLogoURL) && URLUtil.isValidUrl(serverLogoURL)) {
+                Target<Bitmap> target = createLogoTarget(primaryColor, capability);
+                GlideHelper.INSTANCE.loadViaURIIntoBitmapTarget(this, serverLogoURL, target);
             }
         }
 
