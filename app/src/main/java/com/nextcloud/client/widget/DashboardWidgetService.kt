@@ -162,7 +162,6 @@ class StackRemoteViewsFactory(
         }
     }
 
-    @Suppress("TooGenericExceptionCaught")
     private fun loadIcon(widgetItem: DashboardWidgetItem, remoteViews: RemoteViews) {
         val isIconSVG = widgetItem.iconUrl.toUri().encodedPath?.endsWith(".svg")
         if (isIconSVG == true) {
@@ -176,6 +175,7 @@ class StackRemoteViewsFactory(
         remoteViews.setRemoteImageView(source.get())
     }
 
+    @Suppress("TooGenericExceptionCaught")
     private fun RemoteViews.setRemoteImageView(source: Bitmap) {
         try {
             val bitmap: Bitmap = if (widgetConfiguration.roundIcon) {

@@ -68,7 +68,13 @@ class UnifiedSearchItemViewHolder(
         val entryType = entry.getType()
         val placeholder = getPlaceholder(entry, entryType, mimetype)
         val entryRequestListener = RoundIfNeededListener(entry)
-        GlideHelper.loadViaURLIntoImageView(context, entry.thumbnailUrl, binding.thumbnail, placeholder, entryRequestListener)
+        GlideHelper.loadViaURLIntoImageView(
+            context,
+            entry.thumbnailUrl,
+            binding.thumbnail,
+            placeholder,
+            entryRequestListener
+        )
 
         if (entry.isFile) {
             binding.more.visibility = View.VISIBLE
