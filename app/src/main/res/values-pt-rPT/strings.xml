@@ -1007,6 +1007,11 @@ Aproveite o novo e melhorado envio automático.</string>
         <item quantity="many">%1$d ficheiros</item>
         <item quantity="other">%1$d ficheiros</item>
     </plurals>
+    <plurals name="trashbin_list__footer__file">
+        <item quantity="one">%1$d item</item>
+        <item quantity="many">%1$d items</item>
+        <item quantity="other">%1$d items</item>
+    </plurals>
     <plurals name="synced_folders_show_hidden_folders">
         <item quantity="one">Mostrar %1$d pasta oculta</item>
         <item quantity="many">Mostrar %1$d pastas ocultas</item>
