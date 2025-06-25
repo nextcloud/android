@@ -20,12 +20,14 @@ import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.LayerDrawable;
+import android.graphics.drawable.PictureDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -385,8 +387,8 @@ public abstract class DrawerActivity extends ToolbarActivity
             drawerHeader.setBackgroundColor(primaryColor);
 
             if (!TextUtils.isEmpty(serverLogoURL) && URLUtil.isValidUrl(serverLogoURL)) {
-                Target<Bitmap> target = createLogoTarget(primaryColor, capability);
-                GlideHelper.INSTANCE.loadViaURIIntoBitmapTarget(this, serverLogoURL, target);
+                Target<PictureDrawable> target = createSVGLogoTarget(primaryColor, capability);
+                GlideHelper.INSTANCE.loadViaURISVGIntoImageView(this, serverLogoURL, target, R.drawable.background);
             }
         }
 
@@ -401,16 +403,20 @@ public abstract class DrawerActivity extends ToolbarActivity
         }
     }
 
-    private Target<Bitmap> createLogoTarget(int primaryColor, OCCapability capability) {
+    private Target<PictureDrawable> createSVGLogoTarget(int primaryColor, OCCapability capability) {
         return new CustomTarget<>() {
             @Override
-            public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
-                Bitmap logo = resource;
-                int width = resource.getWidth();
-                int height = resource.getHeight();
+            public void onResourceReady(@NonNull PictureDrawable resource, @Nullable Transition<? super PictureDrawable> transition) {
+                Bitmap bitmap = Bitmap.createBitmap( resource.getIntrinsicWidth(),  resource.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
+                Canvas canvas = new Canvas(bitmap);
+                canvas.drawPicture(resource.getPicture());
+
+                Bitmap logo = bitmap;
+                int width = bitmap.getWidth();
+                int height = bitmap.getHeight();
                 int max = Math.max(width, height);
                 if (max > MAX_LOGO_SIZE_PX) {
-                    logo = BitmapUtils.scaleBitmap(resource, MAX_LOGO_SIZE_PX, width, height, max);
+                    logo = BitmapUtils.scaleBitmap(bitmap, MAX_LOGO_SIZE_PX, width, height, max);
                 }
 
                 Drawable[] drawables = {

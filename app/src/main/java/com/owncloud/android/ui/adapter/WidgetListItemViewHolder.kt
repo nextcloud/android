@@ -8,18 +8,14 @@
 package com.owncloud.android.ui.adapter
 
 import android.content.Context
-import android.graphics.PorterDuff
-import android.graphics.drawable.Drawable
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.request.target.CustomTarget
-import com.bumptech.glide.request.transition.Transition
 import com.nextcloud.android.lib.resources.dashboard.DashboardWidget
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.network.ClientFactory
 import com.nextcloud.client.widget.DashboardWidgetConfigurationInterface
+import com.nextcloud.utils.GlideHelper
 import com.owncloud.android.R
 import com.owncloud.android.databinding.WidgetListItemBinding
-import com.owncloud.android.utils.DisplayUtils
 
 class WidgetListItemViewHolder(
     val binding: WidgetListItemBinding,
@@ -34,30 +30,7 @@ class WidgetListItemViewHolder(
     ) {
         binding.layout.setOnClickListener { dashboardWidgetConfigurationInterface.onItemClicked(dashboardWidget) }
 
-        val target = object : CustomTarget<Drawable>() {
-            override fun onResourceReady(resource: Drawable, transition: Transition<in Drawable>?) {
-                binding.icon.setImageDrawable(resource)
-                binding.icon.setColorFilter(context.getColor(R.color.dark), PorterDuff.Mode.SRC_ATOP)
-            }
-
-            override fun onLoadCleared(placeholder: Drawable?) {
-                binding.icon.setImageDrawable(placeholder)
-                binding.icon.setColorFilter(context.getColor(R.color.dark), PorterDuff.Mode.SRC_ATOP)
-            }
-
-            override fun onLoadFailed(errorDrawable: Drawable?) {
-                super.onLoadFailed(errorDrawable)
-                binding.icon.setImageDrawable(errorDrawable)
-                binding.icon.setColorFilter(context.getColor(R.color.dark), PorterDuff.Mode.SRC_ATOP)
-            }
-        }
-
-        DisplayUtils.downloadIcon(
-            context,
-            dashboardWidget.iconUrl,
-            target,
-            R.drawable.ic_dashboard
-        )
+        GlideHelper.loadViaURISVGIntoImageView(context, dashboardWidget.iconUrl, binding.icon, R.drawable.ic_dashboard)
 
         binding.name.text = dashboardWidget.title
     }
