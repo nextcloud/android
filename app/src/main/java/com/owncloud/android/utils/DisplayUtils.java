@@ -46,13 +46,11 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.bumptech.glide.request.target.Target;
 import com.elyeproj.loaderviewlibrary.LoaderImageView;
 import com.google.android.material.snackbar.Snackbar;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.model.OfflineOperationType;
-import com.nextcloud.utils.GlideHelper;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
@@ -512,22 +510,6 @@ public final class DisplayUtils {
 
         task.execute(userId);
     }
-
-    public static void downloadIcon(Context context,
-                                    String iconUrl,
-                                    Target imageView,
-                                    int placeholder) {
-        try {
-            if (Uri.parse(iconUrl).getEncodedPath().endsWith(".svg")) {
-                GlideHelper.INSTANCE.loadViaURISVGIntoImageView(context, iconUrl, imageView, placeholder);
-            } else {
-                GlideHelper.INSTANCE.loadViaURLIntoDrawableTarget(context,iconUrl,imageView, placeholder);
-            }
-        } catch (Exception e) {
-            Log_OC.d(TAG, "not setting image as activity is destroyed");
-        }
-    }
-
 
     /**
      * Get String data from a InputStream

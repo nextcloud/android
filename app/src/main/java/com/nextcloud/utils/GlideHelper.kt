@@ -15,6 +15,7 @@ import android.net.Uri
 import android.widget.ImageView
 import androidx.annotation.DrawableRes
 import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory
+import androidx.core.net.toUri
 import com.bumptech.glide.Glide
 import com.bumptech.glide.RequestBuilder
 import com.bumptech.glide.load.DataSource
@@ -57,6 +58,26 @@ object GlideHelper {
         override fun onResourceReady(p0: T & Any, p1: Any, p2: Target<T?>?, p3: DataSource, p4: Boolean): Boolean {
             Log_OC.i(TAG, "Glide load completed: $p0")
             return false
+        }
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    fun <T>loadIntoTarget(
+        context: Context,
+        iconUrl: String,
+        target: Target<T>,
+        placeholder: Int
+    ) {
+        try {
+            val isSVG = (iconUrl.toUri().encodedPath?.endsWith(".svg") == true)
+
+            if (isSVG) {
+                loadViaURISVGIntoPictureDrawableTarget(context, iconUrl, target as Target<PictureDrawable?>, placeholder)
+            } else {
+                loadViaURLIntoDrawableTarget(context, iconUrl, target as Target<Drawable>, placeholder)
+            }
+        } catch (e: Exception) {
+            Log_OC.e(TAG, "not setting image as activity is destroyed $e")
         }
     }
 
@@ -119,15 +140,21 @@ object GlideHelper {
      * @param target The target [Target] where the SVG drawable will be loaded.
      * @param placeholder Resource ID of the drawable used for placeholder and error.
      */
-    fun loadViaURISVGIntoImageView(
+    fun loadViaURISVGIntoPictureDrawableTarget(
         context: Context,
         uriString: String?,
         target: Target<PictureDrawable?>,
-        placeholder: Int
+        placeholder: Int,
+        size: Int? = null
     ) {
         val uri = validateAndGetURI(uriString) ?: return
         val svgRequestBuilder = createSvgRequestBuilder(context, uri, placeholder)
-        svgRequestBuilder?.into(target)
+
+        if (size != null) {
+            svgRequestBuilder?.override(size)?.into(target)
+        } else {
+            svgRequestBuilder?.into(target)
+        }
     }
 
     /**
