@@ -26,6 +26,7 @@ import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.network.ClientFactory
+import com.nextcloud.utils.GlideHelper
 import com.owncloud.android.R
 import com.owncloud.android.databinding.BackupListItemHeaderBinding
 import com.owncloud.android.databinding.CalendarlistListItemBinding
@@ -35,7 +36,6 @@ import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.ui.TextDrawable
 import com.owncloud.android.ui.fragment.contactsbackup.BackupListFragment.getDisplayName
 import com.owncloud.android.utils.BitmapUtils
-import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import ezvcard.VCard
 import ezvcard.property.Photo
@@ -255,7 +255,7 @@ class BackupListAdapter(
                 }
             }
 
-            DisplayUtils.downloadIcon(
+            GlideHelper.loadIntoTarget(
                 context,
                 url,
                 target,
