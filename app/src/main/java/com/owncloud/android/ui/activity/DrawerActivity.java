@@ -407,7 +407,7 @@ public abstract class DrawerActivity extends ToolbarActivity
         return new CustomTarget<>() {
             @Override
             public void onResourceReady(@NonNull PictureDrawable resource, @Nullable Transition<? super PictureDrawable> transition) {
-                Bitmap bitmap = Bitmap.createBitmap( resource.getIntrinsicWidth(),  resource.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
+                Bitmap bitmap = Bitmap.createBitmap(resource.getIntrinsicWidth(),  resource.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
                 Canvas canvas = new Canvas(bitmap);
                 canvas.drawPicture(resource.getPicture());
 

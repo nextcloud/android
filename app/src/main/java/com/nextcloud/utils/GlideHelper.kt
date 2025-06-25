@@ -54,13 +54,7 @@ object GlideHelper {
             return false
         }
 
-        override fun onResourceReady(
-            p0: T & Any,
-            p1: Any,
-            p2: Target<T?>?,
-            p3: DataSource,
-            p4: Boolean
-        ): Boolean {
+        override fun onResourceReady(p0: T & Any, p1: Any, p2: Target<T?>?, p3: DataSource, p4: Boolean): Boolean {
             Log_OC.i(TAG, "Glide load completed: $p0")
             return false
         }
