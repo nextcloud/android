@@ -388,7 +388,11 @@ public abstract class DrawerActivity extends ToolbarActivity
 
             if (!TextUtils.isEmpty(serverLogoURL) && URLUtil.isValidUrl(serverLogoURL)) {
                 Target<PictureDrawable> target = createSVGLogoTarget(primaryColor, capability);
-                GlideHelper.INSTANCE.loadViaURISVGIntoImageView(this, serverLogoURL, target, R.drawable.background);
+                GlideHelper.INSTANCE.loadViaURISVGIntoPictureDrawableTarget(this,
+                                                                            serverLogoURL,
+                                                                            target,
+                                                                            R.drawable.background,
+                                                                            128);
             }
         }
 
@@ -878,12 +882,7 @@ public abstract class DrawerActivity extends ToolbarActivity
                     });
 
                     Target<Drawable> quotaTarget = createQuotaDrawableTarget(size, mQuotaTextLink);
-
-                    DisplayUtils.downloadIcon(this,
-                                              firstQuota.getIconUrl(),
-                                              quotaTarget,
-                                              R.drawable.ic_link);
-
+                    GlideHelper.INSTANCE.loadIntoTarget(this, firstQuota.getIconUrl(), quotaTarget, R.drawable.ic_link);
                 } else {
                     mQuotaTextLink.setVisibility(View.GONE);
                 }
@@ -1034,8 +1033,7 @@ public abstract class DrawerActivity extends ToolbarActivity
                 .getItemId();
 
             Target<Drawable> iconTarget = createMenuItemTarget(id, greyColor);
-
-            DisplayUtils.downloadIcon(
+            GlideHelper.INSTANCE.loadIntoTarget(
                 this,
                 link.getIconUrl(),
                 iconTarget,
