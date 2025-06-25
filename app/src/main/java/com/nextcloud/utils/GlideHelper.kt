@@ -61,18 +61,18 @@ object GlideHelper {
         }
     }
 
-    @Suppress("UNCHECKED_CAST")
-    fun <T>loadIntoTarget(
-        context: Context,
-        iconUrl: String,
-        target: Target<T>,
-        placeholder: Int
-    ) {
+    @Suppress("UNCHECKED_CAST", "TooGenericExceptionCaught")
+    fun <T> loadIntoTarget(context: Context, iconUrl: String, target: Target<T>, placeholder: Int) {
         try {
             val isSVG = (iconUrl.toUri().encodedPath?.endsWith(".svg") == true)
 
             if (isSVG) {
-                loadViaURISVGIntoPictureDrawableTarget(context, iconUrl, target as Target<PictureDrawable?>, placeholder)
+                loadViaURISVGIntoPictureDrawableTarget(
+                    context,
+                    iconUrl,
+                    target as Target<PictureDrawable?>,
+                    placeholder
+                )
             } else {
                 loadViaURLIntoDrawableTarget(context, iconUrl, target as Target<Drawable>, placeholder)
             }
