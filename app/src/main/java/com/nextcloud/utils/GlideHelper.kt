@@ -17,7 +17,9 @@ import androidx.annotation.DrawableRes
 import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory
 import com.bumptech.glide.Glide
 import com.bumptech.glide.RequestBuilder
+import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.load.resource.bitmap.BitmapTransitionOptions
 import com.bumptech.glide.request.FutureTarget
 import com.bumptech.glide.request.RequestListener
@@ -41,6 +43,29 @@ import com.owncloud.android.utils.svg.SvgSoftwareLayerSetter
 object GlideHelper {
     private const val TAG = "GlideHelper"
 
+    private class GlideLogger<T>(
+        private val methodName: String,
+        private val identifier: String
+    ) : RequestListener<T> {
+        override fun onLoadFailed(p0: GlideException?, p1: Any?, p2: Target<T>, p3: Boolean): Boolean {
+            Log_OC.e(TAG, "$methodName: Load failed for $identifier")
+            Log_OC.e(TAG, "$methodName: Error: ${p0?.message}")
+            p0?.logRootCauses(TAG)
+            return false
+        }
+
+        override fun onResourceReady(
+            p0: T & Any,
+            p1: Any,
+            p2: Target<T?>?,
+            p3: DataSource,
+            p4: Boolean
+        ): Boolean {
+            Log_OC.i(TAG, "Glide load completed: $p0")
+            return false
+        }
+    }
+
     // region SVG
     /**
      * Creates a Glide request builder specifically for loading SVG images from a [Uri].
@@ -56,6 +81,8 @@ object GlideHelper {
         uri: Uri,
         @DrawableRes placeholder: Int
     ): RequestBuilder<PictureDrawable>? {
+        Log_OC.d(TAG, "createSvgRequestBuilder: Starting with URI: $uri, placeholder: $placeholder")
+
         return try {
             Glide
                 .with(context)
@@ -64,6 +91,7 @@ object GlideHelper {
                 .placeholder(placeholder)
                 .error(placeholder)
                 .listener(SvgSoftwareLayerSetter())
+                .listener(GlideLogger(methodName = "createSvgRequestBuilder", identifier = uri.toString()))
         } catch (e: Exception) {
             Log_OC.e(TAG, "Failed to create SVG request builder for URI: $uri -- $e")
             null
@@ -125,6 +153,7 @@ object GlideHelper {
             .`as`(PictureDrawable::class.java)
             .load(uri)
             .override(SVG_SIZE, SVG_SIZE)
+            .listener(GlideLogger(methodName = "createPictureDrawable", identifier = uri.toString()))
             .submit()
             .get()
     }
@@ -151,6 +180,7 @@ object GlideHelper {
             .load(validatedURL)
             .centerCrop()
             .placeholder(placeholder)
+            .listener(GlideLogger(methodName = "loadViaURLIntoDrawableTarget", identifier = validatedURL))
             .error(placeholder)
             .into(target)
     }
@@ -175,6 +205,7 @@ object GlideHelper {
             .error(placeholder)
             .diskCacheStrategy(DiskCacheStrategy.NONE)
             .skipMemoryCache(true)
+            .listener(GlideLogger(methodName = "loadViaURLIntoImageView", identifier = validatedURL))
             .into(imageView)
     }
 
@@ -198,6 +229,7 @@ object GlideHelper {
             .error(placeholder)
             .diskCacheStrategy(DiskCacheStrategy.NONE)
             .skipMemoryCache(true)
+            .listener(GlideLogger(methodName = "loadViaURLIntoImageView", identifier = validatedURL))
             .into(imageView)
     }
 
@@ -221,6 +253,7 @@ object GlideHelper {
                 .load(validatedURL)
                 .diskCacheStrategy(DiskCacheStrategy.NONE)
                 .skipMemoryCache(true)
+                .listener(GlideLogger(methodName = "downloadImageSynchronous", identifier = validatedURL))
                 .submit(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL)
                 .get()
         } catch (e: Exception) {
@@ -251,6 +284,7 @@ object GlideHelper {
             .load(validatedURL)
             .placeholder(placeholder)
             .error(placeholder)
+            .listener(GlideLogger(methodName = "loadViaURLIntoBitmapImageViewTarget", identifier = validatedURL))
             .into(object : BitmapImageViewTarget(imageView) {
                 override fun setResource(resource: Bitmap?) {
                     val circularBitmapDrawable = RoundedBitmapDrawableFactory.create(
@@ -261,23 +295,6 @@ object GlideHelper {
                     imageView.setImageDrawable(circularBitmapDrawable)
                 }
             })
-    }
-
-    /**
-     * Loads a bitmap from a URI into a bitmap [Target].
-     *
-     * @param context The context to use with Glide.
-     * @param uriString The image URI as a string.
-     * @param target The [Target] load into.
-     */
-    fun loadViaURIIntoBitmapTarget(context: Context, uriString: String, target: Target<Bitmap>) {
-        val uri = validateAndGetURI(uriString) ?: return
-
-        Glide
-            .with(context)
-            .`as`(Bitmap::class.java)
-            .load(uri)
-            .into(target)
     }
 
     /**
@@ -306,6 +323,7 @@ object GlideHelper {
             .error(placeholder)
             .transition(BitmapTransitionOptions.withCrossFade(android.R.anim.fade_in))
             .listener(listener)
+            .listener(GlideLogger(methodName = "loadViaURLIntoImageView", identifier = validatedURL))
             .into(imageView)
     }
 
@@ -327,6 +345,7 @@ object GlideHelper {
             .asBitmap()
             .load(widgetItem.iconUrl)
             .override(SVG_SIZE, SVG_SIZE)
+            .listener(GlideLogger(methodName = "createBitmapFromDashboardWidgetItem", identifier = widgetItem.iconUrl))
             .submit()
     }
 
@@ -347,6 +366,7 @@ object GlideHelper {
             .asBitmap()
             .load(uri)
             .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+            .listener(GlideLogger(methodName = "loadViaURIIntoAppWidgetTarget", identifier = uri.toString()))
             .into(target)
     }
     // endregion
