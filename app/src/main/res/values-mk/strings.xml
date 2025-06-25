@@ -209,6 +209,7 @@
     <string name="drawer_item_home">Дома</string>
     <string name="drawer_item_notifications">Известувања</string>
     <string name="drawer_item_on_device">На уредот</string>
+    <string name="drawer_item_personal_files">Лични датотеки</string>
     <string name="drawer_item_recently_modified">Скоро изменети</string>
     <string name="drawer_item_shared">Споделени</string>
     <string name="drawer_item_trashbin">Избришани датотеки</string>
