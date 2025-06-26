@@ -62,7 +62,8 @@ object GlideHelper {
     private fun isSVG(url: String): Boolean = (url.toUri().encodedPath?.endsWith(".svg") == true)
 
     private fun createGlideUrl(url: String, client: NextcloudClient) = GlideUrl(
-        url, LazyHeaders.Builder()
+        url,
+        LazyHeaders.Builder()
             .addHeader("Authorization", client.credentials)
             .addHeader("User-Agent", "Mozilla/5.0 (Android) Nextcloud-android")
             .build()
@@ -71,17 +72,24 @@ object GlideHelper {
     private fun <T> RequestBuilder<T>.withLogging(methodName: String, identifier: String): RequestBuilder<T> =
         listener(GlideLogger(methodName, identifier))
 
-    private fun createSvgRequestBuilder(context: Context, uri: Uri, placeholder: Int? = null): RequestBuilder<PictureDrawable> =
-        Glide.with(context)
-            .`as`(PictureDrawable::class.java)
-            .load(uri)
-            .apply {
-                placeholder?.let { placeholder(it) }
-                placeholder?.let { error(it) }
-            }
-            .listener(SvgSoftwareLayerSetter())
+    private fun createSvgRequestBuilder(
+        context: Context,
+        uri: Uri,
+        placeholder: Int? = null
+    ): RequestBuilder<PictureDrawable> = Glide.with(context)
+        .`as`(PictureDrawable::class.java)
+        .load(uri)
+        .apply {
+            placeholder?.let { placeholder(it) }
+            placeholder?.let { error(it) }
+        }
+        .listener(SvgSoftwareLayerSetter())
 
-    private fun createUrlRequestBuilder(context: Context, client: NextcloudClient, url: String): RequestBuilder<Drawable> {
+    private fun createUrlRequestBuilder(
+        context: Context,
+        client: NextcloudClient,
+        url: String
+    ): RequestBuilder<Drawable> {
         val glideUrl = createGlideUrl(url, client)
         return Glide.with(context)
             .load(glideUrl)
@@ -102,18 +110,25 @@ object GlideHelper {
             val uri = validateAndGetURI(validatedUrl) ?: return
             val requestBuilder = createSvgRequestBuilder(context, uri, placeholderRes)
                 .withLogging("loadIntoImageView", validatedUrl)
-            if (circleCrop) requestBuilder.circleCrop().into(imageView)
-            else requestBuilder.into(imageView)
+            if (circleCrop) {
+                requestBuilder.circleCrop().into(imageView)
+            } else {
+                requestBuilder.into(imageView)
+            }
         } else {
             val requestBuilder = createUrlRequestBuilder(context, client, validatedUrl)
                 .placeholder(placeholderRes)
                 .error(placeholderRes)
                 .withLogging("loadIntoImageView", validatedUrl)
-            if (circleCrop) requestBuilder.circleCrop().into(imageView)
-            else requestBuilder.into(imageView)
+            if (circleCrop) {
+                requestBuilder.circleCrop().into(imageView)
+            } else {
+                requestBuilder.into(imageView)
+            }
         }
     }
 
+    @Suppress("TooGenericExceptionCaught", "ReturnCount")
     fun getDrawable(context: Context, client: NextcloudClient, urlString: String?): Drawable? {
         val validatedUrl = validateAndGetURL(urlString) ?: return null
 
@@ -136,6 +151,7 @@ object GlideHelper {
         }
     }
 
+    @Suppress("TooGenericExceptionCaught")
     fun downloadImageSynchronous(context: Context, url: String?): Bitmap? {
         val validatedUrl = validateAndGetURL(url) ?: return null
 
@@ -154,12 +170,7 @@ object GlideHelper {
         }
     }
 
-    fun loadCircularBitmapIntoImageView(
-        context: Context,
-        url: String?,
-        imageView: ImageView,
-        placeholder: Drawable
-    ) {
+    fun loadCircularBitmapIntoImageView(context: Context, url: String?, imageView: ImageView, placeholder: Drawable) {
         val validatedUrl = validateAndGetURL(url) ?: return
 
         Glide.with(context)
@@ -177,7 +188,7 @@ object GlideHelper {
             })
     }
 
-    @Suppress("UNCHECKED_CAST")
+    @Suppress("UNCHECKED_CAST", "TooGenericExceptionCaught")
     fun <T> loadIntoTarget(
         context: Context,
         client: NextcloudClient,
