@@ -967,6 +967,16 @@ Aproveite o novo e melhorado envio automático.</string>
     <string name="write_email">Enviar mensagem</string>
     <string name="wrong_storage_path">A pasta de armazenamento de dados não existe!</string>
     <string name="wrong_storage_path_desc">Poderá estar relacionado com a reposição de uma cópia de segurança. Revertendo para a definição de base. Verifique as definições para ajustar a localização da pasta de armazenamento dos dados.</string>
+    <plurals name="hours">
+        <item quantity="one">%d hora</item>
+        <item quantity="many">%d horas</item>
+        <item quantity="other">%d horas</item>
+    </plurals>
+    <plurals name="minutes">
+        <item quantity="one">%d minuto</item>
+        <item quantity="many">%d minutos</item>
+        <item quantity="other">%d minutos</item>
+    </plurals>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">Não foi possível sincronizar o %1$d ficheiro (conflitos: %2$d)</item>
         <item quantity="many">Não foi possível sincronizar %1$d ficheiros (conflitos: %2$d)</item>
