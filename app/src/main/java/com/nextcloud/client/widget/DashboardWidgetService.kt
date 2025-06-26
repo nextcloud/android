@@ -28,7 +28,6 @@ import com.owncloud.android.utils.BitmapUtils
 import dagger.android.AndroidInjection
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -43,22 +42,13 @@ class DashboardWidgetService : RemoteViewsService() {
     @Inject
     lateinit var widgetRepository: WidgetRepository
 
-    private val serviceJob = SupervisorJob()
-    private val serviceScope = CoroutineScope(Dispatchers.Main + serviceJob)
-
     override fun onCreate() {
         super.onCreate()
         AndroidInjection.inject(this)
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        serviceJob.cancel()
-    }
-
     override fun onGetViewFactory(intent: Intent): RemoteViewsFactory {
         return StackRemoteViewsFactory(
-            serviceScope,
             this.applicationContext,
             userAccountManager,
             clientFactory,
@@ -68,9 +58,7 @@ class DashboardWidgetService : RemoteViewsService() {
     }
 }
 
-@Suppress("LongParameterList")
 class StackRemoteViewsFactory(
-    private val scope: CoroutineScope,
     private val context: Context,
     val userAccountManager: UserAccountManager,
     val clientFactory: ClientFactory,
@@ -97,7 +85,7 @@ class StackRemoteViewsFactory(
     }
 
     override fun onDataSetChanged() {
-        scope.launch {
+        CoroutineScope(Dispatchers.IO).launch {
             try {
                 if (!widgetConfiguration.user.isPresent) {
                     Log_OC.w(TAG, "User not present for widget update")
@@ -176,7 +164,7 @@ class StackRemoteViewsFactory(
     }
 
     private fun loadIcon(widgetItem: DashboardWidgetItem, remoteViews: RemoteViews) {
-        scope.launch {
+        CoroutineScope(Dispatchers.IO).launch {
             val client = OwnCloudClientManagerFactory.getDefaultSingleton()
                 .getNextcloudClientFor(userAccountManager.user.toOwnCloudAccount(), context)
 
