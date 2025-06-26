@@ -7,6 +7,7 @@
 
 package com.nextcloud.utils
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
@@ -72,6 +73,7 @@ object GlideHelper {
     private fun <T> RequestBuilder<T>.withLogging(methodName: String, identifier: String): RequestBuilder<T> =
         listener(GlideLogger(methodName, identifier))
 
+    @SuppressLint("CheckResult")
     private fun createSvgRequestBuilder(
         context: Context,
         uri: Uri,
@@ -96,63 +98,8 @@ object GlideHelper {
             .centerCrop()
     }
 
-    fun loadIntoImageView(
-        context: Context,
-        client: NextcloudClient,
-        url: String?,
-        imageView: ImageView,
-        @DrawableRes placeholderRes: Int,
-        circleCrop: Boolean = false
-    ) {
-        val validatedUrl = validateAndGetURL(url) ?: return
-
-        if (isSVG(validatedUrl)) {
-            val uri = validateAndGetURI(validatedUrl) ?: return
-            val requestBuilder = createSvgRequestBuilder(context, uri, placeholderRes)
-                .withLogging("loadIntoImageView", validatedUrl)
-            if (circleCrop) {
-                requestBuilder.circleCrop().into(imageView)
-            } else {
-                requestBuilder.into(imageView)
-            }
-        } else {
-            val requestBuilder = createUrlRequestBuilder(context, client, validatedUrl)
-                .placeholder(placeholderRes)
-                .error(placeholderRes)
-                .withLogging("loadIntoImageView", validatedUrl)
-            if (circleCrop) {
-                requestBuilder.circleCrop().into(imageView)
-            } else {
-                requestBuilder.into(imageView)
-            }
-        }
-    }
-
-    @Suppress("TooGenericExceptionCaught", "ReturnCount")
-    fun getDrawable(context: Context, client: NextcloudClient, urlString: String?): Drawable? {
-        val validatedUrl = validateAndGetURL(urlString) ?: return null
-
-        return try {
-            if (isSVG(validatedUrl)) {
-                val uri = validateAndGetURI(validatedUrl) ?: return null
-                createSvgRequestBuilder(context, uri)
-                    .withLogging("getDrawable", validatedUrl)
-                    .submit()
-                    .get()
-            } else {
-                createUrlRequestBuilder(context, client, validatedUrl)
-                    .withLogging("getDrawable", validatedUrl)
-                    .submit()
-                    .get()
-            }
-        } catch (e: Exception) {
-            Log_OC.e(TAG, "Error getting drawable: $e")
-            null
-        }
-    }
-
     @Suppress("TooGenericExceptionCaught")
-    fun downloadImageSynchronous(context: Context, url: String?): Bitmap? {
+    fun getBitmap(context: Context, url: String?): Bitmap? {
         val validatedUrl = validateAndGetURL(url) ?: return null
 
         return try {
@@ -188,7 +135,45 @@ object GlideHelper {
             })
     }
 
-    @Suppress("UNCHECKED_CAST", "TooGenericExceptionCaught")
+    @Suppress("UNCHECKED_CAST", "TooGenericExceptionCaught", "ReturnCount")
+    private fun <T> createRequestBuilder(context: Context, client: NextcloudClient, url: String?): RequestBuilder<T>? {
+        val validatedUrl = validateAndGetURL(url) ?: return null
+
+        return try {
+            val isSVG = isSVG(validatedUrl)
+
+            return if (isSVG) {
+                val uri = validateAndGetURI(validatedUrl) ?: return null
+                createSvgRequestBuilder(context, uri)
+            } else {
+                createUrlRequestBuilder(context, client, validatedUrl)
+            }
+                .withLogging("createRequestBuilder", validatedUrl) as RequestBuilder<T>?
+        } catch (e: Exception) {
+            Log_OC.e(TAG, "Error createRequestBuilder: $e")
+            null
+        }
+    }
+
+    @SuppressLint("CheckResult")
+    fun loadIntoImageView(
+        context: Context,
+        client: NextcloudClient,
+        url: String?,
+        imageView: ImageView,
+        @DrawableRes placeholder: Int,
+        circleCrop: Boolean = false
+    ) {
+        createRequestBuilder<Drawable>(context, client, url)
+            ?.placeholder(placeholder)
+            ?.error(placeholder)
+            ?.apply { if (circleCrop) circleCrop() }
+            ?.into(imageView)
+    }
+
+    fun getDrawable(context: Context, client: NextcloudClient, urlString: String?): Drawable? =
+        createRequestBuilder<Drawable>(context, client, urlString)?.submit()?.get()
+
     fun <T> loadIntoTarget(
         context: Context,
         client: NextcloudClient,
@@ -196,23 +181,9 @@ object GlideHelper {
         target: Target<T>,
         @DrawableRes placeholder: Int
     ) {
-        try {
-            val validatedUrl = validateAndGetURL(url) ?: return
-
-            if (isSVG(validatedUrl)) {
-                val uri = validateAndGetURI(validatedUrl) ?: return
-                val requestBuilder = createSvgRequestBuilder(context, uri, placeholder)
-                    .withLogging("loadIntoTarget", validatedUrl) as RequestBuilder<T>
-                requestBuilder.into(target)
-            } else {
-                val requestBuilder = createUrlRequestBuilder(context, client, validatedUrl)
-                    .placeholder(placeholder)
-                    .error(placeholder)
-                    .withLogging("loadIntoTarget", validatedUrl) as RequestBuilder<T>
-                requestBuilder.into(target)
-            }
-        } catch (e: Exception) {
-            Log_OC.e(TAG, "Failed to load into target: $e")
-        }
+        createRequestBuilder<T>(context, client, url)
+            ?.placeholder(placeholder)
+            ?.error(placeholder)
+            ?.into(target)
     }
 }
