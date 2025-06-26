@@ -28,6 +28,7 @@ import com.owncloud.android.utils.BitmapUtils
 import dagger.android.AndroidInjection
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -42,13 +43,22 @@ class DashboardWidgetService : RemoteViewsService() {
     @Inject
     lateinit var widgetRepository: WidgetRepository
 
+    private val serviceJob = SupervisorJob()
+    private val serviceScope = CoroutineScope(Dispatchers.Main + serviceJob)
+
     override fun onCreate() {
         super.onCreate()
         AndroidInjection.inject(this)
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        serviceJob.cancel()
+    }
+
     override fun onGetViewFactory(intent: Intent): RemoteViewsFactory {
         return StackRemoteViewsFactory(
+            serviceScope,
             this.applicationContext,
             userAccountManager,
             clientFactory,
@@ -59,6 +69,7 @@ class DashboardWidgetService : RemoteViewsService() {
 }
 
 class StackRemoteViewsFactory(
+    private val scope: CoroutineScope,
     private val context: Context,
     val userAccountManager: UserAccountManager,
     val clientFactory: ClientFactory,
@@ -85,7 +96,7 @@ class StackRemoteViewsFactory(
     }
 
     override fun onDataSetChanged() {
-        CoroutineScope(Dispatchers.IO).launch {
+        scope.launch {
             try {
                 if (!widgetConfiguration.user.isPresent) {
                     Log_OC.w(TAG, "User not present for widget update")
@@ -164,7 +175,7 @@ class StackRemoteViewsFactory(
     }
 
     private fun loadIcon(widgetItem: DashboardWidgetItem, remoteViews: RemoteViews) {
-        CoroutineScope(Dispatchers.IO).launch {
+        scope.launch {
             val client = OwnCloudClientManagerFactory.getDefaultSingleton()
                 .getNextcloudClientFor(userAccountManager.user.toOwnCloudAccount(), context)
 
