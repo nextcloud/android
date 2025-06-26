@@ -19,7 +19,6 @@ import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 import com.nextcloud.android.common.ui.theme.utils.ColorRole
 import com.nextcloud.client.account.User
-import com.nextcloud.client.network.ClientFactory
 import com.nextcloud.model.SearchResultEntryType
 import com.nextcloud.utils.CalendarEventManager
 import com.nextcloud.utils.ContactManager
@@ -27,6 +26,7 @@ import com.nextcloud.utils.GlideHelper
 import com.nextcloud.utils.extensions.getType
 import com.owncloud.android.databinding.UnifiedSearchItemBinding
 import com.owncloud.android.datamodel.FileDataStorageManager
+import com.owncloud.android.lib.common.OwnCloudClientManagerFactory
 import com.owncloud.android.lib.common.SearchResultEntry
 import com.owncloud.android.ui.interfaces.UnifiedSearchListInterface
 import com.owncloud.android.utils.BitmapUtils
@@ -38,7 +38,6 @@ class UnifiedSearchItemViewHolder(
     private val supportsOpeningCalendarContactsLocally: Boolean,
     val binding: UnifiedSearchItemBinding,
     val user: User,
-    val clientFactory: ClientFactory,
     private val storageManager: FileDataStorageManager,
     private val listInterface: UnifiedSearchListInterface,
     private val filesAction: FilesAction,
@@ -68,12 +67,15 @@ class UnifiedSearchItemViewHolder(
         val entryType = entry.getType()
         val placeholder = getPlaceholder(entry, entryType, mimetype)
         val entryRequestListener = RoundIfNeededListener(entry)
+
+        val clientFactory = OwnCloudClientManagerFactory.getDefaultSingleton()
+        val nextcloudClient = clientFactory.getNextcloudClientFor(user.toOwnCloudAccount(), context)
         GlideHelper.loadViaURLIntoImageView(
             context,
+            nextcloudClient,
             entry.thumbnailUrl,
             binding.thumbnail,
-            placeholder,
-            entryRequestListener
+            entryType.iconId()
         )
 
         if (entry.isFile) {

@@ -10,6 +10,7 @@ package com.owncloud.android.utils.glide
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.drawable.PictureDrawable
+import android.net.Uri
 import com.bumptech.glide.Glide
 import com.bumptech.glide.Registry
 import com.bumptech.glide.annotation.GlideModule
@@ -25,19 +26,9 @@ import java.io.InputStream
 class NextcloudGlideModule : AppGlideModule() {
     override fun registerComponents(context: Context, glide: Glide, registry: Registry) {
         registry
+            .prepend(Uri::class.java, InputStream::class.java, UriModelLoaderFactory())
             .prepend(String::class.java, InputStream::class.java, StringModelLoaderFactory())
-
-        registry
-            .register(
-                SVGorImage::class.java,
-                Bitmap::class.java,
-                SvgOrImageBitmapTranscoder(
-                    SVG_SIZE,
-                    SVG_SIZE
-                )
-            )
-
-        registry
+            .register(SVGorImage::class.java, Bitmap::class.java, SvgOrImageBitmapTranscoder(SVG_SIZE, SVG_SIZE))
             .register(SVG::class.java, PictureDrawable::class.java, SvgDrawableTranscoder())
             .append(InputStream::class.java, SVG::class.java, SvgDecoder())
     }
