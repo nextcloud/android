@@ -31,7 +31,6 @@ import com.nextcloud.common.NextcloudClient;
 import com.nextcloud.utils.GlideHelper;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.NotificationListItemBinding;
-import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.notifications.models.Action;
 import com.owncloud.android.lib.resources.notifications.models.Notification;
@@ -131,13 +130,21 @@ public class NotificationListAdapter extends RecyclerView.Adapter<NotificationLi
         }
 
         if (!TextUtils.isEmpty(notification.getIcon())) {
-            new Thread(() -> {{
-                try {
-                    notificationsActivity.runOnUiThread(() -> GlideHelper.INSTANCE.loadIntoImageView(notificationsActivity, client, notification.getIcon(), holder.binding.icon, R.drawable.ic_notification, false));
-                } catch (Exception e) {
-                    Log_OC.e("RichDocumentsTemplateAdapter", "Exception setData: " + e);
+            new Thread(() -> {
+                {
+                    try {
+                        notificationsActivity.runOnUiThread(() -> GlideHelper.INSTANCE
+                            .loadIntoImageView(notificationsActivity,
+                                               client,
+                                               notification.getIcon(),
+                                               holder.binding.icon,
+                                               R.drawable.ic_notification,
+                                               false));
+                    } catch (Exception e) {
+                        Log_OC.e("RichDocumentsTemplateAdapter", "Exception setData: " + e);
+                    }
                 }
-            }}).start();
+            }).start();
         }
 
         viewThemeUtils.platform.colorImageView(holder.binding.icon, ColorRole.ON_SURFACE_VARIANT);
