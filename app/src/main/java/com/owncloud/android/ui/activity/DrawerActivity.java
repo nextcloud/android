@@ -125,6 +125,8 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import hct.Hct;
+import kotlin.Unit;
+import kotlin.jvm.functions.Function1;
 
 import static com.nextcloud.utils.extensions.DrawerActivityExtensionsKt.getMenuItemIdFromTitle;
 
@@ -388,11 +390,14 @@ public abstract class DrawerActivity extends ToolbarActivity
 
             if (!TextUtils.isEmpty(serverLogoURL) && URLUtil.isValidUrl(serverLogoURL)) {
                 Target<PictureDrawable> target = createSVGLogoTarget(primaryColor, capability);
-                GlideHelper.INSTANCE.loadViaURISVGIntoPictureDrawableTarget(this,
-                                                                            serverLogoURL,
-                                                                            target,
-                                                                            R.drawable.background,
-                                                                            128);
+                getClientRepository().getNextcloudClient(nextcloudClient -> {
+                    GlideHelper.INSTANCE.loadIntoTarget(DrawerActivity.this,
+                                                        nextcloudClient,
+                                                        serverLogoURL,
+                                                        target,
+                                                        R.drawable.background);
+                    return Unit.INSTANCE;
+                });
             }
         }
 
@@ -882,7 +887,14 @@ public abstract class DrawerActivity extends ToolbarActivity
                     });
 
                     Target<Drawable> quotaTarget = createQuotaDrawableTarget(size, mQuotaTextLink);
-                    GlideHelper.INSTANCE.loadIntoTarget(this, firstQuota.getIconUrl(), quotaTarget, R.drawable.ic_link);
+                    getClientRepository().getNextcloudClient(nextcloudClient -> {
+                        GlideHelper.INSTANCE.loadIntoTarget(this,
+                                                            nextcloudClient,
+                                                            firstQuota.getIconUrl(),
+                                                            quotaTarget,
+                                                            R.drawable.ic_link);
+                        return Unit.INSTANCE;
+                    });
                 } else {
                     mQuotaTextLink.setVisibility(View.GONE);
                 }
@@ -1033,11 +1045,15 @@ public abstract class DrawerActivity extends ToolbarActivity
                 .getItemId();
 
             Target<Drawable> iconTarget = createMenuItemTarget(id, greyColor);
-            GlideHelper.INSTANCE.loadIntoTarget(
-                this,
-                link.getIconUrl(),
-                iconTarget,
-                R.drawable.ic_link);
+            getClientRepository().getNextcloudClient(nextcloudClient -> {
+                GlideHelper.INSTANCE.loadIntoTarget(
+                    this,
+                    nextcloudClient,
+                    link.getIconUrl(),
+                    iconTarget,
+                    R.drawable.ic_link);
+                return Unit.INSTANCE;
+            });
         }
     }
 

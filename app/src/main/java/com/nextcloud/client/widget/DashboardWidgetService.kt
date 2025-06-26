@@ -14,21 +14,22 @@ import android.graphics.Bitmap
 import android.view.View
 import android.widget.RemoteViews
 import android.widget.RemoteViewsService
+import androidx.core.graphics.drawable.toBitmap
 import androidx.core.net.toUri
-import com.bumptech.glide.request.FutureTarget
 import com.nextcloud.android.lib.resources.dashboard.DashboardGetWidgetItemsRemoteOperation
 import com.nextcloud.android.lib.resources.dashboard.DashboardWidgetItem
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.network.ClientFactory
 import com.nextcloud.utils.GlideHelper
-import com.nextcloud.utils.extensions.toBitmap
 import com.owncloud.android.R
+import com.owncloud.android.lib.common.OwnCloudClientManagerFactory
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.utils.BitmapUtils
 import dagger.android.AndroidInjection
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class DashboardWidgetService : RemoteViewsService() {
@@ -163,16 +164,17 @@ class StackRemoteViewsFactory(
     }
 
     private fun loadIcon(widgetItem: DashboardWidgetItem, remoteViews: RemoteViews) {
-        val isIconSVG = widgetItem.iconUrl.toUri().encodedPath?.endsWith(".svg")
-        if (isIconSVG == true) {
-            val pictureDrawable = GlideHelper.createPictureDrawable(context, widgetItem.iconUrl)
-            val bitmap = pictureDrawable?.toBitmap() ?: return
-            remoteViews.setRemoteImageView(bitmap)
-            return
-        }
+        CoroutineScope(Dispatchers.IO).launch {
+            val client = OwnCloudClientManagerFactory.getDefaultSingleton()
+                .getNextcloudClientFor(userAccountManager.user.toOwnCloudAccount(), context)
 
-        val source: FutureTarget<Bitmap> = GlideHelper.createBitmapFromDashboardWidgetItem(context, widgetItem)
-        remoteViews.setRemoteImageView(source.get())
+            withContext(Dispatchers.Main) {
+                val pictureDrawable = GlideHelper.getDrawable(context, client, widgetItem.iconUrl)
+                val bitmap = pictureDrawable?.toBitmap() ?: return@withContext
+                remoteViews.setRemoteImageView(bitmap)
+                return@withContext
+            }
+        }
     }
 
     @Suppress("TooGenericExceptionCaught")

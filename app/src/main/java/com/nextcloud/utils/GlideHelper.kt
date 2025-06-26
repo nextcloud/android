@@ -23,16 +23,13 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.load.model.GlideUrl
 import com.bumptech.glide.load.model.LazyHeaders
-import com.bumptech.glide.request.FutureTarget
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.BitmapImageViewTarget
 import com.bumptech.glide.request.target.Target
-import com.nextcloud.android.lib.resources.dashboard.DashboardWidgetItem
 import com.nextcloud.common.NextcloudClient
 import com.nextcloud.utils.LinkHelper.validateAndGetURI
 import com.nextcloud.utils.LinkHelper.validateAndGetURL
 import com.owncloud.android.lib.common.utils.Log_OC
-import com.owncloud.android.utils.DisplayUtils.SVG_SIZE
 import com.owncloud.android.utils.svg.SvgSoftwareLayerSetter
 
 /**
@@ -64,183 +61,31 @@ object GlideHelper {
 
     private fun isSVG(url: String): Boolean = (url.toUri().encodedPath?.endsWith(".svg") == true)
 
-    @Suppress("UNCHECKED_CAST", "TooGenericExceptionCaught")
-    fun <T> loadIntoTarget(context: Context, iconUrl: String, target: Target<T>, placeholder: Int) {
-        try {
-            if (isSVG(iconUrl)) {
-                loadViaURISVGIntoPictureDrawableTarget(
-                    context,
-                    iconUrl,
-                    target as Target<PictureDrawable?>,
-                    placeholder
-                )
-            } else {
-                loadViaURLIntoDrawableTarget(context, iconUrl, target as Target<Drawable>, placeholder)
-            }
-        } catch (e: Exception) {
-            Log_OC.e(TAG, "not setting image as activity is destroyed $e")
-        }
-    }
+    private fun createGlideUrl(url: String, client: NextcloudClient) = GlideUrl(
+        url, LazyHeaders.Builder()
+            .addHeader("Authorization", client.credentials)
+            .addHeader("User-Agent", "Mozilla/5.0 (Android) Nextcloud-android")
+            .build()
+    )
 
-    @Suppress("TooGenericExceptionCaught")
-    private fun createSvgRequestBuilder(
-        context: Context,
-        uri: Uri,
-        @DrawableRes placeholder: Int
-    ): RequestBuilder<PictureDrawable>? {
-        Log_OC.d(TAG, "createSvgRequestBuilder: Starting with URI: $uri, placeholder: $placeholder")
+    private fun <T> RequestBuilder<T>.withLogging(methodName: String, identifier: String): RequestBuilder<T> =
+        listener(GlideLogger(methodName, identifier))
 
-        return try {
-            Glide
-                .with(context)
-                .`as`(PictureDrawable::class.java)
-                .load(uri)
-                .placeholder(placeholder)
-                .error(placeholder)
-                .listener(SvgSoftwareLayerSetter())
-                .listener(GlideLogger(methodName = "createSvgRequestBuilder", identifier = uri.toString()))
-        } catch (e: Exception) {
-            Log_OC.e(TAG, "Failed to create SVG request builder for URI: $uri -- $e")
-            null
-        }
-    }
-
-    fun loadViaURISVGIntoImageView(
-        context: Context,
-        uriString: String?,
-        imageView: ImageView,
-        @DrawableRes placeholder: Int
-    ) {
-        val uri = validateAndGetURI(uriString) ?: return
-        val svgRequestBuilder = createSvgRequestBuilder(context, uri, placeholder)
-        svgRequestBuilder?.into(imageView)
-    }
-
-    fun loadViaURISVGIntoPictureDrawableTarget(
-        context: Context,
-        uriString: String?,
-        target: Target<PictureDrawable?>,
-        placeholder: Int,
-        size: Int? = null
-    ) {
-        val uri = validateAndGetURI(uriString) ?: return
-        val svgRequestBuilder = createSvgRequestBuilder(context, uri, placeholder)
-
-        if (size != null) {
-            svgRequestBuilder?.override(size)?.into(target)
-        } else {
-            svgRequestBuilder?.into(target)
-        }
-    }
-
-    fun createPictureDrawable(context: Context, uriString: String?): PictureDrawable? {
-        val uri = validateAndGetURI(uriString) ?: return null
-
-        return Glide
-            .with(context)
+    private fun createSvgRequestBuilder(context: Context, uri: Uri, placeholder: Int? = null): RequestBuilder<PictureDrawable> =
+        Glide.with(context)
             .`as`(PictureDrawable::class.java)
             .load(uri)
-            .override(SVG_SIZE, SVG_SIZE)
-            .listener(GlideLogger(methodName = "createPictureDrawable", identifier = uri.toString()))
-            .submit()
-            .get()
-    }
+            .apply {
+                placeholder?.let { placeholder(it) }
+                placeholder?.let { error(it) }
+            }
+            .listener(SvgSoftwareLayerSetter())
 
-    fun loadViaURLIntoDrawableTarget(
-        context: Context,
-        url: String,
-        target: Target<Drawable>,
-        @DrawableRes placeholder: Int
-    ) {
-        val validatedURL = validateAndGetURL(url) ?: return
-
-        Glide
-            .with(context)
-            .load(validatedURL)
+    private fun createUrlRequestBuilder(context: Context, client: NextcloudClient, url: String): RequestBuilder<Drawable> {
+        val glideUrl = createGlideUrl(url, client)
+        return Glide.with(context)
+            .load(glideUrl)
             .centerCrop()
-            .placeholder(placeholder)
-            .listener(GlideLogger(methodName = "loadViaURLIntoDrawableTarget", identifier = validatedURL))
-            .error(placeholder)
-            .into(target)
-    }
-
-    fun loadViaURLIntoImageView(context: Context, url: String, imageView: ImageView, placeholder: Drawable) {
-        val validatedURL = validateAndGetURL(url) ?: return
-
-        Glide
-            .with(context)
-            .load(validatedURL)
-            .placeholder(placeholder)
-            .error(placeholder)
-            .diskCacheStrategy(DiskCacheStrategy.NONE)
-            .skipMemoryCache(true)
-            .listener(GlideLogger(methodName = "loadViaURLIntoImageView", identifier = validatedURL))
-            .into(imageView)
-    }
-
-    fun loadViaURLIntoImageView(context: Context, url: String, imageView: ImageView, @DrawableRes placeholder: Int) {
-        val validatedURL = validateAndGetURL(url) ?: return
-
-        Glide
-            .with(context)
-            .load(validatedURL)
-            .placeholder(placeholder)
-            .error(placeholder)
-            .diskCacheStrategy(DiskCacheStrategy.NONE)
-            .skipMemoryCache(true)
-            .listener(GlideLogger(methodName = "loadViaURLIntoImageView", identifier = validatedURL))
-            .into(imageView)
-    }
-
-    @Suppress("TooGenericExceptionCaught", "ReturnCount")
-    fun downloadImageSynchronous(context: Context, url: String?): Bitmap? {
-        val validatedURL = validateAndGetURL(url) ?: return null
-
-        try {
-            return Glide
-                .with(context)
-                .asBitmap()
-                .load(validatedURL)
-                .diskCacheStrategy(DiskCacheStrategy.NONE)
-                .skipMemoryCache(true)
-                .listener(GlideLogger(methodName = "downloadImageSynchronous", identifier = validatedURL))
-                .submit(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL)
-                .get()
-        } catch (e: Exception) {
-            Log_OC.e(TAG, "Could not download image $e")
-            return null
-        }
-    }
-
-    fun loadViaURLIntoBitmapImageViewTarget(
-        context: Context,
-        url: String,
-        imageView: ImageView,
-        placeholder: Drawable
-    ) {
-        val validatedURL = validateAndGetURL(url) ?: return
-
-        Glide.with(context)
-            .asBitmap()
-            .load(validatedURL)
-            .placeholder(placeholder)
-            .error(placeholder)
-            .listener(GlideLogger(methodName = "loadViaURLIntoBitmapImageViewTarget", identifier = validatedURL))
-            .into(object : BitmapImageViewTarget(imageView) {
-                override fun setResource(resource: Bitmap?) {
-                    val circularBitmapDrawable = RoundedBitmapDrawableFactory.create(
-                        context.resources,
-                        resource
-                    )
-                    circularBitmapDrawable.isCircular = true
-                    imageView.setImageDrawable(circularBitmapDrawable)
-                }
-            })
-    }
-
-    fun getDrawable(context: Context, client: NextcloudClient, uriString: String): Drawable? {
-        val requestBuilder = createRequestBuilder(context, client, uriString) ?: return null
-        return requestBuilder.submit().get()
     }
 
     fun loadIntoImageView(
@@ -248,62 +93,115 @@ object GlideHelper {
         client: NextcloudClient,
         url: String?,
         imageView: ImageView,
-        placeholder: Drawable,
+        @DrawableRes placeholderRes: Int,
         circleCrop: Boolean = false
     ) {
-        val requestBuilder = createRequestBuilder(context, client, url) ?: return
+        val validatedUrl = validateAndGetURL(url) ?: return
 
-        val finalRequest = requestBuilder
+        if (isSVG(validatedUrl)) {
+            val uri = validateAndGetURI(validatedUrl) ?: return
+            val requestBuilder = createSvgRequestBuilder(context, uri, placeholderRes)
+                .withLogging("loadIntoImageView", validatedUrl)
+            if (circleCrop) requestBuilder.circleCrop().into(imageView)
+            else requestBuilder.into(imageView)
+        } else {
+            val requestBuilder = createUrlRequestBuilder(context, client, validatedUrl)
+                .placeholder(placeholderRes)
+                .error(placeholderRes)
+                .withLogging("loadIntoImageView", validatedUrl)
+            if (circleCrop) requestBuilder.circleCrop().into(imageView)
+            else requestBuilder.into(imageView)
+        }
+    }
+
+    fun getDrawable(context: Context, client: NextcloudClient, urlString: String?): Drawable? {
+        val validatedUrl = validateAndGetURL(urlString) ?: return null
+
+        return try {
+            if (isSVG(validatedUrl)) {
+                val uri = validateAndGetURI(validatedUrl) ?: return null
+                createSvgRequestBuilder(context, uri)
+                    .withLogging("getDrawable", validatedUrl)
+                    .submit()
+                    .get()
+            } else {
+                createUrlRequestBuilder(context, client, validatedUrl)
+                    .withLogging("getDrawable", validatedUrl)
+                    .submit()
+                    .get()
+            }
+        } catch (e: Exception) {
+            Log_OC.e(TAG, "Error getting drawable: $e")
+            null
+        }
+    }
+
+    fun downloadImageSynchronous(context: Context, url: String?): Bitmap? {
+        val validatedUrl = validateAndGetURL(url) ?: return null
+
+        return try {
+            Glide.with(context)
+                .asBitmap()
+                .load(validatedUrl)
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .skipMemoryCache(true)
+                .withLogging("downloadImageSynchronous", validatedUrl)
+                .submit(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL)
+                .get()
+        } catch (e: Exception) {
+            Log_OC.e(TAG, "Could not download image $e")
+            null
+        }
+    }
+
+    fun loadCircularBitmapIntoImageView(
+        context: Context,
+        url: String?,
+        imageView: ImageView,
+        placeholder: Drawable
+    ) {
+        val validatedUrl = validateAndGetURL(url) ?: return
+
+        Glide.with(context)
+            .asBitmap()
+            .load(validatedUrl)
             .placeholder(placeholder)
             .error(placeholder)
-
-        if (circleCrop) {
-            finalRequest.circleCrop().into(imageView)
-        } else {
-            finalRequest.into(imageView)
-        }
+            .withLogging("loadCircularBitmapIntoImageView", validatedUrl)
+            .into(object : BitmapImageViewTarget(imageView) {
+                override fun setResource(resource: Bitmap?) {
+                    val circularBitmapDrawable = RoundedBitmapDrawableFactory.create(context.resources, resource)
+                    circularBitmapDrawable.isCircular = true
+                    imageView.setImageDrawable(circularBitmapDrawable)
+                }
+            })
     }
 
-    private fun createRequestBuilder(
+    @Suppress("UNCHECKED_CAST")
+    fun <T> loadIntoTarget(
         context: Context,
         client: NextcloudClient,
-        urlString: String?
-    ): RequestBuilder<out Drawable>? {
-        val validatedURL = validateAndGetURL(urlString) ?: return null
+        url: String,
+        target: Target<T>,
+        @DrawableRes placeholder: Int
+    ) {
+        try {
+            val validatedUrl = validateAndGetURL(url) ?: return
 
-        return if (isSVG(validatedURL)) {
-            val uri = validateAndGetURI(validatedURL) ?: return null
-
-            Glide.with(context)
-                .`as`(PictureDrawable::class.java)
-                .load(uri)
-                .listener(SvgSoftwareLayerSetter())
-        } else {
-            val glideUrl = createGlideUrl(validatedURL, client)
-
-            Glide.with(context)
-                .load(glideUrl)
-                .listener(GlideLogger(methodName = "loadViaURLIntoImageView", identifier = validatedURL))
+            if (isSVG(validatedUrl)) {
+                val uri = validateAndGetURI(validatedUrl) ?: return
+                val requestBuilder = createSvgRequestBuilder(context, uri, placeholder)
+                    .withLogging("loadIntoTarget", validatedUrl) as RequestBuilder<T>
+                requestBuilder.into(target)
+            } else {
+                val requestBuilder = createUrlRequestBuilder(context, client, validatedUrl)
+                    .placeholder(placeholder)
+                    .error(placeholder)
+                    .withLogging("loadIntoTarget", validatedUrl) as RequestBuilder<T>
+                requestBuilder.into(target)
+            }
+        } catch (e: Exception) {
+            Log_OC.e(TAG, "Failed to load into target: $e")
         }
-    }
-
-    private fun createGlideUrl(url: String, client: NextcloudClient): GlideUrl {
-        return GlideUrl(
-            url,
-            LazyHeaders.Builder()
-                .addHeader("Authorization", client.credentials)
-                .addHeader("User-Agent", "Mozilla/5.0 (Android) Nextcloud-android")
-                .build()
-        )
-    }
-
-    fun createBitmapFromDashboardWidgetItem(context: Context, widgetItem: DashboardWidgetItem): FutureTarget<Bitmap> {
-        return Glide
-            .with(context)
-            .asBitmap()
-            .load(widgetItem.iconUrl)
-            .override(SVG_SIZE, SVG_SIZE)
-            .listener(GlideLogger(methodName = "createBitmapFromDashboardWidgetItem", identifier = widgetItem.iconUrl))
-            .submit()
     }
 }
