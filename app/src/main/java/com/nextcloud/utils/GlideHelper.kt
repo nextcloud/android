@@ -21,13 +21,15 @@ import com.bumptech.glide.RequestBuilder
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.engine.GlideException
-import com.bumptech.glide.load.resource.bitmap.BitmapTransitionOptions
+import com.bumptech.glide.load.model.GlideUrl
+import com.bumptech.glide.load.model.LazyHeaders
 import com.bumptech.glide.request.FutureTarget
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.AppWidgetTarget
 import com.bumptech.glide.request.target.BitmapImageViewTarget
 import com.bumptech.glide.request.target.Target
 import com.nextcloud.android.lib.resources.dashboard.DashboardWidgetItem
+import com.nextcloud.common.NextcloudClient
 import com.nextcloud.utils.LinkHelper.validateAndGetURI
 import com.nextcloud.utils.LinkHelper.validateAndGetURL
 import com.owncloud.android.lib.common.utils.Log_OC
@@ -61,12 +63,12 @@ object GlideHelper {
         }
     }
 
+    private fun isSVG(url: String): Boolean = (url.toUri().encodedPath?.endsWith(".svg") == true)
+
     @Suppress("UNCHECKED_CAST", "TooGenericExceptionCaught")
     fun <T> loadIntoTarget(context: Context, iconUrl: String, target: Target<T>, placeholder: Int) {
         try {
-            val isSVG = (iconUrl.toUri().encodedPath?.endsWith(".svg") == true)
-
-            if (isSVG) {
+            if (isSVG(iconUrl)) {
                 loadViaURISVGIntoPictureDrawableTarget(
                     context,
                     iconUrl,
@@ -318,34 +320,43 @@ object GlideHelper {
             })
     }
 
-    /**
-     * Loads a bitmap image from a URL into an [ImageView] with a cross-fade transition with listener.
-     *
-     * @param context The context to use with Glide.
-     * @param url The URL of the image.
-     * @param imageView The [ImageView] to load into.
-     * @param placeholder A [Drawable] for placeholder and error.
-     * @param listener [RequestListener] to handle success/error events.
-     */
     fun loadViaURLIntoImageView(
         context: Context,
-        url: String,
+        client: NextcloudClient,
+        url: String?,
         imageView: ImageView,
-        placeholder: Drawable,
-        listener: RequestListener<Bitmap>
+        placeholder: Int
     ) {
         val validatedURL = validateAndGetURL(url) ?: return
+        if (isSVG(validatedURL)) {
+            val uri = validateAndGetURI(url) ?: return
 
-        Glide
-            .with(context)
-            .asBitmap()
-            .load(validatedURL)
-            .placeholder(placeholder)
-            .error(placeholder)
-            .transition(BitmapTransitionOptions.withCrossFade(android.R.anim.fade_in))
-            .listener(listener)
-            .listener(GlideLogger(methodName = "loadViaURLIntoImageView", identifier = validatedURL))
-            .into(imageView)
+            Glide
+                .with(context)
+                .`as`(PictureDrawable::class.java)
+                .load(uri)
+                .placeholder(placeholder)
+                .error(placeholder)
+                .listener(SvgSoftwareLayerSetter())
+                .listener(GlideLogger(methodName = "loadViaURLIntoImageView", identifier = validatedURL))
+                .into(imageView)
+        } else {
+            val glideUrl = GlideUrl(
+                validatedURL,
+                LazyHeaders.Builder()
+                    .addHeader("Authorization", client.credentials)
+                    .addHeader("User-Agent", "Mozilla/5.0 (Android) Nextcloud-android")
+                    .build()
+            )
+
+            Glide
+                .with(context)
+                .load(glideUrl)
+                .placeholder(placeholder)
+                .error(placeholder)
+                .listener(GlideLogger(methodName = "loadViaURLIntoImageView", identifier = validatedURL))
+                .into(imageView)
+        }
     }
 
     // endregion

@@ -77,7 +77,6 @@ class UnifiedSearchListAdapter(
                     supportsOpeningCalendarContactsLocally,
                     binding,
                     user,
-                    clientFactory,
                     storageManager,
                     listInterface,
                     filesAction,

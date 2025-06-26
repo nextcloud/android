@@ -13,17 +13,14 @@ import com.bumptech.glide.load.Options
 import com.bumptech.glide.load.model.ModelLoader
 import com.bumptech.glide.load.model.ModelLoader.LoadData
 import com.bumptech.glide.signature.ObjectKey
-import com.nextcloud.client.account.User
-import com.nextcloud.client.network.ClientFactory
 import java.io.InputStream
 
 /**
  * Custom Model for authenticated fetching from Uri
  */
-class CustomGlideUriLoader(private val user: User, private val clientFactory: ClientFactory) :
-    ModelLoader<Uri?, InputStream?> {
-    override fun buildLoadData(uri: Uri, width: Int, height: Int, options: Options): LoadData<InputStream?>? {
-        return LoadData<InputStream?>(ObjectKey(uri), HttpStreamFetcher(user, clientFactory, uri.toString()))
+class CustomGlideUriLoader : ModelLoader<Uri, InputStream> {
+    override fun buildLoadData(uri: Uri, width: Int, height: Int, options: Options): LoadData<InputStream> {
+        return LoadData<InputStream>(ObjectKey(uri), HttpStreamFetcher(uri.toString()))
     }
 
     override fun handles(uri: Uri): Boolean {

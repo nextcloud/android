@@ -18,8 +18,6 @@ import java.io.InputStream
  */
 class GlideStringStreamLoader : ModelLoader<String, InputStream> {
     override fun buildLoadData(url: String, width: Int, height: Int, options: Options): LoadData<InputStream> {
-        // TODO replace key with etag? and type? (avatar, thumbnail, resized image)
-        // TODO pass client to stream fetcher?
         return LoadData<InputStream>(ObjectKey(url), GlideStringStreamFetcher(url))
     }
 
