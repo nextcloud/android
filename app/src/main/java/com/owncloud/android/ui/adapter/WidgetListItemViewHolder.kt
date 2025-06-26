@@ -16,6 +16,11 @@ import com.nextcloud.client.widget.DashboardWidgetConfigurationInterface
 import com.nextcloud.utils.GlideHelper
 import com.owncloud.android.R
 import com.owncloud.android.databinding.WidgetListItemBinding
+import com.owncloud.android.lib.common.OwnCloudClientManagerFactory
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class WidgetListItemViewHolder(
     val binding: WidgetListItemBinding,
@@ -30,7 +35,20 @@ class WidgetListItemViewHolder(
     ) {
         binding.layout.setOnClickListener { dashboardWidgetConfigurationInterface.onItemClicked(dashboardWidget) }
 
-        GlideHelper.loadViaURISVGIntoImageView(context, dashboardWidget.iconUrl, binding.icon, R.drawable.ic_dashboard)
+        CoroutineScope(Dispatchers.IO).launch {
+            val client = OwnCloudClientManagerFactory.getDefaultSingleton()
+                .getNextcloudClientFor(accountManager.currentOwnCloudAccount, context)
+
+            withContext(Dispatchers.Main) {
+                GlideHelper.loadIntoImageView(
+                    context,
+                    client,
+                    dashboardWidget.iconUrl,
+                    binding.icon,
+                    R.drawable.ic_dashboard
+                )
+            }
+        }
 
         binding.name.text = dashboardWidget.title
     }
