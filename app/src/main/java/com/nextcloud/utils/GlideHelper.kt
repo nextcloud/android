@@ -25,7 +25,6 @@ import com.bumptech.glide.load.model.GlideUrl
 import com.bumptech.glide.load.model.LazyHeaders
 import com.bumptech.glide.request.FutureTarget
 import com.bumptech.glide.request.RequestListener
-import com.bumptech.glide.request.target.AppWidgetTarget
 import com.bumptech.glide.request.target.BitmapImageViewTarget
 import com.bumptech.glide.request.target.Target
 import com.nextcloud.android.lib.resources.dashboard.DashboardWidgetItem
@@ -83,15 +82,6 @@ object GlideHelper {
         }
     }
 
-    // region SVG
-    /**
-     * Creates a Glide request builder specifically for loading SVG images from a [Uri].
-     *
-     * @param context The context to use with Glide.
-     * @param uri The [Uri] of the SVG image.
-     * @param placeholder Resource ID of the drawable to be used as a placeholder and error fallback.
-     * @return A configured [RequestBuilder] for [PictureDrawable], or null if parameters are invalid.
-     */
     @Suppress("TooGenericExceptionCaught")
     private fun createSvgRequestBuilder(
         context: Context,
@@ -115,14 +105,6 @@ object GlideHelper {
         }
     }
 
-    /**
-     * Loads an SVG image from a URI string into an [ImageView].
-     *
-     * @param context The context to use with Glide.
-     * @param uriString String representation of the image URI.
-     * @param imageView The target [ImageView].
-     * @param placeholder Resource ID of the drawable used for placeholder and error.
-     */
     fun loadViaURISVGIntoImageView(
         context: Context,
         uriString: String?,
@@ -134,14 +116,6 @@ object GlideHelper {
         svgRequestBuilder?.into(imageView)
     }
 
-    /**
-     * Loads an SVG image from a URI string into a custom [Target].
-     *
-     * @param context The context to use with Glide.
-     * @param uriString String representation of the image URI.
-     * @param target The target [Target] where the SVG drawable will be loaded.
-     * @param placeholder Resource ID of the drawable used for placeholder and error.
-     */
     fun loadViaURISVGIntoPictureDrawableTarget(
         context: Context,
         uriString: String?,
@@ -159,15 +133,6 @@ object GlideHelper {
         }
     }
 
-    /**
-     * Loads an SVG image synchronously and returns it as a [PictureDrawable].
-     *
-     * Note: This method should not be called on the main thread as it performs a blocking operation.
-     *
-     * @param context The context to use with Glide.
-     * @param uriString String representation of the image URI.
-     * @return A [PictureDrawable] if loading is successful, or null otherwise.
-     */
     fun createPictureDrawable(context: Context, uriString: String?): PictureDrawable? {
         val uri = validateAndGetURI(uriString) ?: return null
 
@@ -180,16 +145,7 @@ object GlideHelper {
             .submit()
             .get()
     }
-    // endregion
 
-    /**
-     * Loads an image from a URL into a custom [Target].
-     *
-     * @param context The context to use with Glide.
-     * @param url The URL of the image to load.
-     * @param target The Glide [Target] where the image will be loaded.
-     * @param placeholder Resource ID of the placeholder and error drawable.
-     */
     fun loadViaURLIntoDrawableTarget(
         context: Context,
         url: String,
@@ -208,16 +164,6 @@ object GlideHelper {
             .into(target)
     }
 
-    /**
-     * Loads an image from a URL into an [ImageView] with a [Drawable] placeholder.
-     *
-     * Disables disk and memory cache.
-     *
-     * @param context The context to use with Glide.
-     * @param url The URL of the image.
-     * @param imageView The target [ImageView].
-     * @param placeholder A [Drawable] used for placeholder and error.
-     */
     fun loadViaURLIntoImageView(context: Context, url: String, imageView: ImageView, placeholder: Drawable) {
         val validatedURL = validateAndGetURL(url) ?: return
 
@@ -232,16 +178,6 @@ object GlideHelper {
             .into(imageView)
     }
 
-    /**
-     * Loads an image from a URL into an [ImageView] using a drawable resource ID as a placeholder.
-     *
-     * Disables disk and memory cache.
-     *
-     * @param context The context to use with Glide.
-     * @param url The URL of the image.
-     * @param imageView The target [ImageView].
-     * @param placeholder Resource ID of the drawable used for placeholder and error.
-     */
     fun loadViaURLIntoImageView(context: Context, url: String, imageView: ImageView, @DrawableRes placeholder: Int) {
         val validatedURL = validateAndGetURL(url) ?: return
 
@@ -256,15 +192,6 @@ object GlideHelper {
             .into(imageView)
     }
 
-    /**
-     * Downloads an image from a URL synchronously and returns a [Bitmap].
-     *
-     * ⚠ Do not call this method on the main thread. It blocks until the image is fully loaded.
-     *
-     * @param context The context to use with Glide.
-     * @param url The image URL as a string. If null, returns null immediately.
-     * @return The downloaded [Bitmap], or null if an error occurs.
-     */
     @Suppress("TooGenericExceptionCaught", "ReturnCount")
     fun downloadImageSynchronous(context: Context, url: String?): Bitmap? {
         val validatedURL = validateAndGetURL(url) ?: return null
@@ -285,15 +212,6 @@ object GlideHelper {
         }
     }
 
-    // region Bitmap
-    /**
-     * Loads a circular bitmap from a URL into an [ImageView].
-     *
-     * @param context The context to use with Glide.
-     * @param url The URL of the image.
-     * @param imageView The [ImageView] to load into.
-     * @param placeholder Drawable shown as placeholder and error fallback.
-     */
     fun loadViaURLIntoBitmapImageViewTarget(
         context: Context,
         url: String,
@@ -320,6 +238,11 @@ object GlideHelper {
             })
     }
 
+    fun getDrawable(context: Context, client: NextcloudClient, uriString: String): Drawable? {
+        val requestBuilder = createRequestBuilder(context, client, uriString) ?: return null
+        return requestBuilder.submit().get()
+    }
+
     fun loadIntoImageView(
         context: Context,
         client: NextcloudClient,
@@ -330,67 +253,50 @@ object GlideHelper {
     ) {
         val requestBuilder = createRequestBuilder(context, client, url) ?: return
 
-        val result = requestBuilder
+        val finalRequest = requestBuilder
             .placeholder(placeholder)
             .error(placeholder)
 
-        loadIntoRequestBuilder(result, imageView, circleCrop)
-    }
-
-    private fun loadIntoRequestBuilder(
-        result: RequestBuilder<out Drawable>?,
-        imageView: ImageView,
-        circleCrop: Boolean
-    ) {
         if (circleCrop) {
-            result?.circleCrop()?.into(imageView)
+            finalRequest.circleCrop().into(imageView)
         } else {
-            result?.into(imageView)
+            finalRequest.into(imageView)
         }
     }
 
     private fun createRequestBuilder(
         context: Context,
         client: NextcloudClient,
-        url: String?
+        urlString: String?
     ): RequestBuilder<out Drawable>? {
-        val validatedURL = validateAndGetURL(url) ?: return null
+        val validatedURL = validateAndGetURL(urlString) ?: return null
 
         return if (isSVG(validatedURL)) {
-            val uri = validateAndGetURI(url) ?: return null
+            val uri = validateAndGetURI(validatedURL) ?: return null
 
-            Glide
-                .with(context)
+            Glide.with(context)
                 .`as`(PictureDrawable::class.java)
                 .load(uri)
                 .listener(SvgSoftwareLayerSetter())
         } else {
-            val glideUrl = GlideUrl(
-                validatedURL,
-                LazyHeaders.Builder()
-                    .addHeader("Authorization", client.credentials)
-                    .addHeader("User-Agent", "Mozilla/5.0 (Android) Nextcloud-android")
-                    .build()
-            )
+            val glideUrl = createGlideUrl(validatedURL, client)
 
-            Glide
-                .with(context)
+            Glide.with(context)
                 .load(glideUrl)
-        }.listener(GlideLogger(methodName = "loadViaURLIntoImageView", identifier = validatedURL))
+                .listener(GlideLogger(methodName = "loadViaURLIntoImageView", identifier = validatedURL))
+        }
     }
 
-    // endregion
+    private fun createGlideUrl(url: String, client: NextcloudClient): GlideUrl {
+        return GlideUrl(
+            url,
+            LazyHeaders.Builder()
+                .addHeader("Authorization", client.credentials)
+                .addHeader("User-Agent", "Mozilla/5.0 (Android) Nextcloud-android")
+                .build()
+        )
+    }
 
-    // region Widget
-    /**
-     * Asynchronously creates a [Bitmap] from a dashboard widget item icon URL.
-     *
-     * Use [FutureTarget.get] to retrieve the bitmap off the UI thread.
-     *
-     * @param context The context to use with Glide.
-     * @param widgetItem The widget item containing the image URL.
-     * @return A [FutureTarget] that will asynchronously load the image as a [Bitmap].
-     */
     fun createBitmapFromDashboardWidgetItem(context: Context, widgetItem: DashboardWidgetItem): FutureTarget<Bitmap> {
         return Glide
             .with(context)
@@ -400,26 +306,4 @@ object GlideHelper {
             .listener(GlideLogger(methodName = "createBitmapFromDashboardWidgetItem", identifier = widgetItem.iconUrl))
             .submit()
     }
-
-    /**
-     * Loads a bitmap from a URI into an [AppWidgetTarget].
-     *
-     * Uses [DiskCacheStrategy.RESOURCE] to ensure image is cached for re-use.
-     *
-     * @param context The context to use with Glide.
-     * @param uriString The URI string of the image.
-     * @param target The [AppWidgetTarget] to load into.
-     */
-    fun loadViaURIIntoAppWidgetTarget(context: Context, uriString: String, target: AppWidgetTarget) {
-        val uri = validateAndGetURI(uriString) ?: return
-
-        Glide
-            .with(context)
-            .asBitmap()
-            .load(uri)
-            .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
-            .listener(GlideLogger(methodName = "loadViaURIIntoAppWidgetTarget", identifier = uri.toString()))
-            .into(target)
-    }
-    // endregion
 }
