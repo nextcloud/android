@@ -11,19 +11,23 @@ import android.app.PendingIntent
 import android.appwidget.AppWidgetManager
 import android.content.Context
 import android.content.Intent
-import android.graphics.Bitmap
 import android.os.Build
 import android.view.View
 import android.widget.RemoteViews
+import androidx.core.graphics.drawable.toBitmap
 import androidx.core.net.toUri
 import com.bumptech.glide.request.target.AppWidgetTarget
-import com.bumptech.glide.request.transition.Transition
 import com.nextcloud.android.lib.resources.dashboard.DashboardButton
 import com.nextcloud.client.account.CurrentAccountProvider
 import com.nextcloud.client.network.ClientFactory
 import com.nextcloud.utils.GlideHelper
 import com.owncloud.android.R
+import com.owncloud.android.lib.common.OwnCloudClientManagerFactory
 import com.owncloud.android.utils.BitmapUtils
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class DashboardWidgetUpdater @Inject constructor(
@@ -150,13 +154,17 @@ class DashboardWidgetUpdater @Inject constructor(
     // endregion
 
     private fun loadIcon(appWidgetId: Int, iconUrl: String, remoteViews: RemoteViews) {
-        val target = object : AppWidgetTarget(context, R.id.icon, remoteViews, appWidgetId) {
-            override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
-                val tintedBitmap = BitmapUtils.tintImage(resource, R.color.black)
-                super.onResourceReady(tintedBitmap, transition)
+        val target = AppWidgetTarget(context, R.id.icon, remoteViews, appWidgetId)
+        CoroutineScope(Dispatchers.IO).launch {
+            val client = OwnCloudClientManagerFactory.getDefaultSingleton()
+                .getNextcloudClientFor(accountProvider.user.toOwnCloudAccount(), context)
+            val drawable = GlideHelper.getDrawable(context, client, iconUrl)
+            val bitmap = drawable?.toBitmap() ?: return@launch
+            val tintedBitmap = BitmapUtils.tintImage(bitmap, R.color.black)
+
+            withContext(Dispatchers.Main) {
+                target.onResourceReady(tintedBitmap, null)
             }
         }
-
-        GlideHelper.loadViaURIIntoAppWidgetTarget(context, iconUrl, target)
     }
 }
