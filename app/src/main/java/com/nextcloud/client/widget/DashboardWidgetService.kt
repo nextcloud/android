@@ -68,6 +68,7 @@ class DashboardWidgetService : RemoteViewsService() {
     }
 }
 
+@Suppress("LongParameterList")
 class StackRemoteViewsFactory(
     private val scope: CoroutineScope,
     private val context: Context,
