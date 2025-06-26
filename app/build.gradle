@@ -57,12 +57,6 @@ println "Gradle uses Java ${Jvm.current()}"
 configurations {
     configureEach {
         exclude group: "org.jetbrains", module: "annotations-java5" // via prism4j, already using annotations explicitly
-
-        // check for updates every build
-        resolutionStrategy {
-            cacheChangingModulesFor 0, "seconds"
-            exclude group: "org.jetbrains.kotlinx", module: "kotlinx-coroutines-debug"
-        }
     }
 }
 
@@ -436,7 +430,6 @@ dependencies {
 
 configurations.configureEach {
     resolutionStrategy {
-        cacheChangingModulesFor 0, "seconds"
         force "org.objenesis:objenesis:3.4"
         eachDependency { details ->
             if ("org.jacoco" == details.requested.group) {
