@@ -320,26 +320,50 @@ object GlideHelper {
             })
     }
 
-    fun loadViaURLIntoImageView(
+    fun loadIntoImageView(
         context: Context,
         client: NextcloudClient,
         url: String?,
         imageView: ImageView,
-        placeholder: Int
+        placeholder: Drawable,
+        circleCrop: Boolean = false
     ) {
-        val validatedURL = validateAndGetURL(url) ?: return
-        if (isSVG(validatedURL)) {
-            val uri = validateAndGetURI(url) ?: return
+        val requestBuilder = createRequestBuilder(context, client, url) ?: return
+
+        val result = requestBuilder
+            .placeholder(placeholder)
+            .error(placeholder)
+
+        loadIntoRequestBuilder(result, imageView, circleCrop)
+    }
+
+    private fun loadIntoRequestBuilder(
+        result: RequestBuilder<out Drawable>?,
+        imageView: ImageView,
+        circleCrop: Boolean
+    ) {
+        if (circleCrop) {
+            result?.circleCrop()?.into(imageView)
+        } else {
+            result?.into(imageView)
+        }
+    }
+
+    private fun createRequestBuilder(
+        context: Context,
+        client: NextcloudClient,
+        url: String?
+    ): RequestBuilder<out Drawable>? {
+        val validatedURL = validateAndGetURL(url) ?: return null
+
+        return if (isSVG(validatedURL)) {
+            val uri = validateAndGetURI(url) ?: return null
 
             Glide
                 .with(context)
                 .`as`(PictureDrawable::class.java)
                 .load(uri)
-                .placeholder(placeholder)
-                .error(placeholder)
                 .listener(SvgSoftwareLayerSetter())
-                .listener(GlideLogger(methodName = "loadViaURLIntoImageView", identifier = validatedURL))
-                .into(imageView)
         } else {
             val glideUrl = GlideUrl(
                 validatedURL,
@@ -352,11 +376,7 @@ object GlideHelper {
             Glide
                 .with(context)
                 .load(glideUrl)
-                .placeholder(placeholder)
-                .error(placeholder)
-                .listener(GlideLogger(methodName = "loadViaURLIntoImageView", identifier = validatedURL))
-                .into(imageView)
-        }
+        }.listener(GlideLogger(methodName = "loadViaURLIntoImageView", identifier = validatedURL))
     }
 
     // endregion
