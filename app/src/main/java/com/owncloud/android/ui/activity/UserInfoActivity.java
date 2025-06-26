@@ -66,6 +66,7 @@ import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Lifecycle;
 import androidx.recyclerview.widget.RecyclerView;
+import kotlin.Unit;
 
 /**
  * This Activity presents the user information.
@@ -207,7 +208,14 @@ public class UserInfoActivity extends DrawerActivity implements Injectable {
         }
 
         Target<Drawable> backgroundImageTarget = createBackgroundImageTarget(backgroundImageView);
-        GlideHelper.INSTANCE.loadViaURLIntoDrawableTarget(this, backgroundURL, backgroundImageTarget,R.drawable.background);
+        getClientRepository().getNextcloudClient(nextcloudClient -> {
+            GlideHelper.INSTANCE.loadIntoTarget(this,
+                                                nextcloudClient,
+                                                backgroundURL,
+                                                backgroundImageTarget,
+                                                R.drawable.background);
+            return Unit.INSTANCE;
+        });
     }
 
     private Target<Drawable> createBackgroundImageTarget(ImageView backgroundImageView) {

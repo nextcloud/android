@@ -9,20 +9,26 @@ package com.owncloud.android.ui.adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.nextcloud.client.account.CurrentAccountProvider;
 import com.nextcloud.utils.GlideHelper;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.TemplateButtonBinding;
 import com.owncloud.android.datamodel.Template;
+import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
+import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.dialog.ChooseRichDocumentsTemplateDialogFragment;
 import com.owncloud.android.utils.NextcloudServer;
 import com.owncloud.android.utils.theme.ViewThemeUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -38,12 +44,16 @@ public class RichDocumentsTemplateAdapter extends RecyclerView.Adapter<RichDocum
     private final ChooseRichDocumentsTemplateDialogFragment.Type type;
     private Template selectedTemplate;
     private final ViewThemeUtils viewThemeUtils;
+    private final CurrentAccountProvider currentAccount;
+    private final android.os.Handler handler = new Handler(Looper.getMainLooper());
 
     public RichDocumentsTemplateAdapter(
+        CurrentAccountProvider currentAccount,
         ChooseRichDocumentsTemplateDialogFragment.Type type,
         ClickListener clickListener,
         Context context,
         ViewThemeUtils viewThemeUtils) {
+        this.currentAccount = currentAccount;
         this.clickListener = clickListener;
         this.type = type;
         this.context = context;
@@ -113,7 +123,16 @@ public class RichDocumentsTemplateAdapter extends RecyclerView.Adapter<RichDocum
                 case PRESENTATION -> R.drawable.file_ppt;
             };
 
-            GlideHelper.INSTANCE.loadViaURLIntoImageView(context, template.getThumbnailLink(), binding.template, placeholder);
+
+            new Thread(() -> {{
+                try {
+                    final var client = OwnCloudClientManagerFactory.getDefaultSingleton().getNextcloudClientFor(currentAccount.getUser().toOwnCloudAccount(), context);
+                    handler.post(() -> GlideHelper.INSTANCE.loadIntoImageView(context, client, template.getThumbnailLink(), binding.template, placeholder, false));
+                } catch (Exception e) {
+                    Log_OC.e("RichDocumentsTemplateAdapter", "Exception setData: " + e);
+                }
+            }}).start();
+
             binding.templateName.setText(template.getName());
             binding.templateContainer.setChecked(template == selectedTemplate);
         }

@@ -67,7 +67,7 @@ class UnifiedSearchItemViewHolder(
             nextcloudClient,
             entry.thumbnailUrl,
             binding.thumbnail,
-            placeholder,
+            entryType.iconId(),
             circleCrop = entry.rounded
         )
 

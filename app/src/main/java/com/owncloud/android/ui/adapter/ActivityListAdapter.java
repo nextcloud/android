@@ -15,6 +15,8 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.os.Handler;
+import android.os.Looper;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.TextPaint;
@@ -40,6 +42,7 @@ import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.ActivityListItemBinding;
 import com.owncloud.android.databinding.ActivityListItemHeaderBinding;
+import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.activities.model.Activity;
 import com.owncloud.android.lib.resources.activities.model.RichElement;
@@ -53,6 +56,7 @@ import com.owncloud.android.utils.theme.ViewThemeUtils;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.Optional;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -75,6 +79,7 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     protected List<Object> values;
     private boolean isDetailView;
     private ViewThemeUtils viewThemeUtils;
+    private final Handler handler = new Handler(Looper.getMainLooper());
 
     public ActivityListAdapter(
         Context context,
@@ -159,7 +164,14 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             }
 
             if (!TextUtils.isEmpty(activity.getIcon())) {
-                GlideHelper.INSTANCE.loadViaURISVGIntoImageView(context, activity.getIcon(), activityViewHolder.binding.icon, R.drawable.ic_activity);
+                new Thread(() -> {{
+                    try {
+                        final var client = OwnCloudClientManagerFactory.getDefaultSingleton().getNextcloudClientFor(Optional.of(currentAccountProvider.getUser().toOwnCloudAccount()).get(), context);
+                        handler.post(() -> GlideHelper.INSTANCE.loadIntoImageView(context, client, activity.getIcon(), activityViewHolder.binding.icon, R.drawable.ic_activity, false));
+                    } catch (Exception e) {
+                        Log_OC.e("TemplateAdapter", "Exception setData: " + e);
+                    }
+                }}).start();
             }
 
             int nightModeFlag = context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
@@ -238,7 +250,14 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             }
 
             if (previewObject.getSource() != null) {
-                GlideHelper.INSTANCE.loadViaURLIntoImageView(context, previewObject.getSource(), imageView, placeholder);
+                new Thread(() -> {{
+                    try {
+                        final var client = OwnCloudClientManagerFactory.getDefaultSingleton().getNextcloudClientFor(Optional.of(currentAccountProvider.getUser().toOwnCloudAccount()).get(), context);
+                        handler.post(() -> GlideHelper.INSTANCE.loadIntoImageView(context, client, previewObject.getSource(), imageView, placeholder, false));
+                    } catch (Exception e) {
+                        Log_OC.e("TemplateAdapter", "Exception setData: " + e);
+                    }
+                }}).start();
             }
         } else {
             if (MimeTypeUtil.isFolder(previewObject.getMimeType())) {
