@@ -11,8 +11,9 @@ package com.owncloud.android.utils.glide
 import com.bumptech.glide.Priority
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.data.DataFetcher
-import com.nextcloud.client.account.User
-import com.nextcloud.client.network.ClientFactory
+import com.nextcloud.client.account.UserAccountManagerImpl
+import com.owncloud.android.MainApp
+import com.owncloud.android.lib.common.OwnCloudClientManagerFactory
 import com.owncloud.android.lib.common.operations.RemoteOperation
 import com.owncloud.android.lib.common.utils.Log_OC
 import org.apache.commons.httpclient.HttpStatus
@@ -24,8 +25,6 @@ import java.io.InputStream
 
 @Suppress("TooGenericExceptionCaught")
 class HttpStreamFetcher internal constructor(
-    private val user: User,
-    private val clientFactory: ClientFactory,
     private val url: String
 ) : DataFetcher<InputStream> {
 
@@ -33,7 +32,10 @@ class HttpStreamFetcher internal constructor(
 
     @Throws(Exception::class)
     override fun loadData(priority: Priority, callback: DataFetcher.DataCallback<in InputStream>) {
-        val client = clientFactory.create(user)
+        val ownCloudAccount =
+            UserAccountManagerImpl.fromContext(MainApp.getAppContext()).currentOwnCloudAccount
+        val client = OwnCloudClientManagerFactory.getDefaultSingleton()
+            .getClientFor(ownCloudAccount, MainApp.getAppContext())
         if (client == null || url.isBlank()) {
             callback.onLoadFailed(IllegalStateException("Invalid client or URL"))
             return
