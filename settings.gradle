@@ -17,6 +17,6 @@ include ":appscan"
 
 //includeBuild("../android-library") {
 //    dependencySubstitution {
-//        substitute module("com.github.nextcloud:android-library") using project(":library")
+//        substitute module('com.github.nextcloud:android-library') using project(':library') // broken on gradle 8.14.2, so use 8.13 if needed
 //    }
 //}
