@@ -8,15 +8,10 @@
 package com.owncloud.android.ui.adapter
 
 import android.content.Context
-import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
 import android.view.View
 import androidx.core.content.res.ResourcesCompat
 import com.afollestad.sectionedrecyclerview.SectionedViewHolder
-import com.bumptech.glide.load.DataSource
-import com.bumptech.glide.load.engine.GlideException
-import com.bumptech.glide.request.RequestListener
-import com.bumptech.glide.request.target.Target
 import com.nextcloud.android.common.ui.theme.utils.ColorRole
 import com.nextcloud.client.account.User
 import com.nextcloud.model.SearchResultEntryType
@@ -29,7 +24,6 @@ import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory
 import com.owncloud.android.lib.common.SearchResultEntry
 import com.owncloud.android.ui.interfaces.UnifiedSearchListInterface
-import com.owncloud.android.utils.BitmapUtils
 import com.owncloud.android.utils.MimeTypeUtil
 import com.owncloud.android.utils.theme.ViewThemeUtils
 
@@ -37,7 +31,7 @@ import com.owncloud.android.utils.theme.ViewThemeUtils
 class UnifiedSearchItemViewHolder(
     private val supportsOpeningCalendarContactsLocally: Boolean,
     val binding: UnifiedSearchItemBinding,
-    val user: User,
+    private val user: User,
     private val storageManager: FileDataStorageManager,
     private val listInterface: UnifiedSearchListInterface,
     private val filesAction: FilesAction,
@@ -66,16 +60,15 @@ class UnifiedSearchItemViewHolder(
 
         val entryType = entry.getType()
         val placeholder = getPlaceholder(entry, entryType, mimetype)
-        val entryRequestListener = RoundIfNeededListener(entry)
-
-        val clientFactory = OwnCloudClientManagerFactory.getDefaultSingleton()
-        val nextcloudClient = clientFactory.getNextcloudClientFor(user.toOwnCloudAccount(), context)
-        GlideHelper.loadViaURLIntoImageView(
+        val nextcloudClient =
+            OwnCloudClientManagerFactory.getDefaultSingleton().getNextcloudClientFor(user.toOwnCloudAccount(), context)
+        GlideHelper.loadIntoImageView(
             context,
             nextcloudClient,
             entry.thumbnailUrl,
             binding.thumbnail,
-            entryType.iconId()
+            placeholder,
+            circleCrop = entry.rounded
         )
 
         if (entry.isFile) {
@@ -124,19 +117,5 @@ class UnifiedSearchItemViewHolder(
         val defaultDrawable = MimeTypeUtil.getFileTypeIcon(mimetype, entry.title, context, viewThemeUtils)
         val drawable: Drawable = ResourcesCompat.getDrawable(context.resources, iconId, null) ?: defaultDrawable
         return viewThemeUtils.platform.tintDrawable(context, drawable, ColorRole.PRIMARY)
-    }
-
-    private inner class RoundIfNeededListener(private val entry: SearchResultEntry) : RequestListener<Bitmap> {
-        override fun onLoadFailed(p0: GlideException?, p1: Any?, p2: Target<Bitmap?>, p3: Boolean): Boolean = false
-
-        override fun onResourceReady(p0: Bitmap, p1: Any, p2: Target<Bitmap?>?, p3: DataSource, p4: Boolean): Boolean {
-            if (entry.rounded) {
-                val drawable = BitmapUtils.bitmapToCircularBitmapDrawable(context.resources, p0)
-                binding.thumbnail.setImageDrawable(drawable)
-                return true
-            }
-
-            return false
-        }
     }
 }
