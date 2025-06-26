@@ -75,7 +75,7 @@ public abstract class EditorWebView extends ExternalSiteWebView {
             new WebViewUtil().setProxyKKPlus(this.getWebView());
             try {
                 Thread.sleep(1000);
-            } catch (InterruptedException e) {
+            } catch (InterruptedException ignored) {
             }
 
             if (!url.equals(this.getWebView().getUrl())) {

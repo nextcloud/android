@@ -29,7 +29,7 @@
     <string name="activity_chooser_title">Hivatkozás küldése…</string>
     <string name="activity_icon">Tevékenység</string>
     <string name="add_new_public_share">Új nyilvános megosztási hivatkozás hozzáadása</string>
-    <string name="add_new_secure_file_drop">Új biztonsági fájllerakat hozzáadása</string>
+    <string name="add_new_secure_file_drop">Új biztonságos fájllerakat hozzáadása</string>
     <string name="add_to_cloud">Hozzáadás ehhez: %1$s</string>
     <string name="app_config_base_url_title">Alap webcím</string>
     <string name="app_config_disable_clipboard_title">Vágólap letiltása</string>
@@ -451,6 +451,7 @@
     <string name="first_run_3_text">Könnyen használható webes levelező, naptár és névjegyek</string>
     <string name="first_run_4_text">Képernyőmegosztás, online megbeszélések és webes konferenciák</string>
     <string name="folder_already_exists">A mappa már létezik</string>
+    <string name="folder_best_viewed_in">A mappa megtekintéséhez a következő javasolt: %1$s.</string>
     <string name="folder_confirm_create">Létrehozás</string>
     <string name="folder_list_empty_headline">Itt nincsenek mappák</string>
     <string name="folder_name_empty">A mappanév nem lehet üres</string>
@@ -820,6 +821,7 @@
     <string name="share_link_with_label">Megosztási hivatkozás (%1$s)</string>
     <string name="share_no_expiration_date_label">Lejárati idő beállítása</string>
     <string name="share_no_password_title">Jelszó beállítása</string>
+    <string name="share_not_allowed_when_file_drop">A továbbosztás nem engedélyezett a biztonságos fájllerakat során</string>
     <string name="share_option_required">A folytatás előtt válasszon legalább egy megosztási lehetőséget.</string>
     <string name="share_permission_can_edit">Szerkesztheti</string>
     <string name="share_permission_file_request">Fájlkérés</string>
@@ -976,8 +978,13 @@ A Nextcloud itt érhető el: https://nextcloud.com</string>
     <string name="trashbin_loading_failed">A kuka betöltése sikertelen.</string>
     <string name="trashbin_not_emptied">A fájlok nem törölhetők véglegesen!</string>
     <string name="two_way_sync_activity_disable_all_button_title">Letiltás az összes mappánál</string>
+    <string name="two_way_sync_activity_empty_list_desc">A kétirányú szinkronizálási mappa beállításához engedélyezze a kérdéses mappa részletek lapján.</string>
+    <string name="two_way_sync_activity_empty_list_title">A kétirányú szinkronizálás nincs beállítva</string>
     <string name="two_way_sync_activity_title">Belső kétirányú szinkronizálás</string>
     <string name="unexpected_error_occurred">Váratlan hiba történt</string>
+    <string name="unified_search_fragment_calendar_event_not_found">Az esemény nem található, bármikor szinkronizálhat a frissítéshez. Átirányítás a webre…</string>
+    <string name="unified_search_fragment_contact_not_found">A névjegy nem található, bármikor szinkronizálhat a frissítéshez. Átirányítás a webre…</string>
+    <string name="unified_search_fragment_permission_needed">Engedély szükséges a keresési találat megnyitásához, különben a webre lesz átirányítva…</string>
     <string name="unlock_file">Fájl feloldása</string>
     <string name="unread_comments">Olvasatlan hozzászólások vannak</string>
     <string name="unset_encrypted">Titkosítás kikapcsolása</string>
@@ -1080,6 +1087,7 @@ A Nextcloud itt érhető el: https://nextcloud.com</string>
     <string name="uploads_view_upload_status_fetching_server_version">Kiszolgálóverzió lekérése…</string>
     <string name="uploads_view_upload_status_service_interrupted">Az alkalmazás leállt</string>
     <string name="uploads_view_upload_status_succeeded">Befejezve</string>
+    <string name="uploads_view_upload_status_succeeded_same_file">Ugyanazon fájl található a távoli kiszolgálón, feltöltés kihagyása</string>
     <string name="uploads_view_upload_status_unknown_fail">Ismeretlen hiba</string>
     <string name="uploads_view_upload_status_virus_detected">Vírus észlelve. A feltöltés nem fejezhető be!</string>
     <string name="uploads_view_upload_status_waiting_exit_power_save_mode">Várakozás az energiatakarékos üzemmód elhagyására</string>
@@ -1100,10 +1108,12 @@ A Nextcloud itt érhető el: https://nextcloud.com</string>
     <string name="wait_a_moment">Egy pillanat…</string>
     <string name="wait_checking_credentials">Tárolt hitelesítő adatok ellenőrzése</string>
     <string name="wait_for_tmp_copy_from_private_storage">Fájl másolása a privát tárolóról</string>
+    <string name="warn_rename_extension">A kiterjesztés módosítása azt okozhatja, hogy egy másik alkalmazás fogja megnyitni a fájlt</string>
     <string name="what_s_new_image">Újdonságok kép</string>
     <string name="whats_new_skip">Kihagyás</string>
     <string name="whats_new_title">Új itt: %1$s</string>
     <string name="whats_your_status">Mi az állapota?</string>
+    <string name="widgets_not_available">A modulok csak %1$s 25 vagy újabb esetén érhetőek el, ha az Irányítópult alkalmazás engedélyezve van</string>
     <string name="widgets_not_available_title">Nem érhető el</string>
     <string name="worker_download">Fájlok letöltése…</string>
     <string name="write_email">E-mail küldése</string>
@@ -1116,6 +1126,18 @@ A Nextcloud itt érhető el: https://nextcloud.com</string>
     <plurals name="minutes">
         <item quantity="one">%d perc</item>
         <item quantity="other">%d perc</item>
+    </plurals>
+    <plurals name="time_seconds_ago">
+        <item quantity="one">%d másodperce</item>
+        <item quantity="other">%d másodperce</item>
+    </plurals>
+    <plurals name="time_minutes_ago">
+        <item quantity="one">%d perce</item>
+        <item quantity="other">%d perce</item>
+    </plurals>
+    <plurals name="time_hours_ago">
+        <item quantity="one">%d órája</item>
+        <item quantity="other">%d órája</item>
     </plurals>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">Nem sikerült szinkronizálni %1$d fájlt (ütközések: %2$d)</item>
@@ -1176,6 +1198,22 @@ A Nextcloud itt érhető el: https://nextcloud.com</string>
     <plurals name="items_selected_count">
         <item quantity="one">%d kiválasztva</item>
         <item quantity="other">%d kiválasztva</item>
+    </plurals>
+    <plurals name="delay_message">
+        <item quantity="one">A túl sok próbálkozás miatt %d másodpercre elhalasztva</item>
+        <item quantity="other">A túl sok próbálkozás miatt %d másodpercre elhalasztva</item>
+    </plurals>
+    <plurals name="delay_message_minutes">
+        <item quantity="one">A túl sok próbálkozás miatt %d percre elhalasztva</item>
+        <item quantity="other">A túl sok próbálkozás miatt %d percre elhalasztva</item>
+    </plurals>
+    <plurals name="delay_message_minutes_part">
+        <item quantity="one">%d percre elhalasztva</item>
+        <item quantity="other">%d percre elhalasztva</item>
+    </plurals>
+    <plurals name="delay_message_seconds_part">
+        <item quantity="one">%d másodperc</item>
+        <item quantity="other">%d másodperc</item>
     </plurals>
     <plurals name="share_download_limit_description">
         <item quantity="one">%1$d letöltés maradt</item>
