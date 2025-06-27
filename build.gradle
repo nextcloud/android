@@ -21,7 +21,7 @@ buildscript {
         documentScannerVersion = "1.2.3"
         espressoVersion = "3.6.1"
         jacoco_version = "0.8.13"
-        kotlin_version = "2.1.21"
+        kotlin_version = "2.2.0"
         markwonVersion = "4.6.2"
         mockitoVersion = "4.11.0"
         mockitoKotlinVersion = "4.1.0"
