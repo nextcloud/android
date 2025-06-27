@@ -584,12 +584,12 @@ internal class BackgroundJobManagerImpl(
      * - New upload batches
      * - Failed uploads
      * - FilesSyncWork
-     *
-     * A unique tag is generated for each upload job. This is intentional because this job may encapsulate an arbitrary
-     * number of files so it's safer to treat each invocation as an independent job.
+     * - ...
      *
      * @param user The user for whom the upload job is being created.
-     * @param uploadIds array of upload ids
+     * @param uploadIds Array of upload IDs to be processed. These IDs originate from multiple sources
+     *                  and cannot be determined directly from the account name or a single function
+     *                  within the worker.
      */
     override fun startFilesUploadJob(user: User, uploadIds: LongArray) {
         val tag = startFileUploadJobTag(user)
