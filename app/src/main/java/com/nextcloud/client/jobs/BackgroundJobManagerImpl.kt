@@ -36,7 +36,6 @@ import com.owncloud.android.operations.DownloadType
 import java.util.Date
 import java.util.UUID
 import java.util.concurrent.TimeUnit
-import kotlin.random.Random
 import kotlin.reflect.KClass
 
 /**
@@ -584,7 +583,7 @@ internal class BackgroundJobManagerImpl(
      * @param uploadIds array of upload ids
      */
     override fun startFilesUploadJob(user: User, uploadIds: LongArray) {
-        val tag = startFileUploadJobTag(user) + Random.nextLong()
+        val tag = startFileUploadJobTag(user)
         val dataBuilder = Data.Builder()
             .putString(FileUploadWorker.ACCOUNT, user.accountName)
             .putLongArray(FileUploadWorker.UPLOAD_IDS, uploadIds)
@@ -599,7 +598,7 @@ internal class BackgroundJobManagerImpl(
             .setConstraints(constraints)
             .build()
 
-        workManager.enqueueUniqueWork(tag, ExistingWorkPolicy.KEEP, request)
+        workManager.enqueueUniqueWork(tag, ExistingWorkPolicy.APPEND_OR_REPLACE, request)
     }
 
     private fun startFileDownloadJobTag(user: User, fileId: Long): String =
