@@ -1635,9 +1635,10 @@ public class OCFileListFragment extends ExtendedListFragment implements
         }
 
         setFabVisible(!mHideFab);
+        slideHideBottomBehaviourForBottomNavigationView(!mHideFab);
 
-        // FAB
-        setFabEnabled(mFile != null && (mFile.canWrite() || mFile.isOfflineOperation()));
+        final var showBottomLayoutItems = (mFile != null && (mFile.canWrite() || mFile.isOfflineOperation()));
+        setFabEnabled(showBottomLayoutItems);
 
         invalidateActionMode();
     }
@@ -1828,6 +1829,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
         }
 
         setFabVisible(true);
+        slideHideBottomBehaviourForBottomNavigationView(true);
     }
 
     private void resetMenuItems() {
@@ -2250,12 +2252,14 @@ public class OCFileListFragment extends ExtendedListFragment implements
                 mFabMain.hide();
             }
 
-            if (activity instanceof DrawerActivity drawerActivity) {
-                ViewExtensionsKt.slideHideBottomBehavior(drawerActivity.getBottomNavigationView(), visible);
-            }
-
             ViewExtensionsKt.slideHideBottomBehavior(mFabMain, visible);
         });
+    }
+
+    public void slideHideBottomBehaviourForBottomNavigationView(boolean visible) {
+        if (getActivity() instanceof DrawerActivity drawerActivity) {
+            ViewExtensionsKt.slideHideBottomBehavior(drawerActivity.getBottomNavigationView(), visible);
+        }
     }
 
     /**
