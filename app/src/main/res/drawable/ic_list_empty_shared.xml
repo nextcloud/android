@@ -1,11 +1,16 @@
 <!--
   ~ Nextcloud - Android Client
   ~
-  ~ SPDX-FileCopyrightText: 2018-2024 Google LLC
+  ~ SPDX-FileCopyrightText: 2018-2025 Google LLC
   ~ SPDX-License-Identifier: Apache-2.0
 -->
-<vector android:height="72dp" android:tint="#626364"
-    android:viewportHeight="24.0" android:viewportWidth="24.0"
-    android:width="72dp" xmlns:android="http://schemas.android.com/apk/res/android">
-    <path android:fillColor="#FF000000" android:pathData="M18,16.08c-0.76,0 -1.44,0.3 -1.96,0.77L8.91,12.7c0.05,-0.23 0.09,-0.46 0.09,-0.7s-0.04,-0.47 -0.09,-0.7l7.05,-4.11c0.54,0.5 1.25,0.81 2.04,0.81 1.66,0 3,-1.34 3,-3s-1.34,-3 -3,-3 -3,1.34 -3,3c0,0.24 0.04,0.47 0.09,0.7L8.04,9.81C7.5,9.31 6.79,9 6,9c-1.66,0 -3,1.34 -3,3s1.34,3 3,3c0.79,0 1.5,-0.31 2.04,-0.81l7.12,4.16c-0.05,0.21 -0.08,0.43 -0.08,0.65 0,1.61 1.31,2.92 2.92,2.92 1.61,0 2.92,-1.31 2.92,-2.92s-1.31,-2.92 -2.92,-2.92z"/>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="72dp"
+    android:height="72dp"
+    android:tint="#626364"
+    android:viewportWidth="960"
+    android:viewportHeight="960">
+    <path
+        android:fillColor="@android:color/white"
+        android:pathData="M680,880Q630,880 595,845Q560,810 560,760Q560,754 563,732L282,568Q266,583 245,591.5Q224,600 200,600Q150,600 115,565Q80,530 80,480Q80,430 115,395Q150,360 200,360Q224,360 245,368.5Q266,377 282,392L563,228Q561,221 560.5,214.5Q560,208 560,200Q560,150 595,115Q630,80 680,80Q730,80 765,115Q800,150 800,200Q800,250 765,285Q730,320 680,320Q656,320 635,311.5Q614,303 598,288L317,452Q319,459 319.5,465.5Q320,472 320,480Q320,488 319.5,494.5Q319,501 317,508L598,672Q614,657 635,648.5Q656,640 680,640Q730,640 765,675Q800,710 800,760Q800,810 765,845Q730,880 680,880Z" />
 </vector>
