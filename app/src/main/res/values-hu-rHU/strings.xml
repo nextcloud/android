@@ -44,6 +44,7 @@
     <string name="app_widget_description">Egy modult jelenít meg a irányítópultról</string>
     <string name="appbar_search_in">Keresés itt: %s</string>
     <string name="assistant_screen_add_task_alert_dialog_title">Új feladat hozzáadása</string>
+    <string name="assistant_screen_create_a_new_task_from_bottom_right_text">Új feladat létrehozása a jobb lentiből</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Gépeljen be szöveget</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Valóban törölni akarja ezt a feladatot?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Feladat törlése</string>
