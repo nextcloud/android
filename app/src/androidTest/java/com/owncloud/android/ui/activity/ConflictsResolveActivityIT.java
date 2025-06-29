@@ -167,7 +167,7 @@ public class ConflictsResolveActivityIT extends AbstractIT {
         ConflictsResolveActivity sut = activityRule.launchActivity(intent);
 
         sut.listener = decision -> {
-            assertEquals(decision, ConflictsResolveDialog.Decision.CANCEL);
+            assertEquals(ConflictsResolveDialog.Decision.CANCEL, decision);
             returnCode = true;
         };
 
@@ -210,7 +210,7 @@ public class ConflictsResolveActivityIT extends AbstractIT {
         ConflictsResolveActivity sut = activityRule.launchActivity(intent);
 
         sut.listener = decision -> {
-            assertEquals(decision, ConflictsResolveDialog.Decision.KEEP_SERVER);
+            assertEquals(ConflictsResolveDialog.Decision.KEEP_SERVER, decision);
             returnCode = true;
         };
 
@@ -256,7 +256,7 @@ public class ConflictsResolveActivityIT extends AbstractIT {
         ConflictsResolveActivity sut = activityRule.launchActivity(intent);
 
         sut.listener = decision -> {
-            assertEquals(decision, ConflictsResolveDialog.Decision.KEEP_LOCAL);
+            assertEquals(ConflictsResolveDialog.Decision.KEEP_LOCAL, decision);
             returnCode = true;
         };
 
@@ -303,7 +303,7 @@ public class ConflictsResolveActivityIT extends AbstractIT {
         ConflictsResolveActivity sut = activityRule.launchActivity(intent);
 
         sut.listener = decision -> {
-            assertEquals(decision, ConflictsResolveDialog.Decision.KEEP_BOTH);
+            assertEquals(ConflictsResolveDialog.Decision.KEEP_BOTH, decision);
             returnCode = true;
         };
 
