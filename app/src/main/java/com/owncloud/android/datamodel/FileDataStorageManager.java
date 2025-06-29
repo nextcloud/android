@@ -265,11 +265,12 @@ public class FileDataStorageManager {
         return filename;
     }
 
-    public void addRemoveFileOfflineOperation(String path, String filename, Long parentOCFileId) {
+    public void addRemoveFileOfflineOperation(@NonNull OCFile file) {
         OfflineOperationEntity entity = new OfflineOperationEntity();
 
-        entity.setFilename(filename);
-        entity.setParentOCFileId(parentOCFileId);
+        String path = file.getDecryptedRemotePath();
+        entity.setFilename(file.getFileName());
+        entity.setParentOCFileId(file.getParentId());
 
         OfflineOperationType.RemoveFile operationType = new OfflineOperationType.RemoveFile(OfflineOperationRawType.RemoveFile.name(), path);
         entity.setType(operationType);
@@ -301,6 +302,7 @@ public class FileDataStorageManager {
             createFolderType.setPath(newPath);
         } else if (entity.getType() instanceof OfflineOperationType.CreateFile createFileType) {
             createFileType.setRemotePath(newPath);
+            createFileType.setMimeType(file.getMimeType());
         }
         entity.setType(entity.getType());
 
