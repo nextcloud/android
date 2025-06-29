@@ -60,7 +60,7 @@ public class ActivityAndVersionListAdapter extends ActivityListAdapter {
         }
         if (clear) {
             values.clear();
-            Collections.sort(items, (o1, o2) -> {
+            items.sort((o1, o2) -> {
                 long o1Date;
                 long o2Date;
                 if (o1 instanceof Activity) {
