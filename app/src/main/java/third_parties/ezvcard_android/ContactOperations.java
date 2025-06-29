@@ -12,8 +12,8 @@ import android.graphics.Bitmap;
 import android.os.RemoteException;
 import android.provider.ContactsContract;
 
+import com.nextcloud.utils.GlideHelper;
 import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.utils.DisplayUtils;
 
 import java.io.ByteArrayOutputStream;
 import java.time.ZoneId;
@@ -518,7 +518,7 @@ public class ContactOperations {
 
     private void downloadPhoto(Photo photo) {
         String url = photo.getUrl();
-        Bitmap bitmap = DisplayUtils.downloadImageSynchronous(context, url);
+        Bitmap bitmap = GlideHelper.INSTANCE.getBitmap(context, url);
         if (bitmap != null) {
             ByteArrayOutputStream stream = new ByteArrayOutputStream();
             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
