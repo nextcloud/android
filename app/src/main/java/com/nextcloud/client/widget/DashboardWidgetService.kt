@@ -167,10 +167,10 @@ class StackRemoteViewsFactory(
         CoroutineScope(Dispatchers.IO).launch {
             val client = OwnCloudClientManagerFactory.getDefaultSingleton()
                 .getNextcloudClientFor(userAccountManager.user.toOwnCloudAccount(), context)
+            val pictureDrawable = GlideHelper.getDrawable(context, client, widgetItem.iconUrl)
+            val bitmap = pictureDrawable?.toBitmap() ?: return@launch
 
             withContext(Dispatchers.Main) {
-                val pictureDrawable = GlideHelper.getDrawable(context, client, widgetItem.iconUrl)
-                val bitmap = pictureDrawable?.toBitmap() ?: return@withContext
                 remoteViews.setRemoteImageView(bitmap)
                 return@withContext
             }

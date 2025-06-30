@@ -518,14 +518,18 @@ public class ContactOperations {
 
     private void downloadPhoto(Photo photo) {
         String url = photo.getUrl();
-        Bitmap bitmap = GlideHelper.INSTANCE.getBitmap(context, url);
-        if (bitmap != null) {
+        new Thread(() -> {{
+            Bitmap bitmap = GlideHelper.INSTANCE.getBitmap(context, url);
+            if (bitmap == null) {
+                return;
+            }
+
             ByteArrayOutputStream stream = new ByteArrayOutputStream();
             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
             byte[] bitmapdata = stream.toByteArray();
             photo.setData(bitmapdata, ImageType.find(null, null,
-                    url.substring(url.lastIndexOf(".") + 1)));
-        }
+                                                     url.substring(url.lastIndexOf(".") + 1)));
+        }}).start();
     }
 
     private void convertOrganization(List<NonEmptyContentValues> contentValues, VCard vcard) {
