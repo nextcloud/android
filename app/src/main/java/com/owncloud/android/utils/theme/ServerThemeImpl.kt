@@ -9,6 +9,7 @@ package com.owncloud.android.utils.theme
 
 import com.nextcloud.android.common.ui.color.ColorUtil
 import com.nextcloud.android.common.ui.theme.ServerTheme
+import com.owncloud.android.R
 import com.owncloud.android.lib.resources.status.OCCapability
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
@@ -23,10 +24,8 @@ class ServerThemeImpl @AssistedInject constructor(colorUtil: ColorUtil, @Assiste
     override val primaryColor: Int
 
     init {
-        //TODO: Right now primaryColor fallback resource is referenced from qrcodescanner dependency. However, I think it should be
-        // referenced from within app (such as R.color.primary) or common-ui resource.
         primaryColor =
-            colorUtil.getNullSafeColorWithFallbackRes(capability.serverColor, com.blikoon.qrcodescanner.R.color.colorPrimary)
+            colorUtil.getNullSafeColorWithFallbackRes(capability.serverColor, R.color.primary)
         colorElement = colorUtil.getNullSafeColor(capability.serverElementColor, primaryColor)
         colorElementBright =
             colorUtil.getNullSafeColor(capability.serverElementColorBright, primaryColor)
