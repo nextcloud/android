@@ -28,6 +28,7 @@ import com.owncloud.android.datamodel.quickPermission.QuickPermissionType
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.lib.resources.shares.OCShare
 import com.owncloud.android.lib.resources.shares.ShareType
+import com.owncloud.android.lib.resources.status.NextcloudVersion
 import com.owncloud.android.lib.resources.status.OCCapability
 import com.owncloud.android.ui.activity.FileActivity
 import com.owncloud.android.ui.dialog.ExpirationDatePickerDialogFragment
@@ -629,7 +630,8 @@ class FileDetailsSharingProcessFragment :
                 }
 
                 if (!isPublicShare()) {
-                    shareAllowDownloadAndSyncCheckbox.isChecked = isAllowDownloadAndSyncEnabled(share)
+                    shareAllowDownloadAndSyncCheckbox.isChecked =
+                        isAllowDownloadAndSyncEnabled(share?.attributes, useV2DownloadAttributes())
                 }
             }
         }
@@ -652,7 +654,9 @@ class FileDetailsSharingProcessFragment :
 
         if (!isPublicShare()) {
             binding.shareAllowDownloadAndSyncCheckbox.setOnCheckedChangeListener { _, isChecked ->
-                val result = SharePermissionManager.toggleAllowDownloadAndSync(isChecked, share)
+                val result =
+                    SharePermissionManager
+                        .toggleAllowDownloadAndSync(isChecked, useV2DownloadAttributes(), share)
                 share?.attributes = result
                 downloadAttribute = result
             }
@@ -899,5 +903,9 @@ class FileDetailsSharingProcessFragment :
         (isPublicShare() && capabilities.filesDownloadLimit.isTrue && share?.isFolder == false)
 
     private fun isPublicShare(): Boolean = (shareType == ShareType.PUBLIC_LINK)
+
+    private fun useV2DownloadAttributes(): Boolean = capabilities.version
+        .isNewerOrEqual(NextcloudVersion.nextcloud_30)
+
     // endregion
 }
