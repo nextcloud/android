@@ -507,7 +507,6 @@ public abstract class DrawerActivity extends ToolbarActivity
      * @param navigationView the drawers navigation view
      */
     private void setupDrawerMenu(NavigationView navigationView) {
-        navigationView.setItemIconTintList(null);
 
         // setup actions for drawer menu items
         navigationView.setNavigationItemSelectedListener(
@@ -517,7 +516,6 @@ public abstract class DrawerActivity extends ToolbarActivity
                 pendingRunnable = () -> onNavigationItemClicked(menuItem);
                 return true;
             });
-
 
         User account = accountManager.getUser();
         filterDrawerMenu(navigationView.getMenu(), account);
