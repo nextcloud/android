@@ -97,6 +97,7 @@ import com.owncloud.android.ui.preview.PreviewTextStringFragment;
 import com.owncloud.android.ui.trashbin.TrashbinActivity;
 import com.owncloud.android.utils.BitmapUtils;
 import com.owncloud.android.utils.DisplayUtils;
+import com.owncloud.android.utils.DrawableUtil;
 import com.owncloud.android.utils.DrawerMenuUtil;
 import com.owncloud.android.utils.FilesSyncHelper;
 import com.owncloud.android.utils.theme.CapabilityUtils;
@@ -126,7 +127,6 @@ import androidx.fragment.app.Fragment;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import hct.Hct;
 import kotlin.Unit;
-import kotlin.jvm.functions.Function1;
 
 import static com.nextcloud.utils.extensions.DrawerActivityExtensionsKt.getMenuItemIdFromTitle;
 
@@ -1087,7 +1087,8 @@ public abstract class DrawerActivity extends ToolbarActivity
             return;
         }
 
-        menuItem.setIcon(viewThemeUtils.platform.colorDrawable(drawable, greyColor));
+        final var resizedDrawable = DrawableUtil.INSTANCE.getResizedDrawable(this, drawable,32);
+        menuItem.setIcon(viewThemeUtils.platform.colorDrawable(resizedDrawable, greyColor));
     }
 
     @Override
