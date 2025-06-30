@@ -786,6 +786,8 @@
     <string name="send">Send</string>
     <string name="send_share">Send share</string>
     <string name="sendbutton_description">Send button icon</string>
+    <string name="server_not_reachable">Could not load content</string>
+    <string name="server_not_reachable_content">The device is likely not connected to the internet</string>
     <string name="set_as">Set As</string>
     <string name="set_download_limit_failed">Unable to set download limit. Please check capabilities.</string>
     <string name="set_note">Set note</string>

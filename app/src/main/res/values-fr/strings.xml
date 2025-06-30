@@ -371,6 +371,7 @@
     <string name="file_already_exists">Ce nom de fichier existe déjà</string>
     <string name="file_delete">Supprimer</string>
     <string name="file_detail_activity_error">Erreur lors de la récupération de l\'activité du fichier</string>
+    <string name="file_detail_share_already_active">Impossible de créer un partage car le partage est déjà actif pour cet utilisateur.</string>
     <string name="file_detail_sharing_fragment_no_contact_app_message">Aucune application disponible pour sélectionner des contacts</string>
     <string name="file_details_no_content">Impossible de charger les détails</string>
     <string name="file_icon">Fichier</string>
@@ -430,6 +431,7 @@
     <string name="file_name_validator_error_reserved_names">%s est un nom interdit</string>
     <string name="file_name_validator_rename_before_move_or_copy">%s. Veuillez renommer le fichier avant de le déplacer ou de le copier</string>
     <string name="file_not_found">Fichier non trouvé</string>
+    <string name="file_not_found_cannot_share">Fichier introuvable. Impossible de créer le partage.</string>
     <string name="file_not_synced">Le fichier ne peut pas être synchronisé. Affichage de la dernière version disponible. </string>
     <string name="file_rename">Renommer</string>
     <string name="file_upload_worker_error_notification_title">Échec du téléversement. Pas de connexion internet</string>
@@ -784,7 +786,10 @@
     <string name="send">Envoyer</string>
     <string name="send_share">Envoyer Partager</string>
     <string name="sendbutton_description">Icône du bouton d\'envoi</string>
+    <string name="server_not_reachable">Impossible de charger le contenu</string>
+    <string name="server_not_reachable_content">Il semble que l\'appareil ne soit pas connecté à internet</string>
     <string name="set_as">Utiliser comme</string>
+    <string name="set_download_limit_failed">Impossible de définir la limite de téléchargement. Veuillez vérifier les capacités.</string>
     <string name="set_note">Définir la note</string>
     <string name="set_picture_as">Utiliser l\'image comme</string>
     <string name="set_status">Définir le statut</string>
@@ -792,6 +797,7 @@
     <string name="setup_e2e">Pendant la configuration du chiffrement de bout en bout, vous recevrez une phrase secrète aléatoire de 12 mots dont vous aurez besoin pour ouvrir vos fichiers sur d\'autres appareils. Cette phrase secrète ne sera stockée que sur cet appareil, et pourra être affichée à nouveau sur cet écran. Veuillez la noter en lieu sûr !</string>
     <string name="share">Partager</string>
     <string name="share_allow_download_and_sync_permission">Autoriser le téléchargement et la synchronisation</string>
+    <string name="share_cannot_update_empty_note">Impossible de mettre à jour le partage.. Veuillez ajouter une note et ré-essayer.</string>
     <string name="share_copy_link">Partager et copier le lien</string>
     <string name="share_create_permission">Créer</string>
     <string name="share_custom_permission">Permissions personnalisées</string>
@@ -817,6 +823,7 @@
     <string name="share_no_expiration_date_label">Définir une date d\'expiration</string>
     <string name="share_no_password_title">Définir un mot de passe</string>
     <string name="share_not_allowed_when_file_drop">Le repartage n\'est pas autorisé pendant le dépôt d\'un fichier sécurisé</string>
+    <string name="share_option_required">Veuillez sélectionner au moins une option de partage avant de poursuivre.</string>
     <string name="share_permission_can_edit">Peut modifier</string>
     <string name="share_permission_file_request">Demande de fichier</string>
     <string name="share_permission_secure_file_drop">Dépôt sécurisé de fichiers</string>

@@ -144,7 +144,7 @@
     <string name="copy_file_error">Radās kļūda, mēģinot kopēt šo datni vai mapi</string>
     <string name="copy_file_invalid_into_descendent">Nav iespējams kopēt mapi tās apakšmapē</string>
     <string name="copy_file_invalid_overwrite">Datne jau pastāv mērķa mapē</string>
-    <string name="copy_link">Kopēt saiti</string>
+    <string name="copy_link">Ievietot saiti starpliktuvē</string>
     <string name="could_not_download_image">Nevarēja lejupielādēt pilnu attēlu</string>
     <string name="could_not_retrieve_url">Neizdevās iegūt URL </string>
     <string name="create">Izveidot</string>
@@ -489,6 +489,7 @@
     <string name="set_status">Iestatīt stāvokli</string>
     <string name="set_status_message">Iestatīt stāvokļa ziņojumu</string>
     <string name="share">Kopīgot</string>
+    <string name="share_copy_link">Kopīgot saiti un ievietot to starpliktuvē</string>
     <string name="share_delete_permission">Izdzēst</string>
     <string name="share_dialog_title">Koplietošana</string>
     <string name="share_edit_permission">Labot</string>
