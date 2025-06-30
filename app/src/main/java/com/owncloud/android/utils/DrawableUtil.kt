@@ -7,10 +7,15 @@
  */
 package com.owncloud.android.utils
 
+import android.content.Context
+import android.graphics.Canvas
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.LayerDrawable
+import androidx.core.graphics.createBitmap
 import androidx.core.graphics.drawable.DrawableCompat
+import androidx.core.graphics.drawable.toDrawable
+import androidx.core.graphics.scale
 
 object DrawableUtil {
 
@@ -18,6 +23,21 @@ object DrawableUtil {
         val drawable = DrawableCompat.wrap(source)
         DrawableCompat.setTint(drawable, color)
         return drawable
+    }
+
+    fun getResizedDrawable(context: Context, drawable: Drawable, pxSize: Int): Drawable {
+        if (drawable is BitmapDrawable) {
+            val originalBitmap = drawable.bitmap
+            val scaledBitmap = originalBitmap.scale(pxSize, pxSize)
+            return scaledBitmap.toDrawable(context.resources)
+        }
+
+        val bitmap = createBitmap(pxSize, pxSize)
+        val canvas = Canvas(bitmap)
+        drawable.setBounds(0, 0, pxSize, pxSize)
+        drawable.draw(canvas)
+
+        return bitmap.toDrawable(context.resources)
     }
 
     fun addDrawableAsOverlay(backgroundDrawable: Drawable, overlayDrawable: Drawable): LayerDrawable {

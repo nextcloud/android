@@ -12,7 +12,6 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.PictureDrawable
-import android.net.Uri
 import android.widget.ImageView
 import androidx.annotation.DrawableRes
 import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory
@@ -28,7 +27,6 @@ import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.BitmapImageViewTarget
 import com.bumptech.glide.request.target.Target
 import com.nextcloud.common.NextcloudClient
-import com.nextcloud.utils.LinkHelper.validateAndGetURI
 import com.nextcloud.utils.LinkHelper.validateAndGetURL
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.utils.svg.SvgSoftwareLayerSetter
@@ -76,16 +74,22 @@ object GlideHelper {
     @SuppressLint("CheckResult")
     private fun createSvgRequestBuilder(
         context: Context,
-        uri: Uri,
+        uri: String,
+        client: NextcloudClient,
         placeholder: Int? = null
-    ): RequestBuilder<PictureDrawable> = Glide.with(context)
-        .`as`(PictureDrawable::class.java)
-        .load(uri)
-        .apply {
-            placeholder?.let { placeholder(it) }
-            placeholder?.let { error(it) }
-        }
-        .listener(SvgSoftwareLayerSetter())
+    ): RequestBuilder<PictureDrawable> {
+        val glideUrl = createGlideUrl(uri, client)
+
+        return Glide.with(context)
+            .`as`(PictureDrawable::class.java)
+            .load(glideUrl)
+            .apply {
+                placeholder?.let { placeholder(it) }
+                placeholder?.let { error(it) }
+            }
+            .listener(SvgSoftwareLayerSetter())
+    }
+
 
     private fun createUrlRequestBuilder(
         context: Context,
@@ -143,8 +147,7 @@ object GlideHelper {
             val isSVG = isSVG(validatedUrl)
 
             return if (isSVG) {
-                val uri = validateAndGetURI(validatedUrl) ?: return null
-                createSvgRequestBuilder(context, uri)
+                createSvgRequestBuilder(context, validatedUrl, client)
             } else {
                 createUrlRequestBuilder(context, client, validatedUrl)
             }
