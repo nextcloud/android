@@ -255,7 +255,8 @@ class SharePermissionManagerTest {
             shareType = ShareType.USER
             permissions = 17
         }
-        ocShare.attributes = ocShare.toggleAllowDownloadAndSync(
+        ocShare.attributes = toggleAllowDownloadAndSync(
+            ocShare.attributes,
             isChecked = true,
             useV2DownloadAttributes = false
         )

@@ -654,7 +654,7 @@ class FileDetailsSharingProcessFragment :
 
         if (!isPublicShare()) {
             binding.shareAllowDownloadAndSyncCheckbox.setOnCheckedChangeListener { _, isChecked ->
-                val result = share.toggleAllowDownloadAndSync(isChecked, useV2DownloadAttributes())
+                val result = toggleAllowDownloadAndSync(share?.attributes, isChecked, useV2DownloadAttributes())
                 share?.attributes = result
                 downloadAttribute = result
             }
