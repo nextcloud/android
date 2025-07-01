@@ -12,9 +12,7 @@ import com.owncloud.android.lib.common.operations.RemoteOperationResult
 import com.owncloud.android.lib.resources.assistant.v2.model.Shape
 import com.owncloud.android.lib.resources.assistant.v2.model.Task
 import com.owncloud.android.lib.resources.assistant.v2.model.TaskInput
-import com.owncloud.android.lib.resources.assistant.v2.model.TaskInputShape
 import com.owncloud.android.lib.resources.assistant.v2.model.TaskOutput
-import com.owncloud.android.lib.resources.assistant.v2.model.TaskOutputShape
 import com.owncloud.android.lib.resources.assistant.v2.model.TaskTypeData
 
 @Suppress("MagicNumber")
@@ -22,21 +20,21 @@ class AssistantMockRepository(private val giveEmptyTasks: Boolean = false) : Ass
     override fun getTaskTypes(): List<TaskTypeData> {
         return listOf(
             TaskTypeData(
-                "core:text2text",
-                "Free text to text prompt",
-                "Runs an arbitrary prompt through a language model that returns a reply",
-                inputShape = TaskInputShape(
-                    input = Shape(
-                        "Prompt",
-                        "Describe a task that you want the assistant to do or ask a question",
-                        "Text"
+                id = "core:text2text",
+                name = "Free text to text prompt",
+                description = "Runs an arbitrary prompt through a language model that returns a reply",
+                inputShape = mapOf(
+                    "input" to Shape(
+                        name = "Prompt",
+                        description = "Describe a task that you want the assistant to do or ask a question",
+                        type = "Text"
                     )
                 ),
-                outputShape = TaskOutputShape(
-                    output = Shape(
-                        "Generated reply",
-                        "The generated text from the assistant",
-                        "Text"
+                outputShape = mapOf(
+                    "output" to Shape(
+                        name = "Generated reply",
+                        description = "The generated text from the assistant",
+                        type = "Text"
                     )
                 )
             )
