@@ -782,18 +782,6 @@ public class RefreshFolderOperation extends RemoteOperation {
     }
 
     /**
-     * Syncs the Share resources for the files contained in the folder refreshed (children, not deeper descendants).
-     *
-     *
-     * fetch in the details only for one file
-     * @param client Handler of a session with an OC server.
-     */
-    private void refreshSharesForFolder(OwnCloudClient client) {
-        GetSharesForFileOperation operation = new GetSharesForFileOperation(mLocalFolder.getRemotePath(), true, true, fileDataStorageManager);
-        operation.execute(client);
-    }
-
-    /**
      * Sends a message to any application component interested in the progress of the synchronization.
      *
      * @param event         broadcast event (Intent Action)
