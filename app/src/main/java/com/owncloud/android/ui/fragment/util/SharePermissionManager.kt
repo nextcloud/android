@@ -10,11 +10,7 @@ package com.owncloud.android.ui.fragment.util
 import com.owncloud.android.datamodel.quickPermission.QuickPermissionType
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.lib.resources.shares.OCShare
-import com.owncloud.android.lib.resources.shares.attributes.ShareAttributes
-import com.owncloud.android.lib.resources.shares.attributes.ShareAttributesJsonHandler
 import com.owncloud.android.ui.fragment.FileDetailsSharingProcessFragment.Companion.TAG
-import org.json.JSONArray
-import org.json.JSONObject
 
 object SharePermissionManager {
 
@@ -64,71 +60,6 @@ object SharePermissionManager {
         }
 
         return true
-    }
-    // endregion
-
-    // region DownloadAttribute
-    fun toggleAllowDownloadAndSync(
-        isChecked: Boolean,
-        useV2DownloadAttributes: Boolean,
-        share: OCShare?
-    ): String? {
-        val jsonArray = if (share?.attributes.isNullOrEmpty()) {
-            JSONArray()
-        } else {
-            JSONArray(share.attributes)
-        }
-
-        val downloadAttr = getDownloadPermissionAttribute(jsonArray)
-
-        if (downloadAttr != null) {
-            if (useV2DownloadAttributes) {
-                downloadAttr.put("value", isChecked)
-            } else {
-                downloadAttr.put("enabled", isChecked)
-            }
-        } else {
-            val newAttr = JSONObject().apply {
-                put("key", "download")
-                put("scope", "permissions")
-                if (useV2DownloadAttributes) {
-                    put("value", isChecked)
-                } else {
-                    put("enabled", isChecked)
-                }
-            }
-            jsonArray.put(newAttr)
-        }
-
-        return jsonArray.toString()
-    }
-
-
-    private fun getDownloadPermissionAttribute(jsonArray: JSONArray): JSONObject? {
-        for (i in 0 until jsonArray.length()) {
-            val obj = jsonArray.getJSONObject(i)
-            if (obj.optString("key") == "download" && obj.optString("scope") == "permissions") {
-                return obj
-            }
-        }
-        return null
-    }
-
-    fun isAllowDownloadAndSyncEnabled(attributes: String?, useV2DownloadAttributes: Boolean): Boolean {
-        if (attributes.isNullOrEmpty()) return false
-
-        val jsonArray = JSONArray(attributes)
-        val downloadAttr = getDownloadPermissionAttribute(jsonArray)
-
-        return if (useV2DownloadAttributes) {
-            downloadAttr?.optBoolean("value", false) ?: false
-        } else {
-            downloadAttr?.optBoolean("enabled", false) ?: false
-        }
-    }
-
-    private fun getShareDownloadAttributes(share: OCShare?): List<ShareAttributes>? {
-        return share?.attributes?.let { ShareAttributesJsonHandler.toList(it) }
     }
     // endregion
 

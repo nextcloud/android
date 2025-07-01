@@ -28,6 +28,8 @@ import com.owncloud.android.datamodel.quickPermission.QuickPermissionType
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.lib.resources.shares.OCShare
 import com.owncloud.android.lib.resources.shares.ShareType
+import com.owncloud.android.lib.resources.shares.extensions.isAllowDownloadAndSyncEnabled
+import com.owncloud.android.lib.resources.shares.extensions.toggleAllowDownloadAndSync
 import com.owncloud.android.lib.resources.status.NextcloudVersion
 import com.owncloud.android.lib.resources.status.OCCapability
 import com.owncloud.android.ui.activity.FileActivity
@@ -631,7 +633,7 @@ class FileDetailsSharingProcessFragment :
 
                 if (!isPublicShare()) {
                     shareAllowDownloadAndSyncCheckbox.isChecked =
-                        isAllowDownloadAndSyncEnabled(share?.attributes, useV2DownloadAttributes())
+                        share?.isAllowDownloadAndSyncEnabled(useV2DownloadAttributes()) == true
                 }
             }
         }
@@ -654,9 +656,7 @@ class FileDetailsSharingProcessFragment :
 
         if (!isPublicShare()) {
             binding.shareAllowDownloadAndSyncCheckbox.setOnCheckedChangeListener { _, isChecked ->
-                val result =
-                    SharePermissionManager
-                        .toggleAllowDownloadAndSync(isChecked, useV2DownloadAttributes(), share)
+                val result = share.toggleAllowDownloadAndSync(isChecked, useV2DownloadAttributes())
                 share?.attributes = result
                 downloadAttribute = result
             }
