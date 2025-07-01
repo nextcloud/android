@@ -10,6 +10,8 @@ package com.nextcloud.utils
 import com.owncloud.android.datamodel.quickPermission.QuickPermissionType
 import com.owncloud.android.lib.resources.shares.OCShare
 import com.owncloud.android.lib.resources.shares.ShareType
+import com.owncloud.android.lib.resources.shares.extensions.isAllowDownloadAndSyncEnabled
+import com.owncloud.android.lib.resources.shares.extensions.toggleAllowDownloadAndSync
 import com.owncloud.android.ui.fragment.util.SharePermissionManager
 import junit.framework.TestCase.assertEquals
 import junit.framework.TestCase.assertFalse
@@ -248,18 +250,22 @@ class SharePermissionManagerTest {
     // region Attributes Tests
     @Test
     fun testToggleAllowDownloadAndSyncShouldCreateAttributeJsonIfNoneExists() {
-        val attributes = SharePermissionManager.toggleAllowDownloadAndSync(
+        val ocShare = OCShare().apply {
+            isFolder = true
+            shareType = ShareType.USER
+            permissions = 17
+        }
+        ocShare.attributes = ocShare.toggleAllowDownloadAndSync(
             isChecked = true,
-            useV2DownloadAttributes = false,
-            share = null
+            useV2DownloadAttributes = false
         )
-        assertTrue(SharePermissionManager.isAllowDownloadAndSyncEnabled(attributes, false))
+        assertTrue(ocShare.isAllowDownloadAndSyncEnabled(false))
     }
 
     @Test
     fun testIsAllowDownloadAndSyncEnabledShouldReturnFalseIfAttributeIsMissing() {
         val share = createShare(OCShare.READ_PERMISSION_FLAG, attributesJson = null)
-        assertFalse(SharePermissionManager.isAllowDownloadAndSyncEnabled(share.attributes, false))
+        assertFalse(share.isAllowDownloadAndSyncEnabled(false))
     }
     // endregion
 }
