@@ -38,7 +38,7 @@
     <string name="app_config_disable_more_external_site_title">Dış siteler kullanılmasın</string>
     <string name="app_config_disable_multiaccount_title">Birden fazla hesap kullanılmasın</string>
     <string name="app_config_disable_sharing_title">Paylaşım kullanılmasın</string>
-    <string name="app_config_enforce_protection_title">Koruma dayatılsın</string>
+    <string name="app_config_enforce_protection_title">Koruma zorunlu kılınsın</string>
     <string name="app_config_proxy_host_title">Vekil sunucu adı</string>
     <string name="app_config_proxy_port_title">Vekil sunucu bağlantı noktası</string>
     <string name="app_widget_description">Panodan bir pano bileşeni görüntüler</string>
@@ -728,7 +728,7 @@
     <string name="push_notifications_not_implemented">Anında bildirimler Google Play hizmetlerine olan bağımlılıklar nedeniyle kapatıldı.</string>
     <string name="push_notifications_old_login">Oturumunuzun süresi dolduğundan anında bildirimler gönderilemez. Lütfen hesabınızı yeniden eklemeyi düşünün.</string>
     <string name="push_notifications_temp_error">Anında bildirimler şu anda kullanılamıyor.</string>
-    <string name="qr_could_not_be_read">QR kodu okunamadı!</string>
+    <string name="qr_could_not_be_read">Kare kod okunamadı!</string>
     <string name="receive_external_files_activity_start_sync_folder_is_not_exists_message">Klasör bulunamadı. Eşitleme işlemi iptal edildi</string>
     <string name="receive_external_files_activity_unable_to_find_file_to_upload">Yüklenecek dosya bulunamadı</string>
     <string name="recommend_subject">%1$s uygulamasını aygıtınız üzerinde deneyin!</string>
@@ -762,7 +762,7 @@
     <string name="retrieving_file">Dosya alınıyor …</string>
     <string name="retry">Yeniden dene</string>
     <string name="richdocuments_failed_to_load_document">Belge yüklenemedi!</string>
-    <string name="scanQR_description">QR kodu ile oturum aç</string>
+    <string name="scanQR_description">Kare kod ile oturum aç</string>
     <string name="scan_page">Sayfayı tara</string>
     <string name="screenshot_01_gridView_heading">Verilerinizi korumak</string>
     <string name="screenshot_01_gridView_subline">kendi barındırdığınız üretkenlik</string>
@@ -786,6 +786,8 @@
     <string name="send">Gönder</string>
     <string name="send_share">Paylaşım gönder</string>
     <string name="sendbutton_description">Gönderme düğmesi simgesi</string>
+    <string name="server_not_reachable">İçerik yüklenemedi</string>
+    <string name="server_not_reachable_content">Bu aygıtın internet bağlantısı yok gibi görünüyor</string>
     <string name="set_as">Farklı ayarla</string>
     <string name="set_download_limit_failed">İndirme sınırı ayarlanamadı. Lütfen yetenekleri denetleyin.</string>
     <string name="set_note">Notu ayarla</string>
@@ -799,10 +801,10 @@
     <string name="share_copy_link">Paylaş ve bağlantıyı kopyala</string>
     <string name="share_create_permission">Ekleme</string>
     <string name="share_custom_permission">Özel izinler</string>
-    <string name="share_delete_permission">Sil</string>
+    <string name="share_delete_permission">Silme</string>
     <string name="share_dialog_title">Paylaşım</string>
     <string name="share_download_limit">İndirme sınırını ayarla</string>
-    <string name="share_edit_permission">Düzenle</string>
+    <string name="share_edit_permission">Düzenleme</string>
     <string name="share_expiration_date_format">%1$s</string>
     <string name="share_file">%1$s paylaş</string>
     <string name="share_group_clarification">%1$s (grup)</string>
@@ -823,7 +825,7 @@
     <string name="share_not_allowed_when_file_drop">Güvenli dosya bırakma sırasında yeniden paylaşım yapılamaz</string>
     <string name="share_option_required">İlerlemeden önce lütfen en az bir paylaşım seçeneği seçin.</string>
     <string name="share_permission_can_edit">Düzenleyebilir</string>
-    <string name="share_permission_file_request">Dosya isteği</string>
+    <string name="share_permission_file_request">Dosya isteme</string>
     <string name="share_permission_secure_file_drop">Güvenli dosya bırakma</string>
     <string name="share_permission_view_only">Yalnızca görüntüleme</string>
     <string name="share_permissions">Paylaşım izinleri</string>
