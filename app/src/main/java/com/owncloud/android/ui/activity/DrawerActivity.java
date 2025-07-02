@@ -1206,7 +1206,7 @@ public abstract class DrawerActivity extends ToolbarActivity
         fileDisplayActivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
         if (this instanceof ComposeActivity) {
-            fileDisplayActivity.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+           // fileDisplayActivity.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         }
 
         fileDisplayActivity.setAction(FileDisplayActivity.ALL_FILES);
