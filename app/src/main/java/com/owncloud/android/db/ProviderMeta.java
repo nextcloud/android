@@ -25,7 +25,7 @@ import java.util.List;
  */
 public class ProviderMeta {
     public static final String DB_NAME = "filelist";
-    public static final int DB_VERSION = 90;
+    public static final int DB_VERSION = 91;
 
     private ProviderMeta() {
         // No instance
@@ -277,6 +277,8 @@ public class ProviderMeta {
         public static final String CAPABILITIES_FILES_DOWNLOAD_LIMIT_DEFAULT = "files_download_limit_default";
         public static final String CAPABILITIES_NOTES_FOLDER_PATH = "notes_folder_path";
         public static final String CAPABILITIES_DEFAULT_PERMISSIONS = "default_permissions";
+        public static final String CAPABILITIES_DECLARATIVE_UI_CONTEXT_MENU_JSON = "declarative_ui_context_menu_json";
+        public static final String CAPABILITIES_DECLARATIVE_UI_CONTEXT_MENU = "declarative_ui_context_menu";
 
         //Columns of Uploads table
         public static final String UPLOADS_LOCAL_PATH = "local_path";
