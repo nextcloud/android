@@ -237,6 +237,8 @@ public abstract class DrawerActivity extends ToolbarActivity
             checkAssistantBottomNavigationMenu();
             handleBottomNavigationViewClicks();
         }
+
+        setNavigationViewItemChecked();
     }
 
     private void themeBottomNavigationMenu() {
@@ -723,11 +725,6 @@ public abstract class DrawerActivity extends ToolbarActivity
         DrawerActivity.menuItemId = menuItemId;
         Intent intent = new Intent(getApplicationContext(), FileDisplayActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-
-        if (this instanceof ComposeActivity) {
-            //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        }
-
         intent.setAction(Intent.ACTION_SEARCH);
         intent.putExtra(OCFileListFragment.SEARCH_EVENT, searchEvent);
         startActivity(intent);
