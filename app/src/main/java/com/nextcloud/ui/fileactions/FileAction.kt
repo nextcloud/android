@@ -27,8 +27,8 @@ enum class FileAction(@IdRes val id: Int, @StringRes val title: Int, @DrawableRe
     MOVE_OR_COPY(R.id.action_move_or_copy, R.string.actionbar_move_or_copy, R.drawable.ic_external),
 
     // favorites
-    FAVORITE(R.id.action_favorite, R.string.favorite, R.drawable.ic_star),
-    UNSET_FAVORITE(R.id.action_unset_favorite, R.string.unset_favorite, R.drawable.ic_star_outline),
+    FAVORITE(R.id.action_favorite, R.string.favorite, R.drawable.ic_star_outline),
+    UNSET_FAVORITE(R.id.action_unset_favorite, R.string.unset_favorite, R.drawable.ic_star),
 
     // Uploads and downloads
     DOWNLOAD_FILE(R.id.action_download_file, R.string.filedetails_download, R.drawable.ic_cloud_download),
