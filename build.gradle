@@ -18,7 +18,7 @@ buildscript {
         appCompatVersion = "1.7.1"
         checkerVersion = "3.21.2"
         daggerVersion = "2.56.2"
-        documentScannerVersion = "1.1.1"
+        documentScannerVersion = "1.2.3"
         espressoVersion = "3.6.1"
         jacoco_version = "0.8.13"
         kotlin_version = "2.1.21"
