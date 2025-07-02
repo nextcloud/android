@@ -100,9 +100,9 @@ class GalleryRowHolder(
         }
 
         return FrameLayout(context).apply {
-            addView(checkbox)
             addView(shimmer)
             addView(rowCellImageView)
+            addView(checkbox)
         }
     }
 
@@ -174,9 +174,9 @@ class GalleryRowHolder(
         val height = ((fileHeight ?: defaultThumbnailSize) * shrinkRatio).toInt()
 
         val frameLayout = binding.rowLayout[index] as FrameLayout
-        val checkBoxImageView = frameLayout[0] as ImageView
-        val shimmer = frameLayout[1] as LoaderImageView
-        val thumbnail = (frameLayout[2] as ImageView).apply {
+        val checkBoxImageView = frameLayout[2] as ImageView
+        val shimmer = frameLayout[0] as LoaderImageView
+        val thumbnail = (frameLayout[1] as ImageView).apply {
             adjustViewBounds = true
             scaleType = ImageView.ScaleType.FIT_CENTER
         }
