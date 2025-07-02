@@ -4,7 +4,7 @@
 [versions]
 espressoVersion = "3.6.1"
 media3 = "1.7.1"
-roomVersion = "2.7.1"
+roomVersion = "2.7.2"
 splash-screen = "1.0.1"
 kotlin = "2.2.0"
 composeBom = "2025.06.01"
