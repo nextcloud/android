@@ -50,8 +50,8 @@ sealed class ScreenOverlayState {
                     task.type,
                     activity.getString(R.string.assistant_screen_add_task_alert_dialog_title),
                     null,
-                    null,
-                    null
+                    emptyMap(),
+                    emptyMap()
                 )
                 val newState = AddTask(taskType, getInput() ?: "")
                 onComplete(newState)
