@@ -13,6 +13,7 @@ sealed class ComposeDestination(val id: Int) {
     companion object {
         fun fromId(id: Int): ComposeDestination = when (id) {
             0 -> AssistantScreen(null)
+            1 -> ClientIntegrationScreen()
             else -> throw IllegalArgumentException("Unknown destination: $id")
         }
     }
