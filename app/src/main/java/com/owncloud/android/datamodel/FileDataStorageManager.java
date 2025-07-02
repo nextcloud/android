@@ -2323,6 +2323,9 @@ public class FileDataStorageManager {
         contentValues.put(ProviderTableMeta.CAPABILITIES_NOTES_FOLDER_PATH, capability.getNotesFolderPath());
 
         contentValues.put(ProviderTableMeta.CAPABILITIES_DEFAULT_PERMISSIONS, capability.getDefaultPermissions());
+        
+        contentValues.put(ProviderTableMeta.CAPABILITIES_DECLARATIVE_UI_CONTEXT_MENU, 
+                          TextUtils.join(",", capability.getDeclarativeUiContextMenu()));
 
         return contentValues;
     }
@@ -2505,6 +2508,13 @@ public class FileDataStorageManager {
             capability.setNotesFolderPath(getString(cursor, ProviderTableMeta.CAPABILITIES_NOTES_FOLDER_PATH));
 
             capability.setDefaultPermissions(getInt(cursor, ProviderTableMeta.CAPABILITIES_DEFAULT_PERMISSIONS));
+
+            String optionalContextMenu = getString(cursor,
+                                                 ProviderTableMeta.CAPABILITIES_RICHDOCUMENT_OPTIONAL_MIMETYPE_LIST);
+            if (optionalContextMenu == null) {
+                optionalContextMenu = "";
+            }
+            capability.setDeclarativeUiContextMenuJson(optionalContextMenu);
         }
 
         return capability;

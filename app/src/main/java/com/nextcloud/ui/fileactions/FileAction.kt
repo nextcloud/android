@@ -56,7 +56,9 @@ enum class FileAction(@IdRes val id: Int, @StringRes val title: Int, @DrawableRe
 
     // Retry for offline operation
     RETRY(R.id.action_retry, R.string.retry, R.drawable.ic_retry);
-
+    
+    constructor(id: Int, title: Int) :this(id, title, null)
+    
     companion object {
         /**
          * All file actions, in the order they should be displayed

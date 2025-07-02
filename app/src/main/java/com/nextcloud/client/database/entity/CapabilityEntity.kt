@@ -140,5 +140,9 @@ data class CapabilityEntity(
     @ColumnInfo(name = ProviderTableMeta.CAPABILITIES_NOTES_FOLDER_PATH)
     val notesFolderPath: String?,
     @ColumnInfo(name = ProviderTableMeta.CAPABILITIES_DEFAULT_PERMISSIONS)
-    val defaultPermissions: Int?
+    val defaultPermissions: Int?,
+    @ColumnInfo(name = ProviderTableMeta.CAPABILITIES_DECLARATIVE_UI_CONTEXT_MENU)
+    val declarativeUiContextMenu: String?,
+    @ColumnInfo(name = ProviderTableMeta.CAPABILITIES_DECLARATIVE_UI_CONTEXT_MENU_JSON)
+    val declarativeUiContextMenuJson: String?,
 )
