@@ -7,13 +7,25 @@
  */
 package com.nextcloud.ui.composeActivity
 
-sealed class ComposeDestination(val id: Int) {
-    data class AssistantScreen(val sessionId: Long?) : ComposeDestination(0)
+import android.content.Context
+import android.os.Parcelable
+import com.nextcloud.android.lib.resources.clientintegration.ClientIntegrationUI
+import com.owncloud.android.R
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
+sealed class ComposeDestination(val id: Int) : Parcelable {
+    @Parcelize
+    data class AssistantScreen(val title: String, val sessionId: Long?) : ComposeDestination(0)
+
+    @Parcelize
+    data class ClientIntegrationScreen(val title: String, val data: ClientIntegrationUI) : ComposeDestination(1)
 
     companion object {
-        fun fromId(id: Int): ComposeDestination = when (id) {
-            0 -> AssistantScreen(null)
-            else -> throw IllegalArgumentException("Unknown destination: $id")
-        }
+        /**
+         * Creates a assistant screen without selected chat
+         */
+        fun getAssistantScreen(context: Context): AssistantScreen =
+            AssistantScreen(context.getString(R.string.assistant_screen_top_bar_title), null)
     }
 }
