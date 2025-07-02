@@ -1,0 +1,11 @@
+## 3.32.0 (July 2, 2025)
+
+- Minimum supported Android version is 8.0.
+- Scrolling performance has been increased in the media tab.
+- Multi-select feature added to the media tab.
+- Custom share permissions have been added.
+- Bug fixes.
+
+Minimum: NC 18 Server, Android 8.0 Nougat
+
+For a full list, please see https://github.com/nextcloud/android/milestone/107
