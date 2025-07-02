@@ -140,6 +140,7 @@ class FileActionsViewModel @Inject constructor(
         const val ARG_IS_OVERFLOW = "OVERFLOW"
         const val ARG_ADDITIONAL_FILTER = "ADDITIONAL_FILTER"
         const val ARG_IN_SINGLE_FILE_FRAGMENT = "IN_SINGLE_FILE_FRAGMENT"
+        const val ARG_ENDPOINTS = "ENDPOINTS"
 
         private val TAG = FileActionsViewModel::class.simpleName!!
     }

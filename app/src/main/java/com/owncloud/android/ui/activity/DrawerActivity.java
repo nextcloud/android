@@ -434,7 +434,7 @@ public abstract class DrawerActivity extends ToolbarActivity
         moreView.setOnClickListener(v -> LinkHelper.INSTANCE.openAppStore("Nextcloud", true, this));
         assistantView.setOnClickListener(v -> {
             DrawerActivity.menuItemId = Menu.NONE;
-            startComposeActivity(new ComposeDestination.AssistantScreen(null), R.string.assistant_screen_top_bar_title);
+            startAssistantScreen();
         });
         if (getCapabilities() != null && getCapabilities().getAssistant().isTrue()) {
             assistantView.setVisibility(View.VISIBLE);
@@ -586,7 +586,7 @@ public abstract class DrawerActivity extends ToolbarActivity
             startRecentlyModifiedSearch(menuItem);
         } else if (itemId == R.id.nav_assistant) {
             resetOnlyPersonalAndOnDevice();
-            startComposeActivity(new ComposeDestination.AssistantScreen(null), R.string.assistant_screen_top_bar_title);
+            startAssistantScreen();
         } else if (itemId == R.id.nav_groupfolders) {
             resetOnlyPersonalAndOnDevice();
             Intent intent = new Intent(getApplicationContext(), FileDisplayActivity.class);
@@ -624,7 +624,7 @@ public abstract class DrawerActivity extends ToolbarActivity
             } else if (menuItemId == R.id.nav_favorites) {
                 openFavoritesTab();
             } else if (menuItemId == R.id.nav_assistant && !(this instanceof ComposeActivity)) {
-                startComposeActivity(new ComposeDestination.AssistantScreen(null), R.string.assistant_screen_top_bar_title);
+                startAssistantScreen();
             } else if (menuItemId == R.id.nav_gallery) {
                 openMediaTab(menuItem.getItemId());
             }
@@ -651,10 +651,12 @@ public abstract class DrawerActivity extends ToolbarActivity
         }
     }
 
-    private void startComposeActivity(ComposeDestination destination, int titleId) {
+    private void startAssistantScreen() {
+        final var destination = ComposeDestination.Companion.getAssistantScreen(this);
         Intent composeActivity = new Intent(getApplicationContext(), ComposeActivity.class);
-        composeActivity.putExtra(ComposeActivity.DESTINATION, destination.getId());
-        composeActivity.putExtra(ComposeActivity.TITLE, titleId);
+        final Bundle bundle = new Bundle();
+        bundle.putParcelable(ComposeActivity.DESTINATION, destination);
+        composeActivity.putExtras(bundle);
         startActivity(composeActivity);
     }
 
