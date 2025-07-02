@@ -712,7 +712,7 @@ public abstract class DrawerActivity extends ToolbarActivity
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
         if (this instanceof ComposeActivity) {
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         }
 
         intent.setAction(Intent.ACTION_SEARCH);
