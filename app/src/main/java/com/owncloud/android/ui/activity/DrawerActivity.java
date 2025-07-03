@@ -579,11 +579,6 @@ public abstract class DrawerActivity extends ToolbarActivity
                 MainApp.showOnlyPersonalFiles(itemId == R.id.nav_personal_files);
                 Intent intent = new Intent(getApplicationContext(), FileDisplayActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-
-                if (this instanceof ComposeActivity) {
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                }
-
                 intent.setAction(FileDisplayActivity.ALL_FILES);
                 startActivity(intent);
             }
@@ -1246,15 +1241,11 @@ public abstract class DrawerActivity extends ToolbarActivity
     public void showFiles(boolean onDeviceOnly, boolean onlyPersonalFiles) {
         MainApp.showOnlyFilesOnDevice(onDeviceOnly);
         MainApp.showOnlyPersonalFiles(onlyPersonalFiles);
-        Intent fileDisplayActivity = new Intent(getApplicationContext(), FileDisplayActivity.class);
-        fileDisplayActivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
-        if (this instanceof ComposeActivity) {
-           // fileDisplayActivity.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        }
-
-        fileDisplayActivity.setAction(FileDisplayActivity.ALL_FILES);
-        startActivity(fileDisplayActivity);
+        Intent intent = new Intent(getApplicationContext(), FileDisplayActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.setAction(FileDisplayActivity.ALL_FILES);
+        startActivity(intent);
     }
 
     @Override
