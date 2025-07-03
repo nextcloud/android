@@ -15,6 +15,7 @@ ksp = "2.2.0-2.0.2"
 
 [libraries]
 # Splash Screen
+kotlin-allopen = { module = "org.jetbrains.kotlin:kotlin-allopen", version.ref = "kotlin" }
 splashscreen = { module = "androidx.core:core-splashscreen", version.ref = "splash-screen" }
 
 # Jetpack Compose
@@ -53,4 +54,3 @@ kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "ko
 spotless = { id = "com.diffplug.spotless", version.ref = "spotless" }
 kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
-allOpen = { id = "org.jetbrains.kotlin.plugin.allopen", version.ref = "kotlin" }
