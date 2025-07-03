@@ -32,7 +32,6 @@ import android.view.MotionEvent
 import android.view.ScaleGestureDetector
 import android.view.ScaleGestureDetector.SimpleOnScaleGestureListener
 import android.view.View
-import android.view.View.OnTouchListener
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.AdapterView
@@ -121,9 +120,9 @@ open class ExtendedListFragment :
     private var mEmptyListIcon: ImageView? = null
 
     // Save the state of the scroll in browsing
-    private var mIndexes: ArrayList<Int?>? = ArrayList<Int?>()
-    private var mFirstPositions: ArrayList<Int?>? = ArrayList<Int?>()
-    private var mTops: ArrayList<Int?>? = ArrayList<Int?>()
+    private var mIndexes: ArrayList<Int?>? = ArrayList()
+    private var mFirstPositions: ArrayList<Int?>? = ArrayList()
+    private var mTops: ArrayList<Int?>? = ArrayList()
     private var mHeightCell = 0
 
     private var mOnRefreshListener: OnRefreshListener? = null
@@ -166,11 +165,12 @@ open class ExtendedListFragment :
             return recyclerView?.layoutManager is GridLayoutManager
         }
 
+    @Deprecated("Deprecated in Java")
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         val item = menu.findItem(R.id.action_search)
         searchView = MenuItemCompat.getActionView(item) as SearchView?
         viewThemeUtils.androidx.themeToolbarSearchView(searchView!!)
-        closeButton = searchView?.findViewById<ImageView>(androidx.appcompat.R.id.search_close_btn)
+        closeButton = searchView?.findViewById(androidx.appcompat.R.id.search_close_btn)
         searchView?.setOnQueryTextListener(this)
         searchView?.setOnCloseListener(this)
 
@@ -190,40 +190,36 @@ open class ExtendedListFragment :
             }
         }
 
-        searchView?.setOnQueryTextFocusChangeListener(
-            View.OnFocusChangeListener { v: View?, hasFocus: Boolean ->
-                lifecycleScope.launch(Dispatchers.Main) {
-                    if (getActivity() != null &&
-                        (getActivity() !is FolderPickerActivity) &&
-                        (getActivity() !is UploadFilesActivity)
-                    ) {
-                        if (getActivity() is FileDisplayActivity) {
-                            val fragment = (getActivity() as FileDisplayActivity).leftFragment
-                            if (fragment is OCFileListFragment) {
-                                fragment.setFabVisible(!hasFocus)
-                            }
+        searchView?.setOnQueryTextFocusChangeListener { _: View?, hasFocus: Boolean ->
+            lifecycleScope.launch(Dispatchers.Main) {
+                if (getActivity() != null &&
+                    (getActivity() !is FolderPickerActivity) &&
+                    (getActivity() !is UploadFilesActivity)
+                ) {
+                    if (getActivity() is FileDisplayActivity) {
+                        val fragment = (getActivity() as FileDisplayActivity).leftFragment
+                        if (fragment is OCFileListFragment) {
+                            fragment.setFabVisible(!hasFocus)
                         }
+                    }
 
-                        if (TextUtils.isEmpty(searchView?.query)) {
-                            closeButton?.setVisibility(View.INVISIBLE)
-                        }
+                    if (TextUtils.isEmpty(searchView?.query)) {
+                        closeButton?.setVisibility(View.INVISIBLE)
                     }
                 }
             }
-        )
+        }
 
         // On close -> empty field, show keyboard and
-        closeButton?.setOnClickListener(
-            View.OnClickListener { view: View? ->
-                searchView?.setQuery("", true)
-                searchView?.requestFocus()
-                searchView?.onActionViewExpanded()
+        closeButton?.setOnClickListener {
+            searchView?.setQuery("", true)
+            searchView?.requestFocus()
+            searchView?.onActionViewExpanded()
 
-                val inputMethodManager =
-                    getActivity()?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager?
-                inputMethodManager?.showSoftInput(searchView, InputMethodManager.SHOW_IMPLICIT)
-            }
-        )
+            val inputMethodManager =
+                getActivity()?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager?
+            inputMethodManager?.showSoftInput(searchView, InputMethodManager.SHOW_IMPLICIT)
+        }
 
         val searchBar = searchView?.findViewById<LinearLayout>(androidx.appcompat.R.id.search_bar)
         searchBar?.setLayoutTransition(LayoutTransition())
@@ -248,7 +244,7 @@ open class ExtendedListFragment :
             return true
         }
         if (adapter is LocalFileListAdapter) {
-            performSearch(query, ArrayList<String?>(), false)
+            performSearch(query, ArrayList(), false)
             return true
         }
         return false
@@ -256,14 +252,13 @@ open class ExtendedListFragment :
 
     fun performSearch(query: String, listOfHiddenFiles: ArrayList<String?>?, isBackPressed: Boolean) {
         val adapter = recyclerView?.adapter
-        val activity: Activity? = getActivity()
+        val activity: Activity? = activity
 
         if (activity != null) {
             if (activity is FileDisplayActivity) {
                 if (isBackPressed && TextUtils.isEmpty(query)) {
-                    val fileDisplayActivity = activity
-                    fileDisplayActivity.resetSearchView()
-                    fileDisplayActivity.updateListOfFilesFragment(true)
+                    activity.resetSearchView()
+                    activity.updateListOfFilesFragment(true)
                 } else {
                     lifecycleScope.launch(Dispatchers.Main) {
                         if (adapter is OCFileListAdapter) {
@@ -307,10 +302,6 @@ open class ExtendedListFragment :
         return true
     }
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-    }
-
     @SuppressLint("ClickableViewAccessibility")
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         Log_OC.d(TAG, "onCreateView")
@@ -331,15 +322,13 @@ open class ExtendedListFragment :
 
         mScaleGestureDetector = ScaleGestureDetector(MainApp.getAppContext(), ScaleListener())
 
-        recyclerView?.setOnTouchListener(
-            OnTouchListener { view: View, motionEvent: MotionEvent ->
-                mScaleGestureDetector?.onTouchEvent(motionEvent)
-                if (motionEvent.action == MotionEvent.ACTION_UP) {
-                    view.performClick()
-                }
-                false
+        recyclerView?.setOnTouchListener { view: View, motionEvent: MotionEvent ->
+            mScaleGestureDetector?.onTouchEvent(motionEvent)
+            if (motionEvent.action == MotionEvent.ACTION_UP) {
+                view.performClick()
             }
-        )
+            false
+        }
 
         mRefreshListLayout = binding?.swipeContainingList
         mRefreshListLayout?.let {
@@ -386,7 +375,7 @@ open class ExtendedListFragment :
                 gridLayoutManager.setSpanCount(GridView.AUTO_FIT)
                 mScale = gridLayoutManager.spanCount.toFloat()
             }
-            mScale *= 1f - (scaleFactor - 1f)
+            mScale *= 2f - scaleFactor
             mScale = max(MIN_COLUMN_SIZE.toDouble(), min(mScale.toDouble(), maxColumnSize.toDouble())).toFloat()
             val scaleInt = mScale.roundToInt()
             gridLayoutManager.setSpanCount(scaleInt)
@@ -751,10 +740,10 @@ open class ExtendedListFragment :
         mSwitchGridViewButton?.let {
             if (isGridEnabled) {
                 it.setContentDescription(getString(R.string.action_switch_list_view))
-                it.setIcon(ContextCompat.getDrawable(requireContext(), R.drawable.ic_view_list))
+                it.icon = ContextCompat.getDrawable(requireContext(), R.drawable.ic_view_list)
             } else {
                 it.setContentDescription(getString(R.string.action_switch_grid_view))
-                it.setIcon(ContextCompat.getDrawable(requireContext(), R.drawable.ic_view_module))
+                it.icon = ContextCompat.getDrawable(requireContext(), R.drawable.ic_view_module)
             }
         }
     }
