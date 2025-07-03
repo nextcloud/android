@@ -80,4 +80,8 @@
         <ignore path="**/jetified-firebase-installations**/**/lint.jar" />
         <ignore path="**/appcompat-1.**/**/lint.jar" />
     </issue>
+
+	<issue id="Aligned16KB">
+        <ignore path="**/arm64-v8a/libmockkjvmtiagent.so" />
+    </issue>
 </lint>
