@@ -13,7 +13,6 @@
  */
 package com.owncloud.android.ui.activity;
 
-import android.Manifest;
 import android.accounts.Account;
 import android.accounts.AuthenticatorException;
 import android.annotation.SuppressLint;
@@ -32,9 +31,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
-import android.os.Handler;
 import android.os.IBinder;
-import android.os.Looper;
 import android.os.Parcelable;
 import android.text.TextUtils;
 import android.view.Menu;
@@ -65,7 +62,6 @@ import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.client.utils.IntentUtil;
 import com.nextcloud.model.WorkerState;
 import com.nextcloud.model.WorkerStateLiveData;
-import com.nextcloud.utils.BuildHelper;
 import com.nextcloud.utils.extensions.ActivityExtensionsKt;
 import com.nextcloud.utils.extensions.BundleExtensionsKt;
 import com.nextcloud.utils.extensions.FileExtensionsKt;
@@ -76,9 +72,7 @@ import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.FilesBinding;
 import com.owncloud.android.datamodel.FileDataStorageManager;
-import com.owncloud.android.datamodel.MediaFolderType;
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.datamodel.SyncedFolder;
 import com.owncloud.android.datamodel.SyncedFolderProvider;
 import com.owncloud.android.datamodel.VirtualFolderType;
 import com.owncloud.android.files.services.NameCollisionPolicy;
@@ -645,33 +639,26 @@ public class FileDisplayActivity extends FileActivity
 
     private OCFileListFragment getOCFileListFragmentFromFile() {
         final Fragment leftFragment = getLeftFragment();
-        OCFileListFragment listOfFiles;
 
-        if (leftFragment instanceof OCFileListFragment) {
-            listOfFiles = (OCFileListFragment) leftFragment;
-        } else {
-            listOfFiles = new OCFileListFragment();
-            Bundle args = new Bundle();
-            args.putBoolean(OCFileListFragment.ARG_ALLOW_CONTEXTUAL_ACTIONS, true);
-            listOfFiles.setArguments(args);
+        if (leftFragment instanceof OCFileListFragment result) {
+            return result;
+        }
 
+        OCFileListFragment listOfFiles = new OCFileListFragment();
+        Bundle args = new Bundle();
+        args.putBoolean(OCFileListFragment.ARG_ALLOW_CONTEXTUAL_ACTIONS, true);
+        listOfFiles.setArguments(args);
+
+        runOnUiThread(() -> {
             FragmentManager fm = getSupportFragmentManager();
-            boolean isExecutingTransactions = !fm.isStateSaved() && !fm.executePendingTransactions();
-
-            if (isExecutingTransactions) {
+            if (!fm.isStateSaved()) {
                 setLeftFragment(listOfFiles);
                 fm.executePendingTransactions();
-            } else {
-                new Handler(Looper.getMainLooper()).post(() -> {
-                    setLeftFragment(listOfFiles);
-                    fm.executePendingTransactions();
-                });
             }
-        }
+        });
 
         return listOfFiles;
     }
-
 
     public void showFileActions(OCFile file) {
         dismissLoadingDialog();
