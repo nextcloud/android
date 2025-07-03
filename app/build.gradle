@@ -24,6 +24,7 @@ buildscript {
         classpath "org.jacoco:org.jacoco.core:$jacoco_version"
         classpath "org.jacoco:org.jacoco.report:$jacoco_version"
         classpath "org.jacoco:org.jacoco.agent:$jacoco_version"
+        classpath libs.kotlin.allopen
     }
 }
 
@@ -31,12 +32,7 @@ plugins {
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.spotless)
     alias(libs.plugins.kapt)
-    alias(libs.plugins.allOpen)
     alias(libs.plugins.ksp) apply false
-}
-
-allOpen {
-    annotation("com.nextcloud.client.OpenForTesting")
 }
 
 apply plugin: "com.android.application"
@@ -48,6 +44,11 @@ apply plugin: "pmd"
 apply from: "$rootProject.projectDir/jacoco.gradle"
 apply plugin: "com.github.spotbugs"
 apply plugin: "io.gitlab.arturbosch.detekt"
+apply plugin: "kotlin-allopen"
+
+allOpen {
+    annotation("com.nextcloud.client.OpenForTesting")
+}
 
 // needed to make renovate run without shot, as shot requires Android SDK
 // https://github.com/pedrovgs/Shot/issues/300
