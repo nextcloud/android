@@ -62,8 +62,8 @@ class AssistantRepositoryTests : AbstractOnServerIT() {
             "core:text2text",
             "Free text to text prompt",
             "Runs an arbitrary prompt through a language model that returns a reply",
-            null,
-            null
+            emptyMap(),
+            emptyMap()
         )
         val result = sut?.createTask(input, taskType)
         assertTrue(result?.isSuccess == true)

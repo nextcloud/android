@@ -10,7 +10,7 @@
  */
 buildscript {
     ext {
-        androidLibraryVersion ="b853c833488af54512bfef74823c2584b5df3487"
+        androidLibraryVersion ="0edf15760b8a086ab9969e103c7229dad973efbd"
         androidCommonLibraryVersion = "0.26.0"
         androidPluginVersion = "8.9.2"
         androidxMediaVersion = "1.5.1"
@@ -27,7 +27,7 @@ buildscript {
         mockitoKotlinVersion = "4.1.0"
         mockkVersion = "1.14.2"
         prismVersion = "2.0.0"
-        roomVersion = "2.7.1"
+        roomVersion = "2.7.2"
         workRuntime = "2.10.1"
 
         ciBuild = System.getenv("CI") == "true"
