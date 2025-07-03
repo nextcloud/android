@@ -27,6 +27,7 @@ import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.lib.resources.files.ReadFileRemoteOperation
 import com.owncloud.android.lib.resources.files.ReadFolderRemoteOperation
 import com.owncloud.android.lib.resources.files.UploadFileRemoteOperation
+import com.owncloud.android.lib.resources.files.model.RemoteFile
 import com.owncloud.android.operations.CreateFolderOperation
 import com.owncloud.android.operations.RemoveFileOperation
 import com.owncloud.android.operations.RenameFileOperation
@@ -73,7 +74,7 @@ class OfflineOperationsWorker(
         val client = clientFactory.create(user)
 
         notificationManager.start()
-        var operations = fileDataStorageManager.offlineOperationDao.getAll()
+        val operations = fileDataStorageManager.offlineOperationDao.getAll()
         val result = processOperations(operations, client)
         notificationManager.dismissNotification()
 
@@ -119,22 +120,23 @@ class OfflineOperationsWorker(
         operation: OfflineOperationEntity,
         client: OwnCloudClient
     ): OfflineOperationResult? = withContext(Dispatchers.IO) {
-        val ocFile = fileDataStorageManager.getFileByDecryptedRemotePath(operation.path)
         val path = (operation.path)
-
         if (path == null) {
             Log_OC.w(TAG, "Offline operation skipped, file path is null: $operation")
             return@withContext null
         }
 
-        if (isRemoteFileExists(path)) {
+        val remoteFile = getRemoteFile(path)
+        val ocFile = fileDataStorageManager.getFileByDecryptedRemotePath(operation.path)
+
+        if (remoteFile != null && ocFile != null && isFileChanged(remoteFile, ocFile)) {
             Log_OC.w(TAG, "Offline operation skipped, file already exists: $operation")
 
             if (operation.isRenameOrRemove()) {
                 fileDataStorageManager.offlineOperationDao.delete(operation)
                 notificationManager.showConflictNotificationForDeleteOrRemoveOperation(operation)
             } else {
-                notificationManager.showConflictResolveNotification(ocFile!!, operation)
+                notificationManager.showConflictResolveNotification(ocFile, operation)
             }
 
             return@withContext null
@@ -259,16 +261,24 @@ class OfflineOperationsWorker(
     }
 
     @Suppress("DEPRECATION")
-    private fun isRemoteFileExists(remotePath: String): Boolean {
+    private fun getRemoteFile(remotePath: String): RemoteFile? {
         val mimeType = MimeTypeUtil.getMimeTypeFromPath(remotePath)
         val isFolder = MimeTypeUtil.isFolder(mimeType)
         val client = ClientFactoryImpl(context).create(user)
-        val remoteFile = if (isFolder) {
+        val result = if (isFolder) {
             ReadFolderRemoteOperation(remotePath).execute(client)
         } else {
             ReadFileRemoteOperation(remotePath).execute(client)
         }
 
-        return remoteFile.isSuccess
+        return if (result.isSuccess) {
+            result.data[0] as? RemoteFile
+        } else {
+            null
+        }
+    }
+
+    private fun isFileChanged(remoteFile: RemoteFile, ocFile: OCFile): Boolean {
+        return remoteFile.etag != ocFile.etagOnServer
     }
 }
