@@ -264,7 +264,7 @@
     <string name="downloader_file_download_failed">Dosyalar indirilirken sorun çıktı</string>
     <string name="downloader_not_downloaded_yet">Henüz indirilmemiş</string>
     <string name="downloader_unexpected_error">Dosyalar indirilirken beklenmeyen bir sorun çıktı</string>
-    <string name="drawer_close">Yan çubuğu kapat</string>
+    <string name="drawer_close">Kenar çubuğunu kapat</string>
     <string name="drawer_community">Topluluk</string>
     <string name="drawer_header_background">Çekmece üst bilgisinin arka plan görseli</string>
     <string name="drawer_item_activities">İşlemler</string>
@@ -282,7 +282,7 @@
     <string name="drawer_item_trashbin">Silinmiş dosyalar</string>
     <string name="drawer_item_uploads_list">Yüklemeler</string>
     <string name="drawer_logout">Oturumu kapat</string>
-    <string name="drawer_open">Yan çubuğu aç</string>
+    <string name="drawer_open">Kenar çubuğunu aç</string>
     <string name="drawer_quota">%1$s / %2$s kullanıldı</string>
     <string name="drawer_quota_unlimited">%1$s kullanılıyor</string>
     <string name="drawer_synced_folders">Otomatik yükleme</string>
