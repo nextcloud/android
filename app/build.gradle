@@ -31,7 +31,12 @@ plugins {
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.spotless)
     alias(libs.plugins.kapt)
+    alias(libs.plugins.allOpen)
     alias(libs.plugins.ksp) apply false
+}
+
+allOpen {
+    annotation("com.nextcloud.client.OpenForTesting")
 }
 
 apply plugin: "com.android.application"
@@ -401,7 +406,6 @@ dependencies {
     androidTestImplementation "androidx.test:core-ktx:$androidxTestVersion"
 
     // Mocking support
-    androidTestImplementation "com.github.tmurakami:dexopener:2.0.5" // required to allow mocking on API 27 and older
     androidTestImplementation "org.mockito.kotlin:mockito-kotlin:$mockitoKotlinVersion"
     androidTestImplementation "org.mockito:mockito-core:$mockitoVersion"
     androidTestImplementation("org.mockito:mockito-android:$mockitoVersion")
