@@ -629,6 +629,11 @@ public class FileDisplayActivity extends FileActivity
     }
 
     private void setLeftFragment(Fragment fragment, boolean showSortListGroup) {
+        prepareFragmentBeforeCommit(showSortListGroup);
+        commitFragment(fragment, isFragmentCommitted -> Log_OC.d(TAG, "Left fragment committed: " + isFragmentCommitted));
+    }
+
+    private void prepareFragmentBeforeCommit(boolean showSortListGroup) {
         if (searchView != null) {
             searchView.post(() -> searchView.setQuery(searchQuery, true));
         }
@@ -638,13 +643,18 @@ public class FileDisplayActivity extends FileActivity
         clearToolbarSubtitle();
 
         showSortListGroup(showSortListGroup);
+    }
 
+    private void commitFragment(@NonNull Fragment fragment, CompletionCallback callback) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         if (ActivityExtensionsKt.isActive(this) && !fragmentManager.isDestroyed()) {
             FragmentTransaction transaction = fragmentManager.beginTransaction();
             transaction.addToBackStack(null);
             transaction.replace(R.id.left_fragment_container, fragment, TAG_LIST_OF_FILES);
             transaction.commit();
+            callback.onComplete(true);
+        } else {
+            callback.onComplete(false);
         }
     }
 
@@ -663,8 +673,15 @@ public class FileDisplayActivity extends FileActivity
         runOnUiThread(() -> {
             FragmentManager fm = getSupportFragmentManager();
             if (!fm.isStateSaved()) {
-                setLeftFragment(listOfFiles);
-                fm.executePendingTransactions();
+                prepareFragmentBeforeCommit(true);
+                commitFragment(listOfFiles, isFragmentCommitted -> {
+                    if (isFragmentCommitted) {
+                        Log_OC.d(TAG, "OCFileListFragment committed, executing pending transaction");
+                        fm.executePendingTransactions();
+                    } else {
+                        Log_OC.d(TAG, "OCFileListFragment not committed, skipping executing pending transaction");
+                    }
+                });
             }
         });
 
