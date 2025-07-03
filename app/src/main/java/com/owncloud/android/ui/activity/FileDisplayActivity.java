@@ -118,6 +118,7 @@ import com.owncloud.android.ui.fragment.TaskRetainerFragment;
 import com.owncloud.android.ui.fragment.UnifiedSearchFragment;
 import com.owncloud.android.ui.helpers.FileOperationsHelper;
 import com.owncloud.android.ui.helpers.UriUploader;
+import com.owncloud.android.ui.interfaces.TransactionInterface;
 import com.owncloud.android.ui.preview.PreviewImageActivity;
 import com.owncloud.android.ui.preview.PreviewImageFragment;
 import com.owncloud.android.ui.preview.PreviewMediaActivity;
@@ -483,7 +484,7 @@ public class FileDisplayActivity extends FileActivity
                 // If request is cancelled, result arrays are empty.
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     // permission was granted
-                    getOCFileListFragmentFromFile().directCameraUpload();
+                    getOCFileListFragmentFromFile(OCFileListFragment::directCameraUpload);
                 }
                 break;
             default:
@@ -658,11 +659,12 @@ public class FileDisplayActivity extends FileActivity
         }
     }
 
-    private OCFileListFragment getOCFileListFragmentFromFile() {
+    private void getOCFileListFragmentFromFile(TransactionInterface transaction) {
         final Fragment leftFragment = getLeftFragment();
 
         if (leftFragment instanceof OCFileListFragment result) {
-            return result;
+            transaction.onOCFileListFragmentComplete(result);
+            return;
         }
 
         OCFileListFragment listOfFiles = new OCFileListFragment();
@@ -672,27 +674,27 @@ public class FileDisplayActivity extends FileActivity
 
         runOnUiThread(() -> {
             FragmentManager fm = getSupportFragmentManager();
-            if (!fm.isStateSaved()) {
+            if (!fm.isStateSaved() && !fm.isDestroyed()) {
                 prepareFragmentBeforeCommit(true);
                 commitFragment(listOfFiles, isFragmentCommitted -> {
                     if (isFragmentCommitted) {
                         Log_OC.d(TAG, "OCFileListFragment committed, executing pending transaction");
                         fm.executePendingTransactions();
+                        transaction.onOCFileListFragmentComplete(listOfFiles);
                     } else {
                         Log_OC.d(TAG, "OCFileListFragment not committed, skipping executing pending transaction");
                     }
                 });
             }
         });
-
-        return listOfFiles;
     }
 
     public void showFileActions(OCFile file) {
         dismissLoadingDialog();
-        OCFileListFragment listOfFiles = getOCFileListFragmentFromFile();
-        browseUp(listOfFiles);
-        listOfFiles.onOverflowIconClicked(file, null);
+        getOCFileListFragmentFromFile(listOfFiles -> {
+            browseUp(listOfFiles);
+            listOfFiles.onOverflowIconClicked(file, null);
+        });
     }
 
     public @Nullable Fragment getLeftFragment() {
@@ -2725,22 +2727,22 @@ public class FileDisplayActivity extends FileActivity
     public void showFile(OCFile selectedFile, String message) {
         dismissLoadingDialog();
 
-        OCFileListFragment listOfFiles = getOCFileListFragmentFromFile();
-
-        if (TextUtils.isEmpty(message)) {
-            OCFile temp = getFile();
-            setFile(getCurrentDir());
-            listOfFiles.listDirectory(getCurrentDir(), temp, MainApp.isOnlyOnDevice(), false);
-            updateActionBarTitleAndHomeButton(null);
-        } else {
-            final var view = listOfFiles.getView();
-            if (view != null) {
-                DisplayUtils.showSnackMessage(view, message);
+        getOCFileListFragmentFromFile(listOfFiles -> {
+            if (TextUtils.isEmpty(message)) {
+                OCFile temp = getFile();
+                setFile(getCurrentDir());
+                listOfFiles.listDirectory(getCurrentDir(), temp, MainApp.isOnlyOnDevice(), false);
+                updateActionBarTitleAndHomeButton(null);
+            } else {
+                final var view = listOfFiles.getView();
+                if (view != null) {
+                    DisplayUtils.showSnackMessage(view, message);
+                }
             }
-        }
 
-        if (selectedFile != null) {
-            listOfFiles.onItemClicked(selectedFile);
-        }
+            if (selectedFile != null) {
+                listOfFiles.onItemClicked(selectedFile);
+            }
+        });
     }
 }
