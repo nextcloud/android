@@ -253,7 +253,7 @@ public class UserInfoActivity extends DrawerActivity implements Injectable {
             binding.emptyList.emptyListView.setVisibility(View.VISIBLE);
 
             setErrorMessageForMultiList(getString(R.string.userinfo_no_info_headline),
-                                        getString(R.string.userinfo_no_info_text), R.drawable.ic_user);
+                                        getString(R.string.userinfo_no_info_text), R.drawable.ic_user_outline);
         } else {
             binding.loadingContent.setVisibility(View.VISIBLE);
             binding.emptyList.emptyListView.setVisibility(View.GONE);

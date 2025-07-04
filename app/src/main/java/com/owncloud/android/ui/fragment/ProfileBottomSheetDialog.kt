@@ -80,7 +80,7 @@ class ProfileBottomSheetDialog(
             actionBinding.name.text = action.title
 
             val icon = when (action.appId) {
-                "profile" -> R.drawable.ic_user
+                "profile" -> R.drawable.ic_user_outline
                 "email" -> R.drawable.ic_email
                 "spreed" -> R.drawable.ic_talk
                 else -> R.drawable.ic_edit

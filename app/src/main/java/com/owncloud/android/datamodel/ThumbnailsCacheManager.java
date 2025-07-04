@@ -1144,7 +1144,7 @@ public final class ThumbnailsCacheManager {
                 try {
                     return TextDrawable.createAvatarByUserId(displayName, mAvatarRadius);
                 } catch (Exception e1) {
-                    return ResourcesCompat.getDrawable(mResources, R.drawable.ic_user, null);
+                    return ResourcesCompat.getDrawable(mResources, R.drawable.ic_user_outline, null);
                 }
             } else {
                 return BitmapUtils.bitmapToCircularBitmapDrawable(mResources, avatar);

@@ -28,7 +28,7 @@
         android:layout_marginRight="@dimen/standard_margin"
         android:layout_marginBottom="@dimen/standard_half_margin"
         android:contentDescription="@string/user_icon"
-        android:src="@drawable/ic_user" />
+        android:src="@drawable/ic_user_outline" />
 
     <LinearLayout
         android:id="@+id/share_name_layout"
