@@ -24,6 +24,7 @@ buildscript {
         classpath "org.jacoco:org.jacoco.core:$jacoco_version"
         classpath "org.jacoco:org.jacoco.report:$jacoco_version"
         classpath "org.jacoco:org.jacoco.agent:$jacoco_version"
+        classpath libs.kotlin.allopen
     }
 }
 
@@ -43,6 +44,11 @@ apply plugin: "pmd"
 apply from: "$rootProject.projectDir/jacoco.gradle"
 apply plugin: "com.github.spotbugs"
 apply plugin: "io.gitlab.arturbosch.detekt"
+apply plugin: "kotlin-allopen"
+
+allOpen {
+    annotation("com.nextcloud.client.OpenForTesting")
+}
 
 // needed to make renovate run without shot, as shot requires Android SDK
 // https://github.com/pedrovgs/Shot/issues/300
@@ -401,7 +407,6 @@ dependencies {
     androidTestImplementation "androidx.test:core-ktx:$androidxTestVersion"
 
     // Mocking support
-    androidTestImplementation "com.github.tmurakami:dexopener:2.0.5" // required to allow mocking on API 27 and older
     androidTestImplementation "org.mockito.kotlin:mockito-kotlin:$mockitoKotlinVersion"
     androidTestImplementation "org.mockito:mockito-core:$mockitoVersion"
     androidTestImplementation("org.mockito:mockito-android:$mockitoVersion")
