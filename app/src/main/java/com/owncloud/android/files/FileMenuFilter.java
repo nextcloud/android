@@ -22,6 +22,7 @@ import com.nextcloud.client.account.User;
 import com.nextcloud.client.editimage.EditImageActivity;
 import com.nextcloud.client.jobs.download.FileDownloadHelper;
 import com.nextcloud.client.jobs.upload.FileUploadHelper;
+import com.nextcloud.ui.fileactions.FileAction;
 import com.nextcloud.utils.EditorUtils;
 import com.nextcloud.utils.mdm.MDMConfig;
 import com.owncloud.android.R;
@@ -37,6 +38,7 @@ import com.owncloud.android.utils.NextcloudServer;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 
@@ -171,8 +173,14 @@ public class FileMenuFilter {
         filterUnlock(toHide, fileLockingEnabled);
         filterPinToHome(toHide);
         filterRetry(toHide);
+        filterPermissionActions(toHide);
 
         return toHide;
+    }
+
+    private void filterPermissionActions(List<Integer> toHide) {
+        final var actionsToHide = FileAction.Companion.getActionsToHide(new HashSet<>(files));
+        toHide.addAll(actionsToHide);
     }
 
 
