@@ -90,7 +90,6 @@ object GlideHelper {
             .listener(SvgSoftwareLayerSetter())
     }
 
-
     private fun createUrlRequestBuilder(
         context: Context,
         client: NextcloudClient,
