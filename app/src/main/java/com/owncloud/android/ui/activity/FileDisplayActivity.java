@@ -1077,7 +1077,7 @@ public class FileDisplayActivity extends FileActivity
         final OCFile currentFile = listOfFiles.getCurrentFile();
 
         setFile(currentFile);
-        listOfFiles.setFabVisible(currentFile.canWrite());
+        listOfFiles.setFabVisible(currentFile.canCreateFileAndFolder());
         listOfFiles.registerFabListener();
         resetTitleBarAndScrolling();
         setDrawerAllFiles();

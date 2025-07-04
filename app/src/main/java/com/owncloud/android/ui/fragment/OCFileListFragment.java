@@ -68,7 +68,6 @@ import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.SyncedFolderProvider;
-import com.owncloud.android.datamodel.VirtualFolderType;
 import com.owncloud.android.datamodel.e2e.v2.decrypted.DecryptedFolderMetadataFile;
 import com.owncloud.android.lib.common.Creator;
 import com.owncloud.android.lib.common.OwnCloudClient;
@@ -106,13 +105,11 @@ import com.owncloud.android.ui.helpers.FileOperationsHelper;
 import com.owncloud.android.ui.interfaces.OCFileListFragmentInterface;
 import com.owncloud.android.ui.preview.PreviewImageFragment;
 import com.owncloud.android.ui.preview.PreviewMediaActivity;
-import com.owncloud.android.ui.preview.PreviewTextFileFragment;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.EncryptionUtils;
 import com.owncloud.android.utils.EncryptionUtilsV2;
 import com.owncloud.android.utils.FileSortOrder;
 import com.owncloud.android.utils.FileStorageUtils;
-import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.PermissionUtil;
 import com.owncloud.android.utils.theme.ThemeUtils;
 
@@ -399,7 +396,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
             setFabVisible(false);
         } else {
             if (mFile != null) {
-                setFabVisible(mFile.canWrite());
+                setFabVisible(mFile.canCreateFileAndFolder());
             } else {
                 setFabVisible(true);
             }
@@ -911,7 +908,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
             // show FAB on multi selection mode exit
             if (!mHideFab && !searchFragment) {
-                setFabVisible(mFile.canWrite());
+                setFabVisible(mFile.canCreateFileAndFolder());
             }
 
             Activity activity = getActivity();
@@ -1541,7 +1538,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
     public void refreshDirectory() {
         searchFragment = false;
 
-        setFabVisible(mFile.canWrite());
+        setFabVisible(mFile.canCreateFileAndFolder());
         listDirectory(getCurrentFile(), MainApp.isOnlyOnDevice(), false);
     }
 
@@ -1660,7 +1657,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
         setFabVisible(!mHideFab);
 
         // FAB
-        setFabEnabled(mFile != null && (mFile.canWrite() || mFile.isOfflineOperation()));
+        setFabEnabled(mFile != null && (mFile.canCreateFileAndFolder() || mFile.isOfflineOperation()));
 
         invalidateActionMode();
     }
@@ -1850,7 +1847,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
             arguments.putParcelable(OCFileListFragment.SEARCH_EVENT, null);
         }
 
-        setFabVisible(mFile.canWrite());
+        setFabVisible(mFile.canCreateFileAndFolder());
     }
 
     private void resetMenuItems() {
