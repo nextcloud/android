@@ -88,7 +88,7 @@ class RenamePublicShareDialogFragment : DialogFragment(), DialogInterface.OnClic
             AlertDialog.BUTTON_POSITIVE -> {
                 var newName = ""
                 if (binding.userInput.text != null) {
-                    newName = binding.userInput.text.toString().trim { it <= ' ' }
+                    newName = binding.userInput.text.toString().trim()
                 }
 
                 if (TextUtils.isEmpty(newName)) {
