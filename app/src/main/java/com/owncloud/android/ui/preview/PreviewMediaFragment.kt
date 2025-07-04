@@ -336,7 +336,7 @@ class PreviewMediaFragment :
     }
 
     private fun showFileActions(file: OCFile) {
-        val additionalFilter = FileAction.getActions(getFile())
+        val additionalFilter = FileAction.getFilePreviewActions(getFile())
         newInstance(file, false, additionalFilter)
             .setResultListener(childFragmentManager, this) { itemId: Int -> this.onFileActionChosen(itemId) }
             .show(childFragmentManager, "actions")
