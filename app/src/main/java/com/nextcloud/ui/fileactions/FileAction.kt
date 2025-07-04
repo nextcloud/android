@@ -27,6 +27,7 @@ enum class FileAction(
     EDIT(R.id.action_edit, R.string.action_edit, R.drawable.ic_edit),
     SEE_DETAILS(R.id.action_see_details, R.string.actionbar_see_details, R.drawable.ic_information_outline),
     REMOVE_FILE(R.id.action_remove_file, R.string.common_remove, R.drawable.ic_delete),
+    LEAVE_SHARE(R.id.action_remove_file, R.string.common_leave_this_share, R.drawable.ic_cancel),
 
     // File moving
     RENAME_FILE(R.id.action_rename_file, R.string.common_rename, R.drawable.ic_rename),
@@ -64,33 +65,35 @@ enum class FileAction(
     RETRY(R.id.action_retry, R.string.retry, R.drawable.ic_retry);
 
     companion object {
-        @JvmField
-        val SORTED_VALUES = listOf(
-            UNLOCK_FILE,
-            EDIT,
-            FAVORITE,
-            UNSET_FAVORITE,
-            SEE_DETAILS,
-            LOCK_FILE,
-            RENAME_FILE,
-            MOVE_OR_COPY,
-            DOWNLOAD_FILE,
-            EXPORT_FILE,
-            STREAM_MEDIA,
-            SEND_SHARE_FILE,
-            SEND_FILE,
-            OPEN_FILE_WITH,
-            SYNC_FILE,
-            CANCEL_SYNC,
-            SELECT_ALL,
-            SELECT_NONE,
-            SET_ENCRYPTED,
-            UNSET_ENCRYPTED,
-            SET_AS_WALLPAPER,
-            REMOVE_FILE,
-            PIN_TO_HOMESCREEN,
-            RETRY
-        )
+        fun getActions(files: Collection<OCFile>): List<FileAction> {
+            return mutableListOf(
+                UNLOCK_FILE,
+                EDIT,
+                FAVORITE,
+                UNSET_FAVORITE,
+                SEE_DETAILS,
+                LOCK_FILE,
+                RENAME_FILE,
+                MOVE_OR_COPY,
+                DOWNLOAD_FILE,
+                EXPORT_FILE,
+                STREAM_MEDIA,
+                SEND_SHARE_FILE,
+                SEND_FILE,
+                OPEN_FILE_WITH,
+                SYNC_FILE,
+                CANCEL_SYNC,
+                SELECT_ALL,
+                SELECT_NONE,
+                SET_ENCRYPTED,
+                UNSET_ENCRYPTED,
+                SET_AS_WALLPAPER,
+                PIN_TO_HOMESCREEN,
+                RETRY
+            ).apply {
+                add(getDeleteOrLeaveShareAction(files))
+            }
+        }
 
         fun getFilePreviewActions(file: OCFile?): List<Int> {
             val result = mutableSetOf(
@@ -187,6 +190,9 @@ enum class FileAction(
              if (files.any { it?.isSharedWithMe == false } || files.any { it?.canReshare() == true }) {
                 result.add(R.id.action_send_share_file)
             }
+
+                "D" means for folder you can unshare
+                "D" means for same folder that files in it delete
              */
             if (files.any { !it.canReshare() }) {
                 result.add(R.id.action_send_share_file)
@@ -200,15 +206,19 @@ enum class FileAction(
                 result.add(R.id.action_move_or_copy)
             }
 
-            if (files.any { !it.canDelete() }) {
-                result.add(R.id.action_remove_file)
-            }
-
             if (files.any { !it.canWrite() }) {
                 result.add(R.id.action_edit)
             }
 
             return result
+        }
+
+        private fun getDeleteOrLeaveShareAction(files: Collection<OCFile>): FileAction {
+            return if (files.any { it.isSharedWithMe } && files.any { it.canDelete() }) {
+                LEAVE_SHARE
+            } else {
+               REMOVE_FILE
+            }
         }
     }
 }
