@@ -47,6 +47,7 @@ import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.jobs.BackgroundJobManager
 import com.nextcloud.client.network.ConnectivityService
+import com.nextcloud.ui.fileactions.FileAction
 import com.nextcloud.ui.fileactions.FileActionsBottomSheet.Companion.newInstance
 import com.nextcloud.utils.extensions.clickWithDebounce
 import com.nextcloud.utils.extensions.getParcelableArgument
@@ -387,21 +388,7 @@ class PreviewImageFragment :
     }
 
     private fun showFileActions(file: OCFile) {
-        val additionalFilter: MutableList<Int> = ArrayList(
-            listOf(
-                R.id.action_rename_file,
-                R.id.action_sync_file,
-                R.id.action_move_or_copy,
-                R.id.action_favorite,
-                R.id.action_unset_favorite,
-                R.id.action_pin_to_homescreen
-            )
-        )
-
-        if (getFile() != null && getFile().isSharedWithMe && !getFile().canReshare()) {
-            additionalFilter.add(R.id.action_send_share_file)
-        }
-
+        val additionalFilter = FileAction.getActions(getFile())
         val fragmentManager = childFragmentManager
         newInstance(file, false, additionalFilter)
             .setResultListener(fragmentManager, this) { itemId: Int -> this.onFileActionChosen(itemId) }
