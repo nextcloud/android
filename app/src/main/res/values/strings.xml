@@ -398,6 +398,7 @@
     <string name="unset_encrypted">Unset encryption</string>
     <string name="common_rename">Rename</string>
     <string name="common_remove">Delete</string>
+    <string name="common_leave_this_share">Leave this share</string>
     <string name="confirmation_remove_file_alert">Do you really want to delete %1$s?</string>
     <string name="confirmation_remove_folder_alert">Do you really want to delete %1$s and the contents thereof?</string>
     <string name="confirmation_remove_local">Local only</string>
