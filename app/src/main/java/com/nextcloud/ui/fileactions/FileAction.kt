@@ -191,9 +191,6 @@ enum class FileAction(
              if (files.any { it?.isSharedWithMe == false } || files.any { it?.canReshare() == true }) {
                 result.add(R.id.action_send_share_file)
             }
-
-                "D" means for folder you can unshare
-                "D" means for same folder that files in it delete
              */
             if (files.any { !it.canReshare() }) {
                 result.add(R.id.action_send_share_file)
@@ -215,7 +212,7 @@ enum class FileAction(
         }
 
         private fun getDeleteOrLeaveShareAction(files: Collection<OCFile>): FileAction? {
-            if (files.any { !it.canDelete() }) {
+            if (files.any { !it.canDeleteOrLeaveShare() }) {
                 return null
             }
 

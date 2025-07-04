@@ -39,7 +39,6 @@ import java.util.Objects;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.VisibleForTesting;
 import androidx.core.content.FileProvider;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import third_parties.daveKoeller.AlphanumComparator;
@@ -53,7 +52,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
     private final static String PERMISSION_CAN_CREATE_FILE = "C";
     private final static String PERMISSION_CAN_CREATE_FOLDER = "K";
     private final static String PERMISSION_CAN_WRITE = "W";
-    private final static String PERMISSION_CAN_DELETE = "D";
+    private final static String PERMISSION_CAN_DELETE_OR_LEAVE_SHARE = "D";
     private final static String PERMISSION_CAN_RENAME = "N";
     private final static String PERMISSION_CAN_MOVE = "V";
 
@@ -658,8 +657,19 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
         return hasPermission(PERMISSION_CAN_CREATE_FOLDER);
     }
 
-    public boolean canDelete() {
-        return !encrypted && hasPermission(PERMISSION_CAN_DELETE);
+    /**
+     * Determines whether the current account has the ability to delete the file or leave the share.
+     *
+     * <p>
+     * - If the file is shared with the current account (i.e., the user is the recipient),
+     *   the user cannot delete the file itself but can leave the shared file.
+     * <p>
+     * - If the file is belongs to the current user. User can delete the file.
+     *
+     * @return true if the user is allowed to either delete or leave the share; false otherwise.
+     */
+    public boolean canDeleteOrLeaveShare() {
+        return !encrypted && hasPermission(PERMISSION_CAN_DELETE_OR_LEAVE_SHARE);
     }
 
     public boolean canRename() {
