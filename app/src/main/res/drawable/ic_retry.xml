@@ -1,24 +1,16 @@
 <!--
   ~ Nextcloud - Android Client
   ~
-  ~ SPDX-FileCopyrightText: 2024 Alper Ozturk <alper.ozturk@nextcloud.com>
-  ~ SPDX-FileCopyrightText: 2024 Nextcloud GmbH
-  ~ SPDX-FileCopyrightText: 2018-2024 Google LLC
+  ~ SPDX-FileCopyrightText: 2018-2025 Google LLC
   ~ SPDX-License-Identifier: Apache-2.0
 -->
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
     android:width="24dp"
     android:height="24dp"
     android:tint="#000000"
-    android:viewportWidth="24"
-    android:viewportHeight="24">
-
+    android:viewportWidth="960"
+    android:viewportHeight="960">
     <path
         android:fillColor="@android:color/white"
-        android:pathData="M12,5V2L8,6l4,4V7c3.31,0 6,2.69 6,6c0,2.97 -2.17,5.43 -5,5.91v2.02c3.95,-0.49 7,-3.85 7,-7.93C20,8.58 16.42,5 12,5z" />
-
-    <path
-        android:fillColor="@android:color/white"
-        android:pathData="M6,13c0,-1.65 0.67,-3.15 1.76,-4.24L6.34,7.34C4.9,8.79 4,10.79 4,13c0,4.08 3.05,7.44 7,7.93v-2.02C8.17,18.43 6,15.97 6,13z" />
-
+        android:pathData="M440,838Q319,823 239.5,732.5Q160,642 160,520Q160,454 186,393.5Q212,333 260,288L317,345Q279,379 259.5,424Q240,469 240,520Q240,608 296,675.5Q352,743 440,758L440,838ZM520,838L520,758Q607,742 663.5,675Q720,608 720,520Q720,420 650,350Q580,280 480,280L477,280L521,324L465,380L325,240L465,100L521,156L477,200L480,200Q614,200 707,293Q800,386 800,520Q800,641 720.5,731.5Q641,822 520,838Z" />
 </vector>

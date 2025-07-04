@@ -43,7 +43,7 @@
                 android:layout_marginEnd="@dimen/account_item_layout_user_image_margin"
                 android:layout_marginBottom="@dimen/account_item_layout_user_image_margin"
                 android:contentDescription="@string/avatar"
-                android:src="@drawable/ic_user" />
+                android:src="@drawable/ic_user_outline" />
 
             <ImageView
                 android:id="@+id/ticker"

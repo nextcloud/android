@@ -224,7 +224,7 @@
 
         <ImageView
             android:id="@+id/unreadComments"
-            android:layout_width="48dp"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:clickable="true"
             android:contentDescription="@string/unread_comments"
@@ -237,7 +237,7 @@
 
         <ImageView
             android:id="@+id/sharedIcon"
-            android:layout_width="48dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="top"
             android:clickable="true"
@@ -245,7 +245,7 @@
             android:focusable="true"
             android:minHeight="@dimen/min_list_item_size"
             android:paddingStart="@dimen/list_item_share_right_margin"
-            android:paddingEnd="@dimen/list_item_share_right_margin"
+            android:paddingEnd="4dp"
             android:src="@drawable/ic_unshared"
             tools:visibility="visible" />
 
@@ -280,8 +280,8 @@
             android:contentDescription="@string/overflow_menu"
             android:focusable="true"
             android:minHeight="@dimen/min_list_item_size"
-            android:paddingStart="12dp"
-            android:paddingEnd="12dp"
+            android:paddingStart="@dimen/list_item_share_right_margin"
+            android:paddingEnd="@dimen/list_item_share_right_margin"
             android:src="@drawable/ic_dots_vertical" />
 
     </LinearLayout>
