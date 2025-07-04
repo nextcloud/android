@@ -91,7 +91,8 @@ enum class FileAction(
                 PIN_TO_HOMESCREEN,
                 RETRY
             ).apply {
-                add(getDeleteOrLeaveShareAction(files))
+                val deleteOrLeaveShareAction = getDeleteOrLeaveShareAction(files) ?: return@apply
+                add(deleteOrLeaveShareAction)
             }
         }
 
@@ -213,8 +214,12 @@ enum class FileAction(
             return result
         }
 
-        private fun getDeleteOrLeaveShareAction(files: Collection<OCFile>): FileAction {
-            return if (files.any { it.isSharedWithMe } && files.any { it.canDelete() }) {
+        private fun getDeleteOrLeaveShareAction(files: Collection<OCFile>): FileAction? {
+            if (files.any { !it.canDelete() }) {
+                return null
+            }
+
+            return if (files.any { it.isSharedWithMe }) {
                 LEAVE_SHARE
             } else {
                REMOVE_FILE
