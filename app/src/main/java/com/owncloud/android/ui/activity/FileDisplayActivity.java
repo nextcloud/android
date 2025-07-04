@@ -13,7 +13,6 @@
  */
 package com.owncloud.android.ui.activity;
 
-import android.Manifest;
 import android.accounts.Account;
 import android.accounts.AuthenticatorException;
 import android.annotation.SuppressLint;
@@ -65,7 +64,6 @@ import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.client.utils.IntentUtil;
 import com.nextcloud.model.WorkerState;
 import com.nextcloud.model.WorkerStateLiveData;
-import com.nextcloud.utils.BuildHelper;
 import com.nextcloud.utils.extensions.ActivityExtensionsKt;
 import com.nextcloud.utils.extensions.BundleExtensionsKt;
 import com.nextcloud.utils.extensions.FileExtensionsKt;
@@ -76,9 +74,7 @@ import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.FilesBinding;
 import com.owncloud.android.datamodel.FileDataStorageManager;
-import com.owncloud.android.datamodel.MediaFolderType;
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.datamodel.SyncedFolder;
 import com.owncloud.android.datamodel.SyncedFolderProvider;
 import com.owncloud.android.datamodel.VirtualFolderType;
 import com.owncloud.android.files.services.NameCollisionPolicy;
@@ -1076,7 +1072,7 @@ public class FileDisplayActivity extends FileActivity
         final OCFile currentFile = listOfFiles.getCurrentFile();
 
         setFile(currentFile);
-        listOfFiles.setFabVisible(currentFile.canWrite());
+        listOfFiles.setFabVisible(currentFile.canCreateFileAndFolder());
         listOfFiles.registerFabListener();
         resetTitleBarAndScrolling();
         setDrawerAllFiles();
