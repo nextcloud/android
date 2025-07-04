@@ -389,7 +389,7 @@ class PreviewImageFragment : FileFragment(), Injectable {
     }
 
     private fun showFileActions(file: OCFile) {
-        val additionalFilter = FileAction.getActions(getFile())
+        val additionalFilter = FileAction.getFilePreviewActions(getFile())
         val fragmentManager = childFragmentManager
         newInstance(file, false, additionalFilter)
             .setResultListener(fragmentManager, this) { itemId: Int -> this.onFileActionChosen(itemId) }

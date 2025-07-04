@@ -276,7 +276,7 @@ public class PreviewTextFileFragment extends PreviewTextFragment {
     }
 
     private void showFileActions(OCFile file) {
-        final var additionalFilter = FileAction.Companion.getActions(getFile());
+        final var additionalFilter = FileAction.Companion.getFilePreviewActions(getFile());
         final FragmentManager fragmentManager = getChildFragmentManager();
         FileActionsBottomSheet.newInstance(file, false, additionalFilter)
             .setResultListener(fragmentManager, this, this::onFileActionChosen)
