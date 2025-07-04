@@ -46,18 +46,18 @@ import third_parties.daveKoeller.AlphanumComparator;
 
 public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterface {
 
-    private final static String PERMISSION_SHARED_WITH_ME = "S";
-    @VisibleForTesting
     public final static String PERMISSION_CAN_RESHARE = "R";
+    private final static String PERMISSION_SHARED_WITH_ME = "S";
     private final static String PERMISSION_CAN_CREATE_FILE_AND_FOLDER = "CK";
     private final static String PERMISSION_GROUP_FOLDER = "M";
-    private final static int MAX_FILE_SIZE_FOR_IMMEDIATE_PREVIEW_BYTES = 1024000;
     private final static String PERMISSION_CAN_CREATE_FILE = "C";
     private final static String PERMISSION_CAN_CREATE_FOLDER = "K";
     private final static String PERMISSION_CAN_WRITE = "W";
     private final static String PERMISSION_CAN_DELETE = "D";
     private final static String PERMISSION_CAN_RENAME = "N";
     private final static String PERMISSION_CAN_MOVE = "V";
+
+    private final static int MAX_FILE_SIZE_FOR_IMMEDIATE_PREVIEW_BYTES = 1024000;
 
     public static final String PATH_SEPARATOR = "/";
     public static final String ROOT_PATH = PATH_SEPARATOR;
