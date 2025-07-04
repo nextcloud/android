@@ -11,6 +11,7 @@ import androidx.annotation.DrawableRes
 import androidx.annotation.IdRes
 import androidx.annotation.StringRes
 import com.owncloud.android.R
+import com.owncloud.android.datamodel.OCFile
 
 enum class FileAction(@IdRes val id: Int, @StringRes val title: Int, @DrawableRes val icon: Int? = null) {
     // selection
@@ -58,9 +59,6 @@ enum class FileAction(@IdRes val id: Int, @StringRes val title: Int, @DrawableRe
     RETRY(R.id.action_retry, R.string.retry, R.drawable.ic_retry);
 
     companion object {
-        /**
-         * All file actions, in the order they should be displayed
-         */
         @JvmField
         val SORTED_VALUES = listOf(
             UNLOCK_FILE,
@@ -88,5 +86,24 @@ enum class FileAction(@IdRes val id: Int, @StringRes val title: Int, @DrawableRe
             PIN_TO_HOMESCREEN,
             RETRY
         )
+
+        fun getActions(file: OCFile?): List<Int> {
+            val result = ArrayList(
+                listOf(
+                    R.id.action_rename_file,
+                    R.id.action_sync_file,
+                    R.id.action_move_or_copy,
+                    R.id.action_favorite,
+                    R.id.action_unset_favorite,
+                    R.id.action_pin_to_homescreen
+                )
+            )
+
+            if (file != null && file.isSharedWithMe && !file.canReshare()) {
+                result.add(R.id.action_send_share_file)
+            }
+
+            return result
+        }
     }
 }

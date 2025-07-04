@@ -72,6 +72,7 @@ import com.nextcloud.client.media.NextcloudExoPlayer.createNextcloudExoplayer
 import com.nextcloud.client.network.ClientFactory
 import com.nextcloud.client.network.ClientFactory.CreationException
 import com.nextcloud.common.NextcloudClient
+import com.nextcloud.ui.fileactions.FileAction
 import com.nextcloud.ui.fileactions.FileActionsBottomSheet.Companion.newInstance
 import com.nextcloud.ui.fileactions.FileActionsBottomSheet.ResultListener
 import com.nextcloud.utils.extensions.getParcelableArgument
@@ -558,20 +559,7 @@ class PreviewMediaActivity :
     }
 
     private fun showFileActions(file: OCFile) {
-        val additionalFilter: MutableList<Int> =
-            mutableListOf(
-                R.id.action_rename_file,
-                R.id.action_sync_file,
-                R.id.action_move_or_copy,
-                R.id.action_favorite,
-                R.id.action_unset_favorite,
-                R.id.action_pin_to_homescreen
-            )
-
-        if (getFile() != null && getFile().isSharedWithMe && !getFile().canReshare()) {
-            additionalFilter.add(R.id.action_send_share_file)
-        }
-
+        val additionalFilter = FileAction.getActions(getFile())
         newInstance(file, false, additionalFilter)
             .setResultListener(
                 supportFragmentManager,
