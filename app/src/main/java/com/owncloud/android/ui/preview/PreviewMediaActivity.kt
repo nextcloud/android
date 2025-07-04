@@ -559,7 +559,7 @@ class PreviewMediaActivity :
     }
 
     private fun showFileActions(file: OCFile) {
-        val additionalFilter = FileAction.getActions(getFile())
+        val additionalFilter = FileAction.getFilePreviewActions(getFile())
         newInstance(file, false, additionalFilter)
             .setResultListener(
                 supportFragmentManager,

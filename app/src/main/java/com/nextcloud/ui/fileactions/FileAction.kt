@@ -87,20 +87,74 @@ enum class FileAction(@IdRes val id: Int, @StringRes val title: Int, @DrawableRe
             RETRY
         )
 
-        fun getActions(file: OCFile?): List<Int> {
-            val result = ArrayList(
-                listOf(
-                    R.id.action_rename_file,
-                    R.id.action_sync_file,
-                    R.id.action_move_or_copy,
-                    R.id.action_favorite,
-                    R.id.action_unset_favorite,
-                    R.id.action_pin_to_homescreen
-                )
+        fun getFilePreviewActions(file: OCFile?): List<Int> {
+            val result = arrayListOf(
+                R.id.action_rename_file,
+                R.id.action_sync_file,
+                R.id.action_move_or_copy,
+                R.id.action_favorite,
+                R.id.action_unset_favorite,
+                R.id.action_pin_to_homescreen
             )
 
             if (file != null && file.isSharedWithMe && !file.canReshare()) {
                 result.add(R.id.action_send_share_file)
+            }
+
+            return result
+        }
+
+        fun getFileDetailActions(file: OCFile?): List<Int> {
+            val result = arrayListOf(
+                R.id.action_lock_file,
+                R.id.action_unlock_file,
+                R.id.action_edit,
+                R.id.action_favorite,
+                R.id.action_unset_favorite,
+                R.id.action_see_details,
+                R.id.action_move_or_copy,
+                R.id.action_stream_media,
+                R.id.action_send_share_file,
+                R.id.action_pin_to_homescreen
+            )
+
+            if (file?.isFolder == true) {
+                result.add(R.id.action_send_file)
+                result.add(R.id.action_sync_file)
+            }
+
+            if (file?.isAPKorAAB == true) {
+                result.add(R.id.action_download_file)
+                result.add(R.id.action_export_file)
+            }
+
+            return result
+        }
+
+        fun getFileListActionsToHide(checkedFiles: Set<OCFile>): List<Int> {
+            val result = mutableListOf<Int>()
+
+            if (checkedFiles.any { it.isOfflineOperation }) {
+                result.addAll(listOf(
+                    R.id.action_favorite,
+                    R.id.action_move_or_copy,
+                    R.id.action_sync_file,
+                    R.id.action_encrypted,
+                    R.id.action_unset_encrypted,
+                    R.id.action_edit,
+                    R.id.action_download_file,
+                    R.id.action_export_file,
+                    R.id.action_set_as_wallpaper
+                ))
+            }
+
+            if (checkedFiles.any { it.isAPKorAAB }) {
+                result.addAll(listOf(
+                    R.id.action_send_share_file,
+                    R.id.action_export_file,
+                    R.id.action_sync_file,
+                    R.id.action_download_file
+                ))
             }
 
             return result
