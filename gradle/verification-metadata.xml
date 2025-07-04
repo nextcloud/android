@@ -14,6 +14,7 @@
           <ignored-key id="A6EA2E2BF22E0543" reason="Key couldn't be downloaded from any key server"/>
       </ignored-keys>
       <trusted-keys>
+          <trusted-key id="520410E2AF06FA82"/>
          <trusted-key id="015479E1055341431B4545AB72475FD306B9CAB7" group="com.googlecode.javaewah" name="JavaEWAH" version="1.2.3"/>
          <trusted-key id="042B29E928995B9DB963C636C7CA19B7B620D787" group="com.github.stephenc.jcip" name="jcip-annotations" version="1.0-1"/>
          <trusted-key id="04543577D6A9CC626239C50C7ECBD740FF06AEB5">
