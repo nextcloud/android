@@ -39,18 +39,23 @@ import java.util.Objects;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.VisibleForTesting;
 import androidx.core.content.FileProvider;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import third_parties.daveKoeller.AlphanumComparator;
 
 public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterface {
 
-    private final static String PERMISSION_SHARED_WITH_ME = "S";
-    @VisibleForTesting
     public final static String PERMISSION_CAN_RESHARE = "R";
-    private final static String PERMISSION_CAN_WRITE = "CK";
-    private final static String PERMISSION_GROUPFOLDER = "M";
+    private final static String PERMISSION_SHARED_WITH_ME = "S";
+    private final static String PERMISSION_CAN_CREATE_FILE_AND_FOLDER = "CK";
+    private final static String PERMISSION_GROUP_FOLDER = "M";
+    private final static String PERMISSION_CAN_CREATE_FILE = "C";
+    private final static String PERMISSION_CAN_CREATE_FOLDER = "K";
+    private final static String PERMISSION_CAN_WRITE = "W";
+    private final static String PERMISSION_CAN_DELETE_OR_LEAVE_SHARE = "D";
+    private final static String PERMISSION_CAN_RENAME = "N";
+    private final static String PERMISSION_CAN_MOVE = "V";
+
     private final static int MAX_FILE_SIZE_FOR_IMMEDIATE_PREVIEW_BYTES = 1024000;
 
     public static final String PATH_SEPARATOR = "/";
@@ -629,23 +634,59 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
     }
 
     public boolean isSharedWithMe() {
-        String permissions = getPermissions();
-        return permissions != null && permissions.contains(PERMISSION_SHARED_WITH_ME);
+        return hasPermission(PERMISSION_SHARED_WITH_ME);
     }
 
     public boolean canReshare() {
-        String permissions = getPermissions();
-        return permissions != null && permissions.contains(PERMISSION_CAN_RESHARE);
+        return hasPermission(PERMISSION_CAN_RESHARE);
     }
 
-    public boolean canWrite() {
-        String permissions = getPermissions();
-        return permissions != null && permissions.contains(PERMISSION_CAN_WRITE);
+    public boolean canCreateFileAndFolder() {
+        return hasPermission(PERMISSION_CAN_CREATE_FILE_AND_FOLDER);
     }
 
     public boolean isGroupFolder() {
+        return hasPermission(PERMISSION_GROUP_FOLDER);
+    }
+
+    public boolean canCreateFile() {
+        return hasPermission(PERMISSION_CAN_CREATE_FILE);
+    }
+
+    public boolean canCreateFolder() {
+        return hasPermission(PERMISSION_CAN_CREATE_FOLDER);
+    }
+
+    /**
+     * Determines whether the current account has the ability to delete the file or leave the share.
+     *
+     * <p>
+     * - If the file is shared with the current account (i.e., the user is the recipient),
+     *   the user cannot delete the file itself but can leave the shared file.
+     * <p>
+     * - If the file is belongs to the current user. User can delete the file.
+     *
+     * @return true if the user is allowed to either delete or leave the share; false otherwise.
+     */
+    public boolean canDeleteOrLeaveShare() {
+        return !encrypted && hasPermission(PERMISSION_CAN_DELETE_OR_LEAVE_SHARE);
+    }
+
+    public boolean canRename() {
+        return hasPermission(PERMISSION_CAN_RENAME);
+    }
+
+    public boolean canWrite() {
+        return hasPermission(PERMISSION_CAN_WRITE);
+    }
+
+    public boolean canMove() {
+        return hasPermission(PERMISSION_CAN_MOVE);
+    }
+
+    private boolean hasPermission(String permission) {
         String permissions = getPermissions();
-        return permissions != null && permissions.contains(PERMISSION_GROUPFOLDER);
+        return permissions != null && permissions.contains(permission);
     }
 
     public Integer getFileOverlayIconId(boolean isAutoUploadFolder) {
