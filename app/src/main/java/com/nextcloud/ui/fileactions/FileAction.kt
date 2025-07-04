@@ -1,6 +1,7 @@
 /*
  * Nextcloud - Android Client
  *
+ * SPDX-FileCopyrightText: 2025 Alper Ozturk <alper.ozturk@nextcloud.com>
  * SPDX-FileCopyrightText: 2022 Álvaro Brey <alvaro@alvarobrey.com>
  * SPDX-FileCopyrightText: 2022 Nextcloud GmbH
  * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
@@ -13,7 +14,11 @@ import androidx.annotation.StringRes
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.OCFile
 
-enum class FileAction(@IdRes val id: Int, @StringRes val title: Int, @DrawableRes val icon: Int? = null) {
+enum class FileAction(
+    @param:IdRes val id: Int,
+    @param:StringRes val title: Int,
+    @param:DrawableRes val icon: Int? = null
+) {
     // selection
     SELECT_ALL(R.id.action_select_all_action_menu, R.string.select_all, R.drawable.ic_select_all),
     SELECT_NONE(R.id.action_deselect_all_action_menu, R.string.deselect_all, R.drawable.ic_select_none),
@@ -88,7 +93,7 @@ enum class FileAction(@IdRes val id: Int, @StringRes val title: Int, @DrawableRe
         )
 
         fun getFilePreviewActions(file: OCFile?): List<Int> {
-            val result = arrayListOf(
+            val result = mutableSetOf(
                 R.id.action_rename_file,
                 R.id.action_sync_file,
                 R.id.action_move_or_copy,
@@ -97,15 +102,14 @@ enum class FileAction(@IdRes val id: Int, @StringRes val title: Int, @DrawableRe
                 R.id.action_pin_to_homescreen
             )
 
-            if (file != null && file.isSharedWithMe && !file.canReshare()) {
-                result.add(R.id.action_send_share_file)
-            }
+            val actionsToHide = getActionsToHide(setOf(file))
+            result.removeAll(actionsToHide)
 
-            return result
+            return result.toList()
         }
 
         fun getFileDetailActions(file: OCFile?): List<Int> {
-            val result = arrayListOf(
+            val result = mutableSetOf(
                 R.id.action_lock_file,
                 R.id.action_unlock_file,
                 R.id.action_edit,
@@ -128,33 +132,73 @@ enum class FileAction(@IdRes val id: Int, @StringRes val title: Int, @DrawableRe
                 result.add(R.id.action_export_file)
             }
 
-            return result
+            val actionsToHide = getActionsToHide(setOf(file))
+            result.removeAll(actionsToHide)
+
+            return result.toList()
         }
 
         fun getFileListActionsToHide(checkedFiles: Set<OCFile>): List<Int> {
-            val result = mutableListOf<Int>()
+            val result = mutableSetOf<Int>()
 
             if (checkedFiles.any { it.isOfflineOperation }) {
-                result.addAll(listOf(
-                    R.id.action_favorite,
-                    R.id.action_move_or_copy,
-                    R.id.action_sync_file,
-                    R.id.action_encrypted,
-                    R.id.action_unset_encrypted,
-                    R.id.action_edit,
-                    R.id.action_download_file,
-                    R.id.action_export_file,
-                    R.id.action_set_as_wallpaper
-                ))
+                result.addAll(
+                    listOf(
+                        R.id.action_favorite,
+                        R.id.action_move_or_copy,
+                        R.id.action_sync_file,
+                        R.id.action_encrypted,
+                        R.id.action_unset_encrypted,
+                        R.id.action_edit,
+                        R.id.action_download_file,
+                        R.id.action_export_file,
+                        R.id.action_set_as_wallpaper
+                    )
+                )
             }
 
             if (checkedFiles.any { it.isAPKorAAB }) {
-                result.addAll(listOf(
-                    R.id.action_send_share_file,
-                    R.id.action_export_file,
-                    R.id.action_sync_file,
-                    R.id.action_download_file
-                ))
+                result.addAll(
+                    listOf(
+                        R.id.action_send_share_file,
+                        R.id.action_export_file,
+                        R.id.action_sync_file,
+                        R.id.action_download_file
+                    )
+                )
+            }
+
+            val actionsToHide = getActionsToHide(checkedFiles)
+            result.addAll(actionsToHide)
+
+            return result.toList()
+        }
+
+        fun getActionsToHide(files: Set<OCFile?>): List<Int> {
+            if (files.isEmpty()) {
+                return listOf()
+            }
+
+            val result = arrayListOf<Int>()
+
+            if (files.any { it?.isSharedWithMe == false } || files.any { it?.canReshare() == true }) {
+                result.add(R.id.action_send_share_file)
+            }
+
+            if (files.any { it?.canRename() == false }) {
+                result.add(R.id.action_rename_file)
+            }
+
+            if (files.any { it?.canMove() == false }) {
+                result.add(R.id.action_move_or_copy)
+            }
+
+            if (files.any { it?.canDelete() == false }) {
+                result.add(R.id.action_delete)
+            }
+
+            if (files.any { it?.canWrite() == false }) {
+                result.add(R.id.action_edit)
             }
 
             return result
