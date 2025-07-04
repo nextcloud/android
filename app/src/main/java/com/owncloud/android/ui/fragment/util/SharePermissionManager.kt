@@ -10,9 +10,6 @@ package com.owncloud.android.ui.fragment.util
 import com.owncloud.android.datamodel.quickPermission.QuickPermissionType
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.lib.resources.shares.OCShare
-import com.owncloud.android.lib.resources.shares.attributes.ShareAttributes
-import com.owncloud.android.lib.resources.shares.attributes.ShareAttributesJsonHandler
-import com.owncloud.android.lib.resources.shares.attributes.getDownloadAttribute
 import com.owncloud.android.ui.fragment.FileDetailsSharingProcessFragment.Companion.TAG
 
 object SharePermissionManager {
@@ -63,33 +60,6 @@ object SharePermissionManager {
         }
 
         return true
-    }
-    // endregion
-
-    // region DownloadAttribute
-    fun toggleAllowDownloadAndSync(isChecked: Boolean, share: OCShare?): String? {
-        val shareAttributes = getShareAttributes(share)?.toMutableList()
-        if (shareAttributes == null) {
-            val downloadAttribute = ShareAttributes.createDownloadAttributes(isChecked)
-            val updatedShareAttributes = listOf(downloadAttribute)
-            return ShareAttributesJsonHandler.toJson(updatedShareAttributes)
-        }
-
-        val downloadAttributeIndex = shareAttributes.indexOf(shareAttributes.getDownloadAttribute())
-        if (downloadAttributeIndex >= 0) {
-            val updatedAttribute = shareAttributes[downloadAttributeIndex].copy(value = isChecked)
-            shareAttributes[downloadAttributeIndex] = updatedAttribute
-        }
-
-        return ShareAttributesJsonHandler.toJson(shareAttributes)
-    }
-
-    fun isAllowDownloadAndSyncEnabled(share: OCShare?): Boolean {
-        return getShareAttributes(share).getDownloadAttribute()?.value == true
-    }
-
-    private fun getShareAttributes(share: OCShare?): List<ShareAttributes>? {
-        return share?.attributes?.let { ShareAttributesJsonHandler.toList(it) }
     }
     // endregion
 
