@@ -55,7 +55,7 @@ if [ $TYPE = "IT" ]; then
 elif [ $TYPE = "Unit" ]; then
     FOLDER=app/build/reports/tests/testGplayDebugUnitTest
 else
-    FOLDER=app/build/reports/shot/gplay/debug/verification
+    FOLDER=app/build/reports/shot/generic/debug/verification
 fi
 
 if [ -e $FOLDER ]; then
@@ -80,10 +80,10 @@ else
         upload "app/build/reports/tests/testGplayDebugUnitTest"
     fi
 
-    if [ -e app/build/reports/shot/gplay/debug/verification ] ; then
+    if [ -e app/build/reports/shot/generic/debug/verification ] ; then
         TYPE="Screenshot"
         BRANCH_TYPE=$BRANCH-$TYPE
-        upload "app/build/reports/shot/gplay/debug/verification"
+        upload "app/build/reports/shot/generic/debug/verification"
     fi
 
     exit 1 # always fail
