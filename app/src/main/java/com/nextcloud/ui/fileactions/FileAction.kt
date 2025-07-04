@@ -102,8 +102,10 @@ enum class FileAction(
                 R.id.action_pin_to_homescreen
             )
 
-            val actionsToHide = getActionsToHide(setOf(file))
-            result.removeAll(actionsToHide)
+            if (file != null) {
+                val actionsToHide = getActionsToHide(setOf(file))
+                result.removeAll(actionsToHide)
+            }
 
             return result.toList()
         }
@@ -132,8 +134,10 @@ enum class FileAction(
                 result.add(R.id.action_export_file)
             }
 
-            val actionsToHide = getActionsToHide(setOf(file))
-            result.removeAll(actionsToHide)
+            if (file != null) {
+                val actionsToHide = getActionsToHide(setOf(file))
+                result.removeAll(actionsToHide)
+            }
 
             return result.toList()
         }
@@ -174,30 +178,33 @@ enum class FileAction(
             return result.toList()
         }
 
-        fun getActionsToHide(files: Set<OCFile?>): List<Int> {
-            if (files.isEmpty()) {
-                return listOf()
+        fun getActionsToHide(files: Set<OCFile>): List<Int> {
+            if (files.isEmpty()) return emptyList()
+
+            val result = mutableListOf<Int>()
+
+            /*
+             if (files.any { it?.isSharedWithMe == false } || files.any { it?.canReshare() == true }) {
+                result.add(R.id.action_send_share_file)
             }
-
-            val result = arrayListOf<Int>()
-
-            if (files.any { it?.isSharedWithMe == false } || files.any { it?.canReshare() == true }) {
+             */
+            if (files.any { !it.canReshare() }) {
                 result.add(R.id.action_send_share_file)
             }
 
-            if (files.any { it?.canRename() == false }) {
+            if (files.any { !it.canRename() }) {
                 result.add(R.id.action_rename_file)
             }
 
-            if (files.any { it?.canMove() == false }) {
+            if (files.any { !it.canMove() }) {
                 result.add(R.id.action_move_or_copy)
             }
 
-            if (files.any { it?.canDelete() == false }) {
-                result.add(R.id.action_delete)
+            if (files.any { !it.canDelete() }) {
+                result.add(R.id.action_remove_file)
             }
 
-            if (files.any { it?.canWrite() == false }) {
+            if (files.any { !it.canWrite() }) {
                 result.add(R.id.action_edit)
             }
 
