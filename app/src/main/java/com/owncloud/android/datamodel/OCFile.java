@@ -49,9 +49,15 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
     private final static String PERMISSION_SHARED_WITH_ME = "S";
     @VisibleForTesting
     public final static String PERMISSION_CAN_RESHARE = "R";
-    private final static String PERMISSION_CAN_WRITE = "CK";
-    private final static String PERMISSION_GROUPFOLDER = "M";
+    private final static String PERMISSION_CAN_CREATE_FILE_AND_FOLDER = "CK";
+    private final static String PERMISSION_GROUP_FOLDER = "M";
     private final static int MAX_FILE_SIZE_FOR_IMMEDIATE_PREVIEW_BYTES = 1024000;
+    private final static String PERMISSION_CAN_CREATE_FILE = "C";
+    private final static String PERMISSION_CAN_CREATE_FOLDER = "K";
+    private final static String PERMISSION_CAN_WRITE = "W";
+    private final static String PERMISSION_CAN_DELETE = "D";
+    private final static String PERMISSION_CAN_RENAME = "N";
+    private final static String PERMISSION_CAN_MOVE = "V";
 
     public static final String PATH_SEPARATOR = "/";
     public static final String ROOT_PATH = PATH_SEPARATOR;
@@ -629,23 +635,48 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
     }
 
     public boolean isSharedWithMe() {
-        String permissions = getPermissions();
-        return permissions != null && permissions.contains(PERMISSION_SHARED_WITH_ME);
+        return hasPermission(PERMISSION_SHARED_WITH_ME);
     }
 
     public boolean canReshare() {
-        String permissions = getPermissions();
-        return permissions != null && permissions.contains(PERMISSION_CAN_RESHARE);
+        return hasPermission(PERMISSION_CAN_RESHARE);
     }
 
-    public boolean canWrite() {
-        String permissions = getPermissions();
-        return permissions != null && permissions.contains(PERMISSION_CAN_WRITE);
+    public boolean canCreateFileAndFolder() {
+        return hasPermission(PERMISSION_CAN_CREATE_FILE_AND_FOLDER);
     }
 
     public boolean isGroupFolder() {
+        return hasPermission(PERMISSION_GROUP_FOLDER);
+    }
+
+    public boolean canCreateFile() {
+        return hasPermission(PERMISSION_CAN_CREATE_FILE);
+    }
+
+    public boolean canCreateFolder() {
+        return hasPermission(PERMISSION_CAN_CREATE_FOLDER);
+    }
+
+    public boolean canDelete() {
+        return !encrypted && hasPermission(PERMISSION_CAN_DELETE);
+    }
+
+    public boolean canRename() {
+        return hasPermission(PERMISSION_CAN_RENAME);
+    }
+
+    public boolean canWrite() {
+        return hasPermission(PERMISSION_CAN_WRITE);
+    }
+
+    public boolean canMove() {
+        return hasPermission(PERMISSION_CAN_MOVE);
+    }
+
+    private boolean hasPermission(String permission) {
         String permissions = getPermissions();
-        return permissions != null && permissions.contains(PERMISSION_GROUPFOLDER);
+        return permissions != null && permissions.contains(permission);
     }
 
     public Integer getFileOverlayIconId(boolean isAutoUploadFolder) {

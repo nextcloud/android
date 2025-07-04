@@ -786,7 +786,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
         viewThemeUtils.material.colorMaterialButtonPrimaryFilled(btnChooseFolder);
         btnChooseFolder.setOnClickListener(this);
 
-        btnChooseFolder.setEnabled(mFile.canWrite());
+        btnChooseFolder.setEnabled(mFile.canCreateFileAndFolder());
 
         viewThemeUtils.platform.themeStatusBar(this);
 
@@ -1061,7 +1061,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
 
         if (mFile != null) {
             MenuItem newFolderMenuItem = menu.findItem(R.id.action_create_dir);
-            newFolderMenuItem.setEnabled(mFile.canWrite());
+            newFolderMenuItem.setEnabled(mFile.canCreateFileAndFolder());
         }
 
         return true;
