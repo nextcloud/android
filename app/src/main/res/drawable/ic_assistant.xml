@@ -1,19 +1,16 @@
 <!--
   ~ Nextcloud - Android Client
   ~
-  ~ SPDX-FileCopyrightText: 2024 Alper Ozturk <alper.ozturk@nextcloud.com>
-  ~ SPDX-FileCopyrightText: 2024 Nextcloud GmbH
-  ~ SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
+  ~ SPDX-FileCopyrightText: 2018-2025 Google LLC
+  ~ SPDX-License-Identifier: Apache-2.0
 -->
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
-    android:width="1dp"
-    android:height="1dp"
+    android:width="24dp"
+    android:height="24dp"
     android:tint="#757575"
-    android:viewportWidth="24.0"
-    android:viewportHeight="24.0">
-  <path
-      android:pathData="M9,4.5a0.75,0.75 0,0 1,0.721 0.544l0.813,2.846a3.75,3.75 0,0 0,2.576 2.576l2.846,0.813a0.75,0.75 0,0 1,0 1.442l-2.846,0.813a3.75,3.75 0,0 0,-2.576 2.576l-0.813,2.846a0.75,0.75 0,0 1,-1.442 0l-0.813,-2.846a3.75,3.75 0,0 0,-2.576 -2.576l-2.846,-0.813a0.75,0.75 0,0 1,0 -1.442l2.846,-0.813A3.75,3.75 0,0 0,7.466 7.89l0.813,-2.846A0.75,0.75 0,0 1,9 4.5ZM18,1.5a0.75,0.75 0,0 1,0.728 0.568l0.258,1.036c0.236,0.94 0.97,1.674 1.91,1.91l1.036,0.258a0.75,0.75 0,0 1,0 1.456l-1.036,0.258c-0.94,0.236 -1.674,0.97 -1.91,1.91l-0.258,1.036a0.75,0.75 0,0 1,-1.456 0l-0.258,-1.036a2.625,2.625 0,0 0,-1.91 -1.91l-1.036,-0.258a0.75,0.75 0,0 1,0 -1.456l1.036,-0.258a2.625,2.625 0,0 0,1.91 -1.91l0.258,-1.036A0.75,0.75 0,0 1,18 1.5ZM16.5,15a0.75,0.75 0,0 1,0.712 0.513l0.394,1.183c0.15,0.447 0.5,0.799 0.948,0.948l1.183,0.395a0.75,0.75 0,0 1,0 1.422l-1.183,0.395c-0.447,0.15 -0.799,0.5 -0.948,0.948l-0.395,1.183a0.75,0.75 0,0 1,-1.422 0l-0.395,-1.183a1.5,1.5 0,0 0,-0.948 -0.948l-1.183,-0.395a0.75,0.75 0,0 1,0 -1.422l1.183,-0.395c0.447,-0.15 0.799,-0.5 0.948,-0.948l0.395,-1.183A0.75,0.75 0,0 1,16.5 15Z"
-      android:strokeWidth="0"
-      android:fillColor="#FF000000"
-      android:fillType="evenOdd"/>
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <path
+        android:fillColor="@android:color/white"
+        android:pathData="M19,9l1.25,-2.75L23,5l-2.75,-1.25L19,1l-1.25,2.75L15,5l2.75,1.25L19,9zM11.5,9.5L9,4 6.5,9.5 1,12l5.5,2.5L9,20l2.5,-5.5L17,12l-5.5,-2.5zM19,15l-1.25,2.75L15,19l2.75,1.25L19,23l1.25,-2.75L23,19l-2.75,-1.25L19,15z" />
 </vector>

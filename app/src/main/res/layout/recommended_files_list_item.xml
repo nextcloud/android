@@ -8,8 +8,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/container"
-    android:layout_width="@dimen/recommended_files_layout_width"
-    android:layout_height="wrap_content"
+    android:layout_width="@dimen/grid_container_width"
+    android:layout_height="@dimen/grid_container_height"
     android:layout_marginEnd="@dimen/standard_margin"
     android:orientation="vertical"
     android:gravity="start">
@@ -22,8 +22,8 @@
         <ImageView
             android:id="@+id/thumbnail"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/recommended_files_thumbnail_height"
-            android:padding="@dimen/standard_padding"
+            android:layout_height="@dimen/standard_list_item_size"
+            android:layout_marginBottom="@dimen/standard_quarter_margin"
             android:background="@drawable/rounded_rect_8dp"
             android:backgroundTint="@color/transparent"
             android:contentDescription="@string/preview_image_description"
@@ -40,8 +40,8 @@
             android:padding="@dimen/standard_eight_padding"
             android:layout_marginTop="@dimen/standard_half_margin"
             android:layout_marginEnd="@dimen/standard_half_margin"
-            android:layout_width="@dimen/activity_icon_radius"
-            android:layout_height="@dimen/activity_icon_radius"/>
+            android:layout_width="24dp"
+            android:layout_height="24dp"/>
 
         <com.elyeproj.loaderviewlibrary.LoaderImageView
             app:corners="24"
@@ -49,30 +49,28 @@
             android:padding="@dimen/standard_padding"
             android:layout_width="match_parent"
             android:src="@color/transparent"
-            android:layout_height="@dimen/recommended_files_thumbnail_height" />
+            android:layout_height="@dimen/standard_list_item_size" />
 
     </FrameLayout>
 
-
     <TextView
-        android:layout_marginTop="@dimen/standard_half_margin"
         android:id="@+id/name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="start|center"
-        android:textSize="14sp"
+        android:textSize="16sp"
         android:textColor="@color/text_color"
         android:ellipsize="end"
         android:maxLines="1"/>
 
     <TextView
-        android:layout_marginTop="@dimen/standard_half_margin"
+        android:layout_marginTop="@dimen/standard_eighth_margin"
         android:id="@+id/reason"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="start|center"
         android:textSize="12sp"
-        android:textColor="@color/secondary_text_color"
+        android:textColor="@color/list_item_lastmod_and_filesize_text"
         android:ellipsize="end"
         android:maxLines="1"/>
 

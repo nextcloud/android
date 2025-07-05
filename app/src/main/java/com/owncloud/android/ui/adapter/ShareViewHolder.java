@@ -150,7 +150,7 @@ class ShareViewHolder extends RecyclerView.ViewHolder {
     }
 
     private void setUserImage(ImageView avatar) {
-        ImageViewExtensionsKt.makeRoundedWithIcon(avatar, context, R.drawable.ic_user);
+        ImageViewExtensionsKt.makeRoundedWithIcon(avatar, context, R.drawable.ic_user_outline);
         viewThemeUtils.platform.colorImageViewBackgroundAndIcon(avatar);
     }
 }

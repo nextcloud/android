@@ -206,7 +206,7 @@ class BackupListAdapter(
                     )
                 )
             } catch (e: Resources.NotFoundException) {
-                holder.binding.icon.setImageResource(R.drawable.ic_user)
+                holder.binding.icon.setImageResource(R.drawable.ic_user_outline)
             }
         }
 
@@ -257,7 +257,7 @@ class BackupListAdapter(
                 context,
                 url,
                 target,
-                R.drawable.ic_user
+                R.drawable.ic_user_outline
             )
         }
     }

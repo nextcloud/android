@@ -76,7 +76,7 @@ class EtmViewModel @Inject constructor(
             pageClass = EtmPreferencesFragment::class
         ),
         EtmMenuEntry(
-            iconRes = R.drawable.ic_user,
+            iconRes = R.drawable.ic_user_outline,
             titleRes = R.string.etm_accounts,
             pageClass = EtmAccountsFragment::class
         ),
