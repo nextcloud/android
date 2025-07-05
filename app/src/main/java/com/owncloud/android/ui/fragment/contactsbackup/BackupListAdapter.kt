@@ -22,23 +22,28 @@ import android.widget.CheckedTextView
 import android.widget.ImageView
 import com.afollestad.sectionedrecyclerview.SectionedRecyclerViewAdapter
 import com.afollestad.sectionedrecyclerview.SectionedViewHolder
-import com.bumptech.glide.request.animation.GlideAnimation
-import com.bumptech.glide.request.target.SimpleTarget
+import com.bumptech.glide.request.target.CustomTarget
+import com.bumptech.glide.request.transition.Transition
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.network.ClientFactory
+import com.nextcloud.utils.GlideHelper
 import com.owncloud.android.R
 import com.owncloud.android.databinding.BackupListItemHeaderBinding
 import com.owncloud.android.databinding.CalendarlistListItemBinding
 import com.owncloud.android.databinding.ContactlistListItemBinding
 import com.owncloud.android.datamodel.OCFile
+import com.owncloud.android.lib.common.OwnCloudClientManagerFactory
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.ui.TextDrawable
 import com.owncloud.android.ui.fragment.contactsbackup.BackupListFragment.getDisplayName
 import com.owncloud.android.utils.BitmapUtils
-import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import ezvcard.VCard
 import ezvcard.property.Photo
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import third_parties.sufficientlysecure.AndroidCalendar
 
 @Suppress("LongParameterList", "TooManyFunctions")
@@ -240,25 +245,35 @@ class BackupListAdapter(
             )
             imageView.setImageDrawable(drawable)
         } else if (url != null) {
-            val target = object : SimpleTarget<Drawable>() {
-                override fun onResourceReady(resource: Drawable?, glideAnimation: GlideAnimation<in Drawable>?) {
+            val target = object : CustomTarget<Drawable>() {
+                override fun onResourceReady(resource: Drawable, transition: Transition<in Drawable>?) {
                     imageView.setImageDrawable(resource)
                 }
 
-                override fun onLoadFailed(e: java.lang.Exception?, errorDrawable: Drawable?) {
-                    super.onLoadFailed(e, errorDrawable)
+                override fun onLoadCleared(placeholder: Drawable?) {
+                    imageView.setImageDrawable(placeholder)
+                }
+
+                override fun onLoadFailed(errorDrawable: Drawable?) {
+                    super.onLoadFailed(errorDrawable)
                     imageView.setImageDrawable(errorDrawable)
                 }
             }
 
-            DisplayUtils.downloadIcon(
-                accountManager,
-                clientFactory,
-                context,
-                url,
-                target,
-                R.drawable.ic_user_outline
-            )
+            CoroutineScope(Dispatchers.IO).launch {
+                val client = OwnCloudClientManagerFactory.getDefaultSingleton()
+                    .getNextcloudClientFor(accountManager.currentOwnCloudAccount, context)
+
+                withContext(Dispatchers.Main) {
+                    GlideHelper.loadIntoTarget(
+                        context,
+                        client,
+                        url,
+                        target,
+                        R.drawable.ic_user_outline
+                    )
+                }
+            }
         }
     }
 

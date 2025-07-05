@@ -167,11 +167,10 @@ class ChooseRichDocumentsTemplateDialogFragment :
         binding.list.setHasFixedSize(true)
         binding.list.layoutManager = GridLayoutManager(activity, 2)
         adapter = RichDocumentsTemplateAdapter(
+            currentAccount,
             type,
             this,
             context,
-            currentAccount,
-            clientFactory,
             viewThemeUtils
         )
         binding.list.adapter = adapter

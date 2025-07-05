@@ -296,6 +296,10 @@ dependencies {
     androidTestImplementation libs.espresso.intents
     androidTestImplementation libs.espresso.idling.resource
 
+    // Glide
+    implementation libs.glide
+    ksp libs.ksp
+
     compileOnly "org.jbundle.util.osgi.wrapped:org.jbundle.util.osgi.wrapped.org.apache.http.client:4.1.2"
     // remove after entire switch to lib v2
     implementation "commons-httpclient:commons-httpclient:3.1@jar" // remove after entire switch to lib v2
@@ -326,9 +330,7 @@ dependencies {
     implementation "pl.droidsonroids.gif:android-gif-drawable:1.2.29"
     implementation "com.github.nextcloud-deps:qrcodescanner:0.1.2.4" // "com.github.blikoon:QRCodeScanner:0.1.2"
     implementation "com.google.android.flexbox:flexbox:3.0.0"
-    implementation("com.github.bumptech.glide:glide:3.8.0") {
-        exclude group: "com.android.support"
-    }
+
     implementation "com.caverock:androidsvg:1.4"
     implementation "androidx.annotation:annotation:1.9.1"
     implementation "com.vanniktech:emoji-google:0.21.0"
