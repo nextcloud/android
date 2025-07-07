@@ -49,7 +49,7 @@ public class UpdateSharePermissionsOperation extends SyncOperation {
     @Override
     protected RemoteOperationResult run(OwnCloudClient client) {
 
-        OCShare share = getStorageManager().getShareById(shareId); // ShareType.USER | ShareType.GROUP
+        OCShare share = getStorageManager().getShareById(shareId); // ShareType.USER | ShareType.GROUP | ShareType.FEDERATED_GROUP
 
         if (share == null) {
             // TODO try to get remote share before failing?
