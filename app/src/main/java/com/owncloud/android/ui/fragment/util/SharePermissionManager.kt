@@ -77,10 +77,13 @@ object SharePermissionManager {
             return false
         }
 
-        return share.permissions != OCShare.NO_PERMISSION && (share.permissions == OCShare.READ_PERMISSION_FLAG ||
-            share.permissions == OCShare.READ_PERMISSION_FLAG + OCShare.SHARE_PERMISSION_FLAG)
+        return share.permissions != OCShare.NO_PERMISSION && (
+            share.permissions == OCShare.READ_PERMISSION_FLAG ||
+                share.permissions == OCShare.READ_PERMISSION_FLAG + OCShare.SHARE_PERMISSION_FLAG
+            )
     }
 
+    @Suppress("ReturnCount")
     fun isFileRequest(share: OCShare?): Boolean {
         if (share == null) {
             return false
