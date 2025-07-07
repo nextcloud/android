@@ -84,10 +84,11 @@ internal class LinkShareViewHolder(itemView: View) : RecyclerView.ViewHolder(ite
             } else {
                 val textRes = if (position == 0) R.string.share_link else R.string.share_link_with_label
                 val arg = if (position == 0) null else position.toString()
-                binding.name.text = if (position == 0)
+                binding.name.text = if (position == 0) {
                     context.getString(textRes)
-                else
+                } else {
                     context.getString(textRes, arg)
+                }
             }
         }
     }
@@ -138,7 +139,7 @@ internal class LinkShareViewHolder(itemView: View) : RecyclerView.ViewHolder(ite
     private fun setOnClickListeners(
         binding: FileDetailsShareLinkShareItemBinding?,
         listener: ShareeListAdapterListener,
-        publicShare: OCShare,
+        publicShare: OCShare
     ) {
         if (binding == null) {
             return
@@ -158,7 +159,7 @@ internal class LinkShareViewHolder(itemView: View) : RecyclerView.ViewHolder(ite
         binding: FileDetailsShareLinkShareItemBinding?,
         context: Context?,
         listener: ShareeListAdapterListener,
-        publicShare: OCShare,
+        publicShare: OCShare
     ) {
         if (binding == null || context == null) {
             return
