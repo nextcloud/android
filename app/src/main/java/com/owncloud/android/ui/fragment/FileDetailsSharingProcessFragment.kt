@@ -330,7 +330,7 @@ class FileDetailsSharingProcessFragment :
 
     private fun updateViewAccordingToFile() {
         file?.run {
-            if (isFolder == true) {
+            if (isFolder) {
                 updateViewForFolder()
             } else {
                 updateViewForFile()
