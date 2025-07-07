@@ -112,20 +112,9 @@ public class QuickSharingPermissionsBottomSheetDialog extends BottomSheetDialog 
      * Handle permission changed on click of selected permission
      */
     private void handlePermissionChanged(List<QuickPermission> quickPermissionList, int position) {
-        final var permissionName = quickPermissionList.get(position).getType().getText(getContext());
-        final var res = fileActivity.getResources();
-
-        int permissionFlag = 0;
-        if (permissionName.equalsIgnoreCase(res.getString(R.string.share_permission_can_edit)) || permissionName.equalsIgnoreCase(res.getString(R.string.link_share_editing))) {
-            permissionFlag = ocShare.isFolder() ? MAXIMUM_PERMISSIONS_FOR_FOLDER : MAXIMUM_PERMISSIONS_FOR_FILE;
-        } else if (permissionName.equalsIgnoreCase(res.getString(R.string.share_permission_view_only))) {
-            permissionFlag = READ_PERMISSION_FLAG;
-        } else if (permissionName.equalsIgnoreCase(res.getString(R.string.share_permission_file_request))) {
-            permissionFlag = CREATE_PERMISSION_FLAG + READ_PERMISSION_FLAG;
-        }
-
+        final var type = quickPermissionList.get(position).getType();
+        int permissionFlag = type.getPermissionFlag(ocShare.isFolder());
         actions.onQuickPermissionChanged(ocShare, permissionFlag);
-
         dismiss();
     }
 
@@ -135,7 +124,7 @@ public class QuickSharingPermissionsBottomSheetDialog extends BottomSheetDialog 
     private List<QuickPermission> getQuickPermissionList() {
         final var selectedType = SharePermissionManager.INSTANCE.getSelectedType(ocShare, encrypted);
         final var hasFileRequestPermission = OCShareExtensionsKt.hasFileRequestPermission(ocShare);
-        return QuickPermissionType.Companion.getAvailablePermissions(hasFileRequestPermission, selectedType);
+        return selectedType.getAvailablePermissions(hasFileRequestPermission);
     }
 
     @Override
