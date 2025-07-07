@@ -1267,11 +1267,11 @@
         <item quantity="other">%d ثانية</item>
     </plurals>
     <plurals name="share_download_limit_description">
-        <item quantity="zero">مازال %1$d تنزيل</item>
-        <item quantity="one">مازال%1$d تنزيل</item>
-        <item quantity="two">مازال %1$d تنزيل</item>
-        <item quantity="few">مازال %1$d تنزيلات</item>
-        <item quantity="many">مازال %1$d تنزيل</item>
-        <item quantity="other">مازال %1$d تنزيل</item>
+        <item quantity="zero">متبقي %1$d تنزيل</item>
+        <item quantity="one">متبقي %1$d تنزيل</item>
+        <item quantity="two">متبقي %1$d تنزيل</item>
+        <item quantity="few">متبقي %1$d تنزيلات</item>
+        <item quantity="many">متبقي %1$d تنزيل</item>
+        <item quantity="other">متبقي %1$d تنزيل</item>
     </plurals>
 </resources>
