@@ -102,27 +102,43 @@ open class CommunityActivity : DrawerActivity() {
     }
 
     private fun setOnClickListeners() {
-        listOf(
-            binding.communityBetaFdroid to R.string.fdroid_beta_link,
-            binding.communityReleaseCandidateFdroid to R.string.fdroid_link,
-            binding.communityReleaseCandidatePlaystore to R.string.play_store_register_beta,
-            binding.communityBetaApk to R.string.beta_apk_link
-        ).run {
-            forEach { pair ->
-                pair.first.setOnClickListener {
-                    DisplayUtils.startLinkIntent(this@CommunityActivity, pair.second)
-                }
-            }
+        binding.communityBetaFdroid.setOnClickListener {
+            DisplayUtils.startLinkIntent(
+                this,
+                R.string.fdroid_beta_link
+            )
+        }
+        binding.communityReleaseCandidateFdroid.setOnClickListener {
+            DisplayUtils.startLinkIntent(
+                this,
+                R.string.fdroid_link
+            )
+        }
+        binding.communityReleaseCandidatePlaystore.setOnClickListener {
+            DisplayUtils.startLinkIntent(
+                this,
+                R.string.play_store_register_beta
+            )
+        }
+        binding.communityBetaApk.setOnClickListener {
+            DisplayUtils.startLinkIntent(
+                this,
+                R.string.beta_apk_link
+            )
         }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            android.R.id.home -> {
-                if (isDrawerOpen) closeDrawer() else openDrawer()
-                true
+        var retval = true
+        if (item.itemId == android.R.id.home) {
+            if (isDrawerOpen) {
+                closeDrawer()
+            } else {
+                openDrawer()
             }
-            else -> super.onOptionsItemSelected(item)
+        } else {
+            retval = super.onOptionsItemSelected(item)
         }
+        return retval
     }
 }
