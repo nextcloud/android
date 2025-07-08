@@ -12,6 +12,7 @@ package com.owncloud.android.ui.activity
 import android.os.Bundle
 import android.text.method.LinkMovementMethod
 import android.view.MenuItem
+import androidx.activity.OnBackPressedCallback
 import com.nextcloud.utils.extensions.setHtmlContent
 import com.owncloud.android.R
 import com.owncloud.android.databinding.CommunityLayoutBinding
@@ -37,6 +38,21 @@ open class CommunityActivity : DrawerActivity() {
         setupContributeGithubView()
         setupReportButton()
         setOnClickListeners()
+        handleOnBackPressed()
+    }
+
+    private fun handleOnBackPressed() {
+        onBackPressedDispatcher.addCallback(
+            this,
+            onBackPressedCallback
+        )
+    }
+
+    private val onBackPressedCallback = object : OnBackPressedCallback(true) {
+        override fun handleOnBackPressed() {
+            menuItemId = R.id.nav_all_files
+            finish()
+        }
     }
 
     private fun setupContributeForumView() {
@@ -86,43 +102,27 @@ open class CommunityActivity : DrawerActivity() {
     }
 
     private fun setOnClickListeners() {
-        binding.communityBetaFdroid.setOnClickListener {
-            DisplayUtils.startLinkIntent(
-                this,
-                R.string.fdroid_beta_link
-            )
-        }
-        binding.communityReleaseCandidateFdroid.setOnClickListener {
-            DisplayUtils.startLinkIntent(
-                this,
-                R.string.fdroid_link
-            )
-        }
-        binding.communityReleaseCandidatePlaystore.setOnClickListener {
-            DisplayUtils.startLinkIntent(
-                this,
-                R.string.play_store_register_beta
-            )
-        }
-        binding.communityBetaApk.setOnClickListener {
-            DisplayUtils.startLinkIntent(
-                this,
-                R.string.beta_apk_link
-            )
+        listOf(
+            binding.communityBetaFdroid to R.string.fdroid_beta_link,
+            binding.communityReleaseCandidateFdroid to R.string.fdroid_link,
+            binding.communityReleaseCandidatePlaystore to R.string.play_store_register_beta,
+            binding.communityBetaApk to R.string.beta_apk_link
+        ).run {
+            forEach { pair ->
+                pair.first.setOnClickListener {
+                    DisplayUtils.startLinkIntent(this@CommunityActivity, pair.second)
+                }
+            }
         }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        var retval = true
-        if (item.itemId == android.R.id.home) {
-            if (isDrawerOpen) {
-                closeDrawer()
-            } else {
-                openDrawer()
+        return when (item.itemId) {
+            android.R.id.home -> {
+                if (isDrawerOpen) closeDrawer() else openDrawer()
+                true
             }
-        } else {
-            retval = super.onOptionsItemSelected(item)
+            else -> super.onOptionsItemSelected(item)
         }
-        return retval
     }
 }
