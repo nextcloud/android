@@ -47,7 +47,7 @@ apply plugin: "io.gitlab.arturbosch.detekt"
 apply plugin: "kotlin-allopen"
 
 allOpen {
-    annotation("com.nextcloud.client.OpenForTesting")
+    annotation("androidx.annotation.OpenForTesting")
 }
 
 // needed to make renovate run without shot, as shot requires Android SDK
