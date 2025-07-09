@@ -490,6 +490,7 @@ public class FileDetailActivitiesFragment extends Fragment implements
                 callback.onSuccess();
             } else {
                 callback.onError(R.string.error_comment_file);
+
             }
         }
     }
