@@ -416,7 +416,6 @@ public class UploadFileOperation extends SyncOperation {
         remoteParentPath = AutoRename.INSTANCE.rename(remoteParentPath, getCapabilities());
 
         OCFile parent = getStorageManager().getFileByPath(remoteParentPath);
-
         // in case of a fresh upload with subfolder, where parent does not exist yet
         if (parent == null && (mFolderUnlockToken == null || mFolderUnlockToken.isEmpty())) {
             // try to create folder
