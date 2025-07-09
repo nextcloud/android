@@ -30,6 +30,7 @@ import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.textview.MaterialTextView;
+import com.nextcloud.android.common.ui.theme.utils.ColorRole;
 import com.nextcloud.client.di.Injectable;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
@@ -105,6 +106,11 @@ public abstract class ToolbarActivity extends BaseActivity implements Injectable
         viewThemeUtils.material.colorToolbarOverflowIcon(mToolbar);
         viewThemeUtils.platform.themeStatusBar(this);
         viewThemeUtils.material.colorMaterialTextButton(mSwitchAccountButton);
+
+        viewThemeUtils.material.themeSearchCardView(mHomeSearchToolbar);
+        viewThemeUtils.material.colorMaterialButtonContent(mMenuButton, ColorRole.ON_SURFACE);
+        viewThemeUtils.material.colorMaterialButtonContent(mNotificationButton, ColorRole.ON_SURFACE);
+        viewThemeUtils.platform.colorTextView(mSearchText, ColorRole.ON_SURFACE_VARIANT);
     }
 
     public void setupToolbarShowOnlyMenuButtonAndTitle(String title, View.OnClickListener toggleDrawer) {
