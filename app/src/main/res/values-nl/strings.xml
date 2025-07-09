@@ -833,7 +833,7 @@
     <string name="share_read_permission">Lezen</string>
     <string name="share_remote_clarification">%1$s (extern)</string>
     <string name="share_room_clarification">%1$s (gesprek)</string>
-    <string name="share_search">Naam, Federated Cloud ID of e-mailadres…</string>
+    <string name="share_search">Naam, Federated Cloud-ID of e-mailadres…</string>
     <string name="share_search_internal">Voeg gebruikers en teams toe</string>
     <string name="share_send_new_email">Stuur nieuwe e-mail</string>
     <string name="share_send_note">Notitie voor ontvanger</string>
