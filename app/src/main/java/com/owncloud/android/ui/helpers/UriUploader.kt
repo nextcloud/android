@@ -76,10 +76,20 @@ class UriUploader(
                     .map { it as Uri }
                     .map { Pair(it, getRemotePathForUri(it)) }
 
-                val fileUris = uris
-                    .filter { it.first.scheme == ContentResolver.SCHEME_FILE }
-                fileUris.forEach {
-                    requestUpload(it.first.path, it.second)
+                val fileUris = uris.filter { it.first.scheme == ContentResolver.SCHEME_FILE }
+                if (fileUris.isNotEmpty()) {
+                    val localPaths = Array<String>(fileUris.size) { "" }
+                    val remotePaths = Array<String>(fileUris.size) { "" }
+
+                    for (i in 0..<fileUris.size) {
+                        val uri = fileUris[i]
+                        uri.first.path?.let { path ->
+                            localPaths[i] = path
+                            remotePaths[i] = uri.second
+                        }
+                    }
+
+                    requestUpload(localPaths, remotePaths)
                 }
 
                 val contentUrisNew = uris
@@ -118,14 +128,14 @@ class UriUploader(
      * This is considered as acceptable, since when a file is shared from another app to OC,
      * the usual workflow will go back to the original app.
      *
-     * @param localPath     Absolute path in the local file system to the file to upload.
-     * @param remotePath    Absolute path in the current OC account to set to the uploaded file.
+     * @param localPaths     Absolute paths in the local file system to the file to upload.
+     * @param remotePaths    Absolute paths in the current OC account to set to the uploaded file.
      */
-    private fun requestUpload(localPath: String?, remotePath: String) {
+    private fun requestUpload(localPaths: Array<String>, remotePaths: Array<String>) {
         FileUploadHelper.instance().uploadNewFiles(
             user,
-            arrayOf(localPath ?: ""),
-            arrayOf(remotePath),
+            localPaths,
+            remotePaths,
             mBehaviour,
             // do not create parent folder if not existent
             false,

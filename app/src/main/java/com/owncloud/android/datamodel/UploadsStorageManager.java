@@ -25,6 +25,8 @@ import android.os.RemoteException;
 
 import com.nextcloud.client.account.CurrentAccountProvider;
 import com.nextcloud.client.account.User;
+import com.nextcloud.client.database.NextcloudDatabase;
+import com.nextcloud.client.database.dao.UploadDao;
 import com.nextcloud.client.jobs.upload.FileUploadHelper;
 import com.nextcloud.client.jobs.upload.FileUploadWorker;
 import com.nextcloud.utils.autoRename.AutoRename;
@@ -69,6 +71,7 @@ public class UploadsStorageManager extends Observable {
     private final ContentResolver contentResolver;
     private final CurrentAccountProvider currentAccountProvider;
     private OCCapability capability;
+    public final UploadDao uploadDao = NextcloudDatabase.getInstance(MainApp.getAppContext()).uploadDao();
 
     public UploadsStorageManager(
         CurrentAccountProvider currentAccountProvider,
@@ -494,28 +497,6 @@ public class UploadsStorageManager extends Observable {
             " ) AND " + ProviderTableMeta.UPLOADS_ACCOUNT_NAME + IS_EQUAL;
     }
 
-    public int getTotalUploadSize(@Nullable String... selectionArgs) {
-        final String selection = ProviderTableMeta.UPLOADS_STATUS + EQUAL + UploadStatus.UPLOAD_IN_PROGRESS.value +
-            AND + ProviderTableMeta.UPLOADS_ACCOUNT_NAME + IS_EQUAL;
-        int totalSize = 0;
-
-        Cursor cursor = getDB().query(
-            ProviderTableMeta.CONTENT_URI_UPLOADS,
-            new String[]{"COUNT(*) AS count"},
-            selection,
-            selectionArgs,
-            null);
-
-        if (cursor != null) {
-            if (cursor.moveToFirst()) {
-                totalSize = cursor.getInt(cursor.getColumnIndexOrThrow("count"));
-            }
-            cursor.close();
-        }
-
-        return totalSize;
-    }
-
     @NonNull
     private List<OCUpload> getUploadPage(long limit, final long afterId, final boolean descending, @Nullable String selection, @Nullable String... selectionArgs) {
         List<OCUpload> uploads = new ArrayList<>();
@@ -627,17 +608,12 @@ public class UploadsStorageManager extends Observable {
         return getUploads(inProgressUploadsSelection, accountName);
     }
 
-    public OCUpload[] getCurrentUploadsForAccount(final @NonNull String accountName) {
-        return getUploads(ProviderTableMeta.UPLOADS_STATUS + EQUAL + UploadStatus.UPLOAD_IN_PROGRESS.value + AND +
-                              ProviderTableMeta.UPLOADS_ACCOUNT_NAME + IS_EQUAL, accountName);
+    public long[] getCurrentUploadIds(final @NonNull String accountName) {
+        final var result = uploadDao.getAllIds(UploadStatus.UPLOAD_IN_PROGRESS.value, accountName);
+        return result.stream()
+            .mapToLong(Integer::longValue)
+            .toArray();
     }
-
-    public List<OCUpload> getCurrentUploadsForAccountPageAscById(final long afterId, final @NonNull String accountName) {
-        final String selection = ProviderTableMeta.UPLOADS_STATUS + EQUAL + UploadStatus.UPLOAD_IN_PROGRESS.value +
-            AND + ProviderTableMeta.UPLOADS_ACCOUNT_NAME + IS_EQUAL;
-        return getUploadPage(QUERY_PAGE_SIZE, afterId, false, selection, accountName);
-    }
-
 
     /**
      * Gets a page of uploads after <code>afterId</code>, where uploads are sorted by ascending upload id.
