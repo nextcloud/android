@@ -38,8 +38,6 @@ import com.owncloud.android.ui.adapter.GalleryAdapter;
 import com.owncloud.android.ui.asynctasks.GallerySearchTask;
 import com.owncloud.android.ui.events.ChangeMenuEvent;
 
-import org.jetbrains.annotations.NotNull;
-
 import javax.inject.Inject;
 
 import androidx.annotation.NonNull;
@@ -239,7 +237,7 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
     }
 
     @Override
-    public void onViewCreated(@NotNull View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         setupBackButtonRedirectToAllFiles();
     }
