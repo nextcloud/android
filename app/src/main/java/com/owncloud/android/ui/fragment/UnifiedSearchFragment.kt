@@ -8,6 +8,7 @@
 package com.owncloud.android.ui.fragment
 
 import android.Manifest
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -16,6 +17,9 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputMethodManager
+import android.widget.EditText
 import android.widget.ImageView
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.VisibleForTesting
@@ -180,6 +184,33 @@ class UnifiedSearchFragment :
             setOnQueryTextListener(this@UnifiedSearchFragment)
             isIconified = false
             clearFocus()
+            setSearchAction(this)
+        }
+    }
+
+    private fun setSearchAction(searchView: SearchView) {
+        val searchEditText = searchView.findViewById<EditText>(androidx.appcompat.R.id.search_src_text)
+        searchEditText.setOnEditorActionListener { v, actionId, _ ->
+            val isActionSearch = (actionId == EditorInfo.IME_ACTION_SEARCH)
+            if (isActionSearch) {
+                // Hide keyboard
+                (requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager).apply {
+                    hideSoftInputFromWindow(v.windowToken, 0)
+                }
+
+                // Disable cursor
+                searchEditText.run {
+                    isCursorVisible = false
+                    clearFocus()
+                    onQueryTextSubmit(text.toString())
+                }
+            }
+
+            isActionSearch
+        }
+
+        searchView.setOnQueryTextFocusChangeListener { _, hasFocus ->
+            searchEditText.isCursorVisible = hasFocus
         }
     }
 
