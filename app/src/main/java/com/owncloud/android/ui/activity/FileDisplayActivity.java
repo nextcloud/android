@@ -1235,11 +1235,14 @@ public class FileDisplayActivity extends FileActivity
         excludedMenuItemIds.add(R.id.nav_settings);
         excludedMenuItemIds.add(R.id.nav_assistant);
 
-        // FIXME: Media to All files app in background and foreground wrong toolbar type
-        // check fragment type and MainApp static booleans to fix it
+        boolean isSearchEventExists = false;
+        if (getLeftFragment() instanceof OCFileListFragment fileListFragment) {
+            isSearchEventExists = (fileListFragment.getSearchEvent() != null);
+        }
 
         if (!(getLeftFragment() instanceof GalleryFragment) &&
-            (menuItemId == R.id.nav_all_files ||
+            (!isSearchEventExists ||
+                menuItemId == R.id.nav_all_files ||
                 menuItemId == R.id.nav_personal_files ||
                 excludedMenuItemIds.contains(menuItemId))) {
             setupHomeSearchToolbarWithSortAndListButtons();

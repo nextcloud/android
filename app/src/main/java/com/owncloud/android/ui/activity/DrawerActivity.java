@@ -272,6 +272,7 @@ public abstract class DrawerActivity extends ToolbarActivity
             } else if (menuItemId == R.id.nav_assistant && !(this instanceof ComposeActivity)) {
                 startComposeActivity(ComposeDestination.AssistantScreen, R.string.assistant_screen_top_bar_title);
             } else if (menuItemId == R.id.nav_gallery) {
+                setupToolbar();
                 startPhotoSearch(menuItem.getItemId());
             }
 
@@ -589,6 +590,7 @@ public abstract class DrawerActivity extends ToolbarActivity
             setupToolbar();
             handleSearchEvents(new SearchEvent("", SearchRemoteOperation.SearchType.FAVORITE_SEARCH), menuItem.getItemId());
         } else if (itemId == R.id.nav_gallery) {
+            setupToolbar();
             startPhotoSearch(menuItem.getItemId());
         } else if (itemId == R.id.nav_on_device) {
             EventBus.getDefault().post(new ChangeMenuEvent());
