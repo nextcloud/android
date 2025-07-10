@@ -736,7 +736,8 @@ open class ExtendedListFragment :
         view?.requestFocus()
         view?.setOnKeyListener { _: View, keyCode: Int, event: KeyEvent ->
             if (activity is FileDisplayActivity &&
-                (event.action == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_BACK)) {
+                (event.action == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_BACK)
+            ) {
                 val fda = (activity as FileDisplayActivity)
                 fda.showAllFiles()
                 return@setOnKeyListener true
