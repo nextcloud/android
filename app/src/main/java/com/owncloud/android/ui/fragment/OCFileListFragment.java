@@ -2329,4 +2329,8 @@ public class OCFileListFragment extends ExtendedListFragment implements
         }
         return false;
     }
+
+    public SearchEvent getSearchEvent() {
+        return searchEvent;
+    }
 }
