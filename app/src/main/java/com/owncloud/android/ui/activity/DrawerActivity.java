@@ -271,6 +271,7 @@ public abstract class DrawerActivity extends ToolbarActivity
                 }
                 EventBus.getDefault().post(new ChangeMenuEvent());
             } else if (menuItemId == R.id.nav_favorites) {
+                setupToolbar();
                 handleSearchEvents(new SearchEvent("", SearchRemoteOperation.SearchType.FAVORITE_SEARCH), menuItemId);
             } else if (menuItemId == R.id.nav_assistant && !(this instanceof ComposeActivity)) {
                 startComposeActivity(ComposeDestination.AssistantScreen, R.string.assistant_screen_top_bar_title);
@@ -572,8 +573,8 @@ public abstract class DrawerActivity extends ToolbarActivity
 
             closeDrawer();
         } else if (itemId == R.id.nav_favorites) {
-            handleSearchEvents(new SearchEvent("", SearchRemoteOperation.SearchType.FAVORITE_SEARCH),
-                               menuItem.getItemId());
+            setupToolbar();
+            handleSearchEvents(new SearchEvent("", SearchRemoteOperation.SearchType.FAVORITE_SEARCH), menuItem.getItemId());
         } else if (itemId == R.id.nav_gallery) {
             startPhotoSearch(menuItem.getItemId());
         } else if (itemId == R.id.nav_on_device) {
