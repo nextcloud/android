@@ -24,6 +24,7 @@ import android.content.res.Configuration
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.DisplayMetrics
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuInflater
@@ -727,6 +728,20 @@ open class ExtendedListFragment :
                 it.setContentDescription(getString(R.string.action_switch_grid_view))
                 it.setIcon(ContextCompat.getDrawable(requireContext(), R.drawable.ic_view_module))
             }
+        }
+    }
+
+    protected fun setupBackButtonRedirectToAllFiles() {
+        view?.setFocusableInTouchMode(true)
+        view?.requestFocus()
+        view?.setOnKeyListener { _: View, keyCode: Int, event: KeyEvent ->
+            if (activity is FileDisplayActivity &&
+                (event.action == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_BACK)) {
+                val fda = (activity as FileDisplayActivity)
+                fda.showAllFiles()
+                return@setOnKeyListener true
+            }
+            false
         }
     }
 
