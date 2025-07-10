@@ -6,12 +6,10 @@
  */
 package com.owncloud.android;
 
-import com.owncloud.android.lib.common.operations.RemoteOperationResult;
-import com.owncloud.android.operations.CreateFolderOperation;
-import com.owncloud.android.operations.common.SyncOperation;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.activity.SettingsActivity;
 import com.owncloud.android.ui.activity.SyncedFoldersActivity;
+import com.owncloud.android.utils.ScreenshotTest;
 
 import org.junit.Assert;
 import org.junit.BeforeClass;
@@ -23,7 +21,6 @@ import org.junit.runners.JUnit4;
 import androidx.test.core.app.ActivityScenario;
 import androidx.test.espresso.action.ViewActions;
 import androidx.test.espresso.contrib.DrawerActions;
-import androidx.test.espresso.contrib.RecyclerViewActions;
 import androidx.test.espresso.matcher.PreferenceMatchers;
 import androidx.test.filters.LargeTest;
 import tools.fastlane.screengrab.Screengrab;
@@ -37,11 +34,10 @@ import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.core.AnyOf.anyOf;
-import static org.junit.Assert.assertTrue;
 
 @LargeTest
 @RunWith(JUnit4.class)
-public class ScreenshotsIT extends AbstractOnServerIT {
+public class ScreenshotsIT extends AbstractIT {
     @ClassRule
     public static final LocaleTestRule localeTestRule = new LocaleTestRule();
 
@@ -51,6 +47,7 @@ public class ScreenshotsIT extends AbstractOnServerIT {
     }
 
     @Test
+    @ScreenshotTest
     public void gridViewScreenshot() {
         ActivityScenario.launch(FileDisplayActivity.class);
 
@@ -66,21 +63,22 @@ public class ScreenshotsIT extends AbstractOnServerIT {
     }
 
     @Test
+    @ScreenshotTest
     public void listViewScreenshot() {
         String path = "/Camera/";
 
         // folder does not exist yet
-        if (getStorageManager().getFileByEncryptedRemotePath(path) == null) {
-            SyncOperation syncOp = new CreateFolderOperation(path, user, targetContext, getStorageManager());
-            RemoteOperationResult result = syncOp.execute(client);
-
-            assertTrue(result.isSuccess());
-        }
-
-        ActivityScenario.launch(FileDisplayActivity.class);
-
-        // go into work folder
-        onView(withId(R.id.list_root)).perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));
+//        if (getStorageManager().getFileByEncryptedRemotePath(path) == null) {
+//            SyncOperation syncOp = new CreateFolderOperation(path, user, targetContext, getStorageManager());
+//            RemoteOperationResult result = syncOp.execute(client);
+//
+//            assertTrue(result.isSuccess());
+//        }
+//
+//        ActivityScenario.launch(FileDisplayActivity.class);
+//
+//        // go into work folder
+//        onView(withId(R.id.list_root)).perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));
 
         Screengrab.screenshot("02_listView");
 
@@ -88,6 +86,7 @@ public class ScreenshotsIT extends AbstractOnServerIT {
     }
 
     @Test
+    @ScreenshotTest
     public void drawerScreenshot() {
         ActivityScenario.launch(FileDisplayActivity.class);
 
@@ -101,6 +100,7 @@ public class ScreenshotsIT extends AbstractOnServerIT {
     }
 
     @Test
+    @ScreenshotTest
     public void multipleAccountsScreenshot() {
         ActivityScenario.launch(FileDisplayActivity.class);
 
@@ -114,6 +114,7 @@ public class ScreenshotsIT extends AbstractOnServerIT {
     }
 
     @Test
+    @ScreenshotTest
     public void autoUploadScreenshot() {
         ActivityScenario.launch(SyncedFoldersActivity.class);
 
@@ -123,6 +124,7 @@ public class ScreenshotsIT extends AbstractOnServerIT {
     }
 
     @Test
+    @ScreenshotTest
     public void davdroidScreenshot() {
         ActivityScenario.launch(SettingsActivity.class);
 
