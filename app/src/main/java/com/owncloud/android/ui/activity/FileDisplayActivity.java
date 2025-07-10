@@ -500,7 +500,9 @@ public class FileDisplayActivity extends FileActivity
 
             listOfFiles.setArguments(args);
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            transaction.add(R.id.left_fragment_container, listOfFiles, TAG_LIST_OF_FILES);
+            transaction.replace(R.id.left_fragment_container, listOfFiles, TAG_LIST_OF_FILES);
+            transaction.setReorderingAllowed(true);
+            transaction.addToBackStack(null);
             transaction.commit();
         } else {
             getSupportFragmentManager().findFragmentByTag(TAG_LIST_OF_FILES);
@@ -514,7 +516,9 @@ public class FileDisplayActivity extends FileActivity
             args.putBoolean(OCFileListFragment.ARG_ALLOW_CONTEXTUAL_ACTIONS, true);
             listOfFiles.setArguments(args);
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            transaction.add(R.id.left_fragment_container, listOfFiles, TAG_LIST_OF_FILES);
+            transaction.replace(R.id.left_fragment_container, listOfFiles, TAG_LIST_OF_FILES);
+            transaction.setReorderingAllowed(true);
+            transaction.addToBackStack(null);
             transaction.commit();
         } else {
             getSupportFragmentManager().findFragmentByTag(TAG_LIST_OF_FILES);
@@ -645,8 +649,9 @@ public class FileDisplayActivity extends FileActivity
         FragmentManager fragmentManager = getSupportFragmentManager();
         if (ActivityExtensionsKt.isActive(this) && !fragmentManager.isDestroyed()) {
             FragmentTransaction transaction = fragmentManager.beginTransaction();
-            transaction.addToBackStack(null);
             transaction.replace(R.id.left_fragment_container, fragment, TAG_LIST_OF_FILES);
+            transaction.setReorderingAllowed(true);
+            transaction.addToBackStack(null);
             transaction.commit();
             callback.onComplete(true);
         } else {
