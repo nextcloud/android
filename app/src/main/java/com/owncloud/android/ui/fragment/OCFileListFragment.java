@@ -27,6 +27,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.util.Pair;
 import android.view.ActionMode;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -282,6 +283,24 @@ public class OCFileListFragment extends ExtendedListFragment implements
         }
 
         super.onResume();
+        onBackPressed();
+    }
+
+    private void onBackPressed() {
+        if (getView() == null) {
+            return;
+        }
+
+        getView().setFocusableInTouchMode(true);
+        getView().requestFocus();
+        getView().setOnKeyListener((v, keyCode, event) -> {
+            if (getActivity() instanceof FileDisplayActivity fda &&
+                (event.getAction() == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_BACK)) {
+                fda.showAllFiles();
+                return true;
+            }
+            return false;
+        });
     }
 
     /**

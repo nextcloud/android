@@ -1204,6 +1204,17 @@ public abstract class DrawerActivity extends ToolbarActivity
         startActivity(intent);
     }
 
+    public void showAllFiles() {
+        menuItemId = R.id.nav_all_files;
+        setNavigationViewItemChecked();
+        MainApp.showOnlyFilesOnDevice(false);
+        MainApp.showOnlyPersonalFiles(false);
+        Intent fileDisplayActivity = new Intent(getApplicationContext(), FileDisplayActivity.class);
+        fileDisplayActivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        fileDisplayActivity.setAction(FileDisplayActivity.ALL_FILES);
+        startActivity(fileDisplayActivity);
+    }
+
     @Override
     public void avatarGenerated(Drawable avatarDrawable, Object callContext) {
         if (callContext instanceof MenuItem menuItem) {
