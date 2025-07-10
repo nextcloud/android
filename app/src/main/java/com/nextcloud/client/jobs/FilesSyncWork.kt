@@ -185,6 +185,7 @@ class FilesSyncWork(
         Log_OC.d(TAG, "AutoUpload calculatedScanInterval: $calculatedScanInterval")
         Log_OC.d(TAG, "AutoUpload totalScanInterval: $totalScanInterval")
         Log_OC.d(TAG, "AutoUpload currentTime: $currentTime")
+        Log_OC.d(TAG, "AutoUpload passedScanInterval: $passedScanInterval")
 
         if (!passedScanInterval && changedFiles.isNullOrEmpty() && !overridePowerSaving) {
             Log_OC.w(
