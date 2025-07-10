@@ -175,10 +175,16 @@ class FilesSyncWork(
             return true
         }
 
-        val passedScanInterval = (
-            syncedFolder.lastScanTimestampMs +
-                FilesSyncHelper.calculateScanInterval(syncedFolder, connectivityService, powerManagementService)
-            ) <= System.currentTimeMillis()
+        val calculatedScanInterval =
+            FilesSyncHelper.calculateScanInterval(syncedFolder, connectivityService, powerManagementService)
+        val totalScanInterval = (syncedFolder.lastScanTimestampMs + calculatedScanInterval)
+        val currentTime = System.currentTimeMillis()
+        val passedScanInterval = totalScanInterval <= currentTime
+
+        Log_OC.w(TAG, "AutoUpload lastScanTimestampMs: " + syncedFolder.lastScanTimestampMs)
+        Log_OC.w(TAG, "AutoUpload calculatedScanInterval: $calculatedScanInterval")
+        Log_OC.w(TAG, "AutoUpload totalScanInterval: $totalScanInterval")
+        Log_OC.w(TAG, "AutoUpload currentTime: $currentTime")
 
         if (!passedScanInterval && changedFiles.isNullOrEmpty() && !overridePowerSaving) {
             Log_OC.w(
