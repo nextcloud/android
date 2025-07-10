@@ -13,7 +13,6 @@
  */
 package com.owncloud.android.ui.activity;
 
-import android.Manifest;
 import android.accounts.Account;
 import android.accounts.AuthenticatorException;
 import android.annotation.SuppressLint;
@@ -32,9 +31,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
-import android.os.Handler;
 import android.os.IBinder;
-import android.os.Looper;
 import android.os.Parcelable;
 import android.text.TextUtils;
 import android.view.Menu;
@@ -65,7 +62,6 @@ import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.client.utils.IntentUtil;
 import com.nextcloud.model.WorkerState;
 import com.nextcloud.model.WorkerStateLiveData;
-import com.nextcloud.utils.BuildHelper;
 import com.nextcloud.utils.extensions.ActivityExtensionsKt;
 import com.nextcloud.utils.extensions.BundleExtensionsKt;
 import com.nextcloud.utils.extensions.FileExtensionsKt;
@@ -76,9 +72,7 @@ import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.FilesBinding;
 import com.owncloud.android.datamodel.FileDataStorageManager;
-import com.owncloud.android.datamodel.MediaFolderType;
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.datamodel.SyncedFolder;
 import com.owncloud.android.datamodel.SyncedFolderProvider;
 import com.owncloud.android.datamodel.VirtualFolderType;
 import com.owncloud.android.files.services.NameCollisionPolicy;
@@ -124,6 +118,7 @@ import com.owncloud.android.ui.fragment.TaskRetainerFragment;
 import com.owncloud.android.ui.fragment.UnifiedSearchFragment;
 import com.owncloud.android.ui.helpers.FileOperationsHelper;
 import com.owncloud.android.ui.helpers.UriUploader;
+import com.owncloud.android.ui.interfaces.TransactionInterface;
 import com.owncloud.android.ui.preview.PreviewImageActivity;
 import com.owncloud.android.ui.preview.PreviewImageFragment;
 import com.owncloud.android.ui.preview.PreviewMediaActivity;
@@ -489,7 +484,7 @@ public class FileDisplayActivity extends FileActivity
                 // If request is cancelled, result arrays are empty.
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     // permission was granted
-                    getOCFileListFragmentFromFile().directCameraUpload();
+                    getOCFileListFragmentFromFile(OCFileListFragment::directCameraUpload);
                 }
                 break;
             default:
@@ -635,6 +630,11 @@ public class FileDisplayActivity extends FileActivity
     }
 
     private void setLeftFragment(Fragment fragment, boolean showSortListGroup) {
+        prepareFragmentBeforeCommit(showSortListGroup);
+        commitFragment(fragment, isFragmentCommitted -> Log_OC.d(TAG, "Left fragment committed: " + isFragmentCommitted));
+    }
+
+    private void prepareFragmentBeforeCommit(boolean showSortListGroup) {
         if (searchView != null) {
             searchView.post(() -> searchView.setQuery(searchQuery, true));
         }
@@ -644,51 +644,57 @@ public class FileDisplayActivity extends FileActivity
         clearToolbarSubtitle();
 
         showSortListGroup(showSortListGroup);
+    }
 
+    private void commitFragment(@NonNull Fragment fragment, CompletionCallback callback) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         if (ActivityExtensionsKt.isActive(this) && !fragmentManager.isDestroyed()) {
             FragmentTransaction transaction = fragmentManager.beginTransaction();
             transaction.addToBackStack(null);
             transaction.replace(R.id.left_fragment_container, fragment, TAG_LIST_OF_FILES);
             transaction.commit();
+            callback.onComplete(true);
+        } else {
+            callback.onComplete(false);
         }
     }
 
-    private OCFileListFragment getOCFileListFragmentFromFile() {
+    private void getOCFileListFragmentFromFile(TransactionInterface transaction) {
         final Fragment leftFragment = getLeftFragment();
-        OCFileListFragment listOfFiles;
 
-        if (leftFragment instanceof OCFileListFragment) {
-            listOfFiles = (OCFileListFragment) leftFragment;
-        } else {
-            listOfFiles = new OCFileListFragment();
-            Bundle args = new Bundle();
-            args.putBoolean(OCFileListFragment.ARG_ALLOW_CONTEXTUAL_ACTIONS, true);
-            listOfFiles.setArguments(args);
+        if (leftFragment instanceof OCFileListFragment result) {
+            transaction.onOCFileListFragmentComplete(result);
+            return;
+        }
 
+        OCFileListFragment listOfFiles = new OCFileListFragment();
+        Bundle args = new Bundle();
+        args.putBoolean(OCFileListFragment.ARG_ALLOW_CONTEXTUAL_ACTIONS, true);
+        listOfFiles.setArguments(args);
+
+        runOnUiThread(() -> {
             FragmentManager fm = getSupportFragmentManager();
-            boolean isExecutingTransactions = !fm.isStateSaved() && !fm.executePendingTransactions();
-
-            if (isExecutingTransactions) {
-                setLeftFragment(listOfFiles);
-                fm.executePendingTransactions();
-            } else {
-                new Handler(Looper.getMainLooper()).post(() -> {
-                    setLeftFragment(listOfFiles);
-                    fm.executePendingTransactions();
+            if (!fm.isStateSaved() && !fm.isDestroyed()) {
+                prepareFragmentBeforeCommit(true);
+                commitFragment(listOfFiles, isFragmentCommitted -> {
+                    if (isFragmentCommitted) {
+                        Log_OC.d(TAG, "OCFileListFragment committed, executing pending transaction");
+                        fm.executePendingTransactions();
+                        transaction.onOCFileListFragmentComplete(listOfFiles);
+                    } else {
+                        Log_OC.d(TAG, "OCFileListFragment not committed, skipping executing pending transaction");
+                    }
                 });
             }
-        }
-
-        return listOfFiles;
+        });
     }
-
 
     public void showFileActions(OCFile file) {
         dismissLoadingDialog();
-        OCFileListFragment listOfFiles = getOCFileListFragmentFromFile();
-        browseUp(listOfFiles);
-        listOfFiles.onOverflowIconClicked(file, null);
+        getOCFileListFragmentFromFile(listOfFiles -> {
+            browseUp(listOfFiles);
+            listOfFiles.onOverflowIconClicked(file, null);
+        });
     }
 
     public @Nullable Fragment getLeftFragment() {
@@ -2721,22 +2727,22 @@ public class FileDisplayActivity extends FileActivity
     public void showFile(OCFile selectedFile, String message) {
         dismissLoadingDialog();
 
-        OCFileListFragment listOfFiles = getOCFileListFragmentFromFile();
-
-        if (TextUtils.isEmpty(message)) {
-            OCFile temp = getFile();
-            setFile(getCurrentDir());
-            listOfFiles.listDirectory(getCurrentDir(), temp, MainApp.isOnlyOnDevice(), false);
-            updateActionBarTitleAndHomeButton(null);
-        } else {
-            final var view = listOfFiles.getView();
-            if (view != null) {
-                DisplayUtils.showSnackMessage(view, message);
+        getOCFileListFragmentFromFile(listOfFiles -> {
+            if (TextUtils.isEmpty(message)) {
+                OCFile temp = getFile();
+                setFile(getCurrentDir());
+                listOfFiles.listDirectory(getCurrentDir(), temp, MainApp.isOnlyOnDevice(), false);
+                updateActionBarTitleAndHomeButton(null);
+            } else {
+                final var view = listOfFiles.getView();
+                if (view != null) {
+                    DisplayUtils.showSnackMessage(view, message);
+                }
             }
-        }
 
-        if (selectedFile != null) {
-            listOfFiles.onItemClicked(selectedFile);
-        }
+            if (selectedFile != null) {
+                listOfFiles.onItemClicked(selectedFile);
+            }
+        });
     }
 }
