@@ -18,7 +18,7 @@ enum class Level(val tag: String) {
     ASSERT("A");
 
     fun getColor(): Int {
-        return when(this) {
+        return when (this) {
             UNKNOWN -> R.color.log_level_unknown
             VERBOSE -> R.color.log_level_verbose
             DEBUG -> R.color.log_level_debug
