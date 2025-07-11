@@ -8,18 +8,19 @@
 package com.owncloud.android.ui.adapter
 
 import android.content.Context
-import android.graphics.PorterDuff
-import android.graphics.drawable.Drawable
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.request.animation.GlideAnimation
-import com.bumptech.glide.request.target.SimpleTarget
 import com.nextcloud.android.lib.resources.dashboard.DashboardWidget
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.network.ClientFactory
 import com.nextcloud.client.widget.DashboardWidgetConfigurationInterface
+import com.nextcloud.utils.GlideHelper
 import com.owncloud.android.R
 import com.owncloud.android.databinding.WidgetListItemBinding
-import com.owncloud.android.utils.DisplayUtils
+import com.owncloud.android.lib.common.OwnCloudClientManagerFactory
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class WidgetListItemViewHolder(
     val binding: WidgetListItemBinding,
@@ -34,27 +35,21 @@ class WidgetListItemViewHolder(
     ) {
         binding.layout.setOnClickListener { dashboardWidgetConfigurationInterface.onItemClicked(dashboardWidget) }
 
-        val target = object : SimpleTarget<Drawable>() {
-            override fun onResourceReady(resource: Drawable?, glideAnimation: GlideAnimation<in Drawable>?) {
-                binding.icon.setImageDrawable(resource)
-                binding.icon.setColorFilter(context.getColor(R.color.dark), PorterDuff.Mode.SRC_ATOP)
-            }
+        CoroutineScope(Dispatchers.IO).launch {
+            val client = OwnCloudClientManagerFactory.getDefaultSingleton()
+                .getNextcloudClientFor(accountManager.currentOwnCloudAccount, context)
 
-            override fun onLoadFailed(e: java.lang.Exception?, errorDrawable: Drawable?) {
-                super.onLoadFailed(e, errorDrawable)
-                binding.icon.setImageDrawable(errorDrawable)
-                binding.icon.setColorFilter(context.getColor(R.color.dark), PorterDuff.Mode.SRC_ATOP)
+            withContext(Dispatchers.Main) {
+                GlideHelper.loadIntoImageView(
+                    context,
+                    client,
+                    dashboardWidget.iconUrl,
+                    binding.icon,
+                    R.drawable.ic_dashboard
+                )
             }
         }
 
-        DisplayUtils.downloadIcon(
-            accountManager,
-            clientFactory,
-            context,
-            dashboardWidget.iconUrl,
-            target,
-            R.drawable.ic_dashboard
-        )
         binding.name.text = dashboardWidget.title
     }
 }
