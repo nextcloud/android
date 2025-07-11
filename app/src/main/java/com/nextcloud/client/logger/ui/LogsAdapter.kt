@@ -29,7 +29,7 @@ class LogsAdapter(private val context: Context) : RecyclerView.Adapter<LogsAdapt
     var entries: List<LogEntry> = listOf()
         @SuppressLint("NotifyDataSetChanged")
         set(value) {
-            field = value.sortedByDescending { it.timestamp }
+            field = value.sortedBy { it.timestamp }
             notifyDataSetChanged()
         }
 
