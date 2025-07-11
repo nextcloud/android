@@ -488,7 +488,7 @@ public class FileMenuFilter {
     }
 
     private boolean isGroupFolder() {
-        return files.iterator().next().isGroupFolder();
+        return files.iterator().next().mounted();
     }
 
     private boolean hasEncryptedParent() {

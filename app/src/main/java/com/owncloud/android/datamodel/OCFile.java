@@ -46,11 +46,12 @@ import third_parties.daveKoeller.AlphanumComparator;
 public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterface {
 
     public final static String PERMISSION_CAN_RESHARE = "R";
-    private final static String PERMISSION_SHARED_WITH_ME = "S";
+    private final static String PERMISSION_SHARED = "S";
     private final static String PERMISSION_CAN_CREATE_FILE_AND_FOLDER = "CK";
-    private final static String PERMISSION_GROUP_FOLDER = "M";
-    private final static String PERMISSION_CAN_CREATE_FILE = "C";
-    private final static String PERMISSION_CAN_CREATE_FOLDER = "K";
+    private final static String PERMISSION_MOUNTED = "M";
+    private final static String PERMISSION_CAN_CREATE_FILE_INSIDE_FOLDER = "C";
+    private final static String PERMISSION_CAN_CREATE_FOLDER_INSIDE_FOLDER = "K";
+    private final static String PERMISSION_CAN_READ = "G";
     private final static String PERMISSION_CAN_WRITE = "W";
     private final static String PERMISSION_CAN_DELETE_OR_LEAVE_SHARE = "D";
     private final static String PERMISSION_CAN_RENAME = "N";
@@ -634,7 +635,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
     }
 
     public boolean isSharedWithMe() {
-        return hasPermission(PERMISSION_SHARED_WITH_ME);
+        return hasPermission(PERMISSION_SHARED);
     }
 
     public boolean canReshare() {
@@ -645,16 +646,20 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
         return hasPermission(PERMISSION_CAN_CREATE_FILE_AND_FOLDER);
     }
 
-    public boolean isGroupFolder() {
-        return hasPermission(PERMISSION_GROUP_FOLDER);
+    public boolean mounted() {
+        return hasPermission(PERMISSION_MOUNTED);
     }
 
-    public boolean canCreateFile() {
-        return hasPermission(PERMISSION_CAN_CREATE_FILE);
+    public boolean canRead() {
+        return hasPermission(PERMISSION_CAN_READ);
     }
 
-    public boolean canCreateFolder() {
-        return hasPermission(PERMISSION_CAN_CREATE_FOLDER);
+    public boolean canCreateFileInsideFolder() {
+        return hasPermission(PERMISSION_CAN_CREATE_FILE_INSIDE_FOLDER);
+    }
+
+    public boolean canCreateFolderInsideFolder() {
+        return hasPermission(PERMISSION_CAN_CREATE_FOLDER_INSIDE_FOLDER);
     }
 
     /**
@@ -690,7 +695,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
     }
 
     public Integer getFileOverlayIconId(boolean isAutoUploadFolder) {
-        if (WebdavEntry.MountType.GROUP == mountType || isGroupFolder()) {
+        if (WebdavEntry.MountType.GROUP == mountType || mounted()) {
             return R.drawable.ic_folder_overlay_account_group;
         } else if (sharedViaLink && !encrypted) {
             return R.drawable.ic_folder_overlay_link;
