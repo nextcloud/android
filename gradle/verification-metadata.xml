@@ -4,14 +4,14 @@
       <verify-metadata>true</verify-metadata>
       <verify-signatures>true</verify-signatures>
       <trusted-artifacts>
-          <trust group="com.github.bumptech.glide" version="4.16.0" reason=""/>
          <trust group="com.android.tools.build" name="aapt2" version="8.9.2-12782657" reason="ships OS specific artifacts (win/linux) - temp global trust"/>
          <trust group="com.fasterxml.jackson" name="jackson-base" version="2.14.2" reason="no keys available, no pom artifact to create a checksum"/>
+         <trust group="com.github.bumptech.glide" version="4.16.0" reason=""/>
          <trust file=".*-javadoc[.]jar" regex="true" reason="Android Studio downloads javadoc jars but doesn't add checksums - fixes building in AS"/>
          <trust file=".*-sources[.]jar" regex="true" reason="Android Studio downloads source jars but doesn't add checksums - fixes building in AS"/>
       </trusted-artifacts>
       <ignored-keys>
-          <ignored-key id="520410E2AF06FA82" reason="Key couldn't be downloaded from any key server"/>
+         <ignored-key id="520410E2AF06FA82" reason="Key couldn't be downloaded from any key server"/>
          <ignored-key id="A6EA2E2BF22E0543" reason="Key couldn't be downloaded from any key server"/>
          <ignored-key id="CA80D1F0EB6CA4BA" reason="Key couldn't be downloaded from any key server"/>
       </ignored-keys>
