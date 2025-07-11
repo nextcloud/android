@@ -285,12 +285,6 @@ class PreviewMediaActivity :
         binding.emptyView.emptyListView.visibility = View.GONE
     }
 
-    private fun hideProgressLayout() {
-        binding.progress.visibility = View.GONE
-        binding.audioControllerView.visibility = View.VISIBLE
-        binding.emptyView.emptyListView.visibility = View.VISIBLE
-    }
-
     private fun setErrorMessage(headline: String, @StringRes message: Int) {
         binding.emptyView.run {
             emptyListViewHeadline.text = headline
@@ -298,9 +292,10 @@ class PreviewMediaActivity :
             emptyListIcon.setImageResource(R.drawable.file_movie)
             emptyListViewText.visibility = View.VISIBLE
             emptyListIcon.visibility = View.VISIBLE
-
-            hideProgressLayout()
+            emptyListView.visibility = View.VISIBLE
         }
+
+        binding.progress.visibility = View.GONE
     }
 
     private fun setGenericThumbnail() {
@@ -435,7 +430,8 @@ class PreviewMediaActivity :
                 override fun onPlaybackStateChanged(playbackState: Int) {
                     super.onPlaybackStateChanged(playbackState)
                     if (playbackState == Player.STATE_READY) {
-                        hideProgressLayout()
+                        binding.progress.visibility = View.GONE
+                        binding.audioControllerView.visibility = View.VISIBLE
                         binding.emptyView.emptyListView.visibility = View.GONE
                     }
                 }
@@ -473,13 +469,6 @@ class PreviewMediaActivity :
             audioPlayer.seekTo(savedPlaybackPosition)
             audioPlayer.prepare()
         }
-    }
-
-    private fun releaseAudioPlayer() {
-        audioMediaController?.let { audioPlayer ->
-            audioPlayer.release()
-        }
-        audioMediaController = null
     }
 
     private fun initWindowInsetsController() {
