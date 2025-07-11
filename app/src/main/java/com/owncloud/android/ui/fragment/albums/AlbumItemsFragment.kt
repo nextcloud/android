@@ -9,6 +9,7 @@ package com.owncloud.android.ui.fragment.albums
 
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.content.ContentValues
 import android.content.Context
 import android.content.Intent
 import android.content.res.Configuration
@@ -55,6 +56,8 @@ import com.owncloud.android.databinding.ListFragmentBinding
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.datamodel.SyncedFolderProvider
 import com.owncloud.android.datamodel.ThumbnailsCacheManager
+import com.owncloud.android.datamodel.VirtualFolderType
+import com.owncloud.android.db.ProviderMeta
 import com.owncloud.android.lib.common.OwnCloudClient
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.lib.resources.albums.ReadAlbumItemsRemoteOperation
@@ -309,7 +312,10 @@ class AlbumItemsFragment : Fragment(), OCFileListFragmentInterface, Injectable {
             val ocFileList = mutableListOf<OCFile>()
 
             if (result?.isSuccess == true && result.resultData != null) {
-                for (remoteFile in result.getResultData()) {
+                mContainerActivity?.storageManager?.deleteVirtuals(VirtualFolderType.ALBUM)
+                val contentValues = mutableListOf<ContentValues>()
+
+                for (remoteFile in result.resultData) {
                     var ocFile = mContainerActivity?.storageManager?.getFileByLocalId(remoteFile.localId)
                     if (ocFile == null) {
                         ocFile = FileStorageUtils.fillOCFile(remoteFile)
@@ -320,7 +326,15 @@ class AlbumItemsFragment : Fragment(), OCFileListFragmentInterface, Injectable {
                         ocFile.decryptedRemotePath = remoteFile.remotePath
                     }
                     ocFileList.add(ocFile!!)
+
+                    val cv = ContentValues()
+                    cv.put(ProviderMeta.ProviderTableMeta.VIRTUAL_TYPE, VirtualFolderType.ALBUM.toString())
+                    cv.put(ProviderMeta.ProviderTableMeta.VIRTUAL_OCFILE_ID, ocFile.fileId)
+
+                    contentValues.add(cv)
                 }
+
+                mContainerActivity?.storageManager?.saveVirtuals(contentValues)
             }
             withContext(Dispatchers.Main) {
                 if (result?.isSuccess == true && result.resultData != null) {
@@ -482,7 +496,11 @@ class AlbumItemsFragment : Fragment(), OCFileListFragmentInterface, Injectable {
             toggleItemToCheckedList(file)
         } else {
             if (PreviewImageFragment.canBePreviewed(file)) {
-                (mContainerActivity as FileDisplayActivity).startImagePreview(file, !file.isDown)
+                (mContainerActivity as FileDisplayActivity).startImagePreview(
+                    file,
+                    VirtualFolderType.ALBUM,
+                    !file.isDown
+                )
             } else if (file.isDown) {
                 if (canBePreviewed(file)) {
                     (mContainerActivity as FileDisplayActivity).startMediaPreview(file, 0, true, true, false, true)
