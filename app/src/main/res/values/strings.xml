@@ -2,6 +2,7 @@
 <!--
   ~ Nextcloud - Android Client
   ~
+  ~ SPDX-FileCopyrightText: 2025 TSI-mc <surinder.kumar@t-systems.com>
   ~ SPDX-FileCopyrightText: 2016-2024 Nextcloud GmbH and Nextcloud contributors
   ~ SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
 -->
@@ -1348,4 +1349,23 @@
     <string name="sync_duplication">Sync duplication</string>
     <string name="server_not_reachable">Could not load content</string>
     <string name="server_not_reachable_content">The device is likely not connected to the internet</string>
+    <string name="drawer_item_album">Album</string>
+    <string name="create_album">Create album</string>
+    <string name="create_album_dialog_title">New album</string>
+    <string name="rename_album_dialog_title">Rename album</string>
+    <string name="create_album_dialog_message">Enter your new Album name</string>
+    <string name="album_name_empty">Album name cannot be empty</string>
+    <string name="hidden_album_name">Album name cannot start with invalid char</string>
+    <string name="add_more">Add more</string>
+    <string name="album_rename">Rename Album</string>
+    <string name="album_delete">Delete Album</string>
+    <string name="album_delete_failed_message">Failed to delete few of the files.</string>
+    <string name="album_items_text">%d Items — %s</string>
+    <string name="album_already_exists">Album already exists</string>
+    <string name="album_picker_toolbar_title">Pick Album</string>
+    <string name="media_picker_toolbar_title">Pick Media Files</string>
+    <string name="empty_albums_title">Create Albums for your Photos</string>
+    <string name="empty_albums_message">You can organize all your photos in as many albums as you like. You haven\'t created an album yet.</string>
+    <string name="add_to_album">Add to Album</string>
+    <string name="album_file_added_message">File added successfully</string>
 </resources>
