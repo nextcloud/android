@@ -134,10 +134,18 @@ public abstract class ToolbarActivity extends BaseActivity implements Injectable
     }
 
     public void setupToolbar() {
+        if (mHomeSearchToolbar != null && mDefaultToolbar != null && mHomeSearchToolbar.getVisibility() == View.GONE && mDefaultToolbar.getVisibility() == View.VISIBLE) {
+            return;
+        }
+
         setupToolbar(false, false);
     }
 
     public void setupHomeSearchToolbarWithSortAndListButtons() {
+        if (mHomeSearchToolbar != null && mDefaultToolbar != null && mHomeSearchToolbar.getVisibility() == View.VISIBLE && mDefaultToolbar.getVisibility() == View.GONE) {
+            return;
+        }
+
         setupToolbar(true, true);
     }
 
