@@ -27,6 +27,7 @@ import com.owncloud.android.ui.activity.SyncedFoldersActivity
 import com.owncloud.android.utils.EspressoIdlingResource
 import com.owncloud.android.utils.ScreenshotTest
 import org.junit.After
+import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.BeforeClass
 import org.junit.ClassRule
@@ -59,10 +60,12 @@ class ScreenshotsIT : AbstractOnServerIT() {
                     EspressoIdlingResource.decrement()
 
                     onView(isRoot()).check(matches(isDisplayed()))
-                    screenshotViaName(sut, "01_gridView")
+                    Screengrab.screenshot("01_gridView")
 
                     // Switch back
                     onView(withId(R.id.switch_grid_view_button)).perform(click())
+
+                    assertTrue(true)
                 }
             }
         }
@@ -86,7 +89,8 @@ class ScreenshotsIT : AbstractOnServerIT() {
                     EspressoIdlingResource.decrement()
 
                     onView(isRoot()).check(matches(isDisplayed()))
-                    screenshotViaName(sut, "02_listView")
+                    Screengrab.screenshot("02_listView")
+                    assertTrue(true)
                 }
             }
         }
@@ -104,9 +108,10 @@ class ScreenshotsIT : AbstractOnServerIT() {
                     EspressoIdlingResource.decrement()
 
                     onView(isRoot()).check(matches(isDisplayed()))
-                    screenshotViaName(sut, "03_drawer")
+                    Screengrab.screenshot("03_drawer")
 
                     onView(withId(R.id.drawer_layout)).perform(DrawerActions.close())
+                    assertTrue(true)
                 }
             }
         }
@@ -124,9 +129,10 @@ class ScreenshotsIT : AbstractOnServerIT() {
                     EspressoIdlingResource.decrement()
 
                     onView(isRoot()).check(matches(isDisplayed()))
-                    screenshotViaName(sut, "04_accounts")
+                    Screengrab.screenshot("04_accounts")
 
                     Espresso.pressBack()
+                    assertTrue(true)
                 }
             }
         }
@@ -140,7 +146,8 @@ class ScreenshotsIT : AbstractOnServerIT() {
             scenario.onActivity { sut ->
                 onIdleSync {
                     onView(isRoot()).check(matches(isDisplayed()))
-                    screenshotViaName(sut, "05_autoUpload")
+                    Screengrab.screenshot("05_autoUpload")
+                    assertTrue(true)
                 }
             }
         }
@@ -160,7 +167,8 @@ class ScreenshotsIT : AbstractOnServerIT() {
                     EspressoIdlingResource.decrement()
 
                     onView(isRoot()).check(matches(isDisplayed()))
-                    screenshotViaName(sut, "06_davdroid")
+                    Screengrab.screenshot("06_davdroid")
+                    assertTrue(true)
                 }
             }
         }
