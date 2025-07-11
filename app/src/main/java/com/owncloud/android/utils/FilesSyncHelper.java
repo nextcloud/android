@@ -118,11 +118,13 @@ public final class FilesSyncHelper {
                 public FileVisitResult visitFile(Path path, BasicFileAttributes attrs) {
                     File file = path.toFile();
                     if (syncedFolder.isExcludeHidden() && file.isHidden()) {
+                        Log_OC.w(TAG, "skipping files, exclude hidden file/folder: " + path);
                         // exclude hidden file or folder
                         return FileVisitResult.CONTINUE;
                     }
 
                     if (attrs.lastModifiedTime().toMillis() < lastCheck) {
+                        Log_OC.w(TAG, "skipping files that already checked: " + path);
                         // skip files that were already checked
                         return FileVisitResult.CONTINUE;
                     }
@@ -133,6 +135,8 @@ public final class FilesSyncHelper {
                         filesystemDataProvider.storeOrUpdateFileValue(path.toAbsolutePath().toString(),
                                                                       attrs.lastModifiedTime().toMillis(),
                                                                       file.isDirectory(), syncedFolder);
+                    } else {
+                        Log_OC.w(TAG, "skipping files. SynchedFolder not exists or enabledTimestampMs not meeting condition" + path);
                     }
 
                     return FileVisitResult.CONTINUE;
