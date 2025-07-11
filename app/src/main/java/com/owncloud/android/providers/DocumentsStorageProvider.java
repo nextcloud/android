@@ -158,6 +158,11 @@ public class DocumentsStorageProvider extends DocumentsProvider {
         Document parentFolder = toDocument(parentDocumentId);
         final FileCursor resultCursor = new FileCursor(projection);
 
+        if (!parentFolder.getFile().canRead()) {
+            Log_OC.w(TAG, "Cant query folder doesn't have read permission");
+            return resultCursor;
+        }
+
         if (parentFolder.getFile().isEncrypted() &&
             !FileOperationsHelper.isEndToEndEncryptionSetup(context, parentFolder.getUser())) {
             Toast.makeText(context, R.string.e2e_not_yet_setup, Toast.LENGTH_LONG).show();
@@ -166,9 +171,12 @@ public class DocumentsStorageProvider extends DocumentsProvider {
 
         FileDataStorageManager storageManager = parentFolder.getStorageManager();
 
-
         for (OCFile file : storageManager.getFolderContent(parentFolder.getFile(), false)) {
-            resultCursor.addFile(new Document(storageManager, file));
+            if (file.canRead()) {
+                resultCursor.addFile(new Document(storageManager, file));
+            } else {
+                Log_OC.w(TAG,"Skipping file, doesn't have read permission. RemotePath: " + file.getRemotePath());
+            }
         }
 
         boolean isLoading = false;
@@ -363,7 +371,12 @@ public class DocumentsStorageProvider extends DocumentsProvider {
         }
 
         Document document = toDocument(documentId);
-        RemoteOperationResult result = new RenameFileOperation(document.getRemotePath(),
+        if (!document.getFile().canRename()) {
+            Log_OC.w(TAG,"Cant rename, file doesn't have rename permission");
+            return null;
+        }
+
+        final var result = new RenameFileOperation(document.getRemotePath(),
                                                                displayName,
                                                                document.getStorageManager())
             .execute(document.getClient());
@@ -395,7 +408,7 @@ public class DocumentsStorageProvider extends DocumentsProvider {
 
         Document document = toDocument(sourceDocumentId);
         FileDataStorageManager storageManager = document.getStorageManager();
-        RemoteOperationResult result = new CopyFileOperation(document.getRemotePath(),
+        final var result = new CopyFileOperation(document.getRemotePath(),
                                                              targetFolder.getRemotePath(),
                                                              document.getStorageManager())
             .execute(document.getClient());
@@ -409,7 +422,7 @@ public class DocumentsStorageProvider extends DocumentsProvider {
         Context context = getNonNullContext();
         User user = document.getUser();
 
-        RemoteOperationResult updateParent = new RefreshFolderOperation(targetFolder.getFile(),
+        final var updateParent = new RefreshFolderOperation(targetFolder.getFile(),
                                                                         System.currentTimeMillis(),
                                                                         false,
                                                                         false,
@@ -452,7 +465,12 @@ public class DocumentsStorageProvider extends DocumentsProvider {
         }
 
         Document document = toDocument(sourceDocumentId);
-        RemoteOperationResult result = new MoveFileOperation(document.getRemotePath(),
+        if (!document.getFile().canMove()) {
+            Log_OC.w(TAG,"Cant move, file doesn't have move permission");
+            return null;
+        }
+
+        final var result = new MoveFileOperation(document.getRemotePath(),
                                                              targetFolder.getRemotePath(),
                                                              document.getStorageManager())
             .execute(document.getClient());
@@ -513,6 +531,10 @@ public class DocumentsStorageProvider extends DocumentsProvider {
         }
 
         Document folderDocument = toDocument(documentId);
+        if (!folderDocument.getFile().canCreateFileAndFolder()) {
+            Log_OC.w(TAG,"Cant create file and folder, folder doesn't have create permissions");
+            return null;
+        }
 
         if (DocumentsContract.Document.MIME_TYPE_DIR.equalsIgnoreCase(mimeType)) {
             return createFolder(folderDocument, displayName);
@@ -522,12 +544,16 @@ public class DocumentsStorageProvider extends DocumentsProvider {
     }
 
     private String createFolder(Document targetFolder, String displayName) throws FileNotFoundException {
+        if (!targetFolder.getFile().canCreateFileAndFolder()) {
+            Log_OC.w(TAG,"Cant create folder, folder doesn't have create permissions");
+            return null;
+        }
 
         Context context = getNonNullContext();
         String newDirPath = targetFolder.getRemotePath() + displayName + PATH_SEPARATOR;
         FileDataStorageManager storageManager = targetFolder.getStorageManager();
 
-        RemoteOperationResult result = new CreateFolderOperation(newDirPath,
+        final var result = new CreateFolderOperation(newDirPath,
                                                                  accountManager.getUser(),
                                                                  context,
                                                                  storageManager)
@@ -539,7 +565,7 @@ public class DocumentsStorageProvider extends DocumentsProvider {
                                                 displayName + " and documentId " + targetFolder.getDocumentId());
         }
 
-        RemoteOperationResult updateParent = new RefreshFolderOperation(targetFolder.getFile(), System.currentTimeMillis(),
+        final var updateParent = new RefreshFolderOperation(targetFolder.getFile(), System.currentTimeMillis(),
                                                                         false, false, true, storageManager,
                                                                         targetFolder.getUser(), context)
             .execute(targetFolder.getClient());
@@ -557,6 +583,10 @@ public class DocumentsStorageProvider extends DocumentsProvider {
     }
 
     private String createFile(Document targetFolder, String displayName, String mimeType) throws FileNotFoundException {
+        if (!targetFolder.getFile().canCreateFileAndFolder()) {
+            Log_OC.w(TAG,"Cant create file, folder doesn't have create permissions");
+            return null;
+        }
 
         User user = targetFolder.getUser();
 
@@ -587,7 +617,7 @@ public class DocumentsStorageProvider extends DocumentsProvider {
 
         // perform the upload, no need for chunked operation as we have a empty file
         OwnCloudClient client = targetFolder.getClient();
-        RemoteOperationResult result = new UploadFileRemoteOperation(emptyFile.getAbsolutePath(),
+        final var result = new UploadFileRemoteOperation(emptyFile.getAbsolutePath(),
                                                                      newFilePath,
                                                                      mimeType,
                                                                      "",
@@ -603,7 +633,7 @@ public class DocumentsStorageProvider extends DocumentsProvider {
 
         Context context = getNonNullContext();
 
-        RemoteOperationResult updateParent = new RefreshFolderOperation(targetFolder.getFile(),
+        final var updateParent = new RefreshFolderOperation(targetFolder.getFile(),
                                                                         System.currentTimeMillis(),
                                                                         false,
                                                                         false,
@@ -637,13 +667,18 @@ public class DocumentsStorageProvider extends DocumentsProvider {
         Context context = getNonNullContext();
 
         Document document = toDocument(documentId);
+        if (!document.getFile().canDeleteOrLeaveShare()) {
+            Log_OC.w(TAG,"Cant delete file, doesn't have delete permissions");
+            return;
+        }
+
         // get parent here, because it is not available anymore after the document was deleted
         Document parentFolder = document.getParent();
 
         recursiveRevokePermission(document);
 
         OCFile file = document.getStorageManager().getFileByPath(document.getRemotePath());
-        RemoteOperationResult result = new RemoveFileOperation(file,
+        final var result = new RemoveFileOperation(file,
                                                                false,
                                                                document.getUser(),
                                                                true,
