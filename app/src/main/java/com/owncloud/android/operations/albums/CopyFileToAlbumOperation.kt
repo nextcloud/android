@@ -70,11 +70,6 @@ class CopyFileToAlbumOperation(
                 }
 
                 result = CopyFileToAlbumRemoteOperation(srcPath, targetPath).execute(client)
-
-                /** 3. local copy */
-                if (result.isSuccess) {
-                    storageManager.copyLocalFile(file, targetPath)
-                }
             }
         }
         return result
