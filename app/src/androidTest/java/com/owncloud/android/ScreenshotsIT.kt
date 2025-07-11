@@ -1,137 +1,180 @@
 /*
  * Nextcloud - Android Client
  *
- * SPDX-FileCopyrightText: 2018 Tobias Kaminsky <tobias@kaminsky.me>
- * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
+ * SPDX-FileCopyrightText: 2025 Alper Ozturk <alper.ozturk@nextcloud.com>
+ * SPDX-License-Identifier: AGPL-3.0-or-later
  */
-package com.owncloud.android;
+package com.owncloud.android
 
-import com.owncloud.android.lib.common.operations.RemoteOperationResult;
-import com.owncloud.android.operations.CreateFolderOperation;
-import com.owncloud.android.operations.common.SyncOperation;
-import com.owncloud.android.ui.activity.FileDisplayActivity;
-import com.owncloud.android.ui.activity.SettingsActivity;
-import com.owncloud.android.ui.activity.SyncedFoldersActivity;
+import android.content.Intent
+import androidx.annotation.UiThread
+import androidx.test.core.app.launchActivity
+import androidx.test.espresso.Espresso
+import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.IdlingRegistry
+import androidx.test.espresso.action.ViewActions.click
+import androidx.test.espresso.action.ViewActions.scrollTo
+import androidx.test.espresso.assertion.ViewAssertions.matches
+import androidx.test.espresso.contrib.DrawerActions
+import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
+import androidx.test.espresso.matcher.ViewMatchers.isRoot
+import androidx.test.espresso.matcher.ViewMatchers.withId
+import androidx.test.espresso.matcher.ViewMatchers.withText
+import com.owncloud.android.lib.resources.files.CreateFolderRemoteOperation
+import com.owncloud.android.ui.activity.FileDisplayActivity
+import com.owncloud.android.ui.activity.SettingsActivity
+import com.owncloud.android.ui.activity.SyncedFoldersActivity
+import com.owncloud.android.utils.EspressoIdlingResource
+import com.owncloud.android.utils.ScreenshotTest
+import org.junit.After
+import org.junit.Before
+import org.junit.BeforeClass
+import org.junit.ClassRule
+import org.junit.Test
+import tools.fastlane.screengrab.Screengrab
+import tools.fastlane.screengrab.UiAutomatorScreenshotStrategy
+import tools.fastlane.screengrab.locale.LocaleTestRule
 
-import org.junit.Assert;
-import org.junit.BeforeClass;
-import org.junit.ClassRule;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
+class ScreenshotsIT : AbstractOnServerIT() {
 
-import androidx.test.core.app.ActivityScenario;
-import androidx.test.espresso.action.ViewActions;
-import androidx.test.espresso.contrib.DrawerActions;
-import androidx.test.espresso.contrib.RecyclerViewActions;
-import androidx.test.espresso.matcher.PreferenceMatchers;
-import androidx.test.filters.LargeTest;
-import tools.fastlane.screengrab.Screengrab;
-import tools.fastlane.screengrab.UiAutomatorScreenshotStrategy;
-import tools.fastlane.screengrab.locale.LocaleTestRule;
+    @Before
+    fun registerIdlingResource() {
+        IdlingRegistry.getInstance().register(EspressoIdlingResource.countingIdlingResource)
+    }
 
-import static androidx.test.espresso.Espresso.onData;
-import static androidx.test.espresso.Espresso.onView;
-import static androidx.test.espresso.Espresso.pressBack;
-import static androidx.test.espresso.action.ViewActions.click;
-import static androidx.test.espresso.matcher.ViewMatchers.withId;
-import static androidx.test.espresso.matcher.ViewMatchers.withText;
-import static org.hamcrest.core.AnyOf.anyOf;
-import static org.junit.Assert.assertTrue;
-
-@LargeTest
-@RunWith(JUnit4.class)
-public class ScreenshotsIT extends AbstractOnServerIT {
-    @ClassRule
-    public static final LocaleTestRule localeTestRule = new LocaleTestRule();
-
-    @BeforeClass
-    public static void beforeScreenshot() {
-        Screengrab.setDefaultScreenshotStrategy(new UiAutomatorScreenshotStrategy());
+    @After
+    fun unregisterIdlingResource() {
+        IdlingRegistry.getInstance().unregister(EspressoIdlingResource.countingIdlingResource)
     }
 
     @Test
-    public void gridViewScreenshot() {
-        ActivityScenario.launch(FileDisplayActivity.class);
+    @UiThread
+    @ScreenshotTest
+    fun gridViewScreenshot() {
+        launchActivity<FileDisplayActivity>().use { scenario ->
+            scenario.onActivity { sut ->
+                onIdleSync {
+                    EspressoIdlingResource.increment()
+                    onView(withId(R.id.switch_grid_view_button)).perform(click())
+                    EspressoIdlingResource.decrement()
 
-        onView(anyOf(withText(R.string.action_switch_grid_view), withId(R.id.switch_grid_view_button))).perform(click());
+                    onView(isRoot()).check(matches(isDisplayed()))
+                    screenshotViaName(sut, "01_gridView")
 
-        shortSleep();
-
-        Screengrab.screenshot("01_gridView");
-
-        onView(anyOf(withText(R.string.action_switch_list_view), withId(R.id.switch_grid_view_button))).perform(click());
-
-        Assert.assertTrue(true); // if we reach this, everything is ok
+                    // Switch back
+                    onView(withId(R.id.switch_grid_view_button)).perform(click())
+                }
+            }
+        }
     }
 
     @Test
-    public void listViewScreenshot() {
-        String path = "/Camera/";
-
-        // folder does not exist yet
-        if (getStorageManager().getFileByEncryptedRemotePath(path) == null) {
-            SyncOperation syncOp = new CreateFolderOperation(path, user, targetContext, getStorageManager());
-            RemoteOperationResult result = syncOp.execute(client);
-
-            assertTrue(result.isSuccess());
+    @UiThread
+    @ScreenshotTest
+    fun listViewScreenshot() {
+        val path = "/Camera/"
+        if (storageManager.getFileByEncryptedRemotePath(path) == null) {
+            val result = CreateFolderRemoteOperation(path, true).execute(client)
+            assert(result.isSuccess)
         }
 
-        ActivityScenario.launch(FileDisplayActivity.class);
+        launchActivity<FileDisplayActivity>().use { scenario ->
+            scenario.onActivity { sut ->
+                onIdleSync {
+                    EspressoIdlingResource.increment()
+                    onView(withId(R.id.list_root)).perform(click())
+                    EspressoIdlingResource.decrement()
 
-        // go into work folder
-        onView(withId(R.id.list_root)).perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));
-
-        Screengrab.screenshot("02_listView");
-
-        Assert.assertTrue(true); // if we reach this, everything is ok
+                    onView(isRoot()).check(matches(isDisplayed()))
+                    screenshotViaName(sut, "02_listView")
+                }
+            }
+        }
     }
 
     @Test
-    public void drawerScreenshot() {
-        ActivityScenario.launch(FileDisplayActivity.class);
+    @UiThread
+    @ScreenshotTest
+    fun drawerScreenshot() {
+        launchActivity<FileDisplayActivity>().use { scenario ->
+            scenario.onActivity { sut ->
+                onIdleSync {
+                    EspressoIdlingResource.increment()
+                    onView(withId(R.id.drawer_layout)).perform(DrawerActions.open())
+                    EspressoIdlingResource.decrement()
 
-        onView(withId(R.id.drawer_layout)).perform(DrawerActions.open());
+                    onView(isRoot()).check(matches(isDisplayed()))
+                    screenshotViaName(sut, "03_drawer")
 
-        Screengrab.screenshot("03_drawer");
-
-        onView(withId(R.id.drawer_layout)).perform(DrawerActions.close());
-
-        Assert.assertTrue(true); // if we reach this, everything is ok
+                    onView(withId(R.id.drawer_layout)).perform(DrawerActions.close())
+                }
+            }
+        }
     }
 
     @Test
-    public void multipleAccountsScreenshot() {
-        ActivityScenario.launch(FileDisplayActivity.class);
+    @UiThread
+    @ScreenshotTest
+    fun multipleAccountsScreenshot() {
+        launchActivity<FileDisplayActivity>().use { scenario ->
+            scenario.onActivity { sut ->
+                onIdleSync {
+                    EspressoIdlingResource.increment()
+                    onView(withId(R.id.switch_account_button)).perform(click())
+                    EspressoIdlingResource.decrement()
 
-        onView(withId(R.id.switch_account_button)).perform(click());
+                    onView(isRoot()).check(matches(isDisplayed()))
+                    screenshotViaName(sut, "04_accounts")
 
-        Screengrab.screenshot("04_accounts");
-
-        pressBack();
-
-        Assert.assertTrue(true); // if we reach this, everything is ok
+                    Espresso.pressBack()
+                }
+            }
+        }
     }
 
     @Test
-    public void autoUploadScreenshot() {
-        ActivityScenario.launch(SyncedFoldersActivity.class);
-
-        Screengrab.screenshot("05_autoUpload");
-
-        Assert.assertTrue(true); // if we reach this, everything is ok
+    @UiThread
+    @ScreenshotTest
+    fun autoUploadScreenshot() {
+        launchActivity<SyncedFoldersActivity>().use { scenario ->
+            scenario.onActivity { sut ->
+                onIdleSync {
+                    onView(isRoot()).check(matches(isDisplayed()))
+                    screenshotViaName(sut, "05_autoUpload")
+                }
+            }
+        }
     }
 
     @Test
-    public void davdroidScreenshot() {
-        ActivityScenario.launch(SettingsActivity.class);
+    @UiThread
+    @ScreenshotTest
+    fun davdroidScreenshot() {
+        val intent = Intent(targetContext, SettingsActivity::class.java)
 
-        onData(PreferenceMatchers.withTitle(R.string.prefs_category_more)).perform(ViewActions.scrollTo());
+        launchActivity<SettingsActivity>(intent).use { scenario ->
+            scenario.onActivity { sut ->
+                onIdleSync {
+                    EspressoIdlingResource.increment()
+                    onView(withText(R.string.prefs_category_more)).perform(scrollTo())
+                    EspressoIdlingResource.decrement()
 
-        shortSleep();
+                    onView(isRoot()).check(matches(isDisplayed()))
+                    screenshotViaName(sut, "06_davdroid")
+                }
+            }
+        }
+    }
 
-        Screengrab.screenshot("06_davdroid");
+    companion object {
+        @ClassRule
+        @JvmField
+        val localeTestRule: LocaleTestRule = LocaleTestRule()
 
-        Assert.assertTrue(true); // if we reach this, everything is ok
+        @BeforeClass
+        @JvmStatic
+        fun beforeScreenshot() {
+            Screengrab.setDefaultScreenshotStrategy(UiAutomatorScreenshotStrategy())
+        }
     }
 }
