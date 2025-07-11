@@ -37,7 +37,7 @@ class ContentObserverWork(
             checkAndStartFileSyncJob()
             backgroundJobManager.startMediaFoldersDetectionJob()
         } else {
-            Log_OC.w(TAG, "triggeredContentUris empty")
+            Log_OC.d(TAG, "triggeredContentUris empty")
         }
         recheduleSelf()
 
