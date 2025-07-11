@@ -234,9 +234,11 @@ public class UploadFileOperation extends SyncOperation {
         super(storageManager);
 
         if (upload == null) {
+            Log_OC.e(TAG, "UploadFileOperation upload is null cant construct");
             throw new IllegalArgumentException("Illegal NULL file in UploadFileOperation creation");
         }
         if (TextUtils.isEmpty(upload.getLocalPath())) {
+            Log_OC.e(TAG, "UploadFileOperation local path is null cant construct");
             throw new IllegalArgumentException(
                 "Illegal file in UploadFileOperation; storage path invalid: "
                     + upload.getLocalPath());
@@ -248,11 +250,11 @@ public class UploadFileOperation extends SyncOperation {
         this.user = user;
         mUpload = upload;
         if (file == null) {
+            Log_OC.w(TAG, "UploadFileOperation file is null, obtaining from upload");
             mFile = obtainNewOCFileToUpload(
                 upload.getRemotePath(),
                 upload.getLocalPath(),
-                upload.getMimeType()
-                                           );
+                upload.getMimeType());
         } else {
             mFile = file;
         }
@@ -511,12 +513,14 @@ public class UploadFileOperation extends SyncOperation {
             long lastModifiedTimestamp = e2eFiles.getOriginalFile().lastModified() / 1000;
             Long creationTimestamp = FileUtil.getCreationTimestamp(e2eFiles.getOriginalFile());
             if (creationTimestamp == null) {
+                Log_OC.e(TAG, "UploadFileOperation creationTimestamp cannot be null");
                 throw new NullPointerException("creationTimestamp cannot be null");
             }
 
             E2EData e2eData = getE2EData(object);
             e2eFiles.setEncryptedTempFile(e2eData.getEncryptedFile().getEncryptedFile());
             if (e2eFiles.getEncryptedTempFile() == null) {
+                Log_OC.e(TAG, "UploadFileOperation encryptedTempFile cannot be null");
                 throw new NullPointerException("encryptedTempFile cannot be null");
             }
 
@@ -535,12 +539,13 @@ public class UploadFileOperation extends SyncOperation {
                 updateMetadataForE2E(object, e2eData, clientData, e2eFiles, arbitraryDataProvider, encryptionUtilsV2, metadataExists);
             }
         } catch (FileNotFoundException e) {
-            Log_OC.d(TAG, mFile.getStoragePath() + " does not exist anymore");
+            Log_OC.e(TAG, mFile.getStoragePath() + " does not exist anymore");
             result = new RemoteOperationResult(ResultCode.LOCAL_FILE_NOT_FOUND);
         } catch (OverlappingFileLockException e) {
-            Log_OC.d(TAG, "Overlapping file lock exception");
+            Log_OC.e(TAG, "Overlapping file lock exception");
             result = new RemoteOperationResult(ResultCode.LOCK_FAILED);
         } catch (Exception e) {
+            Log_OC.e(TAG, "UploadFileOperation exception: " + e.getLocalizedMessage());
             result = new RemoteOperationResult(e);
         } finally {
             result = cleanupE2EUpload(fileLock, e2eFiles, result, object, client, token);

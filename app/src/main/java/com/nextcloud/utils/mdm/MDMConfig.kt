@@ -9,7 +9,6 @@ package com.nextcloud.utils.mdm
 
 import android.content.Context
 import android.content.RestrictionsManager
-import com.owncloud.android.BuildConfig
 import com.owncloud.android.R
 import com.owncloud.android.utils.appConfig.AppConfigKeys
 
@@ -108,7 +107,7 @@ object MDMConfig {
 
         val loggerEnabled = context.resources.getBoolean(R.bool.logger_enabled)
 
-        return loggerEnabled && !disableLogViaMDM && BuildConfig.DEBUG
+        return loggerEnabled && !disableLogViaMDM
     }
 
     fun getBaseUrl(context: Context): String = context.getRestriction(AppConfigKeys.BaseUrl, "")

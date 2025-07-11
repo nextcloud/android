@@ -6,18 +6,20 @@
  */
 package com.nextcloud.client.logger.ui
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.nextcloud.client.logger.LogEntry
 import com.owncloud.android.R
 import java.text.SimpleDateFormat
 import java.util.Locale
 
-class LogsAdapter(context: Context) : RecyclerView.Adapter<LogsAdapter.ViewHolder>() {
+class LogsAdapter(private val context: Context) : RecyclerView.Adapter<LogsAdapter.ViewHolder>() {
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val header = view.findViewById<TextView>(R.id.log_entry_list_item_header)
@@ -28,6 +30,7 @@ class LogsAdapter(context: Context) : RecyclerView.Adapter<LogsAdapter.ViewHolde
     private val inflater = LayoutInflater.from(context)
 
     var entries: List<LogEntry> = listOf()
+        @SuppressLint("NotifyDataSetChanged")
         set(value) {
             field = value
             notifyDataSetChanged()
@@ -42,7 +45,12 @@ class LogsAdapter(context: Context) : RecyclerView.Adapter<LogsAdapter.ViewHolde
         val reversedPosition = entries.size - position - 1
         val entry = entries[reversedPosition]
         val header = "${timestampFormat.format(entry.timestamp)} ${entry.level.tag} ${entry.tag}"
+        val entryColor = ContextCompat.getColor(context, entry.level.getColor())
+
+        holder.header.setTextColor(entryColor)
         holder.header.text = header
+
+        holder.message.setTextColor(entryColor)
         holder.message.text = entry.message
     }
 }

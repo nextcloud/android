@@ -97,6 +97,7 @@ class FileUploadWorker(
     @Suppress("TooGenericExceptionCaught")
     override fun doWork(): Result {
         return try {
+            Log_OC.d(TAG, "FileUploadWorker started")
             backgroundJobManager.logStartOfWorker(BackgroundJobManagerImpl.formatClassTag(this::class))
             val result = retrievePagesBySortingUploadsByID()
             backgroundJobManager.logEndOfWorker(BackgroundJobManagerImpl.formatClassTag(this::class), result)
@@ -135,7 +136,8 @@ class FileUploadWorker(
         var uploadsPerPage = uploadsStorageManager.getCurrentUploadsForAccountPageAscById(-1, accountName)
         val totalUploadSize = uploadsStorageManager.getTotalUploadSize(accountName)
 
-        Log_OC.d(TAG, "Total upload size: $totalUploadSize")
+        Log_OC.d(TAG, "FileUploadWorker:retrievePagesBySortingUploadsByID: $uploadsPerPage")
+        Log_OC.d(TAG, "FileUploadWorker:totalUploadSize: $totalUploadSize")
 
         while (uploadsPerPage.isNotEmpty() && !isStopped) {
             if (preferences.isGlobalUploadPaused) {
