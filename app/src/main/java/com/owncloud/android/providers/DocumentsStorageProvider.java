@@ -25,7 +25,6 @@ import android.os.Looper;
 import android.os.ParcelFileDescriptor;
 import android.provider.DocumentsContract;
 import android.provider.DocumentsProvider;
-import android.widget.Toast;
 
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
@@ -159,13 +158,13 @@ public class DocumentsStorageProvider extends DocumentsProvider {
         final FileCursor resultCursor = new FileCursor(projection);
 
         if (!parentFolder.getFile().canRead()) {
-            Log_OC.w(TAG, "Cant query folder doesn't have read permission");
+            showToast(R.string.document_storage_provider_cannot_read);
             return resultCursor;
         }
 
         if (parentFolder.getFile().isEncrypted() &&
             !FileOperationsHelper.isEndToEndEncryptionSetup(context, parentFolder.getUser())) {
-            Toast.makeText(context, R.string.e2e_not_yet_setup, Toast.LENGTH_LONG).show();
+            showToast(R.string.e2e_not_yet_setup);
             return resultCursor;
         }
 
@@ -225,13 +224,11 @@ public class DocumentsStorageProvider extends DocumentsProvider {
                 final AtomicBoolean downloadResult = new AtomicBoolean(false);
                 final Thread downloadThread = new Thread(() -> {
                     DownloadFileOperation downloadFileOperation = new DownloadFileOperation(user, ocFile, context);
-                    RemoteOperationResult result = downloadFileOperation.execute(document.getClient());
+                    final var result = downloadFileOperation.execute(document.getClient());
                     if (!result.isSuccess()) {
                         if (ocFile.isDown()) {
                             Handler handler = new Handler(Looper.getMainLooper());
-                            handler.post(() -> Toast.makeText(MainApp.getAppContext(),
-                                                              R.string.file_not_synced,
-                                                              Toast.LENGTH_SHORT).show());
+                            handler.post(() -> showToast(R.string.file_not_synced));
                             downloadResult.set(true);
                         } else {
                             Log_OC.e(TAG, result.toString());
@@ -366,13 +363,13 @@ public class DocumentsStorageProvider extends DocumentsProvider {
 
         String errorMessage = checkFileName(displayName);
         if (errorMessage != null) {
-            ContextExtensionsKt.showToast(getNonNullContext(), errorMessage);
+            showToast(errorMessage);
             return null;
         }
 
         Document document = toDocument(documentId);
         if (!document.getFile().canRename()) {
-            Log_OC.w(TAG,"Cant rename, file doesn't have rename permission");
+            showToast(R.string.document_storage_provider_cannot_rename);
             return null;
         }
 
@@ -402,7 +399,7 @@ public class DocumentsStorageProvider extends DocumentsProvider {
         String filename = targetFolder.getFile().getFileName();
         isFolderPathValid = checkFolderPath(filename);
         if (!isFolderPathValid) {
-            ContextExtensionsKt.showToast(getNonNullContext(), R.string.file_name_validator_error_contains_reserved_names_or_invalid_characters);
+            showToast(R.string.file_name_validator_error_contains_reserved_names_or_invalid_characters);
             return null;
         }
 
@@ -460,13 +457,13 @@ public class DocumentsStorageProvider extends DocumentsProvider {
         String filename = targetFolder.getFile().getFileName();
         isFolderPathValid = checkFolderPath(filename);
         if (!isFolderPathValid) {
-            ContextExtensionsKt.showToast(getNonNullContext(), R.string.file_name_validator_error_contains_reserved_names_or_invalid_characters);
+            showToast(R.string.file_name_validator_error_contains_reserved_names_or_invalid_characters);
             return null;
         }
 
         Document document = toDocument(sourceDocumentId);
         if (!document.getFile().canMove()) {
-            Log_OC.w(TAG,"Cant move, file doesn't have move permission");
+            showToast(R.string.document_storage_provider_cannot_move);
             return null;
         }
 
@@ -526,13 +523,13 @@ public class DocumentsStorageProvider extends DocumentsProvider {
 
         String errorMessage = checkFileName(displayName);
         if (errorMessage != null) {
-            ContextExtensionsKt.showToast(getNonNullContext(), errorMessage);
+            showToast(errorMessage);
             return null;
         }
 
         Document folderDocument = toDocument(documentId);
         if (!folderDocument.getFile().canCreateFileAndFolder()) {
-            Log_OC.w(TAG,"Cant create file and folder, folder doesn't have create permissions");
+            showToast(R.string.document_storage_provider_cannot_create_file_and_folder);
             return null;
         }
 
@@ -545,7 +542,7 @@ public class DocumentsStorageProvider extends DocumentsProvider {
 
     private String createFolder(Document targetFolder, String displayName) throws FileNotFoundException {
         if (!targetFolder.getFile().canCreateFileAndFolder()) {
-            Log_OC.w(TAG,"Cant create folder, folder doesn't have create permissions");
+            showToast(R.string.document_storage_provider_cannot_create_folder_inside_folder);
             return null;
         }
 
@@ -584,7 +581,7 @@ public class DocumentsStorageProvider extends DocumentsProvider {
 
     private String createFile(Document targetFolder, String displayName, String mimeType) throws FileNotFoundException {
         if (!targetFolder.getFile().canCreateFileAndFolder()) {
-            Log_OC.w(TAG,"Cant create file, folder doesn't have create permissions");
+            showToast(R.string.document_storage_provider_cannot_create_file_inside_folder);
             return null;
         }
 
@@ -668,7 +665,7 @@ public class DocumentsStorageProvider extends DocumentsProvider {
 
         Document document = toDocument(documentId);
         if (!document.getFile().canDeleteOrLeaveShare()) {
-            Log_OC.w(TAG,"Cant delete file, doesn't have delete permissions");
+            showToast(R.string.document_storage_provider_cannot_delete);
             return;
         }
 
@@ -919,5 +916,13 @@ public class DocumentsStorageProvider extends DocumentsProvider {
 
             return new Document(getStorageManager(), parentId);
         }
+    }
+
+    private void showToast(int messageId) {
+        ContextExtensionsKt.showToast(getNonNullContext(), messageId);
+    }
+
+    private void showToast(String message) {
+        ContextExtensionsKt.showToast(getNonNullContext(), message);
     }
 }
