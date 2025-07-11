@@ -66,29 +66,42 @@ public final class FilesSyncHelper {
     public static void walkFileTreeRandomly(Path start, FileVisitor<? super Path> visitor) throws IOException {
         File file = start.toFile();
         if (!file.canRead()) {
+            Log_OC.d(TAG, "walkFileTreeRandomly, cant read the file: " + file.getAbsolutePath());
             visitor.visitFileFailed(start, new AccessDeniedException(file.toString()));
         } else {
+            Log_OC.d(TAG, "walkFileTreeRandomly, reading file: " + file.getAbsolutePath());
+
             if (Files.isDirectory(start)) {
-                FileVisitResult preVisitDirectoryResult = visitor.preVisitDirectory(start, (BasicFileAttributes)null);
+                Log_OC.d(TAG, "walkFileTreeRandomly, file is directory: " + file.getAbsolutePath());
+
+                FileVisitResult preVisitDirectoryResult = visitor.preVisitDirectory(start, null);
                 if (preVisitDirectoryResult == FileVisitResult.CONTINUE) {
+                    Log_OC.d(TAG, "walkFileTreeRandomly, preVisitDirectoryResult == FileVisitResult.CONTINUE");
                     File[] children = start.toFile().listFiles();
                     if (children != null) {
+                        Log_OC.d(TAG, "walkFileTreeRandomly, children exists");
+
                         Collections.shuffle(Arrays.asList(children));
                         File[] var5 = children;
                         int var6 = children.length;
 
                         for(int var7 = 0; var7 < var6; ++var7) {
+                            Log_OC.d(TAG, "walkFileTreeRandomly -- recursive call");
                             File child = var5[var7];
                             walkFileTreeRandomly(FileBasedPathImpl.get(child), visitor);
                         }
 
-                        visitor.postVisitDirectory(start, (IOException)null);
+                        visitor.postVisitDirectory(start, null);
+                    } else {
+                        Log_OC.w(TAG, "walkFileTreeRandomly, children is null");
                     }
+                } else {
+                    Log_OC.w(TAG, "walkFileTreeRandomly, preVisitDirectoryResult != FileVisitResult.CONTINUE");
                 }
             } else {
+                Log_OC.d(TAG, "walkFileTreeRandomly, file is not directory");
                 visitor.visitFile(start, new BasicFileAttributes(file));
             }
-
         }
     }
 
@@ -96,11 +109,10 @@ public final class FilesSyncHelper {
                                                  SyncedFolder syncedFolder,
                                                  FilesystemDataProvider filesystemDataProvider,
                                                  long lastCheck) {
-
+        Log_OC.d(TAG, "insertCustomFolderIntoDB called");
         final long enabledTimestampMs = syncedFolder.getEnabledTimestampMs();
 
         try {
-
             walkFileTreeRandomly(path, new SimpleFileVisitor<>() {
                 @Override
                 public FileVisitResult visitFile(Path path, BasicFileAttributes attrs) {
@@ -129,6 +141,7 @@ public final class FilesSyncHelper {
                 @Override
                 public FileVisitResult preVisitDirectory(Path dir, BasicFileAttributes attrs) {
                     if (syncedFolder.isExcludeHidden() && dir.compareTo(Paths.get(syncedFolder.getLocalPath())) != 0 && dir.toFile().isHidden()) {
+                        Log_OC.d(TAG, "skipping hidden path: " + dir.getFileName());
                         return FileVisitResult.SKIP_SUBTREE;
                     }
                     return FileVisitResult.CONTINUE;
@@ -140,11 +153,13 @@ public final class FilesSyncHelper {
                 }
             });
         } catch (IOException e) {
-            Log_OC.e(TAG, "Something went wrong while indexing files for auto upload", e);
+            Log_OC.e(TAG, "Something went wrong while indexing files for auto upload: " + e.getLocalizedMessage());
         }
     }
 
     public static void insertAllDBEntriesForSyncedFolder(SyncedFolder syncedFolder) {
+        Log_OC.d(TAG, "insertAllDBEntriesForSyncedFolder, called. ID: " + syncedFolder.getId());
+
         final Context context = MainApp.getAppContext();
         final ContentResolver contentResolver = context.getContentResolver();
 
@@ -158,6 +173,7 @@ public final class FilesSyncHelper {
             long startTime = System.nanoTime();
 
             if (mediaType == MediaFolderType.IMAGE) {
+                Log_OC.d(TAG, "inserting IMAGE");
                 FilesSyncHelper.insertContentIntoDB(MediaStore.Images.Media.INTERNAL_CONTENT_URI,
                                                     syncedFolder,
                                                     lastCheckTimestampMs);
@@ -165,6 +181,7 @@ public final class FilesSyncHelper {
                                                     syncedFolder,
                                                     lastCheckTimestampMs);
             } else if (mediaType == MediaFolderType.VIDEO) {
+                Log_OC.d(TAG, "inserting VIDEO");
                 FilesSyncHelper.insertContentIntoDB(MediaStore.Video.Media.INTERNAL_CONTENT_URI,
                                                     syncedFolder,
                                                     lastCheckTimestampMs);
@@ -172,31 +189,49 @@ public final class FilesSyncHelper {
                                                     syncedFolder,
                                                     lastCheckTimestampMs);
             } else {
-                    FilesystemDataProvider filesystemDataProvider = new FilesystemDataProvider(contentResolver);
-                    Path path = Paths.get(syncedFolder.getLocalPath());
-                    FilesSyncHelper.insertCustomFolderIntoDB(path, syncedFolder, filesystemDataProvider, lastCheckTimestampMs);
+                Log_OC.d(TAG, "inserting other media types: " + mediaType.toString());
+                FilesystemDataProvider filesystemDataProvider = new FilesystemDataProvider(contentResolver);
+                Path path = Paths.get(syncedFolder.getLocalPath());
+                FilesSyncHelper.insertCustomFolderIntoDB(path, syncedFolder, filesystemDataProvider, lastCheckTimestampMs);
             }
 
             Log_OC.d(TAG,"File-sync finished full check for custom folder "+syncedFolder.getLocalPath()+" within "+(System.nanoTime() - startTime)+ "ns");
+        } else {
+            if (!syncedFolder.isEnabled()) {
+                Log_OC.w(TAG, "insertAllDBEntriesForSyncedFolder, syncedFolder not enabled");
+            }
+
+            if (!syncedFolder.isExisting()) {
+                Log_OC.w(TAG, "insertAllDBEntriesForSyncedFolder, syncedFolder is not exists");
+            }
+
+            Log_OC.w(TAG, "insertAllDBEntriesForSyncedFolder, enabledTimestampMs: " + enabledTimestampMs);
         }
     }
 
     public static void insertChangedEntries(SyncedFolder syncedFolder,
                                             String[] changedFiles) {
+        Log_OC.d(TAG, "insertChangedEntries, called. ID: " + syncedFolder.getId());
         final ContentResolver contentResolver = MainApp.getAppContext().getContentResolver();
         final FilesystemDataProvider filesystemDataProvider = new FilesystemDataProvider(contentResolver);
         for (String changedFileURI : changedFiles){
             String changedFile = getFileFromURI(changedFileURI);
             if (syncedFolder.containsTypedFile(changedFile)){
                 File file = new File(changedFile);
+                if (!file.exists()) {
+                    Log_OC.w(TAG, "syncedFolder contains not existing changed file: " + changedFile);
+                }
                 filesystemDataProvider.storeOrUpdateFileValue(changedFile,
                                                               file.lastModified(),file.isDirectory(),
                                                               syncedFolder);
+            } else {
+                Log_OC.w(TAG, "syncedFolder not contains typed file, changedFile: " + changedFile);
             }
         }
     }
 
     private static String getFileFromURI(String uri){
+        Log_OC.d(TAG, "getFileFromURI, URI: " + uri);
         final Context context = MainApp.getAppContext();
 
         Cursor cursor;
@@ -211,12 +246,15 @@ public final class FilesSyncHelper {
             column_index_data = cursor.getColumnIndexOrThrow(MediaStore.MediaColumns.DATA);
             filePath = cursor.getString(column_index_data);
             cursor.close();
+        } else {
+            Log_OC.e(TAG, "cant get file from URI");
         }
         return filePath;
     }
 
     private static void insertContentIntoDB(Uri uri, SyncedFolder syncedFolder,
                                             long lastCheckTimestampMs) {
+        Log_OC.d(TAG, "insertContentIntoDB, URI: " + uri + " syncedFolderID: " + syncedFolder.getId() + " lastCheckTimestampMs " + lastCheckTimestampMs);
         final Context context = MainApp.getAppContext();
         final ContentResolver contentResolver = context.getContentResolver();
 
@@ -233,6 +271,7 @@ public final class FilesSyncHelper {
 
         String path = syncedFolder.getLocalPath();
         if (!path.endsWith(PATH_SEPARATOR)) {
+            Log_OC.w(TAG, "path is not ending with: " + PATH_SEPARATOR);
             path = path + PATH_SEPARATOR;
         }
         path = path + "%";
@@ -251,6 +290,7 @@ public final class FilesSyncHelper {
 
                 if (syncedFolder.getLastScanTimestampMs() != SyncedFolder.NOT_SCANNED_YET &&
                     cursor.getLong(column_index_date_modified) < (lastCheckTimestampMs / 1000)) {
+                    Log_OC.w(TAG, "skipping contentPath");
                     continue;
                 }
 
@@ -260,9 +300,19 @@ public final class FilesSyncHelper {
                     filesystemDataProvider.storeOrUpdateFileValue(contentPath,
                                                                   cursor.getLong(column_index_date_modified), isFolder,
                                                                   syncedFolder);
+                } else {
+                    if (!syncedFolder.isExisting()) {
+                        Log_OC.w(TAG, "syncedFolder not exists");
+                    }
+
+                    if (cursor.getLong(column_index_date_modified) < enabledTimestampMs / 1000) {
+                        Log_OC.w(TAG, "column_index_date_modified not meeting condition");
+                    }
                 }
             }
             cursor.close();
+        } else {
+            Log_OC.w(TAG, "cursor is null ");
         }
     }
 
@@ -270,7 +320,7 @@ public final class FilesSyncHelper {
                                               final UserAccountManager accountManager,
                                               final ConnectivityService connectivityService,
                                               final PowerManagementService powerManagementService) {
-        
+        Log_OC.d(TAG, "restartUploadsIfNeeded, called");
         new Thread(() -> {
             FileUploadHelper.Companion.instance().retryFailedUploads(
                 uploadsStorageManager,
@@ -281,6 +331,7 @@ public final class FilesSyncHelper {
     }
 
     public static void scheduleFilesSyncForAllFoldersIfNeeded(Context context, SyncedFolderProvider syncedFolderProvider, BackgroundJobManager jobManager) {
+        Log_OC.d(TAG, "scheduleFilesSyncForAllFoldersIfNeeded, called");
         for (SyncedFolder syncedFolder : syncedFolderProvider.getSyncedFolders()) {
             if (syncedFolder.isEnabled()) {
                 jobManager.schedulePeriodicFilesSyncJob(syncedFolder.getId());
@@ -288,10 +339,13 @@ public final class FilesSyncHelper {
         }
         if (context != null) {
             jobManager.scheduleContentObserverJob();
+        } else {
+            Log_OC.w(TAG, "cant scheduleContentObserverJob, context is null");
         }
     }
 
     public static void startFilesSyncForAllFolders(SyncedFolderProvider syncedFolderProvider, BackgroundJobManager jobManager, boolean overridePowerSaving, String[] changedFiles) {
+        Log_OC.d(TAG, "startFilesSyncForAllFolders, called");
         for (SyncedFolder syncedFolder : syncedFolderProvider.getSyncedFolders()) {
             if (syncedFolder.isEnabled()) {
                 jobManager.startImmediateFilesSyncJob(syncedFolder.getId(),overridePowerSaving,changedFiles);
