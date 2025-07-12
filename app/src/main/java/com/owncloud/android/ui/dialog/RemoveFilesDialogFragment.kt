@@ -193,7 +193,13 @@ class RemoveFilesDialogFragment : ConfirmationDialogFragment(), ConfirmationDial
                     )
                 }
 
-                putInt(ARG_POSITIVE_BTN_RES, R.string.file_delete)
+                val positiveButtonTextId = if (files.any { it.isSharedWithMe }) {
+                    R.string.common_leave_this_share
+                } else {
+                    R.string.file_delete
+                }
+
+                putInt(ARG_POSITIVE_BTN_RES, positiveButtonTextId)
 
                 val isAnyFileOffline = files.any { it.isOfflineOperation }
                 if ((containsFolder || containsDown) && !isAnyFileOffline) {
