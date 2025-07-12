@@ -18,7 +18,7 @@ This document outlines the setup for Java and the Android SDK for agentic AI.
 
 *   Navigate to the [Android Studio download page](https://developer.android.com/studio).
 *   Locate the "Command Line Tools only" section and download the appropriate zip file for your operating system.
-*   Create a directory to hold the SDK (e.g., `C:\android-sdk` or `~/android-sdk`).
+*   Create a directory to hold the SDK (e.g., `~/android-sdk`).
 *   Extract the downloaded zip file into this directory, resulting in a structure like `android_sdk/cmdline-tools`.
 
 ### 2. Install SDK Components
