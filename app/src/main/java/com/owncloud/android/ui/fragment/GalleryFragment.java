@@ -237,6 +237,12 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
     }
 
     @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        setupBackButtonRedirectToAllFiles();
+    }
+
+    @Override
     public void onMessageEvent(ChangeMenuEvent changeMenuEvent) {
         super.onMessageEvent(changeMenuEvent);
     }

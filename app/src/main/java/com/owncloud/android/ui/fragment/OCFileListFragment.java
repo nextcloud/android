@@ -68,7 +68,6 @@ import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.SyncedFolderProvider;
-import com.owncloud.android.datamodel.VirtualFolderType;
 import com.owncloud.android.datamodel.e2e.v2.decrypted.DecryptedFolderMetadataFile;
 import com.owncloud.android.lib.common.Creator;
 import com.owncloud.android.lib.common.OwnCloudClient;
@@ -106,13 +105,11 @@ import com.owncloud.android.ui.helpers.FileOperationsHelper;
 import com.owncloud.android.ui.interfaces.OCFileListFragmentInterface;
 import com.owncloud.android.ui.preview.PreviewImageFragment;
 import com.owncloud.android.ui.preview.PreviewMediaActivity;
-import com.owncloud.android.ui.preview.PreviewTextFileFragment;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.EncryptionUtils;
 import com.owncloud.android.utils.EncryptionUtilsV2;
 import com.owncloud.android.utils.FileSortOrder;
 import com.owncloud.android.utils.FileStorageUtils;
-import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.PermissionUtil;
 import com.owncloud.android.utils.theme.ThemeUtils;
 
@@ -279,6 +276,12 @@ public class OCFileListFragment extends ExtendedListFragment implements
         }
 
         super.onResume();
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        setupBackButtonRedirectToAllFiles();
     }
 
     /**
