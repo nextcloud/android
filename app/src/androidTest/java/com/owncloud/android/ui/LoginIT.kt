@@ -45,14 +45,13 @@ class LoginIT : AbstractIT() {
         ActivityScenario.launch(AuthenticatorActivity::class.java)
     }
 
-    @Test
-    @Throws(InterruptedException::class)
-    @Suppress("MagicNumber", "SwallowedException")
-
     /**
      * The CI/CD pipeline is encountering issues related to the Android version for this functionality.
      * Therefore the test will only be executed on Android versions 10 and above.
      */
+    @Test
+    @Throws(InterruptedException::class)
+    @Suppress("MagicNumber", "SwallowedException")
     @SdkSuppress(minSdkVersion = Build.VERSION_CODES.Q)
     fun login() {
         val arguments = InstrumentationRegistry.getArguments()
@@ -71,7 +70,7 @@ class LoginIT : AbstractIT() {
             Web.onWebView()
                 .withElement(DriverAtoms.findElement(Locator.XPATH, "//form[@id='login-form']/input[@type='submit']"))
                 .perform(DriverAtoms.webClick())
-        } catch (e: RuntimeException) {
+        } catch (_: RuntimeException) {
             // NC < 25
             Web.onWebView()
                 .withElement(DriverAtoms.findElement(Locator.XPATH, "//p[@id='redirect-link']/a"))
@@ -94,7 +93,7 @@ class LoginIT : AbstractIT() {
             Web.onWebView()
                 .withElement(DriverAtoms.findElement(Locator.XPATH, "//button[@type='submit']"))
                 .perform(DriverAtoms.webClick())
-        } catch (e: RuntimeException) {
+        } catch (_: RuntimeException) {
             // NC < 25
             Web.onWebView()
                 .withElement(DriverAtoms.findElement(Locator.XPATH, "//input[@type='submit']"))

@@ -3,18 +3,21 @@
 
 [versions]
 espressoVersion = "3.6.1"
+glide = "4.16.0"
 media3 = "1.7.1"
 roomVersion = "2.7.2"
 splash-screen = "1.0.1"
 kotlin = "2.2.0"
 composeBom = "2025.06.01"
-spotbugsGradlePlugin = "6.2.1"
+spotbugsGradlePlugin = "6.2.2"
 detektGradlePlugin = "1.23.8"
 spotless = "6.25.0"
 ksp = "2.2.0-2.0.2"
 
 [libraries]
 # Splash Screen
+glide = { module = "com.github.bumptech.glide:glide", version.ref = "glide" }
+ksp = { module = "com.github.bumptech.glide:ksp", version.ref = "glide" }
 splashscreen = { module = "androidx.core:core-splashscreen", version.ref = "splash-screen" }
 
 # Jetpack Compose

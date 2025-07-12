@@ -296,7 +296,6 @@ class UnifiedSearchFragment :
             this,
             this,
             currentAccountProvider.user,
-            clientFactory,
             requireContext(),
             viewThemeUtils
         )

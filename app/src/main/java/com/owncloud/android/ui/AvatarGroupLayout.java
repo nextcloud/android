@@ -13,16 +13,14 @@ package com.owncloud.android.ui;
 
 import android.content.Context;
 import android.content.res.Resources;
-import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import com.nextcloud.client.account.User;
+import com.nextcloud.utils.GlideHelper;
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.shares.ShareeUser;
@@ -36,8 +34,6 @@ import androidx.annotation.Px;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.core.graphics.drawable.DrawableCompat;
-import androidx.core.graphics.drawable.RoundedBitmapDrawable;
-import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory;
 
 public class AvatarGroupLayout extends RelativeLayout implements DisplayUtils.AvatarGenerationListener {
     private static final String TAG = AvatarGroupLayout.class.getSimpleName();
@@ -165,19 +161,7 @@ public class AvatarGroupLayout extends RelativeLayout implements DisplayUtils.Av
         }
 
         avatar.setTag(null);
-        Glide.with(context).load(url)
-            .asBitmap()
-            .placeholder(placeholder)
-            .error(placeholder)
-            .into(new BitmapImageViewTarget(avatar) {
-                @Override
-                protected void setResource(Bitmap resource) {
-                    RoundedBitmapDrawable circularBitmapDrawable = RoundedBitmapDrawableFactory.create(resources,
-                                                                                                       resource);
-                    circularBitmapDrawable.setCircular(true);
-                    avatar.setImageDrawable(circularBitmapDrawable);
-                }
-            });
+        GlideHelper.INSTANCE.loadCircularBitmapIntoImageView(context, url, avatar, placeholder);
     }
 
     @Override
