@@ -17,11 +17,8 @@ import java.io.InputStream
  * Custom model for Nextcloud client
  */
 class GlideStringStreamLoader : ModelLoader<String, InputStream> {
-    override fun buildLoadData(url: String, width: Int, height: Int, options: Options): LoadData<InputStream> {
-        return LoadData<InputStream>(ObjectKey(url), GlideStringStreamFetcher(url))
-    }
+    override fun buildLoadData(url: String, width: Int, height: Int, options: Options): LoadData<InputStream> =
+        LoadData<InputStream>(ObjectKey(url), GlideStringStreamFetcher(url))
 
-    override fun handles(s: String): Boolean {
-        return true
-    }
+    override fun handles(s: String): Boolean = true
 }

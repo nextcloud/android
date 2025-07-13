@@ -411,8 +411,8 @@ class EncryptionUtilsV2IT : EncryptionIT() {
         assertTrue(true) // if we reach this, test is successful
     }
 
-    private fun generateDecryptedFileV1(): com.owncloud.android.datamodel.e2e.v1.decrypted.DecryptedFile {
-        return com.owncloud.android.datamodel.e2e.v1.decrypted.DecryptedFile().apply {
+    private fun generateDecryptedFileV1(): com.owncloud.android.datamodel.e2e.v1.decrypted.DecryptedFile =
+        com.owncloud.android.datamodel.e2e.v1.decrypted.DecryptedFile().apply {
             encrypted = Data().apply {
                 key = EncryptionUtils.generateKeyString()
                 filename = "Random filename.jpg"
@@ -422,7 +422,6 @@ class EncryptionUtilsV2IT : EncryptionIT() {
             initializationVector = EncryptionUtils.generateKeyString()
             authenticationTag = EncryptionUtils.generateKeyString()
         }
-    }
 
     @Test
     fun testMigrateDecryptedV1ToV2() {

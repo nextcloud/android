@@ -46,15 +46,11 @@ class DocumentScanViewModel @Inject constructor(
                 get() = pageList.isEmpty()
         }
 
-        class NormalState(
-            pageList: List<String> = emptyList(),
-            val shouldRequestScan: Boolean = false
-        ) : BaseState(pageList)
+        class NormalState(pageList: List<String> = emptyList(), val shouldRequestScan: Boolean = false) :
+            BaseState(pageList)
 
-        class RequestExportState(
-            pageList: List<String> = emptyList(),
-            val shouldRequestExportType: Boolean = true
-        ) : BaseState(pageList)
+        class RequestExportState(pageList: List<String> = emptyList(), val shouldRequestExportType: Boolean = true) :
+            BaseState(pageList)
 
         object DoneState : UIState
         object CanceledState : UIState

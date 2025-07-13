@@ -405,8 +405,8 @@ class SyncedFoldersActivity :
      * @param mediaFolder  the media folder object
      * @return the created SyncedFolderDisplayItem
      */
-    private fun createSyncedFolder(syncedFolder: SyncedFolder, mediaFolder: MediaFolder): SyncedFolderDisplayItem {
-        return SyncedFolderDisplayItem(
+    private fun createSyncedFolder(syncedFolder: SyncedFolder, mediaFolder: MediaFolder): SyncedFolderDisplayItem =
+        SyncedFolderDisplayItem(
             syncedFolder.id,
             syncedFolder.localPath,
             syncedFolder.remotePath,
@@ -428,7 +428,6 @@ class SyncedFoldersActivity :
             syncedFolder.isExcludeHidden,
             syncedFolder.lastScanTimestampMs
         )
-    }
 
     /**
      * creates a [SyncedFolderDisplayItem] based on a [MediaFolder] object instance.
@@ -436,8 +435,8 @@ class SyncedFoldersActivity :
      * @param mediaFolder the media folder object
      * @return the created SyncedFolderDisplayItem
      */
-    private fun createSyncedFolderFromMediaFolder(mediaFolder: MediaFolder): SyncedFolderDisplayItem {
-        return SyncedFolderDisplayItem(
+    private fun createSyncedFolderFromMediaFolder(mediaFolder: MediaFolder): SyncedFolderDisplayItem =
+        SyncedFolderDisplayItem(
             SyncedFolder.UNPERSISTED_ID,
             mediaFolder.absolutePath,
             getString(R.string.instant_upload_path) + "/" + mediaFolder.folderName,
@@ -459,11 +458,8 @@ class SyncedFoldersActivity :
             false,
             SyncedFolder.NOT_SCANNED_YET
         )
-    }
 
-    private fun getItemsDisplayedPerFolder(): Int {
-        return resources.getInteger(R.integer.media_grid_width) * 2
-    }
+    private fun getItemsDisplayedPerFolder(): Int = resources.getInteger(R.integer.media_grid_width) * 2
 
     private fun getDisplayFilePathList(files: List<File>?): List<String>? {
         if (!files.isNullOrEmpty()) {
@@ -642,7 +638,8 @@ class SyncedFoldersActivity :
     @Deprecated("Deprecated in Java")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == SyncedFolderPreferencesDialogFragment.REQUEST_CODE__SELECT_REMOTE_FOLDER &&
-            resultCode == RESULT_OK && dialogFragment != null
+            resultCode == RESULT_OK &&
+            dialogFragment != null
         ) {
             val chosenFolder: OCFile? = FolderPickerActivity.EXTRA_FOLDER?.let {
                 data?.getParcelableArgument(it, OCFile::class.java)
@@ -650,7 +647,8 @@ class SyncedFoldersActivity :
             dialogFragment?.setRemoteFolderSummary(chosenFolder?.remotePath)
         } else if (
             requestCode == SyncedFolderPreferencesDialogFragment.REQUEST_CODE__SELECT_LOCAL_FOLDER &&
-            resultCode == RESULT_OK && dialogFragment != null
+            resultCode == RESULT_OK &&
+            dialogFragment != null
         ) {
             val localPath = data!!.getStringExtra(UploadFilesActivity.EXTRA_CHOSEN_FILES)
             dialogFragment!!.setLocalFolderSummary(localPath)

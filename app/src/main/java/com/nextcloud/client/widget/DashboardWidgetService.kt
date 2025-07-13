@@ -47,15 +47,13 @@ class DashboardWidgetService : RemoteViewsService() {
         AndroidInjection.inject(this)
     }
 
-    override fun onGetViewFactory(intent: Intent): RemoteViewsFactory {
-        return StackRemoteViewsFactory(
-            this.applicationContext,
-            userAccountManager,
-            clientFactory,
-            intent,
-            widgetRepository
-        )
-    }
+    override fun onGetViewFactory(intent: Intent): RemoteViewsFactory = StackRemoteViewsFactory(
+        this.applicationContext,
+        userAccountManager,
+        clientFactory,
+        intent,
+        widgetRepository
+    )
 }
 
 class StackRemoteViewsFactory(
@@ -115,29 +113,24 @@ class StackRemoteViewsFactory(
         widgetItems = emptyList()
     }
 
-    override fun getCount(): Int {
-        return if (hasLoadMore && widgetItems.isNotEmpty()) {
-            widgetItems.size + 1
-        } else {
-            widgetItems.size
-        }
+    override fun getCount(): Int = if (hasLoadMore && widgetItems.isNotEmpty()) {
+        widgetItems.size + 1
+    } else {
+        widgetItems.size
     }
 
-    override fun getViewAt(position: Int): RemoteViews {
-        return if (position == widgetItems.size) {
-            createLoadMoreView()
-        } else {
-            createItemView(position)
-        }
+    override fun getViewAt(position: Int): RemoteViews = if (position == widgetItems.size) {
+        createLoadMoreView()
+    } else {
+        createItemView(position)
     }
 
-    private fun createLoadMoreView(): RemoteViews {
-        return RemoteViews(context.packageName, R.layout.widget_item_load_more).apply {
+    private fun createLoadMoreView(): RemoteViews =
+        RemoteViews(context.packageName, R.layout.widget_item_load_more).apply {
             val clickIntent = Intent(Intent.ACTION_VIEW, widgetConfiguration.moreButton?.link?.toUri())
             setTextViewText(R.id.load_more, widgetConfiguration.moreButton?.text)
             setOnClickFillInIntent(R.id.load_more_container, clickIntent)
         }
-    }
 
     // we will switch soon to coil and then streamline all of this
     // Kotlin cannot catch multiple exception types at same time
@@ -204,25 +197,17 @@ class StackRemoteViewsFactory(
         }
     }
 
-    override fun getLoadingView(): RemoteViews? {
-        return null
+    override fun getLoadingView(): RemoteViews? = null
+
+    override fun getViewTypeCount(): Int = if (hasLoadMore) {
+        2
+    } else {
+        1
     }
 
-    override fun getViewTypeCount(): Int {
-        return if (hasLoadMore) {
-            2
-        } else {
-            1
-        }
-    }
+    override fun getItemId(position: Int): Long = position.toLong()
 
-    override fun getItemId(position: Int): Long {
-        return position.toLong()
-    }
-
-    override fun hasStableIds(): Boolean {
-        return true
-    }
+    override fun hasStableIds(): Boolean = true
 
     companion object {
         private val TAG = DashboardWidgetService::class.simpleName

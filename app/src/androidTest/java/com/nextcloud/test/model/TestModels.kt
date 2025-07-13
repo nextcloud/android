@@ -24,17 +24,11 @@ data class TestDataParcelable(val message: String) : Parcelable {
         parcel.writeString(message)
     }
 
-    override fun describeContents(): Int {
-        return 0
-    }
+    override fun describeContents(): Int = 0
 
     companion object CREATOR : Parcelable.Creator<TestDataParcelable> {
-        override fun createFromParcel(parcel: Parcel): TestDataParcelable {
-            return TestDataParcelable(parcel)
-        }
+        override fun createFromParcel(parcel: Parcel): TestDataParcelable = TestDataParcelable(parcel)
 
-        override fun newArray(size: Int): Array<TestDataParcelable?> {
-            return arrayOfNulls(size)
-        }
+        override fun newArray(size: Int): Array<TestDataParcelable?> = arrayOfNulls(size)
     }
 }

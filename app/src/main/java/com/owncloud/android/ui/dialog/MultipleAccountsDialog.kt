@@ -25,7 +25,10 @@ import com.owncloud.android.ui.adapter.UserListItem
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import javax.inject.Inject
 
-class MultipleAccountsDialog : DialogFragment(), Injectable, UserListAdapter.ClickListener {
+class MultipleAccountsDialog :
+    DialogFragment(),
+    Injectable,
+    UserListAdapter.ClickListener {
     @JvmField
     @Inject
     var accountManager: UserAccountManager? = null

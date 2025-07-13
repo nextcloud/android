@@ -58,7 +58,5 @@ class SvgOrImageDecoder : ResourceDecoder<InputStream, SVGorImage> {
     }
 
     @Throws(IOException::class)
-    override fun handles(source: InputStream, options: Options): Boolean {
-        return true
-    }
+    override fun handles(source: InputStream, options: Options): Boolean = true
 }

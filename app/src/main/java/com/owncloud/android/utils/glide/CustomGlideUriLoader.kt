@@ -19,11 +19,8 @@ import java.io.InputStream
  * Custom Model for authenticated fetching from Uri
  */
 class CustomGlideUriLoader : ModelLoader<Uri, InputStream> {
-    override fun buildLoadData(uri: Uri, width: Int, height: Int, options: Options): LoadData<InputStream> {
-        return LoadData<InputStream>(ObjectKey(uri), HttpStreamFetcher(uri.toString()))
-    }
+    override fun buildLoadData(uri: Uri, width: Int, height: Int, options: Options): LoadData<InputStream> =
+        LoadData<InputStream>(ObjectKey(uri), HttpStreamFetcher(uri.toString()))
 
-    override fun handles(uri: Uri): Boolean {
-        return false
-    }
+    override fun handles(uri: Uri): Boolean = false
 }

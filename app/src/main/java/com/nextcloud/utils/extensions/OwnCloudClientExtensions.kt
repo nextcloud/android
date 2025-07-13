@@ -13,12 +13,10 @@ import com.nextcloud.common.NextcloudClient
 import com.owncloud.android.lib.common.OwnCloudClient
 import com.owncloud.android.lib.common.OwnCloudClientFactory
 
-fun OwnCloudClient.toNextcloudClient(context: Context): NextcloudClient {
-    return OwnCloudClientFactory.createNextcloudClient(
-        baseUri,
-        userId,
-        credentials.toOkHttpCredentials(),
-        context,
-        isFollowRedirects
-    )
-}
+fun OwnCloudClient.toNextcloudClient(context: Context): NextcloudClient = OwnCloudClientFactory.createNextcloudClient(
+    baseUri,
+    userId,
+    credentials.toOkHttpCredentials(),
+    context,
+    isFollowRedirects
+)

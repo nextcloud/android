@@ -30,7 +30,9 @@ import com.owncloud.android.utils.theme.ViewThemeUtils
 import java.io.File
 import javax.inject.Inject
 
-class ChooseStorageLocationDialogFragment : DialogFragment(), Injectable {
+class ChooseStorageLocationDialogFragment :
+    DialogFragment(),
+    Injectable {
 
     private lateinit var binding: DialogDataStorageLocationBinding
 
@@ -70,9 +72,8 @@ class ChooseStorageLocationDialogFragment : DialogFragment(), Injectable {
         return builder.create()
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        return binding.root
-    }
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View =
+        binding.root
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         setupLocationSelection()

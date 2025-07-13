@@ -69,25 +69,16 @@ class MockSharedPreferences : SharedPreferences {
 
     override fun getInt(key: String?, defValue: Int): Int = store.getOrDefault(key, defValue) as Int
 
-    override fun getAll(): MutableMap<String?, Any?> {
-        return HashMap(store)
-    }
+    override fun getAll(): MutableMap<String?, Any?> = HashMap(store)
 
-    override fun edit(): SharedPreferences.Editor {
-        return MockEditor(store)
-    }
+    override fun edit(): SharedPreferences.Editor = MockEditor(store)
 
-    override fun getLong(key: String?, defValue: Long): Long {
-        throw UnsupportedOperationException()
-    }
+    override fun getLong(key: String?, defValue: Long): Long = throw UnsupportedOperationException()
 
-    override fun getFloat(key: String?, defValue: Float): Float {
-        throw UnsupportedOperationException()
-    }
+    override fun getFloat(key: String?, defValue: Float): Float = throw UnsupportedOperationException()
 
-    override fun getStringSet(key: String?, defValues: MutableSet<String>?): MutableSet<String>? {
-        return store.getOrDefault(key, defValues) as MutableSet<String>?
-    }
+    override fun getStringSet(key: String?, defValues: MutableSet<String>?): MutableSet<String>? =
+        store.getOrDefault(key, defValues) as MutableSet<String>?
 
     override fun registerOnSharedPreferenceChangeListener(
         listener: SharedPreferences.OnSharedPreferenceChangeListener?

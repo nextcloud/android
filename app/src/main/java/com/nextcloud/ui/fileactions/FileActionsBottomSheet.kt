@@ -47,7 +47,9 @@ import com.owncloud.android.utils.DisplayUtils.AvatarGenerationListener
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import javax.inject.Inject
 
-class FileActionsBottomSheet : BottomSheetDialogFragment(), Injectable {
+class FileActionsBottomSheet :
+    BottomSheetDialogFragment(),
+    Injectable {
 
     @Inject
     lateinit var viewThemeUtils: ViewThemeUtils
@@ -234,9 +236,7 @@ class FileActionsBottomSheet : BottomSheetDialogFragment(), Injectable {
                 icon.setImageDrawable(avatarDrawable)
             }
 
-            override fun shouldCallGeneratedCallback(tag: String?, callContext: Any?): Boolean {
-                return false
-            }
+            override fun shouldCallGeneratedCallback(tag: String?, callContext: Any?): Boolean = false
         }
         DisplayUtils.setAvatar(
             currentUserProvider.user,
@@ -308,9 +308,7 @@ class FileActionsBottomSheet : BottomSheetDialogFragment(), Injectable {
             isOverflow: Boolean,
             @IdRes
             additionalToHide: List<Int>? = null
-        ): FileActionsBottomSheet {
-            return newInstance(1, listOf(file), isOverflow, additionalToHide, true)
-        }
+        ): FileActionsBottomSheet = newInstance(1, listOf(file), isOverflow, additionalToHide, true)
 
         @JvmStatic
         @JvmOverloads
@@ -321,19 +319,17 @@ class FileActionsBottomSheet : BottomSheetDialogFragment(), Injectable {
             @IdRes
             additionalToHide: List<Int>? = null,
             inSingleFileFragment: Boolean = false
-        ): FileActionsBottomSheet {
-            return FileActionsBottomSheet().apply {
-                val argsBundle = bundleOf(
-                    FileActionsViewModel.ARG_ALL_FILES_COUNT to numberOfAllFiles,
-                    FileActionsViewModel.ARG_FILES to ArrayList<OCFile>(files),
-                    FileActionsViewModel.ARG_IS_OVERFLOW to isOverflow,
-                    FileActionsViewModel.ARG_IN_SINGLE_FILE_FRAGMENT to inSingleFileFragment
-                )
-                additionalToHide?.let {
-                    argsBundle.putIntArray(FileActionsViewModel.ARG_ADDITIONAL_FILTER, additionalToHide.toIntArray())
-                }
-                arguments = argsBundle
+        ): FileActionsBottomSheet = FileActionsBottomSheet().apply {
+            val argsBundle = bundleOf(
+                FileActionsViewModel.ARG_ALL_FILES_COUNT to numberOfAllFiles,
+                FileActionsViewModel.ARG_FILES to ArrayList<OCFile>(files),
+                FileActionsViewModel.ARG_IS_OVERFLOW to isOverflow,
+                FileActionsViewModel.ARG_IN_SINGLE_FILE_FRAGMENT to inSingleFileFragment
+            )
+            additionalToHide?.let {
+                argsBundle.putIntArray(FileActionsViewModel.ARG_ADDITIONAL_FILTER, additionalToHide.toIntArray())
             }
+            arguments = argsBundle
         }
     }
 }

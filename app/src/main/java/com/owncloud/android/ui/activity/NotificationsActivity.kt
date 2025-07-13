@@ -50,7 +50,10 @@ import javax.inject.Inject
  * Activity displaying all server side stored notification items.
  */
 @Suppress("TooManyFunctions")
-class NotificationsActivity : AppCompatActivity(), NotificationsContract.View, Injectable {
+class NotificationsActivity :
+    AppCompatActivity(),
+    NotificationsContract.View,
+    Injectable {
 
     lateinit var binding: NotificationsLayoutBinding
 

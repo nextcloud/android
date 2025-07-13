@@ -12,7 +12,5 @@ import dagger.Provides
 @Module
 class AppInfoModule {
     @Provides
-    fun appInfo(): AppInfo {
-        return AppInfoImpl()
-    }
+    fun appInfo(): AppInfo = AppInfoImpl()
 }

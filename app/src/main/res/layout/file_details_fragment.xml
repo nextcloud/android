@@ -185,7 +185,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:paddingStart="@dimen/standard_padding"
+            android:paddingStart="@dimen/standard_quarter_padding"
             android:paddingTop="@dimen/standard_half_padding"
             android:paddingEnd="@dimen/zero"
             android:paddingBottom="@dimen/standard_half_padding">
