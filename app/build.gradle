@@ -87,21 +87,21 @@ def perfAnalysis = project.hasProperty("perfAnalysis")
 
 android {
     // install this NDK version and Cmake to produce smaller APKs. Build will still work if not installed
-    ndkVersion "${ndkEnv.get("NDK_VERSION")}"
+    ndkVersion = "${ndkEnv.get("NDK_VERSION")}"
 
 
-    namespace "com.owncloud.android"
-    testNamespace "${namespace}.test"
+    namespace = "com.owncloud.android"
+    testNamespace = "${namespace}.test"
 
     androidResources {
         generateLocaleConfig = true
     }
 
     defaultConfig {
-        applicationId "com.nextcloud.client"
-        minSdkVersion 26
-        targetSdkVersion 35
-        compileSdk 35
+        applicationId = "com.nextcloud.client"
+        minSdk = 26
+        targetSdk = 35
+        compileSdk = 35
 
         buildConfigField "boolean", "CI", ciBuild.toString()
         buildConfigField "boolean", "RUNTIME_PERF_ANALYSIS", perfAnalysis.toString()
@@ -140,7 +140,7 @@ android {
 
         buildTypes {
             debug {
-                testCoverageEnabled(project.hasProperty("coverage"))
+                testCoverageEnabled = project.hasProperty("coverage")
                 resConfigs "xxxhdpi"
             }
         }
@@ -183,7 +183,7 @@ android {
 
         testOptions {
             unitTests.returnDefaultValues = true
-            animationsDisabled true
+            animationsDisabled = true
         }
     }
 
@@ -217,10 +217,10 @@ android {
 
         reports {
             xml {
-                destination = file("$project.buildDir/reports/pmd/pmd.xml")
+                destination = layout.buildDirectory.file("reports/pmd/pmd.xml").get().asFile
             }
             html {
-                destination = file("$project.buildDir/reports/pmd/pmd.html")
+                destination = layout.buildDirectory.file("reports/pmd/pmd.html").get().asFile
             }
         }
     }
@@ -228,9 +228,9 @@ android {
     check.dependsOn "checkstyle", "spotbugsGplayDebug", "pmd", "lint", "spotlessKotlinCheck", "detekt"
 
     buildFeatures {
-        dataBinding true
-        viewBinding true
-        aidl true
+        dataBinding = true
+        viewBinding = true
+        aidl = true
         compose = true
     }
 
@@ -244,11 +244,11 @@ android {
     }
 
     lint {
-        abortOnError false
-        checkGeneratedSources true
+        abortOnError = false
+        checkGeneratedSources = true
         disable "MissingTranslation", "GradleDependency", "VectorPath", "IconMissingDensityFolder", "IconDensities", "GoogleAppIndexingWarning", "MissingDefaultResource", "InvalidPeriodicWorkRequestInterval", "StringFormatInvalid", "MissingQuantity"
-        htmlOutput file("$project.buildDir/reports/lint/lint.html")
-        htmlReport true
+        htmlOutput = layout.buildDirectory.file("reports/lint/lint.html").get().asFile
+        htmlReport = true
     }
 
     sourceSets {
@@ -257,7 +257,7 @@ android {
     }
 
     kapt {
-        useBuildCache true
+        useBuildCache = true
     }
 }
 
@@ -488,7 +488,7 @@ tasks.withType(SpotBugsTask){task ->
     String variantName = variantNameCap.substring(0, 1).toLowerCase() + variantNameCap.substring(1)
     dependsOn "compile${variantNameCap}Sources"
 
-    classes = fileTree("$project.buildDir/intermediates/javac/${variantName}/compile${variantNameCap}JavaWithJavac/classes/")
+    classes = fileTree(layout.buildDirectory.get().asFile.toString()+"/intermediates/javac/${variantName}/compile${variantNameCap}JavaWithJavac/classes/")
     excludeFilter = file("${project.rootDir}/scripts/analysis/spotbugs-filter.xml")
     reports {
         xml {
@@ -496,7 +496,7 @@ tasks.withType(SpotBugsTask){task ->
         }
         html {
             required = true
-            outputLocation = file("$project.buildDir/reports/spotbugs/spotbugs.html")
+            outputLocation = layout.buildDirectory.file("reports/spotbugs/spotbugs.html").get().asFile
             stylesheet = "fancy.xsl"
         }
     }
