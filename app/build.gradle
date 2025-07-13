@@ -217,10 +217,10 @@ android {
 
         reports {
             xml {
-                destination = file("$project.layout.buildDirectory/reports/pmd/pmd.xml")
+                destination = layout.buildDirectory.file("reports/pmd/pmd.xml").get().asFile
             }
             html {
-                destination = file("$project.layout.buildDirectory/reports/pmd/pmd.html")
+                destination = layout.buildDirectory.file("reports/pmd/pmd.html").get().asFile
             }
         }
     }
@@ -247,7 +247,7 @@ android {
         abortOnError = false
         checkGeneratedSources = true
         disable "MissingTranslation", "GradleDependency", "VectorPath", "IconMissingDensityFolder", "IconDensities", "GoogleAppIndexingWarning", "MissingDefaultResource", "InvalidPeriodicWorkRequestInterval", "StringFormatInvalid", "MissingQuantity"
-        htmlOutput = file("$project.layout.buildDirectory/reports/lint/lint.html")
+        htmlOutput = layout.buildDirectory.file("reports/lint/lint.html").get().asFile
         htmlReport = true
     }
 
@@ -488,7 +488,7 @@ tasks.withType(SpotBugsTask){task ->
     String variantName = variantNameCap.substring(0, 1).toLowerCase() + variantNameCap.substring(1)
     dependsOn "compile${variantNameCap}Sources"
 
-    classes = fileTree("$project.layout.buildDirectory/intermediates/javac/${variantName}/compile${variantNameCap}JavaWithJavac/classes/")
+    classes = fileTree(layout.buildDirectory.get().asFile.toString()+"/intermediates/javac/${variantName}/compile${variantNameCap}JavaWithJavac/classes/")
     excludeFilter = file("${project.rootDir}/scripts/analysis/spotbugs-filter.xml")
     reports {
         xml {
@@ -496,7 +496,7 @@ tasks.withType(SpotBugsTask){task ->
         }
         html {
             required = true
-            outputLocation = file("$project.layout.buildDirectory/reports/spotbugs/spotbugs.html")
+            outputLocation = layout.buildDirectory.file("reports/spotbugs/spotbugs.html").get().asFile
             stylesheet = "fancy.xsl"
         }
     }
