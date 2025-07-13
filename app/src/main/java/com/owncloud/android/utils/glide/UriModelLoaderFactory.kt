@@ -14,9 +14,7 @@ import com.bumptech.glide.load.model.MultiModelLoaderFactory
 import java.io.InputStream
 
 class UriModelLoaderFactory : ModelLoaderFactory<Uri, InputStream> {
-    override fun build(unused: MultiModelLoaderFactory): ModelLoader<Uri, InputStream> {
-        return CustomGlideUriLoader()
-    }
+    override fun build(unused: MultiModelLoaderFactory): ModelLoader<Uri, InputStream> = CustomGlideUriLoader()
 
     override fun teardown() = Unit
 }

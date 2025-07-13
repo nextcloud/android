@@ -16,7 +16,5 @@ import dagger.Reusable
 internal class VariantModule {
     @Provides
     @Reusable
-    fun scanOptionalFeature(): AppScanOptionalFeature {
-        return AppScanOptionalFeature.Stub
-    }
+    fun scanOptionalFeature(): AppScanOptionalFeature = AppScanOptionalFeature.Stub
 }

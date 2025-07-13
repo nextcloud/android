@@ -41,10 +41,7 @@ import com.owncloud.android.utils.svg.SvgSoftwareLayerSetter
 object GlideHelper {
     private const val TAG = "GlideHelper"
 
-    private class GlideLogger<T>(
-        private val methodName: String,
-        private val identifier: String
-    ) : RequestListener<T> {
+    private class GlideLogger<T>(private val methodName: String, private val identifier: String) : RequestListener<T> {
         override fun onLoadFailed(p0: GlideException?, p1: Any?, p2: Target<T>, p3: Boolean): Boolean {
             Log_OC.e(TAG, "$methodName: Load failed for $identifier")
             Log_OC.e(TAG, "$methodName: Error: ${p0?.message}")

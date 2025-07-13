@@ -22,7 +22,9 @@ import java.io.File
 import javax.inject.Inject
 import kotlin.system.exitProcess
 
-class ManageSpaceActivity : AppCompatActivity(), Injectable {
+class ManageSpaceActivity :
+    AppCompatActivity(),
+    Injectable {
 
     @Inject
     lateinit var preferences: AppPreferences

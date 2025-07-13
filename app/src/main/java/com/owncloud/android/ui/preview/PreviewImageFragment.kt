@@ -94,7 +94,9 @@ import kotlin.math.min
  */
 
 @Suppress("TooManyFunctions")
-class PreviewImageFragment : FileFragment(), Injectable {
+class PreviewImageFragment :
+    FileFragment(),
+    Injectable {
     private var showResizedImage: Boolean? = null
     private var bitmap: Bitmap? = null
 
@@ -328,9 +330,8 @@ class PreviewImageFragment : FileFragment(), Injectable {
         return cachedImage
     }
 
-    private fun getThumbnailBitmap(file: OCFile): Bitmap? {
-        return ThumbnailsCacheManager.getBitmapFromDiskCache(ThumbnailsCacheManager.PREFIX_THUMBNAIL + file.remoteId)
-    }
+    private fun getThumbnailBitmap(file: OCFile): Bitmap? =
+        ThumbnailsCacheManager.getBitmapFromDiskCache(ThumbnailsCacheManager.PREFIX_THUMBNAIL + file.remoteId)
 
     override fun onStop() {
         Log_OC.d(TAG, "onStop starts")
@@ -361,25 +362,23 @@ class PreviewImageFragment : FileFragment(), Injectable {
                     }
                 }
 
-                override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
-                    return when (menuItem.itemId) {
-                        R.id.custom_menu_placeholder_item -> {
-                            val file = file
-                            if (containerActivity.storageManager != null && file != null) {
-                                // Update the file
-                                val updatedFile = containerActivity.storageManager.getFileById(file.fileId)
-                                setFile(updatedFile)
+                override fun onMenuItemSelected(menuItem: MenuItem): Boolean = when (menuItem.itemId) {
+                    R.id.custom_menu_placeholder_item -> {
+                        val file = file
+                        if (containerActivity.storageManager != null && file != null) {
+                            // Update the file
+                            val updatedFile = containerActivity.storageManager.getFileById(file.fileId)
+                            setFile(updatedFile)
 
-                                val fileNew = getFile()
-                                if (fileNew != null) {
-                                    showFileActions(file)
-                                }
+                            val fileNew = getFile()
+                            if (fileNew != null) {
+                                showFileActions(file)
                             }
-                            true
                         }
-
-                        else -> false
+                        true
                     }
+
+                    else -> false
                 }
             },
             viewLifecycleOwner,
@@ -753,13 +752,15 @@ class PreviewImageFragment : FileFragment(), Injectable {
 
     @Suppress("ComplexCondition")
     private fun toggleImageBackground() {
-        if (file != null && (
+        if (file != null &&
+            (
                 MIME_TYPE_PNG.equals(
                     file.mimeType,
                     ignoreCase = true
                 ) ||
                     MIME_TYPE_SVG.equals(file.mimeType, ignoreCase = true)
-                ) && activity != null &&
+                ) &&
+            activity != null &&
             activity is PreviewImageActivity
         ) {
             val previewImageActivity = activity as PreviewImageActivity?
@@ -840,9 +841,7 @@ class PreviewImageFragment : FileFragment(), Injectable {
          * @return 'True' if the file can be handled by the fragment.
          */
         @JvmStatic
-        fun canBePreviewed(file: OCFile?): Boolean {
-            return file != null && MimeTypeUtil.isImage(file)
-        }
+        fun canBePreviewed(file: OCFile?): Boolean = file != null && MimeTypeUtil.isImage(file)
 
         private fun convertDpToPixel(dp: Float, context: Context?): Int {
             val resources = context?.resources ?: return 0

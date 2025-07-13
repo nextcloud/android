@@ -54,7 +54,9 @@ import javax.inject.Inject
 import kotlin.math.pow
 import kotlin.math.roundToInt
 
-class ImageDetailFragment : Fragment(), Injectable {
+class ImageDetailFragment :
+    Fragment(),
+    Injectable {
     private lateinit var binding: PreviewImageDetailsFragmentBinding
     private lateinit var file: OCFile
     private lateinit var user: User
@@ -328,14 +330,12 @@ class ImageDetailFragment : Fragment(), Injectable {
     }
 
     @SuppressLint("SimpleDateFormat")
-    private fun formatDate(timestamp: Long): String {
-        return buildString {
-            append(SimpleDateFormat("EEEE").format(timestamp))
-            append(TEXT_SEP)
-            append(DateFormat.getDateInstance(DateFormat.MEDIUM).format(timestamp))
-            append(TEXT_SEP)
-            append(DateFormat.getTimeInstance(DateFormat.SHORT).format(timestamp))
-        }
+    private fun formatDate(timestamp: Long): String = buildString {
+        append(SimpleDateFormat("EEEE").format(timestamp))
+        append(TEXT_SEP)
+        append(DateFormat.getDateInstance(DateFormat.MEDIUM).format(timestamp))
+        append(TEXT_SEP)
+        append(DateFormat.getTimeInstance(DateFormat.SHORT).format(timestamp))
     }
 
     private fun imagePinDrawable(context: Context): LayerDrawable {
@@ -361,9 +361,7 @@ class ImageDetailFragment : Fragment(), Injectable {
                 return true
             }
 
-            override fun onItemLongPress(index: Int, item: OverlayItem): Boolean {
-                return false
-            }
+            override fun onItemLongPress(index: Int, item: OverlayItem): Boolean = false
         }
 
     @Parcelize
@@ -389,12 +387,10 @@ class ImageDetailFragment : Fragment(), Injectable {
         private const val SCROLL_LIMIT = 80.0
 
         @JvmStatic
-        fun newInstance(file: OCFile, user: User): ImageDetailFragment {
-            return ImageDetailFragment().apply {
-                arguments = Bundle().apply {
-                    putParcelable(ARG_FILE, file)
-                    putParcelable(ARG_USER, user)
-                }
+        fun newInstance(file: OCFile, user: User): ImageDetailFragment = ImageDetailFragment().apply {
+            arguments = Bundle().apply {
+                putParcelable(ARG_FILE, file)
+                putParcelable(ARG_USER, user)
             }
         }
     }

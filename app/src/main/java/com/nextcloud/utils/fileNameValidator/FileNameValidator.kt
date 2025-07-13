@@ -109,12 +109,10 @@ object FileNameValidator {
         filePaths: List<String>,
         capability: OCCapability,
         context: Context
-    ): Boolean {
-        return checkFolderPath(folderPath, capability, context) && checkFilePaths(filePaths, capability, context)
-    }
+    ): Boolean = checkFolderPath(folderPath, capability, context) && checkFilePaths(filePaths, capability, context)
 
-    fun checkParentRemotePaths(filePaths: List<OCFile>, capability: OCCapability, context: Context): Boolean {
-        return filePaths.all {
+    fun checkParentRemotePaths(filePaths: List<OCFile>, capability: OCCapability, context: Context): Boolean =
+        filePaths.all {
             if (it.parentRemotePath != StringConstants.SLASH) {
                 val parentFolderName = it.parentRemotePath.replace(StringConstants.SLASH, "")
                 checkFileName(parentFolderName, capability, context) == null
@@ -122,16 +120,15 @@ object FileNameValidator {
                 true
             }
         }
-    }
 
-    private fun checkFilePaths(filePaths: List<String>, capability: OCCapability, context: Context): Boolean {
-        return filePaths.all { checkFileName(it, capability, context) == null }
-    }
+    private fun checkFilePaths(filePaths: List<String>, capability: OCCapability, context: Context): Boolean =
+        filePaths.all {
+            checkFileName(it, capability, context) == null
+        }
 
-    fun checkFolderPath(folderPath: String, capability: OCCapability, context: Context): Boolean {
-        return folderPath.split("[/\\\\]".toRegex())
+    fun checkFolderPath(folderPath: String, capability: OCCapability, context: Context): Boolean =
+        folderPath.split("[/\\\\]".toRegex())
             .none { it.isNotEmpty() && checkFileName(it, capability, context) != null }
-    }
 
     @Suppress("ReturnCount")
     private fun checkInvalidCharacters(name: String, capability: OCCapability, context: Context): String? {

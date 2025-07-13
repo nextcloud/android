@@ -58,14 +58,12 @@ class ComposeActivity : DrawerActivity() {
         }
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            android.R.id.home -> {
-                toggleDrawer()
-                true
-            }
-            else -> super.onOptionsItemSelected(item)
+    override fun onOptionsItemSelected(item: MenuItem): Boolean = when (item.itemId) {
+        android.R.id.home -> {
+            toggleDrawer()
+            true
         }
+        else -> super.onOptionsItemSelected(item)
     }
 
     @Composable

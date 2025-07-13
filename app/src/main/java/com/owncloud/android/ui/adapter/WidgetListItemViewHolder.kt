@@ -27,8 +27,7 @@ class WidgetListItemViewHolder(
     val accountManager: UserAccountManager,
     val clientFactory: ClientFactory,
     val context: Context
-) :
-    RecyclerView.ViewHolder(binding.root) {
+) : RecyclerView.ViewHolder(binding.root) {
     fun bind(
         dashboardWidget: DashboardWidget,
         dashboardWidgetConfigurationInterface: DashboardWidgetConfigurationInterface

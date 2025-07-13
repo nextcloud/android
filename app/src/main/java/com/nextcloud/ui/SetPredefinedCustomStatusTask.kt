@@ -20,15 +20,13 @@ class SetPredefinedCustomStatusTask(
     val account: Account?,
     val context: Context?
 ) : Function0<Boolean> {
-    override fun invoke(): Boolean {
-        return try {
-            val client = OwnCloudClientFactory.createNextcloudClient(account, context)
+    override fun invoke(): Boolean = try {
+        val client = OwnCloudClientFactory.createNextcloudClient(account, context)
 
-            SetPredefinedCustomStatusMessageRemoteOperation(messageId, clearAt).execute(client).isSuccess
-        } catch (e: AccountUtils.AccountNotFoundException) {
-            Log_OC.e(this, "Error setting predefined status", e)
+        SetPredefinedCustomStatusMessageRemoteOperation(messageId, clearAt).execute(client).isSuccess
+    } catch (e: AccountUtils.AccountNotFoundException) {
+        Log_OC.e(this, "Error setting predefined status", e)
 
-            false
-        }
+        false
     }
 }

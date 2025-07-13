@@ -34,9 +34,7 @@ class NextcloudGlideModule : AppGlideModule() {
     }
 
     // Disable manifest parsing to avoid adding similar modules twice.
-    override fun isManifestParsingEnabled(): Boolean {
-        return false
-    }
+    override fun isManifestParsingEnabled(): Boolean = false
 
     companion object {
         private const val SVG_SIZE = 512

@@ -78,37 +78,35 @@ class BackupListAdapter(
         availableContactAccounts = getAccountForImport()
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SectionedViewHolder {
-        return when (viewType) {
-            VIEW_TYPE_HEADER -> {
-                BackupListHeaderViewHolder(
-                    BackupListItemHeaderBinding.inflate(
-                        LayoutInflater.from(parent.context),
-                        parent,
-                        false
-                    ),
-                    context
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SectionedViewHolder = when (viewType) {
+        VIEW_TYPE_HEADER -> {
+            BackupListHeaderViewHolder(
+                BackupListItemHeaderBinding.inflate(
+                    LayoutInflater.from(parent.context),
+                    parent,
+                    false
+                ),
+                context
+            )
+        }
+        VIEW_TYPE_CONTACTS -> {
+            ContactItemViewHolder(
+                ContactlistListItemBinding.inflate(
+                    LayoutInflater.from(parent.context),
+                    parent,
+                    false
                 )
-            }
-            VIEW_TYPE_CONTACTS -> {
-                ContactItemViewHolder(
-                    ContactlistListItemBinding.inflate(
-                        LayoutInflater.from(parent.context),
-                        parent,
-                        false
-                    )
-                )
-            }
-            else -> {
-                CalendarItemViewHolder(
-                    CalendarlistListItemBinding.inflate(
-                        LayoutInflater.from(parent.context),
-                        parent,
-                        false
-                    ),
-                    context
-                )
-            }
+            )
+        }
+        else -> {
+            CalendarItemViewHolder(
+                CalendarlistListItemBinding.inflate(
+                    LayoutInflater.from(parent.context),
+                    parent,
+                    false
+                ),
+                context
+            )
         }
     }
 
@@ -127,25 +125,20 @@ class BackupListAdapter(
         }
     }
 
-    override fun getItemCount(section: Int): Int {
-        return if (section == SECTION_CALENDAR) {
-            calendarFiles.size
-        } else {
-            contacts.size
-        }
+    override fun getItemCount(section: Int): Int = if (section == SECTION_CALENDAR) {
+        calendarFiles.size
+    } else {
+        contacts.size
     }
 
-    override fun getSectionCount(): Int {
-        return 2
-    }
+    override fun getSectionCount(): Int = 2
 
-    override fun getItemViewType(section: Int, relativePosition: Int, absolutePosition: Int): Int {
-        return if (section == SECTION_CALENDAR) {
+    override fun getItemViewType(section: Int, relativePosition: Int, absolutePosition: Int): Int =
+        if (section == SECTION_CALENDAR) {
             VIEW_TYPE_CALENDAR
         } else {
             VIEW_TYPE_CONTACTS
         }
-    }
 
     override fun onBindHeaderViewHolder(holder: SectionedViewHolder?, section: Int, expanded: Boolean) {
         val headerViewHolder = holder as BackupListHeaderViewHolder
@@ -326,13 +319,9 @@ class BackupListAdapter(
         }
     }
 
-    fun getCheckedCalendarStringArray(): Array<String> {
-        return checkedCalendars.keys.toTypedArray()
-    }
+    fun getCheckedCalendarStringArray(): Array<String> = checkedCalendars.keys.toTypedArray()
 
-    fun getCheckedContactsIntArray(): IntArray {
-        return checkedVCards.toIntArray()
-    }
+    fun getCheckedContactsIntArray(): IntArray = checkedVCards.toIntArray()
 
     fun selectAll(selectAll: Boolean) {
         if (selectAll) {
@@ -345,13 +334,9 @@ class BackupListAdapter(
         showRestoreButton()
     }
 
-    fun getCheckedCalendarPathsArray(): Map<String, Int> {
-        return checkedCalendars
-    }
+    fun getCheckedCalendarPathsArray(): Map<String, Int> = checkedCalendars
 
-    fun hasCalendarEntry(): Boolean {
-        return calendarFiles.isNotEmpty()
-    }
+    fun hasCalendarEntry(): Boolean = calendarFiles.isNotEmpty()
 
     @Suppress("NestedBlockDepth", "TooGenericExceptionCaught")
     private fun getAccountForImport(): List<ContactsAccount> {

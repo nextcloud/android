@@ -127,12 +127,10 @@ class PreviewImagePagerAdapter : FragmentStateAdapter {
      * @return OCFile desired image or null if position is not in adapter
      */
     @Suppress("TooGenericExceptionCaught")
-    fun getFileAt(position: Int): OCFile? {
-        return try {
-            imageFiles[position]
-        } catch (exception: IndexOutOfBoundsException) {
-            null
-        }
+    fun getFileAt(position: Int): OCFile? = try {
+        imageFiles[position]
+    } catch (exception: IndexOutOfBoundsException) {
+        null
     }
 
     private fun addVideoOfLivePhoto(file: OCFile) {
@@ -172,9 +170,7 @@ class PreviewImagePagerAdapter : FragmentStateAdapter {
         return fragment
     }
 
-    fun getFilePosition(file: OCFile): Int {
-        return imageFiles.indexOf(file)
-    }
+    fun getFilePosition(file: OCFile): Int = imageFiles.indexOf(file)
 
     fun updateFile(position: Int, file: OCFile) {
         val fragmentToUpdate = mCachedFragments[position]
@@ -193,15 +189,9 @@ class PreviewImagePagerAdapter : FragmentStateAdapter {
         mDownloadErrors.add(position)
     }
 
-    fun pendingErrorAt(position: Int): Boolean {
-        return mDownloadErrors.contains(position)
-    }
+    fun pendingErrorAt(position: Int): Boolean = mDownloadErrors.contains(position)
 
-    override fun createFragment(position: Int): Fragment {
-        return getItem(position)
-    }
+    override fun createFragment(position: Int): Fragment = getItem(position)
 
-    override fun getItemCount(): Int {
-        return imageFiles.size
-    }
+    override fun getItemCount(): Int = imageFiles.size
 }

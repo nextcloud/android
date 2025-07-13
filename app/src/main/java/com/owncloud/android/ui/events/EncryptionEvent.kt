@@ -9,9 +9,4 @@ package com.owncloud.android.ui.events
 /**
  * Event for set folder as encrypted/decrypted
  */
-class EncryptionEvent(
-    val localId: Long,
-    val remoteId: String,
-    val remotePath: String,
-    val shouldBeEncrypted: Boolean
-)
+class EncryptionEvent(val localId: Long, val remoteId: String, val remotePath: String, val shouldBeEncrypted: Boolean)

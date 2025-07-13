@@ -24,9 +24,7 @@ import java.io.IOException
 import java.io.InputStream
 
 @Suppress("TooGenericExceptionCaught")
-class HttpStreamFetcher internal constructor(
-    private val url: String
-) : DataFetcher<InputStream> {
+class HttpStreamFetcher internal constructor(private val url: String) : DataFetcher<InputStream> {
 
     private var stream: InputStream? = null
 
@@ -84,9 +82,7 @@ class HttpStreamFetcher internal constructor(
         }
     }
 
-    fun getId(): String {
-        return url
-    }
+    fun getId(): String = url
 
     override fun cancel() {
         Log_OC.i(TAG, "Cancel")
