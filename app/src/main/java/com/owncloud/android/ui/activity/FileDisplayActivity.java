@@ -66,6 +66,7 @@ import com.nextcloud.utils.extensions.ActivityExtensionsKt;
 import com.nextcloud.utils.extensions.BundleExtensionsKt;
 import com.nextcloud.utils.extensions.FileExtensionsKt;
 import com.nextcloud.utils.extensions.IntentExtensionsKt;
+import com.nextcloud.utils.extensions.ViewExtensionsKt;
 import com.nextcloud.utils.fileNameValidator.FileNameValidator;
 import com.nextcloud.utils.view.FastScrollUtils;
 import com.owncloud.android.MainApp;
