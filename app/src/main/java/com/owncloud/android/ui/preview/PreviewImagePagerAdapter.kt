@@ -1,6 +1,7 @@
 /*
  * Nextcloud - Android Client
  *
+ * SPDX-FileCopyrightText: 2025 TSI-mc <surinder.kumar@t-systems.com>
  * SPDX-FileCopyrightText: 2023 Alper Ozturk <alper.ozturk@nextcloud.com>
  * SPDX-FileCopyrightText: 2018 Tobias Kaminsky <tobias@kaminsky.me>
  * SPDX-FileCopyrightText: 2020 Chris Narkiewicz <hello@ezaquarii.com>
@@ -92,6 +93,9 @@ class PreviewImagePagerAdapter : FragmentStateAdapter {
 
         if (type == VirtualFolderType.GALLERY) {
             imageFiles = mStorageManager.allGalleryItems
+            imageFiles = FileStorageUtils.sortOcFolderDescDateModifiedWithoutFavoritesFirst(imageFiles)
+        } else if (type == VirtualFolderType.ALBUM) {
+            imageFiles = mStorageManager.getVirtualFolderContent(type, false)
             imageFiles = FileStorageUtils.sortOcFolderDescDateModifiedWithoutFavoritesFirst(imageFiles)
         } else {
             imageFiles = mStorageManager.getVirtualFolderContent(type, true)

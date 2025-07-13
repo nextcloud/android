@@ -1,7 +1,7 @@
 /*
  * Nextcloud - Android Client
  *
- * SPDX-FileCopyrightText: 2023 TSI-mc
+ * SPDX-FileCopyrightText: 2023-2025 TSI-mc <surinder.kumar@t-systems.com>
  * SPDX-FileCopyrightText: 2020 Chris Narkiewicz <hello@ezaquarii.com>
  * SPDX-FileCopyrightText: 2018-2020 Tobias Kaminsky <tobias@kaminsky.me>
  * SPDX-FileCopyrightText: 2018-2020 Andy Scherzinger <info@andy-scherzinger.de>
@@ -1010,6 +1010,55 @@ public class FileOperationsHelper {
             service.putExtra(OperationsService.EXTRA_ACCOUNT, fileActivity.getAccount());
             mWaitingForOpId = fileActivity.getOperationsServiceBinder().queueNewOperation(service);
         }
+        fileActivity.showLoadingDialog(fileActivity.getString(R.string.wait_a_moment));
+    }
+
+    public void createAlbum(String albumName) {
+        // Create Album
+        Intent service = new Intent(fileActivity, OperationsService.class);
+        service.setAction(OperationsService.ACTION_CREATE_ALBUM);
+        service.putExtra(OperationsService.EXTRA_ACCOUNT, fileActivity.getAccount());
+        service.putExtra(OperationsService.EXTRA_ALBUM_NAME, albumName);
+        mWaitingForOpId = fileActivity.getOperationsServiceBinder().queueNewOperation(service);
+
+        fileActivity.showLoadingDialog(fileActivity.getString(R.string.wait_a_moment));
+    }
+
+    public void albumCopyFiles(final List<String> filePaths, final String targetFolder) {
+        if (filePaths == null || filePaths.isEmpty()) {
+            return;
+        }
+
+        for (String path : filePaths) {
+            Intent service = new Intent(fileActivity, OperationsService.class);
+            service.setAction(OperationsService.ACTION_ALBUM_COPY_FILE);
+            service.putExtra(OperationsService.EXTRA_NEW_PARENT_PATH, targetFolder);
+            service.putExtra(OperationsService.EXTRA_REMOTE_PATH, path);
+            service.putExtra(OperationsService.EXTRA_ACCOUNT, fileActivity.getAccount());
+            mWaitingForOpId = fileActivity.getOperationsServiceBinder().queueNewOperation(service);
+        }
+        fileActivity.showLoadingDialog(fileActivity.getString(R.string.wait_a_moment));
+    }
+
+    public void renameAlbum(String oldAlbumName, String newAlbumName) {
+        Intent service = new Intent(fileActivity, OperationsService.class);
+
+        service.setAction(OperationsService.ACTION_RENAME_ALBUM);
+        service.putExtra(OperationsService.EXTRA_ACCOUNT, fileActivity.getAccount());
+        service.putExtra(OperationsService.EXTRA_REMOTE_PATH, oldAlbumName);
+        service.putExtra(OperationsService.EXTRA_NEWNAME, newAlbumName);
+        mWaitingForOpId = fileActivity.getOperationsServiceBinder().queueNewOperation(service);
+
+        fileActivity.showLoadingDialog(fileActivity.getString(R.string.wait_a_moment));
+    }
+
+    public void removeAlbum(String albumName) {
+        Intent service = new Intent(fileActivity, OperationsService.class);
+        service.setAction(OperationsService.ACTION_REMOVE_ALBUM);
+        service.putExtra(OperationsService.EXTRA_ACCOUNT, fileActivity.getAccount());
+        service.putExtra(OperationsService.EXTRA_ALBUM_NAME, albumName);
+        mWaitingForOpId = fileActivity.getOperationsServiceBinder().queueNewOperation(service);
+
         fileActivity.showLoadingDialog(fileActivity.getString(R.string.wait_a_moment));
     }
 

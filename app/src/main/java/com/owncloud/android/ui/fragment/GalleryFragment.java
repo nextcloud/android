@@ -1,13 +1,14 @@
 /*
  * Nextcloud - Android Client
  *
- * SPDX-FileCopyrightText: 2023 TSI-mc
+ * SPDX-FileCopyrightText: 2023-2025 TSI-mc <surinder.kumar@t-systems.com>
  * SPDX-FileCopyrightText: 2019 Tobias Kaminsky <tobias@kaminsky.me>
  * SPDX-FileCopyrightText: 2019 Nextcloud GmbH
  * SPDX-License-Identifier: GPL-3.0-or-later AND AGPL-3.0-or-later
  */
 package com.owncloud.android.ui.fragment;
 
+import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -15,6 +16,7 @@ import android.content.IntentFilter;
 import android.content.res.Configuration;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -22,6 +24,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.utils.extensions.IntentExtensionsKt;
 import com.owncloud.android.BuildConfig;
 import com.owncloud.android.R;
@@ -37,9 +40,17 @@ import com.owncloud.android.ui.adapter.CommonOCFileListAdapterInterface;
 import com.owncloud.android.ui.adapter.GalleryAdapter;
 import com.owncloud.android.ui.asynctasks.GallerySearchTask;
 import com.owncloud.android.ui.events.ChangeMenuEvent;
+import com.owncloud.android.ui.fragment.albums.AlbumsFragment;
+import com.owncloud.android.ui.activity.AlbumsPickerActivity;
+import com.owncloud.android.utils.DisplayUtils;
+
+import java.util.ArrayList;
+import java.util.Set;
 
 import javax.inject.Inject;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
@@ -66,9 +77,14 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
     private GalleryFragmentBottomSheetDialog galleryFragmentBottomSheetDialog;
 
     @Inject FileDataStorageManager fileDataStorageManager;
+    @Inject ConnectivityService connectivityService;
     private final static int maxColumnSizeLandscape = 5;
     private final static int maxColumnSizePortrait = 2;
     private int columnSize;
+
+    // required for Albums
+    private Set<OCFile> checkedFiles;
+    private boolean isFromAlbum; // when opened from Albums to add items
 
     protected void setPhotoSearchQueryRunning(boolean value) {
         this.photoSearchQueryRunning = value;
@@ -84,7 +100,12 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
         super.onCreate(savedInstanceState);
         searchFragment = true;
 
-        setHasOptionsMenu(true);
+        if (getArguments() != null) {
+            isFromAlbum = getArguments().getBoolean(AlbumsPickerActivity.Companion.getEXTRA_FROM_ALBUM(), false);
+        }
+
+        // only show menu when not opened from media picker
+        setHasOptionsMenu(!isFromAlbum);
 
         if (galleryFragmentBottomSheetDialog == null) {
             galleryFragmentBottomSheetDialog = new GalleryFragmentBottomSheetDialog(this);
@@ -409,6 +430,11 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
     }
 
     private void updateSubtitle(GalleryFragmentBottomSheetDialog.MediaState mediaState) {
+        // while picking media don't show subtitle
+        if (isFromAlbum) {
+            return;
+        }
+
         requireActivity().runOnUiThread(() -> {
             if (!isAdded()) {
                 return;
@@ -434,5 +460,48 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
 
     public void markAsFavorite(String remotePath, boolean favorite) {
         mAdapter.markAsFavorite(remotePath, favorite);
+    }
+
+    final ActivityResultLauncher<Intent> activityResult =
+        registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), intentResult -> {
+            if (Activity.RESULT_OK == intentResult.getResultCode() && intentResult.getData() != null) {
+                String albumName = intentResult.getData().getStringExtra(AlbumsFragment.ARG_SELECTED_ALBUM_NAME);
+                Log_OC.e(TAG, "Selected album name: " + albumName);
+                addFilesToAlbum(albumName);
+            }
+        });
+
+    public void addImagesToAlbum(Set<OCFile> checkedFiles) {
+        this.checkedFiles = checkedFiles;
+        if (isFromAlbum) {
+            addFilesToAlbum(null);
+        } else {
+            activityResult.launch(AlbumsPickerActivity.Companion.intentForPickingAlbum(requireActivity()));
+        }
+    }
+
+    private void addFilesToAlbum(@Nullable String albumName) {
+        connectivityService.isNetworkAndServerAvailable(result -> {
+            if (result) {
+                if (checkedFiles == null || checkedFiles.isEmpty()) {
+                    return;
+                }
+                final ArrayList<String> paths = new ArrayList<>(checkedFiles.size());
+                for (OCFile file : checkedFiles) {
+                    paths.add(file.getRemotePath());
+                }
+                checkedFiles = null;
+                if (!TextUtils.isEmpty(albumName)) {
+                    mContainerActivity.getFileOperationsHelper().albumCopyFiles(paths, albumName);
+                } else {
+                    Intent resultIntent = new Intent();
+                    resultIntent.putStringArrayListExtra(AlbumsPickerActivity.Companion.getEXTRA_MEDIA_FILES_PATH(), paths);
+                    requireActivity().setResult(Activity.RESULT_OK, resultIntent);
+                    requireActivity().finish();
+                }
+            } else {
+                DisplayUtils.showSnackMessage(requireActivity(), getString(R.string.offline_mode));
+            }
+        });
     }
 }

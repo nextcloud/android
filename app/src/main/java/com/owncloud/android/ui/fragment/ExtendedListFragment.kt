@@ -1,6 +1,7 @@
 /*
  * Nextcloud - Android Client
  *
+ * SPDX-FileCopyrightText: 2025 TSI-mc <surinder.kumar@t-systems.com>
  * SPDX-FileCopyrightText: 2025 Alper Ozturk <alper.ozturk@nextcloud.com>
  * SPDX-FileCopyrightText: 2022 Álvaro Brey <alvaro.brey@nextcloud.com>
  * SPDX-FileCopyrightText: 2018-2021 Tobias Kaminsky <tobias@kaminsky.me>
@@ -165,7 +166,9 @@ open class ExtendedListFragment :
         }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        val item = menu.findItem(R.id.action_search)
+        // while picking Media files from Gallery Fragment through AlbumPickerActivity
+        // there will be no search option so it we have to return it
+        val item = menu.findItem(R.id.action_search) ?: return
         searchView = MenuItemCompat.getActionView(item) as SearchView?
         viewThemeUtils.androidx.themeToolbarSearchView(searchView!!)
         closeButton = searchView?.findViewById<ImageView>(androidx.appcompat.R.id.search_close_btn)
