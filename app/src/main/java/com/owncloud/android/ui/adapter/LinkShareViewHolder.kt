@@ -49,7 +49,7 @@ internal class LinkShareViewHolder(itemView: View) : RecyclerView.ViewHolder(ite
     fun bind(publicShare: OCShare, listener: ShareeListAdapterListener, position: Int) {
         val quickPermissionType = getSelectedType(publicShare, encrypted)
 
-        setName(binding, context, publicShare, quickPermissionType, position)
+        setName(binding, context, publicShare, position)
         setSubline(binding, context, publicShare)
         setPermissionName(binding, context, publicShare, quickPermissionType)
         setOnClickListeners(binding, listener, publicShare)
@@ -60,37 +60,36 @@ internal class LinkShareViewHolder(itemView: View) : RecyclerView.ViewHolder(ite
         binding: FileDetailsShareLinkShareItemBinding?,
         context: Context?,
         publicShare: OCShare,
-        quickPermissionType: QuickPermissionType,
         position: Int
     ) {
         if (binding == null || context == null) {
             return
         }
 
+        if (ShareType.PUBLIC_LINK == publicShare.shareType) {
+            binding.name.text = if (position == 0) {
+                context.getString(R.string.share_link)
+            } else {
+                context.getString(R.string.share_link_with_label, position.toString())
+            }
+            return
+        }
+
         if (ShareType.EMAIL == publicShare.shareType) {
-            val res = context.resources
             binding.name.text = publicShare.sharedWithDisplayName
 
-            val emailDrawable = ResourcesCompat.getDrawable(res, R.drawable.ic_email, null)
+            val emailDrawable = ResourcesCompat.getDrawable(context.resources, R.drawable.ic_email, null)
             binding.icon.setImageDrawable(emailDrawable)
             binding.copyLink.setVisibility(View.GONE)
-        } else {
-            val label = publicShare.label
-
-            if (!TextUtils.isEmpty(label)) {
-                binding.name.text = context.getString(R.string.share_link_with_label, label)
-            } else if (quickPermissionType != QuickPermissionType.NONE) {
-                binding.name.text = quickPermissionType.getText(context)
-            } else {
-                val textRes = if (position == 0) R.string.share_link else R.string.share_link_with_label
-                val arg = if (position == 0) null else position.toString()
-                binding.name.text = if (position == 0) {
-                    context.getString(textRes)
-                } else {
-                    context.getString(textRes, arg)
-                }
-            }
+            return
         }
+
+        val label = publicShare.label
+        if (label.isNullOrEmpty()) {
+            return
+        }
+
+        binding.name.text = context.getString(R.string.share_link_with_label, label)
     }
 
     private fun setSubline(binding: FileDetailsShareLinkShareItemBinding?, context: Context?, publicShare: OCShare) {
@@ -109,9 +108,10 @@ internal class LinkShareViewHolder(itemView: View) : RecyclerView.ViewHolder(ite
 
             binding.subline.text = text
             binding.subline.visibility = View.VISIBLE
-        } else {
-            binding.subline.visibility = View.GONE
+            return
         }
+
+        binding.subline.visibility = View.GONE
     }
 
     private fun setPermissionName(
