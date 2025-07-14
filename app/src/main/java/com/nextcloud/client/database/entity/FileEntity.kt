@@ -73,7 +73,7 @@ data class FileEntity(
     @ColumnInfo(name = ProviderTableMeta.FILE_ETAG_IN_CONFLICT)
     val etagInConflict: String?,
     @ColumnInfo(name = ProviderTableMeta.FILE_SHARED_WITH_SHAREE)
-    val sharedWithSharee: Int?,
+    var sharedWithSharee: Int?,
     @ColumnInfo(name = ProviderTableMeta.FILE_MOUNT_TYPE)
     val mountType: Int?,
     @ColumnInfo(name = ProviderTableMeta.FILE_HAS_PREVIEW)
