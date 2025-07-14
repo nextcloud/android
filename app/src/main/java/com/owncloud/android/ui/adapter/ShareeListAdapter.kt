@@ -36,6 +36,7 @@ import kotlin.math.min
 /**
  * Adapter to show a user/group/email/remote in Sharing list in file details view.
  */
+@Suppress("LongParameterList")
 class ShareeListAdapter(
     private val fileActivity: FileActivity,
     @JvmField var shares: ArrayList<OCShare>,
@@ -45,7 +46,8 @@ class ShareeListAdapter(
     private val viewThemeUtils: ViewThemeUtils,
     private val encrypted: Boolean,
     private val sharesType: SharesType?
-) : RecyclerView.Adapter<RecyclerView.ViewHolder?>(), AvatarGenerationListener {
+) : RecyclerView.Adapter<RecyclerView.ViewHolder?>(),
+    AvatarGenerationListener {
     private val avatarRadiusDimension: Float = fileActivity.getResources().getDimension(R.dimen.user_icon_radius)
     var isShowAll: Boolean = false
         private set
@@ -54,55 +56,37 @@ class ShareeListAdapter(
         sortShares()
     }
 
-    override fun getItemViewType(position: Int): Int {
-        if (position < 0 || position >= shares.size) {
-            return 0
-        }
-
-        val share = shares[position]
-
-        val shareType = share.shareType
-        if (shareType == null) {
-            return 0
-        }
-
-        return shareType.value
-    }
+    override fun getItemViewType(position: Int): Int = shares.getOrNull(position)?.shareType?.value ?: 0
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        val inflater = LayoutInflater.from(fileActivity)
         val shareViaLink = shareViaLink(fileActivity)
-        val parentViewGroup = LayoutInflater.from(fileActivity)
+        val shareType = ShareType.fromValue(viewType)
 
-        if (!shareViaLink) {
-            val binding = FileDetailsShareInternalShareLinkBinding.inflate(parentViewGroup, parent, false)
-            return InternalShareViewHolder(binding, fileActivity)
-        }
-
-        when (ShareType.fromValue(viewType)) {
-            ShareType.PUBLIC_LINK, ShareType.EMAIL -> {
-                val binding = FileDetailsShareLinkShareItemBinding.inflate(parentViewGroup, parent, false)
-                return LinkShareViewHolder(binding, fileActivity, viewThemeUtils, encrypted)
+        return when {
+            !shareViaLink || shareType == ShareType.INTERNAL -> {
+                val binding = FileDetailsShareInternalShareLinkBinding.inflate(inflater, parent, false)
+                InternalShareViewHolder(binding, fileActivity)
             }
 
-            ShareType.NEW_PUBLIC_LINK -> {
+            shareType == ShareType.PUBLIC_LINK || shareType == ShareType.EMAIL -> {
+                val binding = FileDetailsShareLinkShareItemBinding.inflate(inflater, parent, false)
+                LinkShareViewHolder(binding, fileActivity, viewThemeUtils, encrypted)
+            }
+
+            shareType == ShareType.NEW_PUBLIC_LINK -> {
                 if (encrypted) {
-                    val binding =
-                        FileDetailsShareSecureFileDropAddNewItemBinding.inflate(parentViewGroup, parent, false)
-                    return NewSecureFileDropViewHolder(binding)
+                    val binding = FileDetailsShareSecureFileDropAddNewItemBinding.inflate(inflater, parent, false)
+                    NewSecureFileDropViewHolder(binding)
                 } else {
-                    val binding = FileDetailsSharePublicLinkAddNewItemBinding.inflate(parentViewGroup, parent, false)
-                    return NewLinkShareViewHolder(binding)
+                    val binding = FileDetailsSharePublicLinkAddNewItemBinding.inflate(inflater, parent, false)
+                    NewLinkShareViewHolder(binding)
                 }
             }
 
-            ShareType.INTERNAL -> {
-                val binding = FileDetailsShareInternalShareLinkBinding.inflate(parentViewGroup, parent, false)
-                return InternalShareViewHolder(binding, fileActivity)
-            }
-
             else -> {
-                val binding = FileDetailsShareShareItemBinding.inflate(parentViewGroup, parent, false)
-                return ShareViewHolder(binding, user, fileActivity, viewThemeUtils, encrypted)
+                val binding = FileDetailsShareShareItemBinding.inflate(inflater, parent, false)
+                ShareViewHolder(binding, user, fileActivity, viewThemeUtils, encrypted)
             }
         }
     }
@@ -113,7 +97,6 @@ class ShareeListAdapter(
         }
 
         val share = shares[position]
-
         val shareViaLink = shareViaLink(fileActivity)
 
         if (!shareViaLink) {
@@ -125,44 +108,21 @@ class ShareeListAdapter(
         }
 
         when (holder) {
-            is LinkShareViewHolder -> {
-                holder.bind(share, listener, position)
-            }
-
-            is InternalShareViewHolder -> {
-                holder.bind(share, listener)
-            }
-
-            is NewLinkShareViewHolder -> {
-                holder.bind(listener)
-            }
-
-            is NewSecureFileDropViewHolder -> {
-                holder.bind(listener)
-            }
-
-            else -> {
-                val userViewHolder = holder as ShareViewHolder
-                userViewHolder.bind(share, listener, this, userId, avatarRadiusDimension)
-            }
+            is LinkShareViewHolder -> holder.bind(share, listener, position)
+            is InternalShareViewHolder -> holder.bind(share, listener)
+            is NewLinkShareViewHolder -> holder.bind(listener)
+            is NewSecureFileDropViewHolder -> holder.bind(listener)
+            is ShareViewHolder -> holder.bind(share, listener, this, userId, avatarRadiusDimension)
         }
     }
 
-    override fun getItemId(position: Int): Long {
-        return shares[position].id
-    }
+    override fun getItemId(position: Int): Long = shares[position].id
 
-    override fun getItemCount(): Int {
-        val shareViaLink = shareViaLink(fileActivity)
-        return if (shareViaLink) {
-            if (isShowAll) {
-                shares.size
-            } else {
-                min(shares.size, 3)
-            }
-        } else {
-            1
-        }
+    @Suppress("MagicNumber")
+    override fun getItemCount(): Int = if (shareViaLink(fileActivity)) {
+        if (isShowAll) shares.size else min(shares.size, 3)
+    } else {
+        1
     }
 
     @SuppressLint("NotifyDataSetChanged")
@@ -209,13 +169,15 @@ class ShareeListAdapter(
     }
 
     fun sortShares() {
-        val sortedShares = shares.sortedWith(compareBy<OCShare> {
-            when (it.shareType) {
-                ShareType.PUBLIC_LINK -> 0
-                ShareType.EMAIL -> 1
-                else -> 2
-            }
-        }.thenByDescending { it.sharedDate })
+        val sortedShares = shares.sortedWith(
+            compareBy<OCShare> {
+                when (it.shareType) {
+                    ShareType.PUBLIC_LINK -> 0
+                    ShareType.EMAIL -> 1
+                    else -> 2
+                }
+            }.thenByDescending { it.sharedDate }
+        )
         shares.clear()
         shares.addAll(sortedShares)
 
