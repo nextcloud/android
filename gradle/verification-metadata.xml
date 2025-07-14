@@ -57,6 +57,7 @@
             <trusting group="androidx.webkit" name="webkit" version="1.14.0"/>
             <trusting group="androidx.work"/>
             <trusting group="com.google.firebase" name="firebase-messaging" version="24.1.1"/>
+            <trusting group="com.google.firebase" name="firebase-messaging" version="24.1.2"/>
             <trusting group="^androidx[.]compose($|([.].*))" regex="true"/>
             <trusting group="^com[.]android($|([.].*))" regex="true"/>
          </trusted-key>
@@ -293,6 +294,7 @@
             <trusting group="org.eclipse.platform" name="org.eclipse.osgi" version="3.23.0"/>
          </trusted-key>
          <trusted-key id="9EB6D93AEA63F11981C112F716F71868F1D3A389" group="org.lukhnos" name="nnio" version="0.2"/>
+         <trusted-key id="A31DDE881C3E3C4C985BD0D02C7F998F4272C851" group="com.diffplug.spotless"/>
          <trusted-key id="A33A0B49A4C1AB590B0A4DDC1364C5E2DF3E99C5" group="org.reactivestreams" name="reactive-streams" version="1.0.3"/>
          <trusted-key id="A413F67D71BEEC23ADD0CE0ACB43338E060CF9FA">
             <trusting group="com.google.code.findbugs"/>
