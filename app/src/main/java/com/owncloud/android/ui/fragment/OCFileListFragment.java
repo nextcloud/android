@@ -277,6 +277,8 @@ public class OCFileListFragment extends ExtendedListFragment implements
             handleSearchEvent(searchEvent);
         }
 
+        refreshDirectory();
+
         super.onResume();
     }
 
