@@ -584,29 +584,23 @@ class FileDetailsSharingProcessFragment :
         }
     }
 
-    private fun isAnySharePermissionChecked(): Boolean {
-        return binding.run {
-            isSharePermissionChecked() || isCustomPermissionSelectedAndAnyCustomPermissionTypeChecked()
-        }
+    private fun isAnySharePermissionChecked(): Boolean = binding.run {
+        isSharePermissionChecked() || isCustomPermissionSelectedAndAnyCustomPermissionTypeChecked()
     }
 
-    private fun isSharePermissionChecked(): Boolean {
-        return binding.run {
-            viewOnlyRadioButton.isChecked || canEditRadioButton.isChecked || fileRequestRadioButton.isChecked
-        }
+    private fun isSharePermissionChecked(): Boolean = binding.run {
+        viewOnlyRadioButton.isChecked || canEditRadioButton.isChecked || fileRequestRadioButton.isChecked
     }
 
-    private fun isCustomPermissionSelectedAndAnyCustomPermissionTypeChecked(): Boolean {
-        return binding.run {
-            customPermissionRadioButton.isChecked &&
-                (
-                    (shareReadCheckbox.isEnabled && shareReadCheckbox.isChecked) ||
-                        (shareCreateCheckbox.isVisible && shareCreateCheckbox.isChecked) ||
-                        shareEditCheckbox.isChecked ||
-                        (shareCheckbox.isVisible && shareCheckbox.isChecked) ||
-                        (shareDeleteCheckbox.isEnabled && shareDeleteCheckbox.isChecked)
-                    )
-        }
+    private fun isCustomPermissionSelectedAndAnyCustomPermissionTypeChecked(): Boolean = binding.run {
+        customPermissionRadioButton.isChecked &&
+            (
+                (shareReadCheckbox.isEnabled && shareReadCheckbox.isChecked) ||
+                    (shareCreateCheckbox.isVisible && shareCreateCheckbox.isChecked) ||
+                    shareEditCheckbox.isChecked ||
+                    (shareCheckbox.isVisible && shareCheckbox.isChecked) ||
+                    (shareDeleteCheckbox.isEnabled && shareDeleteCheckbox.isChecked)
+                )
     }
 
     private fun toggleNextButtonAvailability(value: Boolean) {
