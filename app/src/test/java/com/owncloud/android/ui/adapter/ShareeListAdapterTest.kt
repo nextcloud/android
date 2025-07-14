@@ -72,36 +72,15 @@ class ShareeListAdapterTest {
         val sut = ShareeListAdapter(
             fileActivity,
             ArrayList(randomOrder),
-            object: ShareeListAdapterListener {
-                override fun copyLink(share: OCShare?) {
-                }
-
-                override fun showSharingMenuActionSheet(share: OCShare?) {
-                }
-
-                override fun copyInternalLink() {
-                }
-
-                override fun createPublicShareLink() {
-                }
-
-                override fun createSecureFileDrop() {
-                }
-
-                override fun requestPasswordForShare(
-                    share: OCShare?,
-                    askForPassword: Boolean
-                ) {
-                }
-
-                override fun showPermissionsDialog(share: OCShare?) {
-                }
-
-                override fun showProfileBottomSheet(
-                    user: User?,
-                    shareWith: String?
-                ) {
-                }
+            object : ShareeListAdapterListener {
+                override fun copyLink(share: OCShare?) = Unit
+                override fun showSharingMenuActionSheet(share: OCShare?) = Unit
+                override fun copyInternalLink() = Unit
+                override fun createPublicShareLink() = Unit
+                override fun createSecureFileDrop() = Unit
+                override fun requestPasswordForShare(share: OCShare?, askForPassword: Boolean) = Unit
+                override fun showPermissionsDialog(share: OCShare?) = Unit
+                override fun showProfileBottomSheet(user: User?, shareWith: String?) = Unit
             },
             user.accountName,
             user,
