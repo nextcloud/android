@@ -8,6 +8,7 @@
 package com.nextcloud.ui.fileactions
 
 import android.content.Context
+import android.content.Intent
 import android.content.res.ColorStateList
 import android.graphics.Typeface
 import android.graphics.drawable.Drawable
@@ -33,6 +34,8 @@ import com.nextcloud.android.common.ui.theme.utils.ColorRole
 import com.nextcloud.client.account.CurrentAccountProvider
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.di.ViewModelFactory
+import com.nextcloud.ui.composeActivity.ComposeActivity
+import com.nextcloud.ui.composeActivity.ComposeDestination
 import com.nextcloud.ui.fileactions.FileActionsViewModel.Companion.ARG_ENDPOINTS
 import com.owncloud.android.R
 import com.owncloud.android.databinding.FileActionsBottomSheetBinding
@@ -96,7 +99,7 @@ class FileActionsBottomSheet :
 
         viewModel.load(requireArguments(), componentsGetter)
 
-        endpoints = arguments?.getParcelableArrayList<List<Endpoint>>(ARG_ENDPOINTS) as MutableList<Endpoint>
+        endpoints = arguments?.getParcelableArrayList(ARG_ENDPOINTS)
 
         val bottomSheetDialog = dialog as BottomSheetDialog
         bottomSheetDialog.behavior.state = BottomSheetBehavior.STATE_EXPANDED
@@ -205,9 +208,13 @@ class FileActionsBottomSheet :
                 binding.fileActionsList.addView(view)
             }
             // add declarative ui
-            
-            val test = inflateDeclarativeActionView()
-            binding.fileActionsList.addView(test)
+            if (endpoints != null) {
+                for(val e in endpoints) {
+                    val ui = inflateDeclarativeActionView(e.name)
+                    binding.fileActionsList.addView(ui)
+                }
+            }
+          
         }
     }
 
@@ -302,9 +309,12 @@ class FileActionsBottomSheet :
     private fun inflateDeclarativeActionView(title: String): View {
         val itemBinding = FileActionsBottomSheetItemBinding.inflate(layoutInflater, binding.fileActionsList, false)
             .apply {
-                // root.setOnClickListener {
-                //     viewModel.onClick(action)
-                // }
+                root.setOnClickListener {
+                    val composeActivity = Intent(context, ComposeActivity::class.java)
+                    composeActivity.putExtra(ComposeActivity.DESTINATION, ComposeDestination.DeclarativeUi)
+                    composeActivity.putExtra(ComposeActivity.TITLE, title)
+                    startActivity(composeActivity)
+                }
                 text.text = title
                 // if (action.icon != null) {
                 //     val drawable =
