@@ -39,57 +39,52 @@ fun Task.getInputTitle(): String {
     }
 }
 
-fun Task.getStatusIcon(capability: OCCapability): Int {
-    return if (capability.version.isNewerOrEqual(NextcloudVersion.nextcloud_30)) {
+fun Task.getStatusIcon(capability: OCCapability): Int =
+    if (capability.version.isNewerOrEqual(NextcloudVersion.nextcloud_30)) {
         getStatusIconV2()
     } else {
         getStatusIconV1()
     }
-}
 
-private fun Task.getStatusIconV1(): Int {
-    return when (status) {
-        "0" -> {
-            R.drawable.ic_unknown
-        }
-        "1" -> {
-            R.drawable.ic_clock
-        }
-        "2" -> {
-            R.drawable.ic_modification_desc
-        }
-        "3" -> {
-            R.drawable.ic_check_circle_outline
-        }
-        "4" -> {
-            R.drawable.image_fail
-        }
-        else -> {
-            R.drawable.ic_unknown
-        }
+private fun Task.getStatusIconV1(): Int = when (status) {
+    "0" -> {
+        R.drawable.ic_unknown
+    }
+    "1" -> {
+        R.drawable.ic_clock
+    }
+    "2" -> {
+        R.drawable.ic_modification_desc
+    }
+    "3" -> {
+        R.drawable.ic_check_circle_outline
+    }
+    "4" -> {
+        R.drawable.image_fail
+    }
+    else -> {
+        R.drawable.ic_unknown
     }
 }
 
-private fun Task.getStatusIconV2(): Int {
-    return when (status) {
-        "STATUS_UNKNOWN" -> {
-            R.drawable.ic_unknown
-        }
-        "STATUS_SCHEDULED" -> {
-            R.drawable.ic_clock
-        }
-        "STATUS_RUNNING" -> {
-            R.drawable.ic_modification_desc
-        }
-        "STATUS_SUCCESSFUL" -> {
-            R.drawable.ic_check_circle_outline
-        }
-        "STATUS_FAILED" -> {
-            R.drawable.image_fail
-        }
-        else -> {
-            R.drawable.ic_unknown
-        }
+private fun Task.getStatusIconV2(): Int = when (status) {
+    "STATUS_UNKNOWN" -> {
+        R.drawable.ic_unknown
+    }
+    "STATUS_SCHEDULED" -> {
+        R.drawable.ic_clock
+    }
+    "STATUS_RUNNING" -> {
+        R.drawable.ic_modification_desc
+    }
+    "STATUS_SUCCESSFUL" -> {
+        R.drawable.ic_check_circle_outline
+    }
+    "STATUS_FAILED" -> {
+        R.drawable.image_fail
+    }
+    else -> {
+        R.drawable.ic_unknown
     }
 }
 

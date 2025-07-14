@@ -580,22 +580,20 @@ class FileDetailsSharingProcessFragment :
         }
     }
 
-    private fun isAnyShareOptionChecked(): Boolean {
-        return binding.run {
-            val isCustomPermissionChecked = customPermissionRadioButton.isChecked &&
-                (
-                    shareReadCheckbox.isChecked ||
-                        shareCreateCheckbox.isChecked ||
-                        shareEditCheckbox.isChecked ||
-                        shareCheckbox.isChecked ||
-                        shareDeleteCheckbox.isChecked
-                    )
+    private fun isAnyShareOptionChecked(): Boolean = binding.run {
+        val isCustomPermissionChecked = customPermissionRadioButton.isChecked &&
+            (
+                shareReadCheckbox.isChecked ||
+                    shareCreateCheckbox.isChecked ||
+                    shareEditCheckbox.isChecked ||
+                    shareCheckbox.isChecked ||
+                    shareDeleteCheckbox.isChecked
+                )
 
-            viewOnlyRadioButton.isChecked ||
-                canEditRadioButton.isChecked ||
-                fileRequestRadioButton.isChecked ||
-                isCustomPermissionChecked
-        }
+        viewOnlyRadioButton.isChecked ||
+            canEditRadioButton.isChecked ||
+            fileRequestRadioButton.isChecked ||
+            isCustomPermissionChecked
     }
 
     private fun toggleNextButtonAvailability(value: Boolean) {

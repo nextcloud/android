@@ -36,12 +36,10 @@ object AuthenticatorUrlUtils {
         return trimmedUrl
     }
 
-    private fun trimUrlWebdav(url: String): String {
-        return if (url.lowercase().endsWith(REMOTE_PHP_PATH)) {
-            url.substring(0, url.length - REMOTE_PHP_PATH.length)
-        } else {
-            url
-        }
+    private fun trimUrlWebdav(url: String): String = if (url.lowercase().endsWith(REMOTE_PHP_PATH)) {
+        url.substring(0, url.length - REMOTE_PHP_PATH.length)
+    } else {
+        url
     }
 
     fun stripIndexPhpOrAppsFiles(url: String): String {
@@ -54,13 +52,11 @@ object AuthenticatorUrlUtils {
         return strippedUrl
     }
 
-    fun normalizeScheme(url: String): String {
-        return if (url.matches("[a-zA-Z][a-zA-Z0-9+.-]+://.+".toRegex())) {
-            val uri = URI.create(url)
-            val lcScheme = uri.scheme.lowercase()
-            String.format("%s:%s", lcScheme, uri.rawSchemeSpecificPart)
-        } else {
-            url
-        }
+    fun normalizeScheme(url: String): String = if (url.matches("[a-zA-Z][a-zA-Z0-9+.-]+://.+".toRegex())) {
+        val uri = URI.create(url)
+        val lcScheme = uri.scheme.lowercase()
+        String.format("%s:%s", lcScheme, uri.rawSchemeSpecificPart)
+    } else {
+        url
     }
 }

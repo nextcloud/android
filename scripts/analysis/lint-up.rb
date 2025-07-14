@@ -61,7 +61,7 @@ end
 
 # run Lint
 puts "running Lint..."
-system './gradlew clean lintGplayDebug 1>/dev/null'
+system './gradlew clean lintGplayDebug'
 
 # confirm that Lint ran w/out error
 result = $?.to_i

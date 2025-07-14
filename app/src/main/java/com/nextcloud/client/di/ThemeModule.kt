@@ -27,19 +27,14 @@ internal abstract class ThemeModule {
 
         @Provides
         @Singleton
-        fun themeColorUtils(): ThemeColorUtils {
-            return ThemeColorUtils()
-        }
+        fun themeColorUtils(): ThemeColorUtils = ThemeColorUtils()
 
         @Provides
         @Singleton
-        fun themeUtils(): ThemeUtils {
-            return ThemeUtils()
-        }
+        fun themeUtils(): ThemeUtils = ThemeUtils()
 
         @Provides
-        fun provideMaterialSchemes(materialSchemesProvider: MaterialSchemesProvider): MaterialSchemes {
-            return materialSchemesProvider.getMaterialSchemesForCurrentUser()
-        }
+        fun provideMaterialSchemes(materialSchemesProvider: MaterialSchemesProvider): MaterialSchemes =
+            materialSchemesProvider.getMaterialSchemesForCurrentUser()
     }
 }

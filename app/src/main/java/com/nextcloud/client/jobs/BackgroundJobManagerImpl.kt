@@ -57,7 +57,8 @@ internal class BackgroundJobManagerImpl(
     private val workManager: WorkManager,
     private val clock: Clock,
     private val preferences: AppPreferences
-) : BackgroundJobManager, Injectable {
+) : BackgroundJobManager,
+    Injectable {
 
     companion object {
 
@@ -105,12 +106,10 @@ internal class BackgroundJobManagerImpl(
 
         private const val KEEP_LOG_MILLIS = 1000 * 60 * 60 * 24 * 3L
 
-        fun formatNameTag(name: String, user: User? = null): String {
-            return if (user == null) {
-                "$TAG_PREFIX_NAME:$name"
-            } else {
-                "$TAG_PREFIX_NAME:$name ${user.accountName}"
-            }
+        fun formatNameTag(name: String, user: User? = null): String = if (user == null) {
+            "$TAG_PREFIX_NAME:$name"
+        } else {
+            "$TAG_PREFIX_NAME:$name ${user.accountName}"
         }
 
         fun formatUserTag(user: User): String = "$TAG_PREFIX_USER:${user.accountName}"
@@ -127,36 +126,32 @@ internal class BackgroundJobManagerImpl(
             }
         }
 
-        fun parseTimestamp(timestamp: String): Date {
-            return try {
-                val ms = timestamp.toLong()
-                Date(ms)
-            } catch (ex: NumberFormatException) {
-                Date(0)
-            }
+        fun parseTimestamp(timestamp: String): Date = try {
+            val ms = timestamp.toLong()
+            Date(ms)
+        } catch (ex: NumberFormatException) {
+            Date(0)
         }
 
         /**
          * Convert platform [androidx.work.WorkInfo] object into application-specific [JobInfo] model.
          * Conversion extracts work metadata from tags.
          */
-        fun fromWorkInfo(info: WorkInfo?): JobInfo? {
-            return if (info != null) {
-                val metadata = mutableMapOf<String, String>()
-                info.tags.forEach { parseTag(it)?.let { metadata[it.first] = it.second } }
-                val timestamp = parseTimestamp(metadata.get(TAG_PREFIX_START_TIMESTAMP) ?: "0")
-                JobInfo(
-                    id = info.id,
-                    state = info.state.toString(),
-                    name = metadata.get(TAG_PREFIX_NAME) ?: NOT_SET_VALUE,
-                    user = metadata.get(TAG_PREFIX_USER) ?: NOT_SET_VALUE,
-                    started = timestamp,
-                    progress = info.progress.getInt("progress", -1),
-                    workerClass = metadata.get(TAG_PREFIX_CLASS) ?: NOT_SET_VALUE
-                )
-            } else {
-                null
-            }
+        fun fromWorkInfo(info: WorkInfo?): JobInfo? = if (info != null) {
+            val metadata = mutableMapOf<String, String>()
+            info.tags.forEach { parseTag(it)?.let { metadata[it.first] = it.second } }
+            val timestamp = parseTimestamp(metadata.get(TAG_PREFIX_START_TIMESTAMP) ?: "0")
+            JobInfo(
+                id = info.id,
+                state = info.state.toString(),
+                name = metadata.get(TAG_PREFIX_NAME) ?: NOT_SET_VALUE,
+                user = metadata.get(TAG_PREFIX_USER) ?: NOT_SET_VALUE,
+                started = timestamp,
+                progress = info.progress.getInt("progress", -1),
+                workerClass = metadata.get(TAG_PREFIX_CLASS) ?: NOT_SET_VALUE
+            )
+        } else {
+            null
         }
 
         fun deleteOldLogs(logEntries: MutableList<LogEntry>): MutableList<LogEntry> {
@@ -413,10 +408,9 @@ internal class BackgroundJobManagerImpl(
         workManager.cancelJob(JOB_PERIODIC_CALENDAR_BACKUP, user)
     }
 
-    override fun bothFilesSyncJobsRunning(syncedFolderID: Long): Boolean {
-        return workManager.isWorkRunning(JOB_PERIODIC_FILES_SYNC + "_" + syncedFolderID) &&
+    override fun bothFilesSyncJobsRunning(syncedFolderID: Long): Boolean =
+        workManager.isWorkRunning(JOB_PERIODIC_FILES_SYNC + "_" + syncedFolderID) &&
             workManager.isWorkRunning(JOB_IMMEDIATE_FILES_SYNC + "_" + syncedFolderID)
-    }
 
     override fun startPeriodicallyOfflineOperation() {
         val inputData = Data.Builder()
@@ -571,13 +565,10 @@ internal class BackgroundJobManagerImpl(
         workManager.enqueue(request)
     }
 
-    private fun startFileUploadJobTag(user: User): String {
-        return JOB_FILES_UPLOAD + user.accountName
-    }
+    private fun startFileUploadJobTag(user: User): String = JOB_FILES_UPLOAD + user.accountName
 
-    override fun isStartFileUploadJobScheduled(user: User): Boolean {
-        return workManager.isWorkScheduled(startFileUploadJobTag(user))
-    }
+    override fun isStartFileUploadJobScheduled(user: User): Boolean =
+        workManager.isWorkScheduled(startFileUploadJobTag(user))
 
     override fun startFilesUploadJob(user: User) {
         val data = workDataOf(FileUploadWorker.ACCOUNT to user.accountName)
@@ -597,13 +588,11 @@ internal class BackgroundJobManagerImpl(
         workManager.enqueueUniqueWork(tag, ExistingWorkPolicy.KEEP, request)
     }
 
-    private fun startFileDownloadJobTag(user: User, fileId: Long): String {
-        return JOB_FOLDER_DOWNLOAD + user.accountName + fileId
-    }
+    private fun startFileDownloadJobTag(user: User, fileId: Long): String =
+        JOB_FOLDER_DOWNLOAD + user.accountName + fileId
 
-    override fun isStartFileDownloadJobScheduled(user: User, fileId: Long): Boolean {
-        return workManager.isWorkScheduled(startFileDownloadJobTag(user, fileId))
-    }
+    override fun isStartFileDownloadJobScheduled(user: User, fileId: Long): Boolean =
+        workManager.isWorkScheduled(startFileDownloadJobTag(user, fileId))
 
     override fun startFileDownloadJob(
         user: User,

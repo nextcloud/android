@@ -15,6 +15,8 @@ import android.util.TypedValue
 import android.view.View
 import android.view.ViewGroup
 import android.view.ViewOutlineProvider
+import androidx.coordinatorlayout.widget.CoordinatorLayout
+import com.google.android.material.behavior.HideBottomViewOnScrollBehavior
 
 fun View?.setVisibleIf(condition: Boolean) {
     if (this == null) return
@@ -66,8 +68,8 @@ fun View?.setMargins(left: Int, top: Int, right: Int, bottom: Int) {
     }
 }
 
-fun createRoundedOutline(context: Context, cornerRadiusValue: Float): ViewOutlineProvider {
-    return object : ViewOutlineProvider() {
+fun createRoundedOutline(context: Context, cornerRadiusValue: Float): ViewOutlineProvider =
+    object : ViewOutlineProvider() {
         override fun getOutline(view: View, outline: Outline) {
             val left = 0
             val top = 0
@@ -81,5 +83,17 @@ fun createRoundedOutline(context: Context, cornerRadiusValue: Float): ViewOutlin
 
             outline.setRoundRect(left, top, right, bottom, cornerRadius.toFloat())
         }
+    }
+
+@Suppress("UNCHECKED_CAST", "ReturnCount")
+fun <T : View?> T.slideHideBottomBehavior(visible: Boolean) {
+    this ?: return
+    val params = layoutParams as? CoordinatorLayout.LayoutParams ?: return
+    val behavior = params.behavior as? HideBottomViewOnScrollBehavior<T> ?: return
+
+    if (visible) {
+        behavior.slideUp(this)
+    } else {
+        behavior.slideDown(this)
     }
 }

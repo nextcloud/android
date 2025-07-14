@@ -18,7 +18,6 @@ class InAppReviewModule {
 
     @Provides
     @Singleton
-    internal fun providesInAppReviewHelper(appPreferences: AppPreferences): InAppReviewHelper {
-        return InAppReviewHelperImpl(appPreferences)
-    }
+    internal fun providesInAppReviewHelper(appPreferences: AppPreferences): InAppReviewHelper =
+        InAppReviewHelperImpl(appPreferences)
 }

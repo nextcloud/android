@@ -38,7 +38,9 @@ import javax.inject.Inject
  *
  * Triggers the share when the password is introduced.
  */
-class SharePasswordDialogFragment : DialogFragment(), Injectable {
+class SharePasswordDialogFragment :
+    DialogFragment(),
+    Injectable {
     @JvmField
     @Inject
     var viewThemeUtils: ViewThemeUtils? = null

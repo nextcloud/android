@@ -19,11 +19,7 @@ sealed class OfflineOperationType {
         val mimeType: String
     ) : OfflineOperationType()
 
-    data class RenameFile(
-        override val type: String,
-        var ocFileId: Long,
-        val newName: String
-    ) : OfflineOperationType()
+    data class RenameFile(override val type: String, var ocFileId: Long, val newName: String) : OfflineOperationType()
 
     data class RemoveFile(override val type: String, var path: String) : OfflineOperationType()
 }

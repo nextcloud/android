@@ -14,9 +14,7 @@ object PathUtils {
     /**
      * Returns `true` if [folderPath] is a direct parent of [filePath], `false` otherwise
      */
-    fun isDirectParent(folderPath: String, filePath: String): Boolean {
-        return File(folderPath).path == File(filePath).parent
-    }
+    fun isDirectParent(folderPath: String, filePath: String): Boolean = File(folderPath).path == File(filePath).parent
 
     /**
      * Returns `true` if [folderPath] is an ancestor of [filePath], `false` otherwise

@@ -394,12 +394,10 @@ class FilesSyncWork(
         return lastModificationTime
     }
 
-    private fun getUploadAction(action: String): Int {
-        return when (action) {
-            "LOCAL_BEHAVIOUR_FORGET" -> FileUploadWorker.LOCAL_BEHAVIOUR_FORGET
-            "LOCAL_BEHAVIOUR_MOVE" -> FileUploadWorker.LOCAL_BEHAVIOUR_MOVE
-            "LOCAL_BEHAVIOUR_DELETE" -> FileUploadWorker.LOCAL_BEHAVIOUR_DELETE
-            else -> FileUploadWorker.LOCAL_BEHAVIOUR_FORGET
-        }
+    private fun getUploadAction(action: String): Int = when (action) {
+        "LOCAL_BEHAVIOUR_FORGET" -> FileUploadWorker.LOCAL_BEHAVIOUR_FORGET
+        "LOCAL_BEHAVIOUR_MOVE" -> FileUploadWorker.LOCAL_BEHAVIOUR_MOVE
+        "LOCAL_BEHAVIOUR_DELETE" -> FileUploadWorker.LOCAL_BEHAVIOUR_DELETE
+        else -> FileUploadWorker.LOCAL_BEHAVIOUR_FORGET
     }
 }

@@ -32,9 +32,7 @@ class LogsActivity : ToolbarActivity() {
     private lateinit var logsAdapter: LogsAdapter
 
     private val searchBoxListener = object : SearchView.OnQueryTextListener {
-        override fun onQueryTextSubmit(query: String): Boolean {
-            return false
-        }
+        override fun onQueryTextSubmit(query: String): Boolean = false
 
         override fun onQueryTextChange(newText: String): Boolean {
             vm.filter(newText)

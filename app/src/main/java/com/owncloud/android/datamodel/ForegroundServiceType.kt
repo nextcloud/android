@@ -22,11 +22,9 @@ enum class ForegroundServiceType {
     MediaPlayback;
 
     @RequiresApi(Build.VERSION_CODES.Q)
-    fun getId(): Int {
-        return if (this == DataSync) {
-            ServiceInfo.FOREGROUND_SERVICE_TYPE_DATA_SYNC
-        } else {
-            ServiceInfo.FOREGROUND_SERVICE_TYPE_MEDIA_PLAYBACK
-        }
+    fun getId(): Int = if (this == DataSync) {
+        ServiceInfo.FOREGROUND_SERVICE_TYPE_DATA_SYNC
+    } else {
+        ServiceInfo.FOREGROUND_SERVICE_TYPE_MEDIA_PLAYBACK
     }
 }

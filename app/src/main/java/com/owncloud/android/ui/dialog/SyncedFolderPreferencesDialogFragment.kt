@@ -43,7 +43,9 @@ import javax.inject.Inject
  * Dialog to show the preferences/configuration of a synced folder allowing the user to change the different
  * parameters.
  */
-class SyncedFolderPreferencesDialogFragment : DialogFragment(), Injectable {
+class SyncedFolderPreferencesDialogFragment :
+    DialogFragment(),
+    Injectable {
 
     @JvmField
     @Inject
@@ -545,14 +547,13 @@ class SyncedFolderPreferencesDialogFragment : DialogFragment(), Injectable {
          * @return 0 if ASK_USER, 1 if OVERWRITE, 2 if RENAME, 3 if SKIP, Otherwise: 0
          */
         @Suppress("MagicNumber")
-        private fun getSelectionIndexForNameCollisionPolicy(nameCollisionPolicy: NameCollisionPolicy): Int {
-            return when (nameCollisionPolicy) {
+        private fun getSelectionIndexForNameCollisionPolicy(nameCollisionPolicy: NameCollisionPolicy): Int =
+            when (nameCollisionPolicy) {
                 NameCollisionPolicy.OVERWRITE -> 1
                 NameCollisionPolicy.RENAME -> 2
                 NameCollisionPolicy.CANCEL -> 3
                 NameCollisionPolicy.ASK_USER -> 0
             }
-        }
 
         /**
          * Get index for name collision selection dialog. Inverse of getSelectionIndexForNameCollisionPolicy.
@@ -560,14 +561,12 @@ class SyncedFolderPreferencesDialogFragment : DialogFragment(), Injectable {
          * @return ASK_USER if 0, OVERWRITE if 1, RENAME if 2, SKIP if 3. Otherwise: ASK_USER
          */
         @Suppress("MagicNumber")
-        private fun getNameCollisionPolicyForSelectionIndex(index: Int): NameCollisionPolicy {
-            return when (index) {
-                1 -> NameCollisionPolicy.OVERWRITE
-                2 -> NameCollisionPolicy.RENAME
-                3 -> NameCollisionPolicy.CANCEL
-                0 -> NameCollisionPolicy.ASK_USER
-                else -> NameCollisionPolicy.ASK_USER
-            }
+        private fun getNameCollisionPolicyForSelectionIndex(index: Int): NameCollisionPolicy = when (index) {
+            1 -> NameCollisionPolicy.OVERWRITE
+            2 -> NameCollisionPolicy.RENAME
+            3 -> NameCollisionPolicy.CANCEL
+            0 -> NameCollisionPolicy.ASK_USER
+            else -> NameCollisionPolicy.ASK_USER
         }
     }
 }

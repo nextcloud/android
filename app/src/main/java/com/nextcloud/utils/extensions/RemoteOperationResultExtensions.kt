@@ -70,21 +70,17 @@ fun ResultCode.isFileSpecificError(): Boolean {
 }
 
 @Suppress("Deprecation")
-fun RemoteOperationResult<*>?.toOCFile(): List<OCFile>? {
-    return if (this?.isSuccess == true) {
-        data?.toOCFileList()
-    } else {
-        null
-    }
+fun RemoteOperationResult<*>?.toOCFile(): List<OCFile>? = if (this?.isSuccess == true) {
+    data?.toOCFileList()
+} else {
+    null
 }
 
-private fun ArrayList<Any>.toOCFileList(): List<OCFile> {
-    return this.mapNotNull {
-        val remoteFile = (it as? RemoteFile)
+private fun ArrayList<Any>.toOCFileList(): List<OCFile> = this.mapNotNull {
+    val remoteFile = (it as? RemoteFile)
 
-        remoteFile?.let {
-            remoteFile.toOCFile()
-        }
+    remoteFile?.let {
+        remoteFile.toOCFile()
     }
 }
 

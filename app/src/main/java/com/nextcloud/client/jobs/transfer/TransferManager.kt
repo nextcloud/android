@@ -19,11 +19,7 @@ interface TransferManager {
     /**
      * Snapshot of transfer manager status. All data is immutable and can be safely shared.
      */
-    data class Status(
-        val pending: List<Transfer>,
-        val running: List<Transfer>,
-        val completed: List<Transfer>
-    ) {
+    data class Status(val pending: List<Transfer>, val running: List<Transfer>, val completed: List<Transfer>) {
         companion object {
             val EMPTY = Status(emptyList(), emptyList(), emptyList())
         }

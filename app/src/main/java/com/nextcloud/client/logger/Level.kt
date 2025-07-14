@@ -17,16 +17,14 @@ enum class Level(val tag: String) {
     ERROR("E"),
     ASSERT("A");
 
-    fun getColor(): Int {
-        return when (this) {
-            UNKNOWN -> R.color.log_level_unknown
-            VERBOSE -> R.color.log_level_verbose
-            DEBUG -> R.color.log_level_debug
-            INFO -> R.color.log_level_info
-            WARNING -> R.color.log_level_warning
-            ASSERT -> R.color.log_level_assert
-            ERROR -> R.color.log_level_error
-        }
+    fun getColor(): Int = when (this) {
+        UNKNOWN -> R.color.log_level_unknown
+        VERBOSE -> R.color.log_level_verbose
+        DEBUG -> R.color.log_level_debug
+        INFO -> R.color.log_level_info
+        WARNING -> R.color.log_level_warning
+        ASSERT -> R.color.log_level_assert
+        ERROR -> R.color.log_level_error
     }
 
     companion object {

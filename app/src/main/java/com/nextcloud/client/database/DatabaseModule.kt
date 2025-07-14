@@ -21,22 +21,15 @@ class DatabaseModule {
 
     @Provides
     @Singleton
-    fun database(context: Context, clock: Clock): NextcloudDatabase {
-        return NextcloudDatabase.getInstance(context, clock)
-    }
+    fun database(context: Context, clock: Clock): NextcloudDatabase = NextcloudDatabase.getInstance(context, clock)
 
     @Provides
-    fun arbitraryDataDao(nextcloudDatabase: NextcloudDatabase): ArbitraryDataDao {
-        return nextcloudDatabase.arbitraryDataDao()
-    }
+    fun arbitraryDataDao(nextcloudDatabase: NextcloudDatabase): ArbitraryDataDao = nextcloudDatabase.arbitraryDataDao()
 
     @Provides
-    fun fileDao(nextcloudDatabase: NextcloudDatabase): FileDao {
-        return nextcloudDatabase.fileDao()
-    }
+    fun fileDao(nextcloudDatabase: NextcloudDatabase): FileDao = nextcloudDatabase.fileDao()
 
     @Provides
-    fun offlineOperationsDao(nextcloudDatabase: NextcloudDatabase): OfflineOperationDao {
-        return nextcloudDatabase.offlineOperationDao()
-    }
+    fun offlineOperationsDao(nextcloudDatabase: NextcloudDatabase): OfflineOperationDao =
+        nextcloudDatabase.offlineOperationDao()
 }

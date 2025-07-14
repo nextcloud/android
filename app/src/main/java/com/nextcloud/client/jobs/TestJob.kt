@@ -11,11 +11,8 @@ import androidx.work.Data
 import androidx.work.Worker
 import androidx.work.WorkerParameters
 
-class TestJob(
-    appContext: Context,
-    params: WorkerParameters,
-    private val backgroundJobManager: BackgroundJobManager
-) : Worker(appContext, params) {
+class TestJob(appContext: Context, params: WorkerParameters, private val backgroundJobManager: BackgroundJobManager) :
+    Worker(appContext, params) {
 
     companion object {
         private const val MAX_PROGRESS = 100
