@@ -441,7 +441,18 @@ configurations.configureEach {
     }
 }
 
+// Run the compiler as a separate process
+tasks.withType(JavaCompile).configureEach {
+    options.fork = true
+
+    // Enable Incremental Compilation
+    options.incremental = true
+}
+
 tasks.withType(Test).configureEach {
+    // Run tests in parallel
+    maxParallelForks = Runtime.runtime.availableProcessors().intdiv(2) ?: 1
+
     // increased logging for tests
     testLogging {
         events "passed", "skipped", "failed"
