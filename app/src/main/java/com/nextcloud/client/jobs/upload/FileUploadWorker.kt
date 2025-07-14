@@ -50,7 +50,8 @@ class FileUploadWorker(
     val preferences: AppPreferences,
     val context: Context,
     params: WorkerParameters
-) : Worker(context, params), OnDatatransferProgressListener {
+) : Worker(context, params),
+    OnDatatransferProgressListener {
 
     companion object {
         val TAG: String = FileUploadWorker::class.java.simpleName
@@ -110,6 +111,10 @@ class FileUploadWorker(
             Log_OC.e(TAG, "Error caught at FileUploadWorker $t")
             Result.failure()
         }
+        result
+    } catch (t: Throwable) {
+        Log_OC.e(TAG, "Error caught at FileUploadWorker $t")
+        Result.failure()
     }
 
     override fun onStopped() {
@@ -334,7 +339,8 @@ class FileUploadWorker(
         }
 
         // Only notify if it is not same file on remote that causes conflict
-        if (uploadResult.code == ResultCode.SYNC_CONFLICT && FileUploadHelper().isSameFileOnRemote(
+        if (uploadResult.code == ResultCode.SYNC_CONFLICT &&
+            FileUploadHelper().isSameFileOnRemote(
                 uploadFileOperation.user,
                 File(uploadFileOperation.storagePath),
                 uploadFileOperation.remotePath,
