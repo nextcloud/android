@@ -169,7 +169,7 @@ class ShareeListAdapter(
     }
 
     fun sortShares() {
-        val sortedShares = shares.sortedWith(
+        shares.sortWith(
             compareBy<OCShare> {
                 when (it.shareType) {
                     ShareType.PUBLIC_LINK -> 0
@@ -178,15 +178,10 @@ class ShareeListAdapter(
                 }
             }.thenByDescending { it.sharedDate }
         )
-        shares.clear()
-        shares.addAll(sortedShares)
 
         // add internal share link at end
         if (!encrypted && sharesType == SharesType.INTERNAL) {
-            val ocShare = OCShare().apply {
-                shareType = ShareType.INTERNAL
-            }
-            shares.add(ocShare)
+            shares.add(OCShare().apply { shareType = ShareType.INTERNAL })
         }
     }
 }
