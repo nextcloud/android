@@ -76,10 +76,11 @@ object SharePermissionManager {
             return false
         }
 
-        return share.permissions != OCShare.NO_PERMISSION && (
-            share.permissions == OCShare.READ_PERMISSION_FLAG ||
-                share.permissions == OCShare.READ_PERMISSION_FLAG + OCShare.SHARE_PERMISSION_FLAG
-            )
+        return share.permissions != OCShare.NO_PERMISSION &&
+            (
+                share.permissions == OCShare.READ_PERMISSION_FLAG ||
+                    share.permissions == OCShare.READ_PERMISSION_FLAG + OCShare.SHARE_PERMISSION_FLAG
+                )
     }
 
     @Suppress("ReturnCount")
@@ -111,20 +112,18 @@ object SharePermissionManager {
         return (share.permissions and OCShare.Companion.SHARE_PERMISSION_FLAG) > 0
     }
 
-    fun getSelectedType(share: OCShare?, encrypted: Boolean): QuickPermissionType {
-        return if (canEdit(share)) {
-            QuickPermissionType.CAN_EDIT
-        } else if (encrypted && isSecureFileDrop(share)) {
-            QuickPermissionType.SECURE_FILE_DROP
-        } else if (isViewOnly(share)) {
-            QuickPermissionType.VIEW_ONLY
-        } else if (isCustomPermission(share)) {
-            QuickPermissionType.CUSTOM_PERMISSIONS
-        } else if (isFileRequest(share)) {
-            QuickPermissionType.FILE_REQUEST
-        } else {
-            QuickPermissionType.NONE
-        }
+    fun getSelectedType(share: OCShare?, encrypted: Boolean): QuickPermissionType = if (canEdit(share)) {
+        QuickPermissionType.CAN_EDIT
+    } else if (encrypted && isSecureFileDrop(share)) {
+        QuickPermissionType.SECURE_FILE_DROP
+    } else if (isViewOnly(share)) {
+        QuickPermissionType.VIEW_ONLY
+    } else if (isCustomPermission(share)) {
+        QuickPermissionType.CUSTOM_PERMISSIONS
+    } else if (isFileRequest(share)) {
+        QuickPermissionType.FILE_REQUEST
+    } else {
+        QuickPermissionType.NONE
     }
 
     @Suppress("ReturnCount")
