@@ -10,6 +10,7 @@ package com.owncloud.android.ui.adapter
 import android.content.Context
 import android.content.res.Resources
 import com.nextcloud.client.account.AnonymousUser
+import com.nextcloud.client.account.User
 import com.owncloud.android.datamodel.SharesType
 import com.owncloud.android.lib.resources.shares.OCShare
 import com.owncloud.android.lib.resources.shares.ShareType
@@ -70,8 +71,38 @@ class ShareeListAdapterTest {
 
         val sut = ShareeListAdapter(
             fileActivity,
-            randomOrder,
-            null,
+            ArrayList(randomOrder),
+            object: ShareeListAdapterListener {
+                override fun copyLink(share: OCShare?) {
+                }
+
+                override fun showSharingMenuActionSheet(share: OCShare?) {
+                }
+
+                override fun copyInternalLink() {
+                }
+
+                override fun createPublicShareLink() {
+                }
+
+                override fun createSecureFileDrop() {
+                }
+
+                override fun requestPasswordForShare(
+                    share: OCShare?,
+                    askForPassword: Boolean
+                ) {
+                }
+
+                override fun showPermissionsDialog(share: OCShare?) {
+                }
+
+                override fun showProfileBottomSheet(
+                    user: User?,
+                    shareWith: String?
+                ) {
+                }
+            },
             user.accountName,
             user,
             viewThemeUtils,
@@ -84,7 +115,7 @@ class ShareeListAdapterTest {
         assertSort(sut.shares)
     }
 
-    private fun assertSort(shares: MutableList<OCShare>) {
+    private fun assertSort(shares: List<OCShare>) {
         var compare = true
         var i = 0
         while (i < orderedShares.size && compare) {
