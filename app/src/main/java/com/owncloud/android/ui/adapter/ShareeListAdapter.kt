@@ -9,261 +9,222 @@
  * SPDX-FileCopyrightText: 2015-2018 Andy Scherzinger <info@andy-scherzinger.de>
  * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
  */
-package com.owncloud.android.ui.adapter;
+package com.owncloud.android.ui.adapter
 
-import android.annotation.SuppressLint;
-import android.graphics.drawable.Drawable;
-import android.view.LayoutInflater;
-import android.view.ViewGroup;
-import android.widget.ImageView;
-
-import com.nextcloud.client.account.User;
-import com.nextcloud.utils.mdm.MDMConfig;
-import com.owncloud.android.R;
-import com.owncloud.android.databinding.FileDetailsShareInternalShareLinkBinding;
-import com.owncloud.android.databinding.FileDetailsShareLinkShareItemBinding;
-import com.owncloud.android.databinding.FileDetailsSharePublicLinkAddNewItemBinding;
-import com.owncloud.android.databinding.FileDetailsShareSecureFileDropAddNewItemBinding;
-import com.owncloud.android.databinding.FileDetailsShareShareItemBinding;
-import com.owncloud.android.datamodel.SharesType;
-import com.owncloud.android.lib.resources.shares.OCShare;
-import com.owncloud.android.lib.resources.shares.ShareType;
-import com.owncloud.android.ui.activity.FileActivity;
-import com.owncloud.android.utils.DisplayUtils;
-import com.owncloud.android.utils.theme.ViewThemeUtils;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
+import android.annotation.SuppressLint
+import android.graphics.drawable.Drawable
+import android.view.LayoutInflater
+import android.view.ViewGroup
+import android.widget.ImageView
+import androidx.recyclerview.widget.RecyclerView
+import com.nextcloud.client.account.User
+import com.nextcloud.utils.mdm.MDMConfig.shareViaLink
+import com.owncloud.android.R
+import com.owncloud.android.databinding.FileDetailsShareInternalShareLinkBinding
+import com.owncloud.android.databinding.FileDetailsShareLinkShareItemBinding
+import com.owncloud.android.databinding.FileDetailsSharePublicLinkAddNewItemBinding
+import com.owncloud.android.databinding.FileDetailsShareSecureFileDropAddNewItemBinding
+import com.owncloud.android.databinding.FileDetailsShareShareItemBinding
+import com.owncloud.android.datamodel.SharesType
+import com.owncloud.android.lib.resources.shares.OCShare
+import com.owncloud.android.lib.resources.shares.ShareType
+import com.owncloud.android.ui.activity.FileActivity
+import com.owncloud.android.utils.DisplayUtils.AvatarGenerationListener
+import com.owncloud.android.utils.theme.ViewThemeUtils
+import kotlin.math.min
 
 /**
  * Adapter to show a user/group/email/remote in Sharing list in file details view.
  */
-public class ShareeListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
-    implements DisplayUtils.AvatarGenerationListener {
+class ShareeListAdapter(
+    private val fileActivity: FileActivity,
+    @JvmField var shares: ArrayList<OCShare>,
+    private val listener: ShareeListAdapterListener,
+    private val userId: String?,
+    private val user: User?,
+    private val viewThemeUtils: ViewThemeUtils,
+    private val encrypted: Boolean,
+    private val sharesType: SharesType?
+) : RecyclerView.Adapter<RecyclerView.ViewHolder?>(), AvatarGenerationListener {
+    private val avatarRadiusDimension: Float = fileActivity.getResources().getDimension(R.dimen.user_icon_radius)
+    var isShowAll: Boolean = false
+        private set
 
-    private final ShareeListAdapterListener listener;
-    private final FileActivity fileActivity;
-    private List<OCShare> shares;
-    private final float avatarRadiusDimension;
-    private final String userId;
-    private final User user;
-    private final ViewThemeUtils viewThemeUtils;
-    private final boolean encrypted;
-    private final SharesType sharesType;
-    private boolean showAll = false;
-
-    public ShareeListAdapter(FileActivity fileActivity,
-                             List<OCShare> shares,
-                             ShareeListAdapterListener listener,
-                             String userId,
-                             User user,
-                             final ViewThemeUtils viewThemeUtils,
-                             boolean encrypted,
-                             SharesType sharesType) {
-        this.fileActivity = fileActivity;
-        this.shares = shares;
-        this.listener = listener;
-        this.userId = userId;
-        this.user = user;
-        this.viewThemeUtils = viewThemeUtils;
-        this.encrypted = encrypted;
-        this.sharesType = sharesType;
-
-        avatarRadiusDimension = fileActivity.getResources().getDimension(R.dimen.user_icon_radius);
-
-        sortShares();
+    init {
+        sortShares()
     }
 
-    @Override
-    public int getItemViewType(int position) {
-        if (shares == null) {
-            return 0;
+    override fun getItemViewType(position: Int): Int {
+        if (position < 0 || position >= shares.size) {
+            return 0
         }
 
-        if (position < 0 || position >= shares.size()) {
-            return 0;
-        }
+        val share = shares[position]
 
-        final var share = shares.get(position);
-        if (share == null) {
-            return 0;
-        }
-
-        final var shareType = share.getShareType();
+        val shareType = share.shareType
         if (shareType == null) {
-            return 0;
+            return 0
         }
 
-        return shareType.getValue();
+        return shareType.value
     }
 
-    @NonNull
-    @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        boolean shareViaLink = MDMConfig.INSTANCE.shareViaLink(fileActivity);
-        final var parentViewGroup = LayoutInflater.from(fileActivity);
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        val shareViaLink = shareViaLink(fileActivity)
+        val parentViewGroup = LayoutInflater.from(fileActivity)
 
         if (!shareViaLink) {
-            final var binding = FileDetailsShareInternalShareLinkBinding.inflate(parentViewGroup, parent, false);
-            return new InternalShareViewHolder(binding, fileActivity);
+            val binding = FileDetailsShareInternalShareLinkBinding.inflate(parentViewGroup, parent, false)
+            return InternalShareViewHolder(binding, fileActivity)
         }
 
-        switch (ShareType.fromValue(viewType)) {
-            case PUBLIC_LINK, EMAIL -> {
-                final var binding = FileDetailsShareLinkShareItemBinding.inflate(parentViewGroup, parent, false);
-                return new LinkShareViewHolder(binding, fileActivity, viewThemeUtils, encrypted);
+        when (ShareType.fromValue(viewType)) {
+            ShareType.PUBLIC_LINK, ShareType.EMAIL -> {
+                val binding = FileDetailsShareLinkShareItemBinding.inflate(parentViewGroup, parent, false)
+                return LinkShareViewHolder(binding, fileActivity, viewThemeUtils, encrypted)
             }
-            case NEW_PUBLIC_LINK -> {
+
+            ShareType.NEW_PUBLIC_LINK -> {
                 if (encrypted) {
-                    final var binding = FileDetailsShareSecureFileDropAddNewItemBinding.inflate(parentViewGroup, parent, false);
-                    return new NewSecureFileDropViewHolder(binding);
+                    val binding =
+                        FileDetailsShareSecureFileDropAddNewItemBinding.inflate(parentViewGroup, parent, false)
+                    return NewSecureFileDropViewHolder(binding)
                 } else {
-                    final var binding = FileDetailsSharePublicLinkAddNewItemBinding.inflate(parentViewGroup, parent, false);
-                    return new NewLinkShareViewHolder(binding);
+                    val binding = FileDetailsSharePublicLinkAddNewItemBinding.inflate(parentViewGroup, parent, false)
+                    return NewLinkShareViewHolder(binding)
                 }
             }
-            case INTERNAL -> {
-                final var binding = FileDetailsShareInternalShareLinkBinding.inflate(parentViewGroup, parent, false);
-                return new InternalShareViewHolder(binding, fileActivity);
+
+            ShareType.INTERNAL -> {
+                val binding = FileDetailsShareInternalShareLinkBinding.inflate(parentViewGroup, parent, false)
+                return InternalShareViewHolder(binding, fileActivity)
             }
-            default -> {
-                final var binding = FileDetailsShareShareItemBinding.inflate(parentViewGroup, parent, false);
-                return new ShareViewHolder(binding, user, fileActivity, viewThemeUtils, encrypted);
+
+            else -> {
+                val binding = FileDetailsShareShareItemBinding.inflate(parentViewGroup, parent, false)
+                return ShareViewHolder(binding, user, fileActivity, viewThemeUtils, encrypted)
             }
         }
     }
 
-    @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        if (shares == null || shares.size() <= position) {
-            return;
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        if (shares.size <= position) {
+            return
         }
 
-        final OCShare share = shares.get(position);
+        val share = shares[position]
 
-        boolean shareViaLink = MDMConfig.INSTANCE.shareViaLink(fileActivity);
+        val shareViaLink = shareViaLink(fileActivity)
 
         if (!shareViaLink) {
-            if (holder instanceof InternalShareViewHolder internalShareViewHolder) {
-                internalShareViewHolder.bind(share, listener);
+            if (holder is InternalShareViewHolder) {
+                holder.bind(share, listener)
             }
 
-            return;
+            return
         }
 
-        if (holder instanceof LinkShareViewHolder publicShareViewHolder) {
-            publicShareViewHolder.bind(share, listener, position);
-        } else if (holder instanceof InternalShareViewHolder internalShareViewHolder) {
-            internalShareViewHolder.bind(share, listener);
-        } else if (holder instanceof NewLinkShareViewHolder newLinkShareViewHolder) {
-            newLinkShareViewHolder.bind(listener);
-        } else if (holder instanceof NewSecureFileDropViewHolder newSecureFileDropViewHolder) {
-            newSecureFileDropViewHolder.bind(listener);
-        } else {
-            ShareViewHolder userViewHolder = (ShareViewHolder) holder;
-            userViewHolder.bind(share, listener, this, userId, avatarRadiusDimension);
+        when (holder) {
+            is LinkShareViewHolder -> {
+                holder.bind(share, listener, position)
+            }
+
+            is InternalShareViewHolder -> {
+                holder.bind(share, listener)
+            }
+
+            is NewLinkShareViewHolder -> {
+                holder.bind(listener)
+            }
+
+            is NewSecureFileDropViewHolder -> {
+                holder.bind(listener)
+            }
+
+            else -> {
+                val userViewHolder = holder as ShareViewHolder
+                userViewHolder.bind(share, listener, this, userId, avatarRadiusDimension)
+            }
         }
     }
 
-    @Override
-    public long getItemId(int position) {
-        return shares.get(position).getId();
+    override fun getItemId(position: Int): Long {
+        return shares[position].id
     }
 
-    @Override
-    public int getItemCount() {
-        boolean shareViaLink = MDMConfig.INSTANCE.shareViaLink(fileActivity);
-        if (shareViaLink) {
-            if (showAll) {
-                return shares.size();
+    override fun getItemCount(): Int {
+        val shareViaLink = shareViaLink(fileActivity)
+        return if (shareViaLink) {
+            if (isShowAll) {
+                shares.size
             } else {
-                return Math.min(shares.size(), 3);
+                min(shares.size, 3)
             }
         } else {
-            return 1;
+            1
         }
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    public void toggleShowAll() {
-        showAll = !showAll;
-        notifyDataSetChanged();
-    }
-
-    public boolean isShowAll() {
-        return showAll;
+    fun toggleShowAll() {
+        isShowAll = !isShowAll
+        notifyDataSetChanged()
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    public void addShares(List<OCShare> sharesToAdd) {
-        shares.addAll(sharesToAdd);
-        sortShares();
-        notifyDataSetChanged();
+    fun addShares(sharesToAdd: List<OCShare>) {
+        shares.addAll(sharesToAdd)
+        sortShares()
+        notifyDataSetChanged()
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    public void removeAll() {
-        shares.clear();
-        notifyDataSetChanged();
+    fun removeAll() {
+        shares.clear()
+        notifyDataSetChanged()
     }
 
-    @Override
-    public void avatarGenerated(Drawable avatarDrawable, Object callContext) {
-        if (callContext instanceof ImageView iv) {
-            iv.setImageDrawable(avatarDrawable);
+    override fun avatarGenerated(avatarDrawable: Drawable?, callContext: Any?) {
+        if (callContext is ImageView) {
+            callContext.setImageDrawable(avatarDrawable)
         }
     }
 
-    @Override
-    public boolean shouldCallGeneratedCallback(String tag, Object callContext) {
-        if (callContext instanceof ImageView iv) {
+    override fun shouldCallGeneratedCallback(tag: String, callContext: Any?): Boolean {
+        if (callContext is ImageView) {
             // needs to be changed once federated users have avatars
-            return String.valueOf(iv.getTag()).equals(tag.split("@")[0]);
+            return callContext.tag.toString() == tag.split("@".toRegex()).dropLastWhile { it.isEmpty() }
+                .toTypedArray()[0]
         }
-        return false;
+        return false
     }
 
-    public void remove(OCShare share) {
-        int position = shares.indexOf(share);
+    fun remove(share: OCShare?) {
+        share ?: return
+        val position = shares.indexOf(share)
         if (position != -1) {
-            shares.remove(position);
-            notifyItemRemoved(position);
+            shares.removeAt(position)
+            notifyItemRemoved(position)
         }
     }
 
-    /**
-     * sort all by creation time, then email/link shares on top
-     */
-    protected final void sortShares() {
-        List<OCShare> links = new ArrayList<>();
-        List<OCShare> users = new ArrayList<>();
-
-        for (OCShare share : shares) {
-            if (ShareType.PUBLIC_LINK == share.getShareType() || ShareType.EMAIL == share.getShareType()) {
-                links.add(share);
-            } else if (share.getShareType() != ShareType.INTERNAL) {
-                users.add(share);
+    fun sortShares() {
+        val sortedShares = shares.sortedWith(compareBy<OCShare> {
+            when (it.shareType) {
+                ShareType.PUBLIC_LINK -> 0
+                ShareType.EMAIL -> 1
+                else -> 2
             }
-        }
-
-        links.sort((o1, o2) -> Long.compare(o2.getSharedDate(), o1.getSharedDate()));
-        users.sort((o1, o2) -> Long.compare(o2.getSharedDate(), o1.getSharedDate()));
-
-        shares = links;
-        shares.addAll(users);
+        }.thenByDescending { it.sharedDate })
+        shares.clear()
+        shares.addAll(sortedShares)
 
         // add internal share link at end
         if (!encrypted && sharesType == SharesType.INTERNAL) {
-            final OCShare ocShare = new OCShare();
-            ocShare.setShareType(ShareType.INTERNAL);
-            shares.add(ocShare);
+            val ocShare = OCShare().apply {
+                shareType = ShareType.INTERNAL
+            }
+            shares.add(ocShare)
         }
-    }
-
-    public List<OCShare> getShares() {
-        return shares;
     }
 }

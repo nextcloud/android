@@ -543,10 +543,10 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
         }
         
         internalShareeListAdapter.addShares(internalShares);
-        ViewExtensionsKt.setVisibleIf(binding.sharesListInternalShowAll, internalShareeListAdapter.getShares().size() > 3);
+        ViewExtensionsKt.setVisibleIf(binding.sharesListInternalShowAll, internalShareeListAdapter.shares.size() > 3);
 
         addExternalAndPublicShares(externalShares);
-        ViewExtensionsKt.setVisibleIf(binding.sharesListExternalShowAll, externalShareeListAdapter.getShares().size() > 3);
+        ViewExtensionsKt.setVisibleIf(binding.sharesListExternalShowAll, externalShareeListAdapter.shares.size() > 3);
     }
 
     private void addExternalAndPublicShares(List<OCShare> externalShares) {
