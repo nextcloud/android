@@ -26,6 +26,7 @@ import android.graphics.RectF;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
+import android.text.TextUtils;
 import android.widget.ImageView;
 
 import com.owncloud.android.MainApp;
@@ -106,6 +107,11 @@ public final class BitmapUtils {
      */
     @Nullable
     public static Bitmap decodeSampledBitmapFromFile(String srcPath, int reqWidth, int reqHeight) {
+        if (TextUtils.isEmpty(srcPath)) {
+            Log_OC.e(TAG, "srcPath is null or empty");
+            return null;
+        }
+
         final var file = new File(srcPath);
         if (!file.exists()) {
             Log_OC.e(TAG, "File does not exists, returning null");
