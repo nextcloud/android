@@ -14,6 +14,7 @@ import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.utils.extensions.getParcelableArgument
@@ -205,7 +206,7 @@ class FileDetailsSharingProcessFragment :
         setCheckboxStates()
         themeView()
         setVisibilitiesOfShareOption()
-        toggleNextButtonAvailability(isAnyShareOptionChecked())
+        toggleNextButtonAvailability(isAnySharePermissionChecked())
         logShareInfo()
     }
 
@@ -583,20 +584,29 @@ class FileDetailsSharingProcessFragment :
         }
     }
 
-    private fun isAnyShareOptionChecked(): Boolean = binding.run {
-        val isCustomPermissionChecked = customPermissionRadioButton.isChecked &&
-            (
-                shareReadCheckbox.isChecked ||
-                    shareCreateCheckbox.isChecked ||
-                    shareEditCheckbox.isChecked ||
-                    shareCheckbox.isChecked ||
-                    shareDeleteCheckbox.isChecked
-                )
+    private fun isAnySharePermissionChecked(): Boolean {
+        return binding.run {
+            isSharePermissionChecked() || isCustomPermissionSelectedAndAnyCustomPermissionTypeChecked()
+        }
+    }
 
-        viewOnlyRadioButton.isChecked ||
-            canEditRadioButton.isChecked ||
-            fileRequestRadioButton.isChecked ||
-            isCustomPermissionChecked
+    private fun isSharePermissionChecked(): Boolean {
+        return binding.run {
+            viewOnlyRadioButton.isChecked || canEditRadioButton.isChecked || fileRequestRadioButton.isChecked
+        }
+    }
+
+    private fun isCustomPermissionSelectedAndAnyCustomPermissionTypeChecked(): Boolean {
+        return binding.run {
+            customPermissionRadioButton.isChecked &&
+                (
+                    (shareReadCheckbox.isEnabled && shareReadCheckbox.isChecked) ||
+                        (shareCreateCheckbox.isVisible && shareCreateCheckbox.isChecked) ||
+                        shareEditCheckbox.isChecked ||
+                        (shareCheckbox.isVisible && shareCheckbox.isChecked) ||
+                        (shareDeleteCheckbox.isEnabled && shareDeleteCheckbox.isChecked)
+                    )
+        }
     }
 
     private fun toggleNextButtonAvailability(value: Boolean) {
@@ -768,6 +778,14 @@ class FileDetailsSharingProcessFragment :
             return
         }
 
+        if (!isSharePermissionChecked() && !isCustomPermissionSelectedAndAnyCustomPermissionTypeChecked()) {
+            DisplayUtils.showSnackMessage(
+                binding.root,
+                R.string.file_details_sharing_fragment_custom_permission_not_selected
+            )
+            return
+        }
+
         // if modifying existing share information then execute the process
         if (share != null) {
             updateShare()
@@ -780,7 +798,7 @@ class FileDetailsSharingProcessFragment :
 
     @Suppress("ReturnCount")
     private fun createShareOrUpdateNoteShare() {
-        if (!isAnyShareOptionChecked()) {
+        if (!isAnySharePermissionChecked()) {
             DisplayUtils.showSnackMessage(requireActivity(), R.string.share_option_required)
             return
         }
