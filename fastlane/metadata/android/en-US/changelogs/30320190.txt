@@ -1,0 +1,7 @@
+## 3.32.1 (July 14, 2025)
+
+- Bug fixes.
+
+Minimum: NC 18 Server, Android 8.0 Nougat
+
+For a full list, please see https://github.com/nextcloud/android/milestone/113
