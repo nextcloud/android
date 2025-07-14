@@ -28,17 +28,15 @@ enum class QuickPermissionType(
 
     fun getIcon(context: Context): Drawable? = ContextCompat.getDrawable(context, iconId)
 
-    fun getPermissionFlag(isFolder: Boolean): Int {
-        return when (this) {
-            NONE -> OCShare.NO_PERMISSION
-            VIEW_ONLY -> OCShare.READ_PERMISSION_FLAG
-            CAN_EDIT -> if (isFolder) OCShare.MAXIMUM_PERMISSIONS_FOR_FOLDER else OCShare.MAXIMUM_PERMISSIONS_FOR_FILE
-            FILE_REQUEST -> OCShare.CREATE_PERMISSION_FLAG
-            SECURE_FILE_DROP -> OCShare.CREATE_PERMISSION_FLAG + OCShare.READ_PERMISSION_FLAG
-            else -> {
-                // Custom permission's flag can't be determined
-                OCShare.NO_PERMISSION
-            }
+    fun getPermissionFlag(isFolder: Boolean): Int = when (this) {
+        NONE -> OCShare.NO_PERMISSION
+        VIEW_ONLY -> OCShare.READ_PERMISSION_FLAG
+        CAN_EDIT -> if (isFolder) OCShare.MAXIMUM_PERMISSIONS_FOR_FOLDER else OCShare.MAXIMUM_PERMISSIONS_FOR_FILE
+        FILE_REQUEST -> OCShare.CREATE_PERMISSION_FLAG
+        SECURE_FILE_DROP -> OCShare.CREATE_PERMISSION_FLAG + OCShare.READ_PERMISSION_FLAG
+        else -> {
+            // Custom permission's flag can't be determined
+            OCShare.NO_PERMISSION
         }
     }
 
