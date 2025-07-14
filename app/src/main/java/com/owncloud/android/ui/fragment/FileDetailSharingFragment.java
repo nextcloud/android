@@ -33,6 +33,7 @@ import android.view.ViewGroup;
 
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
+import com.nextcloud.client.database.entity.FileEntity;
 import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.network.ClientFactory;
 import com.nextcloud.utils.extensions.BundleExtensionsKt;
@@ -649,6 +650,12 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
     @Override
     public void unShare(OCShare share) {
         unShareWith(share);
+
+        FileEntity entity = fileDataStorageManager.getFileEntity(file);
+        if (entity != null) {
+            entity.setSharedWithSharee(0);
+            fileDataStorageManager.updateFileEntity(entity);
+        }
 
         if (binding.sharesListInternal.getAdapter() instanceof ShareeListAdapter adapter) {
             adapter.remove(share);
