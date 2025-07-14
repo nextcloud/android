@@ -57,7 +57,7 @@ class FileUploadWorker(
 
         const val NOTIFICATION_ERROR_ID: Int = 413
         const val ACCOUNT = "data_account"
-        const val TOTAL_UPLOAD_SIZE = "total_upload_size"
+        const val UPLOAD_IDS = "uploads_ids"
         var currentUploadFileOperation: UploadFileOperation? = null
 
         private const val UPLOADS_ADDED_MESSAGE = "UPLOADS_ADDED"
@@ -90,7 +90,6 @@ class FileUploadWorker(
         }
     }
 
-    private var currentUploadIndex: Int = 1
     private var lastPercent = 0
     private val notificationManager = UploadNotificationManager(context, viewThemeUtils, Random.nextInt())
     private val intents = FileUploaderIntents(context)
@@ -123,8 +122,8 @@ class FileUploadWorker(
         super.onStopped()
     }
 
-    private fun setWorkerState(user: User?, uploads: List<OCUpload>) {
-        WorkerStateLiveData.instance().setWorkState(WorkerState.UploadStarted(user, uploads))
+    private fun setWorkerState(user: User?) {
+        WorkerStateLiveData.instance().setWorkState(WorkerState.UploadStarted(user))
     }
 
     private fun setIdleWorkerState() {
@@ -132,11 +131,11 @@ class FileUploadWorker(
     }
 
     @Suppress("ReturnCount")
-    private fun retrievePagesBySortingUploadsByID(): Result {
+    private fun uploadFiles(): Result {
         val accountName = inputData.getString(ACCOUNT) ?: return Result.failure()
-        var uploadsPerPage = uploadsStorageManager.getCurrentUploadsForAccountPageAscById(-1, accountName)
-        val totalUploadSize =
-            inputData.getInt(TOTAL_UPLOAD_SIZE, defaultValue = uploadsStorageManager.getTotalUploadSize(accountName))
+        val uploadIds = inputData.getLongArray(UPLOAD_IDS) ?: return Result.success()
+        val uploads = uploadIds.map { id -> uploadsStorageManager.getUploadById(id) }.filterNotNull()
+        val totalUploadSize = uploadIds.size
 
         Log_OC.d(TAG, "Total upload size: $totalUploadSize")
 
@@ -154,18 +153,41 @@ class FileUploadWorker(
                 return Result.failure()
             }
 
-            Log_OC.d(TAG, "Handling ${uploadsPerPage.size} uploads for account $accountName")
-            val lastId = uploadsPerPage.last().uploadId
-            uploadFiles(totalUploadSize, uploadsPerPage, accountName)
-            uploadsPerPage =
-                uploadsStorageManager.getCurrentUploadsForAccountPageAscById(lastId, accountName)
+            val user = userAccountManager.getUser(accountName)
+            if (!user.isPresent) {
+                uploadsStorageManager.removeUpload(upload.uploadId)
+                continue
+            }
+
+            if (isStopped) {
+                continue
+            }
+
+            setWorkerState(user.get())
+
+            val operation = createUploadFileOperation(upload, user.get())
+            currentUploadFileOperation = operation
+
+            notificationManager.prepareForStart(
+                operation,
+                cancelPendingIntent = intents.startIntent(operation),
+                startIntent = intents.notificationStartIntent(operation),
+                currentUploadIndex = index,
+                totalUploadSize = totalUploadSize
+            )
+
+            val result = upload(operation, user.get())
+            currentUploadFileOperation = null
+
+            fileUploaderDelegate.sendBroadcastUploadFinished(
+                operation,
+                result,
+                operation.oldFile?.storagePath,
+                context,
+                localBroadcastManager
+            )
         }
 
-        if (isStopped) {
-            Log_OC.d(TAG, "FileUploadWorker for account $accountName was stopped")
-        } else {
-            Log_OC.d(TAG, "No more pending uploads for account $accountName, stopping work")
-        }
         return Result.success()
     }
 
@@ -183,14 +205,23 @@ class FileUploadWorker(
         return result
     }
 
-    @Suppress("NestedBlockDepth")
-    private fun uploadFiles(totalUploadSize: Int, uploadsPerPage: List<OCUpload>, accountName: String) {
-        val user = userAccountManager.getUser(accountName)
-        setWorkerState(user.get(), uploadsPerPage)
-
-        if (canExitEarly()) {
-            notificationManager.showConnectionErrorNotification()
-            return
+    private fun createUploadFileOperation(upload: OCUpload, user: User): UploadFileOperation {
+        return UploadFileOperation(
+            uploadsStorageManager,
+            connectivityService,
+            powerManagementService,
+            user,
+            null,
+            upload,
+            upload.nameCollisionPolicy,
+            upload.localAction,
+            context,
+            upload.isUseWifiOnly,
+            upload.isWhileChargingOnly,
+            true,
+            FileDataStorageManager(user, context.contentResolver)
+        ).apply {
+            addDataTransferProgressListener(this@FileUploadWorker)
         }
 
         run uploads@{
