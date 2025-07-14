@@ -10,9 +10,6 @@ package com.owncloud.android.ui.fragment.util
 import com.owncloud.android.datamodel.quickPermission.QuickPermissionType
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.lib.resources.shares.OCShare
-import com.owncloud.android.lib.resources.shares.attributes.ShareAttributes
-import com.owncloud.android.lib.resources.shares.attributes.ShareAttributesJsonHandler
-import com.owncloud.android.lib.resources.shares.attributes.getDownloadAttribute
 import com.owncloud.android.ui.fragment.FileDetailsSharingProcessFragment.Companion.TAG
 
 object SharePermissionManager {
@@ -111,7 +108,23 @@ object SharePermissionManager {
             return false
         }
 
-        return share?.permissions != OCShare.NO_PERMISSION && share?.permissions == OCShare.CREATE_PERMISSION_FLAG
+        return share.permissions != OCShare.NO_PERMISSION && (
+            share.permissions == OCShare.READ_PERMISSION_FLAG ||
+                share.permissions == OCShare.READ_PERMISSION_FLAG + OCShare.SHARE_PERMISSION_FLAG
+            )
+    }
+
+    @Suppress("ReturnCount")
+    fun isFileRequest(share: OCShare?): Boolean {
+        if (share == null) {
+            return false
+        }
+
+        if (!share.isFolder) {
+            return false
+        }
+
+        return share.permissions != OCShare.NO_PERMISSION && share.permissions == OCShare.CREATE_PERMISSION_FLAG
     }
 
     fun isSecureFileDrop(share: OCShare?): Boolean {
@@ -148,12 +161,19 @@ object SharePermissionManager {
 
     @Suppress("ReturnCount")
     fun isCustomPermission(share: OCShare?): Boolean {
-        if (share == null) return false
+        if (share == null) {
+            return false
+        }
+
         val permissions = share.permissions
-        if (permissions == OCShare.NO_PERMISSION) return false
+        if (permissions == OCShare.NO_PERMISSION) {
+            return false
+        }
 
         val hasRead = hasPermission(permissions, OCShare.READ_PERMISSION_FLAG)
-        if (!hasRead) return false
+        if (!hasRead) {
+            return false
+        }
 
         val hasCreate = hasPermission(permissions, OCShare.CREATE_PERMISSION_FLAG)
         val hasUpdate = hasPermission(permissions, OCShare.UPDATE_PERMISSION_FLAG)

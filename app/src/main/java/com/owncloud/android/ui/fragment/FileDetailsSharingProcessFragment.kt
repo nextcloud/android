@@ -14,6 +14,7 @@ import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.utils.extensions.getParcelableArgument
@@ -205,7 +206,7 @@ class FileDetailsSharingProcessFragment :
         setCheckboxStates()
         themeView()
         setVisibilitiesOfShareOption()
-        toggleNextButtonAvailability(isAnyShareOptionChecked())
+        toggleNextButtonAvailability(isAnySharePermissionChecked())
         logShareInfo()
     }
 
@@ -770,6 +771,14 @@ class FileDetailsSharingProcessFragment :
             return
         }
 
+        if (!isSharePermissionChecked() && !isCustomPermissionSelectedAndAnyCustomPermissionTypeChecked()) {
+            DisplayUtils.showSnackMessage(
+                binding.root,
+                R.string.file_details_sharing_fragment_custom_permission_not_selected
+            )
+            return
+        }
+
         // if modifying existing share information then execute the process
         if (share != null) {
             updateShare()
@@ -782,7 +791,7 @@ class FileDetailsSharingProcessFragment :
 
     @Suppress("ReturnCount")
     private fun createShareOrUpdateNoteShare() {
-        if (!isAnyShareOptionChecked()) {
+        if (!isAnySharePermissionChecked()) {
             DisplayUtils.showSnackMessage(requireActivity(), R.string.share_option_required)
             return
         }
