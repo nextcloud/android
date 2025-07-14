@@ -39,19 +39,16 @@ data class OfflineOperationEntity(
     @ColumnInfo(name = ProviderTableMeta.OFFLINE_OPERATION_MODIFIED_AT)
     var modifiedAt: Long? = null
 ) {
-    fun isRenameOrRemove(): Boolean {
-        return (type is OfflineOperationType.RenameFile || type is OfflineOperationType.RemoveFile)
-    }
+    fun isRenameOrRemove(): Boolean =
+        (type is OfflineOperationType.RenameFile || type is OfflineOperationType.RemoveFile)
 
-    fun getConflictText(context: Context): String {
-        return if (type is OfflineOperationType.RemoveFile) {
-            context.getString(R.string.offline_operations_worker_notification_remove_conflict_text, filename)
-        } else if (type is OfflineOperationType.RenameFile) {
-            context.getString(R.string.offline_operations_worker_notification_rename_conflict_text, filename)
-        } else if (type is OfflineOperationType.CreateFile) {
-            context.getString(R.string.offline_operations_worker_notification_create_file_conflict_text, filename)
-        } else {
-            context.getString(R.string.offline_operations_worker_notification_create_folder_conflict_text, filename)
-        }
+    fun getConflictText(context: Context): String = if (type is OfflineOperationType.RemoveFile) {
+        context.getString(R.string.offline_operations_worker_notification_remove_conflict_text, filename)
+    } else if (type is OfflineOperationType.RenameFile) {
+        context.getString(R.string.offline_operations_worker_notification_rename_conflict_text, filename)
+    } else if (type is OfflineOperationType.CreateFile) {
+        context.getString(R.string.offline_operations_worker_notification_create_file_conflict_text, filename)
+    } else {
+        context.getString(R.string.offline_operations_worker_notification_create_folder_conflict_text, filename)
     }
 }

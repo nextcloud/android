@@ -278,7 +278,5 @@ class OfflineOperationsWorker(
         }
     }
 
-    private fun isFileChanged(remoteFile: RemoteFile, ocFile: OCFile): Boolean {
-        return remoteFile.etag != ocFile.etagOnServer
-    }
+    private fun isFileChanged(remoteFile: RemoteFile, ocFile: OCFile): Boolean = remoteFile.etag != ocFile.etagOnServer
 }
