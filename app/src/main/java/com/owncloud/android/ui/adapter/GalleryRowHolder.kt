@@ -1,6 +1,7 @@
 /*
  * Nextcloud - Android Client
  *
+ * SPDX-FileCopyrightText: 2025 Alper Ozturk <alper.ozturk@nextcloud.com>
  * SPDX-FileCopyrightText: 2022 Tobias Kaminsky <tobias@kaminsky.me>
  * SPDX-FileCopyrightText: 2022 Nextcloud GmbH
  * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
@@ -17,6 +18,7 @@ import androidx.core.view.get
 import com.afollestad.sectionedrecyclerview.SectionedViewHolder
 import com.elyeproj.loaderviewlibrary.LoaderImageView
 import com.nextcloud.android.common.ui.theme.utils.ColorRole
+import com.nextcloud.utils.OCFileUtils
 import com.nextcloud.utils.extensions.makeRounded
 import com.nextcloud.utils.extensions.setVisibleIf
 import com.owncloud.android.R
@@ -25,12 +27,10 @@ import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.GalleryRow
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.datamodel.ThumbnailsCacheManager
-import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.lib.resources.files.model.ImageDimension
 import com.owncloud.android.utils.BitmapUtils
 import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
-import java.io.File
 
 @Suppress("LongParameterList")
 class GalleryRowHolder(
@@ -44,7 +44,6 @@ class GalleryRowHolder(
     val context = galleryAdapter.context
 
     private lateinit var currentRow: GalleryRow
-    private val tag = "GalleryRowHolder"
     private val zero by lazy { context.resources.getInteger(R.integer.zero) }
     private val smallMargin by lazy { context.resources.getInteger(R.integer.small_margin) }
     private val iconRadius by lazy { context.resources.getDimension(R.dimen.activity_icon_radius) }
@@ -113,10 +112,6 @@ class GalleryRowHolder(
         bind(currentRow)
     }
 
-    fun GalleryRow.getActualMaxHeight(): Float {
-        return files.maxOfOrNull { getImageSize(it).second.toFloat() } ?: 0f
-    }
-
     @SuppressWarnings("MagicNumber", "ComplexMethod")
     private fun computeShrinkRatio(row: GalleryRow): Float {
         val screenWidth =
@@ -127,9 +122,9 @@ class GalleryRowHolder(
             var newSummedWidth = 0f
             for (file in row.files) {
                 // first adjust all thumbnails to max height
-                val (width, height) = getImageSize(file)
+                val (width, height) = OCFileUtils.getImageSize(file, defaultThumbnailSize)
 
-                val scaleFactor = row.getActualMaxHeight() / height
+                val scaleFactor = row.getMaxHeight() / height
                 val newHeight = height * scaleFactor
                 val newWidth = width * scaleFactor
 
@@ -168,68 +163,14 @@ class GalleryRowHolder(
         }
     }
 
-    private fun getDefaultImageSize(file: OCFile): Pair<Int, Int> {
-        val width: Int = (file.imageDimension?.width ?: defaultThumbnailSize).toInt()
-        val height: Int = (file.imageDimension?.height ?: defaultThumbnailSize).toInt()
-
-        if (file.storagePath == null) {
-            return width to height
-        }
-
-        val rawResolution = BitmapUtils.getImageResolution(file.storagePath)
-        val rawResult = rawResolution[0] to rawResolution[1]
-        return if (rawResult.first <= 0 || rawResult.second <= 0) {
-            width to height
-        } else {
-            rawResult
-        }
-    }
-
-    private fun getImageSize(ocFile: OCFile): Pair<Int, Int> {
-        if (ocFile.storagePath == null) {
-            return getDefaultImageSize(ocFile)
-        }
-
-        if (!File(ocFile.storagePath).exists()) {
-            Log_OC.d(tag,
-                "File not downloaded. File's image dimension will be used or defaultThumbnailSize")
-            val width = ocFile.imageDimension?.width?.toInt() ?: defaultThumbnailSize.toInt()
-            val height = ocFile.imageDimension?.height?.toInt() ?: defaultThumbnailSize.toInt()
-            return width to height
-        }
-
-        val exif = androidx.exifinterface.media.ExifInterface(ocFile.storagePath)
-
-        val width = exif.getAttribute(androidx.exifinterface.media.ExifInterface.TAG_IMAGE_WIDTH)?.toInt() ?: 0
-        val height = exif.getAttribute(androidx.exifinterface.media.ExifInterface.TAG_IMAGE_LENGTH)?.toInt() ?: 0
-
-        if (width <= 0 || height <= 0) {
-            Log_OC.d(tag,
-                "Exif data not available Option class will be used to determine width and height")
-            return getDefaultImageSize(ocFile)
-        }
-
-        Log_OC.d(tag, "Exif used to determine width and height")
-        return width to height
-    }
-
     private fun adjustFile(indexedFile: IndexedValue<OCFile>, shrinkRatio: Float, row: GalleryRow) {
         val file = indexedFile.value
         val index = indexedFile.index
 
-        var (width, height) = getImageSize(file)
-
-        val actualRatio = if (file.isDown) {
-            1f
-        } else {
-            shrinkRatio
-        }
+        var (width, height) = OCFileUtils.getImageSize(file, defaultThumbnailSize)
 
         width = ((width) * shrinkRatio).toInt()
         height = ((height) * shrinkRatio).toInt()
-
-        Log_OC.d(tag, "GALLERY ROW WIDTH: $width")
-        Log_OC.d(tag, "GALLERY ROW HEIGHT: $height")
 
         val frameLayout = binding.rowLayout[index] as FrameLayout
         val checkBoxImageView = frameLayout[2] as ImageView
