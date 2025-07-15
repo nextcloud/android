@@ -181,6 +181,7 @@ public class FileMenuFilter {
             (!isShareViaLinkAllowed() && !isShareWithUsersAllowed()) ||
             !isShareApiEnabled(capability) || !files.iterator().next().canReshare()) {
             toHide.add(R.id.action_send_share_file);
+            toHide.add(R.id.action_send_file);
         }
     }
 
