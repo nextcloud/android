@@ -421,7 +421,7 @@ dependencies {
     implementation "com.github.stateless4j:stateless4j:2.6.0"
 
     // upon each update first test: new registration, receive push
-    gplayImplementation "com.google.firebase:firebase-messaging:24.1.1"
+    gplayImplementation "com.google.firebase:firebase-messaging:24.1.2"
     gplayImplementation "com.google.android.gms:play-services-base:18.5.0"
     gplayImplementation "com.google.android.play:review-ktx:2.0.2"
 
@@ -441,7 +441,18 @@ configurations.configureEach {
     }
 }
 
+// Run the compiler as a separate process
+tasks.withType(JavaCompile).configureEach {
+    options.fork = true
+
+    // Enable Incremental Compilation
+    options.incremental = true
+}
+
 tasks.withType(Test).configureEach {
+    // Run tests in parallel
+    maxParallelForks = Runtime.runtime.availableProcessors().intdiv(2) ?: 1
+
     // increased logging for tests
     testLogging {
         events "passed", "skipped", "failed"

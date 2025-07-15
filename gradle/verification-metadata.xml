@@ -3,6 +3,7 @@
    <configuration>
       <verify-metadata>true</verify-metadata>
       <verify-signatures>true</verify-signatures>
+      <keyring-format>armored</keyring-format>
       <trusted-artifacts>
          <trust group="com.android.tools.build" name="aapt2" version="8.9.2-12782657" reason="ships OS specific artifacts (win/linux) - temp global trust"/>
          <trust group="com.fasterxml.jackson" name="jackson-base" version="2.14.2" reason="no keys available, no pom artifact to create a checksum"/>
@@ -57,6 +58,7 @@
             <trusting group="androidx.webkit" name="webkit" version="1.14.0"/>
             <trusting group="androidx.work"/>
             <trusting group="com.google.firebase" name="firebase-messaging" version="24.1.1"/>
+            <trusting group="com.google.firebase" name="firebase-messaging" version="24.1.2"/>
             <trusting group="^androidx[.]compose($|([.].*))" regex="true"/>
             <trusting group="^com[.]android($|([.].*))" regex="true"/>
          </trusted-key>
