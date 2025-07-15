@@ -18,7 +18,10 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
+import com.google.gson.Gson
+import com.nextcloud.android.lib.resources.declarativeui.GetDeclarativeUiJsonOperation
 import com.nextcloud.client.assistant.AssistantScreen
 import com.nextcloud.client.assistant.AssistantViewModel
 import com.nextcloud.client.assistant.repository.AssistantRepository
@@ -96,6 +99,29 @@ class ComposeActivity : DrawerActivity() {
                     activity = this,
                     capability = capabilities
                 )
+            }
+        } else if (destination == ComposeDestination.DeclarativeUi) {
+            binding.bottomNavigation.visibility = View.GONE
+
+            val endpoint : Endpoint? = intent.getParcelableExtra(ARGS_ENDPOINT)
+
+            if (nextcloudClient != null && endpoint != null) {
+                val string = """{
+  "Button": {
+    "label": "Submit",
+    "type": "primary",
+  },
+  "Image": {
+    "url": "/core/img/logo/logo.png"
+  }
+}"""
+                  
+                        DeclarativeUiScreen(Gson().fromJson(string))
+                    }
+                }
+                   
+                //}
+                
             }
         } else if (destination == ComposeDestination.DeclarativeUi) {
             binding.bottomNavigation.visibility = View.GONE

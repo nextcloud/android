@@ -359,18 +359,20 @@ class FileActionsBottomSheet :
             additionalToHide: List<Int>? = null,
             inSingleFileFragment: Boolean = false,
             endpoints: List<Endpoint>
-        ): FileActionsBottomSheet = FileActionsBottomSheet().apply {
-            val argsBundle = bundleOf(
-                FileActionsViewModel.ARG_ALL_FILES_COUNT to numberOfAllFiles,
-                FileActionsViewModel.ARG_FILES to ArrayList<OCFile>(files),
-                FileActionsViewModel.ARG_IS_OVERFLOW to isOverflow,
-                FileActionsViewModel.ARG_IN_SINGLE_FILE_FRAGMENT to inSingleFileFragment,
-                FileActionsViewModel.ARG_ENDPOINTS to endpoints
-            )
-            additionalToHide?.let {
-                argsBundle.putIntArray(FileActionsViewModel.ARG_ADDITIONAL_FILTER, additionalToHide.toIntArray())
+        ): FileActionsBottomSheet {
+            return FileActionsBottomSheet().apply {
+                val argsBundle = bundleOf(
+                    FileActionsViewModel.ARG_ALL_FILES_COUNT to numberOfAllFiles,
+                    FileActionsViewModel.ARG_FILES to ArrayList<OCFile>(files),
+                    FileActionsViewModel.ARG_IS_OVERFLOW to isOverflow,
+                    FileActionsViewModel.ARG_IN_SINGLE_FILE_FRAGMENT to inSingleFileFragment,
+                    FileActionsViewModel.ARG_ENDPOINTS to endpoints
+                )
+                additionalToHide?.let {
+                    argsBundle.putIntArray(FileActionsViewModel.ARG_ADDITIONAL_FILTER, additionalToHide.toIntArray())
+                }
+                arguments = argsBundle
             }
-            arguments = argsBundle
         }
     }
 }
