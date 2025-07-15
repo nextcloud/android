@@ -1,327 +1,323 @@
 /*
  * Nextcloud - Android Client
  *
+ * SPDX-FileCopyrightText: 2025 Alper Ozturk <alper.ozturk@nextcloud.com>
  * SPDX-FileCopyrightText: 2020 Tobias Kaminsky <tobias@kaminsky.me>
  * SPDX-FileCopyrightText: 2020 Nextcloud GmbH
  * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
  */
-package com.owncloud.android.ui.activity;
+package com.owncloud.android.ui.activity
 
-import android.content.Intent;
+import android.content.Intent
+import androidx.annotation.UiThread
+import androidx.fragment.app.DialogFragment
+import androidx.test.core.app.launchActivity
+import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.action.ViewActions
+import androidx.test.espresso.assertion.ViewAssertions.matches
+import androidx.test.espresso.matcher.ViewMatchers
+import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
+import androidx.test.espresso.matcher.ViewMatchers.isRoot
+import com.nextcloud.client.account.UserAccountManagerImpl
+import com.nextcloud.utils.extensions.getDecryptedPath
+import com.owncloud.android.AbstractIT
+import com.owncloud.android.R
+import com.owncloud.android.datamodel.FileDataStorageManager
+import com.owncloud.android.datamodel.OCFile
+import com.owncloud.android.db.OCUpload
+import com.owncloud.android.ui.dialog.ConflictsResolveDialog.Companion.newInstance
+import com.owncloud.android.ui.dialog.ConflictsResolveDialog.Decision
+import com.owncloud.android.ui.dialog.ConflictsResolveDialog.OnConflictDecisionMadeListener
+import com.owncloud.android.utils.EspressoIdlingResource
+import com.owncloud.android.utils.FileStorageUtils
+import com.owncloud.android.utils.ScreenshotTest
+import junit.framework.TestCase
+import org.junit.After
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertTrue
+import org.junit.Test
 
-import com.nextcloud.client.account.UserAccountManagerImpl;
-import com.nextcloud.utils.extensions.FileDataStorageManagerExtensionsKt;
-import com.owncloud.android.AbstractIT;
-import com.owncloud.android.R;
-import com.owncloud.android.datamodel.FileDataStorageManager;
-import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.db.OCUpload;
-import com.owncloud.android.ui.dialog.ConflictsResolveDialog;
-import com.owncloud.android.utils.FileStorageUtils;
-import com.owncloud.android.utils.ScreenshotTest;
-
-import org.junit.After;
-import org.junit.Rule;
-import org.junit.Test;
-
-import java.util.Objects;
-
-import androidx.fragment.app.DialogFragment;
-import androidx.test.espresso.intent.rule.IntentsTestRule;
-
-import static androidx.test.espresso.Espresso.onView;
-import static androidx.test.espresso.action.ViewActions.click;
-import static androidx.test.espresso.matcher.ViewMatchers.withId;
-import static androidx.test.espresso.matcher.ViewMatchers.withText;
-import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentation;
-import static junit.framework.TestCase.assertTrue;
-import static org.junit.Assert.assertEquals;
-
-public class ConflictsResolveActivityIT extends AbstractIT {
-    @Rule public IntentsTestRule<ConflictsResolveActivity> activityRule =
-        new IntentsTestRule<>(ConflictsResolveActivity.class, true, false);
-    private boolean returnCode;
+class ConflictsResolveActivityIT : AbstractIT() {
+    private val testClassName = "com.owncloud.android.ui.activity.ConflictsResolveActivityIT"
+    private var returnCode = false
 
     @Test
+    @UiThread
     @ScreenshotTest
-    public void screenshotTextFiles() {
-        OCFile newFile = new OCFile("/newFile.txt");
-        newFile.setRemoteId("0001");
-        newFile.setFileLength(56000);
-        newFile.setModificationTimestamp(1522019340);
-        newFile.setStoragePath(FileStorageUtils.getSavePath(user.getAccountName()) + "/nonEmpty.txt");
+    fun screenshotTextFiles() {
+        val newFile = OCFile("/newFile.txt").apply {
+            remoteId = "0001"
+            fileLength = 56000
+            modificationTimestamp = 1522019340
+            setStoragePath(FileStorageUtils.getSavePath(user.accountName) + "/nonEmpty.txt")
+        }
 
-        OCFile existingFile = new OCFile("/newFile.txt");
-        existingFile.setRemoteId("0002");
-        existingFile.setFileLength(1024000);
-        existingFile.setModificationTimestamp(1582019340);
+        val existingFile = OCFile("/newFile.txt").apply {
+            remoteId = "0002"
+            fileLength = 1024000
+            modificationTimestamp = 1582019340
+        }
 
-        FileDataStorageManager storageManager = new FileDataStorageManager(user, targetContext.getContentResolver());
-        storageManager.saveNewFile(existingFile);
+        val storageManager = FileDataStorageManager(user, targetContext.contentResolver)
+        storageManager.saveNewFile(existingFile)
 
-        Intent intent = new Intent(targetContext, ConflictsResolveActivity.class);
-        intent.putExtra(ConflictsResolveActivity.EXTRA_FILE, newFile);
-        intent.putExtra(ConflictsResolveActivity.EXTRA_EXISTING_FILE, existingFile);
+        val intent = Intent(targetContext, ConflictsResolveActivity::class.java).apply {
+            putExtra(FileActivity.EXTRA_FILE, newFile)
+            putExtra(ConflictsResolveActivity.EXTRA_EXISTING_FILE, existingFile)
+        }
 
-        ConflictsResolveActivity sut = activityRule.launchActivity(intent);
+        launchActivity<ConflictsResolveActivity>(intent).use { scenario ->
+            scenario.onActivity { sut ->
+                onIdleSync {
+                    EspressoIdlingResource.increment()
 
-        ConflictsResolveDialog dialog = ConflictsResolveDialog.newInstance(
-            FileDataStorageManagerExtensionsKt.getDecryptedPath(storageManager, existingFile),
-            targetContext,
-            newFile,
-            existingFile,
-            UserAccountManagerImpl
-                .fromContext(targetContext)
-                .getUser());
-        dialog.showDialog(sut);
+                    val dialog = newInstance(
+                        storageManager.getDecryptedPath(existingFile),
+                        targetContext,
+                        newFile,
+                        existingFile,
+                        UserAccountManagerImpl
+                            .fromContext(targetContext)
+                            .getUser()
+                    )
+                    dialog.showDialog(sut)
 
-        getInstrumentation().waitForIdleSync();
+                    EspressoIdlingResource.decrement()
 
-        shortSleep();
-        shortSleep();
-        shortSleep();
-        shortSleep();
-
-        screenshot(Objects.requireNonNull(dialog.requireDialog().getWindow()).getDecorView());
-    }
-
-//    @Test
-    // @ScreenshotTest // todo run without real server
-//    public void screenshotImages() throws IOException {
-//        FileDataStorageManager storageManager = new FileDataStorageManager(user,
-//                                                                           targetContext.getContentResolver());
-//
-//        OCFile newFile = new OCFile("/newFile.txt");
-//        newFile.setFileLength(56000);
-//        newFile.setModificationTimestamp(1522019340);
-//        newFile.setStoragePath(FileStorageUtils.getSavePath(user.getAccountName()) + "/nonEmpty.txt");
-//
-//        File image = getFile("image.jpg");
-//
-//        assertTrue(new UploadFileRemoteOperation(image.getAbsolutePath(),
-//                                                 "/image.jpg",
-//                                                 "image/jpg",
-//                                                 "10000000").execute(client).isSuccess());
-//
-//        assertTrue(new RefreshFolderOperation(storageManager.getFileByPath("/"),
-//                                              System.currentTimeMillis(),
-//                                              false,
-//                                              true,
-//                                              storageManager,
-//                                              user.toPlatformAccount(),
-//                                              targetContext
-//        ).execute(client).isSuccess());
-//
-//        OCFile existingFile = storageManager.getFileByPath("/image.jpg");
-//
-//        Intent intent = new Intent(targetContext, ConflictsResolveActivity.class);
-//        intent.putExtra(ConflictsResolveActivity.EXTRA_FILE, newFile);
-//        intent.putExtra(ConflictsResolveActivity.EXTRA_EXISTING_FILE, existingFile);
-//
-//        ConflictsResolveActivity sut = activityRule.launchActivity(intent);
-//
-//        ConflictsResolveDialog.OnConflictDecisionMadeListener listener = decision -> {
-//
-//        };
-//
-//        ConflictsResolveDialog dialog = ConflictsResolveDialog.newInstance(existingFile,
-//                                                                           newFile,
-//                                                                           UserAccountManagerImpl
-//                                                                               .fromContext(targetContext)
-//                                                                               .getUser()
-//                                                                          );
-//        dialog.showDialog(sut);
-//        dialog.listener = listener;
-//
-//        getInstrumentation().waitForIdleSync();
-//        shortSleep();
-//
-//        screenshot(Objects.requireNonNull(dialog.requireDialog().getWindow()).getDecorView());
-//    }
-
-    @Test
-    public void cancel() {
-        returnCode = false;
-
-        OCUpload newUpload = new OCUpload(FileStorageUtils.getSavePath(user.getAccountName()) + "/nonEmpty.txt",
-                                          "/newFile.txt",
-                                          user.getAccountName());
-
-        OCFile existingFile = new OCFile("/newFile.txt");
-        existingFile.setFileLength(1024000);
-        existingFile.setModificationTimestamp(1582019340);
-
-        OCFile newFile = new OCFile("/newFile.txt");
-        newFile.setFileLength(56000);
-        newFile.setModificationTimestamp(1522019340);
-        newFile.setStoragePath(FileStorageUtils.getSavePath(user.getAccountName()) + "/nonEmpty.txt");
-
-        FileDataStorageManager storageManager = new FileDataStorageManager(user, targetContext.getContentResolver());
-        storageManager.saveNewFile(existingFile);
-
-        Intent intent = new Intent(targetContext, ConflictsResolveActivity.class);
-        intent.putExtra(ConflictsResolveActivity.EXTRA_FILE, newFile);
-        intent.putExtra(ConflictsResolveActivity.EXTRA_EXISTING_FILE, existingFile);
-        intent.putExtra(ConflictsResolveActivity.EXTRA_CONFLICT_UPLOAD_ID, newUpload.getUploadId());
-
-        ConflictsResolveActivity sut = activityRule.launchActivity(intent);
-
-        sut.listener = decision -> {
-            assertEquals(ConflictsResolveDialog.Decision.CANCEL, decision);
-            returnCode = true;
-        };
-
-        getInstrumentation().waitForIdleSync();
-        shortSleep();
-
-        onView(withText("Cancel")).perform(click());
-
-        assertTrue(returnCode);
+                    val screenShotName = createName(testClassName + "_" + "screenshotTextFiles", "")
+                    onView(isRoot()).check(matches(isDisplayed()))
+                    screenshotViaName(dialog.requireDialog().window?.decorView, screenShotName)
+                }
+            }
+        }
     }
 
     @Test
-    @ScreenshotTest
-    public void keepExisting() {
-        returnCode = false;
+    @UiThread
+    fun cancel() {
+        val newUpload = OCUpload(
+            FileStorageUtils.getSavePath(user.accountName) + "/nonEmpty.txt",
+            "/newFile.txt",
+            user.accountName
+        )
 
-        OCUpload newUpload = new OCUpload(FileStorageUtils.getSavePath(user.getAccountName()) + "/nonEmpty.txt",
-                                          "/newFile.txt",
-                                          user.getAccountName());
+        val existingFile = OCFile("/newFile.txt").apply {
+            fileLength = 1024000
+            modificationTimestamp = 1582019340
+        }
 
-        OCFile existingFile = new OCFile("/newFile.txt");
-        existingFile.setRemoteId("0001");
-        existingFile.setFileLength(1024000);
-        existingFile.setModificationTimestamp(1582019340);
+        val newFile = OCFile("/newFile.txt").apply {
+            fileLength = 56000
+            modificationTimestamp = 1522019340
+            setStoragePath(FileStorageUtils.getSavePath(user.accountName) + "/nonEmpty.txt")
+        }
 
-        OCFile newFile = new OCFile("/newFile.txt");
-        newFile.setFileLength(56000);
-        newFile.setRemoteId("0002");
-        newFile.setModificationTimestamp(1522019340);
-        newFile.setStoragePath(FileStorageUtils.getSavePath(user.getAccountName()) + "/nonEmpty.txt");
+        val intent = Intent(targetContext, ConflictsResolveActivity::class.java).apply {
+            putExtra(FileActivity.EXTRA_FILE, newFile)
+            putExtra(ConflictsResolveActivity.EXTRA_EXISTING_FILE, existingFile)
+            putExtra(ConflictsResolveActivity.EXTRA_CONFLICT_UPLOAD_ID, newUpload.uploadId)
+        }
 
-        FileDataStorageManager storageManager = new FileDataStorageManager(user, targetContext.getContentResolver());
-        storageManager.saveNewFile(existingFile);
+        launchActivity<ConflictsResolveActivity>(intent).use { scenario ->
+            scenario.onActivity { sut ->
+                onIdleSync {
+                    EspressoIdlingResource.increment()
 
-        Intent intent = new Intent(targetContext, ConflictsResolveActivity.class);
-        intent.putExtra(ConflictsResolveActivity.EXTRA_FILE, newFile);
-        intent.putExtra(ConflictsResolveActivity.EXTRA_EXISTING_FILE, existingFile);
-        intent.putExtra(ConflictsResolveActivity.EXTRA_CONFLICT_UPLOAD_ID, newUpload.getUploadId());
+                    returnCode = false
 
-        ConflictsResolveActivity sut = activityRule.launchActivity(intent);
+                    val storageManager = FileDataStorageManager(user, targetContext.contentResolver)
+                    storageManager.saveNewFile(existingFile)
+                    sut.listener = OnConflictDecisionMadeListener { decision: Decision? ->
+                        assertEquals(decision, Decision.CANCEL)
+                        returnCode = true
+                    }
+                    EspressoIdlingResource.decrement()
 
-        sut.listener = decision -> {
-            assertEquals(ConflictsResolveDialog.Decision.KEEP_SERVER, decision);
-            returnCode = true;
-        };
-
-        getInstrumentation().waitForIdleSync();
-
-        onView(withId(R.id.right_checkbox)).perform(click());
-
-        DialogFragment dialog = (DialogFragment) sut.getSupportFragmentManager().findFragmentByTag("conflictDialog");
-        screenshot(Objects.requireNonNull(dialog.requireDialog().getWindow()).getDecorView());
-
-        onView(withText("OK")).perform(click());
-
-        assertTrue(returnCode);
+                    onView(ViewMatchers.withText("Cancel")).perform(ViewActions.click())
+                    TestCase.assertTrue(returnCode)
+                }
+            }
+        }
     }
 
     @Test
+    @UiThread
     @ScreenshotTest
-    public void keepNew() {
-        returnCode = false;
+    fun keepExisting() {
+        returnCode = false
 
-        OCUpload newUpload = new OCUpload(FileStorageUtils.getSavePath(user.getAccountName()) + "/nonEmpty.txt",
-                                          "/newFile.txt",
-                                          user.getAccountName());
+        val newUpload = OCUpload(
+            FileStorageUtils.getSavePath(user.accountName) + "/nonEmpty.txt",
+            "/newFile.txt",
+            user.accountName
+        )
 
-        OCFile existingFile = new OCFile("/newFile.txt");
-        existingFile.setFileLength(1024000);
-        existingFile.setModificationTimestamp(1582019340);
-        existingFile.setRemoteId("00000123abc");
+        val existingFile = OCFile("/newFile.txt").apply {
+            remoteId = "0001"
+            fileLength = 1024000
+            modificationTimestamp = 1582019340
+        }
 
-        OCFile newFile = new OCFile("/newFile.txt");
-        newFile.setFileLength(56000);
-        newFile.setModificationTimestamp(1522019340);
-        newFile.setStoragePath(FileStorageUtils.getSavePath(user.getAccountName()) + "/nonEmpty.txt");
+        val newFile = OCFile("/newFile.txt").apply {
+            fileLength = 56000
+            remoteId = "0002"
+            modificationTimestamp = 1522019340
+            setStoragePath(FileStorageUtils.getSavePath(user.accountName) + "/nonEmpty.txt")
+        }
 
-        FileDataStorageManager storageManager = new FileDataStorageManager(user, targetContext.getContentResolver());
-        storageManager.saveNewFile(existingFile);
+        val intent = Intent(targetContext, ConflictsResolveActivity::class.java).apply {
+            putExtra(FileActivity.EXTRA_FILE, newFile)
+            putExtra(ConflictsResolveActivity.EXTRA_EXISTING_FILE, existingFile)
+            putExtra(ConflictsResolveActivity.EXTRA_CONFLICT_UPLOAD_ID, newUpload.uploadId)
+        }
 
-        Intent intent = new Intent(targetContext, ConflictsResolveActivity.class);
-        intent.putExtra(ConflictsResolveActivity.EXTRA_FILE, newFile);
-        intent.putExtra(ConflictsResolveActivity.EXTRA_EXISTING_FILE, existingFile);
-        intent.putExtra(ConflictsResolveActivity.EXTRA_CONFLICT_UPLOAD_ID, newUpload.getUploadId());
+        launchActivity<ConflictsResolveActivity>(intent).use { scenario ->
+            scenario.onActivity { sut ->
+                onIdleSync {
+                    EspressoIdlingResource.increment()
 
-        ConflictsResolveActivity sut = activityRule.launchActivity(intent);
+                    val storageManager = FileDataStorageManager(user, targetContext.contentResolver)
+                    storageManager.saveNewFile(existingFile)
 
-        sut.listener = decision -> {
-            assertEquals(ConflictsResolveDialog.Decision.KEEP_LOCAL, decision);
-            returnCode = true;
-        };
+                    sut.listener = OnConflictDecisionMadeListener { decision: Decision? ->
+                        assertEquals(decision, Decision.KEEP_SERVER)
+                        returnCode = true
+                    }
 
-        getInstrumentation().waitForIdleSync();
+                    EspressoIdlingResource.decrement()
 
-        onView(withId(R.id.left_checkbox)).perform(click());
+                    onView(ViewMatchers.withId(R.id.right_checkbox)).perform(ViewActions.click())
+                    val dialog = sut.supportFragmentManager.findFragmentByTag("conflictDialog") as DialogFragment?
+                    val screenShotName = createName(testClassName + "_" + "keepExisting", "")
+                    onView(isRoot()).check(matches(isDisplayed()))
+                    screenshotViaName(dialog?.requireDialog()?.window?.decorView, screenShotName)
 
-        DialogFragment dialog = (DialogFragment) sut.getSupportFragmentManager().findFragmentByTag("conflictDialog");
-        screenshot(Objects.requireNonNull(dialog.requireDialog().getWindow()).getDecorView());
-
-        onView(withText("OK")).perform(click());
-
-        assertTrue(returnCode);
+                    onView(ViewMatchers.withText("OK")).perform(ViewActions.click())
+                    assertTrue(returnCode)
+                }
+            }
+        }
     }
 
     @Test
+    @UiThread
     @ScreenshotTest
-    public void keepBoth() {
-        returnCode = false;
+    fun keepNew() {
+        returnCode = false
 
-        OCUpload newUpload = new OCUpload(FileStorageUtils.getSavePath(user.getAccountName()) + "/nonEmpty.txt",
-                                          "/newFile.txt",
-                                          user.getAccountName());
+        val newUpload = OCUpload(
+            FileStorageUtils.getSavePath(user.accountName) + "/nonEmpty.txt",
+            "/newFile.txt",
+            user.accountName
+        )
 
-        OCFile existingFile = new OCFile("/newFile.txt");
-        existingFile.setRemoteId("0001");
-        existingFile.setFileLength(1024000);
-        existingFile.setModificationTimestamp(1582019340);
+        val existingFile = OCFile("/newFile.txt").apply {
+            fileLength = 1024000
+            modificationTimestamp = 1582019340
+            remoteId = "00000123abc"
+        }
 
-        OCFile newFile = new OCFile("/newFile.txt");
-        newFile.setFileLength(56000);
-        newFile.setRemoteId("0002");
-        newFile.setModificationTimestamp(1522019340);
-        newFile.setStoragePath(FileStorageUtils.getSavePath(user.getAccountName()) + "/nonEmpty.txt");
+        val newFile = OCFile("/newFile.txt").apply {
+            fileLength = 56000
+            modificationTimestamp = 1522019340
+            setStoragePath(FileStorageUtils.getSavePath(user.accountName) + "/nonEmpty.txt")
+        }
 
-        FileDataStorageManager storageManager = new FileDataStorageManager(user, targetContext.getContentResolver());
-        storageManager.saveNewFile(existingFile);
+        val storageManager = FileDataStorageManager(user, targetContext.contentResolver)
+        storageManager.saveNewFile(existingFile)
 
-        Intent intent = new Intent(targetContext, ConflictsResolveActivity.class);
-        intent.putExtra(ConflictsResolveActivity.EXTRA_FILE, newFile);
-        intent.putExtra(ConflictsResolveActivity.EXTRA_EXISTING_FILE, existingFile);
-        intent.putExtra(ConflictsResolveActivity.EXTRA_CONFLICT_UPLOAD_ID, newUpload.getUploadId());
+        val intent = Intent(targetContext, ConflictsResolveActivity::class.java)
+        intent.putExtra(FileActivity.EXTRA_FILE, newFile)
+        intent.putExtra(ConflictsResolveActivity.EXTRA_EXISTING_FILE, existingFile)
+        intent.putExtra(ConflictsResolveActivity.EXTRA_CONFLICT_UPLOAD_ID, newUpload.uploadId)
 
-        ConflictsResolveActivity sut = activityRule.launchActivity(intent);
+        launchActivity<ConflictsResolveActivity>(intent).use { scenario ->
+            scenario.onActivity { sut ->
+                onIdleSync {
+                    EspressoIdlingResource.increment()
 
-        sut.listener = decision -> {
-            assertEquals(ConflictsResolveDialog.Decision.KEEP_BOTH, decision);
-            returnCode = true;
-        };
+                    sut.listener = OnConflictDecisionMadeListener { decision: Decision? ->
+                        assertEquals(decision, Decision.KEEP_LOCAL)
+                        returnCode = true
+                    }
 
-        getInstrumentation().waitForIdleSync();
+                    EspressoIdlingResource.decrement()
 
-        onView(withId(R.id.right_checkbox)).perform(click());
-        onView(withId(R.id.left_checkbox)).perform(click());
+                    onView(ViewMatchers.withId(R.id.left_checkbox)).perform(ViewActions.click())
+                    val dialog = sut.supportFragmentManager.findFragmentByTag("conflictDialog") as DialogFragment?
+                    val screenShotName = createName(testClassName + "_" + "keepNew", "")
+                    screenshotViaName(dialog?.requireDialog()?.window?.decorView, screenShotName)
 
-        DialogFragment dialog = (DialogFragment) sut.getSupportFragmentManager().findFragmentByTag("conflictDialog");
-        screenshot(Objects.requireNonNull(dialog.requireDialog().getWindow()).getDecorView());
+                    onView(ViewMatchers.withText("OK")).perform(ViewActions.click())
+                    assertTrue(returnCode)
+                }
+            }
+        }
+    }
 
-        onView(withText("OK")).perform(click());
+    @Test
+    @UiThread
+    @ScreenshotTest
+    fun keepBoth() {
+        returnCode = false
 
-        assertTrue(returnCode);
+        val newUpload = OCUpload(
+            FileStorageUtils.getSavePath(user.accountName) + "/nonEmpty.txt",
+            "/newFile.txt",
+            user.accountName
+        )
+
+        val existingFile = OCFile("/newFile.txt").apply {
+            remoteId = "0001"
+            fileLength = 1024000
+            modificationTimestamp = 1582019340
+        }
+
+        val newFile = OCFile("/newFile.txt").apply {
+            fileLength = 56000
+            remoteId = "0002"
+            modificationTimestamp = 1522019340
+            setStoragePath(FileStorageUtils.getSavePath(user.accountName) + "/nonEmpty.txt")
+        }
+
+        val storageManager = FileDataStorageManager(user, targetContext.contentResolver)
+        storageManager.saveNewFile(existingFile)
+
+        val intent = Intent(targetContext, ConflictsResolveActivity::class.java).apply {
+            putExtra(FileActivity.EXTRA_FILE, newFile)
+            putExtra(ConflictsResolveActivity.EXTRA_EXISTING_FILE, existingFile)
+            putExtra(ConflictsResolveActivity.EXTRA_CONFLICT_UPLOAD_ID, newUpload.uploadId)
+        }
+
+        launchActivity<ConflictsResolveActivity>(intent).use { scenario ->
+            scenario.onActivity { sut ->
+                onIdleSync {
+                    EspressoIdlingResource.increment()
+
+                    sut.listener = OnConflictDecisionMadeListener { decision: Decision? ->
+                        assertEquals(decision, Decision.KEEP_BOTH)
+                        returnCode = true
+                    }
+
+                    EspressoIdlingResource.decrement()
+
+                    onView(ViewMatchers.withId(R.id.right_checkbox)).perform(ViewActions.click())
+                    onView(ViewMatchers.withId(R.id.left_checkbox)).perform(ViewActions.click())
+
+                    onView(ViewMatchers.withId(R.id.left_checkbox)).perform(ViewActions.click())
+                    val dialog = sut.supportFragmentManager.findFragmentByTag("conflictDialog") as DialogFragment?
+                    val screenShotName = createName(testClassName + "_" + "keepBoth", "")
+                    screenshotViaName(dialog?.requireDialog()?.window?.decorView, screenShotName)
+
+                    onView(ViewMatchers.withText("OK")).perform(ViewActions.click())
+                    assertTrue(returnCode)
+                }
+            }
+        }
     }
 
     @After
-    public void after() {
-        getStorageManager().deleteAllFiles();
+    override fun after() {
+        storageManager.deleteAllFiles()
     }
 }
