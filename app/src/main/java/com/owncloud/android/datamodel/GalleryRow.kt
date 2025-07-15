@@ -11,9 +11,8 @@ package com.owncloud.android.datamodel
 import com.nextcloud.utils.OCFileUtils
 
 data class GalleryRow(val files: List<OCFile>, val defaultHeight: Int, val defaultWidth: Int) {
-    fun getMaxHeight(): Float =
-        files.maxOfOrNull {
-            OCFileUtils.getImageSize(it, defaultHeight.toFloat()).second.toFloat()
-        } ?: 0f
+    fun getMaxHeight(): Float = files.maxOfOrNull {
+        OCFileUtils.getImageSize(it, defaultHeight.toFloat()).second.toFloat()
+    } ?: 0f
     fun calculateHashCode(): Long = files.sumOf { it.hashCode() }.toLong()
 }

@@ -15,6 +15,7 @@ import java.io.File
 object OCFileUtils {
     private const val TAG = "OCFileUtils"
 
+    @Suppress("ReturnCount")
     fun getImageSize(ocFile: OCFile, defaultThumbnailSize: Float): Pair<Int, Int> {
         val storagePath = ocFile.storagePath ?: return fallbackSize(ocFile, defaultThumbnailSize)
 
