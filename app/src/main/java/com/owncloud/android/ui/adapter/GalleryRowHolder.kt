@@ -167,12 +167,26 @@ class GalleryRowHolder(
         }
     }
 
-    private fun getImageSize(ocFile: OCFile): Pair<Int, Int> {
-        val rawResolution = BitmapUtils.getImageResolution(ocFile.storagePath)
-        val rawResult = rawResolution[0] to rawResolution[1]
+    private fun getDefaultImageSize(file: OCFile): Pair<Int, Int> {
+        val width: Int = (file.imageDimension?.width ?: defaultThumbnailSize).toInt()
+        val height: Int = (file.imageDimension?.height ?: defaultThumbnailSize).toInt()
 
+        if (file.storagePath == null) {
+            return width to height
+        }
+
+        val rawResolution = BitmapUtils.getImageResolution(file.storagePath)
+        val rawResult = rawResolution[0] to rawResolution[1]
+        return if (rawResult.first <= 0 || rawResult.second <= 0) {
+            width to height
+        } else {
+            rawResult
+        }
+    }
+
+    private fun getImageSize(ocFile: OCFile): Pair<Int, Int> {
         if (ocFile.storagePath == null) {
-            return rawResult
+            return getDefaultImageSize(ocFile)
         }
 
         if (!File(ocFile.storagePath).exists()) {
@@ -191,7 +205,7 @@ class GalleryRowHolder(
         if (width <= 0 || height <= 0) {
             Log_OC.d(tag,
                 "Exif data not available Option class will be used to determine width and height")
-            return rawResult
+            return getDefaultImageSize(ocFile)
         }
 
         Log_OC.d(tag, "Exif used to determine width and height")
@@ -201,11 +215,14 @@ class GalleryRowHolder(
     private fun adjustFile(indexedFile: IndexedValue<OCFile>, shrinkRatio: Float, row: GalleryRow) {
         val file = indexedFile.value
         val index = indexedFile.index
-        val fileWidth = file.imageDimension?.width
-        val fileHeight = file.imageDimension?.height
 
-        val width = ((fileWidth ?: defaultThumbnailSize) * shrinkRatio).toInt()
-        val height = ((fileHeight ?: defaultThumbnailSize) * shrinkRatio).toInt()
+        var (width, height) = getImageSize(file)
+
+        width = ((width) * shrinkRatio).toInt()
+        height = ((height) * shrinkRatio).toInt()
+
+        Log_OC.d(tag, "GALLERY ROW WIDTH: $width")
+        Log_OC.d(tag, "GALLERY ROW HEIGHT: $height")
 
         val frameLayout = binding.rowLayout[index] as FrameLayout
         val checkBoxImageView = frameLayout[2] as ImageView
