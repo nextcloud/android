@@ -8,15 +8,9 @@
 package com.nextcloud.ui
 
 import androidx.compose.runtime.Composable
-import com.google.gson.JsonArray
+import com.owncloud.android.lib.resources.declarativeui.DeclarativeUI
 
 @Composable
-fun DeclarativeUiScreen(json: JsonArray) {
-    // LaunchedEffect(Unit) {
-    //     val result = GetDeclarativeUiJsonOperation(endpoint.relativeURL).execute(nextcloudClient)
-    //    
-    //     if (result != null) {
-    //        
-    //     }
-    // }
+fun DeclarativeUiScreen(declarativeUI: DeclarativeUI) {
+    
 }

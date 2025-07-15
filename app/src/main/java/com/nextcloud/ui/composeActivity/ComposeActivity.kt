@@ -18,10 +18,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
-import com.google.gson.Gson
-import com.nextcloud.android.lib.resources.declarativeui.GetDeclarativeUiJsonOperation
 import com.nextcloud.client.assistant.AssistantScreen
 import com.nextcloud.client.assistant.AssistantViewModel
 import com.nextcloud.client.assistant.repository.AssistantRepository
@@ -30,9 +27,9 @@ import com.nextcloud.ui.DeclarativeUiScreen
 import com.nextcloud.utils.extensions.getSerializableArgument
 import com.owncloud.android.R
 import com.owncloud.android.databinding.ActivityComposeBinding
+import com.owncloud.android.lib.resources.declarativeui.DeclarativeUI
 import com.owncloud.android.lib.resources.declarativeui.Endpoint
 import com.owncloud.android.ui.activity.DrawerActivity
-import kotlinx.coroutines.launch
 
 class ComposeActivity : DrawerActivity() {
 
@@ -73,6 +70,7 @@ class ComposeActivity : DrawerActivity() {
             toggleDrawer()
             true
         }
+
         else -> super.onOptionsItemSelected(item)
     }
 
@@ -102,25 +100,13 @@ class ComposeActivity : DrawerActivity() {
         } else if (destination == ComposeDestination.DeclarativeUi) {
             binding.bottomNavigation.visibility = View.GONE
 
-            val endpoint : Endpoint? = intent.getParcelableExtra(ARGS_ENDPOINT)
+            val endpoint: Endpoint? = intent.getParcelableExtra(ARGS_ENDPOINT)
 
             if (nextcloudClient != null && endpoint != null) {
-                val string = """{
-  "Button": {
-    "label": "Submit",
-    "type": "primary",
-  },
-  "Image": {
-    "url": "/core/img/logo/logo.png"
-  }
-}"""
-                  
-                        DeclarativeUiScreen(Gson().fromJson(string))
-                    }
-                }
-                   
-                //}
-                
+                // only for testing, needs to be fetched properly
+                val declarativeUI = DeclarativeUI(0.1)
+
+                DeclarativeUiScreen(declarativeUI)
             }
         }
     }
