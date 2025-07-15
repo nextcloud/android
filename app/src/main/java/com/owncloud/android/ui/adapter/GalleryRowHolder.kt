@@ -25,10 +25,12 @@ import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.GalleryRow
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.datamodel.ThumbnailsCacheManager
+import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.lib.resources.files.model.ImageDimension
 import com.owncloud.android.utils.BitmapUtils
 import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
+import java.io.File
 
 @Suppress("LongParameterList")
 class GalleryRowHolder(
@@ -42,6 +44,7 @@ class GalleryRowHolder(
     val context = galleryAdapter.context
 
     private lateinit var currentRow: GalleryRow
+    private val tag = "GalleryRowHolder"
     private val zero by lazy { context.resources.getInteger(R.integer.zero) }
     private val smallMargin by lazy { context.resources.getInteger(R.integer.small_margin) }
     private val iconRadius by lazy { context.resources.getDimension(R.dimen.activity_icon_radius) }
@@ -162,6 +165,37 @@ class GalleryRowHolder(
             val thumbnail1 = row.files[0].imageDimension ?: ImageDimension(defaultThumbnailSize, defaultThumbnailSize)
             return (screenWidth / galleryAdapter.columns) / thumbnail1.width
         }
+    }
+
+    private fun getImageSize(ocFile: OCFile): Pair<Int, Int> {
+        val rawResolution = BitmapUtils.getImageResolution(ocFile.storagePath)
+        val rawResult = rawResolution[0] to rawResolution[1]
+
+        if (ocFile.storagePath == null) {
+            return rawResult
+        }
+
+        if (!File(ocFile.storagePath).exists()) {
+            Log_OC.d(tag,
+                "File not downloaded. File's image dimension will be used or defaultThumbnailSize")
+            val width = ocFile.imageDimension?.width?.toInt() ?: defaultThumbnailSize.toInt()
+            val height = ocFile.imageDimension?.height?.toInt() ?: defaultThumbnailSize.toInt()
+            return width to height
+        }
+
+        val exif = androidx.exifinterface.media.ExifInterface(ocFile.storagePath)
+
+        val width = exif.getAttribute(androidx.exifinterface.media.ExifInterface.TAG_IMAGE_WIDTH)?.toInt() ?: 0
+        val height = exif.getAttribute(androidx.exifinterface.media.ExifInterface.TAG_IMAGE_LENGTH)?.toInt() ?: 0
+
+        if (width <= 0 || height <= 0) {
+            Log_OC.d(tag,
+                "Exif data not available Option class will be used to determine width and height")
+            return rawResult
+        }
+
+        Log_OC.d(tag, "Exif used to determine width and height")
+        return width to height
     }
 
     private fun adjustFile(indexedFile: IndexedValue<OCFile>, shrinkRatio: Float, row: GalleryRow) {
