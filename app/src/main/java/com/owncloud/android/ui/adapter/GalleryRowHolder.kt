@@ -113,6 +113,10 @@ class GalleryRowHolder(
         bind(currentRow)
     }
 
+    fun GalleryRow.getActualMaxHeight(): Float {
+        return files.maxOfOrNull { getImageSize(it).second.toFloat() } ?: 0f
+    }
+
     @SuppressWarnings("MagicNumber", "ComplexMethod")
     private fun computeShrinkRatio(row: GalleryRow): Float {
         val screenWidth =
@@ -123,18 +127,15 @@ class GalleryRowHolder(
             var newSummedWidth = 0f
             for (file in row.files) {
                 // first adjust all thumbnails to max height
-                val thumbnail1 = file.imageDimension ?: ImageDimension(defaultThumbnailSize, defaultThumbnailSize)
+                val (width, height) = getImageSize(file)
 
-                val height1 = thumbnail1.height
-                val width1 = thumbnail1.width
+                val scaleFactor = row.getActualMaxHeight() / height
+                val newHeight = height * scaleFactor
+                val newWidth = width * scaleFactor
 
-                val scaleFactor1 = row.getMaxHeight() / height1
-                val newHeight1 = height1 * scaleFactor1
-                val newWidth1 = width1 * scaleFactor1
+                file.imageDimension = ImageDimension(newWidth, newHeight)
 
-                file.imageDimension = ImageDimension(newWidth1, newHeight1)
-
-                newSummedWidth += newWidth1
+                newSummedWidth += newWidth
             }
 
             var c = 1f
@@ -218,6 +219,12 @@ class GalleryRowHolder(
 
         var (width, height) = getImageSize(file)
 
+        val actualRatio = if (file.isDown) {
+            1f
+        } else {
+            shrinkRatio
+        }
+
         width = ((width) * shrinkRatio).toInt()
         height = ((height) * shrinkRatio).toInt()
 
@@ -229,7 +236,7 @@ class GalleryRowHolder(
         val shimmer = frameLayout[0] as LoaderImageView
         val thumbnail = (frameLayout[1] as ImageView).apply {
             adjustViewBounds = true
-            scaleType = ImageView.ScaleType.FIT_CENTER
+            scaleType = ImageView.ScaleType.FIT_XY
         }
         val isChecked = ocFileListDelegate.isCheckedFile(file)
 
