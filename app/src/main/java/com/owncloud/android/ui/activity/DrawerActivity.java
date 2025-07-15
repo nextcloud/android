@@ -389,7 +389,7 @@ public abstract class DrawerActivity extends ToolbarActivity
             drawerHeader.setBackgroundColor(primaryColor);
 
             if (!TextUtils.isEmpty(serverLogoURL) && URLUtil.isValidUrl(serverLogoURL)) {
-                Target<PictureDrawable> target = createSVGLogoTarget(primaryColor, capability);
+                Target<Drawable> target = createSVGLogoTarget(primaryColor, capability);
                 getClientRepository().getNextcloudClient(nextcloudClient -> {
                     GlideHelper.INSTANCE.loadIntoTarget(DrawerActivity.this,
                                                         nextcloudClient,
@@ -412,14 +412,29 @@ public abstract class DrawerActivity extends ToolbarActivity
         }
     }
 
-    private Target<PictureDrawable> createSVGLogoTarget(int primaryColor, OCCapability capability) {
+    private Target<Drawable> createSVGLogoTarget(int primaryColor, OCCapability capability) {
         return new CustomTarget<>() {
             @Override
-            public void onResourceReady(@NonNull PictureDrawable resource, @Nullable Transition<? super PictureDrawable> transition) {
-                Bitmap bitmap = Bitmap.createBitmap(resource.getIntrinsicWidth(),  resource.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
-                Canvas canvas = new Canvas(bitmap);
-                canvas.drawPicture(resource.getPicture());
+            public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
+                Bitmap bitmap;
 
+                if (resource instanceof PictureDrawable pictureDrawable) {
+                    bitmap = Bitmap.createBitmap(
+                        pictureDrawable.getIntrinsicWidth(),
+                        pictureDrawable.getIntrinsicHeight(),
+                        Bitmap.Config.ARGB_8888);
+
+                    Canvas canvas = new Canvas(bitmap);
+                    canvas.drawPicture(pictureDrawable.getPicture());
+
+                } else if (resource instanceof BitmapDrawable bitmapDrawable) {
+                    bitmap = bitmapDrawable.getBitmap();
+                } else {
+                    Log_OC.e(TAG, "Unsupported drawable type: " + resource.getClass().getName());
+                    return;
+                }
+
+                // Scale down if necessary
                 Bitmap logo = bitmap;
                 int width = bitmap.getWidth();
                 int height = bitmap.getHeight();
@@ -439,8 +454,7 @@ public abstract class DrawerActivity extends ToolbarActivity
             }
 
             @Override
-            public void onLoadCleared(@Nullable Drawable placeholder) {
-            }
+            public void onLoadCleared(@Nullable Drawable placeholder) {}
         };
     }
 
