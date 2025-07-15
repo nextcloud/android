@@ -399,7 +399,7 @@ class PreviewImageFragment :
         )
 
         if (getFile() != null && getFile().isSharedWithMe && !getFile().canReshare()) {
-            additionalFilter.add(R.id.action_send_share_file)
+            additionalFilter.addAll(listOf(R.id.action_send_share_file, R.id.action_send_file))
         }
 
         val fragmentManager = childFragmentManager
