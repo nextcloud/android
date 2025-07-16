@@ -6,7 +6,6 @@
  */
 package com.owncloud.android
 
-import android.content.Intent
 import androidx.annotation.UiThread
 import androidx.test.core.app.launchActivity
 import androidx.test.espresso.Espresso
@@ -20,7 +19,7 @@ import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.isRoot
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
-import com.owncloud.android.lib.resources.files.CreateFolderRemoteOperation
+import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.ui.activity.FileDisplayActivity
 import com.owncloud.android.ui.activity.SettingsActivity
 import com.owncloud.android.ui.activity.SyncedFoldersActivity
@@ -36,7 +35,7 @@ import tools.fastlane.screengrab.Screengrab
 import tools.fastlane.screengrab.UiAutomatorScreenshotStrategy
 import tools.fastlane.screengrab.locale.LocaleTestRule
 
-class ScreenshotsIT : AbstractOnServerIT() {
+class ScreenshotsIT : AbstractIT() {
 
     @Before
     fun registerIdlingResource() {
@@ -75,16 +74,14 @@ class ScreenshotsIT : AbstractOnServerIT() {
     @UiThread
     @ScreenshotTest
     fun listViewScreenshot() {
-        val path = "/Camera/"
-        if (storageManager.getFileByEncryptedRemotePath(path) == null) {
-            val result = CreateFolderRemoteOperation(path, true).execute(client)
-            assert(result.isSuccess)
-        }
-
         launchActivity<FileDisplayActivity>().use { scenario ->
             scenario.onActivity { sut ->
                 onIdleSync {
                     EspressoIdlingResource.increment()
+                    val path = "/Camera/"
+                    OCFile(path).apply {
+                        storageManager.saveFile(this)
+                    }
                     onView(withId(R.id.list_root)).perform(click())
                     EspressoIdlingResource.decrement()
 
@@ -157,9 +154,7 @@ class ScreenshotsIT : AbstractOnServerIT() {
     @UiThread
     @ScreenshotTest
     fun davdroidScreenshot() {
-        val intent = Intent(targetContext, SettingsActivity::class.java)
-
-        launchActivity<SettingsActivity>(intent).use { scenario ->
+        launchActivity<SettingsActivity>().use { scenario ->
             scenario.onActivity { sut ->
                 onIdleSync {
                     EspressoIdlingResource.increment()
