@@ -63,7 +63,6 @@ import org.apache.commons.httpclient.methods.GetMethod;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.InputStream;
 import java.lang.ref.WeakReference;
 import java.util.List;
@@ -251,23 +250,6 @@ public final class ThumbnailsCacheManager {
 
     public static boolean containsBitmap(String key) {
         return mThumbnailCache.containsKey(key);
-    }
-
-    public static Bitmap getScaledBitmapFromDiskCache(String key, int width, int height) {
-        synchronized (mThumbnailsDiskCacheLock) {
-            // Wait while disk cache is started from background thread
-            while (mThumbnailCacheStarting) {
-                try {
-                    mThumbnailsDiskCacheLock.wait();
-                } catch (InterruptedException e) {
-                    Log_OC.e(TAG, "Wait in mThumbnailsDiskCacheLock was interrupted", e);
-                }
-            }
-            if (mThumbnailCache != null) {
-                return mThumbnailCache.getScaledBitmap(key, width, height);
-            }
-        }
-        return null;
     }
 
     public static Bitmap getBitmapFromDiskCache(String key) {
