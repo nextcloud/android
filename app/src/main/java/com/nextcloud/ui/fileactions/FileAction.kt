@@ -219,7 +219,7 @@ enum class FileAction(
             return if (files.any { it.isSharedWithMe }) {
                 LEAVE_SHARE
             } else {
-               REMOVE_FILE
+                REMOVE_FILE
             }
         }
     }
