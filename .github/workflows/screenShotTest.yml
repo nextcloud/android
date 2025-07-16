@@ -18,8 +18,9 @@ concurrency:
 jobs:
     screenshot:
         runs-on: ubuntu-24.04
+        timeout-minutes: 120
         strategy:
-            fail-fast: false
+            fail-fast: true
             matrix:
                 scheme: [ Light ]
                 color: [ blue ]
