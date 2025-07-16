@@ -313,7 +313,7 @@ dependencies {
     implementation "androidx.cardview:cardview:1.0.0"
     implementation "androidx.exifinterface:exifinterface:1.4.1"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.9.1"
-    implementation "androidx.lifecycle:lifecycle-service:2.9.1"
+    implementation "androidx.lifecycle:lifecycle-service:2.9.2"
     implementation "androidx.work:work-runtime:$workRuntime"
     implementation "androidx.work:work-runtime-ktx:$workRuntime"
     implementation "androidx.fragment:fragment-ktx:1.8.8"
