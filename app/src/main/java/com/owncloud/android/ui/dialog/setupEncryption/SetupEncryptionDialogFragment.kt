@@ -385,6 +385,7 @@ class SetupEncryptionDialogFragment :
         }
     }
 
+    @Suppress("LongMethod", "TooGenericExceptionCaught", "TooGenericExceptionThrown")
     private suspend fun generateNewKeys() {
         binding.encryptionStatus.setText(R.string.end_to_end_encryption_generating_keys)
         val context = context ?: return
