@@ -7,12 +7,9 @@
 package com.owncloud.android.ui.dialog.setupEncryption
 
 import android.accounts.AccountManager
-import android.annotation.SuppressLint
 import android.app.Dialog
-import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
-import android.os.AsyncTask
 import android.os.Bundle
 import android.view.View
 import androidx.annotation.VisibleForTesting
@@ -233,8 +230,9 @@ class SetupEncryptionDialogFragment :
 
         dialog?.setTitle(R.string.end_to_end_encryption_storing_keys)
 
-        val newKeysTask = GenerateNewKeysAsyncTask(requireContext())
-        newKeysTask.execute()
+        lifecycleScope.launch {
+            generateNewKeys()
+        }
     }
 
     private fun notifyResult() {
@@ -301,7 +299,7 @@ class SetupEncryptionDialogFragment :
         data class Success(val privateKey: String?) : DownloadKeyResult()
     }
 
-    suspend fun downloadKeys() {
+    private suspend fun downloadKeys() {
         binding.encryptionStatus.setText(R.string.end_to_end_encryption_retrieving_keys)
         positiveButton?.visibility = View.INVISIBLE
 
@@ -387,36 +385,21 @@ class SetupEncryptionDialogFragment :
         }
     }
 
-    @SuppressLint("StaticFieldLeak")
-    inner class GenerateNewKeysAsyncTask(context: Context) : AsyncTask<Void?, Void?, String>() {
-        private val mWeakContext: WeakReference<Context> = WeakReference(context)
-
-        @Deprecated("Deprecated in Java")
-        override fun onPreExecute() {
-            super.onPreExecute()
-            binding.encryptionStatus.setText(R.string.end_to_end_encryption_generating_keys)
-        }
-
-        @Suppress("TooGenericExceptionCaught", "TooGenericExceptionThrown", "ReturnCount", "LongMethod")
-        @Deprecated("Deprecated in Java")
-        override fun doInBackground(vararg voids: Void?): String {
+    private suspend fun generateNewKeys() {
+        binding.encryptionStatus.setText(R.string.end_to_end_encryption_generating_keys)
+        val context = context ?: return
+        val privateKey: String = withContext(Dispatchers.IO) {
             //  - create CSR, push to server, store returned public key in database
             //  - encrypt private key, push key to server, store unencrypted private key in database
             try {
-                val context = mWeakContext.get()
                 val publicKeyString: String
-
-                if (context == null) {
-                    keyResult = KEY_FAILED
-                    return ""
-                }
 
                 // Create public/private key pair
                 val keyPair = EncryptionUtils.generateKeyPair()
 
                 // create CSR
                 val accountManager = AccountManager.get(context)
-                val user = user ?: return ""
+                val user = user ?: return@withContext ""
 
                 val userId = accountManager.getUserData(user.toPlatformAccount(), AccountUtils.Constants.KEY_USER_ID)
                 val urlEncoded = CsrHelper().generateCsrPemEncodedString(keyPair, userId)
@@ -432,7 +415,7 @@ class SetupEncryptionDialogFragment :
                     Log_OC.d(TAG, "public key success")
                 } else {
                     keyResult = KEY_FAILED
-                    return ""
+                    return@withContext ""
                 }
 
                 val privateKey = keyPair.private
@@ -465,7 +448,7 @@ class SetupEncryptionDialogFragment :
                     )
                     keyResult = KEY_CREATED
 
-                    return storePrivateKeyResult.resultData
+                    return@withContext storePrivateKeyResult.resultData
                 } else {
                     val deletePublicKeyOperation = DeletePublicKeyRemoteOperation()
                     deletePublicKeyOperation.executeNextcloudClient(user, context)
@@ -474,27 +457,18 @@ class SetupEncryptionDialogFragment :
                 Log_OC.e(TAG, e.message)
             }
             keyResult = KEY_FAILED
-            return ""
+            return@withContext ""
         }
 
-        @Deprecated("Deprecated in Java")
-        override fun onPostExecute(s: String) {
-            super.onPostExecute(s)
-            val context = mWeakContext.get()
-            if (context == null) {
-                Log_OC.e(TAG, "Context lost after generating new private keys.")
+        if (privateKey.isEmpty()) {
+            errorSavingKeys()
+        } else {
+            if (dialog == null) {
+                Log_OC.e(TAG, "Dialog is null cannot proceed further.")
                 return
             }
-            if (s.isEmpty()) {
-                errorSavingKeys()
-            } else {
-                if (dialog == null) {
-                    Log_OC.e(TAG, "Dialog is null cannot proceed further.")
-                    return
-                }
-                requireDialog().dismiss()
-                notifyResult()
-            }
+            requireDialog().dismiss()
+            notifyResult()
         }
     }
 
