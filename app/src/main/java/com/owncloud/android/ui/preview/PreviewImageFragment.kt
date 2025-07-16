@@ -39,6 +39,9 @@ import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import com.bumptech.glide.request.target.CustomTarget
+import com.bumptech.glide.request.transition.Transition
 import com.caverock.androidsvg.SVG
 import com.caverock.androidsvg.SVGParseException
 import com.github.chrisbanes.photoview.PhotoView
@@ -48,15 +51,15 @@ import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.jobs.BackgroundJobManager
 import com.nextcloud.client.network.ConnectivityService
 import com.nextcloud.ui.fileactions.FileActionsBottomSheet.Companion.newInstance
+import com.nextcloud.utils.GlideHelper
 import com.nextcloud.utils.extensions.clickWithDebounce
 import com.nextcloud.utils.extensions.getParcelableArgument
-import com.owncloud.android.MainApp
+import com.nextcloud.utils.extensions.getTypedActivity
+import com.nextcloud.utils.extensions.setVisibleIf
 import com.owncloud.android.R
 import com.owncloud.android.databinding.PreviewImageFragmentBinding
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.datamodel.ThumbnailsCacheManager
-import com.owncloud.android.datamodel.ThumbnailsCacheManager.AsyncResizedImageDrawable
-import com.owncloud.android.datamodel.ThumbnailsCacheManager.ResizedImageGenerationTask
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment
 import com.owncloud.android.ui.dialog.RemoveFilesDialogFragment
@@ -67,6 +70,9 @@ import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.MimeTypeUtil
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import pl.droidsonroids.gif.GifDrawable
 import java.io.FileInputStream
 import java.io.FileNotFoundException
@@ -97,7 +103,7 @@ import kotlin.math.min
 class PreviewImageFragment :
     FileFragment(),
     Injectable {
-    private var showResizedImage: Boolean? = null
+    private var loadRemotely: Boolean? = null
     private var bitmap: Bitmap? = null
 
     private var ignoreFirstSavedState = false
@@ -126,7 +132,7 @@ class PreviewImageFragment :
         // TODO better in super, but needs to check ALL the class extending FileFragment;
         // not right now
         ignoreFirstSavedState = args.getBoolean(ARG_IGNORE_FIRST)
-        showResizedImage = args.getBoolean(ARG_SHOW_RESIZED_IMAGE)
+        loadRemotely = args.getBoolean(ARG_LOAD_REMOTELY)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -139,7 +145,7 @@ class PreviewImageFragment :
         binding.image.setOnClickListener { togglePreviewImageFullScreen() }
 
         checkLivePhotoAvailability()
-        setMultiListLoadingMessage()
+        toggleImageLayout(false)
 
         return binding.root
     }
@@ -235,99 +241,79 @@ class PreviewImageFragment :
         }
 
         binding.image.tag = file.fileId
+        shimmerThumbnail()
 
-        val screenSize = DisplayUtils.getScreenSize(activity)
-        val width = screenSize.x
-        val height = screenSize.y
+        if (loadRemotely == true) {
+            loadImageRemotely()
+        } else {
+            loadImageLocally()
+        }
+    }
 
-        // show thumbnail while loading image
+    private fun shimmerThumbnail() {
         binding.image.visibility = View.GONE
         binding.emptyListProgress.visibility = View.VISIBLE
-
         var thumbnail = getThumbnailBitmap(file)
         if (thumbnail != null) {
             binding.shimmer.visibility = View.VISIBLE
-            binding.shimmerThumbnail.setImageBitmap(thumbnail)
             binding.image.visibility = View.GONE
             bitmap = thumbnail
         } else {
             thumbnail = ThumbnailsCacheManager.mDefaultImg
         }
 
-        if (showResizedImage == true) {
-            adjustResizedImage(thumbnail, width, height)
-        } else {
-            loadBitmapTask = LoadBitmapTask(binding.image, binding.emptyListView, binding.emptyListProgress)
-            binding.image.visibility = View.GONE
-            binding.emptyListView.visibility = View.GONE
-            binding.emptyListProgress.visibility = View.VISIBLE
-            loadBitmapTask?.execute(file)
-        }
+        binding.shimmerThumbnail.setImageBitmap(thumbnail)
     }
 
-    private fun adjustResizedImage(thumbnail: Bitmap?, width: Int, height: Int) {
-        var resizedImage = getResizedBitmap(file, width, height)
+    private fun loadImageRemotely() {
+        lifecycleScope.launch(Dispatchers.IO) {
+            val previewImageActivity = getTypedActivity(PreviewImageActivity::class.java)
+            val client = previewImageActivity?.clientRepository?.getNextcloudClient() ?: return@launch
+            withContext(Dispatchers.Main) {
+                val target = object : CustomTarget<Drawable>() {
+                    override fun onResourceReady(resource: Drawable, transition: Transition<in Drawable>?) {
+                        binding.image.setImageDrawable(resource)
+                    }
 
-        if (resizedImage != null && !file.isUpdateThumbnailNeeded) {
-            binding.image.setImageBitmap(resizedImage)
-            binding.image.visibility = View.VISIBLE
-            binding.emptyListView.visibility = View.GONE
-            binding.emptyListProgress.visibility = View.GONE
-            binding.image.setBackgroundColor(resources.getColor(R.color.background_color_inverse))
+                    override fun onLoadCleared(placeholder: Drawable?) {
+                        binding.image.setImageDrawable(placeholder)
+                    }
 
-            bitmap = resizedImage
-        } else {
-            // generate new resized image
-            if (ThumbnailsCacheManager.cancelPotentialThumbnailWork(file, binding.image) &&
-                containerActivity.storageManager != null
-            ) {
-                val task =
-                    ResizedImageGenerationTask(
-                        this,
-                        binding.image,
-                        binding.emptyListProgress,
-                        containerActivity.storageManager,
-                        connectivityService,
-                        containerActivity.storageManager.user,
-                        resources.getColor(R.color.background_color_inverse)
-                    )
-                if (resizedImage == null) {
-                    resizedImage = thumbnail
+                    override fun onLoadFailed(errorDrawable: Drawable?) {
+                        super.onLoadFailed(errorDrawable)
+                        binding.image.setImageDrawable(errorDrawable)
+                    }
                 }
-                val asyncDrawable =
-                    AsyncResizedImageDrawable(
-                        MainApp.getAppContext().resources,
-                        resizedImage,
-                        task
+
+                GlideHelper.loadIntoTarget(
+                    requireContext(),
+                    client,
+                    client.getFilesDavUri(file.remotePath),
+                    target,
+                    R.drawable.file_image
+                )
+
+                toggleImageLayout(true)
+                binding.image.setBackgroundColor(
+                    ContextCompat.getColor(
+                        requireContext(),
+                        R.color.background_color_inverse
                     )
-                binding.image.setImageDrawable(asyncDrawable)
-                task.execute(file)
+                )
             }
         }
     }
 
-    @Suppress("MagicNumber")
-    private fun getResizedBitmap(file: OCFile, width: Int, height: Int): Bitmap? {
-        var cachedImage: Bitmap? = null
-        var scaledWidth = width
-        var scaledHeight = height
+    private fun loadImageLocally() {
+        loadBitmapTask = LoadBitmapTask(binding.image, binding.emptyListView, binding.emptyListProgress)
+        toggleImageLayout(false)
+        loadBitmapTask?.execute(file)
+    }
 
-        var i = 0
-        while (i < 3 && cachedImage == null) {
-            try {
-                cachedImage = ThumbnailsCacheManager.getScaledBitmapFromDiskCache(
-                    ThumbnailsCacheManager.PREFIX_RESIZED_IMAGE + file.remoteId,
-                    scaledWidth,
-                    scaledHeight
-                )
-            } catch (e: OutOfMemoryError) {
-                scaledWidth /= 2
-                scaledHeight /= 2
-            }
-            i++
-        }
-
-        return cachedImage
+    private fun toggleImageLayout(showImage: Boolean) {
+        binding.image.setVisibleIf(showImage)
+        binding.emptyListView.visibility = View.GONE
+        binding.emptyListProgress.setVisibleIf(!showImage)
     }
 
     private fun getThumbnailBitmap(file: OCFile): Bitmap? =
@@ -691,24 +677,27 @@ class PreviewImageFragment :
         setSorryMessageForMultiList(errorMessageId)
     }
 
-    private fun setMultiListLoadingMessage() {
-        binding.image.visibility = View.GONE
-        binding.emptyListView.visibility = View.GONE
-        binding.emptyListProgress.visibility = View.VISIBLE
-    }
-
     private fun setSorryMessageForMultiList(@StringRes message: Int) {
-        binding.emptyListViewHeadline.setText(R.string.preview_sorry)
-        binding.emptyListViewText.setText(message)
-        binding.emptyListIcon.setImageResource(R.drawable.file_image)
+        binding.run {
+            emptyListViewHeadline.run {
+                setText(R.string.preview_sorry)
+                setTextColor(ContextCompat.getColor(requireContext(), R.color.standard_grey))
+            }
 
-        binding.emptyListView.setBackgroundColor(resources.getColor(R.color.bg_default))
-        binding.emptyListViewHeadline.setTextColor(resources.getColor(R.color.standard_grey))
-        binding.emptyListViewText.setTextColor(resources.getColor(R.color.standard_grey))
+            emptyListViewText.run {
+                setText(message)
+                setTextColor(ContextCompat.getColor(requireContext(), R.color.standard_grey))
+            }
 
-        binding.image.visibility = View.GONE
-        binding.emptyListView.visibility = View.VISIBLE
-        binding.emptyListProgress.visibility = View.GONE
+            emptyListView.run {
+                setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.bg_default))
+                visibility = View.VISIBLE
+            }
+
+            emptyListIcon.setImageResource(R.drawable.file_image)
+            image.visibility = View.GONE
+            emptyListProgress.visibility = View.GONE
+        }
     }
 
     fun handleUnsupportedImage() {
@@ -733,20 +722,13 @@ class PreviewImageFragment :
         }
     }
 
-    /**
-     * Finishes the preview
-     */
     private fun finish() {
-        val container: Activity? = activity
-        container?.finish()
+        activity?.finish()
     }
 
     private fun togglePreviewImageFullScreen() {
-        val activity: Activity? = activity
-
-        if (activity != null) {
-            (activity as PreviewImageActivity).toggleFullScreen()
-        }
+        val previewImageActivity = getTypedActivity(PreviewImageActivity::class.java)
+        previewImageActivity?.toggleFullScreen()
         toggleImageBackground()
     }
 
@@ -796,7 +778,7 @@ class PreviewImageFragment :
 
         private const val ARG_FILE = "FILE"
         private const val ARG_IGNORE_FIRST = "IGNORE_FIRST"
-        private const val ARG_SHOW_RESIZED_IMAGE = "SHOW_RESIZED_IMAGE"
+        private const val ARG_LOAD_REMOTELY = "ARG_LOAD_REMOTELY"
         private const val MIME_TYPE_PNG = "image/png"
         private const val MIME_TYPE_GIF = "image/gif"
         private const val MIME_TYPE_SVG = "image/svg+xml"
@@ -820,16 +802,16 @@ class PreviewImageFragment :
         fun newInstance(
             imageFile: OCFile,
             ignoreFirstSavedState: Boolean,
-            showResizedImage: Boolean
+            loadRemotely: Boolean
         ): PreviewImageFragment {
             val args = Bundle().apply {
                 putParcelable(ARG_FILE, imageFile)
                 putBoolean(ARG_IGNORE_FIRST, ignoreFirstSavedState)
-                putBoolean(ARG_SHOW_RESIZED_IMAGE, showResizedImage)
+                putBoolean(ARG_LOAD_REMOTELY, loadRemotely)
             }
 
             return PreviewImageFragment().apply {
-                this.showResizedImage = showResizedImage
+                this.loadRemotely = loadRemotely
                 arguments = args
             }
         }
