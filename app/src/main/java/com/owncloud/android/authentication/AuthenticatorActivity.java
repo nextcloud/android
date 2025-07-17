@@ -66,6 +66,7 @@ import com.nextcloud.common.PlainClient;
 import com.nextcloud.operations.PostMethod;
 import com.nextcloud.utils.extensions.BundleExtensionsKt;
 import com.nextcloud.utils.mdm.MDMConfig;
+import com.owncloud.android.BuildConfig;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.AccountSetupBinding;
@@ -582,9 +583,23 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
         if (deviceInfo.hasCamera(this)) {
             accountSetupBinding.scanQr.setOnClickListener(v -> onScan());
+            addDebugLogin();
             viewThemeUtils.platform.tintDrawable(this, accountSetupBinding.scanQr.getDrawable(), ColorRole.ON_PRIMARY);
         } else {
             accountSetupBinding.scanQr.setVisibility(View.GONE);
+        }
+    }
+
+    private void addDebugLogin() {
+        if (BuildConfig.DEBUG) {
+            accountSetupBinding.scanQr.setOnLongClickListener(v -> {
+                String baseUrl = BuildConfig.NC_TEST_SERVER_BASEURL;
+                String username = BuildConfig.NC_TEST_SERVER_USERNAME;
+                String password = BuildConfig.NC_TEST_SERVER_PASSWORD;
+                String dataString = "nc://login/user:" + username + "&" + "password:" + password + "&" + "server:" + baseUrl;
+                parseAndLoginFromWebView(dataString);
+                return false;
+            });
         }
     }
 
