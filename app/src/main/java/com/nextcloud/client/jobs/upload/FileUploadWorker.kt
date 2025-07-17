@@ -49,7 +49,8 @@ class FileUploadWorker(
     val preferences: AppPreferences,
     val context: Context,
     params: WorkerParameters
-) : Worker(context, params), OnDatatransferProgressListener {
+) : Worker(context, params),
+    OnDatatransferProgressListener {
 
     companion object {
         val TAG: String = FileUploadWorker::class.java.simpleName
@@ -75,17 +76,11 @@ class FileUploadWorker(
         const val LOCAL_BEHAVIOUR_FORGET = 2
         const val LOCAL_BEHAVIOUR_DELETE = 3
 
-        fun getUploadsAddedMessage(): String {
-            return FileUploadWorker::class.java.name + UPLOADS_ADDED_MESSAGE
-        }
+        fun getUploadsAddedMessage(): String = FileUploadWorker::class.java.name + UPLOADS_ADDED_MESSAGE
 
-        fun getUploadStartMessage(): String {
-            return FileUploadWorker::class.java.name + UPLOAD_START_MESSAGE
-        }
+        fun getUploadStartMessage(): String = FileUploadWorker::class.java.name + UPLOAD_START_MESSAGE
 
-        fun getUploadFinishMessage(): String {
-            return FileUploadWorker::class.java.name + UPLOAD_FINISH_MESSAGE
-        }
+        fun getUploadFinishMessage(): String = FileUploadWorker::class.java.name + UPLOAD_FINISH_MESSAGE
     }
 
     private var currentUploadIndex: Int = 1
@@ -95,20 +90,19 @@ class FileUploadWorker(
     private val fileUploaderDelegate = FileUploaderDelegate()
 
     @Suppress("TooGenericExceptionCaught")
-    override fun doWork(): Result {
-        return try {
-            backgroundJobManager.logStartOfWorker(BackgroundJobManagerImpl.formatClassTag(this::class))
-            val result = retrievePagesBySortingUploadsByID()
-            backgroundJobManager.logEndOfWorker(BackgroundJobManagerImpl.formatClassTag(this::class), result)
-            notificationManager.dismissNotification()
-            if (result == Result.success()) {
-                setIdleWorkerState()
-            }
-            result
-        } catch (t: Throwable) {
-            Log_OC.e(TAG, "Error caught at FileUploadWorker $t")
-            Result.failure()
+    override fun doWork(): Result = try {
+        Log_OC.d(TAG, "FileUploadWorker started")
+        backgroundJobManager.logStartOfWorker(BackgroundJobManagerImpl.formatClassTag(this::class))
+        val result = retrievePagesBySortingUploadsByID()
+        backgroundJobManager.logEndOfWorker(BackgroundJobManagerImpl.formatClassTag(this::class), result)
+        notificationManager.dismissNotification()
+        if (result == Result.success()) {
+            setIdleWorkerState()
         }
+        result
+    } catch (t: Throwable) {
+        Log_OC.e(TAG, "Error caught at FileUploadWorker $t")
+        Result.failure()
     }
 
     override fun onStopped() {
@@ -135,7 +129,8 @@ class FileUploadWorker(
         var uploadsPerPage = uploadsStorageManager.getCurrentUploadsForAccountPageAscById(-1, accountName)
         val totalUploadSize = uploadsStorageManager.getTotalUploadSize(accountName)
 
-        Log_OC.d(TAG, "Total upload size: $totalUploadSize")
+        Log_OC.d(TAG, "FileUploadWorker:retrievePagesBySortingUploadsByID: $uploadsPerPage")
+        Log_OC.d(TAG, "FileUploadWorker:totalUploadSize: $totalUploadSize")
 
         while (uploadsPerPage.isNotEmpty() && !isStopped) {
             if (preferences.isGlobalUploadPaused) {
@@ -232,24 +227,22 @@ class FileUploadWorker(
         }
     }
 
-    private fun createUploadFileOperation(upload: OCUpload, user: User): UploadFileOperation {
-        return UploadFileOperation(
-            uploadsStorageManager,
-            connectivityService,
-            powerManagementService,
-            user,
-            null,
-            upload,
-            upload.nameCollisionPolicy,
-            upload.localAction,
-            context,
-            upload.isUseWifiOnly,
-            upload.isWhileChargingOnly,
-            true,
-            FileDataStorageManager(user, context.contentResolver)
-        ).apply {
-            addDataTransferProgressListener(this@FileUploadWorker)
-        }
+    private fun createUploadFileOperation(upload: OCUpload, user: User): UploadFileOperation = UploadFileOperation(
+        uploadsStorageManager,
+        connectivityService,
+        powerManagementService,
+        user,
+        null,
+        upload,
+        upload.nameCollisionPolicy,
+        upload.localAction,
+        context,
+        upload.isUseWifiOnly,
+        upload.isWhileChargingOnly,
+        true,
+        FileDataStorageManager(user, context.contentResolver)
+    ).apply {
+        addDataTransferProgressListener(this@FileUploadWorker)
     }
 
     @Suppress("TooGenericExceptionCaught", "DEPRECATION")
@@ -300,7 +293,8 @@ class FileUploadWorker(
         }
 
         // Only notify if it is not same file on remote that causes conflict
-        if (uploadResult.code == ResultCode.SYNC_CONFLICT && FileUploadHelper().isSameFileOnRemote(
+        if (uploadResult.code == ResultCode.SYNC_CONFLICT &&
+            FileUploadHelper().isSameFileOnRemote(
                 uploadFileOperation.user,
                 File(uploadFileOperation.storagePath),
                 uploadFileOperation.remotePath,

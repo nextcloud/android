@@ -15,7 +15,5 @@ enum class ReceiverFlag {
     NotExported;
 
     @RequiresApi(Build.VERSION_CODES.TIRAMISU)
-    fun getId(): Int {
-        return Context.RECEIVER_NOT_EXPORTED
-    }
+    fun getId(): Int = Context.RECEIVER_NOT_EXPORTED
 }

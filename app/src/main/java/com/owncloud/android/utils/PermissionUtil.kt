@@ -85,10 +85,11 @@ object PermissionUtil {
     fun checkExternalStoragePermission(context: Context): Boolean = when {
         Build.VERSION.SDK_INT >= Build.VERSION_CODES.R -> Environment.isExternalStorageManager() ||
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                checkSelfPermission(context, Manifest.permission.READ_MEDIA_IMAGES) || checkSelfPermission(
-                    context,
-                    Manifest.permission.READ_MEDIA_VIDEO
-                )
+                checkSelfPermission(context, Manifest.permission.READ_MEDIA_IMAGES) ||
+                    checkSelfPermission(
+                        context,
+                        Manifest.permission.READ_MEDIA_VIDEO
+                    )
             } else {
                 checkSelfPermission(context, Manifest.permission.READ_EXTERNAL_STORAGE)
             }

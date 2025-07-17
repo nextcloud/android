@@ -22,8 +22,8 @@ import org.junit.Test
 @Suppress("TooManyFunctions")
 class SharePermissionManagerTest {
 
-    private fun createShare(sharePermission: Int, isFolder: Boolean = false, attributesJson: String? = null): OCShare {
-        return if (isFolder) {
+    private fun createShare(sharePermission: Int, isFolder: Boolean = false, attributesJson: String? = null): OCShare =
+        if (isFolder) {
             OCShare("/test")
                 .apply {
                     permissions = sharePermission
@@ -46,7 +46,6 @@ class SharePermissionManagerTest {
         }.apply {
             this.isFolder = isFolder
         }
-    }
 
     // region Permission change tests
     @Test

@@ -25,8 +25,7 @@ class GroupfolderListAdapter(
     val context: Context,
     val viewThemeUtils: ViewThemeUtils,
     private val groupfolderListInterface: GroupfolderListInterface
-) :
-    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     lateinit var list: List<Groupfolder>
 
     fun setData(result: Map<String, Groupfolder>) {
@@ -38,15 +37,12 @@ class GroupfolderListAdapter(
         return MimeTypeUtil.getFolderIcon(false, overlayDrawableId, context, viewThemeUtils)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return OCFileListItemViewHolder(
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
+        OCFileListItemViewHolder(
             ListItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         )
-    }
 
-    override fun getItemCount(): Int {
-        return list.size
-    }
+    override fun getItemCount(): Int = list.size
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val groupfolder = list[position]

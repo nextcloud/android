@@ -96,8 +96,8 @@ class FilesSpecificViewThemeUtils @Inject constructor(
         }
     }
 
-    fun themeFastScrollerBuilder(context: Context, builder: FastScrollerBuilder): FastScrollerBuilder {
-        return withScheme(context) { scheme ->
+    fun themeFastScrollerBuilder(context: Context, builder: FastScrollerBuilder): FastScrollerBuilder =
+        withScheme(context) { scheme ->
             builder
                 .useMd2Style()
                 .setThumbDrawable(getThumbDrawable(context))
@@ -106,7 +106,6 @@ class FilesSpecificViewThemeUtils @Inject constructor(
                     it.background = FastScrollPopupBackground(context, scheme.primary)
                 }
         }
-    }
 
     private fun getThumbDrawable(context: Context): Drawable {
         val thumbDrawable =
@@ -244,10 +243,8 @@ class FilesSpecificViewThemeUtils @Inject constructor(
         }
     }
 
-    fun primaryColorToHexString(context: Context): String {
-        return withScheme(context) { scheme ->
-            colorUtil.colorToHexString(scheme.primary)
-        }
+    fun primaryColorToHexString(context: Context): String = withScheme(context) { scheme ->
+        colorUtil.colorToHexString(scheme.primary)
     }
 
     fun setWhiteBackButton(context: Context, supportActionBar: ActionBar) {

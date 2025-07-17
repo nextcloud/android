@@ -282,7 +282,7 @@ public class UsersAndGroupsSearchProvider extends ContentProvider {
 
                         case FEDERATED:
                             if (federatedShareAllowed) {
-                                icon = R.drawable.ic_user;
+                                icon = R.drawable.ic_user_outline;
                                 dataUri = Uri.withAppendedPath(remoteBaseUri, shareWith);
 
                                 if (userName.equals(shareWith)) {

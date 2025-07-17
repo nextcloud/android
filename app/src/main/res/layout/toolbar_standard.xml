@@ -180,6 +180,7 @@
                     app:cornerRadius="@dimen/button_corner_radius"
                     app:icon="@drawable/ic_menu"
                     app:iconTint="@color/fontAppbar"
+                    app:iconSize="@dimen/search_bar_icon_size"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -208,7 +209,7 @@
                     android:layout_height="48dp"
                     android:contentDescription="@string/notification_icon_description"
                     app:cornerRadius="@dimen/button_corner_radius"
-                    app:iconSize="20dp"
+                    app:iconSize="@dimen/search_bar_icon_size"
                     app:icon="@drawable/ic_notification"
                     app:iconTint="@color/fontAppbar"
                     app:layout_constraintBottom_toBottomOf="parent"

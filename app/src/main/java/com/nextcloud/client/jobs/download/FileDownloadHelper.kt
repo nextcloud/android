@@ -30,10 +30,8 @@ class FileDownloadHelper {
     companion object {
         private var instance: FileDownloadHelper? = null
 
-        fun instance(): FileDownloadHelper {
-            return instance ?: synchronized(this) {
-                instance ?: FileDownloadHelper().also { instance = it }
-            }
+        fun instance(): FileDownloadHelper = instance ?: synchronized(this) {
+            instance ?: FileDownloadHelper().also { instance = it }
         }
     }
 
@@ -50,11 +48,12 @@ class FileDownloadHelper {
         val topParentId = fileStorageManager.getTopParentId(file)
 
         val isJobScheduled = backgroundJobManager.isStartFileDownloadJobScheduled(user, file.fileId)
-        return isJobScheduled || if (file.isFolder) {
-            backgroundJobManager.isStartFileDownloadJobScheduled(user, topParentId)
-        } else {
-            FileDownloadWorker.isDownloading(user.accountName, file.fileId)
-        }
+        return isJobScheduled ||
+            if (file.isFolder) {
+                backgroundJobManager.isStartFileDownloadJobScheduled(user, topParentId)
+            } else {
+                FileDownloadWorker.isDownloading(user.accountName, file.fileId)
+            }
     }
 
     fun cancelPendingOrCurrentDownloads(user: User?, files: List<OCFile>?) {

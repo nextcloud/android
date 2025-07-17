@@ -1,0 +1,26 @@
+#!/bin/sh
+
+# Add Signed-off-by if not already present
+
+# Nextcloud - Android Client
+#
+# SPDX-FileCopyrightText: 2025 Eeshan Jamal <eeshan.jamal@gmail.com>
+# SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
+
+COMMIT_MSG_FILE="$1"
+
+# Validate existing sign off
+if grep -qiE "^Signed-off-by: " "$COMMIT_MSG_FILE"; then
+  exit 0
+fi
+
+# Get current Git identity
+NAME=$(git config user.name)
+EMAIL=$(git config user.email)
+
+# Append sign off
+{
+  echo ""
+  echo "Signed-off-by: $NAME <$EMAIL>"
+} >> "$COMMIT_MSG_FILE"
+

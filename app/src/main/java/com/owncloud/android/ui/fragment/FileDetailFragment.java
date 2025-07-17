@@ -323,15 +323,20 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
     private void setupViewPager() {
         binding.tabLayout.removeAllTabs();
 
-        binding.tabLayout.addTab(binding.tabLayout.newTab().setText(R.string.drawer_item_activities).setIcon(R.drawable.ic_activity));
-
+        binding.tabLayout.addTab(
+            binding
+                .tabLayout
+                .newTab()
+                .setText(R.string.drawer_item_activities)
+                .setIcon(R.drawable.selector_tab_activities)
+                                );
 
         if (showSharingTab()) {
-            binding.tabLayout.addTab(binding.tabLayout.newTab().setText(R.string.share_dialog_title).setIcon(R.drawable.shared_via_users));
+            binding.tabLayout.addTab(binding.tabLayout.newTab().setText(R.string.share_dialog_title).setIcon(R.drawable.selector_tab_share));
         }
 
         if (MimeTypeUtil.isImage(getFile())) {
-            binding.tabLayout.addTab(binding.tabLayout.newTab().setText(R.string.filedetails_details).setIcon(R.drawable.image_32dp));
+            binding.tabLayout.addTab(binding.tabLayout.newTab().setText(R.string.filedetails_details).setIcon(R.drawable.selector_media));
         }
 
         viewThemeUtils.material.themeTabLayout(binding.tabLayout);

@@ -23,7 +23,9 @@ import com.nextcloud.client.di.Injectable
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import javax.inject.Inject
 
-open class ConfirmationDialogFragment : DialogFragment(), Injectable {
+open class ConfirmationDialogFragment :
+    DialogFragment(),
+    Injectable {
 
     @JvmField
     @Inject

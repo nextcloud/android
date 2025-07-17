@@ -15,6 +15,6 @@
         android:title="@string/common_share"
         app:showAsAction="ifRoom"
         android:showAsAction="ifRoom"
-        android:icon="@drawable/ic_share" />
+        android:icon="@drawable/nav_shared" />
 
 </menu>

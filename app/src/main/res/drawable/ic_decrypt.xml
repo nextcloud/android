@@ -1,13 +1,15 @@
 <!--
-  ~ Nextcloud - Android Client
-  ~
-  ~ SPDX-FileCopyrightText: 2020-2024 Austin Andrews
+  ~ SPDX-FileCopyrightText: 2025 Andy Scherzinger <info@andy-scherzinger>
+  ~ SPDX-FileCopyrightText: 2018-2025 Google LLC
   ~ SPDX-License-Identifier: Apache-2.0
 -->
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
-    android:height="24dp"
     android:width="24dp"
+    android:height="24dp"
+    android:autoMirrored="true"
     android:viewportWidth="24"
     android:viewportHeight="24">
-    <path android:fillColor="#000" android:pathData="M7.5 3C9.5 3 11.1 4.2 11.7 6H21V9H18V12H15V9H11.7C11.1 10.8 9.4 12 7.5 12C5 12 3 10 3 7.5S5 3 7.5 3M7.5 6C6.7 6 6 6.7 6 7.5S6.7 9 7.5 9 9 8.3 9 7.5 8.3 6 7.5 6M8 17H16V19H8V17Z" />
+    <path
+        android:fillColor="#757575"
+        android:pathData="M8,17L16,17L16,19L8,19L8,17ZM7,14C5.333,14 3.917,13.417 2.75,12.25C1.583,11.083 1,9.667 1,8C1,6.333 1.583,4.917 2.75,3.75C3.917,2.583 5.333,2 7,2C8.1,2 9.108,2.275 10.025,2.825C10.942,3.375 11.667,4.1 12.2,5L23,5L23,11L21,11L21,14L15,14L15,11L12.2,11C11.667,11.9 10.942,12.625 10.025,13.175C9.108,13.725 8.1,14 7,14ZM7,12C8.1,12 8.983,11.663 9.65,10.987C10.317,10.313 10.717,9.65 10.85,9L17,9L17,12L19,12L19,9L21,9L21,7L10.85,7C10.717,6.35 10.317,5.688 9.65,5.012C8.983,4.337 8.1,4 7,4C5.9,4 4.958,4.392 4.175,5.175C3.392,5.958 3,6.9 3,8C3,9.1 3.392,10.042 4.175,10.825C4.958,11.608 5.9,12 7,12ZM7,10C6.45,10 5.979,9.804 5.588,9.413C5.196,9.021 5,8.55 5,8C5,7.45 5.196,6.979 5.588,6.587C5.979,6.196 6.45,6 7,6C7.55,6 8.021,6.196 8.413,6.587C8.804,6.979 9,7.45 9,8C9,8.55 8.804,9.021 8.413,9.413C8.021,9.804 7.55,10 7,10Z" />
 </vector>

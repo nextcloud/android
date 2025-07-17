@@ -96,7 +96,10 @@ import javax.inject.Inject
  */
 
 @Suppress("NestedBlockDepth", "ComplexMethod", "LongMethod", "TooManyFunctions")
-class PreviewMediaFragment : FileFragment(), OnTouchListener, Injectable {
+class PreviewMediaFragment :
+    FileFragment(),
+    OnTouchListener,
+    Injectable {
     private var user: User? = null
     private var savedPlaybackPosition: Long = 0
 
@@ -636,8 +639,7 @@ class PreviewMediaFragment : FileFragment(), OnTouchListener, Injectable {
          * @return 'True' if the file can be handled by the fragment.
          */
         @JvmStatic
-        fun canBePreviewed(file: OCFile?): Boolean {
-            return file != null && (MimeTypeUtil.isAudio(file) || MimeTypeUtil.isVideo(file))
-        }
+        fun canBePreviewed(file: OCFile?): Boolean =
+            file != null && (MimeTypeUtil.isAudio(file) || MimeTypeUtil.isVideo(file))
     }
 }

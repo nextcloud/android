@@ -22,12 +22,9 @@ class OfflineOperationTypeConverter {
         .create()
 
     @TypeConverter
-    fun fromOfflineOperationType(type: OfflineOperationType?): String? {
-        return gson.toJson(type)
-    }
+    fun fromOfflineOperationType(type: OfflineOperationType?): String? = gson.toJson(type)
 
     @TypeConverter
-    fun toOfflineOperationType(type: String?): OfflineOperationType? {
-        return gson.fromJson(type, OfflineOperationType::class.java)
-    }
+    fun toOfflineOperationType(type: String?): OfflineOperationType? =
+        gson.fromJson(type, OfflineOperationType::class.java)
 }

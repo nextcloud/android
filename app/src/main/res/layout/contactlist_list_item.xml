@@ -16,7 +16,7 @@
         android:layout_height="@dimen/contactlist_item_icon_layout_height"
         android:layout_margin="@dimen/standard_margin"
         android:scaleType="centerCrop"
-        android:src="@drawable/ic_user"
+        android:src="@drawable/ic_user_outline"
         android:contentDescription="@string/contactlist_item_icon"/>
 
     <CheckedTextView

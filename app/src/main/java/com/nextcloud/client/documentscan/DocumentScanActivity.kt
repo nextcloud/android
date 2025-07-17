@@ -27,7 +27,9 @@ import com.owncloud.android.ui.activity.ToolbarActivity
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import javax.inject.Inject
 
-class DocumentScanActivity : ToolbarActivity(), Injectable {
+class DocumentScanActivity :
+    ToolbarActivity(),
+    Injectable {
 
     @Inject
     lateinit var vmFactory: ViewModelFactory
@@ -96,18 +98,16 @@ class DocumentScanActivity : ToolbarActivity(), Injectable {
                     }
                 }
 
-                override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
-                    return when (menuItem.itemId) {
-                        R.id.action_save -> {
-                            viewModel.onClickDone()
-                            true
-                        }
-                        android.R.id.home -> {
-                            onBackPressed()
-                            true
-                        }
-                        else -> false
+                override fun onMenuItemSelected(menuItem: MenuItem): Boolean = when (menuItem.itemId) {
+                    R.id.action_save -> {
+                        viewModel.onClickDone()
+                        true
                     }
+                    android.R.id.home -> {
+                        onBackPressed()
+                        true
+                    }
+                    else -> false
                 }
             }
         )

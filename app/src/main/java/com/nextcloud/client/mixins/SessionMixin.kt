@@ -25,10 +25,7 @@ import java.util.Optional
  * It is an intermediary step facilitating comprehensive rework of
  * account handling logic.
  */
-class SessionMixin(
-    private val activity: Activity,
-    private val accountManager: UserAccountManager
-) : ActivityMixin {
+class SessionMixin(private val activity: Activity, private val accountManager: UserAccountManager) : ActivityMixin {
     var currentAccount: Account = getDefaultAccount()
         private set
 
@@ -51,12 +48,10 @@ class SessionMixin(
         setAccount(user.toPlatformAccount())
     }
 
-    fun getUser(): Optional<User> {
-        return if (currentAccount.isAnonymous(activity)) {
-            Optional.empty()
-        } else {
-            accountManager.getUser(currentAccount.name)
-        }
+    fun getUser(): Optional<User> = if (currentAccount.isAnonymous(activity)) {
+        Optional.empty()
+    } else {
+        accountManager.getUser(currentAccount.name)
     }
 
     /**

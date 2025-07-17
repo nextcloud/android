@@ -34,7 +34,9 @@ import javax.inject.Inject
  * A Fragment that lists folders shared by the user
  */
 @Suppress("TooManyFunctions")
-class SharedListFragment : OCFileListFragment(), Injectable {
+class SharedListFragment :
+    OCFileListFragment(),
+    Injectable {
 
     @Inject
     lateinit var logger: Logger
@@ -65,41 +67,38 @@ class SharedListFragment : OCFileListFragment(), Injectable {
         }
     }
 
-    override fun getSearchRemoteOperation(currentUser: User?, event: SearchEvent?): RemoteOperation<*> {
-        return GetSharesRemoteOperation()
-    }
+    override fun getSearchRemoteOperation(currentUser: User?, event: SearchEvent?): RemoteOperation<*> =
+        GetSharesRemoteOperation()
 
     @Suppress("DEPRECATION")
-    private suspend fun fetchFileData(partialFile: OCFile): OCFile? {
-        return withContext(Dispatchers.IO) {
-            val user = accountManager.user
-            val fetchResult = ReadFileRemoteOperation(partialFile.remotePath).execute(user, context)
-            if (fetchResult.isSuccess) {
-                val remoteFile = (fetchResult.data[0] as RemoteFile).apply {
-                    val prevETag = mContainerActivity.storageManager.getFileByDecryptedRemotePath(remotePath)
+    private suspend fun fetchFileData(partialFile: OCFile): OCFile? = withContext(Dispatchers.IO) {
+        val user = accountManager.user
+        val fetchResult = ReadFileRemoteOperation(partialFile.remotePath).execute(user, context)
+        if (fetchResult.isSuccess) {
+            val remoteFile = (fetchResult.data[0] as RemoteFile).apply {
+                val prevETag = mContainerActivity.storageManager.getFileByDecryptedRemotePath(remotePath)
 
-                    // Use previous eTag if exists to prevent break checkForChanges logic in RefreshFolderOperation.
-                    // Otherwise RefreshFolderOperation will show empty list
-                    prevETag?.etag?.let {
-                        etag = prevETag.etag
-                    }
+                // Use previous eTag if exists to prevent break checkForChanges logic in RefreshFolderOperation.
+                // Otherwise RefreshFolderOperation will show empty list
+                prevETag?.etag?.let {
+                    etag = prevETag.etag
                 }
-                val file = FileStorageUtils.fillOCFile(remoteFile)
-                FileStorageUtils.searchForLocalFileInDefaultPath(file, user.accountName)
-                val savedFile = mContainerActivity.storageManager.saveFileWithParent(file, context)
-                savedFile.apply {
-                    isSharedViaLink = partialFile.isSharedViaLink
-                    isSharedWithSharee = partialFile.isSharedWithSharee
-                    sharees = partialFile.sharees
-                }
-                savedFile
-            } else {
-                logger.e(SHARED_TAG, "Error fetching file")
-                if (fetchResult.isException && fetchResult.exception != null) {
-                    logger.e(SHARED_TAG, "exception: ", fetchResult.exception!!)
-                }
-                null
             }
+            val file = FileStorageUtils.fillOCFile(remoteFile)
+            FileStorageUtils.searchForLocalFileInDefaultPath(file, user.accountName)
+            val savedFile = mContainerActivity.storageManager.saveFileWithParent(file, context)
+            savedFile.apply {
+                isSharedViaLink = partialFile.isSharedViaLink
+                isSharedWithSharee = partialFile.isSharedWithSharee
+                sharees = partialFile.sharees
+            }
+            savedFile
+        } else {
+            logger.e(SHARED_TAG, "Error fetching file")
+            if (fetchResult.isException && fetchResult.exception != null) {
+                logger.e(SHARED_TAG, "exception: ", fetchResult.exception!!)
+            }
+            null
         }
     }
 

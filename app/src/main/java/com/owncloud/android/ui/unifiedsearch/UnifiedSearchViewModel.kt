@@ -28,21 +28,19 @@ import com.owncloud.android.ui.asynctasks.GetRemoteFileTask
 import javax.inject.Inject
 
 @Suppress("LongParameterList")
-class UnifiedSearchViewModel(application: Application) : AndroidViewModel(application), IUnifiedSearchViewModel {
+class UnifiedSearchViewModel(application: Application) :
+    AndroidViewModel(application),
+    IUnifiedSearchViewModel {
     companion object {
         private const val TAG = "UnifiedSearchViewModel"
         private const val FILES_PROVIDER_ID = "files"
     }
 
-    private data class UnifiedSearchMetadata(
-        var results: MutableList<SearchResult> = mutableListOf()
-    ) {
-        fun nextCursor(): Int? {
-            return try {
-                results.lastOrNull()?.cursor?.toInt()
-            } catch (e: NumberFormatException) {
-                null
-            }
+    private data class UnifiedSearchMetadata(var results: MutableList<SearchResult> = mutableListOf()) {
+        fun nextCursor(): Int? = try {
+            results.lastOrNull()?.cursor?.toInt()
+        } catch (e: NumberFormatException) {
+            null
         }
         fun name(): String? = results.lastOrNull()?.name
     }

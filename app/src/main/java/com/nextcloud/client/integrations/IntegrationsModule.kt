@@ -16,7 +16,5 @@ import dagger.Provides
 @Module
 class IntegrationsModule {
     @Provides
-    fun deckApi(context: Context, packageManager: PackageManager): DeckApi {
-        return DeckApiImpl(context, packageManager)
-    }
+    fun deckApi(context: Context, packageManager: PackageManager): DeckApi = DeckApiImpl(context, packageManager)
 }

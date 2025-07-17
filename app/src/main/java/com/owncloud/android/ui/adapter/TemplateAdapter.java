@@ -16,17 +16,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.bumptech.glide.Glide;
 import com.nextcloud.client.account.CurrentAccountProvider;
 import com.nextcloud.client.network.ClientFactory;
+import com.nextcloud.utils.GlideHelper;
 import com.owncloud.android.databinding.TemplateButtonBinding;
+import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
 import com.owncloud.android.lib.common.Template;
 import com.owncloud.android.lib.common.TemplateList;
+import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.utils.MimeTypeUtil;
-import com.owncloud.android.utils.glide.CustomGlideStreamLoader;
 import com.owncloud.android.utils.theme.ViewThemeUtils;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -118,16 +120,15 @@ public class TemplateAdapter extends RecyclerView.Adapter<TemplateAdapter.ViewHo
         public void setData(Template template) {
             this.template = template;
 
-            Drawable placeholder = MimeTypeUtil.getFileTypeIcon(mimetype,
-                                                                template.getTitle(),
-                                                                context,
-                                                                viewThemeUtils);
-
-            Glide.with(context).using(new CustomGlideStreamLoader(currentAccountProvider.getUser(), clientFactory))
-                .load(template.getPreview())
-                .placeholder(placeholder)
-                .error(placeholder)
-                .into(binding.template);
+            int placeholder = MimeTypeUtil.getFileTypeIconId(mimetype, template.getTitle());
+            new Thread(() -> {{
+                try {
+                    final var client = OwnCloudClientManagerFactory.getDefaultSingleton().getNextcloudClientFor(Optional.of(currentAccountProvider.getUser().toOwnCloudAccount()).get(), context);
+                    GlideHelper.INSTANCE.loadIntoImageView(context, client, template.getPreview(), binding.template, placeholder, false);
+                } catch (Exception e) {
+                    Log_OC.e("TemplateAdapter", "Exception setData: " + e);
+                }
+            }}).start();
 
             binding.templateName.setText(template.getTitle());
             binding.templateContainer.setChecked(template == selectedTemplate);

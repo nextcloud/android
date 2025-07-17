@@ -205,13 +205,11 @@ class ChooseAccountDialogFragment :
         }
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        return dialogView
-    }
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View =
+        dialogView
 
-    override fun shouldCallGeneratedCallback(tag: String?, callContext: Any?): Boolean {
-        return (callContext as ImageView).tag.toString() == tag
-    }
+    override fun shouldCallGeneratedCallback(tag: String?, callContext: Any?): Boolean =
+        (callContext as ImageView).tag.toString() == tag
 
     override fun avatarGenerated(avatarDrawable: Drawable?, callContext: Any?) {
         if (_binding != null) {

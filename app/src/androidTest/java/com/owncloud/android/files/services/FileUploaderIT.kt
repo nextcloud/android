@@ -36,9 +36,7 @@ abstract class FileUploaderIT : AbstractOnServerIT() {
     private val connectivityServiceMock: ConnectivityService = object : ConnectivityService {
         override fun isNetworkAndServerAvailable(callback: ConnectivityService.GenericCallback<Boolean>) = Unit
 
-        override fun isConnected(): Boolean {
-            return false
-        }
+        override fun isConnected(): Boolean = false
 
         override fun isInternetWalled(): Boolean = false
         override fun getConnectivity(): Connectivity = Connectivity.CONNECTED_WIFI

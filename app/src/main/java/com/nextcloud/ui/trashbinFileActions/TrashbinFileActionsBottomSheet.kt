@@ -39,7 +39,9 @@ import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import javax.inject.Inject
 
-class TrashbinFileActionsBottomSheet : BottomSheetDialogFragment(), Injectable {
+class TrashbinFileActionsBottomSheet :
+    BottomSheetDialogFragment(),
+    Injectable {
 
     @Inject
     lateinit var viewThemeUtils: ViewThemeUtils
@@ -220,14 +222,13 @@ class TrashbinFileActionsBottomSheet : BottomSheetDialogFragment(), Injectable {
         private const val RESULT_KEY_ACTION_ID = "RESULT_KEY_ACTION_ID"
 
         @JvmStatic
-        fun newInstance(numberOfAllFiles: Int, files: Collection<TrashbinFile>): TrashbinFileActionsBottomSheet {
-            return TrashbinFileActionsBottomSheet().apply {
+        fun newInstance(numberOfAllFiles: Int, files: Collection<TrashbinFile>): TrashbinFileActionsBottomSheet =
+            TrashbinFileActionsBottomSheet().apply {
                 val argsBundle = bundleOf(
                     TrashbinFileActionsViewModel.ARG_ALL_FILES_COUNT to numberOfAllFiles,
                     TrashbinFileActionsViewModel.ARG_FILES to ArrayList<TrashbinFile>(files)
                 )
                 arguments = argsBundle
             }
-        }
     }
 }

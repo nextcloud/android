@@ -22,23 +22,28 @@ import android.widget.CheckedTextView
 import android.widget.ImageView
 import com.afollestad.sectionedrecyclerview.SectionedRecyclerViewAdapter
 import com.afollestad.sectionedrecyclerview.SectionedViewHolder
-import com.bumptech.glide.request.animation.GlideAnimation
-import com.bumptech.glide.request.target.SimpleTarget
+import com.bumptech.glide.request.target.CustomTarget
+import com.bumptech.glide.request.transition.Transition
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.network.ClientFactory
+import com.nextcloud.utils.GlideHelper
 import com.owncloud.android.R
 import com.owncloud.android.databinding.BackupListItemHeaderBinding
 import com.owncloud.android.databinding.CalendarlistListItemBinding
 import com.owncloud.android.databinding.ContactlistListItemBinding
 import com.owncloud.android.datamodel.OCFile
+import com.owncloud.android.lib.common.OwnCloudClientManagerFactory
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.ui.TextDrawable
 import com.owncloud.android.ui.fragment.contactsbackup.BackupListFragment.getDisplayName
 import com.owncloud.android.utils.BitmapUtils
-import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import ezvcard.VCard
 import ezvcard.property.Photo
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import third_parties.sufficientlysecure.AndroidCalendar
 
 @Suppress("LongParameterList", "TooManyFunctions")
@@ -73,37 +78,35 @@ class BackupListAdapter(
         availableContactAccounts = getAccountForImport()
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SectionedViewHolder {
-        return when (viewType) {
-            VIEW_TYPE_HEADER -> {
-                BackupListHeaderViewHolder(
-                    BackupListItemHeaderBinding.inflate(
-                        LayoutInflater.from(parent.context),
-                        parent,
-                        false
-                    ),
-                    context
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SectionedViewHolder = when (viewType) {
+        VIEW_TYPE_HEADER -> {
+            BackupListHeaderViewHolder(
+                BackupListItemHeaderBinding.inflate(
+                    LayoutInflater.from(parent.context),
+                    parent,
+                    false
+                ),
+                context
+            )
+        }
+        VIEW_TYPE_CONTACTS -> {
+            ContactItemViewHolder(
+                ContactlistListItemBinding.inflate(
+                    LayoutInflater.from(parent.context),
+                    parent,
+                    false
                 )
-            }
-            VIEW_TYPE_CONTACTS -> {
-                ContactItemViewHolder(
-                    ContactlistListItemBinding.inflate(
-                        LayoutInflater.from(parent.context),
-                        parent,
-                        false
-                    )
-                )
-            }
-            else -> {
-                CalendarItemViewHolder(
-                    CalendarlistListItemBinding.inflate(
-                        LayoutInflater.from(parent.context),
-                        parent,
-                        false
-                    ),
-                    context
-                )
-            }
+            )
+        }
+        else -> {
+            CalendarItemViewHolder(
+                CalendarlistListItemBinding.inflate(
+                    LayoutInflater.from(parent.context),
+                    parent,
+                    false
+                ),
+                context
+            )
         }
     }
 
@@ -122,25 +125,20 @@ class BackupListAdapter(
         }
     }
 
-    override fun getItemCount(section: Int): Int {
-        return if (section == SECTION_CALENDAR) {
-            calendarFiles.size
-        } else {
-            contacts.size
-        }
+    override fun getItemCount(section: Int): Int = if (section == SECTION_CALENDAR) {
+        calendarFiles.size
+    } else {
+        contacts.size
     }
 
-    override fun getSectionCount(): Int {
-        return 2
-    }
+    override fun getSectionCount(): Int = 2
 
-    override fun getItemViewType(section: Int, relativePosition: Int, absolutePosition: Int): Int {
-        return if (section == SECTION_CALENDAR) {
+    override fun getItemViewType(section: Int, relativePosition: Int, absolutePosition: Int): Int =
+        if (section == SECTION_CALENDAR) {
             VIEW_TYPE_CALENDAR
         } else {
             VIEW_TYPE_CONTACTS
         }
-    }
 
     override fun onBindHeaderViewHolder(holder: SectionedViewHolder?, section: Int, expanded: Boolean) {
         val headerViewHolder = holder as BackupListHeaderViewHolder
@@ -206,7 +204,7 @@ class BackupListAdapter(
                     )
                 )
             } catch (e: Resources.NotFoundException) {
-                holder.binding.icon.setImageResource(R.drawable.ic_user)
+                holder.binding.icon.setImageResource(R.drawable.ic_user_outline)
             }
         }
 
@@ -240,25 +238,35 @@ class BackupListAdapter(
             )
             imageView.setImageDrawable(drawable)
         } else if (url != null) {
-            val target = object : SimpleTarget<Drawable>() {
-                override fun onResourceReady(resource: Drawable?, glideAnimation: GlideAnimation<in Drawable>?) {
+            val target = object : CustomTarget<Drawable>() {
+                override fun onResourceReady(resource: Drawable, transition: Transition<in Drawable>?) {
                     imageView.setImageDrawable(resource)
                 }
 
-                override fun onLoadFailed(e: java.lang.Exception?, errorDrawable: Drawable?) {
-                    super.onLoadFailed(e, errorDrawable)
+                override fun onLoadCleared(placeholder: Drawable?) {
+                    imageView.setImageDrawable(placeholder)
+                }
+
+                override fun onLoadFailed(errorDrawable: Drawable?) {
+                    super.onLoadFailed(errorDrawable)
                     imageView.setImageDrawable(errorDrawable)
                 }
             }
 
-            DisplayUtils.downloadIcon(
-                accountManager,
-                clientFactory,
-                context,
-                url,
-                target,
-                R.drawable.ic_user
-            )
+            CoroutineScope(Dispatchers.IO).launch {
+                val client = OwnCloudClientManagerFactory.getDefaultSingleton()
+                    .getNextcloudClientFor(accountManager.currentOwnCloudAccount, context)
+
+                withContext(Dispatchers.Main) {
+                    GlideHelper.loadIntoTarget(
+                        context,
+                        client,
+                        url,
+                        target,
+                        R.drawable.ic_user_outline
+                    )
+                }
+            }
         }
     }
 
@@ -311,13 +319,9 @@ class BackupListAdapter(
         }
     }
 
-    fun getCheckedCalendarStringArray(): Array<String> {
-        return checkedCalendars.keys.toTypedArray()
-    }
+    fun getCheckedCalendarStringArray(): Array<String> = checkedCalendars.keys.toTypedArray()
 
-    fun getCheckedContactsIntArray(): IntArray {
-        return checkedVCards.toIntArray()
-    }
+    fun getCheckedContactsIntArray(): IntArray = checkedVCards.toIntArray()
 
     fun selectAll(selectAll: Boolean) {
         if (selectAll) {
@@ -330,13 +334,9 @@ class BackupListAdapter(
         showRestoreButton()
     }
 
-    fun getCheckedCalendarPathsArray(): Map<String, Int> {
-        return checkedCalendars
-    }
+    fun getCheckedCalendarPathsArray(): Map<String, Int> = checkedCalendars
 
-    fun hasCalendarEntry(): Boolean {
-        return calendarFiles.isNotEmpty()
-    }
+    fun hasCalendarEntry(): Boolean = calendarFiles.isNotEmpty()
 
     @Suppress("NestedBlockDepth", "TooGenericExceptionCaught")
     private fun getAccountForImport(): List<ContactsAccount> {

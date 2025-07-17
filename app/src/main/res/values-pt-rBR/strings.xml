@@ -488,8 +488,8 @@
     <string name="image_editor_file_edited_suffix">editado</string>
     <string name="image_editor_flip_horizontal">Espelhar horizontalmente</string>
     <string name="image_editor_flip_vertical">Espelhar verticalmente</string>
-    <string name="image_editor_rotate_ccw">Girar no sentido anti-horário</string>
-    <string name="image_editor_rotate_cw">Girar no sentido horário</string>
+    <string name="image_editor_rotate_ccw">Rotacionar no sentido anti-horário</string>
+    <string name="image_editor_rotate_cw">Rotacionar no sentido horário</string>
     <string name="image_editor_unable_to_edit_image">Não foi possível editar a imagem.</string>
     <string name="image_preview_filedetails">Detalhes do arquivo</string>
     <string name="image_preview_image_taking_conditions">Condições de captura de imagens</string>

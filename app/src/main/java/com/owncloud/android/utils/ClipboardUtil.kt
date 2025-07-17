@@ -59,8 +59,8 @@ object ClipboardUtil {
         }
     }
 
-    private fun getClipData(clipboardLabel: String, text: String?): ClipData {
-        return ClipData.newPlainText(clipboardLabel, text).apply {
+    private fun getClipData(clipboardLabel: String, text: String?): ClipData =
+        ClipData.newPlainText(clipboardLabel, text).apply {
             description.extras = PersistableBundle().apply {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                     putBoolean(ClipDescription.EXTRA_IS_SENSITIVE, true)
@@ -69,7 +69,6 @@ object ClipboardUtil {
                 }
             }
         }
-    }
 
     private fun scheduleClipboardClearWorker(context: Context, text: String?) {
         val data = Data.Builder()

@@ -280,7 +280,7 @@ public class UserListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             } catch (Exception e) {
                 Log_OC.e(TAG, "Error calculating RGB value for account list item.", e);
                 // use user icon as a fallback
-                binding.userIcon.setImageResource(R.drawable.ic_user);
+                binding.userIcon.setImageResource(R.drawable.ic_user_outline);
             }
         }
 

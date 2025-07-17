@@ -18,7 +18,7 @@
     <string name="actionbar_move_or_copy">Pārvietot vai kopēt</string>
     <string name="actionbar_open_with">Atvērt ar</string>
     <string name="actionbar_search">Meklēt</string>
-    <string name="actionbar_see_details">Detaļas</string>
+    <string name="actionbar_see_details">Informācija</string>
     <string name="actionbar_send_file">Sūtīt</string>
     <string name="actionbar_settings">Iestatījumi</string>
     <string name="actionbar_sort">Kārtot</string>
@@ -269,7 +269,7 @@
     <string name="file_not_found">Datne nav atrasta</string>
     <string name="file_not_synced">Datni nevarēja sinhronizēt. Rāda pēdējo pieejamo versiju.</string>
     <string name="file_rename">Pārdēvēt</string>
-    <string name="filedetails_details">Detaļas</string>
+    <string name="filedetails_details">Informācija</string>
     <string name="filedetails_download">Lejupielādēt</string>
     <string name="filedetails_export">Izgūt</string>
     <string name="filedetails_renamed_in_upload_msg">Datne augšupielādes laikā pārdēvēta par %1$s</string>
@@ -417,7 +417,7 @@
     <string name="prefs_calendar_contacts_summary">Iestatīt DAVx⁵ (iepriekš zināmu kā DAVdroid) (v1.3.0+) pašreizējam kontam</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Kalendāra un kontaktpersonu sinhronizēšanas iestatīšana</string>
     <string name="prefs_category_about">Par</string>
-    <string name="prefs_category_details">Detaļas</string>
+    <string name="prefs_category_details">Informācija</string>
     <string name="prefs_category_general">Vispārīgi</string>
     <string name="prefs_category_more">Vairāk</string>
     <string name="prefs_category_sync">Sinhronizēt</string>
@@ -471,7 +471,7 @@
     <string name="recommended_files_title">Ieteiktās datnes</string>
     <string name="reload">Reload</string>
     <string name="remove_fail_msg">Dzēšana neizdevās</string>
-    <string name="remove_push_notification">Izņemt</string>
+    <string name="remove_push_notification">Noņemt</string>
     <string name="remove_success_msg">Izdzēsta</string>
     <string name="rename_dialog_title">Ievadīt jaunu nosaukumu</string>
     <string name="rename_local_fail_msg">Nevarēja pārdēvēt vietējo kopiju, jāmēģina cits nosaukums</string>

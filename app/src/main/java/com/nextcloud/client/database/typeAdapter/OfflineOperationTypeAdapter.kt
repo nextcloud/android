@@ -18,7 +18,9 @@ import com.nextcloud.model.OfflineOperationType
 
 import java.lang.reflect.Type
 
-class OfflineOperationTypeAdapter : JsonSerializer<OfflineOperationType>, JsonDeserializer<OfflineOperationType> {
+class OfflineOperationTypeAdapter :
+    JsonSerializer<OfflineOperationType>,
+    JsonDeserializer<OfflineOperationType> {
 
     override fun serialize(
         src: OfflineOperationType?,

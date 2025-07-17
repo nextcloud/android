@@ -54,7 +54,9 @@ class GalleryAdapter(
     private val viewThemeUtils: ViewThemeUtils,
     var columns: Int,
     private val defaultThumbnailSize: Int
-) : SectionedRecyclerViewAdapter<SectionedViewHolder>(), CommonOCFileListAdapterInterface, PopupTextProvider {
+) : SectionedRecyclerViewAdapter<SectionedViewHolder>(),
+    CommonOCFileListAdapterInterface,
+    PopupTextProvider {
     var files: List<GalleryItems> = mutableListOf()
     private val ocFileListDelegate: OCFileListDelegate
     private var storageManager: FileDataStorageManager = transferServiceGetter.storageManager
@@ -76,9 +78,7 @@ class GalleryAdapter(
         )
     }
 
-    override fun getItemId(section: Int, position: Int): Long {
-        return files[section].rows[position].calculateHashCode()
-    }
+    override fun getItemId(section: Int, position: Int): Long = files[section].rows[position].calculateHashCode()
 
     override fun selectAll(value: Boolean) {
         if (value) {
@@ -90,8 +90,8 @@ class GalleryAdapter(
 
     override fun showFooters(): Boolean = false
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SectionedViewHolder {
-        return if (viewType == VIEW_TYPE_HEADER) {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SectionedViewHolder =
+        if (viewType == VIEW_TYPE_HEADER) {
             GalleryHeaderViewHolder(
                 GalleryHeaderBinding.inflate(
                     LayoutInflater.from(parent.context),
@@ -109,7 +109,6 @@ class GalleryAdapter(
                 viewThemeUtils
             )
         }
-    }
 
     override fun onBindViewHolder(
         holder: SectionedViewHolder?,
@@ -123,21 +122,15 @@ class GalleryAdapter(
         }
     }
 
-    override fun getItemCount(section: Int): Int {
-        return files[section].rows.size
-    }
+    override fun getItemCount(section: Int): Int = files[section].rows.size
 
-    override fun getSectionCount(): Int {
-        return files.size
-    }
+    override fun getSectionCount(): Int = files.size
 
-    override fun getPopupText(p0: View, position: Int): CharSequence {
-        return DisplayUtils.getDateByPattern(
-            files[getRelativePosition(position).section()].date,
-            context,
-            DisplayUtils.MONTH_YEAR_PATTERN
-        )
-    }
+    override fun getPopupText(p0: View, position: Int): CharSequence = DisplayUtils.getDateByPattern(
+        files[getRelativePosition(position).section()].date,
+        context,
+        DisplayUtils.MONTH_YEAR_PATTERN
+    )
 
     override fun onBindHeaderViewHolder(holder: SectionedViewHolder?, section: Int, expanded: Boolean) {
         if (holder != null) {
@@ -205,13 +198,11 @@ class GalleryAdapter(
         Handler(Looper.getMainLooper()).post { notifyDataSetChanged() }
     }
 
-    private fun transformToRows(list: List<OCFile>): List<GalleryRow> {
-        return list
-            .sortedBy { it.modificationTimestamp }
-            .reversed()
-            .chunked(columns)
-            .map { entry -> GalleryRow(entry, defaultThumbnailSize, defaultThumbnailSize) }
-    }
+    private fun transformToRows(list: List<OCFile>): List<GalleryRow> = list
+        .sortedBy { it.modificationTimestamp }
+        .reversed()
+        .chunked(columns)
+        .map { entry -> GalleryRow(entry, defaultThumbnailSize, defaultThumbnailSize) }
 
     @SuppressLint("NotifyDataSetChanged")
     fun clear() {
@@ -230,9 +221,7 @@ class GalleryAdapter(
         return cal.timeInMillis
     }
 
-    fun isEmpty(): Boolean {
-        return files.isEmpty()
-    }
+    fun isEmpty(): Boolean = files.isEmpty()
 
     fun getItem(position: Int): OCFile? {
         val itemCoordinates = getRelativePosition(position)
@@ -245,9 +234,7 @@ class GalleryAdapter(
             ?.getOrNull(0)
     }
 
-    override fun isMultiSelect(): Boolean {
-        return ocFileListDelegate.isMultiSelect
-    }
+    override fun isMultiSelect(): Boolean = ocFileListDelegate.isMultiSelect
 
     override fun cancelAllPendingTasks() {
         ocFileListDelegate.cancelAllPendingTasks()
@@ -288,13 +275,9 @@ class GalleryAdapter(
         ocFileListDelegate.addCheckedFile(file)
     }
 
-    override fun isCheckedFile(file: OCFile): Boolean {
-        return ocFileListDelegate.isCheckedFile(file)
-    }
+    override fun isCheckedFile(file: OCFile): Boolean = ocFileListDelegate.isCheckedFile(file)
 
-    override fun getCheckedItems(): Set<OCFile> {
-        return ocFileListDelegate.checkedItems
-    }
+    override fun getCheckedItems(): Set<OCFile> = ocFileListDelegate.checkedItems
 
     override fun removeCheckedFile(file: OCFile) {
         ocFileListDelegate.removeCheckedFile(file)
@@ -304,9 +287,7 @@ class GalleryAdapter(
         notifyItemChanged(getItemPosition(file))
     }
 
-    override fun getFilesCount(): Int {
-        return files.fold(0) { acc, item -> acc + item.rows.size }
-    }
+    override fun getFilesCount(): Int = files.fold(0) { acc, item -> acc + item.rows.size }
 
     @SuppressLint("NotifyDataSetChanged")
     override fun setMultiSelect(boolean: Boolean) {
@@ -352,10 +333,8 @@ class GalleryAdapter(
         Handler(Looper.getMainLooper()).post { notifyDataSetChanged() }
     }
 
-    private fun List<OCFile>.toGalleryItems(): List<GalleryItems> {
-        return this
-            .groupBy { firstOfMonth(it.modificationTimestamp) }
-            .map { GalleryItems(it.key, transformToRows(it.value)) }
-            .sortedBy { it.date }.reversed()
-    }
+    private fun List<OCFile>.toGalleryItems(): List<GalleryItems> = this
+        .groupBy { firstOfMonth(it.modificationTimestamp) }
+        .map { GalleryItems(it.key, transformToRows(it.value)) }
+        .sortedBy { it.date }.reversed()
 }

@@ -10,4 +10,4 @@ package com.owncloud.android.ui.events
 /**
  * Event to send push token where it belongs
  */
-class TokenPushEvent 
+class TokenPushEvent

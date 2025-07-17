@@ -19,7 +19,7 @@
         android:layout_height="32dp"
         android:layout_gravity="center_vertical"
         android:layout_marginEnd="@dimen/standard_half_margin"
-        android:src="@drawable/ic_user"
+        android:src="@drawable/ic_user_outline"
         android:contentDescription="@string/icon_of_widget_entry" />
 
     <LinearLayout

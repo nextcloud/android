@@ -73,9 +73,7 @@ class EtmFileTransferFragment : EtmBaseFragment() {
             return ViewHolder(view)
         }
 
-        override fun getItemCount(): Int {
-            return transfers.size
-        }
+        override fun getItemCount(): Int = transfers.size
 
         override fun onBindViewHolder(vh: ViewHolder, position: Int) {
             val transfer = transfers[position]
@@ -139,18 +137,16 @@ class EtmFileTransferFragment : EtmBaseFragment() {
         inflater.inflate(R.menu.fragment_etm_file_transfer, menu)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            R.id.etm_test_download -> {
-                scheduleTestDownload()
-                true
-            }
-            R.id.etm_test_upload -> {
-                scheduleTestUpload()
-                true
-            }
-            else -> super.onOptionsItemSelected(item)
+    override fun onOptionsItemSelected(item: MenuItem): Boolean = when (item.itemId) {
+        R.id.etm_test_download -> {
+            scheduleTestDownload()
+            true
         }
+        R.id.etm_test_upload -> {
+            scheduleTestUpload()
+            true
+        }
+        else -> super.onOptionsItemSelected(item)
     }
 
     private fun scheduleTestDownload() {

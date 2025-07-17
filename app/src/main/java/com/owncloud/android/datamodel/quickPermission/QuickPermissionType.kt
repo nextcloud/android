@@ -12,10 +12,7 @@ import android.graphics.drawable.Drawable
 import androidx.core.content.ContextCompat
 import com.owncloud.android.R
 
-enum class QuickPermissionType(
-    val iconId: Int,
-    val textId: Int
-) {
+enum class QuickPermissionType(val iconId: Int, val textId: Int) {
     NONE(R.drawable.ic_unknown, R.string.unknown),
     VIEW_ONLY(R.drawable.ic_eye, R.string.share_permission_view_only),
     CAN_EDIT(R.drawable.ic_edit, R.string.share_permission_can_edit),

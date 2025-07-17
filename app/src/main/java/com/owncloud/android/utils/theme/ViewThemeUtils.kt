@@ -19,10 +19,7 @@ import javax.inject.Inject
 /**
  * Child fields intentionally constructed instead of injected in order to reuse schemes for performance
  */
-class ViewThemeUtils @Inject constructor(
-    schemes: MaterialSchemes,
-    colorUtil: ColorUtil
-) : ViewThemeUtilsBase(schemes) {
+class ViewThemeUtils @Inject constructor(schemes: MaterialSchemes, colorUtil: ColorUtil) : ViewThemeUtilsBase(schemes) {
     @JvmField
     val platform = AndroidViewThemeUtils(schemes, colorUtil)
 
@@ -42,16 +39,11 @@ class ViewThemeUtils @Inject constructor(
         private val schemesProvider: MaterialSchemesProvider,
         private val colorUtil: ColorUtil
     ) {
-        fun withSchemes(schemes: MaterialSchemes): ViewThemeUtils {
-            return ViewThemeUtils(schemes, colorUtil)
-        }
+        fun withSchemes(schemes: MaterialSchemes): ViewThemeUtils = ViewThemeUtils(schemes, colorUtil)
 
-        fun withDefaultSchemes(): ViewThemeUtils {
-            return withSchemes(schemesProvider.getDefaultMaterialSchemes())
-        }
+        fun withDefaultSchemes(): ViewThemeUtils = withSchemes(schemesProvider.getDefaultMaterialSchemes())
 
-        fun withPrimaryAsBackground(): ViewThemeUtils {
-            return withSchemes(schemesProvider.getMaterialSchemesForPrimaryBackground())
-        }
+        fun withPrimaryAsBackground(): ViewThemeUtils =
+            withSchemes(schemesProvider.getMaterialSchemesForPrimaryBackground())
     }
 }

@@ -656,7 +656,7 @@
     <string name="pref_instant_name_collision_policy_entries_rename">Omdøb ny version</string>
     <string name="pref_instant_name_collision_policy_title">Hvad skal ske, hvis filen allerede findes?</string>
     <string name="prefs_add_account">Tilføj konto</string>
-    <string name="prefs_calendar_contacts">Synkroniser kalender og kontakter</string>
+    <string name="prefs_calendar_contacts">Synkronisér kalender og kontakter</string>
     <string name="prefs_calendar_contacts_no_store_error">Hverken F-droid eller Google Play er installeret</string>
     <string name="prefs_calendar_contacts_summary">Opsæt DAVx⁵ (tidligere kendt som DAVdroid) (v1.3.0+) for aktuel konto</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Kalender og kontakt synkronisering sat op</string>
@@ -669,7 +669,7 @@
     <string name="prefs_daily_backup_summary">Daglig backup af din kalender og kontakter</string>
     <string name="prefs_daily_contact_backup_summary">Daglig backup af dine kontakter</string>
     <string name="prefs_data_storage_location">Datalagringslokation</string>
-    <string name="prefs_data_storage_location_summary">Styre datalagringslokation</string>
+    <string name="prefs_data_storage_location_summary">Administrér datalagringslokation</string>
     <string name="prefs_davx5_setup_error">Uventet fejl under opsætning af DAVx⁵ (tidligere kendt som DAVdroid)</string>
     <string name="prefs_e2e_active">End-to-end kryptering er blevet konfigureret!</string>
     <string name="prefs_e2e_mnemonic">E2E mnemonic</string>
@@ -704,7 +704,7 @@
     <string name="prefs_show_ecosystem_apps_summary">Nextcloud app anbefalinger i navigationspanelet</string>
     <string name="prefs_show_hidden_files">Vis skjulte filer</string>
     <string name="prefs_sourcecode">Hent kildetekst</string>
-    <string name="prefs_sycned_folders_summary">Administrer mapper til auto upload</string>
+    <string name="prefs_sycned_folders_summary">Administrér mapper til auto upload</string>
     <string name="prefs_synced_folders_local_path_title">Lokal mappe</string>
     <string name="prefs_synced_folders_remote_path_title">Ekstern mappe</string>
     <string name="prefs_theme_title">Tema</string>

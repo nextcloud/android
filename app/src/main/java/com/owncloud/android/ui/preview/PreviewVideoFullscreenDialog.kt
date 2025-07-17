@@ -76,17 +76,15 @@ class PreviewVideoFullscreenDialog(
         return videoFormat != null && videoFormat.rotationDegrees != 0
     }
 
-    private fun getExoPlayer(nextcloudClient: NextcloudClient): ExoPlayer {
-        return if (shouldUseRotatedVideoWorkaround) {
-            Log_OC.d(TAG, "Using new ExoPlayer instance to deal with rotated video")
-            NextcloudExoPlayer
-                .createNextcloudExoplayer(sourceView.context, nextcloudClient)
-                .apply {
-                    addListener(ExoplayerListener(sourceView.context, binding.videoPlayer, this))
-                }
-        } else {
-            sourceExoPlayer
-        }
+    private fun getExoPlayer(nextcloudClient: NextcloudClient): ExoPlayer = if (shouldUseRotatedVideoWorkaround) {
+        Log_OC.d(TAG, "Using new ExoPlayer instance to deal with rotated video")
+        NextcloudExoPlayer
+            .createNextcloudExoplayer(sourceView.context, nextcloudClient)
+            .apply {
+                addListener(ExoplayerListener(sourceView.context, binding.videoPlayer, this))
+            }
+    } else {
+        sourceExoPlayer
     }
 
     override fun show() {

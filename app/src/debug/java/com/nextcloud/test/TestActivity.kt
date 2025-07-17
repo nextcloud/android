@@ -44,17 +44,11 @@ class TestActivity :
     val connectivityServiceMock: ConnectivityService = object : ConnectivityService {
         override fun isNetworkAndServerAvailable(callback: ConnectivityService.GenericCallback<Boolean>) = Unit
 
-        override fun isConnected(): Boolean {
-            return false
-        }
+        override fun isConnected(): Boolean = false
 
-        override fun isInternetWalled(): Boolean {
-            return false
-        }
+        override fun isInternetWalled(): Boolean = false
 
-        override fun getConnectivity(): Connectivity {
-            return Connectivity.CONNECTED_WIFI
-        }
+        override fun getConnectivity(): Connectivity = Connectivity.CONNECTED_WIFI
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -98,9 +92,7 @@ class TestActivity :
         TODO("Not yet implemented")
     }
 
-    override fun getOperationsServiceBinder(): OperationsService.OperationsServiceBinder? {
-        return null
-    }
+    override fun getOperationsServiceBinder(): OperationsService.OperationsServiceBinder? = null
 
     override fun showSortListGroup(show: Boolean) {
         // not needed
@@ -114,13 +106,9 @@ class TestActivity :
         TODO("Not yet implemented")
     }
 
-    override fun getFileUploaderHelper(): FileUploadHelper {
-        return FileUploadHelper.instance()
-    }
+    override fun getFileUploaderHelper(): FileUploadHelper = FileUploadHelper.instance()
 
-    override fun getFileDownloadProgressListener(): FileDownloadWorker.FileDownloadProgressListener? {
-        return null
-    }
+    override fun getFileDownloadProgressListener(): FileDownloadWorker.FileDownloadProgressListener? = null
 
     override fun getStorageManager(): FileDataStorageManager {
         if (!this::storage.isInitialized) {

@@ -30,7 +30,9 @@ import com.owncloud.android.ui.preview.PreviewBitmapActivity
 import com.owncloud.android.utils.DisplayUtils
 import javax.inject.Inject
 
-class PreviewPdfFragment : Fragment(), Injectable {
+class PreviewPdfFragment :
+    Fragment(),
+    Injectable {
 
     @Inject
     lateinit var vmFactory: ViewModelFactory

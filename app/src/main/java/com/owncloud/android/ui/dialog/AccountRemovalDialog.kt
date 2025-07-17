@@ -29,7 +29,10 @@ import com.owncloud.android.utils.DisplayUtils.AvatarGenerationListener
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import javax.inject.Inject
 
-class AccountRemovalDialog : DialogFragment(), AvatarGenerationListener, Injectable {
+class AccountRemovalDialog :
+    DialogFragment(),
+    AvatarGenerationListener,
+    Injectable {
 
     @Inject
     lateinit var backgroundJobManager: BackgroundJobManager
@@ -161,9 +164,7 @@ class AccountRemovalDialog : DialogFragment(), AvatarGenerationListener, Injecta
         }
     }
 
-    override fun shouldCallGeneratedCallback(tag: String?, callContext: Any?): Boolean {
-        return binding.userIcon.tag == tag
-    }
+    override fun shouldCallGeneratedCallback(tag: String?, callContext: Any?): Boolean = binding.userIcon.tag == tag
 
     companion object {
         private const val KEY_USER = "USER"

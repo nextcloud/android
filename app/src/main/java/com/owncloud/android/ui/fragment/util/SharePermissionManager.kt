@@ -39,9 +39,8 @@ object SharePermissionManager {
     // endregion
 
     // region Permission check
-    fun hasPermission(permission: Int, permissionFlag: Int): Boolean {
-        return permission != OCShare.NO_PERMISSION && (permission and permissionFlag) == permissionFlag
-    }
+    fun hasPermission(permission: Int, permissionFlag: Int): Boolean =
+        permission != OCShare.NO_PERMISSION && (permission and permissionFlag) == permissionFlag
 
     @Suppress("ReturnCount")
     private fun isPermissionValid(permission: Int): Boolean {
@@ -84,12 +83,11 @@ object SharePermissionManager {
         return ShareAttributesJsonHandler.toJson(shareAttributes)
     }
 
-    fun isAllowDownloadAndSyncEnabled(share: OCShare?): Boolean {
-        return getShareAttributes(share).getDownloadAttribute()?.value == true
-    }
+    fun isAllowDownloadAndSyncEnabled(share: OCShare?): Boolean =
+        getShareAttributes(share).getDownloadAttribute()?.value == true
 
-    private fun getShareAttributes(share: OCShare?): List<ShareAttributes>? {
-        return share?.attributes?.let { ShareAttributesJsonHandler.toList(it) }
+    private fun getShareAttributes(share: OCShare?): List<ShareAttributes>? = share?.attributes?.let {
+        ShareAttributesJsonHandler.toList(it)
     }
     // endregion
 
@@ -102,9 +100,8 @@ object SharePermissionManager {
         return hasPermission(share.permissions, getMaximumPermission(share.isFolder))
     }
 
-    fun isViewOnly(share: OCShare?): Boolean {
-        return share?.permissions != OCShare.NO_PERMISSION && share?.permissions == OCShare.READ_PERMISSION_FLAG
-    }
+    fun isViewOnly(share: OCShare?): Boolean =
+        share?.permissions != OCShare.NO_PERMISSION && share?.permissions == OCShare.READ_PERMISSION_FLAG
 
     fun isFileRequest(share: OCShare?): Boolean {
         if (share?.isFolder == false) {
@@ -130,20 +127,18 @@ object SharePermissionManager {
         return (share.permissions and OCShare.Companion.SHARE_PERMISSION_FLAG) > 0
     }
 
-    fun getSelectedType(share: OCShare?, encrypted: Boolean): QuickPermissionType {
-        return if (canEdit(share)) {
-            QuickPermissionType.CAN_EDIT
-        } else if (encrypted && isSecureFileDrop(share)) {
-            QuickPermissionType.SECURE_FILE_DROP
-        } else if (isFileRequest(share)) {
-            QuickPermissionType.FILE_REQUEST
-        } else if (isViewOnly(share)) {
-            QuickPermissionType.VIEW_ONLY
-        } else if (isCustomPermission(share)) {
-            QuickPermissionType.CUSTOM_PERMISSIONS
-        } else {
-            QuickPermissionType.NONE
-        }
+    fun getSelectedType(share: OCShare?, encrypted: Boolean): QuickPermissionType = if (canEdit(share)) {
+        QuickPermissionType.CAN_EDIT
+    } else if (encrypted && isSecureFileDrop(share)) {
+        QuickPermissionType.SECURE_FILE_DROP
+    } else if (isFileRequest(share)) {
+        QuickPermissionType.FILE_REQUEST
+    } else if (isViewOnly(share)) {
+        QuickPermissionType.VIEW_ONLY
+    } else if (isCustomPermission(share)) {
+        QuickPermissionType.CUSTOM_PERMISSIONS
+    } else {
+        QuickPermissionType.NONE
     }
 
     @Suppress("ReturnCount")
@@ -166,12 +161,10 @@ object SharePermissionManager {
         }
     }
 
-    fun getMaximumPermission(isFolder: Boolean): Int {
-        return if (isFolder) {
-            OCShare.MAXIMUM_PERMISSIONS_FOR_FOLDER
-        } else {
-            OCShare.MAXIMUM_PERMISSIONS_FOR_FILE
-        }
+    fun getMaximumPermission(isFolder: Boolean): Int = if (isFolder) {
+        OCShare.MAXIMUM_PERMISSIONS_FOR_FOLDER
+    } else {
+        OCShare.MAXIMUM_PERMISSIONS_FOR_FILE
     }
     // endregion
 }

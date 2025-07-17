@@ -24,8 +24,7 @@ class QuickSharingPermissionsAdapter(
     private val quickPermissionList: MutableList<QuickPermission>,
     private val onPermissionChangeListener: QuickSharingPermissionViewHolder.OnPermissionChangeListener,
     private val viewThemeUtils: ViewThemeUtils
-) :
-    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val binding = ItemQuickSharePermissionsBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return QuickSharingPermissionViewHolder(binding, binding.root, onPermissionChangeListener, viewThemeUtils)
@@ -37,9 +36,7 @@ class QuickSharingPermissionsAdapter(
         }
     }
 
-    override fun getItemCount(): Int {
-        return quickPermissionList.size
-    }
+    override fun getItemCount(): Int = quickPermissionList.size
 
     class QuickSharingPermissionViewHolder(
         private val binding: ItemQuickSharePermissionsBinding,

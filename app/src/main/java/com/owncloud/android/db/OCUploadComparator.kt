@@ -45,19 +45,15 @@ class OCUploadComparator : Comparator<OCUpload?> {
         return 0
     }
 
-    private fun compareUploadStatus(upload1: OCUpload, upload2: OCUpload): Int {
-        return upload1.fixedUploadStatus.compareTo(upload2.fixedUploadStatus)
-    }
+    private fun compareUploadStatus(upload1: OCUpload, upload2: OCUpload): Int =
+        upload1.fixedUploadStatus.compareTo(upload2.fixedUploadStatus)
 
-    private fun compareUploadingNow(upload1: OCUpload, upload2: OCUpload): Int {
-        return upload2.isFixedUploadingNow.compareTo(upload1.isFixedUploadingNow)
-    }
+    private fun compareUploadingNow(upload1: OCUpload, upload2: OCUpload): Int =
+        upload2.isFixedUploadingNow.compareTo(upload1.isFixedUploadingNow)
 
-    private fun compareUpdateTime(upload1: OCUpload, upload2: OCUpload): Int {
-        return upload2.fixedUploadEndTimeStamp.compareTo(upload1.fixedUploadEndTimeStamp)
-    }
+    private fun compareUpdateTime(upload1: OCUpload, upload2: OCUpload): Int =
+        upload2.fixedUploadEndTimeStamp.compareTo(upload1.fixedUploadEndTimeStamp)
 
-    private fun compareUploadId(upload1: OCUpload, upload2: OCUpload): Int {
-        return upload1.fixedUploadId.compareTo(upload2.fixedUploadId)
-    }
+    private fun compareUploadId(upload1: OCUpload, upload2: OCUpload): Int =
+        upload1.fixedUploadId.compareTo(upload2.fixedUploadId)
 }

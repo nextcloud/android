@@ -9,8 +9,7 @@ package com.owncloud.android.ui.adapter.progressListener
 import android.widget.ProgressBar
 import com.owncloud.android.db.OCUpload
 
-class UploadProgressListener(val upload: OCUpload?, progressBar: ProgressBar?) :
-    ProgressListener(progressBar) {
+class UploadProgressListener(val upload: OCUpload?, progressBar: ProgressBar?) : ProgressListener(progressBar) {
 
     fun isWrapping(progressBar: ProgressBar?): Boolean {
         val wrappedProgressBar = progressBarRef.get()

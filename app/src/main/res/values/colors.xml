@@ -39,6 +39,15 @@
     <!-- level colors for info notifications/visualisations -->
     <color name="infolevel_warning">#e9322d</color>
 
+    <!-- Log Colors -->
+    <color name="log_level_verbose">#9E9E9E</color>
+    <color name="log_level_debug">#2196F3</color>
+    <color name="log_level_info">#4CAF50</color>
+    <color name="log_level_warning">#FFA000</color>
+    <color name="log_level_error">#F44336</color>
+    <color name="log_level_assert">#D50000</color>
+    <color name="log_level_unknown">#757575</color>
+
     <!-- Colors -->
     <color name="dark">#000000</color>
     <color name="login_btn_tint">#ffffff</color>

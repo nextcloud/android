@@ -93,9 +93,7 @@ abstract class NextcloudDatabase : RoomDatabase() {
         @JvmStatic
         @Suppress("DeprecatedCallableAddReplaceWith")
         @Deprecated("Here for legacy purposes, inject this class or use getInstance(context, clock) instead")
-        fun getInstance(context: Context): NextcloudDatabase {
-            return getInstance(context, ClockImpl())
-        }
+        fun getInstance(context: Context): NextcloudDatabase = getInstance(context, ClockImpl())
 
         @JvmStatic
         fun getInstance(context: Context, clock: Clock): NextcloudDatabase {

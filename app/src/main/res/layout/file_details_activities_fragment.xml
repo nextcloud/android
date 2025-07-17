@@ -28,7 +28,7 @@
             android:layout_marginTop="10dp"
             android:layout_marginEnd="@dimen/standard_half_margin"
             android:contentDescription="@null"
-            tools:src="@drawable/ic_user" />
+            tools:src="@drawable/ic_user_outline" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/commentInputField_container"

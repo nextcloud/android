@@ -38,13 +38,13 @@ fun TaskTypesRow(selectedTaskType: TaskTypeData?, data: List<TaskTypeData>, sele
         }
     ) {
         data.forEach { taskType ->
-            taskType.name?.let { taskTypeName ->
+            if (taskType.name.isNotEmpty()) {
                 Tab(
                     selected = selectedTaskType?.id == taskType.id,
                     onClick = { selectTaskType(taskType) },
                     selectedContentColor = colorResource(R.color.text_color),
                     unselectedContentColor = colorResource(R.color.disabled_text),
-                    text = { Text(text = taskTypeName) }
+                    text = { Text(text = taskType.name) }
                 )
             }
         }
@@ -54,12 +54,12 @@ fun TaskTypesRow(selectedTaskType: TaskTypeData?, data: List<TaskTypeData>, sele
 @Composable
 @Preview
 private fun TaskTypesRowPreview() {
-    val selectedTaskType = TaskTypeData("1", "Free text to text prompt", "", null, null)
+    val selectedTaskType = TaskTypeData("1", "Free text to text prompt", "", emptyMap(), emptyMap())
     val taskTypes = listOf(
-        TaskTypeData("1", "Free text to text prompt", "", null, null),
-        TaskTypeData("2", "Extract topics", "", null, null),
-        TaskTypeData("3", "Generate Headline", "", null, null),
-        TaskTypeData("4", "Summarize", "", null, null)
+        TaskTypeData("1", "Free text to text prompt", "", emptyMap(), emptyMap()),
+        TaskTypeData("2", "Extract topics", "", emptyMap(), emptyMap()),
+        TaskTypeData("3", "Generate Headline", "", emptyMap(), emptyMap()),
+        TaskTypeData("4", "Summarize", "", emptyMap(), emptyMap())
     )
 
     TaskTypesRow(selectedTaskType, taskTypes) { }

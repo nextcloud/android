@@ -18,13 +18,8 @@ import com.owncloud.android.db.OCUpload
 import com.owncloud.android.files.services.NameCollisionPolicy
 import java.util.UUID
 
-sealed class Request(
-    val user: User,
-    val file: OCFile,
-    val uuid: UUID,
-    val type: Direction,
-    val test: Boolean
-) : Parcelable
+sealed class Request(val user: User, val file: OCFile, val uuid: UUID, val type: Direction, val test: Boolean) :
+    Parcelable
 
 /**
  * Transfer request. This class should collect all information
@@ -74,18 +69,12 @@ class DownloadRequest internal constructor(
         parcel.writeInt(if (test) 1 else 0)
     }
 
-    override fun describeContents(): Int {
-        return 0
-    }
+    override fun describeContents(): Int = 0
 
     companion object CREATOR : Parcelable.Creator<DownloadRequest> {
-        override fun createFromParcel(parcel: Parcel): DownloadRequest {
-            return DownloadRequest(parcel)
-        }
+        override fun createFromParcel(parcel: Parcel): DownloadRequest = DownloadRequest(parcel)
 
-        override fun newArray(size: Int): Array<DownloadRequest?> {
-            return arrayOfNulls(size)
-        }
+        override fun newArray(size: Int): Array<DownloadRequest?> = arrayOfNulls(size)
     }
 }
 
@@ -138,18 +127,12 @@ class UploadRequest internal constructor(
         parcel.writeInt(if (test) 1 else 0)
     }
 
-    override fun describeContents(): Int {
-        return 0
-    }
+    override fun describeContents(): Int = 0
 
     companion object CREATOR : Parcelable.Creator<UploadRequest> {
-        override fun createFromParcel(parcel: Parcel): UploadRequest {
-            return UploadRequest(parcel)
-        }
+        override fun createFromParcel(parcel: Parcel): UploadRequest = UploadRequest(parcel)
 
-        override fun newArray(size: Int): Array<UploadRequest?> {
-            return arrayOfNulls(size)
-        }
+        override fun newArray(size: Int): Array<UploadRequest?> = arrayOfNulls(size)
     }
 
     /**

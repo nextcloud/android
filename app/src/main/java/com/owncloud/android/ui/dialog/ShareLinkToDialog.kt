@@ -112,10 +112,9 @@ class ShareLinkToDialog : DialogFragment() {
             return view
         }
 
-        private fun newView(parent: ViewGroup): View {
-            return (context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater)
+        private fun newView(parent: ViewGroup): View =
+            (context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater)
                 .inflate(R.layout.activity_row, parent, false)
-        }
 
         private fun bindView(position: Int, row: View) {
             row.findViewById<TextView>(R.id.title).run {

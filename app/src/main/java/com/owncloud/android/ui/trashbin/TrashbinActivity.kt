@@ -482,7 +482,8 @@ class TrashbinActivity :
         val adapter: TrashbinListAdapter?,
         val viewThemeUtils: ViewThemeUtils,
         val openActionsMenu: (Int, Set<TrashbinFile>) -> Unit
-    ) : AbsListView.MultiChoiceModeListener, DrawerLayout.DrawerListener {
+    ) : AbsListView.MultiChoiceModeListener,
+        DrawerLayout.DrawerListener {
 
         var mActiveActionMode: ActionMode? = null
         private var mIsActionModeNew = false

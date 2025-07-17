@@ -29,7 +29,9 @@ import javax.inject.Inject
  * Allows choosing "full access" (MANAGE_ALL_FILES) or "read-only media" (READ_EXTERNAL_STORAGE)
  */
 @RequiresApi(Build.VERSION_CODES.R)
-class StoragePermissionDialogFragment : DialogFragment(), Injectable {
+class StoragePermissionDialogFragment :
+    DialogFragment(),
+    Injectable {
 
     private var permissionRequired = false
 
@@ -111,10 +113,9 @@ class StoragePermissionDialogFragment : DialogFragment(), Injectable {
          * @param permissionRequired Whether the permission is absolutely required by the calling component.
          * This changes the texts to a more strict version.
          */
-        fun newInstance(permissionRequired: Boolean): StoragePermissionDialogFragment {
-            return StoragePermissionDialogFragment().apply {
+        fun newInstance(permissionRequired: Boolean): StoragePermissionDialogFragment =
+            StoragePermissionDialogFragment().apply {
                 arguments = bundleOf(ARG_PERMISSION_REQUIRED to permissionRequired)
             }
-        }
     }
 }

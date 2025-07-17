@@ -44,14 +44,12 @@ internal class MaterialSchemesProviderImpl @Inject constructor(
         return MaterialSchemes.fromServerTheme(serverTheme)
     }
 
-    override fun getMaterialSchemesForCurrentUser(): MaterialSchemes {
-        return when (val user = userAccountManager.user) {
-            is AnonymousUser -> {
-                logger.d(TAG, "User is anonymous, using default schemes")
-                getDefaultMaterialSchemes()
-            }
-            else -> getMaterialSchemesForUser(user)
+    override fun getMaterialSchemesForCurrentUser(): MaterialSchemes = when (val user = userAccountManager.user) {
+        is AnonymousUser -> {
+            logger.d(TAG, "User is anonymous, using default schemes")
+            getDefaultMaterialSchemes()
         }
+        else -> getMaterialSchemesForUser(user)
     }
 
     override fun getDefaultMaterialSchemes(): MaterialSchemes {

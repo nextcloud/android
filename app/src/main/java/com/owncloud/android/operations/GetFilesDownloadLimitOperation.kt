@@ -15,9 +15,10 @@ import com.owncloud.android.lib.common.operations.RemoteOperationResult
 import com.owncloud.android.lib.resources.shares.OCShare
 import com.owncloud.android.operations.common.SyncOperation
 
-class GetFilesDownloadLimitOperation(val share: OCShare, storageManager: FileDataStorageManager) : SyncOperation(
-    storageManager
-) {
+class GetFilesDownloadLimitOperation(val share: OCShare, storageManager: FileDataStorageManager) :
+    SyncOperation(
+        storageManager
+    ) {
     override fun run(client: NextcloudClient): RemoteOperationResult<List<FileDownloadLimit>> {
         val token = share.token ?: return RemoteOperationResult(RemoteOperationResult.ResultCode.SHARE_NOT_FOUND)
         val operation = GetFilesDownloadLimitRemoteOperation(token)

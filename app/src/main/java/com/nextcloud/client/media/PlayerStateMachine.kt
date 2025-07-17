@@ -191,9 +191,7 @@ internal class PlayerStateMachine(initialState: State, private val delegate: Del
      * Contrary to [PlayerStateMachine.state] attribute, this method checks for
      * parent states.
      */
-    fun isInState(state: State): Boolean {
-        return stateMachine.isInState(state)
-    }
+    fun isInState(state: State): Boolean = stateMachine.isInState(state)
 
     /**
      * Post state machine event to internal queue.
