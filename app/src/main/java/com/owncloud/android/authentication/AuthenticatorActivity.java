@@ -593,10 +593,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     private void addDebugLogin() {
         if (BuildConfig.DEBUG) {
             accountSetupBinding.thumbnail.setOnLongClickListener(v -> {
-                String baseUrl = BuildConfig.NC_TEST_SERVER_BASEURL;
-                String username = BuildConfig.NC_TEST_SERVER_USERNAME;
-                String password = BuildConfig.NC_TEST_SERVER_PASSWORD;
-                String dataString = "nc://login/user:" + username + "&" + "password:" + password + "&" + "server:" + baseUrl;
+                final String dataString = BuildConfig.NC_TEST_SERVER_DATA_STRING;
                 parseAndLoginFromWebView(dataString);
                 return false;
             });

@@ -154,9 +154,7 @@ android {
                 testCoverageEnabled = project.hasProperty("coverage")
                 resConfigs "xxxhdpi"
 
-                buildConfigField "String", "NC_TEST_SERVER_BASEURL", "\"${configProps['NC_TEST_SERVER_BASEURL']}\""
-                buildConfigField "String", "NC_TEST_SERVER_USERNAME", "\"${configProps['NC_TEST_SERVER_USERNAME']}\""
-                buildConfigField "String", "NC_TEST_SERVER_PASSWORD", "\"${configProps['NC_TEST_SERVER_PASSWORD']}\""
+                buildConfigField "String", "NC_TEST_SERVER_DATA_STRING", "\"nc://login/user:${configProps['NC_TEST_SERVER_USERNAME']}&password:${configProps['NC_TEST_SERVER_PASSWORD']}&server:${configProps['NC_TEST_SERVER_BASEURL']}\""
             }
         }
 
