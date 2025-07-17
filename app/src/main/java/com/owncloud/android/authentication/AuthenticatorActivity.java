@@ -583,11 +583,12 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
         if (deviceInfo.hasCamera(this)) {
             accountSetupBinding.scanQr.setOnClickListener(v -> onScan());
-            addDebugLogin();
             viewThemeUtils.platform.tintDrawable(this, accountSetupBinding.scanQr.getDrawable(), ColorRole.ON_PRIMARY);
         } else {
             accountSetupBinding.scanQr.setVisibility(View.GONE);
         }
+
+        addDebugLogin();
     }
 
     private void addDebugLogin() {
