@@ -1,6 +1,7 @@
 /*
  * Nextcloud - Android Client
  *
+ * SPDX-FileCopyrightText: 2025 Alper Ozturk <alper.ozturk@nextcloud.com>
  * SPDX-FileCopyrightText: 2022 Tobias Kaminsky <tobias@kaminsky.me>
  * SPDX-FileCopyrightText: 2022 Nextcloud GmbH
  * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
@@ -17,6 +18,7 @@ import androidx.core.view.get
 import com.afollestad.sectionedrecyclerview.SectionedViewHolder
 import com.elyeproj.loaderviewlibrary.LoaderImageView
 import com.nextcloud.android.common.ui.theme.utils.ColorRole
+import com.nextcloud.utils.OCFileUtils
 import com.nextcloud.utils.extensions.makeRounded
 import com.nextcloud.utils.extensions.setVisibleIf
 import com.owncloud.android.R
@@ -110,75 +112,67 @@ class GalleryRowHolder(
         bind(currentRow)
     }
 
-    @SuppressWarnings("MagicNumber", "ComplexMethod")
+    @SuppressWarnings("MagicNumber")
     private fun computeShrinkRatio(row: GalleryRow): Float {
-        val screenWidth =
-            DisplayUtils.convertDpToPixel(context.resources.configuration.screenWidthDp.toFloat(), context)
-                .toFloat()
+        val screenWidth = DisplayUtils.convertDpToPixel(
+            context.resources.configuration.screenWidthDp.toFloat(),
+            context
+        ).toFloat()
 
-        if (row.files.size > 1) {
-            var newSummedWidth = 0f
-            for (file in row.files) {
-                // first adjust all thumbnails to max height
-                val thumbnail1 = file.imageDimension ?: ImageDimension(defaultThumbnailSize, defaultThumbnailSize)
-
-                val height1 = thumbnail1.height
-                val width1 = thumbnail1.width
-
-                val scaleFactor1 = row.getMaxHeight() / height1
-                val newHeight1 = height1 * scaleFactor1
-                val newWidth1 = width1 * scaleFactor1
-
-                file.imageDimension = ImageDimension(newWidth1, newHeight1)
-
-                newSummedWidth += newWidth1
-            }
-
-            var c = 1f
-            // this ensures that files in last row are better visible,
-            // e.g. when 2 images are there, it uses 2/5 of screen
-            if (galleryAdapter.columns == 5) {
-                when (row.files.size) {
-                    2 -> {
-                        c = 5 / 2f
-                    }
-
-                    3 -> {
-                        c = 4 / 3f
-                    }
-
-                    4 -> {
-                        c = 4 / 5f
-                    }
-
-                    5 -> {
-                        c = 1f
-                    }
-                }
-            }
-
-            return (screenWidth / c) / newSummedWidth
+        return if (row.files.size > 1) {
+            computeMultiFileShrinkRatio(row, screenWidth)
         } else {
-            val thumbnail1 = row.files[0].imageDimension ?: ImageDimension(defaultThumbnailSize, defaultThumbnailSize)
-            return (screenWidth / galleryAdapter.columns) / thumbnail1.width
+            computeSingleFileShrinkRatio(row, screenWidth)
         }
+    }
+
+    @SuppressWarnings("MagicNumber")
+    private fun computeMultiFileShrinkRatio(row: GalleryRow, screenWidth: Float): Float {
+        var newSummedWidth = 0f
+
+        for (file in row.files) {
+            val (width, height) = OCFileUtils.getImageSize(file, defaultThumbnailSize)
+            val scaleFactor = row.getMaxHeight() / height
+            val newWidth = width * scaleFactor
+            val newHeight = height * scaleFactor
+
+            file.imageDimension = ImageDimension(newWidth, newHeight)
+            newSummedWidth += newWidth
+        }
+
+        val c = when {
+            galleryAdapter.columns != 5 -> 1f
+            else -> when (row.files.size) {
+                2 -> 5 / 2f
+                3 -> 4 / 3f
+                4 -> 4 / 5f
+                else -> 1f
+            }
+        }
+
+        return (screenWidth / c) / newSummedWidth
+    }
+
+    private fun computeSingleFileShrinkRatio(row: GalleryRow, screenWidth: Float): Float {
+        val width = OCFileUtils.getImageSize(row.files[0], defaultThumbnailSize).first
+        return (screenWidth / galleryAdapter.columns) / width
     }
 
     private fun adjustFile(indexedFile: IndexedValue<OCFile>, shrinkRatio: Float, row: GalleryRow) {
         val file = indexedFile.value
         val index = indexedFile.index
-        val fileWidth = file.imageDimension?.width
-        val fileHeight = file.imageDimension?.height
 
-        val width = ((fileWidth ?: defaultThumbnailSize) * shrinkRatio).toInt()
-        val height = ((fileHeight ?: defaultThumbnailSize) * shrinkRatio).toInt()
+        var (width, height) = OCFileUtils.getImageSize(file, defaultThumbnailSize)
+
+        width = ((width) * shrinkRatio).toInt()
+        height = ((height) * shrinkRatio).toInt()
 
         val frameLayout = binding.rowLayout[index] as FrameLayout
         val checkBoxImageView = frameLayout[2] as ImageView
         val shimmer = frameLayout[0] as LoaderImageView
         val thumbnail = (frameLayout[1] as ImageView).apply {
             adjustViewBounds = true
-            scaleType = ImageView.ScaleType.FIT_CENTER
+            scaleType = ImageView.ScaleType.FIT_XY
         }
         val isChecked = ocFileListDelegate.isCheckedFile(file)
 
