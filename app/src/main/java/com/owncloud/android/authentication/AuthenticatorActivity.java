@@ -592,7 +592,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
     private void addDebugLogin() {
         if (BuildConfig.DEBUG) {
-            accountSetupBinding.scanQr.setOnLongClickListener(v -> {
+            accountSetupBinding.thumbnail.setOnLongClickListener(v -> {
                 String baseUrl = BuildConfig.NC_TEST_SERVER_BASEURL;
                 String username = BuildConfig.NC_TEST_SERVER_USERNAME;
                 String password = BuildConfig.NC_TEST_SERVER_PASSWORD;
