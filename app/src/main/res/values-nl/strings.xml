@@ -171,7 +171,7 @@
     <string name="community_rc_fdroid">Download de release candidate in F-Droid</string>
     <string name="community_rc_play_store">Download de release candidate in Google Play</string>
     <string name="community_release_candidate_headline">Release candidate</string>
-    <string name="community_release_candidate_text">De release candidate (RC) is een snapshot van de komende versie en is naar verwachting stabiel. Door een test met je eigen installatie verzeker je hier van. Meld je aan voor het testen in de Play store of kijk handmatig bij sectie \"Versie\" van F-Droid.</string>
+    <string name="community_release_candidate_text">De release candidate (RC) is een momentopname van de komende versie en is naar verwachting stabiel. Door een test met je eigen installatie verzeker je hier van. Meld je aan voor het testen in de Play store of kijk handmatig bij sectie \"Versie\" van F-Droid.</string>
     <string name="community_testing_bug_text">Bug gevonden? Rare dingen?</string>
     <string name="community_testing_headline">Help bij testen</string>
     <string name="community_testing_report_text">Meld een probleem op GitHub</string>
