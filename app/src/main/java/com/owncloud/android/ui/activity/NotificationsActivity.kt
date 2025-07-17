@@ -28,6 +28,7 @@ import com.nextcloud.client.network.ClientFactory
 import com.nextcloud.client.network.ClientFactory.CreationException
 import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.common.NextcloudClient
+import com.nextcloud.utils.BuildHelper.isFlavourGPlay
 import com.owncloud.android.R
 import com.owncloud.android.databinding.NotificationsLayoutBinding
 import com.owncloud.android.datamodel.ArbitraryDataProvider
@@ -175,6 +176,12 @@ class NotificationsActivity : AppCompatActivity(), NotificationsContract.View, I
             }
         } else {
             val pushUrl = resources.getString(R.string.push_server_url)
+
+            if (pushUrl.isEmpty() && isFlavourGPlay()) {
+                // branded client without push server
+                return
+            }
+
             if (pushUrl.isEmpty()) {
                 snackbar = Snackbar.make(
                     binding.emptyList.emptyListView,
