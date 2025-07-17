@@ -185,6 +185,8 @@ class FileUploadWorker(
             val operation = createUploadFileOperation(upload, user.get())
             currentUploadFileOperation = operation
 
+            val currentUploadIndex = index + previouslyUploadedFileSize
+
             notificationManager.prepareForStart(
                 operation,
                 cancelPendingIntent = intents.startIntent(operation),
@@ -196,13 +198,18 @@ class FileUploadWorker(
             val result = upload(operation, user.get())
             currentUploadFileOperation = null
 
-            fileUploaderDelegate.sendBroadcastUploadFinished(
-                operation,
-                result,
-                operation.oldFile?.storagePath,
-                context,
-                localBroadcastManager
-            )
+            val shouldBroadcast = totalUploadSize > 100 && currentUploadIndex > 0 && currentUploadIndex % 100 == 0
+
+            if (shouldBroadcast) {
+                // delay broadcast
+                fileUploaderDelegate.sendBroadcastUploadFinished(
+                    operation,
+                    result,
+                    operation.oldFile?.storagePath,
+                    context,
+                    localBroadcastManager
+                )
+            }
         }
 
         return Result.success()
