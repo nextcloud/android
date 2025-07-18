@@ -63,7 +63,6 @@ import org.apache.commons.httpclient.methods.GetMethod;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.InputStream;
 import java.lang.ref.WeakReference;
 import java.util.List;
@@ -1390,6 +1389,48 @@ public final class ThumbnailsCacheManager {
         mThumbnailCache = null;
     }
 
+    public static Bitmap downloadImageFromServer(OCFile file, int divider) {
+        if (mClient == null) {
+            return null;
+        }
+
+        Point p = getScreenDimension();
+        int pxW = p.x;
+        int pxH = p.y;
+
+        Bitmap thumbnail = null;
+        GetMethod getMethod = null;
+
+        try {
+            String uri = mClient.getBaseUri() + "/index.php/core/preview?fileId="
+                + file.getLocalId()
+                + "&x=" + (pxW / divider) + "&y=" + (pxH / divider) + "&a=1&mode=cover&forceIcon=0";
+            Log_OC.d(TAG, "generate resized image: " + file.getFileName() + " URI: " + uri);
+            getMethod = new GetMethod(uri);
+
+            int status = mClient.executeMethod(getMethod);
+            if (status == HttpStatus.SC_OK) {
+                InputStream inputStream = getMethod.getResponseBodyAsStream();
+                thumbnail = BitmapFactory.decodeStream(inputStream);
+            } else {
+                mClient.exhaustResponse(getMethod.getResponseBodyAsStream());
+            }
+
+            // Handle PNG
+            if (thumbnail != null && PNG_MIMETYPE.equalsIgnoreCase(file.getMimeType())) {
+                thumbnail = handlePNG(thumbnail, thumbnail.getWidth(), thumbnail.getHeight());
+            }
+        } catch (Exception e) {
+            Log_OC.d(TAG, e.getMessage(), e);
+        } finally {
+            if (getMethod != null) {
+                getMethod.releaseConnection();
+            }
+        }
+
+        return thumbnail;
+    }
+
     private static Bitmap doResizedImageInBackground(OCFile file, FileDataStorageManager storageManager) {
         Bitmap thumbnail;
 
@@ -1419,42 +1460,12 @@ public final class ThumbnailsCacheManager {
                 }
 
             } else {
-                // Download thumbnail from server
-                if (mClient != null) {
-                    GetMethod getMethod = null;
-                    try {
-                        String uri = mClient.getBaseUri() + "/index.php/core/preview?fileId="
-                            + file.getLocalId()
-                            + "&x=" + (pxW / 2) + "&y=" + (pxH / 2) + "&a=1&mode=cover&forceIcon=0";
-                        Log_OC.d(TAG, "generate resized image: " + file.getFileName() + " URI: " + uri);
-                        getMethod = new GetMethod(uri);
+                thumbnail = downloadImageFromServer(file, 1);
 
-                        int status = mClient.executeMethod(getMethod);
-                        if (status == HttpStatus.SC_OK) {
-                            InputStream inputStream = getMethod.getResponseBodyAsStream();
-                            thumbnail = BitmapFactory.decodeStream(inputStream);
-                        } else {
-                            mClient.exhaustResponse(getMethod.getResponseBodyAsStream());
-                        }
-
-                        // Handle PNG
-                        if (thumbnail != null && PNG_MIMETYPE.equalsIgnoreCase(file.getMimeType())) {
-                            thumbnail = handlePNG(thumbnail, thumbnail.getWidth(), thumbnail.getHeight());
-                        }
-
-                        // Add thumbnail to cache
-                        if (thumbnail != null) {
-                            Log_OC.d(TAG, "add resized image to cache: " + file.getFileName());
-                            addBitmapToCache(imageKey, thumbnail);
-                        }
-
-                    } catch (Exception e) {
-                        Log_OC.d(TAG, e.getMessage(), e);
-                    } finally {
-                        if (getMethod != null) {
-                            getMethod.releaseConnection();
-                        }
-                    }
+                // Add thumbnail to cache
+                if (thumbnail != null) {
+                    Log_OC.d(TAG, "add resized image to cache: " + file.getFileName());
+                    addBitmapToCache(imageKey, thumbnail);
                 }
             }
 

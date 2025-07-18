@@ -39,6 +39,7 @@ import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
 import com.caverock.androidsvg.SVG
 import com.caverock.androidsvg.SVGParseException
 import com.github.chrisbanes.photoview.PhotoView
@@ -67,6 +68,9 @@ import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.MimeTypeUtil
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import pl.droidsonroids.gif.GifDrawable
 import java.io.FileInputStream
 import java.io.FileNotFoundException
@@ -236,10 +240,6 @@ class PreviewImageFragment :
 
         binding.image.tag = file.fileId
 
-        val screenSize = DisplayUtils.getScreenSize(activity)
-        val width = screenSize.x
-        val height = screenSize.y
-
         // show thumbnail while loading image
         binding.image.visibility = View.GONE
         binding.emptyListProgress.visibility = View.VISIBLE
@@ -255,7 +255,7 @@ class PreviewImageFragment :
         }
 
         if (showResizedImage == true) {
-            adjustResizedImage(thumbnail, width, height)
+            adjustResizedImage(thumbnail)
         } else {
             loadBitmapTask = LoadBitmapTask(binding.image, binding.emptyListView, binding.emptyListProgress)
             binding.image.visibility = View.GONE
@@ -265,69 +265,64 @@ class PreviewImageFragment :
         }
     }
 
-    private fun adjustResizedImage(thumbnail: Bitmap?, width: Int, height: Int) {
-        var resizedImage = getResizedBitmap(file, width, height)
+    private fun adjustResizedImage(thumbnail: Bitmap?) {
+        lifecycleScope.launch {
+            val downloadedImage = getResizedBitmap(file)
+            var resizedImage = downloadedImage
 
-        if (resizedImage != null && !file.isUpdateThumbnailNeeded) {
-            binding.image.setImageBitmap(resizedImage)
-            binding.image.visibility = View.VISIBLE
-            binding.emptyListView.visibility = View.GONE
-            binding.emptyListProgress.visibility = View.GONE
-            binding.image.setBackgroundColor(resources.getColor(R.color.background_color_inverse))
+            if (resizedImage != null && !file.isUpdateThumbnailNeeded) {
+                binding.image.setImageBitmap(resizedImage)
+                binding.image.visibility = View.VISIBLE
+                binding.emptyListView.visibility = View.GONE
+                binding.emptyListProgress.visibility = View.GONE
+                binding.image.setBackgroundColor(resources.getColor(R.color.background_color_inverse))
 
-            bitmap = resizedImage
-        } else {
-            // generate new resized image
-            if (ThumbnailsCacheManager.cancelPotentialThumbnailWork(file, binding.image) &&
-                containerActivity.storageManager != null
-            ) {
-                val task =
-                    ResizedImageGenerationTask(
-                        this,
-                        binding.image,
-                        binding.emptyListProgress,
-                        containerActivity.storageManager,
-                        connectivityService,
-                        containerActivity.storageManager.user,
-                        resources.getColor(R.color.background_color_inverse)
-                    )
-                if (resizedImage == null) {
-                    resizedImage = thumbnail
+                bitmap = resizedImage
+            } else {
+                // generate new resized image
+                if (ThumbnailsCacheManager.cancelPotentialThumbnailWork(file, binding.image) &&
+                    containerActivity.storageManager != null
+                ) {
+                    val task =
+                        ResizedImageGenerationTask(
+                            this@PreviewImageFragment,
+                            binding.image,
+                            binding.emptyListProgress,
+                            containerActivity.storageManager,
+                            connectivityService,
+                            containerActivity.storageManager.user,
+                            resources.getColor(R.color.background_color_inverse)
+                        )
+                    if (resizedImage == null) {
+                        resizedImage = thumbnail
+                    }
+                    val asyncDrawable =
+                        AsyncResizedImageDrawable(
+                            MainApp.getAppContext().resources,
+                            resizedImage,
+                            task
+                        )
+                    binding.image.setImageDrawable(asyncDrawable)
+                    task.execute(file)
                 }
-                val asyncDrawable =
-                    AsyncResizedImageDrawable(
-                        MainApp.getAppContext().resources,
-                        resizedImage,
-                        task
-                    )
-                binding.image.setImageDrawable(asyncDrawable)
-                task.execute(file)
             }
         }
     }
 
     @Suppress("MagicNumber")
-    private fun getResizedBitmap(file: OCFile, width: Int, height: Int): Bitmap? {
-        var cachedImage: Bitmap? = null
-        var scaledWidth = width
-        var scaledHeight = height
+    private suspend fun getResizedBitmap(file: OCFile): Bitmap? = withContext(Dispatchers.IO) {
+        var divider = 1
 
-        var i = 0
-        while (i < 3 && cachedImage == null) {
+        repeat(3) {
             try {
-                cachedImage = ThumbnailsCacheManager.getScaledBitmapFromDiskCache(
-                    ThumbnailsCacheManager.PREFIX_RESIZED_IMAGE + file.remoteId,
-                    scaledWidth,
-                    scaledHeight
-                )
+                return@withContext ThumbnailsCacheManager.downloadImageFromServer(file, divider)
             } catch (e: OutOfMemoryError) {
-                scaledWidth /= 2
-                scaledHeight /= 2
+                Log_OC.e(TAG, "Out of memory: $e image resolution will be decreased")
+                divider += 1
             }
-            i++
         }
 
-        return cachedImage
+        return@withContext null
     }
 
     private fun getThumbnailBitmap(file: OCFile): Bitmap? =
