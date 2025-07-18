@@ -63,7 +63,6 @@ import org.apache.commons.httpclient.methods.GetMethod;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.InputStream;
 import java.lang.ref.WeakReference;
 import java.util.List;
@@ -104,6 +103,7 @@ public final class ThumbnailsCacheManager {
     private static final int mCompressQuality = 70;
     private static OwnCloudClient mClient;
     private static final int THUMBNAIL_SIZE_IN_KB = 512;
+    private static final int RESIZED_IMAGE_SIZE_IN_KB = 10240;
 
     public static final Bitmap mDefaultImg = BitmapFactory.decodeResource(MainApp.getAppContext().getResources(),
             R.drawable.file_image);
@@ -240,9 +240,17 @@ public final class ThumbnailsCacheManager {
                 return;
             }
 
-            if (BitmapExtensionsKt.allocationKilobyte(bitmap) > THUMBNAIL_SIZE_IN_KB) {
+            // do not scale down resized images
+            int size;
+            if (key.startsWith("r")) {
+                size = RESIZED_IMAGE_SIZE_IN_KB;
+            } else {
+                size = THUMBNAIL_SIZE_IN_KB;
+            }
+
+            if (BitmapExtensionsKt.allocationKilobyte(bitmap) > size) {
                 Log_OC.d(TAG, "Scaling bitmap before caching: " + key);
-                bitmap = BitmapExtensionsKt.scaleUntil(bitmap, THUMBNAIL_SIZE_IN_KB);
+                bitmap = BitmapExtensionsKt.scaleUntil(bitmap, size);
             }
 
             mThumbnailCache.put(key, bitmap);
