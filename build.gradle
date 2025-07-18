@@ -17,7 +17,7 @@ buildscript {
         androidxTestVersion = "1.6.1"
         appCompatVersion = "1.7.1"
         checkerVersion = "3.21.2"
-        daggerVersion = "2.56.2"
+        daggerVersion = "2.57"
         documentScannerVersion = "1.2.3"
         espressoVersion = "3.6.1"
         jacoco_version = "0.8.13"
