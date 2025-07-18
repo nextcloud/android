@@ -60,14 +60,12 @@ data class ShareeEntry(
         }
     }
 
-    private fun toContentValues(): ContentValues {
-        return ContentValues().apply {
-            put(ProviderTableMeta.OCSHARES_PATH, filePath)
-            put(ProviderTableMeta.OCSHARES_ACCOUNT_OWNER, accountOwner)
-            put(ProviderTableMeta.OCSHARES_USER_ID, fileOwnerId)
-            put(ProviderTableMeta.OCSHARES_SHARE_WITH_DISPLAY_NAME, shareWithDisplayName)
-            put(ProviderTableMeta.OCSHARES_SHARE_WITH, shareWithUserId)
-            put(ProviderTableMeta.OCSHARES_SHARE_TYPE, shareType)
-        }
+    private fun toContentValues(): ContentValues = ContentValues().apply {
+        put(ProviderTableMeta.OCSHARES_PATH, filePath)
+        put(ProviderTableMeta.OCSHARES_ACCOUNT_OWNER, accountOwner)
+        put(ProviderTableMeta.OCSHARES_USER_ID, fileOwnerId)
+        put(ProviderTableMeta.OCSHARES_SHARE_WITH_DISPLAY_NAME, shareWithDisplayName)
+        put(ProviderTableMeta.OCSHARES_SHARE_WITH, shareWithUserId)
+        put(ProviderTableMeta.OCSHARES_SHARE_TYPE, shareType)
     }
 }
