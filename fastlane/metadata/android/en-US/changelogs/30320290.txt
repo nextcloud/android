@@ -1,0 +1,9 @@
+## 3.32.2 (July 18, 2025)
+
+- Resolved image blurriness issue.
+- Fixed crash occurring in the conflict resolution dialog.
+- Addressed crash in the upload finish receiver event handler.
+
+Minimum: NC 18 Server, Android 8.0 Nougat
+
+For a full list, please see https://github.com/nextcloud/android/milestone/115
