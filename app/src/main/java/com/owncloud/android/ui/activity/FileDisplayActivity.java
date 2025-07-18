@@ -1495,24 +1495,28 @@ public class FileDisplayActivity extends FileActivity
             }
 
             boolean uploadWasFine = intent.getBooleanExtra(FileUploadWorker.EXTRA_UPLOAD_RESULT, false);
-            boolean renamedInUpload = getFile().getRemotePath().equals(intent.getStringExtra(FileUploadWorker.EXTRA_OLD_REMOTE_PATH));
 
-            boolean sameFile = getFile().getRemotePath().equals(uploadedRemotePath) || renamedInUpload;
-            Fragment details = getLeftFragment();
+            boolean renamedInUpload = false;
+            boolean sameFile = false;
+            if (getFile() != null) {
+                renamedInUpload = getFile().getRemotePath().equals(intent.getStringExtra(FileUploadWorker.EXTRA_OLD_REMOTE_PATH));
+                sameFile = getFile().getRemotePath().equals(uploadedRemotePath) || renamedInUpload;
+            }
 
-            if (sameAccount && sameFile && details instanceof FileDetailFragment) {
+            if (sameAccount && sameFile && getLeftFragment() instanceof FileDetailFragment fileDetailFragment) {
                 if (uploadWasFine) {
                     setFile(getStorageManager().getFileByPath(uploadedRemotePath));
                 } else {
                     //TODO remove upload progress bar after upload failed.
                     Log_OC.d(TAG, "Remove upload progress bar after upload failed");
                 }
-                if (renamedInUpload) {
+                if (renamedInUpload && !TextUtils.isEmpty(uploadedRemotePath)) {
                     String newName = new File(uploadedRemotePath).getName();
                     DisplayUtils.showSnackMessage(getActivity(), R.string.filedetails_renamed_in_upload_msg, newName);
                 }
-                if (uploadWasFine || getFile().fileExists()) {
-                    ((FileDetailFragment) details).updateFileDetails(false, true);
+
+                if (uploadWasFine || getFile() != null && getFile().fileExists()) {
+                    fileDetailFragment.updateFileDetails(false, true);
                 } else {
                     onBackPressed();
                 }
@@ -1528,6 +1532,7 @@ public class FileDisplayActivity extends FileActivity
                     // TODO what about other kind of previews?
                 }
             }
+
             OCFileListFragment ocFileListFragment = getListOfFilesFragment();
             if (ocFileListFragment != null) {
                 ocFileListFragment.setLoading(false);
