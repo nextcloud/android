@@ -40,7 +40,7 @@
                     android:layout_width="@dimen/user_icon_size"
                     android:layout_height="@dimen/user_icon_size"
                     android:contentDescription="@string/avatar"
-                    android:src="@drawable/ic_user" />
+                    android:src="@drawable/ic_user_outline" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
