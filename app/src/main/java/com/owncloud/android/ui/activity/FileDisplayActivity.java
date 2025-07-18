@@ -1199,19 +1199,14 @@ public class FileDisplayActivity extends FileActivity
         mDownloadFinishReceiver = new DownloadFinishReceiver();
         localBroadcastManager.registerReceiver(mDownloadFinishReceiver, downloadIntentFilter);
 
+        checkAndSetMenuItemId();
+
         if (menuItemId == Menu.NONE) {
             setDrawerAllFiles();
         } else {
-            if (menuItemId == R.id.nav_all_files || menuItemId == R.id.nav_personal_files) {
-                setupHomeSearchToolbarWithSortAndListButtons();
-            } else {
-                setupToolbar();
-            }
+            configureToolbar();
         }
 
-        if (ocFileListFragment instanceof GalleryFragment) {
-            updateActionBarTitleAndHomeButtonByString(getString(R.string.drawer_item_gallery));
-        }
         //show in-app review dialog to user
         inAppReviewHelper.showInAppReview(this);
 
@@ -1219,7 +1214,8 @@ public class FileDisplayActivity extends FileActivity
 
         Log_OC.v(TAG, "onResume() end");
     }
-    private void setDrawerAllFiles() {
+
+    private void checkAndSetMenuItemId() {
         if (MainApp.isOnlyPersonFiles()) {
             menuItemId = R.id.nav_personal_files;
         } else if (MainApp.isOnlyOnDevice()) {
@@ -1227,7 +1223,36 @@ public class FileDisplayActivity extends FileActivity
         } else if (menuItemId == Menu.NONE) {
             menuItemId = R.id.nav_all_files;
         }
+    }
 
+    private void configureToolbar() {
+        // Other activities menuItemIds must be excluded to show correct toolbar.
+        final var excludedMenuItemIds = new ArrayList<>();
+        excludedMenuItemIds.add(R.id.nav_community);
+        excludedMenuItemIds.add(R.id.nav_trashbin);
+        excludedMenuItemIds.add(R.id.nav_uploads);
+        excludedMenuItemIds.add(R.id.nav_activity);
+        excludedMenuItemIds.add(R.id.nav_settings);
+        excludedMenuItemIds.add(R.id.nav_assistant);
+
+        boolean isSearchEventExists = false;
+        if (getLeftFragment() instanceof OCFileListFragment fileListFragment) {
+            isSearchEventExists = (fileListFragment.getSearchEvent() != null);
+        }
+
+        if (!(getLeftFragment() instanceof GalleryFragment) &&
+            (!isSearchEventExists ||
+                menuItemId == R.id.nav_all_files ||
+                menuItemId == R.id.nav_personal_files ||
+                excludedMenuItemIds.contains(menuItemId))) {
+            setupHomeSearchToolbarWithSortAndListButtons();
+        } else {
+            setupToolbar();
+        }
+    }
+
+    private void setDrawerAllFiles() {
+        checkAndSetMenuItemId();
         setNavigationViewItemChecked();
 
         if (MainApp.isOnlyOnDevice()) {

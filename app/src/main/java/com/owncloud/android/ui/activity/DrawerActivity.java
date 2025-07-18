@@ -259,6 +259,7 @@ public abstract class DrawerActivity extends ToolbarActivity
             menuItemId = menuItem.getItemId();
 
             exitSelectionMode();
+            resetOnlyPersonalAndOnDevice();
 
             if (menuItemId == R.id.nav_all_files) {
                 showFiles(false,false);
@@ -267,10 +268,12 @@ public abstract class DrawerActivity extends ToolbarActivity
                 }
                 EventBus.getDefault().post(new ChangeMenuEvent());
             } else if (menuItemId == R.id.nav_favorites) {
+                setupToolbar();
                 handleSearchEvents(new SearchEvent("", SearchRemoteOperation.SearchType.FAVORITE_SEARCH), menuItemId);
             } else if (menuItemId == R.id.nav_assistant && !(this instanceof ComposeActivity)) {
                 startComposeActivity(ComposeDestination.AssistantScreen, R.string.assistant_screen_top_bar_title);
             } else if (menuItemId == R.id.nav_gallery) {
+                setupToolbar();
                 startPhotoSearch(menuItem.getItemId());
             }
 
@@ -561,13 +564,13 @@ public abstract class DrawerActivity extends ToolbarActivity
         setNavigationViewItemChecked();
 
         if (itemId == R.id.nav_all_files || itemId == R.id.nav_personal_files) {
-            if (this instanceof FileDisplayActivity &&
-                !(((FileDisplayActivity) this).getLeftFragment() instanceof GalleryFragment) &&
-                !(((FileDisplayActivity) this).getLeftFragment() instanceof SharedListFragment) &&
-                !(((FileDisplayActivity) this).getLeftFragment() instanceof GroupfolderListFragment) &&
-                !(((FileDisplayActivity) this).getLeftFragment() instanceof PreviewTextStringFragment)) {
+            if (this instanceof FileDisplayActivity fda &&
+                !(fda.getLeftFragment() instanceof GalleryFragment) &&
+                !(fda.getLeftFragment() instanceof SharedListFragment) &&
+                !(fda.getLeftFragment() instanceof GroupfolderListFragment) &&
+                !(fda.getLeftFragment() instanceof PreviewTextStringFragment)) {
                 showFiles(false, itemId == R.id.nav_personal_files);
-                ((FileDisplayActivity) this).browseToRoot();
+                fda.browseToRoot();
                 EventBus.getDefault().post(new ChangeMenuEvent());
             } else {
                 MainApp.showOnlyFilesOnDevice(false);
@@ -585,24 +588,33 @@ public abstract class DrawerActivity extends ToolbarActivity
 
             closeDrawer();
         } else if (itemId == R.id.nav_favorites) {
-            handleSearchEvents(new SearchEvent("", SearchRemoteOperation.SearchType.FAVORITE_SEARCH),
-                               menuItem.getItemId());
+            resetOnlyPersonalAndOnDevice();
+            setupToolbar();
+            handleSearchEvents(new SearchEvent("", SearchRemoteOperation.SearchType.FAVORITE_SEARCH), menuItem.getItemId());
         } else if (itemId == R.id.nav_gallery) {
+            resetOnlyPersonalAndOnDevice();
+            setupToolbar();
             startPhotoSearch(menuItem.getItemId());
         } else if (itemId == R.id.nav_on_device) {
             EventBus.getDefault().post(new ChangeMenuEvent());
             showFiles(true, false);
         } else if (itemId == R.id.nav_uploads) {
+            resetOnlyPersonalAndOnDevice();
             startActivity(UploadListActivity.class, Intent.FLAG_ACTIVITY_CLEAR_TOP);
         } else if (itemId == R.id.nav_trashbin) {
+            resetOnlyPersonalAndOnDevice();
             startActivity(TrashbinActivity.class, Intent.FLAG_ACTIVITY_CLEAR_TOP);
         } else if (itemId == R.id.nav_activity) {
+            resetOnlyPersonalAndOnDevice();
             startActivity(ActivitiesActivity.class, Intent.FLAG_ACTIVITY_CLEAR_TOP);
         } else if (itemId == R.id.nav_settings) {
+            resetOnlyPersonalAndOnDevice();
             startActivity(SettingsActivity.class);
         } else if (itemId == R.id.nav_community) {
+            resetOnlyPersonalAndOnDevice();
             startActivity(CommunityActivity.class);
         } else if (itemId == R.id.nav_logout) {
+            resetOnlyPersonalAndOnDevice();
             menuItemId = Menu.NONE;
             MenuItem isNewMenuItemChecked = menuItem.setChecked(false);
             Log_OC.d(TAG,"onNavigationItemClicked nav_logout setChecked " + isNewMenuItemChecked);
@@ -611,13 +623,16 @@ public abstract class DrawerActivity extends ToolbarActivity
                 UserInfoActivity.openAccountRemovalDialog(optionalUser.get(), getSupportFragmentManager());
             }
         } else if (itemId == R.id.nav_shared) {
+            resetOnlyPersonalAndOnDevice();
             startSharedSearch(menuItem);
         } else if (itemId == R.id.nav_recently_modified) {
+            resetOnlyPersonalAndOnDevice();
             startRecentlyModifiedSearch(menuItem);
         } else if (itemId == R.id.nav_assistant) {
+            resetOnlyPersonalAndOnDevice();
             startComposeActivity(ComposeDestination.AssistantScreen, R.string.assistant_screen_top_bar_title);
         } else if (itemId == R.id.nav_groupfolders) {
-            MainApp.showOnlyFilesOnDevice(false);
+            resetOnlyPersonalAndOnDevice();
             Intent intent = new Intent(getApplicationContext(), FileDisplayActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             intent.setAction(FileDisplayActivity.LIST_GROUPFOLDERS);
@@ -1219,6 +1234,11 @@ public abstract class DrawerActivity extends ToolbarActivity
         startActivity(i);
 
         fetchExternalLinks(false);
+    }
+
+    private void resetOnlyPersonalAndOnDevice() {
+        MainApp.showOnlyFilesOnDevice(false);
+        MainApp.showOnlyPersonalFiles(false);
     }
 
     /**
