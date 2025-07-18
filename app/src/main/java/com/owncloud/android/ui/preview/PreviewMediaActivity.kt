@@ -24,8 +24,6 @@ import android.net.Uri
 import android.os.AsyncTask
 import android.os.Build
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -47,6 +45,7 @@ import androidx.core.view.WindowInsetsControllerCompat
 import androidx.core.view.marginBottom
 import androidx.core.view.updateLayoutParams
 import androidx.core.view.updatePadding
+import androidx.lifecycle.lifecycleScope
 import androidx.media3.common.MediaItem
 import androidx.media3.common.MediaMetadata
 import androidx.media3.common.PlaybackException
@@ -101,8 +100,10 @@ import com.owncloud.android.ui.fragment.OCFileListFragment
 import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.ErrorMessageAdapter
 import com.owncloud.android.utils.MimeTypeUtil
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.lang.ref.WeakReference
-import java.util.concurrent.Executors
 import javax.inject.Inject
 
 /**
@@ -357,31 +358,27 @@ class PreviewMediaActivity :
     }
 
     private fun initializeVideoPlayer() {
-        val handler = Handler(Looper.getMainLooper())
-        Executors.newSingleThreadExecutor().execute {
-            try {
-                nextcloudClient = clientFactory.createNextcloudClient(accountManager.user)
+        lifecycleScope.launch(Dispatchers.IO) {
+            val client = clientRepository.getNextcloudClient() ?: return@launch
 
-                nextcloudClient?.let { client ->
-                    handler.post {
-                        videoPlayer = createNextcloudExoplayer(this, client)
-                        videoMediaSession = MediaSession.Builder(this, videoPlayer as Player).build()
+            withContext(Dispatchers.Main) {
+                videoPlayer = createNextcloudExoplayer(this@PreviewMediaActivity, client)
+                val uniqueSessionId = "preview_session_" + System.currentTimeMillis()
+                videoMediaSession = MediaSession.Builder(this@PreviewMediaActivity, videoPlayer as Player)
+                    .setId(uniqueSessionId)
+                    .build()
 
-                        videoPlayer?.let { player ->
-                            player.addListener(
-                                ExoplayerListener(
-                                    this,
-                                    binding.exoplayerView,
-                                    player
-                                )
-                            )
+                videoPlayer?.run {
+                    addListener(
+                        ExoplayerListener(
+                            this@PreviewMediaActivity,
+                            binding.exoplayerView,
+                            this
+                        )
+                    )
 
-                            playVideo()
-                        }
-                    }
+                    playVideo()
                 }
-            } catch (e: CreationException) {
-                handler.post { Log_OC.e(TAG, "error setting up ExoPlayer", e) }
             }
         }
     }
