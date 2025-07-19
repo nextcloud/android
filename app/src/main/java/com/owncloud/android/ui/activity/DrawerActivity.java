@@ -1388,4 +1388,8 @@ public abstract class DrawerActivity extends ToolbarActivity
     public void showBottomNavigationBar(boolean show) {
         ViewExtensionsKt.setVisibleIf(bottomNavigationView, show);
     }
+
+    public BottomNavigationView getBottomNavigationView() {
+       return bottomNavigationView;
+    }
 }
