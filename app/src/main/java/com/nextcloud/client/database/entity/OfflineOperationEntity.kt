@@ -7,10 +7,12 @@
 
 package com.nextcloud.client.database.entity
 
+import android.content.Context
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.nextcloud.model.OfflineOperationType
+import com.owncloud.android.R
 import com.owncloud.android.db.ProviderMeta.ProviderTableMeta
 
 @Entity(tableName = ProviderTableMeta.OFFLINE_OPERATION_TABLE_NAME)
@@ -36,4 +38,17 @@ data class OfflineOperationEntity(
 
     @ColumnInfo(name = ProviderTableMeta.OFFLINE_OPERATION_MODIFIED_AT)
     var modifiedAt: Long? = null
-)
+) {
+    fun isRenameOrRemove(): Boolean =
+        (type is OfflineOperationType.RenameFile || type is OfflineOperationType.RemoveFile)
+
+    fun getConflictText(context: Context): String = if (type is OfflineOperationType.RemoveFile) {
+        context.getString(R.string.offline_operations_worker_notification_remove_conflict_text, filename)
+    } else if (type is OfflineOperationType.RenameFile) {
+        context.getString(R.string.offline_operations_worker_notification_rename_conflict_text, filename)
+    } else if (type is OfflineOperationType.CreateFile) {
+        context.getString(R.string.offline_operations_worker_notification_create_file_conflict_text, filename)
+    } else {
+        context.getString(R.string.offline_operations_worker_notification_create_folder_conflict_text, filename)
+    }
+}

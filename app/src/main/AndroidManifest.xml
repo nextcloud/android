@@ -270,9 +270,6 @@
             tools:replace="android:exported" />
 
         <receiver
-            android:name="com.nextcloud.receiver.OfflineOperationActionReceiver"
-            android:exported="false" />
-        <receiver
             android:name="com.nextcloud.client.jobs.MediaFoldersDetectionWork$NotificationReceiver"
             android:exported="false" />
         <receiver
