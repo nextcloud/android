@@ -105,15 +105,15 @@ import com.owncloud.android.utils.theme.CapabilityUtils;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
-
+import java.util.concurrent.TimeUnit;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
-
+import java.lang.reflect.Field;
 import javax.inject.Inject;
-
+import okhttp3.OkHttpClient;
 import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -1012,6 +1012,30 @@ public abstract class DrawerActivity extends ToolbarActivity
 
             if (nextcloudClient == null) {
                 return;
+            }
+            OkHttpClient originalClient = null;
+            try {
+                Field clientField = nextcloudClient.getClass().getDeclaredField("client");  // "client" is the field name
+                clientField.setAccessible(true);  // Make the field accessible
+                originalClient = (OkHttpClient) clientField.get(nextcloudClient);  // Get the original OkHttpClient
+            } catch (NoSuchFieldException | IllegalAccessException e) {
+                e.printStackTrace();
+                // Handle the error
+            }
+
+// Step 2: Create a new OkHttpClient with a shorter connection timeout
+            OkHttpClient newClient = originalClient.newBuilder()
+                .readTimeout(2000, TimeUnit.MILLISECONDS)  // Set timeout to 1000ms (1 second)
+                .build();
+
+// Step 3: Replace the internal OkHttpClient with the new one using reflection
+            try {
+                Field clientField = nextcloudClient.getClass().getDeclaredField("client");
+                clientField.setAccessible(true);
+                clientField.set(nextcloudClient, newClient);  // Set the new client
+            } catch (NoSuchFieldException | IllegalAccessException e) {
+                e.printStackTrace();
+                // Handle the error
             }
 
             RemoteOperationResult<UserInfo> result = new GetUserInfoRemoteOperation().execute(nextcloudClient);

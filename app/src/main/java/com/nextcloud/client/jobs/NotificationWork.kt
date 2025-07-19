@@ -45,6 +45,7 @@ import com.owncloud.android.ui.notifications.NotificationUtils
 import com.owncloud.android.utils.PushUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import dagger.android.AndroidInjection
+import okhttp3.OkHttpClient
 import org.apache.commons.httpclient.HttpMethod
 import org.apache.commons.httpclient.HttpStatus
 import org.apache.commons.httpclient.methods.DeleteMethod
@@ -52,9 +53,11 @@ import org.apache.commons.httpclient.methods.GetMethod
 import org.apache.commons.httpclient.methods.PutMethod
 import org.apache.commons.httpclient.methods.Utf8PostMethod
 import java.io.IOException
+import java.lang.reflect.Field
 import java.security.GeneralSecurityException
 import java.security.PrivateKey
 import java.security.SecureRandom
+import java.util.concurrent.TimeUnit
 import javax.crypto.Cipher
 import javax.inject.Inject
 
@@ -250,6 +253,40 @@ class NotificationWork constructor(
         val user = optionalUser.get()
         try {
             val client = OwnCloudClientFactory.createNextcloudClient(user, context)
+
+// Assuming 'client' is some object that holds an internal OkHttpClient
+            var originalClient: OkHttpClient? = null
+
+            try {
+                // Step 1: Access the original OkHttpClient through reflection
+                val clientField: Field = client.javaClass.getDeclaredField("client") // "client" is the field name
+                clientField.isAccessible = true  // Make the field accessible
+                originalClient = clientField.get(client) as OkHttpClient // Get the original OkHttpClient
+            } catch (e: NoSuchFieldException) {
+                e.printStackTrace()
+                // Handle the error
+            } catch (e: IllegalAccessException) {
+                e.printStackTrace()
+                // Handle the error
+            }
+
+// Step 2: Create a new OkHttpClient with a shorter connection timeout
+            val newClient = originalClient?.newBuilder()
+                ?.readTimeout(2000, TimeUnit.MILLISECONDS) // Set timeout to 1000ms (1 second)
+                ?.build()
+
+// Step 3: Replace the internal OkHttpClient with the new one using reflection
+            try {
+                val clientField: Field = client.javaClass.getDeclaredField("client")
+                clientField.isAccessible = true
+                clientField.set(client, newClient)  // Set the new client
+            } catch (e: NoSuchFieldException) {
+                e.printStackTrace()
+                // Handle the error
+            } catch (e: IllegalAccessException) {
+                e.printStackTrace()
+                // Handle the e
+            }
             val result = GetNotificationRemoteOperation(decryptedPushMessage.nid)
                 .execute(client)
             if (result.isSuccess) {

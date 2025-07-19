@@ -193,9 +193,6 @@ public final class ThumbnailsCacheManager {
 
         Bitmap thumbnail = ThumbnailUtils.extractThumbnail(bitmap, pxW, pxH);
 
-        // Rotate image, obeying exif tag
-        thumbnail = BitmapUtils.rotateImage(thumbnail,path);
-
         // Add thumbnail to cache
         // do not overwrite any pre-existing image
         if (!mThumbnailCache.containsKey(imageKey)) {
@@ -793,7 +790,7 @@ public final class ThumbnailsCacheManager {
                                 getMethod.setRequestHeader(RemoteOperation.OCS_API_HEADER,
                                                            RemoteOperation.OCS_API_HEADER_VALUE);
 
-                                int status = mClient.executeMethod(getMethod, READ_TIMEOUT, CONNECTION_TIMEOUT);
+                                int status = mClient.executeMethod(getMethod, 2000, 2000);
                                 if (status == HttpStatus.SC_OK) {
                                     InputStream inputStream = getMethod.getResponseBodyAsStream();
                                     Bitmap bitmap = BitmapFactory.decodeStream(inputStream);

@@ -16,6 +16,7 @@ import com.google.gson.Gson;
 import com.nextcloud.android.lib.resources.directediting.DirectEditingObtainRemoteOperation;
 import com.nextcloud.client.account.User;
 import com.nextcloud.common.NextcloudClient;
+import com.nextcloud.common.SessionTimeOut;
 import com.nextcloud.utils.extensions.RemoteOperationResultExtensionsKt;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.ArbitraryDataProviderImpl;
@@ -48,16 +49,19 @@ import com.owncloud.android.utils.MimeType;
 import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.theme.CapabilityUtils;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Vector;
+import java.util.concurrent.TimeUnit;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import okhttp3.OkHttpClient;
 
 import static com.owncloud.android.datamodel.OCFile.PATH_SEPARATOR;
 
@@ -307,6 +311,7 @@ public class RefreshFolderOperation extends RemoteOperation {
 
     private void updateOCVersion(OwnCloudClient client) {
         UpdateOCVersionOperation update = new UpdateOCVersionOperation(user, mContext);
+        client.setDefaultTimeouts(2000,2000);
         RemoteOperationResult result = update.execute(client);
         if (result.isSuccess()) {
             // Update Capabilities for this account
@@ -317,6 +322,30 @@ public class RefreshFolderOperation extends RemoteOperation {
     private void updateUserProfile() {
         try {
             NextcloudClient nextcloudClient = OwnCloudClientFactory.createNextcloudClient(user, mContext);
+            OkHttpClient originalClient = null;
+            try {
+                Field clientField = nextcloudClient.getClass().getDeclaredField("client");  // "client" is the field name
+                clientField.setAccessible(true);  // Make the field accessible
+                originalClient = (OkHttpClient) clientField.get(nextcloudClient);  // Get the original OkHttpClient
+            } catch (NoSuchFieldException | IllegalAccessException e) {
+                e.printStackTrace();
+                // Handle the error
+            }
+
+// Step 2: Create a new OkHttpClient with a shorter connection timeout
+            OkHttpClient newClient = originalClient.newBuilder()
+                .readTimeout(2000, TimeUnit.MILLISECONDS)  // Set timeout to 1000ms (1 second)
+                .build();
+
+// Step 3: Replace the internal OkHttpClient with the new one using reflection
+            try {
+                Field clientField = nextcloudClient.getClass().getDeclaredField("client");
+                clientField.setAccessible(true);
+                clientField.set(nextcloudClient, newClient);  // Set the new client
+            } catch (NoSuchFieldException | IllegalAccessException e) {
+                e.printStackTrace();
+                // Handle the error
+            }
 
             RemoteOperationResult<UserInfo> result = new GetUserProfileOperation(fileDataStorageManager).execute(nextcloudClient);
             if (!result.isSuccess()) {
@@ -395,7 +424,7 @@ public class RefreshFolderOperation extends RemoteOperation {
         Log_OC.d(TAG, "Checking changes in " + user.getAccountName() + remotePath);
 
         // remote request
-        result = new ReadFileRemoteOperation(remotePath).execute(client);
+        result = new ReadFileRemoteOperation(remotePath, new SessionTimeOut(2000,2000)).execute(client);
 
         if (result.isSuccess()) {
             OCFile remoteFolder = FileStorageUtils.fillOCFile((RemoteFile) result.getData().get(0));
