@@ -952,7 +952,11 @@ public class OCFileListFragment extends ExtendedListFragment implements
             menu.removeItem(R.id.action_search);
         }
 
-        updateSortAndGridMenuItems();
+        if (currentSearchType == FAVORITE_SEARCH) {
+            resetMenuItems();
+        } else {
+            updateSortAndGridMenuItems();
+        }
     }
 
     private void updateSortAndGridMenuItems() {
