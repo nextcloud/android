@@ -9,10 +9,10 @@ package com.nextcloud.client.jobs.operation
 
 import android.content.Context
 import com.nextcloud.client.account.User
-import com.nextcloud.client.network.ClientFactoryImpl
 import com.nextcloud.utils.extensions.getErrorMessage
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
+import com.owncloud.android.lib.common.OwnCloudClient
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.operations.RemoveFileOperation
 import kotlinx.coroutines.Dispatchers
@@ -24,16 +24,17 @@ class FileOperationHelper(
     private val context: Context,
     private val fileDataStorageManager: FileDataStorageManager
 ) {
-
     companion object {
         private val TAG = FileOperationHelper::class.java.simpleName
     }
 
-    private val clientFactory = ClientFactoryImpl(context)
-    private val client = clientFactory.create(user)
-
     @Suppress("TooGenericExceptionCaught", "Deprecation")
-    suspend fun removeFile(file: OCFile, onlyLocalCopy: Boolean, inBackground: Boolean): Boolean {
+    suspend fun removeFile(
+        file: OCFile,
+        onlyLocalCopy: Boolean,
+        inBackground: Boolean,
+        client: OwnCloudClient
+    ): Boolean {
         return withContext(Dispatchers.IO) {
             try {
                 val operation = async {
