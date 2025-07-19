@@ -213,13 +213,26 @@ class FileUploadWorker(
 
                     currentUploadFileOperation = null
 
-                    fileUploaderDelegate.sendBroadcastUploadFinished(
-                        uploadFileOperation,
-                        result,
-                        uploadFileOperation.oldFile?.storagePath,
-                        context,
-                        localBroadcastManager
-                    )
+                    if (totalUploadSize > 100 && currentUploadIndex > 0) {
+                        // delay broadcast
+                        if (currentUploadIndex % 100 == 0) {
+                            fileUploaderDelegate.sendBroadcastUploadFinished(
+                                uploadFileOperation,
+                                result,
+                                uploadFileOperation.oldFile?.storagePath,
+                                context,
+                                localBroadcastManager
+                            )
+                        }
+                    } else {
+                        fileUploaderDelegate.sendBroadcastUploadFinished(
+                            uploadFileOperation,
+                            result,
+                            uploadFileOperation.oldFile?.storagePath,
+                            context,
+                            localBroadcastManager
+                        )
+                    }
                 } else {
                     uploadsStorageManager.removeUpload(upload.uploadId)
                 }
