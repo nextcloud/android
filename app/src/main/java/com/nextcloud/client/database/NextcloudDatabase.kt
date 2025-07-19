@@ -18,6 +18,7 @@ import com.nextcloud.client.core.ClockImpl
 import com.nextcloud.client.database.dao.ArbitraryDataDao
 import com.nextcloud.client.database.dao.FileDao
 import com.nextcloud.client.database.dao.OfflineOperationDao
+import com.nextcloud.client.database.dao.UploadDao
 import com.nextcloud.client.database.entity.ArbitraryDataEntity
 import com.nextcloud.client.database.entity.CapabilityEntity
 import com.nextcloud.client.database.entity.ExternalLinkEntity
@@ -85,6 +86,7 @@ abstract class NextcloudDatabase : RoomDatabase() {
     abstract fun arbitraryDataDao(): ArbitraryDataDao
     abstract fun fileDao(): FileDao
     abstract fun offlineOperationDao(): OfflineOperationDao
+    abstract fun uploadDao(): UploadDao
 
     companion object {
         const val FIRST_ROOM_DB_VERSION = 65
