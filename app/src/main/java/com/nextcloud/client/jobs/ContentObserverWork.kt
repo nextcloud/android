@@ -32,10 +32,12 @@ class ContentObserverWork(
     override fun doWork(): Result {
         backgroundJobManager.logStartOfWorker(BackgroundJobManagerImpl.formatClassTag(this::class))
 
-        if (params.triggeredContentUris.size > 0) {
+        if (params.triggeredContentUris.isNotEmpty()) {
             Log_OC.d(TAG, "File-sync Content Observer detected files change")
             checkAndStartFileSyncJob()
             backgroundJobManager.startMediaFoldersDetectionJob()
+        } else {
+            Log_OC.d(TAG, "triggeredContentUris empty")
         }
         recheduleSelf()
 
@@ -60,6 +62,8 @@ class ContentObserverWork(
                 false,
                 changedFiles.toTypedArray()
             )
+        } else {
+            Log_OC.w(TAG, "cant startFilesSyncForAllFolders")
         }
     }
 
