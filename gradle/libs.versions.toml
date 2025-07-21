@@ -11,7 +11,7 @@ kotlin = "2.2.0"
 composeBom = "2025.07.00"
 spotbugsGradlePlugin = "6.2.2"
 detektGradlePlugin = "1.23.8"
-spotless = "7.1.0"
+spotless = "7.2.0"
 ksp = "2.2.0-2.0.2"
 
 [libraries]
