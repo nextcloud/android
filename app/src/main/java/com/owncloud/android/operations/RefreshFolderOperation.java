@@ -233,9 +233,9 @@ public class RefreshFolderOperation extends RemoteOperation {
         mConflictsFound = 0;
         mForgottenLocalFiles.clear();
 
-        if (mLocalFolder == null) {
-            Log_OC.e(TAG, "Local folder is null, cannot run refresh folder operation");
-            return new RemoteOperationResult(ResultCode.FILE_NOT_FOUND);
+        if (mLocalFolder == null || mLocalFolder.getRemoteId() == null || mLocalFolder.getRemotePath() == null) {
+            Log_OC.e(TAG, "Local folder is null or local folder's remote id is null or remote path is null, cannot run refresh folder operation");
+            return new RemoteOperationResult<>(ResultCode.FILE_NOT_FOUND);
         }
 
         if (OCFile.ROOT_PATH.equals(mLocalFolder.getRemotePath()) && !mSyncFullAccount && !mOnlyFileMetadata) {
