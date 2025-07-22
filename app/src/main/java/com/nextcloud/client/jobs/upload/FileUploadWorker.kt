@@ -78,17 +78,11 @@ class FileUploadWorker(
         const val LOCAL_BEHAVIOUR_FORGET = 2
         const val LOCAL_BEHAVIOUR_DELETE = 3
 
-        fun getUploadsAddedMessage(): String {
-            return FileUploadWorker::class.java.name + UPLOADS_ADDED_MESSAGE
-        }
+        fun getUploadsAddedMessage(): String = FileUploadWorker::class.java.name + UPLOADS_ADDED_MESSAGE
 
-        fun getUploadStartMessage(): String {
-            return FileUploadWorker::class.java.name + UPLOAD_START_MESSAGE
-        }
+        fun getUploadStartMessage(): String = FileUploadWorker::class.java.name + UPLOAD_START_MESSAGE
 
-        fun getUploadFinishMessage(): String {
-            return FileUploadWorker::class.java.name + UPLOAD_FINISH_MESSAGE
-        }
+        fun getUploadFinishMessage(): String = FileUploadWorker::class.java.name + UPLOAD_FINISH_MESSAGE
     }
 
     private var lastPercent = 0
@@ -97,19 +91,14 @@ class FileUploadWorker(
     private val fileUploaderDelegate = FileUploaderDelegate()
 
     @Suppress("TooGenericExceptionCaught")
-    override fun doWork(): Result {
-        return try {
-            backgroundJobManager.logStartOfWorker(BackgroundJobManagerImpl.formatClassTag(this::class))
-            val result = retrievePagesBySortingUploadsByID()
-            backgroundJobManager.logEndOfWorker(BackgroundJobManagerImpl.formatClassTag(this::class), result)
-            notificationManager.dismissNotification()
-            if (result == Result.success()) {
-                setIdleWorkerState()
-            }
-            result
-        } catch (t: Throwable) {
-            Log_OC.e(TAG, "Error caught at FileUploadWorker $t")
-            Result.failure()
+    override fun doWork(): Result = try {
+        Log_OC.d(TAG, "FileUploadWorker started")
+        backgroundJobManager.logStartOfWorker(BackgroundJobManagerImpl.formatClassTag(this::class))
+        val result = uploadFiles()
+        backgroundJobManager.logEndOfWorker(BackgroundJobManagerImpl.formatClassTag(this::class), result)
+        notificationManager.dismissNotification()
+        if (result == Result.success()) {
+            setIdleWorkerState()
         }
         result
     } catch (t: Throwable) {
@@ -142,9 +131,7 @@ class FileUploadWorker(
         val uploads = uploadIds.map { id -> uploadsStorageManager.getUploadById(id) }.filterNotNull()
         val totalUploadSize = uploadIds.size
 
-        Log_OC.d(TAG, "Total upload size: $totalUploadSize")
-
-        while (uploadsPerPage.isNotEmpty() && !isStopped) {
+        for ((index, upload) in uploads.withIndex()) {
             if (preferences.isGlobalUploadPaused) {
                 Log_OC.d(TAG, "Upload is paused, skip uploading files!")
                 notificationManager.notifyPaused(
@@ -210,85 +197,22 @@ class FileUploadWorker(
         return result
     }
 
-    private fun createUploadFileOperation(upload: OCUpload, user: User): UploadFileOperation {
-        return UploadFileOperation(
-            uploadsStorageManager,
-            connectivityService,
-            powerManagementService,
-            user,
-            null,
-            upload,
-            upload.nameCollisionPolicy,
-            upload.localAction,
-            context,
-            upload.isUseWifiOnly,
-            upload.isWhileChargingOnly,
-            true,
-            FileDataStorageManager(user, context.contentResolver)
-        ).apply {
-            addDataTransferProgressListener(this@FileUploadWorker)
-        }
-
-        run uploads@{
-            uploadsPerPage.forEach { upload ->
-                if (canExitEarly()) {
-                    notificationManager.showConnectionErrorNotification()
-                    return@uploads
-                }
-
-                if (user.isPresent) {
-                    val uploadFileOperation = createUploadFileOperation(upload, user.get())
-
-                    currentUploadFileOperation = uploadFileOperation
-
-                    notificationManager.prepareForStart(
-                        uploadFileOperation,
-                        cancelPendingIntent = intents.startIntent(uploadFileOperation),
-                        startIntent = intents.notificationStartIntent(uploadFileOperation),
-                        currentUploadIndex = currentUploadIndex,
-                        totalUploadSize = totalUploadSize
-                    )
-
-                    val result = upload(uploadFileOperation, user.get())
-
-                    if (result.isSuccess) {
-                        currentUploadIndex += 1
-                    }
-
-                    currentUploadFileOperation = null
-
-                    fileUploaderDelegate.sendBroadcastUploadFinished(
-                        uploadFileOperation,
-                        result,
-                        uploadFileOperation.oldFile?.storagePath,
-                        context,
-                        localBroadcastManager
-                    )
-                } else {
-                    uploadsStorageManager.removeUpload(upload.uploadId)
-                }
-            }
-        }
-    }
-
-    private fun createUploadFileOperation(upload: OCUpload, user: User): UploadFileOperation {
-        return UploadFileOperation(
-            uploadsStorageManager,
-            connectivityService,
-            powerManagementService,
-            user,
-            null,
-            upload,
-            upload.nameCollisionPolicy,
-            upload.localAction,
-            context,
-            upload.isUseWifiOnly,
-            upload.isWhileChargingOnly,
-            true,
-            FileDataStorageManager(user, context.contentResolver)
-        ).apply {
-            addDataTransferProgressListener(this@FileUploadWorker)
-        }
+    private fun createUploadFileOperation(upload: OCUpload, user: User): UploadFileOperation = UploadFileOperation(
+        uploadsStorageManager,
+        connectivityService,
+        powerManagementService,
+        user,
+        null,
+        upload,
+        upload.nameCollisionPolicy,
+        upload.localAction,
+        context,
+        upload.isUseWifiOnly,
+        upload.isWhileChargingOnly,
+        true,
+        FileDataStorageManager(user, context.contentResolver)
+    ).apply {
+        addDataTransferProgressListener(this@FileUploadWorker)
     }
 
     @Suppress("TooGenericExceptionCaught", "DEPRECATION")
