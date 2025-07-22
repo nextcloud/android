@@ -34,16 +34,16 @@ class ShareeListAdapterTest {
 
     private val orderedShares = listOf(
         OCShare("/1").apply {
-            shareType = ShareType.EMAIL
-            sharedDate = 1004
-        },
-        OCShare("/2").apply {
             shareType = ShareType.PUBLIC_LINK
             sharedDate = 1003
         },
-        OCShare("/3").apply {
+        OCShare("/2").apply {
             shareType = ShareType.PUBLIC_LINK
             sharedDate = 1001
+        },
+        OCShare("/3").apply {
+            shareType = ShareType.EMAIL
+            sharedDate = 1004
         },
         OCShare("/4").apply {
             shareType = ShareType.EMAIL
