@@ -45,6 +45,8 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.nextcloud.android.common.ui.util.extensions.WindowExtensionsKt;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
+import com.nextcloud.client.database.NextcloudDatabase;
+import com.nextcloud.client.database.dao.FileDao;
 import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.etm.EtmActivity;
 import com.nextcloud.client.logger.ui.LogsActivity;
@@ -569,6 +571,9 @@ public class SettingsActivity extends PreferenceActivity
                 if (pMnemonic != null) {
                     preferenceCategoryMore.removePreference(pMnemonic);
                 }
+
+                final FileDao fileDao = NextcloudDatabase.getInstance(MainApp.getAppContext()).fileDao();
+                fileDao.resetE2eCounterForEncryptedFiles();
 
                 dialog.dismiss();
             })

@@ -1398,44 +1398,17 @@ public final class EncryptionUtils {
                                                                               User user,
                                                                               Context context,
                                                                               ArbitraryDataProvider arbitraryDataProvider)
-        throws UploadException, Throwable,
-        InvalidAlgorithmParameterException, NoSuchAlgorithmException, NoSuchPaddingException, BadPaddingException,
-        IllegalBlockSizeException, InvalidKeyException, InvalidKeySpecException, CertificateException {
-        long localId = parentFile.getLocalId();
+        throws Throwable {
 
+        long localId = parentFile.getLocalId();
         GetMetadataRemoteOperation getMetadataOperation = new GetMetadataRemoteOperation(localId);
         RemoteOperationResult<MetadataResponse> getMetadataOperationResult = getMetadataOperation.execute(client);
+        boolean updateMetadata = getMetadataOperationResult.isSuccess();
 
-
-        DecryptedFolderMetadataFile metadata;
-
-        if (getMetadataOperationResult.isSuccess()) {
-            // decrypt metadata
-            String serializedEncryptedMetadata = getMetadataOperationResult.getResultData().getMetadata();
-
-
-            EncryptedFolderMetadataFile encryptedFolderMetadata = EncryptionUtils.deserializeJSON(
-                serializedEncryptedMetadata, new TypeToken<>() {
-                });
-
-            return new Pair<>(Boolean.TRUE,
-                              new EncryptionUtilsV2().decryptFolderMetadataFile(encryptedFolderMetadata,
-                                                                                client.getUserId(),
-                                                                                privateKey,
-                                                                                parentFile,
-                                                                                storageManager,
-                                                                                client,
-                                                                                parentFile.getE2eCounter(),
-                                                                                getMetadataOperationResult.getResultData().getSignature(),
-                                                                                user,
-                                                                                context,
-                                                                                arbitraryDataProvider)
-            );
-
-        } else if (getMetadataOperationResult.getHttpCode() == HttpStatus.SC_NOT_FOUND ||
+        if (parentFile.getE2eCounter() == -1 || getMetadataOperationResult.getHttpCode() == HttpStatus.SC_NOT_FOUND ||
             getMetadataOperationResult.getHttpCode() == HttpStatus.SC_INTERNAL_SERVER_ERROR) {
             // new metadata
-            metadata = new DecryptedFolderMetadataFile(new com.owncloud.android.datamodel.e2e.v2.decrypted.DecryptedMetadata(),
+            DecryptedFolderMetadataFile metadata = new DecryptedFolderMetadataFile(new com.owncloud.android.datamodel.e2e.v2.decrypted.DecryptedMetadata(),
                                                        new ArrayList<>(),
                                                        new HashMap<>(),
                                                        E2EVersion.V2_0.getValue());
@@ -1449,11 +1422,37 @@ public final class EncryptionUtils {
             metadata.getMetadata().setMetadataKey(metadataKey);
             metadata.getMetadata().getKeyChecksums().add(new EncryptionUtilsV2().hashMetadataKey(metadataKey));
 
-            return new Pair<>(Boolean.FALSE, metadata);
-        } else {
-            reportE2eError(arbitraryDataProvider, user);
-            throw new UploadException("something wrong");
+            return new Pair<>(updateMetadata, metadata);
         }
+
+        if (getMetadataOperationResult.isSuccess()) {
+            // decrypt metadata
+
+            final var metadataOperationResult = getMetadataOperationResult.getResultData();
+            String serializedEncryptedMetadata = metadataOperationResult.getMetadata();
+
+
+            EncryptedFolderMetadataFile encryptedFolderMetadata = EncryptionUtils.deserializeJSON(
+                serializedEncryptedMetadata, new TypeToken<>() {
+                });
+
+
+            DecryptedFolderMetadataFile metadataFile = new EncryptionUtilsV2().decryptFolderMetadataFile(encryptedFolderMetadata,
+                                                                                                         client.getUserId(),
+                                                                                                         privateKey,
+                                                                                                         parentFile,
+                                                                                                         storageManager,
+                                                                                                         client,
+                                                                                                         parentFile.getE2eCounter(),
+                                                                                                         metadataOperationResult.getSignature(),
+                                                                                                         user,
+                                                                                                         context,
+                                                                                                         arbitraryDataProvider);
+            return new Pair<>(updateMetadata, metadataFile);
+        }
+
+        reportE2eError(arbitraryDataProvider, user);
+        throw new UploadException("something wrong");
     }
 
     public static void uploadMetadata(ServerFileInterface parentFile,
