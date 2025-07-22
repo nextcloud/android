@@ -147,7 +147,7 @@ class ConflictsResolveActivity : FileActivity(), OnConflictDecisionMadeListener 
     }
 
     private fun dismissConflictResolveNotification(file: OCFile?) {
-        val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        val notificationManager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
         val tag = NotificationUtils.createUploadNotificationTag(file)
         notificationManager.cancel(tag, FileUploadWorker.NOTIFICATION_ERROR_ID)
     }
