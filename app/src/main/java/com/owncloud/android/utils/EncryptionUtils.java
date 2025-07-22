@@ -1402,18 +1402,16 @@ public final class EncryptionUtils {
                                                                               Context context,
                                                                               ArbitraryDataProvider arbitraryDataProvider)
         throws Throwable {
-        long localId = parentFile.getLocalId();
 
+        long localId = parentFile.getLocalId();
         GetMetadataRemoteOperation getMetadataOperation = new GetMetadataRemoteOperation(localId);
         RemoteOperationResult<MetadataResponse> getMetadataOperationResult = getMetadataOperation.execute(client);
-
-
-        DecryptedFolderMetadataFile metadata;
+        boolean updateMetadata = getMetadataOperationResult.isSuccess();
 
         if (parentFile.getE2eCounter() == -1 || getMetadataOperationResult.getHttpCode() == HttpStatus.SC_NOT_FOUND ||
             getMetadataOperationResult.getHttpCode() == HttpStatus.SC_INTERNAL_SERVER_ERROR) {
             // new metadata
-            metadata = new DecryptedFolderMetadataFile(new com.owncloud.android.datamodel.e2e.v2.decrypted.DecryptedMetadata(),
+            DecryptedFolderMetadataFile metadata = new DecryptedFolderMetadataFile(new com.owncloud.android.datamodel.e2e.v2.decrypted.DecryptedMetadata(),
                                                        new ArrayList<>(),
                                                        new HashMap<>(),
                                                        E2EVersion.V2_0.getValue());
@@ -1427,31 +1425,33 @@ public final class EncryptionUtils {
             metadata.getMetadata().setMetadataKey(metadataKey);
             metadata.getMetadata().getKeyChecksums().add(new EncryptionUtilsV2().hashMetadataKey(metadataKey));
 
-            return new Pair<>(Boolean.FALSE, metadata);
+            return new Pair<>(updateMetadata, metadata);
         }
 
         if (getMetadataOperationResult.isSuccess()) {
             // decrypt metadata
-            String serializedEncryptedMetadata = getMetadataOperationResult.getResultData().getMetadata();
+
+            final var metadataOperationResult = getMetadataOperationResult.getResultData();
+            String serializedEncryptedMetadata = metadataOperationResult.getMetadata();
 
 
             EncryptedFolderMetadataFile encryptedFolderMetadata = EncryptionUtils.deserializeJSON(
                 serializedEncryptedMetadata, new TypeToken<>() {
                 });
 
-            return new Pair<>(Boolean.TRUE,
-                              new EncryptionUtilsV2().decryptFolderMetadataFile(encryptedFolderMetadata,
-                                                                                client.getUserId(),
-                                                                                privateKey,
-                                                                                parentFile,
-                                                                                storageManager,
-                                                                                client,
-                                                                                parentFile.getE2eCounter(),
-                                                                                getMetadataOperationResult.getResultData().getSignature(),
-                                                                                user,
-                                                                                context,
-                                                                                arbitraryDataProvider)
-            );
+
+            DecryptedFolderMetadataFile metadataFile = new EncryptionUtilsV2().decryptFolderMetadataFile(encryptedFolderMetadata,
+                                                                                                         client.getUserId(),
+                                                                                                         privateKey,
+                                                                                                         parentFile,
+                                                                                                         storageManager,
+                                                                                                         client,
+                                                                                                         parentFile.getE2eCounter(),
+                                                                                                         metadataOperationResult.getSignature(),
+                                                                                                         user,
+                                                                                                         context,
+                                                                                                         arbitraryDataProvider);
+            return new Pair<>(updateMetadata, metadataFile);
         }
 
         reportE2eError(arbitraryDataProvider, user);
