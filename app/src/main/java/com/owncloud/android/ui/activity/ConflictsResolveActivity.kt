@@ -235,7 +235,8 @@ class ConflictsResolveActivity :
 
             UploadNotificationManager(
                 applicationContext,
-                viewThemeUtils
+                viewThemeUtils,
+                upload.uploadId.toInt()
             ).dismissOldErrorNotification(it.remotePath, it.localPath)
         }
     }
