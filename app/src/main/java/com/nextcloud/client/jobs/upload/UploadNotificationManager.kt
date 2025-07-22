@@ -17,6 +17,7 @@ import com.owncloud.android.lib.common.operations.RemoteOperationResult
 import com.owncloud.android.operations.UploadFileOperation
 import com.owncloud.android.ui.notifications.NotificationUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
+import kotlin.random.Random
 
 class UploadNotificationManager(private val context: Context, viewThemeUtils: ViewThemeUtils) :
     WorkerNotificationManager(ID, context, viewThemeUtils, R.string.foreground_service_upload) {
@@ -80,7 +81,8 @@ class UploadNotificationManager(private val context: Context, viewThemeUtils: Vi
         resultCode: RemoteOperationResult.ResultCode,
         conflictsResolveIntent: PendingIntent?,
         credentialIntent: PendingIntent?,
-        errorMessage: String
+        errorMessage: String,
+        showNewNotification: Boolean = false
     ) {
         val textId = getFailedResultTitleId(resultCode)
 
@@ -107,7 +109,7 @@ class UploadNotificationManager(private val context: Context, viewThemeUtils: Vi
             setContentText(errorMessage)
         }
 
-        if (resultCode.isFileSpecificError()) {
+        if (resultCode.isFileSpecificError() || showNewNotification) {
             showNewNotification(uploadFileOperation)
         } else {
             showNotification()
@@ -137,7 +139,7 @@ class UploadNotificationManager(private val context: Context, viewThemeUtils: Vi
     private fun showNewNotification(operation: UploadFileOperation) {
         notificationManager.notify(
             NotificationUtils.createUploadNotificationTag(operation.file),
-            FileUploadWorker.NOTIFICATION_ERROR_ID,
+            Random.Default.nextInt(),
             notificationBuilder.build()
         )
     }

@@ -22,6 +22,7 @@ import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.model.WorkerState
 import com.nextcloud.model.WorkerStateLiveData
 import com.nextcloud.utils.extensions.getPercent
+import com.owncloud.android.R
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.ThumbnailsCacheManager
 import com.owncloud.android.datamodel.UploadsStorageManager
@@ -209,6 +210,16 @@ class FileUploadWorker(
 
                     if (result.isSuccess) {
                         currentUploadIndex += 1
+                    } else if (result.code == ResultCode.QUOTA_EXCEEDED) {
+                        notificationManager.notifyForFailedResult(
+                            uploadFileOperation,
+                            result.code,
+                            null,
+                            null,
+                            context.getString(R.string.upload_quota_exceeded),
+                            true
+                        )
+                        return
                     }
 
                     currentUploadFileOperation = null
