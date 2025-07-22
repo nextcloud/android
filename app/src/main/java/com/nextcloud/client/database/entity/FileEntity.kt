@@ -50,7 +50,7 @@ data class FileEntity(
     @ColumnInfo(name = ProviderTableMeta.FILE_ETAG_ON_SERVER)
     val etagOnServer: String?,
     @ColumnInfo(name = ProviderTableMeta.FILE_SHARED_VIA_LINK)
-    val sharedViaLink: Int?,
+    var sharedViaLink: Int?,
     @ColumnInfo(name = ProviderTableMeta.FILE_PERMISSIONS)
     val permissions: String?,
     @ColumnInfo(name = ProviderTableMeta.FILE_REMOTE_ID)
