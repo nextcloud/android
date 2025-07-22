@@ -18,8 +18,7 @@ fun AppCompatActivity.isActive(): Boolean = !isFinishing && !isDestroyed
 
 fun AppCompatActivity.fragments(): List<Fragment> = supportFragmentManager.fragments
 
-fun AppCompatActivity.lastFragment(): Fragment? =
-    supportFragmentManager.fragments.lastOrNull { it.isVisible }
+fun AppCompatActivity.lastFragment(): Fragment? = supportFragmentManager.fragments.lastOrNull { it.isVisible }
 
 fun Activity.showShareIntent(text: String?) {
     val sendIntent = Intent(Intent.ACTION_SEND).apply {
