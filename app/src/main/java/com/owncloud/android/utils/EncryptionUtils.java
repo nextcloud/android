@@ -754,9 +754,6 @@ public final class EncryptionUtils {
         BadPaddingException, IllegalBlockSizeException,
         InvalidKeySpecException {
 
-        Log_OC.e("TAG","zako1: " + string);
-        Log_OC.e("TAG","zako2: " + privateKeyString);
-
         Cipher cipher = Cipher.getInstance(RSA_CIPHER);
 
         byte[] privateKeyBytes = decodeStringToBase64Bytes(privateKeyString);
