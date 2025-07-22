@@ -754,6 +754,9 @@ public final class EncryptionUtils {
         BadPaddingException, IllegalBlockSizeException,
         InvalidKeySpecException {
 
+        Log_OC.e("TAG","zako1: " + string);
+        Log_OC.e("TAG","zako2: " + privateKeyString);
+
         Cipher cipher = Cipher.getInstance(RSA_CIPHER);
 
         byte[] privateKeyBytes = decodeStringToBase64Bytes(privateKeyString);
@@ -1398,9 +1401,7 @@ public final class EncryptionUtils {
                                                                               User user,
                                                                               Context context,
                                                                               ArbitraryDataProvider arbitraryDataProvider)
-        throws UploadException, Throwable,
-        InvalidAlgorithmParameterException, NoSuchAlgorithmException, NoSuchPaddingException, BadPaddingException,
-        IllegalBlockSizeException, InvalidKeyException, InvalidKeySpecException, CertificateException {
+        throws Throwable {
         long localId = parentFile.getLocalId();
 
         GetMetadataRemoteOperation getMetadataOperation = new GetMetadataRemoteOperation(localId);
@@ -1408,6 +1409,26 @@ public final class EncryptionUtils {
 
 
         DecryptedFolderMetadataFile metadata;
+
+        if (parentFile.getE2eCounter() == -1 || getMetadataOperationResult.getHttpCode() == HttpStatus.SC_NOT_FOUND ||
+            getMetadataOperationResult.getHttpCode() == HttpStatus.SC_INTERNAL_SERVER_ERROR) {
+            // new metadata
+            metadata = new DecryptedFolderMetadataFile(new com.owncloud.android.datamodel.e2e.v2.decrypted.DecryptedMetadata(),
+                                                       new ArrayList<>(),
+                                                       new HashMap<>(),
+                                                       E2EVersion.V2_0.getValue());
+            metadata.getUsers().add(new DecryptedUser(client.getUserId(), publicKey, null));
+            byte[] metadataKey = EncryptionUtils.generateKey();
+
+            if (metadataKey == null) {
+                throw new UploadException("Could not encrypt folder!");
+            }
+
+            metadata.getMetadata().setMetadataKey(metadataKey);
+            metadata.getMetadata().getKeyChecksums().add(new EncryptionUtilsV2().hashMetadataKey(metadataKey));
+
+            return new Pair<>(Boolean.FALSE, metadata);
+        }
 
         if (getMetadataOperationResult.isSuccess()) {
             // decrypt metadata
@@ -1431,29 +1452,10 @@ public final class EncryptionUtils {
                                                                                 context,
                                                                                 arbitraryDataProvider)
             );
-
-        } else if (getMetadataOperationResult.getHttpCode() == HttpStatus.SC_NOT_FOUND ||
-            getMetadataOperationResult.getHttpCode() == HttpStatus.SC_INTERNAL_SERVER_ERROR) {
-            // new metadata
-            metadata = new DecryptedFolderMetadataFile(new com.owncloud.android.datamodel.e2e.v2.decrypted.DecryptedMetadata(),
-                                                       new ArrayList<>(),
-                                                       new HashMap<>(),
-                                                       E2EVersion.V2_0.getValue());
-            metadata.getUsers().add(new DecryptedUser(client.getUserId(), publicKey, null));
-            byte[] metadataKey = EncryptionUtils.generateKey();
-
-            if (metadataKey == null) {
-                throw new UploadException("Could not encrypt folder!");
-            }
-
-            metadata.getMetadata().setMetadataKey(metadataKey);
-            metadata.getMetadata().getKeyChecksums().add(new EncryptionUtilsV2().hashMetadataKey(metadataKey));
-
-            return new Pair<>(Boolean.FALSE, metadata);
-        } else {
-            reportE2eError(arbitraryDataProvider, user);
-            throw new UploadException("something wrong");
         }
+
+        reportE2eError(arbitraryDataProvider, user);
+        throw new UploadException("something wrong");
     }
 
     public static void uploadMetadata(ServerFileInterface parentFile,

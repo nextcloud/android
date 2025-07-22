@@ -58,4 +58,11 @@ interface FileDao {
             "ORDER BY internal_two_way_sync_timestamp DESC"
     )
     fun getInternalTwoWaySyncFolders(fileOwner: String): List<FileEntity>
+
+    @Query("""
+        UPDATE ${ProviderTableMeta.FILE_TABLE_NAME} 
+        SET ${ProviderTableMeta.FILE_E2E_COUNTER} = -1 
+        WHERE ${ProviderTableMeta.FILE_IS_ENCRYPTED} > -1
+    """)
+    fun resetE2eCounterForEncryptedFiles()
 }
