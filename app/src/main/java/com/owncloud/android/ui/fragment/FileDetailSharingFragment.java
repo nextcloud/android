@@ -652,15 +652,19 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
         unShareWith(share);
 
         FileEntity entity = fileDataStorageManager.getFileEntity(file);
-        if (entity != null) {
-            entity.setSharedWithSharee(0);
-            fileDataStorageManager.updateFileEntity(entity);
-        }
 
         if (binding.sharesListInternal.getAdapter() instanceof ShareeListAdapter adapter) {
             adapter.remove(share);
+            if (entity != null && adapter.isAdapterEmpty()) {
+                entity.setSharedWithSharee(0);
+                fileDataStorageManager.updateFileEntity(entity);
+            }
         } else if (binding.sharesListExternal.getAdapter() instanceof ShareeListAdapter adapter) {
             adapter.remove(share);
+            if (entity != null && adapter.isAdapterEmpty()) {
+                entity.setSharedViaLink(0);
+                fileDataStorageManager.updateFileEntity(entity);
+            }
         } else {
             DisplayUtils.showSnackMessage(getView(), getString(R.string.failed_update_ui));
         }
