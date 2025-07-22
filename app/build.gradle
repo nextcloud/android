@@ -32,11 +32,11 @@ plugins {
     alias(libs.plugins.spotless)
     alias(libs.plugins.kapt)
     alias(libs.plugins.ksp) apply false
+    alias(libs.plugins.kotlin)
 }
 
 apply plugin: "com.android.application"
 
-apply plugin: "kotlin-android"
 apply plugin: "kotlin-parcelize"
 apply plugin: "checkstyle"
 apply plugin: "pmd"
@@ -123,6 +123,9 @@ android {
         testInstrumentationRunnerArgument "TEST_SERVER_PASSWORD", "${NC_TEST_SERVER_PASSWORD}"
         testInstrumentationRunnerArguments disableAnalytics: "true"
 
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunnerArguments clearPackageData: 'true'
+
         versionCode versionMajor * 10000000 + versionMinor * 10000 + versionPatch * 100 + versionBuild
 
         if (versionBuild > 89) {
@@ -182,6 +185,7 @@ android {
         }
 
         testOptions {
+            execution 'ANDROIDX_TEST_ORCHESTRATOR'
             unitTests.returnDefaultValues = true
             animationsDisabled = true
         }
@@ -450,6 +454,9 @@ tasks.withType(JavaCompile).configureEach {
 }
 
 tasks.withType(Test).configureEach {
+    // Run tests in parallel
+    maxParallelForks = Runtime.runtime.availableProcessors()
+
     // increased logging for tests
     testLogging {
         events "passed", "skipped", "failed"
