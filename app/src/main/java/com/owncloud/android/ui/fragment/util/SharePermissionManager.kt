@@ -10,9 +10,6 @@ package com.owncloud.android.ui.fragment.util
 import com.owncloud.android.datamodel.quickPermission.QuickPermissionType
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.lib.resources.shares.OCShare
-import com.owncloud.android.lib.resources.shares.attributes.ShareAttributes
-import com.owncloud.android.lib.resources.shares.attributes.ShareAttributesJsonHandler
-import com.owncloud.android.lib.resources.shares.attributes.getDownloadAttribute
 import com.owncloud.android.ui.fragment.FileDetailsSharingProcessFragment.Companion.TAG
 
 object SharePermissionManager {
@@ -65,32 +62,6 @@ object SharePermissionManager {
     }
     // endregion
 
-    // region DownloadAttribute
-    fun toggleAllowDownloadAndSync(isChecked: Boolean, share: OCShare?): String? {
-        val shareAttributes = getShareAttributes(share)?.toMutableList()
-        if (shareAttributes == null) {
-            val downloadAttribute = ShareAttributes.createDownloadAttributes(isChecked)
-            val updatedShareAttributes = listOf(downloadAttribute)
-            return ShareAttributesJsonHandler.toJson(updatedShareAttributes)
-        }
-
-        val downloadAttributeIndex = shareAttributes.indexOf(shareAttributes.getDownloadAttribute())
-        if (downloadAttributeIndex >= 0) {
-            val updatedAttribute = shareAttributes[downloadAttributeIndex].copy(value = isChecked)
-            shareAttributes[downloadAttributeIndex] = updatedAttribute
-        }
-
-        return ShareAttributesJsonHandler.toJson(shareAttributes)
-    }
-
-    fun isAllowDownloadAndSyncEnabled(share: OCShare?): Boolean =
-        getShareAttributes(share).getDownloadAttribute()?.value == true
-
-    private fun getShareAttributes(share: OCShare?): List<ShareAttributes>? = share?.attributes?.let {
-        ShareAttributesJsonHandler.toList(it)
-    }
-    // endregion
-
     // region Helper Methods
     fun canEdit(share: OCShare?): Boolean {
         if (share == null) {
@@ -100,15 +71,29 @@ object SharePermissionManager {
         return hasPermission(share.permissions, getMaximumPermission(share.isFolder))
     }
 
-    fun isViewOnly(share: OCShare?): Boolean =
-        share?.permissions != OCShare.NO_PERMISSION && share?.permissions == OCShare.READ_PERMISSION_FLAG
-
-    fun isFileRequest(share: OCShare?): Boolean {
-        if (share?.isFolder == false) {
+    fun isViewOnly(share: OCShare?): Boolean {
+        if (share == null) {
             return false
         }
 
-        return share?.permissions != OCShare.NO_PERMISSION && share?.permissions == OCShare.CREATE_PERMISSION_FLAG
+        return share.permissions != OCShare.NO_PERMISSION &&
+            (
+                share.permissions == OCShare.READ_PERMISSION_FLAG ||
+                    share.permissions == OCShare.READ_PERMISSION_FLAG + OCShare.SHARE_PERMISSION_FLAG
+                )
+    }
+
+    @Suppress("ReturnCount")
+    fun isFileRequest(share: OCShare?): Boolean {
+        if (share == null) {
+            return false
+        }
+
+        if (!share.isFolder) {
+            return false
+        }
+
+        return share.permissions != OCShare.NO_PERMISSION && share.permissions == OCShare.CREATE_PERMISSION_FLAG
     }
 
     fun isSecureFileDrop(share: OCShare?): Boolean {
@@ -131,24 +116,31 @@ object SharePermissionManager {
         QuickPermissionType.CAN_EDIT
     } else if (encrypted && isSecureFileDrop(share)) {
         QuickPermissionType.SECURE_FILE_DROP
-    } else if (isFileRequest(share)) {
-        QuickPermissionType.FILE_REQUEST
     } else if (isViewOnly(share)) {
         QuickPermissionType.VIEW_ONLY
     } else if (isCustomPermission(share)) {
         QuickPermissionType.CUSTOM_PERMISSIONS
+    } else if (isFileRequest(share)) {
+        QuickPermissionType.FILE_REQUEST
     } else {
         QuickPermissionType.NONE
     }
 
     @Suppress("ReturnCount")
     fun isCustomPermission(share: OCShare?): Boolean {
-        if (share == null) return false
+        if (share == null) {
+            return false
+        }
+
         val permissions = share.permissions
-        if (permissions == OCShare.NO_PERMISSION) return false
+        if (permissions == OCShare.NO_PERMISSION) {
+            return false
+        }
 
         val hasRead = hasPermission(permissions, OCShare.READ_PERMISSION_FLAG)
-        if (!hasRead) return false
+        if (!hasRead) {
+            return false
+        }
 
         val hasCreate = hasPermission(permissions, OCShare.CREATE_PERMISSION_FLAG)
         val hasUpdate = hasPermission(permissions, OCShare.UPDATE_PERMISSION_FLAG)
