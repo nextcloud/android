@@ -699,7 +699,6 @@ class FileDetailsSharingProcessFragment :
     }
 
     private fun showChangeNameInput(isChecked: Boolean) {
-        // shareProcessChangeNameSwitch
         binding.shareProcessChangeNameContainer.setVisibleIf(isChecked)
 
         if (!isChecked) {
