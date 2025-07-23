@@ -23,7 +23,7 @@ class AutoUploadNotificationManager(private val context: Context, viewThemeUtils
 
     @RequiresApi(Build.VERSION_CODES.R)
     fun showStoragePermissionNotification() {
-        val intent = Intent(Settings.ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION).apply {
+        val intent = Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION).apply {
             data = "package:${context.packageName}".toUri()
         }
 
