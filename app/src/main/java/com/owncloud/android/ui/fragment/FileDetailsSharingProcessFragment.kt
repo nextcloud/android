@@ -14,7 +14,6 @@ import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.utils.extensions.getParcelableArgument
@@ -29,9 +28,6 @@ import com.owncloud.android.datamodel.quickPermission.QuickPermissionType
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.lib.resources.shares.OCShare
 import com.owncloud.android.lib.resources.shares.ShareType
-import com.owncloud.android.lib.resources.shares.extensions.isAllowDownloadAndSyncEnabled
-import com.owncloud.android.lib.resources.shares.extensions.toggleAllowDownloadAndSync
-import com.owncloud.android.lib.resources.status.NextcloudVersion
 import com.owncloud.android.lib.resources.status.OCCapability
 import com.owncloud.android.ui.activity.FileActivity
 import com.owncloud.android.ui.dialog.ExpirationDatePickerDialogFragment
@@ -166,7 +162,7 @@ class FileDetailsSharingProcessFragment :
 
         permission = share?.permissions
             ?: capabilities.defaultPermissions
-            ?: SharePermissionManager.getMaximumPermission(isFolder())
+                ?: SharePermissionManager.getMaximumPermission(isFolder())
     }
 
     private fun initArguments() {
@@ -206,7 +202,7 @@ class FileDetailsSharingProcessFragment :
         setCheckboxStates()
         themeView()
         setVisibilitiesOfShareOption()
-        toggleNextButtonAvailability(isAnySharePermissionChecked())
+        toggleNextButtonAvailability(isAnyShareOptionChecked())
         logShareInfo()
     }
 
@@ -330,7 +326,7 @@ class FileDetailsSharingProcessFragment :
 
     private fun updateViewAccordingToFile() {
         file?.run {
-            if (isFolder) {
+            if (isFolder == true) {
                 updateViewForFolder()
             } else {
                 updateViewForFile()
@@ -584,22 +580,20 @@ class FileDetailsSharingProcessFragment :
         }
     }
 
-    private fun isAnyShareOptionChecked(): Boolean {
-        return binding.run {
-            val isCustomPermissionChecked = customPermissionRadioButton.isChecked &&
-                (
-                    shareReadCheckbox.isChecked ||
-                        shareCreateCheckbox.isChecked ||
-                        shareEditCheckbox.isChecked ||
-                        shareCheckbox.isChecked ||
-                        shareDeleteCheckbox.isChecked
-                    )
+    private fun isAnyShareOptionChecked(): Boolean = binding.run {
+        val isCustomPermissionChecked = customPermissionRadioButton.isChecked &&
+            (
+                shareReadCheckbox.isChecked ||
+                    shareCreateCheckbox.isChecked ||
+                    shareEditCheckbox.isChecked ||
+                    shareCheckbox.isChecked ||
+                    shareDeleteCheckbox.isChecked
+                )
 
-            viewOnlyRadioButton.isChecked ||
-                canEditRadioButton.isChecked ||
-                fileRequestRadioButton.isChecked ||
-                isCustomPermissionChecked
-        }
+        viewOnlyRadioButton.isChecked ||
+            canEditRadioButton.isChecked ||
+            fileRequestRadioButton.isChecked ||
+            isCustomPermissionChecked
     }
 
     private fun toggleNextButtonAvailability(value: Boolean) {
@@ -633,8 +627,7 @@ class FileDetailsSharingProcessFragment :
                 }
 
                 if (!isPublicShare()) {
-                    shareAllowDownloadAndSyncCheckbox.isChecked =
-                        share?.isAllowDownloadAndSyncEnabled(useV2DownloadAttributes()) == true
+                    shareAllowDownloadAndSyncCheckbox.isChecked = isAllowDownloadAndSyncEnabled(share)
                 }
             }
         }
@@ -657,7 +650,7 @@ class FileDetailsSharingProcessFragment :
 
         if (!isPublicShare()) {
             binding.shareAllowDownloadAndSyncCheckbox.setOnCheckedChangeListener { _, isChecked ->
-                val result = toggleAllowDownloadAndSync(share?.attributes, isChecked, useV2DownloadAttributes())
+                val result = SharePermissionManager.toggleAllowDownloadAndSync(isChecked, share)
                 share?.attributes = result
                 downloadAttribute = result
             }
@@ -771,14 +764,6 @@ class FileDetailsSharingProcessFragment :
             return
         }
 
-        if (!isSharePermissionChecked() && !isCustomPermissionSelectedAndAnyCustomPermissionTypeChecked()) {
-            DisplayUtils.showSnackMessage(
-                binding.root,
-                R.string.file_details_sharing_fragment_custom_permission_not_selected
-            )
-            return
-        }
-
         // if modifying existing share information then execute the process
         if (share != null) {
             updateShare()
@@ -791,7 +776,7 @@ class FileDetailsSharingProcessFragment :
 
     @Suppress("ReturnCount")
     private fun createShareOrUpdateNoteShare() {
-        if (!isAnySharePermissionChecked()) {
+        if (!isAnyShareOptionChecked()) {
             DisplayUtils.showSnackMessage(requireActivity(), R.string.share_option_required)
             return
         }
@@ -912,9 +897,5 @@ class FileDetailsSharingProcessFragment :
         (isPublicShare() && capabilities.filesDownloadLimit.isTrue && share?.isFolder == false)
 
     private fun isPublicShare(): Boolean = (shareType == ShareType.PUBLIC_LINK)
-
-    private fun useV2DownloadAttributes(): Boolean = capabilities.version
-        .isNewerOrEqual(NextcloudVersion.nextcloud_30)
-
     // endregion
 }
