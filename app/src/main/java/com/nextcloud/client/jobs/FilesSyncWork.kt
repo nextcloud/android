@@ -45,7 +45,6 @@ import java.text.ParsePosition
 import java.text.SimpleDateFormat
 import java.util.Locale
 import java.util.TimeZone
-import kotlin.random.Random
 
 @Suppress("LongParameterList") // legacy code
 class FilesSyncWork(
@@ -66,10 +65,11 @@ class FilesSyncWork(
         const val OVERRIDE_POWER_SAVING = "overridePowerSaving"
         const val CHANGED_FILES = "changedFiles"
         const val SYNCED_FOLDER_ID = "syncedFolderId"
+        private const val NOTIFICATION_ID = 312
     }
 
     private lateinit var syncedFolder: SyncedFolder
-    private val notificationManager = AutoUploadNotificationManager(context, viewThemeUtils, Random.nextInt())
+    private val notificationManager = AutoUploadNotificationManager(context, viewThemeUtils, NOTIFICATION_ID)
 
     @Suppress("MagicNumber", "ReturnCount", "LongMethod")
     override fun doWork(): Result {
