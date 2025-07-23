@@ -270,6 +270,10 @@
             tools:replace="android:exported" />
 
         <receiver
+            android:name="com.nextcloud.client.jobs.autoUpload.AutoUploadBroadcastReceiver"
+            android:exported="false" />
+
+        <receiver
             android:name="com.nextcloud.receiver.OfflineOperationActionReceiver"
             android:exported="false" />
         <receiver
