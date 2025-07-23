@@ -1352,5 +1352,5 @@
 
     <string name="auto_upload_ticker_id">Auto Upload</string>
     <string name="auto_upload_missing_storage_permission_title">Auto Upload Stopped – Storage Permission Required</string>
-    <string name="auto_upload_missing_storage_permission_description">Your files can't be uploaded without access to local storage. Tap to grant permission.</string>
+    <string name="auto_upload_missing_storage_permission_description">Your files cannot be uploaded without access to local storage. Tap to grant permission.</string>
 </resources>
