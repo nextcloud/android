@@ -24,12 +24,12 @@ steps:
       - scripts/checkIfRunDrone.sh $DRONE_PULL_REQUEST || exit 0
       - emulator -avd android -no-snapshot -gpu swiftshader_indirect -no-window -no-audio -skin 500x833 &
       - sed -i s'#<bool name="is_beta">false</bool>#<bool name="is_beta">true</bool>#'g app/src/main/res/values/setup.xml
-      - timeout 45m ./gradlew assembleGplayDebugAndroidTest
-      - timeout 45m scripts/wait_for_emulator.sh
-      - timeout 45m ./gradlew installGplayDebugAndroidTest
-      - timeout 45m scripts/wait_for_server.sh "server"
-      - timeout 45m scripts/deleteOldComments.sh "stable" "IT" $DRONE_PULL_REQUEST
-      - timeout 40m ./gradlew createGplayDebugCoverageReport -Pcoverage -Pandroid.testInstrumentationRunnerArguments.notAnnotation=com.owncloud.android.utils.ScreenshotTest || scripts/uploadReport.sh $LOG_USERNAME $LOG_PASSWORD $DRONE_BUILD_NUMBER "stable" "IT" $DRONE_PULL_REQUEST
+      - ./gradlew assembleGplayDebugAndroidTest
+      - scripts/wait_for_emulator.sh
+      - ./gradlew installGplayDebugAndroidTest
+      - scripts/wait_for_server.sh "server"
+      - scripts/deleteOldComments.sh "stable" "IT" $DRONE_PULL_REQUEST
+      - ./gradlew createGplayDebugCoverageReport -Pcoverage -Pandroid.testInstrumentationRunnerArguments.notAnnotation=com.owncloud.android.utils.ScreenshotTest || scripts/uploadReport.sh $LOG_USERNAME $LOG_PASSWORD $DRONE_BUILD_NUMBER "stable" "IT" $DRONE_PULL_REQUEST
 
 services:
   - name: server
