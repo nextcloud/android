@@ -60,6 +60,7 @@ import javax.inject.Inject
  * Starts query to all capable unified search providers and displays them Opens result in our app, redirect to other
  * apps, if installed, or opens browser
  */
+@Suppress("TooManyFunctions")
 class UnifiedSearchFragment :
     Fragment(),
     Injectable,
@@ -185,6 +186,62 @@ class UnifiedSearchFragment :
             isIconified = false
             clearFocus()
             setSearchAction(this)
+            setCloseAction(this)
+        }
+    }
+
+    private fun setCloseAction(searchView: SearchView) {
+        val closeButton = searchView.findViewById<ImageView>(androidx.appcompat.R.id.search_close_btn)
+        closeButton?.setOnClickListener {
+            searchView.run {
+                setQuery("", false)
+                clearFocus()
+            }
+
+            vm.setQuery("")
+            adapter.setData(emptyList())
+
+            showStartYourSearch()
+            showKeyboard(searchView)
+        }
+    }
+
+    private fun makeEmptyListVisible() {
+        binding.emptyList.run {
+            root.visibility = View.VISIBLE
+            emptyListIcon.visibility = View.VISIBLE
+            emptyListViewHeadline.visibility = View.VISIBLE
+            emptyListViewText.visibility = View.VISIBLE
+            emptyListIcon.visibility = View.VISIBLE
+        }
+    }
+
+    private fun showStartYourSearch() {
+        makeEmptyListVisible()
+
+        binding.emptyList.run {
+            emptyListViewHeadline.text = getString(R.string.file_list_empty_unified_search_start_search)
+            emptyListViewText.text = getString(R.string.file_list_empty_unified_search_start_search_description)
+            emptyListIcon.setImageDrawable(
+                viewThemeUtils.platform.tintDrawable(
+                    requireContext(),
+                    R.drawable.ic_search_grey
+                )
+            )
+        }
+    }
+
+    private fun showNoResult() {
+        makeEmptyListVisible()
+
+        binding.emptyList.run {
+            emptyListViewHeadline.text =
+                requireContext().getString(R.string.file_list_empty_headline_server_search)
+            emptyListViewText.text =
+                requireContext().getString(R.string.file_list_empty_unified_search_no_results)
+            emptyListIcon.setImageDrawable(
+                viewThemeUtils.platform.tintDrawable(requireContext(), R.drawable.ic_search_grey)
+            )
         }
     }
 
@@ -214,6 +271,17 @@ class UnifiedSearchFragment :
         }
     }
 
+    private fun showKeyboard(searchView: SearchView) {
+        val searchEditText = searchView.findViewById<EditText>(androidx.appcompat.R.id.search_src_text)
+        searchEditText?.apply {
+            requestFocus()
+            post {
+                val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                imm.showSoftInput(this, InputMethodManager.SHOW_IMPLICIT)
+            }
+        }
+    }
+
     private fun setUpViewModel() {
         vm.searchResults.observe(this, this::onSearchResultChanged)
         vm.isLoading.observe(this) { loading ->
@@ -229,19 +297,7 @@ class UnifiedSearchFragment :
                 }
 
                 if (count == 0 && pair.first?.isNotEmpty() == true && context != null) {
-                    binding.emptyList.root.visibility = View.VISIBLE
-                    binding.emptyList.emptyListIcon.visibility = View.VISIBLE
-                    binding.emptyList.emptyListViewHeadline.visibility = View.VISIBLE
-                    binding.emptyList.emptyListViewText.visibility = View.VISIBLE
-                    binding.emptyList.emptyListIcon.visibility = View.VISIBLE
-
-                    binding.emptyList.emptyListViewHeadline.text =
-                        requireContext().getString(R.string.file_list_empty_headline_server_search)
-                    binding.emptyList.emptyListViewText.text =
-                        requireContext().getString(R.string.file_list_empty_unified_search_no_results)
-                    binding.emptyList.emptyListIcon.setImageDrawable(
-                        viewThemeUtils.platform.tintDrawable(requireContext(), R.drawable.ic_search_grey)
-                    )
+                    showNoResult()
                 }
             }
         }
