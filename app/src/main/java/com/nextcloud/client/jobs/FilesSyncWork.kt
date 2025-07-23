@@ -65,7 +65,7 @@ class FilesSyncWork(
         const val OVERRIDE_POWER_SAVING = "overridePowerSaving"
         const val CHANGED_FILES = "changedFiles"
         const val SYNCED_FOLDER_ID = "syncedFolderId"
-        private const val NOTIFICATION_ID = 312
+        const val NOTIFICATION_ID = 312
     }
 
     private lateinit var syncedFolder: SyncedFolder
