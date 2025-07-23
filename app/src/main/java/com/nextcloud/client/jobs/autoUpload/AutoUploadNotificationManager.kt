@@ -11,9 +11,8 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.os.Build
-import android.provider.Settings
 import androidx.annotation.RequiresApi
-import androidx.core.net.toUri
+import androidx.core.app.NotificationCompat
 import com.nextcloud.client.jobs.notification.WorkerNotificationManager
 import com.owncloud.android.R
 import com.owncloud.android.utils.theme.ViewThemeUtils
@@ -23,22 +22,26 @@ class AutoUploadNotificationManager(private val context: Context, viewThemeUtils
 
     @RequiresApi(Build.VERSION_CODES.R)
     fun showStoragePermissionNotification() {
-        val intent = Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION).apply {
-            data = "package:${context.packageName}".toUri()
-        }
+        val intent = Intent(context, AutoUploadBroadcastReceiver::class.java)
 
-        val pendingIntent = PendingIntent.getActivity(
+        val pendingIntent = PendingIntent.getBroadcast(
             context,
             0,
             intent,
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )
 
+        val action = NotificationCompat.Action(
+            null,
+            context.getString(R.string.common_ok),
+            pendingIntent
+        )
+
         notificationBuilder.run {
             setSmallIcon(android.R.drawable.stat_sys_warning)
             setContentTitle(context.getString(R.string.auto_upload_missing_storage_permission_title))
             setContentText(context.getString(R.string.auto_upload_missing_storage_permission_description))
-            setContentIntent(pendingIntent)
+            addAction(action)
         }
 
         showNotification()
