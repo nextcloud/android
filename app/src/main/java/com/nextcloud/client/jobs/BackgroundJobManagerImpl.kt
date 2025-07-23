@@ -579,10 +579,23 @@ internal class BackgroundJobManagerImpl(
         return workManager.isWorkScheduled(startFileUploadJobTag(user))
     }
 
-    override fun startFilesUploadJob(user: User) {
-        val data = workDataOf(FileUploadWorker.ACCOUNT to user.accountName)
-
+    /**
+     * This method supports initiating uploads for various scenarios, including:
+     * - New upload batches
+     * - Failed uploads
+     * - FilesSyncWork
+     * - ...
+     *
+     * @param user The user for whom the upload job is being created.
+     * @param uploadIds Array of upload IDs to be processed. These IDs originate from multiple sources
+     *                  and cannot be determined directly from the account name or a single function
+     *                  within the worker.
+     */
+    override fun startFilesUploadJob(user: User, uploadIds: LongArray) {
         val tag = startFileUploadJobTag(user)
+        val dataBuilder = Data.Builder()
+            .putString(FileUploadWorker.ACCOUNT, user.accountName)
+            .putLongArray(FileUploadWorker.UPLOAD_IDS, uploadIds)
 
         val constraints = Constraints.Builder()
             .setRequiredNetworkType(NetworkType.CONNECTED)
@@ -590,11 +603,11 @@ internal class BackgroundJobManagerImpl(
 
         val request = oneTimeRequestBuilder(FileUploadWorker::class, JOB_FILES_UPLOAD, user)
             .addTag(tag)
-            .setInputData(data)
+            .setInputData(dataBuilder.build())
             .setConstraints(constraints)
             .build()
 
-        workManager.enqueueUniqueWork(tag, ExistingWorkPolicy.KEEP, request)
+        workManager.enqueueUniqueWork(tag, ExistingWorkPolicy.APPEND_OR_REPLACE, request)
     }
 
     private fun startFileDownloadJobTag(user: User, fileId: Long): String {

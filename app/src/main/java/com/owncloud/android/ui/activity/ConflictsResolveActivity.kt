@@ -226,7 +226,8 @@ class ConflictsResolveActivity : FileActivity(), OnConflictDecisionMadeListener 
 
             UploadNotificationManager(
                 applicationContext,
-                viewThemeUtils
+                viewThemeUtils,
+                upload.uploadId.toInt()
             ).dismissOldErrorNotification(it.remotePath, it.localPath)
         }
     }
