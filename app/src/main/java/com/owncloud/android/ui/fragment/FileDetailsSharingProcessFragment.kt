@@ -367,6 +367,22 @@ class FileDetailsSharingProcessFragment :
         showExpirationDateInput(binding.shareProcessSetExpDateSwitch.isChecked)
         updateFileDownloadLimitView()
         showFileDownloadLimitInput(binding.shareProcessSetDownloadLimitSwitch.isChecked)
+        maskPasswordInput()
+    }
+
+    private fun maskPasswordInput() {
+        if (share?.isPasswordProtected == false) {
+            return
+        }
+
+        binding.shareProcessEnterPassword.run {
+            setText("••••••")
+            setOnFocusChangeListener { _, hasFocus ->
+                if (hasFocus) {
+                    text?.clear()
+                }
+            }
+        }
     }
 
     private fun selectRadioButtonAccordingToPermission() {
@@ -683,6 +699,7 @@ class FileDetailsSharingProcessFragment :
     }
 
     private fun showChangeNameInput(isChecked: Boolean) {
+        // shareProcessChangeNameSwitch
         binding.shareProcessChangeNameContainer.setVisibleIf(isChecked)
 
         if (!isChecked) {
