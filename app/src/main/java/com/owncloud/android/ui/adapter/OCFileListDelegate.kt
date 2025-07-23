@@ -100,7 +100,8 @@ class OCFileListDelegate(
         imageView: ImageView,
         file: OCFile,
         galleryRowHolder: GalleryRowHolder,
-        width: Int
+        width: Int,
+        height: Int
     ) {
         imageView.tag = file.fileId
 
@@ -109,7 +110,8 @@ class OCFileListDelegate(
             imageView,
             shimmer,
             galleryRowHolder,
-            width
+            width,
+            height
         )
 
         imageView.setOnClickListener {
@@ -132,13 +134,14 @@ class OCFileListDelegate(
     private fun getGalleryDrawable(
         file: OCFile,
         width: Int,
+        height: Int,
         task: ThumbnailsCacheManager.GalleryImageGenerationTask
     ): ThumbnailsCacheManager.AsyncGalleryImageDrawable {
         val drawable = MimeTypeUtil.getFileTypeIcon(file.mimeType, file.fileName, context, viewThemeUtils)
             ?: ResourcesCompat.getDrawable(context.resources, R.drawable.file_image, null)
             ?: Color.GRAY.toDrawable()
 
-        val thumbnail = BitmapUtils.drawableToBitmap(drawable, width / 2, width / 2)
+        val thumbnail = BitmapUtils.drawableToBitmap(drawable, width / 2, height / 2)
 
         return ThumbnailsCacheManager.AsyncGalleryImageDrawable(context.resources, thumbnail, task)
     }
@@ -149,7 +152,8 @@ class OCFileListDelegate(
         thumbnailView: ImageView,
         shimmerThumbnail: LoaderImageView?,
         galleryRowHolder: GalleryRowHolder,
-        width: Int
+        width: Int,
+        height: Int
     ) {
         if (!ThumbnailsCacheManager.cancelPotentialThumbnailWork(file, thumbnailView)) {
             Log_OC.d(tag, "setGalleryImage.cancelPotentialThumbnailWork()")
@@ -172,7 +176,7 @@ class OCFileListDelegate(
                 ContextCompat.getColor(context, R.color.bg_default)
             )
 
-            val asyncDrawable = getGalleryDrawable(file, width, task)
+            val asyncDrawable = getGalleryDrawable(file, width, height, task)
 
             if (shimmerThumbnail != null) {
                 Log_OC.d(tag, "setGalleryImage.startShimmer()")

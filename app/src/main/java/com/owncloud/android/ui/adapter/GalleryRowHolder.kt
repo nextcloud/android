@@ -130,9 +130,11 @@ class GalleryRowHolder(
     private fun computeMultiFileShrinkRatio(row: GalleryRow, screenWidth: Float): Float {
         var newSummedWidth = 0f
 
+        val maxHeight = row.getMaxHeight()
+
         for (file in row.files) {
             val (width, height) = OCFileUtils.getImageSize(file, defaultThumbnailSize)
-            val scaleFactor = row.getMaxHeight() / height
+            val scaleFactor = maxHeight / height
             val newWidth = width * scaleFactor
             val newHeight = height * scaleFactor
 
@@ -172,7 +174,6 @@ class GalleryRowHolder(
         val shimmer = frameLayout[0] as LoaderImageView
         val thumbnail = (frameLayout[1] as ImageView).apply {
             adjustViewBounds = true
-            scaleType = ImageView.ScaleType.FIT_XY
         }
         val isChecked = ocFileListDelegate.isCheckedFile(file)
 
@@ -184,7 +185,8 @@ class GalleryRowHolder(
             thumbnail,
             file,
             this,
-            width
+            width,
+            height
         )
 
         val params = FrameLayout.LayoutParams(width, height)
