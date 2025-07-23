@@ -312,14 +312,14 @@ dependencies {
     implementation "androidx.webkit:webkit:1.14.0"
     implementation "androidx.cardview:cardview:1.0.0"
     implementation "androidx.exifinterface:exifinterface:1.4.1"
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.9.1"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.9.2"
     implementation "androidx.lifecycle:lifecycle-service:2.9.2"
     implementation "androidx.work:work-runtime:$workRuntime"
     implementation "androidx.work:work-runtime-ktx:$workRuntime"
     implementation "androidx.fragment:fragment-ktx:1.8.8"
     implementation "com.github.albfernandez:juniversalchardet:2.5.0" // need this version for Android <7
     compileOnly "com.google.code.findbugs:annotations:3.0.1u2"
-    implementation "commons-io:commons-io:2.19.0"
+    implementation "commons-io:commons-io:2.20.0"
     implementation "org.greenrobot:eventbus:3.3.1"
     implementation "com.googlecode.ez-vcard:ez-vcard:0.12.1"
     implementation "org.lukhnos:nnio:0.3.1"
@@ -334,7 +334,7 @@ dependencies {
     implementation "com.caverock:androidsvg:1.4"
     implementation "androidx.annotation:annotation:1.9.1"
     implementation "com.vanniktech:emoji-google:0.21.0"
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.9.1")
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.9.2")
 
     // document scanner not available on FDroid (generic) due to OpenCV binaries
     gplayImplementation project(":appscan")
@@ -342,7 +342,7 @@ dependencies {
     qaImplementation project(":appscan")
 
     spotbugsPlugins "com.h3xstream.findsecbugs:findsecbugs-plugin:1.14.0"
-    spotbugsPlugins "com.mebigfatguy.fb-contrib:fb-contrib:7.6.11"
+    spotbugsPlugins "com.mebigfatguy.fb-contrib:fb-contrib:7.6.12"
 
     implementation "com.google.dagger:dagger:$daggerVersion"
     implementation "com.google.dagger:dagger-android:$daggerVersion"

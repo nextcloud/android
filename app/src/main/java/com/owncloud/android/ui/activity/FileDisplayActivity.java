@@ -1199,19 +1199,14 @@ public class FileDisplayActivity extends FileActivity
         mDownloadFinishReceiver = new DownloadFinishReceiver();
         localBroadcastManager.registerReceiver(mDownloadFinishReceiver, downloadIntentFilter);
 
+        checkAndSetMenuItemId();
+
         if (menuItemId == Menu.NONE) {
             setDrawerAllFiles();
         } else {
-            if (menuItemId == R.id.nav_all_files || menuItemId == R.id.nav_personal_files) {
-                setupHomeSearchToolbarWithSortAndListButtons();
-            } else {
-                setupToolbar();
-            }
+            configureToolbar();
         }
 
-        if (ocFileListFragment instanceof GalleryFragment) {
-            updateActionBarTitleAndHomeButtonByString(getString(R.string.drawer_item_gallery));
-        }
         //show in-app review dialog to user
         inAppReviewHelper.showInAppReview(this);
 
@@ -1219,7 +1214,8 @@ public class FileDisplayActivity extends FileActivity
 
         Log_OC.v(TAG, "onResume() end");
     }
-    private void setDrawerAllFiles() {
+
+    private void checkAndSetMenuItemId() {
         if (MainApp.isOnlyPersonFiles()) {
             menuItemId = R.id.nav_personal_files;
         } else if (MainApp.isOnlyOnDevice()) {
@@ -1227,7 +1223,36 @@ public class FileDisplayActivity extends FileActivity
         } else if (menuItemId == Menu.NONE) {
             menuItemId = R.id.nav_all_files;
         }
+    }
 
+    private void configureToolbar() {
+        // Other activities menuItemIds must be excluded to show correct toolbar.
+        final var excludedMenuItemIds = new ArrayList<>();
+        excludedMenuItemIds.add(R.id.nav_community);
+        excludedMenuItemIds.add(R.id.nav_trashbin);
+        excludedMenuItemIds.add(R.id.nav_uploads);
+        excludedMenuItemIds.add(R.id.nav_activity);
+        excludedMenuItemIds.add(R.id.nav_settings);
+        excludedMenuItemIds.add(R.id.nav_assistant);
+
+        boolean isSearchEventExists = false;
+        if (getLeftFragment() instanceof OCFileListFragment fileListFragment) {
+            isSearchEventExists = (fileListFragment.getSearchEvent() != null);
+        }
+
+        if (!(getLeftFragment() instanceof GalleryFragment) &&
+            (!isSearchEventExists ||
+                menuItemId == R.id.nav_all_files ||
+                menuItemId == R.id.nav_personal_files ||
+                excludedMenuItemIds.contains(menuItemId))) {
+            setupHomeSearchToolbarWithSortAndListButtons();
+        } else {
+            setupToolbar();
+        }
+    }
+
+    private void setDrawerAllFiles() {
+        checkAndSetMenuItemId();
         setNavigationViewItemChecked();
 
         if (MainApp.isOnlyOnDevice()) {
@@ -1330,10 +1355,11 @@ public class FileDisplayActivity extends FileActivity
 
         OCFile currentFile = (getFile() == null) ? null : getStorageManager().getFileByPath(getFile().getRemotePath());
         final OCFile currentDir = (getCurrentDir() == null) ? null : getStorageManager().getFileByPath(getCurrentDir().getRemotePath());
+        final boolean isSyncFolderRemotePathRoot = OCFile.ROOT_PATH.equals(syncFolderRemotePath);
 
-        if (currentDir == null) {
+        if (currentDir == null && !isSyncFolderRemotePathRoot) {
             handleRemovedFolder(syncFolderRemotePath);
-        } else {
+        } else if (currentDir != null) {
             currentFile = handleRemovedFileFromServer(currentFile, currentDir);
             updateFileList(fileListFragment, currentDir, syncFolderRemotePath);
             setFile(currentFile);
@@ -1513,24 +1539,28 @@ public class FileDisplayActivity extends FileActivity
             }
 
             boolean uploadWasFine = intent.getBooleanExtra(FileUploadWorker.EXTRA_UPLOAD_RESULT, false);
-            boolean renamedInUpload = getFile().getRemotePath().equals(intent.getStringExtra(FileUploadWorker.EXTRA_OLD_REMOTE_PATH));
 
-            boolean sameFile = getFile().getRemotePath().equals(uploadedRemotePath) || renamedInUpload;
-            Fragment details = getLeftFragment();
+            boolean renamedInUpload = false;
+            boolean sameFile = false;
+            if (getFile() != null) {
+                renamedInUpload = getFile().getRemotePath().equals(intent.getStringExtra(FileUploadWorker.EXTRA_OLD_REMOTE_PATH));
+                sameFile = getFile().getRemotePath().equals(uploadedRemotePath) || renamedInUpload;
+            }
 
-            if (sameAccount && sameFile && details instanceof FileDetailFragment) {
+            if (sameAccount && sameFile && getLeftFragment() instanceof FileDetailFragment fileDetailFragment) {
                 if (uploadWasFine) {
                     setFile(getStorageManager().getFileByPath(uploadedRemotePath));
                 } else {
                     //TODO remove upload progress bar after upload failed.
                     Log_OC.d(TAG, "Remove upload progress bar after upload failed");
                 }
-                if (renamedInUpload) {
+                if (renamedInUpload && !TextUtils.isEmpty(uploadedRemotePath)) {
                     String newName = new File(uploadedRemotePath).getName();
                     DisplayUtils.showSnackMessage(getActivity(), R.string.filedetails_renamed_in_upload_msg, newName);
                 }
-                if (uploadWasFine || getFile().fileExists()) {
-                    ((FileDetailFragment) details).updateFileDetails(false, true);
+
+                if (uploadWasFine || getFile() != null && getFile().fileExists()) {
+                    fileDetailFragment.updateFileDetails(false, true);
                 } else {
                     onBackPressed();
                 }
@@ -1546,6 +1576,7 @@ public class FileDisplayActivity extends FileActivity
                     // TODO what about other kind of previews?
                 }
             }
+
             OCFileListFragment ocFileListFragment = getListOfFilesFragment();
             if (ocFileListFragment != null) {
                 ocFileListFragment.setLoading(false);

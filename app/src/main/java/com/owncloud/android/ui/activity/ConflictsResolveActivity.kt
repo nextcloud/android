@@ -45,6 +45,7 @@ import com.owncloud.android.ui.notifications.NotificationUtils
 import com.owncloud.android.utils.FileStorageUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 /**
@@ -125,9 +126,11 @@ class ConflictsResolveActivity :
                 else -> Unit
             }
 
-            val oldFile = storageManager.getFileByDecryptedRemotePath(upload?.remotePath)
+            upload?.remotePath?.let { oldFilePath ->
+                val oldFile = storageManager.getFileByDecryptedRemotePath(oldFilePath)
+                updateThumbnailIfNeeded(decision, file, oldFile)
+            }
 
-            updateThumbnailIfNeeded(decision, file, oldFile)
             dismissConflictResolveNotification(file)
             finish()
         }
@@ -172,11 +175,17 @@ class ConflictsResolveActivity :
         offlineOperation ?: return
 
         lifecycleScope.launch(Dispatchers.IO) {
-            val isSuccess = fileOperationHelper.removeFile(serverFile, false, false)
+            val client = clientRepository.getOwncloudClient() ?: return@launch
+            val isSuccess = fileOperationHelper.removeFile(
+                serverFile,
+                onlyLocalCopy = false,
+                inBackground = false,
+                client = client
+            )
+
             if (isSuccess) {
                 backgroundJobManager.startOfflineOperations()
-
-                launch(Dispatchers.Main) {
+                withContext(Dispatchers.Main) {
                     offlineOperationNotificationManager.dismissNotification(offlineOperation.id)
                 }
             }
@@ -226,7 +235,8 @@ class ConflictsResolveActivity :
 
             UploadNotificationManager(
                 applicationContext,
-                viewThemeUtils
+                viewThemeUtils,
+                upload.uploadId.toInt()
             ).dismissOldErrorNotification(it.remotePath, it.localPath)
         }
     }

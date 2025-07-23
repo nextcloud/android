@@ -541,25 +541,24 @@ public abstract class FileActivity extends DrawerActivity
         }
     }
 
-
     /**
      * Show loading dialog
      */
     public void showLoadingDialog(String message) {
-        dismissLoadingDialog();
-
         runOnUiThread(() -> {
             FragmentManager fragmentManager = getSupportFragmentManager();
-            Fragment fragment = fragmentManager.findFragmentByTag(DIALOG_WAIT_TAG);
-            if (fragment == null) {
+            Fragment existingDialog = fragmentManager.findFragmentByTag(DIALOG_WAIT_TAG);
+
+            if (existingDialog instanceof LoadingDialog loadingDialog) {
+                Log_OC.d(TAG, "dismiss previous loading dialog");
+                loadingDialog.dismiss();
+            }
+
+            // Show new dialog
+            if (!fragmentManager.isStateSaved()) {
                 Log_OC.d(TAG, "show loading dialog");
                 LoadingDialog loadingDialogFragment = LoadingDialog.newInstance(message);
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                boolean isDialogFragmentReady = ActivityExtensionsKt.isDialogFragmentReady(this, loadingDialogFragment);
-                if (isDialogFragmentReady) {
-                    fragmentTransaction.add(loadingDialogFragment, DIALOG_WAIT_TAG);
-                    fragmentTransaction.commitNow();
-                }
+                loadingDialogFragment.show(fragmentManager, DIALOG_WAIT_TAG);
             }
         });
     }
@@ -571,13 +570,16 @@ public abstract class FileActivity extends DrawerActivity
         runOnUiThread(() -> {
             FragmentManager fragmentManager = getSupportFragmentManager();
             Fragment fragment = fragmentManager.findFragmentByTag(DIALOG_WAIT_TAG);
-            if (fragment != null) {
+
+            if (fragment instanceof LoadingDialog loadingDialogFragment) {
                 Log_OC.d(TAG, "dismiss loading dialog");
-                LoadingDialog loadingDialogFragment = (LoadingDialog) fragment;
-                boolean isDialogFragmentReady = ActivityExtensionsKt.isDialogFragmentReady(this, loadingDialogFragment);
-                if (isDialogFragmentReady) {
+
+                // Avoid dismissing after state is saved
+                if (!fragmentManager.isStateSaved()) {
                     loadingDialogFragment.dismiss();
-                    fragmentManager.executePendingTransactions();
+                } else {
+                    // Dismiss allowing state loss if needed
+                    loadingDialogFragment.dismissAllowingStateLoss();
                 }
             }
         });
