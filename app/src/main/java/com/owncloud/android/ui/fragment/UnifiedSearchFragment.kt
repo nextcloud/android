@@ -202,6 +202,7 @@ class UnifiedSearchFragment :
             adapter.setData(emptyList())
 
             showStartYourSearch()
+            showKeyboard(searchView)
         }
     }
 
@@ -267,6 +268,17 @@ class UnifiedSearchFragment :
 
         searchView.setOnQueryTextFocusChangeListener { _, hasFocus ->
             searchEditText.isCursorVisible = hasFocus
+        }
+    }
+
+    private fun showKeyboard(searchView: SearchView) {
+        val searchEditText = searchView.findViewById<EditText>(androidx.appcompat.R.id.search_src_text)
+        searchEditText?.apply {
+            requestFocus()
+            post {
+                val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                imm.showSoftInput(this, InputMethodManager.SHOW_IMPLICIT)
+            }
         }
     }
 
