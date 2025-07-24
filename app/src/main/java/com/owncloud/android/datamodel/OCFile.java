@@ -1139,4 +1139,9 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
     public void setUploadTimestamp(long uploadTimestamp) {
         this.uploadTimestamp = uploadTimestamp;
     }
+
+    public boolean exists() {
+        final String storagePath = getStoragePath();
+        return storagePath != null && new File(storagePath).exists();
+    }
 }
