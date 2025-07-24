@@ -11,6 +11,7 @@ import android.content.Context
 import android.graphics.drawable.Drawable
 import androidx.core.content.ContextCompat
 import com.owncloud.android.R
+import com.owncloud.android.lib.resources.shares.OCShare
 
 enum class QuickPermissionType(
     val iconId: Int,
@@ -27,20 +28,27 @@ enum class QuickPermissionType(
 
     fun getIcon(context: Context): Drawable? = ContextCompat.getDrawable(context, iconId)
 
-    companion object {
-        fun getAvailablePermissions(
-            hasFileRequestPermission: Boolean,
-            selectedType: QuickPermissionType
-        ): List<QuickPermission> {
-            val permissions = listOf(VIEW_ONLY, CAN_EDIT, FILE_REQUEST, CUSTOM_PERMISSIONS)
-            val result = if (hasFileRequestPermission) permissions else permissions.filter { it != FILE_REQUEST }
+    fun getPermissionFlag(isFolder: Boolean): Int = when (this) {
+        NONE -> OCShare.NO_PERMISSION
+        VIEW_ONLY -> OCShare.READ_PERMISSION_FLAG
+        CAN_EDIT -> if (isFolder) OCShare.MAXIMUM_PERMISSIONS_FOR_FOLDER else OCShare.MAXIMUM_PERMISSIONS_FOR_FILE
+        FILE_REQUEST -> OCShare.CREATE_PERMISSION_FLAG
+        SECURE_FILE_DROP -> OCShare.CREATE_PERMISSION_FLAG + OCShare.READ_PERMISSION_FLAG
+        else -> {
+            // Custom permission's flag can't be determined
+            OCShare.NO_PERMISSION
+        }
+    }
 
-            return result.map { type ->
-                QuickPermission(
-                    type = type,
-                    isSelected = (type == selectedType)
-                )
-            }
+    fun getAvailablePermissions(hasFileRequestPermission: Boolean): List<QuickPermission> {
+        val permissions = listOf(VIEW_ONLY, CAN_EDIT, FILE_REQUEST, CUSTOM_PERMISSIONS)
+        val result = if (hasFileRequestPermission) permissions else permissions.filter { it != FILE_REQUEST }
+
+        return result.map { type ->
+            QuickPermission(
+                type = type,
+                isSelected = (type == this)
+            )
         }
     }
 }
