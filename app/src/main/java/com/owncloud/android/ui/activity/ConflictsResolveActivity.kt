@@ -45,6 +45,7 @@ import com.owncloud.android.ui.notifications.NotificationUtils
 import com.owncloud.android.utils.FileStorageUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 /**
@@ -172,11 +173,17 @@ class ConflictsResolveActivity : FileActivity(), OnConflictDecisionMadeListener 
         offlineOperation ?: return
 
         lifecycleScope.launch(Dispatchers.IO) {
-            val isSuccess = fileOperationHelper.removeFile(serverFile, false, false)
+            val client = clientRepository.getOwncloudClient() ?: return@launch
+            val isSuccess = fileOperationHelper.removeFile(
+                serverFile,
+                onlyLocalCopy = false,
+                inBackground = false,
+                client = client
+            )
+
             if (isSuccess) {
                 backgroundJobManager.startOfflineOperations()
-
-                launch(Dispatchers.Main) {
+                withContext(Dispatchers.Main) {
                     offlineOperationNotificationManager.dismissNotification(offlineOperation.id)
                 }
             }
