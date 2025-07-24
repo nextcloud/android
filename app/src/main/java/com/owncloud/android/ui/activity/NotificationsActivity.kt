@@ -20,6 +20,7 @@ import androidx.annotation.VisibleForTesting
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
+import com.nextcloud.android.common.ui.util.extensions.adjustUIForAPILevel35
 import com.nextcloud.client.account.User
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.di.Injectable
@@ -74,6 +75,7 @@ class NotificationsActivity : AppCompatActivity(), NotificationsContract.View, I
     override fun onCreate(savedInstanceState: Bundle?) {
         Log_OC.v(TAG, "onCreate() start")
 
+        adjustUIForAPILevel35()
         super.onCreate(savedInstanceState)
 
         binding = NotificationsLayoutBinding.inflate(layoutInflater)
