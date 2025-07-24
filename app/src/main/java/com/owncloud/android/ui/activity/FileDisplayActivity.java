@@ -1345,10 +1345,11 @@ public class FileDisplayActivity extends FileActivity
 
         OCFile currentFile = (getFile() == null) ? null : getStorageManager().getFileByPath(getFile().getRemotePath());
         final OCFile currentDir = (getCurrentDir() == null) ? null : getStorageManager().getFileByPath(getCurrentDir().getRemotePath());
+        final boolean isSyncFolderRemotePathRoot = OCFile.ROOT_PATH.equals(syncFolderRemotePath);
 
-        if (currentDir == null) {
+        if (currentDir == null && !isSyncFolderRemotePathRoot) {
             handleRemovedFolder(syncFolderRemotePath);
-        } else {
+        } else if (currentDir != null) {
             currentFile = handleRemovedFileFromServer(currentFile, currentDir);
             updateFileList(fileListFragment, currentDir, syncFolderRemotePath);
             setFile(currentFile);
