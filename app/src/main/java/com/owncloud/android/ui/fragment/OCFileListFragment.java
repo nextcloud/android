@@ -36,7 +36,6 @@ import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.Toast;
 
-import com.google.android.material.behavior.HideBottomViewOnScrollBehavior;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -60,6 +59,7 @@ import com.nextcloud.utils.extensions.BundleExtensionsKt;
 import com.nextcloud.utils.extensions.FileExtensionsKt;
 import com.nextcloud.utils.extensions.FragmentExtensionsKt;
 import com.nextcloud.utils.extensions.IntentExtensionsKt;
+import com.nextcloud.utils.extensions.ViewExtensionsKt;
 import com.nextcloud.utils.fileNameValidator.FileNameValidator;
 import com.nextcloud.utils.view.FastScrollUtils;
 import com.owncloud.android.MainApp;
@@ -140,7 +140,6 @@ import androidx.annotation.Nullable;
 import androidx.annotation.OptIn;
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.ActionBar;
-import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.content.ContextCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentActivity;
@@ -1652,9 +1651,10 @@ public class OCFileListFragment extends ExtendedListFragment implements
         }
 
         setFabVisible(!mHideFab);
+        slideHideBottomBehaviourForBottomNavigationView(!mHideFab);
 
-        // FAB
-        setFabEnabled(mFile != null && (mFile.canWrite() || mFile.isOfflineOperation()));
+        final var showBottomLayoutItems = (mFile != null && (mFile.canWrite() || mFile.isOfflineOperation()));
+        setFabEnabled(showBottomLayoutItems);
 
         invalidateActionMode();
     }
@@ -1845,6 +1845,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
         }
 
         setFabVisible(true);
+        slideHideBottomBehaviourForBottomNavigationView(true);
     }
 
     private void resetMenuItems() {
@@ -2254,40 +2255,26 @@ public class OCFileListFragment extends ExtendedListFragment implements
             return;
         }
 
-        if (getActivity() != null) {
-            getActivity().runOnUiThread(() -> {
-                if (visible) {
-                    mFabMain.show();
-                    viewThemeUtils.material.themeFAB(mFabMain);
-                } else {
-                    mFabMain.hide();
-                }
-
-                showFabWithBehavior(visible);
-            });
+        final var activity = getActivity();
+        if (activity == null) {
+            return;
         }
+
+        activity.runOnUiThread(() -> {
+            if (visible) {
+                mFabMain.show();
+                viewThemeUtils.material.themeFAB(mFabMain);
+            } else {
+                mFabMain.hide();
+            }
+
+            ViewExtensionsKt.slideHideBottomBehavior(mFabMain, visible);
+        });
     }
 
-    /**
-     * Remove this, if HideBottomViewOnScrollBehavior is fix by Google
-     *
-     * @param visible flag if FAB should be shown or hidden
-     */
-    private void showFabWithBehavior(boolean visible) {
-        ViewGroup.LayoutParams layoutParams = mFabMain.getLayoutParams();
-        if (layoutParams instanceof CoordinatorLayout.LayoutParams) {
-            CoordinatorLayout.Behavior coordinatorLayoutBehavior =
-                ((CoordinatorLayout.LayoutParams) layoutParams).getBehavior();
-            if (coordinatorLayoutBehavior instanceof HideBottomViewOnScrollBehavior) {
-                @SuppressWarnings("unchecked")
-                HideBottomViewOnScrollBehavior<FloatingActionButton> behavior =
-                    (HideBottomViewOnScrollBehavior<FloatingActionButton>) coordinatorLayoutBehavior;
-                if (visible) {
-                    behavior.slideUp(mFabMain);
-                } else {
-                    behavior.slideDown(mFabMain);
-                }
-            }
+    public void slideHideBottomBehaviourForBottomNavigationView(boolean visible) {
+        if (getActivity() instanceof DrawerActivity drawerActivity) {
+            ViewExtensionsKt.slideHideBottomBehavior(drawerActivity.getBottomNavigationView(), visible);
         }
     }
 
