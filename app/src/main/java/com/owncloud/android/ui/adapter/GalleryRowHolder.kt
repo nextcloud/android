@@ -60,7 +60,7 @@ class GalleryRowHolder(
         }
 
         if (binding.rowLayout.childCount > row.files.size) {
-            binding.rowLayout.removeViewsInLayout(row.files.size - 1, (binding.rowLayout.childCount - row.files.size))
+            binding.rowLayout.removeViews(row.files.size, binding.rowLayout.childCount - row.files.size)
         }
 
         val shrinkRatio = computeShrinkRatio(row)
@@ -140,14 +140,14 @@ class GalleryRowHolder(
             newSummedWidth += newWidth
         }
 
-        val c = when {
-            galleryAdapter.columns != 5 -> 1f
-            else -> when (row.files.size) {
-                2 -> 5 / 2f
-                3 -> 4 / 3f
-                4 -> 4 / 5f
+        val c = when (galleryAdapter.columns) {
+            5 -> when (row.files.size) {
+                2 -> 2.5f
+                3 -> 1.333f
+                4 -> 0.8f
                 else -> 1f
             }
+            else -> 1f
         }
 
         return (screenWidth / c) / newSummedWidth
@@ -189,23 +189,11 @@ class GalleryRowHolder(
 
         val params = FrameLayout.LayoutParams(width, height)
 
-        if (index < (row.files.size - 1)) {
-            params.setMargins(zero, zero, smallMargin, smallMargin)
-        } else {
-            params.setMargins(zero, zero, zero, smallMargin)
-        }
+        val endMargin = if (index < row.files.size - 1) smallMargin else zero
+        params.setMargins(zero, zero, endMargin, smallMargin)
 
-        thumbnail.run {
-            layoutParams = params
-            layoutParams.height = height
-            layoutParams.width = width
-        }
-
-        shimmer.run {
-            layoutParams = params
-            layoutParams.height = height
-            layoutParams.width = width
-        }
+        thumbnail.layoutParams = params
+        shimmer.layoutParams = FrameLayout.LayoutParams(params)
     }
 
     @Suppress("MagicNumber")
