@@ -43,7 +43,6 @@ class GalleryRowHolder(
 ) : SectionedViewHolder(binding.root) {
     val context = galleryAdapter.context
 
-
     private lateinit var currentRow: GalleryRow
     private val zero by lazy { context.resources.getInteger(R.integer.zero) }
     private val smallMargin by lazy { context.resources.getInteger(R.integer.small_margin) }
