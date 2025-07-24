@@ -25,7 +25,7 @@ class ServerThemeImpl @AssistedInject constructor(colorUtil: ColorUtil, @Assiste
 
     init {
         primaryColor =
-            colorUtil.getNullSafeColorWithFallbackRes(capability.serverColor, R.color.colorPrimary)
+            colorUtil.getNullSafeColorWithFallbackRes(capability.serverColor, R.color.primary)
         colorElement = colorUtil.getNullSafeColor(capability.serverElementColor, primaryColor)
         colorElementBright =
             colorUtil.getNullSafeColor(capability.serverElementColorBright, primaryColor)

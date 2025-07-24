@@ -123,4 +123,8 @@ public final class ReceiversHelper {
 
         ContextExtensionsKt.registerBroadcastReceiver(context, broadcastReceiver, intentFilter, ReceiverFlag.NotExported);
     }
+
+    public static void shutdown() {
+        executor.shutdown();
+    }
 }
