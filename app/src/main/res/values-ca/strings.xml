@@ -892,6 +892,7 @@
     <string name="trashbin_not_emptied">Els fitxers no s\'han pogut suprimir permanentment!</string>
     <string name="two_way_sync_activity_title">Sincronització interna bidireccional</string>
     <string name="unexpected_error_occurred">S\'ha produït un error inesperat</string>
+    <string name="unknown">Desconegut</string>
     <string name="unlock_file">Desbloca el fitxer</string>
     <string name="unread_comments">Hi ha comentaris sense llegir</string>
     <string name="unset_encrypted">Desactiva el xifrat</string>

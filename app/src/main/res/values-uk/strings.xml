@@ -964,6 +964,7 @@
     <string name="unified_search_fragment_calendar_event_not_found">Подію не знайдено. Синхронізуйтеся для оновлення. Переспрямування на вебсайт...</string>
     <string name="unified_search_fragment_contact_not_found">Контакт не знайдено. Синхронізуйтеся для оновлення. Переспрямування на вебсайт...</string>
     <string name="unified_search_fragment_permission_needed">Для отримання результатів пошуку потрібні окреми дозволи, або перейти на вебсайт...</string>
+    <string name="unknown">Невідомо</string>
     <string name="unlock_file">Розблокувати файл</string>
     <string name="unread_comments">Доступні непрочитані коментарі</string>
     <string name="unset_encrypted">Зняти шифрування</string>

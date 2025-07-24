@@ -557,6 +557,7 @@
     <string name="trashbin_file_not_restored">Dosiero %1$s ne povis esti restaŭrita!</string>
     <string name="trashbin_file_remove">Forigi por ĉiam</string>
     <string name="trashbin_not_emptied">Dosieroj ne povis esti porĉiame forigitaj!</string>
+    <string name="unknown">Nekonata</string>
     <string name="unread_comments">Ekzistas nelegataj komentoj</string>
     <string name="unset_encrypted">Malĉifrigi</string>
     <string name="unset_favorite">Malpliŝatigi</string>

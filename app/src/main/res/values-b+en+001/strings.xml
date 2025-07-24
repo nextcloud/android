@@ -968,6 +968,7 @@
     <string name="unified_search_fragment_calendar_event_not_found">Event not found, you can always sync to update. Redirecting to web…</string>
     <string name="unified_search_fragment_contact_not_found">Contact not found, you can always sync to update. Redirecting to web…</string>
     <string name="unified_search_fragment_permission_needed">Permissions are required to open search result otherwise it will redirected to web…</string>
+    <string name="unknown">Unknown</string>
     <string name="unlock_file">Unlock file</string>
     <string name="unread_comments">Unread comments exist</string>
     <string name="unset_encrypted">Unset encryption</string>

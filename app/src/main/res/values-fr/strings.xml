@@ -968,6 +968,7 @@
     <string name="unified_search_fragment_calendar_event_not_found">Événement introuvable, vous pouvez toujours synchroniser pour mettre à jour. Redirection au web…</string>
     <string name="unified_search_fragment_contact_not_found">Contact introuvable, vous pouvez toujours synchroniser pour mettre à jour. Redirection au web...</string>
     <string name="unified_search_fragment_permission_needed">Des permissions sont requises pour ouvrir le résultat de recherche, autrement ceci redirigera au web…</string>
+    <string name="unknown">Inconnu</string>
     <string name="unlock_file">Déverrouiller le fichier</string>
     <string name="unread_comments">Il y a des commentaire non lus</string>
     <string name="unset_encrypted">Désactiver le chiffrement</string>

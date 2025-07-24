@@ -963,6 +963,7 @@
     <string name="unified_search_fragment_calendar_event_not_found">لم يمكن العثور على الحدث. يمكنك دائمًا المزامنة للتحديث. جارٍ إعادة التوجيه إلى الويب...</string>
     <string name="unified_search_fragment_contact_not_found">لم يمكن العثور على جهة الاتصال. يمكنك دائمًا المزامنة للتحديث. جارٍ إعادة التوجيه إلى الويب...</string>
     <string name="unified_search_fragment_permission_needed">مطلوب أذونات لفتح نتيجة البحث و إلّا ستتم إعادة توجيهها إلى الويب...</string>
+    <string name="unknown">غير معروف</string>
     <string name="unlock_file">فتح قفل الملف</string>
     <string name="unread_comments">توجد تعليقات غير مقروءة</string>
     <string name="unset_encrypted">لم يتم تحديد التشفير</string>

@@ -650,6 +650,7 @@
     <string name="trashbin_file_not_deleted">Faýl %1$söçürilip bilinmedi!</string>
     <string name="trashbin_file_not_restored">Faýl%1$s dikeldip bolmady!</string>
     <string name="trashbin_not_emptied">Faýllary hemişelik pozup bolmaz!</string>
+    <string name="unknown">Näbelli</string>
     <string name="unread_comments">Okalmadyk teswirler bar</string>
     <string name="unset_encrypted">Şifrlemäni açmak</string>
     <string name="unshare_link_file_error">Bu faýly ýa-da bukjany paýlaşmaga synanyşanda ýalňyşlyk ýüze çykdy.</string>

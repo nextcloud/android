@@ -969,6 +969,7 @@
     <string name="unified_search_fragment_calendar_event_not_found">Событие не найдено, вы всегда можете синхронизировать его для обновления. Перенаправление на веб-страницу…</string>
     <string name="unified_search_fragment_contact_not_found">Контакт не найден, вы всегда можете синхронизировать его для обновления. Перенаправление на веб-страницу…</string>
     <string name="unified_search_fragment_permission_needed">Для открытия результата поиска требуются разрешения, в противном случае он будет перенаправлен на веб-страницу…</string>
+    <string name="unknown">Неизвестно</string>
     <string name="unlock_file">Разблокировать файл</string>
     <string name="unread_comments">Имеются непрочитанные комментарии</string>
     <string name="unset_encrypted">Расшифровать</string>

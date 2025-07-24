@@ -858,6 +858,7 @@
     <string name="trashbin_loading_failed">Încărcarea coșului de gunoi a eșuat!</string>
     <string name="trashbin_not_emptied">Fișierele nu au putut fi șterse permanent!</string>
     <string name="two_way_sync_activity_title">Sincronizare internă în două sensuri</string>
+    <string name="unknown">Necunoscut</string>
     <string name="unlock_file">Deblochează fișierul</string>
     <string name="unread_comments">Există comentarii necitite</string>
     <string name="unset_encrypted">Dezactivați criptarea</string>

@@ -862,6 +862,7 @@
     <string name="unified_search_fragment_calendar_event_not_found">Evento no encontrado, siempre puede sincronizar para actualizar. Redirigiendo a la web...</string>
     <string name="unified_search_fragment_contact_not_found">Contacto no encontrado, siempre puede sincronizar para actualizar. Redirigiendo a la web...</string>
     <string name="unified_search_fragment_permission_needed">Permisos requeridos para abrir los resultados de búsqueda, de lo contrario se redirigirá a la web...</string>
+    <string name="unknown">Desconocido</string>
     <string name="unlock_file">Archivo desbloqueado</string>
     <string name="unread_comments">Existen comentarios sin leer</string>
     <string name="unset_encrypted">Desestablecer encripción</string>

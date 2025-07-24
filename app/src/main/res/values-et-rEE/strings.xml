@@ -968,6 +968,7 @@
     <string name="unified_search_fragment_calendar_event_not_found">Sündmust ei leidu, sa võid andmete uuendamiseks alati sünkroniseerida. Suunan edasi veebi…</string>
     <string name="unified_search_fragment_contact_not_found">Kontakti ei leidu, sa võid andmete uuendamiseks alati sünkroniseerida. Suunan edasi veebi…</string>
     <string name="unified_search_fragment_permission_needed">Otsingutulemuste avamiseks on vajalikud vastavad õigused, vastasel juhul suunan päringu ümber veebi…</string>
+    <string name="unknown">Teadmata</string>
     <string name="unlock_file">Eemalda faili lukustus</string>
     <string name="unread_comments">Leidub lugemata kommentaare</string>
     <string name="unset_encrypted">Eemalda krüptimine</string>

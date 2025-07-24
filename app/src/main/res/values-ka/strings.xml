@@ -803,6 +803,7 @@
     <string name="trashbin_file_remove">Delete permanently</string>
     <string name="trashbin_loading_failed">Loading trash bin failed!</string>
     <string name="trashbin_not_emptied">Files could not be deleted permanently!</string>
+    <string name="unknown">Unknown</string>
     <string name="unlock_file">Unlock file</string>
     <string name="unread_comments">Unread comments exist</string>
     <string name="unset_encrypted">Unset encryption</string>

@@ -815,6 +815,7 @@
     <string name="two_way_sync_activity_empty_list_title">Dvipusis sinchronizavimas neįjungtas</string>
     <string name="two_way_sync_activity_title">Vidinis dvipusis sinchronizavimas</string>
     <string name="unexpected_error_occurred">Įvyko netikėta klaida</string>
+    <string name="unknown">Nežinoma</string>
     <string name="unlock_file">Atrakinti failą</string>
     <string name="unread_comments">Yra neskaitytų komentarų</string>
     <string name="unset_encrypted">Atjungti šifravimą</string>

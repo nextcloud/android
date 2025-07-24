@@ -971,6 +971,7 @@
     <string name="unified_search_fragment_calendar_event_not_found">未找到活动，你随时可以同步更新。正在重定向至网络…</string>
     <string name="unified_search_fragment_contact_not_found">未找到联系人，你可以随时同步更新。正在重定向至网络…</string>
     <string name="unified_search_fragment_permission_needed">打开搜索结果需要权限，否则它将被重定向至网页…</string>
+    <string name="unknown">未知</string>
     <string name="unlock_file">解锁文件</string>
     <string name="unread_comments">有未读评论</string>
     <string name="unset_encrypted">不设置加密</string>

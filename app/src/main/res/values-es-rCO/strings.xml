@@ -654,6 +654,7 @@
     <string name="trashbin_activity_title">Papelera</string>
     <string name="trashbin_empty_headline">No hay archivos borrados</string>
     <string name="trashbin_file_remove">Borrar permanentemente</string>
+    <string name="unknown">Desconocido</string>
     <string name="unset_encrypted">Desestablecer encripción</string>
     <string name="unshare_link_forbidden_permissions">para dejar de compartir este archivo</string>
     <string name="untrusted_domain">Accede a través de un dominio no de confianza. Por favor consulta la documentación para más información.</string>

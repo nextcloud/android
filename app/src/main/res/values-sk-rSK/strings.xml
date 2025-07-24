@@ -957,6 +957,7 @@
     <string name="unified_search_fragment_calendar_event_not_found">Udalosť sa nenašla, vždy ju môžete synchronizovať a aktualizovať. Prebieha presmerovanie na web…</string>
     <string name="unified_search_fragment_contact_not_found">Kontakt sa nenašiel, vždy ho môžete synchronizovať a aktualizovať. Prebieha presmerovanie na web…</string>
     <string name="unified_search_fragment_permission_needed">Pre otvorenie výsledku vyhľadávania sú potrebné práva, inak bude presmerovaný na web…</string>
+    <string name="unknown">Neznámy</string>
     <string name="unlock_file">Odomknúť súbor</string>
     <string name="unread_comments">Existujú neprečítané komentáre</string>
     <string name="unset_encrypted">Vypnúť šifrovanie</string>

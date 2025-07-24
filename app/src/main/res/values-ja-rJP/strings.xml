@@ -957,6 +957,7 @@
     <string name="unified_search_fragment_calendar_event_not_found">イベントが見つかりません。常に同期して更新できます。WEBにリダイレクトしています...</string>
     <string name="unified_search_fragment_contact_not_found">連絡先が見つかりません。常に同期して更新できます。WEBにリダイレクトしています...</string>
     <string name="unified_search_fragment_permission_needed">検索結果を開くには権限が必要です。さもなければWEBにリダイレクトされます...</string>
+    <string name="unknown">不明</string>
     <string name="unlock_file">ファイルのロックを解除</string>
     <string name="unread_comments">未読のコメントがあります</string>
     <string name="unset_encrypted">暗号化解除</string>
