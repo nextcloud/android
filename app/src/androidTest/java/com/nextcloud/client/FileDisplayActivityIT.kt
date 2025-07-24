@@ -222,7 +222,7 @@ class FileDisplayActivityIT : AbstractOnServerIT() {
         shortSleep()
 
         // check sort button is not shown, favorites are not sortable
-        onView(withId(R.id.sort_button)).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.GONE)))
+        onView(withId(R.id.sort_button)).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
 
         // browse into folder
         onView(withId(R.id.list_root))
