@@ -52,6 +52,7 @@ import com.nextcloud.client.jobs.BackgroundJobManager;
 import com.nextcloud.client.network.ClientFactory;
 import com.nextcloud.client.utils.Throttler;
 import com.nextcloud.common.NextcloudClient;
+import com.nextcloud.ui.fileactions.FileAction;
 import com.nextcloud.ui.fileactions.FileActionsBottomSheet;
 import com.nextcloud.utils.EditorUtils;
 import com.nextcloud.utils.ShortcutUtil;
@@ -675,35 +676,9 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
     public void openActionsMenu(final int filesCount, final Set<OCFile> checkedFiles, final boolean isOverflow) {
         throttler.run("overflowClick", () -> {
-            List<Integer> toHide = new ArrayList<>();
-
-            for (OCFile file : checkedFiles) {
-                if (file.isOfflineOperation()) {
-                    toHide = new ArrayList<>(
-                        Arrays.asList(R.id.action_favorite,
-                                      R.id.action_move_or_copy,
-                                      R.id.action_sync_file,
-                                      R.id.action_encrypted,
-                                      R.id.action_unset_encrypted,
-                                      R.id.action_edit,
-                                      R.id.action_download_file,
-                                      R.id.action_export_file,
-                                      R.id.action_set_as_wallpaper
-                                     )
-                    );
-                    break;
-                }
-            }
-
-            if (isAPKorAAB(checkedFiles)) {
-                toHide.add(R.id.action_send_share_file);
-                toHide.add(R.id.action_export_file);
-                toHide.add(R.id.action_sync_file);
-                toHide.add(R.id.action_download_file);
-            }
-
+            final var actionsToHide = FileAction.Companion.getFileListActionsToHide(checkedFiles);
             final var childFragmentManager = getChildFragmentManager();
-            final var actionBottomSheet = FileActionsBottomSheet.newInstance(filesCount, checkedFiles, isOverflow, toHide)
+            final var actionBottomSheet = FileActionsBottomSheet.newInstance(filesCount, checkedFiles, isOverflow, actionsToHide)
                 .setResultListener(childFragmentManager, this, (id) -> onFileActionChosen(id, checkedFiles));
 
             if (FragmentExtensionsKt.isDialogFragmentReady(this)) {
@@ -1238,7 +1213,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
     }
 
     private Integer checkFileBeforeOpen(OCFile file) {
-        if (isAPKorAAB(Set.of(file))) {
+        if (file.isAPKorAAB()) {
             return R.string.gplay_restriction;
         } else if (file.isOfflineOperation()) {
             return R.string.offline_operations_file_does_not_exists_yet;
@@ -2307,15 +2282,6 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
     public boolean isEmpty() {
         return mAdapter == null || mAdapter.isEmpty();
-    }
-
-    private boolean isAPKorAAB(Set<OCFile> files) {
-        for (OCFile file : files) {
-            if (file.isAPKorAAB()) {
-                return true;
-            }
-        }
-        return false;
     }
 
     public SearchEvent getSearchEvent() {
