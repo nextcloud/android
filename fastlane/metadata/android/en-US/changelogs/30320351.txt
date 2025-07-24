@@ -1,0 +1,16 @@
+## 3.32.3 RC1 (July 24, 2025)
+
+- File download progress is now visible for large files
+- Fixed wrong file index issue during uploads
+- Resolved a crash in the video player
+- The "folder / does not exist" message now only appears when it’s actually needed
+- Fixed crashes in the conflict resolution dialog
+- Navigation issues from the Assistant screen are now fixed
+- Notification screen toolbar now displays correctly
+- Share permission handling is now more stable and reliable
+- Improved conflict handling during offline operations
+- And many more small improvements
+
+Minimum: NC 18 Server, Android 8.0 Nougat
+
+For a full list, please see https://github.com/nextcloud/android/milestone/114
