@@ -45,6 +45,7 @@ import com.owncloud.android.ui.notifications.NotificationUtils
 import com.owncloud.android.utils.PushUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import dagger.android.AndroidInjection
+import okhttp3.OkHttpClient
 import org.apache.commons.httpclient.HttpMethod
 import org.apache.commons.httpclient.HttpStatus
 import org.apache.commons.httpclient.methods.DeleteMethod
@@ -52,9 +53,11 @@ import org.apache.commons.httpclient.methods.GetMethod
 import org.apache.commons.httpclient.methods.PutMethod
 import org.apache.commons.httpclient.methods.Utf8PostMethod
 import java.io.IOException
+import java.lang.reflect.Field
 import java.security.GeneralSecurityException
 import java.security.PrivateKey
 import java.security.SecureRandom
+import java.util.concurrent.TimeUnit
 import javax.crypto.Cipher
 import javax.inject.Inject
 
@@ -250,6 +253,32 @@ class NotificationWork constructor(
         val user = optionalUser.get()
         try {
             val client = OwnCloudClientFactory.createNextcloudClient(user, context)
+            // Set Timeout on OkHttpClient from defaults
+            var originalClient: OkHttpClient? = null
+
+            try {
+                val clientField: Field = client.javaClass.getDeclaredField("client")
+                clientField.isAccessible = true
+                originalClient = clientField.get(client) as OkHttpClient
+            } catch (e: NoSuchFieldException) {
+                e.printStackTrace()
+            } catch (e: IllegalAccessException) {
+                e.printStackTrace()
+            }
+
+            val newClient = originalClient?.newBuilder()
+                ?.readTimeout(3000, TimeUnit.MILLISECONDS)
+                ?.build()
+            // Replace the internal OkHttpClient with the new one using reflection
+            try {
+                val clientField: Field = client.javaClass.getDeclaredField("client")
+                clientField.isAccessible = true
+                clientField.set(client, newClient)
+            } catch (e: NoSuchFieldException) {
+                e.printStackTrace()
+            } catch (e: IllegalAccessException) {
+                e.printStackTrace()
+            }
             val result = GetNotificationRemoteOperation(decryptedPushMessage.nid)
                 .execute(client)
             if (result.isSuccess) {
