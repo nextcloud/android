@@ -574,6 +574,7 @@
     <string name="trashbin_activity_title">ไฟล์ที่ถูกลบ</string>
     <string name="trashbin_empty_headline">ไม่มีไฟล์ที่ถูกลบ</string>
     <string name="trashbin_file_remove">ลบแบบถาวร</string>
+    <string name="unknown">ไม่ทราบ</string>
     <string name="unset_favorite">เอาออกจากรายการโปรด</string>
     <string name="unshare_link_forbidden_permissions">เพื่อเลิกแชร์ไฟล์นี้</string>
     <string name="update_link_forbidden_permissions">เพื่ออัปเดตการแชร์นี้</string>

@@ -610,6 +610,7 @@
     <string name="trashbin_file_not_restored">Skeda %1$snuk mund të rikthehej!</string>
     <string name="trashbin_file_remove">Fshije përgjithmonë</string>
     <string name="trashbin_not_emptied">Skedarët nuk mund të fshihen përgjithmonë!</string>
+    <string name="unknown">I panjohur</string>
     <string name="unread_comments">Ekzistojnë komente të palexuara</string>
     <string name="unset_encrypted">Hiq enkriptimin</string>
     <string name="unset_favorite">Hiqeni nga të parapëlqyerat</string>

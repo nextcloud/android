@@ -968,6 +968,7 @@
     <string name="unified_search_fragment_calendar_event_not_found">Händelsen hittades inte, du kan alltid synkronisera för att uppdatera. Omdirigerar till webben...</string>
     <string name="unified_search_fragment_contact_not_found">Kontakten hittades inte, du kan alltid synkronisera för att uppdatera. Omdirigerar till webben...</string>
     <string name="unified_search_fragment_permission_needed">Behörigheter krävs för att öppna sökresultatet, annars omdirigeras det till webben...</string>
+    <string name="unknown">Okänd</string>
     <string name="unlock_file">Lås upp fil</string>
     <string name="unread_comments">Olästa kommentarer finns</string>
     <string name="unset_encrypted">Ta bort som krypterad</string>

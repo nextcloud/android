@@ -968,6 +968,7 @@
     <string name="unified_search_fragment_calendar_event_not_found">Nie znaleziono zdarzenia, zawsze możesz zsynchronizować, aby zaktualizować. Przekierowanie do strony internetowej…</string>
     <string name="unified_search_fragment_contact_not_found">Nie znaleziono kontaktu, zawsze możesz zsynchronizować, aby zaktualizować. Przekierowanie do strony internetowej…</string>
     <string name="unified_search_fragment_permission_needed">Aby otworzyć wyniki wyszukiwania, wymagane są uprawnienia, w przeciwnym razie nastąpi przekierowanie do strony internetowej…</string>
+    <string name="unknown">Nieznana</string>
     <string name="unlock_file">Odblokuj plik</string>
     <string name="unread_comments">Nieprzeczytane komentarze</string>
     <string name="unset_encrypted">Wyłącz szyfrowanie</string>

@@ -963,6 +963,7 @@ Zure kontrola bermatzen dituzten auto-ostatatutako produktibitate-plataformak.\n
     <string name="unified_search_fragment_calendar_event_not_found">Gertaera ez da aurkitu, beti sinkroniza dezakezu eguneratzeko. Webera birbideratzen…</string>
     <string name="unified_search_fragment_contact_not_found">Kontaktua ez da aurkitu, beti sinkroniza dezakezu eguneratzeko. Webera birbideratzen…</string>
     <string name="unified_search_fragment_permission_needed">Bilaketa-emaitza irekitzeko baimenak behar dira, bestela webera birbideratuko da...</string>
+    <string name="unknown">Ezezaguna</string>
     <string name="unlock_file">Desblokeatu fitxategia</string>
     <string name="unread_comments">Irakurri gabeko iruzkinak daude</string>
     <string name="unset_encrypted">Kendu enkriptatzea</string>

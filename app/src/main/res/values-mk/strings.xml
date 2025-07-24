@@ -685,6 +685,7 @@
     <string name="trashbin_file_not_restored">Датотеката %1$s неможе да се врати!</string>
     <string name="trashbin_file_remove">Избриши</string>
     <string name="trashbin_not_emptied">Датотеките неможат да бидат избрижани трајно!</string>
+    <string name="unknown">Непознат</string>
     <string name="unlock_file">Отклучи датотека</string>
     <string name="unread_comments">Постои непрочитан коментар</string>
     <string name="unset_encrypted">Отстрани енкрипција</string>

@@ -722,6 +722,7 @@
     <string name="two_way_sync_activity_disable_all_button_title">Disativa pro totu is cartellas</string>
     <string name="two_way_sync_activity_title">Sincronizatzione interna in duas diretziones</string>
     <string name="unexpected_error_occurred">B\'at àpidu un\'errore ispantosu</string>
+    <string name="unknown">Disconnotu</string>
     <string name="unlock_file">Isbloca su documentu</string>
     <string name="unread_comments">Ddoe sunt cummentos non lèghidos</string>
     <string name="unset_encrypted">Tzifradura non cunfigurada</string>

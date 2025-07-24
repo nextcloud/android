@@ -968,6 +968,7 @@
     <string name="unified_search_fragment_calendar_event_not_found">Није пронађен догађај, увек можете да сихронизујете да бисте ажурирали. Преусмеравате се на веб</string>
     <string name="unified_search_fragment_contact_not_found">Није пронађен контакт, увек можете да сихронизујете да бисте ажурирали. Преусмеравате се на веб</string>
     <string name="unified_search_fragment_permission_needed">За отварање резултата претраге су неопходне дозволе, у супротном бићете преусмерени на веб</string>
+    <string name="unknown">Непознато</string>
     <string name="unlock_file">Откључај фајл</string>
     <string name="unread_comments">Постоје непрочитани коментари</string>
     <string name="unset_encrypted">Искључи шифровање</string>

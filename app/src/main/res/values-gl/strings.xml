@@ -935,6 +935,7 @@
     <string name="unified_search_fragment_calendar_event_not_found">Non se atopou o evento, sempre pode sincronizar para actualizar. Redirixindo á web…</string>
     <string name="unified_search_fragment_contact_not_found">Non se atopou o contacto, sempre pode sincronizar para actualizar. Redirixindo á web…</string>
     <string name="unified_search_fragment_permission_needed">Requírense permisos para abrir o resultado da busca, se non, vai ser redirixido á web…</string>
+    <string name="unknown">Descoñecido</string>
     <string name="unlock_file">Desbloquear ficheiro</string>
     <string name="unread_comments">Existen comentarios sen ler</string>
     <string name="unset_encrypted">Definir como NON cifrado</string>

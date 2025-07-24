@@ -785,6 +785,7 @@
     <string name="trashbin_loading_failed">¡Error al cargar el contenedor de basura!</string>
     <string name="trashbin_not_emptied">No se pudieron eliminar permanentemente los archivos.</string>
     <string name="unexpected_error_occurred">Ocurrió un error inesperado</string>
+    <string name="unknown">Desconocido</string>
     <string name="unlock_file">Desbloquear archivo</string>
     <string name="unread_comments">Existen comentarios no leídos</string>
     <string name="unset_encrypted">Desestablecer encripción</string>

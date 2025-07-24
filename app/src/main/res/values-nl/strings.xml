@@ -968,6 +968,7 @@
     <string name="unified_search_fragment_calendar_event_not_found">Gebeurtenis niet gevonden. Je kan altijd synchroniseren voor een update. Doorsturen naar het web...</string>
     <string name="unified_search_fragment_contact_not_found">Contactpersoon niet gevonden. Je kan altijd synchroniseren voor een update. Doorsturen naar het web...</string>
     <string name="unified_search_fragment_permission_needed">Er zijn machtigingen nodig om de zoekresultaten te openen, anders wordt de opdracht doorgestuurd naar het web…</string>
+    <string name="unknown">Onbekend</string>
     <string name="unlock_file">Ontgrendel bestand</string>
     <string name="unread_comments">Er zijn ongelezen reacties</string>
     <string name="unset_encrypted">Niet ingestelde versleuteling</string>

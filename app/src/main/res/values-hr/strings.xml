@@ -740,6 +740,7 @@
     <string name="trashbin_loading_failed">Učitavanje kante za smeće nije uspjelo!</string>
     <string name="trashbin_not_emptied">Datoteke nije moguće trajno izbrisati!</string>
     <string name="unexpected_error_occurred">Došlo je do neočekivane pogreške</string>
+    <string name="unknown">Nepoznata pogreška</string>
     <string name="unlock_file">Otključaj datoteku</string>
     <string name="unread_comments">Postoje nepročitani komentari</string>
     <string name="unset_encrypted">Ukloni šifriranje</string>
