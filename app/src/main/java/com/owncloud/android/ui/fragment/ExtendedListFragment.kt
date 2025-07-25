@@ -60,6 +60,7 @@ import com.nextcloud.client.network.ConnectivityService.GenericCallback
 import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.client.preferences.AppPreferencesImpl
 import com.nextcloud.utils.extensions.getTypedActivity
+import com.nextcloud.utils.extensions.showAllFiles
 import com.owncloud.android.MainApp
 import com.owncloud.android.R
 import com.owncloud.android.databinding.ListFragmentBinding
