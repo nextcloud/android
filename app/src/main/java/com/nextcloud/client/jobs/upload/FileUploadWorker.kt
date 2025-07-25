@@ -309,10 +309,17 @@ class FileUploadWorker(
                 null
             }
 
+            val removeUploadActionIntent = if (conflictResolveIntent != null) {
+                intents.removeUploadActionIntent(uploadFileOperation)
+            } else {
+                null
+            }
+
             notifyForFailedResult(
                 uploadFileOperation,
                 uploadResult.code,
                 conflictResolveIntent,
+                removeUploadActionIntent,
                 credentialIntent,
                 errorMessage
             )

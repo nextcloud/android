@@ -92,4 +92,19 @@ class FileUploaderIntents(private val context: Context) {
             )
         }
     }
+
+    fun removeUploadActionIntent(uploadFileOperation: UploadFileOperation): PendingIntent {
+        val intent = Intent(context, FileUploadBroadcastReceiver::class.java).apply {
+            putExtra(FileUploadBroadcastReceiver.UPLOAD_ID, uploadFileOperation.ocUploadId)
+            putExtra(FileUploadBroadcastReceiver.REMOTE_PATH, uploadFileOperation.file.remotePath)
+            putExtra(FileUploadBroadcastReceiver.STORAGE_PATH, uploadFileOperation.file.storagePath)
+        }
+
+        return PendingIntent.getBroadcast(
+            context,
+            0,
+            intent,
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+        )
+    }
 }
