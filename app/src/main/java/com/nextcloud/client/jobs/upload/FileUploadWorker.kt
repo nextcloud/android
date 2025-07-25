@@ -132,12 +132,13 @@ class FileUploadWorker(
         val uploadIds = inputData.getLongArray(UPLOAD_IDS) ?: return Result.success()
         val uploads = uploadIds.map { id -> uploadsStorageManager.getUploadById(id) }.filterNotNull()
         val totalUploadSize = uploadIds.size
-        val user = userAccountManager.getUser(accountName)
-        if (!user.isPresent) {
+        val optionalUser = userAccountManager.getUser(accountName)
+        if (!optionalUser.isPresent) {
             return Result.failure()
         }
+        val user = optionalUser.get()
         val client =
-            OwnCloudClientManagerFactory.getDefaultSingleton().getClientFor(user.get().toOwnCloudAccount(), context)
+            OwnCloudClientManagerFactory.getDefaultSingleton().getClientFor(user.toOwnCloudAccount(), context)
 
         for ((index, upload) in uploads.withIndex()) {
             if (preferences.isGlobalUploadPaused) {
@@ -157,10 +158,9 @@ class FileUploadWorker(
                 continue
             }
 
-            setWorkerState(user.get())
-
-            val operation = createUploadFileOperation(upload, user.get())
-            val storageManager = FileDataStorageManager(user.get(), context.contentResolver)
+            setWorkerState(user)
+            val operation = createUploadFileOperation(upload, user)
+            val storageManager = FileDataStorageManager(user, context.contentResolver)
             if (fileOperationHelper.isSameRemoteFileAlreadyPresent(upload.remotePath, storageManager, client)) {
                 uploadsStorageManager.removeUpload(upload.uploadId)
                 continue
@@ -176,7 +176,7 @@ class FileUploadWorker(
                 totalUploadSize = totalUploadSize
             )
 
-            val result = upload(client, operation, user.get())
+            val result = upload(client, operation, user)
             currentUploadFileOperation = null
 
             fileUploaderDelegate.sendBroadcastUploadFinished(
