@@ -27,6 +27,7 @@ class FileUploadBroadcastReceiver : BroadcastReceiver() {
         const val STORAGE_PATH = "STORAGE_PATH"
     }
 
+    @Suppress("ReturnCount")
     override fun onReceive(context: Context, intent: Intent) {
         MainApp.getAppComponent().inject(this)
 
@@ -40,7 +41,7 @@ class FileUploadBroadcastReceiver : BroadcastReceiver() {
         uploadsStorageManager.removeUpload(uploadId)
         val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         notificationManager.cancel(
-            NotificationUtils.createUploadNotificationTag(remotePath , storagePath),
+            NotificationUtils.createUploadNotificationTag(remotePath, storagePath),
             FileUploadWorker.NOTIFICATION_ERROR_ID
         )
     }
