@@ -42,10 +42,7 @@ class FileOperationHelper(private val user: User, private val context: Context) 
      * with the lowercased version 0001.webp — in that case, this will return true.
      * ```
      */
-    fun isSameRemoteFileAlreadyPresent(
-        upload: OCUpload,
-        storageManager: FileDataStorageManager,
-    ): Boolean {
+    fun isSameRemoteFileAlreadyPresent(upload: OCUpload, storageManager: FileDataStorageManager): Boolean {
         val (lc, uc) = FileUtil.getRemotePathVariants(upload.remotePath)
 
         val localOCFile = storageManager.getFileByDecryptedRemotePath(lc)
