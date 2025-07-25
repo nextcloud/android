@@ -17,6 +17,7 @@ import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.device.PowerManagementService
 import com.nextcloud.client.jobs.BackgroundJobManager
 import com.nextcloud.client.jobs.BackgroundJobManagerImpl
+import com.nextcloud.client.jobs.operation.FileOperationHelper
 import com.nextcloud.client.network.ConnectivityService
 import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.model.WorkerState
@@ -26,7 +27,7 @@ import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.ThumbnailsCacheManager
 import com.owncloud.android.datamodel.UploadsStorageManager
 import com.owncloud.android.db.OCUpload
-import com.owncloud.android.lib.common.OwnCloudAccount
+import com.owncloud.android.lib.common.OwnCloudClient
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory
 import com.owncloud.android.lib.common.network.OnDatatransferProgressListener
 import com.owncloud.android.lib.common.operations.RemoteOperationResult
@@ -48,6 +49,7 @@ class FileUploadWorker(
     val localBroadcastManager: LocalBroadcastManager,
     private val backgroundJobManager: BackgroundJobManager,
     val preferences: AppPreferences,
+    private val fileOperationHelper: FileOperationHelper,
     val context: Context,
     params: WorkerParameters
 ) : Worker(context, params),
@@ -130,6 +132,12 @@ class FileUploadWorker(
         val uploadIds = inputData.getLongArray(UPLOAD_IDS) ?: return Result.success()
         val uploads = uploadIds.map { id -> uploadsStorageManager.getUploadById(id) }.filterNotNull()
         val totalUploadSize = uploadIds.size
+        val user = userAccountManager.getUser(accountName)
+        if (!user.isPresent) {
+            return Result.failure()
+        }
+        val client =
+            OwnCloudClientManagerFactory.getDefaultSingleton().getClientFor(user.get().toOwnCloudAccount(), context)
 
         for ((index, upload) in uploads.withIndex()) {
             if (preferences.isGlobalUploadPaused) {
@@ -145,12 +153,6 @@ class FileUploadWorker(
                 return Result.failure()
             }
 
-            val user = userAccountManager.getUser(accountName)
-            if (!user.isPresent) {
-                uploadsStorageManager.removeUpload(upload.uploadId)
-                continue
-            }
-
             if (isStopped) {
                 continue
             }
@@ -158,6 +160,11 @@ class FileUploadWorker(
             setWorkerState(user.get())
 
             val operation = createUploadFileOperation(upload, user.get())
+            if (fileOperationHelper.isSameRemoteFileAlreadyPresent(upload.remotePath, client)) {
+                uploadsStorageManager.removeUpload(upload.uploadId)
+                continue
+            }
+
             currentUploadFileOperation = operation
 
             notificationManager.prepareForStart(
@@ -168,7 +175,7 @@ class FileUploadWorker(
                 totalUploadSize = totalUploadSize
             )
 
-            val result = upload(operation, user.get())
+            val result = upload(client,operation, user.get())
             currentUploadFileOperation = null
 
             fileUploaderDelegate.sendBroadcastUploadFinished(
@@ -216,13 +223,15 @@ class FileUploadWorker(
     }
 
     @Suppress("TooGenericExceptionCaught", "DEPRECATION")
-    private fun upload(uploadFileOperation: UploadFileOperation, user: User): RemoteOperationResult<Any?> {
+    private fun upload(
+        uploadClient: OwnCloudClient,
+        uploadFileOperation: UploadFileOperation,
+        user: User
+    ): RemoteOperationResult<Any?> {
         lateinit var result: RemoteOperationResult<Any?>
 
         try {
             val storageManager = uploadFileOperation.storageManager
-            val ocAccount = OwnCloudAccount(user.toPlatformAccount(), context)
-            val uploadClient = OwnCloudClientManagerFactory.getDefaultSingleton().getClientFor(ocAccount, context)
             result = uploadFileOperation.execute(uploadClient)
 
             val task = ThumbnailsCacheManager.ThumbnailGenerationTask(storageManager, user)

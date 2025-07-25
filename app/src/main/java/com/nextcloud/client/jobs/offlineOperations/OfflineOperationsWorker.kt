@@ -13,6 +13,7 @@ import androidx.work.WorkerParameters
 import com.nextcloud.client.account.User
 import com.nextcloud.client.database.entity.OfflineOperationEntity
 import com.nextcloud.client.jobs.offlineOperations.repository.OfflineOperationsRepository
+import com.nextcloud.client.jobs.operation.FileOperationHelper
 import com.nextcloud.client.network.ClientFactoryImpl
 import com.nextcloud.client.network.ConnectivityService
 import com.nextcloud.model.OfflineOperationType
@@ -24,14 +25,10 @@ import com.owncloud.android.lib.common.OwnCloudClient
 import com.owncloud.android.lib.common.operations.RemoteOperation
 import com.owncloud.android.lib.common.operations.RemoteOperationResult
 import com.owncloud.android.lib.common.utils.Log_OC
-import com.owncloud.android.lib.resources.files.ReadFileRemoteOperation
-import com.owncloud.android.lib.resources.files.ReadFolderRemoteOperation
 import com.owncloud.android.lib.resources.files.UploadFileRemoteOperation
-import com.owncloud.android.lib.resources.files.model.RemoteFile
 import com.owncloud.android.operations.CreateFolderOperation
 import com.owncloud.android.operations.RemoveFileOperation
 import com.owncloud.android.operations.RenameFileOperation
-import com.owncloud.android.utils.MimeTypeUtil
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.NonCancellable
@@ -42,10 +39,12 @@ import kotlin.coroutines.suspendCoroutine
 
 private typealias OfflineOperationResult = Pair<RemoteOperationResult<*>?, RemoteOperation<*>?>?
 
+@Suppress("LongParameterList")
 class OfflineOperationsWorker(
     private val user: User,
     private val context: Context,
     private val connectivityService: ConnectivityService,
+    private val fileOperationHelper: FileOperationHelper,
     viewThemeUtils: ViewThemeUtils,
     params: WorkerParameters
 ) : CoroutineWorker(context, params) {
@@ -126,10 +125,10 @@ class OfflineOperationsWorker(
             return@withContext null
         }
 
-        val remoteFile = getRemoteFile(path)
+        val remoteFile = fileOperationHelper.getRemoteFile(path, client)
         val ocFile = fileDataStorageManager.getFileByDecryptedRemotePath(operation.path)
 
-        if (remoteFile != null && ocFile != null && isFileChanged(remoteFile, ocFile)) {
+        if (ocFile != null && fileOperationHelper.isFileChanged(remoteFile, ocFile)) {
             Log_OC.w(TAG, "Offline operation skipped, file already exists: $operation")
 
             if (operation.isRenameOrRemove()) {
@@ -259,24 +258,4 @@ class OfflineOperationsWorker(
             notificationManager.showNewNotification(operationResult, operation)
         }
     }
-
-    @Suppress("DEPRECATION")
-    private fun getRemoteFile(remotePath: String): RemoteFile? {
-        val mimeType = MimeTypeUtil.getMimeTypeFromPath(remotePath)
-        val isFolder = MimeTypeUtil.isFolder(mimeType)
-        val client = ClientFactoryImpl(context).create(user)
-        val result = if (isFolder) {
-            ReadFolderRemoteOperation(remotePath).execute(client)
-        } else {
-            ReadFileRemoteOperation(remotePath).execute(client)
-        }
-
-        return if (result.isSuccess) {
-            result.data[0] as? RemoteFile
-        } else {
-            null
-        }
-    }
-
-    private fun isFileChanged(remoteFile: RemoteFile, ocFile: OCFile): Boolean = remoteFile.etag != ocFile.etagOnServer
 }
