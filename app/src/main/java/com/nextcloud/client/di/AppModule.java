@@ -253,7 +253,7 @@ class AppModule {
 
     @Provides
     FileOperationHelper fileOperationHelper(CurrentAccountProvider currentAccountProvider, Context context) {
-        return new FileOperationHelper(currentAccountProvider.getUser(), context, fileDataStorageManager(currentAccountProvider, context));
+        return new FileOperationHelper(currentAccountProvider.getUser(), context);
     }
 
     @Provides
