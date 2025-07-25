@@ -588,7 +588,11 @@ class PreviewMediaActivity :
     private fun onFileActionChosen(itemId: Int) {
         when (itemId) {
             R.id.action_send_share_file -> {
-                sendShareFile()
+                sendShareFile(null)
+            }
+
+            R.id.action_send_file -> {
+                sendShareFile(true)
             }
 
             R.id.action_open_file_with -> {
@@ -692,9 +696,14 @@ class PreviewMediaActivity :
         showDetails(file)
     }
 
-    private fun sendShareFile() {
+    private fun sendShareFile(hideNCSharingOption: Boolean?) {
         stopPreview(false)
-        fileOperationsHelper.sendShareFile(file)
+
+        if (hideNCSharingOption != null) {
+            fileOperationsHelper.sendShareFile(file, hideNCSharingOption)
+        } else {
+            fileOperationsHelper.sendShareFile(file)
+        }
     }
 
     @Suppress("TooGenericExceptionCaught")

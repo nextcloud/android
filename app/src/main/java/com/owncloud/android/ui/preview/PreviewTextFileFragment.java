@@ -302,6 +302,8 @@ public class PreviewTextFileFragment extends PreviewTextFragment {
             } else {
                 containerActivity.getFileOperationsHelper().sendShareFile(getFile());
             }
+        } else if (itemId == R.id.action_send_file) {
+            containerActivity.getFileOperationsHelper().sendShareFile(getFile(), true);
         } else if (itemId == R.id.action_open_file_with) {
             openFile();
         } else if (itemId == R.id.action_remove_file) {
