@@ -27,11 +27,11 @@ import com.owncloud.android.R;
 import com.owncloud.android.lib.common.utils.Log_OC;
 
 import net.fortuna.ical4j.model.Calendar;
-import net.fortuna.ical4j.model.ComponentList;
 import net.fortuna.ical4j.model.DateTime;
 import net.fortuna.ical4j.model.Dur;
 import net.fortuna.ical4j.model.Parameter;
 import net.fortuna.ical4j.model.Property;
+import net.fortuna.ical4j.model.component.CalendarComponent;
 import net.fortuna.ical4j.model.component.VAlarm;
 import net.fortuna.ical4j.model.component.VEvent;
 import net.fortuna.ical4j.model.parameter.FbType;
@@ -44,6 +44,8 @@ import net.fortuna.ical4j.model.property.Transp;
 import net.fortuna.ical4j.model.property.Trigger;
 
 import java.net.URI;
+import java.time.temporal.TemporalAmount;
+import java.time.temporal.TemporalUnit;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -131,7 +133,7 @@ public class ProcessVEvent {
         final Options options = new Options(context);
         List<Integer> reminders = new ArrayList<>();
 
-        ComponentList events = mICalCalendar.getComponents(VEvent.VEVENT);
+        List<CalendarComponent> events = mICalCalendar.getComponents(VEvent.VEVENT);
 
         ContentResolver resolver = context.getContentResolver();
         int numDel = 0;
@@ -414,22 +416,13 @@ public class ProcessVEvent {
 
             // FIXME: - Support for repeating alarms
             //        - Check the calendars max number of alarms
-            if (t.getDateTime() != null) {
+            if (t.getDateTime() != null)
                 alarmMs = t.getDateTime().getTime(); // Absolute
-            } else if (t.getDuration() != null && t.getDuration().isNegative()) {
-                //alarm trigger before start of event
+            else if (t.getDuration() != null) {
                 Related rel = (Related) t.getParameter(Parameter.RELATED);
-                if (rel != null && rel == Related.END) {
+                if (rel != null && rel == Related.END)
                     alarmStartMs = e.getEndDate().getDate().getTime();
-                }
-                alarmMs = alarmStartMs - durationToMs(t.getDuration()); // Relative "-"
-            } else if (t.getDuration() != null && !t.getDuration().isNegative()) {
-                //alarm trigger after start of event
-                Related rel = (Related) t.getParameter(Parameter.RELATED);
-                if (rel != null && rel == Related.END) {
-                    alarmStartMs = e.getEndDate().getDate().getTime();
-                }
-                alarmMs = alarmStartMs + durationToMs(t.getDuration()); // Relative "+"
+                alarmMs = alarmStartMs + durationToMs(t.getDuration());
             } else {
                 continue;
             }
@@ -452,6 +445,15 @@ public class ProcessVEvent {
         Duration d = new Duration();
         d.setValue(value);
         return d;
+    }
+
+    private static long durationToMs(TemporalAmount d) {
+        long ms = 0;
+        for (TemporalUnit u : d.getUnits()) {
+            long unit = u.getDuration().toMillis();
+            ms += d.get(u) * unit;
+        }
+        return ms;
     }
 
     private static long durationToMs(Dur d) {
