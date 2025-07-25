@@ -26,8 +26,7 @@ import kotlinx.coroutines.withContext
 
 class FileOperationHelper(
     private val user: User,
-    private val context: Context,
-    private val fileDataStorageManager: FileDataStorageManager
+    private val context: Context
 ) {
     companion object {
         private val TAG = FileOperationHelper::class.java.simpleName
@@ -44,11 +43,15 @@ class FileOperationHelper(
      * with the lowercased version 0001.webp — in that case, this will return true.
      * ```
      */
-    fun isSameRemoteFileAlreadyPresent(remotePath: String, client: OwnCloudClient): Boolean {
+    fun isSameRemoteFileAlreadyPresent(
+        remotePath: String,
+        storageManager: FileDataStorageManager,
+        client: OwnCloudClient
+    ): Boolean {
         val (lc, uc) = FileUtil.getRemotePathVariants(remotePath)
 
-        val localOCFile = fileDataStorageManager.getFileByDecryptedRemotePath(lc)
-            ?: fileDataStorageManager.getFileByDecryptedRemotePath(uc)
+        val localOCFile = storageManager.getFileByDecryptedRemotePath(lc)
+            ?: storageManager.getFileByDecryptedRemotePath(uc)
 
         if (localOCFile != null && localOCFile.remotePath.equals(remotePath, ignoreCase = true)) {
             val remoteFile = getRemoteFile(remotePath, client)
@@ -84,6 +87,7 @@ class FileOperationHelper(
     @Suppress("TooGenericExceptionCaught", "Deprecation")
     suspend fun removeFile(
         file: OCFile,
+        storageManager: FileDataStorageManager,
         onlyLocalCopy: Boolean,
         inBackground: Boolean,
         client: OwnCloudClient
@@ -97,7 +101,7 @@ class FileOperationHelper(
                         user,
                         inBackground,
                         context,
-                        fileDataStorageManager
+                        storageManager
                     )
                 }
                 val operationResult = operation.await()
