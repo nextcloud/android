@@ -785,6 +785,7 @@
     <string name="trashbin_loading_failed">Αποτυχία φόρτωσης κάδου ανακύκλωσης!</string>
     <string name="trashbin_not_emptied">Τα αρχεία δεν θα διαγραφούν μόνιμα!</string>
     <string name="unexpected_error_occurred">Παρουσιάστηκε μη αναμενόμενο σφάλμα</string>
+    <string name="unknown">Άγνωστο</string>
     <string name="unlock_file">Ξεκλείδωμα αρχείου</string>
     <string name="unread_comments">Υπάρχουν μη αναγνωσμένα σχόλια</string>
     <string name="unset_encrypted">Χρήση κρυπτογράφησης</string>

@@ -611,8 +611,6 @@
     <string name="offline_mode_info_description">Даже без подключения к Интернету вы можете упорядочивать папки и создавать файлы. Как только вы вернетесь в сеть, ваши действия будут автоматически синхронизированы.</string>
     <string name="offline_mode_info_title">Вы не в сети, но работа продолжается</string>
     <string name="offline_operations_file_does_not_exists_yet">Файл еще не существует. Пожалуйста, сначала загрузите файл.</string>
-    <string name="offline_operations_worker_notification_conflict_text">Конфликтующая папка: %s</string>
-    <string name="offline_operations_worker_notification_delete_offline_folder">Удалить автономную папку</string>
     <string name="offline_operations_worker_notification_error_text">Операция в автономном режиме не может быть завершена. %s</string>
     <string name="offline_operations_worker_notification_manager_ticker">Автономные операции</string>
     <string name="offline_operations_worker_notification_start_text">Запуск автономных операций</string>

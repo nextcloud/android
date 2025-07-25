@@ -610,8 +610,6 @@
     <string name="offline_mode_info_description">Zelfs zonder internetverbinding kun je je mappen organiseren en bestanden aanmaken. Zodra je weer online bent, worden de wachtende acties automatisch gesynchroniseerd.</string>
     <string name="offline_mode_info_title">Je bent offline, maar het werk gaat door</string>
     <string name="offline_operations_file_does_not_exists_yet">Bestand bestaat nog niet. Upload het bestand eerst.</string>
-    <string name="offline_operations_worker_notification_conflict_text">Conflicterende map: %s</string>
-    <string name="offline_operations_worker_notification_delete_offline_folder">Offline map verwijderen</string>
     <string name="offline_operations_worker_notification_error_text">De offline taak kan niet worden voltooid. %s</string>
     <string name="offline_operations_worker_notification_manager_ticker">Offline Taken</string>
     <string name="offline_operations_worker_notification_start_text">Starten offline taken</string>

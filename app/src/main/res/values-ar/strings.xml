@@ -611,8 +611,6 @@
     <string name="offline_mode_info_description">حتى بدون اتصال بالإنترنت، يمكنك تنظيم مجلداتك وإنشاء ملفات. بمجرد عودة الاتصال بالإنترنت، ستتم مزامنة الإجراءات المعلقة تلقائياً.</string>
     <string name="offline_mode_info_title">أنت غير متصل؛ لكن العمل مستمر</string>
     <string name="offline_operations_file_does_not_exists_yet">الملف لم يتوفر حتى الآن. يرجى رفع الملف أولاً.</string>
-    <string name="offline_operations_worker_notification_conflict_text">مجلد متعارض: %s</string>
-    <string name="offline_operations_worker_notification_delete_offline_folder">حذف مجلد غير متصل</string>
     <string name="offline_operations_worker_notification_error_text">لا يمكن إكمال العملية دون اتصال. %s</string>
     <string name="offline_operations_worker_notification_manager_ticker">عمليات دون اتصال بالإنترنت</string>
     <string name="offline_operations_worker_notification_start_text">بدء عمليات بدون اتصال</string>

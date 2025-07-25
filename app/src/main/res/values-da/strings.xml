@@ -608,8 +608,6 @@
     <string name="offline_mode_info_description">Selv uden internetforbindelse kan du organisere dine mapper, oprette filer. Når du er online igen, synkroniseres dine afventende handlinger automatisk.</string>
     <string name="offline_mode_info_title">Du er offline, men arbejdet fortsætter</string>
     <string name="offline_operations_file_does_not_exists_yet">Filen eksisterer ikke endnu. Upload venligst filen først.</string>
-    <string name="offline_operations_worker_notification_conflict_text">konfliktende mappe: %s</string>
-    <string name="offline_operations_worker_notification_delete_offline_folder">Slet offline mappe</string>
     <string name="offline_operations_worker_notification_error_text">Offline handlingen kan ikke gennemføres. %s</string>
     <string name="offline_operations_worker_notification_manager_ticker">Offline handlinger</string>
     <string name="offline_operations_worker_notification_start_text">Starter offline handlinger</string>
@@ -962,6 +960,7 @@
     <string name="unified_search_fragment_calendar_event_not_found">Event ikke fundet. Du kan altid synkronisere for at opdatere. Omdirigerer til web…</string>
     <string name="unified_search_fragment_contact_not_found">Kontakt ikke fundet. Du kan altid synkronisere for at opdatere. Omdirigerer til web…</string>
     <string name="unified_search_fragment_permission_needed">Rettigheder er krævet for at åbne søgeresultat, ellers vil det omdirigere til web...</string>
+    <string name="unknown">Ukendt</string>
     <string name="unlock_file">Lås op filen</string>
     <string name="unread_comments">Der er ulæste kommentarer</string>
     <string name="unset_encrypted">Slå kryptering fra</string>

@@ -374,6 +374,7 @@
     <string name="file_detail_share_already_active">Jagamise lisamine ei õnnestu. See kasutaja on jagamise juba sisse lülitanud.</string>
     <string name="file_detail_sharing_fragment_no_contact_app_message">Kontaktide valimiseks ei leidu sobilikku rakendust</string>
     <string name="file_details_no_content">Üksikasjade laadimine ei õnnestunud</string>
+    <string name="file_details_sharing_fragment_custom_permission_not_selected">Palun vali kohandatud õigused</string>
     <string name="file_icon">Fail</string>
     <string name="file_keep">Hoia alles</string>
     <string name="file_list_empty">Laadi midagi üles või sünkroniseeri oma seadmetega.</string>
@@ -391,6 +392,8 @@
     <string name="file_list_empty_shared">Sinu poolt jagatud failid ja kaustad saavad olema siin nähtavad</string>
     <string name="file_list_empty_shared_headline">Midagi pole veel jagatud</string>
     <string name="file_list_empty_unified_search_no_results">Sinu päringul pole tulemusi</string>
+    <string name="file_list_empty_unified_search_start_search">Alusta otsingut</string>
+    <string name="file_list_empty_unified_search_start_search_description">Otsimaks faile, kontakte, kalendrisündmusi ja muud sinu kasutajakontoga seotud teavet, sisesta otsitu ülaltoodud otsinguribale.</string>
     <string name="file_list_folder">kaust</string>
     <string name="file_list_live">OTSE</string>
     <string name="file_list_loading">Laadimine…</string>
@@ -610,10 +613,12 @@
     <string name="offline_mode_info_description">Ka ilma internetiühenduseta saad hallata oma kaustu, korrastada ja luua uusi faile. Võrguühenduse taastumisel tehtud muudatused sünkroniseeritakse automaatselt.</string>
     <string name="offline_mode_info_title">Sa pole võrgus, aga töö jätkub</string>
     <string name="offline_operations_file_does_not_exists_yet">Faili pole veel olemas. Esmalt palun laadi fail üles.</string>
-    <string name="offline_operations_worker_notification_conflict_text">Konfliktis olev kaust: %s</string>
-    <string name="offline_operations_worker_notification_delete_offline_folder">Kustuta vallaskaust</string>
+    <string name="offline_operations_worker_notification_create_file_conflict_text">Kuna sama nimega fail on serveris juba olemas, siis %s faili loomine on katkestatud.</string>
+    <string name="offline_operations_worker_notification_create_folder_conflict_text">Kuna sama nimega kaust on serveris juba olemas, siis %s kausta loomine on katkestatud.</string>
     <string name="offline_operations_worker_notification_error_text">Vallasrežiimis tegevust ei õnnestu lõpetada. %s</string>
     <string name="offline_operations_worker_notification_manager_ticker">Vallasrežiimis tegevused</string>
+    <string name="offline_operations_worker_notification_remove_conflict_text">Kuna sama fail on serveris juba muudetud, siis %s faili kustutamine on katkestatud.</string>
+    <string name="offline_operations_worker_notification_rename_conflict_text">Kuna sama nimega fail on serveris juba olemas, siis %s faili nime muutmine on katkestatud.</string>
     <string name="offline_operations_worker_notification_start_text">Käivitan vallasrežiimis tegevusi</string>
     <string name="oneHour">1 tund</string>
     <string name="online">Võrgus</string>

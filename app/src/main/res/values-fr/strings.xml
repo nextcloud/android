@@ -610,8 +610,6 @@
     <string name="offline_mode_info_description">Même sans connexion Internet, vous pouvez organiser vos dossiers, créer des fichiers. Dès que vous êtes de nouveau en ligne, vos actions en cours sont automatiquement synchronisées.</string>
     <string name="offline_mode_info_title">Vous êtes hors ligne, mais le travail continue</string>
     <string name="offline_operations_file_does_not_exists_yet">Le fichier n\'existe pas encore. Veuillez d\'abord téléverser le fichier.</string>
-    <string name="offline_operations_worker_notification_conflict_text">Dossier en conflit : %s</string>
-    <string name="offline_operations_worker_notification_delete_offline_folder">Supprimer le dossier hors ligne</string>
     <string name="offline_operations_worker_notification_error_text">L\'opération hors ligne ne peut être achevée. %s</string>
     <string name="offline_operations_worker_notification_manager_ticker">Opérations hors ligne</string>
     <string name="offline_operations_worker_notification_start_text">Démarrage des opérations hors ligne</string>

@@ -374,6 +374,7 @@
     <string name="file_detail_share_already_active">Sdílení není možné vytvořit – to už je aktivní od tohoto uživatele.</string>
     <string name="file_detail_sharing_fragment_no_contact_app_message">Pro označené kontakty není k dispozici žádná aplikace</string>
     <string name="file_details_no_content">Nepodařilo se načíst podrobnosti.</string>
+    <string name="file_details_sharing_fragment_custom_permission_not_selected">Vyberte uživatelsky určená oprávnění</string>
     <string name="file_icon">Soubor</string>
     <string name="file_keep">Ponechat</string>
     <string name="file_list_empty">Nahrajte nějaký obsah, nebo synchronizujte s vašimi zařízeními.</string>
@@ -391,6 +392,8 @@
     <string name="file_list_empty_shared">Zde budou zobrazeny vámi nasdílené soubory a složky.</string>
     <string name="file_list_empty_shared_headline">Zatím nic nenasdíleno</string>
     <string name="file_list_empty_unified_search_no_results">Na váš dotaz nic nenalezeno</string>
+    <string name="file_list_empty_unified_search_start_search">Zahájit vaše vyhledávání</string>
+    <string name="file_list_empty_unified_search_start_search_description">Pište do pruhu vyhledávání výše a hledejte v souborech, kontaktech, událostech v kalendáři a dalším napříč vaším účtem.</string>
     <string name="file_list_folder">složka</string>
     <string name="file_list_live">ŽIVĚ</string>
     <string name="file_list_loading">Načítání…</string>
@@ -610,10 +613,12 @@
     <string name="offline_mode_info_description">I bez připojení k Internetu je možné uspořádávat své složky a vytvářet soubory. Jakmile budete opět online, vaše čekající změny budou automaticky synchronizovány.</string>
     <string name="offline_mode_info_title">Jste bez připojení, ale práce pokračuje</string>
     <string name="offline_operations_file_does_not_exists_yet">Soubor ještě neexistuje. Nejprve ho prosím nahrajte.</string>
-    <string name="offline_operations_worker_notification_conflict_text">Kolidující složka: %s</string>
-    <string name="offline_operations_worker_notification_delete_offline_folder">Smazat offline složku</string>
+    <string name="offline_operations_worker_notification_create_file_conflict_text">Nebylo možné vytvořit %s. Takto nazvaný soubor už na serveru existuje.</string>
+    <string name="offline_operations_worker_notification_create_folder_conflict_text">Nebylo možné vytvořit %s. Takto nazvaná složka už na serveru existuje.</string>
     <string name="offline_operations_worker_notification_error_text">Offline operaci není možné dokončit. %s</string>
     <string name="offline_operations_worker_notification_manager_ticker">Offline operace</string>
+    <string name="offline_operations_worker_notification_remove_conflict_text">Zrušeno smazání %s. Soubor byl mezitím upraven na serveru.</string>
+    <string name="offline_operations_worker_notification_rename_conflict_text">Zrušeno přejmenování %s. Takto nazvaný soubor už na serveru existuje.</string>
     <string name="offline_operations_worker_notification_start_text">Zahajování offline operací</string>
     <string name="oneHour">1 hodina</string>
     <string name="online">Online</string>
@@ -967,6 +972,7 @@
     <string name="unified_search_fragment_calendar_event_not_found">Událost nenalezena, ale ještě pořád je možné aktualizovat synchronizací. Přesměrovává se na web…</string>
     <string name="unified_search_fragment_contact_not_found">Kontakt nenalezen, ale ještě pořád je možné aktualizovat synchronizací. Přesměrovává se na web…</string>
     <string name="unified_search_fragment_permission_needed">Pro otevření výsledků vyhledávání je zapotřebí oprávnění – pokud chybí, přesměruje na web…</string>
+    <string name="unknown">Neznámé</string>
     <string name="unlock_file">Odemknout soubor</string>
     <string name="unread_comments">Existuje nepřečtený komentář</string>
     <string name="unset_encrypted">Zrušit šifrování</string>
