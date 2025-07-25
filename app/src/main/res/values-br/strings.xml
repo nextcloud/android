@@ -724,6 +724,7 @@
     <string name="trashbin_file_not_restored">Ar restr %1$s n\'eo ket evit bezha adlakaet !</string>
     <string name="trashbin_file_remove">Lamet da viken</string>
     <string name="trashbin_not_emptied">N\'eo ket posupl lemel ar restr da virviken !</string>
+    <string name="unknown">Dianv</string>
     <string name="unlock_file">Dibrennan ar restr</string>
     <string name="unread_comments">Bez eez eus kemenadennom n\'int ket bet lennet</string>
     <string name="unset_encrypted">Lemel ar sifrañ</string>

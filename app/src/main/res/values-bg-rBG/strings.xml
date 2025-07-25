@@ -782,6 +782,7 @@
     <string name="trashbin_loading_failed">Зареждането на кошчето е неуспешно!</string>
     <string name="trashbin_not_emptied">Файловете не могат да бъдат окончателно изтрити!</string>
     <string name="unexpected_error_occurred">Възникна неочаквана грешка</string>
+    <string name="unknown">Неизвестен</string>
     <string name="unlock_file">Отключване на файл</string>
     <string name="unread_comments">Съществуват непрочетени коментари</string>
     <string name="unset_encrypted">Изключи криптиране</string>

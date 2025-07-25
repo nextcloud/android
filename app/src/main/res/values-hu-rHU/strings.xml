@@ -610,8 +610,6 @@
     <string name="offline_mode_info_description">Akár internetkapcsolat nélkül is rendszerezheti a mappákat és hozhat létre fájlokat. Amint újra online lesz, a függőben lévő műveletek automatikusan szinkronizálva lesznek.</string>
     <string name="offline_mode_info_title">Nincs kapcsolat, de a munka folytatódik</string>
     <string name="offline_operations_file_does_not_exists_yet">A fájl még nem létezik. Először töltse fel a fájlt.</string>
-    <string name="offline_operations_worker_notification_conflict_text">Ütköző mappa: %s</string>
-    <string name="offline_operations_worker_notification_delete_offline_folder">Kapcsolat nélküli mappa törlése</string>
     <string name="offline_operations_worker_notification_error_text">A kapcsolat nélküli művelet nem fejezhető be. %s</string>
     <string name="offline_operations_worker_notification_manager_ticker">Kapcsolat nélküli műveletek</string>
     <string name="offline_operations_worker_notification_start_text">Kapcsolat nélküli műveletek elkezdése</string>

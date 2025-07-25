@@ -610,8 +610,6 @@
     <string name="offline_mode_info_description">İnternet bağlantınız olmasa bile klasörlerinizi düzenleyebilir, dosyalar oluşturabilirsiniz. Yeniden çevrim içi olduğunuzda, bekleyen işlemleriniz otomatik olarak eşitlenir.</string>
     <string name="offline_mode_info_title">Çevrim dışınız ancak çalışma sürüyor</string>
     <string name="offline_operations_file_does_not_exists_yet">Dosya bulunamadı. Önce lütfen dosyayı yükleyin.</string>
-    <string name="offline_operations_worker_notification_conflict_text">Çakışan klasör: %s</string>
-    <string name="offline_operations_worker_notification_delete_offline_folder">Çevrim dışı klasörü sil</string>
     <string name="offline_operations_worker_notification_error_text">Çevrim dışı işlem tamamlanamadı. %s</string>
     <string name="offline_operations_worker_notification_manager_ticker">Çevrim dışı işlemler</string>
     <string name="offline_operations_worker_notification_start_text">Çevrim dışı işlemleri başlatılıyor</string>

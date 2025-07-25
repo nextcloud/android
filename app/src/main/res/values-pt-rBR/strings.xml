@@ -610,10 +610,12 @@
     <string name="offline_mode_info_description">Mesmo sem conexão com a Internet, você pode organizar suas pastas e criar arquivos. Quando você estiver on-line novamente, suas ações pendentes serão sincronizadas automaticamente.</string>
     <string name="offline_mode_info_title">Você está off-line, mas o trabalho continua</string>
     <string name="offline_operations_file_does_not_exists_yet">O arquivo ainda não existe. Por favor, faça upload do arquivo primeiro.</string>
-    <string name="offline_operations_worker_notification_conflict_text">Pasta em conflito: %s</string>
-    <string name="offline_operations_worker_notification_delete_offline_folder">Excluir pasta off-line</string>
+    <string name="offline_operations_worker_notification_create_file_conflict_text">Não foi possível criar %s. Existe um arquivo com o mesmo nome no servidor.</string>
+    <string name="offline_operations_worker_notification_create_folder_conflict_text">Não foi possível criar %s. Existe uma pasta com o mesmo nome no servidor.</string>
     <string name="offline_operations_worker_notification_error_text">A operação off-line não pode ser concluída. %s</string>
     <string name="offline_operations_worker_notification_manager_ticker">Operações Off-line</string>
+    <string name="offline_operations_worker_notification_remove_conflict_text">A exclusão de %s foi canelada. O arquivo foi modificado no servidor.</string>
+    <string name="offline_operations_worker_notification_rename_conflict_text">A renomeação de %s foi cancelada. Existe um arquivo com o mesmo nome no servidor.</string>
     <string name="offline_operations_worker_notification_start_text">Iniciando operações off-line</string>
     <string name="oneHour">1 hora</string>
     <string name="online">On-line</string>

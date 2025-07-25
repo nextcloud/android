@@ -610,8 +610,6 @@
     <string name="offline_mode_info_description">即使没有互联网连接，你也可以组织文件夹、创建文件。一旦您重新在线，你的待处理操作将自动同步。</string>
     <string name="offline_mode_info_title">您已离线，但工作仍在继续</string>
     <string name="offline_operations_file_does_not_exists_yet">文件尚不存在。请先上传文件。</string>
-    <string name="offline_operations_worker_notification_conflict_text">冲突的文件夹：%s</string>
-    <string name="offline_operations_worker_notification_delete_offline_folder">删除离线文件夹</string>
     <string name="offline_operations_worker_notification_error_text">无法完成离线操作。%s</string>
     <string name="offline_operations_worker_notification_manager_ticker">离线操作</string>
     <string name="offline_operations_worker_notification_start_text">开始离线操作</string>

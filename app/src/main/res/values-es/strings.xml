@@ -608,8 +608,6 @@
     <string name="offline_mode_info_description">Incluso sin una conexión a internet, puede sorganizar tus carpetas o crear archivos. Una vez vuelves a estar en línea ,las acciones pendientes se sincronizarán automáticamente.</string>
     <string name="offline_mode_info_title">Está desconectado, pero el trabajo continúa</string>
     <string name="offline_operations_file_does_not_exists_yet">El archivo no existe todavía. Por favor, sube primero el archivo.</string>
-    <string name="offline_operations_worker_notification_conflict_text">Carpeta en conflicto: %s</string>
-    <string name="offline_operations_worker_notification_delete_offline_folder">Eliminar carpeta sin conexión</string>
     <string name="offline_operations_worker_notification_error_text">La operación sin conexión no se ha podido completar. %s</string>
     <string name="offline_operations_worker_notification_manager_ticker">Operaciones sin conexión</string>
     <string name="offline_operations_worker_notification_start_text">Iniciando operaciones sin conexión</string>
