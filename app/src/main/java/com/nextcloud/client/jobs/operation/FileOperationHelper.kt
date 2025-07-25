@@ -12,6 +12,7 @@ import com.nextcloud.client.account.User
 import com.nextcloud.utils.extensions.getErrorMessage
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
+import com.owncloud.android.db.OCUpload
 import com.owncloud.android.lib.common.OwnCloudClient
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.lib.resources.files.ReadFileRemoteOperation
@@ -23,6 +24,7 @@ import com.owncloud.android.utils.MimeTypeUtil
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.withContext
+import java.io.File
 
 class FileOperationHelper(private val user: User, private val context: Context) {
     companion object {
@@ -41,24 +43,31 @@ class FileOperationHelper(private val user: User, private val context: Context) 
      * ```
      */
     fun isSameRemoteFileAlreadyPresent(
-        remotePath: String,
+        upload: OCUpload,
         storageManager: FileDataStorageManager,
-        client: OwnCloudClient
     ): Boolean {
-        val (lc, uc) = FileUtil.getRemotePathVariants(remotePath)
+        val (lc, uc) = FileUtil.getRemotePathVariants(upload.remotePath)
 
         val localOCFile = storageManager.getFileByDecryptedRemotePath(lc)
             ?: storageManager.getFileByDecryptedRemotePath(uc)
 
-        if (localOCFile != null && localOCFile.remotePath.equals(remotePath, ignoreCase = true)) {
-            val remoteFile = getRemoteFile(remotePath, client)
-            if (!isFileChanged(remoteFile, localOCFile)) {
+        if (localOCFile != null && localOCFile.remotePath.equals(upload.remotePath, ignoreCase = true)) {
+            if (isSameFileOnRemote(localOCFile, upload)) {
                 Log_OC.w(TAG, "Same file already exists due to lowercase/uppercase extension")
                 return true
             }
         }
 
         return false
+    }
+
+    fun isSameFileOnRemote(ocFile: OCFile, upload: OCUpload): Boolean {
+        val localFile = File(upload.localPath)
+        if (!localFile.exists()) {
+            return false
+        }
+        val localSize: Long = localFile.length()
+        return ocFile.fileLength == localSize
     }
 
     @Suppress("DEPRECATION")
