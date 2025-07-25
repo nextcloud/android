@@ -175,7 +175,7 @@ class FileUploadWorker(
                 totalUploadSize = totalUploadSize
             )
 
-            val result = upload(client,operation, user.get())
+            val result = upload(client, operation, user.get())
             currentUploadFileOperation = null
 
             fileUploaderDelegate.sendBroadcastUploadFinished(
