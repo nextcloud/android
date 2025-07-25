@@ -1071,6 +1071,7 @@
     <string name="uploader_upload_failed_sync_conflict_error">File upload conflict</string>
     <string name="uploader_upload_failed_sync_conflict_error_content">Pick which version to keep of %1$s</string>
     <string name="upload_list_resolve_conflict">Resolve conflict</string>
+    <string name="upload_list_remove_upload">Remove upload</string>
     <string name="upload_list_delete">Delete</string>
     <string name="create_new">New</string>
     <string name="editor_placeholder" translatable="false">%1$s %2$s</string>
