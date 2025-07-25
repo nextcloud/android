@@ -160,7 +160,8 @@ class FileUploadWorker(
             setWorkerState(user.get())
 
             val operation = createUploadFileOperation(upload, user.get())
-            if (fileOperationHelper.isSameRemoteFileAlreadyPresent(upload.remotePath, client)) {
+            val storageManager = FileDataStorageManager(user.get(), context.contentResolver)
+            if (fileOperationHelper.isSameRemoteFileAlreadyPresent(upload.remotePath, storageManager, client)) {
                 uploadsStorageManager.removeUpload(upload.uploadId)
                 continue
             }

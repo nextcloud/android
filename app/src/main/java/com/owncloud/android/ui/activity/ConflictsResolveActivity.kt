@@ -177,7 +177,8 @@ class ConflictsResolveActivity :
         lifecycleScope.launch(Dispatchers.IO) {
             val client = clientRepository.getOwncloudClient() ?: return@launch
             val isSuccess = fileOperationHelper.removeFile(
-                serverFile,
+                file = serverFile,
+                storageManager = fileDataStorageManager,
                 onlyLocalCopy = false,
                 inBackground = false,
                 client = client
