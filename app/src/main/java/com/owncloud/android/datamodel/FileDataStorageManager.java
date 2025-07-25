@@ -2802,4 +2802,17 @@ public class FileDataStorageManager {
 
         return result;
     }
+
+    @Nullable
+    public FileEntity getFileEntity(OCFile file) {
+        if (file == null) {
+            return null;
+        }
+
+        return fileDao.getFileById(file.getFileId());
+    }
+
+    public void updateFileEntity(@NonNull FileEntity entity) {
+        fileDao.update(entity);
+    }
 }
