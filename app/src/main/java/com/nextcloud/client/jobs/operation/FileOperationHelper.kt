@@ -24,10 +24,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.withContext
 
-class FileOperationHelper(
-    private val user: User,
-    private val context: Context
-) {
+class FileOperationHelper(private val user: User, private val context: Context) {
     companion object {
         private val TAG = FileOperationHelper::class.java.simpleName
     }
