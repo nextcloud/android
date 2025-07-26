@@ -74,6 +74,11 @@ public class FixedChunkUploadRemoteOperation extends RemoteOperation implements 
     // Fixed 1 MB chunk size (1024 * 1024 bytes)
     public static final long FIXED_CHUNK_SIZE = 1024 * 1024;
     
+    // Constants for repeated string literals
+    private static final String BYTES_SUFFIX = " bytes";
+    private static final String SIZE_SEPARATOR = ", size: ";
+    private static final String DAV_UPLOADS_PATH = "/remote.php/dav/uploads/";
+    
     private final String mLocalPath;
     private final String mRemotePath;
     private final String mMimeType;
@@ -165,8 +170,8 @@ public class FixedChunkUploadRemoteOperation extends RemoteOperation implements 
             mFileSize = localFile.length();
             
             Log_OC.d(TAG, "FixedChunkUploadRemoteOperation: Processing file " + localFile.getName() + 
-                     " with size " + mFileSize + " bytes");
-            Log_OC.d(TAG, "FixedChunkUploadRemoteOperation: FIXED_CHUNK_SIZE = " + FIXED_CHUNK_SIZE + " bytes");
+                     " with size " + mFileSize + BYTES_SUFFIX);
+            Log_OC.d(TAG, "FixedChunkUploadRemoteOperation: FIXED_CHUNK_SIZE = " + FIXED_CHUNK_SIZE + BYTES_SUFFIX);
             
             // This operation is only used for large files (>2MB) to provide multipart upload
             Log_OC.d(TAG, "FixedChunkUploadRemoteOperation: Using chunked upload for large file");
@@ -190,7 +195,7 @@ public class FixedChunkUploadRemoteOperation extends RemoteOperation implements 
      */
     private RemoteOperationResult uploadFileDirectly(OwnCloudClient client, File localFile) {
         Log_OC.d(TAG, "FixedChunkUploadRemoteOperation.uploadFileDirectly() - ENTRY");
-        Log_OC.d(TAG, "uploadFileDirectly: File size = " + localFile.length() + " bytes");
+        Log_OC.d(TAG, "uploadFileDirectly: File size = " + localFile.length() + BYTES_SUFFIX);
         
         try {
             // Use the existing UploadFileRemoteOperation for small files
@@ -236,7 +241,7 @@ public class FixedChunkUploadRemoteOperation extends RemoteOperation implements 
         
         try {
             Log_OC.d(TAG, "uploadFileInChunks: Starting Nextcloud v2 chunked upload for file: " + localFile.getName() + 
-                     ", size: " + mFileSize + " bytes, using " + FIXED_CHUNK_SIZE + " byte chunks");
+                     SIZE_SEPARATOR + mFileSize + BYTES_SUFFIX + ", using " + FIXED_CHUNK_SIZE + " byte chunks");
             
             mTotalChunks = (mFileSize + FIXED_CHUNK_SIZE - 1) / FIXED_CHUNK_SIZE; // Ceiling division
             mCurrentChunk = 0;
@@ -284,7 +289,7 @@ public class FixedChunkUploadRemoteOperation extends RemoteOperation implements 
                     long chunkSize = chunkEnd - chunkStart;
                     
                     Log_OC.d(TAG, "uploadFileInChunks: Uploading chunk " + mCurrentChunk + "/" + mTotalChunks + 
-                             " (bytes " + chunkStart + "-" + (chunkEnd - 1) + ", size: " + chunkSize + ")");
+                             " (bytes " + chunkStart + "-" + (chunkEnd - 1) + SIZE_SEPARATOR + chunkSize + ")");
                     
                     
                     // Read chunk data
@@ -358,7 +363,7 @@ public class FixedChunkUploadRemoteOperation extends RemoteOperation implements 
             try {
                 String encodedUsername = URLEncoder.encode(client.getCredentials().getUsername(), StandardCharsets.UTF_8.toString());
                 String encodedSessionId = URLEncoder.encode(mUploadSessionId, StandardCharsets.UTF_8.toString());
-                sessionUrl = client.getBaseUri() + "/remote.php/dav/uploads/" + encodedUsername + "/" + encodedSessionId;
+                sessionUrl = client.getBaseUri() + DAV_UPLOADS_PATH + encodedUsername + "/" + encodedSessionId;
             } catch (Exception e) {
                 Log_OC.e(TAG, "createUploadSession: Error encoding URL components", e);
                 return new RemoteOperationResult(e);
@@ -417,7 +422,7 @@ public class FixedChunkUploadRemoteOperation extends RemoteOperation implements 
         }
         
         try {
-            Log_OC.d(TAG, "uploadChunkToSession: Uploading chunk " + chunkNumber + " with " + chunkData.length + " bytes");
+            Log_OC.d(TAG, "uploadChunkToSession: Uploading chunk " + chunkNumber + " with " + chunkData.length + BYTES_SUFFIX);
             
             // Construct chunk URL - chunks are named as numbers (1, 2, 3...)
             String chunkUrl;
@@ -425,7 +430,7 @@ public class FixedChunkUploadRemoteOperation extends RemoteOperation implements 
                 String encodedUsername = URLEncoder.encode(client.getCredentials().getUsername(), StandardCharsets.UTF_8.toString());
                 String encodedSessionId = URLEncoder.encode(mUploadSessionId, StandardCharsets.UTF_8.toString());
                 String chunkFileName = String.format("%05d", chunkNumber); // 5-digit padded number
-                chunkUrl = client.getBaseUri() + "/remote.php/dav/uploads/" + encodedUsername + "/" + encodedSessionId + "/" + chunkFileName;
+                chunkUrl = client.getBaseUri() + DAV_UPLOADS_PATH + encodedUsername + "/" + encodedSessionId + "/" + chunkFileName;
             } catch (Exception e) {
                 Log_OC.e(TAG, "uploadChunkToSession: Error encoding URL components", e);
                 return new RemoteOperationResult(e);
@@ -512,7 +517,7 @@ public class FixedChunkUploadRemoteOperation extends RemoteOperation implements 
             try {
                 String encodedUsername = URLEncoder.encode(client.getCredentials().getUsername(), StandardCharsets.UTF_8.toString());
                 String encodedSessionId = URLEncoder.encode(mUploadSessionId, StandardCharsets.UTF_8.toString());
-                assemblySourceUrl = client.getBaseUri() + "/remote.php/dav/uploads/" + encodedUsername + "/" + encodedSessionId + "/.file";
+                assemblySourceUrl = client.getBaseUri() + DAV_UPLOADS_PATH + encodedUsername + "/" + encodedSessionId + "/.file";
             } catch (Exception e) {
                 Log_OC.e(TAG, "assembleChunks: Error encoding source URL", e);
                 return new RemoteOperationResult(e);
@@ -658,7 +663,7 @@ public class FixedChunkUploadRemoteOperation extends RemoteOperation implements 
         try {
             String encodedUsername = URLEncoder.encode(client.getCredentials().getUsername(), StandardCharsets.UTF_8.toString());
             String encodedSessionId = URLEncoder.encode(mUploadSessionId, StandardCharsets.UTF_8.toString());
-            String sessionUrl = client.getBaseUri() + "/remote.php/dav/uploads/" + encodedUsername + "/" + encodedSessionId;
+            String sessionUrl = client.getBaseUri() + DAV_UPLOADS_PATH + encodedUsername + "/" + encodedSessionId;
             
             Log_OC.d(TAG, "checkExistingSession: Checking for existing session: " + sessionUrl);
             
@@ -747,7 +752,7 @@ public class FixedChunkUploadRemoteOperation extends RemoteOperation implements 
             // Calculate percentage - same logic as FileUploadWorker's getPercent()
             int currentPercent = (int) ((100.0 * bytesUploaded) / mFileSize);
             
-            Log_OC.d(TAG, "updateProgress: " + bytesUploaded + "/" + mFileSize + " bytes (" + currentPercent + "%)");
+            Log_OC.d(TAG, "updateProgress: " + bytesUploaded + "/" + mFileSize + BYTES_SUFFIX + " (" + currentPercent + "%)");
             
             // Report progress to all listeners (including FileUploadWorker)
             for (OnDatatransferProgressListener listener : mDataTransferListeners) {

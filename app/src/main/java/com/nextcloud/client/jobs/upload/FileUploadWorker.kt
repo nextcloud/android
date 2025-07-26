@@ -400,11 +400,28 @@ class FileUploadWorker(
             val hash = baseString.hashCode()
             val notificationId = Math.abs(hash)
             
-            Log_OC.d(TAG, "generateDeterministicNotificationId: Generated notification ID: $notificationId for file: $canonicalPath (size: $fileSize)")
+            Log_OC.d(
+                TAG,
+                "generateDeterministicNotificationId: Generated notification ID: $notificationId " +
+                    "for file: $canonicalPath (size: $fileSize)"
+            )
             notificationId
-        } catch (e: Exception) {
-            Log_OC.e(TAG, "generateDeterministicNotificationId: Error generating deterministic notification ID, falling back to random", e)
-            Random.nextInt()
+        } catch (e: java.io.IOException) {
+            Log_OC.e(
+                TAG,
+                "generateDeterministicNotificationId: IO error getting canonical path, falling back to localPath hash",
+                e
+            )
+            // Fallback to deterministic hash based on localPath and fileSize
+            Math.abs("${localPath}_$fileSize".hashCode())
+        } catch (e: SecurityException) {
+            Log_OC.e(
+                TAG,
+                "generateDeterministicNotificationId: Security error accessing file, falling back to localPath hash",
+                e
+            )
+            // Fallback to deterministic hash based on localPath and fileSize
+            Math.abs("${localPath}_$fileSize".hashCode())
         }
     }
 
@@ -416,7 +433,10 @@ class FileUploadWorker(
         val notification = notificationManager.notificationBuilder.build()
         val notificationId = Random.nextInt() // Will be replaced by deterministic ID when upload starts
         
-        Log_OC.d(TAG, "createForegroundInfo: Creating foreground service for upload with notification ID: $notificationId")
+        Log_OC.d(
+            TAG,
+            "createForegroundInfo: Creating foreground service for upload with notification ID: $notificationId"
+        )
         
         ForegroundServiceHelper.createWorkerForegroundInfo(
             notificationId,
