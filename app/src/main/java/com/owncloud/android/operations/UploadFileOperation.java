@@ -48,6 +48,9 @@ import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.files.ChunkedFileUploadRemoteOperation;
+
+import static com.owncloud.android.operations.FixedChunkUploadRemoteOperation.BYTES_SUFFIX;
+import static com.owncloud.android.operations.FixedChunkUploadRemoteOperation.SIZE_SEPARATOR;
 import com.owncloud.android.lib.resources.files.ExistenceCheckRemoteOperation;
 import com.owncloud.android.lib.resources.files.ReadFileRemoteOperation;
 import com.owncloud.android.lib.resources.files.UploadFileRemoteOperation;
@@ -662,7 +665,7 @@ public class UploadFileOperation extends SyncOperation {
         
         if (size >= CHUNK_THRESHOLD) {
             Log_OC.d(TAG, "UploadFileOperation: Using FixedChunkUploadRemoteOperation for large encrypted file: " + 
-                     mFile.getFileName() + ", size: " + size + " bytes");
+                     mFile.getFileName() + SIZE_SEPARATOR + size + BYTES_SUFFIX);
             mUploadOperation = new FixedChunkUploadRemoteOperation(encryptedTempFile.getAbsolutePath(),
                                                                   mFile.getParentRemotePath() + encryptedFileName,
                                                                   mFile.getMimeType(),

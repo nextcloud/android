@@ -70,7 +70,7 @@ public class FixedChunkUploadRemoteOperationTest {
             // Write exactly 2.5 MB of content to test chunking (should create 3 chunks of 1MB each)
             StringBuilder content = new StringBuilder();
             for (int i = 0; i < 2621440; i++) { // 2.5MB = 2621440 characters
-                content.append("A");
+                content.append('A');
             }
             writer.write(content.toString());
         }
@@ -305,7 +305,7 @@ public class FixedChunkUploadRemoteOperationTest {
         } catch (ClassNotFoundException e) {
             // MoveMethod class is defined in FixedChunkUploadRemoteOperation.java but may not be accessible
             // This is expected as it's a package-private class, so we'll skip this test
-            System.out.println("MoveMethod class not accessible for testing - this is expected for package-private classes");
+            // MoveMethod class not accessible for testing - this is expected for package-private classes
             assertTrue("MoveMethod class test skipped due to access restrictions", true);
         }
     }

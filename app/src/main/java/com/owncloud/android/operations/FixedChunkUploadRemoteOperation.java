@@ -75,9 +75,9 @@ public class FixedChunkUploadRemoteOperation extends RemoteOperation implements 
     public static final long FIXED_CHUNK_SIZE = 1024 * 1024;
     
     // Constants for repeated string literals
-    private static final String BYTES_SUFFIX = " bytes";
-    private static final String SIZE_SEPARATOR = ", size: ";
-    private static final String DAV_UPLOADS_PATH = "/remote.php/dav/uploads/";
+    public static final String BYTES_SUFFIX = " bytes";
+    public static final String SIZE_SEPARATOR = ", size: ";
+    public static final String DAV_UPLOADS_PATH = "/remote.php/dav/uploads/";
     
     private final String mLocalPath;
     private final String mRemotePath;

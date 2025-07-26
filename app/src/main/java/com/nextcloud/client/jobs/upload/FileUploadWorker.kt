@@ -10,6 +10,7 @@ package com.nextcloud.client.jobs.upload
 import android.app.PendingIntent
 import android.content.Context
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
+import androidx.work.ForegroundInfo
 import androidx.work.Worker
 import androidx.work.WorkerParameters
 import com.nextcloud.client.account.User
@@ -252,8 +253,14 @@ class FileUploadWorker(
             val file = File(uploadFileOperation.originalStoragePath)
             val remoteId: String? = uploadFileOperation.file.remoteId
             task.execute(ThumbnailsCacheManager.ThumbnailGenerationTaskObject(file, remoteId))
-        } catch (e: Exception) {
-            Log_OC.e(TAG, "Error uploading", e)
+        } catch (e: java.io.IOException) {
+            Log_OC.e(TAG, "IO error during upload", e)
+            result = RemoteOperationResult<Any?>(e)
+        } catch (e: SecurityException) {
+            Log_OC.e(TAG, "Security error during upload", e)
+            result = RemoteOperationResult<Any?>(e)
+        } catch (e: RuntimeException) {
+            Log_OC.e(TAG, "Runtime error during upload", e)
             result = RemoteOperationResult<Any?>(e)
         } finally {
             cleanupUploadProcess(result, uploadFileOperation)
@@ -429,28 +436,39 @@ class FileUploadWorker(
      * Create foreground info for long-running upload tasks.
      * This ensures uploads continue even when app is closed.
      */
-    private fun createForegroundInfo() = try {
-        val notification = notificationManager.notificationBuilder.build()
-        val notificationId = Random.nextInt() // Will be replaced by deterministic ID when upload starts
-        
-        Log_OC.d(
-            TAG,
-            "createForegroundInfo: Creating foreground service for upload with notification ID: $notificationId"
-        )
-        
-        ForegroundServiceHelper.createWorkerForegroundInfo(
-            notificationId,
-            notification,
-            ForegroundServiceType.DataSync
-        )
-    } catch (e: Exception) {
-        Log_OC.e(TAG, "createForegroundInfo: Error creating foreground info", e)
-        // Fallback to default notification
-        val notification = notificationManager.notificationBuilder.build()
-        ForegroundServiceHelper.createWorkerForegroundInfo(
-            Random.nextInt(),
-            notification,
-            ForegroundServiceType.DataSync
-        )
+        private fun createForegroundInfo(): ForegroundInfo {
+        return try {
+            val notification = notificationManager.notificationBuilder.build()
+            val notificationId = Random.nextInt() // Will be replaced by deterministic ID when upload starts
+            
+            Log_OC.d(
+                TAG,
+                "createForegroundInfo: Creating foreground service for upload with notification ID: $notificationId"
+            )
+            
+            ForegroundServiceHelper.createWorkerForegroundInfo(
+                notificationId,
+                notification,
+                ForegroundServiceType.DataSync
+            )
+        } catch (e: IllegalStateException) {
+            Log_OC.e(TAG, "createForegroundInfo: Error creating foreground info", e)
+            // Fallback to default notification
+            val notification = notificationManager.notificationBuilder.build()
+            ForegroundServiceHelper.createWorkerForegroundInfo(
+                Random.nextInt(),
+                notification,
+                ForegroundServiceType.DataSync
+            )
+        } catch (e: SecurityException) {
+            Log_OC.e(TAG, "createForegroundInfo: Security error creating foreground info", e)
+            // Fallback to default notification
+            val notification = notificationManager.notificationBuilder.build()
+            ForegroundServiceHelper.createWorkerForegroundInfo(
+                Random.nextInt(),
+                notification,
+                ForegroundServiceType.DataSync
+            )
+        }
     }
 }

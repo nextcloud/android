@@ -7,7 +7,9 @@
 package com.nextcloud.client.jobs.upload
 
 import org.junit.After
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNotEquals
+import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -117,7 +119,10 @@ class FileUploadWorkerTest {
             val baseString = "${canonicalPath}_$fileSize"
             val hash = baseString.hashCode()
             Math.abs(hash)
-        } catch (e: Exception) {
+        } catch (e: java.io.IOException) {
+            // Fallback to deterministic hash based on localPath and fileSize
+            Math.abs("${localPath}_$fileSize".hashCode())
+        } catch (e: SecurityException) {
             // Fallback to deterministic hash based on localPath and fileSize
             Math.abs("${localPath}_$fileSize".hashCode())
         }

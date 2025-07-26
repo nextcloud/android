@@ -39,7 +39,7 @@ import static org.junit.Assert.assertTrue;
  * chunked upload scenarios with real SQLite database operations.
  */
 @RunWith(AndroidJUnit4.class)
-public class ChunkedUploadDatabaseIT {
+public class ChunkedUploadDatabaseTest {
     
     private static final String TEST_ACCOUNT = "test@example.com";
     private static final String UPLOAD_FOLDER = "/chunkedUploads/";
@@ -91,8 +91,8 @@ public class ChunkedUploadDatabaseIT {
         );
         upload.setNameCollisionPolicy(NameCollisionPolicy.DEFAULT);
         upload.setLocalAction(FileUploadWorker.LOCAL_BEHAVIOUR_COPY);
-        // Note: setMimeType and setFileSize may not be available in this API version
-        // File size is automatically set during upload creation
+        // Set file size explicitly from the actual file
+        upload.setFileSize(largeFile.length());
         
         // Store upload
         long uploadId = uploadsStorageManager.storeUpload(upload);
@@ -308,7 +308,8 @@ public class ChunkedUploadDatabaseIT {
         );
         upload.setNameCollisionPolicy(NameCollisionPolicy.DEFAULT);
         upload.setLocalAction(FileUploadWorker.LOCAL_BEHAVIOUR_COPY);
-        // Note: Some setters may not be available in this API version
+        // Set file size explicitly from the actual file
+        upload.setFileSize(file.length());
         upload.setUseWifiOnly(false);
         upload.setWhileChargingOnly(false);
         return upload;

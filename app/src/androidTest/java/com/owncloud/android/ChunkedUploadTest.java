@@ -48,11 +48,12 @@ import static org.junit.Assert.assertTrue;
  * Instrumented tests for chunked upload functionality.
  * These tests run on device/emulator and test real Android components.
  */
-public class ChunkedUploadIT extends AbstractOnServerIT {
+public class ChunkedUploadTest extends AbstractOnServerIT {
     
     private static final String CHUNKED_UPLOAD_FOLDER = "/chunkedUploadTest/";
     private static final long LARGE_FILE_SIZE = 3 * 1024 * 1024; // 3MB to trigger chunking
     private static final long SMALL_FILE_SIZE = 1024; // 1KB for small file test
+    private static final String MIME_TYPE_OCTET_STREAM = "application/octet-stream";
     
     private UploadsStorageManager uploadsStorageManager;
     private Context context;
@@ -136,7 +137,7 @@ public class ChunkedUploadIT extends AbstractOnServerIT {
         FixedChunkUploadRemoteOperation operation = new FixedChunkUploadRemoteOperation(
             testFile.getAbsolutePath(),
             CHUNKED_UPLOAD_FOLDER + "test_chunk_creation.bin",
-            "application/octet-stream",
+            MIME_TYPE_OCTET_STREAM,
             null,
             System.currentTimeMillis(),
             null,
@@ -157,7 +158,7 @@ public class ChunkedUploadIT extends AbstractOnServerIT {
         FixedChunkUploadRemoteOperation operation = new FixedChunkUploadRemoteOperation(
             testFile.getAbsolutePath(),
             CHUNKED_UPLOAD_FOLDER + "test_cancellation.bin",
-            "application/octet-stream",
+            MIME_TYPE_OCTET_STREAM,
             null,
             System.currentTimeMillis(),
             null,
@@ -173,7 +174,7 @@ public class ChunkedUploadIT extends AbstractOnServerIT {
         FixedChunkUploadRemoteOperation operation2 = new FixedChunkUploadRemoteOperation(
             testFile.getAbsolutePath(),
             CHUNKED_UPLOAD_FOLDER + "test_cancellation2.bin",
-            "application/octet-stream",
+            MIME_TYPE_OCTET_STREAM,
             null,
             System.currentTimeMillis(),
             null,
@@ -228,7 +229,7 @@ public class ChunkedUploadIT extends AbstractOnServerIT {
         FixedChunkUploadRemoteOperation operation = new FixedChunkUploadRemoteOperation(
             largeFile.getAbsolutePath(),
             CHUNKED_UPLOAD_FOLDER + "progress_test.bin",
-            "application/octet-stream",
+            MIME_TYPE_OCTET_STREAM,
             null,
             System.currentTimeMillis(),
             null,
@@ -263,7 +264,7 @@ public class ChunkedUploadIT extends AbstractOnServerIT {
         FixedChunkUploadRemoteOperation operation1 = new FixedChunkUploadRemoteOperation(
             testFile.getAbsolutePath(),
             CHUNKED_UPLOAD_FOLDER + "session_test1.bin",
-            "application/octet-stream",
+            MIME_TYPE_OCTET_STREAM,
             null,
             System.currentTimeMillis(),
             null,
@@ -274,7 +275,7 @@ public class ChunkedUploadIT extends AbstractOnServerIT {
         FixedChunkUploadRemoteOperation operation2 = new FixedChunkUploadRemoteOperation(
             testFile.getAbsolutePath(),
             CHUNKED_UPLOAD_FOLDER + "session_test2.bin", // Different remote path
-            "application/octet-stream",
+            MIME_TYPE_OCTET_STREAM,
             null,
             System.currentTimeMillis(),
             null,
@@ -311,7 +312,7 @@ public class ChunkedUploadIT extends AbstractOnServerIT {
         FixedChunkUploadRemoteOperation smallOperation = new FixedChunkUploadRemoteOperation(
             smallFile.getAbsolutePath(),
             CHUNKED_UPLOAD_FOLDER + "small_test.bin",
-            "application/octet-stream",
+            MIME_TYPE_OCTET_STREAM,
             null,
             System.currentTimeMillis(),
             null,
@@ -325,7 +326,7 @@ public class ChunkedUploadIT extends AbstractOnServerIT {
         FixedChunkUploadRemoteOperation largeOperation = new FixedChunkUploadRemoteOperation(
             largeFile.getAbsolutePath(),
             CHUNKED_UPLOAD_FOLDER + "large_test.bin",
-            "application/octet-stream",
+            MIME_TYPE_OCTET_STREAM,
             null,
             System.currentTimeMillis(),
             null,
@@ -349,7 +350,7 @@ public class ChunkedUploadIT extends AbstractOnServerIT {
         FixedChunkUploadRemoteOperation operation = new FixedChunkUploadRemoteOperation(
             nonExistentPath,
             CHUNKED_UPLOAD_FOLDER + "non_existent.bin",
-            "application/octet-stream",
+            MIME_TYPE_OCTET_STREAM,
             null,
             System.currentTimeMillis(),
             null,

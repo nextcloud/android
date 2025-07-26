@@ -23,11 +23,11 @@ echo "🧪 Running Chunked Upload Instrumented Tests..."
 echo
 
 echo "📊 Running Database Tests..."
-./gradlew :app:connectedGenericDebugAndroidTest -Pandroid.testInstrumentationRunnerArguments.class=com.owncloud.android.ChunkedUploadDatabaseIT
+./gradlew :app:connectedGenericDebugAndroidTest -Pandroid.testInstrumentationRunnerArguments.class=com.owncloud.android.ChunkedUploadDatabaseTest
 
 echo
 echo "🔄 Running Operation Tests..."  
-./gradlew :app:connectedGenericDebugAndroidTest -Pandroid.testInstrumentationRunnerArguments.class=com.owncloud.android.ChunkedUploadIT
+./gradlew :app:connectedGenericDebugAndroidTest -Pandroid.testInstrumentationRunnerArguments.class=com.owncloud.android.ChunkedUploadTest
 
 echo
 echo "⚙️ Running Worker Tests..."

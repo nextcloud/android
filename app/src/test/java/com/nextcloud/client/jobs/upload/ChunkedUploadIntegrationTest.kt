@@ -9,9 +9,14 @@ package com.nextcloud.client.jobs.upload
 import android.content.Context
 import com.owncloud.android.lib.common.operations.RemoteOperationResult
 import com.owncloud.android.operations.FixedChunkUploadRemoteOperation
-import io.mockk.*
+import io.mockk.mockk
+import io.mockk.unmockkAll
 import org.junit.After
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
+import org.junit.Assert.assertNotEquals
+import org.junit.Assert.assertNotNull
+import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -228,7 +233,9 @@ class ChunkedUploadIntegrationTest {
             val baseString = "${canonicalPath}_$fileSize"
             val hash = baseString.hashCode()
             Math.abs(hash)
-        } catch (e: Exception) {
+        } catch (e: java.io.IOException) {
+            Math.abs("${localPath}_$fileSize".hashCode())
+        } catch (e: SecurityException) {
             Math.abs("${localPath}_$fileSize".hashCode())
         }
     }

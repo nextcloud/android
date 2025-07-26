@@ -15,7 +15,12 @@ import com.owncloud.android.db.OCUpload
 import com.owncloud.android.files.services.NameCollisionPolicy
 import com.owncloud.android.operations.FixedChunkUploadRemoteOperation
 import org.junit.After
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
+import org.junit.Assert.assertNotEquals
+import org.junit.Assert.assertNotNull
+import org.junit.Assert.assertNull
+import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -167,8 +172,10 @@ class FileUploadWorkerInstrumentedTest {
         assertEquals("100% for fully transferred", 100, calculatePercent(smallFile.length(), smallFile.length()))
 
         // Test with different file sizes
-        assertEquals("25% for quarter of medium file", 25, calculatePercent(mediumFile.length() / 4, mediumFile.length()))
-        assertEquals("75% for three quarters of large file", 75, calculatePercent(largeFile.length() * 3 / 4, largeFile.length()))
+        assertEquals("25% for quarter of medium file", 25, 
+                    calculatePercent(mediumFile.length() / 4, mediumFile.length()))
+        assertEquals("75% for three quarters of large file", 75, 
+                    calculatePercent(largeFile.length() * 3 / 4, largeFile.length()))
 
         // Test edge cases
         assertEquals("0% for zero total", 0, calculatePercent(100, 0))
@@ -236,7 +243,9 @@ class FileUploadWorkerInstrumentedTest {
             val baseString = "${canonicalPath}_$fileSize"
             val hash = baseString.hashCode()
             Math.abs(hash)
-        } catch (e: Exception) {
+        } catch (e: java.io.IOException) {
+            Math.abs("${localPath}_$fileSize".hashCode())
+        } catch (e: SecurityException) {
             Math.abs("${localPath}_$fileSize".hashCode())
         }
     }
