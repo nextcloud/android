@@ -687,7 +687,7 @@ public class UploadFileOperation extends SyncOperation {
             }
         } else {
             Log_OC.d(TAG, "UploadFileOperation: Using standard upload for small encrypted file: " + 
-                     mFile.getFileName() + ", size: " + size + " bytes");
+                     mFile.getFileName() + SIZE_SEPARATOR + size + BYTES_SUFFIX);
             mUploadOperation = new UploadFileRemoteOperation(encryptedTempFile.getAbsolutePath(),
                                                             mFile.getParentRemotePath() + encryptedFileName,
                                                             mFile.getMimeType(),
@@ -1067,7 +1067,7 @@ public class UploadFileOperation extends SyncOperation {
                                     
                                     if (size >= CHUNK_THRESHOLD) {
                                         Log_OC.d(TAG, "UploadFileOperation (temp file): Using FixedChunkUploadRemoteOperation for large file: " + 
-                                                 mFile.getFileName() + ", size: " + size + " bytes");
+                                                 mFile.getFileName() + SIZE_SEPARATOR + size + BYTES_SUFFIX);
                                         mUploadOperation = new FixedChunkUploadRemoteOperation(
                                             mFile.getStoragePath(),
                                             mFile.getRemotePath(),
@@ -1089,7 +1089,7 @@ public class UploadFileOperation extends SyncOperation {
                                         }
                                     } else {
                                         Log_OC.d(TAG, "UploadFileOperation (temp file): Using standard upload for small file: " + 
-                                                 mFile.getFileName() + ", size: " + size + " bytes");
+                                                 mFile.getFileName() + SIZE_SEPARATOR + size + BYTES_SUFFIX);
                                         mUploadOperation = new UploadFileRemoteOperation(
                                             mFile.getStoragePath(),
                                             mFile.getRemotePath(),
@@ -1127,7 +1127,7 @@ public class UploadFileOperation extends SyncOperation {
                     
                     if (size >= CHUNK_THRESHOLD) {
                         Log_OC.d(TAG, "UploadFileOperation (normal): Using FixedChunkUploadRemoteOperation for large file: " + 
-                                 mFile.getFileName() + ", size: " + size + " bytes");
+                                 mFile.getFileName() + SIZE_SEPARATOR + size + BYTES_SUFFIX);
                         mUploadOperation = new FixedChunkUploadRemoteOperation(
                             mFile.getStoragePath(),
                             mFile.getRemotePath(),
@@ -1149,7 +1149,7 @@ public class UploadFileOperation extends SyncOperation {
                         }
                     } else {
                         Log_OC.d(TAG, "UploadFileOperation (normal): Using standard upload for small file: " + 
-                                 mFile.getFileName() + ", size: " + size + " bytes");
+                                 mFile.getFileName() + SIZE_SEPARATOR + size + BYTES_SUFFIX);
                         mUploadOperation = new UploadFileRemoteOperation(
                             mFile.getStoragePath(),
                             mFile.getRemotePath(),
