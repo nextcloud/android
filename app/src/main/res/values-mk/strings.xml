@@ -169,6 +169,7 @@
     <string name="create_new_folder">Нова папка</string>
     <string name="create_new_presentation">Нова Презентација</string>
     <string name="create_new_spreadsheet">Нова Табела</string>
+    <string name="create_rich_workspace">Додади опис на папката</string>
     <string name="credentials_disabled">Акредитивите се оневозможени</string>
     <string name="daily_backup">Дневена резервна копија</string>
     <string name="default_credentials_wrong">Погрешни акредитиви</string>
@@ -209,6 +210,7 @@
     <string name="drawer_item_home">Дома</string>
     <string name="drawer_item_notifications">Известувања</string>
     <string name="drawer_item_on_device">На уредот</string>
+    <string name="drawer_item_personal_files">Лични датотеки</string>
     <string name="drawer_item_recently_modified">Скоро изменети</string>
     <string name="drawer_item_shared">Споделени</string>
     <string name="drawer_item_trashbin">Избришани датотеки</string>
@@ -683,6 +685,7 @@
     <string name="trashbin_file_not_restored">Датотеката %1$s неможе да се врати!</string>
     <string name="trashbin_file_remove">Избриши</string>
     <string name="trashbin_not_emptied">Датотеките неможат да бидат избрижани трајно!</string>
+    <string name="unknown">Непознат</string>
     <string name="unlock_file">Отклучи датотека</string>
     <string name="unread_comments">Постои непрочитан коментар</string>
     <string name="unset_encrypted">Отстрани енкрипција</string>
@@ -713,6 +716,7 @@
     <string name="upload_local_storage_full">Локалното складиште е полно</string>
     <string name="upload_local_storage_not_copied">Датотеката неможе да се копира во локалното складиште</string>
     <string name="upload_lock_failed">Неуспешно пребарување на папка</string>
+    <string name="upload_manually_cancelled">Прикачувањето беше откажано од корисникот</string>
     <string name="upload_query_move_foreign_files">Недоволниот простор спречува копирање на избраните датотеки во папката %1$s. Дали сакате да ги преместите таму наместо да ги копирате?</string>
     <string name="upload_sync_conflict">Конфликт во синхронизацијата, Ве молиме отстранете го конфликтот рачно</string>
     <string name="upload_unknown_error">Непозната грешка</string>

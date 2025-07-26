@@ -608,8 +608,6 @@
     <string name="offline_mode_info_description">インターネット接続がなくてもフォルダの整理やファイルの作成ができます。オンラインに戻ったら、保留中の操作が自動的に同期されます。</string>
     <string name="offline_mode_info_title">オフラインでも作業は続きます</string>
     <string name="offline_operations_file_does_not_exists_yet">ファイルがまだ存在しません。まずファイルをアップロードしてください。</string>
-    <string name="offline_operations_worker_notification_conflict_text">競合したフォルダ: %s</string>
-    <string name="offline_operations_worker_notification_delete_offline_folder">オフラインフォルダを削除する</string>
     <string name="offline_operations_worker_notification_error_text">オフライン操作を完了できません。%s</string>
     <string name="offline_operations_worker_notification_manager_ticker">オフライン操作</string>
     <string name="offline_operations_worker_notification_start_text">オフライン操作を開始しています</string>
@@ -957,6 +955,7 @@
     <string name="unified_search_fragment_calendar_event_not_found">イベントが見つかりません。常に同期して更新できます。WEBにリダイレクトしています...</string>
     <string name="unified_search_fragment_contact_not_found">連絡先が見つかりません。常に同期して更新できます。WEBにリダイレクトしています...</string>
     <string name="unified_search_fragment_permission_needed">検索結果を開くには権限が必要です。さもなければWEBにリダイレクトされます...</string>
+    <string name="unknown">不明</string>
     <string name="unlock_file">ファイルのロックを解除</string>
     <string name="unread_comments">未読のコメントがあります</string>
     <string name="unset_encrypted">暗号化解除</string>

@@ -17,8 +17,7 @@ class UnifiedSearchHeaderViewHolder(
     val binding: UnifiedSearchHeaderBinding,
     val viewThemeUtils: ViewThemeUtils,
     val context: Context
-) :
-    SectionedViewHolder(binding.root) {
+) : SectionedViewHolder(binding.root) {
 
     fun bind(section: UnifiedSearchSection) {
         binding.title.text = section.name

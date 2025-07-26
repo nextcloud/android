@@ -374,6 +374,7 @@
     <string name="file_detail_share_already_active">You cannot create a share, sharing is already active from this user.</string>
     <string name="file_detail_sharing_fragment_no_contact_app_message">No app available to select contacts</string>
     <string name="file_details_no_content">Failed to load details</string>
+    <string name="file_details_sharing_fragment_custom_permission_not_selected">Please select custom permission</string>
     <string name="file_icon">File</string>
     <string name="file_keep">Keep</string>
     <string name="file_list_empty">Upload some content or sync with your devices.</string>
@@ -391,6 +392,8 @@
     <string name="file_list_empty_shared">Files and folders you share will show up here.</string>
     <string name="file_list_empty_shared_headline">Nothing shared yet</string>
     <string name="file_list_empty_unified_search_no_results">No results found for your query</string>
+    <string name="file_list_empty_unified_search_start_search">Start your search</string>
+    <string name="file_list_empty_unified_search_start_search_description">Type in the search bar above to find files, contacts, calendar events, and more across your account.</string>
     <string name="file_list_folder">folder</string>
     <string name="file_list_live">LIVE</string>
     <string name="file_list_loading">Loading…</string>
@@ -610,10 +613,12 @@
     <string name="offline_mode_info_description">Even without an internet connection, you can organize your folders, create files. Once you\'re back online, your pending actions will automatically sync.</string>
     <string name="offline_mode_info_title">You\'re offline, but work continues</string>
     <string name="offline_operations_file_does_not_exists_yet">File does not exists, yet. Please upload the file first.</string>
-    <string name="offline_operations_worker_notification_conflict_text">Conflicting folder: %s</string>
-    <string name="offline_operations_worker_notification_delete_offline_folder">Delete offline folder</string>
+    <string name="offline_operations_worker_notification_create_file_conflict_text">Could not create %s. A file with the same name exists on the server.</string>
+    <string name="offline_operations_worker_notification_create_folder_conflict_text">Could not create %s. A folder with the same name exists on the server.</string>
     <string name="offline_operations_worker_notification_error_text">The offline operation cannot be completed. %s</string>
     <string name="offline_operations_worker_notification_manager_ticker">Offline Operations</string>
+    <string name="offline_operations_worker_notification_remove_conflict_text">Cancelled deletion of %s. The file has been modified on the server.</string>
+    <string name="offline_operations_worker_notification_rename_conflict_text">Cancelled rename of %s. A file with the same name exists on the server.</string>
     <string name="offline_operations_worker_notification_start_text">Starting offline operations</string>
     <string name="oneHour">1 hour</string>
     <string name="online">Online</string>
@@ -968,6 +973,7 @@
     <string name="unified_search_fragment_calendar_event_not_found">Event not found, you can always sync to update. Redirecting to web…</string>
     <string name="unified_search_fragment_contact_not_found">Contact not found, you can always sync to update. Redirecting to web…</string>
     <string name="unified_search_fragment_permission_needed">Permissions are required to open search result otherwise it will redirected to web…</string>
+    <string name="unknown">Unknown</string>
     <string name="unlock_file">Unlock file</string>
     <string name="unread_comments">Unread comments exist</string>
     <string name="unset_encrypted">Unset encryption</string>

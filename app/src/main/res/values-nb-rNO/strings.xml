@@ -900,6 +900,7 @@
     <string name="unified_search_fragment_calendar_event_not_found">Finner ikke hendelsen, du kan alltid synkronisere for å oppdatere. Omdirigerer til web...</string>
     <string name="unified_search_fragment_contact_not_found">Finner ikke kontakten, du kan alltid synkronisere for å oppdatere. Omdirigerer til web...</string>
     <string name="unified_search_fragment_permission_needed">Tillatelser kreves for å åpne søkeresultatet, ellers vil det omdirigeres til web...</string>
+    <string name="unknown">Ukjent</string>
     <string name="unlock_file">Lås opp fil</string>
     <string name="unread_comments">Det er uleste kommentarer</string>
     <string name="unset_encrypted">Ikke satt kryptering</string>

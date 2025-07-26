@@ -610,8 +610,6 @@
     <string name="offline_mode_info_description">Även utan internetanslutning kan du organisera dina mappar och skapa filer. När du är online igen synkroniseras dina väntande åtgärder automatiskt.</string>
     <string name="offline_mode_info_title">Du är offline, men kan fortsätta arbeta</string>
     <string name="offline_operations_file_does_not_exists_yet">Filen finns inte ännu. Ladda upp filen först.</string>
-    <string name="offline_operations_worker_notification_conflict_text">Mapp i konflikt: %s</string>
-    <string name="offline_operations_worker_notification_delete_offline_folder">Radera offlinemapp</string>
     <string name="offline_operations_worker_notification_error_text">Offlineåtgärden kan inte slutföras. %s</string>
     <string name="offline_operations_worker_notification_manager_ticker">Offline-operationer</string>
     <string name="offline_operations_worker_notification_start_text">Starta offline-operationer</string>
@@ -968,6 +966,7 @@
     <string name="unified_search_fragment_calendar_event_not_found">Händelsen hittades inte, du kan alltid synkronisera för att uppdatera. Omdirigerar till webben...</string>
     <string name="unified_search_fragment_contact_not_found">Kontakten hittades inte, du kan alltid synkronisera för att uppdatera. Omdirigerar till webben...</string>
     <string name="unified_search_fragment_permission_needed">Behörigheter krävs för att öppna sökresultatet, annars omdirigeras det till webben...</string>
+    <string name="unknown">Okänd</string>
     <string name="unlock_file">Lås upp fil</string>
     <string name="unread_comments">Olästa kommentarer finns</string>
     <string name="unset_encrypted">Ta bort som krypterad</string>

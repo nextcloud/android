@@ -18,12 +18,8 @@ import com.owncloud.android.operations.UploadFileOperation
 import com.owncloud.android.ui.notifications.NotificationUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
 
-class UploadNotificationManager(private val context: Context, viewThemeUtils: ViewThemeUtils) :
-    WorkerNotificationManager(ID, context, viewThemeUtils, R.string.foreground_service_upload) {
-
-    companion object {
-        private const val ID = 411
-    }
+class UploadNotificationManager(private val context: Context, viewThemeUtils: ViewThemeUtils, id: Int) :
+    WorkerNotificationManager(id, context, viewThemeUtils, R.string.foreground_service_upload) {
 
     @Suppress("MagicNumber")
     fun prepareForStart(

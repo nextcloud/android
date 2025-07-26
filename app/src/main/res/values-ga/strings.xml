@@ -374,6 +374,7 @@
     <string name="file_detail_share_already_active">Ní féidir leat comhroinnt a chruthú, tá an chomhroinnt gníomhach cheana féin ón úsáideoir seo.</string>
     <string name="file_detail_sharing_fragment_no_contact_app_message">Níl aip ar fáil chun teagmhálaithe a roghnú</string>
     <string name="file_details_no_content">Theip ar lódáil na sonraí</string>
+    <string name="file_details_sharing_fragment_custom_permission_not_selected">Roghnaigh cead saincheaptha le do thoil</string>
     <string name="file_icon">Comhad</string>
     <string name="file_keep">Coinnigh</string>
     <string name="file_list_empty">Uaslódáil roinnt inneachair nó sioncronaigh le do ghléasanna.</string>
@@ -391,6 +392,8 @@
     <string name="file_list_empty_shared">Taispeánfar na comhaid agus na fillteáin a roinneann tú anseo.</string>
     <string name="file_list_empty_shared_headline">Ní dhéanfaidh aon ní roinnte go fóill</string>
     <string name="file_list_empty_unified_search_no_results">Níor aimsíodh aon torthaí do do cheist</string>
+    <string name="file_list_empty_unified_search_start_search">Tosaigh do chuardach</string>
+    <string name="file_list_empty_unified_search_start_search_description">Clóscríobh sa bharra cuardaigh thuas chun comhaid, teagmhálacha, imeachtaí féilire agus tuilleadh a aimsiú ar fud do chuntais.</string>
     <string name="file_list_folder">fillteán</string>
     <string name="file_list_live">BEO</string>
     <string name="file_list_loading">Á lódáil…</string>
@@ -610,10 +613,12 @@
     <string name="offline_mode_info_description">Fiú gan nasc idirlín, is féidir leat do fhillteáin a eagrú, comhaid a chruthú. Nuair a bheidh tú ar ais ar líne, déanfar do ghníomhartha ar feitheamh a shioncronú go huathoibríoch.</string>
     <string name="offline_mode_info_title">Tá tú as líne, ach leanann an obair ar aghaidh</string>
     <string name="offline_operations_file_does_not_exists_yet">Níl an comhad ann, fós. Íoslódáil an comhad ar dtús.</string>
-    <string name="offline_operations_worker_notification_conflict_text">Fillteán contrártha: %s</string>
-    <string name="offline_operations_worker_notification_delete_offline_folder">Scrios fillteán as líne</string>
+    <string name="offline_operations_worker_notification_create_file_conflict_text">Níorbh fhéidir %s a chruthú. Tá comhad leis an ainm céanna ar an bhfreastalaí.</string>
+    <string name="offline_operations_worker_notification_create_folder_conflict_text">Níorbh fhéidir %s a chruthú. Tá fillteán leis an ainm céanna ann ar an bhfreastalaí.</string>
     <string name="offline_operations_worker_notification_error_text">Ní féidir an oibríocht as líne a chríochnú. %s</string>
     <string name="offline_operations_worker_notification_manager_ticker">Oibríochtaí As Líne</string>
+    <string name="offline_operations_worker_notification_remove_conflict_text">Cealaíodh scriosadh %s. Tá an comhad athraithe ar an bhfreastalaí.</string>
+    <string name="offline_operations_worker_notification_rename_conflict_text">Cealaíodh athainmniú %s. Tá comhad leis an ainm céanna ar an bhfreastalaí.</string>
     <string name="offline_operations_worker_notification_start_text">Oibríochtaí as líne a thosú</string>
     <string name="oneHour">1 uair</string>
     <string name="online">Ar líne</string>
@@ -968,6 +973,7 @@
     <string name="unified_search_fragment_calendar_event_not_found">Níor aimsíodh an t-imeacht, is féidir leat sioncronú a dhéanamh i gcónaí chun nuashonrú a dhéanamh. Á atreorú chuig an ngréasán…</string>
     <string name="unified_search_fragment_contact_not_found">Níor aimsíodh an teagmhálaí, is féidir leat sioncronú a dhéanamh i gcónaí chun nuashonrú a dhéanamh. Á atreorú chuig an ngréasán…</string>
     <string name="unified_search_fragment_permission_needed">Teastaíonn ceadanna chun toradh cuardaigh a oscailt nó déanfar é a atreorú chuig an ngréasán…</string>
+    <string name="unknown">Anaithnid</string>
     <string name="unlock_file">Díghlasáil an comhad</string>
     <string name="unread_comments">Tá tuairimí neamhléite ann</string>
     <string name="unset_encrypted">Díshuiteáil criptiú</string>

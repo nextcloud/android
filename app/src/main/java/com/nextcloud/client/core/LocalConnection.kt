@@ -19,9 +19,7 @@ import android.os.IBinder
  *
  * One can subclass it to create own service interaction API.
  */
-abstract class LocalConnection<S : Service>(
-    protected val context: Context
-) : ServiceConnection {
+abstract class LocalConnection<S : Service>(protected val context: Context) : ServiceConnection {
 
     private var serviceBinder: LocalBinder<S>? = null
     val service: S? get() = serviceBinder?.service
@@ -35,9 +33,7 @@ abstract class LocalConnection<S : Service>(
      *
      * @see [bind]
      */
-    protected open fun createBindIntent(): Intent? {
-        return null
-    }
+    protected open fun createBindIntent(): Intent? = null
 
     /**
      * Bind local service. If [createBindIntent] returns null, it no-ops.

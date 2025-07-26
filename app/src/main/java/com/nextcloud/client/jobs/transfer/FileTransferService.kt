@@ -41,27 +41,23 @@ class FileTransferService : LifecycleService() {
         const val EXTRA_REQUEST = "request"
         const val EXTRA_USER = "user"
 
-        fun createBindIntent(context: Context, user: User): Intent {
-            return Intent(context, FileTransferService::class.java).apply {
+        fun createBindIntent(context: Context, user: User): Intent =
+            Intent(context, FileTransferService::class.java).apply {
                 putExtra(EXTRA_USER, user)
             }
-        }
 
-        fun createTransferRequestIntent(context: Context, request: Request): Intent {
-            return Intent(context, FileTransferService::class.java).apply {
+        fun createTransferRequestIntent(context: Context, request: Request): Intent =
+            Intent(context, FileTransferService::class.java).apply {
                 action = ACTION_TRANSFER
                 putExtra(EXTRA_REQUEST, request)
             }
-        }
     }
 
     /**
      * Binder forwards [TransferManager] API calls to selected instance of downloader.
      */
-    class Binder(
-        downloader: TransferManagerImpl,
-        service: FileTransferService
-    ) : LocalBinder<FileTransferService>(service),
+    class Binder(downloader: TransferManagerImpl, service: FileTransferService) :
+        LocalBinder<FileTransferService>(service),
         TransferManager by downloader
 
     @Inject

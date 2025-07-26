@@ -608,8 +608,6 @@
     <string name="offline_mode_info_description">Dokonca aj bez internetového pripojenia môžete organizovať svoje adresáre a vytvárať súbory. Keď budete opäť online, vaše nespracované akcie sa automaticky zosynchronizujú.</string>
     <string name="offline_mode_info_title">Nie ste pripojený, ale môžete pokračovať v práci</string>
     <string name="offline_operations_file_does_not_exists_yet">Žiadny súbor zatiaľ neexistuje. Prosím, nahrajte prvý súbor.</string>
-    <string name="offline_operations_worker_notification_conflict_text">Konfliktný adresár: %s</string>
-    <string name="offline_operations_worker_notification_delete_offline_folder">Zmazať offline adresár</string>
     <string name="offline_operations_worker_notification_error_text">Offline operácia nemôže byť dokončená. %s</string>
     <string name="offline_operations_worker_notification_manager_ticker">Offline operace</string>
     <string name="offline_operations_worker_notification_start_text">Spúšťanie offline operácií</string>
@@ -957,6 +955,7 @@
     <string name="unified_search_fragment_calendar_event_not_found">Udalosť sa nenašla, vždy ju môžete synchronizovať a aktualizovať. Prebieha presmerovanie na web…</string>
     <string name="unified_search_fragment_contact_not_found">Kontakt sa nenašiel, vždy ho môžete synchronizovať a aktualizovať. Prebieha presmerovanie na web…</string>
     <string name="unified_search_fragment_permission_needed">Pre otvorenie výsledku vyhľadávania sú potrebné práva, inak bude presmerovaný na web…</string>
+    <string name="unknown">Neznámy</string>
     <string name="unlock_file">Odomknúť súbor</string>
     <string name="unread_comments">Existujú neprečítané komentáre</string>
     <string name="unset_encrypted">Vypnúť šifrovanie</string>

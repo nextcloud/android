@@ -374,6 +374,7 @@
     <string name="file_detail_share_already_active">Nie można utworzyć udostępnienia — udostępnianie jest już aktywne dla tego użytkownika.</string>
     <string name="file_detail_sharing_fragment_no_contact_app_message">Brak aplikacji dla wybranego kontaktu</string>
     <string name="file_details_no_content">Nie udało się załadować szczegółów</string>
+    <string name="file_details_sharing_fragment_custom_permission_not_selected">Proszę wybrać własne uprawnienia</string>
     <string name="file_icon">Plik</string>
     <string name="file_keep">Zachowaj</string>
     <string name="file_list_empty">Wyślij lub zsynchronizuj pliki z urządzeniami.</string>
@@ -391,6 +392,8 @@
     <string name="file_list_empty_shared">Tutaj pojawią się pliki i katalogi, które udostępnisz.</string>
     <string name="file_list_empty_shared_headline">Nic nie udostępniasz</string>
     <string name="file_list_empty_unified_search_no_results">Nie znaleziono wyników dla Twojego zapytania</string>
+    <string name="file_list_empty_unified_search_start_search">Rozpocznij wyszukiwanie</string>
+    <string name="file_list_empty_unified_search_start_search_description">Wpisz w pasku wyszukiwania powyżej, aby znaleźć pliki, kontakty, wydarzenia z kalendarza i inne elementy na swoim koncie.</string>
     <string name="file_list_folder">katalog</string>
     <string name="file_list_live">NA ŻYWO</string>
     <string name="file_list_loading">Wczytywanie…</string>
@@ -610,10 +613,12 @@
     <string name="offline_mode_info_description">Nawet bez połączenia internetowego możesz organizować swoje katalogi, tworzyć pliki. Gdy tylko wrócisz do połączenia z internetem, Twoje oczekujące działania zostaną automatycznie zsynchronizowane.</string>
     <string name="offline_mode_info_title">Jesteś offline, ale praca trwa</string>
     <string name="offline_operations_file_does_not_exists_yet">Plik jeszcze nie istnieje. Wyślij najpierw plik.</string>
-    <string name="offline_operations_worker_notification_conflict_text">Katalog powodujący konflikt: %s</string>
-    <string name="offline_operations_worker_notification_delete_offline_folder">Usuń katalog offline</string>
+    <string name="offline_operations_worker_notification_create_file_conflict_text">Nie można utworzyć %s. Plik o tej samej nazwie już istnieje na serwerze.</string>
+    <string name="offline_operations_worker_notification_create_folder_conflict_text">Nie można utworzyć %s. Folder o tej samej nazwie już istnieje na serwerze.</string>
     <string name="offline_operations_worker_notification_error_text">Operacja offline nie może zostać ukończona. %s</string>
     <string name="offline_operations_worker_notification_manager_ticker">Operacje offline</string>
+    <string name="offline_operations_worker_notification_remove_conflict_text">Anulowano usunięcie %s. Plik został zmodyfikowany na serwerze.</string>
+    <string name="offline_operations_worker_notification_rename_conflict_text">Anulowano zmianę nazwy %s. Plik o tej samej nazwie już istnieje na serwerze.</string>
     <string name="offline_operations_worker_notification_start_text">Rozpoczęcie operacji offline</string>
     <string name="oneHour">1 godzina</string>
     <string name="online">Online</string>
@@ -968,6 +973,7 @@
     <string name="unified_search_fragment_calendar_event_not_found">Nie znaleziono zdarzenia, zawsze możesz zsynchronizować, aby zaktualizować. Przekierowanie do strony internetowej…</string>
     <string name="unified_search_fragment_contact_not_found">Nie znaleziono kontaktu, zawsze możesz zsynchronizować, aby zaktualizować. Przekierowanie do strony internetowej…</string>
     <string name="unified_search_fragment_permission_needed">Aby otworzyć wyniki wyszukiwania, wymagane są uprawnienia, w przeciwnym razie nastąpi przekierowanie do strony internetowej…</string>
+    <string name="unknown">Nieznana</string>
     <string name="unlock_file">Odblokuj plik</string>
     <string name="unread_comments">Nieprzeczytane komentarze</string>
     <string name="unset_encrypted">Wyłącz szyfrowanie</string>

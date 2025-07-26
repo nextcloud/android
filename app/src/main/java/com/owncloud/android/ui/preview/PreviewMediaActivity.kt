@@ -24,8 +24,6 @@ import android.net.Uri
 import android.os.AsyncTask
 import android.os.Build
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -47,6 +45,7 @@ import androidx.core.view.WindowInsetsControllerCompat
 import androidx.core.view.marginBottom
 import androidx.core.view.updateLayoutParams
 import androidx.core.view.updatePadding
+import androidx.lifecycle.lifecycleScope
 import androidx.media3.common.MediaItem
 import androidx.media3.common.MediaMetadata
 import androidx.media3.common.PlaybackException
@@ -101,8 +100,10 @@ import com.owncloud.android.ui.fragment.OCFileListFragment
 import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.ErrorMessageAdapter
 import com.owncloud.android.utils.MimeTypeUtil
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.lang.ref.WeakReference
-import java.util.concurrent.Executors
 import javax.inject.Inject
 
 /**
@@ -285,12 +286,6 @@ class PreviewMediaActivity :
         binding.emptyView.emptyListView.visibility = View.GONE
     }
 
-    private fun hideProgressLayout() {
-        binding.progress.visibility = View.GONE
-        binding.audioControllerView.visibility = View.VISIBLE
-        binding.emptyView.emptyListView.visibility = View.VISIBLE
-    }
-
     private fun setErrorMessage(headline: String, @StringRes message: Int) {
         binding.emptyView.run {
             emptyListViewHeadline.text = headline
@@ -298,9 +293,10 @@ class PreviewMediaActivity :
             emptyListIcon.setImageResource(R.drawable.file_movie)
             emptyListViewText.visibility = View.VISIBLE
             emptyListIcon.visibility = View.VISIBLE
-
-            hideProgressLayout()
+            emptyListView.visibility = View.VISIBLE
         }
+
+        binding.progress.visibility = View.GONE
     }
 
     private fun setGenericThumbnail() {
@@ -357,31 +353,27 @@ class PreviewMediaActivity :
     }
 
     private fun initializeVideoPlayer() {
-        val handler = Handler(Looper.getMainLooper())
-        Executors.newSingleThreadExecutor().execute {
-            try {
-                nextcloudClient = clientFactory.createNextcloudClient(accountManager.user)
+        lifecycleScope.launch(Dispatchers.IO) {
+            val client = clientRepository.getNextcloudClient() ?: return@launch
 
-                nextcloudClient?.let { client ->
-                    handler.post {
-                        videoPlayer = createNextcloudExoplayer(this, client)
-                        videoMediaSession = MediaSession.Builder(this, videoPlayer as Player).build()
+            withContext(Dispatchers.Main) {
+                videoPlayer = createNextcloudExoplayer(this@PreviewMediaActivity, client)
+                val uniqueSessionId = "preview_session_" + System.currentTimeMillis()
+                videoMediaSession = MediaSession.Builder(this@PreviewMediaActivity, videoPlayer as Player)
+                    .setId(uniqueSessionId)
+                    .build()
 
-                        videoPlayer?.let { player ->
-                            player.addListener(
-                                ExoplayerListener(
-                                    this,
-                                    binding.exoplayerView,
-                                    player
-                                )
-                            )
+                videoPlayer?.run {
+                    addListener(
+                        ExoplayerListener(
+                            this@PreviewMediaActivity,
+                            binding.exoplayerView,
+                            this
+                        )
+                    )
 
-                            playVideo()
-                        }
-                    }
+                    playVideo()
                 }
-            } catch (e: CreationException) {
-                handler.post { Log_OC.e(TAG, "error setting up ExoPlayer", e) }
             }
         }
     }
@@ -435,7 +427,8 @@ class PreviewMediaActivity :
                 override fun onPlaybackStateChanged(playbackState: Int) {
                     super.onPlaybackStateChanged(playbackState)
                     if (playbackState == Player.STATE_READY) {
-                        hideProgressLayout()
+                        binding.progress.visibility = View.GONE
+                        binding.audioControllerView.visibility = View.VISIBLE
                         binding.emptyView.emptyListView.visibility = View.GONE
                     }
                 }
@@ -475,13 +468,6 @@ class PreviewMediaActivity :
         }
     }
 
-    private fun releaseAudioPlayer() {
-        audioMediaController?.let { audioPlayer ->
-            audioPlayer.release()
-        }
-        audioMediaController = null
-    }
-
     private fun initWindowInsetsController() {
         windowInsetsController = WindowCompat.getInsetsController(
             window,
@@ -493,8 +479,8 @@ class PreviewMediaActivity :
 
     private fun applyWindowInsets() {
         val playerView = binding.exoplayerView
-        val exoControls = playerView.findViewById<FrameLayout>(R.id.exo_bottom_bar)
-        val exoProgress = playerView.findViewById<DefaultTimeBar>(R.id.exo_progress)
+        val exoControls = playerView.findViewById<FrameLayout>(androidx.media3.ui.R.id.exo_bottom_bar)
+        val exoProgress = playerView.findViewById<DefaultTimeBar>(androidx.media3.ui.R.id.exo_progress)
         val progressBottomMargin = exoProgress.marginBottom
 
         ViewCompat.setOnApplyWindowInsetsListener(binding.root) { _, windowInsets ->
@@ -889,8 +875,7 @@ class PreviewMediaActivity :
          * @param file File to test if can be previewed.
          * @return 'True' if the file can be handled by the activity.
          */
-        fun canBePreviewed(file: OCFile?): Boolean {
-            return file != null && (MimeTypeUtil.isAudio(file) || MimeTypeUtil.isVideo(file))
-        }
+        fun canBePreviewed(file: OCFile?): Boolean =
+            file != null && (MimeTypeUtil.isAudio(file) || MimeTypeUtil.isVideo(file))
     }
 }

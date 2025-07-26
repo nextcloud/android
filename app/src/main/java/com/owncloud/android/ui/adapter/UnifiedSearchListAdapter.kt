@@ -16,7 +16,6 @@ import androidx.core.view.isVisible
 import com.afollestad.sectionedrecyclerview.SectionedRecyclerViewAdapter
 import com.afollestad.sectionedrecyclerview.SectionedViewHolder
 import com.nextcloud.client.account.User
-import com.nextcloud.client.network.ClientFactory
 import com.owncloud.android.R
 import com.owncloud.android.databinding.UnifiedSearchEmptyBinding
 import com.owncloud.android.databinding.UnifiedSearchFooterBinding
@@ -38,7 +37,6 @@ class UnifiedSearchListAdapter(
     private val listInterface: UnifiedSearchListInterface,
     private val filesAction: UnifiedSearchItemViewHolder.FilesAction,
     private val user: User,
-    private val clientFactory: ClientFactory,
     private val context: Context,
     private val viewThemeUtils: ViewThemeUtils
 ) : SectionedRecyclerViewAdapter<SectionedViewHolder>() {
@@ -77,7 +75,6 @@ class UnifiedSearchListAdapter(
                     supportsOpeningCalendarContactsLocally,
                     binding,
                     user,
-                    clientFactory,
                     storageManager,
                     listInterface,
                     filesAction,
@@ -93,16 +90,11 @@ class UnifiedSearchListAdapter(
         }
     }
 
-    internal class EmptyViewHolder(binding: UnifiedSearchEmptyBinding) :
-        SectionedViewHolder(binding.getRoot())
+    internal class EmptyViewHolder(binding: UnifiedSearchEmptyBinding) : SectionedViewHolder(binding.getRoot())
 
-    override fun getSectionCount(): Int {
-        return sections.size
-    }
+    override fun getSectionCount(): Int = sections.size
 
-    override fun getItemCount(section: Int): Int {
-        return sections[section].entries.size
-    }
+    override fun getItemCount(section: Int): Int = sections[section].entries.size
 
     override fun onBindHeaderViewHolder(holder: SectionedViewHolder, section: Int, expanded: Boolean) {
         (holder as UnifiedSearchHeaderViewHolder).run {

@@ -18,25 +18,25 @@ apply plugin: "com.android.library"
 apply plugin: "kotlin-android"
 
 android {
-    namespace "com.nextcloud.appscan"
+    namespace = "com.nextcloud.appscan"
 
     defaultConfig {
-        minSdk 26
-        targetSdk 35
-        compileSdk 35
+        minSdk = 26
+        targetSdk = 35
+        compileSdk = 35
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled = false
         }
     }
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_17
-        targetCompatibility JavaVersion.VERSION_17
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
 
     kotlinOptions {
@@ -46,6 +46,6 @@ android {
 
 dependencies {
     implementation "androidx.appcompat:appcompat:$appCompatVersion"
-    implementation "com.github.zynkware:Document-Scanning-Android-SDK:$documentScannerVersion"
+    implementation "com.github.Hazzatur:Document-Scanning-Android-SDK:$documentScannerVersion"
     implementation "com.github.nextcloud.android-common:ui:$androidCommonLibraryVersion"
 }

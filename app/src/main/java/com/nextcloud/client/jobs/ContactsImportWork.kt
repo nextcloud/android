@@ -130,14 +130,12 @@ class ContactsImportWork(
     }
 
     @Suppress("TooGenericExceptionCaught")
-    fun readCheckedContractsFromFile(file: File): IntArray {
-        return try {
-            val fileData = FileUtils.readFileToByteArray(file)
-            fileData.toIntArray()
-        } catch (e: Exception) {
-            Log_OC.e(TAG, "Exception readCheckedContractsFromFile: $e")
-            intArrayOf()
-        }
+    fun readCheckedContractsFromFile(file: File): IntArray = try {
+        val fileData = FileUtils.readFileToByteArray(file)
+        fileData.toIntArray()
+    } catch (e: Exception) {
+        Log_OC.e(TAG, "Exception readCheckedContractsFromFile: $e")
+        intArrayOf()
     }
 
     private fun getContactFromCursor(cursor: Cursor): VCard? {

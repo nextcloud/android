@@ -22,6 +22,10 @@ import com.nextcloud.utils.extensions.ContextExtensionsKt;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.datamodel.ReceiverFlag;
 import com.owncloud.android.datamodel.UploadsStorageManager;
+import com.owncloud.android.lib.common.utils.Log_OC;
+
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /**
  * Helper for setting up network and power receivers
@@ -31,6 +35,9 @@ public final class ReceiversHelper {
     private ReceiversHelper() {
         // utility class -> private constructor
     }
+
+    private static final String TAG = ReceiversHelper.class.getSimpleName();
+    private static final ExecutorService executor = Executors.newSingleThreadExecutor();
 
     public static void registerNetworkChangeReceiver(final UploadsStorageManager uploadsStorageManager,
                                                      final UserAccountManager accountManager,
@@ -46,8 +53,12 @@ public final class ReceiversHelper {
         BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
-                DNSCache.clear();
-                walledCheckCache.clear();
+                executor.execute(() -> {
+                    DNSCache.clear();
+                    walledCheckCache.clear();
+                    Log_OC.d(TAG,"DNS caches are cleared");
+                });
+
                 if (connectivityService.getConnectivity().isConnected()) {
                     FilesSyncHelper.restartUploadsIfNeeded(uploadsStorageManager,
                                                            accountManager,
@@ -111,5 +122,9 @@ public final class ReceiversHelper {
         };
 
         ContextExtensionsKt.registerBroadcastReceiver(context, broadcastReceiver, intentFilter, ReceiverFlag.NotExported);
+    }
+
+    public static void shutdown() {
+        executor.shutdown();
     }
 }

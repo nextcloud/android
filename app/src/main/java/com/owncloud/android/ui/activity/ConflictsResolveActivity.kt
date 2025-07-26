@@ -45,13 +45,16 @@ import com.owncloud.android.ui.notifications.NotificationUtils
 import com.owncloud.android.utils.FileStorageUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 /**
  * Wrapper activity which will be launched if keep-in-sync file will be modified by external application.
  */
 @Suppress("TooManyFunctions")
-class ConflictsResolveActivity : FileActivity(), OnConflictDecisionMadeListener {
+class ConflictsResolveActivity :
+    FileActivity(),
+    OnConflictDecisionMadeListener {
     @Inject
     lateinit var uploadsStorageManager: UploadsStorageManager
 
@@ -123,9 +126,11 @@ class ConflictsResolveActivity : FileActivity(), OnConflictDecisionMadeListener 
                 else -> Unit
             }
 
-            val oldFile = storageManager.getFileByDecryptedRemotePath(upload?.remotePath)
+            upload?.remotePath?.let { oldFilePath ->
+                val oldFile = storageManager.getFileByDecryptedRemotePath(oldFilePath)
+                updateThumbnailIfNeeded(decision, file, oldFile)
+            }
 
-            updateThumbnailIfNeeded(decision, file, oldFile)
             dismissConflictResolveNotification(file)
             finish()
         }
@@ -145,7 +150,7 @@ class ConflictsResolveActivity : FileActivity(), OnConflictDecisionMadeListener 
     }
 
     private fun dismissConflictResolveNotification(file: OCFile?) {
-        val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        val notificationManager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
         val tag = NotificationUtils.createUploadNotificationTag(file)
         notificationManager.cancel(tag, FileUploadWorker.NOTIFICATION_ERROR_ID)
     }
@@ -170,11 +175,17 @@ class ConflictsResolveActivity : FileActivity(), OnConflictDecisionMadeListener 
         offlineOperation ?: return
 
         lifecycleScope.launch(Dispatchers.IO) {
-            val isSuccess = fileOperationHelper.removeFile(serverFile, false, false)
+            val client = clientRepository.getOwncloudClient() ?: return@launch
+            val isSuccess = fileOperationHelper.removeFile(
+                serverFile,
+                onlyLocalCopy = false,
+                inBackground = false,
+                client = client
+            )
+
             if (isSuccess) {
                 backgroundJobManager.startOfflineOperations()
-
-                launch(Dispatchers.Main) {
+                withContext(Dispatchers.Main) {
                     offlineOperationNotificationManager.dismissNotification(offlineOperation.id)
                 }
             }
@@ -224,7 +235,8 @@ class ConflictsResolveActivity : FileActivity(), OnConflictDecisionMadeListener 
 
             UploadNotificationManager(
                 applicationContext,
-                viewThemeUtils
+                viewThemeUtils,
+                upload.uploadId.toInt()
             ).dismissOldErrorNotification(it.remotePath, it.localPath)
         }
     }
@@ -351,20 +363,16 @@ class ConflictsResolveActivity : FileActivity(), OnConflictDecisionMadeListener 
         }
     }
 
-    private fun parseErrorMessage(code: Int?): String {
-        return if (code == HTTPStatusCodes.NOT_FOUND.code) {
-            getString(R.string.uploader_file_not_found_on_server_message)
-        } else {
-            getString(R.string.conflict_dialog_error)
-        }
+    private fun parseErrorMessage(code: Int?): String = if (code == HTTPStatusCodes.NOT_FOUND.code) {
+        getString(R.string.uploader_file_not_found_on_server_message)
+    } else {
+        getString(R.string.conflict_dialog_error)
     }
 
     /**
      * @return whether the local version of the files is to be deleted.
      */
-    private fun shouldDeleteLocal(): Boolean {
-        return localBehaviour == FileUploadWorker.LOCAL_BEHAVIOUR_DELETE
-    }
+    private fun shouldDeleteLocal(): Boolean = localBehaviour == FileUploadWorker.LOCAL_BEHAVIOUR_DELETE
 
     companion object {
         /**
@@ -382,8 +390,8 @@ class ConflictsResolveActivity : FileActivity(), OnConflictDecisionMadeListener 
         private val TAG = ConflictsResolveActivity::class.java.simpleName
 
         @JvmStatic
-        fun createIntent(file: OCFile?, user: User?, conflictUploadId: Long, flag: Int?, context: Context?): Intent {
-            return Intent(context, ConflictsResolveActivity::class.java).apply {
+        fun createIntent(file: OCFile?, user: User?, conflictUploadId: Long, flag: Int?, context: Context?): Intent =
+            Intent(context, ConflictsResolveActivity::class.java).apply {
                 if (flag != null) {
                     flags = flags or flag
                 }
@@ -391,14 +399,12 @@ class ConflictsResolveActivity : FileActivity(), OnConflictDecisionMadeListener 
                 putExtra(EXTRA_USER, user)
                 putExtra(EXTRA_CONFLICT_UPLOAD_ID, conflictUploadId)
             }
-        }
 
         @JvmStatic
-        fun createIntent(file: OCFile, offlineOperationPath: String, context: Context): Intent {
-            return Intent(context, ConflictsResolveActivity::class.java).apply {
+        fun createIntent(file: OCFile, offlineOperationPath: String, context: Context): Intent =
+            Intent(context, ConflictsResolveActivity::class.java).apply {
                 putExtra(EXTRA_FILE, file)
                 putExtra(EXTRA_OFFLINE_OPERATION_PATH, offlineOperationPath)
             }
-        }
     }
 }

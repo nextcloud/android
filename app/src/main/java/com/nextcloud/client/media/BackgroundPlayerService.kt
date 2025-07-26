@@ -48,7 +48,9 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @OptIn(UnstableApi::class)
-class BackgroundPlayerService : MediaSessionService(), Injectable {
+class BackgroundPlayerService :
+    MediaSessionService(),
+    Injectable {
 
     private val seekBackSessionCommand = SessionCommand(SESSION_COMMAND_ACTION_SEEK_BACK, Bundle.EMPTY)
     private val seekForwardSessionCommand = SessionCommand(SESSION_COMMAND_ACTION_SEEK_FORWARD, Bundle.EMPTY)
@@ -150,24 +152,22 @@ class BackgroundPlayerService : MediaSessionService(), Injectable {
                             override fun onConnect(
                                 session: MediaSession,
                                 controller: MediaSession.ControllerInfo
-                            ): ConnectionResult {
-                                return AcceptedResultBuilder(mediaSession!!)
-                                    .setAvailablePlayerCommands(
-                                        ConnectionResult.DEFAULT_PLAYER_COMMANDS.buildUpon()
-                                            .remove(COMMAND_SEEK_TO_NEXT)
-                                            .remove(COMMAND_SEEK_TO_NEXT_MEDIA_ITEM)
-                                            .remove(COMMAND_SEEK_TO_PREVIOUS)
-                                            .remove(COMMAND_SEEK_TO_PREVIOUS_MEDIA_ITEM)
-                                            .build()
-                                    )
-                                    .setAvailableSessionCommands(
-                                        ConnectionResult.DEFAULT_SESSION_COMMANDS.buildUpon()
-                                            .addSessionCommands(
-                                                listOf(seekBackSessionCommand, seekForwardSessionCommand)
-                                            ).build()
-                                    )
-                                    .build()
-                            }
+                            ): ConnectionResult = AcceptedResultBuilder(mediaSession!!)
+                                .setAvailablePlayerCommands(
+                                    ConnectionResult.DEFAULT_PLAYER_COMMANDS.buildUpon()
+                                        .remove(COMMAND_SEEK_TO_NEXT)
+                                        .remove(COMMAND_SEEK_TO_NEXT_MEDIA_ITEM)
+                                        .remove(COMMAND_SEEK_TO_PREVIOUS)
+                                        .remove(COMMAND_SEEK_TO_PREVIOUS_MEDIA_ITEM)
+                                        .build()
+                                )
+                                .setAvailableSessionCommands(
+                                    ConnectionResult.DEFAULT_SESSION_COMMANDS.buildUpon()
+                                        .addSessionCommands(
+                                            listOf(seekBackSessionCommand, seekForwardSessionCommand)
+                                        ).build()
+                                )
+                                .build()
 
                             override fun onPostConnect(session: MediaSession, controller: MediaSession.ControllerInfo) {
                                 session.setCustomLayout(listOf(seekBackward, seekForward))
@@ -178,20 +178,18 @@ class BackgroundPlayerService : MediaSessionService(), Injectable {
                                 controller: MediaSession.ControllerInfo,
                                 customCommand: SessionCommand,
                                 args: Bundle
-                            ): ListenableFuture<SessionResult> {
-                                return when (customCommand.customAction) {
-                                    SESSION_COMMAND_ACTION_SEEK_FORWARD -> {
-                                        session.player.seekForward()
-                                        Futures.immediateFuture(SessionResult(SessionResult.RESULT_SUCCESS))
-                                    }
-
-                                    SESSION_COMMAND_ACTION_SEEK_BACK -> {
-                                        session.player.seekBack()
-                                        Futures.immediateFuture(SessionResult(SessionResult.RESULT_SUCCESS))
-                                    }
-
-                                    else -> super.onCustomCommand(session, controller, customCommand, args)
+                            ): ListenableFuture<SessionResult> = when (customCommand.customAction) {
+                                SESSION_COMMAND_ACTION_SEEK_FORWARD -> {
+                                    session.player.seekForward()
+                                    Futures.immediateFuture(SessionResult(SessionResult.RESULT_SUCCESS))
                                 }
+
+                                SESSION_COMMAND_ACTION_SEEK_BACK -> {
+                                    session.player.seekBack()
+                                    Futures.immediateFuture(SessionResult(SessionResult.RESULT_SUCCESS))
+                                }
+
+                                else -> super.onCustomCommand(session, controller, customCommand, args)
                             }
                         })
                         .build()
@@ -229,9 +227,7 @@ class BackgroundPlayerService : MediaSessionService(), Injectable {
         stopSelf()
     }
 
-    override fun onGetSession(p0: MediaSession.ControllerInfo): MediaSession? {
-        return mediaSession
-    }
+    override fun onGetSession(p0: MediaSession.ControllerInfo): MediaSession? = mediaSession
 
     companion object {
         private const val SESSION_COMMAND_ACTION_SEEK_BACK = "SESSION_COMMAND_ACTION_SEEK_BACK"

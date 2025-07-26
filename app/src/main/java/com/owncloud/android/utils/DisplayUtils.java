@@ -46,19 +46,9 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.bumptech.glide.GenericRequestBuilder;
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.load.model.StreamEncoder;
-import com.bumptech.glide.load.resource.file.FileToStreamDecoder;
-import com.bumptech.glide.request.target.SimpleTarget;
-import com.bumptech.glide.request.target.Target;
-import com.caverock.androidsvg.SVG;
 import com.elyeproj.loaderviewlibrary.LoaderImageView;
 import com.google.android.material.snackbar.Snackbar;
-import com.nextcloud.client.account.CurrentAccountProvider;
 import com.nextcloud.client.account.User;
-import com.nextcloud.client.network.ClientFactory;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.model.OfflineOperationType;
 import com.owncloud.android.MainApp;
@@ -73,16 +63,8 @@ import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.files.model.ServerFileInterface;
 import com.owncloud.android.ui.TextDrawable;
-import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.dialog.SortingOrderDialogFragment;
-import com.owncloud.android.ui.events.SearchEvent;
-import com.owncloud.android.ui.fragment.OCFileListFragment;
-import com.owncloud.android.utils.glide.CustomGlideUriLoader;
-import com.owncloud.android.utils.svg.SvgDecoder;
-import com.owncloud.android.utils.svg.SvgDrawableTranscoder;
 import com.owncloud.android.utils.theme.ViewThemeUtils;
-
-import org.greenrobot.eventbus.EventBus;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -113,7 +95,6 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import static com.owncloud.android.ui.dialog.SortingOrderDialogFragment.SORTING_ORDER_FRAGMENT;
-import static com.owncloud.android.utils.FileSortOrder.SORT_A_TO_Z_ID;
 import static com.owncloud.android.utils.FileSortOrder.SORT_BIG_TO_SMALL_ID;
 import static com.owncloud.android.utils.FileSortOrder.SORT_NEW_TO_OLD_ID;
 import static com.owncloud.android.utils.FileSortOrder.SORT_OLD_TO_NEW_ID;
@@ -529,87 +510,6 @@ public final class DisplayUtils {
 
         task.execute(userId);
     }
-
-    public static void downloadIcon(CurrentAccountProvider currentAccountProvider,
-                                    ClientFactory clientFactory,
-                                    Context context,
-                                    String iconUrl,
-                                    SimpleTarget imageView,
-                                    int placeholder) {
-        try {
-            if (Uri.parse(iconUrl).getEncodedPath().endsWith(".svg")) {
-                downloadSVGIcon(currentAccountProvider, clientFactory, context, iconUrl, imageView, placeholder);
-            } else {
-                downloadPNGIcon(context, iconUrl, imageView, placeholder);
-            }
-        } catch (Exception e) {
-            Log_OC.d(TAG, "not setting image as activity is destroyed");
-        }
-    }
-
-    private static void downloadPNGIcon(Context context, String iconUrl, SimpleTarget imageView, int placeholder) {
-        Glide
-            .with(context)
-            .load(iconUrl)
-            .centerCrop()
-            .placeholder(placeholder)
-            .error(placeholder)
-            .crossFade()
-            .into(imageView);
-    }
-
-    private static void downloadSVGIcon(CurrentAccountProvider currentAccountProvider,
-                                        ClientFactory clientFactory,
-                                        Context context,
-                                        String iconUrl,
-                                        SimpleTarget imageView,
-                                        int placeholder) {
-        GenericRequestBuilder<Uri, InputStream, SVG, Drawable> requestBuilder = Glide.with(context)
-            .using(new CustomGlideUriLoader(currentAccountProvider.getUser(), clientFactory), InputStream.class)
-            .from(Uri.class)
-            .as(SVG.class)
-            .transcode(new SvgDrawableTranscoder(context), Drawable.class)
-            .sourceEncoder(new StreamEncoder())
-            .cacheDecoder(new FileToStreamDecoder<>(new SvgDecoder()))
-            .decoder(new SvgDecoder())
-            .placeholder(placeholder)
-            .error(placeholder)
-            .animate(android.R.anim.fade_in);
-
-
-        Uri uri = Uri.parse(iconUrl);
-        requestBuilder
-            .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-            .load(uri)
-            .into(imageView);
-    }
-
-    public static Bitmap downloadImageSynchronous(Context context, String imageUrl) {
-        try {
-            return Glide.with(context)
-                .load(imageUrl)
-                .asBitmap()
-                .diskCacheStrategy(DiskCacheStrategy.NONE)
-                .skipMemoryCache(true)
-                .into(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL)
-                .get();
-        } catch (Exception e) {
-            Log_OC.e(TAG, "Could not download image " + imageUrl);
-            return null;
-        }
-    }
-
-    private static void switchToSearchFragment(Activity activity, SearchEvent event) {
-        if (activity instanceof FileDisplayActivity) {
-            EventBus.getDefault().post(event);
-        } else {
-            Intent recentlyAddedIntent = new Intent(activity.getBaseContext(), FileDisplayActivity.class);
-            recentlyAddedIntent.putExtra(OCFileListFragment.SEARCH_EVENT, event);
-            recentlyAddedIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            activity.startActivity(recentlyAddedIntent);
-        }
-    }
-
 
     /**
      * Get String data from a InputStream

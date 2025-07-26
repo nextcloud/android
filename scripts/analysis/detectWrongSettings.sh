@@ -8,8 +8,8 @@ snapshotCount=$(./gradlew dependencies | grep SNAPSHOT -c)
 betaCount=$(grep "<bool name=\"is_beta\">true</bool>" app/src/main/res/values/setup.xml -c)
 libraryHash=$(grep androidLibraryVersion build.gradle | cut -d= -f2 | tr -d \")
 
-lastHashes=$(curl "https://api.github.com/repos/nextcloud/android-library/commits?sha=$baseBranch" | jq ".[] .sha" | head -n 20)
 baseBranch="master"
+lastHashes=$(curl "https://api.github.com/repos/nextcloud/android-library/commits?sha=$baseBranch" | jq ".[] .sha" | head -n 20)
 
 if [[ $(echo "$lastHashes"  | grep -c $libraryHash) -ne 1  ]]; then
     echo "Library commit not within last 10 hashes, please rebase!"

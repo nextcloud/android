@@ -851,6 +851,7 @@ Aproveite o novo e melhorado envio automático.</string>
     <string name="trashbin_file_remove">Eliminar permanentemente</string>
     <string name="trashbin_loading_failed">Falhou o carregamento da reciclagem!</string>
     <string name="trashbin_not_emptied">Os ficheiros não puderam ser permanentemente apagados!</string>
+    <string name="unknown">Desconhecido</string>
     <string name="unlock_file">Desbloquear ficheiro</string>
     <string name="unread_comments">Existem comentários não lidos</string>
     <string name="unset_encrypted">Encriptação não definida</string>
@@ -967,6 +968,16 @@ Aproveite o novo e melhorado envio automático.</string>
     <string name="write_email">Enviar mensagem</string>
     <string name="wrong_storage_path">A pasta de armazenamento de dados não existe!</string>
     <string name="wrong_storage_path_desc">Poderá estar relacionado com a reposição de uma cópia de segurança. Revertendo para a definição de base. Verifique as definições para ajustar a localização da pasta de armazenamento dos dados.</string>
+    <plurals name="hours">
+        <item quantity="one">%d hora</item>
+        <item quantity="many">%d horas</item>
+        <item quantity="other">%d horas</item>
+    </plurals>
+    <plurals name="minutes">
+        <item quantity="one">%d minuto</item>
+        <item quantity="many">%d minutos</item>
+        <item quantity="other">%d minutos</item>
+    </plurals>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">Não foi possível sincronizar o %1$d ficheiro (conflitos: %2$d)</item>
         <item quantity="many">Não foi possível sincronizar %1$d ficheiros (conflitos: %2$d)</item>
@@ -1006,6 +1017,11 @@ Aproveite o novo e melhorado envio automático.</string>
         <item quantity="one">%1$d ficheiro</item>
         <item quantity="many">%1$d ficheiros</item>
         <item quantity="other">%1$d ficheiros</item>
+    </plurals>
+    <plurals name="trashbin_list__footer__file">
+        <item quantity="one">%1$d item</item>
+        <item quantity="many">%1$d items</item>
+        <item quantity="other">%1$d items</item>
     </plurals>
     <plurals name="synced_folders_show_hidden_folders">
         <item quantity="one">Mostrar %1$d pasta oculta</item>

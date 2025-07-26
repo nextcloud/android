@@ -70,7 +70,7 @@ class FilesSyncWork(
         val changedFiles = inputData.getStringArray(CHANGED_FILES)
 
         backgroundJobManager.logStartOfWorker(BackgroundJobManagerImpl.formatClassTag(this::class) + "_" + syncFolderId)
-        Log_OC.d(TAG, "File-sync worker started for folder ID: $syncFolderId")
+        Log_OC.d(TAG, "AutoUpload started folder ID: $syncFolderId")
 
         // Create all the providers we'll need
         val resources = context.resources
@@ -81,7 +81,7 @@ class FilesSyncWork(
         dateFormat.timeZone = TimeZone.getTimeZone(TimeZone.getDefault().id)
 
         if (!setSyncedFolder(syncFolderId)) {
-            Log_OC.d(TAG, "File-sync kill worker since syncedFolder ($syncFolderId) is not enabled!")
+            Log_OC.w(TAG, "AutoUpload skipped since syncedFolder ($syncFolderId) is not enabled!")
             return logEndOfWorker(syncFolderId)
         }
 
@@ -97,22 +97,24 @@ class FilesSyncWork(
         )
 
         if (canExitEarly(changedFiles, syncFolderId)) {
+            Log_OC.w(TAG, "AutoUpload skipped canExit conditions are met")
             return logEndOfWorker(syncFolderId)
         }
 
         val user = userAccountManager.getUser(syncedFolder.account)
         if (user.isPresent) {
-            backgroundJobManager.startFilesUploadJob(user.get())
+            var uploadIds = uploadsStorageManager.getCurrentUploadIds(user.get().accountName)
+            backgroundJobManager.startFilesUploadJob(user.get(), uploadIds)
         }
 
         // Get changed files from ContentObserverWork (only images and videos) or by scanning filesystem
         Log_OC.d(
             TAG,
-            "File-sync worker (${syncedFolder.remotePath}) changed files from observer: " +
+            "AutoUpload (${syncedFolder.remotePath}) changed files from observer: " +
                 changedFiles.contentToString()
         )
         collectChangedFiles(changedFiles)
-        Log_OC.d(TAG, "File-sync worker (${syncedFolder.remotePath}) finished checking files.")
+        Log_OC.d(TAG, "AutoUpload (${syncedFolder.remotePath}) finished checking files.")
 
         uploadFilesFromFolder(
             context,
@@ -135,7 +137,7 @@ class FilesSyncWork(
     }
 
     private fun logEndOfWorker(syncFolderId: Long): Result {
-        Log_OC.d(TAG, "File-sync worker (${syncedFolder.remotePath}) finished")
+        Log_OC.d(TAG, "AutoUpload worker (${syncedFolder.remotePath}) finished")
         val result = Result.success()
         backgroundJobManager.logEndOfWorker(
             BackgroundJobManagerImpl.formatClassTag(this::class) +
@@ -159,35 +161,37 @@ class FilesSyncWork(
         // If we are in power save mode better to postpone scan and upload
         val overridePowerSaving = inputData.getBoolean(OVERRIDE_POWER_SAVING, false)
         if ((powerManagementService.isPowerSavingEnabled && !overridePowerSaving)) {
-            Log_OC.d(TAG, "File-sync kill worker since powerSaving is enabled!")
+            Log_OC.w(TAG, "AutoUpload skipped powerSaving is enabled!")
             return true
         }
 
         if (syncedFolderID < 0) {
-            Log_OC.d(TAG, "File-sync kill worker since no valid syncedFolderID provided!")
+            Log_OC.w(TAG, "AutoUpload skipped no valid syncedFolderID provided")
             return true
         }
 
         // or sync worker already running
         if (backgroundJobManager.bothFilesSyncJobsRunning(syncedFolderID)) {
-            Log_OC.d(
-                TAG,
-                "File-sync kill worker since another instance of the worker " +
-                    "($syncedFolderID) seems to be running already!"
-            )
+            Log_OC.w(TAG, "AutoUpload skipped another worker instance is running for $syncedFolderID")
             return true
         }
 
-        val passedScanInterval = (
-            syncedFolder.lastScanTimestampMs +
-                FilesSyncHelper.calculateScanInterval(syncedFolder, connectivityService, powerManagementService)
-            ) <= System.currentTimeMillis()
+        val calculatedScanInterval =
+            FilesSyncHelper.calculateScanInterval(syncedFolder, connectivityService, powerManagementService)
+        val totalScanInterval = (syncedFolder.lastScanTimestampMs + calculatedScanInterval)
+        val currentTime = System.currentTimeMillis()
+        val passedScanInterval = totalScanInterval <= currentTime
+
+        Log_OC.d(TAG, "AutoUpload lastScanTimestampMs: " + syncedFolder.lastScanTimestampMs)
+        Log_OC.d(TAG, "AutoUpload calculatedScanInterval: $calculatedScanInterval")
+        Log_OC.d(TAG, "AutoUpload totalScanInterval: $totalScanInterval")
+        Log_OC.d(TAG, "AutoUpload currentTime: $currentTime")
+        Log_OC.d(TAG, "AutoUpload passedScanInterval: $passedScanInterval")
 
         if (!passedScanInterval && changedFiles.isNullOrEmpty() && !overridePowerSaving) {
-            Log_OC.d(
+            Log_OC.w(
                 TAG,
-                "File-sync kill worker since started before scan " +
-                    "Interval and nothing todo (${syncedFolder.localPath})!"
+                "AutoUpload skipped since started before scan interval and nothing todo: " + syncedFolder.localPath
             )
             return true
         }
@@ -196,7 +200,10 @@ class FilesSyncWork(
             !powerManagementService.battery.isCharging &&
             !powerManagementService.battery.isFull
         ) {
-            Log_OC.d(TAG, "File-sync kill worker since phone is not charging (${syncedFolder.localPath})!")
+            Log_OC.w(
+                TAG,
+                "AutoUpload skipped since phone is not charging: " + syncedFolder.localPath
+            )
             return true
         }
 
@@ -233,6 +240,7 @@ class FilesSyncWork(
 
         val optionalUser = userAccountManager.getUser(accountName)
         if (!optionalUser.isPresent) {
+            Log_OC.w(TAG, "AutoUpload:uploadFilesFromFolder skipped user not present")
             return
         }
 
@@ -253,16 +261,25 @@ class FilesSyncWork(
             syncedFolder.uploadMinFileAgeMs
         )
         if (paths.isEmpty()) {
+            Log_OC.w(TAG, "AutoUpload:uploadFilesFromFolder skipped paths is empty")
             return
         }
 
         val pathsAndMimes = paths.map { path ->
             val file = File(path)
             val localPath = file.absolutePath
+            val remotePath = getRemotePath(file, syncedFolder, sFormatter, lightVersion, resources, currentLocale)
+            val mimeType = MimeTypeUtil.getBestMimeTypeByFilename(localPath)
+
+            Log_OC.d(TAG, "AutoUpload:pathsAndMimes file.path: ${file.path}")
+            Log_OC.d(TAG, "AutoUpload:pathsAndMimes localPath: $localPath")
+            Log_OC.d(TAG, "AutoUpload:pathsAndMimes remotePath: $remotePath")
+            Log_OC.d(TAG, "AutoUpload:pathsAndMimes mimeType: $mimeType")
+
             Triple(
                 localPath,
-                getRemotePath(file, syncedFolder, sFormatter, lightVersion, resources, currentLocale),
-                MimeTypeUtil.getBestMimeTypeByFilename(localPath)
+                remotePath,
+                mimeType
             )
         }
 
@@ -270,6 +287,8 @@ class FilesSyncWork(
         val remotePaths = pathsAndMimes.map { it.second }.toTypedArray()
 
         if (lightVersion) {
+            Log_OC.d(TAG, "AutoUpload:uploadFilesFromFolder light version is used")
+
             needsCharging = resources.getBoolean(R.bool.syncedFolder_light_on_charging)
             needsWifi = arbitraryDataProvider?.getBooleanValue(
                 accountName,
@@ -278,7 +297,10 @@ class FilesSyncWork(
 
             val uploadActionString = resources.getString(R.string.syncedFolder_light_upload_behaviour)
             uploadAction = getUploadAction(uploadActionString)
+            Log_OC.d(TAG, "AutoUpload upload action is: $uploadAction")
         } else {
+            Log_OC.d(TAG, "AutoUpload:uploadFilesFromFolder not light version is used")
+
             needsCharging = syncedFolder.isChargingOnly
             needsWifi = syncedFolder.isWifiOnly
             uploadAction = syncedFolder.uploadAction
@@ -288,7 +310,7 @@ class FilesSyncWork(
             user,
             localPaths,
             remotePaths,
-            uploadAction!!,
+            uploadAction,
             // create parent folder if not existent
             true,
             UploadFileOperation.CREATED_AS_INSTANT_PICTURE,
@@ -318,10 +340,14 @@ class FilesSyncWork(
         val useSubfolders: Boolean
         val subFolderRule: SubFolderRule
         if (lightVersion) {
+            Log_OC.d(TAG, "AutoUpload:getRemotePath light version is used")
+
             useSubfolders = resources.getBoolean(R.bool.syncedFolder_light_use_subfolders)
             remoteFolder = resources.getString(R.string.syncedFolder_remote_folder)
             subFolderRule = SubFolderRule.YEAR_MONTH
         } else {
+            Log_OC.d(TAG, "AutoUpload:getRemotePath not light version is used")
+
             useSubfolders = syncedFolder.isSubfolderByDate
             remoteFolder = syncedFolder.remotePath
             subFolderRule = syncedFolder.subfolderRule
@@ -349,6 +375,8 @@ class FilesSyncWork(
     ): Long {
         var lastModificationTime = file.lastModified()
         if (MediaFolderType.IMAGE == syncedFolder.type && hasExif(file)) {
+            Log_OC.d(TAG, "AutoUpload:calculateLastModificationTime exif found")
+
             @Suppress("TooGenericExceptionCaught") // legacy code
             try {
                 val exifInterface = ExifInterface(file.absolutePath)
@@ -357,6 +385,9 @@ class FilesSyncWork(
                     val pos = ParsePosition(0)
                     val dateTime = formatter.parse(exifDate, pos)
                     lastModificationTime = dateTime.time
+                    Log_OC.w(TAG, "AutoUpload:calculateLastModificationTime calculatedTime is: $lastModificationTime")
+                } else {
+                    Log_OC.w(TAG, "AutoUpload:calculateLastModificationTime exifDate is empty")
                 }
             } catch (e: Exception) {
                 Log_OC.d(TAG, "Failed to get the proper time " + e.localizedMessage)
@@ -365,12 +396,10 @@ class FilesSyncWork(
         return lastModificationTime
     }
 
-    private fun getUploadAction(action: String): Int? {
-        return when (action) {
-            "LOCAL_BEHAVIOUR_FORGET" -> FileUploadWorker.LOCAL_BEHAVIOUR_FORGET
-            "LOCAL_BEHAVIOUR_MOVE" -> FileUploadWorker.LOCAL_BEHAVIOUR_MOVE
-            "LOCAL_BEHAVIOUR_DELETE" -> FileUploadWorker.LOCAL_BEHAVIOUR_DELETE
-            else -> FileUploadWorker.LOCAL_BEHAVIOUR_FORGET
-        }
+    private fun getUploadAction(action: String): Int = when (action) {
+        "LOCAL_BEHAVIOUR_FORGET" -> FileUploadWorker.LOCAL_BEHAVIOUR_FORGET
+        "LOCAL_BEHAVIOUR_MOVE" -> FileUploadWorker.LOCAL_BEHAVIOUR_MOVE
+        "LOCAL_BEHAVIOUR_DELETE" -> FileUploadWorker.LOCAL_BEHAVIOUR_DELETE
+        else -> FileUploadWorker.LOCAL_BEHAVIOUR_FORGET
     }
 }

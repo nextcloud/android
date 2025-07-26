@@ -38,7 +38,9 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @Suppress("TooManyFunctions", "MagicNumber")
-class PassCodeActivity : AppCompatActivity(), Injectable {
+class PassCodeActivity :
+    AppCompatActivity(),
+    Injectable {
 
     companion object {
         private val TAG = PassCodeActivity::class.java.simpleName
@@ -299,10 +301,8 @@ class PassCodeActivity : AppCompatActivity(), Injectable {
         }.all { it }
     }
 
-    private fun confirmPassCode(): Boolean {
-        return passCodeEditTexts.indices.all { i ->
-            passCodeEditTexts[i]?.text.toString() == passCodeDigits[i]
-        }
+    private fun confirmPassCode(): Boolean = passCodeEditTexts.indices.all { i ->
+        passCodeEditTexts[i]?.text.toString() == passCodeDigits[i]
     }
 
     private fun clearBoxes() {
@@ -355,38 +355,36 @@ class PassCodeActivity : AppCompatActivity(), Injectable {
     }
 
     @Suppress("MagicNumber")
-    private fun getExplanationText(timeInSecond: Int): String {
-        return when {
-            timeInSecond < 60 -> resources.getQuantityString(
-                R.plurals.delay_message,
-                timeInSecond,
-                timeInSecond
-            )
-            else -> {
-                val minutes = timeInSecond / 60
-                val remainingSeconds = timeInSecond % 60
+    private fun getExplanationText(timeInSecond: Int): String = when {
+        timeInSecond < 60 -> resources.getQuantityString(
+            R.plurals.delay_message,
+            timeInSecond,
+            timeInSecond
+        )
+        else -> {
+            val minutes = timeInSecond / 60
+            val remainingSeconds = timeInSecond % 60
 
-                when {
-                    remainingSeconds == 0 -> resources.getQuantityString(
-                        R.plurals.delay_message_minutes,
+            when {
+                remainingSeconds == 0 -> resources.getQuantityString(
+                    R.plurals.delay_message_minutes,
+                    minutes,
+                    minutes
+                )
+                else -> {
+                    val minuteText = resources.getQuantityString(
+                        R.plurals.delay_message_minutes_part,
                         minutes,
                         minutes
                     )
-                    else -> {
-                        val minuteText = resources.getQuantityString(
-                            R.plurals.delay_message_minutes_part,
-                            minutes,
-                            minutes
-                        )
-                        val secondText = resources.getQuantityString(
-                            R.plurals.delay_message_seconds_part,
-                            remainingSeconds,
-                            remainingSeconds
-                        )
+                    val secondText = resources.getQuantityString(
+                        R.plurals.delay_message_seconds_part,
+                        remainingSeconds,
+                        remainingSeconds
+                    )
 
-                        val prefixText = "$minuteText $secondText"
-                        getString(R.string.due_to_too_many_wrong_attempts, prefixText)
-                    }
+                    val prefixText = "$minuteText $secondText"
+                    getString(R.string.due_to_too_many_wrong_attempts, prefixText)
                 }
             }
         }
@@ -458,9 +456,7 @@ class PassCodeActivity : AppCompatActivity(), Injectable {
             }
         }
 
-        private operator fun next(): Int {
-            return if (mLastOne) 0 else mIndex + 1
-        }
+        private operator fun next(): Int = if (mLastOne) 0 else mIndex + 1
 
         /**
          * Performs several actions when the user types a digit in an input field: - saves the input digit to the state

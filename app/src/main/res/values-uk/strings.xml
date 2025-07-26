@@ -374,6 +374,7 @@
     <string name="file_detail_share_already_active">Ви не можете створити спільний ресурс, оскільки його вже надано цьому користувачеві.</string>
     <string name="file_detail_sharing_fragment_no_contact_app_message">Відсутній застосунок для вибору контактів</string>
     <string name="file_details_no_content">Не вдалося завантажити подробиці</string>
+    <string name="file_details_sharing_fragment_custom_permission_not_selected">Виберіть власні дозволи</string>
     <string name="file_icon">Файл</string>
     <string name="file_keep">Зберегти</string>
     <string name="file_list_empty">Додати дані або синхронізувати з вашими пристроями.</string>
@@ -391,6 +392,8 @@
     <string name="file_list_empty_shared">Тут можна буде знайти файли та каталоги, якими ви поділилися.</string>
     <string name="file_list_empty_shared_headline">Жодного спільного файлу</string>
     <string name="file_list_empty_unified_search_no_results">За вашим запитом нічого не знайдено</string>
+    <string name="file_list_empty_unified_search_start_search">Почніть пошук</string>
+    <string name="file_list_empty_unified_search_start_search_description">Зазначте в полі пошуку для пошуку файлів, контактів, календарних подій тощо серед ваших облікових записів.</string>
     <string name="file_list_folder">каталог</string>
     <string name="file_list_live">НАЖИВО</string>
     <string name="file_list_loading">Завантаження…</string>
@@ -608,10 +611,12 @@
     <string name="offline_mode_info_description">Ви можете впорядковувати каталоги, створювати файли без наявного з\'єднання з мережею. Одразу після відновлення доступу завдання, що в очікуванні, буде автоматично виконано, а файли синхронізовано.</string>
     <string name="offline_mode_info_title">Ви користуєтеся застосунком без доступу до мережі</string>
     <string name="offline_operations_file_does_not_exists_yet">Файли поки відсутні. Спочатку завантажте їх.</string>
-    <string name="offline_operations_worker_notification_conflict_text">Каталог з конфліктом: %s</string>
-    <string name="offline_operations_worker_notification_delete_offline_folder">Вилучити каталог в режимі офлайну</string>
+    <string name="offline_operations_worker_notification_create_file_conflict_text">Не вдалося створити %s. Файл з таким ім\'ям вже присутній у хмарі.</string>
+    <string name="offline_operations_worker_notification_create_folder_conflict_text">Не вдалося створити %s. Каталог з таким ім\'ям вже присутній у хмарі.</string>
     <string name="offline_operations_worker_notification_error_text">Неможливо виконати офлайнову операцію. %s</string>
     <string name="offline_operations_worker_notification_manager_ticker">Офлайнові операції</string>
+    <string name="offline_operations_worker_notification_remove_conflict_text">Скасовано вилучення %s. Файл було змінено у хмарі.</string>
+    <string name="offline_operations_worker_notification_rename_conflict_text">Скасовано перейменування %s. Файл з таким ім\'ям присутній у хмарі.</string>
     <string name="offline_operations_worker_notification_start_text">Запуск операцій в офлайні</string>
     <string name="oneHour">1 година</string>
     <string name="online">Онлайн</string>
@@ -964,6 +969,7 @@
     <string name="unified_search_fragment_calendar_event_not_found">Подію не знайдено. Синхронізуйтеся для оновлення. Переспрямування на вебсайт...</string>
     <string name="unified_search_fragment_contact_not_found">Контакт не знайдено. Синхронізуйтеся для оновлення. Переспрямування на вебсайт...</string>
     <string name="unified_search_fragment_permission_needed">Для отримання результатів пошуку потрібні окреми дозволи, або перейти на вебсайт...</string>
+    <string name="unknown">Невідомо</string>
     <string name="unlock_file">Розблокувати файл</string>
     <string name="unread_comments">Доступні непрочитані коментарі</string>
     <string name="unset_encrypted">Зняти шифрування</string>

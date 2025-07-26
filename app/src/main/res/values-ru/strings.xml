@@ -611,8 +611,6 @@
     <string name="offline_mode_info_description">Даже без подключения к Интернету вы можете упорядочивать папки и создавать файлы. Как только вы вернетесь в сеть, ваши действия будут автоматически синхронизированы.</string>
     <string name="offline_mode_info_title">Вы не в сети, но работа продолжается</string>
     <string name="offline_operations_file_does_not_exists_yet">Файл еще не существует. Пожалуйста, сначала загрузите файл.</string>
-    <string name="offline_operations_worker_notification_conflict_text">Конфликтующая папка: %s</string>
-    <string name="offline_operations_worker_notification_delete_offline_folder">Удалить автономную папку</string>
     <string name="offline_operations_worker_notification_error_text">Операция в автономном режиме не может быть завершена. %s</string>
     <string name="offline_operations_worker_notification_manager_ticker">Автономные операции</string>
     <string name="offline_operations_worker_notification_start_text">Запуск автономных операций</string>
@@ -969,6 +967,7 @@
     <string name="unified_search_fragment_calendar_event_not_found">Событие не найдено, вы всегда можете синхронизировать его для обновления. Перенаправление на веб-страницу…</string>
     <string name="unified_search_fragment_contact_not_found">Контакт не найден, вы всегда можете синхронизировать его для обновления. Перенаправление на веб-страницу…</string>
     <string name="unified_search_fragment_permission_needed">Для открытия результата поиска требуются разрешения, в противном случае он будет перенаправлен на веб-страницу…</string>
+    <string name="unknown">Неизвестно</string>
     <string name="unlock_file">Разблокировать файл</string>
     <string name="unread_comments">Имеются непрочитанные комментарии</string>
     <string name="unset_encrypted">Расшифровать</string>

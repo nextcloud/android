@@ -935,6 +935,7 @@
     <string name="unified_search_fragment_calendar_event_not_found">이벤트를 찾을 수 없습니다. 언제든지 동기화하여 최신화할 수 있습니다. 웹으로 이동합니다...</string>
     <string name="unified_search_fragment_contact_not_found">연락처를 찾을 수 없습니다. 언제든지 동기화하여 최신화할 수 있습니다. 웹으로 이동합니다...</string>
     <string name="unified_search_fragment_permission_needed">검색 결과를 열기 위해 권한이 필요합니다. 그렇지 않으면 웹으로 이동됩니다...</string>
+    <string name="unknown">알 수 없음</string>
     <string name="unlock_file">파일 잠금해제</string>
     <string name="unread_comments">읽지 않은 댓글 있음</string>
     <string name="unset_encrypted">암호화 해제</string>

@@ -15,10 +15,7 @@ import androidx.work.Worker
 import androidx.work.WorkerParameters
 import com.owncloud.android.lib.common.utils.Log_OC
 
-class ClipboardClearWorker(
-    private val context: Context,
-    params: WorkerParameters
-) : Worker(context, params) {
+class ClipboardClearWorker(private val context: Context, params: WorkerParameters) : Worker(context, params) {
     private val tag = ClipboardClearWorker::class.java.name
 
     companion object {

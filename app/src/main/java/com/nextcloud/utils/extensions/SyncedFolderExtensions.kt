@@ -11,8 +11,8 @@ import com.owncloud.android.datamodel.SyncedFolder
 import com.owncloud.android.datamodel.SyncedFolderDisplayItem
 import java.io.File
 
-fun List<SyncedFolderDisplayItem>.filterEnabledOrWithoutEnabledParent(): List<SyncedFolderDisplayItem> {
-    return filter { it.isEnabled || !hasEnabledParent(it.localPath) }
+fun List<SyncedFolderDisplayItem>.filterEnabledOrWithoutEnabledParent(): List<SyncedFolderDisplayItem> = filter {
+    it.isEnabled || !hasEnabledParent(it.localPath)
 }
 
 @Suppress("ReturnCount")

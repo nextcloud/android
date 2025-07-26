@@ -1016,4 +1016,10 @@ public class MainApp extends Application implements HasAndroidInjector, NetworkC
             backgroundJobManager.startOfflineOperations();
         }
     }
+
+    @Override
+    public void onTerminate() {
+        super.onTerminate();
+        ReceiversHelper.shutdown();
+    }
 }

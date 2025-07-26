@@ -57,12 +57,6 @@ println "Gradle uses Java ${Jvm.current()}"
 configurations {
     configureEach {
         exclude group: "org.jetbrains", module: "annotations-java5" // via prism4j, already using annotations explicitly
-
-        // check for updates every build
-        resolutionStrategy {
-            cacheChangingModulesFor 0, "seconds"
-            exclude group: "org.jetbrains.kotlinx", module: "kotlinx-coroutines-debug"
-        }
     }
 }
 
@@ -93,21 +87,21 @@ def perfAnalysis = project.hasProperty("perfAnalysis")
 
 android {
     // install this NDK version and Cmake to produce smaller APKs. Build will still work if not installed
-    ndkVersion "${ndkEnv.get("NDK_VERSION")}"
+    ndkVersion = "${ndkEnv.get("NDK_VERSION")}"
 
 
-    namespace "com.owncloud.android"
-    testNamespace "${namespace}.test"
+    namespace = "com.owncloud.android"
+    testNamespace = "${namespace}.test"
 
     androidResources {
         generateLocaleConfig = true
     }
 
     defaultConfig {
-        applicationId "com.nextcloud.client"
-        minSdkVersion 26
-        targetSdkVersion 35
-        compileSdk 35
+        applicationId = "com.nextcloud.client"
+        minSdk = 26
+        targetSdk = 35
+        compileSdk = 35
 
         buildConfigField "boolean", "CI", ciBuild.toString()
         buildConfigField "boolean", "RUNTIME_PERF_ANALYSIS", perfAnalysis.toString()
@@ -146,7 +140,7 @@ android {
 
         buildTypes {
             debug {
-                testCoverageEnabled(project.hasProperty("coverage"))
+                testCoverageEnabled = project.hasProperty("coverage")
                 resConfigs "xxxhdpi"
             }
         }
@@ -189,7 +183,7 @@ android {
 
         testOptions {
             unitTests.returnDefaultValues = true
-            animationsDisabled true
+            animationsDisabled = true
         }
     }
 
@@ -223,10 +217,10 @@ android {
 
         reports {
             xml {
-                destination = file("$project.buildDir/reports/pmd/pmd.xml")
+                destination = layout.buildDirectory.file("reports/pmd/pmd.xml").get().asFile
             }
             html {
-                destination = file("$project.buildDir/reports/pmd/pmd.html")
+                destination = layout.buildDirectory.file("reports/pmd/pmd.html").get().asFile
             }
         }
     }
@@ -234,9 +228,9 @@ android {
     check.dependsOn "checkstyle", "spotbugsGplayDebug", "pmd", "lint", "spotlessKotlinCheck", "detekt"
 
     buildFeatures {
-        dataBinding true
-        viewBinding true
-        aidl true
+        dataBinding = true
+        viewBinding = true
+        aidl = true
         compose = true
     }
 
@@ -250,11 +244,11 @@ android {
     }
 
     lint {
-        abortOnError false
-        checkGeneratedSources true
+        abortOnError = false
+        checkGeneratedSources = true
         disable "MissingTranslation", "GradleDependency", "VectorPath", "IconMissingDensityFolder", "IconDensities", "GoogleAppIndexingWarning", "MissingDefaultResource", "InvalidPeriodicWorkRequestInterval", "StringFormatInvalid", "MissingQuantity"
-        htmlOutput file("$project.buildDir/reports/lint/lint.html")
-        htmlReport true
+        htmlOutput = layout.buildDirectory.file("reports/lint/lint.html").get().asFile
+        htmlReport = true
     }
 
     sourceSets {
@@ -263,7 +257,7 @@ android {
     }
 
     kapt {
-        useBuildCache true
+        useBuildCache = true
     }
 }
 
@@ -302,6 +296,10 @@ dependencies {
     androidTestImplementation libs.espresso.intents
     androidTestImplementation libs.espresso.idling.resource
 
+    // Glide
+    implementation libs.glide
+    ksp libs.ksp
+
     compileOnly "org.jbundle.util.osgi.wrapped:org.jbundle.util.osgi.wrapped.org.apache.http.client:4.1.2"
     // remove after entire switch to lib v2
     implementation "commons-httpclient:commons-httpclient:3.1@jar" // remove after entire switch to lib v2
@@ -314,14 +312,14 @@ dependencies {
     implementation "androidx.webkit:webkit:1.14.0"
     implementation "androidx.cardview:cardview:1.0.0"
     implementation "androidx.exifinterface:exifinterface:1.4.1"
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.9.1"
-    implementation "androidx.lifecycle:lifecycle-service:2.9.1"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.9.2"
+    implementation "androidx.lifecycle:lifecycle-service:2.9.2"
     implementation "androidx.work:work-runtime:$workRuntime"
     implementation "androidx.work:work-runtime-ktx:$workRuntime"
     implementation "androidx.fragment:fragment-ktx:1.8.8"
     implementation "com.github.albfernandez:juniversalchardet:2.5.0" // need this version for Android <7
     compileOnly "com.google.code.findbugs:annotations:3.0.1u2"
-    implementation "commons-io:commons-io:2.19.0"
+    implementation "commons-io:commons-io:2.20.0"
     implementation "org.greenrobot:eventbus:3.3.1"
     implementation "com.googlecode.ez-vcard:ez-vcard:0.12.1"
     implementation "org.lukhnos:nnio:0.3.1"
@@ -332,13 +330,11 @@ dependencies {
     implementation "pl.droidsonroids.gif:android-gif-drawable:1.2.29"
     implementation "com.github.nextcloud-deps:qrcodescanner:0.1.2.4" // "com.github.blikoon:QRCodeScanner:0.1.2"
     implementation "com.google.android.flexbox:flexbox:3.0.0"
-    implementation("com.github.bumptech.glide:glide:3.8.0") {
-        exclude group: "com.android.support"
-    }
+
     implementation "com.caverock:androidsvg:1.4"
     implementation "androidx.annotation:annotation:1.9.1"
     implementation "com.vanniktech:emoji-google:0.21.0"
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.9.1")
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.9.2")
 
     // document scanner not available on FDroid (generic) due to OpenCV binaries
     gplayImplementation project(":appscan")
@@ -346,7 +342,7 @@ dependencies {
     qaImplementation project(":appscan")
 
     spotbugsPlugins "com.h3xstream.findsecbugs:findsecbugs-plugin:1.14.0"
-    spotbugsPlugins "com.mebigfatguy.fb-contrib:fb-contrib:7.6.11"
+    spotbugsPlugins "com.mebigfatguy.fb-contrib:fb-contrib:7.6.12"
 
     implementation "com.google.dagger:dagger:$daggerVersion"
     implementation "com.google.dagger:dagger-android:$daggerVersion"
@@ -425,7 +421,7 @@ dependencies {
     implementation "com.github.stateless4j:stateless4j:2.6.0"
 
     // upon each update first test: new registration, receive push
-    gplayImplementation "com.google.firebase:firebase-messaging:24.1.1"
+    gplayImplementation "com.google.firebase:firebase-messaging:24.1.2"
     gplayImplementation "com.google.android.gms:play-services-base:18.5.0"
     gplayImplementation "com.google.android.play:review-ktx:2.0.2"
 
@@ -436,7 +432,6 @@ dependencies {
 
 configurations.configureEach {
     resolutionStrategy {
-        cacheChangingModulesFor 0, "seconds"
         force "org.objenesis:objenesis:3.4"
         eachDependency { details ->
             if ("org.jacoco" == details.requested.group) {
@@ -446,7 +441,18 @@ configurations.configureEach {
     }
 }
 
+// Run the compiler as a separate process
+tasks.withType(JavaCompile).configureEach {
+    options.fork = true
+
+    // Enable Incremental Compilation
+    options.incremental = true
+}
+
 tasks.withType(Test).configureEach {
+    // Run tests in parallel
+    maxParallelForks = Runtime.runtime.availableProcessors().intdiv(2) ?: 1
+
     // increased logging for tests
     testLogging {
         events "passed", "skipped", "failed"
@@ -493,7 +499,7 @@ tasks.withType(SpotBugsTask){task ->
     String variantName = variantNameCap.substring(0, 1).toLowerCase() + variantNameCap.substring(1)
     dependsOn "compile${variantNameCap}Sources"
 
-    classes = fileTree("$project.buildDir/intermediates/javac/${variantName}/compile${variantNameCap}JavaWithJavac/classes/")
+    classes = fileTree(layout.buildDirectory.get().asFile.toString()+"/intermediates/javac/${variantName}/compile${variantNameCap}JavaWithJavac/classes/")
     excludeFilter = file("${project.rootDir}/scripts/analysis/spotbugs-filter.xml")
     reports {
         xml {
@@ -501,7 +507,7 @@ tasks.withType(SpotBugsTask){task ->
         }
         html {
             required = true
-            outputLocation = file("$project.buildDir/reports/spotbugs/spotbugs.html")
+            outputLocation = layout.buildDirectory.file("reports/spotbugs/spotbugs.html").get().asFile
             stylesheet = "fancy.xsl"
         }
     }

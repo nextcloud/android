@@ -20,12 +20,14 @@ import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.LayerDrawable;
+import android.graphics.drawable.PictureDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -39,13 +41,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.bumptech.glide.GenericRequestBuilder;
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.load.model.StreamEncoder;
-import com.bumptech.glide.load.resource.file.FileToStreamDecoder;
-import com.bumptech.glide.request.animation.GlideAnimation;
-import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.target.CustomTarget;
+import com.bumptech.glide.request.target.Target;
+import com.bumptech.glide.request.transition.Transition;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.navigation.NavigationView;
@@ -60,6 +58,7 @@ import com.nextcloud.common.NextcloudClient;
 import com.nextcloud.ui.ChooseAccountDialogFragment;
 import com.nextcloud.ui.composeActivity.ComposeActivity;
 import com.nextcloud.ui.composeActivity.ComposeDestination;
+import com.nextcloud.utils.GlideHelper;
 import com.nextcloud.utils.LinkHelper;
 import com.nextcloud.utils.extensions.ActivityExtensionsKt;
 import com.nextcloud.utils.extensions.ViewExtensionsKt;
@@ -98,12 +97,9 @@ import com.owncloud.android.ui.preview.PreviewTextStringFragment;
 import com.owncloud.android.ui.trashbin.TrashbinActivity;
 import com.owncloud.android.utils.BitmapUtils;
 import com.owncloud.android.utils.DisplayUtils;
+import com.owncloud.android.utils.DrawableUtil;
 import com.owncloud.android.utils.DrawerMenuUtil;
 import com.owncloud.android.utils.FilesSyncHelper;
-import com.owncloud.android.utils.svg.MenuSimpleTarget;
-import com.owncloud.android.utils.svg.SVGorImage;
-import com.owncloud.android.utils.svg.SvgOrImageBitmapTranscoder;
-import com.owncloud.android.utils.svg.SvgOrImageDecoder;
 import com.owncloud.android.utils.theme.CapabilityUtils;
 
 import org.greenrobot.eventbus.EventBus;
@@ -111,7 +107,6 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -131,6 +126,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import hct.Hct;
+import kotlin.Unit;
 
 import static com.nextcloud.utils.extensions.DrawerActivityExtensionsKt.getMenuItemIdFromTitle;
 
@@ -241,6 +237,8 @@ public abstract class DrawerActivity extends ToolbarActivity
             checkAssistantBottomNavigationMenu();
             handleBottomNavigationViewClicks();
         }
+
+        setNavigationViewItemChecked();
     }
 
     private void themeBottomNavigationMenu() {
@@ -263,6 +261,7 @@ public abstract class DrawerActivity extends ToolbarActivity
             menuItemId = menuItem.getItemId();
 
             exitSelectionMode();
+            resetOnlyPersonalAndOnDevice();
 
             if (menuItemId == R.id.nav_all_files) {
                 showFiles(false,false);
@@ -271,10 +270,12 @@ public abstract class DrawerActivity extends ToolbarActivity
                 }
                 EventBus.getDefault().post(new ChangeMenuEvent());
             } else if (menuItemId == R.id.nav_favorites) {
+                setupToolbar();
                 handleSearchEvents(new SearchEvent("", SearchRemoteOperation.SearchType.FAVORITE_SEARCH), menuItemId);
             } else if (menuItemId == R.id.nav_assistant && !(this instanceof ComposeActivity)) {
                 startComposeActivity(ComposeDestination.AssistantScreen, R.string.assistant_screen_top_bar_title);
             } else if (menuItemId == R.id.nav_gallery) {
+                setupToolbar();
                 startPhotoSearch(menuItem.getItemId());
             }
 
@@ -386,49 +387,22 @@ public abstract class DrawerActivity extends ToolbarActivity
             getCapabilities().getServerBackground() != null && !isClientBranded) {
 
             OCCapability capability = getCapabilities();
-            String logo = capability.getServerLogo();
+            String serverLogoURL = capability.getServerLogo();
 
             // set background to primary color
             LinearLayout drawerHeader = mNavigationViewHeader.findViewById(R.id.drawer_header_view);
             drawerHeader.setBackgroundColor(primaryColor);
 
-            if (!TextUtils.isEmpty(logo) && URLUtil.isValidUrl(logo)) {
-                // background image
-                GenericRequestBuilder<Uri, InputStream, SVGorImage, Bitmap> requestBuilder = Glide.with(this)
-                    .using(Glide.buildStreamModelLoader(Uri.class, this), InputStream.class)
-                    .from(Uri.class)
-                    .as(SVGorImage.class)
-                    .transcode(new SvgOrImageBitmapTranscoder(128, 128), Bitmap.class)
-                    .sourceEncoder(new StreamEncoder())
-                    .cacheDecoder(new FileToStreamDecoder<>(new SvgOrImageDecoder()))
-                    .decoder(new SvgOrImageDecoder());
-
-                // background image
-                SimpleTarget<Bitmap> target = new SimpleTarget<>() {
-                    @Override
-                    public void onResourceReady(Bitmap resource, GlideAnimation glideAnimation) {
-
-                        Bitmap logo = resource;
-                        int width = resource.getWidth();
-                        int height = resource.getHeight();
-                        int max = Math.max(width, height);
-                        if (max > MAX_LOGO_SIZE_PX) {
-                            logo = BitmapUtils.scaleBitmap(resource, MAX_LOGO_SIZE_PX, width, height, max);
-                        }
-
-                        Drawable[] drawables = {new ColorDrawable(primaryColor),
-                            new BitmapDrawable(getResources(), logo)};
-                        LayerDrawable layerDrawable = new LayerDrawable(drawables);
-
-                        String name = capability.getServerName();
-                        setDrawerHeaderLogo(layerDrawable, name);
-                    }
-                };
-
-                requestBuilder
-                    .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-                    .load(Uri.parse(logo))
-                    .into(target);
+            if (!TextUtils.isEmpty(serverLogoURL) && URLUtil.isValidUrl(serverLogoURL)) {
+                Target<Drawable> target = createSVGLogoTarget(primaryColor, capability);
+                getClientRepository().getNextcloudClient(nextcloudClient -> {
+                    GlideHelper.INSTANCE.loadIntoTarget(DrawerActivity.this,
+                                                        nextcloudClient,
+                                                        serverLogoURL,
+                                                        target,
+                                                        R.drawable.background);
+                    return Unit.INSTANCE;
+                });
             }
         }
 
@@ -441,6 +415,52 @@ public abstract class DrawerActivity extends ToolbarActivity
         } else {
             showTopBanner(banner, primaryColor);
         }
+    }
+
+    private Target<Drawable> createSVGLogoTarget(int primaryColor, OCCapability capability) {
+        return new CustomTarget<>() {
+            @Override
+            public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
+                Bitmap bitmap;
+
+                if (resource instanceof PictureDrawable pictureDrawable) {
+                    bitmap = Bitmap.createBitmap(
+                        pictureDrawable.getIntrinsicWidth(),
+                        pictureDrawable.getIntrinsicHeight(),
+                        Bitmap.Config.ARGB_8888);
+
+                    Canvas canvas = new Canvas(bitmap);
+                    canvas.drawPicture(pictureDrawable.getPicture());
+
+                } else if (resource instanceof BitmapDrawable bitmapDrawable) {
+                    bitmap = bitmapDrawable.getBitmap();
+                } else {
+                    Log_OC.e(TAG, "Unsupported drawable type: " + resource.getClass().getName());
+                    return;
+                }
+
+                // Scale down if necessary
+                Bitmap logo = bitmap;
+                int width = bitmap.getWidth();
+                int height = bitmap.getHeight();
+                int max = Math.max(width, height);
+                if (max > MAX_LOGO_SIZE_PX) {
+                    logo = BitmapUtils.scaleBitmap(bitmap, MAX_LOGO_SIZE_PX, width, height, max);
+                }
+
+                Drawable[] drawables = {
+                    new ColorDrawable(primaryColor),
+                    new BitmapDrawable(getResources(), logo)
+                };
+                LayerDrawable layerDrawable = new LayerDrawable(drawables);
+
+                String name = capability.getServerName();
+                setDrawerHeaderLogo(layerDrawable, name);
+            }
+
+            @Override
+            public void onLoadCleared(@Nullable Drawable placeholder) {}
+        };
     }
 
     private void hideTopBanner(ConstraintLayout banner) {
@@ -507,7 +527,6 @@ public abstract class DrawerActivity extends ToolbarActivity
      * @param navigationView the drawers navigation view
      */
     private void setupDrawerMenu(NavigationView navigationView) {
-        navigationView.setItemIconTintList(null);
 
         // setup actions for drawer menu items
         navigationView.setNavigationItemSelectedListener(
@@ -517,7 +536,6 @@ public abstract class DrawerActivity extends ToolbarActivity
                 pendingRunnable = () -> onNavigationItemClicked(menuItem);
                 return true;
             });
-
 
         User account = accountManager.getUser();
         filterDrawerMenu(navigationView.getMenu(), account);
@@ -548,48 +566,52 @@ public abstract class DrawerActivity extends ToolbarActivity
         setNavigationViewItemChecked();
 
         if (itemId == R.id.nav_all_files || itemId == R.id.nav_personal_files) {
-            if (this instanceof FileDisplayActivity &&
-                !(((FileDisplayActivity) this).getLeftFragment() instanceof GalleryFragment) &&
-                !(((FileDisplayActivity) this).getLeftFragment() instanceof SharedListFragment) &&
-                !(((FileDisplayActivity) this).getLeftFragment() instanceof GroupfolderListFragment) &&
-                !(((FileDisplayActivity) this).getLeftFragment() instanceof PreviewTextStringFragment)) {
+            if (this instanceof FileDisplayActivity fda &&
+                !(fda.getLeftFragment() instanceof GalleryFragment) &&
+                !(fda.getLeftFragment() instanceof SharedListFragment) &&
+                !(fda.getLeftFragment() instanceof GroupfolderListFragment) &&
+                !(fda.getLeftFragment() instanceof PreviewTextStringFragment)) {
                 showFiles(false, itemId == R.id.nav_personal_files);
-                ((FileDisplayActivity) this).browseToRoot();
+                fda.browseToRoot();
                 EventBus.getDefault().post(new ChangeMenuEvent());
             } else {
                 MainApp.showOnlyFilesOnDevice(false);
                 MainApp.showOnlyPersonalFiles(itemId == R.id.nav_personal_files);
                 Intent intent = new Intent(getApplicationContext(), FileDisplayActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-
-                if (this instanceof ComposeActivity) {
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                }
-
                 intent.setAction(FileDisplayActivity.ALL_FILES);
                 startActivity(intent);
             }
 
             closeDrawer();
         } else if (itemId == R.id.nav_favorites) {
-            handleSearchEvents(new SearchEvent("", SearchRemoteOperation.SearchType.FAVORITE_SEARCH),
-                               menuItem.getItemId());
+            resetOnlyPersonalAndOnDevice();
+            setupToolbar();
+            handleSearchEvents(new SearchEvent("", SearchRemoteOperation.SearchType.FAVORITE_SEARCH), menuItem.getItemId());
         } else if (itemId == R.id.nav_gallery) {
+            resetOnlyPersonalAndOnDevice();
+            setupToolbar();
             startPhotoSearch(menuItem.getItemId());
         } else if (itemId == R.id.nav_on_device) {
             EventBus.getDefault().post(new ChangeMenuEvent());
             showFiles(true, false);
         } else if (itemId == R.id.nav_uploads) {
+            resetOnlyPersonalAndOnDevice();
             startActivity(UploadListActivity.class, Intent.FLAG_ACTIVITY_CLEAR_TOP);
         } else if (itemId == R.id.nav_trashbin) {
+            resetOnlyPersonalAndOnDevice();
             startActivity(TrashbinActivity.class, Intent.FLAG_ACTIVITY_CLEAR_TOP);
         } else if (itemId == R.id.nav_activity) {
+            resetOnlyPersonalAndOnDevice();
             startActivity(ActivitiesActivity.class, Intent.FLAG_ACTIVITY_CLEAR_TOP);
         } else if (itemId == R.id.nav_settings) {
+            resetOnlyPersonalAndOnDevice();
             startActivity(SettingsActivity.class);
         } else if (itemId == R.id.nav_community) {
+            resetOnlyPersonalAndOnDevice();
             startActivity(CommunityActivity.class);
         } else if (itemId == R.id.nav_logout) {
+            resetOnlyPersonalAndOnDevice();
             menuItemId = Menu.NONE;
             MenuItem isNewMenuItemChecked = menuItem.setChecked(false);
             Log_OC.d(TAG,"onNavigationItemClicked nav_logout setChecked " + isNewMenuItemChecked);
@@ -598,13 +620,16 @@ public abstract class DrawerActivity extends ToolbarActivity
                 UserInfoActivity.openAccountRemovalDialog(optionalUser.get(), getSupportFragmentManager());
             }
         } else if (itemId == R.id.nav_shared) {
+            resetOnlyPersonalAndOnDevice();
             startSharedSearch(menuItem);
         } else if (itemId == R.id.nav_recently_modified) {
+            resetOnlyPersonalAndOnDevice();
             startRecentlyModifiedSearch(menuItem);
         } else if (itemId == R.id.nav_assistant) {
+            resetOnlyPersonalAndOnDevice();
             startComposeActivity(ComposeDestination.AssistantScreen, R.string.assistant_screen_top_bar_title);
         } else if (itemId == R.id.nav_groupfolders) {
-            MainApp.showOnlyFilesOnDevice(false);
+            resetOnlyPersonalAndOnDevice();
             Intent intent = new Intent(getApplicationContext(), FileDisplayActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             intent.setAction(FileDisplayActivity.LIST_GROUPFOLDERS);
@@ -695,11 +720,6 @@ public abstract class DrawerActivity extends ToolbarActivity
         DrawerActivity.menuItemId = menuItemId;
         Intent intent = new Intent(getApplicationContext(), FileDisplayActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-
-        if (this instanceof ComposeActivity) {
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        }
-
         intent.setAction(Intent.ACTION_SEARCH);
         intent.putExtra(OCFileListFragment.SEARCH_EVENT, searchEvent);
         startActivity(intent);
@@ -873,7 +893,7 @@ public abstract class DrawerActivity extends ToolbarActivity
                 float density = getResources().getDisplayMetrics().density;
                 final int size = Math.round(24 * density);
 
-                if (quotas.size() > 0) {
+                if (!quotas.isEmpty()) {
                     final ExternalLink firstQuota = quotas.get(0);
                     mQuotaTextLink.setText(firstQuota.getName());
                     mQuotaTextLink.setClickable(true);
@@ -887,33 +907,15 @@ public abstract class DrawerActivity extends ToolbarActivity
                         startActivity(externalWebViewIntent);
                     });
 
-
-                    SimpleTarget<Drawable> target = new SimpleTarget<>() {
-                        @Override
-                        public void onResourceReady(Drawable resource, GlideAnimation glideAnimation) {
-                            Drawable test = resource.getCurrent();
-                            test.setBounds(0, 0, size, size);
-                            mQuotaTextLink.setCompoundDrawablesWithIntrinsicBounds(test, null, null, null);
-                        }
-
-                        @Override
-                        public void onLoadFailed(Exception e, Drawable errorDrawable) {
-                            super.onLoadFailed(e, errorDrawable);
-
-                            Drawable test = errorDrawable.getCurrent();
-                            test.setBounds(0, 0, size, size);
-
-                            mQuotaTextLink.setCompoundDrawablesWithIntrinsicBounds(test, null, null, null);
-                        }
-                    };
-
-                    DisplayUtils.downloadIcon(getUserAccountManager(),
-                                              clientFactory,
-                                              this,
-                                              firstQuota.getIconUrl(),
-                                              target,
-                                              R.drawable.ic_link);
-
+                    Target<Drawable> quotaTarget = createQuotaDrawableTarget(size, mQuotaTextLink);
+                    getClientRepository().getNextcloudClient(nextcloudClient -> {
+                        GlideHelper.INSTANCE.loadIntoTarget(this,
+                                                            nextcloudClient,
+                                                            firstQuota.getIconUrl(),
+                                                            quotaTarget,
+                                                            R.drawable.ic_link);
+                        return Unit.INSTANCE;
+                    });
                 } else {
                     mQuotaTextLink.setVisibility(View.GONE);
                 }
@@ -922,6 +924,34 @@ public abstract class DrawerActivity extends ToolbarActivity
             }
         }
     }
+
+    private Target<Drawable> createQuotaDrawableTarget(int size, TextView quotaTextLink) {
+        return new CustomTarget<>() {
+            @Override
+            public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
+                Drawable drawable = resource.getCurrent();
+                drawable.setBounds(0, 0, size, size);
+                quotaTextLink.setCompoundDrawablesWithIntrinsicBounds(drawable, null, null, null);
+            }
+
+            @Override
+            public void onLoadCleared(@Nullable Drawable placeholder) {
+
+            }
+
+            @Override
+            public void onLoadFailed(@Nullable Drawable errorDrawable) {
+                super.onLoadFailed(errorDrawable);
+
+                Drawable drawable = errorDrawable != null ? errorDrawable.getCurrent() : null;
+                if (drawable != null) {
+                    drawable.setBounds(0, 0, size, size);
+                    quotaTextLink.setCompoundDrawablesWithIntrinsicBounds(drawable, null, null, null);
+                }
+            }
+        };
+    }
+
 
     /**
      * Sets the menu item as checked in both the drawer and bottom navigation views, if applicable.
@@ -1016,49 +1046,70 @@ public abstract class DrawerActivity extends ToolbarActivity
     }
 
     private void updateExternalLinksInDrawer() {
-        if (drawerNavigationView != null && MDMConfig.INSTANCE.externalSiteSupport(this)) {
-            drawerNavigationView.getMenu().removeGroup(R.id.drawer_menu_external_links);
-
-            int greyColor = ContextCompat.getColor(this, R.color.drawer_menu_icon);
-
-            for (final ExternalLink link : externalLinksProvider.getExternalLink(ExternalLinkType.LINK)) {
-                int id = drawerNavigationView.getMenu().add(R.id.drawer_menu_external_links,
-                                                            MENU_ITEM_EXTERNAL_LINK + link.getId(), MENU_ORDER_EXTERNAL_LINKS, link.getName())
-                    .setCheckable(true).getItemId();
-
-                MenuSimpleTarget<Drawable> target = new MenuSimpleTarget<>(id) {
-                    @Override
-                    public void onResourceReady(Drawable resource, GlideAnimation glideAnimation) {
-                        setExternalLinkIcon(getIdMenuItem(), resource, greyColor);
-                    }
-
-                    @Override
-                    public void onLoadFailed(Exception e, Drawable errorDrawable) {
-                        super.onLoadFailed(e, errorDrawable);
-                        setExternalLinkIcon(getIdMenuItem(), errorDrawable, greyColor);
-                    }
-                };
-
-                DisplayUtils.downloadIcon(getUserAccountManager(),
-                                          clientFactory,
-                                          this,
-                                          link.getIconUrl(),
-                                          target,
-                                          R.drawable.ic_link);
-            }
+        if (drawerNavigationView == null || !MDMConfig.INSTANCE.externalSiteSupport(this)) {
+            return;
         }
+
+        drawerNavigationView.getMenu().removeGroup(R.id.drawer_menu_external_links);
+
+        int greyColor = ContextCompat.getColor(this, R.color.drawer_menu_icon);
+
+        for (final ExternalLink link : externalLinksProvider.getExternalLink(ExternalLinkType.LINK)) {
+            int id = drawerNavigationView
+                .getMenu()
+                .add(R.id.drawer_menu_external_links,
+                     MENU_ITEM_EXTERNAL_LINK +
+                         link.getId(), MENU_ORDER_EXTERNAL_LINKS,
+                     link.getName()
+                    )
+                .setCheckable(true)
+                .getItemId();
+
+            Target<Drawable> iconTarget = createMenuItemTarget(id, greyColor);
+            getClientRepository().getNextcloudClient(nextcloudClient -> {
+                GlideHelper.INSTANCE.loadIntoTarget(
+                    this,
+                    nextcloudClient,
+                    link.getIconUrl(),
+                    iconTarget,
+                    R.drawable.ic_link);
+                return Unit.INSTANCE;
+            });
+        }
+    }
+
+    private Target<Drawable> createMenuItemTarget(int menuItemId, int tintColor) {
+        return new CustomTarget<>() {
+            @Override
+            public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
+                setExternalLinkIcon(menuItemId, resource, tintColor);
+            }
+
+            @Override
+            public void onLoadFailed(@Nullable Drawable errorDrawable) {
+                setExternalLinkIcon(menuItemId, errorDrawable, tintColor);
+            }
+
+            @Override
+            public void onLoadCleared(@Nullable Drawable placeholder) {
+
+            }
+        };
     }
 
     private void setExternalLinkIcon(int id, Drawable drawable, int greyColor) {
         MenuItem menuItem = drawerNavigationView.getMenu().findItem(id);
-
-        if (menuItem != null) {
-            if (drawable != null) {
-                menuItem.setIcon(viewThemeUtils.platform.colorDrawable(drawable, greyColor));
-            } else {
-                menuItem.setIcon(R.drawable.ic_link);
-            }
+        if (menuItem == null) {
+            return;
         }
+
+        if (drawable == null) {
+            menuItem.setIcon(R.drawable.ic_link);
+            return;
+        }
+
+        final var resizedDrawable = DrawableUtil.INSTANCE.getResizedDrawable(this, drawable,32);
+        menuItem.setIcon(viewThemeUtils.platform.colorDrawable(resizedDrawable, greyColor));
     }
 
     @Override
@@ -1177,6 +1228,11 @@ public abstract class DrawerActivity extends ToolbarActivity
         fetchExternalLinks(false);
     }
 
+    private void resetOnlyPersonalAndOnDevice() {
+        MainApp.showOnlyFilesOnDevice(false);
+        MainApp.showOnlyPersonalFiles(false);
+    }
+
     /**
      * show the file list to the user.
      *
@@ -1185,15 +1241,11 @@ public abstract class DrawerActivity extends ToolbarActivity
     public void showFiles(boolean onDeviceOnly, boolean onlyPersonalFiles) {
         MainApp.showOnlyFilesOnDevice(onDeviceOnly);
         MainApp.showOnlyPersonalFiles(onlyPersonalFiles);
-        Intent fileDisplayActivity = new Intent(getApplicationContext(), FileDisplayActivity.class);
-        fileDisplayActivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
-        if (this instanceof ComposeActivity) {
-            fileDisplayActivity.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        }
-
-        fileDisplayActivity.setAction(FileDisplayActivity.ALL_FILES);
-        startActivity(fileDisplayActivity);
+        Intent intent = new Intent(getApplicationContext(), FileDisplayActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.setAction(FileDisplayActivity.ALL_FILES);
+        startActivity(intent);
     }
 
     @Override
@@ -1367,5 +1419,9 @@ public abstract class DrawerActivity extends ToolbarActivity
 
     public void showBottomNavigationBar(boolean show) {
         ViewExtensionsKt.setVisibleIf(bottomNavigationView, show);
+    }
+
+    public BottomNavigationView getBottomNavigationView() {
+       return bottomNavigationView;
     }
 }

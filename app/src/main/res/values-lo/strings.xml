@@ -659,6 +659,7 @@
     <string name="trashbin_file_not_deleted">ຟາຍ%1$sບໍ່ສາມາດລຶບໄດ້!</string>
     <string name="trashbin_file_not_restored">ຟາຍ %1$sບໍ່ສາມາດກູ້ຄືນໄດ້!</string>
     <string name="trashbin_not_emptied">ຟາຍບໍ່ສາມາດລຶບໄດ້ຖາວອນ!</string>
+    <string name="unknown">ບໍ່ຮູ້</string>
     <string name="unread_comments">ຄວາມຄິດເຫັນທີ່ບໍ່ອ່ານ</string>
     <string name="unset_encrypted">ຍົກເລີິກການຕັ້ງຄ່າເຂົ້າລະຫັດຜ່ານ</string>
     <string name="unshare_link_file_error">ເກີດຂໍ້ຜິດພາດໃນຂະນະທີ່ພະຍາຍາມຍົກເລີກຟາຍແບ້ງປັນ ຫຼື ໂຟນເດີນີ້.</string>

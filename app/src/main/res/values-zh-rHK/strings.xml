@@ -374,6 +374,7 @@
     <string name="file_detail_share_already_active">您無法創建共享，因為該用戶已經啟用了共享。</string>
     <string name="file_detail_sharing_fragment_no_contact_app_message">沒有應用程式可選取聯絡人</string>
     <string name="file_details_no_content">載入詳細資訊失敗</string>
+    <string name="file_details_sharing_fragment_custom_permission_not_selected">請選擇自訂權限</string>
     <string name="file_icon">檔案</string>
     <string name="file_keep">保留</string>
     <string name="file_list_empty">上傳一些項目或與你的設備同步！</string>
@@ -391,6 +392,8 @@
     <string name="file_list_empty_shared">您分享的檔案跟資料夾會顯示在這裡。</string>
     <string name="file_list_empty_shared_headline">還沒有分享任何資料</string>
     <string name="file_list_empty_unified_search_no_results">未找到與您的查詢相符的結果</string>
+    <string name="file_list_empty_unified_search_start_search">開始搜尋</string>
+    <string name="file_list_empty_unified_search_start_search_description">在上方搜索欄中輸入內容，以在您的帳戶中尋找檔案、聯絡人、日曆活動等。</string>
     <string name="file_list_folder">資料夾</string>
     <string name="file_list_live">直播</string>
     <string name="file_list_loading">載入中…</string>
@@ -610,10 +613,12 @@
     <string name="offline_mode_info_description">即使沒有網路連接，您也可以組織資料夾、建立檔案。一旦您重新上線，您的待處理操作將自動同步。</string>
     <string name="offline_mode_info_title">您處於離線狀態，但工作仍在繼續</string>
     <string name="offline_operations_file_does_not_exists_yet">檔案不存在。請先上傳檔案。</string>
-    <string name="offline_operations_worker_notification_conflict_text">衝突的資料夾：%s</string>
-    <string name="offline_operations_worker_notification_delete_offline_folder">刪除離線資料夾</string>
+    <string name="offline_operations_worker_notification_create_file_conflict_text">無法創建 %s。伺服器上已存在同名檔案。</string>
+    <string name="offline_operations_worker_notification_create_folder_conflict_text">無法創建 %s。伺服器上已存在同名資料夾。</string>
     <string name="offline_operations_worker_notification_error_text">無法完成離線操作。%s</string>
     <string name="offline_operations_worker_notification_manager_ticker">離線操作</string>
+    <string name="offline_operations_worker_notification_remove_conflict_text">已取消刪除 %s。該檔案已在伺服器上被修改。</string>
+    <string name="offline_operations_worker_notification_rename_conflict_text">無法重新命名 %s。伺服器上已存在同名檔案。</string>
     <string name="offline_operations_worker_notification_start_text">開始離線操作</string>
     <string name="oneHour">1 小時</string>
     <string name="online">上線</string>
@@ -968,6 +973,7 @@
     <string name="unified_search_fragment_calendar_event_not_found">找不到活動，您隨時可以同步更新。正在重新導向至網路 …</string>
     <string name="unified_search_fragment_contact_not_found">找不到聯絡人，您隨時可以同步更新。正在重新導向至網路 …</string>
     <string name="unified_search_fragment_permission_needed">開啟搜尋結果需要權限，否則其將會重新導向至網路 …</string>
+    <string name="unknown">不詳</string>
     <string name="unlock_file">解鎖檔案</string>
     <string name="unread_comments">有未讀留言</string>
     <string name="unset_encrypted">取消加密</string>

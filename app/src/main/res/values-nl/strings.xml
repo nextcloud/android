@@ -171,7 +171,7 @@
     <string name="community_rc_fdroid">Download de release candidate in F-Droid</string>
     <string name="community_rc_play_store">Download de release candidate in Google Play</string>
     <string name="community_release_candidate_headline">Release candidate</string>
-    <string name="community_release_candidate_text">De release candidate (RC) is een snapshot van de komende versie en is naar verwachting stabiel. Door een test met je eigen installatie verzeker je hier van. Meld je aan voor het testen in de Play store of kijk handmatig bij sectie \"Versie\" van F-Droid.</string>
+    <string name="community_release_candidate_text">De release candidate (RC) is een momentopname van de komende versie en is naar verwachting stabiel. Door een test met je eigen installatie verzeker je hier van. Meld je aan voor het testen in de Play store of kijk handmatig bij sectie \"Versie\" van F-Droid.</string>
     <string name="community_testing_bug_text">Bug gevonden? Rare dingen?</string>
     <string name="community_testing_headline">Help bij testen</string>
     <string name="community_testing_report_text">Meld een probleem op GitHub</string>
@@ -371,6 +371,7 @@
     <string name="file_already_exists">Bestandsnaam bestaat al</string>
     <string name="file_delete">Verwijderen</string>
     <string name="file_detail_activity_error">Fout bij ophalen activiteiten van bestand</string>
+    <string name="file_detail_share_already_active">Kan geen deling maken, deling is al actief van deze gebruiker</string>
     <string name="file_detail_sharing_fragment_no_contact_app_message">Geen app beschikbaar voor het selecteren van contactpersonen</string>
     <string name="file_details_no_content">Kon details niet laden</string>
     <string name="file_icon">Bestand</string>
@@ -430,6 +431,7 @@
     <string name="file_name_validator_error_reserved_names">%s is een ongeldige naam</string>
     <string name="file_name_validator_rename_before_move_or_copy">%s. Hernoem het bestand voor verplaatsen of kopiëren</string>
     <string name="file_not_found">Bestand niet gevonden</string>
+    <string name="file_not_found_cannot_share">Bestand niet gevonden. Kan geen deling maken</string>
     <string name="file_not_synced">Synchroniseren van het gewenste bestand mislukt. Laatst beschikbare versie wordt weergegeven.</string>
     <string name="file_rename">Hernoemen</string>
     <string name="file_upload_worker_error_notification_title">Upload mislukt. Geen internetverbinding</string>
@@ -608,8 +610,6 @@
     <string name="offline_mode_info_description">Zelfs zonder internetverbinding kun je je mappen organiseren en bestanden aanmaken. Zodra je weer online bent, worden de wachtende acties automatisch gesynchroniseerd.</string>
     <string name="offline_mode_info_title">Je bent offline, maar het werk gaat door</string>
     <string name="offline_operations_file_does_not_exists_yet">Bestand bestaat nog niet. Upload het bestand eerst.</string>
-    <string name="offline_operations_worker_notification_conflict_text">Conflicterende map: %s</string>
-    <string name="offline_operations_worker_notification_delete_offline_folder">Offline map verwijderen</string>
     <string name="offline_operations_worker_notification_error_text">De offline taak kan niet worden voltooid. %s</string>
     <string name="offline_operations_worker_notification_manager_ticker">Offline Taken</string>
     <string name="offline_operations_worker_notification_start_text">Starten offline taken</string>
@@ -784,7 +784,10 @@
     <string name="send">Versturen</string>
     <string name="send_share">Share versturen</string>
     <string name="sendbutton_description">Verstuur-knop pictogram</string>
+    <string name="server_not_reachable">Kon inhoud niet laden</string>
+    <string name="server_not_reachable_content">Dit apparaat is mogelijk niet aangesloten op het internet</string>
     <string name="set_as">Stel in als</string>
+    <string name="set_download_limit_failed">Kan geen downloadlimiet instellen. Controleer svp de capaciteiten</string>
     <string name="set_note">Aantekening instellen</string>
     <string name="set_picture_as">Gebruik afbeelding als</string>
     <string name="set_status">Instellen status</string>
@@ -792,6 +795,7 @@
     <string name="setup_e2e">Tijden het instellen van end-to-end versleuteling ontvang je een mnemonic van 12 woorden, die je nodig hebt om bestanden op je apparaat te openen. Dit wordt alleen opgeslagen op dit apparaat en kan in dit scherm opnieuw getoond worden. Noteer het a.u.b. op een veilige plek!</string>
     <string name="share">Delen</string>
     <string name="share_allow_download_and_sync_permission">Download en synchroniseren toestaan</string>
+    <string name="share_cannot_update_empty_note">Kon de deling niet bijwerken. Voeg een notitie toe en probeer het nogmaals</string>
     <string name="share_copy_link">Delen en link kopiëren</string>
     <string name="share_create_permission">Creëer</string>
     <string name="share_custom_permission">Aangepaste machtigingen</string>
@@ -817,6 +821,7 @@
     <string name="share_no_expiration_date_label">Stel vervaldatum in</string>
     <string name="share_no_password_title">Instellen wachtwoord</string>
     <string name="share_not_allowed_when_file_drop">Opnieuw delen is niet toegestaan tijdens de veilige bestandoverdracht.</string>
+    <string name="share_option_required">Kies tenminste een deeloptie alvorens verder te gaan</string>
     <string name="share_permission_can_edit">Kan bewerken</string>
     <string name="share_permission_file_request">Bestandsaanvraag</string>
     <string name="share_permission_secure_file_drop">Veilige bestandoverdracht</string>
@@ -826,7 +831,7 @@
     <string name="share_read_permission">Lezen</string>
     <string name="share_remote_clarification">%1$s (extern)</string>
     <string name="share_room_clarification">%1$s (gesprek)</string>
-    <string name="share_search">Naam, Federated Cloud ID of e-mailadres…</string>
+    <string name="share_search">Naam, Federated Cloud-ID of e-mailadres…</string>
     <string name="share_search_internal">Voeg gebruikers en teams toe</string>
     <string name="share_send_new_email">Stuur nieuwe e-mail</string>
     <string name="share_send_note">Notitie voor ontvanger</string>
@@ -961,6 +966,7 @@
     <string name="unified_search_fragment_calendar_event_not_found">Gebeurtenis niet gevonden. Je kan altijd synchroniseren voor een update. Doorsturen naar het web...</string>
     <string name="unified_search_fragment_contact_not_found">Contactpersoon niet gevonden. Je kan altijd synchroniseren voor een update. Doorsturen naar het web...</string>
     <string name="unified_search_fragment_permission_needed">Er zijn machtigingen nodig om de zoekresultaten te openen, anders wordt de opdracht doorgestuurd naar het web…</string>
+    <string name="unknown">Onbekend</string>
     <string name="unlock_file">Ontgrendel bestand</string>
     <string name="unread_comments">Er zijn ongelezen reacties</string>
     <string name="unset_encrypted">Niet ingestelde versleuteling</string>

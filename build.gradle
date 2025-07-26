@@ -10,25 +10,25 @@
  */
 buildscript {
     ext {
-        androidLibraryVersion ="ffc47c75fabbcbcdcd32b30e9836fde58d5c59d5"
-        androidCommonLibraryVersion = "0.26.0"
-        androidPluginVersion = "8.9.2"
+        androidLibraryVersion ="0303be50f9"
+        androidCommonLibraryVersion = "0.27.0"
+        androidPluginVersion = "8.11.1"
         androidxMediaVersion = "1.5.1"
         androidxTestVersion = "1.6.1"
         appCompatVersion = "1.7.1"
         checkerVersion = "3.21.2"
-        daggerVersion = "2.56.2"
-        documentScannerVersion = "1.1.1"
+        daggerVersion = "2.57"
+        documentScannerVersion = "1.2.3"
         espressoVersion = "3.6.1"
         jacoco_version = "0.8.13"
-        kotlin_version = "2.1.21"
+        kotlin_version = "2.2.0"
         markwonVersion = "4.6.2"
         mockitoVersion = "4.11.0"
         mockitoKotlinVersion = "4.1.0"
         mockkVersion = "1.14.2"
         prismVersion = "2.0.0"
-        roomVersion = "2.7.1"
-        workRuntime = "2.10.1"
+        roomVersion = "2.7.2"
+        workRuntime = "2.10.2"
 
         ciBuild = System.getenv("CI") == "true"
         shotTest = System.getenv("SHOT_TEST") == "true"
@@ -46,12 +46,12 @@ subprojects {
     repositories {
         google()
         mavenCentral()
-        maven { url "https://jitpack.io" }
+        maven { url = "https://jitpack.io" }
     }
 }
 
 tasks.register("clean", Delete) {
-    delete rootProject.buildDir
+    delete rootProject.layout.buildDirectory
 }
 
 tasks.register("installGitHooks", Copy) {

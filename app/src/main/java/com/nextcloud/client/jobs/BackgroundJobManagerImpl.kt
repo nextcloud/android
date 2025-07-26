@@ -9,6 +9,7 @@ package com.nextcloud.client.jobs
 import android.provider.MediaStore
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.map
+import androidx.work.BackoffPolicy
 import androidx.work.Constraints
 import androidx.work.Data
 import androidx.work.ExistingPeriodicWorkPolicy
@@ -57,7 +58,8 @@ internal class BackgroundJobManagerImpl(
     private val workManager: WorkManager,
     private val clock: Clock,
     private val preferences: AppPreferences
-) : BackgroundJobManager, Injectable {
+) : BackgroundJobManager,
+    Injectable {
 
     companion object {
 
@@ -102,15 +104,14 @@ internal class BackgroundJobManagerImpl(
         const val DEFAULT_PERIODIC_JOB_INTERVAL_MINUTES = 15L
         const val OFFLINE_OPERATIONS_PERIODIC_JOB_INTERVAL_MINUTES = 5L
         const val DEFAULT_IMMEDIATE_JOB_DELAY_SEC = 3L
+        const val DEFAULT_BACKOFF_CRITERIA_DELAY_SEC = 300L
 
         private const val KEEP_LOG_MILLIS = 1000 * 60 * 60 * 24 * 3L
 
-        fun formatNameTag(name: String, user: User? = null): String {
-            return if (user == null) {
-                "$TAG_PREFIX_NAME:$name"
-            } else {
-                "$TAG_PREFIX_NAME:$name ${user.accountName}"
-            }
+        fun formatNameTag(name: String, user: User? = null): String = if (user == null) {
+            "$TAG_PREFIX_NAME:$name"
+        } else {
+            "$TAG_PREFIX_NAME:$name ${user.accountName}"
         }
 
         fun formatUserTag(user: User): String = "$TAG_PREFIX_USER:${user.accountName}"
@@ -127,36 +128,32 @@ internal class BackgroundJobManagerImpl(
             }
         }
 
-        fun parseTimestamp(timestamp: String): Date {
-            return try {
-                val ms = timestamp.toLong()
-                Date(ms)
-            } catch (ex: NumberFormatException) {
-                Date(0)
-            }
+        fun parseTimestamp(timestamp: String): Date = try {
+            val ms = timestamp.toLong()
+            Date(ms)
+        } catch (ex: NumberFormatException) {
+            Date(0)
         }
 
         /**
          * Convert platform [androidx.work.WorkInfo] object into application-specific [JobInfo] model.
          * Conversion extracts work metadata from tags.
          */
-        fun fromWorkInfo(info: WorkInfo?): JobInfo? {
-            return if (info != null) {
-                val metadata = mutableMapOf<String, String>()
-                info.tags.forEach { parseTag(it)?.let { metadata[it.first] = it.second } }
-                val timestamp = parseTimestamp(metadata.get(TAG_PREFIX_START_TIMESTAMP) ?: "0")
-                JobInfo(
-                    id = info.id,
-                    state = info.state.toString(),
-                    name = metadata.get(TAG_PREFIX_NAME) ?: NOT_SET_VALUE,
-                    user = metadata.get(TAG_PREFIX_USER) ?: NOT_SET_VALUE,
-                    started = timestamp,
-                    progress = info.progress.getInt("progress", -1),
-                    workerClass = metadata.get(TAG_PREFIX_CLASS) ?: NOT_SET_VALUE
-                )
-            } else {
-                null
-            }
+        fun fromWorkInfo(info: WorkInfo?): JobInfo? = if (info != null) {
+            val metadata = mutableMapOf<String, String>()
+            info.tags.forEach { parseTag(it)?.let { metadata[it.first] = it.second } }
+            val timestamp = parseTimestamp(metadata.get(TAG_PREFIX_START_TIMESTAMP) ?: "0")
+            JobInfo(
+                id = info.id,
+                state = info.state.toString(),
+                name = metadata.get(TAG_PREFIX_NAME) ?: NOT_SET_VALUE,
+                user = metadata.get(TAG_PREFIX_USER) ?: NOT_SET_VALUE,
+                started = timestamp,
+                progress = info.progress.getInt("progress", -1),
+                workerClass = metadata.get(TAG_PREFIX_CLASS) ?: NOT_SET_VALUE
+            )
+        } else {
+            null
         }
 
         fun deleteOldLogs(logEntries: MutableList<LogEntry>): MutableList<LogEntry> {
@@ -413,10 +410,9 @@ internal class BackgroundJobManagerImpl(
         workManager.cancelJob(JOB_PERIODIC_CALENDAR_BACKUP, user)
     }
 
-    override fun bothFilesSyncJobsRunning(syncedFolderID: Long): Boolean {
-        return workManager.isWorkRunning(JOB_PERIODIC_FILES_SYNC + "_" + syncedFolderID) &&
+    override fun bothFilesSyncJobsRunning(syncedFolderID: Long): Boolean =
+        workManager.isWorkRunning(JOB_PERIODIC_FILES_SYNC + "_" + syncedFolderID) &&
             workManager.isWorkRunning(JOB_IMMEDIATE_FILES_SYNC + "_" + syncedFolderID)
-    }
 
     override fun startPeriodicallyOfflineOperation() {
         val inputData = Data.Builder()
@@ -447,8 +443,19 @@ internal class BackgroundJobManagerImpl(
             .setRequiredNetworkType(NetworkType.CONNECTED)
             .build()
 
+        // Backoff criteria define how the system should retry the task if it fails.
+        // LINEAR means each retry will be delayed linearly (e.g., 10s, 20s, 30s...)
+        // DEFAULT_PERIODIC_JOB_INTERVAL_MINUTES is used as the initial delay duration.
+        val backoffCriteriaPolicy = BackoffPolicy.LINEAR
+        val backoffCriteriaDelay = DEFAULT_BACKOFF_CRITERIA_DELAY_SEC
+
         val request =
             oneTimeRequestBuilder(OfflineOperationsWorker::class, JOB_OFFLINE_OPERATIONS, constraints = constraints)
+                .setBackoffCriteria(
+                    backoffCriteriaPolicy,
+                    backoffCriteriaDelay,
+                    TimeUnit.SECONDS
+                )
                 .setInputData(inputData)
                 .build()
 
@@ -571,18 +578,28 @@ internal class BackgroundJobManagerImpl(
         workManager.enqueue(request)
     }
 
-    private fun startFileUploadJobTag(user: User): String {
-        return JOB_FILES_UPLOAD + user.accountName
-    }
+    private fun startFileUploadJobTag(user: User): String = JOB_FILES_UPLOAD + user.accountName
 
-    override fun isStartFileUploadJobScheduled(user: User): Boolean {
-        return workManager.isWorkScheduled(startFileUploadJobTag(user))
-    }
+    override fun isStartFileUploadJobScheduled(user: User): Boolean =
+        workManager.isWorkScheduled(startFileUploadJobTag(user))
 
-    override fun startFilesUploadJob(user: User) {
-        val data = workDataOf(FileUploadWorker.ACCOUNT to user.accountName)
-
+    /**
+     * This method supports initiating uploads for various scenarios, including:
+     * - New upload batches
+     * - Failed uploads
+     * - FilesSyncWork
+     * - ...
+     *
+     * @param user The user for whom the upload job is being created.
+     * @param uploadIds Array of upload IDs to be processed. These IDs originate from multiple sources
+     *                  and cannot be determined directly from the account name or a single function
+     *                  within the worker.
+     */
+    override fun startFilesUploadJob(user: User, uploadIds: LongArray) {
         val tag = startFileUploadJobTag(user)
+        val dataBuilder = Data.Builder()
+            .putString(FileUploadWorker.ACCOUNT, user.accountName)
+            .putLongArray(FileUploadWorker.UPLOAD_IDS, uploadIds)
 
         val constraints = Constraints.Builder()
             .setRequiredNetworkType(NetworkType.CONNECTED)
@@ -590,20 +607,18 @@ internal class BackgroundJobManagerImpl(
 
         val request = oneTimeRequestBuilder(FileUploadWorker::class, JOB_FILES_UPLOAD, user)
             .addTag(tag)
-            .setInputData(data)
+            .setInputData(dataBuilder.build())
             .setConstraints(constraints)
             .build()
 
-        workManager.enqueueUniqueWork(tag, ExistingWorkPolicy.KEEP, request)
+        workManager.enqueueUniqueWork(tag, ExistingWorkPolicy.APPEND_OR_REPLACE, request)
     }
 
-    private fun startFileDownloadJobTag(user: User, fileId: Long): String {
-        return JOB_FOLDER_DOWNLOAD + user.accountName + fileId
-    }
+    private fun startFileDownloadJobTag(user: User, fileId: Long): String =
+        JOB_FOLDER_DOWNLOAD + user.accountName + fileId
 
-    override fun isStartFileDownloadJobScheduled(user: User, fileId: Long): Boolean {
-        return workManager.isWorkScheduled(startFileDownloadJobTag(user, fileId))
-    }
+    override fun isStartFileDownloadJobScheduled(user: User, fileId: Long): Boolean =
+        workManager.isWorkScheduled(startFileDownloadJobTag(user, fileId))
 
     override fun startFileDownloadJob(
         user: User,

@@ -608,8 +608,6 @@
     <string name="offline_mode_info_description">Interneteko konexiorik gabe ere, zure karpetak antola ditzakezu, fitxategiak sortu. Konektatuta berriro zaudenean, zain dauden ekintzak automatikoki sinkronizatuko dira.</string>
     <string name="offline_mode_info_title">Konexiorik gabe zaude, baina lanak aurrera jarraitzen du</string>
     <string name="offline_operations_file_does_not_exists_yet">Fitxategia ez dago oraindik. Kargatu fitxategia lehenik.</string>
-    <string name="offline_operations_worker_notification_conflict_text">Karpeta gatazkatsua: %s</string>
-    <string name="offline_operations_worker_notification_delete_offline_folder">Ezabatu konexiorik gabeko karpeta</string>
     <string name="offline_operations_worker_notification_error_text">Lineaz kanpoko eragiketa ezin da osatu.. %s</string>
     <string name="offline_operations_worker_notification_manager_ticker">Lineaz kanpoko eragiketak</string>
     <string name="offline_operations_worker_notification_start_text">Konexiorik gabeko eragiketak hastea</string>
@@ -963,6 +961,7 @@ Zure kontrola bermatzen dituzten auto-ostatatutako produktibitate-plataformak.\n
     <string name="unified_search_fragment_calendar_event_not_found">Gertaera ez da aurkitu, beti sinkroniza dezakezu eguneratzeko. Webera birbideratzen…</string>
     <string name="unified_search_fragment_contact_not_found">Kontaktua ez da aurkitu, beti sinkroniza dezakezu eguneratzeko. Webera birbideratzen…</string>
     <string name="unified_search_fragment_permission_needed">Bilaketa-emaitza irekitzeko baimenak behar dira, bestela webera birbideratuko da...</string>
+    <string name="unknown">Ezezaguna</string>
     <string name="unlock_file">Desblokeatu fitxategia</string>
     <string name="unread_comments">Irakurri gabeko iruzkinak daude</string>
     <string name="unset_encrypted">Kendu enkriptatzea</string>

@@ -930,6 +930,7 @@
     <string name="unified_search_fragment_calendar_event_not_found">Evento non trovato, puoi sempre sincronizzarti per aggiornare. Reindirizzamento al Web...</string>
     <string name="unified_search_fragment_contact_not_found">Contatto non trovato, puoi sempre sincronizzare per aggiornare. Reindirizzamento al Web...</string>
     <string name="unified_search_fragment_permission_needed">Sono necessarie le autorizzazioni per aprire il risultato della ricerca, altrimenti verrà reindirizzato al web...</string>
+    <string name="unknown">Sconosciuto</string>
     <string name="unlock_file">Sblocca file</string>
     <string name="unread_comments">Sono presenti commenti non letti</string>
     <string name="unset_encrypted">Rimuovi cifratura</string>

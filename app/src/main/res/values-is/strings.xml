@@ -929,6 +929,7 @@
     <string name="unified_search_fragment_calendar_event_not_found">Atburður fannst ekki, þú getur alltaf samstillt til að uppfæra. Endurbeini á vefinn…</string>
     <string name="unified_search_fragment_contact_not_found">Tengiliður fannst ekki, þú getur alltaf samstillt til að uppfæra. Endurbeini á vefinn…</string>
     <string name="unified_search_fragment_permission_needed">Krafist er heimilda til að opna leitarniðurstöður, annars mun þessu verða endurbeint á vefinn…</string>
+    <string name="unknown">Óþekkt</string>
     <string name="unlock_file">Aflæsa skrá</string>
     <string name="unread_comments">Ólesnar athugasemdir eru fyrirliggjandi</string>
     <string name="unset_encrypted">Gera dulritun óvirka</string>

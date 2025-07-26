@@ -897,6 +897,7 @@
     <string name="unified_search_fragment_calendar_event_not_found">ھادىسە تېپىلمىدى ، يېڭىلاش ئۈچۈن ھەمىشە ماسقەدەملىيەلەيسىز. تورغا قايتا يۆنىلىش…</string>
     <string name="unified_search_fragment_contact_not_found">ئالاقىلىشىش تېپىلمىدى ، يېڭىلاش ئۈچۈن ھەمىشە ماسقەدەملىيەلەيسىز. تورغا قايتا يۆنىلىش…</string>
     <string name="unified_search_fragment_permission_needed">ئىزدەش نەتىجىسىنى ئېچىشقا ئىجازەت تەلەپ قىلىنىدۇ ، بولمىسا ئۇ تورغا ئۇلىنىدۇ.</string>
+    <string name="unknown">نامەلۇم</string>
     <string name="unlock_file">ھۆججەتنى ئېچىش</string>
     <string name="unread_comments">ئوقۇلمىغان ئىنكاسلار مەۋجۇت</string>
     <string name="unset_encrypted">شىفىرلاش</string>

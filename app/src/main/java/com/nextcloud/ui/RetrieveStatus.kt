@@ -16,21 +16,19 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.io.IOException
 
-suspend fun retrieveUserStatus(user: User, clientFactory: ClientFactory): Status {
-    return withContext(Dispatchers.IO) {
-        try {
-            val client = clientFactory.createNextcloudClient(user)
-            val result = GetStatusRemoteOperation().execute(client)
-            if (result.isSuccess && result.resultData is Status) {
-                result.resultData as Status
-            } else {
-                offlineStatus()
-            }
-        } catch (e: ClientFactory.CreationException) {
-            offlineStatus()
-        } catch (e: IOException) {
+suspend fun retrieveUserStatus(user: User, clientFactory: ClientFactory): Status = withContext(Dispatchers.IO) {
+    try {
+        val client = clientFactory.createNextcloudClient(user)
+        val result = GetStatusRemoteOperation().execute(client)
+        if (result.isSuccess && result.resultData is Status) {
+            result.resultData as Status
+        } else {
             offlineStatus()
         }
+    } catch (e: ClientFactory.CreationException) {
+        offlineStatus()
+    } catch (e: IOException) {
+        offlineStatus()
     }
 }
 

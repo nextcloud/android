@@ -22,7 +22,9 @@ import com.owncloud.android.R
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import javax.inject.Inject
 
-class IndeterminateProgressDialog : DialogFragment(), Injectable {
+class IndeterminateProgressDialog :
+    DialogFragment(),
+    Injectable {
 
     @JvmField
     @Inject

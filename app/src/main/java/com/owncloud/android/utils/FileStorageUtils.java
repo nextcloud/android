@@ -190,6 +190,7 @@ public final class FileStorageUtils {
      */
     private static String getSubPathFromDate(long date, Locale currentLocale, SubFolderRule subFolderRule) {
         if (date == 0) {
+            Log_OC.w(TAG, "FileStorageUtils:getSubPathFromDate date is zero");
             return "";
         }
         String datePattern = "";
@@ -226,6 +227,7 @@ public final class FileStorageUtils {
         if (subfolderByDate) {
             subfolderByDatePath = getSubPathFromDate(dateTaken, current, subFolderRule);
         }
+        Log_OC.w(TAG, "FileStorageUtils:getInstantUploadFilePath subfolderByDate: " + subfolderByDate);
 
         File parentFile = new File(file.getAbsolutePath().replace(syncedFolderLocalPath, "")).getParentFile();
 

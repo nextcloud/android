@@ -16,7 +16,6 @@ import com.google.gson.Gson;
 import com.nextcloud.android.lib.resources.directediting.DirectEditingObtainRemoteOperation;
 import com.nextcloud.client.account.User;
 import com.nextcloud.common.NextcloudClient;
-import com.nextcloud.utils.extensions.RemoteOperationResultExtensionsKt;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.ArbitraryDataProviderImpl;
 import com.owncloud.android.datamodel.FileDataStorageManager;
@@ -40,7 +39,6 @@ import com.owncloud.android.lib.resources.status.E2EVersion;
 import com.owncloud.android.lib.resources.users.GetPredefinedStatusesRemoteOperation;
 import com.owncloud.android.lib.resources.users.PredefinedStatus;
 import com.owncloud.android.syncadapter.FileSyncAdapter;
-import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.utils.DataHolderUtil;
 import com.owncloud.android.utils.EncryptionUtils;
 import com.owncloud.android.utils.FileStorageUtils;
@@ -269,8 +267,6 @@ public class RefreshFolderOperation extends RemoteOperation {
             }
         }
 
-        checkFolderConflictData(result);
-
         if (!mSyncFullAccount && mRemoteFolderChanged && mLocalFolder != null) {
             sendLocalBroadcast(EVENT_SINGLE_FOLDER_CONTENTS_SYNCED, mLocalFolder.getRemotePath(), result);
         }
@@ -284,25 +280,6 @@ public class RefreshFolderOperation extends RemoteOperation {
         }
 
         return result;
-    }
-
-    private static HashMap<String, String> lastConflictData = new HashMap<>();
-
-    private void checkFolderConflictData(RemoteOperationResult result) {
-        var offlineOperations = fileDataStorageManager.offlineOperationDao.getAll();
-        if (offlineOperations.isEmpty()) return;
-
-        var conflictData = RemoteOperationResultExtensionsKt.getConflictedRemoteIdsWithOfflineOperations(result, offlineOperations, fileDataStorageManager);
-        if (conflictData != null && !conflictData.equals(lastConflictData)) {
-            lastConflictData = new HashMap<>(conflictData);
-            sendFolderSyncConflictEventBroadcast(conflictData);
-        }
-    }
-
-    private void sendFolderSyncConflictEventBroadcast(HashMap<String, String> conflictData) {
-        Intent intent = new Intent(FileDisplayActivity.FOLDER_SYNC_CONFLICT);
-        intent.putExtra(FileDisplayActivity.FOLDER_SYNC_CONFLICT_ARG_REMOTE_IDS_TO_OPERATION_PATHS, conflictData);
-        LocalBroadcastManager.getInstance(mContext).sendBroadcast(intent);
     }
 
     private void updateOCVersion(OwnCloudClient client) {

@@ -610,8 +610,6 @@
     <string name="offline_mode_info_description">Чак и без везе са интернетом можете да организујете фолдере, креирате фајлове. Када поново будете на мрежи, ваше акције на чекању ће се аутоматски синхронизовати.</string>
     <string name="offline_mode_info_title">Ван мреже сте, али се рад наставља</string>
     <string name="offline_operations_file_does_not_exists_yet">Фајл још увек не постоји. Молимо вас да најпре отпремите фајл.</string>
-    <string name="offline_operations_worker_notification_conflict_text">Фолдер у конфликту: %s</string>
-    <string name="offline_operations_worker_notification_delete_offline_folder">Обриши фолдер ван мреже</string>
     <string name="offline_operations_worker_notification_error_text">Операција ван мреже не може да се заврши. %s</string>
     <string name="offline_operations_worker_notification_manager_ticker">Операције ван мреже</string>
     <string name="offline_operations_worker_notification_start_text">Покрећу се операције ван мреже</string>
@@ -968,6 +966,7 @@
     <string name="unified_search_fragment_calendar_event_not_found">Није пронађен догађај, увек можете да сихронизујете да бисте ажурирали. Преусмеравате се на веб</string>
     <string name="unified_search_fragment_contact_not_found">Није пронађен контакт, увек можете да сихронизујете да бисте ажурирали. Преусмеравате се на веб</string>
     <string name="unified_search_fragment_permission_needed">За отварање резултата претраге су неопходне дозволе, у супротном бићете преусмерени на веб</string>
+    <string name="unknown">Непознато</string>
     <string name="unlock_file">Откључај фајл</string>
     <string name="unread_comments">Постоје непрочитани коментари</string>
     <string name="unset_encrypted">Искључи шифровање</string>
