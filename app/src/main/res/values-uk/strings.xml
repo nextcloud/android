@@ -498,10 +498,12 @@
     <string name="image_preview_image_taking_conditions">Умови отримання зображення</string>
     <string name="image_preview_unit_fnumber">ƒ/%s</string>
     <string name="image_preview_unit_iso">ISO %s</string>
+    <string name="image_preview_unit_megapixel">%sМП</string>
     <string name="image_preview_unit_millimetres">%s мм</string>
     <string name="image_preview_unit_seconds">%s с</string>
     <string name="instant_upload_existing">Також завантажити існуючі файли</string>
     <string name="instant_upload_on_charging">Завантаження тільки під час заряджання</string>
+    <string name="instant_upload_path">/InstantUpload</string>
     <string name="internal_shares">Внутрішні спільні ресурси</string>
     <string name="internal_two_way_sync">Внутрішня двостороння синхронізація</string>
     <string name="internal_two_way_sync_not_yet">Поки не впроваджено</string>
@@ -643,6 +645,7 @@
     <string name="pin_home">Закріпити на домівці</string>
     <string name="pin_shortcut_label">Відкрити %1$s</string>
     <string name="placeholder_fileSize">389 КБ</string>
+    <string name="placeholder_filename">placeholder.txt</string>
     <string name="placeholder_media_time">12:23:45</string>
     <string name="placeholder_sentence">Це заповнювач</string>
     <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
@@ -898,6 +901,7 @@
     <string name="storage_permission_full_access">Повний доступ</string>
     <string name="storage_permission_media_read_only">Мультимедія лише для читання</string>
     <string name="storage_pictures">Зображення</string>
+    <string name="store_full_desc">Самостійна платформа для підвищення продуктивності, яка дозволяє вам зберігати контроль. n\nОсобливості:\n* Простий, сучасний інтерфейс, що відповідає темі вашого сервера\n* Завантажуйте файли на ваш сервер Nextcloud\n* Діліться ними з іншими\n* Синхронізуйте ваші улюблені файли та папки\n* Здійснюйте пошук у всіх папках на вашому сервері\n* Автоматичне завантаження фотографій та відео, зроблених вашим пристроєм\n* Будьте в курсі подій завдяки сповіщенням\n* Підтримка декількох облікових записів\n* Безпечний доступ до ваших даних за допомогою відбитка пальця або PIN-коду\n* Інтеграція з DAVx⁵ (раніше відомим як DAVdroid) для легкого налаштування синхронізації календаря та контактів\n\nБудь ласка, повідомляйте про всі проблеми на https://github.com/nextcloud/android/issues та обговорюйте цей додаток на https://help.nextcloud.com/c/clients/android\n\nНовий у Nextcloud? Nextcloud — це приватний сервер для синхронізації та обміну файлами, а також для спілкування. Це вільне програмне забезпечення, яке ви можете розмістити самостійно або заплатити компанії, щоб вона зробила це за вас. Таким чином, ви контролюєте свої фотографії, календар і контакти, документи та все інше.\n\nОзнайомтеся з Nextcloud на https://nextcloud.com</string>
     <string name="store_full_dev_desc">Самостійна платформа продуктивності, яка тримає вас під контролем.\nЦе офіційна версія для розробки, що містить щоденний зразок будь-якої нової неперевіреної функціональності, яка може спричинити нестабільність та втрату даних. Застосунок призначено для користувачів, які бажають протестувати, і повідомляти про помилки у разі їх виникнення. Не використовуйте його для своєї продуктивної роботи!\n\ nОфіційна розробка та звичайна версія доступні на F-droid і можуть бути встановлені одночасно.</string>
     <string name="store_short_desc">Платформа з власним хостингом, яка надає можливість контролювати ваші ресурси</string>
     <string name="store_short_dev_desc">Платформа з власним хостингом, яка надає можливість контролювати ваші ресурси (версія для попереднього ознайомлення)</string>
