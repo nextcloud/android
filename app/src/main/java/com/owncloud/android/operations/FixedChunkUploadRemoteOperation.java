@@ -32,6 +32,8 @@ import java.util.UUID;
 
 // Import for WebDAV operations - Nextcloud chunk assembly
 import org.apache.jackrabbit.webdav.client.methods.MkColMethod;
+import org.apache.jackrabbit.webdav.client.methods.PropFindMethod;
+import org.apache.jackrabbit.webdav.DavConstants;
 import org.apache.commons.httpclient.methods.EntityEnclosingMethod;
 
 import android.content.Context;
@@ -41,6 +43,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.RandomAccessFile;
+import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.Collection;
@@ -78,6 +81,9 @@ public class FixedChunkUploadRemoteOperation extends RemoteOperation implements 
     public static final String BYTES_SUFFIX = " bytes";
     public static final String SIZE_SEPARATOR = ", size: ";
     public static final String DAV_UPLOADS_PATH = "/remote.php/dav/uploads/";
+    
+    // Chunk filename formatting constants
+    private static final int CHUNK_NAME_PADDING = 5;
     
     private final String mLocalPath;
     private final String mRemotePath;
@@ -250,16 +256,38 @@ public class FixedChunkUploadRemoteOperation extends RemoteOperation implements 
             
             
             // Step 1: Check if we can resume an existing session (for background upload continuation)
-            int startChunk = checkExistingSession(client);
+            int lastUploadedChunk = checkExistingSession(client);
             
-            if (startChunk > 0) {
+            if (lastUploadedChunk > 0) {
+                // Validate that we can actually resume from this point
+                if (lastUploadedChunk >= mTotalChunks) {
+                    Log_OC.w(TAG, "uploadFileInChunks: All chunks already uploaded (" + lastUploadedChunk + "/" + mTotalChunks + "), attempting to assemble");
+                    // All chunks are uploaded, try to assemble
+                    RemoteOperationResult assemblyResult = assembleChunks(client);
+                    if (assemblyResult.isSuccess()) {
+                        updateProgress(mFileSize, localFile.getName());
+                        return assemblyResult;
+                    } else {
+                        Log_OC.w(TAG, "uploadFileInChunks: Assembly failed, will re-upload last chunk");
+                        lastUploadedChunk = Math.max(0, lastUploadedChunk - 1); // Retry last chunk
+                    }
+                }
+                
                 // Resume from existing session
-                Log_OC.d(TAG, "uploadFileInChunks: Resuming upload from chunk " + (startChunk + 1) + "/" + mTotalChunks);
-                mCurrentChunk = startChunk + 1; // Next chunk to upload
-                long bytesAlreadyUploaded = startChunk * FIXED_CHUNK_SIZE;
+                Log_OC.d(TAG, "uploadFileInChunks: *** RESUMING UPLOAD *** from chunk " + (lastUploadedChunk + 1) + "/" + mTotalChunks);
+                long bytesAlreadyUploaded = Math.min(lastUploadedChunk * FIXED_CHUNK_SIZE, mFileSize);
                 updateProgress(bytesAlreadyUploaded, localFile.getName());
+                
+                // Show toast to indicate resume
+                if (mContext != null) {
+                    new Handler(Looper.getMainLooper()).post(() -> {
+                        Toast.makeText(mContext, "Resuming upload from " + Math.round(100.0 * bytesAlreadyUploaded / mFileSize) + "%", 
+                                     Toast.LENGTH_SHORT).show();
+                    });
+                }
             } else {
                 // Create new upload session directory
+                Log_OC.d(TAG, "uploadFileInChunks: *** STARTING NEW UPLOAD *** - no existing session found");
                 RemoteOperationResult sessionResult = createUploadSession(client);
                 if (!sessionResult.isSuccess()) {
                     Log_OC.e(TAG, "uploadFileInChunks: Failed to create upload session");
@@ -273,8 +301,8 @@ public class FixedChunkUploadRemoteOperation extends RemoteOperation implements 
             }
             
             // Step 2: Upload each chunk to the session directory
-            long totalBytesUploaded = (startChunk > 0) ? startChunk * FIXED_CHUNK_SIZE : 0;
-            int startChunkIndex = (startChunk > 0) ? startChunk : 0;
+            long totalBytesUploaded = (lastUploadedChunk > 0) ? Math.min(lastUploadedChunk * FIXED_CHUNK_SIZE, mFileSize) : 0;
+            int startChunkIndex = (lastUploadedChunk > 0) ? lastUploadedChunk : 0;
             
             try (RandomAccessFile fileAccess = new RandomAccessFile(localFile, "r")) {
                 for (int chunkIndex = startChunkIndex; chunkIndex < mTotalChunks; chunkIndex++) {
@@ -429,9 +457,9 @@ public class FixedChunkUploadRemoteOperation extends RemoteOperation implements 
             try {
                 String encodedUsername = URLEncoder.encode(client.getCredentials().getUsername(), StandardCharsets.UTF_8.toString());
                 String encodedSessionId = URLEncoder.encode(mUploadSessionId, StandardCharsets.UTF_8.toString());
-                String chunkFileName = String.format("%05d", chunkNumber); // 5-digit padded number
+                String chunkFileName = String.format("%0" + CHUNK_NAME_PADDING + "d", chunkNumber);
                 chunkUrl = client.getBaseUri() + DAV_UPLOADS_PATH + encodedUsername + "/" + encodedSessionId + "/" + chunkFileName;
-            } catch (Exception e) {
+            } catch (UnsupportedEncodingException e) {
                 Log_OC.e(TAG, "uploadChunkToSession: Error encoding URL components", e);
                 return new RemoteOperationResult(e);
             }
@@ -667,43 +695,98 @@ public class FixedChunkUploadRemoteOperation extends RemoteOperation implements 
             
             Log_OC.d(TAG, "checkExistingSession: Checking for existing session: " + sessionUrl);
             
-            // Use PROPFIND to check if session directory exists and list chunks
-            // For simplicity, we'll check for consecutive chunk files starting from 00001
-            int chunkCount = 0;
-            for (int i = 1; i <= mTotalChunks; i++) {
-                String chunkFileName = String.format("%05d", i);
-                String chunkUrl = sessionUrl + "/" + chunkFileName;
-                
-                // Use a simple HEAD request to check if chunk exists
-                PutMethod headMethod = new PutMethod(chunkUrl) {
-                    @Override
-                    public String getName() { return "HEAD"; }
-                };
-                
-                try {
-                    int statusCode = client.executeMethod(headMethod);
-                    if (statusCode == HttpStatus.SC_OK || statusCode == HttpStatus.SC_NO_CONTENT) {
-                        chunkCount = i; // Found this chunk
-                        Log_OC.d(TAG, "checkExistingSession: Found existing chunk " + i);
-                    } else {
-                        // Missing chunk - stop here
-                        Log_OC.d(TAG, "checkExistingSession: Chunk " + i + " missing (status: " + statusCode + "), can resume from chunk " + chunkCount);
-                        break;
-                    }
-                } catch (Exception e) {
-                    Log_OC.d(TAG, "checkExistingSession: Error checking chunk " + i + ", stopping resume check", e);
-                    break;
-                } finally {
-                    headMethod.releaseConnection();
-                }
+            // First, check if the session directory exists using PROPFIND
+            if (!sessionDirectoryExists(client, sessionUrl)) {
+                Log_OC.d(TAG, "checkExistingSession: Session directory does not exist, starting fresh upload");
+                return 0;
             }
             
-            Log_OC.d(TAG, "checkExistingSession: Found " + chunkCount + " existing chunks out of " + mTotalChunks);
+            Log_OC.d(TAG, "checkExistingSession: Session directory exists, checking for uploaded chunks");
+            
+            // Check for consecutive chunk files starting from 00001
+            int chunkCount = findLastConsecutiveChunk(client, sessionUrl);
+            
+            Log_OC.d(TAG, "checkExistingSession: Found " + chunkCount + " existing chunks out of " + mTotalChunks + 
+                     ", will resume from chunk " + (chunkCount + 1));
             return chunkCount;
             
-        } catch (Exception e) {
-            Log_OC.e(TAG, "checkExistingSession: Error checking existing session", e);
-            return 0; // Start fresh
+        } catch (IOException e) {
+            Log_OC.e(TAG, "checkExistingSession: IO error checking existing session", e);
+            return 0; // Start fresh on any error
+        } catch (RuntimeException e) {
+            Log_OC.e(TAG, "checkExistingSession: Runtime error checking existing session", e);
+            return 0; // Start fresh on any error
+        }
+    }
+    
+    /**
+     * Check if the upload session directory exists using PROPFIND
+     */
+    private boolean sessionDirectoryExists(OwnCloudClient client, String sessionUrl) {
+        return checkResourceExists(client, sessionUrl, "session directory");
+    }
+    
+    /**
+     * Check if a specific chunk exists using PROPFIND
+     */
+    private boolean chunkExists(OwnCloudClient client, String chunkUrl) {
+        return checkResourceExists(client, chunkUrl, "chunk");
+    }
+    
+    /**
+     * Find the last consecutive chunk that exists on the server
+     * @param client The OwnCloud client
+     * @param sessionUrl The base session URL
+     * @return The number of the last consecutive chunk found (0 if none)
+     */
+    private int findLastConsecutiveChunk(OwnCloudClient client, String sessionUrl) {
+        int chunkCount = 0;
+        for (int i = 1; i <= mTotalChunks; i++) {
+            String chunkFileName = String.format("%0" + CHUNK_NAME_PADDING + "d", i);
+            String chunkUrl = sessionUrl + "/" + chunkFileName;
+            
+            if (chunkExists(client, chunkUrl)) {
+                chunkCount = i; // Found this chunk
+                Log_OC.d(TAG, "findLastConsecutiveChunk: Found existing chunk " + i);
+            } else {
+                // Missing chunk - this is where we should resume from
+                Log_OC.d(TAG, "findLastConsecutiveChunk: Chunk " + i + " missing, can resume from chunk " + (chunkCount + 1));
+                break;
+            }
+        }
+        return chunkCount;
+    }
+    
+    /**
+     * Generic method to check if a WebDAV resource exists using PROPFIND
+     * @param client The OwnCloud client
+     * @param resourceUrl The URL of the resource to check
+     * @param resourceType Description of resource type for logging
+     * @return true if resource exists, false otherwise
+     */
+    private boolean checkResourceExists(OwnCloudClient client, String resourceUrl, String resourceType) {
+        PropFindMethod propFindMethod = null;
+        try {
+            propFindMethod = new PropFindMethod(resourceUrl, DavConstants.PROPFIND_ALL_PROP, DavConstants.DEPTH_0);
+            int statusCode = client.executeMethod(propFindMethod);
+            
+            boolean exists = (statusCode == HttpStatus.SC_MULTI_STATUS || 
+                            statusCode == HttpStatus.SC_OK);
+            
+            Log_OC.d(TAG, "checkResourceExists: " + resourceType + " " + 
+                     (exists ? "exists" : "does not exist") + " (status: " + statusCode + ")");
+            return exists;
+            
+        } catch (IOException e) {
+            Log_OC.w(TAG, "checkResourceExists: IO error checking " + resourceType + ": " + e.getMessage());
+            return false;
+        } catch (RuntimeException e) {
+            Log_OC.w(TAG, "checkResourceExists: Runtime error checking " + resourceType + ": " + e.getMessage());
+            return false;
+        } finally {
+            if (propFindMethod != null) {
+                propFindMethod.releaseConnection();
+            }
         }
     }
 
@@ -714,27 +797,32 @@ public class FixedChunkUploadRemoteOperation extends RemoteOperation implements 
      */
     private String generateDeterministicSessionId() {
         try {
-            // Use file path and size ONLY to create a truly deterministic ID
-            // This ensures the same file always gets the same session ID for resumption
+            // Use file path, size AND modification time to create a deterministic ID
+            // This ensures the same file version always gets the same session ID for resumption
+            // but different if the file is modified
             File file = new File(mLocalPath);
             
             // Get canonical path to handle different path representations
             String canonicalPath = file.getCanonicalPath();
             long fileSize = file.length();
+            long lastModified = file.lastModified();
             
-            // Create deterministic base string using path and size only
-            String baseString = canonicalPath + "_" + fileSize;
+            // Create deterministic base string using path, size and modification time
+            String baseString = canonicalPath + "_" + fileSize + "_" + lastModified;
             
             // Create a hash to make it shorter and more session-like
             int hash = baseString.hashCode();
             String sessionId = "upload_" + Math.abs(hash);
             
             Log_OC.d(TAG, "generateDeterministicSessionId: Generated session ID: " + sessionId + 
-                     " for file: " + canonicalPath + " (size: " + fileSize + ")");
+                     " for file: " + canonicalPath + " (size: " + fileSize + ", modified: " + lastModified + ")");
             Log_OC.d(TAG, "generateDeterministicSessionId: Base string: " + baseString);
             return sessionId;
-        } catch (Exception e) {
-            Log_OC.e(TAG, "generateDeterministicSessionId: Error generating deterministic session ID, falling back to random", e);
+        } catch (IOException e) {
+            Log_OC.e(TAG, "generateDeterministicSessionId: IO error generating deterministic session ID, falling back to random", e);
+            return UUID.randomUUID().toString();
+        } catch (SecurityException e) {
+            Log_OC.e(TAG, "generateDeterministicSessionId: Security error accessing file, falling back to random", e);
             return UUID.randomUUID().toString();
         }
     }
