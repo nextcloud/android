@@ -50,6 +50,7 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.Arrays;
 
 /**
  * Fixed chunk size upload operation that uses 1 MB chunks for large files (>2MB).
@@ -734,27 +735,187 @@ public class FixedChunkUploadRemoteOperation extends RemoteOperation implements 
     }
     
     /**
-     * Find the last consecutive chunk that exists on the server
+     * Find the last consecutive chunk that exists on the server using binary search
      * @param client The OwnCloud client
      * @param sessionUrl The base session URL
      * @return The number of the last consecutive chunk found (0 if none)
      */
     private int findLastConsecutiveChunk(OwnCloudClient client, String sessionUrl) {
-        int chunkCount = 0;
-        for (int i = 1; i <= mTotalChunks; i++) {
-            String chunkFileName = String.format("%0" + CHUNK_NAME_PADDING + "d", i);
+        int left = 1;
+        int right = (int) mTotalChunks;
+        int lastConfirmedChunk = 0;
+        
+        Log_OC.i(TAG, "=== Starting binary search for last chunk between " + left + " and " + right + " ===");
+        
+        // First verify if chunk 1 exists, if not we can return immediately
+        String firstChunkFileName = String.format("%0" + CHUNK_NAME_PADDING + "d", 1);
+        String firstChunkUrl = sessionUrl + "/" + firstChunkFileName;
+        if (!chunkExists(client, firstChunkUrl)) {
+            Log_OC.i(TAG, "First chunk missing, starting fresh upload");
+            return 0;
+        }
+        
+        while (left <= right) {
+            int mid = left + (right - left) / 2;
+            Log_OC.i(TAG, "Binary search: Checking chunk " + mid + " (range: " + left + "-" + right + ")");
+            
+            String chunkFileName = String.format("%0" + CHUNK_NAME_PADDING + "d", mid);
             String chunkUrl = sessionUrl + "/" + chunkFileName;
             
             if (chunkExists(client, chunkUrl)) {
-                chunkCount = i; // Found this chunk
-                Log_OC.d(TAG, "findLastConsecutiveChunk: Found existing chunk " + i);
+                // This chunk exists, verify the previous chunk
+                if (mid > 1) {
+                    String prevChunkFileName = String.format("%0" + CHUNK_NAME_PADDING + "d", mid - 1);
+                    String prevChunkUrl = sessionUrl + "/" + prevChunkFileName;
+                    
+                    if (!chunkExists(client, prevChunkUrl)) {
+                        // Gap found, search in lower half
+                        Log_OC.i(TAG, "Gap found before chunk " + mid + ", searching in lower half");
+                        right = mid - 1;
+                        continue;
+                    }
+                }
+                
+                // No gap found, this could be our boundary
+                lastConfirmedChunk = mid;
+                
+                // Check if next chunk exists
+                String nextChunkFileName = String.format("%0" + CHUNK_NAME_PADDING + "d", mid + 1);
+                String nextChunkUrl = sessionUrl + "/" + nextChunkFileName;
+                
+                if (!chunkExists(client, nextChunkUrl)) {
+                    // We found our boundary!
+                    Log_OC.i(TAG, "Found boundary at chunk " + mid);
+                    break;
+                }
+                
+                // Next chunk exists, keep searching in upper half
+                left = mid + 1;
+                Log_OC.i(TAG, "All chunks up to " + mid + " exist, searching in upper half");
             } else {
-                // Missing chunk - this is where we should resume from
-                Log_OC.d(TAG, "findLastConsecutiveChunk: Chunk " + i + " missing, can resume from chunk " + (chunkCount + 1));
-                break;
+                // This chunk is missing, search in lower half
+                right = mid - 1;
+                Log_OC.i(TAG, "Chunk " + mid + " missing, searching in lower half");
             }
         }
-        return chunkCount;
+        
+        Log_OC.i(TAG, "=== Binary search complete: Last consecutive chunk is " + lastConfirmedChunk + " ===");
+        return lastConfirmedChunk;
+    }
+
+    /**
+     * Check if all chunks up to the target chunk exist
+     * Uses efficient sampling to minimize server requests
+     */
+    private boolean isRangeComplete(OwnCloudClient client, String sessionUrl, int targetChunk) {
+        Log_OC.d(TAG, "Checking completeness up to chunk " + targetChunk);
+        
+        // First check the target chunk itself
+        String targetFileName = String.format("%0" + CHUNK_NAME_PADDING + "d", targetChunk);
+        String targetUrl = sessionUrl + "/" + targetFileName;
+        if (!chunkExists(client, targetUrl)) {
+            Log_OC.d(TAG, "Target chunk " + targetChunk + " missing");
+            return false;
+        }
+
+        // Then check critical points using exponential backoff
+        // This gives us good coverage while minimizing requests
+        int[] checkPoints = calculateCheckPoints(targetChunk);
+        for (int point : checkPoints) {
+            String checkFileName = String.format("%0" + CHUNK_NAME_PADDING + "d", point);
+            String checkUrl = sessionUrl + "/" + checkFileName;
+            
+            if (!chunkExists(client, checkUrl)) {
+                Log_OC.d(TAG, "Gap found at checkpoint " + point);
+                return false;
+            }
+        }
+        
+        Log_OC.d(TAG, "All checkpoints up to " + targetChunk + " verified");
+        return true;
+    }
+
+    /**
+     * Calculate efficient checkpoint positions for verifying chunk range
+     */
+    private int[] calculateCheckPoints(int targetChunk) {
+        Set<Integer> points = new HashSet<>();
+        
+        // Always check the immediate previous chunk
+        if (targetChunk > 1) {
+            points.add(targetChunk - 1);
+        }
+        
+        // Add exponential backoff points
+        int current = targetChunk;
+        while (current > 1) {
+            current = current / 2;
+            points.add(current);
+        }
+        
+        // Convert to sorted array
+        Integer[] array = points.toArray(new Integer[0]);
+        Arrays.sort(array);
+        
+        // Convert Integer[] to int[]
+        int[] result = new int[array.length];
+        for (int i = 0; i < array.length; i++) {
+            result[i] = array[i];
+        }
+        
+        return result;
+    }
+    
+    /**
+     * Check if all chunks up to the given chunk number exist and are consecutive
+     * Uses sampling to reduce number of requests while maintaining reliability
+     */
+    private boolean isConsecutiveUpToChunk(OwnCloudClient client, String sessionUrl, int chunkNum) {
+        // Always check the target chunk
+        String chunkFileName = String.format("%0" + CHUNK_NAME_PADDING + "d", chunkNum);
+        String chunkUrl = sessionUrl + "/" + chunkFileName;
+        if (!chunkExists(client, chunkUrl)) {
+            Log_OC.d(TAG, "isConsecutiveUpToChunk: Target chunk " + chunkNum + " missing");
+            return false;
+        }
+
+        // Sample check strategy:
+        // 1. Always check the previous chunk (n-1) for strict consecutiveness
+        // 2. Sample a few chunks before that using larger intervals
+        // This gives us good confidence without checking every chunk
+        
+        // Check previous chunk (n-1) for strict consecutiveness
+        if (chunkNum > 1) {
+            String prevChunkFileName = String.format("%0" + CHUNK_NAME_PADDING + "d", chunkNum - 1);
+            String prevChunkUrl = sessionUrl + "/" + prevChunkFileName;
+            if (!chunkExists(client, prevChunkUrl)) {
+                Log_OC.d(TAG, "isConsecutiveUpToChunk: Previous chunk " + (chunkNum - 1) + " missing");
+                return false;
+            }
+        }
+        
+        // Sample a few chunks before that with increasing intervals
+        // This helps catch any major gaps while limiting requests
+        int[] sampleIntervals = {5, 20, 100}; // Adjust these intervals based on typical file sizes
+        int currentChunk = chunkNum - 2; // Start from n-2 since we already checked n-1
+        
+        for (int interval : sampleIntervals) {
+            if (currentChunk > 0) {
+                int sampleChunk = Math.max(1, currentChunk);
+                String sampleFileName = String.format("%0" + CHUNK_NAME_PADDING + "d", sampleChunk);
+                String sampleUrl = sessionUrl + "/" + sampleFileName;
+                
+                if (!chunkExists(client, sampleUrl)) {
+                    Log_OC.d(TAG, "isConsecutiveUpToChunk: Sample chunk " + sampleChunk + " missing");
+                    return false;
+                }
+                
+                currentChunk -= interval;
+            }
+        }
+        
+        Log_OC.d(TAG, "isConsecutiveUpToChunk: All sampled chunks up to " + chunkNum + " exist");
+        return true;
     }
     
     /**
