@@ -201,9 +201,7 @@ public class UploadListActivity extends FileActivity {
                     connectivityService,
                     accountManager,
                     powerManagementService);
-                this.runOnUiThread(() -> {
-                    uploadListAdapter.loadUploadItemsFromDb();
-                });
+                uploadListAdapter.loadUploadItemsFromDb();
             }).start();
             DisplayUtils.showSnackMessage(this, R.string.uploader_local_files_uploaded);
         }
