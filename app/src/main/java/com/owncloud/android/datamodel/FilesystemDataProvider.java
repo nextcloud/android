@@ -117,19 +117,30 @@ public class FilesystemDataProvider {
         }
     }
 
-    public Set<String> getFilesForUpload(String localPath, String syncedFolderId) {
+    public Set<String> getFilesForUpload(String localPath, String syncedFolderId, Boolean forceSync) {
         Set<String> localPathsToUpload = new HashSet<>();
 
         String likeParam = localPath + "%";
 
+        String selection = ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_LOCAL_PATH + " LIKE ? and " +
+            ProviderMeta.ProviderTableMeta.FILESYSTEM_SYNCED_FOLDER_ID + " = ? and " +
+            ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_IS_FOLDER + " = ?";
+        String[] selectionArgs;
+
+        if (!forceSync) {
+            selection += " and " + ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_SENT_FOR_UPLOAD + " = ? ";
+            selectionArgs = new String[]{likeParam, syncedFolderId, "0", "0"};
+        } else {
+            // if forceSync, we want to also consider files that are already marked as FILESYSTEM_FILE_SENT_FOR_UPLOAD=1
+            // as sometimes files can get marked as uploaded even if they are not
+            selectionArgs = new String[]{likeParam, syncedFolderId, "0"};
+        }
+
         Cursor cursor = contentResolver.query(
             ProviderMeta.ProviderTableMeta.CONTENT_URI_FILESYSTEM,
             null,
-            ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_LOCAL_PATH + " LIKE ? and " +
-                ProviderMeta.ProviderTableMeta.FILESYSTEM_SYNCED_FOLDER_ID + " = ? and " +
-                ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_SENT_FOR_UPLOAD + " = ? and " +
-                ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_IS_FOLDER + " = ?",
-            new String[]{likeParam, syncedFolderId, "0", "0"},
+            selection,
+            selectionArgs,
             null);
 
         if (cursor != null) {

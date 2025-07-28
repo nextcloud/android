@@ -127,7 +127,8 @@ interface BackgroundJobManager {
     fun startImmediateFilesSyncJob(
         syncedFolderID: Long,
         overridePowerSaving: Boolean = false,
-        changedFiles: Array<String?> = arrayOf<String?>()
+        changedFiles: Array<String?> = arrayOf<String?>(),
+        forceSync: Boolean = false
     )
 
     fun cancelTwoWaySyncJob()

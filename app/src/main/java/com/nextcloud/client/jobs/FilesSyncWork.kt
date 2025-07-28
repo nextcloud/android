@@ -16,6 +16,7 @@ import android.text.TextUtils
 import androidx.exifinterface.media.ExifInterface
 import androidx.work.Worker
 import androidx.work.WorkerParameters
+import com.nextcloud.client.account.User
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.device.PowerManagementService
 import com.nextcloud.client.jobs.upload.FileUploadHelper
@@ -29,6 +30,7 @@ import com.owncloud.android.datamodel.MediaFolderType
 import com.owncloud.android.datamodel.SyncedFolder
 import com.owncloud.android.datamodel.SyncedFolderProvider
 import com.owncloud.android.datamodel.UploadsStorageManager
+import com.owncloud.android.db.ProviderMeta.ProviderTableMeta
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.operations.UploadFileOperation
 import com.owncloud.android.ui.activity.SettingsActivity
@@ -60,6 +62,7 @@ class FilesSyncWork(
         const val OVERRIDE_POWER_SAVING = "overridePowerSaving"
         const val CHANGED_FILES = "changedFiles"
         const val SYNCED_FOLDER_ID = "syncedFolderId"
+        const val FORCE_SYNC = "forceSync"
     }
 
     private lateinit var syncedFolder: SyncedFolder
@@ -68,9 +71,11 @@ class FilesSyncWork(
     override fun doWork(): Result {
         val syncFolderId = inputData.getLong(SYNCED_FOLDER_ID, -1)
         val changedFiles = inputData.getStringArray(CHANGED_FILES)
+        val forceSync = inputData.getBoolean(FORCE_SYNC, false)
 
         backgroundJobManager.logStartOfWorker(BackgroundJobManagerImpl.formatClassTag(this::class) + "_" + syncFolderId)
         Log_OC.d(TAG, "AutoUpload started folder ID: $syncFolderId")
+        Log_OC.d(TAG, "forceSync is: $forceSync")
 
         // Create all the providers we'll need
         val resources = context.resources
@@ -93,7 +98,8 @@ class FilesSyncWork(
             filesystemDataProvider,
             currentLocale,
             dateFormat,
-            syncedFolder
+            syncedFolder,
+            forceSync
         )
 
         if (canExitEarly(changedFiles, syncFolderId)) {
@@ -123,7 +129,8 @@ class FilesSyncWork(
             filesystemDataProvider,
             currentLocale,
             dateFormat,
-            syncedFolder
+            syncedFolder,
+            forceSync
         )
 
         FilesSyncHelper.restartUploadsIfNeeded(
@@ -223,6 +230,22 @@ class FilesSyncWork(
         syncedFolderProvider.updateSyncFolder(syncedFolder)
     }
 
+    /**
+     * [UploadFileOperation.grantFolderExistence] will later check whether the remote path for the given files already
+     * exists in the local [ProviderTableMeta.CONTENT_URI_DIR] table. If it does, we will not attempt to create the
+     * remote directory even if it does not exist anymore. This is fine if we assume that our local state always
+     * matches the remote state, but the two states are never reconciled. That's why during force sync,
+     * we want to attempt creating the remote dir even if it had already been created previously.
+     */
+    private fun deleteContentDir(pathToDelete: String, user: User) {
+        val where = "path = ? AND file_owner = ?"
+        val params = arrayOf(pathToDelete, user.accountName)
+
+        Log_OC.d(TAG, "Deleting ${ProviderTableMeta.CONTENT_URI_DIR} entries for $pathToDelete and its children")
+        contentResolver.delete(ProviderTableMeta.CONTENT_URI_DIR, where, params)
+        Log_OC.d(TAG, "Done deleting entries for $pathToDelete")
+    }
+
     @Suppress("LongMethod") // legacy code
     private fun uploadFilesFromFolder(
         context: Context,
@@ -231,7 +254,8 @@ class FilesSyncWork(
         filesystemDataProvider: FilesystemDataProvider,
         currentLocale: Locale,
         sFormatter: SimpleDateFormat,
-        syncedFolder: SyncedFolder
+        syncedFolder: SyncedFolder,
+        forceSync: Boolean
     ) {
         val uploadAction: Int?
         val needsCharging: Boolean
@@ -250,6 +274,7 @@ class FilesSyncWork(
         } else {
             null
         }
+        deleteContentDir(syncedFolder.remotePath, user)
 
         // Ensure only new files are processed for upload.
         // Files that have been previously uploaded cannot be re-uploaded,
@@ -257,7 +282,8 @@ class FilesSyncWork(
         // as they are already marked as uploaded in the database.
         val paths = filesystemDataProvider.getFilesForUpload(
             syncedFolder.localPath,
-            syncedFolder.id.toString()
+            syncedFolder.id.toString(),
+            forceSync
         )
         if (paths.isEmpty()) {
             Log_OC.w(TAG, "AutoUpload:uploadFilesFromFolder skipped paths is empty")

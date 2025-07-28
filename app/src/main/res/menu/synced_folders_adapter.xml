@@ -14,4 +14,8 @@
     <item
         android:id="@+id/action_auto_upload_folder_settings"
         android:title="@string/autoupload_configure" />
+
+    <item
+        android:id="@+id/action_auto_upload_force_sync"
+        android:title="@string/autoupload_force_sync" />
 </menu>
