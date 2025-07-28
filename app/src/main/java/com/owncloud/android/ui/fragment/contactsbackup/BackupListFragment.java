@@ -31,12 +31,11 @@ import com.nextcloud.client.jobs.transfer.Transfer;
 import com.nextcloud.client.jobs.transfer.TransferManagerConnection;
 import com.nextcloud.client.jobs.transfer.TransferState;
 import com.nextcloud.client.network.ClientFactory;
+import com.nextcloud.utils.WorkerDataHelper;
 import com.nextcloud.utils.extensions.BundleExtensionsKt;
-import com.nextcloud.utils.extensions.IntExtensionsKt;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.BackuplistFragmentBinding;
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.activity.ContactsPreferenceActivity;
 import com.owncloud.android.ui.asynctasks.LoadContactsTask;
 import com.owncloud.android.ui.events.VCardToggleEvent;
@@ -45,12 +44,10 @@ import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.PermissionUtil;
 import com.owncloud.android.utils.theme.ViewThemeUtils;
 
-import org.apache.commons.io.FileUtils;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -371,20 +368,9 @@ public class BackupListFragment extends FileFragment implements Injectable {
      * @return the absolute file path of the temporary cache file
      */
     private String writeCheckedContractsInCacheDir() {
-        try {
-            final var filename = "selectedContacts-" + System.currentTimeMillis();
-            File file = new File(requireContext().getCacheDir(), filename + ".txt");
-
-            final var contracts = listAdapter.getCheckedContactsIntArray();
-            final var contractsAsByteArray = IntExtensionsKt.toByteArray(contracts);
-
-            FileUtils.writeByteArrayToFile(file, contractsAsByteArray);
-
-            return file.getAbsolutePath();
-        } catch (Exception e) {
-            Log_OC.e(TAG, "Exception writeCheckedContractsInCacheDir: " + e);
-            return null;
-        }
+        final var contracts = listAdapter.getCheckedContactsIntArray();
+        final var byteArray = WorkerDataHelper.INSTANCE.toByteArray(contracts);
+        return WorkerDataHelper.INSTANCE.writeByteArray("selectedContacts-", byteArray);
     }
 
     private void importCalendar() {

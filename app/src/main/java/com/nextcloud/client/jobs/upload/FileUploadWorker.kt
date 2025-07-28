@@ -21,6 +21,8 @@ import com.nextcloud.client.network.ConnectivityService
 import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.model.WorkerState
 import com.nextcloud.model.WorkerStateLiveData
+import com.nextcloud.utils.WorkerDataHelper
+import com.nextcloud.utils.WorkerDataHelper.toLongArray
 import com.nextcloud.utils.extensions.getPercent
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.ThumbnailsCacheManager
@@ -58,7 +60,7 @@ class FileUploadWorker(
 
         const val NOTIFICATION_ERROR_ID: Int = 413
         const val ACCOUNT = "data_account"
-        const val UPLOAD_IDS = "uploads_ids"
+        const val UPLOAD_IDS_PATH = "uploads_ids_path"
         var currentUploadFileOperation: UploadFileOperation? = null
 
         private const val UPLOADS_ADDED_MESSAGE = "UPLOADS_ADDED"
@@ -127,7 +129,9 @@ class FileUploadWorker(
     @Suppress("ReturnCount")
     private fun uploadFiles(): Result {
         val accountName = inputData.getString(ACCOUNT) ?: return Result.failure()
-        val uploadIds = inputData.getLongArray(UPLOAD_IDS) ?: return Result.success()
+        val uploadIdsPath = inputData.getString(UPLOAD_IDS_PATH) ?: return Result.success()
+        val uploadIds =
+            WorkerDataHelper.readByteArray(uploadIdsPath)?.toLongArray() ?: return Result.failure()
         val uploads = uploadIds.map { id -> uploadsStorageManager.getUploadById(id) }.filterNotNull()
         val totalUploadSize = uploadIds.size
 
@@ -179,6 +183,8 @@ class FileUploadWorker(
                 localBroadcastManager
             )
         }
+
+        WorkerDataHelper.cleanup(uploadIdsPath)
 
         return Result.success()
     }

@@ -16,16 +16,15 @@ import android.provider.ContactsContract
 import androidx.work.Worker
 import androidx.work.WorkerParameters
 import com.nextcloud.client.logger.Logger
-import com.nextcloud.utils.extensions.toIntArray
+import com.nextcloud.utils.WorkerDataHelper
+import com.nextcloud.utils.WorkerDataHelper.toIntArray
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.ui.fragment.contactsbackup.BackupListFragment
 import com.owncloud.android.ui.fragment.contactsbackup.VCardComparator
 import ezvcard.Ezvcard
 import ezvcard.VCard
-import org.apache.commons.io.FileUtils
 import third_parties.ezvcard_android.ContactOperations
 import java.io.BufferedInputStream
-import java.io.File
 import java.io.FileInputStream
 import java.io.IOException
 import java.util.Collections
@@ -57,14 +56,8 @@ class ContactsImportWork(
             return Result.failure()
         }
 
-        val selectedContactsFile = File(selectedContactsFilePath)
-        if (!selectedContactsFile.exists()) {
-            Log_OC.d(TAG, "selectedContactsFile not exists")
-            return Result.failure()
-        }
-
-        val selectedContactsIndices = readCheckedContractsFromFile(selectedContactsFile)
-
+        val selectedContactsIndices =
+            WorkerDataHelper.readByteArray(selectedContactsFilePath)?.toIntArray() ?: return Result.failure()
         val inputStream = BufferedInputStream(FileInputStream(vCardFilePath))
         val vCards = ArrayList<VCard>()
 
@@ -125,17 +118,8 @@ class ContactsImportWork(
         }
 
         Log_OC.d(TAG, "ContractsImportWork successfully completed")
-        selectedContactsFile.delete()
+        WorkerDataHelper.cleanup(selectedContactsFilePath)
         return Result.success()
-    }
-
-    @Suppress("TooGenericExceptionCaught")
-    fun readCheckedContractsFromFile(file: File): IntArray = try {
-        val fileData = FileUtils.readFileToByteArray(file)
-        fileData.toIntArray()
-    } catch (e: Exception) {
-        Log_OC.e(TAG, "Exception readCheckedContractsFromFile: $e")
-        intArrayOf()
     }
 
     private fun getContactFromCursor(cursor: Cursor): VCard? {

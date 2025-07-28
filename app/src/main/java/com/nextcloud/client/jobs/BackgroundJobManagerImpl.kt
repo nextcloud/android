@@ -30,6 +30,8 @@ import com.nextcloud.client.jobs.download.FileDownloadWorker
 import com.nextcloud.client.jobs.offlineOperations.OfflineOperationsWorker
 import com.nextcloud.client.jobs.upload.FileUploadWorker
 import com.nextcloud.client.preferences.AppPreferences
+import com.nextcloud.utils.WorkerDataHelper
+import com.nextcloud.utils.WorkerDataHelper.toByteArray
 import com.nextcloud.utils.extensions.isWorkRunning
 import com.nextcloud.utils.extensions.isWorkScheduled
 import com.owncloud.android.datamodel.OCFile
@@ -597,9 +599,13 @@ internal class BackgroundJobManagerImpl(
      */
     override fun startFilesUploadJob(user: User, uploadIds: LongArray) {
         val tag = startFileUploadJobTag(user)
+
+        val uploadIdsAsByteArray = uploadIds.toByteArray()
+        val uploadIdsFilePath = WorkerDataHelper.writeByteArray("fileUploadWorker-", uploadIdsAsByteArray)
+
         val dataBuilder = Data.Builder()
             .putString(FileUploadWorker.ACCOUNT, user.accountName)
-            .putLongArray(FileUploadWorker.UPLOAD_IDS, uploadIds)
+            .putString(FileUploadWorker.UPLOAD_IDS_PATH, uploadIdsFilePath)
 
         val constraints = Constraints.Builder()
             .setRequiredNetworkType(NetworkType.CONNECTED)
