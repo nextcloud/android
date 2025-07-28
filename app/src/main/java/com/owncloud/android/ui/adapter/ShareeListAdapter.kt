@@ -125,9 +125,7 @@ class ShareeListAdapter(
         1
     }
 
-    fun isAdapterEmpty(): Boolean {
-        return shares.isEmpty()
-    }
+    fun isAdapterEmpty(): Boolean = shares.isEmpty()
 
     @SuppressLint("NotifyDataSetChanged")
     fun toggleShowAll() {
