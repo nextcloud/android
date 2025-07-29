@@ -231,6 +231,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     @Inject ClientFactory clientFactory;
 
     private String token;
+    private String pollUrl;
     private boolean onlyAdd = false;
 
     private ViewThemeUtils viewThemeUtils;
@@ -423,7 +424,10 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
                     initLoginInfoView();
                     launchDefaultWebBrowser(loginUrl);
                 });
-                token = jsonObject.getAsJsonObject("poll").get("token").getAsString();
+
+                final var pollObject = jsonObject.getAsJsonObject("poll");
+                token = pollObject.get("token").getAsString();
+                pollUrl = pollObject.get("endpoint").getAsString();
             } catch (Throwable t) {
                 Log_OC.d(TAG, "Error caught at anonymouslyPostLoginRequest: " + t);
                 DisplayUtils.showSnackMessage(this, R.string.authenticator_activity_login_error);
@@ -1602,14 +1606,17 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     }
 
     private void performLoginFlowV2() {
-        String postRequestUrl = baseUrl + "/poll";
+        if (TextUtils.isEmpty(pollUrl)) {
+            Log_OC.e(TAG, "pollUrl is empty.");
+            return;
+        }
 
         RequestBody requestBody = new FormBody.Builder()
             .add("token", token)
             .build();
 
         PlainClient client = clientFactory.createPlainClient();
-        PostMethod post = new PostMethod(postRequestUrl, false, requestBody);
+        PostMethod post = new PostMethod(pollUrl, false, requestBody);
         int status = post.execute(client);
         String response = post.getResponseBodyAsString();
 
