@@ -488,12 +488,14 @@ internal class BackgroundJobManagerImpl(
     override fun startImmediateFilesSyncJob(
         syncedFolderID: Long,
         overridePowerSaving: Boolean,
-        changedFiles: Array<String?>
+        changedFiles: Array<String?>,
+        forceSync: Boolean
     ) {
         val arguments = Data.Builder()
             .putBoolean(FilesSyncWork.OVERRIDE_POWER_SAVING, overridePowerSaving)
             .putStringArray(FilesSyncWork.CHANGED_FILES, changedFiles)
             .putLong(FilesSyncWork.SYNCED_FOLDER_ID, syncedFolderID)
+            .putBoolean(FilesSyncWork.FORCE_SYNC, forceSync)
             .build()
 
         val request = oneTimeRequestBuilder(
@@ -505,7 +507,7 @@ internal class BackgroundJobManagerImpl(
 
         workManager.enqueueUniqueWork(
             JOB_IMMEDIATE_FILES_SYNC + "_" + syncedFolderID,
-            ExistingWorkPolicy.APPEND,
+            ExistingWorkPolicy.APPEND_OR_REPLACE,
             request
         )
     }

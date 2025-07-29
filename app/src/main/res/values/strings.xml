@@ -751,6 +751,8 @@
     <string name="autoupload_create_new_custom_folder">Create new custom folder setup</string>
     <string name="autoupload_hide_folder">Hide folder</string>
     <string name="autoupload_configure">Configure</string>
+    <string name="autoupload_force_sync">Force sync</string>
+    <string name="autoupload_force_sync_desc">This action will remove the synced state of all files in this folder and re-sync them.</string>
     <string name="synced_folders_configure_folders">Configure folders</string>
 
     <string name="empty" translatable="false" />

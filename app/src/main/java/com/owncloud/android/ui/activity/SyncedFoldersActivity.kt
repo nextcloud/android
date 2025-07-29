@@ -10,6 +10,7 @@ package com.owncloud.android.ui.activity
 
 import android.annotation.SuppressLint
 import android.app.NotificationManager
+import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
@@ -610,6 +611,26 @@ class SyncedFoldersActivity :
         saveOrUpdateSyncedFolder(syncedFolder)
         adapter.setSyncFolderItem(section, syncedFolder)
         checkAndShowEmptyListContent()
+    }
+
+    override fun onForceSyncClicked(section: Int, syncedFolder: SyncedFolderDisplayItem?) {
+        if (syncedFolder == null) return
+
+        MaterialAlertDialogBuilder(this, R.style.Theme_ownCloud_Dialog)
+            .setTitle(R.string.autoupload_force_sync)
+            .setMessage(R.string.autoupload_force_sync_desc)
+            .setPositiveButton(R.string.common_ok) { dialog: DialogInterface?, _: Int ->
+                Log_OC.d(TAG, "Starting forced sync for item ${syncedFolder.localPath}")
+                backgroundJobManager.startImmediateFilesSyncJob(syncedFolder.id, overridePowerSaving = true, forceSync = true)
+                dialog?.dismiss()
+            }
+            .setNegativeButton(R.string.common_cancel) { dialog: DialogInterface?, _: Int ->
+                dialog?.dismiss()
+            }
+            .setIcon(R.drawable.ic_warning)
+            .setIconAttribute(android.R.attr.alertDialogIcon)
+            .create()
+            .show()
     }
 
     private fun showEmptyContent(headline: String, message: String, action: String) {
