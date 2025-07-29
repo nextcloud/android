@@ -8,11 +8,11 @@
  */
 package com.owncloud.android.authentication
 
-data class LoginUrlInfo(
-    var server: String,
-    var loginName: String,
-    var appPassword: String
-) {
-    fun isValid(status: Int): Boolean =
-        (status == 200 && server.isNotEmpty() && loginName.isNotEmpty() && appPassword.isNotEmpty())
+import com.nextcloud.model.HTTPStatusCodes
+
+data class LoginUrlInfo(var server: String, var loginName: String, var appPassword: String) {
+    fun isValid(status: Int): Boolean = (
+        status == HTTPStatusCodes.SUCCESS.code &&
+            server.isNotEmpty() && loginName.isNotEmpty() && appPassword.isNotEmpty()
+        )
 }

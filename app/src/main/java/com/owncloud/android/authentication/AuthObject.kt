@@ -7,12 +7,6 @@
 
 package com.owncloud.android.authentication
 
-data class AuthObject(
-    val poll: Poll,
-    val login: String,
-)
+data class AuthObject(val poll: Poll, val login: String)
 
-data class Poll(
-    val token: String,
-    val endpoint: String,
-)
+data class Poll(val token: String, val endpoint: String)
