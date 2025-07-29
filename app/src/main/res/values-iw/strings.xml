@@ -674,6 +674,7 @@
     <string name="trashbin_file_remove">מחיקה לצמיתות</string>
     <string name="trashbin_not_emptied">לא ניתן למחוק קבצים לצמיתות!</string>
     <string name="unexpected_error_occurred">אירעה שגיאה בלתי צפויה</string>
+    <string name="unknown">לא ידוע</string>
     <string name="unlock_file">שחרור קובץ</string>
     <string name="unread_comments">יש תגובות שלא נקראו</string>
     <string name="unset_encrypted">ביטול הגדרת ההצפנה</string>

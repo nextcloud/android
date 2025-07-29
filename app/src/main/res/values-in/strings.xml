@@ -611,8 +611,6 @@ Otomatis unggah hanya bekerja dengan baik apabila Anda mengeluarkan aplikasi ini
     <string name="offline_mode_info_description">Bahkan tanpa koneksi internet, Anda tetap dapat mengatur folder dan membuat file. Setelah Anda kembali online, semua tindakan yang tertunda akan disinkronkan secara otomatis.</string>
     <string name="offline_mode_info_title">Anda offline, tapi kerja tetap lanjut</string>
     <string name="offline_operations_file_does_not_exists_yet">File masih belum tersedia. Tolong unggah filenya terlebih dahulu.</string>
-    <string name="offline_operations_worker_notification_conflict_text">Folder dengan konflik: %s</string>
-    <string name="offline_operations_worker_notification_delete_offline_folder">Hapus folder offline</string>
     <string name="offline_operations_worker_notification_error_text">Operasi offline tidak dapat diselesaikan. %s</string>
     <string name="offline_operations_worker_notification_manager_ticker">Operasi Offline</string>
     <string name="offline_operations_worker_notification_start_text">Memulai operasi offline</string>
@@ -973,6 +971,7 @@ Berikut ini adalah daftar berkas lokal, dan berkas jarak jauh di %5$s yang terhu
     <string name="unified_search_fragment_calendar_event_not_found">Acara di kalender tidak ditemukan, Anda selalu dapat menyinkronkan untuk memperbarui. Mengarahkan ke web…</string>
     <string name="unified_search_fragment_contact_not_found">Kontak tidak ditemukan, Anda selalu dapat menyinkronkan untuk memperbarui. Mengarahkan ke web…</string>
     <string name="unified_search_fragment_permission_needed">Izin diperlukan untuk melihat hasil pencarian dan kalau tidak, akan diarahkan ke web...</string>
+    <string name="unknown">Tidak diketahui</string>
     <string name="unlock_file">Buka kunci berkas</string>
     <string name="unread_comments">Ada komentar yang belum dibaca</string>
     <string name="unset_encrypted">Enkripsi tidak diatur</string>

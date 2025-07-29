@@ -566,6 +566,7 @@
     <string name="trashbin_loading_failed">¡La carga de la papelera falló!</string>
     <string name="trashbin_not_emptied">¡Los ficheros nun se pudieron desaniciar permanentemente!</string>
     <string name="unexpected_error_occurred">Prodúxose un error inesperáu</string>
+    <string name="unknown">Desconocí­u</string>
     <string name="unlock_file">Desbloquiar el ficheru</string>
     <string name="unread_comments">Esisten comentarios ensin lleer</string>
     <string name="unset_favorite">Quitar de Favoritos</string>

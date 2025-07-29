@@ -808,6 +808,7 @@
     <string name="trashbin_loading_failed">Nalaganje smeti je spodletelo!</string>
     <string name="trashbin_not_emptied">Datotek ni mogoče trajno izbrisati!</string>
     <string name="unexpected_error_occurred">Prišlo je do nepričakovane napake</string>
+    <string name="unknown">Neznano</string>
     <string name="unlock_file">Odkleni datoteko</string>
     <string name="unread_comments">Obstajajo so neprebrane opombe</string>
     <string name="unset_encrypted">Odstrani šifriranje</string>

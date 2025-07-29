@@ -834,6 +834,7 @@
     <string name="trashbin_loading_failed">بار کردن سطل زباله شکست خورد!</string>
     <string name="trashbin_not_emptied">نمی توان پرونده ها را برای همیشه حذف کرد!</string>
     <string name="unexpected_error_occurred">خطای غیرمنتظره رخ داد</string>
+    <string name="unknown">ناشناخته.</string>
     <string name="unlock_file">باز کردن قفل پرونده</string>
     <string name="unread_comments">نظرات خوانده نشده وجود دارد</string>
     <string name="unset_encrypted">به صورت رمزگذاری شده تنظیم نشده است</string>

@@ -28,7 +28,7 @@
     <string name="activity_chooser_send_file_title">Senden</string>
     <string name="activity_chooser_title">Link senden an…</string>
     <string name="activity_icon">Aktivitäten</string>
-    <string name="add_new_public_share">Öffentlichen Link zum Teilen hinzufügen</string>
+    <string name="add_new_public_share">Öffentlichen Freigabe-Link hinzufügen</string>
     <string name="add_new_secure_file_drop">Neue sichere Dateiablage hinzufügen</string>
     <string name="add_to_cloud">Hinzufügen zu %1$s</string>
     <string name="app_config_base_url_title">Basis-URL</string>
@@ -374,6 +374,7 @@
     <string name="file_detail_share_already_active">Sie können keine Freigabe erstellen, die Freigabe ist von diesem Benutzer bereits aktiviert.</string>
     <string name="file_detail_sharing_fragment_no_contact_app_message">Keine App zum Auswählen von Kontakten verfügbar</string>
     <string name="file_details_no_content">Details konnten nicht geladen werden</string>
+    <string name="file_details_sharing_fragment_custom_permission_not_selected">Bitte wählen Sie benutzerdefinierte Berechtigung</string>
     <string name="file_icon">Datei</string>
     <string name="file_keep">Behalten</string>
     <string name="file_list_empty">Laden Sie Inhalt hoch oder synchronisieren Sie mit Ihren Geräten.</string>
@@ -391,6 +392,8 @@
     <string name="file_list_empty_shared">Von Ihnen geteilte Dateien und Ordner werden hier angezeigt.</string>
     <string name="file_list_empty_shared_headline">Noch nichts geteilt</string>
     <string name="file_list_empty_unified_search_no_results">Keine Ergebnisse für Ihre Suche gefunden</string>
+    <string name="file_list_empty_unified_search_start_search">Beginnen Sie Ihre Suche</string>
+    <string name="file_list_empty_unified_search_start_search_description">Geben Sie in die Suchleiste oben einen Begriff ein, um Dateien, Kontakte, Kalendertermine und mehr in Ihrem Konto zu finden.</string>
     <string name="file_list_folder">Ordner</string>
     <string name="file_list_live">LIVE</string>
     <string name="file_list_loading">Lade…</string>
@@ -610,10 +613,12 @@
     <string name="offline_mode_info_description">Auch ohne Internetverbindung können Sie Ihre Ordner organisieren und Dateien erstellen. Sobald Sie wieder online sind, werden die ausstehenden Aktionen automatisch synchronisiert.</string>
     <string name="offline_mode_info_title">Sie sind offline, können aber weiterarbeiten</string>
     <string name="offline_operations_file_does_not_exists_yet">Datei existiert noch nicht. Bitte laden Sie zuerst die Datei hoch.</string>
-    <string name="offline_operations_worker_notification_conflict_text">Konfliktordner: %s</string>
-    <string name="offline_operations_worker_notification_delete_offline_folder">Offlineordner löschen</string>
+    <string name="offline_operations_worker_notification_create_file_conflict_text">%s konnte nicht erstellt werden. Eine Datei mit demselben Namen ist bereits auf dem Server vorhanden.</string>
+    <string name="offline_operations_worker_notification_create_folder_conflict_text">%s konnte nicht erstellt werden. Ein Ordner mit demselben Namen ist bereits auf dem Server vorhanden.</string>
     <string name="offline_operations_worker_notification_error_text">Der Offlinevorgang kann nicht abgeschlossen werden. %s</string>
     <string name="offline_operations_worker_notification_manager_ticker">Offline-Operationen</string>
+    <string name="offline_operations_worker_notification_remove_conflict_text">Löschung von %s wurde abgebrochen. Die Datei wurde auf dem Server geändert.</string>
+    <string name="offline_operations_worker_notification_rename_conflict_text">Umbenennung von %s wurde abgebrochen. Eine Datei mit demselben Namen ist bereits auf dem Server vorhanden.</string>
     <string name="offline_operations_worker_notification_start_text">Offline-Operationen werden gestartet</string>
     <string name="oneHour">1 Stunde</string>
     <string name="online">Online</string>
@@ -968,6 +973,7 @@
     <string name="unified_search_fragment_calendar_event_not_found">Termin nicht gefunden, Sie können jederzeit die Synchronisierung wiederholen. Weiterleiten zum Web…</string>
     <string name="unified_search_fragment_contact_not_found">Kontakt nicht gefunden, Sie können jederzeit synchronisieren für eine Aktualisierung. Weiterleiten zum Web…</string>
     <string name="unified_search_fragment_permission_needed">Berechtigungen für das Öffnen der Suchergebnisse notwendig, ansonsten werden Sie zum Web weitergeleitet</string>
+    <string name="unknown">Unbekannt</string>
     <string name="unlock_file">Datei entsperren</string>
     <string name="unread_comments">Es gibt  ungelesene Kommentare</string>
     <string name="unset_encrypted">Verschlüsselung aufheben</string>

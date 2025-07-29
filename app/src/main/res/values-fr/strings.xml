@@ -610,8 +610,6 @@
     <string name="offline_mode_info_description">Même sans connexion Internet, vous pouvez organiser vos dossiers, créer des fichiers. Dès que vous êtes de nouveau en ligne, vos actions en cours sont automatiquement synchronisées.</string>
     <string name="offline_mode_info_title">Vous êtes hors ligne, mais le travail continue</string>
     <string name="offline_operations_file_does_not_exists_yet">Le fichier n\'existe pas encore. Veuillez d\'abord téléverser le fichier.</string>
-    <string name="offline_operations_worker_notification_conflict_text">Dossier en conflit : %s</string>
-    <string name="offline_operations_worker_notification_delete_offline_folder">Supprimer le dossier hors ligne</string>
     <string name="offline_operations_worker_notification_error_text">L\'opération hors ligne ne peut être achevée. %s</string>
     <string name="offline_operations_worker_notification_manager_ticker">Opérations hors ligne</string>
     <string name="offline_operations_worker_notification_start_text">Démarrage des opérations hors ligne</string>
@@ -968,6 +966,7 @@
     <string name="unified_search_fragment_calendar_event_not_found">Événement introuvable, vous pouvez toujours synchroniser pour mettre à jour. Redirection au web…</string>
     <string name="unified_search_fragment_contact_not_found">Contact introuvable, vous pouvez toujours synchroniser pour mettre à jour. Redirection au web...</string>
     <string name="unified_search_fragment_permission_needed">Des permissions sont requises pour ouvrir le résultat de recherche, autrement ceci redirigera au web…</string>
+    <string name="unknown">Inconnu</string>
     <string name="unlock_file">Déverrouiller le fichier</string>
     <string name="unread_comments">Il y a des commentaire non lus</string>
     <string name="unset_encrypted">Désactiver le chiffrement</string>

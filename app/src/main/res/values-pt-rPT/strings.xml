@@ -851,6 +851,7 @@ Aproveite o novo e melhorado envio automático.</string>
     <string name="trashbin_file_remove">Eliminar permanentemente</string>
     <string name="trashbin_loading_failed">Falhou o carregamento da reciclagem!</string>
     <string name="trashbin_not_emptied">Os ficheiros não puderam ser permanentemente apagados!</string>
+    <string name="unknown">Desconhecido</string>
     <string name="unlock_file">Desbloquear ficheiro</string>
     <string name="unread_comments">Existem comentários não lidos</string>
     <string name="unset_encrypted">Encriptação não definida</string>

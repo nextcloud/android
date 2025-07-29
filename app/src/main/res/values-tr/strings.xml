@@ -610,8 +610,6 @@
     <string name="offline_mode_info_description">İnternet bağlantınız olmasa bile klasörlerinizi düzenleyebilir, dosyalar oluşturabilirsiniz. Yeniden çevrim içi olduğunuzda, bekleyen işlemleriniz otomatik olarak eşitlenir.</string>
     <string name="offline_mode_info_title">Çevrim dışınız ancak çalışma sürüyor</string>
     <string name="offline_operations_file_does_not_exists_yet">Dosya bulunamadı. Önce lütfen dosyayı yükleyin.</string>
-    <string name="offline_operations_worker_notification_conflict_text">Çakışan klasör: %s</string>
-    <string name="offline_operations_worker_notification_delete_offline_folder">Çevrim dışı klasörü sil</string>
     <string name="offline_operations_worker_notification_error_text">Çevrim dışı işlem tamamlanamadı. %s</string>
     <string name="offline_operations_worker_notification_manager_ticker">Çevrim dışı işlemler</string>
     <string name="offline_operations_worker_notification_start_text">Çevrim dışı işlemleri başlatılıyor</string>
@@ -968,6 +966,7 @@
     <string name="unified_search_fragment_calendar_event_not_found">Etkinlik bulunamadı, güncellemek için eşitleyebilirsiniz. İnternet üzerine yönlendiriliyor…</string>
     <string name="unified_search_fragment_contact_not_found">Kişi bulunamadı, güncellemek için eşitleyebilirsiniz. İnternet üzerine yönlendiriliyor…</string>
     <string name="unified_search_fragment_permission_needed">Arama sonuçlarını açmak için izinler gereklidir. Yoksa İnternet üzerine yönlendirilir…</string>
+    <string name="unknown">Bilinmiyor</string>
     <string name="unlock_file">Dosyanın kilidini aç</string>
     <string name="unread_comments">Okunmamış yorumlar var</string>
     <string name="unset_encrypted">Şifrelemeyi kaldır</string>

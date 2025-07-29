@@ -658,6 +658,7 @@
     <string name="trashbin_file_not_restored">Cha b’ urrainn dhuinn am faidhle %1$s aiseag!</string>
     <string name="trashbin_loading_failed">Dh’fhàillig luchdadh an sgudail!</string>
     <string name="trashbin_not_emptied">Cha b’ urrainn dhuinn na faidhlichean a sguabadh às gu buan!</string>
+    <string name="unknown">Chan eil fhios</string>
     <string name="unread_comments">Tha beachd gun leughadh ann</string>
     <string name="unset_encrypted">Neo-shuidhich an crioptachadh</string>
     <string name="unshare_link_file_error">Thachair mearachd le crìochnachadh co-roinneadh an fhaidhle no pasgain seo.</string>

@@ -611,8 +611,6 @@
     <string name="offline_mode_info_description">حتى بدون اتصال بالإنترنت، يمكنك تنظيم مجلداتك وإنشاء ملفات. بمجرد عودة الاتصال بالإنترنت، ستتم مزامنة الإجراءات المعلقة تلقائياً.</string>
     <string name="offline_mode_info_title">أنت غير متصل؛ لكن العمل مستمر</string>
     <string name="offline_operations_file_does_not_exists_yet">الملف لم يتوفر حتى الآن. يرجى رفع الملف أولاً.</string>
-    <string name="offline_operations_worker_notification_conflict_text">مجلد متعارض: %s</string>
-    <string name="offline_operations_worker_notification_delete_offline_folder">حذف مجلد غير متصل</string>
     <string name="offline_operations_worker_notification_error_text">لا يمكن إكمال العملية دون اتصال. %s</string>
     <string name="offline_operations_worker_notification_manager_ticker">عمليات دون اتصال بالإنترنت</string>
     <string name="offline_operations_worker_notification_start_text">بدء عمليات بدون اتصال</string>
@@ -963,6 +961,7 @@
     <string name="unified_search_fragment_calendar_event_not_found">لم يمكن العثور على الحدث. يمكنك دائمًا المزامنة للتحديث. جارٍ إعادة التوجيه إلى الويب...</string>
     <string name="unified_search_fragment_contact_not_found">لم يمكن العثور على جهة الاتصال. يمكنك دائمًا المزامنة للتحديث. جارٍ إعادة التوجيه إلى الويب...</string>
     <string name="unified_search_fragment_permission_needed">مطلوب أذونات لفتح نتيجة البحث و إلّا ستتم إعادة توجيهها إلى الويب...</string>
+    <string name="unknown">غير معروف</string>
     <string name="unlock_file">فتح قفل الملف</string>
     <string name="unread_comments">توجد تعليقات غير مقروءة</string>
     <string name="unset_encrypted">لم يتم تحديد التشفير</string>

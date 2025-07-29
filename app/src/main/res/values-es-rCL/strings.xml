@@ -10,6 +10,7 @@
     <string name="action_edit">Editar</string>
     <string name="action_empty_notifications">Borrar todas las notificaciones</string>
     <string name="action_empty_trashbin">Vaciar papelera de reciclaje</string>
+    <string name="action_send_share">Enviar/compartir</string>
     <string name="action_switch_grid_view">Vista de cuadrícula</string>
     <string name="action_switch_list_view">Vista de lista</string>
     <string name="actionbar_calendar_contacts_restore">Restaurar contactos y calendario</string>
@@ -30,6 +31,13 @@
     <string name="add_new_public_share">Añadir un nuevo enlace público</string>
     <string name="add_new_secure_file_drop">Añadir un nuevo archivo seguro</string>
     <string name="add_to_cloud">Agregar a %1$s</string>
+    <string name="app_config_base_url_title">URL base</string>
+    <string name="app_config_disable_clipboard_title">Desactivar el portapapeles</string>
+    <string name="app_config_disable_intro_title">Desactivar Intro</string>
+    <string name="app_config_disable_log_title">Desactivar el registro</string>
+    <string name="app_config_disable_more_external_site_title">Desactivar sitios externos</string>
+    <string name="app_config_disable_multiaccount_title">Desactivar cuentas múltiples</string>
+    <string name="app_config_disable_sharing_title">Desactivar compartir</string>
     <string name="app_config_proxy_port_title">Puerto del Proxy</string>
     <string name="app_widget_description">Muestra un widget del panel de control</string>
     <string name="appbar_search_in">Buscar en %s</string>
@@ -359,6 +367,7 @@
     <string name="pass_code_wrong">Código de seguridad incorrecto</string>
     <string name="permission_storage_access">Se requieren permisos adicionales para cargar y descargar archivos. </string>
     <string name="picture_set_as_no_app">No se encontró una aplicación con la cual establecer la imagen</string>
+    <string name="pin_shortcut_label">Abrir %1$s</string>
     <string name="placeholder_fileSize">389 KB</string>
     <string name="placeholder_filename">marcadordeposición.txt</string>
     <string name="placeholder_media_time">12:23:45</string>
@@ -495,6 +504,7 @@
     <string name="trashbin_activity_title">Papelera</string>
     <string name="trashbin_empty_headline">No hay archivos borrados</string>
     <string name="trashbin_file_remove">Borrar permanentemente</string>
+    <string name="unknown">Desconocido</string>
     <string name="unset_encrypted">Desestablecer encripción</string>
     <string name="unshare_link_forbidden_permissions">para dejar de compartir este archivo</string>
     <string name="untrusted_domain">Accede a través de un dominio no de confianza. Por favor consulta la documentación para más información.</string>
