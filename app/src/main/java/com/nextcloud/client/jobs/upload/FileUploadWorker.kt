@@ -59,8 +59,7 @@ class FileUploadWorker(
         const val NOTIFICATION_ERROR_ID: Int = 413
         const val ACCOUNT = "data_account"
         const val UPLOAD_IDS = "uploads_ids"
-        const val BATCH_INDEX = "batch_index"
-        const val TOTAL_BATCHES = "total_batches"
+        const val CURRENT_BATCH_INDEX = "batch_index"
         const val TOTAL_UPLOAD_SIZE = "total_upload_size"
         var currentUploadFileOperation: UploadFileOperation? = null
 
@@ -131,13 +130,8 @@ class FileUploadWorker(
     private fun uploadFiles(): Result {
         val accountName = inputData.getString(ACCOUNT) ?: return Result.failure()
         val uploadIds = inputData.getLongArray(UPLOAD_IDS) ?: return Result.success()
-        val totalBatches = inputData.getInt(TOTAL_BATCHES, -1)
-        if (totalBatches == -1) {
-            return Result.failure()
-        }
-
-        val batchIndex = inputData.getInt(BATCH_INDEX, -1)
-        if (batchIndex == -1) {
+        val currentBatchIndex = inputData.getInt(CURRENT_BATCH_INDEX, -1)
+        if (currentBatchIndex == -1) {
             return Result.failure()
         }
 
@@ -145,6 +139,8 @@ class FileUploadWorker(
         if (totalUploadSize == -1) {
             return Result.failure()
         }
+
+        val previouslyUploadedFileSize = currentBatchIndex * 100
 
         val uploads = uploadIds.map { id -> uploadsStorageManager.getUploadById(id) }.filterNotNull()
 
@@ -181,7 +177,7 @@ class FileUploadWorker(
                 operation,
                 cancelPendingIntent = intents.startIntent(operation),
                 startIntent = intents.notificationStartIntent(operation),
-                currentUploadIndex = index,
+                currentUploadIndex = index + previouslyUploadedFileSize,
                 totalUploadSize = totalUploadSize
             )
 
