@@ -93,7 +93,7 @@ class FileUploaderIntents(private val context: Context) {
         }
     }
 
-    fun removeUploadActionIntent(uploadFileOperation: UploadFileOperation): PendingIntent {
+    fun cancelUploadActionIntent(uploadFileOperation: UploadFileOperation): PendingIntent {
         val intent = Intent(context, FileUploadBroadcastReceiver::class.java).apply {
             putExtra(FileUploadBroadcastReceiver.UPLOAD_ID, uploadFileOperation.ocUploadId)
             putExtra(FileUploadBroadcastReceiver.REMOTE_PATH, uploadFileOperation.file.remotePath)

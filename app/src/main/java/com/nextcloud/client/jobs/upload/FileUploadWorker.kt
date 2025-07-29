@@ -309,8 +309,8 @@ class FileUploadWorker(
                 null
             }
 
-            val removeUploadActionIntent = if (conflictResolveIntent != null) {
-                intents.removeUploadActionIntent(uploadFileOperation)
+            val cancelUploadActionIntent = if (conflictResolveIntent != null) {
+                intents.cancelUploadActionIntent(uploadFileOperation)
             } else {
                 null
             }
@@ -319,7 +319,7 @@ class FileUploadWorker(
                 uploadFileOperation,
                 uploadResult.code,
                 conflictResolveIntent,
-                removeUploadActionIntent,
+                cancelUploadActionIntent,
                 credentialIntent,
                 errorMessage
             )
