@@ -604,12 +604,11 @@ internal class BackgroundJobManagerImpl(
             .setRequiredNetworkType(NetworkType.CONNECTED)
             .build()
 
-        val workRequests = batches.mapIndexed { batchIndex, batch ->
+        val workRequests = batches.mapIndexed { index, batch ->
             val dataBuilder = Data.Builder()
                 .putString(FileUploadWorker.ACCOUNT, user.accountName)
                 .putLongArray(FileUploadWorker.UPLOAD_IDS, batch.toLongArray())
-                .putInt(FileUploadWorker.BATCH_INDEX, batchIndex)
-                .putInt(FileUploadWorker.TOTAL_BATCHES, batches.size)
+                .putInt(FileUploadWorker.CURRENT_BATCH_INDEX, index)
                 .putInt(FileUploadWorker.TOTAL_UPLOAD_SIZE, uploadIds.size)
 
             oneTimeRequestBuilder(FileUploadWorker::class, JOB_FILES_UPLOAD, user)
@@ -619,6 +618,7 @@ internal class BackgroundJobManagerImpl(
                 .build()
         }
 
+        // Chain the work requests sequentially
         if (workRequests.isNotEmpty()) {
             var workChain = workManager.beginUniqueWork(
                 tag,
