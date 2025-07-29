@@ -246,7 +246,7 @@ class FileUploadWorker(
         }
     }
 
-    @Suppress("ReturnCount")
+    @Suppress("ReturnCount", "LongMethod")
     private fun notifyUploadResult(
         uploadFileOperation: UploadFileOperation,
         uploadResult: RemoteOperationResult<Any?>
@@ -309,10 +309,17 @@ class FileUploadWorker(
                 null
             }
 
+            val cancelUploadActionIntent = if (conflictResolveIntent != null) {
+                intents.cancelUploadActionIntent(uploadFileOperation)
+            } else {
+                null
+            }
+
             notifyForFailedResult(
                 uploadFileOperation,
                 uploadResult.code,
                 conflictResolveIntent,
+                cancelUploadActionIntent,
                 credentialIntent,
                 errorMessage
             )
