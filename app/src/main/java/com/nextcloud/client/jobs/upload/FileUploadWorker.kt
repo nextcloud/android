@@ -57,6 +57,7 @@ class FileUploadWorker(
         val TAG: String = FileUploadWorker::class.java.simpleName
 
         const val NOTIFICATION_ERROR_ID: Int = 413
+        const val BATCH_SIZE = 100
         const val ACCOUNT = "data_account"
         const val UPLOAD_IDS = "uploads_ids"
         const val CURRENT_BATCH_INDEX = "batch_index"
@@ -128,19 +129,31 @@ class FileUploadWorker(
 
     @Suppress("ReturnCount")
     private fun uploadFiles(): Result {
-        val accountName = inputData.getString(ACCOUNT) ?: return Result.failure()
-        val uploadIds = inputData.getLongArray(UPLOAD_IDS) ?: return Result.success()
+        val accountName = inputData.getString(ACCOUNT)
+        if (accountName == null) {
+            Log_OC.e(TAG, "accountName is null")
+            return Result.failure()
+        }
+
+        val uploadIds = inputData.getLongArray(UPLOAD_IDS)
+        if (uploadIds == null) {
+            Log_OC.e(TAG, "uploadIds is null")
+            return Result.failure()
+        }
+
         val currentBatchIndex = inputData.getInt(CURRENT_BATCH_INDEX, -1)
         if (currentBatchIndex == -1) {
+            Log_OC.e(TAG, "currentBatchIndex is -1, cancelling")
             return Result.failure()
         }
 
         val totalUploadSize = inputData.getInt(TOTAL_UPLOAD_SIZE, -1)
         if (totalUploadSize == -1) {
+            Log_OC.e(TAG, "totalUploadSize is -1, cancelling")
             return Result.failure()
         }
 
-        val previouslyUploadedFileSize = currentBatchIndex * 100
+        val previouslyUploadedFileSize = currentBatchIndex * BATCH_SIZE
 
         val uploads = uploadIds.map { id -> uploadsStorageManager.getUploadById(id) }.filterNotNull()
 
