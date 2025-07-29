@@ -374,6 +374,7 @@
     <string name="file_detail_share_already_active">Não é possível criar um compartilhamento, pois o compartilhamento já está ativo para este usuário.</string>
     <string name="file_detail_sharing_fragment_no_contact_app_message">Nenhum aplicativo disponível para selecionar contatos</string>
     <string name="file_details_no_content">Falha ao carregar detalhes</string>
+    <string name="file_details_sharing_fragment_custom_permission_not_selected">Por favor, selecione a permissão personalizada</string>
     <string name="file_icon">Arquivo</string>
     <string name="file_keep">Manter</string>
     <string name="file_list_empty">Envie um arquivo ou sincronize com seus dispositivos.</string>
@@ -391,6 +392,8 @@
     <string name="file_list_empty_shared">Arquivos e pastas que você compartilhar serão exibidos aqui.</string>
     <string name="file_list_empty_shared_headline">Você ainda não compartilhou nada!</string>
     <string name="file_list_empty_unified_search_no_results">Nenhum resultado encontrado para sua consulta</string>
+    <string name="file_list_empty_unified_search_start_search">Inicie sua pesquisa</string>
+    <string name="file_list_empty_unified_search_start_search_description">Digite na barra de pesquisa acima para encontrar arquivos, contatos, eventos do calendário e muito mais em sua conta.</string>
     <string name="file_list_folder">pasta</string>
     <string name="file_list_live">AO VIVO</string>
     <string name="file_list_loading">Carregando…</string>
