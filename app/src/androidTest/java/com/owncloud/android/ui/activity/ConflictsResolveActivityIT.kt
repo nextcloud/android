@@ -112,6 +112,12 @@ class ConflictsResolveActivityIT : AbstractIT() {
             setStoragePath(FileStorageUtils.getSavePath(user.accountName) + "/nonEmpty.txt")
         }
 
+        EspressoIdlingResource.increment()
+        FileDataStorageManager(user, targetContext.contentResolver).run {
+            saveNewFile(existingFile)
+        }
+        EspressoIdlingResource.decrement()
+
         val intent = Intent(targetContext, ConflictsResolveActivity::class.java).apply {
             putExtra(FileActivity.EXTRA_FILE, newFile)
             putExtra(ConflictsResolveActivity.EXTRA_EXISTING_FILE, existingFile)
@@ -122,11 +128,7 @@ class ConflictsResolveActivityIT : AbstractIT() {
             scenario.onActivity { sut ->
                 onIdleSync {
                     EspressoIdlingResource.increment()
-
                     returnCode = false
-
-                    val storageManager = FileDataStorageManager(user, targetContext.contentResolver)
-                    storageManager.saveNewFile(existingFile)
                     sut.listener = OnConflictDecisionMadeListener { decision: Decision? ->
                         assertEquals(decision, Decision.CANCEL)
                         returnCode = true
@@ -165,6 +167,12 @@ class ConflictsResolveActivityIT : AbstractIT() {
             setStoragePath(FileStorageUtils.getSavePath(user.accountName) + "/nonEmpty.txt")
         }
 
+        EspressoIdlingResource.increment()
+        FileDataStorageManager(user, targetContext.contentResolver).run {
+            saveNewFile(existingFile)
+        }
+        EspressoIdlingResource.decrement()
+
         val intent = Intent(targetContext, ConflictsResolveActivity::class.java).apply {
             putExtra(FileActivity.EXTRA_FILE, newFile)
             putExtra(ConflictsResolveActivity.EXTRA_EXISTING_FILE, existingFile)
@@ -175,15 +183,10 @@ class ConflictsResolveActivityIT : AbstractIT() {
             scenario.onActivity { sut ->
                 onIdleSync {
                     EspressoIdlingResource.increment()
-
-                    val storageManager = FileDataStorageManager(user, targetContext.contentResolver)
-                    storageManager.saveNewFile(existingFile)
-
                     sut.listener = OnConflictDecisionMadeListener { decision: Decision? ->
                         assertEquals(decision, Decision.KEEP_SERVER)
                         returnCode = true
                     }
-
                     EspressoIdlingResource.decrement()
 
                     onView(ViewMatchers.withId(R.id.right_checkbox)).perform(ViewActions.click())
