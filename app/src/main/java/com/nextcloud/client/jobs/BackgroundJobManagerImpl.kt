@@ -596,7 +596,7 @@ internal class BackgroundJobManagerImpl(
      *                  within the worker.
      */
     override fun startFilesUploadJob(user: User, uploadIds: LongArray) {
-        val batchSize = 100
+        val batchSize = FileUploadWorker.BATCH_SIZE
         val batches = uploadIds.toList().chunked(batchSize)
         val tag = startFileUploadJobTag(user)
 
