@@ -935,6 +935,7 @@
     <string name="upload_files">ھۆججەتلەرنى يۈكلەڭ</string>
     <string name="upload_global_pause_title">بارلىق يۈكلەش توختىتىلدى</string>
     <string name="upload_item_action_button">تۈر ھەرىكەت كۇنۇپكىسىنى يۈكلەڭ</string>
+    <string name="upload_list_cancel_upload">يۈكلەشتىن ۋاز كەچ</string>
     <string name="upload_list_delete">ئۆچۈرۈش</string>
     <string name="upload_list_empty_headline">يوللاشقا بولمايدۇ</string>
     <string name="upload_list_empty_text_auto_upload">بەزى مەزمۇنلارنى يۈكلەڭ ياكى ئاپتوماتىك يوللاشنى قوزغىتىڭ.</string>

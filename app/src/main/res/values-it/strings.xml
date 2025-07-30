@@ -968,6 +968,7 @@
     <string name="upload_files">Carica file</string>
     <string name="upload_global_pause_title">Tutti i caricamenti sono in pausa</string>
     <string name="upload_item_action_button">Pulsante azione Carica elemento</string>
+    <string name="upload_list_cancel_upload">Annulla caricamento</string>
     <string name="upload_list_delete">Elimina</string>
     <string name="upload_list_empty_headline">Nessun caricamento disponibile</string>
     <string name="upload_list_empty_text_auto_upload">Carica dei contenuti o attiva il caricamento automatico.</string>

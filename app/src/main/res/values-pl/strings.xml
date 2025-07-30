@@ -1011,6 +1011,7 @@
     <string name="upload_files">Wyślij pliki</string>
     <string name="upload_global_pause_title">Wszystkie przesyłania zostały wstrzymane</string>
     <string name="upload_item_action_button">Przycisk wysyłania elementu</string>
+    <string name="upload_list_cancel_upload">Anuluj wysyłanie</string>
     <string name="upload_list_delete">Usuń</string>
     <string name="upload_list_empty_headline">Brak wysłanych plików</string>
     <string name="upload_list_empty_text_auto_upload">Wyślij pliki lub włącz automatyczne wysyłanie.</string>

@@ -973,6 +973,7 @@
     <string name="upload_files">파일 업로드</string>
     <string name="upload_global_pause_title">모든 업로드가 일시 정지됨</string>
     <string name="upload_item_action_button">항목 업로드 동작 단추</string>
+    <string name="upload_list_cancel_upload">업로드 취소</string>
     <string name="upload_list_delete">삭제</string>
     <string name="upload_list_empty_headline">업로드 없음</string>
     <string name="upload_list_empty_text_auto_upload">콘텐츠를 업로드하거나 자동 업로드를 활성화하십시오.</string>

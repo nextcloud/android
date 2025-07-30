@@ -374,6 +374,7 @@
     <string name="file_detail_share_already_active">Du kan inte skapa en delning, användaren har redan en aktiv delning.</string>
     <string name="file_detail_sharing_fragment_no_contact_app_message">Ingen app tillgänglig för att välja kontakter</string>
     <string name="file_details_no_content">Kunde inte läsa in detaljer</string>
+    <string name="file_details_sharing_fragment_custom_permission_not_selected">Välj anpassad behörighet</string>
     <string name="file_icon">Fil</string>
     <string name="file_keep">Behåll</string>
     <string name="file_list_empty">Ladda upp något eller synkronisera med dina enheter</string>
@@ -391,6 +392,8 @@
     <string name="file_list_empty_shared">Filer och mappar som du delar kommer visas här.</string>
     <string name="file_list_empty_shared_headline">Inget delat ännu</string>
     <string name="file_list_empty_unified_search_no_results">Inga sökresultat funna på din sökning</string>
+    <string name="file_list_empty_unified_search_start_search">Starta din sökning</string>
+    <string name="file_list_empty_unified_search_start_search_description">Skriv i sökfältet ovan för att hitta filer, kontakter, kalenderhändelser och mer i ditt konto.</string>
     <string name="file_list_folder">mapp</string>
     <string name="file_list_live">LIVE</string>
     <string name="file_list_loading">Läser in…</string>
@@ -610,8 +613,12 @@
     <string name="offline_mode_info_description">Även utan internetanslutning kan du organisera dina mappar och skapa filer. När du är online igen synkroniseras dina väntande åtgärder automatiskt.</string>
     <string name="offline_mode_info_title">Du är offline, men kan fortsätta arbeta</string>
     <string name="offline_operations_file_does_not_exists_yet">Filen finns inte ännu. Ladda upp filen först.</string>
+    <string name="offline_operations_worker_notification_create_file_conflict_text">Kunde inte skapa %s. En fil med samma namn finns redan på servern.</string>
+    <string name="offline_operations_worker_notification_create_folder_conflict_text">Kunde inte skapa %s. En mapp med samma namn finns redan på servern.</string>
     <string name="offline_operations_worker_notification_error_text">Offlineåtgärden kan inte slutföras. %s</string>
     <string name="offline_operations_worker_notification_manager_ticker">Offline-operationer</string>
+    <string name="offline_operations_worker_notification_remove_conflict_text">Avbröt borttagning av %s. Filen har ändrats på servern.</string>
+    <string name="offline_operations_worker_notification_rename_conflict_text">Avbröt namnändring av %s. En fil med samma namn finns redan på servern.</string>
     <string name="offline_operations_worker_notification_start_text">Starta offline-operationer</string>
     <string name="oneHour">1 timme</string>
     <string name="online">Online</string>
@@ -1004,6 +1011,7 @@
     <string name="upload_files">Ladda upp filer</string>
     <string name="upload_global_pause_title">Alla uppladdningar är pausade</string>
     <string name="upload_item_action_button">Ladda upp objekthändelse-knapp</string>
+    <string name="upload_list_cancel_upload">Avbryt uppladdning</string>
     <string name="upload_list_delete">Ta bort</string>
     <string name="upload_list_empty_headline">Inga uppladdningar tillgängliga</string>
     <string name="upload_list_empty_text_auto_upload">Ladda upp något innehåll eller aktivera automatisk uppladdning.</string>

@@ -881,6 +881,7 @@ Aproveite o novo e melhorado envio automático.</string>
     <string name="upload_file_dialog_title">Introduza o nome e tipo de ficheiro a enviar</string>
     <string name="upload_files">Carregar ficheiros</string>
     <string name="upload_item_action_button">Botão de acção de envio de item</string>
+    <string name="upload_list_cancel_upload">Cancelar envio</string>
     <string name="upload_list_delete">Eliminar</string>
     <string name="upload_list_empty_headline">Sem envios disponíveis</string>
     <string name="upload_list_empty_text_auto_upload">Envie algum conteúdo ou ative o envio automático.</string>

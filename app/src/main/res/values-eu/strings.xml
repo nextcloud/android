@@ -999,6 +999,7 @@ Zure kontrola bermatzen dituzten auto-ostatatutako produktibitate-plataformak.\n
     <string name="upload_files">Igo fitxategiak</string>
     <string name="upload_global_pause_title">Igoera guztiak pausatuta daude</string>
     <string name="upload_item_action_button">Elementua igotzeko ekintza botoia</string>
+    <string name="upload_list_cancel_upload">Ezeztatu kargatzea</string>
     <string name="upload_list_delete">Ezabatu</string>
     <string name="upload_list_empty_headline">Ezin dira fitxategiak igo</string>
     <string name="upload_list_empty_text_auto_upload">Edukiak igo edo auto-igotzea aktiba ezazu.</string>

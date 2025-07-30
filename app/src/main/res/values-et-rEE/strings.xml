@@ -1011,6 +1011,7 @@
     <string name="upload_files">Laadi failid üles</string>
     <string name="upload_global_pause_title">Kõik üleslaadimised on peatatud</string>
     <string name="upload_item_action_button">Tegevusnupp üleslaadimisel</string>
+    <string name="upload_list_cancel_upload">Tühista üleslaadimine</string>
     <string name="upload_list_delete">Kustuta</string>
     <string name="upload_list_empty_headline">Üleslaadimisi pole saadaval</string>
     <string name="upload_list_empty_text_auto_upload">Laadi üles mõned failid või lülita sisse automaatne üleslaadimine.</string>
