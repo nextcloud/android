@@ -9,5 +9,6 @@ package com.nextcloud.model
 
 @Suppress("MagicNumber")
 enum class HTTPStatusCodes(val code: Int) {
+    SUCCESS(200),
     NOT_FOUND(404)
 }

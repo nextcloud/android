@@ -40,9 +40,9 @@ public class AuthenticatorDataUrlTest {
         for (String urlStart : urlStarts) {
             LoginUrlInfo info = AuthenticatorActivity.parseLoginDataUrl(urlStart, urlStart + dataUrl);
             System.out.println(urlStart + dataUrl);
-            Assert.assertEquals(INCORRECT_USER_VALUE_IN + urlStart + URL_PARSING, userValue, info.username);
-            Assert.assertEquals(INCORRECT_USER_VALUE_IN + urlStart + URL_PARSING, passwordValue, info.password);
-            Assert.assertEquals(INCORRECT_USER_VALUE_IN + urlStart + URL_PARSING, addressValue, info.serverAddress);
+            Assert.assertEquals(INCORRECT_USER_VALUE_IN + urlStart + URL_PARSING, userValue, info.getLoginName());
+            Assert.assertEquals(INCORRECT_USER_VALUE_IN + urlStart + URL_PARSING, passwordValue, info.getAppPassword());
+            Assert.assertEquals(INCORRECT_USER_VALUE_IN + urlStart + URL_PARSING, addressValue, info.getServer());
         }
     }
 
@@ -52,13 +52,13 @@ public class AuthenticatorDataUrlTest {
         for (String urlStart : urlStarts) {
             System.out.println(urlStart + userUrlPart);
             Assert.assertEquals(INCORRECT_USER_VALUE_IN + urlStart + URL_PARSING, userValue,
-                    AuthenticatorActivity.parseLoginDataUrl(urlStart, urlStart + userUrlPart).username);
+                    AuthenticatorActivity.parseLoginDataUrl(urlStart, urlStart + userUrlPart).getLoginName());
             System.out.println(urlStart + passwordUrlPart);
             Assert.assertEquals(INCORRECT_USER_VALUE_IN + urlStart + URL_PARSING, passwordValue,
-                    AuthenticatorActivity.parseLoginDataUrl(urlStart, urlStart + passwordUrlPart).password);
+                    AuthenticatorActivity.parseLoginDataUrl(urlStart, urlStart + passwordUrlPart).getAppPassword());
             System.out.println(urlStart + addressUrlPart);
             Assert.assertEquals(INCORRECT_USER_VALUE_IN + urlStart + URL_PARSING, addressValue,
-                    AuthenticatorActivity.parseLoginDataUrl(urlStart, urlStart + addressUrlPart).serverAddress);
+                    AuthenticatorActivity.parseLoginDataUrl(urlStart, urlStart + addressUrlPart).getServer());
         }
     }
 
@@ -70,9 +70,9 @@ public class AuthenticatorDataUrlTest {
             System.out.println(urlStart + dataUrl);
             LoginUrlInfo info = AuthenticatorActivity.parseLoginDataUrl(urlStart, urlStart + dataUrl);
             Assert.assertEquals(INCORRECT_USER_VALUE_IN + urlStart + dataUrl + URL_PARSING, userValue, info
-                    .username);
+                    .getLoginName());
             Assert.assertEquals(INCORRECT_USER_VALUE_IN + urlStart + dataUrl + URL_PARSING, passwordValue, info
-                    .password);
+                    .getAppPassword());
         }
 
         dataUrl = userUrlPart + plus + addressUrlPart;
@@ -80,9 +80,9 @@ public class AuthenticatorDataUrlTest {
             System.out.println(urlStart + dataUrl);
             LoginUrlInfo info = AuthenticatorActivity.parseLoginDataUrl(urlStart, urlStart + dataUrl);
             Assert.assertEquals(INCORRECT_USER_VALUE_IN + urlStart + dataUrl + URL_PARSING, userValue, info
-                    .username);
+                    .getLoginName());
             Assert.assertEquals(INCORRECT_USER_VALUE_IN + urlStart + dataUrl + URL_PARSING, addressValue,
-                    info.serverAddress);
+                    info.getServer());
         }
 
 
@@ -91,9 +91,9 @@ public class AuthenticatorDataUrlTest {
             System.out.println(urlStart + dataUrl);
             LoginUrlInfo info = AuthenticatorActivity.parseLoginDataUrl(urlStart, urlStart + dataUrl);
             Assert.assertEquals(INCORRECT_USER_VALUE_IN + urlStart + dataUrl + URL_PARSING, userValue, info
-                    .username);
+                    .getLoginName());
             Assert.assertEquals(INCORRECT_USER_VALUE_IN + urlStart + dataUrl + URL_PARSING, addressValue,
-                    info.serverAddress);
+                    info.getServer());
         }
 
         dataUrl = addressUrlPart + plus + passwordUrlPart;
@@ -101,9 +101,9 @@ public class AuthenticatorDataUrlTest {
             System.out.println(urlStart + dataUrl);
             LoginUrlInfo info = AuthenticatorActivity.parseLoginDataUrl(urlStart, urlStart + dataUrl);
             Assert.assertEquals(INCORRECT_USER_VALUE_IN + urlStart + dataUrl + URL_PARSING, passwordValue, info
-                    .password);
+                    .getAppPassword());
             Assert.assertEquals(INCORRECT_USER_VALUE_IN + urlStart + dataUrl + URL_PARSING, addressValue, info
-                    .serverAddress);
+                    .getServer());
         }
 
         dataUrl = passwordUrlPart + plus + userUrlPart;
@@ -111,9 +111,9 @@ public class AuthenticatorDataUrlTest {
             System.out.println(urlStart + dataUrl);
             LoginUrlInfo info = AuthenticatorActivity.parseLoginDataUrl(urlStart, urlStart + dataUrl);
             Assert.assertEquals(INCORRECT_USER_VALUE_IN + urlStart + dataUrl + URL_PARSING, userValue, info
-                    .username);
+                    .getLoginName());
             Assert.assertEquals(INCORRECT_USER_VALUE_IN + urlStart + dataUrl + URL_PARSING, passwordValue, info
-                    .password);
+                    .getAppPassword());
         }
 
         dataUrl = passwordUrlPart + plus + addressUrlPart;
@@ -121,9 +121,9 @@ public class AuthenticatorDataUrlTest {
             System.out.println(urlStart + dataUrl);
             LoginUrlInfo info = AuthenticatorActivity.parseLoginDataUrl(urlStart, urlStart + dataUrl);
             Assert.assertEquals(INCORRECT_USER_VALUE_IN + urlStart + dataUrl + URL_PARSING, passwordValue, info
-                    .password);
+                    .getAppPassword());
             Assert.assertEquals(INCORRECT_USER_VALUE_IN + urlStart + dataUrl + URL_PARSING, addressValue, info
-                    .serverAddress);
+                    .getServer());
         }
     }
 
@@ -152,7 +152,7 @@ public class AuthenticatorDataUrlTest {
     public void onlyOneDataUrlElements() {
         LoginUrlInfo loginUrlInfo = AuthenticatorActivity.parseLoginDataUrl(schemeUrl, schemeUrl + userUrlPart);
 
-        Assert.assertEquals(userValue, loginUrlInfo.username);
+        Assert.assertEquals(userValue, loginUrlInfo.getLoginName());
     }
 
     @Test
@@ -160,7 +160,7 @@ public class AuthenticatorDataUrlTest {
         LoginUrlInfo loginUrlInfo = AuthenticatorActivity.parseLoginDataUrl(schemeUrl, schemeUrl + userUrlPart +
             plus + addressUrlPart);
 
-        Assert.assertEquals(userValue, loginUrlInfo.username);
-        Assert.assertEquals(addressValue, loginUrlInfo.serverAddress);
+        Assert.assertEquals(userValue, loginUrlInfo.getLoginName());
+        Assert.assertEquals(addressValue, loginUrlInfo.getServer());
     }
 }
