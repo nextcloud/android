@@ -1,102 +1,132 @@
 /*
  * Nextcloud - Android Client
  *
+ * SPDX-FileCopyrightText: 2025 Alper Ozturk <alper.ozturk@nextcloud.com>
  * SPDX-FileCopyrightText: 2020 Tobias Kaminsky <tobias@kaminsky.me>
  * SPDX-FileCopyrightText: 2020 Nextcloud GmbH
  * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
  */
-package com.nextcloud.client;
+package com.nextcloud.client
 
-import android.content.Intent;
-import android.os.Looper;
+import android.content.Intent
+import android.os.Looper
+import androidx.annotation.UiThread
+import androidx.test.core.app.launchActivity
+import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.IdlingRegistry
+import androidx.test.espresso.assertion.ViewAssertions.matches
+import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
+import androidx.test.espresso.matcher.ViewMatchers.isRoot
+import com.nextcloud.client.preferences.SubFolderRule
+import com.owncloud.android.AbstractIT
+import com.owncloud.android.datamodel.MediaFolderType
+import com.owncloud.android.datamodel.SyncedFolder
+import com.owncloud.android.datamodel.SyncedFolderDisplayItem
+import com.owncloud.android.ui.activity.SyncedFoldersActivity
+import com.owncloud.android.ui.dialog.SyncedFolderPreferencesDialogFragment.Companion.newInstance
+import com.owncloud.android.utils.EspressoIdlingResource
+import com.owncloud.android.utils.ScreenshotTest
+import org.junit.After
+import org.junit.Before
+import org.junit.Test
 
-import com.nextcloud.client.preferences.SubFolderRule;
-import com.owncloud.android.AbstractIT;
-import com.owncloud.android.databinding.SyncedFoldersLayoutBinding;
-import com.owncloud.android.datamodel.MediaFolderType;
-import com.owncloud.android.datamodel.SyncedFolder;
-import com.owncloud.android.datamodel.SyncedFolderDisplayItem;
-import com.owncloud.android.ui.activity.SyncedFoldersActivity;
-import com.owncloud.android.ui.dialog.SyncedFolderPreferencesDialogFragment;
-import com.owncloud.android.utils.ScreenshotTest;
+class SyncedFoldersActivityIT : AbstractIT() {
+    private val testClassName = "com.nextcloud.client.SyncedFoldersActivityIT"
 
-import org.junit.Rule;
-import org.junit.Test;
+    @Before
+    fun registerIdlingResource() {
+        IdlingRegistry.getInstance().register(EspressoIdlingResource.countingIdlingResource)
+    }
 
-import java.util.Objects;
-
-import androidx.appcompat.app.AlertDialog;
-import androidx.test.espresso.intent.rule.IntentsTestRule;
-
-import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentation;
-
-
-public class SyncedFoldersActivityIT extends AbstractIT {
-    @Rule public IntentsTestRule<SyncedFoldersActivity> activityRule = new IntentsTestRule<>(SyncedFoldersActivity.class,
-                                                                                             true,
-                                                                                             false);
-
-    @Test
-    @ScreenshotTest
-    public void open() {
-        SyncedFoldersActivity activity = activityRule.launchActivity(null);
-        activity.adapter.clear();
-        SyncedFoldersLayoutBinding sut = activity.binding;
-        shortSleep();
-        screenshot(sut.emptyList.emptyListView);
+    @After
+    fun unregisterIdlingResource() {
+        IdlingRegistry.getInstance().unregister(EspressoIdlingResource.countingIdlingResource)
     }
 
     @Test
+    @UiThread
     @ScreenshotTest
-    public void testSyncedFolderDialog() {
-        SyncedFolderDisplayItem item = new SyncedFolderDisplayItem(1,
-                                                                   "/sdcard/DCIM/",
-                                                                   "/InstantUpload/",
-                                                                   true,
-                                                                   false,
-                                                                   false,
-                                                                   true,
-                                                                   "test@https://nextcloud.localhost",
-                                                                   0,
-                                                                   0,
-                                                                   true,
-                                                                   1000,
-                                                                   "Name",
-                                                                   MediaFolderType.IMAGE,
-                                                                   false,
-                                                                   SubFolderRule.YEAR_MONTH,
-                                                                   false,
-                                                                   SyncedFolder.NOT_SCANNED_YET);
-        SyncedFolderPreferencesDialogFragment sut = SyncedFolderPreferencesDialogFragment.newInstance(item, 0);
+    fun open() {
+        launchActivity<SyncedFoldersActivity>().use { scenario ->
+            scenario.onActivity { sut ->
+                onIdleSync {
+                    EspressoIdlingResource.increment()
+                    sut.adapter.clear()
+                    EspressoIdlingResource.decrement()
 
-        Intent intent = new Intent(targetContext, SyncedFoldersActivity.class);
-        SyncedFoldersActivity activity = activityRule.launchActivity(intent);
-
-        sut.show(activity.getSupportFragmentManager(), "");
-
-        getInstrumentation().waitForIdleSync();
-        shortSleep();
-
-        screenshot(Objects.requireNonNull(sut.requireDialog().getWindow()).getDecorView());
-    }
-    
-    @Test
-    @ScreenshotTest
-    public void showPowerCheckDialog() {
-        if (Looper.myLooper() == null) {
-            Looper.prepare();
+                    val screenShotName = createName(testClassName + "_" + "open", "")
+                    onView(isRoot()).check(matches(isDisplayed()))
+                    screenshotViaName(sut.binding.emptyList.emptyListView, screenShotName)
+                }
+            }
         }
-        
-        Intent intent = new Intent(targetContext, SyncedFoldersActivity.class);
-        SyncedFoldersActivity activity = activityRule.launchActivity(intent);
+    }
 
-        AlertDialog sut = activity.buildPowerCheckDialog();
-        
-        activity.runOnUiThread(sut::show);
-        
-        getInstrumentation().waitForIdleSync();
-        shortSleep();
+    @Test
+    @UiThread
+    @ScreenshotTest
+    fun testSyncedFolderDialog() {
+        val item = SyncedFolderDisplayItem(
+            1,
+            "/sdcard/DCIM/",
+            "/InstantUpload/",
+            true,
+            false,
+            false,
+            true,
+            "test@https://nextcloud.localhost",
+            0,
+            0,
+            true,
+            1000,
+            "Name",
+            MediaFolderType.IMAGE,
+            false,
+            SubFolderRule.YEAR_MONTH,
+            false,
+            SyncedFolder.NOT_SCANNED_YET
+        )
+        val fragment = newInstance(item, 0)
 
-        screenshot(Objects.requireNonNull(sut.getWindow()).getDecorView());
+        val intent = Intent(targetContext, SyncedFoldersActivity::class.java)
+        launchActivity<SyncedFoldersActivity>(intent).use { scenario ->
+            scenario.onActivity { sut ->
+                onIdleSync {
+                    EspressoIdlingResource.increment()
+                    fragment?.show(sut.supportFragmentManager, "")
+                    EspressoIdlingResource.decrement()
+
+                    val screenShotName = createName(testClassName + "_" + "testSyncedFolderDialog", "")
+                    onView(isRoot()).check(matches(isDisplayed()))
+                    screenshot(fragment?.requireDialog()?.window?.decorView, screenShotName)
+                }
+            }
+        }
+    }
+
+    @Test
+    @UiThread
+    @ScreenshotTest
+    fun showPowerCheckDialog() {
+        if (Looper.myLooper() == null) {
+            Looper.prepare()
+        }
+
+        val intent = Intent(targetContext, SyncedFoldersActivity::class.java)
+
+        launchActivity<SyncedFoldersActivity>(intent).use { scenario ->
+            scenario.onActivity { sut ->
+                onIdleSync {
+                    EspressoIdlingResource.increment()
+                    val dialog = sut.buildPowerCheckDialog()
+                    dialog.show()
+                    EspressoIdlingResource.decrement()
+
+                    val screenShotName = createName(testClassName + "_" + "showPowerCheckDialog", "")
+                    onView(isRoot()).check(matches(isDisplayed()))
+                    screenshot(dialog.window?.decorView, screenShotName)
+                }
+            }
+        }
     }
 }
