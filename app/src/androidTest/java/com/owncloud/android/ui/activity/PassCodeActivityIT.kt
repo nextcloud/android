@@ -41,7 +41,11 @@ class PassCodeActivityIT : AbstractIT() {
     @UiThread
     @ScreenshotTest
     fun check() {
-        launchActivity<PassCodeActivity>(Intent(PassCodeActivity.ACTION_CHECK)).use { scenario ->
+        val intent = Intent(targetContext, PassCodeActivity::class.java).apply {
+            action = PassCodeActivity.ACTION_CHECK
+        }
+
+        launchActivity<PassCodeActivity>(intent).use { scenario ->
             scenario.onActivity { sut ->
                 onIdleSync {
                     EspressoIdlingResource.increment()
@@ -61,7 +65,11 @@ class PassCodeActivityIT : AbstractIT() {
     @UiThread
     @ScreenshotTest
     fun request() {
-        launchActivity<PassCodeActivity>(Intent(PassCodeActivity.ACTION_REQUEST_WITH_RESULT)).use { scenario ->
+        val intent = Intent(targetContext, PassCodeActivity::class.java).apply {
+            action = PassCodeActivity.ACTION_REQUEST_WITH_RESULT
+        }
+
+        launchActivity<PassCodeActivity>(intent).use { scenario ->
             scenario.onActivity { sut ->
                 onIdleSync {
                     EspressoIdlingResource.increment()
@@ -81,7 +89,11 @@ class PassCodeActivityIT : AbstractIT() {
     @UiThread
     @ScreenshotTest
     fun delete() {
-        launchActivity<PassCodeActivity>(Intent(PassCodeActivity.ACTION_CHECK_WITH_RESULT)).use { scenario ->
+        val intent = Intent(targetContext, PassCodeActivity::class.java).apply {
+            action = PassCodeActivity.ACTION_CHECK_WITH_RESULT
+        }
+
+        launchActivity<PassCodeActivity>(intent).use { scenario ->
             scenario.onActivity { sut ->
                 onIdleSync {
                     EspressoIdlingResource.increment()

@@ -89,7 +89,7 @@ class UploadFilesActivityIT : AbstractIT() {
     @UiThread
     @ScreenshotTest
     fun localFolderPickerMode() {
-        val intent = Intent().apply {
+        val intent = Intent(targetContext, UploadFilesActivity::class.java).apply {
             putExtra(
                 UploadFilesActivity.KEY_LOCAL_FOLDER_PICKER_MODE,
                 true

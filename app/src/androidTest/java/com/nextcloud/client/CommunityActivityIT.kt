@@ -17,7 +17,7 @@ import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.isRoot
 import com.nextcloud.test.GrantStoragePermissionRule.Companion.grant
 import com.owncloud.android.AbstractIT
-import com.owncloud.android.ui.trashbin.TrashbinActivity
+import com.owncloud.android.ui.activity.CommunityActivity
 import com.owncloud.android.utils.EspressoIdlingResource
 import com.owncloud.android.utils.ScreenshotTest
 import org.junit.After
@@ -46,7 +46,7 @@ class CommunityActivityIT : AbstractIT() {
     @UiThread
     @ScreenshotTest
     fun open() {
-        launchActivity<TrashbinActivity>().use { scenario ->
+        launchActivity<CommunityActivity>().use { scenario ->
             scenario.onActivity { sut ->
                 onIdleSync {
                     val screenShotName = createName(testClassName + "_" + "open", "")
