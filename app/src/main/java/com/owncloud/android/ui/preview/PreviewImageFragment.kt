@@ -418,6 +418,8 @@ class PreviewImageFragment :
             } else {
                 containerActivity.fileOperationsHelper.sendShareFile(file)
             }
+        } else if (itemId == R.id.action_send_file) {
+            containerActivity.fileOperationsHelper.sendShareFile(file, true)
         } else if (itemId == R.id.action_open_file_with) {
             openFile()
         } else if (itemId == R.id.action_remove_file) {
