@@ -8,59 +8,91 @@
 package com.owncloud.android.ui.activity
 
 import android.content.Intent
+import androidx.annotation.UiThread
+import androidx.test.core.app.launchActivity
 import androidx.test.espresso.Espresso
-import androidx.test.espresso.intent.rule.IntentsTestRule
+import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.IdlingRegistry
+import androidx.test.espresso.assertion.ViewAssertions.matches
+import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
+import androidx.test.espresso.matcher.ViewMatchers.isRoot
 import com.owncloud.android.AbstractIT
+import com.owncloud.android.utils.EspressoIdlingResource
 import com.owncloud.android.utils.ScreenshotTest
-import org.junit.Rule
+import org.junit.After
+import org.junit.Before
 import org.junit.Test
 
 class PassCodeActivityIT : AbstractIT() {
-    @get:Rule
-    var activityRule = IntentsTestRule(PassCodeActivity::class.java, true, false)
+    private val testClassName = "com.owncloud.android.ui.activity.PassCodeActivityIT"
+
+    @Before
+    fun registerIdlingResource() {
+        IdlingRegistry.getInstance().register(EspressoIdlingResource.countingIdlingResource)
+    }
+
+    @After
+    fun unregisterIdlingResource() {
+        IdlingRegistry.getInstance().unregister(EspressoIdlingResource.countingIdlingResource)
+    }
 
     @Test
+    @UiThread
     @ScreenshotTest
     fun check() {
-        val sut = activityRule.launchActivity(Intent(PassCodeActivity.ACTION_CHECK))
+        launchActivity<PassCodeActivity>(Intent(PassCodeActivity.ACTION_CHECK)).use { scenario ->
+            scenario.onActivity { sut ->
+                onIdleSync {
+                    EspressoIdlingResource.increment()
+                    sut.binding.txt0.clearFocus()
+                    Espresso.closeSoftKeyboard()
+                    EspressoIdlingResource.decrement()
 
-        waitForIdleSync()
-
-        sut.runOnUiThread { sut.binding.txt0.clearFocus() }
-        Espresso.closeSoftKeyboard()
-        shortSleep()
-        waitForIdleSync()
-
-        screenshot(sut)
+                    val screenShotName = createName(testClassName + "_" + "check", "")
+                    onView(isRoot()).check(matches(isDisplayed()))
+                    screenshotViaName(sut, screenShotName)
+                }
+            }
+        }
     }
 
     @Test
+    @UiThread
     @ScreenshotTest
     fun request() {
-        val sut = activityRule.launchActivity(Intent(PassCodeActivity.ACTION_REQUEST_WITH_RESULT))
+        launchActivity<PassCodeActivity>(Intent(PassCodeActivity.ACTION_REQUEST_WITH_RESULT)).use { scenario ->
+            scenario.onActivity { sut ->
+                onIdleSync {
+                    EspressoIdlingResource.increment()
+                    sut.binding.txt0.clearFocus()
+                    Espresso.closeSoftKeyboard()
+                    EspressoIdlingResource.decrement()
 
-        waitForIdleSync()
-
-        sut.runOnUiThread { sut.binding.txt0.clearFocus() }
-        Espresso.closeSoftKeyboard()
-        shortSleep()
-        waitForIdleSync()
-
-        screenshot(sut)
+                    val screenShotName = createName(testClassName + "_" + "request", "")
+                    onView(isRoot()).check(matches(isDisplayed()))
+                    screenshotViaName(sut, screenShotName)
+                }
+            }
+        }
     }
 
     @Test
+    @UiThread
     @ScreenshotTest
     fun delete() {
-        val sut = activityRule.launchActivity(Intent(PassCodeActivity.ACTION_CHECK_WITH_RESULT))
+        launchActivity<PassCodeActivity>(Intent(PassCodeActivity.ACTION_CHECK_WITH_RESULT)).use { scenario ->
+            scenario.onActivity { sut ->
+                onIdleSync {
+                    EspressoIdlingResource.increment()
+                    sut.binding.txt0.clearFocus()
+                    Espresso.closeSoftKeyboard()
+                    EspressoIdlingResource.decrement()
 
-        waitForIdleSync()
-
-        sut.runOnUiThread { sut.binding.txt0.clearFocus() }
-        Espresso.closeSoftKeyboard()
-        shortSleep()
-        waitForIdleSync()
-
-        screenshot(sut)
+                    val screenShotName = createName(testClassName + "_" + "delete", "")
+                    onView(isRoot()).check(matches(isDisplayed()))
+                    screenshotViaName(sut, screenShotName)
+                }
+            }
+        }
     }
 }
