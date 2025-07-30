@@ -13,6 +13,7 @@ import android.view.View
 import androidx.annotation.UiThread
 import androidx.test.core.app.launchActivity
 import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.IdlingRegistry
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.isRoot
@@ -20,14 +21,27 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.owncloud.android.AbstractIT
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.OCFile
+import com.owncloud.android.utils.EspressoIdlingResource
 import com.owncloud.android.utils.ScreenshotTest
+import org.junit.After
 import org.junit.Assert.assertEquals
+import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 
 @RunWith(AndroidJUnit4::class)
 class FolderPickerActivityIT : AbstractIT() {
     private val testClassName = "com.owncloud.android.ui.activity.FolderPickerActivityIT"
+
+    @Before
+    fun registerIdlingResource() {
+        IdlingRegistry.getInstance().register(EspressoIdlingResource.countingIdlingResource)
+    }
+
+    @After
+    fun unregisterIdlingResource() {
+        IdlingRegistry.getInstance().unregister(EspressoIdlingResource.countingIdlingResource)
+    }
 
     @Test
     @UiThread
@@ -166,7 +180,7 @@ class FolderPickerActivityIT : AbstractIT() {
     @UiThread
     @ScreenshotTest
     fun testMoveOrCopy() {
-        val intent = Intent()
+        val intent = Intent(targetContext, FolderPickerActivity::class.java)
         launchActivity<FolderPickerActivity>(intent).use { scenario ->
             scenario.onActivity { sut ->
                 onIdleSync {
@@ -182,7 +196,7 @@ class FolderPickerActivityIT : AbstractIT() {
     @UiThread
     @ScreenshotTest
     fun testChooseLocationAction() {
-        val intent = Intent().apply {
+        val intent = Intent(targetContext, FolderPickerActivity::class.java).apply {
             putExtra(FolderPickerActivity.EXTRA_ACTION, FolderPickerActivity.CHOOSE_LOCATION)
         }
 

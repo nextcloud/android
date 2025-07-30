@@ -47,7 +47,7 @@ class ContactsPreferenceActivityIT : AbstractIT() {
 
         assertTrue(vcfFile.isDown)
 
-        val intent = Intent().apply {
+        val intent = Intent(targetContext, ContactsPreferenceActivity::class.java).apply {
             putExtra(ContactsPreferenceActivity.EXTRA_FILE, vcfFile)
             putExtra(ContactsPreferenceActivity.EXTRA_USER, user)
         }
