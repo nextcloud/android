@@ -45,11 +45,11 @@ class FileOperationHelper(private val user: User, private val context: Context) 
     fun isSameRemoteFileAlreadyPresent(upload: OCUpload, storageManager: FileDataStorageManager): Boolean {
         val (lc, uc) = FileUtil.getRemotePathVariants(upload.remotePath)
 
-        val localOCFile = storageManager.getFileByDecryptedRemotePath(lc)
+        val remoteFile = storageManager.getFileByDecryptedRemotePath(lc)
             ?: storageManager.getFileByDecryptedRemotePath(uc)
 
-        if (localOCFile != null && localOCFile.remotePath.equals(upload.remotePath, ignoreCase = true)) {
-            if (isSameFileOnRemote(localOCFile, upload)) {
+        if (remoteFile != null && remoteFile.remotePath.equals(upload.remotePath, ignoreCase = true)) {
+            if (isSameFileOnRemote(remoteFile, upload)) {
                 Log_OC.w(TAG, "Same file already exists due to lowercase/uppercase extension")
                 return true
             }
@@ -58,13 +58,13 @@ class FileOperationHelper(private val user: User, private val context: Context) 
         return false
     }
 
-    fun isSameFileOnRemote(ocFile: OCFile, upload: OCUpload): Boolean {
+    fun isSameFileOnRemote(remoteFile: OCFile, upload: OCUpload): Boolean {
         val localFile = File(upload.localPath)
         if (!localFile.exists()) {
             return false
         }
         val localSize: Long = localFile.length()
-        return ocFile.fileLength == localSize
+        return remoteFile.fileLength == localSize
     }
 
     @Suppress("DEPRECATION")
