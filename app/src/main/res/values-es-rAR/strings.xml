@@ -891,6 +891,7 @@
     <string name="upload_files">Subiendo archivos</string>
     <string name="upload_global_pause_title">Todas las cargas están pausadas</string>
     <string name="upload_item_action_button">Subir botón de acción del elemento</string>
+    <string name="upload_list_cancel_upload">Cancelar carga</string>
     <string name="upload_list_delete">Eliminar</string>
     <string name="upload_list_empty_headline">No hay cargas disponibles</string>
     <string name="upload_list_empty_text_auto_upload">Cargue algún contenido o active la carga automática</string>

@@ -768,6 +768,7 @@
     <string name="upload_file_dialog_title">Unesite naziv datoteke i vrstu datoteke za otpremanje</string>
     <string name="upload_files">Otpremi datoteke</string>
     <string name="upload_item_action_button">Gumb za otpremanje stavke</string>
+    <string name="upload_list_cancel_upload">Otkaži otpremanje</string>
     <string name="upload_list_delete">Izbriši</string>
     <string name="upload_list_empty_headline">Nema dostupnih otprema</string>
     <string name="upload_list_empty_text_auto_upload">Otpremite neki sadržaj ili aktivirajte automatsko otpremanje.</string>

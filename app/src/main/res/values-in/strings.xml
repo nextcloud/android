@@ -1009,6 +1009,7 @@ Berikut ini adalah daftar berkas lokal, dan berkas jarak jauh di %5$s yang terhu
     <string name="upload_files">Unggah berkas</string>
     <string name="upload_global_pause_title">Semua unggahan dihentikan sebentar</string>
     <string name="upload_item_action_button">Tombol aksi unggah item</string>
+    <string name="upload_list_cancel_upload">Batal unggah</string>
     <string name="upload_list_delete">Hapus</string>
     <string name="upload_list_empty_headline">Tidak ada unggahan yang tersedia</string>
     <string name="upload_list_empty_text_auto_upload">Unggah beberapa foto atau aktifkan unggah otomatis.</string>

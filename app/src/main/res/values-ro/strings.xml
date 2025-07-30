@@ -884,6 +884,7 @@
     <string name="upload_file_dialog_title">Introdu numele și tipul fișierului de încărcat</string>
     <string name="upload_files">Încarcă fișiere</string>
     <string name="upload_item_action_button">Butonul de încărcare</string>
+    <string name="upload_list_cancel_upload">Anulează încărcarea</string>
     <string name="upload_list_delete">Șterge</string>
     <string name="upload_list_empty_headline">Nu există încărcări disponibile</string>
     <string name="upload_list_empty_text_auto_upload">Încărcați conținut sau activați încărcarea automată.</string>

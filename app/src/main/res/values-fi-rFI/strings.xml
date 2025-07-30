@@ -896,6 +896,7 @@ GNU yleinen lisenssi, versio 2</string>
     <string name="upload_files">Lähetä tiedostoja</string>
     <string name="upload_global_pause_title">Kaikki lähetykset on tauotettu</string>
     <string name="upload_item_action_button">Lataa tiedosto nappi</string>
+    <string name="upload_list_cancel_upload">Peruuta lähetys</string>
     <string name="upload_list_delete">Poista</string>
     <string name="upload_list_empty_headline">Ei lähetettäviä saatavilla</string>
     <string name="upload_list_empty_text_auto_upload">Lähetä sisältöä tai aktivoi automaattinen lähetys.</string>

@@ -583,6 +583,7 @@
     <string name="upload_file_dialog_filename">Nome de ficheru</string>
     <string name="upload_file_dialog_filetype">Triba de ficheru</string>
     <string name="upload_global_pause_title">Toles descargues tán posaes</string>
+    <string name="upload_list_cancel_upload">Encaboxar xuba</string>
     <string name="upload_list_delete">Desaniciar</string>
     <string name="upload_list_empty_headline">Nun hai xubes disponibles</string>
     <string name="upload_manually_cancelled">L\'usuariu anuló la xuba</string>

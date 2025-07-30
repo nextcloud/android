@@ -1006,6 +1006,7 @@
     <string name="upload_files">Отправить файлы</string>
     <string name="upload_global_pause_title">Все загрузки приостановлены</string>
     <string name="upload_item_action_button">Кнопка «выгрузить объект»</string>
+    <string name="upload_list_cancel_upload">Отменить передачу</string>
     <string name="upload_list_delete">Удалить</string>
     <string name="upload_list_empty_headline">Нет файлов, ожидающих передачу на сервер.</string>
     <string name="upload_list_empty_text_auto_upload">Сохраните здесь что-нибудь или включите автоматическую передачу файлов!</string>

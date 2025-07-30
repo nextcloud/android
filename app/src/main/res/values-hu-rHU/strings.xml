@@ -1022,6 +1022,7 @@ A Nextcloud itt érhető el: https://nextcloud.com</string>
     <string name="upload_files">Fájlok feltöltése</string>
     <string name="upload_global_pause_title">Összes feltöltés szüneteltetve</string>
     <string name="upload_item_action_button">Elem feltöltése műveletgomb</string>
+    <string name="upload_list_cancel_upload">Feltöltés megszakítása</string>
     <string name="upload_list_delete">Törlés</string>
     <string name="upload_list_empty_headline">Nincsenek feltöltések</string>
     <string name="upload_list_empty_text_auto_upload">Töltsön fel valamilyen tartalmat, vagy aktiválja az automatikus feltöltést.</string>

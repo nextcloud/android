@@ -767,6 +767,7 @@
     <string name="upload_file_dialog_title">Nhập tên tệp và loại tệp để tải lên</string>
     <string name="upload_files">Tải lên tập tin</string>
     <string name="upload_item_action_button">Nút hành động tải mục lên</string>
+    <string name="upload_list_cancel_upload">Hủy tải lên</string>
     <string name="upload_list_delete">Xóa</string>
     <string name="upload_list_empty_headline">Không có tải lên nào có sẵn</string>
     <string name="upload_list_empty_text_auto_upload">Tải lên một vài nội dung hoặc kích hoạt tải lên tự động</string>
