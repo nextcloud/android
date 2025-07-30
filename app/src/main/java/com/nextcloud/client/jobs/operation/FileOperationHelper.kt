@@ -48,11 +48,9 @@ class FileOperationHelper(private val user: User, private val context: Context) 
         val remoteFile = storageManager.getFileByDecryptedRemotePath(lc)
             ?: storageManager.getFileByDecryptedRemotePath(uc)
 
-        if (remoteFile != null && remoteFile.remotePath.equals(upload.remotePath, ignoreCase = true)) {
-            if (isSameFileOnRemote(remoteFile, upload)) {
-                Log_OC.w(TAG, "Same file already exists due to lowercase/uppercase extension")
-                return true
-            }
+        if (remoteFile != null && isSameFileOnRemote(remoteFile, upload)) {
+            Log_OC.w(TAG, "Same file already exists due to lowercase/uppercase extension")
+            return true
         }
 
         return false
