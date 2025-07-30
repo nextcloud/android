@@ -10,6 +10,7 @@ package com.nextcloud.client.jobs.operation
 import android.content.Context
 import com.nextcloud.client.account.User
 import com.nextcloud.utils.extensions.getErrorMessage
+import com.nextcloud.utils.extensions.toFile
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.db.OCUpload
@@ -24,7 +25,6 @@ import com.owncloud.android.utils.MimeTypeUtil
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.withContext
-import java.io.File
 
 class FileOperationHelper(private val user: User, private val context: Context) {
     companion object {
@@ -45,24 +45,16 @@ class FileOperationHelper(private val user: User, private val context: Context) 
     fun isSameRemoteFileAlreadyPresent(upload: OCUpload, storageManager: FileDataStorageManager): Boolean {
         val (lc, uc) = FileUtil.getRemotePathVariants(upload.remotePath)
 
-        val remoteFile = storageManager.getFileByDecryptedRemotePath(lc)
-            ?: storageManager.getFileByDecryptedRemotePath(uc)
+        val remoteFile = storageManager.run {
+            getFileByDecryptedRemotePath(lc) ?: getFileByDecryptedRemotePath(uc)
+        }
 
-        if (remoteFile != null && isSameFileOnRemote(remoteFile, upload)) {
+        if (upload.toFile()?.length() == remoteFile?.fileLength) {
             Log_OC.w(TAG, "Same file already exists due to lowercase/uppercase extension")
             return true
         }
 
         return false
-    }
-
-    fun isSameFileOnRemote(remoteFile: OCFile, upload: OCUpload): Boolean {
-        val localFile = File(upload.localPath)
-        if (!localFile.exists()) {
-            return false
-        }
-        val localSize: Long = localFile.length()
-        return remoteFile.fileLength == localSize
     }
 
     @Suppress("DEPRECATION")
