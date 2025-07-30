@@ -391,6 +391,7 @@
     <string name="file_list_empty_shared">Здесь будут показаны опубликованные вами папки и файлы.</string>
     <string name="file_list_empty_shared_headline">Вы ничем не поделились</string>
     <string name="file_list_empty_unified_search_no_results">По вашему запросу ничего не найдено</string>
+    <string name="file_list_empty_unified_search_start_search">Начните ваш поиск</string>
     <string name="file_list_folder">каталог</string>
     <string name="file_list_live">ТРАНСЛИРУЕТСЯ</string>
     <string name="file_list_loading">Получение данных…</string>

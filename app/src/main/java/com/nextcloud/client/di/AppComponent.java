@@ -16,6 +16,7 @@ import com.nextcloud.client.device.DeviceModule;
 import com.nextcloud.client.integrations.IntegrationsModule;
 import com.nextcloud.client.jobs.JobsModule;
 import com.nextcloud.client.jobs.download.FileDownloadHelper;
+import com.nextcloud.client.jobs.upload.FileUploadBroadcastReceiver;
 import com.nextcloud.client.jobs.upload.FileUploadHelper;
 import com.nextcloud.client.media.BackgroundPlayerService;
 import com.nextcloud.client.network.NetworkModule;
@@ -68,6 +69,8 @@ public interface AppComponent {
     void inject(FileDownloadHelper fileDownloadHelper);
 
     void inject(ProgressIndicator progressIndicator);
+
+    void inject(FileUploadBroadcastReceiver fileUploadBroadcastReceiver);
 
     @Component.Builder
     interface Builder {
