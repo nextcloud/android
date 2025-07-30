@@ -92,8 +92,7 @@ class ConnectivityServiceImpl implements ConnectivityService {
             actNw.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) ||
             actNw.hasTransport(NetworkCapabilities.TRANSPORT_VPN) ||
             actNw.hasTransport(NetworkCapabilities.TRANSPORT_BLUETOOTH) ||
-            actNw.hasTransport(NetworkCapabilities.TRANSPORT_WIFI_AWARE) ||
-            actNw.hasTransport(NetworkCapabilities.TRANSPORT_SATELLITE)) {
+            actNw.hasTransport(NetworkCapabilities.TRANSPORT_WIFI_AWARE)) {
             return true;
         }
 
