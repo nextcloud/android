@@ -973,7 +973,6 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
         @Override
         public void apply() {
             setItems(this.refreshItems);
-            this.refreshItems = null;
         }
     }
 
