@@ -53,8 +53,8 @@ fun DrawerActivity.getMenuItemIdFromTitle(): Int? {
     }
 }
 
-fun DrawerActivity.showAllFiles() {
-    if (DrawerActivity.menuItemId == R.id.nav_all_files) {
+fun DrawerActivity.showAllFiles(isCurrentDirRoot: Boolean) {
+    if (DrawerActivity.menuItemId == R.id.nav_all_files && isCurrentDirRoot) {
         moveTaskToBack(true)
         return
     }
@@ -67,7 +67,7 @@ fun DrawerActivity.showAllFiles() {
 
     Intent(applicationContext, FileDisplayActivity::class.java).apply {
         addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-        setAction(FileDisplayActivity.ALL_FILES)
+        action = FileDisplayActivity.ALL_FILES
     }.run {
         startActivity(this)
     }
