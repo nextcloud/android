@@ -52,7 +52,6 @@ internal class SharedListFragmentIT : AbstractIT() {
         launchActivity<TestActivity>().use { scenario ->
             scenario.onActivity { sut ->
                 onIdleSync {
-
                     EspressoIdlingResource.increment()
 
                     val fragment = SharedListFragment()

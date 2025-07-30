@@ -89,7 +89,6 @@ class FolderPickerActivityIT : AbstractIT() {
                         setFolder()
                     }
 
-
                     // Act
                     sut.file = origin
                     val target = sut.currentFolder

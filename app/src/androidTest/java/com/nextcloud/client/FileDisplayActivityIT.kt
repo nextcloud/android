@@ -183,7 +183,9 @@ class FileDisplayActivityIT : AbstractOnServerIT() {
                         .perform(NavigationViewActions.navigateTo(R.id.nav_favorites))
 
                     // check sort button is not shown, favorites are not sortable
-                    onView(withId(R.id.sort_button)).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.GONE)))
+                    onView(
+                        withId(R.id.sort_button)
+                    ).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.GONE)))
 
                     // browse into folder
                     onView(withId(R.id.list_root))

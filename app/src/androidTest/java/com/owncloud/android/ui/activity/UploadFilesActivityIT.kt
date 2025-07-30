@@ -77,7 +77,6 @@ class UploadFilesActivityIT : AbstractIT() {
 
                     EspressoIdlingResource.decrement()
 
-
                     val screenShotName = createName(testClassName + "_" + "noneSelected", "")
                     onView(isRoot()).check(matches(isDisplayed()))
                     screenshotViaName(sut.fileListFragment.binding?.listRoot, screenShotName)
@@ -112,7 +111,6 @@ class UploadFilesActivityIT : AbstractIT() {
 
                     EspressoIdlingResource.decrement()
 
-
                     val screenShotName = createName(testClassName + "_" + "localFolderPickerMode", "")
                     onView(isRoot()).check(matches(isDisplayed()))
                     screenshotViaName(sut, screenShotName)
@@ -142,7 +140,6 @@ class UploadFilesActivityIT : AbstractIT() {
 
                     EspressoIdlingResource.decrement()
 
-
                     val screenShotName = createName(testClassName + "_" + "search", "")
                     onView(isRoot()).check(matches(isDisplayed()))
                     screenshotViaName(sut, screenShotName)
@@ -171,7 +168,6 @@ class UploadFilesActivityIT : AbstractIT() {
                     sut.fileListFragment.selectAllFiles(true)
 
                     EspressoIdlingResource.decrement()
-
 
                     val screenShotName = createName(testClassName + "_" + "selectAll", "")
                     onView(isRoot()).check(matches(isDisplayed()))

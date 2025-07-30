@@ -153,7 +153,10 @@ class OCFileListFragmentStaticServerIT : AbstractIT() {
                         remoteId = "00000003"
                         parentId = sut.storageManager.getFileByEncryptedRemotePath("/").fileId
                         isSharedWithSharee = true
-                        sharees = listOf(ShareeUser("admin@nextcloud.localhost", "admin@nextcloud.localhost", ShareType.EMAIL))
+                        sharees =
+                            listOf(
+                                ShareeUser("admin@nextcloud.localhost", "admin@nextcloud.localhost", ShareType.EMAIL)
+                            )
                         modificationTimestamp = 1000
                         sut.storageManager.saveFile(this)
                     }
@@ -171,7 +174,11 @@ class OCFileListFragmentStaticServerIT : AbstractIT() {
                         parentId = sut.storageManager.getFileByEncryptedRemotePath("/").fileId
                         isSharedWithSharee = true
                         sharees = listOf(
-                            ShareeUser("admin@remote.nextcloud.com", "admin@remote.nextcloud.com (remote)", ShareType.FEDERATED)
+                            ShareeUser(
+                                "admin@remote.nextcloud.com",
+                                "admin@remote.nextcloud.com (remote)",
+                                ShareType.FEDERATED
+                            )
                         )
                         modificationTimestamp = 1000
                         sut.storageManager.saveFile(this)

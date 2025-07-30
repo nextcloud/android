@@ -103,7 +103,6 @@ class SendFilesDialogTest : AbstractIT() {
             onView(isRoot()).check(matches(isDisplayed()))
             screenshotViaName(sut.requireDialog().window?.decorView, screenShotName)
         }
-
     }
 
     @Test
