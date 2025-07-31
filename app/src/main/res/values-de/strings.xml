@@ -1011,6 +1011,7 @@
     <string name="upload_files">Dateien hochladen</string>
     <string name="upload_global_pause_title">Alle Uploads wurden pausiert</string>
     <string name="upload_item_action_button">Button, um Objekt hochzuladen</string>
+    <string name="upload_list_cancel_upload">Hochladen abbrechen</string>
     <string name="upload_list_delete">Löschen</string>
     <string name="upload_list_empty_headline">Keine Uploads verfügbar</string>
     <string name="upload_list_empty_text_auto_upload">Laden Sie Inhalte hoch oder aktivieren Sie den Auto Upload.</string>
