@@ -73,6 +73,9 @@ object CryptoHelper {
         )
 
         return decodedPrivateKey
+            .replace("\n".toRegex(), "")
+            .replace("-----BEGIN PRIVATE KEY-----", "")
+            .replace("-----END PRIVATE KEY-----", "");
     }
 
     private fun decrypt(
