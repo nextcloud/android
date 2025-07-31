@@ -82,34 +82,18 @@ object CryptoHelper {
         salt: ByteArray,
         iv: ByteArray
     ): ByteArray {
-        // Decode the full encrypted data (cipher + authentication tag)
-        val fullEncryptedData = EncryptionUtils.decodeStringToBase64Bytes(encryptedDataBase64)
+        val encryptedData = EncryptionUtils.decodeStringToBase64Bytes(encryptedDataBase64)
 
-        if (fullEncryptedData.size < GCM_TAG_LENGTH) {
-            throw IllegalArgumentException("Encrypted data too short")
-        }
-
-        // Split cipher and authentication tag
-        val cipherData = fullEncryptedData.copyOfRange(0, fullEncryptedData.size - GCM_TAG_LENGTH)
-        val authTag = fullEncryptedData.copyOfRange(fullEncryptedData.size - GCM_TAG_LENGTH, fullEncryptedData.size)
-
-        // Derive AES key using PBKDF2
         val secretKeyFactory = SecretKeyFactory.getInstance(algorithm.secretKeyFactoryAlgorithm)
         val keySpec = PBEKeySpec(password, salt, algorithm.iterationCount, algorithm.keyStrength)
         val secretKey = secretKeyFactory.generateSecret(keySpec)
         val secretKeySpec = SecretKeySpec(secretKey.encoded, algorithm.secretKeySpecAlgorithm)
 
-        // Set up AES-GCM decryption
         val cipher = Cipher.getInstance(TRANSFORMATION)
-        val gcmSpec = GCMParameterSpec(GCM_TAG_LENGTH * 8, iv) // Tag length in bits
+        val gcmSpec = GCMParameterSpec(GCM_TAG_LENGTH * 8, iv)
         cipher.init(Cipher.DECRYPT_MODE, secretKeySpec, gcmSpec)
 
-        // Combine cipher data and authentication tag for GCM
-        val dataWithTag = ByteArray(cipherData.size + authTag.size)
-        System.arraycopy(cipherData, 0, dataWithTag, 0, cipherData.size)
-        System.arraycopy(authTag, 0, dataWithTag, cipherData.size, authTag.size)
-
-        return cipher.doFinal(dataWithTag)
+        return cipher.doFinal(encryptedData)
     }
     // endregion
 
@@ -150,20 +134,15 @@ object CryptoHelper {
         salt: ByteArray,
         iv: ByteArray
     ): ByteArray {
-        // Derive AES key using PBKDF2
         val secretKeyFactory = SecretKeyFactory.getInstance(algorithm.secretKeyFactoryAlgorithm)
         val keySpec = PBEKeySpec(password, salt, algorithm.iterationCount, algorithm.keyStrength)
         val secretKey = secretKeyFactory.generateSecret(keySpec)
         val secretKeySpec = SecretKeySpec(secretKey.encoded, algorithm.secretKeySpecAlgorithm)
 
-        // Set up AES-GCM encryption
         val cipher = Cipher.getInstance(TRANSFORMATION)
-
-        // Tag length in bits
         val gcmSpec = GCMParameterSpec(GCM_TAG_LENGTH * 8, iv)
         cipher.init(Cipher.ENCRYPT_MODE, secretKeySpec, gcmSpec)
 
-        // Encrypt and return data with appended authentication tag
         return cipher.doFinal(data)
     }
     // endregion
