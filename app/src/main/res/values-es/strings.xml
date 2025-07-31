@@ -996,6 +996,7 @@
     <string name="upload_files">Subir archivos</string>
     <string name="upload_global_pause_title">Todas las cargas están pausadas</string>
     <string name="upload_item_action_button">Botón de acción de subida de objeto</string>
+    <string name="upload_list_cancel_upload">Cancelar la subida</string>
     <string name="upload_list_delete">Eliminar</string>
     <string name="upload_list_empty_headline">No hay subidas disponibles</string>
     <string name="upload_list_empty_text_auto_upload">Sube algún contenido o active la subida automática.</string>

@@ -1011,6 +1011,7 @@
     <string name="upload_files">Upload files</string>
     <string name="upload_global_pause_title">All uploads are paused</string>
     <string name="upload_item_action_button">Upload item action button</string>
+    <string name="upload_list_cancel_upload">Cancel upload</string>
     <string name="upload_list_delete">Delete</string>
     <string name="upload_list_empty_headline">No uploads available</string>
     <string name="upload_list_empty_text_auto_upload">Upload some content or activate auto upload.</string>

@@ -937,6 +937,7 @@
     <string name="upload_files">Last opp filer</string>
     <string name="upload_global_pause_title">Alle opplastinger er satt på pause</string>
     <string name="upload_item_action_button">Last opp element handlingsknapp</string>
+    <string name="upload_list_cancel_upload">Avbryt opplasting</string>
     <string name="upload_list_delete">Slett</string>
     <string name="upload_list_empty_headline">Ingen opplastinger tilgjengelig</string>
     <string name="upload_list_empty_text_auto_upload">Last opp noe innhold eller aktiver automatisk opplasting!</string>

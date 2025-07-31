@@ -709,6 +709,7 @@
     <string name="upload_file_dialog_title">Внесете име на датотеката и видот на датотеката за да ја прикачите</string>
     <string name="upload_files">Прикачи датотеки</string>
     <string name="upload_item_action_button">Копче за прикачување</string>
+    <string name="upload_list_cancel_upload">Откажи прикачување</string>
     <string name="upload_list_delete">Избриши</string>
     <string name="upload_list_empty_headline">Нема прикачувања</string>
     <string name="upload_list_empty_text_auto_upload">Прикачете некоја содржина или активирајте автоматско прикачување.</string>

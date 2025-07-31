@@ -698,6 +698,7 @@
     <string name="upload_file_dialog_title">נא לציין שם קובץ וסוג קובץ לשליחה</string>
     <string name="upload_files">העלאת קבצים</string>
     <string name="upload_item_action_button">כפתור פעולת העלאת פריט</string>
+    <string name="upload_list_cancel_upload">ביטול העלאה</string>
     <string name="upload_list_delete">מחיקה</string>
     <string name="upload_list_empty_headline">אין העלאות זמינות</string>
     <string name="upload_list_empty_text_auto_upload">יש להעלות תוכן כלשהו או להפעיל העלאה אוטומטית.</string>

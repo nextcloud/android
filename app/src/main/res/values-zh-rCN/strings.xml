@@ -1007,6 +1007,7 @@
     <string name="upload_files">上传文件</string>
     <string name="upload_global_pause_title">所有上传已暂停</string>
     <string name="upload_item_action_button">上传项操作按钮</string>
+    <string name="upload_list_cancel_upload">取消上传</string>
     <string name="upload_list_delete">删除</string>
     <string name="upload_list_empty_headline">没有可以上传的</string>
     <string name="upload_list_empty_text_auto_upload">上传一些内容或启用自动上传。</string>

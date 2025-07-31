@@ -604,6 +604,7 @@
     <string name="upload_file_dialog_filetype_internet_shortcut">Interneta saīsnes datne(%s)</string>
     <string name="upload_file_dialog_filetype_snippet_text">Maza teksta datne(.txt)</string>
     <string name="upload_files">Augšupielādēt datnes</string>
+    <string name="upload_list_cancel_upload">Atcelt augšupielādi</string>
     <string name="upload_list_delete">Izdzēst</string>
     <string name="upload_list_empty_headline">Augšupielādes nav pieejamas.</string>
     <string name="upload_list_empty_text_auto_upload">Augšupielādē kaut ko vai ieslēdz automātisko augšupielādi!</string>

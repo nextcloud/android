@@ -1011,6 +1011,7 @@
     <string name="upload_files">上傳檔案</string>
     <string name="upload_global_pause_title">所有上傳皆已暫停</string>
     <string name="upload_item_action_button">上傳操作按鈕</string>
+    <string name="upload_list_cancel_upload">取消上戴</string>
     <string name="upload_list_delete">刪除</string>
     <string name="upload_list_empty_headline">沒有上傳的檔案</string>
     <string name="upload_list_empty_text_auto_upload">上傳一些內容或者啟動自動上傳。</string>

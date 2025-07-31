@@ -973,6 +973,7 @@
     <string name="upload_files">Enviar ficheiros</string>
     <string name="upload_global_pause_title">Todos os envíos están en pausa</string>
     <string name="upload_item_action_button">Botón da acción do envío de elemento</string>
+    <string name="upload_list_cancel_upload">Cancelar o envío</string>
     <string name="upload_list_delete">Eliminar</string>
     <string name="upload_list_empty_headline">Non hai envíos dispoñíbeis</string>
     <string name="upload_list_empty_text_auto_upload">Envíe algún contido ou active o envío automático.</string>

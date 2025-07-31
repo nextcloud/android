@@ -32,24 +32,28 @@ public class FilesystemDataProvider {
 
     static private final String TAG = FilesystemDataProvider.class.getSimpleName();
 
-    private ContentResolver contentResolver;
+    private final ContentResolver contentResolver;
 
     public FilesystemDataProvider(ContentResolver contentResolver) {
         if (contentResolver == null) {
+            Log_OC.e(TAG, "couldn't be able constructed, contentResolver is null");
             throw new IllegalArgumentException("Cannot create an instance with a NULL contentResolver");
         }
         this.contentResolver = contentResolver;
     }
 
     public int deleteAllEntriesForSyncedFolder(String syncedFolderId) {
+        Log_OC.d(TAG, "deleteAllEntriesForSyncedFolder called, ID: " + syncedFolderId);
+
         return contentResolver.delete(
             ProviderMeta.ProviderTableMeta.CONTENT_URI_FILESYSTEM,
             ProviderMeta.ProviderTableMeta.FILESYSTEM_SYNCED_FOLDER_ID + " = ?",
-            new String[]{syncedFolderId}
-                                     );
+            new String[]{syncedFolderId});
     }
 
     public void updateFilesystemFileAsSentForUpload(String path, String syncedFolderId) {
+        Log_OC.d(TAG, "updateFilesystemFileAsSentForUpload called, path: " + path + " ID: " + syncedFolderId);
+
         ContentValues cv = new ContentValues();
         cv.put(ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_SENT_FOR_UPLOAD, 1);
 
@@ -63,6 +67,7 @@ public class FilesystemDataProvider {
     }
 
     public void storeOrUpdateFileValue(String localPath, long modifiedAt, boolean isFolder, SyncedFolder syncedFolder) {
+        Log_OC.d(TAG, "storeOrUpdateFileValue called, localPath: " + localPath + " ID: " + syncedFolder.getId());
 
         // takes multiple milliseconds to query data from database (around 75% of execution time) (6ms)
         FileSystemDataSet data = getFilesystemDataSet(localPath, syncedFolder);
@@ -77,6 +82,7 @@ public class FilesystemDataProvider {
         cv.put(ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_MODIFIED, modifiedAt);
 
         if (data == null) {
+            Log_OC.d(TAG, "storeOrUpdateFileValue data is null");
 
             cv.put(ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_LOCAL_PATH, localPath);
             cv.put(ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_IS_FOLDER, isFolderValue);
@@ -91,9 +97,10 @@ public class FilesystemDataProvider {
             Uri result = contentResolver.insert(ProviderMeta.ProviderTableMeta.CONTENT_URI_FILESYSTEM, cv);
 
             if (result == null) {
-                Log_OC.v(TAG, "Failed to insert filesystem data with local path: " + localPath);
+                Log_OC.e(TAG, "Failed to insert filesystem data with local path: " + localPath);
             }
         } else {
+            Log_OC.d(TAG, "storeOrUpdateFileValue data is not null");
 
             if (data.getModifiedAt() != modifiedAt) {
                 long newCrc32 = getFileChecksum(localPath);
@@ -112,12 +119,14 @@ public class FilesystemDataProvider {
                                                );
 
             if (result == 0) {
-                Log_OC.v(TAG, "Failed to update filesystem data with local path: " + localPath);
+                Log_OC.e(TAG, "Failed to update filesystem data with local path: " + localPath);
             }
         }
     }
 
     public Set<String> getFilesForUpload(String localPath, String syncedFolderId) {
+        Log_OC.d(TAG, "getFilesForUpload called, localPath: " + localPath + " ID: " + syncedFolderId);
+
         Set<String> localPathsToUpload = new HashSet<>();
 
         String likeParam = localPath + "%";
@@ -142,25 +151,32 @@ public class FilesystemDataProvider {
                     } else {
                         File file = new File(value);
                         if (!file.exists()) {
-                            Log_OC.d(TAG, "Ignoring file for upload (doesn't exist): " + value);
+                            Log_OC.w(TAG, "Ignoring file for upload (doesn't exist): " + value);
                         } else if (!SyncedFolderUtils.isQualifiedFolder(file.getParent())) {
-                            Log_OC.d(TAG, "Ignoring file for upload (unqualified folder): " + value);
+                            Log_OC.w(TAG, "Ignoring file for upload (unqualified folder): " + value);
                         } else if (!SyncedFolderUtils.isFileNameQualifiedForAutoUpload(file.getName())) {
-                            Log_OC.d(TAG, "Ignoring file for upload (unqualified file): " + value);
+                            Log_OC.w(TAG, "Ignoring file for upload (unqualified file): " + value);
                         } else {
+                            Log_OC.d(TAG, "adding path to the localPathsToUpload: " + value);
                             localPathsToUpload.add(value);
                         }
                     }
                 } while (cursor.moveToNext());
+            } else {
+                Log_OC.w(TAG, "cursor cannot move");
             }
 
             cursor.close();
+        } else {
+            Log_OC.e(TAG, "getFilesForUpload called, cursor is null");
         }
 
         return localPathsToUpload;
     }
 
     private FileSystemDataSet getFilesystemDataSet(String localPathParam, SyncedFolder syncedFolder) {
+        Log_OC.d(TAG, "getFilesForUpload called, localPath: " + localPathParam + " ID: " + syncedFolder.getId());
+
         String[] projection = {
             ProviderMeta.ProviderTableMeta._ID,
             ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_LOCAL_PATH,

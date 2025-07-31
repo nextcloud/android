@@ -1011,6 +1011,7 @@
     <string name="upload_files">Завантажити файл</string>
     <string name="upload_global_pause_title">Всі завантаження призупинено</string>
     <string name="upload_item_action_button">Кнопка завантаження</string>
+    <string name="upload_list_cancel_upload">Скасувати завантаження</string>
     <string name="upload_list_delete">Вилучити</string>
     <string name="upload_list_empty_headline">Ви ще нічого не завантажили</string>
     <string name="upload_list_empty_text_auto_upload">Завантажте вміст або увімкніть автоматичне завантаження</string>
