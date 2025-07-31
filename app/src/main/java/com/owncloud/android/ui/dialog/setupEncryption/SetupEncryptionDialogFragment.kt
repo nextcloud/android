@@ -422,7 +422,7 @@ class SetupEncryptionDialogFragment :
                 val privateKey = keyPair.private
                 val privateKeyString = EncryptionUtils.encodeBytesToBase64String(privateKey.encoded)
                 val privatePemKeyString = EncryptionUtils.privateKeyToPEM(privateKey)
-                val encryptedPrivateKey = EncryptionUtils.encryptPrivateKey(
+                val encryptedPrivateKey = CryptoHelper.encryptPrivateKey(
                     privatePemKeyString,
                     generateMnemonicString(false)
                 )

@@ -261,12 +261,7 @@ public class EncryptionTestIT extends AbstractIT {
             byte[] privateKeyBytes = privateKey.getEncoded();
             String privateKeyString = encodeBytesToBase64String(privateKeyBytes);
 
-            String encryptedString;
-            if (new Random().nextBoolean()) {
-                encryptedString = EncryptionUtils.encryptPrivateKey(privateKeyString, keyPhrase);
-            } else {
-                encryptedString = EncryptionUtils.encryptPrivateKeyOld(privateKeyString, keyPhrase);
-            }
+            String encryptedString = CryptoHelper.INSTANCE.encryptPrivateKey(privateKeyString, keyPhrase);
             String decryptedString = CryptoHelper.INSTANCE.decryptPrivateKey(encryptedString, keyPhrase);
 
             assertEquals(privateKeyString, decryptedString);

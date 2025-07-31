@@ -34,6 +34,7 @@ object CryptoHelper {
     private const val GCM_TAG_LENGTH = 16
     private const val IV_LENGTH = 16
     private const val SALT_LENGTH = 40
+    private val charset = StandardCharsets.UTF_8
 
     // region Decrypt
     fun decryptPrivateKey(privateKey: String, keyPhrase: String): String {
@@ -69,7 +70,6 @@ object CryptoHelper {
         }
 
         // Decode the Base64 encoded private key
-        val charset = StandardCharsets.UTF_8
         val encodedString = String(decryptedBytes, charset)
         val bytes = EncryptionUtils.decodeStringToBase64Bytes(encodedString)
         val decodedPrivateKey = String(bytes, charset)
@@ -104,12 +104,12 @@ object CryptoHelper {
         val cleanedKeyPhrase = keyPhrase.replace(" ", "")
 
         // Generate salt and IV
-        val salt = generateSalt(SALT_LENGTH)
-        val iv = generateIV(IV_LENGTH)
+        val salt = generateSalt()
+        val iv = generateIV()
 
-        val privateKeyBytes = privateKey.toByteArray(StandardCharsets.UTF_8)
+        val privateKeyBytes = privateKey.toByteArray(charset)
         val privateKeyBase64 = EncryptionUtils.encodeBytesToBase64String(privateKeyBytes)
-        val privateKeyBase64Bytes = privateKeyBase64.toByteArray(StandardCharsets.UTF_8)
+        val privateKeyBase64Bytes = privateKeyBase64.toByteArray(charset)
 
         // Encrypt the data
         val encryptedData = encrypt(
@@ -149,22 +149,16 @@ object CryptoHelper {
     // endregion
 
     // region Helper functions
-    private fun generateIV(length: Int): ByteArray {
-        val iv = ByteArray(length)
+    private fun generateIV(): ByteArray {
+        val iv = ByteArray(IV_LENGTH)
         SecureRandom().nextBytes(iv)
         return iv
     }
 
-    private fun generateSalt(length: Int): ByteArray {
-        val salt = ByteArray(length)
+    private fun generateSalt(): ByteArray {
+        val salt = ByteArray(SALT_LENGTH)
         SecureRandom().nextBytes(salt)
         return salt
-    }
-
-    private fun generateKey(length: Int): ByteArray {
-        val key = ByteArray(length)
-        SecureRandom().nextBytes(key)
-        return key
     }
     // endregion
 }
