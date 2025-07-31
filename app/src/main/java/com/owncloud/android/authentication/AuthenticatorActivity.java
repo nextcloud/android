@@ -64,6 +64,7 @@ import com.nextcloud.common.PlainClient;
 import com.nextcloud.operations.PostMethod;
 import com.nextcloud.utils.extensions.BundleExtensionsKt;
 import com.nextcloud.utils.mdm.MDMConfig;
+import com.owncloud.android.BuildConfig;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.AccountSetupBinding;
@@ -647,6 +648,18 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             viewThemeUtils.platform.tintDrawable(this, accountSetupBinding.scanQr.getDrawable(), ColorRole.ON_PRIMARY);
         } else {
             accountSetupBinding.scanQr.setVisibility(View.GONE);
+        }
+
+        addDebugLogin();
+    }
+
+    private void addDebugLogin() {
+        if (BuildConfig.DEBUG) {
+            accountSetupBinding.thumbnail.setOnLongClickListener(v -> {
+                final String dataString = BuildConfig.NC_TEST_SERVER_DATA_STRING;
+                parseAndLoginFromWebView(dataString);
+                return false;
+            });
         }
     }
 

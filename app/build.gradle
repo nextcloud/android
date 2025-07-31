@@ -85,6 +85,17 @@ file("$project.rootDir/ndk.env").readLines().each() {
 
 def perfAnalysis = project.hasProperty("perfAnalysis")
 
+def getConfigProperties() {
+    def props = new Properties()
+    def file = rootProject.file(".gradle/config.properties")
+    if (file.exists()) {
+        props.load(new FileInputStream(file))
+    }
+    return props
+}
+
+def configProps = getConfigProperties()
+
 android {
     // install this NDK version and Cmake to produce smaller APKs. Build will still work if not installed
     ndkVersion = "${ndkEnv.get("NDK_VERSION")}"
@@ -142,6 +153,8 @@ android {
             debug {
                 testCoverageEnabled = project.hasProperty("coverage")
                 resConfigs "xxxhdpi"
+
+                buildConfigField "String", "NC_TEST_SERVER_DATA_STRING", "\"nc://login/user:${configProps['NC_TEST_SERVER_USERNAME']}&password:${configProps['NC_TEST_SERVER_PASSWORD']}&server:${configProps['NC_TEST_SERVER_BASEURL']}\""
             }
         }
 
