@@ -2,11 +2,11 @@
  * Nextcloud - Android Client
  *
  * SPDX-FileCopyrightText: 2025 Alper Ozturk <alper.ozturk@nextcloud.com>
- * SPDX-FileCopyrightText: 2022 Tobias Kaminsky <tobias@kaminsky.me>
- * SPDX-FileCopyrightText: 2022 Nextcloud GmbH
+ * SPDX-FileCopyrightText: 2019 Tobias Kaminsky <tobias@kaminsky.me>
+ * SPDX-FileCopyrightText: 2019 Nextcloud GmbH
  * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
  */
-package com.owncloud.android.ui.activity
+package com.nextcloud.client
 
 import androidx.annotation.UiThread
 import androidx.test.core.app.launchActivity
@@ -15,15 +15,19 @@ import androidx.test.espresso.IdlingRegistry
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.isRoot
+import com.nextcloud.test.GrantStoragePermissionRule.Companion.grant
 import com.owncloud.android.AbstractIT
+import com.owncloud.android.ui.activity.CommunityActivity
 import com.owncloud.android.utils.EspressoIdlingResource
 import com.owncloud.android.utils.ScreenshotTest
 import org.junit.After
 import org.junit.Before
+import org.junit.Rule
 import org.junit.Test
+import org.junit.rules.TestRule
 
-class ReceiveExternalFilesActivityIT : AbstractIT() {
-    private val testClassName = "com.owncloud.android.ui.activity.ReceiveExternalFilesActivityIT"
+class CommunityActivityIT : AbstractIT() {
+    private val testClassName = "com.nextcloud.client.CommunityActivityIT"
 
     @Before
     fun registerIdlingResource() {
@@ -35,11 +39,14 @@ class ReceiveExternalFilesActivityIT : AbstractIT() {
         IdlingRegistry.getInstance().unregister(EspressoIdlingResource.countingIdlingResource)
     }
 
+    @get:Rule
+    var storagePermissionRule: TestRule = grant()
+
     @Test
     @UiThread
     @ScreenshotTest
     fun open() {
-        launchActivity<ReceiveExternalFilesActivity>().use { scenario ->
+        launchActivity<CommunityActivity>().use { scenario ->
             scenario.onActivity { sut ->
                 onIdleSync {
                     val screenShotName = createName(testClassName + "_" + "open", "")
@@ -48,13 +55,5 @@ class ReceiveExternalFilesActivityIT : AbstractIT() {
                 }
             }
         }
-    }
-
-    @Test
-    @ScreenshotTest
-    fun openMultiAccount() {
-        val secondAccount = createAccount("secondtest@https://nextcloud.localhost")
-        open()
-        removeAccount(secondAccount)
     }
 }

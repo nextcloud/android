@@ -136,7 +136,12 @@ object GlideHelper {
     }
 
     @Suppress("UNCHECKED_CAST", "TooGenericExceptionCaught", "ReturnCount")
-    private fun <T> createRequestBuilder(context: Context, client: NextcloudClient, url: String?): RequestBuilder<T>? {
+    private fun <T> createRequestBuilder(context: Context, client: NextcloudClient?, url: String?): RequestBuilder<T>? {
+        if (client == null) {
+            Log_OC.e(TAG, "Client is null")
+            return null
+        }
+
         val validatedUrl = validateAndGetURL(url) ?: return null
 
         return try {
@@ -157,7 +162,7 @@ object GlideHelper {
     @SuppressLint("CheckResult")
     fun loadIntoImageView(
         context: Context,
-        client: NextcloudClient,
+        client: NextcloudClient?,
         url: String?,
         imageView: ImageView,
         @DrawableRes placeholder: Int,
@@ -170,12 +175,12 @@ object GlideHelper {
             ?.into(imageView)
     }
 
-    fun getDrawable(context: Context, client: NextcloudClient, urlString: String?): Drawable? =
+    fun getDrawable(context: Context, client: NextcloudClient?, urlString: String?): Drawable? =
         createRequestBuilder<Drawable>(context, client, urlString)?.submit()?.get()
 
     fun <T> loadIntoTarget(
         context: Context,
-        client: NextcloudClient,
+        client: NextcloudClient?,
         url: String,
         target: Target<T>,
         @DrawableRes placeholder: Int
