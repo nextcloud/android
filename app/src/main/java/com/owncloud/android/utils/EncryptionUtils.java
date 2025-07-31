@@ -1129,50 +1129,6 @@ public final class EncryptionUtils {
         return encodedEncryptedBytes + delimiter + encodedIV + delimiter + encodedSalt;
     }
 
-    /**
-     * Decrypt private key with symmetric AES encryption, GCM mode mode and no padding
-     *
-     * @param privateKey byte64 encoded string representation of private key, IV separated with "|"
-     * @param keyPhrase  key used for encryption, e.g. 12 random words
-     *                   {@link EncryptionUtils#getRandomWords(int, Context)}
-     * @return decrypted string
-     */
-    @SuppressFBWarnings("UCPM_USE_CHARACTER_PARAMETERIZED_METHOD")
-    public static String decryptPrivateKey(String privateKey, String keyPhrase) throws NoSuchPaddingException,
-        NoSuchAlgorithmException, InvalidKeyException, BadPaddingException,
-        IllegalBlockSizeException, InvalidKeySpecException, InvalidAlgorithmParameterException {
-
-        String[] strings;
-
-        // split up iv, salt
-        if (privateKey.lastIndexOf(ivDelimiter) == -1) {
-            // backward compatibility
-            strings = privateKey.split(ivDelimiterOld);
-        } else {
-            strings = privateKey.split("\\" + ivDelimiter);
-        }
-
-        String realPrivateKey = strings[0];
-        byte[] iv = decodeStringToBase64Bytes(strings[1]);
-        byte[] salt = decodeStringToBase64Bytes(strings[2]);
-
-        Cipher cipher = Cipher.getInstance(AES_CIPHER);
-        SecretKeyFactory factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
-        KeySpec spec = new PBEKeySpec(keyPhrase.toCharArray(), salt, iterationCount, keyStrength);
-        SecretKey tmp = factory.generateSecret(spec);
-        SecretKeySpec key = new SecretKeySpec(tmp.getEncoded(), AES);
-
-        cipher.init(Cipher.DECRYPT_MODE, key, new IvParameterSpec(iv));
-
-        byte[] bytes = decodeStringToBase64Bytes(realPrivateKey);
-        byte[] decrypted = cipher.doFinal(bytes);
-
-        String pemKey = decodeBase64BytesToString(decrypted);
-
-        return pemKey.replaceAll("\n", "").replace("-----BEGIN PRIVATE KEY-----", "")
-            .replace("-----END PRIVATE KEY-----", "");
-    }
-
     public static String privateKeyToPEM(PrivateKey privateKey) {
         String privateKeyString = encodeBytesToBase64String(privateKey.getEncoded());
 
