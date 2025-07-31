@@ -5,8 +5,10 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-package com.owncloud.android.utils
+package com.owncloud.android.utils.crypto
+
 import com.owncloud.android.lib.common.utils.Log_OC
+import com.owncloud.android.utils.EncryptionUtils
 import java.nio.charset.StandardCharsets
 import java.security.SecureRandom
 import javax.crypto.Cipher
@@ -56,26 +58,22 @@ object CryptoHelper {
 
         val decryptedBytes = try {
             decrypt(Algorithm.SHA256, encryptedDataBase64, cleanedKeyPhrase.toCharArray(), salt, iv)
-        } catch (t: Throwable) {
-            Log_OC.w(TAG, "Failed to decrypt private key with SHA256, trying SHA1: $t")
+        } catch (sha256DecryptionError: Throwable) {
+            Log_OC.w(TAG, "Failed to decrypt private key with SHA256, trying SHA1: $sha256DecryptionError")
             try {
                 decrypt(Algorithm.SHA1, encryptedDataBase64, cleanedKeyPhrase.toCharArray(), salt, iv)
-            } catch (t2: Throwable) {
-                Log_OC.e(TAG, "Failed to decrypt private key with SHA1: $t2")
-                throw t2
+            } catch (sha1DecryptionError: Throwable) {
+                Log_OC.e(TAG, "Failed to decrypt private key with SHA1: $sha1DecryptionError")
+                throw sha1DecryptionError
             }
         }
 
         // Decode the Base64 encoded private key
-        val decodedPrivateKey = String(
-            EncryptionUtils.decodeStringToBase64Bytes(String(decryptedBytes, StandardCharsets.UTF_8)),
-            StandardCharsets.UTF_8
-        )
-
-        return decodedPrivateKey
-            .replace("\n".toRegex(), "")
-            .replace("-----BEGIN PRIVATE KEY-----", "")
-            .replace("-----END PRIVATE KEY-----", "");
+        val charset = StandardCharsets.UTF_8
+        val encodedString = String(decryptedBytes, charset)
+        val bytes = EncryptionUtils.decodeStringToBase64Bytes(encodedString)
+        val decodedPrivateKey = String(bytes, charset)
+        return CryptoStringUtils.rawPrivateKey(decodedPrivateKey)
     }
 
     private fun decrypt(

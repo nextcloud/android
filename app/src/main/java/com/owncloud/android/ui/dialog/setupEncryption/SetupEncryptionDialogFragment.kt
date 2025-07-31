@@ -37,6 +37,7 @@ import com.owncloud.android.lib.resources.users.SendCSRRemoteOperation
 import com.owncloud.android.lib.resources.users.StorePrivateKeyRemoteOperation
 import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.EncryptionUtils
+import com.owncloud.android.utils.crypto.CryptoHelper
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -171,11 +172,10 @@ class SetupEncryptionDialogFragment :
             val mnemonic =
                 binding.encryptionPasswordInput.text.toString().replace("\\s".toRegex(), "")
                     .lowercase()
-            val decryptedPrivateKey = EncryptionUtils.decryptPrivateKey(
-                privateKey,
+            val decryptedPrivateKey = CryptoHelper.decryptPrivateKey(
+                privateKey!!,
                 mnemonic
             )
-
             val accountName = user?.accountName ?: return
 
             arbitraryDataProvider?.storeOrUpdateKeyValue(
