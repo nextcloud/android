@@ -17,6 +17,7 @@ import javax.crypto.spec.GCMParameterSpec
 import javax.crypto.spec.PBEKeySpec
 import javax.crypto.spec.SecretKeySpec
 
+@Suppress("MagicNumber")
 object CryptoHelper {
 
     private const val TAG = "CryptoHelper"
@@ -27,7 +28,7 @@ object CryptoHelper {
         val keyStrength: Int
     ) {
         SHA1("PBKDF2WithHmacSHA1", "AES", 1024, 256),
-        SHA256("PBKDF2WithHmacSHA256", "AES", 600000, 256),
+        SHA256("PBKDF2WithHmacSHA256", "AES", 600000, 256)
     }
 
     private const val TRANSFORMATION = "AES/GCM/NoPadding"
@@ -37,6 +38,7 @@ object CryptoHelper {
     private val charset = StandardCharsets.UTF_8
 
     // region Decrypt
+    @Suppress("TooGenericExceptionCaught", "LongMethod")
     fun decryptPrivateKey(privateKey: String, keyPhrase: String): String {
         val cleanedKeyPhrase = keyPhrase.replace(" ", "")
 
