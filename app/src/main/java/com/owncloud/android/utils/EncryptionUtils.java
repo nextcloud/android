@@ -924,13 +924,6 @@ public final class EncryptionUtils {
 
     public static EncryptedMetadata encryptStringSymmetric(
         String string,
-        byte[] encryptionKeyBytes) throws InvalidAlgorithmParameterException, NoSuchPaddingException, IllegalBlockSizeException, NoSuchAlgorithmException, BadPaddingException, InvalidKeyException {
-        return encryptStringSymmetric(string, encryptionKeyBytes, ivDelimiter);
-    }
-
-
-    public static EncryptedMetadata encryptStringSymmetric(
-        String string,
         byte[] encryptionKeyBytes,
         String delimiter) throws InvalidAlgorithmParameterException, NoSuchPaddingException, IllegalBlockSizeException, NoSuchAlgorithmException, BadPaddingException, InvalidKeyException {
 
@@ -1576,14 +1569,6 @@ public final class EncryptionUtils {
 
     public static byte[] generateIV() {
         return EncryptionUtils.randomBytes(EncryptionUtils.ivLength);
-    }
-
-    public static String byteToHex(byte[] bytes) {
-        StringBuilder sbKey = new StringBuilder();
-        for (byte b : bytes) {
-            sbKey.append(String.format("%02X ", b));
-        }
-        return sbKey.toString();
     }
 
     public static void savePublicKey(User currentUser,
