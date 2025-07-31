@@ -156,7 +156,7 @@ class SetupEncryptionDialogFragment :
         }
     }
 
-    @Suppress("TooGenericExceptionCaught", "TooGenericExceptionThrown")
+    @Suppress("TooGenericExceptionCaught", "TooGenericExceptionThrown", "ReturnCount", "LongMethod")
     private fun decryptPrivateKey(dialog: DialogInterface) {
         Log_OC.d(TAG, "Decrypt private key")
         binding.encryptionStatus.setText(R.string.end_to_end_encryption_decrypting)
