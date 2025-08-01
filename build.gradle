@@ -28,7 +28,7 @@ buildscript {
         mockkVersion = "1.14.2"
         prismVersion = "2.0.0"
         roomVersion = "2.7.2"
-        workRuntime = "2.10.2"
+        workRuntime = "2.10.3"
 
         ciBuild = System.getenv("CI") == "true"
         shotTest = System.getenv("SHOT_TEST") == "true"
