@@ -502,7 +502,7 @@
     <string name="share_link_empty_password">Ir jāievada parole</string>
     <string name="share_link_forbidden_permissions">lai koplietotu šo datni</string>
     <string name="share_link_password_title">Ievadiet paroli</string>
-    <string name="share_no_expiration_date_label">Uzstādīt beigu termiņu</string>
+    <string name="share_no_expiration_date_label">Iestatīt beigu datumu</string>
     <string name="share_no_password_title">Uzstādīt paroli</string>
     <string name="share_permission_can_edit">Var labot</string>
     <string name="share_permission_view_only">Tikai skatīt</string>
@@ -658,7 +658,7 @@
     <string name="uploads_view_upload_status_succeeded">Pabeigts</string>
     <string name="uploads_view_upload_status_succeeded_same_file">Atrasta tāda pati attālā datne, izlaiž augšupielādi</string>
     <string name="uploads_view_upload_status_unknown_fail">Nezināma kļūda</string>
-    <string name="uploads_view_upload_status_virus_detected">Atrasts Vīruss. Augšupielādi nevar pabeigt!</string>
+    <string name="uploads_view_upload_status_virus_detected">Noteikts vīruss. Augšupielādi nevar pabeigt.</string>
     <string name="uploads_view_upload_status_waiting_exit_power_save_mode">Gaida lai izietu no enerģijas taupīšanas režīma</string>
     <string name="uploads_view_upload_status_waiting_for_charging">Gaida uzlādi</string>
     <string name="user_icon">Lietotājs</string>
