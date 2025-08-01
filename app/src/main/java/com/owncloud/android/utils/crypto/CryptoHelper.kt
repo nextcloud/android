@@ -28,6 +28,7 @@ object CryptoHelper {
         val keyStrength: Int
     ) {
         SHA1("PBKDF2WithHmacSHA1", "AES", 1024, 256),
+        SHA1_WITH_600000("PBKDF2WithHmacSHA1", "AES", 600000, 256),
         SHA256("PBKDF2WithHmacSHA256", "AES", 600000, 256)
     }
 
@@ -71,7 +72,17 @@ object CryptoHelper {
             try {
                 decrypt(Algorithm.SHA1, encryptedDataBase64, cleanedKeyPhrase.toCharArray(), salt, iv)
             } catch (sha1DecryptionError: Throwable) {
-                throw CryptoError.SHA1Decryption(sha1DecryptionError.message ?: sha1DecryptionError.toString())
+                try {
+                    Log_OC.w(
+                        TAG,
+                        "Failed to decrypt private key with SHA1WITH600000, trying SHA1: $sha1DecryptionError"
+                    )
+                    decrypt(Algorithm.SHA1_WITH_600000, encryptedDataBase64, cleanedKeyPhrase.toCharArray(), salt, iv)
+                } catch (sha1With6000DecryptionError: Throwable) {
+                    throw CryptoError.SHA1Decryption(
+                        sha1DecryptionError.message ?: sha1With6000DecryptionError.toString()
+                    )
+                }
             }
         }
 
