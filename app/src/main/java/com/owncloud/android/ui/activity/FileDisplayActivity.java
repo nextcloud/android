@@ -1074,8 +1074,10 @@ public class FileDisplayActivity extends FileActivity
 
     private void browseUp(OCFileListFragment listOfFiles) {
         listOfFiles.onBrowseUp();
-        setFile(listOfFiles.getCurrentFile());
-        listOfFiles.setFabVisible(true);
+        final OCFile currentFile = listOfFiles.getCurrentFile();
+
+        setFile(currentFile);
+        listOfFiles.setFabVisible(currentFile.canCreateFileAndFolder());
         listOfFiles.registerFabListener();
         resetTitleBarAndScrolling();
         setDrawerAllFiles();

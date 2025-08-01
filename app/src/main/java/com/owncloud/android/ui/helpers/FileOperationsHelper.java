@@ -36,6 +36,7 @@ import com.nextcloud.client.jobs.download.FileDownloadHelper;
 import com.nextcloud.client.jobs.upload.FileUploadHelper;
 import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.utils.EditorUtils;
+import com.nextcloud.utils.extensions.OCFileExtensionsKt;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
@@ -88,6 +89,7 @@ import java.util.Locale;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.Set;
+import java.util.function.Consumer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -590,12 +592,12 @@ public class FileOperationsHelper {
      *
      * @param file The file to unshare.
      */
-    public void unShareShare(OCFile file, OCShare share) {
+    public void unShareShare(OCFile file, long shareId) {
         Intent intent = new Intent(fileActivity, OperationsService.class);
         intent.setAction(OperationsService.ACTION_UNSHARE);
         intent.putExtra(OperationsService.EXTRA_ACCOUNT, fileActivity.getAccount());
         intent.putExtra(OperationsService.EXTRA_REMOTE_PATH, file.getRemotePath());
-        intent.putExtra(OperationsService.EXTRA_SHARE_ID, share.getId());
+        intent.putExtra(OperationsService.EXTRA_SHARE_ID, shareId);
         queueShareIntent(intent);
     }
 
@@ -945,14 +947,7 @@ public class FileOperationsHelper {
      */
     public void removeFiles(Collection<OCFile> files, boolean onlyLocalCopy, boolean inBackground) {
         for (OCFile file : files) {
-            // RemoveFile
-            Intent service = new Intent(fileActivity, OperationsService.class);
-            service.setAction(OperationsService.ACTION_REMOVE);
-            service.putExtra(OperationsService.EXTRA_ACCOUNT, fileActivity.getAccount());
-            service.putExtra(OperationsService.EXTRA_FILE, file);
-            service.putExtra(OperationsService.EXTRA_REMOVE_ONLY_LOCAL, onlyLocalCopy);
-            service.putExtra(OperationsService.EXTRA_IN_BACKGROUND, inBackground);
-            mWaitingForOpId = fileActivity.getOperationsServiceBinder().queueNewOperation(service);
+            removeFile(file, onlyLocalCopy, inBackground);
         }
 
         if (!inBackground) {
@@ -960,6 +955,15 @@ public class FileOperationsHelper {
         }
     }
 
+    public void removeFile(OCFile file, boolean onlyLocalCopy, boolean inBackground) {
+        Intent service = new Intent(fileActivity, OperationsService.class);
+        service.setAction(OperationsService.ACTION_REMOVE);
+        service.putExtra(OperationsService.EXTRA_ACCOUNT, fileActivity.getAccount());
+        service.putExtra(OperationsService.EXTRA_FILE, file);
+        service.putExtra(OperationsService.EXTRA_REMOVE_ONLY_LOCAL, onlyLocalCopy);
+        service.putExtra(OperationsService.EXTRA_IN_BACKGROUND, inBackground);
+        mWaitingForOpId = fileActivity.getOperationsServiceBinder().queueNewOperation(service);
+    }
 
     public void createFolder(String remotePath) {
         // Create Folder
