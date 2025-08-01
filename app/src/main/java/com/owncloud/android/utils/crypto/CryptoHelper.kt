@@ -35,11 +35,16 @@ object CryptoHelper {
     private const val GCM_TAG_LENGTH = 16
     private const val IV_LENGTH = 16
     private const val SALT_LENGTH = 40
+    private const val GCM_TLEN = GCM_TAG_LENGTH * 8
     private val charset = StandardCharsets.UTF_8
 
     // region Decrypt
     @Suppress("TooGenericExceptionCaught", "LongMethod")
     fun decryptPrivateKey(privateKey: String, keyPhrase: String): String {
+        if (privateKey.isEmpty()) {
+            throw CryptoError.EmptyPrivateKey()
+        }
+
         val cleanedKeyPhrase = keyPhrase.replace(" ", "")
 
         // Split up cipher, iv, salt
@@ -51,7 +56,7 @@ object CryptoHelper {
         }
 
         if (strings.size != 3) {
-            throw IllegalArgumentException("Invalid encrypted private key format: expected 3 parts")
+            throw CryptoError.InvalidPrivateKeyFormat()
         }
 
         // This contains cipher + tag
@@ -66,8 +71,7 @@ object CryptoHelper {
             try {
                 decrypt(Algorithm.SHA1, encryptedDataBase64, cleanedKeyPhrase.toCharArray(), salt, iv)
             } catch (sha1DecryptionError: Throwable) {
-                Log_OC.e(TAG, "Failed to decrypt private key with SHA1: $sha1DecryptionError")
-                throw sha1DecryptionError
+                throw CryptoError.SHA1Decryption(sha1DecryptionError.message ?: sha1DecryptionError.toString())
             }
         }
 
@@ -93,7 +97,7 @@ object CryptoHelper {
         val secretKeySpec = SecretKeySpec(secretKey.encoded, algorithm.secretKeySpecAlgorithm)
 
         val cipher = Cipher.getInstance(TRANSFORMATION)
-        val gcmSpec = GCMParameterSpec(GCM_TAG_LENGTH * 8, iv)
+        val gcmSpec = GCMParameterSpec(GCM_TLEN, iv)
         cipher.init(Cipher.DECRYPT_MODE, secretKeySpec, gcmSpec)
 
         return cipher.doFinal(encryptedData)
@@ -102,10 +106,8 @@ object CryptoHelper {
 
     // region Encrypt
     fun encryptPrivateKey(privateKey: String, keyPhrase: String): String {
-        // Clean passphrase from spaces
         val cleanedKeyPhrase = keyPhrase.replace(" ", "")
 
-        // Generate salt and IV
         val salt = generateSalt()
         val iv = generateIV()
 
@@ -115,9 +117,9 @@ object CryptoHelper {
 
         // Encrypt the data
         val encryptedData = encrypt(
-            Algorithm.SHA256,
-            privateKeyBase64Bytes,
-            cleanedKeyPhrase.toCharArray(),
+            algorithm = Algorithm.SHA256,
+            data =privateKeyBase64Bytes,
+            password = cleanedKeyPhrase.toCharArray(),
             salt,
             iv
         )
@@ -143,7 +145,7 @@ object CryptoHelper {
         val secretKeySpec = SecretKeySpec(secretKey.encoded, algorithm.secretKeySpecAlgorithm)
 
         val cipher = Cipher.getInstance(TRANSFORMATION)
-        val gcmSpec = GCMParameterSpec(GCM_TAG_LENGTH * 8, iv)
+        val gcmSpec = GCMParameterSpec(GCM_TLEN, iv)
         cipher.init(Cipher.ENCRYPT_MODE, secretKeySpec, gcmSpec)
 
         return cipher.doFinal(data)
