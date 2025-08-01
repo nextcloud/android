@@ -275,8 +275,7 @@ public class UploadListActivity extends FileActivity {
 
         for (User user : accountManager.getAllUsers()) {
             if (user != null) {
-                final var uploadIds = uploadsStorageManager.getCurrentUploadIds(user.getAccountName());
-                FileUploadHelper.Companion.instance().cancelAndRestartUploadJob(user, uploadIds);
+                FileUploadHelper.Companion.instance().cancelAndRestartUploadJob(user);
             }
         }
 

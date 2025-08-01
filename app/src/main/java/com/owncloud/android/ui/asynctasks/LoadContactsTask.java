@@ -49,7 +49,7 @@ public class LoadContactsTask extends AsyncTask<Void, Void, Boolean> {
             File file = new File(ocFile.getStoragePath());
             try {
                 vCards.addAll(Ezvcard.parse(new BufferedInputStream(Files.newInputStream(file.toPath()))).all());
-                Collections.sort(vCards, new VCardComparator());
+                vCards.sort(new VCardComparator());
             } catch (IOException e) {
                 Log_OC.e(this, "IO Exception: " + file.getAbsolutePath());
                 return Boolean.FALSE;
