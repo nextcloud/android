@@ -24,6 +24,7 @@ import com.nextcloud.client.documentscan.GeneratePdfFromImagesWork
 import com.nextcloud.client.integrations.deck.DeckApi
 import com.nextcloud.client.jobs.download.FileDownloadWorker
 import com.nextcloud.client.jobs.offlineOperations.OfflineOperationsWorker
+import com.nextcloud.client.jobs.operation.FileOperationHelper
 import com.nextcloud.client.jobs.upload.FileUploadWorker
 import com.nextcloud.client.logger.Logger
 import com.nextcloud.client.network.ConnectivityService
@@ -61,7 +62,8 @@ class BackgroundJobFactory @Inject constructor(
     private val viewThemeUtils: Provider<ViewThemeUtils>,
     private val localBroadcastManager: Provider<LocalBroadcastManager>,
     private val generatePdfUseCase: GeneratePDFUseCase,
-    private val syncedFolderProvider: SyncedFolderProvider
+    private val syncedFolderProvider: SyncedFolderProvider,
+    private val fileOperationHelper: FileOperationHelper
 ) : WorkerFactory() {
 
     @SuppressLint("NewApi")
@@ -108,6 +110,7 @@ class BackgroundJobFactory @Inject constructor(
             accountManager.user,
             context,
             connectivityService,
+            fileOperationHelper,
             viewThemeUtils.get(),
             params
         )
@@ -230,6 +233,7 @@ class BackgroundJobFactory @Inject constructor(
             localBroadcastManager.get(),
             backgroundJobManager.get(),
             preferences,
+            fileOperationHelper,
             context,
             params
         )
