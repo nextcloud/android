@@ -8,169 +8,171 @@
  *
  * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
  */
+package com.owncloud.android.ui
 
-package com.owncloud.android.ui;
+import android.content.Context
+import android.content.res.Resources
+import android.graphics.drawable.Drawable
+import android.util.AttributeSet
+import android.widget.ImageView
+import android.widget.RelativeLayout
+import androidx.annotation.Px
+import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
+import androidx.core.graphics.drawable.DrawableCompat
+import com.nextcloud.android.common.ui.theme.utils.ColorRole
+import com.nextcloud.client.account.User
+import com.nextcloud.utils.GlideHelper.loadCircularBitmapIntoImageView
+import com.owncloud.android.R
+import com.owncloud.android.lib.common.utils.Log_OC
+import com.owncloud.android.lib.resources.shares.ShareType
+import com.owncloud.android.lib.resources.shares.ShareeUser
+import com.owncloud.android.utils.DisplayUtils
+import com.owncloud.android.utils.DisplayUtils.AvatarGenerationListener
+import com.owncloud.android.utils.theme.ViewThemeUtils
+import kotlin.math.min
 
-import android.content.Context;
-import android.content.res.Resources;
-import android.graphics.drawable.Drawable;
-import android.util.AttributeSet;
-import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.RelativeLayout;
+@Suppress("MagicNumber")
+class AvatarGroupLayout @JvmOverloads constructor(
+    context: Context,
+    attrs: AttributeSet? = null,
+    defStyleAttr: Int = 0,
+    defStyleRes: Int = 0
+) : RelativeLayout(context, attrs, defStyleAttr, defStyleRes),
+    AvatarGenerationListener {
+    private val borderDrawable = ContextCompat.getDrawable(context, R.drawable.round_bgnd)
 
-import com.nextcloud.client.account.User;
-import com.nextcloud.utils.GlideHelper;
-import com.owncloud.android.R;
-import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.lib.resources.shares.ShareeUser;
-import com.owncloud.android.utils.DisplayUtils;
-import com.owncloud.android.utils.theme.ViewThemeUtils;
+    @Px
+    private val avatarSize: Int = DisplayUtils.convertDpToPixel(40f, context)
 
-import java.util.List;
+    @Px
+    private val avatarBorderSize: Int = DisplayUtils.convertDpToPixel(2f, context)
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Px;
-import androidx.core.content.ContextCompat;
-import androidx.core.content.res.ResourcesCompat;
-import androidx.core.graphics.drawable.DrawableCompat;
+    @Px
+    private val overlapPx: Int = DisplayUtils.convertDpToPixel(24f, context)
 
-public class AvatarGroupLayout extends RelativeLayout implements DisplayUtils.AvatarGenerationListener {
-    private static final String TAG = AvatarGroupLayout.class.getSimpleName();
-
-    private final static int MAX_AVATAR_COUNT = 3;
-
-    private final Drawable borderDrawable;
-    @Px private final int avatarSize;
-    @Px private final int avatarBorderSize;
-    @Px private final int overlapPx;
-
-    public AvatarGroupLayout(Context context) {
-        this(context, null);
+    init {
+        checkNotNull(borderDrawable)
+        DrawableCompat.setTint(borderDrawable, ContextCompat.getColor(context, R.color.bg_default))
     }
 
-    public AvatarGroupLayout(Context context, AttributeSet attrs) {
-        this(context, attrs, 0);
-    }
+    @Suppress("LongMethod", "TooGenericExceptionCaught")
+    fun setAvatars(user: User, sharees: MutableList<ShareeUser>, viewThemeUtils: ViewThemeUtils) {
+        val context = getContext()
+        removeAllViews()
+        var avatarLayoutParams: LayoutParams?
+        val shareeSize = min(sharees.size, MAX_AVATAR_COUNT)
+        val resources = context.resources
+        val avatarRadius = resources.getDimension(R.dimen.list_item_avatar_icon_radius)
+        var sharee: ShareeUser
 
-    public AvatarGroupLayout(Context context, AttributeSet attrs, int defStyleAttr) {
-        this(context, attrs, defStyleAttr, 0);
-    }
+        var avatarCount = 0
+        while (avatarCount < shareeSize) {
+            avatarLayoutParams = LayoutParams(avatarSize, avatarSize).apply {
+                setMargins(0, 0, avatarCount * overlapPx, 0)
+                addRule(ALIGN_PARENT_RIGHT)
+            }
 
-    public AvatarGroupLayout(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-        super(context, attrs, defStyleAttr, defStyleRes);
-        avatarBorderSize = DisplayUtils.convertDpToPixel(2, context);
-        avatarSize = DisplayUtils.convertDpToPixel(40, context);
-        overlapPx = DisplayUtils.convertDpToPixel(24, context);
-        borderDrawable = ContextCompat.getDrawable(context, R.drawable.round_bgnd);
-        assert borderDrawable != null;
-        DrawableCompat.setTint(borderDrawable, ContextCompat.getColor(context, R.color.bg_default));
-    }
+            val avatar = ImageView(context).apply {
+                layoutParams = avatarLayoutParams
+                setPadding(avatarBorderSize, avatarBorderSize, avatarBorderSize, avatarBorderSize)
+                background = borderDrawable
+            }
 
-    public void setAvatars(@NonNull User user,
-                           @NonNull List<ShareeUser> sharees,
-                           final ViewThemeUtils viewThemeUtils) {
-        @NonNull Context context = getContext();
-        removeAllViews();
-        RelativeLayout.LayoutParams avatarLayoutParams;
-        int avatarCount;
-        int shareeSize = Math.min(sharees.size(), MAX_AVATAR_COUNT);
+            addView(avatar)
+            avatar.requestLayout()
 
-        Resources resources = context.getResources();
-        float avatarRadius = resources.getDimension(R.dimen.list_item_avatar_icon_radius);
-        ShareeUser sharee;
-
-        for (avatarCount = 0; avatarCount < shareeSize; avatarCount++) {
-            avatarLayoutParams = new RelativeLayout.LayoutParams(avatarSize, avatarSize);
-            avatarLayoutParams.setMargins(0, 0, avatarCount * overlapPx, 0);
-            avatarLayoutParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
-
-            final ImageView avatar = new ImageView(context);
-            avatar.setLayoutParams(avatarLayoutParams);
-            avatar.setPadding(avatarBorderSize, avatarBorderSize, avatarBorderSize, avatarBorderSize);
-
-            avatar.setBackground(borderDrawable);
-            addView(avatar);
-            avatar.requestLayout();
-
-            if (avatarCount == 0 && sharees.size() > MAX_AVATAR_COUNT) {
-                avatar.setImageResource(R.drawable.ic_people);
-                viewThemeUtils.platform.tintTextDrawable(context, avatar.getDrawable());
+            if (avatarCount == 0 && sharees.size > MAX_AVATAR_COUNT) {
+                avatar.setImageResource(R.drawable.ic_people)
+                viewThemeUtils.platform.tintDrawable(context, avatar.drawable, ColorRole.ON_SURFACE)
             } else {
-                sharee = sharees.get(avatarCount);
-                switch (sharee.getShareType()) {
-                    case GROUP:
-                    case EMAIL:
-                    case ROOM:
-                    case CIRCLE:
-                        viewThemeUtils.files.createAvatar(sharee.getShareType(), avatar, context);
-                        break;
-                    case FEDERATED:
-                        showFederatedShareAvatar(context,
-                                                 sharee.getUserId(),
-                                                 avatarRadius,
-                                                 resources,
-                                                 avatar,
-                                                 viewThemeUtils);
-                        break;
-                    default:
-                        avatar.setTag(sharee);
-                        DisplayUtils.setAvatar(user,
-                                               sharee.getUserId(),
-                                               sharee.getDisplayName(),
-                                               this,
-                                               avatarRadius,
-                                               resources,
-                                               avatar,
-                                               context);
-                        break;
+                sharee = sharees[avatarCount]
+                when (sharee.shareType) {
+                    ShareType.GROUP, ShareType.EMAIL, ShareType.ROOM, ShareType.CIRCLE ->
+                        viewThemeUtils.files.createAvatar(
+                            sharee.shareType,
+                            avatar,
+                            context
+                        )
+
+                    ShareType.FEDERATED -> showFederatedShareAvatar(
+                        context,
+                        sharee.userId!!,
+                        avatarRadius,
+                        resources,
+                        avatar,
+                        viewThemeUtils
+                    )
+
+                    else -> {
+                        avatar.tag = sharee
+                        DisplayUtils.setAvatar(
+                            user,
+                            sharee.userId!!,
+                            sharee.displayName,
+                            this,
+                            avatarRadius,
+                            resources,
+                            avatar,
+                            context
+                        )
+                    }
                 }
             }
+            avatarCount++
         }
 
         // Recalculate container size based on avatar count
-        int size = overlapPx * (avatarCount - 1) + avatarSize;
-        ViewGroup.LayoutParams rememberParam = getLayoutParams();
-        rememberParam.width = size;
-        setLayoutParams(rememberParam);
+        val size = overlapPx * (avatarCount - 1) + avatarSize
+        val rememberParam = layoutParams
+        rememberParam.width = size
+        layoutParams = rememberParam
     }
 
-    private void showFederatedShareAvatar(Context context,
-                                          String user,
-                                          float avatarRadius,
-                                          Resources resources,
-                                          ImageView avatar,
-                                          ViewThemeUtils viewThemeUtils) {
+    @Suppress("TooGenericExceptionCaught")
+    private fun showFederatedShareAvatar(
+        context: Context,
+        user: String,
+        avatarRadius: Float,
+        resources: Resources,
+        avatar: ImageView,
+        viewThemeUtils: ViewThemeUtils
+    ) {
         // maybe federated share
-        String[] split = user.split("@");
-        String userId = split[0];
-        String server = split[1];
+        val split = user.split("@".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+        val userId: String? = split[0]
+        val server = split[1]
 
-        String url = "https://" + server + "/index.php/avatar/" + userId + "/" +
-            resources.getInteger(R.integer.file_avatar_px);
-
-        Drawable placeholder;
+        val url = "https://" + server + "/index.php/avatar/" + userId + "/" +
+            resources.getInteger(R.integer.file_avatar_px)
+        var placeholder: Drawable?
         try {
-            placeholder = TextDrawable.createAvatarByUserId(userId, avatarRadius);
-        } catch (Exception e) {
-            Log_OC.e(TAG, "Error calculating RGB value for active account icon.", e);
-            placeholder = viewThemeUtils.platform.colorDrawable(ResourcesCompat.getDrawable(resources,
-                                                                                            R.drawable.account_circle_white,
-                                                                                            null),
-                                                                ContextCompat.getColor(context, R.color.black));
+            placeholder = TextDrawable.createAvatarByUserId(userId, avatarRadius)
+        } catch (e: Exception) {
+            Log_OC.e(TAG, "Error calculating RGB value for active account icon.", e)
+            placeholder = viewThemeUtils.platform.colorDrawable(
+                ResourcesCompat.getDrawable(
+                    resources,
+                    R.drawable.account_circle_white,
+                    null
+                )!!,
+                ContextCompat.getColor(context, R.color.black)
+            )
         }
 
-        avatar.setTag(null);
-        GlideHelper.INSTANCE.loadCircularBitmapIntoImageView(context, url, avatar, placeholder);
+        avatar.tag = null
+        loadCircularBitmapIntoImageView(context, url, avatar, placeholder)
     }
 
-    @Override
-    public void avatarGenerated(Drawable avatarDrawable, Object callContext) {
-        ((ImageView) callContext).setImageDrawable(avatarDrawable);
+    override fun avatarGenerated(avatarDrawable: Drawable?, callContext: Any) {
+        (callContext as ImageView).setImageDrawable(avatarDrawable)
     }
 
-    @Override
-    public boolean shouldCallGeneratedCallback(String tag, Object callContext) {
-        return ((ImageView) callContext).getTag().equals(tag);
+    override fun shouldCallGeneratedCallback(tag: String?, callContext: Any): Boolean =
+        (callContext as ImageView).tag == tag
+
+    companion object {
+        private val TAG: String = AvatarGroupLayout::class.java.simpleName
+        private const val MAX_AVATAR_COUNT = 3
     }
 }
