@@ -48,6 +48,9 @@ import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.files.ChunkedFileUploadRemoteOperation;
+
+import static com.owncloud.android.operations.FixedChunkUploadRemoteOperation.BYTES_SUFFIX;
+import static com.owncloud.android.operations.FixedChunkUploadRemoteOperation.SIZE_SEPARATOR;
 import com.owncloud.android.lib.resources.files.ExistenceCheckRemoteOperation;
 import com.owncloud.android.lib.resources.files.ReadFileRemoteOperation;
 import com.owncloud.android.lib.resources.files.UploadFileRemoteOperation;
@@ -154,7 +157,7 @@ public class UploadFileOperation extends SyncOperation {
 
     private Context mContext;
 
-    private UploadFileRemoteOperation mUploadOperation;
+    private RemoteOperation mUploadOperation;
 
     private RequestEntity mEntity;
 
@@ -378,8 +381,8 @@ public class UploadFileOperation extends SyncOperation {
         if (mEntity != null) {
             ((ProgressiveDataTransfer) mEntity).addDataTransferProgressListener(listener);
         }
-        if (mUploadOperation != null) {
-            mUploadOperation.addDataTransferProgressListener(listener);
+        if (mUploadOperation != null && mUploadOperation instanceof ProgressiveDataTransfer) {
+            ((ProgressiveDataTransfer) mUploadOperation).addDataTransferProgressListener(listener);
         }
     }
 
@@ -390,8 +393,8 @@ public class UploadFileOperation extends SyncOperation {
         if (mEntity != null) {
             ((ProgressiveDataTransfer) mEntity).removeDataTransferProgressListener(listener);
         }
-        if (mUploadOperation != null) {
-            mUploadOperation.removeDataTransferProgressListener(listener);
+        if (mUploadOperation != null && mUploadOperation instanceof ProgressiveDataTransfer) {
+            ((ProgressiveDataTransfer) mUploadOperation).removeDataTransferProgressListener(listener);
         }
     }
 
@@ -408,6 +411,12 @@ public class UploadFileOperation extends SyncOperation {
     @Override
     @SuppressWarnings("PMD.AvoidDuplicateLiterals")
     protected RemoteOperationResult run(OwnCloudClient client) {
+        Log_OC.d(TAG, "UploadFileOperation.run() - ENTRY");
+        Log_OC.d(TAG, "UploadFileOperation: File to upload: " + mFile.getFileName());
+        Log_OC.d(TAG, "UploadFileOperation: Local path: " + mOriginalStoragePath);
+        Log_OC.d(TAG, "UploadFileOperation: Remote path: " + mFile.getRemotePath());
+        Log_OC.d(TAG, "UploadFileOperation: File size: " + new File(mOriginalStoragePath).length() + " bytes");
+        
         mCancellationRequested.set(false);
         mUploadStarted.set(true);
 
@@ -417,14 +426,18 @@ public class UploadFileOperation extends SyncOperation {
         remoteParentPath = remoteParentPath.endsWith(OCFile.PATH_SEPARATOR) ? remoteParentPath : remoteParentPath + OCFile.PATH_SEPARATOR;
         remoteParentPath = AutoRename.INSTANCE.rename(remoteParentPath, getCapabilities());
 
+        Log_OC.d(TAG, "UploadFileOperation: Remote parent path: " + remoteParentPath);
+
         OCFile parent = getStorageManager().getFileByPath(remoteParentPath);
 
         // in case of a fresh upload with subfolder, where parent does not exist yet
         if (parent == null && (mFolderUnlockToken == null || mFolderUnlockToken.isEmpty())) {
+            Log_OC.d(TAG, "UploadFileOperation: Parent folder does not exist, creating it");
             // try to create folder
             final var result = grantFolderExistence(remoteParentPath, client);
 
             if (!result.isSuccess()) {
+                Log_OC.e(TAG, "UploadFileOperation: Failed to create parent folder");
                 return result;
             }
 
@@ -432,8 +445,11 @@ public class UploadFileOperation extends SyncOperation {
         }
 
         if (parent == null) {
+            Log_OC.e(TAG, "UploadFileOperation: Parent folder not found");
             return new RemoteOperationResult<>(false, "Parent folder not found", HttpStatus.SC_NOT_FOUND);
         }
+
+        Log_OC.d(TAG, "UploadFileOperation: Parent folder found: " + parent.getRemotePath());
 
         // - resume of encrypted upload, then parent file exists already as unlock is only for direct parent
         mFile.setParentId(parent.getFileId());
@@ -443,10 +459,10 @@ public class UploadFileOperation extends SyncOperation {
         mFile.setEncrypted(encryptedAncestor);
 
         if (encryptedAncestor) {
-            Log_OC.d(TAG, "encrypted upload");
+            Log_OC.d(TAG, "UploadFileOperation: Using encrypted upload path");
             return encryptedUpload(client, parent);
         } else {
-            Log_OC.d(TAG, "normal upload");
+            Log_OC.d(TAG, "UploadFileOperation: Using normal upload path");
             return normalUpload(client);
         }
     }
@@ -644,28 +660,42 @@ public class UploadFileOperation extends SyncOperation {
                                           long creationTimestamp,
                                           long size) {
 
-        if (size > ChunkedFileUploadRemoteOperation.CHUNK_SIZE_MOBILE) {
-            boolean onWifiConnection = connectivityService.getConnectivity().isWifi();
-
-            mUploadOperation = new ChunkedFileUploadRemoteOperation(encryptedTempFile.getAbsolutePath(),
-                                                                    mFile.getParentRemotePath() + encryptedFileName,
-                                                                    mFile.getMimeType(),
-                                                                    mFile.getEtagInConflict(),
-                                                                    lastModifiedTimestamp,
-                                                                    onWifiConnection,
-                                                                    token,
-                                                                    creationTimestamp,
-                                                                    mDisableRetries
+        // Use chunked upload only for files larger than 2MB
+        long CHUNK_THRESHOLD = 2 * 1024 * 1024; // 2MB threshold
+        
+        if (size >= CHUNK_THRESHOLD) {
+            Log_OC.d(TAG, "UploadFileOperation: Using FixedChunkUploadRemoteOperation for large encrypted file: " + 
+                     mFile.getFileName() + SIZE_SEPARATOR + size + BYTES_SUFFIX);
+            mUploadOperation = new FixedChunkUploadRemoteOperation(encryptedTempFile.getAbsolutePath(),
+                                                                  mFile.getParentRemotePath() + encryptedFileName,
+                                                                  mFile.getMimeType(),
+                                                                  mFile.getEtagInConflict(),
+                                                                  lastModifiedTimestamp,
+                                                                  creationTimestamp,
+                                                                  token,
+                                                                  mDisableRetries,
+                                                                  mContext
             );
+            
+            // Forward all existing progress listeners to our custom operation
+            if (mUploadOperation instanceof ProgressiveDataTransfer) {
+                synchronized (mDataTransferListeners) {
+                    for (OnDatatransferProgressListener listener : mDataTransferListeners) {
+                        ((ProgressiveDataTransfer) mUploadOperation).addDataTransferProgressListener(listener);
+                    }
+                }
+            }
         } else {
+            Log_OC.d(TAG, "UploadFileOperation: Using standard upload for small encrypted file: " + 
+                     mFile.getFileName() + SIZE_SEPARATOR + size + BYTES_SUFFIX);
             mUploadOperation = new UploadFileRemoteOperation(encryptedTempFile.getAbsolutePath(),
-                                                             mFile.getParentRemotePath() + encryptedFileName,
-                                                             mFile.getMimeType(),
-                                                             mFile.getEtagInConflict(),
-                                                             lastModifiedTimestamp,
-                                                             creationTimestamp,
-                                                             token,
-                                                             mDisableRetries
+                                                            mFile.getParentRemotePath() + encryptedFileName,
+                                                            mFile.getMimeType(),
+                                                            mFile.getEtagInConflict(),
+                                                            lastModifiedTimestamp,
+                                                            creationTimestamp,
+                                                            token,
+                                                            mDisableRetries
             );
         }
     }
@@ -719,15 +749,29 @@ public class UploadFileOperation extends SyncOperation {
     }
 
     private RemoteOperationResult performE2EUpload(E2EClientData data) throws OperationCancelledException {
-        for (OnDatatransferProgressListener mDataTransferListener : mDataTransferListeners) {
-            mUploadOperation.addDataTransferProgressListener(mDataTransferListener);
+        Log_OC.d(TAG, "UploadFileOperation.performE2EUpload() - ENTRY");
+        Log_OC.d(TAG, "performE2EUpload: Upload operation type: " + 
+                 (mUploadOperation != null ? mUploadOperation.getClass().getSimpleName() : "null"));
+        
+        if (mUploadOperation instanceof ProgressiveDataTransfer) {
+            Log_OC.d(TAG, "performE2EUpload: Adding " + mDataTransferListeners.size() + " progress listeners to upload operation");
+            for (OnDatatransferProgressListener mDataTransferListener : mDataTransferListeners) {
+                ((ProgressiveDataTransfer) mUploadOperation).addDataTransferProgressListener(mDataTransferListener);
+            }
+        } else {
+            Log_OC.w(TAG, "performE2EUpload: Upload operation does not implement ProgressiveDataTransfer");
         }
 
         if (mCancellationRequested.get()) {
+            Log_OC.d(TAG, "performE2EUpload: Upload was cancelled before execution");
             throw new OperationCancelledException();
         }
 
+        Log_OC.d(TAG, "performE2EUpload: Executing upload operation");
         RemoteOperationResult result = mUploadOperation.execute(data.getClient());
+        
+        Log_OC.d(TAG, "performE2EUpload: Upload operation completed with result: " + 
+                 (result.isSuccess() ? "SUCCESS" : "FAILURE - " + result.getLogMessage()));
 
         /// move local temporal file or original file to its corresponding
         // location in the Nextcloud local folder
@@ -954,11 +998,19 @@ public class UploadFileOperation extends SyncOperation {
     }
 
     private RemoteOperationResult normalUpload(OwnCloudClient client) {
+        Log_OC.d(TAG, "UploadFileOperation.normalUpload() - ENTRY");
+        
         RemoteOperationResult result = null;
         File temporalFile = null;
         File originalFile = new File(mOriginalStoragePath);
         File expectedFile = null;
         long size;
+        
+        Log_OC.d(TAG, "normalUpload: Original file path: " + mOriginalStoragePath);
+        Log_OC.d(TAG, "normalUpload: Original file exists: " + originalFile.exists());
+        if (originalFile.exists()) {
+            Log_OC.d(TAG, "normalUpload: Original file size: " + originalFile.length() + " bytes");
+        }
 
         try {
             // check conditions
@@ -1010,20 +1062,34 @@ public class UploadFileOperation extends SyncOperation {
                                     size = tempChannel.size();
                                     updateSize(size);
 
-                                    // Perform the upload operation
-                                    if (size > ChunkedFileUploadRemoteOperation.CHUNK_SIZE_MOBILE) {
-                                        boolean onWifiConnection = connectivityService.getConnectivity().isWifi();
-                                        mUploadOperation = new ChunkedFileUploadRemoteOperation(
+                                    // Use chunked upload only for files larger than 2MB
+                                    long CHUNK_THRESHOLD = 2 * 1024 * 1024; // 2MB threshold
+                                    
+                                    if (size >= CHUNK_THRESHOLD) {
+                                        Log_OC.d(TAG, "UploadFileOperation (temp file): Using FixedChunkUploadRemoteOperation for large file: " + 
+                                                 mFile.getFileName() + SIZE_SEPARATOR + size + BYTES_SUFFIX);
+                                        mUploadOperation = new FixedChunkUploadRemoteOperation(
                                             mFile.getStoragePath(),
                                             mFile.getRemotePath(),
                                             mFile.getMimeType(),
                                             mFile.getEtagInConflict(),
                                             lastModifiedTimestamp,
                                             creationTimestamp,
-                                            onWifiConnection,
-                                            mDisableRetries
+                                            mDisableRetries,
+                                            mContext
                                         );
+                                        
+                                        // Forward all existing progress listeners to our custom operation
+                                        if (mUploadOperation instanceof ProgressiveDataTransfer) {
+                                            synchronized (mDataTransferListeners) {
+                                                for (OnDatatransferProgressListener listener : mDataTransferListeners) {
+                                                    ((ProgressiveDataTransfer) mUploadOperation).addDataTransferProgressListener(listener);
+                                                }
+                                            }
+                                        }
                                     } else {
+                                        Log_OC.d(TAG, "UploadFileOperation (temp file): Using standard upload for small file: " + 
+                                                 mFile.getFileName() + SIZE_SEPARATOR + size + BYTES_SUFFIX);
                                         mUploadOperation = new UploadFileRemoteOperation(
                                             mFile.getStoragePath(),
                                             mFile.getRemotePath(),
@@ -1034,6 +1100,7 @@ public class UploadFileOperation extends SyncOperation {
                                             mDisableRetries
                                         );
                                     }
+
 
 
                                     if (result.isSuccess() && mUploadOperation != null) {
@@ -1054,20 +1121,35 @@ public class UploadFileOperation extends SyncOperation {
                     size = channel.size();
                     updateSize(size);
 
-                    // Perform the upload operation
-                    if (size > ChunkedFileUploadRemoteOperation.CHUNK_SIZE_MOBILE) {
-                        boolean onWifiConnection = connectivityService.getConnectivity().isWifi();
-                        mUploadOperation = new ChunkedFileUploadRemoteOperation(
+                    // Use chunked upload only for files larger than 2MB to ensure multipart for large files
+                    // while keeping normal uploads for smaller files (original behavior preserved)
+                    long CHUNK_THRESHOLD = 2 * 1024 * 1024; // 2MB threshold
+                    
+                    if (size >= CHUNK_THRESHOLD) {
+                        Log_OC.d(TAG, "UploadFileOperation (normal): Using FixedChunkUploadRemoteOperation for large file: " + 
+                                 mFile.getFileName() + SIZE_SEPARATOR + size + BYTES_SUFFIX);
+                        mUploadOperation = new FixedChunkUploadRemoteOperation(
                             mFile.getStoragePath(),
                             mFile.getRemotePath(),
                             mFile.getMimeType(),
                             mFile.getEtagInConflict(),
                             lastModifiedTimestamp,
                             creationTimestamp,
-                            onWifiConnection,
-                            mDisableRetries
+                            mDisableRetries,
+                            mContext
                         );
+                        
+                        // Forward all existing progress listeners to our custom operation
+                        if (mUploadOperation instanceof ProgressiveDataTransfer) {
+                            synchronized (mDataTransferListeners) {
+                                for (OnDatatransferProgressListener listener : mDataTransferListeners) {
+                                    ((ProgressiveDataTransfer) mUploadOperation).addDataTransferProgressListener(listener);
+                                }
+                            }
+                        }
                     } else {
+                        Log_OC.d(TAG, "UploadFileOperation (normal): Using standard upload for small file: " + 
+                                 mFile.getFileName() + SIZE_SEPARATOR + size + BYTES_SUFFIX);
                         mUploadOperation = new UploadFileRemoteOperation(
                             mFile.getStoragePath(),
                             mFile.getRemotePath(),
@@ -1440,7 +1522,9 @@ public class UploadFileOperation extends SyncOperation {
             }
         } else {
             Log_OC.d(TAG, "Cancelling upload during actual upload operation.");
-            mUploadOperation.cancel(cancellationReason);
+            if (mUploadOperation instanceof FixedChunkUploadRemoteOperation) {
+                ((FixedChunkUploadRemoteOperation) mUploadOperation).cancel(cancellationReason);
+            }
         }
     }
 
