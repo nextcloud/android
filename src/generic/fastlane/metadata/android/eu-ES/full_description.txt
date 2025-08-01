@@ -1,5 +1,3 @@
- 
-
 Zure kontrola bermatzen dituzten auto-ostatatutako produktibitate-plataformak.
 
 Ezaugarriak:
@@ -13,7 +11,7 @@ Ezaugarriak:
 * Kontu anitzak onartzen dira
 * Datu seguruak zure zerbitzarian hatz-marka edo PINaren bidez* Davx⁵-ekin integratzea (lehenago Davdroid izenarekin ezagutzen dena) egutegiaren eta kontaktuen sinkronizazioa erraz konfiguratzeko
 
- Mesedez akatsen berri eman  https://github.com/extCloud/android web orrian eta eztabaidatu aplikazio honi buruz https://help.nextCoud.com/c/clients/android web orrian
+ Mesedez akatsen berri eman  https://github.com/nextcloud/android web orrian eta eztabaidatu aplikazio honi buruz https://help.nextcloud.com/c/clients/android web orrian
 
  Berria Nextclouden?  Nextcloud fitxategi pribatuen sinkronizatu eta partekatzeko zerbitzaria da. Software librea da, eta zuk zeuk ostatatu edo ordaindu dezakezu enpresa bati zure ordez egiteko. Horrela, zure argazkiak, egutegia eta harremanetarako datuak, dokumentuak eta gainerako guztia kontrolatzen ahal dituzu.
 
