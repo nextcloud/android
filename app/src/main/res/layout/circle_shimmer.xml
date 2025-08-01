@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Nextcloud - Android Client
+  ~
+  ~ SPDX-FileCopyrightText: 2025 Alper Ozturk <alper.ozturk@nextcloud.com>
+  ~ SPDX-License-Identifier: AGPL-3.0-or-later
+  -->
+<com.elyeproj.loaderviewlibrary.LoaderImageView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/share_icon_size"
+    android:layout_height="@dimen/share_icon_size"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_marginStart="@dimen/standard_margin"
+    android:layout_marginEnd="@dimen/standard_margin"
+    android:padding="@dimen/standard_half_padding"
+    android:scaleType="centerCrop"
+    app:corners="100" />
