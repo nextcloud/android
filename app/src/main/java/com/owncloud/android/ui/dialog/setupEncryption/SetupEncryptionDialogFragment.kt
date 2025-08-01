@@ -37,6 +37,7 @@ import com.owncloud.android.lib.resources.users.SendCSRRemoteOperation
 import com.owncloud.android.lib.resources.users.StorePrivateKeyRemoteOperation
 import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.EncryptionUtils
+import com.owncloud.android.utils.crypto.CryptoHelper
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -155,7 +156,7 @@ class SetupEncryptionDialogFragment :
         }
     }
 
-    @Suppress("TooGenericExceptionCaught", "TooGenericExceptionThrown")
+    @Suppress("TooGenericExceptionCaught", "TooGenericExceptionThrown", "ReturnCount", "LongMethod")
     private fun decryptPrivateKey(dialog: DialogInterface) {
         Log_OC.d(TAG, "Decrypt private key")
         binding.encryptionStatus.setText(R.string.end_to_end_encryption_decrypting)
@@ -167,15 +168,18 @@ class SetupEncryptionDialogFragment :
             }
 
             val privateKey = (downloadKeyResult as DownloadKeyResult.Success).privateKey
+            if (privateKey.isNullOrEmpty()) {
+                Log_OC.e(TAG, "privateKey is null or empty")
+                return
+            }
             val mnemonicUnchanged = binding.encryptionPasswordInput.text.toString().trim()
             val mnemonic =
                 binding.encryptionPasswordInput.text.toString().replace("\\s".toRegex(), "")
                     .lowercase()
-            val decryptedPrivateKey = EncryptionUtils.decryptPrivateKey(
+            val decryptedPrivateKey = CryptoHelper.decryptPrivateKey(
                 privateKey,
                 mnemonic
             )
-
             val accountName = user?.accountName ?: return
 
             arbitraryDataProvider?.storeOrUpdateKeyValue(
@@ -422,7 +426,7 @@ class SetupEncryptionDialogFragment :
                 val privateKey = keyPair.private
                 val privateKeyString = EncryptionUtils.encodeBytesToBase64String(privateKey.encoded)
                 val privatePemKeyString = EncryptionUtils.privateKeyToPEM(privateKey)
-                val encryptedPrivateKey = EncryptionUtils.encryptPrivateKey(
+                val encryptedPrivateKey = CryptoHelper.encryptPrivateKey(
                     privatePemKeyString,
                     generateMnemonicString(false)
                 )

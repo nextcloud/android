@@ -8,8 +8,8 @@
 package com.owncloud.android.ui.dialog.setupEncryption
 
 import android.util.Base64
-import com.nextcloud.utils.extensions.getContentOfPublicKey
 import com.owncloud.android.lib.common.utils.Log_OC
+import com.owncloud.android.utils.crypto.CryptoStringUtils
 import java.io.ByteArrayInputStream
 import java.security.KeyFactory
 import java.security.cert.CertificateFactory
@@ -29,7 +29,7 @@ class CertificateValidator @Inject constructor() {
      */
     @Suppress("TooGenericExceptionCaught")
     fun validate(serverPublicKeyString: String, certificate: String): Boolean {
-        val contentOfServerKey = serverPublicKeyString.getContentOfPublicKey()
+        val contentOfServerKey = CryptoStringUtils.rawPublicKey(serverPublicKeyString)
 
         return try {
             val decodedPublicKey = Base64.decode(contentOfServerKey, Base64.NO_WRAP)
@@ -50,7 +50,7 @@ class CertificateValidator @Inject constructor() {
             Log_OC.d(tag, "Client certificate is valid against server public key")
             true
         } catch (e: Exception) {
-            Log_OC.d(tag, "Client certificate is not valid against the server public key")
+            Log_OC.d(tag, "Client certificate is not valid against the server public key: $e")
             false
         }
     }
