@@ -25,3 +25,18 @@ fun FileDataStorageManager.getDecryptedPath(file: OCFile): String {
         .reversed()
         .joinToString(OCFile.PATH_SEPARATOR)
 }
+
+fun FileDataStorageManager.getRemotePathVariants(path: String): Pair<String, String> {
+    val lastDot = path.lastIndexOf(StringConstants.DOT)
+    if (lastDot == -1 || lastDot == path.length - 1) {
+        return Pair(path, path)
+    }
+
+    val base = path.substring(0, lastDot)
+    val ext = path.substring(lastDot + 1)
+
+    val lower = "$base.${ext.lowercase()}"
+    val upper = "$base.${ext.uppercase()}"
+
+    return Pair(lower, upper)
+}

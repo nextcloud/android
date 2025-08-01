@@ -47,6 +47,7 @@ import com.nextcloud.model.OfflineOperationType;
 import com.nextcloud.model.ShareeEntry;
 import com.nextcloud.utils.date.DateFormatPattern;
 import com.nextcloud.utils.extensions.DateExtensionsKt;
+import com.nextcloud.utils.extensions.FileDataStorageManagerExtensionsKt;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.db.ProviderMeta.ProviderTableMeta;
 import com.owncloud.android.lib.common.network.WebdavEntry;
@@ -133,16 +134,34 @@ public class FileDataStorageManager {
      */
     @Deprecated
     public OCFile getFileByPath(String path) {
-        return getFileByEncryptedRemotePath(path);
+        final var pathVariants = FileDataStorageManagerExtensionsKt.getRemotePathVariants(this, path);
+        var result = getFileByEncryptedRemotePath(pathVariants.getFirst());
+        if (result == null) {
+            result = getFileByEncryptedRemotePath(pathVariants.getSecond());
+        }
+
+        return result;
     }
 
     public OCFile getFileByEncryptedRemotePath(String path) {
-        return getFileByPath(ProviderTableMeta.FILE_PATH, path);
+        final var pathVariants = FileDataStorageManagerExtensionsKt.getRemotePathVariants(this, path);
+        var result = getFileByPath(ProviderTableMeta.FILE_PATH, pathVariants.getFirst());
+        if (result == null) {
+            result = getFileByPath(ProviderTableMeta.FILE_PATH, pathVariants.getSecond());
+        }
+
+        return result;
     }
 
     public @Nullable
     OCFile getFileByDecryptedRemotePath(String path) {
-        return getFileByPath(ProviderTableMeta.FILE_PATH_DECRYPTED, path);
+        final var pathVariants = FileDataStorageManagerExtensionsKt.getRemotePathVariants(this, path);
+        var result = getFileByPath(ProviderTableMeta.FILE_PATH_DECRYPTED, pathVariants.getFirst());
+        if (result == null) {
+            result = getFileByPath(ProviderTableMeta.FILE_PATH_DECRYPTED, pathVariants.getSecond());
+        }
+
+        return result;
     }
 
     public void addCreateFileOfflineOperation(String[] localPaths, String[] remotePaths) {
