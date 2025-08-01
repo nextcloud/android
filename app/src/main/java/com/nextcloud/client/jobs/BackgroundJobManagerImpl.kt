@@ -596,22 +596,42 @@ internal class BackgroundJobManagerImpl(
      *                  within the worker.
      */
     override fun startFilesUploadJob(user: User, uploadIds: LongArray) {
+        val batchSize = FileUploadWorker.BATCH_SIZE
+        val batches = uploadIds.toList().chunked(batchSize)
         val tag = startFileUploadJobTag(user)
-        val dataBuilder = Data.Builder()
-            .putString(FileUploadWorker.ACCOUNT, user.accountName)
-            .putLongArray(FileUploadWorker.UPLOAD_IDS, uploadIds)
 
         val constraints = Constraints.Builder()
             .setRequiredNetworkType(NetworkType.CONNECTED)
             .build()
 
-        val request = oneTimeRequestBuilder(FileUploadWorker::class, JOB_FILES_UPLOAD, user)
-            .addTag(tag)
-            .setInputData(dataBuilder.build())
-            .setConstraints(constraints)
-            .build()
+        val workRequests = batches.mapIndexed { index, batch ->
+            val dataBuilder = Data.Builder()
+                .putString(FileUploadWorker.ACCOUNT, user.accountName)
+                .putLongArray(FileUploadWorker.UPLOAD_IDS, batch.toLongArray())
+                .putInt(FileUploadWorker.CURRENT_BATCH_INDEX, index)
+                .putInt(FileUploadWorker.TOTAL_UPLOAD_SIZE, uploadIds.size)
 
-        workManager.enqueueUniqueWork(tag, ExistingWorkPolicy.APPEND_OR_REPLACE, request)
+            oneTimeRequestBuilder(FileUploadWorker::class, JOB_FILES_UPLOAD, user)
+                .addTag(tag)
+                .setInputData(dataBuilder.build())
+                .setConstraints(constraints)
+                .build()
+        }
+
+        // Chain the work requests sequentially
+        if (workRequests.isNotEmpty()) {
+            var workChain = workManager.beginUniqueWork(
+                tag,
+                ExistingWorkPolicy.APPEND_OR_REPLACE,
+                workRequests.first()
+            )
+
+            workRequests.drop(1).forEach { request ->
+                workChain = workChain.then(request)
+            }
+
+            workChain.enqueue()
+        }
     }
 
     private fun startFileDownloadJobTag(user: User, fileId: Long): String =
