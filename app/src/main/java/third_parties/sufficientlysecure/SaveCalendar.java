@@ -45,7 +45,6 @@ import net.fortuna.ical4j.data.CalendarOutputter;
 import net.fortuna.ical4j.model.Calendar;
 import net.fortuna.ical4j.model.Date;
 import net.fortuna.ical4j.model.DateTime;
-import net.fortuna.ical4j.model.Dur;
 import net.fortuna.ical4j.model.Period;
 import net.fortuna.ical4j.model.Property;
 import net.fortuna.ical4j.model.PropertyFactoryImpl;
@@ -429,7 +428,7 @@ public class SaveCalendar {
                 // FIXME: We should support other types if possible
                 int method = getInt(alarmCur, Reminders.METHOD);
                 if (method == Reminders.METHOD_DEFAULT || method == Reminders.METHOD_ALERT) {
-                    VAlarm alarm = new VAlarm(new Dur(0, 0, -mins, 0));
+                    VAlarm alarm = new VAlarm(java.time.Duration.ofMinutes(-mins));
                     alarm.getProperties().add(Action.DISPLAY);
                     alarm.getProperties().add(desc);
                     e.getAlarms().add(alarm);
