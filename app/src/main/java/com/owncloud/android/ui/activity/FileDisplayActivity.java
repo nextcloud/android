@@ -66,6 +66,7 @@ import com.nextcloud.utils.extensions.ActivityExtensionsKt;
 import com.nextcloud.utils.extensions.BundleExtensionsKt;
 import com.nextcloud.utils.extensions.FileExtensionsKt;
 import com.nextcloud.utils.extensions.IntentExtensionsKt;
+import com.nextcloud.utils.extensions.ViewExtensionsKt;
 import com.nextcloud.utils.fileNameValidator.FileNameValidator;
 import com.nextcloud.utils.view.FastScrollUtils;
 import com.owncloud.android.MainApp;
@@ -145,9 +146,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
 
@@ -253,8 +251,6 @@ public class FileDisplayActivity extends FileActivity
      * triggered from multiple sources, this helps determine if an automatic preview is needed after download.
      */
     private long fileIDForImmediatePreview = -1;
-
-    private final ScheduledExecutorService executor = Executors.newScheduledThreadPool(Runtime.getRuntime().availableProcessors());
 
     public void setFileIDForImmediatePreview(long fileIDForImmediatePreview) {
         this.fileIDForImmediatePreview = fileIDForImmediatePreview;
@@ -443,19 +439,19 @@ public class FileDisplayActivity extends FileActivity
             DisplayUtils.showServerOutdatedSnackbar(this, Snackbar.LENGTH_LONG);
         }
     }
-    
+
     private void checkNotifications() {
         new Thread(() -> {
             try {
                 RemoteOperationResult<List<Notification>> result = new GetNotificationsRemoteOperation()
                     .execute(clientFactory.createNextcloudClient(accountManager.getUser()));
-                
+
                 if (result.isSuccess() && !result.getResultData().isEmpty()) {
                     runOnUiThread(() -> mNotificationButton.setVisibility(View.VISIBLE));
                 } else {
                     runOnUiThread(() -> mNotificationButton.setVisibility(View.GONE));
                 }
-                
+
             } catch (ClientFactory.CreationException e) {
                 Log_OC.e(TAG, "Could not fetch notifications!");
             }
@@ -2184,36 +2180,35 @@ public class FileDisplayActivity extends FileActivity
      * @param ignoreFocus reloads file list even without focus, e.g. on tablet mode, focus can still be in detail view
      */
     public void startSyncFolderOperation(final OCFile folder, final boolean ignoreETag, boolean ignoreFocus) {
+
         // the execution is slightly delayed to allow the activity get the window focus if it's being started
         // or if the method is called from a dialog that is being dismissed
-        if (!TextUtils.isEmpty(searchQuery) || getUser().isEmpty()) {
-            Log_OC.w(TAG,"Cannot startSyncFolderOperation, search query is empty or user not present");
-            return;
-        }
+        if (TextUtils.isEmpty(searchQuery) && getUser().isPresent()) {
+            getHandler().postDelayed(() -> {
+                Optional<User> user = getUser();
 
-        executor.schedule(() -> {
-            Optional<User> user = getUser();
-            if (!ignoreFocus && !hasWindowFocus() || user.isEmpty()) {
-                Log_OC.w(TAG,"do not refresh if the user rotates the device while another window has focus or if the current user is no longer valid");
-                return;
-            }
+                if (!ignoreFocus && !hasWindowFocus() || !user.isPresent()) {
+                    // do not refresh if the user rotates the device while another window has focus
+                    // or if the current user is no longer valid
+                    return;
+                }
 
-            long currentSyncTime = System.currentTimeMillis();
-            mSyncInProgress = true;
+                long currentSyncTime = System.currentTimeMillis();
+                mSyncInProgress = true;
 
-            // perform folder synchronization on background thread
-            final var refreshFolderOperation = new RefreshFolderOperation(folder, currentSyncTime, false, ignoreETag, getStorageManager(), user.get(), getApplicationContext());
-            refreshFolderOperation.execute(getAccount(), MainApp.getAppContext(), FileDisplayActivity.this, null, null);
+                // perform folder synchronization
+                RemoteOperation refreshFolderOperation = new RefreshFolderOperation(folder, currentSyncTime, false, ignoreETag, getStorageManager(), user.get(), getApplicationContext());
+                refreshFolderOperation.execute(getAccount(), MainApp.getAppContext(), FileDisplayActivity.this, null, null);
 
-            // switch back to main thread
-            getHandler().post(() -> {
                 OCFileListFragment fragment = getListOfFilesFragment();
+
                 if (fragment != null && !(fragment instanceof GalleryFragment)) {
                     fragment.setLoading(true);
                 }
+
                 setBackgroundText();
-            });
-        }, DELAY_TO_REQUEST_REFRESH_OPERATION_LATER, TimeUnit.MILLISECONDS);
+            }, DELAY_TO_REQUEST_REFRESH_OPERATION_LATER);
+        }
     }
 
     private void requestForDownload(OCFile file, String downloadBehaviour, String packageName, String activityName) {
@@ -2605,7 +2600,6 @@ public class FileDisplayActivity extends FileActivity
 
     @Override
     protected void onDestroy() {
-        executor.shutdown();
         LocalBroadcastManager.getInstance(this).unregisterReceiver(refreshFolderEventReceiver);
         super.onDestroy();
     }
