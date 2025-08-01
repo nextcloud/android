@@ -7,17 +7,15 @@
 package com.owncloud.android.ui.dialog.setupEncryption
 
 import android.accounts.AccountManager
-import android.annotation.SuppressLint
 import android.app.Dialog
-import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
-import android.os.AsyncTask
 import android.os.Bundle
 import android.view.View
 import androidx.annotation.VisibleForTesting
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
+import androidx.lifecycle.lifecycleScope
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.nextcloud.client.account.User
@@ -40,6 +38,9 @@ import com.owncloud.android.lib.resources.users.StorePrivateKeyRemoteOperation
 import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.EncryptionUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.io.IOException
 import java.lang.ref.WeakReference
 import java.util.Arrays
@@ -67,9 +68,9 @@ class SetupEncryptionDialogFragment :
     private var arbitraryDataProvider: ArbitraryDataProvider? = null
     private var positiveButton: MaterialButton? = null
     private var negativeButton: MaterialButton? = null
-    private var task: DownloadKeysAsyncTask? = null
     private var keyResult: String? = null
     private var keyWords: ArrayList<String>? = null
+    private var downloadKeyResult: DownloadKeyResult? = null
 
     private lateinit var binding: SetupEncryptionDialogBinding
 
@@ -77,7 +78,9 @@ class SetupEncryptionDialogFragment :
         super.onStart()
 
         setupAlertDialog()
-        executeTask()
+        lifecycleScope.launch {
+            downloadKeys()
+        }
     }
 
     private fun setupAlertDialog() {
@@ -94,11 +97,6 @@ class SetupEncryptionDialogFragment :
                 viewThemeUtils.material.colorMaterialButtonPrimaryBorderless(it)
             }
         }
-    }
-
-    private fun executeTask() {
-        task = DownloadKeysAsyncTask(requireContext())
-        task?.execute()
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
@@ -163,13 +161,12 @@ class SetupEncryptionDialogFragment :
         binding.encryptionStatus.setText(R.string.end_to_end_encryption_decrypting)
 
         try {
-            val taskResult = task?.get()
-            if (taskResult !is DownloadKeyResult.Success) {
+            if (downloadKeyResult !is DownloadKeyResult.Success) {
                 Log_OC.d(TAG, "DownloadKeyResult is not success")
                 return
             }
 
-            val privateKey = taskResult.privateKey
+            val privateKey = (downloadKeyResult as DownloadKeyResult.Success).privateKey
             val mnemonicUnchanged = binding.encryptionPasswordInput.text.toString().trim()
             val mnemonic =
                 binding.encryptionPasswordInput.text.toString().replace("\\s".toRegex(), "")
@@ -233,8 +230,9 @@ class SetupEncryptionDialogFragment :
 
         dialog?.setTitle(R.string.end_to_end_encryption_storing_keys)
 
-        val newKeysTask = GenerateNewKeysAsyncTask(requireContext())
-        newKeysTask.execute()
+        lifecycleScope.launch {
+            generateNewKeys()
+        }
     }
 
     private fun notifyResult() {
@@ -301,30 +299,22 @@ class SetupEncryptionDialogFragment :
         data class Success(val privateKey: String?) : DownloadKeyResult()
     }
 
-    // TODO - Replace with Coroutines
-    @SuppressLint("StaticFieldLeak")
-    inner class DownloadKeysAsyncTask(context: Context) : AsyncTask<Void?, Void?, DownloadKeyResult>() {
-        private val mWeakContext: WeakReference<Context> = WeakReference(context)
+    private suspend fun downloadKeys() {
+        binding.encryptionStatus.setText(R.string.end_to_end_encryption_retrieving_keys)
+        positiveButton?.visibility = View.INVISIBLE
 
-        @Suppress("ReturnCount", "LongMethod")
-        @Deprecated("Deprecated in Java")
-        override fun doInBackground(vararg params: Void?): DownloadKeyResult {
-            // fetch private/public key
-            // if available
-            //  - store public key
-            //  - decrypt private key, store unencrypted private key in database
-            val context = mWeakContext.get() ?: return DownloadKeyResult.UnexpectedError()
-            val user = user ?: return DownloadKeyResult.UnexpectedError()
-            val dataProvider = arbitraryDataProvider ?: return DownloadKeyResult.UnexpectedError()
+        downloadKeyResult = withContext(Dispatchers.IO) {
+            val weakContext = WeakReference(context).get() ?: return@withContext DownloadKeyResult.UnexpectedError()
+            val user = user ?: return@withContext DownloadKeyResult.UnexpectedError()
+            val dataProvider = arbitraryDataProvider ?: return@withContext DownloadKeyResult.UnexpectedError()
 
             val certificateOperation = GetPublicKeyRemoteOperation()
-            val certificateResult = certificateOperation.executeNextcloudClient(user, context)
-
+            val certificateResult = certificateOperation.executeNextcloudClient(user, weakContext)
             val savedPrivateKey = dataProvider.getValue(user.accountName, EncryptionUtils.PRIVATE_KEY)
             if (!certificateResult.isSuccess) {
                 // The certificate might not be available on the server yet.
                 // Therefore, the user needs to generate a new passphrase first.
-                return if (savedPrivateKey.isEmpty()) {
+                return@withContext if (savedPrivateKey.isEmpty()) {
                     DownloadKeyResult.Success(null)
                 } else {
                     DownloadKeyResult.CertificateUnavailable()
@@ -332,9 +322,9 @@ class SetupEncryptionDialogFragment :
             }
 
             val serverPublicKeyOperation = GetServerPublicKeyRemoteOperation()
-            val serverPublicKeyResult = serverPublicKeyOperation.executeNextcloudClient(user, context)
+            val serverPublicKeyResult = serverPublicKeyOperation.executeNextcloudClient(user, weakContext)
             if (!serverPublicKeyResult.isSuccess) {
-                return DownloadKeyResult.ServerPublicKeyUnavailable()
+                return@withContext DownloadKeyResult.ServerPublicKeyUnavailable()
             }
 
             val serverKey = serverPublicKeyResult.resultData
@@ -342,7 +332,7 @@ class SetupEncryptionDialogFragment :
             val isCertificateValid = certificateValidator?.validate(serverKey, certificateAsString)
 
             if (isCertificateValid == false) {
-                return DownloadKeyResult.CertificateVerificationFailed()
+                return@withContext DownloadKeyResult.CertificateVerificationFailed()
             }
 
             dataProvider.storeOrUpdateKeyValue(
@@ -352,8 +342,8 @@ class SetupEncryptionDialogFragment :
             )
 
             val privateKeyOperation = GetPrivateKeyRemoteOperation()
-            val privateKeyResult = privateKeyOperation.executeNextcloudClient(user, context)
-            return if (privateKeyResult.isSuccess) {
+            val privateKeyResult = privateKeyOperation.executeNextcloudClient(user, weakContext)
+            return@withContext if (privateKeyResult.isSuccess) {
                 Log_OC.d(TAG, "private key successful downloaded for " + user.accountName)
                 keyResult = KEY_EXISTING_USED
                 val privateKey = privateKeyResult.resultData?.getKey()
@@ -363,24 +353,7 @@ class SetupEncryptionDialogFragment :
             }
         }
 
-        @Deprecated("Deprecated in Java")
-        override fun onPreExecute() {
-            super.onPreExecute()
-
-            binding.encryptionStatus.setText(R.string.end_to_end_encryption_retrieving_keys)
-            positiveButton?.visibility = View.INVISIBLE
-        }
-
-        @Deprecated("Deprecated in Java")
-        override fun onPostExecute(result: DownloadKeyResult) {
-            super.onPostExecute(result)
-
-            val context = mWeakContext.get()
-            if (context == null) {
-                Log_OC.e(TAG, "Context lost after fetching private keys.")
-                return
-            }
-
+        downloadKeyResult?.let { result ->
             if (result is DownloadKeyResult.Success) {
                 handlePrivateKey(result.privateKey)
             } else {
@@ -390,58 +363,44 @@ class SetupEncryptionDialogFragment :
                 DisplayUtils.showSnackMessage(requireActivity(), description)
             }
         }
+    }
 
-        private fun handlePrivateKey(privateKey: String?) {
-            if (privateKey == null) {
-                // first show info
-                try {
-                    if (keyWords == null || keyWords!!.isEmpty()) {
-                        keyWords = EncryptionUtils.getRandomWords(NUMBER_OF_WORDS, context)
-                    }
-                    showMnemonicInfo()
-                } catch (e: IOException) {
-                    binding.encryptionStatus.setText(R.string.common_error)
+    private fun handlePrivateKey(privateKey: String?) {
+        if (privateKey == null) {
+            // first show info
+            try {
+                if (keyWords == null || keyWords!!.isEmpty()) {
+                    keyWords = EncryptionUtils.getRandomWords(NUMBER_OF_WORDS, context)
                 }
-            } else if (privateKey.isNotEmpty()) {
-                binding.encryptionStatus.setText(R.string.end_to_end_encryption_enter_passphrase_to_access_files)
-                binding.encryptionPasswordInputContainer.visibility = View.VISIBLE
-                positiveButton?.visibility = View.VISIBLE
-            } else {
-                Log_OC.e(TAG, "Got empty private key string")
+                showMnemonicInfo()
+            } catch (e: IOException) {
+                binding.encryptionStatus.setText(R.string.common_error)
             }
+        } else if (privateKey.isNotEmpty()) {
+            binding.encryptionStatus.setText(R.string.end_to_end_encryption_enter_passphrase_to_access_files)
+            binding.encryptionPasswordInputContainer.visibility = View.VISIBLE
+            positiveButton?.visibility = View.VISIBLE
+        } else {
+            Log_OC.e(TAG, "Got empty private key string")
         }
     }
 
-    @SuppressLint("StaticFieldLeak")
-    inner class GenerateNewKeysAsyncTask(context: Context) : AsyncTask<Void?, Void?, String>() {
-        private val mWeakContext: WeakReference<Context> = WeakReference(context)
-
-        @Deprecated("Deprecated in Java")
-        override fun onPreExecute() {
-            super.onPreExecute()
-            binding.encryptionStatus.setText(R.string.end_to_end_encryption_generating_keys)
-        }
-
-        @Suppress("TooGenericExceptionCaught", "TooGenericExceptionThrown", "ReturnCount", "LongMethod")
-        @Deprecated("Deprecated in Java")
-        override fun doInBackground(vararg voids: Void?): String {
+    @Suppress("LongMethod", "TooGenericExceptionCaught", "TooGenericExceptionThrown")
+    private suspend fun generateNewKeys() {
+        binding.encryptionStatus.setText(R.string.end_to_end_encryption_generating_keys)
+        val context = context ?: return
+        val privateKey: String = withContext(Dispatchers.IO) {
             //  - create CSR, push to server, store returned public key in database
             //  - encrypt private key, push key to server, store unencrypted private key in database
             try {
-                val context = mWeakContext.get()
                 val publicKeyString: String
-
-                if (context == null) {
-                    keyResult = KEY_FAILED
-                    return ""
-                }
 
                 // Create public/private key pair
                 val keyPair = EncryptionUtils.generateKeyPair()
 
                 // create CSR
                 val accountManager = AccountManager.get(context)
-                val user = user ?: return ""
+                val user = user ?: return@withContext ""
 
                 val userId = accountManager.getUserData(user.toPlatformAccount(), AccountUtils.Constants.KEY_USER_ID)
                 val urlEncoded = CsrHelper().generateCsrPemEncodedString(keyPair, userId)
@@ -457,7 +416,7 @@ class SetupEncryptionDialogFragment :
                     Log_OC.d(TAG, "public key success")
                 } else {
                     keyResult = KEY_FAILED
-                    return ""
+                    return@withContext ""
                 }
 
                 val privateKey = keyPair.private
@@ -490,7 +449,7 @@ class SetupEncryptionDialogFragment :
                     )
                     keyResult = KEY_CREATED
 
-                    return storePrivateKeyResult.resultData
+                    return@withContext storePrivateKeyResult.resultData
                 } else {
                     val deletePublicKeyOperation = DeletePublicKeyRemoteOperation()
                     deletePublicKeyOperation.executeNextcloudClient(user, context)
@@ -499,27 +458,18 @@ class SetupEncryptionDialogFragment :
                 Log_OC.e(TAG, e.message)
             }
             keyResult = KEY_FAILED
-            return ""
+            return@withContext ""
         }
 
-        @Deprecated("Deprecated in Java")
-        override fun onPostExecute(s: String) {
-            super.onPostExecute(s)
-            val context = mWeakContext.get()
-            if (context == null) {
-                Log_OC.e(TAG, "Context lost after generating new private keys.")
+        if (privateKey.isEmpty()) {
+            errorSavingKeys()
+        } else {
+            if (dialog == null) {
+                Log_OC.e(TAG, "Dialog is null cannot proceed further.")
                 return
             }
-            if (s.isEmpty()) {
-                errorSavingKeys()
-            } else {
-                if (dialog == null) {
-                    Log_OC.e(TAG, "Dialog is null cannot proceed further.")
-                    return
-                }
-                requireDialog().dismiss()
-                notifyResult()
-            }
+            requireDialog().dismiss()
+            notifyResult()
         }
     }
 
