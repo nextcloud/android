@@ -269,6 +269,7 @@ class FileUploadWorker(
             val storageManager = uploadFileOperation.storageManager
             val ocAccount = OwnCloudAccount(user.toPlatformAccount(), context)
             val uploadClient = OwnCloudClientManagerFactory.getDefaultSingleton().getClientFor(ocAccount, context)
+            uploadClient.setDefaultTimeouts(3000,3000)
             result = uploadFileOperation.execute(uploadClient)
 
             val task = ThumbnailsCacheManager.ThumbnailGenerationTask(storageManager, user)
