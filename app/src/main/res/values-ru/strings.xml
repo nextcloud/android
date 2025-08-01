@@ -374,6 +374,7 @@
     <string name="file_detail_share_already_active">Вы не можете создать общий ресурс — общий доступ уже активен от этого пользователя.</string>
     <string name="file_detail_sharing_fragment_no_contact_app_message">Приложение для выбора контактов недоступно</string>
     <string name="file_details_no_content">Не удалось получить подробные сведения</string>
+    <string name="file_details_sharing_fragment_custom_permission_not_selected">Пожалуйста выберите права доступа</string>
     <string name="file_icon">Файл</string>
     <string name="file_keep">Сохранить</string>
     <string name="file_list_empty">Добавьте что-нибудь или синхронизируйте со своими устройствами!</string>
