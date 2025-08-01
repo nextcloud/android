@@ -44,6 +44,7 @@ import com.nextcloud.client.jobs.offlineOperations.repository.OfflineOperationsR
 import com.nextcloud.model.OCFileFilterType;
 import com.nextcloud.model.OfflineOperationRawType;
 import com.nextcloud.model.OfflineOperationType;
+import com.nextcloud.model.ShareeEntry;
 import com.nextcloud.utils.date.DateFormatPattern;
 import com.nextcloud.utils.extensions.DateExtensionsKt;
 import com.owncloud.android.MainApp;
@@ -111,6 +112,7 @@ public class FileDataStorageManager {
     public final FileDao fileDao = NextcloudDatabase.getInstance(MainApp.getAppContext()).fileDao();
     private final Gson gson = new Gson();
     public final OfflineOperationsRepositoryType offlineOperationsRepository;
+    private final static int DEFAULT_CURSOR_INT_VALUE = -1;
 
     public FileDataStorageManager(User user, ContentResolver contentResolver) {
         this.contentProviderClient = null;
@@ -1563,13 +1565,7 @@ public class FileDataStorageManager {
         contentValues.put(ProviderTableMeta.OCSHARES_SHARE_LABEL, share.getLabel());
 
         FileDownloadLimit downloadLimit = share.getFileDownloadLimit();
-        if (downloadLimit != null) {
-            contentValues.put(ProviderTableMeta.OCSHARES_DOWNLOADLIMIT_LIMIT, downloadLimit.getLimit());
-            contentValues.put(ProviderTableMeta.OCSHARES_DOWNLOADLIMIT_COUNT, downloadLimit.getCount());
-        } else {
-            contentValues.putNull(ProviderTableMeta.OCSHARES_DOWNLOADLIMIT_LIMIT);
-            contentValues.putNull(ProviderTableMeta.OCSHARES_DOWNLOADLIMIT_COUNT);
-        }
+        setDownloadLimitToContentValues(contentValues, downloadLimit);
 
         contentValues.put(ProviderTableMeta.OCSHARES_ATTRIBUTES, share.getAttributes());
 
@@ -1598,33 +1594,60 @@ public class FileDataStorageManager {
         share.setShareLink(getString(cursor, ProviderTableMeta.OCSHARES_SHARE_LINK));
         share.setLabel(getString(cursor, ProviderTableMeta.OCSHARES_SHARE_LABEL));
 
-        FileDownloadLimit downloadLimit = new FileDownloadLimit(token,
-                                                                getInt(cursor, ProviderTableMeta.OCSHARES_DOWNLOADLIMIT_LIMIT),
-                                                                getInt(cursor, ProviderTableMeta.OCSHARES_DOWNLOADLIMIT_COUNT));
-        share.setFileDownloadLimit(downloadLimit);
+        FileDownloadLimit fileDownloadLimit = getDownloadLimitFromCursor(cursor, token);
+        if (fileDownloadLimit != null) {
+            share.setFileDownloadLimit(fileDownloadLimit);
+        }
 
         share.setAttributes(getString(cursor, ProviderTableMeta.OCSHARES_ATTRIBUTES));
 
         return share;
     }
 
-    private void resetShareFlagsInAllFiles() {
-        ContentValues cv = new ContentValues();
-        cv.put(ProviderTableMeta.FILE_SHARED_VIA_LINK, Boolean.FALSE);
-        cv.put(ProviderTableMeta.FILE_SHARED_WITH_SHAREE, Boolean.FALSE);
-        String where = ProviderTableMeta.FILE_ACCOUNT_OWNER + "=?";
-        String[] whereArgs = new String[]{user.getAccountName()};
-
-        if (getContentResolver() != null) {
-            getContentResolver().update(ProviderTableMeta.CONTENT_URI, cv, where, whereArgs);
-
-        } else {
-            try {
-                getContentProviderClient().update(ProviderTableMeta.CONTENT_URI, cv, where, whereArgs);
-            } catch (RemoteException e) {
-                Log_OC.e(TAG, "Exception in resetShareFlagsInAllFiles" + e.getMessage(), e);
-            }
+    private void setDownloadLimitToContentValues(ContentValues contentValues, FileDownloadLimit downloadLimit) {
+        if (downloadLimit != null) {
+            contentValues.put(ProviderTableMeta.OCSHARES_DOWNLOADLIMIT_LIMIT, downloadLimit.getLimit());
+            contentValues.put(ProviderTableMeta.OCSHARES_DOWNLOADLIMIT_COUNT, downloadLimit.getCount());
+            return;
         }
+
+        contentValues.putNull(ProviderTableMeta.OCSHARES_DOWNLOADLIMIT_LIMIT);
+        contentValues.putNull(ProviderTableMeta.OCSHARES_DOWNLOADLIMIT_COUNT);
+    }
+
+    @Nullable
+    private FileDownloadLimit getDownloadLimitFromCursor(Cursor cursor, String token) {
+        if (token == null || cursor == null) {
+            return null;
+        }
+
+        int limit = getIntOrDefault(cursor, ProviderTableMeta.OCSHARES_DOWNLOADLIMIT_LIMIT);
+        int count = getIntOrDefault(cursor, ProviderTableMeta.OCSHARES_DOWNLOADLIMIT_COUNT);
+        if (limit != DEFAULT_CURSOR_INT_VALUE && count != DEFAULT_CURSOR_INT_VALUE) {
+            return new FileDownloadLimit(token, limit, count);
+        }
+
+        return null;
+    }
+
+    /**
+     * Retrieves an integer value from the specified column in the cursor.
+     * <p>
+     * If the column does not exist (i.e., {@code cursor.getColumnIndex(columnName)} returns -1),
+     * this method returns {@code -1} as a default value.
+     * </p>
+     *
+     * @param cursor     The Cursor from which to retrieve the value.
+     * @param columnName The name of the column to retrieve the integer from.
+     * @return The integer value from the column, or {@code -1} if the column is not found.
+     */
+    private int getIntOrDefault(Cursor cursor, String columnName) {
+        int index = cursor.getColumnIndex(columnName);
+        if (index == DEFAULT_CURSOR_INT_VALUE) {
+            return DEFAULT_CURSOR_INT_VALUE;
+        }
+
+        return cursor.getInt(index);
     }
 
     private void resetShareFlagsInFolder(OCFile folder) {
@@ -1743,6 +1766,67 @@ public class FileDataStorageManager {
         }
     }
 
+    public void saveSharesFromRemoteFile(List<RemoteFile> shares) {
+        if (shares == null || shares.isEmpty()) {
+            return;
+        }
+
+        // Prepare reset operations
+        Set<String> uniquePaths = new HashSet<>();
+        for (RemoteFile share : shares) {
+            uniquePaths.add(share.getRemotePath());
+        }
+
+        ArrayList<ContentProviderOperation> resetOperations = new ArrayList<>();
+        for (String path : uniquePaths) {
+            resetShareFlagInAFile(path);
+            var removeOps = prepareRemoveSharesInFile(path, new ArrayList<>());
+            if (!removeOps.isEmpty()) {
+                resetOperations.addAll(removeOps);
+            }
+        }
+        if (!resetOperations.isEmpty()) {
+            applyBatch(resetOperations);
+        }
+
+        // Prepare insert operations
+        ArrayList<ContentProviderOperation> insertOperations = prepareInsertSharesFromRemoteFile(shares);
+        if (!insertOperations.isEmpty()) {
+            applyBatch(insertOperations);
+        }
+    }
+
+    /**
+     * Prepares a list of ContentProviderOperation insert operations based on share information
+     * found in the given iterable of RemoteFile objects.
+     * <p>
+     * Each RemoteFile may have multiple share entries (sharees), and for each one,
+     * a corresponding ContentProviderOperation is created for insertion into the shares table.
+     *
+     * @param remoteFiles An iterable list of RemoteFile objects containing sharee data.
+     * @return A list of ContentProviderOperation objects for batch insertion into the content provider.
+     */
+    private ArrayList<ContentProviderOperation> prepareInsertSharesFromRemoteFile(Iterable<RemoteFile> remoteFiles) {
+        final ArrayList<ContentValues> contentValueList = new ArrayList<>();
+        for (RemoteFile remoteFile : remoteFiles) {
+            final var contentValues = ShareeEntry.Companion.getContentValues(remoteFile, user.getAccountName());
+            if (contentValues == null) {
+                continue;
+            }
+            contentValueList.addAll(contentValues);
+        }
+
+        ArrayList<ContentProviderOperation> operations = new ArrayList<>();
+        for (ContentValues contentValues : contentValueList) {
+            operations.add(ContentProviderOperation
+                               .newInsert(ProviderTableMeta.CONTENT_URI_SHARE)
+                               .withValues(contentValues)
+                               .build());
+        }
+
+        return operations;
+    }
+
     public void saveSharesDB(List<OCShare> shares) {
         ArrayList<ContentProviderOperation> operations = new ArrayList<>();
 
@@ -1759,20 +1843,26 @@ public class FileDataStorageManager {
         // Add operations to insert shares
         operations = prepareInsertShares(shares, operations);
 
+        if (operations.isEmpty()) {
+            return;
+        }
+
         // apply operations in batch
-        if (operations.size() > 0) {
-            Log_OC.d(TAG, String.format(Locale.ENGLISH, SENDING_TO_FILECONTENTPROVIDER_MSG, operations.size()));
-            try {
-                if (getContentResolver() != null) {
-                    getContentResolver().applyBatch(MainApp.getAuthority(), operations);
+        Log_OC.d(TAG, String.format(Locale.ENGLISH, SENDING_TO_FILECONTENTPROVIDER_MSG, operations.size()));
+        applyBatch(operations);
+    }
 
-                } else {
-                    getContentProviderClient().applyBatch(operations);
-                }
+    private void applyBatch(ArrayList<ContentProviderOperation> operations) {
+        try {
+            if (getContentResolver() != null) {
+                getContentResolver().applyBatch(MainApp.getAuthority(), operations);
 
-            } catch (OperationApplicationException | RemoteException e) {
-                Log_OC.e(TAG, EXCEPTION_MSG + e.getMessage(), e);
+            } else {
+                getContentProviderClient().applyBatch(operations);
             }
+
+        } catch (OperationApplicationException | RemoteException e) {
+            Log_OC.e(TAG, EXCEPTION_MSG + e.getMessage(), e);
         }
     }
 
@@ -1830,8 +1920,7 @@ public class FileDataStorageManager {
      * @param operations List of operations
      * @return
      */
-    private ArrayList<ContentProviderOperation> prepareInsertShares(
-        Iterable<OCShare> shares, ArrayList<ContentProviderOperation> operations) {
+    private ArrayList<ContentProviderOperation> prepareInsertShares(Iterable<OCShare> shares, ArrayList<ContentProviderOperation> operations) {
 
         ContentValues contentValues;
         // prepare operations to insert or update files to save in the given folder
