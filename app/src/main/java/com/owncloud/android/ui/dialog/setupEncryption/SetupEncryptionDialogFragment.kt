@@ -168,12 +168,16 @@ class SetupEncryptionDialogFragment :
             }
 
             val privateKey = (downloadKeyResult as DownloadKeyResult.Success).privateKey
+            if (privateKey.isNullOrEmpty()) {
+                Log_OC.e(TAG, "privateKey is null or empty")
+                return
+            }
             val mnemonicUnchanged = binding.encryptionPasswordInput.text.toString().trim()
             val mnemonic =
                 binding.encryptionPasswordInput.text.toString().replace("\\s".toRegex(), "")
                     .lowercase()
             val decryptedPrivateKey = CryptoHelper.decryptPrivateKey(
-                privateKey!!,
+                privateKey,
                 mnemonic
             )
             val accountName = user?.accountName ?: return
