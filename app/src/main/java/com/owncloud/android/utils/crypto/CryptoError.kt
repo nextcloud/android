@@ -10,5 +10,5 @@ package com.owncloud.android.utils.crypto
 sealed class CryptoError(message: String) : Exception(message) {
     class EmptyPrivateKey : CryptoError("Private key is empty")
     class InvalidPrivateKeyFormat : CryptoError("Invalid private key format, check IV DELIMITER")
-    class SHA1Decryption(val reason: String): CryptoError("Failed to decrypt private key")
+    class SHA1Decryption(val reason: String) : CryptoError("Failed to decrypt private key")
 }

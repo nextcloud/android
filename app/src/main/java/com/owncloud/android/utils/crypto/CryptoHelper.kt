@@ -39,7 +39,7 @@ object CryptoHelper {
     private val charset = StandardCharsets.UTF_8
 
     // region Decrypt
-    @Suppress("TooGenericExceptionCaught", "LongMethod")
+    @Suppress("TooGenericExceptionCaught", "LongMethod", "ThrowsCount")
     fun decryptPrivateKey(privateKey: String, keyPhrase: String): String {
         if (privateKey.isEmpty()) {
             throw CryptoError.EmptyPrivateKey()
@@ -118,7 +118,7 @@ object CryptoHelper {
         // Encrypt the data
         val encryptedData = encrypt(
             algorithm = Algorithm.SHA256,
-            data =privateKeyBase64Bytes,
+            data = privateKeyBase64Bytes,
             password = cleanedKeyPhrase.toCharArray(),
             salt,
             iv
