@@ -74,7 +74,7 @@ public final class FilesSyncHelper {
             if (Files.isDirectory(start)) {
                 Log_OC.d(TAG, "walkFileTreeRandomly, file is directory: " + file.getAbsolutePath());
 
-                FileVisitResult preVisitDirectoryResult = visitor.preVisitDirectory(start, null);
+                FileVisitResult preVisitDirectoryResult = visitor.preVisitDirectory(start, (BasicFileAttributes)null);
                 if (preVisitDirectoryResult == FileVisitResult.CONTINUE) {
                     Log_OC.d(TAG, "walkFileTreeRandomly, preVisitDirectoryResult == FileVisitResult.CONTINUE");
                     File[] children = start.toFile().listFiles();
@@ -91,7 +91,7 @@ public final class FilesSyncHelper {
                             walkFileTreeRandomly(FileBasedPathImpl.get(child), visitor);
                         }
 
-                        visitor.postVisitDirectory(start, null);
+                        visitor.postVisitDirectory(start, (IOException)null);
                     } else {
                         Log_OC.w(TAG, "walkFileTreeRandomly, children is null");
                     }
@@ -325,13 +325,13 @@ public final class FilesSyncHelper {
                                               final ConnectivityService connectivityService,
                                               final PowerManagementService powerManagementService) {
         Log_OC.d(TAG, "restartUploadsIfNeeded, called");
-        new Thread(() -> {
+        new Thread(() ->
             FileUploadHelper.Companion.instance().retryFailedUploads(
                 uploadsStorageManager,
                 connectivityService,
                 accountManager,
-                powerManagementService);
-        }).start();
+                powerManagementService)
+        ).start();
     }
 
     public static void scheduleFilesSyncForAllFoldersIfNeeded(Context context, SyncedFolderProvider syncedFolderProvider, BackgroundJobManager jobManager) {
