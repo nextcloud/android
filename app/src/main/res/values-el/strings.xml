@@ -814,6 +814,7 @@
     <string name="upload_file_dialog_title">Εισαγωγή ονόματος και τύπου αρχείου μεταφόρτωσης</string>
     <string name="upload_files">Μεταφόρτωση αρχείων</string>
     <string name="upload_item_action_button">Κουμπί μεταφόρτωσης αντικειμένου</string>
+    <string name="upload_list_cancel_upload">Ακύρωση μεταφόρτωσης</string>
     <string name="upload_list_delete">Διαγραφή</string>
     <string name="upload_list_empty_headline">Μη διαθέσιμες μεταφορτώσεις</string>
     <string name="upload_list_empty_text_auto_upload">Μεταφορτώστε περιεχόμενο ή ενεργοποιήστε την αυτόματη μεταφόρτωση.</string>

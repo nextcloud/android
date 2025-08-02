@@ -998,6 +998,7 @@
     <string name="upload_files">Send filer</string>
     <string name="upload_global_pause_title">Alle uploads er pauserede</string>
     <string name="upload_item_action_button">Send artikel knap</string>
+    <string name="upload_list_cancel_upload">Annuller upload </string>
     <string name="upload_list_delete">Slet</string>
     <string name="upload_list_empty_headline">Ingen uploads tilgængelige</string>
     <string name="upload_list_empty_text_auto_upload">Upload noget indhold eller aktiver auto upload.</string>
