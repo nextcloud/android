@@ -1010,6 +1010,7 @@
     <string name="upload_files">Nahrát soubory</string>
     <string name="upload_global_pause_title">Veškerá nahrávání jsou pozastavena</string>
     <string name="upload_item_action_button">Tlačítko akce Nahrát položku</string>
+    <string name="upload_list_cancel_upload">Zrušit nahrávání</string>
     <string name="upload_list_delete">Smazat</string>
     <string name="upload_list_empty_headline">Nic k nahrání</string>
     <string name="upload_list_empty_text_auto_upload">Nahrajte nějaký obsah nebo zapněte automatické nahrávání.</string>
