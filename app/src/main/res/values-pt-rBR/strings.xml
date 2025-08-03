@@ -325,6 +325,7 @@
     <string name="error_comment_file">Erro ao comentar arquivo</string>
     <string name="error_crash_title">%1$s travou</string>
     <string name="error_creating_file_from_template">Erro ao criar o arquivo a partir do modelo</string>
+    <string name="error_fetching_sharees">Não é possível obter os destinatários do compartilhamento.</string>
     <string name="error_file_actions">Erro ao mostrar as ações do arquivo</string>
     <string name="error_file_lock">Erro ao alterar o status de bloqueio do arquivo</string>
     <string name="error_report_issue_action">Reportar</string>

@@ -325,6 +325,7 @@
     <string name="error_comment_file">Ошибка комментирования файла</string>
     <string name="error_crash_title">сбой %1$s</string>
     <string name="error_creating_file_from_template">Не удалось создать файл на основе шаблона</string>
+    <string name="error_fetching_sharees">Не удалось загрузить участников.</string>
     <string name="error_file_actions">Не удалось показать доступные действия с файлом</string>
     <string name="error_file_lock">Не удалось изменить состояние блокировки</string>
     <string name="error_report_issue_action">Сообщить</string>
