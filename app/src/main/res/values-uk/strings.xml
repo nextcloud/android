@@ -325,6 +325,7 @@
     <string name="error_comment_file">Помилка з додаванням коментаря до файлу</string>
     <string name="error_crash_title">Відмова в обслуговуванні %1$s</string>
     <string name="error_creating_file_from_template">Помилка створення файлу з шаблону</string>
+    <string name="error_fetching_sharees">Не вдається отримати дані про спільні доступи.</string>
     <string name="error_file_actions">Помилка з показом дій з файлами</string>
     <string name="error_file_lock">Помилка зміни статусу блокування файлу</string>
     <string name="error_report_issue_action">Звіт</string>

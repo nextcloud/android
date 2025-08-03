@@ -325,6 +325,7 @@
     <string name="error_comment_file">Hitilafu katika kutoa maoni kwenye faili</string>
     <string name="error_crash_title">%1$s ilianguka</string>
     <string name="error_creating_file_from_template">Hitilafu katika kuunda faili kutoka kwa kiolezo</string>
+    <string name="error_fetching_sharees">Imeshindwa kupata washiriki.</string>
     <string name="error_file_actions">Hitilafu katika kuonyesha vitendo vya faili</string>
     <string name="error_file_lock">Hitilafu katika kubadilisha hali ya kufunga faili</string>
     <string name="error_report_issue_action">Toa taarifa</string>
