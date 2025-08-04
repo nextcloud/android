@@ -12,6 +12,7 @@ package com.owncloud.android.ui
 
 import android.content.Context
 import android.content.res.Resources
+import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
 import android.util.AttributeSet
 import android.widget.ImageView
@@ -20,9 +21,11 @@ import androidx.annotation.Px
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.graphics.drawable.DrawableCompat
+import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.target.BitmapImageViewTarget
 import com.nextcloud.android.common.ui.theme.utils.ColorRole
 import com.nextcloud.client.account.User
-import com.nextcloud.utils.GlideHelper.loadCircularBitmapIntoImageView
 import com.owncloud.android.R
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.lib.resources.shares.ShareType
@@ -32,34 +35,24 @@ import com.owncloud.android.utils.DisplayUtils.AvatarGenerationListener
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import kotlin.math.min
 
-import android.content.Context;
-import android.content.res.Resources;
-import android.graphics.Bitmap;
-import android.graphics.drawable.Drawable;
-import android.util.AttributeSet;
-import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.RelativeLayout;
+@Suppress("MagicNumber")
+class AvatarGroupLayout @JvmOverloads constructor(
+    context: Context,
+    attrs: AttributeSet? = null,
+    defStyleAttr: Int = 0,
+    defStyleRes: Int = 0
+) : RelativeLayout(context, attrs, defStyleAttr, defStyleRes),
+    AvatarGenerationListener {
+    private val borderDrawable = ContextCompat.getDrawable(context, R.drawable.round_bgnd)
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.target.BitmapImageViewTarget;
-import com.nextcloud.client.account.User;
-import com.owncloud.android.R;
-import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.lib.resources.shares.ShareeUser;
-import com.owncloud.android.utils.DisplayUtils;
-import com.owncloud.android.utils.theme.ViewThemeUtils;
+    @Px
+    private val avatarSize: Int = DisplayUtils.convertDpToPixel(40f, context)
 
     @Px
     private val avatarBorderSize: Int = DisplayUtils.convertDpToPixel(2f, context)
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Px;
-import androidx.core.content.ContextCompat;
-import androidx.core.content.res.ResourcesCompat;
-import androidx.core.graphics.drawable.DrawableCompat;
-import androidx.core.graphics.drawable.RoundedBitmapDrawable;
-import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory;
+    @Px
+    private val overlapPx: Int = DisplayUtils.convertDpToPixel(24f, context)
 
     init {
         checkNotNull(borderDrawable)
@@ -170,20 +163,20 @@ import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory;
             )
         }
 
-        avatar.setTag(null);
+        avatar.tag = null
         Glide.with(context).load(url)
             .asBitmap()
             .placeholder(placeholder)
             .error(placeholder)
-            .into(new BitmapImageViewTarget(avatar) {
-                @Override
-                protected void setResource(Bitmap resource) {
-                    RoundedBitmapDrawable circularBitmapDrawable = RoundedBitmapDrawableFactory.create(resources,
-                                                                                                       resource);
-                    circularBitmapDrawable.setCircular(true);
-                    avatar.setImageDrawable(circularBitmapDrawable);
+            .into(object : BitmapImageViewTarget(avatar) {
+                override fun setResource(resource: Bitmap?) {
+                    resource?.let {
+                        val circularBitmapDrawable = RoundedBitmapDrawableFactory.create(resources, it)
+                        circularBitmapDrawable.isCircular = true
+                        avatar.setImageDrawable(circularBitmapDrawable)
+                    }
                 }
-            });
+            })
     }
 
     override fun avatarGenerated(avatarDrawable: Drawable?, callContext: Any) {

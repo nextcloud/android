@@ -21,18 +21,9 @@
             android:id="@+id/shareContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/standard_half_margin"
-            android:orientation="horizontal"
-            android:paddingLeft="@dimen/standard_padding"
-            android:paddingTop="@dimen/standard_padding"
-            android:paddingRight="@dimen/standard_padding">
-
-            <ImageView
-                android:id="@+id/shared_with_you_avatar"
-                android:layout_width="@dimen/user_icon_size"
-                android:layout_height="@dimen/user_icon_size"
-                android:contentDescription="@string/avatar"
-                android:src="@drawable/ic_user" />
+            android:visibility="gone"
+            tools:visibility="visible"
+            android:orientation="vertical">
 
             <LinearLayout
                 android:id="@+id/shared_with_you_container"
@@ -49,7 +40,7 @@
                     android:layout_width="@dimen/user_icon_size"
                     android:layout_height="@dimen/user_icon_size"
                     android:contentDescription="@string/avatar"
-                    android:src="@drawable/ic_user_outline" />
+                    android:src="@drawable/ic_user" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
