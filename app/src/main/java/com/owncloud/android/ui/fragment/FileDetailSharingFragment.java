@@ -489,7 +489,7 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
     }
 
     private void unShareWith(OCShare share) {
-        fileOperationsHelper.unShareShare(file, share);
+        fileOperationsHelper.unShareShare(file, share.getId());
     }
 
     /**
