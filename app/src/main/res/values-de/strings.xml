@@ -325,6 +325,7 @@
     <string name="error_comment_file">Fehler beim Kommentieren der Datei</string>
     <string name="error_crash_title">%1$s abgestürzt</string>
     <string name="error_creating_file_from_template">Fehler beim Erzeugen einer Datei aus der Vorlage</string>
+    <string name="error_fetching_sharees">Freigabeempfänger können nicht abgerufen werden</string>
     <string name="error_file_actions">Fehler beim Anzeigen von Dateiaktionen</string>
     <string name="error_file_lock">Fehler beim Ändern des Sperr-Status</string>
     <string name="error_report_issue_action">Melden</string>

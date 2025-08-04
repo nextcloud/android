@@ -325,6 +325,7 @@
     <string name="error_comment_file">對檔案留言時發生錯誤</string>
     <string name="error_crash_title">%1$s 當機</string>
     <string name="error_creating_file_from_template">從範本建立檔案時發生錯誤</string>
+    <string name="error_fetching_sharees">無法擷取分享對象。</string>
     <string name="error_file_actions">顯示檔案動作時發生錯誤</string>
     <string name="error_file_lock">變更檔案鎖定狀態時發生錯誤</string>
     <string name="error_report_issue_action">回報</string>
