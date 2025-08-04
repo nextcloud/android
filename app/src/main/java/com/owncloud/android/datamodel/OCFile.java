@@ -47,7 +47,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
 
     public final static String PERMISSION_CAN_RESHARE = "R";
     private final static String PERMISSION_SHARED = "S";
-    private final static String PERMISSION_CAN_CREATE_FILE_AND_FOLDER = "CK";
+    private final static String PERMISSION_CAN_CREATE_FILE_AND_FOLDER = PERMISSION_CAN_CREATE_FILE_INSIDE_FOLDER + PERMISSION_CAN_CREATE_FOLDER_INSIDE_FOLDER;
     private final static String PERMISSION_MOUNTED = "M";
     private final static String PERMISSION_CAN_CREATE_FILE_INSIDE_FOLDER = "C";
     private final static String PERMISSION_CAN_CREATE_FOLDER_INSIDE_FOLDER = "K";
