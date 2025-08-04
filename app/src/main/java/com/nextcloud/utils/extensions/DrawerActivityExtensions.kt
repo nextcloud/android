@@ -54,6 +54,7 @@ fun DrawerActivity.getMenuItemIdFromTitle(): Int? {
     }
 }
 
+@Suppress("ReturnCount")
 fun DrawerActivity.handleBackButtonEvent(currentDir: OCFile): Boolean {
     if (DrawerActivity.menuItemId == R.id.nav_all_files && currentDir.isRootDirectory) {
         moveTaskToBack(true)
