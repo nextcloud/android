@@ -1,0 +1,10 @@
+## 3.32.3 RC2 (August 4, 2025)
+
+- Improve login flow
+- Add missing share actions
+- Support other transport types
+- Bugfixes
+
+Minimum: NC 18 Server, Android 8.0 Nougat
+
+For a full list, please see https://github.com/nextcloud/android/milestone/114
