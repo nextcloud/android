@@ -57,8 +57,11 @@ import com.owncloud.android.utils.theme.ViewThemeUtils;
 
 import java.io.File;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Optional;
+import java.util.Set;
 import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.RejectedExecutionHandler;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
@@ -85,7 +88,7 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
     private final ThreadPoolExecutor executor = new ThreadPoolExecutor(1, 1,
                                                                        0L, TimeUnit.MILLISECONDS,
                                                                        new LinkedBlockingQueue<>(1),
-                                                                       new ThreadPoolExecutor.DiscardOldestPolicy());
+                                                                       new UploadGroupLoadPolicy());
 
     private final FileUploadHelper uploadHelper = FileUploadHelper.Companion.instance();
 
@@ -292,8 +295,6 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
         };
 
         showUser = accountManager.getAccounts().length > 1;
-
-        loadUploadItemsFromDb();
     }
 
 
@@ -821,19 +822,17 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
      * Load upload items from {@link UploadsStorageManager}.
      */
     public final void loadUploadItemsFromDb() {
+        loadUploadItemsFromDb(null);
+    }
+
+    /**
+     * Load upload items from {@link UploadsStorageManager}.
+     * @param loadCompleteListener load complete listener
+     */
+    public final void loadUploadItemsFromDb(LoadCompleteListener loadCompleteListener) {
         Log_OC.d(TAG, "loadUploadItemsFromDb");
         // Use thread pool to avoid repeated loading of data
-        executor.execute(() -> {
-            for (UploadGroup group : uploadGroups) {
-                group.refresh();
-            }
-            parentActivity.runOnUiThread(() -> {
-                for (UploadGroup uploadGroup : uploadGroups) {
-                    uploadGroup.apply();
-                }
-                this.notifyDataSetChanged();
-            });
-        });
+        executor.execute(new UploadGroupLoadRunnable(loadCompleteListener));
     }
 
     /**
@@ -973,6 +972,56 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
         @Override
         public void apply() {
             setItems(this.refreshItems);
+        }
+    }
+
+    public interface LoadCompleteListener {
+        void onComplete();
+    }
+
+    private class UploadGroupLoadRunnable implements Runnable {
+
+        private final Set<LoadCompleteListener> loadCompleteListenerSet = new HashSet<>();
+
+        public UploadGroupLoadRunnable(LoadCompleteListener loadCompleteListener) {
+            if (loadCompleteListener != null) {
+                loadCompleteListenerSet.add(loadCompleteListener);
+            }
+        }
+
+        @Override
+        public void run() {
+            for (UploadGroup group : uploadGroups) {
+                group.refresh();
+            }
+            parentActivity.runOnUiThread(() -> {
+                for (UploadGroup uploadGroup : uploadGroups) {
+                    uploadGroup.apply();
+                }
+                notifyDataSetChanged();
+                for (LoadCompleteListener loadCompleteListener : loadCompleteListenerSet) {
+                    loadCompleteListener.onComplete();
+                }
+            });
+        }
+    }
+
+    private static class UploadGroupLoadPolicy implements RejectedExecutionHandler {
+        @Override
+        public void rejectedExecution(Runnable runnable, ThreadPoolExecutor executor) {
+            if (executor.isShutdown()) {
+                return;
+            }
+
+            Runnable oldest = executor.getQueue().poll();
+
+            if (oldest instanceof UploadGroupLoadRunnable oldUploadTask && runnable instanceof UploadGroupLoadRunnable newUploadTask) {
+                if (!oldUploadTask.loadCompleteListenerSet.isEmpty()) {
+                    newUploadTask.loadCompleteListenerSet.addAll(oldUploadTask.loadCompleteListenerSet);
+                }
+            }
+
+            executor.execute(runnable);
         }
     }
 
