@@ -1007,19 +1007,21 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
     }
 
     private static class UploadGroupLoadPolicy implements RejectedExecutionHandler {
-
         @Override
-        public void rejectedExecution(Runnable r, ThreadPoolExecutor executor) {
-            if (!executor.isShutdown()) {
-                Runnable poll = executor.getQueue().poll();
-                if (poll instanceof UploadGroupLoadRunnable) {
-                    Set<LoadCompleteListener> loadCompleteListenerSet = ((UploadGroupLoadRunnable) poll).loadCompleteListenerSet;
-                    if (!loadCompleteListenerSet.isEmpty() && r instanceof UploadGroupLoadRunnable) {
-                        ((UploadGroupLoadRunnable) r).loadCompleteListenerSet.addAll(loadCompleteListenerSet);
-                    }
-                }
-                executor.execute(r);
+        public void rejectedExecution(Runnable runnable, ThreadPoolExecutor executor) {
+            if (executor.isShutdown()) {
+                return;
             }
+
+            Runnable oldest = executor.getQueue().poll();
+
+            if (oldest instanceof UploadGroupLoadRunnable oldUploadTask && runnable instanceof UploadGroupLoadRunnable newUploadTask) {
+                if (!oldUploadTask.loadCompleteListenerSet.isEmpty()) {
+                    newUploadTask.loadCompleteListenerSet.addAll(oldUploadTask.loadCompleteListenerSet);
+                }
+            }
+
+            executor.execute(runnable);
         }
     }
 
