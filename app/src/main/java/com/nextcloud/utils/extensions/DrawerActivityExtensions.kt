@@ -10,6 +10,7 @@ package com.nextcloud.utils.extensions
 import android.content.Intent
 import com.owncloud.android.MainApp
 import com.owncloud.android.R
+import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.ui.activity.DrawerActivity
 import com.owncloud.android.ui.activity.FileDisplayActivity
 
@@ -53,10 +54,15 @@ fun DrawerActivity.getMenuItemIdFromTitle(): Int? {
     }
 }
 
-fun DrawerActivity.showAllFiles(isCurrentDirRoot: Boolean) {
-    if (DrawerActivity.menuItemId == R.id.nav_all_files && isCurrentDirRoot) {
+fun DrawerActivity.handleBackButtonEvent(currentDir: OCFile): Boolean {
+    if (DrawerActivity.menuItemId == R.id.nav_all_files && currentDir.isRootDirectory) {
         moveTaskToBack(true)
-        return
+        return true
+    }
+
+    val isParentDirExists = (storageManager.getFileById(currentDir.parentId) != null)
+    if (isParentDirExists) {
+        return false
     }
 
     DrawerActivity.menuItemId = R.id.nav_all_files
@@ -71,4 +77,6 @@ fun DrawerActivity.showAllFiles(isCurrentDirRoot: Boolean) {
     }.run {
         startActivity(this)
     }
+
+    return true
 }
