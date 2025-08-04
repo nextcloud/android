@@ -150,6 +150,10 @@ android {
         flavorDimensions += "default"
 
         buildTypes {
+            release {
+                buildConfigField "String", "NC_TEST_SERVER_DATA_STRING", "\"\""
+            }
+
             debug {
                 testCoverageEnabled = project.hasProperty("coverage")
                 resConfigs "xxxhdpi"
