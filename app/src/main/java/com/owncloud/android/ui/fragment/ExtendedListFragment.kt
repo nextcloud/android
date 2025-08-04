@@ -60,7 +60,7 @@ import com.nextcloud.client.network.ConnectivityService.GenericCallback
 import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.client.preferences.AppPreferencesImpl
 import com.nextcloud.utils.extensions.getTypedActivity
-import com.nextcloud.utils.extensions.showAllFiles
+import com.nextcloud.utils.extensions.handleBackButtonEvent
 import com.owncloud.android.MainApp
 import com.owncloud.android.R
 import com.owncloud.android.databinding.ListFragmentBinding
@@ -736,12 +736,9 @@ open class ExtendedListFragment :
         view?.isFocusableInTouchMode = true
         view?.requestFocus()
         view?.setOnKeyListener { _: View, keyCode: Int, event: KeyEvent ->
-            if (activity is FileDisplayActivity &&
-                (event.action == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_BACK)
-            ) {
-                val fda = (activity as FileDisplayActivity)
-                fda.showAllFiles(fda.currentDir.isRootDirectory)
-                return@setOnKeyListener true
+            val fda = getTypedActivity(FileActivity::class.java)
+            if (fda != null && (event.action == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_BACK)) {
+                return@setOnKeyListener fda.handleBackButtonEvent(fda.currentDir)
             }
             false
         }
