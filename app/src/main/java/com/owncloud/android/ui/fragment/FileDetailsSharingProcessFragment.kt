@@ -166,7 +166,7 @@ class FileDetailsSharingProcessFragment :
 
         permission = share?.permissions
             ?: capabilities.defaultPermissions
-                ?: SharePermissionManager.getMaximumPermission(isFolder())
+            ?: SharePermissionManager.getMaximumPermission(isFolder())
     }
 
     private fun initArguments() {
