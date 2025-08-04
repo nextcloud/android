@@ -168,7 +168,7 @@
     <string name="dev_version_no_new_version_available">Jauna versija nav pieejama.</string>
     <string name="dialog_close">Aizvērt</string>
     <string name="did_not_check_for_dupes">Nepārbaudīja vienumus, kas atkārtojas.</string>
-    <string name="digest_algorithm_not_available">Šis algoritms nav pieejams jūsu tālrunī.</string>
+    <string name="digest_algorithm_not_available">Šis īssavilkuma algoritms Tavā tālrunī nav pieejams.</string>
     <string name="direct_login_text">Pieteikties %2$s ar %1$s</string>
     <string name="disable_new_media_folder_detection_notifications">Deaktivēt</string>
     <string name="dismiss">Atmest</string>
@@ -565,7 +565,7 @@
     <string name="sync_fail_content_unauthorized">Nepareiza parole kontam %1$s</string>
     <string name="sync_fail_in_favourites_ticker">Kept-in-sync datnes cieta neveiksmi</string>
     <string name="sync_fail_ticker">Sinhronizēšana neizdevās</string>
-    <string name="sync_fail_ticker_unauthorized">Sinhronizācija neizdevās, piesakieties vēlreiz</string>
+    <string name="sync_fail_ticker_unauthorized">Sinhronizēšana neizdevās, jāpiesakās vēlreiz</string>
     <string name="sync_file_nothing_to_do_msg">Datnes saturs jau ir sinhronizēts</string>
     <string name="sync_folder_failed_content">Mapes %1$s sinhronizēšanu nevarēja pabeigt</string>
     <string name="sync_foreign_files_forgotten_ticker">Dažas vietējās datnes tika aizmirstas</string>
@@ -581,6 +581,7 @@
     <string name="today">Šodien</string>
     <string name="trashbin_activity_title">Izdzēstās datnes</string>
     <string name="trashbin_empty_headline">Nav izdzēstu datņu</string>
+    <string name="trashbin_empty_message">Šeit varēsi atgūt izdzēstās datnes.</string>
     <string name="trashbin_file_remove">Neatgriezeniski izdzēst</string>
     <string name="two_way_sync_activity_empty_list_desc">Lai iestatītu mapi divvirzienu sinhronizēšanai, lūgums iespējot to attiecīgās mapes informācijas cilnē.</string>
     <string name="two_way_sync_activity_title">Iekšējā divvirzienu sinhronizēšana</string>
@@ -659,7 +660,7 @@
     <string name="uploads_view_upload_status_succeeded_same_file">Atrasta tāda pati attālā datne, izlaiž augšupielādi</string>
     <string name="uploads_view_upload_status_unknown_fail">Nezināma kļūda</string>
     <string name="uploads_view_upload_status_virus_detected">Noteikts vīruss. Augšupielādi nevar pabeigt.</string>
-    <string name="uploads_view_upload_status_waiting_exit_power_save_mode">Gaida lai izietu no enerģijas taupīšanas režīma</string>
+    <string name="uploads_view_upload_status_waiting_exit_power_save_mode">Gaida, lai izietu no enerģijas taupīšanas režīma</string>
     <string name="uploads_view_upload_status_waiting_for_charging">Gaida uzlādi</string>
     <string name="user_icon">Lietotājs</string>
     <string name="user_info_address">Adrese</string>
