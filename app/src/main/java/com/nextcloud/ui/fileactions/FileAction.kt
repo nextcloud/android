@@ -187,11 +187,6 @@ enum class FileAction(
 
             val result = mutableListOf<Int>()
 
-            /*
-             if (files.any { it?.isSharedWithMe == false } || files.any { it?.canReshare() == true }) {
-                result.add(R.id.action_send_share_file)
-            }
-             */
             if (files.any { !it.canReshare() }) {
                 result.add(R.id.action_send_share_file)
             }
