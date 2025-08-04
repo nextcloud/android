@@ -1371,5 +1371,5 @@
     <string name="document_storage_provider_cannot_write">Can’t edit item: missing write permission.</string>
     <string name="document_storage_provider_cannot_reshare">Can’t reshare item: missing share permission.</string>
 
-    <string name="extented_list_fragment_empty_list_message_no_write_permission">Sync with your devices.</string>
+    <string name="extented_list_fragment_empty_list_message_no_write_permission">You don’t have permission to create or upload files in this folder.</string>
 </resources>
