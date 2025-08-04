@@ -65,6 +65,9 @@ enum class FileAction(
     RETRY(R.id.action_retry, R.string.retry, R.drawable.ic_retry);
 
     companion object {
+        /**
+         * All file actions, in the order they should be displayed
+         */
         fun getActions(files: Collection<OCFile>): List<FileAction> {
             return mutableListOf(
                 UNLOCK_FILE,
