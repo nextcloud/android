@@ -292,8 +292,8 @@ class BackupFragment :
      * Refreshes the folder and returns updated backup files
      */
     @Suppress("TooGenericExceptionCaught")
-    private suspend fun fetchBackupFiles(folder: OCFile, storageManager: FileDataStorageManager): List<OCFile> {
-        return withContext(Dispatchers.IO) {
+    private suspend fun fetchBackupFiles(folder: OCFile, storageManager: FileDataStorageManager): List<OCFile> =
+        withContext(Dispatchers.IO) {
             try {
                 val operation = RefreshFolderOperation(
                     folder,
@@ -320,7 +320,6 @@ class BackupFragment :
                 listOf()
             }
         }
-    }
 
     @Deprecated("Deprecated in Java")
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

@@ -24,6 +24,7 @@ import android.content.res.Configuration
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.DisplayMetrics
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuInflater
@@ -59,6 +60,7 @@ import com.nextcloud.client.network.ConnectivityService.GenericCallback
 import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.client.preferences.AppPreferencesImpl
 import com.nextcloud.utils.extensions.getTypedActivity
+import com.nextcloud.utils.extensions.handleBackButtonEvent
 import com.owncloud.android.MainApp
 import com.owncloud.android.R
 import com.owncloud.android.databinding.ListFragmentBinding
@@ -727,6 +729,18 @@ open class ExtendedListFragment :
                 it.setContentDescription(getString(R.string.action_switch_grid_view))
                 it.setIcon(ContextCompat.getDrawable(requireContext(), R.drawable.ic_view_module))
             }
+        }
+    }
+
+    protected fun setupBackButtonRedirectToAllFiles() {
+        view?.isFocusableInTouchMode = true
+        view?.requestFocus()
+        view?.setOnKeyListener { _: View, keyCode: Int, event: KeyEvent ->
+            val fda = getTypedActivity(FileActivity::class.java)
+            if (fda != null && (event.action == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_BACK)) {
+                return@setOnKeyListener fda.handleBackButtonEvent(fda.currentDir)
+            }
+            false
         }
     }
 

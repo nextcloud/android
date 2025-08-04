@@ -281,6 +281,12 @@ public class OCFileListFragment extends ExtendedListFragment implements
         super.onResume();
     }
 
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        setupBackButtonRedirectToAllFiles();
+    }
+
     /**
      * {@inheritDoc}
      */
