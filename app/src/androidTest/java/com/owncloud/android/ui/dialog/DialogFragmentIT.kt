@@ -81,6 +81,7 @@ import org.junit.Test
 import java.net.URI
 import java.util.function.Supplier
 
+@Suppress("TooManyFunctions")
 class DialogFragmentIT : AbstractIT() {
     private val testClassName = "com.owncloud.android.ui.dialog.DialogFragmentIT"
     private val serverUrl = "https://nextcloud.localhost"
@@ -447,35 +448,16 @@ class DialogFragmentIT : AbstractIT() {
         }
 
         val action: OCFileListBottomSheetActions = object : OCFileListBottomSheetActions {
-            override fun createFolder() {
-            }
-
-            override fun uploadFromApp() {
-            }
-
-            override fun uploadFiles() {
-            }
-
-            override fun newDocument() {
-            }
-
-            override fun newSpreadsheet() {
-            }
-
-            override fun newPresentation() {
-            }
-
-            override fun directCameraUpload() {
-            }
-
-            override fun scanDocUpload() {
-            }
-
-            override fun showTemplate(creator: Creator?, headline: String?) {
-            }
-
-            override fun createRichWorkspace() {
-            }
+            override fun createFolder() = Unit
+            override fun uploadFromApp() = Unit
+            override fun uploadFiles() = Unit
+            override fun newDocument() = Unit
+            override fun newSpreadsheet() = Unit
+            override fun newPresentation() = Unit
+            override fun directCameraUpload() = Unit
+            override fun scanDocUpload() = Unit
+            override fun showTemplate(creator: Creator?, headline: String?) = Unit
+            override fun createRichWorkspace() = Unit
         }
 
         val info = DeviceInfo()
