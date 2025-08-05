@@ -143,6 +143,7 @@
     <string name="common_error">Error</string>
     <string name="common_error_out_memory">No hay suficiente memoria</string>
     <string name="common_error_unknown">Error desconocido</string>
+    <string name="common_leave_this_share">Abandonar este recurso compartido</string>
     <string name="common_loading">Cargando…</string>
     <string name="common_next">Siguiente</string>
     <string name="common_no">No</string>

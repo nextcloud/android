@@ -143,6 +143,7 @@
     <string name="common_error">Ошибка</string>
     <string name="common_error_out_memory">Недостаточно памяти</string>
     <string name="common_error_unknown">Неизвестная ошибка</string>
+    <string name="common_leave_this_share">Перестать использовать общий ресурс</string>
     <string name="common_loading">Загрузка…</string>
     <string name="common_next">Далее</string>
     <string name="common_no">Нет</string>

@@ -143,6 +143,7 @@
     <string name="common_error">خطأ</string>
     <string name="common_error_out_memory">لا يوجد ذاكرة عشوائية كافية</string>
     <string name="common_error_unknown">خطأ غير معروف. </string>
+    <string name="common_leave_this_share">مغادرة هذه المشاركة</string>
     <string name="common_loading">التحميل جارٍ …</string>
     <string name="common_next">التالي</string>
     <string name="common_no">لا</string>

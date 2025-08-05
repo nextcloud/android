@@ -144,6 +144,7 @@ Otomatis unggah hanya bekerja dengan baik apabila Anda mengeluarkan aplikasi ini
     <string name="common_error">Kesalahan</string>
     <string name="common_error_out_memory">Memori tidak cukup</string>
     <string name="common_error_unknown">Kesalahan tidak diketahui</string>
+    <string name="common_leave_this_share">Tinggalkan pembagian ini</string>
     <string name="common_loading">Memuat…</string>
     <string name="common_next">Berikutnya</string>
     <string name="common_no">Tidak</string>

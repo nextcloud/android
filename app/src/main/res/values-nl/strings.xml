@@ -143,6 +143,7 @@
     <string name="common_error">Fout</string>
     <string name="common_error_out_memory">Niet voldoende geheugen</string>
     <string name="common_error_unknown">Onbekende fout</string>
+    <string name="common_leave_this_share">Verlaat deze share</string>
     <string name="common_loading">Laden…</string>
     <string name="common_next">Volgende</string>
     <string name="common_no">Nee</string>

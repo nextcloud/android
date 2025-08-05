@@ -143,6 +143,7 @@
     <string name="common_error">Chyba</string>
     <string name="common_error_out_memory">Nedostatek paměti</string>
     <string name="common_error_unknown">Neznámá chyba</string>
+    <string name="common_leave_this_share">Opustit toto sdílení</string>
     <string name="common_loading">Načítání…</string>
     <string name="common_next">Další</string>
     <string name="common_no">Ne</string>

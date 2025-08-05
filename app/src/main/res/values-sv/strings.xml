@@ -143,6 +143,7 @@
     <string name="common_error">Fel</string>
     <string name="common_error_out_memory">Inte tillräckligt med minne</string>
     <string name="common_error_unknown">Okänt fel</string>
+    <string name="common_leave_this_share">Lämna denna delning</string>
     <string name="common_loading">Läser in…</string>
     <string name="common_next">Nästa</string>
     <string name="common_no">Nej</string>

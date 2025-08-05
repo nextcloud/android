@@ -143,6 +143,7 @@
     <string name="common_error">Errorea</string>
     <string name="common_error_out_memory">Ez dago memoria nahikorik</string>
     <string name="common_error_unknown">Errore ezezaguna</string>
+    <string name="common_leave_this_share">Utzi partekatze hau</string>
     <string name="common_loading">Kargatzen…</string>
     <string name="common_next">Hurrengoa</string>
     <string name="common_no">Ez</string>

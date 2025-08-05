@@ -143,6 +143,7 @@
     <string name="common_error">Помилка</string>
     <string name="common_error_out_memory">Недостатньо пам\'яті</string>
     <string name="common_error_unknown">Невідома помилка</string>
+    <string name="common_leave_this_share">Вийти зі спільного доступу</string>
     <string name="common_loading">Завантаження…</string>
     <string name="common_next">Далі</string>
     <string name="common_no">Ні</string>

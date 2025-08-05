@@ -143,6 +143,7 @@
     <string name="common_error">Viga</string>
     <string name="common_error_out_memory">Pole piisavalt mälu</string>
     <string name="common_error_unknown">Tundmatu viga</string>
+    <string name="common_leave_this_share">Lahku jaoskaustast</string>
     <string name="common_loading">Laadimine…</string>
     <string name="common_next">Järgmine</string>
     <string name="common_no">Ei</string>

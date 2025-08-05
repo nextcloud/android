@@ -114,6 +114,7 @@
     <string name="common_error">خطا</string>
     <string name="common_error_out_memory">حافظه کافی وجود ندارد</string>
     <string name="common_error_unknown">خطای نامشخص</string>
+    <string name="common_leave_this_share">ترک این اشتراک</string>
     <string name="common_loading">بار کردن…</string>
     <string name="common_next">بعدی</string>
     <string name="common_no">نه</string>

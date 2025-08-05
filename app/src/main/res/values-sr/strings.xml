@@ -143,6 +143,7 @@
     <string name="common_error">Грешка</string>
     <string name="common_error_out_memory">Нема довољно меморије</string>
     <string name="common_error_unknown">Непозната грешка</string>
+    <string name="common_leave_this_share">Напусти ово дељење</string>
     <string name="common_loading">Учитавам…</string>
     <string name="common_next">Следеће</string>
     <string name="common_no">Не</string>

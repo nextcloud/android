@@ -137,6 +137,7 @@
     <string name="common_error">Error</string>
     <string name="common_error_out_memory">Memòria insuficient</string>
     <string name="common_error_unknown">Error desconegut</string>
+    <string name="common_leave_this_share">Abandona aquest element compartit</string>
     <string name="common_loading">S\'està carregant…</string>
     <string name="common_next">Següent</string>
     <string name="common_no">No</string>

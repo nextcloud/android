@@ -138,6 +138,7 @@
     <string name="common_error">Villa</string>
     <string name="common_error_out_memory">Ekki nægilegt minni</string>
     <string name="common_error_unknown">Óþekkt villa</string>
+    <string name="common_leave_this_share">Yfirgefa þessa sameign</string>
     <string name="common_loading">Hleð inn…</string>
     <string name="common_next">Næsta</string>
     <string name="common_no">Nei</string>

@@ -126,6 +126,7 @@
     <string name="common_error">Virhe</string>
     <string name="common_error_out_memory">Muistia ei ole riittävästi</string>
     <string name="common_error_unknown">Tuntematon virhe</string>
+    <string name="common_leave_this_share">Poistu tästä jaosta</string>
     <string name="common_loading">Ladataan…</string>
     <string name="common_next">Seuraava</string>
     <string name="common_no">Ei</string>
