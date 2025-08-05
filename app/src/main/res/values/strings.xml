@@ -1356,4 +1356,5 @@
     <string name="server_not_reachable">Could not load content</string>
     <string name="server_not_reachable_content">The device is likely not connected to the internet</string>
     <string name="file_details_sharing_fragment_custom_permission_not_selected">Please select custom permission</string>
+    <string name="link_not_followed_due_to_security_settings">Link not followed due to security settings.</string>
 </resources>
