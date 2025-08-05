@@ -30,41 +30,17 @@ import ezvcard.property.Telephone;
 public class DataMappings {
     private static final Map<TelephoneType, Integer> phoneTypeMappings;
     static {
-        Map<TelephoneType, Integer> m = new HashMap<>();
-        m.put(TelephoneType.BBS, ContactsContract.CommonDataKinds.Phone.TYPE_CUSTOM);
-        m.put(TelephoneType.CAR, ContactsContract.CommonDataKinds.Phone.TYPE_CAR);
-        m.put(TelephoneType.CELL, ContactsContract.CommonDataKinds.Phone.TYPE_MOBILE);
-        m.put(TelephoneType.FAX, ContactsContract.CommonDataKinds.Phone.TYPE_FAX_HOME);
-        m.put(TelephoneType.HOME, ContactsContract.CommonDataKinds.Phone.TYPE_HOME);
-        m.put(TelephoneType.ISDN, ContactsContract.CommonDataKinds.Phone.TYPE_ISDN);
-        m.put(TelephoneType.MODEM, ContactsContract.CommonDataKinds.Phone.TYPE_OTHER);
-        m.put(TelephoneType.PAGER, ContactsContract.CommonDataKinds.Phone.TYPE_PAGER);
-        m.put(TelephoneType.MSG, ContactsContract.CommonDataKinds.Phone.TYPE_MMS);
-        m.put(TelephoneType.PCS, ContactsContract.CommonDataKinds.Phone.TYPE_OTHER);
-        m.put(TelephoneType.TEXT, ContactsContract.CommonDataKinds.Phone.TYPE_MMS);
-        m.put(TelephoneType.TEXTPHONE, ContactsContract.CommonDataKinds.Phone.TYPE_MMS);
-        m.put(TelephoneType.VIDEO, ContactsContract.CommonDataKinds.Phone.TYPE_OTHER);
-        m.put(TelephoneType.WORK, ContactsContract.CommonDataKinds.Phone.TYPE_WORK);
-        m.put(TelephoneType.VOICE, ContactsContract.CommonDataKinds.Phone.TYPE_OTHER);
-        phoneTypeMappings = Collections.unmodifiableMap(m);
+        phoneTypeMappings = Map.ofEntries(Map.entry(TelephoneType.BBS, ContactsContract.CommonDataKinds.Phone.TYPE_CUSTOM), Map.entry(TelephoneType.CAR, ContactsContract.CommonDataKinds.Phone.TYPE_CAR), Map.entry(TelephoneType.CELL, ContactsContract.CommonDataKinds.Phone.TYPE_MOBILE), Map.entry(TelephoneType.FAX, ContactsContract.CommonDataKinds.Phone.TYPE_FAX_HOME), Map.entry(TelephoneType.HOME, ContactsContract.CommonDataKinds.Phone.TYPE_HOME), Map.entry(TelephoneType.ISDN, ContactsContract.CommonDataKinds.Phone.TYPE_ISDN), Map.entry(TelephoneType.MODEM, ContactsContract.CommonDataKinds.Phone.TYPE_OTHER), Map.entry(TelephoneType.PAGER, ContactsContract.CommonDataKinds.Phone.TYPE_PAGER), Map.entry(TelephoneType.MSG, ContactsContract.CommonDataKinds.Phone.TYPE_MMS), Map.entry(TelephoneType.PCS, ContactsContract.CommonDataKinds.Phone.TYPE_OTHER), Map.entry(TelephoneType.TEXT, ContactsContract.CommonDataKinds.Phone.TYPE_MMS), Map.entry(TelephoneType.TEXTPHONE, ContactsContract.CommonDataKinds.Phone.TYPE_MMS), Map.entry(TelephoneType.VIDEO, ContactsContract.CommonDataKinds.Phone.TYPE_OTHER), Map.entry(TelephoneType.WORK, ContactsContract.CommonDataKinds.Phone.TYPE_WORK), Map.entry(TelephoneType.VOICE, ContactsContract.CommonDataKinds.Phone.TYPE_OTHER));
     }
 
     private static final Map<String, Integer> websiteTypeMappings;
     static {
-        Map<String, Integer> m = new HashMap<>();
-        m.put("home", ContactsContract.CommonDataKinds.Website.TYPE_HOME);
-        m.put("work", ContactsContract.CommonDataKinds.Website.TYPE_WORK);
-        m.put("homepage", ContactsContract.CommonDataKinds.Website.TYPE_HOMEPAGE);
-        m.put("profile", ContactsContract.CommonDataKinds.Website.TYPE_PROFILE);
-        websiteTypeMappings = Collections.unmodifiableMap(m);
+        websiteTypeMappings = Map.of("home", ContactsContract.CommonDataKinds.Website.TYPE_HOME, "work", ContactsContract.CommonDataKinds.Website.TYPE_WORK, "homepage", ContactsContract.CommonDataKinds.Website.TYPE_HOMEPAGE, "profile", ContactsContract.CommonDataKinds.Website.TYPE_PROFILE);
     }
 
     private static final Map<EmailType, Integer> emailTypeMappings;
     static {
-        Map<EmailType, Integer> m = new HashMap<>();
-        m.put(EmailType.HOME, ContactsContract.CommonDataKinds.Email.TYPE_HOME);
-        m.put(EmailType.WORK, ContactsContract.CommonDataKinds.Email.TYPE_WORK);
-        emailTypeMappings = Collections.unmodifiableMap(m);
+        emailTypeMappings = Map.of(EmailType.HOME, ContactsContract.CommonDataKinds.Email.TYPE_HOME, EmailType.WORK, ContactsContract.CommonDataKinds.Email.TYPE_WORK);
     }
 
     private static final Map<AddressType, Integer> addressTypeMappings;
@@ -79,54 +55,22 @@ public class DataMappings {
 
     private static final Map<String, Integer> abRelatedNamesMappings;
     static {
-        Map<String, Integer> m = new HashMap<>();
-        m.put("father", ContactsContract.CommonDataKinds.Relation.TYPE_FATHER);
-        m.put("spouse", ContactsContract.CommonDataKinds.Relation.TYPE_SPOUSE);
-        m.put("mother", ContactsContract.CommonDataKinds.Relation.TYPE_MOTHER);
-        m.put("brother", ContactsContract.CommonDataKinds.Relation.TYPE_BROTHER);
-        m.put("parent", ContactsContract.CommonDataKinds.Relation.TYPE_PARENT);
-        m.put("sister", ContactsContract.CommonDataKinds.Relation.TYPE_SISTER);
-        m.put("child", ContactsContract.CommonDataKinds.Relation.TYPE_CHILD);
-        m.put("assistant", ContactsContract.CommonDataKinds.Relation.TYPE_ASSISTANT);
-        m.put("partner", ContactsContract.CommonDataKinds.Relation.TYPE_PARTNER);
-        m.put("manager", ContactsContract.CommonDataKinds.Relation.TYPE_MANAGER);
-        abRelatedNamesMappings = Collections.unmodifiableMap(m);
+        abRelatedNamesMappings = Map.of("father", ContactsContract.CommonDataKinds.Relation.TYPE_FATHER, "spouse", ContactsContract.CommonDataKinds.Relation.TYPE_SPOUSE, "mother", ContactsContract.CommonDataKinds.Relation.TYPE_MOTHER, "brother", ContactsContract.CommonDataKinds.Relation.TYPE_BROTHER, "parent", ContactsContract.CommonDataKinds.Relation.TYPE_PARENT, "sister", ContactsContract.CommonDataKinds.Relation.TYPE_SISTER, "child", ContactsContract.CommonDataKinds.Relation.TYPE_CHILD, "assistant", ContactsContract.CommonDataKinds.Relation.TYPE_ASSISTANT, "partner", ContactsContract.CommonDataKinds.Relation.TYPE_PARTNER, "manager", ContactsContract.CommonDataKinds.Relation.TYPE_MANAGER);
     }
 
     private static final Map<String, Integer> abDateMappings;
     static {
-        Map<String, Integer> m = new HashMap<>();
-        m.put("anniversary", ContactsContract.CommonDataKinds.Event.TYPE_ANNIVERSARY);
-        m.put("other", ContactsContract.CommonDataKinds.Event.TYPE_OTHER);
-        abDateMappings = Collections.unmodifiableMap(m);
+        abDateMappings = Map.of("anniversary", ContactsContract.CommonDataKinds.Event.TYPE_ANNIVERSARY, "other", ContactsContract.CommonDataKinds.Event.TYPE_OTHER);
     }
 
     private static final Map<String, Integer> imPropertyNameMappings;
     static{
-        Map<String, Integer> m = new HashMap<>();
-        m.put("X-AIM", ContactsContract.CommonDataKinds.Im.PROTOCOL_AIM);
-        m.put("X-ICQ", ContactsContract.CommonDataKinds.Im.PROTOCOL_ICQ);
-        m.put("X-QQ", ContactsContract.CommonDataKinds.Im.PROTOCOL_ICQ);
-        m.put("X-GOOGLE-TALK", ContactsContract.CommonDataKinds.Im.PROTOCOL_CUSTOM);
-        m.put("X-JABBER", ContactsContract.CommonDataKinds.Im.PROTOCOL_JABBER);
-        m.put("X-MSN", ContactsContract.CommonDataKinds.Im.PROTOCOL_MSN);
-        m.put("X-MS-IMADDRESS", ContactsContract.CommonDataKinds.Im.PROTOCOL_MSN);
-        m.put("X-YAHOO", ContactsContract.CommonDataKinds.Im.PROTOCOL_YAHOO);
-        m.put("X-SKYPE", ContactsContract.CommonDataKinds.Im.PROTOCOL_SKYPE);
-        m.put("X-SKYPE-USERNAME", ContactsContract.CommonDataKinds.Im.PROTOCOL_SKYPE);
-        m.put("X-TWITTER", ContactsContract.CommonDataKinds.Im.PROTOCOL_CUSTOM);
-        imPropertyNameMappings = Collections.unmodifiableMap(m);
+        imPropertyNameMappings = Map.ofEntries(Map.entry("X-AIM", ContactsContract.CommonDataKinds.Im.PROTOCOL_AIM), Map.entry("X-ICQ", ContactsContract.CommonDataKinds.Im.PROTOCOL_ICQ), Map.entry("X-QQ", ContactsContract.CommonDataKinds.Im.PROTOCOL_ICQ), Map.entry("X-GOOGLE-TALK", ContactsContract.CommonDataKinds.Im.PROTOCOL_CUSTOM), Map.entry("X-JABBER", ContactsContract.CommonDataKinds.Im.PROTOCOL_JABBER), Map.entry("X-MSN", ContactsContract.CommonDataKinds.Im.PROTOCOL_MSN), Map.entry("X-MS-IMADDRESS", ContactsContract.CommonDataKinds.Im.PROTOCOL_MSN), Map.entry("X-YAHOO", ContactsContract.CommonDataKinds.Im.PROTOCOL_YAHOO), Map.entry("X-SKYPE", ContactsContract.CommonDataKinds.Im.PROTOCOL_SKYPE), Map.entry("X-SKYPE-USERNAME", ContactsContract.CommonDataKinds.Im.PROTOCOL_SKYPE), Map.entry("X-TWITTER", ContactsContract.CommonDataKinds.Im.PROTOCOL_CUSTOM));
     }
 
     private static final Map<String, Integer> imProtocolMappings;
     static{
-        Map<String, Integer> m = new HashMap<>();
-        m.put("aim", ContactsContract.CommonDataKinds.Im.PROTOCOL_AIM);
-        m.put("icq", ContactsContract.CommonDataKinds.Im.PROTOCOL_ICQ);
-        m.put("msn", ContactsContract.CommonDataKinds.Im.PROTOCOL_MSN);
-        m.put("ymsgr", ContactsContract.CommonDataKinds.Im.PROTOCOL_YAHOO);
-        m.put("skype", ContactsContract.CommonDataKinds.Im.PROTOCOL_SKYPE);
-        imProtocolMappings = Collections.unmodifiableMap(m);
+        imProtocolMappings = Map.of("aim", ContactsContract.CommonDataKinds.Im.PROTOCOL_AIM, "icq", ContactsContract.CommonDataKinds.Im.PROTOCOL_ICQ, "msn", ContactsContract.CommonDataKinds.Im.PROTOCOL_MSN, "ymsgr", ContactsContract.CommonDataKinds.Im.PROTOCOL_YAHOO, "skype", ContactsContract.CommonDataKinds.Im.PROTOCOL_SKYPE);
     }
 
     /**

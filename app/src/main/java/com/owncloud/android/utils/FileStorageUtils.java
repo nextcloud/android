@@ -330,9 +330,7 @@ public final class FileStorageUtils {
 
     public static List<OCFile> sortOcFolderDescDateModifiedWithoutFavoritesFirst(List<OCFile> files) {
         final int multiplier = -1;
-        Collections.sort(files, (o1, o2) -> {
-            return multiplier * Long.compare(o1.getModificationTimestamp(),o2.getModificationTimestamp());
-        });
+        files.sort((o1, o2) -> multiplier * Long.compare(o1.getModificationTimestamp(), o2.getModificationTimestamp()));
 
         return files;
     }

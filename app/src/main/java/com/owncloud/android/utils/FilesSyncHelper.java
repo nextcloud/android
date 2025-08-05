@@ -325,13 +325,11 @@ public final class FilesSyncHelper {
                                               final ConnectivityService connectivityService,
                                               final PowerManagementService powerManagementService) {
         Log_OC.d(TAG, "restartUploadsIfNeeded, called");
-        new Thread(() -> {
-            FileUploadHelper.Companion.instance().retryFailedUploads(
-                uploadsStorageManager,
-                connectivityService,
-                accountManager,
-                powerManagementService);
-        }).start();
+        new Thread(() -> FileUploadHelper.Companion.instance().retryFailedUploads(
+            uploadsStorageManager,
+            connectivityService,
+            accountManager,
+            powerManagementService)).start();
     }
 
     public static void scheduleFilesSyncForAllFoldersIfNeeded(Context context, SyncedFolderProvider syncedFolderProvider, BackgroundJobManager jobManager) {
