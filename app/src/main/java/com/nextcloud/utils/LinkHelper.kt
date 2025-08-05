@@ -24,11 +24,9 @@ object LinkHelper {
     const val APP_NEXTCLOUD_TALK = "com.nextcloud.talk2"
     private const val TAG = "LinkHelper"
 
-    fun isHttpOrHttpsLink(link: String?): Boolean {
-        return link?.lowercase(Locale.getDefault())?.let {
-            it.startsWith("http://") || it.startsWith("https://")
-        } == true
-    }
+    fun isHttpOrHttpsLink(link: String?): Boolean = link?.lowercase(Locale.getDefault())?.let {
+        it.startsWith("http://") || it.startsWith("https://")
+    } == true
 
     /**
      * Open specified app and, if not installed redirect to corresponding download.
