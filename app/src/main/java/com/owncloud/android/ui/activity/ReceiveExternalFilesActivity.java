@@ -637,21 +637,11 @@ public class ReceiveExternalFilesActivity extends FileActivity
         @Nullable
         private File createTempFile(String text) {
             File file = new File(getActivity().getCacheDir(), "tmp.tmp");
-            FileWriter fw = null;
-            try {
-                fw = new FileWriter(file);
+            try (FileWriter fw = new FileWriter(file)) {
                 fw.write(text);
             } catch (IOException e) {
                 Log_OC.d(TAG, "Error ", e);
                 return null;
-            } finally {
-                if (fw != null) {
-                    try {
-                        fw.close();
-                    } catch (IOException e) {
-                        Log_OC.d(TAG, "Error closing file writer ", e);
-                    }
-                }
             }
             return file;
         }

@@ -650,9 +650,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
         if (file.isFolder()) {
             mContainerActivity.showDetails(file, 1);
         } else {
-            throttler.run("shareIconClick", () -> {
-                mContainerActivity.getFileOperationsHelper().sendShareFile(file);
-            });
+            throttler.run("shareIconClick", () -> mContainerActivity.getFileOperationsHelper().sendShareFile(file));
         }
     }
 
