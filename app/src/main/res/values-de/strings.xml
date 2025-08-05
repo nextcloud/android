@@ -143,6 +143,7 @@
     <string name="common_error">Fehler</string>
     <string name="common_error_out_memory">Nicht genügend Speicher</string>
     <string name="common_error_unknown">Unbekannter Fehler</string>
+    <string name="common_leave_this_share">Diese Freigabe verlassen</string>
     <string name="common_loading">Lade…</string>
     <string name="common_next">Nächste</string>
     <string name="common_no">Nein</string>
@@ -325,6 +326,7 @@
     <string name="error_comment_file">Fehler beim Kommentieren der Datei</string>
     <string name="error_crash_title">%1$s abgestürzt</string>
     <string name="error_creating_file_from_template">Fehler beim Erzeugen einer Datei aus der Vorlage</string>
+    <string name="error_fetching_sharees">Freigabeempfänger können nicht abgerufen werden</string>
     <string name="error_file_actions">Fehler beim Anzeigen von Dateiaktionen</string>
     <string name="error_file_lock">Fehler beim Ändern des Sperr-Status</string>
     <string name="error_report_issue_action">Melden</string>
@@ -1011,6 +1013,7 @@
     <string name="upload_files">Dateien hochladen</string>
     <string name="upload_global_pause_title">Alle Uploads wurden pausiert</string>
     <string name="upload_item_action_button">Button, um Objekt hochzuladen</string>
+    <string name="upload_list_cancel_upload">Hochladen abbrechen</string>
     <string name="upload_list_delete">Löschen</string>
     <string name="upload_list_empty_headline">Keine Uploads verfügbar</string>
     <string name="upload_list_empty_text_auto_upload">Laden Sie Inhalte hoch oder aktivieren Sie den Auto Upload.</string>

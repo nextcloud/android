@@ -143,6 +143,7 @@
     <string name="common_error">Error</string>
     <string name="common_error_out_memory">Not enough memory</string>
     <string name="common_error_unknown">Unknown error</string>
+    <string name="common_leave_this_share">Leave this share</string>
     <string name="common_loading">Loading…</string>
     <string name="common_next">Next</string>
     <string name="common_no">No</string>
@@ -325,6 +326,7 @@
     <string name="error_comment_file">Error commenting file</string>
     <string name="error_crash_title">%1$s crashed</string>
     <string name="error_creating_file_from_template">Error creating file from template</string>
+    <string name="error_fetching_sharees">Unable to fetch sharees.</string>
     <string name="error_file_actions">Error showing file actions</string>
     <string name="error_file_lock">Error changing file lock status</string>
     <string name="error_report_issue_action">Report</string>

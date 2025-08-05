@@ -174,18 +174,11 @@ public class UploadListActivity extends FileActivity {
         swipeListRefreshLayout.setOnRefreshListener(this::refresh);
 
         loadItems();
-        uploadListAdapter.loadUploadItemsFromDb();
     }
 
     private void loadItems() {
-        uploadListAdapter.loadUploadItemsFromDb();
-
-        if (uploadListAdapter.getItemCount() > 0) {
-            return;
-        }
-
-        swipeListRefreshLayout.setVisibility(View.VISIBLE);
-        swipeListRefreshLayout.setRefreshing(false);
+        swipeListRefreshLayout.setRefreshing(true);
+        uploadListAdapter.loadUploadItemsFromDb(() -> swipeListRefreshLayout.setRefreshing(false));
     }
 
     private void refresh() {
@@ -208,8 +201,7 @@ public class UploadListActivity extends FileActivity {
 
 
         // update UI
-        uploadListAdapter.loadUploadItemsFromDb();
-        swipeListRefreshLayout.setRefreshing(false);
+        uploadListAdapter.loadUploadItemsFromDb(() -> swipeListRefreshLayout.setRefreshing(false));
     }
 
     @Override

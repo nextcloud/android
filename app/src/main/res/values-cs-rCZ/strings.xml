@@ -143,6 +143,7 @@
     <string name="common_error">Chyba</string>
     <string name="common_error_out_memory">Nedostatek paměti</string>
     <string name="common_error_unknown">Neznámá chyba</string>
+    <string name="common_leave_this_share">Opustit toto sdílení</string>
     <string name="common_loading">Načítání…</string>
     <string name="common_next">Další</string>
     <string name="common_no">Ne</string>
@@ -1010,6 +1011,7 @@
     <string name="upload_files">Nahrát soubory</string>
     <string name="upload_global_pause_title">Veškerá nahrávání jsou pozastavena</string>
     <string name="upload_item_action_button">Tlačítko akce Nahrát položku</string>
+    <string name="upload_list_cancel_upload">Zrušit nahrávání</string>
     <string name="upload_list_delete">Smazat</string>
     <string name="upload_list_empty_headline">Nic k nahrání</string>
     <string name="upload_list_empty_text_auto_upload">Nahrajte nějaký obsah nebo zapněte automatické nahrávání.</string>

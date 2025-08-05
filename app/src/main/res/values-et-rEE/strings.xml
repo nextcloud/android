@@ -143,6 +143,7 @@
     <string name="common_error">Viga</string>
     <string name="common_error_out_memory">Pole piisavalt mälu</string>
     <string name="common_error_unknown">Tundmatu viga</string>
+    <string name="common_leave_this_share">Lahku jaoskaustast</string>
     <string name="common_loading">Laadimine…</string>
     <string name="common_next">Järgmine</string>
     <string name="common_no">Ei</string>
@@ -325,6 +326,7 @@
     <string name="error_comment_file">Viga faili kommenteerimisel</string>
     <string name="error_crash_title">%1$s jooksis kokku</string>
     <string name="error_creating_file_from_template">Viga faili loomisel mallist</string>
+    <string name="error_fetching_sharees">Ei õnnestunud laadida isikuid, kellele jagada</string>
     <string name="error_file_actions">Viga failide toimingute kuvamisel</string>
     <string name="error_file_lock">Viga faili lukustuse muutmisel</string>
     <string name="error_report_issue_action">Teata</string>

@@ -143,6 +143,7 @@
     <string name="common_error">Błąd</string>
     <string name="common_error_out_memory">Brak wystarczającej pamięci</string>
     <string name="common_error_unknown">Nieznany błąd</string>
+    <string name="common_leave_this_share">Opuść te udostępnienie</string>
     <string name="common_loading">Wczytywanie…</string>
     <string name="common_next">Następne</string>
     <string name="common_no">Nie</string>

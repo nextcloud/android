@@ -143,6 +143,7 @@
     <string name="common_error">Erro</string>
     <string name="common_error_out_memory">Não há memória suficiente</string>
     <string name="common_error_unknown">Erro desconhecido</string>
+    <string name="common_leave_this_share">Sair deste compartilhamento</string>
     <string name="common_loading">Carregando…</string>
     <string name="common_next">Próximo</string>
     <string name="common_no">Não</string>
@@ -325,6 +326,7 @@
     <string name="error_comment_file">Erro ao comentar arquivo</string>
     <string name="error_crash_title">%1$s travou</string>
     <string name="error_creating_file_from_template">Erro ao criar o arquivo a partir do modelo</string>
+    <string name="error_fetching_sharees">Não é possível obter os destinatários do compartilhamento.</string>
     <string name="error_file_actions">Erro ao mostrar as ações do arquivo</string>
     <string name="error_file_lock">Erro ao alterar o status de bloqueio do arquivo</string>
     <string name="error_report_issue_action">Reportar</string>
@@ -1011,7 +1013,7 @@
     <string name="upload_files">Enviar arquivos</string>
     <string name="upload_global_pause_title">Todos os uploads estão pausados</string>
     <string name="upload_item_action_button">Enviar botão de ação do item</string>
-    <string name="upload_list_cancel_upload">Cancelar envio</string>
+    <string name="upload_list_cancel_upload">Cancelar upload</string>
     <string name="upload_list_delete">Excluir</string>
     <string name="upload_list_empty_headline">Nenhum upload disponível</string>
     <string name="upload_list_empty_text_auto_upload">Faça upload de algum conteúdo ou ative o upload automático.</string>

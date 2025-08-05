@@ -143,6 +143,7 @@
     <string name="common_error">Hiba</string>
     <string name="common_error_out_memory">Nincs elég memória</string>
     <string name="common_error_unknown">Ismeretlen hiba</string>
+    <string name="common_leave_this_share">Megosztás elhagyása</string>
     <string name="common_loading">Betöltés…</string>
     <string name="common_next">Következő</string>
     <string name="common_no">Nem</string>

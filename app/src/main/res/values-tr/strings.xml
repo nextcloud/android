@@ -143,6 +143,7 @@
     <string name="common_error">Hata</string>
     <string name="common_error_out_memory">Bellek yetersiz</string>
     <string name="common_error_unknown">Bilinmeyen sorun</string>
+    <string name="common_leave_this_share">Bu paylaşımdan ayrıl</string>
     <string name="common_loading">Yükleniyor …</string>
     <string name="common_next">Sonraki</string>
     <string name="common_no">Hayır</string>

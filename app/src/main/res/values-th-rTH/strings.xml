@@ -107,6 +107,7 @@
     <string name="common_error">ข้อผิดพลาด</string>
     <string name="common_error_out_memory">หน่วยความจำไม่พอ</string>
     <string name="common_error_unknown">ข้อผิดพลาดที่ไม่รู้จัก</string>
+    <string name="common_leave_this_share">ออกจากการแชร์นี้</string>
     <string name="common_loading">กำลังโหลด…</string>
     <string name="common_next">ถัดไป</string>
     <string name="common_no">ไม่</string>

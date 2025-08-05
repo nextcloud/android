@@ -34,6 +34,7 @@ import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.model.WorkerState;
 import com.nextcloud.model.WorkerStateLiveData;
+import com.nextcloud.ui.fileactions.FileAction;
 import com.nextcloud.ui.fileactions.FileActionsBottomSheet;
 import com.nextcloud.utils.MenuUtils;
 import com.nextcloud.utils.extensions.BundleExtensionsKt;
@@ -70,8 +71,6 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Objects;
 
 import javax.inject.Inject;
@@ -293,27 +292,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
 
     private void onOverflowIconClicked() {
         final OCFile file = getFile();
-        final List<Integer> additionalFilter = new ArrayList<>(
-            Arrays.asList(
-                R.id.action_lock_file,
-                R.id.action_unlock_file,
-                R.id.action_edit,
-                R.id.action_favorite,
-                R.id.action_unset_favorite,
-                R.id.action_see_details,
-                R.id.action_move_or_copy,
-                R.id.action_stream_media,
-                R.id.action_send_share_file,
-                R.id.action_pin_to_homescreen
-                         ));
-        if (getFile().isFolder()) {
-            additionalFilter.add(R.id.action_send_file);
-            additionalFilter.add(R.id.action_sync_file);
-        }
-        if (getFile().isAPKorAAB()) {
-            additionalFilter.add(R.id.action_download_file);
-            additionalFilter.add(R.id.action_export_file);
-        }
+        final var additionalFilter = FileAction.Companion.getFileDetailActions(file);
         final FragmentManager fragmentManager = getChildFragmentManager();
         FileActionsBottomSheet.newInstance(file, true, additionalFilter)
             .setResultListener(fragmentManager, this, this::optionsItemSelected)

@@ -25,7 +25,6 @@ import android.os.Looper;
 import android.os.ParcelFileDescriptor;
 import android.provider.DocumentsContract;
 import android.provider.DocumentsProvider;
-import android.widget.Toast;
 
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
@@ -158,17 +157,25 @@ public class DocumentsStorageProvider extends DocumentsProvider {
         Document parentFolder = toDocument(parentDocumentId);
         final FileCursor resultCursor = new FileCursor(projection);
 
+        if (!parentFolder.getFile().canRead()) {
+            showToast(R.string.document_storage_provider_cannot_read);
+            return resultCursor;
+        }
+
         if (parentFolder.getFile().isEncrypted() &&
             !FileOperationsHelper.isEndToEndEncryptionSetup(context, parentFolder.getUser())) {
-            Toast.makeText(context, R.string.e2e_not_yet_setup, Toast.LENGTH_LONG).show();
+            showToast(R.string.e2e_not_yet_setup);
             return resultCursor;
         }
 
         FileDataStorageManager storageManager = parentFolder.getStorageManager();
 
-
         for (OCFile file : storageManager.getFolderContent(parentFolder.getFile(), false)) {
-            resultCursor.addFile(new Document(storageManager, file));
+            if (file.canRead()) {
+                resultCursor.addFile(new Document(storageManager, file));
+            } else {
+                Log_OC.w(TAG,"Skipping file, doesn't have read permission. RemotePath: " + file.getRemotePath());
+            }
         }
 
         boolean isLoading = false;
@@ -217,13 +224,11 @@ public class DocumentsStorageProvider extends DocumentsProvider {
                 final AtomicBoolean downloadResult = new AtomicBoolean(false);
                 final Thread downloadThread = new Thread(() -> {
                     DownloadFileOperation downloadFileOperation = new DownloadFileOperation(user, ocFile, context);
-                    RemoteOperationResult result = downloadFileOperation.execute(document.getClient());
+                    final var result = downloadFileOperation.execute(document.getClient());
                     if (!result.isSuccess()) {
                         if (ocFile.isDown()) {
                             Handler handler = new Handler(Looper.getMainLooper());
-                            handler.post(() -> Toast.makeText(MainApp.getAppContext(),
-                                                              R.string.file_not_synced,
-                                                              Toast.LENGTH_SHORT).show());
+                            handler.post(() -> showToast(R.string.file_not_synced));
                             downloadResult.set(true);
                         } else {
                             Log_OC.e(TAG, result.toString());
@@ -358,12 +363,17 @@ public class DocumentsStorageProvider extends DocumentsProvider {
 
         String errorMessage = checkFileName(displayName);
         if (errorMessage != null) {
-            ContextExtensionsKt.showToast(getNonNullContext(), errorMessage);
+            showToast(errorMessage);
             return null;
         }
 
         Document document = toDocument(documentId);
-        RemoteOperationResult result = new RenameFileOperation(document.getRemotePath(),
+        if (!document.getFile().canRename()) {
+            showToast(R.string.document_storage_provider_cannot_rename);
+            return null;
+        }
+
+        final var result = new RenameFileOperation(document.getRemotePath(),
                                                                displayName,
                                                                document.getStorageManager())
             .execute(document.getClient());
@@ -389,13 +399,13 @@ public class DocumentsStorageProvider extends DocumentsProvider {
         String filename = targetFolder.getFile().getFileName();
         isFolderPathValid = checkFolderPath(filename);
         if (!isFolderPathValid) {
-            ContextExtensionsKt.showToast(getNonNullContext(), R.string.file_name_validator_error_contains_reserved_names_or_invalid_characters);
+            showToast(R.string.file_name_validator_error_contains_reserved_names_or_invalid_characters);
             return null;
         }
 
         Document document = toDocument(sourceDocumentId);
         FileDataStorageManager storageManager = document.getStorageManager();
-        RemoteOperationResult result = new CopyFileOperation(document.getRemotePath(),
+        final var result = new CopyFileOperation(document.getRemotePath(),
                                                              targetFolder.getRemotePath(),
                                                              document.getStorageManager())
             .execute(document.getClient());
@@ -409,7 +419,7 @@ public class DocumentsStorageProvider extends DocumentsProvider {
         Context context = getNonNullContext();
         User user = document.getUser();
 
-        RemoteOperationResult updateParent = new RefreshFolderOperation(targetFolder.getFile(),
+        final var updateParent = new RefreshFolderOperation(targetFolder.getFile(),
                                                                         System.currentTimeMillis(),
                                                                         false,
                                                                         false,
@@ -447,12 +457,17 @@ public class DocumentsStorageProvider extends DocumentsProvider {
         String filename = targetFolder.getFile().getFileName();
         isFolderPathValid = checkFolderPath(filename);
         if (!isFolderPathValid) {
-            ContextExtensionsKt.showToast(getNonNullContext(), R.string.file_name_validator_error_contains_reserved_names_or_invalid_characters);
+            showToast(R.string.file_name_validator_error_contains_reserved_names_or_invalid_characters);
             return null;
         }
 
         Document document = toDocument(sourceDocumentId);
-        RemoteOperationResult result = new MoveFileOperation(document.getRemotePath(),
+        if (!document.getFile().canMove()) {
+            showToast(R.string.document_storage_provider_cannot_move);
+            return null;
+        }
+
+        final var result = new MoveFileOperation(document.getRemotePath(),
                                                              targetFolder.getRemotePath(),
                                                              document.getStorageManager())
             .execute(document.getClient());
@@ -508,11 +523,15 @@ public class DocumentsStorageProvider extends DocumentsProvider {
 
         String errorMessage = checkFileName(displayName);
         if (errorMessage != null) {
-            ContextExtensionsKt.showToast(getNonNullContext(), errorMessage);
+            showToast(errorMessage);
             return null;
         }
 
         Document folderDocument = toDocument(documentId);
+        if (!folderDocument.getFile().canCreateFileAndFolder()) {
+            showToast(R.string.document_storage_provider_cannot_create_file_and_folder);
+            return null;
+        }
 
         if (DocumentsContract.Document.MIME_TYPE_DIR.equalsIgnoreCase(mimeType)) {
             return createFolder(folderDocument, displayName);
@@ -522,12 +541,16 @@ public class DocumentsStorageProvider extends DocumentsProvider {
     }
 
     private String createFolder(Document targetFolder, String displayName) throws FileNotFoundException {
+        if (!targetFolder.getFile().canCreateFileAndFolder()) {
+            showToast(R.string.document_storage_provider_cannot_create_folder_inside_folder);
+            return null;
+        }
 
         Context context = getNonNullContext();
         String newDirPath = targetFolder.getRemotePath() + displayName + PATH_SEPARATOR;
         FileDataStorageManager storageManager = targetFolder.getStorageManager();
 
-        RemoteOperationResult result = new CreateFolderOperation(newDirPath,
+        final var result = new CreateFolderOperation(newDirPath,
                                                                  accountManager.getUser(),
                                                                  context,
                                                                  storageManager)
@@ -539,7 +562,7 @@ public class DocumentsStorageProvider extends DocumentsProvider {
                                                 displayName + " and documentId " + targetFolder.getDocumentId());
         }
 
-        RemoteOperationResult updateParent = new RefreshFolderOperation(targetFolder.getFile(), System.currentTimeMillis(),
+        final var updateParent = new RefreshFolderOperation(targetFolder.getFile(), System.currentTimeMillis(),
                                                                         false, false, true, storageManager,
                                                                         targetFolder.getUser(), context)
             .execute(targetFolder.getClient());
@@ -557,6 +580,10 @@ public class DocumentsStorageProvider extends DocumentsProvider {
     }
 
     private String createFile(Document targetFolder, String displayName, String mimeType) throws FileNotFoundException {
+        if (!targetFolder.getFile().canCreateFileAndFolder()) {
+            showToast(R.string.document_storage_provider_cannot_create_file_inside_folder);
+            return null;
+        }
 
         User user = targetFolder.getUser();
 
@@ -587,7 +614,7 @@ public class DocumentsStorageProvider extends DocumentsProvider {
 
         // perform the upload, no need for chunked operation as we have a empty file
         OwnCloudClient client = targetFolder.getClient();
-        RemoteOperationResult result = new UploadFileRemoteOperation(emptyFile.getAbsolutePath(),
+        final var result = new UploadFileRemoteOperation(emptyFile.getAbsolutePath(),
                                                                      newFilePath,
                                                                      mimeType,
                                                                      "",
@@ -603,7 +630,7 @@ public class DocumentsStorageProvider extends DocumentsProvider {
 
         Context context = getNonNullContext();
 
-        RemoteOperationResult updateParent = new RefreshFolderOperation(targetFolder.getFile(),
+        final var updateParent = new RefreshFolderOperation(targetFolder.getFile(),
                                                                         System.currentTimeMillis(),
                                                                         false,
                                                                         false,
@@ -637,13 +664,18 @@ public class DocumentsStorageProvider extends DocumentsProvider {
         Context context = getNonNullContext();
 
         Document document = toDocument(documentId);
+        if (!document.getFile().canDeleteOrLeaveShare()) {
+            showToast(R.string.document_storage_provider_cannot_delete);
+            return;
+        }
+
         // get parent here, because it is not available anymore after the document was deleted
         Document parentFolder = document.getParent();
 
         recursiveRevokePermission(document);
 
         OCFile file = document.getStorageManager().getFileByPath(document.getRemotePath());
-        RemoteOperationResult result = new RemoveFileOperation(file,
+        final var result = new RemoveFileOperation(file,
                                                                false,
                                                                document.getUser(),
                                                                true,
@@ -884,5 +916,13 @@ public class DocumentsStorageProvider extends DocumentsProvider {
 
             return new Document(getStorageManager(), parentId);
         }
+    }
+
+    private void showToast(int messageId) {
+        ContextExtensionsKt.showToast(getNonNullContext(), messageId);
+    }
+
+    private void showToast(String message) {
+        ContextExtensionsKt.showToast(getNonNullContext(), message);
     }
 }
