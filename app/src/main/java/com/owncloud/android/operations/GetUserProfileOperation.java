@@ -21,6 +21,11 @@ import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.resources.users.GetUserInfoRemoteOperation;
 import com.owncloud.android.operations.common.SyncOperation;
 
+import java.lang.reflect.Field;
+import java.util.concurrent.TimeUnit;
+
+import okhttp3.OkHttpClient;
+
 /**
  * Get and save user's profile from the server.
  * <p>
@@ -45,7 +50,27 @@ public class GetUserProfileOperation extends SyncOperation {
      */
     @Override
     public RemoteOperationResult<UserInfo> run(NextcloudClient client) {
+        // Set Timeout on OkHttpClient from defaults
+        OkHttpClient originalClient = null;
+        try {
+            Field clientField = client.getClass().getDeclaredField("client");
+            clientField.setAccessible(true);
+            originalClient = (OkHttpClient) clientField.get(client);
+        } catch (NoSuchFieldException | IllegalAccessException e) {
+            e.printStackTrace();
+        }
 
+        OkHttpClient newClient = originalClient.newBuilder()
+            .readTimeout(3000, TimeUnit.MILLISECONDS)
+            .build();
+        // Replace the internal OkHttpClient with the new one using reflection
+        try {
+            Field clientField = client.getClass().getDeclaredField("client");
+            clientField.setAccessible(true);
+            clientField.set(client, newClient);
+        } catch (NoSuchFieldException | IllegalAccessException e) {
+            e.printStackTrace();
+        }
         // get display name
         RemoteOperationResult<UserInfo> result = new GetUserInfoRemoteOperation().execute(client);
 

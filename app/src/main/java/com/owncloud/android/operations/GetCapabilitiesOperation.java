@@ -35,6 +35,7 @@ public class GetCapabilitiesOperation extends SyncOperation {
         if (!storageManager.getUser().isAnonymous()) {
             currentCapability = storageManager.getCapability(storageManager.getUser().getAccountName());
         }
+        client.setDefaultTimeouts(3000,3000);
 
         RemoteOperationResult result = new GetCapabilitiesRemoteOperation(currentCapability).execute(client);
 
