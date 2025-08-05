@@ -1,650 +1,765 @@
 /*
  * Nextcloud - Android Client
  *
+ * SPDX-FileCopyrightText: 2025 Alper Ozturk <alper.ozturk@nextcloud.com>
  * SPDX-FileCopyrightText: 2020 Tobias Kaminsky <tobias@kaminsky.me>
  * SPDX-FileCopyrightText: 2020 Nextcloud GmbH
  * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
  */
-package com.owncloud.android.ui.dialog;
+package com.owncloud.android.ui.dialog
 
-import android.accounts.Account;
-import android.accounts.AccountManager;
-import android.content.Intent;
-import android.net.http.SslCertificate;
-import android.net.http.SslError;
-import android.os.Looper;
-import android.view.View;
-import android.view.ViewGroup;
-import android.webkit.SslErrorHandler;
-import android.widget.TextView;
+import android.accounts.Account
+import android.accounts.AccountManager
+import android.app.Dialog
+import android.content.Intent
+import android.net.http.SslCertificate
+import android.net.http.SslError
+import android.os.Looper
+import android.view.ViewGroup
+import android.webkit.SslErrorHandler
+import android.widget.TextView
+import androidx.activity.result.contract.ActivityResultContract
+import androidx.annotation.UiThread
+import androidx.fragment.app.DialogFragment
+import androidx.test.core.app.ActivityScenario
+import androidx.test.core.app.launchActivity
+import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.IdlingRegistry
+import androidx.test.espresso.assertion.ViewAssertions.matches
+import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
+import androidx.test.espresso.matcher.ViewMatchers.isRoot
+import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
+import com.nextcloud.android.common.ui.color.ColorUtil
+import com.nextcloud.android.lib.resources.profile.Action
+import com.nextcloud.android.lib.resources.profile.HoverCard
+import com.nextcloud.client.account.RegisteredUser
+import com.nextcloud.client.account.Server
+import com.nextcloud.client.device.DeviceInfo
+import com.nextcloud.client.documentscan.AppScanOptionalFeature
+import com.nextcloud.ui.ChooseAccountDialogFragment.Companion.newInstance
+import com.nextcloud.ui.fileactions.FileActionsBottomSheet.Companion.newInstance
+import com.nextcloud.utils.EditorUtils
+import com.owncloud.android.AbstractIT
+import com.owncloud.android.MainApp
+import com.owncloud.android.R
+import com.owncloud.android.authentication.EnforcedServer
+import com.owncloud.android.datamodel.ArbitraryDataProvider
+import com.owncloud.android.datamodel.ArbitraryDataProviderImpl
+import com.owncloud.android.datamodel.FileDataStorageManager
+import com.owncloud.android.datamodel.OCFile
+import com.owncloud.android.lib.common.Creator
+import com.owncloud.android.lib.common.DirectEditing
+import com.owncloud.android.lib.common.Editor
+import com.owncloud.android.lib.common.OwnCloudAccount
+import com.owncloud.android.lib.common.accounts.AccountTypeUtils
+import com.owncloud.android.lib.common.accounts.AccountUtils
+import com.owncloud.android.lib.resources.status.CapabilityBooleanType
+import com.owncloud.android.lib.resources.status.OCCapability
+import com.owncloud.android.lib.resources.status.OwnCloudVersion
+import com.owncloud.android.lib.resources.users.Status
+import com.owncloud.android.lib.resources.users.StatusType
+import com.owncloud.android.ui.activity.FileDisplayActivity
+import com.owncloud.android.ui.dialog.LoadingDialog.Companion.newInstance
+import com.owncloud.android.ui.dialog.RenameFileDialogFragment.Companion.newInstance
+import com.owncloud.android.ui.dialog.SharePasswordDialogFragment.Companion.newInstance
+import com.owncloud.android.ui.dialog.SslUntrustedCertDialog.Companion.newInstanceForEmptySslError
+import com.owncloud.android.ui.dialog.StoragePermissionDialogFragment.Companion.newInstance
+import com.owncloud.android.ui.fragment.OCFileListBottomSheetActions
+import com.owncloud.android.ui.fragment.OCFileListBottomSheetDialog
+import com.owncloud.android.ui.fragment.ProfileBottomSheetDialog
+import com.owncloud.android.utils.EspressoIdlingResource
+import com.owncloud.android.utils.MimeTypeUtil
+import com.owncloud.android.utils.ScreenshotTest
+import com.owncloud.android.utils.theme.CapabilityUtils
+import com.owncloud.android.utils.theme.ViewThemeUtils
+import io.mockk.mockk
+import org.junit.After
+import org.junit.Before
+import org.junit.Test
+import java.net.URI
+import java.util.function.Supplier
 
-import com.google.android.material.bottomsheet.BottomSheetBehavior;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-import com.nextcloud.android.common.ui.color.ColorUtil;
-import com.nextcloud.android.common.ui.theme.MaterialSchemes;
-import com.nextcloud.android.common.ui.theme.MaterialSchemesImpl;
-import com.nextcloud.android.lib.resources.profile.Action;
-import com.nextcloud.android.lib.resources.profile.HoverCard;
-import com.nextcloud.client.account.RegisteredUser;
-import com.nextcloud.client.account.Server;
-import com.nextcloud.client.account.User;
-import com.nextcloud.client.account.UserAccountManager;
-import com.nextcloud.client.device.DeviceInfo;
-import com.nextcloud.client.documentscan.AppScanOptionalFeature;
-import com.nextcloud.ui.ChooseAccountDialogFragment;
-import com.nextcloud.ui.fileactions.FileActionsBottomSheet;
-import com.nextcloud.utils.EditorUtils;
-import com.owncloud.android.AbstractIT;
-import com.owncloud.android.MainApp;
-import com.owncloud.android.R;
-import com.owncloud.android.authentication.EnforcedServer;
-import com.owncloud.android.datamodel.ArbitraryDataProvider;
-import com.owncloud.android.datamodel.ArbitraryDataProviderImpl;
-import com.owncloud.android.datamodel.FileDataStorageManager;
-import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.lib.common.Creator;
-import com.owncloud.android.lib.common.DirectEditing;
-import com.owncloud.android.lib.common.Editor;
-import com.owncloud.android.lib.common.OwnCloudAccount;
-import com.owncloud.android.lib.common.accounts.AccountTypeUtils;
-import com.owncloud.android.lib.common.accounts.AccountUtils;
-import com.owncloud.android.lib.resources.status.CapabilityBooleanType;
-import com.owncloud.android.lib.resources.status.OCCapability;
-import com.owncloud.android.lib.resources.status.OwnCloudVersion;
-import com.owncloud.android.lib.resources.users.Status;
-import com.owncloud.android.lib.resources.users.StatusType;
-import com.owncloud.android.ui.activity.FileDisplayActivity;
-import com.owncloud.android.ui.fragment.OCFileListBottomSheetActions;
-import com.owncloud.android.ui.fragment.OCFileListBottomSheetDialog;
-import com.owncloud.android.ui.fragment.ProfileBottomSheetDialog;
-import com.owncloud.android.utils.MimeTypeUtil;
-import com.owncloud.android.utils.ScreenshotTest;
-import com.owncloud.android.utils.theme.CapabilityUtils;
-import com.owncloud.android.utils.theme.MaterialSchemesProvider;
-import com.owncloud.android.utils.theme.ViewThemeUtils;
+class DialogFragmentIT : AbstractIT() {
+    private val testClassName = "com.owncloud.android.ui.dialog.DialogFragmentIT"
+    private val serverUrl = "https://nextcloud.localhost"
 
-import org.junit.After;
-import org.junit.Rule;
-import org.junit.Test;
-import org.mockito.Mockito;
-
-import java.net.URI;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Objects;
-
-import androidx.activity.result.contract.ActivityResultContract;
-import androidx.annotation.NonNull;
-import androidx.fragment.app.DialogFragment;
-import androidx.test.espresso.intent.rule.IntentsTestRule;
-import kotlin.Unit;
-
-import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentation;
-
-public class DialogFragmentIT extends AbstractIT {
-
-    private final String SERVER_URL = "https://nextcloud.localhost";
-
-    @Rule public IntentsTestRule<FileDisplayActivity> activityRule =
-        new IntentsTestRule<>(FileDisplayActivity.class, true, false);
-
-    private FileDisplayActivity getFileDisplayActivity() {
-        Intent intent = new Intent(targetContext, FileDisplayActivity.class);
-        return activityRule.launchActivity(intent);
+    @Before
+    fun registerIdlingResource() {
+        IdlingRegistry.getInstance().register(EspressoIdlingResource.countingIdlingResource)
     }
-    
 
     @After
-    public void quitLooperIfNeeded() {
-        if (Looper.myLooper() != null) {
-            Looper.myLooper().quitSafely();
-        }
+    fun unregisterIdlingResource() {
+        IdlingRegistry.getInstance().unregister(EspressoIdlingResource.countingIdlingResource)
+    }
+
+    @After
+    fun quitLooperIfNeeded() {
+        Looper.myLooper()?.quitSafely()
     }
 
     @Test
+    @UiThread
     @ScreenshotTest
-    public void testRenameFileDialog() {
+    fun testRenameFileDialog() {
         if (Looper.myLooper() == null) {
-            Looper.prepare();
+            Looper.prepare()
         }
-        RenameFileDialogFragment dialog = RenameFileDialogFragment.newInstance(new OCFile("/Test/"),
-                                                                               new OCFile("/"));
-        showDialog(dialog);
+
+        newInstance(
+            OCFile("/Test/"),
+            OCFile("/")
+        ).run {
+            showDialog(this)
+        }
     }
 
     @Test
+    @UiThread
     @ScreenshotTest
-    public void testLoadingDialog() {
-        LoadingDialog dialog = LoadingDialog.newInstance("Wait…");
-        showDialog(dialog);
+    fun testLoadingDialog() {
+        newInstance("Wait…").run {
+            showDialog(this)
+        }
     }
 
     @Test
+    @UiThread
     @ScreenshotTest
-    public void testConfirmationDialogWithOneAction() {
-        ConfirmationDialogFragment dialog = ConfirmationDialogFragment.newInstance(R.string.upload_list_empty_text_auto_upload, new String[]{}, R.string.filedetails_sync_file, R.string.common_ok, -1, -1);
-        showDialog(dialog);
+    fun testConfirmationDialogWithOneAction() {
+        ConfirmationDialogFragment.newInstance(
+            R.string.upload_list_empty_text_auto_upload,
+            arrayOf(),
+            R.string.filedetails_sync_file,
+            R.string.common_ok,
+            -1,
+            -1,
+            -1
+        ).run {
+            showDialog(this)
+        }
     }
 
     @Test
+    @UiThread
     @ScreenshotTest
-    public void testConfirmationDialogWithTwoAction() {
-        ConfirmationDialogFragment dialog = ConfirmationDialogFragment.newInstance(R.string.upload_list_empty_text_auto_upload, new String[]{}, R.string.filedetails_sync_file, R.string.common_ok, R.string.common_cancel, -1);
-        showDialog(dialog);
+    fun testConfirmationDialogWithTwoAction() {
+        ConfirmationDialogFragment.newInstance(
+            R.string.upload_list_empty_text_auto_upload,
+            arrayOf(),
+            R.string.filedetails_sync_file,
+            R.string.common_ok,
+            R.string.common_cancel,
+            -1,
+            -1
+        ).run {
+            showDialog(this)
+        }
     }
 
     @Test
+    @UiThread
     @ScreenshotTest
-    public void testConfirmationDialogWithThreeAction() {
-        ConfirmationDialogFragment dialog = ConfirmationDialogFragment.newInstance(R.string.upload_list_empty_text_auto_upload, new String[]{}, R.string.filedetails_sync_file, R.string.common_ok, R.string.common_cancel, R.string.common_confirm);
-        showDialog(dialog);
+    fun testConfirmationDialogWithThreeAction() {
+        ConfirmationDialogFragment.newInstance(
+            R.string.upload_list_empty_text_auto_upload,
+            arrayOf(),
+            R.string.filedetails_sync_file,
+            R.string.common_ok,
+            R.string.common_cancel,
+            R.string.common_confirm,
+            -1
+        ).run {
+            showDialog(this)
+        }
     }
 
     @Test
+    @UiThread
     @ScreenshotTest
-    public void testConfirmationDialogWithThreeActionRTL() {
-        enableRTL();
-
-        ConfirmationDialogFragment dialog = ConfirmationDialogFragment.newInstance(R.string.upload_list_empty_text_auto_upload, new String[] { }, -1, R.string.common_ok, R.string.common_cancel, R.string.common_confirm);
-        showDialog(dialog);
-
-        resetLocale();
+    fun testConfirmationDialogWithThreeActionRTL() {
+        enableRTL()
+        ConfirmationDialogFragment.newInstance(
+            R.string.upload_list_empty_text_auto_upload,
+            arrayOf(),
+            -1,
+            R.string.common_ok,
+            R.string.common_cancel,
+            R.string.common_confirm,
+            -1
+        ).run {
+            showDialog(this)
+            resetLocale()
+        }
     }
 
     @Test
+    @UiThread
     @ScreenshotTest
-    public void testRemoveFileDialog() {
-        RemoveFilesDialogFragment dialog = RemoveFilesDialogFragment.newInstance(new OCFile("/Test.md"));
-        showDialog(dialog);
+    fun testRemoveFileDialog() {
+        RemoveFilesDialogFragment.newInstance(OCFile("/Test.md")).run {
+            showDialog(this)
+        }
     }
 
     @Test
+    @UiThread
     @ScreenshotTest
-    public void testRemoveFilesDialog() {
-        ArrayList<OCFile> toDelete = new ArrayList<>();
-        toDelete.add(new OCFile("/Test.md"));
-        toDelete.add(new OCFile("/Document.odt"));
+    fun testRemoveFilesDialog() {
+        val toDelete = ArrayList<OCFile>().apply {
+            add(OCFile("/Test.md"))
+            add(OCFile("/Document.odt"))
+        }
 
-        RemoveFilesDialogFragment dialog = RemoveFilesDialogFragment.newInstance(toDelete);
-        showDialog(dialog);
+        val dialog: RemoveFilesDialogFragment = RemoveFilesDialogFragment.newInstance(toDelete)
+        showDialog(dialog)
     }
 
     @Test
+    @UiThread
     @ScreenshotTest
-    public void testRemoveFolderDialog() {
-        RemoveFilesDialogFragment dialog = RemoveFilesDialogFragment.newInstance(new OCFile("/Folder/"));
-        showDialog(dialog);
+    fun testRemoveFolderDialog() {
+        val dialog = RemoveFilesDialogFragment.newInstance(OCFile("/Folder/"))
+        showDialog(dialog)
     }
 
     @Test
+    @UiThread
     @ScreenshotTest
-    public void testRemoveFoldersDialog() {
-        ArrayList<OCFile> toDelete = new ArrayList<>();
-        toDelete.add(new OCFile("/Folder/"));
-        toDelete.add(new OCFile("/Documents/"));
+    fun testRemoveFoldersDialog() {
+        val toDelete = ArrayList<OCFile>()
+        toDelete.add(OCFile("/Folder/"))
+        toDelete.add(OCFile("/Documents/"))
 
-        RemoveFilesDialogFragment dialog = RemoveFilesDialogFragment.newInstance(toDelete);
-        showDialog(dialog);
+        val dialog: RemoveFilesDialogFragment = RemoveFilesDialogFragment.newInstance(toDelete)
+        showDialog(dialog)
     }
 
     @Test
+    @UiThread
     @ScreenshotTest
-    public void testNewFolderDialog() {
+    fun testNewFolderDialog() {
         if (Looper.myLooper() == null) {
-            Looper.prepare();
+            Looper.prepare()
         }
-        CreateFolderDialogFragment sut = CreateFolderDialogFragment.newInstance(new OCFile("/"));
-        showDialog(sut);
+        val sut = CreateFolderDialogFragment.newInstance(OCFile("/"))
+        showDialog(sut)
     }
 
     @Test
+    @UiThread
     @ScreenshotTest
-    public void testEnforcedPasswordDialog() {
+    fun testEnforcedPasswordDialog() {
         if (Looper.myLooper() == null) {
-            Looper.prepare();
+            Looper.prepare()
         }
-        SharePasswordDialogFragment sut = SharePasswordDialogFragment.newInstance(new OCFile("/"), true, false);
-        showDialog(sut);
+        val sut = newInstance(OCFile("/"), true, false)
+        showDialog(sut)
     }
 
     @Test
+    @UiThread
     @ScreenshotTest
-    public void testOptionalPasswordDialog() {
+    fun testOptionalPasswordDialog() {
         if (Looper.myLooper() == null) {
-            Looper.prepare();
+            Looper.prepare()
         }
-        SharePasswordDialogFragment sut = SharePasswordDialogFragment.newInstance(new OCFile("/"), true, true);
-        showDialog(sut);
+        val sut = newInstance(OCFile("/"), true, true)
+        showDialog(sut)
     }
 
     @Test
+    @UiThread
     @ScreenshotTest
-    public void testAccountChooserDialog() throws AccountUtils.AccountNotFoundException {
-        FileDisplayActivity activity = getFileDisplayActivity();
-        UserAccountManager userAccountManager = activity.getUserAccountManager();
-        AccountManager accountManager = AccountManager.get(targetContext);
-        for (Account account : accountManager.getAccountsByType(MainApp.getAccountType(targetContext))) {
-            accountManager.removeAccountExplicitly(account);
+    fun testAccountChooserDialog() {
+        val intent = Intent(targetContext, FileDisplayActivity::class.java)
+        ActivityScenario.launch<FileDisplayActivity>(intent).use { scenario ->
+            scenario.onActivity { activity: FileDisplayActivity ->
+                EspressoIdlingResource.increment()
+
+                val userAccountManager = activity.userAccountManager
+                val accountManager = AccountManager.get(targetContext)
+                for (account in accountManager.getAccountsByType(MainApp.getAccountType(targetContext))) {
+                    accountManager.removeAccountExplicitly(account)
+                }
+
+                val newAccount = Account("test@https://nextcloud.localhost", MainApp.getAccountType(targetContext))
+                accountManager.addAccountExplicitly(newAccount, "password", null)
+                accountManager.setUserData(newAccount, AccountUtils.Constants.KEY_OC_BASE_URL, serverUrl)
+                accountManager.setUserData(newAccount, AccountUtils.Constants.KEY_USER_ID, "test")
+                accountManager.setAuthToken(
+                    newAccount,
+                    AccountTypeUtils.getAuthTokenTypePass(newAccount.type),
+                    "password"
+                )
+                val newUser = userAccountManager.getUser(newAccount.name)
+                    .orElseThrow(Supplier { RuntimeException() })
+                userAccountManager.setCurrentOwnCloudAccount(newAccount.name)
+
+                val newAccount2 = Account("user1@nextcloud.localhost", MainApp.getAccountType(targetContext))
+                accountManager.addAccountExplicitly(newAccount2, "password", null)
+                accountManager.setUserData(newAccount2, AccountUtils.Constants.KEY_OC_BASE_URL, serverUrl)
+                accountManager.setUserData(newAccount2, AccountUtils.Constants.KEY_USER_ID, "user1")
+                accountManager.setUserData(newAccount2, AccountUtils.Constants.KEY_OC_VERSION, "20.0.0")
+                accountManager.setAuthToken(
+                    newAccount2,
+                    AccountTypeUtils.getAuthTokenTypePass(newAccount.type),
+                    "password"
+                )
+
+                val fileDataStorageManager = FileDataStorageManager(
+                    newUser,
+                    targetContext.contentResolver
+                )
+
+                val capability = OCCapability().apply {
+                    userStatus = CapabilityBooleanType.TRUE
+                    userStatusSupportsEmoji = CapabilityBooleanType.TRUE
+                }
+                fileDataStorageManager.saveCapabilities(capability)
+
+                EspressoIdlingResource.decrement()
+
+                try {
+                    onIdleSync {
+                        val sut = newInstance(
+                            RegisteredUser(
+                                newAccount,
+                                OwnCloudAccount(newAccount, targetContext),
+                                Server(URI.create(serverUrl), OwnCloudVersion.nextcloud_20)
+                            )
+                        )
+                        showDialog(activity, sut)
+
+                        sut.setStatus(
+                            Status(
+                                StatusType.DND,
+                                "Busy fixing 🐛…",
+                                "",
+                                -1
+                            ),
+                            targetContext
+                        )
+                        screenshot(sut, "dnd")
+
+                        sut.setStatus(
+                            Status(
+                                StatusType.ONLINE,
+                                "",
+                                "",
+                                -1
+                            ),
+                            targetContext
+                        )
+                        screenshot(sut, "online")
+
+                        sut.setStatus(
+                            Status(
+                                StatusType.ONLINE,
+                                "Let's have some fun",
+                                "🎉",
+                                -1
+                            ),
+                            targetContext
+                        )
+                        screenshot(sut, "fun")
+
+                        sut.setStatus(
+                            Status(StatusType.OFFLINE, "", "", -1),
+                            targetContext
+                        )
+                        screenshot(sut, "offline")
+
+                        sut.setStatus(
+                            Status(StatusType.AWAY, "Vacation", "🌴", -1),
+                            targetContext
+                        )
+                        screenshot(sut, "away")
+                    }
+                } catch (e: AccountUtils.AccountNotFoundException) {
+                    throw java.lang.RuntimeException(e)
+                }
+            }
         }
-
-        Account newAccount = new Account("test@https://nextcloud.localhost", MainApp.getAccountType(targetContext));
-        accountManager.addAccountExplicitly(newAccount, "password", null);
-        accountManager.setUserData(newAccount, AccountUtils.Constants.KEY_OC_BASE_URL, SERVER_URL);
-        accountManager.setUserData(newAccount, AccountUtils.Constants.KEY_USER_ID, "test");
-        accountManager.setAuthToken(newAccount, AccountTypeUtils.getAuthTokenTypePass(newAccount.type), "password");
-        User newUser = userAccountManager.getUser(newAccount.name).orElseThrow(RuntimeException::new);
-        userAccountManager.setCurrentOwnCloudAccount(newAccount.name);
-
-        Account newAccount2 = new Account("user1@nextcloud.localhost", MainApp.getAccountType(targetContext));
-        accountManager.addAccountExplicitly(newAccount2, "password", null);
-        accountManager.setUserData(newAccount2, AccountUtils.Constants.KEY_OC_BASE_URL, SERVER_URL);
-        accountManager.setUserData(newAccount2, AccountUtils.Constants.KEY_USER_ID, "user1");
-        accountManager.setUserData(newAccount2, AccountUtils.Constants.KEY_OC_VERSION, "20.0.0");
-        accountManager.setAuthToken(newAccount2, AccountTypeUtils.getAuthTokenTypePass(newAccount.type), "password");
-
-        FileDataStorageManager fileDataStorageManager = new FileDataStorageManager(newUser,
-                                                                                   targetContext.getContentResolver());
-
-        OCCapability capability = new OCCapability();
-        capability.setUserStatus(CapabilityBooleanType.TRUE);
-        capability.setUserStatusSupportsEmoji(CapabilityBooleanType.TRUE);
-        fileDataStorageManager.saveCapabilities(capability);
-
-        ChooseAccountDialogFragment sut =
-            ChooseAccountDialogFragment.newInstance(new RegisteredUser(newAccount,
-                                                                       new OwnCloudAccount(newAccount, targetContext),
-                                                                       new Server(URI.create(SERVER_URL),
-                                                                                  OwnCloudVersion.nextcloud_20)));
-        showDialog(activity, sut);
-
-        activity.runOnUiThread(() -> sut.setStatus(new Status(StatusType.DND,
-                                                              "Busy fixing 🐛…",
-                                                              "",
-                                                              -1),
-                                                   targetContext));
-        waitForIdleSync();
-        shortSleep();
-        screenshot(sut, "dnd");
-
-        activity.runOnUiThread(() -> sut.setStatus(new Status(StatusType.ONLINE,
-                                                              "",
-                                                              "",
-                                                              -1),
-                                                   targetContext));
-        waitForIdleSync();
-        shortSleep();
-        screenshot(sut, "online");
-
-        activity.runOnUiThread(() -> sut.setStatus(new Status(StatusType.ONLINE,
-                                                              "Let's have some fun",
-                                                              "🎉",
-                                                              -1),
-                                                   targetContext));
-        waitForIdleSync();
-        shortSleep();
-        screenshot(sut, "fun");
-
-        activity.runOnUiThread(() -> sut.setStatus(new Status(StatusType.OFFLINE, "", "", -1), targetContext));
-        waitForIdleSync();
-        shortSleep();
-        screenshot(sut, "offline");
-
-        activity.runOnUiThread(() -> sut.setStatus(new Status(StatusType.AWAY, "Vacation", "🌴", -1), targetContext));
-        waitForIdleSync();
-        shortSleep();
-        screenshot(sut, "away");
     }
 
     @Test
+    @UiThread
     @ScreenshotTest
-    public void testAccountChooserDialogWithStatusDisabled() throws AccountUtils.AccountNotFoundException {
-        AccountManager accountManager = AccountManager.get(targetContext);
-        for (Account account : accountManager.getAccounts()) {
-            accountManager.removeAccountExplicitly(account);
+    @Throws(AccountUtils.AccountNotFoundException::class)
+    fun testAccountChooserDialogWithStatusDisabled() {
+        val accountManager = AccountManager.get(targetContext)
+        for (account in accountManager.accounts) {
+            accountManager.removeAccountExplicitly(account)
         }
 
-        Account newAccount = new Account("test@https://nextcloud.localhost", MainApp.getAccountType(targetContext));
-        accountManager.addAccountExplicitly(newAccount, "password", null);
-        accountManager.setUserData(newAccount, AccountUtils.Constants.KEY_OC_BASE_URL, SERVER_URL);
-        accountManager.setUserData(newAccount, AccountUtils.Constants.KEY_USER_ID, "test");
-        accountManager.setAuthToken(newAccount, AccountTypeUtils.getAuthTokenTypePass(newAccount.type), "password");
+        val newAccount = Account("test@https://nextcloud.localhost", MainApp.getAccountType(targetContext))
+        accountManager.addAccountExplicitly(newAccount, "password", null)
+        accountManager.setUserData(newAccount, AccountUtils.Constants.KEY_OC_BASE_URL, serverUrl)
+        accountManager.setUserData(newAccount, AccountUtils.Constants.KEY_USER_ID, "test")
+        accountManager.setAuthToken(newAccount, AccountTypeUtils.getAuthTokenTypePass(newAccount.type), "password")
 
-        FileDisplayActivity fda = getFileDisplayActivity();
-        UserAccountManager userAccountManager = fda.getUserAccountManager();
-        User newUser = userAccountManager.getUser(newAccount.name).get();
-        FileDataStorageManager fileDataStorageManager = new FileDataStorageManager(newUser,
-                                                                                   targetContext.getContentResolver());
+        launchActivity<FileDisplayActivity>().use { scenario ->
+            scenario.onActivity { fda ->
+                onIdleSync {
+                    EspressoIdlingResource.increment()
+                    val userAccountManager = fda.userAccountManager
+                    val newUser = userAccountManager.getUser(newAccount.name).get()
+                    val fileDataStorageManager = FileDataStorageManager(
+                        newUser,
+                        targetContext.contentResolver
+                    )
 
-        OCCapability capability = new OCCapability();
-        capability.setUserStatus(CapabilityBooleanType.FALSE);
+                    val capability = OCCapability().apply {
+                        userStatus = CapabilityBooleanType.FALSE
+                    }
 
-        fileDataStorageManager.saveCapabilities(capability);
+                    fileDataStorageManager.saveCapabilities(capability)
+                    EspressoIdlingResource.decrement()
 
-        ChooseAccountDialogFragment sut =
-            ChooseAccountDialogFragment.newInstance(new RegisteredUser(newAccount,
-                                                                       new OwnCloudAccount(newAccount, targetContext),
-                                                                       new Server(URI.create(SERVER_URL),
-                                                                                  OwnCloudVersion.nextcloud_20)));
-        showDialog(fda, sut);
+                    val sut =
+                        newInstance(
+                            RegisteredUser(
+                                newAccount,
+                                OwnCloudAccount(newAccount, targetContext),
+                                Server(
+                                    URI.create(serverUrl),
+                                    OwnCloudVersion.nextcloud_20
+                                )
+                            )
+                        )
+
+                    onView(isRoot()).check(matches(isDisplayed()))
+                    showDialog(fda, sut)
+                }
+            }
+        }
     }
 
     @Test
+    @UiThread
     @ScreenshotTest
-    public void testBottomSheet() {
+    fun testBottomSheet() {
         if (Looper.myLooper() == null) {
-            Looper.prepare();
+            Looper.prepare()
         }
 
-        OCFileListBottomSheetActions action = new OCFileListBottomSheetActions() {
-
-            @Override
-            public void createFolder() {
-
+        val action: OCFileListBottomSheetActions = object : OCFileListBottomSheetActions {
+            override fun createFolder() {
             }
 
-            @Override
-            public void uploadFromApp() {
-
+            override fun uploadFromApp() {
             }
 
-            @Override
-            public void uploadFiles() {
-
+            override fun uploadFiles() {
             }
 
-            @Override
-            public void newDocument() {
-
+            override fun newDocument() {
             }
 
-            @Override
-            public void newSpreadsheet() {
-
+            override fun newSpreadsheet() {
             }
 
-            @Override
-            public void newPresentation() {
-
+            override fun newPresentation() {
             }
 
-            @Override
-            public void directCameraUpload() {
-
+            override fun directCameraUpload() {
             }
 
-            @Override
-            public void scanDocUpload() {
-
+            override fun scanDocUpload() {
             }
 
-            @Override
-            public void showTemplate(Creator creator, String headline) {
-
+            override fun showTemplate(creator: Creator?, headline: String?) {
             }
 
-            @Override
-            public void createRichWorkspace() {
-
+            override fun createRichWorkspace() {
             }
-        };
+        }
 
-        DeviceInfo info = new DeviceInfo();
-        OCFile ocFile = new OCFile("/test.md");
-        ocFile.setRemoteId("00000001");
+        val info = DeviceInfo()
+        val ocFile = OCFile("/test.md").apply {
+            remoteId = "00000001"
+        }
 
-        Intent intent = new Intent(targetContext, FileDisplayActivity.class);
-        FileDisplayActivity fda = activityRule.launchActivity(intent);
+        val intent = Intent(targetContext, FileDisplayActivity::class.java)
 
-        // add direct editing info
-        DirectEditing directEditing = new DirectEditing();
-        directEditing.getCreators().put("1", new Creator("1",
-                                                         "text",
-                                                         "text file",
-                                                         ".md",
-                                                         "application/octet-stream",
-                                                         false));
+        launchActivity<FileDisplayActivity>(intent).use { scenario ->
+            scenario.onActivity { fda ->
+                onIdleSync {
+                    EspressoIdlingResource.increment()
 
-        directEditing.getCreators().put("2", new Creator("2",
-                                                         "md",
-                                                         "markdown file",
-                                                         ".md",
-                                                         "application/octet-stream",
-                                                         false));
+                    // add direct editing info
+                    var directEditing = DirectEditing()
+                    val creators = directEditing.creators.toMutableMap()
+                    val editors = directEditing.editors.toMutableMap()
 
-        directEditing.getEditors().put("text",
-                                       new Editor("1",
-                                                  "Text",
-                                                  new ArrayList<>(Collections.singletonList(MimeTypeUtil.MIMETYPE_TEXT_MARKDOWN)),
-                                                  new ArrayList<>(),
-                                                  false));
+                    creators.put(
+                        "1",
+                        Creator(
+                            "1",
+                            "text",
+                            "text file",
+                            ".md",
+                            "application/octet-stream",
+                            false
+                        )
+                    )
+                    creators.put(
+                        "2",
+                        Creator(
+                            "2",
+                            "md",
+                            "markdown file",
+                            ".md",
+                            "application/octet-stream",
+                            false
+                        )
+                    )
+                    editors.put(
+                        "text",
+                        Editor(
+                            "1",
+                            "Text",
+                            ArrayList(mutableListOf(MimeTypeUtil.MIMETYPE_TEXT_MARKDOWN)),
+                            ArrayList(),
+                            false
+                        )
+                    )
 
-        String json = new Gson().toJson(directEditing);
+                    directEditing = DirectEditing(editors, creators)
+                    val json = Gson().toJson(directEditing)
 
-        new ArbitraryDataProviderImpl(targetContext).storeOrUpdateKeyValue(user.getAccountName(),
-                                                                           ArbitraryDataProvider.DIRECT_EDITING,
-                                                                           json);
+                    ArbitraryDataProviderImpl(targetContext).storeOrUpdateKeyValue(
+                        user.accountName,
+                        ArbitraryDataProvider.DIRECT_EDITING,
+                        json
+                    )
 
-        // activate templates
-        OCCapability capability = fda.getCapabilities();
-        capability.setRichDocuments(CapabilityBooleanType.TRUE);
-        capability.setRichDocumentsDirectEditing(CapabilityBooleanType.TRUE);
-        capability.setRichDocumentsTemplatesAvailable(CapabilityBooleanType.TRUE);
-        capability.setAccountName(user.getAccountName());
+                    // activate templates
+                    val capability = fda.capabilities.apply {
+                        richDocuments = CapabilityBooleanType.TRUE
+                        richDocumentsDirectEditing = CapabilityBooleanType.TRUE
+                        richDocumentsTemplatesAvailable = CapabilityBooleanType.TRUE
+                        accountName = user.accountName
+                    }
+                    CapabilityUtils.updateCapability(capability)
 
-        CapabilityUtils.updateCapability(capability);
+                    val appScanOptionalFeature: AppScanOptionalFeature = object : AppScanOptionalFeature() {
+                        override fun getScanContract(): ActivityResultContract<Unit, String?> =
+                            throw UnsupportedOperationException("Document scan is not available")
+                    }
 
-        AppScanOptionalFeature appScanOptionalFeature = new AppScanOptionalFeature() {
-            @NonNull
-            @Override
-            public ActivityResultContract<Unit, String> getScanContract() {
-                throw new UnsupportedOperationException("Document scan is not available");
+                    val materialSchemesProvider = getMaterialSchemesProvider()
+                    val viewThemeUtils = ViewThemeUtils(
+                        materialSchemesProvider.getMaterialSchemesForCurrentUser(),
+                        ColorUtil(targetContext)
+                    )
+
+                    val editorUtils = EditorUtils(ArbitraryDataProviderImpl(targetContext))
+
+                    val sut = OCFileListBottomSheetDialog(
+                        fda,
+                        action,
+                        info,
+                        user,
+                        ocFile,
+                        fda.themeUtils,
+                        viewThemeUtils,
+                        editorUtils,
+                        appScanOptionalFeature
+                    )
+                    EspressoIdlingResource.decrement()
+
+                    sut.show()
+                    sut.behavior.setState(BottomSheetBehavior.STATE_EXPANDED)
+                    val viewGroup = sut.window?.findViewById<ViewGroup>(android.R.id.content) ?: return@onIdleSync
+                    hideCursors(viewGroup)
+                    val screenShotName = createName(testClassName + "_" + "testBottomSheet", "")
+                    onView(isRoot()).check(matches(isDisplayed()))
+                    screenshotViaName(sut.window?.decorView, screenShotName)
+                }
             }
-        };
-
-        MaterialSchemesProvider materialSchemesProvider = new MaterialSchemesProvider() {
-            @NonNull
-            @Override
-            public MaterialSchemes getMaterialSchemesForUser(@NonNull User user) {
-                return null;
-            }
-
-            @NonNull
-            @Override
-            public MaterialSchemes getMaterialSchemesForCapability(@NonNull OCCapability capability) {
-                return null;
-            }
-
-            @NonNull
-            @Override
-            public MaterialSchemes getMaterialSchemesForCurrentUser() {
-                return new MaterialSchemesImpl(R.color.primary, false);
-            }
-
-            @NonNull
-            @Override
-            public MaterialSchemes getDefaultMaterialSchemes() {
-                return null;
-            }
-
-            @NonNull
-            @Override
-            public MaterialSchemes getMaterialSchemesForPrimaryBackground() {
-                return null;
-            }
-        };
-
-        ViewThemeUtils viewThemeUtils = new ViewThemeUtils(materialSchemesProvider.getMaterialSchemesForCurrentUser(),
-                                                           new ColorUtil(targetContext));
-
-        EditorUtils editorUtils = new EditorUtils(new ArbitraryDataProviderImpl(targetContext));
-
-
-        OCFileListBottomSheetDialog sut = new OCFileListBottomSheetDialog(fda,
-                                                                          action,
-                                                                          info,
-                                                                          user,
-                                                                          ocFile,
-                                                                          fda.themeUtils,
-                                                                          viewThemeUtils,
-                                                                          editorUtils,
-                                                                          appScanOptionalFeature);
-
-        fda.runOnUiThread(sut::show);
-
-        getInstrumentation().waitForIdleSync();
-        shortSleep();
-
-        sut.getBehavior().setState(BottomSheetBehavior.STATE_EXPANDED);
-
-        getInstrumentation().waitForIdleSync();
-        shortSleep();
-
-        ViewGroup viewGroup = sut.getWindow().findViewById(android.R.id.content);
-        hideCursors(viewGroup);
-
-        screenshot(Objects.requireNonNull(sut.getWindow()).getDecorView());
-
+        }
     }
 
     @Test
+    @UiThread
     @ScreenshotTest
-    public void testProfileBottomSheet() {
+    fun testProfileBottomSheet() {
         if (Looper.myLooper() == null) {
-            Looper.prepare();
+            Looper.prepare()
         }
 
         // Fixed values for HoverCard
-        List<Action> actions = new ArrayList<>();
-        actions.add(new Action("profile",
-                               "View profile",
-                               "https://dev.nextcloud.com/core/img/actions/profile.svg",
-                               "https://dev.nextcloud.com/index.php/u/christine"));
-        actions.add(new Action("core",
-                               "christine.scott@nextcloud.com",
-                               "https://dev.nextcloud.com/core/img/actions/mail.svg",
-                               "mailto:christine.scott@nextcloud.com"));
+        val actions: MutableList<Action> = ArrayList()
+        actions.add(
+            Action(
+                "profile",
+                "View profile",
+                "https://dev.nextcloud.com/core/img/actions/profile.svg",
+                "https://dev.nextcloud.com/index.php/u/christine"
+            )
+        )
+        actions.add(
+            Action(
+                "core",
+                "christine.scott@nextcloud.com",
+                "https://dev.nextcloud.com/core/img/actions/mail.svg",
+                "mailto:christine.scott@nextcloud.com"
+            )
+        )
 
-        actions.add(new Action("spreed",
-                               "Talk to Christine",
-                               "https://dev.nextcloud.com/apps/spreed/img/app-dark.svg",
-                               "https://dev.nextcloud.com/apps/spreed/?callUser=christine"
-        ));
+        actions.add(
+            Action(
+                "spreed",
+                "Talk to Christine",
+                "https://dev.nextcloud.com/apps/spreed/img/app-dark.svg",
+                "https://dev.nextcloud.com/apps/spreed/?callUser=christine"
+            )
+        )
 
-        HoverCard hoverCard = new HoverCard("christine", "Christine Scott", actions);
+        val hoverCard = HoverCard("christine", "Christine Scott", actions)
 
         // show dialog
-        Intent intent = new Intent(targetContext, FileDisplayActivity.class);
-        FileDisplayActivity fda = activityRule.launchActivity(intent);
+        val intent = Intent(targetContext, FileDisplayActivity::class.java)
 
-        ProfileBottomSheetDialog sut = new ProfileBottomSheetDialog(fda,
-                                                                    user,
-                                                                    hoverCard,
-                                                                    fda.viewThemeUtils);
+        launchActivity<FileDisplayActivity>(intent).use { scenario ->
+            scenario.onActivity { fda ->
+                onIdleSync {
+                    EspressoIdlingResource.increment()
+                    val sut = ProfileBottomSheetDialog(
+                        fda,
+                        user,
+                        hoverCard,
+                        fda.viewThemeUtils
+                    )
+                    EspressoIdlingResource.decrement()
+                    sut.show()
 
-        fda.runOnUiThread(sut::show);
-
-        waitForIdleSync();
-
-        screenshot(sut.getWindow().getDecorView());
-    }
-
-
-    @Test
-    @ScreenshotTest
-    public void testSslUntrustedCertDialog() {
-        if (Looper.myLooper() == null) {
-            Looper.prepare();
-        }
-
-        final SslCertificate certificate = new SslCertificate("foo", "bar", "2022/01/10", "2022/01/30");
-        final SslError sslError = new SslError(SslError.SSL_UNTRUSTED, certificate);
-
-        final SslErrorHandler handler = Mockito.mock(SslErrorHandler.class);
-
-        SslUntrustedCertDialog sut = SslUntrustedCertDialog.newInstanceForEmptySslError(sslError, handler);
-        showDialog(sut);
-    }
-
-
-    @Test
-    @ScreenshotTest
-    public void testStoragePermissionDialog() {
-        if (Looper.myLooper() == null) {
-            Looper.prepare();
-        }
-
-        StoragePermissionDialogFragment sut = StoragePermissionDialogFragment.Companion.newInstance(false);
-        showDialog(sut);
-    }
-
-    @Test
-    @ScreenshotTest
-    public void testFileActionsBottomSheet() {
-        if (Looper.myLooper() == null) {
-            Looper.prepare();
-        }
-
-        OCFile ocFile = new OCFile("/test.md");
-        ocFile.setRemoteId("0001");
-        final FileActionsBottomSheet sut = FileActionsBottomSheet.newInstance(ocFile, false);
-        showDialog(sut);
-    }
-
-    private void showDialog(DialogFragment dialog) {
-        Intent intent = new Intent(targetContext, FileDisplayActivity.class);
-
-        FileDisplayActivity sut = activityRule.getActivity();
-
-        if (sut == null) {
-            sut = activityRule.launchActivity(intent);
-        }
-
-        showDialog(sut, dialog);
-    }
-
-    private void showDialog(FileDisplayActivity sut, DialogFragment dialog) {
-        dialog.show(sut.getSupportFragmentManager(), "");
-
-        getInstrumentation().waitForIdleSync();
-        shortSleep();
-
-        ViewGroup viewGroup = dialog.requireDialog().getWindow().findViewById(android.R.id.content);
-        hideCursors(viewGroup);
-
-        screenshot(Objects.requireNonNull(dialog.requireDialog().getWindow()).getDecorView());
-
-    }
-
-    private void hideCursors(ViewGroup viewGroup) {
-        for (int i = 0; i < viewGroup.getChildCount(); i++) {
-            View child = viewGroup.getChildAt(i);
-
-            if (child instanceof ViewGroup) {
-                hideCursors((ViewGroup) child);
-            }
-
-            if (child instanceof TextView) {
-                ((TextView) child).setCursorVisible(false);
+                    val screenShotName = createName(testClassName + "_" + "testProfileBottomSheet", "")
+                    onView(isRoot()).check(matches(isDisplayed()))
+                    screenshotViaName(sut.window?.decorView, screenShotName)
+                }
             }
         }
     }
-    
+
     @Test
-    public void testGson() {
-        ArrayList<EnforcedServer> t = new ArrayList<>();
-        t.add(new EnforcedServer("name", "url"));
-        t.add(new EnforcedServer("name2", "url1"));
-        
-        String s = new Gson().toJson(t);
+    @UiThread
+    @ScreenshotTest
+    fun testSslUntrustedCertDialog() {
+        if (Looper.myLooper() == null) {
+            Looper.prepare()
+        }
 
-        ArrayList<EnforcedServer> t2 = new Gson().fromJson(s, new TypeToken<ArrayList<EnforcedServer>>() {
-        }.getType());
+        val certificate = SslCertificate("foo", "bar", "2022/01/10", "2022/01/30")
+        val sslError = SslError(SslError.SSL_UNTRUSTED, certificate)
 
-        ArrayList<String> temp = new ArrayList<>();
-        for (EnforcedServer p : t2) {
-            temp.add(p.getName());
+        val handler = mockk<SslErrorHandler>(relaxed = true)
+
+        newInstanceForEmptySslError(sslError, handler).run {
+            showDialog(this)
+        }
+    }
+
+    @Test
+    @UiThread
+    @ScreenshotTest
+    fun testStoragePermissionDialog() {
+        if (Looper.myLooper() == null) {
+            Looper.prepare()
+        }
+
+        newInstance(false).run {
+            showDialog(this)
+        }
+    }
+
+    @Test
+    @UiThread
+    @ScreenshotTest
+    fun testFileActionsBottomSheet() {
+        if (Looper.myLooper() == null) {
+            Looper.prepare()
+        }
+
+        val ocFile = OCFile("/test.md").apply {
+            remoteId = "0001"
+        }
+
+        newInstance(ocFile, false).run {
+            showDialog(this)
+        }
+    }
+
+    private fun showDialog(dialog: DialogFragment) {
+        launchActivity<FileDisplayActivity>().use { scenario ->
+            scenario.onActivity { sut ->
+                onIdleSync {
+                    onView(isRoot()).check(matches(isDisplayed()))
+                    showDialog(sut, dialog)
+                }
+            }
+        }
+    }
+
+    private fun showDialog(sut: FileDisplayActivity, dialog: DialogFragment) {
+        dialog.show(sut.supportFragmentManager, null)
+        onIdleSync {
+            val dialogInstance = waitForDialog(dialog)
+                ?: throw IllegalStateException("Dialog was not created")
+
+            val viewGroup = dialogInstance.window?.findViewById<ViewGroup>(android.R.id.content) ?: return@onIdleSync
+            hideCursors(viewGroup)
+
+            onView(isRoot()).check(matches(isDisplayed()))
+            screenshot(dialogInstance.window?.decorView)
+        }
+    }
+
+    private fun waitForDialog(dialogFragment: DialogFragment, timeoutMs: Long = 5000): Dialog? {
+        val start = System.currentTimeMillis()
+        while (System.currentTimeMillis() - start < timeoutMs) {
+            val dialog = dialogFragment.dialog
+            if (dialog != null) return dialog
+            Thread.sleep(100)
+        }
+        return null
+    }
+
+    private fun hideCursors(viewGroup: ViewGroup) {
+        for (i in 0..<viewGroup.childCount) {
+            val child = viewGroup.getChildAt(i)
+
+            if (child is ViewGroup) {
+                hideCursors(child)
+            }
+
+            if (child is TextView) {
+                child.isCursorVisible = false
+            }
+        }
+    }
+
+    @Test
+    fun testGson() {
+        val t = ArrayList<EnforcedServer?>().apply {
+            add(EnforcedServer("name", "url"))
+            add(EnforcedServer("name2", "url1"))
+        }
+
+        val s = Gson().toJson(t)
+        val t2 = Gson().fromJson<ArrayList<EnforcedServer>>(
+            s,
+            object : TypeToken<ArrayList<EnforcedServer?>?>() {
+            }.type
+        )
+
+        val temp = ArrayList<String?>()
+        for (p in t2) {
+            temp.add(p.name)
         }
     }
 }
