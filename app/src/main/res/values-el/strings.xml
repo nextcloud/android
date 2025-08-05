@@ -112,6 +112,7 @@
     <string name="common_error">Σφάλμα</string>
     <string name="common_error_out_memory">Δεν υπάρχει αρκετή μνήμη</string>
     <string name="common_error_unknown">Άγνωστο σφάλμα</string>
+    <string name="common_leave_this_share">Αποχώρηση από αυτό το κοινόχρηστο</string>
     <string name="common_loading">Φόρτωση…</string>
     <string name="common_next">Επόμενο</string>
     <string name="common_no">Όχι</string>

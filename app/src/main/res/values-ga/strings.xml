@@ -143,6 +143,7 @@
     <string name="common_error">Earráid</string>
     <string name="common_error_out_memory">Ní leor cuimhne</string>
     <string name="common_error_unknown">Earráid anaithnid</string>
+    <string name="common_leave_this_share">Fág an sciar seo</string>
     <string name="common_loading">Á lódáil…</string>
     <string name="common_next">Ar aghaidh</string>
     <string name="common_no">Níl</string>

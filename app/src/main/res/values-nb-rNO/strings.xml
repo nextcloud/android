@@ -135,6 +135,7 @@
     <string name="common_error">Feil</string>
     <string name="common_error_out_memory">Ikke nok minne</string>
     <string name="common_error_unknown">Ukjent feil</string>
+    <string name="common_leave_this_share">Forlat denne delingen</string>
     <string name="common_loading">Laster…</string>
     <string name="common_next">Neste</string>
     <string name="common_no">Nei</string>

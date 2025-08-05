@@ -135,7 +135,7 @@
     <string name="confirmation_remove_local">Tikai vietējos</string>
     <string name="conflict_dialog_error">Nevar izveidot nesaderību novēršanas lodziņu</string>
     <string name="contactlist_item_icon">Lietotāja ikona kontaktpersonu sarakstam</string>
-    <string name="contactlist_no_permission">Nav dota atļauja, importēšana neizdevās</string>
+    <string name="contactlist_no_permission">Nav dota atļauja, nekas netika ievietots.</string>
     <string name="contacts">Kontakti</string>
     <string name="contacts_backup_button">Dublēt tagad</string>
     <string name="contacts_preferences_no_file_found">Datne nav atrasta</string>
@@ -430,7 +430,7 @@
     <string name="prefs_enable_media_scan_notifications_summary">Paziņot par jaunu informācijas nesēju mapju atrašanu</string>
     <string name="prefs_gpl_v2">GNU vispārējā publiskā licence, 2. versija</string>
     <string name="prefs_help">Palīdzība</string>
-    <string name="prefs_imprint">Importēt</string>
+    <string name="prefs_imprint">Zīmogs</string>
     <string name="prefs_instant_behaviour_dialogTitle">Sākotnējā datne tiks…</string>
     <string name="prefs_instant_behaviour_title">Sākotnējā datne tiks…</string>
     <string name="prefs_instant_upload_exclude_hidden_summary">Neiekļaut slēptās datnes un mapes</string>

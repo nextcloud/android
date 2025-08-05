@@ -143,6 +143,7 @@
     <string name="common_error">Fehler</string>
     <string name="common_error_out_memory">Nicht genügend Speicher</string>
     <string name="common_error_unknown">Unbekannter Fehler</string>
+    <string name="common_leave_this_share">Diese Freigabe verlassen</string>
     <string name="common_loading">Lade…</string>
     <string name="common_next">Nächste</string>
     <string name="common_no">Nein</string>

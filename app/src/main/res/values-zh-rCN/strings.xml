@@ -143,6 +143,7 @@
     <string name="common_error">错误</string>
     <string name="common_error_out_memory">内存不足</string>
     <string name="common_error_unknown">未知错误</string>
+    <string name="common_leave_this_share">离开此共享</string>
     <string name="common_loading">正在加载…</string>
     <string name="common_next">下一个</string>
     <string name="common_no">否</string>

@@ -111,6 +111,7 @@
     <string name="common_error">Napaka</string>
     <string name="common_error_out_memory">Ni dovolj pomnilnika</string>
     <string name="common_error_unknown">Neznana napaka</string>
+    <string name="common_leave_this_share">Prekini to souporabo</string>
     <string name="common_loading">Poteka nalaganje …</string>
     <string name="common_next">Naprej </string>
     <string name="common_no">Ne</string>

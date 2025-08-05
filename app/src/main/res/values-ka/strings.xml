@@ -108,6 +108,7 @@
     <string name="common_error">Error</string>
     <string name="common_error_out_memory">Not enough memory</string>
     <string name="common_error_unknown">Unknown error</string>
+    <string name="common_leave_this_share">Leave this share</string>
     <string name="common_loading">Loading…</string>
     <string name="common_next">Next</string>
     <string name="common_no">No</string>

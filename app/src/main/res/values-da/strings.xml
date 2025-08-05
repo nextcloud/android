@@ -143,6 +143,7 @@
     <string name="common_error">Fejl</string>
     <string name="common_error_out_memory">Ikke tilstrækkelig hukommelse</string>
     <string name="common_error_unknown">Ukendt fejl</string>
+    <string name="common_leave_this_share">Forlad dette delte drev</string>
     <string name="common_loading">Indlæser...</string>
     <string name="common_next">Næste</string>
     <string name="common_no">Nej</string>

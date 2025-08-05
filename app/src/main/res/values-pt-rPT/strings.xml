@@ -138,6 +138,7 @@
     <string name="common_error">Erro</string>
     <string name="common_error_out_memory">Falta de memória</string>
     <string name="common_error_unknown">Erro desconhecido</string>
+    <string name="common_leave_this_share">Sair desta partilha</string>
     <string name="common_loading">A carregar…</string>
     <string name="common_next">Seguinte</string>
     <string name="common_no">Não</string>
