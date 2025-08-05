@@ -13,6 +13,8 @@
       </trusted-artifacts>
       <ignored-keys>
          <ignored-key id="2C7F998F4272C851" reason="Key couldn't be downloaded from any key server"/>
+         <ignored-key id="67AB3C2A8FC5C42E" reason="Key couldn't be downloaded from any key server"/>
+         <ignored-key id="9B1FDA9F3C062231" reason="Key couldn't be downloaded from any key server"/>
          <ignored-key id="A6EA2E2BF22E0543" reason="Key couldn't be downloaded from any key server"/>
       </ignored-keys>
       <trusted-keys>
@@ -24,7 +26,10 @@
             <trusting group="org.jvnet.staxex"/>
             <trusting group="^com[.]sun($|([.].*))" regex="true"/>
          </trusted-key>
-         <trusted-key id="06D34ED6FF73DE368A772A781063FE98BCECB758" group="com.puppycrawl.tools" name="checkstyle" version="9.3"/>
+         <trusted-key id="06D34ED6FF73DE368A772A781063FE98BCECB758">
+            <trusting group="com.puppycrawl.tools" name="checkstyle" version="10.24.0"/>
+            <trusting group="com.puppycrawl.tools" name="checkstyle" version="9.3"/>
+         </trusted-key>
          <trusted-key id="077E8893A6DCC33DD4A4D5B256E73BA9A0B592D0" group="^org[.]apache[.]logging($|([.].*))" regex="true"/>
          <trusted-key id="0785B3EFF60B1B1BEA94E0BB7C25280EAE63EBE5">
             <trusting group="org.apache.httpcomponents"/>
@@ -93,11 +98,13 @@
          </trusted-key>
          <trusted-key id="1D85469D8559C2E1DF5F925131D2D79DF7E85DD3" group="org.jcommander" name="jcommander" version="1.85"/>
          <trusted-key id="1D9AA7F9E1E2824728B8CD1794B291AEF984A085" group="io.reactivex.rxjava3"/>
+         <trusted-key id="1E046C19ED2873D8C08AF7B8A0632691B78E3422" group="net.sourceforge.pmd"/>
          <trusted-key id="1FA868A348719E88B6D0DE24C03EF1D7D692BCFF">
             <trusting group="org.scala-lang" name="scala-library" version="2.12.13"/>
             <trusting group="org.scala-lang" name="scala-library" version="2.13.11"/>
          </trusted-key>
          <trusted-key id="1FFDCCF6BDC0B17BD26B4A761F012999BF55C33C" group="ar.com.hjg" name="pngj" version="2.1.0"/>
+         <trusted-key id="223D3A74B068ECA354DC385CE126833F9CF64915" group="org.apache.xbean"/>
          <trusted-key id="24D04176586361FDA94EE0315F7786DF73E61F56" group="com.google.devtools.ksp"/>
          <trusted-key id="26CCB560222376C280C15DAC453A03A250A2F726" group="com.github.fondesa" name="kpermissions" version="3.3.0"/>
          <trusted-key id="28118C070CB22A0175A2E8D43D12CA2AC19F3181" group="^com[.]fasterxml($|([.].*))" regex="true"/>
@@ -107,6 +114,7 @@
             <trusting group="org.sonatype.oss"/>
          </trusted-key>
          <trusted-key id="2DB4F1EF0FA761ECC4EA935C86FDC7E2A11262CB">
+            <trusting group="commons-beanutils" name="commons-beanutils" version="1.10.1"/>
             <trusting group="commons-codec"/>
             <trusting group="commons-io"/>
             <trusting group="org.apache.bcel"/>
@@ -196,6 +204,7 @@
          <trusted-key id="53C935821AA6A755BD337DB53595395EB3D8E1BA" group="org.apache.logging.log4j"/>
          <trusted-key id="54A26BFDC7ECDD39BA4C123AC3BAB45F4AF71FAB" group="io.opencensus" name="opencensus-proto" version="0.2.0"/>
          <trusted-key id="56B505DC8A29C69138A430B9429C8816DEA04CDB" group="org.xerial" name="sqlite-jdbc" version="3.36.0"/>
+         <trusted-key id="5719E50EAC5A4B1DD390B72C2A742740E08E7F8D" group="org.antlr"/>
          <trusted-key id="5897253BEA3046AEEA95A067E93671C7272B7B3F" group="org.jdom" name="jdom2" version="2.0.6"/>
          <trusted-key id="5989BAF76217B843D66BE55B2D0E1FB8FE4B68B4">
             <trusting group="org.eclipse.jetty" name="jetty-bom" version="9.4.53.v20231009"/>
@@ -304,6 +313,7 @@
             <trusting group="org.jacoco"/>
          </trusted-key>
          <trusted-key id="A42FEF087AF29AE864684EAEE6039456D5BBD4F8" group="io.fabric8" name="kubernetes-client-bom" version="5.12.4"/>
+         <trusted-key id="A48FADE54FA56B93FE66EC17A05EBEE656F3E01B" group="org.apache.geronimo.genesis"/>
          <trusted-key id="A5BD02B93E7A40482EB1D66A5F69AD087600B22C" group="org.ow2.asm"/>
          <trusted-key id="A5F483CD733A4EBAEA378B2AE88979FB9B30ACF2">
             <trusting group="androidx.activity"/>
@@ -335,6 +345,7 @@
             <trusting group="info.picocli" name="picocli" version="4.6.2"/>
             <trusting group="info.picocli" name="picocli" version="4.7.4"/>
             <trusting group="info.picocli" name="picocli" version="4.7.5"/>
+            <trusting group="info.picocli" name="picocli" version="4.7.7"/>
          </trusted-key>
          <trusted-key id="AA70C7C433D501636392EC02153E7A3C2B4E5118" group="org.eclipse.ee4j" name="project"/>
          <trusted-key id="ADBC987D1A7B91DB6B0AAA81995EFBF4A3D20BEB" group="^com[.]pinterest($|([.].*))" regex="true"/>
@@ -349,6 +360,7 @@
          </trusted-key>
          <trusted-key id="AFCC4C7594D09E2182C60E0F7A01B0F236E5430F" group="com.google.code.gson"/>
          <trusted-key id="B01128C8FD304FE48E6EED2C347CD0EAED975C5F" group="org.antlr"/>
+         <trusted-key id="B02137D875D833D9B23392ECAE5A7FB608A0221C" group="org.codehaus.plexus" name="plexus-classworlds" version="2.6.0"/>
          <trusted-key id="B02335AA54CCF21E52BBF9ABD9C565AA72BA2FDD" group="io.grpc"/>
          <trusted-key id="B087A0EB8416563AFE64CEBA4604091C01C3086A">
             <trusting group="com.mebigfatguy.fb-contrib" name="fb-contrib" version="7.6.0"/>
@@ -409,6 +421,7 @@
          <trusted-key id="DD80AF584ECDB83D650C4FC78EDF241183415AF1" group="com.github.akarnokd" name="ixjava" version="1.0.0"/>
          <trusted-key id="DF25D3C4868FEC177182FAD64D176DC503FB4267" group="io.coil-kt"/>
          <trusted-key id="E01AAB301618D23B39DBD41002DE09238A0E4D34" group="com.drewnoakes" name="metadata-extractor" version="2.18.0"/>
+         <trusted-key id="E0D98C5FD55A8AF232290E58DEE12B9896F97E34" group="org.pcollections" name="pcollections" version="4.0.2"/>
          <trusted-key id="E2F51A65767284220C6DFD60520410E2AF06FA82" group="com.github.bumptech.glide"/>
          <trusted-key id="E3A9F95079E84CE201F7CF60BEDE11EAF1164480" group="org.hamcrest"/>
          <trusted-key id="E5C3B1929191DF06136CCB2B164779204E106A76" group="org.javassist" name="javassist" version="3.28.0-GA"/>
@@ -431,7 +444,11 @@
             <trusting group="org.jsoup" name="jsoup" version="1.16.1"/>
          </trusted-key>
          <trusted-key id="F3BD845679DD6A30F3F50F91597852B0B140F0BC" group="com.caverock" name="androidsvg" version="1.4"/>
-         <trusted-key id="FA77DCFEF2EE6EB2DEBEDD2C012579464D01C06A" group="org.apache" name="apache"/>
+         <trusted-key id="FA77DCFEF2EE6EB2DEBEDD2C012579464D01C06A">
+            <trusting group="org.apache" name="apache"/>
+            <trusting group="org.codehaus.plexus"/>
+            <trusting group="^org[.]apache[.]maven($|([.].*))" regex="true"/>
+         </trusted-key>
          <trusted-key id="FA7929F83AD44C4590F6CC6815C71C0A4E0B8EDD" group="net.java.dev.jna"/>
          <trusted-key id="FAABC3738B1F58DA2D776FA2EB380DC13C39F675" group="com.intellij" name="annotations" version="12.0"/>
          <trusted-key id="FB35C8D02B4724DADA23DE0AFD116C1969FCCFF3">
@@ -14879,6 +14896,14 @@
             <sha256 value="0243c635c4b81c057040bcb23ff7df3bfab222b7d8a895174cdc501299cd40d6" origin="Generated by Gradle" reason="Artifact is not signed"/>
          </artifact>
       </component>
+      <component group="com.github.nextcloud" name="android-library" version="9e16eb6ba07101ed7352e72e3aee32e8a609eac5">
+         <artifact name="android-library-9e16eb6ba07101ed7352e72e3aee32e8a609eac5.aar">
+            <sha256 value="4380a5a5f32d95868a45dc05c7c6f0b26c38bbfe565d6c284c8d0e1a76f4a6a1" origin="Generated by Gradle" reason="Artifact is not signed"/>
+         </artifact>
+         <artifact name="android-library-9e16eb6ba07101ed7352e72e3aee32e8a609eac5.module">
+            <sha256 value="7127b6b01122c36fd0f7dfb86a5f339d1b46419f7ff83cf5bb92205e81a13e33" origin="Generated by Gradle" reason="Artifact is not signed"/>
+         </artifact>
+      </component>
       <component group="com.github.nextcloud" name="android-library" version="9e3c0046d242d8395855772d1105cb0b9fdd9f1f">
          <artifact name="android-library-9e3c0046d242d8395855772d1105cb0b9fdd9f1f.aar">
             <sha256 value="8f6337f2494d67ae9732c57850172588b9bf87f4f2ca4aa74e5f8f79f1192928" origin="Generated by Gradle" reason="Artifact is not signed"/>
@@ -15625,6 +15650,14 @@
          </artifact>
          <artifact name="ui-f96c6fa2c3cdd52fcd70dedc520c77bd3f6b2f7c.module">
             <sha256 value="8507e07778e080278bc88b786232b1ad9c64129567d5410f7b14df45ce6ecf41" origin="Generated by Gradle" reason="Artifact is not signed"/>
+         </artifact>
+      </component>
+      <component group="com.github.oowekyala.ooxml" name="nice-xml-messages" version="3.1">
+         <artifact name="nice-xml-messages-3.1.jar">
+            <sha256 value="0b4ceb5b8362d43c9c6c49b1bd57f1c5da54d3c5c7c305fa39c0a04462bb4799" origin="Generated by Gradle" reason="A key couldn't be downloaded"/>
+         </artifact>
+         <artifact name="nice-xml-messages-3.1.pom">
+            <sha256 value="ad0aa36596cc4c0247fea54d5acc1e47b2b8d81e744c3c89e5dacb531d62a670" origin="Generated by Gradle" reason="A key couldn't be downloaded"/>
          </artifact>
       </component>
       <component group="com.github.spotbugs" name="spotbugs" version="4.7.3">
@@ -21971,6 +22004,11 @@
       <component group="org.apache" name="apache" version="35">
          <artifact name="apache-35.pom">
             <sha256 value="ea297dcd114136e8b8e8b630230d52a76c2fc69f6c5db25d672b1857000728b8" origin="Generated by Gradle"/>
+         </artifact>
+      </component>
+      <component group="org.apache" name="apache" version="6">
+         <artifact name="apache-6.pom">
+            <sha256 value="12edb5096e13f40c362d0bd40902589fa9586505123fa26799ce50b116fa5bb3" origin="Generated by Gradle" reason="A key couldn't be downloaded"/>
          </artifact>
       </component>
       <component group="org.apache" name="apache" version="9">
