@@ -118,10 +118,6 @@ class EncryptionUtilsV2 {
                 arbitraryDataProvider
             )
 
-            // do not store metadata key
-            metadataFile.metadata.metadataKey = ByteArray(0)
-            metadataFile.metadata.keyChecksums.clear()
-
             encryptedUsers = emptyList()
             encryptedMetadata = encryptMetadata(metadataFile.metadata, key)
         } else {
