@@ -111,7 +111,6 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     implements DisplayUtils.AvatarGenerationListener,
     CommonOCFileListAdapterInterface, PopupTextProvider, RecommendedFilesAdapter.OnItemClickListener {
 
-    private static final int showFilenameColumnThreshold = 4;
     private final String userId;
     private final Activity activity;
     private final AppPreferences preferences;
@@ -561,12 +560,6 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     private void bindListGridItemViewHolder(ListGridItemViewHolder holder, OCFile file) {
         holder.getFileName().setText(mStorageManager.getFilenameConsideringOfflineOperation(file));
-
-        if (gridView && ocFileListFragmentInterface.getColumnsCount() > showFilenameColumnThreshold) {
-            holder.getFileName().setVisibility(View.GONE);
-        } else {
-            holder.getFileName().setVisibility(View.VISIBLE);
-        }
     }
 
     private void bindListItemViewHolder(ListItemViewHolder holder, OCFile file) {
