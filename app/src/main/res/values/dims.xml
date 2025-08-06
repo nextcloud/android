@@ -102,7 +102,7 @@
     <dimen name="activity_row_layout_height">48dp</dimen>
     <dimen name="notification_icon_width">24dp</dimen>
     <dimen name="notification_icon_height">24dp</dimen>
-    <dimen name="grid_container_margin">4dp</dimen>
+    <dimen name="grid_container_margin">2dp</dimen>
     <dimen name="selected_grid_container_radius">4dp</dimen>
     <dimen name="grid_checkbox_size">18dp</dimen>
     <dimen name="grid_checkbox_margin">6dp</dimen>
