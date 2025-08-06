@@ -1367,6 +1367,6 @@
     <string name="document_storage_provider_cannot_create_file_and_folder">Can’t create items here: missing create permission.</string>
     <string name="document_storage_provider_cannot_create_file_inside_folder">Can’t create file: missing permission.</string>
     <string name="document_storage_provider_cannot_create_folder_inside_folder">Can’t create folder: missing permission.</string>
-
+    <string name="link_not_followed_due_to_security_settings">Link not followed due to security settings.</string>
     <string name="extented_list_fragment_empty_list_message_no_write_permission">You don’t have permission to create or upload files in this folder.</string>
 </resources>
