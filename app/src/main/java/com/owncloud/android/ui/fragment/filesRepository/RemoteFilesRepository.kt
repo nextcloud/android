@@ -11,6 +11,7 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import com.nextcloud.android.lib.resources.recommendations.GetRecommendationsRemoteOperation
 import com.nextcloud.android.lib.resources.recommendations.Recommendation
+import com.nextcloud.android.lib.richWorkspace.RichWorkspaceDirectEditingRemoteOperation
 import com.nextcloud.repository.ClientRepository
 import com.owncloud.android.lib.common.utils.Log_OC
 import kotlinx.coroutines.Dispatchers
@@ -41,6 +42,18 @@ class RemoteFilesRepository(private val clientRepository: ClientRepository, life
             } catch (e: Exception) {
                 Log_OC.d(tag, "Exception caught while fetching recommended files: $e")
             }
+        }
+    }
+
+    override fun createRichWorkspace(remotePath: String, onCompleted: (String) -> Unit, onError: () -> Unit) {
+        scope.launch(Dispatchers.IO) {
+            val client = clientRepository.getNextcloudClient() ?: return@launch
+            val url = RichWorkspaceDirectEditingRemoteOperation(remotePath)
+                .execute(client)
+                .takeIf { it.isSuccess }
+                ?.singleData as? String
+
+            url?.let(onCompleted) ?: onError()
         }
     }
 }
