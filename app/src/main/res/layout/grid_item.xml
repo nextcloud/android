@@ -40,7 +40,7 @@
         app:layout_constraintTop_toTopOf="@id/thumbnail"
         tools:visibility="visible" />
 
-    <ImageView
+    <com.owncloud.android.ui.SquareImageView
         android:id="@+id/thumbnail"
         android:layout_width="@dimen/standard_list_item_size"
         android:layout_height="@dimen/standard_list_item_size"
@@ -111,6 +111,20 @@
             android:visibility="gone"
             app:tint="@color/grid_file_features_icon_color"
             tools:ignore="TouchTargetSizeCheck"
+            tools:visibility="visible" />
+
+        <ImageView
+            android:id="@+id/grid_live_photo_indicator"
+            tools:ignore="TouchTargetSizeCheck"
+            android:layout_width="@dimen/grid_layout_item_size"
+            android:layout_height="@dimen/grid_layout_item_size"
+            android:layout_marginEnd="@dimen/grid_layout_margin_end"
+            android:clickable="true"
+            android:contentDescription="@string/grid_file_features_live_photo_content_description"
+            android:focusable="true"
+            android:src="@drawable/ic_live_photo"
+            android:visibility="gone"
+            app:tint="@color/grid_file_features_icon_color"
             tools:visibility="visible" />
 
         <ImageView
