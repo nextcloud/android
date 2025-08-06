@@ -247,6 +247,13 @@
     <string name="document_scan_export_dialog_title">选择导出类型</string>
     <string name="document_scan_pdf_generation_failed">PDF 构建失败</string>
     <string name="document_scan_pdf_generation_in_progress">正在生成 PDF...</string>
+    <string name="document_storage_provider_cannot_create_file_and_folder">无法在此处创建项目：缺少创建权限。</string>
+    <string name="document_storage_provider_cannot_create_file_inside_folder">无法创建文件：缺少权限。</string>
+    <string name="document_storage_provider_cannot_create_folder_inside_folder">无法创建文件夹：缺少权限。</string>
+    <string name="document_storage_provider_cannot_delete">无法删除项目：缺少删除权限。</string>
+    <string name="document_storage_provider_cannot_move">无法移动项目：缺少移动权限。</string>
+    <string name="document_storage_provider_cannot_read">无法打开项目：缺少读取权限。</string>
+    <string name="document_storage_provider_cannot_rename">无法重命名项目：缺少重命名权限。</string>
     <string name="done">完成</string>
     <string name="dontClear">不要清除</string>
     <string name="download_cannot_create_file">无法新建本地文件</string>
@@ -326,6 +333,7 @@
     <string name="error_comment_file">评论文件发生错误</string>
     <string name="error_crash_title">%1$s 崩溃了</string>
     <string name="error_creating_file_from_template">从模板创建文件时出错</string>
+    <string name="error_fetching_sharees">无法获取分享对象</string>
     <string name="error_file_actions">显示文件操作时出错</string>
     <string name="error_file_lock">修改文件锁定状态时发生错误</string>
     <string name="error_report_issue_action">报告</string>
@@ -360,6 +368,7 @@
     <string name="etm_transfer_type">传输</string>
     <string name="etm_transfer_type_download">下载</string>
     <string name="etm_transfer_type_upload">上传</string>
+    <string name="extented_list_fragment_empty_list_message_no_write_permission">您没有在此文件夹中创建或上传文件的权限。</string>
     <string name="external_shares">外部共享</string>
     <string name="fab_label">添加或上传</string>
     <string name="failed_to_download">无法将文件传递给下载管理器</string>
@@ -375,6 +384,7 @@
     <string name="file_detail_share_already_active">您无法创建共享，此用户的共享已处于活动状态。</string>
     <string name="file_detail_sharing_fragment_no_contact_app_message">没有可用于选择联系人的应用</string>
     <string name="file_details_no_content">加载详情失败</string>
+    <string name="file_details_sharing_fragment_custom_permission_not_selected">请选择自定义权限</string>
     <string name="file_icon">文件</string>
     <string name="file_keep">保留</string>
     <string name="file_list_empty">上传一些内容或与你的设备同步。</string>
@@ -392,6 +402,8 @@
     <string name="file_list_empty_shared">你共享的文件和文件夹将显示在此处</string>
     <string name="file_list_empty_shared_headline">暂无共享</string>
     <string name="file_list_empty_unified_search_no_results">未找到查询的结果</string>
+    <string name="file_list_empty_unified_search_start_search">开始搜索</string>
+    <string name="file_list_empty_unified_search_start_search_description">在上方搜索栏中输入以查找您账号中的文件、联系人、日历事件等。</string>
     <string name="file_list_folder">文件夹</string>
     <string name="file_list_live">即时</string>
     <string name="file_list_loading">正在加载...</string>
@@ -611,8 +623,12 @@
     <string name="offline_mode_info_description">即使没有互联网连接，你也可以组织文件夹、创建文件。一旦您重新在线，你的待处理操作将自动同步。</string>
     <string name="offline_mode_info_title">您已离线，但工作仍在继续</string>
     <string name="offline_operations_file_does_not_exists_yet">文件尚不存在。请先上传文件。</string>
+    <string name="offline_operations_worker_notification_create_file_conflict_text">无法创建 %s。服务器上存在同名文件。</string>
+    <string name="offline_operations_worker_notification_create_folder_conflict_text">无法创建 %s。服务器上存在同名文件夹。</string>
     <string name="offline_operations_worker_notification_error_text">无法完成离线操作。%s</string>
     <string name="offline_operations_worker_notification_manager_ticker">离线操作</string>
+    <string name="offline_operations_worker_notification_remove_conflict_text">已取消删除 %s。文件已在服务器上修改。</string>
+    <string name="offline_operations_worker_notification_rename_conflict_text">已取消重命名 %s。服务器上存在同名文件。</string>
     <string name="offline_operations_worker_notification_start_text">开始离线操作</string>
     <string name="oneHour">1小时</string>
     <string name="online">在线</string>

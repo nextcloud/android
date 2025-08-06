@@ -247,6 +247,13 @@
     <string name="document_scan_export_dialog_title">Vali ekspordi tüüp</string>
     <string name="document_scan_pdf_generation_failed">PDF-i loomine ei õnnestunud</string>
     <string name="document_scan_pdf_generation_in_progress">PDF-fail on loomisel…</string>
+    <string name="document_storage_provider_cannot_create_file_and_folder">Ühtegi objekti ei saa siia luua: puudub loomise õigus.</string>
+    <string name="document_storage_provider_cannot_create_file_inside_folder">Faili ei saa luua: puudub vajalik õigus.</string>
+    <string name="document_storage_provider_cannot_create_folder_inside_folder">Kausta ei saa luua: puudub vajalik õigus.</string>
+    <string name="document_storage_provider_cannot_delete">Objekti ei saa kustutada: puudub kustutamise õigus.</string>
+    <string name="document_storage_provider_cannot_move">Objekti ei saa teisaldada: puudub teisaldamise õigus.</string>
+    <string name="document_storage_provider_cannot_read">Objekti ei saa avada: puudub lugemise õigus.</string>
+    <string name="document_storage_provider_cannot_rename">Objekti nime ei saa muuta: puudub õigus nime muutmiseks.</string>
     <string name="done">Valmis</string>
     <string name="dontClear">Ära tühjenda</string>
     <string name="download_cannot_create_file">Kohaliku faili loomine ei õnnestunud</string>
@@ -361,6 +368,7 @@
     <string name="etm_transfer_type">Teisalda</string>
     <string name="etm_transfer_type_download">Laadi alla</string>
     <string name="etm_transfer_type_upload">Laadi üles</string>
+    <string name="extented_list_fragment_empty_list_message_no_write_permission">Sul puuduvad õigused siia kausta failide üleslaadimiseks või loomiseks.</string>
     <string name="external_shares">Välised jaoskaustad</string>
     <string name="fab_label">Lisa või laadi üles</string>
     <string name="failed_to_download">Ei õnnestunud faili allalaadimishaldurile edasi anda</string>

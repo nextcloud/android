@@ -247,6 +247,13 @@
     <string name="document_scan_export_dialog_title">Вибрати спосіб експорту</string>
     <string name="document_scan_pdf_generation_failed">Не вдалося зґенерувати PDF</string>
     <string name="document_scan_pdf_generation_in_progress">Створення PDF...</string>
+    <string name="document_storage_provider_cannot_create_file_and_folder">Не вдалося створити об\'єкт: відсутні повноваження на створення.</string>
+    <string name="document_storage_provider_cannot_create_file_inside_folder">Не вдалося створити файл: відсутні повноваження.</string>
+    <string name="document_storage_provider_cannot_create_folder_inside_folder">Не вдалося створити каталог: відсутні повноваження.</string>
+    <string name="document_storage_provider_cannot_delete">Не вдалося вилучити об\'єкт: відсутні повноваження з вилучення.</string>
+    <string name="document_storage_provider_cannot_move">Не вдалося перемістити об\'єкт: відсутні повноваження з переміщення.</string>
+    <string name="document_storage_provider_cannot_read">Не вдалося відкрити об\'єкт: відсутній доступ на читання.</string>
+    <string name="document_storage_provider_cannot_rename">Не вдалося перейменувати об\'єкт: відсутні повноваження з перейменування.</string>
     <string name="done">Готово</string>
     <string name="dontClear">Не очищати</string>
     <string name="download_cannot_create_file">Неможливо створити файл на пристрої</string>
@@ -361,6 +368,7 @@
     <string name="etm_transfer_type">Передати</string>
     <string name="etm_transfer_type_download">Звантажити</string>
     <string name="etm_transfer_type_upload">Завантажити</string>
+    <string name="extented_list_fragment_empty_list_message_no_write_permission">У вас відсутній доступ на створення або завантаження файлів до цього каталогу.</string>
     <string name="external_shares">Зовнішні спільні ресурси</string>
     <string name="fab_label">Додати або завантажити</string>
     <string name="failed_to_download">Не вдалося передати файл до менеджера звантажень</string>
