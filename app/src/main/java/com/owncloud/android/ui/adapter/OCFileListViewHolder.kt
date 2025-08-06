@@ -14,9 +14,9 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.elyeproj.loaderviewlibrary.LoaderImageView
-import com.owncloud.android.databinding.GridImageBinding
+import com.owncloud.android.databinding.GridItemBinding
 
-internal class OCFileListViewHolder(var binding: GridImageBinding) :
+internal class OCFileListViewHolder(var binding: GridItemBinding) :
     RecyclerView.ViewHolder(
         binding.root
     ),
