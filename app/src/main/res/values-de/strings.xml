@@ -247,6 +247,13 @@
     <string name="document_scan_export_dialog_title">Exporttyp wählen</string>
     <string name="document_scan_pdf_generation_failed">PDF-Erstellung fehlgeschlagen</string>
     <string name="document_scan_pdf_generation_in_progress">Erstelle PDF…</string>
+    <string name="document_storage_provider_cannot_create_file_and_folder">Hier können keine Elemente erstellt werden: Berechtigung zum Erstellen fehlt.</string>
+    <string name="document_storage_provider_cannot_create_file_inside_folder">Datei kann nicht erstellt werden: Fehlende Berechtigung.</string>
+    <string name="document_storage_provider_cannot_create_folder_inside_folder">Ordner kann nicht erstellt werden: Fehlende Berechtigung.</string>
+    <string name="document_storage_provider_cannot_delete">Element kann nicht gelöscht werden: Berechtigung zum Löschen fehlt.</string>
+    <string name="document_storage_provider_cannot_move">Element kann nicht verschoben werden: Berechtigung zum Verschieben fehlt.</string>
+    <string name="document_storage_provider_cannot_read">Element kann nicht geöffnet werden: Berechtigung zum Lesen fehlt.</string>
+    <string name="document_storage_provider_cannot_rename">Element kann nicht umbenannt werden: Berechtigung zum Umbenennen fehlt.</string>
     <string name="done">Fertig</string>
     <string name="dontClear">Nicht löschen</string>
     <string name="download_cannot_create_file">Datei kann lokal nicht erstellt werden</string>
@@ -361,6 +368,7 @@
     <string name="etm_transfer_type">Übertragen</string>
     <string name="etm_transfer_type_download">Herunterladen</string>
     <string name="etm_transfer_type_upload">Hochladen</string>
+    <string name="extented_list_fragment_empty_list_message_no_write_permission">Sie haben keine Berechtigung, in diesen Ordner Dateien hochzuladen oder zu erstellen.</string>
     <string name="external_shares">Externe Freigaben</string>
     <string name="fab_label">Hinzufügen oder hochladen</string>
     <string name="failed_to_download">Datei konnte nicht an den Downloadmanager übergeben werden</string>
