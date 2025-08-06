@@ -178,10 +178,10 @@ object DocumentsProviderUtils {
     @Suppress("EXPERIMENTAL_API_USAGE")
     @VisibleForTesting
     internal suspend fun getLoadedCursor(timeout: Long = 15_000, query: () -> Cursor?) = withTimeout(timeout) {
-        suspendCancellableCoroutine<Cursor> { cont ->
+        suspendCancellableCoroutine { cont ->
             val cursor = query() ?: throw IOException("Initial query returned no results")
             cont.invokeOnCancellation { cursor.close() }
-            val loading = cursor.extras.getBoolean(EXTRA_LOADING, false)
+            val loading = cursor.extras?.getBoolean(EXTRA_LOADING, false) ?: false
             if (loading) {
                 Log_OC.e("TEST", "Cursor was loading, wait for update...")
                 cursor.registerContentObserver(

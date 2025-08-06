@@ -1,112 +1,128 @@
 /*
  * Nextcloud - Android Client
  *
+ * SPDX-FileCopyrightText: 2025 Alper Ozturk <alper.ozturk@nextcloud.com>
  * SPDX-FileCopyrightText: 2020 Tobias Kaminsky <tobias@kaminsky.me>
  * SPDX-FileCopyrightText: 2020 Nextcloud GmbH
  * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
  */
-package com.owncloud.android.ui.activity;
+package com.owncloud.android.ui.activity
 
-import android.accounts.Account;
-import android.accounts.AccountManager;
-import android.net.Uri;
-import android.os.Bundle;
+import android.accounts.Account
+import android.accounts.AccountManager
+import android.net.Uri
+import android.view.View
+import androidx.annotation.UiThread
+import androidx.test.core.app.launchActivity
+import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.action.ViewActions
+import androidx.test.espresso.matcher.ViewMatchers
+import androidx.test.platform.app.InstrumentationRegistry
+import com.nextcloud.client.account.User
+import com.nextcloud.client.account.UserAccountManager
+import com.nextcloud.client.account.UserAccountManagerImpl
+import com.nextcloud.test.RetryTestRule
+import com.owncloud.android.AbstractIT
+import com.owncloud.android.MainApp
+import com.owncloud.android.R
+import com.owncloud.android.lib.common.accounts.AccountUtils
+import com.owncloud.android.utils.EspressoIdlingResource
+import org.hamcrest.Matchers
+import org.junit.Assert
+import org.junit.BeforeClass
+import org.junit.Rule
+import org.junit.Test
+import java.util.function.Supplier
 
-import com.nextcloud.client.account.User;
-import com.nextcloud.client.account.UserAccountManager;
-import com.nextcloud.client.account.UserAccountManagerImpl;
-import com.nextcloud.test.RetryTestRule;
-import com.owncloud.android.AbstractIT;
-import com.owncloud.android.MainApp;
-import com.owncloud.android.R;
-import com.owncloud.android.lib.common.accounts.AccountUtils;
-
-import org.junit.BeforeClass;
-import org.junit.Rule;
-import org.junit.Test;
-
-import androidx.test.espresso.intent.rule.IntentsTestRule;
-
-import static androidx.test.espresso.Espresso.onView;
-import static androidx.test.espresso.action.ViewActions.click;
-import static androidx.test.espresso.matcher.ViewMatchers.withId;
-import static androidx.test.espresso.matcher.ViewMatchers.withText;
-import static org.hamcrest.Matchers.anyOf;
-import static org.junit.Assert.assertEquals;
-
-public class DrawerActivityIT extends AbstractIT {
-    @Rule public IntentsTestRule<FileDisplayActivity> activityRule = new IntentsTestRule<>(FileDisplayActivity.class,
-                                                                                           true,
-                                                                                           false);
-
+class DrawerActivityIT : AbstractIT() {
     @Rule
-    public final RetryTestRule retryTestRule = new RetryTestRule();
-
-    private static Account account1;
-    private static User user1;
-    private static Account account2;
-    private static String account2Name;
-    private static String account2DisplayName;
-
-    @BeforeClass
-    public static void beforeClass() {
-        Bundle arguments = androidx.test.platform.app.InstrumentationRegistry.getArguments();
-        Uri baseUrl = Uri.parse(arguments.getString("TEST_SERVER_URL"));
-
-        AccountManager platformAccountManager = AccountManager.get(targetContext);
-        UserAccountManager userAccountManager = UserAccountManagerImpl.fromContext(targetContext);
-
-        for (Account account : platformAccountManager.getAccounts()) {
-            platformAccountManager.removeAccountExplicitly(account);
-        }
-
-        String loginName = "user1";
-        String password = "user1";
-
-        Account temp = new Account(loginName + "@" + baseUrl, MainApp.getAccountType(targetContext));
-        platformAccountManager.addAccountExplicitly(temp, password, null);
-        platformAccountManager.setUserData(temp, AccountUtils.Constants.KEY_OC_ACCOUNT_VERSION,
-                                           Integer.toString(UserAccountManager.ACCOUNT_VERSION));
-        platformAccountManager.setUserData(temp, AccountUtils.Constants.KEY_OC_VERSION, "14.0.0.0");
-        platformAccountManager.setUserData(temp, AccountUtils.Constants.KEY_OC_BASE_URL, baseUrl.toString());
-        platformAccountManager.setUserData(temp, AccountUtils.Constants.KEY_USER_ID, loginName); // same as userId
-
-        account1 = userAccountManager.getAccountByName(loginName + "@" + baseUrl);
-        user1 = userAccountManager.getUser(account1.name).orElseThrow(IllegalAccessError::new);
-
-        loginName = "user2";
-        password = "user2";
-
-        temp = new Account(loginName + "@" + baseUrl, MainApp.getAccountType(targetContext));
-        platformAccountManager.addAccountExplicitly(temp, password, null);
-        platformAccountManager.setUserData(temp, AccountUtils.Constants.KEY_OC_ACCOUNT_VERSION,
-                                           Integer.toString(UserAccountManager.ACCOUNT_VERSION));
-        platformAccountManager.setUserData(temp, AccountUtils.Constants.KEY_OC_VERSION, "14.0.0.0");
-        platformAccountManager.setUserData(temp, AccountUtils.Constants.KEY_OC_BASE_URL, baseUrl.toString());
-        platformAccountManager.setUserData(temp, AccountUtils.Constants.KEY_USER_ID, loginName); // same as userId
-
-        account2 = userAccountManager.getAccountByName(loginName + "@" + baseUrl);
-        account2Name = loginName + "@" + baseUrl;
-        account2DisplayName = "User Two@" + baseUrl;
-    }
+    @JvmField
+    val retryTestRule = RetryTestRule()
 
     @Test
-    public void switchAccountViaAccountList() {
-        FileDisplayActivity sut = activityRule.launchActivity(null);
+    @UiThread
+    fun switchAccountViaAccountList() {
+        launchActivity<FileDisplayActivity>().use { scenario ->
+            scenario.onActivity { sut ->
+                onIdleSync {
+                    EspressoIdlingResource.increment()
+                    sut.setUser(user1)
 
-        sut.setUser(user1);
+                    Assert.assertEquals(account1, sut.user.get().toPlatformAccount())
+                    onView(ViewMatchers.withId(R.id.switch_account_button)).perform(ViewActions.click())
+                    onView(
+                        Matchers.anyOf<View?>(
+                            ViewMatchers.withText(account2Name),
+                            ViewMatchers.withText(
+                                account2DisplayName
+                            )
+                        )
+                    ).perform(ViewActions.click())
+                    Assert.assertEquals(account2, sut.user.get().toPlatformAccount())
+                    EspressoIdlingResource.decrement()
 
-        assertEquals(account1, sut.getUser().get().toPlatformAccount());
+                    onView(ViewMatchers.withId(R.id.switch_account_button)).perform(ViewActions.click())
+                    onView(ViewMatchers.withText(account1?.name)).perform(ViewActions.click())
+                }
+            }
+        }
+    }
 
-        onView(withId(R.id.switch_account_button)).perform(click());
+    companion object {
+        private var account1: Account? = null
+        private var user1: User? = null
+        private var account2: Account? = null
+        private var account2Name: String? = null
+        private var account2DisplayName: String? = null
 
-        onView(anyOf(withText(account2Name), withText(account2DisplayName))).perform(click());
+        @JvmStatic
+        @BeforeClass
+        fun beforeClass() {
+            val arguments = InstrumentationRegistry.getArguments()
+            val baseUrl = Uri.parse(arguments.getString("TEST_SERVER_URL"))
 
-        waitForIdleSync();
+            val platformAccountManager = AccountManager.get(targetContext)
+            val userAccountManager: UserAccountManager = UserAccountManagerImpl.fromContext(targetContext)
 
-        assertEquals(account2, sut.getUser().get().toPlatformAccount());
+            for (account in platformAccountManager.accounts) {
+                platformAccountManager.removeAccountExplicitly(account)
+            }
 
-        onView(withId(R.id.switch_account_button)).perform(click());
-        onView(withText(account1.name)).perform(click());
+            var loginName = "user1"
+            var password = "user1"
+
+            var temp = Account("$loginName@$baseUrl", MainApp.getAccountType(targetContext))
+            platformAccountManager.addAccountExplicitly(temp, password, null)
+            platformAccountManager.setUserData(
+                temp,
+                AccountUtils.Constants.KEY_OC_ACCOUNT_VERSION,
+                UserAccountManager.ACCOUNT_VERSION.toString()
+            )
+            platformAccountManager.setUserData(temp, AccountUtils.Constants.KEY_OC_VERSION, "14.0.0.0")
+            platformAccountManager.setUserData(temp, AccountUtils.Constants.KEY_OC_BASE_URL, baseUrl.toString())
+            platformAccountManager.setUserData(temp, AccountUtils.Constants.KEY_USER_ID, loginName) // same as userId
+
+            account1 = userAccountManager.getAccountByName("$loginName@$baseUrl")
+            user1 = userAccountManager.getUser(account1!!.name)
+                .orElseThrow<IllegalAccessError?>(Supplier { IllegalAccessError() })
+
+            loginName = "user2"
+            password = "user2"
+
+            temp = Account("$loginName@$baseUrl", MainApp.getAccountType(targetContext))
+            platformAccountManager.addAccountExplicitly(temp, password, null)
+            platformAccountManager.setUserData(
+                temp,
+                AccountUtils.Constants.KEY_OC_ACCOUNT_VERSION,
+                UserAccountManager.ACCOUNT_VERSION.toString()
+            )
+            platformAccountManager.setUserData(temp, AccountUtils.Constants.KEY_OC_VERSION, "14.0.0.0")
+            platformAccountManager.setUserData(temp, AccountUtils.Constants.KEY_OC_BASE_URL, baseUrl.toString())
+            platformAccountManager.setUserData(temp, AccountUtils.Constants.KEY_USER_ID, loginName) // same as userId
+
+            account2 = userAccountManager.getAccountByName("$loginName@$baseUrl")
+            account2Name = "$loginName@$baseUrl"
+            account2DisplayName = "User Two@$baseUrl"
+        }
     }
 }
