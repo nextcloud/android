@@ -85,9 +85,7 @@ public final class BitmapUtils {
 
             final var imageDecoderSource = ImageDecoder.createSource(file);
 
-            return ImageDecoder.decodeBitmap(imageDecoderSource, (decoder, info, source1) -> {
-                decoder.setTargetSize(reqWidth, reqHeight);
-            }
+            return ImageDecoder.decodeBitmap(imageDecoderSource, (decoder, info, source1) -> decoder.setTargetSize(reqWidth, reqHeight)
             );
 
         } catch (IOException exception) {

@@ -168,12 +168,7 @@ public class StorageMigration {
         progressDialog.setButton(
                 ProgressDialog.BUTTON_POSITIVE,
                 mContext.getString(R.string.drawer_close),
-                new OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        dialogInterface.dismiss();
-                    }
-                });
+                (dialogInterface, i) -> dialogInterface.dismiss());
         return progressDialog;
     }
 
