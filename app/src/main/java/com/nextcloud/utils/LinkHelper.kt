@@ -13,12 +13,19 @@ import android.content.Intent
 import androidx.core.net.toUri
 import com.nextcloud.client.account.User
 import com.owncloud.android.ui.activity.FileDisplayActivity
+import java.util.Locale
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
 object LinkHelper {
     const val APP_NEXTCLOUD_NOTES = "it.niedermann.owncloud.notes"
     const val APP_NEXTCLOUD_TALK = "com.nextcloud.talk2"
+
+    fun isHttpOrHttpsLink(link: String?): Boolean {
+        return link?.lowercase(Locale.getDefault())?.let {
+            it.startsWith("http://") || it.startsWith("https://")
+        } == true
+    }
 
     /**
      * Open specified app and, if not installed redirect to corresponding download.
