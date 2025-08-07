@@ -42,7 +42,7 @@ private fun getActionPendingIntent(context: Context, actionType: UploadFileBroad
     }
     return PendingIntent.getBroadcast(
         context,
-        0,
+        actionType.ordinal,
         intent,
         PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
     )
@@ -68,5 +68,5 @@ private fun getAppPermissionsAction(context: Context): NotificationCompat.Action
 
 enum class UploadFileBroadcastReceiverActions : java.io.Serializable {
     ALLOW_ALL_FILES,
-    APP_PERMISSIONS;
+    APP_PERMISSIONS
 }

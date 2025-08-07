@@ -412,7 +412,7 @@ public class UploadFileOperation extends SyncOperation {
     protected RemoteOperationResult run(OwnCloudClient client) {
 
         final var localFile = new File(getStoragePath());
-        if (localFile.canRead()) {
+        if (!localFile.canRead()) {
             Log_OC.e(TAG, "UploadFileOperation cancelled - file cannot read");
             UploadFileOperationExtensionsKt.showStoragePermissionNotification(this);
             return new RemoteOperationResult<>(ResultCode.FILE_NOT_FOUND);

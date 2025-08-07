@@ -30,7 +30,9 @@ class UploadFileBroadcastReceiver : BroadcastReceiver() {
         val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         notificationManager.cancel(UploadFileOperation.MISSING_FILE_PERMISSION_NOTIFICATION_ID)
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R && actionType == UploadFileBroadcastReceiverActions.ALLOW_ALL_FILES) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R &&
+            actionType == UploadFileBroadcastReceiverActions.ALLOW_ALL_FILES
+        ) {
             Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION).apply {
                 data = "package:${context.packageName}".toUri()
                 flags = Intent.FLAG_ACTIVITY_NEW_TASK
