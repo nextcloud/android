@@ -8,39 +8,65 @@ package com.owncloud.android.operations.upload
 
 import android.app.NotificationManager
 import android.app.PendingIntent
+import android.content.Context
 import android.content.Intent
 import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
 import com.owncloud.android.R
 import com.owncloud.android.operations.UploadFileOperation
 import com.owncloud.android.operations.UploadFileOperation.MISSING_FILE_PERMISSION_NOTIFICATION_ID
+import com.owncloud.android.ui.notifications.NotificationUtils
 
 fun UploadFileOperation.showStoragePermissionNotification() {
-    val intent = Intent(context, UploadFileBroadcastReceiver::class.java)
-
-    val pendingIntent = PendingIntent.getBroadcast(
-        context,
-        0,
-        intent,
-        PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
-    )
-
-    val action = NotificationCompat.Action(
-        null,
-        context.getString(R.string.common_ok),
-        pendingIntent
-    )
+    val allowAllFileAccessAction = getAllowAllFileAccessAction(context)
+    val appPermissionsAction = getAppPermissionsAction(context)
 
     val notificationBuilder =
-        NotificationCompat.Builder(context, context.getString(R.string.notification_channel_upload_name_short))
+        NotificationCompat.Builder(context, NotificationUtils.NOTIFICATION_CHANNEL_UPLOAD)
             .setSmallIcon(android.R.drawable.stat_sys_warning)
             .setContentTitle(context.getString(R.string.upload_missing_storage_permission_title))
             .setContentText(context.getString(R.string.upload_missing_storage_permission_description))
             .setPriority(NotificationCompat.PRIORITY_HIGH)
-            .addAction(action)
+            .addAction(allowAllFileAccessAction)
+            .addAction(appPermissionsAction)
             .setAutoCancel(true)
 
     ContextCompat.getSystemService(context, NotificationManager::class.java)?.run {
         notify(MISSING_FILE_PERMISSION_NOTIFICATION_ID, notificationBuilder.build())
     }
+}
+
+private fun getActionPendingIntent(context: Context, actionType: UploadFileBroadcastReceiverActions): PendingIntent {
+    val intent = Intent(context, UploadFileBroadcastReceiver::class.java).apply {
+        putExtra(UploadFileBroadcastReceiver.ACTION_TYPE, actionType)
+    }
+    return PendingIntent.getBroadcast(
+        context,
+        0,
+        intent,
+        PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+    )
+}
+
+private fun getAllowAllFileAccessAction(context: Context): NotificationCompat.Action {
+    val pendingIntent = getActionPendingIntent(context, UploadFileBroadcastReceiverActions.ALLOW_ALL_FILES)
+    return NotificationCompat.Action(
+        null,
+        context.getString(R.string.upload_missing_storage_permission_allow_file_access),
+        pendingIntent
+    )
+}
+
+private fun getAppPermissionsAction(context: Context): NotificationCompat.Action {
+    val pendingIntent = getActionPendingIntent(context, UploadFileBroadcastReceiverActions.APP_PERMISSIONS)
+    return NotificationCompat.Action(
+        null,
+        context.getString(R.string.upload_missing_storage_permission_app_permissions),
+        pendingIntent
+    )
+}
+
+enum class UploadFileBroadcastReceiverActions : java.io.Serializable {
+    ALLOW_ALL_FILES,
+    APP_PERMISSIONS;
 }
