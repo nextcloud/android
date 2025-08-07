@@ -25,6 +25,7 @@ import com.owncloud.android.datamodel.e2e.v1.decrypted.Encrypted;
 import com.owncloud.android.datamodel.e2e.v1.encrypted.EncryptedFolderMetadataFileV1;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.e2ee.CsrHelper;
+import com.owncloud.android.utils.crypto.CryptoHelper;
 import com.owncloud.android.utils.EncryptionUtils;
 
 import org.junit.Assert;
@@ -44,7 +45,6 @@ import java.security.PrivateKey;
 import java.security.SecureRandom;
 import java.security.interfaces.RSAPrivateCrtKey;
 import java.security.interfaces.RSAPublicKey;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -57,7 +57,6 @@ import javax.crypto.Cipher;
 import static com.owncloud.android.utils.EncryptionUtils.decodeStringToBase64Bytes;
 import static com.owncloud.android.utils.EncryptionUtils.decryptFile;
 import static com.owncloud.android.utils.EncryptionUtils.decryptFolderMetaData;
-import static com.owncloud.android.utils.EncryptionUtils.decryptPrivateKey;
 import static com.owncloud.android.utils.EncryptionUtils.decryptStringAsymmetric;
 import static com.owncloud.android.utils.EncryptionUtils.decryptStringSymmetric;
 import static com.owncloud.android.utils.EncryptionUtils.deserializeJSON;
@@ -262,13 +261,8 @@ public class EncryptionTestIT extends AbstractIT {
             byte[] privateKeyBytes = privateKey.getEncoded();
             String privateKeyString = encodeBytesToBase64String(privateKeyBytes);
 
-            String encryptedString;
-            if (new Random().nextBoolean()) {
-                encryptedString = EncryptionUtils.encryptPrivateKey(privateKeyString, keyPhrase);
-            } else {
-                encryptedString = EncryptionUtils.encryptPrivateKeyOld(privateKeyString, keyPhrase);
-            }
-            String decryptedString = decryptPrivateKey(encryptedString, keyPhrase);
+            String encryptedString = CryptoHelper.INSTANCE.encryptPrivateKey(privateKeyString, keyPhrase);
+            String decryptedString = CryptoHelper.INSTANCE.decryptPrivateKey(encryptedString, keyPhrase);
 
             assertEquals(privateKeyString, decryptedString);
         }

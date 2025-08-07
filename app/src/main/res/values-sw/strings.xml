@@ -247,6 +247,13 @@
     <string name="document_scan_export_dialog_title">Chagua aina ya kuhamisha</string>
     <string name="document_scan_pdf_generation_failed">Uzalishaji wa PDF umeshindwa</string>
     <string name="document_scan_pdf_generation_in_progress">Inazalisha PDF...</string>
+    <string name="document_storage_provider_cannot_create_file_and_folder">Huwezi kuunda vitu hapa: ruhusa ya kuunda inakosekana.</string>
+    <string name="document_storage_provider_cannot_create_file_inside_folder">Haiwezi kuunda faili: ruhusa inakosekana.</string>
+    <string name="document_storage_provider_cannot_create_folder_inside_folder">Huwezi kuunda folda: ruhusa inakosekana.</string>
+    <string name="document_storage_provider_cannot_delete">Huwezi kufuta kipengee: ruhusa ya kufuta inakosekana.</string>
+    <string name="document_storage_provider_cannot_move">Huwezi kuhamisha kipengee: ruhusa ya kuhamisha inakosekana.</string>
+    <string name="document_storage_provider_cannot_read">Huwezi kufungua kipengee: ruhusa ya kusoma inakosekana.</string>
+    <string name="document_storage_provider_cannot_rename">Huwezi kubadilisha jina la kipengee: ruhusa ya kubadilisha jina inakosekana.</string>
     <string name="done">Imefanyika</string>
     <string name="dontClear">Usifute</string>
     <string name="download_cannot_create_file">Haiwezi kuunda faili ya ndani</string>
@@ -361,6 +368,7 @@
     <string name="etm_transfer_type">Hamisha</string>
     <string name="etm_transfer_type_download">Pakua</string>
     <string name="etm_transfer_type_upload">Pakia</string>
+    <string name="extented_list_fragment_empty_list_message_no_write_permission">Huna ruhusa ya kuunda au kupakia faili katika folda hii.</string>
     <string name="external_shares">Shiriki za nje</string>
     <string name="fab_label">Ongeza au pakia</string>
     <string name="failed_to_download">Imeshindwa kupitisha faili ili kupakua kidhibiti</string>
