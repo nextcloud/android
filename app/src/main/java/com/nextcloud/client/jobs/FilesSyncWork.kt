@@ -12,15 +12,12 @@ package com.nextcloud.client.jobs
 import android.content.ContentResolver
 import android.content.Context
 import android.content.res.Resources
-import android.os.Build
-import android.os.Environment
 import android.text.TextUtils
 import androidx.exifinterface.media.ExifInterface
 import androidx.work.Worker
 import androidx.work.WorkerParameters
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.device.PowerManagementService
-import com.nextcloud.client.jobs.autoUpload.AutoUploadNotificationManager
 import com.nextcloud.client.jobs.upload.FileUploadHelper
 import com.nextcloud.client.jobs.upload.FileUploadWorker
 import com.nextcloud.client.network.ConnectivityService
@@ -39,7 +36,6 @@ import com.owncloud.android.utils.FileStorageUtils
 import com.owncloud.android.utils.FilesSyncHelper
 import com.owncloud.android.utils.MimeType
 import com.owncloud.android.utils.MimeTypeUtil
-import com.owncloud.android.utils.theme.ViewThemeUtils
 import java.io.File
 import java.text.ParsePosition
 import java.text.SimpleDateFormat
@@ -56,8 +52,7 @@ class FilesSyncWork(
     private val connectivityService: ConnectivityService,
     private val powerManagementService: PowerManagementService,
     private val syncedFolderProvider: SyncedFolderProvider,
-    private val backgroundJobManager: BackgroundJobManager,
-    viewThemeUtils: ViewThemeUtils
+    private val backgroundJobManager: BackgroundJobManager
 ) : Worker(context, params) {
 
     companion object {
@@ -65,20 +60,12 @@ class FilesSyncWork(
         const val OVERRIDE_POWER_SAVING = "overridePowerSaving"
         const val CHANGED_FILES = "changedFiles"
         const val SYNCED_FOLDER_ID = "syncedFolderId"
-        const val NOTIFICATION_ID = 312
     }
 
     private lateinit var syncedFolder: SyncedFolder
-    private val notificationManager = AutoUploadNotificationManager(context, viewThemeUtils, NOTIFICATION_ID)
 
-    @Suppress("MagicNumber", "ReturnCount", "LongMethod")
+    @Suppress("MagicNumber", "ReturnCount")
     override fun doWork(): Result {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R && !Environment.isExternalStorageManager()) {
-            Log_OC.w(TAG, "AutoUpload process cancelled - missing storage permission")
-            notificationManager.showStoragePermissionNotification()
-            return Result.failure()
-        }
-
         val syncFolderId = inputData.getLong(SYNCED_FOLDER_ID, -1)
         val changedFiles = inputData.getStringArray(CHANGED_FILES)
 

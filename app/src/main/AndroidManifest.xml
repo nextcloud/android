@@ -270,7 +270,7 @@
             tools:replace="android:exported" />
 
         <receiver
-            android:name="com.nextcloud.client.jobs.autoUpload.AutoUploadBroadcastReceiver"
+            android:name=".operations.upload.UploadFileBroadcastReceiver"
             android:exported="false" />
         <receiver
             android:name="com.nextcloud.client.jobs.MediaFoldersDetectionWork$NotificationReceiver"
