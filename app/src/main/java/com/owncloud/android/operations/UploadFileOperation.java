@@ -58,6 +58,7 @@ import com.owncloud.android.operations.common.SyncOperation;
 import com.owncloud.android.operations.e2e.E2EClientData;
 import com.owncloud.android.operations.e2e.E2EData;
 import com.owncloud.android.operations.e2e.E2EFiles;
+import com.owncloud.android.operations.upload.UploadFileOperationExtensionsKt;
 import com.owncloud.android.utils.EncryptionUtils;
 import com.owncloud.android.utils.EncryptionUtilsV2;
 import com.owncloud.android.utils.FileStorageUtils;
@@ -118,6 +119,7 @@ public class UploadFileOperation extends SyncOperation {
     public static final int CREATED_BY_USER = 0;
     public static final int CREATED_AS_INSTANT_PICTURE = 1;
     public static final int CREATED_AS_INSTANT_VIDEO = 2;
+    public static final int MISSING_FILE_PERMISSION_NOTIFICATION_ID = 2001;
 
     /**
      * OCFile which is to be uploaded.
@@ -406,6 +408,14 @@ public class UploadFileOperation extends SyncOperation {
     @Override
     @SuppressWarnings("PMD.AvoidDuplicateLiterals")
     protected RemoteOperationResult run(OwnCloudClient client) {
+
+        final var localFile = new File(getStoragePath());
+        if (!localFile.canRead()) {
+            Log_OC.e(TAG, "UploadFileOperation cancelled - file cannot read");
+            UploadFileOperationExtensionsKt.showStoragePermissionNotification(this);
+            return new RemoteOperationResult<>(ResultCode.FILE_NOT_FOUND);
+        }
+
         mCancellationRequested.set(false);
         mUploadStarted.set(true);
 
