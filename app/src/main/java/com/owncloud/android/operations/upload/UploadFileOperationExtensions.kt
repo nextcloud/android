@@ -65,8 +65,3 @@ private fun getAppPermissionsAction(context: Context): NotificationCompat.Action
         pendingIntent
     )
 }
-
-enum class UploadFileBroadcastReceiverActions : java.io.Serializable {
-    ALLOW_ALL_FILES,
-    APP_PERMISSIONS
-}
