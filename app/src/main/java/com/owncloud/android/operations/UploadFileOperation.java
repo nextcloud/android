@@ -168,6 +168,7 @@ public class UploadFileOperation extends SyncOperation {
 
     private boolean encryptedAncestor;
     private OCFile duplicatedEncryptedFile;
+    private boolean isMissingPermissionThrown = false;
 
     public static OCFile obtainNewOCFileToUpload(String remotePath, String localPath, String mimeType) {
         OCFile newFile = new OCFile(remotePath);
@@ -405,15 +406,20 @@ public class UploadFileOperation extends SyncOperation {
         return mContext;
     }
 
+    public boolean isMissingPermissionThrown() {
+        return isMissingPermissionThrown;
+    }
+
     @Override
     @SuppressWarnings("PMD.AvoidDuplicateLiterals")
     protected RemoteOperationResult run(OwnCloudClient client) {
 
         final var localFile = new File(getStoragePath());
         if (!localFile.canRead()) {
-            Log_OC.e(TAG, "UploadFileOperation cancelled - file cannot read");
+            Log_OC.e(TAG, "Upload cancelled for " + getStoragePath() + ": file is not readable or inaccessible.");
             UploadFileOperationExtensionsKt.showStoragePermissionNotification(this);
-            return new RemoteOperationResult<>(ResultCode.FILE_NOT_FOUND);
+            isMissingPermissionThrown = true;
+            return new RemoteOperationResult<>(new com.owncloud.android.operations.upload.UploadFileException.MissingPermission());
         }
 
         mCancellationRequested.set(false);
