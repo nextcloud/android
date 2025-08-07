@@ -524,6 +524,7 @@
     <string name="last_backup">Letzte Sicherung:%1$s</string>
     <string name="link">Link</string>
     <string name="link_name">Link-Name</string>
+    <string name="link_not_followed_due_to_security_settings">Link wird aufgrund von Sicherheitseinstellungen nicht verfolgt.</string>
     <string name="link_share_editing">Bearbeitung</string>
     <string name="list_layout">Layout der Liste</string>
     <string name="load_more_results">Weitere Ergebnisse laden</string>

@@ -524,6 +524,7 @@
     <string name="last_backup">Останню резервну копію створено %1$s</string>
     <string name="link">Посилання</string>
     <string name="link_name">Назва посилання</string>
+    <string name="link_not_followed_due_to_security_settings">Посилання не відкривається через налаштування безпеки.</string>
     <string name="link_share_editing">Редагування</string>
     <string name="list_layout">Шаблон списку</string>
     <string name="load_more_results">Завантажити більше результатів</string>
