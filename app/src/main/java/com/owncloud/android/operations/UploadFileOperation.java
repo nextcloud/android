@@ -119,7 +119,7 @@ public class UploadFileOperation extends SyncOperation {
     public static final int CREATED_BY_USER = 0;
     public static final int CREATED_AS_INSTANT_PICTURE = 1;
     public static final int CREATED_AS_INSTANT_VIDEO = 2;
-    public static final int MISSING_FILE_PERMISSION_NOTIFICATION_ID = 2001;
+    public static final int MISSING_FILE_PERMISSION_NOTIFICATION_ID = 2501;
 
     /**
      * OCFile which is to be uploaded.
@@ -412,7 +412,7 @@ public class UploadFileOperation extends SyncOperation {
     protected RemoteOperationResult run(OwnCloudClient client) {
 
         final var localFile = new File(getStoragePath());
-        if (!localFile.canRead()) {
+        if (localFile.canRead()) {
             Log_OC.e(TAG, "UploadFileOperation cancelled - file cannot read");
             UploadFileOperationExtensionsKt.showStoragePermissionNotification(this);
             return new RemoteOperationResult<>(ResultCode.FILE_NOT_FOUND);
