@@ -42,6 +42,7 @@
 
     <com.owncloud.android.ui.SquareImageView
         android:id="@+id/thumbnail"
+        android:layout_marginTop="@dimen/standard_half_margin"
         android:layout_width="@dimen/standard_list_item_size"
         android:layout_height="@dimen/standard_list_item_size"
         android:contentDescription="@null"
