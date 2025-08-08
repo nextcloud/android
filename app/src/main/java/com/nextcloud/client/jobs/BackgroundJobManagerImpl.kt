@@ -66,7 +66,6 @@ internal class BackgroundJobManagerImpl(
     Injectable {
 
     companion object {
-        private const val TAG = "BackgroundJobManagerImpl"
         const val TAG_ALL = "*" // This tag allows us to retrieve list of all jobs run by Nextcloud client
         const val JOB_CONTENT_OBSERVER = "content_observer"
         const val JOB_PERIODIC_CONTACTS_BACKUP = "periodic_contacts_backup"
