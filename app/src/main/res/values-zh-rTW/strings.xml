@@ -524,6 +524,7 @@
     <string name="last_backup">上次備份：%1$s</string>
     <string name="link">連結</string>
     <string name="link_name">連結名稱</string>
+    <string name="link_not_followed_due_to_security_settings">因為安全性設定的關係，因此無法遵循連結</string>
     <string name="link_share_editing">編輯</string>
     <string name="list_layout">列表版面配置</string>
     <string name="load_more_results">載入更多結果</string>

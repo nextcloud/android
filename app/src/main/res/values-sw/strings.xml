@@ -524,6 +524,7 @@
     <string name="last_backup">Nakala ya mwisho: %1$s</string>
     <string name="link">Kiungio</string>
     <string name="link_name">Jina la kiungo</string>
+    <string name="link_not_followed_due_to_security_settings">Kiungo hakifuatwi kwa sababu ya mipangilio ya usalama.</string>
     <string name="link_share_editing">Inahariri</string>
     <string name="list_layout">Mpangilio ulioorodheshwa</string>
     <string name="load_more_results">Pakia matokeo zaidi</string>

@@ -524,6 +524,7 @@
     <string name="last_backup">Viimane varukoopia: %1$s</string>
     <string name="link">Link</string>
     <string name="link_name">Lingi nimi</string>
+    <string name="link_not_followed_due_to_security_settings">Turvaseadistuste tõttu on link kasutamata.</string>
     <string name="link_share_editing">Muutmisel</string>
     <string name="list_layout">Paigutus loendina</string>
     <string name="load_more_results">Laadi veel tulemusi</string>
