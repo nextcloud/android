@@ -138,6 +138,7 @@
     <string name="common_error">Erro</string>
     <string name="common_error_out_memory">Non hai memoria abondo</string>
     <string name="common_error_unknown">Produciuse un erro descoñecido</string>
+    <string name="common_leave_this_share">Deixar esta compartición</string>
     <string name="common_loading">Cargando…</string>
     <string name="common_next">Seguinte</string>
     <string name="common_no">Non</string>
@@ -973,6 +974,7 @@
     <string name="upload_files">Enviar ficheiros</string>
     <string name="upload_global_pause_title">Todos os envíos están en pausa</string>
     <string name="upload_item_action_button">Botón da acción do envío de elemento</string>
+    <string name="upload_list_cancel_upload">Cancelar o envío</string>
     <string name="upload_list_delete">Eliminar</string>
     <string name="upload_list_empty_headline">Non hai envíos dispoñíbeis</string>
     <string name="upload_list_empty_text_auto_upload">Envíe algún contido ou active o envío automático.</string>

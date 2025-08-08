@@ -143,6 +143,7 @@
     <string name="common_error">Fout</string>
     <string name="common_error_out_memory">Niet voldoende geheugen</string>
     <string name="common_error_unknown">Onbekende fout</string>
+    <string name="common_leave_this_share">Verlaat deze share</string>
     <string name="common_loading">Laden…</string>
     <string name="common_next">Volgende</string>
     <string name="common_no">Nee</string>
@@ -1004,6 +1005,7 @@
     <string name="upload_files">Bestanden uploaden</string>
     <string name="upload_global_pause_title">Alle uploads zijn gepauzeerd</string>
     <string name="upload_item_action_button">Upload object actie knop</string>
+    <string name="upload_list_cancel_upload">Upload afbreken</string>
     <string name="upload_list_delete">Verwijderen</string>
     <string name="upload_list_empty_headline">Geen uploads beschikbaar</string>
     <string name="upload_list_empty_text_auto_upload">Upload enkele gegevens of activeer auto-upload.</string>

@@ -78,6 +78,7 @@
     <string name="common_error">Error</string>
     <string name="common_error_out_memory">Nun hai abonda memoria</string>
     <string name="common_error_unknown">Fallu desconocíu</string>
+    <string name="common_leave_this_share">Dexar esta compartición</string>
     <string name="common_loading">Cargando…</string>
     <string name="common_next">Siguiente</string>
     <string name="common_no">Non</string>
@@ -583,6 +584,7 @@
     <string name="upload_file_dialog_filename">Nome de ficheru</string>
     <string name="upload_file_dialog_filetype">Triba de ficheru</string>
     <string name="upload_global_pause_title">Toles descargues tán posaes</string>
+    <string name="upload_list_cancel_upload">Encaboxar xuba</string>
     <string name="upload_list_delete">Desaniciar</string>
     <string name="upload_list_empty_headline">Nun hai xubes disponibles</string>
     <string name="upload_manually_cancelled">L\'usuariu anuló la xuba</string>

@@ -28,6 +28,6 @@ fun List<OCFile>.filterByMimeType(mimeType: String): List<OCFile> =
 
 fun List<OCFile>.limitToPersonalFiles(userId: String): List<OCFile> = filter { file ->
     file.ownerId?.let { ownerId ->
-        ownerId == userId && !file.isSharedWithMe && !file.isGroupFolder
+        ownerId == userId && !file.isSharedWithMe && !file.mounted()
     } == true
 }

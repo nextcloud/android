@@ -143,6 +143,7 @@
     <string name="common_error">錯誤</string>
     <string name="common_error_out_memory">記憶體不足</string>
     <string name="common_error_unknown">未知的錯誤</string>
+    <string name="common_leave_this_share">離開此分享</string>
     <string name="common_loading">正在載入…</string>
     <string name="common_next">下一步</string>
     <string name="common_no">否</string>
@@ -246,6 +247,13 @@
     <string name="document_scan_export_dialog_title">選擇匯出類型</string>
     <string name="document_scan_pdf_generation_failed">PDF 產生失敗</string>
     <string name="document_scan_pdf_generation_in_progress">正在產生 PDF…</string>
+    <string name="document_storage_provider_cannot_create_file_and_folder">無法在此建立項目：缺少建立權限。</string>
+    <string name="document_storage_provider_cannot_create_file_inside_folder">無法建立檔案：缺少權限。</string>
+    <string name="document_storage_provider_cannot_create_folder_inside_folder">無法建立資料夾：缺少權限。</string>
+    <string name="document_storage_provider_cannot_delete">無法刪除項目：缺少刪除權限。</string>
+    <string name="document_storage_provider_cannot_move">無法移動項目：缺少移動權限。</string>
+    <string name="document_storage_provider_cannot_read">無法開啟項目：缺少讀取權限。</string>
+    <string name="document_storage_provider_cannot_rename">無法重新命名項目：缺少重新命名權限。</string>
     <string name="done">完成</string>
     <string name="dontClear">不要清除</string>
     <string name="download_cannot_create_file">無法建立本機檔案</string>
@@ -325,6 +333,7 @@
     <string name="error_comment_file">對檔案留言時發生錯誤</string>
     <string name="error_crash_title">%1$s 當機</string>
     <string name="error_creating_file_from_template">從範本建立檔案時發生錯誤</string>
+    <string name="error_fetching_sharees">無法擷取分享對象。</string>
     <string name="error_file_actions">顯示檔案動作時發生錯誤</string>
     <string name="error_file_lock">變更檔案鎖定狀態時發生錯誤</string>
     <string name="error_report_issue_action">回報</string>
@@ -359,6 +368,7 @@
     <string name="etm_transfer_type">傳輸</string>
     <string name="etm_transfer_type_download">下載</string>
     <string name="etm_transfer_type_upload">上傳</string>
+    <string name="extented_list_fragment_empty_list_message_no_write_permission">您無權在此資料夾建立或上傳檔案。</string>
     <string name="external_shares">外部分享</string>
     <string name="fab_label">新增或上傳</string>
     <string name="failed_to_download">無法將檔案傳遞給下載管理程式</string>
@@ -514,6 +524,7 @@
     <string name="last_backup">上次備份：%1$s</string>
     <string name="link">連結</string>
     <string name="link_name">連結名稱</string>
+    <string name="link_not_followed_due_to_security_settings">因為安全性設定的關係，因此無法遵循連結</string>
     <string name="link_share_editing">編輯</string>
     <string name="list_layout">列表版面配置</string>
     <string name="load_more_results">載入更多結果</string>
@@ -1011,6 +1022,7 @@
     <string name="upload_files">上傳檔案</string>
     <string name="upload_global_pause_title">所有上傳皆已暫停</string>
     <string name="upload_item_action_button">上傳項目動作按鈕</string>
+    <string name="upload_list_cancel_upload">取消上傳</string>
     <string name="upload_list_delete">刪除</string>
     <string name="upload_list_empty_headline">沒有上傳的檔案</string>
     <string name="upload_list_empty_text_auto_upload">上傳一些內容或者啟用自動上傳。</string>

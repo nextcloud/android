@@ -143,6 +143,7 @@
     <string name="common_error">Erro</string>
     <string name="common_error_out_memory">Não há memória suficiente</string>
     <string name="common_error_unknown">Erro desconhecido</string>
+    <string name="common_leave_this_share">Sair deste compartilhamento</string>
     <string name="common_loading">Carregando…</string>
     <string name="common_next">Próximo</string>
     <string name="common_no">Não</string>
@@ -246,6 +247,13 @@
     <string name="document_scan_export_dialog_title">Escolha o tipo de exportação</string>
     <string name="document_scan_pdf_generation_failed">Falha na geração do PDF</string>
     <string name="document_scan_pdf_generation_in_progress">Gerando PDF…</string>
+    <string name="document_storage_provider_cannot_create_file_and_folder">Não é possível criar itens aqui: falta permissão para criar.</string>
+    <string name="document_storage_provider_cannot_create_file_inside_folder">Não é possível criar o arquivo: falta permissão.</string>
+    <string name="document_storage_provider_cannot_create_folder_inside_folder">Não é possível criar a pasta: falta permissão.</string>
+    <string name="document_storage_provider_cannot_delete">Não é possível excluir o item: falta permissão para excluir.</string>
+    <string name="document_storage_provider_cannot_move">Não é possível mover o item: falta permissão para mover.</string>
+    <string name="document_storage_provider_cannot_read">Não é possível abrir o item: falta permissão para ler.</string>
+    <string name="document_storage_provider_cannot_rename">Não é possível renomear o item: falta permissão para renomear.</string>
     <string name="done">Concluído</string>
     <string name="dontClear">Não limpe</string>
     <string name="download_cannot_create_file">Não foi possível criar o arquivo local</string>
@@ -325,6 +333,7 @@
     <string name="error_comment_file">Erro ao comentar arquivo</string>
     <string name="error_crash_title">%1$s travou</string>
     <string name="error_creating_file_from_template">Erro ao criar o arquivo a partir do modelo</string>
+    <string name="error_fetching_sharees">Não é possível obter os destinatários do compartilhamento.</string>
     <string name="error_file_actions">Erro ao mostrar as ações do arquivo</string>
     <string name="error_file_lock">Erro ao alterar o status de bloqueio do arquivo</string>
     <string name="error_report_issue_action">Reportar</string>
@@ -359,6 +368,7 @@
     <string name="etm_transfer_type">Transferir</string>
     <string name="etm_transfer_type_download">Baixar</string>
     <string name="etm_transfer_type_upload">Enviar</string>
+    <string name="extented_list_fragment_empty_list_message_no_write_permission">Você não tem permissão para criar ou enviar arquivos para esta pasta.</string>
     <string name="external_shares">Compartilhamentos externos</string>
     <string name="fab_label">Adicionar ou enviar</string>
     <string name="failed_to_download">Erro ao enviar o arquivo ao gerenciador de downloads</string>
@@ -374,6 +384,7 @@
     <string name="file_detail_share_already_active">Não é possível criar um compartilhamento, pois o compartilhamento já está ativo para este usuário.</string>
     <string name="file_detail_sharing_fragment_no_contact_app_message">Nenhum aplicativo disponível para selecionar contatos</string>
     <string name="file_details_no_content">Falha ao carregar detalhes</string>
+    <string name="file_details_sharing_fragment_custom_permission_not_selected">Por favor, selecione a permissão personalizada</string>
     <string name="file_icon">Arquivo</string>
     <string name="file_keep">Manter</string>
     <string name="file_list_empty">Envie um arquivo ou sincronize com seus dispositivos.</string>
@@ -391,6 +402,8 @@
     <string name="file_list_empty_shared">Arquivos e pastas que você compartilhar serão exibidos aqui.</string>
     <string name="file_list_empty_shared_headline">Você ainda não compartilhou nada!</string>
     <string name="file_list_empty_unified_search_no_results">Nenhum resultado encontrado para sua consulta</string>
+    <string name="file_list_empty_unified_search_start_search">Inicie sua pesquisa</string>
+    <string name="file_list_empty_unified_search_start_search_description">Digite na barra de pesquisa acima para encontrar arquivos, contatos, eventos do calendário e muito mais em sua conta.</string>
     <string name="file_list_folder">pasta</string>
     <string name="file_list_live">AO VIVO</string>
     <string name="file_list_loading">Carregando…</string>
@@ -511,6 +524,7 @@
     <string name="last_backup">Último backup: %1$s</string>
     <string name="link">Link</string>
     <string name="link_name">Nome do link </string>
+    <string name="link_not_followed_due_to_security_settings">Link não seguido devido às configurações de segurança.</string>
     <string name="link_share_editing">Editando </string>
     <string name="list_layout">Layout listado</string>
     <string name="load_more_results">Carregar mais resultados </string>
@@ -1008,6 +1022,7 @@
     <string name="upload_files">Enviar arquivos</string>
     <string name="upload_global_pause_title">Todos os uploads estão pausados</string>
     <string name="upload_item_action_button">Enviar botão de ação do item</string>
+    <string name="upload_list_cancel_upload">Cancelar upload</string>
     <string name="upload_list_delete">Excluir</string>
     <string name="upload_list_empty_headline">Nenhum upload disponível</string>
     <string name="upload_list_empty_text_auto_upload">Faça upload de algum conteúdo ou ative o upload automático.</string>

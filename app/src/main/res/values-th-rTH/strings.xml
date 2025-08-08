@@ -107,6 +107,7 @@
     <string name="common_error">ข้อผิดพลาด</string>
     <string name="common_error_out_memory">หน่วยความจำไม่พอ</string>
     <string name="common_error_unknown">ข้อผิดพลาดที่ไม่รู้จัก</string>
+    <string name="common_leave_this_share">ออกจากการแชร์นี้</string>
     <string name="common_loading">กำลังโหลด…</string>
     <string name="common_next">ถัดไป</string>
     <string name="common_no">ไม่</string>
@@ -587,6 +588,7 @@
     <string name="upload_file_dialog_filename">ชื่อไฟล์</string>
     <string name="upload_file_dialog_filetype">ประเภทไฟล์</string>
     <string name="upload_files">อัพโหลดไฟล์จากเครื่อง</string>
+    <string name="upload_list_cancel_upload">ยกเลิกการอัพโหลด</string>
     <string name="upload_list_delete">ลบ</string>
     <string name="upload_scan_doc_upload">แสกนเอกสารโดยใช้กล้อง</string>
     <string name="upload_sync_conflict">เกิดข้อขัดแย้งของการซิงค์ โปรดแก้ไขด้วยตนเอง</string>

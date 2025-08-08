@@ -143,6 +143,7 @@
     <string name="common_error">Fejl</string>
     <string name="common_error_out_memory">Ikke tilstrækkelig hukommelse</string>
     <string name="common_error_unknown">Ukendt fejl</string>
+    <string name="common_leave_this_share">Forlad dette delte drev</string>
     <string name="common_loading">Indlæser...</string>
     <string name="common_next">Næste</string>
     <string name="common_no">Nej</string>
@@ -174,7 +175,7 @@
     <string name="community_release_candidate_text">Denne kandidat til frigivelse (RC) er et snapshot af den kommende version og forventes at være stabil. Testing af dit individuelle miljø kan hjælpe med at sikre dette.  Indskriv dig til testing i Play Store eller led manuelt i \"Version\"s afdelingen af F-Droid.</string>
     <string name="community_testing_bug_text">Fundet en fejl? Mærkværdighed?</string>
     <string name="community_testing_headline">Hjælp med at test</string>
-    <string name="community_testing_report_text">Rapporter et problem på Github</string>
+    <string name="community_testing_report_text">Rapportér et problem på Github</string>
     <string name="configure_new_media_folder_detection_notifications">Konfigurer</string>
     <string name="confirm_removal">Fjern lokal kryptering</string>
     <string name="confirmation_remove_file_alert">Er du sikker på at du vil slette %1$s ?</string>
@@ -998,9 +999,10 @@
     <string name="upload_files">Send filer</string>
     <string name="upload_global_pause_title">Alle uploads er pauserede</string>
     <string name="upload_item_action_button">Send artikel knap</string>
+    <string name="upload_list_cancel_upload">Annullér upload </string>
     <string name="upload_list_delete">Slet</string>
     <string name="upload_list_empty_headline">Ingen uploads tilgængelige</string>
-    <string name="upload_list_empty_text_auto_upload">Upload noget indhold eller aktiver auto upload.</string>
+    <string name="upload_list_empty_text_auto_upload">Upload noget indhold eller aktivér auto upload.</string>
     <string name="upload_list_expand_header">Skift udvidelse af overskrift</string>
     <string name="upload_list_resolve_conflict">Løs konflikt</string>
     <string name="upload_local_storage_full">Lokalt lager fuldt</string>

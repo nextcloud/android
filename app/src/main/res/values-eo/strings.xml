@@ -580,6 +580,7 @@
     <string name="upload_file_dialog_title">Entajpu la alŝutotan dosiernomon kaj ĝian tipon </string>
     <string name="upload_files">Alŝuti dosierojn</string>
     <string name="upload_item_action_button">Butono pri alŝuto</string>
+    <string name="upload_list_cancel_upload">Nuligi alŝuton</string>
     <string name="upload_list_delete">Forigi</string>
     <string name="upload_list_empty_headline">Neniu alŝuto disponeblas</string>
     <string name="upload_list_empty_text_auto_upload">Alŝutu ion aŭ aktivigu aŭtomatan alŝuton.</string>

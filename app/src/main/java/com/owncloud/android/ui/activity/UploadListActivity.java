@@ -174,18 +174,11 @@ public class UploadListActivity extends FileActivity {
         swipeListRefreshLayout.setOnRefreshListener(this::refresh);
 
         loadItems();
-        uploadListAdapter.loadUploadItemsFromDb();
     }
 
     private void loadItems() {
-        uploadListAdapter.loadUploadItemsFromDb();
-
-        if (uploadListAdapter.getItemCount() > 0) {
-            return;
-        }
-
-        swipeListRefreshLayout.setVisibility(View.VISIBLE);
-        swipeListRefreshLayout.setRefreshing(false);
+        swipeListRefreshLayout.setRefreshing(true);
+        uploadListAdapter.loadUploadItemsFromDb(() -> swipeListRefreshLayout.setRefreshing(false));
     }
 
     private void refresh() {
@@ -201,17 +194,14 @@ public class UploadListActivity extends FileActivity {
                     connectivityService,
                     accountManager,
                     powerManagementService);
-                this.runOnUiThread(() -> {
-                    uploadListAdapter.loadUploadItemsFromDb();
-                });
+                uploadListAdapter.loadUploadItemsFromDb();
             }).start();
             DisplayUtils.showSnackMessage(this, R.string.uploader_local_files_uploaded);
         }
 
 
         // update UI
-        uploadListAdapter.loadUploadItemsFromDb();
-        swipeListRefreshLayout.setRefreshing(false);
+        uploadListAdapter.loadUploadItemsFromDb(() -> swipeListRefreshLayout.setRefreshing(false));
     }
 
     @Override

@@ -57,7 +57,13 @@ import com.owncloud.android.utils.theme.ViewThemeUtils;
 
 import java.io.File;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Optional;
+import java.util.Set;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.RejectedExecutionHandler;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 import androidx.annotation.NonNull;
 
@@ -79,6 +85,10 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
     private final boolean showUser;
     private final ViewThemeUtils viewThemeUtils;
     private NotificationManager mNotificationManager;
+    private final ThreadPoolExecutor executor = new ThreadPoolExecutor(1, 1,
+                                                                       0L, TimeUnit.MILLISECONDS,
+                                                                       new LinkedBlockingQueue<>(1),
+                                                                       new UploadGroupLoadPolicy());
 
     private final FileUploadHelper uploadHelper = FileUploadHelper.Companion.instance();
 
@@ -131,7 +141,7 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
                     }
 
                     uploadHelper.cancelFileUploads(Arrays.asList(group.items), accountName);
-                    parentActivity.runOnUiThread(this::loadUploadItemsFromDb);
+                    loadUploadItemsFromDb();
                 }).start();
                 case FINISHED -> {
                     uploadsStorageManager.clearSuccessfulUploads();
@@ -166,7 +176,7 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
                         connectivityService,
                         accountManager,
                         powerManagementService);
-                    parentActivity.runOnUiThread(this::loadUploadItemsFromDb);
+                    loadUploadItemsFromDb();
                 }).start();
             }
 
@@ -210,8 +220,7 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
                 connectivityService,
                 accountManager,
                 powerManagementService);
-
-            parentActivity.runOnUiThread(this::loadUploadItemsFromDb);
+            loadUploadItemsFromDb();
             parentActivity.runOnUiThread(() -> {
                 if (showNotExistMessage) {
                     showNotExistMessage();
@@ -286,8 +295,6 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
         };
 
         showUser = accountManager.getAccounts().length > 1;
-
-        loadUploadItemsFromDb();
     }
 
 
@@ -815,13 +822,17 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
      * Load upload items from {@link UploadsStorageManager}.
      */
     public final void loadUploadItemsFromDb() {
+        loadUploadItemsFromDb(null);
+    }
+
+    /**
+     * Load upload items from {@link UploadsStorageManager}.
+     * @param loadCompleteListener load complete listener
+     */
+    public final void loadUploadItemsFromDb(LoadCompleteListener loadCompleteListener) {
         Log_OC.d(TAG, "loadUploadItemsFromDb");
-
-        for (UploadGroup group : uploadGroups) {
-            group.refresh();
-        }
-
-        notifyDataSetChanged();
+        // Use thread pool to avoid repeated loading of data
+        executor.execute(new UploadGroupLoadRunnable(loadCompleteListener));
     }
 
     /**
@@ -902,13 +913,18 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
         void refresh();
     }
 
+    interface Apply {
+        void apply();
+    }
+
     enum Type {
         CURRENT, FINISHED, FAILED, CANCELLED
     }
 
-    abstract class UploadGroup implements Refresh {
+    abstract class UploadGroup implements Refresh, Apply {
         private final Type type;
         private OCUpload[] items;
+        private OCUpload[] refreshItems;
         private final String name;
 
         UploadGroup(Type type, String groupName) {
@@ -937,17 +953,75 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
             this.items = items;
         }
 
+        public void setRefreshItems(OCUpload... items) {
+            this.refreshItems = items;
+        }
+
         void fixAndSortItems(OCUpload... array) {
             for (OCUpload upload : array) {
                 upload.setDataFixed(uploadHelper);
             }
             Arrays.sort(array, new OCUploadComparator());
-
-            setItems(array);
+            setRefreshItems(array);
         }
 
         private int getGroupItemCount() {
             return items == null ? 0 : items.length;
+        }
+
+        @Override
+        public void apply() {
+            setItems(this.refreshItems);
+        }
+    }
+
+    public interface LoadCompleteListener {
+        void onComplete();
+    }
+
+    private class UploadGroupLoadRunnable implements Runnable {
+
+        private final Set<LoadCompleteListener> loadCompleteListenerSet = new HashSet<>();
+
+        public UploadGroupLoadRunnable(LoadCompleteListener loadCompleteListener) {
+            if (loadCompleteListener != null) {
+                loadCompleteListenerSet.add(loadCompleteListener);
+            }
+        }
+
+        @Override
+        public void run() {
+            for (UploadGroup group : uploadGroups) {
+                group.refresh();
+            }
+            parentActivity.runOnUiThread(() -> {
+                for (UploadGroup uploadGroup : uploadGroups) {
+                    uploadGroup.apply();
+                }
+                notifyDataSetChanged();
+                for (LoadCompleteListener loadCompleteListener : loadCompleteListenerSet) {
+                    loadCompleteListener.onComplete();
+                }
+            });
+        }
+    }
+
+    private static class UploadGroupLoadPolicy implements RejectedExecutionHandler {
+        @Override
+        public void rejectedExecution(Runnable runnable, ThreadPoolExecutor executor) {
+            if (executor.isShutdown()) {
+                return;
+            }
+
+            Runnable oldest = executor.getQueue().poll();
+
+            if (oldest instanceof UploadGroupLoadRunnable oldUploadTask && runnable instanceof UploadGroupLoadRunnable newUploadTask) {
+                if (!oldUploadTask.loadCompleteListenerSet.isEmpty()) {
+                    newUploadTask.loadCompleteListenerSet.addAll(oldUploadTask.loadCompleteListenerSet);
+                }
+            }
+
+            executor.execute(runnable);
         }
     }
 

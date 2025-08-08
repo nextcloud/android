@@ -13,6 +13,7 @@ import android.net.ConnectivityManager;
 import android.net.Network;
 import android.net.NetworkCapabilities;
 import android.net.NetworkInfo;
+import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
 
@@ -86,10 +87,21 @@ class ConnectivityServiceImpl implements ConnectivityService {
             return false;
         }
 
-        return actNw.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) ||
+        if (actNw.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) ||
             actNw.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) ||
             actNw.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) ||
-            actNw.hasTransport(NetworkCapabilities.TRANSPORT_BLUETOOTH);
+            actNw.hasTransport(NetworkCapabilities.TRANSPORT_VPN) ||
+            actNw.hasTransport(NetworkCapabilities.TRANSPORT_BLUETOOTH) ||
+            actNw.hasTransport(NetworkCapabilities.TRANSPORT_WIFI_AWARE)) {
+            return true;
+        }
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S &&
+            actNw.hasTransport(NetworkCapabilities.TRANSPORT_USB)) {
+            return true;
+        }
+
+        return false;
     }
 
     @Override
@@ -103,7 +115,7 @@ class ConnectivityServiceImpl implements ConnectivityService {
 
             boolean result;
             Connectivity c = getConnectivity();
-            if (c.isConnected() && c.isWifi() && !c.isMetered() && !baseServerAddress.isEmpty()) {
+            if (c != null && c.isConnected() && c.isWifi() && !c.isMetered() && !baseServerAddress.isEmpty()) {
                 GetMethod get = requestBuilder.invoke(baseServerAddress + CONNECTIVITY_CHECK_ROUTE);
                 PlainClient client = clientFactory.createPlainClient();
 
@@ -117,7 +129,7 @@ class ConnectivityServiceImpl implements ConnectivityService {
                         " assuming connectivity is impaired");
                 }
             } else {
-                result = !c.isConnected();
+                result = (c != null && !c.isConnected());
             }
 
             walledCheckCache.setValue(result);

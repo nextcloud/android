@@ -138,6 +138,7 @@
     <string name="common_error">Villa</string>
     <string name="common_error_out_memory">Ekki nægilegt minni</string>
     <string name="common_error_unknown">Óþekkt villa</string>
+    <string name="common_leave_this_share">Yfirgefa þessa sameign</string>
     <string name="common_loading">Hleð inn…</string>
     <string name="common_next">Næsta</string>
     <string name="common_no">Nei</string>
@@ -967,6 +968,7 @@
     <string name="upload_files">Hlaða inn skrám</string>
     <string name="upload_global_pause_title">Allar innsendingar eru í bið</string>
     <string name="upload_item_action_button">Aðgerðarhnappur til að senda inn atriði</string>
+    <string name="upload_list_cancel_upload">Hætta við innsendingu</string>
     <string name="upload_list_delete">Eyða</string>
     <string name="upload_list_empty_headline">Engar innsendingar tiltækar</string>
     <string name="upload_list_empty_text_auto_upload">Sendu inn einhverjar myndir eða virkjaðu sjálfvirka innsendingu.</string>

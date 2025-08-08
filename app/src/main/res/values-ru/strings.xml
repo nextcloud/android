@@ -143,6 +143,7 @@
     <string name="common_error">Ошибка</string>
     <string name="common_error_out_memory">Недостаточно памяти</string>
     <string name="common_error_unknown">Неизвестная ошибка</string>
+    <string name="common_leave_this_share">Перестать использовать общий ресурс</string>
     <string name="common_loading">Загрузка…</string>
     <string name="common_next">Далее</string>
     <string name="common_no">Нет</string>
@@ -325,6 +326,7 @@
     <string name="error_comment_file">Ошибка комментирования файла</string>
     <string name="error_crash_title">сбой %1$s</string>
     <string name="error_creating_file_from_template">Не удалось создать файл на основе шаблона</string>
+    <string name="error_fetching_sharees">Не удалось загрузить участников.</string>
     <string name="error_file_actions">Не удалось показать доступные действия с файлом</string>
     <string name="error_file_lock">Не удалось изменить состояние блокировки</string>
     <string name="error_report_issue_action">Сообщить</string>
@@ -374,6 +376,7 @@
     <string name="file_detail_share_already_active">Вы не можете создать общий ресурс — общий доступ уже активен от этого пользователя.</string>
     <string name="file_detail_sharing_fragment_no_contact_app_message">Приложение для выбора контактов недоступно</string>
     <string name="file_details_no_content">Не удалось получить подробные сведения</string>
+    <string name="file_details_sharing_fragment_custom_permission_not_selected">Пожалуйста выберите права доступа</string>
     <string name="file_icon">Файл</string>
     <string name="file_keep">Сохранить</string>
     <string name="file_list_empty">Добавьте что-нибудь или синхронизируйте со своими устройствами!</string>
@@ -391,6 +394,7 @@
     <string name="file_list_empty_shared">Здесь будут показаны опубликованные вами папки и файлы.</string>
     <string name="file_list_empty_shared_headline">Вы ничем не поделились</string>
     <string name="file_list_empty_unified_search_no_results">По вашему запросу ничего не найдено</string>
+    <string name="file_list_empty_unified_search_start_search">Начните ваш поиск</string>
     <string name="file_list_folder">каталог</string>
     <string name="file_list_live">ТРАНСЛИРУЕТСЯ</string>
     <string name="file_list_loading">Получение данных…</string>
@@ -1005,6 +1009,7 @@
     <string name="upload_files">Отправить файлы</string>
     <string name="upload_global_pause_title">Все загрузки приостановлены</string>
     <string name="upload_item_action_button">Кнопка «выгрузить объект»</string>
+    <string name="upload_list_cancel_upload">Отменить передачу</string>
     <string name="upload_list_delete">Удалить</string>
     <string name="upload_list_empty_headline">Нет файлов, ожидающих передачу на сервер.</string>
     <string name="upload_list_empty_text_auto_upload">Сохраните здесь что-нибудь или включите автоматическую передачу файлов!</string>

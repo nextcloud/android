@@ -105,6 +105,7 @@
     <string name="common_error">Lỗi</string>
     <string name="common_error_out_memory">Không đủ dung lượng lưu trữ</string>
     <string name="common_error_unknown">Lỗi chưa biết</string>
+    <string name="common_leave_this_share">Rời khỏi mục chia sẻ này</string>
     <string name="common_loading">Đang tải…</string>
     <string name="common_next">Tiếp</string>
     <string name="common_no">Không</string>
@@ -767,6 +768,7 @@
     <string name="upload_file_dialog_title">Nhập tên tệp và loại tệp để tải lên</string>
     <string name="upload_files">Tải lên tập tin</string>
     <string name="upload_item_action_button">Nút hành động tải mục lên</string>
+    <string name="upload_list_cancel_upload">Hủy tải lên</string>
     <string name="upload_list_delete">Xóa</string>
     <string name="upload_list_empty_headline">Không có tải lên nào có sẵn</string>
     <string name="upload_list_empty_text_auto_upload">Tải lên một vài nội dung hoặc kích hoạt tải lên tự động</string>

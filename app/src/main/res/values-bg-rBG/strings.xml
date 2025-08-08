@@ -810,6 +810,7 @@
     <string name="upload_file_dialog_title">Въведете име на файл и тип на файл за качване</string>
     <string name="upload_files">Качи файлове</string>
     <string name="upload_item_action_button">Бутон за действие, за качване на елемент</string>
+    <string name="upload_list_cancel_upload">Откажи качването</string>
     <string name="upload_list_delete">Изтриване</string>
     <string name="upload_list_empty_headline">Няма файлове</string>
     <string name="upload_list_empty_text_auto_upload">Качете съдържание или активирайте автоматичното качване.</string>

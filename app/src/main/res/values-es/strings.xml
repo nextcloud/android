@@ -143,6 +143,7 @@
     <string name="common_error">Error</string>
     <string name="common_error_out_memory">No hay suficiente memoria</string>
     <string name="common_error_unknown">Error desconocido</string>
+    <string name="common_leave_this_share">Abandonar este recurso compartido</string>
     <string name="common_loading">Cargando…</string>
     <string name="common_next">Siguiente</string>
     <string name="common_no">No</string>
@@ -246,6 +247,13 @@
     <string name="document_scan_export_dialog_title">Seleccione el tipo de exportación</string>
     <string name="document_scan_pdf_generation_failed">La generación del PDF falló</string>
     <string name="document_scan_pdf_generation_in_progress">Generando PDF…</string>
+    <string name="document_storage_provider_cannot_create_file_and_folder">No se pueden crear ítems aquí: falta el permiso de creación.</string>
+    <string name="document_storage_provider_cannot_create_file_inside_folder">No se puede crear el archivo: falta el permiso.</string>
+    <string name="document_storage_provider_cannot_create_folder_inside_folder">No se puede crear la carpeta: falta el permiso.</string>
+    <string name="document_storage_provider_cannot_delete">No se puede eliminar el ítem: falta el permiso de eliminación.</string>
+    <string name="document_storage_provider_cannot_move">No se puede mover el ítem: falta el permiso de mover.</string>
+    <string name="document_storage_provider_cannot_read">No se puede abrir el ítem: falta el permiso de lectura.</string>
+    <string name="document_storage_provider_cannot_rename">No se puede renombrar el ítem: falta el permiso de renombrado.</string>
     <string name="done">Listo</string>
     <string name="dontClear">No eliminar</string>
     <string name="download_cannot_create_file">No se puede crear el archivo local</string>
@@ -325,6 +333,7 @@
     <string name="error_comment_file">Error al comentar el archivo</string>
     <string name="error_crash_title">%1$s se bloqueó</string>
     <string name="error_creating_file_from_template">Error al crear el archivo desde la plantilla</string>
+    <string name="error_fetching_sharees">No se pudieron obtener a los usuarios del recurso compartido.</string>
     <string name="error_file_actions">Error al mostrar las acciones de archivo</string>
     <string name="error_file_lock">Error al cambiar el estado de bloqueo de archivo</string>
     <string name="error_report_issue_action">Informe</string>
@@ -359,6 +368,7 @@
     <string name="etm_transfer_type">Transferir</string>
     <string name="etm_transfer_type_download">Descarga</string>
     <string name="etm_transfer_type_upload">Subir</string>
+    <string name="extented_list_fragment_empty_list_message_no_write_permission">No tiene permisos para crear o cargar archivos en esta carpeta.</string>
     <string name="external_shares">Compartir con el exterior</string>
     <string name="fab_label">Añadir o subir</string>
     <string name="failed_to_download">Error al enviar el fichero al gestor de descargas</string>
@@ -371,8 +381,10 @@
     <string name="file_already_exists">El nombre de archivo ya existe</string>
     <string name="file_delete">Eliminar</string>
     <string name="file_detail_activity_error">Error al recuperar las actividades del archivo</string>
+    <string name="file_detail_share_already_active">No puede crear un recurso compartido, el recurso compartido ya está activo desde este usuario.</string>
     <string name="file_detail_sharing_fragment_no_contact_app_message">No hay ninguna aplicación disponible para seleccionar contactos</string>
     <string name="file_details_no_content">Fallo al cargar los detalles</string>
+    <string name="file_details_sharing_fragment_custom_permission_not_selected">Por favor, seleccione el permiso personalizado</string>
     <string name="file_icon">Archivo</string>
     <string name="file_keep">Mantener</string>
     <string name="file_list_empty">Sube algún contenido o sincroniza con tus dispositivos.</string>
@@ -390,6 +402,8 @@
     <string name="file_list_empty_shared">Los archivos y carpetas que compartas aparecerán aquí.</string>
     <string name="file_list_empty_shared_headline">Aún no hay nada compartido</string>
     <string name="file_list_empty_unified_search_no_results">No se han encontrado resultados para su consulta</string>
+    <string name="file_list_empty_unified_search_start_search">Inicie su búsqueda</string>
+    <string name="file_list_empty_unified_search_start_search_description">Escriba en la barra de búsqueda más arriba para encontrar archivos, contactos, eventos de calendario, y más en toda su cuenta.</string>
     <string name="file_list_folder">carpeta</string>
     <string name="file_list_live">EN VIVO</string>
     <string name="file_list_loading">Cargando…</string>
@@ -430,6 +444,7 @@
     <string name="file_name_validator_error_reserved_names">%s es un nombre prohibido</string>
     <string name="file_name_validator_rename_before_move_or_copy">%s. Por favor, renombra el archivo antes de moverlo o copiarlo.</string>
     <string name="file_not_found">Archivo no encontrado</string>
+    <string name="file_not_found_cannot_share">Archivo no encontrado. No fue posible crear un recurso compartido.</string>
     <string name="file_not_synced">No se ha podido sincronizar el archivo. Se muestra la última versión disponible.</string>
     <string name="file_rename">Renombrar</string>
     <string name="file_upload_worker_error_notification_title">Subida errónea. Sin conexión a Internet</string>
@@ -509,6 +524,7 @@
     <string name="last_backup">Última copia de seguridad: %1$s</string>
     <string name="link">Enlace</string>
     <string name="link_name">Nombre del enlace</string>
+    <string name="link_not_followed_due_to_security_settings">No se abrió el enlace debido a los ajustes de seguridad.</string>
     <string name="link_share_editing">Editando</string>
     <string name="list_layout">Formato de lista</string>
     <string name="load_more_results">Cargar más resultados</string>
@@ -608,8 +624,12 @@
     <string name="offline_mode_info_description">Incluso sin una conexión a internet, puede sorganizar tus carpetas o crear archivos. Una vez vuelves a estar en línea ,las acciones pendientes se sincronizarán automáticamente.</string>
     <string name="offline_mode_info_title">Está desconectado, pero el trabajo continúa</string>
     <string name="offline_operations_file_does_not_exists_yet">El archivo no existe todavía. Por favor, sube primero el archivo.</string>
+    <string name="offline_operations_worker_notification_create_file_conflict_text">No se pudo crear %s. Un archivo con el mismo nombre existe en el servidor.</string>
+    <string name="offline_operations_worker_notification_create_folder_conflict_text">No se pudo crear %s. Una carpeta con el mismo nombre existe en el servidor.</string>
     <string name="offline_operations_worker_notification_error_text">La operación sin conexión no se ha podido completar. %s</string>
     <string name="offline_operations_worker_notification_manager_ticker">Operaciones sin conexión</string>
+    <string name="offline_operations_worker_notification_remove_conflict_text">Se canceló la eliminación de %s. El archivo se ha modificado en el servidor</string>
+    <string name="offline_operations_worker_notification_rename_conflict_text">No se pudo renombrar %s. Un archivo con el mismo nombre existe en el servidor.</string>
     <string name="offline_operations_worker_notification_start_text">Iniciando operaciones sin conexión</string>
     <string name="oneHour">1 hora</string>
     <string name="online">En línea</string>
@@ -761,7 +781,7 @@
     <string name="scanQR_description">Entrar vía código QR</string>
     <string name="scan_page">Escanear página</string>
     <string name="screenshot_01_gridView_heading">Protegiendo sus datos</string>
-    <string name="screenshot_01_gridView_subline">plataforma de productividad auto-alojada</string>
+    <string name="screenshot_01_gridView_subline">plataforma de productividad auto-hospedada</string>
     <string name="screenshot_02_listView_heading">Navegar y compartir</string>
     <string name="screenshot_02_listView_subline">todas las acciones en la punta de sus dedos</string>
     <string name="screenshot_03_drawer_heading">Actividad, compartir…</string>
@@ -782,7 +802,10 @@
     <string name="send">Mandar</string>
     <string name="send_share">Enviar recurso compartido</string>
     <string name="sendbutton_description">Icono del botón de enviar</string>
+    <string name="server_not_reachable">No se pudo cargar el contenido</string>
+    <string name="server_not_reachable_content">El dispositivo parece no estar conectado a la internet</string>
     <string name="set_as">Establecer como</string>
+    <string name="set_download_limit_failed">No se pudo establecer el límite de descarga. Por favor, chequee las capacidades.</string>
     <string name="set_note">Establecer nota</string>
     <string name="set_picture_as">Usar imagen como</string>
     <string name="set_status">Configurar estado</string>
@@ -790,6 +813,7 @@
     <string name="setup_e2e">Durante la configuración del cifrado de extremo a extremo, recibirá un mnemónico aleatorio de 12 palabras, que necesitará para abrir sus archivos en otros dispositivos. Esto solo se almacenará en este dispositivo y se puede volver a mostrar en esta pantalla. ¡Por favor anótelo en un lugar seguro!</string>
     <string name="share">Compartir</string>
     <string name="share_allow_download_and_sync_permission">Permitir descarga y sincronización</string>
+    <string name="share_cannot_update_empty_note">No pudimos actualizar el recurso compartido. Por favor, agregue una nota e intente de nuevo.</string>
     <string name="share_copy_link">Compartir y copiar enlace</string>
     <string name="share_create_permission">Crear</string>
     <string name="share_custom_permission">Permisos personalizados</string>
@@ -815,6 +839,7 @@
     <string name="share_no_expiration_date_label">Fijar fecha de caducidad</string>
     <string name="share_no_password_title">Establecer contraseña</string>
     <string name="share_not_allowed_when_file_drop">No se permite volver a compartir durante la entrega segura de archivos</string>
+    <string name="share_option_required">Por favor, seleccione al menos una opción de uso compartido antes de continuar.</string>
     <string name="share_permission_can_edit">Puede editar</string>
     <string name="share_permission_file_request">Solicitud de archivo</string>
     <string name="share_permission_secure_file_drop">Entrega de archivos segura</string>
@@ -887,9 +912,10 @@
     <string name="storage_permission_full_access">Acceso completo</string>
     <string name="storage_permission_media_read_only">Medios en sólo lectura</string>
     <string name="storage_pictures">Imágenes</string>
-    <string name="store_full_dev_desc">La plataforma de productividad auto-alojada que te mantiene al mando.\nEsta es la versión oficial de desarrollo, que incluye una muestra diaria de cualquier funcionalidad sin probar, lo que puede causar inestabilidad y pérdida de datos. Esta app es para usuarios que desean probar, e informar de los fallos que ocurran. ¡No la uses para tu trabajo productivo!\n\nTanto la versión normal como la oficial de desarrollo están disponibles en F-Droid y pueden estar instaladas al mismo tiempo.</string>
-    <string name="store_short_desc">La plataforma de productividad auto-alojada que te mantiene al mando</string>
-    <string name="store_short_dev_desc">La plataforma de productividad auto-alojada que te mantiene al mando (versión de prueba para desarrolladores)</string>
+    <string name="store_full_desc">La plataforma de productividad auto-hospedada que le mantiene en control.\n\nCaracterísticas;\n* Interfaz moderna y fácil de usar adecuada al tema de su servidor\n* Cargue archivos a su servidor Nextcloud\n* Comparta los mismos con otros\n* Mantenga sus archivos y carpetas favoritas sincronizados\n* Busque en todas las carpetas de su servidor\n* Carga automática para fotos y videos capturados en su dispositivo\n* Manténgase al día con notificaciones\n* Soporte para múltiples cuentas\n* Acceda a su información de forma segura usando su huella dactilar o PIN\n* Integración con DAVx5 (anteriormente conocido como DAVdroid) para configurar fácilmente la sincronización del calendario y contactos\n\nPor favor, reporte cualquier problema en https://github.com/nextcloud/android/issues y discuta acerca de esta aplicación en https://help.nextcloud.com/c/clients/android\n\n¿Es Ud. nuevo en Nextcloud? Nextcloud es un servidor privado para sincronizar y compartir archivos, y comunicación. Es un programa de uso libre, y lo puede hospedar Ud. mismo o pagar a una compañía para hacerlo por Ud. De esa manera, Ud. está en control de sus fotos, su calendario e información de sus contactos, sus documentos y todo lo demás.\n\nConozca Nextcloud en https://nextcloud.com</string>
+    <string name="store_full_dev_desc">La plataforma de productividad auto-hospedada que te mantiene al mando.\nEsta es la versión oficial de desarrollo, que incluye una muestra diaria de cualquier funcionalidad sin probar, lo que puede causar inestabilidad y pérdida de datos. Esta app es para usuarios que desean probar, e informar de los fallos que ocurran. ¡No la uses para tu trabajo productivo!\n\nTanto la versión normal como la oficial de desarrollo están disponibles en F-Droid y pueden estar instaladas al mismo tiempo.</string>
+    <string name="store_short_desc">La plataforma de productividad auto-hospedada que te mantiene al mando</string>
+    <string name="store_short_dev_desc">La plataforma de productividad auto-hospedada que te mantiene al mando (versión de prueba para desarrolladores)</string>
     <string name="stream">Retransmisión con...</string>
     <string name="stream_not_possible_headline">La retransmisión interna no es posible</string>
     <string name="stream_not_possible_message">Por favor, descarga el medio o usa una app externa</string>
@@ -996,6 +1022,7 @@
     <string name="upload_files">Subir archivos</string>
     <string name="upload_global_pause_title">Todas las cargas están pausadas</string>
     <string name="upload_item_action_button">Botón de acción de subida de objeto</string>
+    <string name="upload_list_cancel_upload">Cancelar la subida</string>
     <string name="upload_list_delete">Eliminar</string>
     <string name="upload_list_empty_headline">No hay subidas disponibles</string>
     <string name="upload_list_empty_text_auto_upload">Sube algún contenido o active la subida automática.</string>

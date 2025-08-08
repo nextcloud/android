@@ -114,6 +114,7 @@
     <string name="common_error">خطا</string>
     <string name="common_error_out_memory">حافظه کافی وجود ندارد</string>
     <string name="common_error_unknown">خطای نامشخص</string>
+    <string name="common_leave_this_share">ترک این اشتراک</string>
     <string name="common_loading">بار کردن…</string>
     <string name="common_next">بعدی</string>
     <string name="common_no">نه</string>
@@ -867,6 +868,7 @@
     <string name="upload_files">بارگذاری فایل ها</string>
     <string name="upload_global_pause_title">همه آپلودها به طور موقت متوقف شدند</string>
     <string name="upload_item_action_button">دکمه فعال‌سازی موارد بارگذاری</string>
+    <string name="upload_list_cancel_upload">متوقف کردن بار گذاری</string>
     <string name="upload_list_delete">حذف</string>
     <string name="upload_list_empty_headline">هیچ بارگذاری وجود ندارد</string>
     <string name="upload_list_empty_text_auto_upload">تعدادی عکس آپلود کنید یا آپلود خودکار را فعال کنید</string>

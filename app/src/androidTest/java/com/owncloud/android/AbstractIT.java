@@ -22,6 +22,8 @@ import android.view.View;
 
 import com.facebook.testing.screenshot.Screenshot;
 import com.facebook.testing.screenshot.internal.TestNameDetector;
+import com.nextcloud.android.common.ui.theme.MaterialSchemes;
+import com.nextcloud.android.common.ui.theme.MaterialSchemesImpl;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.account.UserAccountManagerImpl;
@@ -53,6 +55,7 @@ import com.owncloud.android.lib.resources.status.OwnCloudVersion;
 import com.owncloud.android.operations.CreateFolderOperation;
 import com.owncloud.android.operations.UploadFileOperation;
 import com.owncloud.android.utils.FileStorageUtils;
+import com.owncloud.android.utils.theme.MaterialSchemesProvider;
 
 import org.apache.commons.io.FileUtils;
 import org.junit.After;
@@ -541,5 +544,39 @@ public abstract class AbstractIT {
 
     protected static boolean removeAccount(Account account) {
         return AccountManager.get(targetContext).removeAccountExplicitly(account);
+    }
+
+    protected MaterialSchemesProvider getMaterialSchemesProvider() {
+        return new MaterialSchemesProvider() {
+            @NonNull
+            @Override
+            public MaterialSchemes getMaterialSchemesForUser(@NonNull User user) {
+                return null;
+            }
+
+            @NonNull
+            @Override
+            public MaterialSchemes getMaterialSchemesForCapability(@NonNull OCCapability capability) {
+                return null;
+            }
+
+            @NonNull
+            @Override
+            public MaterialSchemes getMaterialSchemesForCurrentUser() {
+                return new MaterialSchemesImpl(R.color.primary, false);
+            }
+
+            @NonNull
+            @Override
+            public MaterialSchemes getDefaultMaterialSchemes() {
+                return null;
+            }
+
+            @NonNull
+            @Override
+            public MaterialSchemes getMaterialSchemesForPrimaryBackground() {
+                return null;
+            }
+        };
     }
 }

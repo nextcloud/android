@@ -143,6 +143,7 @@
     <string name="common_error">Error</string>
     <string name="common_error_out_memory">Not enough memory</string>
     <string name="common_error_unknown">Unknown error</string>
+    <string name="common_leave_this_share">Leave this share</string>
     <string name="common_loading">Loading…</string>
     <string name="common_next">Next</string>
     <string name="common_no">No</string>
@@ -325,6 +326,7 @@
     <string name="error_comment_file">Error commenting file</string>
     <string name="error_crash_title">%1$s crashed</string>
     <string name="error_creating_file_from_template">Error creating file from template</string>
+    <string name="error_fetching_sharees">Unable to fetch sharees.</string>
     <string name="error_file_actions">Error showing file actions</string>
     <string name="error_file_lock">Error changing file lock status</string>
     <string name="error_report_issue_action">Report</string>
@@ -1011,6 +1013,7 @@
     <string name="upload_files">Upload files</string>
     <string name="upload_global_pause_title">All uploads are paused</string>
     <string name="upload_item_action_button">Upload item action button</string>
+    <string name="upload_list_cancel_upload">Cancel upload</string>
     <string name="upload_list_delete">Delete</string>
     <string name="upload_list_empty_headline">No uploads available</string>
     <string name="upload_list_empty_text_auto_upload">Upload some content or activate auto upload.</string>

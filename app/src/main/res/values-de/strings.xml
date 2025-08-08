@@ -28,7 +28,7 @@
     <string name="activity_chooser_send_file_title">Senden</string>
     <string name="activity_chooser_title">Link senden an…</string>
     <string name="activity_icon">Aktivitäten</string>
-    <string name="add_new_public_share">Öffentlichen Link zum Teilen hinzufügen</string>
+    <string name="add_new_public_share">Öffentlichen Freigabe-Link hinzufügen</string>
     <string name="add_new_secure_file_drop">Neue sichere Dateiablage hinzufügen</string>
     <string name="add_to_cloud">Hinzufügen zu %1$s</string>
     <string name="app_config_base_url_title">Basis-URL</string>
@@ -143,6 +143,7 @@
     <string name="common_error">Fehler</string>
     <string name="common_error_out_memory">Nicht genügend Speicher</string>
     <string name="common_error_unknown">Unbekannter Fehler</string>
+    <string name="common_leave_this_share">Diese Freigabe verlassen</string>
     <string name="common_loading">Lade…</string>
     <string name="common_next">Nächste</string>
     <string name="common_no">Nein</string>
@@ -246,6 +247,13 @@
     <string name="document_scan_export_dialog_title">Exporttyp wählen</string>
     <string name="document_scan_pdf_generation_failed">PDF-Erstellung fehlgeschlagen</string>
     <string name="document_scan_pdf_generation_in_progress">Erstelle PDF…</string>
+    <string name="document_storage_provider_cannot_create_file_and_folder">Hier können keine Elemente erstellt werden: Berechtigung zum Erstellen fehlt.</string>
+    <string name="document_storage_provider_cannot_create_file_inside_folder">Datei kann nicht erstellt werden: Fehlende Berechtigung.</string>
+    <string name="document_storage_provider_cannot_create_folder_inside_folder">Ordner kann nicht erstellt werden: Fehlende Berechtigung.</string>
+    <string name="document_storage_provider_cannot_delete">Element kann nicht gelöscht werden: Berechtigung zum Löschen fehlt.</string>
+    <string name="document_storage_provider_cannot_move">Element kann nicht verschoben werden: Berechtigung zum Verschieben fehlt.</string>
+    <string name="document_storage_provider_cannot_read">Element kann nicht geöffnet werden: Berechtigung zum Lesen fehlt.</string>
+    <string name="document_storage_provider_cannot_rename">Element kann nicht umbenannt werden: Berechtigung zum Umbenennen fehlt.</string>
     <string name="done">Fertig</string>
     <string name="dontClear">Nicht löschen</string>
     <string name="download_cannot_create_file">Datei kann lokal nicht erstellt werden</string>
@@ -325,6 +333,7 @@
     <string name="error_comment_file">Fehler beim Kommentieren der Datei</string>
     <string name="error_crash_title">%1$s abgestürzt</string>
     <string name="error_creating_file_from_template">Fehler beim Erzeugen einer Datei aus der Vorlage</string>
+    <string name="error_fetching_sharees">Freigabeempfänger können nicht abgerufen werden</string>
     <string name="error_file_actions">Fehler beim Anzeigen von Dateiaktionen</string>
     <string name="error_file_lock">Fehler beim Ändern des Sperr-Status</string>
     <string name="error_report_issue_action">Melden</string>
@@ -359,6 +368,7 @@
     <string name="etm_transfer_type">Übertragen</string>
     <string name="etm_transfer_type_download">Herunterladen</string>
     <string name="etm_transfer_type_upload">Hochladen</string>
+    <string name="extented_list_fragment_empty_list_message_no_write_permission">Sie haben keine Berechtigung, in diesen Ordner Dateien hochzuladen oder zu erstellen.</string>
     <string name="external_shares">Externe Freigaben</string>
     <string name="fab_label">Hinzufügen oder hochladen</string>
     <string name="failed_to_download">Datei konnte nicht an den Downloadmanager übergeben werden</string>
@@ -514,6 +524,7 @@
     <string name="last_backup">Letzte Sicherung:%1$s</string>
     <string name="link">Link</string>
     <string name="link_name">Link-Name</string>
+    <string name="link_not_followed_due_to_security_settings">Link wird aufgrund von Sicherheitseinstellungen nicht verfolgt.</string>
     <string name="link_share_editing">Bearbeitung</string>
     <string name="list_layout">Layout der Liste</string>
     <string name="load_more_results">Weitere Ergebnisse laden</string>
@@ -1011,6 +1022,7 @@
     <string name="upload_files">Dateien hochladen</string>
     <string name="upload_global_pause_title">Alle Uploads wurden pausiert</string>
     <string name="upload_item_action_button">Button, um Objekt hochzuladen</string>
+    <string name="upload_list_cancel_upload">Hochladen abbrechen</string>
     <string name="upload_list_delete">Löschen</string>
     <string name="upload_list_empty_headline">Keine Uploads verfügbar</string>
     <string name="upload_list_empty_text_auto_upload">Laden Sie Inhalte hoch oder aktivieren Sie den Auto Upload.</string>

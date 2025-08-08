@@ -111,6 +111,7 @@
     <string name="common_error">Napaka</string>
     <string name="common_error_out_memory">Ni dovolj pomnilnika</string>
     <string name="common_error_unknown">Neznana napaka</string>
+    <string name="common_leave_this_share">Prekini to souporabo</string>
     <string name="common_loading">Poteka nalaganje …</string>
     <string name="common_next">Naprej </string>
     <string name="common_no">Ne</string>
@@ -837,6 +838,7 @@
     <string name="upload_file_dialog_title">Ime in zvrst datoteke za pošiljanje</string>
     <string name="upload_files">Pošlji datoteke</string>
     <string name="upload_item_action_button">Gumb za pošiljanje</string>
+    <string name="upload_list_cancel_upload">Prekliči pošiljanje</string>
     <string name="upload_list_delete">Izbriši</string>
     <string name="upload_list_empty_headline">Ni pripravljenih datotek za pošiljanje</string>
     <string name="upload_list_empty_text_auto_upload">Pošljite kakšno vsebino, ali pa omogočite samodejno nalaganje.</string>

@@ -75,6 +75,7 @@ class UploadNotificationManager(private val context: Context, viewThemeUtils: Vi
         uploadFileOperation: UploadFileOperation,
         resultCode: RemoteOperationResult.ResultCode,
         conflictsResolveIntent: PendingIntent?,
+        cancelUploadActionIntent: PendingIntent?,
         credentialIntent: PendingIntent?,
         errorMessage: String
     ) {
@@ -93,6 +94,14 @@ class UploadNotificationManager(private val context: Context, viewThemeUtils: Vi
                     R.drawable.ic_cloud_upload,
                     R.string.upload_list_resolve_conflict,
                     it
+                )
+            }
+
+            cancelUploadActionIntent?.let {
+                addAction(
+                    R.drawable.ic_delete,
+                    R.string.upload_list_cancel_upload,
+                    cancelUploadActionIntent
                 )
             }
 

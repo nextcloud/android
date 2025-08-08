@@ -143,6 +143,7 @@
     <string name="common_error">Erreur</string>
     <string name="common_error_out_memory">Mémoire insuffisante</string>
     <string name="common_error_unknown">Erreur inconnue </string>
+    <string name="common_leave_this_share">Quitter ce partage</string>
     <string name="common_loading">Chargement…</string>
     <string name="common_next">Suivant</string>
     <string name="common_no">Non</string>
@@ -1004,6 +1005,7 @@
     <string name="upload_files">Téléverser des fichiers</string>
     <string name="upload_global_pause_title">Tous les téléversements sont suspendus</string>
     <string name="upload_item_action_button">Bouton d\'action d\'upload</string>
+    <string name="upload_list_cancel_upload">Annuler l\'envoi</string>
     <string name="upload_list_delete">Supprimer</string>
     <string name="upload_list_empty_headline">Aucun téléversement disponible</string>
     <string name="upload_list_empty_text_auto_upload">Téléversez du contenu ou activez le téléversement automatique.</string>

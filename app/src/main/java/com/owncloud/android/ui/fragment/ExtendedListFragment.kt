@@ -24,6 +24,7 @@ import android.content.res.Configuration
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.DisplayMetrics
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuInflater
@@ -59,6 +60,7 @@ import com.nextcloud.client.network.ConnectivityService.GenericCallback
 import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.client.preferences.AppPreferencesImpl
 import com.nextcloud.utils.extensions.getTypedActivity
+import com.nextcloud.utils.extensions.handleBackButtonEvent
 import com.owncloud.android.MainApp
 import com.owncloud.android.R
 import com.owncloud.android.databinding.ListFragmentBinding
@@ -401,6 +403,15 @@ open class ExtendedListFragment :
         }
     }
 
+    private fun getEmptyListViewTextId(): Int {
+        val currentDir = getTypedActivity(FileDisplayActivity::class.java)?.currentDir
+        return if (currentDir?.canCreateFileAndFolder() == false) {
+            R.string.extented_list_fragment_empty_list_message_no_write_permission
+        } else {
+            R.string.file_list_empty
+        }
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         if (savedInstanceState == null) {
@@ -602,62 +613,80 @@ open class ExtendedListFragment :
     @Suppress("LongMethod")
     fun setEmptyListMessage(searchType: SearchType?) {
         lifecycleScope.launch(Dispatchers.Main) {
-            if (searchType == SearchType.OFFLINE_MODE) {
-                setMessageForEmptyList(
-                    R.string.offline_mode_info_title,
-                    R.string.offline_mode_info_description,
-                    R.drawable.ic_cloud_sync,
-                    true
-                )
-            } else if (searchType == SearchType.NO_SEARCH) {
-                setMessageForEmptyList(
-                    R.string.file_list_empty_headline,
-                    R.string.file_list_empty,
-                    R.drawable.ic_list_empty_folder,
-                    true
-                )
-            } else if (searchType == SearchType.FILE_SEARCH) {
-                setMessageForEmptyList(
-                    R.string.file_list_empty_headline_server_search,
-                    R.string.file_list_empty,
-                    R.drawable.ic_search_light_grey
-                )
-            } else if (searchType == SearchType.FAVORITE_SEARCH) {
-                setMessageForEmptyList(
-                    R.string.file_list_empty_favorite_headline,
-                    R.string.file_list_empty_favorites_filter_list,
-                    R.drawable.ic_star_light_yellow
-                )
-            } else if (searchType == SearchType.RECENTLY_MODIFIED_SEARCH) {
-                setMessageForEmptyList(
-                    R.string.file_list_empty_headline_server_search,
-                    R.string.file_list_empty_recently_modified,
-                    R.drawable.ic_list_empty_recent
-                )
-            } else if (searchType == SearchType.REGULAR_FILTER) {
-                setMessageForEmptyList(
-                    R.string.file_list_empty_headline_search,
-                    R.string.file_list_empty_search,
-                    R.drawable.ic_search_light_grey
-                )
-            } else if (searchType == SearchType.SHARED_FILTER) {
-                setMessageForEmptyList(
-                    R.string.file_list_empty_shared_headline,
-                    R.string.file_list_empty_shared,
-                    R.drawable.ic_list_empty_shared
-                )
-            } else if (searchType == SearchType.GALLERY_SEARCH) {
-                setMessageForEmptyList(
-                    R.string.file_list_empty_headline_server_search,
-                    R.string.file_list_empty_gallery,
-                    R.drawable.file_image
-                )
-            } else if (searchType == SearchType.LOCAL_SEARCH) {
-                setMessageForEmptyList(
-                    R.string.file_list_empty_headline_server_search,
-                    R.string.file_list_empty_local_search,
-                    R.drawable.ic_search_light_grey
-                )
+            when (searchType) {
+                SearchType.OFFLINE_MODE -> {
+                    setMessageForEmptyList(
+                        R.string.offline_mode_info_title,
+                        R.string.offline_mode_info_description,
+                        R.drawable.ic_cloud_sync,
+                        true
+                    )
+                }
+                SearchType.NO_SEARCH -> {
+                    setMessageForEmptyList(
+                        R.string.file_list_empty_headline,
+                        getEmptyListViewTextId(),
+                        R.drawable.ic_list_empty_folder,
+                        true
+                    )
+                }
+                SearchType.FILE_SEARCH -> {
+                    setMessageForEmptyList(
+                        R.string.file_list_empty_headline_server_search,
+                        R.string.file_list_empty,
+                        R.drawable.ic_search_light_grey
+                    )
+                }
+                SearchType.FAVORITE_SEARCH -> {
+                    setMessageForEmptyList(
+                        R.string.file_list_empty_favorite_headline,
+                        R.string.file_list_empty_favorites_filter_list,
+                        R.drawable.ic_star_light_yellow
+                    )
+                }
+                SearchType.RECENTLY_MODIFIED_SEARCH -> {
+                    setMessageForEmptyList(
+                        R.string.file_list_empty_headline_server_search,
+                        R.string.file_list_empty_recently_modified,
+                        R.drawable.ic_list_empty_recent
+                    )
+                }
+                SearchType.REGULAR_FILTER -> {
+                    setMessageForEmptyList(
+                        R.string.file_list_empty_headline_search,
+                        R.string.file_list_empty_search,
+                        R.drawable.ic_search_light_grey
+                    )
+                }
+                SearchType.SHARED_FILTER -> {
+                    setMessageForEmptyList(
+                        R.string.file_list_empty_shared_headline,
+                        R.string.file_list_empty_shared,
+                        R.drawable.ic_list_empty_shared
+                    )
+                }
+                SearchType.GALLERY_SEARCH -> {
+                    setMessageForEmptyList(
+                        R.string.file_list_empty_headline_server_search,
+                        R.string.file_list_empty_gallery,
+                        R.drawable.file_image
+                    )
+                }
+                SearchType.LOCAL_SEARCH -> {
+                    setMessageForEmptyList(
+                        R.string.file_list_empty_headline_server_search,
+                        R.string.file_list_empty_local_search,
+                        R.drawable.ic_search_light_grey
+                    )
+                }
+                else -> {
+                    setMessageForEmptyList(
+                        R.string.file_list_empty_headline,
+                        getEmptyListViewTextId(),
+                        R.drawable.ic_list_empty_folder,
+                        true
+                    )
+                }
             }
         }
     }
@@ -727,6 +756,18 @@ open class ExtendedListFragment :
                 it.setContentDescription(getString(R.string.action_switch_grid_view))
                 it.setIcon(ContextCompat.getDrawable(requireContext(), R.drawable.ic_view_module))
             }
+        }
+    }
+
+    protected fun setupBackButtonRedirectToAllFiles() {
+        view?.isFocusableInTouchMode = true
+        view?.requestFocus()
+        view?.setOnKeyListener { _: View, keyCode: Int, event: KeyEvent ->
+            val fda = getTypedActivity(FileActivity::class.java)
+            if (fda != null && (event.action == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_BACK)) {
+                return@setOnKeyListener fda.handleBackButtonEvent(fda.currentDir)
+            }
+            false
         }
     }
 

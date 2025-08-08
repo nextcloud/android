@@ -143,6 +143,7 @@
     <string name="common_error">Chyba</string>
     <string name="common_error_out_memory">Nedostatok pamäte</string>
     <string name="common_error_unknown">Neznáma chyba</string>
+    <string name="common_leave_this_share">Opustiť toto zdieľanie.</string>
     <string name="common_loading">Načítavam…</string>
     <string name="common_next">Ďalšie</string>
     <string name="common_no">Nie</string>
@@ -993,6 +994,7 @@
     <string name="upload_files">Nahrať súbory</string>
     <string name="upload_global_pause_title">Všetky nahrávania sú pozastavené.</string>
     <string name="upload_item_action_button">Tlačítko akcie Nahrať položku</string>
+    <string name="upload_list_cancel_upload">Zrušiť nahrávanie</string>
     <string name="upload_list_delete">Zmazať</string>
     <string name="upload_list_empty_headline">Žiadne súbory na nahratie nie sú dostupné</string>
     <string name="upload_list_empty_text_auto_upload">Nahrajte nejaký obsah alebo si zapnite automatické nahrávanie.</string>

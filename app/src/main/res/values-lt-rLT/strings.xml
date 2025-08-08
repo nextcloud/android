@@ -130,6 +130,7 @@
     <string name="common_error">Klaida</string>
     <string name="common_error_out_memory">Nepakanka atminties</string>
     <string name="common_error_unknown">Nežinoma klaida</string>
+    <string name="common_leave_this_share">Palikti bendrinimą</string>
     <string name="common_loading">Įkeliama…</string>
     <string name="common_next">Kitas</string>
     <string name="common_no">Ne</string>

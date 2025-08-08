@@ -398,6 +398,7 @@
     <string name="unset_encrypted">Unset encryption</string>
     <string name="common_rename">Rename</string>
     <string name="common_remove">Delete</string>
+    <string name="common_leave_this_share">Leave this share</string>
     <string name="confirmation_remove_file_alert">Do you really want to delete %1$s?</string>
     <string name="confirmation_remove_folder_alert">Do you really want to delete %1$s and the contents thereof?</string>
     <string name="confirmation_remove_local">Local only</string>
@@ -896,6 +897,7 @@
     <string name="create_new_folder">New folder</string>
     <string name="uploads_view_upload_status_virus_detected">Virus detected. Upload cannot be completed!</string>
     <string name="tags">Tags</string>
+    <string name="error_fetching_sharees">Unable to fetch sharees.</string>
     <string name="sharee_add_failed">Adding sharee failed</string>
     <string name="sharee_already_added_to_file">Adding share failed. This file or folder has already been shared with this person or group.</string>
     <string name="unsharing_failed">Unsharing failed</string>
@@ -1082,6 +1084,7 @@
     <string name="uploader_upload_failed_sync_conflict_error">File upload conflict</string>
     <string name="uploader_upload_failed_sync_conflict_error_content">Pick which version to keep of %1$s</string>
     <string name="upload_list_resolve_conflict">Resolve conflict</string>
+    <string name="upload_list_cancel_upload">Cancel upload</string>
     <string name="upload_list_delete">Delete</string>
     <string name="create_new">New</string>
     <string name="editor_placeholder" translatable="false">%1$s %2$s</string>
@@ -1367,4 +1370,14 @@
     <string name="server_not_reachable_content">The device is likely not connected to the internet</string>
     <string name="file_details_sharing_fragment_custom_permission_not_selected">Please select custom permission</string>
     <string name="unknown">Unknown</string>
+
+    <string name="document_storage_provider_cannot_read">Can’t open item: missing read permission.</string>
+    <string name="document_storage_provider_cannot_delete">Can’t delete item: missing delete permission.</string>
+    <string name="document_storage_provider_cannot_rename">Can’t rename item: missing rename permission.</string>
+    <string name="document_storage_provider_cannot_move">Can’t move item: missing move permission.</string>
+    <string name="document_storage_provider_cannot_create_file_and_folder">Can’t create items here: missing create permission.</string>
+    <string name="document_storage_provider_cannot_create_file_inside_folder">Can’t create file: missing permission.</string>
+    <string name="document_storage_provider_cannot_create_folder_inside_folder">Can’t create folder: missing permission.</string>
+    <string name="link_not_followed_due_to_security_settings">Link not followed due to security settings.</string>
+    <string name="extented_list_fragment_empty_list_message_no_write_permission">You don’t have permission to create or upload files in this folder.</string>
 </resources>

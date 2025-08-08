@@ -143,6 +143,7 @@
     <string name="common_error">Błąd</string>
     <string name="common_error_out_memory">Brak wystarczającej pamięci</string>
     <string name="common_error_unknown">Nieznany błąd</string>
+    <string name="common_leave_this_share">Opuść te udostępnienie</string>
     <string name="common_loading">Wczytywanie…</string>
     <string name="common_next">Następne</string>
     <string name="common_no">Nie</string>
@@ -1011,6 +1012,7 @@
     <string name="upload_files">Wyślij pliki</string>
     <string name="upload_global_pause_title">Wszystkie przesyłania zostały wstrzymane</string>
     <string name="upload_item_action_button">Przycisk wysyłania elementu</string>
+    <string name="upload_list_cancel_upload">Anuluj wysyłanie</string>
     <string name="upload_list_delete">Usuń</string>
     <string name="upload_list_empty_headline">Brak wysłanych plików</string>
     <string name="upload_list_empty_text_auto_upload">Wyślij pliki lub włącz automatyczne wysyłanie.</string>

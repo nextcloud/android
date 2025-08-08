@@ -143,6 +143,7 @@
     <string name="common_error">Грешка</string>
     <string name="common_error_out_memory">Нема довољно меморије</string>
     <string name="common_error_unknown">Непозната грешка</string>
+    <string name="common_leave_this_share">Напусти ово дељење</string>
     <string name="common_loading">Учитавам…</string>
     <string name="common_next">Следеће</string>
     <string name="common_no">Не</string>
@@ -1004,6 +1005,7 @@
     <string name="upload_files">Отпреми фајлове</string>
     <string name="upload_global_pause_title">Сва отпремања су паузирана</string>
     <string name="upload_item_action_button">Дугме за отпремање</string>
+    <string name="upload_list_cancel_upload">Откажи отпремање</string>
     <string name="upload_list_delete">Избриши</string>
     <string name="upload_list_empty_headline">Нема доступних отпремања</string>
     <string name="upload_list_empty_text_auto_upload">Отпремите нешто или укључите аутоматско отпремање.</string>

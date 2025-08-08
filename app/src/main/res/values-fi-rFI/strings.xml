@@ -126,6 +126,7 @@
     <string name="common_error">Virhe</string>
     <string name="common_error_out_memory">Muistia ei ole riittävästi</string>
     <string name="common_error_unknown">Tuntematon virhe</string>
+    <string name="common_leave_this_share">Poistu tästä jaosta</string>
     <string name="common_loading">Ladataan…</string>
     <string name="common_next">Seuraava</string>
     <string name="common_no">Ei</string>
@@ -896,6 +897,7 @@ GNU yleinen lisenssi, versio 2</string>
     <string name="upload_files">Lähetä tiedostoja</string>
     <string name="upload_global_pause_title">Kaikki lähetykset on tauotettu</string>
     <string name="upload_item_action_button">Lataa tiedosto nappi</string>
+    <string name="upload_list_cancel_upload">Peruuta lähetys</string>
     <string name="upload_list_delete">Poista</string>
     <string name="upload_list_empty_headline">Ei lähetettäviä saatavilla</string>
     <string name="upload_list_empty_text_auto_upload">Lähetä sisältöä tai aktivoi automaattinen lähetys.</string>

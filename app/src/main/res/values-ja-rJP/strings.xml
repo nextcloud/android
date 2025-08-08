@@ -143,6 +143,7 @@
     <string name="common_error">エラー</string>
     <string name="common_error_out_memory">十分なメモリがありません</string>
     <string name="common_error_unknown">不明なエラー</string>
+    <string name="common_leave_this_share">この共有から抜ける</string>
     <string name="common_loading">読み込み中…</string>
     <string name="common_next">次へ</string>
     <string name="common_no">いいえ</string>
@@ -993,6 +994,7 @@
     <string name="upload_files">アップロードファイル</string>
     <string name="upload_global_pause_title">すべてのアップロードが一時停止しています</string>
     <string name="upload_item_action_button">アイテムアクションのアップロードボタン</string>
+    <string name="upload_list_cancel_upload">アップロードをキャンセル</string>
     <string name="upload_list_delete">削除</string>
     <string name="upload_list_empty_headline">アップロードは利用できません</string>
     <string name="upload_list_empty_text_auto_upload">何かコンテンツをアップロードするか、自動アップロードを有効にしてください。</string>

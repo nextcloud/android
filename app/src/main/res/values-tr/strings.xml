@@ -143,6 +143,7 @@
     <string name="common_error">Hata</string>
     <string name="common_error_out_memory">Bellek yetersiz</string>
     <string name="common_error_unknown">Bilinmeyen sorun</string>
+    <string name="common_leave_this_share">Bu paylaşımdan ayrıl</string>
     <string name="common_loading">Yükleniyor …</string>
     <string name="common_next">Sonraki</string>
     <string name="common_no">Hayır</string>
@@ -1004,6 +1005,7 @@
     <string name="upload_files">Dosyaları yükle</string>
     <string name="upload_global_pause_title">Tüm yüklemeler duraklatıldı</string>
     <string name="upload_item_action_button">Öge yükleme işlemi düğmesi</string>
+    <string name="upload_list_cancel_upload">Yüklemeyi iptal et</string>
     <string name="upload_list_delete">Sil</string>
     <string name="upload_list_empty_headline">Herhangi bir yükleme yok</string>
     <string name="upload_list_empty_text_auto_upload">Bazı içerikler yükleyin ya da otomatik yükleme özelliğini açın.</string>

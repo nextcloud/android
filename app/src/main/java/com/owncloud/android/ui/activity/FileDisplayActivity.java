@@ -439,19 +439,19 @@ public class FileDisplayActivity extends FileActivity
             DisplayUtils.showServerOutdatedSnackbar(this, Snackbar.LENGTH_LONG);
         }
     }
-    
+
     private void checkNotifications() {
         new Thread(() -> {
             try {
                 RemoteOperationResult<List<Notification>> result = new GetNotificationsRemoteOperation()
                     .execute(clientFactory.createNextcloudClient(accountManager.getUser()));
-                
+
                 if (result.isSuccess() && !result.getResultData().isEmpty()) {
                     runOnUiThread(() -> mNotificationButton.setVisibility(View.VISIBLE));
                 } else {
                     runOnUiThread(() -> mNotificationButton.setVisibility(View.GONE));
                 }
-                
+
             } catch (ClientFactory.CreationException e) {
                 Log_OC.e(TAG, "Could not fetch notifications!");
             }
@@ -1074,8 +1074,10 @@ public class FileDisplayActivity extends FileActivity
 
     private void browseUp(OCFileListFragment listOfFiles) {
         listOfFiles.onBrowseUp();
-        setFile(listOfFiles.getCurrentFile());
-        listOfFiles.setFabVisible(true);
+        final OCFile currentFile = listOfFiles.getCurrentFile();
+
+        setFile(currentFile);
+        listOfFiles.setFabVisible(currentFile.canCreateFileAndFolder());
         listOfFiles.registerFabListener();
         resetTitleBarAndScrolling();
         setDrawerAllFiles();

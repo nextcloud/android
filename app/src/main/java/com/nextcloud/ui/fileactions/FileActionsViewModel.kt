@@ -78,7 +78,7 @@ class FileActionsViewModel @Inject constructor(
     ) {
         viewModelScope.launch(Dispatchers.IO) {
             val toHide = getHiddenActions(componentsGetter, numberOfAllFiles, files, isOverflow, inSingleFileFragment)
-            val availableActions = getActionsToShow(additionalFilter, toHide)
+            val availableActions = getActionsToShow(additionalFilter, toHide, files)
             updateStateLoaded(files, availableActions)
         }
     }
@@ -98,9 +98,10 @@ class FileActionsViewModel @Inject constructor(
     )
         .getToHide(inSingleFileFragment)
 
-    private fun getActionsToShow(additionalFilter: IntArray?, toHide: List<Int>) = FileAction.SORTED_VALUES
-        .filter { additionalFilter == null || it.id !in additionalFilter }
-        .filter { it.id !in toHide }
+    private fun getActionsToShow(additionalFilter: IntArray?, toHide: List<Int>, files: Collection<OCFile>) =
+        FileAction.getActions(files)
+            .filter { additionalFilter == null || it.id !in additionalFilter }
+            .filter { it.id !in toHide }
 
     private fun updateStateLoaded(files: Collection<OCFile>, availableActions: List<FileAction>) {
         val state: UiState = when (files.size) {

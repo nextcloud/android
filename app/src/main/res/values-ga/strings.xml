@@ -143,6 +143,7 @@
     <string name="common_error">Earráid</string>
     <string name="common_error_out_memory">Ní leor cuimhne</string>
     <string name="common_error_unknown">Earráid anaithnid</string>
+    <string name="common_leave_this_share">Fág an sciar seo</string>
     <string name="common_loading">Á lódáil…</string>
     <string name="common_next">Ar aghaidh</string>
     <string name="common_no">Níl</string>
@@ -325,6 +326,7 @@
     <string name="error_comment_file">Earráid agus comhad á rá</string>
     <string name="error_crash_title">Thuar %1$s</string>
     <string name="error_creating_file_from_template">Earráid agus comhad á chruthú as an teimpléad</string>
+    <string name="error_fetching_sharees">Ní féidir scaireanna a fháil.</string>
     <string name="error_file_actions">Earráid agus gníomhartha comhaid á dtaispeáint</string>
     <string name="error_file_lock">Earráid agus stádas glasála comhaid á athrú</string>
     <string name="error_report_issue_action">Tuairisc</string>
@@ -1011,6 +1013,7 @@
     <string name="upload_files">Uaslódáil comhaid</string>
     <string name="upload_global_pause_title">Tá gach uaslódáil curtha ar sos</string>
     <string name="upload_item_action_button">Íoslódáil an cnaipe gníomh</string>
+    <string name="upload_list_cancel_upload">Cealaigh an uaslódáil</string>
     <string name="upload_list_delete">Scrios</string>
     <string name="upload_list_empty_headline">Níl aon uaslódála ar fáil</string>
     <string name="upload_list_empty_text_auto_upload">Uaslódáil roinnt ábhar nó cuir an uaslódáil uathoibríoch i ngníomh.</string>
