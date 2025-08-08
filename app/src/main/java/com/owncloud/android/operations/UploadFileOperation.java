@@ -169,7 +169,7 @@ public class UploadFileOperation extends SyncOperation {
 
     private boolean encryptedAncestor;
     private OCFile duplicatedEncryptedFile;
-    private boolean isMissingPermissionThrown = false;
+    private boolean missingPermissionThrown = false;
 
     public static OCFile obtainNewOCFileToUpload(String remotePath, String localPath, String mimeType) {
         OCFile newFile = new OCFile(remotePath);
@@ -410,7 +410,7 @@ public class UploadFileOperation extends SyncOperation {
     }
 
     public boolean isMissingPermissionThrown() {
-        return isMissingPermissionThrown;
+        return missingPermissionThrown;
     }
 
     @Override
@@ -430,7 +430,7 @@ public class UploadFileOperation extends SyncOperation {
         if (!localFile.canRead()) {
             Log_OC.e(TAG, "Upload cancelled for " + getStoragePath() + ": file is not readable or inaccessible.");
             UploadFileOperationExtensionsKt.showStoragePermissionNotification(this);
-            isMissingPermissionThrown = true;
+            missingPermissionThrown = true;
             return new RemoteOperationResult<>(new UploadFileException.MissingPermission());
         }
 

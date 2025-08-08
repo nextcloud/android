@@ -36,17 +36,23 @@ fun UploadFileOperation.showStoragePermissionNotification() {
     }
 }
 
-private fun getActionPendingIntent(context: Context, actionType: UploadFileBroadcastReceiverActions): PendingIntent {
+private fun getActionPendingIntent(
+    context: Context,
+    actionType: UploadFileBroadcastReceiverActions
+): PendingIntent {
     val intent = Intent(context, UploadFileBroadcastReceiver::class.java).apply {
+        action = "com.owncloud.android.ACTION_UPLOAD_FILE_PERMISSION"
         putExtra(UploadFileBroadcastReceiver.ACTION_TYPE, actionType)
     }
+
     return PendingIntent.getBroadcast(
         context,
         actionType.ordinal,
         intent,
-        PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+        PendingIntent.FLAG_IMMUTABLE
     )
 }
+
 
 private fun getAllowAllFileAccessAction(context: Context): NotificationCompat.Action {
     val pendingIntent = getActionPendingIntent(context, UploadFileBroadcastReceiverActions.ALLOW_ALL_FILES)
