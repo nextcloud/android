@@ -58,6 +58,7 @@ import com.owncloud.android.operations.common.SyncOperation;
 import com.owncloud.android.operations.e2e.E2EClientData;
 import com.owncloud.android.operations.e2e.E2EData;
 import com.owncloud.android.operations.e2e.E2EFiles;
+import com.owncloud.android.operations.upload.UploadFileException;
 import com.owncloud.android.operations.upload.UploadFileOperationExtensionsKt;
 import com.owncloud.android.utils.EncryptionUtils;
 import com.owncloud.android.utils.EncryptionUtilsV2;
@@ -415,13 +416,22 @@ public class UploadFileOperation extends SyncOperation {
     @Override
     @SuppressWarnings("PMD.AvoidDuplicateLiterals")
     protected RemoteOperationResult run(OwnCloudClient client) {
+        if (TextUtils.isEmpty(getStoragePath())) {
+            Log_OC.e(TAG, "Upload cancelled for " + getStoragePath() + ": file path is null or empty.");
+            return new RemoteOperationResult<>(new UploadFileException.EmptyOrNullFilePath());
+        }
 
         final var localFile = new File(getStoragePath());
+        if (!localFile.exists()) {
+            Log_OC.e(TAG, "Upload cancelled for " + getStoragePath() + ": local file not exists.");
+            return new RemoteOperationResult<>(ResultCode.LOCAL_FILE_NOT_FOUND);
+        }
+
         if (!localFile.canRead()) {
             Log_OC.e(TAG, "Upload cancelled for " + getStoragePath() + ": file is not readable or inaccessible.");
             UploadFileOperationExtensionsKt.showStoragePermissionNotification(this);
             isMissingPermissionThrown = true;
-            return new RemoteOperationResult<>(new com.owncloud.android.operations.upload.UploadFileException.MissingPermission());
+            return new RemoteOperationResult<>(new UploadFileException.MissingPermission());
         }
 
         mCancellationRequested.set(false);
