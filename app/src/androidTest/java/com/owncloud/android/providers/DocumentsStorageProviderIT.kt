@@ -53,6 +53,14 @@ class DocumentsStorageProviderIT : AbstractOnServerIT() {
         // DocumentsProvider#onCreate() is called when the application is started
         // which is *after* AbstractOnServerIT adds the accounts (when the app is freshly installed).
         // So we need to query our roots here to ensure that the internal storage map is initialized.
+        storageManager.run {
+            val updatedRootPath = getFileByEncryptedRemotePath(ROOT_PATH).apply {
+                permissions = "RSMCKGWDNV"
+            }
+
+            saveFile(updatedRootPath)
+        }
+
         contentResolver.query(DocumentsContract.buildRootsUri(authority), null, null, null)
         assertTrue("Storage root does not exist", rootDir.exists())
         assertTrue(rootDir.isDirectory)
