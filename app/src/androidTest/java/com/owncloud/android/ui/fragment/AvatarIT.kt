@@ -66,7 +66,6 @@ class AvatarIT : AbstractIT() {
                         addAvatar("email@nextcloud.localhost", avatarRadius, width, targetContext)
                     }
 
-
                     EspressoIdlingResource.decrement()
 
                     val screenShotName = createName(testClassName + "_" + "showAvatars", "")

@@ -44,7 +44,10 @@ class SetStatusDialogFragmentIT : AbstractIT() {
             scenario.onActivity { activity ->
                 onIdleSync {
                     EspressoIdlingResource.increment()
-                    val sut = SetStatusDialogFragment.newInstance(user, Status(StatusType.DND, "Working hard…", "🤖", -1))
+                    val sut = SetStatusDialogFragment.newInstance(
+                        user,
+                        Status(StatusType.DND, "Working hard…", "🤖", -1)
+                    )
                     sut.show(activity.supportFragmentManager, "")
                     val predefinedStatus: ArrayList<PredefinedStatus> = arrayListOf(
                         PredefinedStatus("meeting", "📅", "In a meeting", ClearAt("period", "3600")),
