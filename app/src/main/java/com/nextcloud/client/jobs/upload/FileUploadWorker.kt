@@ -57,7 +57,6 @@ class FileUploadWorker(
         val TAG: String = FileUploadWorker::class.java.simpleName
 
         const val NOTIFICATION_ERROR_ID: Int = 413
-        const val BATCH_SIZE = 100
         const val ACCOUNT = "data_account"
         const val UPLOAD_IDS = "uploads_ids"
         const val CURRENT_BATCH_INDEX = "batch_index"
@@ -153,7 +152,7 @@ class FileUploadWorker(
             return Result.failure()
         }
 
-        val previouslyUploadedFileSize = currentBatchIndex * BATCH_SIZE
+        val previouslyUploadedFileSize = currentBatchIndex * FileUploadHelper.MAX_FILE_COUNT
 
         val uploads = uploadIds.map { id -> uploadsStorageManager.getUploadById(id) }.filterNotNull()
 
