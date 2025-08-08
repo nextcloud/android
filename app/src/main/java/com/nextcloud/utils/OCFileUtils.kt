@@ -40,6 +40,7 @@ object OCFileUtils {
         }
     }
 
+    @Suppress("ReturnCount")
     private fun fallbackSize(file: OCFile, defaultSize: Float): Pair<Int, Int> {
         if (file.exists()) {
             val (width, height) = BitmapUtils.getImageResolution(file.storagePath).let { it[0] to it[1] }
