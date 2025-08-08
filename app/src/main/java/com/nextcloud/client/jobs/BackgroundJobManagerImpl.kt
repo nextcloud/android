@@ -28,6 +28,7 @@ import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.documentscan.GeneratePdfFromImagesWork
 import com.nextcloud.client.jobs.download.FileDownloadWorker
 import com.nextcloud.client.jobs.offlineOperations.OfflineOperationsWorker
+import com.nextcloud.client.jobs.upload.FileUploadHelper
 import com.nextcloud.client.jobs.upload.FileUploadWorker
 import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.utils.extensions.isWorkRunning
@@ -596,7 +597,7 @@ internal class BackgroundJobManagerImpl(
      *                  within the worker.
      */
     override fun startFilesUploadJob(user: User, uploadIds: LongArray) {
-        val batchSize = FileUploadWorker.BATCH_SIZE
+        val batchSize = FileUploadHelper.MAX_FILE_COUNT
         val batches = uploadIds.toList().chunked(batchSize)
         val tag = startFileUploadJobTag(user)
 
