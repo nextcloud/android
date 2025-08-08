@@ -132,12 +132,16 @@ class GalleryRowHolder(
 
         for (file in row.files) {
             val (width, height) = OCFileUtils.getImageSize(file, defaultThumbnailSize)
-            val scaleFactor = row.getMaxHeight() / height
-            val newWidth = width * scaleFactor
-            val newHeight = height * scaleFactor
+            if (file.isDown) {
+                newSummedWidth += width
+            } else {
+                val scaleFactor = row.getMaxHeight() / height
+                val newWidth = width * scaleFactor
+                val newHeight = height * scaleFactor
 
-            file.imageDimension = ImageDimension(newWidth, newHeight)
-            newSummedWidth += newWidth
+                file.imageDimension = ImageDimension(newWidth, newHeight)
+                newSummedWidth += newWidth
+            }
         }
 
         val c = when (galleryAdapter.columns) {
