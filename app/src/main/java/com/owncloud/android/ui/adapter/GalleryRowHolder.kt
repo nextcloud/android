@@ -126,35 +126,21 @@ class GalleryRowHolder(
         }
     }
 
-    @SuppressWarnings("MagicNumber")
     private fun computeMultiFileShrinkRatio(row: GalleryRow, screenWidth: Float): Float {
-        var newSummedWidth = 0f
+        val targetHeight = row.getMaxHeight()
+        var totalUnscaledWidth = 0f
 
         for (file in row.files) {
-            val (width, height) = OCFileUtils.getImageSize(file, defaultThumbnailSize)
-            if (file.isDown) {
-                newSummedWidth += width
-            } else {
-                val scaleFactor = row.getMaxHeight() / height
-                val newWidth = width * scaleFactor
-                val newHeight = height * scaleFactor
+            val (originalWidth, originalHeight) = OCFileUtils.getImageSize(file, defaultThumbnailSize)
 
-                file.imageDimension = ImageDimension(newWidth, newHeight)
-                newSummedWidth += newWidth
-            }
+            val scaledWidth = targetHeight * (originalWidth.toFloat() / originalHeight)
+            file.imageDimension = ImageDimension(scaledWidth, targetHeight)
+
+            totalUnscaledWidth += scaledWidth
         }
 
-        val c = when (galleryAdapter.columns) {
-            5 -> when (row.files.size) {
-                2 -> 2.5f
-                3 -> 1.333f
-                4 -> 0.8f
-                else -> 1f
-            }
-            else -> 1f
-        }
-
-        return (screenWidth / c) / newSummedWidth
+        val totalAvailableWidth = screenWidth - ((row.files.size - 1) * smallMargin)
+        return totalAvailableWidth / totalUnscaledWidth
     }
 
     private fun computeSingleFileShrinkRatio(row: GalleryRow, screenWidth: Float): Float {
@@ -166,10 +152,8 @@ class GalleryRowHolder(
         val file = indexedFile.value
         val index = indexedFile.index
 
-        var (width, height) = OCFileUtils.getImageSize(file, defaultThumbnailSize)
-
-        width = ((width) * shrinkRatio).toInt()
-        height = ((height) * shrinkRatio).toInt()
+        val width = file.imageDimension?.width?.times(shrinkRatio)?.toInt() ?: 0
+        val height = file.imageDimension?.height?.times(shrinkRatio)?.toInt() ?: 0
 
         val frameLayout = binding.rowLayout[index] as FrameLayout
         val checkBoxImageView = frameLayout[2] as ImageView
@@ -178,6 +162,7 @@ class GalleryRowHolder(
             adjustViewBounds = true
             scaleType = ImageView.ScaleType.FIT_XY
         }
+
         val isChecked = ocFileListDelegate.isCheckedFile(file)
 
         adjustRowCell(thumbnail, isChecked)
@@ -192,7 +177,6 @@ class GalleryRowHolder(
         )
 
         val params = FrameLayout.LayoutParams(width, height)
-
         val endMargin = if (index < row.files.size - 1) smallMargin else zero
         params.setMargins(zero, zero, endMargin, smallMargin)
 
