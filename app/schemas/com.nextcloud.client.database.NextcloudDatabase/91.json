@@ -1,0 +1,1142 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 91,
+    "identityHash": "2159d0811e012cc1fadc81bb4714cd8f",
+    "entities": [
+      {
+        "tableName": "arbitrary_data",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT, `cloud_id` TEXT, `key` TEXT, `value` TEXT)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "_id",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "cloudId",
+            "columnName": "cloud_id",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "key",
+            "columnName": "key",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "value",
+            "columnName": "value",
+            "affinity": "TEXT"
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "_id"
+          ]
+        }
+      },
+      {
+        "tableName": "capabilities",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT, `assistant` INTEGER, `account` TEXT, `version_mayor` INTEGER, `version_minor` INTEGER, `version_micro` INTEGER, `version_string` TEXT, `version_edition` TEXT, `extended_support` INTEGER, `core_pollinterval` INTEGER, `sharing_api_enabled` INTEGER, `sharing_public_enabled` INTEGER, `sharing_public_password_enforced` INTEGER, `sharing_public_expire_date_enabled` INTEGER, `sharing_public_expire_date_days` INTEGER, `sharing_public_expire_date_enforced` INTEGER, `sharing_public_send_mail` INTEGER, `sharing_public_upload` INTEGER, `sharing_user_send_mail` INTEGER, `sharing_resharing` INTEGER, `sharing_federation_outgoing` INTEGER, `sharing_federation_incoming` INTEGER, `files_bigfilechunking` INTEGER, `files_undelete` INTEGER, `files_versioning` INTEGER, `external_links` INTEGER, `server_name` TEXT, `server_color` TEXT, `server_text_color` TEXT, `server_element_color` TEXT, `server_slogan` TEXT, `server_logo` TEXT, `background_url` TEXT, `end_to_end_encryption` INTEGER, `end_to_end_encryption_keys_exist` INTEGER, `end_to_end_encryption_api_version` TEXT, `activity` INTEGER, `background_default` INTEGER, `background_plain` INTEGER, `richdocument` INTEGER, `richdocument_mimetype_list` TEXT, `richdocument_direct_editing` INTEGER, `richdocument_direct_templates` INTEGER, `richdocument_optional_mimetype_list` TEXT, `sharing_public_ask_for_optional_password` INTEGER, `richdocument_product_name` TEXT, `direct_editing_etag` TEXT, `user_status` INTEGER, `user_status_supports_emoji` INTEGER, `etag` TEXT, `files_locking_version` TEXT, `groupfolders` INTEGER, `drop_account` INTEGER, `security_guard` INTEGER, `forbidden_filename_characters` INTEGER, `forbidden_filenames` INTEGER, `forbidden_filename_extensions` INTEGER, `forbidden_filename_basenames` INTEGER, `files_download_limit` INTEGER, `files_download_limit_default` INTEGER, `recommendation` INTEGER, `notes_folder_path` TEXT, `default_permissions` INTEGER)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "_id",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "assistant",
+            "columnName": "assistant",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "accountName",
+            "columnName": "account",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "versionMajor",
+            "columnName": "version_mayor",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "versionMinor",
+            "columnName": "version_minor",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "versionMicro",
+            "columnName": "version_micro",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "versionString",
+            "columnName": "version_string",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "versionEditor",
+            "columnName": "version_edition",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "extendedSupport",
+            "columnName": "extended_support",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "corePollinterval",
+            "columnName": "core_pollinterval",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "sharingApiEnabled",
+            "columnName": "sharing_api_enabled",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "sharingPublicEnabled",
+            "columnName": "sharing_public_enabled",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "sharingPublicPasswordEnforced",
+            "columnName": "sharing_public_password_enforced",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "sharingPublicExpireDateEnabled",
+            "columnName": "sharing_public_expire_date_enabled",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "sharingPublicExpireDateDays",
+            "columnName": "sharing_public_expire_date_days",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "sharingPublicExpireDateEnforced",
+            "columnName": "sharing_public_expire_date_enforced",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "sharingPublicSendMail",
+            "columnName": "sharing_public_send_mail",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "sharingPublicUpload",
+            "columnName": "sharing_public_upload",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "sharingUserSendMail",
+            "columnName": "sharing_user_send_mail",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "sharingResharing",
+            "columnName": "sharing_resharing",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "sharingFederationOutgoing",
+            "columnName": "sharing_federation_outgoing",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "sharingFederationIncoming",
+            "columnName": "sharing_federation_incoming",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "filesBigfilechunking",
+            "columnName": "files_bigfilechunking",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "filesUndelete",
+            "columnName": "files_undelete",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "filesVersioning",
+            "columnName": "files_versioning",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "externalLinks",
+            "columnName": "external_links",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "serverName",
+            "columnName": "server_name",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "serverColor",
+            "columnName": "server_color",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "serverTextColor",
+            "columnName": "server_text_color",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "serverElementColor",
+            "columnName": "server_element_color",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "serverSlogan",
+            "columnName": "server_slogan",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "serverLogo",
+            "columnName": "server_logo",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "serverBackgroundUrl",
+            "columnName": "background_url",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "endToEndEncryption",
+            "columnName": "end_to_end_encryption",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "endToEndEncryptionKeysExist",
+            "columnName": "end_to_end_encryption_keys_exist",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "endToEndEncryptionApiVersion",
+            "columnName": "end_to_end_encryption_api_version",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "activity",
+            "columnName": "activity",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "serverBackgroundDefault",
+            "columnName": "background_default",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "serverBackgroundPlain",
+            "columnName": "background_plain",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "richdocument",
+            "columnName": "richdocument",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "richdocumentMimetypeList",
+            "columnName": "richdocument_mimetype_list",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "richdocumentDirectEditing",
+            "columnName": "richdocument_direct_editing",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "richdocumentTemplates",
+            "columnName": "richdocument_direct_templates",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "richdocumentOptionalMimetypeList",
+            "columnName": "richdocument_optional_mimetype_list",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "sharingPublicAskForOptionalPassword",
+            "columnName": "sharing_public_ask_for_optional_password",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "richdocumentProductName",
+            "columnName": "richdocument_product_name",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "directEditingEtag",
+            "columnName": "direct_editing_etag",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "userStatus",
+            "columnName": "user_status",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "userStatusSupportsEmoji",
+            "columnName": "user_status_supports_emoji",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "etag",
+            "columnName": "etag",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "filesLockingVersion",
+            "columnName": "files_locking_version",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "groupfolders",
+            "columnName": "groupfolders",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "dropAccount",
+            "columnName": "drop_account",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "securityGuard",
+            "columnName": "security_guard",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "forbiddenFileNameCharacters",
+            "columnName": "forbidden_filename_characters",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "forbiddenFileNames",
+            "columnName": "forbidden_filenames",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "forbiddenFileNameExtensions",
+            "columnName": "forbidden_filename_extensions",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "forbiddenFilenameBaseNames",
+            "columnName": "forbidden_filename_basenames",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "filesDownloadLimit",
+            "columnName": "files_download_limit",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "filesDownloadLimitDefault",
+            "columnName": "files_download_limit_default",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "recommendation",
+            "columnName": "recommendation",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "notesFolderPath",
+            "columnName": "notes_folder_path",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "defaultPermissions",
+            "columnName": "default_permissions",
+            "affinity": "INTEGER"
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "_id"
+          ]
+        }
+      },
+      {
+        "tableName": "external_links",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT, `icon_url` TEXT, `language` TEXT, `type` INTEGER, `name` TEXT, `url` TEXT, `redirect` INTEGER)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "_id",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "iconUrl",
+            "columnName": "icon_url",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "language",
+            "columnName": "language",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "type",
+            "columnName": "type",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "url",
+            "columnName": "url",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "redirect",
+            "columnName": "redirect",
+            "affinity": "INTEGER"
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "_id"
+          ]
+        }
+      },
+      {
+        "tableName": "filelist",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT, `filename` TEXT, `encrypted_filename` TEXT, `path` TEXT, `path_decrypted` TEXT, `parent` INTEGER, `created` INTEGER, `modified` INTEGER, `content_type` TEXT, `content_length` INTEGER, `media_path` TEXT, `file_owner` TEXT, `last_sync_date` INTEGER, `last_sync_date_for_data` INTEGER, `modified_at_last_sync_for_data` INTEGER, `etag` TEXT, `etag_on_server` TEXT, `share_by_link` INTEGER, `permissions` TEXT, `remote_id` TEXT, `local_id` INTEGER NOT NULL DEFAULT -1, `update_thumbnail` INTEGER, `is_downloading` INTEGER, `favorite` INTEGER, `hidden` INTEGER, `is_encrypted` INTEGER, `etag_in_conflict` TEXT, `shared_via_users` INTEGER, `mount_type` INTEGER, `has_preview` INTEGER, `unread_comments_count` INTEGER, `owner_id` TEXT, `owner_display_name` TEXT, `note` TEXT, `sharees` TEXT, `rich_workspace` TEXT, `metadata_size` TEXT, `metadata_live_photo` TEXT, `locked` INTEGER, `lock_type` INTEGER, `lock_owner` TEXT, `lock_owner_display_name` TEXT, `lock_owner_editor` TEXT, `lock_timestamp` INTEGER, `lock_timeout` INTEGER, `lock_token` TEXT, `tags` TEXT, `metadata_gps` TEXT, `e2e_counter` INTEGER, `internal_two_way_sync_timestamp` INTEGER, `internal_two_way_sync_result` TEXT, `uploaded` INTEGER)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "_id",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "filename",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "encryptedName",
+            "columnName": "encrypted_filename",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "path",
+            "columnName": "path",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "pathDecrypted",
+            "columnName": "path_decrypted",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "parent",
+            "columnName": "parent",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "creation",
+            "columnName": "created",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "modified",
+            "columnName": "modified",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "contentType",
+            "columnName": "content_type",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "contentLength",
+            "columnName": "content_length",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "storagePath",
+            "columnName": "media_path",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "accountOwner",
+            "columnName": "file_owner",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "lastSyncDate",
+            "columnName": "last_sync_date",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "lastSyncDateForData",
+            "columnName": "last_sync_date_for_data",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "modifiedAtLastSyncForData",
+            "columnName": "modified_at_last_sync_for_data",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "etag",
+            "columnName": "etag",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "etagOnServer",
+            "columnName": "etag_on_server",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "sharedViaLink",
+            "columnName": "share_by_link",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "permissions",
+            "columnName": "permissions",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "remoteId",
+            "columnName": "remote_id",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "localId",
+            "columnName": "local_id",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "-1"
+          },
+          {
+            "fieldPath": "updateThumbnail",
+            "columnName": "update_thumbnail",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "isDownloading",
+            "columnName": "is_downloading",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "favorite",
+            "columnName": "favorite",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "hidden",
+            "columnName": "hidden",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "isEncrypted",
+            "columnName": "is_encrypted",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "etagInConflict",
+            "columnName": "etag_in_conflict",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "sharedWithSharee",
+            "columnName": "shared_via_users",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "mountType",
+            "columnName": "mount_type",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "hasPreview",
+            "columnName": "has_preview",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "unreadCommentsCount",
+            "columnName": "unread_comments_count",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "ownerId",
+            "columnName": "owner_id",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "ownerDisplayName",
+            "columnName": "owner_display_name",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "note",
+            "columnName": "note",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "sharees",
+            "columnName": "sharees",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "richWorkspace",
+            "columnName": "rich_workspace",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "metadataSize",
+            "columnName": "metadata_size",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "metadataLivePhoto",
+            "columnName": "metadata_live_photo",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "locked",
+            "columnName": "locked",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "lockType",
+            "columnName": "lock_type",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "lockOwner",
+            "columnName": "lock_owner",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "lockOwnerDisplayName",
+            "columnName": "lock_owner_display_name",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "lockOwnerEditor",
+            "columnName": "lock_owner_editor",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "lockTimestamp",
+            "columnName": "lock_timestamp",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "lockTimeout",
+            "columnName": "lock_timeout",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "lockToken",
+            "columnName": "lock_token",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "tags",
+            "columnName": "tags",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "metadataGPS",
+            "columnName": "metadata_gps",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "e2eCounter",
+            "columnName": "e2e_counter",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "internalTwoWaySync",
+            "columnName": "internal_two_way_sync_timestamp",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "internalTwoWaySyncResult",
+            "columnName": "internal_two_way_sync_result",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "uploaded",
+            "columnName": "uploaded",
+            "affinity": "INTEGER"
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "_id"
+          ]
+        }
+      },
+      {
+        "tableName": "filesystem",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT, `local_path` TEXT, `is_folder` INTEGER, `found_at` INTEGER, `upload_triggered` INTEGER, `syncedfolder_id` TEXT, `crc32` TEXT, `modified_at` INTEGER)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "_id",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "localPath",
+            "columnName": "local_path",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "fileIsFolder",
+            "columnName": "is_folder",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "fileFoundRecently",
+            "columnName": "found_at",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "fileSentForUpload",
+            "columnName": "upload_triggered",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "syncedFolderId",
+            "columnName": "syncedfolder_id",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "crc32",
+            "columnName": "crc32",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "fileModified",
+            "columnName": "modified_at",
+            "affinity": "INTEGER"
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "_id"
+          ]
+        }
+      },
+      {
+        "tableName": "ocshares",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT, `file_source` INTEGER, `item_source` INTEGER, `share_type` INTEGER, `shate_with` TEXT, `path` TEXT, `permissions` INTEGER, `shared_date` INTEGER, `expiration_date` INTEGER, `token` TEXT, `shared_with_display_name` TEXT, `is_directory` INTEGER, `user_id` TEXT, `id_remote_shared` INTEGER, `owner_share` TEXT, `is_password_protected` INTEGER, `note` TEXT, `hide_download` INTEGER, `share_link` TEXT, `share_label` TEXT, `download_limit_limit` INTEGER, `download_limit_count` INTEGER, `attributes` TEXT)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "_id",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "fileSource",
+            "columnName": "file_source",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "itemSource",
+            "columnName": "item_source",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "shareType",
+            "columnName": "share_type",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "shareWith",
+            "columnName": "shate_with",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "path",
+            "columnName": "path",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "permissions",
+            "columnName": "permissions",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "sharedDate",
+            "columnName": "shared_date",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "expirationDate",
+            "columnName": "expiration_date",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "token",
+            "columnName": "token",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "shareWithDisplayName",
+            "columnName": "shared_with_display_name",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "isDirectory",
+            "columnName": "is_directory",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "userId",
+            "columnName": "user_id",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "idRemoteShared",
+            "columnName": "id_remote_shared",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "accountOwner",
+            "columnName": "owner_share",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "isPasswordProtected",
+            "columnName": "is_password_protected",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "note",
+            "columnName": "note",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "hideDownload",
+            "columnName": "hide_download",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "shareLink",
+            "columnName": "share_link",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "shareLabel",
+            "columnName": "share_label",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "downloadLimitLimit",
+            "columnName": "download_limit_limit",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "downloadLimitCount",
+            "columnName": "download_limit_count",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "attributes",
+            "columnName": "attributes",
+            "affinity": "TEXT"
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "_id"
+          ]
+        }
+      },
+      {
+        "tableName": "synced_folders",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT, `local_path` TEXT, `remote_path` TEXT, `wifi_only` INTEGER, `charging_only` INTEGER, `existing` INTEGER, `enabled` INTEGER, `enabled_timestamp_ms` INTEGER, `subfolder_by_date` INTEGER, `account` TEXT, `upload_option` INTEGER, `name_collision_policy` INTEGER, `upload_min_file_age_ms` INTEGER NOT NULL DEFAULT 0, `type` INTEGER, `hidden` INTEGER, `sub_folder_rule` INTEGER, `exclude_hidden` INTEGER, `last_scan_timestamp_ms` INTEGER)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "_id",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "localPath",
+            "columnName": "local_path",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "remotePath",
+            "columnName": "remote_path",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "wifiOnly",
+            "columnName": "wifi_only",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "chargingOnly",
+            "columnName": "charging_only",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "existing",
+            "columnName": "existing",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "enabled",
+            "columnName": "enabled",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "enabledTimestampMs",
+            "columnName": "enabled_timestamp_ms",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "subfolderByDate",
+            "columnName": "subfolder_by_date",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "account",
+            "columnName": "account",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "uploadAction",
+            "columnName": "upload_option",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "nameCollisionPolicy",
+            "columnName": "name_collision_policy",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "uploadMinFileAgeMs",
+            "columnName": "upload_min_file_age_ms",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "0"
+          },
+          {
+            "fieldPath": "type",
+            "columnName": "type",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "hidden",
+            "columnName": "hidden",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "subFolderRule",
+            "columnName": "sub_folder_rule",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "excludeHidden",
+            "columnName": "exclude_hidden",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "lastScanTimestampMs",
+            "columnName": "last_scan_timestamp_ms",
+            "affinity": "INTEGER"
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "_id"
+          ]
+        }
+      },
+      {
+        "tableName": "list_of_uploads",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT, `local_path` TEXT, `remote_path` TEXT, `account_name` TEXT, `file_size` INTEGER, `status` INTEGER, `local_behaviour` INTEGER, `upload_time` INTEGER, `name_collision_policy` INTEGER, `is_create_remote_folder` INTEGER, `upload_end_timestamp` INTEGER, `last_result` INTEGER, `is_while_charging_only` INTEGER, `is_wifi_only` INTEGER, `created_by` INTEGER, `folder_unlock_token` TEXT)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "_id",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "localPath",
+            "columnName": "local_path",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "remotePath",
+            "columnName": "remote_path",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "accountName",
+            "columnName": "account_name",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "fileSize",
+            "columnName": "file_size",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "status",
+            "columnName": "status",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "localBehaviour",
+            "columnName": "local_behaviour",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "uploadTime",
+            "columnName": "upload_time",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "nameCollisionPolicy",
+            "columnName": "name_collision_policy",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "isCreateRemoteFolder",
+            "columnName": "is_create_remote_folder",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "uploadEndTimestamp",
+            "columnName": "upload_end_timestamp",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "lastResult",
+            "columnName": "last_result",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "isWhileChargingOnly",
+            "columnName": "is_while_charging_only",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "isWifiOnly",
+            "columnName": "is_wifi_only",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "createdBy",
+            "columnName": "created_by",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "folderUnlockToken",
+            "columnName": "folder_unlock_token",
+            "affinity": "TEXT"
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "_id"
+          ]
+        }
+      },
+      {
+        "tableName": "virtual",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT, `type` TEXT, `ocfile_id` INTEGER)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "_id",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "type",
+            "columnName": "type",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "ocFileId",
+            "columnName": "ocfile_id",
+            "affinity": "INTEGER"
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "_id"
+          ]
+        }
+      },
+      {
+        "tableName": "offline_operations",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT, `offline_operations_parent_oc_file_id` INTEGER, `offline_operations_path` TEXT, `offline_operations_type` TEXT, `offline_operations_file_name` TEXT, `offline_operations_created_at` INTEGER, `offline_operations_modified_at` INTEGER)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "_id",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "parentOCFileId",
+            "columnName": "offline_operations_parent_oc_file_id",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "path",
+            "columnName": "offline_operations_path",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "type",
+            "columnName": "offline_operations_type",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "filename",
+            "columnName": "offline_operations_file_name",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "createdAt",
+            "columnName": "offline_operations_created_at",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "modifiedAt",
+            "columnName": "offline_operations_modified_at",
+            "affinity": "INTEGER"
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "_id"
+          ]
+        }
+      }
+    ],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '2159d0811e012cc1fadc81bb4714cd8f')"
+    ]
+  }
+}
