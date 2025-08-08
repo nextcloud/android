@@ -302,7 +302,8 @@ public final class FilesSyncHelper {
                     // storeOrUpdateFileValue takes a few ms
                     // -> Rest of this file check takes not even 1 ms.
                     filesystemDataProvider.storeOrUpdateFileValue(contentPath,
-                                                                  cursor.getLong(column_index_date_modified), isFolder,
+                                                                  cursor.getLong(column_index_date_modified) * 1000,
+                                                                  isFolder,
                                                                   syncedFolder);
                 } else {
                     if (!syncedFolder.isExisting()) {
