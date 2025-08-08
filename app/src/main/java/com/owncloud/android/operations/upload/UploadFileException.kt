@@ -8,6 +8,6 @@
 package com.owncloud.android.operations.upload
 
 sealed class UploadFileException(message: String) : Exception(message) {
-    class EmptyOrNullFilePath: UploadFileException("Empty or null file path")
+    class EmptyOrNullFilePath : UploadFileException("Empty or null file path")
     class MissingPermission : UploadFileException("Missing storage permission")
 }
