@@ -79,6 +79,10 @@ class UploadNotificationManager(private val context: Context, viewThemeUtils: Vi
         credentialIntent: PendingIntent?,
         errorMessage: String
     ) {
+        if (uploadFileOperation.isMissingPermissionThrown) {
+            return
+        }
+
         val textId = getFailedResultTitleId(resultCode)
 
         notificationBuilder.run {
