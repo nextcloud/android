@@ -501,7 +501,13 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
 
                 preferences.setUploaderBehaviour(FileUploadWorker.LOCAL_BEHAVIOUR_DELETE);
             } else {
-                data.putExtra(EXTRA_CHOSEN_FILES, mFileListFragment.getCheckedFilePaths());
+                final var chosenFiles = mFileListFragment.getCheckedFilePaths();
+                if (chosenFiles.length > FileUploadHelper.MAX_FILE_COUNT) {
+                    DisplayUtils.showSnackMessage(this, R.string.max_file_count_warning_message);
+                    return;
+                }
+
+                data.putExtra(EXTRA_CHOSEN_FILES, chosenFiles);
                 data.putExtra(LOCAL_BASE_PATH, mCurrentDir.getAbsolutePath());
 
                 // set result code
@@ -662,9 +668,13 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
                         finish();
                     }
                 } else {
-                    String[] selectedFilePaths = mFileListFragment.getCheckedFilePaths();
+                    final var chosenFiles = mFileListFragment.getCheckedFilePaths();
+                    if (chosenFiles.length > FileUploadHelper.MAX_FILE_COUNT) {
+                        DisplayUtils.showSnackMessage(this, R.string.max_file_count_warning_message);
+                        return;
+                    }
                     boolean isPositionZero = (binding.uploadFilesSpinnerBehaviour.getSelectedItemPosition() == 0);
-                    new CheckAvailableSpaceTask(this, selectedFilePaths).execute(isPositionZero);
+                    new CheckAvailableSpaceTask(this, chosenFiles).execute(isPositionZero);
                 }
             } else {
                 requestPermissions();
@@ -708,7 +718,8 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
     @Override
     public void onConfirmation(String callerTag) {
         Log_OC.d(TAG, "Positive button in dialog was clicked; dialog tag is " + callerTag);
-        if (mFileListFragment.getCheckedFilePaths().length > FileUploadHelper.MAX_FILE_COUNT) {
+        final var chosenFiles = mFileListFragment.getCheckedFilePaths();
+        if (chosenFiles.length > FileUploadHelper.MAX_FILE_COUNT) {
             DisplayUtils.showSnackMessage(this, R.string.max_file_count_warning_message);
             return;
         }
@@ -717,7 +728,7 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
             // return the list of selected files to the caller activity (success),
             // signaling that they should be moved to the ownCloud folder, instead of copied
             Intent data = new Intent();
-            data.putExtra(EXTRA_CHOSEN_FILES, mFileListFragment.getCheckedFilePaths());
+            data.putExtra(EXTRA_CHOSEN_FILES, chosenFiles);
             data.putExtra(LOCAL_BASE_PATH, mCurrentDir.getAbsolutePath());
             setResult(RESULT_OK_AND_MOVE, data);
             finish();

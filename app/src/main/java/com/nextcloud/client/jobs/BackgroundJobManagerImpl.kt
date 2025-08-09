@@ -28,12 +28,16 @@ import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.documentscan.GeneratePdfFromImagesWork
 import com.nextcloud.client.jobs.download.FileDownloadWorker
 import com.nextcloud.client.jobs.offlineOperations.OfflineOperationsWorker
+import com.nextcloud.client.jobs.upload.FileUploadHelper
 import com.nextcloud.client.jobs.upload.FileUploadWorker
 import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.utils.extensions.isWorkRunning
 import com.nextcloud.utils.extensions.isWorkScheduled
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.operations.DownloadType
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import java.util.Date
 import java.util.UUID
 import java.util.concurrent.TimeUnit
@@ -62,7 +66,6 @@ internal class BackgroundJobManagerImpl(
     Injectable {
 
     companion object {
-
         const val TAG_ALL = "*" // This tag allows us to retrieve list of all jobs run by Nextcloud client
         const val JOB_CONTENT_OBSERVER = "content_observer"
         const val JOB_PERIODIC_CONTACTS_BACKUP = "periodic_contacts_backup"
@@ -170,6 +173,8 @@ internal class BackgroundJobManagerImpl(
             return logEntries
         }
     }
+
+    private val defaultDispatcherScope = CoroutineScope(Dispatchers.Default)
 
     override fun logStartOfWorker(workerName: String?) {
         val logs = deleteOldLogs(preferences.readLogEntry().toMutableList())
@@ -596,22 +601,44 @@ internal class BackgroundJobManagerImpl(
      *                  within the worker.
      */
     override fun startFilesUploadJob(user: User, uploadIds: LongArray) {
-        val tag = startFileUploadJobTag(user)
-        val dataBuilder = Data.Builder()
-            .putString(FileUploadWorker.ACCOUNT, user.accountName)
-            .putLongArray(FileUploadWorker.UPLOAD_IDS, uploadIds)
+        defaultDispatcherScope.launch {
+            val batchSize = FileUploadHelper.MAX_FILE_COUNT
+            val batches = uploadIds.toList().chunked(batchSize)
+            val tag = startFileUploadJobTag(user)
 
-        val constraints = Constraints.Builder()
-            .setRequiredNetworkType(NetworkType.CONNECTED)
-            .build()
+            val constraints = Constraints.Builder()
+                .setRequiredNetworkType(NetworkType.CONNECTED)
+                .build()
 
-        val request = oneTimeRequestBuilder(FileUploadWorker::class, JOB_FILES_UPLOAD, user)
-            .addTag(tag)
-            .setInputData(dataBuilder.build())
-            .setConstraints(constraints)
-            .build()
+            val workRequests = batches.mapIndexed { index, batch ->
+                val dataBuilder = Data.Builder()
+                    .putString(FileUploadWorker.ACCOUNT, user.accountName)
+                    .putLongArray(FileUploadWorker.UPLOAD_IDS, batch.toLongArray())
+                    .putInt(FileUploadWorker.CURRENT_BATCH_INDEX, index)
+                    .putInt(FileUploadWorker.TOTAL_UPLOAD_SIZE, uploadIds.size)
 
-        workManager.enqueueUniqueWork(tag, ExistingWorkPolicy.APPEND_OR_REPLACE, request)
+                oneTimeRequestBuilder(FileUploadWorker::class, JOB_FILES_UPLOAD, user)
+                    .addTag(tag)
+                    .setInputData(dataBuilder.build())
+                    .setConstraints(constraints)
+                    .build()
+            }
+
+            // Chain the work requests sequentially
+            if (workRequests.isNotEmpty()) {
+                var workChain = workManager.beginUniqueWork(
+                    tag,
+                    ExistingWorkPolicy.APPEND_OR_REPLACE,
+                    workRequests.first()
+                )
+
+                workRequests.drop(1).forEach { request ->
+                    workChain = workChain.then(request)
+                }
+
+                workChain.enqueue()
+            }
+        }
     }
 
     private fun startFileDownloadJobTag(user: User, fileId: Long): String =
