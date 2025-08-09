@@ -524,6 +524,7 @@
     <string name="last_backup">上次备份：%1$s</string>
     <string name="link">链接</string>
     <string name="link_name">链接名称</string>
+    <string name="link_not_followed_due_to_security_settings">由于安全设置，无法跟踪链接。</string>
     <string name="link_share_editing">编辑</string>
     <string name="list_layout">列出的布局</string>
     <string name="load_more_results">加载更多结果</string>
