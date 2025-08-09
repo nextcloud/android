@@ -471,7 +471,6 @@ class FileDetailSharingFragmentIT : AbstractIT() {
                         permissions = 17
                     }
                     activity.handler.post { sut.showSharingMenuActionSheet(publicShare) }
-                    waitForIdleSync()
 
                     // check if items are visible
                     onView(ViewMatchers.withId(R.id.menu_share_advanced_permissions)).check(matches(isDisplayed()))
@@ -611,8 +610,6 @@ class FileDetailSharingFragmentIT : AbstractIT() {
 
                     // click event
                     onView(ViewMatchers.withId(R.id.menu_share_advanced_permissions)).perform(ViewActions.click())
-                    shortSleep()
-                    waitForIdleSync()
 
                     // validate view shown on screen
                     onView(ViewMatchers.withId(R.id.view_only_radio_button)).check(matches(isDisplayed()))
