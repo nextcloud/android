@@ -247,6 +247,13 @@
     <string name="document_scan_export_dialog_title">Choose export type</string>
     <string name="document_scan_pdf_generation_failed">PDF generation failed</string>
     <string name="document_scan_pdf_generation_in_progress">Generating PDF…</string>
+    <string name="document_storage_provider_cannot_create_file_and_folder">Can’t create items here: missing create permission.</string>
+    <string name="document_storage_provider_cannot_create_file_inside_folder">Can’t create file: missing permission.</string>
+    <string name="document_storage_provider_cannot_create_folder_inside_folder">Can’t create folder: missing permission.</string>
+    <string name="document_storage_provider_cannot_delete">Can’t delete item: missing delete permission.</string>
+    <string name="document_storage_provider_cannot_move">Can’t move item: missing move permission.</string>
+    <string name="document_storage_provider_cannot_read">Can’t open item: missing read permission.</string>
+    <string name="document_storage_provider_cannot_rename">Can’t rename item: missing rename permission.</string>
     <string name="done">Done</string>
     <string name="dontClear">Don\'t clear</string>
     <string name="download_cannot_create_file">Cannot create local file</string>
@@ -361,6 +368,7 @@
     <string name="etm_transfer_type">Transfer</string>
     <string name="etm_transfer_type_download">Download</string>
     <string name="etm_transfer_type_upload">Upload</string>
+    <string name="extented_list_fragment_empty_list_message_no_write_permission">You don’t have permission to create or upload files in this folder.</string>
     <string name="external_shares">External shares</string>
     <string name="fab_label">Add or upload</string>
     <string name="failed_to_download">Failed to pass file to download manager</string>
@@ -516,6 +524,7 @@
     <string name="last_backup">Last backup: %1$s</string>
     <string name="link">Link</string>
     <string name="link_name">Link Name</string>
+    <string name="link_not_followed_due_to_security_settings">Link not followed due to security settings.</string>
     <string name="link_share_editing">Editing</string>
     <string name="list_layout">Listed layout</string>
     <string name="load_more_results">Load more results</string>

@@ -247,6 +247,13 @@
     <string name="document_scan_export_dialog_title">Roghnaigh cineál easpórtála</string>
     <string name="document_scan_pdf_generation_failed">Theip ar ghiniúint pdf</string>
     <string name="document_scan_pdf_generation_in_progress">PDF á ghiniúint…</string>
+    <string name="document_storage_provider_cannot_create_file_and_folder">Ní féidir míreanna a chruthú anseo: cead cruthaithe ar iarraidh.</string>
+    <string name="document_storage_provider_cannot_create_file_inside_folder">Ní féidir comhad a chruthú: cead ar iarraidh.</string>
+    <string name="document_storage_provider_cannot_create_folder_inside_folder">Ní féidir fillteán a chruthú: cead ar iarraidh.</string>
+    <string name="document_storage_provider_cannot_delete">Ní féidir an mhír a scriosadh: cead scriosta ar iarraidh.</string>
+    <string name="document_storage_provider_cannot_move">Ní féidir an mhír a bhogadh: cead bogtha ar iarraidh.</string>
+    <string name="document_storage_provider_cannot_read">Ní féidir an mhír a oscailt: cead léite ar iarraidh.</string>
+    <string name="document_storage_provider_cannot_rename">Ní féidir an mhír a athainmniú: cead athainmnithe ar iarraidh.</string>
     <string name="done">Déanta</string>
     <string name="dontClear">Ná soiléir</string>
     <string name="download_cannot_create_file">Ní féidir comhad áitiúil a chruthú</string>
@@ -361,6 +368,7 @@
     <string name="etm_transfer_type">Aistriú</string>
     <string name="etm_transfer_type_download">Íoslódáil</string>
     <string name="etm_transfer_type_upload">Uaslódáil</string>
+    <string name="extented_list_fragment_empty_list_message_no_write_permission">Níl cead agat comhaid a chruthú ná a uaslódáil sa fhillteán seo.</string>
     <string name="external_shares">Scaireanna seachtracha</string>
     <string name="fab_label">Cuir leis nó uaslódáil</string>
     <string name="failed_to_download">Theip ar an gcomhad a chur ar aghaidh chuig an mbainisteoir íoslódála</string>
@@ -516,6 +524,7 @@
     <string name="last_backup">Cúltaca is déanaí: %1$s</string>
     <string name="link">Nasc</string>
     <string name="link_name">Ainm Nasc</string>
+    <string name="link_not_followed_due_to_security_settings">Níor leanadh an nasc mar gheall ar shocruithe slándála.</string>
     <string name="link_share_editing">Eagarthóireacht</string>
     <string name="list_layout">Leagan amach liostaithe</string>
     <string name="load_more_results">Íoslódáil níos mó torthaí</string>
