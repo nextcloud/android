@@ -230,4 +230,12 @@ class AutoRenameTests : AbstractOnServerIT() {
         val expectedFilename = "readme.txt"
         assert(result == expectedFilename) { "Expected $expectedFilename but got $result" }
     }
+
+    @Test
+    fun testFolderNameLowercase() {
+        val filename = "Foo.Bar.Baz"
+        val result = AutoRename.rename(filename, capability, isFolderPath = true)
+        val expectedFilename = "Foo.Bar.Baz"
+        assert(result == expectedFilename) { "Expected $expectedFilename but got $result" }
+    }
 }
