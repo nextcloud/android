@@ -484,7 +484,7 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
         }
     }
 
-    static class LocalFileListGridItemViewHolder extends RecyclerView.ViewHolder {
+    private static class LocalFileListGridItemViewHolder extends RecyclerView.ViewHolder {
         protected final TextView fileName;
         protected final ImageView thumbnail;
         protected final ImageView checkbox;
