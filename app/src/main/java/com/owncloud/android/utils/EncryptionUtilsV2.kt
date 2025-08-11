@@ -13,6 +13,7 @@ import androidx.annotation.VisibleForTesting
 import com.google.gson.reflect.TypeToken
 import com.nextcloud.client.account.User
 import com.nextcloud.utils.autoRename.AutoRename
+import com.nextcloud.utils.extensions.showToast
 import com.owncloud.android.MainApp
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.ArbitraryDataProvider
@@ -171,6 +172,11 @@ class EncryptionUtilsV2 {
         context: Context,
         arbitraryDataProvider: ArbitraryDataProvider
     ): DecryptedFolderMetadataFile {
+        if (signature.isEmpty()) {
+            context.showToast(R.string.e2e_signature_is_empty)
+            throw IllegalStateException("Cannot decryptFolderMetadataFile, signature is empty")
+        }
+
         val parent =
             storageManager.getFileById(ocFile.parentId) ?: throw IllegalStateException("Cannot retrieve metadata")
 
@@ -945,10 +951,6 @@ class EncryptionUtilsV2 {
         oldCounter: Long,
         signature: String
     ) {
-        if (signature.isEmpty()) {
-            return
-        }
-
         if (decryptedFolderMetadataFile.metadata.counter < oldCounter) {
             MainApp.showMessage(R.string.e2e_counter_too_old)
             return
