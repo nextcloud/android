@@ -1150,6 +1150,7 @@
     <string name="direct_login_text">Login with %1$s to %2$s</string>
     <string name="direct_login_failed">Login via direct link failed!</string>
 
+    <string name="e2e_signature_is_empty">Could not verify metadata, signature is empty.</string>
     <string name="e2e_counter_too_old">Counter is too old</string>
     <string name="e2e_hash_not_found">Hash not found</string>
     <string name="e2e_signature_does_not_match">Signature does not match</string>
