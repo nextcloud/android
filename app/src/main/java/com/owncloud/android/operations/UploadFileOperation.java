@@ -95,6 +95,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicReference;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
@@ -145,7 +146,7 @@ public class UploadFileOperation extends SyncOperation {
     /**
      * Local path to file which is to be uploaded (before any possible renaming or moving).
      */
-    private String mOriginalStoragePath;
+    private final AtomicReference<String> mOriginalStoragePath;
     private final Set<OnDatatransferProgressListener> mDataTransferListeners = new HashSet<>();
     private OnRenameListener mRenameUploadListener;
 
@@ -263,7 +264,7 @@ public class UploadFileOperation extends SyncOperation {
         mRemotePath = upload.getRemotePath();
         mNameCollisionPolicy = nameCollisionPolicy;
         mLocalBehaviour = localBehaviour;
-        mOriginalStoragePath = mFile.getStoragePath();
+        mOriginalStoragePath = new AtomicReference<>(mFile.getStoragePath());
         mContext = context;
         mOCUploadId = upload.getUploadId();
         mCreatedBy = upload.getCreatedBy();
@@ -307,7 +308,7 @@ public class UploadFileOperation extends SyncOperation {
     }
 
     public String getOriginalStoragePath() {
-        return mOriginalStoragePath;
+        return mOriginalStoragePath.get();
     }
 
     public String getStoragePath() {
@@ -455,7 +456,7 @@ public class UploadFileOperation extends SyncOperation {
     @SuppressLint("AndroidLintUseSparseArrays") // gson cannot handle sparse arrays easily, therefore use hashmap
     private RemoteOperationResult encryptedUpload(OwnCloudClient client, OCFile parentFile) {
         RemoteOperationResult result = null;
-        E2EFiles e2eFiles = new E2EFiles(parentFile, null, new File(mOriginalStoragePath), null, null);
+        E2EFiles e2eFiles = new E2EFiles(parentFile, null, new File(mOriginalStoragePath.get()), null, null);
         FileLock fileLock = null;
         long size;
 
@@ -956,7 +957,7 @@ public class UploadFileOperation extends SyncOperation {
     private RemoteOperationResult normalUpload(OwnCloudClient client) {
         RemoteOperationResult result = null;
         File temporalFile = null;
-        File originalFile = new File(mOriginalStoragePath);
+        File originalFile = new File(mOriginalStoragePath.get());
         File expectedFile = null;
         long size;
 
@@ -1107,7 +1108,7 @@ public class UploadFileOperation extends SyncOperation {
                 result = new RemoteOperationResult(ResultCode.UNKNOWN_ERROR);
             }
 
-            logResult(result, mOriginalStoragePath, mRemotePath);
+            logResult(result, mOriginalStoragePath.get(), mRemotePath);
         } catch (Exception e) {
             result = new RemoteOperationResult(e);
         }
@@ -1227,7 +1228,7 @@ public class UploadFileOperation extends SyncOperation {
 
         String expectedPath = FileStorageUtils.getDefaultSavePathFor(user.getAccountName(), mFile);
         File expectedFile = new File(expectedPath);
-        File originalFile = new File(mOriginalStoragePath);
+        File originalFile = new File(mOriginalStoragePath.get());
         String temporalPath = FileStorageUtils.getInternalTemporalPath(user.getAccountName(), mContext) + mFile.getRemotePath();
         File temporalFile = new File(temporalPath);
 
@@ -1486,8 +1487,8 @@ public class UploadFileOperation extends SyncOperation {
             try {
                 if (!mOriginalStoragePath.equals(targetFile.getAbsolutePath())) {
                     // In case document provider schema as 'content://'
-                    if (mOriginalStoragePath.startsWith(UriUtils.URI_CONTENT_SCHEME)) {
-                        Uri uri = Uri.parse(mOriginalStoragePath);
+                    if (mOriginalStoragePath.get().startsWith(UriUtils.URI_CONTENT_SCHEME)) {
+                        Uri uri = Uri.parse(mOriginalStoragePath.get());
                         in = mContext.getContentResolver().openInputStream(uri);
                     } else {
                         in = new FileInputStream(sourceFile);
