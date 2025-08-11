@@ -41,6 +41,7 @@ import com.owncloud.android.lib.resources.e2ee.UpdateMetadataV2RemoteOperation
 import com.owncloud.android.operations.UploadException
 import org.apache.commons.httpclient.HttpStatus
 import org.bouncycastle.asn1.ASN1Sequence
+import org.bouncycastle.asn1.cms.CMSAttributes
 import org.bouncycastle.asn1.cms.ContentInfo
 import org.bouncycastle.cert.jcajce.JcaCertStore
 import org.bouncycastle.cms.CMSProcessableByteArray
@@ -986,18 +987,22 @@ class EncryptionUtilsV2 {
 
     fun verifySignedData(data: CMSSignedData, certs: List<X509Certificate>): Boolean {
         val signer: SignerInformation = data.signerInfos.signers.iterator().next() as SignerInformation
+        val verifierBuilder = JcaSimpleSignerInfoVerifierBuilder()
+        val signTime = signer.getSignedAttributes().get(CMSAttributes.signingTime)
+        var verifiedCertCount = 0
 
         certs.forEach {
             try {
-                if (signer.verify(JcaSimpleSignerInfoVerifierBuilder().build(it))) {
-                    return true
+                val verifier = verifierBuilder.build(it)
+                if (signer.verify(verifier)) {
+                    verifiedCertCount += 1
                 }
-            } catch (e: java.lang.Exception) {
+            } catch (e: Exception) {
                 Log_OC.e(TAG, "Error caught at verifySignedData: $e")
             }
         }
 
-        return false
+        return verifiedCertCount == certs.count()
     }
 
     private fun signMessage(cert: X509Certificate, key: PrivateKey, data: ByteArray): CMSSignedData {
