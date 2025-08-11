@@ -12,21 +12,26 @@ import com.nextcloud.utils.extensions.forbiddenFilenameCharacters
 import com.nextcloud.utils.extensions.forbiddenFilenameExtensions
 import com.nextcloud.utils.extensions.shouldRemoveNonPrintableUnicodeCharactersAndConvertToUTF8
 import com.owncloud.android.datamodel.OCFile
+import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.lib.resources.status.NextcloudVersion
 import com.owncloud.android.lib.resources.status.OCCapability
 import org.apache.commons.io.FilenameUtils
 import java.util.regex.Pattern
 
 object AutoRename {
+    private const val TAG = "AutoRename"
     private const val REPLACEMENT = "_"
 
     @Suppress("NestedBlockDepth")
-    fun rename(filename: String, capability: OCCapability): String {
+    @JvmOverloads
+    fun rename(filename: String, capability: OCCapability, isFolderPath: Boolean? = null): String {
+        Log_OC.d(TAG, "Before - $filename")
+
         if (!capability.version.isNewerOrEqual(NextcloudVersion.nextcloud_30)) {
             return filename
         }
 
-        val isFolder = filename.endsWith(OCFile.PATH_SEPARATOR)
+        val isFolder = isFolderPath ?: filename.endsWith(OCFile.PATH_SEPARATOR)
         val pathSegments = filename.split(OCFile.PATH_SEPARATOR).toMutableList()
 
         capability.run {
@@ -76,14 +81,18 @@ object AutoRename {
         }
 
         val filenameWithExtension = pathSegments.joinToString(OCFile.PATH_SEPARATOR)
-        val result = if (isFolder) filenameWithExtension else lowercaseFileExtension(filenameWithExtension)
+        val updatedFileName = if (isFolder) filenameWithExtension else lowercaseFileExtension(filenameWithExtension)
 
-        return if (capability.shouldRemoveNonPrintableUnicodeCharactersAndConvertToUTF8()) {
-            val utf8Result = convertToUTF8(result)
+        val result = if (capability.shouldRemoveNonPrintableUnicodeCharactersAndConvertToUTF8()) {
+            val utf8Result = convertToUTF8(updatedFileName)
             removeNonPrintableUnicodeCharacters(utf8Result)
         } else {
-            result
+            updatedFileName
         }.trim()
+
+        Log_OC.d(TAG, "After - $result")
+
+        return result
     }
 
     private fun lowercaseFileExtension(filename: String): String {
