@@ -2,13 +2,12 @@
  * Nextcloud - Android Client
  *
  * SPDX-FileCopyrightText: 2025 Alper Ozturk <alper.ozturk@nextcloud.com>
- * SPDX-FileCopyrightText: 2022 Álvaro Brey <alvaro@alvarobrey.com>
- * SPDX-FileCopyrightText: 2022 Nextcloud GmbH
+ * SPDX-FileCopyrightText: 2019 Tobias Kaminsky <tobias@kaminsky.me>
+ * SPDX-FileCopyrightText: 2019 Nextcloud GmbH
  * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
  */
-package com.owncloud.android.ui.preview
+package com.nextcloud.client
 
-import android.content.Intent
 import androidx.annotation.UiThread
 import androidx.test.core.app.launchActivity
 import androidx.test.espresso.Espresso.onView
@@ -16,6 +15,7 @@ import androidx.test.espresso.IdlingRegistry
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.isRoot
+import com.nextcloud.client.onboarding.FirstRunActivity
 import com.owncloud.android.AbstractIT
 import com.owncloud.android.utils.EspressoIdlingResource
 import com.owncloud.android.utils.ScreenshotTest
@@ -23,12 +23,8 @@ import org.junit.After
 import org.junit.Before
 import org.junit.Test
 
-class PreviewBitmapScreenshotIT : AbstractIT() {
-    private val testClassName = "com.owncloud.android.ui.preview.PreviewBitmapScreenshotIT"
-
-    companion object {
-        private const val PNG_FILE_ASSET = "imageFile.png"
-    }
+class FirstRunActivityIT : AbstractIT() {
+    private val testClassName = "com.nextcloud.client.FirstRunActivityIT"
 
     @Before
     fun registerIdlingResource() {
@@ -43,17 +39,11 @@ class PreviewBitmapScreenshotIT : AbstractIT() {
     @Test
     @UiThread
     @ScreenshotTest
-    fun showBitmap() {
-        val pngFile = getFile(PNG_FILE_ASSET)
-        val intent = Intent(targetContext, PreviewBitmapActivity::class.java).putExtra(
-            PreviewBitmapActivity.EXTRA_BITMAP_PATH,
-            pngFile.absolutePath
-        )
-
-        launchActivity<PreviewBitmapActivity>(intent).use { scenario ->
+    fun open() {
+        launchActivity<FirstRunActivity>().use { scenario ->
             scenario.onActivity { sut ->
                 onIdleSync {
-                    val screenShotName = createName(testClassName + "_" + "showBitmap", "")
+                    val screenShotName = createName(testClassName + "_" + "open", "")
                     onView(isRoot()).check(matches(isDisplayed()))
                     screenshotViaName(sut, screenShotName)
                 }
