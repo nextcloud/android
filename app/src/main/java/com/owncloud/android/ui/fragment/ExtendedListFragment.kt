@@ -18,11 +18,9 @@ package com.owncloud.android.ui.fragment
 
 import android.animation.LayoutTransition
 import android.annotation.SuppressLint
-import android.app.Activity
 import android.content.Context
 import android.content.res.Configuration
 import android.os.Bundle
-import android.text.TextUtils
 import android.util.DisplayMetrics
 import android.view.KeyEvent
 import android.view.LayoutInflater
@@ -43,7 +41,6 @@ import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.appcompat.widget.SearchView
 import androidx.core.content.ContextCompat
-import androidx.core.view.MenuItemCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
@@ -120,9 +117,9 @@ open class ExtendedListFragment :
     private var mEmptyListIcon: ImageView? = null
 
     // Save the state of the scroll in browsing
-    private var mIndexes: ArrayList<Int?>? = ArrayList()
-    private var mFirstPositions: ArrayList<Int?>? = ArrayList()
-    private var mTops: ArrayList<Int?>? = ArrayList()
+    private var mIndexes = arrayListOf<Int?>()
+    private var mFirstPositions = arrayListOf<Int?>()
+    private var mTops = arrayListOf<Int?>()
     private var mHeightCell = 0
 
     private var mOnRefreshListener: OnRefreshListener? = null
@@ -168,16 +165,15 @@ open class ExtendedListFragment :
     @Deprecated("Deprecated in Java")
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         val item = menu.findItem(R.id.action_search)
-        searchView = MenuItemCompat.getActionView(item) as SearchView?
+        searchView = item.actionView as SearchView?
         viewThemeUtils.androidx.themeToolbarSearchView(searchView!!)
         closeButton = searchView?.findViewById(androidx.appcompat.R.id.search_close_btn)
         searchView?.setOnQueryTextListener(this)
         searchView?.setOnCloseListener(this)
 
         val displayMetrics = DisplayMetrics()
-        val activity: Activity?
-        if ((getActivity().also { activity = it }) != null) {
-            activity?.windowManager?.defaultDisplay?.getMetrics(displayMetrics)
+        activity?.let { activity ->
+            activity.windowManager?.defaultDisplay?.getMetrics(displayMetrics)
             val width = displayMetrics.widthPixels
             if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
                 searchView?.setMaxWidth((width * 0.4).toInt())
@@ -192,20 +188,21 @@ open class ExtendedListFragment :
 
         searchView?.setOnQueryTextFocusChangeListener { _: View?, hasFocus: Boolean ->
             lifecycleScope.launch(Dispatchers.Main) {
-                if (getActivity() != null &&
-                    (getActivity() !is FolderPickerActivity) &&
-                    (getActivity() !is UploadFilesActivity)
-                ) {
-                    if (getActivity() is FileDisplayActivity) {
-                        val fragment = (getActivity() as FileDisplayActivity).leftFragment
-                        if (fragment is OCFileListFragment) {
-                            fragment.setFabVisible(!hasFocus)
-                        }
-                    }
+                val activity = activity
 
-                    if (TextUtils.isEmpty(searchView?.query)) {
-                        closeButton?.setVisibility(View.INVISIBLE)
+                if (activity == null || (activity is FolderPickerActivity) || (activity is UploadFilesActivity)) {
+                    return@launch
+                }
+
+                if (activity is FileDisplayActivity) {
+                    val fragment = activity.leftFragment
+                    if (fragment is OCFileListFragment) {
+                        fragment.setFabVisible(!hasFocus)
                     }
+                }
+
+                if (searchView?.query.isNullOrEmpty()) {
+                    closeButton?.visibility = View.INVISIBLE
                 }
             }
         }
@@ -217,7 +214,7 @@ open class ExtendedListFragment :
             searchView?.onActionViewExpanded()
 
             val inputMethodManager =
-                getActivity()?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager?
+                activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager?
             inputMethodManager?.showSoftInput(searchView, InputMethodManager.SHOW_IMPLICIT)
         }
 
@@ -228,9 +225,9 @@ open class ExtendedListFragment :
     override fun onQueryTextChange(query: String): Boolean {
         // After 300 ms, set the query
 
-        closeButton?.setVisibility(View.VISIBLE)
+        closeButton?.visibility = View.VISIBLE
         if (query.isEmpty()) {
-            closeButton?.setVisibility(View.INVISIBLE)
+            closeButton?.visibility = View.INVISIBLE
         }
         return false
     }
@@ -252,11 +249,11 @@ open class ExtendedListFragment :
 
     fun performSearch(query: String, listOfHiddenFiles: ArrayList<String?>?, isBackPressed: Boolean) {
         val adapter = recyclerView?.adapter
-        val activity: Activity? = activity
+        val activity = activity ?: return
 
-        if (activity != null) {
-            if (activity is FileDisplayActivity) {
-                if (isBackPressed && TextUtils.isEmpty(query)) {
+        when (activity) {
+            is FileDisplayActivity -> {
+                if (isBackPressed && query.isEmpty()) {
                     activity.resetSearchView()
                     activity.updateListOfFilesFragment(true)
                 } else {
@@ -280,13 +277,17 @@ open class ExtendedListFragment :
                     }
                     searchView?.clearFocus()
                 }
-            } else if (activity is UploadFilesActivity) {
-                val localFileListAdapter = adapter as LocalFileListAdapter?
-                if (localFileListAdapter != null) {
+            }
+
+            is UploadFilesActivity -> {
+                val localFileListAdapter = adapter
+                if (adapter is LocalFileListAdapter) {
                     localFileListAdapter.filter(query)
                     activity.fileListFragment.setLoading(false)
                 }
-            } else if (activity is FolderPickerActivity) {
+            }
+
+            is FolderPickerActivity -> {
                 activity.search(query)
             }
         }
@@ -369,14 +370,14 @@ open class ExtendedListFragment :
 
     @SuppressLint("NotifyDataSetChanged")
     protected open fun setGridViewColumns(scaleFactor: Float) {
-        if (mRecyclerView?.layoutManager is GridLayoutManager) {
-            val gridLayoutManager = mRecyclerView?.layoutManager as GridLayoutManager
+        val gridLayoutManager = mRecyclerView?.layoutManager
+        if (gridLayoutManager is GridLayoutManager) {
             if (mScale == -1f) {
                 gridLayoutManager.setSpanCount(GridView.AUTO_FIT)
                 mScale = gridLayoutManager.spanCount.toFloat()
             }
             mScale *= 2f - scaleFactor
-            mScale = max(MIN_COLUMN_SIZE.toDouble(), min(mScale.toDouble(), maxColumnSize.toDouble())).toFloat()
+            mScale = max(MIN_COLUMN_SIZE, min(mScale, maxColumnSize.toFloat()))
             val scaleInt = mScale.roundToInt()
             gridLayoutManager.setSpanCount(scaleInt)
             mRecyclerView?.adapter?.notifyDataSetChanged()
@@ -407,9 +408,9 @@ open class ExtendedListFragment :
             return
         }
 
-        mIndexes = savedInstanceState.getIntegerArrayList(KEY_INDEXES)
-        mFirstPositions = savedInstanceState.getIntegerArrayList(KEY_FIRST_POSITIONS)
-        mTops = savedInstanceState.getIntegerArrayList(KEY_TOPS)
+        savedInstanceState.getIntegerArrayList(KEY_INDEXES)?.let { mIndexes = it }
+        savedInstanceState.getIntegerArrayList(KEY_FIRST_POSITIONS)?.let { mFirstPositions = it }
+        savedInstanceState.getIntegerArrayList(KEY_TOPS)?.let { mTops = it }
         mHeightCell = savedInstanceState.getInt(KEY_HEIGHT_CELL)
         setMessageForEmptyList(savedInstanceState.getString(KEY_EMPTY_LIST_MESSAGE))
 
@@ -450,15 +451,15 @@ open class ExtendedListFragment :
      * Restore index and position
      */
     protected fun restoreIndexAndTopPosition() {
-        if (mIndexes == null || mIndexes?.isEmpty() == true) {
+        if (mIndexes.isEmpty()) {
             Log_OC.d(TAG, "Indexes is null or empty")
             return
         }
 
         // needs to be checked; not every browse-up had a browse-down before
-        val index = mIndexes?.removeAt(mIndexes!!.size - 1)
-        val firstPosition = mFirstPositions?.removeAt(mFirstPositions!!.size - 1)!!
-        val top = mTops?.removeAt(mTops!!.size - 1)
+        val index = mIndexes.removeAt(mIndexes.size - 1)
+        val firstPosition = mFirstPositions.removeAt(mFirstPositions.size - 1)
+        val top = mTops.removeAt(mTops.size - 1)
 
         Log_OC.v(
             TAG,
@@ -468,16 +469,16 @@ open class ExtendedListFragment :
                 )
         )
 
-        scrollToPosition(firstPosition)
+        firstPosition?.let { scrollToPosition(it) }
     }
 
     private fun scrollToPosition(position: Int) {
-        val linearLayoutManager = mRecyclerView?.layoutManager as LinearLayoutManager?
+        val layoutManager = mRecyclerView?.layoutManager
 
-        if (linearLayoutManager != null) {
-            val visibleItemCount = linearLayoutManager.findLastCompletelyVisibleItemPosition() -
-                linearLayoutManager.findFirstCompletelyVisibleItemPosition()
-            linearLayoutManager.scrollToPositionWithOffset(position, (visibleItemCount / 2) * mHeightCell)
+        if (layoutManager is LinearLayoutManager) {
+            val visibleItemCount = layoutManager.findLastCompletelyVisibleItemPosition() -
+                layoutManager.findFirstCompletelyVisibleItemPosition()
+            layoutManager.scrollToPositionWithOffset(position, (visibleItemCount / 2) * mHeightCell)
         }
     }
 
@@ -485,9 +486,7 @@ open class ExtendedListFragment :
      * Save index and top position
      */
     protected fun saveIndexAndTopPosition(index: Int) {
-        if (mIndexes != null) {
-            mIndexes?.add(index)
-        }
+        mIndexes.add(index)
 
         val layoutManager = mRecyclerView?.layoutManager
         val firstPosition: Int = if (layoutManager is GridLayoutManager) {
@@ -496,12 +495,12 @@ open class ExtendedListFragment :
             (layoutManager as LinearLayoutManager).findFirstCompletelyVisibleItemPosition()
         }
 
-        mFirstPositions?.add(firstPosition)
+        mFirstPositions.add(firstPosition)
 
         val view = mRecyclerView?.getChildAt(0)
         val top = view?.top ?: 0
 
-        mTops?.add(top)
+        mTops.add(top)
 
         // Save the height of a cell
         mHeightCell = if (view == null || mHeightCell != 0) mHeightCell else view.height
@@ -515,8 +514,8 @@ open class ExtendedListFragment :
         if (searchView != null) {
             searchView?.onActionViewCollapsed()
 
-            val activity: Activity?
-            if ((getActivity().also { activity = it }) != null && activity is FileDisplayActivity) {
+            val activity = activity
+            if (activity is FileDisplayActivity) {
                 activity.setDrawerIndicatorEnabled(activity.isDrawerIndicatorAvailable)
                 activity.hideSearchView(activity.getCurrentDir())
             }
@@ -594,7 +593,7 @@ open class ExtendedListFragment :
                 mEmptyListIcon?.setImageResource(icon)
             }
 
-            mEmptyListIcon?.setVisibility(View.VISIBLE)
+            mEmptyListIcon?.visibility = View.VISIBLE
             mEmptyListMessage?.visibility = View.VISIBLE
         }
     }
@@ -693,7 +692,7 @@ open class ExtendedListFragment :
                     }
                     mEmptyListHeadline?.setText(R.string.file_list_loading)
                     mEmptyListMessage?.text = ""
-                    mEmptyListIcon?.setVisibility(View.GONE)
+                    mEmptyListIcon?.visibility = View.GONE
                 }
             )
         }
