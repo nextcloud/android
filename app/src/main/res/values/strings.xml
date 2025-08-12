@@ -462,7 +462,6 @@
     <string name="preview_media_unhandled_http_code_message">File is currently locked by another user or process and therefore not deletable. Please try again later.</string>
 
     <string name="preview_sorry">Sorry</string>
-    <string name="preview_image_file_is_not_exist">File does not exist</string>
     <string name="preview_image_file_is_not_downloaded">File is not downloaded</string>
     <string name="preview_image_downloading_image_for_edit">Downloading image to start the edit screen, please wait…</string>
     <string name="preview_image_description">Image preview</string>
