@@ -341,7 +341,7 @@ class PreviewImageActivity :
         dismissLoadingDialog()
         screenState = PreviewImageActivityState.Idle
         file = downloadedFile
-        startEditImageActivity()
+        startEditImageActivity(file)
     }
 
     override fun onResume() {
@@ -508,7 +508,7 @@ class PreviewImageActivity :
 
     fun startImageEditor(file: OCFile) {
         if (file.isDown) {
-            startEditImageActivity()
+            startEditImageActivity(file)
         } else {
             showLoadingDialog(getString(R.string.preview_image_downloading_image_for_edit))
             screenState = PreviewImageActivityState.Edit
@@ -516,12 +516,7 @@ class PreviewImageActivity :
         }
     }
 
-    private fun startEditImageActivity() {
-        if (file == null) {
-            DisplayUtils.showSnackMessage(this, R.string.preview_image_file_is_not_exist)
-            return
-        }
-
+    private fun startEditImageActivity(file: OCFile) {
         if (!file.isDown) {
             DisplayUtils.showSnackMessage(this, R.string.preview_image_file_is_not_downloaded)
             return
