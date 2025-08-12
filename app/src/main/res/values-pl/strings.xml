@@ -247,6 +247,13 @@
     <string name="document_scan_export_dialog_title">Wybierz typ eksportu</string>
     <string name="document_scan_pdf_generation_failed">Generowanie pliku PDF nie powiodło się</string>
     <string name="document_scan_pdf_generation_in_progress">Generowanie pliku PDF…</string>
+    <string name="document_storage_provider_cannot_create_file_and_folder">Nie można tworzyć elementów: brak uprawnień do tworzenia.</string>
+    <string name="document_storage_provider_cannot_create_file_inside_folder">Nie można utworzyć pliku: brak uprawnień.</string>
+    <string name="document_storage_provider_cannot_create_folder_inside_folder">Nie można utworzyć folderu: brak uprawnień.</string>
+    <string name="document_storage_provider_cannot_delete">Nie można usunąć elementu: brak uprawnień do usuwania.</string>
+    <string name="document_storage_provider_cannot_move">Nie można przenieść elementu: brak uprawnień do przenoszenia.</string>
+    <string name="document_storage_provider_cannot_read">Nie można otworzyć elementu: brak uprawnień do odczytu.</string>
+    <string name="document_storage_provider_cannot_rename">Nie można zmienić nazwy elementu: brak uprawnień do zmiany nazwy.</string>
     <string name="done">Zrobione</string>
     <string name="dontClear">Nie czyść</string>
     <string name="download_cannot_create_file">Nie można utworzyć pliku lokalnego</string>
@@ -326,6 +333,7 @@
     <string name="error_comment_file">Błąd przy komentowaniu pliku</string>
     <string name="error_crash_title">%1$s zatrzymany</string>
     <string name="error_creating_file_from_template">Błąd podczas tworzenia pliku z szablonu</string>
+    <string name="error_fetching_sharees">Nie można pobrać listy udostępnień.</string>
     <string name="error_file_actions">Błąd podczas wyświetlania aktywności na plikach</string>
     <string name="error_file_lock">Błąd podczas zmiany statusu blokady pliku</string>
     <string name="error_report_issue_action">Raport</string>
@@ -360,6 +368,7 @@
     <string name="etm_transfer_type">Transfer</string>
     <string name="etm_transfer_type_download">Pobierz</string>
     <string name="etm_transfer_type_upload">Wyślij</string>
+    <string name="extented_list_fragment_empty_list_message_no_write_permission">Nie masz uprawnień do tworzenia ani przesyłania plików w tym folderze.</string>
     <string name="external_shares">Udostępnienia zewnętrzne</string>
     <string name="fab_label">Dodaj lub wyślij</string>
     <string name="failed_to_download">Nie udało się przekazać pliku do menedżera pobierania</string>
@@ -515,6 +524,7 @@
     <string name="last_backup">Ostatnia kopia zapasowa: %1$s</string>
     <string name="link">Odnośnik</string>
     <string name="link_name">Nazwa linku</string>
+    <string name="link_not_followed_due_to_security_settings">Link nie został otwarty z powodu ustawień zabezpieczeń.</string>
     <string name="link_share_editing">Edytowanie</string>
     <string name="list_layout">Wygląd listy</string>
     <string name="load_more_results">Wczytaj więcej wyników</string>
