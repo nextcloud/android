@@ -23,6 +23,8 @@ internal class OCFileListGridItemViewHolder(var binding: GridItemBinding) :
     ListGridItemViewHolder {
     override val fileName: TextView
         get() = binding.Filename
+    override val extension: TextView
+        get() = binding.extension
     override val thumbnail: ImageView
         get() = binding.thumbnail
 
