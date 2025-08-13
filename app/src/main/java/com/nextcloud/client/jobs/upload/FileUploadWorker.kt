@@ -323,6 +323,9 @@ class FileUploadWorker(
     private val minProgressUpdateInterval = 750
     private var lastUpdateTime = 0L
 
+    /**
+     * Receives from [com.owncloud.android.operations.UploadFileOperation.normalUpload]
+     */
     @Suppress("MagicNumber")
     override fun onTransferProgress(
         progressRate: Long,

@@ -1041,7 +1041,10 @@ public class UploadFileOperation extends SyncOperation {
                                                                  mDisableRetries);
             }
 
-            // adds the onTransferProgress in FileUploadWorker
+            /**
+             * Adds the onTransferProgress in FileUploadWorker
+             * {@link FileUploadWorker#onTransferProgress(long, long, long, String)()}
+             */
             for (OnDatatransferProgressListener mDataTransferListener : mDataTransferListeners) {
                 mUploadOperation.addDataTransferProgressListener(mDataTransferListener);
             }
