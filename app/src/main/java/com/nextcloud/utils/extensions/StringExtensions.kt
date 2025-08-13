@@ -34,9 +34,3 @@ object StringConstants {
     const val THREE_DOT = "..."
     const val TEMP = "tmp"
 }
-
-fun String.getContentOfPublicKey(): String {
-    return replace("-----BEGIN PUBLIC KEY-----", "")
-        .replace("-----END PUBLIC KEY-----", "")
-        .replace("\\s+".toRegex(), "")
-}
