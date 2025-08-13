@@ -152,6 +152,7 @@
         tools:visibility="visible" />
 
     <LinearLayout
+        android:id="@+id/filename_and_extension_layout"
         android:layout_width="0dp"
         android:layout_height="@dimen/grid_bottom_view_height"
         app:layout_constraintEnd_toEndOf="parent"
@@ -197,7 +198,7 @@
         android:contentDescription="@string/overflow_menu"
         android:translationZ="2dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/Filename"
+        app:layout_constraintStart_toEndOf="@id/filename_and_extension_layout"
         app:layout_constraintTop_toBottomOf="@id/thumbnail"
         app:srcCompat="@drawable/ic_dots_vertical"
         tools:ignore="TouchTargetSizeCheck" />
