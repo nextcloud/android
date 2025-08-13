@@ -16,7 +16,9 @@ import org.junit.Test
 import java.io.File
 import java.util.Locale
 
+@Suppress("TooManyFunctions")
 class FileStorageUtilsTest {
+
     @Test
     fun testValidFilenames() {
         assertTrue(FileStorageUtils.isValidExtFilename("example.txt"))
@@ -206,5 +208,54 @@ class FileStorageUtilsTest {
         val expected = "/Camera/2019/10/subfolder/file.jpg"
 
         assertEquals(expected, result)
+    }
+
+    @Test
+    fun testGetFilenameAndExtensionWhenGivenInvalidFilenamesWithSpecialChars() {
+        val result = FileStorageUtils.getFilenameAndExtension("invoice\u202Ecod.exe", false, false)
+        assertEquals("invoice\u202Ecod", result.first)
+        assertEquals(".exe", result.second)
+    }
+
+    @Test
+    fun testGetFilenameAndExtensionWhenGivenMultipleDotsInFilename() {
+        val result = FileStorageUtils.getFilenameAndExtension("archive.tar.gz", false, false)
+        assertEquals("archive.tar", result.first)
+        assertEquals(".gz", result.second)
+    }
+
+    @Test
+    fun testGetFilenameAndExtensionWhenGivenFolderName() {
+        val result = FileStorageUtils.getFilenameAndExtension("myFolder", true, false)
+        assertEquals("myFolder", result.first)
+        assertEquals("", result.second)
+    }
+
+    @Test
+    fun testGetFilenameAndExtensionWhenGivenNormalFile() {
+        val result = FileStorageUtils.getFilenameAndExtension("document.txt", false, false)
+        assertEquals("document", result.first)
+        assertEquals(".txt", result.second)
+    }
+
+    @Test
+    fun testGetFilenameAndExtensionRTL() {
+        val result = FileStorageUtils.getFilenameAndExtension("document.txt", false, true)
+        assertEquals(".txt", result.first)
+        assertEquals("document", result.second)
+    }
+
+    @Test
+    fun testGetFilenameAndExtensionRTLEmptyExtension() {
+        val result = FileStorageUtils.getFilenameAndExtension("document", false, true)
+        assertEquals("", result.first)
+        assertEquals("document", result.second)
+    }
+
+    @Test
+    fun testGetFilenameAndExtensionEmptyExtension() {
+        val result = FileStorageUtils.getFilenameAndExtension("document", false, false)
+        assertEquals("document", result.first)
+        assertEquals("", result.second)
     }
 }

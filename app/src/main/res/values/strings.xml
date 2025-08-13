@@ -448,7 +448,8 @@
     <string name="ssl_validator_no_info_about_error">- No information about the error</string>
 
     <string name="placeholder_sentence">This is a placeholder</string>
-    <string name="placeholder_filename">placeholder.txt</string>
+    <string name="placeholder_filename">placeholder</string>
+    <string name="placeholder_extension">.txt</string>
     <string name="placeholder_fileSize">389 KB</string>
     <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
     <string name="placeholder_media_time">12:23:45</string>

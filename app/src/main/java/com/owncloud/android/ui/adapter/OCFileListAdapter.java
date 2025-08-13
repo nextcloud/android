@@ -123,6 +123,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private FileDataStorageManager mStorageManager;
     private User user;
     private final OCFileListFragmentInterface ocFileListFragmentInterface;
+    private final boolean isRTL;
 
     private OCFile currentDirectory;
     private static final String TAG = OCFileListAdapter.class.getSimpleName();
@@ -195,6 +196,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
         // initialise thumbnails cache on background thread
         ThumbnailsCacheManager.initDiskCacheAsync();
+        isRTL = FileStorageUtils.isRTL();
     }
 
     public boolean isMultiSelect() {
@@ -478,7 +480,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             }
 
             if (holder instanceof ListGridItemViewHolder gridItemViewHolder) {
-                bindListGridItemViewHolder(gridItemViewHolder, file);
+                setFileNameAndExtension(gridItemViewHolder, file);
                 checkVisibilityOfFileFeaturesLayout(gridItemViewHolder);
             }
 
@@ -558,8 +560,19 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         }
     }
 
-    private void bindListGridItemViewHolder(ListGridItemViewHolder holder, OCFile file) {
-        holder.getFileName().setText(mStorageManager.getFilenameConsideringOfflineOperation(file));
+    private void setFileNameAndExtension(ListGridItemViewHolder holder, OCFile file) {
+        final String filename = mStorageManager.getFilenameConsideringOfflineOperation(file);
+        final var pair = FileStorageUtils.getFilenameAndExtension(filename, file.isFolder(), isRTL);
+
+        if (file.isFolder()) {
+            holder.getFileName().setText(pair.getFirst());
+            holder.getExtension().setVisibility(View.GONE);
+            return;
+        }
+
+        holder.getExtension().setVisibility(View.VISIBLE);
+        holder.getFileName().setText(pair.getFirst());
+        holder.getExtension().setText(pair.getSecond());
     }
 
     private void bindListItemViewHolder(ListItemViewHolder holder, OCFile file) {
