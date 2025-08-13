@@ -66,7 +66,6 @@ import com.nextcloud.utils.extensions.ActivityExtensionsKt;
 import com.nextcloud.utils.extensions.BundleExtensionsKt;
 import com.nextcloud.utils.extensions.FileExtensionsKt;
 import com.nextcloud.utils.extensions.IntentExtensionsKt;
-import com.nextcloud.utils.extensions.ViewExtensionsKt;
 import com.nextcloud.utils.fileNameValidator.FileNameValidator;
 import com.nextcloud.utils.view.FastScrollUtils;
 import com.owncloud.android.MainApp;
@@ -263,6 +262,7 @@ public class FileDisplayActivity extends FileActivity
         return intent;
     }
 
+    @SuppressLint("UnsafeIntentLaunch")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log_OC.v(TAG, "onCreate() start");
@@ -270,6 +270,12 @@ public class FileDisplayActivity extends FileActivity
         setTheme(R.style.Theme_ownCloud_Toolbar_Drawer);
 
         super.onCreate(savedInstanceState);
+
+        final Intent intent = getIntent();
+        if (intent != null) {
+            handleCommonIntents(intent);
+        }
+
         loadSavedInstanceState(savedInstanceState);
 
         /// USER INTERFACE
@@ -280,10 +286,6 @@ public class FileDisplayActivity extends FileActivity
         // Restoring after UI has been inflated.
         if (savedInstanceState != null) {
             showSortListGroup(savedInstanceState.getBoolean(KEY_IS_SORT_GROUP_VISIBLE));
-        }
-
-        if (Intent.ACTION_VIEW.equals(getIntent().getAction())) {
-            handleOpenFileViaIntent(getIntent());
         }
 
         mPlayerConnection = new PlayerServiceConnection(this);
@@ -396,14 +398,6 @@ public class FileDisplayActivity extends FileActivity
         } else {
             createMinFragments(savedInstanceState);
             syncAndUpdateFolder(true);
-        }
-
-        if (OPEN_FILE.equals(getIntent().getAction())) {
-            getSupportFragmentManager().executePendingTransactions();
-            onOpenFileIntent(getIntent());
-        } else if (RESTART.equals(getIntent().getAction())) {
-            // most likely switched to different account
-            DisplayUtils.showSnackMessage(this, String.format(getString(R.string.logged_in_as), accountManager.getUser().getAccountName()));
         }
 
         upgradeNotificationForInstantUpload();
@@ -534,70 +528,101 @@ public class FileDisplayActivity extends FileActivity
         resetTitleBarAndScrolling();
     }
 
-    // Is called with the flag FLAG_ACTIVITY_SINGLE_TOP and set the new file and intent
+    // region Handle Intents
     @Override
+    @SuppressLint("UnsafeIntentLaunch")
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
-        setIntent(intent);
 
-        if (ACTION_DETAILS.equalsIgnoreCase(intent.getAction())) {
+        if (intent == null) {
+            Log_OC.w(TAG, "onNewIntent, intent is null");
+            return;
+        }
+
+        setIntent(intent);
+        handleCommonIntents(intent);
+        handleSpecialIntents(intent);
+    }
+
+    private void handleSpecialIntents(@NonNull Intent intent) {
+        final String action = intent.getAction();
+
+        if (ACTION_DETAILS.equalsIgnoreCase(action)) {
             OCFile file = IntentExtensionsKt.getParcelableArgument(intent, EXTRA_FILE, OCFile.class);
             setFile(file);
-            setIntent(intent);
             showDetails(file);
-        } else if (Intent.ACTION_VIEW.equals(intent.getAction())) {
-            handleOpenFileViaIntent(intent);
-        } else if (OPEN_FILE.equals(intent.getAction())) {
-            onOpenFileIntent(intent);
-        } else if (RESTART.equals(intent.getAction())) {
-            finish();
-            startActivity(intent);
-        } else {
-            // Verify the action and get the query
-            if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
-                setIntent(intent);
-
-                SearchEvent searchEvent = IntentExtensionsKt.getParcelableArgument(intent, OCFileListFragment.SEARCH_EVENT, SearchEvent.class);
-                if (searchEvent != null) {
-                    if (SearchRemoteOperation.SearchType.PHOTO_SEARCH == searchEvent.getSearchType()) {
-                        Log_OC.d(this, "Switch to photo search fragment");
-
-                        GalleryFragment photoFragment = new GalleryFragment();
-                        Bundle bundle = new Bundle();
-                        bundle.putParcelable(OCFileListFragment.SEARCH_EVENT, searchEvent);
-                        photoFragment.setArguments(bundle);
-                        setLeftFragment(photoFragment);
-                    } else if (searchEvent.getSearchType() == SearchRemoteOperation.SearchType.SHARED_FILTER) {
-                        Log_OC.d(this, "Switch to shared fragment");
-                        SharedListFragment sharedListFragment = new SharedListFragment();
-                        Bundle bundle = new Bundle();
-                        bundle.putParcelable(OCFileListFragment.SEARCH_EVENT, searchEvent);
-                        sharedListFragment.setArguments(bundle);
-                        setLeftFragment(sharedListFragment);
-                    } else {
-                        Log_OC.d(this, "Switch to oc file search fragment");
-
-                        OCFileListFragment photoFragment = new OCFileListFragment();
-                        Bundle bundle = new Bundle();
-                        bundle.putParcelable(OCFileListFragment.SEARCH_EVENT, searchEvent);
-                        photoFragment.setArguments(bundle);
-                        setLeftFragment(photoFragment);
-                    }
-                }
-            } else if (ALL_FILES.equals(intent.getAction())) {
-                Log_OC.d(this, "Switch to oc file fragment");
-                DrawerActivity.menuItemId = R.id.nav_all_files;
-                setLeftFragment(new OCFileListFragment());
-                getSupportFragmentManager().executePendingTransactions();
-                browseToRoot();
-            } else if (LIST_GROUPFOLDERS.equals(intent.getAction())) {
-                Log_OC.d(this, "Switch to list groupfolders fragment");
-                DrawerActivity.menuItemId = R.id.nav_groupfolders;
-                setLeftFragment(new GroupfolderListFragment());
-                getSupportFragmentManager().executePendingTransactions();
-            }
+        } else if (Intent.ACTION_SEARCH.equals(action)) {
+            handleSearchIntent(intent);
+        } else if (ALL_FILES.equals(action)) {
+            Log_OC.d(this, "Switch to oc file fragment");
+            DrawerActivity.menuItemId = R.id.nav_all_files;
+            setLeftFragment(new OCFileListFragment());
+            getSupportFragmentManager().executePendingTransactions();
+            browseToRoot();
+        } else if (LIST_GROUPFOLDERS.equals(action)) {
+            Log_OC.d(this, "Switch to list groupfolders fragment");
+            DrawerActivity.menuItemId = R.id.nav_groupfolders;
+            setLeftFragment(new GroupfolderListFragment());
+            getSupportFragmentManager().executePendingTransactions();
         }
     }
+
+    private void handleCommonIntents(@NonNull Intent intent) {
+        final String action = intent.getAction();
+
+        if (Intent.ACTION_VIEW.equals(action)) {
+            handleOpenFileViaIntent(intent);
+        } else if (OPEN_FILE.equals(action)) {
+            getSupportFragmentManager().executePendingTransactions();
+            onOpenFileIntent(intent);
+        } else if (RESTART.equals(action)) {
+            final String accountName = accountManager.getUser().getAccountName();
+            final String message = getString(R.string.logged_in_as);
+            final String snackBarMessage = String.format(message, accountName);
+            DisplayUtils.showSnackMessage(this, snackBarMessage);
+
+            finish();
+            startActivity(intent);
+        }
+    }
+
+    private void handleSearchIntent(@NonNull Intent intent) {
+        final SearchEvent searchEvent = IntentExtensionsKt.getParcelableArgument(
+            intent, OCFileListFragment.SEARCH_EVENT, SearchEvent.class);
+
+        if (searchEvent == null) {
+            return;
+        }
+
+        switch (searchEvent.getSearchType()) {
+            case PHOTO_SEARCH:
+                Log_OC.d(this, "Switch to photo search fragment");
+                GalleryFragment photoFragment = new GalleryFragment();
+                Bundle photoBundle = new Bundle();
+                photoBundle.putParcelable(OCFileListFragment.SEARCH_EVENT, searchEvent);
+                photoFragment.setArguments(photoBundle);
+                setLeftFragment(photoFragment);
+                break;
+
+            case SHARED_FILTER:
+                Log_OC.d(this, "Switch to shared fragment");
+                SharedListFragment sharedListFragment = new SharedListFragment();
+                Bundle sharedBundle = new Bundle();
+                sharedBundle.putParcelable(OCFileListFragment.SEARCH_EVENT, searchEvent);
+                sharedListFragment.setArguments(sharedBundle);
+                setLeftFragment(sharedListFragment);
+                break;
+
+            default:
+                Log_OC.d(this, "Switch to oc file search fragment");
+                OCFileListFragment searchFragment = new OCFileListFragment();
+                Bundle searchBundle = new Bundle();
+                searchBundle.putParcelable(OCFileListFragment.SEARCH_EVENT, searchEvent);
+                searchFragment.setArguments(searchBundle);
+                setLeftFragment(searchFragment);
+        }
+    }
+    // endregion
 
     private void onOpenFileIntent(Intent intent) {
         String extra = intent.getStringExtra(EXTRA_FILE);
