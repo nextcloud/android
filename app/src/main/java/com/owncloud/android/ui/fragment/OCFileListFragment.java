@@ -121,7 +121,6 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
@@ -710,9 +709,25 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
     @Override
     public void onHeaderClicked() {
-        if (getAdapter() != null && !getAdapter().isMultiSelect() && mContainerActivity instanceof FileDisplayActivity) {
-            ((FileDisplayActivity) mContainerActivity).startRichWorkspacePreview(getCurrentFile());
+        final OCFile file = getCurrentFile();
+        if (file == null) {
+            return;
         }
+
+        if (TextUtils.isEmpty(file.getRichWorkspace())) {
+            return;
+        }
+
+        final var adapter = getAdapter();
+        if (adapter == null || adapter.isMultiSelect()) {
+            return;
+        }
+
+        if (!(mContainerActivity instanceof FileDisplayActivity fda)) {
+            return;
+        }
+
+        fda.startRichWorkspacePreview(file);
     }
 
     @Override
