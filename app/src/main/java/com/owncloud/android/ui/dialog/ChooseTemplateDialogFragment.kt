@@ -64,7 +64,7 @@ class ChooseTemplateDialogFragment :
     TemplateAdapter.ClickListener,
     Injectable {
 
-    private lateinit var fileNames: List<String>
+    private lateinit var fileNames: MutableSet<String>
 
     @Inject
     lateinit var clientFactory: ClientFactory
@@ -129,7 +129,7 @@ class ChooseTemplateDialogFragment :
             else -> savedInstanceState.getString(ARG_HEADLINE)
         }
 
-        fileNames = fileDataStorageManager.getFolderContent(parentFolder, false).map { it.fileName }
+        fileNames = fileDataStorageManager.getFolderContent(parentFolder, false).map { it.fileName }.toMutableSet()
 
         val inflater = requireActivity().layoutInflater
         _binding = ChooseTemplateBinding.inflate(inflater, null, false)
@@ -261,7 +261,8 @@ class ChooseTemplateDialogFragment :
                 DOT + selectedTemplate.extension,
                 ignoreCase = true
             )
-        val fileNameValidatorResult = FileNameValidator.checkFileName(name, getOCCapability(), requireContext())
+        val fileNameValidatorResult =
+            FileNameValidator.checkFileName(name, getOCCapability(), requireContext(), fileNames)
 
         val errorMessage = when {
             isNameJustExtension -> null
