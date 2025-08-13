@@ -12,6 +12,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase
 import com.nextcloud.client.database.migrations.model.SQLiteColumnType
 import com.owncloud.android.db.ProviderMeta.ProviderTableMeta
 
+@Suppress("MagicNumber")
 val MIGRATION_88_89 = object : Migration(88, 89) {
     override fun migrate(database: SupportSQLiteDatabase) {
         DatabaseMigrationUtil.addColumnIfNotExists(

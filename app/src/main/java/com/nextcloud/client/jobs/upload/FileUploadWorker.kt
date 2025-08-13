@@ -59,6 +59,8 @@ class FileUploadWorker(
         const val NOTIFICATION_ERROR_ID: Int = 413
         const val ACCOUNT = "data_account"
         const val UPLOAD_IDS = "uploads_ids"
+        const val CURRENT_BATCH_INDEX = "batch_index"
+        const val TOTAL_UPLOAD_SIZE = "total_upload_size"
         var currentUploadFileOperation: UploadFileOperation? = null
 
         private const val UPLOADS_ADDED_MESSAGE = "UPLOADS_ADDED"
@@ -124,12 +126,35 @@ class FileUploadWorker(
         WorkerStateLiveData.instance().setWorkState(WorkerState.UploadFinished(currentUploadFileOperation?.file))
     }
 
-    @Suppress("ReturnCount")
+    @Suppress("ReturnCount", "LongMethod")
     private fun uploadFiles(): Result {
-        val accountName = inputData.getString(ACCOUNT) ?: return Result.failure()
-        val uploadIds = inputData.getLongArray(UPLOAD_IDS) ?: return Result.success()
+        val accountName = inputData.getString(ACCOUNT)
+        if (accountName == null) {
+            Log_OC.e(TAG, "accountName is null")
+            return Result.failure()
+        }
+
+        val uploadIds = inputData.getLongArray(UPLOAD_IDS)
+        if (uploadIds == null) {
+            Log_OC.e(TAG, "uploadIds is null")
+            return Result.failure()
+        }
+
+        val currentBatchIndex = inputData.getInt(CURRENT_BATCH_INDEX, -1)
+        if (currentBatchIndex == -1) {
+            Log_OC.e(TAG, "currentBatchIndex is -1, cancelling")
+            return Result.failure()
+        }
+
+        val totalUploadSize = inputData.getInt(TOTAL_UPLOAD_SIZE, -1)
+        if (totalUploadSize == -1) {
+            Log_OC.e(TAG, "totalUploadSize is -1, cancelling")
+            return Result.failure()
+        }
+
+        val previouslyUploadedFileSize = currentBatchIndex * FileUploadHelper.MAX_FILE_COUNT
+
         val uploads = uploadIds.map { id -> uploadsStorageManager.getUploadById(id) }.filterNotNull()
-        val totalUploadSize = uploadIds.size
 
         for ((index, upload) in uploads.withIndex()) {
             if (preferences.isGlobalUploadPaused) {
@@ -164,7 +189,7 @@ class FileUploadWorker(
                 operation,
                 cancelPendingIntent = intents.startIntent(operation),
                 startIntent = intents.notificationStartIntent(operation),
-                currentUploadIndex = index,
+                currentUploadIndex = index + previouslyUploadedFileSize,
                 totalUploadSize = totalUploadSize
             )
 
