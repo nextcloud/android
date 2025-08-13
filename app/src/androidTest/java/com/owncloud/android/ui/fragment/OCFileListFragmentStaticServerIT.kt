@@ -231,7 +231,7 @@ class OCFileListFragmentStaticServerIT : AbstractIT() {
                         sut.storageManager.saveFile(this)
                     }
 
-                    OCFile("/Foo\\u202Edm.exe").apply {
+                    OCFile("/Foo%e2%80%aedm.exe").apply {
                         remoteId = "000000011"
                         parentId = sut.storageManager.getFileByEncryptedRemotePath("/").fileId
                         modificationTimestamp = 1000
