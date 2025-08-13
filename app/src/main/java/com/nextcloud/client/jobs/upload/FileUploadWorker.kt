@@ -126,7 +126,7 @@ class FileUploadWorker(
         WorkerStateLiveData.instance().setWorkState(WorkerState.UploadFinished(currentUploadFileOperation?.file))
     }
 
-    @Suppress("ReturnCount")
+    @Suppress("ReturnCount", "LongMethod")
     private fun uploadFiles(): Result {
         val accountName = inputData.getString(ACCOUNT)
         if (accountName == null) {
