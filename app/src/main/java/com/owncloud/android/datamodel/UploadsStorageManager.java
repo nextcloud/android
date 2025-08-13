@@ -129,7 +129,7 @@ public class UploadsStorageManager extends Observable {
 
     }
 
-    public long[] storeUploads(final List<OCUpload> ocUploads) {
+    public void storeUploads(final List<OCUpload> ocUploads) {
         Log_OC.v(TAG, "Inserting " + ocUploads.size() + " uploads");
         ArrayList<ContentProviderOperation> operations = new ArrayList<>(ocUploads.size());
         for (OCUpload ocUpload : ocUploads) {
@@ -155,8 +155,6 @@ public class UploadsStorageManager extends Observable {
         } catch (OperationApplicationException | RemoteException e) {
             Log_OC.e(TAG, "Error inserting uploads", e);
         }
-
-        return null;
     }
 
     @NonNull
