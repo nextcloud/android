@@ -258,4 +258,14 @@ class FileStorageUtilsTest {
         assertEquals("document", result.first)
         assertEquals("", result.second)
     }
+
+    @Test
+    fun testGetFilenameAndExtensionWithRLO() {
+        val filename = "Foo\u202Edm.exe"
+        val result = FileStorageUtils.getFilenameAndExtension(filename, false, false)
+
+        // we are not touching the filename that's why expected filename must stay same
+        assertEquals("Foo\u202Edm", result.first)
+        assertEquals(".exe", result.second)
+    }
 }
