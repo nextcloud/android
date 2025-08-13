@@ -415,7 +415,7 @@ dependencies {
     androidTestImplementation "androidx.test.ext:junit:1.2.1"
     androidTestImplementation "androidx.test:rules:$androidxTestVersion"
     // Android JUnit Runner
-    androidTestImplementation "androidx.test:runner:1.6.2"
+    androidTestImplementation "androidx.test:runner:1.7.0"
     androidTestUtil "androidx.test:orchestrator:1.5.1"
     androidTestImplementation "androidx.test:core-ktx:$androidxTestVersion"
 
