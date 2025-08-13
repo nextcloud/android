@@ -29,6 +29,25 @@ class UploadNotificationManager(private val context: Context, viewThemeUtils: Vi
         currentUploadIndex: Int,
         totalUploadSize: Int
     ) {
+        prepareNotification(uploadFileOperation, cancelPendingIntent, startIntent, currentUploadIndex, totalUploadSize)
+        
+        if (!uploadFileOperation.isInstantPicture && !uploadFileOperation.isInstantVideo) {
+            showNotification()
+        }
+    }
+
+    /**
+     * Prepares the notification without showing it immediately.
+     * Use this for queued uploads that aren't actively uploading yet.
+     */
+    @Suppress("MagicNumber")
+    fun prepareNotification(
+        uploadFileOperation: UploadFileOperation,
+        cancelPendingIntent: PendingIntent,
+        startIntent: PendingIntent,
+        currentUploadIndex: Int,
+        totalUploadSize: Int
+    ) {
         currentOperationTitle = if (totalUploadSize > 1) {
             String.format(
                 context.getString(R.string.upload_notification_manager_start_text),
@@ -57,7 +76,12 @@ class UploadNotificationManager(private val context: Context, viewThemeUtils: Vi
 
             setContentIntent(startIntent)
         }
+    }
 
+    /**
+     * Shows the prepared notification for uploads that are actively starting.
+     */
+    fun showPreparedNotification(uploadFileOperation: UploadFileOperation) {
         if (!uploadFileOperation.isInstantPicture && !uploadFileOperation.isInstantVideo) {
             showNotification()
         }

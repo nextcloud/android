@@ -10,6 +10,7 @@ package com.nextcloud.client.jobs.upload
 import android.app.PendingIntent
 import android.content.Context
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
+import androidx.work.ForegroundInfo
 import androidx.work.Worker
 import androidx.work.WorkerParameters
 import com.nextcloud.client.account.User
@@ -22,6 +23,8 @@ import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.model.WorkerState
 import com.nextcloud.model.WorkerStateLiveData
 import com.nextcloud.utils.extensions.getPercent
+import com.nextcloud.utils.ForegroundServiceHelper
+import com.owncloud.android.datamodel.ForegroundServiceType
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.ThumbnailsCacheManager
 import com.owncloud.android.datamodel.UploadsStorageManager
@@ -86,13 +89,17 @@ class FileUploadWorker(
     }
 
     private var lastPercent = 0
-    private val notificationManager = UploadNotificationManager(context, viewThemeUtils, Random.nextInt())
+    private var notificationManager = UploadNotificationManager(context, viewThemeUtils, Random.nextInt())
     private val intents = FileUploaderIntents(context)
     private val fileUploaderDelegate = FileUploaderDelegate()
 
     @Suppress("TooGenericExceptionCaught")
     override fun doWork(): Result = try {
         Log_OC.d(TAG, "FileUploadWorker started")
+        
+        // Set as foreground service for long-running uploads (prevents Android from killing the worker)
+        setForegroundAsync(createForegroundInfo())
+        
         backgroundJobManager.logStartOfWorker(BackgroundJobManagerImpl.formatClassTag(this::class))
         val result = uploadFiles()
         backgroundJobManager.logEndOfWorker(BackgroundJobManagerImpl.formatClassTag(this::class), result)
@@ -160,15 +167,32 @@ class FileUploadWorker(
             val operation = createUploadFileOperation(upload, user.get())
             currentUploadFileOperation = operation
 
+            // Create deterministic notification manager for this specific file
+            notificationManager = UploadNotificationManager(
+                context, 
+                viewThemeUtils, 
+                generateDeterministicNotificationId(upload.localPath, upload.fileSize)
+            )
+
+            // Show notification only when upload is about to start (not for queued files)
+            Log_OC.d(TAG, "📋 Queued: ${upload.localPath} (${index + 1}/${totalUploadSize}) - About to start upload")
             notificationManager.prepareForStart(
                 operation,
                 cancelPendingIntent = intents.startIntent(operation),
                 startIntent = intents.notificationStartIntent(operation),
-                currentUploadIndex = index,
+                currentUploadIndex = index + 1, // Show 1-based index for user
                 totalUploadSize = totalUploadSize
             )
+            Log_OC.d(TAG, "🔔 Notification shown for: ${upload.localPath}")
 
+            Log_OC.d(TAG, "🚀 STARTING UPLOAD: ${upload.localPath}")
             val result = upload(operation, user.get())
+            Log_OC.d(TAG, "✅ FINISHED UPLOAD: ${upload.localPath} - Result: ${result.isSuccess}")
+            
+            // Dismiss notification after upload completes
+            notificationManager.dismissNotification()
+            Log_OC.d(TAG, "🔕 Notification dismissed for: ${upload.localPath}")
+            
             currentUploadFileOperation = null
 
             fileUploaderDelegate.sendBroadcastUploadFinished(
@@ -229,8 +253,14 @@ class FileUploadWorker(
             val file = File(uploadFileOperation.originalStoragePath)
             val remoteId: String? = uploadFileOperation.file.remoteId
             task.execute(ThumbnailsCacheManager.ThumbnailGenerationTaskObject(file, remoteId))
-        } catch (e: Exception) {
-            Log_OC.e(TAG, "Error uploading", e)
+        } catch (e: java.io.IOException) {
+            Log_OC.e(TAG, "IO error during upload", e)
+            result = RemoteOperationResult<Any?>(e)
+        } catch (e: SecurityException) {
+            Log_OC.e(TAG, "Security error during upload", e)
+            result = RemoteOperationResult<Any?>(e)
+        } catch (e: RuntimeException) {
+            Log_OC.e(TAG, "Runtime error during upload", e)
             result = RemoteOperationResult<Any?>(e)
         } finally {
             cleanupUploadProcess(result, uploadFileOperation)
@@ -366,5 +396,86 @@ class FileUploadWorker(
         }
 
         lastPercent = percent
+    }
+
+    /**
+     * Generate a deterministic notification ID based on file characteristics.
+     * This ensures the same file always gets the same notification ID,
+     * preventing duplicate notifications for resumed uploads.
+     */
+    private fun generateDeterministicNotificationId(localPath: String, fileSize: Long): Int {
+        return try {
+            // Use same logic as session ID generation for consistency
+            val file = java.io.File(localPath)
+            val canonicalPath = file.canonicalPath
+            val baseString = "${canonicalPath}_$fileSize"
+            
+            // Generate deterministic hash and ensure it's positive for notification ID
+            val hash = baseString.hashCode()
+            val notificationId = Math.abs(hash)
+            
+            Log_OC.d(
+                TAG,
+                "generateDeterministicNotificationId: Generated notification ID: $notificationId " +
+                    "for file: $canonicalPath (size: $fileSize)"
+            )
+            notificationId
+        } catch (e: java.io.IOException) {
+            Log_OC.e(
+                TAG,
+                "generateDeterministicNotificationId: IO error getting canonical path, falling back to localPath hash",
+                e
+            )
+            // Fallback to deterministic hash based on localPath and fileSize
+            Math.abs("${localPath}_$fileSize".hashCode())
+        } catch (e: SecurityException) {
+            Log_OC.e(
+                TAG,
+                "generateDeterministicNotificationId: Security error accessing file, falling back to localPath hash",
+                e
+            )
+            // Fallback to deterministic hash based on localPath and fileSize
+            Math.abs("${localPath}_$fileSize".hashCode())
+        }
+    }
+
+    /**
+     * Create foreground info for long-running upload tasks.
+     * This ensures uploads continue even when app is closed.
+     */
+        private fun createForegroundInfo(): ForegroundInfo {
+        return try {
+            val notification = notificationManager.notificationBuilder.build()
+            val notificationId = Random.nextInt() // Will be replaced by deterministic ID when upload starts
+            
+            Log_OC.d(
+                TAG,
+                "createForegroundInfo: Creating foreground service for upload with notification ID: $notificationId"
+            )
+            
+            ForegroundServiceHelper.createWorkerForegroundInfo(
+                notificationId,
+                notification,
+                ForegroundServiceType.DataSync
+            )
+        } catch (e: IllegalStateException) {
+            Log_OC.e(TAG, "createForegroundInfo: Error creating foreground info", e)
+            // Fallback to default notification
+            val notification = notificationManager.notificationBuilder.build()
+            ForegroundServiceHelper.createWorkerForegroundInfo(
+                Random.nextInt(),
+                notification,
+                ForegroundServiceType.DataSync
+            )
+        } catch (e: SecurityException) {
+            Log_OC.e(TAG, "createForegroundInfo: Security error creating foreground info", e)
+            // Fallback to default notification
+            val notification = notificationManager.notificationBuilder.build()
+            ForegroundServiceHelper.createWorkerForegroundInfo(
+                Random.nextInt(),
+                notification,
+                ForegroundServiceType.DataSync
+            )
+        }
     }
 }
