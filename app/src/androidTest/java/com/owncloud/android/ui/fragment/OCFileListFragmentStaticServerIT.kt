@@ -342,35 +342,37 @@ class OCFileListFragmentStaticServerIT : AbstractIT() {
     fun showRichWorkspace() {
         launchActivity<TestActivity>().use { scenario ->
             scenario.onActivity { sut ->
-                EspressoIdlingResource.increment()
+                onIdleSync {
+                    EspressoIdlingResource.increment()
 
-                val fragment = OCFileListFragment()
+                    val fragment = OCFileListFragment()
 
-                val folder = OCFile("/test/")
-                folder.setFolder()
-                sut.storageManager.saveFile(folder)
+                    val folder = OCFile("/test/")
+                    folder.setFolder()
+                    sut.storageManager.saveFile(folder)
 
-                val imageFile = OCFile("/test/image.png").apply {
-                    remoteId = "00000001"
-                    mimeType = "image/png"
-                    fileLength = 1024000
-                    modificationTimestamp = 1188206955000
-                    parentId = sut.storageManager.getFileByEncryptedRemotePath("/test/").fileId
-                    storagePath = getFile("java.md").absolutePath
+                    val imageFile = OCFile("/test/image.png").apply {
+                        remoteId = "00000001"
+                        mimeType = "image/png"
+                        fileLength = 1024000
+                        modificationTimestamp = 1188206955000
+                        parentId = sut.storageManager.getFileByEncryptedRemotePath("/test/").fileId
+                        storagePath = getFile("java.md").absolutePath
+                    }
+
+                    sut.storageManager.saveFile(imageFile)
+
+                    sut.addFragment(fragment)
+                    val testFolder: OCFile = sut.storageManager.getFileByEncryptedRemotePath("/test/")
+                    testFolder.richWorkspace = getFile("java.md").readText()
+                    fragment.listDirectory(testFolder, false, false)
+
+                    EspressoIdlingResource.decrement()
+
+                    val screenShotName = createName(testClassName + "_" + "showRichWorkspace9", "")
+                    onView(isRoot()).check(matches(isDisplayed()))
+                    screenshotViaName(sut, screenShotName)
                 }
-
-                sut.storageManager.saveFile(imageFile)
-
-                sut.addFragment(fragment)
-                val testFolder: OCFile = sut.storageManager.getFileByEncryptedRemotePath("/test/")
-                testFolder.richWorkspace = getFile("java.md").readText()
-                fragment.listDirectory(testFolder, false, false)
-
-                EspressoIdlingResource.decrement()
-
-                val screenShotName = createName(testClassName + "_" + "showRichWorkspace", "")
-                onView(isRoot()).check(matches(isDisplayed()))
-                screenshotViaName(sut, screenShotName)
             }
         }
     }
