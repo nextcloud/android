@@ -4,7 +4,7 @@
 [versions]
 espressoVersion = "3.7.0"
 glide = "4.16.0"
-media3 = "1.7.1"
+media3 = "1.8.0"
 roomVersion = "2.7.2"
 splash-screen = "1.0.1"
 kotlin = "2.2.0"
