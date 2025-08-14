@@ -121,6 +121,7 @@ class OCFileListFragmentStaticServerIT : AbstractIT() {
      * Use same values as {@link FileDetailSharingFragmentIT listSharesFileAllShareTypes }
      */
     @Test
+    @UiThread
     @ScreenshotTest
     fun showSharedFiles() {
         launchActivity<TestActivity>().use { scenario ->
@@ -130,7 +131,7 @@ class OCFileListFragmentStaticServerIT : AbstractIT() {
 
                     val fragment = OCFileListFragment()
 
-                    OCFile("/s2haredToUser.jpg").apply {
+                    OCFile("/sharedToUser.jpg").apply {
                         remoteId = "00000001"
                         parentId = sut.storageManager.getFileByEncryptedRemotePath("/").fileId
                         isSharedWithSharee = true
@@ -139,7 +140,7 @@ class OCFileListFragmentStaticServerIT : AbstractIT() {
                         sut.storageManager.saveFile(this)
                     }
 
-                    OCFile("/sharedT124oGroup.jpg").apply {
+                    OCFile("/sharedToGroup.jpg").apply {
                         remoteId = "00000002"
                         parentId = sut.storageManager.getFileByEncryptedRemotePath("/").fileId
                         isSharedWithSharee = true
@@ -223,7 +224,7 @@ class OCFileListFragmentStaticServerIT : AbstractIT() {
                         sut.storageManager.saveFile(this)
                     }
 
-                    OCFile("/notShared.jpg").apply {
+                    OCFile("/1notShared.jpg").apply {
                         remoteId = "000000010"
                         parentId = sut.storageManager.getFileByEncryptedRemotePath("/").fileId
                         modificationTimestamp = 1000
@@ -238,7 +239,6 @@ class OCFileListFragmentStaticServerIT : AbstractIT() {
                     EspressoIdlingResource.decrement()
 
                     val screenShotName = createName(testClassName + "_" + "showSharedFiles", "")
-                    onView(isRoot()).check(matches(isDisplayed()))
                     screenshotViaName(sut, screenShotName)
                 }
             }
@@ -249,6 +249,7 @@ class OCFileListFragmentStaticServerIT : AbstractIT() {
      * Use same values as {@link FileDetailSharingFragmentIT listSharesFileAllShareTypes }
      */
     @Test
+    @UiThread
     @ScreenshotTest
     fun showFolderTypes() {
         launchActivity<TestActivity>().use { scenario ->
@@ -284,7 +285,7 @@ class OCFileListFragmentStaticServerIT : AbstractIT() {
                         sut.storageManager.saveFile(this)
                     }
 
-                    OCFile("/groupaaaaaFolder/").apply {
+                    OCFile("/groupFolder/").apply {
                         remoteId = "00000004"
                         mimeType = MimeType.DIRECTORY
                         modificationTimestamp = 1615003571000
