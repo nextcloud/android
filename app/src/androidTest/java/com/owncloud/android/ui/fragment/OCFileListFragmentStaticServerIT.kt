@@ -126,7 +126,6 @@ class OCFileListFragmentStaticServerIT : AbstractIT() {
         launchActivity<TestActivity>().use { scenario ->
             scenario.onActivity { sut ->
                 onIdleSync {
-                    EspressoIdlingResource.increment()
 
                     val fragment = OCFileListFragment()
 
@@ -235,7 +234,6 @@ class OCFileListFragmentStaticServerIT : AbstractIT() {
                     fragment.listDirectory(root, false, false)
                     fragment.adapter.setShowShareAvatar(true)
 
-                    EspressoIdlingResource.decrement()
 
                     val screenShotName = createName(testClassName + "_" + "showSharedFiles", "")
                     screenshotViaName(sut, screenShotName)
