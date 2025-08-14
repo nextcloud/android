@@ -110,6 +110,7 @@ class OCFileListFragmentStaticServerIT : AbstractIT() {
                     EspressoIdlingResource.decrement()
 
                     val screenShotName = createName(testClassName + "_" + "showFiles", "")
+                    onView(isRoot()).check(matches(isDisplayed()))
                     screenshotViaName(sut, screenShotName)
                 }
             }
@@ -126,6 +127,7 @@ class OCFileListFragmentStaticServerIT : AbstractIT() {
         launchActivity<TestActivity>().use { scenario ->
             scenario.onActivity { sut ->
                 onIdleSync {
+                    EspressoIdlingResource.increment()
 
                     val fragment = OCFileListFragment()
 
@@ -234,6 +236,7 @@ class OCFileListFragmentStaticServerIT : AbstractIT() {
                     fragment.listDirectory(root, false, false)
                     fragment.adapter.setShowShareAvatar(true)
 
+                    EspressoIdlingResource.decrement()
 
                     val screenShotName = createName(testClassName + "_" + "showSharedFiles", "")
                     onView(isRoot()).check(matches(isDisplayed()))
@@ -247,6 +250,7 @@ class OCFileListFragmentStaticServerIT : AbstractIT() {
      * Use same values as {@link FileDetailSharingFragmentIT listSharesFileAllShareTypes }
      */
     @Test
+    @UiThread
     @ScreenshotTest
     fun showFolderTypes() {
         launchActivity<TestActivity>().use { scenario ->
@@ -369,7 +373,7 @@ class OCFileListFragmentStaticServerIT : AbstractIT() {
 
                     EspressoIdlingResource.decrement()
 
-                    val screenShotName = createName(testClassName + "_" + "showRichWorkspace9", "")
+                    val screenShotName = createName(testClassName + "_" + "showRichWorkspace", "")
                     onView(isRoot()).check(matches(isDisplayed()))
                     screenshotViaName(sut, screenShotName)
                 }
