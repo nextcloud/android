@@ -474,7 +474,11 @@ public class FileContentProvider extends ContentProvider {
         // add ID to arguments if Uri has more than one segment
         if (uriMatch != ROOT_DIRECTORY && uri.getPathSegments().size() > SINGLE_PATH_SEGMENT) {
             String idColumn = uriMatch == DIRECTORY ? ProviderTableMeta.FILE_PARENT : ProviderTableMeta._ID;
-            selection = idColumn + "=? AND " + selection;
+            if (TextUtils.isEmpty(selection)) {
+                selection = idColumn + "=?";
+            } else {
+                selection = idColumn + "=? AND " + selection;
+            }
             selectionArgs = VerificationUtils.prependUriFirstSegmentToSelectionArgs(selectionArgs, uri);
         }
 
