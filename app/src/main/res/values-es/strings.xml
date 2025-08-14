@@ -690,8 +690,8 @@
     <string name="prefs_data_storage_location_summary">Gestionar ubicación de almacenamiento de datos</string>
     <string name="prefs_davx5_setup_error">Error inesperado al configurar DAVx⁵ (anteriormente conocido como DAVdroid)</string>
     <string name="prefs_e2e_active">¡Se ha configurado el cifrado de extremo a extremo!</string>
-    <string name="prefs_e2e_mnemonic">Regla mnemotécnica del cifrado E2E</string>
-    <string name="prefs_e2e_no_device_credentials">Para mostrar la regla mnemotécnica, habilite las credenciales del dispositivo</string>
+    <string name="prefs_e2e_mnemonic">Mnemónico E2E</string>
+    <string name="prefs_e2e_no_device_credentials">Para mostrar el mnemónico, habilite las credenciales del dispositivo</string>
     <string name="prefs_enable_media_scan_notifications">Mostrar notificaciones de escaneo de medios</string>
     <string name="prefs_enable_media_scan_notifications_summary">Notificar cuando se encuentren nuevas carpetas de medios</string>
     <string name="prefs_gpl_v2">Licencia GNU GPL, versión 2</string>
