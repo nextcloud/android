@@ -62,6 +62,7 @@
             <trusting group="androidx.sqlite"/>
             <trusting group="androidx.webkit" name="webkit" version="1.14.0"/>
             <trusting group="androidx.work"/>
+            <trusting group="com.google.android.gms"/>
             <trusting group="com.google.firebase"/>
             <trusting group="com.google.firebase" name="firebase-messaging" version="24.1.1"/>
             <trusting group="com.google.firebase" name="firebase-messaging" version="24.1.2"/>
