@@ -9,7 +9,6 @@
  */
 package com.owncloud.android.ui.fragment
 
-import androidx.annotation.MainThread
 import androidx.annotation.UiThread
 import androidx.test.core.app.launchActivity
 import androidx.test.espresso.Espresso.onView
@@ -122,7 +121,6 @@ class OCFileListFragmentStaticServerIT : AbstractIT() {
      * Use same values as {@link FileDetailSharingFragmentIT listSharesFileAllShareTypes }
      */
     @Test
-    @MainThread
     @ScreenshotTest
     fun showSharedFiles() {
         launchActivity<TestActivity>().use { scenario ->
@@ -141,7 +139,7 @@ class OCFileListFragmentStaticServerIT : AbstractIT() {
                         sut.storageManager.saveFile(this)
                     }
 
-                    OCFile("/sharedToGroup.jpg").apply {
+                    OCFile("/sharedT124oGroup.jpg").apply {
                         remoteId = "00000002"
                         parentId = sut.storageManager.getFileByEncryptedRemotePath("/").fileId
                         isSharedWithSharee = true
