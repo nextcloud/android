@@ -41,7 +41,6 @@ import com.owncloud.android.lib.resources.e2ee.UpdateMetadataV2RemoteOperation
 import com.owncloud.android.operations.UploadException
 import org.apache.commons.httpclient.HttpStatus
 import org.bouncycastle.asn1.ASN1Sequence
-import org.bouncycastle.asn1.cms.CMSAttributes
 import org.bouncycastle.asn1.cms.ContentInfo
 import org.bouncycastle.cert.jcajce.JcaCertStore
 import org.bouncycastle.cms.CMSProcessableByteArray
@@ -250,7 +249,8 @@ class EncryptionUtilsV2 {
             )
         }
 
-        verifyMetadata(metadataFile, decryptedFolderMetadataFile, oldCounter, signature)
+        val isFolderNotEmpty = storageManager.isFolderNotEmpty(ocFile)
+        verifyMetadata(metadataFile, decryptedFolderMetadataFile, oldCounter, signature, isFolderNotEmpty)
 
         val transferredFiledrop = filesDropCountBefore > 0 &&
             decryptedFolderMetadataFile.metadata.files.size == filesBefore + filesDropCountBefore
@@ -950,7 +950,8 @@ class EncryptionUtilsV2 {
         encryptedFolderMetadataFile: EncryptedFolderMetadataFile,
         decryptedFolderMetadataFile: DecryptedFolderMetadataFile,
         oldCounter: Long,
-        signature: String
+        signature: String,
+        isFolderNotEmpty: Boolean
     ) {
         if (decryptedFolderMetadataFile.metadata.counter < oldCounter) {
             MainApp.showMessage(R.string.e2e_counter_too_old)
@@ -961,7 +962,7 @@ class EncryptionUtilsV2 {
         val certs = decryptedFolderMetadataFile.users.map { EncryptionUtils.convertCertFromString(it.certificate) }
         val signedData = getSignedData(signature, message)
 
-        if (certs.isNotEmpty() && !verifySignedData(signedData, certs)) {
+        if (isFolderNotEmpty && certs.isNotEmpty() && !verifySignedData(signedData, certs)) {
             MainApp.showMessage(R.string.e2e_signature_does_not_match)
             return
         }
@@ -985,10 +986,10 @@ class EncryptionUtilsV2 {
         return CMSSignedData(cmsProcessableByteArray, contentInfo)
     }
 
+    @Suppress("TooGenericExceptionCaught")
     fun verifySignedData(data: CMSSignedData, certs: List<X509Certificate>): Boolean {
         val signer: SignerInformation = data.signerInfos.signers.iterator().next() as SignerInformation
         val verifierBuilder = JcaSimpleSignerInfoVerifierBuilder()
-        val signTime = signer.getSignedAttributes().get(CMSAttributes.signingTime)
         var verifiedCertCount = 0
 
         certs.forEach {
