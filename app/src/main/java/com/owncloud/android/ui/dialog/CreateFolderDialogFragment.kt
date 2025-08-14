@@ -185,7 +185,7 @@ class CreateFolderDialogFragment :
                 return
             }
 
-            newFolderName = AutoRename.rename(newFolderName, capabilities)
+            newFolderName = AutoRename.rename(newFolderName, capabilities, isFolderPath = true)
 
             val path = parentFolder?.decryptedRemotePath + newFolderName + OCFile.PATH_SEPARATOR
             connectivityService.isNetworkAndServerAvailable { result ->

@@ -25,7 +25,7 @@ buildscript {
         markwonVersion = "4.6.2"
         mockitoVersion = "4.11.0"
         mockitoKotlinVersion = "4.1.0"
-        mockkVersion = "1.14.2"
+        mockkVersion = "1.14.5"
         prismVersion = "2.0.0"
         roomVersion = "2.7.2"
         workRuntime = "2.10.3"
