@@ -546,10 +546,12 @@ public final class EncryptionUtils {
     }
 
     public static EncryptedFile encryptFile(String accountName, File file, Cipher cipher) throws InvalidParameterSpecException, IOException {
-        File tempEncryptedFolder = FileDataStorageManager.createTempEncryptedFolder(accountName);
-        File tempEncryptedFile = File.createTempFile(file.getName(), null, tempEncryptedFolder);
+        final File tempEncryptedFolder = FileDataStorageManager.createTempEncryptedFolder(accountName);
+        final String randomFileName = UUID.randomUUID().toString();
+        final String suffix = String.valueOf(System.currentTimeMillis());
+        final File tempEncryptedFile = File.createTempFile(randomFileName, suffix, tempEncryptedFolder);
         encryptFileWithGivenCipher(file, tempEncryptedFile, cipher);
-        String authenticationTagString = getAuthenticationTag(cipher);
+        final String authenticationTagString = getAuthenticationTag(cipher);
         return new EncryptedFile(tempEncryptedFile, authenticationTagString);
     }
 
