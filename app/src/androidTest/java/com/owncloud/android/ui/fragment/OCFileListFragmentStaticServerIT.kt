@@ -9,6 +9,7 @@
  */
 package com.owncloud.android.ui.fragment
 
+import androidx.annotation.MainThread
 import androidx.annotation.UiThread
 import androidx.test.core.app.launchActivity
 import androidx.test.espresso.Espresso.onView
@@ -121,7 +122,7 @@ class OCFileListFragmentStaticServerIT : AbstractIT() {
      * Use same values as {@link FileDetailSharingFragmentIT listSharesFileAllShareTypes }
      */
     @Test
-    @UiThread
+    @MainThread
     @ScreenshotTest
     fun showSharedFiles() {
         launchActivity<TestActivity>().use { scenario ->
@@ -131,7 +132,7 @@ class OCFileListFragmentStaticServerIT : AbstractIT() {
 
                     val fragment = OCFileListFragment()
 
-                    OCFile("/sharedToUser.jpg").apply {
+                    OCFile("/s2haredToUser.jpg").apply {
                         remoteId = "00000001"
                         parentId = sut.storageManager.getFileByEncryptedRemotePath("/").fileId
                         isSharedWithSharee = true
@@ -250,7 +251,6 @@ class OCFileListFragmentStaticServerIT : AbstractIT() {
      * Use same values as {@link FileDetailSharingFragmentIT listSharesFileAllShareTypes }
      */
     @Test
-    @UiThread
     @ScreenshotTest
     fun showFolderTypes() {
         launchActivity<TestActivity>().use { scenario ->
