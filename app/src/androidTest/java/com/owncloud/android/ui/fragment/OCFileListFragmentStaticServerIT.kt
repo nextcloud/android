@@ -121,7 +121,6 @@ class OCFileListFragmentStaticServerIT : AbstractIT() {
      * Use same values as {@link FileDetailSharingFragmentIT listSharesFileAllShareTypes }
      */
     @Test
-    @UiThread
     @ScreenshotTest
     fun showSharedFiles() {
         launchActivity<TestActivity>().use { scenario ->
