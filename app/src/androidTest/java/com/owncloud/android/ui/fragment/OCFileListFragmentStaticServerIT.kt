@@ -286,7 +286,7 @@ class OCFileListFragmentStaticServerIT : AbstractIT() {
                         sut.storageManager.saveFile(this)
                     }
 
-                    OCFile("/groupFolder/").apply {
+                    OCFile("/groupaaaaaFolder/").apply {
                         remoteId = "00000004"
                         mimeType = MimeType.DIRECTORY
                         modificationTimestamp = 1615003571000
