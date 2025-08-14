@@ -17,10 +17,10 @@ import androidx.test.espresso.IdlingRegistry
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.isRoot
-import com.owncloud.android.utils.EspressoIdlingResource
 import com.owncloud.android.AbstractIT
 import com.owncloud.android.MainApp
 import com.owncloud.android.lib.common.accounts.AccountUtils
+import com.owncloud.android.utils.EspressoIdlingResource
 import com.owncloud.android.utils.ScreenshotTest
 import org.junit.After
 import org.junit.Before
@@ -95,7 +95,7 @@ class TrashbinActivityIT : AbstractIT() {
     fun empty() {
         launchActivity<TrashbinActivity>().use { scenario ->
             scenario.onActivity { sut ->
-                val trashbinRepository = TrashbinLocalRepository(TestCase.EMPTY)
+                val trashbinRepository = TrashbinLocalRepository(TestCase.ERROR)
                 sut.trashbinPresenter = TrashbinPresenter(trashbinRepository, sut)
                 onIdleSync {
                     EspressoIdlingResource.increment()
