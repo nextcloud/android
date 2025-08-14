@@ -140,58 +140,47 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:visibility="visible" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/filename_and_extension_layout"
+    <LinearLayout
+        android:id="@+id/filename_container"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/grid_bottom_view_height"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/thumbnail">
 
-        <LinearLayout
-            android:id="@+id/filename_container"
+        <TextView
+            android:id="@+id/Filename"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_marginStart="@dimen/grid_layout_filename_container_margin"
-            android:orientation="horizontal"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/more">
+            android:maxWidth="@dimen/grid_layout_max_filename_width"
+            android:ellipsize="middle"
+            android:maxLines="1"
+            android:text="@string/placeholder_filename"
+            android:textSize="@dimen/grid_item_text_size" />
 
-            <TextView
-                android:id="@+id/Filename"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:ellipsize="middle"
-                android:maxWidth="@dimen/grid_layout_max_filename_width"
-                android:maxLines="1"
-                android:text="@string/placeholder_filename"
-                android:textSize="@dimen/grid_item_text_size" />
-
-            <TextView
-                android:id="@+id/extension"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:maxLines="1"
-                android:text="@string/placeholder_extension"
-                android:layout_marginEnd="@dimen/alternate_margin"
-                android:textSize="@dimen/grid_item_text_size" />
-        </LinearLayout>
-
-        <ImageButton
-            android:id="@+id/more"
-            android:layout_width="24dp"
+        <TextView
+            android:id="@+id/extension"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:background="@color/transparent"
-            android:contentDescription="@string/overflow_menu"
-            android:translationZ="2dp"
-            app:srcCompat="@drawable/ic_dots_vertical"
-            app:layout_constraintEnd_toEndOf="parent"
-            tools:ignore="TouchTargetSizeCheck"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent" />
+            android:maxLines="1"
+            android:text="@string/placeholder_extension"
+            android:textSize="@dimen/grid_item_text_size" />
+    </LinearLayout>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    <ImageButton
+        android:id="@+id/more"
+        android:layout_width="@dimen/iconized_single_line_item_icon_size"
+        android:layout_height="@dimen/iconized_single_line_item_icon_size"
+        android:layout_marginBottom="@dimen/standard_margin"
+        android:background="@color/transparent"
+        android:contentDescription="@string/overflow_menu"
+        android:translationZ="2dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/ic_dots_vertical"
+        tools:ignore="TouchTargetSizeCheck" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
