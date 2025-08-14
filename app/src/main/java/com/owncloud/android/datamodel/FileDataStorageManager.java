@@ -1183,6 +1183,9 @@ public class FileDataStorageManager {
         return folderContent;
     }
 
+    public boolean isFolderNotEmpty(@NonNull OCFile file) {
+        return fileDao.isFolderNotEmpty(file.getFileId());
+    }
 
     private OCFile createRootDir() {
         OCFile ocFile = new OCFile(OCFile.ROOT_PATH);
