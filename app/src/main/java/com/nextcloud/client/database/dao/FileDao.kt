@@ -62,4 +62,7 @@ interface FileDao {
             "ORDER BY internal_two_way_sync_timestamp DESC"
     )
     fun getInternalTwoWaySyncFolders(fileOwner: String): List<FileEntity>
+
+    @Query("SELECT EXISTS(SELECT 1 FROM filelist WHERE parent = :folderId)")
+    fun isFolderNotEmpty(folderId: Long): Boolean
 }
