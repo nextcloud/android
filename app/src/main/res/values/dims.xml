@@ -37,7 +37,6 @@
     <dimen name="bottom_navigation_view_margin">100dp</dimen>
     <dimen name="standard_quarter_margin">4dp</dimen>
 
-    <dimen name="grid_layout_filename_container_margin">24dp</dimen>
     <dimen name="grid_layout_max_filename_width">60dp</dimen>
     <dimen name="grid_layout_item_size">10dp</dimen>
     <dimen name="grid_layout_margin_end">2dp</dimen>
@@ -46,7 +45,6 @@
     <dimen name="selected_grid_container_radius">4dp</dimen>
     <dimen name="grid_checkbox_size">18dp</dimen>
     <dimen name="grid_checkbox_margin">6dp</dimen>
-    <dimen name="grid_bottom_view_height">20dp</dimen>
     <dimen name="grid_container_width">130dp</dimen>
     <dimen name="grid_container_height">120dp</dimen>
 
