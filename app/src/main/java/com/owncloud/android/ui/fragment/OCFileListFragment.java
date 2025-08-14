@@ -41,7 +41,6 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.nextcloud.android.lib.resources.files.ToggleFileLockRemoteOperation;
-import com.nextcloud.android.lib.richWorkspace.RichWorkspaceDirectEditingRemoteOperation;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.device.DeviceInfo;
 import com.nextcloud.client.di.Injectable;
@@ -630,19 +629,17 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
     @Override
     public void createRichWorkspace() {
-        new Thread(() -> {
-            RemoteOperationResult result = new RichWorkspaceDirectEditingRemoteOperation(mFile.getRemotePath())
-                .execute(accountManager.getUser(), requireContext());
+        if (!(getActivity() instanceof FileActivity fileActivity)) {
+            return;
+        }
 
-            if (result.isSuccess()) {
-                String url = (String) result.getSingleData();
-                mContainerActivity.getFileOperationsHelper().openRichWorkspaceWithTextEditor(mFile,
-                                                                                             url,
-                                                                                             requireContext());
-            } else {
-                DisplayUtils.showSnackMessage(getView(), R.string.failed_to_start_editor);
-            }
-        }).start();
+        fileActivity.getFilesRepository().createRichWorkspace(mFile.getRemotePath(), url -> {
+            mContainerActivity.getFileOperationsHelper().openRichWorkspaceWithTextEditor(mFile, url, requireContext());
+            return Unit.INSTANCE;
+        }, () -> {
+            DisplayUtils.showSnackMessage(getView(), R.string.failed_to_start_editor);
+            return Unit.INSTANCE;
+        });
     }
 
     @Override
