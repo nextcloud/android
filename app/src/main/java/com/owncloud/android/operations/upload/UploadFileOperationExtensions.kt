@@ -18,6 +18,15 @@ import com.owncloud.android.operations.UploadFileOperation.MISSING_FILE_PERMISSI
 import com.owncloud.android.ui.notifications.NotificationUtils
 
 fun UploadFileOperation.showStoragePermissionNotification() {
+    val notificationManager = ContextCompat.getSystemService(context, NotificationManager::class.java)
+        ?: return
+    val alreadyShown = notificationManager.activeNotifications.any {
+        it.id == MISSING_FILE_PERMISSION_NOTIFICATION_ID
+    }
+    if (alreadyShown) {
+        return
+    }
+
     val allowAllFileAccessAction = getAllowAllFileAccessAction(context)
     val appPermissionsAction = getAppPermissionsAction(context)
 
@@ -31,9 +40,7 @@ fun UploadFileOperation.showStoragePermissionNotification() {
             .addAction(appPermissionsAction)
             .setAutoCancel(true)
 
-    ContextCompat.getSystemService(context, NotificationManager::class.java)?.run {
-        notify(MISSING_FILE_PERMISSION_NOTIFICATION_ID, notificationBuilder.build())
-    }
+    notificationManager.notify(MISSING_FILE_PERMISSION_NOTIFICATION_ID, notificationBuilder.build())
 }
 
 private fun getActionPendingIntent(context: Context, actionType: UploadFileBroadcastReceiverActions): PendingIntent {
