@@ -62,6 +62,7 @@ import com.owncloud.android.lib.common.accounts.AccountUtils;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.files.model.RemoteFile;
+import com.owncloud.android.lib.resources.files.model.ServerFileInterface;
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.lib.resources.shares.ShareeUser;
@@ -575,13 +576,13 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         }
     }
 
-    private void configureFilenameMaxWidth(ListGridItemViewHolder holder, OCFile file) {
+    private void configureFilenameMaxWidth(ListGridItemViewHolder holder, ServerFileInterface file) {
         int dp = file.isFolder() ? FOLDER_NAME_MAX_WIDTH : FILE_NAME_MAX_WIDTH;
         int px = DisplayUtils.convertDpToPixel(dp, MainApp.getAppContext());
         holder.getFileName().setMaxWidth(px);
     }
 
-    private void configureFilenameContainerMargin(@NonNull LinearLayout filenameContainer, OCFile file) {
+    private void configureFilenameContainerMargin(@NonNull LinearLayout filenameContainer, ServerFileInterface file) {
         if (filenameContainer.getLayoutParams() instanceof LinearLayout.LayoutParams params) {
             int dp = file.isFolder() ? FOLDER_NAME_MARGIN_START : getFilenameMarginStart();
             int px = DisplayUtils.convertDpToPixel(dp, MainApp.getAppContext());
