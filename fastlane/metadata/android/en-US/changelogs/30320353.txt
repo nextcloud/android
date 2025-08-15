@@ -1,0 +1,9 @@
+## 3.32.3 RC3 (August 15, 2025)
+
+- Update client side encryption and decryption algorithm
+- Increase file listing performance
+- Bugfixes
+
+Minimum: NC 18 Server, Android 8.0 Nougat
+
+For a full list, please see https://github.com/nextcloud/android/milestone/114
