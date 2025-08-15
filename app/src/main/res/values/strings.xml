@@ -1358,7 +1358,10 @@
     <string name="server_not_reachable_content">The device is likely not connected to the internet</string>
     <string name="file_details_sharing_fragment_custom_permission_not_selected">Please select custom permission</string>
     <string name="unknown">Unknown</string>
-
+    <string name="upload_missing_storage_permission_title">Upload Stopped – Storage Permission Required</string>
+    <string name="upload_missing_storage_permission_description">Your files cannot be uploaded without access to local storage. Tap to grant permission.</string>
+    <string name="upload_missing_storage_permission_allow_file_access">Allow all file access</string>
+    <string name="upload_missing_storage_permission_app_permissions">App permissions</string>
     <string name="document_storage_provider_cannot_read">Can’t open item: missing read permission.</string>
     <string name="document_storage_provider_cannot_delete">Can’t delete item: missing delete permission.</string>
     <string name="document_storage_provider_cannot_rename">Can’t rename item: missing rename permission.</string>
