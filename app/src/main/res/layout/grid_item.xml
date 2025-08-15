@@ -141,46 +141,52 @@
         tools:visibility="visible" />
 
     <LinearLayout
-        android:id="@+id/filename_container"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
+        android:id="@+id/filename_more_button_container"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/iconized_single_line_item_icon_size"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/thumbnail">
 
-        <TextView
-            android:id="@+id/Filename"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:maxWidth="@dimen/grid_layout_max_filename_width"
-            android:ellipsize="middle"
-            android:maxLines="1"
-            android:text="@string/placeholder_filename"
-            android:textSize="@dimen/grid_item_text_size" />
+        <LinearLayout
+            android:id="@+id/filename_container"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_marginStart="@dimen/iconized_single_line_item_icon_size"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/extension"
-            android:layout_width="wrap_content"
+            <TextView
+                android:id="@+id/Filename"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="@string/placeholder_filename"
+                android:textSize="@dimen/grid_item_text_size" />
+
+            <TextView
+                android:id="@+id/extension"
+                android:layout_width="wrap_content"
+                android:ellipsize="start"
+                android:layout_height="match_parent"
+                android:maxLines="1"
+                android:text="@string/placeholder_extension"
+                android:textSize="@dimen/grid_item_text_size" />
+
+        </LinearLayout>
+
+        <ImageButton
+            android:id="@+id/more"
+            android:layout_width="@dimen/iconized_single_line_item_icon_size"
             android:layout_height="match_parent"
-            android:maxLines="1"
-            android:text="@string/placeholder_extension"
-            android:textSize="@dimen/grid_item_text_size" />
+            android:background="@color/transparent"
+            android:contentDescription="@string/overflow_menu"
+            android:translationZ="2dp"
+            app:srcCompat="@drawable/ic_dots_vertical"
+            tools:ignore="TouchTargetSizeCheck" />
     </LinearLayout>
-
-    <ImageButton
-        android:id="@+id/more"
-        android:layout_width="@dimen/iconized_single_line_item_icon_size"
-        android:layout_height="@dimen/iconized_single_line_item_icon_size"
-        android:layout_marginBottom="@dimen/standard_margin"
-        android:background="@color/transparent"
-        android:contentDescription="@string/overflow_menu"
-        android:translationZ="2dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/ic_dots_vertical"
-        tools:ignore="TouchTargetSizeCheck" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

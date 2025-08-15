@@ -17,7 +17,6 @@ import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Environment;
 import android.text.TextUtils;
-import android.view.View;
 import android.webkit.MimeTypeMap;
 
 import com.nextcloud.client.preferences.SubFolderRule;
@@ -70,10 +69,6 @@ public final class FileStorageUtils {
 
     private FileStorageUtils() {
         // utility class -> private constructor
-    }
-
-    public static boolean isRTL() {
-        return TextUtils.getLayoutDirectionFromLocale(Locale.getDefault()) == View.LAYOUT_DIRECTION_RTL;
     }
 
     public static Pair<String,String> getFilenameAndExtension(String filename, boolean isFolder, boolean isRTL) {
