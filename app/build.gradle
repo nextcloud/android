@@ -343,7 +343,7 @@ dependencies {
     implementation "org.bouncycastle:bcpkix-jdk18on:1.81"
     implementation "com.google.code.gson:gson:2.13.1"
     implementation "com.github.nextcloud-deps:sectioned-recyclerview:0.6.1"
-    implementation "com.github.chrisbanes:PhotoView:2.3.0"
+    implementation "com.github.Baseflow:PhotoView:2.3.0"
     implementation "pl.droidsonroids.gif:android-gif-drawable:1.2.29"
     implementation "com.github.nextcloud-deps:qrcodescanner:0.1.2.4" // "com.github.blikoon:QRCodeScanner:0.1.2"
     implementation "com.google.android.flexbox:flexbox:3.0.0"
