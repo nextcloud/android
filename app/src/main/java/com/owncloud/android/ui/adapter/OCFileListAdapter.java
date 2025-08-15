@@ -208,7 +208,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         isRTL = DisplayUtils.isRTL();
     }
 
-    private static int getFilenameMargin() {
+    private static int getFilenameMarginStart() {
         if (DisplayUtils.isOrientationLandscape()) {
             return FILE_NAME_LANDSCAPE_MARGIN_START;
         } else {
@@ -576,27 +576,21 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     }
 
     private void configureFilenameMaxWidth(ListGridItemViewHolder holder, OCFile file) {
-        int maxWidthInDp = FILE_NAME_MAX_WIDTH;
-        if (file.isFolder()) {
-            maxWidthInDp = FOLDER_NAME_MAX_WIDTH;
-        }
-
-        int maxWidthInPixel = DisplayUtils.convertDpToPixel(maxWidthInDp, MainApp.getAppContext());
-        holder.getFileName().setMaxWidth(maxWidthInPixel);
+        int dp = file.isFolder() ? FOLDER_NAME_MAX_WIDTH : FILE_NAME_MAX_WIDTH;
+        int px = DisplayUtils.convertDpToPixel(dp, MainApp.getAppContext());
+        holder.getFileName().setMaxWidth(px);
     }
 
     private void configureFilenameContainerMargin(ListGridItemViewHolder holder, OCFile file) {
+        int dp = file.isFolder() ? FOLDER_NAME_MARGIN_START : getFilenameMarginStart();
+        int px = DisplayUtils.convertDpToPixel(dp, MainApp.getAppContext());
+
         TextView filenameTextView = holder.getFileName();
         ViewParent parent = filenameTextView.getParent();
 
-        int marginStartInDp = getFilenameMargin();
-        if (file.isFolder()) {
-            marginStartInDp = FOLDER_NAME_MARGIN_START;
-        }
-
-        if (parent instanceof LinearLayout filenameContainer && filenameContainer.getLayoutParams() instanceof LinearLayout.LayoutParams params) {
-            int marginStartInPixel = DisplayUtils.convertDpToPixel(marginStartInDp, MainApp.getAppContext());
-            params.setMarginStart(marginStartInPixel);
+        if (parent instanceof LinearLayout filenameContainer &&
+            filenameContainer.getLayoutParams() instanceof LinearLayout.LayoutParams params) {
+            params.setMarginStart(px);
             filenameContainer.setLayoutParams(params);
         }
     }
