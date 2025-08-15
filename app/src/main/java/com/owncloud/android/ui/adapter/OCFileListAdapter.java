@@ -26,10 +26,8 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewParent;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.elyeproj.loaderviewlibrary.LoaderImageView;
 import com.google.android.material.chip.Chip;
@@ -581,24 +579,20 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         holder.getFileName().setMaxWidth(px);
     }
 
-    private void configureFilenameContainerMargin(ListGridItemViewHolder holder, OCFile file) {
-        int dp = file.isFolder() ? FOLDER_NAME_MARGIN_START : getFilenameMarginStart();
-        int px = DisplayUtils.convertDpToPixel(dp, MainApp.getAppContext());
-
-        TextView filenameTextView = holder.getFileName();
-        ViewParent parent = filenameTextView.getParent();
-
-        if (parent instanceof LinearLayout filenameContainer &&
-            filenameContainer.getLayoutParams() instanceof LinearLayout.LayoutParams params) {
+    private void configureFilenameContainerMargin(@NonNull LinearLayout filenameContainer, OCFile file) {
+        if (filenameContainer.getLayoutParams() instanceof LinearLayout.LayoutParams params) {
+            int dp = file.isFolder() ? FOLDER_NAME_MARGIN_START : getFilenameMarginStart();
+            int px = DisplayUtils.convertDpToPixel(dp, MainApp.getAppContext());
             params.setMarginStart(px);
             filenameContainer.setLayoutParams(params);
         }
     }
 
     private void setFileNameAndExtension(ListGridItemViewHolder holder, OCFile file) {
-        if (gridView) {
-            configureFilenameContainerMargin(holder,file);
-            configureFilenameMaxWidth(holder,file);
+        LinearLayout filenameContainer = holder.getFilenameContainer();
+        if (gridView && filenameContainer != null) {
+            configureFilenameContainerMargin(filenameContainer, file);
+            configureFilenameMaxWidth(holder, file);
         }
 
         final String filename = mStorageManager.getFilenameConsideringOfflineOperation(file);
