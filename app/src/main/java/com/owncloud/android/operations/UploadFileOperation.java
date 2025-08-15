@@ -58,6 +58,8 @@ import com.owncloud.android.operations.common.SyncOperation;
 import com.owncloud.android.operations.e2e.E2EClientData;
 import com.owncloud.android.operations.e2e.E2EData;
 import com.owncloud.android.operations.e2e.E2EFiles;
+import com.owncloud.android.operations.upload.UploadFileException;
+import com.owncloud.android.operations.upload.UploadFileOperationExtensionsKt;
 import com.owncloud.android.utils.EncryptionUtils;
 import com.owncloud.android.utils.EncryptionUtilsV2;
 import com.owncloud.android.utils.FileStorageUtils;
@@ -118,6 +120,7 @@ public class UploadFileOperation extends SyncOperation {
     public static final int CREATED_BY_USER = 0;
     public static final int CREATED_AS_INSTANT_PICTURE = 1;
     public static final int CREATED_AS_INSTANT_VIDEO = 2;
+    public static final int MISSING_FILE_PERMISSION_NOTIFICATION_ID = 2501;
 
     /**
      * OCFile which is to be uploaded.
@@ -166,6 +169,7 @@ public class UploadFileOperation extends SyncOperation {
 
     private boolean encryptedAncestor;
     private OCFile duplicatedEncryptedFile;
+    private AtomicBoolean missingPermissionThrown = new AtomicBoolean(false);
 
     public static OCFile obtainNewOCFileToUpload(String remotePath, String localPath, String mimeType) {
         OCFile newFile = new OCFile(remotePath);
@@ -403,9 +407,31 @@ public class UploadFileOperation extends SyncOperation {
         return mContext;
     }
 
+    public boolean isMissingPermissionThrown() {
+        return missingPermissionThrown.get();
+    }
+
     @Override
     @SuppressWarnings("PMD.AvoidDuplicateLiterals")
     protected RemoteOperationResult run(OwnCloudClient client) {
+        if (TextUtils.isEmpty(getStoragePath())) {
+            Log_OC.e(TAG, "Upload cancelled for " + getStoragePath() + ": file path is null or empty.");
+            return new RemoteOperationResult<>(new UploadFileException.EmptyOrNullFilePath());
+        }
+
+        final var localFile = new File(getStoragePath());
+        if (!localFile.exists()) {
+            Log_OC.e(TAG, "Upload cancelled for " + getStoragePath() + ": local file not exists.");
+            return new RemoteOperationResult<>(ResultCode.LOCAL_FILE_NOT_FOUND);
+        }
+
+        if (!localFile.canRead()) {
+            Log_OC.e(TAG, "Upload cancelled for " + getStoragePath() + ": file is not readable or inaccessible.");
+            UploadFileOperationExtensionsKt.showStoragePermissionNotification(this);
+            missingPermissionThrown.set(true);
+            return new RemoteOperationResult<>(new UploadFileException.MissingPermission());
+        }
+
         mCancellationRequested.set(false);
         mUploadStarted.set(true);
 
