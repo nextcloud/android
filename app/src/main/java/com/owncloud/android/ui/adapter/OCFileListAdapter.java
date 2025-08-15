@@ -593,8 +593,10 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     }
 
     private void setFileNameAndExtension(ListGridItemViewHolder holder, OCFile file) {
-        configureFilenameContainerMargin(holder,file);
-        configureFilenameMaxWidth(holder,file);
+        if (gridView) {
+            configureFilenameContainerMargin(holder,file);
+            configureFilenameMaxWidth(holder,file);
+        }
 
         final String filename = mStorageManager.getFilenameConsideringOfflineOperation(file);
         final var pair = FileStorageUtils.getFilenameAndExtension(filename, file.isFolder(), isRTL);
