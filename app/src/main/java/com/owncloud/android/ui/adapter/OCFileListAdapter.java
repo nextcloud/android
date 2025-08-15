@@ -16,7 +16,6 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.ContentValues;
 import android.content.res.ColorStateList;
-import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
@@ -210,7 +209,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     }
 
     private static int getFilenameMargin() {
-        if (MainApp.getAppContext().getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+        if (DisplayUtils.isOrientationLandscape()) {
             return FILE_NAME_LANDSCAPE_MARGIN_START;
         } else {
             return FILE_NAME_MARGIN_START;
