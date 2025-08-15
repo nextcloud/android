@@ -390,7 +390,7 @@ dependencies {
 
     implementation "org.osmdroid:osmdroid-android:6.1.20"
 
-    implementation("org.mnode.ical4j:ical4j:3.0.0") {
+    implementation("org.mnode.ical4j:ical4j:3.2.19") {
         ["org.apache.commons", "commons-logging"].each {
             exclude group: "$it"
         }
@@ -438,8 +438,8 @@ dependencies {
     implementation "com.github.stateless4j:stateless4j:2.6.0"
 
     // upon each update first test: new registration, receive push
-    gplayImplementation "com.google.firebase:firebase-messaging:24.1.2"
-    gplayImplementation "com.google.android.gms:play-services-base:18.5.0"
+    gplayImplementation "com.google.firebase:firebase-messaging:25.0.0"
+    gplayImplementation "com.google.android.gms:play-services-base:18.7.2"
     gplayImplementation "com.google.android.play:review-ktx:2.0.2"
 
     implementation "com.github.nextcloud.android-common:ui:$androidCommonLibraryVersion"
