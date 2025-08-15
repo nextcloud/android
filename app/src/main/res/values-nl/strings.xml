@@ -247,6 +247,13 @@
     <string name="document_scan_export_dialog_title">Kies exporttype</string>
     <string name="document_scan_pdf_generation_failed">PDF-generatie mislukt</string>
     <string name="document_scan_pdf_generation_in_progress">Genereer PDF...</string>
+    <string name="document_storage_provider_cannot_create_file_and_folder">Kan hier geen items aanmaken: toestemming om aan te maken ontbreekt.</string>
+    <string name="document_storage_provider_cannot_create_file_inside_folder">Kan bestand niet aanmaken: toestemming ontbreekt.</string>
+    <string name="document_storage_provider_cannot_create_folder_inside_folder">Kan map niet aanmaken: toestemming ontbreekt.</string>
+    <string name="document_storage_provider_cannot_delete">Kan item niet verwijderen: toestemming om te verwijderen ontbreekt.</string>
+    <string name="document_storage_provider_cannot_move">Kan item niet verplaatsen: toestemming om te verplaatsen ontbreekt.</string>
+    <string name="document_storage_provider_cannot_read">Kan item niet openen: toestemming om te lezen ontbreekt.</string>
+    <string name="document_storage_provider_cannot_rename">Kan item niet hernoemen: toestemming om te hernoemen ontbreekt.</string>
     <string name="done">Klaar</string>
     <string name="dontClear">Niet opruimen</string>
     <string name="download_cannot_create_file">Kan geen lokaal bestand aanmaken</string>
@@ -326,6 +333,7 @@
     <string name="error_comment_file">Fout bij plaatsen commentaar</string>
     <string name="error_crash_title">%1$s gecrasht</string>
     <string name="error_creating_file_from_template">Fout bij creëren bestand vanaf sjabloon</string>
+    <string name="error_fetching_sharees">Kon ontvangers van het gedeelde niet ophalen.</string>
     <string name="error_file_actions">Fout bij tonen bestandacties</string>
     <string name="error_file_lock">Fout tijdens het bijwerken van de bestandsvergrendeling status</string>
     <string name="error_report_issue_action">Rapporteer</string>
@@ -360,6 +368,7 @@
     <string name="etm_transfer_type">Overdracht</string>
     <string name="etm_transfer_type_download">Download</string>
     <string name="etm_transfer_type_upload">Upload</string>
+    <string name="extented_list_fragment_empty_list_message_no_write_permission">Je hebt geen toestemming om bestanden aan te maken of te uploaden in deze map.</string>
     <string name="external_shares">Externe shares</string>
     <string name="fab_label">Toevoegen of uploaden</string>
     <string name="failed_to_download">Kon het bestand niet doorgeven aan de download beheerder</string>
@@ -375,6 +384,7 @@
     <string name="file_detail_share_already_active">Kan geen deling maken, deling is al actief van deze gebruiker</string>
     <string name="file_detail_sharing_fragment_no_contact_app_message">Geen app beschikbaar voor het selecteren van contactpersonen</string>
     <string name="file_details_no_content">Kon details niet laden</string>
+    <string name="file_details_sharing_fragment_custom_permission_not_selected">Selecteer andere toestemming</string>
     <string name="file_icon">Bestand</string>
     <string name="file_keep">Behouden</string>
     <string name="file_list_empty">Upload je inhoud of synchroniseer met je apparaten.</string>
@@ -392,6 +402,8 @@
     <string name="file_list_empty_shared">Bestanden en mappen die je deelt, worden hier getoond.</string>
     <string name="file_list_empty_shared_headline">Nog niets gedeeld</string>
     <string name="file_list_empty_unified_search_no_results">Geen zoekresultaten voor je opvraag</string>
+    <string name="file_list_empty_unified_search_start_search">Begin met zoeken</string>
+    <string name="file_list_empty_unified_search_start_search_description">Type in bovenstaande zoekbalk om bestanden, contacten, gebeurtenissen en meer te vinden in je account.</string>
     <string name="file_list_folder">map</string>
     <string name="file_list_live">LIVE</string>
     <string name="file_list_loading">Laden…</string>
@@ -512,6 +524,7 @@
     <string name="last_backup">Laatste backup: %1$s</string>
     <string name="link">Link</string>
     <string name="link_name">Linknaam</string>
+    <string name="link_not_followed_due_to_security_settings">Link niet gevolgd door veiligheidsinstellingen.</string>
     <string name="link_share_editing">Bewerken</string>
     <string name="list_layout">Lijstoverzicht</string>
     <string name="load_more_results">Laad meer resultaten</string>
@@ -611,8 +624,12 @@
     <string name="offline_mode_info_description">Zelfs zonder internetverbinding kun je je mappen organiseren en bestanden aanmaken. Zodra je weer online bent, worden de wachtende acties automatisch gesynchroniseerd.</string>
     <string name="offline_mode_info_title">Je bent offline, maar het werk gaat door</string>
     <string name="offline_operations_file_does_not_exists_yet">Bestand bestaat nog niet. Upload het bestand eerst.</string>
+    <string name="offline_operations_worker_notification_create_file_conflict_text">Kon %s niet aanmaken. Een bestand met dezelfde naam bestaat al op de server.</string>
+    <string name="offline_operations_worker_notification_create_folder_conflict_text">Kon %s niet aanmaken. Een map met dezelfde naam bestaat al op de server.</string>
     <string name="offline_operations_worker_notification_error_text">De offline taak kan niet worden voltooid. %s</string>
     <string name="offline_operations_worker_notification_manager_ticker">Offline Taken</string>
+    <string name="offline_operations_worker_notification_remove_conflict_text">Verwijderen van %s geannuleerd. Het bestand is aangepast op de server.</string>
+    <string name="offline_operations_worker_notification_rename_conflict_text">Hernoeming van %s geannuleerd. Een bestand met dezelfde naam bestaat al op de server.</string>
     <string name="offline_operations_worker_notification_start_text">Starten offline taken</string>
     <string name="oneHour">1 uur</string>
     <string name="online">Online</string>
