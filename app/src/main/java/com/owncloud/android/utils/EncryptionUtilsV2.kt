@@ -13,6 +13,7 @@ import androidx.annotation.VisibleForTesting
 import com.google.gson.reflect.TypeToken
 import com.nextcloud.client.account.User
 import com.nextcloud.utils.autoRename.AutoRename
+import com.nextcloud.utils.extensions.showToast
 import com.owncloud.android.MainApp
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.ArbitraryDataProvider
@@ -171,6 +172,11 @@ class EncryptionUtilsV2 {
         context: Context,
         arbitraryDataProvider: ArbitraryDataProvider
     ): DecryptedFolderMetadataFile {
+        if (signature.isEmpty()) {
+            context.showToast(R.string.e2e_signature_is_empty)
+            throw IllegalStateException("Cannot decryptFolderMetadataFile, signature is empty")
+        }
+
         val parent =
             storageManager.getFileById(ocFile.parentId) ?: throw IllegalStateException("Cannot retrieve metadata")
 
@@ -243,7 +249,8 @@ class EncryptionUtilsV2 {
             )
         }
 
-        verifyMetadata(metadataFile, decryptedFolderMetadataFile, oldCounter, signature)
+        val isFolderNotEmpty = storageManager.isFolderNotEmpty(ocFile)
+        verifyMetadata(metadataFile, decryptedFolderMetadataFile, oldCounter, signature, isFolderNotEmpty)
 
         val transferredFiledrop = filesDropCountBefore > 0 &&
             decryptedFolderMetadataFile.metadata.files.size == filesBefore + filesDropCountBefore
@@ -943,12 +950,9 @@ class EncryptionUtilsV2 {
         encryptedFolderMetadataFile: EncryptedFolderMetadataFile,
         decryptedFolderMetadataFile: DecryptedFolderMetadataFile,
         oldCounter: Long,
-        signature: String
+        signature: String,
+        isFolderNotEmpty: Boolean
     ) {
-        if (signature.isEmpty()) {
-            return
-        }
-
         if (decryptedFolderMetadataFile.metadata.counter < oldCounter) {
             MainApp.showMessage(R.string.e2e_counter_too_old)
             return
@@ -958,7 +962,7 @@ class EncryptionUtilsV2 {
         val certs = decryptedFolderMetadataFile.users.map { EncryptionUtils.convertCertFromString(it.certificate) }
         val signedData = getSignedData(signature, message)
 
-        if (certs.isNotEmpty() && !verifySignedData(signedData, certs)) {
+        if (isFolderNotEmpty && certs.isNotEmpty() && !verifySignedData(signedData, certs)) {
             MainApp.showMessage(R.string.e2e_signature_does_not_match)
             return
         }
@@ -982,20 +986,24 @@ class EncryptionUtilsV2 {
         return CMSSignedData(cmsProcessableByteArray, contentInfo)
     }
 
+    @Suppress("TooGenericExceptionCaught")
     fun verifySignedData(data: CMSSignedData, certs: List<X509Certificate>): Boolean {
         val signer: SignerInformation = data.signerInfos.signers.iterator().next() as SignerInformation
+        val verifierBuilder = JcaSimpleSignerInfoVerifierBuilder()
+        var verifiedCertCount = 0
 
         certs.forEach {
             try {
-                if (signer.verify(JcaSimpleSignerInfoVerifierBuilder().build(it))) {
-                    return true
+                val verifier = verifierBuilder.build(it)
+                if (signer.verify(verifier)) {
+                    verifiedCertCount += 1
                 }
-            } catch (e: java.lang.Exception) {
+            } catch (e: Exception) {
                 Log_OC.e(TAG, "Error caught at verifySignedData: $e")
             }
         }
 
-        return false
+        return verifiedCertCount == certs.count()
     }
 
     private fun signMessage(cert: X509Certificate, key: PrivateKey, data: ByteArray): CMSSignedData {

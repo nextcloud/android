@@ -406,7 +406,7 @@ class EncryptionUtilsV2IT : EncryptionIT() {
 
         val signature = encryptionUtilsV2.getMessageSignature(enc1Cert, enc1PrivateKey, encrypted)
 
-        encryptionUtilsV2.verifyMetadata(encrypted, metadataFile, 0, signature)
+        encryptionUtilsV2.verifyMetadata(encrypted, metadataFile, 0, signature, true)
 
         assertTrue(true) // if we reach this, test is successful
     }
