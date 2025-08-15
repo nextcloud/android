@@ -685,6 +685,10 @@ public final class DisplayUtils {
         return px * (DisplayMetrics.DENSITY_DEFAULT / (float) metrics.densityDpi);
     }
 
+    public static boolean isRTL() {
+        return TextUtils.getLayoutDirectionFromLocale(Locale.getDefault()) == View.LAYOUT_DIRECTION_RTL;
+    }
+
     static public void showServerOutdatedSnackbar(Activity activity, int length) {
         Snackbar.make(activity.findViewById(android.R.id.content),
                       R.string.outdated_server, length)

@@ -37,7 +37,6 @@
     <dimen name="bottom_navigation_view_margin">100dp</dimen>
     <dimen name="standard_quarter_margin">4dp</dimen>
 
-    <dimen name="grid_layout_max_filename_width">60dp</dimen>
     <dimen name="grid_layout_item_size">10dp</dimen>
     <dimen name="grid_layout_margin_end">2dp</dimen>
     <dimen name="grid_sync_item_layout_next_text_size">22sp</dimen>

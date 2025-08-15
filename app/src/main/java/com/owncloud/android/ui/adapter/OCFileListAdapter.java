@@ -26,8 +26,10 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewParent;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.elyeproj.loaderviewlibrary.LoaderImageView;
 import com.google.android.material.chip.Chip;
@@ -133,6 +135,12 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private static final int VIEW_TYPE_IMAGE = 2;
     private static final int VIEW_TYPE_HEADER = 3;
 
+    private static final int FILE_NAME_MAX_WIDTH = 46;
+    private static final int FOLDER_NAME_MAX_WIDTH = 64;
+
+    private static final int FILE_NAME_MARGIN_START = 12;
+    private static final int FOLDER_NAME_MARGIN_START = 24;
+
     private boolean onlyOnDevice;
     private final OCFileListDelegate ocFileListDelegate;
     private FileSortOrder sortOrder;
@@ -196,7 +204,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
         // initialise thumbnails cache on background thread
         ThumbnailsCacheManager.initDiskCacheAsync();
-        isRTL = FileStorageUtils.isRTL();
+        isRTL = DisplayUtils.isRTL();
     }
 
     public boolean isMultiSelect() {
@@ -558,7 +566,36 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         }
     }
 
+    private void configureFilenameMaxWidth(ListGridItemViewHolder holder, OCFile file) {
+        int maxWidthInDp = FILE_NAME_MAX_WIDTH;
+        if (file.isFolder()) {
+            maxWidthInDp = FOLDER_NAME_MAX_WIDTH;
+        }
+
+        int maxWidthInPixel = DisplayUtils.convertDpToPixel(maxWidthInDp, MainApp.getAppContext());
+        holder.getFileName().setMaxWidth(maxWidthInPixel);
+    }
+
+    private void configureFilenameContainerMargin(ListGridItemViewHolder holder, OCFile file) {
+        TextView filenameTextView = holder.getFileName();
+        ViewParent parent = filenameTextView.getParent();
+
+        int marginStartInDp = FILE_NAME_MARGIN_START;
+        if (file.isFolder()) {
+            marginStartInDp = FOLDER_NAME_MARGIN_START;
+        }
+
+        if (parent instanceof LinearLayout filenameContainer && filenameContainer.getLayoutParams() instanceof LinearLayout.LayoutParams params) {
+            int marginStartInPixel = DisplayUtils.convertDpToPixel(marginStartInDp, MainApp.getAppContext());
+            params.setMarginStart(marginStartInPixel);
+            filenameContainer.setLayoutParams(params);
+        }
+    }
+
     private void setFileNameAndExtension(ListGridItemViewHolder holder, OCFile file) {
+        configureFilenameContainerMargin(holder,file);
+        configureFilenameMaxWidth(holder,file);
+
         final String filename = mStorageManager.getFilenameConsideringOfflineOperation(file);
         final var pair = FileStorageUtils.getFilenameAndExtension(filename, file.isFolder(), isRTL);
 
