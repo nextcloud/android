@@ -16,6 +16,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.ContentValues;
 import android.content.res.ColorStateList;
+import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
@@ -139,6 +140,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private static final int FOLDER_NAME_MAX_WIDTH = 64;
 
     private static final int FILE_NAME_MARGIN_START = 12;
+    private static final int FILE_NAME_LANDSCAPE_MARGIN_START = 24;
     private static final int FOLDER_NAME_MARGIN_START = 24;
 
     private boolean onlyOnDevice;
@@ -205,6 +207,14 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         // initialise thumbnails cache on background thread
         ThumbnailsCacheManager.initDiskCacheAsync();
         isRTL = DisplayUtils.isRTL();
+    }
+
+    private static int getFilenameMargin() {
+        if (MainApp.getAppContext().getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            return FILE_NAME_LANDSCAPE_MARGIN_START;
+        } else {
+            return FILE_NAME_MARGIN_START;
+        }
     }
 
     public boolean isMultiSelect() {
@@ -582,7 +592,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         TextView filenameTextView = holder.getFileName();
         ViewParent parent = filenameTextView.getParent();
 
-        int marginStartInDp = FILE_NAME_MARGIN_START;
+        int marginStartInDp = getFilenameMargin();
         if (file.isFolder()) {
             marginStartInDp = FOLDER_NAME_MARGIN_START;
         }
