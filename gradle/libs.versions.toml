@@ -12,7 +12,7 @@ composeBom = "2025.07.00"
 spotbugsGradlePlugin = "6.2.3"
 detektGradlePlugin = "1.23.8"
 spotless = "7.2.1"
-ksp = "2.2.0-2.0.2"
+ksp = "2.2.10-2.0.2"
 
 [libraries]
 # Splash Screen
