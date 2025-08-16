@@ -27,8 +27,9 @@ import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.files.model.RemoteFile;
-import com.owncloud.android.lib.resources.shares.ShareeUser;
 import com.owncloud.android.ui.helpers.FileOperationsHelper;
+
+import org.apache.commons.io.FilenameUtils;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -53,6 +54,7 @@ import javax.annotation.Nullable;
 import androidx.annotation.VisibleForTesting;
 import androidx.core.app.ActivityCompat;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import kotlin.Pair;
 
 /**
  * Static methods to help in access to local file system.
@@ -67,6 +69,24 @@ public final class FileStorageUtils {
 
     private FileStorageUtils() {
         // utility class -> private constructor
+    }
+
+    public static Pair<String,String> getFilenameAndExtension(String filename, boolean isFolder, boolean isRTL) {
+        if (isFolder) {
+            return new Pair<>(filename, "");
+        }
+
+        final String base =  FilenameUtils.getBaseName(filename);
+        String extension =  FilenameUtils.getExtension(filename);
+        if (!extension.isEmpty()) {
+            extension =  StringConstants.DOT + extension;
+        }
+
+        if (isRTL) {
+            return new Pair<>(extension, base);
+        } else {
+            return new Pair<>(base, extension);
+        }
     }
 
     public static boolean isValidExtFilename(String name) {

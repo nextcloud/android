@@ -15,6 +15,7 @@ import android.accounts.OperationCanceledException;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.graphics.Color;
@@ -62,6 +63,7 @@ import com.owncloud.android.lib.common.accounts.AccountUtils;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.files.model.RemoteFile;
+import com.owncloud.android.lib.resources.files.model.ServerFileInterface;
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.lib.resources.shares.ShareeUser;
@@ -123,6 +125,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private FileDataStorageManager mStorageManager;
     private User user;
     private final OCFileListFragmentInterface ocFileListFragmentInterface;
+    private final boolean isRTL;
 
     private OCFile currentDirectory;
     private static final String TAG = OCFileListAdapter.class.getSimpleName();
@@ -131,6 +134,20 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private static final int VIEW_TYPE_ITEM = 1;
     private static final int VIEW_TYPE_IMAGE = 2;
     private static final int VIEW_TYPE_HEADER = 3;
+
+    // Reserved space for file extension text in DP
+    private static final int EXTENSION_RESERVED_DP = 36;
+
+    // Padding between text and more icon in DP
+    private static final int SAFETY_MARGIN_DP = 8;
+
+    // extra spacing between text and more button
+    private static final int MORE_BUTTON_MARGIN_DP = 8;
+
+    private int lastScreenWidth = -1;
+    private int lastColumnCount = -1;
+    private int cachedFolderMaxWidth = -1;
+    private int cachedFileMaxWidth = -1;
 
     private boolean onlyOnDevice;
     private final OCFileListDelegate ocFileListDelegate;
@@ -195,6 +212,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
         // initialise thumbnails cache on background thread
         ThumbnailsCacheManager.initDiskCacheAsync();
+        isRTL = DisplayUtils.isRTL();
     }
 
     public boolean isMultiSelect() {
@@ -478,7 +496,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             }
 
             if (holder instanceof ListGridItemViewHolder gridItemViewHolder) {
-                bindListGridItemViewHolder(gridItemViewHolder, file);
+                setFileNameAndExtension(gridItemViewHolder, file);
                 checkVisibilityOfFileFeaturesLayout(gridItemViewHolder);
             }
 
@@ -558,8 +576,79 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         }
     }
 
-    private void bindListGridItemViewHolder(ListGridItemViewHolder holder, OCFile file) {
-        holder.getFileName().setText(mStorageManager.getFilenameConsideringOfflineOperation(file));
+    public void invalidateGridLayoutCachedWidths() {
+        lastColumnCount = -1;
+        lastScreenWidth = -1;
+    }
+
+    private void configureFilenameMaxWidth(ListGridItemViewHolder holder, ServerFileInterface file) {
+        final Context context = MainApp.getAppContext();
+        if (context == null) {
+            Log_OC.w(TAG, "Grid layout max file width configuration cancelled, context is null");
+            return;
+        }
+
+        final int columnCount = ocFileListFragmentInterface.getColumnsCount();
+        final int screenWidth = DisplayUtils.convertDpToPixel(
+            context.getResources().getConfiguration().screenWidthDp, context);
+
+        // dont recalculate same value
+        if (columnCount != lastColumnCount || screenWidth != lastScreenWidth) {
+            // available width per column
+            int cellWidth = screenWidth / columnCount;
+
+            int moreButtonPx = context.getResources().getDimensionPixelSize(R.dimen.iconized_single_line_item_icon_size);
+
+            // 3-4 chars width
+            int extensionMinPx = (int) (context.getResources().getDisplayMetrics().density * EXTENSION_RESERVED_DP);
+
+            int paddingPx = (int) (context.getResources().getDisplayMetrics().density * SAFETY_MARGIN_DP);
+            int moreButtonMarginPx = (int) (context.getResources().getDisplayMetrics().density * MORE_BUTTON_MARGIN_DP);
+
+            // name + more button
+            cachedFolderMaxWidth = cellWidth - moreButtonPx - paddingPx - moreButtonMarginPx;
+
+            // name + extension + more button
+            cachedFileMaxWidth   = cellWidth - moreButtonPx - extensionMinPx - paddingPx - moreButtonMarginPx;
+
+            // fallback
+            if (cachedFolderMaxWidth < 0) {
+                cachedFolderMaxWidth = context.getResources().getDimensionPixelSize(
+                    R.dimen.grid_container_default_max_file_name);
+            }
+            if (cachedFileMaxWidth < 0) {
+                cachedFileMaxWidth = context.getResources().getDimensionPixelSize(
+                    R.dimen.grid_container_default_max_file_name);
+            }
+
+            lastColumnCount = columnCount;
+            lastScreenWidth = screenWidth;
+        }
+
+        if (file.isFolder()) {
+            holder.getFileName().setMaxWidth(cachedFolderMaxWidth);
+        } else {
+            holder.getFileName().setMaxWidth(cachedFileMaxWidth);
+        }
+    }
+
+    private void setFileNameAndExtension(ListGridItemViewHolder holder, OCFile file) {
+        if (gridView) {
+            configureFilenameMaxWidth(holder, file);
+        }
+
+        final String filename = mStorageManager.getFilenameConsideringOfflineOperation(file);
+        final var pair = FileStorageUtils.getFilenameAndExtension(filename, file.isFolder(), isRTL);
+
+        if (file.isFolder()) {
+            holder.getFileName().setText(pair.getFirst());
+            holder.getExtension().setVisibility(View.GONE);
+            return;
+        }
+
+        holder.getExtension().setVisibility(View.VISIBLE);
+        holder.getFileName().setText(pair.getFirst());
+        holder.getExtension().setText(pair.getSecond());
     }
 
     private void bindListItemViewHolder(ListItemViewHolder holder, OCFile file) {
@@ -1145,6 +1234,10 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     public void cancelAllPendingTasks() {
         ocFileListDelegate.cancelAllPendingTasks();
+    }
+
+    public boolean isGridView() {
+        return gridView;
     }
 
     public void setGridView(boolean bool) {
