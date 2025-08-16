@@ -261,9 +261,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
         FileSortOrder sortOrder = preferences.getSortOrderByFolder(currentDirectory);
         if (searchType == SearchType.SHARED_FILTER) {
-            Collections.sort(mFiles,
-                             (o1, o2) -> Long.compare(o2.getFirstShareTimestamp(), o1.getFirstShareTimestamp())
-                            );
+            mFiles.sort((o1, o2) -> Long.compare(o2.getFirstShareTimestamp(), o1.getFirstShareTimestamp()));
         } else {
             mFiles = sortOrder.sortCloudFiles(mFiles);
         }

@@ -49,14 +49,8 @@ public class DiskLruImageCache {
     }
 
     private boolean writeBitmapToFile(Bitmap bitmap, DiskLruCache.Editor editor) throws IOException {
-        OutputStream out = null;
-        try {
-            out = new BufferedOutputStream(editor.newOutputStream(0), IO_BUFFER_SIZE);
+        try (OutputStream out = new BufferedOutputStream(editor.newOutputStream(0), IO_BUFFER_SIZE)) {
             return bitmap.compress(mCompressFormat, mCompressQuality, out);
-        } finally {
-            if (out != null) {
-                out.close();
-            }
         }
     }
 

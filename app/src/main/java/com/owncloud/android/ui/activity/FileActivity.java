@@ -710,9 +710,7 @@ public abstract class FileActivity extends DrawerActivity
             } else {
                 Snackbar.make(activity.findViewById(android.R.id.content), R.string.dev_version_new_version_available,
                               Snackbar.LENGTH_LONG)
-                    .setAction(activity.getString(R.string.version_dev_download), v -> {
-                        DisplayUtils.startLinkIntent(activity, devApkLink);
-                    }).show();
+                    .setAction(activity.getString(R.string.version_dev_download), v -> DisplayUtils.startLinkIntent(activity, devApkLink)).show();
             }
         } else {
             if (!inBackground) {

@@ -173,9 +173,7 @@ public abstract class AbstractOnServerIT extends AbstractIT {
                 Assert.fail("Server not ready!");
             }
 
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
+        } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }
     }
