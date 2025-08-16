@@ -268,4 +268,34 @@ class FileStorageUtilsTest {
         assertEquals("Foo\u202Edm", result.first)
         assertEquals(".exe", result.second)
     }
+
+    @Test
+    fun testContainsBidiControlCharactersWhenGivenNormalFilenameShouldReturnFalse() {
+        val result = FileStorageUtils.containsBidiControlCharacters("myfile.txt")
+        assertFalse(result)
+    }
+
+    @Test
+    fun testContainsBidiControlCharactersWhenGivenFilenameWithEncodedRtlOverrideShouldReturnTrue() {
+        val result = FileStorageUtils.containsBidiControlCharacters("myfile%e2%80%aetxt.exe")
+        assertTrue(result)
+    }
+
+    @Test
+    fun testContainsBidiControlCharactersWhenGivenFilenameWithRawRtlOverrideCharShouldReturnTrue() {
+        val result = FileStorageUtils.containsBidiControlCharacters("safe\u202Eevil.exe")
+        assertTrue(result)
+    }
+
+    @Test
+    fun testContainsBidiControlCharactersWhenGivenFilenameWithControlCharacterShouldReturnTrue() {
+        val result = FileStorageUtils.containsBidiControlCharacters("hello\u0001world.txt")
+        assertTrue(result)
+    }
+
+    @Test
+    fun testContainsBidiControlCharactersWhenGivenNullShouldReturnFalse() {
+        val result = FileStorageUtils.containsBidiControlCharacters(null)
+        assertFalse(result)
+    }
 }

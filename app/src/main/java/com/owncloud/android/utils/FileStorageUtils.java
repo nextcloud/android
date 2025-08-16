@@ -37,6 +37,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -69,6 +72,38 @@ public final class FileStorageUtils {
 
     private FileStorageUtils() {
         // utility class -> private constructor
+    }
+
+    public static boolean containsBidiControlCharacters(String filename) {
+        if (filename == null) return false;
+
+        String decoded;
+        try {
+            decoded = URLDecoder.decode(filename, StandardCharsets.UTF_8.toString());
+        } catch (UnsupportedEncodingException e) {
+            return false;
+        }
+
+        int[] bidiControlCharacters = {
+            0x202A, 0x202B, 0x202C, 0x202D, 0x202E,
+            0x200E, 0x200F, 0x2066, 0x2067, 0x2068,
+            0x2069
+        };
+
+        for (int i = 0; i < decoded.length(); i++) {
+            int codePoint = decoded.codePointAt(i);
+            for (int chars : bidiControlCharacters) {
+                if (codePoint == chars) {
+                    return true;
+                }
+            }
+        }
+
+        for (char c : decoded.toCharArray()) {
+            if (c < 32) return true;
+        }
+
+        return false;
     }
 
     public static Pair<String,String> getFilenameAndExtension(String filename, boolean isFolder, boolean isRTL) {

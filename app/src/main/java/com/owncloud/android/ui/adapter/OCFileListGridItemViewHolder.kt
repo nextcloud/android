@@ -12,19 +12,26 @@ import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.elyeproj.loaderviewlibrary.LoaderImageView
 import com.owncloud.android.databinding.GridItemBinding
 
-internal class OCFileListGridItemViewHolder(var binding: GridItemBinding) :
+class OCFileListGridItemViewHolder(var binding: GridItemBinding) :
     RecyclerView.ViewHolder(
         binding.root
     ),
     ListGridItemViewHolder {
+    val bidiFilename: TextView
+        get() = binding.bidiFilename
     override val fileName: TextView
         get() = binding.Filename
-    override val extension: TextView
-        get() = binding.extension
+    override val extension: TextView?
+        get() = if (binding.bidiFilenameContainer.isVisible) {
+            binding.bidiExtension
+        } else {
+            null
+        }
     override val thumbnail: ImageView
         get() = binding.thumbnail
 
@@ -58,7 +65,11 @@ internal class OCFileListGridItemViewHolder(var binding: GridItemBinding) :
     override val fileFeaturesLayout: LinearLayout
         get() = binding.fileFeaturesLayout
     override val more: ImageButton
-        get() = binding.more
+        get() = if (binding.bidiFilenameContainer.isVisible) {
+            binding.bidiMore
+        } else {
+            binding.more
+        }
 
     init {
         binding.favoriteAction.drawable.mutate()
