@@ -15,6 +15,7 @@ import android.accounts.OperationCanceledException;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.graphics.Color;
@@ -134,12 +135,16 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private static final int VIEW_TYPE_IMAGE = 2;
     private static final int VIEW_TYPE_HEADER = 3;
 
-    private static final int FILE_NAME_MAX_WIDTH = 46;
-    private static final int FOLDER_NAME_MAX_WIDTH = 106;
+    // Reserved space for file extension text in DP
+    private static final int EXTENSION_RESERVED_DP = 36;
 
-    private static final int FILE_NAME_MARGIN_START = 12;
-    private static final int FILE_NAME_LANDSCAPE_MARGIN_START = 24;
-    private static final int FOLDER_NAME_MARGIN_START = 24;
+    // Padding between text and more icon in DP
+    private static final int SAFETY_MARGIN_DP = 8;
+
+    private int lastScreenWidth = -1;
+    private int lastColumnCount = -1;
+    private int cachedFolderMaxWidth = -1;
+    private int cachedFileMaxWidth = -1;
 
     private boolean onlyOnDevice;
     private final OCFileListDelegate ocFileListDelegate;
@@ -205,14 +210,6 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         // initialise thumbnails cache on background thread
         ThumbnailsCacheManager.initDiskCacheAsync();
         isRTL = DisplayUtils.isRTL();
-    }
-
-    private static int getFilenameMarginStart() {
-        if (DisplayUtils.isOrientationLandscape()) {
-            return FILE_NAME_LANDSCAPE_MARGIN_START;
-        } else {
-            return FILE_NAME_MARGIN_START;
-        }
     }
 
     public boolean isMultiSelect() {
@@ -576,25 +573,63 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         }
     }
 
-    private void configureFilenameMaxWidth(ListGridItemViewHolder holder, ServerFileInterface file) {
-        int dp = file.isFolder() ? FOLDER_NAME_MAX_WIDTH : FILE_NAME_MAX_WIDTH;
-        int px = DisplayUtils.convertDpToPixel(dp, MainApp.getAppContext());
-        holder.getFileName().setMaxWidth(px);
+    public void invalidateGridLayoutCachedWidths() {
+        lastColumnCount = -1;
+        lastScreenWidth = -1;
     }
 
-    private void configureFilenameContainerMargin(@NonNull LinearLayout filenameContainer, ServerFileInterface file) {
-        if (filenameContainer.getLayoutParams() instanceof LinearLayout.LayoutParams params) {
-            int dp = file.isFolder() ? FOLDER_NAME_MARGIN_START : getFilenameMarginStart();
-            int px = DisplayUtils.convertDpToPixel(dp, MainApp.getAppContext());
-            params.setMarginStart(px);
-            filenameContainer.setLayoutParams(params);
+    private void configureFilenameMaxWidth(ListGridItemViewHolder holder, ServerFileInterface file) {
+        final Context context = MainApp.getAppContext();
+        if (context == null) {
+            Log_OC.w(TAG, "Grid layout max file width configuration cancelled, context is null");
+            return;
+        }
+
+        final int columnCount = ocFileListFragmentInterface.getColumnsCount();
+        final int screenWidth = DisplayUtils.convertDpToPixel(
+            context.getResources().getConfiguration().screenWidthDp, context);
+
+        // dont recalculate same value
+        if (columnCount != lastColumnCount || screenWidth != lastScreenWidth) {
+            // available width per column
+            int cellWidth = screenWidth / columnCount;
+
+            int moreButtonPx = context.getResources().getDimensionPixelSize(R.dimen.iconized_single_line_item_icon_size);
+
+            // 3-4 chars width
+            int extensionMinPx = (int) (context.getResources().getDisplayMetrics().density * EXTENSION_RESERVED_DP);
+
+            int paddingPx = (int) (context.getResources().getDisplayMetrics().density * SAFETY_MARGIN_DP);
+
+            // name + more button
+            cachedFolderMaxWidth = cellWidth - moreButtonPx - paddingPx;
+
+            // name + extension + more button
+            cachedFileMaxWidth   = cellWidth - moreButtonPx - extensionMinPx - paddingPx;
+
+            // fallback
+            if (cachedFolderMaxWidth < 0) {
+                cachedFolderMaxWidth = context.getResources().getDimensionPixelSize(
+                    R.dimen.grid_container_default_max_file_name);
+            }
+            if (cachedFileMaxWidth < 0) {
+                cachedFileMaxWidth = context.getResources().getDimensionPixelSize(
+                    R.dimen.grid_container_default_max_file_name);
+            }
+
+            lastColumnCount = columnCount;
+            lastScreenWidth = screenWidth;
+        }
+
+        if (file.isFolder()) {
+            holder.getFileName().setMaxWidth(cachedFolderMaxWidth);
+        } else {
+            holder.getFileName().setMaxWidth(cachedFileMaxWidth);
         }
     }
 
     private void setFileNameAndExtension(ListGridItemViewHolder holder, OCFile file) {
-        LinearLayout filenameContainer = holder.getFilenameContainer();
-        if (gridView && filenameContainer != null) {
-            configureFilenameContainerMargin(filenameContainer, file);
+        if (gridView) {
             configureFilenameMaxWidth(holder, file);
         }
 
@@ -1195,6 +1230,10 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     public void cancelAllPendingTasks() {
         ocFileListDelegate.cancelAllPendingTasks();
+    }
+
+    public boolean isGridView() {
+        return gridView;
     }
 
     public void setGridView(boolean bool) {

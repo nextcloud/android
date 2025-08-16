@@ -7,11 +7,9 @@
  */
 package com.owncloud.android.ui.adapter
 
-import android.widget.LinearLayout
 import android.widget.TextView
 
 internal interface ListGridItemViewHolder : ListViewHolder {
     val fileName: TextView
     val extension: TextView
-    val filenameContainer: LinearLayout?
 }

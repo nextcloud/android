@@ -66,7 +66,6 @@ import com.nextcloud.utils.extensions.ActivityExtensionsKt;
 import com.nextcloud.utils.extensions.BundleExtensionsKt;
 import com.nextcloud.utils.extensions.FileExtensionsKt;
 import com.nextcloud.utils.extensions.IntentExtensionsKt;
-import com.nextcloud.utils.extensions.ViewExtensionsKt;
 import com.nextcloud.utils.fileNameValidator.FileNameValidator;
 import com.nextcloud.utils.view.FastScrollUtils;
 import com.owncloud.android.MainApp;
@@ -97,6 +96,7 @@ import com.owncloud.android.operations.SynchronizeFileOperation;
 import com.owncloud.android.operations.UploadFileOperation;
 import com.owncloud.android.syncadapter.FileSyncAdapter;
 import com.owncloud.android.ui.CompletionCallback;
+import com.owncloud.android.ui.adapter.OCFileListAdapter;
 import com.owncloud.android.ui.asynctasks.CheckAvailableSpaceTask;
 import com.owncloud.android.ui.asynctasks.FetchRemoteFileTask;
 import com.owncloud.android.ui.asynctasks.GetRemoteFileTask;
@@ -374,6 +374,23 @@ public class FileDisplayActivity extends FileActivity
                     PermissionUtil.requestExternalStoragePermission(this, viewThemeUtils);
                 }
             }
+        }
+
+        recalculateGridLayoutFilenameMaxWidths();
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    private void recalculateGridLayoutFilenameMaxWidths() {
+        final OCFileListFragment fragment = getFileListFragment();
+        if (fragment == null) {
+            return;
+        }
+
+        final OCFileListAdapter fileListAdapter = fragment.getAdapter();
+
+        if (fileListAdapter != null && fileListAdapter.isGridView()) {
+            fileListAdapter.invalidateGridLayoutCachedWidths();
+            fileListAdapter.notifyDataSetChanged();
         }
     }
 
