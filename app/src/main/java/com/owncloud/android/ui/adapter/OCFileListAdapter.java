@@ -135,7 +135,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private static final int VIEW_TYPE_HEADER = 3;
 
     private static final int FILE_NAME_MAX_WIDTH = 46;
-    private static final int FOLDER_NAME_MAX_WIDTH = 64;
+    private static final int FOLDER_NAME_MAX_WIDTH = 106;
 
     private static final int FILE_NAME_MARGIN_START = 12;
     private static final int FILE_NAME_LANDSCAPE_MARGIN_START = 24;
