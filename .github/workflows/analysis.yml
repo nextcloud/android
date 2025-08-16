@@ -70,9 +70,7 @@ jobs:
                 run: |
                     mkdir -p "$HOME/.gradle"
                     {
-                        echo "org.gradle.jvmargs=-Xmx6g -XX:+HeapDumpOnOutOfMemoryError -Dfile.encoding=UTF-8 -XX:+UseParallelGC -XX:MaxMetaspaceSize=1g"
-                        echo "org.gradle.caching=true"
-                        echo "org.gradle.parallel=true"
+                        echo "org.gradle.jvmargs=-Xmx5g -XX:+HeapDumpOnOutOfMemoryError -Dfile.encoding=UTF-8 -XX:+UseParallelGC -XX:MaxMetaspaceSize=1g"
                         echo "org.gradle.configureondemand=true"
                         echo "kapt.incremental.apt=true"
                     } > "$HOME/.gradle/gradle.properties"
