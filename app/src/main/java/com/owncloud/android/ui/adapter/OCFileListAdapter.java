@@ -141,6 +141,9 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     // Padding between text and more icon in DP
     private static final int SAFETY_MARGIN_DP = 8;
 
+    // extra spacing between text and more button
+    private static final int MORE_BUTTON_MARGIN_DP = 8;
+
     private int lastScreenWidth = -1;
     private int lastColumnCount = -1;
     private int cachedFolderMaxWidth = -1;
@@ -600,12 +603,13 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             int extensionMinPx = (int) (context.getResources().getDisplayMetrics().density * EXTENSION_RESERVED_DP);
 
             int paddingPx = (int) (context.getResources().getDisplayMetrics().density * SAFETY_MARGIN_DP);
+            int moreButtonMarginPx = (int) (context.getResources().getDisplayMetrics().density * MORE_BUTTON_MARGIN_DP);
 
             // name + more button
-            cachedFolderMaxWidth = cellWidth - moreButtonPx - paddingPx;
+            cachedFolderMaxWidth = cellWidth - moreButtonPx - paddingPx - moreButtonMarginPx;
 
             // name + extension + more button
-            cachedFileMaxWidth   = cellWidth - moreButtonPx - extensionMinPx - paddingPx;
+            cachedFileMaxWidth   = cellWidth - moreButtonPx - extensionMinPx - paddingPx - moreButtonMarginPx;
 
             // fallback
             if (cachedFolderMaxWidth < 0) {
