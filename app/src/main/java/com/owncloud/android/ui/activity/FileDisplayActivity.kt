@@ -1397,7 +1397,8 @@ class FileDisplayActivity :
         }
     }
 
-    // avoid app crashes after changing the serial id of RemoteOperationResult in owncloud library with broadcast notifications pending to process
+    // avoid app crashes after changing the serial id of RemoteOperationResult in owncloud library
+    // with broadcast notifications pending to process
     private fun safelyDeleteResult(intent: Intent) {
         try {
             DataHolderUtil.getInstance().delete(intent.getStringExtra(FileSyncAdapter.EXTRA_RESULT))
