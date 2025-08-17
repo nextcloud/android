@@ -1032,6 +1032,10 @@
     <string name="upload_local_storage_not_copied">File could not be copied to local storage</string>
     <string name="upload_lock_failed">Locking folder failed</string>
     <string name="upload_manually_cancelled">Upload was cancelled by user</string>
+    <string name="upload_missing_storage_permission_allow_file_access">Allow all file access</string>
+    <string name="upload_missing_storage_permission_app_permissions">App permissions</string>
+    <string name="upload_missing_storage_permission_description">Your files cannot be uploaded without access to local storage. Tap to grant permission.</string>
+    <string name="upload_missing_storage_permission_title">Upload Stopped – Storage Permission Required</string>
     <string name="upload_notification_manager_start_text">%1$d / %2$d - %3$s</string>
     <string name="upload_old_android">Encryption is only possible with &gt;= Android 5.0</string>
     <string name="upload_query_move_foreign_files">Insufficient space prevents copying the selected files into the %1$s folder. Would you like to move them there instead?</string>

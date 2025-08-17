@@ -1032,6 +1032,10 @@
     <string name="upload_local_storage_not_copied">Faili ei õnnestunud kopeerida kohalikku andmeruumi</string>
     <string name="upload_lock_failed">Kasuta lukustamine ei õnnestunud</string>
     <string name="upload_manually_cancelled">Kasutaja katkestas üleslaadimise</string>
+    <string name="upload_missing_storage_permission_allow_file_access">Luba juurdepääs kõikidele failidele</string>
+    <string name="upload_missing_storage_permission_app_permissions">Rakenduse õigused</string>
+    <string name="upload_missing_storage_permission_description">Sinu faile ei saa kohalikust andmeruumist üles laadida. Klõpsa õiguste lubamiseks.</string>
+    <string name="upload_missing_storage_permission_title">Üleslaadimine on peatunud - vajalikud on andmeruumi kasutamise õigused</string>
     <string name="upload_notification_manager_start_text">%1$d / %2$d - %3$s</string>
     <string name="upload_old_android">Krüptimine on võimalik vaid &gt;= Android 5.0 puhul</string>
     <string name="upload_query_move_foreign_files">Piisava ruumi puudumisel pole võimalik kopeerida valitud faile „%1$s“ kausta. Kas pigem tahaksid nad sinna teisaldada?</string>

@@ -1032,6 +1032,10 @@
     <string name="upload_local_storage_not_copied">Неможливо скопіювати файл до внутрішнього сховища</string>
     <string name="upload_lock_failed">Неможливо заблокувати каталог</string>
     <string name="upload_manually_cancelled">Завантаження скасовано користувачем</string>
+    <string name="upload_missing_storage_permission_allow_file_access">Дозволити повний доступ до файлів</string>
+    <string name="upload_missing_storage_permission_app_permissions">Дозволи застосунків</string>
+    <string name="upload_missing_storage_permission_description">Неможливо завантажити ваші файли без доступу до місця зберігання файлів на вашому пристрої. Натисніть, щоби надати доступ.</string>
+    <string name="upload_missing_storage_permission_title">Завантаження зупинено - потрібний доступ до місця зберігання файлів</string>
     <string name="upload_notification_manager_start_text">%1$d/%2$d-%3$s</string>
     <string name="upload_old_android">Шифрування можливе лише на пристроях з версію Android 5.0+</string>
     <string name="upload_query_move_foreign_files">Нестача місця не дозволяє скопіювати файли до каталогу%1$s. Чи бажаєте перемістити їх замість копіювання?</string>

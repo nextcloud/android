@@ -1032,6 +1032,10 @@
     <string name="upload_local_storage_not_copied">無法複製檔案到近端資料夾</string>
     <string name="upload_lock_failed">鎖定資料夾失敗</string>
     <string name="upload_manually_cancelled">用戶已取消上傳</string>
+    <string name="upload_missing_storage_permission_allow_file_access">允許所有檔案存取</string>
+    <string name="upload_missing_storage_permission_app_permissions">應用程式權限</string>
+    <string name="upload_missing_storage_permission_description">您的檔案無法上傳，因為沒有訪問本地存儲的權限。請點擊以授予權限。</string>
+    <string name="upload_missing_storage_permission_title">上傳已停止 – 需要儲存權限</string>
     <string name="upload_notification_manager_start_text">%1$d / %2$d - %3$s</string>
     <string name="upload_old_android">加密功能只適用於 Android 5.0 及以上版本</string>
     <string name="upload_query_move_foreign_files">空間不足導致無法將所選檔案複製到 %1$s 資料夾中。您想改為將檔案移到那裡嗎？</string>
