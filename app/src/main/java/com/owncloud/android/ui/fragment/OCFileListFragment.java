@@ -1835,7 +1835,9 @@ public class OCFileListFragment extends ExtendedListFragment implements
             arguments.putParcelable(OCFileListFragment.SEARCH_EVENT, null);
         }
 
-        setFabVisible(mFile.canCreateFileAndFolder());
+        if (mFile != null) {
+            setFabVisible(mFile.canCreateFileAndFolder());
+        }
         slideHideBottomBehaviourForBottomNavigationView(true);
     }
 
