@@ -51,6 +51,7 @@ import com.google.android.material.progressindicator.LinearProgressIndicator;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.files.DeepLinkConstants;
+import com.nextcloud.client.jobs.upload.FileUploadWorker;
 import com.nextcloud.client.network.ClientFactory;
 import com.nextcloud.client.onboarding.FirstRunActivity;
 import com.nextcloud.client.preferences.AppPreferences;
@@ -606,7 +607,14 @@ public abstract class DrawerActivity extends ToolbarActivity
             startActivity(ActivitiesActivity.class, Intent.FLAG_ACTIVITY_CLEAR_TOP);
         } else if (itemId == R.id.nav_settings) {
             resetOnlyPersonalAndOnDevice();
-            startActivity(SettingsActivity.class);
+
+            /**
+             * Since back button of SettingsActivity always shows all files we can clear the stack.
+             * {@link SettingsActivity#onBackPressed()
+             */
+            final Intent intent = new Intent(this, SettingsActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
         } else if (itemId == R.id.nav_community) {
             resetOnlyPersonalAndOnDevice();
             startActivity(CommunityActivity.class);
