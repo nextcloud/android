@@ -176,6 +176,9 @@ class GalleryRowHolder(
             width
         )
 
+        // Force layout update
+        frameLayout.requestLayout()
+
         val params = FrameLayout.LayoutParams(width, height)
         val endMargin = if (index < row.files.size - 1) smallMargin else zero
         params.setMargins(zero, zero, endMargin, smallMargin)
