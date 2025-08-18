@@ -354,7 +354,21 @@ class FileDisplayActivity :
                 }
             }
         }
+
+        recalculateGridLayoutFilenameMaxWidths()
     }
+
+    @SuppressLint("NotifyDataSetChanged")
+    private fun recalculateGridLayoutFilenameMaxWidths() {
+        val fragment = fileListFragment ?: return
+
+        val fileListAdapter = fragment.adapter
+        if (fileListAdapter != null && fileListAdapter.isGridView) {
+            fileListAdapter.invalidateGridLayoutCachedWidths()
+            fileListAdapter.notifyDataSetChanged()
+        }
+    }
+
 
     override fun onPostCreate(savedInstanceState: Bundle?) {
         super.onPostCreate(savedInstanceState)
