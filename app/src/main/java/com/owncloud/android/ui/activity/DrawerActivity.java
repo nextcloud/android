@@ -609,7 +609,7 @@ public abstract class DrawerActivity extends ToolbarActivity
             resetOnlyPersonalAndOnDevice();
 
             /**
-             * Since back button of SettingsActivity always shows all files we can clear the stack.
+             * Since pressing the back button in SettingsActivity always returns to the all file list, we can clear the stack.
              * {@link SettingsActivity#onBackPressed()
              */
             final Intent intent = new Intent(this, SettingsActivity.class);
