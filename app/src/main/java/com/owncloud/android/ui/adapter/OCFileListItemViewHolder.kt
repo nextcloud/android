@@ -45,8 +45,6 @@ internal class OCFileListItemViewHolder(private var binding: ListItemBinding) :
         get() = binding.Filename
     override val extension: TextView
         get() = binding.extension
-    override val filenameContainer: LinearLayout?
-        get() = null
     override val thumbnail: ImageView
         get() = binding.thumbnailLayout.thumbnail
     override val tagsGroup: ChipGroup
