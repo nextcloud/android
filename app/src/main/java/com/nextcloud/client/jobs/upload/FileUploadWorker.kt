@@ -57,10 +57,13 @@ class FileUploadWorker(
         val TAG: String = FileUploadWorker::class.java.simpleName
 
         const val NOTIFICATION_ERROR_ID: Int = 413
+
         const val ACCOUNT = "data_account"
         const val UPLOAD_IDS = "uploads_ids"
         const val CURRENT_BATCH_INDEX = "batch_index"
         const val TOTAL_UPLOAD_SIZE = "total_upload_size"
+        const val IS_AUTO_UPLOAD = "is_auto_upload"
+
         var currentUploadFileOperation: UploadFileOperation? = null
 
         private const val UPLOADS_ADDED_MESSAGE = "UPLOADS_ADDED"
@@ -277,6 +280,7 @@ class FileUploadWorker(
         uploadResult: RemoteOperationResult<Any?>
     ) {
         Log_OC.d(TAG, "NotifyUploadResult with resultCode: " + uploadResult.code)
+        val isAutoUpload = inputData.getBoolean(IS_AUTO_UPLOAD, false)
 
         if (uploadResult.isSuccess) {
             notificationManager.dismissOldErrorNotification(uploadFileOperation)
@@ -296,6 +300,10 @@ class FileUploadWorker(
                 context
             )
         ) {
+            if (!isAutoUpload) {
+                notificationManager.showSameFileAlreadyExistsNotification(uploadFileOperation.fileName)
+            }
+
             uploadFileOperation.handleLocalBehaviour()
             return
         }
