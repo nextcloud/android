@@ -1035,6 +1035,10 @@
     <string name="upload_local_storage_not_copied">文件无法被复制到本地存储</string>
     <string name="upload_lock_failed">锁定文件夹失败</string>
     <string name="upload_manually_cancelled">用户已取消上传</string>
+    <string name="upload_missing_storage_permission_allow_file_access">允许所有文件访问</string>
+    <string name="upload_missing_storage_permission_app_permissions">应用权限</string>
+    <string name="upload_missing_storage_permission_description">如果无法访问本地存储，则无法上传您的文件。点击即可授予权限。</string>
+    <string name="upload_missing_storage_permission_title">上传已停止 — 需要存储权限</string>
     <string name="upload_notification_manager_start_text">%1$d / %2$d - %3$s</string>
     <string name="upload_old_android">加密功能仅适用于安卓 5.0 及以上版本</string>
     <string name="upload_query_move_foreign_files">空间不足将阻止将所选文件复制到%1$s文件夹中。 你想把它们移到那里吗？</string>
