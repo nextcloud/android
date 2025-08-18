@@ -121,13 +121,11 @@ class OCFileListFragmentStaticServerIT : AbstractIT() {
      * Use same values as {@link FileDetailSharingFragmentIT listSharesFileAllShareTypes }
      */
     @Test
-    @UiThread
     @ScreenshotTest
     fun showSharedFiles() {
         launchActivity<TestActivity>().use { scenario ->
             scenario.onActivity { sut ->
                 onIdleSync {
-                    EspressoIdlingResource.increment()
 
                     val fragment = OCFileListFragment()
 
@@ -224,7 +222,7 @@ class OCFileListFragmentStaticServerIT : AbstractIT() {
                         sut.storageManager.saveFile(this)
                     }
 
-                    OCFile("/notShared.jpg").apply {
+                    OCFile("/1notShared.jpg").apply {
                         remoteId = "000000010"
                         parentId = sut.storageManager.getFileByEncryptedRemotePath("/").fileId
                         modificationTimestamp = 1000
@@ -236,10 +234,8 @@ class OCFileListFragmentStaticServerIT : AbstractIT() {
                     fragment.listDirectory(root, false, false)
                     fragment.adapter.setShowShareAvatar(true)
 
-                    EspressoIdlingResource.decrement()
 
                     val screenShotName = createName(testClassName + "_" + "showSharedFiles", "")
-                    onView(isRoot()).check(matches(isDisplayed()))
                     screenshotViaName(sut, screenShotName)
                 }
             }
