@@ -581,12 +581,13 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                                 boolean isFolder) {
         holder.getFileName().setText(filenamePair.getFirst());
 
-        if (holder.getExtension() != null) {
+        final var extension = holder.getExtension();
+        if (extension != null) {
             if (isFolder) {
-                holder.getExtension().setVisibility(View.GONE);
+                extension.setVisibility(View.GONE);
             } else {
-                holder.getExtension().setVisibility(View.VISIBLE);
-                holder.getExtension().setText(filenamePair.getSecond());
+                extension.setVisibility(View.VISIBLE);
+                extension.setText(filenamePair.getSecond());
             }
         }
     }
