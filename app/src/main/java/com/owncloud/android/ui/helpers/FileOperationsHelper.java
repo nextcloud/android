@@ -773,6 +773,7 @@ public class FileOperationsHelper {
         updateShareIntent.setAction(OperationsService.ACTION_UPDATE_SHARE_INFO);
         updateShareIntent.putExtra(OperationsService.EXTRA_ACCOUNT, fileActivity.getAccount());
         updateShareIntent.putExtra(OperationsService.EXTRA_SHARE_ID, id);
+        updateShareIntent.putExtra(OperationsService.EXTRA_SHARE_REMOTE_ID, share.getRemoteId());
         updateShareIntent.putExtra(OperationsService.EXTRA_SHARE_PERMISSIONS, permissions);
         updateShareIntent.putExtra(OperationsService.EXTRA_SHARE_HIDE_FILE_DOWNLOAD, hideFileDownload);
         updateShareIntent.putExtra(OperationsService.EXTRA_SHARE_PASSWORD, (password == null) ? "" : password);

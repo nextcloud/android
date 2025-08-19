@@ -98,6 +98,7 @@ public class OperationsService extends Service {
     public static final String EXTRA_SHARE_PUBLIC_LABEL = "SHARE_PUBLIC_LABEL";
     public static final String EXTRA_SHARE_HIDE_FILE_DOWNLOAD = "HIDE_FILE_DOWNLOAD";
     public static final String EXTRA_SHARE_ID = "SHARE_ID";
+    public static final String EXTRA_SHARE_REMOTE_ID = "SHARE_REMOTE_ID";
     public static final String EXTRA_SHARE_NOTE = "SHARE_NOTE";
     public static final String EXTRA_IN_BACKGROUND = "IN_BACKGROUND";
     public static final String EXTRA_FILES_DOWNLOAD_LIMIT = "FILES_DOWNLOAD_LIMIT";
@@ -626,9 +627,11 @@ public class OperationsService extends Service {
 
                     case ACTION_UPDATE_SHARE_INFO:
                         shareId = operationIntent.getLongExtra(EXTRA_SHARE_ID, -1);
+                        long shareRemoteId = operationIntent.getLongExtra(EXTRA_SHARE_REMOTE_ID, -1);
 
                         if (shareId > 0) {
                             UpdateShareInfoOperation updateShare = new UpdateShareInfoOperation(shareId,
+                                                                                                shareRemoteId,
                                                                                                 fileDataStorageManager);
 
                             int permissionsToChange = operationIntent.getIntExtra(EXTRA_SHARE_PERMISSIONS, -1);
