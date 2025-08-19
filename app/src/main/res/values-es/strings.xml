@@ -1032,6 +1032,10 @@
     <string name="upload_local_storage_not_copied">No se ha podido copiar el archivo al almacenamiento local</string>
     <string name="upload_lock_failed">Fallo al bloquear la carpeta</string>
     <string name="upload_manually_cancelled">La carga fue cancelada por el usuario</string>
+    <string name="upload_missing_storage_permission_allow_file_access">Permitir el acceso a todos los archivos</string>
+    <string name="upload_missing_storage_permission_app_permissions">Permisos de la App</string>
+    <string name="upload_missing_storage_permission_description">Sus archivos no pueden ser subidos sin acceso al almacenamiento local. Toque para conceder los permisos.</string>
+    <string name="upload_missing_storage_permission_title">Subida Detenida – Se Requieren Permisos para el Almacenamiento</string>
     <string name="upload_notification_manager_start_text">%1$d / %2$d - %3$s</string>
     <string name="upload_old_android">El cifrado solo es posible con &gt;= Android 5.0</string>
     <string name="upload_query_move_foreign_files">No hay suficiente espacio para copiar los archivos seleccionados en la carpeta %1$s. En su lugar, ¿le gustaría moverlos?</string>
