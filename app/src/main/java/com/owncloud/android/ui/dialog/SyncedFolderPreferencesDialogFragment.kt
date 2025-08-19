@@ -43,6 +43,7 @@ import javax.inject.Inject
  * Dialog to show the preferences/configuration of a synced folder allowing the user to change the different
  * parameters.
  */
+@Suppress("TooManyFunctions")
 class SyncedFolderPreferencesDialogFragment :
     DialogFragment(),
     Injectable {
@@ -53,10 +54,13 @@ class SyncedFolderPreferencesDialogFragment :
 
     private lateinit var uploadBehaviorItemStrings: Array<CharSequence>
     private lateinit var nameCollisionPolicyItemStrings: Array<CharSequence>
+    private lateinit var minFileAgeItemStrings: Array<CharSequence>
+    private lateinit var minFileAgeItemValues: Array<Long>
 
     private var syncedFolder: SyncedFolderParcelable? = null
     private var behaviourDialogShown = false
     private var nameCollisionPolicyDialogShown = false
+    private var minFileAgeDialogShown = false
     private var behaviourDialog: AlertDialog? = null
     private var binding: SyncedFoldersSettingsLayoutBinding? = null
     private var isNeutralButtonActive = true
@@ -85,6 +89,10 @@ class SyncedFolderPreferencesDialogFragment :
 
         uploadBehaviorItemStrings = resources.getTextArray(R.array.pref_behaviour_entries)
         nameCollisionPolicyItemStrings = resources.getTextArray(R.array.pref_name_collision_policy_entries)
+        minFileAgeItemStrings = resources.getTextArray(R.array.pref_min_file_age_entries)
+        minFileAgeItemValues = resources.getIntArray(R.array.pref_min_file_age_ms_entry_values)
+            .map(Int::toLong)
+            .toTypedArray()
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
@@ -220,6 +228,14 @@ class SyncedFolderPreferencesDialogFragment :
             )
             binding.settingInstantNameCollisionPolicySummary.text =
                 nameCollisionPolicyItemStrings[nameCollisionPolicyIndex]
+
+            val selectedMinFileAgeItem = minFileAgeItemValues.indexOf(it.uploadMinFileAgeMs)
+            if (selectedMinFileAgeItem >= 0) {
+                binding.settingInstantUploadMinFileAgeSummary.text = minFileAgeItemStrings[selectedMinFileAgeItem]
+            } else {
+                it.uploadMinFileAgeMs = 0
+                binding.settingInstantUploadMinFileAgeSummary.text = minFileAgeItemStrings[0]
+            }
         }
     }
 
@@ -325,6 +341,8 @@ class SyncedFolderPreferencesDialogFragment :
             binding.settingInstantUploadExistingCheckbox.isEnabled = enable
             binding.settingInstantUploadPathUseSubfoldersCheckbox.isEnabled = enable
             binding.settingInstantUploadExcludeHiddenCheckbox.isEnabled = enable
+            binding.settingInstantUploadMinFileAgeContainer.isEnabled = enable
+            binding.settingInstantUploadMinFileAgeContainer.alpha = alpha
         }
 
         checkWritableFolder()
@@ -401,6 +419,7 @@ class SyncedFolderPreferencesDialogFragment :
 
         binding.settingInstantBehaviourContainer.setOnClickListener { showBehaviourDialog() }
         binding.settingInstantNameCollisionPolicyContainer.setOnClickListener { showNameCollisionPolicyDialog() }
+        binding.settingInstantUploadMinFileAgeContainer.setOnClickListener { showUploadMinFileAgeDialog() }
     }
 
     private fun showBehaviourDialog() {
@@ -445,6 +464,27 @@ class SyncedFolderPreferencesDialogFragment :
         }
     }
 
+    private fun showUploadMinFileAgeDialog() {
+        syncedFolder?.let {
+            val builder = MaterialAlertDialogBuilder(requireActivity())
+            val selectedItem = minFileAgeItemValues.indexOf(it.uploadMinFileAgeMs)
+            builder.setTitle(R.string.pref_instant_upload_min_file_age_dialog_title)
+                .setSingleChoiceItems(minFileAgeItemStrings, selectedItem) { dialog: DialogInterface, which: Int ->
+                    it.uploadMinFileAgeMs = minFileAgeItemValues[which]
+                    binding?.settingInstantUploadMinFileAgeSummary?.text = minFileAgeItemStrings[which]
+                    minFileAgeDialogShown = false
+                    dialog.dismiss()
+                }
+                .setOnCancelListener { minFileAgeDialogShown = false }
+
+            minFileAgeDialogShown = true
+
+            viewThemeUtils?.dialog?.colorMaterialAlertDialogBackground(requireActivity(), builder)
+            behaviourDialog = builder.create()
+            behaviourDialog?.show()
+        }
+    }
+
     override fun onDestroyView() {
         Log_OC.d(TAG, "destroy SyncedFolderPreferencesDialogFragment view")
         if (dialog != null && retainInstance) {
@@ -460,6 +500,7 @@ class SyncedFolderPreferencesDialogFragment :
     override fun onSaveInstanceState(outState: Bundle) {
         outState.putBoolean(BEHAVIOUR_DIALOG_STATE, behaviourDialogShown)
         outState.putBoolean(NAME_COLLISION_POLICY_DIALOG_STATE, nameCollisionPolicyDialogShown)
+        outState.putBoolean(MIN_FILE_AGE_DIALOG_STATE, minFileAgeDialogShown)
     }
 
     override fun onViewStateRestored(savedInstanceState: Bundle?) {
@@ -467,11 +508,16 @@ class SyncedFolderPreferencesDialogFragment :
             savedInstanceState.getBoolean(BEHAVIOUR_DIALOG_STATE, false)
         nameCollisionPolicyDialogShown = savedInstanceState != null &&
             savedInstanceState.getBoolean(NAME_COLLISION_POLICY_DIALOG_STATE, false)
+        minFileAgeDialogShown = savedInstanceState != null &&
+            savedInstanceState.getBoolean(MIN_FILE_AGE_DIALOG_STATE, false)
         if (behaviourDialogShown) {
             showBehaviourDialog()
         }
         if (nameCollisionPolicyDialogShown) {
             showNameCollisionPolicyDialog()
+        }
+        if (minFileAgeDialogShown) {
+            showUploadMinFileAgeDialog()
         }
 
         super.onViewStateRestored(savedInstanceState)
@@ -522,6 +568,7 @@ class SyncedFolderPreferencesDialogFragment :
         private val TAG = SyncedFolderPreferencesDialogFragment::class.java.simpleName
         private const val BEHAVIOUR_DIALOG_STATE = "BEHAVIOUR_DIALOG_STATE"
         private const val NAME_COLLISION_POLICY_DIALOG_STATE = "NAME_COLLISION_POLICY_DIALOG_STATE"
+        private const val MIN_FILE_AGE_DIALOG_STATE = "MIN_FILE_AGE_DIALOG_STATE"
         private const val ALPHA_ENABLED = 1.0f
         private const val ALPHA_DISABLED = 0.7f
 
