@@ -67,6 +67,8 @@ class FileUploadWorker(
         private const val UPLOAD_START_MESSAGE = "UPLOAD_START"
         private const val UPLOAD_FINISH_MESSAGE = "UPLOAD_FINISH"
 
+        private const val BATCH_SIZE = 100
+
         const val EXTRA_UPLOAD_RESULT = "RESULT"
         const val EXTRA_REMOTE_PATH = "REMOTE_PATH"
         const val EXTRA_OLD_REMOTE_PATH = "OLD_REMOTE_PATH"
@@ -198,7 +200,8 @@ class FileUploadWorker(
             val result = upload(operation, user.get())
             currentUploadFileOperation = null
 
-            val shouldBroadcast = totalUploadSize > 100 && currentUploadIndex > 0 && currentUploadIndex % 100 == 0
+            val shouldBroadcast =
+                (totalUploadSize > BATCH_SIZE && currentUploadIndex > 0) && currentUploadIndex % BATCH_SIZE == 0
 
             if (shouldBroadcast) {
                 // delay broadcast
