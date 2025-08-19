@@ -25,13 +25,10 @@ class OCFileListGridController {
         private const val TAG = "OCFileListGridController"
 
         // Reserved space for file extension text in DP
-        private const val EXTENSION_RESERVED_DP: Int = 36
+        private const val EXTENSION_RESERVED_DP: Int = 32
 
         // Padding between text and more icon in DP
-        private const val SAFETY_MARGIN_DP: Int = 8
-
-        // extra spacing between text and more button
-        private const val MORE_BUTTON_MARGIN_DP: Int = 8
+        private const val SAFETY_MARGIN_DP: Int = 16
     }
 
     private var lastScreenWidth = -1
@@ -62,18 +59,15 @@ class OCFileListGridController {
 
             val moreButtonPx = context.resources.getDimensionPixelSize(R.dimen.iconized_single_line_item_icon_size)
 
-            // 3-4 chars width
-
             val density = context.resources.displayMetrics.density
             val extensionMinPx = (density * EXTENSION_RESERVED_DP).toInt()
             val paddingPx = (density * SAFETY_MARGIN_DP).toInt()
-            val moreButtonMarginPx = (density * MORE_BUTTON_MARGIN_DP).toInt()
 
             // name + more button
-            cachedFolderMaxWidth = cellWidth - moreButtonPx - paddingPx - moreButtonMarginPx
+            cachedFolderMaxWidth = cellWidth - moreButtonPx - paddingPx
 
             // name + extension + more button
-            cachedFileMaxWidth = cellWidth - moreButtonPx - extensionMinPx - paddingPx - moreButtonMarginPx
+            cachedFileMaxWidth = cellWidth - moreButtonPx - extensionMinPx - paddingPx
 
             // fallback
             if (cachedFolderMaxWidth < 0) {
@@ -127,10 +121,6 @@ class OCFileListGridController {
                         R.id.bidi_extension,
                         ConstraintSet.END
                     )
-
-                    val marginEnd =
-                        constraintLayout.context.resources.getDimensionPixelSize(R.dimen.standard_quarter_margin)
-                    setMargin(R.id.more, ConstraintSet.END, marginEnd)
 
                     applyTo(constraintLayout)
                 }
