@@ -8,6 +8,7 @@
 package com.owncloud.android.ui.adapter
 
 import android.view.View
+import androidx.constraintlayout.widget.ConstraintSet
 import com.nextcloud.utils.extensions.setVisibleIf
 import com.owncloud.android.MainApp
 import com.owncloud.android.R
@@ -107,18 +108,27 @@ class OCFileListGridController {
     ) {
         val containsBidiControlCharacters = FileStorageUtils.containsBidiControlCharacters(filename)
         gridItemViewHolder.run {
-            more.setVisibleIf(!containsBidiControlCharacters)
             fileName.setVisibleIf(!containsBidiControlCharacters)
             binding.bidiFilenameContainer.setVisibleIf(containsBidiControlCharacters)
 
             if (containsBidiControlCharacters) {
                 val (base, ext) = filenamePair
                 configureFilenameMaxWidth(this, file, fragmentInterface.getColumnsCount())
-                more.setOnClickListener {
-                    fragmentInterface.onOverflowIconClicked(file, it)
-                }
                 bidiFilename.text = base
                 extension?.text = ext
+
+
+                val constraintLayout = gridItemViewHolder.binding.ListItemLayout
+                val set = ConstraintSet()
+                set.clone(constraintLayout)
+                set.clear(R.id.more, ConstraintSet.START)
+                set.connect(
+                    R.id.more,
+                    ConstraintSet.START,
+                    R.id.bidi_extension,
+                    ConstraintSet.END
+                )
+                set.applyTo(constraintLayout)
             } else {
                 fileName.text = filename
                 extension?.visibility = View.GONE
