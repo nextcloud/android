@@ -283,7 +283,7 @@ class FileStorageUtilsTest {
 
     @Test
     fun testContainsBidiControlCharactersWhenGivenFilenameWithRawRtlOverrideCharShouldReturnTrue() {
-        val result = FileStorageUtils.containsBidiControlCharacters("safe\u202Eevil.exe")
+        val result = FileStorageUtils.containsBidiControlCharacters("safe\u202Enotsafe.exe")
         assertTrue(result)
     }
 
