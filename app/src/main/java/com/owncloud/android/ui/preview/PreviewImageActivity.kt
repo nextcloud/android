@@ -123,6 +123,29 @@ class PreviewImageActivity :
         }
 
         observeWorkerState()
+        applyDisplayCutOutTopPadding()
+    }
+
+    private fun applyDisplayCutOutTopPadding() {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.P) {
+            return
+        }
+
+        window.decorView.setOnApplyWindowInsetsListener { view, insets ->
+            val displayCutout = insets.displayCutout
+            if (displayCutout != null) {
+                val safeInsetTop = displayCutout.safeInsetTop
+                val viewPager = findViewById<View>(R.id.fragmentPager)
+                viewPager.setPadding(
+                    viewPager.paddingLeft,
+                    safeInsetTop,
+                    viewPager.paddingRight,
+                    viewPager.paddingBottom,
+                )
+            }
+
+            view.onApplyWindowInsets(insets)
+        }
     }
 
     fun toggleActionBarVisibility(hide: Boolean) {
