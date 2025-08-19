@@ -117,18 +117,23 @@ class OCFileListGridController {
                 bidiFilename.text = base
                 extension?.text = ext
 
-
                 val constraintLayout = gridItemViewHolder.binding.ListItemLayout
-                val set = ConstraintSet()
-                set.clone(constraintLayout)
-                set.clear(R.id.more, ConstraintSet.START)
-                set.connect(
-                    R.id.more,
-                    ConstraintSet.START,
-                    R.id.bidi_extension,
-                    ConstraintSet.END
-                )
-                set.applyTo(constraintLayout)
+                ConstraintSet().run {
+                    clone(constraintLayout)
+                    clear(R.id.more, ConstraintSet.START)
+                    connect(
+                        R.id.more,
+                        ConstraintSet.START,
+                        R.id.bidi_extension,
+                        ConstraintSet.END
+                    )
+
+                    val marginEnd =
+                        constraintLayout.context.resources.getDimensionPixelSize(R.dimen.standard_quarter_margin)
+                    setMargin(R.id.more, ConstraintSet.END, marginEnd)
+
+                    applyTo(constraintLayout)
+                }
             } else {
                 fileName.text = filename
                 extension?.visibility = View.GONE
