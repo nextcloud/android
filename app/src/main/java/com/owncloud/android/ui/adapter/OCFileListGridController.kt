@@ -8,12 +8,15 @@
 package com.owncloud.android.ui.adapter
 
 import android.view.View
+import com.nextcloud.utils.extensions.setVisibleIf
 import com.owncloud.android.MainApp
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.lib.resources.files.model.ServerFileInterface
+import com.owncloud.android.ui.interfaces.OCFileListFragmentInterface
 import com.owncloud.android.utils.DisplayUtils
+import com.owncloud.android.utils.FileStorageUtils
 
 class OCFileListGridController {
 
@@ -95,55 +98,31 @@ class OCFileListGridController {
         lastScreenWidth = -1
     }
 
-    private fun useBidiSpecificLayout(
-        gridItemViewHolder: OCFileListGridItemViewHolder,
-        filenamePair: Pair<String?, String?>,
-        file: OCFile,
-        columnCount: Int
-    ) {
-        val (base, ext) = filenamePair
-
-        gridItemViewHolder.run {
-            more.visibility = View.GONE
-            fileName.visibility = View.GONE
-            binding.bidiFilenameContainer.visibility = View.VISIBLE
-
-            configureFilenameMaxWidth(gridItemViewHolder, file, columnCount)
-            bidiFilename.text = base
-            extension?.text = ext
-        }
-    }
-
-    private fun useNormalFilenameLayout(
-        gridItemViewHolder: OCFileListGridItemViewHolder,
-        filenamePair: Pair<String?, String?>,
-        isFolder: Boolean
-    ) {
-        val (base, ext) = filenamePair
-
-        gridItemViewHolder.run {
-            more.visibility = View.VISIBLE
-            fileName.visibility = View.VISIBLE
-            binding.bidiFilenameContainer.visibility = View.GONE
-
-            val displayName = if (isFolder) base else base + ext
-            fileName.text = displayName
-            extension?.visibility = View.GONE
-        }
-    }
-
     fun handleGridMode(
+        filename: String,
+        fragmentInterface: OCFileListFragmentInterface,
         gridItemViewHolder: OCFileListGridItemViewHolder,
         filenamePair: Pair<String?, String?>,
-        file: OCFile,
-        containsBidiControlCharacters: Boolean,
-        isFolder: Boolean,
-        columnCount: Int
+        file: OCFile
     ) {
-        if (containsBidiControlCharacters) {
-            useBidiSpecificLayout(gridItemViewHolder, filenamePair, file, columnCount)
-        } else {
-            useNormalFilenameLayout(gridItemViewHolder, filenamePair, isFolder)
+        val containsBidiControlCharacters = FileStorageUtils.containsBidiControlCharacters(filename)
+        gridItemViewHolder.run {
+            more.setVisibleIf(!containsBidiControlCharacters)
+            fileName.setVisibleIf(!containsBidiControlCharacters)
+            binding.bidiFilenameContainer.setVisibleIf(containsBidiControlCharacters)
+
+            if (containsBidiControlCharacters) {
+                val (base, ext) = filenamePair
+                configureFilenameMaxWidth(this, file, fragmentInterface.getColumnsCount())
+                more.setOnClickListener {
+                    fragmentInterface.onOverflowIconClicked(file, it)
+                }
+                bidiFilename.text = base
+                extension?.text = ext
+            } else {
+                fileName.text = filename
+                extension?.visibility = View.GONE
+            }
         }
     }
 }

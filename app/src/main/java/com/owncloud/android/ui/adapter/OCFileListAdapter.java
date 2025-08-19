@@ -570,15 +570,12 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         final boolean isFolder = file.isFolder();
 
         if (holder instanceof OCFileListGridItemViewHolder gridItemViewHolder) {
-            final boolean containsBidiControlCharacters = FileStorageUtils.containsBidiControlCharacters(filename);
-            final int columnCount = ocFileListFragmentInterface.getColumnsCount();
-            gridController.handleGridMode(gridItemViewHolder, pair, file, containsBidiControlCharacters, isFolder, columnCount);
+            gridController.handleGridMode(filename, ocFileListFragmentInterface, gridItemViewHolder, pair, file);
         } else {
             handleListMode(holder, pair, isFolder);
         }
     }
 
-    // List mode ALWAYS uses filename + extension format since we have enough space
     private void handleListMode(ListGridItemViewHolder holder,
                                 Pair<String, String> filenamePair,
                                 boolean isFolder) {
@@ -591,11 +588,6 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 holder.getExtension().setVisibility(View.VISIBLE);
                 holder.getExtension().setText(filenamePair.getSecond());
             }
-        }
-
-        // Hide bidi filename container
-        if (holder instanceof OCFileListGridItemViewHolder gridItemViewHolder) {
-            gridItemViewHolder.getBinding().bidiFilenameContainer.setVisibility(View.GONE);
         }
     }
 
