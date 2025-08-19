@@ -333,7 +333,7 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-service:2.9.2"
     implementation "androidx.work:work-runtime:$workRuntime"
     implementation "androidx.work:work-runtime-ktx:$workRuntime"
-    implementation "androidx.fragment:fragment-ktx:1.8.8"
+    implementation "androidx.fragment:fragment-ktx:1.8.9"
     implementation "com.github.albfernandez:juniversalchardet:2.5.0" // need this version for Android <7
     compileOnly "com.google.code.findbugs:annotations:3.0.1u2"
     implementation "commons-io:commons-io:2.20.0"
@@ -416,7 +416,7 @@ dependencies {
     androidTestImplementation "androidx.test:rules:$androidxTestVersion"
     // Android JUnit Runner
     androidTestImplementation "androidx.test:runner:1.7.0"
-    androidTestUtil "androidx.test:orchestrator:1.5.1"
+    androidTestUtil "androidx.test:orchestrator:1.6.1"
     androidTestImplementation "androidx.test:core-ktx:$androidxTestVersion"
 
     // Mocking support
