@@ -193,9 +193,6 @@ public final class ThumbnailsCacheManager {
 
         Bitmap thumbnail = ThumbnailUtils.extractThumbnail(bitmap, pxW, pxH);
 
-        // Rotate image, obeying exif tag
-        thumbnail = BitmapUtils.rotateImage(thumbnail,path);
-
         // Add thumbnail to cache
         // do not overwrite any pre-existing image
         if (!mThumbnailCache.containsKey(imageKey)) {
