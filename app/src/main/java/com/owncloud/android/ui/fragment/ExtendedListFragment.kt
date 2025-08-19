@@ -247,7 +247,7 @@ open class ExtendedListFragment :
         return false
     }
 
-    fun performSearch(query: String, listOfHiddenFiles: ArrayList<String?>?, isBackPressed: Boolean) {
+    fun performSearch(query: String, listOfHiddenFiles: ArrayList<String>?, isBackPressed: Boolean) {
         val adapter = recyclerView?.adapter
         val activity = activity ?: return
 
