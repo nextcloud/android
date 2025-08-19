@@ -298,4 +298,10 @@ class FileStorageUtilsTest {
         val result = FileStorageUtils.containsBidiControlCharacters(null)
         assertFalse(result)
     }
+
+    @Test
+    fun testContainsBidiControlCharactersWhenGivenValidFilenameShouldReturnTrue() {
+        val result = FileStorageUtils.containsBidiControlCharacters("/Foo%e2%80%aedm.exe")
+        assertTrue(result)
+    }
 }
