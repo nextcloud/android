@@ -235,12 +235,18 @@ class FileDisplayActivity :
         this.fileIDForImmediatePreview = fileIDForImmediatePreview
     }
 
+    @SuppressLint("UnsafeIntentLaunch")
     override fun onCreate(savedInstanceState: Bundle?) {
         Log_OC.v(TAG, "onCreate() start")
         // Set the default theme to replace the launch screen theme.
         setTheme(R.style.Theme_ownCloud_Toolbar_Drawer)
 
         super.onCreate(savedInstanceState)
+
+        intent?.let {
+            handleCommonIntents(it)
+        }
+
         loadSavedInstanceState(savedInstanceState)
 
         /** USER INTERFACE */
@@ -251,10 +257,6 @@ class FileDisplayActivity :
         // Restoring after UI has been inflated.
         if (savedInstanceState != null) {
             showSortListGroup(savedInstanceState.getBoolean(KEY_IS_SORT_GROUP_VISIBLE))
-        }
-
-        if (Intent.ACTION_VIEW == intent.action) {
-            handleOpenFileViaIntent(intent)
         }
 
         mPlayerConnection = PlayerServiceConnection(this)
@@ -375,17 +377,6 @@ class FileDisplayActivity :
         } else {
             createMinFragments(savedInstanceState)
             syncAndUpdateFolder(true)
-        }
-
-        if (OPEN_FILE == intent.action) {
-            supportFragmentManager.executePendingTransactions()
-            onOpenFileIntent(intent)
-        } else if (RESTART == intent.action) {
-            // most likely switched to different account
-            DisplayUtils.showSnackMessage(
-                this,
-                String.format(getString(R.string.logged_in_as), accountManager.user.accountName)
-            )
         }
 
         upgradeNotificationForInstantUpload()
@@ -533,70 +524,102 @@ class FileDisplayActivity :
         resetTitleBarAndScrolling()
     }
 
-    // Is called with the flag FLAG_ACTIVITY_SINGLE_TOP and set the new file and intent
+    // region Handle Intents
+    @SuppressLint("UnsafeIntentLaunch")
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
         setIntent(intent)
+        handleCommonIntents(intent)
+        handleSpecialIntents(intent)
+    }
 
-        if (ACTION_DETAILS.equals(intent.action, ignoreCase = true)) {
-            val file = intent.getParcelableArgument(EXTRA_FILE, OCFile::class.java)
-            setFile(file)
-            setIntent(intent)
-            showDetails(file)
-        } else if (Intent.ACTION_VIEW == intent.action) {
-            handleOpenFileViaIntent(intent)
-        } else if (OPEN_FILE == intent.action) {
-            onOpenFileIntent(intent)
-        } else if (RESTART == intent.action) {
-            finish()
-            startActivity(intent)
-        } else {
-            // Verify the action and get the query
-            if (Intent.ACTION_SEARCH == intent.action) {
-                setIntent(intent)
+    private fun handleSpecialIntents(intent: Intent) {
+        val action = intent.action
 
-                val searchEvent =
-                    intent.getParcelableArgument(OCFileListFragment.SEARCH_EVENT, SearchEvent::class.java)
-                if (searchEvent != null) {
-                    if (SearchRemoteOperation.SearchType.PHOTO_SEARCH == searchEvent.searchType) {
-                        Log_OC.d(this, "Switch to photo search fragment")
+        when {
+            ACTION_DETAILS.equals(action, ignoreCase = true) -> {
+                val file = intent.getParcelableArgument(EXTRA_FILE, OCFile::class.java)
+                setFile(file)
+                showDetails(file)
+            }
 
-                        val photoFragment = GalleryFragment()
-                        val bundle = Bundle()
-                        bundle.putParcelable(OCFileListFragment.SEARCH_EVENT, searchEvent)
-                        photoFragment.setArguments(bundle)
-                        this.leftFragment = photoFragment
-                    } else if (searchEvent.searchType == SearchRemoteOperation.SearchType.SHARED_FILTER) {
-                        Log_OC.d(this, "Switch to shared fragment")
-                        val sharedListFragment = SharedListFragment()
-                        val bundle = Bundle()
-                        bundle.putParcelable(OCFileListFragment.SEARCH_EVENT, searchEvent)
-                        sharedListFragment.setArguments(bundle)
-                        this.leftFragment = sharedListFragment
-                    } else {
-                        Log_OC.d(this, "Switch to oc file search fragment")
+            Intent.ACTION_SEARCH == action -> handleSearchIntent(intent)
 
-                        val photoFragment = OCFileListFragment()
-                        val bundle = Bundle()
-                        bundle.putParcelable(OCFileListFragment.SEARCH_EVENT, searchEvent)
-                        photoFragment.setArguments(bundle)
-                        this.leftFragment = photoFragment
-                    }
-                }
-            } else if (ALL_FILES == intent.action) {
+            ALL_FILES == action -> {
                 Log_OC.d(this, "Switch to oc file fragment")
                 menuItemId = R.id.nav_all_files
-                this.leftFragment = OCFileListFragment()
+                leftFragment = OCFileListFragment()
                 supportFragmentManager.executePendingTransactions()
                 browseToRoot()
-            } else if (LIST_GROUPFOLDERS == intent.action) {
+            }
+
+            LIST_GROUPFOLDERS == action -> {
                 Log_OC.d(this, "Switch to list groupfolders fragment")
                 menuItemId = R.id.nav_groupfolders
-                this.leftFragment = GroupfolderListFragment()
+                leftFragment = GroupfolderListFragment()
                 supportFragmentManager.executePendingTransactions()
             }
         }
     }
+
+    @SuppressLint("UnsafeIntentLaunch")
+    private fun handleCommonIntents(intent: Intent) {
+        when (intent.action) {
+            Intent.ACTION_VIEW -> handleOpenFileViaIntent(intent)
+            OPEN_FILE -> {
+                supportFragmentManager.executePendingTransactions()
+                onOpenFileIntent(intent)
+            }
+            RESTART -> {
+                val accountName = accountManager.user.accountName
+                val message = getString(R.string.logged_in_as)
+                val snackBarMessage = String.format(message, accountName)
+                DisplayUtils.showSnackMessage(this, snackBarMessage)
+
+                finish()
+                startActivity(intent)
+            }
+        }
+    }
+
+    private fun handleSearchIntent(intent: Intent) {
+        val searchEvent = intent.getParcelableArgument(
+            OCFileListFragment.SEARCH_EVENT, SearchEvent::class.java
+        ) ?: return
+
+        when (searchEvent.searchType) {
+            SearchRemoteOperation.SearchType.PHOTO_SEARCH -> {
+                Log_OC.d(this, "Switch to photo search fragment")
+                val bundle = Bundle().apply {
+                    putParcelable(OCFileListFragment.SEARCH_EVENT, searchEvent)
+                }
+                leftFragment = GalleryFragment().apply {
+                    arguments = bundle
+                }
+            }
+
+            SearchRemoteOperation.SearchType.SHARED_FILTER -> {
+                Log_OC.d(this, "Switch to shared fragment")
+                val bundle = Bundle().apply {
+                    putParcelable(OCFileListFragment.SEARCH_EVENT, searchEvent)
+                }
+                leftFragment = SharedListFragment().apply {
+                    arguments = bundle
+                }
+            }
+
+            else -> {
+                Log_OC.d(this, "Switch to oc file search fragment")
+                val bundle = Bundle().apply {
+                    putParcelable(OCFileListFragment.SEARCH_EVENT, searchEvent)
+                }
+                leftFragment = OCFileListFragment().apply {
+                    arguments = bundle
+                }
+            }
+        }
+    }
+    // endregion
 
     private fun onOpenFileIntent(intent: Intent) {
         val extra = intent.getStringExtra(EXTRA_FILE)
