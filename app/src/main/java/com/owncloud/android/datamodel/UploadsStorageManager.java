@@ -152,12 +152,10 @@ public class UploadsStorageManager extends Observable {
 
         try {
             final ContentProviderResult[] contentProviderResults = getDB().applyBatch(MainApp.getAuthority(), operations);
-            final long[] newIds = new long[ocUploads.size()];
             for (int i = 0; i < contentProviderResults.length; i++) {
                 final ContentProviderResult result = contentProviderResults[i];
                 final long new_id = Long.parseLong(result.uri.getPathSegments().get(1));
                 ocUploads.get(i).setUploadId(new_id);
-                newIds[i] = new_id;
             }
             notifyObserversNow();
         } catch (OperationApplicationException | RemoteException e) {

@@ -187,35 +187,43 @@ class FileUploadWorker(
             val operation = createUploadFileOperation(upload, user.get())
             currentUploadFileOperation = operation
 
-            val currentUploadIndex = index + previouslyUploadedFileSize
-
+            val currentIndex = (index + 1)
+            val currentUploadIndex = (currentIndex + previouslyUploadedFileSize)
             notificationManager.prepareForStart(
                 operation,
                 cancelPendingIntent = intents.startIntent(operation),
                 startIntent = intents.notificationStartIntent(operation),
-                currentUploadIndex = index + previouslyUploadedFileSize,
+                currentUploadIndex = currentUploadIndex,
                 totalUploadSize = totalUploadSize
             )
 
             val result = upload(operation, user.get())
             currentUploadFileOperation = null
-
-            val shouldBroadcast =
-                (totalUploadSize > BATCH_SIZE && currentUploadIndex > 0) && currentUploadIndex % BATCH_SIZE == 0
-
-            if (shouldBroadcast) {
-                // delay broadcast
-                fileUploaderDelegate.sendBroadcastUploadFinished(
-                    operation,
-                    result,
-                    operation.oldFile?.storagePath,
-                    context,
-                    localBroadcastManager
-                )
-            }
+            sendUploadFinishEvent(totalUploadSize, currentUploadIndex, operation, result)
         }
 
         return Result.success()
+    }
+
+    private fun sendUploadFinishEvent(
+        totalUploadSize: Int,
+        currentUploadIndex: Int,
+        operation: UploadFileOperation,
+        result: RemoteOperationResult<*>
+    ) {
+        val shouldBroadcast =
+            (totalUploadSize > BATCH_SIZE && currentUploadIndex > 0) && currentUploadIndex % BATCH_SIZE == 0
+
+        if (shouldBroadcast) {
+            // delay broadcast
+            fileUploaderDelegate.sendBroadcastUploadFinished(
+                operation,
+                result,
+                operation.oldFile?.storagePath,
+                context,
+                localBroadcastManager
+            )
+        }
     }
 
     private fun canExitEarly(): Boolean {
