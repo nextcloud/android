@@ -194,8 +194,10 @@ class GalleryAdapter(
             photoFragment.setEmptyListMessage(SearchType.GALLERY_SEARCH)
         }
 
-        files = finalSortedList.toGalleryItems()
-        Handler(Looper.getMainLooper()).post { notifyDataSetChanged() }
+        Handler(Looper.getMainLooper()).post {
+            files = finalSortedList.toGalleryItems()
+            notifyDataSetChanged()
+        }
     }
 
     private fun transformToRows(list: List<OCFile>): List<GalleryRow> = list
@@ -206,8 +208,10 @@ class GalleryAdapter(
 
     @SuppressLint("NotifyDataSetChanged")
     fun clear() {
-        files = emptyList()
-        Handler(Looper.getMainLooper()).post { notifyDataSetChanged() }
+        Handler(Looper.getMainLooper()).post {
+            files = emptyList()
+            notifyDataSetChanged()
+        }
     }
 
     private fun firstOfMonth(timestamp: Long): Long {
@@ -329,8 +333,10 @@ class GalleryAdapter(
             }
         }
 
-        files = allFiles.toGalleryItems()
-        Handler(Looper.getMainLooper()).post { notifyDataSetChanged() }
+        Handler(Looper.getMainLooper()).post {
+            files = allFiles.toGalleryItems()
+            notifyDataSetChanged()
+        }
     }
 
     private fun List<OCFile>.toGalleryItems(): List<GalleryItems> = this
