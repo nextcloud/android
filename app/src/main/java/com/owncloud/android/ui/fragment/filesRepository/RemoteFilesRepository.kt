@@ -40,20 +40,25 @@ class RemoteFilesRepository(private val clientRepository: ClientRepository, life
                     Log_OC.d(tag, "Recommended files cannot be fetched: " + result.code)
                 }
             } catch (e: Exception) {
-                Log_OC.d(tag, "Exception caught while fetching recommended files: $e")
+                Log_OC.e(tag, "Exception caught while fetching recommended files: $e")
             }
         }
     }
 
     override fun createRichWorkspace(remotePath: String, onCompleted: (String) -> Unit, onError: () -> Unit) {
         scope.launch(Dispatchers.IO) {
-            val client = clientRepository.getNextcloudClient() ?: return@launch
-            val url = RichWorkspaceDirectEditingRemoteOperation(remotePath)
-                .execute(client)
-                .takeIf { it.isSuccess }
-                ?.singleData as? String
+            try {
+                val client = clientRepository.getOwncloudClient() ?: return@launch
+                val url = RichWorkspaceDirectEditingRemoteOperation(remotePath)
+                    .execute(client)
+                    .takeIf { it.isSuccess }
+                    ?.singleData as? String
 
-            url?.let(onCompleted) ?: onError()
+                url?.let(onCompleted) ?: onError()
+            } catch (e: Exception) {
+                Log_OC.e(tag, "Exception caught while creating rich workspace: $e")
+                onError()
+            }
         }
     }
 }
