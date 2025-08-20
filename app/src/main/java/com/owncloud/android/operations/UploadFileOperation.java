@@ -972,6 +972,7 @@ public class UploadFileOperation extends SyncOperation {
         File expectedFile = null;
         FileLock fileLock = null;
         FileChannel channel = null;
+        RandomAccessFile randomAccessFile = null;
 
         long size;
 
@@ -1004,7 +1005,8 @@ public class UploadFileOperation extends SyncOperation {
             final Long creationTimestamp = FileUtil.getCreationTimestamp(originalFile);
 
             try {
-                channel = new RandomAccessFile(mFile.getStoragePath(), "rw").getChannel();
+                randomAccessFile = new RandomAccessFile(mFile.getStoragePath(), "rw");
+                channel = randomAccessFile.getChannel();
                 fileLock = channel.tryLock();
             } catch (FileNotFoundException e) {
                 // this basically means that the file is on SD card
@@ -1019,7 +1021,8 @@ public class UploadFileOperation extends SyncOperation {
 
                 if (result.isSuccess()) {
                     if (temporalFile.length() == originalFile.length()) {
-                        channel = new RandomAccessFile(temporalFile.getAbsolutePath(), "rw").getChannel();
+                        randomAccessFile = new RandomAccessFile(temporalFile.getAbsolutePath(), "rw");
+                        channel = randomAccessFile.getChannel();
                         fileLock = channel.tryLock();
                     } else {
                         result = new RemoteOperationResult<>(ResultCode.LOCK_FAILED);
@@ -1560,8 +1563,10 @@ public class UploadFileOperation extends SyncOperation {
                     // try to copy and then delete
                     Files.createFile(targetFile.toPath());
                     try (
-                        FileChannel inChannel = new FileInputStream(sourceFile).getChannel();
-                        FileChannel outChannel = new FileOutputStream(targetFile).getChannel()
+                        FileInputStream fis = new FileInputStream(sourceFile);
+                        FileOutputStream fos = new FileOutputStream(targetFile);
+                        FileChannel inChannel = fis.getChannel();
+                        FileChannel outChannel = fos.getChannel()
                     ) {
                         inChannel.transferTo(0, inChannel.size(), outChannel);
                         Files.delete(sourceFile.toPath());
