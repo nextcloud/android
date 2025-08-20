@@ -356,8 +356,9 @@ public class SettingsActivity extends PreferenceActivity
 
     @Override
     public void onBackPressed() {
+        DrawerActivity.menuItemId = R.id.nav_all_files;
         Intent i = new Intent(this, FileDisplayActivity.class);
-        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         i.setAction(FileDisplayActivity.ALL_FILES);
         startActivity(i);
     }
