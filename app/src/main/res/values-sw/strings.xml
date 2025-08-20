@@ -1032,6 +1032,10 @@
     <string name="upload_local_storage_not_copied">Faili haikuweza kunakiliwa kwenye hifadhi ya ndani</string>
     <string name="upload_lock_failed">Imeshindwa kufunga folda</string>
     <string name="upload_manually_cancelled">Upakiaji ulisitishwa na mtumiaji</string>
+    <string name="upload_missing_storage_permission_allow_file_access">Ruhusu ufikiaji wa faili zote</string>
+    <string name="upload_missing_storage_permission_app_permissions">Ruhusa za programu</string>
+    <string name="upload_missing_storage_permission_description">Faili zako haziwezi kupakiwa bila ufikiaji wa hifadhi ya ndani. Gusa ili kutoa ruhusa.</string>
+    <string name="upload_missing_storage_permission_title">Upakiaji Umesimamishwa - Ruhusa ya Kuhifadhi Inahitajika</string>
     <string name="upload_notification_manager_start_text">%1$d / %2$d - %3$s</string>
     <string name="upload_old_android">Usimbaji fiche unawezekana tu kwa &gt;= Android 5.0</string>
     <string name="upload_query_move_foreign_files">Nafasi haitoshi huzuia kunakili faili zilizochaguliwa kwenye folda ya %1$s. Je, ungependa kuzihamishia hapo badala yake?</string>

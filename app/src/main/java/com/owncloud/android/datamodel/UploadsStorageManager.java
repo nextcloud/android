@@ -129,7 +129,7 @@ public class UploadsStorageManager extends Observable {
 
     }
 
-    public long[] storeUploads(final List<OCUpload> ocUploads) {
+    public void storeUploads(final List<OCUpload> ocUploads) {
         Log_OC.v(TAG, "Inserting " + ocUploads.size() + " uploads");
         ArrayList<ContentProviderOperation> operations = new ArrayList<>(ocUploads.size());
         for (OCUpload ocUpload : ocUploads) {
@@ -152,20 +152,15 @@ public class UploadsStorageManager extends Observable {
 
         try {
             final ContentProviderResult[] contentProviderResults = getDB().applyBatch(MainApp.getAuthority(), operations);
-            final long[] newIds = new long[ocUploads.size()];
             for (int i = 0; i < contentProviderResults.length; i++) {
                 final ContentProviderResult result = contentProviderResults[i];
                 final long new_id = Long.parseLong(result.uri.getPathSegments().get(1));
                 ocUploads.get(i).setUploadId(new_id);
-                newIds[i] = new_id;
             }
             notifyObserversNow();
-            return newIds;
         } catch (OperationApplicationException | RemoteException e) {
             Log_OC.e(TAG, "Error inserting uploads", e);
         }
-
-        return null;
     }
 
     @NonNull

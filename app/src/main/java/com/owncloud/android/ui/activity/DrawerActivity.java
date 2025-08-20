@@ -380,13 +380,12 @@ public abstract class DrawerActivity extends ToolbarActivity
     }
 
     public void updateHeader() {
-        int primaryColor = themeColorUtils.unchangedPrimaryColor(getAccount(), this);
+        final var account = getAccount();
         boolean isClientBranded = getResources().getBoolean(R.bool.is_branded_client);
+        final OCCapability capability = getCapabilities();
 
-        if (getAccount() != null &&
-            getCapabilities().getServerBackground() != null && !isClientBranded) {
-
-            OCCapability capability = getCapabilities();
+        if (capability != null && account != null && capability.getServerBackground() != null && !isClientBranded) {
+            int primaryColor = themeColorUtils.unchangedPrimaryColor(account, this);
             String serverLogoURL = capability.getServerLogo();
 
             // set background to primary color
@@ -413,7 +412,7 @@ public abstract class DrawerActivity extends ToolbarActivity
         if (shouldHideTopBanner) {
             hideTopBanner(banner);
         } else {
-            showTopBanner(banner, primaryColor);
+            showTopBanner(banner);
         }
     }
 
@@ -467,7 +466,7 @@ public abstract class DrawerActivity extends ToolbarActivity
         banner.setVisibility(View.GONE);
     }
 
-    private void showTopBanner(ConstraintLayout banner, int primaryColor) {
+    private void showTopBanner(ConstraintLayout banner) {
         LinearLayout notesView = banner.findViewById(R.id.drawer_ecosystem_notes);
         LinearLayout talkView = banner.findViewById(R.id.drawer_ecosystem_talk);
         LinearLayout moreView = banner.findViewById(R.id.drawer_ecosystem_more);
@@ -489,8 +488,14 @@ public abstract class DrawerActivity extends ToolbarActivity
         List<LinearLayout> views = Arrays.asList(notesView, talkView, moreView, assistantView);
 
         int iconColor;
-        if (Hct.fromInt(primaryColor).getTone() < 80.0) {
-            iconColor = Color.WHITE;
+        final var account = getAccount();
+        if (account != null) {
+            int primaryColor = themeColorUtils.unchangedPrimaryColor(account, this);
+            if (Hct.fromInt(primaryColor).getTone() < 80.0) {
+                iconColor = Color.WHITE;
+            } else {
+                iconColor = getColor(R.color.grey_800_transparent);
+            }
         } else {
             iconColor = getColor(R.color.grey_800_transparent);
         }
