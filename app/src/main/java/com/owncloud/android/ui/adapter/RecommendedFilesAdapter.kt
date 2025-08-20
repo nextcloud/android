@@ -25,11 +25,16 @@ class RecommendedFilesAdapter(
         private const val LAYOUT_ITEM_WIDTH = 120f
     }
 
+    fun notifyItemChanged(file: OCFile) {
+        recommendations.indexOfFirst { it.decryptedRemotePath == file.decryptedRemotePath }
+            .takeIf { it >= 0 }?.let { notifyItemChanged(it) }
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): OCFileListGridItemViewHolder {
         val binding = GridItemBinding
             .inflate(LayoutInflater.from(parent.context), parent, false)
         return OCFileListGridItemViewHolder(binding).apply {
-            setLayoutItemWidth(binding.ListItemLayout)
+            binding.ListItemLayout.setLayoutItemWidth()
         }
     }
 
@@ -37,25 +42,20 @@ class RecommendedFilesAdapter(
 
     @Suppress("MagicNumber")
     override fun onBindViewHolder(holder: OCFileListGridItemViewHolder, position: Int) {
-        val item = recommendations.elementAt(position)
-        holder.binding.run {
-            val filePath = item.directory + OCFile.PATH_SEPARATOR + item.name
-            fileListAdapter.bindRecommendedFileHolder(holder, filePath)
-        }
+        val item = recommendations[position]
+        fileListAdapter.bindRecommendedFileHolder(holder, item.decryptedRemotePath)
     }
 
-    private fun setLayoutItemWidth(layout: ConstraintLayout) {
-        val layoutItemWidth = TypedValue.applyDimension(
-            TypedValue.COMPLEX_UNIT_DIP,
-            LAYOUT_ITEM_WIDTH,
-            layout.resources.displayMetrics
-        ).toInt()
+    // region Private Methods
+    private val Recommendation.decryptedRemotePath: String
+        get() = directory + OCFile.PATH_SEPARATOR + name
 
-        layout.run {
-            val params = layoutParams.apply {
-                width = layoutItemWidth
-            }
-            layoutParams = params
+    private fun ConstraintLayout.setLayoutItemWidth() {
+        layoutParams = layoutParams.apply {
+            width = TypedValue.applyDimension(
+                TypedValue.COMPLEX_UNIT_DIP, LAYOUT_ITEM_WIDTH, resources.displayMetrics
+            ).toInt()
         }
     }
+    // endregion
 }
