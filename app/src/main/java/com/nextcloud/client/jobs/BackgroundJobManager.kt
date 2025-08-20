@@ -139,7 +139,7 @@ interface BackgroundJobManager {
 
     fun startNotificationJob(subject: String, signature: String)
     fun startAccountRemovalJob(accountName: String, remoteWipe: Boolean)
-    fun startFilesUploadJob(user: User, uploadIds: LongArray)
+    fun startFilesUploadJob(user: User, uploadIds: LongArray, isAutoUpload: Boolean = false)
     fun getFileUploads(user: User): LiveData<List<JobInfo>>
     fun cancelFilesUploadJob(user: User)
     fun isStartFileUploadJobScheduled(user: User): Boolean

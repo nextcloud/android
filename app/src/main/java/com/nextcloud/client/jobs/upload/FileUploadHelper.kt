@@ -190,6 +190,7 @@ class FileUploadHelper {
         return showNotExistMessage
     }
 
+    @JvmOverloads
     @Suppress("LongParameterList")
     fun uploadNewFiles(
         user: User,
@@ -200,7 +201,8 @@ class FileUploadHelper {
         createdBy: Int,
         requiresWifi: Boolean,
         requiresCharging: Boolean,
-        nameCollisionPolicy: NameCollisionPolicy
+        nameCollisionPolicy: NameCollisionPolicy,
+        isAutoUpload: Boolean = false
     ) {
         val uploads = localPaths.mapIndexed { index, localPath ->
             OCUpload(localPath, remotePaths[index], user.accountName).apply {
@@ -214,7 +216,7 @@ class FileUploadHelper {
             }
         }
         uploadsStorageManager.storeUploads(uploads)
-        backgroundJobManager.startFilesUploadJob(user, uploads.getUploadIds())
+        backgroundJobManager.startFilesUploadJob(user, uploads.getUploadIds(), isAutoUpload)
     }
 
     fun removeFileUpload(remotePath: String, accountName: String) {
