@@ -14,7 +14,7 @@ import com.owncloud.android.utils.BitmapUtils
 object OCFileUtils {
     private const val TAG = "OCFileUtils"
 
-    @Suppress("ReturnCount")
+    @Suppress("ReturnCount", "NestedBlockDepth")
     fun getImageSize(ocFile: OCFile, defaultThumbnailSize: Float): Pair<Int, Int> {
         try {
             Log_OC.d(TAG, "Getting image size for: ${ocFile.fileName}")
