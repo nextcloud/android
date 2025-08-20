@@ -1032,6 +1032,10 @@
     <string name="upload_local_storage_not_copied">Nie można skopiować pliku do lokalnej pamięci</string>
     <string name="upload_lock_failed">Nie udało się zablokować katalogu</string>
     <string name="upload_manually_cancelled">Przesyłanie zostało anulowane przez użytkownika</string>
+    <string name="upload_missing_storage_permission_allow_file_access">Zezwól na pełny dostęp do plików</string>
+    <string name="upload_missing_storage_permission_app_permissions">Uprawnienia aplikacji</string>
+    <string name="upload_missing_storage_permission_description">Twoje pliki nie mogą być przesłane bez dostępu do pamięci lokalnej. Kliknij, aby udzielić pozwolenia.</string>
+    <string name="upload_missing_storage_permission_title">Przesyłanie zatrzymane – wymagane uprawnienie do pamięci</string>
     <string name="upload_notification_manager_start_text">%1$d / %2$d - %3$s</string>
     <string name="upload_old_android">Szyfrowanie jest możliwe tylko przy &gt;= Android 5.0</string>
     <string name="upload_query_move_foreign_files">Brak wystarczającego miejsca, aby skopiować wybrane pliki do katalogu %1$s. Czy chcesz je tam przenieść?</string>

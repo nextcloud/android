@@ -1032,6 +1032,10 @@
     <string name="upload_local_storage_not_copied">Níorbh fhéidir an comhad a chóipeáil go dtí an stóras áitiúil</string>
     <string name="upload_lock_failed">Theip ar ghlasáil an fhillteáin</string>
     <string name="upload_manually_cancelled">Chuir an t-úsáideoir an uaslódáil ar ceal</string>
+    <string name="upload_missing_storage_permission_allow_file_access">Ceadaigh rochtain ar chomhaid uile</string>
+    <string name="upload_missing_storage_permission_app_permissions">Ceadanna aipeanna</string>
+    <string name="upload_missing_storage_permission_description">Ní féidir do chuid comhad a uaslódáil gan rochtain ar stóras áitiúil. Tapáil chun cead a dheonú.</string>
+    <string name="upload_missing_storage_permission_title">Uaslódáil Stoptha – Cead Stórála Riachtanach</string>
     <string name="upload_notification_manager_start_text">%1$d / %2$d - %3$s</string>
     <string name="upload_old_android">Ní féidir criptiúchán ach amháin le 1&gt;= Android 5.0</string>
     <string name="upload_query_move_foreign_files">Ní bheidh dóthain spáis ann na comhaid roghnaithe a chóipeáil isteach san fhillteán %1$s. Ar mhaith leat iad a bhogadh ansin ina n-ionad?</string>
