@@ -20,7 +20,7 @@ PR=$4
 GITHUB_TOKEN=$5
 DAV_URL=https://nextcloud.kaminsky.me/remote.php/dav/files/$USER/android-artifacts/
 
-source scripts/lib.sh
+source .github/workflows/lib.sh
 REPO=$(cat scripts/repo)
 
 if ! test -e app/build/outputs/apk/qa/debug/*qa-debug*.apk ; then
