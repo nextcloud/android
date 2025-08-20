@@ -47,7 +47,8 @@ class RecommendedFilesAdapter(
             name.text = item.name
             reason.text = item.reason
 
-            val file = storageManager.getFileByLocalId(item.id) ?: return
+            val filePath = item.directory + OCFile.PATH_SEPARATOR + item.name
+            val file = storageManager.getFileByDecryptedRemotePath(filePath) ?: return
 
             delegate.setThumbnail(thumbnail, shimmerThumbnail, file)
 
