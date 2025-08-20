@@ -245,6 +245,7 @@ class FileDisplayActivity :
 
         intent?.let {
             handleCommonIntents(it)
+            handleAccountSwitchIntent(it)
         }
 
         loadSavedInstanceState(savedInstanceState)
@@ -531,6 +532,7 @@ class FileDisplayActivity :
         setIntent(intent)
         handleCommonIntents(intent)
         handleSpecialIntents(intent)
+        handleRestartIntent(intent)
     }
 
     private fun handleSpecialIntents(intent: Intent) {
@@ -570,16 +572,27 @@ class FileDisplayActivity :
                 supportFragmentManager.executePendingTransactions()
                 onOpenFileIntent(intent)
             }
-            RESTART -> {
-                val accountName = accountManager.user.accountName
-                val message = getString(R.string.logged_in_as)
-                val snackBarMessage = String.format(message, accountName)
-                DisplayUtils.showSnackMessage(this, snackBarMessage)
-
-                finish()
-                startActivity(intent)
-            }
         }
+    }
+
+    private fun handleRestartIntent(intent: Intent) {
+        if (intent.action != RESTART) {
+            return
+        }
+
+        finish()
+        startActivity(intent)
+    }
+
+    private fun handleAccountSwitchIntent(intent: Intent) {
+        if (intent.action != RESTART) {
+            return
+        }
+
+        val accountName = accountManager.user.accountName
+        val message = getString(R.string.logged_in_as)
+        val snackBarMessage = String.format(message, accountName)
+        DisplayUtils.showSnackMessage(this, snackBarMessage)
     }
 
     private fun handleSearchIntent(intent: Intent) {
