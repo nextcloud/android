@@ -249,8 +249,7 @@ class EncryptionUtilsV2 {
             )
         }
 
-        val isFolderNotEmpty = storageManager.isFolderNotEmpty(ocFile)
-        verifyMetadata(metadataFile, decryptedFolderMetadataFile, oldCounter, signature, isFolderNotEmpty)
+        verifyMetadata(metadataFile, decryptedFolderMetadataFile, oldCounter, signature)
 
         val transferredFiledrop = filesDropCountBefore > 0 &&
             decryptedFolderMetadataFile.metadata.files.size == filesBefore + filesDropCountBefore
@@ -950,8 +949,7 @@ class EncryptionUtilsV2 {
         encryptedFolderMetadataFile: EncryptedFolderMetadataFile,
         decryptedFolderMetadataFile: DecryptedFolderMetadataFile,
         oldCounter: Long,
-        signature: String,
-        isFolderNotEmpty: Boolean
+        signature: String
     ) {
         if (decryptedFolderMetadataFile.metadata.counter < oldCounter) {
             MainApp.showMessage(R.string.e2e_counter_too_old)
@@ -962,7 +960,7 @@ class EncryptionUtilsV2 {
         val certs = decryptedFolderMetadataFile.users.map { EncryptionUtils.convertCertFromString(it.certificate) }
         val signedData = getSignedData(signature, message)
 
-        if (isFolderNotEmpty && certs.isNotEmpty() && !verifySignedData(signedData, certs)) {
+        if (certs.isNotEmpty() && !verifySignedData(signedData, certs)) {
             MainApp.showMessage(R.string.e2e_signature_does_not_match)
             return
         }
