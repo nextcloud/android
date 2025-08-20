@@ -54,10 +54,14 @@ class RemoteFilesRepository(private val clientRepository: ClientRepository, life
                     .takeIf { it.isSuccess }
                     ?.singleData as? String
 
-                url?.let(onCompleted) ?: onError()
+                withContext(Dispatchers.Main) {
+                    url?.let(onCompleted) ?: onError()
+                }
             } catch (e: Exception) {
                 Log_OC.e(tag, "Exception caught while creating rich workspace: $e")
-                onError()
+                withContext(Dispatchers.Main) {
+                    onError()
+                }
             }
         }
     }
