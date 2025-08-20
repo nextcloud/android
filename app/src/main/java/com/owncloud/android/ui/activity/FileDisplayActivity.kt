@@ -584,7 +584,8 @@ class FileDisplayActivity :
 
     private fun handleSearchIntent(intent: Intent) {
         val searchEvent = intent.getParcelableArgument(
-            OCFileListFragment.SEARCH_EVENT, SearchEvent::class.java
+            OCFileListFragment.SEARCH_EVENT,
+            SearchEvent::class.java
         ) ?: return
 
         when (searchEvent.searchType) {
