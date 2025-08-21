@@ -215,12 +215,7 @@ public class IndexedForest<V> {
      * @param accountName
      */
     public void remove(String accountName){
-        for (String key : mMap.keySet()) {
-            Log_OC.d("IndexedForest", "Number of pending downloads= " + mMap.size());
-            if (key.startsWith(accountName)) {
-                mMap.remove(key);
-            }
-        }
+        mMap.keySet().removeIf(key -> key.startsWith(accountName));
     }
 
     /**

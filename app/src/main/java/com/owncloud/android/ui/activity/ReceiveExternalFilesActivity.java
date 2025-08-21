@@ -636,13 +636,22 @@ public class ReceiveExternalFilesActivity extends FileActivity
 
         @Nullable
         private File createTempFile(String text) {
-            File file = new File(getActivity().getCacheDir(), "tmp.tmp");
+            final var activity = getActivity();
+            if (activity == null) {
+                return null;
+            }
+
+            final var cacheDir = activity.getCacheDir();
+
+            File file = new File(cacheDir, "tmp.tmp");
+
             try (FileWriter fw = new FileWriter(file)) {
                 fw.write(text);
             } catch (IOException e) {
                 Log_OC.d(TAG, "Error ", e);
                 return null;
             }
+
             return file;
         }
     }
