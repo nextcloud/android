@@ -52,7 +52,11 @@ internal class OCFileListViewHolder(var binding: GridItemBinding) :
     override val unreadComments: ImageView
         get() = binding.unreadComments
     override val more: ImageButton
-        get() = binding.more
+        get() = if (binding.bidiFilenameContainer.isVisible) {
+            binding.bidiMore
+        } else {
+            binding.more
+        }
     override val fileFeaturesLayout: LinearLayout
         get() = binding.fileFeaturesLayout
     override val gridLivePhotoIndicator: ImageView

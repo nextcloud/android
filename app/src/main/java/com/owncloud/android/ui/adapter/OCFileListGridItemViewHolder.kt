@@ -65,8 +65,11 @@ class OCFileListGridItemViewHolder(var binding: GridItemBinding) :
     override val fileFeaturesLayout: LinearLayout
         get() = binding.fileFeaturesLayout
     override val more: ImageButton
-        get() = binding.more
-
+        get() = if (binding.bidiFilenameContainer.isVisible) {
+            binding.bidiMore
+        } else {
+            binding.more
+        }
     init {
         binding.favoriteAction.drawable.mutate()
     }

@@ -8,8 +8,7 @@
   ~ SPDX-FileCopyrightText: 2015 ownCloud Inc.
   ~ SPDX-License-Identifier: GPL-2.0-only AND (AGPL-3.0-or-later OR GPL-2.0-only)
 -->
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/ListItemLayout"
@@ -32,9 +31,9 @@
 
     <com.owncloud.android.ui.SquareImageView
         android:id="@+id/thumbnail"
-        android:layout_marginTop="@dimen/standard_half_margin"
         android:layout_width="@dimen/standard_list_item_size"
         android:layout_height="@dimen/standard_list_item_size"
+        android:layout_marginTop="@dimen/standard_half_margin"
         android:contentDescription="@null"
         android:src="@drawable/folder"
         app:layout_constraintEnd_toEndOf="parent"
@@ -53,10 +52,10 @@
         android:orientation="horizontal"
         android:padding="@dimen/standard_quarter_padding"
         android:translationZ="4dp"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="@+id/thumbnail"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.85"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.85">
 
@@ -106,7 +105,6 @@
 
         <ImageView
             android:id="@+id/grid_live_photo_indicator"
-            tools:ignore="TouchTargetSizeCheck"
             android:layout_width="@dimen/grid_layout_item_size"
             android:layout_height="@dimen/grid_layout_item_size"
             android:layout_marginEnd="@dimen/grid_layout_margin_end"
@@ -116,6 +114,7 @@
             android:src="@drawable/ic_live_photo"
             android:visibility="gone"
             app:tint="@color/grid_file_features_icon_color"
+            tools:ignore="TouchTargetSizeCheck"
             tools:visibility="visible" />
 
         <ImageView
@@ -143,40 +142,56 @@
 
     <LinearLayout
         android:id="@+id/bidi_filename_container"
-        android:visibility="gone"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/thumbnail"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/thumbnail">
 
-        <TextView
-            android:id="@+id/bidi_filename"
+        <LinearLayout
             android:layout_width="0dp"
-            android:maxWidth="50dp"
-            android:layout_height="match_parent"
-            android:maxLines="1"
-            android:layout_gravity="center"
             android:layout_weight="1"
-            android:gravity="center"
-            android:ellipsize="end"
-            android:text="@string/placeholder_filename"
-            android:textSize="@dimen/grid_item_text_size" />
-
-        <TextView
-            android:id="@+id/bidi_extension"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
             android:layout_gravity="center"
             android:gravity="center"
-            android:maxLines="1"
-            android:text="@string/placeholder_extension"
-            android:textSize="@dimen/grid_item_text_size" />
+            android:layout_height="match_parent">
 
+            <TextView
+                android:id="@+id/bidi_filename"
+                android:layout_width="wrap_content"
+                android:maxWidth="80dp"
+                android:layout_height="match_parent"
+                android:ellipsize="end"
+                android:gravity="center"
+                android:maxLines="1"
+                android:text="@string/placeholder_filename"
+                android:textSize="@dimen/grid_item_text_size" />
+
+            <TextView
+                android:id="@+id/bidi_extension"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:ellipsize="start"
+                android:gravity="center"
+                android:maxLines="1"
+                android:text="@string/placeholder_extension"
+                android:textSize="@dimen/grid_item_text_size" />
+
+        </LinearLayout>
+
+        <ImageButton
+            android:id="@+id/bidi_more"
+            android:layout_width="@dimen/iconized_single_line_item_icon_size"
+            android:layout_height="match_parent"
+            android:background="@color/transparent"
+            android:contentDescription="@string/overflow_menu"
+            android:translationZ="2dp"
+            app:srcCompat="@drawable/ic_dots_vertical"
+            tools:ignore="TouchTargetSizeCheck" />
     </LinearLayout>
+
 
     <TextView
         android:id="@+id/Filename"
@@ -194,7 +209,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/thumbnail"
         app:layout_constraintWidth_percent="0.75"
-        tools:visibility="visible" />
+        tools:visibility="gone" />
 
     <ImageButton
         android:id="@+id/more"
@@ -209,7 +224,8 @@
         app:layout_constraintStart_toEndOf="@id/Filename"
         app:layout_constraintTop_toBottomOf="@id/thumbnail"
         app:srcCompat="@drawable/ic_dots_vertical"
-        tools:ignore="TouchTargetSizeCheck" />
+        tools:ignore="TouchTargetSizeCheck"
+        tools:visibility="gone" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
