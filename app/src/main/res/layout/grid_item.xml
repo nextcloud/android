@@ -53,6 +53,7 @@
         android:orientation="horizontal"
         android:padding="@dimen/standard_quarter_padding"
         android:translationZ="4dp"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="@+id/thumbnail"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.85"
