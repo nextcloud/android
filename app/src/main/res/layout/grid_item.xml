@@ -163,7 +163,7 @@
             <TextView
                 android:id="@+id/bidi_filename"
                 android:layout_width="wrap_content"
-                android:maxWidth="80dp"
+                android:maxWidth="@dimen/grid_container_default_max_file_name"
                 android:layout_height="match_parent"
                 android:ellipsize="end"
                 android:gravity="center"
