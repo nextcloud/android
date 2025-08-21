@@ -144,6 +144,7 @@
         android:id="@+id/bidi_filename_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:visibility="gone"
         android:gravity="center"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -209,7 +210,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/thumbnail"
         app:layout_constraintWidth_percent="0.75"
-        tools:visibility="gone" />
+        tools:visibility="visible" />
 
     <ImageButton
         android:id="@+id/more"
@@ -225,7 +226,7 @@
         app:layout_constraintTop_toBottomOf="@id/thumbnail"
         app:srcCompat="@drawable/ic_dots_vertical"
         tools:ignore="TouchTargetSizeCheck"
-        tools:visibility="gone" />
+        tools:visibility="visible" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

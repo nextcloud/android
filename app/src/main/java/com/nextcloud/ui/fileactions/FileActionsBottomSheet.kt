@@ -209,7 +209,12 @@ class FileActionsBottomSheet :
             val isFolder = titleFile.isFolder
             val isRTL = DisplayUtils.isRTL()
             val (base, ext) = FileStorageUtils.getFilenameAndExtension(decryptedFileName, isFolder, isRTL)
+            val titleMaxWidth = DisplayUtils.convertDpToPixel(
+                requireContext().resources.configuration.screenWidthDp.times(0.6).toFloat(),
+                context
+            )
 
+            binding.title.maxWidth = titleMaxWidth
             binding.title.text = base
             binding.extension.setVisibleIf(!isFolder)
             if (!isFolder) {
