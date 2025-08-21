@@ -151,6 +151,23 @@ class UploadNotificationManager(private val context: Context, viewThemeUtils: Vi
         )
     }
 
+    fun showSameFileAlreadyExistsNotification(filename: String) {
+        notificationBuilder.run {
+            setAutoCancel(true)
+            clearActions()
+            setContentText("")
+            setProgress(0, 0, false)
+            setContentTitle(context.getString(R.string.file_upload_worker_same_file_already_exists, filename))
+        }
+
+        val notificationId = filename.hashCode()
+
+        notificationManager.notify(
+            notificationId,
+            notificationBuilder.build()
+        )
+    }
+
     fun showConnectionErrorNotification() {
         notificationManager.cancel(getId())
 

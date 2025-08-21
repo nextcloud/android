@@ -21,4 +21,6 @@ interface FilesRepository {
      *
      */
     fun fetchRecommendedFiles(onCompleted: (ArrayList<Recommendation>) -> Unit)
+
+    fun createRichWorkspace(remotePath: String, onCompleted: (String) -> Unit, onError: () -> Unit)
 }
