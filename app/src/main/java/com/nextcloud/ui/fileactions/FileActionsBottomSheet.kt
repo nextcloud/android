@@ -210,7 +210,7 @@ class FileActionsBottomSheet :
             val isRTL = DisplayUtils.isRTL()
             val (base, ext) = FileStorageUtils.getFilenameAndExtension(decryptedFileName, isFolder, isRTL)
             val titleMaxWidth = DisplayUtils.convertDpToPixel(
-                requireContext().resources.configuration.screenWidthDp.times(0.6).toFloat(),
+                requireContext().resources.configuration.screenWidthDp.times(FILENAME_MAX_WIDTH_PERCENTAGE).toFloat(),
                 context
             )
 
@@ -314,6 +314,7 @@ class FileActionsBottomSheet :
     companion object {
         private const val REQUEST_KEY = "REQUEST_KEY_ACTION"
         private const val RESULT_KEY_ACTION_ID = "RESULT_KEY_ACTION_ID"
+        private const val FILENAME_MAX_WIDTH_PERCENTAGE = 0.6
 
         @JvmStatic
         @JvmOverloads
