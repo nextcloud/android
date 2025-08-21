@@ -443,8 +443,10 @@ public class OCFileListFragment extends ExtendedListFragment implements
             return;
         }
 
+        FileDataStorageManager storageManager = mContainerActivity.getStorageManager();
+
         if (getActivity() instanceof FileActivity fileActivity) {
-            fileActivity.getFilesRepository().fetchRecommendedFiles(recommendations -> {
+            fileActivity.getFilesRepository().fetchRecommendedFiles(storageManager, recommendations -> {
                 mAdapter.updateRecommendedFiles(recommendations);
                 return Unit.INSTANCE;
             });

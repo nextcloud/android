@@ -10,9 +10,11 @@ package com.owncloud.android.ui.fragment.filesRepository
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import com.nextcloud.android.lib.resources.recommendations.GetRecommendationsRemoteOperation
-import com.nextcloud.android.lib.resources.recommendations.Recommendation
 import com.nextcloud.android.lib.richWorkspace.RichWorkspaceDirectEditingRemoteOperation
+import com.nextcloud.client.database.entity.RecommendedFileEntity
+import com.nextcloud.client.database.entity.toEntity
 import com.nextcloud.repository.ClientRepository
+import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.lib.common.utils.Log_OC
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -24,17 +26,23 @@ class RemoteFilesRepository(private val clientRepository: ClientRepository, life
     private val tag = "FilesRepository"
     private val scope = lifecycleOwner.lifecycleScope
 
-    override fun fetchRecommendedFiles(onCompleted: (ArrayList<Recommendation>) -> Unit) {
+    override fun fetchRecommendedFiles(
+        storageManager: FileDataStorageManager,
+        onCompleted: (ArrayList<RecommendedFileEntity>) -> Unit
+    ) {
         scope.launch(Dispatchers.IO) {
             try {
                 val client = clientRepository.getNextcloudClient() ?: return@launch
                 val result = GetRecommendationsRemoteOperation().execute(client)
                 if (result.isSuccess) {
+                    // TODO: add caching mechanism
                     val recommendations = result.getResultData().recommendations
                     Log_OC.d(tag, "Recommended files fetched size: " + recommendations.size)
+                    val recommendationsEntity = recommendations.toEntity()
+                    storageManager.recommendedFileDao.insertAll(recommendationsEntity)
 
                     withContext(Dispatchers.Main) {
-                        onCompleted(recommendations)
+                        onCompleted(ArrayList(recommendationsEntity))
                     }
                 } else {
                     Log_OC.d(tag, "Recommended files cannot be fetched: " + result.code)

@@ -12,13 +12,13 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
-import com.nextcloud.android.lib.resources.recommendations.Recommendation
+import com.nextcloud.client.database.entity.RecommendedFileEntity
 import com.owncloud.android.databinding.GridItemBinding
 import com.owncloud.android.datamodel.OCFile
 
 class RecommendedFilesAdapter(
     private val fileListAdapter: OCFileListAdapter,
-    private val recommendations: ArrayList<Recommendation>,
+    private val recommendations: ArrayList<RecommendedFileEntity>
 ) : RecyclerView.Adapter<OCFileListGridItemViewHolder>() {
 
     companion object {
@@ -47,13 +47,12 @@ class RecommendedFilesAdapter(
     }
 
     // region Private Methods
-    private val Recommendation.decryptedRemotePath: String
-        get() = directory + OCFile.PATH_SEPARATOR + name
-
     private fun ConstraintLayout.setLayoutItemWidth() {
         layoutParams = layoutParams.apply {
             width = TypedValue.applyDimension(
-                TypedValue.COMPLEX_UNIT_DIP, LAYOUT_ITEM_WIDTH, resources.displayMetrics
+                TypedValue.COMPLEX_UNIT_DIP,
+                LAYOUT_ITEM_WIDTH,
+                resources.displayMetrics
             ).toInt()
         }
     }
