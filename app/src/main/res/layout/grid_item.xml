@@ -141,9 +141,10 @@
         tools:visibility="visible" />
 
     <LinearLayout
+        tools:visibility="visible"
         android:id="@+id/bidi_filename_container"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/grid_bottom_view_height"
         android:visibility="gone"
         android:gravity="center"
         android:orientation="horizontal"
