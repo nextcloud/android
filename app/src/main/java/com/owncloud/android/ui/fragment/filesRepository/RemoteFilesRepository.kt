@@ -31,13 +31,21 @@ class RemoteFilesRepository(private val clientRepository: ClientRepository, life
         onCompleted: (ArrayList<RecommendedFileEntity>) -> Unit
     ) {
         scope.launch(Dispatchers.IO) {
+            val cachedRecommendations = storageManager.recommendedFileDao.getAll()
             try {
-                val client = clientRepository.getNextcloudClient() ?: return@launch
+                val client = clientRepository.getNextcloudClient()
+                if (client == null) {
+                    Log_OC.w(tag, "No Nextcloud client available. Returning cached recommendations.")
+                    withContext(Dispatchers.Main) { onCompleted(ArrayList(cachedRecommendations)) }
+                    return@launch
+                }
+
+                // TODO: add caching mechanism
                 val result = GetRecommendationsRemoteOperation().execute(client)
                 if (result.isSuccess) {
-                    // TODO: add caching mechanism
                     val recommendations = result.getResultData().recommendations
-                    Log_OC.d(tag, "Recommended files fetched size: " + recommendations.size)
+                    Log_OC.d(tag, "Fetched ${recommendations.size} recommended files from remote.")
+
                     val recommendationsEntity = recommendations.toEntity()
                     storageManager.recommendedFileDao.insertAll(recommendationsEntity)
 
@@ -45,10 +53,13 @@ class RemoteFilesRepository(private val clientRepository: ClientRepository, life
                         onCompleted(ArrayList(recommendationsEntity))
                     }
                 } else {
-                    Log_OC.d(tag, "Recommended files cannot be fetched: " + result.code)
+                    Log_OC.w(tag, "Failed to fetch recommended files (code=${result.code}). " +
+                        "Using cached values.")
+                    withContext(Dispatchers.Main) { onCompleted(ArrayList(cachedRecommendations)) }
                 }
             } catch (e: Exception) {
-                Log_OC.e(tag, "Exception caught while fetching recommended files: $e")
+                Log_OC.e(tag, "Error fetching recommended files. Returning cached values.", e)
+                withContext(Dispatchers.Main) { onCompleted(ArrayList(cachedRecommendations)) }
             }
         }
     }
