@@ -144,7 +144,6 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     private final long footerId = UUID.randomUUID().getLeastSignificantBits();
     private final long headerId = UUID.randomUUID().getLeastSignificantBits();
-    private final OCFileListGridController gridController = new OCFileListGridController();
 
     private ArrayList<Recommendation> recommendedFiles = new ArrayList<>();
 
@@ -480,7 +479,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             }
 
             if (holder instanceof ListGridItemViewHolder gridItemViewHolder) {
-                setFileNameAndExtension(gridItemViewHolder, file);
+                setFilenameAndExtension(gridItemViewHolder, file);
                 checkVisibilityOfFileFeaturesLayout(gridItemViewHolder);
             }
 
@@ -560,15 +559,36 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         }
     }
 
-    private void setFileNameAndExtension(ListGridItemViewHolder holder, OCFile file) {
+    private void setFilenameAndExtension(ListGridItemViewHolder holder, OCFile file) {
         final String filename = mStorageManager.getFilenameConsideringOfflineOperation(file);
         final var pair = FileStorageUtils.getFilenameAndExtension(filename, file.isFolder(), isRTL);
         final boolean isFolder = file.isFolder();
 
         if (holder instanceof OCFileListGridItemViewHolder gridItemViewHolder) {
-            gridController.handleGridMode(filename, ocFileListFragmentInterface, gridItemViewHolder, pair, file);
+            handleGridMode(filename, gridItemViewHolder, pair, file);
         } else {
             handleListMode(holder, pair, isFolder);
+        }
+    }
+
+    private void handleGridMode(String filename, OCFileListGridItemViewHolder holder, Pair<String, String> filenamePair, OCFile file) {
+        boolean containsBidiControlCharacters = FileStorageUtils.containsBidiControlCharacters(filename);
+        ViewExtensionsKt.setVisibleIf(holder.getFileName(),!containsBidiControlCharacters);
+        ViewExtensionsKt.setVisibleIf(holder.getBinding().bidiFilenameContainer, containsBidiControlCharacters);
+        final var extension = holder.getExtension();
+
+        if (containsBidiControlCharacters) {
+            holder.getBidiFilename().setText(filenamePair.getFirst());
+            if (extension != null) {
+                extension.setText(filenamePair.getSecond());
+            }
+            holder.getBinding().more.setVisibility(View.GONE);
+            holder.getBinding().bidiMore.setOnClickListener(v -> ocFileListFragmentInterface.onOverflowIconClicked(file, v));
+        } else {
+            holder.getFileName().setText(filename);
+            if (extension != null) {
+                extension.setVisibility(View.GONE);
+            }
         }
     }
 
