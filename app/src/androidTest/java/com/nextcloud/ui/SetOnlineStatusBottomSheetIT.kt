@@ -16,8 +16,6 @@ import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.isRoot
 import com.owncloud.android.AbstractIT
-import com.owncloud.android.lib.resources.users.ClearAt
-import com.owncloud.android.lib.resources.users.PredefinedStatus
 import com.owncloud.android.lib.resources.users.Status
 import com.owncloud.android.lib.resources.users.StatusType
 import com.owncloud.android.ui.activity.FileDisplayActivity
@@ -26,7 +24,7 @@ import org.junit.After
 import org.junit.Before
 import org.junit.Test
 
-class SetStatusDialogFragmentIT : AbstractIT() {
+class SetOnlineStatusBottomSheetIT : AbstractIT() {
     @Before
     fun registerIdlingResource() {
         IdlingRegistry.getInstance().register(EspressoIdlingResource.countingIdlingResource)
@@ -44,19 +42,11 @@ class SetStatusDialogFragmentIT : AbstractIT() {
             scenario.onActivity { activity ->
                 onIdleSync {
                     EspressoIdlingResource.increment()
-                    val sut = SetStatusDialogFragment.newInstance(
+                    val sut = SetOnlineStatusBottomSheet(
                         user,
                         Status(StatusType.DND, "Working hard…", "🤖", -1)
                     )
                     sut.show(activity.supportFragmentManager, "")
-                    val predefinedStatus: ArrayList<PredefinedStatus> = arrayListOf(
-                        PredefinedStatus("meeting", "📅", "In a meeting", ClearAt("period", "3600")),
-                        PredefinedStatus("commuting", "🚌", "Commuting", ClearAt("period", "1800")),
-                        PredefinedStatus("remote-work", "🏡", "Working remotely", ClearAt("end-of", "day")),
-                        PredefinedStatus("sick-leave", "🤒", "Out sick", ClearAt("end-of", "day")),
-                        PredefinedStatus("vacationing", "🌴", "Vacationing", null)
-                    )
-                    sut.setPredefinedStatus(predefinedStatus)
                     EspressoIdlingResource.decrement()
 
                     onView(isRoot()).check(matches(isDisplayed()))

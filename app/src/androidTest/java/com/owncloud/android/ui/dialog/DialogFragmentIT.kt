@@ -39,6 +39,7 @@ import com.nextcloud.client.account.Server
 import com.nextcloud.client.device.DeviceInfo
 import com.nextcloud.client.documentscan.AppScanOptionalFeature
 import com.nextcloud.ui.ChooseAccountDialogFragment.Companion.newInstance
+import com.nextcloud.ui.SetOnlineStatusBottomSheet
 import com.nextcloud.ui.fileactions.FileActionsBottomSheet.Companion.newInstance
 import com.nextcloud.utils.EditorUtils
 import com.owncloud.android.AbstractIT
@@ -561,6 +562,36 @@ class DialogFragmentIT : AbstractIT() {
                     val screenShotName = createName(testClassName + "_" + "testBottomSheet", "")
                     onView(isRoot()).check(matches(isDisplayed()))
                     screenshotViaName(sut.window?.decorView, screenShotName)
+                }
+            }
+        }
+    }
+
+    @Test
+    @UiThread
+    @ScreenshotTest
+    fun testOnlineStatusBottomSheet() {
+        if (Looper.myLooper() == null) {
+            Looper.prepare()
+        }
+
+        // show dialog
+        val intent = Intent(targetContext, FileDisplayActivity::class.java)
+
+        launchActivity<FileDisplayActivity>(intent).use { scenario ->
+            scenario.onActivity { fda ->
+                onIdleSync {
+                    EspressoIdlingResource.increment()
+                    val sut = SetOnlineStatusBottomSheet(
+                        user,
+                        Status(StatusType.DND, "Focus time", "\uD83E\uDD13", -1)
+                    )
+                    EspressoIdlingResource.decrement()
+                    sut.show(fda.supportFragmentManager, "set_online_status")
+
+                    val screenShotName = createName(testClassName + "_" + "testOnlineStatusBottomSheet", "")
+                    onView(isRoot()).check(matches(isDisplayed()))
+                    screenshotViaName(sut.view, screenShotName)
                 }
             }
         }

@@ -1,0 +1,393 @@
+<!--
+  ~ Nextcloud - Android Client
+  ~
+  ~ SPDX-FileCopyrightText: 2020 Andy Scherzinger <info@andy-scherzinger>
+  ~ SPDX-FileCopyrightText: 2020 Tobias Kaminsky <tobias@kaminsky.me>
+  ~ SPDX-FileCopyrightText: 2020 Nextcloud GmbH
+  ~ SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
+-->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/Widget.Material3.BottomSheet"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="@dimen/dialog_padding"
+    app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+
+    <com.google.android.material.bottomsheet.BottomSheetDragHandleView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/onlineStatusView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/standard_half_margin"
+        android:text="@string/online_status"
+        android:textAlignment="viewStart"
+        android:textColor="@color/high_emphasis_text"
+        android:textSize="@dimen/activity_list_item_title_header_text_size"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/statusView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:baselineAligned="false"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/onlineStatusView">
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/onlineStatus"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/online_status_item_height"
+            android:layout_gravity="center_vertical"
+            android:layout_marginBottom="@dimen/standard_half_margin"
+            android:layout_weight="1"
+            android:checkable="true"
+            android:orientation="horizontal"
+            app:cardCornerRadius="@dimen/status_corner_radius"
+            app:cardElevation="0dp"
+            app:checkedIcon="@null">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="@dimen/standard_margin"
+                android:layout_marginEnd="@dimen/standard_margin"
+                android:orientation="horizontal"
+                tools:ignore="UnusedAttribute">
+
+                <ImageView
+                    android:id="@+id/online_icon"
+                    android:layout_width="@dimen/iconized_single_line_item_icon_size"
+                    android:layout_height="@dimen/iconized_single_line_item_icon_size"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="top|start"
+                    android:layout_marginEnd="@dimen/standard_half_margin"
+                    android:contentDescription="@null"
+                    android:src="@drawable/ic_check_circle"
+                    app:tint="@color/online" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_toEndOf="@id/online_icon"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/online_headline"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:gravity="bottom"
+                        android:maxLines="1"
+                        android:text="@string/online"
+                        android:textAppearance="?android:attr/textAppearanceListItem" />
+
+                    <TextView
+                        android:id="@+id/online_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/standard_half_margin"
+                        android:layout_marginBottom="@dimen/standard_quarter_margin"
+                        android:ellipsize="end"
+                        android:gravity="top"
+                        android:maxLines="1"
+                        android:textColor="?android:attr/textColorSecondary"
+                        android:visibility="gone" />
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/awayStatus"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/online_status_item_height"
+            android:layout_gravity="center_vertical"
+            android:layout_marginBottom="@dimen/standard_half_margin"
+            android:layout_weight="1"
+            android:checkable="true"
+            android:orientation="horizontal"
+            app:cardBackgroundColor="@color/grey_200"
+            app:cardCornerRadius="@dimen/status_corner_radius"
+            app:cardElevation="0dp"
+            app:checkedIcon="@null">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="@dimen/standard_margin"
+                android:layout_marginEnd="@dimen/standard_margin"
+                android:orientation="horizontal"
+                tools:ignore="UnusedAttribute">
+
+                <ImageView
+                    android:id="@+id/away_icon"
+                    android:layout_width="@dimen/iconized_single_line_item_icon_size"
+                    android:layout_height="@dimen/iconized_single_line_item_icon_size"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="top|start"
+                    android:layout_marginEnd="@dimen/standard_half_margin"
+                    android:contentDescription="@null"
+                    android:src="@drawable/ic_user_status_away"
+                    app:tint="#f4a331" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_toEndOf="@id/away_icon"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/away_headline"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:gravity="bottom"
+                        android:maxLines="1"
+                        android:text="@string/away"
+                        android:textAppearance="?android:attr/textAppearanceListItem" />
+
+                    <TextView
+                        android:id="@+id/away_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/standard_half_margin"
+                        android:layout_marginBottom="@dimen/standard_quarter_margin"
+                        android:ellipsize="end"
+                        android:gravity="top"
+                        android:maxLines="1"
+                        android:textColor="?android:attr/textColorSecondary"
+                        android:visibility="gone" />
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/busyStatus"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/online_status_item_height"
+            android:layout_gravity="center_vertical"
+            android:layout_marginBottom="@dimen/standard_half_margin"
+            android:layout_weight="1"
+            android:checkable="true"
+            android:orientation="horizontal"
+            app:cardBackgroundColor="@color/grey_200"
+            app:cardCornerRadius="@dimen/status_corner_radius"
+            app:cardElevation="0dp"
+            app:checkedIcon="@null">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="@dimen/standard_margin"
+                android:layout_marginEnd="@dimen/standard_margin"
+                android:orientation="horizontal"
+                tools:ignore="UnusedAttribute">
+
+                <ImageView
+                    android:id="@+id/busy_icon"
+                    android:layout_width="@dimen/iconized_single_line_item_icon_size"
+                    android:layout_height="@dimen/iconized_single_line_item_icon_size"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="top|start"
+                    android:layout_marginEnd="@dimen/standard_half_margin"
+                    android:contentDescription="@null"
+                    android:src="@drawable/ic_user_status_busy"
+                    app:tint="@color/busy" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_toEndOf="@id/busy_icon"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/busy_headline"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:gravity="bottom"
+                        android:maxLines="1"
+                        android:text="@string/busy"
+                        android:textAppearance="?android:attr/textAppearanceListItem" />
+
+                    <TextView
+                        android:id="@+id/busy_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/standard_half_margin"
+                        android:layout_marginBottom="@dimen/standard_quarter_margin"
+                        android:ellipsize="end"
+                        android:gravity="top"
+                        android:maxLines="1"
+                        android:textColor="?android:attr/textColorSecondary"
+                        android:visibility="gone" />
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/dndStatus"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/online_status_item_height"
+            android:layout_gravity="center_vertical"
+            android:layout_marginBottom="@dimen/standard_half_margin"
+            android:layout_weight="1"
+            android:checkable="true"
+            android:orientation="horizontal"
+            app:cardBackgroundColor="@color/grey_200"
+            app:cardCornerRadius="@dimen/status_corner_radius"
+            app:cardElevation="0dp"
+            app:checkedIcon="@null">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="@dimen/standard_margin"
+                android:layout_marginEnd="@dimen/standard_margin"
+                android:orientation="horizontal"
+                tools:ignore="UnusedAttribute">
+
+                <ImageView
+                    android:id="@+id/dnd_icon"
+                    android:layout_width="@dimen/iconized_single_line_item_icon_size"
+                    android:layout_height="@dimen/iconized_single_line_item_icon_size"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="top|start"
+                    android:layout_marginEnd="@dimen/standard_half_margin"
+                    android:contentDescription="@null"
+                    android:src="@drawable/ic_user_status_dnd" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_toEndOf="@id/dnd_icon"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/dnd_headline"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:gravity="bottom"
+                        android:maxLines="1"
+                        android:text="@string/dnd"
+                        android:textAppearance="?android:attr/textAppearanceListItem" />
+
+                    <TextView
+                        android:id="@+id/dnd_info"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:gravity="bottom"
+                        android:maxLines="1"
+                        android:text="@string/mute_all_notifications"
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/invisibleStatus"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/online_status_item_height"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:checkable="true"
+            android:orientation="horizontal"
+            app:cardBackgroundColor="@color/grey_200"
+            app:cardCornerRadius="@dimen/status_corner_radius"
+            app:cardElevation="0dp"
+            app:checkedIcon="@null">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="@dimen/standard_margin"
+                android:layout_marginEnd="@dimen/standard_margin"
+                android:orientation="horizontal"
+                tools:ignore="UnusedAttribute">
+
+                <ImageView
+                    android:id="@+id/invisible_icon"
+                    android:layout_width="@dimen/iconized_single_line_item_icon_size"
+                    android:layout_height="@dimen/iconized_single_line_item_icon_size"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="top|start"
+                    android:layout_marginEnd="@dimen/standard_half_margin"
+                    android:contentDescription="@null"
+                    app:tint="@color/offline"
+                    android:src="@drawable/ic_user_status_invisible" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_toEndOf="@id/invisible_icon"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/invisible_headline"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:gravity="bottom"
+                        android:maxLines="1"
+                        android:text="@string/invisible"
+                        android:textAppearance="?android:attr/textAppearanceListItem" />
+
+                    <TextView
+                        android:id="@+id/invisible_info"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:gravity="bottom"
+                        android:maxLines="1"
+                        android:text="@string/appear_offline"
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+    </LinearLayout>
+
+</LinearLayout>

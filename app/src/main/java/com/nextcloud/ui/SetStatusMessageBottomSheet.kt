@@ -10,10 +10,8 @@
 package com.nextcloud.ui
 
 import android.annotation.SuppressLint
-import android.app.Dialog
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,28 +19,21 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.AdapterView
 import android.widget.AdapterView.OnItemSelectedListener
 import android.widget.ArrayAdapter
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.annotation.VisibleForTesting
-import androidx.fragment.app.DialogFragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.material.card.MaterialCardView
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.nextcloud.client.account.User
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.core.AsyncRunner
 import com.nextcloud.client.di.Injectable
-import com.nextcloud.client.network.ClientFactory
-import com.nextcloud.utils.extensions.getParcelableArgument
 import com.owncloud.android.R
-import com.owncloud.android.databinding.DialogSetStatusBinding
+import com.owncloud.android.databinding.SetStatusMessageBottomSheetBinding
 import com.owncloud.android.datamodel.ArbitraryDataProvider
 import com.owncloud.android.lib.resources.users.ClearAt
 import com.owncloud.android.lib.resources.users.PredefinedStatus
 import com.owncloud.android.lib.resources.users.Status
-import com.owncloud.android.lib.resources.users.StatusType
 import com.owncloud.android.ui.activity.BaseActivity
 import com.owncloud.android.ui.adapter.PredefinedStatusClickListener
 import com.owncloud.android.ui.adapter.PredefinedStatusListAdapter
@@ -56,9 +47,6 @@ import com.vanniktech.emoji.installForceSingleEmoji
 import java.util.Calendar
 import java.util.Locale
 import javax.inject.Inject
-
-private const val ARG_CURRENT_USER_PARAM = "currentUser"
-private const val ARG_CURRENT_STATUS_PARAM = "currentStatus"
 
 private const val POS_DONT_CLEAR = 0
 private const val POS_HALF_AN_HOUR = 1
@@ -78,15 +66,13 @@ private const val LAST_SECOND_OF_MINUTE = 59
 private const val CLEAR_AT_TYPE_PERIOD = "period"
 private const val CLEAR_AT_TYPE_END_OF = "end-of"
 
-class SetStatusDialogFragment :
-    DialogFragment(),
+class SetStatusMessageBottomSheet(val user: User, val currentStatus: Status?) :
+    BottomSheetDialogFragment(R.layout.set_status_message_bottom_sheet),
     PredefinedStatusClickListener,
     Injectable {
 
-    private lateinit var binding: DialogSetStatusBinding
+    private lateinit var binding: SetStatusMessageBottomSheetBinding
 
-    private var currentUser: User? = null
-    private var currentStatus: Status? = null
     private lateinit var accountManager: UserAccountManager
     private lateinit var predefinedStatus: ArrayList<PredefinedStatus>
     private lateinit var adapter: PredefinedStatusListAdapter
@@ -101,37 +87,19 @@ class SetStatusDialogFragment :
     lateinit var asyncRunner: AsyncRunner
 
     @Inject
-    lateinit var clientFactory: ClientFactory
-
-    @Inject
     lateinit var viewThemeUtils: ViewThemeUtils
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            currentUser = it.getParcelableArgument(ARG_CURRENT_USER_PARAM, User::class.java)
-            currentStatus = it.getParcelableArgument(ARG_CURRENT_STATUS_PARAM, Status::class.java)
 
-            val json = arbitraryDataProvider.getValue(currentUser, ArbitraryDataProvider.PREDEFINED_STATUS)
+        val json = arbitraryDataProvider.getValue(user, ArbitraryDataProvider.PREDEFINED_STATUS)
 
-            if (json.isNotEmpty()) {
-                val myType = object : TypeToken<ArrayList<PredefinedStatus>>() {}.type
-                predefinedStatus = Gson().fromJson(json, myType)
-            }
+        if (json.isNotEmpty()) {
+            val myType = object : TypeToken<ArrayList<PredefinedStatus>>() {}.type
+            predefinedStatus = Gson().fromJson(json, myType)
         }
 
         EmojiManager.install(GoogleEmojiProvider())
-    }
-
-    @SuppressLint("InflateParams")
-    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        binding = DialogSetStatusBinding.inflate(layoutInflater)
-
-        val builder = MaterialAlertDialogBuilder(requireContext()).setView(binding.root)
-
-        viewThemeUtils.dialog.colorMaterialAlertDialogBackground(binding.statusView.context, builder)
-
-        return builder.create()
     }
 
     @SuppressLint("DefaultLocale")
@@ -149,16 +117,6 @@ class SetStatusDialogFragment :
         }
         binding.predefinedStatusList.adapter = adapter
         binding.predefinedStatusList.layoutManager = LinearLayoutManager(context)
-
-        binding.onlineStatus.setOnClickListener { setStatus(StatusType.ONLINE) }
-        binding.dndStatus.setOnClickListener { setStatus(StatusType.DND) }
-        binding.awayStatus.setOnClickListener { setStatus(StatusType.AWAY) }
-        binding.invisibleStatus.setOnClickListener { setStatus(StatusType.INVISIBLE) }
-
-        viewThemeUtils.files.themeStatusCardView(binding.onlineStatus)
-        viewThemeUtils.files.themeStatusCardView(binding.dndStatus)
-        viewThemeUtils.files.themeStatusCardView(binding.awayStatus)
-        viewThemeUtils.files.themeStatusCardView(binding.invisibleStatus)
 
         binding.clearStatus.setOnClickListener { clearStatus() }
         binding.setStatus.setOnClickListener { setStatusMessage() }
@@ -204,10 +162,14 @@ class SetStatusDialogFragment :
     }
 
     private fun updateCurrentStatusViews(it: Status) {
-        binding.emoji.setText(it.icon)
+        if (it.icon.isNullOrBlank()) {
+            binding.emoji.setText("😀")
+        } else {
+            binding.emoji.setText(it.icon)
+        }
+
         binding.customStatusInput.text?.clear()
         binding.customStatusInput.setText(it.message)
-        visualizeStatus(it.status)
 
         if (it.clearAt > 0) {
             binding.clearStatusAfterSpinner.visibility = View.GONE
@@ -233,20 +195,24 @@ class SetStatusDialogFragment :
                 // 30 minutes
                 System.currentTimeMillis() / ONE_SECOND_IN_MILLIS + THIRTY_MINUTES * ONE_MINUTE_IN_SECONDS
             }
+
             POS_AN_HOUR -> {
                 // one hour
                 System.currentTimeMillis() / ONE_SECOND_IN_MILLIS + ONE_MINUTE_IN_SECONDS * ONE_MINUTE_IN_SECONDS
             }
+
             POS_FOUR_HOURS -> {
                 // four hours
                 System.currentTimeMillis() / ONE_SECOND_IN_MILLIS +
                     FOUR_HOURS * ONE_MINUTE_IN_SECONDS * ONE_MINUTE_IN_SECONDS
             }
+
             POS_TODAY -> {
                 // today
                 val date = getLastSecondOfToday()
                 dateToSeconds(date)
             }
+
             POS_END_OF_WEEK -> {
                 // end of week
                 val date = getLastSecondOfToday()
@@ -255,6 +221,7 @@ class SetStatusDialogFragment :
                 }
                 dateToSeconds(date)
             }
+
             else -> clearAt
         }
     }
@@ -263,10 +230,12 @@ class SetStatusDialogFragment :
         clearAt?.type == CLEAR_AT_TYPE_PERIOD -> {
             System.currentTimeMillis() / ONE_SECOND_IN_MILLIS + clearAt.time.toLong()
         }
+
         clearAt?.type == CLEAR_AT_TYPE_END_OF && clearAt.time == "day" -> {
             val date = getLastSecondOfToday()
             dateToSeconds(date)
         }
+
         else -> -1
     }
 
@@ -286,67 +255,6 @@ class SetStatusDialogFragment :
             ClearStatusTask(accountManager.currentOwnCloudAccount?.savedAccount, context),
             { dismiss(it) }
         )
-    }
-
-    private fun setStatus(statusType: StatusType) {
-        visualizeStatus(statusType)
-
-        asyncRunner.postQuickTask(
-            SetStatusTask(
-                statusType,
-                accountManager.currentOwnCloudAccount?.savedAccount,
-                context
-            ),
-            {
-                if (!it) {
-                    clearTopStatus()
-                }
-            },
-            { clearTopStatus() }
-        )
-    }
-
-    private fun visualizeStatus(statusType: StatusType) {
-        clearTopStatus()
-        val views: Triple<MaterialCardView, TextView, ImageView> = when (statusType) {
-            StatusType.ONLINE -> Triple(binding.onlineStatus, binding.onlineHeadline, binding.onlineIcon)
-            StatusType.AWAY -> Triple(binding.awayStatus, binding.awayHeadline, binding.awayIcon)
-            StatusType.DND -> Triple(binding.dndStatus, binding.dndHeadline, binding.dndIcon)
-            StatusType.INVISIBLE -> Triple(binding.invisibleStatus, binding.invisibleHeadline, binding.invisibleIcon)
-            else -> {
-                Log.d(TAG, "unknown status")
-                return
-            }
-        }
-        views.first.isChecked = true
-        viewThemeUtils.platform.colorOnSecondaryContainerTextViewElement(views.second)
-    }
-
-    private fun clearTopStatus() {
-        context?.let {
-            binding.onlineHeadline.setTextColor(
-                resources.getColor(com.nextcloud.android.common.ui.R.color.high_emphasis_text)
-            )
-            binding.awayHeadline.setTextColor(
-                resources.getColor(com.nextcloud.android.common.ui.R.color.high_emphasis_text)
-            )
-            binding.dndHeadline.setTextColor(
-                resources.getColor(com.nextcloud.android.common.ui.R.color.high_emphasis_text)
-            )
-            binding.invisibleHeadline.setTextColor(
-                resources.getColor(com.nextcloud.android.common.ui.R.color.high_emphasis_text)
-            )
-
-            binding.onlineIcon.imageTintList = null
-            binding.awayIcon.imageTintList = null
-            binding.dndIcon.imageTintList = null
-            binding.invisibleIcon.imageTintList = null
-
-            binding.onlineStatus.isChecked = false
-            binding.awayStatus.isChecked = false
-            binding.dndStatus.isChecked = false
-            binding.invisibleStatus.isChecked = false
-        }
     }
 
     private fun setStatusMessage() {
@@ -377,28 +285,15 @@ class SetStatusDialogFragment :
     private fun dismiss(boolean: Boolean) {
         if (boolean) {
             dismiss()
+        } else {
+            DisplayUtils.showSnackMessage(view, "Error setting status message!")
         }
     }
 
-    /**
-     * Fragment creator
-     */
-    companion object {
-        private val TAG = SetStatusDialogFragment::class.simpleName
-
-        @JvmStatic
-        fun newInstance(user: User, status: Status?): SetStatusDialogFragment {
-            val args = Bundle()
-            args.putParcelable(ARG_CURRENT_USER_PARAM, user)
-            args.putParcelable(ARG_CURRENT_STATUS_PARAM, status)
-            val dialogFragment = SetStatusDialogFragment()
-            dialogFragment.arguments = args
-            return dialogFragment
-        }
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+        binding = SetStatusMessageBottomSheetBinding.inflate(layoutInflater, container, false)
+        return binding.root
     }
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View =
-        binding.root
 
     override fun onClick(predefinedStatus: PredefinedStatus) {
         selectedPredefinedMessageId = predefinedStatus.id
