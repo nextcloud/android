@@ -183,6 +183,9 @@ public class SettingsActivity extends PreferenceActivity
         // Synced folders
         setupAutoUploadCategory(preferenceScreen);
 
+        // Files
+        setupFilesCategory(preferenceScreen);
+
         // Details
         setupDetailsCategory(preferenceScreen);
 
@@ -661,23 +664,29 @@ public class SettingsActivity extends PreferenceActivity
 
         boolean fPassCodeEnabled = getResources().getBoolean(R.bool.passcode_enabled);
         boolean fDeviceCredentialsEnabled = getResources().getBoolean(R.bool.device_credentials_enabled);
-        boolean fShowHiddenFilesEnabled = getResources().getBoolean(R.bool.show_hidden_files_enabled);
         boolean fShowEcosystemAppsEnabled = !getResources().getBoolean(R.bool.is_branded_client);
         boolean fSyncedFolderLightEnabled = getResources().getBoolean(R.bool.syncedFolder_light);
         boolean fShowMediaScanNotifications = preferences.isShowMediaScanNotifications();
 
         setupLockPreference(preferenceCategoryDetails, fPassCodeEnabled, fDeviceCredentialsEnabled);
 
-        setupHiddenFilesPreference(preferenceCategoryDetails, fShowHiddenFilesEnabled);
-
         setupShowEcosystemAppsPreference(preferenceCategoryDetails, fShowEcosystemAppsEnabled);
 
         setupShowMediaScanNotifications(preferenceCategoryDetails, fShowMediaScanNotifications);
 
-        if (!fPassCodeEnabled && !fDeviceCredentialsEnabled && !fShowHiddenFilesEnabled && fSyncedFolderLightEnabled
+        if (!fPassCodeEnabled && !fDeviceCredentialsEnabled && fSyncedFolderLightEnabled
             && fShowMediaScanNotifications) {
             preferenceScreen.removePreference(preferenceCategoryDetails);
         }
+    }
+
+    private void setupFilesCategory(PreferenceScreen preferenceScreen) {
+        PreferenceCategory preferenceCategoryDetails = (PreferenceCategory) findPreference("files");
+        viewThemeUtils.files.themePreferenceCategory(preferenceCategoryDetails);
+
+        boolean fShowHiddenFilesEnabled = getResources().getBoolean(R.bool.show_hidden_files_enabled);
+
+        setupHiddenFilesPreference(preferenceCategoryDetails, fShowHiddenFilesEnabled);
     }
 
     private void setupShowMediaScanNotifications(PreferenceCategory preferenceCategoryDetails,
