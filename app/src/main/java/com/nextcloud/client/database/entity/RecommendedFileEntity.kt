@@ -11,6 +11,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.nextcloud.android.lib.resources.recommendations.Recommendation
+import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.db.ProviderMeta.ProviderTableMeta
 
@@ -18,32 +19,30 @@ import com.owncloud.android.db.ProviderMeta.ProviderTableMeta
 data class RecommendedFileEntity(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = ProviderTableMeta._ID)
-    val id: Long?,
+    val id: Long,
 
     @ColumnInfo(name = ProviderTableMeta.RECOMMENDED_FILE_NAME)
-    val name: String?,
+    val name: String,
 
     @ColumnInfo(name = ProviderTableMeta.RECOMMENDED_FILE_DIRECTORY)
-    val directory: String?,
+    val directory: String,
 
     @ColumnInfo(name = ProviderTableMeta.RECOMMENDED_FILE_EXTENSIONS)
-    val extension: String?,
+    val extension: String,
 
     @ColumnInfo(name = ProviderTableMeta.RECOMMENDED_FILE_MIME_TYPE)
-    val mimeType: String?,
+    val mimeType: String,
 
     @ColumnInfo(name = ProviderTableMeta.RECOMMENDED_FILE_HAS_PREVIEW)
-    val hasPreview: Boolean?,
+    val hasPreview: Boolean,
 
     @ColumnInfo(name = ProviderTableMeta.RECOMMENDED_FILE_REASON)
-    val reason: String?,
+    val reason: String,
 
     @ColumnInfo(name = ProviderTableMeta.RECOMMENDED_TIMESTAMP)
-    val timestamp: Long?
-) {
-    val decryptedRemotePath: String
-        get() = directory + OCFile.PATH_SEPARATOR + name
-}
+    val timestamp: Long
+)
+
 
 fun ArrayList<Recommendation>.toEntity(): List<RecommendedFileEntity> = this.map { recommendation ->
     RecommendedFileEntity(
@@ -57,3 +56,9 @@ fun ArrayList<Recommendation>.toEntity(): List<RecommendedFileEntity> = this.map
         timestamp = recommendation.timestamp
     )
 }
+
+fun List<RecommendedFileEntity>.toOCFile(
+    storageManager: FileDataStorageManager
+): ArrayList<OCFile> =
+    mapNotNull { entity -> entity.id.let { storageManager.getFileByLocalId(it) } }
+        .toCollection(ArrayList())

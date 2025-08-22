@@ -155,6 +155,7 @@ import com.owncloud.android.utils.theme.CapabilityUtils
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -2387,8 +2388,11 @@ class FileDisplayActivity :
         }
 
         val fragment = this.listOfFilesFragment
-        filesRepository.fetchRecommendedFiles(ignoreETag, storageManager) {
-            fragment?.adapter?.updateRecommendedFiles(it)
+        lifecycleScope.launch(Dispatchers.IO) {
+            val recommendedFiles = filesRepository.fetchRecommendedFiles(ignoreETag, storageManager)
+            withContext(Dispatchers.Main) {
+                fragment?.adapter?.updateRecommendedFiles(recommendedFiles)
+            }
         }
     }
 
