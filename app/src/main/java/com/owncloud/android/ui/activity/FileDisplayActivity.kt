@@ -199,7 +199,7 @@ class FileDisplayActivity :
 
     private var searchView: SearchView? = null
     private var mPlayerConnection: PlayerServiceConnection? = null
-    private var lastDisplayedUser: User? = null
+    private var lastDisplayedAccountName: String? = null
 
     @Inject
     lateinit var localBroadcastManager: LocalBroadcastManager
@@ -242,6 +242,7 @@ class FileDisplayActivity :
         setTheme(R.style.Theme_ownCloud_Toolbar_Drawer)
 
         super.onCreate(savedInstanceState)
+        lastDisplayedAccountName = preferences.lastDisplayedAccountName
 
         intent?.let {
             handleCommonIntents(it)
@@ -377,7 +378,6 @@ class FileDisplayActivity :
             setupDrawer()
         } else {
             createMinFragments(savedInstanceState)
-            syncAndUpdateFolder(true)
         }
 
         upgradeNotificationForInstantUpload()
@@ -455,7 +455,6 @@ class FileDisplayActivity :
                 if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     // permission was granted
                     EventBus.getDefault().post(TokenPushEvent())
-                    syncAndUpdateFolder(true)
                     // toggle on is save since this is the only scenario this code gets accessed
                 }
 
@@ -1008,8 +1007,6 @@ class FileDisplayActivity :
             ).execute()
         } else if (requestCode == REQUEST_CODE__MOVE_OR_COPY_FILES && resultCode == RESULT_OK) {
             exitSelectionMode()
-        } else if (requestCode == PermissionUtil.REQUEST_CODE_MANAGE_ALL_FILES) {
-            syncAndUpdateFolder(true)
         } else {
             super.onActivityResult(requestCode, resultCode, data)
         }
@@ -1253,7 +1250,7 @@ class FileDisplayActivity :
         val ocFileListFragment = leftFragment
 
         ocFileListFragment.setLoading(mSyncInProgress)
-        syncAndUpdateFolder(false, true)
+        syncAndUpdateFolder(ignoreETag = true, ignoreFocus = true)
 
         var startFile: OCFile? = null
         if (intent != null) {
@@ -2123,7 +2120,7 @@ class FileDisplayActivity :
             }
 
             val parent = storageManager.getFileById(file.parentId)
-            startSyncFolderOperation(parent, true, true)
+            startSyncFolderOperation(parent, ignoreETag = true, ignoreFocus = true)
 
             val leftFragment = this.leftFragment
             if (leftFragment is FileDetailFragment) {
@@ -2150,9 +2147,7 @@ class FileDisplayActivity :
      * @param result    Result of the move operation.
      */
     private fun onMoveFileOperationFinish(operation: MoveFileOperation?, result: RemoteOperationResult<*>) {
-        if (result.isSuccess) {
-            syncAndUpdateFolder(true)
-        } else {
+        if (!result.isSuccess) {
             try {
                 DisplayUtils.showSnackMessage(
                     this,
@@ -2340,6 +2335,8 @@ class FileDisplayActivity :
      */
     @JvmOverloads
     fun startSyncFolderOperation(folder: OCFile?, ignoreETag: Boolean, ignoreFocus: Boolean = false) {
+        Log_OC.d(TAG, "startSyncFolderOperation called, ignoreEtag: $ignoreETag, ignoreFocus: $ignoreFocus")
+
         // the execution is slightly delayed to allow the activity get the window focus if it's being started
         // or if the method is called from a dialog that is being dismissed
 
@@ -2659,15 +2656,11 @@ class FileDisplayActivity :
     }
 
     override fun onRefresh(ignoreETag: Boolean) {
-        syncAndUpdateFolder(ignoreETag)
+        syncAndUpdateFolder(ignoreETag, ignoreFocus = false)
     }
 
     override fun onRefresh() {
-        syncAndUpdateFolder(true)
-    }
-
-    fun syncAndUpdateFolder(ignoreETag: Boolean) {
-        syncAndUpdateFolder(ignoreETag, false)
+        syncAndUpdateFolder(ignoreETag = true, ignoreFocus = false)
     }
 
     private fun syncAndUpdateFolder(ignoreETag: Boolean, ignoreFocus: Boolean) {
@@ -2795,7 +2788,7 @@ class FileDisplayActivity :
                 mSwitchAccountButton,
                 this
             )
-            val userChanged = !user.nameEquals(lastDisplayedUser)
+            val userChanged = (user.accountName != lastDisplayedAccountName)
             if (userChanged) {
                 Log_OC.d(TAG, "Initializing Fragments in onAccountChanged..")
                 initFragments()
@@ -2806,7 +2799,10 @@ class FileDisplayActivity :
                 updateActionBarTitleAndHomeButton(if (file.isFolder) null else file)
             }
         }
-        lastDisplayedUser = optionalUser.orElse(null)
+
+        val newLastDisplayedAccountName = optionalUser.orElse(null).accountName
+        preferences.lastDisplayedAccountName = newLastDisplayedAccountName
+        lastDisplayedAccountName = newLastDisplayedAccountName
 
         EventBus.getDefault().post(TokenPushEvent())
         checkForNewDevVersionNecessary(applicationContext)
@@ -2819,7 +2815,7 @@ class FileDisplayActivity :
 
     private val refreshFolderEventReceiver: BroadcastReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
-            syncAndUpdateFolder(true)
+            syncAndUpdateFolder(ignoreETag = true, ignoreFocus = false)
         }
     }
 
