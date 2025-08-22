@@ -448,6 +448,7 @@
     <string name="file_not_synced">File could not be synced. Showing latest available version.</string>
     <string name="file_rename">Rename</string>
     <string name="file_upload_worker_error_notification_title">Upload failed. No internet connection</string>
+    <string name="file_upload_worker_same_file_already_exists">%s already exists, no conflict detected</string>
     <string name="file_version_restored_error">Error restoring file version!</string>
     <string name="file_version_restored_successfully">Successfully restored file version.</string>
     <string name="filedetails_details">Details</string>
