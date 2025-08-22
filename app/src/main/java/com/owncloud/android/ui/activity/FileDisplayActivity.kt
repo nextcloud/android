@@ -30,7 +30,9 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Environment
+import android.os.Handler
 import android.os.IBinder
+import android.os.Looper
 import android.os.Parcelable
 import android.text.TextUtils
 import android.view.Menu
@@ -1232,6 +1234,8 @@ class FileDisplayActivity :
     override fun onResume() {
         Log_OC.v(TAG, "onResume() start")
         super.onResume()
+        isFileDisplayActivityResumed = true
+
         // Instead of onPostCreate, starting the loading in onResume for children fragments
         val leftFragment = this.leftFragment
 
@@ -1299,6 +1303,10 @@ class FileDisplayActivity :
         checkNotifications()
 
         Log_OC.v(TAG, "onResume() end")
+
+        Handler(Looper.getMainLooper()).postDelayed({
+            isFileDisplayActivityResumed = false
+        }, ON_RESUMED_RESET_DELAY)
     }
 
     private fun checkAndSetMenuItemId() {
@@ -3012,6 +3020,8 @@ class FileDisplayActivity :
         private const val KEY_SYNC_IN_PROGRESS = "SYNC_IN_PROGRESS"
         private const val KEY_WAITING_TO_SEND = "WAITING_TO_SEND"
         private const val DIALOG_TAG_SHOW_TOS = "DIALOG_TAG_SHOW_TOS"
+
+        private const val ON_RESUMED_RESET_DELAY = 10000L
 
         const val ACTION_DETAILS: String = "com.owncloud.android.ui.activity.action.DETAILS"
 

@@ -166,6 +166,7 @@ public abstract class FileActivity extends DrawerActivity
 
     protected FileDownloadWorker.FileDownloadProgressListener fileDownloadProgressListener;
     protected FileUploadHelper fileUploadHelper = FileUploadHelper.Companion.instance();
+    protected boolean isFileDisplayActivityResumed = false;
 
     @Inject
     UserAccountManager accountManager;
@@ -254,7 +255,11 @@ public abstract class FileActivity extends DrawerActivity
     public void networkAndServerConnectionListener(boolean isNetworkAndServerAvailable) {
         if (isNetworkAndServerAvailable) {
             hideInfoBox();
-            refreshList();
+
+            // No need to refresh the file list again since file display activity doing it.
+            if (!isFileDisplayActivityResumed) {
+                refreshList();
+            }
         } else {
             if (this instanceof PreviewMediaActivity) {
                 hideInfoBox();
