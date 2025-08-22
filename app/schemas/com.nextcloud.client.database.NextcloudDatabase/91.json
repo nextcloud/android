@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 91,
-    "identityHash": "754a8467d9661cf1dd036ada373e655c",
+    "identityHash": "16f8a78a87d896adf01d545ed83142e5",
     "entities": [
       {
         "tableName": "arbitrary_data",
@@ -1128,47 +1128,55 @@
       },
       {
         "tableName": "recommended_files",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT, `name` TEXT, `directory` TEXT, `extension` TEXT, `mime_type` TEXT, `has_preview` INTEGER, `reason` TEXT, `timestamp` INTEGER)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT NOT NULL, `directory` TEXT NOT NULL, `extension` TEXT NOT NULL, `mime_type` TEXT NOT NULL, `has_preview` INTEGER NOT NULL, `reason` TEXT NOT NULL, `timestamp` INTEGER NOT NULL)",
         "fields": [
           {
             "fieldPath": "id",
             "columnName": "_id",
-            "affinity": "INTEGER"
+            "affinity": "INTEGER",
+            "notNull": true
           },
           {
             "fieldPath": "name",
             "columnName": "name",
-            "affinity": "TEXT"
+            "affinity": "TEXT",
+            "notNull": true
           },
           {
             "fieldPath": "directory",
             "columnName": "directory",
-            "affinity": "TEXT"
+            "affinity": "TEXT",
+            "notNull": true
           },
           {
             "fieldPath": "extension",
             "columnName": "extension",
-            "affinity": "TEXT"
+            "affinity": "TEXT",
+            "notNull": true
           },
           {
             "fieldPath": "mimeType",
             "columnName": "mime_type",
-            "affinity": "TEXT"
+            "affinity": "TEXT",
+            "notNull": true
           },
           {
             "fieldPath": "hasPreview",
             "columnName": "has_preview",
-            "affinity": "INTEGER"
+            "affinity": "INTEGER",
+            "notNull": true
           },
           {
             "fieldPath": "reason",
             "columnName": "reason",
-            "affinity": "TEXT"
+            "affinity": "TEXT",
+            "notNull": true
           },
           {
             "fieldPath": "timestamp",
             "columnName": "timestamp",
-            "affinity": "INTEGER"
+            "affinity": "INTEGER",
+            "notNull": true
           }
         ],
         "primaryKey": {
@@ -1181,7 +1189,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '754a8467d9661cf1dd036ada373e655c')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '16f8a78a87d896adf01d545ed83142e5')"
     ]
   }
 }
