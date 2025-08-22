@@ -27,11 +27,20 @@ class RemoteFilesRepository(private val clientRepository: ClientRepository, life
     private val scope = lifecycleOwner.lifecycleScope
 
     override fun fetchRecommendedFiles(
+        ignoreETag: Boolean,
         storageManager: FileDataStorageManager,
         onCompleted: (ArrayList<RecommendedFileEntity>) -> Unit
     ) {
         scope.launch(Dispatchers.IO) {
             val cachedRecommendations = storageManager.recommendedFileDao.getAll()
+            if (cachedRecommendations.isNotEmpty() && !ignoreETag) {
+                Log_OC.d(tag, "Returning cached recommendations.")
+                withContext(Dispatchers.Main) {
+                    onCompleted(ArrayList(cachedRecommendations))
+                }
+                return@launch
+            }
+
             try {
                 val client = clientRepository.getNextcloudClient()
                 if (client == null) {
@@ -40,7 +49,6 @@ class RemoteFilesRepository(private val clientRepository: ClientRepository, life
                     return@launch
                 }
 
-                // TODO: add caching mechanism
                 val result = GetRecommendationsRemoteOperation().execute(client)
                 if (result.isSuccess) {
                     val recommendations = result.getResultData().recommendations

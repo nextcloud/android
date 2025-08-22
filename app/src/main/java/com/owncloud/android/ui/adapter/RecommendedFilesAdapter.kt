@@ -12,22 +12,20 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
-import com.nextcloud.client.database.entity.RecommendedFileEntity
 import com.owncloud.android.databinding.GridItemBinding
 import com.owncloud.android.datamodel.OCFile
 
 class RecommendedFilesAdapter(
     private val fileListAdapter: OCFileListAdapter,
-    private val recommendations: ArrayList<RecommendedFileEntity>
+    private val recommendations: ArrayList<OCFile>
 ) : RecyclerView.Adapter<OCFileListGridItemViewHolder>() {
 
     companion object {
         private const val LAYOUT_ITEM_WIDTH = 120f
     }
 
-    fun notifyItemChanged(file: OCFile) {
-        recommendations.indexOfFirst { it.decryptedRemotePath == file.decryptedRemotePath }
-            .takeIf { it >= 0 }?.let { notifyItemChanged(it) }
+    fun getItemPosition(file: OCFile): Int {
+        return recommendations.indexOf(file)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): OCFileListGridItemViewHolder {
@@ -43,7 +41,7 @@ class RecommendedFilesAdapter(
     @Suppress("MagicNumber")
     override fun onBindViewHolder(holder: OCFileListGridItemViewHolder, position: Int) {
         val item = recommendations[position]
-        fileListAdapter.bindRecommendedFileHolder(holder, item.decryptedRemotePath)
+        fileListAdapter.bindRecommendedFilesHolder(holder, item)
     }
 
     // region Private Methods
