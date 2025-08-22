@@ -36,6 +36,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.nio.file.Files;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -476,7 +477,11 @@ public final class FileStorageUtils {
         }
 
         storageManager.deleteFileInMediaScan(file.getAbsolutePath());
-        file.delete();
+        try {
+            Files.delete(file.toPath());
+        } catch (IOException e) {
+            Log_OC.e(TAG, "Could not delete file: " + file.getAbsolutePath(), e);
+        }
     }
 
     public static boolean deleteRecursive(File file) {
