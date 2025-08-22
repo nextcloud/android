@@ -2045,13 +2045,6 @@ class FileDisplayActivity :
         }
     }
 
-    private fun fetchRecommendedFilesIfNeeded() {
-        val fileListFragment = this.fileListFragment
-        if (fileListFragment != null && fileListFragment !is GalleryFragment) {
-            fileListFragment.fetchRecommendedFiles()
-        }
-    }
-
     private fun refreshShowDetails() {
         val details = this.leftFragment
         if (details is FileFragment) {
@@ -2103,7 +2096,7 @@ class FileDisplayActivity :
             }
             supportInvalidateOptionsMenu()
             refreshGalleryFragmentIfNeeded()
-            fetchRecommendedFilesIfNeeded()
+            fetchRecommendedFilesIfNeeded(ignoreETag = true, currentDir)
         } else {
             if (result.isSslRecoverableException) {
                 mLastSslUntrustedServerResult = result
@@ -2227,7 +2220,7 @@ class FileDisplayActivity :
                 updateListOfFilesFragment(false)
             }
             refreshGalleryFragmentIfNeeded()
-            fetchRecommendedFilesIfNeeded()
+            fetchRecommendedFilesIfNeeded(ignoreETag = true, currentDir)
         } else {
             DisplayUtils.showSnackMessage(
                 this,
@@ -2377,13 +2370,25 @@ class FileDisplayActivity :
                     null
                 )
 
-                val fragment = this.listOfFilesFragment
+                fetchRecommendedFilesIfNeeded(ignoreETag, folder)
 
+                val fragment = this.listOfFilesFragment
                 if (fragment != null && fragment !is GalleryFragment) {
                     fragment.setLoading(true)
                 }
                 setBackgroundText()
             }, DELAY_TO_REQUEST_REFRESH_OPERATION_LATER)
+        }
+    }
+
+    private fun fetchRecommendedFilesIfNeeded(ignoreETag: Boolean, folder: OCFile?) {
+        if (folder?.isRootDirectory == false || capabilities == null || capabilities.recommendations.isFalse) {
+            return
+        }
+
+        val fragment = this.listOfFilesFragment
+        filesRepository.fetchRecommendedFiles(ignoreETag, storageManager) {
+            fragment?.adapter?.updateRecommendedFiles(it)
         }
     }
 
@@ -2682,10 +2687,6 @@ class FileDisplayActivity :
         }
 
         startSyncFolderOperation(folder, ignoreETag, ignoreFocus)
-
-        if (capabilities != null && capabilities.recommendations.isTrue && folder.isRootDirectory) {
-            listOfFiles.fetchRecommendedFiles()
-        }
     }
 
     override fun showFiles(onDeviceOnly: Boolean, personalFiles: Boolean) {

@@ -22,6 +22,7 @@ interface FilesRepository {
      *
      */
     fun fetchRecommendedFiles(
+        ignoreETag: Boolean,
         storageManager: FileDataStorageManager,
         onCompleted: (ArrayList<RecommendedFileEntity>) -> Unit
     )
