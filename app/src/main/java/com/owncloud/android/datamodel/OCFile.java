@@ -573,7 +573,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
 
     @Override
     public int hashCode() {
-        return 31 * (int) (fileId ^ (fileId >>> 32)) + (int) (parentId ^ (parentId >>> 32));
+        return Objects.hash(fileId,parentId);
     }
 
     @NonNull
@@ -1093,11 +1093,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
     }
 
     public void setE2eCounter(@Nullable Long e2eCounter) {
-        if (e2eCounter == null) {
-            this.e2eCounter = -1;
-        } else {
-            this.e2eCounter = e2eCounter;
-        }
+        this.e2eCounter = Objects.requireNonNullElse(e2eCounter, -1L);
     }
 
     public boolean isInternalFolderSync() {
