@@ -97,7 +97,7 @@ public final class PushUtils {
             try {
                 if (!keyPathFile.exists()) {
                     try {
-                        Files.createDirectories(keyPathFile.toPath());
+                        Files.createDirectory(keyPathFile.toPath());
                     } catch (IOException e) {
                         Log_OC.e(TAG, "Could not create directory: " + keyPathFile.getAbsolutePath(), e);
                     }
@@ -313,7 +313,7 @@ public final class PushUtils {
                 } catch (IOException e) {
                     Log_OC.e(TAG, "Could not create directory: " + newFile.getParentFile(), e);
                 }
-                Files.create(newFile);
+                Files.createFile(newFile.toPath());
             }
             keyFileOutputStream = new FileOutputStream(path);
             keyFileOutputStream.write(encoded);
