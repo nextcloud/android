@@ -335,6 +335,7 @@
     <string name="folder_list_empty_headline">Тука нема папки</string>
     <string name="folder_picker_choose_button_text">Избери</string>
     <string name="folder_picker_choose_caption_text">Избери папка</string>
+    <string name="folder_picker_copy_button_text">Копирај</string>
     <string name="folder_picker_move_button_text">Премести</string>
     <string name="forbidden_permissions">Вие не сте овластени %s</string>
     <string name="forbidden_permissions_copy">за да ја копирате оваа датотека</string>
