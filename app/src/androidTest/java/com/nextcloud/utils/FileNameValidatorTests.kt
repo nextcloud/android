@@ -98,6 +98,12 @@ class FileNameValidatorTests : AbstractOnServerIT() {
     }
 
     @Test
+    fun testBlankFileName() {
+        val result = FileNameValidator.checkFileName("      ", capability, targetContext)
+        assertEquals(targetContext.getString(R.string.filename_empty), result)
+    }
+
+    @Test
     fun testFileAlreadyExists() {
         val existingFiles = setOf("existingFile")
         val result = FileNameValidator.checkFileName("existingFile", capability, targetContext, existingFiles)

@@ -14,7 +14,6 @@ package com.owncloud.android.ui.dialog
 import android.app.Dialog
 import android.content.DialogInterface
 import android.os.Bundle
-import android.text.TextUtils
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
@@ -69,7 +68,7 @@ class SharePasswordDialogFragment :
 
                     if (sharePassword != null) {
                         val password = sharePassword.toString()
-                        if (!askForPassword && TextUtils.isEmpty(password)) {
+                        if (!askForPassword && password.isBlank()) {
                             DisplayUtils.showSnackMessage(binding?.root, R.string.share_link_empty_password)
                             return@setOnClickListener
                         }

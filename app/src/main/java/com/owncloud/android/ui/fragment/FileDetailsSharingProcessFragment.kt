@@ -768,21 +768,21 @@ class FileDetailsSharingProcessFragment :
         }
 
         if (binding.shareProcessSetPasswordSwitch.isChecked &&
-            binding.shareProcessEnterPassword.text?.trim().isNullOrEmpty()
+            binding.shareProcessEnterPassword.text?.isBlank() == true
         ) {
             DisplayUtils.showSnackMessage(binding.root, R.string.share_link_empty_password)
             return
         }
 
         if (binding.shareProcessSetExpDateSwitch.isChecked &&
-            binding.shareProcessSelectExpDate.text?.trim().isNullOrEmpty()
+            binding.shareProcessSelectExpDate.text?.isBlank() == true
         ) {
             showExpirationDateDialog()
             return
         }
 
         if (binding.shareProcessChangeNameSwitch.isChecked &&
-            binding.shareProcessChangeName.text?.trim().isNullOrEmpty()
+            binding.shareProcessChangeName.text?.isBlank() == true
         ) {
             DisplayUtils.showSnackMessage(binding.root, R.string.label_empty)
             return
