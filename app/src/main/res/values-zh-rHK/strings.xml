@@ -448,6 +448,7 @@
     <string name="file_not_synced">檔案不能同步，將顯示最新可用版本。</string>
     <string name="file_rename">重新命名</string>
     <string name="file_upload_worker_error_notification_title">上傳失敗。沒有互聯網連接</string>
+    <string name="file_upload_worker_same_file_already_exists">%s 已存在，未偵測到衝突</string>
     <string name="file_version_restored_error">還原檔案版本失敗！</string>
     <string name="file_version_restored_successfully">成功地還原檔案版本。</string>
     <string name="filedetails_details">細節</string>

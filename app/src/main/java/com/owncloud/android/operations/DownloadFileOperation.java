@@ -196,10 +196,7 @@ public class DownloadFileOperation extends RemoteOperation {
         downloadOperation = new DownloadFileRemoteOperation(file.getRemotePath(), tmpFolder);
 
         if (downloadType == DownloadType.DOWNLOAD) {
-            Iterator<OnDatatransferProgressListener> listener = dataTransferListeners.iterator();
-            while (listener.hasNext()) {
-                downloadOperation.addDatatransferProgressListener(listener.next());
-            }
+            dataTransferListeners.forEach(downloadOperation::addDatatransferProgressListener);
         }
 
         result = downloadOperation.execute(client);

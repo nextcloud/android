@@ -448,6 +448,7 @@
     <string name="file_not_synced">Faili ei õnnestunud sünkroniseerida. Näitan viimast saadavalolevat versiooni.</string>
     <string name="file_rename">Muuda nime</string>
     <string name="file_upload_worker_error_notification_title">Üleslaadimine ei õnnestunud. Internetiühendus puudub</string>
+    <string name="file_upload_worker_same_file_already_exists">%s on juba olemas, failikonflikti ei tundu tekkima</string>
     <string name="file_version_restored_error">Viga faili versiooni taastamisel!</string>
     <string name="file_version_restored_successfully">Faili versiooni taastamine õnnestus.</string>
     <string name="filedetails_details">Üksikasjad</string>
