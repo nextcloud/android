@@ -33,6 +33,7 @@ import com.nextcloud.android.common.ui.theme.utils.ColorRole
 import com.nextcloud.client.account.CurrentAccountProvider
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.di.ViewModelFactory
+import com.nextcloud.utils.extensions.setVisibleIf
 import com.owncloud.android.R
 import com.owncloud.android.databinding.FileActionsBottomSheetBinding
 import com.owncloud.android.databinding.FileActionsBottomSheetItemBinding
@@ -44,6 +45,7 @@ import com.owncloud.android.lib.resources.files.model.FileLockType
 import com.owncloud.android.ui.activity.ComponentsGetter
 import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.DisplayUtils.AvatarGenerationListener
+import com.owncloud.android.utils.FileStorageUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import javax.inject.Inject
 
@@ -204,11 +206,23 @@ class FileActionsBottomSheet :
     private fun displayTitle(titleFile: OCFile?) {
         val decryptedFileName = titleFile?.decryptedFileName
         if (decryptedFileName != null) {
-            decryptedFileName.let {
-                binding.title.text = it
+            val isFolder = titleFile.isFolder
+            val isRTL = DisplayUtils.isRTL()
+            val (base, ext) = FileStorageUtils.getFilenameAndExtension(decryptedFileName, isFolder, isRTL)
+            val titleMaxWidth = DisplayUtils.convertDpToPixel(
+                requireContext().resources.configuration.screenWidthDp.times(FILENAME_MAX_WIDTH_PERCENTAGE).toFloat(),
+                context
+            )
+
+            binding.title.maxWidth = titleMaxWidth
+            binding.title.text = base
+            binding.extension.setVisibleIf(!isFolder)
+            if (!isFolder) {
+                binding.extension.text = ext
             }
         } else {
             binding.title.isVisible = false
+            binding.extension.isVisible = false
         }
     }
 
@@ -300,6 +314,7 @@ class FileActionsBottomSheet :
     companion object {
         private const val REQUEST_KEY = "REQUEST_KEY_ACTION"
         private const val RESULT_KEY_ACTION_ID = "RESULT_KEY_ACTION_ID"
+        private const val FILENAME_MAX_WIDTH_PERCENTAGE = 0.6
 
         @JvmStatic
         @JvmOverloads

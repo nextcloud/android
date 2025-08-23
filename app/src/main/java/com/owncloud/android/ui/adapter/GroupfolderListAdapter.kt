@@ -53,6 +53,7 @@ class GroupfolderListAdapter(
         listHolder.apply {
             fileName.text = file.name
             fileSize.text = file.parentFile?.path ?: "/"
+            extension.visibility = View.GONE
             fileSizeSeparator.visibility = View.GONE
             lastModification.visibility = View.GONE
             checkbox.visibility = View.GONE

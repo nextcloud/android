@@ -12,6 +12,7 @@ import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.elyeproj.loaderviewlibrary.LoaderImageView
 import com.owncloud.android.databinding.GridItemBinding
@@ -26,7 +27,11 @@ internal class OCFileListViewHolder(var binding: GridItemBinding) :
         get() = binding.thumbnail
 
     override val imageFileName: TextView
-        get() = binding.Filename
+        get() = if (binding.bidiFilenameContainer.isVisible) {
+            binding.bidiFilename
+        } else {
+            binding.Filename
+        }
 
     override fun showVideoOverlay() {
         // noop
@@ -47,7 +52,11 @@ internal class OCFileListViewHolder(var binding: GridItemBinding) :
     override val unreadComments: ImageView
         get() = binding.unreadComments
     override val more: ImageButton
-        get() = binding.more
+        get() = if (binding.bidiFilenameContainer.isVisible) {
+            binding.bidiMore
+        } else {
+            binding.more
+        }
     override val fileFeaturesLayout: LinearLayout
         get() = binding.fileFeaturesLayout
     override val gridLivePhotoIndicator: ImageView
