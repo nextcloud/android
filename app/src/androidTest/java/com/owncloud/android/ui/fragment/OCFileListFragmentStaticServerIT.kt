@@ -231,6 +231,13 @@ class OCFileListFragmentStaticServerIT : AbstractIT() {
                         sut.storageManager.saveFile(this)
                     }
 
+                    OCFile("/Foo%e2%80%aedm.exe").apply {
+                        remoteId = "000000011"
+                        parentId = sut.storageManager.getFileByEncryptedRemotePath("/").fileId
+                        modificationTimestamp = 1000
+                        sut.storageManager.saveFile(this)
+                    }
+
                     sut.addFragment(fragment)
                     val root = sut.storageManager.getFileByEncryptedRemotePath("/")
                     fragment.listDirectory(root, false, false)

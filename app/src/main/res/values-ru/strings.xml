@@ -247,6 +247,13 @@
     <string name="document_scan_export_dialog_title">Выберите тип экспорта</string>
     <string name="document_scan_pdf_generation_failed">Ошибка при создании файла PDF</string>
     <string name="document_scan_pdf_generation_in_progress">Сохранение в PDF…</string>
+    <string name="document_storage_provider_cannot_create_file_and_folder">Невозможно создать элементы тут: отсутствует разрешение на создание.</string>
+    <string name="document_storage_provider_cannot_create_file_inside_folder">Невозможно создать файл: отсутствует разрешение.</string>
+    <string name="document_storage_provider_cannot_create_folder_inside_folder">Невозможно создать папку: отсутствует разрешение.</string>
+    <string name="document_storage_provider_cannot_delete">Невозможно удалить элемент: отсутствует разрешение на удаление.</string>
+    <string name="document_storage_provider_cannot_move">Невозможно переместить элемент: отсутствует разрешение на перемещение.</string>
+    <string name="document_storage_provider_cannot_read">Невозможно прочитать элемент: отсутствует разрешение на чтение.</string>
+    <string name="document_storage_provider_cannot_rename">Невозможно переименовать элемент: отсутствует разрешение на переименование.</string>
     <string name="done">Готово</string>
     <string name="dontClear">Не очищать</string>
     <string name="download_cannot_create_file">Невозможно создать локальный файл</string>
@@ -361,6 +368,7 @@
     <string name="etm_transfer_type">Передача</string>
     <string name="etm_transfer_type_download">Скачать</string>
     <string name="etm_transfer_type_upload">Отправить</string>
+    <string name="extented_list_fragment_empty_list_message_no_write_permission">У вас нет разрешения на создание или загрузку файлов в эту папку.</string>
     <string name="external_shares">Внешние ссылки</string>
     <string name="fab_label">Добавить или выгрузить</string>
     <string name="failed_to_download">Не удалось передать файл в диспетчер загрузок</string>
@@ -395,6 +403,7 @@
     <string name="file_list_empty_shared_headline">Вы ничем не поделились</string>
     <string name="file_list_empty_unified_search_no_results">По вашему запросу ничего не найдено</string>
     <string name="file_list_empty_unified_search_start_search">Начните ваш поиск</string>
+    <string name="file_list_empty_unified_search_start_search_description">Напишите в поле поиска наверху, чтобы найти файлы, контакты, события календаря и больше в вашей учетной записи.</string>
     <string name="file_list_folder">каталог</string>
     <string name="file_list_live">ТРАНСЛИРУЕТСЯ</string>
     <string name="file_list_loading">Получение данных…</string>
@@ -440,6 +449,7 @@
     <string name="file_not_synced">Не удалось синхронизировать этот файл, показана его последняя доступная версия.</string>
     <string name="file_rename">Переименовать</string>
     <string name="file_upload_worker_error_notification_title">Загрузка не удалась. Нет интернет-соединения</string>
+    <string name="file_upload_worker_same_file_already_exists">%s уже существует, конфликтов не обнаружено</string>
     <string name="file_version_restored_error">Ошибка восстановления версии файла!</string>
     <string name="file_version_restored_successfully">Версия файла успешно восстановлена</string>
     <string name="filedetails_details">Свойства</string>
@@ -516,6 +526,7 @@
     <string name="last_backup">Последняя резервная копия: %1$s</string>
     <string name="link">Ссылка</string>
     <string name="link_name">Название ссылки</string>
+    <string name="link_not_followed_due_to_security_settings">Ссылка не была открыта по настройкам безопасности.</string>
     <string name="link_share_editing">Редактирование</string>
     <string name="list_layout">Вид списком</string>
     <string name="load_more_results">Показать больше результатов</string>
@@ -615,8 +626,12 @@
     <string name="offline_mode_info_description">Даже без подключения к Интернету вы можете упорядочивать папки и создавать файлы. Как только вы вернетесь в сеть, ваши действия будут автоматически синхронизированы.</string>
     <string name="offline_mode_info_title">Вы не в сети, но работа продолжается</string>
     <string name="offline_operations_file_does_not_exists_yet">Файл еще не существует. Пожалуйста, сначала загрузите файл.</string>
+    <string name="offline_operations_worker_notification_create_file_conflict_text">Не удалось создать %s. На сервере уже существует файл с таким же именем.</string>
+    <string name="offline_operations_worker_notification_create_folder_conflict_text">Не удалось создать %s. На сервере уже существует папка с таким же имененм.</string>
     <string name="offline_operations_worker_notification_error_text">Операция в автономном режиме не может быть завершена. %s</string>
     <string name="offline_operations_worker_notification_manager_ticker">Автономные операции</string>
+    <string name="offline_operations_worker_notification_remove_conflict_text">Отменено удаление %s. Файл был изменен на сервере.</string>
+    <string name="offline_operations_worker_notification_rename_conflict_text">Отменено переименование %s. Файл с таким же именем существует на сервере.</string>
     <string name="offline_operations_worker_notification_start_text">Запуск автономных операций</string>
     <string name="oneHour">1 час</string>
     <string name="online">На связи</string>
@@ -1019,6 +1034,10 @@
     <string name="upload_local_storage_not_copied">Невозможно скопировать файл в локальное хранилище</string>
     <string name="upload_lock_failed">Не удалось заблокировать папку</string>
     <string name="upload_manually_cancelled">Загрузка была отменена пользователем</string>
+    <string name="upload_missing_storage_permission_allow_file_access">Разрешить доступ ко всем файлам</string>
+    <string name="upload_missing_storage_permission_app_permissions">Разрешения для приложения</string>
+    <string name="upload_missing_storage_permission_description">Ваши файлы не могут быть загружены без доступа к локальному хранилищу. Нажмите для получения разрешения.</string>
+    <string name="upload_missing_storage_permission_title">Загрузка остановлена - необходимы разрешения для хранилища</string>
     <string name="upload_notification_manager_start_text">%1$d/%2$d - %3$s</string>
     <string name="upload_old_android">Шифрование возможно только в &gt; Android 5.0</string>
     <string name="upload_query_move_foreign_files">Недостаточно места для копирования выбранных файлов в папку «%1$s». Выполнить перемещение вместо копирования?</string>

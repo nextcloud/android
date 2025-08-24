@@ -40,7 +40,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/standard_margin"
-            android:gravity="center"
+            android:gravity="start"
             android:orientation="horizontal"
             android:visibility="visible">
 
@@ -53,13 +53,22 @@
 
             <TextView
                 android:id="@+id/title"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
-                android:ellipsize="middle"
+                android:ellipsize="end"
                 android:lines="1"
                 android:textAppearance="@style/TextAppearance.Material3.HeadlineSmall"
-                tools:text="Test file name which is very very very very very long.pdf" />
+                tools:text="@string/placeholder_filename" />
+
+            <TextView
+                android:id="@+id/extension"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="start"
+                android:lines="1"
+                android:textAppearance="@style/TextAppearance.Material3.HeadlineSmall"
+                tools:text="@string/placeholder_extension" />
 
         </LinearLayout>
 

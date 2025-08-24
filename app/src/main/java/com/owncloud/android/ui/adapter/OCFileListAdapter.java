@@ -102,6 +102,7 @@ import androidx.annotation.VisibleForTesting;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import kotlin.Pair;
 import me.zhanghai.android.fastscroll.PopupTextProvider;
 
 /**
@@ -123,6 +124,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private FileDataStorageManager mStorageManager;
     private User user;
     private final OCFileListFragmentInterface ocFileListFragmentInterface;
+    private final boolean isRTL;
 
     private OCFile currentDirectory;
     private static final String TAG = OCFileListAdapter.class.getSimpleName();
@@ -195,6 +197,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
         // initialise thumbnails cache on background thread
         ThumbnailsCacheManager.initDiskCacheAsync();
+        isRTL = DisplayUtils.isRTL();
     }
 
     public boolean isMultiSelect() {
@@ -476,7 +479,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             }
 
             if (holder instanceof ListGridItemViewHolder gridItemViewHolder) {
-                bindListGridItemViewHolder(gridItemViewHolder, file);
+                setFilenameAndExtension(gridItemViewHolder, file);
                 checkVisibilityOfFileFeaturesLayout(gridItemViewHolder);
             }
 
@@ -556,8 +559,53 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         }
     }
 
-    private void bindListGridItemViewHolder(ListGridItemViewHolder holder, OCFile file) {
-        holder.getFileName().setText(mStorageManager.getFilenameConsideringOfflineOperation(file));
+    private void setFilenameAndExtension(ListGridItemViewHolder holder, OCFile file) {
+        final String filename = mStorageManager.getFilenameConsideringOfflineOperation(file);
+        final var pair = FileStorageUtils.getFilenameAndExtension(filename, file.isFolder(), isRTL);
+        final boolean isFolder = file.isFolder();
+
+        if (holder instanceof OCFileListGridItemViewHolder gridItemViewHolder) {
+            handleGridMode(filename, gridItemViewHolder, pair, file);
+        } else {
+            handleListMode(holder, pair, isFolder);
+        }
+    }
+
+    private void handleGridMode(String filename, OCFileListGridItemViewHolder holder, Pair<String, String> filenamePair, OCFile file) {
+        boolean containsBidiControlCharacters = FileStorageUtils.containsBidiControlCharacters(filename);
+        ViewExtensionsKt.setVisibleIf(holder.getFileName(),!containsBidiControlCharacters);
+        ViewExtensionsKt.setVisibleIf(holder.getBinding().bidiFilenameContainer, containsBidiControlCharacters);
+        final var extension = holder.getExtension();
+
+        if (containsBidiControlCharacters) {
+            holder.getBidiFilename().setText(filenamePair.getFirst());
+            if (extension != null) {
+                extension.setText(filenamePair.getSecond());
+            }
+            holder.getBinding().more.setVisibility(View.GONE);
+            holder.getBinding().bidiMore.setOnClickListener(v -> ocFileListFragmentInterface.onOverflowIconClicked(file, v));
+        } else {
+            holder.getFileName().setText(filename);
+            if (extension != null) {
+                extension.setVisibility(View.GONE);
+            }
+        }
+    }
+
+    private void handleListMode(ListGridItemViewHolder holder,
+                                Pair<String, String> filenamePair,
+                                boolean isFolder) {
+        holder.getFileName().setText(filenamePair.getFirst());
+
+        final var extension = holder.getExtension();
+        if (extension != null) {
+            if (isFolder) {
+                extension.setVisibility(View.GONE);
+            } else {
+                extension.setVisibility(View.VISIBLE);
+                extension.setText(filenamePair.getSecond());
+            }
+        }
     }
 
     private void bindListItemViewHolder(ListItemViewHolder holder, OCFile file) {
@@ -1143,6 +1191,10 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     public void cancelAllPendingTasks() {
         ocFileListDelegate.cancelAllPendingTasks();
+    }
+
+    public boolean isGridView() {
+        return gridView;
     }
 
     public void setGridView(boolean bool) {
