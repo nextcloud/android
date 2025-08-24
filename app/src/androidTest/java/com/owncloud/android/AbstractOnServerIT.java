@@ -53,9 +53,15 @@ import androidx.test.platform.app.InstrumentationRegistry;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
-/**
- * Common base for all integration tests.
- */
+/// Common base for all integration tests requiring a server connection.
+/// ATTENTION: Deletes ALL files of the test user on the server after each test run.
+/// So you MUST use a dedicated test user.
+/// Uses server, user and password given as `testInstrumentationRunnerArgument`
+/// - TEST_SERVER_URL
+/// - TEST_SERVER_USERNAME
+/// - TEST_SERVER_PASSWORD
+/// These are supplied via build.gradle, which takes them from gradle.properties.
+/// So look in the latter file to set to your own server & test user.
 public abstract class AbstractOnServerIT extends AbstractIT {
     @BeforeClass
     public static void beforeAll() {
