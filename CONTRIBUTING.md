@@ -221,12 +221,12 @@ Source code of app:
 
 - run all tests ```./gradlew createGplayDebugCoverageReport -Pcoverage=true```
 - run selective test class: ```./gradlew createGplayDebugCoverageReport -Pcoverage=true
-  -Pandroid.testInstrumentationRunnerArguments.class=com.owncloud.android.datamodel.FileDataStorageManagerTest```
+  -Pandroid.testInstrumentationRunnerArguments.class=com.owncloud.android.datamodel.FileDataStorageManagerContentProviderClientIT```
 - run multiple test classes:
   -   separate by ","
-  - ```./gradlew createGplayDebugCoverageReport -Pcoverage=true -Pandroid.testInstrumentationRunnerArguments.class=com.owncloud.android.datamodel.FileDataStorageManagerTest,com.nextcloud.client.FileDisplayActivityIT```
+  - ```./gradlew createGplayDebugCoverageReport -Pcoverage=true -Pandroid.testInstrumentationRunnerArguments.class=com.owncloud.android.datamodel.FileDataStorageManagerContentProviderClientIT,com.nextcloud.client.FileDisplayActivityIT```
 - run one test in class: ```./gradlew createGplayDebugCoverageReport -Pcoverage=true
-  -Pandroid.testInstrumentationRunnerArguments.class=com.owncloud.android.datamodel.FileDataStorageManagerTest#saveNewFile```
+  -Pandroid.testInstrumentationRunnerArguments.class=com.owncloud.android.datamodel.FileDataStorageManagerContentProviderClientIT#saveFile```
 - JaCoCo results are shown as html: firefox ./build/reports/coverage/gplay/debug/index.html
 
 
