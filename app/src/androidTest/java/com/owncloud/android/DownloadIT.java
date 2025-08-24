@@ -29,7 +29,7 @@ import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertTrue;
 
 /**
- * Tests related to file uploads.
+ * Tests related to file downloads.
  */
 public class DownloadIT extends AbstractOnServerIT {
     private static final String FOLDER = "/testUpload/";
