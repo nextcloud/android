@@ -6,6 +6,7 @@
  */
 package com.owncloud.android;
 
+import android.Manifest;
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.accounts.AuthenticatorException;
@@ -78,6 +79,7 @@ import androidx.fragment.app.DialogFragment;
 import androidx.test.espresso.contrib.DrawerActions;
 import androidx.test.espresso.intent.rule.IntentsTestRule;
 import androidx.test.platform.app.InstrumentationRegistry;
+import androidx.test.rule.GrantPermissionRule;
 import androidx.test.runner.lifecycle.ActivityLifecycleMonitorRegistry;
 import androidx.test.runner.lifecycle.Stage;
 
@@ -93,7 +95,10 @@ import static org.junit.Assume.assumeTrue;
  */
 public abstract class AbstractIT {
     @Rule
-    public final TestRule permissionRule = GrantStoragePermissionRule.grant();
+    public final TestRule storagePermissionRule = GrantStoragePermissionRule.grant();
+
+    @Rule
+    public GrantPermissionRule notificationsPermissionRule = GrantPermissionRule.grant(Manifest.permission.POST_NOTIFICATIONS);
 
     protected static OwnCloudClient client;
     protected static NextcloudClient nextcloudClient;
