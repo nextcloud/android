@@ -15,6 +15,10 @@ import org.junit.rules.TestRule
 import org.junit.runner.Description
 import org.junit.runners.model.Statement
 
+/**
+ * Rule to automatically enable the test to write to the external storage.
+ * Depending on the SDK version, different approaches might be necessary to achieve the full access.
+ */
 class GrantStoragePermissionRule private constructor() {
 
     companion object {
@@ -30,6 +34,7 @@ class GrantStoragePermissionRule private constructor() {
     private class GrantManageExternalStoragePermissionRule : TestRule {
         override fun apply(base: Statement, description: Description): Statement = object : Statement() {
             override fun evaluate() {
+                // Refer to https://developer.android.com/training/data-storage/manage-all-files#enable-manage-external-storage-for-testing
                 InstrumentationRegistry.getInstrumentation().uiAutomation.executeShellCommand(
                     "appops set --uid ${InstrumentationRegistry.getInstrumentation().targetContext.packageName} " +
                         "MANAGE_EXTERNAL_STORAGE allow"
