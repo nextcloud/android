@@ -32,7 +32,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ellipsize="middle"
-            android:text="@string/placeholder_filename"
+            android:text="@string/placeholder_filename_with_extension"
             android:textColor="@color/text_color"
             android:textSize="20sp"
             android:textStyle="bold"/>
