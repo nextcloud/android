@@ -74,7 +74,7 @@ configurations.configureEach {
 def versionMajor = 3
 def versionMinor = 33
 def versionPatch = 0
-def versionBuild = 0 // 0-50=Alpha / 51-98=RC / 90-99=stable
+def versionBuild = 50 // 0-50=Alpha / 51-98=RC / 90-99=stable
 
 
 def ndkEnv = new HashMap<String, String>()
