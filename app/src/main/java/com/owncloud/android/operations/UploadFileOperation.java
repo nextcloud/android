@@ -971,15 +971,11 @@ public class UploadFileOperation extends SyncOperation {
         File originalFile = new File(mOriginalStoragePath);
         File expectedFile = null;
         FileLock fileLock = null;
-        FileChannel channel = null;
-        RandomAccessFile randomAccessFile = null;
-
         long size;
 
         try {
             // check conditions
             result = checkConditions(originalFile);
-
             if (result != null) {
                 return result;
             }
@@ -987,7 +983,6 @@ public class UploadFileOperation extends SyncOperation {
             // check name collision
             final var collisionResult = checkNameCollision(null, client, null, false);
             if (collisionResult != null) {
-                result = collisionResult;
                 return collisionResult;
             }
 
@@ -999,20 +994,73 @@ public class UploadFileOperation extends SyncOperation {
                 return result;
             }
 
-            // Get the last modification date of the file from the file system
+            // Get timestamps
             long lastModifiedTimestamp = originalFile.lastModified() / 1000;
-
             final Long creationTimestamp = FileUtil.getCreationTimestamp(originalFile);
 
-            try {
-                randomAccessFile = new RandomAccessFile(mFile.getStoragePath(), "rw");
-                channel = randomAccessFile.getChannel();
+            try (RandomAccessFile raf = new RandomAccessFile(mFile.getStoragePath(), "rw");
+                 FileChannel channel = raf.getChannel()) {
                 fileLock = channel.tryLock();
+
+                try {
+                    size = channel.size();
+                } catch (Exception exception) {
+                    Log_OC.e(TAG, "normalUpload, size cannot be determined from channel: " + exception);
+                    size = new File(mFile.getStoragePath()).length();
+                }
+
+                updateSize(size);
+
+                // choose upload strategy
+                if (size > ChunkedFileUploadRemoteOperation.CHUNK_SIZE_MOBILE) {
+                    boolean onWifiConnection = connectivityService.getConnectivity().isWifi();
+                    mUploadOperation = new ChunkedFileUploadRemoteOperation(
+                        mFile.getStoragePath(),
+                        mFile.getRemotePath(),
+                        mFile.getMimeType(),
+                        mFile.getEtagInConflict(),
+                        lastModifiedTimestamp,
+                        creationTimestamp,
+                        onWifiConnection,
+                        mDisableRetries
+                    );
+                } else {
+                    mUploadOperation = new UploadFileRemoteOperation(
+                        mFile.getStoragePath(),
+                        mFile.getRemotePath(),
+                        mFile.getMimeType(),
+                        mFile.getEtagInConflict(),
+                        lastModifiedTimestamp,
+                        creationTimestamp,
+                        mDisableRetries
+                    );
+                }
+
+                /**
+                 * Adds the onTransferProgress in FileUploadWorker
+                 * {@link FileUploadWorker#onTransferProgress(long, long, long, String)()}
+                 */
+                for (OnDatatransferProgressListener listener : mDataTransferListeners) {
+                    mUploadOperation.addDataTransferProgressListener(listener);
+                }
+
+                if (mCancellationRequested.get()) {
+                    throw new OperationCancelledException();
+                }
+
+                if (result.isSuccess() && mUploadOperation != null) {
+                    result = mUploadOperation.execute(client);
+
+                    // move local temporal file or original file to its corresponding
+                    // location in the Nextcloud local folder
+                    if (!result.isSuccess() && result.getHttpCode() == HttpStatus.SC_PRECONDITION_FAILED) {
+                        result = new RemoteOperationResult<>(ResultCode.SYNC_CONFLICT);
+                    }
+                }
             } catch (FileNotFoundException e) {
-                // this basically means that the file is on SD card
-                // try to copy file to temporary dir if it doesn't exist
-                String temporalPath = FileStorageUtils.getInternalTemporalPath(user.getAccountName(), mContext) +
-                    mFile.getRemotePath();
+                // Handle SD card case (copy to temp dir, lock there)
+                String temporalPath = FileStorageUtils.getInternalTemporalPath(user.getAccountName(), mContext)
+                    + mFile.getRemotePath();
                 mFile.setStoragePath(temporalPath);
                 temporalFile = new File(temporalPath);
 
@@ -1021,67 +1069,16 @@ public class UploadFileOperation extends SyncOperation {
 
                 if (result.isSuccess()) {
                     if (temporalFile.length() == originalFile.length()) {
-                        randomAccessFile = new RandomAccessFile(temporalFile.getAbsolutePath(), "rw");
-                        channel = randomAccessFile.getChannel();
-                        fileLock = channel.tryLock();
+                        try (RandomAccessFile raf = new RandomAccessFile(temporalFile.getAbsolutePath(), "rw");
+                             FileChannel channel = raf.getChannel()) {
+                            fileLock = channel.tryLock();
+                        }
                     } else {
                         result = new RemoteOperationResult<>(ResultCode.LOCK_FAILED);
                     }
                 }
             }
 
-            try {
-                size = channel.size();
-            } catch (Exception exception) {
-                Log_OC.e(TAG, "normalUpload, size cannot be determined from channel: " + exception);
-                size = new File(mFile.getStoragePath()).length();
-            }
-
-            updateSize(size);
-
-            // perform the upload
-            if (size > ChunkedFileUploadRemoteOperation.CHUNK_SIZE_MOBILE) {
-                boolean onWifiConnection = connectivityService.getConnectivity().isWifi();
-
-                mUploadOperation = new ChunkedFileUploadRemoteOperation(mFile.getStoragePath(),
-                                                                        mFile.getRemotePath(),
-                                                                        mFile.getMimeType(),
-                                                                        mFile.getEtagInConflict(),
-                                                                        lastModifiedTimestamp,
-                                                                        creationTimestamp,
-                                                                        onWifiConnection,
-                                                                        mDisableRetries);
-            } else {
-                mUploadOperation = new UploadFileRemoteOperation(mFile.getStoragePath(),
-                                                                 mFile.getRemotePath(),
-                                                                 mFile.getMimeType(),
-                                                                 mFile.getEtagInConflict(),
-                                                                 lastModifiedTimestamp,
-                                                                 creationTimestamp,
-                                                                 mDisableRetries);
-            }
-
-            /**
-             * Adds the onTransferProgress in FileUploadWorker
-             * {@link FileUploadWorker#onTransferProgress(long, long, long, String)()}
-             */
-            for (OnDatatransferProgressListener mDataTransferListener : mDataTransferListeners) {
-                mUploadOperation.addDataTransferProgressListener(mDataTransferListener);
-            }
-
-            if (mCancellationRequested.get()) {
-                throw new OperationCancelledException();
-            }
-
-            if (result.isSuccess() && mUploadOperation != null) {
-                result = mUploadOperation.execute(client);
-
-                /// move local temporal file or original file to its corresponding
-                // location in the Nextcloud local folder
-                if (!result.isSuccess() && result.getHttpCode() == HttpStatus.SC_PRECONDITION_FAILED) {
-                    result = new RemoteOperationResult<>(ResultCode.SYNC_CONFLICT);
-                }
-            }
         } catch (FileNotFoundException e) {
             Log_OC.d(TAG, mOriginalStoragePath + " not exists anymore");
             result = new RemoteOperationResult<>(ResultCode.LOCAL_FILE_NOT_FOUND);
@@ -1101,14 +1098,7 @@ public class UploadFileOperation extends SyncOperation {
                 }
             }
 
-            if (channel != null) {
-                try {
-                    channel.close();
-                } catch (IOException e) {
-                    Log_OC.w(TAG, "Failed to close file channel");
-                }
-            }
-
+            // delete temporal file
             if (temporalFile != null && !originalFile.equals(temporalFile)) {
                 boolean isTempFileDeleted = temporalFile.delete();
                 Log_OC.d(TAG, "normalUpload, temp folder deletion: " + isTempFileDeleted);
@@ -1127,7 +1117,6 @@ public class UploadFileOperation extends SyncOperation {
             getStorageManager().saveConflict(mFile, mFile.getEtagInConflict());
         }
 
-        // delete temporal file
         if (temporalFile != null && temporalFile.exists() && !temporalFile.delete()) {
             Log_OC.e(TAG, "Could not delete temporal file " + temporalFile.getAbsolutePath());
         }
