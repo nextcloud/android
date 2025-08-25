@@ -34,7 +34,9 @@
         <item name="dialogCornerRadius">@dimen/dialogBorderRadius</item>
     </style>
 
-    <style name="Theme.ownCloud" parent="BaseTheme.ownCloud" />
+    <style name="Theme.ownCloud" parent="BaseTheme.ownCloud">
+        <item name="android:windowLightNavigationBar">true</item>
+    </style>
 
     <style name="FallbackThemingThemeBase" parent="Theme.Material3.DayNight">
         <item name="actionModeBackground">@color/action_mode_background</item>
@@ -52,7 +54,9 @@
         <item name="dialogCornerRadius">@dimen/dialogBorderRadius</item>
     </style>
 
-    <style name="FallbackThemingTheme" parent="FallbackThemingThemeBase" />
+    <style name="FallbackThemingTheme" parent="FallbackThemingThemeBase">
+        <item name="android:windowLightNavigationBar">true</item>
+    </style>
 
     <style name="Widget.App.TextInputLayout" parent="Widget.Material3.TextInputLayout.OutlinedBox">
         <item name="materialThemeOverlay">@style/ThemeOverlay.App.TextInputLayout</item>
@@ -110,6 +114,7 @@
 
     <style name="Theme.ownCloud.Toolbar.Drawer" parent="Theme.ownCloud.Toolbar.DrawerBase">
         <item name="android:navigationBarColor">@color/bg_default</item>
+        <item name="android:windowLightNavigationBar">true</item>
     </style>
 
     <style name="Theme.ownCloud.Toolbar.NullBackground" parent="BaseTheme.ownCloud.Toolbar">
@@ -128,7 +133,9 @@
         <item name="android:navigationBarColor">@color/primary</item>
     </style>
 
-    <style name="Theme.ownCloud.noActionBar.Login" parent="Theme.ownCloud.noActionBar.LoginBase" />
+    <style name="Theme.ownCloud.noActionBar.Login" parent="Theme.ownCloud.noActionBar.LoginBase">
+        <item name="android:windowLightNavigationBar">false</item>
+    </style>
 
     <style name="ownCloud.AlertDialog" parent="Theme.Material3.DayNight.Dialog.Alert">
         <item name="colorAccent">@color/color_accent</item>
@@ -235,6 +242,11 @@
         <item name="android:background">@color/grey_400</item>
         <item name="android:windowBackground">@color/grey_400</item>
         <item name="android:colorBackground">@color/grey_400</item>
+        <item name="android:windowLightNavigationBar">false</item>
+    </style>
+
+    <style name="Theme.ownCloud.Media" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="android:windowLayoutInDisplayCutoutMode">shortEdges</item>
     </style>
 
     <style name="ToolbarStyle.Overflow" parent="@style/Widget.AppCompat.ActionButton.Overflow">
