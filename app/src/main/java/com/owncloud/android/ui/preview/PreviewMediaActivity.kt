@@ -29,7 +29,6 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
-import android.widget.LinearLayout
 import androidx.annotation.OptIn
 import androidx.annotation.StringRes
 import androidx.appcompat.content.res.AppCompatResources
@@ -78,7 +77,6 @@ import com.nextcloud.ui.fileactions.FileActionsBottomSheet.ResultListener
 import com.nextcloud.utils.extensions.getParcelableArgument
 import com.nextcloud.utils.extensions.logFileSize
 import com.nextcloud.utils.extensions.setTitleColor
-import com.nextcloud.utils.extensions.statusBarHeight
 import com.owncloud.android.R
 import com.owncloud.android.databinding.ActivityPreviewMediaBinding
 import com.owncloud.android.datamodel.OCFile
@@ -158,7 +156,6 @@ class PreviewMediaActivity :
 
         binding = ActivityPreviewMediaBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
         setSupportActionBar(binding.materialToolbar)
         WindowCompat.setDecorFitsSystemWindows(window, false)
         applyWindowInsets()
@@ -178,7 +175,6 @@ class PreviewMediaActivity :
         configureSystemBars()
         emptyListView = binding.emptyView.emptyListView
         showProgressLayout()
-        addMarginForEmptyView()
         if (file == null) {
             return
         }
@@ -193,21 +189,6 @@ class PreviewMediaActivity :
             setPackage(packageName)
         }
         sendBroadcast(intent)
-    }
-
-    private fun addMarginForEmptyView() {
-        val layoutParams = emptyListView?.layoutParams ?: return
-        val statusBarHeight = statusBarHeight().toFloat()
-        val marginTop = DisplayUtils.convertDpToPixel(statusBarHeight, this)
-        when (layoutParams) {
-            is LinearLayout.LayoutParams -> layoutParams.setMargins(0, marginTop, 0, 0)
-            is FrameLayout.LayoutParams -> layoutParams.setMargins(0, marginTop, 0, 0)
-            else -> {
-                Log_OC.e(TAG, "Unsupported LayoutParams type: ${layoutParams::class.java.simpleName}")
-                return
-            }
-        }
-        emptyListView?.layoutParams = layoutParams
     }
 
     private fun initArguments(savedInstanceState: Bundle?) {
