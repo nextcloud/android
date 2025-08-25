@@ -43,7 +43,6 @@ data class RecommendedFileEntity(
     val timestamp: Long
 )
 
-
 fun ArrayList<Recommendation>.toEntity(): List<RecommendedFileEntity> = this.map { recommendation ->
     RecommendedFileEntity(
         id = recommendation.id,
@@ -57,8 +56,6 @@ fun ArrayList<Recommendation>.toEntity(): List<RecommendedFileEntity> = this.map
     )
 }
 
-fun List<RecommendedFileEntity>.toOCFile(
-    storageManager: FileDataStorageManager
-): ArrayList<OCFile> =
+fun List<RecommendedFileEntity>.toOCFile(storageManager: FileDataStorageManager): ArrayList<OCFile> =
     mapNotNull { entity -> entity.id.let { storageManager.getFileByLocalId(it) } }
         .toCollection(ArrayList())
