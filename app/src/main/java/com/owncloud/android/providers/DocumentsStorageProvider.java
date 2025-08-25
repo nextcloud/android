@@ -33,6 +33,7 @@ import com.nextcloud.client.jobs.upload.FileUploadWorker;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.client.preferences.AppPreferencesImpl;
 import com.nextcloud.client.utils.HashUtil;
+import com.nextcloud.common.SessionTimeOut;
 import com.nextcloud.utils.extensions.ContextExtensionsKt;
 import com.nextcloud.utils.fileNameValidator.FileNameValidator;
 import com.owncloud.android.MainApp;
@@ -289,7 +290,7 @@ public class DocumentsStorageProvider extends DocumentsProvider {
     private boolean hasServerChange(Document document) throws FileNotFoundException {
         Context context = getNonNullContext();
         OCFile ocFile = document.getFile();
-        RemoteOperationResult result = new CheckEtagRemoteOperation(ocFile.getRemotePath(), ocFile.getEtag())
+        RemoteOperationResult result = new CheckEtagRemoteOperation(ocFile.getRemotePath(), ocFile.getEtag(), new SessionTimeOut(3000,3000))
             .execute(document.getUser(), context);
         return switch (result.getCode()) {
             case ETAG_CHANGED -> result.getData() != null;
