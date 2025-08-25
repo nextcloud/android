@@ -12,7 +12,6 @@ package com.owncloud.android.operations;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.Intent;
 import android.net.Uri;
 import android.text.TextUtils;
 
@@ -105,10 +104,8 @@ import javax.crypto.NoSuchPaddingException;
 
 import androidx.annotation.CheckResult;
 import androidx.annotation.Nullable;
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import kotlin.Triple;
-
-import static com.owncloud.android.ui.activity.FileDisplayActivity.REFRESH_FOLDER_EVENT_RECEIVER;
+import kotlin.Unit;
 
 /**
  * Operation performing the update in the ownCloud server of a file that was modified locally.
@@ -882,14 +879,6 @@ public class UploadFileOperation extends SyncOperation {
         e2eFiles.deleteTemporalFile();
     }
 
-    private void deleteDuplicatedFileAndSendRefreshFolderEvent(OwnCloudClient client) {
-        FileUploadHelper.Companion.instance().removeDuplicatedFile(duplicatedEncryptedFile, client, user, () -> {
-            duplicatedEncryptedFile = null;
-            sendRefreshFolderEventBroadcast();
-            return null;
-        });
-    }
-
     private RemoteOperationResult cleanupE2EUpload(FileLock fileLock, E2EFiles e2eFiles, RemoteOperationResult result, Object object, OwnCloudClient client, String token) {
         mUploadStarted.set(false);
 
@@ -925,9 +914,10 @@ public class UploadFileOperation extends SyncOperation {
             Log_OC.d(TAG, "Folder successfully unlocked: " + e2eFiles.getParentFile().getFileName());
 
             if (duplicatedEncryptedFile != null) {
-                deleteDuplicatedFileAndSendRefreshFolderEvent(client);
-            } else {
-                sendRefreshFolderEventBroadcast();
+                FileUploadHelper.Companion.instance().removeDuplicatedFile(duplicatedEncryptedFile, client, user, () -> {
+                    duplicatedEncryptedFile = null;
+                    return Unit.INSTANCE;
+                });
             }
         }
 
@@ -936,11 +926,6 @@ public class UploadFileOperation extends SyncOperation {
         return result;
     }
     // endregion
-
-    private void sendRefreshFolderEventBroadcast() {
-        Intent intent = new Intent(REFRESH_FOLDER_EVENT_RECEIVER);
-        LocalBroadcastManager.getInstance(mContext).sendBroadcast(intent);
-    }
 
     private RemoteOperationResult checkConditions(File originalFile) {
         RemoteOperationResult remoteOperationResult = null;
