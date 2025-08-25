@@ -18,7 +18,7 @@
         android:layout_height="60dp"
         android:layout_marginStart="@dimen/standard_list_item_size"
         android:layout_marginTop="10dp"
-        android:text="@string/placeholder_filename"
+        android:text="@string/placeholder_filename_with_extension"
         android:textSize="@dimen/activity_list_item_title_header_text_size" />
 
 </LinearLayout>
