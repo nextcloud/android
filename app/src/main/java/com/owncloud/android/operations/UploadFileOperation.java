@@ -764,16 +764,20 @@ public class UploadFileOperation extends SyncOperation {
         return result;
     }
 
-    private E2EData getE2EData(Object object) throws InvalidAlgorithmParameterException, NoSuchPaddingException, NoSuchAlgorithmException, InvalidKeyException, InvalidParameterSpecException, IOException {
+    private E2EData getE2EData(Object object) throws InvalidAlgorithmParameterException, IllegalStateException, NoSuchPaddingException, NoSuchAlgorithmException, InvalidKeyException, InvalidParameterSpecException, IOException {
         byte[] key = EncryptionUtils.generateKey();
         byte[] iv = EncryptionUtils.randomBytes(EncryptionUtils.ivLength);
         Cipher cipher = EncryptionUtils.getCipher(Cipher.ENCRYPT_MODE, key, iv);
-        File file = new File(mFile.getStoragePath());
-        EncryptedFile encryptedFile = EncryptionUtils.encryptFile(user.getAccountName(), file, cipher);
+        File originalFile = new File(mFile.getStoragePath());
+        EncryptedFile encryptedFile = EncryptionUtils.encryptFile(user.getAccountName(), originalFile, cipher);
         String encryptedFileName = getEncryptedFileName(object);
 
         if (key == null) {
             throw new NullPointerException("key cannot be null");
+        }
+
+        if (originalFile.getAbsolutePath().equals(encryptedFile.getEncryptedFile().getAbsolutePath())) {
+            throw new IllegalStateException("The encrypted file path cannot be the same as the original file path.");
         }
 
         return new E2EData(key, iv, encryptedFile, encryptedFileName);
