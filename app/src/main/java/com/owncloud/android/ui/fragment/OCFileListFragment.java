@@ -434,23 +434,6 @@ public class OCFileListFragment extends ExtendedListFragment implements
         listDirectory(MainApp.isOnlyOnDevice(), false);
     }
 
-    public void fetchRecommendedFiles() {
-        OCFile folder = getCurrentFile();
-
-        if (mAdapter == null ||
-            getCapabilities().getRecommendations().isFalse() ||
-            (folder != null && !folder.isRootDirectory())) {
-            return;
-        }
-
-        if (getActivity() instanceof FileActivity fileActivity) {
-            fileActivity.getFilesRepository().fetchRecommendedFiles(recommendations -> {
-                mAdapter.updateRecommendedFiles(recommendations);
-                return Unit.INSTANCE;
-            });
-        }
-    }
-
     protected void setAdapter(Bundle args) {
         boolean hideItemOptions = args != null && args.getBoolean(ARG_HIDE_ITEM_OPTIONS, false);
 
