@@ -24,9 +24,7 @@ class RecommendedFilesAdapter(
         private const val LAYOUT_ITEM_WIDTH = 120f
     }
 
-    fun getItemPosition(file: OCFile): Int {
-        return recommendations.indexOf(file)
-    }
+    fun getItemPosition(file: OCFile): Int = recommendations.indexOf(file)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): OCFileListGridItemViewHolder {
         val binding = GridItemBinding
