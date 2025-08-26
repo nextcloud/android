@@ -292,7 +292,7 @@ public class RefreshFolderOperation extends RemoteOperation {
             }
         }
 
-        if (!mSyncFullAccount && mRemoteFolderChanged && mLocalFolder != null) {
+        if (!mSyncFullAccount && mRemoteFolderChanged && mLocalFolder != null && sendFolderRefreshEvent) {
             sendLocalBroadcast(EVENT_SINGLE_FOLDER_CONTENTS_SYNCED, mLocalFolder.getRemotePath(), result);
         }
 

@@ -31,6 +31,7 @@ class MetadataWorker(private val context: Context, params: WorkerParameters, pri
             Log_OC.e(TAG, "❌ folder id is not valid")
             return Result.failure()
         }
+        Log_OC.d(TAG, "🕛 fetching metadata, fileId: $id")
 
         val subFolders = storageManager.getSubfoldersById(id)
         if (subFolders.isEmpty()) {
@@ -50,6 +51,8 @@ class MetadataWorker(private val context: Context, params: WorkerParameters, pri
                 Log_OC.e(TAG, "❌ metadata cannot fetched: " + subFolder.remotePath)
             }
         }
+
+        Log_OC.d(TAG, "✅ metadata fetched, fileId: $id")
 
         return Result.success()
     }
