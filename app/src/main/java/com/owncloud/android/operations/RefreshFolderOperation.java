@@ -273,6 +273,7 @@ public class RefreshFolderOperation extends RemoteOperation {
                 // TODO catch IllegalStateException, show properly to user
                 result = fetchAndSyncRemoteFolder(client);
             } else {
+                Log_OC.d(TAG, "💾 Remote folder is not changed, getting folder content from database");
                 mChildren = fileDataStorageManager.getFolderContent(mLocalFolder, false);
             }
 
@@ -446,8 +447,7 @@ public class RefreshFolderOperation extends RemoteOperation {
     private RemoteOperationResult fetchAndSyncRemoteFolder(OwnCloudClient client) {
         String remotePath = mLocalFolder.getRemotePath();
         RemoteOperationResult result = new ReadFolderRemoteOperation(remotePath).execute(client);
-        Log_OC.d(TAG, "Refresh folder " + user.getAccountName() + remotePath);
-        Log_OC.d(TAG, "Refresh folder with remote id" + mLocalFolder.getRemoteId());
+        Log_OC.d(TAG, "⬇ eTag is changed, fetching folder: " + user.getAccountName() + remotePath);
 
         if (result.isSuccess()) {
             synchronizeData(result.getData());
