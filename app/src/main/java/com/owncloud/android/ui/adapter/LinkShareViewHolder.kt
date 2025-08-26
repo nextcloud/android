@@ -68,10 +68,16 @@ internal class LinkShareViewHolder(itemView: View) : RecyclerView.ViewHolder(ite
         }
 
         if (ShareType.PUBLIC_LINK == publicShare.shareType) {
-            binding.name.text = if (position == 0) {
-                context.getString(R.string.share_link)
-            } else {
-                context.getString(R.string.share_link_with_label, position.toString())
+            val label = publicShare.label
+            binding.name.text = when {
+                label.isNullOrBlank() && position == 0 ->
+                    context.getString(R.string.share_link)
+
+                label.isNullOrBlank() ->
+                    context.getString(R.string.share_link_with_label, position.toString())
+
+                else ->
+                    context.getString(R.string.share_link_with_label, label)
             }
             return
         }
@@ -81,7 +87,7 @@ internal class LinkShareViewHolder(itemView: View) : RecyclerView.ViewHolder(ite
 
             val emailDrawable = ResourcesCompat.getDrawable(context.resources, R.drawable.ic_email, null)
             binding.icon.setImageDrawable(emailDrawable)
-            binding.copyLink.setVisibility(View.GONE)
+            binding.copyLink.visibility = View.GONE
             return
         }
 
