@@ -199,21 +199,6 @@ class SyncedFoldersActivity :
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         val inflater = menuInflater
         inflater.inflate(R.menu.activity_synced_folders, menu)
-        if (powerManagementService.isPowerSavingExclusionAvailable) {
-            val item = menu.findItem(R.id.action_disable_power_save_check)
-            item.isVisible = true
-            item.isChecked = preferences.isPowerCheckDisabled
-            item.setOnMenuItemClickListener { powerCheck -> onDisablePowerSaveCheckClicked(powerCheck) }
-        }
-        return true
-    }
-
-    private fun onDisablePowerSaveCheckClicked(powerCheck: MenuItem): Boolean {
-        if (!powerCheck.isChecked) {
-            showPowerCheckDialog()
-        }
-        preferences.isPowerCheckDisabled = !powerCheck.isChecked
-        powerCheck.isChecked = !powerCheck.isChecked
         return true
     }
 
@@ -835,7 +820,7 @@ class SyncedFoldersActivity :
     }
 
     private fun showBatteryOptimizationInfo() {
-        if (powerManagementService.isPowerSavingExclusionAvailable || checkIfBatteryOptimizationEnabled()) {
+        if (checkIfBatteryOptimizationEnabled()) {
             val alertDialogBuilder = MaterialAlertDialogBuilder(this, R.style.Theme_ownCloud_Dialog)
                 .setTitle(getString(R.string.battery_optimization_title))
                 .setMessage(getString(R.string.battery_optimization_message))
