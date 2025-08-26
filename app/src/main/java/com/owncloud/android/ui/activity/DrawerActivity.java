@@ -106,15 +106,15 @@ import com.owncloud.android.utils.theme.CapabilityUtils;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
-
+import java.util.concurrent.TimeUnit;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
-
+import java.lang.reflect.Field;
 import javax.inject.Inject;
-
+import okhttp3.OkHttpClient;
 import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -1017,6 +1017,28 @@ public abstract class DrawerActivity extends ToolbarActivity
 
             if (nextcloudClient == null) {
                 return;
+            }
+            // Set Timeout on OkHttpClient from defaults
+            OkHttpClient originalClient = null;
+            try {
+                Field clientField = nextcloudClient.getClass().getDeclaredField("client");
+                clientField.setAccessible(true);
+                originalClient = (OkHttpClient) clientField.get(nextcloudClient);
+            } catch (NoSuchFieldException | IllegalAccessException e) {
+                e.printStackTrace();
+            }
+
+            OkHttpClient newClient = originalClient.newBuilder()
+                .readTimeout(3000, TimeUnit.MILLISECONDS)
+                .build();
+
+            // Replace the internal OkHttpClient with the new one using reflection
+            try {
+                Field clientField = nextcloudClient.getClass().getDeclaredField("client");
+                clientField.setAccessible(true);
+                clientField.set(nextcloudClient, newClient);
+            } catch (NoSuchFieldException | IllegalAccessException e) {
+                e.printStackTrace();
             }
 
             RemoteOperationResult<UserInfo> result = new GetUserInfoRemoteOperation().execute(nextcloudClient);
