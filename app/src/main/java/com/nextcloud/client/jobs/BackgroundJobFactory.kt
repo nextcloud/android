@@ -280,10 +280,9 @@ class BackgroundJobFactory @Inject constructor(
             preferences
         )
 
-    private fun createMetadataWorker(context: Context, params: WorkerParameters): MetadataWorker =
-        MetadataWorker(
-            context,
-            params,
-            accountManager.user
-        )
+    private fun createMetadataWorker(context: Context, params: WorkerParameters): MetadataWorker = MetadataWorker(
+        context,
+        params,
+        accountManager.user
+    )
 }

@@ -62,4 +62,7 @@ interface FileDao {
             "ORDER BY internal_two_way_sync_timestamp DESC"
     )
     fun getInternalTwoWaySyncFolders(fileOwner: String): List<FileEntity>
+
+    @Query("SELECT * FROM filelist " + "WHERE parent = :id ")
+    fun getSubfoldersById(id: Long): List<FileEntity>
 }

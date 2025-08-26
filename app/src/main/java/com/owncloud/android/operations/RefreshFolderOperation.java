@@ -74,6 +74,8 @@ public class RefreshFolderOperation extends RemoteOperation {
     public static final String EVENT_SINGLE_FOLDER_SHARES_SYNCED =
         RefreshFolderOperation.class.getName() + ".EVENT_SINGLE_FOLDER_SHARES_SYNCED";
 
+    private boolean sendFolderRefreshEvent = true;
+
     /**
      * Time stamp for the synchronization process in progress
      */
@@ -176,6 +178,9 @@ public class RefreshFolderOperation extends RemoteOperation {
         mFilesToSyncContents = new Vector<>();
     }
 
+    /**
+     * Returns RefreshFolderOperation for metadata sync worker
+     */
     public RefreshFolderOperation(OCFile folder,
                                   FileDataStorageManager dataStorageManager,
                                   User user,
@@ -191,6 +196,9 @@ public class RefreshFolderOperation extends RemoteOperation {
         mIgnoreETag = false;
         mOnlyFileMetadata = false;
         mFilesToSyncContents = new Vector<>();
+
+        // since metadata worker working in background for sub-folders no need send folder refresh event
+        sendFolderRefreshEvent = false;
     }
 
     public RefreshFolderOperation(OCFile folder,
@@ -300,7 +308,7 @@ public class RefreshFolderOperation extends RemoteOperation {
             fileDataStorageManager.saveSharesFromRemoteFile(remoteFiles);
         }
 
-        if (!mSyncFullAccount && mLocalFolder != null) {
+        if (!mSyncFullAccount && mLocalFolder != null && sendFolderRefreshEvent) {
             sendLocalBroadcast(EVENT_SINGLE_FOLDER_SHARES_SYNCED, mLocalFolder.getRemotePath(), result);
         }
 

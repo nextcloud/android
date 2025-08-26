@@ -1183,6 +1183,19 @@ public class FileDataStorageManager {
         return folderContent;
     }
 
+    public List<OCFile> getSubfoldersById(long id) {
+        List<OCFile> result = new ArrayList<>();
+
+        List<FileEntity> files = fileDao.getSubfoldersById(id);
+        for (FileEntity fileEntity : files) {
+            OCFile file = createFileInstance(fileEntity);
+            if (file.isFolder()) {
+                result.add(file);
+            }
+        }
+
+        return result;
+    }
 
     private OCFile createRootDir() {
         OCFile ocFile = new OCFile(OCFile.ROOT_PATH);

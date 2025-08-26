@@ -524,7 +524,11 @@ internal class BackgroundJobManagerImpl(
         workManager.cancelAllWorkByTag(formatClassTag(FileDownloadWorker::class))
     }
 
-    override fun startMetadataSyncJob(currentDirPath: String) {
+    override fun startMetadataSyncJob(currentDirId: Long) {
+        val inputData = Data.Builder()
+            .putLong(MetadataWorker.CURRENT_DIR_ID, currentDirId)
+            .build()
+
         val constrains = Constraints.Builder()
             .setRequiredNetworkType(NetworkType.CONNECTED)
             .setRequiresBatteryNotLow(true)
@@ -532,6 +536,7 @@ internal class BackgroundJobManagerImpl(
 
         val request = oneTimeRequestBuilder(MetadataWorker::class, JOB_METADATA)
             .setConstraints(constrains)
+            .setInputData(inputData)
             .build()
 
         workManager.enqueueUniqueWork(
