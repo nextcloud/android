@@ -23,7 +23,7 @@ class MetadataWorker(private val context: Context, params: WorkerParameters, pri
         const val FILE_ID = "file_id"
     }
 
-    @Suppress("DEPRECATION")
+    @Suppress("DEPRECATION", "ReturnCount")
     override suspend fun doWork(): Result {
         val storageManager = FileDataStorageManager(user, context.contentResolver)
         val id = inputData.getLong(FILE_ID, -1L)
