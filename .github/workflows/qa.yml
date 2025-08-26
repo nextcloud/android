@@ -45,14 +45,11 @@ jobs:
           LOG_PASSWORD: ${{ secrets.LOG_PASSWORD }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          mkdir -p $HOME/.gradle
-          echo "org.gradle.jvmargs=-Xmx6g -XX:+HeapDumpOnOutOfMemoryError -Dfile.encoding=UTF-8 -XX:+UseParallelGC -XX:MaxMetaspaceSize=1g" > $HOME/.gradle/gradle.properties
-          echo "org.gradle.caching=true" >> $HOME/.gradle/gradle.properties
-          echo "org.gradle.parallel=true" >> $HOME/.gradle/gradle.properties
-          echo "org.gradle.configureondemand=true" >> $HOME/.gradle/gradle.properties
-          echo "kapt.incremental.apt=true" >> $HOME/.gradle/gradle.properties
-          sed -i "/qa/,/\}/ s/versionCode .*/versionCode ${{github.event.number}} /" app/build.gradle
-          sed -i "/qa/,/\}/ s/versionName .*/versionName \"${{github.event.number}}\"/" app/build.gradle
+          mkdir -p "$HOME/.gradle"
+          echo "org.gradle.jvmargs=-Xmx6g -XX:+HeapDumpOnOutOfMemoryError -Dfile.encoding=UTF-8 -XX:+UseParallelGC -XX:MaxMetaspaceSize=1g" > "$HOME/.gradle/gradle.properties"
+          echo "org.gradle.caching=true; org.gradle.parallel=true; org.gradle.configureondemand=true; kapt.incremental.apt=true" >> "$HOME/.gradle/gradle.properties"
+          sed -i "/qa/,/\}/ s/versionCode .*/versionCode ${{github.event.number}} /" "app/build.gradle"
+          sed -i "/qa/,/\}/ s/versionName .*/versionName \"${{github.event.number}}\"/" "app/build.gradle"
           ./gradlew assembleQaDebug
-          $(find /usr/local/lib/android/sdk/build-tools/*/apksigner | sort | tail -n1) sign  --ks-pass pass:$KS_PASS --key-pass pass:$KEY_PASS --ks-key-alias key0 --ks .github/workflows/QA_keystore.jks app/build/outputs/apk/qa/debug/*qa-debug*.apk
-          .github/workflows/uploadArtifact.sh $LOG_USERNAME $LOG_PASSWORD ${{github.event.number}} ${{github.event.number}} $GITHUB_TOKEN
+          $(find /usr/local/lib/android/sdk/build-tools/*/apksigner | sort | tail -n1) sign  --ks-pass pass:"$KS_PASS" --key-pass pass:"$KEY_PASS" --ks-key-alias key0 --ks ".github/workflows/QA_keystore.jks" app/build/outputs/apk/qa/debug/*qa-debug*.apk
+          .github/workflows/uploadArtifact.sh "$LOG_USERNAME" "$LOG_PASSWORD" "${{github.event.number}}" "${{github.event.number}}" "$GITHUB_TOKEN"
