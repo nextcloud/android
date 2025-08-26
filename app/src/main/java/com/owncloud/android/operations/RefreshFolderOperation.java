@@ -177,6 +177,23 @@ public class RefreshFolderOperation extends RemoteOperation {
     }
 
     public RefreshFolderOperation(OCFile folder,
+                                  FileDataStorageManager dataStorageManager,
+                                  User user,
+                                  Context context) {
+        mLocalFolder = folder;
+        mCurrentSyncTime = System.currentTimeMillis();
+        mSyncFullAccount = false;
+        fileDataStorageManager = dataStorageManager;
+        this.user = user;
+        mContext = context;
+        mForgottenLocalFiles = new HashMap<>();
+        mRemoteFolderChanged = false;
+        mIgnoreETag = false;
+        mOnlyFileMetadata = false;
+        mFilesToSyncContents = new Vector<>();
+    }
+
+    public RefreshFolderOperation(OCFile folder,
                                   long currentSyncTime,
                                   boolean syncFullAccount,
                                   boolean ignoreETag,
