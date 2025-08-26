@@ -47,6 +47,7 @@ import com.nextcloud.model.OfflineOperationType;
 import com.nextcloud.model.ShareeEntry;
 import com.nextcloud.utils.date.DateFormatPattern;
 import com.nextcloud.utils.extensions.DateExtensionsKt;
+import com.nextcloud.utils.extensions.FileEntityExtensionsKt;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.db.ProviderMeta.ProviderTableMeta;
 import com.owncloud.android.lib.common.network.WebdavEntry;
@@ -1183,18 +1184,9 @@ public class FileDataStorageManager {
         return folderContent;
     }
 
-    public List<OCFile> getSubfoldersById(long id) {
-        List<OCFile> result = new ArrayList<>();
-
-        List<FileEntity> files = fileDao.getSubfoldersById(id);
-        for (FileEntity fileEntity : files) {
-            OCFile file = createFileInstance(fileEntity);
-            if (file.isFolder()) {
-                result.add(file);
-            }
-        }
-
-        return result;
+    public List<OCFile> getSubFiles(long id) {
+        final List<FileEntity> entities = fileDao.getSubFiles(id);
+        return FileEntityExtensionsKt.toOCFiles(entities, this);
     }
 
     private OCFile createRootDir() {
@@ -1225,7 +1217,7 @@ public class FileDataStorageManager {
         return (i == null) ? -1L : i;
     }
 
-    private OCFile createFileInstance(FileEntity fileEntity) {
+    public OCFile createFileInstance(FileEntity fileEntity) {
         OCFile ocFile = new OCFile(fileEntity.getPath());
         ocFile.setDecryptedRemotePath(fileEntity.getPathDecrypted());
         ocFile.setFileId(nullToZero(fileEntity.getId()));

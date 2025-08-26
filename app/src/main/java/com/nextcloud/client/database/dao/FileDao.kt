@@ -64,5 +64,5 @@ interface FileDao {
     fun getInternalTwoWaySyncFolders(fileOwner: String): List<FileEntity>
 
     @Query("SELECT * FROM filelist " + "WHERE parent = :id ")
-    fun getSubfoldersById(id: Long): List<FileEntity>
+    fun getSubFiles(id: Long): List<FileEntity>
 }

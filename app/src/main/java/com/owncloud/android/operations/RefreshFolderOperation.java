@@ -443,7 +443,6 @@ public class RefreshFolderOperation extends RemoteOperation {
         return result;
     }
 
-
     private RemoteOperationResult fetchAndSyncRemoteFolder(OwnCloudClient client) {
         String remotePath = mLocalFolder.getRemotePath();
         RemoteOperationResult result = new ReadFolderRemoteOperation(remotePath).execute(client);

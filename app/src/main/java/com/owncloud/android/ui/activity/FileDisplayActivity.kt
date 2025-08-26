@@ -269,6 +269,7 @@ class FileDisplayActivity :
 
         initSyncBroadcastReceiver()
         observeWorkerState()
+        startMetadataSyncForRoot()
     }
 
     private fun loadSavedInstanceState(savedInstanceState: Bundle?) {
@@ -1172,6 +1173,7 @@ class FileDisplayActivity :
         listOfFiles.registerFabListener()
         resetTitleBarAndScrolling()
         setDrawerAllFiles()
+        startMetadataSyncForCurrentDir()
     }
 
     private fun resetSearchAction() {
@@ -1793,8 +1795,8 @@ class FileDisplayActivity :
     override fun onBrowsedDownTo(directory: OCFile?) {
         file = directory
         resetTitleBarAndScrolling()
-        // Sync Folder
         startSyncFolderOperation(directory, false)
+        startMetadataSyncForCurrentDir()
     }
 
     /**
@@ -2984,6 +2986,17 @@ class FileDisplayActivity :
             }
         })
     }
+
+    // region MetadataSyncJob
+    private fun startMetadataSyncForRoot() {
+        backgroundJobManager.startMetadataSyncJob(OCFile.ROOT_ID)
+    }
+
+    private fun startMetadataSyncForCurrentDir() {
+        val currentDirId = file?.fileId ?: return
+        backgroundJobManager.startMetadataSyncJob(currentDirId)
+    }
+    // endregion
 
     companion object {
         const val RESTART: String = "RESTART"

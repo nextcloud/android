@@ -28,32 +28,30 @@ class MetadataWorker(private val context: Context, params: WorkerParameters, pri
         val storageManager = FileDataStorageManager(user, context.contentResolver)
         val id = inputData.getLong(CURRENT_DIR_ID, -1L)
         if (id == -1L) {
-            Log_OC.e(TAG, "❌ folder id is not valid")
+            Log_OC.e(TAG, "❌ Invalid folder ID. Aborting metadata sync.")
             return Result.failure()
         }
-        Log_OC.d(TAG, "🕛 fetching metadata, fileId: $id")
+        Log_OC.d(TAG, "🕒 Starting metadata sync for folder ID: $id")
 
-        val subFolders = storageManager.getSubfoldersById(id)
-        if (subFolders.isEmpty()) {
-            Log_OC.d(TAG, "✅ Subfolders are empty")
+        val subfolders = storageManager.getSubFiles(id).filter { !it.isEncrypted && it.isFolder }
+        if (subfolders.isEmpty()) {
+            Log_OC.d(TAG, "📂 No subfolders found for folder ID: $id. Nothing to sync.")
             return Result.success()
         }
-        val subfoldersToBeSynced = subFolders.filter { !it.isEncrypted }
 
-        subfoldersToBeSynced.forEach { subFolder ->
-            Log_OC.d(TAG, "🕛 fetching metadata: " + subFolder.remotePath)
+        subfolders.forEach { subFolder ->
+            Log_OC.d(TAG, "⏳ Fetching metadata for: ${subFolder.remotePath}")
 
             val operation = RefreshFolderOperation(subFolder, storageManager, user, context)
             val result = operation.execute(user, context)
             if (result.isSuccess) {
-                Log_OC.d(TAG, "✅ metadata fetched: " + subFolder.remotePath)
+                Log_OC.d(TAG, "✅ Successfully fetched metadata for: ${subFolder.remotePath}")
             } else {
-                Log_OC.e(TAG, "❌ metadata cannot fetched: " + subFolder.remotePath)
+                Log_OC.e(TAG, "❌ Failed to fetch metadata for: ${subFolder.remotePath}")
             }
         }
 
-        Log_OC.d(TAG, "✅ metadata fetched, fileId: $id")
-
+        Log_OC.d(TAG, "🏁 Metadata sync completed for folder ID: $id")
         return Result.success()
     }
 }
