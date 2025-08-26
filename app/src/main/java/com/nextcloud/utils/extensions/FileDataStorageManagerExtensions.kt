@@ -27,7 +27,5 @@ fun FileDataStorageManager.getDecryptedPath(file: OCFile): String {
         .joinToString(OCFile.PATH_SEPARATOR)
 }
 
-fun FileDataStorageManager.fileEntityToOCFile(entity: FileEntity): OCFile = createFileInstance(entity)
-
 fun FileDataStorageManager.fileEntitiesToOCFiles(entities: List<FileEntity>): List<OCFile> =
-    entities.map { fileEntityToOCFile(it) }
+    entities.map { createFileInstance(it) }

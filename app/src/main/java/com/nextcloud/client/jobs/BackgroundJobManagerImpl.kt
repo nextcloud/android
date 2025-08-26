@@ -91,7 +91,7 @@ internal class BackgroundJobManagerImpl(
         const val JOB_PERIODIC_OFFLINE_OPERATIONS = "periodic_offline_operations"
         const val JOB_PERIODIC_HEALTH_STATUS = "periodic_health_status"
         const val JOB_IMMEDIATE_HEALTH_STATUS = "immediate_health_status"
-        const val JOB_METADATA = "metadata_sync"
+        const val JOB_METADATA_SYNC = "metadata_sync"
         const val JOB_INTERNAL_TWO_WAY_SYNC = "internal_two_way_sync"
 
         const val JOB_TEST = "test_job"
@@ -534,13 +534,13 @@ internal class BackgroundJobManagerImpl(
             .setRequiresBatteryNotLow(true)
             .build()
 
-        val request = oneTimeRequestBuilder(MetadataWorker::class, JOB_METADATA)
+        val request = oneTimeRequestBuilder(MetadataWorker::class, JOB_METADATA_SYNC)
             .setConstraints(constrains)
             .setInputData(inputData)
             .build()
 
         workManager.enqueueUniqueWork(
-            JOB_METADATA,
+            JOB_METADATA_SYNC,
             ExistingWorkPolicy.REPLACE,
             request
         )
