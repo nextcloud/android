@@ -125,6 +125,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.VisibleForTesting;
 import androidx.appcompat.app.ActionBar;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -1076,6 +1079,17 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         LinearLayout loginFlowLayout = accountSetupWebviewBinding.loginFlowV2.getRoot();
         MaterialButton cancelButton = accountSetupWebviewBinding.loginFlowV2.cancelButton;
         loginFlowLayout.setVisibility(View.VISIBLE);
+
+        // add margin bottom to prevent overlapping with system bars
+        ViewCompat.setOnApplyWindowInsetsListener(loginFlowLayout, (view, insets) -> {
+            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            view.setPadding(
+                view.getPaddingLeft(),
+                view.getPaddingTop(),
+                view.getPaddingRight(),
+                systemBars.bottom);
+            return insets;
+        });
 
         cancelButton.setOnClickListener(v -> {
             loginFlowExecutorService.shutdown();

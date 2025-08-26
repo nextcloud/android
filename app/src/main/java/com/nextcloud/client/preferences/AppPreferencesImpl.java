@@ -110,6 +110,8 @@ public final class AppPreferencesImpl implements AppPreferences {
     
     private static final String PREF__PASSCODE_DELAY_IN_SECONDS = "passcode_delay_in_seconds";
 
+    private static final String PREF_LAST_DISPLAYED_ACCOUNT_NAME = "last_displayed_user";
+
     private static final String LOG_ENTRY = "log_entry";
 
     private final Context context;
@@ -831,5 +833,15 @@ public final class AppPreferencesImpl implements AppPreferences {
     @Override
     public void setPassCodeDelay(int value) {
         preferences.edit().putInt(PREF__PASSCODE_DELAY_IN_SECONDS, value).apply();
+    }
+
+    @Override
+    public String getLastDisplayedAccountName() {
+        return preferences.getString(PREF_LAST_DISPLAYED_ACCOUNT_NAME, null);
+    }
+
+    @Override
+    public void setLastDisplayedAccountName(String lastDisplayedAccountName) {
+        preferences.edit().putString(PREF_LAST_DISPLAYED_ACCOUNT_NAME, lastDisplayedAccountName).apply();
     }
 }

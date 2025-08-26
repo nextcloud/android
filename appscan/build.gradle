@@ -21,7 +21,7 @@ android {
     namespace = "com.nextcloud.appscan"
 
     defaultConfig {
-        minSdk = 26
+        minSdk = 27
         targetSdk = 35
         compileSdk = 35
 
