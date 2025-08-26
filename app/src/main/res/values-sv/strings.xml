@@ -645,8 +645,8 @@
     <string name="picture_set_as_no_app">Ingen app hittades för att ställa in en bild med</string>
     <string name="pin_home">Fäst på hemskärmen</string>
     <string name="pin_shortcut_label">Öppna %1$s</string>
+    <string name="placeholder_extension">.txt</string>
     <string name="placeholder_fileSize">389 KB</string>
-    <string name="placeholder_filename">placeholder.txt</string>
     <string name="placeholder_media_time">12:23:45</string>
     <string name="placeholder_sentence">Detta är en platshållare</string>
     <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
@@ -727,7 +727,6 @@
     <string name="preview_image_error_no_local_file">Där finns ingen lokal fil att förhandsvisa</string>
     <string name="preview_image_error_unknown_format">Kan inte visa bild</string>
     <string name="preview_image_file_is_not_downloaded">Filen laddas inte ned</string>
-    <string name="preview_image_file_is_not_exist">Filen finns inte</string>
     <string name="preview_media_unhandled_http_code_message">Filen är för närvarande låst av en annan användare eller process och kan därför inte raderas. Försök igen senare.</string>
     <string name="preview_sorry">Tyvärr</string>
     <string name="privacy">Privat</string>

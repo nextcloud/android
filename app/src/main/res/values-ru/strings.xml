@@ -657,8 +657,8 @@
     <string name="picture_set_as_no_app">Не найдено приложений для обработки изображений</string>
     <string name="pin_home">Закрепить на главном экране</string>
     <string name="pin_shortcut_label">Открыть %1$s</string>
+    <string name="placeholder_extension">.txt</string>
     <string name="placeholder_fileSize">389 Кбайт</string>
-    <string name="placeholder_filename">placeholder.txt</string>
     <string name="placeholder_media_time">12:23:45</string>
     <string name="placeholder_sentence">Это заполнитель</string>
     <string name="placeholder_timestamp">2012/05/18 12:23</string>
@@ -738,7 +738,6 @@
     <string name="preview_image_error_no_local_file">Отсутствует локальный файл для создания миниатюры</string>
     <string name="preview_image_error_unknown_format">Это изображение не может быть отображено</string>
     <string name="preview_image_file_is_not_downloaded">Файл не скачан</string>
-    <string name="preview_image_file_is_not_exist">Файл не существует</string>
     <string name="preview_media_unhandled_http_code_message">Файл в настоящее время заблокирован другим пользователем или процессом и поэтому не может быть удален. Пожалуйста, повторите попытку позже.</string>
     <string name="preview_sorry">Приносим извинения</string>
     <string name="privacy">Конфиденциальность</string>

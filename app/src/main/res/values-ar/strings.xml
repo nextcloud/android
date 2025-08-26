@@ -639,8 +639,8 @@
     <string name="picture_set_as_no_app">لم يتم العثور على تطبيق لتعيين صورة به</string>
     <string name="pin_home">ثبِّت في الشاشة الرئيسية</string>
     <string name="pin_shortcut_label">فتح %1$s</string>
+    <string name="placeholder_extension">.txt</string>
     <string name="placeholder_fileSize">389 ك.ب</string>
-    <string name="placeholder_filename">placeholder.txt</string>
     <string name="placeholder_media_time">12:23:45</string>
     <string name="placeholder_sentence">هذه مساحة محجوزة</string>
     <string name="placeholder_timestamp">2012/05/18 12:23 مساء</string>
@@ -718,7 +718,6 @@
     <string name="preview_image_error_no_local_file">لا يوجد ملف محلي للمعاينة</string>
     <string name="preview_image_error_unknown_format">تعذرت عملية عرض الصورة</string>
     <string name="preview_image_file_is_not_downloaded">لم يتم تنزيل الملف</string>
-    <string name="preview_image_file_is_not_exist">الملف غير موجود</string>
     <string name="preview_media_unhandled_http_code_message">الملف مقفلٌ حالياً من قِبَل مستخدِمٍ أو عمليةٍ أخرى؛ وبالتالي لا يمكن حذفه. الرجاء معاودة المحاولة في وقتٍ لاحقٍ.</string>
     <string name="preview_sorry">آسف</string>
     <string name="privacy">الخصوصية</string>

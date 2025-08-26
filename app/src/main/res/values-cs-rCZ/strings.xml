@@ -646,8 +646,8 @@
     <string name="picture_set_as_no_app">Nenalezena žádná aplikace pro nastavení obrázku</string>
     <string name="pin_home">Připnout na domovskou obrazovku</string>
     <string name="pin_shortcut_label">Otevřít %1$s</string>
+    <string name="placeholder_extension">.txt</string>
     <string name="placeholder_fileSize">389 KB</string>
-    <string name="placeholder_filename">jen_jako_vypln.txt</string>
     <string name="placeholder_media_time">12:23:45</string>
     <string name="placeholder_sentence">Toto je zástupný text</string>
     <string name="placeholder_timestamp">2012/05/18 12:23</string>
@@ -727,7 +727,6 @@
     <string name="preview_image_error_no_local_file">Není zde žádný místní soubor pro který zobrazit náhled</string>
     <string name="preview_image_error_unknown_format">Obrázek se nedaří zobrazit</string>
     <string name="preview_image_file_is_not_downloaded">Soubor není stažen</string>
-    <string name="preview_image_file_is_not_exist">Soubor neexistuje</string>
     <string name="preview_media_unhandled_http_code_message">Soubor je nyní uzamčen jiným uživatelem nebo procesem a proto ho není možné smazat. Zkuste to později.</string>
     <string name="preview_sorry">Je nám líto</string>
     <string name="privacy">Soukromí</string>

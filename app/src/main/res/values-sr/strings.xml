@@ -638,8 +638,8 @@
     <string name="picture_set_as_no_app">Нема апликације којом се поставља слика</string>
     <string name="pin_home">Закачи на почетни екран</string>
     <string name="pin_shortcut_label">Отвори %1$s</string>
+    <string name="placeholder_extension">.txt</string>
     <string name="placeholder_fileSize">389 KB</string>
-    <string name="placeholder_filename">чувамместо.txt</string>
     <string name="placeholder_media_time">12:23:45</string>
     <string name="placeholder_sentence">Ово је местодржач</string>
     <string name="placeholder_timestamp">2012/05/18 12:23 ПоП</string>
@@ -719,7 +719,6 @@
     <string name="preview_image_error_no_local_file">Нема локалног фајла за преглед</string>
     <string name="preview_image_error_unknown_format">Не могу да прикажем слику</string>
     <string name="preview_image_file_is_not_downloaded">Фајл није преузет</string>
-    <string name="preview_image_file_is_not_exist">Фајл не постоји</string>
     <string name="preview_media_unhandled_http_code_message">Фајл је тренутно закључао други корисник или процес, па не може да се обрише. Молимо вас покушајте касније.</string>
     <string name="preview_sorry">Извините</string>
     <string name="privacy">Приватност</string>

@@ -656,8 +656,8 @@
     <string name="picture_set_as_no_app">Níor aimsíodh aon aip chun pictiúr a shocrú leis</string>
     <string name="pin_home">Pinn chuig an scáileán baile</string>
     <string name="pin_shortcut_label">Oscail %1$s</string>
+    <string name="placeholder_extension">.txt</string>
     <string name="placeholder_fileSize">389 KB</string>
-    <string name="placeholder_filename">áitsealbhóir.txt</string>
     <string name="placeholder_media_time">12:23:45</string>
     <string name="placeholder_sentence">Is sealbhóir áit é seo</string>
     <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
@@ -737,7 +737,6 @@
     <string name="preview_image_error_no_local_file">Níl aon chomhad áitiúil le réamhamharc</string>
     <string name="preview_image_error_unknown_format">Ní féidir íomhá a thaispeáint</string>
     <string name="preview_image_file_is_not_downloaded">Níl an comhad a íoslódáil</string>
-    <string name="preview_image_file_is_not_exist">Níl an comhad ann</string>
     <string name="preview_media_unhandled_http_code_message">Tá an comhad faoi ghlas faoi láthair ag úsáideoir nó próiseas eile agus mar sin ní féidir é a scriosadh. Bain triail eile as ar ball le do thoil.</string>
     <string name="preview_sorry">Tá brón orm</string>
     <string name="privacy">Príobháideacht</string>

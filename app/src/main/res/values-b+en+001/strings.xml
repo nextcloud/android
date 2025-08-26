@@ -656,8 +656,8 @@
     <string name="picture_set_as_no_app">No app found to set a picture with</string>
     <string name="pin_home">Pin to home screen</string>
     <string name="pin_shortcut_label">Open %1$s</string>
+    <string name="placeholder_extension">.txt</string>
     <string name="placeholder_fileSize">389 KB</string>
-    <string name="placeholder_filename">placeholder.txt</string>
     <string name="placeholder_media_time">12:23:45</string>
     <string name="placeholder_sentence">This is a placeholder</string>
     <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
@@ -737,7 +737,6 @@
     <string name="preview_image_error_no_local_file">There is no local file to preview</string>
     <string name="preview_image_error_unknown_format">Unable to show image</string>
     <string name="preview_image_file_is_not_downloaded">File is not downloaded</string>
-    <string name="preview_image_file_is_not_exist">File does not exist</string>
     <string name="preview_media_unhandled_http_code_message">File is currently locked by another user or process and therefore not deletable. Please try again later.</string>
     <string name="preview_sorry">Sorry</string>
     <string name="privacy">Privacy</string>

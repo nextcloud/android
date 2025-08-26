@@ -655,8 +655,8 @@
     <string name="picture_set_as_no_app">No se ha encontrado una app para establecer con ella la imagen</string>
     <string name="pin_home">Anclar a la pantalla de inicio</string>
     <string name="pin_shortcut_label">Abrir %1$s</string>
+    <string name="placeholder_extension">.txt</string>
     <string name="placeholder_fileSize">389 KB</string>
-    <string name="placeholder_filename">placeholder.txt</string>
     <string name="placeholder_media_time">12:23:45</string>
     <string name="placeholder_sentence">Esto es un marcador de posición</string>
     <string name="placeholder_timestamp">18/05/2012 12:23 PM</string>
@@ -736,7 +736,6 @@
     <string name="preview_image_error_no_local_file">No hay archivo local para previsualizar</string>
     <string name="preview_image_error_unknown_format">No se puede mostrar la imagen</string>
     <string name="preview_image_file_is_not_downloaded">El archivo no está descargado</string>
-    <string name="preview_image_file_is_not_exist">El archivo no existe</string>
     <string name="preview_media_unhandled_http_code_message">El archivo se encuentra actualmente bloqueado por otro usuario o proceso y por tanto no es posible eliminarlo. Por favor, intente de nuevo más tarde.</string>
     <string name="preview_sorry">¡Lo sentimos</string>
     <string name="privacy">Privacidad</string>

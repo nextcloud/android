@@ -638,8 +638,8 @@
     <string name="picture_set_as_no_app">Aucune application trouvée pour utiliser cette image</string>
     <string name="pin_home">Épingler sur l\'écran d\'accueil</string>
     <string name="pin_shortcut_label">Ouvrir %1$s</string>
+    <string name="placeholder_extension">.txt</string>
     <string name="placeholder_fileSize">389 Ko</string>
-    <string name="placeholder_filename">placeholder.txt</string>
     <string name="placeholder_media_time">12:23:45</string>
     <string name="placeholder_sentence">Ceci est un espace réservé</string>
     <string name="placeholder_timestamp">18/05/2012 12:23 PM</string>
@@ -719,7 +719,6 @@
     <string name="preview_image_error_no_local_file">Il n\'y a aucun fichier local à prévisualiser</string>
     <string name="preview_image_error_unknown_format">L\'image ne peut pas être affichée</string>
     <string name="preview_image_file_is_not_downloaded">Le fichier n\'est pas téléchargé</string>
-    <string name="preview_image_file_is_not_exist">Le fichier n’existe pas</string>
     <string name="preview_media_unhandled_http_code_message">Ce fichier est actuellement vérouillé par un autre utilisateur ou processus et ne peut donc pas être supprimé. Veuillez réessayer plus tard.</string>
     <string name="preview_sorry">Désolé</string>
     <string name="privacy">Vie privée</string>

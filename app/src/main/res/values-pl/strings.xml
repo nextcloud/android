@@ -655,8 +655,8 @@
     <string name="picture_set_as_no_app">Nie znaleziono aplikacji do ustawienia obrazu</string>
     <string name="pin_home">Przypnij do ekranu głównego</string>
     <string name="pin_shortcut_label">Otwórz %1$s</string>
+    <string name="placeholder_extension">.txt</string>
     <string name="placeholder_fileSize">389 KB</string>
-    <string name="placeholder_filename">tekst_zastępczy.txt</string>
     <string name="placeholder_media_time">12:23:45</string>
     <string name="placeholder_sentence">Tekst zastępczy</string>
     <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
@@ -736,7 +736,6 @@
     <string name="preview_image_error_no_local_file">Brak lokalnego pliku do podglądu</string>
     <string name="preview_image_error_unknown_format">Nie można wyświetlić obrazu</string>
     <string name="preview_image_file_is_not_downloaded">Plik nie został pobrany</string>
-    <string name="preview_image_file_is_not_exist">Plik nie istnieje</string>
     <string name="preview_media_unhandled_http_code_message">Plik jest obecnie zablokowany przez innego użytkownika lub proces i dlatego nie można go usunąć. Spróbuj ponownie później.</string>
     <string name="preview_sorry">Przykro nam</string>
     <string name="privacy">Prywatność</string>

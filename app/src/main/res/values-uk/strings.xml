@@ -448,6 +448,7 @@
     <string name="file_not_synced">Неможливо синхронізувати файл. Буде показано останню доступну версію.</string>
     <string name="file_rename">Перейменувати</string>
     <string name="file_upload_worker_error_notification_title">Не вдалося завантажити. Відсутнє з\'єднання з мережею.</string>
+    <string name="file_upload_worker_same_file_already_exists">%s вже наявний, відсутні конфлікти</string>
     <string name="file_version_restored_error">Помилка під час відновлення версії файлу!</string>
     <string name="file_version_restored_successfully">Успішно відновлено версію файлу.</string>
     <string name="filedetails_details">Деталі</string>
@@ -655,8 +656,8 @@
     <string name="picture_set_as_no_app">Не знайдено застосунків для встановлення зображення для</string>
     <string name="pin_home">Закріпити на домівці</string>
     <string name="pin_shortcut_label">Відкрити %1$s</string>
+    <string name="placeholder_extension">.txt</string>
     <string name="placeholder_fileSize">389 КБ</string>
-    <string name="placeholder_filename">placeholder.txt</string>
     <string name="placeholder_media_time">12:23:45</string>
     <string name="placeholder_sentence">Це заповнювач</string>
     <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
@@ -736,7 +737,6 @@
     <string name="preview_image_error_no_local_file">Відсутній файл на пристрої для попереднього показу</string>
     <string name="preview_image_error_unknown_format">Неможливо показати зображення</string>
     <string name="preview_image_file_is_not_downloaded">Файл не звантажено</string>
-    <string name="preview_image_file_is_not_exist">Файл відсутній</string>
     <string name="preview_media_unhandled_http_code_message">Цей файл неможливо вилучити, оскільки його заблоковано іншим користувачем або процесом. Спробуйте пізніше.</string>
     <string name="preview_sorry">Перепрошуємо</string>
     <string name="privacy">Конфіденційність</string>

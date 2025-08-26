@@ -609,8 +609,8 @@
     <string name="pick_contact_to_share_with">Trieu el contacte amb què compartir</string>
     <string name="picture_set_as_no_app">No s\'ha trobat cap aplicació per establir-hi la foto</string>
     <string name="pin_shortcut_label">Obre %1$s</string>
+    <string name="placeholder_extension">.txt</string>
     <string name="placeholder_fileSize">389 KB</string>
-    <string name="placeholder_filename">placeholder.txt</string>
     <string name="placeholder_media_time">12:23:45</string>
     <string name="placeholder_sentence">Això és un marcador de posició</string>
     <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
@@ -688,7 +688,6 @@
     <string name="preview_image_error_no_local_file">No hi ha cap fitxer local per fer una vista prèvia</string>
     <string name="preview_image_error_unknown_format">No es pot mostrar la imatge</string>
     <string name="preview_image_file_is_not_downloaded">No s\'ha baixat el fitxer</string>
-    <string name="preview_image_file_is_not_exist">El fitxer no existeix</string>
     <string name="preview_media_unhandled_http_code_message">Un altre usuari o procés ha bloquejat el fitxer i per tant no es pot eliminar. Torneu-ho a provar més tard.</string>
     <string name="preview_sorry">Ho sento</string>
     <string name="privacy">Privadesa</string>

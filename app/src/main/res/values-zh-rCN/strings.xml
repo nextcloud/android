@@ -448,6 +448,7 @@
     <string name="file_not_synced">文件无法同步。显示最新的可用版本。</string>
     <string name="file_rename">重命名</string>
     <string name="file_upload_worker_error_notification_title">上传失败，没有互联网连接</string>
+    <string name="file_upload_worker_same_file_already_exists">%s 已存在，未检测到冲突</string>
     <string name="file_version_restored_error">恢复文件版本时发生错误！</string>
     <string name="file_version_restored_successfully">成功恢复文件版本。</string>
     <string name="filedetails_details">详情</string>
@@ -655,8 +656,8 @@
     <string name="picture_set_as_no_app">找不到可以设置图片的应用程序</string>
     <string name="pin_home">固定到主屏幕</string>
     <string name="pin_shortcut_label">打开 1%1$s</string>
+    <string name="placeholder_extension">.txt </string>
     <string name="placeholder_fileSize">389 KB</string>
-    <string name="placeholder_filename">placeholder.txt</string>
     <string name="placeholder_media_time">12:23:45</string>
     <string name="placeholder_sentence">这是一个占位符</string>
     <string name="placeholder_timestamp">2012/05/18 下午12:23 </string>
@@ -736,7 +737,6 @@
     <string name="preview_image_error_no_local_file">没有可预览的本地文件</string>
     <string name="preview_image_error_unknown_format">无法显示图像</string>
     <string name="preview_image_file_is_not_downloaded">文件未下载</string>
-    <string name="preview_image_file_is_not_exist">文件不存在</string>
     <string name="preview_media_unhandled_http_code_message">文件当前被其他用户或进程锁定，因此无法删除。请稍后再试。</string>
     <string name="preview_sorry">抱歉</string>
     <string name="privacy">隐私</string>

@@ -598,8 +598,8 @@
     <string name="permission_storage_access">Sunt necesare drepturi adiționale pentru a încărca și descărca fișiere.</string>
     <string name="picture_set_as_no_app">Nu a fost găsită o aplicație pentru a seta imaginea</string>
     <string name="pin_shortcut_label">Deschide %1$s</string>
+    <string name="placeholder_extension">.txt</string>
     <string name="placeholder_fileSize">389 KO</string>
-    <string name="placeholder_filename">placeholder.txt</string>
     <string name="placeholder_media_time">12:23:45</string>
     <string name="placeholder_sentence">Acesta este un substituent</string>
     <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>

@@ -458,7 +458,6 @@
     <string name="picture_set_as_no_app">Не е пронајдена апликација за поставување на слики</string>
     <string name="pin_shortcut_label">Отвори %1$s</string>
     <string name="placeholder_fileSize">389 KB</string>
-    <string name="placeholder_filename">placeholder.txt</string>
     <string name="placeholder_media_time">12:23:45</string>
     <string name="placeholder_sentence">Ова е резервирано место</string>
     <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
@@ -513,7 +512,6 @@
     <string name="preview_image_description">Преглед на сликата</string>
     <string name="preview_image_error_no_local_file">Нема локална датотека за прикажување</string>
     <string name="preview_image_error_unknown_format">Неможе да се прикаже сликата</string>
-    <string name="preview_image_file_is_not_exist">Датотеката не постои</string>
     <string name="preview_sorry">Извинете</string>
     <string name="privacy">Приватност</string>
     <string name="public_share_name">Ново име</string>
