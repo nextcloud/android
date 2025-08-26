@@ -91,7 +91,7 @@ internal class BackgroundJobManagerImpl(
         const val JOB_PERIODIC_OFFLINE_OPERATIONS = "periodic_offline_operations"
         const val JOB_PERIODIC_HEALTH_STATUS = "periodic_health_status"
         const val JOB_IMMEDIATE_HEALTH_STATUS = "immediate_health_status"
-        const val JOB_METADATA = "job_metadata"
+        const val JOB_METADATA = "metadata_sync"
         const val JOB_INTERNAL_TWO_WAY_SYNC = "internal_two_way_sync"
 
         const val JOB_TEST = "test_job"
@@ -526,7 +526,7 @@ internal class BackgroundJobManagerImpl(
 
     override fun startMetadataSyncJob(currentDirId: Long) {
         val inputData = Data.Builder()
-            .putLong(MetadataWorker.CURRENT_DIR_ID, currentDirId)
+            .putLong(MetadataWorker.FILE_ID, currentDirId)
             .build()
 
         val constrains = Constraints.Builder()

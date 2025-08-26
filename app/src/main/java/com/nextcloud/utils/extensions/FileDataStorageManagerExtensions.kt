@@ -7,6 +7,7 @@
 
 package com.nextcloud.utils.extensions
 
+import com.nextcloud.client.database.entity.FileEntity
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
 
@@ -25,3 +26,8 @@ fun FileDataStorageManager.getDecryptedPath(file: OCFile): String {
         .reversed()
         .joinToString(OCFile.PATH_SEPARATOR)
 }
+
+fun FileDataStorageManager.fileEntityToOCFile(entity: FileEntity): OCFile = createFileInstance(entity)
+
+fun FileDataStorageManager.fileEntitiesToOCFiles(entities: List<FileEntity>): List<OCFile> =
+    entities.map { fileEntityToOCFile(it) }

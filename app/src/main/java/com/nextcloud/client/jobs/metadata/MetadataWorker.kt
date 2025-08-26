@@ -20,13 +20,13 @@ class MetadataWorker(private val context: Context, params: WorkerParameters, pri
 
     companion object {
         private const val TAG = "MetadataWorker"
-        const val CURRENT_DIR_ID = "current_dir_id"
+        const val FILE_ID = "file_id"
     }
 
     @Suppress("DEPRECATION")
     override suspend fun doWork(): Result {
         val storageManager = FileDataStorageManager(user, context.contentResolver)
-        val id = inputData.getLong(CURRENT_DIR_ID, -1L)
+        val id = inputData.getLong(FILE_ID, -1L)
         if (id == -1L) {
             Log_OC.e(TAG, "❌ Invalid folder ID. Aborting metadata sync.")
             return Result.failure()
