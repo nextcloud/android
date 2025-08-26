@@ -522,8 +522,8 @@
     <string name="permission_storage_access">Se requieren permisos adicionales para cargar y descargar archivos. </string>
     <string name="picture_set_as_no_app">No se encontró una aplicación con la cual establecer la imagen</string>
     <string name="pin_shortcut_label">Abrir %1$s</string>
+    <string name="placeholder_extension">.txt</string>
     <string name="placeholder_fileSize">389 KB</string>
-    <string name="placeholder_filename">marcadordeposición.txt</string>
     <string name="placeholder_media_time">12:23:45</string>
     <string name="placeholder_sentence">Este es un marcador de posición</string>
     <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
@@ -584,7 +584,6 @@
     <string name="preview_image_description">Vista previa de imagen</string>
     <string name="preview_image_error_no_local_file">No existe un archivo local a previsualizar</string>
     <string name="preview_image_error_unknown_format">No es posible mostrar la imagen</string>
-    <string name="preview_image_file_is_not_exist">El archivo no existe</string>
     <string name="preview_sorry">Disculpa</string>
     <string name="privacy">Privacidad</string>
     <string name="public_share_name">Nombre nuevo</string>

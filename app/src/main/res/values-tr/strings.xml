@@ -638,8 +638,8 @@
     <string name="picture_set_as_no_app">Görselin ayarlanabileceği bir uygulama bulunamadı</string>
     <string name="pin_home">Ana sayfaya sabitle</string>
     <string name="pin_shortcut_label">%1$s aç</string>
+    <string name="placeholder_extension">.txt</string>
     <string name="placeholder_fileSize">389 KB</string>
-    <string name="placeholder_filename">yerbelirleyici.txt</string>
     <string name="placeholder_media_time">12:23:45</string>
     <string name="placeholder_sentence">Bu bir yer belirleyicidir</string>
     <string name="placeholder_timestamp">2012/05/18 12:23 ÖS</string>
@@ -719,7 +719,6 @@
     <string name="preview_image_error_no_local_file">Ön izlenebilecek bir yerel dosya yok</string>
     <string name="preview_image_error_unknown_format">Görsel görüntülenemedi</string>
     <string name="preview_image_file_is_not_downloaded">Dosya indirilmedi</string>
-    <string name="preview_image_file_is_not_exist">Dosya bulunamadı</string>
     <string name="preview_media_unhandled_http_code_message">Dosya şu anda başka bir kullanıcı veya işlem tarafından kilitlenmiş olduğundan silinemez. Lütfen bir süre sonra yeniden deneyin.</string>
     <string name="preview_sorry">Ne yazık ki</string>
     <string name="privacy">Gizlilik</string>

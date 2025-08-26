@@ -570,7 +570,6 @@
     <string name="picture_set_as_no_app">No se encontró una aplicación con la cual establecer la imagen</string>
     <string name="pin_shortcut_label">Abrir %1$s</string>
     <string name="placeholder_fileSize">389 KB</string>
-    <string name="placeholder_filename">marcadordeposición.txt</string>
     <string name="placeholder_media_time">12:23:45</string>
     <string name="placeholder_sentence">Este es un marcador de posición</string>
     <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
@@ -642,7 +641,6 @@
     <string name="preview_image_error_no_local_file">No existe un archivo local a previsualizar</string>
     <string name="preview_image_error_unknown_format">No es posible mostrar la imagen</string>
     <string name="preview_image_file_is_not_downloaded">El archivo no está descargado</string>
-    <string name="preview_image_file_is_not_exist">El archivo no existe</string>
     <string name="preview_media_unhandled_http_code_message">El archivo se encuentra bloqueado actualmente por otro usuario o proceso y, por lo tanto, no es posible eliminarlo. Por favor, intente de nuevo más tarde.</string>
     <string name="preview_sorry">Disculpa</string>
     <string name="privacy">Privacidad</string>

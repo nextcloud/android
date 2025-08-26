@@ -511,7 +511,6 @@
     <string name="permission_storage_access">Aotreoù ouzhpenn ez eus ezhomp evit pellkas ha pellgargañ restroù.</string>
     <string name="picture_set_as_no_app">Meziant ebet kavet evit lakaat ur skeudenn gant</string>
     <string name="placeholder_fileSize">389 KB</string>
-    <string name="placeholder_filename">placeholder.txt</string>
     <string name="placeholder_media_time">12:23:45</string>
     <string name="placeholder_sentence">Ur lec\'h miret eo</string>
     <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>

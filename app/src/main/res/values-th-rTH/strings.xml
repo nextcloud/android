@@ -447,7 +447,6 @@
     <string name="pass_code_stored">รหัสยืนยันที่เก็บไว้</string>
     <string name="pass_code_wrong">รหัสยืนยันไม่ถูกต้อง</string>
     <string name="placeholder_fileSize">389 KB</string>
-    <string name="placeholder_filename">placeholder.txt</string>
     <string name="placeholder_media_time">12:23:45</string>
     <string name="placeholder_sentence">นี่คือ placeholder</string>
     <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
@@ -474,7 +473,6 @@
     <string name="prefs_value_theme_light">สว่าง</string>
     <string name="prefs_value_theme_system">ตั้งตามระบบ</string>
     <string name="preview_image_description">แสดงรูปภาพตัวอย่าง</string>
-    <string name="preview_image_file_is_not_exist">ไม่มีไฟล์อยู่</string>
     <string name="privacy">ความเป็นส่วนตัว</string>
     <string name="recommend_subject">ลอง %1$s บนอุปกรณ์ของคุณ!</string>
     <string name="recommend_text">ฉันอยากชวนคุณมาใช้ %1$s บนอุปกรณ์ของคุณ\nดาวน์โหลดที่นี่: %2$s</string>

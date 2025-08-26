@@ -655,8 +655,8 @@
     <string name="picture_set_as_no_app">Hakuna programu iliyopatikana ya kuweka picha nayo</string>
     <string name="pin_home">Bandika kwenye skrini ya nyumbani</string>
     <string name="pin_shortcut_label">Fungua %1$s</string>
+    <string name="placeholder_extension">.txt</string>
     <string name="placeholder_fileSize">389 KB</string>
-    <string name="placeholder_filename">placeholder.txt</string>
     <string name="placeholder_media_time">12:23:45</string>
     <string name="placeholder_sentence">Hiki ni kishikilia nafasi</string>
     <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
@@ -736,7 +736,6 @@
     <string name="preview_image_error_no_local_file">Hakuna faili ya ndani ya kuchungulia</string>
     <string name="preview_image_error_unknown_format">Imeshindwa kuonyesha picha</string>
     <string name="preview_image_file_is_not_downloaded">Faili haijapakuliwa</string>
-    <string name="preview_image_file_is_not_exist">Faili haipo</string>
     <string name="preview_media_unhandled_http_code_message">Faili kwa sasa imefungwa na mtumiaji au mchakato mwingine na kwa hivyo haiwezi kufutwa. Tafadhali jaribu tena baadaye.</string>
     <string name="preview_sorry">Pole</string>
     <string name="privacy">Faragha</string>

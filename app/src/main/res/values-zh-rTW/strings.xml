@@ -656,8 +656,8 @@
     <string name="picture_set_as_no_app">沒有找到圖片可設定的應用程式</string>
     <string name="pin_home">釘選至主畫面</string>
     <string name="pin_shortcut_label">開啟 %1$s</string>
+    <string name="placeholder_extension">.txt</string>
     <string name="placeholder_fileSize">389 KB</string>
-    <string name="placeholder_filename">placeholder.txt</string>
     <string name="placeholder_media_time">12:23:45</string>
     <string name="placeholder_sentence">這是佔位內容</string>
     <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
@@ -737,7 +737,6 @@
     <string name="preview_image_error_no_local_file">沒有可供預覽的本機檔案</string>
     <string name="preview_image_error_unknown_format">無法顯示圖片</string>
     <string name="preview_image_file_is_not_downloaded">檔案未下載</string>
-    <string name="preview_image_file_is_not_exist">檔案不存在</string>
     <string name="preview_media_unhandled_http_code_message">檔案目前已被其他使用者或處理程序鎖定，因此無法刪除。請稍後再試。</string>
     <string name="preview_sorry">很抱歉</string>
     <string name="privacy">隱私權</string>

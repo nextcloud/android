@@ -436,7 +436,6 @@
     <string name="permission_storage_access">Tha feum air barrachd cheadan mus gabh faidhlichean a luchdadh suas is a-nuas.</string>
     <string name="picture_set_as_no_app">Cha deach aplacaid a lorg airson dealbhan a chur leatha</string>
     <string name="placeholder_fileSize">389 KB</string>
-    <string name="placeholder_filename">glèidheadair-àite.txt</string>
     <string name="placeholder_media_time">12:23:45</string>
     <string name="placeholder_sentence">Seo glèidheadair-àite</string>
     <string name="placeholder_timestamp">2012/05/18 12:23f</string>

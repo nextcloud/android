@@ -549,8 +549,8 @@
     <string name="permission_storage_access">نیاز به مجوزهای اضافی برای بارگذاری و دریافت پرونده‌ها می باشد.</string>
     <string name="picture_set_as_no_app">هیچ برنامه ای برای تنظیم عکس یافت نشد</string>
     <string name="pin_shortcut_label">باز کنید %1$s</string>
+    <string name="placeholder_extension">.txt</string>
     <string name="placeholder_fileSize">۳۸۹ کیلوبایت</string>
-    <string name="placeholder_filename">placeholder.txt</string>
     <string name="placeholder_media_time">12:23:45</string>
     <string name="placeholder_sentence">این یک حفره است.</string>
     <string name="placeholder_timestamp">2012/05/18 12:23 بعد از ظهر</string>
@@ -620,7 +620,6 @@
     <string name="preview_image_description">پیش نمایش تصویر</string>
     <string name="preview_image_error_no_local_file">هیچ فایل محلی برای پیش نمایش وجود ندارد</string>
     <string name="preview_image_error_unknown_format">نشان دادن تصویر نامقدور</string>
-    <string name="preview_image_file_is_not_exist">فایل وجود ندارد</string>
     <string name="preview_sorry">ببخشید</string>
     <string name="privacy">حریم خصوصی</string>
     <string name="public_share_name">اسم جدید</string>

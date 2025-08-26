@@ -536,8 +536,8 @@
     <string name="permission_storage_access">Za prejemanje oziroma pošiljanje datotek v oblak so zahtevana dodatna dovoljenja.</string>
     <string name="picture_set_as_no_app">Ni najdenega programa za nastavitev slike</string>
     <string name="pin_shortcut_label">Odpri %1$s</string>
+    <string name="placeholder_extension">.txt</string>
     <string name="placeholder_fileSize">389 KB</string>
-    <string name="placeholder_filename">vsebnik.txt</string>
     <string name="placeholder_media_time">12:23:45</string>
     <string name="placeholder_sentence">To je vsebnik predmetov</string>
     <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
@@ -602,7 +602,6 @@
     <string name="preview_image_description">Predogled slike</string>
     <string name="preview_image_error_no_local_file">Ni krajevne datoteke za predogled</string>
     <string name="preview_image_error_unknown_format">Te slike ni mogoče prikazati</string>
-    <string name="preview_image_file_is_not_exist">Datoteka ne obstaja</string>
     <string name="preview_sorry">Na žalost</string>
     <string name="privacy">Zasebnost</string>
     <string name="public_share_name">Novo ime</string>

@@ -46,7 +46,7 @@
     <string name="auth_no_net_conn_title">Nav tīkla savienojumu</string>
     <string name="auth_nossl_plain_ok_title">Nav pieejams drošs savienojums.</string>
     <string name="auth_not_configured_title">Slikti formatēta servera konfigurācija</string>
-    <string name="auth_oauth_error">Neveiksmīga autorizācija</string>
+    <string name="auth_oauth_error">Nesekmīga pilnvarošana</string>
     <string name="auth_oauth_error_access_denied">Piekļuvi liedza autorizācijas serveris</string>
     <string name="auth_redirect_non_secure_connection_title">Drošais savienojums novirzīts caur nedrošu ceļu.</string>
     <string name="auth_secure_connection">Ir izveidots drošs savienojums</string>
@@ -368,6 +368,7 @@
     <string name="notification_channel_download_name_short">Lejupielādes</string>
     <string name="notification_channel_general_description">Rādīt paziņojumus par jaunām informācijas nesēju mapēm un līdzīgi</string>
     <string name="notification_channel_media_name">Atskaņotājs</string>
+    <string name="notification_channel_push_description">Parādīt servera nosūtītos pašpiegādes paziņojumus: pieminēšanas piebildēs, jaunu attālo koplietojumu saņemšanu, pārvaldītāju ievietotos paziņojumus utt..</string>
     <string name="notification_channel_upload_name_short">Augšupielādes</string>
     <string name="notifications_no_results_headline">Nav paziņojumu</string>
     <string name="offline_mode">Nav interneta savienojuma</string>
@@ -389,12 +390,11 @@
     <string name="pdf_zoom_tip">Piesist lapai, lai pietuvinātu</string>
     <string name="permission_allow">Atļaut</string>
     <string name="permission_deny">Noraidīt</string>
-    <string name="permission_storage_access">Nepieciešamas papildus tiesības, lai augšupielādētu un lejupielādētu datnes.</string>
+    <string name="permission_storage_access">Nepieciešamas papildu tiesības, lai augšupielādētu un lejupielādētu datnes.</string>
     <string name="picture_set_as_no_app">Nav atrasta neviena lietotne, ar ko iestatīt attēlu</string>
     <string name="pin_home">Piespraust sākuma ekrānam</string>
     <string name="pin_shortcut_label">Atvērt %1$s</string>
     <string name="placeholder_fileSize">389 KB</string>
-    <string name="placeholder_filename">placeholder.txt</string>
     <string name="placeholder_media_time">12:23:45</string>
     <string name="placeholder_sentence">Šis ir viettura teksts</string>
     <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
@@ -563,7 +563,7 @@
     <string name="sync_current_folder_was_removed">Mape %1$s vairs nepastāv</string>
     <string name="sync_fail_content">Nevarēja sinhronizēt %1$s</string>
     <string name="sync_fail_content_unauthorized">Nepareiza parole kontam %1$s</string>
-    <string name="sync_fail_in_favourites_ticker">Kept-in-sync datnes cieta neveiksmi</string>
+    <string name="sync_fail_in_favourites_ticker">Kept in sync datnes neizdevās</string>
     <string name="sync_fail_ticker">Sinhronizēšana neizdevās</string>
     <string name="sync_fail_ticker_unauthorized">Sinhronizēšana neizdevās, jāpiesakās vēlreiz</string>
     <string name="sync_file_nothing_to_do_msg">Datnes saturs jau ir sinhronizēts</string>
@@ -677,7 +677,7 @@
     <string name="what_s_new_image">Kas jauns attēls</string>
     <string name="whats_new_skip">Izlaist</string>
     <string name="whats_new_title">Jaunums %1$s</string>
-    <string name="whats_your_status">Kāds ir jūsu statuss?</string>
+    <string name="whats_your_status">Kāds ir Tavs stāvoklis?</string>
     <string name="widgets_not_available_title">Nav pieejams</string>
     <string name="worker_download">Lejupielādē datnes…</string>
     <string name="write_email">Nosūtīt e-pasta ziņojumu</string>

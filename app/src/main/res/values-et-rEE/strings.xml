@@ -656,8 +656,8 @@
     <string name="picture_set_as_no_app">Ei leidu rakendust pildi määramiseks</string>
     <string name="pin_home">Kinnita avalehele</string>
     <string name="pin_shortcut_label">Ava %1$s </string>
+    <string name="placeholder_extension">.txt</string>
     <string name="placeholder_fileSize">389 KB</string>
-    <string name="placeholder_filename">placeholder.txt</string>
     <string name="placeholder_media_time">12:23:45</string>
     <string name="placeholder_sentence">See on kohahoidja</string>
     <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
@@ -737,7 +737,6 @@
     <string name="preview_image_error_no_local_file">Eelvaate jaoks ei leidu kohalikku faili</string>
     <string name="preview_image_error_unknown_format">Pildi näitamine ei õnnestu</string>
     <string name="preview_image_file_is_not_downloaded">Fail pole alla laaditud</string>
-    <string name="preview_image_file_is_not_exist">Faili pole olemas</string>
     <string name="preview_media_unhandled_http_code_message">Fail on hetkel lukustatud teise kasutaja või protsessi poolt ja seega pole kustutatav. Palun proovi hiljem uuesti.</string>
     <string name="preview_sorry">Vabandame</string>
     <string name="privacy">Privaatsus</string>

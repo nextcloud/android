@@ -620,8 +620,8 @@
     <string name="pick_contact_to_share_with">Seleziona il contatto con cui condividere</string>
     <string name="picture_set_as_no_app">Nessuna applicazione trovata per impostare un\'immagine</string>
     <string name="pin_shortcut_label">Apri %1$s</string>
+    <string name="placeholder_extension">.txt</string>
     <string name="placeholder_fileSize">389 KB</string>
-    <string name="placeholder_filename">segnaposto.txt</string>
     <string name="placeholder_media_time">12:23:45</string>
     <string name="placeholder_sentence">Questo è un segnaposto</string>
     <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
@@ -699,7 +699,6 @@
     <string name="preview_image_error_no_local_file">Non esiste un file locale per l\'anteprima</string>
     <string name="preview_image_error_unknown_format">Impossibile mostrare l\'immagine</string>
     <string name="preview_image_file_is_not_downloaded">Il file non è stato scaricato</string>
-    <string name="preview_image_file_is_not_exist">Il file non esiste</string>
     <string name="preview_media_unhandled_http_code_message">Il file è attualmente bloccato da un altro utente o processo e quindi non eliminabile. Per favore riprova più tardi.</string>
     <string name="preview_sorry">Spiacenti</string>
     <string name="privacy">Riservatezza</string>

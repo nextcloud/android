@@ -597,8 +597,8 @@
     <string name="permission_storage_access">Flere tillatelser trengs for å laste opp og ned filer.</string>
     <string name="picture_set_as_no_app">Fant ikke noe app å sette bilde med.</string>
     <string name="pin_shortcut_label">Åpne %1$s</string>
+    <string name="placeholder_extension">.txt</string>
     <string name="placeholder_fileSize">389 KB</string>
-    <string name="placeholder_filename">plassholder.txt</string>
     <string name="placeholder_media_time">12:23:45</string>
     <string name="placeholder_sentence">Dette er en plassholder</string>
     <string name="placeholder_timestamp">18.05.2012 12:23</string>
@@ -674,7 +674,6 @@
     <string name="preview_image_error_no_local_file">Ingen lokal fil å forhåndsvise</string>
     <string name="preview_image_error_unknown_format">Kunne ikke vise bilde</string>
     <string name="preview_image_file_is_not_downloaded">Filen er ikke lastet ned</string>
-    <string name="preview_image_file_is_not_exist">Fil finnes ikke</string>
     <string name="preview_media_unhandled_http_code_message">Filen er for øyeblikket låst av en annen bruker eller prosess og kan derfor ikke slettes. Prøv igjen senere.</string>
     <string name="preview_sorry">Beklager</string>
     <string name="privacy">Personvern</string>
