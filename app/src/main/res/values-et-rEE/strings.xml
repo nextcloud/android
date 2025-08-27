@@ -658,6 +658,7 @@
     <string name="pin_shortcut_label">Ava %1$s </string>
     <string name="placeholder_extension">.txt</string>
     <string name="placeholder_fileSize">389 KB</string>
+    <string name="placeholder_filename">kohatäitja</string>
     <string name="placeholder_media_time">12:23:45</string>
     <string name="placeholder_sentence">See on kohahoidja</string>
     <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>

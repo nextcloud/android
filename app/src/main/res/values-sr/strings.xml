@@ -1034,6 +1034,9 @@
     <string name="upload_lock_failed">Неуспело закључавање фасцикле</string>
     <string name="upload_manually_cancelled">Корисник је прекинуо отпремање</string>
     <string name="upload_missing_storage_permission_allow_file_access">Дозволи комплетан приступ фајловима</string>
+    <string name="upload_missing_storage_permission_app_permissions">Дозволе апликације</string>
+    <string name="upload_missing_storage_permission_description">Фајлови не могу да се отправе без приступа локалном складишту. Тапните да одобрите приступ.</string>
+    <string name="upload_missing_storage_permission_title">Отпремање је заустављено – Потребна је дозвола за складиште</string>
     <string name="upload_notification_manager_start_text">%1$d / %2$d - %3$s</string>
     <string name="upload_old_android">Шифровање је могуће само са &gt;= Андроидом 5.0</string>
     <string name="upload_query_move_foreign_files">Недостатак простора  спречава копирање фајлова у фасциклу %1$s. Желите ли да их преместите тамо?</string>
