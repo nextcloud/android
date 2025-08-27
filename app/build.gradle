@@ -377,7 +377,7 @@ dependencies {
     qaImplementation project(":appscan")
 
     spotbugsPlugins "com.h3xstream.findsecbugs:findsecbugs-plugin:1.14.0"
-    spotbugsPlugins "com.mebigfatguy.fb-contrib:fb-contrib:7.6.12"
+    spotbugsPlugins "com.mebigfatguy.fb-contrib:fb-contrib:7.6.13"
 
     // dagger
     implementation libs.dagger
