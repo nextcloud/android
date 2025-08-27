@@ -655,8 +655,8 @@
     <string name="picture_set_as_no_app">Geen app gevonden om afbeelding in te stellen</string>
     <string name="pin_home">Vastzetten op startscherm</string>
     <string name="pin_shortcut_label">Open %1$s</string>
+    <string name="placeholder_extension">.txt</string>
     <string name="placeholder_fileSize">389 KB</string>
-    <string name="placeholder_filename">plaatshouder.txt</string>
     <string name="placeholder_media_time">12:23:45</string>
     <string name="placeholder_sentence">Dit is een plaatshouder</string>
     <string name="placeholder_timestamp">2012/05/18 12:23</string>
@@ -736,7 +736,6 @@
     <string name="preview_image_error_no_local_file">Er is geen lokaal bestand om te bekijken</string>
     <string name="preview_image_error_unknown_format">Kan afbeelding niet tonen</string>
     <string name="preview_image_file_is_not_downloaded">Bestand is niet gedownload</string>
-    <string name="preview_image_file_is_not_exist">Bestand bestaat niet</string>
     <string name="preview_media_unhandled_http_code_message">Het bestand is in gebruik door een andere gebruiker of proces en kan daardoor niet verwijderd worden. Probeer het later nog eens.</string>
     <string name="preview_sorry">Sorry</string>
     <string name="privacy">Privacy</string>

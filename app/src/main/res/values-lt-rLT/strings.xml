@@ -542,7 +542,6 @@
     <string name="picture_set_as_no_app">Nerasta programa, su kuria būtų galima nustatyti nuotrauką</string>
     <string name="pin_shortcut_label">Atverti %1$s</string>
     <string name="placeholder_fileSize">389 KB</string>
-    <string name="placeholder_filename">rezervas.txt</string>
     <string name="placeholder_media_time">12:23:45</string>
     <string name="placeholder_sentence">Rezervas</string>
     <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
@@ -606,7 +605,6 @@
     <string name="preview_image_error_no_local_file">Nėra vietinio failo peržiūrai</string>
     <string name="preview_image_error_unknown_format">Nepavyko parodyti paveikslo</string>
     <string name="preview_image_file_is_not_downloaded">Failas nėra atsisiųstas</string>
-    <string name="preview_image_file_is_not_exist">Failo nėra</string>
     <string name="preview_sorry">Atsiprašome</string>
     <string name="privacy">Privatumas</string>
     <string name="public_share_name">Naujas pavadinimas</string>

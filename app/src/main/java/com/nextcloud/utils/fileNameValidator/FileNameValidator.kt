@@ -39,7 +39,7 @@ object FileNameValidator {
         context: Context,
         existedFileNames: Set<String>? = null
     ): String? {
-        if (TextUtils.isEmpty(filename)) {
+        if (filename.isBlank()) {
             return context.getString(R.string.filename_empty)
         }
 

@@ -402,7 +402,6 @@
     <string name="permission_storage_access">Që të ngarkoni dhe shkarkoni skedar kërkohen leje shtesë.</string>
     <string name="picture_set_as_no_app">Nuk u gjet asnjë aplikacion për të vendosur foton</string>
     <string name="placeholder_fileSize">389 KB</string>
-    <string name="placeholder_filename">placeholder.txt</string>
     <string name="placeholder_media_time">12:23:45</string>
     <string name="placeholder_sentence">Kjo është një vendmbajtëse</string>
     <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>

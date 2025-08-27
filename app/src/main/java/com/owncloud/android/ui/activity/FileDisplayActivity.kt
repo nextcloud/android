@@ -269,7 +269,6 @@ class FileDisplayActivity :
 
         initSyncBroadcastReceiver()
         observeWorkerState()
-        registerRefreshFolderEventReceiver()
     }
 
     private fun loadSavedInstanceState(savedInstanceState: Bundle?) {
@@ -2816,22 +2815,6 @@ class FileDisplayActivity :
         checkForNewDevVersionNecessary(applicationContext)
     }
 
-    private fun registerRefreshFolderEventReceiver() {
-        val filter = IntentFilter(REFRESH_FOLDER_EVENT_RECEIVER)
-        LocalBroadcastManager.getInstance(this).registerReceiver(refreshFolderEventReceiver, filter)
-    }
-
-    private val refreshFolderEventReceiver: BroadcastReceiver = object : BroadcastReceiver() {
-        override fun onReceive(context: Context?, intent: Intent?) {
-            syncAndUpdateFolder(ignoreETag = true, ignoreFocus = false)
-        }
-    }
-
-    override fun onDestroy() {
-        LocalBroadcastManager.getInstance(this).unregisterReceiver(refreshFolderEventReceiver)
-        super.onDestroy()
-    }
-
     override fun onRestart() {
         super.onRestart()
         checkForNewDevVersionNecessary(applicationContext)
@@ -3050,8 +3033,6 @@ class FileDisplayActivity :
 
         const val KEY_IS_SEARCH_OPEN: String = "IS_SEARCH_OPEN"
         const val KEY_SEARCH_QUERY: String = "SEARCH_QUERY"
-
-        const val REFRESH_FOLDER_EVENT_RECEIVER: String = "REFRESH_FOLDER_EVENT"
 
         @JvmStatic
         fun openFileIntent(context: Context?, user: User?, file: OCFile?): Intent {

@@ -572,8 +572,8 @@
     <string name="permission_storage_access">Tiedostojen lähetys ja lataaminen vaatii lisäoikeuksia.</string>
     <string name="picture_set_as_no_app">Kuvan liittämiseksi ei löytynyt sovellusta</string>
     <string name="pin_shortcut_label">Avaa %1$s</string>
+    <string name="placeholder_extension">.txt</string>
     <string name="placeholder_fileSize">389 kt</string>
-    <string name="placeholder_filename">paikkamerkki.txt</string>
     <string name="placeholder_media_time">12:23:45</string>
     <string name="placeholder_sentence">Tämä on paikkamerkki</string>
     <string name="placeholder_timestamp">18.05.2012 12:23</string>
@@ -644,7 +644,6 @@ GNU yleinen lisenssi, versio 2</string>
     <string name="preview_image_error_no_local_file">Paikallista tiedostoa ei ole esikatselua varten</string>
     <string name="preview_image_error_unknown_format">Kuvan näyttäminen ei onnistunut</string>
     <string name="preview_image_file_is_not_downloaded">Tiedostoa ei ole ladattu</string>
-    <string name="preview_image_file_is_not_exist">Tiedostoa ei ole olemassa</string>
     <string name="preview_media_unhandled_http_code_message">Tiedosto on toisen käyttäjän tai prosessin lukitsema eikä sitä voida sen vuoksi poistaa. Yritä myöhemmin uudelleen.</string>
     <string name="preview_sorry">Anteeksi</string>
     <string name="privacy">Yksityisyys</string>

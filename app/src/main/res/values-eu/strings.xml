@@ -636,8 +636,8 @@
     <string name="picture_set_as_no_app">Ez da aplikaziorik aurkitu irudia ezartzeko</string>
     <string name="pin_home">Finkatu pantaila nagusian</string>
     <string name="pin_shortcut_label">Ireki %1$s</string>
+    <string name="placeholder_extension">.txt</string>
     <string name="placeholder_fileSize">389 KB</string>
-    <string name="placeholder_filename">leku-marka.txt</string>
     <string name="placeholder_media_time">12:23:45</string>
     <string name="placeholder_sentence">Hau leku-marka bat da</string>
     <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
@@ -717,7 +717,6 @@
     <string name="preview_image_error_no_local_file">Ez dago aurreikusteko fitxategi lokalik</string>
     <string name="preview_image_error_unknown_format">Ezin izan da irudia erakutsi</string>
     <string name="preview_image_file_is_not_downloaded">Fitxategia ez da deskargatu</string>
-    <string name="preview_image_file_is_not_exist">Fitxategia ez da existitzen</string>
     <string name="preview_media_unhandled_http_code_message">Fitxategia beste erabiltzaile edo prozesu batek blokeatuta dago eta, beraz, ezin da ezabatzu. Saiatu berriro geroago.</string>
     <string name="preview_sorry">Barkatu</string>
     <string name="privacy">Pribatutasuna</string>

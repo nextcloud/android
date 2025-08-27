@@ -622,8 +622,8 @@
     <string name="pick_contact_to_share_with">Escolla un contacto co que compartir</string>
     <string name="picture_set_as_no_app">Non se atopou unha aplicación coa que definir unha imaxe</string>
     <string name="pin_shortcut_label">Abrir %1$s</string>
+    <string name="placeholder_extension">.txt</string>
     <string name="placeholder_fileSize">389 KB</string>
-    <string name="placeholder_filename">marcadordesubstitución.txt</string>
     <string name="placeholder_media_time">12:23:45</string>
     <string name="placeholder_sentence">Isto é un marcador de substitución</string>
     <string name="placeholder_timestamp">18/05/2012 12:23 p.m.</string>
@@ -702,7 +702,6 @@
     <string name="preview_image_error_no_local_file">Non hai ficheiro local que ver</string>
     <string name="preview_image_error_unknown_format">Non é posíbel amosar a imaxe</string>
     <string name="preview_image_file_is_not_downloaded">O ficheiro non está descargado</string>
-    <string name="preview_image_file_is_not_exist">O ficheiro non existe</string>
     <string name="preview_media_unhandled_http_code_message">O ficheiro está bloqueado actualmente por outro usuario ou proceso e, por tanto, non é posíbel eliminalo. Ténteo de novo máis tarde.</string>
     <string name="preview_sorry">Desculpe.</string>
     <string name="privacy">Privacidade</string>

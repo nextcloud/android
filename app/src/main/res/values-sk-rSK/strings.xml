@@ -636,8 +636,8 @@
     <string name="picture_set_as_no_app">Aplikácia na nastavenie obrázku sa nenašla</string>
     <string name="pin_home">Pripnúť na domovskú obrazovku</string>
     <string name="pin_shortcut_label">Otvoriť %1$s</string>
+    <string name="placeholder_extension">.txt</string>
     <string name="placeholder_fileSize">389 KB</string>
-    <string name="placeholder_filename">placeholder.txt</string>
     <string name="placeholder_media_time">12:23:45</string>
     <string name="placeholder_sentence">Toto je \"placeholder\"</string>
     <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
@@ -715,7 +715,6 @@
     <string name="preview_image_error_no_local_file">Nepodarilo sa zobraziť lokálny súbor</string>
     <string name="preview_image_error_unknown_format">Nemožno zobraziť obrázok</string>
     <string name="preview_image_file_is_not_downloaded">Súbor nebol stiahnutý</string>
-    <string name="preview_image_file_is_not_exist">Súbor neexistuje</string>
     <string name="preview_media_unhandled_http_code_message">Súbor je momentálne uzamknutý iným užívateľom alebo procesom, a preto ho nemožno odstrániť. Skúste to znova neskôr.</string>
     <string name="preview_sorry">Prepáčte</string>
     <string name="privacy">Súkromie</string>

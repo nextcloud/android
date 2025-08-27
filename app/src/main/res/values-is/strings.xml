@@ -618,8 +618,8 @@
     <string name="pick_contact_to_share_with">Veldu tengilið til að deila með</string>
     <string name="picture_set_as_no_app">Engin forrit fundust til að setja mynd</string>
     <string name="pin_shortcut_label">Opna %1$s</string>
+    <string name="placeholder_extension">.txt</string>
     <string name="placeholder_fileSize">KB</string>
-    <string name="placeholder_filename">frátökutákn.txt</string>
     <string name="placeholder_media_time">12:23:45</string>
     <string name="placeholder_sentence">Þetta er frátökutákn</string>
     <string name="placeholder_timestamp">e.h.</string>
@@ -697,7 +697,6 @@
     <string name="preview_image_error_no_local_file">Það er engin staðvær skrá til að forskoða</string>
     <string name="preview_image_error_unknown_format">Get ekki birt mynd</string>
     <string name="preview_image_file_is_not_downloaded">Skráin er ekki sótt</string>
-    <string name="preview_image_file_is_not_exist">Skráin er ekki til</string>
     <string name="preview_media_unhandled_http_code_message">Skráin er læst í augnablikinu af öðrum notanda eða ferli og er því ekki hægt að eyða henni. Reyndu aftur síðar.</string>
     <string name="preview_sorry">Því miður</string>
     <string name="privacy">Gagnaleynd</string>

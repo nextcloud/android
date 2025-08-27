@@ -247,6 +247,13 @@
     <string name="document_scan_export_dialog_title">Dışa aktarma türünü seçin</string>
     <string name="document_scan_pdf_generation_failed">PDF dosyası oluşturulamadı</string>
     <string name="document_scan_pdf_generation_in_progress">PDF oluşturuluyor…</string>
+    <string name="document_storage_provider_cannot_create_file_and_folder">Burada ögeler oluşturulamaz: Oluşturma izni verilmemiş.</string>
+    <string name="document_storage_provider_cannot_create_file_inside_folder">Dosya oluşturulamaz: İzin verilmemiş.</string>
+    <string name="document_storage_provider_cannot_create_folder_inside_folder">Klasör oluşturulamaz: İzin verilmemiş.</string>
+    <string name="document_storage_provider_cannot_delete">Öge silinemez: Silme izni verilmemiş.</string>
+    <string name="document_storage_provider_cannot_move">Öge taşınamaz: Taşıma izni verilmemiş.</string>
+    <string name="document_storage_provider_cannot_read">Öge açılamaz: Okuma izni verilmemiş.</string>
+    <string name="document_storage_provider_cannot_rename">Öge yeniden adlandırılamaz: Yeniden adlandırma izni verilmemiş.</string>
     <string name="done">Tamam</string>
     <string name="dontClear">Kaldırılmasın</string>
     <string name="download_cannot_create_file">Yerel dosya oluşturulamadı</string>
@@ -326,6 +333,7 @@
     <string name="error_comment_file">Dosyaya yorum yapılırken sorun çıktı</string>
     <string name="error_crash_title">%1$s çöktü</string>
     <string name="error_creating_file_from_template">Kalıptan dosya oluşturulurken sorun çıktı</string>
+    <string name="error_fetching_sharees">Paylaşımlar alınamadı.</string>
     <string name="error_file_actions">Dosya işlemleri görüntülenirken sorun çıktı</string>
     <string name="error_file_lock">Dosya kilidi durumu değiştirilirken sorun çıktı</string>
     <string name="error_report_issue_action">Hata bildirin</string>
@@ -360,6 +368,7 @@
     <string name="etm_transfer_type">Aktarım</string>
     <string name="etm_transfer_type_download">İndirme</string>
     <string name="etm_transfer_type_upload">Yükleme</string>
+    <string name="extented_list_fragment_empty_list_message_no_write_permission">Bu klasörde dosya oluşturma ya da yükleme izniniz yok.</string>
     <string name="external_shares">Dış paylaşımlar</string>
     <string name="fab_label">Ekle ya da yükle</string>
     <string name="failed_to_download">Dosya indirme yöneticisine aktarılamadı</string>
@@ -375,6 +384,7 @@
     <string name="file_detail_share_already_active">Bir paylaşım oluşturamazsınız. Bu kullanıcı için paylaşım zaten etkin.</string>
     <string name="file_detail_sharing_fragment_no_contact_app_message">Kişilerin seçilmesi için kullanılabilecek bir uygulama yok</string>
     <string name="file_details_no_content">Ayrıntılar yüklenemedi</string>
+    <string name="file_details_sharing_fragment_custom_permission_not_selected">Lütfen özel izni seçin</string>
     <string name="file_icon">Dosya</string>
     <string name="file_keep">Tut</string>
     <string name="file_list_empty">Bazı içerikler yükleyin ya da aygıtlarınızla eşitleyin.</string>
@@ -392,6 +402,8 @@
     <string name="file_list_empty_shared">Paylaştığınız dosya ve klasörler burada görüntülenir.</string>
     <string name="file_list_empty_shared_headline">Henüz hiçbir şey paylaşılmamış</string>
     <string name="file_list_empty_unified_search_no_results">Sorgunuzdan bir sonuç alınamadı</string>
+    <string name="file_list_empty_unified_search_start_search">Aramanızı başlatın</string>
+    <string name="file_list_empty_unified_search_start_search_description">Hesabınızdaki dosyaları, kişileri, takvim etkinliklerini ve diğer şeyleri bulmak için yukarıdaki arama çubuğuna yazın.</string>
     <string name="file_list_folder">klasör</string>
     <string name="file_list_live">CANLI</string>
     <string name="file_list_loading">Yükleniyor …</string>
@@ -436,6 +448,7 @@
     <string name="file_not_synced">Dosya eşitlenemedi. Kullanılabilen son sürüm görüntüleniyor.</string>
     <string name="file_rename">Yeniden adlandır</string>
     <string name="file_upload_worker_error_notification_title">Yüklenemedi. İnternet bağlantısı yok</string>
+    <string name="file_upload_worker_same_file_already_exists">%s zaten var. Herhangi bir çakışma bulunmadı</string>
     <string name="file_version_restored_error">Geri yüklenecek dosya sürümünü seçin!</string>
     <string name="file_version_restored_successfully">Dosya sürümü geri yüklendi.</string>
     <string name="filedetails_details">Ayrıntılar</string>
@@ -512,6 +525,7 @@
     <string name="last_backup">Son yedekleme: %1$s</string>
     <string name="link">Bağlantı</string>
     <string name="link_name">Bağlantı adı</string>
+    <string name="link_not_followed_due_to_security_settings">Güvenlik ayarları nedeniyle bağlantı açılmadı.</string>
     <string name="link_share_editing">Düzenleniyor</string>
     <string name="list_layout">Liste yerleşimi</string>
     <string name="load_more_results">Diğer sonuçları yükle</string>
@@ -611,8 +625,12 @@
     <string name="offline_mode_info_description">İnternet bağlantınız olmasa bile klasörlerinizi düzenleyebilir, dosyalar oluşturabilirsiniz. Yeniden çevrim içi olduğunuzda, bekleyen işlemleriniz otomatik olarak eşitlenir.</string>
     <string name="offline_mode_info_title">Çevrim dışınız ancak çalışma sürüyor</string>
     <string name="offline_operations_file_does_not_exists_yet">Dosya bulunamadı. Önce lütfen dosyayı yükleyin.</string>
+    <string name="offline_operations_worker_notification_create_file_conflict_text">%s oluşturulamadı. Sunucuda aynı adlı bir dosya var.</string>
+    <string name="offline_operations_worker_notification_create_folder_conflict_text">%s oluşturulamadı. Sunucuda aynı adlı bir klasör var.</string>
     <string name="offline_operations_worker_notification_error_text">Çevrim dışı işlem tamamlanamadı. %s</string>
     <string name="offline_operations_worker_notification_manager_ticker">Çevrim dışı işlemler</string>
+    <string name="offline_operations_worker_notification_remove_conflict_text">%s silinemedi. Sunucudaki dosya değiştirilmiş.</string>
+    <string name="offline_operations_worker_notification_rename_conflict_text">%s yeniden adlandırılamadı. Sunucuda aynı adlı bir dosya var.</string>
     <string name="offline_operations_worker_notification_start_text">Çevrim dışı işlemleri başlatılıyor</string>
     <string name="oneHour">1 saat</string>
     <string name="online">Çevrim içi</string>
@@ -638,8 +656,9 @@
     <string name="picture_set_as_no_app">Görselin ayarlanabileceği bir uygulama bulunamadı</string>
     <string name="pin_home">Ana sayfaya sabitle</string>
     <string name="pin_shortcut_label">%1$s aç</string>
+    <string name="placeholder_extension">.txt</string>
     <string name="placeholder_fileSize">389 KB</string>
-    <string name="placeholder_filename">yerbelirleyici.txt</string>
+    <string name="placeholder_filename">yerbelirtici</string>
     <string name="placeholder_media_time">12:23:45</string>
     <string name="placeholder_sentence">Bu bir yer belirleyicidir</string>
     <string name="placeholder_timestamp">2012/05/18 12:23 ÖS</string>
@@ -719,7 +738,6 @@
     <string name="preview_image_error_no_local_file">Ön izlenebilecek bir yerel dosya yok</string>
     <string name="preview_image_error_unknown_format">Görsel görüntülenemedi</string>
     <string name="preview_image_file_is_not_downloaded">Dosya indirilmedi</string>
-    <string name="preview_image_file_is_not_exist">Dosya bulunamadı</string>
     <string name="preview_media_unhandled_http_code_message">Dosya şu anda başka bir kullanıcı veya işlem tarafından kilitlenmiş olduğundan silinemez. Lütfen bir süre sonra yeniden deneyin.</string>
     <string name="preview_sorry">Ne yazık ki</string>
     <string name="privacy">Gizlilik</string>
@@ -1015,6 +1033,10 @@
     <string name="upload_local_storage_not_copied">Dosya yerel depolamaya kopyalanamadı</string>
     <string name="upload_lock_failed">Klasör kilitlenemedi</string>
     <string name="upload_manually_cancelled">Kullanıcı yüklemeyi iptal etti</string>
+    <string name="upload_missing_storage_permission_allow_file_access">Tüm dosyalara erişmeye izin ver</string>
+    <string name="upload_missing_storage_permission_app_permissions">Uygulama izinleri</string>
+    <string name="upload_missing_storage_permission_description">Yerel depolama alanına erişme izni olmadan dosyalarınız yüklenemez. İzin vermek için dokunun.</string>
+    <string name="upload_missing_storage_permission_title">Yükleme durdu. Depolama alanına erişme izni gerekli</string>
     <string name="upload_notification_manager_start_text">%1$d / %2$d - %3$s</string>
     <string name="upload_old_android">Şifreleme yalnızca >=Android 5.0 üzerinde kullanılabilir </string>
     <string name="upload_query_move_foreign_files">Seçilmiş dosyaları %1$s klasörüne kopyalamak için yeterli boş alan yok. Bu dosyaları kopyalamak yerine taşımak ister misiniz?</string>

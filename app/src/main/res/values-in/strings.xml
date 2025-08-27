@@ -640,7 +640,6 @@ Otomatis unggah hanya bekerja dengan baik apabila Anda mengeluarkan aplikasi ini
     <string name="pin_home">Sematkan ke tampilan beranda</string>
     <string name="pin_shortcut_label">Buka %1$s</string>
     <string name="placeholder_fileSize">389 KB</string>
-    <string name="placeholder_filename">placeholder.txt</string>
     <string name="placeholder_media_time">12:23:45</string>
     <string name="placeholder_sentence">Ini adalah placeholder</string>
     <string name="placeholder_timestamp">18/05/2012 12:23 PM</string>
@@ -720,7 +719,6 @@ Otomatis unggah hanya bekerja dengan baik apabila Anda mengeluarkan aplikasi ini
     <string name="preview_image_error_no_local_file">Tidak ada berkas lokal untuk dipratinjau</string>
     <string name="preview_image_error_unknown_format">Gambar ini tidak dapat ditampilkan</string>
     <string name="preview_image_file_is_not_downloaded">File tidak terunduh</string>
-    <string name="preview_image_file_is_not_exist">File tidak ada</string>
     <string name="preview_media_unhandled_http_code_message">File sedang dikunci oleh pengguna lain atau sedang diproses sehingga tidak dapat dihapus. Coba lagi nanti.</string>
     <string name="preview_sorry">Maaf</string>
     <string name="privacy">Privasi</string>

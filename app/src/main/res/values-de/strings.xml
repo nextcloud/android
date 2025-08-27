@@ -656,8 +656,9 @@
     <string name="picture_set_as_no_app">Keine App gefunden, mit der ein Bid gesetzt werden könnte</string>
     <string name="pin_home">An Startbildschirm anheften</string>
     <string name="pin_shortcut_label">%1$s öffnen</string>
+    <string name="placeholder_extension">.txt</string>
     <string name="placeholder_fileSize">389 KB</string>
-    <string name="placeholder_filename">platzhalter.txt</string>
+    <string name="placeholder_filename">Platzhalter</string>
     <string name="placeholder_media_time">12:23:45</string>
     <string name="placeholder_sentence">Dies ist ein Platzhalter</string>
     <string name="placeholder_timestamp">18.5.2012 12:23</string>
@@ -737,7 +738,6 @@
     <string name="preview_image_error_no_local_file">Keine lokale Datei für die Vorschau vorhanden</string>
     <string name="preview_image_error_unknown_format">Bild kann nicht angezeigt werden</string>
     <string name="preview_image_file_is_not_downloaded">Datei nicht heruntergeladen</string>
-    <string name="preview_image_file_is_not_exist">Datei existiert nicht</string>
     <string name="preview_media_unhandled_http_code_message">Die Datei ist derzeit von einem anderen Benutzer oder Prozess gesperrt und kann daher nicht gelöscht werden. Bitte später noch einmal versuchen.</string>
     <string name="preview_sorry">Entschuldigung</string>
     <string name="privacy">Datenschutz</string>
