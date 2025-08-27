@@ -14,10 +14,10 @@ import com.nextcloud.utils.extensions.isFileSpecificError
 import com.nextcloud.utils.numberFormatter.NumberFormatter
 import com.owncloud.android.R
 import com.owncloud.android.lib.common.operations.RemoteOperationResult
+import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode
 import com.owncloud.android.operations.UploadFileOperation
 import com.owncloud.android.ui.notifications.NotificationUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
-import kotlin.random.Random
 
 class UploadNotificationManager(private val context: Context, viewThemeUtils: ViewThemeUtils, id: Int) :
     WorkerNotificationManager(id, context, viewThemeUtils, R.string.foreground_service_upload) {
@@ -78,8 +78,7 @@ class UploadNotificationManager(private val context: Context, viewThemeUtils: Vi
         conflictsResolveIntent: PendingIntent?,
         cancelUploadActionIntent: PendingIntent?,
         credentialIntent: PendingIntent?,
-        errorMessage: String,
-        showNewNotification: Boolean = false
+        errorMessage: String
     ) {
         if (uploadFileOperation.isMissingPermissionThrown) {
             return
@@ -118,7 +117,7 @@ class UploadNotificationManager(private val context: Context, viewThemeUtils: Vi
             setContentText(errorMessage)
         }
 
-        if (resultCode.isFileSpecificError() || showNewNotification) {
+        if (resultCode.isFileSpecificError()) {
             showNewNotification(uploadFileOperation)
         } else {
             showNotification()
@@ -148,7 +147,7 @@ class UploadNotificationManager(private val context: Context, viewThemeUtils: Vi
     private fun showNewNotification(operation: UploadFileOperation) {
         notificationManager.notify(
             NotificationUtils.createUploadNotificationTag(operation.file),
-            Random.Default.nextInt(),
+            operation.file.hashCode(),
             notificationBuilder.build()
         )
     }
@@ -167,6 +166,17 @@ class UploadNotificationManager(private val context: Context, viewThemeUtils: Vi
         notificationManager.notify(
             notificationId,
             notificationBuilder.build()
+        )
+    }
+
+    fun showQuotaExceedNotification(operation: UploadFileOperation, resultCode: ResultCode) {
+        notifyForFailedResult(
+            operation,
+            resultCode,
+            null,
+            null,
+            null,
+            context.getString(R.string.upload_quota_exceeded)
         )
     }
 
