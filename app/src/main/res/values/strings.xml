@@ -44,7 +44,6 @@
     <string name="app_config_enforce_protection_title">Enforce Protection</string>
     <string name="offline_operations_file_does_not_exists_yet">File does not exists, yet. Please upload the file first.</string>
 
-    <string name="offline_operations_worker_cancel_offline_operation_text">Cancel offline operation</string>
     <string name="offline_operations_worker_notification_remove_conflict_text">Cancelled deletion of %s. The file has been modified on the server.</string>
     <string name="offline_operations_worker_notification_rename_conflict_text">Cancelled rename of %s. A file with the same name exists on the server.</string>
     <string name="offline_operations_worker_notification_create_file_conflict_text">Could not create %s. A file with the same name exists on the server.</string>

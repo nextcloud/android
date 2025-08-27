@@ -155,7 +155,7 @@ class OfflineOperationsNotificationManager(private val context: Context, viewThe
 
         return NotificationCompat.Action(
             R.drawable.ic_delete,
-            context.getString(R.string.offline_operations_worker_cancel_offline_operation_text),
+            context.getString(R.string.common_cancel),
             pendingIntent
         )
     }
