@@ -702,6 +702,10 @@ public class MainApp extends Application implements HasAndroidInjector, NetworkC
                 createChannel(notificationManager, NotificationUtils.NOTIFICATION_CHANNEL_GENERAL, R.string
                                   .notification_channel_general_name, R.string.notification_channel_general_description,
                               context, NotificationManager.IMPORTANCE_DEFAULT);
+
+                createChannel(notificationManager, NotificationUtils.NOTIFICATION_CHANNEL_OFFLINE_OPERATIONS,
+                              R.string.notification_channel_offline_operations_name_short,
+                              R.string.notification_channel_offline_operations_description, context);
             } else {
                 Log_OC.e(TAG, "Notification manager is null");
             }

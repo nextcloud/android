@@ -34,6 +34,7 @@ public final class NotificationUtils {
     public static final String NOTIFICATION_CHANNEL_FILE_OBSERVER = "NOTIFICATION_CHANNEL_FILE_OBSERVER";
     public static final String NOTIFICATION_CHANNEL_PUSH = "NOTIFICATION_CHANNEL_PUSH";
     public static final String NOTIFICATION_CHANNEL_BACKGROUND_OPERATIONS = "NOTIFICATION_CHANNEL_BACKGROUND_OPERATIONS";
+    public static final String NOTIFICATION_CHANNEL_OFFLINE_OPERATIONS = "NOTIFICATION_CHANNEL_OFFLINE_OPERATIONS";
 
     private NotificationUtils() {
         // utility class -> private constructor
