@@ -97,19 +97,22 @@ class RemoveFilesDialogFragment :
 
         val fileActivity = getTypedActivity(FileActivity::class.java)
         val fda = getTypedActivity(FileDisplayActivity::class.java)
-
         fileActivity?.connectivityService?.isNetworkAndServerAvailable { result ->
             if (result) {
+                fileActivity.showLoadingDialog(fileActivity.getString(R.string.wait_a_moment))
+
                 if (files.isNotEmpty()) {
-                    fileActivity.fileOperationsHelper?.removeFiles(files, onlyLocalCopy, false)
+                    fileActivity.fileOperationsHelper?.removeFiles(files, onlyLocalCopy, true)
                 }
 
                 if (offlineFiles.isNotEmpty()) {
                     fda?.refreshCurrentDirectory()
                 }
+
+                fileActivity.dismissLoadingDialog()
             } else {
                 if (onlyLocalCopy) {
-                    fileActivity.fileOperationsHelper?.removeFiles(files, true, false)
+                    fileActivity.fileOperationsHelper?.removeFiles(files, true, true)
                 } else {
                     files.forEach { file ->
                         fileDataStorageManager.addRemoveFileOfflineOperation(file)
