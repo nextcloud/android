@@ -216,14 +216,14 @@ class OfflineOperationsWorker(
     ): Boolean {
         val operationResult = result?.first ?: return false
 
-        val logMessage = if (operationResult.isSuccess == true) "Operation completed" else "Operation failed"
+        val logMessage = if (operationResult.isSuccess) "Operation completed" else "Operation failed"
         Log_OC.d(TAG, "$logMessage filename: ${operation.filename}, type: ${operation.type}")
 
         return if (result.first?.isSuccess == true) {
             handleSuccessResult(operation, totalOperations, currentSuccessfulOperationIndex)
             true
         } else {
-            handleErrorResult(result)
+            handleErrorResult(operation.id, result)
             false
         }
     }
@@ -249,14 +249,14 @@ class OfflineOperationsWorker(
         notificationManager.dismissNotification(operation.id)
     }
 
-    private fun handleErrorResult(result: OfflineOperationResult) {
+    private fun handleErrorResult(id: Int?, result: OfflineOperationResult) {
         val operationResult = result?.first ?: return
         val operation = result.second ?: return
 
         val excludedErrorCodes = listOf(RemoteOperationResult.ResultCode.FOLDER_ALREADY_EXISTS)
 
         if (!excludedErrorCodes.contains(operationResult.code)) {
-            notificationManager.showNewNotification(operationResult, operation)
+            notificationManager.showNewNotification(id, operationResult, operation)
         }
     }
 
