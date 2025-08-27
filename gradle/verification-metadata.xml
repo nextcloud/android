@@ -140,6 +140,7 @@
          <trusted-key id="33FD4BFD33554634053D73C0C2148900BCD3C2AF" group="org.jetbrains" name="annotations" version="23.0.0"/>
          <trusted-key id="34441E504A937F43EB0DAEF96A65176A0FB1CD0B">
             <trusting group="org.apache.groovy" name="groovy-bom" version="4.0.22"/>
+            <trusting group="org.apache.groovy" name="groovy-bom" version="4.0.27"/>
             <trusting group="org.codehaus.groovy"/>
             <trusting group="org.codehaus.groovy" name="groovy" version="3.0.10"/>
             <trusting group="org.codehaus.groovy" name="groovy-bom" version="3.0.19"/>
@@ -297,6 +298,7 @@
          <trusted-key id="8F9A3C6D105B9F57844A721D79E193516BE7998F">
             <trusting group="org.dom4j" name="dom4j" version="2.1.3"/>
             <trusting group="org.dom4j" name="dom4j" version="2.1.4"/>
+            <trusting group="org.dom4j" name="dom4j" version="2.2.0"/>
          </trusted-key>
          <trusted-key id="90EE19787A7BCF6FD37A1E9180C08B1C29100955">
             <trusting group="com.squareup"/>
@@ -426,6 +428,7 @@
             <trusting group="com.github.spotbugs.snom" name="spotbugs-gradle-plugin" version="6.2.1"/>
             <trusting group="com.github.spotbugs.snom" name="spotbugs-gradle-plugin" version="6.2.2"/>
             <trusting group="com.github.spotbugs.snom" name="spotbugs-gradle-plugin" version="6.2.3"/>
+            <trusting group="^com[.]github[.]spotbugs($|([.].*))" regex="true"/>
          </trusted-key>
          <trusted-key id="DA7A1BB85B19E4FB05073431205C8673DC742C7C" group="org.apache" name="apache" version="9"/>
          <trusted-key id="DB0597E3144342256BC81E3EC727D053C4481CF5" group="org.tensorflow" name="tensorflow-lite-metadata"/>
