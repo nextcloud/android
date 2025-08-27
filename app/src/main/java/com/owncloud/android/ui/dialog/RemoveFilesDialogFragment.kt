@@ -102,7 +102,7 @@ class RemoveFilesDialogFragment :
                 fileActivity.showLoadingDialog(fileActivity.getString(R.string.wait_a_moment))
 
                 if (files.isNotEmpty()) {
-                    // Display the snackbar message only when more than one file is deleted.
+                    // Display the snackbar message only when a single file is deleted.
                     val inBackground = (files.size != 1)
                     fileActivity.fileOperationsHelper?.removeFiles(files, onlyLocalCopy, inBackground)
                 }
