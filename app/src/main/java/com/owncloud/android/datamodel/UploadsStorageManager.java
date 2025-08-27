@@ -27,6 +27,8 @@ import com.nextcloud.client.account.CurrentAccountProvider;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.database.NextcloudDatabase;
 import com.nextcloud.client.database.dao.UploadDao;
+import com.nextcloud.client.database.entity.UploadEntity;
+import com.nextcloud.client.database.entity.UploadEntityKt;
 import com.nextcloud.client.jobs.upload.FileUploadHelper;
 import com.nextcloud.client.jobs.upload.FileUploadWorker;
 import com.nextcloud.utils.autoRename.AutoRename;
@@ -437,6 +439,20 @@ public class UploadsStorageManager extends Observable {
         return result;
     }
 
+    public List<OCUpload> getUploadsByIds(long[] uploadIds, String accountName) {
+        final List<OCUpload> result = new ArrayList<>();
+
+        final List<UploadEntity> entities = uploadDao.getUploadsByIds(uploadIds, accountName);
+        entities.forEach(uploadEntity -> {
+            OCUpload ocUpload = createOCUploadFromEntity(uploadEntity);
+            if (ocUpload != null) {
+                result.add(ocUpload);
+            }
+        });
+
+        return result;
+    }
+
     private OCUpload[] getUploads(@Nullable String selection, @Nullable String... selectionArgs) {
         final List<OCUpload> uploads = new ArrayList<>();
         long page = 0;
@@ -553,6 +569,15 @@ public class UploadsStorageManager extends Observable {
             c.close();
         }
         return uploads;
+    }
+
+    @Nullable
+    private OCUpload createOCUploadFromEntity(UploadEntity entity) {
+        if (entity == null) {
+            return null;
+        }
+        initOCCapability();
+        return UploadEntityKt.toOCUpload(entity, capability);
     }
 
     private OCUpload createOCUploadFromCursor(Cursor c) {
