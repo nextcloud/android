@@ -1319,24 +1319,6 @@ public final class ThumbnailsCacheManager {
         return dest;
     }
 
-    public static void generateResizedImage(OCFile file) {
-        Point p = getScreenDimension();
-        int pxW = p.x;
-        int pxH = p.y;
-        String imageKey = PREFIX_RESIZED_IMAGE + file.getRemoteId();
-
-        Bitmap bitmap = BitmapUtils.decodeSampledBitmapFromFile(file.getStoragePath(), pxW, pxH);
-
-        if (bitmap != null) {
-            // Handle PNG
-            if (PNG_MIMETYPE.equalsIgnoreCase(file.getMimeType())) {
-                bitmap = handlePNG(bitmap, pxW, pxH);
-            }
-
-            addThumbnailToCache(imageKey, bitmap, file.getStoragePath(), pxW, pxH);
-        }
-    }
-
     public static void generateThumbnailFromOCFile(OCFile file, User user, Context context) {
         int pxW;
         int pxH;
