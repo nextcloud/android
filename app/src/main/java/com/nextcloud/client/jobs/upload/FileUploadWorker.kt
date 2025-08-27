@@ -158,8 +158,7 @@ class FileUploadWorker(
         }
 
         val previouslyUploadedFileSize = currentBatchIndex * FileUploadHelper.MAX_FILE_COUNT
-
-        val uploads = uploadIds.map { id -> uploadsStorageManager.getUploadById(id) }.filterNotNull()
+        val uploads = uploadsStorageManager.getUploadsByIds(uploadIds, accountName)
 
         for ((index, upload) in uploads.withIndex()) {
             if (preferences.isGlobalUploadPaused) {
