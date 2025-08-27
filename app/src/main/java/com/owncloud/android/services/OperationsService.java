@@ -629,7 +629,7 @@ public class OperationsService extends Service {
                         shareId = operationIntent.getLongExtra(EXTRA_SHARE_ID, -1);
                         long shareRemoteId = operationIntent.getLongExtra(EXTRA_SHARE_REMOTE_ID, -1);
 
-                        if (shareId > 0) {
+                        if (shareId > 0 || shareRemoteId > 0) {
                             UpdateShareInfoOperation updateShare = new UpdateShareInfoOperation(shareId,
                                                                                                 shareRemoteId,
                                                                                                 fileDataStorageManager);
