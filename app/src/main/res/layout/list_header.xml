@@ -7,19 +7,19 @@
   ~ SPDX-FileCopyrightText: 2019 Nextcloud GmbH
   ~ SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
 -->
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/headerView"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:paddingStart="@dimen/standard_padding"
     android:paddingTop="@dimen/standard_padding"
-    android:paddingEnd="@dimen/standard_padding"
     android:showDividers="none">
 
     <TextView
         android:id="@+id/headerText"
+        android:layout_marginHorizontal="@dimen/standard_margin"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginBottom="@dimen/standard_margin"
@@ -28,11 +28,13 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/standard_margin"
         android:contentDescription="@null"
         android:src="@drawable/preview_markdown_gradient_shape" />
 
     <TextView
         android:id="@+id/recommended_files_title"
+        android:layout_marginHorizontal="@dimen/standard_margin"
         android:text="@string/recommended_files_title"
         android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
         android:layout_width="match_parent"
@@ -57,6 +59,7 @@
 
     <TextView
         android:id="@+id/all_files_title"
+        android:layout_marginHorizontal="@dimen/standard_margin"
         android:text="@string/drawer_item_all_files"
         android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
         android:layout_width="match_parent"
