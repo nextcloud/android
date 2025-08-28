@@ -64,10 +64,10 @@ class OfflineOperationsWorker(
 
     override suspend fun doWork(): Result = withContext(Dispatchers.IO) {
         val jobName = inputData.getString(JOB_NAME)
-        Log_OC.d(TAG, "$jobName --- OfflineOperationsWorker started ---")
+        Log_OC.d(TAG, "[$jobName] OfflineOperationsWorker started for user: ${user.accountName}")
 
         if (!isNetworkAndServerAvailable()) {
-            Log_OC.w(TAG, "No internet connection. Retrying later.")
+            Log_OC.w(TAG, "⚠️ No internet/server connection. Retrying later...")
             return@withContext Result.retry()
         }
 
@@ -75,9 +75,12 @@ class OfflineOperationsWorker(
 
         notificationManager.start()
         val operations = fileDataStorageManager.offlineOperationDao.getAll()
+        Log_OC.d(TAG, "📋 Found ${operations.size} offline operations to process")
+
         val result = processOperations(operations, client)
         notificationManager.dismissNotification()
 
+        Log_OC.d(TAG, "🏁 Worker finished with result: $result")
         return@withContext result
     }
 
@@ -88,22 +91,23 @@ class OfflineOperationsWorker(
         return try {
             operations.forEachIndexed { index, operation ->
                 try {
+                    Log_OC.d(TAG, "Processing operation, path: ${operation.path}")
                     val result = executeOperation(operation, client)
                     val success = handleResult(operation, totalOperationSize, index, result)
 
                     if (!success) {
-                        Log_OC.e(TAG, "Skipped (failed to handle result): $operation")
+                        Log_OC.e(TAG, "❌ Operation failed: id=${operation.id}, type=${operation.type}")
                     }
                 } catch (e: Exception) {
-                    Log_OC.e(TAG, "Skipped (exception): $e")
+                    Log_OC.e(TAG, "💥 Exception while processing operation id=${operation.id}: ${e.message}")
                 }
             }
 
-            Log_OC.i(TAG, "OfflineOperationsWorker completed successfully.")
+            Log_OC.i(TAG, "✅ All offline operations completed successfully.")
             WorkerStateLiveData.instance().setWorkState(WorkerState.OfflineOperationsCompleted)
             Result.success()
         } catch (e: Exception) {
-            Log_OC.e(TAG, "Processing failed: $e")
+            Log_OC.e(TAG, "💥 ProcessOperations failed: ${e.message}")
             Result.failure()
         }
     }
@@ -122,7 +126,7 @@ class OfflineOperationsWorker(
     ): OfflineOperationResult? = withContext(Dispatchers.IO) {
         val path = (operation.path)
         if (path == null) {
-            Log_OC.w(TAG, "Offline operation skipped, file path is null: $operation")
+            Log_OC.w(TAG, "⚠️ Skipped: path is null for operation id=${operation.id}")
             return@withContext null
         }
 
@@ -130,12 +134,14 @@ class OfflineOperationsWorker(
         val ocFile = fileDataStorageManager.getFileByDecryptedRemotePath(operation.path)
 
         if (remoteFile != null && ocFile != null && isFileChanged(remoteFile, ocFile)) {
-            Log_OC.w(TAG, "Offline operation skipped, file already exists: $operation")
+            Log_OC.w(TAG, "⚠️ Conflict detected: File already exists on server. Skipping operation id=${operation.id}")
 
             if (operation.isRenameOrRemove()) {
+                Log_OC.d(TAG, "🗑 Removing conflicting rename/remove operation id=${operation.id}")
                 fileDataStorageManager.offlineOperationDao.delete(operation)
                 notificationManager.showConflictNotificationForDeleteOrRemoveOperation(operation)
             } else {
+                Log_OC.d(TAG, "📌 Showing conflict resolution for operation id=${operation.id}")
                 notificationManager.showConflictResolveNotification(ocFile, operation)
             }
 
@@ -143,12 +149,24 @@ class OfflineOperationsWorker(
         }
 
         return@withContext when (val type = operation.type) {
-            is OfflineOperationType.CreateFolder -> createFolder(operation, client)
-            is OfflineOperationType.CreateFile -> createFile(operation, client)
-            is OfflineOperationType.RenameFile -> renameFile(operation, client)
-            is OfflineOperationType.RemoveFile -> ocFile?.let { removeFile(it, client) }
+            is OfflineOperationType.CreateFolder -> {
+                Log_OC.d(TAG, "📂 Creating folder at ${type.path}")
+                createFolder(operation, client)
+            }
+            is OfflineOperationType.CreateFile -> {
+                Log_OC.d(TAG, "📤 Uploading file: local=${type.localPath} → remote=${type.remotePath}")
+                createFile(operation, client)
+            }
+            is OfflineOperationType.RenameFile -> {
+                Log_OC.d(TAG, "✏️ Renaming ${operation.path} → ${type.newName}")
+                renameFile(operation, client)
+            }
+            is OfflineOperationType.RemoveFile -> {
+                Log_OC.d(TAG, "🗑 Removing file: ${operation.path}")
+                ocFile?.let { removeFile(it, client) }
+            }
             else -> {
-                Log_OC.d(TAG, "Unsupported operation type: $type")
+                Log_OC.d(TAG, "⚠️ Unsupported operation type: $type")
                 null
             }
         }
@@ -252,11 +270,13 @@ class OfflineOperationsWorker(
     private fun handleErrorResult(id: Int?, result: OfflineOperationResult) {
         val operationResult = result?.first ?: return
         val operation = result.second ?: return
-
+        Log_OC.e(TAG, "❌ Operation failed [id=$id]: code=${operationResult.code}, message=${operationResult.message}")
         val excludedErrorCodes = listOf(RemoteOperationResult.ResultCode.FOLDER_ALREADY_EXISTS)
 
         if (!excludedErrorCodes.contains(operationResult.code)) {
             notificationManager.showNewNotification(id, operationResult, operation)
+        } else {
+            Log_OC.d(TAG, "ℹ️ Ignored error: ${operationResult.code}")
         }
     }
 
