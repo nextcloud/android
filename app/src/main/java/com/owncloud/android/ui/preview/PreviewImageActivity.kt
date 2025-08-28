@@ -15,9 +15,7 @@ import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.ActionBar
-import androidx.core.view.WindowCompat
-import androidx.core.view.WindowInsetsCompat
-import androidx.core.view.WindowInsetsControllerCompat
+import androidx.core.content.ContextCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.viewpager2.widget.ViewPager2
@@ -125,28 +123,6 @@ class PreviewImageActivity :
 
         observeWorkerState()
         applyDisplayCutOutTopPadding()
-    }
-
-    private fun applyDisplayCutOutTopPadding() {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.P) {
-            return
-        }
-
-        window.decorView.setOnApplyWindowInsetsListener { view, insets ->
-            val displayCutout = insets.displayCutout
-            if (displayCutout != null) {
-                val safeInsetTop = displayCutout.safeInsetTop
-                val viewPager = findViewById<View>(R.id.fragmentPager)
-                viewPager.setPadding(
-                    viewPager.paddingLeft,
-                    safeInsetTop,
-                    viewPager.paddingRight,
-                    viewPager.paddingBottom,
-                )
-            }
-
-            view.onApplyWindowInsets(insets)
-        }
     }
 
     fun toggleActionBarVisibility(hide: Boolean) {
@@ -333,6 +309,29 @@ class PreviewImageActivity :
                     isDownloadWorkStarted = false
                 }
             }
+        }
+    }
+
+    private fun applyDisplayCutOutTopPadding() {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.P) {
+            return
+        }
+
+        window.decorView.setOnApplyWindowInsetsListener { view, insets ->
+            val displayCutout = insets.displayCutout
+            if (displayCutout != null) {
+                val safeInsetTop = displayCutout.safeInsetTop
+                val viewPager = findViewById<View>(R.id.fragmentPager)
+                viewPager.setPadding(
+                    viewPager.paddingLeft,
+                    safeInsetTop,
+                    viewPager.paddingRight,
+                    viewPager.paddingBottom,
+                )
+                viewPager.setBackgroundColor(ContextCompat.getColor(this, R.color.black))
+            }
+
+            view.onApplyWindowInsets(insets)
         }
     }
 
@@ -524,9 +523,9 @@ class PreviewImageActivity :
             ) == 0
 
         if (visible) {
-            hideSystemUI()
+            hideSystemUI(fullScreenAnchorView!!)
         } else {
-            showSystemUI()
+            showSystemUI(fullScreenAnchorView!!)
         }
     }
 
@@ -560,18 +559,25 @@ class PreviewImageActivity :
         // TODO Auto-generated method stub
     }
 
-
-    private fun hideSystemUI() {
-        WindowCompat.setDecorFitsSystemWindows(window, false)
-        WindowInsetsControllerCompat(window, window.decorView).let { controller ->
-            controller.hide(WindowInsetsCompat.Type.systemBars())
-            controller.systemBarsBehavior = WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
-        }
+    @Suppress("DEPRECATION")
+    private fun hideSystemUI(anchorView: View) {
+        anchorView.systemUiVisibility = (
+            View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                or View.SYSTEM_UI_FLAG_FULLSCREEN
+                or View.SYSTEM_UI_FLAG_IMMERSIVE
+                or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+            )
     }
 
-    private fun showSystemUI() {
-        WindowCompat.setDecorFitsSystemWindows(window, true)
-        WindowInsetsControllerCompat(window, window.decorView).show(WindowInsetsCompat.Type.systemBars())
+    @Suppress("DEPRECATION")
+    private fun showSystemUI(anchorView: View) {
+        anchorView.systemUiVisibility = (
+            View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+            )
     }
 
     companion object {
