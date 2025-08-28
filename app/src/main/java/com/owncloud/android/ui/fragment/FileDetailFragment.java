@@ -859,13 +859,10 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
      * @param share
      * @param screenTypePermission
      * @param isReshareShown
-     * @param isExpiryDateShown
      */
-    public void editExistingShare(OCShare share, int screenTypePermission, boolean isReshareShown,
-                                  boolean isExpiryDateShown) {
+    public void editExistingShare(OCShare share, int screenTypePermission, boolean isReshareShown) {
         requireActivity().getSupportFragmentManager().beginTransaction().add(R.id.sharing_frame_container,
-                                                                             FileDetailsSharingProcessFragment.newInstance(share, screenTypePermission, isReshareShown,
-                                                                                                                           isExpiryDateShown),
+                                                                             FileDetailsSharingProcessFragment.newInstance(share, screenTypePermission, isReshareShown),
                                                                              FileDetailsSharingProcessFragment.TAG)
             .commit();
         showHideFragmentView(true);

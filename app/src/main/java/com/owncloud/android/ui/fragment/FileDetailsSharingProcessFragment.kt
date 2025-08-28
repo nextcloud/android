@@ -67,7 +67,6 @@ class FileDetailsSharingProcessFragment :
         private const val ARG_OCSHARE = "arg_ocshare"
         private const val ARG_SCREEN_TYPE = "arg_screen_type"
         private const val ARG_RESHARE_SHOWN = "arg_reshare_shown"
-        private const val ARG_EXP_DATE_SHOWN = "arg_exp_date_shown"
         private const val ARG_SECURE_SHARE = "secure_share"
 
         // types of screens to be displayed
@@ -101,17 +100,11 @@ class FileDetailsSharingProcessFragment :
          * fragment instance to be called while modifying existing share information
          */
         @JvmStatic
-        fun newInstance(
-            share: OCShare,
-            screenType: Int,
-            isReshareShown: Boolean,
-            isExpirationDateShown: Boolean
-        ): FileDetailsSharingProcessFragment {
+        fun newInstance(share: OCShare, screenType: Int, isReshareShown: Boolean): FileDetailsSharingProcessFragment {
             val bundle = Bundle().apply {
                 putParcelable(ARG_OCSHARE, share)
                 putInt(ARG_SCREEN_TYPE, screenType)
                 putBoolean(ARG_RESHARE_SHOWN, isReshareShown)
-                putBoolean(ARG_EXP_DATE_SHOWN, isExpirationDateShown)
             }
 
             return FileDetailsSharingProcessFragment().apply {
@@ -138,7 +131,6 @@ class FileDetailsSharingProcessFragment :
 
     private var share: OCShare? = null
     private var isReShareShown: Boolean = true // show or hide reShare option
-    private var isExpDateShown: Boolean = true // show or hide expiry date option
     private var isSecureShare: Boolean = false
 
     private lateinit var capabilities: OCCapability
@@ -183,7 +175,6 @@ class FileDetailsSharingProcessFragment :
 
             shareProcessStep = it.getInt(ARG_SCREEN_TYPE, SCREEN_TYPE_PERMISSION)
             isReShareShown = it.getBoolean(ARG_RESHARE_SHOWN, true)
-            isExpDateShown = it.getBoolean(ARG_EXP_DATE_SHOWN, true)
             isSecureShare = it.getBoolean(ARG_SECURE_SHARE, false)
         }
     }
@@ -299,7 +290,7 @@ class FileDetailsSharingProcessFragment :
         updateView()
 
         // show or hide expiry date
-        binding.shareProcessSetExpDateSwitch.setVisibleIf(isExpDateShown && !isSecureShare)
+        binding.shareProcessSetExpDateSwitch.setVisibleIf(!isSecureShare)
         shareProcessStep = SCREEN_TYPE_PERMISSION
     }
 
