@@ -77,7 +77,7 @@
                 android:ellipsize="end"
                 android:gravity="bottom"
                 android:maxLines="1"
-                android:text="@string/placeholder_filename"
+                android:text="@string/placeholder_filename_with_extension"
                 android:textAppearance="?android:attr/textAppearanceListItem"
                 tools:text="Firstname Lastname" />
 

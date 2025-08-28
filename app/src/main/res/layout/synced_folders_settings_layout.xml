@@ -389,7 +389,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:ellipsize="end"
-                    android:text="@string/placeholder_filename"
+                    android:text="@string/placeholder_filename_with_extension"
                     android:textColor="?android:attr/textColorSecondary" />
             </LinearLayout>
 
@@ -417,7 +417,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:ellipsize="end"
-                    android:text="@string/placeholder_filename"
+                    android:text="@string/placeholder_filename_with_extension"
                     android:textColor="?android:attr/textColorSecondary" />
             </LinearLayout>
         </LinearLayout>

@@ -43,7 +43,7 @@
             android:textAppearance="?android:attr/textAppearanceListItem"
             android:textColor="@color/text_color"
             android:textSize="@dimen/txt_size_16sp"
-            tools:text="@string/placeholder_filename" />
+            tools:text="@string/placeholder_filename_with_extension" />
 
         <TextView
             android:id="@+id/message"

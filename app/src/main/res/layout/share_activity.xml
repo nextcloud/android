@@ -39,7 +39,7 @@
             android:layout_toEndOf="@+id/shareFileIcon"
             android:ellipsize="middle"
             android:singleLine="true"
-            android:text="@string/placeholder_filename"
+            android:text="@string/placeholder_filename_with_extension"
             android:textColor="@color/text_color"
             android:textSize="@dimen/two_line_primary_text_size" />
 

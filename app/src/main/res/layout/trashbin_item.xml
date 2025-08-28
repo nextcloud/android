@@ -47,7 +47,7 @@
                 android:singleLine="true"
                 android:textColor="@color/text_color"
                 android:textSize="@dimen/two_line_primary_text_size"
-                tools:text="@string/placeholder_filename" />
+                tools:text="@string/placeholder_filename_with_extension" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -86,7 +86,7 @@
                 android:id="@+id/originalLocation"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                tools:text="@string/placeholder_filename"
+                tools:text="@string/placeholder_filename_with_extension"
                 android:textColor="@color/list_item_lastmod_and_filesize_text"
                 android:textSize="@dimen/two_line_secondary_text_size"/>
 

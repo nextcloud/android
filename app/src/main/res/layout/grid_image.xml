@@ -155,7 +155,7 @@
             android:ellipsize="middle"
             android:gravity="center"
             android:singleLine="true"
-            android:text="@string/placeholder_filename"
+            android:text="@string/placeholder_filename_with_extension"
             android:textColor="@color/text_color"
             android:textSize="@dimen/grid_item_text_size"
             app:layout_constraintBottom_toBottomOf="parent"
