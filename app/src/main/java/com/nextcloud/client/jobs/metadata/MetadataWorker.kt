@@ -13,8 +13,11 @@ import androidx.work.WorkerParameters
 import com.nextcloud.client.account.User
 import com.nextcloud.utils.extensions.getNonEncryptedSubfolders
 import com.owncloud.android.datamodel.FileDataStorageManager
+import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.operations.RefreshFolderOperation
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 class MetadataWorker(private val context: Context, params: WorkerParameters, private val user: User) :
     CoroutineWorker(context, params) {
@@ -39,26 +42,35 @@ class MetadataWorker(private val context: Context, params: WorkerParameters, pri
         }
         Log_OC.d(TAG, "🕒 Starting metadata sync for folder filePath: $filePath")
 
+        // first check current dir
+        refreshFolder(currentDir, storageManager)
+
+        // then get up-to-date subfolders
         val subfolders = storageManager.getNonEncryptedSubfolders(currentDir.fileId, user.accountName)
-        val subFoldersAndFolderItself = listOf(currentDir) + subfolders
-        subFoldersAndFolderItself.forEach { subFolder ->
-            if (subFolder.etag == subFolder.etagOnServer) {
-                Log_OC.d(TAG, "Skipping ${subFolder.remotePath}, eTag didn't change")
-                return@forEach
-            }
-
-            Log_OC.d(TAG, "⏳ Fetching metadata for: ${subFolder.remotePath}")
-
-            val operation = RefreshFolderOperation(subFolder, storageManager, user, context)
-            val result = operation.execute(user, context)
-            if (result.isSuccess) {
-                Log_OC.d(TAG, "✅ Successfully fetched metadata for: ${subFolder.remotePath}")
-            } else {
-                Log_OC.e(TAG, "❌ Failed to fetch metadata for: ${subFolder.remotePath}")
-            }
+        subfolders.forEach { subFolder ->
+            refreshFolder(subFolder, storageManager)
         }
 
-        Log_OC.d(TAG, "🏁 Metadata sync completed for folder ID: $id")
+        Log_OC.d(TAG, "🏁 Metadata sync completed for folder filePath: $filePath")
         return Result.success()
     }
+
+    @Suppress("DEPRECATION")
+    private suspend fun refreshFolder(folder: OCFile, storageManager: FileDataStorageManager) =
+        withContext(Dispatchers.IO) {
+            if (folder.etag == folder.etagOnServer) {
+                Log_OC.d(TAG, "Skipping ${folder.remotePath}, eTag didn't change")
+                return@withContext
+            }
+
+            Log_OC.d(TAG, "⏳ Fetching metadata for: ${folder.remotePath}")
+
+            val operation = RefreshFolderOperation(folder, storageManager, user, context)
+            val result = operation.execute(user, context)
+            if (result.isSuccess) {
+                Log_OC.d(TAG, "✅ Successfully fetched metadata for: ${folder.remotePath}")
+            } else {
+                Log_OC.e(TAG, "❌ Failed to fetch metadata for: ${folder.remotePath}")
+            }
+        }
 }
