@@ -748,13 +748,12 @@ open class ExtendedListFragment :
     }
 
     protected fun setupBackButtonRedirectToAllFiles() {
-        val fda = getTypedActivity(FileActivity::class.java)
-        val currentDir = fda?.currentDir ?: return
-
         view?.isFocusableInTouchMode = true
         view?.requestFocus()
         view?.setOnKeyListener { _: View, keyCode: Int, event: KeyEvent ->
             if (event.action == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_BACK) {
+                val fda = getTypedActivity(FileActivity::class.java)
+                val currentDir = fda?.currentDir ?: return@setOnKeyListener false
                 return@setOnKeyListener fda.handleBackButtonEvent(currentDir)
             }
             false
