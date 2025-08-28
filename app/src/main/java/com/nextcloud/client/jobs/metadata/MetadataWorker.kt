@@ -42,6 +42,11 @@ class MetadataWorker(private val context: Context, params: WorkerParameters, pri
         val subfolders = storageManager.getNonEncryptedSubfolders(currentDir.fileId, user.accountName)
         val subFoldersAndFolderItself = listOf(currentDir) + subfolders
         subFoldersAndFolderItself.forEach { subFolder ->
+            if (subFolder.etag == subFolder.etagOnServer) {
+                Log_OC.d(TAG, "Skipping ${subFolder.remotePath}, eTag didn't change")
+                return@forEach
+            }
+
             Log_OC.d(TAG, "⏳ Fetching metadata for: ${subFolder.remotePath}")
 
             val operation = RefreshFolderOperation(subFolder, storageManager, user, context)
