@@ -7,86 +7,133 @@
 set -e
 
 if [ $# -lt 2 ]; then
-    echo "1: record: true/false
-2: class name
-3: method name
-4: darkMode: dark/light / \"all\" to run all screenshot combinations
-5: color"
-
-    exit
-fi
-
-pushd app/src/androidTest/java
-
-class=$(find | grep $2 | grep -E "java$|kt$" | head -n1|sed s'/\//\./'g | sed s'#^\.\.##' | sed s'#\.java##'| sed s'#\.kt##')
-
-if [[ -z $class ]]; then
-    echo "Class not found!"
+    echo "Usage: $0 <record> <class_name> [method_name] [darkMode] [color]"
+    echo "1: record: true/false"
+    echo "2: class name"
+    echo "3: method name (optional)"
+    echo "4: darkMode: dark/light / \"all\" to run all screenshot combinations (optional)"
+    echo "5: color (optional)"
     exit 1
 fi
 
+ORIGINAL_DIR=$(pwd)
+
+cleanup() {
+    cd "$ORIGINAL_DIR"
+    sed -i 's#<bool name="is_beta">true</bool>#<bool name="is_beta">false</bool>#g' app/src/main/res/values/setup.xml 2>/dev/null || true
+    unset ANDROID_SERIAL
+}
+trap cleanup EXIT
+
+pushd app/src/androidTest/java
+
+class=$(find . -name "*$2*" | grep -E "java$|kt$" | head -n1 | sed 's/\//\./g' | sed 's#^\.\.##' | sed 's#\.java##' | sed 's#\.kt##')
+
+if [[ -z "$class" ]]; then
+    echo "Class not found for pattern: $2"
+    exit 1
+fi
+
+echo "Found class: $class"
+
 cd ../../../
 
-if [ $1 == "true" ] ; then
+if [ "$1" == "true" ]; then
     record="-Precord"
 else
     record=""
 fi
 
-if [ -e $3 ] ; then
+if [ -z "$3" ]; then
     method=""
 else
     method="#$3"
 
-    # check if method exists
-    if [[ $(grep -c $3 $(find | grep $2 | grep -E "java$|kt$" | head -n1)) -eq 0 ]]; then
-        echo "Method not found!"
+    class_file=$(find app/src/androidTest/java -name "*$2*" | grep -E "java$|kt$" | head -n1)
+    if [[ -n "$class_file" ]] && [[ $(grep -c "$3" "$class_file") -eq 0 ]]; then
+        echo "Method '$3' not found in class file: $class_file"
+        exit 1
+    fi
+    echo "Using method: $3"
+fi
+
+if [ -z "$4" ]; then
+    darkMode=""
+else
+    darkMode="-Pandroid.testInstrumentationRunnerArguments.DARKMODE=$4"
+    echo "Using dark mode: $4"
+fi
+
+if [ -z "$5" ]; then
+    color=""
+else
+    color="-Pandroid.testInstrumentationRunnerArguments.COLOR=$5"
+    echo "Using color: $5"
+fi
+
+popd
+
+sed -i 's#<bool name="is_beta">false</bool>#<bool name="is_beta">true</bool>#g' app/src/main/res/values/setup.xml
+
+emulatorIsRunning=false
+while read -r line; do
+    if [[ -n "$line" ]] && [[ $(adb -s "$line" emu avd name 2>/dev/null | head -n1) =~ uiComparison.* ]]; then
+        emulatorIsRunning=true
+        export ANDROID_SERIAL="$line"
+        echo "Using existing emulator: $ANDROID_SERIAL"
+        break
+    fi
+done < <(adb devices | grep -v "List of devices" | grep "device$" | cut -f1)
+
+if [ "$emulatorIsRunning" == false ]; then
+    echo "Starting emulator..."
+    if ! command -v emulator &> /dev/null; then
+        echo "Error: emulator command not found. Make sure Android SDK is properly installed."
+        exit 1
+    fi
+
+    "$(command -v emulator)" -writable-system -avd uiComparison -no-snapshot -gpu swiftshader_indirect -no-audio -skin 500x833 &
+    emulator_pid=$!
+
+    echo "Waiting for emulator to start..."
+    sleep 30
+
+    timeout=300
+    counter=0
+    while [ $counter -lt $timeout ]; do
+        if adb shell getprop sys.boot_completed 2>/dev/null | grep -q "1"; then
+            echo "Emulator is ready"
+            break
+        fi
+        echo "Waiting for emulator to boot... ($counter/$timeout)"
+        sleep 5
+        counter=$((counter + 5))
+    done
+
+    if [ $counter -ge $timeout ]; then
+        echo "Error: Emulator failed to start within $timeout seconds"
+        kill $emulator_pid 2>/dev/null || true
         exit 1
     fi
 fi
 
-if [ -e $4 ] ; then
-    darkMode=""
-else
-    darkMode="-Pandroid.testInstrumentationRunnerArguments.DARKMODE=$4"
-fi
+echo "Running screenshot tests for class: $class$method"
 
-popd
-sed -i s'#<bool name="is_beta">false</bool>#<bool name="is_beta">true</bool>#'g app/src/main/res/values/setup.xml
-
-# check if emulator is running
-emulatorIsRunning=false
-while read line ; do
-    if [[ $(adb -s $line emu avd name 2>/dev/null | head -n1) =~ uiComparison.* ]]; then
-        emulatorIsRunning=true
-        export ANDROID_SERIAL=$line
-        break
+if [[ "$4" = "all" ]]; then
+    if [ -f scripts/runAllScreenshotCombinations ]; then
+        scripts/runAllScreenshotCombinations "noCI" "$1" "-Pandroid.testInstrumentationRunnerArguments.class=$class$method"
+    else
+        echo "Error: scripts/runAllScreenshotCombinations not found"
+        exit 1
     fi
-done < <(adb devices | cut -f1)
-
-if [ "$emulatorIsRunning" == false ] ; then
-    "$(command -v emulator)" -writable-system -avd uiComparison -no-snapshot -gpu swiftshader_indirect -no-audio -skin 500x833 &
-    sleep 20
-fi
-
-if [ -e $5 ] ; then
-    color=""
 else
-    color="-Pandroid.testInstrumentationRunnerArguments.COLOR=$5"
+    SHOT_TEST=true ./gradlew genericDebugExecuteScreenshotTests $record \
+        -Dorg.gradle.jvmargs="--add-opens java.base/java.nio=ALL-UNNAMED --add-opens java.base/java.nio.channels=ALL-UNNAMED --add-exports java.base/sun.nio.ch=ALL-UNNAMED" \
+        -Pscreenshot=true \
+        -Pandroid.testInstrumentationRunnerArguments.annotation=com.owncloud.android.utils.ScreenshotTest \
+        -Pandroid.testInstrumentationRunnerArguments.class="$class$method" \
+        $darkMode \
+        $color
 fi
 
-if [[ $4 = "all" ]]; then
-    scripts/runAllScreenshotCombinations "noCI" "$1" "-Pandroid.testInstrumentationRunnerArguments.class=$class$method"
-else
-    SHOT_TEST=true ./gradlew  genericDebugExecuteScreenshotTests $record \
-    -Dorg.gradle.jvmargs="--add-opens java.base/java.nio=ALL-UNNAMED --add-opens java.base/java.nio.channels=ALL-UNNAMED --add-exports java.base/sun.nio.ch=ALL-UNNAMED" \
-    -Pscreenshot=true \
-    -Pandroid.testInstrumentationRunnerArguments.annotation=com.owncloud.android.utils.ScreenshotTest \
-    -Pandroid.testInstrumentationRunnerArguments.class=$class$method \
-    $darkMode \
-    $color
-fi
-
-
-sed -i s'#<bool name="is_beta">true</bool>#<bool name="is_beta">false</bool>#'g app/src/main/res/values/setup.xml
-unset ANDROID_SERIAL
+echo "Screenshot tests completed successfully"
