@@ -56,7 +56,6 @@ import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.lib.resources.status.NextcloudVersion;
 import com.owncloud.android.lib.resources.status.OCCapability;
-import com.owncloud.android.lib.resources.status.OwnCloudVersion;
 import com.owncloud.android.providers.UsersAndGroupsSearchConfig;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
@@ -729,8 +728,7 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
     }
 
     private void modifyExistingShare(OCShare share, int screenTypePermission) {
-        onEditShareListener.editExistingShare(share, screenTypePermission, !isReshareForbidden(share),
-                                              capabilities.getVersion().isNewerOrEqual(OwnCloudVersion.nextcloud_18));
+        onEditShareListener.editExistingShare(share, screenTypePermission, !isReshareForbidden(share));
     }
 
     @Override
@@ -776,8 +774,7 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
                                   });
 
     public interface OnEditShareListener {
-        void editExistingShare(OCShare share, int screenTypePermission, boolean isReshareShown,
-                               boolean isExpiryDateShown);
+        void editExistingShare(OCShare share, int screenTypePermission, boolean isReshareShown);
 
         void onShareProcessClosed();
     }
