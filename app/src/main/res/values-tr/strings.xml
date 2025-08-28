@@ -129,8 +129,8 @@
     <string name="clear_notifications_failed">Bildirimler temizlenemedi.</string>
     <string name="clear_status_message">Durum iletisini kaldır</string>
     <string name="clear_status_message_after">Durum iletisi şu süre sonunda kaldırılsın</string>
-    <string name="clipboard_label">Metin %1$s kaynağından kopyalandı</string>
-    <string name="clipboard_no_text_to_copy">Panoya kopyalanacak bir metin alınamadı</string>
+    <string name="clipboard_label">Yazı %1$s kaynağından kopyalandı</string>
+    <string name="clipboard_no_text_to_copy">Panoya kopyalanacak bir yazı alınamadı</string>
     <string name="clipboard_text_copied">Bağlantı kopyalandı</string>
     <string name="clipboard_unexpected_error">Panoya kopyalama sırasında beklenmeyen bir sorun çıktı</string>
     <string name="common_back">Geri</string>
@@ -1018,7 +1018,7 @@
     <string name="upload_file_dialog_filetype">Dosya türü</string>
     <string name="upload_file_dialog_filetype_googlemap_shortcut">Google haritalar kısayol dosyası(%s)</string>
     <string name="upload_file_dialog_filetype_internet_shortcut">İnternet kısayol dosyası(%s)</string>
-    <string name="upload_file_dialog_filetype_snippet_text">Kod parçası metin dosyası(.txt)</string>
+    <string name="upload_file_dialog_filetype_snippet_text">Kod parçası yazı dosyası(.txt)</string>
     <string name="upload_file_dialog_title">Yüklenecek dosya adını ve dosya türünü belirtin</string>
     <string name="upload_files">Dosyaları yükle</string>
     <string name="upload_global_pause_title">Tüm yüklemeler duraklatıldı</string>
