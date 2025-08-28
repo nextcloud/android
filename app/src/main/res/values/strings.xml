@@ -1100,7 +1100,6 @@
     <string name="qr_could_not_be_read">QR code could not be read!</string>
     <string name="note_icon_hint">Note icon</string>
     <string name="add_new_public_share">Add new public share link</string>
-    <string name="public_share_name">New name</string>
     <string name="share_link_with_label">Share link (%1$s)</string>
     <string name="share_link">Share link</string>
     <string name="share_custom_permission">Custom permissions</string>
