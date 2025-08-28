@@ -31,6 +31,7 @@ import com.owncloud.android.utils.MimeTypeUtil
  * @param context  Android context.
  * @param storageManager  Storage manager handling local file operations.
  */
+@Suppress("LongParameterList")
 class RemoveFileOperation(
     val file: OCFile,
     private val onlyLocalCopy: Boolean,
@@ -53,14 +54,19 @@ class RemoveFileOperation(
         var result: RemoteOperationResult<*>? = null
         val operation: RemoteOperation<*>?
 
-        // Remove image from thumbnail cache
-        if (MimeTypeUtil.isImage(file.mimeType)) {
-            ThumbnailsCacheManager.removeFromCache(file)
-        }
-
         var localRemovalFailed = false
 
-        if (!onlyLocalCopy) {
+        if (onlyLocalCopy) {
+            // generate resize image if image is deleted only locally, to save server request
+            if (MimeTypeUtil.isImage(file.mimeType)) {
+                ThumbnailsCacheManager.generateResizedImage(file)
+            }
+
+            localRemovalFailed = !storageManager.removeFile(file, false, true)
+            if (!localRemovalFailed) {
+                result = RemoteOperationResult<Any?>(RemoteOperationResult.ResultCode.OK)
+            }
+        } else {
             operation = if (file.isEncrypted) {
                 val parent = storageManager.getFileById(file.parentId)
                 if (parent == null) {
@@ -81,11 +87,6 @@ class RemoveFileOperation(
             result = operation.execute(client)
             if (result.isSuccess || result.code == RemoteOperationResult.ResultCode.FILE_NOT_FOUND) {
                 localRemovalFailed = !storageManager.removeFile(file, true, true)
-            }
-        } else {
-            localRemovalFailed = !storageManager.removeFile(file, false, true)
-            if (!localRemovalFailed) {
-                result = RemoteOperationResult<Any?>(RemoteOperationResult.ResultCode.OK)
             }
         }
 
