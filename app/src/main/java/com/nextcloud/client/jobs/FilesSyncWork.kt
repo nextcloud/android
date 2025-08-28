@@ -257,7 +257,8 @@ class FilesSyncWork(
         // as they are already marked as uploaded in the database.
         val paths = filesystemDataProvider.getFilesForUpload(
             syncedFolder.localPath,
-            syncedFolder.id.toString()
+            syncedFolder.id.toString(),
+            syncedFolder.uploadMinFileAgeMs
         )
         if (paths.isEmpty()) {
             Log_OC.w(TAG, "AutoUpload:uploadFilesFromFolder skipped paths is empty")
