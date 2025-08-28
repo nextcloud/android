@@ -61,7 +61,6 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
 
     public static final String PATH_SEPARATOR = "/";
     public static final String ROOT_PATH = PATH_SEPARATOR;
-    public static final long ROOT_ID = 1L;
 
     private static final String TAG = OCFile.class.getSimpleName();
 

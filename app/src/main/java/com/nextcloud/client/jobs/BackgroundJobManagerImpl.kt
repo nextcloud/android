@@ -524,9 +524,9 @@ internal class BackgroundJobManagerImpl(
         workManager.cancelAllWorkByTag(formatClassTag(FileDownloadWorker::class))
     }
 
-    override fun startMetadataSyncJob(currentDirId: Long) {
+    override fun startMetadataSyncJob(currentDirPath: String) {
         val inputData = Data.Builder()
-            .putLong(MetadataWorker.FILE_ID, currentDirId)
+            .putString(MetadataWorker.FILE_PATH, currentDirPath)
             .build()
 
         val constrains = Constraints.Builder()

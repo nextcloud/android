@@ -7,7 +7,6 @@
 
 package com.nextcloud.utils.extensions
 
-import com.nextcloud.client.database.entity.FileEntity
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
 
@@ -27,5 +26,7 @@ fun FileDataStorageManager.getDecryptedPath(file: OCFile): String {
         .joinToString(OCFile.PATH_SEPARATOR)
 }
 
-fun FileDataStorageManager.fileEntitiesToOCFiles(entities: List<FileEntity>): List<OCFile> =
-    entities.map { createFileInstance(it) }
+fun FileDataStorageManager.getNonEncryptedSubfolders(id: Long, accountName: String): List<OCFile> =
+    fileDao.getNonEncryptedSubfolders(id, accountName).map {
+        createFileInstance(it)
+    }

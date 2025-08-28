@@ -47,7 +47,6 @@ import com.nextcloud.model.OfflineOperationType;
 import com.nextcloud.model.ShareeEntry;
 import com.nextcloud.utils.date.DateFormatPattern;
 import com.nextcloud.utils.extensions.DateExtensionsKt;
-import com.nextcloud.utils.extensions.FileDataStorageManagerExtensionsKt;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.db.ProviderMeta.ProviderTableMeta;
 import com.owncloud.android.lib.common.network.WebdavEntry;
@@ -1182,11 +1181,6 @@ public class FileDataStorageManager {
 
         Log_OC.d(TAG, "getFolderContent - finished");
         return folderContent;
-    }
-
-    public List<OCFile> getSubFiles(long id) {
-        final List<FileEntity> entities = fileDao.getFolderContent(id);
-        return FileDataStorageManagerExtensionsKt.fileEntitiesToOCFiles(this, entities);
     }
 
     private OCFile createRootDir() {

@@ -174,5 +174,5 @@ interface BackgroundJobManager {
     fun startPeriodicallyOfflineOperation()
     fun scheduleInternal2WaySync(intervalMinutes: Long)
     fun cancelAllFilesDownloadJobs()
-    fun startMetadataSyncJob(currentDirId: Long)
+    fun startMetadataSyncJob(currentDirPath: String)
 }

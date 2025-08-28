@@ -11,6 +11,7 @@ import android.content.Context
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import com.nextcloud.client.account.User
+import com.nextcloud.utils.extensions.getNonEncryptedSubfolders
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.operations.RefreshFolderOperation
@@ -20,26 +21,27 @@ class MetadataWorker(private val context: Context, params: WorkerParameters, pri
 
     companion object {
         private const val TAG = "MetadataWorker"
-        const val FILE_ID = "file_id"
+        const val FILE_PATH = "file_path"
     }
 
     @Suppress("DEPRECATION", "ReturnCount")
     override suspend fun doWork(): Result {
         val storageManager = FileDataStorageManager(user, context.contentResolver)
-        val id = inputData.getLong(FILE_ID, -1L)
-        if (id == -1L) {
-            Log_OC.e(TAG, "❌ Invalid folder ID. Aborting metadata sync.")
+        val filePath = inputData.getString(FILE_PATH)
+        if (filePath == null) {
+            Log_OC.e(TAG, "❌ Invalid folder path. Aborting metadata sync. $filePath")
             return Result.failure()
         }
-        Log_OC.d(TAG, "🕒 Starting metadata sync for folder ID: $id")
-
-        val subfolders = storageManager.getSubFiles(id).filter { !it.isEncrypted && it.isFolder }
-        if (subfolders.isEmpty()) {
-            Log_OC.d(TAG, "📂 No subfolders found for folder ID: $id. Nothing to sync.")
-            return Result.success()
+        val currentDir = storageManager.getFileByDecryptedRemotePath(filePath)
+        if (currentDir == null) {
+            Log_OC.e(TAG, "❌ Current directory is null. Aborting metadata sync. $filePath")
+            return Result.failure()
         }
+        Log_OC.d(TAG, "🕒 Starting metadata sync for folder filePath: $filePath")
 
-        subfolders.forEach { subFolder ->
+        val subfolders = storageManager.getNonEncryptedSubfolders(currentDir.fileId, user.accountName)
+        val subFoldersAndFolderItself = listOf(currentDir) + subfolders
+        subFoldersAndFolderItself.forEach { subFolder ->
             Log_OC.d(TAG, "⏳ Fetching metadata for: ${subFolder.remotePath}")
 
             val operation = RefreshFolderOperation(subFolder, storageManager, user, context)
