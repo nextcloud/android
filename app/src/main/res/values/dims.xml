@@ -132,6 +132,7 @@
     <dimen name="bottom_sheet_text_size">16sp</dimen>
     <dimen name="permission_dialog_text_size">18sp</dimen>
     <dimen name="button_corner_radius">24dp</dimen>
+    <dimen name="status_corner_radius">12dp</dimen>
     <dimen name="backup_button_width">160dp</dimen>
     <dimen name="settings_activity_padding">24dp</dimen>
     <integer name="media_grid_width">4</integer>

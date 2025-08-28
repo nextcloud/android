@@ -65,7 +65,10 @@
     <color name="process_dialog_background">#ffffff</color>
     <color name="indicator_dot_selected">#ffffff</color>
     <color name="drawer_shadow">#000000</color>
-    <color name="online">#2d7b41</color>
+    <color name="online">#099f05</color>
+    <color name="away">#a37200</color>
+    <color name="busy">#c90000</color>
+    <color name="dnd">#c90000</color>
 
     <color name="background_color_png">#FFFFFF</color>
 
