@@ -81,6 +81,7 @@ class OfflineOperationsNotificationManager(private val context: Context, viewThe
             }
             setContentTitle(text)
             setOngoing(false)
+            setProgress(0, 0, false)
             notificationManager.notify(ERROR_ID, this.build())
         }
     }
