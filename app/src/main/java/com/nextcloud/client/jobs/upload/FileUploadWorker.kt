@@ -202,6 +202,13 @@ class FileUploadWorker(
 
             val result = upload(operation, user.get())
             currentUploadFileOperation = null
+
+            if (result.code == ResultCode.QUOTA_EXCEEDED) {
+                Log_OC.w(TAG, "Quota exceeded, stopping uploads")
+                notificationManager.showQuotaExceedNotification(operation, result.code)
+                break
+            }
+
             sendUploadFinishEvent(totalUploadSize, currentUploadIndex, operation, result)
         }
 
