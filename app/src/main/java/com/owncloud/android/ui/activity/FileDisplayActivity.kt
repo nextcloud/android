@@ -120,6 +120,7 @@ import com.owncloud.android.ui.dialog.TermsOfServiceDialog
 import com.owncloud.android.ui.events.SearchEvent
 import com.owncloud.android.ui.events.SyncEventFinished
 import com.owncloud.android.ui.events.TokenPushEvent
+import com.owncloud.android.ui.fragment.EmptyListState
 import com.owncloud.android.ui.fragment.FileDetailFragment
 import com.owncloud.android.ui.fragment.FileFragment
 import com.owncloud.android.ui.fragment.GalleryFragment
@@ -1601,18 +1602,13 @@ class FileDisplayActivity :
         connectivityService.isNetworkAndServerAvailable { result: Boolean? ->
             when {
                 mSyncInProgress && result == true -> {
-                    ocFileListFragment.setEmptyListLoadingMessage()
+                    ocFileListFragment.setEmptyListMessage(EmptyListState.LOADING)
                 }
                 MainApp.isOnlyOnDevice() -> {
-                    ocFileListFragment.setMessageForEmptyList(
-                        R.string.file_list_empty_headline,
-                        R.string.file_list_empty_on_device,
-                        R.drawable.ic_list_empty_folder,
-                        true
-                    )
+                    ocFileListFragment.setEmptyListMessage(EmptyListState.ONLY_ON_DEVICE)
                 }
                 result == true -> ocFileListFragment.setEmptyListMessage(SearchType.NO_SEARCH)
-                else -> ocFileListFragment.setEmptyListMessage(SearchType.OFFLINE_MODE)
+                else -> ocFileListFragment.setEmptyListMessage(EmptyListState.OFFLINE_MODE)
             }
         }
     }

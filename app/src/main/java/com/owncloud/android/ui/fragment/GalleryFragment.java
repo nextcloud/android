@@ -249,7 +249,7 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
 
     private void handleSearchEvent() {
         prepareCurrentSearch(searchEvent);
-        setEmptyListLoadingMessage();
+        setEmptyListMessage(EmptyListState.LOADING);
 
         // always show first stored items
         showAllGalleryItems();

@@ -21,6 +21,9 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.res.Configuration
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
+import android.os.Parcelable
 import android.util.DisplayMetrics
 import android.view.KeyEvent
 import android.view.LayoutInflater
@@ -42,7 +45,6 @@ import androidx.annotation.StringRes
 import androidx.appcompat.widget.SearchView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -72,8 +74,6 @@ import com.owncloud.android.ui.adapter.LocalFileListAdapter
 import com.owncloud.android.ui.adapter.OCFileListAdapter
 import com.owncloud.android.ui.events.SearchEvent
 import com.owncloud.android.utils.theme.ViewThemeUtils
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import org.greenrobot.eventbus.EventBus
 import javax.inject.Inject
 import kotlin.math.max
@@ -133,6 +133,8 @@ open class ExtendedListFragment :
     var binding: ListFragmentBinding? = null
         private set
 
+    private var previousEmptyListData: EmptyListData? = null
+
     protected fun setRecyclerViewAdapter(recyclerViewAdapter: RecyclerView.Adapter<*>?) {
         mRecyclerView?.setAdapter(recyclerViewAdapter)
     }
@@ -186,11 +188,11 @@ open class ExtendedListFragment :
         }
 
         searchView?.setOnQueryTextFocusChangeListener { _: View?, hasFocus: Boolean ->
-            lifecycleScope.launch(Dispatchers.Main) {
+            Handler(Looper.getMainLooper()).post {
                 val activity = activity
 
                 if (activity == null || (activity is FolderPickerActivity) || (activity is UploadFilesActivity)) {
-                    return@launch
+                    return@post
                 }
 
                 if (activity is FileDisplayActivity) {
@@ -256,7 +258,7 @@ open class ExtendedListFragment :
                     activity.resetSearchView()
                     activity.updateListOfFilesFragment(true)
                 } else {
-                    lifecycleScope.launch(Dispatchers.Main) {
+                    Handler(Looper.getMainLooper()).post {
                         if (adapter is OCFileListAdapter) {
                             if (accountManager
                                     .user
@@ -551,17 +553,6 @@ open class ExtendedListFragment :
     }
 
     /**
-     * displays an empty list information with a headline, a message and a not to be tinted icon.
-     *
-     * @param headline the headline
-     * @param message  the message
-     * @param icon     the icon to be shown
-     */
-    fun setMessageForEmptyList(@StringRes headline: Int, @StringRes message: Int, @DrawableRes icon: Int) {
-        setMessageForEmptyList(headline, message, icon, false)
-    }
-
-    /**
      * displays an empty list information with a headline, a message and an icon.
      *
      * @param headline the headline
@@ -569,46 +560,51 @@ open class ExtendedListFragment :
      * @param icon     the icon to be shown
      * @param tintIcon flag if the given icon should be tinted with primary color
      */
-    fun setMessageForEmptyList(
+    private fun setMessageForEmptyList(
         @StringRes headline: Int,
         @StringRes message: Int,
-        @DrawableRes icon: Int,
-        tintIcon: Boolean
+        @DrawableRes icon: Int?,
+        tintIcon: Boolean = false
     ) {
         if (mEmptyListContainer == null || mEmptyListMessage == null) {
             return
         }
 
-        lifecycleScope.launch(Dispatchers.Main) {
+        val newData = EmptyListData(headline, message, icon, tintIcon)
+        if (previousEmptyListData == newData) {
+            Log_OC.d(TAG, "Skipping setMessageForEmptyList – same data as before")
+            return
+        }
+        previousEmptyListData = newData
+        Log_OC.d(TAG, "Updating setMessageForEmptyList")
+
+        Handler(Looper.getMainLooper()).post {
             mEmptyListHeadline?.setText(headline)
             mEmptyListMessage?.setText(message)
 
-            if (tintIcon) {
-                context?.let {
-                    val drawable = viewThemeUtils.platform.tintDrawable(it, icon, ColorRole.PRIMARY)
-                    mEmptyListIcon?.setImageDrawable(drawable)
+            if (icon != null) {
+                if (tintIcon) {
+                    context?.let { context ->
+                        val drawable = viewThemeUtils.platform.tintDrawable(context, icon, ColorRole.PRIMARY)
+                        mEmptyListIcon?.setImageDrawable(drawable)
+                    }
+                } else {
+                    mEmptyListIcon?.setImageResource(icon)
                 }
+
+                mEmptyListIcon?.visibility = View.VISIBLE
             } else {
-                mEmptyListIcon?.setImageResource(icon)
+                mEmptyListIcon?.visibility = View.GONE
             }
 
-            mEmptyListIcon?.visibility = View.VISIBLE
             mEmptyListMessage?.visibility = View.VISIBLE
         }
     }
 
     @Suppress("LongMethod")
-    fun setEmptyListMessage(searchType: SearchType?) {
-        lifecycleScope.launch(Dispatchers.Main) {
-            when (searchType) {
-                SearchType.OFFLINE_MODE -> {
-                    setMessageForEmptyList(
-                        R.string.offline_mode_info_title,
-                        R.string.offline_mode_info_description,
-                        R.drawable.ic_cloud_sync,
-                        true
-                    )
-                }
+    fun setEmptyListMessage(state: Parcelable) {
+        Handler(Looper.getMainLooper()).post {
+            when (state) {
                 SearchType.NO_SEARCH -> {
                     setMessageForEmptyList(
                         R.string.file_list_empty_headline,
@@ -666,6 +662,53 @@ open class ExtendedListFragment :
                         R.drawable.ic_search_light_grey
                     )
                 }
+                EmptyListState.OFFLINE_MODE -> {
+                    setMessageForEmptyList(
+                        R.string.offline_mode_info_title,
+                        R.string.offline_mode_info_description,
+                        R.drawable.ic_cloud_sync,
+                        true
+                    )
+                }
+                EmptyListState.LOADING -> {
+                    setMessageForEmptyList(
+                        R.string.file_list_loading,
+                        R.string.empty,
+                        null
+                    )
+                }
+                EmptyListState.ADD_FOLDER -> {
+                    setMessageForEmptyList(
+                        R.string.folder_list_empty_headline,
+                        R.string.file_list_empty_moving,
+                        R.drawable.ic_list_empty_create_folder,
+                        true
+                    )
+                }
+                EmptyListState.ONLY_ON_DEVICE -> {
+                    setMessageForEmptyList(
+                        R.string.file_list_empty_headline,
+                        R.string.file_list_empty_on_device,
+                        R.drawable.ic_list_empty_folder,
+                        true
+                    )
+                }
+                EmptyListState.LOCAL_FILE_LIST_EMPTY_FILE -> {
+                    setMessageForEmptyList(
+                        R.string.file_list_empty_headline,
+                        R.string.local_file_list_empty,
+                        R.drawable.ic_list_empty_folder,
+                        true
+                    )
+                }
+                EmptyListState.LOCAL_FILE_LIST_EMPTY_FOLDER -> {
+                    setMessageForEmptyList(
+                        R.string.folder_list_empty_headline,
+                        R.string.local_folder_list_empty,
+                        R.drawable.ic_list_empty_folder,
+                        true
+                    )
+                }
                 else -> {
                     setMessageForEmptyList(
                         R.string.file_list_empty_headline,
@@ -675,21 +718,6 @@ open class ExtendedListFragment :
                     )
                 }
             }
-        }
-    }
-
-    /**
-     * Set message for empty list view.
-     */
-    fun setEmptyListLoadingMessage() {
-        lifecycleScope.launch(Dispatchers.Main) {
-            if (mEmptyListContainer == null || mEmptyListMessage == null) {
-                return@launch
-            }
-
-            mEmptyListHeadline?.setText(R.string.file_list_loading)
-            mEmptyListMessage?.text = ""
-            mEmptyListIcon?.visibility = View.GONE
         }
     }
 
@@ -754,6 +782,8 @@ open class ExtendedListFragment :
             false
         }
     }
+
+    private data class EmptyListData(val headline: Int, val message: Int, val icon: Int?, val tintIcon: Boolean)
 
     companion object {
         protected val TAG: String = ExtendedListFragment::class.java.getSimpleName()
