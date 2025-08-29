@@ -16,6 +16,7 @@ import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
+import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.shares.GetShareRemoteOperation;
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.lib.resources.shares.UpdateShareRemoteOperation;
@@ -29,6 +30,7 @@ public class UpdateShareInfoOperation extends SyncOperation {
 
     private OCShare share;
     private long shareId;
+    private long shareRemoteId;
     private long expirationDateInMillis;
     private String note;
     private boolean hideFileDownload;
@@ -36,6 +38,8 @@ public class UpdateShareInfoOperation extends SyncOperation {
     private String password;
     private String label;
     private String attributes;
+
+    private static final String TAG = "UpdateShareInfoOperation";
 
     /**
      * Constructor
@@ -59,9 +63,10 @@ public class UpdateShareInfoOperation extends SyncOperation {
      *                <p>
      *                this will be triggered while modifying existing share
      */
-    public UpdateShareInfoOperation(long shareId, FileDataStorageManager storageManager) {
+    public UpdateShareInfoOperation(long shareId, long shareRemoteId, FileDataStorageManager storageManager) {
         super(storageManager);
-        
+
+        this.shareRemoteId = shareRemoteId;
         this.shareId = shareId;
         expirationDateInMillis = 0L;
         note = null;
@@ -77,8 +82,17 @@ public class UpdateShareInfoOperation extends SyncOperation {
             share = this.share;
         }
 
+        if (share == null && shareRemoteId > 0) {
+            Log_OC.w(TAG,"share is null, trying to fetch");
+            final var shareRemoteOperation = new GetShareRemoteOperation(shareRemoteId);
+            final var result = shareRemoteOperation.execute(client);
+            if (result.isSuccess()) {
+                share = (OCShare) result.getData().get(0);
+            }
+        }
+
         if (share == null) {
-            // TODO try to get remote share before failing?
+            Log_OC.e(TAG,"share is null, fetching operation is failed");
             return new RemoteOperationResult<>(RemoteOperationResult.ResultCode.SHARE_NOT_FOUND);
         }
 
@@ -107,9 +121,10 @@ public class UpdateShareInfoOperation extends SyncOperation {
             if (result.isSuccess() && shareId > 0) {
                 OCShare ocShare = (OCShare) result.getData().get(0);
                 ocShare.setPasswordProtected(!TextUtils.isEmpty(password));
+                ocShare.setRemoteId(shareRemoteId);
+                ocShare.setId(shareId);
                 getStorageManager().saveShare(ocShare);
             }
-
         }
 
         return result;
