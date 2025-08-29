@@ -602,7 +602,7 @@ open class ExtendedListFragment :
     }
 
     @Suppress("LongMethod")
-    fun setEmptyListMessage(state: Parcelable) {
+    fun setEmptyListMessage(state: Parcelable?) {
         Handler(Looper.getMainLooper()).post {
             when (state) {
                 SearchType.NO_SEARCH -> {
