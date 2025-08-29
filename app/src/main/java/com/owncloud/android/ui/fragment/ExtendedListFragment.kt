@@ -52,7 +52,6 @@ import com.google.android.material.button.MaterialButton
 import com.nextcloud.android.common.ui.theme.utils.ColorRole
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.di.Injectable
-import com.nextcloud.client.network.ConnectivityService.GenericCallback
 import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.client.preferences.AppPreferencesImpl
 import com.nextcloud.utils.extensions.getTypedActivity
@@ -684,17 +683,13 @@ open class ExtendedListFragment :
      */
     fun setEmptyListLoadingMessage() {
         lifecycleScope.launch(Dispatchers.Main) {
-            val fileActivity = getTypedActivity(FileActivity::class.java)
-            fileActivity?.connectivityService?.isNetworkAndServerAvailable(
-                GenericCallback { result: Boolean? ->
-                    if (result == false || mEmptyListContainer == null || mEmptyListMessage == null) {
-                        return@GenericCallback
-                    }
-                    mEmptyListHeadline?.setText(R.string.file_list_loading)
-                    mEmptyListMessage?.text = ""
-                    mEmptyListIcon?.visibility = View.GONE
-                }
-            )
+            if (mEmptyListContainer == null || mEmptyListMessage == null) {
+                return@launch
+            }
+
+            mEmptyListHeadline?.setText(R.string.file_list_loading)
+            mEmptyListMessage?.text = ""
+            mEmptyListIcon?.visibility = View.GONE
         }
     }
 
