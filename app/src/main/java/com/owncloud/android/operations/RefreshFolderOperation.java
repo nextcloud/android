@@ -409,13 +409,20 @@ public class RefreshFolderOperation extends RemoteOperation {
         result = new ReadFileRemoteOperation(remotePath).execute(client);
 
         if (result.isSuccess()) {
-            OCFile remoteFolder = FileStorageUtils.fillOCFile((RemoteFile) result.getData().get(0));
-
-            if (!mIgnoreETag) {
+            if (!mIgnoreETag && result.getData().get(0) instanceof RemoteFile remoteFile) {
                 // check if remote and local folder are different
-                String remoteFolderETag = remoteFolder.getEtag();
+                String remoteFolderETag = remoteFile.getEtag();
                 if (remoteFolderETag != null) {
-                    mRemoteFolderChanged = !(remoteFolderETag.equalsIgnoreCase(mLocalFolder.getEtag()));
+                    String localFolderEtag = mLocalFolder.getEtag();
+                    mRemoteFolderChanged = !(remoteFolderETag.equalsIgnoreCase(localFolderEtag));
+                    Log_OC.d(
+                        TAG,
+                        "📂 eTag check\n" +
+                            "  Path:        " + remoteFile.getRemotePath() + "\n" +
+                            "  Local eTag:  " + localFolderEtag + "\n" +
+                            "  Remote eTag: " + remoteFolderETag + "\n" +
+                            "  Changed:     " + mRemoteFolderChanged
+                            );
                 } else {
                     Log_OC.e(TAG, "Checked " + user.getAccountName() + remotePath + ": No ETag received from server");
                 }
