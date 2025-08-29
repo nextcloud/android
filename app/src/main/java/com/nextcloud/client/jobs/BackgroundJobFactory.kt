@@ -17,7 +17,6 @@ import androidx.work.WorkerFactory
 import androidx.work.WorkerParameters
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.core.Clock
-import com.nextcloud.client.device.DeviceInfo
 import com.nextcloud.client.device.PowerManagementService
 import com.nextcloud.client.documentscan.GeneratePDFUseCase
 import com.nextcloud.client.documentscan.GeneratePdfFromImagesWork
@@ -49,7 +48,6 @@ class BackgroundJobFactory @Inject constructor(
     private val clock: Clock,
     private val powerManagementService: PowerManagementService,
     private val backgroundJobManager: Provider<BackgroundJobManager>,
-    private val deviceInfo: DeviceInfo,
     private val accountManager: UserAccountManager,
     private val resources: Resources,
     private val arbitraryDataProvider: ArbitraryDataProvider,
