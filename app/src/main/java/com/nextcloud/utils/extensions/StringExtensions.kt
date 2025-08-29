@@ -35,7 +35,7 @@ fun String.removeFileExtension(): String {
  * - Both strings are equal ignoring case differences
  *
  * @param other The other nullable string to compare with this string
- * @return `true` if both strings are valid and exactly equal, `false` otherwise
+ * @return `true` if both strings are valid and equal ignoring case differences, `false` otherwise
  */
 fun String?.isNotBlankAndEquals(other: String?): Boolean = this != null &&
     other != null &&
