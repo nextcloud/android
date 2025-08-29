@@ -74,7 +74,7 @@ public class RefreshFolderOperation extends RemoteOperation {
     public static final String EVENT_SINGLE_FOLDER_SHARES_SYNCED =
         RefreshFolderOperation.class.getName() + ".EVENT_SINGLE_FOLDER_SHARES_SYNCED";
 
-    private boolean sendFolderRefreshEvent = true;
+    private boolean isMetadataSyncWorkerRunning = false;
 
     /**
      * Time stamp for the synchronization process in progress
@@ -194,11 +194,11 @@ public class RefreshFolderOperation extends RemoteOperation {
         mForgottenLocalFiles = new HashMap<>();
         mRemoteFolderChanged = false;
         mIgnoreETag = false;
-        mOnlyFileMetadata = false;
+        mOnlyFileMetadata = true;
         mFilesToSyncContents = new Vector<>();
 
         // since metadata worker working in background for sub-folders no need send folder refresh event
-        sendFolderRefreshEvent = false;
+        isMetadataSyncWorkerRunning = true;
     }
 
     public RefreshFolderOperation(OCFile folder,
@@ -272,7 +272,7 @@ public class RefreshFolderOperation extends RemoteOperation {
             if (mRemoteFolderChanged) {
                 // TODO catch IllegalStateException, show properly to user
                 result = fetchAndSyncRemoteFolder(client);
-            } else {
+            } else if (!isMetadataSyncWorkerRunning) {
                 Log_OC.d(TAG, "💾 Remote folder is not changed, getting folder content from database");
                 mChildren = fileDataStorageManager.getFolderContent(mLocalFolder, false);
             }
@@ -293,7 +293,7 @@ public class RefreshFolderOperation extends RemoteOperation {
             }
         }
 
-        if (!mSyncFullAccount && mRemoteFolderChanged && mLocalFolder != null && sendFolderRefreshEvent) {
+        if (!mSyncFullAccount && mRemoteFolderChanged && mLocalFolder != null && !isMetadataSyncWorkerRunning) {
             sendLocalBroadcast(EVENT_SINGLE_FOLDER_CONTENTS_SYNCED, mLocalFolder.getRemotePath(), result);
         }
 
@@ -309,7 +309,7 @@ public class RefreshFolderOperation extends RemoteOperation {
             fileDataStorageManager.saveSharesFromRemoteFile(remoteFiles);
         }
 
-        if (!mSyncFullAccount && mLocalFolder != null && sendFolderRefreshEvent) {
+        if (!mSyncFullAccount && mLocalFolder != null && !isMetadataSyncWorkerRunning) {
             sendLocalBroadcast(EVENT_SINGLE_FOLDER_SHARES_SYNCED, mLocalFolder.getRemotePath(), result);
         }
 
@@ -419,6 +419,8 @@ public class RefreshFolderOperation extends RemoteOperation {
                 } else {
                     Log_OC.e(TAG, "Checked " + user.getAccountName() + remotePath + ": No ETag received from server");
                 }
+            } else {
+                Log_OC.d(TAG, "Ignoring eTag. mRemoteFolderChanged is true.");
             }
 
             result = new RemoteOperationResult(ResultCode.OK);
@@ -446,7 +448,7 @@ public class RefreshFolderOperation extends RemoteOperation {
     private RemoteOperationResult fetchAndSyncRemoteFolder(OwnCloudClient client) {
         String remotePath = mLocalFolder.getRemotePath();
         RemoteOperationResult result = new ReadFolderRemoteOperation(remotePath).execute(client);
-        Log_OC.d(TAG, "⬇ eTag is changed, fetching folder: " + user.getAccountName() + remotePath);
+        Log_OC.d(TAG, "⬇ eTag is changed or ignored, fetching folder: " + user.getAccountName() + remotePath);
 
         if (result.isSuccess()) {
             synchronizeData(result.getData());

@@ -40,7 +40,7 @@ class MetadataWorker(private val context: Context, params: WorkerParameters, pri
             Log_OC.e(TAG, "❌ Current directory is null. Aborting metadata sync. $filePath")
             return Result.failure()
         }
-        Log_OC.d(TAG, "🕒 Starting metadata sync for folder filePath: $filePath")
+        Log_OC.d(TAG, "🕒 Starting metadata sync for folder: $filePath")
 
         // first check current dir
         refreshFolder(currentDir, storageManager)
@@ -51,7 +51,7 @@ class MetadataWorker(private val context: Context, params: WorkerParameters, pri
             refreshFolder(subFolder, storageManager)
         }
 
-        Log_OC.d(TAG, "🏁 Metadata sync completed for folder filePath: $filePath")
+        Log_OC.d(TAG, "🏁 Metadata sync completed for folder: $filePath")
         return Result.success()
     }
 
