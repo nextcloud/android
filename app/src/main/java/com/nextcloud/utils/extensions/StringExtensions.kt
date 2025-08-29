@@ -32,7 +32,7 @@ fun String.removeFileExtension(): String {
  * - Neither string is null
  * - Neither string is empty ("")
  * - Neither string contains only whitespace characters (spaces, tabs, newlines, etc.)
- * - Both strings are exactly equal (case-sensitive comparison)
+ * - Both strings are equal ignoring case differences
  *
  * @param other The other nullable string to compare with this string
  * @return `true` if both strings are valid and exactly equal, `false` otherwise
@@ -41,7 +41,7 @@ fun String?.isNotBlankAndEquals(other: String?): Boolean = this != null &&
     other != null &&
     this.isNotBlank() &&
     other.isNotBlank() &&
-    this == other
+    this.equals(other, ignoreCase = true)
 
 fun String.truncateWithEllipsis(limit: Int) = take(limit) + if (length > limit) StringConstants.THREE_DOT else ""
 

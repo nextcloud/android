@@ -6,7 +6,6 @@
  */
 
 package com.nextcloud.extensions
-
 import com.nextcloud.utils.extensions.isNotBlankAndEquals
 import junit.framework.TestCase.assertFalse
 import junit.framework.TestCase.assertTrue
@@ -87,7 +86,21 @@ class StringExtensionTests {
     fun testIsNotBlankAndEqualsWhenGivenStringsHaveDifferentCase() {
         val str1 = "Hello"
         val str2 = "hello"
-        assertFalse(str1.isNotBlankAndEquals(str2))
+        assertTrue(str1.isNotBlankAndEquals(str2))
+    }
+
+    @Test
+    fun testIsNotBlankAndEqualsWhenGivenMixedCaseStrings() {
+        val str1 = "HeLLo WoRLd"
+        val str2 = "hello world"
+        assertTrue(str1.isNotBlankAndEquals(str2))
+    }
+
+    @Test
+    fun testIsNotBlankAndEqualsWhenGivenUppercaseStrings() {
+        val str1 = "HELLO"
+        val str2 = "hello"
+        assertTrue(str1.isNotBlankAndEquals(str2))
     }
 
     @Test
@@ -107,35 +120,35 @@ class StringExtensionTests {
     @Test
     fun testIsNotBlankAndEqualsWhenGivenBothStringsAreIdenticalSingleCharacter() {
         val str1 = "a"
-        val str2 = "a"
+        val str2 = "A"
         assertTrue(str1.isNotBlankAndEquals(str2))
     }
 
     @Test
     fun testIsNotBlankAndEqualsWhenGivenBothStringsAreIdenticalWithSpecialCharacters() {
         val str1 = "hello@world!123"
-        val str2 = "hello@world!123"
+        val str2 = "HELLO@WORLD!123"
         assertTrue(str1.isNotBlankAndEquals(str2))
     }
 
     @Test
     fun testIsNotBlankAndEqualsWhenGivenOneHasLeadingWhitespaceAndOtherDoesNot() {
         val str1 = " hello"
-        val str2 = "hello"
+        val str2 = "HELLO"
         assertFalse(str1.isNotBlankAndEquals(str2))
     }
 
     @Test
     fun testIsNotBlankAndEqualsWhenGivenOneHasTrailingWhitespaceAndOtherDoesNot() {
         val str1 = "hello"
-        val str2 = "hello "
+        val str2 = "HELLO "
         assertFalse(str1.isNotBlankAndEquals(str2))
     }
 
     @Test
-    fun testIsNotBlankAndEqualsWhenGivenBothHaveIdenticalWhitespacePadding() {
+    fun testIsNotBlankAndEqualsWhenGivenBothHaveIdenticalWhitespacePaddingDifferentCase() {
         val str1 = " hello "
-        val str2 = " hello "
+        val str2 = " HELLO "
         assertTrue(str1.isNotBlankAndEquals(str2))
     }
 
