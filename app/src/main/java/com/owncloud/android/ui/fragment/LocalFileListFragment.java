@@ -90,12 +90,10 @@ public class LocalFileListFragment extends ExtendedListFragment implements
         Log_OC.i(TAG, "onCreateView() start");
         View v = super.onCreateView(inflater, container, savedInstanceState);
 
-        if (!mContainerActivity.isFolderPickerMode()) {
-            setMessageForEmptyList(R.string.file_list_empty_headline, R.string.local_file_list_empty,
-                    R.drawable.ic_list_empty_folder, true);
+        if (mContainerActivity.isFolderPickerMode()) {
+            setEmptyListMessage(EmptyListState.LOCAL_FILE_LIST_EMPTY_FOLDER);
         } else {
-            setMessageForEmptyList(R.string.folder_list_empty_headline, R.string.local_folder_list_empty,
-                    R.drawable.ic_list_empty_folder, true);
+            setEmptyListMessage(EmptyListState.LOCAL_FILE_LIST_EMPTY_FILE);
         }
 
         setSwipeEnabled(false); // Disable pull-to-refresh
@@ -387,7 +385,7 @@ public class LocalFileListFragment extends ExtendedListFragment implements
     public void setLoading(boolean enabled) {
         super.setLoading(enabled);
         if (enabled) {
-            setEmptyListLoadingMessage();
+            setEmptyListMessage(EmptyListState.LOADING);
         } else {
             // ugly hack because setEmptyListLoadingMessage also uses a handler and there's a race condition otherwise
             new Handler().post(() -> {

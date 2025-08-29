@@ -24,6 +24,7 @@ import com.owncloud.android.AbstractIT
 import com.owncloud.android.R
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.ui.activity.FileDisplayActivity
+import com.owncloud.android.ui.fragment.SearchType
 import com.owncloud.android.utils.EspressoIdlingResource
 import com.owncloud.android.utils.ScreenshotTest
 import org.junit.After
@@ -68,7 +69,7 @@ class FileDisplayActivityScreenshotIT : AbstractIT() {
                             listOfFilesFragment?.let {
                                 it.setFabEnabled(false)
                                 resetScrolling(true)
-                                it.setEmptyListLoadingMessage()
+                                it.setEmptyListMessage(SearchType.LOADING)
                                 it.isLoading = false
                             }
                         }
@@ -98,7 +99,7 @@ class FileDisplayActivityScreenshotIT : AbstractIT() {
                         val fragment = sut.listOfFilesFragment
                         Assert.assertNotNull(fragment)
                         fragment!!.setFabEnabled(false)
-                        fragment.setEmptyListLoadingMessage()
+                        fragment.setEmptyListMessage(SearchType.LOADING)
                         fragment.isLoading = false
                         EspressoIdlingResource.decrement()
 
@@ -113,7 +114,7 @@ class FileDisplayActivityScreenshotIT : AbstractIT() {
 
                         EspressoIdlingResource.increment()
                         fragment.setFabEnabled(false)
-                        fragment.setEmptyListLoadingMessage()
+                        fragment.setEmptyListMessage(SearchType.LOADING)
                         fragment.isLoading = false
                         EspressoIdlingResource.decrement()
 
@@ -146,7 +147,7 @@ class FileDisplayActivityScreenshotIT : AbstractIT() {
 
                             listOfFilesFragment?.let {
                                 it.setFabEnabled(false)
-                                it.setEmptyListLoadingMessage()
+                                it.setEmptyListMessage(SearchType.LOADING)
                                 it.isLoading = false
                             }
                         }

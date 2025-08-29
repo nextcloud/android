@@ -36,7 +36,7 @@ class OCFileListSearchAsyncTask(
         fragmentReference.get()?.let { fragment ->
             Handler(Looper.getMainLooper()).post {
                 fragment.isLoading = true
-                fragment.setEmptyListLoadingMessage()
+                fragment.setEmptyListMessage(EmptyListState.LOADING)
             }
         }
     }

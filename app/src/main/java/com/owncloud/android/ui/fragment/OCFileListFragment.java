@@ -1213,7 +1213,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
         } else {
             // update state and view of this fragment
             searchFragment = false;
-            setEmptyListLoadingMessage();
+            setEmptyListMessage(EmptyListState.LOADING);
             browseToFolder(file, position);
         }
     }
@@ -1903,7 +1903,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
         prepareCurrentSearch(event);
         searchFragment = true;
-        setEmptyListLoadingMessage();
+        setEmptyListMessage(EmptyListState.LOADING);
         mAdapter.setData(new ArrayList<>(),
                          NO_SEARCH,
                          mContainerActivity.getStorageManager(),
