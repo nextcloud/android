@@ -27,6 +27,7 @@ import com.nextcloud.client.core.Clock
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.documentscan.GeneratePdfFromImagesWork
 import com.nextcloud.client.jobs.download.FileDownloadWorker
+import com.nextcloud.client.jobs.metadata.MetadataWorker
 import com.nextcloud.client.jobs.offlineOperations.OfflineOperationsWorker
 import com.nextcloud.client.jobs.upload.FileUploadHelper
 import com.nextcloud.client.jobs.upload.FileUploadWorker
@@ -90,7 +91,7 @@ internal class BackgroundJobManagerImpl(
         const val JOB_PERIODIC_OFFLINE_OPERATIONS = "periodic_offline_operations"
         const val JOB_PERIODIC_HEALTH_STATUS = "periodic_health_status"
         const val JOB_IMMEDIATE_HEALTH_STATUS = "immediate_health_status"
-
+        const val JOB_METADATA_SYNC = "metadata_sync"
         const val JOB_INTERNAL_TWO_WAY_SYNC = "internal_two_way_sync"
 
         const val JOB_TEST = "test_job"
@@ -521,6 +522,28 @@ internal class BackgroundJobManagerImpl(
 
     override fun cancelAllFilesDownloadJobs() {
         workManager.cancelAllWorkByTag(formatClassTag(FileDownloadWorker::class))
+    }
+
+    override fun startMetadataSyncJob(currentDirPath: String) {
+        val inputData = Data.Builder()
+            .putString(MetadataWorker.FILE_PATH, currentDirPath)
+            .build()
+
+        val constrains = Constraints.Builder()
+            .setRequiredNetworkType(NetworkType.CONNECTED)
+            .setRequiresBatteryNotLow(true)
+            .build()
+
+        val request = oneTimeRequestBuilder(MetadataWorker::class, JOB_METADATA_SYNC)
+            .setConstraints(constrains)
+            .setInputData(inputData)
+            .build()
+
+        workManager.enqueueUniqueWork(
+            JOB_METADATA_SYNC,
+            ExistingWorkPolicy.REPLACE,
+            request
+        )
     }
 
     override fun scheduleOfflineSync() {

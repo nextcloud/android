@@ -1183,7 +1183,6 @@ public class FileDataStorageManager {
         return folderContent;
     }
 
-
     private OCFile createRootDir() {
         OCFile ocFile = new OCFile(OCFile.ROOT_PATH);
         ocFile.setMimeType(MimeType.DIRECTORY);
@@ -1212,7 +1211,7 @@ public class FileDataStorageManager {
         return (i == null) ? -1L : i;
     }
 
-    private OCFile createFileInstance(FileEntity fileEntity) {
+    public OCFile createFileInstance(FileEntity fileEntity) {
         OCFile ocFile = new OCFile(fileEntity.getPath());
         ocFile.setDecryptedRemotePath(fileEntity.getPathDecrypted());
         ocFile.setFileId(nullToZero(fileEntity.getId()));
