@@ -107,7 +107,7 @@ class DeepLinkHandlerTest {
             fun createMockUser(serverBaseUrl: String): User {
                 val user = mock<User>()
                 val uri = URI.create(serverBaseUrl)
-                val server = Server(uri = uri, version = OwnCloudVersion.nextcloud_19)
+                val server = Server(uri = uri, version = OwnCloudVersion.nextcloud_20)
                 whenever(user.server).thenReturn(server)
                 return user
             }

@@ -16,6 +16,7 @@ import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.logger.Logger
 import com.nextcloud.common.PlainClient
 import com.nextcloud.operations.GetMethod
+import com.owncloud.android.lib.resources.status.NextcloudVersion
 import com.owncloud.android.lib.resources.status.OwnCloudVersion
 import org.apache.commons.httpclient.HttpStatus
 import org.junit.Assert.assertFalse
@@ -93,8 +94,8 @@ class ConnectivityServiceTest {
         lateinit var logger: Logger
 
         val baseServerUri = URI.create(SERVER_BASE_URL)
-        val newServer = Server(baseServerUri, OwnCloudVersion.nextcloud_20)
-        val legacyServer = Server(baseServerUri, OwnCloudVersion.nextcloud_18)
+        val newServer = Server(baseServerUri, NextcloudVersion.nextcloud_31)
+        val legacyServer = Server(baseServerUri, OwnCloudVersion.nextcloud_20)
 
         @Mock
         lateinit var user: User
