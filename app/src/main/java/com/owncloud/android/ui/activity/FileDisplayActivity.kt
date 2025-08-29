@@ -269,6 +269,7 @@ class FileDisplayActivity :
 
         initSyncBroadcastReceiver()
         observeWorkerState()
+        startMetadataSyncForRoot()
     }
 
     private fun loadSavedInstanceState(savedInstanceState: Bundle?) {
@@ -2987,6 +2988,10 @@ class FileDisplayActivity :
     }
 
     // region MetadataSyncJob
+    private fun startMetadataSyncForRoot() {
+        backgroundJobManager.startMetadataSyncJob(OCFile.ROOT_PATH)
+    }
+
     private fun startMetadataSyncForCurrentDir() {
         val currentDirId = file?.decryptedRemotePath ?: return
         backgroundJobManager.startMetadataSyncJob(currentDirId)
