@@ -16,6 +16,7 @@ import com.google.gson.Gson;
 import com.nextcloud.android.lib.resources.directediting.DirectEditingObtainRemoteOperation;
 import com.nextcloud.client.account.User;
 import com.nextcloud.common.NextcloudClient;
+import com.nextcloud.utils.extensions.StringExtensionsKt;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.ArbitraryDataProviderImpl;
 import com.owncloud.android.datamodel.FileDataStorageManager;
@@ -400,7 +401,7 @@ public class RefreshFolderOperation extends RemoteOperation {
     private RemoteOperationResult checkForChanges(OwnCloudClient client) {
         mRemoteFolderChanged = true;
         if (isMetadataSyncWorkerRunning) {
-            Log_OC.d(TAG, "Skipping eTag change since metadata worker already did");
+            Log_OC.d(TAG, "Skipping eTag check since metadata worker already did");
             return new RemoteOperationResult<>(ResultCode.OK);
         }
 
@@ -418,7 +419,7 @@ public class RefreshFolderOperation extends RemoteOperation {
                 String remoteFolderETag = remoteFile.getEtag();
                 if (remoteFolderETag != null) {
                     String localFolderEtag = mLocalFolder.getEtag();
-                    mRemoteFolderChanged = !(remoteFolderETag.equalsIgnoreCase(localFolderEtag));
+                    mRemoteFolderChanged = !StringExtensionsKt.isNotBlankAndEquals(remoteFolderETag, localFolderEtag);
                     Log_OC.d(
                         TAG,
                         "📂 eTag check\n" +

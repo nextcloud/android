@@ -25,6 +25,24 @@ fun String.removeFileExtension(): String {
     }
 }
 
+/**
+ * Checks if two nullable strings are both valid (non-null, non-empty, non-blank) and equal.
+ *
+ * It returns `true` only when both strings meet all the following criteria:
+ * - Neither string is null
+ * - Neither string is empty ("")
+ * - Neither string contains only whitespace characters (spaces, tabs, newlines, etc.)
+ * - Both strings are exactly equal (case-sensitive comparison)
+ *
+ * @param other The other nullable string to compare with this string
+ * @return `true` if both strings are valid and exactly equal, `false` otherwise
+ */
+fun String?.isNotBlankAndEquals(other: String?): Boolean = this != null &&
+    other != null &&
+    this.isNotBlank() &&
+    other.isNotBlank() &&
+    this == other
+
 fun String.truncateWithEllipsis(limit: Int) = take(limit) + if (length > limit) StringConstants.THREE_DOT else ""
 
 object StringConstants {

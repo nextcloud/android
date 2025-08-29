@@ -21,6 +21,7 @@ import android.os.Parcelable;
 import android.text.TextUtils;
 
 import com.nextcloud.utils.BuildHelper;
+import com.nextcloud.utils.extensions.StringExtensionsKt;
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.network.WebdavEntry;
 import com.owncloud.android.lib.common.utils.Log_OC;
@@ -787,6 +788,10 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
 
     public String getEtagOnServer() {
         return this.etagOnServer;
+    }
+
+    public boolean isEtagChanged() {
+        return !StringExtensionsKt.isNotBlankAndEquals(getEtag(), getEtagOnServer());
     }
 
     public boolean isSharedViaLink() {

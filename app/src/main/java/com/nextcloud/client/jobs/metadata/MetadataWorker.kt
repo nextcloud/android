@@ -61,13 +61,11 @@ class MetadataWorker(private val context: Context, params: WorkerParameters, pri
             Log_OC.d(
                 TAG,
                 "📂 eTag check\n" +
-                    "  Path:        " + folder.remotePath + "\n" +
-                    "  eTag:  " + folder.etag + "\n" +
+                    "  Path:         " + folder.remotePath + "\n" +
+                    "  eTag:         " + folder.etag + "\n" +
                     "  eTagOnServer: " + folder.etagOnServer
             )
-            if (!folder.etag.isNullOrBlank() && !folder.etagOnServer.isNullOrBlank() &&
-                folder.etag == folder.etagOnServer
-            ) {
+            if (!folder.isEtagChanged) {
                 Log_OC.d(TAG, "Skipping ${folder.remotePath}, eTag didn't change")
                 return@withContext
             }
