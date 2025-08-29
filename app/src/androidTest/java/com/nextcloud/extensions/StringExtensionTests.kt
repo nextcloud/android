@@ -11,6 +11,7 @@ import junit.framework.TestCase.assertFalse
 import junit.framework.TestCase.assertTrue
 import org.junit.Test
 
+@Suppress("TooManyFunctions")
 class StringExtensionTests {
     @Test
     fun testIsNotBlankAndEqualsWhenGivenBothStringsAreNull() {
