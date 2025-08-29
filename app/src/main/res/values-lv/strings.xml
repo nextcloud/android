@@ -94,7 +94,7 @@
     <string name="common_back">Atpakaļ</string>
     <string name="common_cancel">Atcelt</string>
     <string name="common_cancel_sync">Atcelt sinhronizēšanu</string>
-    <string name="common_choose_account">Izvēlieties kontu</string>
+    <string name="common_choose_account">Izvēlēties kontu</string>
     <string name="common_confirm">Apstiprināt</string>
     <string name="common_copy">Kopēt</string>
     <string name="common_delete">Izdzēst</string>
@@ -178,7 +178,7 @@
     <string name="document_scan_export_dialog_title">Izvēlēties izgūšanas veidu</string>
     <string name="done">Pabeigts</string>
     <string name="downloader_download_failed_content">Nevarēja lejupielādēt %1$s</string>
-    <string name="downloader_download_failed_credentials_error">Lejupielāde neizdevās, piesakieties vēlreiz.</string>
+    <string name="downloader_download_failed_credentials_error">Lejupielāde neizdevās, jāpiesakās vēlreiz</string>
     <string name="downloader_download_failed_ticker">Neizdevās lejupielādēt</string>
     <string name="downloader_download_file_not_found">Datne serverī vairs nav pieejama</string>
     <string name="downloader_download_in_progress_content">%1$d%% lejupielādē %2$s</string>
@@ -379,9 +379,9 @@
     <string name="open_in_app">Atvērt %1$s</string>
     <string name="pass_code_configure_your_pass_code">Ievadiet piekļuves kodu</string>
     <string name="pass_code_configure_your_pass_code_explanation">Piekļuves kods tiks pieprasīts katrā lietotnes palaišanas reizē</string>
-    <string name="pass_code_enter_pass_code">Lūdzu, ievadiet piekļuves kodu</string>
+    <string name="pass_code_enter_pass_code">Lūgums ievadīt savu piekļuves kodu</string>
     <string name="pass_code_mismatch">Šie piekļuves kodi nav vienādi</string>
-    <string name="pass_code_reenter_your_pass_code">Lūdzu, atkārtoti ievadiet savu piekļuves kodu</string>
+    <string name="pass_code_reenter_your_pass_code">Lūgums atkārtoti ievadīt savu piekļuves kodu</string>
     <string name="pass_code_remove_your_pass_code">Noņemt kodu</string>
     <string name="pass_code_removed">Kods noņemts</string>
     <string name="pass_code_stored">Kods saglabāts</string>
@@ -617,7 +617,7 @@
     <string name="uploader_btn_upload_text">Augšupielādēt</string>
     <string name="uploader_error_message_no_file_to_upload">Saņemtie dati nesatur derīgu datni.</string>
     <string name="uploader_error_message_read_permission_not_granted">%1$s nav atļauts lasīt saņemto datni</string>
-    <string name="uploader_error_message_source_file_not_copied">Nevarēja pārkopēt datni uz pagaidu mapi. Lūdzu mēģini sūtīt vēlreiz.</string>
+    <string name="uploader_error_message_source_file_not_copied">Datni nevarēja kopēt pagaidu mapē. Jāmēģina to vēlreiz nosūtīt.</string>
     <string name="uploader_error_message_source_file_not_found">Augšupielādei atlasītā datne netika atrasta. Lūgums pārbaudīt, vai tā pastāv.</string>
     <string name="uploader_error_title_no_file_to_upload">Nav datņu augšupielādei</string>
     <string name="uploader_file_not_found_message">Datne netika atrasta. Vai tiešām tā pastāv vai arī nav novērsta iepriekšēja nesaderība?</string>
@@ -625,7 +625,7 @@
     <string name="uploader_local_files_uploaded">Atkārto vietējo datņu neizdevušās augšupielādes</string>
     <string name="uploader_top_message">Izvēlēties augšupielāžu mapi</string>
     <string name="uploader_upload_failed_content_single">Nevarēja augšupielādēt %1$s</string>
-    <string name="uploader_upload_failed_credentials_error">Augšupielāde neizdevās, piesakieties vēlreiz.</string>
+    <string name="uploader_upload_failed_credentials_error">Augšupielāde neizdevās, jāpiesakās vēlreiz</string>
     <string name="uploader_upload_failed_ticker">Augšupielāde neizdevās</string>
     <string name="uploader_upload_files_behaviour">Augšupielādes iespējas:</string>
     <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">Pārvietot datni uz %1$s mapi</string>
