@@ -270,9 +270,8 @@ public class RefreshFolderOperation extends RemoteOperation {
 
         if (result.isSuccess()) {
             if (mRemoteFolderChanged) {
-                // TODO catch IllegalStateException, show properly to user
                 result = fetchAndSyncRemoteFolder(client);
-            } else if (!isMetadataSyncWorkerRunning) {
+            } else {
                 Log_OC.d(TAG, "💾 Remote folder is not changed, getting folder content from database");
                 mChildren = fileDataStorageManager.getFolderContent(mLocalFolder, false);
             }
@@ -400,7 +399,12 @@ public class RefreshFolderOperation extends RemoteOperation {
 
     private RemoteOperationResult checkForChanges(OwnCloudClient client) {
         mRemoteFolderChanged = true;
-        RemoteOperationResult result;
+        if (isMetadataSyncWorkerRunning) {
+            Log_OC.d(TAG, "Skipping eTag change since metadata worker already did");
+            return new RemoteOperationResult<>(ResultCode.OK);
+        }
+
+        RemoteOperationResult<?> result;
         String remotePath = mLocalFolder.getRemotePath();
 
         Log_OC.d(TAG, "Checking changes in " + user.getAccountName() + remotePath);
@@ -430,7 +434,7 @@ public class RefreshFolderOperation extends RemoteOperation {
                 Log_OC.d(TAG, "Ignoring eTag. mRemoteFolderChanged is true.");
             }
 
-            result = new RemoteOperationResult(ResultCode.OK);
+            result = new RemoteOperationResult<>(ResultCode.OK);
 
             Log_OC.i(TAG, "Checked " + user.getAccountName() + remotePath + " : " +
                 (mRemoteFolderChanged ? "changed" : "not changed"));
