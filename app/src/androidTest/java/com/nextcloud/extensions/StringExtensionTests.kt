@@ -14,147 +14,147 @@ import org.junit.Test
 
 class StringExtensionTests {
     @Test
-    fun testisNotBlankAndEqualsWhenGivenBothStringsAreNull() {
+    fun testIsNotBlankAndEqualsWhenGivenBothStringsAreNull() {
         val str1: String? = null
         val str2: String? = null
         assertFalse(str1.isNotBlankAndEquals(str2))
     }
 
     @Test
-    fun testisNotBlankAndEqualsWhenGivenFirstStringIsNull() {
+    fun testIsNotBlankAndEqualsWhenGivenFirstStringIsNull() {
         val str1: String? = null
         val str2 = "hello"
         assertFalse(str1.isNotBlankAndEquals(str2))
     }
 
     @Test
-    fun testisNotBlankAndEqualsWhenGivenSecondStringIsNull() {
+    fun testIsNotBlankAndEqualsWhenGivenSecondStringIsNull() {
         val str1 = "hello"
         val str2: String? = null
         assertFalse(str1.isNotBlankAndEquals(str2))
     }
 
     @Test
-    fun testisNotBlankAndEqualsWhenGivenBothStringsAreEmpty() {
+    fun testIsNotBlankAndEqualsWhenGivenBothStringsAreEmpty() {
         val str1 = ""
         val str2 = ""
         assertFalse(str1.isNotBlankAndEquals(str2))
     }
 
     @Test
-    fun testisNotBlankAndEqualsWhenGivenFirstStringIsEmpty() {
+    fun testIsNotBlankAndEqualsWhenGivenFirstStringIsEmpty() {
         val str1 = ""
         val str2 = "hello"
         assertFalse(str1.isNotBlankAndEquals(str2))
     }
 
     @Test
-    fun testisNotBlankAndEqualsWhenGivenSecondStringIsEmpty() {
+    fun testIsNotBlankAndEqualsWhenGivenSecondStringIsEmpty() {
         val str1 = "hello"
         val str2 = ""
         assertFalse(str1.isNotBlankAndEquals(str2))
     }
 
     @Test
-    fun testisNotBlankAndEqualsWhenGivenBothStringsAreWhitespaceOnly() {
+    fun testIsNotBlankAndEqualsWhenGivenBothStringsAreWhitespaceOnly() {
         val str1 = "   "
         val str2 = "  \t  "
         assertFalse(str1.isNotBlankAndEquals(str2))
     }
 
     @Test
-    fun testisNotBlankAndEqualsWhenGivenFirstStringIsWhitespaceOnly() {
+    fun testIsNotBlankAndEqualsWhenGivenFirstStringIsWhitespaceOnly() {
         val str1 = "   "
         val str2 = "hello"
         assertFalse(str1.isNotBlankAndEquals(str2))
     }
 
     @Test
-    fun testisNotBlankAndEqualsWhenGivenSecondStringIsWhitespaceOnly() {
+    fun testIsNotBlankAndEqualsWhenGivenSecondStringIsWhitespaceOnly() {
         val str1 = "hello"
         val str2 = "   "
         assertFalse(str1.isNotBlankAndEquals(str2))
     }
 
     @Test
-    fun testisNotBlankAndEqualsWhenGivenStringsAreDifferentButBothValid() {
+    fun testIsNotBlankAndEqualsWhenGivenStringsAreDifferentButBothValid() {
         val str1 = "hello"
         val str2 = "world"
         assertFalse(str1.isNotBlankAndEquals(str2))
     }
 
     @Test
-    fun testisNotBlankAndEqualsWhenGivenStringsHaveDifferentCase() {
+    fun testIsNotBlankAndEqualsWhenGivenStringsHaveDifferentCase() {
         val str1 = "Hello"
         val str2 = "hello"
         assertFalse(str1.isNotBlankAndEquals(str2))
     }
 
     @Test
-    fun testisNotBlankAndEqualsWhenGivenBothStringsAreIdenticalAndValid() {
+    fun testIsNotBlankAndEqualsWhenGivenBothStringsAreIdenticalAndValid() {
         val str1 = "hello"
         val str2 = "hello"
         assertTrue(str1.isNotBlankAndEquals(str2))
     }
 
     @Test
-    fun testisNotBlankAndEqualsWhenGivenBothStringsAreIdenticalWithSpaces() {
+    fun testIsNotBlankAndEqualsWhenGivenBothStringsAreIdenticalWithSpaces() {
         val str1 = "hello world"
         val str2 = "hello world"
         assertTrue(str1.isNotBlankAndEquals(str2))
     }
 
     @Test
-    fun testisNotBlankAndEqualsWhenGivenBothStringsAreIdenticalSingleCharacter() {
+    fun testIsNotBlankAndEqualsWhenGivenBothStringsAreIdenticalSingleCharacter() {
         val str1 = "a"
         val str2 = "a"
         assertTrue(str1.isNotBlankAndEquals(str2))
     }
 
     @Test
-    fun testisNotBlankAndEqualsWhenGivenBothStringsAreIdenticalWithSpecialCharacters() {
+    fun testIsNotBlankAndEqualsWhenGivenBothStringsAreIdenticalWithSpecialCharacters() {
         val str1 = "hello@world!123"
         val str2 = "hello@world!123"
         assertTrue(str1.isNotBlankAndEquals(str2))
     }
 
     @Test
-    fun testisNotBlankAndEqualsWhenGivenOneHasLeadingWhitespaceAndOtherDoesNot() {
+    fun testIsNotBlankAndEqualsWhenGivenOneHasLeadingWhitespaceAndOtherDoesNot() {
         val str1 = " hello"
         val str2 = "hello"
         assertFalse(str1.isNotBlankAndEquals(str2))
     }
 
     @Test
-    fun testisNotBlankAndEqualsWhenGivenOneHasTrailingWhitespaceAndOtherDoesNot() {
+    fun testIsNotBlankAndEqualsWhenGivenOneHasTrailingWhitespaceAndOtherDoesNot() {
         val str1 = "hello"
         val str2 = "hello "
         assertFalse(str1.isNotBlankAndEquals(str2))
     }
 
     @Test
-    fun testisNotBlankAndEqualsWhenGivenBothHaveIdenticalWhitespacePadding() {
+    fun testIsNotBlankAndEqualsWhenGivenBothHaveIdenticalWhitespacePadding() {
         val str1 = " hello "
         val str2 = " hello "
         assertTrue(str1.isNotBlankAndEquals(str2))
     }
 
     @Test
-    fun testisNotBlankAndEqualsWhenGivenMixedWhitespaceCharacters() {
+    fun testIsNotBlankAndEqualsWhenGivenMixedWhitespaceCharacters() {
         val str1 = "\t"
         val str2 = "\n"
         assertFalse(str1.isNotBlankAndEquals(str2))
     }
 
     @Test
-    fun testisNotBlankAndEqualsWhenGivenOneIsNullAndOtherIsEmpty() {
+    fun testIsNotBlankAndEqualsWhenGivenOneIsNullAndOtherIsEmpty() {
         val str1: String? = null
         val str2 = ""
         assertFalse(str1.isNotBlankAndEquals(str2))
     }
 
     @Test
-    fun testisNotBlankAndEqualsWhenGivenOneIsNullAndOtherIsWhitespace() {
+    fun testIsNotBlankAndEqualsWhenGivenOneIsNullAndOtherIsWhitespace() {
         val str1: String? = null
         val str2 = "   "
         assertFalse(str1.isNotBlankAndEquals(str2))
