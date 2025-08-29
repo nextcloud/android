@@ -40,6 +40,7 @@ import com.owncloud.android.syncadapter.FileSyncAdapter
 import com.owncloud.android.ui.dialog.CreateFolderDialogFragment
 import com.owncloud.android.ui.dialog.SortingOrderDialogFragment.OnSortingOrderListener
 import com.owncloud.android.ui.events.SearchEvent
+import com.owncloud.android.ui.fragment.EmptyListState
 import com.owncloud.android.ui.fragment.FileFragment
 import com.owncloud.android.ui.fragment.OCFileListFragment
 import com.owncloud.android.utils.DataHolderUtil
@@ -221,15 +222,10 @@ open class FolderPickerActivity :
         }
 
         listFragment?.let {
-            if (!mSyncInProgress) {
-                it.setMessageForEmptyList(
-                    R.string.folder_list_empty_headline,
-                    R.string.file_list_empty_moving,
-                    R.drawable.ic_list_empty_create_folder,
-                    true
-                )
+            if (mSyncInProgress) {
+                it.setEmptyListMessage(EmptyListState.LOADING)
             } else {
-                it.setEmptyListLoadingMessage()
+                it.setEmptyListMessage(EmptyListState.ADD_FOLDER)
             }
         }
     }
