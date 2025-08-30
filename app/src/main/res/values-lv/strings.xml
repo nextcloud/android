@@ -116,7 +116,7 @@
     <string name="common_switch_to_account">Pārslēgties uz kontu</string>
     <string name="common_yes">Jā</string>
     <string name="community_beta_headline">Testēt dev versiju</string>
-    <string name="community_beta_text">Tas ieskaita visas gaidāmās iespējas un ir pati jaunākā versija. Kļūdas/nepilnības var gadīties, ja un kad tās notiek lūdzu ziņojiet par tām.</string>
+    <string name="community_beta_text">Šis ietver visas gaidāmās iespējas, un tam ir pati jaunākā versija. Kļūdas/nepilnības var gadīties, ja un kad tās notiek, lūgums ziņot par atrasto.</string>
     <string name="community_contribute_forum_forum">forums</string>
     <string name="community_contribute_forum_text">Palīdzi citiem </string>
     <string name="community_contribute_headline">Aktīvi dod iegūldījumu</string>
@@ -213,6 +213,7 @@
     <string name="end_to_end_encryption_enter_passphrase_to_access_files">Ievadi savu paroles vārdkopu, lai piekļūtu savām datnēm</string>
     <string name="end_to_end_encryption_password">Parole…</string>
     <string name="end_to_end_encryption_title">Uzstādīt šifrēšanu</string>
+    <string name="end_to_end_encryption_unexpected_error_occurred">Atslēgu lejupielādēšanas laikā atgadījās neparedzēta kļūda</string>
     <string name="error__upload__local_file_not_copied">%1$s nevarēja pārkopēt uz %2$s vietējo mapi</string>
     <string name="error_cant_bind_to_operations_service">Kritiska kļūda: Nevar veikt darbības</string>
     <string name="error_comment_file">Kļūda komentējot datni</string>
