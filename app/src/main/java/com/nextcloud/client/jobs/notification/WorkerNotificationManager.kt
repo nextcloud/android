@@ -22,7 +22,8 @@ open class WorkerNotificationManager(
     private val id: Int,
     private val context: Context,
     viewThemeUtils: ViewThemeUtils,
-    private val tickerId: Int
+    private val tickerId: Int,
+    private val channelId: String = NotificationUtils.NOTIFICATION_CHANNEL_BACKGROUND_OPERATIONS
 ) {
     var currentOperationTitle: String? = null
 
@@ -31,7 +32,7 @@ open class WorkerNotificationManager(
     var notificationBuilder: NotificationCompat.Builder =
         NotificationUtils.newNotificationBuilder(
             context,
-            NotificationUtils.NOTIFICATION_CHANNEL_BACKGROUND_OPERATIONS,
+            channelId,
             viewThemeUtils
         ).apply {
             setTicker(context.getString(tickerId))
@@ -39,7 +40,6 @@ open class WorkerNotificationManager(
             setLargeIcon(BitmapFactory.decodeResource(context.resources, R.drawable.notification_icon))
             setStyle(NotificationCompat.BigTextStyle())
             priority = NotificationCompat.PRIORITY_LOW
-            setChannelId(NotificationUtils.NOTIFICATION_CHANNEL_DOWNLOAD)
         }
 
     fun showNotification() {
