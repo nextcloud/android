@@ -448,6 +448,7 @@
     <string name="file_not_synced">Faili haikuweza kusawazishwa. Inaonyesha toleo la hivi punde linalopatikana.</string>
     <string name="file_rename">Ipe jina jipya</string>
     <string name="file_upload_worker_error_notification_title">Imeshindwa kupakia. Hakuna muunganisho wa mtandao</string>
+    <string name="file_upload_worker_same_file_already_exists">%s tayari ipo, hakuna mzozo uliogunduliwa</string>
     <string name="file_version_restored_error">Hitilafu katika kurejesha toleo la faili!</string>
     <string name="file_version_restored_successfully">Imefaulu kurejesha toleo la faili.</string>
     <string name="filedetails_details">Maelezo ya kina</string>
@@ -657,6 +658,7 @@
     <string name="pin_shortcut_label">Fungua %1$s</string>
     <string name="placeholder_extension">.txt</string>
     <string name="placeholder_fileSize">389 KB</string>
+    <string name="placeholder_filename">kishika nafasi</string>
     <string name="placeholder_media_time">12:23:45</string>
     <string name="placeholder_sentence">Hiki ni kishikilia nafasi</string>
     <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
