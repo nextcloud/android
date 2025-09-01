@@ -35,7 +35,6 @@ import com.owncloud.android.utils.MimeTypeUtil
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.NonCancellable
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.withContext
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
@@ -63,54 +62,110 @@ class OfflineOperationsWorker(
     private var repository = OfflineOperationsRepository(fileDataStorageManager)
 
     override suspend fun doWork(): Result = withContext(Dispatchers.IO) {
-        val jobName = inputData.getString(JOB_NAME)
-        Log_OC.d(TAG, "[$jobName] OfflineOperationsWorker started for user: ${user.accountName}")
+        try {
+            val jobName = inputData.getString(JOB_NAME)
+            Log_OC.d(TAG, "[$jobName] OfflineOperationsWorker started for user: ${user.accountName}")
 
-        if (!isNetworkAndServerAvailable()) {
-            Log_OC.w(TAG, "⚠️ No internet/server connection. Retrying later...")
-            return@withContext Result.retry()
-        }
-
-        val client = clientFactory.create(user)
-
-        notificationManager.start()
-        val operations = fileDataStorageManager.offlineOperationDao.getAll()
-        Log_OC.d(TAG, "📋 Found ${operations.size} offline operations to process")
-
-        val result = processOperations(operations, client)
-        notificationManager.dismissNotification()
-
-        Log_OC.d(TAG, "🏁 Worker finished with result: $result")
-        return@withContext result
-    }
-
-    @Suppress("TooGenericExceptionCaught")
-    private suspend fun processOperations(operations: List<OfflineOperationEntity>, client: OwnCloudClient): Result {
-        val totalOperationSize = operations.size
-
-        return try {
-            operations.forEachIndexed { index, operation ->
-                try {
-                    Log_OC.d(TAG, "Processing operation, path: ${operation.path}")
-                    val result = executeOperation(operation, client)
-                    val success = handleResult(operation, totalOperationSize, index, result)
-
-                    if (!success) {
-                        Log_OC.e(TAG, "❌ Operation failed: id=${operation.id}, type=${operation.type}")
-                    }
-                } catch (e: Exception) {
-                    Log_OC.e(TAG, "💥 Exception while processing operation id=${operation.id}: ${e.message}")
-                }
+            // check network connection
+            if (!isNetworkAndServerAvailable()) {
+                Log_OC.w(TAG, "⚠️ No internet/server connection. Retrying later...")
+                return@withContext Result.retry()
             }
 
-            Log_OC.i(TAG, "✅ All offline operations completed successfully.")
+            // check offline operations
+            val operations = fileDataStorageManager.offlineOperationDao.getAll()
+            if (operations.isEmpty()) {
+                Log_OC.d(TAG, "Skipping, no offline operation found")
+                return@withContext Result.success()
+            }
+
+            // process offline operations
+            notificationManager.start()
+            val client = clientFactory.create(user)
+            processOperations(operations, client)
+
+            // finish
             WorkerStateLiveData.instance().setWorkState(WorkerState.OfflineOperationsCompleted)
-            Result.success()
+            Log_OC.d(TAG, "🏁 Worker finished with result")
+            return@withContext Result.success()
         } catch (e: Exception) {
             Log_OC.e(TAG, "💥 ProcessOperations failed: ${e.message}")
-            Result.failure()
+            return@withContext Result.failure()
+        } finally {
+            notificationManager.dismissNotification()
         }
     }
+
+    // region Handle offline operations
+    @Suppress("TooGenericExceptionCaught")
+    private suspend fun processOperations(operations: List<OfflineOperationEntity>, client: OwnCloudClient) {
+        val totalOperationSize = operations.size
+        operations.forEachIndexed { index, operation ->
+            try {
+                Log_OC.d(TAG, "Processing operation, path: ${operation.path}")
+                val result = executeOperation(operation, client)
+                val success = handleResult(operation, totalOperationSize, index, result)
+
+                if (!success) {
+                    Log_OC.e(TAG, "❌ Operation failed: id=${operation.id}, type=${operation.type}")
+                }
+            } catch (e: Exception) {
+                Log_OC.e(TAG, "💥 Exception while processing operation id=${operation.id}: ${e.message}")
+            }
+        }
+    }
+
+    private fun handleResult(
+        operation: OfflineOperationEntity,
+        totalOperations: Int,
+        currentSuccessfulOperationIndex: Int,
+        result: OfflineOperationResult
+    ): Boolean {
+        val operationResult = result?.first ?: return false
+
+        val logMessage = if (operationResult.isSuccess) "Operation completed" else "Operation failed"
+        Log_OC.d(TAG, "$logMessage filename: ${operation.filename}, type: ${operation.type}")
+
+        return if (result.first?.isSuccess == true) {
+            handleSuccessResult(operation, totalOperations, currentSuccessfulOperationIndex)
+            true
+        } else {
+            handleErrorResult(operation.id, result)
+            false
+        }
+    }
+
+    private fun handleSuccessResult(
+        operation: OfflineOperationEntity,
+        totalOperations: Int,
+        currentSuccessfulOperationIndex: Int
+    ) {
+        if (operation.type is OfflineOperationType.RemoveFile) {
+            val operationType = operation.type as OfflineOperationType.RemoveFile
+            fileDataStorageManager.getFileByDecryptedRemotePath(operationType.path)?.let { ocFile ->
+                repository.deleteOperation(ocFile)
+            }
+        } else {
+            repository.updateNextOperations(operation)
+        }
+
+        fileDataStorageManager.offlineOperationDao.delete(operation)
+        notificationManager.update(totalOperations, currentSuccessfulOperationIndex, operation.filename ?: "")
+    }
+
+    private fun handleErrorResult(id: Int?, result: OfflineOperationResult) {
+        val operationResult = result?.first ?: return
+        val operation = result.second ?: return
+        Log_OC.e(TAG, "❌ Operation failed [id=$id]: code=${operationResult.code}, message=${operationResult.message}")
+        val excludedErrorCodes = listOf(RemoteOperationResult.ResultCode.FOLDER_ALREADY_EXISTS)
+
+        if (!excludedErrorCodes.contains(operationResult.code)) {
+            notificationManager.showNewNotification(id, operationResult, operation)
+        } else {
+            Log_OC.d(TAG, "ℹ️ Ignored error: ${operationResult.code}")
+        }
+    }
+    // endregion
 
     private suspend fun isNetworkAndServerAvailable(): Boolean = suspendCoroutine { continuation ->
         connectivityService.isNetworkAndServerAvailable { result ->
@@ -225,60 +280,6 @@ class OfflineOperationsWorker(
         return removeFileOperation.execute(client) to removeFileOperation
     }
     // endregion
-
-    private suspend fun handleResult(
-        operation: OfflineOperationEntity,
-        totalOperations: Int,
-        currentSuccessfulOperationIndex: Int,
-        result: OfflineOperationResult
-    ): Boolean {
-        val operationResult = result?.first ?: return false
-
-        val logMessage = if (operationResult.isSuccess) "Operation completed" else "Operation failed"
-        Log_OC.d(TAG, "$logMessage filename: ${operation.filename}, type: ${operation.type}")
-
-        return if (result.first?.isSuccess == true) {
-            handleSuccessResult(operation, totalOperations, currentSuccessfulOperationIndex)
-            true
-        } else {
-            handleErrorResult(operation.id, result)
-            false
-        }
-    }
-
-    private suspend fun handleSuccessResult(
-        operation: OfflineOperationEntity,
-        totalOperations: Int,
-        currentSuccessfulOperationIndex: Int
-    ) {
-        if (operation.type is OfflineOperationType.RemoveFile) {
-            val operationType = operation.type as OfflineOperationType.RemoveFile
-            fileDataStorageManager.getFileByDecryptedRemotePath(operationType.path)?.let { ocFile ->
-                repository.deleteOperation(ocFile)
-            }
-        } else {
-            repository.updateNextOperations(operation)
-        }
-
-        fileDataStorageManager.offlineOperationDao.delete(operation)
-
-        notificationManager.update(totalOperations, currentSuccessfulOperationIndex, operation.filename ?: "")
-        delay(ONE_SECOND)
-        notificationManager.dismissNotification(operation.id)
-    }
-
-    private fun handleErrorResult(id: Int?, result: OfflineOperationResult) {
-        val operationResult = result?.first ?: return
-        val operation = result.second ?: return
-        Log_OC.e(TAG, "❌ Operation failed [id=$id]: code=${operationResult.code}, message=${operationResult.message}")
-        val excludedErrorCodes = listOf(RemoteOperationResult.ResultCode.FOLDER_ALREADY_EXISTS)
-
-        if (!excludedErrorCodes.contains(operationResult.code)) {
-            notificationManager.showNewNotification(id, operationResult, operation)
-        } else {
-            Log_OC.d(TAG, "ℹ️ Ignored error: ${operationResult.code}")
-        }
-    }
 
     @Suppress("DEPRECATION")
     private fun getRemoteFile(remotePath: String): RemoteFile? {
