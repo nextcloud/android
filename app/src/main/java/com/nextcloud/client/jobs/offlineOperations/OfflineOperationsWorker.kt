@@ -60,6 +60,7 @@ class OfflineOperationsWorker(
     private val notificationManager = OfflineOperationsNotificationManager(context, viewThemeUtils)
     private var repository = OfflineOperationsRepository(fileDataStorageManager)
 
+    @Suppress("TooGenericExceptionCaught")
     override suspend fun doWork(): Result = withContext(Dispatchers.IO) {
         try {
             val jobName = inputData.getString(JOB_NAME)
@@ -167,7 +168,7 @@ class OfflineOperationsWorker(
     }
 
     // region Operation Execution
-    @Suppress("ComplexCondition")
+    @Suppress("ComplexCondition", "LongMethod")
     private suspend fun executeOperation(
         operation: OfflineOperationEntity,
         client: OwnCloudClient
@@ -181,7 +182,8 @@ class OfflineOperationsWorker(
         if (operation.type is OfflineOperationType.CreateFile && path.endsWith(OCFile.PATH_SEPARATOR)) {
             Log_OC.w(
                 TAG,
-                "Create file operation should not ends with path separator removing suffix, operation id=${operation.id}"
+                "Create file operation should not ends with path separator removing suffix, " +
+                    "operation id=${operation.id}"
             )
             path = path.removeSuffix(OCFile.PATH_SEPARATOR)
         }
