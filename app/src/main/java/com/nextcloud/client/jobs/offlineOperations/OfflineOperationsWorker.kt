@@ -142,7 +142,7 @@ class OfflineOperationsWorker(
         }
 
         fileDataStorageManager.offlineOperationDao.delete(operation)
-        notificationManager.update(totalOperations, currentSuccessfulOperationIndex, operation.filename ?: "")
+        notificationManager.update(totalOperations, currentSuccessfulOperationIndex + 1, operation.filename ?: "")
     }
 
     private fun handleErrorResult(id: Int?, result: OfflineOperationResult) {
