@@ -103,11 +103,7 @@ class OfflineOperationsWorker(
             try {
                 Log_OC.d(TAG, "Processing operation, path: ${operation.path}")
                 val result = executeOperation(operation, client)
-                val success = handleResult(operation, totalOperationSize, index, result)
-
-                if (!success) {
-                    Log_OC.e(TAG, "❌ Operation failed: id=${operation.id}, type=${operation.type}")
-                }
+                handleResult(operation, totalOperationSize, index, result)
             } catch (e: Exception) {
                 Log_OC.e(TAG, "💥 Exception while processing operation id=${operation.id}: ${e.message}")
             }
@@ -119,18 +115,15 @@ class OfflineOperationsWorker(
         totalOperations: Int,
         currentSuccessfulOperationIndex: Int,
         result: OfflineOperationResult
-    ): Boolean {
-        val operationResult = result?.first ?: return false
-
+    ) {
+        val operationResult = result?.first ?: return
         val logMessage = if (operationResult.isSuccess) "Operation completed" else "Operation failed"
         Log_OC.d(TAG, "$logMessage filename: ${operation.filename}, type: ${operation.type}")
 
         return if (result.first?.isSuccess == true) {
             handleSuccessResult(operation, totalOperations, currentSuccessfulOperationIndex)
-            true
         } else {
             handleErrorResult(operation.id, result)
-            false
         }
     }
 
@@ -179,14 +172,22 @@ class OfflineOperationsWorker(
         operation: OfflineOperationEntity,
         client: OwnCloudClient
     ): OfflineOperationResult? = withContext(Dispatchers.IO) {
-        val path = (operation.path)
+        var path = (operation.path)
         if (path == null) {
             Log_OC.w(TAG, "⚠️ Skipped: path is null for operation id=${operation.id}")
             return@withContext null
         }
 
+        if (operation.type is OfflineOperationType.CreateFile && path.endsWith(OCFile.PATH_SEPARATOR)) {
+            Log_OC.w(
+                TAG,
+                "Create file operation should not ends with path separator removing suffix, operation id=${operation.id}"
+            )
+            path = path.removeSuffix(OCFile.PATH_SEPARATOR)
+        }
+
         val remoteFile = getRemoteFile(path)
-        val ocFile = fileDataStorageManager.getFileByDecryptedRemotePath(operation.path)
+        val ocFile = fileDataStorageManager.getFileByDecryptedRemotePath(path)
 
         if (remoteFile != null && ocFile != null && isFileChanged(remoteFile, ocFile)) {
             Log_OC.w(TAG, "⚠️ Conflict detected: File already exists on server. Skipping operation id=${operation.id}")
@@ -203,14 +204,14 @@ class OfflineOperationsWorker(
             return@withContext null
         }
 
-        // do not rename or remove non-existing file thus we have to delete offline operation.
         if (operation.isRenameOrRemove() && ocFile == null) {
+            Log_OC.d(TAG, "Skipping, attempting to delete or rename non-existing file")
             fileDataStorageManager.offlineOperationDao.delete(operation)
             return@withContext null
         }
 
-        // do not try to create same file
         if (operation.isCreate() && remoteFile != null && ocFile != null && !isFileChanged(remoteFile, ocFile)) {
+            Log_OC.d(TAG, "Skipping, attempting to create same file creation")
             fileDataStorageManager.offlineOperationDao.delete(operation)
             return@withContext null
         }
@@ -240,10 +241,7 @@ class OfflineOperationsWorker(
     }
 
     @Suppress("DEPRECATION")
-    private fun createFolder(
-        operation: OfflineOperationEntity,
-        client: OwnCloudClient
-    ): OfflineOperationResult {
+    private fun createFolder(operation: OfflineOperationEntity, client: OwnCloudClient): OfflineOperationResult {
         val operationType = (operation.type as OfflineOperationType.CreateFolder)
         val createFolderOperation = CreateFolderOperation(operationType.path, user, context, fileDataStorageManager)
         return createFolderOperation.execute(client) to createFolderOperation
