@@ -42,6 +42,9 @@ data class OfflineOperationEntity(
     fun isRenameOrRemove(): Boolean =
         (type is OfflineOperationType.RenameFile || type is OfflineOperationType.RemoveFile)
 
+    fun isCreate(): Boolean =
+        (type is OfflineOperationType.CreateFile || type is OfflineOperationType.CreateFolder)
+
     fun getConflictText(context: Context): String = if (type is OfflineOperationType.RemoveFile) {
         context.getString(R.string.offline_operations_worker_notification_remove_conflict_text, filename)
     } else if (type is OfflineOperationType.RenameFile) {
