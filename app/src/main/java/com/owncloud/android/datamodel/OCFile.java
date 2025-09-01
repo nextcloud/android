@@ -127,6 +127,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
     private List<Tag> tags = new ArrayList<>();
     private Long internalFolderSyncTimestamp = -1L;
     private String internalFolderSyncResult = "";
+    private String reason = "";
 
     /**
      * URI to the local path of the file contents, if stored in the device; cached after first call to
@@ -1139,5 +1140,13 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
     public boolean exists() {
         final String storagePath = getStoragePath();
         return storagePath != null && new File(storagePath).exists();
+    }
+
+    public void setReason(String value) {
+        reason = value;
+    }
+
+    public String getReason() {
+        return reason;
     }
 }

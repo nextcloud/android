@@ -474,7 +474,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         }
     }
 
-    public void bindRecommendedFilesHolder(OCFileListGridItemViewHolder holder, @NonNull OCFile file) {
+    public void bindRecommendedFilesHolder(OCFileListRecommendedItemViewHolder holder, @NonNull OCFile file) {
         bindHolder(holder, holder, file);
     }
 
