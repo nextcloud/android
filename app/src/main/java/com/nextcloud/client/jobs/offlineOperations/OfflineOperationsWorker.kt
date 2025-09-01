@@ -34,7 +34,6 @@ import com.owncloud.android.operations.RenameFileOperation
 import com.owncloud.android.utils.MimeTypeUtil
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.withContext
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
@@ -157,7 +156,8 @@ class OfflineOperationsWorker(
         val operationResult = result?.first ?: return
         val operation = result.second ?: return
         Log_OC.e(TAG, "❌ Operation failed [id=$id]: code=${operationResult.code}, message=${operationResult.message}")
-        val excludedErrorCodes = listOf(RemoteOperationResult.ResultCode.FOLDER_ALREADY_EXISTS)
+        val excludedErrorCodes =
+            listOf(RemoteOperationResult.ResultCode.FOLDER_ALREADY_EXISTS, RemoteOperationResult.ResultCode.LOCKED)
 
         if (!excludedErrorCodes.contains(operationResult.code)) {
             notificationManager.showNewNotification(id, operationResult, operation)
@@ -203,6 +203,18 @@ class OfflineOperationsWorker(
             return@withContext null
         }
 
+        // do not rename or remove non-existing file thus we have to delete offline operation.
+        if (operation.isRenameOrRemove() && ocFile == null) {
+            fileDataStorageManager.offlineOperationDao.delete(operation)
+            return@withContext null
+        }
+
+        // do not try to create same file
+        if (operation.isCreate() && remoteFile != null && ocFile != null && !isFileChanged(remoteFile, ocFile)) {
+            fileDataStorageManager.offlineOperationDao.delete(operation)
+            return@withContext null
+        }
+
         return@withContext when (val type = operation.type) {
             is OfflineOperationType.CreateFolder -> {
                 Log_OC.d(TAG, "📂 Creating folder at ${type.path}")
@@ -228,55 +240,41 @@ class OfflineOperationsWorker(
     }
 
     @Suppress("DEPRECATION")
-    private suspend fun createFolder(
+    private fun createFolder(
         operation: OfflineOperationEntity,
         client: OwnCloudClient
     ): OfflineOperationResult {
         val operationType = (operation.type as OfflineOperationType.CreateFolder)
-        val createFolderOperation = withContext(NonCancellable) {
-            CreateFolderOperation(operationType.path, user, context, fileDataStorageManager)
-        }
-
+        val createFolderOperation = CreateFolderOperation(operationType.path, user, context, fileDataStorageManager)
         return createFolderOperation.execute(client) to createFolderOperation
     }
 
     @Suppress("DEPRECATION")
-    private suspend fun createFile(operation: OfflineOperationEntity, client: OwnCloudClient): OfflineOperationResult {
+    private fun createFile(operation: OfflineOperationEntity, client: OwnCloudClient): OfflineOperationResult {
         val operationType = (operation.type as OfflineOperationType.CreateFile)
-
-        val createFileOperation = withContext(NonCancellable) {
-            val lastModificationDate = System.currentTimeMillis() / ONE_SECOND
-
-            UploadFileRemoteOperation(
-                operationType.localPath,
-                operationType.remotePath,
-                operationType.mimeType,
-                "",
-                operation.modifiedAt ?: lastModificationDate,
-                operation.createdAt ?: System.currentTimeMillis(),
-                true
-            )
-        }
-
+        val lastModificationDate = System.currentTimeMillis() / ONE_SECOND
+        val createFileOperation = UploadFileRemoteOperation(
+            operationType.localPath,
+            operationType.remotePath,
+            operationType.mimeType,
+            "",
+            operation.modifiedAt ?: lastModificationDate,
+            operation.createdAt ?: System.currentTimeMillis(),
+            true
+        )
         return createFileOperation.execute(client) to createFileOperation
     }
 
     @Suppress("DEPRECATION")
-    private suspend fun renameFile(operation: OfflineOperationEntity, client: OwnCloudClient): OfflineOperationResult {
-        val renameFileOperation = withContext(NonCancellable) {
-            val operationType = (operation.type as OfflineOperationType.RenameFile)
-            RenameFileOperation(operation.path, operationType.newName, fileDataStorageManager)
-        }
-
+    private fun renameFile(operation: OfflineOperationEntity, client: OwnCloudClient): OfflineOperationResult {
+        val operationType = (operation.type as OfflineOperationType.RenameFile)
+        val renameFileOperation = RenameFileOperation(operation.path, operationType.newName, fileDataStorageManager)
         return renameFileOperation.execute(client) to renameFileOperation
     }
 
     @Suppress("DEPRECATION")
-    private suspend fun removeFile(ocFile: OCFile, client: OwnCloudClient): OfflineOperationResult {
-        val removeFileOperation = withContext(NonCancellable) {
-            RemoveFileOperation(ocFile, false, user, true, context, fileDataStorageManager)
-        }
-
+    private fun removeFile(ocFile: OCFile, client: OwnCloudClient): OfflineOperationResult {
+        val removeFileOperation = RemoveFileOperation(ocFile, false, user, true, context, fileDataStorageManager)
         return removeFileOperation.execute(client) to removeFileOperation
     }
     // endregion
