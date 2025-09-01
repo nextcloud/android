@@ -18,6 +18,7 @@ import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.ActivityNotFoundException;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -450,9 +451,25 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     }
 
     private void launchDefaultWebBrowser(String url) {
-        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);
+        if (url == null || url.trim().isEmpty()) {
+            DisplayUtils.showSnackMessage(this, R.string.invalid_url);
+            return;
+        }
+
+        try {
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            PackageManager packageManager = getPackageManager();
+
+            if (intent.resolveActivity(packageManager) != null) {
+                startActivity(intent);
+            } else {
+                DisplayUtils.showSnackMessage(this, R.string.authenticator_activity_no_web_browser_found);
+            }
+        } catch (Exception e) {
+            Log_OC.e(TAG, "launchDefaultWebBrowser: " + e);
+            DisplayUtils.showSnackMessage(this, R.string.authenticator_activity_login_error);
+        }
     }
 
     private void performLoginFlowV2() {
