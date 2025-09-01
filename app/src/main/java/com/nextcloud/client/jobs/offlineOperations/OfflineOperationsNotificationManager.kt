@@ -39,6 +39,15 @@ class OfflineOperationsNotificationManager(private val context: Context, viewThe
         private const val ONE_HUNDRED_PERCENT = 100
     }
 
+    init {
+        notificationBuilder.apply {
+            setSound(null)
+            setVibrate(null)
+            setOnlyAlertOnce(true)
+            setSilent(true)
+        }
+    }
+
     fun start() {
         notificationBuilder.run {
             setContentTitle(context.getString(R.string.offline_operations_worker_notification_start_text))
