@@ -466,7 +466,7 @@ internal class BackgroundJobManagerImpl(
 
         workManager.enqueueUniqueWork(
             JOB_OFFLINE_OPERATIONS,
-            ExistingWorkPolicy.REPLACE,
+            ExistingWorkPolicy.KEEP,
             request
         )
     }
