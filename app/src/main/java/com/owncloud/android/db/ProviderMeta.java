@@ -25,13 +25,25 @@ import java.util.List;
  */
 public class ProviderMeta {
     public static final String DB_NAME = "filelist";
-    public static final int DB_VERSION = 90;
+    public static final int DB_VERSION = 91;
 
     private ProviderMeta() {
         // No instance
     }
 
     static public class ProviderTableMeta implements BaseColumns {
+        // region Recommended files table
+        public static final String RECOMMENDED_FILE_TABLE_NAME = "recommended_files";
+        public static final String RECOMMENDED_FILE_NAME = "name";
+        public static final String RECOMMENDED_FILE_DIRECTORY = "directory";
+        public static final String RECOMMENDED_FILE_EXTENSIONS = "extension";
+        public static final String RECOMMENDED_FILE_MIME_TYPE = "mime_type";
+        public static final String RECOMMENDED_FILE_HAS_PREVIEW = "has_preview";
+        public static final String RECOMMENDED_FILE_REASON = "reason";
+        public static final String RECOMMENDED_TIMESTAMP = "timestamp";
+        // endregion
+
+        // region Table names
         public static final String OFFLINE_OPERATION_TABLE_NAME = "offline_operations";
         public static final String FILE_TABLE_NAME = "filelist";
         public static final String OCSHARES_TABLE_NAME = "ocshares";
@@ -44,6 +56,7 @@ public class ProviderMeta {
         public static final String FILESYSTEM_TABLE_NAME = "filesystem";
         public static final String EDITORS_TABLE_NAME = "editors";
         public static final String CREATORS_TABLE_NAME = "creators";
+        // endregion
 
         private static final String CONTENT_PREFIX = "content://";
 

@@ -37,6 +37,7 @@ import com.nextcloud.client.account.User;
 import com.nextcloud.client.database.NextcloudDatabase;
 import com.nextcloud.client.database.dao.FileDao;
 import com.nextcloud.client.database.dao.OfflineOperationDao;
+import com.nextcloud.client.database.dao.RecommendedFileDao;
 import com.nextcloud.client.database.entity.FileEntity;
 import com.nextcloud.client.database.entity.OfflineOperationEntity;
 import com.nextcloud.client.jobs.offlineOperations.repository.OfflineOperationsRepository;
@@ -108,6 +109,7 @@ public class FileDataStorageManager {
     private final ContentProviderClient contentProviderClient;
     private final User user;
 
+    public final RecommendedFileDao recommendedFileDao = NextcloudDatabase.getInstance(MainApp.getAppContext()).recommendedFileDao();
     public final OfflineOperationDao offlineOperationDao = NextcloudDatabase.getInstance(MainApp.getAppContext()).offlineOperationDao();
     public final FileDao fileDao = NextcloudDatabase.getInstance(MainApp.getAppContext()).fileDao();
     private final Gson gson = new Gson();
