@@ -418,6 +418,7 @@
     <string name="new_media_folder_videos">видео</string>
     <string name="new_version_was_created">Нова верзија е креирана</string>
     <string name="no_browser_available">Нема достапна апликација за линкови</string>
+    <string name="no_items">Нема ставки</string>
     <string name="no_mutliple_accounts_allowed">Само една сметка е дозволена</string>
     <string name="no_pdf_app_available">Нема достапна апликација за PDF датотеки</string>
     <string name="note_could_not_sent">Неможе да се испрати белешката</string>
