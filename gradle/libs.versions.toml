@@ -76,25 +76,40 @@ webkitVersion = "1.14.0"
 workRuntime = "2.10.3"
 
 [libraries]
-# Splash Screen
+
+# Crypto
+conscrypt-android = { module = "org.conscrypt:conscrypt-android", version.ref = "conscryptAndroidVersion" }
+bcpkix-jdk18on = { module = "org.bouncycastle:bcpkix-jdk18on", version.ref = "bcpkixJdk18onVersion" }
+
+# UI
+appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appCompatVersion" }
+cardview = { module = "androidx.cardview:cardview", version.ref = "cardviewVersion" }
+core-ktx = { module = "androidx.test:core-ktx", version.ref = "androidxTestVersion" }
+fragment-ktx = { module = "androidx.fragment:fragment-ktx", version.ref = "fragmentKtxVersion" }
+exifinterface = { module = "androidx.exifinterface:exifinterface", version.ref = "exifinterfaceVersion" }
+webkit = { module = "androidx.webkit:webkit", version.ref = "webkitVersion" }
+splashscreen = { module = "androidx.core:core-splashscreen", version.ref = "splash-screen" }
+sectioned-recyclerview = { module = "com.github.nextcloud-deps:sectioned-recyclerview", version.ref = "sectionedRecyclerviewVersion" }
+legacy-support-v4 = { module = "androidx.legacy:legacy-support-v4", version.ref = "legacySupportV4Version" }
+library = { module = "me.zhanghai.android.fastscroll:library", version.ref = "libraryVersion" }
+loaderviewlibrary = { module = "io.github.elye:loaderviewlibrary", version.ref = "loaderviewlibraryVersion" }
+photoview = { module = "com.github.Baseflow:PhotoView", version.ref = "photoviewVersion" }
+material = { module = "com.google.android.material:material", version.ref = "materialVersion" }
 android-gif-drawable = { module = "pl.droidsonroids.gif:android-gif-drawable", version.ref = "androidGifDrawableVersion" }
 android-image-cropper = { module = "com.vanniktech:android-image-cropper", version.ref = "androidImageCropperVersion" }
 androidsvg = { module = "com.caverock:androidsvg", version.ref = "androidsvgVersion" }
+coil = { module = "io.coil-kt:coil", version.ref = "coilVersion" }
+constraintlayout = { module = "androidx.constraintlayout:constraintlayout", version.ref = "constraintlayoutVersion" }
+emoji-google = { module = "com.vanniktech:emoji-google", version.ref = "emojiGoogleVersion" }
+
+
+# Other
 annotation = { module = "androidx.annotation:annotation", version.ref = "annotationVersion" }
 annotations = { module = "com.google.code.findbugs:annotations", version.ref = "annotationsVersion" }
-bcpkix-jdk18on = { module = "org.bouncycastle:bcpkix-jdk18on", version.ref = "bcpkixJdk18onVersion" }
-coil = { module = "io.coil-kt:coil", version.ref = "coilVersion" }
 commons-httpclient-commons-httpclient = { module = "commons-httpclient:commons-httpclient", version.ref = "commonsHttpclient" }
 commons-io = { module = "commons-io:commons-io", version.ref = "commonsIoVersion" }
-conscrypt-android = { module = "org.conscrypt:conscrypt-android", version.ref = "conscryptAndroidVersion" }
-constraintlayout = { module = "androidx.constraintlayout:constraintlayout", version.ref = "constraintlayoutVersion" }
-core = { module = "io.noties.markwon:core", version.ref = "markwonVersion" }
-dagger = { module = "com.google.dagger:dagger", version.ref = "daggerVersion" }
-dagger-android = { module = "com.google.dagger:dagger-android", version.ref = "daggerVersion" }
-dagger-android-support = { module = "com.google.dagger:dagger-android-support", version.ref = "daggerVersion" }
 dexopener = { module = "com.github.tmurakami:dexopener", version.ref = "dexopenerVersion" }
 disklrucache = { module = "com.jakewharton:disklrucache", version.ref = "disklrucacheVersion" }
-emoji-google = { module = "com.vanniktech:emoji-google", version.ref = "emojiGoogleVersion" }
 eventbus = { module = "org.greenrobot:eventbus", version.ref = "eventbusVersion" }
 ext-strikethrough = { module = "io.noties.markwon:ext-strikethrough", version.ref = "markwonVersion" }
 ext-tables = { module = "io.noties.markwon:ext-tables", version.ref = "markwonVersion" }
@@ -109,38 +124,26 @@ html = { module = "io.noties.markwon:html", version.ref = "markwonVersion" }
 ical4j = { module = "org.mnode.ical4j:ical4j", version.ref = "ical4jVersion" }
 jackrabbit-webdav = { module = "org.apache.jackrabbit:jackrabbit-webdav", version.ref = "jackrabbitWebdavVersion" }
 json = { module = "org.json:json", version.ref = "jsonVersion" }
-junit-junit = { module = "junit:junit", version.ref = "junit" }
 juniversalchardet = { module = "com.github.albfernandez:juniversalchardet", version.ref = "juniversalchardetVersion" }
 kotlin-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib", version.ref = "kotlinStdlibVersion" }
-legacy-support-v4 = { module = "androidx.legacy:legacy-support-v4", version.ref = "legacySupportV4Version" }
-library = { module = "me.zhanghai.android.fastscroll:library", version.ref = "libraryVersion" }
-loaderviewlibrary = { module = "io.github.elye:loaderviewlibrary", version.ref = "loaderviewlibraryVersion" }
-material = { module = "com.google.android.material:material", version.ref = "materialVersion" }
+nnio = { module = "org.lukhnos:nnio", version.ref = "nnioVersion" }
+org-jbundle-util-osgi-wrapped-org-apache-http-client = { module = "org.jbundle.util.osgi.wrapped:org.jbundle.util.osgi.wrapped.org.apache.http.client", version.ref = "orgJbundleUtilOsgiWrappedOrgApacheHttpClientVersion" }
+osmdroid-android = { module = "org.osmdroid:osmdroid-android", version.ref = "osmdroidAndroidVersion" }
+play-services-base = { module = "com.google.android.gms:play-services-base", version.ref = "playServicesBaseVersion" }
+review-ktx = { module = "com.google.android.play:review-ktx", version.ref = "reviewKtxVersion" }
+
+# Mockito
 mockito-android = { module = "org.mockito:mockito-android", version.ref = "mockitoVersion" }
 mockito-core = { module = "org.mockito:mockito-core", version.ref = "mockitoVersion" }
 mockito-kotlin = { module = "org.mockito.kotlin:mockito-kotlin", version.ref = "mockitoKotlinVersion" }
 mockk-android = { module = "io.mockk:mockk-android", version.ref = "mockkVersion" }
-nnio = { module = "org.lukhnos:nnio", version.ref = "nnioVersion" }
-org-jbundle-util-osgi-wrapped-org-apache-http-client = { module = "org.jbundle.util.osgi.wrapped:org.jbundle.util.osgi.wrapped.org.apache.http.client", version.ref = "orgJbundleUtilOsgiWrappedOrgApacheHttpClientVersion" }
-osmdroid-android = { module = "org.osmdroid:osmdroid-android", version.ref = "osmdroidAndroidVersion" }
-photoview = { module = "com.github.Baseflow:PhotoView", version.ref = "photoviewVersion" }
-play-services-base = { module = "com.google.android.gms:play-services-base", version.ref = "playServicesBaseVersion" }
-prism4j = { module = "io.noties:prism4j", version.ref = "prismVersion" }
-qrcodescanner = { module = "com.github.nextcloud-deps:qrcodescanner", version.ref = "qrcodescannerVersion" }
-review-ktx = { module = "com.google.android.play:review-ktx", version.ref = "reviewKtxVersion" }
-screengrab = { module = "tools.fastlane:screengrab", version.ref = "screengrabVersion" }
-screenshot-core = { module = "com.facebook.testing.screenshot:core", version.ref = "coreVersion" }
-sectioned-recyclerview = { module = "com.github.nextcloud-deps:sectioned-recyclerview", version.ref = "sectionedRecyclerviewVersion" }
-shot = { module = "com.karumi:shot", version.ref = "shotVersion" }
-splashscreen = { module = "androidx.core:core-splashscreen", version.ref = "splash-screen" }
 
-# UI
-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appCompatVersion" }
-cardview = { module = "androidx.cardview:cardview", version.ref = "cardviewVersion" }
-core-ktx = { module = "androidx.test:core-ktx", version.ref = "androidxTestVersion" }
-fragment-ktx = { module = "androidx.fragment:fragment-ktx", version.ref = "fragmentKtxVersion" }
+# Dagger
+dagger = { module = "com.google.dagger:dagger", version.ref = "daggerVersion" }
+dagger-android = { module = "com.google.dagger:dagger-android", version.ref = "daggerVersion" }
+dagger-android-support = { module = "com.google.dagger:dagger-android-support", version.ref = "daggerVersion" }
 
-exifinterface = { module = "androidx.exifinterface:exifinterface", version.ref = "exifinterfaceVersion" }
+# Glide
 glide = { module = "com.github.bumptech.glide:glide", version.ref = "glide" }
 
 # Lifecycle
@@ -148,6 +151,7 @@ lifecycle-runtime-ktx = { module = "androidx.lifecycle:lifecycle-runtime-ktx", v
 lifecycle-service = { module = "androidx.lifecycle:lifecycle-service", version.ref = "lifecycleViewmodelKtxVersion" }
 lifecycle-viewmodel-ktx = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "lifecycleViewmodelKtxVersion" }
 
+# ksp
 ksp = { module = "com.github.bumptech.glide:ksp", version.ref = "glide" }
 
 # Jetpack Compose
@@ -182,16 +186,31 @@ core-testing = { module = "androidx.arch.core:core-testing", version.ref = "core
 orchestrator = { module = "androidx.test:orchestrator", version.ref = "orchestratorVersion" }
 rules = { module = "androidx.test:rules", version.ref = "androidxTestVersion" }
 runner = { module = "androidx.test:runner", version.ref = "androidxTestVersion" }
+test-core = { module = "androidx.test:core", version.ref = "androidxTestVersion" }
+junit-junit = { module = "junit:junit", version.ref = "junit" }
+
+# Screenshot Test
+screengrab = { module = "tools.fastlane:screengrab", version.ref = "screengrabVersion" }
+screenshot-core = { module = "com.facebook.testing.screenshot:core", version.ref = "coreVersion" }
+shot = { module = "com.karumi:shot", version.ref = "shotVersion" }
 
 # Gradle Plugins
 spotbugs-gradle-plugin = { module = "com.github.spotbugs.snom:spotbugs-gradle-plugin", version.ref = "spotbugsGradlePlugin" }
 kotlin-gradle-plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
 detekt-gradle-plugin = { module = "io.gitlab.arturbosch.detekt:detekt-gradle-plugin", version.ref = "detektGradlePlugin" }
+
 stateless4j = { module = "com.github.stateless4j:stateless4j", version.ref = "stateless4jVersion" }
+
+# Markwon
 syntax-highlight = { module = "io.noties.markwon:syntax-highlight", version.ref = "markwonVersion" }
-test-core = { module = "androidx.test:core", version.ref = "androidxTestVersion" }
+core = { module = "io.noties.markwon:core", version.ref = "markwonVersion" }
+prism4j = { module = "io.noties:prism4j", version.ref = "prismVersion" }
+
+# Nextcloud libraries
 ui = { module = "com.github.nextcloud.android-common:ui", version.ref = "androidCommonLibraryVersion" }
-webkit = { module = "androidx.webkit:webkit", version.ref = "webkitVersion" }
+qrcodescanner = { module = "com.github.nextcloud-deps:qrcodescanner", version.ref = "qrcodescannerVersion" }
+
+# Worker
 work-runtime = { module = "androidx.work:work-runtime", version.ref = "workRuntime" }
 work-runtime-ktx = { module = "androidx.work:work-runtime-ktx", version.ref = "workRuntime" }
 
