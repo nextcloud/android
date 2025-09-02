@@ -128,6 +128,11 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
     private Long internalFolderSyncTimestamp = -1L;
     private String internalFolderSyncResult = "";
 
+    // region Recommend files variables
+    private boolean recommendedFile = false;
+    private String reason = "";
+    // endregion
+
     /**
      * URI to the local path of the file contents, if stored in the device; cached after first call to
      * {@link #getStorageUri()}
@@ -1139,5 +1144,21 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
     public boolean exists() {
         final String storagePath = getStoragePath();
         return storagePath != null && new File(storagePath).exists();
+    }
+
+    public void setReason(String value) {
+        reason = value;
+    }
+
+    public String getReason() {
+        return reason;
+    }
+
+    public void setIsRecommendedFile(boolean value) {
+        recommendedFile = value;
+    }
+
+    public boolean isRecommendedFile() {
+        return recommendedFile;
     }
 }

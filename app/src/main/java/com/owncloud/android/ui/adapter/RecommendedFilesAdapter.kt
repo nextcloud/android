@@ -7,50 +7,30 @@
 
 package com.owncloud.android.ui.adapter
 
-import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
-import com.owncloud.android.databinding.GridItemBinding
+import com.owncloud.android.databinding.RecommendedFileItemBinding
 import com.owncloud.android.datamodel.OCFile
 
 class RecommendedFilesAdapter(
     private val fileListAdapter: OCFileListAdapter,
     private val recommendations: ArrayList<OCFile>
-) : RecyclerView.Adapter<OCFileListGridItemViewHolder>() {
-
-    companion object {
-        private const val LAYOUT_ITEM_WIDTH = 120f
-    }
+) : RecyclerView.Adapter<OCFileListRecommendedItemViewHolder>() {
 
     fun getItemPosition(file: OCFile): Int = recommendations.indexOf(file)
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): OCFileListGridItemViewHolder {
-        val binding = GridItemBinding
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): OCFileListRecommendedItemViewHolder {
+        val binding = RecommendedFileItemBinding
             .inflate(LayoutInflater.from(parent.context), parent, false)
-        return OCFileListGridItemViewHolder(binding).apply {
-            binding.ListItemLayout.setLayoutItemWidth()
-        }
+        return OCFileListRecommendedItemViewHolder(binding)
     }
 
     override fun getItemCount(): Int = recommendations.size
 
-    @Suppress("MagicNumber")
-    override fun onBindViewHolder(holder: OCFileListGridItemViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: OCFileListRecommendedItemViewHolder, position: Int) {
         val item = recommendations[position]
         fileListAdapter.bindRecommendedFilesHolder(holder, item)
+        holder.reason.text = item.reason
     }
-
-    // region Private Methods
-    private fun ConstraintLayout.setLayoutItemWidth() {
-        layoutParams = layoutParams.apply {
-            width = TypedValue.applyDimension(
-                TypedValue.COMPLEX_UNIT_DIP,
-                LAYOUT_ITEM_WIDTH,
-                resources.displayMetrics
-            ).toInt()
-        }
-    }
-    // endregion
 }

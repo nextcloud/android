@@ -450,6 +450,7 @@
 
     <string name="placeholder_sentence">This is a placeholder</string>
     <string name="placeholder_filename">placeholder</string>
+    <string name="placeholder_reason">Recently edited</string>
     <string name="placeholder_extension">.txt</string>
     <string name="placeholder_fileSize">389 KB</string>
     <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
