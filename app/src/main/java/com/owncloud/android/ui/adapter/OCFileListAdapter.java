@@ -1200,10 +1200,6 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         ocFileListDelegate.cancelAllPendingTasks();
     }
 
-    public boolean isGridView() {
-        return gridView;
-    }
-
     public void setGridView(boolean bool) {
         gridView = bool;
     }
