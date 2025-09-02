@@ -18,6 +18,7 @@ import com.nextcloud.client.core.ClockImpl
 import com.nextcloud.client.database.dao.ArbitraryDataDao
 import com.nextcloud.client.database.dao.FileDao
 import com.nextcloud.client.database.dao.OfflineOperationDao
+import com.nextcloud.client.database.dao.RecommendedFileDao
 import com.nextcloud.client.database.dao.UploadDao
 import com.nextcloud.client.database.entity.ArbitraryDataEntity
 import com.nextcloud.client.database.entity.CapabilityEntity
@@ -25,6 +26,7 @@ import com.nextcloud.client.database.entity.ExternalLinkEntity
 import com.nextcloud.client.database.entity.FileEntity
 import com.nextcloud.client.database.entity.FilesystemEntity
 import com.nextcloud.client.database.entity.OfflineOperationEntity
+import com.nextcloud.client.database.entity.RecommendedFileEntity
 import com.nextcloud.client.database.entity.ShareEntity
 import com.nextcloud.client.database.entity.SyncedFolderEntity
 import com.nextcloud.client.database.entity.UploadEntity
@@ -48,7 +50,8 @@ import com.owncloud.android.db.ProviderMeta
         SyncedFolderEntity::class,
         UploadEntity::class,
         VirtualEntity::class,
-        OfflineOperationEntity::class
+        OfflineOperationEntity::class,
+        RecommendedFileEntity::class
     ],
     version = ProviderMeta.DB_VERSION,
     autoMigrations = [
@@ -75,7 +78,8 @@ import com.owncloud.android.db.ProviderMeta
         AutoMigration(from = 86, to = 87, spec = DatabaseMigrationUtil.ResetCapabilitiesPostMigration::class),
         AutoMigration(from = 87, to = 88, spec = DatabaseMigrationUtil.ResetCapabilitiesPostMigration::class),
         // manual migration used for 88 to 89
-        AutoMigration(from = 89, to = 90)
+        AutoMigration(from = 89, to = 90),
+        AutoMigration(from = 90, to = 91)
     ],
     exportSchema = true
 )
@@ -87,6 +91,7 @@ abstract class NextcloudDatabase : RoomDatabase() {
     abstract fun fileDao(): FileDao
     abstract fun offlineOperationDao(): OfflineOperationDao
     abstract fun uploadDao(): UploadDao
+    abstract fun recommendedFileDao(): RecommendedFileDao
 
     companion object {
         const val FIRST_ROOM_DB_VERSION = 65

@@ -9,15 +9,18 @@ package com.nextcloud.client.jobs.offlineOperations
 
 import android.app.PendingIntent
 import android.content.Context
+import android.content.Intent
 import androidx.core.app.NotificationCompat
 import com.nextcloud.client.database.entity.OfflineOperationEntity
 import com.nextcloud.client.jobs.notification.WorkerNotificationManager
+import com.nextcloud.client.jobs.offlineOperations.receiver.OfflineOperationReceiver
 import com.nextcloud.utils.extensions.getErrorMessage
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.lib.common.operations.RemoteOperation
 import com.owncloud.android.lib.common.operations.RemoteOperationResult
 import com.owncloud.android.ui.activity.ConflictsResolveActivity
+import com.owncloud.android.ui.notifications.NotificationUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
 
 class OfflineOperationsNotificationManager(private val context: Context, viewThemeUtils: ViewThemeUtils) :
@@ -25,14 +28,24 @@ class OfflineOperationsNotificationManager(private val context: Context, viewThe
         ID,
         context,
         viewThemeUtils,
-        R.string.offline_operations_worker_notification_manager_ticker
+        tickerId = R.string.offline_operations_worker_notification_manager_ticker,
+        channelId = NotificationUtils.NOTIFICATION_CHANNEL_OFFLINE_OPERATIONS
     ) {
 
     companion object {
         private const val ID = 121
-        private const val ERROR_ID = 122
+        const val ERROR_ID = 122
 
         private const val ONE_HUNDRED_PERCENT = 100
+    }
+
+    init {
+        notificationBuilder.apply {
+            setSound(null)
+            setVibrate(null)
+            setOnlyAlertOnce(true)
+            setSilent(true)
+        }
     }
 
     fun start() {
@@ -66,13 +79,18 @@ class OfflineOperationsNotificationManager(private val context: Context, viewThe
         showNotification()
     }
 
-    fun showNewNotification(result: RemoteOperationResult<*>, operation: RemoteOperation<*>) {
+    fun showNewNotification(id: Int?, result: RemoteOperationResult<*>, operation: RemoteOperation<*>) {
         val reason = (result to operation).getErrorMessage()
         val text = context.getString(R.string.offline_operations_worker_notification_error_text, reason)
+        val cancelOfflineOperationAction = id?.let { getCancelOfflineOperationAction(it) }
 
         notificationBuilder.run {
+            cancelOfflineOperationAction?.let {
+                addAction(it)
+            }
             setContentTitle(text)
             setOngoing(false)
+            setProgress(0, 0, false)
             notificationManager.notify(ERROR_ID, this.build())
         }
     }
@@ -129,6 +147,25 @@ class OfflineOperationsNotificationManager(private val context: Context, viewThe
         return NotificationCompat.Action(
             R.drawable.ic_cloud_upload,
             context.getString(R.string.upload_list_resolve_conflict),
+            pendingIntent
+        )
+    }
+
+    private fun getCancelOfflineOperationAction(id: Int): NotificationCompat.Action {
+        val intent = Intent(context, OfflineOperationReceiver::class.java).apply {
+            putExtra(OfflineOperationReceiver.ID, id)
+        }
+
+        val pendingIntent = PendingIntent.getBroadcast(
+            context,
+            id,
+            intent,
+            PendingIntent.FLAG_IMMUTABLE
+        )
+
+        return NotificationCompat.Action(
+            R.drawable.ic_delete,
+            context.getString(R.string.common_cancel),
             pendingIntent
         )
     }

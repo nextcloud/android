@@ -815,6 +815,9 @@
     <string name="notification_channel_media_description">Music player progress</string>
     <string name="notification_channel_file_sync_name">File sync</string>
     <string name="notification_channel_file_sync_description">Shows file sync progress and results</string>
+    <string name="notification_channel_offline_operations_name_short">Offline operations</string>
+    <string name="notification_channel_offline_operations_description">Shows progress of offline file operations</string>
+
 
     <string name="account_not_found">Account not found!</string>
 

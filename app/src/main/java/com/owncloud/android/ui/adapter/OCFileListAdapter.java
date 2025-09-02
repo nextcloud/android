@@ -32,7 +32,6 @@ import android.widget.LinearLayout;
 import com.elyeproj.loaderviewlibrary.LoaderImageView;
 import com.google.android.material.chip.Chip;
 import com.nextcloud.android.common.ui.theme.utils.ColorRole;
-import com.nextcloud.android.lib.resources.recommendations.Recommendation;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.database.entity.OfflineOperationEntity;
 import com.nextcloud.client.jobs.upload.FileUploadHelper;
@@ -101,16 +100,16 @@ import androidx.annotation.Nullable;
 import androidx.annotation.VisibleForTesting;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import kotlin.Pair;
 import me.zhanghai.android.fastscroll.PopupTextProvider;
 
 /**
  * This Adapter populates a RecyclerView with all files and folders in a Nextcloud instance.
  */
+@SuppressWarnings("unchecked")
 public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     implements DisplayUtils.AvatarGenerationListener,
-    CommonOCFileListAdapterInterface, PopupTextProvider, RecommendedFilesAdapter.OnItemClickListener {
+    CommonOCFileListAdapterInterface, PopupTextProvider {
 
     private final String userId;
     private final Activity activity;
@@ -145,7 +144,8 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private final long footerId = UUID.randomUUID().getLeastSignificantBits();
     private final long headerId = UUID.randomUUID().getLeastSignificantBits();
 
-    private ArrayList<Recommendation> recommendedFiles = new ArrayList<>();
+    private ArrayList<OCFile> recommendedFiles = new ArrayList<>();
+    private RecommendedFilesAdapter recommendedFilesAdapter;
 
     public OCFileListAdapter(
         Activity activity,
@@ -415,7 +415,6 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     }
 
     @Override
-    @SuppressFBWarnings("ITC_INHERITANCE_TYPE_CHECKING")
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof OCFileListFooterViewHolder footerViewHolder) {
             footerViewHolder.getFooterText().setText(getFooterText());
@@ -442,8 +441,8 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 final LinearLayoutManager layoutManager = new LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false);
                 recommendedFilesRecyclerView.setLayoutManager(layoutManager);
 
-                final var adapter = new RecommendedFilesAdapter(recommendedFiles, ocFileListDelegate, this, mStorageManager);
-                recommendedFilesRecyclerView.setAdapter(adapter);
+                recommendedFilesAdapter = new RecommendedFilesAdapter(this, recommendedFiles);
+                recommendedFilesRecyclerView.setAdapter(recommendedFilesAdapter);
             }
 
             ViewExtensionsKt.setVisibleIf(headerBinding.openIn.getRoot(), shouldShowOpenInNotes());
@@ -471,26 +470,34 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 return;
             }
 
-            ocFileListDelegate.bindGridViewHolder(gridViewHolder, file, currentDirectory, searchType);
-            checkVisibilityOfFileFeaturesLayout(gridViewHolder);
-
-            if (holder instanceof ListItemViewHolder itemViewHolder) {
-                bindListItemViewHolder(itemViewHolder, file);
-            }
-
-            if (holder instanceof ListGridItemViewHolder gridItemViewHolder) {
-                setFilenameAndExtension(gridItemViewHolder, file);
-                checkVisibilityOfFileFeaturesLayout(gridItemViewHolder);
-            }
-
-            updateLivePhotoIndicators(gridViewHolder, file);
-
-            if (!MDMConfig.INSTANCE.sharingSupport(activity)) {
-                gridViewHolder.getShared().setVisibility(View.GONE);
-            }
-
-            setVisibilityOfMoreOption(gridViewHolder);
+            bindHolder(holder, gridViewHolder, file);
         }
+    }
+
+    public void bindRecommendedFilesHolder(OCFileListGridItemViewHolder holder, @NonNull OCFile file) {
+        bindHolder(holder, holder, file);
+    }
+
+    private void bindHolder(@NonNull RecyclerView.ViewHolder holder, ListViewHolder gridViewHolder, OCFile file) {
+        ocFileListDelegate.bindGridViewHolder(gridViewHolder, file, currentDirectory, searchType);
+        checkVisibilityOfFileFeaturesLayout(gridViewHolder);
+
+        if (holder instanceof ListItemViewHolder itemViewHolder) {
+            bindListItemViewHolder(itemViewHolder, file);
+        }
+
+        if (holder instanceof ListGridItemViewHolder gridItemViewHolder) {
+            setFilenameAndExtension(gridItemViewHolder, file);
+            checkVisibilityOfFileFeaturesLayout(gridItemViewHolder);
+        }
+
+        updateLivePhotoIndicators(gridViewHolder, file);
+
+        if (!MDMConfig.INSTANCE.sharingSupport(activity)) {
+            gridViewHolder.getShared().setVisibility(View.GONE);
+        }
+
+        setVisibilityOfMoreOption(gridViewHolder);
     }
 
     private boolean shouldShowRecommendedFiles() {
@@ -728,7 +735,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    public void updateRecommendedFiles(ArrayList<Recommendation> recommendedFiles) {
+    public void updateRecommendedFiles(ArrayList<OCFile> recommendedFiles) {
         this.recommendedFiles = recommendedFiles;
 
         if (recommendedFiles == null || recommendedFiles.isEmpty()) {
@@ -1241,17 +1248,12 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     @Override
     public void notifyItemChanged(@NonNull OCFile file) {
-        notifyItemChanged(getItemPosition(file));
-    }
-
-    @Override
-    public void selectRecommendedFile(@NonNull OCFile file) {
-        ocFileListFragmentInterface.onItemClicked(file);
-    }
-
-    @Override
-    public void showRecommendedFileMoreActions(@NonNull OCFile file, @NonNull View view) {
-        ocFileListFragmentInterface.onOverflowIconClicked(file, view);
+        if (shouldShowRecommendedFiles() && recommendedFilesAdapter != null) {
+            final int position = recommendedFilesAdapter.getItemPosition(file);
+            recommendedFilesAdapter.notifyItemChanged(position);
+        } else {
+            notifyItemChanged(getItemPosition(file));
+        }
     }
 
     @VisibleForTesting
