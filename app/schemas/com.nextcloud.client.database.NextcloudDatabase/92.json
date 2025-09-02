@@ -1,8 +1,8 @@
 {
   "formatVersion": 1,
   "database": {
-    "version": 91,
-    "identityHash": "16f8a78a87d896adf01d545ed83142e5",
+    "version": 92,
+    "identityHash": "aeef27ff00555d37d8605e760a446863",
     "entities": [
       {
         "tableName": "arbitrary_data",
@@ -1128,7 +1128,7 @@
       },
       {
         "tableName": "recommended_files",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT NOT NULL, `directory` TEXT NOT NULL, `extension` TEXT NOT NULL, `mime_type` TEXT NOT NULL, `has_preview` INTEGER NOT NULL, `reason` TEXT NOT NULL, `timestamp` INTEGER NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT NOT NULL, `directory` TEXT NOT NULL, `extension` TEXT NOT NULL, `mime_type` TEXT NOT NULL, `has_preview` INTEGER NOT NULL, `reason` TEXT NOT NULL, `timestamp` INTEGER NOT NULL, `account_name` TEXT)",
         "fields": [
           {
             "fieldPath": "id",
@@ -1177,6 +1177,11 @@
             "columnName": "timestamp",
             "affinity": "INTEGER",
             "notNull": true
+          },
+          {
+            "fieldPath": "accountName",
+            "columnName": "account_name",
+            "affinity": "TEXT"
           }
         ],
         "primaryKey": {
@@ -1189,7 +1194,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '16f8a78a87d896adf01d545ed83142e5')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'aeef27ff00555d37d8605e760a446863')"
     ]
   }
 }

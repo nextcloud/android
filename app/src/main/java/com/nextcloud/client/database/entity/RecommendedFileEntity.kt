@@ -43,7 +43,7 @@ data class RecommendedFileEntity(
     val timestamp: Long,
 
     @ColumnInfo(name = ProviderTableMeta.RECOMMENDED_FILE_ACCOUNT_NAME)
-    val accountName: String
+    val accountName: String?
 )
 
 fun ArrayList<Recommendation>.toEntity(accountName: String): List<RecommendedFileEntity> = this.map { recommendation ->
