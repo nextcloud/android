@@ -16,8 +16,6 @@ import android.provider.BaseColumns;
 
 import com.owncloud.android.MainApp;
 
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -25,7 +23,7 @@ import java.util.List;
  */
 public class ProviderMeta {
     public static final String DB_NAME = "filelist";
-    public static final int DB_VERSION = 91;
+    public static final int DB_VERSION = 92;
 
     private ProviderMeta() {
         // No instance
@@ -35,6 +33,7 @@ public class ProviderMeta {
         // region Recommended files table
         public static final String RECOMMENDED_FILE_TABLE_NAME = "recommended_files";
         public static final String RECOMMENDED_FILE_NAME = "name";
+        public static final String RECOMMENDED_FILE_ACCOUNT_NAME = "account_name";
         public static final String RECOMMENDED_FILE_DIRECTORY = "directory";
         public static final String RECOMMENDED_FILE_EXTENSIONS = "extension";
         public static final String RECOMMENDED_FILE_MIME_TYPE = "mime_type";
