@@ -174,34 +174,33 @@ class FileUploadWorker(
                 return Result.failure()
             }
 
-            val user = userAccountManager.getUser(accountName)
-            if (!user.isPresent) {
-                uploadsStorageManager.removeUpload(upload.uploadId)
-                continue
-            }
-
             if (isStopped) {
                 continue
             }
 
-            setWorkerState(user.get())
+            val user = userAccountManager.getUser(accountName)
+            if (user.isPresent) {
+                setWorkerState(user.get())
 
-            val operation = createUploadFileOperation(upload, user.get())
-            currentUploadFileOperation = operation
+                val operation = createUploadFileOperation(upload, user.get())
+                currentUploadFileOperation = operation
 
-            val currentIndex = (index + 1)
-            val currentUploadIndex = (currentIndex + previouslyUploadedFileSize)
-            notificationManager.prepareForStart(
-                operation,
-                cancelPendingIntent = intents.startIntent(operation),
-                startIntent = intents.notificationStartIntent(operation),
-                currentUploadIndex = currentUploadIndex,
-                totalUploadSize = totalUploadSize
-            )
+                val currentIndex = (index + 1)
+                val currentUploadIndex = (currentIndex + previouslyUploadedFileSize)
+                notificationManager.prepareForStart(
+                    operation,
+                    cancelPendingIntent = intents.startIntent(operation),
+                    startIntent = intents.notificationStartIntent(operation),
+                    currentUploadIndex = currentUploadIndex,
+                    totalUploadSize = totalUploadSize
+                )
 
-            val result = upload(operation, user.get())
-            currentUploadFileOperation = null
-            sendUploadFinishEvent(totalUploadSize, currentUploadIndex, operation, result)
+                val result = upload(operation, user.get())
+                currentUploadFileOperation = null
+                sendUploadFinishEvent(totalUploadSize, currentUploadIndex, operation, result)
+            } else {
+                uploadsStorageManager.removeUpload(upload.uploadId)
+            }
         }
 
         return Result.success()
