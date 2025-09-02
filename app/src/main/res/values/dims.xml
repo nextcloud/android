@@ -47,7 +47,6 @@
     <dimen name="grid_checkbox_size">18dp</dimen>
     <dimen name="grid_checkbox_margin">6dp</dimen>
     <dimen name="grid_recommended_file_container_width">160dp</dimen>
-    <dimen name="grid_container_width">130dp</dimen>
     <dimen name="grid_container_height">120dp</dimen>
     <dimen name="grid_container_default_max_file_name">80dp</dimen>
 
