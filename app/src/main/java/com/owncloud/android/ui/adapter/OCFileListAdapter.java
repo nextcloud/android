@@ -1248,7 +1248,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     @Override
     public void notifyItemChanged(@NonNull OCFile file) {
-        if (shouldShowRecommendedFiles() && recommendedFilesAdapter != null) {
+        if (shouldShowRecommendedFiles() && recommendedFilesAdapter != null && file.isRecommendedFile()) {
             final int position = recommendedFilesAdapter.getItemPosition(file);
             recommendedFilesAdapter.notifyItemChanged(position);
         } else {
