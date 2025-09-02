@@ -40,10 +40,13 @@ data class RecommendedFileEntity(
     val reason: String,
 
     @ColumnInfo(name = ProviderTableMeta.RECOMMENDED_TIMESTAMP)
-    val timestamp: Long
+    val timestamp: Long,
+
+    @ColumnInfo(name = ProviderTableMeta.RECOMMENDED_FILE_ACCOUNT_NAME)
+    val accountName: String
 )
 
-fun ArrayList<Recommendation>.toEntity(): List<RecommendedFileEntity> = this.map { recommendation ->
+fun ArrayList<Recommendation>.toEntity(accountName: String): List<RecommendedFileEntity> = this.map { recommendation ->
     RecommendedFileEntity(
         id = recommendation.id,
         name = recommendation.name,
@@ -52,7 +55,8 @@ fun ArrayList<Recommendation>.toEntity(): List<RecommendedFileEntity> = this.map
         mimeType = recommendation.mimeType,
         hasPreview = recommendation.hasPreview,
         reason = recommendation.reason,
-        timestamp = recommendation.timestamp
+        timestamp = recommendation.timestamp,
+        accountName = accountName
     )
 }
 

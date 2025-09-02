@@ -19,7 +19,11 @@ interface FilesRepository {
      * using the Nextcloud client. The results are passed to the provided callback on the main thread.
      *
      */
-    suspend fun fetchRecommendedFiles(ignoreETag: Boolean, storageManager: FileDataStorageManager): ArrayList<OCFile>
+    suspend fun fetchRecommendedFiles(
+        accountName: String,
+        ignoreETag: Boolean,
+        storageManager: FileDataStorageManager
+    ): ArrayList<OCFile>
 
     fun createRichWorkspace(remotePath: String, onCompleted: (String) -> Unit, onError: () -> Unit)
 }

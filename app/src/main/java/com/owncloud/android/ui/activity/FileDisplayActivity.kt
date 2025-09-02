@@ -2387,11 +2387,14 @@ class FileDisplayActivity :
             return
         }
 
-        val fragment = this.listOfFilesFragment
-        lifecycleScope.launch(Dispatchers.IO) {
-            val recommendedFiles = filesRepository.fetchRecommendedFiles(ignoreETag, storageManager)
-            withContext(Dispatchers.Main) {
-                fragment?.adapter?.updateRecommendedFiles(recommendedFiles)
+        if (user.isPresent) {
+            val accountName = user.get().accountName
+            val fragment = this.listOfFilesFragment
+            lifecycleScope.launch(Dispatchers.IO) {
+                val recommendedFiles = filesRepository.fetchRecommendedFiles(accountName, ignoreETag, storageManager)
+                withContext(Dispatchers.Main) {
+                    fragment?.adapter?.updateRecommendedFiles(recommendedFiles)
+                }
             }
         }
     }
