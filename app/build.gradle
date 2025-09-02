@@ -283,70 +283,82 @@ android {
 }
 
 dependencies {
+    // region Nextcloud library
     implementation("com.github.nextcloud:android-library:$androidLibraryVersion") {
         exclude group: "org.ogce", module: "xpp3" // unused in Android and brings wrong Junit version
     }
+    // endregion
 
-    // splash screen dependency ref: https://developer.android.com/develop/ui/views/launch/splash-screen/migrate
+    // region Splash Screen
     implementation libs.splashscreen
+    // endregion
 
-    // Jetpack Compose
+    // region Jetpack Compose
     implementation(platform(libs.compose.bom))
     implementation(libs.compose.ui)
     implementation(libs.compose.ui.graphics)
     implementation(libs.compose.material3)
     debugImplementation(libs.compose.ui.tooling)
     implementation(libs.compose.ui.tooling.preview)
+    // endregion
 
-    // Media3
+    // region Media3
     implementation libs.media3.ui
     implementation libs.media3.session
     implementation libs.media3.exoplayer
     implementation libs.media3.datasource
+    // endregion
 
-    // Room
+    // region Room
     implementation libs.room.runtime
     ksp "androidx.room:room-compiler:$roomVersion"
     androidTestImplementation libs.room.testing
+    // endregion
 
-    // Espresso
+    // region Espresso
     androidTestImplementation libs.espresso.core
     androidTestImplementation libs.espresso.contrib
     androidTestImplementation libs.espresso.web
     androidTestImplementation libs.espresso.accessibility
     androidTestImplementation libs.espresso.intents
     androidTestImplementation libs.espresso.idling.resource
+    // endregion
 
-    // Glide
+    // region Glide
     implementation libs.glide
     ksp libs.ksp
+    // endregion
 
-    // UI
+    // region UI
     implementation libs.appcompat
     implementation libs.webkit
     implementation libs.cardview
     implementation libs.exifinterface
     implementation libs.fragment.ktx
+    // endregion
 
-    // Worker
+    // region Worker
     implementation libs.work.runtime
     implementation libs.work.runtime.ktx
+    // endregion
 
-    // Lifecycle
+    // region Lifecycle
     implementation libs.lifecycle.viewmodel.ktx
     implementation libs.lifecycle.service
     implementation(libs.lifecycle.runtime.ktx)
+    // endregion
 
-    // JUnit
+    // region JUnit
     androidTestImplementation libs.junit
     androidTestImplementation libs.rules
     androidTestImplementation libs.runner
     androidTestUtil libs.orchestrator
     androidTestImplementation libs.core.ktx
     androidTestImplementation libs.core.testing
+    // endregion
 
+    // region other libraries
     compileOnly libs.org.jbundle.util.osgi.wrapped.org.apache.http.client
-    // remove after entire switch to lib v2
     implementation libs.commons.httpclient.commons.httpclient // remove after entire switch to lib v2
     implementation libs.jackrabbit.webdav // remove after entire switch to lib v2
     implementation libs.constraintlayout
@@ -366,60 +378,76 @@ dependencies {
     implementation libs.android.gif.drawable
     implementation libs.qrcodescanner // "com.github.blikoon:QRCodeScanner:0.1.2"
     implementation libs.flexbox
-
     implementation libs.androidsvg
     implementation libs.annotation
     implementation libs.emoji.google
+    // endregion
 
-    // document scanner not available on FDroid (generic) due to OpenCV binaries
+    // region AppScan, document scanner not available on FDroid (generic) due to OpenCV binaries
     gplayImplementation project(":appscan")
     huaweiImplementation project(":appscan")
     qaImplementation project(":appscan")
+    // endregion
 
+    // region SpotBugs
     spotbugsPlugins libs.findsecbugs.plugin
     spotbugsPlugins libs.fb.contrib
+    // endregion
 
-    // dagger
+    // region Dagger
     implementation libs.dagger
     implementation libs.dagger.android
     implementation libs.dagger.android.support
     kapt "com.google.dagger:dagger-compiler:$daggerVersion"
     kapt "com.google.dagger:dagger-android-processor:$daggerVersion"
+    // endregion
 
+    // region Crypto
     implementation libs.conscrypt.android
+    // endregion
 
+    // region Library
     implementation libs.library
+    // endregion
 
-    // Shimmer animation
+    // region Shimmer
     implementation libs.loaderviewlibrary
+    // endregion
 
-    // dependencies for markdown rendering
+    // region Markdown rendering
     implementation libs.core
     implementation libs.ext.strikethrough
     implementation libs.ext.tables
     implementation libs.ext.tasklist
     implementation libs.html
-
     implementation libs.syntax.highlight
     implementation libs.prism4j
     kapt "io.noties:prism4j-bundler:$prismVersion"
+    // endregion
 
-    // dependencies for image cropping and rotation
+    // region Image cropping / rotation
     implementation libs.android.image.cropper
+    // endregion
 
+    // region Maps
     implementation libs.osmdroid.android
+    // endregion
 
+    // region iCal4j
     implementation(libs.ical4j) {
         ["org.apache.commons", "commons-logging"].each {
             exclude group: "$it"
         }
     }
+    // endregion
 
+    // region LeakCanary
     if (perfAnalysis) {
         debugImplementation "com.squareup.leakcanary:leakcanary-android:2.14"
     }
+    // endregion
 
-    // dependencies for local unit tests
+    // region Local Unit Test
     testImplementation libs.junit.junit
     testImplementation libs.mockito.core
     testImplementation libs.test.core
@@ -428,33 +456,48 @@ dependencies {
     testImplementation libs.core.testing
     testImplementation "io.mockk:mockk:$mockkVersion"
     testImplementation libs.mockk.android
+    // endregion
 
-    // Mocking support
+    // region Mocking support
     androidTestImplementation libs.dexopener // required to allow mocking on API 27 and older
     androidTestImplementation libs.mockito.kotlin
     androidTestImplementation libs.mockito.core
     androidTestImplementation(libs.mockito.android)
     androidTestImplementation libs.mockk.android
     androidTestImplementation libs.screenshot.core
+    // endregion
 
+    // region UIAutomator
     // UIAutomator - for cross-app UI tests, and to grant screen is turned on in Espresso tests
     // androidTestImplementation "androidx.test.uiautomator:uiautomator:2.2.0"
     // fix conflict in dependencies; see http://g.co/androidstudio/app-test-app-conflict for details
-    //androidTestImplementation "com.android.support:support-annotations:${supportLibraryVersion}"
+    // androidTestImplementation "com.android.support:support-annotations:${supportLibraryVersion}"
     androidTestImplementation libs.screengrab
+    // endregion
+
+    // region Kotlin
     implementation libs.kotlin.stdlib
+    // endregion
 
+    // region Stateless
     implementation libs.stateless4j
+    // endregion
 
-    // upon each update first test: new registration, receive push
+    // region Google Play dependencies, upon each update first test: new registration, receive push
     gplayImplementation libs.firebase.messaging
     gplayImplementation libs.play.services.base
     gplayImplementation libs.review.ktx
+    // endregion
 
+    // region UI
     implementation libs.ui
+    // endregion
 
+    // region Image loading
     implementation libs.coil
+    // endregion
 }
+
 
 configurations.configureEach {
     resolutionStrategy {
