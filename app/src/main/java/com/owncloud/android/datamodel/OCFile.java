@@ -128,7 +128,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
     private Long internalFolderSyncTimestamp = -1L;
     private String internalFolderSyncResult = "";
 
-    // region RecommendFile variables
+    // region Recommend files variables
     private boolean isRecommendedFile = false;
     private String reason = "";
     // endregion
