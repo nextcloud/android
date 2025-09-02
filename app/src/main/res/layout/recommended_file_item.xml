@@ -10,9 +10,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/recommended_file_item_layout"
-    android:layout_width="@dimen/grid_container_width"
-    android:layout_height="@dimen/grid_container_height"
-    android:layout_margin="@dimen/grid_container_margin">
+    android:layout_width="@dimen/grid_recommended_file_container_width"
+    android:layout_height="wrap_content">
 
     <com.elyeproj.loaderviewlibrary.LoaderImageView
         android:id="@+id/thumbnail_shimmer"
@@ -139,8 +138,10 @@
         tools:visibility="visible" />
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:id="@+id/filename_and_reason_layout"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:gravity="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -148,9 +149,10 @@
         android:orientation="vertical">
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:gravity="center"
             android:layout_height="wrap_content"
+            android:layout_marginVertical="@dimen/standard_quarter_margin"
             android:orientation="horizontal">
 
             <TextView
@@ -161,6 +163,7 @@
                 android:layout_gravity="center"
                 android:ellipsize="end"
                 android:gravity="center"
+                android:textColor="@color/text_color"
                 android:singleLine="true"
                 android:text="@string/placeholder_filename"
                 android:textSize="@dimen/grid_item_text_size" />
@@ -171,6 +174,7 @@
                 android:layout_height="match_parent"
                 android:ellipsize="start"
                 android:gravity="center"
+                android:textColor="@color/text_color"
                 android:maxLines="1"
                 android:text="@string/placeholder_extension"
                 android:textSize="@dimen/grid_item_text_size" />
@@ -184,6 +188,7 @@
             android:layout_gravity="center"
             android:gravity="center"
             android:singleLine="true"
+            android:textColor="@color/secondary_text_color"
             android:text="@string/placeholder_reason"
             android:textSize="@dimen/grid_recommended_item_reason_text_size" />
 
@@ -193,12 +198,14 @@
         android:id="@+id/more"
         android:layout_width="@dimen/grid_bottom_view_height"
         android:layout_height="@dimen/grid_bottom_view_height"
-        android:layout_gravity="end"
-        android:background="@color/transparent"
+        android:layout_marginHorizontal="@dimen/standard_half_margin"
         android:contentDescription="@string/overflow_menu"
+        app:layout_constraintStart_toEndOf="@+id/filename_and_reason_layout"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/thumbnail"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/ic_dots_vertical"
+        android:background="?android:attr/selectableItemBackgroundBorderless"
         tools:ignore="TouchTargetSizeCheck" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
