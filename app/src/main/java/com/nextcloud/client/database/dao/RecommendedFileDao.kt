@@ -19,6 +19,8 @@ interface RecommendedFileDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAll(recommendedFiles: List<RecommendedFileEntity>)
 
-    @Query("SELECT * FROM ${ProviderMeta.ProviderTableMeta.RECOMMENDED_FILE_TABLE_NAME} WHERE account_name = :accountName")
+    @Query(
+        "SELECT * FROM ${ProviderMeta.ProviderTableMeta.RECOMMENDED_FILE_TABLE_NAME} WHERE account_name = :accountName"
+    )
     suspend fun getAll(accountName: String): List<RecommendedFileEntity>
 }
