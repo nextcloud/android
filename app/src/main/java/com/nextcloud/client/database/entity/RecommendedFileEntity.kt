@@ -62,6 +62,11 @@ fun ArrayList<Recommendation>.toEntity(accountName: String): List<RecommendedFil
 
 fun List<RecommendedFileEntity>.toOCFile(storageManager: FileDataStorageManager): ArrayList<OCFile> =
     mapNotNull { entity ->
-        entity.id.let { storageManager.getFileByLocalId(it).apply { this?.reason = entity.reason } }
+        entity.id.let {
+            storageManager.getFileByLocalId(it).apply {
+                this?.reason = entity.reason
+                this?.setIsRecommendedFile(true)
+            }
+        }
     }
         .toCollection(ArrayList())

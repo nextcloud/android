@@ -127,7 +127,11 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
     private List<Tag> tags = new ArrayList<>();
     private Long internalFolderSyncTimestamp = -1L;
     private String internalFolderSyncResult = "";
+
+    // region RecommendFile variables
+    private boolean isRecommendedFile = false;
     private String reason = "";
+    // endregion
 
     /**
      * URI to the local path of the file contents, if stored in the device; cached after first call to
@@ -1148,5 +1152,13 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
 
     public String getReason() {
         return reason;
+    }
+
+    public void setIsRecommendedFile(boolean value) {
+        isRecommendedFile = value;
+    }
+
+    public boolean isRecommendedFile() {
+        return isRecommendedFile;
     }
 }
