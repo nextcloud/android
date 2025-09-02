@@ -207,32 +207,15 @@ enum class FileAction(
             }
 
             if (files.any { it.isRecommendedFile }) {
-                result.addAll(
-                    listOf(
-                        R.id.action_encrypted,
-                        R.id.action_unset_encrypted,
-                        R.id.action_rename_file,
-                        R.id.action_delete,
-                        R.id.action_remove_file,
-                        R.id.action_move_or_copy,
-                        R.id.action_favorite,
-                        R.id.action_unset_favorite,
-                        R.id.action_edit,
-                        R.id.action_send_share_file,
-                        R.id.action_send_file,
-                        R.id.action_download_file,
-                        R.id.action_select_all,
-                        R.id.action_select_all_action_menu,
-                        R.id.action_deselect_all_action_menu,
-                        R.id.action_sync_file,
-                        R.id.action_cancel_sync,
-                        R.id.action_export_file,
-                        R.id.action_stream_media,
-                        R.id.action_unlock_file,
-                        R.id.action_lock_file,
-                        R.id.action_retry
-                    )
+                val allowedForRecommended = setOf(
+                    R.id.action_see_details,
+                    R.id.action_set_as_wallpaper,
+                    R.id.action_pin_to_homescreen,
+                    R.id.action_open_file_with
                 )
+
+                val allActions = entries.map { it.id }
+                result.addAll(allActions - allowedForRecommended)
             }
 
             return result

@@ -129,7 +129,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
     private String internalFolderSyncResult = "";
 
     // region Recommend files variables
-    private boolean isRecommendedFile = false;
+    private boolean recommendedFile = false;
     private String reason = "";
     // endregion
 
@@ -1155,10 +1155,10 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
     }
 
     public void setIsRecommendedFile(boolean value) {
-        isRecommendedFile = value;
+        recommendedFile = value;
     }
 
     public boolean isRecommendedFile() {
-        return isRecommendedFile;
+        return recommendedFile;
     }
 }
