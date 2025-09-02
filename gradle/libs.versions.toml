@@ -27,6 +27,8 @@ espressoVersion = "3.7.0"
 eventbusVersion = "3.3.1"
 exifinterfaceVersion = "1.4.1"
 ezVcardVersion = "0.12.1"
+fbContribVersion = "7.6.14"
+findsecbugsPluginVersion = "1.14.0"
 firebaseMessagingVersion = "25.0.0"
 flexboxVersion = "3.0.0"
 fragmentKtxVersion = "1.8.9"
@@ -61,6 +63,7 @@ reviewKtxVersion = "2.0.2"
 roomVersion = "2.7.2"
 screengrabVersion = "2.1.1"
 sectionedRecyclerviewVersion = "0.6.1"
+shotVersion = "6.1.0"
 splash-screen = "1.0.1"
 kotlin = "2.2.10"
 composeBom = "2025.08.01"
@@ -97,6 +100,8 @@ ext-strikethrough = { module = "io.noties.markwon:ext-strikethrough", version.re
 ext-tables = { module = "io.noties.markwon:ext-tables", version.ref = "markwonVersion" }
 ext-tasklist = { module = "io.noties.markwon:ext-tasklist", version.ref = "markwonVersion" }
 ez-vcard = { module = "com.googlecode.ez-vcard:ez-vcard", version.ref = "ezVcardVersion" }
+findsecbugs-plugin = { module = "com.h3xstream.findsecbugs:findsecbugs-plugin", version.ref = "findsecbugsPluginVersion" }
+fb-contrib = { module = "com.mebigfatguy.fb-contrib:fb-contrib", version.ref = "fbContribVersion" }
 firebase-messaging = { module = "com.google.firebase:firebase-messaging", version.ref = "firebaseMessagingVersion" }
 flexbox = { module = "com.google.android.flexbox:flexbox", version.ref = "flexboxVersion" }
 gson = { module = "com.google.code.gson:gson", version.ref = "gsonVersion" }
@@ -126,6 +131,7 @@ review-ktx = { module = "com.google.android.play:review-ktx", version.ref = "rev
 screengrab = { module = "tools.fastlane:screengrab", version.ref = "screengrabVersion" }
 screenshot-core = { module = "com.facebook.testing.screenshot:core", version.ref = "coreVersion" }
 sectioned-recyclerview = { module = "com.github.nextcloud-deps:sectioned-recyclerview", version.ref = "sectionedRecyclerviewVersion" }
+shot = { module = "com.karumi:shot", version.ref = "shotVersion" }
 splashscreen = { module = "androidx.core:core-splashscreen", version.ref = "splash-screen" }
 
 # UI

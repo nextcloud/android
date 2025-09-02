@@ -19,8 +19,8 @@ buildscript {
         classpath libs.spotbugs.gradle.plugin
         classpath libs.kotlin.gradle.plugin
         classpath libs.detekt.gradle.plugin
-        classpath "commons-httpclient:commons-httpclient:3.1@jar" // remove after entire switch to lib v2
-        classpath "com.karumi:shot:6.1.0"
+        classpath libs.commons.httpclient.commons.httpclient // remove after entire switch to lib v2
+        classpath libs.shot
         classpath "org.jacoco:org.jacoco.core:$jacoco_version"
         classpath "org.jacoco:org.jacoco.report:$jacoco_version"
         classpath "org.jacoco:org.jacoco.agent:$jacoco_version"
@@ -376,8 +376,8 @@ dependencies {
     huaweiImplementation project(":appscan")
     qaImplementation project(":appscan")
 
-    spotbugsPlugins "com.h3xstream.findsecbugs:findsecbugs-plugin:1.14.0"
-    spotbugsPlugins "com.mebigfatguy.fb-contrib:fb-contrib:7.6.14"
+    spotbugsPlugins libs.findsecbugs.plugin
+    spotbugsPlugins libs.fb.contrib
 
     // dagger
     implementation libs.dagger
