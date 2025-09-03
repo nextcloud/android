@@ -20,6 +20,7 @@ import androidx.test.espresso.matcher.ViewMatchers.isRoot
 import com.owncloud.android.utils.EspressoIdlingResource
 import com.owncloud.android.AbstractIT
 import com.owncloud.android.MainApp
+import com.owncloud.android.extensions.launchAndCapture
 import com.owncloud.android.lib.common.accounts.AccountUtils
 import com.owncloud.android.utils.ScreenshotTest
 import org.junit.After
@@ -71,84 +72,50 @@ class TrashbinActivityIT : AbstractIT() {
     @UiThread
     @ScreenshotTest
     fun files() {
-        launchActivity<TrashbinActivity>().use { scenario ->
-            scenario.onActivity { sut ->
-                val trashbinRepository = TrashbinLocalRepository(TestCase.FILES)
-                sut.trashbinPresenter = TrashbinPresenter(trashbinRepository, sut)
-                onIdleSync {
-                    EspressoIdlingResource.increment()
-                    sut.loadFolder(
-                        onComplete = { EspressoIdlingResource.decrement() },
-                        onError = { EspressoIdlingResource.decrement() }
-                    )
-                    onView(isRoot()).check(matches(isDisplayed()))
-                    val screenShotName = createName(testClassName + "_" + "files", "")
-                    screenshotViaName(sut, screenShotName)
-                }
-            }
-        }
+        launchAndCapture<TrashbinActivity>(testClassName, "files", before = { sut ->
+            val trashbinRepository = TrashbinLocalRepository(TestCase.FILES)
+            sut.trashbinPresenter = TrashbinPresenter(trashbinRepository, sut)
+            sut.loadFolder(
+                onComplete = { EspressoIdlingResource.decrement() },
+                onError = { EspressoIdlingResource.decrement() }
+            )
+        })
     }
 
     @Test
     @UiThread
     @ScreenshotTest
     fun empty() {
-        launchActivity<TrashbinActivity>().use { scenario ->
-            scenario.onActivity { sut ->
-                val trashbinRepository = TrashbinLocalRepository(TestCase.EMPTY)
-                sut.trashbinPresenter = TrashbinPresenter(trashbinRepository, sut)
-                onIdleSync {
-                    EspressoIdlingResource.increment()
-                    sut.loadFolder(
-                        onComplete = { EspressoIdlingResource.decrement() },
-                        onError = { EspressoIdlingResource.decrement() }
-                    )
-                    onView(isRoot()).check(matches(isDisplayed()))
-                    val screenShotName = createName(testClassName + "_" + "empty", "")
-                    screenshotViaName(sut, screenShotName)
-                }
-            }
-        }
+        launchAndCapture<TrashbinActivity>(testClassName, "empty", before = { sut ->
+            val trashbinRepository = TrashbinLocalRepository(TestCase.EMPTY)
+            sut.trashbinPresenter = TrashbinPresenter(trashbinRepository, sut)
+            sut.loadFolder(
+                onComplete = { EspressoIdlingResource.decrement() },
+                onError = { EspressoIdlingResource.decrement() }
+            )
+        })
     }
 
     @Test
     @UiThread
     @ScreenshotTest
     fun loading() {
-        launchActivity<TrashbinActivity>().use { scenario ->
-            scenario.onActivity { sut ->
-                val trashbinRepository = TrashbinLocalRepository(TestCase.EMPTY)
-                sut.trashbinPresenter = TrashbinPresenter(trashbinRepository, sut)
-                onIdleSync {
-                    EspressoIdlingResource.increment()
-                    sut.showInitialLoading()
-                    EspressoIdlingResource.decrement()
-                    val screenShotName = createName(testClassName + "_" + "loading", "")
-                    onView(isRoot()).check(matches(isDisplayed()))
-                    screenshotViaName(sut, screenShotName)
-                }
-            }
-        }
+        launchAndCapture<TrashbinActivity>(testClassName, "loading", before = { sut ->
+            val trashbinRepository = TrashbinLocalRepository(TestCase.EMPTY)
+            sut.trashbinPresenter = TrashbinPresenter(trashbinRepository, sut)
+            sut.showInitialLoading()
+        })
     }
 
     @Test
     @UiThread
     @ScreenshotTest
     fun normalUser() {
-        launchActivity<TrashbinActivity>().use { scenario ->
-            scenario.onActivity { sut ->
-                val trashbinRepository = TrashbinLocalRepository(TestCase.EMPTY)
-                sut.trashbinPresenter = TrashbinPresenter(trashbinRepository, sut)
-                onIdleSync {
-                    EspressoIdlingResource.increment()
-                    sut.showUser()
-                    EspressoIdlingResource.decrement()
-                    val screenShotName = createName(testClassName + "_" + "normalUser", "")
-                    onView(isRoot()).check(matches(isDisplayed()))
-                    screenshotViaName(sut, screenShotName)
-                }
-            }
-        }
+        launchAndCapture<TrashbinActivity>(testClassName, "normalUser", before = { sut ->
+            val trashbinRepository = TrashbinLocalRepository(TestCase.EMPTY)
+            sut.trashbinPresenter = TrashbinPresenter(trashbinRepository, sut)
+            sut.showUser()
+        })
     }
 
     @Test
@@ -167,19 +134,10 @@ class TrashbinActivityIT : AbstractIT() {
             putExtra(Intent.EXTRA_USER, "differentUser@https://nextcloud.localhost")
         }
 
-        launchActivity<TrashbinActivity>(intent).use { scenario ->
-            scenario.onActivity { sut ->
-                val trashbinRepository = TrashbinLocalRepository(TestCase.EMPTY)
-                sut.trashbinPresenter = TrashbinPresenter(trashbinRepository, sut)
-                onIdleSync {
-                    EspressoIdlingResource.increment()
-                    sut.showUser()
-                    EspressoIdlingResource.decrement()
-                    val screenShotName = createName(testClassName + "_" + "differentUser", "")
-                    onView(isRoot()).check(matches(isDisplayed()))
-                    screenshotViaName(sut, screenShotName)
-                }
-            }
-        }
+        launchAndCapture<TrashbinActivity>(testClassName, "differentUser", intent = intent, before = { sut ->
+            val trashbinRepository = TrashbinLocalRepository(TestCase.EMPTY)
+            sut.trashbinPresenter = TrashbinPresenter(trashbinRepository, sut)
+            sut.showUser()
+        })
     }
 }
