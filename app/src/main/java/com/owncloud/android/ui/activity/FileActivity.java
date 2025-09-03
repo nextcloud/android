@@ -41,7 +41,6 @@ import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.receiver.NetworkChangeListener;
 import com.nextcloud.receiver.NetworkChangeReceiver;
 import com.nextcloud.utils.EditorUtils;
-import com.nextcloud.utils.extensions.ActivityExtensionsKt;
 import com.nextcloud.utils.extensions.BundleExtensionsKt;
 import com.nextcloud.utils.extensions.FileExtensionsKt;
 import com.nextcloud.utils.extensions.IntentExtensionsKt;
@@ -970,14 +969,12 @@ public abstract class FileActivity extends DrawerActivity
      * @param share
      * @param screenTypePermission
      * @param isReshareShown
-     * @param isExpiryDateShown
      */
     @Override
-    public void editExistingShare(OCShare share, int screenTypePermission, boolean isReshareShown,
-                                  boolean isExpiryDateShown) {
+    public void editExistingShare(OCShare share, int screenTypePermission, boolean isReshareShown) {
         FileDetailFragment fragment = getFileDetailFragment();
         if (fragment != null) {
-            fragment.editExistingShare(share, screenTypePermission, isReshareShown, isExpiryDateShown);
+            fragment.editExistingShare(share, screenTypePermission, isReshareShown);
         }
     }
 
