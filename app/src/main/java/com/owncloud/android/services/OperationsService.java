@@ -690,6 +690,11 @@ public class OperationsService extends Service {
                     case ACTION_REMOVE:
                         // Remove file or folder
                         OCFile file = IntentExtensionsKt.getParcelableArgument(operationIntent, EXTRA_FILE, OCFile.class);
+                        if (file == null) {
+                            Log_OC.w(TAG, "file is null cannot remove file");
+                            break;
+                        }
+
                         boolean onlyLocalCopy = operationIntent.getBooleanExtra(EXTRA_REMOVE_ONLY_LOCAL, false);
                         boolean inBackground = operationIntent.getBooleanExtra(EXTRA_IN_BACKGROUND, false);
                         operation = new RemoveFileOperation(file,
@@ -748,6 +753,11 @@ public class OperationsService extends Service {
 
                     case ACTION_RESTORE_VERSION:
                         FileVersion fileVersion = IntentExtensionsKt.getParcelableArgument(operationIntent, EXTRA_FILE_VERSION, FileVersion.class);
+                        if (fileVersion == null) {
+                            Log_OC.w(TAG, "file version is null cannot restore file");
+                            break;
+                        }
+
                         operation = new RestoreFileVersionRemoteOperation(fileVersion.getLocalId(),
                                                                           fileVersion.getFileName());
                         break;
