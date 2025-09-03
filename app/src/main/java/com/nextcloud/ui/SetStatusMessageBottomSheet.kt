@@ -174,7 +174,7 @@ class SetStatusMessageBottomSheet(val user: User, val currentStatus: Status?) :
         if (it.clearAt > 0) {
             binding.clearStatusAfterSpinner.visibility = View.GONE
             binding.remainingClearTime.apply {
-                binding.clearStatusMessageTextView.text = getString(R.string.clear_status_message)
+                binding.clearStatusMessageTextView.text = getString(R.string.clear)
                 visibility = View.VISIBLE
                 text = DisplayUtils.getRelativeTimestamp(context, it.clearAt * ONE_SECOND_IN_MILLIS, true)
                     .toString()

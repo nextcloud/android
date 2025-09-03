@@ -122,7 +122,6 @@
             android:layout_weight="1"
             android:checkable="true"
             android:orientation="horizontal"
-            app:cardBackgroundColor="@color/grey_200"
             app:cardCornerRadius="@dimen/status_corner_radius"
             app:cardElevation="0dp"
             app:checkedIcon="@null">
@@ -192,7 +191,6 @@
             android:layout_weight="1"
             android:checkable="true"
             android:orientation="horizontal"
-            app:cardBackgroundColor="@color/grey_200"
             app:cardCornerRadius="@dimen/status_corner_radius"
             app:cardElevation="0dp"
             app:checkedIcon="@null">
@@ -263,7 +261,6 @@
             android:layout_weight="1"
             android:checkable="true"
             android:orientation="horizontal"
-            app:cardBackgroundColor="@color/grey_200"
             app:cardCornerRadius="@dimen/status_corner_radius"
             app:cardElevation="0dp"
             app:checkedIcon="@null">
@@ -329,7 +326,6 @@
             android:layout_weight="1"
             android:checkable="true"
             android:orientation="horizontal"
-            app:cardBackgroundColor="@color/grey_200"
             app:cardCornerRadius="@dimen/status_corner_radius"
             app:cardElevation="0dp"
             app:checkedIcon="@null">
