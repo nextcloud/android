@@ -603,120 +603,118 @@ open class ExtendedListFragment :
 
     @Suppress("LongMethod")
     fun setEmptyListMessage(state: Parcelable?) {
-        Handler(Looper.getMainLooper()).post {
-            when (state) {
-                SearchType.NO_SEARCH -> {
-                    setMessageForEmptyList(
-                        R.string.file_list_empty_headline,
-                        getEmptyListViewTextId(),
-                        R.drawable.ic_list_empty_folder,
-                        true
-                    )
-                }
-                SearchType.FILE_SEARCH -> {
-                    setMessageForEmptyList(
-                        R.string.file_list_empty_headline_server_search,
-                        R.string.file_list_empty,
-                        R.drawable.ic_search_light_grey
-                    )
-                }
-                SearchType.FAVORITE_SEARCH -> {
-                    setMessageForEmptyList(
-                        R.string.file_list_empty_favorite_headline,
-                        R.string.file_list_empty_favorites_filter_list,
-                        R.drawable.ic_star_light_yellow
-                    )
-                }
-                SearchType.RECENTLY_MODIFIED_SEARCH -> {
-                    setMessageForEmptyList(
-                        R.string.file_list_empty_headline_server_search,
-                        R.string.file_list_empty_recently_modified,
-                        R.drawable.ic_list_empty_recent
-                    )
-                }
-                SearchType.REGULAR_FILTER -> {
-                    setMessageForEmptyList(
-                        R.string.file_list_empty_headline_search,
-                        R.string.file_list_empty_search,
-                        R.drawable.ic_search_light_grey
-                    )
-                }
-                SearchType.SHARED_FILTER -> {
-                    setMessageForEmptyList(
-                        R.string.file_list_empty_shared_headline,
-                        R.string.file_list_empty_shared,
-                        R.drawable.ic_list_empty_shared
-                    )
-                }
-                SearchType.GALLERY_SEARCH -> {
-                    setMessageForEmptyList(
-                        R.string.file_list_empty_headline_server_search,
-                        R.string.file_list_empty_gallery,
-                        R.drawable.file_image
-                    )
-                }
-                SearchType.LOCAL_SEARCH -> {
-                    setMessageForEmptyList(
-                        R.string.file_list_empty_headline_server_search,
-                        R.string.file_list_empty_local_search,
-                        R.drawable.ic_search_light_grey
-                    )
-                }
-                EmptyListState.OFFLINE_MODE -> {
-                    setMessageForEmptyList(
-                        R.string.offline_mode_info_title,
-                        R.string.offline_mode_info_description,
-                        R.drawable.ic_cloud_sync,
-                        true
-                    )
-                }
-                EmptyListState.LOADING -> {
-                    setMessageForEmptyList(
-                        R.string.file_list_loading,
-                        R.string.empty,
-                        null
-                    )
-                }
-                EmptyListState.ADD_FOLDER -> {
-                    setMessageForEmptyList(
-                        R.string.folder_list_empty_headline,
-                        R.string.file_list_empty_moving,
-                        R.drawable.ic_list_empty_create_folder,
-                        true
-                    )
-                }
-                EmptyListState.ONLY_ON_DEVICE -> {
-                    setMessageForEmptyList(
-                        R.string.file_list_empty_headline,
-                        R.string.file_list_empty_on_device,
-                        R.drawable.ic_list_empty_folder,
-                        true
-                    )
-                }
-                EmptyListState.LOCAL_FILE_LIST_EMPTY_FILE -> {
-                    setMessageForEmptyList(
-                        R.string.file_list_empty_headline,
-                        R.string.local_file_list_empty,
-                        R.drawable.ic_list_empty_folder,
-                        true
-                    )
-                }
-                EmptyListState.LOCAL_FILE_LIST_EMPTY_FOLDER -> {
-                    setMessageForEmptyList(
-                        R.string.folder_list_empty_headline,
-                        R.string.local_folder_list_empty,
-                        R.drawable.ic_list_empty_folder,
-                        true
-                    )
-                }
-                else -> {
-                    setMessageForEmptyList(
-                        R.string.file_list_empty_headline,
-                        getEmptyListViewTextId(),
-                        R.drawable.ic_list_empty_folder,
-                        true
-                    )
-                }
+        when (state) {
+            SearchType.NO_SEARCH -> {
+                setMessageForEmptyList(
+                    R.string.file_list_empty_headline,
+                    getEmptyListViewTextId(),
+                    R.drawable.ic_list_empty_folder,
+                    true
+                )
+            }
+            SearchType.FILE_SEARCH -> {
+                setMessageForEmptyList(
+                    R.string.file_list_empty_headline_server_search,
+                    R.string.file_list_empty,
+                    R.drawable.ic_search_light_grey
+                )
+            }
+            SearchType.FAVORITE_SEARCH -> {
+                setMessageForEmptyList(
+                    R.string.file_list_empty_favorite_headline,
+                    R.string.file_list_empty_favorites_filter_list,
+                    R.drawable.ic_star_light_yellow
+                )
+            }
+            SearchType.RECENTLY_MODIFIED_SEARCH -> {
+                setMessageForEmptyList(
+                    R.string.file_list_empty_headline_server_search,
+                    R.string.file_list_empty_recently_modified,
+                    R.drawable.ic_list_empty_recent
+                )
+            }
+            SearchType.REGULAR_FILTER -> {
+                setMessageForEmptyList(
+                    R.string.file_list_empty_headline_search,
+                    R.string.file_list_empty_search,
+                    R.drawable.ic_search_light_grey
+                )
+            }
+            SearchType.SHARED_FILTER -> {
+                setMessageForEmptyList(
+                    R.string.file_list_empty_shared_headline,
+                    R.string.file_list_empty_shared,
+                    R.drawable.ic_list_empty_shared
+                )
+            }
+            SearchType.GALLERY_SEARCH -> {
+                setMessageForEmptyList(
+                    R.string.file_list_empty_headline_server_search,
+                    R.string.file_list_empty_gallery,
+                    R.drawable.file_image
+                )
+            }
+            SearchType.LOCAL_SEARCH -> {
+                setMessageForEmptyList(
+                    R.string.file_list_empty_headline_server_search,
+                    R.string.file_list_empty_local_search,
+                    R.drawable.ic_search_light_grey
+                )
+            }
+            EmptyListState.OFFLINE_MODE -> {
+                setMessageForEmptyList(
+                    R.string.offline_mode_info_title,
+                    R.string.offline_mode_info_description,
+                    R.drawable.ic_cloud_sync,
+                    true
+                )
+            }
+            EmptyListState.LOADING -> {
+                setMessageForEmptyList(
+                    R.string.file_list_loading,
+                    R.string.empty,
+                    null
+                )
+            }
+            EmptyListState.ADD_FOLDER -> {
+                setMessageForEmptyList(
+                    R.string.folder_list_empty_headline,
+                    R.string.file_list_empty_moving,
+                    R.drawable.ic_list_empty_create_folder,
+                    true
+                )
+            }
+            EmptyListState.ONLY_ON_DEVICE -> {
+                setMessageForEmptyList(
+                    R.string.file_list_empty_headline,
+                    R.string.file_list_empty_on_device,
+                    R.drawable.ic_list_empty_folder,
+                    true
+                )
+            }
+            EmptyListState.LOCAL_FILE_LIST_EMPTY_FILE -> {
+                setMessageForEmptyList(
+                    R.string.file_list_empty_headline,
+                    R.string.local_file_list_empty,
+                    R.drawable.ic_list_empty_folder,
+                    true
+                )
+            }
+            EmptyListState.LOCAL_FILE_LIST_EMPTY_FOLDER -> {
+                setMessageForEmptyList(
+                    R.string.folder_list_empty_headline,
+                    R.string.local_folder_list_empty,
+                    R.drawable.ic_list_empty_folder,
+                    true
+                )
+            }
+            else -> {
+                setMessageForEmptyList(
+                    R.string.file_list_empty_headline,
+                    getEmptyListViewTextId(),
+                    R.drawable.ic_list_empty_folder,
+                    true
+                )
             }
         }
     }
