@@ -297,7 +297,7 @@ class OCFileListDelegate(
     private fun setItemLayoutOnClickListeners(file: OCFile, gridViewHolder: ListViewHolder) {
         gridViewHolder.itemLayout.setOnClickListener { ocFileListFragmentInterface.onItemClicked(file) }
 
-        if (!hideItemOptions) {
+        if (!hideItemOptions && gridViewHolder !is OCFileListRecommendedItemViewHolder) {
             gridViewHolder.itemLayout.apply {
                 isLongClickable = true
                 setOnLongClickListener {

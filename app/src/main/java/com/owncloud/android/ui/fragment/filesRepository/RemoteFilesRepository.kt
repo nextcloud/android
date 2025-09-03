@@ -28,12 +28,13 @@ class RemoteFilesRepository(private val clientRepository: ClientRepository, life
     private val scope = lifecycleOwner.lifecycleScope
 
     override suspend fun fetchRecommendedFiles(
+        accountName: String,
         ignoreETag: Boolean,
         storageManager: FileDataStorageManager
     ): ArrayList<OCFile> = withContext(
         Dispatchers.IO
     ) {
-        val cachedRecommendations = storageManager.recommendedFileDao.getAll()
+        val cachedRecommendations = storageManager.recommendedFileDao.getAll(accountName)
         if (cachedRecommendations.isNotEmpty() && !ignoreETag) {
             Log_OC.d(tag, "Returning cached recommendations.")
             return@withContext cachedRecommendations.toOCFile(storageManager)
@@ -50,7 +51,7 @@ class RemoteFilesRepository(private val clientRepository: ClientRepository, life
             if (result.isSuccess) {
                 val recommendations = result.getResultData().recommendations
                 Log_OC.d(tag, "Fetched ${recommendations.size} recommended files from remote.")
-                val recommendationsEntity = recommendations.toEntity()
+                val recommendationsEntity = recommendations.toEntity(accountName)
                 storageManager.recommendedFileDao.insertAll(recommendationsEntity)
                 recommendationsEntity.toOCFile(storageManager)
             } else {

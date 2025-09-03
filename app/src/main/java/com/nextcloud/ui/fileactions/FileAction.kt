@@ -206,6 +206,18 @@ enum class FileAction(
                 result.add(R.id.action_edit)
             }
 
+            if (files.any { it.isRecommendedFile }) {
+                val allowedForRecommended = setOf(
+                    R.id.action_see_details,
+                    R.id.action_set_as_wallpaper,
+                    R.id.action_pin_to_homescreen,
+                    R.id.action_open_file_with
+                )
+
+                val allActions = entries.map { it.id }
+                result.addAll(allActions - allowedForRecommended)
+            }
+
             return result
         }
 

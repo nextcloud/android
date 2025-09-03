@@ -474,7 +474,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         }
     }
 
-    public void bindRecommendedFilesHolder(OCFileListGridItemViewHolder holder, @NonNull OCFile file) {
+    public void bindRecommendedFilesHolder(OCFileListRecommendedItemViewHolder holder, @NonNull OCFile file) {
         bindHolder(holder, holder, file);
     }
 
@@ -1200,10 +1200,6 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         ocFileListDelegate.cancelAllPendingTasks();
     }
 
-    public boolean isGridView() {
-        return gridView;
-    }
-
     public void setGridView(boolean bool) {
         gridView = bool;
     }
@@ -1248,7 +1244,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     @Override
     public void notifyItemChanged(@NonNull OCFile file) {
-        if (shouldShowRecommendedFiles() && recommendedFilesAdapter != null) {
+        if (shouldShowRecommendedFiles() && recommendedFilesAdapter != null && file.isRecommendedFile()) {
             final int position = recommendedFilesAdapter.getItemPosition(file);
             recommendedFilesAdapter.notifyItemChanged(position);
         } else {
