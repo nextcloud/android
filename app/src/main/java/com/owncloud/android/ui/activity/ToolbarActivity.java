@@ -137,7 +137,7 @@ public abstract class ToolbarActivity extends BaseActivity implements Injectable
 
     public void setupToolbar() {
         if (mHomeSearchToolbar != null && mDefaultToolbar != null && mHomeSearchToolbar.getVisibility() == View.GONE && mDefaultToolbar.getVisibility() == View.VISIBLE) {
-            Log_OC.d(TAG, "Search toolbar already not visible, skipping to change toolbar");
+            Log_OC.d(TAG, "Search toolbar is already hidden, skipping update.");
             return;
         }
 
@@ -146,7 +146,7 @@ public abstract class ToolbarActivity extends BaseActivity implements Injectable
 
     public void setupHomeSearchToolbarWithSortAndListButtons() {
         if (mHomeSearchToolbar != null && mDefaultToolbar != null && mHomeSearchToolbar.getVisibility() == View.VISIBLE && mDefaultToolbar.getVisibility() == View.GONE) {
-            Log_OC.d(TAG, "Search toolbar already visible, skipping to change toolbar");
+            Log_OC.d(TAG, "Search toolbar is already visible, skipping update.");
             return;
         }
 
