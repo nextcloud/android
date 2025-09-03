@@ -162,7 +162,17 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
     }
 
     private void fetchSharees() {
-        ShareRepository shareRepository = new RemoteShareRepository(fileActivity.getClientRepository(), fileActivity, fileDataStorageManager);
+        final var activity = fileActivity;
+        if (activity == null) {
+            return;
+        }
+
+        final var clientRepository = activity.getClientRepository();
+        if (clientRepository == null) {
+            return;
+        }
+
+        ShareRepository shareRepository = new RemoteShareRepository(clientRepository, activity, fileDataStorageManager);
         shareRepository.fetchSharees(file.getRemotePath(), () -> {
             refreshCapabilitiesFromDB();
             refreshSharesFromDB();
