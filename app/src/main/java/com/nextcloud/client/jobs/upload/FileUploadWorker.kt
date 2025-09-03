@@ -27,6 +27,7 @@ import com.owncloud.android.datamodel.ThumbnailsCacheManager
 import com.owncloud.android.datamodel.UploadsStorageManager
 import com.owncloud.android.db.OCUpload
 import com.owncloud.android.lib.common.OwnCloudAccount
+import com.owncloud.android.lib.common.OwnCloudClient
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory
 import com.owncloud.android.lib.common.network.OnDatatransferProgressListener
 import com.owncloud.android.lib.common.operations.RemoteOperationResult
@@ -157,8 +158,18 @@ class FileUploadWorker(
             return Result.failure()
         }
 
+        // since worker's policy is append or replace and account name comes from there no need check in the loop
+        val optionalUser = userAccountManager.getUser(accountName)
+        if (!optionalUser.isPresent) {
+            Log_OC.e(TAG, "User not found for account: $accountName")
+            return Result.failure()
+        }
+
+        val user = optionalUser.get()
         val previouslyUploadedFileSize = currentBatchIndex * FileUploadHelper.MAX_FILE_COUNT
         val uploads = uploadsStorageManager.getUploadsByIds(uploadIds, accountName)
+        val ocAccount = OwnCloudAccount(user.toPlatformAccount(), context)
+        val client = OwnCloudClientManagerFactory.getDefaultSingleton().getClientFor(ocAccount, context)
 
         for ((index, upload) in uploads.withIndex()) {
             if (preferences.isGlobalUploadPaused) {
@@ -178,29 +189,23 @@ class FileUploadWorker(
                 continue
             }
 
-            val user = userAccountManager.getUser(accountName)
-            if (user.isPresent) {
-                setWorkerState(user.get())
+            setWorkerState(user)
+            val operation = createUploadFileOperation(upload, user)
+            currentUploadFileOperation = operation
 
-                val operation = createUploadFileOperation(upload, user.get())
-                currentUploadFileOperation = operation
+            val currentIndex = (index + 1)
+            val currentUploadIndex = (currentIndex + previouslyUploadedFileSize)
+            notificationManager.prepareForStart(
+                operation,
+                cancelPendingIntent = intents.startIntent(operation),
+                startIntent = intents.notificationStartIntent(operation),
+                currentUploadIndex = currentUploadIndex,
+                totalUploadSize = totalUploadSize
+            )
 
-                val currentIndex = (index + 1)
-                val currentUploadIndex = (currentIndex + previouslyUploadedFileSize)
-                notificationManager.prepareForStart(
-                    operation,
-                    cancelPendingIntent = intents.startIntent(operation),
-                    startIntent = intents.notificationStartIntent(operation),
-                    currentUploadIndex = currentUploadIndex,
-                    totalUploadSize = totalUploadSize
-                )
-
-                val result = upload(operation, user.get())
-                currentUploadFileOperation = null
-                sendUploadFinishEvent(totalUploadSize, currentUploadIndex, operation, result)
-            } else {
-                uploadsStorageManager.removeUpload(upload.uploadId)
-            }
+            val result = upload(operation, user, client)
+            currentUploadFileOperation = null
+            sendUploadFinishEvent(totalUploadSize, currentUploadIndex, operation, result)
         }
 
         return Result.success()
@@ -260,15 +265,16 @@ class FileUploadWorker(
     }
 
     @Suppress("TooGenericExceptionCaught", "DEPRECATION")
-    private fun upload(uploadFileOperation: UploadFileOperation, user: User): RemoteOperationResult<Any?> {
+    private fun upload(
+        uploadFileOperation: UploadFileOperation,
+        user: User,
+        client: OwnCloudClient
+    ): RemoteOperationResult<Any?> {
         lateinit var result: RemoteOperationResult<Any?>
 
         try {
             val storageManager = uploadFileOperation.storageManager
-            val ocAccount = OwnCloudAccount(user.toPlatformAccount(), context)
-            val uploadClient = OwnCloudClientManagerFactory.getDefaultSingleton().getClientFor(ocAccount, context)
-            result = uploadFileOperation.execute(uploadClient)
-
+            result = uploadFileOperation.execute(client)
             val task = ThumbnailsCacheManager.ThumbnailGenerationTask(storageManager, user)
             val file = File(uploadFileOperation.originalStoragePath)
             val remoteId: String? = uploadFileOperation.file.remoteId
