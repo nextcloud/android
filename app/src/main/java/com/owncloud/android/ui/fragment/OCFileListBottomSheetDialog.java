@@ -86,6 +86,8 @@ public class OCFileListBottomSheetDialog extends BottomSheetDialog implements In
         binding.addToCloud.setText(getContext().getResources().getString(R.string.add_to_cloud,
                                                                          themeUtils.getDefaultDisplayNameForRootFolder(getContext())));
 
+        viewThemeUtils.platform.colorViewBackground(binding.bottomSheet, ColorRole.SURFACE);
+
         OCCapability capability = fileActivity.getCapabilities();
         if (capability != null &&
             capability.getRichDocuments().isTrue() &&
