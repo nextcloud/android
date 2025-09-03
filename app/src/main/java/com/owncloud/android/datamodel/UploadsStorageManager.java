@@ -191,8 +191,21 @@ public class UploadsStorageManager extends Observable {
      * @param ocUpload Upload object with state to update
      * @return num of updated uploads.
      */
-    public int updateUpload(OCUpload ocUpload) {
+    public synchronized int updateUpload(OCUpload ocUpload) {
         Log_OC.v(TAG, "Updating " + ocUpload.getLocalPath() + " with status=" + ocUpload.getUploadStatus());
+
+        OCUpload existingUpload = getUploadById(ocUpload.getUploadId());
+        if (existingUpload == null) {
+            Log_OC.e(TAG, "Upload not found for ID: " + ocUpload.getUploadId());
+            return 0;
+        }
+
+        if (!existingUpload.getAccountName().equals(ocUpload.getAccountName())) {
+            Log_OC.e(TAG, "Account mismatch for upload ID " + ocUpload.getUploadId() +
+                ": expected " + existingUpload.getAccountName() +
+                ", got " + ocUpload.getAccountName());
+            return 0;
+        }
 
         ContentValues cv = new ContentValues();
         cv.put(ProviderTableMeta.UPLOADS_LOCAL_PATH, ocUpload.getLocalPath());
@@ -206,8 +219,8 @@ public class UploadsStorageManager extends Observable {
 
         int result = getDB().update(ProviderTableMeta.CONTENT_URI_UPLOADS,
                                     cv,
-                                    ProviderTableMeta._ID + "=?",
-                                    new String[]{String.valueOf(ocUpload.getUploadId())}
+                                    ProviderTableMeta._ID + "=? AND " + ProviderTableMeta.UPLOADS_ACCOUNT_NAME + "=?",
+                                    new String[]{String.valueOf(ocUpload.getUploadId()), ocUpload.getAccountName()}
                                    );
 
         Log_OC.d(TAG, "updateUpload returns with: " + result + " for file: " + ocUpload.getLocalPath());
