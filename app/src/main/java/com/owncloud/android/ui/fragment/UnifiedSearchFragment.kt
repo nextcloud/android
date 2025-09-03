@@ -34,6 +34,7 @@ import com.nextcloud.client.core.AsyncRunner
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.di.ViewModelFactory
 import com.nextcloud.client.network.ClientFactory
+import com.nextcloud.utils.extensions.typedActivity
 import com.owncloud.android.R
 import com.owncloud.android.databinding.ListFragmentBinding
 import com.owncloud.android.datamodel.FileDataStorageManager
@@ -142,7 +143,6 @@ class UnifiedSearchFragment :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        setupFileDisplayActivity()
         setupAdapter()
         if (supportsOpeningCalendarContactsLocally()) {
             checkPermissions()
@@ -337,8 +337,10 @@ class UnifiedSearchFragment :
         }
     }
 
-    private fun setupFileDisplayActivity() {
-        (activity as? FileDisplayActivity)?.run {
+    override fun onResume() {
+        super.onResume()
+        typedActivity<FileDisplayActivity>()?.run {
+            setupToolbar()
             setMainFabVisible(false)
             updateActionBarTitleAndHomeButtonByString(null)
         }
