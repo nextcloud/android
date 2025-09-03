@@ -36,12 +36,11 @@ public class GetCapabilitiesOperation extends SyncOperation {
             currentCapability = storageManager.getCapability(storageManager.getUser().getAccountName());
         }
 
-        RemoteOperationResult result = new GetCapabilitiesRemoteOperation(currentCapability).execute(client);
+        RemoteOperationResult<OCCapability> result = new GetCapabilitiesRemoteOperation(currentCapability).execute(client);
 
-        if (result.isSuccess()
-                && result.getData() != null && result.getData().size() > 0) {
+        if (result.isSuccess() && result.getResultData() != null) {
             // Read data from the result
-            OCCapability capability = (OCCapability) result.getData().get(0);
+            OCCapability capability = result.getResultData();
 
             // Save the capabilities into database
             storageManager.saveCapabilities(capability);
