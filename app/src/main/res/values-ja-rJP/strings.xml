@@ -639,6 +639,7 @@
     <string name="placeholder_extension">.txt</string>
     <string name="placeholder_fileSize">389 KB</string>
     <string name="placeholder_media_time">12:23:45</string>
+    <string name="placeholder_reason">最近編集したもの</string>
     <string name="placeholder_sentence">これはプレースホルダです</string>
     <string name="placeholder_timestamp">2012/05/18 PM 12:23</string>
     <string name="player_stop">中止</string>

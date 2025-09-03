@@ -552,6 +552,7 @@
     <string name="placeholder_extension">.txt</string>
     <string name="placeholder_fileSize">۳۸۹ کیلوبایت</string>
     <string name="placeholder_media_time">12:23:45</string>
+    <string name="placeholder_reason">اخیراً ویرایش شده</string>
     <string name="placeholder_sentence">این یک حفره است.</string>
     <string name="placeholder_timestamp">2012/05/18 12:23 بعد از ظهر</string>
     <string name="player_stop">توقف</string>

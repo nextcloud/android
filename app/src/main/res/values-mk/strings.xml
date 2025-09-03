@@ -460,6 +460,7 @@
     <string name="pin_shortcut_label">Отвори %1$s</string>
     <string name="placeholder_fileSize">389 KB</string>
     <string name="placeholder_media_time">12:23:45</string>
+    <string name="placeholder_reason">Неодамна изменета</string>
     <string name="placeholder_sentence">Ова е резервирано место</string>
     <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
     <string name="player_stop">стоп</string>
@@ -807,6 +808,10 @@
     <plurals name="file_list__footer__file">
         <item quantity="one">%1$d датотека</item>
         <item quantity="other">%1$d датотеки</item>
+    </plurals>
+    <plurals name="trashbin_list__footer__file">
+        <item quantity="one">%1$d ставка</item>
+        <item quantity="other">%1$d ставки</item>
     </plurals>
     <plurals name="synced_folders_show_hidden_folders">
         <item quantity="one">Прикажи %1$d сокриена папка</item>

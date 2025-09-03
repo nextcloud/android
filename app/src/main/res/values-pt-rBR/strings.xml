@@ -611,6 +611,8 @@
     <string name="notification_channel_general_name">Notificações gerais</string>
     <string name="notification_channel_media_description">Progresso do tocador de mídia</string>
     <string name="notification_channel_media_name">Tocador de mídia</string>
+    <string name="notification_channel_offline_operations_description">Mostra o progresso das operações de arquivos off-line</string>
+    <string name="notification_channel_offline_operations_name_short">Operações off-line</string>
     <string name="notification_channel_push_description">Exibir notificações push enviadas pelo servidor: Menções nos comentários, recepção de novos compartilhamentos remotos, anúncios postados pelo administrador etc.</string>
     <string name="notification_channel_push_name">Notificações push</string>
     <string name="notification_channel_upload_description">Mostra o progresso de uploads</string>
@@ -660,6 +662,7 @@
     <string name="placeholder_fileSize">389 KB</string>
     <string name="placeholder_filename">espaço reservado</string>
     <string name="placeholder_media_time">12:23:45</string>
+    <string name="placeholder_reason">Editado recentemente</string>
     <string name="placeholder_sentence">Este é um espaço reservado</string>
     <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
     <string name="player_stop">para</string>

@@ -575,6 +575,7 @@
     <string name="placeholder_extension">.txt</string>
     <string name="placeholder_fileSize">389 kt</string>
     <string name="placeholder_media_time">12:23:45</string>
+    <string name="placeholder_reason">Äskettäin muokattu</string>
     <string name="placeholder_sentence">Tämä on paikkamerkki</string>
     <string name="placeholder_timestamp">18.05.2012 12:23</string>
     <string name="player_stop">pysäytä</string>
