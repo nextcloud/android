@@ -70,6 +70,8 @@ import com.nextcloud.client.media.PlayerServiceConnection
 import com.nextcloud.client.network.ClientFactory.CreationException
 import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.client.utils.IntentUtil
+import com.nextcloud.model.ToolbarItem
+import com.nextcloud.model.ToolbarStyle
 import com.nextcloud.model.WorkerState
 import com.nextcloud.model.WorkerState.DownloadFinished
 import com.nextcloud.model.WorkerState.DownloadStarted
@@ -1178,7 +1180,7 @@ class FileDisplayActivity :
         listOfFiles.setFabVisible(currentFile.canCreateFileAndFolder())
         listOfFiles.registerFabListener()
         resetTitleBarAndScrolling()
-        setDrawerAllFiles()
+        configureToolbar()
         startMetadataSyncForCurrentDir()
     }
 
@@ -1294,13 +1296,7 @@ class FileDisplayActivity :
             localBroadcastManager.registerReceiver(it, downloadIntentFilter)
         }
 
-        checkAndSetMenuItemId()
-
-        if (menuItemId == Menu.NONE) {
-            setDrawerAllFiles()
-        } else {
-            configureToolbar()
-        }
+        configureToolbar()
 
         // show in-app review dialog to user
         inAppReviewHelper.showInAppReview(this)
@@ -1325,43 +1321,21 @@ class FileDisplayActivity :
     }
 
     private fun configureToolbar() {
-        // Other activities menuItemIds must be excluded to show correct toolbar.
-        val excludedMenuItemIds = ArrayList<Int>().apply {
-            add(R.id.nav_community)
-            add(R.id.nav_trashbin)
-            add(R.id.nav_uploads)
-            add(R.id.nav_activity)
-            add(R.id.nav_settings)
-            add(R.id.nav_assistant)
-        }
-
-        var isSearchEventExists = false
-        if (this.leftFragment is OCFileListFragment) {
-            isSearchEventExists = (fileListFragment?.getSearchEvent() != null)
-        }
-
-        if (this.leftFragment !is GalleryFragment &&
-            (
-                !isSearchEventExists ||
-                    menuItemId == R.id.nav_all_files ||
-                    menuItemId == R.id.nav_personal_files ||
-                    excludedMenuItemIds.contains(menuItemId)
-                )
-        ) {
-            setupHomeSearchToolbarWithSortAndListButtons()
-        } else {
-            setupToolbar()
-        }
-    }
-
-    private fun setDrawerAllFiles() {
         checkAndSetMenuItemId()
         setNavigationViewItemChecked()
-
-        if (MainApp.isOnlyOnDevice()) {
-            setupToolbar()
-        } else {
-            setupHomeSearchToolbarWithSortAndListButtons()
+        val item = ToolbarItem.fromNavId(menuItemId)
+        when (item?.style) {
+            ToolbarStyle.SEARCH -> setupHomeSearchToolbarWithSortAndListButtons()
+            ToolbarStyle.PLAIN -> {
+                if (currentDir?.isRootDirectory == true) {
+                    updateActionBarTitleAndHomeButtonByString(getString(item.titleId))
+                } else {
+                    setupToolbar()
+                }
+            }
+            else -> {
+                setupToolbar()
+            }
         }
     }
 
