@@ -611,6 +611,8 @@
     <string name="notification_channel_general_name">Üldised teavitused</string>
     <string name="notification_channel_media_description">Muusikaesitaja edenemine</string>
     <string name="notification_channel_media_name">Meediaesitaja</string>
+    <string name="notification_channel_offline_operations_description">Näitab vallasrežiimis tegevuste edenemist</string>
+    <string name="notification_channel_offline_operations_name_short">Vallasrežiimis tegevused</string>
     <string name="notification_channel_push_description">Näita serveri saadetud tõuketeavitusi: mainimised kommentaarides, uute kaugkaustade vastuvõtmine, peakasutaja postitused, jmt.</string>
     <string name="notification_channel_push_name">Tõuketeavitused</string>
     <string name="notification_channel_upload_description">Näitab üleslaadimise edenemist</string>
@@ -660,6 +662,7 @@
     <string name="placeholder_fileSize">389 KB</string>
     <string name="placeholder_filename">kohatäitja</string>
     <string name="placeholder_media_time">12:23:45</string>
+    <string name="placeholder_reason">Hiljuti muudetud</string>
     <string name="placeholder_sentence">See on kohahoidja</string>
     <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
     <string name="player_stop">peata</string>

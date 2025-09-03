@@ -247,6 +247,12 @@
     <string name="document_scan_export_dialog_title">Choisir le type d\'export</string>
     <string name="document_scan_pdf_generation_failed">La génération du PDF a échoué</string>
     <string name="document_scan_pdf_generation_in_progress">Génération du PDF...</string>
+    <string name="document_storage_provider_cannot_create_file_and_folder">Impossible de créer des éléments ici : autorisation de création manquante.</string>
+    <string name="document_storage_provider_cannot_create_file_inside_folder">Impossible de créer le fichier : autorisation manquante.</string>
+    <string name="document_storage_provider_cannot_create_folder_inside_folder">Impossible de créer le dossier : autorisation manquante.</string>
+    <string name="document_storage_provider_cannot_delete">Impossible de supprimer l\'élément : autorisation de suppression manquante.</string>
+    <string name="document_storage_provider_cannot_move">Impossible de déplacer l\'élément : autorisation de déplacement manquante.</string>
+    <string name="document_storage_provider_cannot_read">Impossible d\'ouvrir l\'élément : autorisation de lecture manquante.</string>
     <string name="done">Terminé</string>
     <string name="dontClear">Ne pas effacer</string>
     <string name="download_cannot_create_file">Impossible de créer le fichier local</string>
@@ -641,6 +647,7 @@
     <string name="placeholder_extension">.txt</string>
     <string name="placeholder_fileSize">389 Ko</string>
     <string name="placeholder_media_time">12:23:45</string>
+    <string name="placeholder_reason">Modifié récemment</string>
     <string name="placeholder_sentence">Ceci est un espace réservé</string>
     <string name="placeholder_timestamp">18/05/2012 12:23 PM</string>
     <string name="player_stop">arrêter</string>

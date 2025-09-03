@@ -626,6 +626,7 @@
     <string name="pin_shortcut_label">%1$s 열기</string>
     <string name="placeholder_fileSize">389 KB</string>
     <string name="placeholder_media_time">12:23:45</string>
+    <string name="placeholder_reason">최근에 편집됨</string>
     <string name="placeholder_sentence">이것은 자리 비움자입니다</string>
     <string name="placeholder_timestamp">2012년 05월 18일 오후 12:23</string>
     <string name="player_stop">멈추기</string>

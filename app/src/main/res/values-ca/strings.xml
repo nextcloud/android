@@ -45,10 +45,12 @@
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Escriu una mica de text</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Segur que voleu suprimir aquesta tasca?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Suprimeix la tasca</string>
+    <string name="assistant_screen_loading">S\'està carregant la llista de tasques...</string>
     <string name="assistant_screen_task_create_fail_message">S\'ha produït un error en crear la tasca</string>
     <string name="assistant_screen_task_create_success_message">La tasca s\'ha creat correctament</string>
     <string name="assistant_screen_task_delete_fail_message">S\'ha produït un error en suprimir la tasca</string>
     <string name="assistant_screen_task_delete_success_message">La tasca s\'ha suprimit correctament</string>
+    <string name="assistant_screen_task_list_empty_message">La llista de grups està buida.</string>
     <string name="assistant_screen_task_list_error_state_message">No s\'ha pogut obtenir la llista de tasques. Comproveu la vostra connexió a Internet.</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">Suprimeix la tasca</string>
     <string name="assistant_screen_task_output_empty_text">La sortida de la tasca encara no està a punt.</string>
@@ -178,6 +180,7 @@
     <string name="confirmation_remove_folders_alert">Esteu segur que voleu suprimir els elements seleccionats i el seu contingut?</string>
     <string name="confirmation_remove_local">Només local</string>
     <string name="conflict_dialog_error">No es pot crear el quadre de diàleg del solucionador de conflictes</string>
+    <string name="conflict_folder_headline">Conflicte de carpetes</string>
     <string name="conflict_local_file">Fitxer local</string>
     <string name="conflict_message_description">Si seleccioneu ambdues versions, s\'afegirà un numero al nom del fitxer local.</string>
     <string name="conflict_message_description_for_folder">Si seleccioneu ambdues versions, la carpeta local tindrà un número afegit al nom.</string>
@@ -289,6 +292,8 @@
     <string name="ecosystem_apps_more">Més aplicacions de Nextcloud</string>
     <string name="email_pick_failed">No s\'ha pogut triar l\'adreça electrònica.</string>
     <string name="encrypted">Activa el xifrat</string>
+    <string name="end_to_end_encryption_certificate_unavailable">No s\'ha pogut obtenir el certificat del servidor</string>
+    <string name="end_to_end_encryption_certificate_verification_failed">No s\'ha pogut verificar la clau pública</string>
     <string name="end_to_end_encryption_confirm_button">Arranjament de xifrat</string>
     <string name="end_to_end_encryption_decrypting">S\'està desxifrant…</string>
     <string name="end_to_end_encryption_dialog_close">Tanca</string>
@@ -322,6 +327,7 @@
     <string name="error_starting_doc_scan">S\'ha produït un error en iniciar l\'escaneig del document</string>
     <string name="error_uploading_direct_camera_upload">No s\'ha pogut pujar el contingut multimèdia</string>
     <string name="etm_accounts">Comptes</string>
+    <string name="etm_background_execution_count">El temps expira en 48h</string>
     <string name="etm_background_job_created">S\'ha creat</string>
     <string name="etm_background_job_name">Nom de la tasca</string>
     <string name="etm_background_job_progress">Progrés</string>
@@ -551,6 +557,7 @@
     <string name="new_media_folder_detected">S\'ha detectat la nova carpeta multimèdia %1$s.</string>
     <string name="new_media_folder_photos">fotografia</string>
     <string name="new_media_folder_videos">vídeo</string>
+    <string name="new_notification">Nova notificació</string>
     <string name="new_version_was_created">S\'ha creat una nova versió</string>
     <string name="no_actions">No hi ha cap acció per a aquest usuari</string>
     <string name="no_browser_available">No hi ha cap aplicació disponible per manegar els enllaços</string>
@@ -582,6 +589,7 @@
     <string name="notification_icon_description">Hi ha notificacions sense llegir</string>
     <string name="notifications_no_results_headline">No hi ha notificacions</string>
     <string name="notifications_no_results_message">Si us plau, comproveu-ho més tard</string>
+    <string name="oc_file_list_adapter_offline_operation_description_text">Operació pendent</string>
     <string name="offline_mode">No hi ha connexió a internet</string>
     <string name="offline_mode_info_description">Fins i tot sense connexió a Internet, podeu organitzar les vostres carpetes i crear fitxers. Quan torneu a estar en línia, les accions pendents se sincronitzaran automàticament.</string>
     <string name="offline_operations_file_does_not_exists_yet">El fitxer encara no existeix. Pugeu primer el fitxer.</string>
@@ -608,6 +616,7 @@
     <string name="permission_storage_access">Es necessiten permisos addicionals per pujada i baixada de fitxers.</string>
     <string name="pick_contact_to_share_with">Trieu el contacte amb què compartir</string>
     <string name="picture_set_as_no_app">No s\'ha trobat cap aplicació per establir-hi la foto</string>
+    <string name="pin_home">Fixa-ho a la pantalla d\'inici</string>
     <string name="pin_shortcut_label">Obre %1$s</string>
     <string name="placeholder_extension">.txt</string>
     <string name="placeholder_fileSize">389 KB</string>
@@ -732,6 +741,7 @@
     <string name="screenshot_04_accounts_heading">Tots els vostres comptes</string>
     <string name="screenshot_04_accounts_subline">En un sol lloc</string>
     <string name="screenshot_05_autoUpload_heading">Pujada automàtica</string>
+    <string name="screenshot_06_davdroid_heading">Calendari i contactes</string>
     <string name="search_error">S\'ha produït un error en obtenir els resultats de la cerca</string>
     <string name="select_all">Selecciona-ho tot</string>
     <string name="select_media_folder">Configura la carpeta multimèdia</string>
@@ -841,10 +851,12 @@
     <string name="stream">Seqüència amb…</string>
     <string name="stream_not_possible_headline">La seqüenciació interna no és possible</string>
     <string name="stream_not_possible_message">Si us plau, baixeu el mèdia o feu servir una aplicació externa.</string>
+    <string name="sub_folder_rule_month">Any/Mes</string>
     <string name="sub_folder_rule_year">Any</string>
     <string name="subject_shared_with_you">\"%1$s\" us ha estat compartit</string>
     <string name="subject_user_shared_with_you">%1$s us ha compartit %2$s</string>
     <string name="subtitle_photos_only">Només fotografies</string>
+    <string name="subtitle_photos_videos">Fotos i vídeos</string>
     <string name="subtitle_videos_only">Només vídeos</string>
     <string name="suggest">Suggereix</string>
     <string name="sync">Sincronitza</string>
@@ -906,13 +918,16 @@
     <string name="update_link_file_no_exist">No s\'ha pogut actualitzar. Assegureu-vos que el fitxer existeix.</string>
     <string name="update_link_forbidden_permissions">per actualitzar aquesta compartició</string>
     <string name="updating_share_failed">Ha fallat l\'actualització de la compartició</string>
+    <string name="upload_action_cancelled_clear">Esborra les pujades canceŀlades</string>
     <string name="upload_action_failed_clear">Esborra les pujades amb errors</string>
     <string name="upload_action_failed_retry">Reintenta les pujades fallides</string>
+    <string name="upload_action_global_upload_pause">Pausa totes les pujades</string>
     <string name="upload_cannot_create_file">No s\'ha pogut crear el fitxer local</string>
     <string name="upload_chooser_title">Pujada des de…</string>
     <string name="upload_content_from_other_apps">Pujada de contingut des d\'altres aplicacions</string>
     <string name="upload_direct_camera_photo">Fotografia</string>
     <string name="upload_direct_camera_upload">Pujada des de la càmera</string>
+    <string name="upload_direct_camera_video">Vídeo</string>
     <string name="upload_file_dialog_filename">Nom de fitxer</string>
     <string name="upload_file_dialog_filetype">Tipus de fitxer</string>
     <string name="upload_file_dialog_filetype_googlemap_shortcut">Fitxer(%s) de drecera de Google Maps</string>

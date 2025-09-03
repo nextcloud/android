@@ -493,6 +493,7 @@
     <string name="placeholder_extension">.txt</string>
     <string name="placeholder_fileSize">389 KB</string>
     <string name="placeholder_media_time">12:23:45</string>
+    <string name="placeholder_reason">Chỉnh sửa gần đây</string>
     <string name="placeholder_sentence">Vị trí này đã được đặt chỗ trước</string>
     <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
     <string name="player_stop">dừng</string>

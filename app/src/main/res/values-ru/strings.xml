@@ -612,6 +612,8 @@
     <string name="notification_channel_general_name">Общие уведомления</string>
     <string name="notification_channel_media_description">Состояние воспроизведения музыки</string>
     <string name="notification_channel_media_name">Мультимедийный проигрыватель </string>
+    <string name="notification_channel_offline_operations_description">Показать ход оффлайновых файловых операций</string>
+    <string name="notification_channel_offline_operations_name_short">Оффлайновые операции</string>
     <string name="notification_channel_push_description">Показывать push-уведомления, отправляемые на сервер: упоминания в комментариях, прием новых общих ресурсов, объявления, размещаемые администратором и т.д.</string>
     <string name="notification_channel_push_name">Push-уведомления</string>
     <string name="notification_channel_upload_description">Ход выполнения передачи файлов на сервер</string>
@@ -661,6 +663,7 @@
     <string name="placeholder_fileSize">389 Кбайт</string>
     <string name="placeholder_filename">заполнитель</string>
     <string name="placeholder_media_time">12:23:45</string>
+    <string name="placeholder_reason">Недавно изменено</string>
     <string name="placeholder_sentence">Это заполнитель</string>
     <string name="placeholder_timestamp">2012/05/18 12:23</string>
     <string name="player_stop">остановить</string>
