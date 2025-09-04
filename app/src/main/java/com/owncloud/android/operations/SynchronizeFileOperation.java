@@ -30,7 +30,11 @@ import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.files.ReadFileRemoteOperation;
 import com.owncloud.android.lib.resources.files.model.RemoteFile;
 import com.owncloud.android.operations.common.SyncOperation;
+import com.owncloud.android.ui.events.DialogEvent;
+import com.owncloud.android.ui.events.DialogEventType;
 import com.owncloud.android.utils.FileStorageUtils;
+
+import org.greenrobot.eventbus.EventBus;
 
 /**
  * Remote operation performing the read of remote file in the ownCloud server.
@@ -47,6 +51,7 @@ public class SynchronizeFileOperation extends SyncOperation {
     private Context mContext;
     private boolean mTransferWasRequested;
     private final boolean syncInBackgroundWorker;
+    private boolean postDialogEvent = true;
 
 
     /**
@@ -77,7 +82,8 @@ public class SynchronizeFileOperation extends SyncOperation {
         boolean syncFileContents,
         Context context,
         FileDataStorageManager storageManager,
-        boolean syncInBackgroundWorker) {
+        boolean syncInBackgroundWorker,
+        boolean postDialogEvent) {
         super(storageManager);
 
         mRemotePath = remotePath;
@@ -88,6 +94,7 @@ public class SynchronizeFileOperation extends SyncOperation {
         mContext = context;
         mAllowUploads = true;
         this.syncInBackgroundWorker = syncInBackgroundWorker;
+        this.postDialogEvent = postDialogEvent;
     }
 
 
@@ -281,6 +288,9 @@ public class SynchronizeFileOperation extends SyncOperation {
         Log_OC.i(TAG, "Synchronizing " + mUser.getAccountName() + ", file " + mLocalFile.getRemotePath() +
             ": " + result.getLogMessage());
 
+        if (postDialogEvent) {
+            EventBus.getDefault().post(new DialogEvent(DialogEventType.SYNC));
+        }
         return result;
     }
 
