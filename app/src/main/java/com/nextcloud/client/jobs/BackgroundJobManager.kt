@@ -173,4 +173,6 @@ interface BackgroundJobManager {
     fun scheduleInternal2WaySync(intervalMinutes: Long)
     fun cancelAllFilesDownloadJobs()
     fun startMetadataSyncJob(currentDirPath: String)
+    fun syncFolder(folder: OCFile)
+    fun cancelSyncFolder(folderId: Long)
 }
