@@ -72,7 +72,6 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
 
     protected void setPhotoSearchQueryRunning(boolean value) {
         this.photoSearchQueryRunning = value;
-        this.setLoading(value); // link the photoSearchQueryRunning variable with UI progress loading
     }
 
     public boolean isPhotoSearchQueryRunning() {
@@ -229,7 +228,6 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
     public void onResume() {
         super.onResume();
 
-        setLoading(this.isPhotoSearchQueryRunning());
         if (getActivity() instanceof FileDisplayActivity fileDisplayActivity) {
             fileDisplayActivity.updateActionBarTitleAndHomeButtonByString(getString(R.string.drawer_item_gallery));
             fileDisplayActivity.setMainFabVisible(false);
