@@ -6,7 +6,6 @@
   ~ SPDX-FileCopyrightText: 2020 Nextcloud GmbH
   ~ SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
 -->
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -14,7 +13,9 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="@dimen/dialog_padding"
+    android:paddingStart="@dimen/standard_padding"
+    android:paddingEnd="@dimen/standard_padding"
+    android:paddingBottom="@dimen/standard_padding"
     app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
     <com.google.android.material.bottomsheet.BottomSheetDragHandleView
@@ -25,7 +26,7 @@
         android:id="@+id/onlineStatusView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/standard_half_margin"
+        android:layout_marginBottom="@dimen/standard_margin"
         android:text="@string/online_status"
         android:textAlignment="viewStart"
         android:textColor="@color/high_emphasis_text"

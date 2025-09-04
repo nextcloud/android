@@ -16,7 +16,7 @@
         android:id="@+id/icon"
         android:layout_width="48dp"
         android:layout_height="match_parent"
-        android:gravity="center"
+        android:gravity="center_vertical"
         android:textSize="25sp"
         tools:text="📆" />
 

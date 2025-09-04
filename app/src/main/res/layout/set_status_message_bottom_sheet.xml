@@ -6,7 +6,6 @@
   ~ SPDX-FileCopyrightText: 2020 Nextcloud GmbH
   ~ SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
 -->
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -14,7 +13,9 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="@dimen/dialog_padding"
+    android:paddingStart="@dimen/standard_padding"
+    android:paddingEnd="@dimen/standard_padding"
+    android:paddingBottom="@dimen/standard_padding"
     app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
     <com.google.android.material.bottomsheet.BottomSheetDragHandleView
@@ -51,7 +52,7 @@
                 android:layout_height="@dimen/activity_row_layout_height"
                 android:background="@color/transparent"
                 android:cursorVisible="false"
-                android:gravity="center"
+                android:gravity="center_vertical"
                 android:text="@string/default_emoji"
                 android:textSize="24sp" />
 
@@ -96,7 +97,7 @@
             android:id="@+id/clearStatusMessageTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/alternate_margin"
+            android:layout_marginBottom="@dimen/alternate_half_margin"
             android:text="@string/clear_status_message_after"
             android:textSize="@dimen/activity_list_item_title_header_text_size"
             android:textColor="@color/high_emphasis_text" />
