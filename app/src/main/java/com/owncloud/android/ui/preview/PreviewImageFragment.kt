@@ -59,6 +59,7 @@ import com.owncloud.android.datamodel.ThumbnailsCacheManager
 import com.owncloud.android.datamodel.ThumbnailsCacheManager.AsyncResizedImageDrawable
 import com.owncloud.android.datamodel.ThumbnailsCacheManager.ResizedImageGenerationTask
 import com.owncloud.android.lib.common.utils.Log_OC
+import com.owncloud.android.ui.activity.FileActivity
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment
 import com.owncloud.android.ui.dialog.RemoveFilesDialogFragment
 import com.owncloud.android.ui.fragment.FileFragment
@@ -415,6 +416,10 @@ class PreviewImageFragment :
         } else if (itemId == R.id.action_see_details) {
             seeDetails()
         } else if (itemId == R.id.action_download_file || itemId == R.id.action_sync_file) {
+            if (containerActivity is FileActivity) {
+                val activity = containerActivity as FileActivity
+                activity.showSyncLoadingDialog(file.isFolder)
+            }
             containerActivity.fileOperationsHelper.syncFile(file)
         } else if (itemId == R.id.action_cancel_sync) {
             containerActivity.fileOperationsHelper.cancelTransference(file)

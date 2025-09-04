@@ -36,7 +36,6 @@ import com.nextcloud.client.jobs.download.FileDownloadHelper;
 import com.nextcloud.client.jobs.upload.FileUploadHelper;
 import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.utils.EditorUtils;
-import com.nextcloud.utils.extensions.OCFileExtensionsKt;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
@@ -89,7 +88,6 @@ import java.util.Locale;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.Set;
-import java.util.function.Consumer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -872,22 +870,41 @@ public class FileOperationsHelper {
      * @param file The file or folder to synchronize
      */
     public void syncFile(OCFile file) {
-        if (!file.isFolder()) {
-            Intent intent = new Intent(fileActivity, OperationsService.class);
-            intent.setAction(OperationsService.ACTION_SYNC_FILE);
-            intent.putExtra(OperationsService.EXTRA_ACCOUNT, fileActivity.getAccount());
-            intent.putExtra(OperationsService.EXTRA_REMOTE_PATH, file.getRemotePath());
-            intent.putExtra(OperationsService.EXTRA_SYNC_FILE_CONTENTS, true);
-            mWaitingForOpId = fileActivity.getOperationsServiceBinder().queueNewOperation(intent);
-            fileActivity.showLoadingDialog(fileActivity.getApplicationContext().
-                                               getString(R.string.wait_a_moment));
-
-        } else {
-            Intent intent = new Intent(fileActivity, OperationsService.class);
-            intent.setAction(OperationsService.ACTION_SYNC_FOLDER);
-            intent.putExtra(OperationsService.EXTRA_ACCOUNT, fileActivity.getAccount());
-            intent.putExtra(OperationsService.EXTRA_REMOTE_PATH, file.getRemotePath());
+        if (file.isFolder()) {
+            Intent intent = getSyncFolderIntent(file);
             fileActivity.startService(intent);
+        } else {
+            Intent intent = getSyncFileIntent(file);
+            mWaitingForOpId = fileActivity.getOperationsServiceBinder().queueNewOperation(intent);
+        }
+    }
+
+    private Intent getSyncFolderIntent(OCFile file) {
+        Intent intent = new Intent(fileActivity, OperationsService.class);
+        intent.setAction(OperationsService.ACTION_SYNC_FOLDER);
+        intent.putExtra(OperationsService.EXTRA_ACCOUNT, fileActivity.getAccount());
+        intent.putExtra(OperationsService.EXTRA_REMOTE_PATH, file.getRemotePath());
+        return intent;
+    }
+
+    private Intent getSyncFileIntent(OCFile file) {
+        Intent intent = new Intent(fileActivity, OperationsService.class);
+        intent.setAction(OperationsService.ACTION_SYNC_FILE);
+        intent.putExtra(OperationsService.EXTRA_ACCOUNT, fileActivity.getAccount());
+        intent.putExtra(OperationsService.EXTRA_REMOTE_PATH, file.getRemotePath());
+        intent.putExtra(OperationsService.EXTRA_SYNC_FILE_CONTENTS, true);
+        return intent;
+    }
+
+
+    public void syncFile(OCFile file, boolean postDialogEvent) {
+        if (file.isFolder()) {
+            Intent intent = getSyncFolderIntent(file);
+            fileActivity.startService(intent);
+        } else {
+            Intent intent = getSyncFileIntent(file);
+            intent.putExtra(OperationsService.EXTRA_POST_DIALOG_EVENT, postDialogEvent);
+            mWaitingForOpId = fileActivity.getOperationsServiceBinder().queueNewOperation(intent);
         }
     }
 

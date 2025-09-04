@@ -86,6 +86,9 @@ import com.owncloud.android.ui.dialog.ConfirmationDialogFragment;
 import com.owncloud.android.ui.dialog.LoadingDialog;
 import com.owncloud.android.ui.dialog.ShareLinkToDialog;
 import com.owncloud.android.ui.dialog.SslUntrustedCertDialog;
+import com.owncloud.android.ui.events.DialogEvent;
+import com.owncloud.android.ui.events.DialogEventType;
+import com.owncloud.android.ui.events.FavoriteEvent;
 import com.owncloud.android.ui.fragment.FileDetailFragment;
 import com.owncloud.android.ui.fragment.FileDetailSharingFragment;
 import com.owncloud.android.ui.fragment.OCFileListFragment;
@@ -99,6 +102,9 @@ import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.ErrorMessageAdapter;
 import com.owncloud.android.utils.FilesSyncHelper;
 import com.owncloud.android.utils.theme.ViewThemeUtils;
+
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -998,5 +1004,20 @@ public abstract class FileActivity extends DrawerActivity
 
     public FilesRepository getFilesRepository() {
         return filesRepository;
+    }
+
+    public void showSyncLoadingDialog(boolean isFolder) {
+        if (isFolder) {
+            return;
+        }
+
+        showLoadingDialog(getApplicationContext().getString(R.string.wait_a_moment));
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void handleSyncDialogEvent(DialogEvent event) {
+        if (event.getType() == DialogEventType.SYNC) {
+            dismissLoadingDialog();
+        }
     }
 }

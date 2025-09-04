@@ -56,6 +56,7 @@ import com.nextcloud.common.NextcloudClient
 import com.nextcloud.ui.fileactions.FileAction
 import com.nextcloud.ui.fileactions.FileActionsBottomSheet.Companion.newInstance
 import com.nextcloud.utils.extensions.getParcelableArgument
+import com.nextcloud.utils.extensions.getTypedActivity
 import com.nextcloud.utils.extensions.logFileSize
 import com.owncloud.android.MainApp
 import com.owncloud.android.R
@@ -65,6 +66,7 @@ import com.owncloud.android.files.StreamMediaFileOperation
 import com.owncloud.android.lib.common.OwnCloudClient
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.ui.activity.DrawerActivity
+import com.owncloud.android.ui.activity.FileActivity
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment
 import com.owncloud.android.ui.dialog.RemoveFilesDialogFragment
 import com.owncloud.android.ui.fragment.FileFragment
@@ -362,6 +364,7 @@ class PreviewMediaFragment :
             }
 
             R.id.action_sync_file -> {
+                getTypedActivity(FileActivity::class.java)?.showSyncLoadingDialog(file.isFolder)
                 containerActivity.fileOperationsHelper.syncFile(file)
             }
 

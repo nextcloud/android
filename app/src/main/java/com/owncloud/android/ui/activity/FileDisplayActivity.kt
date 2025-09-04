@@ -2124,6 +2124,7 @@ class FileDisplayActivity :
                 fileOperationsHelper.removeFiles(list, true, true)
 
                 // download new version, only if file was previously download
+                showSyncLoadingDialog(file.isFolder)
                 fileOperationsHelper.syncFile(file)
             }
 

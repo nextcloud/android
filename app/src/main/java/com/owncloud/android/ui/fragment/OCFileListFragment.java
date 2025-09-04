@@ -122,11 +122,13 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
+import java.util.function.Consumer;
 
 import javax.inject.Inject;
 
@@ -2199,12 +2201,27 @@ public class OCFileListFragment extends ExtendedListFragment implements
     }
 
     private void syncAndCheckFiles(Collection<OCFile> files) {
-        for (OCFile file : files) {
-            // Get the remaining space on device
+        boolean isAnyFileFolder = false;
+        for (OCFile file: files) {
+            if (file.isFolder()) {
+                isAnyFileFolder = true;
+                break;
+            }
+        }
+
+        if (mContainerActivity instanceof FileActivity activity && !files.isEmpty()) {
+            activity.showSyncLoadingDialog(isAnyFileFolder);
+        }
+
+        Iterator<OCFile> iterator = files.iterator();
+        while (iterator.hasNext()) {
+            OCFile file = iterator.next();
+
             long availableSpaceOnDevice = FileOperationsHelper.getAvailableSpaceOnDevice();
 
             if (FileStorageUtils.checkIfEnoughSpace(file)) {
-                mContainerActivity.getFileOperationsHelper().syncFile(file);
+                boolean isLastItem = !iterator.hasNext();
+                mContainerActivity.getFileOperationsHelper().syncFile(file, isLastItem);
             } else {
                 showSpaceErrorDialog(file, availableSpaceOnDevice);
             }
