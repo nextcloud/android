@@ -2063,7 +2063,6 @@ public class OCFileListFragment extends ExtendedListFragment implements
         final User user = accountManager.getUser();
 
         try {
-            new Handler(Looper.getMainLooper()).post(() -> setLoading(true));
             NextcloudClient client = clientFactory.createNextcloudClient(user);
             ToggleFileLockRemoteOperation operation = new ToggleFileLockRemoteOperation(event.getShouldLock(), event.getFilePath());
             RemoteOperationResult<Void> result = operation.execute(client);
@@ -2085,8 +2084,6 @@ public class OCFileListFragment extends ExtendedListFragment implements
                               R.string.error_file_lock,
                               Snackbar.LENGTH_LONG).show();
             }
-        } finally {
-            new Handler(Looper.getMainLooper()).post(() -> setLoading(false));
         }
     }
 

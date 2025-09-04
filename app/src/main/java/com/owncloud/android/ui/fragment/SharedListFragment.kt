@@ -104,9 +104,7 @@ class SharedListFragment :
 
     private fun fetchFileAndRun(partialFile: OCFile, block: (file: OCFile) -> Unit) {
         lifecycleScope.launch {
-            isLoading = true
             val file = fetchFileData(partialFile)
-            isLoading = false
             withContext(Dispatchers.Main) {
                 if (file != null) {
                     block(file)
@@ -119,7 +117,6 @@ class SharedListFragment :
 
     private fun fetchAllAndRun(partialFiles: MutableSet<OCFile>?, callback: (MutableSet<OCFile>?) -> Unit) {
         lifecycleScope.launch {
-            isLoading = true
             if (partialFiles != null) {
                 val files = partialFiles.toMutableSet().mapNotNull { partialFile ->
                     fetchFileData(partialFile).also { fetched ->
@@ -128,10 +125,7 @@ class SharedListFragment :
                         }
                     }
                 }
-                isLoading = false
                 callback(files.toHashSet())
-            } else {
-                isLoading = false
             }
         }
     }

@@ -7,6 +7,7 @@
  */
 package com.owncloud.android.ui.fragment
 
+import android.annotation.SuppressLint
 import android.os.AsyncTask
 import android.os.Handler
 import android.os.Looper
@@ -35,7 +36,6 @@ class OCFileListSearchAsyncTask(
     override fun onPreExecute() {
         fragmentReference.get()?.let { fragment ->
             Handler(Looper.getMainLooper()).post {
-                fragment.isLoading = true
                 fragment.setEmptyListMessage(EmptyListState.LOADING)
             }
         }
@@ -51,7 +51,7 @@ class OCFileListSearchAsyncTask(
         lateinit var remoteOperationResult: RemoteOperationResult<List<Any>>
         try {
             remoteOperationResult = remoteOperation.execute(currentUser, fragment.context)
-        } catch (e: UnsupportedOperationException) {
+        } catch (_: UnsupportedOperationException) {
             remoteOperationResult = remoteOperation.executeNextcloudClient(currentUser, fragment.requireContext())
         }
 
@@ -72,9 +72,9 @@ class OCFileListSearchAsyncTask(
         return remoteOperationResult.isSuccess
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     override fun onPostExecute(bool: Boolean) {
         fragmentReference.get()?.let { fragment ->
-            fragment.isLoading = false
             if (!isCancelled) {
                 fragment.adapter.notifyDataSetChanged()
             }
