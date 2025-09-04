@@ -120,6 +120,7 @@ import com.owncloud.android.ui.dialog.TermsOfServiceDialog
 import com.owncloud.android.ui.events.SearchEvent
 import com.owncloud.android.ui.events.SyncEventFinished
 import com.owncloud.android.ui.events.TokenPushEvent
+import com.owncloud.android.ui.fragment.EmptyListState
 import com.owncloud.android.ui.fragment.FileDetailFragment
 import com.owncloud.android.ui.fragment.FileFragment
 import com.owncloud.android.ui.fragment.GalleryFragment
@@ -191,7 +192,11 @@ class FileDisplayActivity :
 
     private var mWaitingToPreview: OCFile? = null
 
-    private var mSyncInProgress = false
+    private var mSyncInProgress: Boolean = false
+        set(value) {
+            field = value
+            setBackgroundText()
+        }
 
     private var mWaitingToSend: OCFile? = null
 
@@ -1435,8 +1440,10 @@ class FileDisplayActivity :
                 ) {
                     mLastSslUntrustedServerResult = syncResult
                 }
-            } catch (e: java.lang.RuntimeException) {
+            } catch (_: java.lang.RuntimeException) {
                 safelyDeleteResult(intent)
+            } finally {
+                mSyncInProgress = false
             }
         }
     }
@@ -1486,7 +1493,6 @@ class FileDisplayActivity :
         Log_OC.d(TAG, "Setting progress visibility to $mSyncInProgress")
 
         handleScrollBehaviour(fileListFragment)
-        setBackgroundText()
     }
 
     private fun handleRemovedFileFromServer(currentFile: OCFile?, currentDir: OCFile?): OCFile? {
@@ -1592,36 +1598,18 @@ class FileDisplayActivity :
      * Show a text message on screen view for notifying user if content is loading or folder is empty
      */
     private fun setBackgroundText() {
-        val ocFileListFragment = this.listOfFilesFragment
-        if (ocFileListFragment != null) {
-            if (mSyncInProgress ||
-                file.fileLength > 0 &&
-                storageManager.getFolderContent(
-                    file,
-                    false
-                ).isEmpty()
-            ) {
-                ocFileListFragment.setEmptyListLoadingMessage()
-            } else {
-                if (MainApp.isOnlyOnDevice()) {
-                    ocFileListFragment.setMessageForEmptyList(
-                        R.string.file_list_empty_headline,
-                        R.string.file_list_empty_on_device,
-                        R.drawable.ic_list_empty_folder,
-                        true
-                    )
-                } else {
-                    connectivityService.isNetworkAndServerAvailable { result: Boolean? ->
-                        if (result == true) {
-                            ocFileListFragment.setEmptyListMessage(SearchType.NO_SEARCH)
-                        } else {
-                            ocFileListFragment.setEmptyListMessage(SearchType.OFFLINE_MODE)
-                        }
-                    }
+        val ocFileListFragment = listOfFilesFragment ?: return
+        connectivityService.isNetworkAndServerAvailable { result: Boolean? ->
+            when {
+                mSyncInProgress && result == true -> {
+                    ocFileListFragment.setEmptyListMessage(EmptyListState.LOADING)
                 }
+                MainApp.isOnlyOnDevice() -> {
+                    ocFileListFragment.setEmptyListMessage(EmptyListState.ONLY_ON_DEVICE)
+                }
+                result == true -> ocFileListFragment.setEmptyListMessage(SearchType.NO_SEARCH)
+                else -> ocFileListFragment.setEmptyListMessage(EmptyListState.OFFLINE_MODE)
             }
-        } else {
-            Log_OC.e(TAG, "OCFileListFragment is null")
         }
     }
 
@@ -2379,7 +2367,7 @@ class FileDisplayActivity :
                 if (fragment != null && fragment !is GalleryFragment) {
                     fragment.setLoading(true)
                 }
-                setBackgroundText()
+                mSyncInProgress = false
             }, DELAY_TO_REQUEST_REFRESH_OPERATION_LATER)
         }
     }
