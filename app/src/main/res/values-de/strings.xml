@@ -662,7 +662,7 @@
     <string name="placeholder_fileSize">389 KB</string>
     <string name="placeholder_filename">Platzhalter</string>
     <string name="placeholder_media_time">12:23:45</string>
-    <string name="placeholder_reason">Zuletzt bearbeitet</string>
+    <string name="placeholder_reason">Kürzlich bearbeitet</string>
     <string name="placeholder_sentence">Dies ist ein Platzhalter</string>
     <string name="placeholder_timestamp">18.5.2012 12:23</string>
     <string name="player_stop">Stopp</string>

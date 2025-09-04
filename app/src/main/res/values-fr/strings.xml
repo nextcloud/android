@@ -253,6 +253,7 @@
     <string name="document_storage_provider_cannot_delete">Impossible de supprimer l\'élément : autorisation de suppression manquante.</string>
     <string name="document_storage_provider_cannot_move">Impossible de déplacer l\'élément : autorisation de déplacement manquante.</string>
     <string name="document_storage_provider_cannot_read">Impossible d\'ouvrir l\'élément : autorisation de lecture manquante.</string>
+    <string name="document_storage_provider_cannot_rename">Impossible de renommer l\'élément : autorisation de renommage manquante.</string>
     <string name="done">Terminé</string>
     <string name="dontClear">Ne pas effacer</string>
     <string name="download_cannot_create_file">Impossible de créer le fichier local</string>
@@ -332,6 +333,7 @@
     <string name="error_comment_file">Erreur lors du commentaire du fichier</string>
     <string name="error_crash_title">%1$s a planté</string>
     <string name="error_creating_file_from_template">Erreur lors de la création du fichier à partir du modèle</string>
+    <string name="error_fetching_sharees">Impossible de récupérer les partages.</string>
     <string name="error_file_actions">Erreur d\'affichage des actions de fichier</string>
     <string name="error_file_lock">Erreur lors de la modification de l\'état de verrouillage du fichier</string>
     <string name="error_report_issue_action">Signaler</string>
@@ -366,6 +368,7 @@
     <string name="etm_transfer_type">Transfert</string>
     <string name="etm_transfer_type_download">Téléchargement</string>
     <string name="etm_transfer_type_upload">Téléverser</string>
+    <string name="extented_list_fragment_empty_list_message_no_write_permission">Vous n\'avez pas le droit de créer ou de téléverser des fichiers dans ce dossier</string>
     <string name="external_shares">Partages externes</string>
     <string name="fab_label">Ajouter ou téléverser</string>
     <string name="failed_to_download">Transmission du fichier au gestionnaire de téléchargement échoué</string>
@@ -381,6 +384,7 @@
     <string name="file_detail_share_already_active">Impossible de créer un partage car le partage est déjà actif pour cet utilisateur.</string>
     <string name="file_detail_sharing_fragment_no_contact_app_message">Aucune application disponible pour sélectionner des contacts</string>
     <string name="file_details_no_content">Impossible de charger les détails</string>
+    <string name="file_details_sharing_fragment_custom_permission_not_selected">Merci de sélectionner une autorisation</string>
     <string name="file_icon">Fichier</string>
     <string name="file_keep">Conserver</string>
     <string name="file_list_empty">Déposez du contenu ou synchronisez vos appareils.</string>
@@ -398,6 +402,8 @@
     <string name="file_list_empty_shared">Les fichiers et dossiers que vous partagez apparaîtront ici.</string>
     <string name="file_list_empty_shared_headline">Aucun partage</string>
     <string name="file_list_empty_unified_search_no_results">Aucun résultat trouvé pour votre requête</string>
+    <string name="file_list_empty_unified_search_start_search">Démarrer votre recherche</string>
+    <string name="file_list_empty_unified_search_start_search_description">Tapez dans la barre de recherche ci-dessus pour trouver des fichiers, des contacts, des événements de calendrier et plus encore dans votre compte.</string>
     <string name="file_list_folder">dossier</string>
     <string name="file_list_live">EN DIRECT</string>
     <string name="file_list_loading">Chargement…</string>
@@ -442,6 +448,7 @@
     <string name="file_not_synced">Le fichier ne peut pas être synchronisé. Affichage de la dernière version disponible. </string>
     <string name="file_rename">Renommer</string>
     <string name="file_upload_worker_error_notification_title">Échec du téléversement. Pas de connexion internet</string>
+    <string name="file_upload_worker_same_file_already_exists">%s existe déjà, aucun conflit détecté</string>
     <string name="file_version_restored_error">Erreur, la version du fichier n\'a pas été restaurée !</string>
     <string name="file_version_restored_successfully">Restauration de la version du fichier réussie.</string>
     <string name="filedetails_details">Détails</string>
@@ -518,6 +525,7 @@
     <string name="last_backup">Dernière sauvegarde : %1$s</string>
     <string name="link">Lien</string>
     <string name="link_name">Nom du lien</string>
+    <string name="link_not_followed_due_to_security_settings">Lien non suivi en raison des paramètres de sécurité.</string>
     <string name="link_share_editing">Modification</string>
     <string name="list_layout">Affichage en liste</string>
     <string name="load_more_results">Charger plus de résultats</string>
@@ -603,6 +611,8 @@
     <string name="notification_channel_general_name">Notifications générales</string>
     <string name="notification_channel_media_description">Progression du lecteur de musique</string>
     <string name="notification_channel_media_name">Lecteur média</string>
+    <string name="notification_channel_offline_operations_description">Affiche la progression des opérations sur les fichiers hors ligne.</string>
+    <string name="notification_channel_offline_operations_name_short">Opérations hors ligne</string>
     <string name="notification_channel_push_description">Afficher les notifications push envoyées par le serveur : mentions dans les commentaires, réception d\'un nouveau partage distant, une annonce postée par un administrateur, etc.</string>
     <string name="notification_channel_push_name">Notifications push</string>
     <string name="notification_channel_upload_description">Afficher la progression du téléversement</string>
@@ -617,8 +627,12 @@
     <string name="offline_mode_info_description">Même sans connexion Internet, vous pouvez organiser vos dossiers, créer des fichiers. Dès que vous êtes de nouveau en ligne, vos actions en cours sont automatiquement synchronisées.</string>
     <string name="offline_mode_info_title">Vous êtes hors ligne, mais le travail continue</string>
     <string name="offline_operations_file_does_not_exists_yet">Le fichier n\'existe pas encore. Veuillez d\'abord téléverser le fichier.</string>
+    <string name="offline_operations_worker_notification_create_file_conflict_text">Impossible de créer %s. Un fichier avec le même nom existe sur le serveur.</string>
+    <string name="offline_operations_worker_notification_create_folder_conflict_text">Impossible de créer %s. Un dossier avec le même nom existe sur le serveur.</string>
     <string name="offline_operations_worker_notification_error_text">L\'opération hors ligne ne peut être achevée. %s</string>
     <string name="offline_operations_worker_notification_manager_ticker">Opérations hors ligne</string>
+    <string name="offline_operations_worker_notification_remove_conflict_text">Suppression annulée de %s. Le fichier a été modifié sur le serveur.</string>
+    <string name="offline_operations_worker_notification_rename_conflict_text">Renommage annulé de %sannulé. Un fichier portant le même nom existe déjà sur le serveur.</string>
     <string name="offline_operations_worker_notification_start_text">Démarrage des opérations hors ligne</string>
     <string name="oneHour">1 heure</string>
     <string name="online">En ligne</string>
@@ -646,6 +660,7 @@
     <string name="pin_shortcut_label">Ouvrir %1$s</string>
     <string name="placeholder_extension">.txt</string>
     <string name="placeholder_fileSize">389 Ko</string>
+    <string name="placeholder_filename">exemple</string>
     <string name="placeholder_media_time">12:23:45</string>
     <string name="placeholder_reason">Modifié récemment</string>
     <string name="placeholder_sentence">Ceci est un espace réservé</string>
@@ -1021,6 +1036,10 @@
     <string name="upload_local_storage_not_copied">Le fichier n\'a pas pu être copié sur le stockage local</string>
     <string name="upload_lock_failed">Impossible de verrouiller le dossier</string>
     <string name="upload_manually_cancelled">Le téléversement a été annulé par l\'utilisateur</string>
+    <string name="upload_missing_storage_permission_allow_file_access">Autoriser l\'accès à tous les fichiers</string>
+    <string name="upload_missing_storage_permission_app_permissions">Autorisations de l\'application</string>
+    <string name="upload_missing_storage_permission_description">Vos fichiers ne peuvent pas être téléversés sans accès au stockage local. Appuyez pour accorder l\'autorisation.</string>
+    <string name="upload_missing_storage_permission_title">Téléversement interrompu – Autorisation de stockage requise</string>
     <string name="upload_notification_manager_start_text">%1$d / %2$d - %3$s</string>
     <string name="upload_old_android">Le chiffrement n\'est disponible que pour les versions d\'Android&gt;= 5.0</string>
     <string name="upload_query_move_foreign_files">Il n\'y a pas assez d\'espace pour copier les fichiers sélectionnés dans le dossier %1$s. Souhaitez-vous plutôt les déplacer ?</string>

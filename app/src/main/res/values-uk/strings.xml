@@ -611,6 +611,8 @@
     <string name="notification_channel_general_name">Загальні сповіщення</string>
     <string name="notification_channel_media_description">Рядок відтворення музики</string>
     <string name="notification_channel_media_name">Мультимедійний програвач</string>
+    <string name="notification_channel_offline_operations_description">Показує поступ операцій з файлами в офлайні</string>
+    <string name="notification_channel_offline_operations_name_short">Офлайнові операції</string>
     <string name="notification_channel_push_description">Показувати push-сповіщення, надіслані сервером: згадки у коментарях, пропозиції про спільні ресурси, оголошення, надіслані адміністратором тощо.</string>
     <string name="notification_channel_push_name">Сповіщення push</string>
     <string name="notification_channel_upload_description">Показує перебіг завантаження</string>

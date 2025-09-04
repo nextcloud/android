@@ -611,6 +611,8 @@
     <string name="notification_channel_general_name">Општа обавештења</string>
     <string name="notification_channel_media_description">Напредак музичког плејера</string>
     <string name="notification_channel_media_name">Медијски плејер</string>
+    <string name="notification_channel_offline_operations_description">Приказује напредак операција над фајловима ван мреже</string>
+    <string name="notification_channel_offline_operations_name_short">Операције ван мреже</string>
     <string name="notification_channel_push_description">Приказуј обавештења која пошаље сервер: помињање у коментарима, пријем новог удаљеног дељења, објаве администратора итд.</string>
     <string name="notification_channel_push_name">Брза обавештења</string>
     <string name="notification_channel_upload_description">Приказ напретка отпремања</string>
