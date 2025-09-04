@@ -19,7 +19,7 @@ import com.owncloud.android.lib.common.OwnCloudClient
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.operations.DownloadFileOperation
-import com.owncloud.android.ui.activity.FileDisplayActivity
+import com.owncloud.android.operations.RefreshFolderOperation
 import com.owncloud.android.ui.helpers.FileOperationsHelper
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -171,7 +171,7 @@ class SyncWorker(
      * It is used to add a green tick icon next to the files after the download process is finished.
      */
     private fun sendRefreshFolderEvent() {
-        val intent = Intent(FileDisplayActivity.REFRESH_FOLDER_EVENT_RECEIVER)
+        val intent = Intent(RefreshFolderOperation.EVENT_SINGLE_FOLDER_CONTENTS_SYNCED)
         LocalBroadcastManager.getInstance(context).sendBroadcast(intent)
     }
 }
