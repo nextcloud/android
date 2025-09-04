@@ -8,8 +8,6 @@
 package com.nextcloud.client.jobs.sync
 
 import android.content.Context
-import android.content.Intent
-import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import com.nextcloud.client.account.User
@@ -19,7 +17,6 @@ import com.owncloud.android.lib.common.OwnCloudClient
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.operations.DownloadFileOperation
-import com.owncloud.android.operations.RefreshFolderOperation
 import com.owncloud.android.ui.helpers.FileOperationsHelper
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -34,10 +31,6 @@ class SyncWorker(
         private const val TAG = "SyncWorker"
 
         const val FOLDER_ID = "FOLDER_ID"
-
-        const val FILE_DOWNLOAD_COMPLETION_BROADCAST = "FILE_DOWNLOAD_COMPLETION_BROADCAST"
-        const val FILE_PATH = "FILE_PATH"
-
         private var downloadingFiles = mutableListOf<OCFile>()
 
         /**
@@ -98,9 +91,6 @@ class SyncWorker(
                 }
 
                 if (result) {
-                    withContext(Dispatchers.Main) {
-                        sendRefreshFolderEvent()
-                    }
                     Log_OC.d(TAG, "SyncWorker completed")
                     Result.success()
                 } else {
@@ -146,32 +136,11 @@ class SyncWorker(
             Log_OC.d(TAG, "Syncing file: " + file.decryptedRemotePath)
 
             if (operation.isSuccess) {
-                sendFileDownloadCompletionBroadcast(file)
                 downloadingFiles.remove(file)
                 true
             } else {
                 false
             }
         }
-    }
-
-    /**
-     * It is used to remove the sync icon next to the file in the folder.
-     */
-    private fun sendFileDownloadCompletionBroadcast(file: OCFile) {
-        val intent = Intent(FILE_DOWNLOAD_COMPLETION_BROADCAST).apply {
-            putExtra(FILE_PATH, file.decryptedRemotePath)
-        }
-
-        LocalBroadcastManager.getInstance(context).sendBroadcast(intent)
-    }
-
-    /**
-     * This function is called when the download of all files in a folder is complete.
-     * It is used to add a green tick icon next to the files after the download process is finished.
-     */
-    private fun sendRefreshFolderEvent() {
-        val intent = Intent(RefreshFolderOperation.EVENT_SINGLE_FOLDER_CONTENTS_SYNCED)
-        LocalBroadcastManager.getInstance(context).sendBroadcast(intent)
     }
 }
