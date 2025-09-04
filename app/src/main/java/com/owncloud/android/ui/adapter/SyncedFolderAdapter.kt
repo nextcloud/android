@@ -451,10 +451,10 @@ class SyncedFolderAdapter(
     private fun setSyncButtonActiveIcon(syncStatusButton: ImageButton, enabled: Boolean) {
         if (enabled) {
             syncStatusButton.setImageDrawable(
-                viewThemeUtils.platform.tintDrawable(context, R.drawable.ic_cloud_sync_on, ColorRole.PRIMARY)
+                viewThemeUtils.platform.tintDrawable(context, R.drawable.ic_sync, ColorRole.PRIMARY)
             )
         } else {
-            syncStatusButton.setImageResource(R.drawable.ic_cloud_sync_off)
+            syncStatusButton.setImageResource(R.drawable.ic_sync_off)
         }
     }
 
