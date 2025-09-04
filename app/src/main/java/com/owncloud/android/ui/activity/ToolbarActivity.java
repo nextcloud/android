@@ -35,6 +35,7 @@ import com.nextcloud.client.di.Injectable;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.utils.theme.ThemeColorUtils;
 import com.owncloud.android.utils.theme.ThemeUtils;
 import com.owncloud.android.utils.theme.ViewThemeUtils;
@@ -66,6 +67,7 @@ public abstract class ToolbarActivity extends BaseActivity implements Injectable
     private TextView mInfoBoxMessage;
     protected AppCompatSpinner mToolbarSpinner;
     private boolean isHomeSearchToolbarShow = false;
+    private static final String TAG = "ToolbarActivity";
 
     @Inject public ThemeColorUtils themeColorUtils;
     @Inject public ThemeUtils themeUtils;
@@ -134,10 +136,20 @@ public abstract class ToolbarActivity extends BaseActivity implements Injectable
     }
 
     public void setupToolbar() {
+        if (mHomeSearchToolbar != null && mDefaultToolbar != null && mHomeSearchToolbar.getVisibility() == View.GONE && mDefaultToolbar.getVisibility() == View.VISIBLE) {
+            Log_OC.d(TAG, "Search toolbar is already hidden, skipping update.");
+            return;
+        }
+
         setupToolbar(false, false);
     }
 
     public void setupHomeSearchToolbarWithSortAndListButtons() {
+        if (mHomeSearchToolbar != null && mDefaultToolbar != null && mHomeSearchToolbar.getVisibility() == View.VISIBLE && mDefaultToolbar.getVisibility() == View.GONE) {
+            Log_OC.d(TAG, "Search toolbar is already visible, skipping update.");
+            return;
+        }
+
         setupToolbar(true, true);
     }
 

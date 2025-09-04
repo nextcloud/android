@@ -129,8 +129,6 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import hct.Hct;
 import kotlin.Unit;
 
-import static com.nextcloud.utils.extensions.DrawerActivityExtensionsKt.getMenuItemIdFromTitle;
-
 /**
  * Base class to handle setup of the drawer implementation including user switching and avatar fetching and fallback
  * generation.
@@ -318,21 +316,6 @@ public abstract class DrawerActivity extends ToolbarActivity
      */
     private void setupDrawerToggle() {
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.drawer_open, R.string.drawer_close) {
-            private boolean isMenuItemChecked = false;
-
-            @Override
-            public void onDrawerSlide(View drawerView, float slideOffset) {
-                super.onDrawerSlide(drawerView, slideOffset);
-                if (slideOffset > 0 && !isMenuItemChecked) {
-                    Integer menuItemIdFromTitle = getMenuItemIdFromTitle(DrawerActivity.this);
-                    if (menuItemIdFromTitle != null && menuItemIdFromTitle != menuItemId) {
-                        menuItemId = menuItemIdFromTitle;
-                    }
-                    setNavigationViewItemChecked();
-                    isMenuItemChecked = true;
-                }
-            }
-
             /** Called when a drawer has settled in a completely closed state. */
             public void onDrawerClosed(View view) {
                 super.onDrawerClosed(view);
@@ -344,7 +327,6 @@ public abstract class DrawerActivity extends ToolbarActivity
                     pendingRunnable = null;
                 }
 
-                isMenuItemChecked = false;
                 closeDrawer();
             }
 
