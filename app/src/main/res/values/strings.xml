@@ -1379,4 +1379,5 @@
     <string name="set_online_status">Online status</string>
     <string name="clear">Clear</string>
     <string name="set_message">Set message</string>
+    <string name="error_setting_status_message">Error setting status message!</string>
 </resources>

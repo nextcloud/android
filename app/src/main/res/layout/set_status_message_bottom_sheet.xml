@@ -44,29 +44,17 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/emojiCard"
+
+            <com.vanniktech.emoji.EmojiEditText
+                android:id="@+id/emoji"
                 android:layout_width="@dimen/activity_row_layout_height"
                 android:layout_height="@dimen/activity_row_layout_height"
-                android:layout_gravity="center"
-                android:layout_marginTop="@dimen/standard_eighth_margin"
-                android:layout_marginEnd="@dimen/standard_margin"
-                android:orientation="horizontal"
-                app:cardBackgroundColor="@color/grey_200"
-                app:cardCornerRadius="24dp"
-                app:cardElevation="0dp">
+                android:background="@color/transparent"
+                android:cursorVisible="false"
+                android:gravity="center"
+                android:text="@string/default_emoji"
+                android:textSize="24sp" />
 
-                <com.vanniktech.emoji.EmojiEditText
-                    android:id="@+id/emoji"
-                    android:layout_width="@dimen/activity_row_layout_height"
-                    android:layout_height="@dimen/activity_row_layout_height"
-                    android:background="@color/grey_200"
-                    android:cursorVisible="false"
-                    android:gravity="center"
-                    android:text="@string/default_emoji"
-                    android:textSize="24sp" />
-
-            </com.google.android.material.card.MaterialCardView>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/customStatusInput_container"
@@ -116,7 +104,8 @@
         <Spinner
             android:layout_marginStart="-8dp"
             android:id="@+id/clearStatusAfterSpinner"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
+            android:paddingTop="@dimen/standard_half_padding"
             android:layout_height="wrap_content" />
 
         <TextView

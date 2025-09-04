@@ -22,12 +22,14 @@ import com.google.android.material.card.MaterialCardView
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.core.AsyncRunner
 import com.nextcloud.client.di.Injectable
+import com.nextcloud.utils.extensions.setVisibleIf
 import com.owncloud.android.R
 import com.owncloud.android.databinding.SetOnlineStatusBottomSheetBinding
 import com.owncloud.android.lib.resources.users.Status
 import com.owncloud.android.lib.resources.users.StatusType
 import com.owncloud.android.ui.activity.BaseActivity
 import com.owncloud.android.utils.DisplayUtils
+import com.owncloud.android.utils.theme.CapabilityUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import javax.inject.Inject
 
@@ -67,6 +69,8 @@ class SetOnlineStatusBottomSheet(val currentStatus: Status?) :
         viewThemeUtils.files.themeStatusCardView(binding.invisibleStatus)
 
         viewThemeUtils.platform.themeDialog(binding.root)
+            
+        binding.busyStatus.setVisibleIf(CapabilityUtils.getCapability(context).userStatusSupportsBusy.isTrue) 
     }
 
     private fun updateCurrentStatusViews(it: Status) {

@@ -349,8 +349,8 @@
                     android:layout_gravity="top|start"
                     android:layout_marginEnd="@dimen/standard_half_margin"
                     android:contentDescription="@null"
-                    app:tint="@color/offline"
-                    android:src="@drawable/ic_user_status_invisible" />
+                    android:src="@drawable/ic_user_status_invisible"
+                    app:tint="@color/offline" />
 
                 <LinearLayout
                     android:layout_width="match_parent"

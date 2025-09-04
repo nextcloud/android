@@ -286,7 +286,7 @@ class SetStatusMessageBottomSheet(val user: User, val currentStatus: Status?) :
         if (boolean) {
             dismiss()
         } else {
-            DisplayUtils.showSnackMessage(view, "Error setting status message!")
+            DisplayUtils.showSnackMessage(view, view?.resources?.getString(R.string.error_setting_status_message))
         }
     }
 
