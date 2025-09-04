@@ -67,7 +67,7 @@
     <color name="drawer_shadow">#000000</color>
     <color name="online">#2D7B41</color>
     <color name="busy">#DB0606</color>
-    <color name="offline">#6B6B6B</color>
+    <color name="offline">@color/high_emphasis_text</color>
 
     <color name="background_color_png">#FFFFFF</color>
 
