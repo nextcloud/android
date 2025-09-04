@@ -30,8 +30,6 @@ class CapabilityUtilsIT : AbstractIT() {
         assertTrue(test(NextcloudVersion.nextcloud_22))
         assertTrue(test(NextcloudVersion.nextcloud_21))
         assertTrue(test(OwnCloudVersion.nextcloud_20))
-        assertTrue(test(OwnCloudVersion.nextcloud_19))
-        assertTrue(test(OwnCloudVersion.nextcloud_18))
     }
 
     private fun test(version: OwnCloudVersion): Boolean =

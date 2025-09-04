@@ -611,6 +611,8 @@
     <string name="notification_channel_general_name">一般通知</string>
     <string name="notification_channel_media_description">媒體播放器進度</string>
     <string name="notification_channel_media_name">媒體播放器</string>
+    <string name="notification_channel_offline_operations_description">顯示離線檔案操作的進度</string>
+    <string name="notification_channel_offline_operations_name_short">離線操作</string>
     <string name="notification_channel_push_description">顯示伺服器發送的推送通知：評論中的提及，接收新的遠端分享，管理員發佈的公告等。</string>
     <string name="notification_channel_push_name">推送通知</string>
     <string name="notification_channel_upload_description">顯示上傳進度</string>
@@ -660,6 +662,7 @@
     <string name="placeholder_fileSize">389 KB</string>
     <string name="placeholder_filename">佔位字串</string>
     <string name="placeholder_media_time">12：23：45</string>
+    <string name="placeholder_reason">最近編輯</string>
     <string name="placeholder_sentence">這是佔位內容</string>
     <string name="placeholder_timestamp">2012/05/18 12：23 PM</string>
     <string name="player_stop">停止</string>

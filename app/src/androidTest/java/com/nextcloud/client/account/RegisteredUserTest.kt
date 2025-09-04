@@ -12,7 +12,7 @@ import android.net.Uri
 import android.os.Parcel
 import com.owncloud.android.lib.common.OwnCloudAccount
 import com.owncloud.android.lib.common.OwnCloudBasicCredentials
-import com.owncloud.android.lib.resources.status.OwnCloudVersion
+import com.owncloud.android.lib.resources.status.NextcloudVersion
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNotSame
@@ -31,7 +31,7 @@ class RegisteredUserTest {
             val ownCloudAccount = OwnCloudAccount(uri, credentials)
             val server = Server(
                 uri = URI(uri.toString()),
-                version = OwnCloudVersion.nextcloud_18
+                version = NextcloudVersion.nextcloud_31
             )
             return RegisteredUser(
                 account = account,

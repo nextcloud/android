@@ -611,6 +611,8 @@
     <string name="notification_channel_general_name">Allgemeine Benachrichtigungen</string>
     <string name="notification_channel_media_description">Musik-Player Fortschritt</string>
     <string name="notification_channel_media_name">Media-Player</string>
+    <string name="notification_channel_offline_operations_description">Zeigt den Fortschritt der Offline-Dateioperationen an</string>
+    <string name="notification_channel_offline_operations_name_short">Offline-Operationen</string>
     <string name="notification_channel_push_description">Vom Server gesendete Push-Benachrichtigungen anzeigen: Erwähnungen in Kommentaren, Zugriff auf externe Freigaben erhalten, Ankündigungen von Administratoren erhalten, etc.</string>
     <string name="notification_channel_push_name">Push-Benachrichtigungen</string>
     <string name="notification_channel_upload_description">Zeigt den Hochlade-Fortschritt an</string>
@@ -660,6 +662,7 @@
     <string name="placeholder_fileSize">389 KB</string>
     <string name="placeholder_filename">Platzhalter</string>
     <string name="placeholder_media_time">12:23:45</string>
+    <string name="placeholder_reason">Zuletzt bearbeitet</string>
     <string name="placeholder_sentence">Dies ist ein Platzhalter</string>
     <string name="placeholder_timestamp">18.5.2012 12:23</string>
     <string name="player_stop">Stopp</string>

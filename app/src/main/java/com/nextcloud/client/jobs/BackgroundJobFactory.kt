@@ -23,6 +23,7 @@ import com.nextcloud.client.documentscan.GeneratePDFUseCase
 import com.nextcloud.client.documentscan.GeneratePdfFromImagesWork
 import com.nextcloud.client.integrations.deck.DeckApi
 import com.nextcloud.client.jobs.download.FileDownloadWorker
+import com.nextcloud.client.jobs.metadata.MetadataWorker
 import com.nextcloud.client.jobs.offlineOperations.OfflineOperationsWorker
 import com.nextcloud.client.jobs.upload.FileUploadWorker
 import com.nextcloud.client.logger.Logger
@@ -98,6 +99,7 @@ class BackgroundJobFactory @Inject constructor(
                 TestJob::class -> createTestJob(context, workerParameters)
                 OfflineOperationsWorker::class -> createOfflineOperationsWorker(context, workerParameters)
                 InternalTwoWaySyncWork::class -> createInternalTwoWaySyncWork(context, workerParameters)
+                MetadataWorker::class -> createMetadataWorker(context, workerParameters)
                 else -> null // caller falls back to default factory
             }
         }
@@ -277,4 +279,10 @@ class BackgroundJobFactory @Inject constructor(
             connectivityService,
             preferences
         )
+
+    private fun createMetadataWorker(context: Context, params: WorkerParameters): MetadataWorker = MetadataWorker(
+        context,
+        params,
+        accountManager.user
+    )
 }

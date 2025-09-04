@@ -950,10 +950,6 @@ public class FileOperationsHelper {
         for (OCFile file : files) {
             removeFile(file, onlyLocalCopy, inBackground);
         }
-
-        if (!inBackground) {
-            fileActivity.showLoadingDialog(fileActivity.getString(R.string.wait_a_moment));
-        }
     }
 
     public void removeFile(OCFile file, boolean onlyLocalCopy, boolean inBackground) {
