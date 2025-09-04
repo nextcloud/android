@@ -344,10 +344,6 @@ public interface AppPreferences {
 
     long getPhotoSearchTimestamp();
 
-    boolean isPowerCheckDisabled();
-
-    void setPowerCheckDisabled(boolean value);
-
     void increasePinWrongAttempts();
 
     void resetPinWrongAttempts();
