@@ -25,6 +25,7 @@ import com.nextcloud.client.integrations.deck.DeckApi
 import com.nextcloud.client.jobs.download.FileDownloadWorker
 import com.nextcloud.client.jobs.metadata.MetadataWorker
 import com.nextcloud.client.jobs.offlineOperations.OfflineOperationsWorker
+import com.nextcloud.client.jobs.sync.SyncWorker
 import com.nextcloud.client.jobs.upload.FileUploadWorker
 import com.nextcloud.client.logger.Logger
 import com.nextcloud.client.network.ConnectivityService
@@ -100,6 +101,7 @@ class BackgroundJobFactory @Inject constructor(
                 OfflineOperationsWorker::class -> createOfflineOperationsWorker(context, workerParameters)
                 InternalTwoWaySyncWork::class -> createInternalTwoWaySyncWork(context, workerParameters)
                 MetadataWorker::class -> createMetadataWorker(context, workerParameters)
+                SyncWorker::class -> createSyncWorker(context, workerParameters)
                 else -> null // caller falls back to default factory
             }
         }
@@ -285,4 +287,12 @@ class BackgroundJobFactory @Inject constructor(
         params,
         accountManager.user
     )
+
+    private fun createSyncWorker(context: Context, params: WorkerParameters): SyncWorker {
+        return SyncWorker(
+            accountManager.user,
+            context,
+            params
+        )
+    }
 }

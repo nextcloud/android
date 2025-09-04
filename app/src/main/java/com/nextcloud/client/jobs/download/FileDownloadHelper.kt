@@ -9,6 +9,7 @@ package com.nextcloud.client.jobs.download
 
 import com.nextcloud.client.account.User
 import com.nextcloud.client.jobs.BackgroundJobManager
+import com.nextcloud.client.jobs.sync.SyncWorker
 import com.owncloud.android.MainApp
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
@@ -47,16 +48,10 @@ class FileDownloadHelper {
             return false
         }
 
-        val fileStorageManager = FileDataStorageManager(user, MainApp.getAppContext().contentResolver)
-        val topParentId = fileStorageManager.getTopParentId(file)
-
-        val isJobScheduled = backgroundJobManager.isStartFileDownloadJobScheduled(user, file.fileId)
-        return isJobScheduled ||
-            if (file.isFolder) {
-                backgroundJobManager.isStartFileDownloadJobScheduled(user, topParentId)
-            } else {
-                FileDownloadWorker.isDownloading(user.accountName, file.fileId)
-            }
+        return FileDownloadWorker.isDownloading(
+            user.accountName,
+            file.fileId
+        ) || SyncWorker.isDownloading(file)
     }
 
     fun cancelPendingOrCurrentDownloads(user: User?, files: List<OCFile>?) {
