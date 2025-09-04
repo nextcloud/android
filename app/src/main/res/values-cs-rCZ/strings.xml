@@ -601,6 +601,7 @@
     <string name="notification_channel_general_name">Obecná oznámení</string>
     <string name="notification_channel_media_description">Průběh přehrávače hudby</string>
     <string name="notification_channel_media_name">Přehrávač médií</string>
+    <string name="notification_channel_offline_operations_name_short">Offline operace</string>
     <string name="notification_channel_push_description">Zobrazit push upozornění poslaná serverem: Zmínění v komentářích, příjem nových vzdálených sdílení, oznámení vydaná správcem, atd.</string>
     <string name="notification_channel_push_name">Push upozorňování</string>
     <string name="notification_channel_upload_description">Zobrazuje ukazatel postupu nahrávání</string>
@@ -648,6 +649,7 @@
     <string name="pin_shortcut_label">Otevřít %1$s</string>
     <string name="placeholder_extension">.txt</string>
     <string name="placeholder_fileSize">389 KB</string>
+    <string name="placeholder_filename">výplň</string>
     <string name="placeholder_media_time">12:23:45</string>
     <string name="placeholder_reason">Nedávno upravováno</string>
     <string name="placeholder_sentence">Toto je zástupný text</string>
@@ -1022,6 +1024,7 @@
     <string name="upload_local_storage_not_copied">Soubor se nepodařilo zkopírovat na místní úložiště</string>
     <string name="upload_lock_failed">Uzamčení složky se nezdařilo</string>
     <string name="upload_manually_cancelled">Odeslání bylo zrušeno uživatelem</string>
+    <string name="upload_missing_storage_permission_allow_file_access">Umožnit přístup ke všem souborům</string>
     <string name="upload_missing_storage_permission_app_permissions">Oprávnění aplikace</string>
     <string name="upload_notification_manager_start_text">%1$d / %2$d - %3$s</string>
     <string name="upload_old_android">Šifrování je možné pouze na systému Android verze 5.0 a novějším</string>
