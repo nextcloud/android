@@ -611,6 +611,8 @@
     <string name="notification_channel_general_name">Fógraí ginearálta</string>
     <string name="notification_channel_media_description">Dul chun cinn seinnteoir ceoil</string>
     <string name="notification_channel_media_name">Seinnteoir meáin</string>
+    <string name="notification_channel_offline_operations_description">Taispeánann dul chun cinn oibríochtaí comhad as líne</string>
+    <string name="notification_channel_offline_operations_name_short">Oibríochtaí as líne</string>
     <string name="notification_channel_push_description">Taispeáin fógraí brú a sheol an freastalaí: Luaitear sna tuairimí, fáiltiú cianscaireanna nua, fógraí arna bpostáil ag riarthóir etc.</string>
     <string name="notification_channel_push_name">Fógraí a bhrú</string>
     <string name="notification_channel_upload_description">Léiríonn dul chun cinn uaslódála</string>

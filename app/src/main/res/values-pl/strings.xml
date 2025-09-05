@@ -611,6 +611,8 @@
     <string name="notification_channel_general_name">Powiadomienia ogólne</string>
     <string name="notification_channel_media_description">Postęp odtwarzacza muzyki</string>
     <string name="notification_channel_media_name">Odtwarzacz multimedialny</string>
+    <string name="notification_channel_offline_operations_description">Pokazuje postęp operacji plikowych offline</string>
+    <string name="notification_channel_offline_operations_name_short">Operacje offline</string>
     <string name="notification_channel_push_description">Pokaż powiadomienia Push wysyłane przez serwer: wzmianki w komentarzach, otrzymanie nowych zdalnych udostępnień, ogłoszenia publikowane przez administratora itd.</string>
     <string name="notification_channel_push_name">Powiadomienia Push</string>
     <string name="notification_channel_upload_description">Pokazuje postęp wysyłania</string>
