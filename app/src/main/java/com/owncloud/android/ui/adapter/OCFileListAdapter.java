@@ -1256,4 +1256,8 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     public void setCurrentDirectory(OCFile folder) {
         currentDirectory = folder;
     }
+
+    public void cleanup() {
+        ocFileListDelegate.cleanup();
+    }
 }
