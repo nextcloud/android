@@ -611,6 +611,8 @@
     <string name="notification_channel_general_name">通用提醒</string>
     <string name="notification_channel_media_description">音乐播放器进度</string>
     <string name="notification_channel_media_name">多媒体播放器</string>
+    <string name="notification_channel_offline_operations_description">显示离线文件操作进度</string>
+    <string name="notification_channel_offline_operations_name_short">离线操作</string>
     <string name="notification_channel_push_description">显示服务端推送的通知，包括：在评论中被提及、收到新的远程共享、管理员发布的公告等</string>
     <string name="notification_channel_push_name">推送通知</string>
     <string name="notification_channel_upload_description">显示上传进度 </string>
@@ -660,7 +662,7 @@
     <string name="placeholder_fileSize">389 KB</string>
     <string name="placeholder_filename">占位符</string>
     <string name="placeholder_media_time">12:23:45</string>
-    <string name="placeholder_reason">最近修改</string>
+    <string name="placeholder_reason">最近编辑</string>
     <string name="placeholder_sentence">这是一个占位符</string>
     <string name="placeholder_timestamp">2012/05/18 下午12:23 </string>
     <string name="player_stop">停止</string>

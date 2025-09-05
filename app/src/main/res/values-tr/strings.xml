@@ -611,6 +611,8 @@
     <string name="notification_channel_general_name">Genel bildirimler</string>
     <string name="notification_channel_media_description">Müzik çalar ilerlemesi</string>
     <string name="notification_channel_media_name">Ortam oynatıcı</string>
+    <string name="notification_channel_offline_operations_description">Çevrim dışı dosya işlemlerinin ilerlemesini görüntüler</string>
+    <string name="notification_channel_offline_operations_name_short">Çevrim dışı işlemler</string>
     <string name="notification_channel_push_description">Yorumlarda anılmanız, yeni bir uzak paylaşım almanız ya da bir yönetici tarafından bir duyuru yapıması gibi durumlarda sunucu tarafından gönderilen anında bildirimler görüntülenir.</string>
     <string name="notification_channel_push_name">Anında bildirimler</string>
     <string name="notification_channel_upload_description">Yükleme ilerlemesini görüntüler</string>
