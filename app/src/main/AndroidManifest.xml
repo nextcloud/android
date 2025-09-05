@@ -616,8 +616,7 @@
         <activity
             android:name=".ui.activity.ManageSpaceActivity"
             android:exported="false"
-            android:label="@string/manage_space_title"
-            android:theme="@style/Theme.ownCloud" />
+            android:label="@string/manage_space_title" />
 
         <service
             android:name=".services.AccountManagerService"
