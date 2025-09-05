@@ -43,7 +43,6 @@ class SetOnlineStatusBottomSheetIT : AbstractIT() {
                 onIdleSync {
                     EspressoIdlingResource.increment()
                     val sut = SetOnlineStatusBottomSheet(
-                        user,
                         Status(StatusType.DND, "Working hard…", "🤖", -1)
                     )
                     sut.show(activity.supportFragmentManager, "")

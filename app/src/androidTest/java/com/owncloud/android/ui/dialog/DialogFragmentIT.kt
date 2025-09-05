@@ -583,7 +583,6 @@ class DialogFragmentIT : AbstractIT() {
                 onIdleSync {
                     EspressoIdlingResource.increment()
                     val sut = SetOnlineStatusBottomSheet(
-                        user,
                         Status(StatusType.DND, "Focus time", "\uD83E\uDD13", -1)
                     )
                     EspressoIdlingResource.decrement()
