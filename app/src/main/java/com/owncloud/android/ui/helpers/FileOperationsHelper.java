@@ -47,6 +47,7 @@ import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.files.CheckEtagRemoteOperation;
 import com.owncloud.android.lib.resources.files.model.FileVersion;
+import com.owncloud.android.lib.resources.files.model.ServerFileInterface;
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.lib.resources.status.OCCapability;
@@ -590,7 +591,7 @@ public class FileOperationsHelper {
      *
      * @param file The file to unshare.
      */
-    public void unShareShare(OCFile file, long shareId) {
+    public void unShareShare(ServerFileInterface file, long shareId) {
         Intent intent = new Intent(fileActivity, OperationsService.class);
         intent.setAction(OperationsService.ACTION_UNSHARE);
         intent.putExtra(OperationsService.EXTRA_ACCOUNT, fileActivity.getAccount());
@@ -879,7 +880,7 @@ public class FileOperationsHelper {
         }
     }
 
-    private Intent getSyncFolderIntent(OCFile file) {
+    private Intent getSyncFolderIntent(ServerFileInterface file) {
         Intent intent = new Intent(fileActivity, OperationsService.class);
         intent.setAction(OperationsService.ACTION_SYNC_FOLDER);
         intent.putExtra(OperationsService.EXTRA_ACCOUNT, fileActivity.getAccount());
@@ -887,7 +888,7 @@ public class FileOperationsHelper {
         return intent;
     }
 
-    private Intent getSyncFileIntent(OCFile file) {
+    private Intent getSyncFileIntent(ServerFileInterface file) {
         Intent intent = new Intent(fileActivity, OperationsService.class);
         intent.setAction(OperationsService.ACTION_SYNC_FILE);
         intent.putExtra(OperationsService.EXTRA_ACCOUNT, fileActivity.getAccount());
@@ -921,7 +922,7 @@ public class FileOperationsHelper {
         }
     }
 
-    public void toggleFavoriteFile(OCFile file, boolean shouldBeFavorite) {
+    public void toggleFavoriteFile(ServerFileInterface file, boolean shouldBeFavorite) {
         if (file.isFavorite() != shouldBeFavorite) {
             EventBus.getDefault().post(new FavoriteEvent(file.getRemotePath(), shouldBeFavorite));
         }
