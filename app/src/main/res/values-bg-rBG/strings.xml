@@ -7,11 +7,13 @@
     <string name="account_creation_failed">Създаването на профила се провали</string>
     <string name="account_icon">Профил</string>
     <string name="account_not_found">Няма намерен профил!</string>
-    <string name="action_edit">Променяне</string>
+    <string name="action_edit">Промяна</string>
     <string name="action_empty_notifications">Премахнете известията</string>
     <string name="action_empty_trashbin">Изпразване на кошчето</string>
+    <string name="action_send_share">Прати/сподели</string>
     <string name="action_switch_grid_view">Решетъчен изглед</string>
     <string name="action_switch_list_view">Списъчен изглед</string>
+    <string name="actionbar_calendar_contacts_restore"> Възстановяване на контакти и календар</string>
     <string name="actionbar_mkdir">Нова папка</string>
     <string name="actionbar_move_or_copy">Премести или копирай</string>
     <string name="actionbar_open_with">Отвори с</string>
@@ -30,7 +32,12 @@
     <string name="add_new_secure_file_drop">Добавяне на ново, защитено пускане на файлове</string>
     <string name="add_to_cloud">Добави към %1$s</string>
     <string name="app_config_base_url_title">Основен URL адрес</string>
+    <string name="app_config_disable_clipboard_title"> Изключи клипборда</string>
     <string name="app_config_disable_intro_title">Изключи въведението</string>
+    <string name="app_config_disable_log_title">Изключи системния лог</string>
+    <string name="app_config_disable_more_external_site_title">Изключи външни сайтове</string>
+    <string name="app_config_disable_multiaccount_title">Забрани използването на няколко профила</string>
+    <string name="app_config_disable_sharing_title">Изключи споделянето</string>
     <string name="app_config_proxy_port_title">Порт на прокси сървъра</string>
     <string name="app_widget_description">Показва един изпълним модул от таблото за управление</string>
     <string name="appbar_search_in">Търсене в %s</string>
