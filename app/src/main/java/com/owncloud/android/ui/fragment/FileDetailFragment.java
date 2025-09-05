@@ -61,7 +61,9 @@ import com.owncloud.android.ui.adapter.FileDetailTabAdapter;
 import com.owncloud.android.ui.adapter.progressListener.DownloadProgressListener;
 import com.owncloud.android.ui.dialog.RemoveFilesDialogFragment;
 import com.owncloud.android.ui.dialog.RenameFileDialogFragment;
+import com.owncloud.android.ui.events.EventBusFactory;
 import com.owncloud.android.ui.events.FavoriteEvent;
+import com.owncloud.android.ui.events.FileDownloadProgressEvent;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.EncryptionUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
@@ -394,6 +396,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
         super.onStart();
         listenForTransferProgress();
         EventBus.getDefault().register(this);
+        EventBusFactory.INSTANCE.getDownloadProgressEventBus().register(this);
     }
 
     @Override
@@ -417,6 +420,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
         }
 
         EventBus.getDefault().unregister(this);
+        EventBusFactory.INSTANCE.getDownloadProgressEventBus().unregister(this);
         super.onStop();
     }
 
@@ -609,26 +613,25 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
         observeWorkerState();
     }
 
-    private void observeWorkerState() {
-        WorkerStateLiveData.Companion.instance().observe(getViewLifecycleOwner(), state -> {
-            if (state instanceof WorkerState.DownloadStarted downloadState) {
-                updateProgressBar(downloadState);
-            } else if (state instanceof WorkerState.UploadStarted) {
-                binding.progressText.setText(R.string.uploader_upload_in_progress_ticker);
-            } else {
-                binding.progressBlock.setVisibility(View.GONE);
-            }
-        });
-    }
-
-    private void updateProgressBar(WorkerState.DownloadStarted downloadState) {
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onDownloadProgress(FileDownloadProgressEvent event) {
         if (binding.progressBlock.getVisibility() != View.VISIBLE) {
             binding.progressBlock.setVisibility(View.VISIBLE);
         }
 
         binding.progressText.setText(R.string.downloader_download_in_progress_ticker);
-        binding.progressBar.setProgress(downloadState.getPercent());
+        binding.progressBar.setProgress(event.getPercent());
         binding.progressBar.invalidate();
+    }
+
+    private void observeWorkerState() {
+        WorkerStateLiveData.Companion.instance().observe(getViewLifecycleOwner(), state -> {
+            if (state instanceof WorkerState.UploadStarted) {
+                binding.progressText.setText(R.string.uploader_upload_in_progress_ticker);
+            } else {
+                binding.progressBlock.setVisibility(View.GONE);
+            }
+        });
     }
 
     private void setFileModificationTimestamp(OCFile file, boolean showDetailedTimestamp) {
