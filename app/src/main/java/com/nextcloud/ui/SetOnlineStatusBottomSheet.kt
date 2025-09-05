@@ -69,8 +69,8 @@ class SetOnlineStatusBottomSheet(val currentStatus: Status?) :
         viewThemeUtils.files.themeStatusCardView(binding.invisibleStatus)
 
         viewThemeUtils.platform.themeDialog(binding.root)
-            
-        binding.busyStatus.setVisibleIf(CapabilityUtils.getCapability(context).userStatusSupportsBusy.isTrue) 
+
+        binding.busyStatus.setVisibleIf(CapabilityUtils.getCapability(context).userStatusSupportsBusy.isTrue)
     }
 
     private fun updateCurrentStatusViews(it: Status) {
