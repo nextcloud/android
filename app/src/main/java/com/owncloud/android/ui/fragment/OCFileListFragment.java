@@ -128,7 +128,6 @@ import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
-import java.util.function.Consumer;
 
 import javax.inject.Inject;
 
@@ -282,6 +281,14 @@ public class OCFileListFragment extends ExtendedListFragment implements
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         setupBackButtonRedirectToAllFiles();
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        if (getAdapter() != null) {
+            getAdapter().cleanup();
+        }
     }
 
     /**
