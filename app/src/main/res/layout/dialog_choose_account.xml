@@ -38,6 +38,7 @@
         <com.google.android.material.button.MaterialButton
             android:id="@+id/online_status"
             style="@style/Nextcloud.Material.TextButton"
+            android:layout_weight="1"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/online_status_item_height"
             android:ellipsize="middle"
@@ -58,6 +59,7 @@
             style="@style/Nextcloud.Material.TextButton"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/online_status_item_height"
+            android:layout_weight="1"
             android:ellipsize="middle"
             android:padding="@dimen/zero"
             android:paddingStart="@dimen/standard_half_padding"
