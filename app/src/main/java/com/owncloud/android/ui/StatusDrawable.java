@@ -35,8 +35,6 @@ public class StatusDrawable extends Drawable {
     private Paint backgroundPaint;
     private final float radius;
     private Context context;
-    private final static int whiteBackground = Color.argb(200, 255, 255, 255);
-    private final static int onlineStatus = Color.argb(255, 73, 179, 130);
 
     public StatusDrawable(Status status, float statusSize, Context context) {
         backgroundPaint = new Paint();
@@ -49,17 +47,22 @@ public class StatusDrawable extends Drawable {
             switch (status.getStatus()) {
                 case DND:
                     icon = R.drawable.ic_user_status_dnd;
-                    backgroundPaint.setColor(whiteBackground);
+                    backgroundPaint.setColor(context.getColor(R.color.white));
+                    this.context = context;
+                    break;
+
+                case BUSY:
+                    backgroundPaint.setColor(context.getColor(R.color.busy));
                     this.context = context;
                     break;
 
                 case ONLINE:
-                    backgroundPaint.setColor(onlineStatus);
+                    backgroundPaint.setColor(context.getColor(R.color.online));
                     break;
 
                 case AWAY:
                     icon = R.drawable.ic_user_status_away;
-                    backgroundPaint.setColor(whiteBackground);
+                    backgroundPaint.setColor(context.getColor(R.color.white));
                     this.context = context;
                     break;
 
@@ -71,7 +74,7 @@ public class StatusDrawable extends Drawable {
         } else {
             text = status.getIcon();
 
-            backgroundPaint.setColor(whiteBackground);
+            backgroundPaint.setColor(context.getColor(R.color.white));
 
             textPaint = new Paint();
             textPaint.setColor(Color.WHITE);

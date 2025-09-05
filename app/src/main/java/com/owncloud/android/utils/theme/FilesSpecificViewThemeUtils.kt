@@ -192,7 +192,6 @@ class FilesSpecificViewThemeUtils @Inject constructor(
 
     fun themeStatusCardView(cardView: MaterialCardView) {
         withScheme(cardView) { scheme ->
-            val background = cardView.context.getColor(R.color.grey_200)
             cardView.backgroundTintList =
                 ColorStateList(
                     arrayOf(
@@ -200,8 +199,8 @@ class FilesSpecificViewThemeUtils @Inject constructor(
                         intArrayOf(-android.R.attr.state_checked)
                     ),
                     intArrayOf(
-                        scheme.secondaryContainer,
-                        background
+                        scheme.surfaceContainerHighest,
+                        scheme.surface
                     )
                 )
             cardView.setStrokeColor(
@@ -212,7 +211,7 @@ class FilesSpecificViewThemeUtils @Inject constructor(
                     ),
                     intArrayOf(
                         scheme.onSecondaryContainer,
-                        scheme.surface
+                        scheme.outlineVariant
                     )
                 )
             )

@@ -1121,13 +1121,10 @@
     <string name="failed_update_ui">Failed to update UI</string>
     <string name="email_pick_failed">Failed to pick email address.</string>
     <string name="remote">(remote)</string>
-    <string name="set_status">Set status</string>
     <string name="online_status">Online status</string>
     <string name="status_message">Status message</string>
     <string name="whats_your_status">What is your status?</string>
-    <string name="clear_status_message_after">Clear status message after</string>
-    <string name="clear_status_message">Clear status message</string>
-    <string name="set_status_message">Set status message</string>
+    <string name="clear_status_message_after">Clear status after</string>
     <string name="online">Online</string>
     <string name="dnd">Do not disturb</string>
     <string name="away">Away</string>
@@ -1376,4 +1373,11 @@
     <string name="document_storage_provider_cannot_create_folder_inside_folder">Can’t create folder: missing permission.</string>
     <string name="link_not_followed_due_to_security_settings">Link not followed due to security settings.</string>
     <string name="extented_list_fragment_empty_list_message_no_write_permission">You don’t have permission to create or upload files in this folder.</string>
+    <string name="busy">Busy</string>
+    <string name="mute_all_notifications">Mute all notifications</string>
+    <string name="appear_offline">Appear offline</string>
+    <string name="set_online_status">Online status</string>
+    <string name="clear">Clear</string>
+    <string name="set_message">Set message</string>
+    <string name="error_setting_status_message">Error setting status message!</string>
 </resources>
