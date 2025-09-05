@@ -27,6 +27,8 @@ import com.nextcloud.client.account.CurrentAccountProvider;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.database.NextcloudDatabase;
 import com.nextcloud.client.database.dao.UploadDao;
+import com.nextcloud.client.database.entity.UploadEntity;
+import com.nextcloud.client.database.entity.UploadEntityKt;
 import com.nextcloud.client.jobs.upload.FileUploadHelper;
 import com.nextcloud.client.jobs.upload.FileUploadWorker;
 import com.nextcloud.utils.autoRename.AutoRename;
@@ -189,8 +191,21 @@ public class UploadsStorageManager extends Observable {
      * @param ocUpload Upload object with state to update
      * @return num of updated uploads.
      */
-    public int updateUpload(OCUpload ocUpload) {
+    public synchronized int updateUpload(OCUpload ocUpload) {
         Log_OC.v(TAG, "Updating " + ocUpload.getLocalPath() + " with status=" + ocUpload.getUploadStatus());
+
+        OCUpload existingUpload = getUploadById(ocUpload.getUploadId());
+        if (existingUpload == null) {
+            Log_OC.e(TAG, "Upload not found for ID: " + ocUpload.getUploadId());
+            return 0;
+        }
+
+        if (!existingUpload.getAccountName().equals(ocUpload.getAccountName())) {
+            Log_OC.e(TAG, "Account mismatch for upload ID " + ocUpload.getUploadId() +
+                ": expected " + existingUpload.getAccountName() +
+                ", got " + ocUpload.getAccountName());
+            return 0;
+        }
 
         ContentValues cv = new ContentValues();
         cv.put(ProviderTableMeta.UPLOADS_LOCAL_PATH, ocUpload.getLocalPath());
@@ -204,8 +219,8 @@ public class UploadsStorageManager extends Observable {
 
         int result = getDB().update(ProviderTableMeta.CONTENT_URI_UPLOADS,
                                     cv,
-                                    ProviderTableMeta._ID + "=?",
-                                    new String[]{String.valueOf(ocUpload.getUploadId())}
+                                    ProviderTableMeta._ID + "=? AND " + ProviderTableMeta.UPLOADS_ACCOUNT_NAME + "=?",
+                                    new String[]{String.valueOf(ocUpload.getUploadId()), ocUpload.getAccountName()}
                                    );
 
         Log_OC.d(TAG, "updateUpload returns with: " + result + " for file: " + ocUpload.getLocalPath());
@@ -437,6 +452,20 @@ public class UploadsStorageManager extends Observable {
         return result;
     }
 
+    public List<OCUpload> getUploadsByIds(long[] uploadIds, String accountName) {
+        final List<OCUpload> result = new ArrayList<>();
+
+        final List<UploadEntity> entities = uploadDao.getUploadsByIds(uploadIds, accountName);
+        entities.forEach(uploadEntity -> {
+            OCUpload ocUpload = createOCUploadFromEntity(uploadEntity);
+            if (ocUpload != null) {
+                result.add(ocUpload);
+            }
+        });
+
+        return result;
+    }
+
     private OCUpload[] getUploads(@Nullable String selection, @Nullable String... selectionArgs) {
         final List<OCUpload> uploads = new ArrayList<>();
         long page = 0;
@@ -555,6 +584,15 @@ public class UploadsStorageManager extends Observable {
         return uploads;
     }
 
+    @Nullable
+    private OCUpload createOCUploadFromEntity(UploadEntity entity) {
+        if (entity == null) {
+            return null;
+        }
+        initOCCapability();
+        return UploadEntityKt.toOCUpload(entity, capability);
+    }
+
     private OCUpload createOCUploadFromCursor(Cursor c) {
         initOCCapability();
 
@@ -611,16 +649,6 @@ public class UploadsStorageManager extends Observable {
     }
 
     /**
-     * Gets a page of uploads after <code>afterId</code>, where uploads are sorted by ascending upload id.
-     * <p>
-     * If <code>afterId</code> is -1, returns the first page
-     */
-    public List<OCUpload> getCurrentAndPendingUploadsForAccountPageAscById(final long afterId, final @NonNull String accountName) {
-        final String selection = getInProgressAndDelayedUploadsSelection();
-        return getUploadPage(QUERY_PAGE_SIZE, afterId, false, selection, accountName);
-    }
-
-    /**
      * Get all failed uploads.
      */
     public OCUpload[] getFailedUploads() {
@@ -656,13 +684,6 @@ public class UploadsStorageManager extends Observable {
                               ProviderTableMeta.UPLOADS_ACCOUNT_NAME + IS_EQUAL, user.getAccountName());
     }
 
-    /**
-     * Get all uploads which where successfully completed.
-     */
-    public OCUpload[] getFinishedUploads() {
-        return getUploads(ProviderTableMeta.UPLOADS_STATUS + EQUAL + UploadStatus.UPLOAD_SUCCEEDED.value, (String[]) null);
-    }
-
     public OCUpload[] getFailedButNotDelayedUploadsForCurrentAccount() {
         User user = currentAccountProvider.getUser();
 
@@ -677,25 +698,6 @@ public class UploadsStorageManager extends Observable {
                               ANGLE_BRACKETS + UploadResult.DELAYED_IN_POWER_SAVE_MODE.getValue() +
                               AND + ProviderTableMeta.UPLOADS_ACCOUNT_NAME + IS_EQUAL,
                           user.getAccountName());
-    }
-
-    /**
-     * Get all failed uploads, except for those that were not performed due to lack of Wifi connection.
-     *
-     * @return Array of failed uploads, except for those that were not performed due to lack of Wifi connection.
-     */
-    public OCUpload[] getFailedButNotDelayedUploads() {
-
-        return getUploads(ProviderTableMeta.UPLOADS_STATUS + EQUAL + UploadStatus.UPLOAD_FAILED.value + AND +
-                              ProviderTableMeta.UPLOADS_LAST_RESULT + ANGLE_BRACKETS + UploadResult.LOCK_FAILED.getValue() +
-                              AND + ProviderTableMeta.UPLOADS_LAST_RESULT +
-                              ANGLE_BRACKETS + UploadResult.DELAYED_FOR_WIFI.getValue() +
-                              AND + ProviderTableMeta.UPLOADS_LAST_RESULT +
-                              ANGLE_BRACKETS + UploadResult.DELAYED_FOR_CHARGING.getValue() +
-                              AND + ProviderTableMeta.UPLOADS_LAST_RESULT +
-                              ANGLE_BRACKETS + UploadResult.DELAYED_IN_POWER_SAVE_MODE.getValue(),
-                          (String[]) null
-                         );
     }
 
     private ContentResolver getDB() {
@@ -821,39 +823,6 @@ public class UploadsStorageManager extends Observable {
             upload.getRemotePath(),
             localPath
                           );
-    }
-
-    /**
-     * Changes the status of any in progress upload from UploadStatus.UPLOAD_IN_PROGRESS to UploadStatus.UPLOAD_FAILED
-     *
-     * @return Number of uploads which status was changed.
-     */
-    public int failInProgressUploads(UploadResult fail) {
-        Log_OC.v(TAG, "Updating state of any killed upload");
-
-        ContentValues cv = new ContentValues();
-        cv.put(ProviderTableMeta.UPLOADS_STATUS, UploadStatus.UPLOAD_FAILED.getValue());
-        cv.put(
-            ProviderTableMeta.UPLOADS_LAST_RESULT,
-            fail != null ? fail.getValue() : UploadResult.UNKNOWN.getValue()
-              );
-        cv.put(ProviderTableMeta.UPLOADS_UPLOAD_END_TIMESTAMP, Calendar.getInstance().getTimeInMillis());
-
-        int result = getDB().update(
-            ProviderTableMeta.CONTENT_URI_UPLOADS,
-            cv,
-            ProviderTableMeta.UPLOADS_STATUS + "=?",
-            new String[]{String.valueOf(UploadStatus.UPLOAD_IN_PROGRESS.getValue())}
-                                   );
-
-        if (result == 0) {
-            Log_OC.v(TAG, "No upload was killed");
-        } else {
-            Log_OC.w(TAG, Integer.toString(result) + " uploads where abruptly interrupted");
-            notifyObserversNow();
-        }
-
-        return result;
     }
 
     @VisibleForTesting
