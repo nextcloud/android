@@ -21,7 +21,6 @@ import com.nextcloud.client.account.User
 import com.nextcloud.client.jobs.download.FileDownloadHelper
 import com.nextcloud.client.jobs.upload.FileUploadHelper
 import com.nextcloud.client.preferences.AppPreferences
-import com.nextcloud.utils.extensions.getSubfiles
 import com.nextcloud.utils.extensions.makeRounded
 import com.nextcloud.utils.extensions.setVisibleIf
 import com.nextcloud.utils.mdm.MDMConfig
@@ -42,11 +41,6 @@ import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.EncryptionUtils
 import com.owncloud.android.utils.MimeTypeUtil
 import com.owncloud.android.utils.theme.ViewThemeUtils
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.cancel
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 @Suppress("LongParameterList", "TooManyFunctions")
 class OCFileListDelegate(
@@ -70,10 +64,6 @@ class OCFileListDelegate(
     var isMultiSelect = false
     private val asyncTasks: MutableList<ThumbnailsCacheManager.ThumbnailGenerationTask> = ArrayList()
     private val asyncGalleryTasks: MutableList<ThumbnailsCacheManager.GalleryImageGenerationTask> = ArrayList()
-    private val ioScope = CoroutineScope(Dispatchers.IO)
-    private val operationsServiceBinder = transferServiceGetter.operationsServiceBinder
-    private val fileDownloadHelper = FileDownloadHelper.instance()
-
     fun setHighlightedItem(highlightedItem: OCFile?) {
         this.highlightedItem = highlightedItem
     }
@@ -361,57 +351,35 @@ class OCFileListDelegate(
         }
     }
 
-    private fun isFolderFullyDownloaded(file: OCFile): Boolean {
-        if (!file.isFolder) {
-            return false
-        }
+    private fun showLocalFileIndicator(file: OCFile, gridViewHolder: ListViewHolder) {
+        val operationsServiceBinder = transferServiceGetter.operationsServiceBinder
+        val fileDownloadHelper = FileDownloadHelper.instance()
 
-        val subfiles = storageManager.getSubfiles(file.fileId, user.accountName)
+        val icon: Int? = when {
+            operationsServiceBinder?.isSynchronizing(user, file) == true ||
+                fileDownloadHelper.isDownloading(user, file) ||
+                fileUploadHelper.isUploading(user, file) -> {
+                // synchronizing, downloading or uploading
+                R.drawable.ic_synchronizing
+            }
 
-        if (subfiles.isEmpty()) {
-            return false
-        }
+            file.etagInConflict != null -> {
+                R.drawable.ic_synchronizing_error
+            }
 
-        return subfiles.all { it.isDown }
-    }
+            file.isDown -> {
+                R.drawable.ic_synced
+            }
 
-    private fun isSynchronizing(file: OCFile): Boolean = operationsServiceBinder?.isSynchronizing(user, file) == true ||
-        fileDownloadHelper.isDownloading(user, file) ||
-        fileUploadHelper.isUploading(user, file)
-
-    private fun showLocalFileIndicator(file: OCFile, holder: ListViewHolder) {
-        val icon = when {
-            isSynchronizing(file) -> R.drawable.ic_synchronizing
-            file.etagInConflict != null -> R.drawable.ic_synchronizing_error
-            file.isDown -> R.drawable.ic_synced
-            else -> null
-        }
-
-        holder.localFileIndicator.run {
-            if (icon != null) {
-                setImageResource(icon)
-                visibility = View.VISIBLE
-            } else {
-                visibility = View.GONE
+            else -> {
+                null
             }
         }
 
-        checkLocalFolderIndicatorAsynchronously(file, holder)
-    }
-
-    private fun checkLocalFolderIndicatorAsynchronously(file: OCFile, holder: ListViewHolder) {
-        if (file.isFolder) {
-            ioScope.launch {
-                if (isFolderFullyDownloaded(file)) {
-                    withContext(Dispatchers.Main) {
-                        holder.run {
-                            if (thumbnail.tag == file.fileId) {
-                                localFileIndicator.setImageResource(R.drawable.ic_synced)
-                                localFileIndicator.visibility = View.VISIBLE
-                            }
-                        }
-                    }
-                }
+        gridViewHolder.localFileIndicator.run {
+            icon?.let {
+                setImageResource(icon)
+                visibility = View.VISIBLE
             }
         }
     }
@@ -465,10 +433,6 @@ class OCFileListDelegate(
 
     fun setShowShareAvatar(bool: Boolean) {
         showShareAvatar = bool
-    }
-
-    fun cleanup() {
-        ioScope.cancel()
     }
 
     companion object {
