@@ -12,11 +12,9 @@ import android.view.MenuItem
 import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.snackbar.Snackbar
 import com.nextcloud.android.common.ui.util.extensions.applyEdgeToEdgeWithSystemBarPadding
-import com.nextcloud.android.common.ui.util.extensions.initStatusBar
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.preferences.AppPreferences
@@ -40,7 +38,7 @@ class ManageSpaceActivity :
     lateinit var userAccountManager: UserAccountManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        initStatusBar(ContextCompat.getColor(this, R.color.appbar))
+        applyEdgeToEdgeWithSystemBarPadding()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_manage_space)
 
@@ -55,6 +53,7 @@ class ManageSpaceActivity :
         }
     }
 
+    @Suppress("MagicNumber")
     private suspend fun clearData() {
         withContext(Dispatchers.IO) {
             val lockPref = preferences.lockPreference
@@ -64,9 +63,8 @@ class ManageSpaceActivity :
                 passCodeDigits = preferences.passCode
             }
 
-            // Clear data
+            // Clear preferences data
             preferences.clear()
-            val result = clearApplicationData()
 
             // Recover passcode
             if (passCodeEnable) {
@@ -80,6 +78,8 @@ class ManageSpaceActivity :
             preferences.lockPreference = lockPref
             userAccountManager.removeAllAccounts()
 
+            // Clear app data
+            val result = clearApplicationData()
             withContext(Dispatchers.Main) {
                 if (result) {
                     finishAndRemoveTask()
@@ -95,21 +95,26 @@ class ManageSpaceActivity :
         }
     }
 
+    @Suppress("NestedBlockDepth")
     private fun clearApplicationData(): Boolean {
         var clearResult = true
-        val appDir = File(cacheDir.parent!!)
-        if (appDir.exists()) {
-            val children = appDir.list()
-            if (children != null) {
-                children.filter { it != LIB_FOLDER }.forEach { s ->
-                    val fileToDelete = File(appDir, s)
-                    clearResult = clearResult && deleteDir(fileToDelete)
-                    Log_OC.d(TAG, "Clear Application Data, File: " + fileToDelete.name + " DELETED *****")
+
+        cacheDir.parent?.let { parentCacheDirPath ->
+            val appDir = File(parentCacheDirPath)
+            if (appDir.exists()) {
+                val children = appDir.list()
+                if (children != null) {
+                    children.filter { it != LIB_FOLDER }.forEach { s ->
+                        val fileToDelete = File(appDir, s)
+                        clearResult = clearResult && deleteDir(fileToDelete)
+                        Log_OC.d(TAG, "Clear Application Data, File: " + fileToDelete.name + " DELETED *****")
+                    }
+                } else {
+                    clearResult = false
                 }
-            } else {
-                clearResult = false
             }
         }
+
         return clearResult
     }
 
@@ -129,16 +134,15 @@ class ManageSpaceActivity :
         return dir?.delete() ?: false
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        var retval = true
-        when (item.itemId) {
-            android.R.id.home -> finish()
-            else -> {
-                Log_OC.w(TAG, "Unknown menu item triggered")
-                retval = super.onOptionsItemSelected(item)
-            }
+    override fun onOptionsItemSelected(item: MenuItem): Boolean = when (item.itemId) {
+        android.R.id.home -> {
+            finish()
+            true
         }
-        return retval
+        else -> {
+            Log_OC.w(TAG, "Unknown menu item triggered")
+            super.onOptionsItemSelected(item)
+        }
     }
 
     companion object {
