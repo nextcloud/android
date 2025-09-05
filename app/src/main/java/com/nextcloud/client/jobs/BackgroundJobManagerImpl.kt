@@ -610,13 +610,15 @@ internal class BackgroundJobManagerImpl(
                 .setRequiredNetworkType(NetworkType.CONNECTED)
                 .build()
 
+            val dataBuilder = Data.Builder()
+                .putBoolean(FileUploadWorker.IS_AUTO_UPLOAD, isAutoUpload)
+                .putString(FileUploadWorker.ACCOUNT, user.accountName)
+                .putInt(FileUploadWorker.TOTAL_UPLOAD_SIZE, uploadIds.size)
+
             val workRequests = batches.mapIndexed { index, batch ->
-                val dataBuilder = Data.Builder()
-                    .putBoolean(FileUploadWorker.IS_AUTO_UPLOAD, isAutoUpload)
-                    .putString(FileUploadWorker.ACCOUNT, user.accountName)
+                dataBuilder
                     .putLongArray(FileUploadWorker.UPLOAD_IDS, batch.toLongArray())
                     .putInt(FileUploadWorker.CURRENT_BATCH_INDEX, index)
-                    .putInt(FileUploadWorker.TOTAL_UPLOAD_SIZE, uploadIds.size)
 
                 oneTimeRequestBuilder(FileUploadWorker::class, JOB_FILES_UPLOAD, user)
                     .addTag(tag)
