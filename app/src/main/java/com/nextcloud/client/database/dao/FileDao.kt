@@ -81,4 +81,21 @@ interface FileDao {
         dirType: String = MimeType.DIRECTORY,
         webdavType: String = MimeType.WEBDAV_FOLDER
     ): List<FileEntity>
+
+    @Query(
+        """
+    SELECT * 
+    FROM filelist 
+    WHERE parent = :parentId 
+      AND file_owner = :accountName 
+      AND (content_type != :dirType AND content_type != :webdavType)  
+    ORDER BY ${ProviderTableMeta.FILE_DEFAULT_SORT_ORDER}
+    """
+    )
+    fun getSubfiles(
+        parentId: Long,
+        accountName: String,
+        dirType: String = MimeType.DIRECTORY,
+        webdavType: String = MimeType.WEBDAV_FOLDER
+    ): List<FileEntity>
 }
