@@ -9,8 +9,6 @@ package com.owncloud.android.ui.activity
 
 import android.os.Bundle
 import android.view.MenuItem
-import android.widget.Button
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.snackbar.Snackbar
@@ -19,6 +17,7 @@ import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.preferences.AppPreferences
 import com.owncloud.android.R
+import com.owncloud.android.databinding.ActivityManageSpaceBinding
 import com.owncloud.android.lib.common.utils.Log_OC
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -37,18 +36,24 @@ class ManageSpaceActivity :
     @Inject
     lateinit var userAccountManager: UserAccountManager
 
+    private lateinit var binding: ActivityManageSpaceBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         applyEdgeToEdgeWithSystemBarPadding()
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_manage_space)
 
-        val descriptionTextView = findViewById<TextView>(R.id.general_description)
-        descriptionTextView.text = getString(R.string.manage_space_description, getString(R.string.app_name))
+        binding = ActivityManageSpaceBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        val clearDataButton = findViewById<Button>(R.id.clearDataButton)
-        clearDataButton.setOnClickListener {
-            lifecycleScope.launch {
-                clearData()
+        binding.run {
+            manageActivityToolbar.setNavigationOnClickListener {
+                onBackPressedDispatcher.onBackPressed()
+            }
+            generalDescription.text = getString(R.string.manage_space_description, getString(R.string.app_name))
+            clearDataButton.setOnClickListener {
+                lifecycleScope.launch {
+                    clearData()
+                }
             }
         }
     }
