@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
 [versions]
-androidCommonLibraryVersion = "0.27.2"
+androidCommonLibraryVersion = "0.28.0"
 androidGifDrawableVersion = "1.2.29"
 androidImageCropperVersion = "4.6.0"
 androidsvgVersion = "1.4"
@@ -46,7 +46,7 @@ libraryVersion = "1.3.0"
 lifecycleViewmodelKtxVersion = "2.9.3"
 loaderviewlibraryVersion = "3.0.0"
 markwonVersion = "4.6.2"
-materialVersion = "1.12.0"
+materialVersion = "1.13.0"
 media3 = "1.8.0"
 mockitoKotlinVersion = "4.1.0"
 mockitoVersion = "4.11.0"
