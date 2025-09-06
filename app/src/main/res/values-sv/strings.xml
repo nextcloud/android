@@ -247,6 +247,13 @@
     <string name="document_scan_export_dialog_title">Välj exporttyp</string>
     <string name="document_scan_pdf_generation_failed">PDF-generering misslyckades</string>
     <string name="document_scan_pdf_generation_in_progress">Skapar PDF...</string>
+    <string name="document_storage_provider_cannot_create_file_and_folder">Kan inte skapa objekt här: saknar behörighet att skapa.</string>
+    <string name="document_storage_provider_cannot_create_file_inside_folder">Kan inte skapa fil: saknar behörighet.</string>
+    <string name="document_storage_provider_cannot_create_folder_inside_folder">Kan inte skapa mapp: saknar behörighet.</string>
+    <string name="document_storage_provider_cannot_delete">Kan inte ta bort objekt: saknar behörighet att ta bort.</string>
+    <string name="document_storage_provider_cannot_move">Kan inte flytta objekt: saknar behörighet att flytta.</string>
+    <string name="document_storage_provider_cannot_read">Kan inte öppna objekt: saknar läsbehörighet.</string>
+    <string name="document_storage_provider_cannot_rename">Kan inte byta namn på objekt: saknar behörighet att byta namn.</string>
     <string name="done">Klar</string>
     <string name="dontClear">Rensa inte</string>
     <string name="download_cannot_create_file">Kan inte skapa lokal fil</string>
@@ -326,6 +333,7 @@
     <string name="error_comment_file">Fel vid kommentering av fil</string>
     <string name="error_crash_title">%1$s kraschade</string>
     <string name="error_creating_file_from_template">Fel vid skapande av fil från mallen</string>
+    <string name="error_fetching_sharees">Kunde inte hämta delningsmottagare.</string>
     <string name="error_file_actions">Kunde inte visa filaktioner</string>
     <string name="error_file_lock">Fel när filens lås-status ändrades</string>
     <string name="error_report_issue_action">Rapportera</string>
@@ -360,6 +368,7 @@
     <string name="etm_transfer_type">Överför</string>
     <string name="etm_transfer_type_download">Ladda ner</string>
     <string name="etm_transfer_type_upload">Ladda upp</string>
+    <string name="extented_list_fragment_empty_list_message_no_write_permission">Du har inte behörighet att skapa eller ladda upp filer i den här mappen.</string>
     <string name="external_shares">Externa delningar</string>
     <string name="fab_label">Lägg till eller ladda upp</string>
     <string name="failed_to_download">Misslyckades skicka filen till hämtningshanteraren</string>
@@ -439,6 +448,7 @@
     <string name="file_not_synced">Filen kunde inte synkroniseras. Visar senaste tillgängliga versionen.</string>
     <string name="file_rename">Byt namn</string>
     <string name="file_upload_worker_error_notification_title">Uppladdning misslyckades. Ingen internetanslutning</string>
+    <string name="file_upload_worker_same_file_already_exists">%s finns redan, ingen konflikt upptäcktes</string>
     <string name="file_version_restored_error">Fel vid återställning av filversion!</string>
     <string name="file_version_restored_successfully">Lyckades återställa filversion.</string>
     <string name="filedetails_details">Detaljer</string>
@@ -515,6 +525,7 @@
     <string name="last_backup">Senaste backup: %1$s</string>
     <string name="link">Länk</string>
     <string name="link_name">Länknamn</string>
+    <string name="link_not_followed_due_to_security_settings">Länken följdes inte på grund av säkerhetsinställningar.</string>
     <string name="link_share_editing">Ändrar</string>
     <string name="list_layout">Listad layout</string>
     <string name="load_more_results">Visa fler resultat</string>
@@ -600,6 +611,8 @@
     <string name="notification_channel_general_name">Allmänna aviseringar</string>
     <string name="notification_channel_media_description">Musikspelarens förlopp</string>
     <string name="notification_channel_media_name">Mediaspelare</string>
+    <string name="notification_channel_offline_operations_description">Visar förloppet för offline-filoperationer</string>
+    <string name="notification_channel_offline_operations_name_short">Offline-operationer</string>
     <string name="notification_channel_push_description">Visa push-meddelanden som skickas av servern: Omnämnanden i kommentarer, mottagning av nya fjärrandelar, meddelanden som publiceras av en administratör o.s.v.</string>
     <string name="notification_channel_push_name">Push-aviseringar</string>
     <string name="notification_channel_upload_description">Visar uppladdningsförloppet</string>
@@ -647,6 +660,7 @@
     <string name="pin_shortcut_label">Öppna %1$s</string>
     <string name="placeholder_extension">.txt</string>
     <string name="placeholder_fileSize">389 KB</string>
+    <string name="placeholder_filename">platshållare</string>
     <string name="placeholder_media_time">12:23:45</string>
     <string name="placeholder_reason">Nyligen redigerade</string>
     <string name="placeholder_sentence">Detta är en platshållare</string>
@@ -1023,6 +1037,10 @@
     <string name="upload_local_storage_not_copied">Filen kunde inte kopieras till lokal lagringsplats</string>
     <string name="upload_lock_failed">Misslyckades låsa mappen</string>
     <string name="upload_manually_cancelled">Uppladdningen avbröts av användaren</string>
+    <string name="upload_missing_storage_permission_allow_file_access">Tillåt åtkomst till alla filer</string>
+    <string name="upload_missing_storage_permission_app_permissions">App-behörigheter</string>
+    <string name="upload_missing_storage_permission_description">Dina filer kan inte laddas upp utan åtkomst till lokal lagring. Tryck för att ge behörighet.</string>
+    <string name="upload_missing_storage_permission_title">Uppladdning stoppad – lagringsbehörighet krävs</string>
     <string name="upload_notification_manager_start_text">%1$d / %2$d - %3$s</string>
     <string name="upload_old_android">Kryptering är endast möjlig med &gt;= Android 5.0</string>
     <string name="upload_query_move_foreign_files">Otillräckligt utrymme förhindrar kopiering av de valda filerna till %1$s -mappen. Vill du flytta dem dit i stället?</string>

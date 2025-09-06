@@ -54,6 +54,7 @@ import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.lib.resources.tags.Tag;
 import com.owncloud.android.ui.activity.DrawerActivity;
+import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.activity.ToolbarActivity;
 import com.owncloud.android.ui.adapter.FileDetailTabAdapter;
@@ -459,6 +460,9 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
         } else if (itemId == R.id.action_cancel_sync) {
             ((FileDisplayActivity) containerActivity).cancelTransference(getFile());
         } else if (itemId == R.id.action_download_file || itemId == R.id.action_sync_file) {
+            if (containerActivity instanceof FileActivity activity) {
+                activity.showSyncLoadingDialog(getFile().isFolder());
+            }
             containerActivity.getFileOperationsHelper().syncFile(getFile());
         } else if (itemId == R.id.action_export_file) {
             ArrayList<OCFile> list = new ArrayList<>();

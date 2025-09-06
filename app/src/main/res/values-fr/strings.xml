@@ -368,7 +368,7 @@
     <string name="etm_transfer_type">Transfert</string>
     <string name="etm_transfer_type_download">Téléchargement</string>
     <string name="etm_transfer_type_upload">Téléverser</string>
-    <string name="extented_list_fragment_empty_list_message_no_write_permission">Vous n\'avez pas le droit de créer ou de téléverser des fichiers dans ce dossier</string>
+    <string name="extented_list_fragment_empty_list_message_no_write_permission">Vous n\'avez pas le droit de créer ou de téléverser des fichiers dans ce dossier.</string>
     <string name="external_shares">Partages externes</string>
     <string name="fab_label">Ajouter ou téléverser</string>
     <string name="failed_to_download">Transmission du fichier au gestionnaire de téléchargement échoué</string>
@@ -631,8 +631,8 @@
     <string name="offline_operations_worker_notification_create_folder_conflict_text">Impossible de créer %s. Un dossier avec le même nom existe sur le serveur.</string>
     <string name="offline_operations_worker_notification_error_text">L\'opération hors ligne ne peut être achevée. %s</string>
     <string name="offline_operations_worker_notification_manager_ticker">Opérations hors ligne</string>
-    <string name="offline_operations_worker_notification_remove_conflict_text">Suppression annulée de %s. Le fichier a été modifié sur le serveur.</string>
-    <string name="offline_operations_worker_notification_rename_conflict_text">Renommage annulé de %sannulé. Un fichier portant le même nom existe déjà sur le serveur.</string>
+    <string name="offline_operations_worker_notification_remove_conflict_text">Suppression de %s annulée. Le fichier a été modifié sur le serveur.</string>
+    <string name="offline_operations_worker_notification_rename_conflict_text">Renommage de %sannulé. Un fichier portant le même nom existe déjà sur le serveur.</string>
     <string name="offline_operations_worker_notification_start_text">Démarrage des opérations hors ligne</string>
     <string name="oneHour">1 heure</string>
     <string name="online">En ligne</string>
@@ -809,7 +809,7 @@
     <string name="server_not_reachable">Impossible de charger le contenu</string>
     <string name="server_not_reachable_content">Il semble que l\'appareil ne soit pas connecté à internet</string>
     <string name="set_as">Utiliser comme</string>
-    <string name="set_download_limit_failed">Impossible de définir la limite de téléchargement. Veuillez vérifier les capacités.</string>
+    <string name="set_download_limit_failed">Impossible de définir la limite de téléchargement. Veuillez vérifier les autorisations.</string>
     <string name="set_note">Définir la note</string>
     <string name="set_picture_as">Utiliser l\'image comme</string>
     <string name="set_status">Définir le statut</string>
@@ -817,14 +817,14 @@
     <string name="setup_e2e">Pendant la configuration du chiffrement de bout en bout, vous recevrez une phrase secrète aléatoire de 12 mots dont vous aurez besoin pour ouvrir vos fichiers sur d\'autres appareils. Cette phrase secrète ne sera stockée que sur cet appareil, et pourra être affichée à nouveau sur cet écran. Veuillez la noter en lieu sûr !</string>
     <string name="share">Partager</string>
     <string name="share_allow_download_and_sync_permission">Autoriser le téléchargement et la synchronisation</string>
-    <string name="share_cannot_update_empty_note">Impossible de mettre à jour le partage.. Veuillez ajouter une note et ré-essayer.</string>
+    <string name="share_cannot_update_empty_note">Impossible de mettre à jour le partage. Veuillez ajouter une note et ré-essayer.</string>
     <string name="share_copy_link">Partager et copier le lien</string>
     <string name="share_create_permission">Créer</string>
     <string name="share_custom_permission">Permissions personnalisées</string>
     <string name="share_delete_permission">Supprimer</string>
     <string name="share_dialog_title">Partage</string>
     <string name="share_download_limit">Définir le nombre maximal de téléchargements autorisés</string>
-    <string name="share_edit_permission">Éditer</string>
+    <string name="share_edit_permission">Modifier</string>
     <string name="share_expiration_date_format">%1$s</string>
     <string name="share_file">Partager %1$s</string>
     <string name="share_group_clarification">%1$s (groupe)</string>
@@ -1039,7 +1039,7 @@
     <string name="upload_missing_storage_permission_allow_file_access">Autoriser l\'accès à tous les fichiers</string>
     <string name="upload_missing_storage_permission_app_permissions">Autorisations de l\'application</string>
     <string name="upload_missing_storage_permission_description">Vos fichiers ne peuvent pas être téléversés sans accès au stockage local. Appuyez pour accorder l\'autorisation.</string>
-    <string name="upload_missing_storage_permission_title">Téléversement interrompu – Autorisation de stockage requise</string>
+    <string name="upload_missing_storage_permission_title">Envoi interrompu – Autorisation de stockage requise</string>
     <string name="upload_notification_manager_start_text">%1$d / %2$d - %3$s</string>
     <string name="upload_old_android">Le chiffrement n\'est disponible que pour les versions d\'Android&gt;= 5.0</string>
     <string name="upload_query_move_foreign_files">Il n\'y a pas assez d\'espace pour copier les fichiers sélectionnés dans le dossier %1$s. Souhaitez-vous plutôt les déplacer ?</string>

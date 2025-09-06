@@ -30,7 +30,8 @@ import com.nextcloud.receiver.NetworkChangeReceiver;
 import com.nextcloud.ui.ChooseAccountDialogFragment;
 import com.nextcloud.ui.ChooseStorageLocationDialogFragment;
 import com.nextcloud.ui.ImageDetailFragment;
-import com.nextcloud.ui.SetStatusDialogFragment;
+import com.nextcloud.ui.SetOnlineStatusBottomSheet;
+import com.nextcloud.ui.SetStatusMessageBottomSheet;
 import com.nextcloud.ui.composeActivity.ComposeActivity;
 import com.nextcloud.ui.fileactions.FileActionsBottomSheet;
 import com.nextcloud.ui.trashbinFileActions.TrashbinFileActionsBottomSheet;
@@ -300,7 +301,7 @@ abstract class ComponentsModule {
     abstract ChooseAccountDialogFragment chooseAccountDialogFragment();
 
     @ContributesAndroidInjector
-    abstract SetStatusDialogFragment setStatusDialogFragment();
+    abstract SetOnlineStatusBottomSheet setOnlineStatusBottomSheet();
 
     @ContributesAndroidInjector
     abstract PreviewTextFileFragment previewTextFileFragment();
@@ -501,4 +502,7 @@ abstract class ComponentsModule {
 
     @ContributesAndroidInjector
     abstract TermsOfServiceDialog termsOfServiceDialog();
+
+    @ContributesAndroidInjector
+    abstract SetStatusMessageBottomSheet setStatusMessageBottomSheet();
 }

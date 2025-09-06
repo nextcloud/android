@@ -572,6 +572,7 @@ class PreviewMediaActivity :
             }
 
             R.id.action_sync_file -> {
+                showSyncLoadingDialog(file.isFolder)
                 fileOperationsHelper.syncFile(file)
             }
 

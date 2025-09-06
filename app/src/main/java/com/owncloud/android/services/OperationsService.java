@@ -82,6 +82,7 @@ public class OperationsService extends Service {
     private static final String TAG = OperationsService.class.getSimpleName();
 
     public static final String EXTRA_ACCOUNT = "ACCOUNT";
+    public static final String EXTRA_POST_DIALOG_EVENT = "EXTRA_POST_DIALOG_EVENT";
     public static final String EXTRA_SERVER_URL = "SERVER_URL";
     public static final String EXTRA_REMOTE_PATH = "REMOTE_PATH";
     public static final String EXTRA_NEWNAME = "NEWNAME";
@@ -715,13 +716,15 @@ public class OperationsService extends Service {
 
                     case ACTION_SYNC_FILE:
                         remotePath = operationIntent.getStringExtra(EXTRA_REMOTE_PATH);
+                        boolean postDialogEvent = operationIntent.getBooleanExtra(EXTRA_POST_DIALOG_EVENT, true);
                         boolean syncFileContents = operationIntent.getBooleanExtra(EXTRA_SYNC_FILE_CONTENTS, true);
                         operation = new SynchronizeFileOperation(remotePath,
                                                                  user,
                                                                  syncFileContents,
                                                                  getApplicationContext(),
                                                                  fileDataStorageManager,
-                                                                 false);
+                                                                 false,
+                                                                 postDialogEvent);
                         break;
 
                     case ACTION_SYNC_FOLDER:
