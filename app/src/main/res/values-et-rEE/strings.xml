@@ -43,6 +43,7 @@
     <string name="app_config_proxy_port_title">Proksiserveri port</string>
     <string name="app_widget_description">Näitab ühte vidinat juhtpaneelilt/töölaualt</string>
     <string name="appbar_search_in">Otsi siin: %s</string>
+    <string name="appear_offline">Sellega paistad olema võrgust väljas</string>
     <string name="assistant_screen_add_task_alert_dialog_title">Lisa uus ülesanne</string>
     <string name="assistant_screen_create_a_new_task_from_bottom_right_text">Loo uus ülesanne all paremal asuvast valikust</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Kirjuta midagi vahvat</string>
@@ -115,6 +116,7 @@
     <string name="bottom_navigation_menu_favorites_label">Lemmikud</string>
     <string name="bottom_navigation_menu_files_label">Kõik failid</string>
     <string name="bottom_navigation_menu_media_label">Meedia</string>
+    <string name="busy">Hõivatud</string>
     <string name="calendar">Kalender</string>
     <string name="calendars">Kalendrid</string>
     <string name="certificate_load_problem">Sertifikaadi laadimisel tekkis viga.</string>
@@ -126,7 +128,9 @@
     <string name="choose_template_helper_text">Palun vali mall ja sisesta failinimi.</string>
     <string name="choose_which_file">Vali, milline fail alles jätta!</string>
     <string name="choose_widget">Vali vidin</string>
+    <string name="clear">Tühjenda</string>
     <string name="clear_notifications_failed">Teavituste kustutamine ebaõnnestus.</string>
+    <string name="clear_status_after">Eemalda olekuteade peale</string>
     <string name="clear_status_message">Eemalda olekuteade</string>
     <string name="clear_status_message_after">Eemalda olekuteade pärast</string>
     <string name="clipboard_label">Tekst on kopeeritud siit: %1$s</string>
@@ -578,6 +582,7 @@
     <string name="move_file_invalid_into_descendent">Kausta ei saa teisaldada tema enda alamkausta</string>
     <string name="move_file_invalid_overwrite">See fail on sihtkohas juba olemas.</string>
     <string name="move_file_not_found">Faili ei õnnestu teisaldada. Palun kontrolli, kas fail ikka on olemas.</string>
+    <string name="mute_all_notifications">Sellega summutad teavitused</string>
     <string name="network_error_connect_timeout_exception">Serveriühenduse ootamisel tekkis viga. Toimingut pole võimalik lõpetada.</string>
     <string name="network_error_socket_exception">Ühenduse loomisel serveriga tekkis viga</string>
     <string name="network_error_socket_timeout_exception">Serveriühenduse ootamisel tekkis viga. Toimingut pole võimalik lõpetada.</string>
@@ -811,6 +816,7 @@
     <string name="set_as">Määra kui</string>
     <string name="set_download_limit_failed">Allalaadimispiirangu määramine ei õnnestu. Palun kontrolli selle konteksti tegelikke võimalusi.</string>
     <string name="set_note">Lisa märge</string>
+    <string name="set_online_status">Olek võrgus</string>
     <string name="set_picture_as">Kasuta pilti kui</string>
     <string name="set_status">Määra olek</string>
     <string name="set_status_message">Lisa olekuteade</string>

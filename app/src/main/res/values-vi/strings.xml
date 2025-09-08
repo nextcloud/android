@@ -30,6 +30,7 @@
     <string name="add_to_cloud">Thêm vào %1$s</string>
     <string name="app_widget_description">Hiện thị lối tắt từ dashboard</string>
     <string name="appbar_search_in">Tìm kiếm trong %s</string>
+    <string name="appear_offline">Đang offline</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Xóa nhiệm vụ</string>
     <string name="associated_account_not_found">Không tìm thấy tài khoản được liên kết!</string>
     <string name="auth_access_failed">Lỗi truy cập: %1$s</string>
@@ -79,6 +80,7 @@
     <string name="bottom_navigation_menu_favorites_label">Ưa thích</string>
     <string name="bottom_navigation_menu_files_label">Tất cả tệp tin</string>
     <string name="bottom_navigation_menu_media_label">Phương tiện</string>
+    <string name="busy">Bận</string>
     <string name="calendar">Lịch</string>
     <string name="calendars">Lịch</string>
     <string name="certificate_load_problem">Có vấn đề khi tải chứng chỉ.</string>
@@ -88,7 +90,9 @@
     <string name="choose_remote_folder">Chọn thư mục từ xa...</string>
     <string name="choose_template_helper_text">Vui lòng chọn một mẫu và nhập tên tệp.</string>
     <string name="choose_which_file">Chọn tệp muốn giữ!</string>
+    <string name="clear">Xóa</string>
     <string name="clear_notifications_failed">Xoá thông báo thất bại.</string>
+    <string name="clear_status_after">Xóa trạng thái sau</string>
     <string name="clear_status_message">Xoá thông báo trạng thái</string>
     <string name="clear_status_message_after">Xoá thông báo trạng thái sau</string>
     <string name="clipboard_label">Văn bản đã được sao chép từ %1$s</string>
@@ -434,6 +438,7 @@
     <string name="move_file_invalid_into_descendent">Không thể di chuyển một thư mục vào một trong các thư mục của riêng nó</string>
     <string name="move_file_invalid_overwrite">Tập tin đã có trong thư mục đích</string>
     <string name="move_file_not_found">Không thể di chuyển tệp. Vui lòng kiểm tra xem nó có tồn tại không.</string>
+    <string name="mute_all_notifications">Tắt tiếng tất cả thông báo</string>
     <string name="network_error_connect_timeout_exception">Đã xảy ra lỗi khi chờ máy chủ. Không thể hoàn thành hoạt động.</string>
     <string name="network_error_socket_exception">Đã xảy ra lỗi khi kết nối với máy chủ</string>
     <string name="network_error_socket_timeout_exception">Một lỗi đã xảy ra khi đang đợi máy chủ. Không thể hoàn thành hoạt động.</string>
@@ -599,6 +604,7 @@
     <string name="send">Gửi</string>
     <string name="sendbutton_description">Biểu tượng nút gửi</string>
     <string name="set_as">Đặt như</string>
+    <string name="set_online_status">Trạng thái trực tuyến</string>
     <string name="set_picture_as">Dùng hình ảnh như</string>
     <string name="set_status">Đặt trạng thái</string>
     <string name="set_status_message">Đặt thông báo trạng thái</string>

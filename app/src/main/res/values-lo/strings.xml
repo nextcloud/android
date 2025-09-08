@@ -531,6 +531,7 @@
     <string name="send">ສົ່ງ</string>
     <string name="sendbutton_description">ສົ່ງປຸ່ມ icon</string>
     <string name="set_as">ຕັ້ງຄ່າເປັນ</string>
+    <string name="set_online_status">ສະຖານະພາບອອນລາຍ</string>
     <string name="set_picture_as">ໃຊ້ຮູບເປັນ</string>
     <string name="set_status">ຕັ້ງຄ່າສະຖານະພາບ</string>
     <string name="set_status_message">ຕັ້ງຄ່າສະຖານະພາບຂໍ້ຄວາມ</string>

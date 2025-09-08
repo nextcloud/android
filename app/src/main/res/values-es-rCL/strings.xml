@@ -115,6 +115,7 @@
     <string name="choose_remote_folder">Elige la carpeta remota…</string>
     <string name="choose_template_helper_text">Por favor, elija una plantilla y escriba un nombre de archivo.</string>
     <string name="choose_which_file">¡Selecciona el archivo a conservar!</string>
+    <string name="clear">Limpiar</string>
     <string name="clipboard_label">Texto copiado desde %1$s</string>
     <string name="clipboard_no_text_to_copy">No se ha recibido texto para copiar al portapapeles</string>
     <string name="clipboard_unexpected_error">Se presentó un error inesperado al copiar al portapapeles</string>

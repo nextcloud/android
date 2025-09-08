@@ -35,6 +35,7 @@
     <string name="app_config_proxy_port_title">Įgaliotojo serverio prievadas</string>
     <string name="app_widget_description">Rodo vieną valdiklį iš skydelio</string>
     <string name="appbar_search_in">Ieškoti %s</string>
+    <string name="appear_offline">Atrodyti atsijungusiu</string>
     <string name="assistant_screen_add_task_alert_dialog_title">Pridėti naują užduotį</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Įrašykite kokį nors tekstą</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Ar tikrai norite ištrinti šią užduotį?</string>
@@ -103,6 +104,7 @@
     <string name="bottom_navigation_menu_favorites_label">Mėgstami</string>
     <string name="bottom_navigation_menu_files_label">Visi failai</string>
     <string name="bottom_navigation_menu_media_label">Medija</string>
+    <string name="busy">Užimtas laikas</string>
     <string name="calendar">Kalendorius</string>
     <string name="calendars">Kalendoriai</string>
     <string name="certificate_load_problem">Klaida, įkeliant liudijimą.</string>
@@ -113,7 +115,9 @@
     <string name="choose_remote_folder">Pasirinkti nuotolinį aplanką…</string>
     <string name="choose_template_helper_text">Pasirinkite šabloną ir įveskite failo pavadinimą.</string>
     <string name="choose_which_file">Pasirinkite, kurį failą palikti!</string>
+    <string name="clear">Išvalyti</string>
     <string name="clear_notifications_failed">Nepavyko išvalyti pranešimų.</string>
+    <string name="clear_status_after">Išvalyti būseną po</string>
     <string name="clear_status_message">Išvalyti būsenos žinutę</string>
     <string name="clear_status_message_after">Išvalyti būsenos žinutę po</string>
     <string name="clipboard_label">Tekstas nukopijuotas iš %1$s</string>
@@ -490,6 +494,7 @@
     <string name="move_file_invalid_into_descendent">Neįmanoma perkelti aplanko į poaplankį</string>
     <string name="move_file_invalid_overwrite">Failas jau yra paskirties aplanke</string>
     <string name="move_file_not_found">Nepavyko perkelti failo. Prašome patikrinkite  ar jis egzistuoja.</string>
+    <string name="mute_all_notifications">Išjungti visus pranešimus</string>
     <string name="network_error_connect_timeout_exception">Laukiant serverio įvyko klaida. Nepavyko pabaigti operacijos.</string>
     <string name="network_error_socket_exception">Prisijungimo prie serverio metu įvyko klaida</string>
     <string name="network_error_socket_timeout_exception">Laukiant serverio įvyko klaida. Nepavyko pabaigti operacijos.</string>
@@ -659,6 +664,7 @@
     <string name="send">Siųsti</string>
     <string name="sendbutton_description">Siuntimo mygtuko priktograma</string>
     <string name="set_as">Nustatyti kaip</string>
+    <string name="set_online_status">Prisijungimo būsena</string>
     <string name="set_picture_as">Naudoti paveikslėlį kaip</string>
     <string name="set_status">Nustatyti būseną</string>
     <string name="set_status_message">Nustatyti būsenos žinutę</string>

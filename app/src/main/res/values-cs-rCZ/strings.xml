@@ -126,6 +126,7 @@
     <string name="choose_template_helper_text">Vyberte šablonu a zadejte název pro soubor.</string>
     <string name="choose_which_file">Zvolte který soubor ponechat!</string>
     <string name="choose_widget">Zvolte ovládací prvek</string>
+    <string name="clear">Vyčistit</string>
     <string name="clear_notifications_failed">Upozornění se nepodařilo vyčistit.</string>
     <string name="clear_status_message">Vyčistit stavovou zprávu</string>
     <string name="clear_status_message_after">Vyčistit stavovou zprávu po uplynutí</string>

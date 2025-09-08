@@ -115,6 +115,7 @@
     <string name="bottom_navigation_menu_favorites_label">Gogokoak</string>
     <string name="bottom_navigation_menu_files_label">Fitxategi guztiak</string>
     <string name="bottom_navigation_menu_media_label">Media</string>
+    <string name="busy">Lanpetua</string>
     <string name="calendar">Egutegia</string>
     <string name="calendars">Egutegiak</string>
     <string name="certificate_load_problem">Arazo bat dago ziurtagiria kargatzean.</string>
@@ -126,7 +127,9 @@
     <string name="choose_template_helper_text">Hautatu txantiloia eta sartu fitxategi-izena.</string>
     <string name="choose_which_file">Aukeratu zein fitxategi gorde!</string>
     <string name="choose_widget">Aukeratu trepeta</string>
+    <string name="clear">Garbitu</string>
     <string name="clear_notifications_failed">Huts egin du jakinarazpenak garbitzean.</string>
+    <string name="clear_status_after">Garbitu egoera honen ondoren</string>
     <string name="clear_status_message">Garbitu egoera mezua</string>
     <string name="clear_status_message_after">Egoera mezua noiz garbitu</string>
     <string name="clipboard_label">Testua hemendik kopiatua: %1$s</string>

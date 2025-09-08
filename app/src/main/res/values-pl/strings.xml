@@ -115,6 +115,7 @@
     <string name="bottom_navigation_menu_favorites_label">Ulubione</string>
     <string name="bottom_navigation_menu_files_label">Wszystkie pliki</string>
     <string name="bottom_navigation_menu_media_label">Multimedia</string>
+    <string name="busy">Brak dostępności</string>
     <string name="calendar">Kalendarz</string>
     <string name="calendars">Kalendarze</string>
     <string name="certificate_load_problem">Problem podczas ładowania certyfikatu.</string>
@@ -126,7 +127,9 @@
     <string name="choose_template_helper_text">Wybierz szablon i wprowadź nazwę pliku.</string>
     <string name="choose_which_file">Wybierz, który plik chcesz zachować!</string>
     <string name="choose_widget">Wybierz widżet</string>
+    <string name="clear">Wyczyść</string>
     <string name="clear_notifications_failed">Wyczyszczenie powiadomień nie powiodło się.</string>
+    <string name="clear_status_after">Wyczyść status po</string>
     <string name="clear_status_message">Wyczyść komunikat statusu</string>
     <string name="clear_status_message_after">Wyczyść komunikat statusu po</string>
     <string name="clipboard_label">Skopiowano tekst z %1$s</string>
@@ -811,6 +814,7 @@
     <string name="set_as">Ustaw jako</string>
     <string name="set_download_limit_failed">Nie można ustawić limitu pobierania. Sprawdź dostępne możliwości.</string>
     <string name="set_note">Ustaw notatkę</string>
+    <string name="set_online_status">Status online</string>
     <string name="set_picture_as">Użyj obrazu jako</string>
     <string name="set_status">Ustaw status</string>
     <string name="set_status_message">Ustaw komunikat statusu</string>

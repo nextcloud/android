@@ -115,6 +115,7 @@
     <string name="bottom_navigation_menu_favorites_label">最愛</string>
     <string name="bottom_navigation_menu_files_label">所有檔案</string>
     <string name="bottom_navigation_menu_media_label">媒體</string>
+    <string name="busy">忙碌</string>
     <string name="calendar">日曆</string>
     <string name="calendars">日曆</string>
     <string name="certificate_load_problem">憑證載入時發生問題</string>
@@ -126,7 +127,9 @@
     <string name="choose_template_helper_text">請選擇一個模板，然後輸入檔案名。</string>
     <string name="choose_which_file">選擇要保留哪個檔案！</string>
     <string name="choose_widget">選擇小部件</string>
+    <string name="clear">清除</string>
     <string name="clear_notifications_failed">清空通知訊息失敗</string>
+    <string name="clear_status_after">繼此之後清空狀態</string>
     <string name="clear_status_message">清空狀態列訊息</string>
     <string name="clear_status_message_after">繼此之後清空狀態訊息</string>
     <string name="clipboard_label">文字已由 %1$s 複製</string>
@@ -578,6 +581,7 @@
     <string name="move_file_invalid_into_descendent">無法將資料夾移動到自己的子資料夾中。</string>
     <string name="move_file_invalid_overwrite">此檔案目前已存在於目標資料夾中。</string>
     <string name="move_file_not_found">無法移動檔案。請確認它是否存在。</string>
+    <string name="mute_all_notifications">所有通知靜音</string>
     <string name="network_error_connect_timeout_exception">等候連接伺服器錯誤。無法完成作業。</string>
     <string name="network_error_socket_exception">連接至伺服器時發生錯誤</string>
     <string name="network_error_socket_timeout_exception">等候連接伺服器錯誤。無法完成作業。</string>
@@ -811,6 +815,7 @@
     <string name="set_as">設定為</string>
     <string name="set_download_limit_failed">無法設置下載限制。請檢查功能設置。</string>
     <string name="set_note">設定備註</string>
+    <string name="set_online_status">線上狀態</string>
     <string name="set_picture_as">使用圖片作為</string>
     <string name="set_status">設定狀態</string>
     <string name="set_status_message">設定狀態訊息</string>

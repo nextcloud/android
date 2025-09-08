@@ -33,6 +33,7 @@
     <string name="app_config_proxy_port_title">Välityspalvelimen portti</string>
     <string name="app_widget_description">Näyttää yhden pienoissovelluksen konsolista</string>
     <string name="appbar_search_in">Etsi kohteesta %s</string>
+    <string name="appear_offline">Näytä olevan poissa</string>
     <string name="assistant_screen_add_task_alert_dialog_title">Lisää uusi tehtävä</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Syötä tekstiä</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Haluatko varmasti poistaa tämän tehtävän?</string>
@@ -98,6 +99,7 @@
     <string name="bottom_navigation_menu_favorites_label">Suosikit</string>
     <string name="bottom_navigation_menu_files_label">Kaikki tiedostot</string>
     <string name="bottom_navigation_menu_media_label">Media</string>
+    <string name="busy">Varattu</string>
     <string name="calendar">Kalenteri</string>
     <string name="calendars">Kalenterit</string>
     <string name="certificate_load_problem">Varmennetta ladatessa ilmeni ongelmia.</string>
@@ -109,7 +111,9 @@
     <string name="choose_template_helper_text">Valitse mallipohja ja anna tiedostonimi</string>
     <string name="choose_which_file">Valitse säilytettävä tiedosto!</string>
     <string name="choose_widget">Valitse pienoissovellus</string>
+    <string name="clear">Tyhjennä</string>
     <string name="clear_notifications_failed">Ilmoituksia ei voitu tyhjentää</string>
+    <string name="clear_status_after">Tyhjennä tilatieto</string>
     <string name="clear_status_message">Tyhjennä tilaviesti</string>
     <string name="clear_status_message_after">Tyhjennä tilaviesti, kun on kulunut</string>
     <string name="clipboard_label">Teksti kopioitu %1$s</string>

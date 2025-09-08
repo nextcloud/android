@@ -43,6 +43,7 @@
     <string name="app_config_proxy_port_title">Bandari ya Wakala</string>
     <string name="app_widget_description">Inaonyesha wijeti moja kutoka kwa dashibodi</string>
     <string name="appbar_search_in">Tafuta katika %s</string>
+    <string name="appear_offline">Tokea nje ya mtandao</string>
     <string name="assistant_screen_add_task_alert_dialog_title">Ongeza jukumu jipya</string>
     <string name="assistant_screen_create_a_new_task_from_bottom_right_text">Ongeza jukumu jipya kutoka chini kulia</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Andika maandishi kadhaa</string>
@@ -115,6 +116,7 @@
     <string name="bottom_navigation_menu_favorites_label">Vipendwa</string>
     <string name="bottom_navigation_menu_files_label">Faili zote</string>
     <string name="bottom_navigation_menu_media_label">Midia</string>
+    <string name="busy">Bize</string>
     <string name="calendar">Kalenda</string>
     <string name="calendars">Kalenda</string>
     <string name="certificate_load_problem">Kuna tatizo la kupakia cheti.</string>
@@ -126,7 +128,9 @@
     <string name="choose_template_helper_text">Tafadhali chagua kiolezo na uweke jina la faili.</string>
     <string name="choose_which_file">Chagua faili ya kuhifadhi!</string>
     <string name="choose_widget">Chagua wijeti</string>
+    <string name="clear">Futa</string>
     <string name="clear_notifications_failed">Imeshindwa kufuta arifa.</string>
+    <string name="clear_status_after">Futa hali baada ya</string>
     <string name="clear_status_message">Futa jumbe za wadhifa</string>
     <string name="clear_status_message_after">Futa jumbe za wadhifa baada ya </string>
     <string name="clipboard_label">Maandishi yamenakiliwa kutoka %1$s</string>
@@ -578,6 +582,7 @@
     <string name="move_file_invalid_into_descendent">Haiwezekani kuhamisha folda kwenye mojawapo ya folda zake za msingi</string>
     <string name="move_file_invalid_overwrite">Faili tayari iko kwenye folda lengwa</string>
     <string name="move_file_not_found">Imeshindwa kuhamisha faili. Tafadhali angalia kama ipo.</string>
+    <string name="mute_all_notifications">Zima arifu zote</string>
     <string name="network_error_connect_timeout_exception">Hitilafu ilitokea wakati wa kusubiri seva. Haikuweza kukamilisha operesheni.</string>
     <string name="network_error_socket_exception">Hitilafu ilitokea wakati wa kuunganisha kwa seva</string>
     <string name="network_error_socket_timeout_exception">Hitilafu ilitokea wakati wa kusubiri seva. Haikuweza kukamilisha operesheni.</string>
@@ -611,6 +616,8 @@
     <string name="notification_channel_general_name">Arifa za jumla</string>
     <string name="notification_channel_media_description">Maendeleo ya kicheza muziki</string>
     <string name="notification_channel_media_name">Kichezaji cha media</string>
+    <string name="notification_channel_offline_operations_description">Inaonyesha maendeleo ya utendakazi wa faili nje ya mtandao</string>
+    <string name="notification_channel_offline_operations_name_short">Shughuli za nje ya mtandao</string>
     <string name="notification_channel_push_description">Onyesha arifa za kushinikiza zinazotumwa na seva: Zinazotajwa kwenye maoni, upokeaji wa shiriki mpya za mbali, matangazo yaliyotumwa na msimamizi n.k.</string>
     <string name="notification_channel_push_name">Arifa za kushinikiza</string>
     <string name="notification_channel_upload_description">Inaonyesha maendeleo ya upakiaji</string>
@@ -809,6 +816,7 @@
     <string name="set_as">Weka Kama</string>
     <string name="set_download_limit_failed">Imeshindwa kuweka kikomo cha upakuaji. Tafadhali angalia uwezo.</string>
     <string name="set_note">Weka dokezo</string>
+    <string name="set_online_status">Hali ya mtandaoni</string>
     <string name="set_picture_as">Tumia picha kama</string>
     <string name="set_status">Panglia hali</string>
     <string name="set_status_message">Pangilia hali ya ujumbe</string>

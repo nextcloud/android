@@ -68,11 +68,13 @@
     <string name="battery_optimization_title">Bateria optimumigo</string>
     <string name="bottom_navigation_menu_favorites_label">Plej ŝatataj</string>
     <string name="bottom_navigation_menu_files_label">Ĉiuj dosieroj</string>
+    <string name="busy">Okupita</string>
     <string name="calendar">Kalendaro</string>
     <string name="certificate_load_problem">Ekestis problemo dum ŝargo de la atestilo.</string>
     <string name="checkbox">Markobutono</string>
     <string name="choose_local_folder">Elekti lokan dosierujon...</string>
     <string name="choose_remote_folder">Elekti foran dosierujon...</string>
+    <string name="clear">Viŝi</string>
     <string name="clear_notifications_failed">Malsukcesis forviŝi sciigojn.</string>
     <string name="clear_status_message">Forviŝi statusan mesaĝon</string>
     <string name="clear_status_message_after">Forviŝos statusan mesaĝon poste</string>

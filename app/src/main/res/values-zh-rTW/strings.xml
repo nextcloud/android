@@ -43,6 +43,7 @@
     <string name="app_config_proxy_port_title">proxy代理伺服器連接埠</string>
     <string name="app_widget_description">顯示儀表板中的一個小工具</string>
     <string name="appbar_search_in">搜尋 %s</string>
+    <string name="appear_offline">顯示為離線</string>
     <string name="assistant_screen_add_task_alert_dialog_title">新增任務</string>
     <string name="assistant_screen_create_a_new_task_from_bottom_right_text">從右下角建立新任務</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">輸入一些文字</string>
@@ -115,6 +116,7 @@
     <string name="bottom_navigation_menu_favorites_label">喜愛</string>
     <string name="bottom_navigation_menu_files_label">所有檔案</string>
     <string name="bottom_navigation_menu_media_label">媒體</string>
+    <string name="busy">忙碌</string>
     <string name="calendar">行事曆</string>
     <string name="calendars">行事曆</string>
     <string name="certificate_load_problem">載入憑證時發生問題。</string>
@@ -126,7 +128,9 @@
     <string name="choose_template_helper_text">請選擇範本並輸入檔案名稱。</string>
     <string name="choose_which_file">選擇要保留哪個檔案！</string>
     <string name="choose_widget">選擇小工具</string>
+    <string name="clear">清除</string>
     <string name="clear_notifications_failed">清除通知訊息失敗。</string>
+    <string name="clear_status_after">多久後清除狀態</string>
     <string name="clear_status_message">清除狀態訊息</string>
     <string name="clear_status_message_after">在多久後清除狀態訊息</string>
     <string name="clipboard_label">文字已從 %1$s 複製</string>
@@ -578,6 +582,7 @@
     <string name="move_file_invalid_into_descendent">無法將資料夾移動到自己的子資料夾中</string>
     <string name="move_file_invalid_overwrite">此檔案已經存在於目標資料夾中</string>
     <string name="move_file_not_found">無法移動檔案。請確認檔案是否存在。</string>
+    <string name="mute_all_notifications">靜音所有通知</string>
     <string name="network_error_connect_timeout_exception">等待連線至伺服器時發生錯誤。無法完成操作。</string>
     <string name="network_error_socket_exception">連線至伺服器時發生錯誤</string>
     <string name="network_error_socket_timeout_exception">等待伺服器時發生錯誤。無法完成操作。</string>

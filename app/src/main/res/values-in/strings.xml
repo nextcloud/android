@@ -116,6 +116,7 @@ Otomatis unggah hanya bekerja dengan baik apabila Anda mengeluarkan aplikasi ini
     <string name="bottom_navigation_menu_favorites_label">Disukai</string>
     <string name="bottom_navigation_menu_files_label">Semua berkas</string>
     <string name="bottom_navigation_menu_media_label">Media</string>
+    <string name="busy">Sibuk</string>
     <string name="calendar">Kalender</string>
     <string name="calendars">Kalender</string>
     <string name="certificate_load_problem">Terjadi permasalahan memuat sertifikat.</string>
@@ -127,6 +128,7 @@ Otomatis unggah hanya bekerja dengan baik apabila Anda mengeluarkan aplikasi ini
     <string name="choose_template_helper_text">Mohon pilih templat dan masukkan nama file.</string>
     <string name="choose_which_file">Pilih file mana yang ditahan!</string>
     <string name="choose_widget">Pilih gawit</string>
+    <string name="clear">Bersihkan</string>
     <string name="clear_notifications_failed">Gagal membersihkan notifikasi</string>
     <string name="clear_status_message">Kosongkan status pesan</string>
     <string name="clear_status_message_after">Kosongkan status pesan setelah</string>
@@ -565,6 +567,7 @@ Otomatis unggah hanya bekerja dengan baik apabila Anda mengeluarkan aplikasi ini
     <string name="move_file_invalid_into_descendent">Tidak memungkinkan untuk memindahkan folder kedalam sub-folder</string>
     <string name="move_file_invalid_overwrite">Berkas sudah ada di dalam folder tujuan</string>
     <string name="move_file_not_found">Tidak dapat memindahkan berkas. Silakan periksa apakah berkas tersebut ada.</string>
+    <string name="mute_all_notifications">Bisukan semua notifikasi</string>
     <string name="network_error_connect_timeout_exception">Terjadi kesalahan saat menunggu server. Tidak dapat menyelesaikan operasi.</string>
     <string name="network_error_socket_exception">Sebuah kesalahan terjadi saat menghubungi server</string>
     <string name="network_error_socket_timeout_exception">Terjadi kesalahan saat menunggu server. Tidak dapat menyelesaikan operasi.</string>
@@ -790,6 +793,7 @@ Otomatis unggah hanya bekerja dengan baik apabila Anda mengeluarkan aplikasi ini
     <string name="set_as">Gunakan sebagai</string>
     <string name="set_download_limit_failed">TIdak dapat mengatur batas unduhan.</string>
     <string name="set_note">Atur catatan</string>
+    <string name="set_online_status">Status online</string>
     <string name="set_picture_as">Gunakan gambar sebagai</string>
     <string name="set_status">Tetapkan status</string>
     <string name="set_status_message">Tetapkan status pesan</string>
