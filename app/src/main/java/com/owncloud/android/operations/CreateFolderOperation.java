@@ -186,21 +186,23 @@ public class CreateFolderOperation extends SyncOperation implements OnRemoteOper
                     }
                 }
 
-                RemoteOperationResult remoteFolderOperationResult = new ReadFolderRemoteOperation(encryptedRemotePath)
+                final var remoteFolderOperationResult = new ReadFolderRemoteOperation(encryptedRemotePath)
                     .execute(client);
 
-                createdRemoteFolder = (RemoteFile) remoteFolderOperationResult.getData().get(0);
-                OCFile newDir = createRemoteFolderOcFile(parent, filename, createdRemoteFolder);
-                getStorageManager().saveFile(newDir);
+                if (remoteFolderOperationResult.isSuccess() && remoteFolderOperationResult.getData().get(0) instanceof RemoteFile remoteFile) {
+                    createdRemoteFolder = remoteFile;
+                    OCFile newDir = createRemoteFolderOcFile(parent, filename, createdRemoteFolder);
+                    getStorageManager().saveFile(newDir);
 
-                RemoteOperationResult encryptionOperationResult = new ToggleEncryptionRemoteOperation(
-                    newDir.getLocalId(),
-                    newDir.getRemotePath(),
-                    true)
-                    .execute(client);
+                    final var encryptionOperationResult = new ToggleEncryptionRemoteOperation(
+                        newDir.getLocalId(),
+                        newDir.getRemotePath(),
+                        true)
+                        .execute(client);
 
-                if (!encryptionOperationResult.isSuccess()) {
-                    throw new RuntimeException("Error creating encrypted subfolder!");
+                    if (!encryptionOperationResult.isSuccess()) {
+                        throw new RuntimeException("Error creating encrypted subfolder!");
+                    }
                 }
             } else {
                 // revert to sane state in case of any error
@@ -324,21 +326,23 @@ public class CreateFolderOperation extends SyncOperation implements OnRemoteOper
                     throw new RuntimeException("Could not unlock folder!");
                 }
 
-                RemoteOperationResult remoteFolderOperationResult = new ReadFolderRemoteOperation(encryptedRemotePath)
+                final var remoteFolderOperationResult = new ReadFolderRemoteOperation(encryptedRemotePath)
                     .execute(client);
 
-                createdRemoteFolder = (RemoteFile) remoteFolderOperationResult.getData().get(0);
-                OCFile newDir = createRemoteFolderOcFile(parent, filename, createdRemoteFolder);
-                getStorageManager().saveFile(newDir);
+                if (remoteFolderOperationResult.isSuccess() && remoteFolderOperationResult.getData().get(0) instanceof RemoteFile remoteFile) {
+                    createdRemoteFolder = remoteFile;
+                    OCFile newDir = createRemoteFolderOcFile(parent, filename, createdRemoteFolder);
+                    getStorageManager().saveFile(newDir);
 
-                RemoteOperationResult encryptionOperationResult = new ToggleEncryptionRemoteOperation(
-                    newDir.getLocalId(),
-                    newDir.getRemotePath(),
-                    true)
-                    .execute(client);
+                    final var encryptionOperationResult = new ToggleEncryptionRemoteOperation(
+                        newDir.getLocalId(),
+                        newDir.getRemotePath(),
+                        true)
+                        .execute(client);
 
-                if (!encryptionOperationResult.isSuccess()) {
-                    throw new RuntimeException("Error creating encrypted subfolder!");
+                    if (!encryptionOperationResult.isSuccess()) {
+                        throw new RuntimeException("Error creating encrypted subfolder!");
+                    }
                 }
             } else {
                 // revert to sane state in case of any error
