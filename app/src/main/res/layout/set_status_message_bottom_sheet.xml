@@ -98,7 +98,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/alternate_half_margin"
-            android:text="@string/clear_status_message_after"
+            android:text="@string/clear_status_after"
             android:textSize="@dimen/activity_list_item_title_header_text_size"
             android:textColor="@color/high_emphasis_text" />
 
