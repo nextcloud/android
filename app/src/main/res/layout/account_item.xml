@@ -50,7 +50,6 @@
                 android:layout_width="18dp"
                 android:layout_height="18dp"
                 android:layout_gravity="bottom|end"
-                android:background="@drawable/round_bgnd"
                 android:contentDescription="@string/active_user"
                 android:src="@drawable/ic_check_circle"
                 tools:visibility="gone" />
