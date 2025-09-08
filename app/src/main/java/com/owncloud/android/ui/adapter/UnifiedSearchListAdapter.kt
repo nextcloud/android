@@ -219,6 +219,8 @@ class UnifiedSearchListAdapter(
         notifyDataSetChanged()
     }
 
+    fun isCurrentDirItemsEmpty(): Boolean = currentDirItems.isEmpty()
+
     init {
         // initialise thumbnails cache on background thread
         ThumbnailsCacheManager.initDiskCacheAsync()
