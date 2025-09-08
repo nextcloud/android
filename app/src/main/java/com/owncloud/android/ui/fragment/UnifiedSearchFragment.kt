@@ -27,6 +27,7 @@ import androidx.appcompat.widget.SearchView
 import androidx.core.view.updatePadding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import com.nextcloud.client.account.CurrentAccountProvider
 import com.nextcloud.client.account.UserAccountManager
@@ -36,6 +37,7 @@ import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.di.ViewModelFactory
 import com.nextcloud.client.network.ClientFactory
 import com.nextcloud.client.preferences.AppPreferences
+import com.nextcloud.utils.extensions.getTypedActivity
 import com.nextcloud.utils.extensions.searchFilesByName
 import com.owncloud.android.R
 import com.owncloud.android.databinding.ListFragmentBinding
@@ -45,10 +47,12 @@ import com.owncloud.android.datamodel.SyncedFolderProvider
 import com.owncloud.android.lib.common.SearchResultEntry
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.lib.resources.status.NextcloudVersion
+import com.owncloud.android.ui.activity.FileActivity
 import com.owncloud.android.ui.activity.FileDisplayActivity
 import com.owncloud.android.ui.adapter.UnifiedSearchItemViewHolder
 import com.owncloud.android.ui.adapter.UnifiedSearchListAdapter
 import com.owncloud.android.ui.fragment.util.PairMediatorLiveData
+import com.owncloud.android.ui.interfaces.UnifiedSearchCurrentDirItemAction
 import com.owncloud.android.ui.interfaces.UnifiedSearchListInterface
 import com.owncloud.android.ui.unifiedsearch.IUnifiedSearchViewModel
 import com.owncloud.android.ui.unifiedsearch.ProviderID
@@ -58,6 +62,9 @@ import com.owncloud.android.ui.unifiedsearch.filterOutHiddenFiles
 import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.PermissionUtil
 import com.owncloud.android.utils.theme.ViewThemeUtils
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 /**
@@ -70,7 +77,8 @@ class UnifiedSearchFragment :
     Injectable,
     UnifiedSearchListInterface,
     SearchView.OnQueryTextListener,
-    UnifiedSearchItemViewHolder.FilesAction {
+    UnifiedSearchItemViewHolder.FilesAction,
+    UnifiedSearchCurrentDirItemAction {
     private lateinit var adapter: UnifiedSearchListAdapter
     private var _binding: ListFragmentBinding? = null
     val binding get() = _binding!!
@@ -132,19 +140,12 @@ class UnifiedSearchFragment :
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         vm = ViewModelProvider(this, vmFactory)[UnifiedSearchViewModel::class.java]
-        setUpViewModel()
-
         initialQuery = savedInstanceState?.getString(ARG_QUERY) ?: arguments?.getString(ARG_QUERY)
         val currentDirPath = savedInstanceState?.getString(CURRENT_DIR_PATH) ?: arguments?.getString(CURRENT_DIR_PATH)
         currentDir = storageManager.getFileByDecryptedRemotePath(currentDirPath)
         listOfHiddenFiles =
             savedInstanceState?.getStringArrayList(ARG_HIDDEN_FILES) ?: arguments?.getStringArrayList(ARG_HIDDEN_FILES)
                 ?: ArrayList()
-
-        if (!initialQuery.isNullOrEmpty()) {
-            vm.setQuery(initialQuery!!)
-            vm.initialQuery()
-        }
     }
 
     @Suppress("DEPRECATION")
@@ -302,12 +303,12 @@ class UnifiedSearchFragment :
     }
 
     private fun setUpViewModel() {
-        vm.searchResults.observe(this, this::onSearchResultChanged)
-        vm.isLoading.observe(this) { loading ->
+        vm.searchResults.observe(viewLifecycleOwner, this::onSearchResultChanged)
+        vm.isLoading.observe(viewLifecycleOwner) { loading ->
             binding.swipeContainingList.isRefreshing = loading
         }
 
-        PairMediatorLiveData(vm.searchResults, vm.isLoading).observe(this) { pair ->
+        PairMediatorLiveData(vm.searchResults, vm.isLoading).observe(viewLifecycleOwner) { pair ->
             if (pair.second == false) {
                 var count = 0
 
@@ -321,16 +322,16 @@ class UnifiedSearchFragment :
             }
         }
 
-        vm.error.observe(this) { error ->
+        vm.error.observe(viewLifecycleOwner) { error ->
             if (!error.isNullOrEmpty()) {
                 DisplayUtils.showSnackMessage(binding.root, error)
             }
         }
-        vm.browserUri.observe(this) { uri ->
+        vm.browserUri.observe(viewLifecycleOwner) { uri ->
             val browserIntent = Intent(Intent.ACTION_VIEW, uri)
             startActivity(browserIntent)
         }
-        vm.file.observe(this) {
+        vm.file.observe(viewLifecycleOwner) {
             showFile(it, showMoreActions)
         }
     }
@@ -366,22 +367,39 @@ class UnifiedSearchFragment :
     private fun setupAdapter() {
         val syncedFolderProvider = SyncedFolderProvider(requireContext().contentResolver, appPreferences, clock)
         val gridLayoutManager = GridLayoutManager(requireContext(), 1)
-        adapter = UnifiedSearchListAdapter(
-            supportsOpeningCalendarContactsLocally(),
-            storageManager,
-            this,
-            this,
-            currentAccountProvider.user,
-            requireContext(),
-            viewThemeUtils,
-            appPreferences,
-            syncedFolderProvider
-        )
-        adapter.shouldShowFooters(true)
-        adapter.setLayoutManager(gridLayoutManager)
-        binding.listRoot.layoutManager = gridLayoutManager
-        binding.listRoot.adapter = adapter
-        searchInCurrentDirectory(initialQuery ?: "")
+
+        lifecycleScope.launch(Dispatchers.IO) {
+            val client =
+                getTypedActivity(FileActivity::class.java)?.clientRepository?.getNextcloudClient() ?: return@launch
+
+            withContext(Dispatchers.Main) {
+                adapter = UnifiedSearchListAdapter(
+                    supportsOpeningCalendarContactsLocally(),
+                    storageManager,
+                    this@UnifiedSearchFragment,
+                    this@UnifiedSearchFragment,
+                    currentAccountProvider.user,
+                    requireContext(),
+                    viewThemeUtils,
+                    appPreferences,
+                    syncedFolderProvider,
+                    client,
+                    this@UnifiedSearchFragment
+                )
+
+                adapter.shouldShowFooters(true)
+                adapter.setLayoutManager(gridLayoutManager)
+                binding.listRoot.layoutManager = gridLayoutManager
+                binding.listRoot.adapter = adapter
+                searchInCurrentDirectory(initialQuery ?: "")
+
+                setUpViewModel()
+                if (!initialQuery.isNullOrEmpty()) {
+                    vm.setQuery(initialQuery!!)
+                    vm.initialQuery()
+                }
+            }
+        }
     }
 
     override fun onSearchResultClicked(searchResultEntry: SearchResultEntry) {
@@ -434,5 +452,10 @@ class UnifiedSearchFragment :
     override fun showFilesAction(searchResultEntry: SearchResultEntry) {
         showMoreActions = true
         vm.openResult(searchResultEntry)
+    }
+
+    override fun openFile(remotePath: String, showMoreActions: Boolean) {
+        this.showMoreActions = showMoreActions
+        vm.openFile(remotePath)
     }
 }
