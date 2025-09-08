@@ -40,6 +40,7 @@
     <string name="app_config_proxy_port_title">Proxy-port</string>
     <string name="app_widget_description">Viser en widget fra dashbordet</string>
     <string name="appbar_search_in">Søk i %s</string>
+    <string name="appear_offline">Vis som frakoblet</string>
     <string name="assistant_screen_add_task_alert_dialog_title">Legg til ny oppgave</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Skriv inn litt tekst</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Er du sikker på at du vil slette denne oppgaven?</string>
@@ -107,6 +108,7 @@
     <string name="bottom_navigation_menu_favorites_label">Favoritter</string>
     <string name="bottom_navigation_menu_files_label">Alle filer</string>
     <string name="bottom_navigation_menu_media_label">Media</string>
+    <string name="busy">Opptatt</string>
     <string name="calendar">Kalender</string>
     <string name="calendars">Kalendere</string>
     <string name="certificate_load_problem">Det er et problem med lasting av sertifikatet.</string>
@@ -118,7 +120,9 @@
     <string name="choose_template_helper_text">Velg en mal og oppgi filnavn</string>
     <string name="choose_which_file">Velg filen du ønsker å beholde!</string>
     <string name="choose_widget">Velg widget</string>
+    <string name="clear">Tøm</string>
     <string name="clear_notifications_failed">Kunne ikke fjerne meldinger.</string>
+    <string name="clear_status_after">Fjern status etter</string>
     <string name="clear_status_message">Fjern statusmelding</string>
     <string name="clear_status_message_after">Fjern statusmelding etter</string>
     <string name="clipboard_label">Teksten ble kopiert fra %1$s</string>
@@ -536,6 +540,7 @@
     <string name="move_file_invalid_into_descendent">Det er ikke mulig å flytte en mappe inn i sin egen undermappe</string>
     <string name="move_file_invalid_overwrite">Filen finnes allerede i målmappen</string>
     <string name="move_file_not_found">Kan ikke flytte filen. Sjekk om den eksisterer.</string>
+    <string name="mute_all_notifications">Demp alle varslinger</string>
     <string name="network_error_connect_timeout_exception">Feil oppstått ved venting på server. Kunne ikke fullføre operasjonen.</string>
     <string name="network_error_socket_exception">Feil oppstått ved forbindelsen til serveren</string>
     <string name="network_error_socket_timeout_exception">Feil oppstått ved venting på server. Kunne ikke fullføre operasjonen.</string>
@@ -737,6 +742,7 @@
     <string name="send">Send</string>
     <string name="sendbutton_description">Ikon for forsendelsesknapp</string>
     <string name="set_as">Bruk som</string>
+    <string name="set_online_status">Online-status</string>
     <string name="set_picture_as">Bruk bilde som</string>
     <string name="set_status">Velg status</string>
     <string name="set_status_message">Velg statusmelding</string>

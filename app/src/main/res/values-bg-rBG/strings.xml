@@ -90,6 +90,7 @@
     <string name="battery_optimization_title">Оптимизация на батерията</string>
     <string name="bottom_navigation_menu_favorites_label">Любими</string>
     <string name="bottom_navigation_menu_files_label">Всички файлове</string>
+    <string name="busy">Зает</string>
     <string name="calendar">Kалендар</string>
     <string name="calendars">Kалендари</string>
     <string name="certificate_load_problem">Проблем при зареждане на сертификата.</string>
@@ -101,7 +102,9 @@
     <string name="choose_template_helper_text">Моля, изберете шаблон и въведете име на файл.</string>
     <string name="choose_which_file">Изберете кой файл да бъде запазен!</string>
     <string name="choose_widget">Избор на изпълним модул</string>
+    <string name="clear">Изчистване</string>
     <string name="clear_notifications_failed">Изтриването на известията не бе успешно.</string>
+    <string name="clear_status_after">Изчистване на състоянието след</string>
     <string name="clear_status_message">Изчисти състоянието</string>
     <string name="clear_status_message_after">Изчистване на съобщение за състоянието след това</string>
     <string name="clipboard_label">Текста е копиран от %1$s</string>
@@ -638,6 +641,7 @@
     <string name="send">Изпрати</string>
     <string name="sendbutton_description">Икона на бутон за изпращане</string>
     <string name="set_as">Задай като</string>
+    <string name="set_online_status">Състояние</string>
     <string name="set_picture_as">Задай като</string>
     <string name="set_status">Задайте състояние</string>
     <string name="set_status_message">Задайте съобщение за състояние</string>

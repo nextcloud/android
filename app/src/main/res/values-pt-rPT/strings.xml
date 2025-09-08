@@ -43,6 +43,7 @@
     <string name="app_config_proxy_port_title">Porta do Proxy</string>
     <string name="app_widget_description">Mostra um \'\'widget\'\' do painel</string>
     <string name="appbar_search_in">Procurar em %s</string>
+    <string name="appear_offline">Aparecer offline</string>
     <string name="assistant_screen_add_task_alert_dialog_title">Adicionar nova tarefa</string>
     <string name="assistant_screen_create_a_new_task_from_bottom_right_text">Criar uma nova tarefa a partir do canto inferior direito</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Digite algum texto</string>
@@ -110,6 +111,7 @@
     <string name="bottom_navigation_menu_favorites_label">Favoritos</string>
     <string name="bottom_navigation_menu_files_label">Todos os ficheiros</string>
     <string name="bottom_navigation_menu_media_label">Media</string>
+    <string name="busy">Ocupado</string>
     <string name="calendar">Calendário</string>
     <string name="calendars">Calendários</string>
     <string name="certificate_load_problem">Ocorreu um problema ao carregar o certificado.</string>
@@ -121,7 +123,9 @@
     <string name="choose_template_helper_text">Por favor, escolha um modelo e insira um nome de ficheiro.</string>
     <string name="choose_which_file">Escolha o ficheiro a manter!</string>
     <string name="choose_widget">Escolher Widget</string>
+    <string name="clear">Limpar</string>
     <string name="clear_notifications_failed">Falha ao limpar notificações.</string>
+    <string name="clear_status_after">Limpar mensagem de estado após</string>
     <string name="clear_status_message">Limpar mensagem de estado</string>
     <string name="clear_status_message_after">Limpar mensagem de estado após</string>
     <string name="clipboard_label">Texto copiado a partir de %1$s</string>
@@ -521,6 +525,7 @@
     <string name="move_file_invalid_into_descendent">Não é possível mover a pasta para uma das suas próprias pastas internas</string>
     <string name="move_file_invalid_overwrite">O ficheiro já existe na pasta de destino</string>
     <string name="move_file_not_found">Não é possível mover o ficheiro. por favor, verifique se este existe.</string>
+    <string name="mute_all_notifications">Desativar todas as notificações</string>
     <string name="network_error_connect_timeout_exception">Ocorreu um erro enquanto aguardava por uma resposta do servidor. Não foi possível concluir a operação.</string>
     <string name="network_error_socket_exception">Ocorreu um erro durante a ligação ao servidor</string>
     <string name="network_error_socket_timeout_exception">Ocorreu um erro enquanto aguardava pelo servidor. Não foi possível concluir a operação.</string>
@@ -700,6 +705,7 @@
     <string name="sendbutton_description">Botão de envio</string>
     <string name="set_as">Definir como</string>
     <string name="set_note">Definir nota</string>
+    <string name="set_online_status">Estado on-line</string>
     <string name="set_picture_as">Usar imagem como</string>
     <string name="set_status">Definir estado</string>
     <string name="set_status_message">Defina a mensagem de estado</string>

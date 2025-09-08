@@ -43,6 +43,7 @@
     <string name="app_config_proxy_port_title">Порт проксі-сервера</string>
     <string name="app_widget_description">Показувати один віджет з панелі віджетів</string>
     <string name="appbar_search_in">Пошук у %s</string>
+    <string name="appear_offline">Перебуваю поза мережею</string>
     <string name="assistant_screen_add_task_alert_dialog_title">Додати нове завдання</string>
     <string name="assistant_screen_create_a_new_task_from_bottom_right_text">Створити нове завдання праворуч внизу</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Вставте будь-який текст</string>
@@ -115,6 +116,7 @@
     <string name="bottom_navigation_menu_favorites_label">Із зірочкою</string>
     <string name="bottom_navigation_menu_files_label">Усі документи</string>
     <string name="bottom_navigation_menu_media_label">Зображення та відео</string>
+    <string name="busy">Зайнято</string>
     <string name="calendar">Календар</string>
     <string name="calendars">Календарі</string>
     <string name="certificate_load_problem">Помилка завантаження сертифіката.</string>
@@ -126,7 +128,9 @@
     <string name="choose_template_helper_text">Будь ласка, оберіть шаблон і введіть ім\'я файлу.</string>
     <string name="choose_which_file">Виберіть, який файл зберегти!</string>
     <string name="choose_widget">Виберіть віджет</string>
+    <string name="clear">Очистити</string>
     <string name="clear_notifications_failed">Неможливо очистити сповіщення.</string>
+    <string name="clear_status_after">Очистити статус після</string>
     <string name="clear_status_message">Прибрати статус</string>
     <string name="clear_status_message_after">Очистити повідомлення про стан після</string>
     <string name="clipboard_label">Текст скопійовано з %1$s</string>
@@ -578,6 +582,7 @@
     <string name="move_file_invalid_into_descendent">Неможливо перемістити каталог до одного з вкладених підкаталогів</string>
     <string name="move_file_invalid_overwrite">Файл вже присутній у каталозі призначення</string>
     <string name="move_file_not_found">Неможливо перемістити файл. Будь ласка, перевірте, чи він існує.</string>
+    <string name="mute_all_notifications">Вимкнути всі сповіщення</string>
     <string name="network_error_connect_timeout_exception">Помилка під час очікування відповіді від сервера. Неможливо виконати дію.</string>
     <string name="network_error_socket_exception">Помилка під час з\'єднання з сервером</string>
     <string name="network_error_socket_timeout_exception">Помилка під час очікування відповіді від сервера. Неможливо виконати дію.</string>
@@ -810,6 +815,7 @@
     <string name="set_as">Встановити як</string>
     <string name="set_download_limit_failed">Неможливо встановити обмеження на звантаження. Перевірте доступні вам функції.</string>
     <string name="set_note">Додати примітку</string>
+    <string name="set_online_status">Мій статус доступності</string>
     <string name="set_picture_as">Використати як</string>
     <string name="set_status">Встановити статус</string>
     <string name="set_status_message">Оновити статус</string>

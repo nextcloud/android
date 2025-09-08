@@ -530,6 +530,7 @@
     <string name="send">Cuir</string>
     <string name="sendbutton_description">Ìomhaigheag putan a’ chuir</string>
     <string name="set_as">Suidhich mar</string>
+    <string name="set_online_status">Staid air loidhne</string>
     <string name="set_picture_as">Cleachd an dealbh mar</string>
     <string name="set_status">Suidhich an staid</string>
     <string name="set_status_message">Suidhich teachdaireachd na staide</string>

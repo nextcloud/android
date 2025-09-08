@@ -84,6 +84,7 @@
     <string name="bottom_navigation_menu_favorites_label">Αγαπημένα</string>
     <string name="bottom_navigation_menu_files_label">Όλα τα αρχεία</string>
     <string name="bottom_navigation_menu_media_label">Μέσα ενημέρωσης</string>
+    <string name="busy">Απασχολημένος</string>
     <string name="calendar">Ημερολόγιο</string>
     <string name="calendars">Ημερολόγια</string>
     <string name="certificate_load_problem">Πρόβλημα φόρτωσης του πιστοποιητικού.</string>
@@ -95,7 +96,9 @@
     <string name="choose_template_helper_text">Παρακαλούμε επιλέξτε ένα πρότυπο και εισαγάγετε ένα όνομα αρχείου.</string>
     <string name="choose_which_file">Επέλεξε ποιο αρχείο θέλεις να κρατήσεις!</string>
     <string name="choose_widget">Επιλογή γραφικού στοιχείου</string>
+    <string name="clear">Εκκαθάριση</string>
     <string name="clear_notifications_failed">Αποτυχία εκκαθάρισης όλων των ειδοποιήσεων</string>
+    <string name="clear_status_after">Εκκαθάριση κατάστασης μετά από</string>
     <string name="clear_status_message">Εκκαθάριση μηνύματος κατάστασης</string>
     <string name="clear_status_message_after">Εκκαθάριση μηνύματος κατάστασης μετά από</string>
     <string name="clipboard_label">Κείμενο που αντιγράφηκε από τον %1$s</string>
@@ -639,6 +642,7 @@
     <string name="send">Αποστολή</string>
     <string name="sendbutton_description">Εικονίδιο κουμπιού αποστολής</string>
     <string name="set_as">Ορισμός ως</string>
+    <string name="set_online_status">Κατάσταση σε σύνδεση</string>
     <string name="set_picture_as">Χρησιμοποίησε την εικόνα ως</string>
     <string name="set_status">Ορισμός κατάστασης</string>
     <string name="set_status_message">Ορισμός μηνύματος κατάστασης</string>

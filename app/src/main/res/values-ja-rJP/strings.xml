@@ -43,6 +43,7 @@
     <string name="app_config_proxy_port_title">プロキシポート</string>
     <string name="app_widget_description">ダッシュボードから一つのウィジェットを表示</string>
     <string name="appbar_search_in">%s の中を検索</string>
+    <string name="appear_offline">オフライン</string>
     <string name="assistant_screen_add_task_alert_dialog_title">新しいタスクを追加</string>
     <string name="assistant_screen_create_a_new_task_from_bottom_right_text">右下から新しいタスクを作成する</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">テキストを入力</string>
@@ -115,6 +116,7 @@
     <string name="bottom_navigation_menu_favorites_label">お気に入り</string>
     <string name="bottom_navigation_menu_files_label">すべてのファイル</string>
     <string name="bottom_navigation_menu_media_label">メディア</string>
+    <string name="busy">ビジー</string>
     <string name="calendar">カレンダー</string>
     <string name="calendars">カレンダー</string>
     <string name="certificate_load_problem">証明書の読み込みに問題がありました。</string>
@@ -126,7 +128,9 @@
     <string name="choose_template_helper_text">テンプレートを選択してファイル名を入力してください。</string>
     <string name="choose_which_file">保存するファイルを選択</string>
     <string name="choose_widget">ウィジェットを選択</string>
+    <string name="clear">クリア</string>
     <string name="clear_notifications_failed">通知の削除に失敗</string>
+    <string name="clear_status_after">ステータスの有効期限</string>
     <string name="clear_status_message">メッセージを消去</string>
     <string name="clear_status_message_after">ステータスメッセージの有効期限</string>
     <string name="clipboard_label">%1$s からテキストをコピー</string>
@@ -562,6 +566,7 @@
     <string name="move_file_invalid_into_descendent">フォルダを自身の基礎となるフォルダの1つに移動することはできません</string>
     <string name="move_file_invalid_overwrite">そのファイルは移動先フォルダーにすでに存在します。</string>
     <string name="move_file_not_found">ファイルを移動できません。ファイルがあるか確認してください。</string>
+    <string name="mute_all_notifications">全ての通知をミュートします</string>
     <string name="network_error_connect_timeout_exception">サーバーの応答を待っている間にエラーが発生しました。操作を完了できませんでした。</string>
     <string name="network_error_socket_exception">サーバーへの接続中にエラーが発生しました。</string>
     <string name="network_error_socket_timeout_exception">サーバーの応答を待っている間にエラーが発生しました。操作を完了できませんでした。</string>

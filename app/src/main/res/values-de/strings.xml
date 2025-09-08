@@ -115,6 +115,7 @@
     <string name="bottom_navigation_menu_favorites_label">Favoriten</string>
     <string name="bottom_navigation_menu_files_label">Alle Dateien</string>
     <string name="bottom_navigation_menu_media_label">Medien</string>
+    <string name="busy">Beschäftigt</string>
     <string name="calendar">Kalender</string>
     <string name="calendars">Kalender</string>
     <string name="certificate_load_problem">Beim Laden des Zertifikats ist ein Fehler aufgetreten.</string>
@@ -126,6 +127,7 @@
     <string name="choose_template_helper_text">Bitte eine Vorlage auswählen und einen Dateinamen eingeben.</string>
     <string name="choose_which_file">Wählen Sie, welche Datei behalten werden soll!</string>
     <string name="choose_widget">Widget auswählen</string>
+    <string name="clear">Leeren</string>
     <string name="clear_notifications_failed">Benachrichtigungen konnten nicht gelöscht werden</string>
     <string name="clear_status_message">Statusnachricht löschen</string>
     <string name="clear_status_message_after">Statusnachricht löschen nach</string>

@@ -80,6 +80,7 @@
     <string name="bottom_navigation_menu_favorites_label">Favorites</string>
     <string name="bottom_navigation_menu_files_label">All files</string>
     <string name="bottom_navigation_menu_media_label">Media</string>
+    <string name="busy">Busy</string>
     <string name="calendar">Calendar</string>
     <string name="calendars">Calendars</string>
     <string name="certificate_load_problem">There is a problem loading the certificate.</string>
@@ -91,6 +92,7 @@
     <string name="choose_template_helper_text">Please choose a template and enter a file name.</string>
     <string name="choose_which_file">Choose which file to keep!</string>
     <string name="choose_widget">Choose widget</string>
+    <string name="clear">Clear</string>
     <string name="clear_notifications_failed">Failed to clear notifications.</string>
     <string name="clear_status_message">Clear status message</string>
     <string name="clear_status_message_after">Clear status message after</string>
@@ -653,6 +655,7 @@
     <string name="send">Send</string>
     <string name="sendbutton_description">Send button icon</string>
     <string name="set_as">Set As</string>
+    <string name="set_online_status">Online status</string>
     <string name="set_picture_as">Use picture as</string>
     <string name="set_status">Set status</string>
     <string name="set_status_message">Set status message</string>

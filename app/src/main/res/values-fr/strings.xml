@@ -115,6 +115,7 @@
     <string name="bottom_navigation_menu_favorites_label">Favoris</string>
     <string name="bottom_navigation_menu_files_label">Tous les fichiers</string>
     <string name="bottom_navigation_menu_media_label">Médias</string>
+    <string name="busy">Occupé</string>
     <string name="calendar">Agenda</string>
     <string name="calendars">Agendas</string>
     <string name="certificate_load_problem">Le chargement du certificat pose problème.</string>
@@ -126,7 +127,9 @@
     <string name="choose_template_helper_text">Veuillez choisir un modèle et entrer un nom de fichier</string>
     <string name="choose_which_file">Sélectionnez le fichier à conserver</string>
     <string name="choose_widget">Choisir un widget</string>
+    <string name="clear">Effacer</string>
     <string name="clear_notifications_failed">Erreur lors de l\'effacement des notifications.</string>
+    <string name="clear_status_after">Effacer l\'état après</string>
     <string name="clear_status_message">Effacer le message d\'état</string>
     <string name="clear_status_message_after">Effacer le message d\'état après</string>
     <string name="clipboard_label">Texte copié depuis %1$s</string>
@@ -578,6 +581,7 @@
     <string name="move_file_invalid_into_descendent">Il n\'est pas possible de déplacer un dossier vers un de ses descendants</string>
     <string name="move_file_invalid_overwrite">Le fichier existe déjà dans le dossier de destination</string>
     <string name="move_file_not_found">Impossible de déplacer le fichier. Veuillez vérifier s\'il existe.</string>
+    <string name="mute_all_notifications">Désactiver les notifications</string>
     <string name="network_error_connect_timeout_exception">Une erreur s\'est produite pendant l\'attente du serveur. Impossible de terminer l\'opération.</string>
     <string name="network_error_socket_exception">Une erreur est survenue pendant la connexion au serveur</string>
     <string name="network_error_socket_timeout_exception">Une erreur est survenue pendant l\'attente du serveur. Impossible de terminer l\'opération.</string>
@@ -811,6 +815,7 @@
     <string name="set_as">Utiliser comme</string>
     <string name="set_download_limit_failed">Impossible de définir la limite de téléchargement. Veuillez vérifier les autorisations.</string>
     <string name="set_note">Définir la note</string>
+    <string name="set_online_status">Statut de connexion</string>
     <string name="set_picture_as">Utiliser l\'image comme</string>
     <string name="set_status">Définir le statut</string>
     <string name="set_status_message">Enregistrer le message d\'état</string>

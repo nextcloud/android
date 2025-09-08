@@ -43,6 +43,7 @@
     <string name="app_config_proxy_port_title">Porta do Proxy</string>
     <string name="app_widget_description">Mostra um widget do painel</string>
     <string name="appbar_search_in">Pesquisar em %s</string>
+    <string name="appear_offline">Aparecer off-line</string>
     <string name="assistant_screen_add_task_alert_dialog_title">Adicionar nova tarefa</string>
     <string name="assistant_screen_create_a_new_task_from_bottom_right_text">Criar uma nova tarefa no canto inferior direito</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Digite algum texto</string>
@@ -115,6 +116,7 @@
     <string name="bottom_navigation_menu_favorites_label">Favoritos</string>
     <string name="bottom_navigation_menu_files_label">Todos os arquivos</string>
     <string name="bottom_navigation_menu_media_label">Mídia</string>
+    <string name="busy">Ocupado</string>
     <string name="calendar">Calendário</string>
     <string name="calendars">Calendários </string>
     <string name="certificate_load_problem">Existe um problema ao carregar o certificado.</string>
@@ -126,7 +128,9 @@
     <string name="choose_template_helper_text">Escolha um modelo e insira um nome de arquivo. </string>
     <string name="choose_which_file">Escolha qual arquivo manter!</string>
     <string name="choose_widget">Escolher widget</string>
+    <string name="clear">Apagar</string>
     <string name="clear_notifications_failed">Erro ao limpar as notificações.</string>
+    <string name="clear_status_after">Limpar status após</string>
     <string name="clear_status_message">Limpar mensagem de status</string>
     <string name="clear_status_message_after">Limpar mensagem de status após</string>
     <string name="clipboard_label">Texto copiado de %1$s</string>
@@ -811,6 +815,7 @@
     <string name="set_as">Definir como</string>
     <string name="set_download_limit_failed">Não foi possível definir o limite de download. Verifique as capacidades.</string>
     <string name="set_note">Definir nota</string>
+    <string name="set_online_status">Status on-line</string>
     <string name="set_picture_as">Usar imagem como</string>
     <string name="set_status">Definir status</string>
     <string name="set_status_message">Definir mensagem de status</string>

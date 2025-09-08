@@ -76,6 +76,7 @@
     <string name="checkbox">Checkbox</string>
     <string name="choose_local_folder">Zgjidhni dosjen lokale…</string>
     <string name="choose_remote_folder">Zhgjidhni dosjen remote…</string>
+    <string name="clear">Pastro</string>
     <string name="clear_notifications_failed">Dështoi pastrimi i njoftimeve.</string>
     <string name="clipboard_label">Tekst i kopjuar prej %1$s</string>
     <string name="clipboard_no_text_to_copy">S’u mor tekst për t’u kopjuar në të papastër</string>

@@ -30,6 +30,7 @@
     <string name="add_to_cloud">เพิ่มไปยัง %1$s</string>
     <string name="app_widget_description">แสดงหนึ่งวิดเจ็ตจากแดชบอร์ด</string>
     <string name="appbar_search_in">ค้นหาใน %s</string>
+    <string name="appear_offline">แสดงเป็นออฟไลน์</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">พิมพ์ข้อความของคุณ</string>
     <string name="associated_account_not_found">ไม่พบบัญชีที่เกี่ยวข้อง!</string>
     <string name="auth_access_failed">การเข้าถึงล้มเหลว: %1$s</string>
@@ -90,7 +91,9 @@
     <string name="choose_template_helper_text">กรุณาเลือกเทมเพลตและใส่ชื่อไฟล์</string>
     <string name="choose_which_file">เลือกไฟล์ที่จะเก็บ</string>
     <string name="choose_widget">เลือกวิดเจ็ต</string>
+    <string name="clear">ล้าง</string>
     <string name="clear_notifications_failed">ไม่สามารถล้างการแจ้งเตือน</string>
+    <string name="clear_status_after">ล้างสถานะหลังจาก</string>
     <string name="clear_status_message">ล้างข้อความสถานะ</string>
     <string name="clear_status_message_after">ล้างข้อความสถานะหลังจาก</string>
     <string name="clipboard_label">คัดลอกข้อความจาก %1$s แล้ว</string>
@@ -407,6 +410,7 @@
     <string name="move_file_error">เกิดข้อผิดพลาดขณะพยายามที่จะย้ายไฟล์หรือโฟลเดอร์นี้</string>
     <string name="move_file_invalid_overwrite">ไฟล์นี้มีในโฟลเดอร์ปลายทางอยู่แล้ว</string>
     <string name="move_file_not_found">ไม่สามารถย้ายไฟล์ กรุณาตรวจสอบว่ามีไฟล์นั้นอยู่หรือไม่</string>
+    <string name="mute_all_notifications">ปิดการแจ้งเตือนทั้งหมด</string>
     <string name="network_error_connect_timeout_exception">เกิดข้อผิดพลาดขณะรอเซิร์ฟเวอร์ ไม่สามารถดำเนินการให้เสร็จสมบูรณ์</string>
     <string name="network_error_socket_exception">เกิดข้อผิดพลาดขณะเชื่อมต่อไปยังเซิร์ฟเวอร์</string>
     <string name="network_error_socket_timeout_exception">เกิดข้อผิดพลาดขณะรอเซิร์ฟเวอร์ ไม่สามารถดำเนินการให้เสร็จสมบูรณ์</string>
@@ -487,6 +491,7 @@
     <string name="scanQR_description">เข้าสู่ระบบผ่านคิวอาร์โค้ด</string>
     <string name="select_all">เลือกทั้งหมด</string>
     <string name="send">ส่ง</string>
+    <string name="set_online_status">สถานะออนไลน์</string>
     <string name="set_status">กำหนดสถานะ</string>
     <string name="set_status_message">กำหนดข้อความสถานะ</string>
     <string name="share">แชร์</string>

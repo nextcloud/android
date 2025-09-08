@@ -43,6 +43,7 @@
     <string name="app_config_proxy_port_title">代理端口</string>
     <string name="app_widget_description">显示仪表盘中的一个小部件</string>
     <string name="appbar_search_in">在 %s 中搜索</string>
+    <string name="appear_offline">显示为离线</string>
     <string name="assistant_screen_add_task_alert_dialog_title">添加新任务</string>
     <string name="assistant_screen_create_a_new_task_from_bottom_right_text">从右下角创建新任务</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">输入一些文字</string>
@@ -115,6 +116,7 @@
     <string name="bottom_navigation_menu_favorites_label">收藏</string>
     <string name="bottom_navigation_menu_files_label">全部文件</string>
     <string name="bottom_navigation_menu_media_label">媒体文件</string>
+    <string name="busy">忙碌</string>
     <string name="calendar">日历</string>
     <string name="calendars">日历</string>
     <string name="certificate_load_problem">加载证书失败。</string>
@@ -126,7 +128,9 @@
     <string name="choose_template_helper_text">请选择一个模板并输入一个文件名</string>
     <string name="choose_which_file">选择保留的文件！</string>
     <string name="choose_widget">选择小部件</string>
+    <string name="clear">清除</string>
     <string name="clear_notifications_failed">清除通知失败</string>
+    <string name="clear_status_after">清除状态于</string>
     <string name="clear_status_message">清除状态消息</string>
     <string name="clear_status_message_after">在多久后清除状态消息</string>
     <string name="clipboard_label">从%1$s复制文本</string>
@@ -578,6 +582,7 @@
     <string name="move_file_invalid_into_descendent">不能将文件夹移动至其子文件夹中。</string>
     <string name="move_file_invalid_overwrite">该文件已存在于目标文件夹中</string>
     <string name="move_file_not_found">无法移动文件。 请检查该文件是否存在。</string>
+    <string name="mute_all_notifications">静音所有通知</string>
     <string name="network_error_connect_timeout_exception">等待服务器时发生错误。 无法完成操作。</string>
     <string name="network_error_socket_exception">连接到服务器时发生错误。</string>
     <string name="network_error_socket_timeout_exception">等待服务器时发生错误。 无法完成操作。</string>

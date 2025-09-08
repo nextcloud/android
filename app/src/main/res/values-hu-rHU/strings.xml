@@ -115,6 +115,7 @@
     <string name="bottom_navigation_menu_favorites_label">Kedvencek</string>
     <string name="bottom_navigation_menu_files_label">Összes fájl</string>
     <string name="bottom_navigation_menu_media_label">Média</string>
+    <string name="busy">Foglalt</string>
     <string name="calendar">Naptár</string>
     <string name="calendars">Naptárak</string>
     <string name="certificate_load_problem">Probléma történt a tanúsítvány betöltésekor.</string>
@@ -126,7 +127,9 @@
     <string name="choose_template_helper_text">Válasszon egy sablont, és írja be a fájl nevét.</string>
     <string name="choose_which_file">Válasszon melyik fájl legyen megtartva!</string>
     <string name="choose_widget">Válasszon modult</string>
+    <string name="clear">Törlés</string>
     <string name="clear_notifications_failed">Az értesítések törlése sikertelen.</string>
+    <string name="clear_status_after">Állapot törlése ennyi idő után</string>
     <string name="clear_status_message">Állapotüzenet törlése</string>
     <string name="clear_status_message_after">Állapotüzenet törlése ennyi idő után:</string>
     <string name="clipboard_label">Szöveg másolva innen: %1$s</string>
@@ -807,6 +810,7 @@
     <string name="set_as">Beállítás mint</string>
     <string name="set_download_limit_failed">A letöltési korlát nem állítható be. Ellenőrizze az elérhető funkciókat.</string>
     <string name="set_note">Jegyzet beállítása</string>
+    <string name="set_online_status">Elérhető állapot</string>
     <string name="set_picture_as">Kép használata mint</string>
     <string name="set_status">Állapot beállítása</string>
     <string name="set_status_message">Állapotüzenet beállítása</string>

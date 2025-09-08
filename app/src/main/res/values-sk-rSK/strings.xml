@@ -115,6 +115,7 @@
     <string name="bottom_navigation_menu_favorites_label">Obľúbené</string>
     <string name="bottom_navigation_menu_files_label">Všetky súbory</string>
     <string name="bottom_navigation_menu_media_label">Média</string>
+    <string name="busy">Zaneprázdnený</string>
     <string name="calendar">Kalendár</string>
     <string name="calendars">Kalendáre</string>
     <string name="certificate_load_problem">Nastal problém s načítaním certifikátu.</string>
@@ -126,7 +127,9 @@
     <string name="choose_template_helper_text">Prosím vyberte šablónu a zadajte meno súboru.</string>
     <string name="choose_which_file">Vyberte ktorý súbor zachovať!</string>
     <string name="choose_widget">Vybrať widget</string>
+    <string name="clear">Vyčistiť</string>
     <string name="clear_notifications_failed">Odstránenie upozornení zlyhalo.</string>
+    <string name="clear_status_after">Vyčistiť správu o stave po</string>
     <string name="clear_status_message">Vyčistiť správu o stave</string>
     <string name="clear_status_message_after">Vyčistiť správu o stave po</string>
     <string name="clipboard_label">Text kopírovaný z %1$s</string>
@@ -782,6 +785,7 @@
     <string name="sendbutton_description">Ikona tlačidla na odoslanie</string>
     <string name="set_as">Nastaviť ako</string>
     <string name="set_note">Nastaviť poznámku</string>
+    <string name="set_online_status">Stav pripojenia</string>
     <string name="set_picture_as">Použiť obrázok ako</string>
     <string name="set_status">Nastaviť stav</string>
     <string name="set_status_message">Nastaviť správu o stave</string>

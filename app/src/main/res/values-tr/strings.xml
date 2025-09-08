@@ -43,6 +43,7 @@
     <string name="app_config_proxy_port_title">Vekil sunucu bağlantı noktası</string>
     <string name="app_widget_description">Panodan bir pano bileşeni görüntüler</string>
     <string name="appbar_search_in">%s içinde ara</string>
+    <string name="appear_offline">Çevrim dışı görün</string>
     <string name="assistant_screen_add_task_alert_dialog_title">Yeni görev ekle</string>
     <string name="assistant_screen_create_a_new_task_from_bottom_right_text">Sağ alttan yeni bir görev oluşturun</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Bir şeyler yazın</string>
@@ -115,6 +116,7 @@
     <string name="bottom_navigation_menu_favorites_label">Sık kullanılanlar</string>
     <string name="bottom_navigation_menu_files_label">Tüm dosyalar</string>
     <string name="bottom_navigation_menu_media_label">Ortam</string>
+    <string name="busy">Meşgul</string>
     <string name="calendar">Takvim</string>
     <string name="calendars">Takvimler</string>
     <string name="certificate_load_problem">Sertifika yüklenirken bir sorun çıktı.</string>
@@ -126,7 +128,9 @@
     <string name="choose_template_helper_text">Lütfen bir kalıp seçin ve bir dosya adı yazın.</string>
     <string name="choose_which_file">Korunacak dosyayı seçin!</string>
     <string name="choose_widget">Pano bileşenini seçin</string>
+    <string name="clear">Temizle</string>
     <string name="clear_notifications_failed">Bildirimler temizlenemedi.</string>
+    <string name="clear_status_after">Durum şu kadar sonra kaldırılsın</string>
     <string name="clear_status_message">Durum iletisini kaldır</string>
     <string name="clear_status_message_after">Durum iletisi şu süre sonunda kaldırılsın</string>
     <string name="clipboard_label">Yazı %1$s kaynağından kopyalandı</string>
@@ -811,6 +815,7 @@
     <string name="set_as">Farklı ayarla</string>
     <string name="set_download_limit_failed">İndirme sınırı ayarlanamadı. Lütfen yetenekleri denetleyin.</string>
     <string name="set_note">Notu ayarla</string>
+    <string name="set_online_status">Çevrim içi durumu</string>
     <string name="set_picture_as">Görsel şunun için kullanılsın</string>
     <string name="set_status">Durumu ayarla</string>
     <string name="set_status_message">Durum iletisini ayarla</string>

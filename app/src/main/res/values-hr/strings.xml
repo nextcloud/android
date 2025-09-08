@@ -81,6 +81,7 @@
     <string name="bottom_navigation_menu_favorites_label">Favoriti</string>
     <string name="bottom_navigation_menu_files_label">Sve datoteke</string>
     <string name="bottom_navigation_menu_media_label">Medij</string>
+    <string name="busy">Zauzeto</string>
     <string name="calendar">Kalendar</string>
     <string name="calendars">Kalendari</string>
     <string name="certificate_load_problem">Došlo je do poteškoća prilikom učitavanja vjerodajnice.</string>
@@ -90,7 +91,9 @@
     <string name="choose_remote_folder">Odaberite udaljenu mapu...</string>
     <string name="choose_template_helper_text">Odaberite predložak i unesite naziv datoteke.</string>
     <string name="choose_which_file">Odaberite datoteku koju želite zadržati!</string>
+    <string name="clear">Izbriši</string>
     <string name="clear_notifications_failed">Brisanje obavijesti nije uspjelo.</string>
+    <string name="clear_status_after">Izbriši status nakon</string>
     <string name="clear_status_message">Izbriši poruku statusa</string>
     <string name="clear_status_message_after">Izbriši poruku statusa nakon</string>
     <string name="clipboard_label">Tekst kopiran iz %1$s</string>
