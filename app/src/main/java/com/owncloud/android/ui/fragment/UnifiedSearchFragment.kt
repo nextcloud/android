@@ -296,7 +296,7 @@ class UnifiedSearchFragment :
                     count += it.entries.size
                 }
 
-                if (count == 0 && pair.first?.isNotEmpty() == true && context != null) {
+                if (count == 0 && pair.first?.isNotEmpty() == true && context != null && !adapter.isCurrentDirItemsEmpty()) {
                     showNoResult()
                 }
             }
