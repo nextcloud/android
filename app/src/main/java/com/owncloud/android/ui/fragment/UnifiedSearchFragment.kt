@@ -31,13 +31,17 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.nextcloud.client.account.CurrentAccountProvider
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.core.AsyncRunner
+import com.nextcloud.client.core.Clock
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.di.ViewModelFactory
 import com.nextcloud.client.network.ClientFactory
+import com.nextcloud.client.preferences.AppPreferences
+import com.nextcloud.utils.extensions.searchFilesByName
 import com.owncloud.android.R
 import com.owncloud.android.databinding.ListFragmentBinding
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
+import com.owncloud.android.datamodel.SyncedFolderProvider
 import com.owncloud.android.lib.common.SearchResultEntry
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.lib.resources.status.NextcloudVersion
@@ -76,16 +80,20 @@ class UnifiedSearchFragment :
     companion object {
         private const val TAG = "UnifiedSearchFragment"
 
-        const val ARG_QUERY = "ARG_QUERY"
-        const val ARG_HIDDEN_FILES = "ARG_HIDDEN_FILES"
+        private const val ARG_QUERY = "ARG_QUERY"
+        private const val ARG_HIDDEN_FILES = "ARG_HIDDEN_FILES"
+        private const val CURRENT_DIR_PATH = "CURRENT_DIR"
 
-        fun newInstance(query: String?, listOfHiddenFiles: ArrayList<String>?): UnifiedSearchFragment {
-            val fragment = UnifiedSearchFragment()
-            val args = Bundle()
-            args.putString(ARG_QUERY, query)
-            args.putStringArrayList(ARG_HIDDEN_FILES, listOfHiddenFiles)
-            fragment.arguments = args
-            return fragment
+        fun newInstance(
+            query: String?,
+            listOfHiddenFiles: ArrayList<String>?,
+            currentDirPath: String
+        ): UnifiedSearchFragment = UnifiedSearchFragment().apply {
+            arguments = Bundle().apply {
+                putString(ARG_QUERY, query)
+                putString(CURRENT_DIR_PATH, currentDirPath)
+                putStringArrayList(ARG_HIDDEN_FILES, listOfHiddenFiles)
+            }
         }
     }
 
@@ -110,21 +118,31 @@ class UnifiedSearchFragment :
     @Inject
     lateinit var accountManager: UserAccountManager
 
+    @Inject
+    lateinit var appPreferences: AppPreferences
+
+    @Inject
+    lateinit var clock: Clock
+
     private var listOfHiddenFiles = ArrayList<String>()
     private var showMoreActions = false
+    private var currentDir: OCFile? = null
+    private var initialQuery: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         vm = ViewModelProvider(this, vmFactory)[UnifiedSearchViewModel::class.java]
         setUpViewModel()
 
-        val query = savedInstanceState?.getString(ARG_QUERY) ?: arguments?.getString(ARG_QUERY)
+        initialQuery = savedInstanceState?.getString(ARG_QUERY) ?: arguments?.getString(ARG_QUERY)
+        val currentDirPath = savedInstanceState?.getString(CURRENT_DIR_PATH) ?: arguments?.getString(CURRENT_DIR_PATH)
+        currentDir = storageManager.getFileByDecryptedRemotePath(currentDirPath)
         listOfHiddenFiles =
             savedInstanceState?.getStringArrayList(ARG_HIDDEN_FILES) ?: arguments?.getStringArrayList(ARG_HIDDEN_FILES)
                 ?: ArrayList()
 
-        if (!query.isNullOrEmpty()) {
-            vm.setQuery(query)
+        if (!initialQuery.isNullOrEmpty()) {
+            vm.setQuery(initialQuery!!)
             vm.initialQuery()
         }
     }
@@ -200,6 +218,7 @@ class UnifiedSearchFragment :
 
             vm.setQuery("")
             adapter.setData(emptyList())
+            adapter.setDataCurrentDirItems(listOf())
 
             showStartYourSearch()
             showKeyboard(searchView)
@@ -345,6 +364,7 @@ class UnifiedSearchFragment :
     }
 
     private fun setupAdapter() {
+        val syncedFolderProvider = SyncedFolderProvider(requireContext().contentResolver, appPreferences, clock)
         val gridLayoutManager = GridLayoutManager(requireContext(), 1)
         adapter = UnifiedSearchListAdapter(
             supportsOpeningCalendarContactsLocally(),
@@ -353,12 +373,15 @@ class UnifiedSearchFragment :
             this,
             currentAccountProvider.user,
             requireContext(),
-            viewThemeUtils
+            viewThemeUtils,
+            appPreferences,
+            syncedFolderProvider
         )
         adapter.shouldShowFooters(true)
         adapter.setLayoutManager(gridLayoutManager)
         binding.listRoot.layoutManager = gridLayoutManager
         binding.listRoot.adapter = adapter
+        searchInCurrentDirectory(initialQuery ?: "")
     }
 
     override fun onSearchResultClicked(searchResultEntry: SearchResultEntry) {
@@ -392,7 +415,15 @@ class UnifiedSearchFragment :
     override fun onQueryTextChange(newText: String?): Boolean {
         val closeButton = searchView?.findViewById<ImageView>(androidx.appcompat.R.id.search_close_btn)
         closeButton?.visibility = if (newText?.isEmpty() == true) View.INVISIBLE else View.VISIBLE
+        searchInCurrentDirectory(newText ?: "")
         return true
+    }
+
+    private fun searchInCurrentDirectory(query: String) {
+        currentDir?.run {
+            val files = storageManager.searchFilesByName(this, accountManager.user.accountName, query)
+            adapter.setDataCurrentDirItems(files)
+        }
     }
 
     override fun onDestroyView() {

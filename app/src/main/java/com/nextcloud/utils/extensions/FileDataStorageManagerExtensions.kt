@@ -10,6 +10,11 @@ package com.nextcloud.utils.extensions
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
 
+fun FileDataStorageManager.searchFilesByName(file: OCFile, accountName: String, query: String): List<OCFile> =
+    fileDao.searchFilesInFolder(file.fileId, accountName, query).map {
+        createFileInstance(it)
+    }
+
 fun FileDataStorageManager.getDecryptedPath(file: OCFile): String {
     val paths = mutableListOf<String>()
     var entity = fileDao.getFileByEncryptedRemotePath(file.remotePath, user.accountName)

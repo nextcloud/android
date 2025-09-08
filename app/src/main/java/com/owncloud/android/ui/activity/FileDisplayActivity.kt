@@ -2952,7 +2952,12 @@ class FileDisplayActivity :
     }
 
     fun performUnifiedSearch(query: String, listOfHiddenFiles: ArrayList<String>?) {
-        val unifiedSearchFragment = UnifiedSearchFragment.Companion.newInstance(query, listOfHiddenFiles)
+        val unifiedSearchFragment =
+            UnifiedSearchFragment.Companion.newInstance(
+                query,
+                listOfHiddenFiles,
+                currentDir.decryptedRemotePath
+            )
         setLeftFragment(unifiedSearchFragment, false)
     }
 
