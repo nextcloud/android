@@ -17,6 +17,7 @@ import com.afollestad.sectionedrecyclerview.SectionedRecyclerViewAdapter
 import com.afollestad.sectionedrecyclerview.SectionedViewHolder
 import com.nextcloud.client.account.User
 import com.nextcloud.client.preferences.AppPreferences
+import com.nextcloud.common.NextcloudClient
 import com.owncloud.android.R
 import com.owncloud.android.databinding.UnifiedSearchCurrentDirectoryItemBinding
 import com.owncloud.android.databinding.UnifiedSearchEmptyBinding
@@ -27,6 +28,7 @@ import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.datamodel.SyncedFolderProvider
 import com.owncloud.android.datamodel.ThumbnailsCacheManager
+import com.owncloud.android.ui.interfaces.UnifiedSearchCurrentDirItemAction
 import com.owncloud.android.ui.interfaces.UnifiedSearchListInterface
 import com.owncloud.android.ui.unifiedsearch.UnifiedSearchSection
 import com.owncloud.android.utils.DisplayUtils
@@ -45,7 +47,9 @@ class UnifiedSearchListAdapter(
     private val context: Context,
     private val viewThemeUtils: ViewThemeUtils,
     private val appPreferences: AppPreferences,
-    private val syncedFolderProvider: SyncedFolderProvider
+    private val syncedFolderProvider: SyncedFolderProvider,
+    private val nextcloudClient: NextcloudClient,
+    private val currentDirItemAction: UnifiedSearchCurrentDirItemAction
 ) : SectionedRecyclerViewAdapter<SectionedViewHolder>() {
     companion object {
         private const val VIEW_TYPE_EMPTY = Int.MAX_VALUE
@@ -83,12 +87,11 @@ class UnifiedSearchListAdapter(
                 UnifiedSearchItemViewHolder(
                     supportsOpeningCalendarContactsLocally,
                     binding,
-                    user,
                     storageManager,
                     listInterface,
                     filesAction,
                     context,
-                    viewThemeUtils
+                    nextcloudClient
                 )
             }
             VIEW_TYPE_CURRENT_DIR -> {
@@ -102,7 +105,8 @@ class UnifiedSearchListAdapter(
                     isRTL,
                     user,
                     appPreferences,
-                    syncedFolderProvider
+                    syncedFolderProvider,
+                    currentDirItemAction
                 )
             }
             VIEW_TYPE_EMPTY -> {
@@ -115,7 +119,7 @@ class UnifiedSearchListAdapter(
 
     private fun isCurrentDirItem(section: Int): Boolean = (currentDirItems.isNotEmpty() && section == 0)
 
-    private fun getIndex(section: Int): Int = if (currentDirItems.isNotEmpty()) section - 1 else section
+    private fun getSectionIndex(section: Int): Int = if (currentDirItems.isNotEmpty()) section - 1 else section
 
     internal class EmptyViewHolder(binding: UnifiedSearchEmptyBinding) : SectionedViewHolder(binding.getRoot())
 
@@ -142,7 +146,7 @@ class UnifiedSearchListAdapter(
                 val currentDirUnifiedSearchSection = UnifiedSearchSection("", name, listOf(), false)
                 holder.bind(currentDirUnifiedSearchSection)
             } else {
-                val index = getIndex(section)
+                val index = getSectionIndex(section)
                 val sectionData = sections.getOrNull(index) ?: return
                 holder.bind(sectionData)
             }
@@ -154,7 +158,7 @@ class UnifiedSearchListAdapter(
             return
         }
 
-        val index = getIndex(section)
+        val index = getSectionIndex(section)
         val sectionData = sections.getOrNull(index) ?: return
 
         if (sectionData.hasMoreResults && holder is UnifiedSearchFooterViewHolder) {
@@ -167,7 +171,7 @@ class UnifiedSearchListAdapter(
             return VIEW_TYPE_EMPTY
         }
 
-        val index = getIndex(section)
+        val index = getSectionIndex(section)
         val sectionData = sections.getOrNull(index)
 
         return when {
@@ -186,7 +190,7 @@ class UnifiedSearchListAdapter(
             val entry = currentDirItems.getOrNull(relativePosition) ?: return
             holder.bind(entry)
         } else if (holder is UnifiedSearchItemViewHolder) {
-            val index = getIndex(section)
+            val index = getSectionIndex(section)
             val entry = sections.getOrNull(index)?.entries?.getOrNull(relativePosition) ?: return
             holder.bind(entry)
         }
