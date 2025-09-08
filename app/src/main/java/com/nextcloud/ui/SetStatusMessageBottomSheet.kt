@@ -182,7 +182,7 @@ class SetStatusMessageBottomSheet(val user: User, val currentStatus: Status?) :
                 setOnClickListener {
                     visibility = View.GONE
                     binding.clearStatusAfterSpinner.visibility = View.VISIBLE
-                    binding.clearStatusMessageTextView.text = getString(R.string.clear_status_message_after)
+                    binding.clearStatusMessageTextView.text = getString(R.string.clear_status_after)
                 }
             }
         }
@@ -304,7 +304,7 @@ class SetStatusMessageBottomSheet(val user: User, val currentStatus: Status?) :
 
         binding.remainingClearTime.visibility = View.GONE
         binding.clearStatusAfterSpinner.visibility = View.VISIBLE
-        binding.clearStatusMessageTextView.text = getString(R.string.clear_status_message_after)
+        binding.clearStatusMessageTextView.text = getString(R.string.clear_status_after)
 
         val clearAt = predefinedStatus.clearAt
         if (clearAt == null) {
