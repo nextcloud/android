@@ -128,7 +128,6 @@ import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
-import java.util.function.Consumer;
 
 import javax.inject.Inject;
 
@@ -508,30 +507,40 @@ public class OCFileListFragment extends ExtendedListFragment implements
      * register listener on FAB.
      */
     public void registerFabListener() {
-        FileActivity activity = (FileActivity) getActivity();
-
-        if (mFabMain != null) {
-            // is not available in FolderPickerActivity
-            viewThemeUtils.material.themeFAB(mFabMain);
-            mFabMain.setOnClickListener(v -> {
-                PermissionUtil.requestMediaLocationPermission(activity);
-
-                final OCFileListBottomSheetDialog dialog =
-                    new OCFileListBottomSheetDialog(activity,
-                                                    this,
-                                                    deviceInfo,
-                                                    accountManager.getUser(),
-                                                    getCurrentFile(),
-                                                    themeUtils,
-                                                    viewThemeUtils,
-                                                    editorUtils,
-                                                    appScanOptionalFeature);
-
-                dialog.getBehavior().setState(BottomSheetBehavior.STATE_EXPANDED);
-                dialog.getBehavior().setSkipCollapsed(true);
-                dialog.show();
-            });
+        if (!(getActivity() instanceof FileActivity fileActivity)) {
+            Log_OC.w(TAG, "activity is null cannot register fab listener");
+            return;
         }
+
+        if (mFabMain == null) {
+            Log_OC.w(TAG, "mFabMain is null cannot register fab listener");
+            return;
+        }
+
+        final var currentDir = getCurrentFile();
+        if (currentDir == null) {
+            Log_OC.w(TAG, "currentDir is null cannot register fab listener");
+            return;
+        }
+
+        // is not available in FolderPickerActivity
+        viewThemeUtils.material.themeFAB(mFabMain);
+        mFabMain.setOnClickListener(v -> {
+            PermissionUtil.requestMediaLocationPermission(fileActivity);
+            final OCFileListBottomSheetDialog dialog = new OCFileListBottomSheetDialog(fileActivity,
+                                                                                       this,
+                                                                                       deviceInfo,
+                                                                                       accountManager.getUser(),
+                                                                                       currentDir,
+                                                                                       themeUtils,
+                                                                                       viewThemeUtils,
+                                                                                       editorUtils,
+                                                                                       appScanOptionalFeature);
+
+            dialog.getBehavior().setState(BottomSheetBehavior.STATE_EXPANDED);
+            dialog.getBehavior().setSkipCollapsed(true);
+            dialog.show();
+        });
     }
 
     @Override
