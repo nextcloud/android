@@ -345,6 +345,8 @@ public class CreateFolderOperation extends SyncOperation implements OnRemoteOper
                     if (!encryptionOperationResult.isSuccess()) {
                         throw new RuntimeException("Error creating encrypted subfolder!");
                     }
+                } else {
+                    throw new RuntimeException("Error creating encrypted subfolder!");
                 }
             } else {
                 // revert to sane state in case of any error
