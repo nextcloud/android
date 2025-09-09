@@ -169,7 +169,8 @@ class PreviewImageActivity :
                 this,
                 type,
                 user,
-                storageManager
+                storageManager,
+                preferences
             )
         } else {
             // get parent from path
