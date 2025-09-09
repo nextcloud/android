@@ -284,7 +284,6 @@ open class ExtendedListFragment :
                 val localFileListAdapter = adapter
                 if (adapter is LocalFileListAdapter) {
                     localFileListAdapter.filter(query)
-                    activity.fileListFragment.setLoading(false)
                 }
             }
 

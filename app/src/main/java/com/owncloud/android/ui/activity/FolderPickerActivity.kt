@@ -273,8 +273,6 @@ open class FolderPickerActivity :
         ).also {
             it.execute(account, this, null, null)
         }
-
-        listOfFilesFragment?.isLoading = true
         setBackgroundText()
     }
 
@@ -282,7 +280,6 @@ open class FolderPickerActivity :
         super.onResume()
         Log_OC.e(TAG, "onResume() start")
 
-        listOfFilesFragment?.isLoading = mSyncInProgress
         refreshListOfFilesFragment(false)
         file = listOfFilesFragment?.currentFile
         updateUiElements()
@@ -585,7 +582,6 @@ open class FolderPickerActivity :
 
                 DataHolderUtil.getInstance().delete(intent.getStringExtra(FileSyncAdapter.EXTRA_RESULT))
                 Log_OC.d(TAG, "Setting progress visibility to $mSyncInProgress")
-                listOfFilesFragment?.isLoading = mSyncInProgress
                 setBackgroundText()
             } catch (e: RuntimeException) {
                 Log_OC.e(TAG, "Error on broadcast receiver", e)
