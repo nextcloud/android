@@ -928,6 +928,8 @@ public final class DisplayUtils {
             }
         }
 
+        thumbnailView.setTag(file.getFileId());
+
         try {
             final ThumbnailsCacheManager.ThumbnailGenerationTask task =
                 new ThumbnailsCacheManager.ThumbnailGenerationTask(thumbnailView,
@@ -983,6 +985,7 @@ public final class DisplayUtils {
             task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,
                                    new ThumbnailsCacheManager.ThumbnailGenerationTaskObject(file,
                                                                                             file.getRemoteId()));
+            thumbnailView.invalidate();
         } catch (IllegalArgumentException e) {
             Log_OC.d(TAG, "ThumbnailGenerationTask : " + e.getMessage());
         }
