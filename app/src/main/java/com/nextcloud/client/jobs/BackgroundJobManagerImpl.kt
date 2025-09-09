@@ -486,7 +486,7 @@ internal class BackgroundJobManagerImpl(
             .build()
         workManager.enqueueUniquePeriodicWork(
             JOB_PERIODIC_FILES_SYNC + "_" + syncedFolderID,
-            ExistingPeriodicWorkPolicy.REPLACE,
+            ExistingPeriodicWorkPolicy.KEEP,
             request
         )
     }
