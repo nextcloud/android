@@ -986,22 +986,17 @@ class EncryptionUtilsV2 {
 
     @Suppress("TooGenericExceptionCaught")
     fun verifySignedData(data: CMSSignedData, certs: List<X509Certificate>): Boolean {
-        val signer: SignerInformation = data.signerInfos.signers.iterator().next() as SignerInformation
+        val signer = data.signerInfos.signers.first() as SignerInformation
         val verifierBuilder = JcaSimpleSignerInfoVerifierBuilder()
-        var verifiedCertCount = 0
 
-        certs.forEach {
-            try {
-                val verifier = verifierBuilder.build(it)
-                if (signer.verify(verifier)) {
-                    verifiedCertCount += 1
-                }
-            } catch (e: Exception) {
-                Log_OC.e(TAG, "Error caught at verifySignedData: $e")
+        return certs.any { cert ->
+            runCatching {
+                signer.verify(verifierBuilder.build(cert))
+            }.getOrElse {
+                Log_OC.e(TAG, "Exception verifySignedData: $it")
+                false
             }
         }
-
-        return verifiedCertCount == certs.count()
     }
 
     private fun signMessage(cert: X509Certificate, key: PrivateKey, data: ByteArray): CMSSignedData {
