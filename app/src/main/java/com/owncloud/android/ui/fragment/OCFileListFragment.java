@@ -1042,7 +1042,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
     private Future<Pair<Integer, OCFile>> getPreviousFile() {
         CompletableFuture<Pair<Integer, OCFile>> completableFuture = new CompletableFuture<>();
 
-        Executors.newCachedThreadPool().submit(() -> {
+        Executors.newCachedThreadPool().execute(() -> {
             var result = new Pair<Integer, OCFile>(null, null);
 
             FileDataStorageManager storageManager = mContainerActivity.getStorageManager();
@@ -1058,7 +1058,6 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
             completableFuture.complete(result);
 
-            return null;
         });
 
         return completableFuture;
