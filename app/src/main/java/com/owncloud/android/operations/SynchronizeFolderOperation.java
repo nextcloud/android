@@ -436,6 +436,10 @@ public class SynchronizeFolderOperation extends SyncOperation {
     private void updateETag(OwnCloudClient client) {
         ReadFolderRemoteOperation operation = new ReadFolderRemoteOperation(mRemotePath);
         final var result = operation.execute(client);
+        if (!result.isSuccess()) {
+            Log_OC.w(TAG, "Cannot update eTag, read folder operation is failed");
+            return;
+        }
 
         if (result.getData().get(0) instanceof RemoteFile remoteFile) {
             String eTag = remoteFile.getEtag();
