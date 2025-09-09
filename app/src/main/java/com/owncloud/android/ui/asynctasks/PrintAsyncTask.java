@@ -28,6 +28,8 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.lang.ref.WeakReference;
+import java.nio.file.Files;
+import java.util.Objects;
 
 import static android.content.Context.PRINT_SERVICE;
 
@@ -68,7 +70,11 @@ public class PrintAsyncTask extends AsyncTask<Void, Void, Boolean> {
                     return Boolean.FALSE;
                 }
 
-                file.getParentFile().mkdirs();
+                try {
+                    Files.createDirectories(Objects.requireNonNull(file.getParentFile()).toPath());
+                } catch (IOException e) {
+                    Log_OC.e(TAG, "Could not create directory: " + Objects.requireNonNull(file.getParentFile()).getAbsolutePath(), e);
+                }
 
                 if (!file.getParentFile().exists()) {
                     Log_OC.d(TAG, file.getParentFile().getAbsolutePath() + " does not exist");
