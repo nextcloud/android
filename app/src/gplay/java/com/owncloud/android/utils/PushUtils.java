@@ -96,7 +96,11 @@ public final class PushUtils {
         if (!new File(privateKeyPath).exists() && !new File(publicKeyPath).exists()) {
             try {
                 if (!keyPathFile.exists()) {
-                    keyPathFile.mkdir();
+                    try {
+                        Files.createDirectory(keyPathFile.toPath());
+                    } catch (IOException e) {
+                        Log_OC.e(TAG, "Could not create directory: " + keyPathFile.getAbsolutePath(), e);
+                    }
                 }
                 KeyPairGenerator keyGen = KeyPairGenerator.getInstance("RSA");
                 keyGen.initialize(2048);
@@ -304,8 +308,12 @@ public final class PushUtils {
         try {
             if (!new File(path).exists()) {
                 File newFile = new File(path);
-                newFile.getParentFile().mkdirs();
-                newFile.createNewFile();
+                try {
+                    Files.createDirectories(newFile.getParentFile().toPath());
+                } catch (IOException e) {
+                    Log_OC.e(TAG, "Could not create directory: " + newFile.getParentFile(), e);
+                }
+                Files.createFile(newFile.toPath());
             }
             keyFileOutputStream = new FileOutputStream(path);
             keyFileOutputStream.write(encoded);
