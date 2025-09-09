@@ -344,6 +344,7 @@
     <string name="error_report_issue_text">Kas teatad veast meie veahaldusesse? (eeldab GitHubi kasutajakonto olemasolu)</string>
     <string name="error_retrieving_file">Viga faili laadimisel</string>
     <string name="error_retrieving_templates">Viga mallide laadimisel</string>
+    <string name="error_setting_status_message">Olekuteate lisamisel tekkis viga!</string>
     <string name="error_showing_encryption_dialog">Krüptimise vaate avamisel tekkis viga!</string>
     <string name="error_starting_direct_camera_upload">Viga kaamera käivitamisel</string>
     <string name="error_starting_doc_scan">Ei õnnestu alustada dokumendi skaneerimist</string>
@@ -815,6 +816,7 @@
     <string name="server_not_reachable_content">Seadmes ilmselt puudub internetiühendus</string>
     <string name="set_as">Määra kui</string>
     <string name="set_download_limit_failed">Allalaadimispiirangu määramine ei õnnestu. Palun kontrolli selle konteksti tegelikke võimalusi.</string>
+    <string name="set_message">Lisa olekuteade</string>
     <string name="set_note">Lisa märge</string>
     <string name="set_online_status">Olek võrgus</string>
     <string name="set_picture_as">Kasuta pilti kui</string>

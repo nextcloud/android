@@ -344,6 +344,7 @@
     <string name="error_report_issue_text">是否向议题跟踪器报告问题？（需要GitHub账号）</string>
     <string name="error_retrieving_file">获取文件时遇到错误</string>
     <string name="error_retrieving_templates">检索模板时出错</string>
+    <string name="error_setting_status_message">设置状态消息时出错！</string>
     <string name="error_showing_encryption_dialog">显示设置加密对话框时出错！</string>
     <string name="error_starting_direct_camera_upload">开启相机时发生错误</string>
     <string name="error_starting_doc_scan">开始文档扫描时出错</string>
@@ -815,7 +816,9 @@
     <string name="server_not_reachable_content">设备可能未连接到互联网</string>
     <string name="set_as">设置</string>
     <string name="set_download_limit_failed">无法设置下载限制。请检查功能。</string>
+    <string name="set_message">设置消息</string>
     <string name="set_note">设置备注</string>
+    <string name="set_online_status">在线状态</string>
     <string name="set_picture_as">将图片用作</string>
     <string name="set_status">设定状态</string>
     <string name="set_status_message">设置状态消息</string>

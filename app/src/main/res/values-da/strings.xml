@@ -130,6 +130,7 @@
     <string name="choose_widget">Vælg widget</string>
     <string name="clear">Ryd</string>
     <string name="clear_notifications_failed">Rydning af alle notifikationer fejlede</string>
+    <string name="clear_status_after">Ryd status efter</string>
     <string name="clear_status_message">Ryd status notifikation</string>
     <string name="clear_status_message_after">Ryd status notifikationer efter</string>
     <string name="clipboard_label">Tekst kopieret fra %1$s</string>
@@ -790,6 +791,7 @@
     <string name="sendbutton_description">Send knap ikon</string>
     <string name="set_as">Sæt som</string>
     <string name="set_note">Sæt note</string>
+    <string name="set_online_status">Online status</string>
     <string name="set_picture_as">Anvend billede som</string>
     <string name="set_status">Sæt status</string>
     <string name="set_status_message">Sæt statusbesked</string>

@@ -43,6 +43,7 @@
     <string name="app_config_proxy_port_title">Proxyport</string>
     <string name="app_widget_description">Visa en widget från dashboard</string>
     <string name="appbar_search_in">Sök i %s</string>
+    <string name="appear_offline">Visa som frånkopplad</string>
     <string name="assistant_screen_add_task_alert_dialog_title">Lägg till ny uppgift</string>
     <string name="assistant_screen_create_a_new_task_from_bottom_right_text">Skapa en ny uppgift från nedre högra hörnet</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Skriv någon text</string>
@@ -222,7 +223,7 @@
     <string name="create_new_presentation">Ny presentation</string>
     <string name="create_new_spreadsheet">Nytt kalkylblad</string>
     <string name="create_rich_workspace">Lägg till mappbeskrivning</string>
-    <string name="creates_rich_workspace">Lägg till mappbeskrivning</string>
+    <string name="creates_rich_workspace">Lägger till mappbeskrivning</string>
     <string name="credentials_disabled">Inloggningsuppgifter inaktiverade</string>
     <string name="daily_backup">Daglig säkerhetskopiering</string>
     <string name="data_to_back_up">Data att säkerhetskopiera</string>
@@ -343,6 +344,7 @@
     <string name="error_report_issue_text">Rapportera fel till Tracker? (kräver ett konto hos GitHub)</string>
     <string name="error_retrieving_file">Fel vid mottagning av fil</string>
     <string name="error_retrieving_templates">Fel vid hämtning av mallar</string>
+    <string name="error_setting_status_message">Fel uppstod vid skapande av statusmeddelande!</string>
     <string name="error_showing_encryption_dialog">Det gick inte att visa dialogrutan för krypteringsinställningar!</string>
     <string name="error_starting_direct_camera_upload">Fel vid start av kamera</string>
     <string name="error_starting_doc_scan">Fel vid start av dokumentskanning</string>
@@ -581,6 +583,7 @@
     <string name="move_file_invalid_into_descendent">Det är inte möjligt att flytta en mapp till en av dess undermappar</string>
     <string name="move_file_invalid_overwrite">Filen finns redan i målmappen</string>
     <string name="move_file_not_found">Kan inte flytta filen. Vänligen kontrollera om det finns.</string>
+    <string name="mute_all_notifications">Stäng av alla aviseringar</string>
     <string name="network_error_connect_timeout_exception">Ett fel uppstod i väntan på servern. Kunde inte slutföra operationen.</string>
     <string name="network_error_socket_exception">Ett fel uppstod under anslutningen till servern</string>
     <string name="network_error_socket_timeout_exception">Ett fel uppstod i väntan på servern. Kunde inte slutföra operationen.</string>

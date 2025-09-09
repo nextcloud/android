@@ -43,6 +43,7 @@
     <string name="app_config_proxy_port_title">Puerto del proxy</string>
     <string name="app_widget_description">Muestra un widget del tablero</string>
     <string name="appbar_search_in">Buscar en %s</string>
+    <string name="appear_offline">Aparecer como desconectado</string>
     <string name="assistant_screen_add_task_alert_dialog_title">Añadir nueva tarea</string>
     <string name="assistant_screen_create_a_new_task_from_bottom_right_text">Crear una nueva tarea abajo a la derecha</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Escriba algo de texto</string>
@@ -127,9 +128,9 @@
     <string name="choose_template_helper_text">Por favor, elije una plantilla e introduce un nombre de archivo.</string>
     <string name="choose_which_file">¡Elije que archivos mantener!</string>
     <string name="choose_widget">Seleccione widget</string>
-    <string name="clear">Borrar</string>
+    <string name="clear">Limpiar</string>
     <string name="clear_notifications_failed">Fallo al limpiar notificaciones.</string>
-    <string name="clear_status_after">Eliminar el estado después de</string>
+    <string name="clear_status_after">Limpiar el estado después de</string>
     <string name="clear_status_message">Borrar mensaje de estado</string>
     <string name="clear_status_message_after">Borrar mensaje de estado después de</string>
     <string name="clipboard_label">Texto copiado de %1$s</string>
@@ -343,6 +344,7 @@
     <string name="error_report_issue_text">¿Informar del problema al tracker? (requiere una cuenta de GitHub)</string>
     <string name="error_retrieving_file">Error al recuperar el archivo</string>
     <string name="error_retrieving_templates">Error al recuperar plantillas</string>
+    <string name="error_setting_status_message">¡Error al establecer mensaje de estado!</string>
     <string name="error_showing_encryption_dialog">¡Error al mostrar el diálogo de configuración del cifrado!</string>
     <string name="error_starting_direct_camera_upload">Error al iniciar la cámara</string>
     <string name="error_starting_doc_scan">Error al iniciar el escaneo del documento</string>
@@ -581,6 +583,7 @@
     <string name="move_file_invalid_into_descendent">No se puede mover una carpeta dentro de una de sus propias subcarpetas.</string>
     <string name="move_file_invalid_overwrite">El archivo ya existe en la carpeta de destino</string>
     <string name="move_file_not_found">Imposible mover. Por favor, comprueba que el archivo exista.</string>
+    <string name="mute_all_notifications">Silenciar todas las notificaciones</string>
     <string name="network_error_connect_timeout_exception">Ha ocurrido un error al esperar al servidor. No se pudo completar la operación.</string>
     <string name="network_error_socket_exception">Se ha producido un error al conectarse con el servidor</string>
     <string name="network_error_socket_timeout_exception">Ha ocurrido un error al esperar al servidor. No se pudo completar la operación.</string>
@@ -813,7 +816,9 @@
     <string name="server_not_reachable_content">El dispositivo parece no estar conectado a la internet</string>
     <string name="set_as">Establecer como</string>
     <string name="set_download_limit_failed">No se pudo establecer el límite de descarga. Por favor, chequee las capacidades.</string>
+    <string name="set_message">Establecer mensaje</string>
     <string name="set_note">Establecer nota</string>
+    <string name="set_online_status">Estado en línea</string>
     <string name="set_picture_as">Usar imagen como</string>
     <string name="set_status">Configurar estado</string>
     <string name="set_status_message">Ajustar el mensaje de estado</string>
