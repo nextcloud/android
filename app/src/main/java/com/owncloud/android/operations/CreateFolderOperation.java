@@ -44,6 +44,7 @@ import java.io.File;
 import java.util.UUID;
 
 import androidx.annotation.NonNull;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 import static com.owncloud.android.datamodel.OCFile.PATH_SEPARATOR;
 import static com.owncloud.android.datamodel.OCFile.ROOT_PATH;
@@ -109,6 +110,10 @@ public class CreateFolderOperation extends SyncOperation implements OnRemoteOper
         }
     }
 
+    @SuppressFBWarnings(
+        value = "EXS_EXCEPTION_SOFTENING_NO_CONSTRAINTS",
+        justification = "Converting checked exception to runtime is acceptable in this context"
+    )
     private RemoteOperationResult encryptedCreateV1(OCFile parent, OwnCloudClient client) {
         ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProviderImpl(context);
         String privateKey = arbitraryDataProvider.getValue(user.getAccountName(), EncryptionUtils.PRIVATE_KEY);
@@ -247,6 +252,10 @@ public class CreateFolderOperation extends SyncOperation implements OnRemoteOper
         }
     }
 
+    @SuppressFBWarnings(
+        value = "EXS_EXCEPTION_SOFTENING_NO_CONSTRAINTS",
+        justification = "Converting checked exception to runtime is acceptable in this context"
+    )
     private RemoteOperationResult encryptedCreateV2(OCFile parent, OwnCloudClient client) {
         String token = null;
         Boolean metadataExists;
