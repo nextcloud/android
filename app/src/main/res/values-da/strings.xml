@@ -43,6 +43,7 @@
     <string name="app_config_proxy_port_title">Proxy port</string>
     <string name="app_widget_description">Viser en widget fra dashboard</string>
     <string name="appbar_search_in">Søg i %s</string>
+    <string name="appear_offline">Er offline</string>
     <string name="assistant_screen_add_task_alert_dialog_title">Tilføj en ny opgave</string>
     <string name="assistant_screen_create_a_new_task_from_bottom_right_text">Opret en ny opgave fra bunden til højre</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Skriv noget tekst</string>
@@ -115,6 +116,7 @@
     <string name="bottom_navigation_menu_favorites_label">Favoritter</string>
     <string name="bottom_navigation_menu_files_label">Alle filer</string>
     <string name="bottom_navigation_menu_media_label">Medier</string>
+    <string name="busy">Optaget</string>
     <string name="calendar">Kalender</string>
     <string name="calendars">Kalendere</string>
     <string name="certificate_load_problem">Der er et problem med lagring af certificering.</string>
@@ -126,6 +128,7 @@
     <string name="choose_template_helper_text">Vælg en skabelon og indtast et fil navn.</string>
     <string name="choose_which_file">Vælg hvilken fil du ønsker at beholde!</string>
     <string name="choose_widget">Vælg widget</string>
+    <string name="clear">Ryd</string>
     <string name="clear_notifications_failed">Rydning af alle notifikationer fejlede</string>
     <string name="clear_status_message">Ryd status notifikation</string>
     <string name="clear_status_message_after">Ryd status notifikationer efter</string>
@@ -562,6 +565,7 @@
     <string name="move_file_invalid_into_descendent">Det er ikke muligt at flytte en mappe til en af dens egne undermapper</string>
     <string name="move_file_invalid_overwrite">Filen findes allerede i destinationsmappen</string>
     <string name="move_file_not_found">Kunne ikke kopiere. Undersøg venligst om filen eksisterer.</string>
+    <string name="mute_all_notifications">Vis ikke notifikationer</string>
     <string name="network_error_connect_timeout_exception">Der opstod en fejl mens svar afventedes fra serveren. Kunne ikke fuldføre handlingen.</string>
     <string name="network_error_socket_exception">Der opstod en fejl under tilslutningen til serveren</string>
     <string name="network_error_socket_timeout_exception">Der opstod en fejl mens svar afventedes fra serveren. Kunne ikke fuldføre handlingen.</string>

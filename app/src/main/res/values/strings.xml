@@ -1124,7 +1124,7 @@
     <string name="online_status">Online status</string>
     <string name="status_message">Status message</string>
     <string name="whats_your_status">What is your status?</string>
-    <string name="clear_status_message_after">Clear status after</string>
+    <string name="clear_status_after">Clear status after</string>
     <string name="online">Online</string>
     <string name="dnd">Do not disturb</string>
     <string name="away">Away</string>

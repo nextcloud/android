@@ -115,6 +115,7 @@
     <string name="bottom_navigation_menu_favorites_label">Favoritos</string>
     <string name="bottom_navigation_menu_files_label">Todos los archivos</string>
     <string name="bottom_navigation_menu_media_label">Medios</string>
+    <string name="busy">Ocupado</string>
     <string name="calendar">Calendario</string>
     <string name="calendars">Calendarios</string>
     <string name="certificate_load_problem">Existe un problema al cargar el certificado.</string>
@@ -126,7 +127,9 @@
     <string name="choose_template_helper_text">Por favor, elije una plantilla e introduce un nombre de archivo.</string>
     <string name="choose_which_file">¡Elije que archivos mantener!</string>
     <string name="choose_widget">Seleccione widget</string>
+    <string name="clear">Borrar</string>
     <string name="clear_notifications_failed">Fallo al limpiar notificaciones.</string>
+    <string name="clear_status_after">Eliminar el estado después de</string>
     <string name="clear_status_message">Borrar mensaje de estado</string>
     <string name="clear_status_message_after">Borrar mensaje de estado después de</string>
     <string name="clipboard_label">Texto copiado de %1$s</string>

@@ -79,6 +79,7 @@
     <string name="bottom_navigation_menu_favorites_label">Омилени</string>
     <string name="bottom_navigation_menu_files_label">Сите датотеки</string>
     <string name="bottom_navigation_menu_media_label">Медија</string>
+    <string name="busy">Зафатен</string>
     <string name="calendar">Календар</string>
     <string name="calendars">Календари</string>
     <string name="certificate_load_problem">Има проблем со вчитување на сертификатот.</string>
@@ -88,7 +89,9 @@
     <string name="choose_remote_folder">Избери папка на серверот…</string>
     <string name="choose_which_file">Избери која датотека да се зачува!</string>
     <string name="choose_widget">Избери виџет</string>
+    <string name="clear">Исчисти</string>
     <string name="clear_notifications_failed">Неуспешно чистење на нотификациите.</string>
+    <string name="clear_status_after">Тргни го статусот после</string>
     <string name="clear_status_message">Тргни ја статус пораката</string>
     <string name="clear_status_message_after">Тргни го статусот после</string>
     <string name="clipboard_label">Текст копиран од %1$s</string>
@@ -556,6 +559,7 @@
     <string name="send">Испрати</string>
     <string name="sendbutton_description">Икона на копчето за испраќање</string>
     <string name="set_as">Постави како</string>
+    <string name="set_online_status">Присутен</string>
     <string name="set_picture_as">Користи ја сликата како</string>
     <string name="set_status">Постави статус</string>
     <string name="set_status_message">Постави статус порака</string>

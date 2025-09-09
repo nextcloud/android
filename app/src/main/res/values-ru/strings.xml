@@ -43,6 +43,7 @@
     <string name="app_config_proxy_port_title">Порт прокси</string>
     <string name="app_widget_description">Показывает один виджет с главного экрана.</string>
     <string name="appbar_search_in">Искать в %s</string>
+    <string name="appear_offline">\"Не в сети\" для остальных</string>
     <string name="assistant_screen_add_task_alert_dialog_title">Добавить новую задачу</string>
     <string name="assistant_screen_create_a_new_task_from_bottom_right_text">Создайте новую задачу в правом нижнем углу</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Наберите какой-то текст</string>
@@ -115,6 +116,7 @@
     <string name="bottom_navigation_menu_favorites_label">Избранное</string>
     <string name="bottom_navigation_menu_files_label">Все файлы</string>
     <string name="bottom_navigation_menu_media_label">Медиа</string>
+    <string name="busy">Занят</string>
     <string name="calendar">Календарь</string>
     <string name="calendars">Календари</string>
     <string name="certificate_load_problem">Проблема при загрузке сертификата.</string>
@@ -126,7 +128,9 @@
     <string name="choose_template_helper_text">Пожалуйста, выберите шаблон и введите имя файла.</string>
     <string name="choose_which_file">Выберите какой файл оставить!</string>
     <string name="choose_widget">Выбрать виджет</string>
+    <string name="clear">Очистить</string>
     <string name="clear_notifications_failed">Не удалось удалить уведомления.</string>
+    <string name="clear_status_after">Очистить статус после</string>
     <string name="clear_status_message">Очистить сообщение о состоянии</string>
     <string name="clear_status_message_after">Очистить сообщение о состоянии через</string>
     <string name="clipboard_label">Текст скопирован из %1$s</string>
@@ -812,6 +816,7 @@
     <string name="set_as">Установить как</string>
     <string name="set_download_limit_failed">Не удалось задать лимит загрузки. Пожалуйста, проверьте доступные возможности.</string>
     <string name="set_note">Создать заметку</string>
+    <string name="set_online_status">Онлайн статус</string>
     <string name="set_picture_as">Использовать изображение</string>
     <string name="set_status">Установить состояние</string>
     <string name="set_status_message">Установить сообщение о состоянии</string>

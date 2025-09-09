@@ -115,6 +115,7 @@
     <string name="bottom_navigation_menu_favorites_label">Favoriter</string>
     <string name="bottom_navigation_menu_files_label">Alla filer</string>
     <string name="bottom_navigation_menu_media_label">Media</string>
+    <string name="busy">Upptagen</string>
     <string name="calendar">Kalender</string>
     <string name="calendars">Kalendrar</string>
     <string name="certificate_load_problem">Det uppstod ett problem med att läsa in certifikatet.</string>
@@ -126,7 +127,9 @@
     <string name="choose_template_helper_text">Vänligen välj en mall och ange ett filnamn.</string>
     <string name="choose_which_file">Välj vilken fil du vill behålla!</string>
     <string name="choose_widget">Välj widget</string>
+    <string name="clear">Rensa</string>
     <string name="clear_notifications_failed">Kunde inte rensa aviseringar.</string>
+    <string name="clear_status_after">Rensa status efter</string>
     <string name="clear_status_message">Rensa statusmeddelande</string>
     <string name="clear_status_message_after">Rensa statusmeddelande efter</string>
     <string name="clipboard_label">Text kopierad från %1$s</string>
@@ -812,6 +815,7 @@
     <string name="set_as">Sätt som</string>
     <string name="set_download_limit_failed">Det gick inte att ange nedladdningsgräns. Kontrollera tillgängliga funktioner.</string>
     <string name="set_note">Ange anteckning</string>
+    <string name="set_online_status">Online-status</string>
     <string name="set_picture_as">Använd bild som</string>
     <string name="set_status">Sätt status</string>
     <string name="set_status_message">Sätt statusmeddelande</string>

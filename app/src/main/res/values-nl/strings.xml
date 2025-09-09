@@ -43,6 +43,7 @@
     <string name="app_config_proxy_port_title">Proxy poort</string>
     <string name="app_widget_description">Toont één widget van dashboard</string>
     <string name="appbar_search_in">Zoeken in %s</string>
+    <string name="appear_offline">Toon afwezig</string>
     <string name="assistant_screen_add_task_alert_dialog_title">Nieuwe taak toevoegen</string>
     <string name="assistant_screen_create_a_new_task_from_bottom_right_text">Maak een nieuwe taak vanuit de rechteronderhoek</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Geef wat tekst in</string>
@@ -115,6 +116,7 @@
     <string name="bottom_navigation_menu_favorites_label">Favorieten</string>
     <string name="bottom_navigation_menu_files_label">Alle bestanden</string>
     <string name="bottom_navigation_menu_media_label">Media</string>
+    <string name="busy">Bezet</string>
     <string name="calendar">Agenda</string>
     <string name="calendars">Agenda\'s</string>
     <string name="certificate_load_problem">Er is een probleem met het laden van het certificaat.</string>
@@ -126,7 +128,9 @@
     <string name="choose_template_helper_text">Kies een sjabloon en geen een bestandsnaam op.</string>
     <string name="choose_which_file">Kies welk bestand bewaard moet blijven!</string>
     <string name="choose_widget">Kies widget</string>
+    <string name="clear">Terug</string>
     <string name="clear_notifications_failed">Niet gelukt om alle meldingen af te handelen</string>
+    <string name="clear_status_after">Maak de status leeg na</string>
     <string name="clear_status_message">Statusberichten wissen</string>
     <string name="clear_status_message_after">Statusbericht wissen na</string>
     <string name="clipboard_label">Tekst gekopieerd uit %1$s</string>
@@ -577,6 +581,7 @@
     <string name="move_file_invalid_into_descendent">De map kan niet naar een onderliggende map worden verplaatst</string>
     <string name="move_file_invalid_overwrite">Het bestand bestaat al in de doelmap</string>
     <string name="move_file_not_found">Kan bestand niet verplaatsen. Controleer of het wel bestaat.</string>
+    <string name="mute_all_notifications">Onderdruk alle meldingen</string>
     <string name="network_error_connect_timeout_exception">Er trad een fout op bij het wachten op de server, de verwerking kon niet plaatsvinden.</string>
     <string name="network_error_socket_exception">Er trad een fout op bij het verbinden met de server.</string>
     <string name="network_error_socket_timeout_exception">Er trad een fout op bij het wachten op de server, verwerking kon niet verder.</string>

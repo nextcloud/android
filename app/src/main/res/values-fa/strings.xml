@@ -34,6 +34,7 @@
     <string name="app_config_proxy_port_title">پورت پروکسی</string>
     <string name="app_widget_description">نمایش یک ابزارک از پیشخوان</string>
     <string name="appbar_search_in">جستجو در %s</string>
+    <string name="appear_offline">نمایش آفلاین</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">مقداری متن را تایپ کنید</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">وظیفه را حذف کنید</string>
     <string name="assistant_screen_task_delete_success_message">Task successfully deleted</string>
@@ -86,6 +87,7 @@
     <string name="bottom_navigation_menu_favorites_label">مورد علاقه‌ها</string>
     <string name="bottom_navigation_menu_files_label">تمامی فایل‌ها</string>
     <string name="bottom_navigation_menu_media_label">رسانه‌ها</string>
+    <string name="busy">مشغول</string>
     <string name="calendar">تقویم</string>
     <string name="calendars">تقویم‌ها</string>
     <string name="certificate_load_problem">در حال بارگذاری گواهینامه، یک مشکل وجود دارد.</string>
@@ -97,7 +99,9 @@
     <string name="choose_template_helper_text">لطفا یک قالب را انتخاب و نامی برای پرونده وارد کنید.</string>
     <string name="choose_which_file">انتخاب کنید کدام فایل را نگه‌ دارید!</string>
     <string name="choose_widget">گزینش ابزارک</string>
+    <string name="clear">پاک کردن</string>
     <string name="clear_notifications_failed">ناموفق بودن در پاک کردن اعلانها</string>
+    <string name="clear_status_after">پاک کردن وضعیت بعدی</string>
     <string name="clear_status_message">پیام وضعیت را پاک کن</string>
     <string name="clear_status_message_after">"بعد از آن پیام وضعیت را پاک کن "</string>
     <string name="clipboard_label">متن کپی شده از %1$s</string>
@@ -490,6 +494,7 @@
     <string name="move_file_invalid_into_descendent">انتقال یک پوشه در یکی از پوشه های زیرین خود امکان پذیر نیست</string>
     <string name="move_file_invalid_overwrite">فایل در حال حاضر در پوشه مقصد موجود است</string>
     <string name="move_file_not_found">انتقال فایل امکان پذیر نمی‌باشد. لطفا موجود بودن فایل را بررسی کنید.</string>
+    <string name="mute_all_notifications">خاموش کردن همه اعلانات</string>
     <string name="network_error_connect_timeout_exception">هنگام اتصال به سرور خطایی روی داد. تکمیل عملیات میسر نیست.</string>
     <string name="network_error_socket_exception">هنگام اتصال به سرور خطایی روی داد</string>
     <string name="network_error_socket_timeout_exception">هنگام اتصال به سرور خطایی روی داد. تکمیل عملیات میسر نیست.</string>
@@ -680,6 +685,7 @@
     <string name="send">ارسال</string>
     <string name="sendbutton_description">ایکون دکمه ارسال</string>
     <string name="set_as">تنظیم به عنوان</string>
+    <string name="set_online_status">وضعیت برخط</string>
     <string name="set_picture_as">استفاده از تصویر به عنوان</string>
     <string name="set_status">تنظیم وضعیت</string>
     <string name="set_status_message">تنظیم پیام وضعیت</string>

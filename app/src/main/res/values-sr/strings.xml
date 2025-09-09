@@ -43,6 +43,7 @@
     <string name="app_config_proxy_port_title">Прокси порт</string>
     <string name="app_widget_description">Приказује један виџет са контролне табле</string>
     <string name="appbar_search_in">Тражи у %s</string>
+    <string name="appear_offline">Прикажи као ван мреже</string>
     <string name="assistant_screen_add_task_alert_dialog_title">Додај нови задатак</string>
     <string name="assistant_screen_create_a_new_task_from_bottom_right_text">Креирај нови задатак од доњег десног</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Откуцајте неки текст</string>
@@ -115,6 +116,7 @@
     <string name="bottom_navigation_menu_favorites_label">Омиљене</string>
     <string name="bottom_navigation_menu_files_label">Сви фајлови</string>
     <string name="bottom_navigation_menu_media_label">Медији</string>
+    <string name="busy">Заузет</string>
     <string name="calendar">Календар</string>
     <string name="calendars">Календари</string>
     <string name="certificate_load_problem">Појавио се проблем приликом учитавања сертификата.</string>
@@ -126,7 +128,9 @@
     <string name="choose_template_helper_text">Молимо вас да изаберете шаблон и унесете назив фајла.</string>
     <string name="choose_which_file">Изаберите који фајл желите да задржите!</string>
     <string name="choose_widget">Изаберите виџет</string>
+    <string name="clear">Очисти</string>
     <string name="clear_notifications_failed">Не могу да обришем обавештења.</string>
+    <string name="clear_status_after">Обриши статус након</string>
     <string name="clear_status_message">Обриши статусну поруку</string>
     <string name="clear_status_message_after">Обриши статусну поруку након</string>
     <string name="clipboard_label">Текст копиран са %1$s</string>
@@ -578,6 +582,7 @@
     <string name="move_file_invalid_into_descendent">Фасцикла се не може преместити у неку од својих потфасцикли.</string>
     <string name="move_file_invalid_overwrite">Фајл већ постоји у одредишној фасцикли</string>
     <string name="move_file_not_found">Не могу да преместим фајл. Проверите да ли постоји.</string>
+    <string name="mute_all_notifications">Искључи сва обавештења</string>
     <string name="network_error_connect_timeout_exception">Десила се грешка при чекању на сервер. Не могу да довршим радњу.</string>
     <string name="network_error_socket_exception">Десила се грешка при повезивању на сервер</string>
     <string name="network_error_socket_timeout_exception">Десила се грешка при чекању на сервер. Не могу да довршим радњу.</string>
@@ -811,6 +816,7 @@
     <string name="set_as">Постави као</string>
     <string name="set_download_limit_failed">Не може да се постави ограничење преузимања. Молимо вас да проверите могућности.</string>
     <string name="set_note">Постави белешку</string>
+    <string name="set_online_status">Мрежни статус</string>
     <string name="set_picture_as">Постави слику као</string>
     <string name="set_status">Постави статус</string>
     <string name="set_status_message">Постављање статусне поруке</string>

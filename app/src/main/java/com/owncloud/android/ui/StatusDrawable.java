@@ -44,26 +44,24 @@ public class StatusDrawable extends Drawable {
         radius = statusSize;
 
         if (TextUtils.isEmpty(status.getIcon())) {
+            this.context = context;
+            backgroundPaint.setColor(context.getColor(R.color.bg_default));
+            
             switch (status.getStatus()) {
                 case DND:
                     icon = R.drawable.ic_user_status_dnd;
-                    backgroundPaint.setColor(context.getColor(R.color.white));
-                    this.context = context;
                     break;
 
                 case BUSY:
-                    backgroundPaint.setColor(context.getColor(R.color.busy));
-                    this.context = context;
+                    icon = R.drawable.ic_user_status_busy;
                     break;
 
                 case ONLINE:
-                    backgroundPaint.setColor(context.getColor(R.color.online));
+                    icon = R.drawable.ic_user_status_online;
                     break;
 
                 case AWAY:
                     icon = R.drawable.ic_user_status_away;
-                    backgroundPaint.setColor(context.getColor(R.color.white));
-                    this.context = context;
                     break;
 
                 default:
@@ -74,7 +72,7 @@ public class StatusDrawable extends Drawable {
         } else {
             text = status.getIcon();
 
-            backgroundPaint.setColor(context.getColor(R.color.white));
+            backgroundPaint = null;
 
             textPaint = new Paint();
             textPaint.setColor(Color.WHITE);

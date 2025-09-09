@@ -109,6 +109,7 @@
     <string name="bottom_navigation_menu_favorites_label">Favorite</string>
     <string name="bottom_navigation_menu_files_label">Toate fișierele</string>
     <string name="bottom_navigation_menu_media_label">Media</string>
+    <string name="busy">Ocupat</string>
     <string name="calendar">Calendar</string>
     <string name="calendars">Calendare</string>
     <string name="certificate_load_problem">Există o problemă la încărcarea certificatului.</string>
@@ -120,7 +121,9 @@
     <string name="choose_template_helper_text">Te rog alege un șablon și introdu numele fișierului.</string>
     <string name="choose_which_file">Alege care fișier să-l păstrezi!</string>
     <string name="choose_widget">Alege widget</string>
+    <string name="clear">Șterge </string>
     <string name="clear_notifications_failed">Eroare la ștergerea notificărilor.</string>
+    <string name="clear_status_after">Șterge statusul după</string>
     <string name="clear_status_message">Șterge mesajul de stare</string>
     <string name="clear_status_message_after">Șterge mesajul de stare după</string>
     <string name="clipboard_label">Text copiat din %1$s</string>

@@ -43,6 +43,7 @@
     <string name="app_config_proxy_port_title">프록시 포트</string>
     <string name="app_widget_description">대시보드에 위젯 하나만 표시</string>
     <string name="appbar_search_in">%s에서 검색</string>
+    <string name="appear_offline">접속 안함으로 표시</string>
     <string name="assistant_screen_add_task_alert_dialog_title">새 작업 추가</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">텍스트 입력</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">이 작업을 삭제하시겠습니까?</string>
@@ -113,6 +114,7 @@
     <string name="bottom_navigation_menu_favorites_label">즐겨찾기</string>
     <string name="bottom_navigation_menu_files_label">모든 파일</string>
     <string name="bottom_navigation_menu_media_label">미디어</string>
+    <string name="busy">바쁨</string>
     <string name="calendar">일정</string>
     <string name="calendars">일정</string>
     <string name="certificate_load_problem">인증서를 불러올 수 없습니다.</string>
@@ -124,7 +126,9 @@
     <string name="choose_template_helper_text">템플릿을 선택하고 파일 이름을 입력하세요.</string>
     <string name="choose_which_file">보관할 파일을 선택하세요!</string>
     <string name="choose_widget">위젯 선택</string>
+    <string name="clear">비우기</string>
     <string name="clear_notifications_failed">알림을 지우는데 실패했습니다.</string>
+    <string name="clear_status_after">상태 메시지 지우기 예약</string>
     <string name="clear_status_message">상태 메시지 지움</string>
     <string name="clear_status_message_after">상태 메시지 지우기 예약</string>
     <string name="clipboard_label">%1$s에서 텍스트를 복사함</string>
@@ -555,6 +559,7 @@
     <string name="move_file_invalid_into_descendent">폴더를 자기 자신의 하위 폴더로 이동할 수 없음</string>
     <string name="move_file_invalid_overwrite">파일이 대상 폴더에 이미 존재함</string>
     <string name="move_file_not_found">파일을 이동할 수 없습니다. 파일이 존재하는지 확인해주십시오.</string>
+    <string name="mute_all_notifications">모든 알림을 음소거</string>
     <string name="network_error_connect_timeout_exception">서버 응답을 기다리던 중에 오류가 발생했습니다. 동작을 완료할 수 없습니다.</string>
     <string name="network_error_socket_exception">서버에 연결하는 중 오류가 발생했습니다.</string>
     <string name="network_error_socket_timeout_exception">서버 응답을 기다리던 중에 오류가 발생했습니다. 동작을 완료할 수 없습니다.</string>

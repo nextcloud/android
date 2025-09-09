@@ -34,6 +34,7 @@
     <string name="app_config_proxy_port_title">ۋاكالەتچى ئېغىز</string>
     <string name="app_widget_description">باشقۇرۇش تاختىسىدىكى بىر كىچىك قورالنى كۆرسىتىدۇ</string>
     <string name="appbar_search_in">%s دىن ئىزدەڭ</string>
+    <string name="appear_offline">تورسىز كۆرۈنۈش</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">بەزى تېكىستلەرنى كىرگۈزۈڭ</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">بۇ ۋەزىپىنى ئۆچۈرمەكچىمۇ؟</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">ۋەزىپىنى ئۆچۈرۈڭ</string>
@@ -100,6 +101,7 @@
     <string name="bottom_navigation_menu_favorites_label">ياقتۇرىدىغانلار</string>
     <string name="bottom_navigation_menu_files_label">بارلىق ھۆججەتلەر</string>
     <string name="bottom_navigation_menu_media_label">Media</string>
+    <string name="busy">ئالدىراش</string>
     <string name="calendar">كالېندار</string>
     <string name="calendars">كالېندار</string>
     <string name="certificate_load_problem">گۇۋاھنامىنى يۈكلەشتە مەسىلە بار.</string>
@@ -111,7 +113,9 @@
     <string name="choose_template_helper_text">قېلىپنى تاللاڭ ۋە ھۆججەت نامىنى كىرگۈزۈڭ.</string>
     <string name="choose_which_file">قايسى ھۆججەتنى ساقلاشنى تاللاڭ!</string>
     <string name="choose_widget">كىچىك قورالنى تاللاڭ</string>
+    <string name="clear">Clear</string>
     <string name="clear_notifications_failed">ئۇقتۇرۇشنى تازىلاش مەغلۇب بولدى.</string>
+    <string name="clear_status_after">كېيىنكى ھالەتنى ئېنىقلاش</string>
     <string name="clear_status_message">ھالەت ئۇچۇرىنى تازىلاش</string>
     <string name="clear_status_message_after">ئۇنىڭدىن كېيىنكى ھالەت ئۇچۇرىنى تازىلاڭ</string>
     <string name="clipboard_label">تېكىست%1$s دىن كۆچۈرۈلگەن</string>
@@ -530,6 +534,7 @@
     <string name="move_file_invalid_into_descendent">قىسقۇچنى ئۆزىنىڭ ئاستىدىكى قىسقۇچقا يۆتكەش مۇمكىن ئەمەس</string>
     <string name="move_file_invalid_overwrite">مەنزىل ھۆججەت قىسقۇچىدا ھۆججەت بار</string>
     <string name="move_file_not_found">ھۆججەتنى يۆتكىگىلى بولمىدى. ئۇنىڭ بار-يوقلۇقىنى تەكشۈرۈپ بېقىڭ.</string>
+    <string name="mute_all_notifications">بارلىق ئۇقتۇرۇشلارنى ئاۋازسىز قىلىڭ</string>
     <string name="network_error_connect_timeout_exception">مۇلازىمېتىرنى ساقلاۋاتقاندا خاتالىق كۆرۈلدى. مەشغۇلاتنى تاماملىيالمىدى.</string>
     <string name="network_error_socket_exception">مۇلازىمېتىرغا ئۇلىنىش جەريانىدا خاتالىق كۆرۈلدى</string>
     <string name="network_error_socket_timeout_exception">مۇلازىمېتىرنى ساقلاۋاتقاندا خاتالىق كۆرۈلدى. مەشغۇلاتنى تاماملىيالمىدى.</string>
@@ -733,6 +738,7 @@
     <string name="send">ئەۋەتىڭ</string>
     <string name="sendbutton_description">كۇنۇپكا سىنبەلگىسىنى ئەۋەتىڭ</string>
     <string name="set_as">تەڭشەك</string>
+    <string name="set_online_status">توردىكى ئورنى</string>
     <string name="set_picture_as">رەسىمنى ئىشلىتىڭ</string>
     <string name="set_status">ھالەت بەلگىلەڭ</string>
     <string name="set_status_message">ھالەت ئۇچۇرىنى بەلگىلەڭ</string>

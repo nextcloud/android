@@ -115,6 +115,7 @@
     <string name="bottom_navigation_menu_favorites_label">Favourites</string>
     <string name="bottom_navigation_menu_files_label">All files</string>
     <string name="bottom_navigation_menu_media_label">Media</string>
+    <string name="busy">Busy</string>
     <string name="calendar">Calendar</string>
     <string name="calendars">Calendars</string>
     <string name="certificate_load_problem">There is a problem loading the certificate.</string>
@@ -126,7 +127,9 @@
     <string name="choose_template_helper_text">Please choose a template and enter a file name.</string>
     <string name="choose_which_file">Choose which file to keep!</string>
     <string name="choose_widget">Choose widget</string>
+    <string name="clear">Clear</string>
     <string name="clear_notifications_failed">Failed to clear notifications.</string>
+    <string name="clear_status_after">Clear status after</string>
     <string name="clear_status_message">Clear status message</string>
     <string name="clear_status_message_after">Clear status message after</string>
     <string name="clipboard_label">Text copied from %1$s</string>
@@ -624,7 +627,7 @@
     <string name="oc_file_list_adapter_offline_operation_description_text">Pending operation</string>
     <string name="oc_file_list_adapter_offline_operation_remove_description_text">Pending Remove Operation</string>
     <string name="offline_mode">No internet connection</string>
-    <string name="offline_mode_info_description">Even without an internet connection, you can organize your folders, create files. Once you\'re back online, your pending actions will automatically sync.</string>
+    <string name="offline_mode_info_description">Even without an internet connection, you can organise your folders, create files. Once you\'re back online, your pending actions will automatically sync.</string>
     <string name="offline_mode_info_title">You\'re offline, but work continues</string>
     <string name="offline_operations_file_does_not_exists_yet">File does not exists, yet. Please upload the file first.</string>
     <string name="offline_operations_worker_notification_create_file_conflict_text">Could not create %s. A file with the same name exists on the server.</string>
@@ -811,6 +814,7 @@
     <string name="set_as">Set As</string>
     <string name="set_download_limit_failed">Unable to set download limit. Please check capabilities.</string>
     <string name="set_note">Set note</string>
+    <string name="set_online_status">Online status</string>
     <string name="set_picture_as">Use picture as</string>
     <string name="set_status">Set status</string>
     <string name="set_status_message">Set status message</string>

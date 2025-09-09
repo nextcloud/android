@@ -123,6 +123,7 @@
     <string name="choose_template_helper_text">Elija una plantilla e introduzca un nombre de archivo.</string>
     <string name="choose_which_file">¡Selecciona el archivo a conservar!</string>
     <string name="choose_widget">Elegir widget</string>
+    <string name="clear">Limpiar</string>
     <string name="clear_notifications_failed">Error al borrar las notificaciones.</string>
     <string name="clear_status_message">Borrar mensaje de estado</string>
     <string name="clear_status_message_after">Borrar mensaje de estado después de</string>

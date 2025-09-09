@@ -42,6 +42,7 @@
     <string name="app_config_proxy_port_title">Porta proxy</string>
     <string name="app_widget_description">Mostra un widget dal cruscotto</string>
     <string name="appbar_search_in">Cerca in %s</string>
+    <string name="appear_offline">Appari non in linea</string>
     <string name="assistant_screen_add_task_alert_dialog_title">Aggiungi nuova attività</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Aggiungi del testo</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Sei sicuro di voler rimuovere questa attività?</string>
@@ -110,6 +111,7 @@
     <string name="bottom_navigation_menu_favorites_label">Preferiti</string>
     <string name="bottom_navigation_menu_files_label">Tutti i file</string>
     <string name="bottom_navigation_menu_media_label">Media</string>
+    <string name="busy">Occupato</string>
     <string name="calendar">Calendario</string>
     <string name="calendars">Calendari</string>
     <string name="certificate_load_problem">Si è verificato un problema durante il caricamento del certificato.</string>
@@ -121,7 +123,9 @@
     <string name="choose_template_helper_text">Scegli un modello e inserisci un nome del file.</string>
     <string name="choose_which_file">Scegli quale file mantenere!</string>
     <string name="choose_widget">Scegli il widget</string>
+    <string name="clear">Pulisci</string>
     <string name="clear_notifications_failed">Cancellazione notifiche non riuscita.</string>
+    <string name="clear_status_after">Togli lo stato dopo</string>
     <string name="clear_status_message">Cancella il messaggio di stato</string>
     <string name="clear_status_message_after">Cancella il messaggio di stato dopo</string>
     <string name="clipboard_label">Testo copiato da %1$s</string>

@@ -43,6 +43,7 @@
     <string name="app_config_proxy_port_title">Port Seachfhreastalaí</string>
     <string name="app_widget_description">Taispeáin giuirléid amháin ón deais</string>
     <string name="appbar_search_in">Cuardaigh i %s</string>
+    <string name="appear_offline">Le feiceáil as líne</string>
     <string name="assistant_screen_add_task_alert_dialog_title">Cuir tasc nua leis</string>
     <string name="assistant_screen_create_a_new_task_from_bottom_right_text">Cruthaigh tasc nua ón mbun ar dheis</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Clóscríobh roinnt téacs</string>
@@ -115,6 +116,7 @@
     <string name="bottom_navigation_menu_favorites_label">Ceanáin</string>
     <string name="bottom_navigation_menu_files_label">Gach comhad</string>
     <string name="bottom_navigation_menu_media_label">Meáin</string>
+    <string name="busy">Gnóthach</string>
     <string name="calendar">Féilire</string>
     <string name="calendars">Féilirí</string>
     <string name="certificate_load_problem">Tharla fadhb agus an teastas á lódáil.</string>
@@ -126,7 +128,9 @@
     <string name="choose_template_helper_text">Roghnaigh teimpléad agus cuir isteach ainm comhaid le do thoil.</string>
     <string name="choose_which_file">Roghnaigh cén comhad atá le coinneáil!</string>
     <string name="choose_widget">Roghnaigh giuirléid</string>
+    <string name="clear">Glan</string>
     <string name="clear_notifications_failed">Theip ar fhógraí a ghlanadh.</string>
+    <string name="clear_status_after">Stádas soiléir tar éis</string>
     <string name="clear_status_message">Glan teachtaireacht stádais</string>
     <string name="clear_status_message_after">Glan an teachtaireacht stádais ina dhiaidh</string>
     <string name="clipboard_label">Cóipeáladh an téacs ó %1$s</string>
@@ -578,6 +582,7 @@
     <string name="move_file_invalid_into_descendent">Ní féidir fillteán a bhogadh isteach i gceann dá fhillteáin bhunúsacha féin</string>
     <string name="move_file_invalid_overwrite">Tá an comhad i láthair cheana féin san fhillteán ceann scríbe</string>
     <string name="move_file_not_found">Ní féidir an comhad a bhogadh. Seiceáil an bhfuil sé ann le do thoil.</string>
+    <string name="mute_all_notifications">Balbhaigh gach fógra</string>
     <string name="network_error_connect_timeout_exception">Tharla earráid agus tú ag fanacht leis an bhfreastalaí. Níorbh fhéidir an oibríocht a chríochnú.</string>
     <string name="network_error_socket_exception">Tharla earráid agus ceangal leis an bhfreastalaí</string>
     <string name="network_error_socket_timeout_exception">Tharla earráid agus tú ag fanacht leis an bhfreastalaí. Níorbh fhéidir an oibríocht a chríochnú.</string>
@@ -811,6 +816,7 @@
     <string name="set_as">Socraigh Mar</string>
     <string name="set_download_limit_failed">Ní féidir teorainn íoslódála a shocrú. Seiceáil na cumais le do thoil.</string>
     <string name="set_note">Socraigh nóta</string>
+    <string name="set_online_status">Stádas ar líne</string>
     <string name="set_picture_as">Úsáid pictiúr mar</string>
     <string name="set_status">Socraigh stádas</string>
     <string name="set_status_message">Socraigh teachtaireacht stádais</string>

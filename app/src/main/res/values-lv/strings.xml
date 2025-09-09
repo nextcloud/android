@@ -81,11 +81,13 @@
     <string name="bottom_navigation_menu_favorites_label">Izlases vienumi</string>
     <string name="bottom_navigation_menu_files_label">Visas datnes</string>
     <string name="bottom_navigation_menu_media_label">Informācijas nesēji</string>
+    <string name="busy">Aizņemts</string>
     <string name="calendar">Kalendārs</string>
     <string name="calendars">Kalendāri</string>
     <string name="certificate_load_problem">Radusies problēma, ielādējot sertifikātu.</string>
     <string name="choose_local_folder">Izvēlēties vietēju mapi…</string>
     <string name="choose_remote_folder">Izvēlēties attālu mapi…</string>
+    <string name="clear">Notīrīt</string>
     <string name="clear_notifications_failed">Neizdevās notīrīt paziņojumus.</string>
     <string name="clipboard_label">Teksts kopēts no %1$s</string>
     <string name="clipboard_no_text_to_copy">Nav teksta, ko saglabāt starpliktuvē</string>
@@ -487,6 +489,7 @@
     <string name="select_all">Atzīmēt visu</string>
     <string name="send">Sūtīt</string>
     <string name="set_as">Saglabāt kā</string>
+    <string name="set_online_status">Tiešsaistes stāvoklis</string>
     <string name="set_picture_as">Izmantot attēlu kā</string>
     <string name="set_status">Iestatīt stāvokli</string>
     <string name="set_status_message">Iestatīt stāvokļa ziņojumu</string>

@@ -42,6 +42,7 @@
     <string name="app_config_proxy_port_title">Gátt milliþjóns</string>
     <string name="app_widget_description">Sýnir einn viðmótshluta af stjórnborði</string>
     <string name="appbar_search_in">Leita í %s</string>
+    <string name="appear_offline">Birtast ótengt</string>
     <string name="assistant_screen_add_task_alert_dialog_title">Bæta við nýju verki</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Skrifaðu einhvern texta</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Ertu viss um að þú viljir eyða þessu verki?</string>
@@ -110,6 +111,7 @@
     <string name="bottom_navigation_menu_favorites_label">Eftirlæti</string>
     <string name="bottom_navigation_menu_files_label">Allar skrár</string>
     <string name="bottom_navigation_menu_media_label">Myndefni</string>
+    <string name="busy">Upptekinn</string>
     <string name="calendar">Dagatal</string>
     <string name="calendars">Dagatöl</string>
     <string name="certificate_load_problem">Það kom upp vandamál við að lesa inn skilríkið.</string>
@@ -121,7 +123,9 @@
     <string name="choose_template_helper_text">Veldu sniðmát og settu inn skráarheiti.</string>
     <string name="choose_which_file">Veldu hvaða skrá á að halda!</string>
     <string name="choose_widget">Veldu viðmótshluta</string>
+    <string name="clear">Hreinsa</string>
     <string name="clear_notifications_failed">Mistókst að hreinsa tilkynningar.</string>
+    <string name="clear_status_after">Hreinsa stöðu eftir</string>
     <string name="clear_status_message">Hreinsa stöðuskilaboð</string>
     <string name="clear_status_message_after">Hreinsa stöðuskilaboð eftir</string>
     <string name="clipboard_label">Texti afritaður úr %1$s</string>
@@ -551,6 +555,7 @@
     <string name="move_file_invalid_into_descendent">Ekki er hægt að færa möppu inn í eina af undirmöppum sínum</string>
     <string name="move_file_invalid_overwrite">Skráin er þegar til í móttökumöppunni</string>
     <string name="move_file_not_found">Get ekki fært skrá. Athugaðu hvort hún sé til.</string>
+    <string name="mute_all_notifications">Þagga allar tilkynningar</string>
     <string name="network_error_connect_timeout_exception">Villa kom upp á meðan beðið var eftir þjóninum. Ekki var hægt að ljúka aðgerðinni.</string>
     <string name="network_error_socket_exception">Villa kom upp við að tengjast þjóninum</string>
     <string name="network_error_socket_timeout_exception">Villa kom upp á meðan beðið var eftir þjóninum. Ekki var hægt að ljúka aðgerðinni.</string>
@@ -762,6 +767,7 @@
     <string name="send">Senda</string>
     <string name="sendbutton_description">Táknmynd á sendihnappi</string>
     <string name="set_as">Setja sem</string>
+    <string name="set_online_status">Staða á netinu</string>
     <string name="set_picture_as">Nota mynd sem</string>
     <string name="set_status">Setja stöðu</string>
     <string name="set_status_message">Setja stöðuskilaboð</string>

@@ -110,6 +110,7 @@
     <string name="bottom_navigation_menu_favorites_label">Favoritos</string>
     <string name="bottom_navigation_menu_files_label">Todos os ficheiros</string>
     <string name="bottom_navigation_menu_media_label">Multimedia</string>
+    <string name="busy">Ocupado</string>
     <string name="calendar">Calendario</string>
     <string name="calendars">Calendarios</string>
     <string name="certificate_load_problem">Hai un problema ao cargar o certificado.</string>
@@ -121,7 +122,9 @@
     <string name="choose_template_helper_text">Escolla un modelo e introduza un nome de ficheiro.</string>
     <string name="choose_which_file">Escolla o ficheiro que quere conservar.</string>
     <string name="choose_widget">Escoller o trebello</string>
+    <string name="clear">Limpar</string>
     <string name="clear_notifications_failed">Produciuse un fallo ao limpar as notificacións.</string>
+    <string name="clear_status_after">Limpar o estado após</string>
     <string name="clear_status_message">Limpar a mensaxe de estado</string>
     <string name="clear_status_message_after">Limpar a mensaxe de estado após</string>
     <string name="clipboard_label">Texto copiado desde %1$s</string>
@@ -328,7 +331,7 @@
     <string name="error_showing_encryption_dialog">Produciuse un erro ao amosar o diálogo de configuración do cifrado!</string>
     <string name="error_starting_direct_camera_upload">Produciuse un erro ao iniciar a cámara</string>
     <string name="error_starting_doc_scan">Produciuse un erro ao iniciar o escaneamento do documento</string>
-    <string name="error_uploading_direct_camera_upload">Produciuse un fallo ao cargar os medios tomados</string>
+    <string name="error_uploading_direct_camera_upload">Produciuse un fallo ao enviar os ficheiros multimedia capturados.</string>
     <string name="etm_accounts">Contas</string>
     <string name="etm_background_execution_count">Veces executado en 48h</string>
     <string name="etm_background_job_created">Creado</string>
@@ -554,6 +557,7 @@
     <string name="move_file_invalid_into_descendent">Non é posíbel mover un cartafol cara a un dos seus propios subcartafoles</string>
     <string name="move_file_invalid_overwrite">Este ficheiro xa existe no cartafol de destino</string>
     <string name="move_file_not_found">Non é posíbel mover o ficheiro. Comprobe que existe.</string>
+    <string name="mute_all_notifications">Enmudecer todas as notificacións</string>
     <string name="network_error_connect_timeout_exception">Produciuse un erro agardando a resposta do servidor. Non foi posíbel completar a operación.</string>
     <string name="network_error_socket_exception">Produciuse un erro durante a conexión co servidor</string>
     <string name="network_error_socket_timeout_exception">Produciuse un erro agardando a resposta do servidor. Non foi posíbel completar a operación.</string>
@@ -767,6 +771,7 @@
     <string name="send">Enviar</string>
     <string name="sendbutton_description">Icona do botón de envío</string>
     <string name="set_as">Definir como</string>
+    <string name="set_online_status">Estado en liña</string>
     <string name="set_picture_as">Usar a imaxe como</string>
     <string name="set_status">Definir o estado</string>
     <string name="set_status_message">Definir a mensaxe de estado</string>
