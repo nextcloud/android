@@ -95,7 +95,7 @@ class AvatarGroupLayout @JvmOverloads constructor(
                             context
                         )
 
-                    ShareType.FEDERATED -> showFederatedShareAvatar(
+                    ShareType.FEDERATED, ShareType.FEDERATED_GROUP -> showFederatedShareAvatar(
                         context,
                         sharee.userId!!,
                         avatarRadius,
