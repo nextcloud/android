@@ -361,6 +361,7 @@ class OCFileListDelegate(
         }
     }
 
+    @Suppress("ReturnCount")
     private fun isFolderFullyDownloaded(file: OCFile): Boolean {
         if (!file.isFolder) {
             return false
