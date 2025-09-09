@@ -17,9 +17,12 @@ import com.owncloud.android.lib.common.OwnCloudClient
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.operations.DownloadFileOperation
+import com.owncloud.android.ui.events.FolderSyncEvent
+import com.owncloud.android.ui.events.FolderSyncState
 import com.owncloud.android.ui.helpers.FileOperationsHelper
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import org.greenrobot.eventbus.EventBus
 
 class SyncWorker(
     private val user: User,
@@ -31,14 +34,11 @@ class SyncWorker(
         private const val TAG = "SyncWorker"
 
         const val FOLDER_ID = "FOLDER_ID"
-        private var downloadingFiles = mutableListOf<OCFile>()
 
-        /**
-         * It is used to add the sync icon next to the file in the folder.
-         */
-        fun isDownloading(file: OCFile): Boolean {
-            return downloadingFiles.contains(file)
-        }
+        val syncEventBus: EventBus = EventBus.builder()
+            .logNoSubscriberMessages(false)
+            .sendNoSubscriberEvent(false)
+            .build()
     }
 
     private var notificationManager: SyncWorkerNotificationManager? = null
@@ -62,12 +62,6 @@ class SyncWorker(
         return withContext(Dispatchers.IO) {
             try {
                 val files = getFiles(folder, storageManager)
-
-                downloadingFiles = ArrayList(files).apply {
-                    // Add folder to mark the sync icon on the selected folder.
-                    add(folder)
-                }
-
                 val client = getClient()
 
                 var result = true
@@ -76,12 +70,17 @@ class SyncWorker(
                         return@withContext Result.failure()
                     }
 
+                    syncEventBus.post(FolderSyncEvent(file.fileId, FolderSyncState.SYNCING))
+
                     withContext(Dispatchers.Main) {
                         notificationManager?.showProgressNotification(folder.fileName, file.fileName, index, files.size)
                     }
 
                     val syncFileResult = syncFile(file, client)
-                    if (!syncFileResult) {
+                    if (syncFileResult) {
+                        syncEventBus.post(FolderSyncEvent(file.fileId, FolderSyncState.COMPLETED))
+                    } else {
+                        syncEventBus.post(FolderSyncEvent(file.fileId, FolderSyncState.FAILED))
                         result = false
                     }
                 }
@@ -101,7 +100,6 @@ class SyncWorker(
                 Log_OC.d(TAG, "SyncWorker failed reason: $e")
                 Result.failure()
             } finally {
-                downloadingFiles.clear()
                 notificationManager?.dismiss()
             }
         }
@@ -134,13 +132,7 @@ class SyncWorker(
         return withContext(Dispatchers.IO) {
             val operation = DownloadFileOperation(user, file, context).execute(client)
             Log_OC.d(TAG, "Syncing file: " + file.decryptedRemotePath)
-
-            if (operation.isSuccess) {
-                downloadingFiles.remove(file)
-                true
-            } else {
-                false
-            }
+            operation.isSuccess
         }
     }
 }

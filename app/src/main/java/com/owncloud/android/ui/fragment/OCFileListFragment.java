@@ -48,6 +48,7 @@ import com.nextcloud.client.documentscan.AppScanOptionalFeature;
 import com.nextcloud.client.documentscan.DocumentScanActivity;
 import com.nextcloud.client.editimage.EditImageActivity;
 import com.nextcloud.client.jobs.BackgroundJobManager;
+import com.nextcloud.client.jobs.sync.SyncWorker;
 import com.nextcloud.client.network.ClientFactory;
 import com.nextcloud.client.utils.Throttler;
 import com.nextcloud.common.NextcloudClient;
@@ -100,6 +101,7 @@ import com.owncloud.android.ui.events.CommentsEvent;
 import com.owncloud.android.ui.events.EncryptionEvent;
 import com.owncloud.android.ui.events.FavoriteEvent;
 import com.owncloud.android.ui.events.FileLockEvent;
+import com.owncloud.android.ui.events.FolderSyncEvent;
 import com.owncloud.android.ui.events.SearchEvent;
 import com.owncloud.android.ui.helpers.FileOperationsHelper;
 import com.owncloud.android.ui.interfaces.OCFileListFragmentInterface;
@@ -2126,15 +2128,16 @@ public class OCFileListFragment extends ExtendedListFragment implements
     @Override
     public void onStart() {
         super.onStart();
+        SyncWorker.Companion.getSyncEventBus().register(this);
         EventBus.getDefault().register(this);
     }
 
     @Override
     public void onStop() {
+        SyncWorker.Companion.getSyncEventBus().unregister(this);
         EventBus.getDefault().unregister(this);
         super.onStop();
     }
-
 
     @Override
     public void onRefresh() {
@@ -2308,5 +2311,15 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
     public SearchEvent getSearchEvent() {
         return searchEvent;
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void subscribeFolderSyncEvent(FolderSyncEvent event) {
+        final var adapter = getAdapter();
+        if (adapter == null) {
+            return;
+        }
+
+        adapter.handleFolderSyncEvent(event);
     }
 }

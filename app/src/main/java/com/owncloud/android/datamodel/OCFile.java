@@ -31,6 +31,7 @@ import com.owncloud.android.lib.resources.files.model.ImageDimension;
 import com.owncloud.android.lib.resources.files.model.ServerFileInterface;
 import com.owncloud.android.lib.resources.shares.ShareeUser;
 import com.owncloud.android.lib.resources.tags.Tag;
+import com.owncloud.android.ui.events.FolderSyncState;
 import com.owncloud.android.utils.MimeType;
 
 import java.io.File;
@@ -65,6 +66,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
 
     private static final String TAG = OCFile.class.getSimpleName();
 
+    private FolderSyncState folderSyncState;
     private long fileId; // android internal ID of the file
     private long parentId;
     private long fileLength;
@@ -1120,6 +1122,14 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
 
     public void setInternalFolderSyncTimestamp(Long internalFolderSyncTimestamp) {
         this.internalFolderSyncTimestamp = internalFolderSyncTimestamp;
+    }
+
+    public void setFolderSyncState(FolderSyncState state) {
+        folderSyncState = state;
+    }
+
+    public FolderSyncState getFolderSyncState() {
+        return folderSyncState;
     }
 
     public String getInternalFolderSyncResult() {
