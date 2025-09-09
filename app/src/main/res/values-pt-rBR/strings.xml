@@ -344,6 +344,7 @@
     <string name="error_report_issue_text">Reportar problema ao rastreador? (requer uma conta GitHub)</string>
     <string name="error_retrieving_file">Erro ao recuperar o arquivo</string>
     <string name="error_retrieving_templates">Erro recuperando modelos</string>
+    <string name="error_setting_status_message">Erro ao definir a mensagem de status!</string>
     <string name="error_showing_encryption_dialog">Erro ao mostrar o diálogo de configuração de criptografia!</string>
     <string name="error_starting_direct_camera_upload">Erro ao inicializar a câmera</string>
     <string name="error_starting_doc_scan">Erro ao iniciar a digitalização de documentos</string>
@@ -582,6 +583,7 @@
     <string name="move_file_invalid_into_descendent">Não é possível mover uma pasta para uma das suas próprias pastas subjacentes</string>
     <string name="move_file_invalid_overwrite">O arquivo já está presente na pasta destino</string>
     <string name="move_file_not_found">Não foi possível mover o arquivo. Verifique se ele existe.</string>
+    <string name="mute_all_notifications">Silenciar todas as notificações</string>
     <string name="network_error_connect_timeout_exception">Ocorreu um erro ao esperar pelo servidor. Não foi possível completar a operação.</string>
     <string name="network_error_socket_exception">Um erro ocorreu durante a conexão ao servidor</string>
     <string name="network_error_socket_timeout_exception">Ocorreu um erro ao esperar pelo servidor. Não foi possível completar a operação.</string>
@@ -814,6 +816,7 @@
     <string name="server_not_reachable_content">O dispositivo provavelmente não está conectado à Internet</string>
     <string name="set_as">Definir como</string>
     <string name="set_download_limit_failed">Não foi possível definir o limite de download. Verifique as capacidades.</string>
+    <string name="set_message">Definir mensagem</string>
     <string name="set_note">Definir nota</string>
     <string name="set_online_status">Status on-line</string>
     <string name="set_picture_as">Usar imagem como</string>

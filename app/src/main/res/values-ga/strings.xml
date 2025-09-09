@@ -344,6 +344,7 @@
     <string name="error_report_issue_text">An bhfuil fonn ort an cheist a thuairisciú don rianaitheoir? (tá cuntas GitHub ag teastáil)</string>
     <string name="error_retrieving_file">Earráid agus an comhad á aisghabháil</string>
     <string name="error_retrieving_templates">Earráid agus teimpléid á n-aisghabháil</string>
+    <string name="error_setting_status_message">Earráid ag socrú teachtaireachta stádais!</string>
     <string name="error_showing_encryption_dialog">Earráid agus dialóg socraithe criptithe á taispeáint!</string>
     <string name="error_starting_direct_camera_upload">Earráid agus ceamara á thosú</string>
     <string name="error_starting_doc_scan">Earráid agus scanadh doiciméad á thosú</string>
@@ -815,6 +816,7 @@
     <string name="server_not_reachable_content">Is dócha nach bhfuil an gléas ceangailte leis an idirlíon</string>
     <string name="set_as">Socraigh Mar</string>
     <string name="set_download_limit_failed">Ní féidir teorainn íoslódála a shocrú. Seiceáil na cumais le do thoil.</string>
+    <string name="set_message">Socraigh teachtaireacht</string>
     <string name="set_note">Socraigh nóta</string>
     <string name="set_online_status">Stádas ar líne</string>
     <string name="set_picture_as">Úsáid pictiúr mar</string>

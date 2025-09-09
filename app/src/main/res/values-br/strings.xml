@@ -97,6 +97,7 @@
     <string name="bottom_navigation_menu_assistant_label">Skoazeller</string>
     <string name="bottom_navigation_menu_favorites_label">Penndibaboù</string>
     <string name="bottom_navigation_menu_files_label">An holl restroù</string>
+    <string name="busy">O labourat</string>
     <string name="calendar">Deiziataer</string>
     <string name="calendars">Deiziataerioù</string>
     <string name="certificate_load_problem">Ur gudenn zo bet evit kargañ an testeni.</string>
@@ -108,6 +109,7 @@
     <string name="choose_template_helper_text">Dibabit ur patrom ha merkit un anv restr</string>
     <string name="choose_which_file">Dibab ar restr da vezañ miret !</string>
     <string name="choose_widget">Dibab ur widget</string>
+    <string name="clear">Netaat</string>
     <string name="clear_notifications_failed">C\'hwitet dilemel ar c\'hemennadennoù.</string>
     <string name="clear_status_message">Dilemel statud ar gemennadenn</string>
     <string name="clear_status_message_after">Dilemel statud ar gemennadenn war-lerc\'h</string>
