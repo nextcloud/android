@@ -1,0 +1,10 @@
+## 3.33.0 (September 10, 2025)
+
+- Migrate to Glide 4
+- Performance improvements
+- Fix gallery image scaling
+- Bugfixes
+
+Minimum: NC 18 Server, Android 8.1 Nougat
+
+For a full list, please see https://github.com/nextcloud/android/milestone/112
