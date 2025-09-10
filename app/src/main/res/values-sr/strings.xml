@@ -344,6 +344,7 @@
     <string name="error_report_issue_text">Да пријавим проблем пратиоцу? (потребан је GitHub  налог)</string>
     <string name="error_retrieving_file">Грешка при добављању фајла</string>
     <string name="error_retrieving_templates">Грешка при добављању шаблона</string>
+    <string name="error_setting_status_message">Грешка приликом постављања статусне поруке!</string>
     <string name="error_showing_encryption_dialog">Грешка приликом приказа дијалога за подешавање шифрирања!</string>
     <string name="error_starting_direct_camera_upload">Грешка при покретању камере</string>
     <string name="error_starting_doc_scan">Грешка приликом почетка скенирања документа</string>
@@ -815,6 +816,7 @@
     <string name="server_not_reachable_content">Изгледа да уређај није повезан са интернетом</string>
     <string name="set_as">Постави као</string>
     <string name="set_download_limit_failed">Не може да се постави ограничење преузимања. Молимо вас да проверите могућности.</string>
+    <string name="set_message">Постави поруку</string>
     <string name="set_note">Постави белешку</string>
     <string name="set_online_status">Мрежни статус</string>
     <string name="set_picture_as">Постави слику као</string>

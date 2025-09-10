@@ -38,10 +38,12 @@
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Syötä tekstiä</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Haluatko varmasti poistaa tämän tehtävän?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Poista tehtävä</string>
+    <string name="assistant_screen_loading">Ladataan tehtävälistaa…</string>
     <string name="assistant_screen_task_create_fail_message">Tehtävän luonti epäonnistui</string>
     <string name="assistant_screen_task_create_success_message">Tehtävä luotu</string>
     <string name="assistant_screen_task_delete_fail_message">Tehtävän poisto epäonnistui</string>
     <string name="assistant_screen_task_delete_success_message">Tehtävä poistettu</string>
+    <string name="assistant_screen_task_list_empty_message">Tehtävälista on tyhjä.</string>
     <string name="assistant_screen_task_list_error_state_message">Tehtävälistan haku epäonnistui, tarkista internetyhteytesi.</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">Poista tehtävä</string>
     <string name="assistant_screen_task_types_error_state_message">Tehtävätyyppen haku epäonnistui, tarkista internetyhteytesi.</string>
@@ -518,6 +520,7 @@
     <string name="move_file_invalid_into_descendent">Ei ole mahdollista siirtää kansiota yhteen sen alikansiosta.</string>
     <string name="move_file_invalid_overwrite">Tiedosto on jo olemassa kohdekansiossa</string>
     <string name="move_file_not_found">Tiedoston siirtäminen ei onnistunut. Varmista että tiedosto on olemassa.</string>
+    <string name="mute_all_notifications">Mykistä kaikki ilmoitukset</string>
     <string name="network_error_connect_timeout_exception">Palvelinta odottaessa tapahtui virhe. Toimenpidettä ei voitu suorittaa loppuun.</string>
     <string name="network_error_socket_exception">Palvelimeen yhdistäessä tapahtui virhe.</string>
     <string name="network_error_socket_timeout_exception">Palvelinta odottaessa tapahtui virhe. Toimenpidettä ei voitu suorittaa loppuun.</string>
@@ -526,6 +529,7 @@
     <string name="new_media_folder_detected">Uusi mediakansio %1$s löytynyt.</string>
     <string name="new_media_folder_photos">kuva</string>
     <string name="new_media_folder_videos">video</string>
+    <string name="new_notification">Uusi ilmoitus</string>
     <string name="new_version_was_created">Luotiin uusi versio</string>
     <string name="no_actions">Ei tapahtumia tälle käyttäjälle</string>
     <string name="no_browser_available">Linkkien käsittelyyn ei ole sovellusta</string>
@@ -738,6 +742,7 @@ GNU yleinen lisenssi, versio 2</string>
     <string name="share_no_expiration_date_label">Aseta vanhenemispäivä</string>
     <string name="share_no_password_title">Aseta salasana</string>
     <string name="share_permission_can_edit">Voi muokata</string>
+    <string name="share_permission_file_request">Tiedostopyyntö</string>
     <string name="share_permission_view_only">Vain katselu</string>
     <string name="share_re_share_permission">Jaa</string>
     <string name="share_read_permission">Lue</string>
@@ -819,6 +824,7 @@ GNU yleinen lisenssi, versio 2</string>
     <string name="subtitle_videos_only">Vain videot</string>
     <string name="suggest">Ehdota</string>
     <string name="sync">Synkronoi</string>
+    <string name="sync_anyway">Synkronoi silti</string>
     <string name="sync_conflicts_in_favourites_ticker">Ristiriitoja löytynyt</string>
     <string name="sync_current_folder_was_removed">Kansiota %1$s ei ole enää olemassa</string>
     <string name="sync_fail_content">Ei voitu synkronoida %1$s</string>
@@ -999,6 +1005,18 @@ GNU yleinen lisenssi, versio 2</string>
     <plurals name="minutes">
         <item quantity="one">%d minuutti</item>
         <item quantity="other">%d minuuttia</item>
+    </plurals>
+    <plurals name="time_seconds_ago">
+        <item quantity="one">%d sekunti sitten</item>
+        <item quantity="other">%d sekuntia sitten</item>
+    </plurals>
+    <plurals name="time_minutes_ago">
+        <item quantity="one">%d minuutti sitten</item>
+        <item quantity="other">%d minuuttia sitten</item>
+    </plurals>
+    <plurals name="time_hours_ago">
+        <item quantity="one">%d tunti sitten</item>
+        <item quantity="other">%d tuntia sitten</item>
     </plurals>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">Ei voitu synkronoida %1$d tiedosto (ristiriita: %2$d)</item>

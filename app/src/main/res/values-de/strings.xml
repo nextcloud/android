@@ -43,6 +43,7 @@
     <string name="app_config_proxy_port_title">Proxy-Port</string>
     <string name="app_widget_description">Zeigt ein Widget aus dem Dashboard an</string>
     <string name="appbar_search_in">Suche in %s</string>
+    <string name="appear_offline">Offline erscheinen</string>
     <string name="assistant_screen_add_task_alert_dialog_title">Neue Aufgabe hinzufügen</string>
     <string name="assistant_screen_create_a_new_task_from_bottom_right_text">Unten rechts eine neue Aufgabe erstellen</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Bitte einen Text eingeben</string>
@@ -129,6 +130,7 @@
     <string name="choose_widget">Widget auswählen</string>
     <string name="clear">Leeren</string>
     <string name="clear_notifications_failed">Benachrichtigungen konnten nicht gelöscht werden</string>
+    <string name="clear_status_after">Status löschen nach</string>
     <string name="clear_status_message">Statusnachricht löschen</string>
     <string name="clear_status_message_after">Statusnachricht löschen nach</string>
     <string name="clipboard_label">Text von %1$s kopiert</string>
@@ -342,6 +344,7 @@
     <string name="error_report_issue_text">Problem melden? (benötigt ein GitHub-Konto)</string>
     <string name="error_retrieving_file">Fehler beim Abruf der Datei</string>
     <string name="error_retrieving_templates">Fehler beim Laden der Vorlagen</string>
+    <string name="error_setting_status_message">Fehler beim Festlegen der Statusnachricht!</string>
     <string name="error_showing_encryption_dialog">Fehler beim Anzeigen des Setup-Dialogs für Verschlüsselung!</string>
     <string name="error_starting_direct_camera_upload">Fehler beim Starten der Kamera</string>
     <string name="error_starting_doc_scan">Start des Dokumentenscans fehlgeschlagen</string>
@@ -580,6 +583,7 @@
     <string name="move_file_invalid_into_descendent">Es ist nicht möglich, einen Ordner in einen seiner Unterordner zu verschieben</string>
     <string name="move_file_invalid_overwrite">Die Datei ist bereits im Zielordner vorhanden</string>
     <string name="move_file_not_found">Verschieben nicht möglich. Bitte prüfen Sie, ob die Datei existiert.</string>
+    <string name="mute_all_notifications">Alle Benachrichtigungen stummschalten</string>
     <string name="network_error_connect_timeout_exception">Es ist ein Fehler beim Warten auf den Server aufgetreten, die Operation konnte nicht abgeschlossen werden.</string>
     <string name="network_error_socket_exception">Es ist ein Fehler beim Verbinden mit dem Server aufgetreten.</string>
     <string name="network_error_socket_timeout_exception">Es ist ein Fehler beim Warten auf den Server aufgetreten, die Operation konnte nicht abgeschlossen werden</string>
@@ -812,7 +816,9 @@
     <string name="server_not_reachable_content">Das Gerät scheint nicht mit dem Internet verbunden zu sein</string>
     <string name="set_as">Setze als</string>
     <string name="set_download_limit_failed">Download-Limit konnte nicht festgelegt werden. Bitte die Leistungsfähigkeit prüfen.</string>
+    <string name="set_message">Nachricht festlegen</string>
     <string name="set_note">Notiz setzen</string>
+    <string name="set_online_status">Online-Status</string>
     <string name="set_picture_as">Nutze Bild als</string>
     <string name="set_status">Status setzen</string>
     <string name="set_status_message">Statusnachricht setzen</string>
