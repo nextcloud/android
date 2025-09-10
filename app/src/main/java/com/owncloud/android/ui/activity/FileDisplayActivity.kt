@@ -1259,8 +1259,6 @@ class FileDisplayActivity :
         }
 
         val ocFileListFragment = leftFragment
-
-        ocFileListFragment.setLoading(mSyncInProgress)
         syncAndUpdateFolder(ignoreETag = true, ignoreFocus = true)
 
         var startFile: OCFile? = null
@@ -1530,7 +1528,6 @@ class FileDisplayActivity :
             return
         }
 
-        ocFileListFragment.setLoading(mSyncInProgress)
         if (mSyncInProgress || ocFileListFragment.isLoading) {
             return
         }
@@ -1684,9 +1681,6 @@ class FileDisplayActivity :
                     // TODO what about other kind of previews?
                 }
             }
-
-            val ocFileListFragment: OCFileListFragment? = this@FileDisplayActivity.listOfFilesFragment
-            ocFileListFragment?.setLoading(false)
         }
 
         // TODO refactor this receiver, and maybe DownloadFinishReceiver; this method is duplicated :S
@@ -2363,12 +2357,8 @@ class FileDisplayActivity :
                 )
 
                 fetchRecommendedFilesIfNeeded(ignoreETag, folder)
-
-                val fragment = this.listOfFilesFragment
-                if (fragment != null && fragment !is GalleryFragment) {
-                    fragment.setLoading(true)
-                }
                 mSyncInProgress = false
+                ocFileListFragment?.setLoading(false)
             }, DELAY_TO_REQUEST_REFRESH_OPERATION_LATER)
         }
     }

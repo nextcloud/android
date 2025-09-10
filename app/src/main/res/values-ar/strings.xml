@@ -43,6 +43,7 @@
     <string name="app_config_proxy_port_title">منفذ البروكسي</string>
     <string name="app_widget_description">عرض أداة واحدة من لوحة المعلومات</string>
     <string name="appbar_search_in">بحث في %s</string>
+    <string name="appear_offline">الحالة غير متصل</string>
     <string name="assistant_screen_add_task_alert_dialog_title">إضافة مهمة جديدة</string>
     <string name="assistant_screen_create_a_new_task_from_bottom_right_text">أنشِئ مهمة جديدة من الأسفل</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">أكتُب أيَّ نص</string>
@@ -115,6 +116,7 @@
     <string name="bottom_navigation_menu_favorites_label">المُفضّلة</string>
     <string name="bottom_navigation_menu_files_label">كل الملفات</string>
     <string name="bottom_navigation_menu_media_label">الوسائط</string>
+    <string name="busy">مشغول</string>
     <string name="calendar">التقويم</string>
     <string name="calendars">التقاويم</string>
     <string name="certificate_load_problem">هناك مشكلة في تحميل الشهادة</string>
@@ -126,7 +128,9 @@
     <string name="choose_template_helper_text">اختر قالب وادخل اسم الملف</string>
     <string name="choose_which_file">اختر أي من أياً من الملفات التالية التي تريد الإحتفاظ بها!</string>
     <string name="choose_widget">أختر عنصر الواجهه</string>
+    <string name="clear">محو</string>
     <string name="clear_notifications_failed">فشلت عملية إزالة التنبيهات.</string>
+    <string name="clear_status_after">مسح رسالة الحالة بعد</string>
     <string name="clear_status_message">مسح رسالة الحالة</string>
     <string name="clear_status_message_after">مسح رسالة الحالة بعد</string>
     <string name="clipboard_label">تم نسخ النص من %1$s</string>
@@ -565,6 +569,7 @@
     <string name="move_file_invalid_into_descendent">لا يمكن نقل مجلد في مجلدات هوَّ يتضمنها</string>
     <string name="move_file_invalid_overwrite">هذا الملف موجود حالياً في المجلد المُّسّتَقبِل</string>
     <string name="move_file_not_found">غير قادر على نقل الملف. يرجى التحقق مما إذا كان موجوداً.</string>
+    <string name="mute_all_notifications">عدم إظهار جميع التنبيهات</string>
     <string name="network_error_connect_timeout_exception">حدث خطأ أثناء انتظار الخادم. تعذر إكمال العملية.</string>
     <string name="network_error_socket_exception">حدث خطأ أثناء الاتصال بالخادم</string>
     <string name="network_error_socket_timeout_exception">حدث خطأ أثناء انتظار الخادم. تعذر إكمال العملية.</string>
@@ -786,6 +791,7 @@
     <string name="sendbutton_description">أيقونة زر الإرسال</string>
     <string name="set_as">حفظ كـ</string>
     <string name="set_note">عيِّن الملاحظة</string>
+    <string name="set_online_status">حالة الاتصال</string>
     <string name="set_picture_as">استخدم الصورة كـ</string>
     <string name="set_status">تعيين الحالة</string>
     <string name="set_status_message">تعيين رسالة الحالة</string>
