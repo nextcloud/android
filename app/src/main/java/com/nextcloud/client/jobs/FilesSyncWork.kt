@@ -104,7 +104,7 @@ class FilesSyncWork(
         val user = userAccountManager.getUser(syncedFolder.account)
         if (user.isPresent) {
             var uploadIds = uploadsStorageManager.getCurrentUploadIds(user.get().accountName)
-            backgroundJobManager.startFilesUploadJob(user.get(), uploadIds, isAutoUpload = true)
+            backgroundJobManager.startFilesUploadJob(user.get(), uploadIds, false)
         }
 
         // Get changed files from ContentObserverWork (only images and videos) or by scanning filesystem
@@ -316,7 +316,7 @@ class FilesSyncWork(
             needsWifi,
             needsCharging,
             syncedFolder.nameCollisionPolicy,
-            isAutoUpload = true
+            false
         )
 
         for (path in paths) {

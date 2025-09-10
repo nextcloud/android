@@ -623,7 +623,7 @@ internal class BackgroundJobManagerImpl(
      *                  and cannot be determined directly from the account name or a single function
      *                  within the worker.
      */
-    override fun startFilesUploadJob(user: User, uploadIds: LongArray, isAutoUpload: Boolean) {
+    override fun startFilesUploadJob(user: User, uploadIds: LongArray, showSameFileAlreadyExistsNotification: Boolean) {
         defaultDispatcherScope.launch {
             val batchSize = FileUploadHelper.MAX_FILE_COUNT
             val batches = uploadIds.toList().chunked(batchSize)
@@ -634,7 +634,10 @@ internal class BackgroundJobManagerImpl(
                 .build()
 
             val dataBuilder = Data.Builder()
-                .putBoolean(FileUploadWorker.IS_AUTO_UPLOAD, isAutoUpload)
+                .putBoolean(
+                    FileUploadWorker.SHOW_SAME_FILE_ALREADY_EXISTS_NOTIFICATION,
+                    showSameFileAlreadyExistsNotification
+                )
                 .putString(FileUploadWorker.ACCOUNT, user.accountName)
                 .putInt(FileUploadWorker.TOTAL_UPLOAD_SIZE, uploadIds.size)
 

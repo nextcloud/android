@@ -183,7 +183,7 @@ class FileUploadHelper {
         accountNames.forEach { accountName ->
             val user = accountManager.getUser(accountName)
             if (user.isPresent) {
-                backgroundJobManager.startFilesUploadJob(user.get(), failedUploads.getUploadIds())
+                backgroundJobManager.startFilesUploadJob(user.get(), failedUploads.getUploadIds(), false)
             }
         }
 
@@ -202,7 +202,7 @@ class FileUploadHelper {
         requiresWifi: Boolean,
         requiresCharging: Boolean,
         nameCollisionPolicy: NameCollisionPolicy,
-        isAutoUpload: Boolean = false
+        showSameFileAlreadyExistsNotification: Boolean = true
     ) {
         val uploads = localPaths.mapIndexed { index, localPath ->
             OCUpload(localPath, remotePaths[index], user.accountName).apply {
@@ -216,7 +216,7 @@ class FileUploadHelper {
             }
         }
         uploadsStorageManager.storeUploads(uploads)
-        backgroundJobManager.startFilesUploadJob(user, uploads.getUploadIds(), isAutoUpload)
+        backgroundJobManager.startFilesUploadJob(user, uploads.getUploadIds(), showSameFileAlreadyExistsNotification)
     }
 
     fun removeFileUpload(remotePath: String, accountName: String) {
@@ -261,7 +261,7 @@ class FileUploadHelper {
     fun cancelAndRestartUploadJob(user: User, uploadIds: LongArray) {
         backgroundJobManager.run {
             cancelFilesUploadJob(user)
-            startFilesUploadJob(user, uploadIds)
+            startFilesUploadJob(user, uploadIds, false)
         }
     }
 
@@ -377,7 +377,7 @@ class FileUploadHelper {
         }
         uploadsStorageManager.storeUploads(uploads)
         val uploadIds: LongArray = uploads.filterNotNull().map { it.uploadId }.toLongArray()
-        backgroundJobManager.startFilesUploadJob(user, uploadIds)
+        backgroundJobManager.startFilesUploadJob(user, uploadIds, true)
     }
 
     /**
@@ -421,7 +421,7 @@ class FileUploadHelper {
         upload.uploadStatus = UploadStatus.UPLOAD_IN_PROGRESS
         uploadsStorageManager.updateUpload(upload)
 
-        backgroundJobManager.startFilesUploadJob(user, longArrayOf(upload.uploadId))
+        backgroundJobManager.startFilesUploadJob(user, longArrayOf(upload.uploadId), false)
     }
 
     fun cancel(accountName: String) {
