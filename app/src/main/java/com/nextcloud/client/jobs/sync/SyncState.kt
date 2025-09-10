@@ -5,10 +5,8 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-package com.owncloud.android.ui.events
+package com.nextcloud.client.jobs.sync
 
-data class FolderSyncEvent(val id: Long, val state: FolderSyncState)
-
-enum class FolderSyncState {
+enum class SyncState {
     SYNCING, COMPLETED, FAILED
 }

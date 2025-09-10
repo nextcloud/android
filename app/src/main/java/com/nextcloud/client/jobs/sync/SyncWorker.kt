@@ -17,11 +17,12 @@ import com.owncloud.android.lib.common.OwnCloudClient
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.operations.DownloadFileOperation
-import com.owncloud.android.ui.events.FolderSyncState
 import com.owncloud.android.ui.helpers.FileOperationsHelper
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.withContext
-import java.util.concurrent.ConcurrentHashMap
 
 class SyncWorker(
     private val user: User,
@@ -31,11 +32,12 @@ class SyncWorker(
 
     companion object {
         private const val TAG = "SyncWorker"
-        private val fileStates = ConcurrentHashMap<Long, FolderSyncState>()
+        private val _fileStates = MutableStateFlow<Map<Long, SyncState>>(emptyMap())
+        val fileStates: StateFlow<Map<Long, SyncState>> = _fileStates
 
-        fun isSyncing(id: Long): Boolean = fileStates.get(id) == FolderSyncState.SYNCING
-        fun isFailed(id: Long): Boolean = fileStates.get(id) == FolderSyncState.FAILED
-        fun isSynced(id: Long): Boolean = fileStates.get(id) == FolderSyncState.COMPLETED
+        fun updateState(id: Long, state: SyncState) {
+            _fileStates.update { it + (id to state) }
+        }
 
         const val FOLDER_ID = "FOLDER_ID"
     }
@@ -69,7 +71,7 @@ class SyncWorker(
                         return@withContext Result.failure()
                     }
 
-                    fileStates.putIfAbsent(file.fileId, FolderSyncState.SYNCING)
+                    updateState(file.fileId, SyncState.SYNCING)
 
                     withContext(Dispatchers.Main) {
                         notificationManager?.showProgressNotification(folder.fileName, file.fileName, index, files.size)
@@ -77,9 +79,9 @@ class SyncWorker(
 
                     val syncFileResult = syncFile(file, client)
                     if (syncFileResult) {
-                        fileStates.putIfAbsent(file.fileId, FolderSyncState.COMPLETED)
+                        updateState(file.fileId, SyncState.COMPLETED)
                     } else {
-                        fileStates.putIfAbsent(file.fileId, FolderSyncState.FAILED)
+                        updateState(file.fileId, SyncState.FAILED)
                         result = false
                     }
                 }
