@@ -24,7 +24,6 @@ import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.model.WorkerState
 import com.nextcloud.model.WorkerStateLiveData
 import com.nextcloud.utils.ForegroundServiceHelper
-import com.nextcloud.utils.extensions.getParentIdsOfSubfiles
 import com.nextcloud.utils.extensions.getPercent
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.FileDataStorageManager
@@ -43,7 +42,6 @@ import com.owncloud.android.utils.theme.ViewThemeUtils
 import java.util.AbstractList
 import java.util.Optional
 import java.util.Vector
-import java.util.concurrent.ConcurrentHashMap
 import kotlin.random.Random
 
 @Suppress("LongParameterList", "TooManyFunctions")
@@ -61,7 +59,6 @@ class FileDownloadWorker(
         private val TAG = FileDownloadWorker::class.java.simpleName
 
         private val pendingDownloads = IndexedForest<DownloadFileOperation>()
-        private val pendingFolderDownloads: MutableSet<Long> = ConcurrentHashMap.newKeySet<Long>()
 
         fun cancelOperation(accountName: String, fileId: Long) {
             pendingDownloads.all.forEach {
@@ -72,8 +69,6 @@ class FileDownloadWorker(
         fun isDownloading(accountName: String, fileId: Long): Boolean = pendingDownloads.all.any {
             it.value?.payload?.isMatching(accountName, fileId) == true
         }
-
-        fun isDownloadingFolder(id: Long): Boolean = pendingFolderDownloads.contains(id)
 
         const val FILE_REMOTE_PATH = "FILE_REMOTE_PATH"
         const val ACCOUNT_NAME = "ACCOUNT_NAME"
@@ -168,10 +163,6 @@ class FileDownloadWorker(
 
     private fun getRequestDownloads(ocFile: OCFile): AbstractList<String> {
         val files = getFiles(ocFile)
-        val filesPaths = files.map { it.remotePath }
-        val parentIdsOfSubFiles = fileDataStorageManager?.getParentIdsOfSubfiles(filesPaths) ?: listOf()
-        pendingFolderDownloads.addAll(parentIdsOfSubFiles)
-
         val downloadType = getDownloadType()
 
         conflictUploadId = inputData.keyValueMap[CONFLICT_UPLOAD_ID] as Long?

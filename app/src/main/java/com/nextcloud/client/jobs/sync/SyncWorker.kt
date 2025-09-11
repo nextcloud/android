@@ -52,6 +52,7 @@ class SyncWorker(
         }
         val storageManager = FileDataStorageManager(user, context.contentResolver)
         val folder = storageManager.getFileById(folderID) ?: return Result.failure()
+        updateState(folder.fileId, SyncState.SYNCING)
 
         notificationManager = SyncWorkerNotificationManager(context, folderID.toInt())
 
@@ -91,13 +92,16 @@ class SyncWorker(
                 }
 
                 if (result) {
+                    updateState(folder.fileId, SyncState.COMPLETED)
                     Log_OC.d(TAG, "SyncWorker completed")
                     Result.success()
                 } else {
+                    updateState(folder.fileId, SyncState.FAILED)
                     Log_OC.d(TAG, "SyncWorker failed")
                     Result.failure()
                 }
             } catch (e: Exception) {
+                updateState(folder.fileId, SyncState.FAILED)
                 Log_OC.d(TAG, "SyncWorker failed reason: $e")
                 Result.failure()
             } finally {
