@@ -17,9 +17,13 @@ import java.io.File
  */
 class FileSortOrderBySize internal constructor(name: String?, ascending: Boolean) : FileSortOrder(name!!, ascending) {
 
-    override fun sortCloudFiles(files: MutableList<OCFile>): List<OCFile> {
+    override fun sortCloudFiles(
+        files: MutableList<OCFile>,
+        foldersBeforeFiles: Boolean,
+        favoritesFirst: Boolean
+    ): MutableList<OCFile> {
         val sortedBySize = sortServerFiles(files)
-        return super.sortCloudFiles(sortedBySize)
+        return super.sortCloudFiles(sortedBySize, foldersBeforeFiles, favoritesFirst)
     }
 
     override fun sortTrashbinFiles(files: MutableList<TrashbinFile>): List<TrashbinFile> {
