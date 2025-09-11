@@ -43,6 +43,7 @@
     <string name="app_config_proxy_port_title">proxy代理伺服器連接埠</string>
     <string name="app_widget_description">顯示儀表板中的一個小部件</string>
     <string name="appbar_search_in">%s內搜尋</string>
+    <string name="appear_offline">顯示為離線</string>
     <string name="assistant_screen_add_task_alert_dialog_title">添加新任務</string>
     <string name="assistant_screen_create_a_new_task_from_bottom_right_text">從右下角創建新任務</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">輸入一些文字</string>
@@ -343,6 +344,7 @@
     <string name="error_report_issue_text">想舉報問題？（需要GitHub帳戶）</string>
     <string name="error_retrieving_file">檢索檔案時發生錯誤</string>
     <string name="error_retrieving_templates">取得範本時發生錯誤</string>
+    <string name="error_setting_status_message">設定狀態訊息時發生錯誤！</string>
     <string name="error_showing_encryption_dialog">顯示加密設定對話方塊時發生錯誤！</string>
     <string name="error_starting_direct_camera_upload">無法啟動相機</string>
     <string name="error_starting_doc_scan">文件掃描開始時出錯</string>
@@ -814,6 +816,7 @@
     <string name="server_not_reachable_content">裝置似乎無法連線至互聯網</string>
     <string name="set_as">設定為</string>
     <string name="set_download_limit_failed">無法設置下載限制。請檢查功能設置。</string>
+    <string name="set_message">設置訊息</string>
     <string name="set_note">設定備註</string>
     <string name="set_online_status">線上狀態</string>
     <string name="set_picture_as">使用圖片作為</string>
