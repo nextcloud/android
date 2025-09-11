@@ -11,9 +11,6 @@
          <trust file=".*-javadoc[.]jar" regex="true" reason="Android Studio downloads javadoc jars but doesn't add checksums - fixes building in AS"/>
          <trust file=".*-sources[.]jar" regex="true" reason="Android Studio downloads source jars but doesn't add checksums - fixes building in AS"/>
       </trusted-artifacts>
-      <ignored-keys>
-         <ignored-key id="4D21AC964B4DD57B" reason="Key couldn't be downloaded from any key server"/>
-      </ignored-keys>
       <trusted-keys>
          <trusted-key id="015479E1055341431B4545AB72475FD306B9CAB7" group="com.googlecode.javaewah" name="JavaEWAH" version="1.2.3"/>
          <trusted-key id="03C123038C20AAE9E286C857479D601F3A7B5C1A" group="^com[.]github[.]ajalt($|([.].*))" regex="true"/>
@@ -256,6 +253,7 @@
             <trusting group="com.mebigfatguy.fb-contrib" name="fb-contrib" version="7.6.9"/>
          </trusted-key>
          <trusted-key id="796737EDB7CB2E2904E2BFA447B25FE8A3702A09" group="^org[.]jbundle($|([.].*))" regex="true"/>
+         <trusted-key id="7A468635B9B8D04C4408B7BE4D21AC964B4DD57B" group="com.github.bumptech.glide" name="glide" version="5.0.4"/>
          <trusted-key id="7B121B76A7ED6CE6E60AD51784E913A8E3A748C0" group="org.bouncycastle"/>
          <trusted-key id="7C669810892CBD3148FA92995B05CCDE140C2876" group="org.eclipse.jgit"/>
          <trusted-key id="7E22D50A7EBD9D2CD269B2D4056ACA74D46000BF" group="io.netty"/>
