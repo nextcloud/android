@@ -21,6 +21,9 @@ import com.nextcloud.client.account.User
 import com.nextcloud.client.jobs.download.FileDownloadHelper
 import com.nextcloud.client.jobs.sync.SyncState
 import com.nextcloud.client.jobs.sync.SyncWorker
+import com.nextcloud.client.jobs.sync.isCompleted
+import com.nextcloud.client.jobs.sync.isFailed
+import com.nextcloud.client.jobs.sync.isSynchronizing
 import com.nextcloud.client.jobs.upload.FileUploadHelper
 import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.utils.extensions.makeRounded
@@ -359,26 +362,37 @@ class OCFileListDelegate(
         }
     }
 
-    private fun isSynchronizing(file: OCFile): Boolean {
+    private fun isSynchronizing(file: OCFile, liveSyncState: SyncState?): Boolean {
         val operationsServiceBinder = transferServiceGetter.operationsServiceBinder
         val fileDownloadHelper = FileDownloadHelper.instance()
 
         return operationsServiceBinder?.isSynchronizing(user, file) == true ||
             fileDownloadHelper.isDownloading(user, file) ||
-            fileUploadHelper.isUploading(user, file)
+            fileUploadHelper.isUploading(user, file) ||
+            liveSyncState.isSynchronizing() ||
+            SyncState.isSynchronizing(file.syncState)
+    }
+
+    private fun isFailed(file: OCFile, liveSyncState: SyncState?): Boolean = file.etagInConflict != null ||
+        liveSyncState.isFailed() ||
+        SyncState.isFailed(file.syncState)
+
+    private fun isCompleted(file: OCFile, liveSyncState: SyncState?): Boolean = file.isDown ||
+        liveSyncState.isCompleted() ||
+        SyncState.isCompleted(file.syncState)
+
+    private fun getLocalFileIndicator(file: OCFile, liveSyncState: SyncState?): Int? = when {
+        isSynchronizing(file, liveSyncState) -> R.drawable.ic_synchronizing
+        isFailed(file, liveSyncState) -> R.drawable.ic_synchronizing_error
+        isCompleted(file, liveSyncState) -> R.drawable.ic_synced
+        else -> null
     }
 
     private fun showLocalFileIndicator(file: OCFile, holder: ListViewHolder) {
         mainScope.launch {
-            SyncWorker.fileStates.collect { currentStates ->
-                val state = currentStates[file.fileId]
-
-                val icon = when {
-                    isSynchronizing(file) || state == SyncState.SYNCING || file.syncState == SyncState.SYNCING.ordinal  -> R.drawable.ic_synchronizing
-                    file.etagInConflict != null || state == SyncState.FAILED || file.syncState == SyncState.FAILED.ordinal -> R.drawable.ic_synchronizing_error
-                    file.isDown || state == SyncState.COMPLETED || file.syncState == SyncState.COMPLETED.ordinal -> R.drawable.ic_synced
-                    else -> null
-                }
+            SyncWorker.liveSyncStates.collect { liveSyncStates ->
+                val liveSyncState = liveSyncStates[file.fileId]
+                val icon = getLocalFileIndicator(file, liveSyncState)
 
                 holder.localFileIndicator.run {
                     if (icon != null) {

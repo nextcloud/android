@@ -24,19 +24,16 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.withContext
 
-class SyncWorker(
-    private val user: User,
-    private val context: Context,
-    params: WorkerParameters
-) : CoroutineWorker(context, params) {
+class SyncWorker(private val user: User, private val context: Context, params: WorkerParameters) :
+    CoroutineWorker(context, params) {
 
     companion object {
         private const val TAG = "SyncWorker"
-        private val _fileStates = MutableStateFlow<Map<Long, SyncState>>(emptyMap())
-        val fileStates: StateFlow<Map<Long, SyncState>> = _fileStates
+        private val _liveSyncStates = MutableStateFlow<Map<Long, SyncState>>(emptyMap())
+        val liveSyncStates: StateFlow<Map<Long, SyncState>> = _liveSyncStates
 
         private fun updateLiveSyncState(id: Long, state: SyncState) {
-            _fileStates.update { it + (id to state) }
+            _liveSyncStates.update { it + (id to state) }
         }
 
         const val FOLDER_ID = "FOLDER_ID"
@@ -147,11 +144,9 @@ class SyncWorker(
     }
 
     @Suppress("DEPRECATION")
-    private suspend fun syncFile(file: OCFile, client: OwnCloudClient): Boolean {
-        return withContext(Dispatchers.IO) {
-            val operation = DownloadFileOperation(user, file, context).execute(client)
-            Log_OC.d(TAG, "Syncing file: " + file.decryptedRemotePath)
-            operation.isSuccess
-        }
+    private suspend fun syncFile(file: OCFile, client: OwnCloudClient): Boolean = withContext(Dispatchers.IO) {
+        val operation = DownloadFileOperation(user, file, context).execute(client)
+        Log_OC.d(TAG, "Syncing file: " + file.decryptedRemotePath)
+        operation.isSuccess
     }
 }

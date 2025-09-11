@@ -288,11 +288,9 @@ class BackgroundJobFactory @Inject constructor(
         accountManager.user
     )
 
-    private fun createSyncWorker(context: Context, params: WorkerParameters): SyncWorker {
-        return SyncWorker(
-            accountManager.user,
-            context,
-            params
-        )
-    }
+    private fun createSyncWorker(context: Context, params: WorkerParameters): SyncWorker = SyncWorker(
+        accountManager.user,
+        context,
+        params
+    )
 }

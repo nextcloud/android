@@ -813,7 +813,7 @@ internal class BackgroundJobManagerImpl(
             .setConstraints(constraints)
             .build()
 
-        workManager.enqueueUniqueWork(workName, ExistingWorkPolicy.REPLACE, request)
+        workManager.enqueueUniqueWork(workName, ExistingWorkPolicy.KEEP, request)
     }
 
     override fun cancelSyncFolder(folderId: Long) {

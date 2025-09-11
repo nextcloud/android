@@ -31,8 +31,8 @@ class SyncWorkerNotificationManager(private val context: Context, private val no
         private const val DELAY = 1000L
     }
 
-    private fun getNotification(title: String, description: String? = null, progress: Int? = null): Notification {
-        return NotificationCompat.Builder(context, channelId).apply {
+    private fun getNotification(title: String, description: String? = null, progress: Int? = null): Notification =
+        NotificationCompat.Builder(context, channelId).apply {
             setSmallIcon(R.drawable.ic_sync)
             setContentTitle(title)
 
@@ -58,7 +58,6 @@ class SyncWorkerNotificationManager(private val context: Context, private val no
                 setChannelId(NotificationUtils.NOTIFICATION_CHANNEL_DOWNLOAD)
             }
         }.build()
-    }
 
     private fun getCancelPendingIntent(): PendingIntent {
         val intent = Intent(context, SyncWorkerReceiver::class.java)
@@ -93,13 +92,11 @@ class SyncWorkerNotificationManager(private val context: Context, private val no
         dismiss()
     }
 
-    fun getForegroundInfo(folderName: String): ForegroundInfo {
-        return ForegroundServiceHelper.createWorkerForegroundInfo(
-            notificationId,
-            getNotification(folderName, progress = 0),
-            ForegroundServiceType.DataSync
-        )
-    }
+    fun getForegroundInfo(folderName: String): ForegroundInfo = ForegroundServiceHelper.createWorkerForegroundInfo(
+        notificationId,
+        getNotification(folderName, progress = 0),
+        ForegroundServiceType.DataSync
+    )
 
     suspend fun showNotAvailableDiskSpace() {
         val notification =
