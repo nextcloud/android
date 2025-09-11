@@ -389,7 +389,9 @@
     <string name="auth_account_does_not_exist">The account is not added on this device yet</string>
     <string name="auth_access_failed">Access failed: %1$s</string>
 
-    <string name="authenticator_activity_no_web_browser_found">No web browser found to open the link</string>
+    <string name="authenticator_activity_empty_response_message">Unable to fetch login details. Please try again.</string>
+    <string name="authenticator_activity_empty_base_url">Please enter a valid server address.</string>
+    <string name="authenticator_activity_no_web_browser_found">No browser is available to open this link.</string>
     <string name="authenticator_activity_cancel_login">Cancel Login</string>
     <string name="authenticator_activity_please_complete_login_process">Please complete login process in your browser</string>
     <string name="authenticator_activity_login_error">There was an issue processing your login request. Please try again later.</string>
