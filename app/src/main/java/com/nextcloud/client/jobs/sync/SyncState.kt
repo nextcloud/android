@@ -8,5 +8,10 @@
 package com.nextcloud.client.jobs.sync
 
 enum class SyncState {
-    SYNCING, COMPLETED, FAILED
+    SYNCING, COMPLETED, FAILED, IDLE;
+
+    companion object {
+        fun fromOrdinal(ordinal: Int?): SyncState =
+            enumValues<SyncState>().getOrNull(ordinal ?: -1) ?: IDLE
+    }
 }

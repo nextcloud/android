@@ -35,7 +35,7 @@ class SyncWorker(
         private val _fileStates = MutableStateFlow<Map<Long, SyncState>>(emptyMap())
         val fileStates: StateFlow<Map<Long, SyncState>> = _fileStates
 
-        fun updateState(id: Long, state: SyncState) {
+        private fun updateLiveSyncState(id: Long, state: SyncState) {
             _fileStates.update { it + (id to state) }
         }
 
@@ -52,7 +52,7 @@ class SyncWorker(
         }
         val storageManager = FileDataStorageManager(user, context.contentResolver)
         val folder = storageManager.getFileById(folderID) ?: return Result.failure()
-        updateState(folder.fileId, SyncState.SYNCING)
+        updateLiveSyncState(folder.fileId, SyncState.SYNCING)
 
         notificationManager = SyncWorkerNotificationManager(context, folderID.toInt())
 
@@ -72,7 +72,7 @@ class SyncWorker(
                         return@withContext Result.failure()
                     }
 
-                    updateState(file.fileId, SyncState.SYNCING)
+                    updateLiveSyncState(file.fileId, SyncState.SYNCING)
 
                     withContext(Dispatchers.Main) {
                         notificationManager?.showProgressNotification(folder.fileName, file.fileName, index, files.size)
@@ -80,9 +80,9 @@ class SyncWorker(
 
                     val syncFileResult = syncFile(file, client)
                     if (syncFileResult) {
-                        updateState(file.fileId, SyncState.COMPLETED)
+                        updateLiveSyncState(file.fileId, SyncState.COMPLETED)
                     } else {
-                        updateState(file.fileId, SyncState.FAILED)
+                        updateLiveSyncState(file.fileId, SyncState.FAILED)
                         result = false
                     }
                 }
@@ -92,22 +92,36 @@ class SyncWorker(
                 }
 
                 if (result) {
-                    updateState(folder.fileId, SyncState.COMPLETED)
+                    saveSyncState(storageManager, folder, SyncState.COMPLETED)
+                    updateLiveSyncState(folder.fileId, SyncState.COMPLETED)
                     Log_OC.d(TAG, "SyncWorker completed")
                     Result.success()
                 } else {
-                    updateState(folder.fileId, SyncState.FAILED)
+                    saveSyncState(storageManager, folder, SyncState.FAILED)
+                    updateLiveSyncState(folder.fileId, SyncState.FAILED)
                     Log_OC.d(TAG, "SyncWorker failed")
                     Result.failure()
                 }
             } catch (e: Exception) {
-                updateState(folder.fileId, SyncState.FAILED)
+                saveSyncState(storageManager, folder, SyncState.FAILED)
+                updateLiveSyncState(folder.fileId, SyncState.FAILED)
                 Log_OC.d(TAG, "SyncWorker failed reason: $e")
                 Result.failure()
             } finally {
                 notificationManager?.dismiss()
             }
         }
+    }
+
+    private fun saveSyncState(storageManager: FileDataStorageManager, file: OCFile, state: SyncState) {
+        storageManager.getFileEntity(file).apply {
+            this?.syncState = state.ordinal
+        }?.let {
+            storageManager.fileDao.update(it)
+        }
+
+        file.setSyncState(state)
+        storageManager.saveFile(file)
     }
 
     private fun getFiles(folder: OCFile, storageManager: FileDataStorageManager): List<OCFile> =

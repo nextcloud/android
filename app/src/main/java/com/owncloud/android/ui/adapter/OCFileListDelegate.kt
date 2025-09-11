@@ -374,9 +374,9 @@ class OCFileListDelegate(
                 val state = currentStates[file.fileId]
 
                 val icon = when {
-                    isSynchronizing(file) || state == SyncState.SYNCING -> R.drawable.ic_synchronizing
-                    file.etagInConflict != null || state == SyncState.FAILED -> R.drawable.ic_synchronizing_error
-                    file.isDown || state == SyncState.COMPLETED -> R.drawable.ic_synced
+                    isSynchronizing(file) || state == SyncState.SYNCING || file.syncState == SyncState.SYNCING.ordinal  -> R.drawable.ic_synchronizing
+                    file.etagInConflict != null || state == SyncState.FAILED || file.syncState == SyncState.FAILED.ordinal -> R.drawable.ic_synchronizing_error
+                    file.isDown || state == SyncState.COMPLETED || file.syncState == SyncState.COMPLETED.ordinal -> R.drawable.ic_synced
                     else -> null
                 }
 
