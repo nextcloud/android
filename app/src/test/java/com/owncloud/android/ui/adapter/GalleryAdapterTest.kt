@@ -9,7 +9,6 @@ package com.owncloud.android.ui.adapter
 
 import android.content.Context
 import com.nextcloud.client.account.User
-import com.nextcloud.client.jobs.download.FileDownloadHelper
 import com.nextcloud.client.jobs.upload.FileUploadHelper
 import com.nextcloud.client.preferences.AppPreferences
 import com.owncloud.android.datamodel.FileDataStorageManager
@@ -19,9 +18,6 @@ import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.ui.activity.ComponentsGetter
 import com.owncloud.android.ui.interfaces.OCFileListFragmentInterface
 import com.owncloud.android.utils.theme.ViewThemeUtils
-import io.mockk.every
-import io.mockk.mockk
-import io.mockk.mockkObject
 import junit.framework.Assert.assertEquals
 import org.junit.After
 import org.junit.Before
@@ -61,8 +57,6 @@ class GalleryAdapterTest {
     @Before
     fun setUp() {
         mocks = MockitoAnnotations.openMocks(this)
-        mockkObject(FileDownloadHelper.Companion)
-        every { FileDownloadHelper.instance() } returns mockk(relaxed = true)
     }
 
     @After

@@ -71,8 +71,6 @@ class OCFileListDelegate(
     private val asyncTasks: MutableList<ThumbnailsCacheManager.ThumbnailGenerationTask> = ArrayList()
     private val asyncGalleryTasks: MutableList<ThumbnailsCacheManager.GalleryImageGenerationTask> = ArrayList()
     private val ioScope = CoroutineScope(Dispatchers.IO)
-    private val operationsServiceBinder = transferServiceGetter.operationsServiceBinder
-    private val fileDownloadHelper = FileDownloadHelper.instance()
 
     fun setHighlightedItem(highlightedItem: OCFile?) {
         this.highlightedItem = highlightedItem
@@ -376,9 +374,14 @@ class OCFileListDelegate(
         return subfiles.all { it.isDown }
     }
 
-    private fun isSynchronizing(file: OCFile): Boolean = operationsServiceBinder?.isSynchronizing(user, file) == true ||
-        fileDownloadHelper.isDownloading(user, file) ||
-        fileUploadHelper.isUploading(user, file)
+    private fun isSynchronizing(file: OCFile): Boolean {
+        val operationsServiceBinder = transferServiceGetter.operationsServiceBinder
+        val fileDownloadHelper = FileDownloadHelper.instance()
+
+        return operationsServiceBinder?.isSynchronizing(user, file) == true ||
+            fileDownloadHelper.isDownloading(user, file) ||
+            fileUploadHelper.isUploading(user, file)
+    }
 
     private fun showLocalFileIndicator(file: OCFile, holder: ListViewHolder) {
         val icon = when {
