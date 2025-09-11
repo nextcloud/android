@@ -7,8 +7,6 @@
 
 package com.nextcloud.client.jobs.sync
 
-import com.owncloud.android.R
-
 enum class SyncState {
     SYNCING,
     COMPLETED,
@@ -24,14 +22,6 @@ enum class SyncState {
     }
 }
 
-fun SyncState?.getIconId(): Int? {
-    return if (this == SyncState.SYNCING) {
-        R.drawable.ic_synchronizing
-    } else if (this == SyncState.FAILED) {
-        R.drawable.ic_synchronizing_error
-    } else if (this == SyncState.COMPLETED) {
-        R.drawable.ic_synced
-    } else {
-        null
-    }
-}
+fun SyncState?.isSynchronizing(): Boolean = this == SyncState.SYNCING
+fun SyncState?.isFailed(): Boolean = this == SyncState.FAILED
+fun SyncState?.isCompleted(): Boolean = this == SyncState.COMPLETED

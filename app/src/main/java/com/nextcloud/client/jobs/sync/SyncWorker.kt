@@ -111,12 +111,6 @@ class SyncWorker(private val user: User, private val context: Context, params: W
     }
 
     private fun saveSyncState(storageManager: FileDataStorageManager, file: OCFile, state: SyncState) {
-        storageManager.getFileEntity(file).apply {
-            this?.syncState = state.ordinal
-        }?.let {
-            storageManager.fileDao.update(it)
-        }
-
         file.setSyncState(state)
         storageManager.saveFile(file)
     }
