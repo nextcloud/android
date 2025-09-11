@@ -21,10 +21,11 @@ import com.owncloud.android.utils.MimeTypeUtil
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import java.io.File
 
-class GroupfolderListAdapter(
+class GroupFolderListAdapter(
     val context: Context,
     val viewThemeUtils: ViewThemeUtils,
-    private val groupfolderListInterface: GroupfolderListInterface
+    private val groupFolderListInterface: GroupfolderListInterface,
+    private val isDarkMode: Boolean
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     lateinit var list: List<Groupfolder>
 
@@ -34,7 +35,7 @@ class GroupfolderListAdapter(
 
     private fun getFolderIcon(): LayerDrawable? {
         val overlayDrawableId = R.drawable.ic_folder_overlay_account_group
-        return MimeTypeUtil.getFolderIcon(false, overlayDrawableId, context, viewThemeUtils)
+        return MimeTypeUtil.getFolderIcon(isDarkMode, overlayDrawableId, context, viewThemeUtils)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
@@ -45,10 +46,10 @@ class GroupfolderListAdapter(
     override fun getItemCount(): Int = list.size
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        val groupfolder = list[position]
+        val groupFolder = list[position]
         val listHolder = holder as OCFileListItemViewHolder
 
-        val file = File("/" + groupfolder.mountPoint)
+        val file = File("/" + groupFolder.mountPoint)
 
         listHolder.apply {
             fileName.text = file.name
@@ -62,9 +63,9 @@ class GroupfolderListAdapter(
             localFileIndicator.visibility = View.GONE
             favorite.visibility = View.GONE
 
-            thumbnail.setImageDrawable(getFolderIcon())
-
-            itemLayout.setOnClickListener { groupfolderListInterface.onFolderClick(groupfolder.mountPoint) }
+            val folderIcon = getFolderIcon()
+            thumbnail.setImageDrawable(folderIcon)
+            itemLayout.setOnClickListener { groupFolderListInterface.onFolderClick(groupFolder.mountPoint) }
         }
     }
 }
