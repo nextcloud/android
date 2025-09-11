@@ -283,6 +283,14 @@ public class OCFileListFragment extends ExtendedListFragment implements
         setupBackButtonRedirectToAllFiles();
     }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        if (getAdapter() != null) {
+            getAdapter().cleanup();
+        }
+    }
+
     /**
      * {@inheritDoc}
      */

@@ -14,8 +14,18 @@ import com.nextcloud.client.database.entity.FileEntity
 import com.owncloud.android.db.ProviderMeta.ProviderTableMeta
 import com.owncloud.android.utils.MimeType
 
+@Suppress("TooManyFunctions")
 @Dao
 interface FileDao {
+    @Query(
+        """
+        SELECT DISTINCT parent 
+        FROM filelist 
+        WHERE path IN (:subfilePaths)
+        """
+    )
+    fun getParentIdsOfSubfiles(subfilePaths: List<String>): List<Long>
+
     @Update
     fun update(entity: FileEntity)
 
@@ -76,6 +86,23 @@ interface FileDao {
     """
     )
     fun getNonEncryptedSubfolders(
+        parentId: Long,
+        accountName: String,
+        dirType: String = MimeType.DIRECTORY,
+        webdavType: String = MimeType.WEBDAV_FOLDER
+    ): List<FileEntity>
+
+    @Query(
+        """
+    SELECT * 
+    FROM filelist 
+    WHERE parent = :parentId 
+      AND file_owner = :accountName 
+      AND (content_type != :dirType AND content_type != :webdavType)  
+    ORDER BY ${ProviderTableMeta.FILE_DEFAULT_SORT_ORDER}
+    """
+    )
+    fun getSubfiles(
         parentId: Long,
         accountName: String,
         dirType: String = MimeType.DIRECTORY,
