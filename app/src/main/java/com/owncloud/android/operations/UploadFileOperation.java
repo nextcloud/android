@@ -70,8 +70,6 @@ import com.owncloud.android.utils.theme.CapabilityUtils;
 
 import org.apache.commons.httpclient.HttpStatus;
 import org.apache.commons.httpclient.methods.RequestEntity;
-import org.lukhnos.nnio.file.Files;
-import org.lukhnos.nnio.file.Paths;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -81,6 +79,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.RandomAccessFile;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.nio.channels.FileChannel;
 import java.nio.channels.FileLock;
 import java.nio.channels.OverlappingFileLockException;
@@ -1244,7 +1245,11 @@ public class UploadFileOperation extends SyncOperation {
                                       OwnCloudClient client) {
         switch (mLocalBehaviour) {
             case FileUploadWorker.LOCAL_BEHAVIOUR_DELETE:
-                originalFile.delete();
+                try {
+                    Files.delete(originalFile.toPath());
+                } catch (IOException e) {
+                    Log_OC.e(TAG, "Could not delete original file: " + originalFile.getAbsolutePath(), e);
+                }
                 mFile.setStoragePath("");
                 getStorageManager().deleteFileInMediaScan(originalFile.getAbsolutePath());
                 saveUploadedFile(client);
@@ -1548,18 +1553,18 @@ public class UploadFileOperation extends SyncOperation {
 
         if (!targetFile.equals(sourceFile)) {
             File expectedFolder = targetFile.getParentFile();
-            expectedFolder.mkdirs();
+            Files.createDirectories(expectedFolder.toPath());
 
             if (expectedFolder.isDirectory()) {
                 if (!sourceFile.renameTo(targetFile)) {
                     // try to copy and then delete
-                    targetFile.createNewFile();
+                    Files.createFile(targetFile.toPath());
                     try (
                         FileChannel inChannel = new FileInputStream(sourceFile).getChannel();
                         FileChannel outChannel = new FileOutputStream(targetFile).getChannel()
                     ) {
                         inChannel.transferTo(0, inChannel.size(), outChannel);
-                        sourceFile.delete();
+                        Files.delete(sourceFile.toPath());
                     } catch (Exception e) {
                         mFile.setStoragePath(""); // forget the local file
                         // by now, treat this as a success; the file was uploaded
