@@ -20,7 +20,7 @@ import com.owncloud.android.MainApp
 import com.owncloud.android.R
 import com.owncloud.android.ui.EmptyRecyclerView
 import com.owncloud.android.ui.activity.FileDisplayActivity
-import com.owncloud.android.ui.adapter.GroupfolderListAdapter
+import com.owncloud.android.ui.adapter.GroupFolderListAdapter
 import com.owncloud.android.ui.asynctasks.GroupfoldersSearchTask
 import com.owncloud.android.ui.interfaces.GroupfolderListInterface
 import javax.inject.Inject
@@ -33,7 +33,7 @@ class GroupfolderListFragment :
     Injectable,
     GroupfolderListInterface {
 
-    lateinit var adapter: GroupfolderListAdapter
+    lateinit var adapter: GroupFolderListAdapter
 
     @Inject
     lateinit var logger: Logger
@@ -55,7 +55,7 @@ class GroupfolderListFragment :
     }
 
     public override fun setAdapter(args: Bundle?) {
-        adapter = GroupfolderListAdapter(requireContext(), viewThemeUtils, this)
+        adapter = GroupFolderListAdapter(requireContext(), viewThemeUtils, this, preferences.isDarkModeEnabled)
         setRecyclerViewAdapter(adapter)
 
         val layoutManager = LinearLayoutManager(context)
