@@ -253,7 +253,10 @@
             <trusting group="com.mebigfatguy.fb-contrib" name="fb-contrib" version="7.6.9"/>
          </trusted-key>
          <trusted-key id="796737EDB7CB2E2904E2BFA447B25FE8A3702A09" group="^org[.]jbundle($|([.].*))" regex="true"/>
-         <trusted-key id="7A468635B9B8D04C4408B7BE4D21AC964B4DD57B" group="com.github.bumptech.glide" name="glide" version="5.0.4"/>
+         <trusted-key id="7A468635B9B8D04C4408B7BE4D21AC964B4DD57B">
+            <trusting group="com.github.bumptech.glide"/>
+            <trusting group="com.github.bumptech.glide" name="glide" version="5.0.4"/>
+         </trusted-key>
          <trusted-key id="7B121B76A7ED6CE6E60AD51784E913A8E3A748C0" group="org.bouncycastle"/>
          <trusted-key id="7C669810892CBD3148FA92995B05CCDE140C2876" group="org.eclipse.jgit"/>
          <trusted-key id="7E22D50A7EBD9D2CD269B2D4056ACA74D46000BF" group="io.netty"/>
