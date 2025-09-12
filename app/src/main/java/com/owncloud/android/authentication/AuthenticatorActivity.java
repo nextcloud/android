@@ -30,6 +30,7 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
 import android.text.TextUtils;
+import android.util.Pair;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -49,6 +50,8 @@ import com.blikoon.qrcodescanner.QrCodeActivity;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
 import com.nextcloud.android.common.ui.color.ColorUtil;
 import com.nextcloud.android.common.ui.theme.utils.ColorRole;
@@ -113,6 +116,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -231,11 +235,13 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     @Inject ClientFactory clientFactory;
 
     private AuthObject authObject = null;
+    private String fallbackToken;
     private boolean onlyAdd = false;
 
     private final Gson gson = new Gson();
 
     private ViewThemeUtils viewThemeUtils;
+    private final ExecutorService singleThreadExecutor = Executors.newSingleThreadExecutor();
 
     @VisibleForTesting
     public AccountSetupBinding getAccountSetupBinding() {
@@ -418,28 +424,59 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
      *            Example: "<a href="https://example.com/index.php/login/v2">...</a>"
      */
     private void anonymouslyPostLoginRequest(String url) {
+        if (TextUtils.isEmpty(url)) {
+            DisplayUtils.showSnackMessage(this, R.string.authenticator_activity_empty_base_url);
+            return;
+        }
         baseUrl = url;
 
-        Thread thread = new Thread(() -> {
+        singleThreadExecutor.execute(() -> {
             String response = getResponseOfAnonymouslyPostLoginRequest();
-
-            try {
-                authObject = gson.fromJson(response, AuthObject.class);
-                runOnUiThread(() -> {
-                    String loginUrl = getResources().getString(R.string.webview_login_url);
-                    if (authObject != null && !TextUtils.isEmpty(authObject.getLogin())) {
-                        loginUrl = authObject.getLogin();
-                    }
-                    initLoginInfoView();
-                    launchDefaultWebBrowser(loginUrl);
-                });
-            } catch (Throwable t) {
-                Log_OC.d(TAG, "Error caught at anonymouslyPostLoginRequest: " + t);
-                DisplayUtils.showSnackMessage(this, R.string.authenticator_activity_login_error);
+            if (TextUtils.isEmpty(response)) {
+                DisplayUtils.showSnackMessage(AuthenticatorActivity.this, R.string.authenticator_activity_empty_response_message);
+                return;
             }
-        });
 
-        thread.start();
+            String loginUrl = extractLoginUrl(response);
+            runOnUiThread(() -> {
+                initLoginInfoView();
+                launchDefaultWebBrowser(loginUrl);
+            });
+        });
+    }
+
+    private String extractLoginUrl(String response) {
+        try {
+            authObject = gson.fromJson(response, AuthObject.class);
+            if (authObject != null && !TextUtils.isEmpty(authObject.getLogin())) {
+                return authObject.getLogin();
+            } else {
+                Log_OC.e(TAG, "AuthObject parsing failed or login empty, trying JSONObject fallback");
+            }
+        } catch (Exception e) {
+            Log_OC.e(TAG, "Error parsing AuthObject: " + e.getMessage(), e);
+        }
+
+        try {
+            String fallbackUrl = getLoginFromJsonObject(response);
+            if (!TextUtils.isEmpty(fallbackUrl)) {
+                return fallbackUrl;
+            } else {
+                Log_OC.e(TAG, "Fallback JSONObject parsing failed or login empty");
+            }
+        } catch (Exception e) {
+            Log_OC.e(TAG, "Error parsing fallback JSONObject: " + e.getMessage(), e);
+        }
+
+        Log_OC.e(TAG, "Both AuthObject and fallback parsing failed, returning default login URL");
+        DisplayUtils.showSnackMessage(this, R.string.authenticator_activity_login_error);
+        return getResources().getString(R.string.webview_login_url);
+    }
+
+    private String getLoginFromJsonObject(String response) {
+        JsonObject jsonObject = JsonParser.parseString(response).getAsJsonObject();
+        fallbackToken = jsonObject.getAsJsonObject("poll").get("token").getAsString();
+        return jsonObject.get("login").getAsString();
     }
 
     private String getResponseOfAnonymouslyPostLoginRequest() {
@@ -450,30 +487,57 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     }
 
     private void launchDefaultWebBrowser(String url) {
-        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);
+        if (url == null || url.isBlank()) {
+            DisplayUtils.showSnackMessage(this, R.string.invalid_url);
+            return;
+        }
+
+        try {
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            PackageManager packageManager = getPackageManager();
+
+            if (intent.resolveActivity(packageManager) != null) {
+                startActivity(intent);
+            } else {
+                DisplayUtils.showSnackMessage(this, R.string.authenticator_activity_no_web_browser_found);
+            }
+        } catch (Exception e) {
+            Log_OC.e(TAG, "Exception launchDefaultWebBrowser: " + e);
+            DisplayUtils.showSnackMessage(this, R.string.authenticator_activity_login_error);
+        }
+    }
+
+    private Pair<String, String> extractPollUrlAndToken() {
+        if (authObject != null) {
+            final var poll = authObject.getPoll();
+            String pollUrl = poll.getEndpoint();
+            String token = poll.getToken();
+
+            if (TextUtils.isEmpty(pollUrl)) {
+                Log_OC.e(TAG, "auth object poll url is empty.");
+            }
+            if (TextUtils.isEmpty(token)) {
+                Log_OC.e(TAG, "auth object token is empty.");
+            }
+
+            if (!TextUtils.isEmpty(pollUrl) && !TextUtils.isEmpty(token)) {
+                return new Pair<>(pollUrl, token);
+            }
+        }
+
+        return new Pair<>(baseUrl + "/poll", fallbackToken);
     }
 
     private void performLoginFlowV2() {
-        final String pollUrl = authObject.getPoll().getEndpoint();
-        if (TextUtils.isEmpty(pollUrl)) {
-            Log_OC.e(TAG, "pollUrl is empty.");
-            return;
-        }
-
-        final String token = authObject.getPoll().getToken();
-        if (TextUtils.isEmpty(authObject.getPoll().getToken())) {
-            Log_OC.e(TAG, "token is empty.");
-            return;
-        }
+        final var pollUrlAndToken = extractPollUrlAndToken();
 
         RequestBody requestBody = new FormBody.Builder()
-            .add("token", token)
+            .add("token", pollUrlAndToken.second)
             .build();
 
         PlainClient client = clientFactory.createPlainClient();
-        PostMethod post = new PostMethod(pollUrl, false, requestBody);
+        PostMethod post = new PostMethod(pollUrlAndToken.first, false, requestBody);
         int status = post.execute(client);
         String response = post.getResponseBodyAsString();
 
@@ -889,7 +953,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         }
 
         Log_OC.d(TAG, "AuthenticatorActivity onDestroy called");
-
+        singleThreadExecutor.shutdown();
         super.onDestroy();
     }
 
