@@ -22,6 +22,17 @@ import java.security.SecureRandom
 class DownloadNotificationManager(id: Int, private val context: Context, viewThemeUtils: ViewThemeUtils) :
     WorkerNotificationManager(id, context, viewThemeUtils, R.string.downloader_download_in_progress_ticker) {
 
+    private var lastPercent = -1
+
+    init {
+        notificationBuilder.apply {
+            setSound(null)
+            setVibrate(null)
+            setOnlyAlertOnce(true)
+            setSilent(true)
+        }
+    }
+
     @Suppress("MagicNumber")
     fun prepareForStart(operation: DownloadFileOperation) {
         currentOperationTitle = File(operation.savePath).name
@@ -44,6 +55,12 @@ class DownloadNotificationManager(id: Int, private val context: Context, viewThe
 
     @Suppress("MagicNumber")
     fun updateDownloadProgress(percent: Int, totalToTransfer: Long) {
+        // If downloads are so fast, no need to notify again.
+        if (percent == lastPercent) {
+            return
+        }
+        lastPercent = percent
+
         val progressText = NumberFormatter.getPercentageText(percent)
         setProgress(percent, progressText, totalToTransfer < 0)
         showNotification()
