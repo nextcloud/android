@@ -22,6 +22,7 @@ import com.nextcloud.client.device.PowerManagementService
 import com.nextcloud.client.documentscan.GeneratePDFUseCase
 import com.nextcloud.client.documentscan.GeneratePdfFromImagesWork
 import com.nextcloud.client.integrations.deck.DeckApi
+import com.nextcloud.client.jobs.autoUpload.AutoUploadWorker
 import com.nextcloud.client.jobs.download.FileDownloadWorker
 import com.nextcloud.client.jobs.metadata.MetadataWorker
 import com.nextcloud.client.jobs.offlineOperations.OfflineOperationsWorker
@@ -84,7 +85,7 @@ class BackgroundJobFactory @Inject constructor(
             when (workerClass) {
                 ContactsBackupWork::class -> createContactsBackupWork(context, workerParameters)
                 ContactsImportWork::class -> createContactsImportWork(context, workerParameters)
-                FilesSyncWork::class -> createFilesSyncWork(context, workerParameters)
+                AutoUploadWorker::class -> createFilesSyncWork(context, workerParameters)
                 OfflineSyncWork::class -> createOfflineSyncWork(context, workerParameters)
                 MediaFoldersDetectionWork::class -> createMediaFoldersDetectionWork(context, workerParameters)
                 NotificationWork::class -> createNotificationWork(context, workerParameters)
@@ -166,10 +167,9 @@ class BackgroundJobFactory @Inject constructor(
             contentResolver
         )
 
-    private fun createFilesSyncWork(context: Context, params: WorkerParameters): FilesSyncWork = FilesSyncWork(
+    private fun createFilesSyncWork(context: Context, params: WorkerParameters): AutoUploadWorker = AutoUploadWorker(
         context = context,
         params = params,
-        contentResolver = contentResolver,
         userAccountManager = accountManager,
         uploadsStorageManager = uploadsStorageManager,
         connectivityService = connectivityService,
