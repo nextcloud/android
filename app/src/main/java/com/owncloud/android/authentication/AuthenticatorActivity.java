@@ -31,6 +31,7 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
 import android.text.TextUtils;
+import android.util.Pair;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -449,18 +450,26 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             authObject = gson.fromJson(response, AuthObject.class);
             if (authObject != null && !TextUtils.isEmpty(authObject.getLogin())) {
                 return authObject.getLogin();
+            } else {
+                Log_OC.e(TAG, "AuthObject parsing failed or login empty, trying JSONObject fallback");
             }
+        } catch (Exception e) {
+            Log_OC.e(TAG, "Error parsing AuthObject: " + e.getMessage(), e);
+        }
 
-            Log_OC.e(TAG, "AuthObject parsing failed, trying JSONObject fallback");
+        try {
             String fallbackUrl = getLoginFromJsonObject(response);
             if (!TextUtils.isEmpty(fallbackUrl)) {
                 return fallbackUrl;
+            } else {
+                Log_OC.e(TAG, "Fallback JSONObject parsing failed or login empty");
             }
         } catch (Exception e) {
-            Log_OC.e(TAG, "Error parsing login response: " + e.getMessage());
-            DisplayUtils.showSnackMessage(this, R.string.authenticator_activity_login_error);
+            Log_OC.e(TAG, "Error parsing fallback JSONObject: " + e.getMessage(), e);
         }
 
+        Log_OC.e(TAG, "Both AuthObject and fallback parsing failed, returning default login URL");
+        DisplayUtils.showSnackMessage(this, R.string.authenticator_activity_login_error);
         return getResources().getString(R.string.webview_login_url);
     }
 
@@ -496,6 +505,30 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             Log_OC.e(TAG, "Exception launchDefaultWebBrowser: " + e);
             DisplayUtils.showSnackMessage(this, R.string.authenticator_activity_login_error);
         }
+    }
+
+    private Pair<String, String> extractPollUrlAndToken() {
+        String pollUrl = null;
+        String token = null;
+
+        if (authObject != null) {
+            pollUrl = authObject.getPoll().getEndpoint();
+            if (TextUtils.isEmpty(pollUrl)) {
+                Log_OC.e(TAG, "auth object poll url is empty.");
+            }
+
+            token = authObject.getPoll().getToken();
+            if (TextUtils.isEmpty(authObject.getPoll().getToken())) {
+                Log_OC.e(TAG, "auth object token is empty.");
+            }
+        }
+
+        if (!TextUtils.isEmpty(pollUrl) && !TextUtils.isEmpty(token)) {
+            return new Pair<>(pollUrl, token);
+        }
+
+        pollUrl = baseUrl + "/poll";
+        // TODO: add token
     }
 
     private void performLoginFlowV2() {
