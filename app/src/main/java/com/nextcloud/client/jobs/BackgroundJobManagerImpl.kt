@@ -26,6 +26,7 @@ import com.nextcloud.client.account.User
 import com.nextcloud.client.core.Clock
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.documentscan.GeneratePdfFromImagesWork
+import com.nextcloud.client.jobs.autoUpload.AutoUploadWorker
 import com.nextcloud.client.jobs.download.FileDownloadWorker
 import com.nextcloud.client.jobs.metadata.MetadataWorker
 import com.nextcloud.client.jobs.offlineOperations.OfflineOperationsWorker
@@ -474,11 +475,11 @@ internal class BackgroundJobManagerImpl(
 
     override fun schedulePeriodicFilesSyncJob(syncedFolderID: Long) {
         val arguments = Data.Builder()
-            .putLong(FilesSyncWork.SYNCED_FOLDER_ID, syncedFolderID)
+            .putLong(AutoUploadWorker.SYNCED_FOLDER_ID, syncedFolderID)
             .build()
 
         val request = periodicRequestBuilder(
-            jobClass = FilesSyncWork::class,
+            jobClass = AutoUploadWorker::class,
             jobName = JOB_PERIODIC_FILES_SYNC + "_" + syncedFolderID,
             intervalMins = DEFAULT_PERIODIC_JOB_INTERVAL_MINUTES
         )
@@ -497,13 +498,13 @@ internal class BackgroundJobManagerImpl(
         changedFiles: Array<String?>
     ) {
         val arguments = Data.Builder()
-            .putBoolean(FilesSyncWork.OVERRIDE_POWER_SAVING, overridePowerSaving)
-            .putStringArray(FilesSyncWork.CHANGED_FILES, changedFiles)
-            .putLong(FilesSyncWork.SYNCED_FOLDER_ID, syncedFolderID)
+            .putBoolean(AutoUploadWorker.OVERRIDE_POWER_SAVING, overridePowerSaving)
+            .putStringArray(AutoUploadWorker.CHANGED_FILES, changedFiles)
+            .putLong(AutoUploadWorker.SYNCED_FOLDER_ID, syncedFolderID)
             .build()
 
         val request = oneTimeRequestBuilder(
-            jobClass = FilesSyncWork::class,
+            jobClass = AutoUploadWorker::class,
             jobName = JOB_IMMEDIATE_FILES_SYNC + "_" + syncedFolderID
         )
             .setInputData(arguments)

@@ -13,7 +13,7 @@ import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.utils.SyncedFolderUtils
 import java.io.File
 
-class FilesystemRepository(private val dao: FileSystemDao) {
+class FileSystemRepository(private val dao: FileSystemDao) {
 
     suspend fun getAutoUploadFiles(syncedFolder: SyncedFolder): Set<String> {
         val syncedFolderId = syncedFolder.id.toString()
@@ -39,6 +39,7 @@ class FilesystemRepository(private val dao: FileSystemDao) {
         return localPathsToUpload
     }
 
+    @Suppress("TooGenericExceptionCaught")
     suspend fun markFileAsUploaded(localPath: String, syncedFolder: SyncedFolder) {
         val syncedFolderIdStr = syncedFolder.id.toString()
 
