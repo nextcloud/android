@@ -7,15 +7,13 @@
 
 package com.nextcloud.client.jobs.autoUpload
 
-import android.app.NotificationChannel
-import android.app.NotificationManager
+import android.app.Notification
 import android.content.Context
 import android.content.res.Resources
 import android.text.TextUtils
 import androidx.core.app.NotificationCompat
 import androidx.exifinterface.media.ExifInterface
 import androidx.work.CoroutineWorker
-import androidx.work.ForegroundInfo
 import androidx.work.WorkerParameters
 import com.nextcloud.client.account.User
 import com.nextcloud.client.account.UserAccountManager
@@ -54,7 +52,7 @@ import java.text.SimpleDateFormat
 import java.util.Locale
 import java.util.TimeZone
 
-@Suppress("LongParameterList")
+@Suppress("LongParameterList", "TooManyFunctions")
 class AutoUploadWorker(
     private val context: Context,
     params: WorkerParameters,
@@ -71,13 +69,14 @@ class AutoUploadWorker(
         const val OVERRIDE_POWER_SAVING = "overridePowerSaving"
         const val CHANGED_FILES = "changedFiles"
         const val SYNCED_FOLDER_ID = "syncedFolderId"
+        private const val CHANNEL_ID = NotificationUtils.NOTIFICATION_CHANNEL_UPLOAD
 
         private const val NOTIFICATION_ID = 266
     }
 
     private lateinit var syncedFolder: SyncedFolder
 
-    @Suppress("TooGenericExceptionCaught")
+    @Suppress("TooGenericExceptionCaught", "ReturnCount")
     override suspend fun doWork(): Result {
         return try {
             val syncFolderId = inputData.getLong(SYNCED_FOLDER_ID, -1)
@@ -88,7 +87,9 @@ class AutoUploadWorker(
             }
             this.syncedFolder = syncedFolder
 
-            setForeground(createForegroundInfo())
+            // initial notification
+            val notification = createNotification(context.getString(R.string.upload_files))
+            updateForegroundInfo(notification)
 
             if (canExitEarly(syncFolderId)) {
                 Log_OC.w(TAG, "skipped canExit conditions are met")
@@ -96,6 +97,20 @@ class AutoUploadWorker(
             }
 
             collectFileChangesFromContentObserverWork()
+
+            // start notification
+            getStartNotificationTitle(syncedFolder)?.let { (localFolderName, remoteFolderName) ->
+                val startNotification = createNotification(
+                    context.getString(
+                        R.string.auto_upload_worker_start_text,
+                        localFolderName,
+                        remoteFolderName
+                    )
+                )
+
+                // use notification manager
+            }
+
             uploadFiles(syncedFolder)
 
             Log_OC.d(TAG, "✅ (${syncedFolder.remotePath}) finished checking files.")
@@ -106,32 +121,39 @@ class AutoUploadWorker(
         }
     }
 
-    private fun createForegroundInfo(): ForegroundInfo {
-        val channelId = NotificationUtils.NOTIFICATION_CHANNEL_UPLOAD
-
-        val channel = NotificationChannel(
-            channelId,
-            applicationContext.getString(R.string.notification_channel_upload_name_short),
-            NotificationManager.IMPORTANCE_LOW
-        )
-        val manager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-        manager.createNotificationChannel(channel)
-
-        val notification = NotificationCompat.Builder(applicationContext, channelId)
-            .setContentTitle(context.getString(R.string.upload_files))
-            .setSmallIcon(R.drawable.uploads)
-            .setOngoing(true)
-            .setSound(null)
-            .setVibrate(null)
-            .setOnlyAlertOnce(true)
-            .setSilent(true)
-            .build()
-
-        return ForegroundServiceHelper.createWorkerForegroundInfo(
+    private suspend fun updateForegroundInfo(notification: Notification) {
+        val foregroundInfo = ForegroundServiceHelper.createWorkerForegroundInfo(
             NOTIFICATION_ID,
             notification,
             ForegroundServiceType.DataSync
         )
+        setForeground(foregroundInfo)
+    }
+
+    private fun createNotification(title: String): Notification = NotificationCompat.Builder(context, CHANNEL_ID)
+        .setContentTitle(title)
+        .setSmallIcon(R.drawable.uploads)
+        .setOngoing(true)
+        .setSound(null)
+        .setVibrate(null)
+        .setOnlyAlertOnce(true)
+        .setSilent(true)
+        .build()
+
+    @Suppress("TooGenericExceptionCaught")
+    private fun getStartNotificationTitle(folder: SyncedFolder): Pair<String, String>? {
+        val localPath = syncedFolder.localPath
+        val remotePath = syncedFolder.remotePath
+
+        return if (localPath.isBlank() || remotePath.isBlank()) {
+            null
+        } else {
+            try {
+                File(localPath).name to File(remotePath).name
+            } catch (_: Exception) {
+                null
+            }
+        }
     }
 
     @Suppress("ReturnCount")
