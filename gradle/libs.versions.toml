@@ -73,7 +73,7 @@ webkitVersion = "1.14.0"
 workRuntime = "2.10.3"
 
 kotlin = "2.2.20"
-ksp = "2.2.20-2.0.2"
+ksp = "2.2.20-2.0.3"
 
 [libraries]
 
