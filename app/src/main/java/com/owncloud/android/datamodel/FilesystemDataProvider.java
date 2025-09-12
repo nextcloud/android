@@ -14,15 +14,11 @@ import android.net.Uri;
 
 import com.owncloud.android.db.ProviderMeta;
 import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.utils.SyncedFolderUtils;
 
 import java.io.BufferedInputStream;
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.zip.CRC32;
 
 /**
@@ -49,21 +45,6 @@ public class FilesystemDataProvider {
             ProviderMeta.ProviderTableMeta.CONTENT_URI_FILESYSTEM,
             ProviderMeta.ProviderTableMeta.FILESYSTEM_SYNCED_FOLDER_ID + " = ?",
             new String[]{syncedFolderId});
-    }
-
-    public void updateFilesystemFileAsSentForUpload(String path, String syncedFolderId) {
-        Log_OC.d(TAG, "updateFilesystemFileAsSentForUpload called, path: " + path + " ID: " + syncedFolderId);
-
-        ContentValues cv = new ContentValues();
-        cv.put(ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_SENT_FOR_UPLOAD, 1);
-
-        contentResolver.update(
-            ProviderMeta.ProviderTableMeta.CONTENT_URI_FILESYSTEM,
-            cv,
-            ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_LOCAL_PATH + " = ? and " +
-                ProviderMeta.ProviderTableMeta.FILESYSTEM_SYNCED_FOLDER_ID + " = ?",
-            new String[]{path, syncedFolderId}
-                              );
     }
 
     public void storeOrUpdateFileValue(String localPath, long modifiedAt, boolean isFolder, SyncedFolder syncedFolder) {
@@ -122,56 +103,6 @@ public class FilesystemDataProvider {
                 Log_OC.e(TAG, "Failed to update filesystem data with local path: " + localPath);
             }
         }
-    }
-
-    public Set<String> getFilesForUpload(String localPath, String syncedFolderId) {
-        Log_OC.d(TAG, "getFilesForUpload called, localPath: " + localPath + " ID: " + syncedFolderId);
-
-        Set<String> localPathsToUpload = new HashSet<>();
-
-        String likeParam = localPath + "%";
-
-        Cursor cursor = contentResolver.query(
-            ProviderMeta.ProviderTableMeta.CONTENT_URI_FILESYSTEM,
-            null,
-            ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_LOCAL_PATH + " LIKE ? and " +
-                ProviderMeta.ProviderTableMeta.FILESYSTEM_SYNCED_FOLDER_ID + " = ? and " +
-                ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_SENT_FOR_UPLOAD + " = ? and " +
-                ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_IS_FOLDER + " = ?",
-            new String[]{likeParam, syncedFolderId, "0", "0"},
-            null);
-
-        if (cursor != null) {
-            if (cursor.moveToFirst()) {
-                do {
-                    String value = cursor.getString(cursor.getColumnIndexOrThrow(
-                        ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_LOCAL_PATH));
-                    if (value == null) {
-                        Log_OC.e(TAG, "Cannot get local path");
-                    } else {
-                        File file = new File(value);
-                        if (!file.exists()) {
-                            Log_OC.w(TAG, "Ignoring file for upload (doesn't exist): " + value);
-                        } else if (!SyncedFolderUtils.isQualifiedFolder(file.getParent())) {
-                            Log_OC.w(TAG, "Ignoring file for upload (unqualified folder): " + value);
-                        } else if (!SyncedFolderUtils.isFileNameQualifiedForAutoUpload(file.getName())) {
-                            Log_OC.w(TAG, "Ignoring file for upload (unqualified file): " + value);
-                        } else {
-                            Log_OC.d(TAG, "adding path to the localPathsToUpload: " + value);
-                            localPathsToUpload.add(value);
-                        }
-                    }
-                } while (cursor.moveToNext());
-            } else {
-                Log_OC.w(TAG, "cursor cannot move");
-            }
-
-            cursor.close();
-        } else {
-            Log_OC.e(TAG, "getFilesForUpload called, cursor is null");
-        }
-
-        return localPathsToUpload;
     }
 
     private FileSystemDataSet getFilesystemDataSet(String localPathParam, SyncedFolder syncedFolder) {
