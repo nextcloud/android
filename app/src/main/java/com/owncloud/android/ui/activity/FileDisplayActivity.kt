@@ -2052,14 +2052,16 @@ class FileDisplayActivity :
             } else if (this.leftFragment is GalleryFragment) {
                 val galleryFragment = leftFragment as GalleryFragment
                 galleryFragment.onRefresh()
-            } else if (leftFragment is OCFileListFragment && 
-                SearchRemoteOperation.SearchType.FAVORITE_SEARCH == leftFragment.searchEvent?.searchType) {
-                val file = leftFragment.adapter.files.find { it.fileId == removedFile.fileId}
-                if (file != null) {
-                    
-                    val pos= leftFragment.adapter.getItemPosition(file)
-                    leftFragment.adapter.files.remove(file)
-                    leftFragment.adapter.notifyItemRemoved(pos)
+            } else if (leftFragment is OCFileListFragment &&
+                SearchRemoteOperation.SearchType.FAVORITE_SEARCH == leftFragment.searchEvent?.searchType
+            ) {
+                leftFragment.adapter?.run {
+                    val file = files.find { it.fileId == removedFile.fileId }
+                    if (file != null) {
+                        val pos = getItemPosition(file)
+                        files.remove(file)
+                        notifyItemRemoved(pos)
+                    }
                 }
             }
             supportInvalidateOptionsMenu()
