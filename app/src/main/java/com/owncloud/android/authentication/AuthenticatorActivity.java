@@ -18,7 +18,6 @@ import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.content.ActivityNotFoundException;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -236,6 +235,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     @Inject ClientFactory clientFactory;
 
     private AuthObject authObject = null;
+    private String fallbackToken;
     private boolean onlyAdd = false;
 
     private final Gson gson = new Gson();
@@ -475,6 +475,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
     private String getLoginFromJsonObject(String response) {
         JsonObject jsonObject = JsonParser.parseString(response).getAsJsonObject();
+        fallbackToken = jsonObject.getAsJsonObject("poll").get("token").getAsString();
         return jsonObject.get("login").getAsString();
     }
 
@@ -486,7 +487,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     }
 
     private void launchDefaultWebBrowser(String url) {
-        if (url == null || url.trim().isEmpty()) {
+        if (url == null || url.isBlank()) {
             DisplayUtils.showSnackMessage(this, R.string.invalid_url);
             return;
         }
@@ -508,48 +509,35 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     }
 
     private Pair<String, String> extractPollUrlAndToken() {
-        String pollUrl = null;
-        String token = null;
-
         if (authObject != null) {
-            pollUrl = authObject.getPoll().getEndpoint();
+            final var poll = authObject.getPoll();
+            String pollUrl = poll.getEndpoint();
+            String token = poll.getToken();
+
             if (TextUtils.isEmpty(pollUrl)) {
                 Log_OC.e(TAG, "auth object poll url is empty.");
             }
-
-            token = authObject.getPoll().getToken();
-            if (TextUtils.isEmpty(authObject.getPoll().getToken())) {
+            if (TextUtils.isEmpty(token)) {
                 Log_OC.e(TAG, "auth object token is empty.");
+            }
+
+            if (!TextUtils.isEmpty(pollUrl) && !TextUtils.isEmpty(token)) {
+                return new Pair<>(pollUrl, token);
             }
         }
 
-        if (!TextUtils.isEmpty(pollUrl) && !TextUtils.isEmpty(token)) {
-            return new Pair<>(pollUrl, token);
-        }
-
-        pollUrl = baseUrl + "/poll";
-        // TODO: add token
+        return new Pair<>(baseUrl + "/poll", fallbackToken);
     }
 
     private void performLoginFlowV2() {
-        final String pollUrl = authObject.getPoll().getEndpoint();
-        if (TextUtils.isEmpty(pollUrl)) {
-            Log_OC.e(TAG, "pollUrl is empty.");
-            return;
-        }
-
-        final String token = authObject.getPoll().getToken();
-        if (TextUtils.isEmpty(authObject.getPoll().getToken())) {
-            Log_OC.e(TAG, "token is empty.");
-            return;
-        }
+        final var pollUrlAndToken = extractPollUrlAndToken();
 
         RequestBody requestBody = new FormBody.Builder()
-            .add("token", token)
+            .add("token", pollUrlAndToken.second)
             .build();
 
         PlainClient client = clientFactory.createPlainClient();
-        PostMethod post = new PostMethod(pollUrl, false, requestBody);
+        PostMethod post = new PostMethod(pollUrlAndToken.first, false, requestBody);
         int status = post.execute(client);
         String response = post.getResponseBodyAsString();
 
