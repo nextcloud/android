@@ -1429,9 +1429,11 @@ public class OCFileListFragment extends ExtendedListFragment implements
             return true;
         } else if (itemId == R.id.action_favorite) {
             mContainerActivity.getFileOperationsHelper().toggleFavoriteFiles(checkedFiles, true);
+            exitSelectionMode();
             return true;
         } else if (itemId == R.id.action_unset_favorite) {
             mContainerActivity.getFileOperationsHelper().toggleFavoriteFiles(checkedFiles, false);
+            exitSelectionMode();
             return true;
         } else if (itemId == R.id.action_move_or_copy) {
             String invalidFilename = checkInvalidFilenames(checkedFiles);
