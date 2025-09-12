@@ -70,7 +70,7 @@ detektGradlePlugin = "1.23.8"
 spotless = "7.2.1"
 stateless4jVersion = "2.6.0"
 webkitVersion = "1.14.0"
-workRuntime = "2.10.3"
+workRuntime = "2.10.4"
 
 kotlin = "2.2.20"
 ksp = "2.2.20-2.0.3"
