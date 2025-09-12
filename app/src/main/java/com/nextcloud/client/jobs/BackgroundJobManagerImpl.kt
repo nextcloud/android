@@ -29,9 +29,11 @@ import com.nextcloud.client.documentscan.GeneratePdfFromImagesWork
 import com.nextcloud.client.jobs.download.FileDownloadWorker
 import com.nextcloud.client.jobs.metadata.MetadataWorker
 import com.nextcloud.client.jobs.offlineOperations.OfflineOperationsWorker
+import com.nextcloud.client.jobs.sync.SyncWorker
 import com.nextcloud.client.jobs.upload.FileUploadHelper
 import com.nextcloud.client.jobs.upload.FileUploadWorker
 import com.nextcloud.client.preferences.AppPreferences
+import com.nextcloud.utils.extensions.StringConstants
 import com.nextcloud.utils.extensions.isWorkRunning
 import com.nextcloud.utils.extensions.isWorkScheduled
 import com.owncloud.android.datamodel.OCFile
@@ -91,6 +93,7 @@ internal class BackgroundJobManagerImpl(
         const val JOB_PERIODIC_OFFLINE_OPERATIONS = "periodic_offline_operations"
         const val JOB_PERIODIC_HEALTH_STATUS = "periodic_health_status"
         const val JOB_IMMEDIATE_HEALTH_STATUS = "immediate_health_status"
+        const val JOB_SYNC_FOLDER = "sync_folder"
         const val JOB_METADATA_SYNC = "metadata_sync"
         const val JOB_INTERNAL_TWO_WAY_SYNC = "internal_two_way_sync"
 
@@ -670,9 +673,6 @@ internal class BackgroundJobManagerImpl(
     private fun startFileDownloadJobTag(user: User, fileId: Long): String =
         JOB_FOLDER_DOWNLOAD + user.accountName + fileId
 
-    override fun isStartFileDownloadJobScheduled(user: User, fileId: Long): Boolean =
-        workManager.isWorkScheduled(startFileDownloadJobTag(user, fileId))
-
     override fun startFileDownloadJob(
         user: User,
         file: OCFile,
@@ -792,4 +792,34 @@ internal class BackgroundJobManagerImpl(
 
         workManager.enqueueUniquePeriodicWork(JOB_INTERNAL_TWO_WAY_SYNC, ExistingPeriodicWorkPolicy.UPDATE, request)
     }
+
+    override fun syncFolder(folder: OCFile) {
+        val tag = getSyncFolderTag(folder.fileId)
+
+        val constraints = Constraints.Builder()
+            .setRequiredNetworkType(NetworkType.CONNECTED)
+            .setRequiresStorageNotLow(true)
+            .build()
+
+        val data = Data.Builder()
+            .putLong(SyncWorker.FOLDER_ID, folder.fileId)
+            .build()
+
+        val workName = (JOB_SYNC_FOLDER + folder.fileId)
+
+        val request = oneTimeRequestBuilder(SyncWorker::class, workName)
+            .addTag(tag)
+            .setInputData(data)
+            .setConstraints(constraints)
+            .build()
+
+        workManager.enqueueUniqueWork(workName, ExistingWorkPolicy.KEEP, request)
+    }
+
+    override fun cancelSyncFolder(folderId: Long) {
+        val tag = getSyncFolderTag(folderId)
+        workManager.cancelAllWorkByTag(tag)
+    }
+
+    private fun getSyncFolderTag(folderId: Long): String = JOB_SYNC_FOLDER + StringConstants.SPACE + folderId.toString()
 }
