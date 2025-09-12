@@ -85,7 +85,7 @@ class AutoUploadWorker(
             val syncFolderId = inputData.getLong(SYNCED_FOLDER_ID, -1)
             val syncedFolder = syncedFolderProvider.getSyncedFolderByID(syncFolderId)
             if (syncedFolder == null || !syncedFolder.isEnabled) {
-                Log_OC.e(TAG, "skipped since syncedFolder ($syncFolderId) is not enabled!")
+                Log_OC.e(TAG, "Skipping worker: syncedFolder $syncFolderId is not enabled!")
                 return Result.failure()
             }
             this.syncedFolder = syncedFolder
@@ -94,12 +94,13 @@ class AutoUploadWorker(
             val notification = createNotification(context.getString(R.string.upload_files))
             updateForegroundInfo(notification)
 
-            if (canExitEarly(syncFolderId)) {
-                Log_OC.w(TAG, "skipped canExit conditions are met, will be retried later")
+            val changedFiles = inputData.getStringArray(CHANGED_FILES)
+
+            if (canExitEarly(changedFiles, syncFolderId)) {
                 return Result.retry()
             }
 
-            collectFileChangesFromContentObserverWork()
+            collectFileChangesFromContentObserverWork(changedFiles)
             updateNotification()
             uploadFiles(syncedFolder)
 
@@ -161,22 +162,20 @@ class AutoUploadWorker(
     }
 
     @Suppress("ReturnCount")
-    private fun canExitEarly(syncedFolderID: Long): Boolean {
-        // If we are in power save mode better to postpone scan and upload
+    private fun canExitEarly(changedFiles: Array<String>?, syncedFolderID: Long): Boolean {
         val overridePowerSaving = inputData.getBoolean(OVERRIDE_POWER_SAVING, false)
         if ((powerManagementService.isPowerSavingEnabled && !overridePowerSaving)) {
-            Log_OC.w(TAG, "skipped powerSaving is enabled!")
+            Log_OC.w(TAG, "⚡ Skipping: device is in power saving mode")
             return true
         }
 
         if (syncedFolderID < 0) {
-            Log_OC.w(TAG, "skipped no valid syncedFolderID provided")
+            Log_OC.e(TAG, "invalid sync folder id")
             return true
         }
 
-        // or sync worker already running
         if (backgroundJobManager.bothFilesSyncJobsRunning(syncedFolderID)) {
-            Log_OC.w(TAG, "skipped another worker instance is running for $syncedFolderID")
+            Log_OC.w(TAG, "🚧 another worker is already running for $syncedFolderID")
             return true
         }
 
@@ -192,7 +191,7 @@ class AutoUploadWorker(
         Log_OC.d(TAG, "currentTime: $currentTime")
         Log_OC.d(TAG, "passedScanInterval: $passedScanInterval")
 
-        if (!passedScanInterval && !overridePowerSaving) {
+        if (!passedScanInterval && changedFiles.isNullOrEmpty() && !overridePowerSaving) {
             Log_OC.w(
                 TAG,
                 "skipped since started before scan interval and nothing todo: " + syncedFolder.localPath
@@ -204,19 +203,18 @@ class AutoUploadWorker(
     }
 
     @Suppress("MagicNumber")
-    private suspend fun collectFileChangesFromContentObserverWork() = withContext(Dispatchers.IO) {
-        val changedFiles = inputData.getStringArray(CHANGED_FILES)
-
-        if (changedFiles.isNullOrEmpty()) {
-            // Check every file in synced folder for changes and update
-            // filesystemDataProvider database (potentially needs a long time)
-            FilesSyncHelper.insertAllDBEntriesForSyncedFolder(syncedFolder)
-        } else {
-            FilesSyncHelper.insertChangedEntries(syncedFolder, changedFiles)
+    private suspend fun collectFileChangesFromContentObserverWork(changedFiles: Array<String>?) =
+        withContext(Dispatchers.IO) {
+            if (changedFiles.isNullOrEmpty()) {
+                // Check every file in synced folder for changes and update
+                // filesystemDataProvider database (potentially needs a long time)
+                FilesSyncHelper.insertAllDBEntriesForSyncedFolder(syncedFolder)
+            } else {
+                FilesSyncHelper.insertChangedEntries(syncedFolder, changedFiles)
+            }
+            syncedFolder.lastScanTimestampMs = System.currentTimeMillis()
+            syncedFolderProvider.updateSyncFolder(syncedFolder)
         }
-        syncedFolder.lastScanTimestampMs = System.currentTimeMillis()
-        syncedFolderProvider.updateSyncFolder(syncedFolder)
-    }
 
     private fun prepareDateFormat(): SimpleDateFormat {
         val currentLocale = context.resources.configuration.locales[0]
@@ -379,6 +377,7 @@ class AutoUploadWorker(
         return MimeType.JPEG.equals(mimeType, ignoreCase = true) || MimeType.TIFF.equals(mimeType, ignoreCase = true)
     }
 
+    @Suppress("NestedBlockDepth")
     private fun calculateLastModificationTime(
         file: File,
         syncedFolder: SyncedFolder,
