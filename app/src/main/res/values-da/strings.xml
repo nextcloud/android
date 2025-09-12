@@ -7,7 +7,7 @@
     <string name="account_creation_failed">Fejl ved oprettelse af konto</string>
     <string name="account_icon">Kontoikon</string>
     <string name="account_not_found">Konto blev ikke fundet.</string>
-    <string name="action_edit">Rediger</string>
+    <string name="action_edit">Redigér</string>
     <string name="action_empty_notifications">Ryd alle notifikationer</string>
     <string name="action_empty_trashbin">Tøm papirkurv</string>
     <string name="action_send_share">Send/del</string>
@@ -532,7 +532,7 @@
     <string name="login">Log ind</string>
     <string name="login_url_helper_text">Linket til dit %1$s web interface når du åbner den i browseren.</string>
     <string name="logs_menu_delete">Slet logs</string>
-    <string name="logs_menu_refresh">Opdater</string>
+    <string name="logs_menu_refresh">Opdatér</string>
     <string name="logs_menu_search">Søg i log</string>
     <string name="logs_menu_send">Send logs på mail</string>
     <string name="logs_status_filtered">Logs: %1$d kB, forespørgsel fandt %2$d / %3$d på  %4$d ms</string>
@@ -981,7 +981,7 @@
     <string name="update_link_file_error">Der opstod en fejl under forsøget på opdatering af det delte drev</string>
     <string name="update_link_file_no_exist">Kan ikke opdatere. Undersøg venligst om filen eksisterer.</string>
     <string name="update_link_forbidden_permissions">for at opdatere denne deling</string>
-    <string name="updating_share_failed">Opdater deling fejlet</string>
+    <string name="updating_share_failed">Opdatering af deling mislykkedes</string>
     <string name="upload_action_cancelled_clear">Ryd annullerede uploads</string>
     <string name="upload_action_cancelled_resume">Genoptag annullerede uploads</string>
     <string name="upload_action_failed_clear">Fjern fejlede uploads</string>

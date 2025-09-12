@@ -43,6 +43,7 @@
     <string name="app_config_proxy_port_title">Proxy Port</string>
     <string name="app_widget_description">Shows one widget from dashboard</string>
     <string name="appbar_search_in">Search in %s</string>
+    <string name="appear_offline">Appear offline</string>
     <string name="assistant_screen_add_task_alert_dialog_title">Add new task</string>
     <string name="assistant_screen_create_a_new_task_from_bottom_right_text">Create a new task from bottom right</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Type some text</string>
@@ -343,6 +344,7 @@
     <string name="error_report_issue_text">Report issue to tracker? (requires a GitHub account)</string>
     <string name="error_retrieving_file">Error retrieving file</string>
     <string name="error_retrieving_templates">Error retrieving templates</string>
+    <string name="error_setting_status_message">Error setting status message!</string>
     <string name="error_showing_encryption_dialog">Error showing encryption setup dialogue!</string>
     <string name="error_starting_direct_camera_upload">Error starting camera</string>
     <string name="error_starting_doc_scan">Error starting document scan</string>
@@ -581,6 +583,7 @@
     <string name="move_file_invalid_into_descendent">It is not possible to move a folder into one of its own underlying folders</string>
     <string name="move_file_invalid_overwrite">The file is already present in the destination folder</string>
     <string name="move_file_not_found">Unable to move file. Please check whether it exists.</string>
+    <string name="mute_all_notifications">Mute all notifications</string>
     <string name="network_error_connect_timeout_exception">An error occurred while waiting for the server. Could not complete operation.</string>
     <string name="network_error_socket_exception">An error occurred during connection to the server</string>
     <string name="network_error_socket_timeout_exception">An error occurred while waiting for the server. Could not complete operation.</string>
@@ -813,6 +816,7 @@
     <string name="server_not_reachable_content">The device is likely not connected to the internet</string>
     <string name="set_as">Set As</string>
     <string name="set_download_limit_failed">Unable to set download limit. Please check capabilities.</string>
+    <string name="set_message">Set message</string>
     <string name="set_note">Set note</string>
     <string name="set_online_status">Online status</string>
     <string name="set_picture_as">Use picture as</string>

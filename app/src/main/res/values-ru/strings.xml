@@ -344,6 +344,7 @@
     <string name="error_report_issue_text">Сообщить о проблеме? (требуется учётная запись на GitHub)</string>
     <string name="error_retrieving_file">Ошибка при получении файла</string>
     <string name="error_retrieving_templates">Ошибка получения шаблона</string>
+    <string name="error_setting_status_message">Ошибка при установке сообщения статуса</string>
     <string name="error_showing_encryption_dialog">Ошибка при отображении диалога настройки шифрования!</string>
     <string name="error_starting_direct_camera_upload">Не удалось открыть камеру</string>
     <string name="error_starting_doc_scan">Ошибка во время запуска сканирования</string>
@@ -583,6 +584,7 @@
     <string name="move_file_invalid_into_descendent">Невозможно переместить каталог в его подкаталог</string>
     <string name="move_file_invalid_overwrite">Файл уже существует в каталоге назначения</string>
     <string name="move_file_not_found">Не удалось переместить файл. Убедитесь, что он существует.</string>
+    <string name="mute_all_notifications">Без уведомлений</string>
     <string name="network_error_connect_timeout_exception">Во время ожидания сервера произошла ошибка, действие не может быть завершено.</string>
     <string name="network_error_socket_exception">При подключении к серверу возникла ошибка.</string>
     <string name="network_error_socket_timeout_exception">Во время ожидания сервера произошла ошибка, действие не может быть завершено.</string>
@@ -815,6 +817,7 @@
     <string name="server_not_reachable_content">Возможно, устройство не подключено к интернету.</string>
     <string name="set_as">Установить как</string>
     <string name="set_download_limit_failed">Не удалось задать лимит загрузки. Пожалуйста, проверьте доступные возможности.</string>
+    <string name="set_message">Установить сообщение</string>
     <string name="set_note">Создать заметку</string>
     <string name="set_online_status">Онлайн статус</string>
     <string name="set_picture_as">Использовать изображение</string>

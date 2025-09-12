@@ -50,7 +50,8 @@ class FileDownloadHelper {
         val isJobScheduled = backgroundJobManager.isStartFileDownloadJobScheduled(user, file.fileId)
         return isJobScheduled ||
             if (file.isFolder) {
-                backgroundJobManager.isStartFileDownloadJobScheduled(user, topParentId)
+                FileDownloadWorker.isDownloadingFolder(file.fileId) ||
+                    backgroundJobManager.isStartFileDownloadJobScheduled(user, topParentId)
             } else {
                 FileDownloadWorker.isDownloading(user.accountName, file.fileId)
             }

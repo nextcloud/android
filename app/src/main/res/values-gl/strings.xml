@@ -10,6 +10,7 @@
     <string name="action_edit">Editar</string>
     <string name="action_empty_notifications">Limpar todas as notificacións</string>
     <string name="action_empty_trashbin">Baleirar o lixo</string>
+    <string name="action_send_share">Enviar/compartir</string>
     <string name="action_switch_grid_view">Ver como grade</string>
     <string name="action_switch_list_view">Ver como lista</string>
     <string name="actionbar_calendar_contacts_restore">Restaurar contactos e calendario</string>
@@ -42,14 +43,18 @@
     <string name="app_config_proxy_port_title">Porto do proxy</string>
     <string name="app_widget_description">Amosa un trebello do taboleiro</string>
     <string name="appbar_search_in">Buscar en %s</string>
+    <string name="appear_offline">Aparecer como sen conexión</string>
     <string name="assistant_screen_add_task_alert_dialog_title">Engadir unha nova tarefa</string>
+    <string name="assistant_screen_create_a_new_task_from_bottom_right_text">Crear unha nova tarefa a desde a parte inferior dereita</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Escriba algún texto</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Confirma que quere eliminar esta tarefa?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Eliminar tarefa</string>
+    <string name="assistant_screen_loading">Cargando a lista de tarefas…</string>
     <string name="assistant_screen_task_create_fail_message">Produciuse un erro ao crear a tarefa</string>
     <string name="assistant_screen_task_create_success_message">A tarefa creouse satisfactoriamente</string>
     <string name="assistant_screen_task_delete_fail_message">Produciuse un erro ao eliminar a tarefa</string>
     <string name="assistant_screen_task_delete_success_message">A tarefa foi eliminada satisfactoriamente</string>
+    <string name="assistant_screen_task_list_empty_message">A lista de tarefas está baleira</string>
     <string name="assistant_screen_task_list_error_state_message">Non é posíbel recuperar a lista de tarefas. Comprobe a conexión a Internet.</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">Eliminar tarefa</string>
     <string name="assistant_screen_task_output_empty_text">A saída da tarefa aínda non está preparada.</string>
@@ -93,6 +98,7 @@
     <string name="auto_upload_file_behaviour_kept_in_folder">mantense no cartafol orixinal, xa que é de só lectura</string>
     <string name="auto_upload_on_wifi">Enviar só con wifi sen límite de datos</string>
     <string name="auto_upload_path">/EnvíoAutomático</string>
+    <string name="auto_upload_sub_folder_warning">Este cartafol xa está incluído na sincronización do cartafol principal, iso pode provocar envíos duplicados</string>
     <string name="autoupload_configure">Configurar</string>
     <string name="autoupload_create_new_custom_folder">Crear un cartafol personalizado novo</string>
     <string name="autoupload_custom_folder">Configurar un cartafol personalizado</string>
@@ -182,6 +188,7 @@
     <string name="confirmation_remove_folders_alert">Confirma que quere eliminar os elementos seleccionados e o seu contido?</string>
     <string name="confirmation_remove_local">Só local</string>
     <string name="conflict_dialog_error">Non é posíbel crear o diálogo de resolución de conflitos</string>
+    <string name="conflict_folder_headline">Conflito de cartafol</string>
     <string name="conflict_local_file">Ficheiro local</string>
     <string name="conflict_message_description">Se selecciona ambas versións, o ficheiro local terá un número engadido ao nome.</string>
     <string name="conflict_message_description_for_folder">Se selecciona ambas versións, o cartafol local terá un número engadido ao nome.</string>
@@ -194,6 +201,7 @@
     <string name="contacts_backup_button">Facer agora a copia de seguranza</string>
     <string name="contacts_preferences_backup_scheduled">A copia de seguranza está programada e comezará en breve</string>
     <string name="contacts_preferences_import_scheduled">A importación está programada e comezará en breve</string>
+    <string name="contacts_preferences_import_scheduled_fail">Importación fallou ao iniciar. Ténteo de novo</string>
     <string name="contacts_preferences_no_file_found">Non se atopou ningún ficheiro</string>
     <string name="contacts_preferences_something_strange_happened">Non foi posíbel atopar a súa última copia de seguranza!</string>
     <string name="copied_to_clipboard">Copiado no portapapeis</string>
@@ -243,6 +251,13 @@
     <string name="document_scan_export_dialog_title">Escoller o tipo de exportación</string>
     <string name="document_scan_pdf_generation_failed">Produciuse un erro na xeración do PDF</string>
     <string name="document_scan_pdf_generation_in_progress">Xerando o PDF…</string>
+    <string name="document_storage_provider_cannot_create_file_and_folder">Non foi posíbel crear elementos aquí: falta o permiso para crear.</string>
+    <string name="document_storage_provider_cannot_create_file_inside_folder">Non foi posíbel crear o ficheiro: falta o permiso.</string>
+    <string name="document_storage_provider_cannot_create_folder_inside_folder">Non foi posíbel crear o cartafol: falta o permiso.</string>
+    <string name="document_storage_provider_cannot_delete">Non foi posíbel eliminar o elemento: falta o permiso para eliminar.</string>
+    <string name="document_storage_provider_cannot_move">Non foi posíbel mover o elemento: falta o permiso para mover.</string>
+    <string name="document_storage_provider_cannot_read">Non foi posíbel abrir o elemento: falta o permiso de lectura.</string>
+    <string name="document_storage_provider_cannot_rename">Non foi posíbel cambiarlle o nome o elemento: falta o permiso de cambio de nome.</string>
     <string name="done">Feito</string>
     <string name="dontClear">Non limpar</string>
     <string name="download_cannot_create_file">Non é posíbel crear o ficheiro local</string>
@@ -322,12 +337,14 @@
     <string name="error_comment_file">Produciuse un erro ao comentar o ficheiro</string>
     <string name="error_crash_title">%1$s quebrou</string>
     <string name="error_creating_file_from_template">Produciuse un erro ao crear o ficheiro a partir do modelo</string>
+    <string name="error_fetching_sharees">Non é posíbel recuperar as comparticións</string>
     <string name="error_file_actions">Produciuse un erro ao amosar as accións do ficheiro</string>
     <string name="error_file_lock">Produciuse un erro ao cambiar o estado do bloqueo do ficheiro</string>
     <string name="error_report_issue_action">Informe</string>
     <string name="error_report_issue_text">Informar dunha incidencia no seguimento? (precisa dunha conta de GitHub)</string>
     <string name="error_retrieving_file">Produciuse un erro ao recuperar o ficheiro</string>
     <string name="error_retrieving_templates">Produciuse un erro ao recuperar modelos</string>
+    <string name="error_setting_status_message">Produciuse un erro ao axustar a mensaxe de estado!</string>
     <string name="error_showing_encryption_dialog">Produciuse un erro ao amosar o diálogo de configuración do cifrado!</string>
     <string name="error_starting_direct_camera_upload">Produciuse un erro ao iniciar a cámara</string>
     <string name="error_starting_doc_scan">Produciuse un erro ao iniciar o escaneamento do documento</string>
@@ -348,6 +365,7 @@
     <string name="etm_background_jobs_stop_test_job">Deter o traballo de proba</string>
     <string name="etm_migrations">Migracións (anovación de aplicación)</string>
     <string name="etm_preferences">Preferencias</string>
+    <string name="etm_title">Modo de proba de enxeñería</string>
     <string name="etm_transfer">Transferencia de ficheiros</string>
     <string name="etm_transfer_enqueue_test_download">Poñer na cola a descarga de proba</string>
     <string name="etm_transfer_enqueue_test_upload">Poñer na cola o envío de proba</string>
@@ -355,6 +373,7 @@
     <string name="etm_transfer_type">Transferencia</string>
     <string name="etm_transfer_type_download">Descargar</string>
     <string name="etm_transfer_type_upload">Enviar</string>
+    <string name="extented_list_fragment_empty_list_message_no_write_permission">Non ten permiso para ou crear ou enviar os ficheiros neste cartafol.</string>
     <string name="external_shares">Comparticións externas</string>
     <string name="fab_label">Engadir ou enviar</string>
     <string name="failed_to_download">Produciuse un fallo ao pasar o ficheiro para o xestor de descargas</string>
@@ -367,8 +386,10 @@
     <string name="file_already_exists">O nome de ficheiro xa existe</string>
     <string name="file_delete">Eliminar</string>
     <string name="file_detail_activity_error">Produciuse un erro ao recuperar actividades para o ficheiro</string>
+    <string name="file_detail_share_already_active">Non pode crear unha compartición, a compartición xa está activa desde este usuario.</string>
     <string name="file_detail_sharing_fragment_no_contact_app_message">Non hai ningunha aplicación dispoñíbel para seleccionar contactos</string>
     <string name="file_details_no_content">Produciuse un fallo ao cargar os detalles</string>
+    <string name="file_details_sharing_fragment_custom_permission_not_selected">Seleccione o permiso personalizado</string>
     <string name="file_icon">Ficheiro</string>
     <string name="file_keep">Conservar</string>
     <string name="file_list_empty">Envíe algún contido ou sincronice cos seus dispositivos.</string>
@@ -386,6 +407,8 @@
     <string name="file_list_empty_shared">Aquí amosaranse os ficheiros e cartafoles que comparta.</string>
     <string name="file_list_empty_shared_headline">Aínda non hai ren compartido</string>
     <string name="file_list_empty_unified_search_no_results">Non se atopou ningún resultado para a súa consulta</string>
+    <string name="file_list_empty_unified_search_start_search">Comezar a súa busca</string>
+    <string name="file_list_empty_unified_search_start_search_description">Escribir na barra de busca enriba para atopar ficheiros, contactos, eventos de calendario, e máis na súa conta.</string>
     <string name="file_list_folder">cartafol</string>
     <string name="file_list_live">DIRECTO</string>
     <string name="file_list_loading">Cargando…</string>
@@ -426,9 +449,11 @@
     <string name="file_name_validator_error_reserved_names">%s é un nome prohibido.</string>
     <string name="file_name_validator_rename_before_move_or_copy">%s. Cambie o nome do ficheiro antes de mover ou copiar</string>
     <string name="file_not_found">Non se atopou o ficheiro</string>
+    <string name="file_not_found_cannot_share">Non se atopou o ficheiro. Non foi posíbel crear unha compartición.</string>
     <string name="file_not_synced">Non foi posíbel sincronizar o ficheiro. Amosase a última versión dispoñíbel.</string>
     <string name="file_rename">Cambiar o nome</string>
     <string name="file_upload_worker_error_notification_title">Produciuse un fallo no envío. Non hai conexión a Internet</string>
+    <string name="file_upload_worker_same_file_already_exists">%s xa existe, non se detectou ningún conflito</string>
     <string name="file_version_restored_error">Produciuse un erro ao restaurar a versión do ficheiro</string>
     <string name="file_version_restored_successfully">Versión do ficheiro restaurada satisfactoriamente.</string>
     <string name="filedetails_details">Detalles</string>
@@ -505,6 +530,7 @@
     <string name="last_backup">Última copia de seguranza: %1$s</string>
     <string name="link">Ligazón</string>
     <string name="link_name">Nome da ligazón</string>
+    <string name="link_not_followed_due_to_security_settings">Non se segue a ligazón por mor da configuración de seguranza.</string>
     <string name="link_share_editing">Editando</string>
     <string name="list_layout">Disposición de lista</string>
     <string name="load_more_results">Cargando máis resultados</string>
@@ -566,6 +592,7 @@
     <string name="new_media_folder_detected">Detectouse un novo cartafol de medios %1$s</string>
     <string name="new_media_folder_photos">foto</string>
     <string name="new_media_folder_videos">vídeo</string>
+    <string name="new_notification">Nova notificación</string>
     <string name="new_version_was_created">Creouse unha versión nova</string>
     <string name="no_actions">Non hai accións para este usuario</string>
     <string name="no_browser_available">Non hai ningunha aplicación dispoñíbel para manexar ligazóns</string>
@@ -581,6 +608,7 @@
     <string name="note_icon_hint">Icona de nota</string>
     <string name="notification_action_failed">Produciuse un fallo ao executar a acción.</string>
     <string name="notification_channel_background_operations_description">Amosar notificacións para interactuar co resultado das operacións en segundo plano</string>
+    <string name="notification_channel_background_operations_name">Operacións en segundo plano</string>
     <string name="notification_channel_download_description">Amosa o progreso da descarga</string>
     <string name="notification_channel_download_name_short">Descargas</string>
     <string name="notification_channel_file_sync_description">Amosa o progreso e os resultados da sincronización de ficheiros</string>
