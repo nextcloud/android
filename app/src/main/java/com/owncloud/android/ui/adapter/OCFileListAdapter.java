@@ -505,6 +505,9 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     }
 
     private boolean shouldShowOpenInNotes() {
+        if (!preferences.isShowEcosystemApps()) {
+            return false;
+        }
         String notesFolderPath = capability.getNotesFolderPath();
         String currentPath = currentDirectory.getDecryptedRemotePath();
         return notesFolderPath != null && currentPath != null && currentPath.startsWith(notesFolderPath);
