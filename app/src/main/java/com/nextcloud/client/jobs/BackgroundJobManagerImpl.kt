@@ -36,6 +36,7 @@ import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.utils.extensions.isWorkRunning
 import com.nextcloud.utils.extensions.isWorkScheduled
 import com.owncloud.android.datamodel.OCFile
+import com.owncloud.android.datamodel.SyncedFolder
 import com.owncloud.android.operations.DownloadType
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -473,18 +474,35 @@ internal class BackgroundJobManagerImpl(
         )
     }
 
-    override fun schedulePeriodicFilesSyncJob(syncedFolderID: Long) {
+    override fun schedulePeriodicFilesSyncJob(syncedFolder: SyncedFolder) {
+        val syncedFolderID = syncedFolder.id
+
         val arguments = Data.Builder()
             .putLong(AutoUploadWorker.SYNCED_FOLDER_ID, syncedFolderID)
             .build()
 
+        val constraints = Constraints.Builder()
+            .setRequiredNetworkType(NetworkType.CONNECTED)
+            .setRequiresCharging(syncedFolder.isChargingOnly)
+            .build()
+
+        val backoffCriteriaPolicy = BackoffPolicy.LINEAR
+        val backoffCriteriaDelay = DEFAULT_BACKOFF_CRITERIA_DELAY_SEC
+
         val request = periodicRequestBuilder(
             jobClass = AutoUploadWorker::class,
             jobName = JOB_PERIODIC_FILES_SYNC + "_" + syncedFolderID,
-            intervalMins = DEFAULT_PERIODIC_JOB_INTERVAL_MINUTES
+            intervalMins = DEFAULT_PERIODIC_JOB_INTERVAL_MINUTES,
+            constraints = constraints
         )
+            .setBackoffCriteria(
+                backoffCriteriaPolicy,
+                backoffCriteriaDelay,
+                TimeUnit.SECONDS
+            )
             .setInputData(arguments)
             .build()
+
         workManager.enqueueUniquePeriodicWork(
             JOB_PERIODIC_FILES_SYNC + "_" + syncedFolderID,
             ExistingPeriodicWorkPolicy.KEEP,
