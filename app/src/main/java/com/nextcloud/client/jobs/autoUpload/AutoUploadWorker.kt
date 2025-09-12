@@ -95,8 +95,8 @@ class AutoUploadWorker(
             updateForegroundInfo(notification)
 
             if (canExitEarly(syncFolderId)) {
-                Log_OC.w(TAG, "skipped canExit conditions are met")
-                return Result.failure()
+                Log_OC.w(TAG, "skipped canExit conditions are met, will be retried later")
+                return Result.retry()
             }
 
             collectFileChangesFromContentObserverWork()
@@ -196,17 +196,6 @@ class AutoUploadWorker(
             Log_OC.w(
                 TAG,
                 "skipped since started before scan interval and nothing todo: " + syncedFolder.localPath
-            )
-            return true
-        }
-
-        if (syncedFolder.isChargingOnly &&
-            !powerManagementService.battery.isCharging &&
-            !powerManagementService.battery.isFull
-        ) {
-            Log_OC.w(
-                TAG,
-                "skipped since phone is not charging: " + syncedFolder.localPath
             )
             return true
         }
