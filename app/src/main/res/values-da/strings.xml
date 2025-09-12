@@ -251,6 +251,8 @@
     <string name="document_scan_export_dialog_title">Vælg eksporttype</string>
     <string name="document_scan_pdf_generation_failed">Dannelse af PDF mislykkedes</string>
     <string name="document_scan_pdf_generation_in_progress">Genererer PDF…</string>
+    <string name="document_storage_provider_cannot_create_file_inside_folder">Kan ikke oprette fil: mangler tilladelse.</string>
+    <string name="document_storage_provider_cannot_create_folder_inside_folder">Kan ikke oprette mappe: mangler tilladelse.</string>
     <string name="done">Færdig</string>
     <string name="dontClear">Ryd ikke</string>
     <string name="download_cannot_create_file">Kan ikke oprette filen lokalt</string>
@@ -395,6 +397,7 @@
     <string name="file_list_empty_shared">Filer og mapper du deler vil blive vist her.</string>
     <string name="file_list_empty_shared_headline">Intet er delt endnu</string>
     <string name="file_list_empty_unified_search_no_results">Ingen resultater fundet for din forespørgsel</string>
+    <string name="file_list_empty_unified_search_start_search">Start din søgning</string>
     <string name="file_list_folder">mappe</string>
     <string name="file_list_live">LIVE</string>
     <string name="file_list_loading">Indlæser...</string>
@@ -435,6 +438,7 @@
     <string name="file_name_validator_error_reserved_names">%s er et forbudt navnforbidden name</string>
     <string name="file_name_validator_rename_before_move_or_copy">%s. Omdøb venligst filen inden du flytter eller kopierer</string>
     <string name="file_not_found">Fil ikke fundet</string>
+    <string name="file_not_found_cannot_share">Filen blev ikke fundet. Oprettelse af deling ikke mulig.</string>
     <string name="file_not_synced">Filen kunne ikke synkroniseres. Viser senest tilgængelige version.</string>
     <string name="file_rename">Omdøb</string>
     <string name="file_upload_worker_error_notification_title">Upload mislykkedes. Ingen internetforbindelse</string>
@@ -600,6 +604,7 @@
     <string name="notification_channel_general_name">Generalle notifikationer</string>
     <string name="notification_channel_media_description">Music afspiller fremskridt</string>
     <string name="notification_channel_media_name">Media afspiller</string>
+    <string name="notification_channel_offline_operations_name_short">Offline operationer</string>
     <string name="notification_channel_push_description">Vis push notifikationer sent fra serveren: Omtaler, modtagelse a nye fjerne delinger, annonceringer skrevet af en admin etc. </string>
     <string name="notification_channel_push_name">Pushbeskeder</string>
     <string name="notification_channel_upload_description">Viser afsendings fremskridt</string>
@@ -789,7 +794,10 @@
     <string name="send">Send</string>
     <string name="send_share">Send deling</string>
     <string name="sendbutton_description">Send knap ikon</string>
+    <string name="server_not_reachable">Kunne ikke indlæse indhold</string>
+    <string name="server_not_reachable_content">Enheden er sandsynligvis ikke forbundet til internettet</string>
     <string name="set_as">Sæt som</string>
+    <string name="set_message">Indstil besked</string>
     <string name="set_note">Sæt note</string>
     <string name="set_online_status">Online status</string>
     <string name="set_picture_as">Anvend billede som</string>
@@ -798,6 +806,7 @@
     <string name="setup_e2e">Undervejs i opsætningen af end-to-end kryptering, så vil du modtage en tilfældig huskeregel på 12 ord, som du får brug for til at åbne dine filer på andre enheder. Denne vil kun blive gemt på denne enhed, og kan blive vist senere i denne visning. Skriv den venligst ned et sikkert sted!</string>
     <string name="share">Del</string>
     <string name="share_allow_download_and_sync_permission">Tillad download og synkronisering</string>
+    <string name="share_cannot_update_empty_note">Vi kunne ikke opdatere delingen. Tilføj en note og prøv igen.</string>
     <string name="share_copy_link">Del og kopier link</string>
     <string name="share_create_permission">Opret</string>
     <string name="share_custom_permission">Brugerdefinerede rettigheder</string>
@@ -1015,6 +1024,9 @@
     <string name="upload_local_storage_not_copied">Filen kunne ikke kopieres til lokalt lager</string>
     <string name="upload_lock_failed">Lås på mappe fejlede</string>
     <string name="upload_manually_cancelled">Upload var annulleret af bruger</string>
+    <string name="upload_missing_storage_permission_allow_file_access">Tillad adgang til alle filer</string>
+    <string name="upload_missing_storage_permission_app_permissions">App tilladelser</string>
+    <string name="upload_missing_storage_permission_description">Dine filer kan ikke blive uploadet uden adgang til dit lokale lager. Tryk for at give tilladelse.</string>
     <string name="upload_notification_manager_start_text">%1$d / %2$d - %3$s</string>
     <string name="upload_old_android">Kryptering kun mulig med &gt;= Android 5.0</string>
     <string name="upload_query_move_foreign_files">Utilstrækkelig plads til, at kopiere de valgte filer ind i %1$s mappen. Vil du flytte dem i stedet?</string>
