@@ -10,6 +10,7 @@ import androidx.lifecycle.LiveData
 import androidx.work.ListenableWorker
 import com.nextcloud.client.account.User
 import com.owncloud.android.datamodel.OCFile
+import com.owncloud.android.datamodel.SyncedFolder
 import com.owncloud.android.operations.DownloadType
 
 /**
@@ -119,7 +120,7 @@ interface BackgroundJobManager {
 
     fun startImmediateFilesExportJob(files: Collection<OCFile>): LiveData<JobInfo?>
 
-    fun schedulePeriodicFilesSyncJob(syncedFolderID: Long)
+    fun schedulePeriodicFilesSyncJob(syncedFolder: SyncedFolder)
 
     /**
      * Immediately start File Sync job for given syncFolderID.

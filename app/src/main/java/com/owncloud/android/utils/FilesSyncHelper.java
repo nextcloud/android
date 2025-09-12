@@ -336,7 +336,7 @@ public final class FilesSyncHelper {
         Log_OC.d(TAG, "scheduleFilesSyncForAllFoldersIfNeeded, called");
         for (SyncedFolder syncedFolder : syncedFolderProvider.getSyncedFolders()) {
             if (syncedFolder.isEnabled()) {
-                jobManager.schedulePeriodicFilesSyncJob(syncedFolder.getId());
+                jobManager.schedulePeriodicFilesSyncJob(syncedFolder);
             }
         }
         if (context != null) {
