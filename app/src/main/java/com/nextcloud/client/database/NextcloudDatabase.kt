@@ -17,6 +17,7 @@ import com.nextcloud.client.core.Clock
 import com.nextcloud.client.core.ClockImpl
 import com.nextcloud.client.database.dao.ArbitraryDataDao
 import com.nextcloud.client.database.dao.FileDao
+import com.nextcloud.client.database.dao.FileSystemDao
 import com.nextcloud.client.database.dao.OfflineOperationDao
 import com.nextcloud.client.database.dao.RecommendedFileDao
 import com.nextcloud.client.database.dao.UploadDao
@@ -94,6 +95,7 @@ abstract class NextcloudDatabase : RoomDatabase() {
     abstract fun offlineOperationDao(): OfflineOperationDao
     abstract fun uploadDao(): UploadDao
     abstract fun recommendedFileDao(): RecommendedFileDao
+    abstract fun fileSystemDao(): FileSystemDao
 
     companion object {
         const val FIRST_ROOM_DB_VERSION = 65
