@@ -1,16 +1,16 @@
 /*
  * Nextcloud - Android Client
  *
- * SPDX-FileCopyrightText: 2025 Your Name <your@email.com>
+ * SPDX-FileCopyrightText: 2025 Alper Ozturk <alper.ozturk@nextcloud.com>
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
 package com.nextcloud.client.jobs.autoUpload
 
 import android.app.Notification
+import android.app.NotificationManager
 import android.content.Context
 import android.content.res.Resources
-import android.text.TextUtils
 import androidx.core.app.NotificationCompat
 import androidx.exifinterface.media.ExifInterface
 import androidx.work.CoroutineWorker
@@ -75,6 +75,9 @@ class AutoUploadWorker(
     }
 
     private lateinit var syncedFolder: SyncedFolder
+    private val notificationManager by lazy {
+        context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+    }
 
     @Suppress("TooGenericExceptionCaught", "ReturnCount")
     override suspend fun doWork(): Result {
@@ -97,27 +100,28 @@ class AutoUploadWorker(
             }
 
             collectFileChangesFromContentObserverWork()
-
-            // start notification
-            getStartNotificationTitle(syncedFolder)?.let { (localFolderName, remoteFolderName) ->
-                val startNotification = createNotification(
-                    context.getString(
-                        R.string.auto_upload_worker_start_text,
-                        localFolderName,
-                        remoteFolderName
-                    )
-                )
-
-                // use notification manager
-            }
-
+            updateNotification()
             uploadFiles(syncedFolder)
 
-            Log_OC.d(TAG, "✅ (${syncedFolder.remotePath}) finished checking files.")
+            Log_OC.d(TAG, "✅ ${syncedFolder.remotePath} finished checking files.")
             Result.success()
         } catch (e: Exception) {
             Log_OC.e(TAG, "❌ failed: ${e.message}")
             Result.failure()
+        }
+    }
+
+    private fun updateNotification() {
+        getStartNotificationTitle()?.let { (localFolderName, remoteFolderName) ->
+            val startNotification = createNotification(
+                context.getString(
+                    R.string.auto_upload_worker_start_text,
+                    localFolderName,
+                    remoteFolderName
+                )
+            )
+
+            notificationManager.notify(NOTIFICATION_ID, startNotification)
         }
     }
 
@@ -141,7 +145,7 @@ class AutoUploadWorker(
         .build()
 
     @Suppress("TooGenericExceptionCaught")
-    private fun getStartNotificationTitle(folder: SyncedFolder): Pair<String, String>? {
+    private fun getStartNotificationTitle(): Pair<String, String>? {
         val localPath = syncedFolder.localPath
         val remotePath = syncedFolder.remotePath
 
@@ -214,12 +218,12 @@ class AutoUploadWorker(
     private suspend fun collectFileChangesFromContentObserverWork() = withContext(Dispatchers.IO) {
         val changedFiles = inputData.getStringArray(CHANGED_FILES)
 
-        if (!changedFiles.isNullOrEmpty()) {
-            FilesSyncHelper.insertChangedEntries(syncedFolder, changedFiles)
-        } else {
+        if (changedFiles.isNullOrEmpty()) {
             // Check every file in synced folder for changes and update
             // filesystemDataProvider database (potentially needs a long time)
             FilesSyncHelper.insertAllDBEntriesForSyncedFolder(syncedFolder)
+        } else {
+            FilesSyncHelper.insertChangedEntries(syncedFolder, changedFiles)
         }
         syncedFolder.lastScanTimestampMs = System.currentTimeMillis()
         syncedFolderProvider.updateSyncFolder(syncedFolder)
@@ -282,7 +286,7 @@ class AutoUploadWorker(
         }
     }
 
-    @Suppress("LongMethod")
+    @Suppress("LongMethod", "DEPRECATION")
     private suspend fun uploadFiles(syncedFolder: SyncedFolder) = withContext(Dispatchers.IO) {
         val dateFormat = prepareDateFormat()
         val user = getUserOrReturn(syncedFolder) ?: return@withContext
@@ -399,11 +403,15 @@ class AutoUploadWorker(
             try {
                 val exifInterface = ExifInterface(file.absolutePath)
                 val exifDate = exifInterface.getAttribute(ExifInterface.TAG_DATETIME)
-                if (!TextUtils.isEmpty(exifDate)) {
+                if (!exifDate.isNullOrBlank()) {
                     val pos = ParsePosition(0)
                     val dateTime = formatter.parse(exifDate, pos)
-                    lastModificationTime = dateTime.time
-                    Log_OC.w(TAG, "calculateLastModificationTime calculatedTime is: $lastModificationTime")
+                    if (dateTime != null) {
+                        lastModificationTime = dateTime.time
+                        Log_OC.w(TAG, "calculateLastModificationTime calculatedTime is: $lastModificationTime")
+                    } else {
+                        Log_OC.w(TAG, "calculateLastModificationTime dateTime is empty")
+                    }
                 } else {
                     Log_OC.w(TAG, "calculateLastModificationTime exifDate is empty")
                 }
