@@ -261,7 +261,7 @@ class OCFileListDelegate(
         // shares
         val shouldHideShare = (
             preferences.isDenseLayoutEnabled() ||
-            hideItemOptions ||
+                hideItemOptions ||
                 !file.isFolder &&
                 file.isEncrypted ||
                 file.isEncrypted &&
@@ -281,11 +281,10 @@ class OCFileListDelegate(
         }
 
         // layout density
-        if (preferences.isDenseLayoutEnabled()){
+        if (preferences.isDenseLayoutEnabled()) {
             gridViewHolder.itemLayout.minimumHeight = context.resources.getDimension(R.dimen.min_list_item_size).toInt()
             gridViewHolder.itemLayout.setPadding(0, 0, 0, 0)
         }
-
     }
 
     private fun bindUnreadComments(file: OCFile, gridViewHolder: ListViewHolder) {
