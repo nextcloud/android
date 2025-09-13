@@ -99,8 +99,6 @@
     <string name="clear">Limpiar</string>
     <string name="clear_notifications_failed">Error al borrar las notificaciones.</string>
     <string name="clear_status_after">Borrar estado después de</string>
-    <string name="clear_status_message">Borrar mensaje de estado</string>
-    <string name="clear_status_message_after">Borrar mensaje de estado después de</string>
     <string name="clipboard_label">Texto copiado desde %1$s</string>
     <string name="clipboard_no_text_to_copy">No se ha recibido texto para copiar al portapapeles</string>
     <string name="clipboard_text_copied">Enlace copiado</string>
@@ -592,7 +590,6 @@
     <string name="preview_image_error_unknown_format">No es posible mostrar la imagen</string>
     <string name="preview_sorry">Disculpa</string>
     <string name="privacy">Privacidad</string>
-    <string name="public_share_name">Nombre nuevo</string>
     <string name="push_notifications_not_implemented">Las notificaciones push están deshabilitadas debido a dependencias de servicios propietarios de Google Play. </string>
     <string name="push_notifications_old_login">No hay notificaciones push debido a un inicio de sesión caduco. Por favor vuelve a ingresar a tu cuenta. </string>
     <string name="push_notifications_temp_error">En este momento las notificaciones push no están disponibles.</string>
@@ -644,8 +641,6 @@
     <string name="set_as">Establecer Como</string>
     <string name="set_online_status">Estado en línea</string>
     <string name="set_picture_as">Usar imagen como</string>
-    <string name="set_status">Establecer estado</string>
-    <string name="set_status_message">Establecer mensaje de estado</string>
     <string name="setup_e2e">Al configurar la encriptación de extremo a extremo, recibirás un memónico aleatorio de 12 palabras, que necesitarás para abrir tus archivos en otros dispositivos. Este solo se almacenará en este dispositivo y se puede mostrar nuevamente en esta pantalla. ¡Tómalo nota en un lugar seguro!</string>
     <string name="share">Compartir</string>
     <string name="share_create_permission">Crear</string>

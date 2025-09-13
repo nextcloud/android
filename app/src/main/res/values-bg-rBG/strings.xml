@@ -105,8 +105,6 @@
     <string name="clear">Изчистване</string>
     <string name="clear_notifications_failed">Изтриването на известията не бе успешно.</string>
     <string name="clear_status_after">Изчистване на състоянието след</string>
-    <string name="clear_status_message">Изчисти състоянието</string>
-    <string name="clear_status_message_after">Изчистване на съобщение за състоянието след това</string>
     <string name="clipboard_label">Текста е копиран от %1$s</string>
     <string name="clipboard_no_text_to_copy">Няма получен текст за копиране в клипборда</string>
     <string name="clipboard_text_copied">Връзката е копирана</string>
@@ -591,7 +589,6 @@
     <string name="preview_image_error_unknown_format">Изображението не може да бъде показано</string>
     <string name="preview_sorry">Извиняваме се </string>
     <string name="privacy">Защита на лични данни</string>
-    <string name="public_share_name">Ново име</string>
     <string name="push_notifications_not_implemented">Известията са изключени заради зависимост от частни Google Play услуги.</string>
     <string name="push_notifications_old_login">Няма налични известия поради изтекла потребителска сесия. Моля, обмислете да пре-добавите вашия профил.</string>
     <string name="push_notifications_temp_error">Известията не са достъпни в момента.</string>
@@ -643,8 +640,6 @@
     <string name="set_as">Задай като</string>
     <string name="set_online_status">Състояние</string>
     <string name="set_picture_as">Задай като</string>
-    <string name="set_status">Задайте състояние</string>
-    <string name="set_status_message">Задайте съобщение за състояние</string>
     <string name="setup_e2e">По време на настройката на цялостното криптиране ще получите мнемоника от 12 произволни думи , която ще ви е необходима, за да отваряте файловете си на други устройства. Тя ще бъде съхранена само на това устройство и може да бъде показана отново на този екран. Моля, запишете я на сигурно място!</string>
     <string name="share">Сподели</string>
     <string name="share_create_permission">Създаване</string>

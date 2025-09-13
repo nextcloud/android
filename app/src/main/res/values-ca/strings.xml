@@ -127,8 +127,6 @@
     <string name="clear">Neteja</string>
     <string name="clear_notifications_failed">No s\'han pogut carregar les notificacions.</string>
     <string name="clear_status_after">Esborra l\'estat després de</string>
-    <string name="clear_status_message">Esborrar el missatge d\'estat</string>
-    <string name="clear_status_message_after">Esborra el missatge d\'estat després</string>
     <string name="clipboard_label">Text copiat des de %1$s</string>
     <string name="clipboard_no_text_to_copy">No s\'ha rebut cap text per copiar al porta-retalls</string>
     <string name="clipboard_text_copied">Enllaç copiat</string>
@@ -706,7 +704,6 @@
     <string name="preview_media_unhandled_http_code_message">Un altre usuari o procés ha bloquejat el fitxer i per tant no es pot eliminar. Torneu-ho a provar més tard.</string>
     <string name="preview_sorry">Ho sento</string>
     <string name="privacy">Privadesa</string>
-    <string name="public_share_name">Nou nom</string>
     <string name="push_notifications_not_implemented">Les notificacions \"push\" s\'han inhabilitat a causa de dependències de serveis propietaris de Google Play.</string>
     <string name="push_notifications_old_login">No hi ha notificacions \"push\" a causa d\'un inici de sessió no actualitzat. Si us plau valoreu tornar a afegir el vostre compte.</string>
     <string name="push_notifications_temp_error">Les notificacions \"push\" no estan disponibles actualment.</string>
@@ -758,8 +755,6 @@
     <string name="set_as">Configura com</string>
     <string name="set_online_status">Estat en línia</string>
     <string name="set_picture_as">Fes servir la foto com</string>
-    <string name="set_status">Estableix l\'estat</string>
-    <string name="set_status_message">Estableix un missatge d\'estat</string>
     <string name="setup_e2e">Durant la configuració del xifratge d\'extrem a extrem, rebreu un mnemotècnic de 12 paraules a l\'atzar, que necessitareu per obrir els vostres fitxers en altres dispositius. Només s\'emmagatzemarà en aquest dispositiu i es podrà tornar a mostrar en aquesta pantalla. Anoteu-vos-el en un lloc segur!</string>
     <string name="share">Comparteix</string>
     <string name="share_allow_download_and_sync_permission">Permet la baixada i la sincronització</string>

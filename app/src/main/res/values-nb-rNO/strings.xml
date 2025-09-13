@@ -123,8 +123,6 @@
     <string name="clear">Tøm</string>
     <string name="clear_notifications_failed">Kunne ikke fjerne meldinger.</string>
     <string name="clear_status_after">Fjern status etter</string>
-    <string name="clear_status_message">Fjern statusmelding</string>
-    <string name="clear_status_message_after">Fjern statusmelding etter</string>
     <string name="clipboard_label">Teksten ble kopiert fra %1$s</string>
     <string name="clipboard_no_text_to_copy">Ingen tekst ble mottatt for kopi til utklippstavlen</string>
     <string name="clipboard_text_copied">Lenke kopiert</string>
@@ -683,7 +681,6 @@
     <string name="preview_media_unhandled_http_code_message">Filen er for øyeblikket låst av en annen bruker eller prosess og kan derfor ikke slettes. Prøv igjen senere.</string>
     <string name="preview_sorry">Beklager</string>
     <string name="privacy">Personvern</string>
-    <string name="public_share_name">Nytt navn</string>
     <string name="push_notifications_not_implemented">Push-merknader er avskrudd på grunn av avhengigheter til proprietære Google Play-tjenester.</string>
     <string name="push_notifications_old_login">Ingen push-varsler på grunn av utdatert innloggingsøkt. Du bør vurdere å legge til kontoen på nytt.</string>
     <string name="push_notifications_temp_error">Push-merknader er for tiden ikke tilgjengelige.</string>
@@ -744,8 +741,6 @@
     <string name="set_as">Bruk som</string>
     <string name="set_online_status">Online-status</string>
     <string name="set_picture_as">Bruk bilde som</string>
-    <string name="set_status">Velg status</string>
-    <string name="set_status_message">Velg statusmelding</string>
     <string name="setup_e2e">Under oppsett av ende-til-ende -kryptering så vil du motta et tilfeldig 12-ord-krypteringspassord, som du vil trenge for å få åpner filene dine på andre enheter. Dette vil bare bli lagret på denne enheten. og kan bli vist igjen på denne siden. Vennligst noter det ned på et sikkert sted!</string>
     <string name="share">Del</string>
     <string name="share_allow_download_and_sync_permission">Tillat nedlasting og synkronisering</string>

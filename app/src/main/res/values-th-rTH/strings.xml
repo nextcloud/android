@@ -94,8 +94,6 @@
     <string name="clear">ล้าง</string>
     <string name="clear_notifications_failed">ไม่สามารถล้างการแจ้งเตือน</string>
     <string name="clear_status_after">ล้างสถานะหลังจาก</string>
-    <string name="clear_status_message">ล้างข้อความสถานะ</string>
-    <string name="clear_status_message_after">ล้างข้อความสถานะหลังจาก</string>
     <string name="clipboard_label">คัดลอกข้อความจาก %1$s แล้ว</string>
     <string name="clipboard_no_text_to_copy">ไม่ได้รับข้อความที่จะคัดลอกไปยังคลิปบอร์ด</string>
     <string name="clipboard_text_copied">คัดลอกลิงก์แล้ว</string>
@@ -492,8 +490,6 @@
     <string name="select_all">เลือกทั้งหมด</string>
     <string name="send">ส่ง</string>
     <string name="set_online_status">สถานะออนไลน์</string>
-    <string name="set_status">กำหนดสถานะ</string>
-    <string name="set_status_message">กำหนดข้อความสถานะ</string>
     <string name="share">แชร์</string>
     <string name="share_create_permission">สร้าง</string>
     <string name="share_delete_permission">ลบ</string>

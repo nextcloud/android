@@ -95,8 +95,6 @@
     <string name="clear">פינוי</string>
     <string name="clear_notifications_failed">פינוי ההתראות נכשל.</string>
     <string name="clear_status_after">לפנות את המצב לאחר</string>
-    <string name="clear_status_message">פינוי הודעת המצב</string>
-    <string name="clear_status_message_after">מחיקת הודעת מצב לאחר</string>
     <string name="clipboard_label">טקסט הועתק מ- %1$s</string>
     <string name="clipboard_no_text_to_copy">לא התקבל טקסט להעתקה ללוח הגזירים</string>
     <string name="clipboard_text_copied">הקישור הועתק</string>
@@ -546,8 +544,6 @@
     <string name="set_as">הגדרה בתור</string>
     <string name="set_online_status">מצב מקוון</string>
     <string name="set_picture_as">שימוש בתמונה בתור</string>
-    <string name="set_status">הגדרת מצב</string>
-    <string name="set_status_message">הגדרת הודעת מצב</string>
     <string name="share">שיתוף</string>
     <string name="share_delete_permission">מחיקה</string>
     <string name="share_dialog_title">שיתוף</string>

@@ -99,8 +99,6 @@
     <string name="clear">Εκκαθάριση</string>
     <string name="clear_notifications_failed">Αποτυχία εκκαθάρισης όλων των ειδοποιήσεων</string>
     <string name="clear_status_after">Εκκαθάριση κατάστασης μετά από</string>
-    <string name="clear_status_message">Εκκαθάριση μηνύματος κατάστασης</string>
-    <string name="clear_status_message_after">Εκκαθάριση μηνύματος κατάστασης μετά από</string>
     <string name="clipboard_label">Κείμενο που αντιγράφηκε από τον %1$s</string>
     <string name="clipboard_no_text_to_copy">Δεν ελήφθη κείμενο για αντιγραφή στο πρόχειρο</string>
     <string name="clipboard_text_copied">Ο σύνδεσμος αντιγράφηκε</string>
@@ -591,7 +589,6 @@
     <string name="preview_image_error_unknown_format">Αδυναμία προβολής εικόνας</string>
     <string name="preview_sorry">Σας ζητούμε συγγνώμη</string>
     <string name="privacy">Ιδιωτικότητα</string>
-    <string name="public_share_name">Νέο όνομα</string>
     <string name="push_notifications_not_implemented">Οι ειδοποιήσεις απενεργοποιήθηκαν λόγω εξαρτήσεων στις ιδιόκτητες υπηρεσίες Google Play.</string>
     <string name="push_notifications_old_login">Δεν υπάρχουν ειδοποιήσεις λόγω παρωχημένης συνεδρίας σύνδεσης. Παρακαλούμε επανεξετάσετε το ενδεχόμενο να ξανά προσθέσετε τον λογαριασμό σας.</string>
     <string name="push_notifications_temp_error">Οι ειδοποιήσεις push δεν είναι διαθέσιμες αυτήν τη στιγμή.</string>
@@ -644,8 +641,6 @@
     <string name="set_as">Ορισμός ως</string>
     <string name="set_online_status">Κατάσταση σε σύνδεση</string>
     <string name="set_picture_as">Χρησιμοποίησε την εικόνα ως</string>
-    <string name="set_status">Ορισμός κατάστασης</string>
-    <string name="set_status_message">Ορισμός μηνύματος κατάστασης</string>
     <string name="share">Διαμοιρασμός</string>
     <string name="share_create_permission">Δημιουργία</string>
     <string name="share_custom_permission">Προσαρμοσμένα δικαιώματα</string>

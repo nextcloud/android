@@ -131,8 +131,6 @@
     <string name="clear">Leeren</string>
     <string name="clear_notifications_failed">Benachrichtigungen konnten nicht gelöscht werden</string>
     <string name="clear_status_after">Status löschen nach</string>
-    <string name="clear_status_message">Statusnachricht löschen</string>
-    <string name="clear_status_message_after">Statusnachricht löschen nach</string>
     <string name="clipboard_label">Text von %1$s kopiert</string>
     <string name="clipboard_no_text_to_copy">Kein Text zum Kopieren in die Zwischenablage empfangen</string>
     <string name="clipboard_text_copied">Link kopiert</string>
@@ -750,7 +748,6 @@
     <string name="preview_media_unhandled_http_code_message">Die Datei ist derzeit von einem anderen Benutzer oder Prozess gesperrt und kann daher nicht gelöscht werden. Bitte später noch einmal versuchen.</string>
     <string name="preview_sorry">Entschuldigung</string>
     <string name="privacy">Datenschutz</string>
-    <string name="public_share_name">Neuer Name</string>
     <string name="push_notifications_not_implemented">Push Benachrichtigungen deaktiviert aufgrund der Abhängigkeiten zu proprietären Google Play Diensten.</string>
     <string name="push_notifications_old_login">Keine Push Benachrichtigungen aufgrund veralteter Benutzersitzung. Bitte erwägen Sie das erneute Hinzufügen Ihres Kontos.</string>
     <string name="push_notifications_temp_error">Push Benachrichtigungen aktuell nicht verfügbar.</string>
@@ -820,8 +817,6 @@
     <string name="set_note">Notiz setzen</string>
     <string name="set_online_status">Online-Status</string>
     <string name="set_picture_as">Nutze Bild als</string>
-    <string name="set_status">Status setzen</string>
-    <string name="set_status_message">Statusnachricht setzen</string>
     <string name="setup_e2e">Während der Einrichtung der Ende-zu-Ende-Verschlüsselung erhalten Sie eine zufällige 12-Wörter-Gedächtnisstütze, die Sie benötigen, um Ihre Dateien auf anderen Geräten zu öffnen. Diese wird nur auf diesem Gerät gespeichert und kann in diesem Bildschirm erneut angezeigt werden. Bitte notieren Sie es an einem sicheren Ort!</string>
     <string name="share">Teilen</string>
     <string name="share_allow_download_and_sync_permission">Herunterladen und synchronisieren zulassen</string>

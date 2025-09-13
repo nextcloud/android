@@ -130,8 +130,6 @@
     <string name="clear">Törlés</string>
     <string name="clear_notifications_failed">Az értesítések törlése sikertelen.</string>
     <string name="clear_status_after">Állapot törlése ennyi idő után</string>
-    <string name="clear_status_message">Állapotüzenet törlése</string>
-    <string name="clear_status_message_after">Állapotüzenet törlése ennyi idő után:</string>
     <string name="clipboard_label">Szöveg másolva innen: %1$s</string>
     <string name="clipboard_no_text_to_copy">Nem érkezett szöveg a vágólapra másoláshoz</string>
     <string name="clipboard_text_copied">Hivatkozás másolva</string>
@@ -743,7 +741,6 @@
     <string name="preview_media_unhandled_http_code_message">A fájlt jelenleg egy másik felhasználó vagy folyamat zárolja, ezért nem törölhető. Próbálja újra később.</string>
     <string name="preview_sorry">Sajnáljuk</string>
     <string name="privacy">Adatvédelem</string>
-    <string name="public_share_name">Új név</string>
     <string name="push_notifications_not_implemented">A leküldéses üzenetek ki vannak kapcsolva, mert azok a zárt Google Play szolgáltatásoktól függenek.</string>
     <string name="push_notifications_old_login">Nincsenek leküldéses értesítések, mert a munkamenet lejárt. Adja hozzá újra a fiókját.</string>
     <string name="push_notifications_temp_error">A leküldéses értesítések jelenleg nem érhetőek el.</string>
@@ -812,8 +809,6 @@
     <string name="set_note">Jegyzet beállítása</string>
     <string name="set_online_status">Elérhető állapot</string>
     <string name="set_picture_as">Kép használata mint</string>
-    <string name="set_status">Állapot beállítása</string>
-    <string name="set_status_message">Állapotüzenet beállítása</string>
     <string name="setup_e2e">A végpontok közti titkosítás beállítása során kap egy 12 véletlenszerű szóból álló mnemonikus kódot, amelyre akkor lesz szüksége, ha más eszközökön akarja megnyitni a fájlokat. Ez csak ezen az eszközön lesz tárolva, és újra megjeleníthető ezen a képernyőn. Jegyezze le, és tárolja biztonságos helyen!</string>
     <string name="share">Megosztás</string>
     <string name="share_allow_download_and_sync_permission">Letöltés és szinkronizálás engedélyezése</string>

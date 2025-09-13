@@ -94,8 +94,6 @@
     <string name="clear">Izbriši</string>
     <string name="clear_notifications_failed">Brisanje obavijesti nije uspjelo.</string>
     <string name="clear_status_after">Izbriši status nakon</string>
-    <string name="clear_status_message">Izbriši poruku statusa</string>
-    <string name="clear_status_message_after">Izbriši poruku statusa nakon</string>
     <string name="clipboard_label">Tekst kopiran iz %1$s</string>
     <string name="clipboard_no_text_to_copy">Nije primljen tekst za kopiranje u međuspremnik</string>
     <string name="clipboard_text_copied">Poveznica je kopirana</string>
@@ -553,7 +551,6 @@
     <string name="preview_image_error_unknown_format">Nije moguće prikazati sliku</string>
     <string name="preview_sorry">Oprosti</string>
     <string name="privacy">Privatnost</string>
-    <string name="public_share_name">Novi naziv</string>
     <string name="push_notifications_not_implemented">Push obavijesti su onemogućene zbog ovisnosti o vlasničkim servisima trgovine Google Play.</string>
     <string name="push_notifications_old_login">Nema push obavijesti zbog zastarjele prijave. Razmislite o ponovnom dodavanju računa.</string>
     <string name="push_notifications_temp_error">Push obavijesti trenutno nisu dostupne.</string>
@@ -599,8 +596,6 @@
     <string name="sendbutton_description">Ikona gumba za slanje</string>
     <string name="set_as">Postavi kao</string>
     <string name="set_picture_as">Koristi sliku kao</string>
-    <string name="set_status">Postavi status</string>
-    <string name="set_status_message">Postavi poruku statusa</string>
     <string name="share">Dijeli</string>
     <string name="share_create_permission">Stvori</string>
     <string name="share_delete_permission">Izbriši</string>

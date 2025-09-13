@@ -102,8 +102,6 @@
     <string name="clear">پاک کردن</string>
     <string name="clear_notifications_failed">ناموفق بودن در پاک کردن اعلانها</string>
     <string name="clear_status_after">پاک کردن وضعیت بعدی</string>
-    <string name="clear_status_message">پیام وضعیت را پاک کن</string>
-    <string name="clear_status_message_after">"بعد از آن پیام وضعیت را پاک کن "</string>
     <string name="clipboard_label">متن کپی شده از %1$s</string>
     <string name="clipboard_no_text_to_copy">هیچ متنی برای کپی کردن در کلیپ بورد دریافت نشده است</string>
     <string name="clipboard_text_copied">پیوند کپی شد</string>
@@ -628,7 +626,6 @@
     <string name="preview_image_error_unknown_format">نشان دادن تصویر نامقدور</string>
     <string name="preview_sorry">ببخشید</string>
     <string name="privacy">حریم خصوصی</string>
-    <string name="public_share_name">اسم جدید</string>
     <string name="push_notifications_not_implemented">ارسال اعلانات به دلیل وابستگی به خدمات اختصاصی Google Play غیرفعال شده است.</string>
     <string name="push_notifications_old_login">امکان ارسال اعلانات، به دلیل منقضی شدن زمان نشست ورود به سیستم وجود ندارد. لطفاً دوباره حساب خود را اضافه کنید.</string>
     <string name="push_notifications_temp_error">ارسال اعلانات در حال حاضر در دسترس نیست.</string>
@@ -687,8 +684,6 @@
     <string name="set_as">تنظیم به عنوان</string>
     <string name="set_online_status">وضعیت برخط</string>
     <string name="set_picture_as">استفاده از تصویر به عنوان</string>
-    <string name="set_status">تنظیم وضعیت</string>
-    <string name="set_status_message">تنظیم پیام وضعیت</string>
     <string name="setup_e2e">در طول راه اندازی رمزگذاری سرتاسری، یک یادگاری تصادفی ۱۲ کلمه‌ای دریافت خواهید کرد که باید فایل‌های خود را در دستگاه‌های دیگر باز کنید. این فقط در این دستگاه ذخیره می شود و می تواند دوباره در این صفحه نمایش داده شود. لطفا آن را در یک مکان امن یادداشت کنید!</string>
     <string name="share">هم‌رسانی</string>
     <string name="share_create_permission">ایجاد</string>

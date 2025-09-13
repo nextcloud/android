@@ -115,8 +115,6 @@
     <string name="clear">Limpiar</string>
     <string name="clear_notifications_failed">Hubo una falla al intentar limpiar las notificaciones.</string>
     <string name="clear_status_after">Limpiar el estado después de</string>
-    <string name="clear_status_message">Borrar mensaje de estado</string>
-    <string name="clear_status_message_after">Borrar mensaje de estado después de</string>
     <string name="clipboard_label">Texto copiado desde %1$s</string>
     <string name="clipboard_no_text_to_copy">No se ha recibido texto para copiar al portapapeles</string>
     <string name="clipboard_text_copied">Enlace copiado</string>
@@ -650,7 +648,6 @@
     <string name="preview_media_unhandled_http_code_message">El archivo se encuentra bloqueado actualmente por otro usuario o proceso y, por lo tanto, no es posible eliminarlo. Por favor, intente de nuevo más tarde.</string>
     <string name="preview_sorry">Disculpa</string>
     <string name="privacy">Privacidad</string>
-    <string name="public_share_name">Nuevo nombre</string>
     <string name="push_notifications_not_implemented">Las notificaciones push están deshabilitadas debido a dependencias de servicios propietarios de Google Play. </string>
     <string name="push_notifications_old_login">No hay notificaciones push debido a un inicio de sesión caduco. Por favor vuelve a ingresar a tu cuenta. </string>
     <string name="push_notifications_temp_error">En este momento las notificaciones push no están disponibles.</string>
@@ -711,8 +708,6 @@
     <string name="set_as">Establecer Como</string>
     <string name="set_online_status">Estado en línea</string>
     <string name="set_picture_as">Usar imagen como</string>
-    <string name="set_status">Establecer estado</string>
-    <string name="set_status_message">Establecer mensaje de estado</string>
     <string name="setup_e2e">Durante la configuración del cifrado punto a punto, recibirá un mnemotécnico aleatorio de 12 palabras, que necesitará para abrir sus archivos en otros dispositivos. Esto sólo se almacenará en este dispositivo y se puede volver a mostrar en esta pantalla. ¡Por favor, guárdelo en un lugar seguro!</string>
     <string name="share">Compartir</string>
     <string name="share_create_permission">Crear</string>

@@ -131,8 +131,6 @@
     <string name="clear">Очистить</string>
     <string name="clear_notifications_failed">Не удалось удалить уведомления.</string>
     <string name="clear_status_after">Очистить статус после</string>
-    <string name="clear_status_message">Очистить сообщение о состоянии</string>
-    <string name="clear_status_message_after">Очистить сообщение о состоянии через</string>
     <string name="clipboard_label">Текст скопирован из %1$s</string>
     <string name="clipboard_no_text_to_copy">Нет принятого текста для копирования в буфер обмена</string>
     <string name="clipboard_text_copied">Ссылка скопирована</string>
@@ -751,7 +749,6 @@
     <string name="preview_media_unhandled_http_code_message">Файл в настоящее время заблокирован другим пользователем или процессом и поэтому не может быть удален. Пожалуйста, повторите попытку позже.</string>
     <string name="preview_sorry">Приносим извинения</string>
     <string name="privacy">Конфиденциальность</string>
-    <string name="public_share_name">Новое имя</string>
     <string name="push_notifications_not_implemented">Всплывающие уведомления отключены, так как зависят от Google Play сервисов</string>
     <string name="push_notifications_old_login">Нет аккаунтов для уведомлений. Пожалуйста добавьте аккаунт.</string>
     <string name="push_notifications_temp_error">Всплывающие уведомления недоступны</string>
@@ -821,8 +818,6 @@
     <string name="set_note">Создать заметку</string>
     <string name="set_online_status">Онлайн статус</string>
     <string name="set_picture_as">Использовать изображение</string>
-    <string name="set_status">Установить состояние</string>
-    <string name="set_status_message">Установить сообщение о состоянии</string>
     <string name="setup_e2e">При настройке сквозного шифрования будет создана  мнемофраза из 12 слов, которая понадобится для открытия файлов на других устройствах. Мнемофраза будет сохранена  только на этом устройстве и может быть просмотрена повторно. Сохраните мнемофразу в надежном месте!</string>
     <string name="share">Общий ресурс</string>
     <string name="share_allow_download_and_sync_permission">Разрешить загрузку и синхронизацию</string>

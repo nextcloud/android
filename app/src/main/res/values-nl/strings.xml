@@ -131,8 +131,6 @@
     <string name="clear">Terug</string>
     <string name="clear_notifications_failed">Niet gelukt om alle meldingen af te handelen</string>
     <string name="clear_status_after">Maak de status leeg na</string>
-    <string name="clear_status_message">Statusberichten wissen</string>
-    <string name="clear_status_message_after">Statusbericht wissen na</string>
     <string name="clipboard_label">Tekst gekopieerd uit %1$s</string>
     <string name="clipboard_no_text_to_copy">Geen tekst ontvangen om te kopiëren naar het klembord</string>
     <string name="clipboard_text_copied">Link gekopieerd</string>
@@ -745,7 +743,6 @@
     <string name="preview_media_unhandled_http_code_message">Het bestand is in gebruik door een andere gebruiker of proces en kan daardoor niet verwijderd worden. Probeer het later nog eens.</string>
     <string name="preview_sorry">Sorry</string>
     <string name="privacy">Privacy</string>
-    <string name="public_share_name">Nieuwe naam</string>
     <string name="push_notifications_not_implemented">Push notificaties uitgeschakeld door afhankelijkheden op eigen Google Play-services.</string>
     <string name="push_notifications_old_login">Geen push-notificaties als gevolg van de verouderde inlogsessie. Overweeg het opnieuw toevoegen van je account.</string>
     <string name="push_notifications_temp_error">Push notificaties momenteel niet beschikbaar.</string>
@@ -813,8 +810,6 @@
     <string name="set_download_limit_failed">Kan geen downloadlimiet instellen. Controleer svp de capaciteiten</string>
     <string name="set_note">Aantekening instellen</string>
     <string name="set_picture_as">Gebruik afbeelding als</string>
-    <string name="set_status">Instellen status</string>
-    <string name="set_status_message">Instellen statusbericht</string>
     <string name="setup_e2e">Tijden het instellen van end-to-end versleuteling ontvang je een mnemonic van 12 woorden, die je nodig hebt om bestanden op je apparaat te openen. Dit wordt alleen opgeslagen op dit apparaat en kan in dit scherm opnieuw getoond worden. Noteer het a.u.b. op een veilige plek!</string>
     <string name="share">Delen</string>
     <string name="share_allow_download_and_sync_permission">Download en synchroniseren toestaan</string>

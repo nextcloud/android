@@ -130,8 +130,6 @@
     <string name="clear">Wyczyść</string>
     <string name="clear_notifications_failed">Wyczyszczenie powiadomień nie powiodło się.</string>
     <string name="clear_status_after">Wyczyść status po</string>
-    <string name="clear_status_message">Wyczyść komunikat statusu</string>
-    <string name="clear_status_message_after">Wyczyść komunikat statusu po</string>
     <string name="clipboard_label">Skopiowano tekst z %1$s</string>
     <string name="clipboard_no_text_to_copy">Nie otrzymano tekstu do skopiowania do schowka</string>
     <string name="clipboard_text_copied">Link skopiowany</string>
@@ -747,7 +745,6 @@
     <string name="preview_media_unhandled_http_code_message">Plik jest obecnie zablokowany przez innego użytkownika lub proces i dlatego nie można go usunąć. Spróbuj ponownie później.</string>
     <string name="preview_sorry">Przykro nam</string>
     <string name="privacy">Prywatność</string>
-    <string name="public_share_name">Nowa nazwa</string>
     <string name="push_notifications_not_implemented">Powiadomienia Push zostały wyłączone ze względu na zastrzeżenia prawne usług Google Play.</string>
     <string name="push_notifications_old_login">Brak powiadomień Push z powodu nieaktualnej sesji logowania. Rozważ ponowne dodanie swojego konta.</string>
     <string name="push_notifications_temp_error">Powiadomienia Push nie są obecnie dostępne.</string>
@@ -816,8 +813,6 @@
     <string name="set_note">Ustaw notatkę</string>
     <string name="set_online_status">Status online</string>
     <string name="set_picture_as">Użyj obrazu jako</string>
-    <string name="set_status">Ustaw status</string>
-    <string name="set_status_message">Ustaw komunikat statusu</string>
     <string name="setup_e2e">Podczas konfigurowania szyfrowania typu end-to-end otrzymasz losowy mnemonik składający się z 12-stu słów, który będzie potrzebny do otwierania plików na innych urządzeniach. Będzie on przechowywany tylko na tym urządzeniu i można go ponownie wyświetlić na tym ekranie. Zapisz go w bezpiecznym miejscu!</string>
     <string name="share">Udostępnij</string>
     <string name="share_allow_download_and_sync_permission">Zezwalaj na pobieranie i synchronizację</string>
