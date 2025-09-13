@@ -68,8 +68,6 @@
     <string name="clear">Borrar</string>
     <string name="clear_notifications_failed">Nun se puen borrar los avisos.</string>
     <string name="clear_status_after">Borrar l\'estúa dempués de</string>
-    <string name="clear_status_message">Borrar el mensaxe del estáu</string>
-    <string name="clear_status_message_after">Borrar el mensaxe l\'estáu dempués de</string>
     <string name="clipboard_label">Testu copiáu dende %1$s</string>
     <string name="clipboard_text_copied">Copióse l\'enllaz</string>
     <string name="common_back">Atrás</string>
@@ -423,7 +421,6 @@
     <string name="preview_image_error_unknown_format">Nun pue amosase la imaxe</string>
     <string name="preview_sorry">Sentímoslo</string>
     <string name="privacy">Privacidá</string>
-    <string name="public_share_name">Nome nuevu</string>
     <string name="qr_could_not_be_read">¡Nun se pudo lleer el códigu QR!</string>
     <string name="recommend_subject">¡Prueba %1$s nel preséu!</string>
     <string name="recommend_urls">%1$s o %2$s</string>
@@ -460,8 +457,6 @@
     <string name="select_all">Esbillar too</string>
     <string name="send">Unviar</string>
     <string name="set_online_status">Estáu en llinia</string>
-    <string name="set_status">Afitar l\'estáu</string>
-    <string name="set_status_message">Afitar el mensaxe del estáu</string>
     <string name="share">Compartir</string>
     <string name="share_create_permission">Crear</string>
     <string name="share_custom_permission">Personlizar los permisos</string>

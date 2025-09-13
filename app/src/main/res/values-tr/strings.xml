@@ -131,8 +131,6 @@
     <string name="clear">Temizle</string>
     <string name="clear_notifications_failed">Bildirimler temizlenemedi.</string>
     <string name="clear_status_after">Durum şu kadar sonra kaldırılsın</string>
-    <string name="clear_status_message">Durum iletisini kaldır</string>
-    <string name="clear_status_message_after">Durum iletisi şu süre sonunda kaldırılsın</string>
     <string name="clipboard_label">Yazı %1$s kaynağından kopyalandı</string>
     <string name="clipboard_no_text_to_copy">Panoya kopyalanacak bir yazı alınamadı</string>
     <string name="clipboard_text_copied">Bağlantı kopyalandı</string>
@@ -748,7 +746,6 @@
     <string name="preview_media_unhandled_http_code_message">Dosya şu anda başka bir kullanıcı veya işlem tarafından kilitlenmiş olduğundan silinemez. Lütfen bir süre sonra yeniden deneyin.</string>
     <string name="preview_sorry">Ne yazık ki</string>
     <string name="privacy">Gizlilik</string>
-    <string name="public_share_name">Yeni ad</string>
     <string name="push_notifications_not_implemented">Anında bildirimler Google Play hizmetlerine olan bağımlılıklar nedeniyle kapatıldı.</string>
     <string name="push_notifications_old_login">Oturumunuzun süresi dolduğundan anında bildirimler gönderilemez. Lütfen hesabınızı yeniden eklemeyi düşünün.</string>
     <string name="push_notifications_temp_error">Anında bildirimler şu anda kullanılamıyor.</string>
@@ -817,8 +814,6 @@
     <string name="set_note">Notu ayarla</string>
     <string name="set_online_status">Çevrim içi durumu</string>
     <string name="set_picture_as">Görsel şunun için kullanılsın</string>
-    <string name="set_status">Durumu ayarla</string>
-    <string name="set_status_message">Durum iletisini ayarla</string>
     <string name="setup_e2e">Uçtan uca şifrelemenin kurulumu sırasında, dosyalarınızı diğer aygıtlarda açabilmeniz için rastgele 12 sözcükten oluşan bir parola alacaksınız. Bu parola yalnızca bu aygıta kaydedilir ve bu sayfadan yeniden görülebilir. Lütfen güvenli bir yere not edin!</string>
     <string name="share">Paylaş</string>
     <string name="share_allow_download_and_sync_permission">İndirmeye izin ver ve eşitle</string>

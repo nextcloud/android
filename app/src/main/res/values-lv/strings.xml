@@ -491,8 +491,6 @@
     <string name="set_as">Saglabāt kā</string>
     <string name="set_online_status">Tiešsaistes stāvoklis</string>
     <string name="set_picture_as">Izmantot attēlu kā</string>
-    <string name="set_status">Iestatīt stāvokli</string>
-    <string name="set_status_message">Iestatīt stāvokļa ziņojumu</string>
     <string name="share">Kopīgot</string>
     <string name="share_copy_link">Kopīgot saiti un ievietot to starpliktuvē</string>
     <string name="share_delete_permission">Izdzēst</string>

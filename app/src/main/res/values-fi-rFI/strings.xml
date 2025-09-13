@@ -116,8 +116,6 @@
     <string name="clear">Tyhjennä</string>
     <string name="clear_notifications_failed">Ilmoituksia ei voitu tyhjentää</string>
     <string name="clear_status_after">Tyhjennä tilatieto</string>
-    <string name="clear_status_message">Tyhjennä tilaviesti</string>
-    <string name="clear_status_message_after">Tyhjennä tilaviesti, kun on kulunut</string>
     <string name="clipboard_label">Teksti kopioitu %1$s</string>
     <string name="clipboard_no_text_to_copy">Leikepöydälle ei kopioitunut mitään</string>
     <string name="clipboard_text_copied">Linkki kopioitu</string>
@@ -656,7 +654,6 @@ GNU yleinen lisenssi, versio 2</string>
     <string name="preview_media_unhandled_http_code_message">Tiedosto on toisen käyttäjän tai prosessin lukitsema eikä sitä voida sen vuoksi poistaa. Yritä myöhemmin uudelleen.</string>
     <string name="preview_sorry">Anteeksi</string>
     <string name="privacy">Yksityisyys</string>
-    <string name="public_share_name">Uusi nimi</string>
     <string name="push_notifications_not_implemented">Push-ilmoitukset ovat pois käytöstä, koska ne riippuvat suljetuista Google Play -palveluista.</string>
     <string name="push_notifications_old_login">Ei puskusanomia johtuen vanhentuneesta kirjautumisistunnosta. Harkitse tilin uudelleenlisäämistä.</string>
     <string name="push_notifications_temp_error">Push-ilmoitukset eivät ole nyt käytettävissä.</string>
@@ -716,8 +713,6 @@ GNU yleinen lisenssi, versio 2</string>
     <string name="sendbutton_description">Lähetä-painikkeen kuvake</string>
     <string name="set_as">Aseta</string>
     <string name="set_picture_as">Käytä kuvaa</string>
-    <string name="set_status">Aseta tilatieto</string>
-    <string name="set_status_message">Aseta tilaviesti</string>
     <string name="share">Jaa</string>
     <string name="share_create_permission">Luo</string>
     <string name="share_custom_permission">Mukautetut oikeudet</string>

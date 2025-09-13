@@ -126,8 +126,6 @@
     <string name="clear">Pulisci</string>
     <string name="clear_notifications_failed">Cancellazione notifiche non riuscita.</string>
     <string name="clear_status_after">Togli lo stato dopo</string>
-    <string name="clear_status_message">Cancella il messaggio di stato</string>
-    <string name="clear_status_message_after">Cancella il messaggio di stato dopo</string>
     <string name="clipboard_label">Testo copiato da %1$s</string>
     <string name="clipboard_no_text_to_copy">Nessun testo ricevuto da copiare negli appunti</string>
     <string name="clipboard_text_copied">Collegamento copiato</string>
@@ -707,7 +705,6 @@
     <string name="preview_media_unhandled_http_code_message">Il file è attualmente bloccato da un altro utente o processo e quindi non eliminabile. Per favore riprova più tardi.</string>
     <string name="preview_sorry">Spiacenti</string>
     <string name="privacy">Riservatezza</string>
-    <string name="public_share_name">Nuovo nome</string>
     <string name="push_notifications_not_implemented">Notifiche push disabilitate a causa delle dipendenze dai servizi proprietari di Google Play.</string>
     <string name="push_notifications_old_login">Nessuna notifica push a causa della sessione di accesso scaduta. Considera di aggiungere nuovamente il tuo account.</string>
     <string name="push_notifications_temp_error">Notifiche push attualmente non disponibili.</string>
@@ -769,8 +766,6 @@
     <string name="sendbutton_description">Icona pulsante di invio</string>
     <string name="set_as">Imposta come</string>
     <string name="set_picture_as">Usa immagine come</string>
-    <string name="set_status">Imposta stato</string>
-    <string name="set_status_message">Imposta messaggio di stato</string>
     <string name="setup_e2e">Configurando la cifratura end-to-end, riceverai una frase di 12 parole mnemoniche casuali, che ti servirà per aprire i tuoi file su altri dispositivi. Questa sarà conservata solo su questo dispositivo, e può essere mostrata di nuovo in questa schermata. Annotala in un posto sicuro!</string>
     <string name="share">Condividi</string>
     <string name="share_allow_download_and_sync_permission">Consenti scaricamento e sincr.</string>

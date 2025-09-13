@@ -125,8 +125,6 @@
     <string name="choose_widget">Elegir widget</string>
     <string name="clear">Limpiar</string>
     <string name="clear_notifications_failed">Error al borrar las notificaciones.</string>
-    <string name="clear_status_message">Borrar mensaje de estado</string>
-    <string name="clear_status_message_after">Borrar mensaje de estado después de</string>
     <string name="clipboard_label">Texto copiado desde %1$s</string>
     <string name="clipboard_no_text_to_copy">No se ha recibido texto para copiar al portapapeles</string>
     <string name="clipboard_text_copied">Enlace copiado</string>

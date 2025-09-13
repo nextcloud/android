@@ -99,8 +99,6 @@
     <string name="clear">Počisti</string>
     <string name="clear_notifications_failed">Počiščenje obvestil je spodletelo.</string>
     <string name="clear_status_after">Počisti stanje</string>
-    <string name="clear_status_message">Počisti sporočilo stanja</string>
-    <string name="clear_status_message_after">Počisti sporočilo stanja po</string>
     <string name="clipboard_label">Besedilo je kopirano iz %1$s</string>
     <string name="clipboard_no_text_to_copy">Ni prejetega besedila za kopiranje v odložišče</string>
     <string name="clipboard_text_copied">Povezava je kopirana</string>
@@ -610,7 +608,6 @@
     <string name="preview_image_error_unknown_format">Te slike ni mogoče prikazati</string>
     <string name="preview_sorry">Na žalost</string>
     <string name="privacy">Zasebnost</string>
-    <string name="public_share_name">Novo ime</string>
     <string name="push_notifications_not_implemented">Potisna obvestila so onemogočena zaradi odvisnosti od storitev Google Play.</string>
     <string name="push_notifications_old_login">Zaradi pretečene prijavne seje ni mogoče prikazati potisnih obvestil. Priporočljivo je ponovno dodati račun med nastavitvami.</string>
     <string name="push_notifications_temp_error">Potisna obvestila trenutno niso na voljo.</string>
@@ -662,8 +659,6 @@
     <string name="sendbutton_description">Ikona gumba za pošiljanje</string>
     <string name="set_as">Nastavi kot</string>
     <string name="set_picture_as">Uporabi sliko kot</string>
-    <string name="set_status">Nastavi stanje</string>
-    <string name="set_status_message">Nastavi sporočilo stanja</string>
     <string name="setup_e2e">Med nastavitvijo šifriranja E2E boste prejeli naključno 12-mestno besedno geslo, brez katerega na drugih napravah datotek ne bo mogoče odpreti. To geslo bo shranjeno izključno na tej napravi in ga bo mogoče ponovno prikazati na tem zaslonu. Priporočljivo ga je zabeležiti na varno mesto!</string>
     <string name="share">Souporaba</string>
     <string name="share_create_permission">Ustvari</string>

@@ -131,8 +131,6 @@
     <string name="clear">Ryd</string>
     <string name="clear_notifications_failed">Rydning af alle notifikationer fejlede</string>
     <string name="clear_status_after">Ryd status efter</string>
-    <string name="clear_status_message">Ryd status notifikation</string>
-    <string name="clear_status_message_after">Ryd status notifikationer efter</string>
     <string name="clipboard_label">Tekst kopieret fra %1$s</string>
     <string name="clipboard_no_text_to_copy">Modtog ingen tekst til kopiering til udklipsholder</string>
     <string name="clipboard_text_copied">Link kopieret</string>
@@ -251,8 +249,8 @@
     <string name="document_scan_export_dialog_title">Vælg eksporttype</string>
     <string name="document_scan_pdf_generation_failed">Dannelse af PDF mislykkedes</string>
     <string name="document_scan_pdf_generation_in_progress">Genererer PDF…</string>
-    <string name="document_storage_provider_cannot_create_file_inside_folder">Kan ikke oprette fil: mangler tilladelse.</string>
-    <string name="document_storage_provider_cannot_create_folder_inside_folder">Kan ikke oprette mappe: mangler tilladelse.</string>
+    <string name="document_storage_provider_cannot_create_file_inside_folder">Kan ikke oprette fil: mangler rettigheder.</string>
+    <string name="document_storage_provider_cannot_create_folder_inside_folder">Kan ikke oprette mappe: mangler rettigheder.</string>
     <string name="done">Færdig</string>
     <string name="dontClear">Ryd ikke</string>
     <string name="download_cannot_create_file">Kan ikke oprette filen lokalt</string>
@@ -604,7 +602,7 @@
     <string name="notification_channel_general_name">Generalle notifikationer</string>
     <string name="notification_channel_media_description">Music afspiller fremskridt</string>
     <string name="notification_channel_media_name">Media afspiller</string>
-    <string name="notification_channel_offline_operations_name_short">Offline operationer</string>
+    <string name="notification_channel_offline_operations_name_short">Offline handlinger</string>
     <string name="notification_channel_push_description">Vis push notifikationer sent fra serveren: Omtaler, modtagelse a nye fjerne delinger, annonceringer skrevet af en admin etc. </string>
     <string name="notification_channel_push_name">Pushbeskeder</string>
     <string name="notification_channel_upload_description">Viser afsendings fremskridt</string>
@@ -732,7 +730,6 @@
     <string name="preview_media_unhandled_http_code_message">Filen er aktuelt låst af en anden bruger eller proces og derfor ikke mulig at slette. Prøv venligst igen senere.</string>
     <string name="preview_sorry">Undskyld</string>
     <string name="privacy">Privatliv</string>
-    <string name="public_share_name">Nyt navn</string>
     <string name="push_notifications_not_implemented">Push notifikationer deaktiveret på grund af proprietære afhængigheder af Google Play services.</string>
     <string name="push_notifications_old_login">Ingen push notifikationer fordi login sessionen er udløbet. Venligst overvej at genintaste din konto.</string>
     <string name="push_notifications_temp_error">Push notifikationer ikke tilgængelige nu.</string>
@@ -801,8 +798,6 @@
     <string name="set_note">Sæt note</string>
     <string name="set_online_status">Online status</string>
     <string name="set_picture_as">Anvend billede som</string>
-    <string name="set_status">Sæt status</string>
-    <string name="set_status_message">Sæt statusbesked</string>
     <string name="setup_e2e">Undervejs i opsætningen af end-to-end kryptering, så vil du modtage en tilfældig huskeregel på 12 ord, som du får brug for til at åbne dine filer på andre enheder. Denne vil kun blive gemt på denne enhed, og kan blive vist senere i denne visning. Skriv den venligst ned et sikkert sted!</string>
     <string name="share">Del</string>
     <string name="share_allow_download_and_sync_permission">Tillad download og synkronisering</string>
@@ -1026,7 +1021,7 @@
     <string name="upload_manually_cancelled">Upload var annulleret af bruger</string>
     <string name="upload_missing_storage_permission_allow_file_access">Tillad adgang til alle filer</string>
     <string name="upload_missing_storage_permission_app_permissions">App tilladelser</string>
-    <string name="upload_missing_storage_permission_description">Dine filer kan ikke blive uploadet uden adgang til dit lokale lager. Tryk for at give tilladelse.</string>
+    <string name="upload_missing_storage_permission_description">Dine filer kan ikke blive uploadet uden adgang til dit lokalt lager. Tryk for at give tilladelse.</string>
     <string name="upload_notification_manager_start_text">%1$d / %2$d - %3$s</string>
     <string name="upload_old_android">Kryptering kun mulig med &gt;= Android 5.0</string>
     <string name="upload_query_move_foreign_files">Utilstrækkelig plads til, at kopiere de valgte filer ind i %1$s mappen. Vil du flytte dem i stedet?</string>

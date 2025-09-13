@@ -116,8 +116,6 @@
     <string name="clear">Clear</string>
     <string name="clear_notifications_failed">ئۇقتۇرۇشنى تازىلاش مەغلۇب بولدى.</string>
     <string name="clear_status_after">كېيىنكى ھالەتنى ئېنىقلاش</string>
-    <string name="clear_status_message">ھالەت ئۇچۇرىنى تازىلاش</string>
-    <string name="clear_status_message_after">ئۇنىڭدىن كېيىنكى ھالەت ئۇچۇرىنى تازىلاڭ</string>
     <string name="clipboard_label">تېكىست%1$s دىن كۆچۈرۈلگەن</string>
     <string name="clipboard_no_text_to_copy">چاپلاش تاختىسىغا كۆچۈرەلەيدىغان تېكىست تاپشۇرۇۋالمىدى</string>
     <string name="clipboard_text_copied">ئۇلىنىش كۆچۈرۈلدى</string>
@@ -679,7 +677,6 @@
     <string name="preview_media_unhandled_http_code_message">ھۆججەت ھازىر باشقا ئىشلەتكۈچى ياكى جەريان تەرىپىدىن قۇلۇپلانغان ، شۇڭا ئۆچۈرگىلى بولمايدۇ. كېيىن قايتا سىناڭ.</string>
     <string name="preview_sorry">كەچۈرۈڭ</string>
     <string name="privacy">مەخپىيەتلىك</string>
-    <string name="public_share_name">يېڭى ئىسىم</string>
     <string name="push_notifications_not_implemented">ئىگىلەش ئۇقتۇرۇشى شەخسىي Google Play مۇلازىمىتىگە بېقىنىش سەۋەبىدىن چەكلەنگەن.</string>
     <string name="push_notifications_old_login">ۋاقتى ئۆتكەن كىرىش ۋاقتى سەۋەبىدىن ئىتتىرىش ئۇقتۇرۇشى يوق. ھېساباتىڭىزنى قايتا قوشۇشنى ئويلىشىڭ.</string>
     <string name="push_notifications_temp_error">ئىتتىرىش ئۇقتۇرۇشى ھازىرچە يوق.</string>
@@ -740,8 +737,6 @@
     <string name="set_as">تەڭشەك</string>
     <string name="set_online_status">توردىكى ئورنى</string>
     <string name="set_picture_as">رەسىمنى ئىشلىتىڭ</string>
-    <string name="set_status">ھالەت بەلگىلەڭ</string>
-    <string name="set_status_message">ھالەت ئۇچۇرىنى بەلگىلەڭ</string>
     <string name="setup_e2e">ئاخىرىدىن ئاخىرىغىچە مەخپىيلەشتۈرۈشنى تەڭشەش جەريانىدا ، ئىختىيارى 12 سۆزلۈك mnemonic تاپشۇرۇۋالىسىز ، بۇ ھۆججەتلەرنى باشقا ئۈسكۈنىلەردە ئېچىشىڭىز كېرەك. بۇ پەقەت بۇ ئۈسكۈنىدە ساقلىنىدۇ ، بۇ ئېكراندا قايتا كۆرسەتكىلى بولىدۇ. ئۇنى بىخەتەر ئورۇنغا خاتىرىلەڭ!</string>
     <string name="share">ھەمبەھىرلەش</string>
     <string name="share_allow_download_and_sync_permission">چۈشۈرۈش ۋە ماسقەدەملەشكە يول قويۇڭ</string>

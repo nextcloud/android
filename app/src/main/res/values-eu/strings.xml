@@ -130,8 +130,6 @@
     <string name="clear">Garbitu</string>
     <string name="clear_notifications_failed">Huts egin du jakinarazpenak garbitzean.</string>
     <string name="clear_status_after">Garbitu egoera honen ondoren</string>
-    <string name="clear_status_message">Garbitu egoera mezua</string>
-    <string name="clear_status_message_after">Egoera mezua noiz garbitu</string>
     <string name="clipboard_label">Testua hemendik kopiatua: %1$s</string>
     <string name="clipboard_no_text_to_copy">Ez da jaso testurik arbelera kopiatzeko</string>
     <string name="clipboard_text_copied">Esteka kopiatu da</string>
@@ -724,7 +722,6 @@
     <string name="preview_media_unhandled_http_code_message">Fitxategia beste erabiltzaile edo prozesu batek blokeatuta dago eta, beraz, ezin da ezabatzu. Saiatu berriro geroago.</string>
     <string name="preview_sorry">Barkatu</string>
     <string name="privacy">Pribatutasuna</string>
-    <string name="public_share_name">Izen berria</string>
     <string name="push_notifications_not_implemented">Push jakinarazpenak Google Play zerbitzu jabedunen menpekotasunengatik desgaituta.</string>
     <string name="push_notifications_old_login">Ez dago push jakinarazpenik saio zaharkituaren ondorioz. Mesedez, kontua berriz gehitu.</string>
     <string name="push_notifications_temp_error">Push jakinarazpenak ez daude eskuragarri.</string>
@@ -789,8 +786,6 @@
     <string name="set_as">Ezarri honela</string>
     <string name="set_note">Ezarri oharra</string>
     <string name="set_picture_as">Erabili irudia honela</string>
-    <string name="set_status">Ezarri egoera</string>
-    <string name="set_status_message">Ezarri egoera mezua</string>
     <string name="setup_e2e">Muturretik muturrerako enkriptatzea konfiguratzean, ausazko 12 hitz mnemotekniko jasoko dituzu, zure fitxategiak beste gailu batzuetan irekitzeko beharko dituzunak. Hau gailu honetan bakarrik gordeko da eta pantaila honetan berriro ikusi ahal izango duzu. Apuntatu leku seguru batean!</string>
     <string name="share">Partekatu</string>
     <string name="share_allow_download_and_sync_permission">Baimendu deskargatu eta sinkronizatzea</string>

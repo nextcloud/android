@@ -131,8 +131,6 @@
     <string name="clear">Tühjenda</string>
     <string name="clear_notifications_failed">Teavituste kustutamine ebaõnnestus.</string>
     <string name="clear_status_after">Eemalda olekuteade peale</string>
-    <string name="clear_status_message">Eemalda olekuteade</string>
-    <string name="clear_status_message_after">Eemalda olekuteade pärast</string>
     <string name="clipboard_label">Tekst on kopeeritud siit: %1$s</string>
     <string name="clipboard_no_text_to_copy">Ei leidunud teksti, mida lõikelauale kopeerida</string>
     <string name="clipboard_text_copied">Link kopeeritud</string>
@@ -750,7 +748,6 @@
     <string name="preview_media_unhandled_http_code_message">Fail on hetkel lukustatud teise kasutaja või protsessi poolt ja seega pole kustutatav. Palun proovi hiljem uuesti.</string>
     <string name="preview_sorry">Vabandame</string>
     <string name="privacy">Privaatsus</string>
-    <string name="public_share_name">Uus nimi</string>
     <string name="push_notifications_not_implemented">Tõuketeavitused pole hetkel kasutusel, sest nad sõltuvad Google Play mittevabadest teenustest.</string>
     <string name="push_notifications_old_login">Tõuketeavitused ei toimi, sest sisselogimissessioon on aegunud. Palun lisa oma kasutajakonto uuesti.</string>
     <string name="push_notifications_temp_error">Tõuketeavitused pole hetkel saadaval</string>
@@ -820,8 +817,6 @@
     <string name="set_note">Lisa märge</string>
     <string name="set_online_status">Olek võrgus</string>
     <string name="set_picture_as">Kasuta pilti kui</string>
-    <string name="set_status">Määra olek</string>
-    <string name="set_status_message">Lisa olekuteade</string>
     <string name="setup_e2e">Läbiva krüptimise kasutuselevõtmisel saad sa juhusliku 12-sõnalise mnemofraasi ehk salafraasi, mille alusel vaid sina saad oma krüptitud faile teistes seadmetes kasutada ja näha. Ta on salvestatud vaid siin seadmes ja on uuesti vaadatav vaid siin vaates. Palun märgi see üles ning hoia turvaliselt kas moodsas digitaalses salasõnalaekas või vana kooli seifis.</string>
     <string name="share">Jaga</string>
     <string name="share_allow_download_and_sync_permission">Luba allalaadimine ja sünkroonimine</string>

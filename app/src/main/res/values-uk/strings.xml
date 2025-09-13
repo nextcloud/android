@@ -131,8 +131,6 @@
     <string name="clear">Очистити</string>
     <string name="clear_notifications_failed">Неможливо очистити сповіщення.</string>
     <string name="clear_status_after">Очистити статус після</string>
-    <string name="clear_status_message">Прибрати статус</string>
-    <string name="clear_status_message_after">Очистити повідомлення про стан після</string>
     <string name="clipboard_label">Текст скопійовано з %1$s</string>
     <string name="clipboard_no_text_to_copy">Відсутній текст для копіювання до буферу обміну</string>
     <string name="clipboard_text_copied">Посилання скопійовано</string>
@@ -344,6 +342,7 @@
     <string name="error_report_issue_text">Надіслати звіт про ваду (потрібна обліковка у GitHub)</string>
     <string name="error_retrieving_file">Помилка під час отримання файлу</string>
     <string name="error_retrieving_templates">Помилка під час отримання шаблонів</string>
+    <string name="error_setting_status_message">Помилка під час встановлення повідмлення про статус!</string>
     <string name="error_showing_encryption_dialog">Помилка з показом діалогу налаштування шифрування!</string>
     <string name="error_starting_direct_camera_upload">Помилка під час запуску камери</string>
     <string name="error_starting_doc_scan">Помилка під час сканування документу</string>
@@ -748,7 +747,6 @@
     <string name="preview_media_unhandled_http_code_message">Цей файл неможливо вилучити, оскільки його заблоковано іншим користувачем або процесом. Спробуйте пізніше.</string>
     <string name="preview_sorry">Перепрошуємо</string>
     <string name="privacy">Конфіденційність</string>
-    <string name="public_share_name">Нова назва</string>
     <string name="push_notifications_not_implemented">Сповіщення push вимкнено через залежність від служби Google Play</string>
     <string name="push_notifications_old_login">Сповіщення push неактивні, оскільки час сесії вичерпано. Будь ласка, додайте наново ваш обліковий запис.</string>
     <string name="push_notifications_temp_error">Зараз сповіщення push недоступні.</string>
@@ -814,11 +812,10 @@
     <string name="server_not_reachable_content">Схоже, пристрій не під\'єднано до Інтернету</string>
     <string name="set_as">Встановити як</string>
     <string name="set_download_limit_failed">Неможливо встановити обмеження на звантаження. Перевірте доступні вам функції.</string>
+    <string name="set_message">Встановити повідомлення</string>
     <string name="set_note">Додати примітку</string>
     <string name="set_online_status">Мій статус доступності</string>
     <string name="set_picture_as">Використати як</string>
-    <string name="set_status">Встановити статус</string>
-    <string name="set_status_message">Оновити статус</string>
     <string name="setup_e2e">Під час налаштування наскрізного шифрування ви отримаєте парольну фразу з 12 слів, за допомогою якої ви зможете відкривати ваші файлі на інших пристроях. Її буде збережено лише на цьому пристрої та буде показано знову на цьому екрані. Будь ласка, занотуйте цю фразу та збережіть у безпеченому місці!</string>
     <string name="share">Спільний доступ</string>
     <string name="share_allow_download_and_sync_permission">Дозволити звантаження та синхронізацію</string>
