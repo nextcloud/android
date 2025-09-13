@@ -217,18 +217,23 @@ Source code of app:
 #### Instrumented tests
 - tests to see larger code working in correct way
 - tests that require parts of Android SDK
-- best to avoid server communication, see https://github.com/nextcloud/android/pull/3624
 
 - run all tests ```./gradlew createGplayDebugCoverageReport -Pcoverage=true```
 - run selective test class: ```./gradlew createGplayDebugCoverageReport -Pcoverage=true
-  -Pandroid.testInstrumentationRunnerArguments.class=com.owncloud.android.datamodel.FileDataStorageManagerTest```
+  -Pandroid.testInstrumentationRunnerArguments.class=com.owncloud.android.datamodel.FileDataStorageManagerContentProviderClientIT```
 - run multiple test classes:
   -   separate by ","
-  - ```./gradlew createGplayDebugCoverageReport -Pcoverage=true -Pandroid.testInstrumentationRunnerArguments.class=com.owncloud.android.datamodel.FileDataStorageManagerTest,com.nextcloud.client.FileDisplayActivityIT```
+  - ```./gradlew createGplayDebugCoverageReport -Pcoverage=true -Pandroid.testInstrumentationRunnerArguments.class=com.owncloud.android.datamodel.FileDataStorageManagerContentProviderClientIT,com.nextcloud.client.FileDisplayActivityIT```
 - run one test in class: ```./gradlew createGplayDebugCoverageReport -Pcoverage=true
-  -Pandroid.testInstrumentationRunnerArguments.class=com.owncloud.android.datamodel.FileDataStorageManagerTest#saveNewFile```
+  -Pandroid.testInstrumentationRunnerArguments.class=com.owncloud.android.datamodel.FileDataStorageManagerContentProviderClientIT#saveFile```
 - JaCoCo results are shown as html: firefox ./build/reports/coverage/gplay/debug/index.html
 
+#### Instrumented tests with server communication
+It is best to avoid server communication, see https://github.com/nextcloud/android/pull/3624. But if a test requires
+a server, this is how it is done:
+- Start the server
+  - TODO: find out how... is it maybe this command: `docker run --name=uiComparison nextcloudci/server --entrypoint '/usr/local/bin/initnc.sh' 1>/dev/null`
+- your test class should inherit from `AbstractOnServerIT`, e.g.: `public class DownloadIT extends AbstractOnServerIT { ...`
 
 #### UI tests
 We use [shot](https://github.com/Karumi/Shot) for taking screenshots and compare them 
