@@ -27,7 +27,7 @@ buildscript {
         mockitoKotlinVersion = "4.1.0"
         mockkVersion = "1.14.5"
         prismVersion = "2.0.0"
-        roomVersion = "2.7.2"
+        roomVersion = "2.8.0"
         workRuntime = "2.10.3"
 
         ciBuild = System.getenv("CI") == "true"
