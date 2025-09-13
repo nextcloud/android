@@ -63,7 +63,7 @@ class FileUploadWorker(
         const val UPLOAD_IDS = "uploads_ids"
         const val CURRENT_BATCH_INDEX = "batch_index"
         const val TOTAL_UPLOAD_SIZE = "total_upload_size"
-        const val IS_AUTO_UPLOAD = "is_auto_upload"
+        const val SHOW_SAME_FILE_ALREADY_EXISTS_NOTIFICATION = "show_same_file_already_exists_notification"
 
         var currentUploadFileOperation: UploadFileOperation? = null
 
@@ -302,7 +302,8 @@ class FileUploadWorker(
         uploadResult: RemoteOperationResult<Any?>
     ) {
         Log_OC.d(TAG, "NotifyUploadResult with resultCode: " + uploadResult.code)
-        val isAutoUpload = inputData.getBoolean(IS_AUTO_UPLOAD, false)
+        val showSameFileAlreadyExistsNotification =
+            inputData.getBoolean(SHOW_SAME_FILE_ALREADY_EXISTS_NOTIFICATION, false)
 
         if (uploadResult.isSuccess) {
             notificationManager.dismissOldErrorNotification(uploadFileOperation)
@@ -322,7 +323,7 @@ class FileUploadWorker(
                 context
             )
         ) {
-            if (!isAutoUpload) {
+            if (showSameFileAlreadyExistsNotification) {
                 notificationManager.showSameFileAlreadyExistsNotification(uploadFileOperation.fileName)
             }
 
