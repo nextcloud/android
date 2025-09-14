@@ -342,6 +342,7 @@
     <string name="error_report_issue_text">İzleyici üzerine bir hata bildirmek ister misiniz? (GitHub hesabı gereklidir)</string>
     <string name="error_retrieving_file">Dosya alınırken sorun çıktı</string>
     <string name="error_retrieving_templates">Kalıplar alınırken sorun çıktı</string>
+    <string name="error_setting_status_message">Durum iletisi ayarlanırken sorun çıktı!</string>
     <string name="error_showing_encryption_dialog">Şifreleme kurulumu penceresi görüntülenirken sorun çıktı!</string>
     <string name="error_starting_direct_camera_upload">Kamera başlatılamadı</string>
     <string name="error_starting_doc_scan">Belge taramasına başlanırken sorun çıktı</string>
@@ -580,6 +581,7 @@
     <string name="move_file_invalid_into_descendent">Bir klasör kendi alt klasörü olarak taşınamaz</string>
     <string name="move_file_invalid_overwrite">Dosya hedef klasörde zaten var</string>
     <string name="move_file_not_found">Dosya taşınamadı. Lütfen dosyanın var olup olmadığını denetleyin.</string>
+    <string name="mute_all_notifications">Tüm bildirimleri kapat</string>
     <string name="network_error_connect_timeout_exception">Sunucu beklenirken bir sorun çıktı, işlem tamamlanamadı.</string>
     <string name="network_error_socket_exception">Sunucu ile bağlantı kurulurken bir sorun çıktı</string>
     <string name="network_error_socket_timeout_exception">Sunucu beklenirken bir sorun çıktı, işlem tamamlanamadı.</string>
@@ -811,6 +813,7 @@
     <string name="server_not_reachable_content">Bu aygıtın internet bağlantısı yok gibi görünüyor</string>
     <string name="set_as">Farklı ayarla</string>
     <string name="set_download_limit_failed">İndirme sınırı ayarlanamadı. Lütfen yetenekleri denetleyin.</string>
+    <string name="set_message">İletiyi ayarla</string>
     <string name="set_note">Notu ayarla</string>
     <string name="set_online_status">Çevrim içi durumu</string>
     <string name="set_picture_as">Görsel şunun için kullanılsın</string>
