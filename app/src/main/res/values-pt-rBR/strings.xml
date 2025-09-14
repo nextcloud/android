@@ -131,8 +131,6 @@
     <string name="clear">Apagar</string>
     <string name="clear_notifications_failed">Erro ao limpar as notificações.</string>
     <string name="clear_status_after">Limpar status após</string>
-    <string name="clear_status_message">Limpar mensagem de status</string>
-    <string name="clear_status_message_after">Limpar mensagem de status após</string>
     <string name="clipboard_label">Texto copiado de %1$s</string>
     <string name="clipboard_no_text_to_copy">Nenhum texto foi recebido para copiar para a área de transferência</string>
     <string name="clipboard_text_copied">Link copiado</string>
@@ -750,7 +748,6 @@
     <string name="preview_media_unhandled_http_code_message">O arquivo está atualmente bloqueado por outro usuário ou processo e, portanto, não pode ser excluído. Por favor, tente novamente mais tarde.</string>
     <string name="preview_sorry">Desculpe</string>
     <string name="privacy">Privacidade</string>
-    <string name="public_share_name">Novo nome</string>
     <string name="push_notifications_not_implemented">Notificações push desativadas devido a dependências de serviços proprietários do Google Play.</string>
     <string name="push_notifications_old_login">Não há notificações push devido a uma sessão de login desatualizada. Considere a possibilidade de adicionar sua conta novamente.</string>
     <string name="push_notifications_temp_error">No momento, as notificações push não estão disponíveis.</string>
@@ -820,8 +817,6 @@
     <string name="set_note">Definir nota</string>
     <string name="set_online_status">Status on-line</string>
     <string name="set_picture_as">Usar imagem como</string>
-    <string name="set_status">Definir status</string>
-    <string name="set_status_message">Definir mensagem de status</string>
     <string name="setup_e2e">Durante a configuração da criptografia de ponta-a-ponta, você receberá um mnemônico aleatório de 12 palavras, que será necessário para abrir seus arquivos em outros dispositivos. Ele será armazenado apenas neste dispositivo e poderá ser mostrado novamente nesta tela. Por favor, anote-o em um lugar seguro!</string>
     <string name="share">Compartilhar</string>
     <string name="share_allow_download_and_sync_permission">Permitir download e sincronização</string>

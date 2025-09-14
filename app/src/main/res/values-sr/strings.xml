@@ -131,8 +131,6 @@
     <string name="clear">Очисти</string>
     <string name="clear_notifications_failed">Не могу да обришем обавештења.</string>
     <string name="clear_status_after">Обриши статус након</string>
-    <string name="clear_status_message">Обриши статусну поруку</string>
-    <string name="clear_status_message_after">Обриши статусну поруку након</string>
     <string name="clipboard_label">Текст копиран са %1$s</string>
     <string name="clipboard_no_text_to_copy">Нема текста за копирање у клипборд</string>
     <string name="clipboard_text_copied">Веза ископирана</string>
@@ -750,7 +748,6 @@
     <string name="preview_media_unhandled_http_code_message">Фајл је тренутно закључао други корисник или процес, па не може да се обрише. Молимо вас покушајте касније.</string>
     <string name="preview_sorry">Извините</string>
     <string name="privacy">Приватност</string>
-    <string name="public_share_name">Ново име</string>
     <string name="push_notifications_not_implemented">Брза обавештења искључена јер зависе од власничког Гугл плеј сервиса.</string>
     <string name="push_notifications_old_login">Нема брзих обавештења јер је сесија застарела. Избришите и додајте поново налог.</string>
     <string name="push_notifications_temp_error">Брза обавештења тренутно нису доступна.</string>
@@ -820,8 +817,6 @@
     <string name="set_note">Постави белешку</string>
     <string name="set_online_status">Мрежни статус</string>
     <string name="set_picture_as">Постави слику као</string>
-    <string name="set_status">Постави статус</string>
-    <string name="set_status_message">Постављање статусне поруке</string>
     <string name="setup_e2e">Током постављања шифрирања од почетка-до-краја примићете 12 случајних речи за памћење које ће вам бити неопходне да фајлове отворите на осталим уређајима. Ово ће се сачувати само на овом уређају и може поново да се прикаже на овом екрану. Молимо вас да их забележите на неко сигурно место!</string>
     <string name="share">Подели</string>
     <string name="share_allow_download_and_sync_permission">Дозволи преузимање и сихронизацију</string>

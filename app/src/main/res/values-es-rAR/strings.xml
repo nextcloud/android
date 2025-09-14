@@ -111,8 +111,6 @@
     <string name="choose_widget">Elegí un widget</string>
     <string name="clear">Borrar</string>
     <string name="clear_notifications_failed">Error al borrar las notificaciones.</string>
-    <string name="clear_status_message">Limpiar mensaje de estado</string>
-    <string name="clear_status_message_after">Limpiar mensaje de estado después</string>
     <string name="clipboard_label">Texto copiado desde %1$s</string>
     <string name="clipboard_no_text_to_copy">No se ha recibido texto para copiar al portapapeles</string>
     <string name="clipboard_text_copied">Link copiado</string>
@@ -644,7 +642,6 @@
     <string name="preview_media_unhandled_http_code_message">El archivo se encuentra bloqueado actualmente por otro usuario o proceso y, por lo tanto, no es posible eliminarlo. Por favor, intente de nuevo más tarde.</string>
     <string name="preview_sorry">Disculpe</string>
     <string name="privacy">Privacidad</string>
-    <string name="public_share_name">Nuevo nombre</string>
     <string name="push_notifications_not_implemented">Notificaciones push deshabilitadas debido a dependencias en servicios propietarios de Google Play.</string>
     <string name="push_notifications_old_login">No hay notificaciones push debido a la sesión de inicio de sesión obsoleta. Por favor considere volver a agregar su cuenta.</string>
     <string name="push_notifications_temp_error">Notificaciones push actualmente no disponibles.</string>
@@ -705,8 +702,6 @@
     <string name="set_as">Establecer Como</string>
     <string name="set_online_status">Estado en línea</string>
     <string name="set_picture_as">Usar imagen como</string>
-    <string name="set_status">Establecer estado</string>
-    <string name="set_status_message">Establecer mensaje de estado</string>
     <string name="setup_e2e">Durante la configuración del cifrado de extremo a extremo, recibirá un mnemónico aleatorio de 12 palabras, que necesitará para abrir sus archivos en otros dispositivos. Esto solo se almacenará en este dispositivo y se puede volver a mostrar en esta pantalla. ¡Por favor anótelo en un lugar seguro!</string>
     <string name="share">Compartir</string>
     <string name="share_delete_permission">Eliminar</string>

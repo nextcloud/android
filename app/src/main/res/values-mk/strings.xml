@@ -92,8 +92,6 @@
     <string name="clear">Исчисти</string>
     <string name="clear_notifications_failed">Неуспешно чистење на нотификациите.</string>
     <string name="clear_status_after">Тргни го статусот после</string>
-    <string name="clear_status_message">Тргни ја статус пораката</string>
-    <string name="clear_status_message_after">Тргни го статусот после</string>
     <string name="clipboard_label">Текст копиран од %1$s</string>
     <string name="clipboard_no_text_to_copy">Нема текст за да се копира во клипборд</string>
     <string name="clipboard_text_copied">Линкот е копиран</string>
@@ -519,7 +517,6 @@
     <string name="preview_image_error_unknown_format">Неможе да се прикаже сликата</string>
     <string name="preview_sorry">Извинете</string>
     <string name="privacy">Приватност</string>
-    <string name="public_share_name">Ново име</string>
     <string name="push_notifications_not_implemented">Push известувањата се оневозможени поради зависноста на Google Play сервисот.</string>
     <string name="push_notifications_old_login">Нема push известувања бидејќи вашата сесија е истечена. Ве молиме повторно најавете се на вашта сметка.</string>
     <string name="push_notifications_temp_error">Не се достапни Push известувања.</string>
@@ -561,8 +558,6 @@
     <string name="set_as">Постави како</string>
     <string name="set_online_status">Присутен</string>
     <string name="set_picture_as">Користи ја сликата како</string>
-    <string name="set_status">Постави статус</string>
-    <string name="set_status_message">Постави статус порака</string>
     <string name="share">Сподели</string>
     <string name="share_allow_download_and_sync_permission">Дозволете преземање и синхронизирање</string>
     <string name="share_create_permission">Креирај</string>

@@ -76,8 +76,6 @@
     <string name="choose_remote_folder">Elekti foran dosierujon...</string>
     <string name="clear">Viŝi</string>
     <string name="clear_notifications_failed">Malsukcesis forviŝi sciigojn.</string>
-    <string name="clear_status_message">Forviŝi statusan mesaĝon</string>
-    <string name="clear_status_message_after">Forviŝos statusan mesaĝon poste</string>
     <string name="clipboard_label">Teksto kopiita el %1$s</string>
     <string name="clipboard_no_text_to_copy">Neniu teksto ricevita por kopii tondujen</string>
     <string name="clipboard_text_copied">Ligilo kopiita</string>

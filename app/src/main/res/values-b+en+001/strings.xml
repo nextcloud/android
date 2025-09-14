@@ -131,8 +131,6 @@
     <string name="clear">Clear</string>
     <string name="clear_notifications_failed">Failed to clear notifications.</string>
     <string name="clear_status_after">Clear status after</string>
-    <string name="clear_status_message">Clear status message</string>
-    <string name="clear_status_message_after">Clear status message after</string>
     <string name="clipboard_label">Text copied from %1$s</string>
     <string name="clipboard_no_text_to_copy">Received no text to copy to clipboard</string>
     <string name="clipboard_text_copied">Link copied</string>
@@ -750,7 +748,6 @@
     <string name="preview_media_unhandled_http_code_message">File is currently locked by another user or process and therefore not deletable. Please try again later.</string>
     <string name="preview_sorry">Sorry</string>
     <string name="privacy">Privacy</string>
-    <string name="public_share_name">New name</string>
     <string name="push_notifications_not_implemented">Push notifications disabled due to dependencies on proprietary Google Play services.</string>
     <string name="push_notifications_old_login">No push notifications due to outdated login session. Please consider re-adding your account.</string>
     <string name="push_notifications_temp_error">Push notifications currently not available.</string>
@@ -820,8 +817,6 @@
     <string name="set_note">Set note</string>
     <string name="set_online_status">Online status</string>
     <string name="set_picture_as">Use picture as</string>
-    <string name="set_status">Set status</string>
-    <string name="set_status_message">Set status message</string>
     <string name="setup_e2e">During setup of end-to-end encryption, you will receive a random 12 word mnemonic, which you will need to open your files on other devices. This will only be stored on this device, and can be shown again in this screen. Please note it down in a secure place!</string>
     <string name="share">Share</string>
     <string name="share_allow_download_and_sync_permission">Allow download and sync</string>

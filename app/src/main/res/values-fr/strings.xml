@@ -131,8 +131,6 @@
     <string name="clear">Effacer</string>
     <string name="clear_notifications_failed">Erreur lors de l\'effacement des notifications.</string>
     <string name="clear_status_after">Effacer le statut après</string>
-    <string name="clear_status_message">Effacer le message d\'état</string>
-    <string name="clear_status_message_after">Effacer le message d\'état après</string>
     <string name="clipboard_label">Texte copié depuis %1$s</string>
     <string name="clipboard_no_text_to_copy">Aucun texte n\'a été reçu pour copier dans le presse-papier</string>
     <string name="clipboard_text_copied">Lien copié</string>
@@ -750,7 +748,6 @@
     <string name="preview_media_unhandled_http_code_message">Ce fichier est actuellement vérouillé par un autre utilisateur ou processus et ne peut donc pas être supprimé. Veuillez réessayer plus tard.</string>
     <string name="preview_sorry">Désolé</string>
     <string name="privacy">Vie privée</string>
-    <string name="public_share_name">Nouveau nom</string>
     <string name="push_notifications_not_implemented">L\'envoi de notifications push est désactivé à cause des dépendances propriétaires des services Google Play.</string>
     <string name="push_notifications_old_login">Aucune notification push à cause d\'une connexion expirée. Veuillez ajouter de nouveau votre compte. </string>
     <string name="push_notifications_temp_error">Les notifications push ne sont pas disponibles actuellement.</string>
@@ -820,8 +817,6 @@
     <string name="set_note">Définir la note</string>
     <string name="set_online_status">Statut de connexion</string>
     <string name="set_picture_as">Utiliser l\'image comme</string>
-    <string name="set_status">Définir le statut</string>
-    <string name="set_status_message">Enregistrer le message d\'état</string>
     <string name="setup_e2e">Pendant la configuration du chiffrement de bout en bout, vous recevrez une phrase secrète aléatoire de 12 mots dont vous aurez besoin pour ouvrir vos fichiers sur d\'autres appareils. Cette phrase secrète ne sera stockée que sur cet appareil, et pourra être affichée à nouveau sur cet écran. Veuillez la noter en lieu sûr !</string>
     <string name="share">Partager</string>
     <string name="share_allow_download_and_sync_permission">Autoriser le téléchargement et la synchronisation</string>

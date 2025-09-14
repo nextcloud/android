@@ -131,8 +131,6 @@
     <string name="clear">Futa</string>
     <string name="clear_notifications_failed">Imeshindwa kufuta arifa.</string>
     <string name="clear_status_after">Futa hali baada ya</string>
-    <string name="clear_status_message">Futa jumbe za wadhifa</string>
-    <string name="clear_status_message_after">Futa jumbe za wadhifa baada ya </string>
     <string name="clipboard_label">Maandishi yamenakiliwa kutoka %1$s</string>
     <string name="clipboard_no_text_to_copy">Haijapokea maandishi ya kunakili kwenye ubao wa kunakili</string>
     <string name="clipboard_text_copied">Kiungo kimenakiliwa</string>
@@ -344,6 +342,7 @@
     <string name="error_report_issue_text">Je, ungependa kuripoti tatizo kwa mfuatiliaji? (inahitaji akaunti ya GitHub)</string>
     <string name="error_retrieving_file">Hitilafu katika kurejesha faili</string>
     <string name="error_retrieving_templates">Hitilafu katika kurejesha violezo</string>
+    <string name="error_setting_status_message">Hitilafu katika kuweka ujumbe wa hali!</string>
     <string name="error_showing_encryption_dialog">Hitilafu katika kuonyesha kidirisha cha usanidi wa usimbaji fiche!</string>
     <string name="error_starting_direct_camera_upload">Hitilafu ya kuanzisha kamera</string>
     <string name="error_starting_doc_scan">Hitilafu katika kuanzisha utambazaji wa hati</string>
@@ -749,7 +748,6 @@
     <string name="preview_media_unhandled_http_code_message">Faili kwa sasa imefungwa na mtumiaji au mchakato mwingine na kwa hivyo haiwezi kufutwa. Tafadhali jaribu tena baadaye.</string>
     <string name="preview_sorry">Pole</string>
     <string name="privacy">Faragha</string>
-    <string name="public_share_name">Jina jipya</string>
     <string name="push_notifications_not_implemented">Arifa zinazotumwa na programu hata wakati huitumii zimezimwa kutokana na utegemezi kwenye huduma za umiliki za Google Play.</string>
     <string name="push_notifications_old_login">Hakuna arifa kutoka kwa programu kwa sababu ya kipindi cha kuingia cha zamani. Tafadhali zingatia kuongeza tena akaunti yako.</string>
     <string name="push_notifications_temp_error">Arifa zinazotumwa na programu hata wakati huitumii hazipatikani kwa sasa.</string>
@@ -815,11 +813,10 @@
     <string name="server_not_reachable_content">Huenda kifaa hakijaunganishwa kwenye mtandao</string>
     <string name="set_as">Weka Kama</string>
     <string name="set_download_limit_failed">Imeshindwa kuweka kikomo cha upakuaji. Tafadhali angalia uwezo.</string>
+    <string name="set_message">Weka ujumbe</string>
     <string name="set_note">Weka dokezo</string>
     <string name="set_online_status">Hali ya mtandaoni</string>
     <string name="set_picture_as">Tumia picha kama</string>
-    <string name="set_status">Panglia hali</string>
-    <string name="set_status_message">Pangilia hali ya ujumbe</string>
     <string name="setup_e2e">Wakati wa kusanidi usimbaji fiche kutoka mwanzo hadi mwisho, utapokea maneno 12 ya mnemonic nasibu, ambayo utahitaji kufungua faili zako kwenye vifaa vingine. Hii itahifadhiwa kwenye kifaa hiki pekee, na inaweza kuonyeshwa tena kwenye skrini hii. Tafadhali kumbuka kuwa mahali salama!</string>
     <string name="share">Shirikisha</string>
     <string name="share_allow_download_and_sync_permission">Ruhusu upakuaji na usawazishe</string>

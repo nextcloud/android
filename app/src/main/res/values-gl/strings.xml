@@ -131,8 +131,6 @@
     <string name="clear">Limpar</string>
     <string name="clear_notifications_failed">Produciuse un fallo ao limpar as notificacións.</string>
     <string name="clear_status_after">Limpar o estado após</string>
-    <string name="clear_status_message">Limpar a mensaxe de estado</string>
-    <string name="clear_status_message_after">Limpar a mensaxe de estado após</string>
     <string name="clipboard_label">Texto copiado desde %1$s</string>
     <string name="clipboard_no_text_to_copy">Non se recibiu ningún texto para copiar no portapapeis</string>
     <string name="clipboard_text_copied">Ligazón copiada</string>
@@ -751,7 +749,6 @@
     <string name="preview_media_unhandled_http_code_message">O ficheiro está bloqueado actualmente por outro usuario ou proceso e, por tanto, non é posíbel eliminalo. Ténteo de novo máis tarde.</string>
     <string name="preview_sorry">Desculpe.</string>
     <string name="privacy">Privacidade</string>
-    <string name="public_share_name">Nome novo</string>
     <string name="push_notifications_not_implemented">Foron desactivadas as notificacións emerxentes por depender de servizos propietarios de Google Play.</string>
     <string name="push_notifications_old_login">Non dispón de notificacións emerxentes por mor dun acceso á sesión caducado. Considere volver engadir a súa conta.</string>
     <string name="push_notifications_temp_error">Actualmente non están dispoñíbeis as notificacións emerxentes.</string>
@@ -821,8 +818,6 @@
     <string name="set_note">Definir a nota</string>
     <string name="set_online_status">Estado en liña</string>
     <string name="set_picture_as">Usar a imaxe como</string>
-    <string name="set_status">Definir o estado</string>
-    <string name="set_status_message">Definir a mensaxe de estado</string>
     <string name="setup_e2e">Durante a configuración do cifrado de extremo a extremo, recibirá un mnemotécnico ao chou de 12 palabras, que necesitará para abrir os seus ficheiros noutros dispositivos. Isto só se almacenará neste dispositivo e pódese amosar de novo nesta pantalla. Anóteo nun lugar seguro!</string>
     <string name="share">Compartir</string>
     <string name="share_allow_download_and_sync_permission">Permitir a descarga e a sincronización</string>

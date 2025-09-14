@@ -129,8 +129,6 @@
     <string name="clear">비우기</string>
     <string name="clear_notifications_failed">알림을 지우는데 실패했습니다.</string>
     <string name="clear_status_after">상태 메시지 지우기 예약</string>
-    <string name="clear_status_message">상태 메시지 지움</string>
-    <string name="clear_status_message_after">상태 메시지 지우기 예약</string>
     <string name="clipboard_label">%1$s에서 텍스트를 복사함</string>
     <string name="clipboard_no_text_to_copy">클립보드에 복사할 텍스트가 없음</string>
     <string name="clipboard_text_copied">링크 복사됨</string>
@@ -711,7 +709,6 @@
     <string name="preview_media_unhandled_http_code_message">파일이 현재 다른 사용자나 프로세스에 의해 잠겨 있으므로 삭제할 수 없습니다. 나중에 다시 시도 해주십시오.</string>
     <string name="preview_sorry">죄송합니다</string>
     <string name="privacy">개인 정보</string>
-    <string name="public_share_name">새 이름</string>
     <string name="push_notifications_not_implemented">비자유 Google Play 서비스 의존성 때문에 푸시 알림이 비활성화되었습니다.</string>
     <string name="push_notifications_old_login">로그인 세션이 오래되어 푸시 알림이 비활성화되었습니다. 계정을 다시 추가하십시오.</string>
     <string name="push_notifications_temp_error">푸시 알림을 사용할 수 없습니다.</string>
@@ -773,8 +770,6 @@
     <string name="sendbutton_description">보내기 버튼 아이콘</string>
     <string name="set_as">다음으로 설정</string>
     <string name="set_picture_as">다음으로 사진 사용</string>
-    <string name="set_status">상태 설정</string>
-    <string name="set_status_message">상태 메시지 설정</string>
     <string name="setup_e2e">종단간 암호화를 설정하는 동안, 당신은 다른 장치들에서 당신의 파일들을 열어야 할 무작위의 12 단어 니모닉을 수신할 것입니다. 이것은 당신의 장치에만 저장 될 것이고, 이 스크린에서 다시 보여질 수 있습니다. 이를 안전한 위치에 적어두세요!</string>
     <string name="share">공유</string>
     <string name="share_allow_download_and_sync_permission">다운로드와 동기화 허용</string>

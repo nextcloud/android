@@ -131,8 +131,6 @@
     <string name="clear">清除</string>
     <string name="clear_notifications_failed">清除通知失败</string>
     <string name="clear_status_after">清除状态于</string>
-    <string name="clear_status_message">清除状态消息</string>
-    <string name="clear_status_message_after">在多久后清除状态消息</string>
     <string name="clipboard_label">从%1$s复制文本</string>
     <string name="clipboard_no_text_to_copy">没有收到要复制到剪贴板的文本</string>
     <string name="clipboard_text_copied">已复制链接</string>
@@ -750,7 +748,6 @@
     <string name="preview_media_unhandled_http_code_message">文件当前被其他用户或进程锁定，因此无法删除。请稍后再试。</string>
     <string name="preview_sorry">抱歉</string>
     <string name="privacy">隐私</string>
-    <string name="public_share_name">新名称</string>
     <string name="push_notifications_not_implemented">由于依赖于专有的Google Play服务，推送通知被禁用。</string>
     <string name="push_notifications_old_login">由于登录会话已过期，因此没有推送通知。请考虑重新添加你的账号。</string>
     <string name="push_notifications_temp_error">推送通知目前不可用。</string>
@@ -820,8 +817,6 @@
     <string name="set_note">设置备注</string>
     <string name="set_online_status">在线状态</string>
     <string name="set_picture_as">将图片用作</string>
-    <string name="set_status">设定状态</string>
-    <string name="set_status_message">设置状态消息</string>
     <string name="setup_e2e">在端对端加密期间，你将接收一个随机12字助记字串，您需要这个字符串才能在其它设备上开放您的文件。这将只会存储在该设备上，并可以在此画面中再次展示。请记在安全的地方！</string>
     <string name="share">共享</string>
     <string name="share_allow_download_and_sync_permission">允许下载和同步</string>

@@ -130,8 +130,6 @@ Otomatis unggah hanya bekerja dengan baik apabila Anda mengeluarkan aplikasi ini
     <string name="choose_widget">Pilih gawit</string>
     <string name="clear">Bersihkan</string>
     <string name="clear_notifications_failed">Gagal membersihkan notifikasi</string>
-    <string name="clear_status_message">Kosongkan status pesan</string>
-    <string name="clear_status_message_after">Kosongkan status pesan setelah</string>
     <string name="clipboard_label">Teks tersalin dari %1$s</string>
     <string name="clipboard_no_text_to_copy">Tidak ada teks yang disalin ke papan klip.</string>
     <string name="clipboard_text_copied">Link tersalin</string>
@@ -726,7 +724,6 @@ Otomatis unggah hanya bekerja dengan baik apabila Anda mengeluarkan aplikasi ini
     <string name="preview_media_unhandled_http_code_message">File sedang dikunci oleh pengguna lain atau sedang diproses sehingga tidak dapat dihapus. Coba lagi nanti.</string>
     <string name="preview_sorry">Maaf</string>
     <string name="privacy">Privasi</string>
-    <string name="public_share_name">Nama baru</string>
     <string name="push_notifications_not_implemented">Notifikasi push dinonaktifkan karena ketergantungan pada layanan Google Play bersumber tertutup.</string>
     <string name="push_notifications_old_login">Tidak ada notifikasi push karena sesi masuk sudah usang. Mohon pertimbangkan untuk menambahkan kembali akun Anda.</string>
     <string name="push_notifications_temp_error">Notifikasi push saat ini tidak tersedia.</string>
@@ -795,8 +792,6 @@ Otomatis unggah hanya bekerja dengan baik apabila Anda mengeluarkan aplikasi ini
     <string name="set_note">Atur catatan</string>
     <string name="set_online_status">Status online</string>
     <string name="set_picture_as">Gunakan gambar sebagai</string>
-    <string name="set_status">Tetapkan status</string>
-    <string name="set_status_message">Tetapkan status pesan</string>
     <string name="setup_e2e">Selama penyiapan enkripsi end-to-end, Anda akan menerima sebuah mnemonik acak berupa 12 kata, yang akan Anda butuhkan untuk membuka berkas Anda di perangkat lain. Mnemonik tersebut hanya akan disimpan di perangkat ini, dan dapat ditampilkan kembali di layar ini. Harap catat di tempat yang aman!</string>
     <string name="share">Bagikan</string>
     <string name="share_allow_download_and_sync_permission">Izinkan unduh dan sinkron</string>

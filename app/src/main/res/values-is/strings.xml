@@ -126,8 +126,6 @@
     <string name="clear">Hreinsa</string>
     <string name="clear_notifications_failed">Mistókst að hreinsa tilkynningar.</string>
     <string name="clear_status_after">Hreinsa stöðu eftir</string>
-    <string name="clear_status_message">Hreinsa stöðuskilaboð</string>
-    <string name="clear_status_message_after">Hreinsa stöðuskilaboð eftir</string>
     <string name="clipboard_label">Texti afritaður úr %1$s</string>
     <string name="clipboard_no_text_to_copy">Fékk engan texta til að afrita á klippispjald</string>
     <string name="clipboard_text_copied">Tengill afritaður</string>
@@ -706,7 +704,6 @@
     <string name="preview_media_unhandled_http_code_message">Skráin er læst í augnablikinu af öðrum notanda eða ferli og er því ekki hægt að eyða henni. Reyndu aftur síðar.</string>
     <string name="preview_sorry">Því miður</string>
     <string name="privacy">Gagnaleynd</string>
-    <string name="public_share_name">Nýtt nafn</string>
     <string name="push_notifications_not_implemented">Ýti-tilkynningar eru óvirkar vegna ósamhæfis við séreignahugbúnað í Google Play þjónustu.</string>
     <string name="push_notifications_old_login">Engar ýtitilkynningar vegna útrunnirnnar innskráningarsetu. Íhugaðu að setja aðganginn þinn inn aftur.</string>
     <string name="push_notifications_temp_error">Ýti-tilkynningar eru ekki tiltækar þessa stundina.</string>
@@ -769,8 +766,6 @@
     <string name="set_as">Setja sem</string>
     <string name="set_online_status">Staða á netinu</string>
     <string name="set_picture_as">Nota mynd sem</string>
-    <string name="set_status">Setja stöðu</string>
-    <string name="set_status_message">Setja stöðuskilaboð</string>
     <string name="setup_e2e">Við uppsetningu á enda-í-enda dulritun muntu fá runu 12 tilviljanakenndra orða, sem þú munt þurfa til að opna skrárnar þínar á öðrum tækjum. Þetta mun einungis vera geymt á þessu tæki; hægt er að birta rununa aftur á þessum skjá. Skrifaðu hana niður og geymdu á öruggum stað!</string>
     <string name="share">Deila</string>
     <string name="share_allow_download_and_sync_permission">Leyfa niðurhal og samstillingu</string>

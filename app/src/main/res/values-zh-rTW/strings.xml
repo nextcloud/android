@@ -131,8 +131,6 @@
     <string name="clear">清除</string>
     <string name="clear_notifications_failed">清除通知訊息失敗。</string>
     <string name="clear_status_after">多久後清除狀態</string>
-    <string name="clear_status_message">清除狀態訊息</string>
-    <string name="clear_status_message_after">在多久後清除狀態訊息</string>
     <string name="clipboard_label">文字已從 %1$s 複製</string>
     <string name="clipboard_no_text_to_copy">沒有收到要複製到剪貼簿的文字</string>
     <string name="clipboard_text_copied">連結已複製</string>
@@ -750,7 +748,6 @@
     <string name="preview_media_unhandled_http_code_message">檔案目前已被其他使用者或處理程序鎖定，因此無法刪除。請稍後再試。</string>
     <string name="preview_sorry">很抱歉</string>
     <string name="privacy">隱私權</string>
-    <string name="public_share_name">新名稱</string>
     <string name="push_notifications_not_implemented">因為依賴於專有的 Google Play 服務的關係，所以推播通知已停用。</string>
     <string name="push_notifications_old_login">因為登入工作階段已過期，故無推播通知。請考慮重新加入您的帳號。</string>
     <string name="push_notifications_temp_error">推播通知目前無法使用。</string>
@@ -820,8 +817,6 @@
     <string name="set_note">設定備註</string>
     <string name="set_online_status">線上狀態</string>
     <string name="set_picture_as">使用圖片作為</string>
-    <string name="set_status">設定狀態</string>
-    <string name="set_status_message">設定狀態訊息</string>
     <string name="setup_e2e">在設置端對端加密過程中，您會收到隨機的 12 字記憶密語，您需要有這段密語才能在其他裝置上開啟檔案。這只會儲存在此裝置上，之後可以在此畫面中再次顯示。請將密語寫下來，妥善存放在安全的地方！</string>
     <string name="share">分享</string>
     <string name="share_allow_download_and_sync_permission">允許下載與同步</string>

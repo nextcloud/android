@@ -126,8 +126,6 @@
     <string name="clear">Limpar</string>
     <string name="clear_notifications_failed">Falha ao limpar notificações.</string>
     <string name="clear_status_after">Limpar mensagem de estado após</string>
-    <string name="clear_status_message">Limpar mensagem de estado</string>
-    <string name="clear_status_message_after">Limpar mensagem de estado após</string>
     <string name="clipboard_label">Texto copiado a partir de %1$s</string>
     <string name="clipboard_no_text_to_copy">Não existe nada para copiar para o clipboard</string>
     <string name="clipboard_text_copied">Hiperligação copiada</string>
@@ -654,7 +652,6 @@
     <string name="preview_image_file_is_not_downloaded">O ficheiro não foi transferido</string>
     <string name="preview_sorry">Desculpa</string>
     <string name="privacy">Privacidade</string>
-    <string name="public_share_name">Novo nome</string>
     <string name="push_notifications_not_implemented">Notificações \"push\" desactivadas devido a dependências sobre serviços proprietários Google Play.</string>
     <string name="push_notifications_old_login">Sem notificações \"push\" devido a sessão de acesso de desatualizada. Por favor, considere readicionar a sua conta.</string>
     <string name="push_notifications_temp_error">Notificações \"push\" actualmente não disponíveis.</string>
@@ -707,8 +704,6 @@
     <string name="set_note">Definir nota</string>
     <string name="set_online_status">Estado on-line</string>
     <string name="set_picture_as">Usar imagem como</string>
-    <string name="set_status">Definir estado</string>
-    <string name="set_status_message">Defina a mensagem de estado</string>
     <string name="setup_e2e">Durante a configuração da encriptação ponta-a-ponta, receberá uma mnemónica aleatória de 12 palavras, de que necessitará para abrir os seus ficheiros noutros dispositivos. Ela só será guardada neste dispositivo e pode ser mostrada novamente neste ecrã. Por favor, anote-a num local seguro!</string>
     <string name="share">Partilhar</string>
     <string name="share_allow_download_and_sync_permission">Permitir transferência e sincronizar</string>

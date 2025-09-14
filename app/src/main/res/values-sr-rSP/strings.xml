@@ -82,7 +82,6 @@
     <string name="choose_remote_folder">Odaberite udaljenu fasciklu…</string>
     <string name="clear_notifications_failed">Greška pri čišćenju obaveštenja.</string>
     <string name="clear_status_after">Obriši status nakon</string>
-    <string name="clear_status_message">Obriši statusnu poruku</string>
     <string name="clipboard_label">Tekst prekopiran sa %1$s</string>
     <string name="clipboard_no_text_to_copy">Nema teksta za kopiranje u ostavu</string>
     <string name="clipboard_text_copied">Veza iskopirana</string>
@@ -477,8 +476,6 @@
     <string name="set_as">Postavi kao</string>
     <string name="set_online_status">Mrežni status</string>
     <string name="set_picture_as">Postavi sliku kao</string>
-    <string name="set_status">Postavi status</string>
-    <string name="set_status_message">Postavi statusnu poruku</string>
     <string name="share">Podeli</string>
     <string name="share_delete_permission">Obriši</string>
     <string name="share_dialog_title">Deljenje</string>

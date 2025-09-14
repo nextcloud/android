@@ -115,6 +115,7 @@
     <string name="bottom_navigation_menu_favorites_label">Oblíbené</string>
     <string name="bottom_navigation_menu_files_label">Všechny soubory</string>
     <string name="bottom_navigation_menu_media_label">Média</string>
+    <string name="busy">Zaneprázdněn(a)</string>
     <string name="calendar">Kalendář</string>
     <string name="calendars">Kalendáře</string>
     <string name="certificate_load_problem">Došlo k problému s načtením certifikátu.</string>
@@ -128,8 +129,7 @@
     <string name="choose_widget">Zvolte ovládací prvek</string>
     <string name="clear">Vyčistit</string>
     <string name="clear_notifications_failed">Upozornění se nepodařilo vyčistit.</string>
-    <string name="clear_status_message">Vyčistit stavovou zprávu</string>
-    <string name="clear_status_message_after">Vyčistit stavovou zprávu po uplynutí</string>
+    <string name="clear_status_after">Vyčistit stav po uplynutí</string>
     <string name="clipboard_label">Text zkopírován z %1$s</string>
     <string name="clipboard_no_text_to_copy">Neobdržen žádný text pro zkopírování do schránky</string>
     <string name="clipboard_text_copied">Odkaz zkopírován</string>
@@ -734,7 +734,6 @@
     <string name="preview_media_unhandled_http_code_message">Soubor je nyní uzamčen jiným uživatelem nebo procesem a proto ho není možné smazat. Zkuste to později.</string>
     <string name="preview_sorry">Je nám líto</string>
     <string name="privacy">Soukromí</string>
-    <string name="public_share_name">Nový název</string>
     <string name="push_notifications_not_implemented">Push upozorňování je vypnuto kvůli závislostem na proprietárních službách Google Play.</string>
     <string name="push_notifications_old_login">Žádná push upozornění kvůli zastaralé relaci přihlášení. Zvažte odebrání a opětovné přidání svého účtu.</string>
     <string name="push_notifications_temp_error">Push upozornění momentálně nejsou k dispozici.</string>
@@ -801,9 +800,8 @@
     <string name="set_as">Nastavit jako</string>
     <string name="set_download_limit_failed">Nebylo možné nastavit limit počtu stahování. Zkontrolujte schopnosti.</string>
     <string name="set_note">Nastavit poznámku</string>
+    <string name="set_online_status">Stav online</string>
     <string name="set_picture_as">Použít obrázek jako</string>
-    <string name="set_status">Nastavit stav</string>
-    <string name="set_status_message">Nastavit stavovou zprávu</string>
     <string name="setup_e2e">V průběhu nastavování šifrování mezi koncovými body obdržíte náhodnou 12 slovnou mnemotechnickou frázi, které bude zapotřebí pro otevírání souborů na ostatních zařízeních. Ta bude uložena pouze na tomto zařízení a je možné ji na této obrazovce znovu zobrazit. Prosím poznamenejte si jí na bezpečné místo!</string>
     <string name="share">Nasdílet</string>
     <string name="share_allow_download_and_sync_permission">Povolit stahování a synchronizaci</string>

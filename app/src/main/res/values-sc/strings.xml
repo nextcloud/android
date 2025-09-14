@@ -94,8 +94,6 @@
     <string name="clear">Lìmpia</string>
     <string name="clear_notifications_failed">Impossìbile a nche bogare is notìficas.</string>
     <string name="clear_status_after">Lìmpia s\'istadu a pustis</string>
-    <string name="clear_status_message">Lìmpia su messàgiu de istadu</string>
-    <string name="clear_status_message_after">Lìmpia su messàgiu de istadu a pustis</string>
     <string name="clipboard_label">Testu copiadu dae %1$s</string>
     <string name="clipboard_no_text_to_copy">Testu de copiare in sa punta de billete non retzidu</string>
     <string name="clipboard_text_copied">Ligòngiu copiadu</string>
@@ -540,7 +538,6 @@
     <string name="preview_image_error_unknown_format">Impossìbile mustrare s\'immàgine</string>
     <string name="preview_sorry">Nos dispraghet</string>
     <string name="privacy">Riservadesa</string>
-    <string name="public_share_name">Nùmene nou</string>
     <string name="push_notifications_not_implemented">Notìficas push disativadas pro more de dipendèntzias dae serbìtzios propietàrios de Google Play.</string>
     <string name="push_notifications_old_login">Non ddoe sunt notìficas push ca sa sessione de atzessu nch\'est passada. Proa de torrare a agiùnghere su contu tuo.</string>
     <string name="push_notifications_temp_error">Is notìficas push non sunt a disponimentu immoe</string>
@@ -587,8 +584,6 @@
     <string name="set_as">Cunfigura comente</string>
     <string name="set_online_status">Istadu in lìnia</string>
     <string name="set_picture_as">Imprea immàgine comente</string>
-    <string name="set_status">Cunfigura s\'istadu</string>
-    <string name="set_status_message">Cunfigura unu messàgiu de istadu</string>
     <string name="share">Cumpartzi</string>
     <string name="share_create_permission">Crea</string>
     <string name="share_custom_permission">Permissos personalizados</string>

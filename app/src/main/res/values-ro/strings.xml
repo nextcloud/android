@@ -124,8 +124,6 @@
     <string name="clear">Șterge </string>
     <string name="clear_notifications_failed">Eroare la ștergerea notificărilor.</string>
     <string name="clear_status_after">Șterge statusul după</string>
-    <string name="clear_status_message">Șterge mesajul de stare</string>
-    <string name="clear_status_message_after">Șterge mesajul de stare după</string>
     <string name="clipboard_label">Text copiat din %1$s</string>
     <string name="clipboard_no_text_to_copy">Nici un text disponibil pentru copiere</string>
     <string name="clipboard_text_copied">Link copiat</string>
@@ -665,7 +663,6 @@
     <string name="preview_image_error_unknown_format">Imposibil de afișat imaginea</string>
     <string name="preview_sorry">Scuze</string>
     <string name="privacy">Confidențialitate</string>
-    <string name="public_share_name">Nume nou</string>
     <string name="push_notifications_not_implemented">Notificările push sunt oprite datorită dependințelor de serviciile proprietare Google Play.</string>
     <string name="push_notifications_old_login">Fără notificări push datorită sesiunilor de login expirate. Vă rugăm considerați să adăugați din nou contul dumneavoastră.</string>
     <string name="push_notifications_temp_error">Notificările push nu sunt disponibile în acest moment.</string>
@@ -714,8 +711,6 @@
     <string name="sendbutton_description">Pictograma butonului de trimite</string>
     <string name="set_as">Setează ca</string>
     <string name="set_picture_as">Folosește imaginea ca</string>
-    <string name="set_status">Setează status</string>
-    <string name="set_status_message">Setează statusul mesajelor</string>
     <string name="share">Partajează</string>
     <string name="share_create_permission">Crează</string>
     <string name="share_custom_permission">Permisiuni particularizate</string>

@@ -118,8 +118,6 @@
     <string name="clear">Išvalyti</string>
     <string name="clear_notifications_failed">Nepavyko išvalyti pranešimų.</string>
     <string name="clear_status_after">Išvalyti būseną po</string>
-    <string name="clear_status_message">Išvalyti būsenos žinutę</string>
-    <string name="clear_status_message_after">Išvalyti būsenos žinutę po</string>
     <string name="clipboard_label">Tekstas nukopijuotas iš %1$s</string>
     <string name="clipboard_no_text_to_copy">Tekstas nukopijuotas į iškarpinę</string>
     <string name="clipboard_text_copied">Nuoroda nukopijuota</string>
@@ -613,7 +611,6 @@
     <string name="preview_image_file_is_not_downloaded">Failas nėra atsisiųstas</string>
     <string name="preview_sorry">Atsiprašome</string>
     <string name="privacy">Privatumas</string>
-    <string name="public_share_name">Naujas pavadinimas</string>
     <string name="push_notifications_not_implemented">Push pranešimai išjungti dėl priklausomybės nuo nuosavybinių „Google Play“ paslaugų.</string>
     <string name="push_notifications_old_login">Nėra pranešimų dėl pasenusios prisijungimo sesijos. Pasvarstykite galimybę iš naujo pridėti prisijungimo duomenis.</string>
     <string name="push_notifications_temp_error">Stumti pranešimus funkcija šiuo metu negalima</string>
@@ -666,8 +663,6 @@
     <string name="set_as">Nustatyti kaip</string>
     <string name="set_online_status">Prisijungimo būsena</string>
     <string name="set_picture_as">Naudoti paveikslėlį kaip</string>
-    <string name="set_status">Nustatyti būseną</string>
-    <string name="set_status_message">Nustatyti būsenos žinutę</string>
     <string name="share">Bendrinti</string>
     <string name="share_create_permission">Sukurti</string>
     <string name="share_custom_permission">Tinkinti leidimai</string>

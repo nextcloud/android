@@ -84,8 +84,6 @@
     <string name="choose_template_helper_text">Şablon saýlaň we faýl giriziň</string>
     <string name="choose_which_file">Haýsy faýly gorap saklamalydygyny saýlaň!</string>
     <string name="clear_notifications_failed">Duýduryşlary pozup bolmady</string>
-    <string name="clear_status_message">Status habaryny arassalaň</string>
-    <string name="clear_status_message_after">Soňra statusly habary arassalaň</string>
     <string name="clipboard_label">Tekst göçürildi%1$s-dan</string>
     <string name="clipboard_no_text_to_copy">Paneli göçürmeklik üçin tekst alynmady</string>
     <string name="clipboard_text_copied">Link-yň nusgasy alyndy</string>
@@ -487,7 +485,6 @@
     <string name="preview_image_error_unknown_format">Surat görkezip bolmaýar</string>
     <string name="preview_sorry">Bagyşlaň</string>
     <string name="privacy">Gizlinlik</string>
-    <string name="public_share_name">Täze ady</string>
     <string name="push_notifications_not_implemented">Hususy Google Play hyzmatlaryna baglylyk sebäpli basma bildirişleri ýapylýar.</string>
     <string name="push_notifications_old_login">Könelen giriş sessiýasy sebäpli itergi habarnamalary ýok. Hasabyňyzy täzeden goşmagy göz öňünde tutmagyňyzy haýyş edýäris.</string>
     <string name="push_notifications_temp_error">Push habarnamalary häzirki wagtda elýeterli däl.</string>
@@ -525,8 +522,6 @@
     <string name="set_as">Hökmünde ornaşdyryň</string>
     <string name="set_online_status">Onlaýn ýagdaýy</string>
     <string name="set_picture_as">Suraty ulanmak hökmünde</string>
-    <string name="set_status">Status ýagdaýy düzüň</string>
-    <string name="set_status_message">Status habaryny düzüň</string>
     <string name="share">Paýlaş</string>
     <string name="share_create_permission">Dörediň</string>
     <string name="share_delete_permission">Pozmak</string>
