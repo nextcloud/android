@@ -74,13 +74,13 @@ public final class FileStorageUtils {
         // utility class -> private constructor
     }
     // Safely decodes URLs without crashing on '%' patterns
-    private static String safeUrlDecode(String s){
+    private static String safeUrlDecode(String filename){
         try{
-            return java.net.URLDecoder.decode(s, StandardCharsets.UTF_8.name());
+            return java.net.URLDecoder.decode(filename, StandardCharsets.UTF_8.name());
         }
-        catch (IllegalArgumentException e){
+        catch (IllegalArgumentException ignored){
             // If the text has invalid % sequences (like "65% on ..."), return as-is
-            return s;
+            return filename;
         }
     }
 
@@ -88,13 +88,9 @@ public final class FileStorageUtils {
     public static boolean containsBidiControlCharacters(String filename) {
         if (filename == null) return false;
 
-        String decoded;
-        try {
-            decoded = safeUrlDecode(filename);
-        } catch (UnsupportedEncodingException e) {
-            return false;
-        }
-
+        String decoded;     
+        decoded = safeUrlDecode(filename);
+        
         int[] bidiControlCharacters = {
             0x202A, 0x202B, 0x202C, 0x202D, 0x202E,
             0x200E, 0x200F, 0x2066, 0x2067, 0x2068,
