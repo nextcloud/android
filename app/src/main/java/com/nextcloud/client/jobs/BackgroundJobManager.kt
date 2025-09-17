@@ -146,8 +146,6 @@ interface BackgroundJobManager {
 
     fun cancelFilesDownloadJob(user: User, fileId: Long)
 
-    fun isStartFileDownloadJobScheduled(user: User, fileId: Long): Boolean
-
     @Suppress("LongParameterList")
     fun startFileDownloadJob(
         user: User,
@@ -175,4 +173,6 @@ interface BackgroundJobManager {
     fun scheduleInternal2WaySync(intervalMinutes: Long)
     fun cancelAllFilesDownloadJobs()
     fun startMetadataSyncJob(currentDirPath: String)
+    fun syncFolder(folder: OCFile)
+    fun cancelSyncFolder(folderId: Long)
 }
