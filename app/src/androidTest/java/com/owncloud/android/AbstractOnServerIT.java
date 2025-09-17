@@ -53,7 +53,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 /**
- * Common base for all integration tests.
+ * Common base for all integration tests requiring a server connection
  */
 public abstract class AbstractOnServerIT extends AbstractIT {
     @BeforeClass
