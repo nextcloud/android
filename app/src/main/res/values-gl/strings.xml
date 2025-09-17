@@ -336,7 +336,7 @@
     <string name="error_crash_title">%1$s quebrou</string>
     <string name="error_creating_file_from_template">Produciuse un erro ao crear o ficheiro a partir do modelo</string>
     <string name="error_fetching_sharees">Non é posíbel recuperar as comparticións</string>
-    <string name="error_file_actions">Produciuse un erro ao amosar as accións do ficheiro</string>
+    <string name="error_file_actions">Produciuse un erro ao amosar as accións de ficheiro</string>
     <string name="error_file_lock">Produciuse un erro ao cambiar o estado do bloqueo do ficheiro</string>
     <string name="error_report_issue_action">Informe</string>
     <string name="error_report_issue_text">Informar dunha incidencia no seguimento? (precisa dunha conta de GitHub)</string>
