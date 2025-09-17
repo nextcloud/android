@@ -63,6 +63,12 @@ public interface AppPreferences {
 
     boolean isShowHiddenFilesEnabled();
     void setShowHiddenFilesEnabled(boolean enabled);
+    
+    boolean isSortFoldersBeforeFiles();
+    void setSortFoldersBeforeFiles(boolean enabled);
+    
+    boolean isSortFavoritesFirst();
+    void setSortFavoritesFirst(boolean enabled);
 
     boolean isShowEcosystemApps();
     void setShowEcosystemApps(boolean enabled);
