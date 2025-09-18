@@ -680,7 +680,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
      * @return true if the user is allowed to either delete or leave the share; false otherwise.
      */
     public boolean canDeleteOrLeaveShare() {
-        return !encrypted && hasPermission(PERMISSION_CAN_DELETE_OR_LEAVE_SHARE);
+        return hasPermission(PERMISSION_CAN_DELETE_OR_LEAVE_SHARE);
     }
 
     public boolean canRename() {
