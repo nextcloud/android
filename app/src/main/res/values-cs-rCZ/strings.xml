@@ -43,6 +43,7 @@
     <string name="app_config_proxy_port_title">Port proxy</string>
     <string name="app_widget_description">Zobrazuje jeden ovládací prvek z nástěnky</string>
     <string name="appbar_search_in">Hledat v %s</string>
+    <string name="appear_offline">Jevit se offline</string>
     <string name="assistant_screen_add_task_alert_dialog_title">Přidat nový úkol</string>
     <string name="assistant_screen_create_a_new_task_from_bottom_right_text">Z pravého dolního rohu vytvořte nový úkol</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Zadejte nějaký text</string>
@@ -799,6 +800,7 @@
     <string name="server_not_reachable_content">Zařízení pravděpodobně není připojené k Internetu</string>
     <string name="set_as">Nastavit jako</string>
     <string name="set_download_limit_failed">Nebylo možné nastavit limit počtu stahování. Zkontrolujte schopnosti.</string>
+    <string name="set_message">Nastavit zprávu</string>
     <string name="set_note">Nastavit poznámku</string>
     <string name="set_online_status">Stav online</string>
     <string name="set_picture_as">Použít obrázek jako</string>

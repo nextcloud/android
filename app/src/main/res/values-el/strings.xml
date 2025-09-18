@@ -331,6 +331,7 @@
     <string name="file_list_empty_shared_headline">Δεν έχει διαμοιραστεί τίποτα μέχρι στιγμής</string>
     <string name="file_list_empty_unified_search_no_results">Δεν βρέθηκαν αποτελέσματα για το ερώτημά σας</string>
     <string name="file_list_folder">φάκελος</string>
+    <string name="file_list_live">ΖΩΝΤΑΝΑ</string>
     <string name="file_list_loading">Φόρτωση…</string>
     <string name="file_list_no_app_for_file_type">Δεν βρέθηκε εφαρμογή για τον τύπο αρχείου.</string>
     <string name="file_list_seconds_ago">δευτερόλεπτα πριν</string>
