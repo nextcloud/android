@@ -249,6 +249,13 @@
     <string name="document_scan_export_dialog_title">Zvolte typ exportu</string>
     <string name="document_scan_pdf_generation_failed">Vytvoření PDF se nezdařilo</string>
     <string name="document_scan_pdf_generation_in_progress">Vytváření PDF…</string>
+    <string name="document_storage_provider_cannot_create_file_and_folder">Zde není možné vytvořit položku: chybí oprávnění pro vytváření.</string>
+    <string name="document_storage_provider_cannot_create_file_inside_folder">Nebylo možné vytvořit soubor: chybí oprávnění</string>
+    <string name="document_storage_provider_cannot_create_folder_inside_folder">Nebylo možné vytvořit složku: chybí oprávnění</string>
+    <string name="document_storage_provider_cannot_delete">Položku nebylo možné smazat: chybí oprávnění ke smazání.</string>
+    <string name="document_storage_provider_cannot_move">Položku nebylo možné přesunout: chybí oprávnění k přesouvání.</string>
+    <string name="document_storage_provider_cannot_read">Položku nebylo možné otevřít: chybí oprávnění ke čtení.</string>
+    <string name="document_storage_provider_cannot_rename">Položku nebylo možné přejmenovat: chybí oprávnění k přejmenovávání.</string>
     <string name="done">Hotovo</string>
     <string name="dontClear">Nikdy</string>
     <string name="download_cannot_create_file">Nedaří se vytvořit místní soubor</string>
@@ -335,6 +342,7 @@
     <string name="error_report_issue_text">Nahlásit problém? (vyžaduje GitHub účet)</string>
     <string name="error_retrieving_file">Chyba při získávání souboru</string>
     <string name="error_retrieving_templates">Chyba při získávání šablon</string>
+    <string name="error_setting_status_message">Chyba při nastavování stavové zprávy!</string>
     <string name="error_showing_encryption_dialog">Chyba při zobrazování dialogu pro nastavení šifrování!</string>
     <string name="error_starting_direct_camera_upload">Chyba při spouštění kamery</string>
     <string name="error_starting_doc_scan">Chyba při spouštění skenu dokumentu</string>
@@ -442,6 +450,7 @@
     <string name="file_not_synced">Soubor se nepodařilo synchronizovat. Zobrazuje se poslední dostupná verze.</string>
     <string name="file_rename">Přejmenovat</string>
     <string name="file_upload_worker_error_notification_title">Nahrávání se nezdařilo. Není k dispozici připojení k Internetu</string>
+    <string name="file_upload_worker_same_file_already_exists">%s už existuje – nezjištěny žádné konflikty</string>
     <string name="file_version_restored_error">Chyba při obnovování verze souboru!</string>
     <string name="file_version_restored_successfully">Verze souboru úspěšně obnovena.</string>
     <string name="filedetails_details">Podrobnosti</string>
@@ -518,6 +527,7 @@
     <string name="last_backup">Nejnovější záloha: %1$s</string>
     <string name="link">Odkaz</string>
     <string name="link_name">Název odkazu</string>
+    <string name="link_not_followed_due_to_security_settings">Odkaz nenásledován kvůli nastavení zabezpečení.</string>
     <string name="link_share_editing">Upravování</string>
     <string name="list_layout">Zobrazit jako seznam</string>
     <string name="load_more_results">Načíst další výsledky</string>
@@ -570,6 +580,7 @@
     <string name="move_file_invalid_into_descendent">Není možné přesunout složku do její vlastní podsložky</string>
     <string name="move_file_invalid_overwrite">Soubor už v cílové složce existuje</string>
     <string name="move_file_not_found">Soubor se nedaří přesunout – zkontrolujte zda existuje.</string>
+    <string name="mute_all_notifications">Ztlumit veškerá upozornění</string>
     <string name="network_error_connect_timeout_exception">Při čekání na server se vyskytla chyba. Operace proto nemohla být dokončena.</string>
     <string name="network_error_socket_exception">Při připojování k serveru došlo k chybě</string>
     <string name="network_error_socket_timeout_exception">Při čekání na server se vyskytla chyba. Operace proto nemohla být dokončena.</string>
@@ -603,6 +614,7 @@
     <string name="notification_channel_general_name">Obecná oznámení</string>
     <string name="notification_channel_media_description">Průběh přehrávače hudby</string>
     <string name="notification_channel_media_name">Přehrávač médií</string>
+    <string name="notification_channel_offline_operations_description">Zobrazit ukazatel postupu operací se soubory offline</string>
     <string name="notification_channel_offline_operations_name_short">Offline operace</string>
     <string name="notification_channel_push_description">Zobrazit push upozornění poslaná serverem: Zmínění v komentářích, příjem nových vzdálených sdílení, oznámení vydaná správcem, atd.</string>
     <string name="notification_channel_push_name">Push upozorňování</string>
@@ -1027,6 +1039,7 @@
     <string name="upload_manually_cancelled">Odeslání bylo zrušeno uživatelem</string>
     <string name="upload_missing_storage_permission_allow_file_access">Umožnit přístup ke všem souborům</string>
     <string name="upload_missing_storage_permission_app_permissions">Oprávnění aplikace</string>
+    <string name="upload_missing_storage_permission_title">Nahrávání zastaveno – je zapotřebí oprávnění pro úložiště</string>
     <string name="upload_notification_manager_start_text">%1$d / %2$d - %3$s</string>
     <string name="upload_old_android">Šifrování je možné pouze na systému Android verze 5.0 a novějším</string>
     <string name="upload_query_move_foreign_files">Pro zkopírování vybraných souborů do složky %1$s není dostatek volného místa. Chcete je tam namísto toho přesunout?</string>
