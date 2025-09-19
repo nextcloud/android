@@ -128,7 +128,7 @@
     <string name="choose_template_helper_text">Escolha um modelo e insira um nome de arquivo. </string>
     <string name="choose_which_file">Escolha qual arquivo manter!</string>
     <string name="choose_widget">Escolher widget</string>
-    <string name="clear">Apagar</string>
+    <string name="clear">Limpar</string>
     <string name="clear_notifications_failed">Erro ao limpar as notificações.</string>
     <string name="clear_status_after">Limpar status após</string>
     <string name="clipboard_label">Texto copiado de %1$s</string>
