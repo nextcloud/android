@@ -20,6 +20,7 @@ import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.datamodel.VirtualFolderType
 import com.owncloud.android.ui.fragment.FileFragment
+import com.owncloud.android.utils.FileSortOrder
 import com.owncloud.android.utils.FileStorageUtils
 
 /**
@@ -82,7 +83,8 @@ class PreviewImagePagerAdapter : FragmentStateAdapter {
         fragmentActivity: FragmentActivity,
         type: VirtualFolderType?,
         user: User,
-        storageManager: FileDataStorageManager
+        storageManager: FileDataStorageManager,
+        preferences: AppPreferences
     ) : super(fragmentActivity) {
         requireNotNull(type) { "NULL parent folder" }
         require(type != VirtualFolderType.NONE) { "NONE virtual folder type" }
@@ -95,6 +97,11 @@ class PreviewImagePagerAdapter : FragmentStateAdapter {
             imageFiles = FileStorageUtils.sortOcFolderDescDateModifiedWithoutFavoritesFirst(imageFiles)
         } else {
             imageFiles = mStorageManager.getVirtualFolderContent(type, true)
+        }
+
+        if (type == VirtualFolderType.FAVORITE) {
+            val sortOrder = preferences.getSortOrderByType(FileSortOrder.Type.favoritesListView)
+            imageFiles = sortOrder.sortCloudFiles(imageFiles.toMutableList()).toMutableList()
         }
 
         mObsoleteFragments = HashSet()
