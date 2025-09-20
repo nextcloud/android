@@ -371,6 +371,7 @@
     <string name="etm_transfer_type">Přenos</string>
     <string name="etm_transfer_type_download">Stáhnout</string>
     <string name="etm_transfer_type_upload">Nahrát</string>
+    <string name="extented_list_fragment_empty_list_message_no_write_permission">Nemáte oprávnění pro vytváření nebo nahrávání souborů v této složce.</string>
     <string name="external_shares">Externí sdílení</string>
     <string name="fab_label">Přidat nebo nahrát</string>
     <string name="failed_to_download">Předání souboru správci stahování se nezdařilo</string>
@@ -1039,6 +1040,7 @@
     <string name="upload_manually_cancelled">Odeslání bylo zrušeno uživatelem</string>
     <string name="upload_missing_storage_permission_allow_file_access">Umožnit přístup ke všem souborům</string>
     <string name="upload_missing_storage_permission_app_permissions">Oprávnění aplikace</string>
+    <string name="upload_missing_storage_permission_description">Bez přístupu k lokálnímu úložišti není možné vaše soubory nahrávat. Klepnutím udělte oprávnění.</string>
     <string name="upload_missing_storage_permission_title">Nahrávání zastaveno – je zapotřebí oprávnění pro úložiště</string>
     <string name="upload_notification_manager_start_text">%1$d / %2$d - %3$s</string>
     <string name="upload_old_android">Šifrování je možné pouze na systému Android verze 5.0 a novějším</string>

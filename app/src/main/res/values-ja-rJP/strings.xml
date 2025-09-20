@@ -785,6 +785,7 @@
     <string name="sendbutton_description">送信ボタンアイコン</string>
     <string name="set_as">として設定され</string>
     <string name="set_note">ノート</string>
+    <string name="set_online_status">オンラインステータス</string>
     <string name="set_picture_as">画像を使用する</string>
     <string name="setup_e2e">End-to-End 暗号化の設定中に、12語のランダムなニーモニックが表示されます。これは他のデバイスでファイルを開くために必要です。この情報はこのデバイスにのみ保存され、この画面で再表示することができます。安全な場所にメモしておいてください！</string>
     <string name="share">共有</string>
