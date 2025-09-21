@@ -194,4 +194,10 @@ class PreviewImagePagerAdapter : FragmentStateAdapter {
     override fun createFragment(position: Int): Fragment = getItem(position)
 
     override fun getItemCount(): Int = imageFiles.size
+
+    override fun getItemId(position: Int): Long {
+        // The item ID function is needed to detect whether the deletion of the current item needs a UI update
+        // Use the OCFile id, fallback to position if not available
+        return imageFiles.getOrNull(position)?.fileId?.toLong() ?: position.toLong()
+    }
 }

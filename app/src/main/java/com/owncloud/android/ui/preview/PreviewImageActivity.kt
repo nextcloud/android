@@ -277,8 +277,6 @@ class PreviewImageActivity :
         super.onRemoteOperationFinish(operation, result)
 
         if (operation is RemoveFileOperation) {
-            val deletePosition = viewPager?.currentItem ?: return
-            val nextPosition = if (deletePosition > 0) deletePosition - 1 else 0
 
             previewImagePagerAdapter?.let {
                 if (it.itemCount <= 1) {
@@ -288,11 +286,20 @@ class PreviewImageActivity :
             }
 
             if (user.isPresent) {
+                // Re-init the view pager, which will advance to the next image
                 initViewPager(user.get())
+            } else if (result.isSuccess) {
+                // If deletion was successful, update adapter and display next image
+                val deletePosition = viewPager?.currentItem ?: return
+                previewImagePagerAdapter?.let { adapter ->
+                    // advance to the next image if possible, since initViewPager() also advances forwards
+                    val nextPosition = if (deletePosition < (adapter.itemCount - 1)) deletePosition + 1 else max(deletePosition - 1, 0)
+                    viewPager?.setCurrentItem(nextPosition, true)
+                    adapter.delete(deletePosition)
+                    // Page needs to be reselected after the adapter has been updated. Otherwise, wrong title is shown
+                    selectPage(nextPosition)
+                }
             }
-
-            viewPager?.setCurrentItem(nextPosition, true)
-            previewImagePagerAdapter?.delete(deletePosition)
         } else if (operation is SynchronizeFileOperation) {
             onSynchronizeFileOperationFinish(result)
         }
