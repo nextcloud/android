@@ -303,6 +303,7 @@
     <string name="etm_transfer_type">Μεταφορά</string>
     <string name="etm_transfer_type_download">Λήψη</string>
     <string name="etm_transfer_type_upload">Μεταφόρτωση</string>
+    <string name="external_shares">Εξωτερικοί διαμοιρασμοί</string>
     <string name="fab_label">Προσθήκη ή μεταφόρτωση</string>
     <string name="failed_to_download">Αποτυχία διαβίβασης αρχείου στο διαχειριστή λήψεων </string>
     <string name="failed_to_print">Απέτυχε να εκτυπώσει το αρχείο</string>
@@ -411,6 +412,7 @@
     <string name="instant_upload_existing">Μεταφόρτωση, επίσης, υπαρχόντων αρχείων</string>
     <string name="instant_upload_on_charging">Μεταφόρτωση μόνο κατά τη διάρκεια φόρτισης</string>
     <string name="instant_upload_path">/InstantUpload</string>
+    <string name="internal_shares">Εσωτερικοί διαμοιρασμοί</string>
     <string name="invalid_url">Μη έγκυρη διεύθυνση URL</string>
     <string name="invisible">Αόρατος</string>
     <string name="label_empty">Η ετικέτα δεν μπορεί να είναι κενή</string>
@@ -643,6 +645,7 @@
     <string name="set_online_status">Κατάσταση σε σύνδεση</string>
     <string name="set_picture_as">Χρησιμοποίησε την εικόνα ως</string>
     <string name="share">Διαμοιρασμός</string>
+    <string name="share_allow_download_and_sync_permission">Να επιτρέπεται η λήψη και ο συγχρονισμός</string>
     <string name="share_create_permission">Δημιουργία</string>
     <string name="share_custom_permission">Προσαρμοσμένα δικαιώματα</string>
     <string name="share_delete_permission">Διαγραφή</string>
@@ -667,6 +670,7 @@
     <string name="share_no_expiration_date_label">Ορισμός ημερομηνίας λήξης</string>
     <string name="share_no_password_title">Ορισμός κωδικού πρόσβασης</string>
     <string name="share_permission_can_edit">Μπορεί να επεξεργαστεί</string>
+    <string name="share_permission_file_request">Αίτημα αρχείου</string>
     <string name="share_permission_view_only">Μόνο προβολή</string>
     <string name="share_re_share_permission">Διαμοιρασμός</string>
     <string name="share_read_permission">Ανάγνωση</string>
