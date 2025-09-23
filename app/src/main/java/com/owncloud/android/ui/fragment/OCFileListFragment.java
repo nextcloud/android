@@ -508,16 +508,17 @@ public class OCFileListFragment extends ExtendedListFragment implements
             return;
         }
 
-        final var currentDir = getCurrentFile();
-        if (currentDir == null) {
-            Log_OC.w(TAG, "currentDir is null cannot register fab listener");
-            return;
-        }
-
         // is not available in FolderPickerActivity
         viewThemeUtils.material.themeFAB(mFabMain);
         mFabMain.setOnClickListener(v -> {
             PermissionUtil.requestMediaLocationPermission(fileActivity);
+
+            var currentDir = getCurrentFile();
+            if (currentDir == null) {
+                Log_OC.w(TAG, "currentDir is null cannot open bottom sheet dialog");
+                return;
+            }
+            
             final OCFileListBottomSheetDialog dialog = new OCFileListBottomSheetDialog(fileActivity,
                                                                                        this,
                                                                                        deviceInfo,
