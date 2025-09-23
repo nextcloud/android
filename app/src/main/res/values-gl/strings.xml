@@ -581,7 +581,7 @@
     <string name="move_file_invalid_into_descendent">Non é posíbel mover un cartafol cara a un dos seus propios subcartafoles</string>
     <string name="move_file_invalid_overwrite">Este ficheiro xa existe no cartafol de destino</string>
     <string name="move_file_not_found">Non é posíbel mover o ficheiro. Comprobe que existe.</string>
-    <string name="mute_all_notifications">Enmudecer todas as notificacións</string>
+    <string name="mute_all_notifications">Silenciar todas as notificacións</string>
     <string name="network_error_connect_timeout_exception">Produciuse un erro agardando a resposta do servidor. Non foi posíbel completar a operación.</string>
     <string name="network_error_socket_exception">Produciuse un erro durante a conexión co servidor</string>
     <string name="network_error_socket_timeout_exception">Produciuse un erro agardando a resposta do servidor. Non foi posíbel completar a operación.</string>
