@@ -1,0 +1,9 @@
+## 3.34.0 RC2 (September 23, 2025)
+
+- Enhanced recommended file list
+- Performance improvements
+- Bugfixes
+
+Minimum: NC 18 Server, Android 8.1 Nougat
+
+For a full list, please see https://github.com/nextcloud/android/milestone/117
