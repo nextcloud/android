@@ -170,7 +170,7 @@ class RichDocumentsEditorWebView : EditorWebView() {
                 when (downloadJson.getString(TYPE)) {
                     PRINT -> printFile(url)
                     SLIDESHOW -> showSlideShow(url)
-                    else -> downloadFile(url)
+                    else -> downloadFile(url, fileName)
                 }
             } catch (e: JSONException) {
                 Log_OC.e(this, "Failed to parse download json message: $e")
