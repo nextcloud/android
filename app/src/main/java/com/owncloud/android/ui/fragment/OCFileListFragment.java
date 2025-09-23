@@ -1632,9 +1632,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
             switchToListView();
         }
 
-        if (mSortButton != null) {
-            mSortButton.setText(DisplayUtils.getSortOrderStringId(preferences.getSortOrderByFolder(mFile)));
-        }
+        updateSortButton();
         if (mSwitchGridViewButton != null) {
             setGridSwitchButton();
         }
@@ -1644,6 +1642,19 @@ public class OCFileListFragment extends ExtendedListFragment implements
         setFabEnabled(mFile != null && (mFile.canCreateFileAndFolder() || mFile.isOfflineOperation()));
 
         invalidateActionMode();
+    }
+    
+    private void updateSortButton() {
+        if (mSortButton != null) {
+            FileSortOrder sortOrder;
+            if (currentSearchType == FAVORITE_SEARCH) {
+                sortOrder = preferences.getSortOrderByType(FileSortOrder.Type.favoritesListView, FileSortOrder.SORT_A_TO_Z);
+            } else {
+                sortOrder = preferences.getSortOrderByFolder(mFile);
+            }
+
+            mSortButton.setText(DisplayUtils.getSortOrderStringId(sortOrder));
+        }
     }
 
     private void invalidateActionMode() {
@@ -1924,6 +1935,8 @@ public class OCFileListFragment extends ExtendedListFragment implements
                 switchToListView();
             }
         };
+
+        updateSortButton();
 
         new Handler(Looper.getMainLooper()).post(switchViewsRunnable);
 

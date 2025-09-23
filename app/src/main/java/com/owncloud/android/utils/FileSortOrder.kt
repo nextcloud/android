@@ -25,7 +25,9 @@ open class FileSortOrder(@JvmField var name: String, var isAscending: Boolean) {
         trashBinView,
 
         @Suppress("ktlint:standard:enum-entry-name-case")
-        localFileListView
+        localFileListView,
+
+        favoritesListView
     }
 
     enum class SortType {
