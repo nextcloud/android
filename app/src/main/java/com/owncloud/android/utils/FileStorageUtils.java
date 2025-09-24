@@ -27,7 +27,6 @@ import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.files.model.RemoteFile;
-import com.owncloud.android.lib.resources.shares.ShareeUser;
 import com.owncloud.android.ui.helpers.FileOperationsHelper;
 
 import java.io.File;
@@ -36,10 +35,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -313,36 +308,11 @@ public final class FileStorageUtils {
         return file;
     }
 
-    /**
-     * Creates and populates a new {@link RemoteFile} object with the data read from an {@link OCFile}.
-     *
-     * @param ocFile    OCFile
-     * @return New RemoteFile instance representing the resource described by ocFile.
-     */
-    public static RemoteFile fillRemoteFile(OCFile ocFile) {
-        RemoteFile file = new RemoteFile(ocFile.getRemotePath());
-        file.setCreationTimestamp(ocFile.getCreationTimestamp());
-        file.setLength(ocFile.getFileLength());
-        file.setMimeType(ocFile.getMimeType());
-        file.setModifiedTimestamp(ocFile.getModificationTimestamp());
-        file.setEtag(ocFile.getEtag());
-        file.setPermissions(ocFile.getPermissions());
-        file.setRemoteId(ocFile.getRemoteId());
-        file.setFavorite(ocFile.isFavorite());
-        return file;
-    }
-
     public static List<OCFile> sortOcFolderDescDateModifiedWithoutFavoritesFirst(List<OCFile> files) {
         final int multiplier = -1;
         files.sort((o1, o2) -> multiplier * Long.compare(o1.getModificationTimestamp(), o2.getModificationTimestamp()));
 
         return files;
-    }
-
-    public static List<OCFile> sortOcFolderDescDateModified(List<OCFile> files) {
-        files = sortOcFolderDescDateModifiedWithoutFavoritesFirst(files);
-
-        return FileSortOrder.sortCloudFilesByFavourite(files);
     }
 
 
@@ -432,14 +402,6 @@ public final class FileStorageUtils {
         }
 
         return ret;
-    }
-
-    public static boolean moveFile(File sourceFile, File targetFile) {
-        if (copyFile(sourceFile, targetFile)) {
-            return sourceFile.delete();
-        } else {
-            return false;
-        }
     }
 
     public static boolean copyDirs(File sourceFolder, File targetFolder) {
@@ -593,7 +555,7 @@ public final class FileStorageUtils {
         }
         // Add all secondary storages
         if (!TextUtils.isEmpty(rawSecondaryStoragesStr)) {
-            // All Secondary SD-CARDs splited into array
+            // All Secondary SD-CARDs split into array
             final String[] rawSecondaryStorages = rawSecondaryStoragesStr.split(File.pathSeparator);
             Collections.addAll(rv, rawSecondaryStorages);
         }
