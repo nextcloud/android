@@ -29,6 +29,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.nio.file.Files;
 
 import javax.inject.Inject;
 
@@ -78,7 +79,7 @@ public class DiskLruImageCacheFileProvider extends ContentProvider {
         // create a file to write bitmap data
         File f = new File(MainApp.getAppContext().getCacheDir(), ocFile.getFileName());
         try {
-            f.createNewFile();
+            Files.createFile(f.toPath());
 
             //Convert bitmap to byte array
             ByteArrayOutputStream bos = new ByteArrayOutputStream();
