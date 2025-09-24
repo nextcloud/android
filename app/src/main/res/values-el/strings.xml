@@ -35,6 +35,7 @@
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Πληκτρολογήστε κάποιο κείμενο</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Διαγραφή εργασίας</string>
     <string name="assistant_screen_task_delete_success_message">Η εργασία διαγράφηκε με επιτυχία</string>
+    <string name="assistant_screen_top_bar_title">Βοηθός</string>
     <string name="assistant_task_detail_screen_input_button_title">Είσοδος</string>
     <string name="associated_account_not_found">Δεν βρέθηκε ο συνδεδεμένος λογαριασμός!</string>
     <string name="auth_access_failed">Αποτυχία πρόσβασης: %1$s</string>
@@ -81,6 +82,7 @@
     <string name="battery_optimization_disable">Απενεργοποίηση</string>
     <string name="battery_optimization_message">Η συσκευή σας ίσως έχει ενεργές ρυθμίσεις εξοικονόμησης ενέργειας. Η αυτόματη μεταφόρτωση δουλεύει μόνο εάν η εφαρμογή εξαιρεθεί από αυτές.</string>
     <string name="battery_optimization_title">Βελτιστοποίηση μπαταρίας</string>
+    <string name="bottom_navigation_menu_assistant_label">Βοηθός</string>
     <string name="bottom_navigation_menu_favorites_label">Αγαπημένα</string>
     <string name="bottom_navigation_menu_files_label">Όλα τα αρχεία</string>
     <string name="bottom_navigation_menu_media_label">Μέσα ενημέρωσης</string>
@@ -230,6 +232,7 @@
     <string name="drawer_header_background">Φωτογραφία φόντου επικεφαλίδας συρταριού</string>
     <string name="drawer_item_activities">Δραστηριότητες</string>
     <string name="drawer_item_all_files">Όλα τα αρχεία</string>
+    <string name="drawer_item_assistant">Βοηθός</string>
     <string name="drawer_item_favorites">Αγαπημένα</string>
     <string name="drawer_item_gallery">Πολυμέσα</string>
     <string name="drawer_item_groupfolders">Ομαδικοί φάκελοι</string>
@@ -248,6 +251,7 @@
     <string name="drawer_synced_folders">Αυτόματη μεταφόρτωση</string>
     <string name="e2e_not_yet_setup">Το Ε2Ε δεν έχει εγκατασταθεί ακόμη</string>
     <string name="e2e_offline">Δεν είναι δυνατό χωρίς σύνδεση στο διαδίκτυο</string>
+    <string name="ecosystem_apps_display_assistant">Βοηθός</string>
     <string name="ecosystem_apps_display_more">Περισσότερα</string>
     <string name="ecosystem_apps_more">Περισσότερες εφαρμογές Nextcloud</string>
     <string name="encrypted">Ορισμός ως κρυπτογραφημένου</string>
