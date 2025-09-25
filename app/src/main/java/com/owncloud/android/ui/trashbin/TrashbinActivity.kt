@@ -390,7 +390,7 @@ class TrashbinActivity :
         binding.emptyList.emptyListViewHeadline.visibility = View.VISIBLE
         binding.emptyList.emptyListViewText.visibility = View.VISIBLE
         binding.emptyList.emptyListView.visibility = View.VISIBLE
-        binding.emptyList.emptyListIcon.setImageResource(R.drawable.ic_cloud_sync_off)
+        binding.emptyList.emptyListIcon.setImageResource(R.drawable.ic_sync_off)
     }
 
     private fun openActionsMenu(filesCount: Int, checkedFiles: Set<TrashbinFile>) {
