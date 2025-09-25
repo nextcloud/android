@@ -280,6 +280,12 @@ public class OCFileListFragment extends ExtendedListFragment implements
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        // Ensure pull-to-refresh only triggers when the list is truly at top
+        swipeRefreshLayout.setOnChildScrollUpCallback((parent, child) ->{
+            // If the RecyclerView can scroll up, don't allow SwipeRefreshLayout to intercept (no refresh)
+            return recyclerView != null && recyclerView.canScrollVertically(-1);
+        });
+
         setupBackButtonRedirectToAllFiles();
     }
 
