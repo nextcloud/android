@@ -23,7 +23,7 @@ open class WorkerNotificationManager(
     private val context: Context,
     viewThemeUtils: ViewThemeUtils,
     private val tickerId: Int,
-    private val channelId: String = NotificationUtils.NOTIFICATION_CHANNEL_BACKGROUND_OPERATIONS
+    channelId: String = NotificationUtils.NOTIFICATION_CHANNEL_BACKGROUND_OPERATIONS
 ) {
     var currentOperationTitle: String? = null
 
@@ -40,6 +40,10 @@ open class WorkerNotificationManager(
             setLargeIcon(BitmapFactory.decodeResource(context.resources, R.drawable.notification_icon))
             setStyle(NotificationCompat.BigTextStyle())
             priority = NotificationCompat.PRIORITY_LOW
+            setSound(null)
+            setVibrate(null)
+            setOnlyAlertOnce(true)
+            setSilent(true)
         }
 
     fun showNotification() {
