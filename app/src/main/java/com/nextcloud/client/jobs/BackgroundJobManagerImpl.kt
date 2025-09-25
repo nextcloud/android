@@ -486,9 +486,6 @@ internal class BackgroundJobManagerImpl(
             .setRequiresCharging(syncedFolder.isChargingOnly)
             .build()
 
-        val backoffCriteriaPolicy = BackoffPolicy.LINEAR
-        val backoffCriteriaDelay = DEFAULT_BACKOFF_CRITERIA_DELAY_SEC
-
         val request = periodicRequestBuilder(
             jobClass = AutoUploadWorker::class,
             jobName = JOB_PERIODIC_FILES_SYNC + "_" + syncedFolderID,
@@ -496,8 +493,8 @@ internal class BackgroundJobManagerImpl(
             constraints = constraints
         )
             .setBackoffCriteria(
-                backoffCriteriaPolicy,
-                backoffCriteriaDelay,
+                BackoffPolicy.LINEAR,
+                DEFAULT_BACKOFF_CRITERIA_DELAY_SEC,
                 TimeUnit.SECONDS
             )
             .setInputData(arguments)
@@ -511,14 +508,21 @@ internal class BackgroundJobManagerImpl(
     }
 
     override fun startImmediateFilesSyncJob(
-        syncedFolderID: Long,
+        syncedFolder: SyncedFolder,
         overridePowerSaving: Boolean,
         changedFiles: Array<String?>
     ) {
+        val syncedFolderID = syncedFolder.id
+
         val arguments = Data.Builder()
             .putBoolean(AutoUploadWorker.OVERRIDE_POWER_SAVING, overridePowerSaving)
             .putStringArray(AutoUploadWorker.CHANGED_FILES, changedFiles)
             .putLong(AutoUploadWorker.SYNCED_FOLDER_ID, syncedFolderID)
+            .build()
+
+        val constraints = Constraints.Builder()
+            .setRequiredNetworkType(NetworkType.CONNECTED)
+            .setRequiresCharging(syncedFolder.isChargingOnly)
             .build()
 
         val request = oneTimeRequestBuilder(
@@ -526,6 +530,12 @@ internal class BackgroundJobManagerImpl(
             jobName = JOB_IMMEDIATE_FILES_SYNC + "_" + syncedFolderID
         )
             .setInputData(arguments)
+            .setConstraints(constraints)
+            .setBackoffCriteria(
+                BackoffPolicy.LINEAR,
+                DEFAULT_BACKOFF_CRITERIA_DELAY_SEC,
+                TimeUnit.SECONDS
+            )
             .build()
 
         workManager.enqueueUniqueWork(
