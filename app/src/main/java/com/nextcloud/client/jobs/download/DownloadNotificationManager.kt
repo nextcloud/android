@@ -24,15 +24,6 @@ class DownloadNotificationManager(id: Int, private val context: Context, viewThe
 
     private var lastPercent = -1
 
-    init {
-        notificationBuilder.apply {
-            setSound(null)
-            setVibrate(null)
-            setOnlyAlertOnce(true)
-            setSilent(true)
-        }
-    }
-
     @Suppress("MagicNumber")
     fun prepareForStart(operation: DownloadFileOperation) {
         currentOperationTitle = File(operation.savePath).name
