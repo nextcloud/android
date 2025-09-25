@@ -20,6 +20,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.text.TextUtils;
 
+import com.nextcloud.client.jobs.sync.SyncState;
 import com.nextcloud.utils.BuildHelper;
 import com.nextcloud.utils.extensions.StringExtensionsKt;
 import com.owncloud.android.R;
@@ -128,6 +129,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
     private List<Tag> tags = new ArrayList<>();
     private Long internalFolderSyncTimestamp = -1L;
     private String internalFolderSyncResult = "";
+    private int syncState = SyncState.IDLE.ordinal();
 
     // region Recommend files variables
     private boolean recommendedFile = false;
@@ -212,6 +214,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
         lockTimeout = source.readLong();
         lockToken = source.readString();
         livePhoto = source.readString();
+        syncState = source.readInt();
     }
 
     @Override
@@ -258,6 +261,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
         dest.writeLong(lockTimeout);
         dest.writeString(lockToken);
         dest.writeString(livePhoto);
+        dest.writeInt(syncState);
     }
 
     public String getLinkedFileIdForLivePhoto() {
@@ -1165,5 +1169,13 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
 
     public boolean isRecommendedFile() {
         return recommendedFile;
+    }
+
+    public int getSyncState() {
+        return syncState;
+    }
+
+    public void setSyncState(SyncState state) {
+        syncState = state.ordinal();
     }
 }
