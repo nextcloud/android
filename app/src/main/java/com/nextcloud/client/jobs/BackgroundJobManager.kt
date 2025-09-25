@@ -126,7 +126,7 @@ interface BackgroundJobManager {
      * Immediately start File Sync job for given syncFolderID.
      */
     fun startImmediateFilesSyncJob(
-        syncedFolderID: Long,
+        syncedFolder: SyncedFolder,
         overridePowerSaving: Boolean = false,
         changedFiles: Array<String?> = arrayOf()
     )
