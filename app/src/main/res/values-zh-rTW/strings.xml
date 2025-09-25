@@ -93,7 +93,10 @@
     <string name="auth_unsupported_multiaccount">%1$s 不支援多重帳號</string>
     <string name="auth_wrong_connection_title">無法建立連線</string>
     <string name="authenticator_activity_cancel_login">取消登入</string>
+    <string name="authenticator_activity_empty_base_url">請輸入有效的伺服器地址。</string>
+    <string name="authenticator_activity_empty_response_message">無法擷取登入詳細資訊。請再試一次。</string>
     <string name="authenticator_activity_login_error">處理您的登入請求時出現問題。請稍後再試。</string>
+    <string name="authenticator_activity_no_web_browser_found">沒有瀏覽器可以開啟此連結。</string>
     <string name="authenticator_activity_please_complete_login_process">請在瀏覽器中完成登入流程</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">以唯讀模式保留在原本的資料夾</string>
     <string name="auto_upload_on_wifi">只在非計量收費的 Wi-Fi 上傳</string>
