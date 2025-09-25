@@ -17,11 +17,13 @@ import androidx.work.WorkerFactory
 import androidx.work.WorkerParameters
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.core.Clock
+import com.nextcloud.client.database.NextcloudDatabase
 import com.nextcloud.client.device.PowerManagementService
 import com.nextcloud.client.documentscan.GeneratePDFUseCase
 import com.nextcloud.client.documentscan.GeneratePdfFromImagesWork
 import com.nextcloud.client.integrations.deck.DeckApi
 import com.nextcloud.client.jobs.autoUpload.AutoUploadWorker
+import com.nextcloud.client.jobs.autoUpload.FileSystemRepository
 import com.nextcloud.client.jobs.download.FileDownloadWorker
 import com.nextcloud.client.jobs.metadata.MetadataWorker
 import com.nextcloud.client.jobs.offlineOperations.OfflineOperationsWorker
@@ -61,7 +63,8 @@ class BackgroundJobFactory @Inject constructor(
     private val viewThemeUtils: Provider<ViewThemeUtils>,
     private val localBroadcastManager: Provider<LocalBroadcastManager>,
     private val generatePdfUseCase: GeneratePDFUseCase,
-    private val syncedFolderProvider: SyncedFolderProvider
+    private val syncedFolderProvider: SyncedFolderProvider,
+    private val database: NextcloudDatabase
 ) : WorkerFactory() {
 
     @SuppressLint("NewApi")
@@ -173,7 +176,8 @@ class BackgroundJobFactory @Inject constructor(
         connectivityService = connectivityService,
         powerManagementService = powerManagementService,
         syncedFolderProvider = syncedFolderProvider,
-        backgroundJobManager = backgroundJobManager.get()
+        backgroundJobManager = backgroundJobManager.get(),
+        repository = FileSystemRepository(dao = database.fileSystemDao())
     )
 
     private fun createOfflineSyncWork(context: Context, params: WorkerParameters): OfflineSyncWork = OfflineSyncWork(

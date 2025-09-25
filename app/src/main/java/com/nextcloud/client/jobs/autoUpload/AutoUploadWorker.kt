@@ -17,14 +17,12 @@ import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import com.nextcloud.client.account.User
 import com.nextcloud.client.account.UserAccountManager
-import com.nextcloud.client.database.NextcloudDatabase
 import com.nextcloud.client.device.PowerManagementService
 import com.nextcloud.client.jobs.BackgroundJobManager
 import com.nextcloud.client.jobs.upload.FileUploadWorker
 import com.nextcloud.client.network.ConnectivityService
 import com.nextcloud.client.preferences.SubFolderRule
 import com.nextcloud.utils.ForegroundServiceHelper
-import com.owncloud.android.MainApp
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.ArbitraryDataProviderImpl
 import com.owncloud.android.datamodel.FileDataStorageManager
@@ -61,7 +59,8 @@ class AutoUploadWorker(
     private val connectivityService: ConnectivityService,
     private val powerManagementService: PowerManagementService,
     private val syncedFolderProvider: SyncedFolderProvider,
-    private val backgroundJobManager: BackgroundJobManager
+    private val backgroundJobManager: BackgroundJobManager,
+    private val repository: FileSystemRepository
 ) : CoroutineWorker(context, params) {
 
     companion object {
@@ -83,12 +82,8 @@ class AutoUploadWorker(
     override suspend fun doWork(): Result {
         return try {
             val syncFolderId = inputData.getLong(SYNCED_FOLDER_ID, -1)
-            val syncedFolder = syncedFolderProvider.getSyncedFolderByID(syncFolderId)
-            if (syncedFolder == null || !syncedFolder.isEnabled) {
-                Log_OC.e(TAG, "Skipping worker: syncedFolder $syncFolderId is not enabled!")
-                return Result.failure()
-            }
-            this.syncedFolder = syncedFolder
+            syncedFolder = syncedFolderProvider.getSyncedFolderByID(syncFolderId)
+                ?.takeIf { it.isEnabled } ?: return Result.failure()
 
             // initial notification
             val notification = createNotification(context.getString(R.string.upload_files))
@@ -147,17 +142,20 @@ class AutoUploadWorker(
 
     @Suppress("TooGenericExceptionCaught")
     private fun getStartNotificationTitle(): Pair<String, String>? {
-        val localPath = syncedFolder.localPath
-        val remotePath = syncedFolder.remotePath
-
-        return if (localPath.isBlank() || remotePath.isBlank()) {
-            null
-        } else {
-            try {
-                File(localPath).name to File(remotePath).name
-            } catch (_: Exception) {
+        return try {
+            val localPath = syncedFolder.localPath
+            val remotePath = syncedFolder.remotePath
+            if (localPath.isBlank() || remotePath.isBlank()) {
                 null
+            } else {
+                try {
+                    File(localPath).name to File(remotePath).name
+                } catch (_: Exception) {
+                    null
+                }
             }
+        } catch (_: Exception) {
+            null
         }
     }
 
@@ -202,8 +200,8 @@ class AutoUploadWorker(
         return false
     }
 
-    @Suppress("MagicNumber")
-    private suspend fun collectFileChangesFromContentObserverWork(changedFiles: Array<String>?) =
+    @Suppress("MagicNumber", "TooGenericExceptionCaught")
+    private suspend fun collectFileChangesFromContentObserverWork(changedFiles: Array<String>?) = try {
         withContext(Dispatchers.IO) {
             if (changedFiles.isNullOrEmpty()) {
                 // Check every file in synced folder for changes and update
@@ -215,12 +213,15 @@ class AutoUploadWorker(
             syncedFolder.lastScanTimestampMs = System.currentTimeMillis()
             syncedFolderProvider.updateSyncFolder(syncedFolder)
         }
+    } catch (e: Exception) {
+        Log_OC.d(TAG, "Exception collectFileChangesFromContentObserverWork: $e")
+    }
 
     private fun prepareDateFormat(): SimpleDateFormat {
         val currentLocale = context.resources.configuration.locales[0]
-        val dateFormat = SimpleDateFormat("yyyy:MM:dd HH:mm:ss", currentLocale)
-        dateFormat.timeZone = TimeZone.getTimeZone(TimeZone.getDefault().id)
-        return dateFormat
+        return SimpleDateFormat("yyyy:MM:dd HH:mm:ss", currentLocale).apply {
+            timeZone = TimeZone.getTimeZone(TimeZone.getDefault().id)
+        }
     }
 
     private fun getUserOrReturn(syncedFolder: SyncedFolder): User? {
@@ -268,21 +269,18 @@ class AutoUploadWorker(
             Log_OC.d(TAG, "upload action is: $uploadAction")
             Triple(needsCharging, needsWifi, uploadAction)
         } else {
-            Log_OC.d(TAG, "uploadFilesFromFolder not light version is used")
+            Log_OC.d(TAG, "getUploadSettings not light version is used")
             Triple(syncedFolder.isChargingOnly, syncedFolder.isWifiOnly, syncedFolder.uploadAction)
         }
     }
 
-    @Suppress("LongMethod", "DEPRECATION")
+    @Suppress("LongMethod", "DEPRECATION", "TooGenericExceptionCaught")
     private suspend fun uploadFiles(syncedFolder: SyncedFolder) = withContext(Dispatchers.IO) {
         val dateFormat = prepareDateFormat()
         val user = getUserOrReturn(syncedFolder) ?: return@withContext
-        val dao = NextcloudDatabase.Companion.getInstance(MainApp.getAppContext()).fileSystemDao()
-        val repository = FileSystemRepository(dao)
-
         val paths = repository.getAutoUploadFiles(syncedFolder)
         if (paths.isEmpty()) {
-            Log_OC.w(TAG, "uploadFilesFromFolder skipped paths is empty")
+            Log_OC.w(TAG, "uploadFiles skipped paths is empty")
             return@withContext
         }
 
@@ -294,27 +292,32 @@ class AutoUploadWorker(
             .getClientFor(ocAccount, context)
 
         pathsAndMimes.forEach { (localPath, remotePath, _) ->
-            val upload = OCUpload(localPath, remotePath, user.accountName).apply {
-                nameCollisionPolicy = syncedFolder.nameCollisionPolicy
-                isUseWifiOnly = needsWifi
-                isWhileChargingOnly = needsCharging
-                uploadStatus = UploadsStorageManager.UploadStatus.UPLOAD_IN_PROGRESS
-                createdBy = UploadFileOperation.CREATED_AS_INSTANT_PICTURE
-                isCreateRemoteFolder = true
-                localAction = uploadAction
-            }
+            try {
+                Log_OC.d(TAG, "creating oc upload for ${user.accountName}")
+                val upload = OCUpload(localPath, remotePath, user.accountName).apply {
+                    nameCollisionPolicy = syncedFolder.nameCollisionPolicy
+                    isUseWifiOnly = needsWifi
+                    isWhileChargingOnly = needsCharging
+                    uploadStatus = UploadsStorageManager.UploadStatus.UPLOAD_IN_PROGRESS
+                    createdBy = UploadFileOperation.CREATED_AS_INSTANT_PICTURE
+                    isCreateRemoteFolder = true
+                    localAction = uploadAction
+                }
 
-            uploadsStorageManager.storeUpload(upload)
+                uploadsStorageManager.storeUpload(upload)
 
-            val operation = createUploadFileOperation(upload, user)
-            Log_OC.d(TAG, "🕒 uploading: $localPath")
+                val operation = createUploadFileOperation(upload, user)
+                Log_OC.d(TAG, "🕒 uploading: $localPath")
 
-            val result = operation.execute(client)
-            if (result.isSuccess) {
-                repository.markFileAsUploaded(localPath, syncedFolder)
-                Log_OC.d(TAG, "✅ auto upload completed: $localPath")
-            } else {
-                Log_OC.e(TAG, "❌ auto upload failed: $localPath")
+                val result = operation.execute(client)
+                if (result.isSuccess) {
+                    repository.markFileAsUploaded(localPath, syncedFolder)
+                    Log_OC.d(TAG, "✅ auto upload completed: $localPath")
+                } else {
+                    Log_OC.e(TAG, "❌ auto upload failed: $localPath")
+                }
+            } catch (e: Exception) {
+                Log_OC.e(TAG, "Exception uploadFiles, localPath: $localPath, remotePath: $remotePath, exception: $e")
             }
         }
     }
@@ -346,14 +349,12 @@ class AutoUploadWorker(
         val lastModificationTime = calculateLastModificationTime(file, syncedFolder, sFormatter)
 
         val (remoteFolder, useSubfolders, subFolderRule) = if (lightVersion) {
-            Log_OC.d(TAG, "getRemotePath light version is used")
             Triple(
                 resources.getString(R.string.syncedFolder_remote_folder),
                 resources.getBoolean(R.bool.syncedFolder_light_use_subfolders),
                 SubFolderRule.YEAR_MONTH
             )
         } else {
-            Log_OC.d(TAG, "getRemotePath not light version is used")
             Triple(
                 syncedFolder.remotePath,
                 syncedFolder.isSubfolderByDate,
