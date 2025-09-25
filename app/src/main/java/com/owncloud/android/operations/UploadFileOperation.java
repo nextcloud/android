@@ -245,7 +245,7 @@ public class UploadFileOperation extends SyncOperation {
                 "Illegal file in UploadFileOperation; storage path invalid: "
                     + upload.getLocalPath());
         }
-
+        Log_OC.d(TAG, "creating upload file operation, user: " + user.getAccountName() + " upload account name " + upload.getAccountName());
         this.uploadsStorageManager = uploadsStorageManager;
         this.connectivityService = connectivityService;
         this.powerManagementService = powerManagementService;
