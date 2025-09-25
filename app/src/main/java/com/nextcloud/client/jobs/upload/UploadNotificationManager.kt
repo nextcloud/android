@@ -19,7 +19,13 @@ import com.owncloud.android.ui.notifications.NotificationUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
 
 class UploadNotificationManager(private val context: Context, viewThemeUtils: ViewThemeUtils, id: Int) :
-    WorkerNotificationManager(id, context, viewThemeUtils, R.string.foreground_service_upload) {
+    WorkerNotificationManager(
+        id,
+        context,
+        viewThemeUtils,
+        tickerId = R.string.foreground_service_upload,
+        channelId = NotificationUtils.NOTIFICATION_CHANNEL_UPLOAD
+    ) {
 
     @Suppress("MagicNumber")
     fun prepareForStart(
