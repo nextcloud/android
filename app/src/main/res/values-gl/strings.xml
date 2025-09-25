@@ -93,7 +93,10 @@
     <string name="auth_unsupported_multiaccount">%1$s non admite contas múltipes</string>
     <string name="auth_wrong_connection_title">Non foi posíbel estabelecer a conexión</string>
     <string name="authenticator_activity_cancel_login">Cancelar o acceso</string>
+    <string name="authenticator_activity_empty_base_url">Introduza un enderezo de servidor válido.</string>
+    <string name="authenticator_activity_empty_response_message">Non foi posíbel obter os datos do acceso. Ténteo de novo.</string>
     <string name="authenticator_activity_login_error">Houbo un problema ao procesar a súa solicitude de acceso. Ténteo de novo máis tarde.</string>
+    <string name="authenticator_activity_no_web_browser_found">Non hai ningún navegador dispoñíbel para abrir esta ligazón.</string>
     <string name="authenticator_activity_please_complete_login_process">Complete o proceso de acceso no seu navegador</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">mantense no cartafol orixinal, xa que é de só lectura</string>
     <string name="auto_upload_on_wifi">Enviar só con wifi sen límite de datos</string>
