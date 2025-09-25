@@ -75,7 +75,7 @@
             android:contentDescription="@string/sync_status_button"
             android:focusable="true"
             android:padding="@dimen/standard_half_padding"
-            android:src="@drawable/ic_cloud_sync_off" />
+            android:src="@drawable/ic_sync_off" />
 
         <ImageButton
             android:id="@+id/settingsButton"
