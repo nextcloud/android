@@ -37,9 +37,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
-import java.nio.charset.StandardCharsets;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -72,38 +69,6 @@ public final class FileStorageUtils {
 
     private FileStorageUtils() {
         // utility class -> private constructor
-    }
-
-    public static boolean containsBidiControlCharacters(String filename) {
-        if (filename == null) return false;
-
-        String decoded;
-        try {
-            decoded = URLDecoder.decode(filename, StandardCharsets.UTF_8.toString());
-        } catch (UnsupportedEncodingException e) {
-            return false;
-        }
-
-        int[] bidiControlCharacters = {
-            0x202A, 0x202B, 0x202C, 0x202D, 0x202E,
-            0x200E, 0x200F, 0x2066, 0x2067, 0x2068,
-            0x2069, 0x061C
-        };
-
-        for (int i = 0; i < decoded.length(); i++) {
-            int codePoint = decoded.codePointAt(i);
-            for (int chars : bidiControlCharacters) {
-                if (codePoint == chars) {
-                    return true;
-                }
-            }
-        }
-
-        for (char c : decoded.toCharArray()) {
-            if (c < 32) return true;
-        }
-
-        return false;
     }
 
     public static Pair<String,String> getFilenameAndExtension(String filename, boolean isFolder, boolean isRTL) {
@@ -364,36 +329,11 @@ public final class FileStorageUtils {
         return file;
     }
 
-    /**
-     * Creates and populates a new {@link RemoteFile} object with the data read from an {@link OCFile}.
-     *
-     * @param ocFile    OCFile
-     * @return New RemoteFile instance representing the resource described by ocFile.
-     */
-    public static RemoteFile fillRemoteFile(OCFile ocFile) {
-        RemoteFile file = new RemoteFile(ocFile.getRemotePath());
-        file.setCreationTimestamp(ocFile.getCreationTimestamp());
-        file.setLength(ocFile.getFileLength());
-        file.setMimeType(ocFile.getMimeType());
-        file.setModifiedTimestamp(ocFile.getModificationTimestamp());
-        file.setEtag(ocFile.getEtag());
-        file.setPermissions(ocFile.getPermissions());
-        file.setRemoteId(ocFile.getRemoteId());
-        file.setFavorite(ocFile.isFavorite());
-        return file;
-    }
-
     public static List<OCFile> sortOcFolderDescDateModifiedWithoutFavoritesFirst(List<OCFile> files) {
         final int multiplier = -1;
         files.sort((o1, o2) -> multiplier * Long.compare(o1.getModificationTimestamp(), o2.getModificationTimestamp()));
 
         return files;
-    }
-
-    public static List<OCFile> sortOcFolderDescDateModified(List<OCFile> files) {
-        files = sortOcFolderDescDateModifiedWithoutFavoritesFirst(files);
-
-        return FileSortOrder.sortCloudFilesByFavourite(files);
     }
 
 
@@ -483,14 +423,6 @@ public final class FileStorageUtils {
         }
 
         return ret;
-    }
-
-    public static boolean moveFile(File sourceFile, File targetFile) {
-        if (copyFile(sourceFile, targetFile)) {
-            return sourceFile.delete();
-        } else {
-            return false;
-        }
     }
 
     public static boolean copyDirs(File sourceFolder, File targetFolder) {
@@ -644,7 +576,7 @@ public final class FileStorageUtils {
         }
         // Add all secondary storages
         if (!TextUtils.isEmpty(rawSecondaryStoragesStr)) {
-            // All Secondary SD-CARDs splited into array
+            // All Secondary SD-CARDs split into array
             final String[] rawSecondaryStorages = rawSecondaryStoragesStr.split(File.pathSeparator);
             Collections.addAll(rv, rawSecondaryStorages);
         }
