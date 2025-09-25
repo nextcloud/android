@@ -108,4 +108,16 @@ interface FileDao {
         dirType: String = MimeType.DIRECTORY,
         webdavType: String = MimeType.WEBDAV_FOLDER
     ): List<FileEntity>
+
+    @Query(
+        """
+    SELECT * 
+    FROM filelist 
+    WHERE file_owner = :fileOwner 
+      AND parent = :parentId
+      AND ${ProviderTableMeta.FILE_NAME} LIKE '%' || :query || '%'
+    ORDER BY ${ProviderTableMeta.FILE_DEFAULT_SORT_ORDER}
+    """
+    )
+    fun searchFilesInFolder(parentId: Long, fileOwner: String, query: String): List<FileEntity>
 }
