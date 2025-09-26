@@ -56,9 +56,7 @@ class TestPowerManagementService {
             MockitoAnnotations.initMocks(this)
             powerManagementService = PowerManagementServiceImpl(
                 context,
-                platformPowerManager,
-                preferences,
-                deviceInfo
+                platformPowerManager
             )
         }
     }
@@ -83,25 +81,10 @@ class TestPowerManagementService {
         }
 
         @Test
-        fun `power saving exclusion is available for flagged vendors`() {
-            for (vendor in PowerManagementServiceImpl.OVERLY_AGGRESSIVE_POWER_SAVING_VENDORS) {
-                whenever(deviceInfo.vendor).thenReturn(vendor)
-                assertTrue("Vendor $vendor check failed", powerManagementService.isPowerSavingExclusionAvailable)
-            }
-        }
-
-        @Test
-        fun `power saving exclusion is not available for other vendors`() {
-            whenever(deviceInfo.vendor).thenReturn("some_other_nice_vendor")
-            assertFalse(powerManagementService.isPowerSavingExclusionAvailable)
-        }
-
-        @Test
         fun `power saving check is disabled`() {
             // GIVEN
             //      a device which falsely returns power save mode enabled
             //      power check is overridden by user
-            whenever(preferences.isPowerCheckDisabled).thenReturn(true)
             whenever(platformPowerManager.isPowerSaveMode).thenReturn(true)
 
             // WHEN

@@ -199,21 +199,6 @@ class SyncedFoldersActivity :
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         val inflater = menuInflater
         inflater.inflate(R.menu.activity_synced_folders, menu)
-        if (powerManagementService.isPowerSavingExclusionAvailable) {
-            val item = menu.findItem(R.id.action_disable_power_save_check)
-            item.isVisible = true
-            item.isChecked = preferences.isPowerCheckDisabled
-            item.setOnMenuItemClickListener { powerCheck -> onDisablePowerSaveCheckClicked(powerCheck) }
-        }
-        return true
-    }
-
-    private fun onDisablePowerSaveCheckClicked(powerCheck: MenuItem): Boolean {
-        if (!powerCheck.isChecked) {
-            showPowerCheckDialog()
-        }
-        preferences.isPowerCheckDisabled = !powerCheck.isChecked
-        powerCheck.isChecked = !powerCheck.isChecked
         return true
     }
 
@@ -575,7 +560,7 @@ class SyncedFoldersActivity :
             }
         }
         if (syncedFolderDisplayItem.isEnabled) {
-            backgroundJobManager.startImmediateFilesSyncJob(syncedFolderDisplayItem.id, overridePowerSaving = false)
+            backgroundJobManager.startImmediateFilesSyncJob(syncedFolderDisplayItem, overridePowerSaving = false)
             showBatteryOptimizationInfo()
         }
     }
@@ -738,7 +723,7 @@ class SyncedFoldersActivity :
             // existing synced folder setup to be updated
             syncedFolderProvider.updateSyncFolder(item)
             if (item.isEnabled) {
-                backgroundJobManager.startImmediateFilesSyncJob(item.id, overridePowerSaving = false)
+                backgroundJobManager.startImmediateFilesSyncJob(item, overridePowerSaving = false)
             } else {
                 val syncedFolderInitiatedKey = KEY_SYNCED_FOLDER_INITIATED_PREFIX + item.id
                 val arbitraryDataProvider =
@@ -755,7 +740,7 @@ class SyncedFoldersActivity :
         if (storedId != -1L) {
             item.id = storedId
             if (item.isEnabled) {
-                backgroundJobManager.startImmediateFilesSyncJob(item.id, overridePowerSaving = false)
+                backgroundJobManager.startImmediateFilesSyncJob(item, overridePowerSaving = false)
             } else {
                 val syncedFolderInitiatedKey = KEY_SYNCED_FOLDER_INITIATED_PREFIX + item.id
                 arbitraryDataProvider.deleteKeyForAccount("global", syncedFolderInitiatedKey)
@@ -835,7 +820,7 @@ class SyncedFoldersActivity :
     }
 
     private fun showBatteryOptimizationInfo() {
-        if (powerManagementService.isPowerSavingExclusionAvailable || checkIfBatteryOptimizationEnabled()) {
+        if (checkIfBatteryOptimizationEnabled()) {
             val alertDialogBuilder = MaterialAlertDialogBuilder(this, R.style.Theme_ownCloud_Dialog)
                 .setTitle(getString(R.string.battery_optimization_title))
                 .setMessage(getString(R.string.battery_optimization_message))
