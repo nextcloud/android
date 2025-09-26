@@ -93,7 +93,10 @@
     <string name="auth_unsupported_multiaccount">%1$s 不支持多个账号</string>
     <string name="auth_wrong_connection_title">无法建立连接</string>
     <string name="authenticator_activity_cancel_login">取消登录</string>
-    <string name="authenticator_activity_login_error">处理你的登录请求时出现问题。请稍后再试。</string>
+    <string name="authenticator_activity_empty_base_url">请输入有效的服务器地址。</string>
+    <string name="authenticator_activity_empty_response_message">无法获取登录详情。请重试。</string>
+    <string name="authenticator_activity_login_error">处理您的登录请求时出现问题。请稍后重试。</string>
+    <string name="authenticator_activity_no_web_browser_found">没有浏览器可以打开此链接。</string>
     <string name="authenticator_activity_please_complete_login_process">请在浏览器中完成登录流程</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">保持为原始的文件夹，即使它是只读的</string>
     <string name="auto_upload_on_wifi">仅通过无流量限制的 Wi-Fi 上传</string>
