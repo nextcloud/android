@@ -93,12 +93,16 @@
     <string name="auth_unsupported_multiaccount">%1$s nepodporuje vícero účtů</string>
     <string name="auth_wrong_connection_title">Nedaří se navázat spojení</string>
     <string name="authenticator_activity_cancel_login">Zrušit přihlášení</string>
+    <string name="authenticator_activity_empty_base_url">Zadejte platnou adresu serveru.</string>
+    <string name="authenticator_activity_empty_response_message">Nebylo možné získat podrobnosti o přihlášení. Zkuste to znovu.</string>
     <string name="authenticator_activity_login_error">Došlo k problému při zpracovávání vašeho požadavku na přihlášení se. Zkuste to prosím později.</string>
+    <string name="authenticator_activity_no_web_browser_found">Není k dispozici žádný webový prohlížeč pro otevření tohoto odkazu.</string>
     <string name="authenticator_activity_please_complete_login_process">Dokončete proces přihlášení prostřednictvím webového prohlížeče</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">ponechán v původní složce, protože je pouze pro čtení</string>
     <string name="auto_upload_on_wifi">Nahrávat pouze přes neúčtované Wi-Fi připojení</string>
     <string name="auto_upload_path">/AutoUpload</string>
     <string name="auto_upload_sub_folder_warning">Tato složka už je obsažena v synchronizaci nadřazené složky, což může způsobovat duplicitní nahrávání</string>
+    <string name="auto_upload_worker_start_text">Jsou nahrávány soubory z %s do %s</string>
     <string name="autoupload_configure">Nastavit</string>
     <string name="autoupload_create_new_custom_folder">Vytvořit nové uživatelsky určené nastavení složky</string>
     <string name="autoupload_custom_folder">Nastavit uživatelsky určenou složku</string>

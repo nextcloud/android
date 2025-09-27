@@ -102,6 +102,7 @@
     <string name="auto_upload_on_wifi">Enviar só con wifi sen límite de datos</string>
     <string name="auto_upload_path">/EnvíoAutomático</string>
     <string name="auto_upload_sub_folder_warning">Este cartafol xa está incluído na sincronización do cartafol principal, iso pode provocar envíos duplicados</string>
+    <string name="auto_upload_worker_start_text">Enviar ficheiros de %s a %s</string>
     <string name="autoupload_configure">Configurar</string>
     <string name="autoupload_create_new_custom_folder">Crear un cartafol personalizado novo</string>
     <string name="autoupload_custom_folder">Configurar un cartafol personalizado</string>

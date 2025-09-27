@@ -102,6 +102,7 @@
     <string name="auto_upload_on_wifi">Отпремај само на бежичним мрежама без ограничења</string>
     <string name="auto_upload_path">/Аутоматска отпремања</string>
     <string name="auto_upload_sub_folder_warning">Овај фолдер је већ укључен у синхронизацију фолдера родитеља, па се могу јавити двострука отпремања</string>
+    <string name="auto_upload_worker_start_text">Отпремају се фајлови са %s на %s</string>
     <string name="autoupload_configure">Подеси</string>
     <string name="autoupload_create_new_custom_folder">Направи нову поставку за посебну фасциклу</string>
     <string name="autoupload_custom_folder">Подесите произвољну фасциклу</string>
