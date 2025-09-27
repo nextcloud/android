@@ -102,6 +102,7 @@
     <string name="auto_upload_on_wifi">Laadi üles ainult mahupiiranguta WiFi võrgus</string>
     <string name="auto_upload_path">/AutoUpload</string>
     <string name="auto_upload_sub_folder_warning">Kuna ülalpool asuv kaust kuulub sünkroonimisele, siis see kaust on juba kaasatud ning nii võivad tekkida topelt üleslaadimised</string>
+    <string name="auto_upload_worker_start_text">Laadin faile üles: %s kuni %s</string>
     <string name="autoupload_configure">Seadista</string>
     <string name="autoupload_create_new_custom_folder">Loo uus kohandatud kausta seadistus</string>
     <string name="autoupload_custom_folder">Seadista kohandatud kaust</string>
