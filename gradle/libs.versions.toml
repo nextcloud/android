@@ -71,6 +71,7 @@ spotless = "7.2.1"
 stateless4jVersion = "2.6.0"
 webkitVersion = "1.14.0"
 workRuntime = "2.10.4"
+kotlinxSerializationJson = "1.9.0"
 
 kotlin = "2.2.20"
 ksp = "2.2.20-2.0.3"
@@ -102,6 +103,8 @@ coil = { module = "io.coil-kt:coil", version.ref = "coilVersion" }
 constraintlayout = { module = "androidx.constraintlayout:constraintlayout", version.ref = "constraintlayoutVersion" }
 emoji-google = { module = "com.vanniktech:emoji-google", version.ref = "emojiGoogleVersion" }
 
+# kotlinx
+kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerializationJson" }
 
 # Other
 annotation = { module = "androidx.annotation:annotation", version.ref = "annotationVersion" }
@@ -219,3 +222,4 @@ kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "ko
 spotless = { id = "com.diffplug.spotless", version.ref = "spotless" }
 kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
+kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }

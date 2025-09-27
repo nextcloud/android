@@ -400,11 +400,6 @@ public abstract class AbstractIT {
             public boolean isPowerSavingEnabled() {
                 return false;
             }
-
-            @Override
-            public boolean isPowerSavingExclusionAvailable() {
-                return false;
-            }
         };
 
         UserAccountManager accountManager = UserAccountManagerImpl.fromContext(targetContext);

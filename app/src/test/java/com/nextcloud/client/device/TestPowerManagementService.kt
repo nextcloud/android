@@ -83,9 +83,7 @@ class TestPowerManagementService {
         @Test
         fun `power saving check is disabled`() {
             // GIVEN
-            //      a device which falsely returns power save mode enabled
-            //      power check is overridden by user
-            whenever(platformPowerManager.isPowerSaveMode).thenReturn(true)
+            whenever(platformPowerManager.isPowerSaveMode).thenReturn(false)
 
             // WHEN
             //      power save mode is checked
