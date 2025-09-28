@@ -99,6 +99,7 @@
     <string name="auto_upload_on_wifi">Upload kun på ubegrænset wifi</string>
     <string name="auto_upload_path">/AutoUpload</string>
     <string name="auto_upload_sub_folder_warning">Denne mappe er allerede inkluderet i den overordnede mappes synkronisering, hvilket kan medføre dobbelt uploads</string>
+    <string name="auto_upload_worker_start_text">Uploader filer fra %s til %s</string>
     <string name="autoupload_configure">Konfigurer</string>
     <string name="autoupload_create_new_custom_folder">Opret en ny brugerdefineret mappeopsætning</string>
     <string name="autoupload_custom_folder">Opsæt en brugerdefineret mappe</string>
