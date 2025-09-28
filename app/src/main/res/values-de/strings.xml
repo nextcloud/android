@@ -102,6 +102,7 @@
     <string name="auto_upload_on_wifi">Nur über gebührenfreies WLAN hochladen</string>
     <string name="auto_upload_path">/AutoUpload</string>
     <string name="auto_upload_sub_folder_warning">Dieser Ordner ist bereits in der Synchronisierung des übergeordneten Ordners enthalten, was zu doppelten Uploads führen kann</string>
+    <string name="auto_upload_worker_start_text">Lade Dateien von %s nach %s hoch</string>
     <string name="autoupload_configure">Einrichten</string>
     <string name="autoupload_create_new_custom_folder">Erstellen Sie ein Setup für den eigenen Ordner</string>
     <string name="autoupload_custom_folder">Erstellen Sie einen eigenen Ordner</string>

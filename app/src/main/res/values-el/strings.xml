@@ -913,6 +913,10 @@
     <string name="write_email">Αποστολή email</string>
     <string name="wrong_storage_path">Ο φάκελος αποθήκευσης δεδομένων δεν υπάρχει!</string>
     <string name="wrong_storage_path_desc">Αυτό μπορεί να οφείλεται σε μια επαναφορά αντιγράφων ασφαλείας σε άλλη συσκευή. Επιστροφή στην προεπιλογή. Παρακαλούμε ελέγξτε τις ρυθμίσεις για να προσαρμόσετε τον φάκελο αποθήκευσης δεδομένων.</string>
+    <plurals name="hours">
+        <item quantity="one">%d ώρα</item>
+        <item quantity="other">%d ώρες</item>
+    </plurals>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">Αδύνατος συγχρονισμός %1$d αρχείου (διενέξεις: %2$d)</item>
         <item quantity="other">Αδύνατος συγχρονισμός %1$d αρχείων (διενέξεις: %2$d)</item>
