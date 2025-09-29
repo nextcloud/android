@@ -1016,7 +1016,7 @@ public class FileOperationsHelper {
 
 
 
-        if (FileUploadHelper.Companion.instance().isUploading(currentUser, file)) {
+        if (FileUploadHelper.Companion.instance().isUploading(file.getRemotePath(), currentUser.getAccountName())) {
             FileUploadWorker.Companion.cancelCurrentUpload(file.getRemotePath(), currentUser.getAccountName(), () -> {
                 FileUploadHelper.Companion.instance().setStatusOfUploadToCancel(file.getRemotePath());
                 return Unit.INSTANCE;

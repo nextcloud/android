@@ -36,4 +36,11 @@ interface UploadDao {
 
     @Update
     fun update(upload: UploadEntity)
+
+    @Query(
+        "DELETE FROM ${ProviderTableMeta.UPLOADS_TABLE_NAME} " +
+            "WHERE ${ProviderTableMeta.UPLOADS_ACCOUNT_NAME} = :accountName " +
+            "AND ${ProviderTableMeta.UPLOADS_REMOTE_PATH} = :remotePath"
+    )
+    fun deleteByAccountAndRemotePath(accountName: String, remotePath: String)
 }
