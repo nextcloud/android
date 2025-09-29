@@ -639,9 +639,6 @@ internal class BackgroundJobManagerImpl(
 
     private fun startFileUploadJobTag(user: User): String = JOB_FILES_UPLOAD + user.accountName
 
-    override fun isStartFileUploadJobScheduled(user: User): Boolean =
-        workManager.isWorkScheduled(startFileUploadJobTag(user))
-
     /**
      * This method supports initiating uploads for various scenarios, including:
      * - New upload batches
