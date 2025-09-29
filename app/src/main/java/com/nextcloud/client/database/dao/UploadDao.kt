@@ -8,8 +8,9 @@
 package com.nextcloud.client.database.dao
 
 import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import androidx.room.Update
 import com.nextcloud.client.database.entity.UploadEntity
 import com.owncloud.android.db.ProviderMeta.ProviderTableMeta
 
@@ -34,7 +35,7 @@ interface UploadDao {
     )
     fun getByRemotePath(remotePath: String): UploadEntity?
 
-    @Update
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun update(upload: UploadEntity)
 
     @Query(
