@@ -109,6 +109,14 @@ class FileUploadWorker(
                 }
             }
         }
+
+        fun isUploading(remotePath: String?, accountName: String?): Boolean {
+            currentUploadFileOperation?.let {
+                return it.remotePath == remotePath && it.user.accountName == accountName
+            }
+
+            return false
+        }
     }
 
     private var lastPercent = 0

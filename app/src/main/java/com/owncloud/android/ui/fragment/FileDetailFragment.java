@@ -574,7 +574,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
             // configure UI for depending upon local state of the file
             if (transferring
                 || (FileDownloadHelper.Companion.instance().isDownloading(user, file))
-                || (FileUploadHelper.Companion.instance().isUploading(user, file))) {
+                || (FileUploadHelper.Companion.instance().isUploading(file.getRemotePath(), user.getAccountName()))) {
                 setButtonsForTransferring();
 
             } else if (file.isDown()) {
@@ -736,7 +736,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
             if (FileDownloadHelper.Companion.instance().isDownloading(user, getFile())) {
                 binding.progressText.setText(R.string.downloader_download_in_progress_ticker);
             } else {
-                if (FileUploadHelper.Companion.instance().isUploading(user, getFile())) {
+                if (FileUploadHelper.Companion.instance().isUploading(getFile().getRemotePath(), user.getAccountName())) {
                     binding.progressText.setText(R.string.uploader_upload_in_progress_ticker);
                 }
             }

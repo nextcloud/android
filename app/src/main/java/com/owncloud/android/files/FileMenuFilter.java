@@ -434,7 +434,7 @@ public class FileMenuFilter {
 
     private boolean anyFileUploading() {
         for (OCFile file : files) {
-            if (FileUploadHelper.Companion.instance().isUploading(user, file)) {
+            if (FileUploadHelper.Companion.instance().isUploading(file.getRemotePath(), user.getAccountName())) {
                 return true;
             }
         }
