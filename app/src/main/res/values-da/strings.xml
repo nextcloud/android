@@ -598,7 +598,7 @@
     <string name="no_calendar_exists">Ingen kalender eksisterer</string>
     <string name="no_email_app_available">Ingen app tilgængelig til at håndtere mailadresser</string>
     <string name="no_items">Ingen elementer</string>
-    <string name="no_map_app_availble">Ingen App tilgængelig til håndtering af Kort</string>
+    <string name="no_map_app_availble">Ingen App tilgængelig til håndtering af kort</string>
     <string name="no_mutliple_accounts_allowed">kun en konto tilladt</string>
     <string name="no_pdf_app_available">Ingen App tilgængelig til håndtering af PDF</string>
     <string name="no_send_app">Der er ingen tilgængelig app til at sende de valgte filer</string>
