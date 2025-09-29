@@ -40,8 +40,6 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.io.File
-import java.util.concurrent.CompletableFuture
-import java.util.concurrent.ExecutionException
 import java.util.concurrent.Semaphore
 import javax.inject.Inject
 
@@ -221,16 +219,12 @@ class FileUploadHelper {
 
     fun removeFileUpload(remotePath: String, accountName: String) {
         try {
-            val user = accountManager.getUser(accountName).get()
-
-            // need to update now table in mUploadsStorageManager,
-            // since the operation will not get to be run by FileUploader#uploadFile
             uploadsStorageManager.removeUpload(accountName, remotePath)
-            val uploadIds = uploadsStorageManager.getCurrentUploadIds(user.accountName)
-            cancelAndRestartUploadJob(user, uploadIds)
         } catch (e: NoSuchElementException) {
             Log_OC.e(TAG, "Error cancelling current upload because user does not exist!: " + e.message)
         }
+
+        uploadsStorageManager.uploadDao.deleteByAccountAndRemotePath(accountName, remotePath)
     }
 
     fun setStatusOfUploadToCancel(remotePath: String) {
@@ -244,40 +238,34 @@ class FileUploadHelper {
     }
 
     fun cancelAndRestartUploadJob(user: User, uploadIds: LongArray) {
-        backgroundJobManager.run {
-            val entities = uploadsStorageManager.uploadDao.getUploadsByIds(uploadIds, user.accountName)
-            entities.forEach { entity ->
-                entity.remotePath?.let { remotePath ->
-                    FileUploadWorker.cancelCurrentUpload(remotePath, user.accountName, onCompleted = {
-                        setStatusOfUploadToCancel(remotePath)
-                    })
-                }
+        val entities = uploadsStorageManager.uploadDao.getUploadsByIds(uploadIds, user.accountName)
+        val existingUploadIds = mutableSetOf<Long>()
+        for (entity in entities) {
+            val remotePath = entity.remotePath
+            if (remotePath == null) {
+                continue
             }
-            startFilesUploadJob(user, uploadIds, false)
+
+            entity.id?.toLong()?.let { id ->
+                existingUploadIds.add(id)
+            }
+
+            FileUploadWorker.cancelCurrentUpload(remotePath, user.accountName, onCompleted = {
+                setStatusOfUploadToCancel(remotePath)
+            })
         }
+
+        backgroundJobManager.startFilesUploadJob(user, existingUploadIds.toLongArray(), false)
     }
 
-    @Suppress("ReturnCount")
-    fun isUploading(user: User?, file: OCFile?): Boolean {
-        if (user == null || file == null || !backgroundJobManager.isStartFileUploadJobScheduled(user)) {
-            return false
-        }
+    fun isUploading(remotePath: String?, accountName: String?): Boolean {
+        remotePath ?: return false
+        val upload = uploadsStorageManager.uploadDao.getByRemotePath(remotePath)
+        val uploadFromContentUri = uploadsStorageManager.getUploadByRemotePath(remotePath)
 
-        val uploadCompletableFuture = CompletableFuture.supplyAsync {
-            uploadsStorageManager.getUploadByRemotePath(file.remotePath)
-        }
-        return try {
-            val upload = uploadCompletableFuture.get()
-            if (upload != null) {
-                upload.uploadStatus == UploadStatus.UPLOAD_IN_PROGRESS
-            } else {
-                false
-            }
-        } catch (e: ExecutionException) {
-            false
-        } catch (e: InterruptedException) {
-            false
-        }
+        return upload?.status == UploadStatus.UPLOAD_IN_PROGRESS.value ||
+            uploadFromContentUri?.uploadStatus == UploadStatus.UPLOAD_IN_PROGRESS ||
+            FileUploadWorker.isUploading(remotePath, accountName)
     }
 
     private fun checkConnectivity(connectivityService: ConnectivityService): Boolean {

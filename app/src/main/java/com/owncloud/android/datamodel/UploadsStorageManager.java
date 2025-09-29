@@ -414,6 +414,7 @@ public class UploadsStorageManager extends Observable {
         return null;
     }
 
+    @Nullable
     public OCUpload getUploadByRemotePath(String remotePath) {
         OCUpload result = null;
         try (Cursor cursor = getDB().query(
