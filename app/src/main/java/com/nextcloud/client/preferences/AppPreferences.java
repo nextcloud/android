@@ -277,8 +277,6 @@ public interface AppPreferences {
      */
     DarkMode getDarkThemeMode();
 
-    boolean isDenseLayoutEnabled();
-
     /**
      * Saves the uploader behavior which the user has set last.
      *

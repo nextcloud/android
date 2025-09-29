@@ -1380,6 +1380,4 @@
     <string name="clear">Clear</string>
     <string name="set_message">Set message</string>
     <string name="error_setting_status_message">Error setting status message!</string>
-    <string name="prefs_dense_layout">Dense layout</string>
-    <string name="prefs_dense_layout_summary">Fit more content on the screen</string>
 </resources>

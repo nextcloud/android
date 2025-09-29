@@ -722,12 +722,6 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         }
 
         setVisibilityOfMoreOption(holder);
-
-        // layout density
-        if (preferences.isDenseLayoutEnabled()){
-            holder.getItemLayout().setMinimumHeight(activity.getResources().getDimensionPixelSize(R.dimen.min_list_item_size));
-            holder.getItemLayout().setPadding(0, 0, 0, 0);
-        }
     }
 
     private void setVisibilityOfMoreOption(Object holder) {

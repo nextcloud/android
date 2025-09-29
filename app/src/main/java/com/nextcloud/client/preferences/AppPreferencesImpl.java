@@ -58,7 +58,6 @@ public final class AppPreferencesImpl implements AppPreferences {
     public static final String DATA_STORAGE_LOCATION = "data_storage_location";
     public static final String STORAGE_PATH_VALID = "storage_path_valid";
     public static final String PREF__DARK_THEME = "dark_theme_mode";
-    public static final String PREF__DENSE_LAYOUT = "dense_layout";
     public static final float DEFAULT_GRID_COLUMN = 3f;
 
     private static final String AUTO_PREF__LAST_UPLOAD_PATH = "last_upload_path";
@@ -463,11 +462,6 @@ public final class AppPreferencesImpl implements AppPreferences {
             preferences.edit().putString(PREF__DARK_THEME, DarkMode.SYSTEM.name()).apply();
             return DarkMode.SYSTEM;
         }
-    }
-
-    @Override
-    public boolean isDenseLayoutEnabled() {
-        return preferences.getBoolean(PREF__DENSE_LAYOUT, false);
     }
 
     @Override

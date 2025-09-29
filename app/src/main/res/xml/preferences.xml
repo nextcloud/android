@@ -21,10 +21,6 @@
             android:title="@string/prefs_theme_title"
             android:key="darkMode"
             android:summary="%s" />
-        <com.owncloud.android.ui.ThemeableSwitchPreference
-            android:title="@string/prefs_dense_layout"
-            android:summary="@string/prefs_dense_layout_summary"
-            android:key="dense_layout" />
 	</PreferenceCategory>
 	<PreferenceCategory
 		android:title="@string/drawer_synced_folders"
