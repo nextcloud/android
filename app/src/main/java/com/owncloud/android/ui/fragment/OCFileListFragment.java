@@ -622,7 +622,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
             return;
         }
 
-        boolean isWithinEncryptedFolder = getCurrentFile().isEncrypted();
+        boolean isWithinEncryptedFolder = file.isEncrypted();
         UploadFilesActivity.startUploadActivityForResult(fileActivity, user.get(), FileDisplayActivity.REQUEST_CODE__SELECT_FILES_FROM_FILE_SYSTEM, isWithinEncryptedFolder);
     }
 
@@ -1509,6 +1509,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
      *
      * @return The currently viewed OCFile
      */
+    @Nullable
     public OCFile getCurrentFile() {
         return mFile;
     }
