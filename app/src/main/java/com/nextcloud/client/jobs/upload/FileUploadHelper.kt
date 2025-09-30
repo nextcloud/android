@@ -238,27 +238,18 @@ class FileUploadHelper {
     }
 
     fun cancelAndRestartUploadJob(user: User, uploadIds: LongArray) {
-        val entities = uploadsStorageManager.uploadDao.getUploadsByIds(uploadIds, user.accountName)
-        val existingUploadIds = mutableSetOf<Long>()
-        for (entity in entities) {
-            val remotePath = entity.remotePath
-            if (remotePath == null) {
-                continue
-            }
-
-            entity.id?.toLong()?.let { id ->
-                existingUploadIds.add(id)
-            }
-
-            FileUploadWorker.cancelCurrentUpload(remotePath, user.accountName, onCompleted = {
-                setStatusOfUploadToCancel(remotePath)
-            })
+        backgroundJobManager.run {
+            cancelFilesUploadJob(user)
+            startFilesUploadJob(user, uploadIds, false)
         }
-
-        backgroundJobManager.startFilesUploadJob(user, existingUploadIds.toLongArray(), false)
     }
 
     fun isUploading(remotePath: String?, accountName: String?): Boolean {
+        accountName ?: return false
+        if (!backgroundJobManager.isStartFileUploadJobScheduled(accountName)) {
+            return false
+        }
+
         remotePath ?: return false
         val upload = uploadsStorageManager.uploadDao.getByRemotePath(remotePath)
         val uploadFromContentUri = uploadsStorageManager.getUploadByRemotePath(remotePath)
