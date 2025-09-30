@@ -233,6 +233,10 @@ class FileUploadHelper {
                 val entity = getByRemotePath(remotePath) ?: return@launch
                 entity.status = UploadStatus.UPLOAD_CANCELLED.value
                 update(entity)
+
+                val uploadFromContentUri = uploadsStorageManager.getUploadByRemotePath(remotePath) ?: return@launch
+                uploadFromContentUri.uploadStatus = UploadStatus.UPLOAD_CANCELLED
+                uploadsStorageManager.updateUpload(uploadFromContentUri)
             }
         }
     }
