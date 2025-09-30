@@ -229,15 +229,15 @@ class FileUploadHelper {
 
     fun setStatusOfUploadToCancel(remotePath: String) {
         ioScope.launch {
-            uploadsStorageManager.uploadDao.run {
-                getByRemotePath(remotePath)?.let { entity ->
+            uploadsStorageManager.run {
+                uploadDao.getByRemotePath(remotePath)?.let { entity ->
                     entity.status = UploadStatus.UPLOAD_CANCELLED.value
-                    update(entity)
+                    uploadDao.update(entity)
                 }
 
-                uploadsStorageManager.getUploadByRemotePath(remotePath)?.let { uploadFromContentUri ->
+                getUploadByRemotePath(remotePath)?.let { uploadFromContentUri ->
                     uploadFromContentUri.uploadStatus = UploadStatus.UPLOAD_CANCELLED
-                    uploadsStorageManager.updateUpload(uploadFromContentUri)
+                    updateUpload(uploadFromContentUri)
                 }
             }
         }
