@@ -93,12 +93,16 @@
     <string name="auth_unsupported_multiaccount">%1$s haitumii akaunti nyingi</string>
     <string name="auth_wrong_connection_title">Haikuweza kuanzisha muunganisho</string>
     <string name="authenticator_activity_cancel_login">Ghairi uingiaji</string>
+    <string name="authenticator_activity_empty_base_url">Tafadhali weka anwani sahihi ya seva.</string>
+    <string name="authenticator_activity_empty_response_message">Imeshindwa kuleta maelezo ya kuingia. Tafadhali jaribu tena.</string>
     <string name="authenticator_activity_login_error">Kulikuwa na tatizo la kuchakata ombi lako la kuingia. Tafadhali jaribu tena baadaye.</string>
+    <string name="authenticator_activity_no_web_browser_found">Hakuna kivinjari kinachopatikana ili kufungua kiungo hiki.</string>
     <string name="authenticator_activity_please_complete_login_process">Tafadhali kamilisha mchakato wa kuingia katika kivinjari chako</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">iliyohifadhiwa kwenye folda asili, kwani inasomwa tu</string>
     <string name="auto_upload_on_wifi">Pakia kwenye Wi-Fi isiyopimwa pekee</string>
     <string name="auto_upload_path">/Pakia Kiotomatiki</string>
     <string name="auto_upload_sub_folder_warning">Folda hii tayari imejumuishwa katika usawazishaji wa folda kuu, ambayo inaweza kusababisha upakiaji unaorudiwa</string>
+    <string name="auto_upload_worker_start_text">Inapakia faili kutoka %s hadi %s</string>
     <string name="autoupload_configure">Sanidi</string>
     <string name="autoupload_create_new_custom_folder">Unda usanidi mpya wa folda maalum</string>
     <string name="autoupload_custom_folder">Sanidi folda maalum</string>

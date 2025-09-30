@@ -102,6 +102,7 @@
     <string name="auto_upload_on_wifi">Subir sólo con conexión Wi-Fi sin límite de datos</string>
     <string name="auto_upload_path">/CargaAutomática</string>
     <string name="auto_upload_sub_folder_warning">Esta carpeta ya está incluida en la sincronización de la carpeta principal, lo que puede provocar subidas duplicadas.</string>
+    <string name="auto_upload_worker_start_text">Subiendo archivos desde %s a %s</string>
     <string name="autoupload_configure">Configurar</string>
     <string name="autoupload_create_new_custom_folder">Crear nueva configuración de una carpeta especifica </string>
     <string name="autoupload_custom_folder">Configure una carpeta especifica </string>
