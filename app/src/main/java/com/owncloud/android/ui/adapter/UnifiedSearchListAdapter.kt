@@ -91,7 +91,8 @@ class UnifiedSearchListAdapter(
                     listInterface,
                     filesAction,
                     context,
-                    nextcloudClient
+                    nextcloudClient,
+                    viewThemeUtils
                 )
             }
             VIEW_TYPE_CURRENT_DIR -> {
