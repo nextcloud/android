@@ -104,7 +104,7 @@ class FileUploadWorker(
         fun cancelCurrentUpload(remotePath: String, accountName: String, onCompleted: () -> Unit) {
             currentUploadFileOperation?.let {
                 if (it.remotePath == remotePath && it.user.accountName == accountName) {
-                    it.cancel(null)
+                    it.cancel(ResultCode.USER_CANCELLED)
                     onCompleted()
                 }
             }
@@ -397,6 +397,10 @@ class FileUploadWorker(
         )
 
         if (!notDelayed || !isValidFile) {
+            return
+        }
+
+        if (uploadResult.code == ResultCode.USER_CANCELLED) {
             return
         }
 
