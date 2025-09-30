@@ -637,7 +637,10 @@ internal class BackgroundJobManagerImpl(
         workManager.enqueue(request)
     }
 
-    private fun startFileUploadJobTag(user: User): String = JOB_FILES_UPLOAD + user.accountName
+    private fun startFileUploadJobTag(accountName: String): String = JOB_FILES_UPLOAD + accountName
+
+    override fun isStartFileUploadJobScheduled(accountName: String): Boolean =
+        workManager.isWorkScheduled(startFileUploadJobTag(accountName))
 
     /**
      * This method supports initiating uploads for various scenarios, including:
@@ -655,7 +658,7 @@ internal class BackgroundJobManagerImpl(
         defaultDispatcherScope.launch {
             val batchSize = FileUploadHelper.MAX_FILE_COUNT
             val batches = uploadIds.toList().chunked(batchSize)
-            val tag = startFileUploadJobTag(user)
+            val tag = startFileUploadJobTag(user.accountName)
 
             val constraints = Constraints.Builder()
                 .setRequiredNetworkType(NetworkType.CONNECTED)
@@ -735,6 +738,10 @@ internal class BackgroundJobManagerImpl(
     override fun getFileUploads(user: User): LiveData<List<JobInfo>> {
         val workInfo = workManager.getWorkInfosByTagLiveData(formatNameTag(JOB_FILES_UPLOAD, user))
         return workInfo.map { it -> it.map { fromWorkInfo(it) ?: JobInfo() } }
+    }
+
+    override fun cancelFilesUploadJob(user: User) {
+        workManager.cancelJob(JOB_FILES_UPLOAD, user)
     }
 
     override fun cancelFilesDownloadJob(user: User, fileId: Long) {
