@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
   ~ Nextcloud - Android Client
-  ~
+  ~ SPDX-FileCopyrightText: 2025 Alper Ozturk <alper.ozturk@nextcloud.com>
   ~ SPDX-FileCopyrightText: 2024 Jonas Mayer
   ~ SPDX-FileCopyrightText: 2018 Andy Scherzinger <info@andy-scherzinger.de>
   ~ SPDX-FileCopyrightText: 2018 Tobias Kaminsky <tobias@kaminsky.me>
   ~ SPDX-FileCopyrightText: 2018 Nextcloud
   ~ SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
 -->
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/ListItemLayout"
     android:layout_width="match_parent"
@@ -59,4 +61,41 @@
         android:paddingEnd="@dimen/zero"
         android:paddingBottom="@dimen/standard_half_padding"
         android:src="@drawable/nav_trashbin" />
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/auto_upload_battery_saver_warning_card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/upload_list_title"
+        android:background="@drawable/rounded_rect_8dp"
+        android:layout_marginTop="@dimen/standard_half_margin"
+        android:layout_marginHorizontal="@dimen/standard_half_margin"
+        android:backgroundTint="@color/grey_200"
+        android:elevation="4dp"
+        android:padding="@dimen/standard_double_margin">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/standard_padding"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="@dimen/standard_icon_size"
+                android:layout_height="@dimen/standard_icon_size"
+                android:contentDescription="@string/auto_upload_battery_saver_mode_warning"
+                android:src="@drawable/ic_warning"
+                app:tint="@color/log_level_warning" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_weight="1"
+                android:text="@string/auto_upload_battery_saver_mode_warning"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+                android:textColor="@color/text_color" />
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
 </RelativeLayout>
