@@ -194,7 +194,7 @@ public abstract class ToolbarActivity extends BaseActivity implements Injectable
                                                                                 R.animator.appbar_elevation_off));
             mDefaultToolbar.setVisibility(View.GONE);
             mHomeSearchToolbar.setVisibility(View.VISIBLE);
-            viewThemeUtils.material.themeCardView(mHomeSearchToolbar);
+            viewThemeUtils.material.themeSearchCardView(mHomeSearchToolbar);
             viewThemeUtils.material.themeSearchBarText(mSearchText);
         } else {
             mAppBar.setStateListAnimator(AnimatorInflater.loadStateListAnimator(mAppBar.getContext(),
