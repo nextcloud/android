@@ -1131,10 +1131,6 @@ public class UploadFileOperation extends SyncOperation {
         return result;
     }
 
-    private boolean isCancellationRequested() {
-        return mCancellationRequested.get() || mUpload.getUploadStatus() == UploadsStorageManager.UploadStatus.UPLOAD_CANCELLED;
-    }
-
     private void updateSize(long size) {
         OCUpload ocUpload = uploadsStorageManager.getUploadById(getOCUploadId());
         if (ocUpload != null) {
@@ -1172,7 +1168,7 @@ public class UploadFileOperation extends SyncOperation {
             return copy(originalFile, temporalFile);
         }
 
-        if (isCancellationRequested()) {
+        if (mCancellationRequested.get()) {
             throw new OperationCancelledException();
         }
 
@@ -1214,7 +1210,7 @@ public class UploadFileOperation extends SyncOperation {
             }
         }
 
-        if (isCancellationRequested()) {
+        if (mCancellationRequested.get()) {
             throw new OperationCancelledException();
         }
 
@@ -1438,21 +1434,37 @@ public class UploadFileOperation extends SyncOperation {
     }
 
     /**
-     * Allows to cancel the actual upload operation. If actual upload operating is in progress it is cancelled, if
-     * upload preparation is being performed upload will not take place.
+     * Cancels the current upload process.
+     *
+     * <p>
+     * Behavior depends on the current state of the upload:
+     * <ul>
+     *   <li><b>Upload in preparation:</b> Upload will not start and a cancellation flag is set.</li>
+     *   <li><b>Upload in progress:</b> The ongoing upload operation is cancelled via
+     *       {@link UploadFileRemoteOperation#cancel(ResultCode)}.</li>
+     *   <li><b>No upload operation:</b> A cancellation flag is still set, but this situation is unexpected
+     *       and logged as an error.</li>
+     * </ul>
+     *
+     * <p>
+     * Once cancelled, the database will be updated through
+     * {@link UploadsStorageManager#updateDatabaseUploadResult(RemoteOperationResult, UploadFileOperation)}.
+     *
+     * @param cancellationReason the reason for cancellation
      */
     public void cancel(ResultCode cancellationReason) {
-        if (mUploadOperation == null) {
-            if (mUploadStarted.get()) {
-                Log_OC.d(TAG, "Cancelling upload during upload preparations.");
-                mCancellationRequested.set(true);
-            } else {
-                mCancellationRequested.set(true);
-                Log_OC.e(TAG, "No upload in progress. This should not happen.");
-            }
-        } else {
+        if (mUploadOperation != null) {
+            // Cancel an active upload
             Log_OC.d(TAG, "Cancelling upload during actual upload operation.");
             mUploadOperation.cancel(cancellationReason);
+        } else {
+            // Cancel while preparing or when no upload exists
+            mCancellationRequested.set(true);
+            if (mUploadStarted.get()) {
+                Log_OC.d(TAG, "Cancelling upload during preparation.");
+            } else {
+                Log_OC.e(TAG, "No upload in progress. This should not happen.");
+            }
         }
     }
 
@@ -1507,7 +1519,7 @@ public class UploadFileOperation extends SyncOperation {
                     out = new FileOutputStream(targetFile);
                     int nRead;
                     byte[] buf = new byte[4096];
-                    while (!isCancellationRequested() &&
+                    while (!mCancellationRequested.get() &&
                         (nRead = in.read(buf)) > -1) {
                         out.write(buf, 0, nRead);
                     }
@@ -1515,11 +1527,11 @@ public class UploadFileOperation extends SyncOperation {
 
                 } // else: weird but possible situation, nothing to copy
 
-                if (isCancellationRequested()) {
-                    return new RemoteOperationResult<>(new OperationCancelledException());
+                if (mCancellationRequested.get()) {
+                    return new RemoteOperationResult(new OperationCancelledException());
                 }
             } catch (Exception e) {
-                return new RemoteOperationResult<>(ResultCode.LOCAL_STORAGE_NOT_COPIED);
+                return new RemoteOperationResult(ResultCode.LOCAL_STORAGE_NOT_COPIED);
             } finally {
                 try {
                     if (in != null) {

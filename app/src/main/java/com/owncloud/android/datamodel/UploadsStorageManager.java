@@ -798,7 +798,7 @@ public class UploadsStorageManager extends Observable {
                     upload.getRemotePath(),
                     localPath
                                   );
-            } else {
+            } else if (uploadResult.getCode() != RemoteOperationResult.ResultCode.USER_CANCELLED){
                 updateUploadStatus(
                     upload.getOCUploadId(),
                     UploadStatus.UPLOAD_FAILED,
