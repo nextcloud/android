@@ -1177,8 +1177,12 @@ class FileDisplayActivity :
         val currentFile = listOfFiles.currentFile
 
         file = currentFile
-        listOfFiles.setFabVisible(currentFile.canCreateFileAndFolder())
-        listOfFiles.registerFabListener()
+
+        currentFile?.let {
+            listOfFiles.setFabVisible(currentFile.canCreateFileAndFolder())
+            listOfFiles.registerFabListener()
+        }
+
         resetTitleBarAndScrolling()
         configureToolbar()
         startMetadataSyncForCurrentDir()
@@ -2654,11 +2658,7 @@ class FileDisplayActivity :
             return
         }
 
-        val folder = listOfFiles.currentFile
-        if (folder == null) {
-            return
-        }
-
+        val folder = listOfFiles.currentFile ?: return
         startSyncFolderOperation(folder, ignoreETag, ignoreFocus)
     }
 
