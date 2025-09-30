@@ -147,10 +147,8 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
                     }
 
                     for (OCUpload upload: group.items) {
-                        FileUploadWorker.Companion.cancelCurrentUpload(upload.getRemotePath(), accountName, () -> {
-                            uploadHelper.setStatusOfUploadToCancel(upload.getRemotePath());
-                            return Unit.INSTANCE;
-                        });
+                        uploadHelper.setStatusOfUploadToCancel(upload.getRemotePath());
+                        FileUploadWorker.Companion.cancelCurrentUpload(upload.getRemotePath(), accountName, () -> Unit.INSTANCE);
                     }
                     loadUploadItemsFromDb();
                 }).start();
@@ -434,10 +432,8 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
             itemViewHolder.binding.uploadRightButton.setImageResource(R.drawable.ic_action_cancel_grey);
             itemViewHolder.binding.uploadRightButton.setVisibility(View.VISIBLE);
             itemViewHolder.binding.uploadRightButton.setOnClickListener(v -> {
-                FileUploadWorker.Companion.cancelCurrentUpload(item.getRemotePath(), item.getAccountName(), () -> {
-                    uploadHelper.setStatusOfUploadToCancel(item.getRemotePath());
-                    return Unit.INSTANCE;
-                });
+                uploadHelper.setStatusOfUploadToCancel(item.getRemotePath());
+                FileUploadWorker.Companion.cancelCurrentUpload(item.getRemotePath(), item.getAccountName(), () -> Unit.INSTANCE);
                 loadUploadItemsFromDb();
             });
 
