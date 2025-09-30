@@ -102,6 +102,7 @@
     <string name="auto_upload_on_wifi">只在非計量收費的 Wi-Fi 上傳</string>
     <string name="auto_upload_path">/AutoUpload</string>
     <string name="auto_upload_sub_folder_warning">此資料夾已包含在上層資料夾的同步中，這可能會導致重複上傳</string>
+    <string name="auto_upload_worker_start_text">從 %s 上傳檔案至 %s</string>
     <string name="autoupload_configure">設定</string>
     <string name="autoupload_create_new_custom_folder">新增自訂資料夾</string>
     <string name="autoupload_custom_folder">設置自訂資料夾</string>
