@@ -218,12 +218,6 @@ class FileUploadHelper {
     }
 
     fun removeFileUpload(remotePath: String, accountName: String) {
-        try {
-            uploadsStorageManager.removeUpload(accountName, remotePath)
-        } catch (e: NoSuchElementException) {
-            Log_OC.e(TAG, "Error cancelling current upload because user does not exist!: " + e.message)
-        }
-
         uploadsStorageManager.uploadDao.deleteByAccountAndRemotePath(accountName, remotePath)
     }
 
@@ -233,11 +227,6 @@ class FileUploadHelper {
                 uploadDao.getByRemotePath(remotePath)?.let { entity ->
                     entity.status = UploadStatus.UPLOAD_CANCELLED.value
                     uploadDao.update(entity)
-                }
-
-                getUploadByRemotePath(remotePath)?.let { uploadFromContentUri ->
-                    uploadFromContentUri.uploadStatus = UploadStatus.UPLOAD_CANCELLED
-                    updateUpload(uploadFromContentUri)
                 }
             }
         }
@@ -250,6 +239,7 @@ class FileUploadHelper {
         }
     }
 
+    @Suppress("ReturnCount")
     fun isUploading(remotePath: String?, accountName: String?): Boolean {
         accountName ?: return false
         if (!backgroundJobManager.isStartFileUploadJobScheduled(accountName)) {
@@ -258,10 +248,7 @@ class FileUploadHelper {
 
         remotePath ?: return false
         val upload = uploadsStorageManager.uploadDao.getByRemotePath(remotePath)
-        val uploadFromContentUri = uploadsStorageManager.getUploadByRemotePath(remotePath)
-
         return upload?.status == UploadStatus.UPLOAD_IN_PROGRESS.value ||
-            uploadFromContentUri?.uploadStatus == UploadStatus.UPLOAD_IN_PROGRESS ||
             FileUploadWorker.isUploading(remotePath, accountName)
     }
 
