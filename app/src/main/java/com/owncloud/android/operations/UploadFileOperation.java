@@ -79,12 +79,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.RandomAccessFile;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.nio.channels.FileChannel;
 import java.nio.channels.FileLock;
 import java.nio.channels.OverlappingFileLockException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
@@ -1132,6 +1131,10 @@ public class UploadFileOperation extends SyncOperation {
         return result;
     }
 
+    private boolean isCancellationRequested() {
+        return mCancellationRequested.get() || mUpload.getUploadStatus() == UploadsStorageManager.UploadStatus.UPLOAD_CANCELLED;
+    }
+
     private void updateSize(long size) {
         OCUpload ocUpload = uploadsStorageManager.getUploadById(getOCUploadId());
         if (ocUpload != null) {
@@ -1169,7 +1172,7 @@ public class UploadFileOperation extends SyncOperation {
             return copy(originalFile, temporalFile);
         }
 
-        if (mCancellationRequested.get()) {
+        if (isCancellationRequested()) {
             throw new OperationCancelledException();
         }
 
@@ -1211,7 +1214,7 @@ public class UploadFileOperation extends SyncOperation {
             }
         }
 
-        if (mCancellationRequested.get()) {
+        if (isCancellationRequested()) {
             throw new OperationCancelledException();
         }
 
@@ -1504,7 +1507,7 @@ public class UploadFileOperation extends SyncOperation {
                     out = new FileOutputStream(targetFile);
                     int nRead;
                     byte[] buf = new byte[4096];
-                    while (!mCancellationRequested.get() &&
+                    while (!isCancellationRequested() &&
                         (nRead = in.read(buf)) > -1) {
                         out.write(buf, 0, nRead);
                     }
@@ -1512,11 +1515,11 @@ public class UploadFileOperation extends SyncOperation {
 
                 } // else: weird but possible situation, nothing to copy
 
-                if (mCancellationRequested.get()) {
-                    return new RemoteOperationResult(new OperationCancelledException());
+                if (isCancellationRequested()) {
+                    return new RemoteOperationResult<>(new OperationCancelledException());
                 }
             } catch (Exception e) {
-                return new RemoteOperationResult(ResultCode.LOCAL_STORAGE_NOT_COPIED);
+                return new RemoteOperationResult<>(ResultCode.LOCAL_STORAGE_NOT_COPIED);
             } finally {
                 try {
                     if (in != null) {
