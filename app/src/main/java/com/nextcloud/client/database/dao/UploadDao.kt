@@ -31,7 +31,8 @@ interface UploadDao {
     fun getUploadsByIds(ids: LongArray, accountName: String): List<UploadEntity>
 
     @Query(
-        "SELECT * FROM ${ProviderTableMeta.UPLOADS_TABLE_NAME} WHERE ${ProviderTableMeta.UPLOADS_REMOTE_PATH} = :remotePath LIMIT 1"
+        "SELECT * FROM ${ProviderTableMeta.UPLOADS_TABLE_NAME} " +
+            "WHERE ${ProviderTableMeta.UPLOADS_REMOTE_PATH} = :remotePath LIMIT 1"
     )
     fun getByRemotePath(remotePath: String): UploadEntity?
 
