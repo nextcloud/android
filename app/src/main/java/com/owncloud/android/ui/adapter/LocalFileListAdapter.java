@@ -24,6 +24,7 @@ import android.widget.TextView;
 
 import com.nextcloud.android.common.ui.theme.utils.ColorRole;
 import com.nextcloud.client.preferences.AppPreferences;
+import com.nextcloud.utils.FileHelper;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.lib.common.utils.Log_OC;
@@ -34,10 +35,6 @@ import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.theme.ViewThemeUtils;
 
 import java.io.File;
-import java.io.IOException;
-import java.nio.file.DirectoryStream;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -338,7 +335,7 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
                 if (mLocalFolderPicker) {
                     firstPage = getFolders(directory);
                 } else {
-                    firstPage = fetchFiles(directory, currentOffset);
+                    firstPage = FileHelper.INSTANCE.fetchFiles(directory, currentOffset, PAGE_SIZE);
                 }
             }
 
@@ -373,7 +370,6 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
         });
     }
 
-    @SuppressLint("NotifyDataSetChanged")
     private void loadRemainingFiles(File directory) {
         if (mLocalFolderPicker) return;
 
@@ -381,7 +377,7 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
         FileSortOrder sortOrder = preferences.getSortOrderByType(FileSortOrder.Type.localFileListView);
 
         while (true) {
-            List<File> nextPage = fetchFiles(directory, currentOffset);
+            List<File> nextPage = FileHelper.INSTANCE.fetchFiles(directory, currentOffset, PAGE_SIZE);
             if (nextPage.isEmpty()) break;
 
             if (!showHiddenFiles) nextPage = filterHiddenFiles(nextPage);
@@ -391,10 +387,11 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
 
             List<File> finalNextPage = nextPage;
             new Handler(Looper.getMainLooper()).post(() -> {
+                int positionStart = mFiles.size();
                 mFiles.addAll(finalNextPage);
                 mFilesAll.addAll(finalNextPage);
                 Log_OC.d(TAG, "loadRemainingFiles, next page loaded. Item size: " + mFilesAll.size());
-                notifyDataSetChanged();
+                notifyItemRangeInserted(positionStart, finalNextPage.size());
             });
         }
     }
@@ -421,27 +418,6 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
         } else {
             return new ArrayList<>();
         }
-    }
-
-    private List<File> fetchFiles(File folder, int offset) {
-        List<File> files = new ArrayList<>();
-        if (folder == null || !folder.exists() || !folder.isDirectory()) return files;
-
-        Path dir = folder.toPath();
-        int skipped = 0;
-        try (DirectoryStream<Path> stream = Files.newDirectoryStream(dir)) {
-            for (Path entry : stream) {
-                if (skipped < offset) {
-                    skipped++;
-                    continue;
-                }
-                files.add(entry.toFile());
-                if (files.size() >= LocalFileListAdapter.PAGE_SIZE) break;
-            }
-        } catch (IOException e) {
-            Log_OC.d(TAG, "fetchFiles: " + e);
-        }
-        return files;
     }
 
     private List<File> getFiles(File directory) {
