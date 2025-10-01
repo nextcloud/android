@@ -16,7 +16,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.ViewOutlineProvider
 import androidx.coordinatorlayout.widget.CoordinatorLayout
-import com.google.android.material.behavior.HideBottomViewOnScrollBehavior
+import com.nextcloud.ui.behavior.OnScrollBehavior
 
 fun View?.setVisibleIf(condition: Boolean) {
     if (this == null) return
@@ -89,11 +89,8 @@ fun createRoundedOutline(context: Context, cornerRadiusValue: Float): ViewOutlin
 fun <T : View?> T.slideHideBottomBehavior(visible: Boolean) {
     this ?: return
     val params = layoutParams as? CoordinatorLayout.LayoutParams ?: return
-    val behavior = params.behavior as? HideBottomViewOnScrollBehavior<T> ?: return
+    val behavior = params.behavior as? OnScrollBehavior<T> ?: return
 
-    if (visible) {
-        behavior.slideUp(this)
-    } else {
-        behavior.slideDown(this)
-    }
+    val targetY = if (visible) 0f else height.toFloat()
+    animate().translationY(targetY).setDuration(50).start() // very fast animation
 }
