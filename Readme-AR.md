@@ -1,5 +1,7 @@
-// SPDX-FileCopyrightText: 2025 Saeed <saidhany244@gmail.com>
-// SPDX-License-Identifier: GPL-2.0-or-later
+<!--
+  ~ SPDX-FileCopyrightText: 2025 Saeed <saidhany244@example.com>
+  ~ SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
+ -->
 # تطبيق [Nextcloud](https://nextcloud.com)لأجهزة أندرويد 📱
 
 [![حالة REUSE](https://api.reuse.software/badge/github.com/nextcloud/android)](https://api.reuse.software/info/github.com/nextcloud/android)  
