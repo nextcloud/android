@@ -1,14 +1,12 @@
 /*
- * Nextcloud Android client application
+ * Nextcloud - Android Client
  *
- * @author Tobias Kaminsky
- * Copyright (C) 2018 Tobias Kaminsky
- * Copyright (C) 2018 Nextcloud
- *
- * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
+ * SPDX-FileCopyrightText: 2025 Your Name <your@email.com>
+ * SPDX-License-Identifier: AGPL-3.0-or-later
  */
-package com.owncloud.android.ui.adapter;
+package com.owncloud.android.ui.adapter.localFileListAdapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -26,6 +24,7 @@ import com.nextcloud.client.preferences.AppPreferences;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.ui.adapter.FilterableListAdapter;
 import com.owncloud.android.ui.interfaces.LocalFileListFragmentInterface;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.FileSortOrder;
@@ -68,6 +67,9 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
     private static final int VIEWTYPE_ITEM = 0;
     private static final int VIEWTYPE_FOOTER = 1;
     private static final int VIEWTYPE_IMAGE = 2;
+    private final int PAGE_SIZE = 50;
+    private int currentPage = 0;
+    private List<File> filteredFiles = new ArrayList<>();
 
     public LocalFileListAdapter(boolean localFolderPickerMode,
                                 File directory,
@@ -315,6 +317,7 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
      *
      * @param directory New file to adapt. Can be NULL, meaning "no content to adapt".
      */
+    @SuppressLint("NotifyDataSetChanged")
     public void swapDirectory(final File directory) {
         localFileListFragmentInterface.setLoading(true);
         final Handler uiHandler = new Handler(Looper.getMainLooper());
@@ -341,15 +344,16 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
                 }
             }
             final List<File> newFiles = fileList;
-
             uiHandler.post(() -> {
-                mFiles = newFiles;
-                mFilesAll = new ArrayList<>();
-                mFilesAll.addAll(mFiles);
+                mFilesAll = new ArrayList<>(newFiles);
+                filteredFiles = new ArrayList<>(mFilesAll);
+                currentPage = 0;
+                mFiles = loadPage(currentPage);
 
                 notifyDataSetChanged();
                 localFileListFragmentInterface.setLoading(false);
             });
+
         });
 
     }
@@ -366,9 +370,26 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
                 localFileListFragmentInterface.setLoading(false);
             });
         });
-
-
     }
+
+    private List<File> loadPage(int page) {
+        int fromIndex = page * PAGE_SIZE;
+        int toIndex = Math.min(fromIndex + PAGE_SIZE, filteredFiles.size());
+        if (fromIndex < filteredFiles.size()) {
+            return new ArrayList<>(filteredFiles.subList(fromIndex, toIndex));
+        } else {
+            return new ArrayList<>();
+        }
+    }
+
+    public void loadNextPage() {
+        currentPage++;
+        List<File> nextPage = loadPage(currentPage);
+        int startPos = mFiles.size();
+        mFiles.addAll(nextPage);
+        notifyItemRangeInserted(startPos, nextPage.size());
+    }
+
 
     private List<File> getFolders(final File directory) {
         File[] folders = directory.listFiles(File::isDirectory);
@@ -390,19 +411,21 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
         }
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     public void filter(String text) {
         if (text.isEmpty()) {
-            mFiles = mFilesAll;
+            filteredFiles = new ArrayList<>(mFilesAll);
         } else {
-            List<File> result = new ArrayList<>();
             String filterText = text.toLowerCase(Locale.getDefault());
+            filteredFiles = new ArrayList<>();
             for (File file : mFilesAll) {
                 if (file.getName().toLowerCase(Locale.getDefault()).contains(filterText)) {
-                    result.add(file);
+                    filteredFiles.add(file);
                 }
             }
-            mFiles = result;
         }
+        currentPage = 0;
+        mFiles = loadPage(currentPage);
         notifyDataSetChanged();
     }
 

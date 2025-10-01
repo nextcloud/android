@@ -22,7 +22,7 @@ import android.view.ViewGroup;
 import com.nextcloud.client.di.Injectable;
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.ui.adapter.LocalFileListAdapter;
+import com.owncloud.android.ui.adapter.localFileListAdapter.LocalFileListAdapter;
 import com.owncloud.android.ui.interfaces.LocalFileListFragmentInterface;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.FileSortOrder;
@@ -33,6 +33,7 @@ import java.util.List;
 import androidx.annotation.NonNull;
 import androidx.annotation.VisibleForTesting;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import static com.owncloud.android.utils.DisplayUtils.openSortingOrderDialogFragment;
@@ -119,6 +120,27 @@ public class LocalFileListFragment extends ExtendedListFragment implements
                                             viewThemeUtils,
                                             mContainerActivity.isWithinEncryptedFolder());
         setRecyclerViewAdapter(mAdapter);
+        RecyclerView recyclerView = getRecyclerView();
+        if (recyclerView != null) {
+            recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+                @Override
+                public void onScrolled(@NonNull RecyclerView rv, int dx, int dy) {
+                    if (dy > 0) {
+                        RecyclerView.LayoutManager lm = rv.getLayoutManager();
+                        if (lm instanceof LinearLayoutManager llm) {
+                            int visibleItemCount = llm.getChildCount();
+                            int totalItemCount = llm.getItemCount();
+                            int pastVisibleItems = llm.findFirstVisibleItemPosition();
+
+                            if ((visibleItemCount + pastVisibleItems) >= totalItemCount) {
+                                mAdapter.loadNextPage();
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
 
         listDirectory(mContainerActivity.getInitialDirectory());
 
@@ -422,6 +444,4 @@ public class LocalFileListFragment extends ExtendedListFragment implements
 
         boolean isWithinEncryptedFolder();
     }
-
-
 }

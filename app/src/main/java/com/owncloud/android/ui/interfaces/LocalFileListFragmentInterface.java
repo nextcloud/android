@@ -7,7 +7,7 @@
  */
 package com.owncloud.android.ui.interfaces;
 
-import com.owncloud.android.ui.adapter.LocalFileListAdapter;
+import com.owncloud.android.ui.adapter.localFileListAdapter.LocalFileListAdapter;
 
 import java.io.File;
 
