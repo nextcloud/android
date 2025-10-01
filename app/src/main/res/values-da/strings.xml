@@ -93,7 +93,10 @@
     <string name="auth_unsupported_multiaccount">%1$s understøtter ikke flere konti</string>
     <string name="auth_wrong_connection_title">Kunne ikke etablere forbindelse</string>
     <string name="authenticator_activity_cancel_login">Annuller log på</string>
+    <string name="authenticator_activity_empty_base_url">Angiv venligst en gyldig serveradresse.</string>
+    <string name="authenticator_activity_empty_response_message">Kan ikke hent log på detaljer. Prøv venligst igen.</string>
     <string name="authenticator_activity_login_error">Der opstod et problem i forbindelse med din log på forespørgsel. Prøv venligst igen senere.</string>
+    <string name="authenticator_activity_no_web_browser_found">Der er ingen browser tilgængelig til at åbne dette link.</string>
     <string name="authenticator_activity_please_complete_login_process">Gennemfør venligst log på processen i din browser</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">Forblevet i oprindelig folder, da den er skrivebeskyttet</string>
     <string name="auto_upload_on_wifi">Upload kun på ubegrænset wifi</string>

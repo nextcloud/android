@@ -93,12 +93,16 @@
     <string name="auth_unsupported_multiaccount">%1$s nie wspiera wielu kont</string>
     <string name="auth_wrong_connection_title">Nie udało się ustanowić połączenia</string>
     <string name="authenticator_activity_cancel_login">Anuluj logowanie</string>
+    <string name="authenticator_activity_empty_base_url">Proszę wprowadzić poprawny adres serwera.</string>
+    <string name="authenticator_activity_empty_response_message">Nie można pobrać danych logowania. Spróbuj ponownie.</string>
     <string name="authenticator_activity_login_error">Wystąpił problem podczas przetwarzania żądania logowania. Spróbuj ponownie później.</string>
+    <string name="authenticator_activity_no_web_browser_found">Brak dostępnej przeglądarki do otwarcia tego linku.</string>
     <string name="authenticator_activity_please_complete_login_process">Dokończ proces logowania w przeglądarce</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">zachowany w oryginalnym katalogu, jak jest tylko do odczytu</string>
     <string name="auto_upload_on_wifi">Wysyłaj tylko przez Wi-Fi</string>
     <string name="auto_upload_path">/AutoUpload</string>
     <string name="auto_upload_sub_folder_warning">Ten katalog jest już uwzględniony w synchronizacji katalogu nadrzędnego, co może powodować duplikowanie wysyłanych plików</string>
+    <string name="auto_upload_worker_start_text">Przesyłanie plików z %s do %s</string>
     <string name="autoupload_configure">Konfiguruj</string>
     <string name="autoupload_create_new_custom_folder">Utwórz nową niestandardową konfigurację katalogu</string>
     <string name="autoupload_custom_folder">Ustaw własny katalog</string>
