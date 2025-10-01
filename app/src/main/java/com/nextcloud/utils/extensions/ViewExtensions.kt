@@ -17,6 +17,7 @@ import android.view.ViewGroup
 import android.view.ViewOutlineProvider
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import com.nextcloud.ui.behavior.OnScrollBehavior
+import com.owncloud.android.lib.common.utils.Log_OC
 
 fun View?.setVisibleIf(condition: Boolean) {
     if (this == null) return
@@ -85,12 +86,20 @@ fun createRoundedOutline(context: Context, cornerRadiusValue: Float): ViewOutlin
         }
     }
 
-@Suppress("UNCHECKED_CAST", "ReturnCount")
+@Suppress("UNCHECKED_CAST", "ReturnCount", "TooGenericExceptionCaught")
 fun <T : View?> T.slideHideBottomBehavior(visible: Boolean) {
     this ?: return
     val params = layoutParams as? CoordinatorLayout.LayoutParams ?: return
     val behavior = params.behavior as? OnScrollBehavior<T> ?: return
-
-    val targetY = if (visible) 0f else height.toFloat()
-    animate().translationY(targetY).setDuration(50).start() // very fast animation
+    post {
+        try {
+            if (visible) {
+                behavior.slideIn(this)
+            } else {
+                behavior.slideOut(this)
+            }
+        } catch (e: Exception) {
+            Log_OC.e("slideHideBottomBehavior", e.message)
+        }
+    }
 }
