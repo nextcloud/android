@@ -1,4 +1,6 @@
-# تطبيق [Nextcloud](https://nextcloud.com) لأجهزة أندرويد 📱
+// SPDX-FileCopyrightText: 2025 Saeed <saidhany244@gmail.com>
+// SPDX-License-Identifier: GPL-2.0-or-later
+# تطبيق [Nextcloud](https://nextcloud.com)لأجهزة أندرويد 📱
 
 [![حالة REUSE](https://api.reuse.software/badge/github.com/nextcloud/android)](https://api.reuse.software/info/github.com/nextcloud/android)  
 [![حالة البناء](https://drone.nextcloud.com/api/badges/nextcloud/android/status.svg)](https://drone.nextcloud.com/nextcloud/android)  
