@@ -9,6 +9,7 @@
  */
 package com.owncloud.android.ui.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -33,6 +34,10 @@ import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.theme.ViewThemeUtils;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.DirectoryStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -68,6 +73,10 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
     private static final int VIEWTYPE_ITEM = 0;
     private static final int VIEWTYPE_FOOTER = 1;
     private static final int VIEWTYPE_IMAGE = 2;
+
+    private static final int PAGE_SIZE = 50;
+    private int currentOffset = 0;
+    private File currentDirectory = null;
 
     public LocalFileListAdapter(boolean localFolderPickerMode,
                                 File directory,
@@ -315,43 +324,79 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
      *
      * @param directory New file to adapt. Can be NULL, meaning "no content to adapt".
      */
+    @SuppressLint("NotifyDataSetChanged")
     public void swapDirectory(final File directory) {
         localFileListFragmentInterface.setLoading(true);
-        final Handler uiHandler = new Handler(Looper.getMainLooper());
+        currentDirectory = directory;
+        currentOffset = 0; // reset offset
+
         Executors.newSingleThreadExecutor().execute(() -> {
-            List<File> fileList;
+            List<File> firstPage;
             if (directory == null) {
-                fileList = new ArrayList<>();
+                firstPage = new ArrayList<>();
             } else {
                 if (mLocalFolderPicker) {
-                    fileList = getFolders(directory);
+                    firstPage = getFolders(directory);
                 } else {
-                    fileList = getFiles(directory);
+                    firstPage = fetchFiles(directory, currentOffset);
                 }
             }
 
-            if (!fileList.isEmpty()) {
+            // sort and filter
+            if (!firstPage.isEmpty()) {
                 FileSortOrder sortOrder = preferences.getSortOrderByType(FileSortOrder.Type.localFileListView);
-                fileList = sortOrder.sortLocalFiles(fileList);
+                firstPage = sortOrder.sortLocalFiles(firstPage);
 
-                // Fetch preferences for showing hidden files
                 boolean showHiddenFiles = preferences.isShowHiddenFilesEnabled();
                 if (!showHiddenFiles) {
-                    fileList = filterHiddenFiles(fileList);
+                    firstPage = filterHiddenFiles(firstPage);
                 }
             }
-            final List<File> newFiles = fileList;
 
-            uiHandler.post(() -> {
-                mFiles = newFiles;
-                mFilesAll = new ArrayList<>();
-                mFilesAll.addAll(mFiles);
+            final List<File> initialFiles = firstPage;
+            if (!mLocalFolderPicker) {
+                currentOffset += initialFiles.size();
+            }
 
+            // update UI immediately with first page
+            new Handler(Looper.getMainLooper()).post(() -> {
+                mFiles = new ArrayList<>(initialFiles);
+                mFilesAll = new ArrayList<>(initialFiles);
                 notifyDataSetChanged();
                 localFileListFragmentInterface.setLoading(false);
             });
-        });
 
+            // load the rest silently in the background
+            if (!mLocalFolderPicker) {
+                loadRemainingFiles(directory);
+            }
+        });
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    private void loadRemainingFiles(File directory) {
+        if (mLocalFolderPicker) return;
+
+        boolean showHiddenFiles = preferences.isShowHiddenFilesEnabled();
+        FileSortOrder sortOrder = preferences.getSortOrderByType(FileSortOrder.Type.localFileListView);
+
+        while (true) {
+            List<File> nextPage = fetchFiles(directory, currentOffset);
+            if (nextPage.isEmpty()) break;
+
+            if (!showHiddenFiles) nextPage = filterHiddenFiles(nextPage);
+            nextPage = sortOrder.sortLocalFiles(nextPage);
+
+            currentOffset += nextPage.size();
+
+            List<File> finalNextPage = nextPage;
+            new Handler(Looper.getMainLooper()).post(() -> {
+                mFiles.addAll(finalNextPage);
+                mFilesAll.addAll(finalNextPage);
+                Log_OC.d(TAG, "loadRemainingFiles, next page loaded. Item size: " + mFilesAll.size());
+                notifyDataSetChanged();
+            });
+        }
     }
 
     public void setSortOrder(FileSortOrder sortOrder) {
@@ -366,8 +411,6 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
                 localFileListFragmentInterface.setLoading(false);
             });
         });
-
-
     }
 
     private List<File> getFolders(final File directory) {
@@ -378,6 +421,27 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
         } else {
             return new ArrayList<>();
         }
+    }
+
+    private List<File> fetchFiles(File folder, int offset) {
+        List<File> files = new ArrayList<>();
+        if (folder == null || !folder.exists() || !folder.isDirectory()) return files;
+
+        Path dir = folder.toPath();
+        int skipped = 0;
+        try (DirectoryStream<Path> stream = Files.newDirectoryStream(dir)) {
+            for (Path entry : stream) {
+                if (skipped < offset) {
+                    skipped++;
+                    continue;
+                }
+                files.add(entry.toFile());
+                if (files.size() >= LocalFileListAdapter.PAGE_SIZE) break;
+            }
+        } catch (IOException e) {
+            Log_OC.d(TAG, "fetchFiles: " + e);
+        }
+        return files;
     }
 
     private List<File> getFiles(File directory) {
