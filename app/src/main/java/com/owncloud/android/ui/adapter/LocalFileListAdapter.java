@@ -36,8 +36,6 @@ import com.owncloud.android.utils.theme.ViewThemeUtils;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
@@ -135,25 +133,11 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
     }
 
     public String[] getCheckedFilesPath() {
-        List<String> result = listFilesRecursive(checkedFiles);
+        List<String> result = FileHelper.INSTANCE.listFilesRecursive(checkedFiles);
 
         Log_OC.d(TAG, "Returning " + result.size() + " selected files");
 
         return result.toArray(new String[0]);
-    }
-
-    public List<String> listFilesRecursive(Collection<File> files) {
-        List<String> result = new ArrayList<>();
-
-        for (File file : files) {
-            if (file.isDirectory()) {
-                result.addAll(listFilesRecursive(getFiles(file)));
-            } else {
-                result.add(file.getAbsolutePath());
-            }
-        }
-
-        return result;
     }
 
     @Override
@@ -333,7 +317,7 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
                 firstPage = new ArrayList<>();
             } else {
                 if (mLocalFolderPicker) {
-                    firstPage = getFolders(directory);
+                    firstPage = FileHelper.INSTANCE.fetchFolders(directory, currentOffset, PAGE_SIZE);
                 } else {
                     firstPage = FileHelper.INSTANCE.fetchFiles(directory, currentOffset, PAGE_SIZE);
                 }
@@ -364,10 +348,31 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
             });
 
             // load the rest silently in the background
-            if (!mLocalFolderPicker) {
+            if(mLocalFolderPicker) {
+                loadRemainingFolders(directory);
+            } else {
                 loadRemainingFiles(directory);
             }
         });
+    }
+
+    private void loadRemainingFolders(File directory) {
+        if (!mLocalFolderPicker) return;
+
+        while (true) {
+            List<File> nextPage = FileHelper.INSTANCE.fetchFolders(directory, currentOffset, PAGE_SIZE);
+            if (nextPage.isEmpty()) break;
+
+            currentOffset += nextPage.size();
+
+            new Handler(Looper.getMainLooper()).post(() -> {
+                int positionStart = mFiles.size();
+                mFiles.addAll(nextPage);
+                mFilesAll.addAll(nextPage);
+                Log_OC.d(TAG, "loadRemainingFolders, next page loaded. Item size: " + mFilesAll.size());
+                notifyItemRangeInserted(positionStart, nextPage.size());
+            });
+        }
     }
 
     private void loadRemainingFiles(File directory) {
@@ -396,6 +401,7 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
         }
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     public void setSortOrder(FileSortOrder sortOrder) {
         localFileListFragmentInterface.setLoading(true);
         final Handler uiHandler = new Handler(Looper.getMainLooper());
@@ -410,26 +416,7 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
         });
     }
 
-    private List<File> getFolders(final File directory) {
-        File[] folders = directory.listFiles(File::isDirectory);
-
-        if (folders != null && folders.length > 0) {
-            return new ArrayList<>(Arrays.asList(folders));
-        } else {
-            return new ArrayList<>();
-        }
-    }
-
-    private List<File> getFiles(File directory) {
-        File[] files = directory.listFiles();
-
-        if (files != null && files.length > 0) {
-            return new ArrayList<>(Arrays.asList(files));
-        } else {
-            return new ArrayList<>();
-        }
-    }
-
+    @SuppressLint("NotifyDataSetChanged")
     public void filter(String text) {
         if (text.isEmpty()) {
             mFiles = mFilesAll;
