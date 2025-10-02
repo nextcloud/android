@@ -14,7 +14,10 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="@dimen/standard_half_padding">
+    android:paddingBottom="@dimen/alternate_half_padding"
+    android:paddingEnd="@dimen/zero"
+    android:paddingStart="@dimen/standard_padding"
+    android:paddingTop="@dimen/alternate_half_padding">
 
     <include
         android:id="@+id/auto_upload_battery_saver_warning_card"
@@ -24,6 +27,7 @@
         android:layout_gravity="center"
         android:layout_marginBottom="@dimen/standard_quadruple_margin"
         android:visibility="gone"
+        android:layout_marginEnd="@dimen/standard_margin"
         app:layout_constraintBottom_toBottomOf="@id/type"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
