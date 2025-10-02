@@ -43,6 +43,7 @@
     <string name="app_config_proxy_port_title">Port proxy</string>
     <string name="app_widget_description">Pokazuje jeden widżet z pulpitu nawigacyjnego</string>
     <string name="appbar_search_in">Szukaj w %s</string>
+    <string name="appear_offline">Wyglądaj jako offline</string>
     <string name="assistant_screen_add_task_alert_dialog_title">Dodaj nowe zadanie</string>
     <string name="assistant_screen_create_a_new_task_from_bottom_right_text">Utwórz nowe zadanie w prawym dolnym rogu</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Wpisz jakiś tekst</string>
@@ -92,12 +93,16 @@
     <string name="auth_unsupported_multiaccount">%1$s nie wspiera wielu kont</string>
     <string name="auth_wrong_connection_title">Nie udało się ustanowić połączenia</string>
     <string name="authenticator_activity_cancel_login">Anuluj logowanie</string>
+    <string name="authenticator_activity_empty_base_url">Proszę wprowadzić poprawny adres serwera.</string>
+    <string name="authenticator_activity_empty_response_message">Nie można pobrać danych logowania. Spróbuj ponownie.</string>
     <string name="authenticator_activity_login_error">Wystąpił problem podczas przetwarzania żądania logowania. Spróbuj ponownie później.</string>
+    <string name="authenticator_activity_no_web_browser_found">Brak dostępnej przeglądarki do otwarcia tego linku.</string>
     <string name="authenticator_activity_please_complete_login_process">Dokończ proces logowania w przeglądarce</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">zachowany w oryginalnym katalogu, jak jest tylko do odczytu</string>
     <string name="auto_upload_on_wifi">Wysyłaj tylko przez Wi-Fi</string>
     <string name="auto_upload_path">/AutoUpload</string>
     <string name="auto_upload_sub_folder_warning">Ten katalog jest już uwzględniony w synchronizacji katalogu nadrzędnego, co może powodować duplikowanie wysyłanych plików</string>
+    <string name="auto_upload_worker_start_text">Przesyłanie plików z %s do %s</string>
     <string name="autoupload_configure">Konfiguruj</string>
     <string name="autoupload_create_new_custom_folder">Utwórz nową niestandardową konfigurację katalogu</string>
     <string name="autoupload_custom_folder">Ustaw własny katalog</string>
@@ -341,6 +346,7 @@
     <string name="error_report_issue_text">Chcesz zgłosić problem? (wymaga konta GitHub)</string>
     <string name="error_retrieving_file">Błąd podczas pobierania pliku</string>
     <string name="error_retrieving_templates">Błąd podczas pobierania szablonów</string>
+    <string name="error_setting_status_message">Błąd podczas ustawiania wiadomości o statusie!</string>
     <string name="error_showing_encryption_dialog">Błąd podczas wyświetlania okna dialogowego konfiguracji szyfrowania!</string>
     <string name="error_starting_direct_camera_upload">Błąd podczas uruchamiania aparatu</string>
     <string name="error_starting_doc_scan">Błąd podczas uruchamiania skanowania dokumentu</string>
@@ -579,6 +585,7 @@
     <string name="move_file_invalid_into_descendent">Nie można przenieść katalogu do jednego z jego podkatalogów</string>
     <string name="move_file_invalid_overwrite">Plik już istnieje w katalogu docelowym</string>
     <string name="move_file_not_found">Nie można przenieść. Sprawdź, czy plik istnieje.</string>
+    <string name="mute_all_notifications">Wycisz wszystkie powiadomienia</string>
     <string name="network_error_connect_timeout_exception">Wystąpił błąd podczas oczekiwania na serwer. Nie można ukończyć operacji.</string>
     <string name="network_error_socket_exception">Wystąpił błąd podczas połączenia z serwerem</string>
     <string name="network_error_socket_timeout_exception">Wystąpił błąd podczas oczekiwania na serwer. Nie można ukończyć operacji.</string>
@@ -810,6 +817,7 @@
     <string name="server_not_reachable_content">Urządzenie prawdopodobnie nie jest połączone z Internetem</string>
     <string name="set_as">Ustaw jako</string>
     <string name="set_download_limit_failed">Nie można ustawić limitu pobierania. Sprawdź dostępne możliwości.</string>
+    <string name="set_message">Ustaw wiadomość</string>
     <string name="set_note">Ustaw notatkę</string>
     <string name="set_online_status">Status online</string>
     <string name="set_picture_as">Użyj obrazu jako</string>

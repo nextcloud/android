@@ -93,12 +93,16 @@
     <string name="auth_unsupported_multiaccount">%1$s ei toeta mitme konto kasutamist</string>
     <string name="auth_wrong_connection_title">Ühenduse loomine ebaõnnestus</string>
     <string name="authenticator_activity_cancel_login">Katkesta sisselogimine</string>
+    <string name="authenticator_activity_empty_base_url">Palun sisesta korrektne serveri aadress.</string>
+    <string name="authenticator_activity_empty_response_message">Sisselogimise üksikasjade laadimine ei õnnestu. Palun proovi uuesti.</string>
     <string name="authenticator_activity_login_error">Sinu sisselogimispäringu töötlemisel tekkis viga. Palun proovi hiljem uuesti.</string>
+    <string name="authenticator_activity_no_web_browser_found">Selle lingi avamiseks ei leidu ühtegi brauserit.</string>
     <string name="authenticator_activity_please_complete_login_process">Palun lõpeta sisselogimisprotsess oma veebibrauseris</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">säilitatud lugemisõigustega algkaustas</string>
     <string name="auto_upload_on_wifi">Laadi üles ainult mahupiiranguta WiFi võrgus</string>
     <string name="auto_upload_path">/AutoUpload</string>
     <string name="auto_upload_sub_folder_warning">Kuna ülalpool asuv kaust kuulub sünkroonimisele, siis see kaust on juba kaasatud ning nii võivad tekkida topelt üleslaadimised</string>
+    <string name="auto_upload_worker_start_text">Laadin faile üles: %s kuni %s</string>
     <string name="autoupload_configure">Seadista</string>
     <string name="autoupload_create_new_custom_folder">Loo uus kohandatud kausta seadistus</string>
     <string name="autoupload_custom_folder">Seadista kohandatud kaust</string>

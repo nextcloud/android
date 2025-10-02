@@ -505,6 +505,9 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     }
 
     private boolean shouldShowOpenInNotes() {
+        if (!preferences.isShowEcosystemApps()) {
+            return false;
+        }
         String notesFolderPath = capability.getNotesFolderPath();
         String currentPath = currentDirectory.getDecryptedRemotePath();
         return notesFolderPath != null && currentPath != null && currentPath.startsWith(notesFolderPath);
@@ -996,7 +999,11 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             searchType == SearchType.RECENTLY_MODIFIED_SEARCH) {
             mFiles = FileStorageUtils.sortOcFolderDescDateModifiedWithoutFavoritesFirst(mFiles);
         } else if (searchType != SearchType.SHARED_FILTER) {
-            sortOrder = preferences.getSortOrderByFolder(folder);
+            if (searchType == SearchType.FAVORITE_SEARCH) {
+                sortOrder = preferences.getSortOrderByType(FileSortOrder.Type.favoritesListView);
+            } else {
+                sortOrder = preferences.getSortOrderByFolder(folder);
+            }
             mFiles = sortOrder.sortCloudFiles(mFiles);
         }
 
@@ -1128,7 +1135,12 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     }
 
     public void setSortOrder(@Nullable OCFile folder, FileSortOrder sortOrder) {
-        preferences.setSortOrder(folder, sortOrder);
+        if (searchType == SearchType.FAVORITE_SEARCH) {
+            preferences.setSortOrder(FileSortOrder.Type.favoritesListView, sortOrder);    
+        } else {
+            preferences.setSortOrder(folder, sortOrder);
+        }
+        
         mFiles = sortOrder.sortCloudFiles(mFiles);
         notifyDataSetChanged();
 

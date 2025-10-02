@@ -93,12 +93,16 @@
     <string name="auth_unsupported_multiaccount">%1$s não tem suporte a múltiplas contas</string>
     <string name="auth_wrong_connection_title">Não foi possível estabelecer a conexão</string>
     <string name="authenticator_activity_cancel_login">Cancelar login</string>
+    <string name="authenticator_activity_empty_base_url">Insira um endereço de servidor válido.</string>
+    <string name="authenticator_activity_empty_response_message">Não foi possível obter os detalhes de login. Por favor, tente novamente.</string>
     <string name="authenticator_activity_login_error">Houve um problema ao processar sua solicitação de login. Tente novamente mais tarde.</string>
+    <string name="authenticator_activity_no_web_browser_found">Não há nenhum navegador disponível para abrir este link.</string>
     <string name="authenticator_activity_please_complete_login_process">Por favor, conclua o processo de login no seu navegador</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">mantido na pasta original, já que é somente leitura</string>
     <string name="auto_upload_on_wifi">Enviar só por WiFi não medida</string>
     <string name="auto_upload_path">/UploadAutomático</string>
     <string name="auto_upload_sub_folder_warning">Esta pasta já está incluída na sincronização da pasta pai, o que pode causar uploads duplicados</string>
+    <string name="auto_upload_worker_start_text">Fazendo upload de arquivos de %s a %s</string>
     <string name="autoupload_configure">Configurar</string>
     <string name="autoupload_create_new_custom_folder">Criar nova configuração de pasta personalizada</string>
     <string name="autoupload_custom_folder">Configurar uma pasta personalizada</string>
@@ -128,7 +132,7 @@
     <string name="choose_template_helper_text">Escolha um modelo e insira um nome de arquivo. </string>
     <string name="choose_which_file">Escolha qual arquivo manter!</string>
     <string name="choose_widget">Escolher widget</string>
-    <string name="clear">Apagar</string>
+    <string name="clear">Limpar</string>
     <string name="clear_notifications_failed">Erro ao limpar as notificações.</string>
     <string name="clear_status_after">Limpar status após</string>
     <string name="clipboard_label">Texto copiado de %1$s</string>

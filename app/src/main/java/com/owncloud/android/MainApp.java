@@ -679,7 +679,7 @@ public class MainApp extends Application implements HasAndroidInjector, NetworkC
 
                 createChannel(notificationManager, NotificationUtils.NOTIFICATION_CHANNEL_UPLOAD,
                               R.string.notification_channel_upload_name_short,
-                              R.string.notification_channel_upload_description, context);
+                              R.string.notification_channel_upload_description, context, NotificationManager.IMPORTANCE_LOW);
 
                 createChannel(notificationManager, NotificationUtils.NOTIFICATION_CHANNEL_MEDIA,
                               R.string.notification_channel_media_name,
@@ -697,7 +697,7 @@ public class MainApp extends Application implements HasAndroidInjector, NetworkC
 
                 createChannel(notificationManager, NotificationUtils.NOTIFICATION_CHANNEL_BACKGROUND_OPERATIONS,
                               R.string.notification_channel_background_operations_name, R.string
-                                  .notification_channel_background_operations_description, context, NotificationManager.IMPORTANCE_DEFAULT);
+                                  .notification_channel_background_operations_description, context, NotificationManager.IMPORTANCE_LOW);
 
                 createChannel(notificationManager, NotificationUtils.NOTIFICATION_CHANNEL_GENERAL, R.string
                                   .notification_channel_general_name, R.string.notification_channel_general_description,

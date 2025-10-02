@@ -508,16 +508,17 @@ public class OCFileListFragment extends ExtendedListFragment implements
             return;
         }
 
-        final var currentDir = getCurrentFile();
-        if (currentDir == null) {
-            Log_OC.w(TAG, "currentDir is null cannot register fab listener");
-            return;
-        }
-
         // is not available in FolderPickerActivity
         viewThemeUtils.material.themeFAB(mFabMain);
         mFabMain.setOnClickListener(v -> {
             PermissionUtil.requestMediaLocationPermission(fileActivity);
+
+            var currentDir = getCurrentFile();
+            if (currentDir == null) {
+                Log_OC.w(TAG, "currentDir is null cannot open bottom sheet dialog");
+                return;
+            }
+            
             final OCFileListBottomSheetDialog dialog = new OCFileListBottomSheetDialog(fileActivity,
                                                                                        this,
                                                                                        deviceInfo,
@@ -621,7 +622,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
             return;
         }
 
-        boolean isWithinEncryptedFolder = getCurrentFile().isEncrypted();
+        boolean isWithinEncryptedFolder = file.isEncrypted();
         UploadFilesActivity.startUploadActivityForResult(fileActivity, user.get(), FileDisplayActivity.REQUEST_CODE__SELECT_FILES_FROM_FILE_SYSTEM, isWithinEncryptedFolder);
     }
 
@@ -1050,7 +1051,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
     private Future<Pair<Integer, OCFile>> getPreviousFile() {
         CompletableFuture<Pair<Integer, OCFile>> completableFuture = new CompletableFuture<>();
 
-        Executors.newCachedThreadPool().submit(() -> {
+        Executors.newCachedThreadPool().execute(() -> {
             var result = new Pair<Integer, OCFile>(null, null);
 
             FileDataStorageManager storageManager = mContainerActivity.getStorageManager();
@@ -1066,7 +1067,6 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
             completableFuture.complete(result);
 
-            return null;
         });
 
         return completableFuture;
@@ -1508,6 +1508,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
      *
      * @return The currently viewed OCFile
      */
+    @Nullable
     public OCFile getCurrentFile() {
         return mFile;
     }
@@ -1631,9 +1632,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
             switchToListView();
         }
 
-        if (mSortButton != null) {
-            mSortButton.setText(DisplayUtils.getSortOrderStringId(preferences.getSortOrderByFolder(mFile)));
-        }
+        updateSortButton();
         if (mSwitchGridViewButton != null) {
             setGridSwitchButton();
         }
@@ -1643,6 +1642,19 @@ public class OCFileListFragment extends ExtendedListFragment implements
         setFabEnabled(mFile != null && (mFile.canCreateFileAndFolder() || mFile.isOfflineOperation()));
 
         invalidateActionMode();
+    }
+    
+    private void updateSortButton() {
+        if (mSortButton != null) {
+            FileSortOrder sortOrder;
+            if (currentSearchType == FAVORITE_SEARCH) {
+                sortOrder = preferences.getSortOrderByType(FileSortOrder.Type.favoritesListView, FileSortOrder.SORT_A_TO_Z);
+            } else {
+                sortOrder = preferences.getSortOrderByFolder(mFile);
+            }
+
+            mSortButton.setText(DisplayUtils.getSortOrderStringId(sortOrder));
+        }
     }
 
     private void invalidateActionMode() {
@@ -1923,6 +1935,8 @@ public class OCFileListFragment extends ExtendedListFragment implements
                 switchToListView();
             }
         };
+
+        updateSortButton();
 
         new Handler(Looper.getMainLooper()).post(switchViewsRunnable);
 

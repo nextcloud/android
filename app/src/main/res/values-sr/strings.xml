@@ -93,12 +93,16 @@
     <string name="auth_unsupported_multiaccount">%1$s не подржава вишеструке налоге</string>
     <string name="auth_wrong_connection_title">Не могу да успоставим везу</string>
     <string name="authenticator_activity_cancel_login">Откажи пријављивање</string>
+    <string name="authenticator_activity_empty_base_url">Унесите поново исправну адресу сервера.</string>
+    <string name="authenticator_activity_empty_response_message">Није успело преузимање детаља за пријаву. Молимо вас да покушате поново.</string>
     <string name="authenticator_activity_login_error">Дошло је до проблема при обради вашег захтева за пријаву. Молимо вас да касније покушате поново.</string>
+    <string name="authenticator_activity_no_web_browser_found">Ниједан прегледач не може да отвори овај линк.</string>
     <string name="authenticator_activity_please_complete_login_process">Молимо вас да довршите процес пријаве у интернет прегледачу</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">остављен у оригиналној фасцикли јер је само за читање</string>
     <string name="auto_upload_on_wifi">Отпремај само на бежичним мрежама без ограничења</string>
     <string name="auto_upload_path">/Аутоматска отпремања</string>
     <string name="auto_upload_sub_folder_warning">Овај фолдер је већ укључен у синхронизацију фолдера родитеља, па се могу јавити двострука отпремања</string>
+    <string name="auto_upload_worker_start_text">Отпремају се фајлови са %s на %s</string>
     <string name="autoupload_configure">Подеси</string>
     <string name="autoupload_create_new_custom_folder">Направи нову поставку за посебну фасциклу</string>
     <string name="autoupload_custom_folder">Подесите произвољну фасциклу</string>

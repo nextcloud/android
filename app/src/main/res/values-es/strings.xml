@@ -93,12 +93,16 @@
     <string name="auth_unsupported_multiaccount">%1$s no soporta cuentas múltiples</string>
     <string name="auth_wrong_connection_title">No se ha podido establecer la conexión</string>
     <string name="authenticator_activity_cancel_login">Cancelar inicio de sesión</string>
+    <string name="authenticator_activity_empty_base_url">Por favor, ingrese una dirección de servidor válida.</string>
+    <string name="authenticator_activity_empty_response_message">No fue posible obtener detalles para el inicio de sesión. Por favor, intente de nuevo.</string>
     <string name="authenticator_activity_login_error">Ha habido un problema al procesar su petición de acceso. Por favor, vuelva a intentarlo más tarde.</string>
+    <string name="authenticator_activity_no_web_browser_found">No hay un navegador disponible para abrir este enlace.</string>
     <string name="authenticator_activity_please_complete_login_process">Por favor, complete el proceso de inicio de sesión en su navegador</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">se mantiene en la carpeta original, pues es de solo lectura</string>
     <string name="auto_upload_on_wifi">Subir sólo con conexión Wi-Fi sin límite de datos</string>
     <string name="auto_upload_path">/CargaAutomática</string>
     <string name="auto_upload_sub_folder_warning">Esta carpeta ya está incluida en la sincronización de la carpeta principal, lo que puede provocar subidas duplicadas.</string>
+    <string name="auto_upload_worker_start_text">Subiendo archivos desde %s a %s</string>
     <string name="autoupload_configure">Configurar</string>
     <string name="autoupload_create_new_custom_folder">Crear nueva configuración de una carpeta especifica </string>
     <string name="autoupload_custom_folder">Configure una carpeta especifica </string>

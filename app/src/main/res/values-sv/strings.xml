@@ -814,6 +814,7 @@
     <string name="server_not_reachable_content">Den här enheten är troligen inte ansluten till internet</string>
     <string name="set_as">Sätt som</string>
     <string name="set_download_limit_failed">Det gick inte att ange nedladdningsgräns. Kontrollera tillgängliga funktioner.</string>
+    <string name="set_message">Ange meddelande</string>
     <string name="set_note">Ange anteckning</string>
     <string name="set_online_status">Online-status</string>
     <string name="set_picture_as">Använd bild som</string>

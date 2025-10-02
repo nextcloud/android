@@ -26,6 +26,7 @@ import com.nextcloud.client.account.User
 import com.nextcloud.client.core.Clock
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.documentscan.GeneratePdfFromImagesWork
+import com.nextcloud.client.jobs.autoUpload.AutoUploadWorker
 import com.nextcloud.client.jobs.download.FileDownloadWorker
 import com.nextcloud.client.jobs.metadata.MetadataWorker
 import com.nextcloud.client.jobs.offlineOperations.OfflineOperationsWorker
@@ -35,6 +36,7 @@ import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.utils.extensions.isWorkRunning
 import com.nextcloud.utils.extensions.isWorkScheduled
 import com.owncloud.android.datamodel.OCFile
+import com.owncloud.android.datamodel.SyncedFolder
 import com.owncloud.android.operations.DownloadType
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -472,41 +474,68 @@ internal class BackgroundJobManagerImpl(
         )
     }
 
-    override fun schedulePeriodicFilesSyncJob(syncedFolderID: Long) {
+    override fun schedulePeriodicFilesSyncJob(syncedFolder: SyncedFolder) {
+        val syncedFolderID = syncedFolder.id
+
         val arguments = Data.Builder()
-            .putLong(FilesSyncWork.SYNCED_FOLDER_ID, syncedFolderID)
+            .putLong(AutoUploadWorker.SYNCED_FOLDER_ID, syncedFolderID)
+            .build()
+
+        val constraints = Constraints.Builder()
+            .setRequiredNetworkType(NetworkType.CONNECTED)
+            .setRequiresCharging(syncedFolder.isChargingOnly)
             .build()
 
         val request = periodicRequestBuilder(
-            jobClass = FilesSyncWork::class,
+            jobClass = AutoUploadWorker::class,
             jobName = JOB_PERIODIC_FILES_SYNC + "_" + syncedFolderID,
-            intervalMins = DEFAULT_PERIODIC_JOB_INTERVAL_MINUTES
+            intervalMins = DEFAULT_PERIODIC_JOB_INTERVAL_MINUTES,
+            constraints = constraints
         )
+            .setBackoffCriteria(
+                BackoffPolicy.LINEAR,
+                DEFAULT_BACKOFF_CRITERIA_DELAY_SEC,
+                TimeUnit.SECONDS
+            )
             .setInputData(arguments)
             .build()
+
         workManager.enqueueUniquePeriodicWork(
             JOB_PERIODIC_FILES_SYNC + "_" + syncedFolderID,
-            ExistingPeriodicWorkPolicy.REPLACE,
+            ExistingPeriodicWorkPolicy.KEEP,
             request
         )
     }
 
     override fun startImmediateFilesSyncJob(
-        syncedFolderID: Long,
+        syncedFolder: SyncedFolder,
         overridePowerSaving: Boolean,
         changedFiles: Array<String?>
     ) {
+        val syncedFolderID = syncedFolder.id
+
         val arguments = Data.Builder()
-            .putBoolean(FilesSyncWork.OVERRIDE_POWER_SAVING, overridePowerSaving)
-            .putStringArray(FilesSyncWork.CHANGED_FILES, changedFiles)
-            .putLong(FilesSyncWork.SYNCED_FOLDER_ID, syncedFolderID)
+            .putBoolean(AutoUploadWorker.OVERRIDE_POWER_SAVING, overridePowerSaving)
+            .putStringArray(AutoUploadWorker.CHANGED_FILES, changedFiles)
+            .putLong(AutoUploadWorker.SYNCED_FOLDER_ID, syncedFolderID)
+            .build()
+
+        val constraints = Constraints.Builder()
+            .setRequiredNetworkType(NetworkType.CONNECTED)
+            .setRequiresCharging(syncedFolder.isChargingOnly)
             .build()
 
         val request = oneTimeRequestBuilder(
-            jobClass = FilesSyncWork::class,
+            jobClass = AutoUploadWorker::class,
             jobName = JOB_IMMEDIATE_FILES_SYNC + "_" + syncedFolderID
         )
             .setInputData(arguments)
+            .setConstraints(constraints)
+            .setBackoffCriteria(
+                BackoffPolicy.LINEAR,
+                DEFAULT_BACKOFF_CRITERIA_DELAY_SEC,
+                TimeUnit.SECONDS
+            )
             .build()
 
         workManager.enqueueUniqueWork(

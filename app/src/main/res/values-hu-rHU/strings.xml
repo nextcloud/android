@@ -43,6 +43,7 @@
     <string name="app_config_proxy_port_title">Proxy portja</string>
     <string name="app_widget_description">Egy modult jelenít meg a irányítópultról</string>
     <string name="appbar_search_in">Keresés itt: %s</string>
+    <string name="appear_offline">Megjelenés nem kapcsolódottként</string>
     <string name="assistant_screen_add_task_alert_dialog_title">Új feladat hozzáadása</string>
     <string name="assistant_screen_create_a_new_task_from_bottom_right_text">Új feladat létrehozása a jobb lentiből</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Gépeljen be szöveget</string>
@@ -92,12 +93,16 @@
     <string name="auth_unsupported_multiaccount">A %1$s nem támogat több fiókot</string>
     <string name="auth_wrong_connection_title">A kapcsolat létrehozása sikertelen</string>
     <string name="authenticator_activity_cancel_login">Bejelentkezés megszakítása</string>
+    <string name="authenticator_activity_empty_base_url">Adjon meg egy érvényes kiszolgálócímet.</string>
+    <string name="authenticator_activity_empty_response_message">A bejelentkezés részletei nem kérhetőek le. Próbálja újra.</string>
     <string name="authenticator_activity_login_error">Probléma volt a bejelentkezési kérés feldolgozása során. Próbálja újra később.</string>
+    <string name="authenticator_activity_no_web_browser_found">Nem érhető el böngésző a hivatkozás megnyitásához.</string>
     <string name="authenticator_activity_please_complete_login_process">Fejezze be a bejelentkezési folyamatot a böngészőben</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">megtartva az eredeti mappában, mivel csak olvasható</string>
     <string name="auto_upload_on_wifi">Feltöltés csak forgalomkorlát nélküli Wi-Fin</string>
     <string name="auto_upload_path">/AutoUpload</string>
     <string name="auto_upload_sub_folder_warning">Ez a mappa már szerepel a szülőmappája szinkronizálásában, ami ismételt feltöltéseket okozhat</string>
+    <string name="auto_upload_worker_start_text">Fájlok feltöltése innen: %s, ide: %s</string>
     <string name="autoupload_configure">Beállítás</string>
     <string name="autoupload_create_new_custom_folder">Új egyéni mappabeállítás létrehozása</string>
     <string name="autoupload_custom_folder">Egyéni mappa beállítása</string>
@@ -341,6 +346,7 @@
     <string name="error_report_issue_text">Jelenti a hibát a követőbe? (GitHub-fiók szükséges)</string>
     <string name="error_retrieving_file">Hiba a fájl lekérésekor</string>
     <string name="error_retrieving_templates">Hiba történt a sablonok lékérésekor</string>
+    <string name="error_setting_status_message">Hiba az állapotüzenet beállítása során!</string>
     <string name="error_showing_encryption_dialog">Hiba a titkosítás beállítóablakának megjelenítése során!</string>
     <string name="error_starting_direct_camera_upload">Hiba a kamera indításakor</string>
     <string name="error_starting_doc_scan">Hiba a dokumentumbeolvasás elindítása során</string>
@@ -449,6 +455,7 @@
     <string name="file_not_synced">A fájl nem szinkronizálható. A legfrissebb elérhető verzió megjelenítése.</string>
     <string name="file_rename">Átnevezés</string>
     <string name="file_upload_worker_error_notification_title">A feltöltés sikertelen. Nincs internetkapcsolat.</string>
+    <string name="file_upload_worker_same_file_already_exists">A(z) %s már létezik, nincs ütközés észlelve</string>
     <string name="file_version_restored_error">Hiba a fájl verziójának visszaállításakor!</string>
     <string name="file_version_restored_successfully">Fájl verzió sikeresen visszaállítva.</string>
     <string name="filedetails_details">Részletek</string>
@@ -578,6 +585,7 @@
     <string name="move_file_invalid_into_descendent">Nem helyezhető át egy mappa a saját almappájába</string>
     <string name="move_file_invalid_overwrite">A fájl már létezik a célmappában</string>
     <string name="move_file_not_found">A fájl nem helyezhető át. Ellenőrizze, hogy létezik-e.</string>
+    <string name="mute_all_notifications">Összes értesítés némítása</string>
     <string name="network_error_connect_timeout_exception">Hiba történt a kiszolgálóra várakozás közben. A művelet nem teljesíthető.</string>
     <string name="network_error_socket_exception">Hiba történt a kiszolgálóhoz kapcsolódás során</string>
     <string name="network_error_socket_timeout_exception">Hiba történt a kiszolgálóra várakozás közben. A művelet nem teljesíthető.</string>
@@ -611,6 +619,8 @@
     <string name="notification_channel_general_name">Általános értesítések</string>
     <string name="notification_channel_media_description">Zenelejátszó folyamatai</string>
     <string name="notification_channel_media_name">Médialejátszó</string>
+    <string name="notification_channel_offline_operations_description">Az offline fájlműveletek folyamatának megjelenítése</string>
+    <string name="notification_channel_offline_operations_name_short">Offline műveletek</string>
     <string name="notification_channel_push_description">A kiszolgáló által küldött üzenetek megjelenítése: Említések a megjegyzésekben, új távoli megosztások érkezése, adminisztrátori bejelentések, stb.</string>
     <string name="notification_channel_push_name">Leküldéses értesítések</string>
     <string name="notification_channel_upload_description">Megjeleníti a feltöltési folyamatokat</string>
@@ -658,6 +668,7 @@
     <string name="pin_shortcut_label">A(z) %1$s megnyitása</string>
     <string name="placeholder_extension">.txt</string>
     <string name="placeholder_fileSize">389 kB</string>
+    <string name="placeholder_filename">helykitöltő</string>
     <string name="placeholder_media_time">12:23:45</string>
     <string name="placeholder_reason">Nemrég szerkesztve</string>
     <string name="placeholder_sentence">Ez egy helykitöltő</string>
@@ -806,6 +817,7 @@
     <string name="server_not_reachable_content">Az eszköz valószínűleg nem kapcsolódik az internethez</string>
     <string name="set_as">Beállítás mint</string>
     <string name="set_download_limit_failed">A letöltési korlát nem állítható be. Ellenőrizze az elérhető funkciókat.</string>
+    <string name="set_message">Üzenet beállítása</string>
     <string name="set_note">Jegyzet beállítása</string>
     <string name="set_online_status">Elérhető állapot</string>
     <string name="set_picture_as">Kép használata mint</string>

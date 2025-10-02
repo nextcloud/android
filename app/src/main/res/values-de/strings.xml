@@ -93,12 +93,16 @@
     <string name="auth_unsupported_multiaccount">%1$s unterstützt nicht mehrere Benutzerkonten</string>
     <string name="auth_wrong_connection_title">Verbindung konnte nicht hergestellt werden</string>
     <string name="authenticator_activity_cancel_login">Anmelden abbrechen</string>
+    <string name="authenticator_activity_empty_base_url">Bitte eine gültige Serveradresse eingeben.</string>
+    <string name="authenticator_activity_empty_response_message">Die Anmeldedaten konnten nicht abgerufen werden. Bitte noch einmal versuchen.</string>
     <string name="authenticator_activity_login_error">Fehler bei der Verarbeitung Ihrer Anmeldeanforderung. Bitte versuchen Sie es später erneut.</string>
+    <string name="authenticator_activity_no_web_browser_found">Es ist kein Browser verfügbar, um diesen Link zu öffnen.</string>
     <string name="authenticator_activity_please_complete_login_process">Bitte schließen Sie den Anmeldevorgang in Ihrem Browser ab</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">im Original-Verzeichnis belassen, da nur lesbar</string>
     <string name="auto_upload_on_wifi">Nur über gebührenfreies WLAN hochladen</string>
     <string name="auto_upload_path">/AutoUpload</string>
     <string name="auto_upload_sub_folder_warning">Dieser Ordner ist bereits in der Synchronisierung des übergeordneten Ordners enthalten, was zu doppelten Uploads führen kann</string>
+    <string name="auto_upload_worker_start_text">Lade Dateien von %s nach %s hoch</string>
     <string name="autoupload_configure">Einrichten</string>
     <string name="autoupload_create_new_custom_folder">Erstellen Sie ein Setup für den eigenen Ordner</string>
     <string name="autoupload_custom_folder">Erstellen Sie einen eigenen Ordner</string>

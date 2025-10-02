@@ -641,6 +641,7 @@
     <string name="pin_shortcut_label">%1$sを開く</string>
     <string name="placeholder_extension">.txt</string>
     <string name="placeholder_fileSize">389 KB</string>
+    <string name="placeholder_filename">プレースホルダー</string>
     <string name="placeholder_media_time">12:23:45</string>
     <string name="placeholder_reason">最近編集したもの</string>
     <string name="placeholder_sentence">これはプレースホルダです</string>
@@ -784,6 +785,7 @@
     <string name="sendbutton_description">送信ボタンアイコン</string>
     <string name="set_as">として設定され</string>
     <string name="set_note">ノート</string>
+    <string name="set_online_status">オンラインステータス</string>
     <string name="set_picture_as">画像を使用する</string>
     <string name="setup_e2e">End-to-End 暗号化の設定中に、12語のランダムなニーモニックが表示されます。これは他のデバイスでファイルを開くために必要です。この情報はこのデバイスにのみ保存され、この画面で再表示することができます。安全な場所にメモしておいてください！</string>
     <string name="share">共有</string>
@@ -1097,6 +1099,15 @@
     </plurals>
     <plurals name="minutes">
         <item quantity="other">%d 分</item>
+    </plurals>
+    <plurals name="time_seconds_ago">
+        <item quantity="other">%d 秒前</item>
+    </plurals>
+    <plurals name="time_minutes_ago">
+        <item quantity="other">%d 分前</item>
+    </plurals>
+    <plurals name="time_hours_ago">
+        <item quantity="other">%d 時間前</item>
     </plurals>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="other">%1$d 個のファイルを同期出ません (コンフリクト: %2$d)</item>
