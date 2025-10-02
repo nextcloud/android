@@ -33,6 +33,7 @@
     <dimen name="standard_eight_padding">2dp</dimen>
     <dimen name="standard_margin">16dp</dimen>
     <dimen name="standard_double_margin">32dp</dimen>
+    <dimen name="standard_quadruple_margin">64dp</dimen>
     <dimen name="standard_half_margin">8dp</dimen>
     <dimen name="floating_action_button_bottom_margin">100dp</dimen>
     <dimen name="bottom_navigation_view_margin">100dp</dimen>

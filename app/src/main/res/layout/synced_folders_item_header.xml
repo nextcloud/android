@@ -7,102 +7,95 @@
   ~ SPDX-FileCopyrightText: 2016 Nextcloud GmbH
   ~ SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
 -->
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/header_container"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="@dimen/alternate_half_padding">
+    android:padding="@dimen/standard_half_padding">
 
     <include
         android:id="@+id/auto_upload_battery_saver_warning_card"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:visibility="gone"
-        android:layout_gravity="center"
-        tools:visibility="visible"
         layout="@layout/auto_upload_battery_saver_warning_card"
-        android:layout_marginBottom="@dimen/standard_double_margin" />
-
-    <LinearLayout
-        android:id="@+id/header_row"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:baselineAligned="false"
-        android:orientation="horizontal">
+        android:layout_gravity="center"
+        android:layout_marginBottom="@dimen/standard_quadruple_margin"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@id/type"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="visible" />
 
-        <LinearLayout
-            android:id="@+id/title_container"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:layout_gravity="center"
-            tools:ignore="UseCompoundDrawables">
+    <ImageView
+        android:id="@+id/type"
+        android:layout_width="@dimen/minimum_size_for_touchable_area"
+        android:layout_height="@dimen/minimum_size_for_touchable_area"
+        android:contentDescription="@string/synced_folders_type"
+        android:padding="@dimen/standard_half_padding"
+        android:src="@drawable/image_32dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
-            <ImageView
-                android:id="@+id/type"
-                android:layout_width="@dimen/synced_folders_item_type_layout_width"
-                android:layout_height="@dimen/synced_folders_item_type_layout_height"
-                android:layout_marginEnd="@dimen/synced_folders_item_type_layout_right_end_margin"
-                android:contentDescription="@string/synced_folders_type"
-                android:src="@drawable/image_32dp" />
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/minimum_size_for_touchable_area"
+        android:layout_marginStart="@dimen/standard_margin"
+        android:ellipsize="middle"
+        android:gravity="center|start"
+        android:text="@string/placeholder_filename"
+        android:textAlignment="center"
+        android:textColor="?android:textColorPrimary"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/type" />
 
-            <TextView
-                android:id="@+id/title"
-                android:gravity="center|start"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:ellipsize="middle"
-                android:text="@string/placeholder_filename"
-                android:textColor="?android:textColorPrimary"
-                android:textStyle="bold" />
-        </LinearLayout>
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/subFolderWarningButton"
+        style="@style/Widget.Material3.Button.IconButton.Filled.Tonal"
+        android:layout_width="@dimen/minimum_size_for_touchable_area"
+        android:layout_height="@dimen/minimum_size_for_touchable_area"
+        android:clickable="true"
+        android:contentDescription="@string/sync_warning_button"
+        android:focusable="true"
+        android:visibility="gone"
+        app:backgroundTint="@color/transparent"
+        app:cornerRadius="@dimen/button_corner_radius"
+        app:icon="@drawable/ic_info"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/syncStatusButton"
+        tools:layout_editor_absoluteY="5dp"
+        tools:visibility="visible" />
 
-        <LinearLayout
-            android:id="@+id/buttonBar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/syncStatusButton"
+        style="@style/Widget.Material3.Button.IconButton.Filled.Tonal"
+        android:layout_width="@dimen/minimum_size_for_touchable_area"
+        android:layout_height="@dimen/minimum_size_for_touchable_area"
+        android:clickable="true"
+        android:contentDescription="@string/sync_status_button"
+        android:focusable="true"
+        app:backgroundTint="@color/transparent"
+        app:cornerRadius="@dimen/button_corner_radius"
+        app:icon="@drawable/ic_cloud_sync_off"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/settingsButton" />
 
-            <ImageButton
-                android:id="@+id/subFolderWarningButton"
-                android:visibility="gone"
-                tools:visibility="visible"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/transparent"
-                android:clickable="true"
-                android:contentDescription="@string/sync_warning_button"
-                android:focusable="true"
-                android:padding="@dimen/standard_half_padding"
-                android:src="@drawable/ic_info" />
-
-            <ImageButton
-                android:id="@+id/syncStatusButton"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/transparent"
-                android:clickable="true"
-                android:contentDescription="@string/sync_status_button"
-                android:focusable="true"
-                android:padding="@dimen/standard_half_padding"
-                android:src="@drawable/ic_cloud_sync_off" />
-
-            <ImageButton
-                android:id="@+id/settingsButton"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/transparent"
-                android:clickable="true"
-                android:contentDescription="@string/synced_folder_settings_button"
-                android:focusable="true"
-                android:paddingStart="@dimen/standard_half_padding"
-                android:paddingEnd="@dimen/synced_folder_padding_end"
-                android:src="@drawable/ic_dots_vertical"/>
-        </LinearLayout>
-    </LinearLayout>
-</LinearLayout>
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/settingsButton"
+        style="@style/Widget.Material3.Button.IconButton.Filled.Tonal"
+        android:layout_width="@dimen/minimum_size_for_touchable_area"
+        android:layout_height="@dimen/minimum_size_for_touchable_area"
+        android:clickable="true"
+        android:contentDescription="@string/synced_folder_settings_button"
+        android:focusable="true"
+        app:backgroundTint="@color/transparent"
+        app:cornerRadius="@dimen/button_corner_radius"
+        app:icon="@drawable/ic_dots_vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

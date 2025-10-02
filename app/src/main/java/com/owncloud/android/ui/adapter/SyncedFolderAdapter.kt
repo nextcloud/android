@@ -13,12 +13,13 @@ import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageButton
 import android.widget.PopupMenu
 import androidx.annotation.VisibleForTesting
+import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import com.afollestad.sectionedrecyclerview.SectionedRecyclerViewAdapter
 import com.afollestad.sectionedrecyclerview.SectionedViewHolder
+import com.google.android.material.button.MaterialButton
 import com.nextcloud.android.common.ui.theme.utils.ColorRole
 import com.nextcloud.client.core.Clock
 import com.nextcloud.client.device.PowerManagementService
@@ -298,7 +299,6 @@ class SyncedFolderAdapter(
         holder.binding.subFolderWarningButton.run {
             setVisibleIf(isGivenLocalPathHasEnabledParent)
             if (isVisible) {
-                viewThemeUtils.platform.themeImageButton(this)
                 setOnClickListener {
                     clickListener.showSubFolderWarningDialog()
                 }
@@ -457,13 +457,12 @@ class SyncedFolderAdapter(
             binding.root
         )
 
-    private fun setSyncButtonActiveIcon(syncStatusButton: ImageButton, enabled: Boolean) {
+    private fun setSyncButtonActiveIcon(syncStatusButton: MaterialButton, enabled: Boolean) {
         if (enabled) {
-            syncStatusButton.setImageDrawable(
+            syncStatusButton.icon =
                 viewThemeUtils.platform.tintDrawable(context, R.drawable.ic_cloud_sync_on, ColorRole.PRIMARY)
-            )
         } else {
-            syncStatusButton.setImageResource(R.drawable.ic_cloud_sync_off)
+            syncStatusButton.icon = ContextCompat.getDrawable(context, R.drawable.ic_cloud_sync_off)
         }
     }
 
