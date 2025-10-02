@@ -230,7 +230,8 @@ class SyncedFoldersActivity :
             gridWidth,
             this,
             lightVersion,
-            viewThemeUtils
+            viewThemeUtils,
+            powerManagementService
         )
         binding.emptyList.emptyListIcon.setImageResource(R.drawable.nav_synced_folders)
         viewThemeUtils.material.colorMaterialButtonPrimaryFilled(binding.emptyList.emptyListViewAction)
