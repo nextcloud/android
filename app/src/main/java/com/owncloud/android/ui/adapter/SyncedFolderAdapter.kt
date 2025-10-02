@@ -21,6 +21,7 @@ import com.afollestad.sectionedrecyclerview.SectionedRecyclerViewAdapter
 import com.afollestad.sectionedrecyclerview.SectionedViewHolder
 import com.nextcloud.android.common.ui.theme.utils.ColorRole
 import com.nextcloud.client.core.Clock
+import com.nextcloud.client.device.PowerManagementService
 import com.nextcloud.utils.extensions.filterEnabledOrWithoutEnabledParent
 import com.nextcloud.utils.extensions.hasEnabledParent
 import com.nextcloud.utils.extensions.setVisibleIf
@@ -50,7 +51,8 @@ class SyncedFolderAdapter(
     private val gridWidth: Int,
     private val clickListener: ClickListener,
     private val light: Boolean,
-    private val viewThemeUtils: ViewThemeUtils
+    private val viewThemeUtils: ViewThemeUtils,
+    private val powerManagementService: PowerManagementService
 ) : SectionedRecyclerViewAdapter<SectionedViewHolder>() {
 
     private val gridTotal = gridWidth * 2
@@ -238,6 +240,13 @@ class SyncedFolderAdapter(
         if (section < filteredSyncFolderItems.size) {
             val holder = commonHolder as HeaderViewHolder
             holder.binding.headerContainer.visibility = View.VISIBLE
+
+            if (section == 0) {
+                holder.binding.autoUploadBatterySaverWarningCard.root.run {
+                    setVisibleIf(powerManagementService.isPowerSavingEnabled)
+                    viewThemeUtils.material.themeCardView(this)
+                }
+            }
 
             holder.binding.title.text = filteredSyncFolderItems[section].folderName
 

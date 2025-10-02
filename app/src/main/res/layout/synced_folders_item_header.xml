@@ -2,91 +2,107 @@
 <!--
   ~ Nextcloud - Android Client
   ~
+  ~ SPDX-FileCopyrightText: 2025 Alper Ozturk <alper.ozturk@nextcloud.com>
   ~ SPDX-FileCopyrightText: 2016 Andy Scherzinger <info@andy-scherzinger>
   ~ SPDX-FileCopyrightText: 2016 Nextcloud GmbH
   ~ SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
 -->
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/header_container"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingBottom="@dimen/alternate_half_padding"
-    android:paddingEnd="@dimen/zero"
-    android:paddingStart="@dimen/standard_padding"
-    android:paddingTop="@dimen/alternate_half_padding">
+    android:orientation="vertical"
+    android:padding="@dimen/alternate_half_padding">
+
+    <include
+        android:id="@+id/auto_upload_battery_saver_warning_card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:layout_gravity="center"
+        tools:visibility="visible"
+        layout="@layout/auto_upload_battery_saver_warning_card"
+        android:layout_marginBottom="@dimen/standard_double_margin" />
 
     <LinearLayout
-        android:id="@+id/title_container"
-        android:layout_width="wrap_content"
+        android:id="@+id/header_row"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/buttonBar"
-        android:layout_alignParentStart="true"
-        android:layout_alignTop="@+id/buttonBar"
-        android:layout_toStartOf="@+id/buttonBar"
-        tools:ignore="UseCompoundDrawables">
+        android:baselineAligned="false"
+        android:orientation="horizontal">
 
-        <ImageView
-            android:id="@+id/type"
-            android:layout_width="@dimen/synced_folders_item_type_layout_width"
-            android:layout_height="@dimen/synced_folders_item_type_layout_height"
-            android:layout_gravity="start|center_vertical"
-            android:layout_marginEnd="@dimen/synced_folders_item_type_layout_right_end_margin"
-            android:contentDescription="@string/synced_folders_type"
-            android:src="@drawable/image_32dp" />
+        <LinearLayout
+            android:id="@+id/title_container"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_gravity="center"
+            tools:ignore="UseCompoundDrawables">
 
-        <TextView
-            android:id="@+id/title"
-            android:layout_width="match_parent"
+            <ImageView
+                android:id="@+id/type"
+                android:layout_width="@dimen/synced_folders_item_type_layout_width"
+                android:layout_height="@dimen/synced_folders_item_type_layout_height"
+                android:layout_marginEnd="@dimen/synced_folders_item_type_layout_right_end_margin"
+                android:contentDescription="@string/synced_folders_type"
+                android:src="@drawable/image_32dp" />
+
+            <TextView
+                android:id="@+id/title"
+                android:gravity="center|start"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:ellipsize="middle"
+                android:text="@string/placeholder_filename"
+                android:textColor="?android:textColorPrimary"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/buttonBar"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="start|center_vertical"
-            android:ellipsize="middle"
-            android:text="@string/placeholder_filename"
-            android:textColor="?android:textColorPrimary"
-            android:textStyle="bold" />
+            android:orientation="horizontal">
 
+            <ImageButton
+                android:id="@+id/subFolderWarningButton"
+                android:visibility="gone"
+                tools:visibility="visible"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/transparent"
+                android:clickable="true"
+                android:contentDescription="@string/sync_warning_button"
+                android:focusable="true"
+                android:padding="@dimen/standard_half_padding"
+                android:src="@drawable/ic_info" />
+
+            <ImageButton
+                android:id="@+id/syncStatusButton"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/transparent"
+                android:clickable="true"
+                android:contentDescription="@string/sync_status_button"
+                android:focusable="true"
+                android:padding="@dimen/standard_half_padding"
+                android:src="@drawable/ic_cloud_sync_off" />
+
+            <ImageButton
+                android:id="@+id/settingsButton"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/transparent"
+                android:clickable="true"
+                android:contentDescription="@string/synced_folder_settings_button"
+                android:focusable="true"
+                android:paddingStart="@dimen/standard_half_padding"
+                android:paddingEnd="@dimen/synced_folder_padding_end"
+                android:src="@drawable/ic_dots_vertical"/>
+        </LinearLayout>
     </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/buttonBar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true">
-
-        <ImageButton
-            android:id="@+id/subFolderWarningButton"
-            android:visibility="gone"
-            tools:visibility="visible"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:background="@color/transparent"
-            android:clickable="true"
-            android:contentDescription="@string/sync_warning_button"
-            android:focusable="true"
-            android:padding="@dimen/standard_half_padding"
-            android:src="@drawable/ic_info" />
-
-        <ImageButton
-            android:id="@+id/syncStatusButton"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:background="@color/transparent"
-            android:clickable="true"
-            android:contentDescription="@string/sync_status_button"
-            android:focusable="true"
-            android:padding="@dimen/standard_half_padding"
-            android:src="@drawable/ic_cloud_sync_off" />
-
-        <ImageButton
-            android:id="@+id/settingsButton"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:background="@color/transparent"
-            android:clickable="true"
-            android:contentDescription="@string/synced_folder_settings_button"
-            android:focusable="true"
-            android:paddingEnd="@dimen/synced_folder_padding_end"
-            android:paddingStart="@dimen/standard_half_padding"
-            android:src="@drawable/ic_dots_vertical"/>
-    </LinearLayout>
-</RelativeLayout>
+</LinearLayout>

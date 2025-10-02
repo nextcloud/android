@@ -128,8 +128,8 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
 
         }
 
-        ViewExtensionsKt.setVisibleIf(headerViewHolder.binding.autoUploadBatterySaverWarningCard, powerManagementService.isPowerSavingEnabled());
-        viewThemeUtils.material.themeCardView(headerViewHolder.binding.autoUploadBatterySaverWarningCard);
+        ViewExtensionsKt.setVisibleIf(headerViewHolder.binding.autoUploadBatterySaverWarningCard.root, powerManagementService.isPowerSavingEnabled());
+        viewThemeUtils.material.themeCardView(headerViewHolder.binding.autoUploadBatterySaverWarningCard.root);
 
         headerViewHolder.binding.uploadListAction.setOnClickListener(v -> {
             switch (group.type) {
