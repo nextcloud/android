@@ -46,9 +46,6 @@ abstract class FileUploaderIT : AbstractOnServerIT() {
         override val isPowerSavingEnabled: Boolean
             get() = false
 
-        override val isPowerSavingExclusionAvailable: Boolean
-            get() = false
-
         override val battery: BatteryStatus
             get() = BatteryStatus()
     }
