@@ -102,6 +102,7 @@
     <string name="auto_upload_on_wifi">仅通过无流量限制的 Wi-Fi 上传</string>
     <string name="auto_upload_path">/自动上传</string>
     <string name="auto_upload_sub_folder_warning">此文件夹已包含在上级文件夹的同步中，这可能会导致重复上传</string>
+    <string name="auto_upload_worker_start_text">正在将文件从 %s 上传到 %s</string>
     <string name="autoupload_configure">配置</string>
     <string name="autoupload_create_new_custom_folder">创建新的自定义文件夹设定</string>
     <string name="autoupload_custom_folder">设置一个自定义文件夹</string>
@@ -1130,7 +1131,7 @@
     <string name="what_s_new_image">有什么新图片</string>
     <string name="whats_new_skip">跳过</string>
     <string name="whats_new_title">新建%1$s</string>
-    <string name="whats_your_status">你什么状态？</string>
+    <string name="whats_your_status">您的状态如何？</string>
     <string name="widgets_not_available">启用仪表盘应用程序后，小部件仅在 %1$s 25 或更高版本中可用</string>
     <string name="widgets_not_available_title">不可用</string>
     <string name="worker_download">正在下载文件…</string>
