@@ -10,7 +10,7 @@ Eiginleikar:
 * Haltu öllu uppfærðu í gegnum tilkynningar
 * Styður marga aðganga fyrir hvern notanda
 * Tryggðu aðgang að gögnunum þínum með fingrafari eða PIN-númeri
-* Samþætting við DAVx5 (áður þekkt sem DAVdroid) fyrir auðvelda uppssetningu á samstilltu dagatali og tengiliðum
+* Samþætting við DAVx⁵ (áður þekkt sem DAVdroid) fyrir auðvelda uppssetningu á samstilltu dagatali og tengiliðum
 
 Tilkynntu öll vandamál á https://github.com/nextcloud/android/issues og ræddu um þennan hugbúnað á https://help.nextcloud.com/c/clients/android
 
