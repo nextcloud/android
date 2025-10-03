@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Nextcloud - Android Client
+  ~
+  ~ SPDX-FileCopyrightText: 2025 Alper Ozturk <alper.ozturk@nextcloud.com>
+  ~ SPDX-License-Identifier: AGPL-3.0-or-later
+  -->
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:id="@+id/unified_search_current_dir_item_layout"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <ImageView
+        android:id="@+id/thumbnail"
+        android:layout_marginStart="@dimen/standard_margin"
+        android:layout_width="@dimen/file_icon_size"
+        android:layout_height="@dimen/file_icon_size"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:contentDescription="@null"
+        android:src="@drawable/folder" />
+
+    <com.elyeproj.loaderviewlibrary.LoaderImageView
+        android:id="@+id/thumbnail_shimmer"
+        android:layout_marginStart="@dimen/standard_margin"
+        android:layout_width="@dimen/file_icon_size"
+        android:layout_height="@dimen/file_icon_size"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:visibility="gone"
+        app:corners="8" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/filename"
+        android:layout_marginStart="@dimen/standard_margin"
+        app:layout_constraintStart_toEndOf="@+id/thumbnail"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:ellipsize="middle"
+        android:singleLine="true"
+        android:textColor="@color/text_color"
+        android:textSize="@dimen/two_line_primary_text_size"
+        tools:text="@string/placeholder_filename"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/extension"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/filename"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:ellipsize="middle"
+        android:singleLine="true"
+        android:textColor="@color/text_color"
+        android:textSize="@dimen/two_line_primary_text_size"
+        tools:text="@string/placeholder_extension"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <ImageButton
+        android:id="@+id/more"
+        android:layout_marginEnd="@dimen/standard_double_margin"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:clickable="true"
+        android:contentDescription="@string/overflow_menu"
+        android:focusable="true"
+        android:minHeight="@dimen/min_list_item_size"
+        android:src="@drawable/ic_dots_vertical"
+        android:background="?android:attr/selectableItemBackgroundBorderless"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
