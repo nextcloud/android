@@ -11,6 +11,7 @@
 package com.owncloud.android.operations
 import android.content.Context
 import com.nextcloud.client.account.User
+import com.nextcloud.client.jobs.sync.SyncState
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.datamodel.ThumbnailsCacheManager
@@ -61,6 +62,10 @@ class RemoveFileOperation(
             if (MimeTypeUtil.isImage(file.mimeType)) {
                 ThumbnailsCacheManager.generateResizedImage(file)
             }
+
+            // reset sync state
+            file.setSyncState(SyncState.IDLE)
+            storageManager.saveFile(file)
 
             localRemovalFailed = !storageManager.removeFile(file, false, true)
             if (!localRemovalFailed) {

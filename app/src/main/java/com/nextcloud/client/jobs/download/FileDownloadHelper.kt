@@ -27,6 +27,9 @@ class FileDownloadHelper {
     @Inject
     lateinit var uploadsStorageManager: UploadsStorageManager
 
+    @Inject
+    lateinit var fileStorageManager: FileDataStorageManager
+
     companion object {
         private var instance: FileDownloadHelper? = null
 
@@ -44,17 +47,10 @@ class FileDownloadHelper {
             return false
         }
 
-        val fileStorageManager = FileDataStorageManager(user, MainApp.getAppContext().contentResolver)
-        val topParentId = fileStorageManager.getTopParentId(file)
-
-        val isJobScheduled = backgroundJobManager.isStartFileDownloadJobScheduled(user, file.fileId)
-        return isJobScheduled ||
-            if (file.isFolder) {
-                FileDownloadWorker.isDownloadingFolder(file.fileId) ||
-                    backgroundJobManager.isStartFileDownloadJobScheduled(user, topParentId)
-            } else {
-                FileDownloadWorker.isDownloading(user.accountName, file.fileId)
-            }
+        return FileDownloadWorker.isDownloading(
+            user.accountName,
+            file.fileId
+        )
     }
 
     fun cancelPendingOrCurrentDownloads(user: User?, files: List<OCFile>?) {
@@ -140,5 +136,9 @@ class FileDownloadHelper {
             packageName,
             conflictUploadId
         )
+    }
+
+    fun syncFolder(folder: OCFile) {
+        backgroundJobManager.syncFolder(folder)
     }
 }
