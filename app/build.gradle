@@ -70,7 +70,7 @@ configurations.configureEach {
         }
 
         if (requested.group == "commons-logging" && requested.name == "commons-logging") {
-            useTarget("org.slf4j:jcl-over-slf4j:1.7.36")
+            useTarget("org.slf4j:jcl-over-slf4j:2.0.17")
         }
     }
 }
