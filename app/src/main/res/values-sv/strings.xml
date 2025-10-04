@@ -93,12 +93,16 @@
     <string name="auth_unsupported_multiaccount">%1$s har inte stöd för multipla konton</string>
     <string name="auth_wrong_connection_title">Kunde inte upprätta anslutning</string>
     <string name="authenticator_activity_cancel_login">Avbryt inloggning</string>
+    <string name="authenticator_activity_empty_base_url">Ange en giltig serveradress.</string>
+    <string name="authenticator_activity_empty_response_message">Kunde inte hämta inloggningsuppgifter. Försök igen.</string>
     <string name="authenticator_activity_login_error">Det uppstod ett problem när din inloggningsförfrågan behandlades. Försök igen senare.</string>
+    <string name="authenticator_activity_no_web_browser_found">Ingen webbläsare finns tillgänglig för att öppna denna länk.</string>
     <string name="authenticator_activity_please_complete_login_process">Slutför inloggningsprocessen i din webbläsare</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">behålls i originalmappen, eftersom den är skrivskyddad</string>
     <string name="auto_upload_on_wifi">Ladda bara upp via obelastad Wi-Fi</string>
     <string name="auto_upload_path">/AutomatiskUppladdning</string>
     <string name="auto_upload_sub_folder_warning">Denna mapp ingår redan i synkroniseringen av den överordnade mappen, vilket kan orsaka dubbla uppladdningar</string>
+    <string name="auto_upload_worker_start_text">Laddar upp filer från %s till %s</string>
     <string name="autoupload_configure">Konfigurera</string>
     <string name="autoupload_create_new_custom_folder">Skapa en ny anpassad mappkonfiguration </string>
     <string name="autoupload_custom_folder">Skapa en anpassad mapp</string>
