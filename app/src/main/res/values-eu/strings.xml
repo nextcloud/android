@@ -92,6 +92,7 @@
     <string name="auth_unsupported_multiaccount">%1$s(e)k ez ditu hainbat kontu onartzen</string>
     <string name="auth_wrong_connection_title">Ezin izan da konexioa ezarri</string>
     <string name="authenticator_activity_cancel_login">Utzi saioa hasiera</string>
+    <string name="authenticator_activity_empty_base_url">Mesedez, sartu baliozko zerbitzari baten helbidea</string>
     <string name="authenticator_activity_login_error">Arazo bat egon da zure saioa hasteko eskaera prozesatzean. Mesedez saiatu geroxeago.</string>
     <string name="authenticator_activity_please_complete_login_process">Mesedez, osatu saioa hasteko prozesua zure nabigatzailean</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">Jatorrizko karpetan mantendu da, soilik irakurtzeko delako</string>
@@ -392,6 +393,7 @@
     <string name="file_list_empty_shared">Partekatzen dituzun fitxategiak eta karpetak hemen agertuko dira.</string>
     <string name="file_list_empty_shared_headline">Oraindik ez dago ezer partekatuta</string>
     <string name="file_list_empty_unified_search_no_results">Ez da emaitzarik aurkitu zure bilaketarentzat</string>
+    <string name="file_list_empty_unified_search_start_search">Hasi zure bilaketa</string>
     <string name="file_list_folder">karpeta</string>
     <string name="file_list_live">ZUZENEAN</string>
     <string name="file_list_loading">Kargatzen…</string>
@@ -563,6 +565,7 @@
     <string name="move_file_invalid_into_descendent">Ezin da karpeta bat azpikarpeta batera mugitu</string>
     <string name="move_file_invalid_overwrite">Fitxategi hau existitzen da jadanik helburuko karpetan</string>
     <string name="move_file_not_found">Ezin izan da fitxategia mugitu. Mesedez egiaztatu fitxategia existitzen dela.</string>
+    <string name="mute_all_notifications">Isilarazi jakinarazpen guztiak</string>
     <string name="network_error_connect_timeout_exception">Errore bat gertatu da zerbitzariari itxarotean. Ezin izan da eragiketa burutu.</string>
     <string name="network_error_socket_exception">Errore bat gertatu da zerbitzariarekin konektatzean.</string>
     <string name="network_error_socket_timeout_exception">Errore bat gertatu da zerbitzariari itxarotean. Ezin izan da eragiketa burutu.</string>
@@ -1006,6 +1009,7 @@
     <string name="upload_local_storage_not_copied">Ezin izan da fitxategia kopiatu biltegiratze lokalera</string>
     <string name="upload_lock_failed">Karpeta blokeatzeak huts egin du</string>
     <string name="upload_manually_cancelled">Igoera bertan behera utzi du erabiltzaileak</string>
+    <string name="upload_missing_storage_permission_app_permissions">Aplikazioaren baimenak</string>
     <string name="upload_notification_manager_start_text">%1$d/%2$d-%3$s</string>
     <string name="upload_old_android">Zifratzea >= Android 5.0 bertsioarekin soilik da posible</string>
     <string name="upload_query_move_foreign_files">Hautatutako fitxategiak ezin dira %1$sra kopiatu ez dagoelako toki nahikorik. Kopiatu ordez bertara mugitu nahi dituzu?</string>
