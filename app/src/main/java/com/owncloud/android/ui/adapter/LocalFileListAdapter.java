@@ -306,21 +306,26 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
      */
     public void swapDirectory(final File directory) {
         localFileListFragmentInterface.setLoading(true);
-        currentOffset = 0; // reset offset
+        currentOffset = 0;
 
         Executors.newSingleThreadExecutor().execute(() -> {
-            List<File> firstPage = FileHelper.INSTANCE.listDirectoryEntries(directory, currentOffset, PAGE_SIZE, mLocalFolderPicker);
+            // Load first page of folders
+            List<File> firstPage = FileHelper.INSTANCE.listDirectoryEntries(directory, currentOffset, PAGE_SIZE, true);
 
             if (!firstPage.isEmpty()) {
                 firstPage = sortAndFilterHiddenEntries(firstPage);
             }
 
-            // first set the currentOffset to PAGE_SIZE
             currentOffset += PAGE_SIZE;
             updateUIForFirstPage(firstPage);
 
-            // load the rest silently in the background and updates the currentOffset by PAGE_SIZE for pagination
-            loadRemainingEntries(directory, mLocalFolderPicker);
+            // Load remaining folders, then all files
+            loadRemainingEntries(directory, true);
+
+            // Reset for files
+            currentOffset = 0;
+
+            loadRemainingEntries(directory, false);
         });
     }
 
