@@ -189,7 +189,7 @@ class TrashbinActivity :
         addDrawerListener(mMultiChoiceModeListener)
     }
 
-    private fun handleOnBackPressed() {
+    override fun handleOnBackPressed() {
         onBackPressedDispatcher.addCallback(
             this,
             onBackPressedCallback

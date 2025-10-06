@@ -27,8 +27,8 @@ public class FileDisplayActivityTest extends AbstractIT {
             InstrumentationRegistry.getInstrumentation().runOnMainSync(() -> {
                 Activity activity =
                     ActivityLifecycleMonitorRegistry.getInstance().getActivitiesInStage(RESUMED).iterator().next();
-                if (activity instanceof WhatsNewActivity) {
-                    activity.onBackPressed();
+                if (activity instanceof WhatsNewActivity whatsNewActivity) {
+                    whatsNewActivity.getOnBackPressedDispatcher().onBackPressed();
                 }
             });
             scenario.recreate();
