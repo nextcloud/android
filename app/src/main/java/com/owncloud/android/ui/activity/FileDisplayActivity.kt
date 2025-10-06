@@ -1148,7 +1148,7 @@ class FileDisplayActivity :
      *    1. close search view if opened
      *    2. close drawer if opened
      *    3. if it is OCFileListFragment and it's in Root -> (finish Activity) or it's not Root -> (browse up)
-     *    4. otherwise pop up the fragment and sortGroup view visibility and call onBackPressedDispatcher.onBackPressed()
+     *    4. otherwise pop up the fragment and sortGroup view visibility and call onBackPressedDispatcher
      */
     private fun handleBackPress() {
         onBackPressedDispatcher.addCallback(
