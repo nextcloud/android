@@ -12,57 +12,47 @@ import java.io.File
 import java.io.IOException
 import java.nio.file.Files
 import java.nio.file.Path
+import java.util.stream.Collectors
 import kotlin.io.path.pathString
 
 @Suppress("NestedBlockDepth")
 object FileHelper {
     private const val TAG = "FileHelper"
 
-    fun fetchFiles(folder: File?, offset: Int, limit: Int): List<File> {
-        val files = mutableListOf<File>()
-        if (folder == null || !folder.exists() || !folder.isDirectory) return files
+    fun listDirectoryEntries(
+        directory: File?,
+        startIndex: Int,
+        maxItems: Int,
+        fetchFolders: Boolean
+    ): List<File> {
+        if (directory == null || !directory.exists() || !directory.isDirectory) return emptyList()
 
-        val dir = folder.toPath()
-        var skipped = 0
-        try {
-            Files.newDirectoryStream(dir).use { stream ->
-                for (entry in stream) {
-                    if (skipped < offset) {
+        return try {
+            val allEntries = Files.list(directory.toPath())
+                .map { it.toFile() }
+                .collect(Collectors.toList())
+
+            val result = mutableListOf<File>()
+            var skipped = 0
+
+            for (file in allEntries) {
+                val shouldInclude = if (fetchFolders) file.isDirectory else true
+
+                if (shouldInclude) {
+                    if (skipped < startIndex) {
                         skipped++
                         continue
                     }
-                    files.add(entry.toFile())
-                    if (files.size >= limit) break
+                    result.add(file)
+                    if (result.size >= maxItems) break
                 }
             }
-        } catch (e: IOException) {
-            Log_OC.d(TAG, "fetchFiles: $e")
-        }
-        return files
-    }
 
-    fun fetchFolders(folder: File?, offset: Int, limit: Int): List<File> {
-        val folders = mutableListOf<File>()
-        if (folder == null || !folder.exists() || !folder.isDirectory) return folders
-
-        val dir = folder.toPath()
-        var skipped = 0
-        try {
-            Files.newDirectoryStream(dir).use { stream ->
-                for (entry in stream) {
-                    if (!entry.toFile().isDirectory) continue
-                    if (skipped < offset) {
-                        skipped++
-                        continue
-                    }
-                    folders.add(entry.toFile())
-                    if (folders.size >= limit) break
-                }
-            }
+            result
         } catch (e: IOException) {
-            Log_OC.d(TAG, "fetchFolders: $e")
+            Log_OC.d(TAG, "listDirectoryEntries: $e")
+            emptyList()
         }
-        return folders
     }
 
     fun listFilesRecursive(files: Collection<File>): List<String> {
