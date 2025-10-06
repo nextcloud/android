@@ -64,7 +64,7 @@
 
     <ImageButton
         android:id="@+id/more"
-        android:layout_marginEnd="@dimen/standard_double_margin"
+        android:layout_marginEnd="@dimen/drawer_content_horizontal_padding"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:clickable="true"
