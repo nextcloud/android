@@ -30,7 +30,7 @@ object FileHelper {
         return try {
             Files.list(directory.toPath())
                 .map { it.toFile() }
-                .filter { file -> if (fetchFolders) file.isDirectory else true }
+                .filter { file -> if (fetchFolders) file.isDirectory else !file.isDirectory }
                 .skip(startIndex.toLong())
                 .limit(maxItems.toLong())
                 .collect(Collectors.toList())
