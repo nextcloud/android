@@ -204,6 +204,8 @@ public class ReceiveExternalFilesActivity extends FileActivity
             fm.beginTransaction()
                 .add(taskRetainerFragment, TaskRetainerFragment.FTAG_TASK_RETAINER_FRAGMENT).commit();
         }   // else, Fragment already created and retained across configuration change
+
+        handleBackPress();
     }
 
     @Override
@@ -657,8 +659,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
         }
     }
 
-    @Override
-    public void handleOnBackPressed() {
+    private void handleBackPress() {
         getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
