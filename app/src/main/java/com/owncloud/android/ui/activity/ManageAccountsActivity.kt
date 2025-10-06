@@ -91,7 +91,7 @@ class ManageAccountsActivity :
         multipleAccountsSupported = multiAccountSupport(this)
 
         setupUserList()
-        handleOnBackPressed()
+        handleBackPress()
     }
 
     private fun setupUsers() {
@@ -149,7 +149,7 @@ class ManageAccountsActivity :
         performAccountRemoval(user)
     }
 
-    override fun handleOnBackPressed() {
+    private fun handleBackPress() {
         onBackPressedDispatcher.addCallback(
             this,
             onBackPressedCallback
@@ -160,13 +160,13 @@ class ManageAccountsActivity :
         override fun handleOnBackPressed() {
             val resultIntent = Intent()
 
-            if (accountManager.allUsers.size > 0) {
+            if (accountManager.allUsers.isNotEmpty()) {
                 resultIntent.putExtra(KEY_ACCOUNT_LIST_CHANGED, hasAccountListChanged())
                 resultIntent.putExtra(KEY_CURRENT_ACCOUNT_CHANGED, hasCurrentAccountChanged())
                 setResult(RESULT_OK, resultIntent)
             } else {
                 val intent = Intent(this@ManageAccountsActivity, AuthenticatorActivity::class.java)
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
                 startActivity(intent)
             }
 

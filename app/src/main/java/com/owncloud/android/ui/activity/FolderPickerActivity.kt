@@ -106,7 +106,7 @@ open class FolderPickerActivity :
 
         updateActionBarTitleAndHomeButtonByString(captionText)
         setBackgroundText()
-        handleOnBackPressed()
+        handleBackPress()
     }
 
     override fun onDestroy() {
@@ -151,7 +151,7 @@ open class FolderPickerActivity :
         }
     }
 
-    override fun handleOnBackPressed() {
+    private fun handleBackPress() {
         onBackPressedDispatcher.addCallback(
             this,
             object : OnBackPressedCallback(true) {

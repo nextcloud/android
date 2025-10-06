@@ -124,7 +124,7 @@ class PreviewImageActivity :
 
         observeWorkerState()
         applyDisplayCutOutTopPadding()
-        handleOnBackPressed()
+        handleBackPress()
     }
 
     private fun applyDisplayCutOutTopPadding() {
@@ -216,7 +216,7 @@ class PreviewImageActivity :
         }
     }
 
-    override fun handleOnBackPressed() {
+    private fun handleBackPress() {
         onBackPressedDispatcher.addCallback(object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 sendRefreshSearchEventBroadcast()

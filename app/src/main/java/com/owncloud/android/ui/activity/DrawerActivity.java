@@ -211,7 +211,7 @@ public abstract class DrawerActivity extends ToolbarActivity
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState, @Nullable PersistableBundle persistentState) {
         super.onCreate(savedInstanceState, persistentState);
-        handleOnBackPressed();
+        addOnBackPressedCallback();
     }
 
     /**
@@ -1161,7 +1161,7 @@ public abstract class DrawerActivity extends ToolbarActivity
         }
     }
 
-    public void handleOnBackPressed() {
+    public void addOnBackPressedCallback() {
         getOnBackPressedDispatcher().addCallback(new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {

@@ -278,7 +278,7 @@ class FileDisplayActivity :
         initSyncBroadcastReceiver()
         observeWorkerState()
         startMetadataSyncForRoot()
-        handleBackPressed()
+        handleBackPress()
     }
 
     private fun loadSavedInstanceState(savedInstanceState: Bundle?) {
@@ -1150,7 +1150,7 @@ class FileDisplayActivity :
      *    3. if it is OCFileListFragment and it's in Root -> (finish Activity) or it's not Root -> (browse up)
      *    4. otherwise pop up the fragment and sortGroup view visibility and call onBackPressedDispatcher.onBackPressed()
      */
-    fun handleBackPressed() {
+    private fun handleBackPress() {
         onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 if (isSearchOpen()) {
