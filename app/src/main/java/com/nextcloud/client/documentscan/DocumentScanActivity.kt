@@ -104,7 +104,7 @@ class DocumentScanActivity :
                         true
                     }
                     android.R.id.home -> {
-                        onBackPressed()
+                        onBackPressedDispatcher.onBackPressed()
                         true
                     }
                     else -> false

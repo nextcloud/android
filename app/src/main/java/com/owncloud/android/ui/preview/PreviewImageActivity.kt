@@ -14,6 +14,7 @@ import android.os.Build
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.ActionBar
 import androidx.core.content.ContextCompat
 import androidx.drawerlayout.widget.DrawerLayout
@@ -123,6 +124,7 @@ class PreviewImageActivity :
 
         observeWorkerState()
         applyDisplayCutOutTopPadding()
+        handleOnBackPressed()
     }
 
     private fun applyDisplayCutOutTopPadding() {
@@ -214,9 +216,14 @@ class PreviewImageActivity :
         }
     }
 
-    override fun onBackPressed() {
-        sendRefreshSearchEventBroadcast()
-        super.onBackPressed()
+    override fun handleOnBackPressed() {
+        onBackPressedDispatcher.addCallback(object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                sendRefreshSearchEventBroadcast()
+                isEnabled = false
+                onBackPressedDispatcher.onBackPressed()
+            }
+        })
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

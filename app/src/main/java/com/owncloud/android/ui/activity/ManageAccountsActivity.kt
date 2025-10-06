@@ -149,7 +149,7 @@ class ManageAccountsActivity :
         performAccountRemoval(user)
     }
 
-    private fun handleOnBackPressed() {
+    override fun handleOnBackPressed() {
         onBackPressedDispatcher.addCallback(
             this,
             onBackPressedCallback
@@ -229,7 +229,7 @@ class ManageAccountsActivity :
         var result = true
 
         if (item.itemId == android.R.id.home) {
-            onBackPressed()
+            onBackPressedDispatcher.onBackPressed()
         } else {
             result = super.onOptionsItemSelected(item)
         }
@@ -331,7 +331,7 @@ class ManageAccountsActivity :
             )
             recyclerView?.adapter = userListAdapter
         } else {
-            onBackPressed()
+            onBackPressedDispatcher.onBackPressed()
         }
     }
 
@@ -393,8 +393,7 @@ class ManageAccountsActivity :
             resultIntent.putExtra(KEY_ACCOUNT_LIST_CHANGED, true)
             resultIntent.putExtra(KEY_CURRENT_ACCOUNT_CHANGED, true)
             setResult(RESULT_OK, resultIntent)
-
-            super.onBackPressed()
+            onBackPressedDispatcher.onBackPressed()
         }
     }
 
