@@ -28,27 +28,12 @@ object FileHelper {
         if (directory == null || !directory.exists() || !directory.isDirectory) return emptyList()
 
         return try {
-            val allEntries = Files.list(directory.toPath())
+            Files.list(directory.toPath())
                 .map { it.toFile() }
+                .filter { file -> if (fetchFolders) file.isDirectory else true }
+                .skip(startIndex.toLong())
+                .limit(maxItems.toLong())
                 .collect(Collectors.toList())
-
-            val result = mutableListOf<File>()
-            var skipped = 0
-
-            for (file in allEntries) {
-                val shouldInclude = if (fetchFolders) file.isDirectory else true
-
-                if (shouldInclude) {
-                    if (skipped < startIndex) {
-                        skipped++
-                        continue
-                    }
-                    result.add(file)
-                    if (result.size >= maxItems) break
-                }
-            }
-
-            result
         } catch (e: IOException) {
             Log_OC.d(TAG, "listDirectoryEntries: $e")
             emptyList()
