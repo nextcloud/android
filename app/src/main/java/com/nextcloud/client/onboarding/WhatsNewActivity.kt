@@ -132,6 +132,7 @@ class WhatsNewActivity :
             object : OnBackPressedCallback(true) {
                 override fun handleOnBackPressed() {
                     onFinish()
+                    isEnabled = false
                     onBackPressedDispatcher.onBackPressed()
                 }
             }

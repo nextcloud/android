@@ -10,6 +10,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
+import androidx.activity.OnBackPressedCallback
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.nextcloud.client.di.Injectable
@@ -46,6 +47,7 @@ class EtmActivity :
                 onPageChanged(it)
             }
         )
+        handleOnBackPressed()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean = when (item.itemId) {
@@ -58,11 +60,17 @@ class EtmActivity :
         else -> super.onOptionsItemSelected(item)
     }
 
-    @Deprecated("Deprecated in Java")
-    override fun onBackPressed() {
-        if (!vm.onBackPressed()) {
-            super.onBackPressed()
-        }
+    private fun handleOnBackPressed() {
+        onBackPressedDispatcher.addCallback(object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                val handledByVm = vm.onBackPressed()
+
+                if (!handledByVm) {
+                    isEnabled = false
+                    onBackPressedDispatcher.onBackPressed()
+                }
+            }
+        })
     }
 
     private fun onPageChanged(page: EtmMenuEntry?) {

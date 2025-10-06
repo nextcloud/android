@@ -201,7 +201,7 @@ class InternalTwoWaySyncActivity :
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             android.R.id.home -> {
-                onBackPressed()
+                onBackPressedDispatcher.onBackPressed()
             }
             R.id.action_dismiss_two_way_sync -> {
                 disableTwoWaySyncAndWorkers()

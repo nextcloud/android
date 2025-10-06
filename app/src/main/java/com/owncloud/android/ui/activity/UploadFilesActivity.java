@@ -238,7 +238,7 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 int i = position;
                 while (i-- != 0) {
-                    onBackPressed();
+                    getOnBackPressedDispatcher().onBackPressed();
                 }
                 // the next operation triggers a new call to this method, but it's necessary to
                 // ensure that the name exposed in the action bar is the current directory when the
@@ -311,7 +311,7 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
 
         if (itemId == android.R.id.home) {
             if (mCurrentDir != null && mCurrentDir.getParentFile() != null) {
-                onBackPressed();
+                getOnBackPressedDispatcher().onBackPressed();
             }
         } else if (itemId == R.id.action_select_all) {
             mSelectAll = !item.isChecked();
