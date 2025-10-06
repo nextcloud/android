@@ -71,7 +71,6 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
 
     private static final int PAGE_SIZE = 50;
     private int currentOffset = 0;
-    private File currentDirectory = null;
 
     public LocalFileListAdapter(boolean localFolderPickerMode,
                                 File directory,
@@ -305,100 +304,73 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
      *
      * @param directory New file to adapt. Can be NULL, meaning "no content to adapt".
      */
-    @SuppressLint("NotifyDataSetChanged")
     public void swapDirectory(final File directory) {
         localFileListFragmentInterface.setLoading(true);
-        currentDirectory = directory;
         currentOffset = 0; // reset offset
 
         Executors.newSingleThreadExecutor().execute(() -> {
-            List<File> firstPage;
-            if (directory == null) {
-                firstPage = new ArrayList<>();
-            } else {
-                if (mLocalFolderPicker) {
-                    firstPage = FileHelper.INSTANCE.fetchFolders(directory, currentOffset, PAGE_SIZE);
-                } else {
-                    firstPage = FileHelper.INSTANCE.fetchFiles(directory, currentOffset, PAGE_SIZE);
-                }
-            }
+            List<File> firstPage = FileHelper.INSTANCE.listDirectoryEntries(directory, currentOffset, PAGE_SIZE, mLocalFolderPicker);
 
-            // sort and filter
             if (!firstPage.isEmpty()) {
-                FileSortOrder sortOrder = preferences.getSortOrderByType(FileSortOrder.Type.localFileListView);
-                firstPage = sortOrder.sortLocalFiles(firstPage);
-
-                boolean showHiddenFiles = preferences.isShowHiddenFilesEnabled();
-                if (!showHiddenFiles) {
-                    firstPage = filterHiddenFiles(firstPage);
-                }
+                firstPage = sortAndFilterHiddenEntries(firstPage);
             }
 
-            final List<File> initialFiles = firstPage;
-            if (!mLocalFolderPicker) {
-                currentOffset += initialFiles.size();
-            }
+            // first set the currentOffset to PAGE_SIZE
+            currentOffset += PAGE_SIZE;
+            updateUIForFirstPage(firstPage);
 
-            // update UI immediately with first page
-            new Handler(Looper.getMainLooper()).post(() -> {
-                mFiles = new ArrayList<>(initialFiles);
-                mFilesAll = new ArrayList<>(initialFiles);
-                notifyDataSetChanged();
-                localFileListFragmentInterface.setLoading(false);
-            });
-
-            // load the rest silently in the background
-            if(mLocalFolderPicker) {
-                loadRemainingFolders(directory);
-            } else {
-                loadRemainingFiles(directory);
-            }
+            // load the rest silently in the background and updates the currentOffset by PAGE_SIZE for pagination
+            loadRemainingEntries(directory, mLocalFolderPicker);
         });
     }
 
-    private void loadRemainingFolders(File directory) {
-        if (!mLocalFolderPicker) return;
-
-        while (true) {
-            List<File> nextPage = FileHelper.INSTANCE.fetchFolders(directory, currentOffset, PAGE_SIZE);
-            if (nextPage.isEmpty()) break;
-
-            currentOffset += nextPage.size();
-
-            new Handler(Looper.getMainLooper()).post(() -> {
-                int positionStart = mFiles.size();
-                mFiles.addAll(nextPage);
-                mFilesAll.addAll(nextPage);
-                Log_OC.d(TAG, "loadRemainingFolders, next page loaded. Item size: " + mFilesAll.size());
-                notifyItemRangeInserted(positionStart, nextPage.size());
-            });
-        }
+    @SuppressLint("NotifyDataSetChanged")
+    private void updateUIForFirstPage(List<File> firstPage) {
+        new Handler(Looper.getMainLooper()).post(() -> {
+            mFiles = new ArrayList<>(firstPage);
+            mFilesAll = new ArrayList<>(firstPage);
+            notifyDataSetChanged();
+            localFileListFragmentInterface.setLoading(false);
+        });
     }
 
-    private void loadRemainingFiles(File directory) {
-        if (mLocalFolderPicker) return;
-
+    private List<File> sortAndFilterHiddenEntries(List<File> nextPage) {
         boolean showHiddenFiles = preferences.isShowHiddenFilesEnabled();
         FileSortOrder sortOrder = preferences.getSortOrderByType(FileSortOrder.Type.localFileListView);
 
-        while (true) {
-            List<File> nextPage = FileHelper.INSTANCE.fetchFiles(directory, currentOffset, PAGE_SIZE);
-            if (nextPage.isEmpty()) break;
-
-            if (!showHiddenFiles) nextPage = filterHiddenFiles(nextPage);
-            nextPage = sortOrder.sortLocalFiles(nextPage);
-
-            currentOffset += nextPage.size();
-
-            List<File> finalNextPage = nextPage;
-            new Handler(Looper.getMainLooper()).post(() -> {
-                int positionStart = mFiles.size();
-                mFiles.addAll(finalNextPage);
-                mFilesAll.addAll(finalNextPage);
-                Log_OC.d(TAG, "loadRemainingFiles, next page loaded. Item size: " + mFilesAll.size());
-                notifyItemRangeInserted(positionStart, finalNextPage.size());
-            });
+        if (!showHiddenFiles) {
+            nextPage = filterHiddenFiles(nextPage);
         }
+
+        return sortOrder.sortLocalFiles(nextPage);
+    }
+
+    private void loadRemainingEntries(File directory, boolean fetchFolders) {
+        while (true) {
+            List<File> nextPage = FileHelper.INSTANCE.listDirectoryEntries(directory, currentOffset, PAGE_SIZE, fetchFolders);
+            if (nextPage.isEmpty()) {
+                break;
+            }
+
+            nextPage = sortAndFilterHiddenEntries(nextPage);
+
+            currentOffset += PAGE_SIZE;
+            notifyItemRange(nextPage);
+        }
+    }
+
+    private void notifyItemRange(List<File> updatedList) {
+        new Handler(Looper.getMainLooper()).post(() -> {
+            int from = mFiles.size();
+            int to = updatedList.size();
+
+            mFiles.addAll(updatedList);
+            mFilesAll.addAll(updatedList);
+
+            Log_OC.d(TAG, "notifyItemRange, item size: " + mFilesAll.size());
+
+            notifyItemRangeInserted(from, to);
+        });
     }
 
     @SuppressLint("NotifyDataSetChanged")
