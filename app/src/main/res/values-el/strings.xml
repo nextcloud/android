@@ -287,6 +287,7 @@
     <string name="error_starting_direct_camera_upload">Σφάλμα κατά την εκκίνηση της κάμερας</string>
     <string name="error_starting_doc_scan">Σφάλμα σάρωσης εγγράφων</string>
     <string name="etm_accounts">Λογαριασμοί</string>
+    <string name="etm_background_job_created">Δημιουργήθηκε</string>
     <string name="etm_background_job_name">Όνομα εργασίας</string>
     <string name="etm_background_job_progress">Πρόοδος</string>
     <string name="etm_background_job_state">Κατάσταση</string>
