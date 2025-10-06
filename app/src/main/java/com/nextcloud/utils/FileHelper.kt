@@ -19,12 +19,7 @@ import kotlin.io.path.pathString
 object FileHelper {
     private const val TAG = "FileHelper"
 
-    fun listDirectoryEntries(
-        directory: File?,
-        startIndex: Int,
-        maxItems: Int,
-        fetchFolders: Boolean
-    ): List<File> {
+    fun listDirectoryEntries(directory: File?, startIndex: Int, maxItems: Int, fetchFolders: Boolean): List<File> {
         if (directory == null || !directory.exists() || !directory.isDirectory) return emptyList()
 
         return try {
