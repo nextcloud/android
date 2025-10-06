@@ -1151,30 +1151,33 @@ class FileDisplayActivity :
      *    4. otherwise pop up the fragment and sortGroup view visibility and call onBackPressedDispatcher.onBackPressed()
      */
     private fun handleBackPress() {
-        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-                if (isSearchOpen()) {
-                    resetSearchAction()
-                    return
-                }
-
-                if (isDrawerOpen) {
-                    isEnabled = false
-                    onBackPressedDispatcher.onBackPressed()
-                    return
-                }
-
-                if (this@FileDisplayActivity.leftFragment is OCFileListFragment) {
-                    if (isRoot(getCurrentDir())) {
-                        finish()
-                    } else {
-                        browseUp(leftFragment as OCFileListFragment)
+        onBackPressedDispatcher.addCallback(
+            this,
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    if (isSearchOpen()) {
+                        resetSearchAction()
+                        return
                     }
-                } else {
-                    popBack()
+
+                    if (isDrawerOpen) {
+                        isEnabled = false
+                        onBackPressedDispatcher.onBackPressed()
+                        return
+                    }
+
+                    if (this@FileDisplayActivity.leftFragment is OCFileListFragment) {
+                        if (isRoot(getCurrentDir())) {
+                            finish()
+                        } else {
+                            browseUp(leftFragment as OCFileListFragment)
+                        }
+                    } else {
+                        popBack()
+                    }
                 }
             }
-        })
+        )
     }
 
     private fun browseUp(listOfFiles: OCFileListFragment) {
