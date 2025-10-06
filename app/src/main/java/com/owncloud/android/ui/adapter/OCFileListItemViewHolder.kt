@@ -19,7 +19,7 @@ import com.google.android.material.chip.ChipGroup
 import com.owncloud.android.databinding.ListItemBinding
 import com.owncloud.android.ui.AvatarGroupLayout
 
-internal class OCFileListItemViewHolder(private var binding: ListItemBinding) :
+class OCFileListItemViewHolder(private var binding: ListItemBinding) :
     RecyclerView.ViewHolder(
         binding.root
     ),
