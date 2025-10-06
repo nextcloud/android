@@ -40,8 +40,6 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.io.File
-import java.util.concurrent.CompletableFuture
-import java.util.concurrent.ExecutionException
 import java.util.concurrent.Semaphore
 import javax.inject.Inject
 
@@ -220,41 +218,17 @@ class FileUploadHelper {
     }
 
     fun removeFileUpload(remotePath: String, accountName: String) {
-        try {
-            val user = accountManager.getUser(accountName).get()
-
-            // need to update now table in mUploadsStorageManager,
-            // since the operation will not get to be run by FileUploader#uploadFile
-            uploadsStorageManager.removeUpload(accountName, remotePath)
-            val uploadIds = uploadsStorageManager.getCurrentUploadIds(user.accountName)
-            cancelAndRestartUploadJob(user, uploadIds)
-        } catch (e: NoSuchElementException) {
-            Log_OC.e(TAG, "Error cancelling current upload because user does not exist!: " + e.message)
-        }
+        uploadsStorageManager.uploadDao.deleteByAccountAndRemotePath(accountName, remotePath)
     }
 
-    fun cancelFileUpload(remotePath: String, accountName: String) {
+    fun setStatusOfUploadToCancel(remotePath: String) {
         ioScope.launch {
-            val upload = uploadsStorageManager.getUploadByRemotePath(remotePath)
-            if (upload != null) {
-                cancelFileUploads(listOf(upload), accountName)
-            } else {
-                Log_OC.e(TAG, "Error cancelling current upload because upload does not exist!")
+            uploadsStorageManager.run {
+                uploadDao.getByRemotePath(remotePath)?.let { entity ->
+                    entity.status = UploadStatus.UPLOAD_CANCELLED.value
+                    uploadDao.update(entity)
+                }
             }
-        }
-    }
-
-    fun cancelFileUploads(uploads: List<OCUpload>, accountName: String) {
-        for (upload in uploads) {
-            upload.uploadStatus = UploadStatus.UPLOAD_CANCELLED
-            uploadsStorageManager.updateUpload(upload)
-        }
-
-        try {
-            val user = accountManager.getUser(accountName).get()
-            cancelAndRestartUploadJob(user, uploads.getUploadIds())
-        } catch (e: NoSuchElementException) {
-            Log_OC.e(TAG, "Error restarting upload job because user does not exist!: " + e.message)
         }
     }
 
@@ -266,26 +240,16 @@ class FileUploadHelper {
     }
 
     @Suppress("ReturnCount")
-    fun isUploading(user: User?, file: OCFile?): Boolean {
-        if (user == null || file == null || !backgroundJobManager.isStartFileUploadJobScheduled(user)) {
+    fun isUploading(remotePath: String?, accountName: String?): Boolean {
+        accountName ?: return false
+        if (!backgroundJobManager.isStartFileUploadJobScheduled(accountName)) {
             return false
         }
 
-        val uploadCompletableFuture = CompletableFuture.supplyAsync {
-            uploadsStorageManager.getUploadByRemotePath(file.remotePath)
-        }
-        return try {
-            val upload = uploadCompletableFuture.get()
-            if (upload != null) {
-                upload.uploadStatus == UploadStatus.UPLOAD_IN_PROGRESS
-            } else {
-                false
-            }
-        } catch (e: ExecutionException) {
-            false
-        } catch (e: InterruptedException) {
-            false
-        }
+        remotePath ?: return false
+        val upload = uploadsStorageManager.uploadDao.getByRemotePath(remotePath)
+        return upload?.status == UploadStatus.UPLOAD_IN_PROGRESS.value ||
+            FileUploadWorker.isUploading(remotePath, accountName)
     }
 
     private fun checkConnectivity(connectivityService: ConnectivityService): Boolean {
@@ -474,7 +438,9 @@ class FileUploadHelper {
                     return
                 }
 
-                instance().cancelFileUpload(remotePath, accountName)
+                FileUploadWorker.cancelCurrentUpload(remotePath, accountName, onCompleted = {
+                    instance().setStatusOfUploadToCancel(remotePath)
+                })
             }
         }
     }

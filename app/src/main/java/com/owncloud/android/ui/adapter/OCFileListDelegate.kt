@@ -380,7 +380,7 @@ class OCFileListDelegate(
 
         return operationsServiceBinder?.isSynchronizing(user, file) == true ||
             fileDownloadHelper.isDownloading(user, file) ||
-            fileUploadHelper.isUploading(user, file)
+            fileUploadHelper.isUploading(file.remotePath, user.accountName)
     }
 
     private fun showLocalFileIndicator(file: OCFile, holder: ListViewHolder) {

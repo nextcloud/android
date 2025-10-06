@@ -79,12 +79,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.RandomAccessFile;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.nio.channels.FileChannel;
 import java.nio.channels.FileLock;
 import java.nio.channels.OverlappingFileLockException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
@@ -1435,21 +1434,37 @@ public class UploadFileOperation extends SyncOperation {
     }
 
     /**
-     * Allows to cancel the actual upload operation. If actual upload operating is in progress it is cancelled, if
-     * upload preparation is being performed upload will not take place.
+     * Cancels the current upload process.
+     *
+     * <p>
+     * Behavior depends on the current state of the upload:
+     * <ul>
+     *   <li><b>Upload in preparation:</b> Upload will not start and a cancellation flag is set.</li>
+     *   <li><b>Upload in progress:</b> The ongoing upload operation is cancelled via
+     *       {@link UploadFileRemoteOperation#cancel(ResultCode)}.</li>
+     *   <li><b>No upload operation:</b> A cancellation flag is still set, but this situation is unexpected
+     *       and logged as an error.</li>
+     * </ul>
+     *
+     * <p>
+     * Once cancelled, the database will be updated through
+     * {@link UploadsStorageManager#updateDatabaseUploadResult(RemoteOperationResult, UploadFileOperation)}.
+     *
+     * @param cancellationReason the reason for cancellation
      */
     public void cancel(ResultCode cancellationReason) {
-        if (mUploadOperation == null) {
-            if (mUploadStarted.get()) {
-                Log_OC.d(TAG, "Cancelling upload during upload preparations.");
-                mCancellationRequested.set(true);
-            } else {
-                mCancellationRequested.set(true);
-                Log_OC.e(TAG, "No upload in progress. This should not happen.");
-            }
-        } else {
+        if (mUploadOperation != null) {
+            // Cancel an active upload
             Log_OC.d(TAG, "Cancelling upload during actual upload operation.");
             mUploadOperation.cancel(cancellationReason);
+        } else {
+            // Cancel while preparing or when no upload exists
+            mCancellationRequested.set(true);
+            if (mUploadStarted.get()) {
+                Log_OC.d(TAG, "Cancelling upload during preparation.");
+            } else {
+                Log_OC.e(TAG, "No upload in progress. This should not happen.");
+            }
         }
     }
 

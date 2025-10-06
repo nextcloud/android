@@ -32,7 +32,7 @@ data class UploadEntity(
     @ColumnInfo(name = ProviderTableMeta.UPLOADS_FILE_SIZE)
     val fileSize: Long?,
     @ColumnInfo(name = ProviderTableMeta.UPLOADS_STATUS)
-    val status: Int?,
+    var status: Int?,
     @ColumnInfo(name = ProviderTableMeta.UPLOADS_LOCAL_BEHAVIOUR)
     val localBehaviour: Int?,
     @ColumnInfo(name = ProviderTableMeta.UPLOADS_UPLOAD_TIME)
