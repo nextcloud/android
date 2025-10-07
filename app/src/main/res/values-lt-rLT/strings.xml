@@ -499,6 +499,7 @@
     <string name="network_host_not_available">Nepavyko užbaigti operacijos, Serveris nepasiekiamas.</string>
     <string name="new_comment">Naujas komentaras…</string>
     <string name="new_media_folder_detected">Aptiktas naujas %1$s medijos failas.</string>
+    <string name="new_notification">Naujas įspėjimas</string>
     <string name="new_version_was_created">Buvo sukurta nauja versija</string>
     <string name="no_browser_available">Nėra programėlės, skirtos apdoroti nuorodas</string>
     <string name="no_calendar_exists">Nėra jokių kalendorių</string>
@@ -686,6 +687,7 @@
     <string name="share_no_expiration_date_label">Nustatyti galiojimo pabaigos datą</string>
     <string name="share_no_password_title">Nustatyti slaptažodį</string>
     <string name="share_permission_can_edit">Galima redaguoti</string>
+    <string name="share_permission_file_request">Failų įkėlimui</string>
     <string name="share_permission_secure_file_drop">Saugus failų įkėlimas</string>
     <string name="share_permission_view_only">Tik peržiūrėti</string>
     <string name="share_re_share_permission">Bendrinti</string>
@@ -849,6 +851,7 @@
     <string name="upload_file_dialog_title">Įrašykite failo pavadinimą ir tipą įkėlimui</string>
     <string name="upload_files">Įkelti failus</string>
     <string name="upload_item_action_button">Įkelti elemento veiksmo mygtuką</string>
+    <string name="upload_list_cancel_upload">Atšaukti įkėlimą</string>
     <string name="upload_list_delete">Ištrinti</string>
     <string name="upload_list_empty_headline">Atnaujinimų nerasta</string>
     <string name="upload_list_empty_text_auto_upload">Įkelkite failus arba sinchronizuokite su savo įrenginiais</string>
