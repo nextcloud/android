@@ -46,7 +46,7 @@ class UnifiedSearchFragmentIT : AbstractIT() {
             scenario.onActivity { activity ->
                 onIdleSync {
                     EspressoIdlingResource.increment()
-                    val sut = UnifiedSearchFragment.newInstance(null, null)
+                    val sut = UnifiedSearchFragment.newInstance(null, null, "/")
                     activity.addFragment(sut)
 
                     sut.onSearchResultChanged(
@@ -83,7 +83,7 @@ class UnifiedSearchFragmentIT : AbstractIT() {
                 onIdleSync {
                     EspressoIdlingResource.increment()
 
-                    val sut = UnifiedSearchFragment.newInstance(null, null)
+                    val sut = UnifiedSearchFragment.newInstance(null, null, "/")
                     val testViewModel = UnifiedSearchViewModel(activity.application)
                     testViewModel.setConnectivityService(activity.connectivityServiceMock)
                     val localRepository = UnifiedSearchFakeRepository()

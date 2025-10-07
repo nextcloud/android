@@ -23,4 +23,5 @@ interface IUnifiedSearchViewModel {
     fun loadMore(provider: ProviderID)
     fun openResult(result: SearchResultEntry)
     fun setQuery(query: String)
+    fun openFile(remotePath: String)
 }

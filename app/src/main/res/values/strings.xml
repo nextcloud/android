@@ -1318,6 +1318,7 @@
     <string name="internal_two_way_sync_not_yet">Not yet, soon to be synced</string>
     <string name="gplay_restriction">Google restricted downloading APK/AAB files!</string>
     <string name="file_list_empty_local_search">No file or folder matching your search</string>
+    <string name="unified_search_fragment_search_in_this_folder">In this folder</string>
     <string name="unified_search_fragment_calendar_event_not_found">Event not found, you can always sync to update. Redirecting to web…</string>
     <string name="unified_search_fragment_contact_not_found">Contact not found, you can always sync to update. Redirecting to web…</string>
     <string name="unified_search_fragment_permission_needed">Permissions are required to open search result otherwise it will redirected to web…</string>
@@ -1356,6 +1357,7 @@
     <string name="create_link">Create link</string>
     <string name="folder_best_viewed_in">This folder is best viewed in %1$s.</string>
     <string name="open_in_app">Open in %1$s</string>
+    <string name="auto_upload_battery_saver_mode_warning">Auto-upload is paused because Battery Saver is on.</string>
     <string name="auto_upload_sub_folder_warning">This folder is already included in the parent folder’s sync, which may cause duplicate uploads</string>
     <string name="sync_anyway">Sync anyway</string>
     <string name="sync_duplication">Sync duplication</string>
