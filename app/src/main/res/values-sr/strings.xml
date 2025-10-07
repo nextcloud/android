@@ -666,13 +666,6 @@
     <string name="picture_set_as_no_app">Нема апликације којом се поставља слика</string>
     <string name="pin_home">Закачи на почетни екран</string>
     <string name="pin_shortcut_label">Отвори %1$s</string>
-    <string name="placeholder_extension">.txt</string>
-    <string name="placeholder_fileSize">389 KB</string>
-    <string name="placeholder_filename">чувар места</string>
-    <string name="placeholder_media_time">12:23:45</string>
-    <string name="placeholder_reason">Недавно уређивано</string>
-    <string name="placeholder_sentence">Ово је местодржач</string>
-    <string name="placeholder_timestamp">2012/05/18 12:23 ПоП</string>
     <string name="player_stop">стоп</string>
     <string name="player_toggle">пребацивање</string>
     <string name="please_select_a_server">Молимо вас да изаберете сервер</string>

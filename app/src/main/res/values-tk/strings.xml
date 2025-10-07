@@ -427,10 +427,6 @@
     <string name="permission_deny">inkär et</string>
     <string name="permission_storage_access">Faýllary ýüklemek we göçürip almak üçin goşmaça rugsatlar gerek.</string>
     <string name="picture_set_as_no_app">Surat goýmak üçin hiç bir programma tapylmady</string>
-    <string name="placeholder_fileSize">389 KB</string>
-    <string name="placeholder_media_time">12:23:45</string>
-    <string name="placeholder_sentence">Bu bir ýer eýesi</string>
-    <string name="placeholder_timestamp">2012/05/18 12:23</string>
     <string name="player_stop">Dur</string>
     <string name="player_toggle">üýtgetmek</string>
     <string name="power_save_check_dialog_message">Kuwwat tygşytlaýyş barlagyny öçürmek, batareýanyň pes ýagdaýynda faýl ýüklemegine sebäp bolup biler!</string>

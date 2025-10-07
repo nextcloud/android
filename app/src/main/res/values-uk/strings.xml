@@ -666,12 +666,6 @@
     <string name="picture_set_as_no_app">Не знайдено застосунків для встановлення зображення для</string>
     <string name="pin_home">Закріпити на домівці</string>
     <string name="pin_shortcut_label">Відкрити %1$s</string>
-    <string name="placeholder_extension">.txt</string>
-    <string name="placeholder_fileSize">389 КБ</string>
-    <string name="placeholder_media_time">12:23:45</string>
-    <string name="placeholder_reason">Нещодавно відредаговано</string>
-    <string name="placeholder_sentence">Це заповнювач</string>
-    <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
     <string name="player_stop">стоп</string>
     <string name="player_toggle">переключитися</string>
     <string name="please_select_a_server">Виберіть сервер...</string>

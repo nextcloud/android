@@ -471,12 +471,6 @@
     <string name="permission_deny">Nega</string>
     <string name="permission_storage_access">Sunt rechertos àteros permissos pro carrigare e iscarrigare documentos.</string>
     <string name="picture_set_as_no_app">Peruna aplicatzione agatada pro cunfigurare un\'immàgine</string>
-    <string name="placeholder_extension">.txt</string>
-    <string name="placeholder_fileSize">389 KB</string>
-    <string name="placeholder_media_time">12:23:45</string>
-    <string name="placeholder_reason">Modificados dae pagu</string>
-    <string name="placeholder_sentence">Custu est unu sostitutu temporàneu</string>
-    <string name="placeholder_timestamp">18/05/2012 12:23</string>
     <string name="player_stop">firma</string>
     <string name="player_toggle">parti</string>
     <string name="power_save_check_dialog_message">Disativare su controllu de su rispàrmiu de energia podet fàghere chi si carrighent documentos cun sa bateria bàscia!</string>

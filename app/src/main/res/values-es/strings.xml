@@ -666,13 +666,6 @@
     <string name="picture_set_as_no_app">No se ha encontrado una app para establecer con ella la imagen</string>
     <string name="pin_home">Anclar a la pantalla de inicio</string>
     <string name="pin_shortcut_label">Abrir %1$s</string>
-    <string name="placeholder_extension">.txt</string>
-    <string name="placeholder_fileSize">389 KB</string>
-    <string name="placeholder_filename">marcador de posición</string>
-    <string name="placeholder_media_time">12:23:45</string>
-    <string name="placeholder_reason">Editado recientemente</string>
-    <string name="placeholder_sentence">Esto es un marcador de posición</string>
-    <string name="placeholder_timestamp">18/05/2012 12:23 PM</string>
     <string name="player_stop">parar</string>
     <string name="player_toggle">cambiar</string>
     <string name="please_select_a_server">Por favor, seleccione un servidor…</string>

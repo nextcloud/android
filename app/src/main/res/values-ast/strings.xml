@@ -382,12 +382,6 @@
     <string name="permission_deny">Negar</string>
     <string name="permission_storage_access">Ríquense permisos adicionales pa xubir y baxar ficheros.</string>
     <string name="pin_shortcut_label">Abrir «%1$s»</string>
-    <string name="placeholder_extension">.txt</string>
-    <string name="placeholder_fileSize">389 KB</string>
-    <string name="placeholder_media_time">12:23:45</string>
-    <string name="placeholder_reason">Editóse apocayá</string>
-    <string name="placeholder_sentence">Esto ye un marcador de posición</string>
-    <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
     <string name="pref_behaviour_entries_delete_file">desanicióse</string>
     <string name="pref_behaviour_entries_keep_file">guardáu en carpeta orixinal</string>
     <string name="pref_behaviour_entries_move">movíu a la carpeta d\'aplicaciones</string>

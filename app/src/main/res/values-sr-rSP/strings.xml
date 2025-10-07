@@ -391,10 +391,6 @@
     <string name="permission_deny">Odbij</string>
     <string name="permission_storage_access">Dodatne dozvole potrebne da se otpremaju i skidaju fajlovi.</string>
     <string name="picture_set_as_no_app">Nijedna aplikacija nije nađena da se sa njom postavi slika</string>
-    <string name="placeholder_fileSize">389 KB</string>
-    <string name="placeholder_media_time">12:23:45</string>
-    <string name="placeholder_sentence">Ovo je mestodržač</string>
-    <string name="placeholder_timestamp">2012/05/18 12:23 PoP</string>
     <string name="power_save_check_dialog_message">Isključivanje provere uštede baterije može da dovede do toga da otpremate fajlove sa praznom baterijom!</string>
     <string name="pref_behaviour_entries_delete_file">obrisano</string>
     <string name="pref_behaviour_entries_keep_file">ostavljen u izvornoj fascikli</string>

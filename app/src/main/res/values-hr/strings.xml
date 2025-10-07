@@ -490,12 +490,6 @@
     <string name="permission_deny">Spriječi</string>
     <string name="permission_storage_access">Potrebna su dodatna dopuštenja za otpremanje i preuzimanje datoteka.</string>
     <string name="picture_set_as_no_app">Nije pronađena nijedna aplikacija za postavljanje slike s</string>
-    <string name="placeholder_extension">.txt</string>
-    <string name="placeholder_fileSize">389 KB</string>
-    <string name="placeholder_media_time">12:23:45</string>
-    <string name="placeholder_reason">Nedavno uređeno</string>
-    <string name="placeholder_sentence">Ovo je prazan prostor</string>
-    <string name="placeholder_timestamp">18. 5. 2012. 12:23</string>
     <string name="player_stop">zaustavi</string>
     <string name="player_toggle">uključi/isključi</string>
     <string name="power_save_check_dialog_message">Onemogućivanje provjere uštede energije može rezultirati otpremanjem datoteka pri niskoj razini napunjenosti baterije!</string>

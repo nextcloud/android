@@ -578,12 +578,6 @@
     <string name="permission_storage_access">Tiedostojen lähetys ja lataaminen vaatii lisäoikeuksia.</string>
     <string name="picture_set_as_no_app">Kuvan liittämiseksi ei löytynyt sovellusta</string>
     <string name="pin_shortcut_label">Avaa %1$s</string>
-    <string name="placeholder_extension">.txt</string>
-    <string name="placeholder_fileSize">389 kt</string>
-    <string name="placeholder_media_time">12:23:45</string>
-    <string name="placeholder_reason">Äskettäin muokattu</string>
-    <string name="placeholder_sentence">Tämä on paikkamerkki</string>
-    <string name="placeholder_timestamp">18.05.2012 12:23</string>
     <string name="player_stop">pysäytä</string>
     <string name="player_toggle">vaihda</string>
     <string name="please_select_a_server">Valitse palvelin...</string>

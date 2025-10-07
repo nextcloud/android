@@ -663,13 +663,6 @@
     <string name="picture_set_as_no_app">Не найдено приложений для обработки изображений</string>
     <string name="pin_home">Закрепить на главном экране</string>
     <string name="pin_shortcut_label">Открыть %1$s</string>
-    <string name="placeholder_extension">.txt</string>
-    <string name="placeholder_fileSize">389 Кбайт</string>
-    <string name="placeholder_filename">заполнитель</string>
-    <string name="placeholder_media_time">12:23:45</string>
-    <string name="placeholder_reason">Недавно изменено</string>
-    <string name="placeholder_sentence">Это заполнитель</string>
-    <string name="placeholder_timestamp">2012/05/18 12:23</string>
     <string name="player_stop">остановить</string>
     <string name="player_toggle">переключить</string>
     <string name="please_select_a_server">Пожалуйста, выберите сервер...</string>
