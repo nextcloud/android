@@ -26,6 +26,8 @@ import com.owncloud.android.utils.MimeTypeUtil;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 /**
  * Remote operation performing the rename of a remote file (or folder?) in the ownCloud server.
@@ -162,23 +164,27 @@ public class RenameFileOperation extends SyncOperation {
         }
         // create a test file
         String tmpFolderName = FileStorageUtils.getTemporalPath("");
-        File testFile = new File(tmpFolderName + newName);
-        File tmpFolder = testFile.getParentFile();
-        if (tmpFolder != null && !tmpFolder.exists() && !tmpFolder.mkdirs()) {
-            Log_OC.e(TAG, "Unable to create parent folder " + tmpFolder.getAbsolutePath());
+        Path testFile = Paths.get(tmpFolderName, newName);
+        Path tmpFolder = testFile.getParent();
+        if (tmpFolder != null && !Files.exists(tmpFolder)) {
+            try {
+                Files.createDirectories(tmpFolder);
+            } catch (IOException e) {
+                Log_OC.e(TAG, "Unable to create parent folder " + tmpFolder.toAbsolutePath());
+            }
         }
-        if (tmpFolder != null && !tmpFolder.isDirectory()) {
+        if (tmpFolder != null && !Files.isDirectory(tmpFolder)) {
             throw new IOException("Unexpected error: temporal directory could not be created");
         }
         try {
-            Files.createFile(testFile.toPath());
+            Files.createFile(testFile);
         } catch (IOException e) {
             Log_OC.i(TAG, "Test for validity of name " + newName + " in the file system failed");
             return false;
         }
-        boolean result = testFile.exists() && testFile.isFile();
+        boolean result = Files.exists(testFile) && Files.isRegularFile(testFile);
 
-        Files.delete(testFile.toPath());
+        Files.delete(testFile);
 
         return result;
     }
