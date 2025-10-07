@@ -15,6 +15,7 @@
  */
 package com.owncloud.android.ui.activity;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -354,6 +355,7 @@ public class SettingsActivity extends PreferenceActivity
         }
     }
 
+    @SuppressLint("GestureBackNavigation")
     @Override
     public void onBackPressed() {
         DrawerActivity.menuItemId = R.id.nav_all_files;
