@@ -7,7 +7,8 @@
   ~ SPDX-FileCopyrightText: 2016 Nextcloud GmbH
   ~ SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
 -->
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/header_container"
@@ -16,7 +17,7 @@
     android:orientation="vertical"
     android:paddingBottom="@dimen/alternate_half_padding"
     android:paddingEnd="@dimen/zero"
-    android:paddingStart="@dimen/standard_padding"
+    android:paddingStart="@dimen/standard_quarter_padding"
     android:paddingTop="@dimen/alternate_half_padding">
 
     <include
@@ -28,6 +29,7 @@
         android:layout_marginBottom="@dimen/standard_quadruple_margin"
         android:visibility="gone"
         android:layout_marginEnd="@dimen/standard_margin"
+        android:layout_marginStart="@dimen/standard_half_margin"
         app:layout_constraintBottom_toBottomOf="@id/type"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -47,16 +49,33 @@
     <TextView
         android:id="@+id/title"
         android:layout_width="wrap_content"
-        android:layout_height="@dimen/minimum_size_for_touchable_area"
-        android:layout_marginStart="@dimen/standard_margin"
+        android:layout_height="wrap_content"
         android:ellipsize="middle"
         android:gravity="center|start"
-        android:text="@string/placeholder_filename"
+        android:layout_marginBottom="@dimen/synced_folders_title_margin"
         android:textAlignment="center"
         android:textColor="?android:textColorPrimary"
         android:textStyle="bold"
+        tools:text="Download"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/type" />
+
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/nextScanIndicator"
+        android:clickable="true"
+        android:focusable="true"
+        android:layout_width="@dimen/minimum_size_for_touchable_area"
+        android:layout_height="@dimen/minimum_size_for_touchable_area"
+        style="@style/Widget.Material3.Button.IconButton.Filled.Tonal"
+        app:icon="@drawable/ic_clock"
+        app:backgroundTint="@color/transparent"
+        android:contentDescription="@string/synced_folders_next_scan_indicator_icon_content_description"
+        app:cornerRadius="@dimen/button_corner_radius"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/title"
+        tools:visibility="visible"/>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/subFolderWarningButton"

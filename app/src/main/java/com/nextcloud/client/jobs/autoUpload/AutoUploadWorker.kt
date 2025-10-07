@@ -175,14 +175,11 @@ class AutoUploadWorker(
             return true
         }
 
-        val calculatedScanInterval =
-            FilesSyncHelper.calculateScanInterval(syncedFolder, connectivityService, powerManagementService)
-        val totalScanInterval = (syncedFolder.lastScanTimestampMs + calculatedScanInterval)
+        val totalScanInterval = syncedFolder.getTotalScanInterval(connectivityService, powerManagementService)
         val currentTime = System.currentTimeMillis()
         val passedScanInterval = totalScanInterval <= currentTime
 
         Log_OC.d(TAG, "lastScanTimestampMs: " + syncedFolder.lastScanTimestampMs)
-        Log_OC.d(TAG, "calculatedScanInterval: $calculatedScanInterval")
         Log_OC.d(TAG, "totalScanInterval: $totalScanInterval")
         Log_OC.d(TAG, "currentTime: $currentTime")
         Log_OC.d(TAG, "passedScanInterval: $passedScanInterval")
