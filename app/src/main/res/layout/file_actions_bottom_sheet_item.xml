@@ -46,7 +46,7 @@
             android:layout_marginStart="@dimen/bottom_sheet_text_start_margin"
             android:textColor="@color/text_color"
             android:textSize="@dimen/bottom_sheet_text_size"
-            tools:text="Delete file" />
+            tools:text="@string/placeholder_delete_file" />
 
         <TextView
             android:id="@+id/text_line2"
@@ -57,7 +57,7 @@
             android:textColor="@color/secondary_text_color"
             android:textSize="@dimen/bottom_sheet_text_size"
             android:visibility="gone"
-            tools:text="Some additional action info"
+            tools:text="@string/placeholder_action_info"
             tools:visibility="visible" />
     </LinearLayout>
 

@@ -21,7 +21,7 @@
         android:layout_marginBottom="@dimen/min_list_item_size"
         android:gravity="center"
         android:padding="@dimen/standard_padding"
-        tools:text="Show 3 hidden folders"
+        tools:text="@string/placeholder_show_hidden_folders"
         android:textColor="@color/secondary_text_color" />
 
 </LinearLayout>

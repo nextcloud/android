@@ -40,14 +40,14 @@
                 android:layout_height="wrap_content"
                 android:ellipsize="middle"
                 android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
-                tools:text="Alice Muster" />
+                tools:text="@string/placeholder_first_name_last_name" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/account"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ellipsize="middle"
-                tools:text="alice@cloud.nextcloud.com" />
+                tools:text="@string/placeholder_random_account" />
 
         </LinearLayout>
 

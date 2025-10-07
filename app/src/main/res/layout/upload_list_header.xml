@@ -46,7 +46,7 @@
         android:paddingTop="@dimen/standard_half_padding"
         android:paddingBottom="@dimen/standard_half_padding"
         android:textColor="@color/color_accent"
-        tools:text="Current (2)" />
+        tools:text="@string/placeholder_current_2" />
 
     <ImageView
         android:id="@+id/upload_list_action"

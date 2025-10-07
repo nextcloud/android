@@ -129,8 +129,7 @@
                     app:chipBackgroundColor="@color/bg_default"
                     app:chipEndPadding="@dimen/zero"
                     app:chipStartPadding="@dimen/zero"
-                    app:ensureMinTouchTargetSize="false"
-                    tools:text="tag1" />
+                    app:ensureMinTouchTargetSize="false" />
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/secondTag"
@@ -144,8 +143,7 @@
                     app:chipBackgroundColor="@color/bg_default"
                     app:chipEndPadding="@dimen/zero"
                     app:chipStartPadding="@dimen/zero"
-                    app:ensureMinTouchTargetSize="false"
-                    tools:text="tag2" />
+                    app:ensureMinTouchTargetSize="false" />
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/tag_more"
@@ -159,8 +157,7 @@
                     app:chipBackgroundColor="@color/bg_default"
                     app:chipEndPadding="@dimen/zero"
                     app:chipStartPadding="@dimen/zero"
-                    app:ensureMinTouchTargetSize="false"
-                    tools:text="+3" />
+                    app:ensureMinTouchTargetSize="false" />
 
             </com.google.android.material.chip.ChipGroup>
 

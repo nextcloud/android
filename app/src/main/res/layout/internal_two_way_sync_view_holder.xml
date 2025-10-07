@@ -38,7 +38,7 @@
             android:singleLine="true"
             android:textColor="@color/text_color"
             android:textSize="@dimen/two_line_primary_text_size"
-            tools:text="Folder abc" />
+            tools:text="@string/placeholder_filename" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -51,7 +51,7 @@
                 android:gravity="center_vertical"
                 android:textColor="@color/list_item_lastmod_and_filesize_text"
                 android:textSize="@dimen/two_line_secondary_text_size"
-                tools:text="241 Mb" />
+                tools:text="@string/placeholder_fileSize_2" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -70,7 +70,7 @@
                 android:gravity="center_vertical"
                 android:textColor="@color/list_item_lastmod_and_filesize_text"
                 android:textSize="@dimen/two_line_secondary_text_size"
-                tools:text="5 min ago" />
+                tools:text="@string/placeholder_time_ago" />
 
             <TextView
                 android:id="@+id/sync_result_divider"
@@ -90,7 +90,7 @@
                 android:gravity="center_vertical"
                 android:textColor="@color/list_item_lastmod_and_filesize_text"
                 android:textSize="@dimen/two_line_secondary_text_size"
-                tools:text="Success" />
+                tools:text="@string/placeholder_success" />
 
         </LinearLayout>
     </LinearLayout>

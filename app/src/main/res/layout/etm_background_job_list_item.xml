@@ -27,7 +27,7 @@
             android:id="@+id/etm_background_job_uuid"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:text="d7edb387-0b61-4e4e-a728-ffab3055d700" />
+            tools:text="@string/placeholder_uuid" />
     </TableRow>
 
     <TableRow
@@ -46,7 +46,7 @@
             android:id="@+id/etm_background_job_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="job name" />
+            tools:text="@string/placeholder_job_name" />
 
     </TableRow>
 
@@ -64,7 +64,7 @@
             android:id="@+id/etm_background_job_user"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="user@nextcloud.com" />
+            tools:text="@string/placeholder_random_account" />
 
     </TableRow>
 
@@ -82,7 +82,7 @@
             android:id="@+id/etm_background_job_state"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="ENQUEUED" />
+            tools:text="@string/placeholder_job_state" />
 
     </TableRow>
 
@@ -100,7 +100,7 @@
             android:id="@+id/etm_background_job_started"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="2020-02-15T20:53:15Z" />
+            tools:text="@string/placeholder_date_3" />
 
     </TableRow>
 
@@ -119,7 +119,7 @@
             android:id="@+id/etm_background_job_progress"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="50%" />
+            tools:text="@string/placeholder_progress" />
 
     </TableRow>
 
@@ -139,7 +139,7 @@
             android:id="@+id/etm_background_execution_count"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="0" />
+            tools:text="@string/placeholder_random_number" />
 
     </TableRow>
 

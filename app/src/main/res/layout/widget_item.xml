@@ -37,7 +37,7 @@
             android:ellipsize="end"
             android:gravity="start"
             android:textColor="@color/black"
-            tools:text="First line" />
+            tools:text="@string/placeholder_widget_first_line" />
 
         <TextView
             android:id="@+id/subtitle"
@@ -47,7 +47,7 @@
             android:textColor="@color/standard_grey"
             android:maxLines="1"
             android:ellipsize="end"
-            tools:text="Subline" />
+            tools:text="@string/placeholder_widget_second_line" />
     </LinearLayout>
 
 </LinearLayout>
