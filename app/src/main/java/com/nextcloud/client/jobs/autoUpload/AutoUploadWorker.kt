@@ -141,22 +141,20 @@ class AutoUploadWorker(
         .build()
 
     @Suppress("TooGenericExceptionCaught")
-    private fun getStartNotificationTitle(): Pair<String, String>? {
-        return try {
-            val localPath = syncedFolder.localPath
-            val remotePath = syncedFolder.remotePath
-            if (localPath.isBlank() || remotePath.isBlank()) {
-                null
-            } else {
-                try {
-                    File(localPath).name to File(remotePath).name
-                } catch (_: Exception) {
-                    null
-                }
-            }
-        } catch (_: Exception) {
+    private fun getStartNotificationTitle(): Pair<String, String>? = try {
+        val localPath = syncedFolder.localPath
+        val remotePath = syncedFolder.remotePath
+        if (localPath.isBlank() || remotePath.isBlank()) {
             null
+        } else {
+            try {
+                File(localPath).name to File(remotePath).name
+            } catch (_: Exception) {
+                null
+            }
         }
+    } catch (_: Exception) {
+        null
     }
 
     @Suppress("ReturnCount")
