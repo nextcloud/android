@@ -78,7 +78,7 @@
                 android:maxLines="1"
                 android:text="@string/placeholder_filename"
                 android:textAppearance="?android:attr/textAppearanceListItem"
-                tools:text="Firstname Lastname" />
+                tools:text="@string/placeholder_first_name_last_name" />
 
             <TextView
                 android:id="@+id/status"
