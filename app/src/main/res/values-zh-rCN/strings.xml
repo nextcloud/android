@@ -666,13 +666,6 @@
     <string name="picture_set_as_no_app">找不到可以设置图片的应用程序</string>
     <string name="pin_home">固定到主屏幕</string>
     <string name="pin_shortcut_label">打开 1%1$s</string>
-    <string name="placeholder_extension">.txt </string>
-    <string name="placeholder_fileSize">389 KB</string>
-    <string name="placeholder_filename">占位符</string>
-    <string name="placeholder_media_time">12:23:45</string>
-    <string name="placeholder_reason">最近编辑</string>
-    <string name="placeholder_sentence">这是一个占位符</string>
-    <string name="placeholder_timestamp">2012/05/18 下午12:23 </string>
     <string name="player_stop">停止</string>
     <string name="player_toggle">切换</string>
     <string name="please_select_a_server">请选择服务器…</string>

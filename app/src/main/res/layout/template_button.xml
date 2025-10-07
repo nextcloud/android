@@ -54,5 +54,5 @@
         android:gravity="center_horizontal"
         android:paddingTop="@dimen/standard_half_padding"
         android:textColor="@color/text_color"
-        tools:text="Template" />
+        tools:text="@string/placeholder_template" />
 </LinearLayout>

@@ -525,12 +525,6 @@
     <string name="permission_storage_access">Se requieren permisos adicionales para cargar y descargar archivos. </string>
     <string name="picture_set_as_no_app">No se encontró una aplicación con la cual establecer la imagen</string>
     <string name="pin_shortcut_label">Abrir %1$s</string>
-    <string name="placeholder_extension">.txt</string>
-    <string name="placeholder_fileSize">389 KB</string>
-    <string name="placeholder_media_time">12:23:45</string>
-    <string name="placeholder_reason">Recientemente editados</string>
-    <string name="placeholder_sentence">Este es un marcador de posición</string>
-    <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
     <string name="player_stop">detener</string>
     <string name="player_toggle">alternar</string>
     <string name="power_save_check_dialog_message">¡Desactivar la comprobación de ahorro de energía podría resultar en la carga de archivos cuando la batería esté baja!</string>

@@ -78,7 +78,7 @@
                 android:maxLines="1"
                 android:text="@string/placeholder_filename"
                 android:textAppearance="?android:attr/textAppearanceListItem"
-                tools:text="Firstname Lastname" />
+                tools:text="@string/placeholder_first_name_last_name" />
 
             <TextView
                 android:id="@+id/status"
@@ -93,7 +93,7 @@
                 android:text="@string/placeholder_sentence"
                 android:textColor="?android:attr/textColorSecondary"
                 android:visibility="gone"
-                tools:text="☁️ My custom status" />
+                tools:text="@string/placeholder_status" />
 
             <TextView
                 android:id="@+id/account"
@@ -107,7 +107,7 @@
                 android:maxLines="1"
                 android:text="@string/placeholder_sentence"
                 android:textColor="?android:attr/textColorSecondary"
-                tools:text="https://nextcloud.localhost/nextcloud" />
+                tools:text="@string/placeholder_random_link" />
 
         </LinearLayout>
 

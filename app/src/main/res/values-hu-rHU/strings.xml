@@ -666,13 +666,6 @@
     <string name="picture_set_as_no_app">Nincs alkalmazás a képbeállításhoz</string>
     <string name="pin_home">Rögzítés a kezdőképernyőre</string>
     <string name="pin_shortcut_label">A(z) %1$s megnyitása</string>
-    <string name="placeholder_extension">.txt</string>
-    <string name="placeholder_fileSize">389 kB</string>
-    <string name="placeholder_filename">helykitöltő</string>
-    <string name="placeholder_media_time">12:23:45</string>
-    <string name="placeholder_reason">Nemrég szerkesztve</string>
-    <string name="placeholder_sentence">Ez egy helykitöltő</string>
-    <string name="placeholder_timestamp">2012.05.18. 12:23</string>
     <string name="player_stop">leállítás</string>
     <string name="player_toggle">átváltás</string>
     <string name="please_select_a_server">Válasszon egy kiszolgálót…</string>

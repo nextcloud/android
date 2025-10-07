@@ -623,12 +623,6 @@
     <string name="pick_contact_to_share_with">Seleziona il contatto con cui condividere</string>
     <string name="picture_set_as_no_app">Nessuna applicazione trovata per impostare un\'immagine</string>
     <string name="pin_shortcut_label">Apri %1$s</string>
-    <string name="placeholder_extension">.txt</string>
-    <string name="placeholder_fileSize">389 KB</string>
-    <string name="placeholder_media_time">12:23:45</string>
-    <string name="placeholder_reason">Modificati di recente</string>
-    <string name="placeholder_sentence">Questo è un segnaposto</string>
-    <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
     <string name="player_stop">ferma</string>
     <string name="player_toggle">attiva</string>
     <string name="please_select_a_server">Per favore, seleziona un server...</string>

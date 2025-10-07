@@ -37,6 +37,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/icon"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="+49 123 456 789 12" />
+        tools:text="@string/placeholder_example_phone_number" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

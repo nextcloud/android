@@ -80,7 +80,7 @@
             android:text=""
             android:textColor="@color/text_color"
             android:textSize="@dimen/two_line_primary_text_size"
-            tools:text="Test 123" />
+            tools:text="@string/placeholder_filename" />
 
         <TextView
             android:id="@+id/subline"
@@ -91,7 +91,7 @@
             android:text=""
             android:textColor="@color/list_item_lastmod_and_filesize_text"
             android:textSize="@dimen/two_line_secondary_text_size"
-            tools:text="in TestFolder" />
+            tools:text="@string/placeholder_in_folder" />
 
     </LinearLayout>
 

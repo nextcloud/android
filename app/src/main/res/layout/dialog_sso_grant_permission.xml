@@ -43,6 +43,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="Grant Nextcloud News access to your Nextcloud account incrediblyLong_username_with_123456789_number@Nextcloud_dummy.com?" />
+        tools:text="@string/placeholder_sso" />
 
 </LinearLayout>

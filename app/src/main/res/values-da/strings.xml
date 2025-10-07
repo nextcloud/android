@@ -666,13 +666,6 @@
     <string name="picture_set_as_no_app">Ingen apps fundet til at vælge et billede med</string>
     <string name="pin_home">Fastgør til hjemmeskærm</string>
     <string name="pin_shortcut_label">Åbn %1$s</string>
-    <string name="placeholder_extension">.txt</string>
-    <string name="placeholder_fileSize">389 KB</string>
-    <string name="placeholder_filename">pladsholder</string>
-    <string name="placeholder_media_time">12:23:45</string>
-    <string name="placeholder_reason">Nyligt redigeret</string>
-    <string name="placeholder_sentence">Dette er en pladsholder</string>
-    <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
     <string name="player_stop">stop</string>
     <string name="player_toggle">skift</string>
     <string name="please_select_a_server">Vælg venligst en server...</string>

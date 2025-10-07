@@ -46,7 +46,7 @@
                 app:layout_constraintStart_toEndOf="@+id/etm_transfer_type_icon"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
-                tools:text="@string/etm_transfer_type_download" />
+                tools:text="@string/placeholder_download" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </TableRow>
@@ -65,7 +65,7 @@
             android:id="@+id/etm_transfer_uuid"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:text="d7edb387-0b61-4e4e-a728-ffab3055d700" />
+            tools:text="@string/placeholder_uuid" />
     </TableRow>
 
     <TableRow
@@ -82,7 +82,7 @@
             android:id="@+id/etm_transfer_remote_path"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="file path" />
+            tools:text="@string/placeholder_file_path" />
 
     </TableRow>
 
@@ -100,7 +100,7 @@
             android:id="@+id/etm_transfer_user"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="user@nextcloud.com" />
+            tools:text="@string/placeholder_random_account" />
 
     </TableRow>
 
@@ -118,7 +118,7 @@
             android:id="@+id/etm_transfer_state"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="PENDING" />
+            tools:text="@string/placeholder_job_state" />
 
     </TableRow>
 
@@ -137,7 +137,7 @@
             android:id="@+id/etm_transfer_progress"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="50%" />
+            tools:text="@string/placeholder_progress" />
 
     </TableRow>
 

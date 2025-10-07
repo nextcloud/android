@@ -39,7 +39,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/standard_quarter_margin"
-                tools:text="This folder is best viewed in the Notes app" />
+                tools:text="@string/placeholder_open_in_notes_info" />
 
         </LinearLayout>
 
@@ -49,7 +49,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/standard_quarter_margin"
-            tools:text="Open in Notes" />
+            tools:text="@string/placeholder_open_in_notes" />
 
         <androidx.constraintlayout.helper.widget.Flow
             android:id="@+id/flow"

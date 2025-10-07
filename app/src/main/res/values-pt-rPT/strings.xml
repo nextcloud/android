@@ -582,11 +582,6 @@
     <string name="permission_storage_access">Necessário permissões adicionais para enviar e transferir ficheiros.</string>
     <string name="picture_set_as_no_app">Nenhuma aplicação encontrada para definir a imagem</string>
     <string name="pin_shortcut_label">Abrir %1$s</string>
-    <string name="placeholder_fileSize">389 KB</string>
-    <string name="placeholder_media_time">12:23:45</string>
-    <string name="placeholder_reason">Editado recentemente</string>
-    <string name="placeholder_sentence">Isto é uma variável</string>
-    <string name="placeholder_timestamp">2012/05/18 12:23</string>
     <string name="player_stop">parar</string>
     <string name="player_toggle">alternar</string>
     <string name="power_save_check_dialog_message">Desabilitar a verificação de poupança de energia pode resultar no envio de ficheiros quando a carga da bateria está baixa!</string>
