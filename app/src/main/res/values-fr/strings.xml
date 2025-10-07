@@ -662,13 +662,6 @@
     <string name="picture_set_as_no_app">Aucune application trouvée pour utiliser cette image</string>
     <string name="pin_home">Épingler sur l\'écran d\'accueil</string>
     <string name="pin_shortcut_label">Ouvrir %1$s</string>
-    <string name="placeholder_extension">.txt</string>
-    <string name="placeholder_fileSize">389 Ko</string>
-    <string name="placeholder_filename">exemple</string>
-    <string name="placeholder_media_time">12:23:45</string>
-    <string name="placeholder_reason">Modifié récemment</string>
-    <string name="placeholder_sentence">Ceci est un espace réservé</string>
-    <string name="placeholder_timestamp">18/05/2012 12:23 PM</string>
     <string name="player_stop">arrêter</string>
     <string name="player_toggle">inverser</string>
     <string name="please_select_a_server">Veuillez sélectionner un serveur…</string>

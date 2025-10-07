@@ -451,6 +451,8 @@
     <string name="ssl_validator_null_cert">The certificate could not be shown.</string>
     <string name="ssl_validator_no_info_about_error">- No information about the error</string>
 
+    <string name="placeholder_timestamp" translatable="false">2012/05/18 12:23 PM</string>
+    <string name="placeholder_media_time" translatable="false">12:23:45</string>
     <string name="placeholder_sentence" translatable="false">This is a placeholder</string>
     <string name="placeholder_filename" translatable="false">Filename</string>
     <string name="placeholder_reason" translatable="false">Recently edited</string>
@@ -459,8 +461,6 @@
     <string name="placeholder_fileSize_2" translatable="false">5 MB</string>
     <string name="placeholder_fileSize_3" translatable="false">3 MB</string>
     <string name="placeholder_current_2" translatable="false">Current (2)</string>
-    <string name="placeholder_timestamp" translatable="false">2012/05/18 12:23 PM</string>
-    <string name="placeholder_media_time" translatable="false">12:23:45</string>
     <string name="placeholder_send_button" translatable="false">Send button</string>
     <string name="placeholder_first_name_last_name" translatable="false">Firstname Lastname</string>
     <string name="placeholder_file_type" translatable="false">Filetype</string>

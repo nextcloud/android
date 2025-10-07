@@ -662,13 +662,6 @@
     <string name="picture_set_as_no_app">Görselin ayarlanabileceği bir uygulama bulunamadı</string>
     <string name="pin_home">Ana sayfaya sabitle</string>
     <string name="pin_shortcut_label">%1$s aç</string>
-    <string name="placeholder_extension">.txt</string>
-    <string name="placeholder_fileSize">389 KB</string>
-    <string name="placeholder_filename">yerbelirtici</string>
-    <string name="placeholder_media_time">12:23:45</string>
-    <string name="placeholder_reason">Son düzenlenenler</string>
-    <string name="placeholder_sentence">Bu bir yer belirleyicidir</string>
-    <string name="placeholder_timestamp">2012/05/18 12:23 ÖS</string>
     <string name="player_stop">durdur</string>
     <string name="player_toggle">değiştir</string>
     <string name="please_select_a_server">Lütfen bir sunucu seçin…</string>

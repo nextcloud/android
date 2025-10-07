@@ -372,11 +372,6 @@
     <string name="permission_deny">Rifuzi</string>
     <string name="permission_storage_access">Pliaj permesoj bezonataj por el- kaj alŝuti dosierojn.</string>
     <string name="picture_set_as_no_app">Neniu aplikaĵo trovita por uzi tiun bildon</string>
-    <string name="placeholder_extension">.txt</string>
-    <string name="placeholder_fileSize">389 KB</string>
-    <string name="placeholder_media_time">12:23:45</string>
-    <string name="placeholder_sentence">Ĉi tio estas lokokupilo</string>
-    <string name="placeholder_timestamp">2012/05/18 12:23</string>
     <string name="pref_behaviour_entries_delete_file">forigita</string>
     <string name="pref_behaviour_entries_keep_file">konservita en origina dosierujo</string>
     <string name="pref_behaviour_entries_move">movita al aplikaĵa dosierujo</string>
