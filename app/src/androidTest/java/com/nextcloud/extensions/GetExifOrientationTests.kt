@@ -19,6 +19,7 @@ class GetExifOrientationTests {
 
     private val tempFiles = mutableListOf<File>()
 
+    @Suppress("MagicNumber")
     private fun createTempImageFile(): File {
         val file = File.createTempFile("test_image", ".jpg")
         tempFiles.add(file)
