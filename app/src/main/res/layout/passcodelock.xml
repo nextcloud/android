@@ -63,8 +63,7 @@
                     <com.owncloud.android.ui.components.PassCodeEditText
                         android:id="@+id/txt0"
                         style="@style/PassCodeStyle"
-                        android:importantForAutofill="no"
-                        tools:text="123">
+                        android:importantForAutofill="no">
                     </com.owncloud.android.ui.components.PassCodeEditText>
 
                     <com.owncloud.android.ui.components.PassCodeEditText

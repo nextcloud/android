@@ -46,8 +46,7 @@
             android:textSize="18sp"
             android:textStyle="bold"
             android:visibility="gone"
-            tools:ignore="RtlHardcoded"
-            tools:text="Nextcloud" />
+            tools:ignore="RtlHardcoded" />
 
     </LinearLayout>
 

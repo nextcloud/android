@@ -456,6 +456,9 @@
     <string name="placeholder_reason" translatable="false">Recently edited</string>
     <string name="placeholder_extension" translatable="false">.txt</string>
     <string name="placeholder_fileSize" translatable="false">389 KB</string>
+    <string name="placeholder_fileSize_2" translatable="false">5 MB</string>
+    <string name="placeholder_fileSize_3" translatable="false">3 MB</string>
+    <string name="placeholder_current_2" translatable="false">Current (2)</string>
     <string name="placeholder_timestamp" translatable="false">2012/05/18 12:23 PM</string>
     <string name="placeholder_media_time" translatable="false">12:23:45</string>
     <string name="placeholder_send_button" translatable="false">Send button</string>
@@ -466,6 +469,50 @@
     <string name="placeholder_share_internal_folder_text" translatable="false">Internal share link only works for users with access to this folder</string>
     <string name="placeholder_share_internal_e2ee_keyword_description" translatable="false">All 12 words together make a very strong password, letting only you view and make use of your encrypted files. Please write it down and keep it somewhere safe.</string>
     <string name="placeholder_share_no_internet_connection" translatable="false">No internet connection</string>
+    <string name="placeholder_status" translatable="false">☁️ My custom status</string>
+    <string name="placeholder_random_link" translatable="false">https://nextcloud.localhost/nextcloud</string>
+    <string name="placeholder_random_account" translatable="false">firstname@example.nextcloud.com</string>
+    <string name="placeholder_date" translatable="false">12. Dec 2020 - 23:10:20</string>
+    <string name="placeholder_date_2" translatable="false">10. Dec 2020 - 10:10:10</string>
+    <string name="placeholder_sso" translatable="false">Grant Nextcloud News access to your Nextcloud account incrediblyLong_username_with_123456789_number@Nextcloud_dummy.com?</string>
+    <string name="placeholder_example_phone_number" translatable="false">+49 123 456 789 12</string>
+    <string name="placeholder_uuid" translatable="false">d7edb387-0b61-4e4e-a728-ffab3055d700</string>
+    <string name="placeholder_job_name" translatable="false">Job name</string>
+    <string name="placeholder_job_state" translatable="false">ENQUEUED</string>
+    <string name="placeholder_date_3" translatable="false">2020-02-15T20:53:15Z</string>
+    <string name="placeholder_progress" translatable="false">50%</string>
+    <string name="placeholder_random_number" translatable="false">0</string>
+    <string name="placeholder_remaining_downloads" translatable="false">5 downloads remaining</string>
+    <string name="placeholder_view_only" translatable="false">View only</string>
+    <string name="placeholder_time_ago" translatable="false">6 min ago</string>
+    <string name="placeholder_success" translatable="false">Success</string>
+    <string name="placeholder_file_path" translatable="false">/abc/example</string>
+    <string name="placeholder_delete_file" translatable="false">Delete file</string>
+    <string name="placeholder_action_info" translatable="false">Some additional action info</string>
+    <string name="placeholder_open_in_notes" translatable="false">Open in Notes</string>
+    <string name="placeholder_open_in_notes_info" translatable="false">This folder is best viewed in the Notes app</string>
+    <string name="placeholder_year" translatable="false">2025</string>
+    <string name="placeholder_month" translatable="false">October</string>
+    <string name="placeholder_auto_upload_overview_path" translatable="false">For /storage/emulated/0/DCIM/Camera</string>
+    <string name="placeholder_predefined_status_icon" translatable="false">📆</string>
+    <string name="placeholder_predefined_status_name" translatable="false">In a meeting</string>
+    <string name="placeholder_predefined_status_clear_at" translatable="false">an hour</string>
+    <string name="placeholder_image_detail_date" translatable="false">Wednesday • 26 Jul 2023 • 12:27</string>
+    <string name="placeholder_image_details" translatable="false">12 MP • 3024 × 4032 • 923 KB</string>
+    <string name="placeholder_image_detail_model" translatable="false">Camera Phone (4th generation)</string>
+    <string name="placeholder_image_detail_condition" translatable="false">ƒ/1.8 • 1/374 s • 28 mm • ISO 200</string>
+    <string name="placeholder_image_detail_location" translatable="false">Mitte, Berlin, Germany</string>
+    <string name="placeholder_image_detail_example_copyright" translatable="false">© OpenStreetMap contributors</string>
+    <string name="placeholder_compose_mail" translatable="false">Compose email</string>
+    <string name="placeholder_passphrase" translatable="false">passphrase</string>
+    <string name="placeholder_show_hidden_folders" translatable="false">Show 3 hidden folders</string>
+    <string name="placeholder_template" translatable="false">Template</string>
+    <string name="placeholder_widget_first_line" translatable="false">First line</string>
+    <string name="placeholder_widget_second_line" translatable="false">Subline</string>
+    <string name="placeholder_search_in_nextcloud" translatable="false">Search in Nextcloud</string>
+    <string name="placeholder_files" translatable="false">Files</string>
+    <string name="placeholder_in_folder" translatable="false">in TestFolder</string>
+    <string name="placeholder_example_mail" translatable="false">example@nextcloud.com</string>
 
     <string name="auto_upload_on_wifi">Only upload on unmetered Wi-Fi</string>
     <string name="instant_upload_on_charging">Only upload when charging</string>

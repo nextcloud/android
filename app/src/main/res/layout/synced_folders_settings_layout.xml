@@ -41,7 +41,7 @@
                 android:ellipsize="middle"
                 android:maxLines="2"
                 android:textColor="?android:attr/textColorSecondary"
-                tools:text="For /storage/emulated/0/DCIM/Camera" />
+                tools:text="@string/placeholder_auto_upload_overview_path" />
         </LinearLayout>
 
         <LinearLayout
