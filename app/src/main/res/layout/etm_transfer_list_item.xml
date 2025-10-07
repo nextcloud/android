@@ -46,7 +46,7 @@
                 app:layout_constraintStart_toEndOf="@+id/etm_transfer_type_icon"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
-                tools:text="@string/etm_transfer_type_download" />
+                tools:text="@string/placeholder_download" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </TableRow>

@@ -451,13 +451,21 @@
     <string name="ssl_validator_null_cert">The certificate could not be shown.</string>
     <string name="ssl_validator_no_info_about_error">- No information about the error</string>
 
-    <string name="placeholder_sentence">This is a placeholder</string>
-    <string name="placeholder_filename">placeholder</string>
-    <string name="placeholder_reason">Recently edited</string>
-    <string name="placeholder_extension">.txt</string>
-    <string name="placeholder_fileSize">389 KB</string>
-    <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
-    <string name="placeholder_media_time">12:23:45</string>
+    <string name="placeholder_sentence" translatable="false">This is a placeholder</string>
+    <string name="placeholder_filename" translatable="false">Filename</string>
+    <string name="placeholder_reason" translatable="false">Recently edited</string>
+    <string name="placeholder_extension" translatable="false">.txt</string>
+    <string name="placeholder_fileSize" translatable="false">389 KB</string>
+    <string name="placeholder_timestamp" translatable="false">2012/05/18 12:23 PM</string>
+    <string name="placeholder_media_time" translatable="false">12:23:45</string>
+    <string name="placeholder_send_button" translatable="false">Send button</string>
+    <string name="placeholder_first_name_last_name" translatable="false">Firstname Lastname</string>
+    <string name="placeholder_file_type" translatable="false">Filetype</string>
+    <string name="placeholder_download" translatable="false">Download</string>
+    <string name="placeholder_share_internal_link_text" translatable="false">Internal share link only works for users with access to this folder</string>
+    <string name="placeholder_share_internal_folder_text" translatable="false">Internal share link only works for users with access to this folder</string>
+    <string name="placeholder_share_internal_e2ee_keyword_description" translatable="false">All 12 words together make a very strong password, letting only you view and make use of your encrypted files. Please write it down and keep it somewhere safe.</string>
+    <string name="placeholder_share_no_internet_connection" translatable="false">No internet connection</string>
 
     <string name="auto_upload_on_wifi">Only upload on unmetered Wi-Fi</string>
     <string name="instant_upload_on_charging">Only upload when charging</string>
