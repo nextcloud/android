@@ -304,7 +304,7 @@ class SyncedFolderAdapter(
     }
 
     private fun initNextScanIndicator(holder: HeaderViewHolder, syncedFolder: SyncedFolder) {
-        var tooltipText = getNextScanIndicatorTooltipText(syncedFolder)
+        var tooltipText = getNextScanIndicatorText(syncedFolder)
 
         holder.binding.nextScanIndicator.run {
             setVisibleIf(syncedFolder.isEnabled && (tooltipText != null))
@@ -312,7 +312,7 @@ class SyncedFolderAdapter(
             if (isVisible) {
                 setOnClickListener { view ->
                     // get most-up-to-date value
-                    tooltipText = getNextScanIndicatorTooltipText(syncedFolder)
+                    tooltipText = getNextScanIndicatorText(syncedFolder)
                     tooltipText?.let {
                         DisplayUtils.showSnackMessage(view, it)
                     }
@@ -321,7 +321,7 @@ class SyncedFolderAdapter(
         }
     }
 
-    private fun getNextScanIndicatorTooltipText(syncedFolder: SyncedFolder): String? {
+    private fun getNextScanIndicatorText(syncedFolder: SyncedFolder): String? {
         val totalScanInterval = syncedFolder.getTotalScanInterval(connectivityService, powerManagementService)
         val nextScanInMillis = totalScanInterval - System.currentTimeMillis()
         val minutesLeft = TimeUnit.MILLISECONDS
