@@ -69,7 +69,7 @@ class SharedListFragment :
     }
 
     override fun getSearchRemoteOperation(currentUser: User?, event: SearchEvent?): RemoteOperation<*> =
-        GetSharesRemoteOperation(false, SessionTimeOut(60000, 60000))
+        GetSharesRemoteOperation(false, SessionTimeOut(TASK_TIMEOUT, TASK_TIMEOUT))
 
     @Suppress("DEPRECATION")
     private suspend fun fetchFileData(partialFile: OCFile): OCFile? = withContext(Dispatchers.IO) {
@@ -186,5 +186,6 @@ class SharedListFragment :
 
     companion object {
         private val SHARED_TAG = SharedListFragment::class.java.simpleName
+        const val TASK_TIMEOUT = 120_000
     }
 }
