@@ -707,6 +707,14 @@ open class ExtendedListFragment :
                     true
                 )
             }
+            EmptyListState.ERROR -> {
+                setMessageForEmptyList(
+                    R.string.file_list_error_headline,
+                    R.string.file_list_error_description,
+                    R.drawable.ic_synchronizing_error,
+                    true
+                )
+            }
             else -> {
                 setMessageForEmptyList(
                     R.string.file_list_empty_headline,

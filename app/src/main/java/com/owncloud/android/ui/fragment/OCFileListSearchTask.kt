@@ -80,6 +80,8 @@ class OCFileListSearchTask(
                 withContext(Dispatchers.Main) {
                     if (result && isActive) {
                         fragment.adapter.notifyDataSetChanged()
+                    } else {
+                        fragment.setEmptyListMessage(EmptyListState.ERROR)
                     }
                 }
             }
