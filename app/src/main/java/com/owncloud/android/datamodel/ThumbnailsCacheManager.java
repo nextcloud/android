@@ -37,6 +37,7 @@ import android.widget.ImageView;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.utils.BitmapExtensionsKt;
+import com.nextcloud.utils.extensions.ThumbnailsCacheManagerExtensionsKt;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.OwnCloudAccount;
@@ -76,6 +77,8 @@ import androidx.annotation.VisibleForTesting;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
+import static com.nextcloud.utils.extensions.ThumbnailsCacheManagerExtensionsKt.getExifOrientation;
 
 /**
  * Manager for concurrent access to thumbnails cache.
@@ -194,7 +197,8 @@ public final class ThumbnailsCacheManager {
         Bitmap thumbnail = ThumbnailUtils.extractThumbnail(bitmap, pxW, pxH);
 
         // Rotate image, obeying exif tag
-        thumbnail = BitmapUtils.rotateImage(thumbnail,path);
+        int orientation = getExifOrientation(path);
+        thumbnail = BitmapExtensionsKt.rotateBitmapViaExif(thumbnail, orientation);
 
         // Add thumbnail to cache
         // do not overwrite any pre-existing image
