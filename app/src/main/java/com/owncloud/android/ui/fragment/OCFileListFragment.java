@@ -1910,7 +1910,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
         // avoid calling api multiple times if task is already executing
         if (searchTask != null && !searchTask.isFinished()) {
             if (searchEvent != null) {
-                Log_OC.d(TAG, "OCFileListSearchAsyncTask already running skipping new api call for search event: " + searchEvent.getSearchType());
+                Log_OC.d(TAG, "OCFileListSearchTask already running skipping new api call for search event: " + searchEvent.getSearchType());
             }
 
             return;
