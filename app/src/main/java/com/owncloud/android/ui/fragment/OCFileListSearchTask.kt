@@ -23,7 +23,7 @@ import kotlinx.coroutines.withContext
 import kotlinx.coroutines.withTimeoutOrNull
 import java.lang.ref.WeakReference
 
-@SuppressLint("NotifyDataSetChanged")
+@SuppressLint("NotifyDataSetChanged", "LongParameterList")
 class OCFileListSearchTask(
     containerActivity: FileFragment.ContainerActivity,
     fragment: OCFileListFragment,
@@ -46,10 +46,6 @@ class OCFileListSearchTask(
     fun execute() {
         fragmentReference.get()?.let { fragment ->
             job = fragment.lifecycleScope.launch(Dispatchers.IO) {
-                withContext(Dispatchers.Main) {
-                    fragment.setEmptyListMessage(EmptyListState.LOADING)
-                }
-
                 val result = withTimeoutOrNull(taskTimeout) {
                     if (!isActive) {
                         false
