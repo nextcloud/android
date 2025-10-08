@@ -850,7 +850,6 @@
     <string name="shared_icon_shared">shared</string>
     <string name="overflow_menu">More menu</string>
     <string name="synced_folders_type">Type</string>
-    <string name="synced_folders_next_scan_indicator_icon_content_description">Next potential scan indicator icon</string>
 
     <string name="sync_status_button">Sync status button</string>
     <string name="sync_warning_button">Sync warning button</string>
