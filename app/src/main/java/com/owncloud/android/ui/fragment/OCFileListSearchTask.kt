@@ -23,7 +23,8 @@ import kotlinx.coroutines.withContext
 import kotlinx.coroutines.withTimeoutOrNull
 import java.lang.ref.WeakReference
 
-@SuppressLint("NotifyDataSetChanged", "LongParameterList")
+@Suppress("LongParameterList")
+@SuppressLint("NotifyDataSetChanged")
 class OCFileListSearchTask(
     containerActivity: FileFragment.ContainerActivity,
     fragment: OCFileListFragment,
