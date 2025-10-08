@@ -225,7 +225,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
     protected SearchType currentSearchType;
     protected boolean searchFragment;
     protected SearchEvent searchEvent;
-    protected AsyncTask<Void, Void, Boolean> remoteOperationAsyncTask;
+    private OCFileListSearchTask searchTask;
     protected String mLimitToMimeType;
     private FloatingActionButton mFabMain;
     public static boolean isMultipleFileSelectedForCopyOrMove = false;
@@ -356,8 +356,8 @@ public class OCFileListFragment extends ExtendedListFragment implements
         setOnRefreshListener(null);
         mContainerActivity = null;
 
-        if (remoteOperationAsyncTask != null) {
-            remoteOperationAsyncTask.cancel(true);
+        if (searchTask != null) {
+            searchTask.cancel();
         }
         super.onDetach();
     }
@@ -1915,7 +1915,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
         }
 
         // avoid calling api multiple times if async task is already executing
-        if (remoteOperationAsyncTask != null && remoteOperationAsyncTask.getStatus() != AsyncTask.Status.FINISHED) {
+        if (searchTask != null && !searchTask.isFinished()) {
             if (searchEvent != null) {
                 Log_OC.d(TAG, "OCFileListSearchAsyncTask already running skipping new api call for search event: " + searchEvent.getSearchType());
             }
@@ -1950,9 +1950,8 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
         final RemoteOperation remoteOperation = getSearchRemoteOperation(currentUser, event);
 
-        remoteOperationAsyncTask = new OCFileListSearchAsyncTask(mContainerActivity, this, remoteOperation, currentUser, event);
-
-        remoteOperationAsyncTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        searchTask = new OCFileListSearchTask(mContainerActivity, this, remoteOperation, currentUser, event);
+        searchTask.execute();
     }
 
 
