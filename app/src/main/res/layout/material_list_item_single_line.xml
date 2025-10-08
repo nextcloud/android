@@ -25,7 +25,7 @@
         android:lines="1"
         android:ellipsize="end"
         android:textColor="?android:attr/textColorPrimary"
-        tools:text="Single line of text"/>
+        tools:text="@string/placeholder_filename"/>
 
     <androidx.appcompat.widget.AppCompatImageView
         style="@style/MaterialListItemSecondaryAction"

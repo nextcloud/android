@@ -666,13 +666,6 @@
     <string name="picture_set_as_no_app">Ei leidu rakendust pildi määramiseks</string>
     <string name="pin_home">Kinnita avalehele</string>
     <string name="pin_shortcut_label">Ava %1$s </string>
-    <string name="placeholder_extension">.txt</string>
-    <string name="placeholder_fileSize">389 KB</string>
-    <string name="placeholder_filename">kohatäitja</string>
-    <string name="placeholder_media_time">12:23:45</string>
-    <string name="placeholder_reason">Hiljuti muudetud</string>
-    <string name="placeholder_sentence">See on kohahoidja</string>
-    <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
     <string name="player_stop">peata</string>
     <string name="player_toggle">lülita sisse/välja</string>
     <string name="please_select_a_server">Palun vali server…</string>

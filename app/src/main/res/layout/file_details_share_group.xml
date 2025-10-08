@@ -49,7 +49,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="@dimen/two_line_primary_text_size"
-            tools:text="@string/share_internal_link_to_folder_text" />
+            tools:text="@string/placeholder_share_internal_link_text" />
     </LinearLayout>
 
 </LinearLayout>

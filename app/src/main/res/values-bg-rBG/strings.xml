@@ -524,12 +524,6 @@
     <string name="permission_storage_access">Изискват се допълнителни права за изтегляне и сваляне на файлове.</string>
     <string name="picture_set_as_no_app">Няма намерени приложения за задаване на снимка</string>
     <string name="pin_shortcut_label">Отваряне на %1$s</string>
-    <string name="placeholder_extension">.txt</string>
-    <string name="placeholder_fileSize">389 KB</string>
-    <string name="placeholder_media_time">12:23:45</string>
-    <string name="placeholder_reason">Наскоро редактирани</string>
-    <string name="placeholder_sentence">Това е за запазено място</string>
-    <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
     <string name="player_stop">стоп</string>
     <string name="player_toggle">превключване</string>
     <string name="power_save_check_dialog_message">Деактивирането на проверката за пестене на енергия може да доведе до качване на файлове, в състояние с ниска батерия!</string>

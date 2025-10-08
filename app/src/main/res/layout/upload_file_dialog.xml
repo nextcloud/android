@@ -20,7 +20,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/upload_file_dialog_filename"
-        tools:text="@string/upload_file_dialog_filename"/>
+        tools:text="@string/placeholder_filename"/>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/user_input_container"
@@ -48,7 +48,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/standard_margin"
         android:text="@string/upload_file_dialog_filetype"
-        tools:text="@string/upload_file_dialog_filetype"/>
+        tools:text="@string/placeholder_file_type"/>
 
     <Spinner
         android:id="@+id/file_type"

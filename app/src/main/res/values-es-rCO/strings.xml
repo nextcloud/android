@@ -514,10 +514,6 @@
     <string name="pass_code_wrong">Código de seguridad incorrecto</string>
     <string name="permission_storage_access">Se requieren permisos adicionales para cargar y descargar archivos. </string>
     <string name="picture_set_as_no_app">No se encontró una aplicación con la cual establecer la imagen</string>
-    <string name="placeholder_fileSize">389 KB</string>
-    <string name="placeholder_media_time">12:23:45</string>
-    <string name="placeholder_sentence">Este es un marcador de posición</string>
-    <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
     <string name="pref_behaviour_entries_delete_file">Borrado</string>
     <string name="pref_behaviour_entries_keep_file">mantenido en la carpeta original</string>
     <string name="pref_behaviour_entries_move">movido a la carpeta de la aplicación</string>

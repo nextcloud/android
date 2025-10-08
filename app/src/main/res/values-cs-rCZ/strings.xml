@@ -666,13 +666,6 @@
     <string name="picture_set_as_no_app">Nenalezena žádná aplikace pro nastavení obrázku</string>
     <string name="pin_home">Připnout na domovskou obrazovku</string>
     <string name="pin_shortcut_label">Otevřít %1$s</string>
-    <string name="placeholder_extension">.txt</string>
-    <string name="placeholder_fileSize">389 KB</string>
-    <string name="placeholder_filename">výplň</string>
-    <string name="placeholder_media_time">12:23:45</string>
-    <string name="placeholder_reason">Nedávno upravováno</string>
-    <string name="placeholder_sentence">Toto je zástupný text</string>
-    <string name="placeholder_timestamp">2012/05/18 12:23</string>
     <string name="player_stop">vypnout</string>
     <string name="player_toggle">přepnout</string>
     <string name="please_select_a_server">Vyberte server…</string>

@@ -29,6 +29,6 @@
         android:paddingRight="@dimen/standard_half_padding"
         android:paddingStart="@dimen/standard_half_margin"
         android:textColor="@color/standard_grey"
-        tools:text="@string/offline_mode" />
+        tools:text="@string/placeholder_share_no_internet_connection" />
 
 </LinearLayout>

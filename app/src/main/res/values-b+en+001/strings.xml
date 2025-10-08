@@ -662,13 +662,6 @@
     <string name="picture_set_as_no_app">No app found to set a picture with</string>
     <string name="pin_home">Pin to home screen</string>
     <string name="pin_shortcut_label">Open %1$s</string>
-    <string name="placeholder_extension">.txt</string>
-    <string name="placeholder_fileSize">389 KB</string>
-    <string name="placeholder_filename">placeholder</string>
-    <string name="placeholder_media_time">12:23:45</string>
-    <string name="placeholder_reason">Recently edited</string>
-    <string name="placeholder_sentence">This is a placeholder</string>
-    <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
     <string name="player_stop">stop</string>
     <string name="player_toggle">toggle</string>
     <string name="please_select_a_server">Please select a server…</string>

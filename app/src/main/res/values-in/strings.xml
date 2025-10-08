@@ -640,11 +640,6 @@ Otomatis unggah hanya bekerja dengan baik apabila Anda mengeluarkan aplikasi ini
     <string name="picture_set_as_no_app">Tidak ada aplikasi untuk menyetel gambar yang ditemukan.</string>
     <string name="pin_home">Sematkan ke tampilan beranda</string>
     <string name="pin_shortcut_label">Buka %1$s</string>
-    <string name="placeholder_fileSize">389 KB</string>
-    <string name="placeholder_media_time">12:23:45</string>
-    <string name="placeholder_reason">Baru saja diedit</string>
-    <string name="placeholder_sentence">Ini adalah placeholder</string>
-    <string name="placeholder_timestamp">18/05/2012 12:23 PM</string>
     <string name="player_stop">hentikan</string>
     <string name="player_toggle">alihkan</string>
     <string name="please_select_a_server">Silahkan pilih server...</string>

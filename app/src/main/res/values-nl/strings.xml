@@ -658,12 +658,6 @@
     <string name="picture_set_as_no_app">Geen app gevonden om afbeelding in te stellen</string>
     <string name="pin_home">Vastzetten op startscherm</string>
     <string name="pin_shortcut_label">Open %1$s</string>
-    <string name="placeholder_extension">.txt</string>
-    <string name="placeholder_fileSize">389 KB</string>
-    <string name="placeholder_media_time">12:23:45</string>
-    <string name="placeholder_reason">Recent bewerkt</string>
-    <string name="placeholder_sentence">Dit is een plaatshouder</string>
-    <string name="placeholder_timestamp">2012/05/18 12:23</string>
     <string name="player_stop">stop</string>
     <string name="player_toggle">omschakelen</string>
     <string name="please_select_a_server">Selecteer een server...</string>

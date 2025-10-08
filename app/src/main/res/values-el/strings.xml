@@ -532,12 +532,6 @@
     <string name="permission_storage_access">Επιπλέον διακαιώματα απαιτούνται για μεταφόρτωση και λήψη αρχείων.</string>
     <string name="picture_set_as_no_app">Δεν βρέθηκε εφαρμογή για τον ορισμό φωτογραφίας</string>
     <string name="pin_shortcut_label">Άνοιγμα %1$s</string>
-    <string name="placeholder_extension">.txt</string>
-    <string name="placeholder_fileSize">389 KB</string>
-    <string name="placeholder_media_time">12:23:45</string>
-    <string name="placeholder_reason">Επεξεργάστηκε πρόσφατα</string>
-    <string name="placeholder_sentence">Αυτό είναι ένα σημείο placeholder</string>
-    <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
     <string name="player_stop">Παύση</string>
     <string name="player_toggle">Εναλλαγή</string>
     <string name="power_save_check_dialog_message">Η απενεργοποίηση του έλεγχου εξοικονόμησης ενέργειας ίσως έχει ως αποτέλεσμα το ανέβασμα αρχείων ενώ βρίσκεστε σε κατάσταση χαμηλής μπαταρίας</string>
@@ -817,6 +811,7 @@
     <string name="upload_content_from_other_apps">Μεταφόρτωση περιεχομένου από άλλες εφαρμογές</string>
     <string name="upload_direct_camera_photo">Φωτογραφία</string>
     <string name="upload_direct_camera_upload">Μεταφόρτωση από την φωτογραφική μηχανή</string>
+    <string name="upload_direct_camera_video">Βίντεο</string>
     <string name="upload_file_dialog_filename">Όνομα αρχείου</string>
     <string name="upload_file_dialog_filetype">Τύπος αρχείου</string>
     <string name="upload_file_dialog_filetype_googlemap_shortcut">Αρχείο συντόμευσης Google Maps(%s)</string>
@@ -965,6 +960,10 @@
     <plurals name="file_list__footer__file">
         <item quantity="one">%1$d αρχείο</item>
         <item quantity="other">%1$d αρχεία</item>
+    </plurals>
+    <plurals name="trashbin_list__footer__file">
+        <item quantity="one">%1$d στοιχείο</item>
+        <item quantity="other">%1$d στοιχεία</item>
     </plurals>
     <plurals name="synced_folders_show_hidden_folders">
         <item quantity="one">Εμφάνιση %1$dκρυφού φακέλου</item>

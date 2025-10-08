@@ -23,5 +23,5 @@
         android:paddingHorizontal="@dimen/standard_padding"
         android:paddingVertical="@dimen/standard_padding"
         android:textColor="@color/color_accent"
-        tools:text="Files" />
+        tools:text="@string/placeholder_files" />
 </RelativeLayout>
