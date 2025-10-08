@@ -1269,4 +1269,67 @@
         <item quantity="many">متبقي %1$d تنزيل</item>
         <item quantity="other">متبقي %1$d تنزيل</item>
     </plurals>
+
+    <string name="placeholder_timestamp" translatable="false">٢٠١٢/٠٥/١٨ ١٢:٢٣ م</string>
+    <string name="placeholder_media_time" translatable="false">١٢:٢٣:٤٥</string>
+    <string name="placeholder_sentence" translatable="false">هذا نص افتراضي</string>
+    <string name="placeholder_filename" translatable="false">اسم الملف</string>
+    <string name="placeholder_reason" translatable="false">تم التعديل مؤخرًا</string>
+    <string name="placeholder_extension" translatable="false">.txt</string>
+    <string name="placeholder_fileSize" translatable="false">٣٨٩ ك.ب</string>
+    <string name="placeholder_fileSize_2" translatable="false">٥ م.ب</string>
+    <string name="placeholder_fileSize_3" translatable="false">٣ م.ب</string>
+    <string name="placeholder_current_2" translatable="false">الحالي (٢)</string>
+    <string name="placeholder_send_button" translatable="false">زر الإرسال</string>
+    <string name="placeholder_first_name_last_name" translatable="false">الاسم الأول الاسم الأخير</string>
+    <string name="placeholder_file_type" translatable="false">نوع الملف</string>
+    <string name="placeholder_download" translatable="false">تنزيل</string>
+    <string name="placeholder_share_internal_link_text" translatable="false">يعمل الرابط الداخلي فقط للمستخدمين الذين لديهم صلاحية الوصول إلى هذا المجلد</string>
+    <string name="placeholder_share_internal_folder_text" translatable="false">يعمل الرابط الداخلي فقط للمستخدمين الذين لديهم صلاحية الوصول إلى هذا المجلد</string>
+    <string name="placeholder_share_internal_e2ee_keyword_description" translatable="false">جميع الكلمات الاثنتي عشرة تشكّل كلمة مرور قوية جدًا، تتيح لك وحدك عرض واستخدام ملفاتك المشفّرة. يرجى كتابتها وحفظها في مكان آمن.</string>
+    <string name="placeholder_share_no_internet_connection" translatable="false">لا يوجد اتصال بالإنترنت</string>
+    <string name="placeholder_status" translatable="false">☁️ حالتي المخصصة</string>
+    <string name="placeholder_random_link" translatable="false">https://nextcloud.localhost/nextcloud</string>
+    <string name="placeholder_random_account" translatable="false">firstname@example.nextcloud.com</string>
+    <string name="placeholder_date" translatable="false">١٢ ديسمبر ٢٠٢٠ - ٢٣:١٠:٢٠</string>
+    <string name="placeholder_date_2" translatable="false">١٠ ديسمبر ٢٠٢٠ - ١٠:١٠:١٠</string>
+    <string name="placeholder_sso" translatable="false">هل تريد منح تطبيق أخبار Nextcloud صلاحية الوصول إلى حسابك incrediblyLong_username_with_123456789_number@Nextcloud_dummy.com؟</string>
+    <string name="placeholder_example_phone_number" translatable="false">+٤٩ ١٢٣ ٤٥٦ ٧٨٩ ١٢</string>
+    <string name="placeholder_uuid" translatable="false">d7edb387-0b61-4e4e-a728-ffab3055d700</string>
+    <string name="placeholder_job_name" translatable="false">اسم المهمة</string>
+    <string name="placeholder_job_state" translatable="false">قيد الانتظار</string>
+    <string name="placeholder_date_3" translatable="false">٢٠٢٠-٠٢-١٥T٢٠:٥٣:١٥Z</string>
+    <string name="placeholder_progress" translatable="false">٪٥٠</string>
+    <string name="placeholder_random_number" translatable="false">٠</string>
+    <string name="placeholder_remaining_downloads" translatable="false">٥ تنزيلات متبقية</string>
+    <string name="placeholder_view_only" translatable="false">عرض فقط</string>
+    <string name="placeholder_time_ago" translatable="false">منذ ٦ دقائق</string>
+    <string name="placeholder_success" translatable="false">تم بنجاح</string>
+    <string name="placeholder_file_path" translatable="false">/abc/example</string>
+    <string name="placeholder_delete_file" translatable="false">حذف الملف</string>
+    <string name="placeholder_action_info" translatable="false">بعض معلومات الإجراء الإضافية</string>
+    <string name="placeholder_open_in_notes" translatable="false">افتح في الملاحظات</string>
+    <string name="placeholder_open_in_notes_info" translatable="false">يُفضل عرض هذا المجلد في تطبيق الملاحظات</string>
+    <string name="placeholder_year" translatable="false">٢٠٢٥</string>
+    <string name="placeholder_month" translatable="false">أكتوبر</string>
+    <string name="placeholder_auto_upload_overview_path" translatable="false">لـ /storage/emulated/0/DCIM/Camera</string>
+    <string name="placeholder_predefined_status_icon" translatable="false">📆</string>
+    <string name="placeholder_predefined_status_name" translatable="false">في اجتماع</string>
+    <string name="placeholder_predefined_status_clear_at" translatable="false">بعد ساعة</string>
+    <string name="placeholder_image_detail_date" translatable="false">الأربعاء • ٢٦ يوليو ٢٠٢٣ • ١٢:٢٧</string>
+    <string name="placeholder_image_details" translatable="false">١٢ ميغابكسل • ٣٠٢٤ × ٤٠٣٢ • ٩٢٣ ك.ب</string>
+    <string name="placeholder_image_detail_model" translatable="false">هاتف الكاميرا (الجيل الرابع)</string>
+    <string name="placeholder_image_detail_condition" translatable="false">ƒ/١٫٨ • ١/٣٧٤ ث • ٢٨ مم • ISO ٢٠٠</string>
+    <string name="placeholder_image_detail_location" translatable="false">ميته، برلين، ألمانيا</string>
+    <string name="placeholder_image_detail_example_copyright" translatable="false">© مساهمو OpenStreetMap</string>
+    <string name="placeholder_compose_mail" translatable="false">إنشاء بريد إلكتروني</string>
+    <string name="placeholder_passphrase" translatable="false">عبارة المرور</string>
+    <string name="placeholder_show_hidden_folders" translatable="false">عرض ٣ مجلدات مخفية</string>
+    <string name="placeholder_template" translatable="false">قالب</string>
+    <string name="placeholder_widget_first_line" translatable="false">السطر الأول</string>
+    <string name="placeholder_widget_second_line" translatable="false">السطر الفرعي</string>
+    <string name="placeholder_search_in_nextcloud" translatable="false">بحث في Nextcloud</string>
+    <string name="placeholder_files" translatable="false">الملفات</string>
+    <string name="placeholder_in_folder" translatable="false">في TestFolder</string>
+    <string name="placeholder_example_mail" translatable="false">example@nextcloud.com</string>
 </resources>
