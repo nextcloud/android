@@ -16,7 +16,6 @@ import android.graphics.BitmapFactory;
 import android.graphics.BitmapFactory.Options;
 import android.graphics.Canvas;
 import android.graphics.ImageDecoder;
-import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
@@ -220,74 +219,6 @@ public final class BitmapUtils {
         int w = Math.round(scale * width);
         int h = Math.round(scale * height);
         return Bitmap.createScaledBitmap(bitmap, w, h, true);
-    }
-
-    /**
-     * Rotate bitmap according to EXIF orientation. Cf. http://www.daveperrett.com/articles/2012/07/28/exif-orientation-handling-is-a-ghetto/
-     *
-     * @param bitmap      Bitmap to be rotated
-     * @param storagePath Path to source file of bitmap. Needed for EXIF information.
-     * @return correctly EXIF-rotated bitmap
-     */
-    public static Bitmap rotateImage(Bitmap bitmap, String storagePath) {
-        Bitmap resultBitmap = bitmap;
-
-        try {
-            ExifInterface exifInterface = new ExifInterface(storagePath);
-            int orientation = exifInterface.getAttributeInt(ExifInterface.TAG_ORIENTATION, 1);
-
-            if (orientation != ExifInterface.ORIENTATION_NORMAL) {
-                Matrix matrix = new Matrix();
-                switch (orientation) {
-                    // 2
-                    case ExifInterface.ORIENTATION_FLIP_HORIZONTAL: {
-                        matrix.postScale(-1.0f, 1.0f);
-                        break;
-                    }
-                    // 3
-                    case ExifInterface.ORIENTATION_ROTATE_180: {
-                        matrix.postRotate(180);
-                        break;
-                    }
-                    // 4
-                    case ExifInterface.ORIENTATION_FLIP_VERTICAL: {
-                        matrix.postScale(1.0f, -1.0f);
-                        break;
-                    }
-                    // 5
-                    case ExifInterface.ORIENTATION_TRANSPOSE: {
-                        matrix.postRotate(-90);
-                        matrix.postScale(1.0f, -1.0f);
-                        break;
-                    }
-                    // 6
-                    case ExifInterface.ORIENTATION_ROTATE_90: {
-                        matrix.postRotate(90);
-                        break;
-                    }
-                    // 7
-                    case ExifInterface.ORIENTATION_TRANSVERSE: {
-                        matrix.postRotate(90);
-                        matrix.postScale(1.0f, -1.0f);
-                        break;
-                    }
-                    // 8
-                    case ExifInterface.ORIENTATION_ROTATE_270: {
-                        matrix.postRotate(270);
-                        break;
-                    }
-                }
-
-                // Rotate the bitmap
-                resultBitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
-                if (!resultBitmap.equals(bitmap)) {
-                    bitmap.recycle();
-                }
-            }
-        } catch (Exception exception) {
-            Log_OC.e("BitmapUtil", "Could not rotate the image: " + storagePath);
-        }
-        return resultBitmap;
     }
 
     /**
