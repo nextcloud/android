@@ -20,6 +20,7 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import kotlinx.coroutines.withTimeoutOrNull
 import java.lang.ref.WeakReference
 
 @SuppressLint("NotifyDataSetChanged")
@@ -28,7 +29,8 @@ class OCFileListSearchTask(
     fragment: OCFileListFragment,
     private val remoteOperation: RemoteOperation<List<Any>>,
     private val currentUser: User,
-    private val event: SearchEvent
+    private val event: SearchEvent,
+    private val taskTimeout: Long
 ) {
     private val activityReference: WeakReference<FileFragment.ContainerActivity> = WeakReference(containerActivity)
     private val fragmentReference: WeakReference<OCFileListFragment> = WeakReference(fragment)
@@ -48,34 +50,36 @@ class OCFileListSearchTask(
                     fragment.setEmptyListMessage(EmptyListState.LOADING)
                 }
 
-                val result = if (!isActive) {
-                    false
-                } else {
-                    fragment.setTitle()
-                    lateinit var remoteOperationResult: RemoteOperationResult<List<Any>>
-                    try {
-                        remoteOperationResult = remoteOperation.execute(currentUser, fragment.requireContext())
-                    } catch (_: Exception) {
-                        remoteOperationResult =
-                            remoteOperation.executeNextcloudClient(currentUser, fragment.requireContext())
-                    }
-
-                    if (remoteOperationResult.hasSuccessfulResult() && isActive && fragment.searchFragment) {
-                        fragment.searchEvent = event
-                        if (remoteOperationResult.resultData.isNullOrEmpty()) {
-                            fragment.setEmptyView(event)
-                        } else {
-                            fragment.adapter.setData(
-                                remoteOperationResult.resultData,
-                                fragment.currentSearchType,
-                                fileDataStorageManager,
-                                fragment.mFile,
-                                true
-                            )
+                val result = withTimeoutOrNull(taskTimeout) {
+                    if (!isActive) {
+                        false
+                    } else {
+                        fragment.setTitle()
+                        lateinit var remoteOperationResult: RemoteOperationResult<List<Any>>
+                        try {
+                            remoteOperationResult = remoteOperation.execute(currentUser, fragment.requireContext())
+                        } catch (_: Exception) {
+                            remoteOperationResult =
+                                remoteOperation.executeNextcloudClient(currentUser, fragment.requireContext())
                         }
+
+                        if (remoteOperationResult.hasSuccessfulResult() && isActive && fragment.searchFragment) {
+                            fragment.searchEvent = event
+                            if (remoteOperationResult.resultData.isNullOrEmpty()) {
+                                fragment.setEmptyView(event)
+                            } else {
+                                fragment.adapter.setData(
+                                    remoteOperationResult.resultData,
+                                    fragment.currentSearchType,
+                                    fileDataStorageManager,
+                                    fragment.mFile,
+                                    true
+                                )
+                            }
+                        }
+                        remoteOperationResult.isSuccess
                     }
-                    remoteOperationResult.isSuccess
-                }
+                } ?: false
 
                 withContext(Dispatchers.Main) {
                     if (result && isActive) {

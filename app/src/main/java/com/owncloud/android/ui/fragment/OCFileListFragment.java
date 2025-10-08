@@ -1914,7 +1914,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
             return;
         }
 
-        // avoid calling api multiple times if async task is already executing
+        // avoid calling api multiple times if task is already executing
         if (searchTask != null && !searchTask.isFinished()) {
             if (searchEvent != null) {
                 Log_OC.d(TAG, "OCFileListSearchAsyncTask already running skipping new api call for search event: " + searchEvent.getSearchType());
@@ -1948,9 +1948,9 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
         final User currentUser = accountManager.getUser();
 
-        final RemoteOperation remoteOperation = getSearchRemoteOperation(currentUser, event);
+        final var remoteOperation = getSearchRemoteOperation(currentUser, event);
 
-        searchTask = new OCFileListSearchTask(mContainerActivity, this, remoteOperation, currentUser, event);
+        searchTask = new OCFileListSearchTask(mContainerActivity, this, remoteOperation, currentUser, event, SharedListFragment.TASK_TIMEOUT);
         searchTask.execute();
     }
 

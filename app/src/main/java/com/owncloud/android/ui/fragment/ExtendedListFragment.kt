@@ -712,7 +712,7 @@ open class ExtendedListFragment :
                     R.string.file_list_error_headline,
                     R.string.file_list_error_description,
                     R.drawable.ic_synchronizing_error,
-                    true
+                    false
                 )
             }
             else -> {
