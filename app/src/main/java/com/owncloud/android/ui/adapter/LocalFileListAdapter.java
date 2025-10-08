@@ -9,6 +9,7 @@
  */
 package com.owncloud.android.ui.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -23,6 +24,7 @@ import android.widget.TextView;
 
 import com.nextcloud.android.common.ui.theme.utils.ColorRole;
 import com.nextcloud.client.preferences.AppPreferences;
+import com.nextcloud.utils.FileHelper;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.lib.common.utils.Log_OC;
@@ -34,8 +36,6 @@ import com.owncloud.android.utils.theme.ViewThemeUtils;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
@@ -68,6 +68,9 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
     private static final int VIEWTYPE_ITEM = 0;
     private static final int VIEWTYPE_FOOTER = 1;
     private static final int VIEWTYPE_IMAGE = 2;
+
+    private static final int PAGE_SIZE = 50;
+    private int currentOffset = 0;
 
     public LocalFileListAdapter(boolean localFolderPickerMode,
                                 File directory,
@@ -129,25 +132,11 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
     }
 
     public String[] getCheckedFilesPath() {
-        List<String> result = listFilesRecursive(checkedFiles);
+        List<String> result = FileHelper.INSTANCE.listFilesRecursive(checkedFiles);
 
         Log_OC.d(TAG, "Returning " + result.size() + " selected files");
 
         return result.toArray(new String[0]);
-    }
-
-    public List<String> listFilesRecursive(Collection<File> files) {
-        List<String> result = new ArrayList<>();
-
-        for (File file : files) {
-            if (file.isDirectory()) {
-                result.addAll(listFilesRecursive(getFiles(file)));
-            } else {
-                result.add(file.getAbsolutePath());
-            }
-        }
-
-        return result;
     }
 
     @Override
@@ -317,43 +306,79 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
      */
     public void swapDirectory(final File directory) {
         localFileListFragmentInterface.setLoading(true);
-        final Handler uiHandler = new Handler(Looper.getMainLooper());
+        currentOffset = 0;
+
         Executors.newSingleThreadExecutor().execute(() -> {
-            List<File> fileList;
-            if (directory == null) {
-                fileList = new ArrayList<>();
-            } else {
-                if (mLocalFolderPicker) {
-                    fileList = getFolders(directory);
-                } else {
-                    fileList = getFiles(directory);
-                }
+            // Load first page of folders
+            List<File> firstPage = FileHelper.INSTANCE.listDirectoryEntries(directory, currentOffset, PAGE_SIZE, true);
+
+            if (!firstPage.isEmpty()) {
+                firstPage = sortAndFilterHiddenEntries(firstPage);
             }
 
-            if (!fileList.isEmpty()) {
-                FileSortOrder sortOrder = preferences.getSortOrderByType(FileSortOrder.Type.localFileListView);
-                fileList = sortOrder.sortLocalFiles(fileList);
+            currentOffset += PAGE_SIZE;
+            updateUIForFirstPage(firstPage);
 
-                // Fetch preferences for showing hidden files
-                boolean showHiddenFiles = preferences.isShowHiddenFilesEnabled();
-                if (!showHiddenFiles) {
-                    fileList = filterHiddenFiles(fileList);
-                }
-            }
-            final List<File> newFiles = fileList;
+            // Load remaining folders, then all files
+            loadRemainingEntries(directory, true);
 
-            uiHandler.post(() -> {
-                mFiles = newFiles;
-                mFilesAll = new ArrayList<>();
-                mFilesAll.addAll(mFiles);
+            // Reset for files
+            currentOffset = 0;
 
-                notifyDataSetChanged();
-                localFileListFragmentInterface.setLoading(false);
-            });
+            loadRemainingEntries(directory, false);
         });
-
     }
 
+    @SuppressLint("NotifyDataSetChanged")
+    private void updateUIForFirstPage(List<File> firstPage) {
+        new Handler(Looper.getMainLooper()).post(() -> {
+            mFiles = new ArrayList<>(firstPage);
+            mFilesAll = new ArrayList<>(firstPage);
+            notifyDataSetChanged();
+            localFileListFragmentInterface.setLoading(false);
+        });
+    }
+
+    private List<File> sortAndFilterHiddenEntries(List<File> nextPage) {
+        boolean showHiddenFiles = preferences.isShowHiddenFilesEnabled();
+        FileSortOrder sortOrder = preferences.getSortOrderByType(FileSortOrder.Type.localFileListView);
+
+        if (!showHiddenFiles) {
+            nextPage = filterHiddenFiles(nextPage);
+        }
+
+        return sortOrder.sortLocalFiles(nextPage);
+    }
+
+    private void loadRemainingEntries(File directory, boolean fetchFolders) {
+        while (true) {
+            List<File> nextPage = FileHelper.INSTANCE.listDirectoryEntries(directory, currentOffset, PAGE_SIZE, fetchFolders);
+            if (nextPage.isEmpty()) {
+                break;
+            }
+
+            nextPage = sortAndFilterHiddenEntries(nextPage);
+
+            currentOffset += PAGE_SIZE;
+            notifyItemRange(nextPage);
+        }
+    }
+
+    private void notifyItemRange(List<File> updatedList) {
+        new Handler(Looper.getMainLooper()).post(() -> {
+            int from = mFiles.size();
+            int to = updatedList.size();
+
+            mFiles.addAll(updatedList);
+            mFilesAll.addAll(updatedList);
+
+            Log_OC.d(TAG, "notifyItemRange, item size: " + mFilesAll.size());
+
+            notifyItemRangeInserted(from, to);
+        });
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
     public void setSortOrder(FileSortOrder sortOrder) {
         localFileListFragmentInterface.setLoading(true);
         final Handler uiHandler = new Handler(Looper.getMainLooper());
@@ -366,30 +391,9 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
                 localFileListFragmentInterface.setLoading(false);
             });
         });
-
-
     }
 
-    private List<File> getFolders(final File directory) {
-        File[] folders = directory.listFiles(File::isDirectory);
-
-        if (folders != null && folders.length > 0) {
-            return new ArrayList<>(Arrays.asList(folders));
-        } else {
-            return new ArrayList<>();
-        }
-    }
-
-    private List<File> getFiles(File directory) {
-        File[] files = directory.listFiles();
-
-        if (files != null && files.length > 0) {
-            return new ArrayList<>(Arrays.asList(files));
-        } else {
-            return new ArrayList<>();
-        }
-    }
-
+    @SuppressLint("NotifyDataSetChanged")
     public void filter(String text) {
         if (text.isEmpty()) {
             mFiles = mFilesAll;
