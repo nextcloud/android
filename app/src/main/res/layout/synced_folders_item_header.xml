@@ -52,30 +52,28 @@
         android:layout_height="wrap_content"
         android:ellipsize="middle"
         android:gravity="center|start"
-        android:layout_marginBottom="@dimen/synced_folders_title_margin"
-        android:textAlignment="center"
         android:textColor="?android:textColorPrimary"
         android:textStyle="bold"
-        tools:text="Download"
-        app:layout_constraintBottom_toBottomOf="parent"
+        tools:text="@string/placeholder_filename"
+        android:maxLines="1"
+        app:layout_constraintBottom_toTopOf="@+id/scanIndicatorText"
         app:layout_constraintStart_toEndOf="@+id/type" />
 
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/nextScanIndicator"
-        android:clickable="true"
-        android:focusable="true"
-        android:layout_width="@dimen/minimum_size_for_touchable_area"
-        android:layout_height="@dimen/minimum_size_for_touchable_area"
-        style="@style/Widget.Material3.Button.IconButton.Filled.Tonal"
-        app:icon="@drawable/ic_clock"
-        app:backgroundTint="@color/transparent"
-        android:contentDescription="@string/synced_folders_next_scan_indicator_icon_content_description"
-        app:cornerRadius="@dimen/button_corner_radius"
+    <TextView
+        android:id="@+id/scanIndicatorText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/standard_quarter_margin"
+        android:ellipsize="end"
+        android:gravity="center|start"
+        android:maxLines="1"
+        android:textColor="@color/log_level_warning"
+        android:textStyle="bold"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/title"
-        tools:visibility="visible"/>
+        app:layout_constraintStart_toEndOf="@+id/type"
+        tools:text="@string/placeholder_scan_indicator"
+        tools:visibility="visible" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/subFolderWarningButton"
@@ -91,7 +89,6 @@
         app:icon="@drawable/ic_info"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/syncStatusButton"
-        tools:layout_editor_absoluteY="5dp"
         tools:visibility="visible" />
 
     <com.google.android.material.button.MaterialButton

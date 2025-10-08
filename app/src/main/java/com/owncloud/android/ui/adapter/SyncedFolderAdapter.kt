@@ -24,6 +24,7 @@ import com.nextcloud.android.common.ui.theme.utils.ColorRole
 import com.nextcloud.client.core.Clock
 import com.nextcloud.client.device.PowerManagementService
 import com.nextcloud.client.network.ConnectivityService
+import com.nextcloud.utils.extensions.calculateScanInterval
 import com.nextcloud.utils.extensions.filterEnabledOrWithoutEnabledParent
 import com.nextcloud.utils.extensions.hasEnabledParent
 import com.nextcloud.utils.extensions.setVisibleIf
@@ -38,7 +39,6 @@ import com.owncloud.android.datamodel.SyncedFolderDisplayItem
 import com.owncloud.android.datamodel.ThumbnailsCacheManager
 import com.owncloud.android.datamodel.ThumbnailsCacheManager.AsyncMediaThumbnailDrawable
 import com.owncloud.android.datamodel.ThumbnailsCacheManager.MediaThumbnailGenerationTask
-import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import java.io.File
 import java.util.Locale
@@ -66,6 +66,14 @@ class SyncedFolderAdapter(
     private val filteredSyncFolderItems: MutableList<SyncedFolderDisplayItem> = ArrayList()
     private var hideItems = true
     private val thumbnailThreadPool: Executor = Executors.newCachedThreadPool()
+
+    private val minimumSizeForTouchableArea
+        by lazy { context.resources.getDimensionPixelSize(R.dimen.minimum_size_for_touchable_area) }
+    private val screenWidth by lazy { context.resources.displayMetrics.widthPixels }
+    private val standardDoubleMargin
+        by lazy { context.resources.getDimensionPixelSize(R.dimen.standard_double_margin) }
+    private val syncedFoldersTitleMargin
+        by lazy { context.resources.getDimensionPixelSize(R.dimen.synced_folders_title_margin) }
 
     init {
         shouldShowHeadersForEmptySections(true)
@@ -242,6 +250,7 @@ class SyncedFolderAdapter(
         return -1
     }
 
+    @Suppress("NestedBlockDepth")
     override fun onBindHeaderViewHolder(commonHolder: SectionedViewHolder, section: Int, expanded: Boolean) {
         if (section < filteredSyncFolderItems.size) {
             val holder = commonHolder as HeaderViewHolder
@@ -304,39 +313,49 @@ class SyncedFolderAdapter(
     }
 
     private fun initNextScanIndicator(holder: HeaderViewHolder, syncedFolder: SyncedFolder) {
-        var tooltipText = getNextScanIndicatorText(syncedFolder)
+        val scanIndicatorText = getNextScanIndicatorText(syncedFolder)
 
-        holder.binding.nextScanIndicator.run {
-            setVisibleIf(syncedFolder.isEnabled && (tooltipText != null))
+        holder.binding.scanIndicatorText.setVisibleIf(syncedFolder.isEnabled && (scanIndicatorText != null))
 
-            if (isVisible) {
-                setOnClickListener { view ->
-                    // get most-up-to-date value
-                    tooltipText = getNextScanIndicatorText(syncedFolder)
-                    tooltipText?.let {
-                        DisplayUtils.showSnackMessage(view, it)
-                    }
-                }
-            }
+        if (holder.binding.scanIndicatorText.isVisible) {
+            setMaxWidthOfScanIndicatorText(holder)
+            holder.binding.scanIndicatorText.text = scanIndicatorText
+        } else {
+            setBottomMarginOfTitle(holder)
         }
     }
 
+    private fun setMaxWidthOfScanIndicatorText(holder: HeaderViewHolder) {
+        var visibleTrailingIconCount = 2
+        if (holder.binding.subFolderWarningButton.isVisible) {
+            visibleTrailingIconCount += 1
+        }
+
+        val takenTrailingSpace = minimumSizeForTouchableArea * visibleTrailingIconCount
+        val maxWidthInPxOfScanIndicatorText = (screenWidth - takenTrailingSpace) - standardDoubleMargin
+
+        holder.binding.scanIndicatorText.maxWidth = maxWidthInPxOfScanIndicatorText
+    }
+
+    private fun setBottomMarginOfTitle(holder: HeaderViewHolder) {
+        val layoutParams = holder.binding.title.layoutParams as ViewGroup.MarginLayoutParams
+        layoutParams.bottomMargin = syncedFoldersTitleMargin
+        holder.binding.title.layoutParams = layoutParams
+    }
+
     private fun getNextScanIndicatorText(syncedFolder: SyncedFolder): String? {
-        val totalScanInterval = syncedFolder.getTotalScanInterval(connectivityService, powerManagementService)
-        val nextScanInMillis = totalScanInterval - System.currentTimeMillis()
+        val scanInterval = syncedFolder.calculateScanInterval(connectivityService, powerManagementService)
+        val nextScanInMillis = scanInterval.first - System.currentTimeMillis()
         val minutesLeft = TimeUnit.MILLISECONDS
             .toMinutes(nextScanInMillis)
             .coerceAtLeast(0)
             .toInt()
 
-        return if (minutesLeft == 0) {
+        return if (minutesLeft <= 0) {
             null
         } else {
-            context.resources.getQuantityString(
-                R.plurals.auto_upload_next_scan_tool_tip_text,
-                minutesLeft,
-                minutesLeft
-            )
+            val scanIntervalMessageId = scanInterval.second ?: return null
+            context.getString(scanIntervalMessageId)
         }
     }
 
