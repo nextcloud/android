@@ -26,6 +26,7 @@ import com.nextcloud.client.jobs.upload.FileUploadWorker
 import com.nextcloud.client.network.ConnectivityService
 import com.nextcloud.client.preferences.SubFolderRule
 import com.nextcloud.utils.ForegroundServiceHelper
+import com.nextcloud.utils.extensions.updateStatus
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.ArbitraryDataProviderImpl
 import com.owncloud.android.datamodel.FileDataStorageManager
@@ -302,7 +303,7 @@ class AutoUploadWorker(
                     var (uploadEntity, upload) = createEntityAndUpload(user, localPath, remotePath)
                     try {
                         // Insert/update to IN_PROGRESS state before starting upload
-                        val generatedId = uploadsStorageManager.uploadDao.insert(uploadEntity)
+                        val generatedId = uploadsStorageManager.uploadDao.insertOrReplace(uploadEntity)
                         uploadEntity = uploadEntity.copy(id = generatedId.toInt())
                         upload.uploadId = generatedId
 
@@ -310,20 +311,22 @@ class AutoUploadWorker(
                         Log_OC.d(TAG, "🕒 uploading: $localPath, id: $generatedId")
 
                         val result = operation.execute(client)
+                        uploadsStorageManager.updateStatus(uploadEntity, result.isSuccess)
 
                         if (result.isSuccess) {
-                            updateUploadStatus(uploadEntity, UploadsStorageManager.UploadStatus.UPLOAD_SUCCEEDED)
                             repository.markFileAsUploaded(localPath, syncedFolder)
                             Log_OC.d(TAG, "✅ upload completed: $localPath")
                         } else {
-                            updateUploadStatus(uploadEntity, UploadsStorageManager.UploadStatus.UPLOAD_FAILED)
                             Log_OC.e(
                                 TAG,
                                 "❌ upload failed $localPath (${upload.accountName}): ${result.logMessage}"
                             )
                         }
                     } catch (e: Exception) {
-                        updateUploadStatus(uploadEntity, UploadsStorageManager.UploadStatus.UPLOAD_FAILED)
+                        uploadsStorageManager.updateStatus(
+                            uploadEntity,
+                            UploadsStorageManager.UploadStatus.UPLOAD_FAILED
+                        )
                         Log_OC.e(
                             TAG,
                             "Exception during upload file, localPath: $localPath, remotePath: $remotePath," +
@@ -343,13 +346,6 @@ class AutoUploadWorker(
             }
         }
     }
-
-    private fun updateUploadStatus(entity: UploadEntity, status: UploadsStorageManager.UploadStatus) {
-        uploadsStorageManager.uploadDao.insert(entity.withStatus(status))
-    }
-
-    private fun UploadEntity.withStatus(newStatus: UploadsStorageManager.UploadStatus) =
-        this.copy(status = newStatus.value)
 
     private fun createEntityAndUpload(user: User, localPath: String, remotePath: String): Pair<UploadEntity, OCUpload> {
         val (needsCharging, needsWifi, uploadAction) = getUploadSettings(syncedFolder)

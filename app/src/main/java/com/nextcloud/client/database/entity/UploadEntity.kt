@@ -109,5 +109,3 @@ fun OCUpload.toUploadEntity(): UploadEntity {
         uploadTime = null
     )
 }
-
-fun List<OCUpload?>.toUploadEntities(): List<UploadEntity> = mapNotNull { it?.toUploadEntity() }
