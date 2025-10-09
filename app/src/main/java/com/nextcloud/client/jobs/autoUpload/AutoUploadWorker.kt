@@ -316,9 +316,6 @@ class AutoUploadWorker(
                             "Exception during upload file, localPath: $localPath, remotePath: $remotePath," +
                                 " exception: $e"
                         )
-                    } finally {
-                        // update last id so upload can continue where it left
-                        lastId = id
                     }
                 } catch (e: Exception) {
                     Log_OC.e(
@@ -327,6 +324,9 @@ class AutoUploadWorker(
                             "remotePath: $remotePath, exception: $e"
                     )
                 }
+
+                // update last id so upload can continue where it left
+                lastId = id
             }
         }
     }
