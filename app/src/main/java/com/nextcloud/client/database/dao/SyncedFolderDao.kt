@@ -7,10 +7,12 @@
 
 package com.nextcloud.client.database.dao
 
+import androidx.room.Dao
 import androidx.room.Query
 import com.nextcloud.client.database.entity.SyncedFolderEntity
 import com.owncloud.android.db.ProviderMeta
 
+@Dao
 interface SyncedFolderDao {
     @Query(
         """
