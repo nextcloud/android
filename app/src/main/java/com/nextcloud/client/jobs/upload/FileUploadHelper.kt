@@ -12,6 +12,7 @@ import android.content.Context
 import android.content.Intent
 import com.nextcloud.client.account.User
 import com.nextcloud.client.account.UserAccountManager
+import com.nextcloud.client.database.entity.toUploadEntities
 import com.nextcloud.client.device.BatteryStatus
 import com.nextcloud.client.device.PowerManagementService
 import com.nextcloud.client.jobs.BackgroundJobManager
@@ -215,7 +216,7 @@ class FileUploadHelper {
                 localAction = localBehavior
             }
         }
-        uploadsStorageManager.storeUploads(uploads)
+        uploadsStorageManager.uploadDao.insertAll(uploads.toUploadEntities())
         backgroundJobManager.startFilesUploadJob(user, uploads.getUploadIds(), showSameFileAlreadyExistsNotification)
     }
 
@@ -375,7 +376,7 @@ class FileUploadHelper {
                 }
             }
         }
-        uploadsStorageManager.storeUploads(uploads)
+        uploadsStorageManager.uploadDao.insertAll(uploads.toUploadEntities())
         val uploadIds: LongArray = uploads.filterNotNull().map { it.uploadId }.toLongArray()
         backgroundJobManager.startFilesUploadJob(user, uploadIds, true)
     }
