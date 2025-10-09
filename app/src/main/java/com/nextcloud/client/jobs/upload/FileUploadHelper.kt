@@ -12,7 +12,7 @@ import android.content.Context
 import android.content.Intent
 import com.nextcloud.client.account.User
 import com.nextcloud.client.account.UserAccountManager
-import com.nextcloud.client.database.entity.toUploadEntities
+import com.nextcloud.client.database.entity.toUploadEntity
 import com.nextcloud.client.device.BatteryStatus
 import com.nextcloud.client.device.PowerManagementService
 import com.nextcloud.client.jobs.BackgroundJobManager
@@ -206,7 +206,7 @@ class FileUploadHelper {
         showSameFileAlreadyExistsNotification: Boolean = true
     ) {
         val uploads = localPaths.mapIndexed { index, localPath ->
-            OCUpload(localPath, remotePaths[index], user.accountName).apply {
+            val result = OCUpload(localPath, remotePaths[index], user.accountName).apply {
                 this.nameCollisionPolicy = nameCollisionPolicy
                 isUseWifiOnly = requiresWifi
                 isWhileChargingOnly = requiresCharging
@@ -215,8 +215,11 @@ class FileUploadHelper {
                 isCreateRemoteFolder = createRemoteFolder
                 localAction = localBehavior
             }
+
+            val id = uploadsStorageManager.uploadDao.insertOrReplace(result.toUploadEntity())
+            result.uploadId = id
+            result
         }
-        uploadsStorageManager.uploadDao.insertAll(uploads.toUploadEntities())
         backgroundJobManager.startFilesUploadJob(user, uploads.getUploadIds(), showSameFileAlreadyExistsNotification)
     }
 
@@ -365,7 +368,7 @@ class FileUploadHelper {
 
         val uploads = existingFiles.map { file ->
             file?.let {
-                OCUpload(file, user).apply {
+                val result = OCUpload(file, user).apply {
                     fileSize = file.fileLength
                     this.nameCollisionPolicy = nameCollisionPolicy
                     isCreateRemoteFolder = true
@@ -374,9 +377,12 @@ class FileUploadHelper {
                     isWhileChargingOnly = false
                     uploadStatus = UploadStatus.UPLOAD_IN_PROGRESS
                 }
+
+                val id = uploadsStorageManager.uploadDao.insertOrReplace(result.toUploadEntity())
+                result.uploadId = id
+                result
             }
         }
-        uploadsStorageManager.uploadDao.insertAll(uploads.toUploadEntities())
         val uploadIds: LongArray = uploads.filterNotNull().map { it.uploadId }.toLongArray()
         backgroundJobManager.startFilesUploadJob(user, uploadIds, true)
     }

@@ -109,7 +109,7 @@ public class UploadStorageManagerTest extends AbstractIT {
             OCUpload upload = createUpload(account);
 
             uploads.add(upload);
-            uploadsStorageManager.uploadDao.insert(UploadEntityKt.toUploadEntity(upload));
+            uploadsStorageManager.uploadDao.insertOrReplace(UploadEntityKt.toUploadEntity(upload));
         }
 
         OCUpload[] storedUploads = uploadsStorageManager.getAllStoredUploads();
@@ -152,14 +152,14 @@ public class UploadStorageManagerTest extends AbstractIT {
                                               account.name);
 
         corruptUpload.setLocalPath(null);
-        uploadsStorageManager.uploadDao.insert(UploadEntityKt.toUploadEntity(corruptUpload));
+        uploadsStorageManager.uploadDao.insertOrReplace(UploadEntityKt.toUploadEntity(corruptUpload));
         uploadsStorageManager.getAllStoredUploads();
     }
 
     @Test
     public void getById() {
         OCUpload upload = createUpload(account);
-        long id =  uploadsStorageManager.uploadDao.insert(UploadEntityKt.toUploadEntity(upload));
+        long id =  uploadsStorageManager.uploadDao.insertOrReplace(UploadEntityKt.toUploadEntity(upload));
         OCUpload newUpload = uploadsStorageManager.getUploadById(id);
 
         assertNotNull(newUpload);
@@ -176,7 +176,7 @@ public class UploadStorageManagerTest extends AbstractIT {
 
     private void insertUploads(Account account, int rowsToInsert) {
         for (int i = 0; i < rowsToInsert; i++) {
-            uploadsStorageManager.uploadDao.insert(UploadEntityKt.toUploadEntity(createUpload(account)));
+            uploadsStorageManager.uploadDao.insertOrReplace(UploadEntityKt.toUploadEntity(createUpload(account)));
         }
     }
 

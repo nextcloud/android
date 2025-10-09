@@ -30,11 +30,16 @@ interface UploadDao {
     )
     fun getUploadsByIds(ids: LongArray, accountName: String): List<UploadEntity>
 
-    @Insert(onConflict = OnConflictStrategy.Companion.REPLACE)
-    fun insert(entity: UploadEntity): Long
+    @Query(
+        "SELECT * FROM " + ProviderTableMeta.UPLOADS_TABLE_NAME +
+            " WHERE " + ProviderTableMeta._ID + " = :id AND " +
+            ProviderTableMeta.UPLOADS_ACCOUNT_NAME + " = :accountName " +
+            "LIMIT 1"
+    )
+    fun getUploadById(id: Long, accountName: String): UploadEntity?
 
     @Insert(onConflict = OnConflictStrategy.Companion.REPLACE)
-    fun insertAll(entities: List<UploadEntity>)
+    fun insertOrReplace(entity: UploadEntity): Long
 
     @Query(
         "SELECT * FROM " + ProviderTableMeta.UPLOADS_TABLE_NAME +
