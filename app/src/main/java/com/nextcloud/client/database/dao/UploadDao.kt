@@ -31,7 +31,7 @@ interface UploadDao {
     fun getUploadsByIds(ids: LongArray, accountName: String): List<UploadEntity>
 
     @Insert(onConflict = OnConflictStrategy.Companion.REPLACE)
-    fun insert(entity: UploadEntity)
+    fun insert(entity: UploadEntity): Long
 
     @Insert(onConflict = OnConflictStrategy.Companion.REPLACE)
     fun insertAll(entities: List<UploadEntity>)
