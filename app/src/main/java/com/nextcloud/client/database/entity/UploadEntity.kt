@@ -79,23 +79,31 @@ fun UploadEntity.toOCUpload(capability: OCCapability? = null): OCUpload {
     return upload
 }
 
-fun OCUpload.toUploadEntity(): UploadEntity = UploadEntity(
-    id = uploadId.toInt(),
-    localPath = localPath,
-    remotePath = remotePath,
-    accountName = accountName,
-    fileSize = fileSize,
-    status = uploadStatus?.value,
-    localBehaviour = localAction,
-    nameCollisionPolicy = nameCollisionPolicy?.serialize(),
-    isCreateRemoteFolder = if (isCreateRemoteFolder) 1 else 0,
-    uploadEndTimestamp = uploadEndTimestamp.coerceAtMost(Int.MAX_VALUE.toLong()).toInt(),
-    lastResult = lastResult?.value,
-    createdBy = createdBy,
-    isWifiOnly = if (isUseWifiOnly) 1 else 0,
-    isWhileChargingOnly = if (isWhileChargingOnly) 1 else 0,
-    folderUnlockToken = folderUnlockToken,
-    uploadTime = null
-)
+fun OCUpload.toUploadEntity(): UploadEntity {
+    val id = if (uploadId == -1L) {
+        null
+    } else {
+        uploadId
+    }
+
+    return UploadEntity(
+        id = id?.toInt(),
+        localPath = localPath,
+        remotePath = remotePath,
+        accountName = accountName,
+        fileSize = fileSize,
+        status = uploadStatus?.value,
+        localBehaviour = localAction,
+        nameCollisionPolicy = nameCollisionPolicy?.serialize(),
+        isCreateRemoteFolder = if (isCreateRemoteFolder) 1 else 0,
+        uploadEndTimestamp = uploadEndTimestamp.coerceAtMost(Int.MAX_VALUE.toLong()).toInt(),
+        lastResult = lastResult?.value,
+        createdBy = createdBy,
+        isWifiOnly = if (isUseWifiOnly) 1 else 0,
+        isWhileChargingOnly = if (isWhileChargingOnly) 1 else 0,
+        folderUnlockToken = folderUnlockToken,
+        uploadTime = null
+    )
+}
 
 fun List<OCUpload?>.toUploadEntities(): List<UploadEntity> = mapNotNull { it?.toUploadEntity() }

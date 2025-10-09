@@ -159,8 +159,8 @@ public class UploadStorageManagerTest extends AbstractIT {
     @Test
     public void getById() {
         OCUpload upload = createUpload(account);
-        uploadsStorageManager.uploadDao.insert(UploadEntityKt.toUploadEntity(upload));
-        OCUpload newUpload = uploadsStorageManager.getUploadById(upload.getUploadId());
+        long id =  uploadsStorageManager.uploadDao.insert(UploadEntityKt.toUploadEntity(upload));
+        OCUpload newUpload = uploadsStorageManager.getUploadById(id);
 
         assertNotNull(newUpload);
         assertEquals(upload.getLocalAction(), newUpload.getLocalAction());

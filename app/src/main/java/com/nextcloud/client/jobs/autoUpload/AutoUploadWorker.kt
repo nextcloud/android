@@ -308,13 +308,15 @@ class AutoUploadWorker(
             val pathsAndMimes = buildPathsAndMimes(paths, syncedFolder, dateFormat)
             pathsAndMimes.forEach { (localPath, remotePath, _) ->
                 try {
-                    val (uploadEntity, upload) = createEntityAndUpload(user, localPath, remotePath)
+                    var (uploadEntity, upload) = createEntityAndUpload(user, localPath, remotePath)
                     try {
                         // Insert/update to IN_PROGRESS state before starting upload
-                        uploadsStorageManager.uploadDao.insert(uploadEntity)
+                        val generatedId = uploadsStorageManager.uploadDao.insert(uploadEntity)
+                        uploadEntity = uploadEntity.copy(id = generatedId.toInt())
+                        upload.uploadId = generatedId
 
                         val operation = createUploadFileOperation(upload, user)
-                        Log_OC.d(TAG, "🕒 uploading: $localPath")
+                        Log_OC.d(TAG, "🕒 uploading: $localPath, id: $generatedId")
 
                         val result = operation.execute(client)
 
