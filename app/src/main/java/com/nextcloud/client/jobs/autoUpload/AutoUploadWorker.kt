@@ -237,7 +237,7 @@ class AutoUploadWorker(
     private fun getUserOrReturn(syncedFolder: SyncedFolder): User? {
         val optionalUser = userAccountManager.getUser(syncedFolder.account)
         if (!optionalUser.isPresent) {
-            Log_OC.w(TAG, "uploadFilesFromFolder skipped user not present")
+            Log_OC.w(TAG, "user not present")
             return null
         }
         return optionalUser.get()
@@ -249,7 +249,7 @@ class AutoUploadWorker(
         val accountName = syncedFolder.account
 
         return if (lightVersion) {
-            Log_OC.d(TAG, "uploadFilesFromFolder light version is used")
+            Log_OC.d(TAG, "light version is used")
             val arbitraryDataProvider = ArbitraryDataProviderImpl(context)
             val needsCharging = context.resources.getBoolean(R.bool.syncedFolder_light_on_charging)
             val needsWifi = arbitraryDataProvider.getBooleanValue(
@@ -261,7 +261,7 @@ class AutoUploadWorker(
             Log_OC.d(TAG, "upload action is: $uploadAction")
             Triple(needsCharging, needsWifi, uploadAction)
         } else {
-            Log_OC.d(TAG, "getUploadSettings not light version is used")
+            Log_OC.d(TAG, "not light version is used")
             Triple(syncedFolder.isChargingOnly, syncedFolder.isWifiOnly, syncedFolder.uploadAction)
         }
     }
@@ -281,7 +281,7 @@ class AutoUploadWorker(
             val filePathsWithIds = repository.getFilePathsWithIds(syncedFolder, lastId)
 
             if (filePathsWithIds.isEmpty()) {
-                Log_OC.w(TAG, "uploadFiles no more files to upload at lastId: $lastId")
+                Log_OC.w(TAG, "no more files to upload at lastId: $lastId")
                 break
             }
             Log_OC.d(TAG, "Processing batch: lastId=$lastId, count=${filePathsWithIds.size}")
@@ -314,12 +314,12 @@ class AutoUploadWorker(
                         if (result.isSuccess) {
                             updateUploadStatus(uploadEntity, UploadsStorageManager.UploadStatus.UPLOAD_SUCCEEDED)
                             repository.markFileAsUploaded(localPath, syncedFolder)
-                            Log_OC.d(TAG, "✅ auto upload completed: $localPath")
+                            Log_OC.d(TAG, "✅ upload completed: $localPath")
                         } else {
                             updateUploadStatus(uploadEntity, UploadsStorageManager.UploadStatus.UPLOAD_FAILED)
                             Log_OC.e(
                                 TAG,
-                                "❌ auto upload failed $localPath (${upload.accountName}): ${result.logMessage}"
+                                "❌ upload failed $localPath (${upload.accountName}): ${result.logMessage}"
                             )
                         }
                     } catch (e: Exception) {
