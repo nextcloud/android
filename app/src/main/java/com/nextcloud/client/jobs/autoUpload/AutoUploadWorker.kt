@@ -349,6 +349,7 @@ class AutoUploadWorker(
             }
 
             offset += FileSystemRepository.BATCH_SIZE
+            Log_OC.d(TAG, "incrementing offset to fetch next potential uploads")
 
             // If we got fewer files than batch size, we've reached the end
             if (paths.size < FileSystemRepository.BATCH_SIZE) {
