@@ -1,6 +1,7 @@
 /*
  * Nextcloud - Android Client
  *
+ * SPDX-FileCopyrightText: 2025 Alper Ozturk <alper.ozturk@nextcloud.com>
  * SPDX-FileCopyrightText: 2022 Álvaro Brey <alvaro@alvarobrey.com>
  * SPDX-FileCopyrightText: 2022 Nextcloud GmbH
  * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
@@ -32,7 +33,7 @@ data class UploadEntity(
     @ColumnInfo(name = ProviderTableMeta.UPLOADS_FILE_SIZE)
     val fileSize: Long?,
     @ColumnInfo(name = ProviderTableMeta.UPLOADS_STATUS)
-    var status: Int?,
+    val status: Int?,
     @ColumnInfo(name = ProviderTableMeta.UPLOADS_LOCAL_BEHAVIOUR)
     val localBehaviour: Int?,
     @ColumnInfo(name = ProviderTableMeta.UPLOADS_UPLOAD_TIME)
@@ -81,6 +82,7 @@ fun UploadEntity.toOCUpload(capability: OCCapability? = null): OCUpload {
 
 fun OCUpload.toUploadEntity(): UploadEntity {
     val id = if (uploadId == -1L) {
+        // needed for the insert new records to the db so that insert DAO function returns new generated id
         null
     } else {
         uploadId
@@ -96,6 +98,8 @@ fun OCUpload.toUploadEntity(): UploadEntity {
         localBehaviour = localAction,
         nameCollisionPolicy = nameCollisionPolicy?.serialize(),
         isCreateRemoteFolder = if (isCreateRemoteFolder) 1 else 0,
+
+        // uploadEndTimestamp may overflow max int capacity since it is conversion from long to int. coerceAtMost needed
         uploadEndTimestamp = uploadEndTimestamp.coerceAtMost(Int.MAX_VALUE.toLong()).toInt(),
         lastResult = lastResult?.value,
         createdBy = createdBy,
