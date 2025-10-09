@@ -44,7 +44,6 @@ import com.owncloud.android.ui.notifications.NotificationUtils
 import com.owncloud.android.utils.FileStorageUtils
 import com.owncloud.android.utils.FilesSyncHelper
 import com.owncloud.android.utils.MimeType
-import com.owncloud.android.utils.MimeTypeUtil
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.io.File
@@ -244,24 +243,6 @@ class AutoUploadWorker(
         return optionalUser.get()
     }
 
-    private fun buildPathsAndMimes(
-        paths: Set<String>,
-        syncedFolder: SyncedFolder,
-        dateFormat: SimpleDateFormat
-    ): List<Triple<String, String, String>> {
-        val lightVersion = context.resources.getBoolean(R.bool.syncedFolder_light)
-        val currentLocale = context.resources.configuration.locales[0]
-
-        return paths.map { path ->
-            val file = File(path)
-            val localPath = file.absolutePath
-            val remotePath =
-                getRemotePath(file, syncedFolder, dateFormat, lightVersion, context.resources, currentLocale)
-            val mimeType = MimeTypeUtil.getBestMimeTypeByFilename(localPath)
-            Triple(localPath, remotePath, mimeType)
-        }
-    }
-
     @Suppress("DEPRECATION")
     private fun getUploadSettings(syncedFolder: SyncedFolder): Triple<Boolean, Boolean, Int> {
         val lightVersion = context.resources.getBoolean(R.bool.syncedFolder_light)
@@ -292,21 +273,31 @@ class AutoUploadWorker(
         val ocAccount = OwnCloudAccount(user.toPlatformAccount(), context)
         val client = OwnCloudClientManagerFactory.getDefaultSingleton()
             .getClientFor(ocAccount, context)
+        val lightVersion = context.resources.getBoolean(R.bool.syncedFolder_light)
+        val currentLocale = context.resources.configuration.locales[0]
 
-        var offset = 0
-        var hasMoreFiles = true
-        while (hasMoreFiles) {
-            val paths = repository.getAutoUploadFiles(syncedFolder, offset)
+        var lastId = 0
+        while (true) {
+            val filePathsWithIds = repository.getFilePathsWithIds(syncedFolder, lastId)
 
-            if (paths.isEmpty()) {
-                Log_OC.w(TAG, "uploadFiles no more files to upload at offset: $offset")
+            if (filePathsWithIds.isEmpty()) {
+                Log_OC.w(TAG, "uploadFiles no more files to upload at lastId: $lastId")
                 break
             }
+            Log_OC.d(TAG, "Processing batch: lastId=$lastId, count=${filePathsWithIds.size}")
 
-            Log_OC.d(TAG, "Processing batch: offset=$offset, count=${paths.size}")
+            filePathsWithIds.forEach { (path, id) ->
+                val file = File(path)
+                val localPath = file.absolutePath
+                val remotePath = getRemotePath(
+                    file,
+                    syncedFolder,
+                    dateFormat,
+                    lightVersion,
+                    context.resources,
+                    currentLocale
+                )
 
-            val pathsAndMimes = buildPathsAndMimes(paths, syncedFolder, dateFormat)
-            pathsAndMimes.forEach { (localPath, remotePath, _) ->
                 try {
                     var (uploadEntity, upload) = createEntityAndUpload(user, localPath, remotePath)
                     try {
@@ -338,6 +329,9 @@ class AutoUploadWorker(
                             "Exception during upload file, localPath: $localPath, remotePath: $remotePath," +
                                 " exception: $e"
                         )
+                    } finally {
+                        // update last id so upload can continue where it left
+                        lastId = id
                     }
                 } catch (e: Exception) {
                     Log_OC.e(
@@ -346,14 +340,6 @@ class AutoUploadWorker(
                             "remotePath: $remotePath, exception: $e"
                     )
                 }
-            }
-
-            offset += FileSystemRepository.BATCH_SIZE
-            Log_OC.d(TAG, "incrementing offset to fetch next potential uploads")
-
-            // If we got fewer files than batch size, we've reached the end
-            if (paths.size < FileSystemRepository.BATCH_SIZE) {
-                hasMoreFiles = false
             }
         }
     }
