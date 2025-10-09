@@ -76,7 +76,6 @@
     <dimen name="alternate_margin">10dp</dimen>
     <dimen name="alternate_half_margin">5dp</dimen>
     <dimen name="alternate_padding">10dp</dimen>
-    <dimen name="synced_folder_padding_end">10dp</dimen>
     <dimen name="alternate_half_padding">5dp</dimen>
     <dimen name="alternate_padding_right">55dp</dimen>
     <dimen name="display_text_min_height">32dp</dimen>
