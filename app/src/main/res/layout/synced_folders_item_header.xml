@@ -68,7 +68,7 @@
         android:gravity="center|start"
         android:maxLines="1"
         android:textColor="@color/log_level_warning"
-        android:textStyle="bold"
+        android:textStyle="normal"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/type"
