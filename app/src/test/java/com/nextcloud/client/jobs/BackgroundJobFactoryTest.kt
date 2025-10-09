@@ -15,6 +15,7 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.work.WorkerParameters
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.core.Clock
+import com.nextcloud.client.database.NextcloudDatabase
 import com.nextcloud.client.device.DeviceInfo
 import com.nextcloud.client.device.PowerManagementService
 import com.nextcloud.client.documentscan.GeneratePDFUseCase
@@ -99,6 +100,9 @@ class BackgroundJobFactoryTest {
     @Mock
     private lateinit var syncedFolderProvider: SyncedFolderProvider
 
+    @Mock
+    private lateinit var database: NextcloudDatabase
+
     private lateinit var factory: BackgroundJobFactory
 
     @Before
@@ -122,7 +126,8 @@ class BackgroundJobFactoryTest {
             { viewThemeUtils },
             { localBroadcastManager },
             generatePDFUseCase,
-            syncedFolderProvider
+            syncedFolderProvider,
+            database
         )
     }
 
