@@ -182,10 +182,9 @@ public class UploadListActivity extends FileActivity {
     }
 
     private void refresh() {
-        FilesSyncHelper.startFilesSyncForAllFolders(syncedFolderProvider,
+        FilesSyncHelper.startAutoUploadImmediately(syncedFolderProvider,
                                                     backgroundJobManager,
-                                                    true,
-                                                    new String[]{});
+                                                    true);
 
         if (uploadsStorageManager.getFailedUploads().length > 0) {
             new Thread(() -> {
