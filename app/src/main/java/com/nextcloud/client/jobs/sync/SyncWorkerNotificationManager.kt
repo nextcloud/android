@@ -16,6 +16,7 @@ import com.nextcloud.client.jobs.notification.WorkerNotificationManager
 import com.nextcloud.utils.ForegroundServiceHelper
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.ForegroundServiceType
+import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.ui.notifications.NotificationUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import kotlinx.coroutines.delay
@@ -37,7 +38,12 @@ class SyncWorkerNotificationManager(
         private const val DELAY = 1000L
     }
 
-    private fun getNotification(title: String, description: String? = null, progress: Int? = null): Notification =
+    private fun getNotification(
+        folderId: Long? = null,
+        title: String,
+        description: String? = null,
+        progress: Int? = null
+    ): Notification =
         notificationBuilder.apply {
             setSmallIcon(R.drawable.ic_sync)
             setContentTitle(title)
@@ -49,18 +55,23 @@ class SyncWorkerNotificationManager(
 
             progress?.let {
                 setProgress(MAX_PROGRESS, progress, false)
+            }
+
+            folderId?.let {
                 addAction(
                     android.R.drawable.ic_menu_close_clear_cancel,
                     context.getString(R.string.common_cancel),
-                    getCancelPendingIntent()
+                    getCancelPendingIntent(folderId)
                 )
             }
 
             setAutoCancel(true)
         }.build()
 
-    private fun getCancelPendingIntent(): PendingIntent {
-        val intent = Intent(context, SyncWorkerReceiver::class.java)
+    private fun getCancelPendingIntent(folderId: Long): PendingIntent {
+        val intent = Intent(context, SyncWorkerReceiver::class.java).apply {
+            putExtra(SyncWorkerReceiver.FOLDER_ID, folderId)
+        }
 
         return PendingIntent.getBroadcast(
             context,
@@ -70,11 +81,17 @@ class SyncWorkerNotificationManager(
         )
     }
 
-    fun showProgressNotification(folderName: String, filename: String, currentIndex: Int, totalFileSize: Int) {
+    fun showProgressNotification(
+        folderId: Long,
+        folderName: String,
+        filename: String,
+        currentIndex: Int,
+        totalFileSize: Int
+    ) {
         val currentFileIndex = (currentIndex + 1)
         val description = context.getString(R.string.sync_worker_counter, currentFileIndex, totalFileSize, filename)
         val progress = (currentFileIndex * MAX_PROGRESS) / totalFileSize
-        val notification = getNotification(title = folderName, description = description, progress = progress)
+        val notification = getNotification(folderId, title = folderName, description = description, progress = progress)
         notificationManager.notify(notificationId, notification)
     }
 
@@ -92,15 +109,16 @@ class SyncWorkerNotificationManager(
         dismiss()
     }
 
-    fun getForegroundInfo(folderName: String): ForegroundInfo = ForegroundServiceHelper.createWorkerForegroundInfo(
-        notificationId,
-        getNotification(folderName, progress = 0),
-        ForegroundServiceType.DataSync
-    )
+    fun getForegroundInfo(folder: OCFile): ForegroundInfo =
+        ForegroundServiceHelper.createWorkerForegroundInfo(
+            notificationId,
+            getNotification(folder.fileId, folder.fileName, progress = 0),
+            ForegroundServiceType.DataSync
+        )
 
     suspend fun showNotAvailableDiskSpace() {
-        val notification =
-            getNotification(context.getString(R.string.sync_worker_insufficient_disk_space_notification_title))
+        val title = context.getString(R.string.sync_worker_insufficient_disk_space_notification_title)
+        val notification = getNotification(null, title)
         notificationManager.notify(notificationId, notification)
 
         delay(DELAY)

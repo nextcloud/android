@@ -13,6 +13,7 @@ import com.owncloud.android.MainApp
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.datamodel.UploadsStorageManager
+import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.operations.DownloadFileOperation
 import com.owncloud.android.operations.DownloadType
 import com.owncloud.android.utils.MimeTypeUtil
@@ -29,6 +30,7 @@ class FileDownloadHelper {
 
     companion object {
         private var instance: FileDownloadHelper? = null
+        private const val TAG = "FileDownloadHelper"
 
         fun instance(): FileDownloadHelper = instance ?: synchronized(this) {
             instance ?: FileDownloadHelper().also { instance = it }
@@ -133,7 +135,10 @@ class FileDownloadHelper {
     }
 
     fun syncFolder(folder: OCFile?) {
-        folder ?: return
+        if (folder == null) {
+            Log_OC.e(TAG, "folder cannot be null, cant sync")
+            return
+        }
         backgroundJobManager.syncFolder(folder)
     }
 }

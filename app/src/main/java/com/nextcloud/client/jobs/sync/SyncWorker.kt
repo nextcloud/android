@@ -61,7 +61,7 @@ class SyncWorker(
 
         Log_OC.d(TAG, "SyncWorker started")
 
-        val foregroundInfo = notificationManager?.getForegroundInfo(folder.fileName) ?: return Result.failure()
+        val foregroundInfo = notificationManager?.getForegroundInfo(folder) ?: return Result.failure()
         setForeground(foregroundInfo)
 
         return withContext(Dispatchers.IO) {
@@ -78,7 +78,13 @@ class SyncWorker(
                     updateLiveSyncState(file.fileId, SyncState.SYNCING)
 
                     withContext(Dispatchers.Main) {
-                        notificationManager?.showProgressNotification(folder.fileName, file.fileName, index, files.size)
+                        notificationManager?.showProgressNotification(
+                            folder.fileId,
+                            folder.fileName,
+                            file.fileName,
+                            index,
+                            files.size
+                        )
                     }
 
                     val syncFileResult = syncFile(file, client)
