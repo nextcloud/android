@@ -1445,4 +1445,7 @@
     <string name="clear">Clear</string>
     <string name="set_message">Set message</string>
     <string name="error_setting_status_message">Error setting status message!</string>
+
+    <string name="file_list_error_headline">Oops!</string>
+    <string name="file_list_error_description">We couldn’t fetch your files. Please check your internet connection or try again later.</string>
 </resources>
