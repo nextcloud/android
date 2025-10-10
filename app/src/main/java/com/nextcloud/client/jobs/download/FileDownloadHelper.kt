@@ -131,4 +131,9 @@ class FileDownloadHelper {
             conflictUploadId
         )
     }
+
+    fun syncFolder(folder: OCFile?) {
+        folder ?: return
+        backgroundJobManager.syncFolder(folder)
+    }
 }
