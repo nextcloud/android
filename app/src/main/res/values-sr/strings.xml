@@ -98,6 +98,7 @@
     <string name="authenticator_activity_login_error">Дошло је до проблема при обради вашег захтева за пријаву. Молимо вас да касније покушате поново.</string>
     <string name="authenticator_activity_no_web_browser_found">Ниједан прегледач не може да отвори овај линк.</string>
     <string name="authenticator_activity_please_complete_login_process">Молимо вас да довршите процес пријаве у интернет прегледачу</string>
+    <string name="auto_upload_battery_saver_mode_warning">Ауто-отпремање је паузирано јер је укључена Штедња батерије.</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">остављен у оригиналној фасцикли јер је само за читање</string>
     <string name="auto_upload_on_wifi">Отпремај само на бежичним мрежама без ограничења</string>
     <string name="auto_upload_path">/Аутоматска отпремања</string>
@@ -666,13 +667,6 @@
     <string name="picture_set_as_no_app">Нема апликације којом се поставља слика</string>
     <string name="pin_home">Закачи на почетни екран</string>
     <string name="pin_shortcut_label">Отвори %1$s</string>
-    <string name="placeholder_extension">.txt</string>
-    <string name="placeholder_fileSize">389 KB</string>
-    <string name="placeholder_filename">чувар места</string>
-    <string name="placeholder_media_time">12:23:45</string>
-    <string name="placeholder_reason">Недавно уређивано</string>
-    <string name="placeholder_sentence">Ово је местодржач</string>
-    <string name="placeholder_timestamp">2012/05/18 12:23 ПоП</string>
     <string name="player_stop">стоп</string>
     <string name="player_toggle">пребацивање</string>
     <string name="please_select_a_server">Молимо вас да изаберете сервер</string>
@@ -995,6 +989,7 @@
     <string name="unified_search_fragment_calendar_event_not_found">Није пронађен догађај, увек можете да сихронизујете да бисте ажурирали. Преусмеравате се на веб</string>
     <string name="unified_search_fragment_contact_not_found">Није пронађен контакт, увек можете да сихронизујете да бисте ажурирали. Преусмеравате се на веб</string>
     <string name="unified_search_fragment_permission_needed">За отварање резултата претраге су неопходне дозволе, у супротном бићете преусмерени на веб</string>
+    <string name="unified_search_fragment_search_in_this_folder">У овом фолдеру</string>
     <string name="unknown">Непознато</string>
     <string name="unlock_file">Откључај фајл</string>
     <string name="unread_comments">Постоје непрочитани коментари</string>

@@ -493,12 +493,6 @@
     <string name="permission_storage_access">Các quyền bổ sung cần thiết để tải lên và tải xuống tệp.</string>
     <string name="picture_set_as_no_app">Không tìm thấy ứng dụng nào để đặt ảnh với</string>
     <string name="pin_shortcut_label">Mở trong %1$s</string>
-    <string name="placeholder_extension">.txt</string>
-    <string name="placeholder_fileSize">389 KB</string>
-    <string name="placeholder_media_time">12:23:45</string>
-    <string name="placeholder_reason">Chỉnh sửa gần đây</string>
-    <string name="placeholder_sentence">Vị trí này đã được đặt chỗ trước</string>
-    <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
     <string name="player_stop">dừng</string>
     <string name="player_toggle">bật/tắt</string>
     <string name="power_save_check_dialog_message">Việc tắt kiểm tra tiết kiệm năng lượng có thể dẫn đến việc tải tệp lên khi ở trạng thái pin yếu!</string>

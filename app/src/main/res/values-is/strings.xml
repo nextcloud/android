@@ -667,13 +667,6 @@
     <string name="picture_set_as_no_app">Engin forrit fundust til að setja mynd</string>
     <string name="pin_home">Festa á upphafsskjá</string>
     <string name="pin_shortcut_label">Opna %1$s</string>
-    <string name="placeholder_extension">.txt</string>
-    <string name="placeholder_fileSize">KB</string>
-    <string name="placeholder_filename">frátökutákn</string>
-    <string name="placeholder_media_time">12:23:45</string>
-    <string name="placeholder_reason">Nýlega breytt</string>
-    <string name="placeholder_sentence">Þetta er frátökutákn</string>
-    <string name="placeholder_timestamp">e.h.</string>
     <string name="player_stop">stöðva</string>
     <string name="player_toggle">víxla</string>
     <string name="please_select_a_server">Veldu netþjón…</string>

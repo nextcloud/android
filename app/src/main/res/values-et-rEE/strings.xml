@@ -98,6 +98,7 @@
     <string name="authenticator_activity_login_error">Sinu sisselogimispäringu töötlemisel tekkis viga. Palun proovi hiljem uuesti.</string>
     <string name="authenticator_activity_no_web_browser_found">Selle lingi avamiseks ei leidu ühtegi brauserit.</string>
     <string name="authenticator_activity_please_complete_login_process">Palun lõpeta sisselogimisprotsess oma veebibrauseris</string>
+    <string name="auto_upload_battery_saver_mode_warning">Kuna akukasutuse optimeerimine on lülitatud sisse, siis automaatne üleslaadimine pole töös.</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">säilitatud lugemisõigustega algkaustas</string>
     <string name="auto_upload_on_wifi">Laadi üles ainult mahupiiranguta WiFi võrgus</string>
     <string name="auto_upload_path">/AutoUpload</string>
@@ -666,13 +667,6 @@
     <string name="picture_set_as_no_app">Ei leidu rakendust pildi määramiseks</string>
     <string name="pin_home">Kinnita avalehele</string>
     <string name="pin_shortcut_label">Ava %1$s </string>
-    <string name="placeholder_extension">.txt</string>
-    <string name="placeholder_fileSize">389 KB</string>
-    <string name="placeholder_filename">kohatäitja</string>
-    <string name="placeholder_media_time">12:23:45</string>
-    <string name="placeholder_reason">Hiljuti muudetud</string>
-    <string name="placeholder_sentence">See on kohahoidja</string>
-    <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
     <string name="player_stop">peata</string>
     <string name="player_toggle">lülita sisse/välja</string>
     <string name="please_select_a_server">Palun vali server…</string>
@@ -995,6 +989,7 @@
     <string name="unified_search_fragment_calendar_event_not_found">Sündmust ei leidu, sa võid andmete uuendamiseks alati sünkroniseerida. Suunan edasi veebi…</string>
     <string name="unified_search_fragment_contact_not_found">Kontakti ei leidu, sa võid andmete uuendamiseks alati sünkroniseerida. Suunan edasi veebi…</string>
     <string name="unified_search_fragment_permission_needed">Otsingutulemuste avamiseks on vajalikud vastavad õigused, vastasel juhul suunan päringu ümber veebi…</string>
+    <string name="unified_search_fragment_search_in_this_folder">Selles kaustas</string>
     <string name="unknown">Teadmata</string>
     <string name="unlock_file">Eemalda faili lukustus</string>
     <string name="unread_comments">Leidub lugemata kommentaare</string>

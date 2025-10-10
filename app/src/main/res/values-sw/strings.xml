@@ -98,6 +98,7 @@
     <string name="authenticator_activity_login_error">Kulikuwa na tatizo la kuchakata ombi lako la kuingia. Tafadhali jaribu tena baadaye.</string>
     <string name="authenticator_activity_no_web_browser_found">Hakuna kivinjari kinachopatikana ili kufungua kiungo hiki.</string>
     <string name="authenticator_activity_please_complete_login_process">Tafadhali kamilisha mchakato wa kuingia katika kivinjari chako</string>
+    <string name="auto_upload_battery_saver_mode_warning">Upakiaji otomatiki umesitishwa kwa sababu Kiokoa Betri kimewashwa.</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">iliyohifadhiwa kwenye folda asili, kwani inasomwa tu</string>
     <string name="auto_upload_on_wifi">Pakia kwenye Wi-Fi isiyopimwa pekee</string>
     <string name="auto_upload_path">/Pakia Kiotomatiki</string>
@@ -666,13 +667,6 @@
     <string name="picture_set_as_no_app">Hakuna programu iliyopatikana ya kuweka picha nayo</string>
     <string name="pin_home">Bandika kwenye skrini ya nyumbani</string>
     <string name="pin_shortcut_label">Fungua %1$s</string>
-    <string name="placeholder_extension">.txt</string>
-    <string name="placeholder_fileSize">389 KB</string>
-    <string name="placeholder_filename">kishika nafasi</string>
-    <string name="placeholder_media_time">12:23:45</string>
-    <string name="placeholder_reason">Imehaririwa hivi karibuni</string>
-    <string name="placeholder_sentence">Hiki ni kishikilia nafasi</string>
-    <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
     <string name="player_stop">acha</string>
     <string name="player_toggle">geuza</string>
     <string name="please_select_a_server">Tafadhali chagua seva...</string>
@@ -848,7 +842,7 @@
     <string name="share_link_password_title">Ingiza nenosiri</string>
     <string name="share_link_with_label">Shiriki ya kiungo (%1$s)</string>
     <string name="share_no_expiration_date_label">Panga tarehe ya mwisho wa matumizi</string>
-    <string name="share_no_password_title">Set password</string>
+    <string name="share_no_password_title">Weka nenosiri</string>
     <string name="share_not_allowed_when_file_drop">Kushiriki upya hakuruhusiwi wakati wa kudondosha faili salama</string>
     <string name="share_option_required">Tafadhali chagua angalau chaguo moja la kushiriki kabla ya kuendelea.</string>
     <string name="share_permission_can_edit">Inaweza kuhariri</string>
@@ -995,6 +989,7 @@
     <string name="unified_search_fragment_calendar_event_not_found">Tukio halijapatikana, unaweza kusawazisha kila wakati ili kusasisha. Inaelekeza kwenye wavuti...</string>
     <string name="unified_search_fragment_contact_not_found">Anwani haijapatikana, unaweza kusawazisha kila wakati ili kusasisha. Inaelekeza kwenye wavuti...</string>
     <string name="unified_search_fragment_permission_needed">Ruhusa zinahitajika ili kufungua matokeo ya utafutaji vinginevyo yataelekezwa kwenye wavuti...</string>
+    <string name="unified_search_fragment_search_in_this_folder">Katika folda hii</string>
     <string name="unknown">Haijulikani</string>
     <string name="unlock_file">Fungua faili</string>
     <string name="unread_comments">Kuna maoni ambayo hayajasomwa</string>

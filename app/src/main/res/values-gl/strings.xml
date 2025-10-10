@@ -98,6 +98,7 @@
     <string name="authenticator_activity_login_error">Houbo un problema ao procesar a súa solicitude de acceso. Ténteo de novo máis tarde.</string>
     <string name="authenticator_activity_no_web_browser_found">Non hai ningún navegador dispoñíbel para abrir esta ligazón.</string>
     <string name="authenticator_activity_please_complete_login_process">Complete o proceso de acceso no seu navegador</string>
+    <string name="auto_upload_battery_saver_mode_warning">O envío automático está en pausa porque o aforro de batería está activado.</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">mantense no cartafol orixinal, xa que é de só lectura</string>
     <string name="auto_upload_on_wifi">Enviar só con wifi sen límite de datos</string>
     <string name="auto_upload_path">/EnvíoAutomático</string>
@@ -666,13 +667,6 @@
     <string name="picture_set_as_no_app">Non se atopou unha aplicación coa que definir unha imaxe</string>
     <string name="pin_home">Fixar na pantalla de Inicio</string>
     <string name="pin_shortcut_label">Abrir %1$s</string>
-    <string name="placeholder_extension">.txt</string>
-    <string name="placeholder_fileSize">389 KB</string>
-    <string name="placeholder_filename">marcador de substitución</string>
-    <string name="placeholder_media_time">12:23:45</string>
-    <string name="placeholder_reason">Editado recentemente</string>
-    <string name="placeholder_sentence">Isto é un marcador de substitución</string>
-    <string name="placeholder_timestamp">18/05/2012 12:23 p.m.</string>
     <string name="player_stop">parar</string>
     <string name="player_toggle">alternar</string>
     <string name="please_select_a_server">Seleccione un servidor…</string>
@@ -996,6 +990,7 @@
     <string name="unified_search_fragment_calendar_event_not_found">Non se atopou o evento, sempre pode sincronizar para actualizar. Redirixindo á web…</string>
     <string name="unified_search_fragment_contact_not_found">Non se atopou o contacto, sempre pode sincronizar para actualizar. Redirixindo á web…</string>
     <string name="unified_search_fragment_permission_needed">Requírense permisos para abrir o resultado da busca, se non, vai ser redirixido á web…</string>
+    <string name="unified_search_fragment_search_in_this_folder">Neste cartafol</string>
     <string name="unknown">Descoñecido</string>
     <string name="unlock_file">Desbloquear ficheiro</string>
     <string name="unread_comments">Existen comentarios sen ler</string>

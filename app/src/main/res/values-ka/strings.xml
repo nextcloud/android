@@ -532,11 +532,6 @@
     <string name="permission_storage_access">Additional permissions required to upload and download files.</string>
     <string name="picture_set_as_no_app">No app found to set a picture with</string>
     <string name="pin_shortcut_label">Open %1$s</string>
-    <string name="placeholder_extension">.txt</string>
-    <string name="placeholder_fileSize">389 KB</string>
-    <string name="placeholder_media_time">12:23:45</string>
-    <string name="placeholder_sentence">This is a placeholder</string>
-    <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
     <string name="player_stop">stop</string>
     <string name="player_toggle">toggle</string>
     <string name="power_save_check_dialog_message">Disabling power save check might result in uploading files when in low battery state!</string>

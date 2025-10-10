@@ -642,12 +642,6 @@
     <string name="picture_set_as_no_app">لم يتم العثور على تطبيق لتعيين صورة به</string>
     <string name="pin_home">ثبِّت في الشاشة الرئيسية</string>
     <string name="pin_shortcut_label">فتح %1$s</string>
-    <string name="placeholder_extension">.txt</string>
-    <string name="placeholder_fileSize">389 ك.ب</string>
-    <string name="placeholder_media_time">12:23:45</string>
-    <string name="placeholder_reason">تغيرت مؤخرا</string>
-    <string name="placeholder_sentence">هذه مساحة محجوزة</string>
-    <string name="placeholder_timestamp">2012/05/18 12:23 مساء</string>
     <string name="player_stop">إيقاف</string>
     <string name="player_toggle">تبديل</string>
     <string name="please_select_a_server">من فضلك، قم بتحديد الخادم...</string>

@@ -98,6 +98,7 @@
     <string name="authenticator_activity_login_error">Det uppstod ett problem när din inloggningsförfrågan behandlades. Försök igen senare.</string>
     <string name="authenticator_activity_no_web_browser_found">Ingen webbläsare finns tillgänglig för att öppna denna länk.</string>
     <string name="authenticator_activity_please_complete_login_process">Slutför inloggningsprocessen i din webbläsare</string>
+    <string name="auto_upload_battery_saver_mode_warning">Automatisk uppladdning är pausad eftersom batterisparläge är aktiverat.</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">behålls i originalmappen, eftersom den är skrivskyddad</string>
     <string name="auto_upload_on_wifi">Ladda bara upp via obelastad Wi-Fi</string>
     <string name="auto_upload_path">/AutomatiskUppladdning</string>
@@ -666,13 +667,6 @@
     <string name="picture_set_as_no_app">Ingen app hittades för att ställa in en bild med</string>
     <string name="pin_home">Fäst på hemskärmen</string>
     <string name="pin_shortcut_label">Öppna %1$s</string>
-    <string name="placeholder_extension">.txt</string>
-    <string name="placeholder_fileSize">389 KB</string>
-    <string name="placeholder_filename">platshållare</string>
-    <string name="placeholder_media_time">12:23:45</string>
-    <string name="placeholder_reason">Nyligen redigerade</string>
-    <string name="placeholder_sentence">Detta är en platshållare</string>
-    <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
     <string name="player_stop">stopp</string>
     <string name="player_toggle">växla</string>
     <string name="please_select_a_server">Välj en server...</string>
@@ -996,6 +990,7 @@
     <string name="unified_search_fragment_calendar_event_not_found">Händelsen hittades inte, du kan alltid synkronisera för att uppdatera. Omdirigerar till webben...</string>
     <string name="unified_search_fragment_contact_not_found">Kontakten hittades inte, du kan alltid synkronisera för att uppdatera. Omdirigerar till webben...</string>
     <string name="unified_search_fragment_permission_needed">Behörigheter krävs för att öppna sökresultatet, annars omdirigeras det till webben...</string>
+    <string name="unified_search_fragment_search_in_this_folder">I denna mapp</string>
     <string name="unknown">Okänd</string>
     <string name="unlock_file">Lås upp fil</string>
     <string name="unread_comments">Olästa kommentarer finns</string>

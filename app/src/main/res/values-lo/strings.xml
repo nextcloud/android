@@ -434,10 +434,6 @@
     <string name="permission_deny">ປະຕິເສດ</string>
     <string name="permission_storage_access">ການອະນຸຍາດເພີ່ມເຕີມທີ່ຈໍາເປັນເພື່ອອັບໂຫຼດ ແລະ ດາວໂຫລດຟາຍ</string>
     <string name="picture_set_as_no_app">ບໍ່ພົບແອັບພລິເຄຊັນເພື່ອຕັ້ງຮູບດ້ວຍ</string>
-    <string name="placeholder_fileSize">389 KB</string>
-    <string name="placeholder_media_time">12:23:45</string>
-    <string name="placeholder_sentence">ຕົວສຳຮອງ</string>
-    <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
     <string name="player_stop">ຢຸດ</string>
     <string name="player_toggle">ສະລັບ</string>
     <string name="power_save_check_dialog_message">ການກວດກາການປະຢັດພະລັງງານອາດຈະສົ່ງຜົນໃນອັບໂຫຼດຟາຍເມື່ອແບັດເຕີຣີຕ່ໍາ!</string>

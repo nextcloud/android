@@ -621,12 +621,6 @@
     <string name="picture_set_as_no_app">No s\'ha trobat cap aplicació per establir-hi la foto</string>
     <string name="pin_home">Fixa-ho a la pantalla d\'inici</string>
     <string name="pin_shortcut_label">Obre %1$s</string>
-    <string name="placeholder_extension">.txt</string>
-    <string name="placeholder_fileSize">389 KB</string>
-    <string name="placeholder_media_time">12:23:45</string>
-    <string name="placeholder_reason">Editat recentment</string>
-    <string name="placeholder_sentence">Això és un marcador de posició</string>
-    <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
     <string name="player_stop">atura</string>
     <string name="player_toggle">commuta</string>
     <string name="please_select_a_server">Seleccioneu un servidor…</string>

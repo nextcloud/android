@@ -449,11 +449,6 @@
     <string name="permission_deny">לדחות</string>
     <string name="permission_storage_access">נדרשות הרשאות נוספות כדי להעלות ולהוריד קבצים</string>
     <string name="picture_set_as_no_app">לא נמצא יישומון להגדיר אתו תמונה</string>
-    <string name="placeholder_fileSize">389 ק״ב</string>
-    <string name="placeholder_media_time">12:23:45</string>
-    <string name="placeholder_reason">נערכו לאחרונה</string>
-    <string name="placeholder_sentence">זהו ממלא מקום</string>
-    <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
     <string name="power_save_check_dialog_message">השבתת בדיקת חיסכון בחשמל גורמת להעלאת קבצים כשהסוללה חלשה!</string>
     <string name="pref_behaviour_entries_delete_file">נמחק</string>
     <string name="pref_behaviour_entries_keep_file">נשמר בתיקייה מקורית</string>
