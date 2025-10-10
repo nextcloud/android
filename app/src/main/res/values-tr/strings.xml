@@ -93,12 +93,17 @@
     <string name="auth_unsupported_multiaccount">%1$s birden çok hesabı desteklemiyor</string>
     <string name="auth_wrong_connection_title">Bağlantı kurulamadı</string>
     <string name="authenticator_activity_cancel_login">Oturum açmaktan vazgeç</string>
+    <string name="authenticator_activity_empty_base_url">Lütfen geçerli bir sunucu adresi yazın.</string>
+    <string name="authenticator_activity_empty_response_message">Oturum açma bilgileri alınamadı. Lütfen yeniden deneyin.</string>
     <string name="authenticator_activity_login_error">Oturum açma isteğiniz işlenirken bir sorun çıktı. Lütfen bir süre sonra yeniden deneyin.</string>
+    <string name="authenticator_activity_no_web_browser_found">Bu bağlantıyı açabilecek bir tarayıcı bulunamadı.</string>
     <string name="authenticator_activity_please_complete_login_process">Lütfen oturum açma işlemini tarayıcınızdan tamamlayın</string>
+    <string name="auto_upload_battery_saver_mode_warning">Pil koruma modu açık olduğundan otomatik yükleme duraklatıldı</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">salt okunur olduğundan özgün klasörde kaldı</string>
     <string name="auto_upload_on_wifi">Yalnızca kotasız kablosuz ağda yüklensin</string>
     <string name="auto_upload_path">/OtomatikYükleme</string>
     <string name="auto_upload_sub_folder_warning">Bu klasör, üst klasörün eşitlemesine zaten katılmış olduğundan yinelenen yüklemelere neden olabilir.</string>
+    <string name="auto_upload_worker_start_text">%s üzerindeki dosyalar %s üzerine yükleniyor</string>
     <string name="autoupload_configure">Yapılandır</string>
     <string name="autoupload_create_new_custom_folder">Özel klasör kurulumu ekle</string>
     <string name="autoupload_custom_folder">Bir özel klasör kurun</string>
@@ -984,6 +989,7 @@
     <string name="unified_search_fragment_calendar_event_not_found">Etkinlik bulunamadı, güncellemek için eşitleyebilirsiniz. İnternet üzerine yönlendiriliyor…</string>
     <string name="unified_search_fragment_contact_not_found">Kişi bulunamadı, güncellemek için eşitleyebilirsiniz. İnternet üzerine yönlendiriliyor…</string>
     <string name="unified_search_fragment_permission_needed">Arama sonuçlarını açmak için izinler gereklidir. Yoksa İnternet üzerine yönlendirilir…</string>
+    <string name="unified_search_fragment_search_in_this_folder">Bu klasör içindeki</string>
     <string name="unknown">Bilinmiyor</string>
     <string name="unlock_file">Dosyanın kilidini aç</string>
     <string name="unread_comments">Okunmamış yorumlar var</string>

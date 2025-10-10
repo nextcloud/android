@@ -98,6 +98,7 @@
     <string name="authenticator_activity_login_error">Bhí fadhb ann d\'iarratas logáil isteach a phróiseáil. Bain triail eile as ar ball le do thoil.</string>
     <string name="authenticator_activity_no_web_browser_found">Níl aon bhrabhsálaí ar fáil chun an nasc seo a oscailt.</string>
     <string name="authenticator_activity_please_complete_login_process">Críochnaigh an próiseas logáil isteach i do bhrabhsálaí le do thoil</string>
+    <string name="auto_upload_battery_saver_mode_warning">Tá an uaslódáil uathoibríoch ar sos mar go bhfuil Coigilteoir Ceallraí ar siúl.</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">coinnithe sa bhunfhillteán, mar atá sé inléite amháin</string>
     <string name="auto_upload_on_wifi">Uaslódáil ar Wi-Fi neamh-mhéadraithe amháin</string>
     <string name="auto_upload_path">/Uaslódáil Uathoibríoch</string>
@@ -988,6 +989,7 @@
     <string name="unified_search_fragment_calendar_event_not_found">Níor aimsíodh an t-imeacht, is féidir leat sioncronú a dhéanamh i gcónaí chun nuashonrú a dhéanamh. Á atreorú chuig an ngréasán…</string>
     <string name="unified_search_fragment_contact_not_found">Níor aimsíodh an teagmhálaí, is féidir leat sioncronú a dhéanamh i gcónaí chun nuashonrú a dhéanamh. Á atreorú chuig an ngréasán…</string>
     <string name="unified_search_fragment_permission_needed">Teastaíonn ceadanna chun toradh cuardaigh a oscailt nó déanfar é a atreorú chuig an ngréasán…</string>
+    <string name="unified_search_fragment_search_in_this_folder">Sa bhfillteán seo</string>
     <string name="unknown">Anaithnid</string>
     <string name="unlock_file">Díghlasáil an comhad</string>
     <string name="unread_comments">Tá tuairimí neamhléite ann</string>
