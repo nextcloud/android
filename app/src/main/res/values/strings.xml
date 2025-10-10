@@ -882,6 +882,9 @@
     <string name="notification_channel_offline_operations_name_short">Offline operations</string>
     <string name="notification_channel_offline_operations_description">Shows progress of offline file operations</string>
 
+    <string name="content_observer_work_notification_title">Detecting content changes</string>
+    <string name="notification_channel_content_observer_name_short">Content observer</string>
+    <string name="notification_channel_content_observer_description">Detects local file changes</string>
 
     <string name="account_not_found">Account not found!</string>
 

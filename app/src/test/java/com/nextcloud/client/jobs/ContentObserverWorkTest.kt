@@ -44,7 +44,7 @@ class ContentObserverWorkTest {
     fun setUp() {
         MockitoAnnotations.initMocks(this)
         worker = ContentObserverWork(
-            appContext = context,
+            context = context,
             params = params,
             syncedFolderProvider = folderProvider,
             powerManagementService = powerManagementService,
