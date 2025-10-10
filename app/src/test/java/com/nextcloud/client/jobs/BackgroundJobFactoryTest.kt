@@ -15,6 +15,8 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.work.WorkerParameters
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.core.Clock
+import com.nextcloud.client.database.NextcloudDatabase
+import com.nextcloud.client.database.dao.FileDao
 import com.nextcloud.client.device.DeviceInfo
 import com.nextcloud.client.device.PowerManagementService
 import com.nextcloud.client.documentscan.GeneratePDFUseCase
@@ -99,11 +101,19 @@ class BackgroundJobFactoryTest {
     @Mock
     private lateinit var syncedFolderProvider: SyncedFolderProvider
 
+    @Mock
+    private lateinit var db: NextcloudDatabase
+
+    @Mock private lateinit var fileDao: FileDao
+
     private lateinit var factory: BackgroundJobFactory
 
     @Before
     fun setUp() {
-        MockitoAnnotations.initMocks(this)
+        MockitoAnnotations.openMocks(this)
+
+        whenever(db.fileDao()).thenReturn(fileDao)
+
         factory = BackgroundJobFactory(
             logger,
             preferences,
@@ -122,7 +132,8 @@ class BackgroundJobFactoryTest {
             { viewThemeUtils },
             { localBroadcastManager },
             generatePDFUseCase,
-            syncedFolderProvider
+            syncedFolderProvider,
+            db
         )
     }
 
