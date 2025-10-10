@@ -108,7 +108,7 @@ public class SyncedFolder implements Serializable, Cloneable {
      *
      * @param id id
      */
-    public SyncedFolder(long id,
+    protected SyncedFolder(long id,
                            String localPath,
                            String remotePath,
                            boolean wifiOnly,
