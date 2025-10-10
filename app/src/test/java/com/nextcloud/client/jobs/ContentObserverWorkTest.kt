@@ -1,6 +1,7 @@
 /*
  * Nextcloud - Android Client
  *
+ * SPDX-FileCopyrightText: 2025 Alper Ozturk <alper.ozturk@nextcloud.com>
  * SPDX-FileCopyrightText: 2019 Chris Narkiewicz <hello@ezaquarii.com>
  * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
  */
@@ -12,6 +13,7 @@ import android.net.Uri
 import androidx.work.WorkerParameters
 import com.nextcloud.client.device.PowerManagementService
 import com.owncloud.android.datamodel.SyncedFolderProvider
+import kotlinx.coroutines.runBlocking
 import org.junit.Before
 import org.junit.Ignore
 import org.junit.Test
@@ -42,7 +44,7 @@ class ContentObserverWorkTest {
 
     @Before
     fun setUp() {
-        MockitoAnnotations.initMocks(this)
+        MockitoAnnotations.openMocks(this)
         worker = ContentObserverWork(
             context = context,
             params = params,
@@ -56,70 +58,78 @@ class ContentObserverWorkTest {
 
     @Test
     fun job_reschedules_self_after_each_run_unconditionally() {
-        // GIVEN
-        //      nothing to sync
-        whenever(params.triggeredContentUris).thenReturn(emptyList())
+        runBlocking {
+            // GIVEN
+            //      nothing to sync
+            whenever(params.triggeredContentUris).thenReturn(emptyList())
 
-        // WHEN
-        //      worker is called
-        worker.doWork()
+            // WHEN
+            //      worker is called
+            worker.doWork()
 
-        // THEN
-        //      worker reschedules itself unconditionally
-        verify(backgroundJobManager).scheduleContentObserverJob()
+            // THEN
+            //      worker reschedules itself unconditionally
+            verify(backgroundJobManager).scheduleContentObserverJob()
+        }
     }
 
     @Test
     @Ignore("TODO: needs further refactoring")
     fun sync_is_triggered() {
-        // GIVEN
-        //      power saving is disabled
-        //      some folders are configured for syncing
-        whenever(powerManagementService.isPowerSavingEnabled).thenReturn(false)
-        whenever(folderProvider.countEnabledSyncedFolders()).thenReturn(1)
+        runBlocking {
+            // GIVEN
+            //      power saving is disabled
+            //      some folders are configured for syncing
+            whenever(powerManagementService.isPowerSavingEnabled).thenReturn(false)
+            whenever(folderProvider.countEnabledSyncedFolders()).thenReturn(1)
 
-        // WHEN
-        //      worker is called
-        worker.doWork()
+            // WHEN
+            //      worker is called
+            worker.doWork()
 
-        // THEN
-        //      sync job is scheduled
-        // TO DO: verify(backgroundJobManager).sheduleFilesSync() or something like this
+            // THEN
+            //      sync job is scheduled
+            // TO DO: verify(backgroundJobManager).sheduleFilesSync() or something like this
+        }
     }
 
     @Test
     @Ignore("TODO: needs further refactoring")
     fun sync_is_not_triggered_under_power_saving_mode() {
-        // GIVEN
-        //      power saving is enabled
-        //      some folders are configured for syncing
-        whenever(powerManagementService.isPowerSavingEnabled).thenReturn(true)
-        whenever(folderProvider.countEnabledSyncedFolders()).thenReturn(1)
+        runBlocking {
+            // GIVEN
+            //      power saving is enabled
+            //      some folders are configured for syncing
+            whenever(powerManagementService.isPowerSavingEnabled).thenReturn(true)
+            whenever(folderProvider.countEnabledSyncedFolders()).thenReturn(1)
 
-        // WHEN
-        //      worker is called
-        worker.doWork()
+            // WHEN
+            //      worker is called
+            worker.doWork()
 
-        // THEN
-        //      sync job is scheduled
-        // TO DO: verify(backgroundJobManager, never()).sheduleFilesSync() or something like this)
+            // THEN
+            //      sync job is scheduled
+            // TO DO: verify(backgroundJobManager, never()).sheduleFilesSync() or something like this)
+        }
     }
 
     @Test
     @Ignore("TODO: needs further refactoring")
     fun sync_is_not_triggered_if_no_folder_are_synced() {
-        // GIVEN
-        //      power saving is disabled
-        //      no folders configured for syncing
-        whenever(powerManagementService.isPowerSavingEnabled).thenReturn(false)
-        whenever(folderProvider.countEnabledSyncedFolders()).thenReturn(0)
+        runBlocking {
+            // GIVEN
+            //      power saving is disabled
+            //      no folders configured for syncing
+            whenever(powerManagementService.isPowerSavingEnabled).thenReturn(false)
+            whenever(folderProvider.countEnabledSyncedFolders()).thenReturn(0)
 
-        // WHEN
-        //      worker is called
-        worker.doWork()
+            // WHEN
+            //      worker is called
+            worker.doWork()
 
-        // THEN
-        //      sync job is scheduled
-        // TO DO: verify(backgroundJobManager, never()).sheduleFilesSync() or something like this)
+            // THEN
+            //      sync job is scheduled
+            // TO DO: verify(backgroundJobManager, never()).sheduleFilesSync() or something like this)
+        }
     }
 }
