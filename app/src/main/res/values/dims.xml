@@ -39,6 +39,8 @@
     <dimen name="bottom_navigation_view_margin">100dp</dimen>
     <dimen name="standard_quarter_margin">4dp</dimen>
 
+    <dimen name="synced_folders_title_margin">14dp</dimen>
+
     <dimen name="grid_recommended_item_reason_text_size">12sp</dimen>
     <dimen name="grid_bottom_view_height">20dp</dimen>
     <dimen name="grid_layout_item_size">10dp</dimen>
