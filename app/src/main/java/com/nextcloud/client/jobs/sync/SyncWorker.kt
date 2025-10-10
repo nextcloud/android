@@ -38,7 +38,7 @@ class SyncWorker(
         private val _liveSyncStates = MutableStateFlow<Map<Long, SyncState>>(emptyMap())
         val liveSyncStates: StateFlow<Map<Long, SyncState>> = _liveSyncStates
 
-        private fun updateLiveSyncState(id: Long, state: SyncState) {
+        fun updateLiveSyncState(id: Long, state: SyncState) {
             _liveSyncStates.update { it + (id to state) }
         }
 
