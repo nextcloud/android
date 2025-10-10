@@ -15,14 +15,9 @@ import android.net.Uri;
 
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.core.Clock;
-import com.nextcloud.client.database.NextcloudDatabase;
-import com.nextcloud.client.database.dao.SyncedFolderDao;
-import com.nextcloud.client.database.entity.SyncedFolderEntity;
-import com.nextcloud.client.database.entity.SyncedFolderEntityKt;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.client.preferences.AppPreferencesImpl;
 import com.nextcloud.client.preferences.SubFolderRule;
-import com.owncloud.android.MainApp;
 import com.owncloud.android.db.ProviderMeta;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.files.model.ServerFileInterface;
@@ -47,7 +42,6 @@ public class SyncedFolderProvider extends Observable {
     private final ContentResolver mContentResolver;
     private final AppPreferences preferences;
     private final Clock clock;
-    public final SyncedFolderDao dao = NextcloudDatabase.getInstance(MainApp.getAppContext()).syncedFolderDao();
 
     /**
      * constructor.
@@ -189,11 +183,33 @@ public class SyncedFolderProvider extends Observable {
     }
 
     public SyncedFolder findByLocalPathAndAccount(String localPath, User user) {
-        final SyncedFolderEntity entity = dao.findByLocalPathAndAccount(localPath, user.getAccountName());
-        if (entity == null) {
-            return null;
+        SyncedFolder result = null;
+        Cursor cursor = mContentResolver.query(
+            ProviderMeta.ProviderTableMeta.CONTENT_URI_SYNCED_FOLDERS,
+            null,
+            ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_LOCAL_PATH + " LIKE ? AND " +
+                ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_ACCOUNT + " =? ",
+            new String[]{localPath + "%", user.getAccountName()},
+            null
+        );
+
+        if (cursor != null && cursor.getCount() == 1) {
+            result = createSyncedFolderFromCursor(cursor);
+        } else {
+            if (cursor == null) {
+                Log_OC.e(TAG, "Sync folder db cursor for local path=" + localPath + " in NULL.");
+            } else {
+                Log_OC.e(TAG, cursor.getCount() + " items for local path=" + localPath
+                        + " available in sync folder db. Expected 1. Failed to update sync folder db.");
+            }
         }
-        return SyncedFolderEntityKt.toSyncedFolder(entity);
+
+        if (cursor != null) {
+            cursor.close();
+        }
+
+        return result;
+
     }
 
     @Nullable

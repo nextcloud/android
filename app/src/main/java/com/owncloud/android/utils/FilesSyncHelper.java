@@ -39,10 +39,7 @@ import org.lukhnos.nnio.file.attribute.BasicFileAttributes;
 import org.lukhnos.nnio.file.impl.FileBasedPathImpl;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.Arrays;
 import java.util.Collections;
 
@@ -222,14 +219,6 @@ public final class FilesSyncHelper {
         final FilesystemDataProvider filesystemDataProvider = new FilesystemDataProvider(contentResolver);
         for (String changedFileURI : changedFiles){
             String changedFile = getFileFromURI(changedFileURI);
-
-            if (changedFile == null) {
-                Log_OC.w(TAG, "Skipped null file for URI: " + changedFileURI);
-
-                // avoid crash worker
-                continue;
-            }
-
             if (syncedFolder.containsTypedFile(changedFile)){
                 File file = new File(changedFile);
                 if (!file.exists()) {
@@ -244,46 +233,26 @@ public final class FilesSyncHelper {
         }
     }
 
-    private static String getFileFromURI(String uriString) {
-        Log_OC.d(TAG, "getFileFromURI, URI: " + uriString);
+    private static String getFileFromURI(String uri){
+        Log_OC.d(TAG, "getFileFromURI, URI: " + uri);
         final Context context = MainApp.getAppContext();
 
-        if (uriString == null) {
-            return null;
+        Cursor cursor;
+        int column_index_data;
+        String filePath = null;
+
+        String[] projection = {MediaStore.MediaColumns.DATA};
+
+        cursor = context.getContentResolver().query(Uri.parse(uri), projection, null, null, null, null);
+
+        if (cursor != null && cursor.moveToFirst()) {
+            column_index_data = cursor.getColumnIndexOrThrow(MediaStore.MediaColumns.DATA);
+            filePath = cursor.getString(column_index_data);
+            cursor.close();
+        } else {
+            Log_OC.e(TAG, "cant get file from URI");
         }
-
-        Uri uri = Uri.parse(uriString);
-
-        // Try to query legacy file path (for older devices)
-        try (Cursor cursor = context.getContentResolver().query(
-            uri, new String[]{MediaStore.MediaColumns.DATA}, null, null, null)) {
-            if (cursor != null && cursor.moveToFirst()) {
-                int columnIndex = cursor.getColumnIndexOrThrow(MediaStore.MediaColumns.DATA);
-                String filePath = cursor.getString(columnIndex);
-                if (filePath != null) return filePath;
-            }
-        } catch (Exception ignore) { }
-
-        // Fallback: copy content to a cache file
-        try {
-            String fileName = "tmp_" + System.currentTimeMillis();
-            File outputFile = new File(context.getCacheDir(), fileName);
-
-            try (InputStream inputStream = context.getContentResolver().openInputStream(uri);
-                 OutputStream outputStream = new FileOutputStream(outputFile)) {
-                if (inputStream == null) return null;
-                byte[] buffer = new byte[8192];
-                int len;
-                while ((len = inputStream.read(buffer)) > 0) {
-                    outputStream.write(buffer, 0, len);
-                }
-            }
-
-            return outputFile.getAbsolutePath();
-        } catch (Exception e) {
-            Log_OC.e(TAG, "Failed to copy file from URI: " + e);
-            return null;
-        }
+        return filePath;
     }
 
     private static void insertContentIntoDB(Uri uri, SyncedFolder syncedFolder,
