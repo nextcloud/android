@@ -50,13 +50,13 @@ class ContentObserverWork(
         backgroundJobManager.logStartOfWorker(workerName)
         Log_OC.d(TAG, "started")
 
-        val notificationTitle = context.getString(R.string.content_observer_work_notification_title)
-        val notification = createNotification(notificationTitle)
-        updateForegroundInfo(notification)
-
         try {
             if (params.triggeredContentUris.isNotEmpty()) {
                 Log_OC.d(TAG, "📸 content observer detected file changes.")
+
+                val notificationTitle = context.getString(R.string.content_observer_work_notification_title)
+                val notification = createNotification(notificationTitle)
+                updateForegroundInfo(notification)
                 checkAndTriggerAutoUpload()
 
                 // prevent worker fail because of another worker
