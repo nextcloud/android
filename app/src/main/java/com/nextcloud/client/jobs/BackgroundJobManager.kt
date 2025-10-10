@@ -175,5 +175,5 @@ interface BackgroundJobManager {
     fun cancelAllFilesDownloadJobs()
     fun startMetadataSyncJob(currentDirPath: String)
     fun syncFolder(folder: OCFile)
-    fun cancelSyncFolder(folderId: Long)
+    fun cancelSyncFolder()
 }

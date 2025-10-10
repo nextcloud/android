@@ -34,7 +34,6 @@ import com.nextcloud.client.jobs.sync.SyncWorker
 import com.nextcloud.client.jobs.upload.FileUploadHelper
 import com.nextcloud.client.jobs.upload.FileUploadWorker
 import com.nextcloud.client.preferences.AppPreferences
-import com.nextcloud.utils.extensions.StringConstants
 import com.nextcloud.utils.extensions.isWorkRunning
 import com.nextcloud.utils.extensions.isWorkScheduled
 import com.owncloud.android.datamodel.OCFile
@@ -826,8 +825,6 @@ internal class BackgroundJobManagerImpl(
     }
 
     override fun syncFolder(folder: OCFile) {
-        val tag = getSyncFolderTag(folder.fileId)
-
         val constraints = Constraints.Builder()
             .setRequiredNetworkType(NetworkType.CONNECTED)
             .setRequiresStorageNotLow(true)
@@ -837,21 +834,16 @@ internal class BackgroundJobManagerImpl(
             .putLong(SyncWorker.FOLDER_ID, folder.fileId)
             .build()
 
-        val workName = (JOB_SYNC_FOLDER + folder.fileId)
-
-        val request = oneTimeRequestBuilder(SyncWorker::class, workName)
-            .addTag(tag)
+        val request = oneTimeRequestBuilder(SyncWorker::class, JOB_SYNC_FOLDER)
+            .addTag(JOB_SYNC_FOLDER)
             .setInputData(data)
             .setConstraints(constraints)
             .build()
 
-        workManager.enqueueUniqueWork(workName, ExistingWorkPolicy.KEEP, request)
+        workManager.enqueueUniqueWork(JOB_SYNC_FOLDER, ExistingWorkPolicy.APPEND_OR_REPLACE, request)
     }
 
-    override fun cancelSyncFolder(folderId: Long) {
-        val tag = getSyncFolderTag(folderId)
-        workManager.cancelAllWorkByTag(tag)
+    override fun cancelSyncFolder() {
+        workManager.cancelAllWorkByTag(JOB_SYNC_FOLDER)
     }
-
-    private fun getSyncFolderTag(folderId: Long): String = JOB_SYNC_FOLDER + StringConstants.SPACE + folderId.toString()
 }

@@ -57,7 +57,7 @@ class SyncWorker(
         val folder = storageManager.getFileById(folderID) ?: return Result.failure()
         updateLiveSyncState(folder.fileId, SyncState.SYNCING)
 
-        notificationManager = SyncWorkerNotificationManager(context, folderID.toInt(), viewThemeUtils)
+        notificationManager = SyncWorkerNotificationManager(context, viewThemeUtils)
 
         Log_OC.d(TAG, "SyncWorker started")
 
@@ -79,7 +79,6 @@ class SyncWorker(
 
                     withContext(Dispatchers.Main) {
                         notificationManager?.showProgressNotification(
-                            folder.fileId,
                             folder.fileName,
                             file.fileName,
                             index,

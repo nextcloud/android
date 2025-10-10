@@ -244,7 +244,7 @@ class FileUploadHelper {
         }
     }
 
-    fun cancelSyncFolder(folderId: Long) = backgroundJobManager.cancelSyncFolder(folderId)
+    fun cancelSyncFolder() = backgroundJobManager.cancelSyncFolder()
 
     fun cancelFileUploads(uploads: List<OCUpload>, accountName: String) {
         for (upload in uploads) {

@@ -1008,7 +1008,7 @@ public class FileOperationsHelper {
 
         final var fileUploadHelper = FileUploadHelper.Companion.instance();
         if (file.isFolder()) {
-            fileUploadHelper.cancelSyncFolder(file.getFileId());
+            fileUploadHelper.cancelSyncFolder();
         }
 
         final var fileDownloadHelper = FileDownloadHelper.Companion.instance();
