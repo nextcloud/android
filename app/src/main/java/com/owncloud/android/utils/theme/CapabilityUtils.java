@@ -87,4 +87,11 @@ public final class CapabilityUtils {
                 version.isOlderThan(MainApp.OUTDATED_SERVER_VERSION))
             && !hasExtendedSupport;
     }
+
+    public static boolean checkOutdatedWarning(Resources resources,
+                                               OwnCloudVersion version,
+                                               boolean hasExtendedSupport,
+                                               boolean hasValidSubscription) {
+        return checkOutdatedWarning(resources, version, hasExtendedSupport) && !hasValidSubscription;
+    }
 }
