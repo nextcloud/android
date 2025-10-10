@@ -128,6 +128,7 @@ class TrashbinActivity :
 
         updateActionBarTitleAndHomeButtonByString(getString(R.string.trashbin_activity_title))
         setupDrawer()
+        handleBackPress()
     }
 
     override fun onStart() {
@@ -179,8 +180,6 @@ class TrashbinActivity :
 
         loadFolder()
 
-        handleOnBackPressed()
-
         mMultiChoiceModeListener = MultiChoiceModeListener(
             this,
             trashbinListAdapter,
@@ -189,7 +188,7 @@ class TrashbinActivity :
         addDrawerListener(mMultiChoiceModeListener)
     }
 
-    private fun handleOnBackPressed() {
+    private fun handleBackPress() {
         onBackPressedDispatcher.addCallback(
             this,
             onBackPressedCallback

@@ -404,7 +404,7 @@ public class BackupListFragment extends FileFragment implements Injectable {
     private void closeFragment() {
         ContactsPreferenceActivity contactsPreferenceActivity = (ContactsPreferenceActivity) getActivity();
         if (contactsPreferenceActivity != null) {
-            contactsPreferenceActivity.onBackPressed();
+            contactsPreferenceActivity.getOnBackPressedDispatcher().onBackPressed();
         }
     }
 

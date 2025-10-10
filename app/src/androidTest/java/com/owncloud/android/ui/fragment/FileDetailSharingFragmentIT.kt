@@ -822,7 +822,7 @@ class FileDetailSharingFragmentIT : AbstractIT() {
                         val processFragment =
                             activity.supportFragmentManager.findFragmentByTag(FileDetailsSharingProcessFragment.TAG) as
                                 FileDetailsSharingProcessFragment
-                        processFragment.onBackPressed()
+                        processFragment.activity?.onBackPressedDispatcher?.onBackPressed()
                     }
                 }
             }

@@ -197,7 +197,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
     }
 
     public void goBackToOCFileListFragment() {
-        requireActivity().onBackPressed();
+        requireActivity().getOnBackPressedDispatcher().onBackPressed();
     }
 
     @Override

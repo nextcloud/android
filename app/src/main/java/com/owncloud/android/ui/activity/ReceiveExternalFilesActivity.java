@@ -103,6 +103,7 @@ import java.util.concurrent.Executors;
 
 import javax.inject.Inject;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -203,6 +204,8 @@ public class ReceiveExternalFilesActivity extends FileActivity
             fm.beginTransaction()
                 .add(taskRetainerFragment, TaskRetainerFragment.FTAG_TASK_RETAINER_FRAGMENT).commit();
         }   // else, Fragment already created and retained across configuration change
+
+        handleBackPress();
     }
 
     @Override
@@ -656,14 +659,19 @@ public class ReceiveExternalFilesActivity extends FileActivity
         }
     }
 
-    @Override
-    public void onBackPressed() {
-        if (mParents.size() <= SINGLE_PARENT) {
-            super.onBackPressed();
-        } else {
-            mParents.pop();
-            browseToFolderIfItExists();
-        }
+    private void handleBackPress() {
+        getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                if (mParents.size() <= SINGLE_PARENT) {
+                    setEnabled(false);
+                    getOnBackPressedDispatcher().onBackPressed();
+                } else {
+                    mParents.pop();
+                    browseToFolderIfItExists();
+                }
+            }
+        });
     }
 
     @Override
@@ -1097,7 +1105,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
             dialog.show(getSupportFragmentManager(), CreateFolderDialogFragment.CREATE_FOLDER_FRAGMENT);
         } else if (itemId == android.R.id.home) {
             if (mParents.size() > SINGLE_PARENT) {
-                onBackPressed();
+                getOnBackPressedDispatcher().onBackPressed();
             }
         } else if (itemId == R.id.action_switch_account) {
             showAccountChooserDialog();
