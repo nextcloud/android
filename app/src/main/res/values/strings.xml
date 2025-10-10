@@ -451,13 +451,13 @@
     <string name="ssl_validator_null_cert">The certificate could not be shown.</string>
     <string name="ssl_validator_no_info_about_error">- No information about the error</string>
 
-    <string name="placeholder_sentence">This is a placeholder</string>
-    <string name="placeholder_filename">placeholder</string>
-    <string name="placeholder_reason">Recently edited</string>
-    <string name="placeholder_extension">.txt</string>
-    <string name="placeholder_fileSize">389 KB</string>
-    <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
-    <string name="placeholder_media_time">12:23:45</string>
+    <string name="placeholder_timestamp" translatable="false">2012/05/18 12:23 PM</string>
+    <string name="placeholder_media_time" translatable="false">12:23:45</string>
+    <string name="placeholder_sentence" translatable="false">This is a placeholder</string>
+    <string name="placeholder_filename" translatable="false">Filename</string>
+    <string name="placeholder_reason" translatable="false">Recently edited</string>
+    <string name="placeholder_extension" translatable="false">.txt</string>
+    <string name="placeholder_fileSize" translatable="false">389 KB</string>
 
     <string name="auto_upload_on_wifi">Only upload on unmetered Wi-Fi</string>
     <string name="instant_upload_on_charging">Only upload when charging</string>
