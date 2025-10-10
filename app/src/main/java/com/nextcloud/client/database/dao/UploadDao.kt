@@ -8,6 +8,8 @@
 package com.nextcloud.client.database.dao
 
 import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.nextcloud.client.database.entity.UploadEntity
 import com.owncloud.android.db.ProviderMeta.ProviderTableMeta
@@ -27,4 +29,24 @@ interface UploadDao {
             ProviderTableMeta.UPLOADS_ACCOUNT_NAME + " = :accountName"
     )
     fun getUploadsByIds(ids: LongArray, accountName: String): List<UploadEntity>
+
+    @Query(
+        "SELECT * FROM " + ProviderTableMeta.UPLOADS_TABLE_NAME +
+            " WHERE " + ProviderTableMeta._ID + " = :id AND " +
+            ProviderTableMeta.UPLOADS_ACCOUNT_NAME + " = :accountName " +
+            "LIMIT 1"
+    )
+    fun getUploadById(id: Long, accountName: String): UploadEntity?
+
+    @Insert(onConflict = OnConflictStrategy.Companion.REPLACE)
+    fun insertOrReplace(entity: UploadEntity): Long
+
+    @Query(
+        "SELECT * FROM " + ProviderTableMeta.UPLOADS_TABLE_NAME +
+            " WHERE " + ProviderTableMeta.UPLOADS_ACCOUNT_NAME + " = :accountName AND " +
+            ProviderTableMeta.UPLOADS_LOCAL_PATH + " = :localPath AND " +
+            ProviderTableMeta.UPLOADS_REMOTE_PATH + " = :remotePath " +
+            "LIMIT 1"
+    )
+    fun getUploadByAccountAndPaths(accountName: String, localPath: String, remotePath: String): UploadEntity?
 }

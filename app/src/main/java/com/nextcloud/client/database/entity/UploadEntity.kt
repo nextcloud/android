@@ -1,6 +1,7 @@
 /*
  * Nextcloud - Android Client
  *
+ * SPDX-FileCopyrightText: 2025 Alper Ozturk <alper.ozturk@nextcloud.com>
  * SPDX-FileCopyrightText: 2022 Álvaro Brey <alvaro@alvarobrey.com>
  * SPDX-FileCopyrightText: 2022 Nextcloud GmbH
  * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
@@ -77,4 +78,34 @@ fun UploadEntity.toOCUpload(capability: OCCapability? = null): OCUpload {
     folderUnlockToken?.let { upload.folderUnlockToken = it }
 
     return upload
+}
+
+fun OCUpload.toUploadEntity(): UploadEntity {
+    val id = if (uploadId == -1L) {
+        // needed for the insert new records to the db so that insert DAO function returns new generated id
+        null
+    } else {
+        uploadId
+    }
+
+    return UploadEntity(
+        id = id?.toInt(),
+        localPath = localPath,
+        remotePath = remotePath,
+        accountName = accountName,
+        fileSize = fileSize,
+        status = uploadStatus?.value,
+        localBehaviour = localAction,
+        nameCollisionPolicy = nameCollisionPolicy?.serialize(),
+        isCreateRemoteFolder = if (isCreateRemoteFolder) 1 else 0,
+
+        // uploadEndTimestamp may overflow max int capacity since it is conversion from long to int. coerceAtMost needed
+        uploadEndTimestamp = uploadEndTimestamp.coerceAtMost(Int.MAX_VALUE.toLong()).toInt(),
+        lastResult = lastResult?.value,
+        createdBy = createdBy,
+        isWifiOnly = if (isUseWifiOnly) 1 else 0,
+        isWhileChargingOnly = if (isWhileChargingOnly) 1 else 0,
+        folderUnlockToken = folderUnlockToken,
+        uploadTime = null
+    )
 }
