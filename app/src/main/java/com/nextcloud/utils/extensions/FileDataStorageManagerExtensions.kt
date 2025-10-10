@@ -7,6 +7,7 @@
 
 package com.nextcloud.utils.extensions
 
+import com.nextcloud.client.jobs.sync.SyncState
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
 
@@ -29,6 +30,17 @@ fun FileDataStorageManager.getDecryptedPath(file: OCFile): String {
     return paths
         .reversed()
         .joinToString(OCFile.PATH_SEPARATOR)
+}
+
+fun FileDataStorageManager.updateSyncStateOfFolder(file: OCFile, state: SyncState) {
+    getFileEntity(file)?.let { entity ->
+        updateFileEntity(entity.copy(syncState = state.ordinal))
+    }
+    file.setSyncState(state)
+
+    if (file.isFolder) {
+        saveFolder(file, listOf(), listOf())
+    }
 }
 
 fun FileDataStorageManager.getNonEncryptedSubfolders(id: Long, accountName: String): List<OCFile> =

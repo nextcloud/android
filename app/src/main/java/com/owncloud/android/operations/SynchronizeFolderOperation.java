@@ -16,8 +16,6 @@ import android.text.TextUtils;
 
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.jobs.download.FileDownloadHelper;
-import com.nextcloud.client.jobs.sync.SyncState;
-import com.nextcloud.utils.extensions.StringExtensionsKt;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.e2e.v1.decrypted.DecryptedFolderMetadataFileV1;
@@ -398,6 +396,7 @@ public class SynchronizeFolderOperation extends SyncOperation {
         }
     }
 
+
     private void prepareOpsFromLocalKnowledge() throws OperationCancelledException {
         List<OCFile> children = getStorageManager().getFolderContent(mLocalFolder, false);
         for (OCFile child : children) {
@@ -441,22 +440,13 @@ public class SynchronizeFolderOperation extends SyncOperation {
             return;
         }
 
-        if (!(result.getData().get(0) instanceof RemoteFile remoteFile)) {
-            Log_OC.w(TAG, "Cannot update eTag, remote file not exists");
-            return;
-        }
+        if (result.getData().get(0) instanceof RemoteFile remoteFile) {
+            String eTag = remoteFile.getEtag();
+            mLocalFolder.setEtag(eTag);
 
-        String remoteETag = remoteFile.getEtag();
-        if (StringExtensionsKt.isNotBlankAndEquals(mLocalFolder.getEtag(), remoteETag)) {
-            Log_OC.d(TAG, "eTag didn't changed, skipping eTag update");
-            return;
+            final FileDataStorageManager storageManager = getStorageManager();
+            storageManager.saveFile(mLocalFolder);
         }
-
-        // reset sync state and update eTag
-        mLocalFolder.setSyncState(SyncState.IDLE);
-        mLocalFolder.setEtag(remoteETag);
-        final FileDataStorageManager storageManager = getStorageManager();
-        storageManager.saveFile(mLocalFolder);
     }
 
     private void startDirectDownloads() {

@@ -805,6 +805,7 @@ public class FileDataStorageManager {
      */
     private ContentValues createContentValuesForFolder(OCFile folder) {
         final ContentValues cv = createContentValuesBase(folder);
+        cv.put(ProviderTableMeta.FILE_SYNC_STATE, folder.getSyncState());
         cv.put(ProviderTableMeta.FILE_CONTENT_LENGTH, 0);
         return cv;
     }
@@ -842,7 +843,6 @@ public class FileDataStorageManager {
         cv.put(ProviderTableMeta.FILE_E2E_COUNTER, file.getE2eCounter());
         cv.put(ProviderTableMeta.FILE_INTERNAL_TWO_WAY_SYNC_TIMESTAMP, file.getInternalFolderSyncTimestamp());
         cv.put(ProviderTableMeta.FILE_INTERNAL_TWO_WAY_SYNC_RESULT, file.getInternalFolderSyncResult());
-        cv.put(ProviderTableMeta.FILE_SYNC_STATE, file.getSyncState());
 
         return cv;
     }

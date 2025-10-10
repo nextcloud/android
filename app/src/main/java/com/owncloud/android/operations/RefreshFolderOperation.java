@@ -620,7 +620,10 @@ public class RefreshFolderOperation extends RemoteOperation {
             updatedFile.setEncrypted(encrypted);
 
             if (localFile != null) {
-                updatedFile.setSyncState(SyncState.Companion.fromOrdinal(localFile.getSyncState()));
+                boolean isEtagChanged = !StringExtensionsKt.isNotBlankAndEquals(localFile.getEtag(), updatedFile.getEtag());
+                if (isEtagChanged) {
+                    updatedFile.setSyncState(SyncState.Companion.fromOrdinal(localFile.getSyncState()));
+                }
             }
 
             updatedFiles.add(updatedFile);

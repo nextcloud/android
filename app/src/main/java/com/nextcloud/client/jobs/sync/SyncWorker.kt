@@ -11,6 +11,7 @@ import android.content.Context
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import com.nextcloud.client.account.User
+import com.nextcloud.utils.extensions.updateSyncStateOfFolder
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.lib.common.OwnCloudClient
@@ -94,18 +95,18 @@ class SyncWorker(
                 }
 
                 if (result) {
-                    saveSyncState(storageManager, folder, SyncState.COMPLETED)
+                    storageManager.updateSyncStateOfFolder(folder, SyncState.COMPLETED)
                     updateLiveSyncState(folder.fileId, SyncState.COMPLETED)
                     Log_OC.d(TAG, "SyncWorker completed")
                     Result.success()
                 } else {
-                    saveSyncState(storageManager, folder, SyncState.FAILED)
+                    storageManager.updateSyncStateOfFolder(folder, SyncState.FAILED)
                     updateLiveSyncState(folder.fileId, SyncState.FAILED)
                     Log_OC.d(TAG, "SyncWorker failed")
                     Result.failure()
                 }
             } catch (e: Exception) {
-                saveSyncState(storageManager, folder, SyncState.FAILED)
+                storageManager.updateSyncStateOfFolder(folder, SyncState.FAILED)
                 updateLiveSyncState(folder.fileId, SyncState.FAILED)
                 Log_OC.d(TAG, "SyncWorker failed reason: $e")
                 Result.failure()
@@ -113,11 +114,6 @@ class SyncWorker(
                 notificationManager?.dismiss()
             }
         }
-    }
-
-    private fun saveSyncState(storageManager: FileDataStorageManager, file: OCFile, state: SyncState) {
-        file.setSyncState(state)
-        storageManager.saveFile(file)
     }
 
     private fun getFiles(folder: OCFile, storageManager: FileDataStorageManager): List<OCFile> =

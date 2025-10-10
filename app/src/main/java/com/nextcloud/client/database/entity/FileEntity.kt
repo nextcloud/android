@@ -123,5 +123,5 @@ data class FileEntity(
     @ColumnInfo(name = ProviderTableMeta.FILE_UPLOADED)
     val uploaded: Long?,
     @ColumnInfo(name = ProviderTableMeta.FILE_SYNC_STATE)
-    var syncState: Int?
+    val syncState: Int?
 )

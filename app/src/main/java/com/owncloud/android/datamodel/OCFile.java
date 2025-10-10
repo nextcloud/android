@@ -534,6 +534,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
         lockToken = null;
         livePhoto = null;
         imageDimension = null;
+        syncState = SyncState.IDLE.ordinal();
     }
 
     /**
