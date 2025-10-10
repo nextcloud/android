@@ -319,7 +319,6 @@ class FileDownloadWorker(
             currentDownload?.user?.accountName,
             currentDownload?.remotePath
         )
-        pendingFolderDownloads.remove(currentDownload?.file?.parentId)
 
         val downloadResult = result ?: RemoteOperationResult<Any?>(RuntimeException("Error downloading…"))
 
