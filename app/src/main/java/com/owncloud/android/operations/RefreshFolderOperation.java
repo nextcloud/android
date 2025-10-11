@@ -15,6 +15,7 @@ import com.google.common.collect.Maps;
 import com.google.gson.Gson;
 import com.nextcloud.android.lib.resources.directediting.DirectEditingObtainRemoteOperation;
 import com.nextcloud.client.account.User;
+import com.nextcloud.client.jobs.sync.SyncState;
 import com.nextcloud.common.NextcloudClient;
 import com.nextcloud.utils.extensions.StringExtensionsKt;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
@@ -617,6 +618,13 @@ public class RefreshFolderOperation extends RemoteOperation {
             // we parse content, so either the folder itself or its direct parent (which we check) must be encrypted
             boolean encrypted = updatedFile.isEncrypted() || mLocalFolder.isEncrypted();
             updatedFile.setEncrypted(encrypted);
+
+            if (localFile != null) {
+                boolean isEtagChanged = !StringExtensionsKt.isNotBlankAndEquals(localFile.getEtag(), updatedFile.getEtag());
+                if (isEtagChanged) {
+                    updatedFile.setSyncState(SyncState.Companion.fromOrdinal(localFile.getSyncState()));
+                }
+            }
 
             updatedFiles.add(updatedFile);
         }

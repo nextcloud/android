@@ -11,6 +11,9 @@
 package com.owncloud.android.operations
 import android.content.Context
 import com.nextcloud.client.account.User
+import com.nextcloud.client.jobs.sync.SyncState
+import com.nextcloud.client.jobs.sync.SyncWorker
+import com.nextcloud.utils.extensions.updateSyncStateOfFolder
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.datamodel.ThumbnailsCacheManager
@@ -60,6 +63,13 @@ class RemoveFileOperation(
             // generate resize image if image is deleted only locally, to save server request
             if (MimeTypeUtil.isImage(file.mimeType)) {
                 ThumbnailsCacheManager.generateResizedImage(file)
+            }
+
+            // reset sync state
+            if (file.isFolder) {
+                // FIXME: update live states of the child files ...
+                SyncWorker.updateLiveSyncState(file.fileId, SyncState.IDLE)
+                storageManager.updateSyncStateOfFolder(file, SyncState.IDLE)
             }
 
             localRemovalFailed = !storageManager.removeFile(file, false, true)

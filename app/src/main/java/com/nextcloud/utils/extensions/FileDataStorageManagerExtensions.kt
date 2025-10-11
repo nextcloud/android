@@ -7,6 +7,7 @@
 
 package com.nextcloud.utils.extensions
 
+import com.nextcloud.client.jobs.sync.SyncState
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
 
@@ -14,9 +15,6 @@ fun FileDataStorageManager.searchFilesByName(file: OCFile, accountName: String, 
     fileDao.searchFilesInFolder(file.fileId, accountName, query).map {
         createFileInstance(it)
     }
-
-fun FileDataStorageManager.getParentIdsOfSubfiles(paths: List<String>): List<Long> =
-    fileDao.getParentIdsOfSubfiles(paths)
 
 fun FileDataStorageManager.getDecryptedPath(file: OCFile): String {
     val paths = mutableListOf<String>()
@@ -34,10 +32,16 @@ fun FileDataStorageManager.getDecryptedPath(file: OCFile): String {
         .joinToString(OCFile.PATH_SEPARATOR)
 }
 
-fun FileDataStorageManager.getSubfiles(id: Long, accountName: String): List<OCFile> =
-    fileDao.getSubfiles(id, accountName).map {
-        createFileInstance(it)
+fun FileDataStorageManager.updateSyncStateOfFolder(file: OCFile, state: SyncState) {
+    getFileEntity(file)?.let { entity ->
+        updateFileEntity(entity.copy(syncState = state.ordinal))
     }
+    file.setSyncState(state)
+
+    if (file.isFolder) {
+        saveFolder(file, listOf(), listOf())
+    }
+}
 
 fun FileDataStorageManager.getNonEncryptedSubfolders(id: Long, accountName: String): List<OCFile> =
     fileDao.getNonEncryptedSubfolders(id, accountName).map {

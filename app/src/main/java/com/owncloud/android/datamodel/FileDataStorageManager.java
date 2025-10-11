@@ -42,6 +42,7 @@ import com.nextcloud.client.database.entity.FileEntity;
 import com.nextcloud.client.database.entity.OfflineOperationEntity;
 import com.nextcloud.client.jobs.offlineOperations.repository.OfflineOperationsRepository;
 import com.nextcloud.client.jobs.offlineOperations.repository.OfflineOperationsRepositoryType;
+import com.nextcloud.client.jobs.sync.SyncState;
 import com.nextcloud.model.OCFileFilterType;
 import com.nextcloud.model.OfflineOperationRawType;
 import com.nextcloud.model.OfflineOperationType;
@@ -804,6 +805,7 @@ public class FileDataStorageManager {
      */
     private ContentValues createContentValuesForFolder(OCFile folder) {
         final ContentValues cv = createContentValuesBase(folder);
+        cv.put(ProviderTableMeta.FILE_SYNC_STATE, folder.getSyncState());
         cv.put(ProviderTableMeta.FILE_CONTENT_LENGTH, 0);
         return cv;
     }
@@ -1279,7 +1281,7 @@ public class FileDataStorageManager {
         ocFile.setHidden(nullToZero(fileEntity.getHidden()) == 1);
         ocFile.setE2eCounter(fileEntity.getE2eCounter());
         ocFile.setInternalFolderSyncTimestamp(nullToMinusOne(fileEntity.getInternalTwoWaySync()));
-
+        ocFile.setSyncState(SyncState.Companion.fromOrdinal(fileEntity.getSyncState()));
         String sharees = fileEntity.getSharees();
         // Surprisingly JSON deserialization causes significant overhead.
         // Avoid it in common, trivial cases (null/empty).
