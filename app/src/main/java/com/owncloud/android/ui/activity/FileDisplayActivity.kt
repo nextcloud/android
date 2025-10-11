@@ -2753,53 +2753,54 @@ class FileDisplayActivity :
         super.onStart()
         val optionalUser = user
         val storageManager = getStorageManager()
-        if (optionalUser.isPresent && storageManager != null) {
-            /** Check whether the 'main' OCFile handled by the Activity is contained in the */
-            // current Account
-            var file = getFile()
-            // get parent from path
-            if (file != null) {
-                if (file.isDown && file.lastSyncDateForProperties == 0L) {
-                    // upload in progress - right now, files are not inserted in the local
-                    // cache until the upload is successful get parent from path
-                    val parentPath =
-                        file.remotePath.substring(0, file.remotePath.lastIndexOf(file.fileName))
-                    if (storageManager.getFileByPath(parentPath) == null) {
-                        file = null // not able to know the directory where the file is uploading
-                    }
-                } else {
-                    file = storageManager.getFileByPath(file.remotePath)
-                    // currentDir = null if not in the current Account
-                }
-            }
-            if (file == null) {
-                // fall back to root folder
-                file = storageManager.getFileByPath(OCFile.ROOT_PATH) // never returns null
-            }
-            setFile(file)
 
-            val user = optionalUser.get()
-            setupDrawer()
+        if (!optionalUser.isPresent || storageManager == null) return
 
-            mSwitchAccountButton.tag = user.accountName
-            DisplayUtils.setAvatar(
-                user,
-                this,
-                getResources().getDimension(R.dimen.nav_drawer_menu_avatar_radius),
-                getResources(),
-                mSwitchAccountButton,
-                this
-            )
-            val userChanged = (user.accountName != lastDisplayedAccountName)
-            if (userChanged) {
-                Log_OC.d(TAG, "Initializing Fragments in onAccountChanged..")
-                initFragments()
-                if (file.isFolder && TextUtils.isEmpty(searchQuery)) {
-                    startSyncFolderOperation(file, false)
+        /** Check whether the 'main' OCFile handled by the Activity is contained in the */
+        // current Account
+        var file = getFile()
+        // get parent from path
+        if (file != null) {
+            if (file.isDown && file.lastSyncDateForProperties == 0L) {
+                // upload in progress - right now, files are not inserted in the local
+                // cache until the upload is successful get parent from path
+                val parentPath =
+                    file.remotePath.substring(0, file.remotePath.lastIndexOf(file.fileName))
+                if (storageManager.getFileByPath(parentPath) == null) {
+                    file = null // not able to know the directory where the file is uploading
                 }
             } else {
-                updateActionBarTitleAndHomeButton(if (file.isFolder) null else file)
+                file = storageManager.getFileByPath(file.remotePath)
+                // currentDir = null if not in the current Account
             }
+        }
+        if (file == null) {
+            // fall back to root folder
+            file = storageManager.getFileByPath(OCFile.ROOT_PATH) // never returns null
+        }
+        setFile(file)
+
+        val user = optionalUser.get()
+        setupDrawer()
+
+        mSwitchAccountButton.tag = user.accountName
+        DisplayUtils.setAvatar(
+            user,
+            this,
+            getResources().getDimension(R.dimen.nav_drawer_menu_avatar_radius),
+            getResources(),
+            mSwitchAccountButton,
+            this
+        )
+        val userChanged = (user.accountName != lastDisplayedAccountName)
+        if (userChanged) {
+            Log_OC.d(TAG, "Initializing Fragments in onAccountChanged..")
+            initFragments()
+            if (file.isFolder && TextUtils.isEmpty(searchQuery)) {
+                startSyncFolderOperation(file, false)
+            }
+        } else {
+            updateActionBarTitleAndHomeButton(if (file.isFolder) null else file)
         }
 
         val newLastDisplayedAccountName = optionalUser.orElse(null).accountName
@@ -2809,7 +2810,7 @@ class FileDisplayActivity :
         EventBus.getDefault().post(TokenPushEvent())
         checkForNewDevVersionNecessary(applicationContext)
     }
-
+    
     override fun onRestart() {
         super.onRestart()
         checkForNewDevVersionNecessary(applicationContext)
