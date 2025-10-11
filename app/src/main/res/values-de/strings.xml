@@ -98,6 +98,7 @@
     <string name="authenticator_activity_login_error">Fehler bei der Verarbeitung Ihrer Anmeldeanforderung. Bitte versuchen Sie es später erneut.</string>
     <string name="authenticator_activity_no_web_browser_found">Es ist kein Browser verfügbar, um diesen Link zu öffnen.</string>
     <string name="authenticator_activity_please_complete_login_process">Bitte schließen Sie den Anmeldevorgang in Ihrem Browser ab</string>
+    <string name="auto_upload_battery_saver_mode_warning">Der automatische Upload wurde angehalten, da Battery-Saver eingeschaltet ist.</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">im Original-Verzeichnis belassen, da nur lesbar</string>
     <string name="auto_upload_on_wifi">Nur über gebührenfreies WLAN hochladen</string>
     <string name="auto_upload_path">/AutoUpload</string>
@@ -988,6 +989,7 @@
     <string name="unified_search_fragment_calendar_event_not_found">Termin nicht gefunden, Sie können jederzeit die Synchronisierung wiederholen. Weiterleiten zum Web…</string>
     <string name="unified_search_fragment_contact_not_found">Kontakt nicht gefunden, Sie können jederzeit synchronisieren für eine Aktualisierung. Weiterleiten zum Web…</string>
     <string name="unified_search_fragment_permission_needed">Berechtigungen für das Öffnen der Suchergebnisse notwendig, ansonsten werden Sie zum Web weitergeleitet</string>
+    <string name="unified_search_fragment_search_in_this_folder">In diesem Ordner</string>
     <string name="unknown">Unbekannt</string>
     <string name="unlock_file">Datei entsperren</string>
     <string name="unread_comments">Es gibt  ungelesene Kommentare</string>

@@ -231,7 +231,8 @@ class SyncedFoldersActivity :
             this,
             lightVersion,
             viewThemeUtils,
-            powerManagementService
+            powerManagementService,
+            connectivityService
         )
         binding.emptyList.emptyListIcon.setImageResource(R.drawable.nav_synced_folders)
         viewThemeUtils.material.colorMaterialButtonPrimaryFilled(binding.emptyList.emptyListViewAction)

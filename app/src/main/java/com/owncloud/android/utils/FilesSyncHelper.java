@@ -18,7 +18,6 @@ import android.provider.MediaStore;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.device.PowerManagementService;
 import com.nextcloud.client.jobs.BackgroundJobManager;
-import com.nextcloud.client.jobs.BackgroundJobManagerImpl;
 import com.nextcloud.client.jobs.upload.FileUploadHelper;
 import com.nextcloud.client.network.ConnectivityService;
 import com.owncloud.android.MainApp;
@@ -32,11 +31,11 @@ import com.owncloud.android.lib.common.utils.Log_OC;
 import org.lukhnos.nnio.file.AccessDeniedException;
 import org.lukhnos.nnio.file.FileVisitResult;
 import org.lukhnos.nnio.file.FileVisitor;
+import org.lukhnos.nnio.file.Files;
 import org.lukhnos.nnio.file.Path;
 import org.lukhnos.nnio.file.Paths;
 import org.lukhnos.nnio.file.SimpleFileVisitor;
 import org.lukhnos.nnio.file.attribute.BasicFileAttributes;
-import org.lukhnos.nnio.file.Files;
 import org.lukhnos.nnio.file.impl.FileBasedPathImpl;
 
 import java.io.File;
@@ -354,34 +353,4 @@ public final class FilesSyncHelper {
             }
         }
     }
-
-    public static long calculateScanInterval(
-        SyncedFolder syncedFolder,
-        ConnectivityService connectivityService,
-        PowerManagementService powerManagementService
-                                            ) {
-        long defaultInterval = BackgroundJobManagerImpl.DEFAULT_PERIODIC_JOB_INTERVAL_MINUTES * 1000 * 60;
-        if (!connectivityService.isConnected() || connectivityService.isInternetWalled()) {
-            return defaultInterval * 2;
-        }
-
-        if ((syncedFolder.isWifiOnly() && !connectivityService.getConnectivity().isWifi())) {
-            return defaultInterval * 4;
-        }
-
-        if (powerManagementService.getBattery().getLevel() < 80){
-            return defaultInterval * 2;
-        }
-
-        if (powerManagementService.getBattery().getLevel() < 50){
-            return defaultInterval * 4;
-        }
-
-        if (powerManagementService.getBattery().getLevel() < 20){
-            return defaultInterval * 8;
-        }
-
-        return defaultInterval;
-    }
 }
-

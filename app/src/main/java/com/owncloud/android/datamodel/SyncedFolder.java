@@ -10,7 +10,10 @@
 
 package com.owncloud.android.datamodel;
 
+import com.nextcloud.client.device.PowerManagementService;
+import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.client.preferences.SubFolderRule;
+import com.nextcloud.utils.extensions.SyncedFolderExtensionsKt;
 import com.owncloud.android.files.services.NameCollisionPolicy;
 import com.owncloud.android.utils.MimeTypeUtil;
 
@@ -105,7 +108,7 @@ public class SyncedFolder implements Serializable, Cloneable {
      *
      * @param id id
      */
-    protected SyncedFolder(long id,
+    public SyncedFolder(long id,
                            String localPath,
                            String remotePath,
                            boolean wifiOnly,
@@ -287,4 +290,9 @@ public class SyncedFolder implements Serializable, Cloneable {
     public long getLastScanTimestampMs() { return lastScanTimestampMs; }
 
     public void setLastScanTimestampMs(long lastScanTimestampMs) { this.lastScanTimestampMs = lastScanTimestampMs; }
+
+    public long getTotalScanInterval(ConnectivityService connectivityService, PowerManagementService powerManagementService) {
+        final var calculatedScanInterval = SyncedFolderExtensionsKt.calculateScanInterval(this, connectivityService, powerManagementService);
+        return lastScanTimestampMs + calculatedScanInterval.getFirst();
+    }
 }

@@ -98,6 +98,7 @@
     <string name="authenticator_activity_login_error">Sinu sisselogimispäringu töötlemisel tekkis viga. Palun proovi hiljem uuesti.</string>
     <string name="authenticator_activity_no_web_browser_found">Selle lingi avamiseks ei leidu ühtegi brauserit.</string>
     <string name="authenticator_activity_please_complete_login_process">Palun lõpeta sisselogimisprotsess oma veebibrauseris</string>
+    <string name="auto_upload_battery_saver_mode_warning">Kuna akukasutuse optimeerimine on lülitatud sisse, siis automaatne üleslaadimine pole töös.</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">säilitatud lugemisõigustega algkaustas</string>
     <string name="auto_upload_on_wifi">Laadi üles ainult mahupiiranguta WiFi võrgus</string>
     <string name="auto_upload_path">/AutoUpload</string>
@@ -988,6 +989,7 @@
     <string name="unified_search_fragment_calendar_event_not_found">Sündmust ei leidu, sa võid andmete uuendamiseks alati sünkroniseerida. Suunan edasi veebi…</string>
     <string name="unified_search_fragment_contact_not_found">Kontakti ei leidu, sa võid andmete uuendamiseks alati sünkroniseerida. Suunan edasi veebi…</string>
     <string name="unified_search_fragment_permission_needed">Otsingutulemuste avamiseks on vajalikud vastavad õigused, vastasel juhul suunan päringu ümber veebi…</string>
+    <string name="unified_search_fragment_search_in_this_folder">Selles kaustas</string>
     <string name="unknown">Teadmata</string>
     <string name="unlock_file">Eemalda faili lukustus</string>
     <string name="unread_comments">Leidub lugemata kommentaare</string>

@@ -513,12 +513,16 @@
     <string name="placeholder_files" translatable="false">Files</string>
     <string name="placeholder_in_folder" translatable="false">in TestFolder</string>
     <string name="placeholder_example_mail" translatable="false">example@nextcloud.com</string>
+    <string name="placeholder_scan_indicator" translatable="false">Low battery, upload might take longer</string>
 
     <string name="auto_upload_on_wifi">Only upload on unmetered Wi-Fi</string>
     <string name="instant_upload_on_charging">Only upload when charging</string>
     <string name="instant_upload_existing">Also upload existing files</string>
     <string name="instant_upload_path">/InstantUpload</string>
     <string name="auto_upload_path">/AutoUpload</string>
+
+    <string name="auto_upload_low_battery_warning_info">Low battery, upload might take longer</string>
+    <string name="auto_upload_wifi_only_warning_info">Waiting for Wi-Fi to start uploading</string>
 
     <string name="preview_media_unhandled_http_code_message">File is currently locked by another user or process and therefore not deletable. Please try again later.</string>
 
@@ -846,6 +850,7 @@
     <string name="shared_icon_shared">shared</string>
     <string name="overflow_menu">More menu</string>
     <string name="synced_folders_type">Type</string>
+
     <string name="sync_status_button">Sync status button</string>
     <string name="sync_warning_button">Sync warning button</string>
     <string name="synced_folder_settings_button">Settings button</string>

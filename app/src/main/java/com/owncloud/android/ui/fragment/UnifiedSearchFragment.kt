@@ -445,7 +445,9 @@ class UnifiedSearchFragment :
 
     private fun searchInCurrentDirectory(query: String) {
         currentDir?.run {
-            val files = storageManager.searchFilesByName(this, accountManager.user.accountName, query)
+            val files = storageManager
+                .searchFilesByName(this, accountManager.user.accountName, query)
+                .filter { !it.isEncrypted }
             adapter.setDataCurrentDirItems(files)
         }
     }
@@ -462,6 +464,6 @@ class UnifiedSearchFragment :
 
     override fun openFile(remotePath: String, showMoreActions: Boolean) {
         this.showMoreActions = showMoreActions
-        vm.openFile(remotePath)
+        vm.getRemoteFile(remotePath)
     }
 }
