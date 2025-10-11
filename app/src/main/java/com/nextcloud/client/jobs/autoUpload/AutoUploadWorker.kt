@@ -66,7 +66,7 @@ class AutoUploadWorker(
     companion object {
         const val TAG = "🔄📤" + "AutoUpload"
         const val OVERRIDE_POWER_SAVING = "overridePowerSaving"
-        const val CHANGED_FILES = "changedFiles"
+        const val CONTENT_URIS = "content_uris"
         const val SYNCED_FOLDER_ID = "syncedFolderId"
         private const val CHANNEL_ID = NotificationUtils.NOTIFICATION_CHANNEL_UPLOAD
 
@@ -89,13 +89,16 @@ class AutoUploadWorker(
             val notification = createNotification(context.getString(R.string.upload_files))
             updateForegroundInfo(notification)
 
-            val changedFiles = inputData.getStringArray(CHANGED_FILES)
+            /**
+             * Receives from [com.nextcloud.client.jobs.ContentObserverWork.checkAndTriggerAutoUpload]
+             */
+            val contentUris = inputData.getStringArray(CONTENT_URIS)
 
-            if (canExitEarly(changedFiles, syncFolderId)) {
+            if (canExitEarly(contentUris, syncFolderId)) {
                 return Result.retry()
             }
 
-            collectFileChangesFromContentObserverWork(changedFiles)
+            collectFileChangesFromContentObserverWork(contentUris)
             updateNotification()
             uploadFiles(syncedFolder)
 
@@ -158,7 +161,7 @@ class AutoUploadWorker(
     }
 
     @Suppress("ReturnCount")
-    private fun canExitEarly(changedFiles: Array<String>?, syncedFolderID: Long): Boolean {
+    private fun canExitEarly(contentUris: Array<String>?, syncedFolderID: Long): Boolean {
         val overridePowerSaving = inputData.getBoolean(OVERRIDE_POWER_SAVING, false)
         if ((powerManagementService.isPowerSavingEnabled && !overridePowerSaving)) {
             Log_OC.w(TAG, "⚡ Skipping: device is in power saving mode")
@@ -184,7 +187,7 @@ class AutoUploadWorker(
         Log_OC.d(TAG, "currentTime: $currentTime")
         Log_OC.d(TAG, "passedScanInterval: $passedScanInterval")
 
-        if (!passedScanInterval && changedFiles.isNullOrEmpty() && !overridePowerSaving) {
+        if (!passedScanInterval && contentUris.isNullOrEmpty() && !overridePowerSaving) {
             Log_OC.w(
                 TAG,
                 "skipped since started before scan interval and nothing todo: " + syncedFolder.localPath
@@ -195,15 +198,25 @@ class AutoUploadWorker(
         return false
     }
 
+    /**
+     * Instead of scanning the entire local folder, optional content URIs can be passed to the worker
+     * to detect only the relevant changes.
+     */
     @Suppress("MagicNumber", "TooGenericExceptionCaught")
-    private suspend fun collectFileChangesFromContentObserverWork(changedFiles: Array<String>?) = try {
+    private suspend fun collectFileChangesFromContentObserverWork(contentUris: Array<String>?) = try {
         withContext(Dispatchers.IO) {
-            if (changedFiles.isNullOrEmpty()) {
-                // Check every file in synced folder for changes and update
-                // filesystemDataProvider database (potentially needs a long time)
+            if (contentUris.isNullOrEmpty()) {
                 FilesSyncHelper.insertAllDBEntriesForSyncedFolder(syncedFolder)
             } else {
-                FilesSyncHelper.insertChangedEntries(syncedFolder, changedFiles)
+                val isContentUrisStored = FilesSyncHelper.insertChangedEntries(syncedFolder, contentUris)
+                if (!isContentUrisStored) {
+                    Log_OC.w(
+                        TAG,
+                        "changed content uris not stored, fallback to insert all db entries to not lose files"
+                    )
+
+                    FilesSyncHelper.insertAllDBEntriesForSyncedFolder(syncedFolder)
+                }
             }
             syncedFolder.lastScanTimestampMs = System.currentTimeMillis()
             syncedFolderProvider.updateSyncFolder(syncedFolder)

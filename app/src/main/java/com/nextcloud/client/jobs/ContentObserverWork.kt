@@ -34,7 +34,7 @@ class ContentObserverWork(
 
         if (params.triggeredContentUris.isNotEmpty()) {
             Log_OC.d(TAG, "File-sync Content Observer detected files change")
-            checkAndStartFileSyncJob()
+            checkAndTriggerAutoUpload()
             backgroundJobManager.startMediaFoldersDetectionJob()
         } else {
             Log_OC.d(TAG, "triggeredContentUris empty")
@@ -50,20 +50,21 @@ class ContentObserverWork(
         backgroundJobManager.scheduleContentObserverJob()
     }
 
-    private fun checkAndStartFileSyncJob() {
+    private fun checkAndTriggerAutoUpload() {
         if (!powerManagementService.isPowerSavingEnabled && syncedFolderProvider.countEnabledSyncedFolders() > 0) {
-            val changedFiles = mutableListOf<String>()
+            val contentUris = mutableListOf<String>()
             for (uri in params.triggeredContentUris) {
-                changedFiles.add(uri.toString())
+                // adds uri strings e.g. content://media/external/images/media/2281
+                contentUris.add(uri.toString())
             }
-            FilesSyncHelper.startFilesSyncForAllFolders(
+            FilesSyncHelper.startAutoUploadImmediatelyWithContentUris(
                 syncedFolderProvider,
                 backgroundJobManager,
                 false,
-                changedFiles.toTypedArray()
+                contentUris.toTypedArray()
             )
         } else {
-            Log_OC.w(TAG, "cant startFilesSyncForAllFolders")
+            Log_OC.w(TAG, "cant startAutoUploadImmediatelyWithContentUris")
         }
     }
 
