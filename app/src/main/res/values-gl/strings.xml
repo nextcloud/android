@@ -100,9 +100,11 @@
     <string name="authenticator_activity_please_complete_login_process">Complete o proceso de acceso no seu navegador</string>
     <string name="auto_upload_battery_saver_mode_warning">O envío automático está en pausa porque o aforro de batería está activado.</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">mantense no cartafol orixinal, xa que é de só lectura</string>
+    <string name="auto_upload_low_battery_warning_info">Batería baixa, o envío pode levar máis tempo</string>
     <string name="auto_upload_on_wifi">Enviar só con wifi sen límite de datos</string>
     <string name="auto_upload_path">/EnvíoAutomático</string>
     <string name="auto_upload_sub_folder_warning">Este cartafol xa está incluído na sincronización do cartafol principal, iso pode provocar envíos duplicados</string>
+    <string name="auto_upload_wifi_only_warning_info">Agardando pola wifi para iniciar o envío</string>
     <string name="auto_upload_worker_start_text">Enviar ficheiros de %s a %s</string>
     <string name="autoupload_configure">Configurar</string>
     <string name="autoupload_create_new_custom_folder">Crear un cartafol personalizado novo</string>
