@@ -20,6 +20,7 @@ class FileSystemRepository(private val dao: FileSystemDao) {
         const val BATCH_SIZE = 50
     }
 
+    @Suppress("NestedBlockDepth")
     suspend fun getFilePathsWithIds(syncedFolder: SyncedFolder, lastId: Int): List<Pair<String, Int>> {
         val syncedFolderId = syncedFolder.id.toString()
         Log_OC.d(TAG, "Fetching candidate files for syncedFolderId = $syncedFolderId")
