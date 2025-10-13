@@ -121,11 +121,14 @@ class ContentObserverWork(
             return@withContext
         }
 
-        val contentUris = params.triggeredContentUris.map { uri -> uri.toString() }.toTypedArray()
+        val contentUris = params.triggeredContentUris.map { uri ->
+            // adds uri strings e.g. content://media/external/images/media/2281
+            uri.toString()
+        }.toTypedArray()
         Log_OC.d(TAG, "📄 Content uris detected")
 
         try {
-            FilesSyncHelper.startFilesSyncForAllFolders(
+            FilesSyncHelper.startAutoUploadImmediatelyWithContentUris(
                 syncedFolderProvider,
                 backgroundJobManager,
                 false,
