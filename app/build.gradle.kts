@@ -83,6 +83,10 @@ val configProps = Properties().apply {
     if (file.exists()) load(FileInputStream(file))
 }
 
+val ncTestServerUsername = configProps["NC_TEST_SERVER_USERNAME"]
+val ncTestServerPassword = configProps["NC_TEST_SERVER_PASSWORD"]
+val ncTestServerBaseUrl = configProps["NC_TEST_SERVER_BASEURL"]
+
 android {
     // install this NDK version and Cmake to produce smaller APKs. Build will still work if not installed
     ndkVersion = "${ndkEnv["NDK_VERSION"]}"
@@ -110,12 +114,9 @@ android {
         else "com.nextcloud.client.TestRunner"
 
         testInstrumentationRunnerArguments += mapOf(
-            "TEST_SERVER_URL" to
-                "${providers.gradleProperty("NC_TEST_SERVER_BASEURL").get()}",
-            "TEST_SERVER_USERNAME" to
-                "${providers.gradleProperty("NC_TEST_SERVER_USERNAME").get()}",
-            "TEST_SERVER_PASSWORD" to
-                "${providers.gradleProperty("NC_TEST_SERVER_PASSWORD").get()}"
+            "TEST_SERVER_URL" to ncTestServerUsername.toString(),
+            "TEST_SERVER_USERNAME" to ncTestServerPassword.toString(),
+            "TEST_SERVER_PASSWORD" to ncTestServerBaseUrl.toString()
         )
         testInstrumentationRunnerArguments["disableAnalytics"] = "true"
 
@@ -140,10 +141,6 @@ android {
                 enableUnitTestCoverage = project.hasProperty("coverage")
                 resConfigs("xxxhdpi")
 
-                val ncTestServerUsername = configProps["NC_TEST_SERVER_USERNAME"]
-                val ncTestServerPassword = configProps["NC_TEST_SERVER_PASSWORD"]
-                val ncTestServerBaseUrl = configProps["NC_TEST_SERVER_PASSWORD"]
-
                 buildConfigField(
                     "String",
                     "NC_TEST_SERVER_DATA_STRING",
@@ -151,8 +148,6 @@ android {
                 )
             }
         }
-
-        buildFeatures.buildConfig = true
 
         productFlavors {
             // used for f-droid
@@ -206,6 +201,7 @@ android {
     }
 
     buildFeatures {
+        buildConfig = true
         dataBinding = true
         viewBinding = true
         aidl = true
