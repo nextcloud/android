@@ -122,13 +122,10 @@ interface BackgroundJobManager {
 
     fun schedulePeriodicFilesSyncJob(syncedFolder: SyncedFolder)
 
-    /**
-     * Immediately start File Sync job for given syncFolderID.
-     */
-    fun startImmediateFilesSyncJob(
+    fun startAutoUploadImmediately(
         syncedFolder: SyncedFolder,
         overridePowerSaving: Boolean = false,
-        changedFiles: Array<String?> = arrayOf()
+        contentUris: Array<String?> = arrayOf()
     )
 
     fun cancelTwoWaySyncJob()

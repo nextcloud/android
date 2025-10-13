@@ -279,11 +279,11 @@ public class SyncedFolder implements Serializable, Cloneable {
         this.excludeHidden = excludeHidden;
     }
 
-    public boolean containsTypedFile(String filePath){
+    public boolean containsTypedFile(File file,String filePath){
         boolean isCorrectMediaType =
-                (getType() == MediaFolderType.IMAGE && MimeTypeUtil.isImage(new File(filePath))) ||
-                (getType() == MediaFolderType.VIDEO && MimeTypeUtil.isVideo(new File(filePath))) ||
-                getType() == MediaFolderType.CUSTOM;
+                (getType() == MediaFolderType.IMAGE && MimeTypeUtil.isImage(file)) ||
+                (getType() == MediaFolderType.VIDEO && MimeTypeUtil.isVideo(file)) ||
+                    getType() == MediaFolderType.CUSTOM;
         return filePath.contains(localPath) && isCorrectMediaType;
     }
 
