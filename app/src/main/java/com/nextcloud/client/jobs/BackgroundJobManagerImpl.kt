@@ -507,16 +507,16 @@ internal class BackgroundJobManagerImpl(
         )
     }
 
-    override fun startImmediateFilesSyncJob(
+    override fun startAutoUploadImmediately(
         syncedFolder: SyncedFolder,
         overridePowerSaving: Boolean,
-        changedFiles: Array<String?>
+        contentUris: Array<String?>
     ) {
         val syncedFolderID = syncedFolder.id
 
         val arguments = Data.Builder()
             .putBoolean(AutoUploadWorker.OVERRIDE_POWER_SAVING, overridePowerSaving)
-            .putStringArray(AutoUploadWorker.CHANGED_FILES, changedFiles)
+            .putStringArray(AutoUploadWorker.CONTENT_URIS, contentUris)
             .putLong(AutoUploadWorker.SYNCED_FOLDER_ID, syncedFolderID)
             .build()
 

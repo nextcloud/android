@@ -18,8 +18,11 @@ import android.provider.MediaStore;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.device.PowerManagementService;
 import com.nextcloud.client.jobs.BackgroundJobManager;
+import com.nextcloud.client.jobs.ContentObserverWork;
 import com.nextcloud.client.jobs.upload.FileUploadHelper;
+import com.nextcloud.client.jobs.upload.FileUploadWorker;
 import com.nextcloud.client.network.ConnectivityService;
+import com.nextcloud.utils.extensions.UriExtensionsKt;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.datamodel.FilesystemDataProvider;
 import com.owncloud.android.datamodel.MediaFolderType;
@@ -212,47 +215,58 @@ public final class FilesSyncHelper {
         }
     }
 
-    public static void insertChangedEntries(SyncedFolder syncedFolder,
-                                            String[] changedFiles) {
-        Log_OC.d(TAG, "insertChangedEntries, called. ID: " + syncedFolder.getId());
-        final ContentResolver contentResolver = MainApp.getAppContext().getContentResolver();
-        final FilesystemDataProvider filesystemDataProvider = new FilesystemDataProvider(contentResolver);
-        for (String changedFileURI : changedFiles){
-            String changedFile = getFileFromURI(changedFileURI);
-            if (syncedFolder.containsTypedFile(changedFile)){
-                File file = new File(changedFile);
-                if (!file.exists()) {
-                    Log_OC.w(TAG, "syncedFolder contains not existing changed file: " + changedFile);
-                }
-                filesystemDataProvider.storeOrUpdateFileValue(changedFile,
-                                                              file.lastModified(),file.isDirectory(),
-                                                              syncedFolder);
-            } else {
-                Log_OC.w(TAG, "syncedFolder not contains typed file, changedFile: " + changedFile);
-            }
-        }
-    }
-
-    private static String getFileFromURI(String uri){
-        Log_OC.d(TAG, "getFileFromURI, URI: " + uri);
+    /**
+     * Attempts to get the file path from a content URI string (e.g., content://media/external/images/media/2281)
+     * and checks its type. If the conditions are met, the file is stored for auto-upload.
+     * <p>
+     * If any attempt fails, the method returns {@code false}.
+     *
+     * @param syncedFolder The folder marked for auto-upload.
+     * @param contentUris  An array of content URI strings collected from {@link ContentObserverWork##checkAndTriggerAutoUpload()}.
+     * @return {@code true} if all changed content URIs were successfully stored; {@code false} otherwise.
+     */
+    public static boolean insertChangedEntries(SyncedFolder syncedFolder, String[] contentUris) {
+        Log_OC.d(TAG, "insertChangedEntries, syncedFolderID: " + syncedFolder.getId());
         final Context context = MainApp.getAppContext();
+        final ContentResolver contentResolver = context.getContentResolver();
+        final FilesystemDataProvider filesystemDataProvider = new FilesystemDataProvider(contentResolver);
+        for (String contentUriString : contentUris) {
+            if (contentUriString == null) {
+                Log_OC.w(TAG, "null content uri string");
+                return false;
+            }
 
-        Cursor cursor;
-        int column_index_data;
-        String filePath = null;
+            Uri contentUri;
+            try {
+                contentUri = Uri.parse(contentUriString);
+            } catch (Exception e) {
+                Log_OC.e(TAG, "Invalid URI: " + contentUriString, e);
+                return false;
+            }
 
-        String[] projection = {MediaStore.MediaColumns.DATA};
+            String filePath = UriExtensionsKt.toFilePath(contentUri, context);
+            if (filePath == null) {
+                Log_OC.w(TAG, "File path is null");
+                return false;
+            }
 
-        cursor = context.getContentResolver().query(Uri.parse(uri), projection, null, null, null, null);
+            File file = new File(filePath);
+            if (!file.exists()) {
+                Log_OC.w(TAG, "syncedFolder contains not existing changed file: " + filePath);
+                return false;
+            }
 
-        if (cursor != null && cursor.moveToFirst()) {
-            column_index_data = cursor.getColumnIndexOrThrow(MediaStore.MediaColumns.DATA);
-            filePath = cursor.getString(column_index_data);
-            cursor.close();
-        } else {
-            Log_OC.e(TAG, "cant get file from URI");
+            if (!syncedFolder.containsTypedFile(file, filePath)) {
+                Log_OC.w(TAG, "syncedFolder not contains typed file, changedFile: " + filePath);
+                return false;
+            }
+
+            filesystemDataProvider.storeOrUpdateFileValue(filePath, file.lastModified(), file.isDirectory(), syncedFolder);
         }
-        return filePath;
+
+        Log_OC.d(TAG, "changed content uris successfully stored");
+
+        return true;
     }
 
     private static void insertContentIntoDB(Uri uri, SyncedFolder syncedFolder,
@@ -345,11 +359,20 @@ public final class FilesSyncHelper {
         }
     }
 
-    public static void startFilesSyncForAllFolders(SyncedFolderProvider syncedFolderProvider, BackgroundJobManager jobManager, boolean overridePowerSaving, String[] changedFiles) {
-        Log_OC.d(TAG, "startFilesSyncForAllFolders, called");
+    public static void startAutoUploadImmediatelyWithContentUris(SyncedFolderProvider syncedFolderProvider, BackgroundJobManager jobManager, boolean overridePowerSaving, String[] contentUris) {
+        Log_OC.d(TAG, "startAutoUploadImmediatelyWithContentUris");
         for (SyncedFolder syncedFolder : syncedFolderProvider.getSyncedFolders()) {
             if (syncedFolder.isEnabled()) {
-                jobManager.startImmediateFilesSyncJob(syncedFolder, overridePowerSaving,changedFiles);
+                jobManager.startAutoUploadImmediately(syncedFolder, overridePowerSaving, contentUris);
+            }
+        }
+    }
+
+    public static void startAutoUploadImmediately(SyncedFolderProvider syncedFolderProvider, BackgroundJobManager jobManager, boolean overridePowerSaving) {
+        Log_OC.d(TAG, "startAutoUploadImmediately");
+        for (SyncedFolder syncedFolder : syncedFolderProvider.getSyncedFolders()) {
+            if (syncedFolder.isEnabled()) {
+                jobManager.startAutoUploadImmediately(syncedFolder, overridePowerSaving, new String[]{});
             }
         }
     }
