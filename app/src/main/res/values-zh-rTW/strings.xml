@@ -98,10 +98,13 @@
     <string name="authenticator_activity_login_error">處理您的登入請求時出現問題。請稍後再試。</string>
     <string name="authenticator_activity_no_web_browser_found">沒有瀏覽器可以開啟此連結。</string>
     <string name="authenticator_activity_please_complete_login_process">請在瀏覽器中完成登入流程</string>
+    <string name="auto_upload_battery_saver_mode_warning">因為省電模式已開啟，因此暫停自動上傳。</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">以唯讀模式保留在原本的資料夾</string>
+    <string name="auto_upload_low_battery_warning_info">低電量，上傳可能會需要較長時間</string>
     <string name="auto_upload_on_wifi">只在非計量收費的 Wi-Fi 上傳</string>
     <string name="auto_upload_path">/AutoUpload</string>
     <string name="auto_upload_sub_folder_warning">此資料夾已包含在上層資料夾的同步中，這可能會導致重複上傳</string>
+    <string name="auto_upload_wifi_only_warning_info">等待 Wi-Fi 開始上傳</string>
     <string name="auto_upload_worker_start_text">從 %s 上傳檔案至 %s</string>
     <string name="autoupload_configure">設定</string>
     <string name="autoupload_create_new_custom_folder">新增自訂資料夾</string>
@@ -988,6 +991,7 @@
     <string name="unified_search_fragment_calendar_event_not_found">找不到活動，您隨時可以同步更新。正在重新導向至網路……</string>
     <string name="unified_search_fragment_contact_not_found">找不到聯絡人，您隨時可以同步更新。正在重新導向至網路……</string>
     <string name="unified_search_fragment_permission_needed">開啟搜尋結果需要權限，否則其將會重新導向至網路……</string>
+    <string name="unified_search_fragment_search_in_this_folder">在此資料夾</string>
     <string name="unknown">未知</string>
     <string name="unlock_file">解鎖檔案</string>
     <string name="unread_comments">有未讀留言</string>
