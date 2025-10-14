@@ -404,23 +404,27 @@ public final class FileStorageUtils {
      * @return Size in bytes
      */
     public static long getFolderSize(File dir) {
-        if (dir.exists() && dir.isDirectory()) {
-            File[] files = dir.listFiles();
-
-            if (files != null) {
-                long result = 0;
-                for (File f : files) {
-                    if (f.isDirectory()) {
-                        result += getFolderSize(f);
-                    } else {
-                        result += f.length();
-                    }
-                }
-                return result;
-            }
+        if (dir == null || !dir.exists() || !dir.isDirectory()) {
+            return 0;
         }
-        return 0;
+
+        File[] files = dir.listFiles();
+        if (files == null) {
+            return 0;
+        }
+
+        long result = 0;
+        for (File f : files) {
+            if (f.isDirectory()) {
+                result += getFolderSize(f);
+                continue;
+            }
+            result += f.length();
+        }
+
+        return result;
     }
+
 
     /**
      * Mimetype String of a file.
