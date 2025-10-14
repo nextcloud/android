@@ -39,8 +39,8 @@ enum class FileAction(
 
     // Uploads and downloads
     DOWNLOAD_FILE(R.id.action_download_file, R.string.filedetails_download, R.drawable.ic_cloud_download),
-    SYNC_FILE(R.id.action_sync_file, R.string.filedetails_sync_file, R.drawable.ic_cloud_sync_on),
-    CANCEL_SYNC(R.id.action_cancel_sync, R.string.common_cancel_sync, R.drawable.ic_cloud_sync_off),
+    SYNC_FILE(R.id.action_sync_file, R.string.filedetails_sync_file, R.drawable.ic_sync),
+    CANCEL_SYNC(R.id.action_cancel_sync, R.string.common_cancel_sync, R.drawable.ic_sync_off),
 
     // File sharing
     EXPORT_FILE(R.id.action_export_file, R.string.filedetails_export, R.drawable.ic_export),

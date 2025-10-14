@@ -15,9 +15,6 @@ fun FileDataStorageManager.searchFilesByName(file: OCFile, accountName: String, 
         createFileInstance(it)
     }
 
-fun FileDataStorageManager.getParentIdsOfSubfiles(paths: List<String>): List<Long> =
-    fileDao.getParentIdsOfSubfiles(paths)
-
 fun FileDataStorageManager.getDecryptedPath(file: OCFile): String {
     val paths = mutableListOf<String>()
     var entity = fileDao.getFileByEncryptedRemotePath(file.remotePath, user.accountName)
