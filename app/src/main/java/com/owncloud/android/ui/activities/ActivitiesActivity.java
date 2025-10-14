@@ -189,7 +189,7 @@ public class ActivitiesActivity extends DrawerActivity implements ActivityListIn
             } else {
                 showEmptyContent(getString(R.string.server_not_reachable),
                                  getString(R.string.server_not_reachable_content));
-                binding.emptyList.emptyListIcon.setImageResource(R.drawable.ic_cloud_sync_off);
+                binding.emptyList.emptyListIcon.setImageResource(R.drawable.ic_sync_off);
             }
         });
         
