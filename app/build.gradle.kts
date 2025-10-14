@@ -114,9 +114,9 @@ android {
         else "com.nextcloud.client.TestRunner"
 
         testInstrumentationRunnerArguments += mapOf(
-            "TEST_SERVER_URL" to ncTestServerUsername.toString(),
-            "TEST_SERVER_USERNAME" to ncTestServerPassword.toString(),
-            "TEST_SERVER_PASSWORD" to ncTestServerBaseUrl.toString()
+            "TEST_SERVER_URL" to ncTestServerBaseUrl.toString(),
+            "TEST_SERVER_USERNAME" to ncTestServerUsername.toString(),
+            "TEST_SERVER_PASSWORD" to ncTestServerPassword.toString()
         )
         testInstrumentationRunnerArguments["disableAnalytics"] = "true"
 
