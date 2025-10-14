@@ -98,10 +98,13 @@
     <string name="authenticator_activity_login_error">Помилка під час обробки запиту на вхід. Спробуйте пізніше.</string>
     <string name="authenticator_activity_no_web_browser_found">Відсутній бравзер для відкриття цього посилання.</string>
     <string name="authenticator_activity_please_complete_login_process">Завершити авторизацію у бравзері</string>
+    <string name="auto_upload_battery_saver_mode_warning">Автозавантаження призупинено, оскільки увімкнено заощадження батареї.</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">залишено у вихідному каталозі, оскільки він доступний лише для читання</string>
+    <string name="auto_upload_low_battery_warning_info">Низький заряд батареї, завантаження може тривати доше</string>
     <string name="auto_upload_on_wifi">Завантаження тільки через WiFi</string>
     <string name="auto_upload_path">/AutoUpload</string>
     <string name="auto_upload_sub_folder_warning">Цей каталог вже включено до синхронізації каталогу вищого рівня, що може призвести до задвоєння завантаження</string>
+    <string name="auto_upload_wifi_only_warning_info">Очікується з\'єднання з WiFi для початку завантаження</string>
     <string name="auto_upload_worker_start_text">Завантаження файлів з %s до %s</string>
     <string name="autoupload_configure">Налаштування</string>
     <string name="autoupload_create_new_custom_folder">Власний каталог користувача</string>
@@ -988,6 +991,7 @@
     <string name="unified_search_fragment_calendar_event_not_found">Подію не знайдено. Синхронізуйтеся для оновлення. Переспрямування на вебсайт...</string>
     <string name="unified_search_fragment_contact_not_found">Контакт не знайдено. Синхронізуйтеся для оновлення. Переспрямування на вебсайт...</string>
     <string name="unified_search_fragment_permission_needed">Для отримання результатів пошуку потрібні окреми дозволи, або перейти на вебсайт...</string>
+    <string name="unified_search_fragment_search_in_this_folder">У цьому каталозі</string>
     <string name="unknown">Невідомо</string>
     <string name="unlock_file">Розблокувати файл</string>
     <string name="unread_comments">Доступні непрочитані коментарі</string>
