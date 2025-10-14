@@ -100,9 +100,11 @@
     <string name="authenticator_activity_please_complete_login_process">Lütfen oturum açma işlemini tarayıcınızdan tamamlayın</string>
     <string name="auto_upload_battery_saver_mode_warning">Pil koruma modu açık olduğundan otomatik yükleme duraklatıldı</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">salt okunur olduğundan özgün klasörde kaldı</string>
+    <string name="auto_upload_low_battery_warning_info">Pil azaldı. Yükleme işlemi uzun sürebilir</string>
     <string name="auto_upload_on_wifi">Yalnızca kotasız kablosuz ağda yüklensin</string>
     <string name="auto_upload_path">/OtomatikYükleme</string>
     <string name="auto_upload_sub_folder_warning">Bu klasör, üst klasörün eşitlemesine zaten katılmış olduğundan yinelenen yüklemelere neden olabilir.</string>
+    <string name="auto_upload_wifi_only_warning_info">Yüklemenin başlatılması için Wi-Fi bağlantısı bekleniyor</string>
     <string name="auto_upload_worker_start_text">%s üzerindeki dosyalar %s üzerine yükleniyor</string>
     <string name="autoupload_configure">Yapılandır</string>
     <string name="autoupload_create_new_custom_folder">Özel klasör kurulumu ekle</string>

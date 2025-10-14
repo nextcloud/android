@@ -100,9 +100,11 @@
     <string name="authenticator_activity_please_complete_login_process">Slutför inloggningsprocessen i din webbläsare</string>
     <string name="auto_upload_battery_saver_mode_warning">Automatisk uppladdning är pausad eftersom batterisparläge är aktiverat.</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">behålls i originalmappen, eftersom den är skrivskyddad</string>
+    <string name="auto_upload_low_battery_warning_info">Låg batterinivå, uppladdningen kan ta längre tid</string>
     <string name="auto_upload_on_wifi">Ladda bara upp via obelastad Wi-Fi</string>
     <string name="auto_upload_path">/AutomatiskUppladdning</string>
     <string name="auto_upload_sub_folder_warning">Denna mapp ingår redan i synkroniseringen av den överordnade mappen, vilket kan orsaka dubbla uppladdningar</string>
+    <string name="auto_upload_wifi_only_warning_info">Väntar på Wi-Fi för att starta uppladdning</string>
     <string name="auto_upload_worker_start_text">Laddar upp filer från %s till %s</string>
     <string name="autoupload_configure">Konfigurera</string>
     <string name="autoupload_create_new_custom_folder">Skapa en ny anpassad mappkonfiguration </string>
