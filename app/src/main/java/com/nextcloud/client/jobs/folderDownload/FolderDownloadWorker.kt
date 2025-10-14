@@ -5,7 +5,7 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-package com.nextcloud.client.jobs.sync
+package com.nextcloud.client.jobs.folderDownload
 
 import android.content.Context
 import androidx.work.CoroutineWorker
@@ -24,7 +24,7 @@ import kotlinx.coroutines.withContext
 import java.util.concurrent.ConcurrentHashMap
 
 @Suppress("LongMethod")
-class SyncWorker(
+class FolderDownloadWorker(
     private val user: User,
     private val context: Context,
     private val viewThemeUtils: ViewThemeUtils,
@@ -32,17 +32,17 @@ class SyncWorker(
 ) : CoroutineWorker(context, params) {
 
     companion object {
-        private const val TAG = "SyncWorker"
+        private const val TAG = "📂" + "FolderDownloadWorker"
         const val FOLDER_ID = "FOLDER_ID"
 
-        private val pendingFolderDownloads: MutableSet<Long> = ConcurrentHashMap.newKeySet<Long>()
+        private val pendingDownloads: MutableSet<Long> = ConcurrentHashMap.newKeySet<Long>()
 
-        fun isDownloading(id: Long): Boolean = pendingFolderDownloads.contains(id)
+        fun isDownloading(id: Long): Boolean = pendingDownloads.contains(id)
     }
 
-    private var notificationManager: SyncWorkerNotificationManager? = null
+    private var notificationManager: FolderDownloadWorkerNotificationManager? = null
 
-    @Suppress("TooGenericExceptionCaught", "ReturnCount")
+    @Suppress("TooGenericExceptionCaught", "ReturnCount", "DEPRECATION")
     override suspend fun doWork(): Result {
         val folderID = inputData.getLong(FOLDER_ID, -1)
         if (folderID == -1L) {
@@ -51,14 +51,14 @@ class SyncWorker(
         val storageManager = FileDataStorageManager(user, context.contentResolver)
         val folder = storageManager.getFileById(folderID) ?: return Result.failure()
 
-        notificationManager = SyncWorkerNotificationManager(context, viewThemeUtils)
+        notificationManager = FolderDownloadWorkerNotificationManager(context, viewThemeUtils)
 
-        Log_OC.d(TAG, "SyncWorker started")
+        Log_OC.d(TAG, "started")
 
         val foregroundInfo = notificationManager?.getForegroundInfo(folder) ?: return Result.failure()
         setForeground(foregroundInfo)
 
-        pendingFolderDownloads.add(folder.fileId)
+        pendingDownloads.add(folder.fileId)
 
         return withContext(Dispatchers.IO) {
             try {
@@ -80,8 +80,8 @@ class SyncWorker(
                         )
                     }
 
-                    val syncFileResult = syncFile(file, client)
-                    if (!syncFileResult) {
+                    val operation = DownloadFileOperation(user, file, context).execute(client)
+                    if (!operation.isSuccess) {
                         result = false
                     }
                 }
@@ -91,17 +91,17 @@ class SyncWorker(
                 }
 
                 if (result) {
-                    Log_OC.d(TAG, "SyncWorker completed")
+                    Log_OC.d(TAG, "completed")
                     Result.success()
                 } else {
-                    Log_OC.d(TAG, "SyncWorker failed")
+                    Log_OC.d(TAG, "failed")
                     Result.failure()
                 }
             } catch (e: Exception) {
-                Log_OC.d(TAG, "SyncWorker failed reason: $e")
+                Log_OC.d(TAG, "failed reason: $e")
                 Result.failure()
             } finally {
-                pendingFolderDownloads.remove(folder.fileId)
+                pendingDownloads.remove(folder.fileId)
                 notificationManager?.dismiss()
             }
         }
@@ -127,12 +127,5 @@ class SyncWorker(
         } else {
             true
         }
-    }
-
-    @Suppress("DEPRECATION")
-    private suspend fun syncFile(file: OCFile, client: OwnCloudClient): Boolean = withContext(Dispatchers.IO) {
-        val operation = DownloadFileOperation(user, file, context).execute(client)
-        Log_OC.d(TAG, "Syncing file: " + file.decryptedRemotePath)
-        operation.isSuccess
     }
 }

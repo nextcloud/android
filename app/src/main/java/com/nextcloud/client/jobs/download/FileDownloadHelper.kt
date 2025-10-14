@@ -9,7 +9,7 @@ package com.nextcloud.client.jobs.download
 
 import com.nextcloud.client.account.User
 import com.nextcloud.client.jobs.BackgroundJobManager
-import com.nextcloud.client.jobs.sync.SyncWorker
+import com.nextcloud.client.jobs.folderDownload.FolderDownloadWorker
 import com.owncloud.android.MainApp
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
@@ -48,7 +48,7 @@ class FileDownloadHelper {
         }
 
         return if (file.isFolder) {
-            SyncWorker.isDownloading(file.fileId)
+            FolderDownloadWorker.isDownloading(file.fileId)
         } else {
             FileDownloadWorker.isDownloading(user.accountName, file.fileId)
         }
@@ -146,4 +146,6 @@ class FileDownloadHelper {
         }
         backgroundJobManager.syncFolder(folder)
     }
+
+    fun cancelFolderDownload() = backgroundJobManager.cancelFolderDownload()
 }

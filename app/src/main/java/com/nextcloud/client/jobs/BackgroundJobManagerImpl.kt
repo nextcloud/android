@@ -30,7 +30,7 @@ import com.nextcloud.client.jobs.autoUpload.AutoUploadWorker
 import com.nextcloud.client.jobs.download.FileDownloadWorker
 import com.nextcloud.client.jobs.metadata.MetadataWorker
 import com.nextcloud.client.jobs.offlineOperations.OfflineOperationsWorker
-import com.nextcloud.client.jobs.sync.SyncWorker
+import com.nextcloud.client.jobs.folderDownload.FolderDownloadWorker
 import com.nextcloud.client.jobs.upload.FileUploadHelper
 import com.nextcloud.client.jobs.upload.FileUploadWorker
 import com.nextcloud.client.preferences.AppPreferences
@@ -831,10 +831,10 @@ internal class BackgroundJobManagerImpl(
             .build()
 
         val data = Data.Builder()
-            .putLong(SyncWorker.FOLDER_ID, folder.fileId)
+            .putLong(FolderDownloadWorker.FOLDER_ID, folder.fileId)
             .build()
 
-        val request = oneTimeRequestBuilder(SyncWorker::class, JOB_SYNC_FOLDER)
+        val request = oneTimeRequestBuilder(FolderDownloadWorker::class, JOB_SYNC_FOLDER)
             .addTag(JOB_SYNC_FOLDER)
             .setInputData(data)
             .setConstraints(constraints)
@@ -843,7 +843,7 @@ internal class BackgroundJobManagerImpl(
         workManager.enqueueUniqueWork(JOB_SYNC_FOLDER, ExistingWorkPolicy.APPEND_OR_REPLACE, request)
     }
 
-    override fun cancelSyncFolder() {
+    override fun cancelFolderDownload() {
         workManager.cancelAllWorkByTag(JOB_SYNC_FOLDER)
     }
 }
