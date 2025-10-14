@@ -112,7 +112,6 @@ public class LocalFileListFragment extends ExtendedListFragment implements
         super.onActivityCreated(savedInstanceState);
 
         mAdapter = new LocalFileListAdapter(mContainerActivity.isFolderPickerMode(),
-                                            mContainerActivity.getInitialDirectory(),
                                             this,
                                             preferences,
                                             getActivity(),
@@ -256,28 +255,21 @@ public class LocalFileListFragment extends ExtendedListFragment implements
      * @param directory     Directory to be listed
      */
     public void listDirectory(File directory) {
-
-        // Check input parameters for null
         if (directory == null) {
-            if (mDirectory != null) {
-                directory = mDirectory;
-            } else {
-                directory = Environment.getExternalStorageDirectory();
-                // TODO be careful with the state of the storage; could not be available
-                if (directory == null) {
-                    return; // no files to show
-                }
-            }
+            directory = (mDirectory != null) ? mDirectory : Environment.getExternalStorageDirectory();
+            if (directory == null) return;
         }
 
-
-        // if that's not a directory -> List its parent
+        // If input is not a directory, list its parent
         if (!directory.isDirectory()) {
             Log_OC.w(TAG, "You see, that is not a directory -> " + directory);
             directory = directory.getParentFile();
+            if (directory == null) {
+                Log_OC.w(TAG, "parent directory is null, cannot swap directory");
+                return;
+            }
         }
 
-        // by now, only files in the same directory will be kept as selected
         mAdapter.removeAllFilesFromCheckedFiles();
         mAdapter.swapDirectory(directory);
 
