@@ -24,10 +24,14 @@ import com.nextcloud.client.integrations.deck.DeckApi
 import com.nextcloud.client.logger.Logger
 import com.nextcloud.client.network.ConnectivityService
 import com.nextcloud.client.preferences.AppPreferences
+import com.owncloud.android.MainApp
 import com.owncloud.android.datamodel.ArbitraryDataProvider
 import com.owncloud.android.datamodel.SyncedFolderProvider
 import com.owncloud.android.datamodel.UploadsStorageManager
 import com.owncloud.android.utils.theme.ViewThemeUtils
+import io.mockk.every
+import io.mockk.mockk
+import io.mockk.mockkStatic
 import org.greenrobot.eventbus.EventBus
 import org.junit.Assert.assertNotNull
 import org.junit.Before
@@ -38,8 +42,7 @@ import org.mockito.kotlin.whenever
 
 class BackgroundJobFactoryTest {
 
-    @Mock
-    private lateinit var context: Context
+    private val context = mockk<Context>(relaxed = true)
 
     @Mock
     private lateinit var params: WorkerParameters
@@ -110,6 +113,9 @@ class BackgroundJobFactoryTest {
 
     @Before
     fun setUp() {
+        mockkStatic(MainApp::class)
+        every { MainApp.getAppContext() } returns context
+
         MockitoAnnotations.openMocks(this)
 
         whenever(db.fileDao()).thenReturn(fileDao)

@@ -23,6 +23,7 @@ object NotificationUtils {
     const val NOTIFICATION_CHANNEL_PUSH: String = "NOTIFICATION_CHANNEL_PUSH"
     const val NOTIFICATION_CHANNEL_BACKGROUND_OPERATIONS: String = "NOTIFICATION_CHANNEL_BACKGROUND_OPERATIONS"
     const val NOTIFICATION_CHANNEL_OFFLINE_OPERATIONS: String = "NOTIFICATION_CHANNEL_OFFLINE_OPERATIONS"
+    const val NOTIFICATION_CHANNEL_CONTENT_OBSERVER: String = "NOTIFICATION_CHANNEL_CONTENT_OBSERVER"
 
     fun createUploadNotificationTag(file: OCFile): String =
         createUploadNotificationTag(file.remotePath, file.storagePath)
