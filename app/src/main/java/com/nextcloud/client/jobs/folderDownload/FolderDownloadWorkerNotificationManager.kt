@@ -5,7 +5,7 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-package com.nextcloud.client.jobs.sync
+package com.nextcloud.client.jobs.folderDownload
 
 import android.app.Notification
 import android.app.PendingIntent
@@ -22,7 +22,7 @@ import com.owncloud.android.utils.theme.ViewThemeUtils
 import kotlinx.coroutines.delay
 import kotlin.random.Random
 
-class SyncWorkerNotificationManager(private val context: Context, viewThemeUtils: ViewThemeUtils) :
+class FolderDownloadWorkerNotificationManager(private val context: Context, viewThemeUtils: ViewThemeUtils) :
     WorkerNotificationManager(
         id = NOTIFICATION_ID,
         context,
@@ -60,7 +60,7 @@ class SyncWorkerNotificationManager(private val context: Context, viewThemeUtils
         }.build()
 
     private fun getCancelPendingIntent(): PendingIntent {
-        val intent = Intent(context, SyncWorkerReceiver::class.java)
+        val intent = Intent(context, FolderDownloadWorkerReceiver::class.java)
 
         return PendingIntent.getBroadcast(
             context,

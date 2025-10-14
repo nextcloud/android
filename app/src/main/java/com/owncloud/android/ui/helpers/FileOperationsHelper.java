@@ -1006,17 +1006,17 @@ public class FileOperationsHelper {
             }
         }
 
-        final var fileUploadHelper = FileUploadHelper.Companion.instance();
-        if (file.isFolder()) {
-            fileUploadHelper.cancelSyncFolder();
-        }
-
         final var fileDownloadHelper = FileDownloadHelper.Companion.instance();
         if (fileDownloadHelper.isDownloading(currentUser, file)) {
             List<OCFile> files = fileActivity.getStorageManager().getAllFilesRecursivelyInsideFolder(file);
             fileDownloadHelper.cancelPendingOrCurrentDownloads(currentUser, files);
         }
 
+        if (file.isFolder()) {
+            fileDownloadHelper.cancelFolderDownload();
+        }
+
+        final var fileUploadHelper = FileUploadHelper.Companion.instance();
         if (fileUploadHelper.isUploading(currentUser, file)) {
             try {
                 fileUploadHelper.cancelFileUpload(file.getRemotePath(), currentUser.getAccountName());

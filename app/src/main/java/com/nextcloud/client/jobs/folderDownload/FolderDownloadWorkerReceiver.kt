@@ -5,7 +5,7 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-package com.nextcloud.client.jobs.sync
+package com.nextcloud.client.jobs.folderDownload
 
 import android.content.BroadcastReceiver
 import android.content.Context
@@ -14,12 +14,12 @@ import com.nextcloud.client.jobs.BackgroundJobManager
 import com.owncloud.android.MainApp
 import javax.inject.Inject
 
-class SyncWorkerReceiver : BroadcastReceiver() {
+class FolderDownloadWorkerReceiver : BroadcastReceiver() {
     @Inject
     lateinit var backgroundJobManager: BackgroundJobManager
 
     override fun onReceive(context: Context, intent: Intent) {
         MainApp.getAppComponent().inject(this)
-        backgroundJobManager.cancelSyncFolder()
+        backgroundJobManager.cancelFolderDownload()
     }
 }
