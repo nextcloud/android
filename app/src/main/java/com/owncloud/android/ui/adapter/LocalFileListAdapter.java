@@ -73,7 +73,6 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
     private int currentOffset = 0;
 
     public LocalFileListAdapter(boolean localFolderPickerMode,
-                                File directory,
                                 LocalFileListFragmentInterface localFileListFragmentInterface,
                                 AppPreferences preferences,
                                 Context context,
@@ -86,15 +85,9 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
         checkedFiles = new HashSet<>();
         this.viewThemeUtils = viewThemeUtils;
         this.isWithinEncryptedFolder = isWithinEncryptedFolder;
-
-        swapDirectory(directory);
+        setHasStableIds(true);
     }
 
-    @Override
-    public int getItemCount() {
-        return mFiles.size() + 1;
-    }
-    
     public int getFilesCount() {
         return mFiles.size();
     }
@@ -140,8 +133,31 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
     }
 
     @Override
+    public int getItemCount() {
+        return mFiles.size() + 1;
+    }
+
+    @Override
     public long getItemId(int position) {
-        return mFiles.size() <= position ? position : -1;
+        if (position >= mFiles.size()) {
+            return RecyclerView.NO_ID;
+        }
+
+        File file = mFiles.get(position);
+        return file.getAbsolutePath().hashCode();
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        if (position == mFiles.size()) {
+            return VIEWTYPE_FOOTER;
+        } else {
+            if (MimeTypeUtil.isImageOrVideo(getItem(position))) {
+                return VIEWTYPE_IMAGE;
+            } else {
+                return VIEWTYPE_ITEM;
+            }
+        }
     }
 
     @Override
@@ -260,19 +276,6 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
         }
     }
 
-    @Override
-    public int getItemViewType(int position) {
-        if (position == mFiles.size()) {
-            return VIEWTYPE_FOOTER;
-        } else {
-            if (MimeTypeUtil.isImageOrVideo(getItem(position))) {
-                return VIEWTYPE_IMAGE;
-            } else {
-                return VIEWTYPE_ITEM;
-            }
-        }
-    }
-
     private File getItem(int position) {
         return mFiles.get(position);
     }
@@ -307,6 +310,8 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
     public void swapDirectory(final File directory) {
         localFileListFragmentInterface.setLoading(true);
         currentOffset = 0;
+        mFiles.clear();
+        mFilesAll.clear();
 
         Executors.newSingleThreadExecutor().execute(() -> {
             // Load first page of folders
@@ -518,11 +523,11 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
         }
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     @VisibleForTesting
     public void setFiles(List<File> newFiles) {
         mFiles = newFiles;
-        mFilesAll = new ArrayList<>();
-        mFilesAll.addAll(mFiles);
+        mFilesAll = new ArrayList<>(mFiles);
 
         notifyDataSetChanged();
         localFileListFragmentInterface.setLoading(false);
