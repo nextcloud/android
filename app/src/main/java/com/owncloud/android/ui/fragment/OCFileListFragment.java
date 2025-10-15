@@ -278,12 +278,6 @@ public class OCFileListFragment extends ExtendedListFragment implements
     }
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        setupBackButtonRedirectToAllFiles();
-    }
-
-    @Override
     public void onDestroyView() {
         super.onDestroyView();
         if (getAdapter() != null) {
@@ -2324,5 +2318,16 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
     public SearchEvent getSearchEvent() {
         return searchEvent;
+    }
+
+    public boolean isSearchEventFavorite() {
+        if (searchEvent == null) {
+            return false;
+        }
+        return searchEvent.getSearchType() == SearchRemoteOperation.SearchType.FAVORITE_SEARCH;
+    }
+
+    public boolean shouldNavigateBackToAllFiles() {
+        return ((this instanceof GalleryFragment) || isSearchEventFavorite() || DrawerActivity.menuItemId == R.id.nav_favorites);
     }
 }

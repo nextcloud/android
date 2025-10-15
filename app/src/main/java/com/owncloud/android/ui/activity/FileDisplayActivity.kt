@@ -83,6 +83,7 @@ import com.nextcloud.utils.extensions.getParcelableArgument
 import com.nextcloud.utils.extensions.isActive
 import com.nextcloud.utils.extensions.lastFragment
 import com.nextcloud.utils.extensions.logFileSize
+import com.nextcloud.utils.extensions.navigateToAllFiles
 import com.nextcloud.utils.fileNameValidator.FileNameValidator.checkFolderPath
 import com.nextcloud.utils.view.FastScrollUtils
 import com.owncloud.android.MainApp
@@ -1137,43 +1138,55 @@ class FileDisplayActivity :
         }
     }
 
-    private val isRootDirectory: Boolean
-        get() {
-            val currentDir = getCurrentDir()
-            return (currentDir == null || currentDir.parentId == FileDataStorageManager.ROOT_PARENT_ID.toLong())
-        }
-
-    /*
-     * BackPressed priority/hierarchy:
-     *    1. close search view if opened
-     *    2. close drawer if opened
-     *    3. if it is OCFileListFragment and it's in Root -> (finish Activity) or it's not Root -> (browse up)
-     *    4. otherwise pop up the fragment and sortGroup view visibility and call onBackPressedDispatcher
+    /**
+     * Sets up a custom back-press handler for this activity.
+     *
+     * This callback determines how the back button behaves based on the current UI state:
+     * - If the search view is open, it closes it.
+     * - If the navigation drawer is open, it closes it.
+     * - If the left fragment is an [OCFileListFragment]:
+     *   - If in the root directory, it either navigates to "All Files" or finishes the activity.
+     *   - Otherwise, it navigates one level up.
+     * - Otherwise, it pops the current fragment from the back stack.
+     *
+     * ### About `isEnabled`
+     * `isEnabled` is a property of [OnBackPressedCallback].
+     * When `isEnabled = false`, this callback is **temporarily disabled**,
+     * allowing the system or other callbacks to handle the back press instead.
      */
     private fun handleBackPress() {
         onBackPressedDispatcher.addCallback(
             this,
             object : OnBackPressedCallback(true) {
                 override fun handleOnBackPressed() {
-                    if (isSearchOpen()) {
-                        resetSearchAction()
-                        return
-                    }
-
-                    if (isDrawerOpen) {
-                        isEnabled = false
-                        onBackPressedDispatcher.onBackPressed()
-                        return
-                    }
-
-                    if (this@FileDisplayActivity.leftFragment is OCFileListFragment) {
-                        if (isRoot(getCurrentDir())) {
-                            finish()
-                        } else {
-                            browseUp(leftFragment as OCFileListFragment)
+                    when {
+                        isSearchOpen() -> {
+                            isEnabled = false
+                            resetSearchAction()
                         }
-                    } else {
-                        popBack()
+
+                        isDrawerOpen -> {
+                            isEnabled = false
+                            onBackPressedDispatcher.onBackPressed()
+                        }
+
+                        leftFragment is OCFileListFragment -> {
+                            val fragment = leftFragment as OCFileListFragment
+                            if (isRoot(getCurrentDir())) {
+                                if (fragment.shouldNavigateBackToAllFiles()) {
+                                    navigateToAllFiles()
+                                } else {
+                                    finish()
+                                }
+                            } else {
+                                browseUp(fragment)
+                            }
+                        }
+
+                        else -> {
+                            isEnabled = false
+                            popBack()
+                        }
                     }
                 }
             }
