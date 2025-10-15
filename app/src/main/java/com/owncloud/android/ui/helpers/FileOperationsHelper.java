@@ -34,6 +34,7 @@ import com.nextcloud.client.account.User;
 import com.nextcloud.client.jobs.BackgroundJobManager;
 import com.nextcloud.client.jobs.download.FileDownloadHelper;
 import com.nextcloud.client.jobs.upload.FileUploadHelper;
+import com.nextcloud.client.jobs.upload.FileUploadWorker;
 import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.utils.EditorUtils;
 import com.owncloud.android.MainApp;
@@ -86,7 +87,6 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
-import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.Set;
 import java.util.regex.Matcher;
@@ -97,6 +97,7 @@ import androidx.annotation.Nullable;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import kotlin.Unit;
 
 /**
  * Helper implementation for file operations locally and remote.
@@ -1017,12 +1018,11 @@ public class FileOperationsHelper {
         }
 
         final var fileUploadHelper = FileUploadHelper.Companion.instance();
-        if (fileUploadHelper.isUploading(currentUser, file)) {
-            try {
-                fileUploadHelper.cancelFileUpload(file.getRemotePath(), currentUser.getAccountName());
-            } catch (NoSuchElementException e) {
-                Log_OC.e(TAG, "Error cancelling current upload because user does not exist!");
-            }
+        if (fileUploadHelper.isUploading(file.getRemotePath(), currentUser.getAccountName())) {
+            FileUploadWorker.Companion.cancelCurrentUpload(file.getRemotePath(), currentUser.getAccountName(), () -> {
+                fileUploadHelper.setStatusOfUploadToCancel(file.getRemotePath());
+                return Unit.INSTANCE;
+            });
         }
     }
 
