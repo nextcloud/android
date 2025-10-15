@@ -209,6 +209,7 @@
     <string name="contacts_preferences_import_scheduled_fail">Der Import konnte nicht gestartet werden. Bitte erneut versuchen</string>
     <string name="contacts_preferences_no_file_found">Keine Datei gefunden</string>
     <string name="contacts_preferences_something_strange_happened">Wir können Ihr letztes Backup nicht finden!</string>
+    <string name="content_observer_work_notification_title">Erkennen von Inhaltsänderungen</string>
     <string name="copied_to_clipboard">In die Zwischenablage kopiert</string>
     <string name="copy_file_error">Es ist ein Fehler beim Kopieren der Datei oder des Ordners aufgetreten.</string>
     <string name="copy_file_invalid_into_descendent">Es ist nicht möglich, einen Ordner in einen seiner Unterordner zu kopieren</string>
@@ -614,6 +615,8 @@
     <string name="notification_action_failed">Aktion konnte nicht ausgeführt werden</string>
     <string name="notification_channel_background_operations_description">Benachrichtigungen anzeigen, um auf die Ergebnisse von Hintergrundoperationen zu reagieren</string>
     <string name="notification_channel_background_operations_name">Hintergrundvorgänge</string>
+    <string name="notification_channel_content_observer_description">Erkennt lokale Dateiänderungen</string>
+    <string name="notification_channel_content_observer_name_short">Inhaltsmonitor</string>
     <string name="notification_channel_download_description">Zeigt den Herunterlade-Fortschritt an</string>
     <string name="notification_channel_download_name_short">Downloads</string>
     <string name="notification_channel_file_sync_description">Zeigt den Fortschritt der Dateisynchronisierung und die Ergebnisse an</string>
