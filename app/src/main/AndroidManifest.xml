@@ -584,6 +584,8 @@
             </intent-filter>
         </receiver>
 
+        <receiver android:name="com.nextcloud.client.jobs.folderDownload.FolderDownloadWorkerReceiver" android:exported="false" />
+
         <activity
             android:name=".ui.activity.CopyToClipboardActivity"
             android:exported="false"

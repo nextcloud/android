@@ -27,6 +27,7 @@ import com.nextcloud.client.jobs.autoUpload.FileSystemRepository
 import com.nextcloud.client.jobs.download.FileDownloadWorker
 import com.nextcloud.client.jobs.metadata.MetadataWorker
 import com.nextcloud.client.jobs.offlineOperations.OfflineOperationsWorker
+import com.nextcloud.client.jobs.folderDownload.FolderDownloadWorker
 import com.nextcloud.client.jobs.upload.FileUploadWorker
 import com.nextcloud.client.logger.Logger
 import com.nextcloud.client.network.ConnectivityService
@@ -102,6 +103,7 @@ class BackgroundJobFactory @Inject constructor(
                 OfflineOperationsWorker::class -> createOfflineOperationsWorker(context, workerParameters)
                 InternalTwoWaySyncWork::class -> createInternalTwoWaySyncWork(context, workerParameters)
                 MetadataWorker::class -> createMetadataWorker(context, workerParameters)
+                FolderDownloadWorker::class -> createFolderDownloadWorker(context, workerParameters)
                 else -> null // caller falls back to default factory
             }
         }
@@ -287,4 +289,12 @@ class BackgroundJobFactory @Inject constructor(
         params,
         accountManager.user
     )
+
+    private fun createFolderDownloadWorker(context: Context, params: WorkerParameters): FolderDownloadWorker =
+        FolderDownloadWorker(
+            accountManager.user,
+            context,
+            viewThemeUtils.get(),
+            params
+        )
 }

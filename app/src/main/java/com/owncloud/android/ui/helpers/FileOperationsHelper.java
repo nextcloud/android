@@ -1006,14 +1006,20 @@ public class FileOperationsHelper {
             }
         }
 
-        if (FileDownloadHelper.Companion.instance().isDownloading(currentUser, file)) {
+        final var fileDownloadHelper = FileDownloadHelper.Companion.instance();
+        if (fileDownloadHelper.isDownloading(currentUser, file)) {
             List<OCFile> files = fileActivity.getStorageManager().getAllFilesRecursivelyInsideFolder(file);
-            FileDownloadHelper.Companion.instance().cancelPendingOrCurrentDownloads(currentUser, files);
+            fileDownloadHelper.cancelPendingOrCurrentDownloads(currentUser, files);
         }
 
-        if (FileUploadHelper.Companion.instance().isUploading(currentUser, file)) {
+        if (file.isFolder()) {
+            fileDownloadHelper.cancelFolderDownload();
+        }
+
+        final var fileUploadHelper = FileUploadHelper.Companion.instance();
+        if (fileUploadHelper.isUploading(currentUser, file)) {
             try {
-                FileUploadHelper.Companion.instance().cancelFileUpload(file.getRemotePath(), currentUser.getAccountName());
+                fileUploadHelper.cancelFileUpload(file.getRemotePath(), currentUser.getAccountName());
             } catch (NoSuchElementException e) {
                 Log_OC.e(TAG, "Error cancelling current upload because user does not exist!");
             }
