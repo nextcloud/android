@@ -740,10 +740,6 @@ internal class BackgroundJobManagerImpl(
         return workInfo.map { it -> it.map { fromWorkInfo(it) ?: JobInfo() } }
     }
 
-    override fun cancelFilesUploadJob(user: User) {
-        workManager.cancelJob(JOB_FILES_UPLOAD, user)
-    }
-
     override fun cancelFilesDownloadJob(user: User, fileId: Long) {
         workManager.cancelAllWorkByTag(startFileDownloadJobTag(user, fileId))
     }

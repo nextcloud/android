@@ -9,6 +9,7 @@ package com.nextcloud.client.database.dao
 
 import androidx.room.Dao
 import androidx.room.Query
+import androidx.room.Update
 import com.nextcloud.client.database.entity.UploadEntity
 import com.owncloud.android.db.ProviderMeta.ProviderTableMeta
 
@@ -27,4 +28,12 @@ interface UploadDao {
             ProviderTableMeta.UPLOADS_ACCOUNT_NAME + " = :accountName"
     )
     fun getUploadsByIds(ids: LongArray, accountName: String): List<UploadEntity>
+
+    @Query(
+        "SELECT * FROM ${ProviderTableMeta.UPLOADS_TABLE_NAME} WHERE ${ProviderTableMeta.UPLOADS_REMOTE_PATH} = :remotePath LIMIT 1"
+    )
+    fun getByRemotePath(remotePath: String): UploadEntity?
+
+    @Update
+    fun update(upload: UploadEntity)
 }
