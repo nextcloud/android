@@ -7,30 +7,25 @@
  * SPDX-FileCopyrightText: 2023 Andy Scherzinger <info@andy-scherzinger.de>
  * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
  */
-buildscript {
-    dependencies {
-        classpath "com.android.tools.build:gradle:$androidPluginVersion"
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-    }
-}
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
-apply plugin: "com.android.library"
-apply plugin: "kotlin-android"
+plugins {
+    alias(libs.plugins.android.library)
+    alias(libs.plugins.jetbrains.kotlin.android)
+}
 
 android {
     namespace = "com.nextcloud.appscan"
 
     defaultConfig {
         minSdk = 27
-        targetSdk = 35
         compileSdk = 35
-
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
         release {
-            minifyEnabled = false
+            isMinifyEnabled = false
         }
     }
 
@@ -39,13 +34,17 @@ android {
         targetCompatibility = JavaVersion.VERSION_17
     }
 
-    kotlinOptions {
-        jvmTarget = "17"
-    }
+    lint.targetSdk = 35
+    testOptions.targetSdk = 35
+}
+
+kotlin.compilerOptions {
+    jvmTarget.set(JvmTarget.JVM_17)
+    freeCompilerArgs.add("-opt-in=kotlin.RequiresOptIn")
 }
 
 dependencies {
-    implementation "androidx.appcompat:appcompat:$appCompatVersion"
-    implementation "com.github.Hazzatur:Document-Scanning-Android-SDK:$documentScannerVersion"
-    implementation "com.github.nextcloud.android-common:ui:$androidCommonLibraryVersion"
+    implementation(libs.appcompat)
+    implementation(libs.document.scanning.android.sdk)
+    implementation(libs.ui)
 }
