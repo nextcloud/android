@@ -209,6 +209,7 @@
     <string name="contacts_preferences_import_scheduled_fail">Importación fallou ao iniciar. Ténteo de novo</string>
     <string name="contacts_preferences_no_file_found">Non se atopou ningún ficheiro</string>
     <string name="contacts_preferences_something_strange_happened">Non foi posíbel atopar a súa última copia de seguranza!</string>
+    <string name="content_observer_work_notification_title">Detección de cambios no contido</string>
     <string name="copied_to_clipboard">Copiado no portapapeis</string>
     <string name="copy_file_error">Produciuse un erro ao tentar copiar este ficheiro ou cartafol.</string>
     <string name="copy_file_invalid_into_descendent">Non é posíbel copiar un cartafol nun dos seus propios subcartafoles</string>
@@ -614,6 +615,8 @@
     <string name="notification_action_failed">Produciuse un fallo ao executar a acción.</string>
     <string name="notification_channel_background_operations_description">Amosar notificacións para interactuar co resultado das operacións en segundo plano</string>
     <string name="notification_channel_background_operations_name">Operacións en segundo plano</string>
+    <string name="notification_channel_content_observer_description">Detecta os cambios nos ficheiros locais</string>
+    <string name="notification_channel_content_observer_name_short">Observador do contido</string>
     <string name="notification_channel_download_description">Amosa o progreso da descarga</string>
     <string name="notification_channel_download_name_short">Descargas</string>
     <string name="notification_channel_file_sync_description">Amosa o progreso e os resultados da sincronización de ficheiros</string>
