@@ -11,12 +11,14 @@ import android.content.Context
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import com.nextcloud.client.account.User
+import com.nextcloud.client.jobs.download.FileDownloadHelper
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.lib.common.OwnCloudClient
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.operations.DownloadFileOperation
+import com.owncloud.android.operations.DownloadType
 import com.owncloud.android.ui.helpers.FileOperationsHelper
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import kotlinx.coroutines.Dispatchers
@@ -41,6 +43,7 @@ class FolderDownloadWorker(
     }
 
     private var notificationManager: FolderDownloadWorkerNotificationManager? = null
+    private lateinit var storageManager: FileDataStorageManager
 
     @Suppress("TooGenericExceptionCaught", "ReturnCount", "DEPRECATION")
     override suspend fun doWork(): Result {
@@ -48,17 +51,19 @@ class FolderDownloadWorker(
         if (folderID == -1L) {
             return Result.failure()
         }
-        val storageManager = FileDataStorageManager(user, context.contentResolver)
+        storageManager = FileDataStorageManager(user, context.contentResolver)
         val folder = storageManager.getFileById(folderID) ?: return Result.failure()
 
         notificationManager = FolderDownloadWorkerNotificationManager(context, viewThemeUtils)
 
-        Log_OC.d(TAG, "started")
+        Log_OC.d(TAG, "🕒 started")
 
         val foregroundInfo = notificationManager?.getForegroundInfo(folder) ?: return Result.failure()
         setForeground(foregroundInfo)
 
         pendingDownloads.add(folder.fileId)
+
+        val downloadHelper = FileDownloadHelper.instance()
 
         return withContext(Dispatchers.IO) {
             try {
@@ -80,8 +85,15 @@ class FolderDownloadWorker(
                         )
                     }
 
-                    val operation = DownloadFileOperation(user, file, context).execute(client)
-                    if (!operation.isSuccess) {
+                    val operation = DownloadFileOperation(user, file, context)
+                    val operationResult = operation.execute(client)
+                    if (operationResult?.isSuccess == true && operation.downloadType === DownloadType.DOWNLOAD) {
+                        getOCFile(operation)?.let { ocFile ->
+                            downloadHelper.saveFile(ocFile, operation, storageManager)
+                        }
+                    }
+
+                    if (!operationResult.isSuccess) {
                         result = false
                     }
                 }
@@ -91,20 +103,31 @@ class FolderDownloadWorker(
                 }
 
                 if (result) {
-                    Log_OC.d(TAG, "completed")
+                    Log_OC.d(TAG, "✅ completed")
                     Result.success()
                 } else {
-                    Log_OC.d(TAG, "failed")
+                    Log_OC.d(TAG, "❌ failed")
                     Result.failure()
                 }
             } catch (e: Exception) {
-                Log_OC.d(TAG, "failed reason: $e")
+                Log_OC.d(TAG, "❌ failed reason: $e")
                 Result.failure()
             } finally {
                 pendingDownloads.remove(folder.fileId)
                 notificationManager?.dismiss()
             }
         }
+    }
+
+    private fun getOCFile(operation: DownloadFileOperation): OCFile? {
+        val file = operation.file?.fileId?.let { storageManager.getFileById(it) }
+            ?: storageManager.getFileByDecryptedRemotePath(operation.file?.remotePath)
+            ?: run {
+                Log_OC.e(TAG, "could not save ${operation.file?.remotePath}")
+                return null
+            }
+
+        return file
     }
 
     private fun getFiles(folder: OCFile, storageManager: FileDataStorageManager): List<OCFile> =
