@@ -7,10 +7,12 @@
  */
 package com.nextcloud.client.jobs.upload
 
+import android.app.Notification
 import android.app.PendingIntent
 import android.content.Context
+import androidx.core.app.NotificationCompat
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
-import androidx.work.Worker
+import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import com.nextcloud.client.account.User
 import com.nextcloud.client.account.UserAccountManager
@@ -21,8 +23,11 @@ import com.nextcloud.client.network.ConnectivityService
 import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.model.WorkerState
 import com.nextcloud.model.WorkerStateLiveData
+import com.nextcloud.utils.ForegroundServiceHelper
 import com.nextcloud.utils.extensions.getPercent
+import com.owncloud.android.R
 import com.owncloud.android.datamodel.FileDataStorageManager
+import com.owncloud.android.datamodel.ForegroundServiceType
 import com.owncloud.android.datamodel.ThumbnailsCacheManager
 import com.owncloud.android.datamodel.UploadsStorageManager
 import com.owncloud.android.db.OCUpload
@@ -34,8 +39,12 @@ import com.owncloud.android.lib.common.operations.RemoteOperationResult
 import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.operations.UploadFileOperation
+import com.owncloud.android.ui.notifications.NotificationUtils
 import com.owncloud.android.utils.ErrorMessageAdapter
 import com.owncloud.android.utils.theme.ViewThemeUtils
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ensureActive
+import kotlinx.coroutines.withContext
 import java.io.File
 import kotlin.random.Random
 
@@ -51,7 +60,7 @@ class FileUploadWorker(
     val preferences: AppPreferences,
     val context: Context,
     params: WorkerParameters
-) : Worker(context, params),
+) : CoroutineWorker(context, params),
     OnDatatransferProgressListener {
 
     companion object {
@@ -94,16 +103,24 @@ class FileUploadWorker(
     }
 
     private var lastPercent = 0
-    private val notificationManager = UploadNotificationManager(context, viewThemeUtils, Random.nextInt())
+    private val notificationId = Random.nextInt()
+    private val notificationManager = UploadNotificationManager(context, viewThemeUtils, notificationId)
     private val intents = FileUploaderIntents(context)
     private val fileUploaderDelegate = FileUploaderDelegate()
 
     @Suppress("TooGenericExceptionCaught")
-    override fun doWork(): Result = try {
+    override suspend fun doWork(): Result = try {
         Log_OC.d(TAG, "FileUploadWorker started")
-        backgroundJobManager.logStartOfWorker(BackgroundJobManagerImpl.formatClassTag(this::class))
+        val workerName = BackgroundJobManagerImpl.formatClassTag(this::class)
+        backgroundJobManager.logStartOfWorker(workerName)
+
+        val notificationTitle = notificationManager.currentOperationTitle
+            ?: context.getString(R.string.foreground_service_upload)
+        val notification = createNotification(notificationTitle)
+        updateForegroundInfo(notification)
+
         val result = uploadFiles()
-        backgroundJobManager.logEndOfWorker(BackgroundJobManagerImpl.formatClassTag(this::class), result)
+        backgroundJobManager.logEndOfWorker(workerName, result)
         notificationManager.dismissNotification()
         if (result == Result.success()) {
             setIdleWorkerState()
@@ -111,17 +128,37 @@ class FileUploadWorker(
         result
     } catch (t: Throwable) {
         Log_OC.e(TAG, "Error caught at FileUploadWorker $t")
+        cleanup()
         Result.failure()
     }
 
-    override fun onStopped() {
+    private suspend fun updateForegroundInfo(notification: Notification) {
+        val foregroundInfo = ForegroundServiceHelper.createWorkerForegroundInfo(
+            notificationId,
+            notification,
+            ForegroundServiceType.DataSync
+        )
+        setForeground(foregroundInfo)
+    }
+
+    private fun createNotification(title: String): Notification =
+        NotificationCompat.Builder(context, NotificationUtils.NOTIFICATION_CHANNEL_UPLOAD)
+            .setContentTitle(title)
+            .setSmallIcon(R.drawable.uploads)
+            .setOngoing(true)
+            .setSound(null)
+            .setVibrate(null)
+            .setOnlyAlertOnce(true)
+            .setPriority(NotificationCompat.PRIORITY_LOW)
+            .setSilent(true)
+            .build()
+
+    private fun cleanup() {
         Log_OC.e(TAG, "FileUploadWorker stopped")
 
         setIdleWorkerState()
         currentUploadFileOperation?.cancel(null)
         notificationManager.dismissNotification()
-
-        super.onStopped()
     }
 
     private fun setWorkerState(user: User?) {
@@ -133,36 +170,36 @@ class FileUploadWorker(
     }
 
     @Suppress("ReturnCount", "LongMethod")
-    private fun uploadFiles(): Result {
+    private suspend fun uploadFiles(): Result = withContext(Dispatchers.IO) {
         val accountName = inputData.getString(ACCOUNT)
         if (accountName == null) {
             Log_OC.e(TAG, "accountName is null")
-            return Result.failure()
+            return@withContext Result.failure()
         }
 
         val uploadIds = inputData.getLongArray(UPLOAD_IDS)
         if (uploadIds == null) {
             Log_OC.e(TAG, "uploadIds is null")
-            return Result.failure()
+            return@withContext Result.failure()
         }
 
         val currentBatchIndex = inputData.getInt(CURRENT_BATCH_INDEX, -1)
         if (currentBatchIndex == -1) {
             Log_OC.e(TAG, "currentBatchIndex is -1, cancelling")
-            return Result.failure()
+            return@withContext Result.failure()
         }
 
         val totalUploadSize = inputData.getInt(TOTAL_UPLOAD_SIZE, -1)
         if (totalUploadSize == -1) {
             Log_OC.e(TAG, "totalUploadSize is -1, cancelling")
-            return Result.failure()
+            return@withContext Result.failure()
         }
 
         // since worker's policy is append or replace and account name comes from there no need check in the loop
         val optionalUser = userAccountManager.getUser(accountName)
         if (!optionalUser.isPresent) {
             Log_OC.e(TAG, "User not found for account: $accountName")
-            return Result.failure()
+            return@withContext Result.failure()
         }
 
         val user = optionalUser.get()
@@ -172,21 +209,19 @@ class FileUploadWorker(
         val client = OwnCloudClientManagerFactory.getDefaultSingleton().getClientFor(ocAccount, context)
 
         for ((index, upload) in uploads.withIndex()) {
+            ensureActive()
+
             if (preferences.isGlobalUploadPaused) {
                 Log_OC.d(TAG, "Upload is paused, skip uploading files!")
                 notificationManager.notifyPaused(
                     intents.notificationStartIntent(null)
                 )
-                return Result.success()
+                return@withContext Result.success()
             }
 
             if (canExitEarly()) {
                 notificationManager.showConnectionErrorNotification()
-                return Result.failure()
-            }
-
-            if (isStopped) {
-                continue
+                return@withContext Result.failure()
             }
 
             setWorkerState(user)
@@ -203,12 +238,14 @@ class FileUploadWorker(
                 totalUploadSize = totalUploadSize
             )
 
-            val result = upload(operation, user, client)
+            val result = withContext(Dispatchers.IO) {
+                upload(operation, user, client)
+            }
             currentUploadFileOperation = null
             sendUploadFinishEvent(totalUploadSize, currentUploadIndex, operation, result)
         }
 
-        return Result.success()
+        return@withContext Result.success()
     }
 
     private fun sendUploadFinishEvent(
