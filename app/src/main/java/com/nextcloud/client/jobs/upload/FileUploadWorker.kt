@@ -100,6 +100,15 @@ class FileUploadWorker(
         fun getUploadStartMessage(): String = FileUploadWorker::class.java.name + UPLOAD_START_MESSAGE
 
         fun getUploadFinishMessage(): String = FileUploadWorker::class.java.name + UPLOAD_FINISH_MESSAGE
+
+        fun cancelCurrentUpload(remotePath: String, accountName: String, onCompleted: () -> Unit) {
+            currentUploadFileOperation?.let {
+                if (it.remotePath == remotePath && it.user.accountName == accountName) {
+                    it.cancel(null)
+                    onCompleted()
+                }
+            }
+        }
     }
 
     private var lastPercent = 0

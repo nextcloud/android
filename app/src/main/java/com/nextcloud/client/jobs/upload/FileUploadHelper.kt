@@ -233,34 +233,26 @@ class FileUploadHelper {
         }
     }
 
-    fun cancelFileUpload(remotePath: String, accountName: String) {
+    fun setStatusOfUploadToCancel(remotePath: String) {
         ioScope.launch {
-            val upload = uploadsStorageManager.getUploadByRemotePath(remotePath)
-            if (upload != null) {
-                cancelFileUploads(listOf(upload), accountName)
-            } else {
-                Log_OC.e(TAG, "Error cancelling current upload because upload does not exist!")
+            uploadsStorageManager.uploadDao.run {
+                val entity = getByRemotePath(remotePath) ?: return@launch
+                entity.status = UploadStatus.UPLOAD_CANCELLED.value
+                update(entity)
             }
-        }
-    }
-
-    fun cancelFileUploads(uploads: List<OCUpload>, accountName: String) {
-        for (upload in uploads) {
-            upload.uploadStatus = UploadStatus.UPLOAD_CANCELLED
-            uploadsStorageManager.updateUpload(upload)
-        }
-
-        try {
-            val user = accountManager.getUser(accountName).get()
-            cancelAndRestartUploadJob(user, uploads.getUploadIds())
-        } catch (e: NoSuchElementException) {
-            Log_OC.e(TAG, "Error restarting upload job because user does not exist!: " + e.message)
         }
     }
 
     fun cancelAndRestartUploadJob(user: User, uploadIds: LongArray) {
         backgroundJobManager.run {
-            cancelFilesUploadJob(user)
+            val entities = uploadsStorageManager.uploadDao.getUploadsByIds(uploadIds, user.accountName)
+            entities.forEach { entity ->
+                entity.remotePath?.let { remotePath ->
+                    FileUploadWorker.cancelCurrentUpload(remotePath, user.accountName, onCompleted = {
+                        setStatusOfUploadToCancel(remotePath)
+                    })
+                }
+            }
             startFilesUploadJob(user, uploadIds, false)
         }
     }
@@ -474,7 +466,9 @@ class FileUploadHelper {
                     return
                 }
 
-                instance().cancelFileUpload(remotePath, accountName)
+                FileUploadWorker.cancelCurrentUpload(remotePath, accountName, onCompleted = {
+                    instance().setStatusOfUploadToCancel(remotePath)
+                })
             }
         }
     }
