@@ -292,7 +292,7 @@ class BackgroundJobFactory @Inject constructor(
 
     private fun createFolderDownloadWorker(context: Context, params: WorkerParameters): FolderDownloadWorker =
         FolderDownloadWorker(
-            accountManager.user,
+            accountManager,
             context,
             viewThemeUtils.get(),
             params

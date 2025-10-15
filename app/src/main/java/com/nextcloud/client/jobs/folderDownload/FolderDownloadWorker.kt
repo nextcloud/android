@@ -10,11 +10,10 @@ package com.nextcloud.client.jobs.folderDownload
 import android.content.Context
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
-import com.nextcloud.client.account.User
+import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.jobs.download.FileDownloadHelper
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
-import com.owncloud.android.lib.common.OwnCloudClient
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.operations.DownloadFileOperation
@@ -27,7 +26,7 @@ import java.util.concurrent.ConcurrentHashMap
 
 @Suppress("LongMethod")
 class FolderDownloadWorker(
-    private val user: User,
+    private val accountManager: UserAccountManager,
     private val context: Context,
     private val viewThemeUtils: ViewThemeUtils,
     params: WorkerParameters
@@ -36,6 +35,7 @@ class FolderDownloadWorker(
     companion object {
         private const val TAG = "📂" + "FolderDownloadWorker"
         const val FOLDER_ID = "FOLDER_ID"
+        const val ACCOUNT_NAME = "ACCOUNT_NAME"
 
         private val pendingDownloads: MutableSet<Long> = ConcurrentHashMap.newKeySet<Long>()
 
@@ -51,12 +51,30 @@ class FolderDownloadWorker(
         if (folderID == -1L) {
             return Result.failure()
         }
+
+        val accountName = inputData.getString(ACCOUNT_NAME)
+        if (accountName == null) {
+            Log_OC.e(TAG, "failed accountName cannot be null")
+            return Result.failure()
+        }
+
+        val optionalUser = accountManager.getUser(accountName)
+        if (optionalUser.isEmpty) {
+            Log_OC.e(TAG, "failed user is not present")
+            return Result.failure()
+        }
+
+        val user = optionalUser.get()
         storageManager = FileDataStorageManager(user, context.contentResolver)
-        val folder = storageManager.getFileById(folderID) ?: return Result.failure()
+        val folder = storageManager.getFileById(folderID)
+        if (folder == null) {
+            Log_OC.e(TAG, "failed folder cannot be nul")
+            return Result.failure()
+        }
 
         notificationManager = FolderDownloadWorkerNotificationManager(context, viewThemeUtils)
 
-        Log_OC.d(TAG, "🕒 started")
+        Log_OC.d(TAG, "🕒 started for ${user.accountName} downloading ${folder.fileName}")
 
         val foregroundInfo = notificationManager?.getForegroundInfo(folder) ?: return Result.failure()
         setForeground(foregroundInfo)
@@ -68,7 +86,8 @@ class FolderDownloadWorker(
         return withContext(Dispatchers.IO) {
             try {
                 val files = getFiles(folder, storageManager)
-                val client = getClient()
+                val account = user.toOwnCloudAccount()
+                val client = OwnCloudClientManagerFactory.getDefaultSingleton().getClientFor(account, context)
 
                 var result = true
                 files.forEachIndexed { index, file ->
@@ -133,12 +152,6 @@ class FolderDownloadWorker(
     private fun getFiles(folder: OCFile, storageManager: FileDataStorageManager): List<OCFile> =
         storageManager.getFolderContent(folder, false)
             .filter { !it.isFolder && !it.isDown }
-
-    @Suppress("DEPRECATION")
-    private fun getClient(): OwnCloudClient {
-        val account = user.toOwnCloudAccount()
-        return OwnCloudClientManagerFactory.getDefaultSingleton().getClientFor(account, context)
-    }
 
     private suspend fun checkDiskSize(file: OCFile): Boolean {
         val fileSizeInByte = file.fileLength

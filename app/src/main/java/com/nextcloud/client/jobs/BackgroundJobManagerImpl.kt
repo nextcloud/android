@@ -28,9 +28,9 @@ import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.documentscan.GeneratePdfFromImagesWork
 import com.nextcloud.client.jobs.autoUpload.AutoUploadWorker
 import com.nextcloud.client.jobs.download.FileDownloadWorker
+import com.nextcloud.client.jobs.folderDownload.FolderDownloadWorker
 import com.nextcloud.client.jobs.metadata.MetadataWorker
 import com.nextcloud.client.jobs.offlineOperations.OfflineOperationsWorker
-import com.nextcloud.client.jobs.folderDownload.FolderDownloadWorker
 import com.nextcloud.client.jobs.upload.FileUploadHelper
 import com.nextcloud.client.jobs.upload.FileUploadWorker
 import com.nextcloud.client.preferences.AppPreferences
@@ -824,7 +824,7 @@ internal class BackgroundJobManagerImpl(
         workManager.enqueueUniquePeriodicWork(JOB_INTERNAL_TWO_WAY_SYNC, ExistingPeriodicWorkPolicy.UPDATE, request)
     }
 
-    override fun downloadFolder(folder: OCFile) {
+    override fun downloadFolder(folder: OCFile, accountName: String) {
         val constraints = Constraints.Builder()
             .setRequiredNetworkType(NetworkType.CONNECTED)
             .setRequiresStorageNotLow(true)
@@ -832,6 +832,7 @@ internal class BackgroundJobManagerImpl(
 
         val data = Data.Builder()
             .putLong(FolderDownloadWorker.FOLDER_ID, folder.fileId)
+            .putString(FolderDownloadWorker.ACCOUNT_NAME, accountName)
             .build()
 
         val request = oneTimeRequestBuilder(FolderDownloadWorker::class, JOB_DOWNLOAD_FOLDER)
