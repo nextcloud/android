@@ -39,10 +39,6 @@
                 android:scrollbars="vertical"
                 android:visibility="visible" />
 
-            <include
-                android:id="@+id/emptyList"
-                layout="@layout/empty_list" />
-
             <LinearLayout
                 android:id="@+id/loading_content"
                 android:layout_width="match_parent"
@@ -54,6 +50,11 @@
                 <include layout="@layout/synced_folders_list_item_shimmer" />
 
             </LinearLayout>
+
+            <include
+                android:id="@+id/emptyList"
+                layout="@layout/empty_list" />
+
         </FrameLayout>
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>

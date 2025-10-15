@@ -99,6 +99,7 @@
     <string name="authenticator_activity_no_web_browser_found">Není k dispozici žádný webový prohlížeč pro otevření tohoto odkazu.</string>
     <string name="authenticator_activity_please_complete_login_process">Dokončete proces přihlášení prostřednictvím webového prohlížeče</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">ponechán v původní složce, protože je pouze pro čtení</string>
+    <string name="auto_upload_low_battery_warning_info">Téměř vybitý akumulátor – nahrávání může trvat déle</string>
     <string name="auto_upload_on_wifi">Nahrávat pouze přes neúčtované Wi-Fi připojení</string>
     <string name="auto_upload_path">/AutoUpload</string>
     <string name="auto_upload_sub_folder_warning">Tato složka už je obsažena v synchronizaci nadřazené složky, což může způsobovat duplicitní nahrávání</string>
