@@ -27,7 +27,7 @@ class FolderDownloadWorkerNotificationManager(private val context: Context, view
         id = NOTIFICATION_ID,
         context,
         viewThemeUtils,
-        tickerId = R.string.sync_worker_ticker_id,
+        tickerId = R.string.folder_download_worker_ticker_id,
         channelId = NotificationUtils.NOTIFICATION_CHANNEL_DOWNLOAD
     ) {
 
@@ -72,7 +72,7 @@ class FolderDownloadWorkerNotificationManager(private val context: Context, view
 
     fun showProgressNotification(folderName: String, filename: String, currentIndex: Int, totalFileSize: Int) {
         val currentFileIndex = (currentIndex + 1)
-        val description = context.getString(R.string.sync_worker_counter, currentFileIndex, totalFileSize, filename)
+        val description = context.getString(R.string.folder_download_counter, currentFileIndex, totalFileSize, filename)
         val progress = (currentFileIndex * MAX_PROGRESS) / totalFileSize
         val notification = getNotification(title = folderName, description = description, progress = progress)
         notificationManager.notify(NOTIFICATION_ID, notification)
@@ -80,9 +80,9 @@ class FolderDownloadWorkerNotificationManager(private val context: Context, view
 
     suspend fun showCompletionMessage(folderName: String, success: Boolean) {
         val title = if (success) {
-            context.getString(R.string.sync_worker_success_notification_title, folderName)
+            context.getString(R.string.folder_download_success_notification_title, folderName)
         } else {
-            context.getString(R.string.sync_worker_error_notification_title, folderName)
+            context.getString(R.string.folder_download_error_notification_title, folderName)
         }
 
         val notification = getNotification(title = title)
@@ -99,7 +99,7 @@ class FolderDownloadWorkerNotificationManager(private val context: Context, view
     )
 
     suspend fun showNotAvailableDiskSpace() {
-        val title = context.getString(R.string.sync_worker_insufficient_disk_space_notification_title)
+        val title = context.getString(R.string.folder_download_insufficient_disk_space_notification_title)
         val notification = getNotification(title)
         notificationManager.notify(NOTIFICATION_ID, notification)
 

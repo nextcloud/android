@@ -94,7 +94,7 @@ internal class BackgroundJobManagerImpl(
         const val JOB_PERIODIC_OFFLINE_OPERATIONS = "periodic_offline_operations"
         const val JOB_PERIODIC_HEALTH_STATUS = "periodic_health_status"
         const val JOB_IMMEDIATE_HEALTH_STATUS = "immediate_health_status"
-        const val JOB_SYNC_FOLDER = "sync_folder"
+        const val JOB_DOWNLOAD_FOLDER = "download_folder"
         const val JOB_METADATA_SYNC = "metadata_sync"
         const val JOB_INTERNAL_TWO_WAY_SYNC = "internal_two_way_sync"
 
@@ -824,7 +824,7 @@ internal class BackgroundJobManagerImpl(
         workManager.enqueueUniquePeriodicWork(JOB_INTERNAL_TWO_WAY_SYNC, ExistingPeriodicWorkPolicy.UPDATE, request)
     }
 
-    override fun syncFolder(folder: OCFile) {
+    override fun downloadFolder(folder: OCFile) {
         val constraints = Constraints.Builder()
             .setRequiredNetworkType(NetworkType.CONNECTED)
             .setRequiresStorageNotLow(true)
@@ -834,16 +834,16 @@ internal class BackgroundJobManagerImpl(
             .putLong(FolderDownloadWorker.FOLDER_ID, folder.fileId)
             .build()
 
-        val request = oneTimeRequestBuilder(FolderDownloadWorker::class, JOB_SYNC_FOLDER)
-            .addTag(JOB_SYNC_FOLDER)
+        val request = oneTimeRequestBuilder(FolderDownloadWorker::class, JOB_DOWNLOAD_FOLDER)
+            .addTag(JOB_DOWNLOAD_FOLDER)
             .setInputData(data)
             .setConstraints(constraints)
             .build()
 
-        workManager.enqueueUniqueWork(JOB_SYNC_FOLDER, ExistingWorkPolicy.APPEND_OR_REPLACE, request)
+        workManager.enqueueUniqueWork(JOB_DOWNLOAD_FOLDER, ExistingWorkPolicy.APPEND_OR_REPLACE, request)
     }
 
     override fun cancelFolderDownload() {
-        workManager.cancelAllWorkByTag(JOB_SYNC_FOLDER)
+        workManager.cancelAllWorkByTag(JOB_DOWNLOAD_FOLDER)
     }
 }
