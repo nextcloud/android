@@ -536,7 +536,11 @@ public final class FileStorageUtils {
         }
 
         storageManager.deleteFileInMediaScan(file.getAbsolutePath());
-        Files.delete(file.toPath());
+        try {
+            Files.delete(file.toPath());
+        } catch (IOException e) {
+            Log_OC.e("Error deleting file: ", e.getMessage());
+        }
     }
 
     public static boolean deleteRecursive(File file) {
