@@ -178,13 +178,18 @@ public class RenameFileOperation extends SyncOperation {
         }
         try {
             Files.createFile(testFile);
-        } catch (IOException e) {
+        } catch (Exception e) {
             Log_OC.i(TAG, "Test for validity of name " + newName + " in the file system failed");
             return false;
         }
         boolean result = Files.exists(testFile) && Files.isRegularFile(testFile);
 
-        Files.delete(testFile);
+        try {
+            Files.delete(testFile);
+        } catch (IOException e) {
+            Log_OC.e("Error deleting file: ", e.getMessage());
+            return true;
+        }
 
         return result;
     }
