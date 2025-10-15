@@ -106,7 +106,7 @@ open class FolderPickerActivity :
 
         updateActionBarTitleAndHomeButtonByString(captionText)
         setBackgroundText()
-        handleOnBackPressed()
+        handleBackPress()
     }
 
     override fun onDestroy() {
@@ -151,7 +151,7 @@ open class FolderPickerActivity :
         }
     }
 
-    private fun handleOnBackPressed() {
+    private fun handleBackPress() {
         onBackPressedDispatcher.addCallback(
             this,
             object : OnBackPressedCallback(true) {
@@ -327,7 +327,7 @@ open class FolderPickerActivity :
         } else if (itemId == android.R.id.home) {
             val currentDir = currentFolder
             if (currentDir != null && currentDir.parentId != 0L) {
-                onBackPressed()
+                onBackPressedDispatcher.onBackPressed()
             }
         } else {
             retval = super.onOptionsItemSelected(item)
