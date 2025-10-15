@@ -237,11 +237,11 @@
 
     <string name="upload_notification_manager_start_text">%1$d / %2$d - %3$s</string>
 
-    <string name="sync_worker_ticker_id">Syncing…</string>
-    <string name="sync_worker_success_notification_title">%s folder successfully synchronized</string>
-    <string name="sync_worker_error_notification_title">An error occurred during synchronization of the %s folder</string>
-    <string name="sync_worker_counter">%1$d of %2$d &#183; %3$s</string>
-    <string name="sync_worker_insufficient_disk_space_notification_title">Insufficient disk space, synchronization canceled</string>
+    <string name="folder_download_worker_ticker_id">Syncing…</string>
+    <string name="folder_download_success_notification_title">%s folder successfully synchronized</string>
+    <string name="folder_download_error_notification_title">An error occurred during synchronization of the %s folder</string>
+    <string name="folder_download_counter">%1$d of %2$d &#183; %3$s</string>
+    <string name="folder_download_insufficient_disk_space_notification_title">Insufficient disk space, synchronization canceled</string>
 
     <string name="uploader_upload_in_progress_ticker">Uploading…</string>
     <string name="uploader_upload_in_progress_content">%1$d%% Uploading %2$s</string>
