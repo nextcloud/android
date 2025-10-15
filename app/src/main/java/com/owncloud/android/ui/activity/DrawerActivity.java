@@ -1169,10 +1169,10 @@ public abstract class DrawerActivity extends ToolbarActivity
                     closeDrawer();
                     return;
                 }
-                Fragment fileDetailsSharingProcessFragment =
-                    getSupportFragmentManager().findFragmentByTag(FileDetailsSharingProcessFragment.TAG);
-                if (fileDetailsSharingProcessFragment != null) {
-                    ((FileDetailsSharingProcessFragment) fileDetailsSharingProcessFragment).onBackPressed();
+
+                final var fragment = getSupportFragmentManager().findFragmentByTag(FileDetailsSharingProcessFragment.TAG);
+                if (fragment instanceof FileDetailsSharingProcessFragment fileDetailsSharingProcessFragment) {
+                    fileDetailsSharingProcessFragment.onBackPressed();
                 } else {
                     setEnabled(false);
                     getOnBackPressedDispatcher().onBackPressed();
