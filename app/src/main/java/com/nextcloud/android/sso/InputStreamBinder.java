@@ -430,15 +430,7 @@ public class InputStreamBinder extends IInputStreamService.Stub {
         }
 
         if (status >= HTTP_STATUS_CODE_OK && status < HTTP_STATUS_CODE_MULTIPLE_CHOICES) {
-
-            // handle “No Content” responses
-            if (status == 204) {
-                Log_OC.i(TAG, "Received status " + status + " no content");
-                method.releaseConnection();
-                return new Response();
-            } else {
-                return new Response(method);
-            }
+            return new Response(method);
         }
 
         InputStream inputStream = method.getResponseBodyAsStream();
