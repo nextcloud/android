@@ -100,9 +100,11 @@
     <string name="authenticator_activity_please_complete_login_process">Palun lõpeta sisselogimisprotsess oma veebibrauseris</string>
     <string name="auto_upload_battery_saver_mode_warning">Kuna akukasutuse optimeerimine on lülitatud sisse, siis automaatne üleslaadimine pole töös.</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">säilitatud lugemisõigustega algkaustas</string>
+    <string name="auto_upload_low_battery_warning_info">Aku on üsna tühi, üleslaadimine võib kesta kauem</string>
     <string name="auto_upload_on_wifi">Laadi üles ainult mahupiiranguta WiFi võrgus</string>
     <string name="auto_upload_path">/AutoUpload</string>
     <string name="auto_upload_sub_folder_warning">Kuna ülalpool asuv kaust kuulub sünkroonimisele, siis see kaust on juba kaasatud ning nii võivad tekkida topelt üleslaadimised</string>
+    <string name="auto_upload_wifi_only_warning_info">Ootan sünkroonimiseks WiFi ühenduse loomist</string>
     <string name="auto_upload_worker_start_text">Laadin faile üles: %s kuni %s</string>
     <string name="autoupload_configure">Seadista</string>
     <string name="autoupload_create_new_custom_folder">Loo uus kohandatud kausta seadistus</string>
@@ -207,6 +209,7 @@
     <string name="contacts_preferences_import_scheduled_fail">Ei õnnestunud käivitada importimist. Palun proovi uuesti</string>
     <string name="contacts_preferences_no_file_found">Faili ei leitud</string>
     <string name="contacts_preferences_something_strange_happened">Sinu viimast varukoopiat ei leidu!</string>
+    <string name="content_observer_work_notification_title">Tuvastan sisu muudatusi</string>
     <string name="copied_to_clipboard">Kopeeritud lõikepuhvrisse</string>
     <string name="copy_file_error">Selle faili või kausta kopeerimisel tekkis tõrge</string>
     <string name="copy_file_invalid_into_descendent">Kausta ei saa kopeerida tema enda alamkausta</string>
@@ -612,6 +615,8 @@
     <string name="notification_action_failed">Ei õnnestunud käivitada tegevust.</string>
     <string name="notification_channel_background_operations_description">Näita teavitusi, mis võimaldavad suhelda taustal tehtud toimingutega</string>
     <string name="notification_channel_background_operations_name">Toimingud taustal</string>
+    <string name="notification_channel_content_observer_description">Tuvastab kohalike failide muudatused</string>
+    <string name="notification_channel_content_observer_name_short">Sisuvaatleja</string>
     <string name="notification_channel_download_description">Näitab allalaadimise edenemist</string>
     <string name="notification_channel_download_name_short">Allalaadimised</string>
     <string name="notification_channel_file_sync_description">Näitab failide sünkroniseerimise edenemist ja tulemusi</string>
