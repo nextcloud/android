@@ -422,24 +422,37 @@ public class InputStreamBinder extends IInputStreamService.Stub {
         client.setFollowRedirects(request.isFollowRedirects());
         int status = client.executeMethod(method);
 
-        // Check if status code is 2xx --> https://en.wikipedia.org/wiki/List_of_HTTP_status_codes#2xx_Success
-        if (status >= HTTP_STATUS_CODE_OK && status < HTTP_STATUS_CODE_MULTIPLE_CHOICES) {
-            return new Response(method);
-        } else {
-            InputStream inputStream = method.getResponseBodyAsStream();
-            String total = "No response body";
-
-            // If response body is available
-            if (inputStream != null) {
-                total = inputStreamToString(inputStream);
-                Log_OC.e(TAG, total);
-            }
-
+        // handle “Not Modified” responses
+        if (status == 304) {
+            Log_OC.i(TAG, "Received status " + status + " not modified");
             method.releaseConnection();
-            throw new IllegalStateException(EXCEPTION_HTTP_REQUEST_FAILED,
-                                            new IllegalStateException(String.valueOf(status),
-                                                                      new IllegalStateException(total)));
+            return new Response();
         }
+
+        if (status >= HTTP_STATUS_CODE_OK && status < HTTP_STATUS_CODE_MULTIPLE_CHOICES) {
+
+            // handle “No Content” responses
+            if (status == 204) {
+                Log_OC.i(TAG, "Received status " + status + " no content");
+                method.releaseConnection();
+                return new Response();
+            } else {
+                return new Response(method);
+            }
+        }
+
+        InputStream inputStream = method.getResponseBodyAsStream();
+        String total = "No response body";
+
+        if (inputStream != null) {
+            total = inputStreamToString(inputStream);
+            Log_OC.e(TAG, total);
+        }
+
+        method.releaseConnection();
+        throw new IllegalStateException(EXCEPTION_HTTP_REQUEST_FAILED,
+                                        new IllegalStateException(String.valueOf(status),
+                                                                  new IllegalStateException(total)));
     }
 
     private boolean isValid(NextcloudRequest request) {
