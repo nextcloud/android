@@ -186,7 +186,7 @@ public class RenameFileOperation extends SyncOperation {
 
         try {
             Files.delete(testFile);
-        } catch (IOException e) {
+        } catch (Exception e) {
             Log_OC.e("Error deleting file: ", e.getMessage());
             return true;
         }
