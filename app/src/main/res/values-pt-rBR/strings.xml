@@ -98,6 +98,7 @@
     <string name="authenticator_activity_login_error">Houve um problema ao processar sua solicitação de login. Tente novamente mais tarde.</string>
     <string name="authenticator_activity_no_web_browser_found">Não há nenhum navegador disponível para abrir este link.</string>
     <string name="authenticator_activity_please_complete_login_process">Por favor, conclua o processo de login no seu navegador</string>
+    <string name="auto_upload_battery_saver_mode_warning">O upload automático está pausado porque o Economizador de Bateria está ativado.</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">mantido na pasta original, já que é somente leitura</string>
     <string name="auto_upload_low_battery_warning_info">Bateria fraca, o upload pode demorar mais tempo</string>
     <string name="auto_upload_on_wifi">Enviar só por WiFi não medida</string>
