@@ -100,6 +100,23 @@ class FileUploadWorker(
         fun getUploadStartMessage(): String = FileUploadWorker::class.java.name + UPLOAD_START_MESSAGE
 
         fun getUploadFinishMessage(): String = FileUploadWorker::class.java.name + UPLOAD_FINISH_MESSAGE
+
+        fun cancelCurrentUpload(remotePath: String, accountName: String, onCompleted: () -> Unit) {
+            currentUploadFileOperation?.let {
+                if (it.remotePath == remotePath && it.user.accountName == accountName) {
+                    it.cancel(ResultCode.USER_CANCELLED)
+                    onCompleted()
+                }
+            }
+        }
+
+        fun isUploading(remotePath: String?, accountName: String?): Boolean {
+            currentUploadFileOperation?.let {
+                return it.remotePath == remotePath && it.user.accountName == accountName
+            }
+
+            return false
+        }
     }
 
     private var lastPercent = 0
@@ -380,6 +397,10 @@ class FileUploadWorker(
         )
 
         if (!notDelayed || !isValidFile) {
+            return
+        }
+
+        if (uploadResult.code == ResultCode.USER_CANCELLED) {
             return
         }
 

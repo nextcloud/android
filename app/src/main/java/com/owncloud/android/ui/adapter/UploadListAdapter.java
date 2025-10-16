@@ -67,6 +67,8 @@ import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 import androidx.annotation.NonNull;
+import kotlin.Unit;
+import kotlin.jvm.functions.Function0;
 
 /**
  * This Adapter populates a ListView with following types of uploads: pending, active, completed. Filtering possible.
@@ -144,7 +146,10 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
                         return;
                     }
 
-                    uploadHelper.cancelFileUploads(Arrays.asList(group.items), accountName);
+                    for (OCUpload upload: group.items) {
+                        uploadHelper.setStatusOfUploadToCancel(upload.getRemotePath());
+                        FileUploadWorker.Companion.cancelCurrentUpload(upload.getRemotePath(), accountName, () -> Unit.INSTANCE);
+                    }
                     loadUploadItemsFromDb();
                 }).start();
                 case FINISHED -> {
@@ -427,7 +432,8 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
             itemViewHolder.binding.uploadRightButton.setImageResource(R.drawable.ic_action_cancel_grey);
             itemViewHolder.binding.uploadRightButton.setVisibility(View.VISIBLE);
             itemViewHolder.binding.uploadRightButton.setOnClickListener(v -> {
-                uploadHelper.cancelFileUpload(item.getRemotePath(), item.getAccountName());
+                uploadHelper.setStatusOfUploadToCancel(item.getRemotePath());
+                FileUploadWorker.Companion.cancelCurrentUpload(item.getRemotePath(), item.getAccountName(), () -> Unit.INSTANCE);
                 loadUploadItemsFromDb();
             });
 
