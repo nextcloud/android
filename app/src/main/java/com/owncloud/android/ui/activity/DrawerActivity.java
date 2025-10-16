@@ -31,6 +31,7 @@ import android.graphics.drawable.PictureDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.PersistableBundle;
 import android.os.SystemClock;
 import android.text.TextUtils;
 import android.view.Menu;
@@ -115,6 +116,7 @@ import java.util.Optional;
 
 import javax.inject.Inject;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -205,6 +207,12 @@ public abstract class DrawerActivity extends ToolbarActivity
 
     @Inject
     ClientFactory clientFactory;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState, @Nullable PersistableBundle persistentState) {
+        super.onCreate(savedInstanceState, persistentState);
+        addOnBackPressedCallback();
+    }
 
     /**
      * Initializes the drawer and its content. This method needs to be called after the content view has been set.
@@ -1153,19 +1161,24 @@ public abstract class DrawerActivity extends ToolbarActivity
         }
     }
 
-    @Override
-    public void onBackPressed() {
-        if (isDrawerOpen()) {
-            closeDrawer();
-            return;
-        }
-        Fragment fileDetailsSharingProcessFragment =
-            getSupportFragmentManager().findFragmentByTag(FileDetailsSharingProcessFragment.TAG);
-        if (fileDetailsSharingProcessFragment != null) {
-            ((FileDetailsSharingProcessFragment) fileDetailsSharingProcessFragment).onBackPressed();
-        } else {
-            super.onBackPressed();
-        }
+    public void addOnBackPressedCallback() {
+        getOnBackPressedDispatcher().addCallback(new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                if (isDrawerOpen()) {
+                    closeDrawer();
+                    return;
+                }
+
+                final var fragment = getSupportFragmentManager().findFragmentByTag(FileDetailsSharingProcessFragment.TAG);
+                if (fragment instanceof FileDetailsSharingProcessFragment fileDetailsSharingProcessFragment) {
+                    fileDetailsSharingProcessFragment.onBackPressed();
+                } else {
+                    setEnabled(false);
+                    getOnBackPressedDispatcher().onBackPressed();
+                }
+            }
+        });
     }
 
     @Override

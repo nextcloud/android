@@ -99,9 +99,11 @@
     <string name="authenticator_activity_no_web_browser_found">Não há nenhum navegador disponível para abrir este link.</string>
     <string name="authenticator_activity_please_complete_login_process">Por favor, conclua o processo de login no seu navegador</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">mantido na pasta original, já que é somente leitura</string>
+    <string name="auto_upload_low_battery_warning_info">Bateria fraca, o upload pode demorar mais tempo</string>
     <string name="auto_upload_on_wifi">Enviar só por WiFi não medida</string>
     <string name="auto_upload_path">/UploadAutomático</string>
     <string name="auto_upload_sub_folder_warning">Esta pasta já está incluída na sincronização da pasta pai, o que pode causar uploads duplicados</string>
+    <string name="auto_upload_wifi_only_warning_info">Aguardando o Wi-Fi para iniciar o upload</string>
     <string name="auto_upload_worker_start_text">Fazendo upload de arquivos de %s a %s</string>
     <string name="autoupload_configure">Configurar</string>
     <string name="autoupload_create_new_custom_folder">Criar nova configuração de pasta personalizada</string>
@@ -206,6 +208,7 @@
     <string name="contacts_preferences_import_scheduled_fail">Falha ao iniciar a importação. Por favor, tente novamente.</string>
     <string name="contacts_preferences_no_file_found">Nenhum arquivo encontrado</string>
     <string name="contacts_preferences_something_strange_happened">Não foi possível encontrar seu último backup!</string>
+    <string name="content_observer_work_notification_title">Detectando alterações no conteúdo</string>
     <string name="copied_to_clipboard">Copiado para a área de transferência</string>
     <string name="copy_file_error">Ocorreu um erro ao tentar copiar este arquivo ou pasta</string>
     <string name="copy_file_invalid_into_descendent">Não é possível copiar uma pasta para uma das suas próprias pastas subjacentes</string>
@@ -611,6 +614,8 @@
     <string name="notification_action_failed">Erro ao executar a ação.</string>
     <string name="notification_channel_background_operations_description">Mostrar notificações para interagir com o resultado de operações em segundo plano</string>
     <string name="notification_channel_background_operations_name">Operações em segundo plano</string>
+    <string name="notification_channel_content_observer_description">Detecta alterações em arquivos locais</string>
+    <string name="notification_channel_content_observer_name_short">Observador de conteúdo</string>
     <string name="notification_channel_download_description">Mostra o progresso de download</string>
     <string name="notification_channel_download_name_short">Downloads</string>
     <string name="notification_channel_file_sync_description">Mostra o progresso sincronização de arquivo e resultados</string>
@@ -988,6 +993,7 @@
     <string name="unified_search_fragment_calendar_event_not_found">Evento não encontrado, você sempre pode sincronizar para atualizar. Redirecionando para a web…</string>
     <string name="unified_search_fragment_contact_not_found">Contato não encontrado, você sempre pode sincronizar para atualizar. Redirecionando para web…</string>
     <string name="unified_search_fragment_permission_needed">São necessárias permissões para abrir o resultado da pesquisa, caso contrário, ele será redirecionado para a web…</string>
+    <string name="unified_search_fragment_search_in_this_folder">Nesta pasta</string>
     <string name="unknown">Desconhecido</string>
     <string name="unlock_file">Destrancar arquivo</string>
     <string name="unread_comments">Existem comentários não lidos</string>

@@ -40,6 +40,7 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewTreeObserver.OnGlobalLayoutListener
 import android.view.WindowManager.BadTokenException
+import androidx.activity.OnBackPressedCallback
 import androidx.annotation.VisibleForTesting
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.MenuItemCompat
@@ -82,6 +83,7 @@ import com.nextcloud.utils.extensions.getParcelableArgument
 import com.nextcloud.utils.extensions.isActive
 import com.nextcloud.utils.extensions.lastFragment
 import com.nextcloud.utils.extensions.logFileSize
+import com.nextcloud.utils.extensions.navigateToAllFiles
 import com.nextcloud.utils.fileNameValidator.FileNameValidator.checkFolderPath
 import com.nextcloud.utils.view.FastScrollUtils
 import com.owncloud.android.MainApp
@@ -155,7 +157,6 @@ import com.owncloud.android.utils.PermissionUtil.requestNotificationPermission
 import com.owncloud.android.utils.PushUtils
 import com.owncloud.android.utils.StringUtils
 import com.owncloud.android.utils.theme.CapabilityUtils
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -278,6 +279,7 @@ class FileDisplayActivity :
         initSyncBroadcastReceiver()
         observeWorkerState()
         startMetadataSyncForRoot()
+        handleBackPress()
     }
 
     private fun loadSavedInstanceState(savedInstanceState: Bundle?) {
@@ -935,7 +937,7 @@ class FileDisplayActivity :
             ) {
                 openDrawer()
             } else {
-                onBackPressed()
+                onBackPressedDispatcher.onBackPressed()
             }
         } else if (itemId == R.id.action_select_all) {
             val fragment = this.listOfFilesFragment
@@ -1136,40 +1138,59 @@ class FileDisplayActivity :
         }
     }
 
-    private val isRootDirectory: Boolean
-        get() {
-            val currentDir = getCurrentDir()
-            return (currentDir == null || currentDir.parentId == FileDataStorageManager.ROOT_PARENT_ID.toLong())
-        }
-
-    /*
-     * BackPressed priority/hierarchy:
-     *    1. close search view if opened
-     *    2. close drawer if opened
-     *    3. if it is OCFileListFragment and it's in Root -> (finish Activity) or it's not Root -> (browse up)
-     *    4. otherwise pop up the fragment and sortGroup view visibility and call super.onBackPressed()
+    /**
+     * Sets up a custom back-press handler for this activity.
+     *
+     * This callback determines how the back button behaves based on the current UI state:
+     * - If the search view is open, it closes it.
+     * - If the navigation drawer is open, it closes it.
+     * - If the left fragment is an [OCFileListFragment]:
+     *   - If in the root directory, it either navigates to "All Files" or finishes the activity.
+     *   - Otherwise, it navigates one level up.
+     * - Otherwise, it pops the current fragment from the back stack.
+     *
+     * ### About `isEnabled`
+     * `isEnabled` is a property of [OnBackPressedCallback].
+     * When `isEnabled = false`, this callback is **temporarily disabled**,
+     * allowing the system or other callbacks to handle the back press instead.
      */
-    @SuppressFBWarnings("ITC_INHERITANCE_TYPE_CHECKING") // TODO Apply fail fast principle
-    override fun onBackPressed() {
-        if (isSearchOpen()) {
-            resetSearchAction()
-            return
-        }
+    private fun handleBackPress() {
+        onBackPressedDispatcher.addCallback(
+            this,
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    when {
+                        isSearchOpen() -> {
+                            isEnabled = false
+                            resetSearchAction()
+                        }
 
-        if (isDrawerOpen) {
-            super.onBackPressed()
-            return
-        }
+                        isDrawerOpen -> {
+                            isEnabled = false
+                            onBackPressedDispatcher.onBackPressed()
+                        }
 
-        if (this.leftFragment is OCFileListFragment) {
-            if (isRoot(getCurrentDir())) {
-                finish()
-            } else {
-                browseUp(leftFragment as OCFileListFragment)
+                        leftFragment is OCFileListFragment -> {
+                            val fragment = leftFragment as OCFileListFragment
+                            if (isRoot(getCurrentDir())) {
+                                if (fragment.shouldNavigateBackToAllFiles()) {
+                                    navigateToAllFiles()
+                                } else {
+                                    finish()
+                                }
+                            } else {
+                                browseUp(fragment)
+                            }
+                        }
+
+                        else -> {
+                            isEnabled = false
+                            popBack()
+                        }
+                    }
+                }
             }
-        } else {
-            popBack()
-        }
+        )
     }
 
     private fun browseUp(listOfFiles: OCFileListFragment) {
@@ -1210,20 +1231,20 @@ class FileDisplayActivity :
 
         if (leftFragment is UnifiedSearchFragment) {
             showSortListGroup(false)
-            super.onBackPressed()
+            onBackPressedDispatcher.onBackPressed()
         }
     }
 
     /**
      * Use this method when want to pop the fragment on back press. It resets Scrolling (See
      * [with true][.resetScrolling] and pop the visibility for sortListGroup (See
-     * [with false][.showSortListGroup]. At last call to super.onBackPressed()
+     * [with false][.showSortListGroup]. At last call to onBackPressedDispatcher.onBackPressed()
      */
     private fun popBack() {
         binding.fabMain.setImageResource(R.drawable.ic_plus)
         resetScrolling(true)
         showSortListGroup(false)
-        super.onBackPressed()
+        onBackPressedDispatcher.onBackPressed()
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -1645,7 +1666,7 @@ class FileDisplayActivity :
                 if (uploadWasFine || file != null && file.fileExists()) {
                     fileDetailFragment.updateFileDetails(false, true)
                 } else {
-                    onBackPressed()
+                    onBackPressedDispatcher.onBackPressed()
                 }
 
                 // Force the preview if the file is an image or text file

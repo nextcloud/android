@@ -209,6 +209,7 @@
     <string name="contacts_preferences_import_scheduled_fail">匯入無法開始。請再試一次</string>
     <string name="contacts_preferences_no_file_found">找不到檔案</string>
     <string name="contacts_preferences_something_strange_happened">找不到您最新的備份！</string>
+    <string name="content_observer_work_notification_title">偵測內容變更</string>
     <string name="copied_to_clipboard">已複製到剪貼簿</string>
     <string name="copy_file_error">嘗試複製此檔案或資料夾時發生錯誤</string>
     <string name="copy_file_invalid_into_descendent">無法將資料夾複製到自己的子資料夾中</string>
@@ -614,6 +615,8 @@
     <string name="notification_action_failed">執行動作失敗。</string>
     <string name="notification_channel_background_operations_description">顯示通知以與背景操作的結果互動</string>
     <string name="notification_channel_background_operations_name">背景操作</string>
+    <string name="notification_channel_content_observer_description">偵測本機檔案變更</string>
+    <string name="notification_channel_content_observer_name_short">內容觀察器</string>
     <string name="notification_channel_download_description">顯示下載進度</string>
     <string name="notification_channel_download_name_short">下載</string>
     <string name="notification_channel_file_sync_description">顯示檔案同步進度和結果</string>

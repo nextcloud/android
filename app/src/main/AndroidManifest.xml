@@ -121,7 +121,7 @@
         android:requestLegacyExternalStorage="true"
         android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
-        android:enableOnBackInvokedCallback="false"
+        android:enableOnBackInvokedCallback="true"
         android:theme="@style/Theme.ownCloud.Toolbar"
         android:usesCleartextTraffic="true"
         tools:ignore="UnusedAttribute"
@@ -353,6 +353,7 @@
         <activity
             android:name=".ui.activity.SettingsActivity"
             android:exported="false"
+            android:enableOnBackInvokedCallback="false"
             android:theme="@style/PreferenceTheme" />
         <activity
             android:name=".ui.preview.PreviewImageActivity"
@@ -583,6 +584,8 @@
                 <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
             </intent-filter>
         </receiver>
+
+        <receiver android:name="com.nextcloud.client.jobs.folderDownload.FolderDownloadWorkerReceiver" android:exported="false" />
 
         <activity
             android:name=".ui.activity.CopyToClipboardActivity"

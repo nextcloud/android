@@ -28,7 +28,6 @@ import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.files.ReadFileRemoteOperation;
 import com.owncloud.android.lib.resources.files.ReadFolderRemoteOperation;
 import com.owncloud.android.lib.resources.files.model.RemoteFile;
-import com.owncloud.android.lib.resources.status.E2EVersion;
 import com.owncloud.android.operations.common.SyncOperation;
 import com.owncloud.android.services.OperationsService;
 import com.owncloud.android.utils.FileStorageUtils;
@@ -485,7 +484,7 @@ public class SynchronizeFolderOperation extends SyncOperation {
                 Log_OC.d(TAG, "Exception caught at startDirectDownloads" + e);
             }
         } else {
-            mFilesForDirectDownload.forEach(file -> fileDownloadHelper.downloadFile(user, file));
+            fileDownloadHelper.downloadFolder(mLocalFolder, user.getAccountName());
         }
     }
 

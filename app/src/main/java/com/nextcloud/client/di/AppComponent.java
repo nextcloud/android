@@ -17,6 +17,7 @@ import com.nextcloud.client.integrations.IntegrationsModule;
 import com.nextcloud.client.jobs.JobsModule;
 import com.nextcloud.client.jobs.download.FileDownloadHelper;
 import com.nextcloud.client.jobs.offlineOperations.receiver.OfflineOperationReceiver;
+import com.nextcloud.client.jobs.folderDownload.FolderDownloadWorkerReceiver;
 import com.nextcloud.client.jobs.upload.FileUploadBroadcastReceiver;
 import com.nextcloud.client.jobs.upload.FileUploadHelper;
 import com.nextcloud.client.media.BackgroundPlayerService;
@@ -74,6 +75,8 @@ public interface AppComponent {
     void inject(FileUploadBroadcastReceiver fileUploadBroadcastReceiver);
 
     void inject(OfflineOperationReceiver offlineOperationReceiver);
+
+    void inject(FolderDownloadWorkerReceiver folderDownloadWorkerReceiver);
 
     @Component.Builder
     interface Builder {
