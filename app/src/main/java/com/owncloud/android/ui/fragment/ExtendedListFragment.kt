@@ -711,7 +711,7 @@ open class ExtendedListFragment :
                 setMessageForEmptyList(
                     R.string.file_list_error_headline,
                     R.string.file_list_error_description,
-                    R.drawable.ic_synchronizing_error,
+                    R.drawable.ic_no_internet,
                     false
                 )
             }
