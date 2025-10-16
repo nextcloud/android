@@ -17,6 +17,9 @@ import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import com.nextcloud.client.account.User
 import com.nextcloud.client.account.UserAccountManager
+import com.nextcloud.client.database.entity.UploadEntity
+import com.nextcloud.client.database.entity.toOCUpload
+import com.nextcloud.client.database.entity.toUploadEntity
 import com.nextcloud.client.device.PowerManagementService
 import com.nextcloud.client.jobs.BackgroundJobManager
 import com.nextcloud.client.jobs.upload.FileUploadWorker
@@ -286,48 +289,113 @@ class AutoUploadWorker(
     private suspend fun uploadFiles(syncedFolder: SyncedFolder) = withContext(Dispatchers.IO) {
         val dateFormat = prepareDateFormat()
         val user = getUserOrReturn(syncedFolder) ?: return@withContext
-        val paths = repository.getAutoUploadFiles(syncedFolder)
-        if (paths.isEmpty()) {
-            Log_OC.w(TAG, "uploadFiles skipped paths is empty")
-            return@withContext
-        }
-
-        val pathsAndMimes = buildPathsAndMimes(paths, syncedFolder, dateFormat)
-        val (needsCharging, needsWifi, uploadAction) = getUploadSettings(syncedFolder)
-
         val ocAccount = OwnCloudAccount(user.toPlatformAccount(), context)
         val client = OwnCloudClientManagerFactory.getDefaultSingleton()
             .getClientFor(ocAccount, context)
 
-        pathsAndMimes.forEach { (localPath, remotePath, _) ->
-            try {
-                Log_OC.d(TAG, "creating oc upload for ${user.accountName}")
-                val upload = OCUpload(localPath, remotePath, user.accountName).apply {
-                    nameCollisionPolicy = syncedFolder.nameCollisionPolicy
-                    isUseWifiOnly = needsWifi
-                    isWhileChargingOnly = needsCharging
-                    uploadStatus = UploadsStorageManager.UploadStatus.UPLOAD_IN_PROGRESS
-                    createdBy = UploadFileOperation.CREATED_AS_INSTANT_PICTURE
-                    isCreateRemoteFolder = true
-                    localAction = uploadAction
+        var offset = 0
+        var hasMoreFiles = true
+        while (hasMoreFiles) {
+            val paths = repository.getAutoUploadFiles(syncedFolder, offset)
+
+            if (paths.isEmpty()) {
+                Log_OC.w(TAG, "uploadFiles no more files to upload at offset: $offset")
+                break
+            }
+
+            Log_OC.d(TAG, "Processing batch: offset=$offset, count=${paths.size}")
+
+            val pathsAndMimes = buildPathsAndMimes(paths, syncedFolder, dateFormat)
+            pathsAndMimes.forEach { (localPath, remotePath, _) ->
+                try {
+                    val (uploadEntity, upload) = createEntityAndUpload(user, localPath, remotePath)
+                    try {
+                        // Insert/update to IN_PROGRESS state before starting upload
+                        uploadsStorageManager.uploadDao.insert(uploadEntity)
+
+                        val operation = createUploadFileOperation(upload, user)
+                        Log_OC.d(TAG, "🕒 uploading: $localPath")
+
+                        val result = operation.execute(client)
+
+                        if (result.isSuccess) {
+                            updateUploadStatus(uploadEntity, UploadsStorageManager.UploadStatus.UPLOAD_SUCCEEDED)
+                            repository.markFileAsUploaded(localPath, syncedFolder)
+                            Log_OC.d(TAG, "✅ auto upload completed: $localPath")
+                        } else {
+                            updateUploadStatus(uploadEntity, UploadsStorageManager.UploadStatus.UPLOAD_FAILED)
+                            Log_OC.e(
+                                TAG,
+                                "❌ auto upload failed $localPath (${upload.accountName}): ${result.logMessage}"
+                            )
+                        }
+                    } catch (e: Exception) {
+                        updateUploadStatus(uploadEntity, UploadsStorageManager.UploadStatus.UPLOAD_FAILED)
+                        Log_OC.e(
+                            TAG,
+                            "Exception during upload file, localPath: $localPath, remotePath: $remotePath," +
+                                " exception: $e"
+                        )
+                    }
+                } catch (e: Exception) {
+                    Log_OC.e(
+                        TAG,
+                        "Exception uploadFiles during creating entity and upload, localPath: $localPath, " +
+                            "remotePath: $remotePath, exception: $e"
+                    )
                 }
+            }
 
-                uploadsStorageManager.storeUpload(upload)
+            offset += FileSystemRepository.BATCH_SIZE
 
-                val operation = createUploadFileOperation(upload, user)
-                Log_OC.d(TAG, "🕒 uploading: $localPath")
-
-                val result = operation.execute(client)
-                if (result.isSuccess) {
-                    repository.markFileAsUploaded(localPath, syncedFolder)
-                    Log_OC.d(TAG, "✅ auto upload completed: $localPath")
-                } else {
-                    Log_OC.e(TAG, "❌ auto upload failed: $localPath")
-                }
-            } catch (e: Exception) {
-                Log_OC.e(TAG, "Exception uploadFiles, localPath: $localPath, remotePath: $remotePath, exception: $e")
+            // If we got fewer files than batch size, we've reached the end
+            if (paths.size < FileSystemRepository.BATCH_SIZE) {
+                hasMoreFiles = false
             }
         }
+    }
+
+    private fun updateUploadStatus(entity: UploadEntity, status: UploadsStorageManager.UploadStatus) {
+        uploadsStorageManager.uploadDao.insert(entity.withStatus(status))
+    }
+
+    private fun UploadEntity.withStatus(newStatus: UploadsStorageManager.UploadStatus) =
+        this.copy(status = newStatus.value)
+
+    private fun createEntityAndUpload(user: User, localPath: String, remotePath: String): Pair<UploadEntity, OCUpload> {
+        val (needsCharging, needsWifi, uploadAction) = getUploadSettings(syncedFolder)
+        Log_OC.d(TAG, "creating oc upload for ${user.accountName}")
+
+        // Get or create upload entity
+        var uploadEntity = uploadsStorageManager.uploadDao.getUploadByAccountAndPaths(
+            localPath = localPath,
+            remotePath = remotePath,
+            accountName = user.accountName
+        )
+
+        val upload: OCUpload
+        if (uploadEntity != null) {
+            // Existing upload - convert and update status
+
+            upload = uploadEntity.toOCUpload(null)
+            upload.uploadStatus = UploadsStorageManager.UploadStatus.UPLOAD_IN_PROGRESS
+            uploadEntity = upload.toUploadEntity()
+        } else {
+            // New upload - create with all settings
+
+            upload = OCUpload(localPath, remotePath, user.accountName).apply {
+                nameCollisionPolicy = syncedFolder.nameCollisionPolicy
+                isUseWifiOnly = needsWifi
+                isWhileChargingOnly = needsCharging
+                uploadStatus = UploadsStorageManager.UploadStatus.UPLOAD_IN_PROGRESS
+                createdBy = UploadFileOperation.CREATED_AS_INSTANT_PICTURE
+                isCreateRemoteFolder = true
+                localAction = uploadAction
+            }
+            uploadEntity = upload.toUploadEntity()
+        }
+
+        return uploadEntity to upload
     }
 
     private fun createUploadFileOperation(upload: OCUpload, user: User): UploadFileOperation = UploadFileOperation(

@@ -15,11 +15,16 @@ import java.io.File
 
 class FileSystemRepository(private val dao: FileSystemDao) {
 
-    suspend fun getAutoUploadFiles(syncedFolder: SyncedFolder): Set<String> {
+    companion object {
+        private const val TAG = "FilesystemRepository"
+        const val BATCH_SIZE = 50
+    }
+
+    suspend fun getAutoUploadFiles(syncedFolder: SyncedFolder, offset: Int): Set<String> {
         val syncedFolderId = syncedFolder.id.toString()
         Log_OC.d(TAG, "Fetching candidate files for syncedFolderId = $syncedFolderId")
 
-        val candidatePaths = dao.getAutoUploadFiles(syncedFolderId)
+        val candidatePaths = dao.getAutoUploadFiles(syncedFolderId, limit = BATCH_SIZE, offset)
         val localPathsToUpload = mutableSetOf<String>()
 
         candidatePaths.forEach { path ->
@@ -49,9 +54,5 @@ class FileSystemRepository(private val dao: FileSystemDao) {
         } catch (e: Exception) {
             Log_OC.e(TAG, "Error marking file as uploaded: ${e.message}", e)
         }
-    }
-
-    companion object {
-        private const val TAG = "FilesystemRepository"
     }
 }
