@@ -209,6 +209,7 @@
     <string name="contacts_preferences_import_scheduled_fail">İçe aktarım başlatılamadı. Lütfen yeniden deneyin</string>
     <string name="contacts_preferences_no_file_found">Herhangi bir dosya bulunamadı</string>
     <string name="contacts_preferences_something_strange_happened">Son yedeğiniz bulunamadı!</string>
+    <string name="content_observer_work_notification_title">İçerik değişiklikleri denetleniyor</string>
     <string name="copied_to_clipboard">Panoya kopyalandı</string>
     <string name="copy_file_error">Bu dosya ya da klasör kopyalanmaya çalışılırken bir sorun çıktı</string>
     <string name="copy_file_invalid_into_descendent">Bir klasör kendi alt klasörü olarak kopyalanamaz</string>
@@ -614,6 +615,8 @@
     <string name="notification_action_failed">İşlem yapılamadı.</string>
     <string name="notification_channel_background_operations_description">Arka plan işlemlerinin sonucuyla etkileşim kurmak için bildirimleri görüntüle</string>
     <string name="notification_channel_background_operations_name">Arka plan işlemleri</string>
+    <string name="notification_channel_content_observer_description">Yerel dosya değişikliklerini algılar</string>
+    <string name="notification_channel_content_observer_name_short">İçerik izleyici</string>
     <string name="notification_channel_download_description">İndirme ilerlemesini görüntüler</string>
     <string name="notification_channel_download_name_short">İndirmeler</string>
     <string name="notification_channel_file_sync_description">Dosya eşitleme ilerlemesi ve sonuçlarını görüntüler</string>
