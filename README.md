@@ -48,6 +48,7 @@ If you want to [contribute](https://nextcloud.com/contribute/) to the Nextcloud 
 *   reporting problems / suggesting enhancements by [opening new issues](https://github.com/nextcloud/android/issues/new/choose)
 *   implementing proposed bug fixes and enhancement ideas by submitting PRs (associated with a corresponding issue preferably)
 *   reviewing [pull requests](https://github.com/nextcloud/android/pulls) and providing feedback on code, implementation, and functionality
+*   Add [automated tests](CONTRIBUTING.md#testing) for existing functionality
 *   installing and testing [pull request builds](https://github.com/nextcloud/android/pulls), [daily/dev builds](https://github.com/nextcloud/android#development-version-hammer), or [RCs/release candidate builds](https://github.com/nextcloud/android/releases) 
 *   enhancing Admin, User, or Developer [documentation](https://github.com/nextcloud/documentation/)
 *   hitting hard on the latest stable release by testing fundamental features and evaluating the user experience
