@@ -232,8 +232,7 @@ class FileUploadHelper {
         ioScope.launch {
             uploadsStorageManager.run {
                 uploadDao.getByRemotePath(remotePath)?.let { entity ->
-                    entity.status = UploadStatus.UPLOAD_CANCELLED.value
-                    uploadDao.update(entity)
+                    uploadDao.update(entity.copy(status = UploadStatus.UPLOAD_CANCELLED.value))
                 }
             }
         }

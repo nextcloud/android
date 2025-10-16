@@ -45,4 +45,24 @@ interface UploadDao {
             "AND ${ProviderTableMeta.UPLOADS_REMOTE_PATH} = :remotePath"
     )
     fun deleteByAccountAndRemotePath(accountName: String, remotePath: String)
+
+    @Query(
+        "SELECT * FROM " + ProviderTableMeta.UPLOADS_TABLE_NAME +
+            " WHERE " + ProviderTableMeta._ID + " = :id AND " +
+            ProviderTableMeta.UPLOADS_ACCOUNT_NAME + " = :accountName " +
+            "LIMIT 1"
+    )
+    fun getUploadById(id: Long, accountName: String): UploadEntity?
+
+    @Insert(onConflict = OnConflictStrategy.Companion.REPLACE)
+    fun insertOrReplace(entity: UploadEntity): Long
+
+    @Query(
+        "SELECT * FROM " + ProviderTableMeta.UPLOADS_TABLE_NAME +
+            " WHERE " + ProviderTableMeta.UPLOADS_ACCOUNT_NAME + " = :accountName AND " +
+            ProviderTableMeta.UPLOADS_LOCAL_PATH + " = :localPath AND " +
+            ProviderTableMeta.UPLOADS_REMOTE_PATH + " = :remotePath " +
+            "LIMIT 1"
+    )
+    fun getUploadByAccountAndPaths(accountName: String, localPath: String, remotePath: String): UploadEntity?
 }
