@@ -503,7 +503,7 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
             } else {
                 final var chosenFiles = mFileListFragment.getCheckedFilePaths();
                 if (chosenFiles.length > FileUploadHelper.MAX_FILE_COUNT) {
-                    DisplayUtils.showSnackMessage(this, R.string.max_file_count_warning_message);
+                    FileUploadHelper.Companion.instance().showFileUploadLimitMessage(this);
                     return;
                 }
 
@@ -670,7 +670,7 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
                 } else {
                     final var chosenFiles = mFileListFragment.getCheckedFilePaths();
                     if (chosenFiles.length > FileUploadHelper.MAX_FILE_COUNT) {
-                        DisplayUtils.showSnackMessage(this, R.string.max_file_count_warning_message);
+                        FileUploadHelper.Companion.instance().showFileUploadLimitMessage(this);
                         return;
                     }
                     boolean isPositionZero = (binding.uploadFilesSpinnerBehaviour.getSelectedItemPosition() == 0);
@@ -720,7 +720,7 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
         Log_OC.d(TAG, "Positive button in dialog was clicked; dialog tag is " + callerTag);
         final var chosenFiles = mFileListFragment.getCheckedFilePaths();
         if (chosenFiles.length > FileUploadHelper.MAX_FILE_COUNT) {
-            DisplayUtils.showSnackMessage(this, R.string.max_file_count_warning_message);
+            FileUploadHelper.Companion.instance().showFileUploadLimitMessage(this);
             return;
         }
 

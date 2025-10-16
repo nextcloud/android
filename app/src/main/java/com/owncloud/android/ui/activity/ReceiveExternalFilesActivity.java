@@ -952,7 +952,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
         }
 
         if (mStreamsToUpload.size() > FileUploadHelper.MAX_FILE_COUNT) {
-            DisplayUtils.showSnackMessage(this, R.string.max_file_count_warning_message);
+            FileUploadHelper.Companion.instance().showFileUploadLimitMessage(this);
             return;
         }
 
