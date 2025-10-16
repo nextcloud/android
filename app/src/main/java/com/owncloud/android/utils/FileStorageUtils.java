@@ -538,7 +538,7 @@ public final class FileStorageUtils {
         storageManager.deleteFileInMediaScan(file.getAbsolutePath());
         try {
             Files.delete(file.toPath());
-        } catch (IOException e) {
+        } catch (Exception e) {
             Log_OC.e("Error deleting file: ", e.getMessage());
         }
     }
