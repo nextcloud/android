@@ -479,6 +479,11 @@
     <string name="folder_already_exists">Klasör zaten var</string>
     <string name="folder_best_viewed_in">Bu klasör en iyi %1$s ile görüntülenir.</string>
     <string name="folder_confirm_create">Ekle</string>
+    <string name="folder_download_counter">%1$d / %2$d &#183; %3$s</string>
+    <string name="folder_download_error_notification_title">%s klasörü eşitlenirken bir sorun çıktı</string>
+    <string name="folder_download_insufficient_disk_space_notification_title">Disk alanı yetersiz. Eşitleme iptal edildi</string>
+    <string name="folder_download_success_notification_title">%s klasörü eşitlendi</string>
+    <string name="folder_download_worker_ticker_id">Eşitleniyor…</string>
     <string name="folder_list_empty_headline">Burada herhangi bir klasör yok</string>
     <string name="folder_name_empty">Klasör adı boş olamaz</string>
     <string name="folder_picker_choose_button_text">Seçin</string>

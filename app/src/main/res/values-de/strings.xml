@@ -479,6 +479,11 @@
     <string name="folder_already_exists">Ordner existiert bereits</string>
     <string name="folder_best_viewed_in">Dieser Ordner lässt sich am besten in %1$s anzeigen.</string>
     <string name="folder_confirm_create">Erstellen</string>
+    <string name="folder_download_counter">%1$d von %2$d &#183; %3$s</string>
+    <string name="folder_download_error_notification_title">Es ist ein Fehler beim Synchronisieren des Ordners %s aufgetreten.</string>
+    <string name="folder_download_insufficient_disk_space_notification_title">Unzureichender Speicherplatz, Synchronisierung abgebrochen</string>
+    <string name="folder_download_success_notification_title">%s Ordner erfolgreich synchronisiert</string>
+    <string name="folder_download_worker_ticker_id">Synchronisiere…</string>
     <string name="folder_list_empty_headline">Keine Ordner vorhanden</string>
     <string name="folder_name_empty">Der Ordnername darf nicht leer sein</string>
     <string name="folder_picker_choose_button_text">Auswählen</string>
