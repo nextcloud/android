@@ -7,6 +7,7 @@
  */
 package com.nextcloud.client.jobs.upload
 
+import android.app.Activity
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
@@ -20,6 +21,7 @@ import com.nextcloud.client.network.Connectivity
 import com.nextcloud.client.network.ConnectivityService
 import com.nextcloud.utils.extensions.getUploadIds
 import com.owncloud.android.MainApp
+import com.owncloud.android.R
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.datamodel.UploadsStorageManager
@@ -35,6 +37,7 @@ import com.owncloud.android.lib.resources.files.ReadFileRemoteOperation
 import com.owncloud.android.lib.resources.files.model.RemoteFile
 import com.owncloud.android.operations.RemoveFileOperation
 import com.owncloud.android.operations.UploadFileOperation
+import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.FileUtil
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -421,6 +424,14 @@ class FileUploadHelper {
                 remoteFile.modifiedTimestamp == localLastModifiedTimestamp * 1000
         }
         return false
+    }
+
+    fun showFileUploadLimitMessage(activity: Activity) {
+        val message = activity.getString(
+            R.string.file_upload_limit_message,
+            MAX_FILE_COUNT
+        )
+        DisplayUtils.showSnackMessage(activity, message)
     }
 
     class UploadNotificationActionReceiver : BroadcastReceiver() {
