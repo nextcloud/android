@@ -40,6 +40,7 @@ import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -535,7 +536,11 @@ public final class FileStorageUtils {
         }
 
         storageManager.deleteFileInMediaScan(file.getAbsolutePath());
-        file.delete();
+        try {
+            Files.deleteIfExists(file.toPath());
+        } catch (Exception e) {
+            Log_OC.e("Error deleting file: ", e.getMessage());
+        }
     }
 
     public static boolean deleteRecursive(File file) {
