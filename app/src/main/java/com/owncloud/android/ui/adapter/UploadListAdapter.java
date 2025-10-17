@@ -8,6 +8,7 @@
  */
 package com.owncloud.android.ui.adapter;
 
+import android.annotation.SuppressLint;
 import android.app.NotificationManager;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
@@ -69,7 +70,6 @@ import java.util.concurrent.TimeUnit;
 
 import androidx.annotation.NonNull;
 import kotlin.Unit;
-import kotlin.jvm.functions.Function0;
 
 /**
  * This Adapter populates a ListView with following types of uploads: pending, active, completed. Filtering possible.
@@ -107,6 +107,66 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
                                                                        new UploadGroupLoadPolicy());
 
     private final FileUploadHelper uploadHelper = FileUploadHelper.Companion.instance();
+
+    public UploadListAdapter(final FileActivity fileActivity,
+                             final UploadsStorageManager uploadsStorageManager,
+                             final FileDataStorageManager storageManager,
+                             final UserAccountManager accountManager,
+                             final ConnectivityService connectivityService,
+                             final PowerManagementService powerManagementService,
+                             final Clock clock,
+                             final ViewThemeUtils viewThemeUtils) {
+        Log_OC.d(TAG, "UploadListAdapter");
+
+        this.parentActivity = fileActivity;
+        this.uploadsStorageManager = uploadsStorageManager;
+        this.storageManager = storageManager;
+        this.accountManager = accountManager;
+        this.connectivityService = connectivityService;
+        this.powerManagementService = powerManagementService;
+        this.clock = clock;
+        this.viewThemeUtils = viewThemeUtils;
+
+        uploadGroups = new UploadGroup[4];
+
+        shouldShowHeadersForEmptySections(false);
+        initUploadGroups();
+        showUser = accountManager.getAccounts().length > 1;
+    }
+
+    private void initUploadGroups() {
+        final var optionalUser = parentActivity.getUser();
+        if (optionalUser.isEmpty()) {
+            return;
+        }
+
+        final var accountName = optionalUser.get().getAccountName();
+
+        var groups = List.of(
+            new GroupConfig(Type.CURRENT, R.string.uploads_view_group_current_uploads, UploadStatus.UPLOAD_IN_PROGRESS),
+            new GroupConfig(Type.FAILED, R.string.uploads_view_group_failed_uploads, UploadStatus.UPLOAD_FAILED),
+            new GroupConfig(Type.CANCELLED, R.string.uploads_view_group_manually_cancelled_uploads, UploadStatus.UPLOAD_CANCELLED),
+            new GroupConfig(Type.FINISHED, R.string.uploads_view_group_finished_uploads, UploadStatus.UPLOAD_SUCCEEDED)
+                            );
+
+        for (int i = 0; i < groups.size(); i++) {
+            var config = groups.get(i);
+            uploadGroups[i] = createUploadGroup(config, accountName);
+        }
+    }
+
+    private UploadGroup createUploadGroup(GroupConfig config, String accountName) {
+        return new UploadGroup(config.type, parentActivity.getString(config.titleRes)) {
+            @Override
+            public void refresh(LoadCompleteListener listener) {
+                uploadHelper.getUploadsByStatus(accountName, config.status, ocUploads -> {
+                    fixAndSortItems(ocUploads);
+                    listener.onComplete();
+                    return Unit.INSTANCE;
+                });
+            }
+        };
+    }
 
     @Override
     public int getSectionCount() {
@@ -258,65 +318,6 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
     @Override
     public void onBindFooterViewHolder(SectionedViewHolder holder, int section) {
         // not needed
-    }
-
-    public UploadListAdapter(final FileActivity fileActivity,
-                             final UploadsStorageManager uploadsStorageManager,
-                             final FileDataStorageManager storageManager,
-                             final UserAccountManager accountManager,
-                             final ConnectivityService connectivityService,
-                             final PowerManagementService powerManagementService,
-                             final Clock clock,
-                             final ViewThemeUtils viewThemeUtils) {
-        Log_OC.d(TAG, "UploadListAdapter");
-
-        this.parentActivity = fileActivity;
-        this.uploadsStorageManager = uploadsStorageManager;
-        this.storageManager = storageManager;
-        this.accountManager = accountManager;
-        this.connectivityService = connectivityService;
-        this.powerManagementService = powerManagementService;
-        this.clock = clock;
-        this.viewThemeUtils = viewThemeUtils;
-
-        uploadGroups = new UploadGroup[4];
-
-        shouldShowHeadersForEmptySections(false);
-        initUploadGroups();
-        showUser = accountManager.getAccounts().length > 1;
-    }
-
-    private void initUploadGroups() {
-        final var optionalUser = parentActivity.getUser();
-        if (optionalUser.isEmpty()) {
-            return;
-        }
-
-        final var accountName = optionalUser.get().getAccountName();
-
-        var groups = List.of(
-            new GroupConfig(Type.CURRENT, R.string.uploads_view_group_current_uploads, UploadStatus.UPLOAD_IN_PROGRESS),
-            new GroupConfig(Type.FAILED, R.string.uploads_view_group_failed_uploads, UploadStatus.UPLOAD_FAILED),
-            new GroupConfig(Type.CANCELLED, R.string.uploads_view_group_manually_cancelled_uploads, UploadStatus.UPLOAD_CANCELLED),
-            new GroupConfig(Type.FINISHED, R.string.uploads_view_group_finished_uploads, UploadStatus.UPLOAD_SUCCEEDED)
-                            );
-
-        for (int i = 0; i < groups.size(); i++) {
-            var config = groups.get(i);
-            uploadGroups[i] = createUploadGroup(config, accountName);
-        }
-    }
-
-    private UploadGroup createUploadGroup(GroupConfig config, String accountName) {
-        return new UploadGroup(config.type, parentActivity.getString(config.titleRes)) {
-            @Override
-            public void refresh() {
-                uploadHelper.getUploadsByStatus(accountName, config.status, ocUploads -> {
-                    fixAndSortItems(ocUploads);
-                    return Unit.INSTANCE;
-                });
-            }
-        };
     }
 
     @Override
@@ -932,7 +933,7 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
     }
 
     interface Refresh {
-        void refresh();
+        void refresh(LoadCompleteListener listener);
     }
 
     interface Apply {
@@ -1011,20 +1012,30 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
             }
         }
 
+        @SuppressLint("NotifyDataSetChanged")
         @Override
         public void run() {
+            final int groupCount = uploadGroups.length;
+            final int[] completedCount = {0};
+
             for (UploadGroup group : uploadGroups) {
-                group.refresh();
+                group.refresh(() -> {
+                    synchronized (completedCount) {
+                        group.apply();
+                        completedCount[0]++;
+                        if (completedCount[0] == groupCount) {
+
+                            // All groups finished, update UI once
+                            parentActivity.runOnUiThread(() -> {
+                                notifyDataSetChanged();
+                                for (LoadCompleteListener loadCompleteListener : loadCompleteListenerSet) {
+                                    loadCompleteListener.onComplete();
+                                }
+                            });
+                        }
+                    }
+                });
             }
-            parentActivity.runOnUiThread(() -> {
-                for (UploadGroup uploadGroup : uploadGroups) {
-                    uploadGroup.apply();
-                }
-                notifyDataSetChanged();
-                for (LoadCompleteListener loadCompleteListener : loadCompleteListenerSet) {
-                    loadCompleteListener.onComplete();
-                }
-            });
         }
     }
 
