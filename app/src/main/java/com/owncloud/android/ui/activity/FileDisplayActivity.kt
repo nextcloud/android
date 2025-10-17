@@ -1221,9 +1221,10 @@ class FileDisplayActivity :
 
         if (isRoot(getCurrentDir()) && leftFragment is OCFileListFragment) {
             // Remove the list to the original state
-
-            val listOfHiddenFiles = leftFragment.adapter.listOfHiddenFiles
-            leftFragment.performSearch("", listOfHiddenFiles, true)
+            leftFragment.adapter?.let { adapter ->
+                val listOfHiddenFiles = adapter.listOfHiddenFiles
+                leftFragment.performSearch("", listOfHiddenFiles, true)
+            }
 
             hideSearchView(getCurrentDir())
             setDrawerIndicatorEnabled(isDrawerIndicatorAvailable)
