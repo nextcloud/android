@@ -304,4 +304,22 @@ class FileStorageUtilsTest {
         val result = FileStorageUtils.containsBidiControlCharacters("/Foo%e2%80%aedm.exe")
         assertTrue(result)
     }
+
+    @Test
+    fun testContainsBidiControlCharactersWhenGivenMalformedEncodedSequenceShouldNotThrowAndReturnFalse() {
+        val result = FileStorageUtils.containsBidiControlCharacters("file%")
+        assertFalse(result)
+    }
+
+    @Test
+    fun testContainsBidiControlCharactersWhenGivenBrokenUrlEncodedPatternShouldHandleGracefully() {
+        val result = FileStorageUtils.containsBidiControlCharacters("file%2")
+        assertFalse(result)
+    }
+
+    @Test
+    fun testContainsBidiControlCharactersWhenGivenMultipleBidiCharactersShouldReturnTrue() {
+        val result = FileStorageUtils.containsBidiControlCharacters("safe\u202Ebad\u202Bname.txt")
+        assertTrue(result)
+    }
 }
