@@ -15,28 +15,41 @@ import java.io.File
 
 class FileSystemRepository(private val dao: FileSystemDao) {
 
-    suspend fun getAutoUploadFiles(syncedFolder: SyncedFolder): Set<String> {
+    companion object {
+        private const val TAG = "FilesystemRepository"
+        const val BATCH_SIZE = 50
+    }
+
+    @Suppress("NestedBlockDepth")
+    suspend fun getFilePathsWithIds(syncedFolder: SyncedFolder, lastId: Int): List<Pair<String, Int>> {
         val syncedFolderId = syncedFolder.id.toString()
         Log_OC.d(TAG, "Fetching candidate files for syncedFolderId = $syncedFolderId")
 
-        val candidatePaths = dao.getAutoUploadFiles(syncedFolderId)
-        val localPathsToUpload = mutableSetOf<String>()
+        val entities = dao.getAutoUploadFilesEntities(syncedFolderId, BATCH_SIZE, lastId)
+        val filtered = mutableListOf<Pair<String, Int>>()
 
-        candidatePaths.forEach { path ->
-            val file = File(path)
-            if (!file.exists()) {
-                Log_OC.w(TAG, "Ignoring file for upload (doesn't exist): $path")
-            } else if (!SyncedFolderUtils.isQualifiedFolder(file.parent)) {
-                Log_OC.w(TAG, "Ignoring file for upload (unqualified folder): $path")
-            } else if (!SyncedFolderUtils.isFileNameQualifiedForAutoUpload(file.name)) {
-                Log_OC.w(TAG, "Ignoring file for upload (unqualified file): $path")
-            } else {
-                Log_OC.d(TAG, "Adding path to upload: $path")
-                localPathsToUpload.add(path)
+        entities.forEach {
+            it.localPath?.let { path ->
+                val file = File(path)
+                if (!file.exists()) {
+                    Log_OC.w(TAG, "Ignoring file for upload (doesn't exist): $path")
+                } else if (!SyncedFolderUtils.isQualifiedFolder(file.parent)) {
+                    Log_OC.w(TAG, "Ignoring file for upload (unqualified folder): $path")
+                } else if (!SyncedFolderUtils.isFileNameQualifiedForAutoUpload(file.name)) {
+                    Log_OC.w(TAG, "Ignoring file for upload (unqualified file): $path")
+                } else {
+                    Log_OC.d(TAG, "Adding path to upload: $path")
+
+                    if (it.id != null) {
+                        filtered.add(path to it.id)
+                    } else {
+                        Log_OC.w(TAG, "cant adding path to upload, id is null")
+                    }
+                }
             }
         }
 
-        return localPathsToUpload
+        return filtered
     }
 
     @Suppress("TooGenericExceptionCaught")
@@ -49,9 +62,5 @@ class FileSystemRepository(private val dao: FileSystemDao) {
         } catch (e: Exception) {
             Log_OC.e(TAG, "Error marking file as uploaded: ${e.message}", e)
         }
-    }
-
-    companion object {
-        private const val TAG = "FilesystemRepository"
     }
 }

@@ -9,21 +9,24 @@ package com.nextcloud.client.database.dao
 
 import androidx.room.Dao
 import androidx.room.Query
+import com.nextcloud.client.database.entity.FilesystemEntity
 import com.owncloud.android.db.ProviderMeta
 
 @Dao
 interface FileSystemDao {
-
     @Query(
         """
-        SELECT ${ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_LOCAL_PATH}
+        SELECT *
         FROM ${ProviderMeta.ProviderTableMeta.FILESYSTEM_TABLE_NAME}
         WHERE ${ProviderMeta.ProviderTableMeta.FILESYSTEM_SYNCED_FOLDER_ID} = :syncedFolderId
           AND ${ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_SENT_FOR_UPLOAD} = 0
           AND ${ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_IS_FOLDER} = 0
+          AND ${ProviderMeta.ProviderTableMeta._ID} > :lastId
+        ORDER BY ${ProviderMeta.ProviderTableMeta._ID}
+        LIMIT :limit
     """
     )
-    suspend fun getAutoUploadFiles(syncedFolderId: String): List<String>
+    suspend fun getAutoUploadFilesEntities(syncedFolderId: String, limit: Int, lastId: Int): List<FilesystemEntity>
 
     @Query(
         """
