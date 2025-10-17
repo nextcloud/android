@@ -25,6 +25,9 @@ import com.owncloud.android.utils.MimeTypeUtil;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 /**
  * Remote operation performing the rename of a remote file (or folder?) in the ownCloud server.
@@ -161,26 +164,32 @@ public class RenameFileOperation extends SyncOperation {
         }
         // create a test file
         String tmpFolderName = FileStorageUtils.getTemporalPath("");
-        File testFile = new File(tmpFolderName + newName);
-        File tmpFolder = testFile.getParentFile();
-        if (!tmpFolder.exists() && !tmpFolder.mkdirs()) {
-            Log_OC.e(TAG, "Unable to create parent folder " + tmpFolder.getAbsolutePath());
+        Path testFile = Paths.get(tmpFolderName, newName);
+        Path tmpFolder = testFile.getParent();
+        if (tmpFolder != null && !Files.exists(tmpFolder)) {
+            try {
+                Files.createDirectories(tmpFolder);
+            } catch (IOException e) {
+                Log_OC.e(TAG, "Unable to create parent folder " + tmpFolder.toAbsolutePath());
+            }
         }
-        if (!tmpFolder.isDirectory()) {
+        if (tmpFolder != null && !Files.isDirectory(tmpFolder)) {
             throw new IOException("Unexpected error: temporal directory could not be created");
         }
         try {
-            testFile.createNewFile();   // return value is ignored; it could be 'false' because
-            // the file already existed, that doesn't invalidate the name
-        } catch (IOException e) {
+            Files.createFile(testFile);
+        } catch (Exception e) {
             Log_OC.i(TAG, "Test for validity of name " + newName + " in the file system failed");
             return false;
         }
-        boolean result = testFile.exists() && testFile.isFile();
+        boolean result = Files.exists(testFile) && Files.isRegularFile(testFile);
 
-        // cleaning ; result is ignored, since there is not much we could do in case of failure,
-        // but repeat and repeat...
-        testFile.delete();
+        try {
+            Files.deleteIfExists(testFile);
+        } catch (Exception e) {
+            Log_OC.e("Error deleting file: ", e.getMessage());
+            return true;
+        }
 
         return result;
     }
