@@ -185,7 +185,7 @@ public class RenameFileOperation extends SyncOperation {
         boolean result = Files.exists(testFile) && Files.isRegularFile(testFile);
 
         try {
-            Files.delete(testFile);
+            Files.deleteIfExists(testFile);
         } catch (Exception e) {
             Log_OC.e("Error deleting file: ", e.getMessage());
             return true;
