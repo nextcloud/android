@@ -14,6 +14,7 @@ import androidx.lifecycle.lifecycleScope
 import com.nextcloud.client.account.User
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.logger.Logger
+import com.nextcloud.common.SessionTimeOut
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.lib.common.operations.RemoteOperation
@@ -68,7 +69,7 @@ class SharedListFragment :
     }
 
     override fun getSearchRemoteOperation(currentUser: User?, event: SearchEvent?): RemoteOperation<*> =
-        GetSharesRemoteOperation()
+        GetSharesRemoteOperation(false, SessionTimeOut(TASK_TIMEOUT, TASK_TIMEOUT))
 
     @Suppress("DEPRECATION")
     private suspend fun fetchFileData(partialFile: OCFile): OCFile? = withContext(Dispatchers.IO) {
@@ -185,5 +186,6 @@ class SharedListFragment :
 
     companion object {
         private val SHARED_TAG = SharedListFragment::class.java.simpleName
+        const val TASK_TIMEOUT = 120_000
     }
 }
