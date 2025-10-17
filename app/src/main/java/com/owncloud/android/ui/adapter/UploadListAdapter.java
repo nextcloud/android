@@ -46,6 +46,7 @@ import com.owncloud.android.db.UploadResult;
 import com.owncloud.android.lib.common.operations.OnRemoteOperationListener;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.operations.RefreshFolderOperation;
+import com.owncloud.android.operations.UploadFileOperation;
 import com.owncloud.android.ui.activity.ConflictsResolveActivity;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
@@ -67,8 +68,6 @@ import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 import androidx.annotation.NonNull;
-import kotlin.Unit;
-import kotlin.jvm.functions.Function0;
 
 /**
  * This Adapter populates a ListView with following types of uploads: pending, active, completed. Filtering possible.
@@ -148,7 +147,7 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
 
                     for (OCUpload upload: group.items) {
                         uploadHelper.setStatusOfUploadToCancel(upload.getRemotePath());
-                        FileUploadWorker.Companion.cancelCurrentUpload(upload.getRemotePath(), accountName, () -> Unit.INSTANCE);
+                        UploadFileOperation.requestCancellation(upload.getRemotePath(), accountName);
                     }
                     loadUploadItemsFromDb();
                 }).start();
@@ -433,7 +432,7 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
             itemViewHolder.binding.uploadRightButton.setVisibility(View.VISIBLE);
             itemViewHolder.binding.uploadRightButton.setOnClickListener(v -> {
                 uploadHelper.setStatusOfUploadToCancel(item.getRemotePath());
-                FileUploadWorker.Companion.cancelCurrentUpload(item.getRemotePath(), item.getAccountName(), () -> Unit.INSTANCE);
+                UploadFileOperation.requestCancellation(item.getRemotePath(), item.getAccountName());
                 loadUploadItemsFromDb();
             });
 
