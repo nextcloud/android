@@ -604,12 +604,6 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
                 itemViewHolder.binding.thumbnail.setImageDrawable(icon);
             }
         }
-
-        final var cancellationRequest = UploadFileOperation.getMatchingCancellationRequest(item.getRemotePath(), item.getAccountName());
-        if (cancellationRequest != null) {
-            itemViewHolder.binding.uploadStatus.setVisibility(View.VISIBLE);
-            itemViewHolder.binding.uploadStatus.setText("Cancelling upload...");
-        }
     }
 
     private void getThumbnailFromFileTypeAndSetIcon(String localPath, ItemViewHolder itemViewHolder) {
