@@ -13,6 +13,7 @@ import android.content.Context
 import android.content.Intent
 import com.nextcloud.client.account.User
 import com.nextcloud.client.account.UserAccountManager
+import com.nextcloud.client.database.entity.toOCUpload
 import com.nextcloud.client.database.entity.toUploadEntity
 import com.nextcloud.client.device.BatteryStatus
 import com.nextcloud.client.device.PowerManagementService
@@ -228,13 +229,18 @@ class FileUploadHelper {
         uploadsStorageManager.uploadDao.deleteByAccountAndRemotePath(accountName, remotePath)
     }
 
-    fun setStatusOfUploadToCancel(remotePath: String) {
+    fun updateUploadStatus(remotePath: String, accountName: String, status: UploadStatus) {
         ioScope.launch {
-            uploadsStorageManager.run {
-                uploadDao.getByRemotePath(remotePath)?.let { entity ->
-                    uploadDao.update(entity.copy(status = UploadStatus.UPLOAD_CANCELLED.value))
-                }
-            }
+            uploadsStorageManager.uploadDao.updateStatus(remotePath, accountName, status.value)
+        }
+    }
+
+    fun getUploadsByStatus(accountName: String, status: UploadStatus, onCompleted: (Array<OCUpload>) -> Unit) {
+        ioScope.launch {
+            val result =
+                uploadsStorageManager.uploadDao.getUploadsByStatus(accountName, status.value)
+                    .map { it.toOCUpload(null) }.toTypedArray()
+            onCompleted(result)
         }
     }
 
@@ -456,7 +462,7 @@ class FileUploadHelper {
                 }
 
                 FileUploadWorker.cancelCurrentUpload(remotePath, accountName, onCompleted = {
-                    instance().setStatusOfUploadToCancel(remotePath)
+                    instance().updateUploadStatus(remotePath, accountName, UploadStatus.UPLOAD_CANCELLED)
                 })
             }
         }
