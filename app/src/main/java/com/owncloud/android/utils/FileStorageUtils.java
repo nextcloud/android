@@ -80,8 +80,8 @@ public final class FileStorageUtils {
         String decoded;
         try {
             decoded = URLDecoder.decode(filename, StandardCharsets.UTF_8.toString());
-        } catch (UnsupportedEncodingException e) {
-            return false;
+        } catch (Exception e) {
+            decoded = filename;
         }
 
         int[] bidiControlCharacters = {
