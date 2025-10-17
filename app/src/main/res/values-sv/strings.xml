@@ -209,6 +209,7 @@
     <string name="contacts_preferences_import_scheduled_fail">Importen kunde inte startas. Försök igen</string>
     <string name="contacts_preferences_no_file_found">Ingen fil funnen</string>
     <string name="contacts_preferences_something_strange_happened">Vi kunde inte hitta din senaste backup!</string>
+    <string name="content_observer_work_notification_title">Upptäcker innehållsförändringar</string>
     <string name="copied_to_clipboard">Kopierat till urklipp</string>
     <string name="copy_file_error">Ett fel uppstod, kunde inte kopiera filen eller mappen</string>
     <string name="copy_file_invalid_into_descendent">Det är inte möjligt att kopiera mappen till en av dess undermappar</string>
@@ -614,6 +615,8 @@
     <string name="notification_action_failed">Misslyckades utföra åtgärd.</string>
     <string name="notification_channel_background_operations_description">Visa aviseringar för att interagera resultatet av bakgrundsoperationer</string>
     <string name="notification_channel_background_operations_name">Bakgrundsoperationer</string>
+    <string name="notification_channel_content_observer_description">Upptäcker lokala filändringar</string>
+    <string name="notification_channel_content_observer_name_short">Innehållsövervakare</string>
     <string name="notification_channel_download_description">Visar hämtningsförloppet</string>
     <string name="notification_channel_download_name_short">Nerladdningar</string>
     <string name="notification_channel_file_sync_description">Visar filsynkroniserings förlopp och resultat</string>

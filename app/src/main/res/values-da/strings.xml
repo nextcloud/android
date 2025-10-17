@@ -15,7 +15,7 @@
     <string name="action_switch_list_view">List visning</string>
     <string name="actionbar_calendar_contacts_restore">Gendan kontakter og kalender</string>
     <string name="actionbar_mkdir">Ny mappe</string>
-    <string name="actionbar_move_or_copy">Flyt eller kopier</string>
+    <string name="actionbar_move_or_copy">Flyt eller kopiér</string>
     <string name="actionbar_open_with">Åbn med</string>
     <string name="actionbar_search">Søg</string>
     <string name="actionbar_see_details">Detaljer</string>
@@ -211,7 +211,7 @@
     <string name="copy_file_invalid_into_descendent">Det er ikke muligt at kopiere en mappe til en af dens egne undermapper</string>
     <string name="copy_file_invalid_overwrite">Filen findes allerede i destinationsmappen</string>
     <string name="copy_file_not_found">Ikke muligt at kopiere. Undersøg venligst om filen eksisterer.</string>
-    <string name="copy_link">Kopier link</string>
+    <string name="copy_link">Kopiér link</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Kopier/flyt til krypteret mappe endnu ikke understøttet.</string>
     <string name="could_not_download_image">Kunne ikke hente hele billedet</string>
     <string name="could_not_retrieve_shares">Kunne ikke hente delte drev</string>
@@ -460,9 +460,9 @@
     <string name="file_version_restored_successfully">Succes ved genskabning af fil version!</string>
     <string name="filedetails_details">Detaljer</string>
     <string name="filedetails_download">Download</string>
-    <string name="filedetails_export">Eksporter</string>
+    <string name="filedetails_export">Eksportér</string>
     <string name="filedetails_renamed_in_upload_msg">File omdøbt %1$sunder overførelse</string>
-    <string name="filedetails_sync_file">Synkroniser</string>
+    <string name="filedetails_sync_file">Synkronisér</string>
     <string name="filedisplay_no_file_selected">Ingen fil valgt</string>
     <string name="filename_empty">Filnavnet kan ikke stå tomt.</string>
     <string name="filename_forbidden_characters">Ugyldige tegn: / \\ &lt; &gt; : \" | ? *</string>
@@ -479,7 +479,7 @@
     <string name="folder_name_empty">Mappenavnet må ikke være tomt</string>
     <string name="folder_picker_choose_button_text">Vælg</string>
     <string name="folder_picker_choose_caption_text">Vælg destinationsmappe</string>
-    <string name="folder_picker_copy_button_text">Kopier</string>
+    <string name="folder_picker_copy_button_text">Kopiér</string>
     <string name="folder_picker_move_button_text">Flyt</string>
     <string name="forbidden_permissions">Du har ikke tilladelse %s</string>
     <string name="forbidden_permissions_copy">til at kopiere denne fil</string>
@@ -819,7 +819,7 @@
     <string name="share">Del</string>
     <string name="share_allow_download_and_sync_permission">Tillad download og synkronisering</string>
     <string name="share_cannot_update_empty_note">Vi kunne ikke opdatere delingen. Tilføj en note og prøv igen.</string>
-    <string name="share_copy_link">Del og kopier link</string>
+    <string name="share_copy_link">Del og kopiér link</string>
     <string name="share_create_permission">Opret</string>
     <string name="share_custom_permission">Brugerdefinerede rettigheder</string>
     <string name="share_delete_permission">Slet</string>

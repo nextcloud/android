@@ -100,9 +100,11 @@
     <string name="authenticator_activity_please_complete_login_process">Tafadhali kamilisha mchakato wa kuingia katika kivinjari chako</string>
     <string name="auto_upload_battery_saver_mode_warning">Upakiaji otomatiki umesitishwa kwa sababu Kiokoa Betri kimewashwa.</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">iliyohifadhiwa kwenye folda asili, kwani inasomwa tu</string>
+    <string name="auto_upload_low_battery_warning_info">Betri iko chini, upakiaji unaweza kuchukua muda mrefu</string>
     <string name="auto_upload_on_wifi">Pakia kwenye Wi-Fi isiyopimwa pekee</string>
     <string name="auto_upload_path">/Pakia Kiotomatiki</string>
     <string name="auto_upload_sub_folder_warning">Folda hii tayari imejumuishwa katika usawazishaji wa folda kuu, ambayo inaweza kusababisha upakiaji unaorudiwa</string>
+    <string name="auto_upload_wifi_only_warning_info">Inasubiri Wi-Fi kuanza kupakia</string>
     <string name="auto_upload_worker_start_text">Inapakia faili kutoka %s hadi %s</string>
     <string name="autoupload_configure">Sanidi</string>
     <string name="autoupload_create_new_custom_folder">Unda usanidi mpya wa folda maalum</string>
@@ -207,6 +209,7 @@
     <string name="contacts_preferences_import_scheduled_fail">Imeshindwa kuanza kuleta. Tafadhali jaribu tena</string>
     <string name="contacts_preferences_no_file_found">Hakuna faili iliyopatikana</string>
     <string name="contacts_preferences_something_strange_happened">Haikuweza kupata nakala yako ya mwisho!</string>
+    <string name="content_observer_work_notification_title">Inagundua mabadiliko ya maudhui</string>
     <string name="copied_to_clipboard">Nakili katika ubao wa kunakili</string>
     <string name="copy_file_error">Hitilafu ilitokea wakati wa kujaribu kunakili faili au folda hii</string>
     <string name="copy_file_invalid_into_descendent">Haiwezekani kunakili folda kwenye mojawapo ya folda zake za msingi</string>
@@ -612,6 +615,8 @@
     <string name="notification_action_failed">Imeshindwa kutekeleza kitendo.</string>
     <string name="notification_channel_background_operations_description">Onyesha arifa ili kuingiliana na matokeo ya shughuli za usuli</string>
     <string name="notification_channel_background_operations_name">Shughuli za usuli</string>
+    <string name="notification_channel_content_observer_description">Hutambua mabadiliko ya faili za ndani</string>
+    <string name="notification_channel_content_observer_name_short">Mtazamaji wa maudhui</string>
     <string name="notification_channel_download_description">Inaonyesha maendeleo ya upakuaji</string>
     <string name="notification_channel_download_name_short">Vipakuliwa</string>
     <string name="notification_channel_file_sync_description">Inaonyesha maendeleo ya usawazishaji wa faili na matokeo</string>
