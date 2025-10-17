@@ -479,6 +479,11 @@
     <string name="folder_already_exists">Xa existe o cartafol</string>
     <string name="folder_best_viewed_in">Este cartafol vese mellor en %1$s.</string>
     <string name="folder_confirm_create">Crear</string>
+    <string name="folder_download_counter">%1$d de %2$d &#183; %3$s</string>
+    <string name="folder_download_error_notification_title">Produciuse un erro durante a sincronización do cartafol %s</string>
+    <string name="folder_download_insufficient_disk_space_notification_title">Non hai espazo abondo no disco, cancelouse a sincronización</string>
+    <string name="folder_download_success_notification_title">O cartafol %s foi sincronizado correctamente</string>
+    <string name="folder_download_worker_ticker_id">Sincronizando…</string>
     <string name="folder_list_empty_headline">Aquí non hai cartafoles</string>
     <string name="folder_name_empty">O nome do cartafol non pode estar baleiro</string>
     <string name="folder_picker_choose_button_text">Escoller</string>

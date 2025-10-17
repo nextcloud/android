@@ -154,7 +154,7 @@
     <string name="common_error_unknown">Hitilafu isiyojulikana</string>
     <string name="common_leave_this_share">Ondoa ushirikishaji huu</string>
     <string name="common_loading">Inapakia</string>
-    <string name="common_next">Next</string>
+    <string name="common_next">Ijayo</string>
     <string name="common_no">Hapana</string>
     <string name="common_now">Sasa</string>
     <string name="common_ok">SAWA</string>
@@ -479,6 +479,11 @@
     <string name="folder_already_exists">Folda tayari ipo</string>
     <string name="folder_best_viewed_in">Folda hii inatazamwa vyema ndani %1$s.</string>
     <string name="folder_confirm_create">Tengeneza</string>
+    <string name="folder_download_counter">%1$d of %2$d &#183; %3$s</string>
+    <string name="folder_download_error_notification_title">Hitilafu ilitokea wakati wa ulandanishi wa folda ya %s</string>
+    <string name="folder_download_insufficient_disk_space_notification_title">Nafasi ya diski haitoshi, maingiliano yameghairiwa</string>
+    <string name="folder_download_success_notification_title">Folda %s imesawazishwa</string>
+    <string name="folder_download_worker_ticker_id">Inasawazisha...</string>
     <string name="folder_list_empty_headline">Hakuna folda hapa</string>
     <string name="folder_name_empty">Jina la folda haliwezi kuwa tupu</string>
     <string name="folder_picker_choose_button_text">Chagua</string>

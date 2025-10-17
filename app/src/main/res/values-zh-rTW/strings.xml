@@ -479,6 +479,11 @@
     <string name="folder_already_exists">資料夾已經存在</string>
     <string name="folder_best_viewed_in">此資料夾最好在 %1$s 中檢視。</string>
     <string name="folder_confirm_create">建立</string>
+    <string name="folder_download_counter">%1$d / %2$d &#183; %3$s</string>
+    <string name="folder_download_error_notification_title">同步 %s 資料夾時發生錯誤</string>
+    <string name="folder_download_insufficient_disk_space_notification_title">磁碟空間不足，已取消同步</string>
+    <string name="folder_download_success_notification_title">已成功同步 %s 資料夾</string>
+    <string name="folder_download_worker_ticker_id">正在同步……</string>
     <string name="folder_list_empty_headline">此處無資料夾</string>
     <string name="folder_name_empty">資料夾名稱不能為空</string>
     <string name="folder_picker_choose_button_text">選擇</string>
