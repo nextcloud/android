@@ -46,6 +46,8 @@ import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.lib.resources.files.Chunk;
+import com.owncloud.android.lib.resources.files.ChunkUploadListener;
 import com.owncloud.android.lib.resources.files.ChunkedFileUploadRemoteOperation;
 import com.owncloud.android.lib.resources.files.ExistenceCheckRemoteOperation;
 import com.owncloud.android.lib.resources.files.ReadFileRemoteOperation;
@@ -105,6 +107,7 @@ import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 
 import androidx.annotation.CheckResult;
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import kotlin.Pair;
 import kotlin.Triple;
@@ -113,7 +116,7 @@ import kotlin.Unit;
 /**
  * Operation performing the update in the ownCloud server of a file that was modified locally.
  */
-public class UploadFileOperation extends SyncOperation {
+public class UploadFileOperation extends SyncOperation implements ChunkUploadListener {
 
     private static final String TAG = UploadFileOperation.class.getSimpleName();
 
@@ -750,6 +753,7 @@ public class UploadFileOperation extends SyncOperation {
         }
 
         if (shouldCancelUpload()) {
+            processCancellationIfRequested();
             throw new OperationCancelledException();
         }
 
@@ -1060,6 +1064,11 @@ public class UploadFileOperation extends SyncOperation {
                                                                  mDisableRetries);
             }
 
+            if (mUploadOperation instanceof ChunkedFileUploadRemoteOperation chunkedFileUploadRemoteOperation) {
+                chunkedFileUploadRemoteOperation.setChunkUploadListener(this);
+            }
+
+
             /**
              * Adds the onTransferProgress in FileUploadWorker
              * {@link FileUploadWorker#onTransferProgress(long, long, long, String)()}
@@ -1069,6 +1078,7 @@ public class UploadFileOperation extends SyncOperation {
             }
 
             if (shouldCancelUpload()) {
+                processCancellationIfRequested();
                 throw new OperationCancelledException();
             }
 
@@ -1135,7 +1145,7 @@ public class UploadFileOperation extends SyncOperation {
     }
 
     private boolean shouldCancelUpload() {
-        return mCancellationRequested.get() || processCancellationIfRequested();
+        return mCancellationRequested.get() || (getMatchingCancellationRequest(mRemotePath, user.getAccountName()) != null);
     }
 
     private void updateSize(long size) {
@@ -1176,6 +1186,7 @@ public class UploadFileOperation extends SyncOperation {
         }
 
         if (shouldCancelUpload()) {
+            processCancellationIfRequested();
             throw new OperationCancelledException();
         }
 
@@ -1218,6 +1229,7 @@ public class UploadFileOperation extends SyncOperation {
         }
 
         if (shouldCancelUpload()) {
+            processCancellationIfRequested();
             throw new OperationCancelledException();
         }
 
@@ -1535,6 +1547,7 @@ public class UploadFileOperation extends SyncOperation {
                 } // else: weird but possible situation, nothing to copy
 
                 if (shouldCancelUpload()) {
+                    processCancellationIfRequested();
                     return new RemoteOperationResult(new OperationCancelledException());
                 }
             } catch (Exception e) {
@@ -1722,5 +1735,14 @@ public class UploadFileOperation extends SyncOperation {
             }
         }
         return null;
+    }
+
+    @Override
+    public boolean isCancelled() {
+        final var result = shouldCancelUpload();
+        if (result) {
+            processCancellationIfRequested();
+        }
+        return result;
     }
 }
