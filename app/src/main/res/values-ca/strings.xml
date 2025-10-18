@@ -528,7 +528,6 @@
     <string name="manage_space_clear_data">Neteja dades</string>
     <string name="manage_space_description">Els paràmetres, la base de dades i els certificats del servidor %1$s se suprimiran de forma permanent. \n\nEls fitxers descarregats romandran intactes.\n\n Aquest procés pot trigar una estona.</string>
     <string name="manage_space_title">Gestió d\'espai</string>
-    <string name="max_file_count_warning_message">Has assolit el límit màxim de pujada de fitxers. Puja menys de 500 fitxers alhora.</string>
     <string name="media_err_invalid_progressive_playback">No es pot reproduir el fitxer multimèdia</string>
     <string name="media_err_io">No s\'ha pogut llegir el fitxer multimèdia</string>
     <string name="media_err_malformed">El fitxer multimèdia té una codificació incorrecta</string>

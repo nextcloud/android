@@ -571,7 +571,6 @@
     <string name="manage_space_clear_data">Daten löschen</string>
     <string name="manage_space_description">Einstellungen, Datenbank und Serverzertifikate von %1$s\'s Daten werden dauerhaft gelöscht.\n\nHerunter geladene Dateien bleiben unangetastet.\n\nDieser Vorgang kann eine Zeit dauern.</string>
     <string name="manage_space_title">Verwalte Speicherplatz</string>
-    <string name="max_file_count_warning_message">Sie haben die maximale Anzahl an Datei-Uploads erreicht. Bitte laden Sie weniger als 500 Dateien gleichzeitig hoch.</string>
     <string name="media_err_invalid_progressive_playback">Die Mediendatei kann nicht gestreamt werden</string>
     <string name="media_err_io">Die Mediendatei konnte nicht gelesen werden</string>
     <string name="media_err_malformed">Mediendatei ist nicht korrekt encodiert</string>

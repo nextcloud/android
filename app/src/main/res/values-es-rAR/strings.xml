@@ -484,7 +484,6 @@
     <string name="manage_space_clear_data">Borrar datos</string>
     <string name="manage_space_description">Las configuraciones , base de datos y certificados del servidor de los datos de %1$s serán borrados permanentemente.\n\nLos archivos descargados se mantendrán sin cambios.\n\nEste proceso puede tomar algo de tiempo. </string>
     <string name="manage_space_title">Administrar espacio</string>
-    <string name="max_file_count_warning_message">Ha alcanzado el límite de carga máxima de archivos. Por favor, cargue menos de 500 archivos a la vez.</string>
     <string name="media_err_invalid_progressive_playback">No se puede transmitir el archivo multimedia</string>
     <string name="media_err_io">No fue posible leer el archivo de medios</string>
     <string name="media_err_malformed">El archivo de medios tiene una codificacion incorrecta</string>

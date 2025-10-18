@@ -558,7 +558,6 @@
     <string name="manage_space_clear_data">清除資料</string>
     <string name="manage_space_description">來自%1$s的設定，數據庫與伺服器憑證相關資料將被永久刪除，已下載的檔案將不會變動，此過程需要花費一些時間。</string>
     <string name="manage_space_title">管理空間</string>
-    <string name="max_file_count_warning_message">您已達最大檔案上傳限制。一次上傳僅能上傳少於 500 個檔案。</string>
     <string name="media_err_invalid_progressive_playback">此媒體檔案無法被串流播放</string>
     <string name="media_err_io">無法讀取媒體檔案</string>
     <string name="media_err_malformed">媒體檔案未被正確的編碼</string>

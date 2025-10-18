@@ -562,7 +562,6 @@
     <string name="manage_space_clear_data">Fjern data</string>
     <string name="manage_space_description">Indstillinger, database og server certifikater fra %1$s\'s data vil blive permanent slettede.\n\nHentede filer vil forblive uberørte.\n\n Denne proces kan tage lidt tid.</string>
     <string name="manage_space_title">Håndter plads</string>
-    <string name="max_file_count_warning_message">Du har nået din maksimale uploadgrænse. Upload venligst mindre end 500 filer på samme tid.</string>
     <string name="media_err_invalid_progressive_playback">Medie filen kan ikke streames.</string>
     <string name="media_err_io">Kunne ikke læse mediefil</string>
     <string name="media_err_malformed">Mediefilen har en ugyldig indkodning.</string>

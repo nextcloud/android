@@ -534,7 +534,6 @@
     <string name="manage_space_clear_data">데이터 지우기</string>
     <string name="manage_space_description">%1$s의 데이터에서 설정, 데이터베이스, 서버 인증서를 삭제합니다.\n\n다운로드한 파일은 변경되지 않습니다.\n\n이 작업은 시간이 걸릴 수 있습니다.</string>
     <string name="manage_space_title">저장 공간 관리</string>
-    <string name="max_file_count_warning_message">최대 파일 업로드 제한에 도달했습니다. 1회 당 500개 이하의 파일을 업로드해 주세요.</string>
     <string name="media_err_invalid_progressive_playback">미디어 파일을 스트리밍 할 수 없습니다.</string>
     <string name="media_err_io">미디어 파일을 읽을 수 없음</string>
     <string name="media_err_malformed">미디어 파일의 인코딩이 잘못됨</string>

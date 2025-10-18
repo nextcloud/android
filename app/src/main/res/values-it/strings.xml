@@ -531,7 +531,6 @@
     <string name="manage_space_clear_data">Cancella i dati</string>
     <string name="manage_space_description">Impostazioni, database e certificati del server dai dati di %1$s saranno eliminati definitivamente.\n\nI file scaricati non saranno interessati.\n\nQuesto processo può richiedere del tempo.</string>
     <string name="manage_space_title">Gestisci lo spazio</string>
-    <string name="max_file_count_warning_message">Hai raggiunto il limite massimo di caricamento file. Carica meno di 500 file alla volta.</string>
     <string name="media_err_invalid_progressive_playback">Il file multimediale non può essere trasmesso</string>
     <string name="media_err_io">Impossibile leggere il file multimediale</string>
     <string name="media_err_malformed">Il file multimediale ha una codifica non corretta</string>

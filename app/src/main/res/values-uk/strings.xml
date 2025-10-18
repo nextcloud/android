@@ -571,7 +571,6 @@
     <string name="manage_space_clear_data">Очистити дані</string>
     <string name="manage_space_description">Налаштування, база даних та дані сертифікатів серверу від %1$s буде вилучено без можливості відновлення.\n\nФайли, які було звантажено, буде збережено.\n\nЦей процес триватиме певний час.</string>
     <string name="manage_space_title">Керувати простором</string>
-    <string name="max_file_count_warning_message">Досягнуто обмеження на кількість завантаження файлів. За раз можна завантажувати не більше 500 файлів.  </string>
     <string name="media_err_invalid_progressive_playback">Неможливо транслювати мультимедійний файл</string>
     <string name="media_err_io">Неможливо відкрити мультимедійний файл</string>
     <string name="media_err_malformed">Мультимедійний файл має неправильно кодування</string>

@@ -479,6 +479,10 @@
     <string name="folder_already_exists">Pasta já existe</string>
     <string name="folder_best_viewed_in">Esta pasta é melhor visualizada em %1$s.</string>
     <string name="folder_confirm_create">Criar</string>
+    <string name="folder_download_counter">%1$d de %2$d &#183; %3$s</string>
+    <string name="folder_download_error_notification_title">Ocorreu um erro durante a sincronização da pasta %s</string>
+    <string name="folder_download_insufficient_disk_space_notification_title">Espaço em disco insuficiente, sincronização cancelada</string>
+    <string name="folder_download_success_notification_title">Pasta %s sincronizada com êxito</string>
     <string name="folder_download_worker_ticker_id">Sincronizando…</string>
     <string name="folder_list_empty_headline">Sem pastas aqui</string>
     <string name="folder_name_empty">O nome da pasta não pode ficar vazio</string>
@@ -567,7 +571,6 @@
     <string name="manage_space_clear_data">Limpar dados</string>
     <string name="manage_space_description">Configurações, banco de dados e certificados do servidor de dados de %1$s serão excluídos permanentemente.\n\nArquivos baixados serão mantidos intocados.\n\nEste processo pode levar um tempo.</string>
     <string name="manage_space_title">Gerenciar o espaço</string>
-    <string name="max_file_count_warning_message">Você atingiu o limite máximo de upload de arquivos. Por favor, envie menos de 500 arquivos por vez.</string>
     <string name="media_err_invalid_progressive_playback">O arquivo de mídia não pode ser transmitido </string>
     <string name="media_err_io">Não foi possível ler o arquivo de mídia</string>
     <string name="media_err_malformed">O arquivo de mídia tem uma codificação incorreta</string>

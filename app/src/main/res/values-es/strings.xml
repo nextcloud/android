@@ -562,7 +562,6 @@
     <string name="manage_space_clear_data">Limpiar datos</string>
     <string name="manage_space_description">Las opciones, certificados y bases de datos de %1$s serán borrados permanentemente.\n\nLos archivos bajados no se tocarán.\n\nEste proceso tardará algún tiempo.</string>
     <string name="manage_space_title">Gestionar espacio</string>
-    <string name="max_file_count_warning_message">Has alcanzado el límite máximo de subida de archivos. Por favor, suba menos de 500 archivos cada vez.</string>
     <string name="media_err_invalid_progressive_playback">El archivo multimedia no puede ser transmitido</string>
     <string name="media_err_io">El archivo de medios no se ha podido leer</string>
     <string name="media_err_malformed">El archivo de medios tiene una codificación incorrecta</string>

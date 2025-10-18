@@ -558,7 +558,6 @@
     <string name="manage_space_clear_data">Effacer les données</string>
     <string name="manage_space_description">Les paramètres, la base de données et les certificats du serveur provenant de %1$s seront définitivement effacés. \n\nLes fichiers téléchargés ne seront pas impactés.\n\nCette opération peut prendre du temps.</string>
     <string name="manage_space_title">Gestion de l\'espace</string>
-    <string name="max_file_count_warning_message">Vous avez atteint la limite maximum de téléversement. Veuillez téléverser moins de 500 fichiers à la fois.</string>
     <string name="media_err_invalid_progressive_playback">Le fichier ne peut être streamer</string>
     <string name="media_err_io">Impossible de lire le fichier média</string>
     <string name="media_err_malformed">Le fichier média n\'est pas correctement encodé</string>

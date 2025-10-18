@@ -542,7 +542,6 @@
     <string name="manage_space_clear_data">Garbitu datuak</string>
     <string name="manage_space_description">%1$s(r)en ezarpenak, datu-basea eta zerbitzariaren ziurtagiriak betirako ezabatuko dira.\n\n Deskargatutako fitxategiak ez dira ukituko.\n\n Prozesu honek denbora behar du.</string>
     <string name="manage_space_title">Kudeatu lekua</string>
-    <string name="max_file_count_warning_message">Fitxategiak igotzeko gehienezko mugara iritsi zara. Mesedez, ez igo 500 fitxategi baino gutxiago aldi berean.</string>
     <string name="media_err_invalid_progressive_playback">Ezin da multimedia fitxategia transmititu</string>
     <string name="media_err_io">Ezin izan da multimedia fitxategia irakurri</string>
     <string name="media_err_malformed">Multimedia fitxategiak kodeketa desegokia du</string>

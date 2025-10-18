@@ -571,7 +571,6 @@
     <string name="manage_space_clear_data">Futa data</string>
     <string name="manage_space_description">Mipangilio, hifadhidata na vyeti vya seva kutoka kwa data ya %1$s vitafutwa kabisa. \n\nFaili zilizopakuliwa zitawekwa bila kuguswa.\n\nMchakato huu unaweza kuchukua muda.</string>
     <string name="manage_space_title">Dhibiti nafasi</string>
-    <string name="max_file_count_warning_message">Umefikia kikomo cha juu zaidi cha kupakia faili. Tafadhali pakia chini ya faili 500 kwa wakati mmoja.</string>
     <string name="media_err_invalid_progressive_playback">Faili ya midia haiwezi kutiririshwa</string>
     <string name="media_err_io">Haikuweza kusoma faili ya midia</string>
     <string name="media_err_malformed">Faili ya midia ina usimbaji usio sahihi</string>

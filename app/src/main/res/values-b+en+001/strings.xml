@@ -558,7 +558,6 @@
     <string name="manage_space_clear_data">Clear data</string>
     <string name="manage_space_description">Settings, database and server certificates from %1$s\'s data will be deleted permanently. \n\nDownloaded files will be kept untouched.\n\nThis process can take a while.</string>
     <string name="manage_space_title">Manage space</string>
-    <string name="max_file_count_warning_message">You have reached the maximum file upload limit. Please upload fewer than 500 files at a time.</string>
     <string name="media_err_invalid_progressive_playback">The media file cannot be streamed</string>
     <string name="media_err_io">Could not read the media file</string>
     <string name="media_err_malformed">The media file has incorrect encoding</string>

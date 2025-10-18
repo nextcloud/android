@@ -559,7 +559,6 @@
     <string name="manage_space_clear_data">Очистить данные</string>
     <string name="manage_space_description">Настройки, сертификаты базы данных и сервера из данных %1$s будут удалены навсегда. \n\nЗагруженные файлы будут сохранены нетронутыми. \n\nЭтот процесс может занять некоторое время.</string>
     <string name="manage_space_title">Управление свободным местом</string>
-    <string name="max_file_count_warning_message">Вы достигли максимального лимита на загрузку файлов. Пожалуйста, загружайте не более 500 файлов одновременно.</string>
     <string name="media_err_invalid_progressive_playback">Невозможно организовать потоковую передачу медиафайла</string>
     <string name="media_err_io">Медиафайл не может быть прочитан</string>
     <string name="media_err_malformed">Медиафайл некорректно закодирован</string>
@@ -809,7 +808,7 @@
     <string name="set_download_limit_failed">Не удалось задать лимит загрузки. Пожалуйста, проверьте доступные возможности.</string>
     <string name="set_message">Установить сообщение</string>
     <string name="set_note">Создать заметку</string>
-    <string name="set_online_status">Онлайн статус</string>
+    <string name="set_online_status">Онлайн подключения</string>
     <string name="set_picture_as">Использовать изображение</string>
     <string name="setup_e2e">При настройке сквозного шифрования будет создана  мнемофраза из 12 слов, которая понадобится для открытия файлов на других устройствах. Мнемофраза будет сохранена  только на этом устройстве и может быть просмотрена повторно. Сохраните мнемофразу в надежном месте!</string>
     <string name="share">Общий ресурс</string>
@@ -900,7 +899,7 @@
     <string name="ssl_validator_reason_cert_not_trusted">- Сертификат сервера не является доверенным</string>
     <string name="ssl_validator_reason_cert_not_yet_valid">- Срок действия сертификата сервера ещё не начался</string>
     <string name="ssl_validator_reason_hostname_not_verified">- URL не совпадает с именем сервера в сертификате</string>
-    <string name="status_message">Сообщение о состоянии</string>
+    <string name="status_message">Описание статуса</string>
     <string name="storage_camera">Камера</string>
     <string name="storage_choose_location">Выбрать расположение хранилища</string>
     <string name="storage_description_default">По умолчанию</string>

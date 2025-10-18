@@ -542,7 +542,6 @@ Otomatis unggah hanya bekerja dengan baik apabila Anda mengeluarkan aplikasi ini
     <string name="manage_space_clear_data">Bersihkan data</string>
     <string name="manage_space_description">Pengaturan, database dan sertifikat server dari data %1$s akan dihapus secara permanen. \n\nBerkas terunduh akan tetap terjaga.\n\nProses ini dapat memakan waktu lama.</string>
     <string name="manage_space_title">Kelola ruang</string>
-    <string name="max_file_count_warning_message">Anda telah mencapai batas maksimum unggahan file. Silakan unggah kurang dari 500 file dalam satu waktu.</string>
     <string name="media_err_invalid_progressive_playback">File media tidak dapat di-stream</string>
     <string name="media_err_io">Tidak dapat membaca berkas media</string>
     <string name="media_err_malformed">Berkas media tidak di encoding dengan benar</string>
