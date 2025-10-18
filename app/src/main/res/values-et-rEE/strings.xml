@@ -479,6 +479,11 @@
     <string name="folder_already_exists">Kaust on juba olemas</string>
     <string name="folder_best_viewed_in">Kausta on kõige parem vaadata siin: %1$s.</string>
     <string name="folder_confirm_create">Loo</string>
+    <string name="folder_download_counter">%1$d / %2$d &#183; %3$s</string>
+    <string name="folder_download_error_notification_title">„%s“ kausta sünkroonimisel tekkis viga</string>
+    <string name="folder_download_insufficient_disk_space_notification_title">Andmekandjal pole piisavalt ruumi, sünkroonimine on katkestatud</string>
+    <string name="folder_download_success_notification_title">%s kausta sünkroonimine õnnestus</string>
+    <string name="folder_download_worker_ticker_id">Sünkroonin…</string>
     <string name="folder_list_empty_headline">Siin ei ole kaustu</string>
     <string name="folder_name_empty">Kausta nimi ei saa olla tühi.</string>
     <string name="folder_picker_choose_button_text">Vali</string>

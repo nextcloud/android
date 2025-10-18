@@ -25,6 +25,7 @@ import com.nextcloud.model.WorkerState
 import com.nextcloud.model.WorkerStateLiveData
 import com.nextcloud.utils.ForegroundServiceHelper
 import com.nextcloud.utils.extensions.getPercent
+import com.nextcloud.utils.extensions.updateStatus
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.ForegroundServiceType
@@ -258,6 +259,8 @@ class FileUploadWorker(
             val result = withContext(Dispatchers.IO) {
                 upload(operation, user, client)
             }
+            val entity = uploadsStorageManager.uploadDao.getUploadById(upload.uploadId, accountName)
+            uploadsStorageManager.updateStatus(entity, result.isSuccess)
             currentUploadFileOperation = null
             sendUploadFinishEvent(totalUploadSize, currentUploadIndex, operation, result)
         }

@@ -479,6 +479,7 @@
     <string name="folder_already_exists">Pasta já existe</string>
     <string name="folder_best_viewed_in">Esta pasta é melhor visualizada em %1$s.</string>
     <string name="folder_confirm_create">Criar</string>
+    <string name="folder_download_worker_ticker_id">Sincronizando…</string>
     <string name="folder_list_empty_headline">Sem pastas aqui</string>
     <string name="folder_name_empty">O nome da pasta não pode ficar vazio</string>
     <string name="folder_picker_choose_button_text">Escolher</string>

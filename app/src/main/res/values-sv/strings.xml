@@ -479,6 +479,11 @@
     <string name="folder_already_exists">Mapp finns redan</string>
     <string name="folder_best_viewed_in">Denna mapp visas bäst i %1$s.</string>
     <string name="folder_confirm_create">Skapa</string>
+    <string name="folder_download_counter">%1$d av %2$d &#183; %3$s</string>
+    <string name="folder_download_error_notification_title">Ett fel uppstod under synkronisering av mappen %s</string>
+    <string name="folder_download_insufficient_disk_space_notification_title">Otillräckligt diskutrymme, synkronisering avbruten</string>
+    <string name="folder_download_success_notification_title">Mappen %s har synkroniserats</string>
+    <string name="folder_download_worker_ticker_id">Synkroniserar...</string>
     <string name="folder_list_empty_headline">Inga mappar här</string>
     <string name="folder_name_empty">Mappnamnet får inte vara tomt</string>
     <string name="folder_picker_choose_button_text">Välj</string>

@@ -209,6 +209,7 @@
     <string name="contacts_preferences_import_scheduled_fail">Не вдалося здійснити імпорт. Спробуйте ще раз</string>
     <string name="contacts_preferences_no_file_found">Файл не знайдено</string>
     <string name="contacts_preferences_something_strange_happened">Неможливо знайти вашу останню резервну копію</string>
+    <string name="content_observer_work_notification_title">Пошук змін у вмісті</string>
     <string name="copied_to_clipboard">Скопійовано</string>
     <string name="copy_file_error">Виникла помилка під час спроби копіювати цей файл або каталог</string>
     <string name="copy_file_invalid_into_descendent">Неможливо скопіювати каталог до одного із вкладених підкаталогів</string>
@@ -478,6 +479,11 @@
     <string name="folder_already_exists">Каталог вже існує</string>
     <string name="folder_best_viewed_in">Переглядайте каталог у %1$s.</string>
     <string name="folder_confirm_create">Створити</string>
+    <string name="folder_download_counter">%1$d із %2$d &#183; %3$s</string>
+    <string name="folder_download_error_notification_title">Помилка під час синхронізації каталогу %s</string>
+    <string name="folder_download_insufficient_disk_space_notification_title">Недостатньо місця на диску, синхронізацію скасовано</string>
+    <string name="folder_download_success_notification_title">%s каталог успішно синхронізовано</string>
+    <string name="folder_download_worker_ticker_id">Синхронізація...</string>
     <string name="folder_list_empty_headline">Тут відсутні каталоги</string>
     <string name="folder_name_empty">Ім\'я каталогу не може бути порожнім</string>
     <string name="folder_picker_choose_button_text">Вибрати</string>
@@ -614,6 +620,8 @@
     <string name="notification_action_failed">Не вдалося виконати дію.</string>
     <string name="notification_channel_background_operations_description">Показувати сповіщення про результати фонових операцій</string>
     <string name="notification_channel_background_operations_name">Фонові операції</string>
+    <string name="notification_channel_content_observer_description">Пошук змін у файлі на пристрої</string>
+    <string name="notification_channel_content_observer_name_short">Оглядач вмісту</string>
     <string name="notification_channel_download_description">Показує перебіг звантаження</string>
     <string name="notification_channel_download_name_short">Звантаження</string>
     <string name="notification_channel_file_sync_description">Показує перебіг синхронізації файлів та результати</string>
