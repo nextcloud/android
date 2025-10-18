@@ -571,7 +571,6 @@
     <string name="manage_space_clear_data">Limpar os datos</string>
     <string name="manage_space_description">Van ser eliminados definitivamente os axustes , base de datos e certificados do servidor de %1$s.\n\nOs ficheiros descargados conservaranse sen cambios.\n\nEste proceso pode levar bastante tempo.</string>
     <string name="manage_space_title">Xestionar o espazo</string>
-    <string name="max_file_count_warning_message">Acadou o límite máximo de envío de ficheiros. Envíe menos de 500 ficheiros dunha sentada.</string>
     <string name="media_err_invalid_progressive_playback">Non é posíbel transmitir o ficheiro multimedia</string>
     <string name="media_err_io">Non foi posíbel ler o ficheiro multimedia</string>
     <string name="media_err_malformed">O ficheiro multimedia ten unha codificación incorrecta</string>

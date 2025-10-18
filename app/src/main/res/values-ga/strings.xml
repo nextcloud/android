@@ -100,9 +100,11 @@
     <string name="authenticator_activity_please_complete_login_process">Críochnaigh an próiseas logáil isteach i do bhrabhsálaí le do thoil</string>
     <string name="auto_upload_battery_saver_mode_warning">Tá an uaslódáil uathoibríoch ar sos mar go bhfuil Coigilteoir Ceallraí ar siúl.</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">coinnithe sa bhunfhillteán, mar atá sé inléite amháin</string>
+    <string name="auto_upload_low_battery_warning_info">Ceallraí íseal, d\'fhéadfadh sé go dtógfadh an uaslódáil níos faide</string>
     <string name="auto_upload_on_wifi">Uaslódáil ar Wi-Fi neamh-mhéadraithe amháin</string>
     <string name="auto_upload_path">/Uaslódáil Uathoibríoch</string>
     <string name="auto_upload_sub_folder_warning">Tá an fillteán seo san áireamh cheana féin i gcomhshioncronú an fhillteáin tuismitheora, rud a d’fhéadfadh uaslódálacha dúblacha a chruthú</string>
+    <string name="auto_upload_wifi_only_warning_info">Ag fanacht go dtosóidh Wi-Fi ag uaslódáil</string>
     <string name="auto_upload_worker_start_text">Ag uaslódáil comhad ó %s go %s</string>
     <string name="autoupload_configure">Cumraigh</string>
     <string name="autoupload_create_new_custom_folder">Cruthaigh socrú fillteán saincheaptha nua</string>
@@ -207,6 +209,7 @@
     <string name="contacts_preferences_import_scheduled_fail">Theip ar an iompórtáil. Bain triail eile as</string>
     <string name="contacts_preferences_no_file_found">Níor aimsíodh aon chomhad</string>
     <string name="contacts_preferences_something_strange_happened">Níorbh fhéidir do chúltaca deiridh a aimsiú!</string>
+    <string name="content_observer_work_notification_title">Athruithe ábhair á mbrath</string>
     <string name="copied_to_clipboard">Cóipeáladh chuig an ngearrthaisce</string>
     <string name="copy_file_error">Tharla earráid agus iarracht á déanamh an comhad nó an fillteán seo a chóipeáil</string>
     <string name="copy_file_invalid_into_descendent">Ní féidir fillteán a chóipeáil isteach i gceann dá bhunfhillteáin féin</string>
@@ -476,6 +479,11 @@
     <string name="folder_already_exists">Tá fillteán ann cheana féin</string>
     <string name="folder_best_viewed_in">Is fearr féachaint ar an bhfillteán seo i %1$s.</string>
     <string name="folder_confirm_create">Cruthaigh</string>
+    <string name="folder_download_counter">%1$d de %2$d &#183; %3$s</string>
+    <string name="folder_download_error_notification_title">Tharla earráid le linn sioncrónú an fhillteáin %s</string>
+    <string name="folder_download_insufficient_disk_space_notification_title">Gan dóthain spáis diosca, sioncrónú curtha ar ceal</string>
+    <string name="folder_download_success_notification_title">Sioncrónaíodh an fillteán %s go rathúil</string>
+    <string name="folder_download_worker_ticker_id">Ag sioncrónú…</string>
     <string name="folder_list_empty_headline">Níl fillteáin anseo</string>
     <string name="folder_name_empty">Ní féidir ainm fillteáin a bheith folamh</string>
     <string name="folder_picker_choose_button_text">Roghnaigh</string>
@@ -563,7 +571,6 @@
     <string name="manage_space_clear_data">Sonraí soiléire</string>
     <string name="manage_space_description">Scriosfar socruithe, bunachar sonraí agus teastais an fhreastalaí ó shonraí %1$s go buan. \n\nCoimeádfar comhaid íosluchtaithe gan teagmháil.\n\nTógfaidh an próiseas seo tamall.</string>
     <string name="manage_space_title">Bainistigh spás</string>
-    <string name="max_file_count_warning_message">Tá an uasteorainn uaslódáil comhad sroichte agat. Uaslódáil níos lú ná 500 comhad ag an am céanna.</string>
     <string name="media_err_invalid_progressive_playback">Ní féidir an comhad meán a shruthú</string>
     <string name="media_err_io">Níorbh fhéidir an comhad meán a léamh</string>
     <string name="media_err_malformed">Tá ionchódú mícheart ar an gcomhad meán</string>
@@ -612,6 +619,8 @@
     <string name="notification_action_failed">Theip ar an ngníomh a chur i gcrích.</string>
     <string name="notification_channel_background_operations_description">Taispeáin fógraí chun idirghníomhú a dhéanamh ar thoradh oibríochtaí cúlra</string>
     <string name="notification_channel_background_operations_name">Oibríochtaí cúlra</string>
+    <string name="notification_channel_content_observer_description">Braitheann athruithe ar chomhaid áitiúla</string>
+    <string name="notification_channel_content_observer_name_short">Breathnóir ábhair</string>
     <string name="notification_channel_download_description">Léiríonn dul chun cinn íoslódáil</string>
     <string name="notification_channel_download_name_short">Íoslódálacha</string>
     <string name="notification_channel_file_sync_description">Taispeánann sé dul chun cinn agus torthaí sioncronaithe comhad</string>

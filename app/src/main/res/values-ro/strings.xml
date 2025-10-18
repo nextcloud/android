@@ -517,7 +517,6 @@
     <string name="manage_space_clear_data">Elimină datele</string>
     <string name="manage_space_description">Setările, bazele de date și certificatele serverului ale %1$s vor fi șterse permanent. \n\nFișierele descărcate vor fi păstrate intacte.\n\nAcest proces poate dura mai mult timp.</string>
     <string name="manage_space_title">Administrare spațiu</string>
-    <string name="max_file_count_warning_message">Ați atins limita maximă de încărcare a fișierelor. Vă rugăm să încărcați mai puțin de 500 de fișiere simultan.</string>
     <string name="media_err_invalid_progressive_playback">Fișierul media nu poate fi difuzat</string>
     <string name="media_err_io">Nu s-a putut citi fișierul media</string>
     <string name="media_err_malformed">Fișierul media are codare incorectă</string>

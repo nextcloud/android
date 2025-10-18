@@ -563,7 +563,6 @@
     <string name="manage_space_clear_data">Vyčistit data</string>
     <string name="manage_space_description">Nastavení, databáze a certifikáty serverů z dat %1$s budou natrvalo smazány. \n\nStažené soubory zůstanou beze změny.\n\nTento proces může chvíli trvat.</string>
     <string name="manage_space_title">Spravovat úložný prostor</string>
-    <string name="max_file_count_warning_message">Dosáhli jste maximálního limitu počtu nahrávaných souborů. Nahrávejte méně než 500 souborů naráz.</string>
     <string name="media_err_invalid_progressive_playback">Soubor s médii se nedaří proudově vysílat (stream)</string>
     <string name="media_err_io">Nepodařilo se číst soubor média</string>
     <string name="media_err_malformed">Soubor médií nemá platné kódování</string>

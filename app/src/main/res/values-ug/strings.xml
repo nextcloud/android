@@ -509,7 +509,6 @@
     <string name="manage_space_clear_data">سانلىق مەلۇماتنى تازىلاش</string>
     <string name="manage_space_description">%1$s نىڭ سانلىق مەلۇماتلىرىدىن تەڭشەك ، ساندان ۋە مۇلازىمېتىر گۇۋاھنامىسى مەڭگۈلۈك ئۆچۈرۈلىدۇ. \ n \ n چۈشۈرۈلگەن ھۆججەتلەر تۇتۇلمايدۇ. \ n \ n بۇ جەريانغا بىر ئاز ۋاقىت كېتىدۇ.</string>
     <string name="manage_space_title">بوشلۇقنى باشقۇرۇش</string>
-    <string name="max_file_count_warning_message">ھۆججەت يوللاشنىڭ ئەڭ يۇقىرى چېكىگە يەتتىڭىز. بىر قېتىمدا 500 دىن ئاز ھۆججەت يوللاڭ.</string>
     <string name="media_err_invalid_progressive_playback">مېدىيا ھۆججىتىنى ئاقلاشقا بولمايدۇ</string>
     <string name="media_err_io">مېدىيا ھۆججىتىنى ئوقۇيالمىدى</string>
     <string name="media_err_malformed">مېدىيا ھۆججىتىدە كودلاش خاتا</string>

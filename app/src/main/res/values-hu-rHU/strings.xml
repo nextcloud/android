@@ -563,7 +563,6 @@
     <string name="manage_space_clear_data">Adatok törlése</string>
     <string name="manage_space_description">A beállítások, az adatbázisok és a kiszolgáló tanúsítványok véglegesen törlésre kerülnek %1$s adataiból. \n\nA letöltött fájlok érintetlenek maradnak.\n\nEz eltarthat egy darabig.</string>
     <string name="manage_space_title">Tárhelykezelés</string>
-    <string name="max_file_count_warning_message">Elérte a fájlfeltöltési korlátot. 500-nál kevesebb fájlt töltsön fel egyszerre.</string>
     <string name="media_err_invalid_progressive_playback">A médiafájl nem közvetíthető</string>
     <string name="media_err_io">A médiafájl nem olvasható</string>
     <string name="media_err_malformed">A médiafájl kódolása hibás</string>
