@@ -458,6 +458,7 @@
     <string name="file_not_found_cannot_share">Filen hittades inte. Det gick inte att skapa en delning.</string>
     <string name="file_not_synced">Filen kunde inte synkroniseras. Visar senaste tillgängliga versionen.</string>
     <string name="file_rename">Byt namn</string>
+    <string name="file_upload_limit_message">Du kan ladda upp max %d filer samtidigt.\"</string>
     <string name="file_upload_worker_error_notification_title">Uppladdning misslyckades. Ingen internetanslutning</string>
     <string name="file_upload_worker_same_file_already_exists">%s finns redan, ingen konflikt upptäcktes</string>
     <string name="file_version_restored_error">Fel vid återställning av filversion!</string>
