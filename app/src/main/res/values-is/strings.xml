@@ -563,7 +563,6 @@
     <string name="manage_space_clear_data">Hreinsa gögn</string>
     <string name="manage_space_description">Stillingum, gagnagrunni og skilríkjum vefþjóns úr gögnum %1$s verður eytt endanlega. \n\nSóttar skrár verða ekki snertar.\n\nÞetta ferli getur tekið drjúga stund.</string>
     <string name="manage_space_title">Sýsla með geymslurými</string>
-    <string name="max_file_count_warning_message">Þú hefur náð hámarksfjölda innsendra skráa. Sendu inn færri en 500 skrár í einu.</string>
     <string name="media_err_invalid_progressive_playback">Ekki tókst að streyma margmiðlunarskrá</string>
     <string name="media_err_io">Gat ekki lesið margmiðlunarskrána</string>
     <string name="media_err_malformed">Margmiðlunarskráin er með ranga kóðun</string>

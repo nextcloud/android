@@ -562,7 +562,6 @@
     <string name="manage_space_clear_data">Wyczyść dane</string>
     <string name="manage_space_description">Ustawienia, bazy danych i certyfikaty serwera %1$s zostaną trwale usunięte.\n\nPobrane pliki pozostaną na swoich miejscach.\n\nTen proces może trochę potrwać.</string>
     <string name="manage_space_title">Zarządzaj przestrzenią</string>
-    <string name="max_file_count_warning_message">Osiągnięto maksymalny limit upload. Proszę uploadować mniej niż 500 plików w jednym czasie</string>
     <string name="media_err_invalid_progressive_playback">Plik multimedialny nie może być przesyłany strumieniowo</string>
     <string name="media_err_io">Nie można odczytać pliku</string>
     <string name="media_err_malformed">Nieprawidłowe kodowanie pliku multimedialnego</string>

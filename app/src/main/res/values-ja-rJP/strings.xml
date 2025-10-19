@@ -541,7 +541,6 @@
     <string name="manage_space_clear_data">データのクリア</string>
     <string name="manage_space_description">%1$s のデータから 設定、データベース、サーバー証明書が完全に削除されます。\n\n ダウンロードされたファイルはそのまま残ります。\n\n 実行中はしばらく時間がかかります。</string>
     <string name="manage_space_title">管理領域</string>
-    <string name="max_file_count_warning_message">ファイルアップロードの上限に達しました。一度にアップロードできるファイルは500ファイル以下にしてください。</string>
     <string name="media_err_invalid_progressive_playback">このメディアファイルはストリーミングできません</string>
     <string name="media_err_io">メディアファイルを読み込めません</string>
     <string name="media_err_malformed">不正なエンコードのメディアファイルです</string>

@@ -556,7 +556,6 @@
     <string name="manage_space_clear_data">Gegevens verwijderen</string>
     <string name="manage_space_description">Instellingen, database en servercertificaten van de data van %1$s zullen permanent worden verwijderd. \n\nGedownloade bestanden blijven onaangeroerd.\n\nDit proces kan even duren.</string>
     <string name="manage_space_title">Beheer ruimte</string>
-    <string name="max_file_count_warning_message">Je hebt het maximum van 500 bestanden per upload overschreden.</string>
     <string name="media_err_invalid_progressive_playback">Mediabestand kan niet worden gestreamd</string>
     <string name="media_err_io">Kon het mediabestand niet lezen</string>
     <string name="media_err_malformed">Mediabestand niet goed gecodeerd</string>

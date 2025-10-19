@@ -515,7 +515,6 @@
     <string name="manage_space_clear_data">Nullstill data</string>
     <string name="manage_space_description">Innstillinger, database og serversertifikater fra %1$s\'s filer vil bli slettet. \n\nNedlastede filer blir urørt.\n\nDette kan ta noe tid.</string>
     <string name="manage_space_title">Håndter plass</string>
-    <string name="max_file_count_warning_message">Du har nådd den maksimale grensen for filopplasting. Vennligst last opp færre enn 500 filer om gangen.</string>
     <string name="media_err_invalid_progressive_playback">Mediafilen kan ikke strømmes</string>
     <string name="media_err_io">Mediafilen kunne ikke leses</string>
     <string name="media_err_malformed">Mediafilen er ikke riktig kodet</string>

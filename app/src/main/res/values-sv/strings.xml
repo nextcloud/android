@@ -571,7 +571,6 @@
     <string name="manage_space_clear_data">Rensa data</string>
     <string name="manage_space_description">Inställningar, databas och servercertifikat från %1$s\'s data kommer att raderas permanent. \n\nHämtade filer kommer inte att raderas eller ändras.\n\nDenna process kan ta ett tag.</string>
     <string name="manage_space_title">Hantera utrymme</string>
-    <string name="max_file_count_warning_message">Du har nått den maximala filuppladdningsgränsen. Ladda upp färre än 500 filer åt gången.</string>
     <string name="media_err_invalid_progressive_playback">Media-filen kan inte strömmas</string>
     <string name="media_err_io">Kunde inte läsa mediafilen</string>
     <string name="media_err_malformed">Mediafilen har felaktig kodning</string>

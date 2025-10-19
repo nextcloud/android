@@ -571,7 +571,6 @@
     <string name="manage_space_clear_data">Kustuta andmed</string>
     <string name="manage_space_description">Järgnevaga kustutatakse jäädavalt kõik „%1$s“ andmete seadistused, andmebaasikirjed ja sertifikaadid.\n\nAllalaaditud failid jäävad alles.\n\nKogu toiming võib märgatavalt aega võtta.</string>
     <string name="manage_space_title">Halda andmeruumi</string>
-    <string name="max_file_count_warning_message">Sa üritad laadida üles enam faile kui võimalik on. Palun laadi korraga üles vähem, kui 500 faili.</string>
     <string name="media_err_invalid_progressive_playback">Seda meediafaili ei saa voogedastada</string>
     <string name="media_err_io">Meediafaili lugemine ebaõnnestus</string>
     <string name="media_err_malformed">Sellel meediafailil on vigane kodeering</string>

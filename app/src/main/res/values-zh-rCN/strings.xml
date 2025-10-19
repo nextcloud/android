@@ -571,7 +571,6 @@
     <string name="manage_space_clear_data">清除数据</string>
     <string name="manage_space_description">来自%1$s数据的设置，数据库和服务器证书将被永久删除。\n\n下载的文件将保持不变。\n\n此过程可能需要一段时间。</string>
     <string name="manage_space_title">管理空间</string>
-    <string name="max_file_count_warning_message">你已达到文件上传数量限制，单次请勿超过500个文件。</string>
     <string name="media_err_invalid_progressive_playback">此媒体文件无法流播</string>
     <string name="media_err_io">无法读取媒体文件</string>
     <string name="media_err_malformed">媒体文件的编码不正确</string>

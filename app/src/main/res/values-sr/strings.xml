@@ -565,7 +565,6 @@
     <string name="manage_space_clear_data">Очисти податке</string>
     <string name="manage_space_description">Поставке, база и серверски сертификати од података са %1$s ће бити заувек обрисани. \n\nВећ преузети фајлови неће бити дирани.\n\nОво може потрајати.</string>
     <string name="manage_space_title">Управљање простором</string>
-    <string name="max_file_count_warning_message">Достигли сте границу максималног отпремања фајлова. Молимо вас да отпремате мање од 500 фајлова истовремено.</string>
     <string name="media_err_invalid_progressive_playback">Медијски фајл не може да се пусти</string>
     <string name="media_err_io">Не могу да прочитам медијски фајл</string>
     <string name="media_err_malformed">Медијски фајл има неисправно кодирање знакова</string>
