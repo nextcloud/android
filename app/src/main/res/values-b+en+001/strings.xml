@@ -93,12 +93,19 @@
     <string name="auth_unsupported_multiaccount">%1$s does not support multiple accounts</string>
     <string name="auth_wrong_connection_title">Could not establish connection</string>
     <string name="authenticator_activity_cancel_login">Cancel Login</string>
+    <string name="authenticator_activity_empty_base_url">Please enter a valid server address.</string>
+    <string name="authenticator_activity_empty_response_message">Unable to fetch login details. Please try again.</string>
     <string name="authenticator_activity_login_error">There was an issue processing your login request. Please try again later.</string>
+    <string name="authenticator_activity_no_web_browser_found">No browser is available to open this link.</string>
     <string name="authenticator_activity_please_complete_login_process">Please complete login process in your browser</string>
+    <string name="auto_upload_battery_saver_mode_warning">Auto-upload is paused because Battery Saver is on.</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">kept in original folder, as it is readonly</string>
+    <string name="auto_upload_low_battery_warning_info">Low battery, upload might take longer</string>
     <string name="auto_upload_on_wifi">Only upload on unmetered Wi-Fi</string>
     <string name="auto_upload_path">/AutoUpload</string>
     <string name="auto_upload_sub_folder_warning">This folder is already included in the parent folder’s sync, which may cause duplicate uploads</string>
+    <string name="auto_upload_wifi_only_warning_info">Waiting for Wi-Fi to start uploading</string>
+    <string name="auto_upload_worker_start_text">Uploading files from %s to %s</string>
     <string name="autoupload_configure">Configure</string>
     <string name="autoupload_create_new_custom_folder">Create new custom folder setup</string>
     <string name="autoupload_custom_folder">Set up a custom folder</string>
@@ -202,6 +209,7 @@
     <string name="contacts_preferences_import_scheduled_fail">Import failed to start. Please try again</string>
     <string name="contacts_preferences_no_file_found">No file found</string>
     <string name="contacts_preferences_something_strange_happened">Could not find your last backup!</string>
+    <string name="content_observer_work_notification_title">Detecting content changes</string>
     <string name="copied_to_clipboard">Copied to clipboard</string>
     <string name="copy_file_error">An error occurred while trying to copy this file or folder</string>
     <string name="copy_file_invalid_into_descendent">It is not possible to copy a folder into one of its own underlying folders</string>
@@ -450,6 +458,7 @@
     <string name="file_not_found_cannot_share">File not found. Unable to create a share.</string>
     <string name="file_not_synced">File could not be synced. Showing latest available version.</string>
     <string name="file_rename">Rename</string>
+    <string name="file_upload_limit_message">You can upload up to %d files at once."</string>
     <string name="file_upload_worker_error_notification_title">Upload failed. No internet connection</string>
     <string name="file_upload_worker_same_file_already_exists">%s already exists, no conflict detected</string>
     <string name="file_version_restored_error">Error restoring file version!</string>
@@ -471,6 +480,11 @@
     <string name="folder_already_exists">Folder already exists</string>
     <string name="folder_best_viewed_in">This folder is best viewed in %1$s.</string>
     <string name="folder_confirm_create">Create</string>
+    <string name="folder_download_counter">%1$d of %2$d &#183; %3$s</string>
+    <string name="folder_download_error_notification_title">An error occurred during synchronisation of the %s folder</string>
+    <string name="folder_download_insufficient_disk_space_notification_title">Insufficient disk space, synchronisation cancelled</string>
+    <string name="folder_download_success_notification_title">%s folder successfully synchronised</string>
+    <string name="folder_download_worker_ticker_id">Syncing…</string>
     <string name="folder_list_empty_headline">No folders here</string>
     <string name="folder_name_empty">Folder name cannot be empty</string>
     <string name="folder_picker_choose_button_text">Choose</string>
@@ -606,6 +620,8 @@
     <string name="notification_action_failed">Failed to execute action.</string>
     <string name="notification_channel_background_operations_description">Show notifications to interact result of background operations</string>
     <string name="notification_channel_background_operations_name">Background operations</string>
+    <string name="notification_channel_content_observer_description">Detects local file changes</string>
+    <string name="notification_channel_content_observer_name_short">Content observer</string>
     <string name="notification_channel_download_description">Shows download progress</string>
     <string name="notification_channel_download_name_short">Downloads</string>
     <string name="notification_channel_file_sync_description">Shows file sync progress and results</string>
@@ -983,6 +999,7 @@
     <string name="unified_search_fragment_calendar_event_not_found">Event not found, you can always sync to update. Redirecting to web…</string>
     <string name="unified_search_fragment_contact_not_found">Contact not found, you can always sync to update. Redirecting to web…</string>
     <string name="unified_search_fragment_permission_needed">Permissions are required to open search result otherwise it will redirected to web…</string>
+    <string name="unified_search_fragment_search_in_this_folder">In this folder</string>
     <string name="unknown">Unknown</string>
     <string name="unlock_file">Unlock file</string>
     <string name="unread_comments">Unread comments exist</string>
