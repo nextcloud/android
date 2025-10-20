@@ -783,7 +783,7 @@
     <string name="rename_local_fail_msg">Non foi posíbel cambiarlle o nome a copia local, ténteo cun un nome diferente</string>
     <string name="rename_server_fail_msg">Non foi posíbel cambiarlle o nome, o nome xa está ocupado</string>
     <string name="request_account_deletion">Solicitar a eliminación da conta </string>
-    <string name="request_account_deletion_button">Solicitat a eliminación</string>
+    <string name="request_account_deletion_button">Solicitar a eliminación</string>
     <string name="request_account_deletion_details">Solicitar a eliminación definitiva da conta polo provedor de servizos</string>
     <string name="resharing_is_not_allowed">A directiva ou os permisos impiden volver compartir</string>
     <string name="restore">Restaurar ficheiro</string>
