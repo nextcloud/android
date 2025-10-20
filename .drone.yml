@@ -36,7 +36,7 @@ services:
     image: ghcr.io/nextcloud/continuous-integration-shallow-server:latest # also change in updateScreenshots.sh
     environment:
       EVAL: true
-      SERVER_VERSION: 'stable30'
+      SERVER_VERSION: 'stable32'
     commands:
       - BRANCH="$SERVER_VERSION" /usr/local/bin/initnc.sh
       - echo 127.0.0.1 server >> /etc/hosts
@@ -185,6 +185,6 @@ name: GIT_TOKEN
 data: XIoa9IYq+xQ+N5iln8dlpWv0jV6ROr7HuE24ioUr4uQ8m8SjyH0yognWYLYLqnbTKrFWlFZiEMQTH/sZiWjRFvV1iL0=
 ---
 kind: signature
-hmac: ea9432c9317fa6ca12a282bb117c9f3268ddb29b208dbd772795ba19cf395082
+hmac: 3315741ddc1eead4a443299a9f7d76a54a8bc52530aadebc9f3e12e6c0b7c831
 
 ...
