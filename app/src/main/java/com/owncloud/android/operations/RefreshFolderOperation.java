@@ -411,10 +411,11 @@ public class RefreshFolderOperation extends RemoteOperation {
         Log_OC.d(TAG, "Checking changes in " + user.getAccountName() + remotePath);
 
         // remote request
-        result = new ReadFileRemoteOperation(remotePath).execute(client);
+        result = new ReadFolderRemoteOperation(remotePath).execute(client);
 
         if (result.isSuccess()) {
-            if (!mIgnoreETag && result.getData().get(0) instanceof RemoteFile remoteFile) {
+            final var childFiles = result.getData();
+            if (!mIgnoreETag && childFiles.get(0) instanceof RemoteFile remoteFile) {
                 // check if remote and local folder are different
                 String remoteFolderETag = remoteFile.getEtag();
                 if (remoteFolderETag != null) {
@@ -428,6 +429,14 @@ public class RefreshFolderOperation extends RemoteOperation {
                             "  Remote eTag: " + remoteFolderETag + "\n" +
                             "  Changed:     " + mRemoteFolderChanged
                             );
+
+                    // result.getData() returns folder itself with child files
+                    final int remoteChildFileSize = childFiles.size() - 1;
+                    final int childFileSize = fileDataStorageManager.fileDao.getChildFileCount(mLocalFolder.getFileId());
+                    if (childFileSize != remoteChildFileSize) {
+                        mRemoteFolderChanged = true;
+                        Log_OC.w(TAG, "file sizes are not matching, setting remote folder changed as true");
+                    }
                 } else {
                     Log_OC.e(TAG, "Checked " + user.getAccountName() + remotePath + ": No ETag received from server");
                 }
