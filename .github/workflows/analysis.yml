@@ -27,6 +27,7 @@ concurrency:
 jobs:
     analysis:
         runs-on: ubuntu-latest
+        timeout-minutes: 60
         steps:
             - name: Disabled on forks
               if: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name != github.repository }}
