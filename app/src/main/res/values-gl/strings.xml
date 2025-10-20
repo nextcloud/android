@@ -458,6 +458,7 @@
     <string name="file_not_found_cannot_share">Non se atopou o ficheiro. Non foi posíbel crear unha compartición.</string>
     <string name="file_not_synced">Non foi posíbel sincronizar o ficheiro. Amosase a última versión dispoñíbel.</string>
     <string name="file_rename">Cambiar o nome</string>
+    <string name="file_upload_limit_message">Pode enviar ata %d ficheiros á vez.</string>
     <string name="file_upload_worker_error_notification_title">Produciuse un fallo no envío. Non hai conexión a Internet</string>
     <string name="file_upload_worker_same_file_already_exists">%s xa existe, non se detectou ningún conflito</string>
     <string name="file_version_restored_error">Produciuse un erro ao restaurar a versión do ficheiro</string>
