@@ -77,6 +77,8 @@ class OCFileListBottomSheetDialog(
                 colorImageView(menuIconScanDocUpload, ColorRole.PRIMARY)
                 colorImageView(menuIconMkdir, ColorRole.PRIMARY)
                 colorImageView(menuIconAddFolderInfo, ColorRole.PRIMARY)
+
+                colorViewBackground(binding.bottomSheet, ColorRole.SURFACE)
             }
         }
     }
