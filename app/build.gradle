@@ -296,6 +296,7 @@ dependencies {
 
     // region Jetpack Compose
     implementation(platform(libs.compose.bom))
+    implementation(libs.material.icons.core)
     implementation(libs.compose.ui)
     implementation(libs.compose.ui.graphics)
     implementation(libs.compose.material3)
