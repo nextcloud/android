@@ -274,6 +274,11 @@ public class LocalFileListFragment extends ExtendedListFragment implements
         mAdapter.swapDirectory(directory);
 
         mDirectory = directory;
+
+        final var recyclerView = getRecyclerView();
+        if (recyclerView != null) {
+            recyclerView.scrollToPosition(0);
+        }
     }
 
 
