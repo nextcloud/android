@@ -10,6 +10,7 @@ package com.nextcloud.utils
 import com.nextcloud.utils.autoRename.AutoRename
 import com.owncloud.android.AbstractOnServerIT
 import com.owncloud.android.datamodel.e2e.v2.decrypted.DecryptedFile
+import com.owncloud.android.lib.resources.status.CapabilityBooleanType
 import com.owncloud.android.lib.resources.status.NextcloudVersion
 import com.owncloud.android.lib.resources.status.OCCapability
 import org.junit.Before
@@ -27,6 +28,7 @@ class AutoRenameTests : AbstractOnServerIT() {
         testOnlyOnServer(NextcloudVersion.nextcloud_30)
 
         capability = capability.apply {
+            isWCFEnabled = CapabilityBooleanType.TRUE
             forbiddenFilenameExtensionJson = listOf(
                 """[" ",".",".part",".part"]""",
                 """[".",".part",".part"," "]""",
@@ -237,5 +239,15 @@ class AutoRenameTests : AbstractOnServerIT() {
         val result = AutoRename.rename(filename, capability, isFolderPath = true)
         val expectedFilename = "Foo.Bar.Baz"
         assert(result == expectedFilename) { "Expected $expectedFilename but got $result" }
+    }
+
+    @Test
+    fun skipAutoRenameWhenWCFDisabled() {
+        capability = capability.apply {
+            isWCFEnabled = CapabilityBooleanType.FALSE
+        }
+        val filename = "   readme.txt  "
+        val result = AutoRename.rename(filename, capability, isFolderPath = true)
+        assert(result == filename) { "Expected $filename but got $result" }
     }
 }
