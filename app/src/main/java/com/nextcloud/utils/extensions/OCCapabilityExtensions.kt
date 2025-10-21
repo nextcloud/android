@@ -8,10 +8,14 @@
 package com.nextcloud.utils.extensions
 
 import com.google.gson.Gson
+import com.owncloud.android.lib.resources.status.NextcloudVersion
 import com.owncloud.android.lib.resources.status.OCCapability
 import org.json.JSONException
 
 private val gson = Gson()
+
+fun OCCapability.canCheckWCFRelatedRestrictions(): Boolean =
+    version.isNewerOrEqual(NextcloudVersion.nextcloud_30) && isWCFEnabled.isTrue
 
 fun OCCapability.forbiddenFilenames(): List<String> = jsonToList(forbiddenFilenamesJson)
 
@@ -33,7 +37,7 @@ private fun jsonToList(json: String?): List<String> {
 
     return try {
         return gson.fromJson(json, Array<String>::class.java).toList()
-    } catch (e: JSONException) {
+    } catch (_: JSONException) {
         emptyList()
     }
 }
