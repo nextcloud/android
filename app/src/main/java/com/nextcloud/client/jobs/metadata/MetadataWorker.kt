@@ -55,7 +55,7 @@ class MetadataWorker(private val context: Context, params: WorkerParameters, pri
         return Result.success()
     }
 
-    @Suppress("DEPRECATION")
+    @Suppress("DEPRECATION", "TooGenericExceptionCaught")
     private suspend fun refreshFolder(folder: OCFile, storageManager: FileDataStorageManager) =
         withContext(Dispatchers.IO) {
             Log_OC.d(
@@ -72,12 +72,23 @@ class MetadataWorker(private val context: Context, params: WorkerParameters, pri
 
             Log_OC.d(TAG, "⏳ Fetching metadata for: ${folder.remotePath}")
 
-            val operation = RefreshFolderOperation(folder, storageManager, user, context)
-            val result = operation.execute(user, context)
-            if (result.isSuccess) {
-                Log_OC.d(TAG, "✅ Successfully fetched metadata for: ${folder.remotePath}")
-            } else {
-                Log_OC.e(TAG, "❌ Failed to fetch metadata for: ${folder.remotePath}")
+            try {
+                val operation = RefreshFolderOperation(folder, storageManager, user, context)
+                val result = operation.execute(user, context)
+                if (result.isSuccess) {
+                    Log_OC.d(TAG, "✅ Successfully fetched metadata for: ${folder.remotePath}")
+                } else {
+                    Log_OC.e(TAG, "❌ Failed to fetch metadata for: ${folder.remotePath}, resetting e-Tag")
+                    resetETag(folder, storageManager)
+                }
+            } catch (e: Exception) {
+                Log_OC.e(TAG, "❌ Exception during to fetch metadata for: ${folder.remotePath}, resetting e-Tag $e")
+                resetETag(folder, storageManager)
             }
         }
+
+    private fun resetETag(folder: OCFile, storageManager: FileDataStorageManager) {
+        folder.etag = ""
+        storageManager.saveFile(folder)
+    }
 }

@@ -111,13 +111,4 @@ interface FileDao {
     """
     )
     fun searchFilesInFolder(parentId: Long, fileOwner: String, query: String): List<FileEntity>
-
-    @Query(
-        """
-    SELECT COUNT(*) 
-    FROM filelist 
-    WHERE parent = :parentId
-    """
-    )
-    fun getChildFileCount(parentId: Long): Int
 }
