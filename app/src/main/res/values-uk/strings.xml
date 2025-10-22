@@ -458,6 +458,7 @@
     <string name="file_not_found_cannot_share">Файл не знайдено. Неможливо поділитися.</string>
     <string name="file_not_synced">Неможливо синхронізувати файл. Буде показано останню доступну версію.</string>
     <string name="file_rename">Перейменувати</string>
+    <string name="file_upload_limit_message">Ви можете одночасно завантажити до %d файлів.\"</string>
     <string name="file_upload_worker_error_notification_title">Не вдалося завантажити. Відсутнє з\'єднання з мережею.</string>
     <string name="file_upload_worker_same_file_already_exists">%s вже наявний, відсутні конфлікти</string>
     <string name="file_version_restored_error">Помилка під час відновлення версії файлу!</string>
