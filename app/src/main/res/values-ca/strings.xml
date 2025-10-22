@@ -141,7 +141,7 @@
     <string name="common_error">Error</string>
     <string name="common_error_out_memory">Memòria insuficient</string>
     <string name="common_error_unknown">Error desconegut</string>
-    <string name="common_leave_this_share">Abandona aquest element compartit</string>
+    <string name="common_leave_this_share">Abandona aquest compartició</string>
     <string name="common_loading">S\'està carregant…</string>
     <string name="common_next">Següent</string>
     <string name="common_no">No</string>
@@ -215,7 +215,7 @@
     <string name="create_new_folder">Carpeta nova</string>
     <string name="create_new_presentation">Nova presentació</string>
     <string name="create_new_spreadsheet">Nou full de càlcul</string>
-    <string name="create_rich_workspace">Afegiu una descripció per a la carpeta</string>
+    <string name="create_rich_workspace">Afegeix una descripció per a la carpeta</string>
     <string name="creates_rich_workspace">Afegeix la descripció de la carpeta</string>
     <string name="credentials_disabled">Credencials inhabilitades</string>
     <string name="daily_backup">Còpia de seguretat diària</string>
@@ -233,7 +233,7 @@
     <string name="did_not_check_for_dupes">No s\'han verificat els duplicats.</string>
     <string name="digest_algorithm_not_available">Aquest algorisme de resum no és disponible al vostre telèfon.</string>
     <string name="direct_login_failed">l\'Inici de sessió via enllaç directe ha fallat!</string>
-    <string name="direct_login_text">Inicia la sessió amb %1$s a %2$s</string>
+    <string name="direct_login_text">Inici de sessió amb %1$s a %2$s</string>
     <string name="disable_new_media_folder_detection_notifications">Inhabilita</string>
     <string name="dismiss">Descarta</string>
     <string name="dismiss_notification_description">Descarta la notificació</string>
@@ -443,7 +443,7 @@
     <string name="folder_already_exists">La carpeta ja existeix</string>
     <string name="folder_confirm_create">Crea</string>
     <string name="folder_list_empty_headline">No hi ha carpetes</string>
-    <string name="folder_name_empty">El nom del fitxer no pot estar buit</string>
+    <string name="folder_name_empty">El nom de la carpeta no pot estar buit</string>
     <string name="folder_picker_choose_button_text">Tria</string>
     <string name="folder_picker_choose_caption_text">Trieu la carpeta de destinació</string>
     <string name="folder_picker_copy_button_text">Còpia</string>
@@ -463,7 +463,7 @@
     <string name="forward">Endavant</string>
     <string name="fourHours">4 hores</string>
     <string name="gplay_restriction">Google ha restringit la baixada de fitxers APK/AAB!</string>
-    <string name="grid_file_features_live_photo_content_description">Aquesta icona indica la disponibilitat de la foto en directe</string>
+    <string name="grid_file_features_live_photo_content_description">Aquesta icona indica la disponibilitat de la foto en viu</string>
     <string name="hidden_file_name_warning">El nom donarà com a resultat un fitxer ocult</string>
     <string name="hint_name">Nom</string>
     <string name="hint_note">Nota</string>
@@ -646,7 +646,7 @@
     <string name="prefs_daily_backup_summary">Còpia de seguretat diària del calendari i els contactes</string>
     <string name="prefs_daily_contact_backup_summary">Còpia de seguretat diària dels vostres contactes</string>
     <string name="prefs_data_storage_location">Ubicació de l\'emmagatzematge de dades</string>
-    <string name="prefs_data_storage_location_summary">Gestioneu la ubicació de l\'emmagatzematge de dades</string>
+    <string name="prefs_data_storage_location_summary">Administrar la ubicació de l\'emmagatzematge de dades</string>
     <string name="prefs_e2e_active">S\'ha configurat el xifratge d\'extrem a extrem</string>
     <string name="prefs_e2e_mnemonic">E2E mnemònic</string>
     <string name="prefs_e2e_no_device_credentials">Per mostrar els mnemònics, si us plau habiliteu les credencials del dispositiu.</string>
@@ -851,7 +851,7 @@
     <string name="subject_shared_with_you">\"%1$s\" us ha estat compartit</string>
     <string name="subject_user_shared_with_you">%1$s us ha compartit %2$s</string>
     <string name="subtitle_photos_only">Només fotografies</string>
-    <string name="subtitle_photos_videos">Fotos i vídeos</string>
+    <string name="subtitle_photos_videos">Fotografies i vídeos</string>
     <string name="subtitle_videos_only">Només vídeos</string>
     <string name="suggest">Suggereix</string>
     <string name="sync">Sincronitza</string>
@@ -992,7 +992,7 @@
     <string name="uploads_view_upload_status_succeeded">Completat</string>
     <string name="uploads_view_upload_status_unknown_fail">Error desconegut</string>
     <string name="uploads_view_upload_status_virus_detected">S\'ha detectat un virus. No es pot completar la pujada!</string>
-    <string name="uploads_view_upload_status_waiting_exit_power_save_mode">S\'està esperant al mode d\'apagada segur</string>
+    <string name="uploads_view_upload_status_waiting_exit_power_save_mode">S\'està esperant a sortir del mode d\'estalvi d\'energia</string>
     <string name="uploads_view_upload_status_waiting_for_charging">S\'està esperant càrrega de bateria</string>
     <string name="uploads_view_upload_status_waiting_for_wifi">S\'està esperant una wifi sense mètrica de consum de dades</string>
     <string name="user_icon">Usuari</string>
