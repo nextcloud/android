@@ -411,11 +411,10 @@ public class RefreshFolderOperation extends RemoteOperation {
         Log_OC.d(TAG, "Checking changes in " + user.getAccountName() + remotePath);
 
         // remote request
-        result = new ReadFolderRemoteOperation(remotePath).execute(client);
+        result = new ReadFileRemoteOperation(remotePath).execute(client);
 
         if (result.isSuccess()) {
-            final var childFiles = result.getData();
-            if (!mIgnoreETag && childFiles.get(0) instanceof RemoteFile remoteFile) {
+            if (!mIgnoreETag && result.getData().get(0) instanceof RemoteFile remoteFile) {
                 // check if remote and local folder are different
                 String remoteFolderETag = remoteFile.getEtag();
                 if (remoteFolderETag != null) {
@@ -429,14 +428,6 @@ public class RefreshFolderOperation extends RemoteOperation {
                             "  Remote eTag: " + remoteFolderETag + "\n" +
                             "  Changed:     " + mRemoteFolderChanged
                             );
-
-                    // result.getData() returns folder itself with child files
-                    final int remoteChildFileSize = childFiles.size() - 1;
-                    final int childFileSize = fileDataStorageManager.fileDao.getChildFileCount(mLocalFolder.getFileId());
-                    if (childFileSize != remoteChildFileSize) {
-                        mRemoteFolderChanged = true;
-                        Log_OC.w(TAG, "file sizes are not matching, setting remote folder changed as true");
-                    }
                 } else {
                     Log_OC.e(TAG, "Checked " + user.getAccountName() + remotePath + ": No ETag received from server");
                 }
@@ -535,12 +526,6 @@ public class RefreshFolderOperation extends RemoteOperation {
         // update richWorkspace
         mLocalFolder.setRichWorkspace(remoteFolder.getRichWorkspace());
 
-        // update eTag
-        mLocalFolder.setEtag(remoteFolder.getEtag());
-
-        // update size
-        mLocalFolder.setFileLength(remoteFolder.getFileLength());
-
         Object object = null;
         if (mLocalFolder.isEncrypted()) {
             object = getDecryptedFolderMetadata(encryptedAncestor,
@@ -628,6 +613,7 @@ public class RefreshFolderOperation extends RemoteOperation {
             updatedFile.setEncrypted(encrypted);
 
             updatedFiles.add(updatedFile);
+            Log_OC.d(TAG, "folder: " + mLocalFolder.getRemotePath() + " file: " + updatedFile.getRemotePath() + " metadataWorking: " + isMetadataSyncWorkerRunning);
         }
 
 
@@ -643,8 +629,13 @@ public class RefreshFolderOperation extends RemoteOperation {
                                            mLocalFolder);
         }
         fileDataStorageManager.saveFolder(remoteFolder, updatedFiles, localFilesMap.values());
-
         mChildren = updatedFiles;
+
+        // update eTag
+        mLocalFolder.setEtag(remoteFolder.getEtag());
+
+        // update size
+        mLocalFolder.setFileLength(remoteFolder.getFileLength());
     }
 
     @Nullable
