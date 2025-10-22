@@ -12,7 +12,6 @@ package com.nextcloud.client.network;
 import android.net.ConnectivityManager;
 import android.net.Network;
 import android.net.NetworkCapabilities;
-import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
@@ -24,6 +23,9 @@ import com.nextcloud.operations.GetMethod;
 import com.owncloud.android.lib.common.utils.Log_OC;
 
 import org.apache.commons.httpclient.HttpStatus;
+
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import androidx.annotation.NonNull;
 import androidx.core.net.ConnectivityManagerCompat;
@@ -39,6 +41,7 @@ class ConnectivityServiceImpl implements ConnectivityService {
     private final ClientFactory clientFactory;
     private final GetRequestBuilder requestBuilder;
     private final WalledCheckCache walledCheckCache;
+    private final ExecutorService executor = Executors.newSingleThreadExecutor();
     private final Handler mainThreadHandler = new Handler(Looper.getMainLooper());
 
     static class GetRequestBuilder implements Function1<String, GetMethod> {
@@ -62,43 +65,40 @@ class ConnectivityServiceImpl implements ConnectivityService {
 
     @Override
     public void isNetworkAndServerAvailable(@NonNull GenericCallback<Boolean> callback) {
-        new Thread(() -> {
-            Network activeNetwork = platformConnectivityManager.getActiveNetwork();
-            NetworkCapabilities networkCapabilities = platformConnectivityManager.getNetworkCapabilities(activeNetwork);
-            boolean hasInternet = networkCapabilities != null && networkCapabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET);
-
-            boolean result;
-            if (hasInternet) {
-                result = !isInternetWalled();
-            } else {
-                result = false;
-            }
-
-            mainThreadHandler.post(() -> callback.onComplete(result));
-        }).start();
+        executor.submit(() -> {
+            boolean isAvailable = !isInternetWalled();
+            mainThreadHandler.post(() -> callback.onComplete(isAvailable));
+        });
     }
 
     @Override
     public boolean isConnected() {
         Network nw = platformConnectivityManager.getActiveNetwork();
-        NetworkCapabilities actNw = platformConnectivityManager.getNetworkCapabilities(nw);
+        if (nw == null) {
+            return false;
+        }
 
+        NetworkCapabilities actNw = platformConnectivityManager.getNetworkCapabilities(nw);
         if (actNw == null) {
             return false;
         }
 
-        if (actNw.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) ||
-            actNw.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) ||
-            actNw.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) ||
-            actNw.hasTransport(NetworkCapabilities.TRANSPORT_VPN) ||
-            actNw.hasTransport(NetworkCapabilities.TRANSPORT_BLUETOOTH) ||
-            actNw.hasTransport(NetworkCapabilities.TRANSPORT_WIFI_AWARE)) {
-            return true;
-        }
+        if (actNw.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)) {
+            // Check if the active network uses one of the recognized transport types.
+            if (actNw.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) ||
+                actNw.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) ||
+                actNw.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) ||
+                actNw.hasTransport(NetworkCapabilities.TRANSPORT_VPN) ||
+                actNw.hasTransport(NetworkCapabilities.TRANSPORT_BLUETOOTH) ||
+                actNw.hasTransport(NetworkCapabilities.TRANSPORT_WIFI_AWARE)) {
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S &&
-            actNw.hasTransport(NetworkCapabilities.TRANSPORT_USB)) {
-            return true;
+                // Connected through a valid, verified network transport.
+                return true;
+            }
+
+            // If still nothing matched check Android 12 (API 31, "S") and above via USB network transport.
+            return Build.VERSION.SDK_INT >= Build.VERSION_CODES.S &&
+                actNw.hasTransport(NetworkCapabilities.TRANSPORT_USB);
         }
 
         return false;
@@ -139,31 +139,26 @@ class ConnectivityServiceImpl implements ConnectivityService {
 
     @Override
     public Connectivity getConnectivity() {
-        NetworkInfo networkInfo;
-        try {
-            networkInfo = platformConnectivityManager.getActiveNetworkInfo();
-        } catch (Throwable t) {
-            networkInfo = null; // no network available or no information (permission denied?)
-        }
-
-        if (networkInfo != null) {
-            boolean isConnected = networkInfo.isConnectedOrConnecting();
-            // more detailed check
-            boolean isMetered;
-            isMetered = isNetworkMetered();
-            boolean isWifi = networkInfo.getType() == ConnectivityManager.TYPE_WIFI || hasNonCellularConnectivity();
-            return new Connectivity(isConnected, isMetered, isWifi, null);
-        } else {
+        Network nw = platformConnectivityManager.getActiveNetwork();
+        if (nw == null) {
             return Connectivity.DISCONNECTED;
         }
+
+        NetworkCapabilities nc = platformConnectivityManager.getNetworkCapabilities(nw);
+        boolean isConnected = isConnected();
+        boolean isMetered = isNetworkMetered(nc);
+        boolean isWifi = (nc != null) &&
+            (nc.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) ||
+                nc.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) ||
+                nc.hasTransport(NetworkCapabilities.TRANSPORT_WIFI_AWARE));
+
+        return new Connectivity(isConnected, isMetered, isWifi, null);
     }
 
-    private boolean isNetworkMetered() {
-        final Network network = platformConnectivityManager.getActiveNetwork();
+    private boolean isNetworkMetered(NetworkCapabilities nc) {
         try {
-            NetworkCapabilities networkCapabilities = platformConnectivityManager.getNetworkCapabilities(network);
-            if (networkCapabilities != null) {
-                return !networkCapabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_NOT_RESTRICTED);
+            if (nc != null) {
+                return !nc.hasCapability(NetworkCapabilities.NET_CAPABILITY_NOT_RESTRICTED);
             } else {
                 return ConnectivityManagerCompat.isActiveNetworkMetered(platformConnectivityManager);
             }
@@ -171,15 +166,5 @@ class ConnectivityServiceImpl implements ConnectivityService {
             Log_OC.e(TAG, "Exception when checking network capabilities", e);
             return false;
         }
-    }
-
-    private boolean hasNonCellularConnectivity() {
-        for (NetworkInfo networkInfo : platformConnectivityManager.getAllNetworkInfo()) {
-            if (networkInfo.isConnectedOrConnecting() && (networkInfo.getType() == ConnectivityManager.TYPE_WIFI ||
-                networkInfo.getType() == ConnectivityManager.TYPE_ETHERNET)) {
-                return true;
-            }
-        }
-        return false;
     }
 }
