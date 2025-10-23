@@ -28,6 +28,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.nextcloud.client.appinfo.AppInfo
 import com.nextcloud.client.core.Clock
 import com.nextcloud.client.device.PowerManagementService
 import com.nextcloud.client.di.Injectable
@@ -145,6 +146,9 @@ class SyncedFoldersActivity :
 
     @Inject
     lateinit var syncedFolderProvider: SyncedFolderProvider
+
+    @Inject
+    lateinit var appInfo: AppInfo
 
     lateinit var binding: SyncedFoldersLayoutBinding
     lateinit var adapter: SyncedFolderAdapter
@@ -858,7 +862,7 @@ class SyncedFoldersActivity :
         val powerManager = getSystemService(POWER_SERVICE) as PowerManager?
         return when {
             powerManager != null -> !powerManager.isIgnoringBatteryOptimizations(BuildConfig.APPLICATION_ID)
-            else -> true
+            else -> !appInfo.isDebugBuild
         }
     }
 }
