@@ -33,7 +33,7 @@ private fun jsonToList(json: String?): List<String> {
 
     return try {
         return gson.fromJson(json, Array<String>::class.java).toList()
-    } catch (e: JSONException) {
+    } catch (_: JSONException) {
         emptyList()
     }
 }

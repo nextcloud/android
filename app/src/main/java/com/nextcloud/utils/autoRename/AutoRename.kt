@@ -13,7 +13,6 @@ import com.nextcloud.utils.extensions.forbiddenFilenameExtensions
 import com.nextcloud.utils.extensions.shouldRemoveNonPrintableUnicodeCharactersAndConvertToUTF8
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.lib.common.utils.Log_OC
-import com.owncloud.android.lib.resources.status.NextcloudVersion
 import com.owncloud.android.lib.resources.status.OCCapability
 import org.apache.commons.io.FilenameUtils
 import java.util.regex.Pattern
@@ -25,11 +24,11 @@ object AutoRename {
     @Suppress("NestedBlockDepth")
     @JvmOverloads
     fun rename(filename: String, capability: OCCapability, isFolderPath: Boolean? = null): String {
-        Log_OC.d(TAG, "Before - $filename")
-
-        if (!capability.version.isNewerOrEqual(NextcloudVersion.nextcloud_30)) {
+        if (!capability.isWCFEnabled.isTrue) {
             return filename
         }
+
+        Log_OC.d(TAG, "Before - $filename")
 
         val isFolder = isFolderPath ?: filename.endsWith(OCFile.PATH_SEPARATOR)
         val pathSegments = filename.split(OCFile.PATH_SEPARATOR).toMutableList()
