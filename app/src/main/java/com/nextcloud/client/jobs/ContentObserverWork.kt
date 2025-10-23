@@ -30,6 +30,7 @@ import kotlinx.coroutines.withContext
  *
  * This job must not be started on API < 24.
  */
+@Suppress("TooGenericExceptionCaught")
 class ContentObserverWork(
     private val context: Context,
     private val params: WorkerParameters,
@@ -44,7 +45,6 @@ class ContentObserverWork(
         private const val NOTIFICATION_ID = 774
     }
 
-    @Suppress("TooGenericExceptionCaught")
     override suspend fun doWork(): Result = withContext(Dispatchers.IO) {
         val workerName = BackgroundJobManagerImpl.formatClassTag(this@ContentObserverWork::class)
         backgroundJobManager.logStartOfWorker(workerName)

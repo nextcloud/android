@@ -24,9 +24,13 @@ class FileSortOrderByName internal constructor(name: String?, ascending: Boolean
      * @param files files to sort
      */
     @SuppressFBWarnings("Bx")
-    override fun sortCloudFiles(files: MutableList<OCFile>): List<OCFile> {
-        val sortedByName = sortServerFiles(files)
-        return super.sortCloudFiles(sortedByName)
+    override fun sortCloudFiles(
+        files: MutableList<OCFile>,
+        foldersBeforeFiles: Boolean,
+        favoritesFirst: Boolean
+    ): MutableList<OCFile> {
+        val sortedByName = sortOnlyByName(files)
+        return super.sortCloudFiles(sortedByName, foldersBeforeFiles, favoritesFirst)
     }
 
     /**
@@ -48,6 +52,11 @@ class FileSortOrderByName internal constructor(name: String?, ascending: Boolean
                 else -> sortMultiplier * AlphanumComparator.compare(o1, o2)
             }
         }
+        return files
+    }
+
+    private fun sortOnlyByName(files: MutableList<OCFile>): MutableList<OCFile> {
+        files.sortWith { o1: OCFile, o2: OCFile -> sortMultiplier * AlphanumComparator.compare(o1, o2) }
         return files
     }
 
