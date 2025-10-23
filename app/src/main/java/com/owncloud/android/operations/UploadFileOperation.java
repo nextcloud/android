@@ -46,6 +46,8 @@ import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.lib.resources.files.Chunk;
+import com.owncloud.android.lib.resources.files.ChunkUploadListener;
 import com.owncloud.android.lib.resources.files.ChunkedFileUploadRemoteOperation;
 import com.owncloud.android.lib.resources.files.ExistenceCheckRemoteOperation;
 import com.owncloud.android.lib.resources.files.ReadFileRemoteOperation;
@@ -90,11 +92,13 @@ import java.security.NoSuchAlgorithmException;
 import java.security.cert.CertificateException;
 import java.security.spec.InvalidParameterSpecException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import javax.crypto.BadPaddingException;
@@ -103,14 +107,16 @@ import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 
 import androidx.annotation.CheckResult;
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import kotlin.Pair;
 import kotlin.Triple;
 import kotlin.Unit;
 
 /**
  * Operation performing the update in the ownCloud server of a file that was modified locally.
  */
-public class UploadFileOperation extends SyncOperation {
+public class UploadFileOperation extends SyncOperation implements ChunkUploadListener {
 
     private static final String TAG = UploadFileOperation.class.getSimpleName();
 
@@ -746,7 +752,8 @@ public class UploadFileOperation extends SyncOperation {
             mUploadOperation.addDataTransferProgressListener(mDataTransferListener);
         }
 
-        if (mCancellationRequested.get()) {
+        if (shouldCancelUpload()) {
+            processCancellationIfRequested();
             throw new OperationCancelledException();
         }
 
@@ -1057,6 +1064,11 @@ public class UploadFileOperation extends SyncOperation {
                                                                  mDisableRetries);
             }
 
+            if (mUploadOperation instanceof ChunkedFileUploadRemoteOperation chunkedFileUploadRemoteOperation) {
+                chunkedFileUploadRemoteOperation.setChunkUploadListener(this);
+            }
+
+
             /**
              * Adds the onTransferProgress in FileUploadWorker
              * {@link FileUploadWorker#onTransferProgress(long, long, long, String)()}
@@ -1065,7 +1077,8 @@ public class UploadFileOperation extends SyncOperation {
                 mUploadOperation.addDataTransferProgressListener(mDataTransferListener);
             }
 
-            if (mCancellationRequested.get()) {
+            if (shouldCancelUpload()) {
+                processCancellationIfRequested();
                 throw new OperationCancelledException();
             }
 
@@ -1131,6 +1144,10 @@ public class UploadFileOperation extends SyncOperation {
         return result;
     }
 
+    private boolean shouldCancelUpload() {
+        return mCancellationRequested.get() || (getMatchingCancellationRequest(mRemotePath, user.getAccountName()) != null);
+    }
+
     private void updateSize(long size) {
         OCUpload ocUpload = uploadsStorageManager.getUploadById(getOCUploadId());
         if (ocUpload != null) {
@@ -1168,7 +1185,8 @@ public class UploadFileOperation extends SyncOperation {
             return copy(originalFile, temporalFile);
         }
 
-        if (mCancellationRequested.get()) {
+        if (shouldCancelUpload()) {
+            processCancellationIfRequested();
             throw new OperationCancelledException();
         }
 
@@ -1210,7 +1228,8 @@ public class UploadFileOperation extends SyncOperation {
             }
         }
 
-        if (mCancellationRequested.get()) {
+        if (shouldCancelUpload()) {
+            processCancellationIfRequested();
             throw new OperationCancelledException();
         }
 
@@ -1519,7 +1538,7 @@ public class UploadFileOperation extends SyncOperation {
                     out = new FileOutputStream(targetFile);
                     int nRead;
                     byte[] buf = new byte[4096];
-                    while (!mCancellationRequested.get() &&
+                    while (!shouldCancelUpload() &&
                         (nRead = in.read(buf)) > -1) {
                         out.write(buf, 0, nRead);
                     }
@@ -1527,7 +1546,8 @@ public class UploadFileOperation extends SyncOperation {
 
                 } // else: weird but possible situation, nothing to copy
 
-                if (mCancellationRequested.get()) {
+                if (shouldCancelUpload()) {
+                    processCancellationIfRequested();
                     return new RemoteOperationResult(new OperationCancelledException());
                 }
             } catch (Exception e) {
@@ -1673,4 +1693,56 @@ public class UploadFileOperation extends SyncOperation {
         void onRenameUpload();
     }
 
+    /** Thread-safe set of pending cancellation requests. Each pair represents (remotePath, accountName). */
+    private final static Set<Pair<String, String>> pendingCancellationRequests = Collections.newSetFromMap(new ConcurrentHashMap<>());
+
+    /**
+     * Adds a cancellation request for a specific upload.
+     * <p>
+     * This does not immediately cancel the upload. It only marks it for cancellation.
+     * The upload will be cancelled later when {@link #processCancellationIfRequested()} is called.
+     *
+     * @param remotePath the remote path of the file being uploaded
+     * @param accountName the account name of the user who owns the upload
+     */
+    public static void requestCancellation(String remotePath, String accountName) {
+        pendingCancellationRequests.add(new Pair<>(remotePath, accountName));
+    }
+
+    /**
+     * Checks if a cancellation has been requested for the current upload file operation, and cancels it if so.
+     * <p>
+     * If a matching request exists, the upload will be cancelled and the request removed
+     * from the pending set.
+     *
+     * @return true if the upload was cancelled due to a pending request
+     */
+    public boolean processCancellationIfRequested() {
+        final var cancellationRequest = getMatchingCancellationRequest(mRemotePath, user.getAccountName());
+        if (cancellationRequest != null) {
+            cancel(ResultCode.USER_CANCELLED);
+            pendingCancellationRequests.remove(cancellationRequest);
+            return true;
+        }
+
+        return false;
+    }
+
+    public static Pair<String, String> getMatchingCancellationRequest(String remotePath, String accountName) {
+        for (Pair<String, String> cancelRequest : pendingCancellationRequests) {
+            if (remotePath.equals(cancelRequest.getFirst()) && accountName.equals(cancelRequest.getSecond())) {
+                return cancelRequest;
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public boolean isCancelled() {
+        final var result = shouldCancelUpload();
+        if (result) {
+            processCancellationIfRequested();
+        }
+        return result;
+    }
 }
