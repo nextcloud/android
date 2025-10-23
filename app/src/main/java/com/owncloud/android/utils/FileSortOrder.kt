@@ -80,7 +80,7 @@ open class FileSortOrder(@JvmField var name: String, var isAscending: Boolean) {
          * @param files files to sort
          */
         @JvmStatic
-        fun sortCloudFilesByFavourite(files: MutableList<OCFile>): List<OCFile> {
+        fun sortCloudFilesByFavourite(files: MutableList<OCFile>): MutableList<OCFile> {
             files.sortWith { o1: OCFile, o2: OCFile ->
                 when {
                     o1.isFavorite && o2.isFavorite -> 0
@@ -91,9 +91,45 @@ open class FileSortOrder(@JvmField var name: String, var isAscending: Boolean) {
             }
             return files
         }
+
+        /**
+         * Sorts list by Folders.
+         *
+         * @param files files to sort
+         */
+        @JvmStatic
+        fun sortCloudFilesByFolderFirst(files: MutableList<OCFile>): MutableList<OCFile> {
+            files.sortWith { o1: OCFile, o2: OCFile ->
+                when {
+                    o1.isFolder && o2.isFolder -> 0
+                    o1.isFolder -> -1
+                    o2.isFolder -> 1
+                    else -> 0
+                }
+            }
+            return files
+        }
     }
 
-    open fun sortCloudFiles(files: MutableList<OCFile>): List<OCFile> = sortCloudFilesByFavourite(files)
+    open fun sortCloudFiles(
+        files: MutableList<OCFile>,
+        foldersBeforeFiles: Boolean,
+        favoritesFirst: Boolean
+    ): MutableList<OCFile> {
+        if (foldersBeforeFiles && favoritesFirst) {
+            return sortCloudFilesByFavourite(sortCloudFilesByFolderFirst(files))
+        }
+
+        if (foldersBeforeFiles) {
+            return sortCloudFilesByFolderFirst(files)
+        }
+
+        if (favoritesFirst) {
+            return sortCloudFilesByFavourite(files)
+        }
+
+        return files
+    }
 
     open fun sortLocalFiles(files: MutableList<File>): List<File> = files
 

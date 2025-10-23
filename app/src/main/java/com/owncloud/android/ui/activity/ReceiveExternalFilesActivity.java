@@ -882,7 +882,9 @@ public class ReceiveExternalFilesActivity extends FileActivity
 
     private List<OCFile> sortFileList(List<OCFile> files) {
         FileSortOrder sortOrder = preferences.getSortOrderByFolder(mFile);
-        return sortOrder.sortCloudFiles(files);
+        boolean foldersBeforeFiles = preferences.isSortFoldersBeforeFiles();
+        boolean favoritesFirst = preferences.isSortFavoritesFirst();
+        return sortOrder.sortCloudFiles(files, foldersBeforeFiles, favoritesFirst);
     }
 
     private String generatePath(Stack<String> dirs) {

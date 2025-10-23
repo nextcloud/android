@@ -1454,4 +1454,7 @@
     <string name="clear">Clear</string>
     <string name="set_message">Set message</string>
     <string name="error_setting_status_message">Error setting status message!</string>
+    <string name="sort_folders_before_files">Sort folders before files</string>
+    <string name="sort_favorites_first">Sort favorites first</string>
+    <string name="prefs_category_files">Files</string>
 </resources>
