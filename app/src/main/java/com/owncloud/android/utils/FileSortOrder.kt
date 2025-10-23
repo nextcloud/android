@@ -111,6 +111,7 @@ open class FileSortOrder(@JvmField var name: String, var isAscending: Boolean) {
         }
     }
 
+    @Suppress("ReturnCount")
     open fun sortCloudFiles(
         files: MutableList<OCFile>,
         foldersBeforeFiles: Boolean,

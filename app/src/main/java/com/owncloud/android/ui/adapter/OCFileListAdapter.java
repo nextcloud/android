@@ -266,7 +266,9 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         if (searchType == SearchType.SHARED_FILTER) {
             mFiles.sort((o1, o2) -> Long.compare(o2.getFirstShareTimestamp(), o1.getFirstShareTimestamp()));
         } else {
-            mFiles = sortOrder.sortCloudFiles(mFiles);
+            boolean foldersBeforeFiles = preferences.isSortFoldersBeforeFiles();
+            boolean favoritesFirst = preferences.isSortFavoritesFirst();
+            mFiles = sortOrder.sortCloudFiles(mFiles, foldersBeforeFiles, favoritesFirst);
         }
 
         new Handler(Looper.getMainLooper()).post(() -> {
@@ -907,7 +909,9 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             mFiles = OCFileExtensionsKt.filterFilenames(mFiles);
 
             sortOrder = preferences.getSortOrderByFolder(directory);
-            mFiles = sortOrder.sortCloudFiles(mFiles);
+            boolean foldersBeforeFiles = preferences.isSortFoldersBeforeFiles();
+            boolean favoritesFirst = preferences.isSortFavoritesFirst();
+            mFiles = sortOrder.sortCloudFiles(mFiles, foldersBeforeFiles, favoritesFirst);
             prepareListOfHiddenFiles();
             mergeOCFilesForLivePhoto();
             mFilesAll.clear();
@@ -999,15 +1003,18 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             searchType == SearchType.RECENTLY_MODIFIED_SEARCH) {
             mFiles = FileStorageUtils.sortOcFolderDescDateModifiedWithoutFavoritesFirst(mFiles);
         } else if (searchType != SearchType.SHARED_FILTER) {
+            boolean foldersBeforeFiles = preferences.isSortFoldersBeforeFiles();
+            boolean favoritesFirst = preferences.isSortFavoritesFirst();
+
             if (searchType == SearchType.FAVORITE_SEARCH) {
                 sortOrder = preferences.getSortOrderByType(FileSortOrder.Type.favoritesListView);
             } else {
                 sortOrder = preferences.getSortOrderByFolder(folder);
             }
-            mFiles = sortOrder.sortCloudFiles(mFiles);
+
+            mFiles = sortOrder.sortCloudFiles(mFiles, foldersBeforeFiles, favoritesFirst);
         }
 
-        this.searchType = searchType;
 
         mFilesAll.clear();
         mFilesAll.addAll(mFiles);
@@ -1134,14 +1141,17 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         mStorageManager.saveVirtuals(contentValues);
     }
 
-    public void setSortOrder(@Nullable OCFile folder, FileSortOrder sortOrder) {
+    @SuppressLint("NotifyDataSetChanged")
+    public void setSortOrder(@Nullable OCFile folder, @NonNull FileSortOrder sortOrder) {
         if (searchType == SearchType.FAVORITE_SEARCH) {
             preferences.setSortOrder(FileSortOrder.Type.favoritesListView, sortOrder);    
         } else {
             preferences.setSortOrder(folder, sortOrder);
         }
-        
-        mFiles = sortOrder.sortCloudFiles(mFiles);
+
+        boolean foldersBeforeFiles = preferences.isSortFoldersBeforeFiles();
+        boolean favoritesFirst = preferences.isSortFavoritesFirst();
+        mFiles = sortOrder.sortCloudFiles(mFiles, foldersBeforeFiles, favoritesFirst);
         notifyDataSetChanged();
 
         this.sortOrder = sortOrder;
