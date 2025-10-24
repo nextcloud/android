@@ -526,12 +526,6 @@ public class RefreshFolderOperation extends RemoteOperation {
         // update richWorkspace
         mLocalFolder.setRichWorkspace(remoteFolder.getRichWorkspace());
 
-        // update eTag
-        mLocalFolder.setEtag(remoteFolder.getEtag());
-
-        // update size
-        mLocalFolder.setFileLength(remoteFolder.getFileLength());
-
         Object object = null;
         if (mLocalFolder.isEncrypted()) {
             object = getDecryptedFolderMetadata(encryptedAncestor,
@@ -619,6 +613,7 @@ public class RefreshFolderOperation extends RemoteOperation {
             updatedFile.setEncrypted(encrypted);
 
             updatedFiles.add(updatedFile);
+            Log_OC.d(TAG, "folder: " + mLocalFolder.getRemotePath() + " file: " + updatedFile.getRemotePath() + " metadataWorking: " + isMetadataSyncWorkerRunning);
         }
 
 
@@ -634,8 +629,13 @@ public class RefreshFolderOperation extends RemoteOperation {
                                            mLocalFolder);
         }
         fileDataStorageManager.saveFolder(remoteFolder, updatedFiles, localFilesMap.values());
-
         mChildren = updatedFiles;
+
+        // update eTag
+        mLocalFolder.setEtag(remoteFolder.getEtag());
+
+        // update size
+        mLocalFolder.setFileLength(remoteFolder.getFileLength());
     }
 
     @Nullable
