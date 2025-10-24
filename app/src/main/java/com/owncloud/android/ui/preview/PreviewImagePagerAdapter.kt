@@ -63,7 +63,9 @@ class PreviewImagePagerAdapter : FragmentStateAdapter {
         imageFiles = mStorageManager.getFolderImages(parentFolder, onlyOnDevice)
 
         val sortOrder = preferences.getSortOrderByFolder(parentFolder)
-        imageFiles = sortOrder.sortCloudFiles(imageFiles.toMutableList()).toMutableList()
+        val foldersBeforeFiles = preferences.isSortFoldersBeforeFiles()
+        val favoritesFirst = preferences.isSortFavoritesFirst()
+        imageFiles = sortOrder.sortCloudFiles(imageFiles.toMutableList(), foldersBeforeFiles, favoritesFirst)
 
         mObsoleteFragments = HashSet()
         mObsoletePositions = HashSet()
@@ -101,7 +103,9 @@ class PreviewImagePagerAdapter : FragmentStateAdapter {
 
         if (type == VirtualFolderType.FAVORITE) {
             val sortOrder = preferences.getSortOrderByType(FileSortOrder.Type.favoritesListView)
-            imageFiles = sortOrder.sortCloudFiles(imageFiles.toMutableList()).toMutableList()
+            val foldersBeforeFiles = preferences.isSortFoldersBeforeFiles()
+            val favoritesFirst = preferences.isSortFavoritesFirst()
+            imageFiles = sortOrder.sortCloudFiles(imageFiles.toMutableList(), foldersBeforeFiles, favoritesFirst)
         }
 
         mObsoleteFragments = HashSet()
