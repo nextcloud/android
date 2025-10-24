@@ -698,6 +698,7 @@
     <string name="prefs_category_about">Hakkında</string>
     <string name="prefs_category_details">Ayrıntılar</string>
     <string name="prefs_category_dev">Geliştirici</string>
+    <string name="prefs_category_files">Dosyalar</string>
     <string name="prefs_category_general">Genel</string>
     <string name="prefs_category_more">Daha fazla</string>
     <string name="prefs_category_sync">Eşitle</string>
@@ -889,6 +890,8 @@
     <string name="signup_with_provider">Hizmet sağlayıcı ile hesap aç</string>
     <string name="single_sign_on_request_token" formatted="true">%1$s, %2$s Nextcloud hesabınıza erişebilsin mi?</string>
     <string name="sort_by">Sıralama</string>
+    <string name="sort_favorites_first">Sık kullanılanlar üstte sıralansın</string>
+    <string name="sort_folders_before_files">Klasörler dosyaların üzerinde sıralansın</string>
     <string name="ssl_validator_btn_details_hide">Gizle</string>
     <string name="ssl_validator_btn_details_see">Ayrıntılar</string>
     <string name="ssl_validator_header">Sunucunun kimliği doğrulanamadı</string>

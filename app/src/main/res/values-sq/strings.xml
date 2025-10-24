@@ -411,6 +411,7 @@
     <string name="prefs_category_about">Rreth </string>
     <string name="prefs_category_details">Hollësi</string>
     <string name="prefs_category_dev">Dev</string>
+    <string name="prefs_category_files">Skedarë</string>
     <string name="prefs_category_general">Të përgjithshme</string>
     <string name="prefs_category_more">Më tepër</string>
     <string name="prefs_category_sync">Sinkronizo</string>

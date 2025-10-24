@@ -510,6 +510,7 @@
     <string name="prefs_category_about">Thông tin</string>
     <string name="prefs_category_details">Chi tiết</string>
     <string name="prefs_category_dev">Phát triển</string>
+    <string name="prefs_category_files">Tệp Tin</string>
     <string name="prefs_category_general">Tổng hợp</string>
     <string name="prefs_category_more">hơn</string>
     <string name="prefs_category_sync">Đồng bộ</string>
@@ -645,6 +646,8 @@
     <string name="signup_with_provider">Đăng ký với nhà cung cấp</string>
     <string name="single_sign_on_request_token" formatted="true">Cho phép %1$s truy cập vào %2$s tài khoản Hệ thống của bạn</string>
     <string name="sort_by">Sắp xếp theo</string>
+    <string name="sort_favorites_first">Sắp xếp mục yêu thích trước</string>
+    <string name="sort_folders_before_files">Sắp xếp thư mục trước tập tin</string>
     <string name="ssl_validator_btn_details_hide">Ẩn</string>
     <string name="ssl_validator_btn_details_see">Chi tiết</string>
     <string name="ssl_validator_header">Không thể xác minh danh tính của máy chủ</string>

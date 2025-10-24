@@ -689,6 +689,7 @@
     <string name="prefs_category_about">О програму</string>
     <string name="prefs_category_details">Детаљи</string>
     <string name="prefs_category_dev">Развојно</string>
+    <string name="prefs_category_files">Фајлови</string>
     <string name="prefs_category_general">Опште</string>
     <string name="prefs_category_more">Остало</string>
     <string name="prefs_category_sync">Синхронизуј</string>
@@ -880,6 +881,8 @@
     <string name="signup_with_provider">Пријавите се преко провајдера</string>
     <string name="single_sign_on_request_token" formatted="true">Може ли %1$s да приступи Некстклауд налогу %2$s?</string>
     <string name="sort_by">Разврстај</string>
+    <string name="sort_favorites_first">Сортирај прво омиљене</string>
+    <string name="sort_folders_before_files">Поређај фолдере испред фајлова</string>
     <string name="ssl_validator_btn_details_hide">Сакриј</string>
     <string name="ssl_validator_btn_details_see">Детаљи</string>
     <string name="ssl_validator_header">Идентитет сервера не може да се провери</string>

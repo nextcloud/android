@@ -400,6 +400,7 @@
     <string name="prefs_category_about">O programu</string>
     <string name="prefs_category_details">Podaci</string>
     <string name="prefs_category_dev">Razvojno</string>
+    <string name="prefs_category_files">Fajlovi</string>
     <string name="prefs_category_general">Opšte</string>
     <string name="prefs_category_more">Ostalo</string>
     <string name="prefs_category_sync">Sinhronizuj</string>

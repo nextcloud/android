@@ -697,6 +697,7 @@
     <string name="prefs_category_about">Faoi</string>
     <string name="prefs_category_details">Sonraí</string>
     <string name="prefs_category_dev">Dev</string>
+    <string name="prefs_category_files">Comhaid</string>
     <string name="prefs_category_general">Ginearálta</string>
     <string name="prefs_category_more">Tuilleadh</string>
     <string name="prefs_category_sync">Sioncrónaigh</string>
@@ -888,6 +889,8 @@
     <string name="signup_with_provider">Cláraigh leis an soláthraí</string>
     <string name="single_sign_on_request_token" formatted="true">Ceadaigh do %1$s rochtain a fháil ar do chuntas Nextcloud %2$s?</string>
     <string name="sort_by">Sórtáil de réir</string>
+    <string name="sort_favorites_first">Sórtáil na cinn is ansa leat ar dtús</string>
+    <string name="sort_folders_before_files">Sórtáil fillteáin roimh chomhaid</string>
     <string name="ssl_validator_btn_details_hide">Folaigh</string>
     <string name="ssl_validator_btn_details_see">Sonraí</string>
     <string name="ssl_validator_header">Níorbh fhéidir aitheantas an fhreastalaí a fhíorú</string>

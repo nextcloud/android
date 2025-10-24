@@ -556,6 +556,7 @@
     <string name="prefs_category_about">O projektu</string>
     <string name="prefs_category_details">Podrobnosti</string>
     <string name="prefs_category_dev">Dev</string>
+    <string name="prefs_category_files">Datoteke</string>
     <string name="prefs_category_general">Splošno</string>
     <string name="prefs_category_more">Več</string>
     <string name="prefs_category_sync">Uskladi</string>
@@ -706,6 +707,8 @@
     <string name="signup_with_provider">Prijava prek ponudnika</string>
     <string name="single_sign_on_request_token" formatted="true">Ali dovolite uporabniku %1$s dostop do računa Nextcloud %2$s?</string>
     <string name="sort_by">Razvrsti</string>
+    <string name="sort_favorites_first">Razvrsti najprej priljubljene</string>
+    <string name="sort_folders_before_files">Razvrsti mape pred datotekami</string>
     <string name="ssl_validator_btn_details_hide">Skrij</string>
     <string name="ssl_validator_btn_details_see">Podrobnosti</string>
     <string name="ssl_validator_header">Istovetnosti strežnika ni mogoče preveriti</string>

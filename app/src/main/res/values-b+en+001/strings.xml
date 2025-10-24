@@ -698,6 +698,7 @@
     <string name="prefs_category_about">About</string>
     <string name="prefs_category_details">Details</string>
     <string name="prefs_category_dev">Dev</string>
+    <string name="prefs_category_files">Files</string>
     <string name="prefs_category_general">General</string>
     <string name="prefs_category_more">More</string>
     <string name="prefs_category_sync">Sync</string>
@@ -889,6 +890,8 @@
     <string name="signup_with_provider">Sign up with provider</string>
     <string name="single_sign_on_request_token" formatted="true">Allow %1$s to access your Nextcloud account %2$s?</string>
     <string name="sort_by">Sort by</string>
+    <string name="sort_favorites_first">Sort favourites first</string>
+    <string name="sort_folders_before_files">Sort folders before files</string>
     <string name="ssl_validator_btn_details_hide">Hide</string>
     <string name="ssl_validator_btn_details_see">Details</string>
     <string name="ssl_validator_header">The identity of the server could not be verified</string>

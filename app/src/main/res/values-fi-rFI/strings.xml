@@ -598,6 +598,7 @@
     <string name="prefs_category_about">Tietoja</string>
     <string name="prefs_category_details">Tiedot</string>
     <string name="prefs_category_dev">Kehittäjä</string>
+    <string name="prefs_category_files">Tiedostot</string>
     <string name="prefs_category_general">Yleiset</string>
     <string name="prefs_category_more">Enemmän</string>
     <string name="prefs_category_sync">Synkronoi</string>
@@ -759,6 +760,8 @@ GNU yleinen lisenssi, versio 2</string>
     <string name="signup_with_provider">Kirjaudu sisään palvelutarjoajan kautta</string>
     <string name="single_sign_on_request_token" formatted="true">Salli käyttäjälle %1$s pääsy Nextcloud -tilillesi %2$s?</string>
     <string name="sort_by">Lajittelujärjestys</string>
+    <string name="sort_favorites_first">Järjestä suosikit ensiksi</string>
+    <string name="sort_folders_before_files">Järjestä kansiot ennen tiedostoja</string>
     <string name="ssl_validator_btn_details_hide">Piilota</string>
     <string name="ssl_validator_btn_details_see">Tiedot</string>
     <string name="ssl_validator_header">Palvelimen identiteettiä ei voitu vahvistaa</string>
