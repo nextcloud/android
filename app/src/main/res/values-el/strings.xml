@@ -696,6 +696,8 @@
     <string name="signup_with_provider">Σύνδεση με πάροχο</string>
     <string name="single_sign_on_request_token" formatted="true">Να επιτραπεί%1$sη πρόσβαση στον λογαριασμό σας Nextcloud %2$s ?</string>
     <string name="sort_by">Ταξινόμηση κατά</string>
+    <string name="sort_favorites_first">Ταξινόμηση των αγαπημένων πρώτα</string>
+    <string name="sort_folders_before_files">Ταξινόμηση φακέλων πριν από τα αρχεία</string>
     <string name="ssl_validator_btn_details_hide">Απόκρυψη</string>
     <string name="ssl_validator_btn_details_see">Λεπτομέρειες</string>
     <string name="ssl_validator_header">Δεν ήταν δυνατή η επαλήθευση της ταυτότητας του διακομιστή</string>

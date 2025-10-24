@@ -687,6 +687,7 @@
     <string name="prefs_category_about">Névjegy</string>
     <string name="prefs_category_details">Részletek</string>
     <string name="prefs_category_dev">Dev</string>
+    <string name="prefs_category_files">Fájlok</string>
     <string name="prefs_category_general">Általános</string>
     <string name="prefs_category_more">Több</string>
     <string name="prefs_category_sync">Szinkronizálás</string>
@@ -878,6 +879,8 @@
     <string name="signup_with_provider">Regisztráció egy szolgáltatóval</string>
     <string name="single_sign_on_request_token" formatted="true">Engedélyezi, hogy a(z) %1$s hozzáférjen a(z) %2$s Nextcloud fiókjához?</string>
     <string name="sort_by">Rendezés elve</string>
+    <string name="sort_favorites_first">Kedvencek előre rendezése</string>
+    <string name="sort_folders_before_files">Mappák fájlok elé rendezése</string>
     <string name="ssl_validator_btn_details_hide">Elrejtés</string>
     <string name="ssl_validator_btn_details_see">Részletek</string>
     <string name="ssl_validator_header">A kiszolgáló személyazonosságát nem sikerült azonosítani</string>

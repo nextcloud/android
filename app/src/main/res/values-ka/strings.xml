@@ -700,6 +700,7 @@
     <string name="signup_with_provider">Sign up with provider</string>
     <string name="single_sign_on_request_token" formatted="true">Allow %1$s to access your Nextcloud account %2$s?</string>
     <string name="sort_by">Sort by</string>
+    <string name="sort_favorites_first">Sort favorites first</string>
     <string name="ssl_validator_btn_details_hide">Hide</string>
     <string name="ssl_validator_btn_details_see">Details</string>
     <string name="ssl_validator_header">The identity of the server could not be verified</string>

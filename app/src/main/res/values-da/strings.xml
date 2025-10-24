@@ -878,6 +878,8 @@
     <string name="signup_with_provider">Indskrivning hos udbyder</string>
     <string name="single_sign_on_request_token" formatted="true">Tillad %1$s adgang til din Nextcloud konto %2$s?</string>
     <string name="sort_by">Sorter efter</string>
+    <string name="sort_favorites_first">Vis favoritter først</string>
+    <string name="sort_folders_before_files">Sorter mapper før filer</string>
     <string name="ssl_validator_btn_details_hide">Gem</string>
     <string name="ssl_validator_btn_details_see">Detaljer</string>
     <string name="ssl_validator_header">Serverens identitet kunne ikke verificeres</string>

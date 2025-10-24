@@ -481,6 +481,7 @@
     <string name="prefs_category_about">За</string>
     <string name="prefs_category_details">Детали:</string>
     <string name="prefs_category_dev">Dev</string>
+    <string name="prefs_category_files">Датотеки</string>
     <string name="prefs_category_general">Општо</string>
     <string name="prefs_category_more">Повеќе</string>
     <string name="prefs_category_sync">Синхронизирај</string>
@@ -604,6 +605,8 @@
     <string name="signup_with_provider">Пријавете се преку провајдер</string>
     <string name="single_sign_on_request_token" formatted="true">Дозволи му на %1$s да пристапи на твојата Nextcloud сметка %2$s?</string>
     <string name="sort_by">Сортирај по</string>
+    <string name="sort_favorites_first">Прво омилените</string>
+    <string name="sort_folders_before_files">Подреди ги папките пред датотеките</string>
     <string name="ssl_validator_btn_details_hide">Сокриј</string>
     <string name="ssl_validator_btn_details_see">Детали</string>
     <string name="ssl_validator_header">Идентитетот на серверот не може да се потврди</string>

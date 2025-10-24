@@ -698,6 +698,7 @@
     <string name="prefs_category_about">Про застосунок</string>
     <string name="prefs_category_details">Деталі</string>
     <string name="prefs_category_dev">Розробка</string>
+    <string name="prefs_category_files">Файли</string>
     <string name="prefs_category_general">Основне</string>
     <string name="prefs_category_more">Більше</string>
     <string name="prefs_category_sync">Синхронізація</string>
@@ -889,6 +890,8 @@
     <string name="signup_with_provider">Зареєструватися у провайдейра</string>
     <string name="single_sign_on_request_token" formatted="true">Дозволити %1$s мати доступ до вашого облікового запису у Nextcloud %2$s?</string>
     <string name="sort_by">Впорядкувати за</string>
+    <string name="sort_favorites_first">Спочатку показувати із зірочкою</string>
+    <string name="sort_folders_before_files">Показувати каталоги перед файлами</string>
     <string name="ssl_validator_btn_details_hide">Сховати</string>
     <string name="ssl_validator_btn_details_see">Деталі</string>
     <string name="ssl_validator_header">Неможливо перевірити ідентифікатор сервера.</string>

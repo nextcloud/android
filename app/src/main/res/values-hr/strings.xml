@@ -507,6 +507,7 @@
     <string name="prefs_category_about">Informacije</string>
     <string name="prefs_category_details">Pojedinosti</string>
     <string name="prefs_category_dev">Dev</string>
+    <string name="prefs_category_files">Datoteke</string>
     <string name="prefs_category_general">Općenito</string>
     <string name="prefs_category_more">Više</string>
     <string name="prefs_category_sync">Sinkronizacija</string>

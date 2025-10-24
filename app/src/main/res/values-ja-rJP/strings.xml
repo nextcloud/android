@@ -689,6 +689,7 @@
     <string name="prefs_category_about">アプリについて</string>
     <string name="prefs_category_details">詳細</string>
     <string name="prefs_category_dev">開発者</string>
+    <string name="prefs_category_files">ファイル</string>
     <string name="prefs_category_general">一般</string>
     <string name="prefs_category_more">もっと見る</string>
     <string name="prefs_category_sync">同期</string>
@@ -880,6 +881,8 @@
     <string name="signup_with_provider">他のサービスでサインアップ</string>
     <string name="single_sign_on_request_token" formatted="true">%1$s があなたのNextcloudアカウント %2$s にアクセスできるようにしますか？</string>
     <string name="sort_by">ソート</string>
+    <string name="sort_favorites_first">お気に入りを最初に並べる</string>
+    <string name="sort_folders_before_files">ファイルよりもフォルダを先に並べ替えます</string>
     <string name="ssl_validator_btn_details_hide">非表示</string>
     <string name="ssl_validator_btn_details_see">詳細</string>
     <string name="ssl_validator_header">サーバーIDを確認できません</string>

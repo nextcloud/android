@@ -640,6 +640,7 @@
     <string name="prefs_category_about">Quant a</string>
     <string name="prefs_category_details">Detalls</string>
     <string name="prefs_category_dev">Dev</string>
+    <string name="prefs_category_files">Fitxers</string>
     <string name="prefs_category_general">General</string>
     <string name="prefs_category_more">Més</string>
     <string name="prefs_category_sync">Sincronitza</string>
@@ -802,6 +803,8 @@
     <string name="signup_with_provider">Registreu-vos amb el proveïdor</string>
     <string name="single_sign_on_request_token" formatted="true">Voleu permetre que %1$s accedeixi al vostre compte de Nextcloud %2$s?</string>
     <string name="sort_by">Ordena per</string>
+    <string name="sort_favorites_first">Ordena primer els preferits</string>
+    <string name="sort_folders_before_files">Ordena les carpetes abans dels fitxers</string>
     <string name="ssl_validator_btn_details_hide">Amaga</string>
     <string name="ssl_validator_btn_details_see">Detalls</string>
     <string name="ssl_validator_header">No s\'ha pogut verificar la identitat del servidor</string>

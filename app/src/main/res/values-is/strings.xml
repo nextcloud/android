@@ -687,6 +687,7 @@
     <string name="prefs_category_about">Um hugbúnaðinn</string>
     <string name="prefs_category_details">Nánar</string>
     <string name="prefs_category_dev">Dev</string>
+    <string name="prefs_category_files">Skráaforrit</string>
     <string name="prefs_category_general">Almennt</string>
     <string name="prefs_category_more">Meira</string>
     <string name="prefs_category_sync">Samstilla</string>
@@ -878,6 +879,8 @@
     <string name="signup_with_provider">Skráðu þig hjá þjónustu</string>
     <string name="single_sign_on_request_token" formatted="true">Leyfa %1$s að að fá aðgang að %2$s Nextcloud-aðgangnum þínum?</string>
     <string name="sort_by">Raða eftir</string>
+    <string name="sort_favorites_first">Raða eftirlætum fremst</string>
+    <string name="sort_folders_before_files">Raða möppum á undan skrám</string>
     <string name="ssl_validator_btn_details_hide">Fela</string>
     <string name="ssl_validator_btn_details_see">Nánar</string>
     <string name="ssl_validator_header">Ekki tókst að sannvotta auðkenni þjónsins</string>

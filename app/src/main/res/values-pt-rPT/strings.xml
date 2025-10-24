@@ -599,6 +599,7 @@
     <string name="prefs_category_about">Sobre</string>
     <string name="prefs_category_details">Detalhes</string>
     <string name="prefs_category_dev">Desenvolvimento</string>
+    <string name="prefs_category_files">Ficheiros</string>
     <string name="prefs_category_general">Geral</string>
     <string name="prefs_category_more">Mais</string>
     <string name="prefs_category_sync">Sincronizar</string>

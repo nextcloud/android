@@ -889,6 +889,8 @@
     <string name="signup_with_provider">Mit Provider anmelden</string>
     <string name="single_sign_on_request_token" formatted="true">Zulassen, dass %1$s auf Ihr Nextcloud Konto %2$s zugreifen darf?</string>
     <string name="sort_by">Sortieren nach</string>
+    <string name="sort_favorites_first">Favoriten zuerst sortieren</string>
+    <string name="sort_folders_before_files">Ordner vor Dateien sortieren</string>
     <string name="ssl_validator_btn_details_hide">Ausblenden</string>
     <string name="ssl_validator_btn_details_see">Details</string>
     <string name="ssl_validator_header">Die Identität des Servers konnte nicht verifiziert werden</string>

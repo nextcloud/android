@@ -878,6 +878,8 @@
     <string name="signup_with_provider">Zaregistrovat se u poskytovatele</string>
     <string name="single_sign_on_request_token" formatted="true">Povolit %1$s přístup k vašemu Nextcloud účtu %2$s?</string>
     <string name="sort_by">Řadit podle</string>
+    <string name="sort_favorites_first">Seřadit od oblíbených</string>
+    <string name="sort_folders_before_files">Při řazení zobrazovat složky a pak až soubory</string>
     <string name="ssl_validator_btn_details_hide">Skrýt</string>
     <string name="ssl_validator_btn_details_see">Podrobnosti</string>
     <string name="ssl_validator_header">Totožnost serveru se nepodařilo ověřit</string>

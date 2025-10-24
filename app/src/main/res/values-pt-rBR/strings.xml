@@ -698,6 +698,7 @@
     <string name="prefs_category_about">Sobre</string>
     <string name="prefs_category_details">Detalhes</string>
     <string name="prefs_category_dev">Desenvolvimento</string>
+    <string name="prefs_category_files">Arquivos</string>
     <string name="prefs_category_general">Geral</string>
     <string name="prefs_category_more">Mais</string>
     <string name="prefs_category_sync">Sincronização</string>
@@ -889,6 +890,8 @@
     <string name="signup_with_provider">Registre-se com um provedor</string>
     <string name="single_sign_on_request_token" formatted="true">Permitir %1$s acesso à sua conta %2$s?</string>
     <string name="sort_by">Ordenar por</string>
+    <string name="sort_favorites_first">Ordenar favoritos primeiro</string>
+    <string name="sort_folders_before_files">Ordenar pastas antes de arquivos</string>
     <string name="ssl_validator_btn_details_hide">Ocultar</string>
     <string name="ssl_validator_btn_details_see">Detalhes</string>
     <string name="ssl_validator_header">A identidade do servidor não pôde ser verificada</string>

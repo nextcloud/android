@@ -686,6 +686,7 @@
     <string name="prefs_category_about">O aplikacji</string>
     <string name="prefs_category_details">Szczegóły</string>
     <string name="prefs_category_dev">Deweloperskie</string>
+    <string name="prefs_category_files">Pliki</string>
     <string name="prefs_category_general">Ogólne</string>
     <string name="prefs_category_more">Więcej</string>
     <string name="prefs_category_sync">Synchronizuj</string>
@@ -877,6 +878,8 @@
     <string name="signup_with_provider">Zarejestruj się u usługodawcy</string>
     <string name="single_sign_on_request_token" formatted="true">Zezwolić %1$s na dostęp do Twojego konta Nextcloud %2$s?</string>
     <string name="sort_by">Sortuj według</string>
+    <string name="sort_favorites_first">Najpierw sortuj ulubione</string>
+    <string name="sort_folders_before_files">Sortuj katalogi przed plikami</string>
     <string name="ssl_validator_btn_details_hide">Ukryj</string>
     <string name="ssl_validator_btn_details_see">Szczegóły</string>
     <string name="ssl_validator_header">Nie można zweryfikować identyfikacji serwera</string>
