@@ -1,6 +1,7 @@
 /*
  * Nextcloud - Android Client
  *
+ * SPDX-FileCopyrightText: 2025 Alper Ozturk <alper.ozturk@nextcloud.com>
  * SPDX-FileCopyrightText: 2024 Jonas Mayer <jonas.a.mayer@gmx.net>
  * SPDX-FileCopyrightText: 2022 Álvaro Brey <alvaro@alvarobrey.com>
  * SPDX-FileCopyrightText: 2018-2020 Tobias Kaminsky <tobias@kaminsky.me>
@@ -291,33 +292,6 @@ public class UploadsStorageManager extends Observable {
         return getUploads(null, (String[]) null);
     }
 
-    public OCUpload getPendingCurrentOrFailedUpload(OCUpload upload) {
-        try (Cursor cursor = getDB().query(
-            ProviderTableMeta.CONTENT_URI_UPLOADS,
-            null,
-            ProviderTableMeta.UPLOADS_REMOTE_PATH + "=? and " +
-                ProviderTableMeta.UPLOADS_LOCAL_PATH + "=? and " +
-                ProviderTableMeta.UPLOADS_ACCOUNT_NAME + "=? and (" +
-                ProviderTableMeta.UPLOADS_STATUS + "=? or " +
-                ProviderTableMeta.UPLOADS_STATUS + "=? )",
-            new String[]{
-                upload.getRemotePath(),
-                upload.getLocalPath(),
-                upload.getAccountName(),
-                String.valueOf(UploadStatus.UPLOAD_IN_PROGRESS.value),
-                String.valueOf(UploadStatus.UPLOAD_FAILED.value)
-            },
-            ProviderTableMeta.UPLOADS_REMOTE_PATH + " ASC")) {
-
-            if (cursor != null) {
-                if (cursor.moveToFirst()) {
-                    return createOCUploadFromCursor(cursor);
-                }
-            }
-        }
-        return null;
-    }
-
     public @Nullable
     OCUpload getUploadById(long id) {
         OCUpload result = null;
@@ -391,19 +365,6 @@ public class UploadsStorageManager extends Observable {
     @NonNull
     private List<OCUpload> getUploadPage(final long afterId, @Nullable String selection, @Nullable String... selectionArgs) {
         return getUploadPage(QUERY_PAGE_SIZE, afterId, true, selection, selectionArgs);
-    }
-
-    private String getInProgressAndDelayedUploadsSelection() {
-        return "( " + ProviderTableMeta.UPLOADS_STATUS + EQUAL + UploadStatus.UPLOAD_IN_PROGRESS.value +
-            OR + ProviderTableMeta.UPLOADS_LAST_RESULT +
-            EQUAL + UploadResult.DELAYED_FOR_WIFI.getValue() +
-            OR + ProviderTableMeta.UPLOADS_LAST_RESULT +
-            EQUAL + UploadResult.LOCK_FAILED.getValue() +
-            OR + ProviderTableMeta.UPLOADS_LAST_RESULT +
-            EQUAL + UploadResult.DELAYED_FOR_CHARGING.getValue() +
-            OR + ProviderTableMeta.UPLOADS_LAST_RESULT +
-            EQUAL + UploadResult.DELAYED_IN_POWER_SAVE_MODE.getValue() +
-            " ) AND " + ProviderTableMeta.UPLOADS_ACCOUNT_NAME + IS_EQUAL;
     }
 
     @NonNull
@@ -515,17 +476,6 @@ public class UploadsStorageManager extends Observable {
         return upload;
     }
 
-    public OCUpload[] getCurrentAndPendingUploadsForCurrentAccount() {
-        User user = currentAccountProvider.getUser();
-
-        return getCurrentAndPendingUploadsForAccount(user.getAccountName());
-    }
-
-    public OCUpload[] getCurrentAndPendingUploadsForAccount(final @NonNull String accountName) {
-        String inProgressUploadsSelection = getInProgressAndDelayedUploadsSelection();
-        return getUploads(inProgressUploadsSelection, accountName);
-    }
-
     public long[] getCurrentUploadIds(final @NonNull String accountName) {
         final var result = uploadDao.getAllIds(UploadStatus.UPLOAD_IN_PROGRESS.value, accountName);
         return result.stream()
@@ -555,34 +505,11 @@ public class UploadsStorageManager extends Observable {
         return getUploads(ProviderTableMeta.UPLOADS_ACCOUNT_NAME + IS_EQUAL, accountName);
     }
 
-    public OCUpload[] getFinishedUploadsForCurrentAccount() {
-        User user = currentAccountProvider.getUser();
-
-        return getUploads(ProviderTableMeta.UPLOADS_STATUS + EQUAL + UploadStatus.UPLOAD_SUCCEEDED.value + AND +
-                              ProviderTableMeta.UPLOADS_ACCOUNT_NAME + IS_EQUAL, user.getAccountName());
-    }
-
     public OCUpload[] getCancelledUploadsForCurrentAccount() {
         User user = currentAccountProvider.getUser();
 
         return getUploads(ProviderTableMeta.UPLOADS_STATUS + EQUAL + UploadStatus.UPLOAD_CANCELLED.value + AND +
                               ProviderTableMeta.UPLOADS_ACCOUNT_NAME + IS_EQUAL, user.getAccountName());
-    }
-
-    public OCUpload[] getFailedButNotDelayedUploadsForCurrentAccount() {
-        User user = currentAccountProvider.getUser();
-
-        return getUploads(ProviderTableMeta.UPLOADS_STATUS + EQUAL + UploadStatus.UPLOAD_FAILED.value +
-                              AND + ProviderTableMeta.UPLOADS_LAST_RESULT +
-                              ANGLE_BRACKETS + UploadResult.DELAYED_FOR_WIFI.getValue() +
-                              AND + ProviderTableMeta.UPLOADS_LAST_RESULT +
-                              ANGLE_BRACKETS + UploadResult.LOCK_FAILED.getValue() +
-                              AND + ProviderTableMeta.UPLOADS_LAST_RESULT +
-                              ANGLE_BRACKETS + UploadResult.DELAYED_FOR_CHARGING.getValue() +
-                              AND + ProviderTableMeta.UPLOADS_LAST_RESULT +
-                              ANGLE_BRACKETS + UploadResult.DELAYED_IN_POWER_SAVE_MODE.getValue() +
-                              AND + ProviderTableMeta.UPLOADS_ACCOUNT_NAME + IS_EQUAL,
-                          user.getAccountName());
     }
 
     private ContentResolver getDB() {

@@ -43,6 +43,7 @@ import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.ArbitraryDataProviderImpl;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.datamodel.UploadsStorageManager;
 import com.owncloud.android.files.StreamMediaFileOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
@@ -1020,7 +1021,7 @@ public class FileOperationsHelper {
         final var fileUploadHelper = FileUploadHelper.Companion.instance();
         if (fileUploadHelper.isUploading(file.getRemotePath(), currentUser.getAccountName())) {
             FileUploadWorker.Companion.cancelCurrentUpload(file.getRemotePath(), currentUser.getAccountName(), () -> {
-                fileUploadHelper.setStatusOfUploadToCancel(file.getRemotePath());
+                fileUploadHelper.updateUploadStatus(file.getRemotePath(), currentUser.getAccountName(), UploadsStorageManager.UploadStatus.UPLOAD_CANCELLED);
                 return Unit.INSTANCE;
             });
         }
