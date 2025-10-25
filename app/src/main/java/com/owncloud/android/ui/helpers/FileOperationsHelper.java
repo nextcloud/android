@@ -53,6 +53,7 @@ import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.lib.resources.status.OCCapability;
 import com.owncloud.android.operations.SynchronizeFileOperation;
+import com.owncloud.android.operations.UploadFileOperation;
 import com.owncloud.android.services.OperationsService;
 import com.owncloud.android.ui.activity.ConflictsResolveActivity;
 import com.owncloud.android.ui.activity.ExternalSiteWebView;
@@ -1019,6 +1020,7 @@ public class FileOperationsHelper {
 
         final var fileUploadHelper = FileUploadHelper.Companion.instance();
         if (fileUploadHelper.isUploading(file.getRemotePath(), currentUser.getAccountName())) {
+            UploadFileOperation.requestCancellation(file.getRemotePath(), currentUser.getAccountName());
             FileUploadWorker.Companion.cancelCurrentUpload(file.getRemotePath(), currentUser.getAccountName(), () -> {
                 fileUploadHelper.setStatusOfUploadToCancel(file.getRemotePath());
                 return Unit.INSTANCE;
