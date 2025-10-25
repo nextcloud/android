@@ -93,12 +93,19 @@
     <string name="auth_unsupported_multiaccount">%1$s 不支援多個帳戶</string>
     <string name="auth_wrong_connection_title">無法建立連線</string>
     <string name="authenticator_activity_cancel_login">取消登入</string>
+    <string name="authenticator_activity_empty_base_url">請輸入有效的伺服器地址。</string>
+    <string name="authenticator_activity_empty_response_message">無法擷取登入詳細信息。請再試一次。</string>
     <string name="authenticator_activity_login_error">處理您的登入請求時出現問題。請稍後再試。</string>
+    <string name="authenticator_activity_no_web_browser_found">沒有瀏覽器可以開啟此連結。</string>
     <string name="authenticator_activity_please_complete_login_process">請在瀏覽器中完成登入流程</string>
+    <string name="auto_upload_battery_saver_mode_warning">因為省電模式已開啟，因此暫停自動上傳。</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">以唯讀模式保留在原本的資料夾</string>
+    <string name="auto_upload_low_battery_warning_info">低電量，上傳可能會需要較長時間</string>
     <string name="auto_upload_on_wifi">僅在未計量的Wi-Fi上傳</string>
     <string name="auto_upload_path">自動上傳</string>
     <string name="auto_upload_sub_folder_warning">此資料夾已包含在父資料夾的同步中，這可能會導致重複上傳</string>
+    <string name="auto_upload_wifi_only_warning_info">等待 Wi-Fi 開始上傳</string>
+    <string name="auto_upload_worker_start_text">從 %s 上傳檔案至 %s</string>
     <string name="autoupload_configure">設定</string>
     <string name="autoupload_create_new_custom_folder">新增自訂資料夾</string>
     <string name="autoupload_custom_folder">設定自訂資料夾</string>
@@ -202,6 +209,7 @@
     <string name="contacts_preferences_import_scheduled_fail">匯入無法開始。請再試一次</string>
     <string name="contacts_preferences_no_file_found">無檔案</string>
     <string name="contacts_preferences_something_strange_happened">找不到您最新的備份</string>
+    <string name="content_observer_work_notification_title">偵測內容變更</string>
     <string name="copied_to_clipboard">已複製到剪貼板</string>
     <string name="copy_file_error">嘗試複製檔案或資料夾時發生錯誤</string>
     <string name="copy_file_invalid_into_descendent">無法將資料夾複製到自己的子資料夾中。</string>
@@ -450,6 +458,7 @@
     <string name="file_not_found_cannot_share">找不到檔案。無法創建分享。</string>
     <string name="file_not_synced">檔案不能同步，將顯示最新可用版本。</string>
     <string name="file_rename">重新命名</string>
+    <string name="file_upload_limit_message">您一次最多可以上傳 %d 個檔案。</string>
     <string name="file_upload_worker_error_notification_title">上傳失敗。沒有互聯網連接</string>
     <string name="file_upload_worker_same_file_already_exists">%s 已存在，未偵測到衝突</string>
     <string name="file_version_restored_error">還原檔案版本失敗！</string>
@@ -471,6 +480,11 @@
     <string name="folder_already_exists">資料夾已存在</string>
     <string name="folder_best_viewed_in">此資料夾在 %1$s 中顯示效果最佳。</string>
     <string name="folder_confirm_create">建立</string>
+    <string name="folder_download_counter">%1$d / %2$d &#183; %3$s</string>
+    <string name="folder_download_error_notification_title">同步 %s 資料夾時發生錯誤</string>
+    <string name="folder_download_insufficient_disk_space_notification_title">磁碟空間不足，已取消同步</string>
+    <string name="folder_download_success_notification_title">已成功同步 %s 資料夾</string>
+    <string name="folder_download_worker_ticker_id">同步中 ...</string>
     <string name="folder_list_empty_headline">這裡沒有資料夾</string>
     <string name="folder_name_empty">資料夾名稱不能為空</string>
     <string name="folder_picker_choose_button_text">選擇</string>
@@ -606,6 +620,8 @@
     <string name="notification_action_failed">無法執行操作。</string>
     <string name="notification_channel_background_operations_description">顯示通知以與背景操作的結果互動</string>
     <string name="notification_channel_background_operations_name">背景操作</string>
+    <string name="notification_channel_content_observer_description">偵測近端檔案變更</string>
+    <string name="notification_channel_content_observer_name_short">內容觀察器</string>
     <string name="notification_channel_download_description">顯示下載進度</string>
     <string name="notification_channel_download_name_short">下載</string>
     <string name="notification_channel_file_sync_description">顯示檔案同步進度和結果</string>
@@ -986,6 +1002,7 @@
     <string name="unified_search_fragment_calendar_event_not_found">找不到活動，您隨時可以同步更新。正在重新導向至網路 …</string>
     <string name="unified_search_fragment_contact_not_found">找不到聯絡人，您隨時可以同步更新。正在重新導向至網路 …</string>
     <string name="unified_search_fragment_permission_needed">開啟搜尋結果需要權限，否則其將會重新導向至網路 …</string>
+    <string name="unified_search_fragment_search_in_this_folder">在此資料夾</string>
     <string name="unknown">不詳</string>
     <string name="unlock_file">解鎖檔案</string>
     <string name="unread_comments">有未讀留言</string>

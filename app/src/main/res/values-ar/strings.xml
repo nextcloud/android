@@ -661,6 +661,7 @@
     <string name="prefs_category_about">حول</string>
     <string name="prefs_category_details">تفاصيل</string>
     <string name="prefs_category_dev">التطوير</string>
+    <string name="prefs_category_files">الملفّات</string>
     <string name="prefs_category_general">عام</string>
     <string name="prefs_category_more">المزيد</string>
     <string name="prefs_category_sync">زامن</string>
@@ -845,6 +846,8 @@
     <string name="signup_with_provider">التسجيل عبر مزوّد خدمة</string>
     <string name="single_sign_on_request_token" formatted="true">هل تسمح لـ%1$s بالوصول إلى حسابك %2$s في Nextcloud؟</string>
     <string name="sort_by">ترتيب</string>
+    <string name="sort_favorites_first">فرز المفضلة أولا</string>
+    <string name="sort_folders_before_files">فرز المجلدات قبل الملفات</string>
     <string name="ssl_validator_btn_details_hide">إخفاء</string>
     <string name="ssl_validator_btn_details_see">تفاصيل</string>
     <string name="ssl_validator_header">لا يمكن التحقق من هوية الخادم</string>

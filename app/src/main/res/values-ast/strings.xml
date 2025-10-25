@@ -393,6 +393,7 @@
     <string name="prefs_add_account">Amestar cuenta</string>
     <string name="prefs_category_about">Tocante a</string>
     <string name="prefs_category_details">Detalles</string>
+    <string name="prefs_category_files">Ficheros</string>
     <string name="prefs_category_general">Xeneral</string>
     <string name="prefs_category_more">Más</string>
     <string name="prefs_category_sync">Sincronizar</string>
@@ -486,6 +487,8 @@
     <string name="signup_with_provider">Rexistrase con un fornidor</string>
     <string name="single_sign_on_request_token" formatted="true">¿Quies permitr que %1$s acceda a la cuenta de Nextcloud %2$s?</string>
     <string name="sort_by">Ordenar per</string>
+    <string name="sort_favorites_first">Ordenar los favoritos primero</string>
+    <string name="sort_folders_before_files">Ordenar les carpetes enantes que los ficheros</string>
     <string name="ssl_validator_btn_details_hide">Esconder</string>
     <string name="ssl_validator_btn_details_see">Detalles</string>
     <string name="ssl_validator_header">Nun se pudo verificar la identidá del sirvidor</string>
