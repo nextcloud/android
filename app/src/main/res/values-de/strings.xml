@@ -698,6 +698,7 @@
     <string name="prefs_category_about">Über</string>
     <string name="prefs_category_details">Details</string>
     <string name="prefs_category_dev">Dev</string>
+    <string name="prefs_category_files">Dateien</string>
     <string name="prefs_category_general">Allgemein</string>
     <string name="prefs_category_more">Mehr</string>
     <string name="prefs_category_sync">Synchronisieren</string>

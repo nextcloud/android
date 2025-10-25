@@ -686,6 +686,7 @@
     <string name="prefs_category_about">Om</string>
     <string name="prefs_category_details">Detaljer</string>
     <string name="prefs_category_dev">Udvikling</string>
+    <string name="prefs_category_files">Filer</string>
     <string name="prefs_category_general">Generel</string>
     <string name="prefs_category_more">Mere</string>
     <string name="prefs_category_sync">Synkronisér</string>
