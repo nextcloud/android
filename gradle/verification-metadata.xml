@@ -370,6 +370,7 @@
             <trusting group="com.mebigfatguy.fb-contrib" name="fb-contrib" version="7.6.12"/>
             <trusting group="com.mebigfatguy.fb-contrib" name="fb-contrib" version="7.6.13"/>
             <trusting group="com.mebigfatguy.fb-contrib" name="fb-contrib" version="7.6.14"/>
+            <trusting group="com.mebigfatguy.fb-contrib" name="fb-contrib" version="7.6.15"/>
          </trusted-key>
          <trusted-key id="AF7512AF66FE4004D84DEC8A04C8C902FEFB1A01" group="io.mockk"/>
          <trusted-key id="AFCC4C7594D09E2182C60E0F7A01B0F236E5430F" group="com.google.code.gson"/>
