@@ -98,11 +98,13 @@
     <string name="authenticator_activity_login_error">Došlo k problému při zpracovávání vašeho požadavku na přihlášení se. Zkuste to prosím později.</string>
     <string name="authenticator_activity_no_web_browser_found">Není k dispozici žádný webový prohlížeč pro otevření tohoto odkazu.</string>
     <string name="authenticator_activity_please_complete_login_process">Dokončete proces přihlášení prostřednictvím webového prohlížeče</string>
+    <string name="auto_upload_battery_saver_mode_warning">Automatické nahrávání je pozastaveno, protože je zapnuté šetření energií z akumulátoru.</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">ponechán v původní složce, protože je pouze pro čtení</string>
     <string name="auto_upload_low_battery_warning_info">Téměř vybitý akumulátor – nahrávání může trvat déle</string>
     <string name="auto_upload_on_wifi">Nahrávat pouze přes neúčtované Wi-Fi připojení</string>
     <string name="auto_upload_path">/AutoUpload</string>
     <string name="auto_upload_sub_folder_warning">Tato složka už je obsažena v synchronizaci nadřazené složky, což může způsobovat duplicitní nahrávání</string>
+    <string name="auto_upload_wifi_only_warning_info">Čeká se na Wi-Fi, aby bylo možné spustit nahrávání</string>
     <string name="auto_upload_worker_start_text">Jsou nahrávány soubory z %s do %s</string>
     <string name="autoupload_configure">Nastavit</string>
     <string name="autoupload_create_new_custom_folder">Vytvořit nové uživatelsky určené nastavení složky</string>
@@ -207,6 +209,7 @@
     <string name="contacts_preferences_import_scheduled_fail">Import se nepodařilo spustit. Zkuste to znovu</string>
     <string name="contacts_preferences_no_file_found">Nenalezen žádný soubor</string>
     <string name="contacts_preferences_something_strange_happened">Nepodařilo se najít vaši nejaktuálnější zálohu!</string>
+    <string name="content_observer_work_notification_title">Zjišťování změn obsahu</string>
     <string name="copied_to_clipboard">Zkopírováno do schránky</string>
     <string name="copy_file_error">Při pokusu o zkopírování tohoto souboru či složky došlo k chybě</string>
     <string name="copy_file_invalid_into_descendent">Není možné zkopírovat složku do některé z jejích vlastních podsložek</string>
@@ -455,6 +458,7 @@
     <string name="file_not_found_cannot_share">Soubor nenalezen. Sdílení proto není možné vytvořit.</string>
     <string name="file_not_synced">Soubor se nepodařilo synchronizovat. Zobrazuje se poslední dostupná verze.</string>
     <string name="file_rename">Přejmenovat</string>
+    <string name="file_upload_limit_message">Je možné nahrávat až %d souborů naráz.“</string>
     <string name="file_upload_worker_error_notification_title">Nahrávání se nezdařilo. Není k dispozici připojení k Internetu</string>
     <string name="file_upload_worker_same_file_already_exists">%s už existuje – nezjištěny žádné konflikty</string>
     <string name="file_version_restored_error">Chyba při obnovování verze souboru!</string>
@@ -476,6 +480,11 @@
     <string name="folder_already_exists">Složka už existuje</string>
     <string name="folder_best_viewed_in">Tuto složku je nejlépe prohlížet si v %1$s.</string>
     <string name="folder_confirm_create">Vytvořit</string>
+    <string name="folder_download_counter">%1$d z %2$d &#183; %3$s</string>
+    <string name="folder_download_error_notification_title">Při synchronizování složky %s došlo k chybě</string>
+    <string name="folder_download_insufficient_disk_space_notification_title">Nedostatek prostoru na disku – synchronizace zrušena</string>
+    <string name="folder_download_success_notification_title">složka %s úspěšně synchronizována</string>
+    <string name="folder_download_worker_ticker_id">Synchronizování…</string>
     <string name="folder_list_empty_headline">Nejsou zde žádné složky</string>
     <string name="folder_name_empty">Název složky je třeba vyplnit</string>
     <string name="folder_picker_choose_button_text">Vybrat</string>
@@ -611,6 +620,8 @@
     <string name="notification_action_failed">Akci se nepodařilo provést.</string>
     <string name="notification_channel_background_operations_description">Zobrazovat upozornění pro interakci s výsledkem operací na pozadí</string>
     <string name="notification_channel_background_operations_name">Operace na pozadí</string>
+    <string name="notification_channel_content_observer_description">Zjišťovat změny v lokálních souborech</string>
+    <string name="notification_channel_content_observer_name_short">Pozorovatel obsahu</string>
     <string name="notification_channel_download_description">Zobrazuje ukazatel postupu stahování</string>
     <string name="notification_channel_download_name_short">Stažené</string>
     <string name="notification_channel_file_sync_description">Zobrazuje průběh a výsledek synchronizace souborů</string>
@@ -687,6 +698,7 @@
     <string name="prefs_category_about">O aplikaci</string>
     <string name="prefs_category_details">Podrobnosti</string>
     <string name="prefs_category_dev">Vývojové</string>
+    <string name="prefs_category_files">Soubory</string>
     <string name="prefs_category_general">Obecné</string>
     <string name="prefs_category_more">Více</string>
     <string name="prefs_category_sync">Synchronizovat</string>
@@ -989,6 +1001,7 @@
     <string name="unified_search_fragment_calendar_event_not_found">Událost nenalezena, ale ještě pořád je možné aktualizovat synchronizací. Přesměrovává se na web…</string>
     <string name="unified_search_fragment_contact_not_found">Kontakt nenalezen, ale ještě pořád je možné aktualizovat synchronizací. Přesměrovává se na web…</string>
     <string name="unified_search_fragment_permission_needed">Pro otevření výsledků vyhledávání je zapotřebí oprávnění – pokud chybí, přesměruje na web…</string>
+    <string name="unified_search_fragment_search_in_this_folder">V této složce</string>
     <string name="unknown">Neznámé</string>
     <string name="unlock_file">Odemknout soubor</string>
     <string name="unread_comments">Existuje nepřečtený komentář</string>
