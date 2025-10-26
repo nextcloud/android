@@ -463,6 +463,7 @@
     <string name="prefs_category_about">על אודות</string>
     <string name="prefs_category_details">פרטים</string>
     <string name="prefs_category_dev">פיתוח</string>
+    <string name="prefs_category_files">קבצים</string>
     <string name="prefs_category_general">כללי</string>
     <string name="prefs_category_more">יותר</string>
     <string name="prefs_category_sync">סנכרון</string>

@@ -541,6 +541,7 @@
     <string name="prefs_category_about">Относно</string>
     <string name="prefs_category_details">Подробности</string>
     <string name="prefs_category_dev">Разработка</string>
+    <string name="prefs_category_files">Файлове</string>
     <string name="prefs_category_general">Общи</string>
     <string name="prefs_category_more">Още</string>
     <string name="prefs_category_sync">Синхронизиране</string>

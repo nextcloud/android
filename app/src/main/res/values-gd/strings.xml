@@ -450,6 +450,7 @@
     <string name="prefs_category_about">Mu dhèidhinn</string>
     <string name="prefs_category_details">Mion-fhiosrachadh</string>
     <string name="prefs_category_dev">Leasachadh</string>
+    <string name="prefs_category_files">Faidhlichean</string>
     <string name="prefs_category_general">Coitcheann</string>
     <string name="prefs_category_more">Barrachd</string>
     <string name="prefs_category_sync">Sioncronaich</string>

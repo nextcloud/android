@@ -93,12 +93,19 @@
     <string name="auth_unsupported_multiaccount">%1$s ne prend pas en charge les comptes multiples</string>
     <string name="auth_wrong_connection_title">Impossible d\'établir la connexion</string>
     <string name="authenticator_activity_cancel_login">Annuler la connexion</string>
+    <string name="authenticator_activity_empty_base_url">Veuillez saisir une adresse valide de serveur.</string>
+    <string name="authenticator_activity_empty_response_message">Impossible de récupérer les informations de connexion. Veuillez réessayer.</string>
     <string name="authenticator_activity_login_error">Un problème est survenu lors du traitement de votre demande de connexion. Veuillez réessayer plus tard.</string>
+    <string name="authenticator_activity_no_web_browser_found">Aucun navigateur n\'est disponible pour ouvrir ce lien.</string>
     <string name="authenticator_activity_please_complete_login_process">Veuillez finaliser la connexion dans votre navigateur</string>
+    <string name="auto_upload_battery_saver_mode_warning">Le téléversement automatique est suspendu, car l\'économiseur de batterie est activé.</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">conservé dans le dossier original (puisqu\'il est en lecture seule)</string>
+    <string name="auto_upload_low_battery_warning_info">Batterie faible, le téléversement peut prendre plus de temps</string>
     <string name="auto_upload_on_wifi">Téléverser par Wi-Fi uniquement</string>
     <string name="auto_upload_path">/TéléversementAuto</string>
     <string name="auto_upload_sub_folder_warning">Ce dossier fait partie de la synchronisation du dossier parent, ce qui peut créer des doublons.</string>
+    <string name="auto_upload_wifi_only_warning_info">En attente du Wi-Fi pour commencer le téléversement</string>
+    <string name="auto_upload_worker_start_text">Téléversement des fichiers de %s vers %s</string>
     <string name="autoupload_configure">Configurer</string>
     <string name="autoupload_create_new_custom_folder">Créer une nouvelle configuration de dossier personnalisé</string>
     <string name="autoupload_custom_folder">Définir un dossier personnalisé</string>
@@ -202,6 +209,7 @@
     <string name="contacts_preferences_import_scheduled_fail">L\'importation n\'a pas pu démarrer. Veuillez réessayer.</string>
     <string name="contacts_preferences_no_file_found">Aucun fichier trouvé</string>
     <string name="contacts_preferences_something_strange_happened">Impossible de trouver la dernière sauvegarde !</string>
+    <string name="content_observer_work_notification_title">Détection des modifications de contenu</string>
     <string name="copied_to_clipboard">Copié dans le presse-papier</string>
     <string name="copy_file_error">Une erreur est survenue lors de la copie de ce fichier ou dossier</string>
     <string name="copy_file_invalid_into_descendent">Il n\'est pas possible de copier un dossier vers un de ses descendants</string>
@@ -450,6 +458,7 @@
     <string name="file_not_found_cannot_share">Fichier introuvable. Impossible de créer le partage.</string>
     <string name="file_not_synced">Le fichier ne peut pas être synchronisé. Affichage de la dernière version disponible. </string>
     <string name="file_rename">Renommer</string>
+    <string name="file_upload_limit_message">Vous pouvez téléverser jusqu\'à %d fichiers à la fois.</string>
     <string name="file_upload_worker_error_notification_title">Échec du téléversement. Pas de connexion internet</string>
     <string name="file_upload_worker_same_file_already_exists">%s existe déjà, aucun conflit détecté</string>
     <string name="file_version_restored_error">Erreur, la version du fichier n\'a pas été restaurée !</string>
@@ -471,6 +480,10 @@
     <string name="folder_already_exists">Le dossier existe déjà</string>
     <string name="folder_best_viewed_in">Ce dossier est mieux visualisé dans %1$s.</string>
     <string name="folder_confirm_create">Créer</string>
+    <string name="folder_download_error_notification_title">Une erreur s\'est produite lors de la synchronisation du dossier %s</string>
+    <string name="folder_download_insufficient_disk_space_notification_title">Espace disque insuffisant, synchronisation annulée</string>
+    <string name="folder_download_success_notification_title">Dossier %s synchronisé avec succès</string>
+    <string name="folder_download_worker_ticker_id">Synchronisation en cours…</string>
     <string name="folder_list_empty_headline">Aucun dossier</string>
     <string name="folder_name_empty">Le nom du dossier ne peut être vide</string>
     <string name="folder_picker_choose_button_text">Choisir</string>
@@ -606,6 +619,7 @@
     <string name="notification_action_failed">Échec lors de l\'exécution de l\'action.</string>
     <string name="notification_channel_background_operations_description">Afficher des notifications pour interagir avec le résultat des opérations en arrière-plan</string>
     <string name="notification_channel_background_operations_name">Opérations en arrière-plan</string>
+    <string name="notification_channel_content_observer_description">Détecte les modifications apportées aux fichiers locaux</string>
     <string name="notification_channel_download_description">Afficher la progression de téléchargement</string>
     <string name="notification_channel_download_name_short">Téléchargements</string>
     <string name="notification_channel_file_sync_description">Afficher les résultats et la progression de synchronisation du fichier</string>
@@ -682,6 +696,7 @@
     <string name="prefs_category_about">À propos</string>
     <string name="prefs_category_details">Préférences</string>
     <string name="prefs_category_dev">Dév</string>
+    <string name="prefs_category_files">Fichiers</string>
     <string name="prefs_category_general">Général</string>
     <string name="prefs_category_more">Plus</string>
     <string name="prefs_category_sync">Synchroniser</string>
@@ -873,6 +888,8 @@
     <string name="signup_with_provider">Se connecter avec un fournisseur</string>
     <string name="single_sign_on_request_token" formatted="true">Autoriser %1$s à accéder à votre compte Nextcloud  %2$s ?</string>
     <string name="sort_by">Trier par</string>
+    <string name="sort_favorites_first">Trier les favoris en premier</string>
+    <string name="sort_folders_before_files">Trier les dossiers avant les fichiers</string>
     <string name="ssl_validator_btn_details_hide">Masquer</string>
     <string name="ssl_validator_btn_details_see">Détails</string>
     <string name="ssl_validator_header">L\'identité du serveur n\'a pas pu être vérifiée</string>
@@ -983,6 +1000,7 @@
     <string name="unified_search_fragment_calendar_event_not_found">Événement introuvable, vous pouvez toujours synchroniser pour mettre à jour. Redirection au web…</string>
     <string name="unified_search_fragment_contact_not_found">Contact introuvable, vous pouvez toujours synchroniser pour mettre à jour. Redirection au web...</string>
     <string name="unified_search_fragment_permission_needed">Des permissions sont requises pour ouvrir le résultat de recherche, autrement ceci redirigera au web…</string>
+    <string name="unified_search_fragment_search_in_this_folder">Dans ce dossier</string>
     <string name="unknown">Inconnu</string>
     <string name="unlock_file">Déverrouiller le fichier</string>
     <string name="unread_comments">Il y a des commentaire non lus</string>

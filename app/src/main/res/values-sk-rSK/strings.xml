@@ -656,6 +656,7 @@
     <string name="prefs_category_about">O aplikácii</string>
     <string name="prefs_category_details">Podrobnosti</string>
     <string name="prefs_category_dev">Vývojové</string>
+    <string name="prefs_category_files">Súbory</string>
     <string name="prefs_category_general">Všeobecné</string>
     <string name="prefs_category_more">Viac</string>
     <string name="prefs_category_sync">Synchronizovať</string>
@@ -839,6 +840,8 @@
     <string name="signup_with_provider">Zaregistrovať sa u poskytovateľa</string>
     <string name="single_sign_on_request_token" formatted="true">Umožniť %1$s pristupovať k Vášmu Nextcloud účtu %2$s?</string>
     <string name="sort_by">Zoradiť podľa</string>
+    <string name="sort_favorites_first">Zoradiť od najobľúbenejších</string>
+    <string name="sort_folders_before_files">Zoradiť adresáre pred súbormi</string>
     <string name="ssl_validator_btn_details_hide">Skyť</string>
     <string name="ssl_validator_btn_details_see">Podrobnosti</string>
     <string name="ssl_validator_header">Identu servra nemožno overiť</string>

@@ -646,6 +646,7 @@
     <string name="prefs_category_about">정보</string>
     <string name="prefs_category_details">자세한 정보</string>
     <string name="prefs_category_dev">개발</string>
+    <string name="prefs_category_files">파일</string>
     <string name="prefs_category_general">일반</string>
     <string name="prefs_category_more">더 보기</string>
     <string name="prefs_category_sync">동기화</string>
@@ -823,6 +824,8 @@
     <string name="signup_with_provider">공급자로 가입</string>
     <string name="single_sign_on_request_token" formatted="true">%1$s이(가) Nextcloud 계정%2$s에 액세스하도록 허용 하시겠습니까?</string>
     <string name="sort_by">정렬</string>
+    <string name="sort_favorites_first">즐겨찾기를 처음에 나열</string>
+    <string name="sort_folders_before_files">폴더를 파일보다 먼저 정렬</string>
     <string name="ssl_validator_btn_details_hide">숨기기</string>
     <string name="ssl_validator_btn_details_see">자세히</string>
     <string name="ssl_validator_header">서버를 검증할 수 없습니다</string>

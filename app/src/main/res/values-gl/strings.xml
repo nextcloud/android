@@ -698,6 +698,7 @@
     <string name="prefs_category_about">Sobre</string>
     <string name="prefs_category_details">Detalles</string>
     <string name="prefs_category_dev">Desenvolvemento</string>
+    <string name="prefs_category_files">Ficheiros</string>
     <string name="prefs_category_general">Xeral</string>
     <string name="prefs_category_more">Máis</string>
     <string name="prefs_category_sync">Sincronizar</string>
@@ -890,6 +891,8 @@
     <string name="signup_with_provider">Rexistrarse cun provedor</string>
     <string name="single_sign_on_request_token" formatted="true">Permitirlle a %1$s acceder a súa conta %2$s en Nextcloud?</string>
     <string name="sort_by">Ordenar por</string>
+    <string name="sort_favorites_first">Ordenar primeiro os favoritos</string>
+    <string name="sort_folders_before_files">Ordenar os cartafoles antes que os ficheiros</string>
     <string name="ssl_validator_btn_details_hide">Agochar</string>
     <string name="ssl_validator_btn_details_see">Detalles</string>
     <string name="ssl_validator_header">Non foi posíbel verificar a identidade do sitio</string>
@@ -928,7 +931,7 @@
     <string name="storage_permission_full_access">Acceso completo</string>
     <string name="storage_permission_media_read_only">Medios de só lectura</string>
     <string name="storage_pictures">Imaxes</string>
-    <string name="store_full_desc">A plataforma de produtividade en aloxamento autónomo que mantén controlada.\n\nCaracterísticas:\n* Interface doada e moderna, totalmente tematizada ao aliñarse co tema do seu servidor\n* Enviar os seus ficheiros ao seu Nextcloud\n* Compartir os seus ficheiros con outras persoas\n* Conservar os seus ficheiros e cartafoles favoritos sincronizados\n* Buscar en todos os cartafoles do servidor\n* Enviar automaticamente fotos e vídeos feitos no seu dispositivo\n* Estar ao día coas notificacións\n* Admite múltiples contas\n* Acceso seguro aos seus datos con pegada dactilar ou PIN\n* Integración con DAVx⁵ (anteriormente coñecido como DAVdroid) para facilitar a configuración da sincronización de calendarios e contactos\n\nAgradecémoslle que nos informe de calquera incidente en https://github.com/nextcloud/android/issues, pode conversar sobre esta aplicación en https://help.nextcloud.com/c/clients/android\n\nE novo en Nextcloud? Nextcloud é un servidor privado para sincronizar e compartir ficheiros. É completamente libre e pode instalalo Vde. ou contratar a unha empresa ou cooperativa para que o faga por Vde. É o camiño para que sexa Vde. quen teña o control sobre as súas fotos, calendario, caderno de contactos, documentos e todo o demais.\n\nCoñeza Nextcloud en https://nextcloud.com</string>
+    <string name="store_full_desc">A plataforma de produtividade en aloxamento autónomo que mantén controlada.\n\nCaracterísticas:\n* Interface doada e moderna, totalmente tematizada ao aliñarse co tema do seu servidor\n* Enviar os seus ficheiros ao seu Nextcloud\n* Compartir os seus ficheiros con outras persoas\n* Conservar os seus ficheiros e cartafoles favoritos sincronizados\n* Buscar en todos os cartafoles do servidor\n* Enviar automaticamente fotos e vídeos feitos no seu dispositivo\n* Estar ao día coas notificacións\n* Admite múltiples contas\n* Acceso seguro aos seus datos con pegada dactilar ou PIN\n* Integración con DAVx⁵ (anteriormente coñecido como DAVdroid) para facilitar a configuración da sincronización de calendarios e contactos\n\nAgradecémoslle que nos informe de calquera problema en https://github.com/nextcloud/android/issues, pode conversar sobre esta aplicación en https://help.nextcloud.com/c/clients/android\n\nE novo en Nextcloud? Nextcloud é un servidor privado para sincronizar e compartir ficheiros. É completamente libre e pode instalalo Vde. ou contratar a unha empresa ou cooperativa para que o faga por Vde. É o camiño para que sexa Vde. quen teña o control sobre as súas fotos, calendario, caderno de contactos, documentos e todo o demais.\n\nCoñeza Nextcloud en https://nextcloud.com</string>
     <string name="store_full_dev_desc">A plataforma de produtividade en aloxamento autónomo que mantén controlada.\nEsta é a versión oficial de desenvolvemento, que presenta unha mostra diaria de calquera nova funcionalidade aínda non probada, o que pode provocar inestabilidade e perda de datos. Esta aplicación está destinada a usuarios que queren probar e informar de fallos (en caso de producirse). Non a use para o día a día!\n\nTanto a versión oficial de desenvolvemento como a normal están dispoñíbeis no F-Droid e poden instalarse xuntas.</string>
     <string name="store_short_desc">A plataforma de produtividade en aloxamento autónomo que mantén controlada</string>
     <string name="store_short_dev_desc">A plataforma de produtividade en aloxamento autónomo que mantén controlada (versión de vista previa de desenvolvemento)</string>

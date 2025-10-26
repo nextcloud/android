@@ -697,6 +697,7 @@
     <string name="prefs_category_about">Kuhusu</string>
     <string name="prefs_category_details">Maelezo ya kina</string>
     <string name="prefs_category_dev">Dev</string>
+    <string name="prefs_category_files">Faili</string>
     <string name="prefs_category_general">Kuu</string>
     <string name="prefs_category_more">Zaidi</string>
     <string name="prefs_category_sync">Sawazisha</string>
@@ -888,6 +889,8 @@
     <string name="signup_with_provider">Jisajili na mtoa huduma</string>
     <string name="single_sign_on_request_token" formatted="true">Ruhusu %1$s kufikia akaunti yako ya Nextcloud %2$s?</string>
     <string name="sort_by">Panga kwa </string>
+    <string name="sort_favorites_first">Chagua za upendeleo kwanza</string>
+    <string name="sort_folders_before_files">Chagua vikasha kabla ya mafaili</string>
     <string name="ssl_validator_btn_details_hide">Ficha</string>
     <string name="ssl_validator_btn_details_see">Maelezo ya kina</string>
     <string name="ssl_validator_header">Utambulisho wa seva haukuweza kuthibitishwa</string>

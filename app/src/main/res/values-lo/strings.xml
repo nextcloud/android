@@ -451,6 +451,7 @@
     <string name="prefs_category_about">ກ່ຽວກັບ</string>
     <string name="prefs_category_details">ລາຍລະອຽດ</string>
     <string name="prefs_category_dev">Dev</string>
+    <string name="prefs_category_files">ຟາຍ</string>
     <string name="prefs_category_general">ທົ່ວໄປ</string>
     <string name="prefs_category_more">ເພີ່ມເຕີມ</string>
     <string name="prefs_category_sync">Sync</string>

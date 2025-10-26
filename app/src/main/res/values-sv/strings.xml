@@ -698,6 +698,7 @@
     <string name="prefs_category_about">Om</string>
     <string name="prefs_category_details">Detaljer</string>
     <string name="prefs_category_dev">Dev</string>
+    <string name="prefs_category_files">Filer</string>
     <string name="prefs_category_general">Allmänt</string>
     <string name="prefs_category_more">Mer</string>
     <string name="prefs_category_sync">Synkronisera</string>
@@ -890,6 +891,8 @@
     <string name="signup_with_provider">Registrera hos en leverantör</string>
     <string name="single_sign_on_request_token" formatted="true">Tillåt %1$s att komma åt ditt Nextcloud-konto %2$s?</string>
     <string name="sort_by">Sortera efter</string>
+    <string name="sort_favorites_first">Sortera favoriter först</string>
+    <string name="sort_folders_before_files">Sortera mappar före filer</string>
     <string name="ssl_validator_btn_details_hide">Göm</string>
     <string name="ssl_validator_btn_details_see">Detaljer</string>
     <string name="ssl_validator_header">Webbplatsens identitet kunde inte verifieras</string>

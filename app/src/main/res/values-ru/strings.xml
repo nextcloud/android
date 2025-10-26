@@ -683,6 +683,7 @@
     <string name="prefs_category_about">О программе</string>
     <string name="prefs_category_details">Дополнительные</string>
     <string name="prefs_category_dev">Разрабатываемая версия</string>
+    <string name="prefs_category_files">Файлы</string>
     <string name="prefs_category_general">Основные</string>
     <string name="prefs_category_more">Больше</string>
     <string name="prefs_category_sync">Синхронизировать</string>
@@ -874,6 +875,8 @@
     <string name="signup_with_provider">Подключиться через поставщика услуги</string>
     <string name="single_sign_on_request_token" formatted="true">Разрешить %1$s доступ к вашей учетной записи Nextcloud %2$s?</string>
     <string name="sort_by">Порядок сортировки</string>
+    <string name="sort_favorites_first">Сначала избранное</string>
+    <string name="sort_folders_before_files">Начинать список с папок</string>
     <string name="ssl_validator_btn_details_hide">Скрыть</string>
     <string name="ssl_validator_btn_details_see">Подробно</string>
     <string name="ssl_validator_header">Не удалось проверить подлинность сервера</string>

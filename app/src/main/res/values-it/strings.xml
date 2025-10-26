@@ -642,6 +642,7 @@
     <string name="prefs_category_about">Informazioni</string>
     <string name="prefs_category_details">Dettagli</string>
     <string name="prefs_category_dev">Sviluppo</string>
+    <string name="prefs_category_files">File</string>
     <string name="prefs_category_general">Generale</string>
     <string name="prefs_category_more">Altro</string>
     <string name="prefs_category_sync">Sincronizzazione</string>
@@ -819,6 +820,8 @@
     <string name="signup_with_provider">Registrati a un fornitore</string>
     <string name="single_sign_on_request_token" formatted="true">Vuoi consentire a %1$s di accedere al tuo account Nextcloud %2$s?</string>
     <string name="sort_by">Ordina per</string>
+    <string name="sort_favorites_first">Ordina prima i preferiti</string>
+    <string name="sort_folders_before_files">Ordina cartelle prima dei files</string>
     <string name="ssl_validator_btn_details_hide">Nascondi</string>
     <string name="ssl_validator_btn_details_see">Dettagli</string>
     <string name="ssl_validator_header">L\'identità del server non può essere verificata</string>

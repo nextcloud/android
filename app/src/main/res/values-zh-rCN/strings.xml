@@ -698,6 +698,7 @@
     <string name="prefs_category_about">关于</string>
     <string name="prefs_category_details">详细信息</string>
     <string name="prefs_category_dev">开发</string>
+    <string name="prefs_category_files">文件</string>
     <string name="prefs_category_general">常规</string>
     <string name="prefs_category_more">更多</string>
     <string name="prefs_category_sync">同步</string>
@@ -889,6 +890,8 @@
     <string name="signup_with_provider">与提供商签约</string>
     <string name="single_sign_on_request_token" formatted="true">是否允许%1$s访问您的 Nextcloud 账号%2$s？</string>
     <string name="sort_by">排序方式</string>
+    <string name="sort_favorites_first">收藏排序优先</string>
+    <string name="sort_folders_before_files">将文件夹排在文件前面</string>
     <string name="ssl_validator_btn_details_hide">隐藏</string>
     <string name="ssl_validator_btn_details_see">详情</string>
     <string name="ssl_validator_header">无法验证服务器身份</string>

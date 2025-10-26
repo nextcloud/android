@@ -490,6 +490,7 @@
     <string name="prefs_category_about">In contu de</string>
     <string name="prefs_category_details">Detàllios</string>
     <string name="prefs_category_dev">Dispositivu</string>
+    <string name="prefs_category_files">Archìvios</string>
     <string name="prefs_category_general">Generale</string>
     <string name="prefs_category_more">Àteru</string>
     <string name="prefs_category_sync">Sincronizatzione</string>
@@ -626,6 +627,8 @@
     <string name="signup_with_provider">Registra·ti cun su frunidore</string>
     <string name="single_sign_on_request_token" formatted="true">Permìtere a %1$s de intrare in su contu tuo de Nextcloud %2$s?</string>
     <string name="sort_by">Assenta segundu</string>
+    <string name="sort_favorites_first">Assenta cun is preferidos in antis</string>
+    <string name="sort_folders_before_files">Assenta cun is cartellas in antis de is archìvios</string>
     <string name="ssl_validator_btn_details_hide">Cua</string>
     <string name="ssl_validator_btn_details_see">Detàllios</string>
     <string name="ssl_validator_header">No at fatu a averguare s\'identidade de su serbidore</string>

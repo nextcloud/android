@@ -617,6 +617,7 @@
     <string name="prefs_category_about">ھەققىدە</string>
     <string name="prefs_category_details">تەپسىلاتى</string>
     <string name="prefs_category_dev">Dev</string>
+    <string name="prefs_category_files">ھۆججەتلەر</string>
     <string name="prefs_category_general">ئادەتتىكى</string>
     <string name="prefs_category_more">تېخىمۇ كۆپ</string>
     <string name="prefs_category_sync">ماسقەدەملەش</string>
@@ -787,6 +788,8 @@
     <string name="signup_with_provider">تەمىنلىگۈچى بىلەن تىزىملىتىڭ</string>
     <string name="single_sign_on_request_token" formatted="true">%1$s نىڭ Nextcloud ھېساباتىڭىزنى زىيارەت قىلىشىغا يول قويۇڭ%2$s?</string>
     <string name="sort_by">تەرتىپلەش</string>
+    <string name="sort_favorites_first">ياقتۇرىدىغانلارنى رەتلەڭ</string>
+    <string name="sort_folders_before_files">ھۆججەتلەرنى ھۆججەتتىن بۇرۇن تەرتىپلەڭ</string>
     <string name="ssl_validator_btn_details_hide">يوشۇر</string>
     <string name="ssl_validator_btn_details_see">تەپسىلاتى</string>
     <string name="ssl_validator_header">مۇلازىمېتىرنىڭ سالاھىيىتىنى دەلىللىگىلى بولمىدى</string>

@@ -563,6 +563,7 @@
     <string name="prefs_category_about">Apie</string>
     <string name="prefs_category_details">Informacija</string>
     <string name="prefs_category_dev">Dev</string>
+    <string name="prefs_category_files">Failai</string>
     <string name="prefs_category_general">Bendra</string>
     <string name="prefs_category_more">Daugiau</string>
     <string name="prefs_category_sync">Sinchronizuoti</string>

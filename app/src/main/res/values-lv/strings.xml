@@ -418,6 +418,7 @@
     <string name="prefs_calendar_contacts_sync_setup_successful">Kalendāra un kontaktpersonu sinhronizēšanas iestatīšana</string>
     <string name="prefs_category_about">Par</string>
     <string name="prefs_category_details">Informācija</string>
+    <string name="prefs_category_files">Datnes</string>
     <string name="prefs_category_general">Vispārīgi</string>
     <string name="prefs_category_more">Vairāk</string>
     <string name="prefs_category_sync">Sinhronizēt</string>
@@ -522,6 +523,7 @@
     <string name="signup_with_provider">Reģistrēties ar pakalpojumu sniedzēju</string>
     <string name="single_sign_on_request_token" formatted="true">Ļaut %1$s piekļūt Tavam Nextcloud kontam %2$s?</string>
     <string name="sort_by">Kārtot pēc</string>
+    <string name="sort_folders_before_files">Kārtot mapes pirms datnēm</string>
     <string name="ssl_validator_btn_details_hide">Paslēpt</string>
     <string name="ssl_validator_btn_details_see">Sīkāka informācija</string>
     <string name="ssl_validator_header">Servera identitāti nevarēja pārbaudīt</string>

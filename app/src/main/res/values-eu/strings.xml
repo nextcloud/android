@@ -660,6 +660,7 @@
     <string name="prefs_category_about">Honi buruz</string>
     <string name="prefs_category_details">Xehetasunak</string>
     <string name="prefs_category_dev">Garapena</string>
+    <string name="prefs_category_files">Fitxategiak</string>
     <string name="prefs_category_general">Orokorra</string>
     <string name="prefs_category_more">Gehiago</string>
     <string name="prefs_category_sync">Sinkronizatu</string>
@@ -844,6 +845,8 @@
     <string name="signup_with_provider">Erregistratu hornitzaile batekin</string>
     <string name="single_sign_on_request_token" formatted="true">%1$s zure %2$s Nextcloud kontuan sartzea baimendu nahi duzu?</string>
     <string name="sort_by">Ordenatu honen arabera</string>
+    <string name="sort_favorites_first">Ordenatu gogokoak lehenengo</string>
+    <string name="sort_folders_before_files">Ordenatu karpetak fitxategien aurretik</string>
     <string name="ssl_validator_btn_details_hide">Ezkutatu</string>
     <string name="ssl_validator_btn_details_see">Xehetasunak</string>
     <string name="ssl_validator_header">Ezin izan da zerbitzariaren identitatea egiaztatu</string>

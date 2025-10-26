@@ -698,6 +698,7 @@
     <string name="prefs_category_about">Info</string>
     <string name="prefs_category_details">Üksikasjad</string>
     <string name="prefs_category_dev">Arendusversioon</string>
+    <string name="prefs_category_files">Failid</string>
     <string name="prefs_category_general">Üldine</string>
     <string name="prefs_category_more">Rohkem</string>
     <string name="prefs_category_sync">Sünkrooni</string>
@@ -889,6 +890,8 @@
     <string name="signup_with_provider">Või liitu teenusepakkujaga</string>
     <string name="single_sign_on_request_token" formatted="true">Kas lubad „%1$s“ teenusel ligipääsu sinu Nextcloudi kasutajakontole „%2$s“?</string>
     <string name="sort_by">Sorteeri</string>
+    <string name="sort_favorites_first">Järjesta lemmikud esimesena</string>
+    <string name="sort_folders_before_files">Järjesta kaustad enne faile</string>
     <string name="ssl_validator_btn_details_hide">Peida</string>
     <string name="ssl_validator_btn_details_see">Üksikasjad</string>
     <string name="ssl_validator_header">Serveri identiteeti polnud võimalik kontrollida</string>
