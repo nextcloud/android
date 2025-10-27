@@ -56,6 +56,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings
 import java.io.Serializable
 import javax.inject.Inject
 import kotlin.math.max
+import kotlin.math.min
 
 /**
  * Holds a swiping gallery where image files contained in an Nextcloud directory are shown.
@@ -216,6 +217,17 @@ class PreviewImageActivity :
         }
     }
 
+    private fun updateViewPagerAfterDeletionAndAdvanceForward() {
+        val deletePosition = viewPager?.currentItem ?: return
+        previewImagePagerAdapter?.let { adapter ->
+            val nextPosition = min(deletePosition, adapter.itemCount - 1)
+            viewPager?.setCurrentItem(nextPosition, true)
+            adapter.delete(deletePosition)
+            // Page needs to be reselected after the adapter has been updated. Otherwise, wrong title is shown
+            selectPage(nextPosition)
+        }
+    }
+
     private fun handleBackPress() {
         onBackPressedDispatcher.addCallback(object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
@@ -285,9 +297,6 @@ class PreviewImageActivity :
         super.onRemoteOperationFinish(operation, result)
 
         if (operation is RemoveFileOperation) {
-            val deletePosition = viewPager?.currentItem ?: return
-            val nextPosition = if (deletePosition > 0) deletePosition - 1 else 0
-
             previewImagePagerAdapter?.let {
                 if (it.itemCount <= 1) {
                     backToDisplayActivity()
@@ -295,12 +304,9 @@ class PreviewImageActivity :
                 }
             }
 
-            if (user.isPresent) {
-                initViewPager(user.get())
+            if (result.isSuccess) {
+                updateViewPagerAfterDeletionAndAdvanceForward()
             }
-
-            viewPager?.setCurrentItem(nextPosition, true)
-            previewImagePagerAdapter?.delete(deletePosition)
         } else if (operation is SynchronizeFileOperation) {
             onSynchronizeFileOperationFinish(result)
         }
