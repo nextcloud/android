@@ -272,11 +272,21 @@ public abstract class ToolbarActivity extends BaseActivity implements Injectable
     }
 
     public void showSortListGroup(boolean show) {
-        findViewById(R.id.sort_list_button_group).setVisibility(show ? View.VISIBLE : View.GONE);
+        final var view = findViewById(R.id.sort_list_button_group);
+        if (view == null) {
+            return;
+        }
+
+        view.setVisibility(show ? View.VISIBLE : View.GONE);
     }
 
     public boolean sortListGroupVisibility(){
-        return findViewById(R.id.sort_list_button_group).getVisibility() == View.VISIBLE;
+        final var view = findViewById(R.id.sort_list_button_group);
+        if (view == null) {
+            return false;
+        }
+
+        return view.getVisibility() == View.VISIBLE;
     }
     /**
      * Change the bitmap for the toolbar's preview image.
