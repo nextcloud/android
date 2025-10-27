@@ -645,23 +645,40 @@ class FileDisplayActivity :
 
     private fun onOpenFileIntent(intent: Intent) {
         val file = getFileFromIntent(intent)
-        if (file != null) {
-            val fileFragment: OCFileListFragment?
-            val leftFragment = this.leftFragment
-            if (leftFragment is OCFileListFragment) {
-                fileFragment = leftFragment
-            } else {
-                fileFragment = OCFileListFragment()
-                this.leftFragment = fileFragment
+        if (file == null) {
+            Log_OC.e(TAG, "Can't open file intent, file is null")
+            return
+        }
+
+        val currentFragment = leftFragment
+
+        if (currentFragment == null) {
+            Log_OC.e(TAG, "Can't open file intent, left fragment is null")
+            return
+        }
+
+        val fileListFragment: OCFileListFragment = when {
+            currentFragment is OCFileListFragment && currentFragment !is GalleryFragment -> {
+                currentFragment
             }
 
-            // Ensure fragment transactions are completed before calling fragment methods
-            supportFragmentManager.executePendingTransactions()
-
-            // Post to ensure fragment is fully attached and injected
-            Handler(Looper.getMainLooper()).post {
-                fileFragment.onItemClicked(file)
+            else -> {
+                Log_OC.w(
+                    TAG,
+                    "Left fragment is not a valid OCFileListFragment " +
+                        "(was ${currentFragment::class.simpleName}). " +
+                        "Replacing with OCFileListFragment."
+                )
+                val newFragment = OCFileListFragment()
+                setLeftFragment(newFragment, false)
+                setupHomeSearchToolbarWithSortAndListButtons()
+                newFragment
             }
+        }
+
+        // Post to main thread to ensure fragment is fully attached before interacting
+        Handler(Looper.getMainLooper()).post {
+            fileListFragment.onItemClicked(file)
         }
     }
 
