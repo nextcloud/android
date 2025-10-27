@@ -496,6 +496,11 @@ public class FileDataStorageManager {
     }
 
     public boolean saveFile(OCFile ocFile) {
+        if (ocFile == null) {
+            Log_OC.e(TAG, "file is null cannot save");
+            return false;
+        }
+
         boolean overridden = false;
         final ContentValues cv = createContentValuesForFile(ocFile);
         if (ocFile.isFolder()) {
@@ -508,7 +513,9 @@ public class FileDataStorageManager {
 
             if (sameRemotePath) {
                 OCFile oldFile = getFileByPath(ocFile.getRemotePath());
-                ocFile.setFileId(oldFile.getFileId());
+                if (oldFile != null) {
+                    ocFile.setFileId(oldFile.getFileId());
+                }
             }
 
             overridden = true;
