@@ -13,14 +13,19 @@
 package com.owncloud.android.ui.asynctasks;
 
 import android.accounts.Account;
+import android.accounts.AccountManager;
+import android.accounts.AuthenticatorException;
+import android.accounts.OperationCanceledException;
 import android.os.AsyncTask;
 
 import com.nextcloud.client.jobs.BackgroundJobManager;
+import com.owncloud.android.lib.common.accounts.AccountTypeUtils;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.users.CheckRemoteWipeRemoteOperation;
 import com.owncloud.android.ui.activity.FileActivity;
 
+import java.io.IOException;
 import java.lang.ref.WeakReference;
 
 public class CheckRemoteWipeTask extends AsyncTask<Void, Void, Boolean> {
@@ -45,7 +50,15 @@ public class CheckRemoteWipeTask extends AsyncTask<Void, Void, Boolean> {
             return Boolean.FALSE;
         }
 
-        RemoteOperationResult checkWipeResult = new CheckRemoteWipeRemoteOperation().execute(account, fileActivity);
+        String password;
+        try {
+            AccountManager am = AccountManager.get(fileActivity);
+            password = am.blockingGetAuthToken(account, AccountTypeUtils.getAuthTokenTypePass(account.type), false);
+        } catch (AuthenticatorException | IOException | OperationCanceledException e) {
+            return Boolean.FALSE;
+        }
+
+        RemoteOperationResult<Void> checkWipeResult = new CheckRemoteWipeRemoteOperation(password).executeNextcloudClient(account, fileActivity);
 
         if (checkWipeResult.isSuccess()) {
             backgroundJobManager.startAccountRemovalJob(account.name, true);
