@@ -57,6 +57,8 @@ services:
       - su www-data -c "git clone --depth 1 -b $SERVER_VERSION https://github.com/nextcloud/photos.git /var/www/html/apps/photos/"
       - su www-data -c "cd /var/www/html/apps/photos; composer install --no-dev"
       - su www-data -c "php /var/www/html/occ app:enable -f photos"
+      - su www-data -c "git clone --depth 1 -b $SERVER_VERSION https://github.com/nextcloud/viewer.git /var/www/html/apps/viewer/"
+      - su www-data -c "php /var/www/html/occ app:enable -f viewer"
       - su www-data -c "php /var/www/html/occ config:system:set ratelimit.protection.enabled --value false --type bool"
       - /usr/local/bin/run.sh
 
@@ -185,6 +187,6 @@ name: GIT_TOKEN
 data: XIoa9IYq+xQ+N5iln8dlpWv0jV6ROr7HuE24ioUr4uQ8m8SjyH0yognWYLYLqnbTKrFWlFZiEMQTH/sZiWjRFvV1iL0=
 ---
 kind: signature
-hmac: 3315741ddc1eead4a443299a9f7d76a54a8bc52530aadebc9f3e12e6c0b7c831
+hmac: a6b33faf26e388a3abc0a9c7fd195f13699e3d2cfcae915b5b98d563def5d80b
 
 ...
