@@ -551,7 +551,7 @@ class FileDisplayActivity :
 
         when {
             ACTION_DETAILS.equals(action, ignoreCase = true) -> {
-                val file = intent.getParcelableArgument(EXTRA_FILE, OCFile::class.java)
+                val file = getFileFromIntent(intent)
                 setFile(file)
                 showDetails(file)
             }
@@ -580,7 +580,6 @@ class FileDisplayActivity :
         when (intent.action) {
             Intent.ACTION_VIEW -> handleOpenFileViaIntent(intent)
             OPEN_FILE -> {
-                supportFragmentManager.executePendingTransactions()
                 onOpenFileIntent(intent)
             }
         }
@@ -647,8 +646,7 @@ class FileDisplayActivity :
     // endregion
 
     private fun onOpenFileIntent(intent: Intent) {
-        val extra = intent.getStringExtra(EXTRA_FILE)
-        val file = storageManager.getFileByDecryptedRemotePath(extra)
+        val file = getFileFromIntent(intent)
         if (file != null) {
             val fileFragment: OCFileListFragment?
             val leftFragment = this.leftFragment
@@ -658,7 +656,14 @@ class FileDisplayActivity :
                 fileFragment = OCFileListFragment()
                 this.leftFragment = fileFragment
             }
-            fileFragment.onItemClicked(file)
+
+            // Ensure fragment transactions are completed before calling fragment methods
+            supportFragmentManager.executePendingTransactions()
+
+            // Post to ensure fragment is fully attached and injected
+            Handler(Looper.getMainLooper()).post {
+                fileFragment.onItemClicked(file)
+            }
         }
     }
 
@@ -1291,11 +1296,8 @@ class FileDisplayActivity :
 
         var startFile: OCFile? = null
         if (intent != null) {
-            val fileArgs = intent.getParcelableArgument(EXTRA_FILE, OCFile::class.java)
-            if (fileArgs != null) {
-                startFile = fileArgs
-                file = startFile
-            }
+            startFile = getFileFromIntent(intent)
+            file = startFile
         }
 
         // refresh list of files
@@ -1335,6 +1337,11 @@ class FileDisplayActivity :
             isFileDisplayActivityResumed = false
         }, ON_RESUMED_RESET_DELAY)
     }
+
+    private fun getFileFromIntent(intent: Intent?): OCFile? =
+        intent.getParcelableArgument(EXTRA_FILE, OCFile::class.java)
+            ?: intent?.getStringExtra(EXTRA_FILE_REMOTE_PATH)
+                ?.let { fileDataStorageManager.getFileByDecryptedRemotePath(it) }
 
     private fun checkAndSetMenuItemId() {
         if (MainApp.isOnlyPersonFiles()) {
