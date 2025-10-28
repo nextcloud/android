@@ -279,7 +279,7 @@ class AutoUploadWorker(
         val fileDataStorageManager = FileDataStorageManager(user, context.contentResolver)
 
         var lastId = 0
-        loop@ while (true) {
+        while (true) {
             val filePathsWithIds = repository.getFilePathsWithIds(syncedFolder, lastId)
 
             if (filePathsWithIds.isEmpty()) {
@@ -288,7 +288,7 @@ class AutoUploadWorker(
             }
             Log_OC.d(TAG, "Processing batch: lastId=$lastId, count=${filePathsWithIds.size}")
 
-            filePathsWithIds.forEach { (path, id) ->
+            for ((path, id) in filePathsWithIds) {
                 val file = File(path)
                 val localPath = file.absolutePath
                 val remotePath = getRemotePath(
@@ -303,10 +303,10 @@ class AutoUploadWorker(
                 val fileEntity =
                     fileDataStorageManager.fileDao.getFileByDecryptedRemotePath(remotePath, user.accountName)
                 if (fileEntity != null) {
-                    Log_OC.w(TAG, "File already exists in remote, removing auto upload entity: $remotePath")
+                    Log_OC.w(TAG, "File already exists in remote, upload entity: $remotePath")
                     uploadsStorageManager.uploadDao.deleteByAccountAndRemotePath(user.accountName, remotePath)
                     repository.markFileAsUploaded(localPath, syncedFolder)
-                    continue@loop
+                    continue
                 }
 
                 try {
