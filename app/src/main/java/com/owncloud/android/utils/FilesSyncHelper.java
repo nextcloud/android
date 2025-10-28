@@ -19,8 +19,8 @@ import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.device.PowerManagementService;
 import com.nextcloud.client.jobs.BackgroundJobManager;
 import com.nextcloud.client.jobs.ContentObserverWork;
+import com.nextcloud.client.jobs.autoUpload.AutoUploadHelper;
 import com.nextcloud.client.jobs.upload.FileUploadHelper;
-import com.nextcloud.client.jobs.upload.FileUploadWorker;
 import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.utils.extensions.UriExtensionsKt;
 import com.owncloud.android.MainApp;
@@ -31,20 +31,7 @@ import com.owncloud.android.datamodel.SyncedFolderProvider;
 import com.owncloud.android.datamodel.UploadsStorageManager;
 import com.owncloud.android.lib.common.utils.Log_OC;
 
-import org.lukhnos.nnio.file.AccessDeniedException;
-import org.lukhnos.nnio.file.FileVisitResult;
-import org.lukhnos.nnio.file.FileVisitor;
-import org.lukhnos.nnio.file.Files;
-import org.lukhnos.nnio.file.Path;
-import org.lukhnos.nnio.file.Paths;
-import org.lukhnos.nnio.file.SimpleFileVisitor;
-import org.lukhnos.nnio.file.attribute.BasicFileAttributes;
-import org.lukhnos.nnio.file.impl.FileBasedPathImpl;
-
 import java.io.File;
-import java.io.IOException;
-import java.util.Arrays;
-import java.util.Collections;
 
 import static com.owncloud.android.datamodel.OCFile.PATH_SEPARATOR;
 
@@ -60,110 +47,7 @@ public final class FilesSyncHelper {
         // utility class -> private constructor
     }
 
-    /**
-     * Copy of {@link Files#walkFileTree(Path, FileVisitor)} that walks the file tree in random order.
-     *
-     * @see org.lukhnos.nnio.file.Files#walkFileTree(Path, FileVisitor)
-     */
-    public static void walkFileTreeRandomly(Path start, FileVisitor<? super Path> visitor) throws IOException {
-        File file = start.toFile();
-        if (!file.canRead()) {
-            Log_OC.d(TAG, "walkFileTreeRandomly, cant read the file: " + file.getAbsolutePath());
-            visitor.visitFileFailed(start, new AccessDeniedException(file.toString()));
-        } else {
-            Log_OC.d(TAG, "walkFileTreeRandomly, reading file: " + file.getAbsolutePath());
-
-            if (Files.isDirectory(start)) {
-                Log_OC.d(TAG, "walkFileTreeRandomly, file is directory: " + file.getAbsolutePath());
-
-                FileVisitResult preVisitDirectoryResult = visitor.preVisitDirectory(start, null);
-                if (preVisitDirectoryResult == FileVisitResult.CONTINUE) {
-                    Log_OC.d(TAG, "walkFileTreeRandomly, preVisitDirectoryResult == FileVisitResult.CONTINUE");
-                    File[] children = start.toFile().listFiles();
-                    if (children != null) {
-                        Log_OC.d(TAG, "walkFileTreeRandomly, children exists");
-
-                        Collections.shuffle(Arrays.asList(children));
-                        File[] var5 = children;
-                        int var6 = children.length;
-
-                        for(int var7 = 0; var7 < var6; ++var7) {
-                            Log_OC.d(TAG, "walkFileTreeRandomly -- recursive call");
-                            File child = var5[var7];
-                            walkFileTreeRandomly(FileBasedPathImpl.get(child), visitor);
-                        }
-
-                        visitor.postVisitDirectory(start, null);
-                    } else {
-                        Log_OC.w(TAG, "walkFileTreeRandomly, children is null");
-                    }
-                } else {
-                    Log_OC.w(TAG, "walkFileTreeRandomly, preVisitDirectoryResult != FileVisitResult.CONTINUE");
-                }
-            } else {
-                Log_OC.d(TAG, "walkFileTreeRandomly, file is not directory");
-                visitor.visitFile(start, new BasicFileAttributes(file));
-            }
-        }
-    }
-
-    private static void insertCustomFolderIntoDB(Path path,
-                                                 SyncedFolder syncedFolder,
-                                                 FilesystemDataProvider filesystemDataProvider,
-                                                 long lastCheck) {
-        Log_OC.d(TAG, "insertCustomFolderIntoDB called");
-        final long enabledTimestampMs = syncedFolder.getEnabledTimestampMs();
-
-        try {
-            walkFileTreeRandomly(path, new SimpleFileVisitor<>() {
-                @Override
-                public FileVisitResult visitFile(Path path, BasicFileAttributes attrs) {
-                    File file = path.toFile();
-                    if (syncedFolder.isExcludeHidden() && file.isHidden()) {
-                        Log_OC.w(TAG, "skipping files, exclude hidden file/folder: " + path);
-                        // exclude hidden file or folder
-                        return FileVisitResult.CONTINUE;
-                    }
-
-                    if (attrs.lastModifiedTime().toMillis() < lastCheck) {
-                        Log_OC.w(TAG, "skipping files that already checked: " + path);
-                        // skip files that were already checked
-                        return FileVisitResult.CONTINUE;
-                    }
-
-                    if (syncedFolder.isExisting() || attrs.lastModifiedTime().toMillis() >= enabledTimestampMs) {
-                        // storeOrUpdateFileValue takes a few ms
-                        // -> Rest of this file check takes not even 1 ms.
-                        filesystemDataProvider.storeOrUpdateFileValue(path.toAbsolutePath().toString(),
-                                                                      attrs.lastModifiedTime().toMillis(),
-                                                                      file.isDirectory(), syncedFolder);
-                    } else {
-                        Log_OC.w(TAG, "skipping files. SynchedFolder not exists or enabledTimestampMs not meeting condition" + path);
-                    }
-
-                    return FileVisitResult.CONTINUE;
-                }
-
-                @Override
-                public FileVisitResult preVisitDirectory(Path dir, BasicFileAttributes attrs) {
-                    if (syncedFolder.isExcludeHidden() && dir.compareTo(Paths.get(syncedFolder.getLocalPath())) != 0 && dir.toFile().isHidden()) {
-                        Log_OC.d(TAG, "skipping hidden path: " + dir.getFileName());
-                        return FileVisitResult.SKIP_SUBTREE;
-                    }
-                    return FileVisitResult.CONTINUE;
-                }
-
-                @Override
-                public FileVisitResult visitFileFailed(Path file, IOException exc) {
-                    return FileVisitResult.CONTINUE;
-                }
-            });
-        } catch (IOException e) {
-            Log_OC.e(TAG, "Something went wrong while indexing files for auto upload: " + e.getLocalizedMessage());
-        }
-    }
-
-    public static void insertAllDBEntriesForSyncedFolder(SyncedFolder syncedFolder) {
+    public static void insertAllDBEntriesForSyncedFolder(SyncedFolder syncedFolder, AutoUploadHelper helper) {
         Log_OC.d(TAG, "insertAllDBEntriesForSyncedFolder, called. ID: " + syncedFolder.getId());
 
         final Context context = MainApp.getAppContext();
@@ -197,8 +81,7 @@ public final class FilesSyncHelper {
             } else {
                 Log_OC.d(TAG, "inserting other media types: " + mediaType.toString());
                 FilesystemDataProvider filesystemDataProvider = new FilesystemDataProvider(contentResolver);
-                Path path = Paths.get(syncedFolder.getLocalPath());
-                FilesSyncHelper.insertCustomFolderIntoDB(path, syncedFolder, filesystemDataProvider, lastCheckTimestampMs);
+                helper.insertCustomFolderIntoDB(syncedFolder, filesystemDataProvider);
             }
 
             Log_OC.d(TAG,"File-sync finished full check for custom folder "+syncedFolder.getLocalPath()+" within "+(System.nanoTime() - startTime)+ "ns");
