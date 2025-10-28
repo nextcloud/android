@@ -150,6 +150,7 @@ class FileUploadHelper {
         }.map { account ->
             account.name
         }.toHashSet()
+        val uploads = mutableListOf<Long>()
 
         for (failedUpload in failedUploads) {
             if (!accountNames.contains(failedUpload.accountName)) {
@@ -175,6 +176,7 @@ class FileUploadHelper {
                 continue
             }
 
+            uploads.add(failedUpload.uploadId)
             failedUpload.uploadStatus = UploadStatus.UPLOAD_IN_PROGRESS
             uploadsStorageManager.updateUpload(failedUpload)
         }
@@ -182,7 +184,7 @@ class FileUploadHelper {
         accountNames.forEach { accountName ->
             val user = accountManager.getUser(accountName)
             if (user.isPresent) {
-                backgroundJobManager.startFilesUploadJob(user.get(), failedUploads.getUploadIds(), false)
+                backgroundJobManager.startFilesUploadJob(user.get(), uploads.toLongArray(), false)
             }
         }
 
