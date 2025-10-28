@@ -9,20 +9,24 @@ package com.nextcloud.utils.extensions
 
 import com.nextcloud.client.database.entity.UploadEntity
 import com.owncloud.android.datamodel.UploadsStorageManager
+import com.owncloud.android.lib.common.operations.RemoteOperationResult
+import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode
 
 fun UploadsStorageManager.updateStatus(entity: UploadEntity?, status: UploadsStorageManager.UploadStatus) {
     entity ?: return
-    uploadDao.insertOrReplace(entity.withStatus(status))
+    uploadDao.update(entity.withStatus(status))
 }
 
-fun UploadsStorageManager.updateStatus(entity: UploadEntity?, success: Boolean) {
+fun UploadsStorageManager.updateStatus(entity: UploadEntity?, result: RemoteOperationResult<*>) {
     entity ?: return
-    val newStatus = if (success) {
+
+    // since upload already exists to prevent re-upload sync conflict needs to be ignored
+    val newStatus = if (result.isSuccess || result.code == ResultCode.SYNC_CONFLICT) {
         UploadsStorageManager.UploadStatus.UPLOAD_SUCCEEDED
     } else {
         UploadsStorageManager.UploadStatus.UPLOAD_FAILED
     }
-    uploadDao.insertOrReplace(entity.withStatus(newStatus))
+    uploadDao.update(entity.withStatus(newStatus))
 }
 
 private fun UploadEntity.withStatus(newStatus: UploadsStorageManager.UploadStatus) = this.copy(status = newStatus.value)

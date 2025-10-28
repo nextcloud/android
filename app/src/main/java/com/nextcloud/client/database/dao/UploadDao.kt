@@ -11,6 +11,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.Update
 import com.nextcloud.client.database.entity.UploadEntity
 import com.owncloud.android.db.ProviderMeta.ProviderTableMeta
 
@@ -51,9 +52,6 @@ interface UploadDao {
     )
     fun getUploadById(id: Long, accountName: String): UploadEntity?
 
-    @Insert(onConflict = OnConflictStrategy.Companion.REPLACE)
-    fun insertOrReplace(entity: UploadEntity): Long
-
     @Query(
         "SELECT * FROM " + ProviderTableMeta.UPLOADS_TABLE_NAME +
             " WHERE " + ProviderTableMeta.UPLOADS_ACCOUNT_NAME + " = :accountName AND " +
@@ -77,4 +75,10 @@ interface UploadDao {
             "AND ${ProviderTableMeta.UPLOADS_STATUS} = :status"
     )
     suspend fun getUploadsByStatus(accountName: String, status: Int): List<UploadEntity>
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insert(entity: UploadEntity): Long
+
+    @Update
+    fun update(entity: UploadEntity)
 }

@@ -260,7 +260,7 @@ class FileUploadWorker(
                 upload(operation, user, client)
             }
             val entity = uploadsStorageManager.uploadDao.getUploadById(upload.uploadId, accountName)
-            uploadsStorageManager.updateStatus(entity, result.isSuccess)
+            uploadsStorageManager.updateStatus(entity, result)
             currentUploadFileOperation = null
             sendUploadFinishEvent(totalUploadSize, currentUploadIndex, operation, result)
         }

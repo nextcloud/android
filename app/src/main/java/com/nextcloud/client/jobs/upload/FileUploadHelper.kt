@@ -216,7 +216,7 @@ class FileUploadHelper {
                 localAction = localBehavior
             }
 
-            val id = uploadsStorageManager.uploadDao.insertOrReplace(result.toUploadEntity())
+            val id = uploadsStorageManager.uploadDao.insert(result.toUploadEntity())
             result.uploadId = id
             result
         }
@@ -374,7 +374,7 @@ class FileUploadHelper {
                     uploadStatus = UploadStatus.UPLOAD_IN_PROGRESS
                 }
 
-                val id = uploadsStorageManager.uploadDao.insertOrReplace(result.toUploadEntity())
+                val id = uploadsStorageManager.uploadDao.insert(result.toUploadEntity())
                 result.uploadId = id
                 result
             }

@@ -313,7 +313,7 @@ class AutoUploadWorker(
                     var (uploadEntity, upload) = createEntityAndUpload(user, localPath, remotePath)
                     try {
                         // Insert/update to IN_PROGRESS state before starting upload
-                        val generatedId = uploadsStorageManager.uploadDao.insertOrReplace(uploadEntity)
+                        val generatedId = uploadsStorageManager.uploadDao.insert(uploadEntity)
                         uploadEntity = uploadEntity.copy(id = generatedId.toInt())
                         upload.uploadId = generatedId
 
@@ -321,7 +321,7 @@ class AutoUploadWorker(
                         Log_OC.d(TAG, "🕒 uploading: $localPath, id: $generatedId")
 
                         val result = operation.execute(client)
-                        uploadsStorageManager.updateStatus(uploadEntity, result.isSuccess)
+                        uploadsStorageManager.updateStatus(uploadEntity, result)
 
                         if (result.isSuccess) {
                             repository.markFileAsUploaded(localPath, syncedFolder)
