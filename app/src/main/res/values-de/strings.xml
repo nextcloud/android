@@ -967,7 +967,7 @@
     <string name="sync_not_enough_space_dialog_title">Nicht genügend Speicherplatz</string>
     <string name="sync_status_button">Status-synchronisieren-Button</string>
     <string name="sync_string_files">Dateien</string>
-    <string name="sync_warning_button">Schaltfläche „Synchronisationswarnung“</string>
+    <string name="sync_warning_button">Schaltfläche \"Synchronisationswarnung\"</string>
     <string name="synced_folder_settings_button">Einstellungs-Button</string>
     <string name="synced_folders_configure_folders">Ordner konfigurieren</string>
     <string name="synced_folders_new_info">Die Sofort-Uploads wurden vollständig überarbeitet. Konfiguriere Sie Ihren automatischen Uploader im Hauptmenü.\n\nGenießen Sie den verbesserten Auto-Upload.</string>
