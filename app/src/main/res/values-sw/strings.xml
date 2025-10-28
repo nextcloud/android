@@ -458,6 +458,7 @@
     <string name="file_not_found_cannot_share">Faili haijapatikana. Imeshindwa kuunda kushiriki.</string>
     <string name="file_not_synced">Faili haikuweza kusawazishwa. Inaonyesha toleo la hivi punde linalopatikana.</string>
     <string name="file_rename">Ipe jina jipya</string>
+    <string name="file_upload_limit_message">Unaweza kupakia hadi faili %d mara moja.\"</string>
     <string name="file_upload_worker_error_notification_title">Imeshindwa kupakia. Hakuna muunganisho wa mtandao</string>
     <string name="file_upload_worker_same_file_already_exists">%s tayari ipo, hakuna mzozo uliogunduliwa</string>
     <string name="file_version_restored_error">Hitilafu katika kurejesha toleo la faili!</string>
