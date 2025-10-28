@@ -70,7 +70,7 @@ class FileUploadHelper {
     }
 
     companion object {
-        private val TAG = FileUploadWorker::class.java.simpleName
+        private val TAG = FileUploadHelper::class.java.simpleName
 
         @Suppress("MagicNumber")
         const val MAX_FILE_COUNT = 500
@@ -96,19 +96,15 @@ class FileUploadHelper {
     ) {
         if (retryFailedUploadsSemaphore.tryAcquire()) {
             try {
-                val failedUploads = uploadsStorageManager.failedUploads
-                if (failedUploads == null || failedUploads.isEmpty()) {
-                    Log_OC.d(TAG, "Failed uploads are empty or null")
-                    return
+                getFailedUploadsIfExistInRemoteRemove(accountManager.user.accountName) {
+                    retryUploads(
+                        uploadsStorageManager,
+                        connectivityService,
+                        accountManager,
+                        powerManagementService,
+                        it
+                    )
                 }
-
-                retryUploads(
-                    uploadsStorageManager,
-                    connectivityService,
-                    accountManager,
-                    powerManagementService,
-                    failedUploads
-                )
             } finally {
                 retryFailedUploadsSemaphore.release()
             }
@@ -240,6 +236,32 @@ class FileUploadHelper {
             val result =
                 uploadsStorageManager.uploadDao.getUploadsByStatus(accountName, status.value)
                     .map { it.toOCUpload(null) }.toTypedArray()
+            onCompleted(result)
+        }
+    }
+
+    fun getFailedUploadsIfExistInRemoteRemove(accountName: String, onCompleted: (Array<OCUpload>) -> Unit) {
+        ioScope.launch {
+            val failedUploads =
+                uploadsStorageManager.uploadDao.getUploadsByStatus(
+                    accountName,
+                    UploadStatus.UPLOAD_FAILED.value
+                ).toMutableList()
+
+            val iterator = failedUploads.iterator()
+            while (iterator.hasNext()) {
+                val upload = iterator.next()
+                val remotePath = upload.remotePath ?: continue
+                val fileExists =
+                    fileStorageManager.fileDao.getFileByDecryptedRemotePath(remotePath, accountName) != null
+                if (fileExists) {
+                    Log_OC.d(TAG, "File already exists in remote, removing upload entity: ${upload.remotePath}")
+                    uploadsStorageManager.uploadDao.deleteByAccountAndRemotePath(accountName, remotePath)
+                    iterator.remove()
+                }
+            }
+
+            val result = failedUploads.map { it.toOCUpload(null) }.toTypedArray()
             onCompleted(result)
         }
     }

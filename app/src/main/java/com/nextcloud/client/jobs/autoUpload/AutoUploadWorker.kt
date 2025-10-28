@@ -276,9 +276,10 @@ class AutoUploadWorker(
             .getClientFor(ocAccount, context)
         val lightVersion = context.resources.getBoolean(R.bool.syncedFolder_light)
         val currentLocale = context.resources.configuration.locales[0]
+        val fileDataStorageManager = FileDataStorageManager(user, context.contentResolver)
 
         var lastId = 0
-        while (true) {
+        loop@ while (true) {
             val filePathsWithIds = repository.getFilePathsWithIds(syncedFolder, lastId)
 
             if (filePathsWithIds.isEmpty()) {
@@ -299,6 +300,15 @@ class AutoUploadWorker(
                     currentLocale
                 )
 
+                val fileEntity =
+                    fileDataStorageManager.fileDao.getFileByDecryptedRemotePath(remotePath, user.accountName)
+                if (fileEntity != null) {
+                    Log_OC.w(TAG, "File already exists in remote, removing auto upload entity: $remotePath")
+                    uploadsStorageManager.uploadDao.deleteByAccountAndRemotePath(user.accountName, remotePath)
+                    repository.markFileAsUploaded(localPath, syncedFolder)
+                    continue@loop
+                }
+
                 try {
                     var (uploadEntity, upload) = createEntityAndUpload(user, localPath, remotePath)
                     try {
@@ -317,6 +327,10 @@ class AutoUploadWorker(
                             repository.markFileAsUploaded(localPath, syncedFolder)
                             Log_OC.d(TAG, "✅ upload completed: $localPath")
                         } else {
+                            uploadsStorageManager.updateStatus(
+                                uploadEntity,
+                                UploadsStorageManager.UploadStatus.UPLOAD_FAILED
+                            )
                             Log_OC.e(
                                 TAG,
                                 "❌ upload failed $localPath (${upload.accountName}): ${result.logMessage}"

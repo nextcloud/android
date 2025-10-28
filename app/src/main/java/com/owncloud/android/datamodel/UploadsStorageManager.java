@@ -483,24 +483,6 @@ public class UploadsStorageManager extends Observable {
             .toArray();
     }
 
-    /**
-     * Get all failed uploads.
-     */
-    public OCUpload[] getFailedUploads() {
-        return getUploads("(" + ProviderTableMeta.UPLOADS_STATUS + IS_EQUAL +
-                              OR + ProviderTableMeta.UPLOADS_LAST_RESULT +
-                              EQUAL + UploadResult.DELAYED_FOR_WIFI.getValue() +
-                              OR + ProviderTableMeta.UPLOADS_LAST_RESULT +
-                              EQUAL + UploadResult.LOCK_FAILED.getValue() +
-                              OR + ProviderTableMeta.UPLOADS_LAST_RESULT +
-                              EQUAL + UploadResult.DELAYED_FOR_CHARGING.getValue() +
-                              OR + ProviderTableMeta.UPLOADS_LAST_RESULT +
-                              EQUAL + UploadResult.DELAYED_IN_POWER_SAVE_MODE.getValue() +
-                              " ) AND " + ProviderTableMeta.UPLOADS_LAST_RESULT +
-                              "!= " + UploadResult.VIRUS_DETECTED.getValue()
-            , String.valueOf(UploadStatus.UPLOAD_FAILED.value));
-    }
-
     public OCUpload[] getUploadsForAccount(final @NonNull String accountName) {
         return getUploads(ProviderTableMeta.UPLOADS_ACCOUNT_NAME + IS_EQUAL, accountName);
     }
