@@ -1,7 +1,7 @@
 /*
  * Nextcloud - Android Client
  *
- * SPDX-FileCopyrightText: 2025 Your Name <your@email.com>
+ * SPDX-FileCopyrightText: 2025 Jimly Asshiddiqy <jimly.asshiddiqy@accenture.com>
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
