@@ -13,6 +13,7 @@ import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Test
 
+@Suppress("MagicNumber")
 class CheckWCFRestrictionsTests {
 
     private val version29 = Triple(29, 0, 0)
