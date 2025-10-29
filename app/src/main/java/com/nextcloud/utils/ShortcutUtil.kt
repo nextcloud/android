@@ -45,52 +45,62 @@ class ShortcutUtil @Inject constructor(private val mContext: Context) {
         user: User,
         syncedFolderProvider: SyncedFolderProvider
     ) {
-        if (ShortcutManagerCompat.isRequestPinShortcutSupported(mContext)) {
-            val intent = Intent(mContext, FileDisplayActivity::class.java)
-            intent.action = FileDisplayActivity.OPEN_FILE
-            intent.putExtra(FileActivity.EXTRA_FILE, file.remotePath)
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-            val shortcutId = "nextcloud_shortcut_" + file.remoteId
-            val icon: IconCompat
-            var thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(
-                ThumbnailsCacheManager.PREFIX_THUMBNAIL + file.remoteId
-            )
-            if (thumbnail != null) {
-                thumbnail = bitmapToAdaptiveBitmap(thumbnail)
-                icon = IconCompat.createWithAdaptiveBitmap(thumbnail)
-            } else if (file.isFolder) {
+        if (!ShortcutManagerCompat.isRequestPinShortcutSupported(mContext)) {
+            return
+        }
+
+        val intent = Intent(mContext, FileDisplayActivity::class.java).apply {
+            action = FileDisplayActivity.OPEN_FILE
+            putExtra(FileActivity.EXTRA_FILE_REMOTE_PATH, file.decryptedRemotePath)
+            addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+        }
+
+        val icon = createShortcutIcon(file, viewThemeUtils, user, syncedFolderProvider)
+
+        val shortcutInfo = ShortcutInfoCompat.Builder(mContext, "nextcloud_shortcut_${file.remoteId}")
+            .setShortLabel(file.fileName)
+            .setLongLabel(mContext.getString(R.string.pin_shortcut_label, file.fileName))
+            .setIcon(icon)
+            .setIntent(intent)
+            .build()
+
+        val resultIntent =
+            ShortcutManagerCompat.createShortcutResultIntent(mContext, shortcutInfo)
+
+        val pendingIntent = PendingIntent.getBroadcast(
+            mContext,
+            file.hashCode(),
+            resultIntent,
+            FLAG_IMMUTABLE
+        )
+
+        ShortcutManagerCompat.requestPinShortcut(mContext, shortcutInfo, pendingIntent.intentSender)
+    }
+
+    private fun createShortcutIcon(
+        file: OCFile,
+        viewThemeUtils: ViewThemeUtils,
+        user: User,
+        syncedFolderProvider: SyncedFolderProvider
+    ): IconCompat {
+        val thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(
+            ThumbnailsCacheManager.PREFIX_THUMBNAIL + file.remoteId
+        )
+
+        return when {
+            thumbnail != null -> IconCompat.createWithAdaptiveBitmap(bitmapToAdaptiveBitmap(thumbnail))
+
+            file.isFolder -> {
                 val isAutoUploadFolder = SyncedFolderProvider.isAutoUploadFolder(syncedFolderProvider, file, user)
                 val isDarkModeActive = syncedFolderProvider.preferences.isDarkModeEnabled
-
                 val overlayIconId = file.getFileOverlayIconId(isAutoUploadFolder)
                 val drawable = MimeTypeUtil.getFolderIcon(isDarkModeActive, overlayIconId, mContext, viewThemeUtils)
-                val bitmapIcon = drawable.toBitmap()
-                icon = IconCompat.createWithBitmap(bitmapIcon)
-            } else {
-                icon = IconCompat.createWithResource(
-                    mContext,
-                    MimeTypeUtil.getFileTypeIconId(file.mimeType, file.fileName)
-                )
+                IconCompat.createWithBitmap(drawable.toBitmap())
             }
-            val longLabel = mContext.getString(R.string.pin_shortcut_label, file.fileName)
-            val pinShortcutInfo = ShortcutInfoCompat.Builder(mContext, shortcutId)
-                .setShortLabel(file.fileName)
-                .setLongLabel(longLabel)
-                .setIcon(icon)
-                .setIntent(intent)
-                .build()
-            val pinnedShortcutCallbackIntent =
-                ShortcutManagerCompat.createShortcutResultIntent(mContext, pinShortcutInfo)
-            val successCallback = PendingIntent.getBroadcast(
+
+            else -> IconCompat.createWithResource(
                 mContext,
-                0,
-                pinnedShortcutCallbackIntent,
-                FLAG_IMMUTABLE
-            )
-            ShortcutManagerCompat.requestPinShortcut(
-                mContext,
-                pinShortcutInfo,
-                successCallback.intentSender
+                MimeTypeUtil.getFileTypeIconId(file.mimeType, file.fileName)
             )
         }
     }
