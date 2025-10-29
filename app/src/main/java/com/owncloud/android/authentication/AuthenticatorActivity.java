@@ -48,7 +48,6 @@ import android.widget.Toast;
 
 import com.blikoon.qrcodescanner.QrCodeActivity;
 import com.google.android.material.button.MaterialButton;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -105,7 +104,6 @@ import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.ErrorMessageAdapter;
 import com.owncloud.android.utils.PermissionUtil;
 import com.owncloud.android.utils.WebViewUtil;
-import com.owncloud.android.utils.theme.CapabilityUtils;
 import com.owncloud.android.utils.theme.ViewThemeUtils;
 
 import java.io.InputStream;
@@ -1103,13 +1101,6 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             //      3. we got the server version
             //      4. we got the authentication method required by the server
             mServerInfo = (GetServerInfoOperation.ServerInfo) (result.getData().get(0));
-
-            // show outdated warning
-            if (CapabilityUtils.checkOutdatedWarning(getResources(),
-                                                     mServerInfo.mVersion,
-                                                     mServerInfo.hasExtendedSupport)) {
-                DisplayUtils.showServerOutdatedSnackbar(this, Snackbar.LENGTH_INDEFINITE);
-            }
 
             if (webViewUser != null && !webViewUser.isEmpty() &&
                 webViewPassword != null && !webViewPassword.isEmpty()) {
