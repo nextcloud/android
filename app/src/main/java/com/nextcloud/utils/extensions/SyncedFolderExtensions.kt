@@ -35,7 +35,6 @@ fun SyncedFolder.shouldSkipFile(file: File, lastModified: Long, creationTime: Lo
                 return true
             }
         } else {
-            // No creation time available, upload should work we cannot skip
             Log_OC.w(TAG, "file sent for upload - cannot determine creation time: ${file.absolutePath}")
             return false
         }
