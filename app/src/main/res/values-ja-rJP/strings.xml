@@ -8,12 +8,12 @@
     <string name="account_icon">アカウントアイコン</string>
     <string name="account_not_found">アカウントが見つかりません！</string>
     <string name="action_edit">編集</string>
-    <string name="action_empty_notifications">全ての通知を削除</string>
+    <string name="action_empty_notifications">すべての通知を削除</string>
     <string name="action_empty_trashbin">ゴミ箱を空にする</string>
     <string name="action_send_share">送信/共有</string>
     <string name="action_switch_grid_view">グリッド表示</string>
     <string name="action_switch_list_view">リスト表示</string>
-    <string name="actionbar_calendar_contacts_restore">連絡先とカレンダーを復元</string>
+    <string name="actionbar_calendar_contacts_restore">連絡先とカレンダーを復元する</string>
     <string name="actionbar_mkdir">新しいフォルダー</string>
     <string name="actionbar_move_or_copy">移動またはコピー</string>
     <string name="actionbar_open_with">次で開く</string>
@@ -24,12 +24,12 @@
     <string name="actionbar_sort">並び替え</string>
     <string name="active_user">アクティブなユーザー</string>
     <string name="activities_no_results_headline">まだアクティビティはありません</string>
-    <string name="activities_no_results_message">追加、変更、共有はまだありません</string>
+    <string name="activities_no_results_message">追加、変更、共有などのイベントはまだありません</string>
     <string name="activity_chooser_send_file_title">送信</string>
     <string name="activity_chooser_title">リンク送信…</string>
     <string name="activity_icon">アクティビティ</string>
-    <string name="add_new_public_share">新規公開共有リンクを追加</string>
-    <string name="add_new_secure_file_drop">新しいセキュアなファイルドロップを追加</string>
+    <string name="add_new_public_share">新しい公開共有リンクを追加する</string>
+    <string name="add_new_secure_file_drop">新しい安全なファイルドロップを追加</string>
     <string name="add_to_cloud">%1$s に追加</string>
     <string name="app_config_base_url_title">ベース URL</string>
     <string name="app_config_disable_clipboard_title">クリップボードを無効化</string>
@@ -209,6 +209,7 @@
     <string name="contacts_preferences_import_scheduled_fail">インポートを開始できませんでした。もう一度やり直してください</string>
     <string name="contacts_preferences_no_file_found">ファイルが見つかりません</string>
     <string name="contacts_preferences_something_strange_happened">あなたの最後のバックアップを見つけることができませんでした！</string>
+    <string name="content_observer_work_notification_title">コンテンツの変更の検出</string>
     <string name="copied_to_clipboard">クリップボードにコピーされました</string>
     <string name="copy_file_error">このファイルまたはフォルダーをコピーする際にエラーが発生しました</string>
     <string name="copy_file_invalid_into_descendent">フォルダをその下のフォルダにコピーすることはできません</string>
@@ -342,12 +343,14 @@
     <string name="error_comment_file">コメントファイルのエラー</string>
     <string name="error_crash_title">%1$s はクラッシュしました</string>
     <string name="error_creating_file_from_template">テンプレートからファイルを作成中にエラーが発生しました</string>
+    <string name="error_fetching_sharees">共有を取得できません</string>
     <string name="error_file_actions">ファイル表示操作でエラーが発生しました</string>
     <string name="error_file_lock">ファイルのロック状態変更エラー</string>
     <string name="error_report_issue_action">報告</string>
     <string name="error_report_issue_text">問題を報告しますか？ (GitHubのアカウントが必要です)</string>
     <string name="error_retrieving_file">ファイルの取得中にエラーが発生しました</string>
     <string name="error_retrieving_templates">テンプレートの取得中にエラーが発生しました</string>
+    <string name="error_setting_status_message">ステータスメッセージの設定中にエラーが発生しました。</string>
     <string name="error_showing_encryption_dialog">暗号化設定ダイアログの表示エラー</string>
     <string name="error_starting_direct_camera_upload">カメラ起動エラー</string>
     <string name="error_starting_doc_scan">文書スキャンの開始エラー</string>
@@ -389,6 +392,7 @@
     <string name="file_already_exists">ファイル名が既に存在します</string>
     <string name="file_delete">削除</string>
     <string name="file_detail_activity_error">ファイルのアクティビティ取得エラー</string>
+    <string name="file_detail_share_already_active">共有を作成できません。このユーザーからの共有はすでに有効になっています。</string>
     <string name="file_detail_sharing_fragment_no_contact_app_message">連絡先を選択するためのアプリが利用できません</string>
     <string name="file_details_no_content">詳細のロードに失敗しました</string>
     <string name="file_details_sharing_fragment_custom_permission_not_selected">カスタムの権限を選択してください。</string>
@@ -409,6 +413,7 @@
     <string name="file_list_empty_shared">共有したファイルやフォルダーがここに表示されます。</string>
     <string name="file_list_empty_shared_headline">まだ何も共有されていません</string>
     <string name="file_list_empty_unified_search_no_results">検索結果が見つかりませんでした</string>
+    <string name="file_list_empty_unified_search_start_search">検索を開始</string>
     <string name="file_list_empty_unified_search_start_search_description">アカウント内のファイル、連絡先、カレンダーの予定などを検索するには、上の検索バーに入力してください。</string>
     <string name="file_list_folder">フォルダー</string>
     <string name="file_list_live">ライブ</string>
@@ -536,6 +541,7 @@
     <string name="last_backup">前回のバックアップ: %1$s</string>
     <string name="link">リンク</string>
     <string name="link_name">リンク名</string>
+    <string name="link_not_followed_due_to_security_settings">セキュリティ設定によりリンクを辿れません</string>
     <string name="link_share_editing">編集中</string>
     <string name="list_layout">リスト表示</string>
     <string name="load_more_results">結果をさらに読み込む</string>
