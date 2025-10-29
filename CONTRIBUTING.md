@@ -217,18 +217,30 @@ Source code of app:
 #### Instrumented tests
 - tests to see larger code working in correct way
 - tests that require parts of Android SDK
-- best to avoid server communication, see https://github.com/nextcloud/android/pull/3624
 
 - run all tests ```./gradlew createGplayDebugCoverageReport -Pcoverage=true```
 - run selective test class: ```./gradlew createGplayDebugCoverageReport -Pcoverage=true
-  -Pandroid.testInstrumentationRunnerArguments.class=com.owncloud.android.datamodel.FileDataStorageManagerTest```
+  -Pandroid.testInstrumentationRunnerArguments.class=com.owncloud.android.datamodel.FileDataStorageManagerContentProviderClientIT```
 - run multiple test classes:
   -   separate by ","
-  - ```./gradlew createGplayDebugCoverageReport -Pcoverage=true -Pandroid.testInstrumentationRunnerArguments.class=com.owncloud.android.datamodel.FileDataStorageManagerTest,com.nextcloud.client.FileDisplayActivityIT```
+  - ```./gradlew createGplayDebugCoverageReport -Pcoverage=true -Pandroid.testInstrumentationRunnerArguments.class=com.owncloud.android.datamodel.FileDataStorageManagerContentProviderClientIT,com.nextcloud.client.FileDisplayActivityIT```
 - run one test in class: ```./gradlew createGplayDebugCoverageReport -Pcoverage=true
-  -Pandroid.testInstrumentationRunnerArguments.class=com.owncloud.android.datamodel.FileDataStorageManagerTest#saveNewFile```
+  -Pandroid.testInstrumentationRunnerArguments.class=com.owncloud.android.datamodel.FileDataStorageManagerContentProviderClientIT#saveFile```
 - JaCoCo results are shown as html: firefox ./build/reports/coverage/gplay/debug/index.html
 
+#### Instrumented tests with server communication
+It is best to avoid server communication, see https://github.com/nextcloud/android/pull/3624.
+But if a test requires a server, this is how it is done:
+- Have a Nextcloud service reachable by your test device. This can be an existing server in the internet or a locally deployed one
+as per the [server developer documentation](https://docs.nextcloud.com/server/latest/developer_manual/getting_started/devenv.html)
+- Create a separate(!) test user on that server, otherwise the tests will infer with productive data.
+- In `gradle.properties`, enter the URL, user name and password via the `NC_TEST_SERVER_...` attributes.
+  If you want to prevent an accidental commit of those, you can also store them in `~/.gradle/gradle.properties`.
+- Your test class should inherit from `AbstractOnServerIT`, e.g.: `public class DownloadIT extends AbstractOnServerIT { ...`
+  Note that this will automatically delete all files after each test run, so you absolutely NEED a separate test user as mentioned above.
+- All preconditions of your test regarding server data, e.g. existing files, need to be established by your test itself.
+  As a reference, see how `DownloadIT` first uploads the files it later tests the download with.
+- Clean up these preconditions again, also in the failure case, using one or multiple `@After` methods in your test class.
 
 #### UI tests
 We use [shot](https://github.com/Karumi/Shot) for taking screenshots and compare them 
