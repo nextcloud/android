@@ -22,10 +22,12 @@ import com.nextcloud.client.database.entity.toOCUpload
 import com.nextcloud.client.database.entity.toUploadEntity
 import com.nextcloud.client.device.PowerManagementService
 import com.nextcloud.client.jobs.BackgroundJobManager
+import com.nextcloud.client.jobs.upload.FileUploadHelper
 import com.nextcloud.client.jobs.upload.FileUploadWorker
 import com.nextcloud.client.network.ConnectivityService
 import com.nextcloud.client.preferences.SubFolderRule
 import com.nextcloud.utils.ForegroundServiceHelper
+import com.nextcloud.utils.extensions.isFileSpecificError
 import com.nextcloud.utils.extensions.updateStatus
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.ArbitraryDataProviderImpl
@@ -38,10 +40,14 @@ import com.owncloud.android.datamodel.UploadsStorageManager
 import com.owncloud.android.db.OCUpload
 import com.owncloud.android.lib.common.OwnCloudAccount
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory
+import com.owncloud.android.lib.common.operations.RemoteOperationResult
+import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.operations.UploadFileOperation
+import com.owncloud.android.operations.upload.buildFailedResultNotification
 import com.owncloud.android.ui.activity.SettingsActivity
 import com.owncloud.android.ui.notifications.NotificationUtils
+import com.owncloud.android.utils.ErrorMessageAdapter
 import com.owncloud.android.utils.FileStorageUtils
 import com.owncloud.android.utils.FilesSyncHelper
 import com.owncloud.android.utils.MimeType
@@ -74,6 +80,7 @@ class AutoUploadWorker(
         private const val CHANNEL_ID = NotificationUtils.NOTIFICATION_CHANNEL_UPLOAD
 
         private const val NOTIFICATION_ID = 266
+        private const val NOTIFICATION_ERROR_ID = 466
     }
 
     private lateinit var syncedFolder: SyncedFolder
@@ -136,7 +143,11 @@ class AutoUploadWorker(
         setForeground(foregroundInfo)
     }
 
-    private fun createNotification(title: String): Notification = NotificationCompat.Builder(context, CHANNEL_ID)
+    private fun getNotificationBuilder(): NotificationCompat.Builder {
+        return NotificationCompat.Builder(context, CHANNEL_ID)
+    }
+
+    private fun createNotification(title: String): Notification = getNotificationBuilder()
         .setContentTitle(title)
         .setSmallIcon(R.drawable.uploads)
         .setOngoing(true)
@@ -276,7 +287,7 @@ class AutoUploadWorker(
             .getClientFor(ocAccount, context)
         val lightVersion = context.resources.getBoolean(R.bool.syncedFolder_light)
         val currentLocale = context.resources.configuration.locales[0]
-        val fileDataStorageManager = FileDataStorageManager(user, context.contentResolver)
+        val storageManager = FileDataStorageManager(user, context.contentResolver)
 
         var lastId = 0
         while (true) {
@@ -300,15 +311,6 @@ class AutoUploadWorker(
                     currentLocale
                 )
 
-                val fileEntity =
-                    fileDataStorageManager.fileDao.getFileByDecryptedRemotePath(remotePath, user.accountName)
-                if (fileEntity != null) {
-                    Log_OC.w(TAG, "File already exists in remote, upload entity: $remotePath")
-                    uploadsStorageManager.uploadDao.deleteByAccountAndRemotePath(user.accountName, remotePath)
-                    repository.markFileAsUploaded(localPath, syncedFolder)
-                    continue
-                }
-
                 try {
                     var (uploadEntity, upload) = createEntityAndUpload(user, localPath, remotePath)
                     try {
@@ -317,10 +319,13 @@ class AutoUploadWorker(
                         uploadEntity = uploadEntity.copy(id = generatedId.toInt())
                         upload.uploadId = generatedId
 
-                        val operation = createUploadFileOperation(upload, user)
+                        val operation = createUploadFileOperation(upload, user, storageManager)
+                        operation.setFileSystemRepository(repository)
+                        operation.setSyncedFolder(syncedFolder)
                         Log_OC.d(TAG, "🕒 uploading: $localPath, id: $generatedId")
 
                         val result = operation.execute(client)
+                        handleUploadResult(operation, result)
                         uploadsStorageManager.updateStatus(uploadEntity, result)
 
                         if (result.isSuccess) {
@@ -361,6 +366,68 @@ class AutoUploadWorker(
         }
     }
 
+    @Suppress("ReturnCount", "LongMethod")
+    private fun handleUploadResult(
+        operation: UploadFileOperation,
+        result: RemoteOperationResult<Any?>
+    ) {
+        if (result.isSuccess || result.isCancelled) {
+            return
+        }
+
+        // Only notify if it is not same file on remote that causes conflict
+        if (result.code == ResultCode.SYNC_CONFLICT &&
+            FileUploadHelper().isSameFileOnRemote(
+                operation.user,
+                File(operation.storagePath),
+                operation.remotePath,
+                context
+            )
+        ) {
+            operation.handleLocalBehaviour()
+            return
+        }
+
+        val notDelayed = result.code !in setOf(
+            ResultCode.DELAYED_FOR_WIFI,
+            ResultCode.DELAYED_FOR_CHARGING,
+            ResultCode.DELAYED_IN_POWER_SAVE_MODE
+        )
+
+        val isValidFile = result.code !in setOf(
+            ResultCode.LOCAL_FILE_NOT_FOUND,
+            ResultCode.LOCK_FAILED
+        )
+
+        if (!notDelayed || !isValidFile) {
+            return
+        }
+
+        if (result.code == ResultCode.USER_CANCELLED) {
+            return
+        }
+
+        val errorMessage = ErrorMessageAdapter.getErrorCauseMessage(
+            result,
+            operation,
+            context.resources
+        )
+
+        val notificationBuilder = getNotificationBuilder()
+
+        operation.buildFailedResultNotification(notificationBuilder, result.code, errorMessage)
+
+        if (result.code.isFileSpecificError()) {
+            notificationManager.notify(
+                NotificationUtils.createUploadNotificationTag(operation.file),
+                NOTIFICATION_ERROR_ID,
+                notificationBuilder.build()
+            )
+        } else {
+            notificationManager.notify(NOTIFICATION_ID, notificationBuilder.build())
+        }
+    }
+
     private fun createEntityAndUpload(user: User, localPath: String, remotePath: String): Pair<UploadEntity, OCUpload> {
         val (needsCharging, needsWifi, uploadAction) = getUploadSettings(syncedFolder)
         Log_OC.d(TAG, "creating oc upload for ${user.accountName}")
@@ -397,7 +464,11 @@ class AutoUploadWorker(
         return uploadEntity to upload
     }
 
-    private fun createUploadFileOperation(upload: OCUpload, user: User): UploadFileOperation = UploadFileOperation(
+    private fun createUploadFileOperation(
+        upload: OCUpload,
+        user: User,
+        storageManager: FileDataStorageManager
+    ): UploadFileOperation = UploadFileOperation(
         uploadsStorageManager,
         connectivityService,
         powerManagementService,
@@ -410,7 +481,7 @@ class AutoUploadWorker(
         upload.isUseWifiOnly,
         upload.isWhileChargingOnly,
         true,
-        FileDataStorageManager(user, context.contentResolver)
+        storageManager
     )
 
     private fun getRemotePath(

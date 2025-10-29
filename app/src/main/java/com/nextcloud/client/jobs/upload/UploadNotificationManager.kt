@@ -13,8 +13,9 @@ import com.nextcloud.client.jobs.notification.WorkerNotificationManager
 import com.nextcloud.utils.extensions.isFileSpecificError
 import com.nextcloud.utils.numberFormatter.NumberFormatter
 import com.owncloud.android.R
-import com.owncloud.android.lib.common.operations.RemoteOperationResult
+import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode
 import com.owncloud.android.operations.UploadFileOperation
+import com.owncloud.android.operations.upload.buildFailedResultNotification
 import com.owncloud.android.ui.notifications.NotificationUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
 
@@ -79,65 +80,19 @@ class UploadNotificationManager(private val context: Context, viewThemeUtils: Vi
 
     fun notifyForFailedResult(
         uploadFileOperation: UploadFileOperation,
-        resultCode: RemoteOperationResult.ResultCode,
-        conflictsResolveIntent: PendingIntent?,
-        cancelUploadActionIntent: PendingIntent?,
-        credentialIntent: PendingIntent?,
+        resultCode: ResultCode,
         errorMessage: String
     ) {
         if (uploadFileOperation.isMissingPermissionThrown) {
             return
         }
 
-        val textId = getFailedResultTitleId(resultCode)
-
-        notificationBuilder.run {
-            setTicker(context.getString(textId))
-            setContentTitle(context.getString(textId))
-            setAutoCancel(false)
-            setOngoing(false)
-            setProgress(0, 0, false)
-            clearActions()
-
-            conflictsResolveIntent?.let {
-                addAction(
-                    R.drawable.ic_cloud_upload,
-                    R.string.upload_list_resolve_conflict,
-                    it
-                )
-            }
-
-            cancelUploadActionIntent?.let {
-                addAction(
-                    R.drawable.ic_delete,
-                    R.string.upload_list_cancel_upload,
-                    cancelUploadActionIntent
-                )
-            }
-
-            credentialIntent?.let {
-                setContentIntent(it)
-            }
-
-            setContentText(errorMessage)
-        }
+        uploadFileOperation.buildFailedResultNotification(notificationBuilder, resultCode, errorMessage)
 
         if (resultCode.isFileSpecificError()) {
             showNewNotification(uploadFileOperation)
         } else {
             showNotification()
-        }
-    }
-
-    private fun getFailedResultTitleId(resultCode: RemoteOperationResult.ResultCode): Int {
-        val needsToUpdateCredentials = (resultCode == RemoteOperationResult.ResultCode.UNAUTHORIZED)
-
-        return if (needsToUpdateCredentials) {
-            R.string.uploader_upload_failed_credentials_error
-        } else if (resultCode == RemoteOperationResult.ResultCode.SYNC_CONFLICT) {
-            R.string.uploader_upload_failed_sync_conflict_error
-        } else {
-            R.string.uploader_upload_failed_ticker
         }
     }
 

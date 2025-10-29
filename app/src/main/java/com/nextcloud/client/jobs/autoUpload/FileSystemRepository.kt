@@ -63,4 +63,16 @@ class FileSystemRepository(private val dao: FileSystemDao) {
             Log_OC.e(TAG, "Error marking file as uploaded: ${e.message}", e)
         }
     }
+
+    @Suppress("TooGenericExceptionCaught")
+    fun markFileAsUploadedSync(localPath: String, syncedFolder: SyncedFolder) {
+        val syncedFolderIdStr = syncedFolder.id.toString()
+
+        try {
+            dao.markFileAsUploadedSync(localPath, syncedFolderIdStr)
+            Log_OC.d(TAG, "Marked file as uploaded: $localPath for syncedFolderId=$syncedFolderIdStr")
+        } catch (e: Exception) {
+            Log_OC.e(TAG, "Error marking file as uploaded: ${e.message}", e)
+        }
+    }
 }

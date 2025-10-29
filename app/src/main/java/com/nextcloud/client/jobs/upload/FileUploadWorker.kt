@@ -40,6 +40,9 @@ import com.owncloud.android.lib.common.operations.RemoteOperationResult
 import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.operations.UploadFileOperation
+import com.owncloud.android.operations.upload.cancelUploadActionIntent
+import com.owncloud.android.operations.upload.credentialIntent
+import com.owncloud.android.operations.upload.onConflictResolveActionIntents
 import com.owncloud.android.ui.notifications.NotificationUtils
 import com.owncloud.android.utils.ErrorMessageAdapter
 import com.owncloud.android.utils.theme.ViewThemeUtils
@@ -225,6 +228,7 @@ class FileUploadWorker(
         val uploads = uploadsStorageManager.getUploadsByIds(uploadIds, accountName)
         val ocAccount = OwnCloudAccount(user.toPlatformAccount(), context)
         val client = OwnCloudClientManagerFactory.getDefaultSingleton().getClientFor(ocAccount, context)
+        val storageManager = FileDataStorageManager(user, context.contentResolver)
 
         for ((index, upload) in uploads.withIndex()) {
             ensureActive()
@@ -243,7 +247,7 @@ class FileUploadWorker(
             }
 
             setWorkerState(user)
-            val operation = createUploadFileOperation(upload, user)
+            val operation = createUploadFileOperation(upload, user, storageManager)
             currentUploadFileOperation = operation
 
             val currentIndex = (index + 1)
@@ -303,7 +307,11 @@ class FileUploadWorker(
         return result
     }
 
-    private fun createUploadFileOperation(upload: OCUpload, user: User): UploadFileOperation = UploadFileOperation(
+    private fun createUploadFileOperation(
+        upload: OCUpload,
+        user: User,
+        storageManager: FileDataStorageManager
+    ): UploadFileOperation = UploadFileOperation(
         uploadsStorageManager,
         connectivityService,
         powerManagementService,
@@ -316,7 +324,7 @@ class FileUploadWorker(
         upload.isUseWifiOnly,
         upload.isWhileChargingOnly,
         true,
-        FileDataStorageManager(user, context.contentResolver)
+        storageManager
     ).apply {
         addDataTransferProgressListener(this@FileUploadWorker)
     }
@@ -414,30 +422,9 @@ class FileUploadWorker(
                 context.resources
             )
 
-            val conflictResolveIntent = if (uploadResult.code == ResultCode.SYNC_CONFLICT) {
-                intents.conflictResolveActionIntents(context, uploadFileOperation)
-            } else {
-                null
-            }
-
-            val credentialIntent: PendingIntent? = if (uploadResult.code == ResultCode.UNAUTHORIZED) {
-                intents.credentialIntent(uploadFileOperation)
-            } else {
-                null
-            }
-
-            val cancelUploadActionIntent = if (conflictResolveIntent != null) {
-                intents.cancelUploadActionIntent(uploadFileOperation)
-            } else {
-                null
-            }
-
             notifyForFailedResult(
                 uploadFileOperation,
                 uploadResult.code,
-                conflictResolveIntent,
-                cancelUploadActionIntent,
-                credentialIntent,
                 errorMessage
             )
         }

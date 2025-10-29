@@ -10,7 +10,6 @@ package com.nextcloud.utils.extensions
 import com.nextcloud.client.database.entity.UploadEntity
 import com.owncloud.android.datamodel.UploadsStorageManager
 import com.owncloud.android.lib.common.operations.RemoteOperationResult
-import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode
 
 fun UploadsStorageManager.updateStatus(entity: UploadEntity?, status: UploadsStorageManager.UploadStatus) {
     entity ?: return
@@ -19,9 +18,7 @@ fun UploadsStorageManager.updateStatus(entity: UploadEntity?, status: UploadsSto
 
 fun UploadsStorageManager.updateStatus(entity: UploadEntity?, result: RemoteOperationResult<*>) {
     entity ?: return
-
-    // since upload already exists to prevent re-upload sync conflict needs to be ignored
-    val newStatus = if (result.isSuccess || result.code == ResultCode.SYNC_CONFLICT) {
+    val newStatus = if (result.isSuccess) {
         UploadsStorageManager.UploadStatus.UPLOAD_SUCCEEDED
     } else {
         UploadsStorageManager.UploadStatus.UPLOAD_FAILED

@@ -250,19 +250,6 @@ class FileUploadHelper {
                     UploadStatus.UPLOAD_FAILED.value
                 ).toMutableList()
 
-            val iterator = failedUploads.iterator()
-            while (iterator.hasNext()) {
-                val upload = iterator.next()
-                val remotePath = upload.remotePath ?: continue
-                val fileExists =
-                    fileStorageManager.fileDao.getFileByDecryptedRemotePath(remotePath, accountName) != null
-                if (fileExists) {
-                    Log_OC.d(TAG, "File already exists in remote, removing upload entity: ${upload.remotePath}")
-                    uploadsStorageManager.uploadDao.deleteByAccountAndRemotePath(accountName, remotePath)
-                    iterator.remove()
-                }
-            }
-
             val result = failedUploads.map { it.toOCUpload(null) }.toTypedArray()
             onCompleted(result)
         }
