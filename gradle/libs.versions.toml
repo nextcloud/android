@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
 [versions]
-androidCommonLibraryVersion = "0.28.0"
+androidCommonLibraryVersion = "0.29.0"
 androidGifDrawableVersion = "1.2.29"
 androidImageCropperVersion = "4.6.0"
 androidsvgVersion = "1.4"
@@ -50,7 +50,7 @@ materialVersion = "1.13.0"
 media3 = "1.8.0"
 mockitoKotlinVersion = "4.1.0"
 mockitoVersion = "4.11.0"
-mockkVersion = "1.14.5"
+mockkVersion = "1.14.6"
 nnioVersion = "0.3.1"
 orchestratorVersion = "1.6.1"
 orgJbundleUtilOsgiWrappedOrgApacheHttpClientVersion = "4.1.2"
@@ -65,7 +65,7 @@ screengrabVersion = "2.1.1"
 sectionedRecyclerviewVersion = "0.6.1"
 shotVersion = "6.1.0"
 splash-screen = "1.0.1"
-composeBom = "2025.09.01"
+composeBom = "2025.10.01"
 materialIcons = "1.7.8"
 spotbugsGradlePlugin = "6.4.4"
 detektGradlePlugin = "1.23.8"
@@ -75,8 +75,8 @@ webkitVersion = "1.14.0"
 workRuntime = "2.10.4"
 kotlinxSerializationJson = "1.9.0"
 
-kotlin = "2.2.20"
-ksp = "2.2.20-2.0.3"
+kotlin = "2.2.21"
+ksp = "2.3.0"
 
 [libraries]
 
