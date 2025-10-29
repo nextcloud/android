@@ -9,28 +9,18 @@ package com.owncloud.android.utils
 
 import com.nextcloud.client.jobs.autoUpload.AutoUploadHelper
 import com.nextcloud.client.preferences.SubFolderRule
-import com.nextcloud.utils.extensions.toLocalPath
-import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.MediaFolderType
-import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.datamodel.SyncedFolder
 import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
-import org.mockito.Mock
-import org.mockito.Mockito
-import org.mockito.MockitoAnnotations
 import java.io.File
 import java.nio.file.Files
+import java.nio.file.attribute.FileTime
 
 class AutoUploadHelperTest {
-
-    private lateinit var mocks: AutoCloseable
-
-    @Mock
-    lateinit var storageManager: FileDataStorageManager
 
     private lateinit var tempDir: File
     private val helper = AutoUploadHelper()
@@ -38,7 +28,6 @@ class AutoUploadHelperTest {
 
     @Before
     fun setup() {
-        mocks = MockitoAnnotations.openMocks(this)
         tempDir = Files.createTempDirectory("auto_upload_test_").toFile()
         tempDir.mkdirs()
         assertTrue("Failed to create temp directory", tempDir.exists())
@@ -47,7 +36,6 @@ class AutoUploadHelperTest {
     @After
     fun cleanup() {
         tempDir.deleteRecursively()
-        mocks.close()
     }
 
     private fun createTestFolder(
@@ -55,14 +43,14 @@ class AutoUploadHelperTest {
         excludeHidden: Boolean = false,
         lastScan: Long = -1L,
         enabledTimestamp: Long = 0L,
-        skipExistingFilesOnRemote: Boolean = false,
+        alsoUploadExistingFiles: Boolean = true,
         type: MediaFolderType = MediaFolderType.CUSTOM
     ): SyncedFolder = SyncedFolder(
         localPath,
         "",
         true,
         false,
-        skipExistingFilesOnRemote,
+        alsoUploadExistingFiles,
         false,
         accountName,
         1,
@@ -92,7 +80,7 @@ class AutoUploadHelperTest {
             type = MediaFolderType.CUSTOM
         )
 
-        val processedCount = helper.insertCustomFolderIntoDB(folder, null, storageManager)
+        val processedCount = helper.insertCustomFolderIntoDB(folder, null)
 
         assertEquals("Should process 2 files", 2, processedCount)
     }
@@ -109,7 +97,7 @@ class AutoUploadHelperTest {
             type = MediaFolderType.CUSTOM
         )
 
-        val processedCount = helper.insertCustomFolderIntoDB(folder, null, storageManager)
+        val processedCount = helper.insertCustomFolderIntoDB(folder, null)
 
         assertTrue("Should process at least 1 file", processedCount >= 1)
     }
@@ -131,7 +119,7 @@ class AutoUploadHelperTest {
             type = MediaFolderType.CUSTOM
         )
 
-        val processedCount = helper.insertCustomFolderIntoDB(folder, null, storageManager)
+        val processedCount = helper.insertCustomFolderIntoDB(folder, null)
 
         // Should only process the new file (modified after last scan)
         assertEquals("Should process only 1 new file", 1, processedCount)
@@ -156,7 +144,7 @@ class AutoUploadHelperTest {
             lastScanTimestampMs = currentTime
         }
 
-        val processedCount = helper.insertCustomFolderIntoDB(folder, null, storageManager)
+        val processedCount = helper.insertCustomFolderIntoDB(folder, null)
 
         // Should only process files newer than enabledTimestamp
         assertEquals("Should process only files after enabled timestamp", 1, processedCount)
@@ -165,7 +153,7 @@ class AutoUploadHelperTest {
     @Test
     fun testInsertCustomFolderEmpty() {
         val folder = createTestFolder(type = MediaFolderType.CUSTOM)
-        val processedCount = helper.insertCustomFolderIntoDB(folder, null, storageManager)
+        val processedCount = helper.insertCustomFolderIntoDB(folder, null)
 
         assertEquals("Empty folder should process 0 files", 0, processedCount)
     }
@@ -178,7 +166,7 @@ class AutoUploadHelperTest {
             type = MediaFolderType.CUSTOM
         )
 
-        val processedCount = helper.insertCustomFolderIntoDB(folder, null, storageManager)
+        val processedCount = helper.insertCustomFolderIntoDB(folder, null)
 
         assertEquals("Non-existent folder should return 0", 0, processedCount)
     }
@@ -192,7 +180,7 @@ class AutoUploadHelperTest {
         File(subDir, "nested.txt").writeText("Nested file")
 
         val folder = createTestFolder(type = MediaFolderType.CUSTOM)
-        val processedCount = helper.insertCustomFolderIntoDB(folder, null, storageManager)
+        val processedCount = helper.insertCustomFolderIntoDB(folder, null)
 
         assertEquals("Should process files in root and subdirectories", 2, processedCount)
     }
@@ -215,7 +203,7 @@ class AutoUploadHelperTest {
             lastScanTimestampMs = currentTime
         }
 
-        val processedCount = helper.insertCustomFolderIntoDB(folder, null, storageManager)
+        val processedCount = helper.insertCustomFolderIntoDB(folder, null)
 
         // Should skip hidden directory and its contents
         assertEquals("Should only process regular file", 1, processedCount)
@@ -268,105 +256,64 @@ class AutoUploadHelperTest {
           * ${tempDir.absolutePath}/FOLDER_A/FOLDER_B/FOLDER_D/FOLDER_E/FILE_A.txt -> 1
           * Total = 5 files
           */
-        val processedCount = helper.insertCustomFolderIntoDB(syncedFolder, null, storageManager)
+        val processedCount = helper.insertCustomFolderIntoDB(syncedFolder, null)
         assertEquals("Should process all files in complex nested structure", 5, processedCount)
     }
 
     @Test
-    fun testSkipExistingFiles() {
-        val folder = File(tempDir, "FOLDER")
-        folder.mkdirs()
-        val file = File(folder, "FILE_B.txt")
-        file.writeText("File in A")
-        val path = file.toPath()
-        val localPath = path.toLocalPath()
-        val ocFile = OCFile("/my_remote_folder/FILE_B.txt").apply {
-            fileId = 1
-            remoteId = "00001"
-            storagePath = localPath
-        }
-        storageManager.saveFile(ocFile)
-
-        Mockito.`when`(storageManager.getFileByLocalPath(localPath)).thenReturn(ocFile)
-
-        val syncedFolder = createTestFolder(
-            localPath = folder.absolutePath,
-            type = MediaFolderType.CUSTOM,
-            skipExistingFilesOnRemote = true
-        )
-
-        val processedCount = helper.insertCustomFolderIntoDB(syncedFolder, null, storageManager)
-        assertEquals("Should skip existing files", 0, processedCount)
-    }
-
-    @Test
-    fun testInsertCustomFolderCombinedScenarios() {
+    fun testAlsoUploadExistingFiles() {
         val currentTime = System.currentTimeMillis()
-        val root = File(tempDir, "COMBINED_ROOT")
-        root.mkdirs()
 
-        val visibleSubDir = File(root, "visible_subdir")
-        visibleSubDir.mkdirs()
-
-        val hiddenSubDir = File(root, ".hidden_subdir")
-        hiddenSubDir.mkdirs()
-
-        // Normal visible file (should be processed)
-        File(root, "visible.txt").apply {
-            writeText("Visible file content")
-            setLastModified(currentTime)
-        }
-
-        // Hidden file (should be skipped)
-        File(root, ".hidden.txt").apply {
-            writeText("Hidden file content")
-            setLastModified(currentTime)
-        }
-
-        // File in hidden directory (should be skipped)
-        File(hiddenSubDir, "nested_hidden.txt").apply {
-            writeText("Should be skipped because parent is hidden")
-        }
-
-        // File that already exists remotely (should be skipped)
-        val existingFile = File(visibleSubDir, "existing_remote.txt").apply {
-            writeText("Already on remote")
-        }
-
-        // New file modified after last scan (should be processed)
-        File(visibleSubDir, "new_after_last_scan.txt").apply {
-            writeText("New file after last scan")
-            setLastModified(currentTime)
-        }
-
-        // Old file modified before last scan (should be skipped)
-        File(visibleSubDir, "old_before_last_scan.txt").apply {
+        // Old file (created before enabling auto-upload)
+        val oldFile = File(tempDir, "old_file.txt").apply {
             writeText("Old file")
-            setLastModified(currentTime - 60_000) // 1 minute ago
         }
-
-        val existingLocalPath = existingFile.toPath().toLocalPath()
-        val ocFile = OCFile("/remote/existing_remote.txt").apply {
-            fileId = 1
-            remoteId = "R001"
-            storagePath = existingLocalPath
-        }
-        Mockito.`when`(storageManager.getFileByLocalPath(existingLocalPath)).thenReturn(ocFile)
-
-        val folder = createTestFolder(
-            localPath = root.absolutePath,
-            excludeHidden = true,
-            skipExistingFilesOnRemote = true,
-            lastScan = currentTime - 30_000, // 30 seconds ago
-            type = MediaFolderType.CUSTOM
+        val oldFilePath = oldFile.toPath()
+        Files.setAttribute(
+            oldFilePath,
+            "creationTime",
+            FileTime.fromMillis(currentTime - 60_000) // 1 minute before enabling
         )
 
-        val processedCount = helper.insertCustomFolderIntoDB(folder, null, storageManager)
+        // New file (created after enabling auto-upload)
+        val newFile = File(tempDir, "new_file.txt").apply {
+            writeText("New file")
+        }
+        val newFilePath = newFile.toPath()
+        Files.setAttribute(
+            newFilePath,
+            "creationTime",
+            FileTime.fromMillis(currentTime + 1_000) // 1 second after enabling
+        )
 
+        val folderSkipOld = createTestFolder(
+            localPath = tempDir.absolutePath,
+            type = MediaFolderType.CUSTOM,
+            alsoUploadExistingFiles = false
+        ).apply {
+            setEnabled(true, currentTime)
+        }
+
+        val processedCountSkipOld = helper.insertCustomFolderIntoDB(folderSkipOld, null)
         assertEquals(
-            "Should process only visible and new files, skipping hidden, existing, and old ones",
+            "When 'also upload existing' is disabled, only new files created after enabling should be processed",
+            1,
+            processedCountSkipOld
+        )
+
+        val folderUploadAll = createTestFolder(
+            localPath = tempDir.absolutePath,
+            type = MediaFolderType.CUSTOM,
+            alsoUploadExistingFiles = true
+        ).apply {
+            setEnabled(true, currentTime)
+        }
+
+        val processedCountAll = helper.insertCustomFolderIntoDB(folderUploadAll, null)
+        assertEquals(
+            "When 'also upload existing' is enabled, should upload all files",
             2,
-            processedCount
+            processedCountAll
         )
     }
 }

@@ -13,24 +13,32 @@ import com.nextcloud.client.network.ConnectivityService
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.SyncedFolder
 import com.owncloud.android.datamodel.SyncedFolderDisplayItem
+import com.owncloud.android.lib.common.utils.Log_OC
 import java.io.File
+
+private const val TAG = "SyncedFolderExtensions"
 
 /**
  * Determines whether a file should be skipped during auto-upload based on folder settings.
  */
-fun SyncedFolder.shouldSkipFile(file: File, lastModified: Long): Boolean {
-    // Skip hidden files if excluded
+fun SyncedFolder.shouldSkipFile(file: File, lastModified: Long, creationTime: Long?): Boolean {
     if (isExcludeHidden && file.isHidden) {
+        Log_OC.d(TAG, "Skipping hidden: ${file.absolutePath}")
         return true
     }
 
-    // Skip files already checked
     if (lastModified < lastScanTimestampMs) {
+        Log_OC.d(TAG, "Skipping old file (last scan > modified): ${file.absolutePath}")
         return true
     }
 
-    // Skip files older than enabled timestamp if not the first scan
     if (lastModified < enabledTimestampMs && lastScanTimestampMs != -1L) {
+        Log_OC.d(TAG, "Skipping file older than enabled time: ${file.absolutePath}")
+        return true
+    }
+
+    if (!isExisting && creationTime != null && creationTime < enabledTimestampMs) {
+        Log_OC.d(TAG, "Skipping pre-existing file (creation < enabled): ${file.absolutePath}")
         return true
     }
 
