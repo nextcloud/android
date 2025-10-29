@@ -143,9 +143,7 @@ class AutoUploadWorker(
         setForeground(foregroundInfo)
     }
 
-    private fun getNotificationBuilder(): NotificationCompat.Builder {
-        return NotificationCompat.Builder(context, CHANNEL_ID)
-    }
+    private fun getNotificationBuilder(): NotificationCompat.Builder = NotificationCompat.Builder(context, CHANNEL_ID)
 
     private fun createNotification(title: String): Notification = getNotificationBuilder()
         .setContentTitle(title)
@@ -367,10 +365,7 @@ class AutoUploadWorker(
     }
 
     @Suppress("ReturnCount", "LongMethod")
-    private fun handleUploadResult(
-        operation: UploadFileOperation,
-        result: RemoteOperationResult<Any?>
-    ) {
+    private fun handleUploadResult(operation: UploadFileOperation, result: RemoteOperationResult<Any?>) {
         if (result.isSuccess || result.isCancelled) {
             return
         }

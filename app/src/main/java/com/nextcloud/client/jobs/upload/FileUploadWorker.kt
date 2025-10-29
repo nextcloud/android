@@ -8,7 +8,6 @@
 package com.nextcloud.client.jobs.upload
 
 import android.app.Notification
-import android.app.PendingIntent
 import android.content.Context
 import androidx.core.app.NotificationCompat
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
@@ -40,9 +39,6 @@ import com.owncloud.android.lib.common.operations.RemoteOperationResult
 import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.operations.UploadFileOperation
-import com.owncloud.android.operations.upload.cancelUploadActionIntent
-import com.owncloud.android.operations.upload.credentialIntent
-import com.owncloud.android.operations.upload.onConflictResolveActionIntents
 import com.owncloud.android.ui.notifications.NotificationUtils
 import com.owncloud.android.utils.ErrorMessageAdapter
 import com.owncloud.android.utils.theme.ViewThemeUtils

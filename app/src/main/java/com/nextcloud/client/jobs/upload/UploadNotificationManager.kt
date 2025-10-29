@@ -78,11 +78,7 @@ class UploadNotificationManager(private val context: Context, viewThemeUtils: Vi
         dismissOldErrorNotification(currentOperation)
     }
 
-    fun notifyForFailedResult(
-        uploadFileOperation: UploadFileOperation,
-        resultCode: ResultCode,
-        errorMessage: String
-    ) {
+    fun notifyForFailedResult(uploadFileOperation: UploadFileOperation, resultCode: ResultCode, errorMessage: String) {
         if (uploadFileOperation.isMissingPermissionThrown) {
             return
         }

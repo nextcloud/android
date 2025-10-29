@@ -85,9 +85,7 @@ fun UploadFileOperation.buildFailedResultNotification(
     }
 }
 
-fun UploadFileOperation.onConflictResolveActionIntents(
-    context: Context
-): PendingIntent {
+fun UploadFileOperation.onConflictResolveActionIntents(context: Context): PendingIntent {
     val intent = createIntent(
         file,
         user,
