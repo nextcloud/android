@@ -21,6 +21,7 @@ private const val TAG = "SyncedFolderExtensions"
 /**
  * Determines whether a file should be skipped during auto-upload based on folder settings.
  */
+@Suppress("ReturnCount")
 fun SyncedFolder.shouldSkipFile(file: File, lastModified: Long, creationTime: Long?): Boolean {
     if (isExcludeHidden && file.isHidden) {
         Log_OC.d(TAG, "Skipping hidden: ${file.absolutePath}")
