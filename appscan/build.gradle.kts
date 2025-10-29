@@ -31,8 +31,8 @@ android {
         targetCompatibility = JavaVersion.VERSION_17
     }
 
-    lint.targetSdk = 35
-    testOptions.targetSdk = 35
+    lint.targetSdk = 36
+    testOptions.targetSdk = 36
 }
 
 kotlin.compilerOptions {
