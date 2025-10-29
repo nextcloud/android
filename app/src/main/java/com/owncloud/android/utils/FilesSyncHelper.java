@@ -48,7 +48,7 @@ public final class FilesSyncHelper {
         // utility class -> private constructor
     }
 
-    public static void insertAllDBEntriesForSyncedFolder(SyncedFolder syncedFolder, AutoUploadHelper helper, FileDataStorageManager storageManager) {
+    public static void insertAllDBEntriesForSyncedFolder(SyncedFolder syncedFolder, AutoUploadHelper helper) {
         Log_OC.d(TAG, "insertAllDBEntriesForSyncedFolder, called. ID: " + syncedFolder.getId());
 
         final Context context = MainApp.getAppContext();
@@ -82,7 +82,7 @@ public final class FilesSyncHelper {
             } else {
                 Log_OC.d(TAG, "inserting other media types: " + mediaType.toString());
                 FilesystemDataProvider filesystemDataProvider = new FilesystemDataProvider(contentResolver);
-                helper.insertCustomFolderIntoDB(syncedFolder, filesystemDataProvider, storageManager);
+                helper.insertCustomFolderIntoDB(syncedFolder, filesystemDataProvider);
             }
 
             Log_OC.d(TAG,"File-sync finished full check for custom folder "+syncedFolder.getLocalPath()+" within "+(System.nanoTime() - startTime)+ "ns");

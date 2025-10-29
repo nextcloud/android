@@ -9,7 +9,6 @@ package com.nextcloud.client.jobs.autoUpload
 
 import com.nextcloud.utils.extensions.shouldSkipFile
 import com.nextcloud.utils.extensions.toLocalPath
-import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.FilesystemDataProvider
 import com.owncloud.android.datamodel.SyncedFolder
 import com.owncloud.android.lib.common.utils.Log_OC
@@ -30,11 +29,7 @@ class AutoUploadHelper {
         private const val MAX_DEPTH = 100
     }
 
-    fun insertCustomFolderIntoDB(
-        folder: SyncedFolder,
-        filesystemDataProvider: FilesystemDataProvider?,
-        storageManager: FileDataStorageManager
-    ): Int {
+    fun insertCustomFolderIntoDB(folder: SyncedFolder, filesystemDataProvider: FilesystemDataProvider?): Int {
         val path = Paths.get(folder.localPath)
 
         if (!Files.exists(path)) {
@@ -74,27 +69,14 @@ class AutoUploadHelper {
                         try {
                             val javaFile = file.toFile()
                             val lastModified = attrs?.lastModifiedTime()?.toMillis() ?: javaFile.lastModified()
+                            val creationTime = attrs?.creationTime()?.toMillis()
 
-                            if (folder.shouldSkipFile(javaFile, lastModified)) {
+                            if (folder.shouldSkipFile(javaFile, lastModified, creationTime)) {
                                 skipCount++
                                 return FileVisitResult.CONTINUE
                             }
 
                             val localPath = file.toLocalPath()
-
-                            // Skip existing files on remote
-                            if (folder.isExisting) {
-                                val fileOnRemote = storageManager.getFileByLocalPath(localPath)
-                                if (fileOnRemote != null) {
-                                    Log_OC.d(
-                                        TAG,
-                                        "folder configured as skip existing files on remote" +
-                                            "skipping file: ${fileOnRemote.remotePath}"
-                                    )
-                                    skipCount++
-                                    return FileVisitResult.CONTINUE
-                                }
-                            }
 
                             filesystemDataProvider?.storeOrUpdateFileValue(
                                 localPath,
