@@ -24,6 +24,7 @@ import com.nextcloud.client.jobs.upload.FileUploadHelper;
 import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.utils.extensions.UriExtensionsKt;
 import com.owncloud.android.MainApp;
+import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.FilesystemDataProvider;
 import com.owncloud.android.datamodel.MediaFolderType;
 import com.owncloud.android.datamodel.SyncedFolder;
@@ -47,7 +48,7 @@ public final class FilesSyncHelper {
         // utility class -> private constructor
     }
 
-    public static void insertAllDBEntriesForSyncedFolder(SyncedFolder syncedFolder, AutoUploadHelper helper) {
+    public static void insertAllDBEntriesForSyncedFolder(SyncedFolder syncedFolder, AutoUploadHelper helper, FileDataStorageManager storageManager) {
         Log_OC.d(TAG, "insertAllDBEntriesForSyncedFolder, called. ID: " + syncedFolder.getId());
 
         final Context context = MainApp.getAppContext();
@@ -81,7 +82,7 @@ public final class FilesSyncHelper {
             } else {
                 Log_OC.d(TAG, "inserting other media types: " + mediaType.toString());
                 FilesystemDataProvider filesystemDataProvider = new FilesystemDataProvider(contentResolver);
-                helper.insertCustomFolderIntoDB(syncedFolder, filesystemDataProvider);
+                helper.insertCustomFolderIntoDB(syncedFolder, filesystemDataProvider, storageManager);
             }
 
             Log_OC.d(TAG,"File-sync finished full check for custom folder "+syncedFolder.getLocalPath()+" within "+(System.nanoTime() - startTime)+ "ns");

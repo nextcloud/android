@@ -7,6 +7,9 @@
 
 package com.nextcloud.client.jobs.autoUpload
 
+import com.nextcloud.utils.extensions.shouldSkipFile
+import com.nextcloud.utils.extensions.toLocalPath
+import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.FilesystemDataProvider
 import com.owncloud.android.datamodel.SyncedFolder
 import com.owncloud.android.lib.common.utils.Log_OC
@@ -27,7 +30,11 @@ class AutoUploadHelper {
         private const val MAX_DEPTH = 100
     }
 
-    fun insertCustomFolderIntoDB(folder: SyncedFolder, filesystemDataProvider: FilesystemDataProvider?): Int {
+    fun insertCustomFolderIntoDB(
+        folder: SyncedFolder,
+        filesystemDataProvider: FilesystemDataProvider?,
+        storageManager: FileDataStorageManager
+    ): Int {
         val path = Paths.get(folder.localPath)
 
         if (!Files.exists(path)) {
@@ -40,8 +47,6 @@ class AutoUploadHelper {
             return 0
         }
 
-        val enabledTimestampMs = folder.enabledTimestampMs
-        val lastCheck = folder.lastScanTimestampMs
         val excludeHidden = folder.isExcludeHidden
 
         var fileCount = 0
@@ -67,30 +72,32 @@ class AutoUploadHelper {
 
                     override fun visitFile(file: Path, attrs: BasicFileAttributes?): FileVisitResult {
                         try {
-                            // Skip hidden files
                             val javaFile = file.toFile()
-                            if (excludeHidden && javaFile.isHidden) {
+                            val lastModified = attrs?.lastModifiedTime()?.toMillis() ?: javaFile.lastModified()
+
+                            if (folder.shouldSkipFile(javaFile, lastModified)) {
                                 skipCount++
                                 return FileVisitResult.CONTINUE
                             }
 
-                            // Skip files already checked
-                            val lastModified = attrs?.lastModifiedTime()?.toMillis()
-                                ?: javaFile.lastModified()
-                            if (lastModified < lastCheck) {
-                                skipCount++
-                                return FileVisitResult.CONTINUE
-                            }
+                            val localPath = file.toLocalPath()
 
-                            // Skip files if the folder doesn't exist yet, the file is older than enabledTimestampMs,
-                            // and this is not the first scan
-                            if (!folder.isExisting && lastModified < enabledTimestampMs && lastCheck != -1L) {
-                                skipCount++
-                                return FileVisitResult.CONTINUE
+                            // Skip existing files on remote
+                            if (folder.isExisting) {
+                                val fileOnRemote = storageManager.getFileByLocalPath(localPath)
+                                if (fileOnRemote != null) {
+                                    Log_OC.d(
+                                        TAG,
+                                        "folder configured as skip existing files on remote" +
+                                            "skipping file: ${fileOnRemote.remotePath}"
+                                    )
+                                    skipCount++
+                                    return FileVisitResult.CONTINUE
+                                }
                             }
 
                             filesystemDataProvider?.storeOrUpdateFileValue(
-                                file.toAbsolutePath().toString(),
+                                localPath,
                                 lastModified,
                                 javaFile.isDirectory,
                                 folder

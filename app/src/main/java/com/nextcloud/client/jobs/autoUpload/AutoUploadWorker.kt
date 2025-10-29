@@ -102,7 +102,15 @@ class AutoUploadWorker(
                 return Result.retry()
             }
 
-            collectFileChangesFromContentObserverWork(contentUris)
+            val user = getUserOrReturn(syncedFolder)
+            if (user == null) {
+                Log_OC.e(TAG, "user is null")
+                return Result.retry()
+            }
+
+            val fileDataStorageManager = FileDataStorageManager(user, context.contentResolver)
+
+            collectFileChangesFromContentObserverWork(contentUris, fileDataStorageManager)
             updateNotification()
             uploadFiles(syncedFolder)
 
@@ -207,10 +215,13 @@ class AutoUploadWorker(
      * to detect only the relevant changes.
      */
     @Suppress("MagicNumber", "TooGenericExceptionCaught")
-    private suspend fun collectFileChangesFromContentObserverWork(contentUris: Array<String>?) = try {
+    private suspend fun collectFileChangesFromContentObserverWork(
+        contentUris: Array<String>?,
+        storageManager: FileDataStorageManager
+    ) = try {
         withContext(Dispatchers.IO) {
             if (contentUris.isNullOrEmpty()) {
-                FilesSyncHelper.insertAllDBEntriesForSyncedFolder(syncedFolder, helper)
+                FilesSyncHelper.insertAllDBEntriesForSyncedFolder(syncedFolder, helper, storageManager)
             } else {
                 val isContentUrisStored = FilesSyncHelper.insertChangedEntries(syncedFolder, contentUris)
                 if (!isContentUrisStored) {
@@ -219,7 +230,7 @@ class AutoUploadWorker(
                         "changed content uris not stored, fallback to insert all db entries to not lose files"
                     )
 
-                    FilesSyncHelper.insertAllDBEntriesForSyncedFolder(syncedFolder, helper)
+                    FilesSyncHelper.insertAllDBEntriesForSyncedFolder(syncedFolder, helper, storageManager)
                 }
             }
             syncedFolder.lastScanTimestampMs = System.currentTimeMillis()
