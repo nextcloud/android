@@ -11,6 +11,7 @@ import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.utils.DisplayUtils
 import java.io.File
+import java.nio.file.Path
 
 fun OCFile?.logFileSize(tag: String) {
     val size = DisplayUtils.bytesToHumanReadable(this?.fileLength ?: -1)
@@ -23,3 +24,5 @@ fun File?.logFileSize(tag: String) {
     val rawByte = this?.length() ?: -1
     Log_OC.d(tag, "onSaveInstanceState: $size, raw byte $rawByte")
 }
+
+fun Path.toLocalPath(): String = toAbsolutePath().toString()

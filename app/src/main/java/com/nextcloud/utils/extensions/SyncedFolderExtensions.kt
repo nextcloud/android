@@ -15,6 +15,28 @@ import com.owncloud.android.datamodel.SyncedFolder
 import com.owncloud.android.datamodel.SyncedFolderDisplayItem
 import java.io.File
 
+/**
+ * Determines whether a file should be skipped during auto-upload based on folder settings.
+ */
+fun SyncedFolder.shouldSkipFile(file: File, lastModified: Long): Boolean {
+    // Skip hidden files if excluded
+    if (isExcludeHidden && file.isHidden) {
+        return true
+    }
+
+    // Skip files already checked
+    if (lastModified < lastScanTimestampMs) {
+        return true
+    }
+
+    // Skip files older than enabled timestamp if not the first scan
+    if (lastModified < enabledTimestampMs && lastScanTimestampMs != -1L) {
+        return true
+    }
+
+    return false
+}
+
 fun List<SyncedFolderDisplayItem>.filterEnabledOrWithoutEnabledParent(): List<SyncedFolderDisplayItem> = filter {
     it.isEnabled || !hasEnabledParent(it.localPath)
 }
