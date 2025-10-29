@@ -27,18 +27,24 @@ fun SyncedFolder.shouldSkipFile(file: File, lastModified: Long, creationTime: Lo
         return true
     }
 
-    if (lastModified < lastScanTimestampMs) {
-        Log_OC.d(TAG, "Skipping old file (last scan > modified): ${file.absolutePath}")
-        return true
+    // If "upload existing files" is DISABLED, only upload files created after enabled time
+    if (!isExisting) {
+        if (creationTime != null) {
+            if (creationTime < enabledTimestampMs) {
+                Log_OC.d(TAG, "Skipping pre-existing file (creation < enabled): ${file.absolutePath}")
+                return true
+            }
+        } else {
+            // No creation time available, upload should work we cannot skip
+            Log_OC.w(TAG, "file sent for upload - cannot determine creation time: ${file.absolutePath}")
+            return false
+        }
     }
 
-    if (lastModified < enabledTimestampMs && lastScanTimestampMs != -1L) {
-        Log_OC.d(TAG, "Skipping file older than enabled time: ${file.absolutePath}")
-        return true
-    }
-
-    if (!isExisting && creationTime != null && creationTime < enabledTimestampMs) {
-        Log_OC.d(TAG, "Skipping pre-existing file (creation < enabled): ${file.absolutePath}")
+    // Skip files that haven't changed since last scan (already processed)
+    // BUT only if this is not the first scan
+    if (lastScanTimestampMs != -1L && lastModified < lastScanTimestampMs) {
+        Log_OC.d(TAG, "Skipping unchanged file (last modified < last scan): ${file.absolutePath}")
         return true
     }
 
