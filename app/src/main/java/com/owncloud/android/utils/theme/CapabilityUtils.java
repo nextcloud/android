@@ -81,10 +81,11 @@ public final class CapabilityUtils {
 
     public static boolean checkOutdatedWarning(Resources resources,
                                                OwnCloudVersion version,
-                                               boolean hasExtendedSupport) {
+                                               boolean hasExtendedSupport,
+                                               boolean hasValidSubscription) {
         return resources.getBoolean(R.bool.show_outdated_server_warning) &&
             (MainApp.OUTDATED_SERVER_VERSION.isSameMajorVersion(version) ||
                 version.isOlderThan(MainApp.OUTDATED_SERVER_VERSION))
-            && !hasExtendedSupport;
+            && !hasExtendedSupport && !hasValidSubscription;
     }
 }
