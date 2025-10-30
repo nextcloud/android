@@ -8,6 +8,7 @@
 package com.nextcloud.utils.autoRename
 
 import com.nextcloud.utils.extensions.StringConstants
+import com.nextcloud.utils.extensions.checkWCFRestrictions
 import com.nextcloud.utils.extensions.forbiddenFilenameCharacters
 import com.nextcloud.utils.extensions.forbiddenFilenameExtensions
 import com.nextcloud.utils.extensions.shouldRemoveNonPrintableUnicodeCharactersAndConvertToUTF8
@@ -24,7 +25,7 @@ object AutoRename {
     @Suppress("NestedBlockDepth")
     @JvmOverloads
     fun rename(filename: String, capability: OCCapability, isFolderPath: Boolean? = null): String {
-        if (!capability.isWCFEnabled.isTrue) {
+        if (!capability.checkWCFRestrictions()) {
             return filename
         }
 

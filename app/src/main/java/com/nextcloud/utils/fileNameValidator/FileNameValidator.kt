@@ -10,6 +10,7 @@ package com.nextcloud.utils.fileNameValidator
 import android.content.Context
 import android.text.TextUtils
 import com.nextcloud.utils.extensions.StringConstants
+import com.nextcloud.utils.extensions.checkWCFRestrictions
 import com.nextcloud.utils.extensions.forbiddenFilenameBaseNames
 import com.nextcloud.utils.extensions.forbiddenFilenameCharacters
 import com.nextcloud.utils.extensions.forbiddenFilenameExtensions
@@ -48,7 +49,7 @@ object FileNameValidator {
             }
         }
 
-        if (!capability.isWCFEnabled.isTrue) {
+        if (!capability.checkWCFRestrictions()) {
             return null
         }
 
