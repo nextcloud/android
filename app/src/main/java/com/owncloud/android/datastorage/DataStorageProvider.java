@@ -84,16 +84,6 @@ public class DataStorageProvider {
         return mCachedStoragePoints.toArray(new StoragePoint[0]);
     }
 
-    public String getStorageDescriptionByPath(String path) {
-        for (StoragePoint s : getAvailableStoragePoints()) {
-            if (s.getPath().equals(path)) {
-                return s.getDescription();
-            }
-        }
-        // Fallback to just display complete path
-        return path;
-    }
-
     /* Checks if external storage is available for read and write */
     public boolean isExternalStorageWritable() {
         String state = Environment.getExternalStorageState();
