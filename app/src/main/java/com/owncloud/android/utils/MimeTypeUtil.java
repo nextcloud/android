@@ -461,6 +461,7 @@ public final class MimeTypeUtil {
         MIMETYPE_TO_ICON_MAPPING.put("application/rss+xml", R.drawable.file_code);
         MIMETYPE_TO_ICON_MAPPING.put("application/rtf", R.drawable.file);
         MIMETYPE_TO_ICON_MAPPING.put("application/vnd.android.package-archive", R.drawable.file_zip);
+        MIMETYPE_TO_ICON_MAPPING.put("application/vnd.excalidraw+json", R.drawable.file_whiteboard);
         MIMETYPE_TO_ICON_MAPPING.put("application/vnd.garmin.tcx+xml", R.drawable.file_location);
         MIMETYPE_TO_ICON_MAPPING.put("application/vnd.google-earth.kml+xml", R.drawable.file_location);
         MIMETYPE_TO_ICON_MAPPING.put("application/vnd.google-earth.kmz", R.drawable.file_location);
