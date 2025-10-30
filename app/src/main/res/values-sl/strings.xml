@@ -66,6 +66,7 @@
     <string name="auth_unknown_host_title">Gostitelja ni mogoče najti</string>
     <string name="auth_unsupported_multiaccount">%1$s ne omogoča podpore več računom</string>
     <string name="auth_wrong_connection_title">Ni mogoče vzpostaviti povezave</string>
+    <string name="authenticator_activity_cancel_login">Prekliči prijavo</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">ohranjeno v izvorni mapi, ker je ta le za branje</string>
     <string name="auto_upload_on_wifi">Pošiljaj le na nemerjeni povezavi Wi-Fi</string>
     <string name="auto_upload_path">/SamodejnoPošiljanje</string>
