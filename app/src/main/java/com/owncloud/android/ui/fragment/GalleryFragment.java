@@ -301,10 +301,8 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
         // Handle item selection
-        if (item.getItemId() == R.id.action_three_dot_icon && !this.isPhotoSearchQueryRunning()
-            && galleryFragmentBottomSheetDialog != null) {
+        if (item.getItemId() == R.id.action_three_dot_icon && galleryFragmentBottomSheetDialog != null) {
             showBottomSheet();
             return true;
         }
