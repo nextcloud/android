@@ -84,13 +84,10 @@ public final class FilesSyncHelper {
                         Log_OC.d(TAG, "walkFileTreeRandomly, children exists");
 
                         Collections.shuffle(Arrays.asList(children));
-                        File[] var5 = children;
-                        int var6 = children.length;
 
-                        for(int var7 = 0; var7 < var6; ++var7) {
+                        for (File value : children) {
                             Log_OC.d(TAG, "walkFileTreeRandomly -- recursive call");
-                            File child = var5[var7];
-                            walkFileTreeRandomly(FileBasedPathImpl.get(child), visitor);
+                            walkFileTreeRandomly(FileBasedPathImpl.get(value), visitor);
                         }
 
                         visitor.postVisitDirectory(start, null);
