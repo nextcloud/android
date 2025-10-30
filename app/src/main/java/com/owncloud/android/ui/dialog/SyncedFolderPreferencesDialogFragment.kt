@@ -543,7 +543,7 @@ class SyncedFolderPreferencesDialogFragment :
 
         /**
          * Converts a [NameCollisionPolicy] enum value into the corresponding
-         * **UI dialog selection index** used in the "File name collision" dialog.
+         * **UI dialog selection index** used in the dialog.
          *
          * ⚠️ **Important:**
          * These dialog indices are **not** the same as the integer values stored
