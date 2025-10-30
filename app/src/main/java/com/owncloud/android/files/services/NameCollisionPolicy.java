@@ -7,11 +7,23 @@
 package com.owncloud.android.files.services;
 
 /**
- * Ordinal of enumerated constants is important for old data compatibility.
+ * Defines how to handle file name collisions during uploads.
+ *
+ * <p><b>Important:</b> Enum ordinals are stored directly in the database.
+ * Do <b>not</b> change their order or remove constants to avoid breaking
+ * compatibility with old data.</p>
+ *
+ * <p><b>Database value mapping:</b></p>
+ * <ul>
+ *   <li>0 → {@link #RENAME} (old forceOverwrite = false)</li>
+ *   <li>1 → {@link #OVERWRITE} (old forceOverwrite = true)</li>
+ *   <li>2 → {@link #SKIP}</li>
+ *   <li>3 → {@link #ASK_USER}</li>
+ * </ul>
  */
 public enum NameCollisionPolicy {
-    RENAME, // Ordinal corresponds to old forceOverwrite = false (0 in database), do not change to not break compatibility
-    OVERWRITE, // Ordinal corresponds to old forceOverwrite = true (1 in database), do not change to not break compatibility
+    RENAME,
+    OVERWRITE,
     SKIP,
     ASK_USER;
 

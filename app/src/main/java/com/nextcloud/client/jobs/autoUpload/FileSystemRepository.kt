@@ -11,7 +11,6 @@ import com.nextcloud.client.database.dao.FileSystemDao
 import com.owncloud.android.datamodel.SyncedFolder
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.utils.SyncedFolderUtils
-import kotlinx.coroutines.runBlocking
 import java.io.File
 
 class FileSystemRepository(private val dao: FileSystemDao) {
@@ -62,12 +61,6 @@ class FileSystemRepository(private val dao: FileSystemDao) {
             Log_OC.d(TAG, "Marked file as uploaded: $localPath for syncedFolderId=$syncedFolderIdStr")
         } catch (e: Exception) {
             Log_OC.e(TAG, "Error marking file as uploaded: ${e.message}", e)
-        }
-    }
-
-    fun markFileAsUploadedBlocking(localPath: String, syncedFolder: SyncedFolder) {
-        runBlocking {
-            markFileAsUploaded(localPath, syncedFolder)
         }
     }
 }
