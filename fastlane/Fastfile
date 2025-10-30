@@ -210,7 +210,7 @@ end
 
 desc "compute version"
 private_lane :androidVersion do
-    File.open("../app/build.gradle","r") do |f|
+    File.open("../app/build.gradle.kts","r") do |f|
         text = f.read
 
         # everything between Document and Authors
