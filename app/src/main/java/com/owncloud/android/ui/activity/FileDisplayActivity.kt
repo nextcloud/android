@@ -551,7 +551,7 @@ class FileDisplayActivity :
 
         when {
             ACTION_DETAILS.equals(action, ignoreCase = true) -> {
-                val file = intent.getParcelableArgument(EXTRA_FILE, OCFile::class.java)
+                val file = getFileFromIntent(intent)
                 setFile(file)
                 showDetails(file)
             }
@@ -580,7 +580,6 @@ class FileDisplayActivity :
         when (intent.action) {
             Intent.ACTION_VIEW -> handleOpenFileViaIntent(intent)
             OPEN_FILE -> {
-                supportFragmentManager.executePendingTransactions()
                 onOpenFileIntent(intent)
             }
         }
@@ -647,18 +646,41 @@ class FileDisplayActivity :
     // endregion
 
     private fun onOpenFileIntent(intent: Intent) {
-        val extra = intent.getStringExtra(EXTRA_FILE)
-        val file = storageManager.getFileByDecryptedRemotePath(extra)
-        if (file != null) {
-            val fileFragment: OCFileListFragment?
-            val leftFragment = this.leftFragment
-            if (leftFragment is OCFileListFragment) {
-                fileFragment = leftFragment
-            } else {
-                fileFragment = OCFileListFragment()
-                this.leftFragment = fileFragment
+        val file = getFileFromIntent(intent)
+        if (file == null) {
+            Log_OC.e(TAG, "Can't open file intent, file is null")
+            return
+        }
+
+        val currentFragment = leftFragment
+
+        if (currentFragment == null) {
+            Log_OC.e(TAG, "Can't open file intent, left fragment is null")
+            return
+        }
+
+        val fileListFragment: OCFileListFragment = when {
+            currentFragment is OCFileListFragment && currentFragment !is GalleryFragment -> {
+                currentFragment
             }
-            fileFragment.onItemClicked(file)
+
+            else -> {
+                Log_OC.w(
+                    TAG,
+                    "Left fragment is not a valid OCFileListFragment " +
+                        "(was ${currentFragment::class.simpleName}). " +
+                        "Replacing with OCFileListFragment."
+                )
+                val newFragment = OCFileListFragment()
+                setLeftFragment(newFragment, false)
+                setupHomeSearchToolbarWithSortAndListButtons()
+                newFragment
+            }
+        }
+
+        // Post to main thread to ensure fragment is fully attached before interacting
+        Handler(Looper.getMainLooper()).post {
+            fileListFragment.onItemClicked(file)
         }
     }
 
@@ -1291,11 +1313,8 @@ class FileDisplayActivity :
 
         var startFile: OCFile? = null
         if (intent != null) {
-            val fileArgs = intent.getParcelableArgument(EXTRA_FILE, OCFile::class.java)
-            if (fileArgs != null) {
-                startFile = fileArgs
-                file = startFile
-            }
+            startFile = getFileFromIntent(intent)
+            file = startFile
         }
 
         // refresh list of files
@@ -1335,6 +1354,11 @@ class FileDisplayActivity :
             isFileDisplayActivityResumed = false
         }, ON_RESUMED_RESET_DELAY)
     }
+
+    private fun getFileFromIntent(intent: Intent?): OCFile? =
+        intent.getParcelableArgument(EXTRA_FILE, OCFile::class.java)
+            ?: intent?.getStringExtra(EXTRA_FILE_REMOTE_PATH)
+                ?.let { fileDataStorageManager.getFileByDecryptedRemotePath(it) }
 
     private fun checkAndSetMenuItemId() {
         if (MainApp.isOnlyPersonFiles()) {

@@ -129,6 +129,7 @@ public abstract class FileActivity extends DrawerActivity
     LoadingVersionNumberTask.VersionDevInterface, FileDetailSharingFragment.OnEditShareListener, NetworkChangeListener {
 
     public static final String EXTRA_FILE = "com.owncloud.android.ui.activity.FILE";
+    public static final String EXTRA_FILE_REMOTE_PATH = "com.owncloud.android.ui.activity.FILE_REMOTE_PATH";
     public static final String EXTRA_LIVE_PHOTO_FILE = "com.owncloud.android.ui.activity.LIVE.PHOTO.FILE";
     public static final String EXTRA_USER = "com.owncloud.android.ui.activity.USER";
     public static final String EXTRA_FROM_NOTIFICATION = "com.owncloud.android.ui.activity.FROM_NOTIFICATION";
