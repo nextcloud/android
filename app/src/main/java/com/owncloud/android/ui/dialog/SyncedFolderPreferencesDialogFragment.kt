@@ -547,7 +547,7 @@ class SyncedFolderPreferencesDialogFragment :
          *
          * ⚠️ **Important:**
          * These dialog indices are **not** the same as the integer values stored
-         * in the database or defined in [NameCollisionPolicy.value].
+         * in the database or defined in [NameCollisionPolicy].
          * This mapping is purely for UI selection purposes.
          *
          * | Policy              | Dialog Index |
