@@ -1209,8 +1209,8 @@ public class UploadFileOperation extends SyncOperation {
                 case SKIP:
                     Log_OC.d(TAG, "user choose to skip upload if same file exists");
                     markFileAsUploadedForAutoUpload();
-                    removeUploadEntity();
-                    throw new OperationCancelledException();
+                    removeUploadEntity(); // MARK AS SKIPPED and update the DB if necessary
+                    return new RemoteOperationResult<>(ResultCode.OK);
                 case RENAME:
                     mRemotePath = getNewAvailableRemotePath(client, mRemotePath, fileNames, encrypted);
                     mWasRenamed = true;
