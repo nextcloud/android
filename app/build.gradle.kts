@@ -297,18 +297,19 @@ tasks.withType<SpotBugsTask>().configureEach {
     val variantName = variantNameCap.substring(0, 1).lowercase() + variantNameCap.substring(1)
     dependsOn("compile${variantNameCap}Sources")
 
-    classes =
-        fileTree(layout.buildDirectory.get().asFile.toString() + "/intermediates/javac/${variantName}/compile${variantNameCap}JavaWithJavac/classes/")
-    excludeFilter = file("${project.rootDir}/scripts/analysis/spotbugs-filter.xml")
-    reports {
-        register("xml") {
-            required = true
-        }
-        register("html") {
-            required = true
-            outputLocation = layout.buildDirectory.file("reports/spotbugs/spotbugs.html").get().asFile
-            setStylesheet("fancy.xsl")
-        }
+    classes = fileTree(
+        layout.buildDirectory.get().asFile.toString() +
+            "/intermediates/javac/${variantName}/compile${variantNameCap}JavaWithJavac/classes/"
+    )
+    excludeFilter.set(file("${project.rootDir}/scripts/analysis/spotbugs-filter.xml"))
+
+    reports.create("xml") {
+        required.set(true)
+    }
+    reports.create("html") {
+        required.set(true)
+        outputLocation.set(layout.buildDirectory.file("reports/spotbugs/spotbugs.html"))
+        setStylesheet("fancy.xsl")
     }
 }
 
