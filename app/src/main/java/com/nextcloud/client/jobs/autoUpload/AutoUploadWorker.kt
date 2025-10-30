@@ -308,6 +308,8 @@ class AutoUploadWorker(
                         upload.uploadId = generatedId
 
                         val operation = createUploadFileOperation(upload, user)
+                        operation.setFileSystemRepository(repository)
+                        operation.setSyncedFolder(syncedFolder)
                         Log_OC.d(TAG, "🕒 uploading: $localPath, id: $generatedId")
 
                         val result = operation.execute(client)
@@ -317,6 +319,10 @@ class AutoUploadWorker(
                             repository.markFileAsUploaded(localPath, syncedFolder)
                             Log_OC.d(TAG, "✅ upload completed: $localPath")
                         } else {
+                            uploadsStorageManager.updateStatus(
+                                uploadEntity,
+                                UploadsStorageManager.UploadStatus.UPLOAD_FAILED
+                            )
                             Log_OC.e(
                                 TAG,
                                 "❌ upload failed $localPath (${upload.accountName}): ${result.logMessage}"

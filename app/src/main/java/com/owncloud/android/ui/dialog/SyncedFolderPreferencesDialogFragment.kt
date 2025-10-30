@@ -551,7 +551,7 @@ class SyncedFolderPreferencesDialogFragment :
             when (nameCollisionPolicy) {
                 NameCollisionPolicy.OVERWRITE -> 1
                 NameCollisionPolicy.RENAME -> 2
-                NameCollisionPolicy.CANCEL -> 3
+                NameCollisionPolicy.SKIP -> 3
                 NameCollisionPolicy.ASK_USER -> 0
             }
 
@@ -564,7 +564,7 @@ class SyncedFolderPreferencesDialogFragment :
         private fun getNameCollisionPolicyForSelectionIndex(index: Int): NameCollisionPolicy = when (index) {
             1 -> NameCollisionPolicy.OVERWRITE
             2 -> NameCollisionPolicy.RENAME
-            3 -> NameCollisionPolicy.CANCEL
+            3 -> NameCollisionPolicy.SKIP
             0 -> NameCollisionPolicy.ASK_USER
             else -> NameCollisionPolicy.ASK_USER
         }

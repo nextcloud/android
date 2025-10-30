@@ -12,7 +12,7 @@ package com.owncloud.android.files.services;
 public enum NameCollisionPolicy {
     RENAME, // Ordinal corresponds to old forceOverwrite = false (0 in database)
     OVERWRITE, // Ordinal corresponds to old forceOverwrite = true (1 in database)
-    CANCEL,
+    SKIP,
     ASK_USER;
 
     public static final NameCollisionPolicy DEFAULT = RENAME;

@@ -324,7 +324,7 @@ abstract class FileUploaderIT : AbstractOnServerIT() {
                 user,
                 null,
                 ocUpload2,
-                NameCollisionPolicy.CANCEL,
+                NameCollisionPolicy.SKIP,
                 FileUploadWorker.LOCAL_BEHAVIOUR_COPY,
                 targetContext,
                 false,
@@ -373,7 +373,7 @@ abstract class FileUploaderIT : AbstractOnServerIT() {
             user,
             arrayOf(ocFile2),
             FileUploadWorker.LOCAL_BEHAVIOUR_COPY,
-            NameCollisionPolicy.CANCEL
+            NameCollisionPolicy.SKIP
         )
 
         shortSleep()
@@ -400,7 +400,7 @@ abstract class FileUploaderIT : AbstractOnServerIT() {
                 user,
                 null,
                 ocUpload,
-                NameCollisionPolicy.CANCEL,
+                NameCollisionPolicy.SKIP,
                 FileUploadWorker.LOCAL_BEHAVIOUR_COPY,
                 targetContext,
                 false,
@@ -426,7 +426,7 @@ abstract class FileUploaderIT : AbstractOnServerIT() {
             user,
             null,
             ocUpload2,
-            NameCollisionPolicy.CANCEL,
+            NameCollisionPolicy.SKIP,
             FileUploadWorker.LOCAL_BEHAVIOUR_COPY,
             targetContext,
             false,
@@ -477,7 +477,7 @@ abstract class FileUploaderIT : AbstractOnServerIT() {
             user,
             arrayOf(ocFile2),
             FileUploadWorker.LOCAL_BEHAVIOUR_COPY,
-            NameCollisionPolicy.CANCEL
+            NameCollisionPolicy.SKIP
         )
 
         shortSleep()
