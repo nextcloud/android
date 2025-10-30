@@ -1204,16 +1204,13 @@ public class UploadFileOperation extends SyncOperation {
 
         boolean isFileExists = existsFile(client, mRemotePath, fileNames, encrypted);
 
-        if (mNameCollisionPolicy == NameCollisionPolicy.SKIP) {
-            // we don't need file existence to do that, we can still check if user want to skip that file
-            Log_OC.d(TAG, "user choose to skip upload if same file exists");
-            markFileAsUploadedForAutoUpload();
-            removeUploadEntity();
-            throw new OperationCancelledException();
-        }
-
         if (isFileExists) {
             switch (mNameCollisionPolicy) {
+                case SKIP:
+                    Log_OC.d(TAG, "user choose to skip upload if same file exists");
+                    markFileAsUploadedForAutoUpload();
+                    removeUploadEntity();
+                    throw new OperationCancelledException();
                 case RENAME:
                     mRemotePath = getNewAvailableRemotePath(client, mRemotePath, fileNames, encrypted);
                     mWasRenamed = true;
