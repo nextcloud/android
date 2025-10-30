@@ -10,8 +10,8 @@ package com.owncloud.android.files.services;
  * Ordinal of enumerated constants is important for old data compatibility.
  */
 public enum NameCollisionPolicy {
-    RENAME, // Ordinal corresponds to old forceOverwrite = false (0 in database)
-    OVERWRITE, // Ordinal corresponds to old forceOverwrite = true (1 in database)
+    RENAME, // Ordinal corresponds to old forceOverwrite = false (0 in database), do not change to not break compatibility
+    OVERWRITE, // Ordinal corresponds to old forceOverwrite = true (1 in database), do not change to not break compatibility
     SKIP,
     ASK_USER;
 

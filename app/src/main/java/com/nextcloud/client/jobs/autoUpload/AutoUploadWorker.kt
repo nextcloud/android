@@ -358,36 +358,32 @@ class AutoUploadWorker(
         val (needsCharging, needsWifi, uploadAction) = getUploadSettings(syncedFolder)
         Log_OC.d(TAG, "creating oc upload for ${user.accountName}")
 
-        // Get or create upload entity
-        var uploadEntity = uploadsStorageManager.uploadDao.getUploadByAccountAndPaths(
+        // Get existing upload or create new one
+        val uploadEntity = uploadsStorageManager.uploadDao.getUploadByAccountAndPaths(
             localPath = localPath,
             remotePath = remotePath,
             accountName = user.accountName
         )
 
-        val upload: OCUpload
-        if (uploadEntity != null) {
-            // Existing upload - convert and update status
+        val upload = (uploadEntity?.toOCUpload(null) ?: OCUpload(
+            localPath,
+            remotePath,
+            user.accountName
+        )).apply {
+            uploadStatus = UploadsStorageManager.UploadStatus.UPLOAD_IN_PROGRESS
+            nameCollisionPolicy = syncedFolder.nameCollisionPolicy
+            isUseWifiOnly = needsWifi
+            isWhileChargingOnly = needsCharging
+            localAction = uploadAction
 
-            upload = uploadEntity.toOCUpload(null)
-            upload.uploadStatus = UploadsStorageManager.UploadStatus.UPLOAD_IN_PROGRESS
-            uploadEntity = upload.toUploadEntity()
-        } else {
-            // New upload - create with all settings
-
-            upload = OCUpload(localPath, remotePath, user.accountName).apply {
-                nameCollisionPolicy = syncedFolder.nameCollisionPolicy
-                isUseWifiOnly = needsWifi
-                isWhileChargingOnly = needsCharging
-                uploadStatus = UploadsStorageManager.UploadStatus.UPLOAD_IN_PROGRESS
+            // Only set these for new uploads
+            if (uploadEntity == null) {
                 createdBy = UploadFileOperation.CREATED_AS_INSTANT_PICTURE
                 isCreateRemoteFolder = true
-                localAction = uploadAction
             }
-            uploadEntity = upload.toUploadEntity()
         }
 
-        return uploadEntity to upload
+        return upload.toUploadEntity() to upload
     }
 
     private fun createUploadFileOperation(upload: OCUpload, user: User): UploadFileOperation = UploadFileOperation(
