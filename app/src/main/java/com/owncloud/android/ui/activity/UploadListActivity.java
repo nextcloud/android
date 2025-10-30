@@ -35,6 +35,7 @@ import com.owncloud.android.databinding.UploadListLayoutBinding;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.SyncedFolderProvider;
 import com.owncloud.android.datamodel.UploadsStorageManager;
+import com.owncloud.android.db.OCUpload;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
@@ -50,6 +51,8 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import kotlin.Unit;
+import kotlin.jvm.functions.Function1;
 
 /**
  * Activity listing pending, active, and completed uploads. User can delete completed uploads from view. Content of this
@@ -186,18 +189,21 @@ public class UploadListActivity extends FileActivity {
                                                     backgroundJobManager,
                                                     true);
 
-        if (uploadsStorageManager.getFailedUploads().length > 0) {
-            new Thread(() -> {
-                FileUploadHelper.Companion.instance().retryFailedUploads(
-                    uploadsStorageManager,
-                    connectivityService,
-                    accountManager,
-                    powerManagementService);
-                uploadListAdapter.loadUploadItemsFromDb();
-            }).start();
-            DisplayUtils.showSnackMessage(this, R.string.uploader_local_files_uploaded);
-        }
-
+        FileUploadHelper.Companion.instance().getUploadsByStatus(accountManager.getUser().getAccountName(), UploadsStorageManager.UploadStatus.UPLOAD_FAILED, new Function1<>() {
+            @Override
+            public Unit invoke(OCUpload[] ocUploads) {
+                new Thread(() -> {
+                    FileUploadHelper.Companion.instance().retryFailedUploads(
+                        uploadsStorageManager,
+                        connectivityService,
+                        accountManager,
+                        powerManagementService);
+                    uploadListAdapter.loadUploadItemsFromDb();
+                }).start();
+                DisplayUtils.showSnackMessage(UploadListActivity.this, R.string.uploader_local_files_uploaded);
+                return Unit.INSTANCE;
+            }
+        });
 
         // update UI
         uploadListAdapter.loadUploadItemsFromDb(() -> swipeListRefreshLayout.setRefreshing(false));
