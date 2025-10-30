@@ -18,7 +18,6 @@ import android.text.TextUtils;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.device.BatteryStatus;
 import com.nextcloud.client.device.PowerManagementService;
-import com.nextcloud.client.jobs.autoUpload.FileSystemRepository;
 import com.nextcloud.client.jobs.upload.FileUploadHelper;
 import com.nextcloud.client.jobs.upload.FileUploadWorker;
 import com.nextcloud.client.network.Connectivity;
@@ -28,7 +27,6 @@ import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.ArbitraryDataProviderImpl;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.datamodel.SyncedFolder;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.datamodel.UploadsStorageManager;
 import com.owncloud.android.datamodel.e2e.v1.decrypted.Data;
@@ -105,12 +103,9 @@ import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 
 import androidx.annotation.CheckResult;
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import kotlin.Triple;
 import kotlin.Unit;
-import kotlin.coroutines.Continuation;
-import kotlin.coroutines.CoroutineContext;
 
 /**
  * Operation performing the update in the ownCloud server of a file that was modified locally.
@@ -1180,20 +1175,6 @@ public class UploadFileOperation extends SyncOperation {
         return new RemoteOperationResult(ResultCode.OK);
     }
 
-    private void markFileAsUploadedForAutoUpload() {
-        if (fileSystemRepository != null && syncedFolder != null && mUpload != null && mUpload.getLocalPath() != null) {
-            Log_OC.d(TAG, "marking file as successfully uploaded");
-            fileSystemRepository.markFileAsUploadedBlocking(mUpload.getLocalPath(), syncedFolder);
-        }
-    }
-
-    private void removeUploadEntity() {
-        if (mRemotePath != null) {
-            Log_OC.d(TAG, "removing upload entity from db: " + mRemotePath);
-            uploadsStorageManager.uploadDao.deleteByAccountAndRemotePath(user.getAccountName(), mRemotePath);
-        }
-    }
-
     @CheckResult
     private RemoteOperationResult checkNameCollision(OCFile parentFile,
                                                      OwnCloudClient client,
@@ -1208,8 +1189,6 @@ public class UploadFileOperation extends SyncOperation {
             switch (mNameCollisionPolicy) {
                 case SKIP:
                     Log_OC.d(TAG, "user choose to skip upload if same file exists");
-                    markFileAsUploadedForAutoUpload();
-                    removeUploadEntity(); // MARK AS SKIPPED and update the DB if necessary
                     return new RemoteOperationResult<>(ResultCode.OK);
                 case RENAME:
                     mRemotePath = getNewAvailableRemotePath(client, mRemotePath, fileNames, encrypted);
@@ -1695,17 +1674,4 @@ public class UploadFileOperation extends SyncOperation {
 
         void onRenameUpload();
     }
-
-    // region Auto upload related variables and functions
-    private FileSystemRepository fileSystemRepository;
-    private SyncedFolder syncedFolder;
-
-    public void setFileSystemRepository(FileSystemRepository repository) {
-        fileSystemRepository = repository;
-    }
-
-    public void setSyncedFolder(SyncedFolder syncedFolder) {
-        this.syncedFolder = syncedFolder;
-    }
-    // endregion
 }

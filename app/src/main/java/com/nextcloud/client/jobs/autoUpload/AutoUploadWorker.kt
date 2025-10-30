@@ -309,8 +309,6 @@ class AutoUploadWorker(
                         upload.uploadId = generatedId
 
                         val operation = createUploadFileOperation(upload, user)
-                        operation.setFileSystemRepository(repository)
-                        operation.setSyncedFolder(syncedFolder)
                         Log_OC.d(TAG, "🕒 uploading: $localPath, id: $generatedId")
 
                         val result = operation.execute(client)
@@ -320,10 +318,6 @@ class AutoUploadWorker(
                             repository.markFileAsUploaded(localPath, syncedFolder)
                             Log_OC.d(TAG, "✅ upload completed: $localPath")
                         } else {
-                            uploadsStorageManager.updateStatus(
-                                uploadEntity,
-                                UploadsStorageManager.UploadStatus.UPLOAD_FAILED
-                            )
                             Log_OC.e(
                                 TAG,
                                 "❌ upload failed $localPath (${upload.accountName}): ${result.logMessage}"
@@ -365,11 +359,13 @@ class AutoUploadWorker(
             accountName = user.accountName
         )
 
-        val upload = (uploadEntity?.toOCUpload(null) ?: OCUpload(
-            localPath,
-            remotePath,
-            user.accountName
-        )).apply {
+        val upload = (
+            uploadEntity?.toOCUpload(null) ?: OCUpload(
+                localPath,
+                remotePath,
+                user.accountName
+            )
+            ).apply {
             uploadStatus = UploadsStorageManager.UploadStatus.UPLOAD_IN_PROGRESS
             nameCollisionPolicy = syncedFolder.nameCollisionPolicy
             isUseWifiOnly = needsWifi
