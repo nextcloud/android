@@ -33,14 +33,13 @@ public class DataStorageProvider {
     private DataStorageProvider() {}
 
     public StoragePoint[] getAvailableStoragePoints() {
-        if (mCachedStoragePoints.size() != 0) {
+        if (!mCachedStoragePoints.isEmpty()) {
             return mCachedStoragePoints.toArray(new StoragePoint[0]);
         }
 
-        List<String> paths = new ArrayList<>();
         StoragePoint storagePoint;
         for (File f : MainApp.getAppContext().getExternalMediaDirs()) {
-            if (f != null && !paths.contains(f.getAbsolutePath())) {
+            if (f != null) {
                 storagePoint = new StoragePoint();
                 storagePoint.setPath(f.getAbsolutePath());
                 storagePoint.setDescription(f.getAbsolutePath());
@@ -64,9 +63,7 @@ public class DataStorageProvider {
         storagePoint.setPath(MainApp.getAppContext().getFilesDir().getAbsolutePath());
         storagePoint.setPrivacyType(StoragePoint.PrivacyType.PRIVATE);
         storagePoint.setStorageType(StoragePoint.StorageType.INTERNAL);
-        if (!paths.contains(MainApp.getAppContext().getFilesDir().getAbsolutePath())) {
-            mCachedStoragePoints.add(storagePoint);
-        }
+        mCachedStoragePoints.add(storagePoint);
 
         // Add external storage directory if available.
         if (isExternalStorageWritable()) {
@@ -80,9 +77,7 @@ public class DataStorageProvider {
                 storagePoint.setDescription(externalFilesDirPath);
                 storagePoint.setPrivacyType(StoragePoint.PrivacyType.PRIVATE);
                 storagePoint.setStorageType(StoragePoint.StorageType.EXTERNAL);
-                if (!paths.contains(externalFilesDirPath)) {
-                    mCachedStoragePoints.add(storagePoint);
-                }
+                mCachedStoragePoints.add(storagePoint);
             }
         }
 
