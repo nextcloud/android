@@ -8,10 +8,15 @@
 package com.nextcloud.utils
 
 import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.graphics.Matrix
 import androidx.core.graphics.scale
 import androidx.exifinterface.media.ExifInterface
+import com.nextcloud.utils.extensions.toFile
 import com.owncloud.android.lib.common.utils.Log_OC
+import com.owncloud.android.utils.BitmapUtils.calculateSampleFactor
+
+private const val TAG = "BitmapExtension"
 
 @Suppress("MagicNumber")
 fun Bitmap.allocationKilobyte(): Int = allocationByteCount.div(1024)
@@ -115,5 +120,40 @@ fun Bitmap?.rotateBitmapViaExif(orientation: Int): Bitmap? {
     } catch (_: OutOfMemoryError) {
         Log_OC.e("BitmapExtension", "rotating bitmap, out of memory exception")
         this
+    }
+}
+
+/**
+ * Decodes a bitmap from a file path while minimizing memory usage.
+ *
+ * This function first checks if the file exists (via [toFile]), then performs following steps:
+ *
+ * 1. Reads image dimensions using [BitmapFactory.Options.inJustDecodeBounds] without allocating memory.
+ * 2. Calculates a sampling factor with [calculateSampleFactor] to scale down large images efficiently.
+ * 3. Decodes the actual bitmap using the computed sample size.
+ *
+ * @param srcPath Absolute path to the image file.
+ * @param reqWidth Desired width in pixels of the output bitmap.
+ * @param reqHeight Desired height in pixels of the output bitmap.
+ * @return The decoded [Bitmap], or `null` if the file does not exist or decoding fails.
+ */
+fun decodeSampledBitmapFromFile(srcPath: String?, reqWidth: Int, reqHeight: Int): Bitmap? {
+    // check existence of file
+    srcPath?.toFile() ?: return null
+
+    // Read image dimensions without allocating memory just to get pixels
+    val options = BitmapFactory.Options().apply { inJustDecodeBounds = true }
+    BitmapFactory.decodeFile(srcPath, options)
+
+    // Calculate sampling factor
+    options.inSampleSize = calculateSampleFactor(options, reqWidth, reqHeight)
+    options.inJustDecodeBounds = false
+
+    // Decode actual bitmap
+    return try {
+        BitmapFactory.decodeFile(srcPath, options)
+    } catch (e: Exception) {
+        Log_OC.e(TAG, "exception during decoding path: $e")
+        null
     }
 }
