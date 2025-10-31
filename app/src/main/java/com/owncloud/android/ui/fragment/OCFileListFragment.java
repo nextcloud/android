@@ -1248,6 +1248,11 @@ public class OCFileListFragment extends ExtendedListFragment implements
     }
 
     private void handlePendingDownloadFile(OCFile file) {
+        if (!isAccountManagerInitialized()) {
+            Log_OC.e(TAG, "AccountManager not yet initialized");
+            return;
+        }
+
         User account = accountManager.getUser();
         OCCapability capability = mContainerActivity.getStorageManager().getCapability(account.getAccountName());
 
