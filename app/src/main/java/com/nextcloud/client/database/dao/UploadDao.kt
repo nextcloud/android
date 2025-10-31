@@ -72,9 +72,16 @@ interface UploadDao {
     suspend fun updateStatus(remotePath: String, accountName: String, status: Int): Int
 
     @Query(
-        "SELECT * FROM ${ProviderTableMeta.UPLOADS_TABLE_NAME} " +
-            "WHERE ${ProviderTableMeta.UPLOADS_ACCOUNT_NAME} = :accountName " +
-            "AND ${ProviderTableMeta.UPLOADS_STATUS} = :status"
+        """
+    SELECT * FROM ${ProviderTableMeta.UPLOADS_TABLE_NAME}
+    WHERE ${ProviderTableMeta.UPLOADS_ACCOUNT_NAME} = :accountName
+      AND ${ProviderTableMeta.UPLOADS_STATUS} = :status
+      AND (:nameCollisionPolicy IS NULL OR ${ProviderTableMeta.UPLOADS_NAME_COLLISION_POLICY} = :nameCollisionPolicy)
+"""
     )
-    suspend fun getUploadsByStatus(accountName: String, status: Int): List<UploadEntity>
+    suspend fun getUploadsByStatus(
+        accountName: String,
+        status: Int,
+        nameCollisionPolicy: Int? = null
+    ): List<UploadEntity>
 }
