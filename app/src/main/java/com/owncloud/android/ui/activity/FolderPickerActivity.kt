@@ -409,10 +409,10 @@ open class FolderPickerActivity :
         file?.isFolder != true -> true
 
         // all of the target files are already in the selected directory
-        targetFilePaths?.all { PathUtils.isDirectParent(file.remotePath, it) } == true -> false
+        targetFilePaths?.all { PathUtils.isDirectParent(file?.remotePath ?: "", it) } == true -> false
 
         // some of the target files are parents of the selected folder
-        targetFilePaths?.any { PathUtils.isAncestor(it, file.remotePath) } == true -> false
+        targetFilePaths?.any { PathUtils.isAncestor(it, file?.remotePath ?: "") } == true -> false
         else -> true
     }
 
@@ -429,7 +429,7 @@ open class FolderPickerActivity :
     }
 
     private fun getSelectedFolderPathTitle(): String? {
-        val atRoot = (currentDir == null || currentDir.parentId == 0L)
+        val atRoot = (currentDir == null || currentDir?.parentId == 0L)
         return if (atRoot) captionText ?: "" else currentDir?.fileName
     }
 
@@ -555,7 +555,7 @@ open class FolderPickerActivity :
                     if (currentDir == null) {
                         browseRootForRemovedFolder()
                     } else {
-                        if (currentFile == null && !file.isFolder) {
+                        if (currentFile == null && file?.isFolder == false) {
                             // currently selected file was removed in the server, and now we know it
                             currentFile = currentDir
                         }
@@ -580,8 +580,7 @@ open class FolderPickerActivity :
         }
 
         private fun getCurrentFileAndDirectory(): Pair<OCFile?, OCFile?> {
-            val currentFile =
-                if (file == null) null else storageManager.getFileByEncryptedRemotePath(file.remotePath)
+            val currentFile = file?.let { storageManager.getFileByEncryptedRemotePath(it.remotePath) }
 
             val currentDir = if (currentFolder == null) {
                 null

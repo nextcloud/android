@@ -177,7 +177,7 @@ class PreviewImageActivity :
             )
         } else {
             // get parent from path
-            var parentFolder = storageManager.getFileById(file.parentId)
+            var parentFolder = file?.let { storageManager.getFileById(it.parentId) }
 
             if (parentFolder == null) {
                 // should not be necessary
@@ -197,7 +197,13 @@ class PreviewImageActivity :
 
         viewPager = findViewById(R.id.fragmentPager)
 
-        var position = if (savedPosition != null) savedPosition else previewImagePagerAdapter?.getFilePosition(file)
+        var position = if (savedPosition !=
+            null
+        ) {
+            savedPosition
+        } else {
+            file?.let { previewImagePagerAdapter?.getFilePosition(it) }
+        }
         position = position?.toDouble()?.let { max(it, 0.0).toInt() }
 
         viewPager?.adapter = previewImagePagerAdapter
@@ -210,7 +216,7 @@ class PreviewImageActivity :
             viewPager?.setCurrentItem(position, false)
         }
 
-        if (position == 0 && !file.isDown) {
+        if (position == 0 && file?.isDown == false) {
             // this is necessary because mViewPager.setCurrentItem(0) just after setting the
             // adapter does not result in a call to #onPageSelected(0)
             screenState = PreviewImageActivityState.WaitingForBinder
@@ -275,7 +281,7 @@ class PreviewImageActivity :
             if (file != null) {
                 // / Refresh the activity according to the Account and OCFile set
                 setFile(file) // reset after getting it fresh from storageManager
-                updateActionBarTitle(getFile().fileName)
+                updateActionBarTitle(getFile()?.fileName)
                 // if (!stateWasRecovered) {
                 initViewPager(optionalUser.get())
 
@@ -353,8 +359,10 @@ class PreviewImageActivity :
         savedPosition?.let { position ->
 
             previewImagePagerAdapter?.run {
-                updateFile(position, file)
-                notifyItemChanged(position)
+                file?.let {
+                    updateFile(position, it)
+                    notifyItemChanged(position)
+                }
             }
 
             if (user.isPresent) {
@@ -378,7 +386,9 @@ class PreviewImageActivity :
         dismissLoadingDialog()
         screenState = PreviewImageActivityState.Idle
         file = downloadedFile
-        startEditImageActivity(file)
+        file?.let {
+            startEditImageActivity(it)
+        }
     }
 
     override fun onResume() {
