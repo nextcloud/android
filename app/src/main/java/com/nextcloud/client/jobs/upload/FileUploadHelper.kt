@@ -70,7 +70,7 @@ class FileUploadHelper {
     }
 
     companion object {
-        private val TAG = FileUploadWorker::class.java.simpleName
+        private val TAG = FileUploadHelper::class.java.simpleName
 
         @Suppress("MagicNumber")
         const val MAX_FILE_COUNT = 500
@@ -96,19 +96,15 @@ class FileUploadHelper {
     ) {
         if (retryFailedUploadsSemaphore.tryAcquire()) {
             try {
-                val failedUploads = uploadsStorageManager.failedUploads
-                if (failedUploads == null || failedUploads.isEmpty()) {
-                    Log_OC.d(TAG, "Failed uploads are empty or null")
-                    return
+                getFailedUploadsIfExistInRemoteRemove(accountManager.user.accountName) {
+                    retryUploads(
+                        uploadsStorageManager,
+                        connectivityService,
+                        accountManager,
+                        powerManagementService,
+                        it
+                    )
                 }
-
-                retryUploads(
-                    uploadsStorageManager,
-                    connectivityService,
-                    accountManager,
-                    powerManagementService,
-                    failedUploads
-                )
             } finally {
                 retryFailedUploadsSemaphore.release()
             }
@@ -154,6 +150,7 @@ class FileUploadHelper {
         }.map { account ->
             account.name
         }.toHashSet()
+        val uploads = mutableListOf<Long>()
 
         for (failedUpload in failedUploads) {
             if (!accountNames.contains(failedUpload.accountName)) {
@@ -179,6 +176,7 @@ class FileUploadHelper {
                 continue
             }
 
+            uploads.add(failedUpload.uploadId)
             failedUpload.uploadStatus = UploadStatus.UPLOAD_IN_PROGRESS
             uploadsStorageManager.updateUpload(failedUpload)
         }
@@ -186,7 +184,7 @@ class FileUploadHelper {
         accountNames.forEach { accountName ->
             val user = accountManager.getUser(accountName)
             if (user.isPresent) {
-                backgroundJobManager.startFilesUploadJob(user.get(), failedUploads.getUploadIds(), false)
+                backgroundJobManager.startFilesUploadJob(user.get(), uploads.toLongArray(), false)
             }
         }
 
@@ -218,7 +216,7 @@ class FileUploadHelper {
                 localAction = localBehavior
             }
 
-            val id = uploadsStorageManager.uploadDao.insertOrReplace(result.toUploadEntity())
+            val id = uploadsStorageManager.uploadDao.insert(result.toUploadEntity())
             result.uploadId = id
             result
         }
@@ -240,6 +238,19 @@ class FileUploadHelper {
             val result =
                 uploadsStorageManager.uploadDao.getUploadsByStatus(accountName, status.value)
                     .map { it.toOCUpload(null) }.toTypedArray()
+            onCompleted(result)
+        }
+    }
+
+    fun getFailedUploadsIfExistInRemoteRemove(accountName: String, onCompleted: (Array<OCUpload>) -> Unit) {
+        ioScope.launch {
+            val failedUploads =
+                uploadsStorageManager.uploadDao.getUploadsByStatus(
+                    accountName,
+                    UploadStatus.UPLOAD_FAILED.value
+                ).toMutableList()
+
+            val result = failedUploads.map { it.toOCUpload(null) }.toTypedArray()
             onCompleted(result)
         }
     }
@@ -350,7 +361,7 @@ class FileUploadHelper {
                     uploadStatus = UploadStatus.UPLOAD_IN_PROGRESS
                 }
 
-                val id = uploadsStorageManager.uploadDao.insertOrReplace(result.toUploadEntity())
+                val id = uploadsStorageManager.uploadDao.insert(result.toUploadEntity())
                 result.uploadId = id
                 result
             }
