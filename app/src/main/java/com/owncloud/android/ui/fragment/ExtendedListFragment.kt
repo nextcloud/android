@@ -780,6 +780,8 @@ open class ExtendedListFragment :
         }
     }
 
+    protected fun isAccountManagerInitialized(): Boolean = ::accountManager.isInitialized
+
     private data class EmptyListData(val headline: Int, val message: Int, val icon: Int?, val tintIcon: Boolean)
 
     companion object {
