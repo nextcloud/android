@@ -10,6 +10,7 @@ package com.nextcloud.utils.fileNameValidator
 import android.content.Context
 import android.text.TextUtils
 import com.nextcloud.utils.extensions.StringConstants
+import com.nextcloud.utils.extensions.checkWCFRestrictions
 import com.nextcloud.utils.extensions.forbiddenFilenameBaseNames
 import com.nextcloud.utils.extensions.forbiddenFilenameCharacters
 import com.nextcloud.utils.extensions.forbiddenFilenameExtensions
@@ -17,7 +18,6 @@ import com.nextcloud.utils.extensions.forbiddenFilenames
 import com.nextcloud.utils.extensions.removeFileExtension
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.OCFile
-import com.owncloud.android.lib.resources.status.NextcloudVersion
 import com.owncloud.android.lib.resources.status.OCCapability
 
 object FileNameValidator {
@@ -49,10 +49,11 @@ object FileNameValidator {
             }
         }
 
-        if (!capability.version.isNewerOrEqual(NextcloudVersion.nextcloud_30)) {
+        if (!capability.checkWCFRestrictions()) {
             return null
         }
 
+        // region WCF related checks
         checkInvalidCharacters(filename, capability, context)?.let { return it }
 
         val filenameVariants = setOf(filename.lowercase(), filename.removeFileExtension().lowercase())
@@ -91,6 +92,7 @@ object FileNameValidator {
                 }
             }
         }
+        // endregion
 
         return null
     }
