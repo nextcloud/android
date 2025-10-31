@@ -137,6 +137,7 @@ fun Bitmap?.rotateBitmapViaExif(orientation: Int): Bitmap? {
  * @param reqHeight Desired height in pixels of the output bitmap.
  * @return The decoded [Bitmap], or `null` if the file does not exist or decoding fails.
  */
+@Suppress("TooGenericExceptionCaught")
 fun decodeSampledBitmapFromFile(srcPath: String?, reqWidth: Int, reqHeight: Int): Bitmap? {
     // check existence of file
     srcPath?.toFile() ?: return null
