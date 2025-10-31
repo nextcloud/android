@@ -43,7 +43,7 @@ class TextEditorWebView : EditorWebView() {
             finish()
         }
 
-        val editor = editorUtils.getEditor(user.get(), file.mimeType)
+        val editor = editorUtils.getEditor(user.get(), file?.mimeType)
 
         if (editor != null && editor.id == "onlyoffice") {
             webView.settings.userAgentString = generateOnlyOfficeUserAgent()
