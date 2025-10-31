@@ -98,10 +98,13 @@
     <string name="authenticator_activity_login_error">Wystąpił problem podczas przetwarzania żądania logowania. Spróbuj ponownie później.</string>
     <string name="authenticator_activity_no_web_browser_found">Brak dostępnej przeglądarki do otwarcia tego linku.</string>
     <string name="authenticator_activity_please_complete_login_process">Dokończ proces logowania w przeglądarce</string>
+    <string name="auto_upload_battery_saver_mode_warning">Automatyczna aktualizacja jest wstrzymana, ponieważ tryb oszczędzania baterii jest włączony.</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">zachowany w oryginalnym katalogu, jak jest tylko do odczytu</string>
+    <string name="auto_upload_low_battery_warning_info">Niski poziom baterii, aktualizacja może potrwać dłużej.</string>
     <string name="auto_upload_on_wifi">Wysyłaj tylko przez Wi-Fi</string>
     <string name="auto_upload_path">/AutoUpload</string>
     <string name="auto_upload_sub_folder_warning">Ten katalog jest już uwzględniony w synchronizacji katalogu nadrzędnego, co może powodować duplikowanie wysyłanych plików</string>
+    <string name="auto_upload_wifi_only_warning_info">Oczekiwanie na Wi-Fi, aby zacząć aktualizowanie</string>
     <string name="auto_upload_worker_start_text">Przesyłanie plików z %s do %s</string>
     <string name="autoupload_configure">Konfiguruj</string>
     <string name="autoupload_create_new_custom_folder">Utwórz nową niestandardową konfigurację katalogu</string>
@@ -206,6 +209,7 @@
     <string name="contacts_preferences_import_scheduled_fail">Nie udało się rozpocząć importu. Spróbuj ponownie</string>
     <string name="contacts_preferences_no_file_found">Nie znaleziono żadnych plików</string>
     <string name="contacts_preferences_something_strange_happened">Nie odnaleziono Twojej ostatniej kopii zapasowej!</string>
+    <string name="content_observer_work_notification_title">Sprawdzanie zmian treści</string>
     <string name="copied_to_clipboard">Skopiowano do schowka</string>
     <string name="copy_file_error">Wystąpił błąd podczas próby kopiowania tego pliku lub katalogu</string>
     <string name="copy_file_invalid_into_descendent">Nie można skopiować katalogu do jednego z jego podkatalogów</string>
@@ -454,6 +458,7 @@
     <string name="file_not_found_cannot_share">Nie znaleziono pliku. Nie można utworzyć udostępnienia.</string>
     <string name="file_not_synced">Nie można zsynchronizować pliku. Pokazana jest najnowsza dostępna wersja.</string>
     <string name="file_rename">Zmień nazwę</string>
+    <string name="file_upload_limit_message">Możesz wysłać do %d plików na raz.\"</string>
     <string name="file_upload_worker_error_notification_title">Przesyłanie nie powiodło się. Brak połączenia internetowego</string>
     <string name="file_upload_worker_same_file_already_exists">%s już istnieje, nie znaleziono konfliktów</string>
     <string name="file_version_restored_error">Wystąpił błąd podczas przywracania wersji pliku!</string>
@@ -475,6 +480,11 @@
     <string name="folder_already_exists">Katalog już istnieje</string>
     <string name="folder_best_viewed_in">Ten katalog najlepiej oglądać w formacie %1$s.</string>
     <string name="folder_confirm_create">Utwórz</string>
+    <string name="folder_download_counter">%1$d z %2$d &#183; %3$s</string>
+    <string name="folder_download_error_notification_title">Wystąpił błąd podczas synchronizacji katalogu %s</string>
+    <string name="folder_download_insufficient_disk_space_notification_title">Brak miejsca na dysku, synchronizacja przewana</string>
+    <string name="folder_download_success_notification_title">%s pomyślnie zsynchronizowany</string>
+    <string name="folder_download_worker_ticker_id">Synchronizacja…</string>
     <string name="folder_list_empty_headline">Brak katalogów</string>
     <string name="folder_name_empty">Nazwa katalogu nie może być pusta</string>
     <string name="folder_picker_choose_button_text">Wybierz</string>
@@ -610,6 +620,8 @@
     <string name="notification_action_failed">Wykonanie akcji nie powiodło się.</string>
     <string name="notification_channel_background_operations_description">Pokaż powiadomienia o interakcji z wynikami operacji wykonywanych w tle</string>
     <string name="notification_channel_background_operations_name">Operacje w tle</string>
+    <string name="notification_channel_content_observer_description">Wykryj zmiany lokalne</string>
+    <string name="notification_channel_content_observer_name_short">Monitor zawartości</string>
     <string name="notification_channel_download_description">Pokazuje postęp pobierania</string>
     <string name="notification_channel_download_name_short">Pobrane</string>
     <string name="notification_channel_file_sync_description">Pokazuje postęp synchronizacji plików i jej wynik</string>
@@ -990,6 +1002,7 @@
     <string name="unified_search_fragment_calendar_event_not_found">Nie znaleziono zdarzenia, zawsze możesz zsynchronizować, aby zaktualizować. Przekierowanie do strony internetowej…</string>
     <string name="unified_search_fragment_contact_not_found">Nie znaleziono kontaktu, zawsze możesz zsynchronizować, aby zaktualizować. Przekierowanie do strony internetowej…</string>
     <string name="unified_search_fragment_permission_needed">Aby otworzyć wyniki wyszukiwania, wymagane są uprawnienia, w przeciwnym razie nastąpi przekierowanie do strony internetowej…</string>
+    <string name="unified_search_fragment_search_in_this_folder">W tym katalogu</string>
     <string name="unknown">Nieznana</string>
     <string name="unlock_file">Odblokuj plik</string>
     <string name="unread_comments">Nieprzeczytane komentarze</string>
