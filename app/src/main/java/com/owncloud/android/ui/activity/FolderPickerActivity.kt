@@ -21,7 +21,9 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import androidx.activity.OnBackPressedCallback
+import androidx.lifecycle.lifecycleScope
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
+import com.nextcloud.client.account.User
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.utils.fileNameValidator.FileNameValidator
 import com.owncloud.android.R
@@ -48,6 +50,8 @@ import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.ErrorMessageAdapter
 import com.owncloud.android.utils.FileSortOrder
 import com.owncloud.android.utils.PathUtils
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import java.io.File
 import javax.inject.Inject
 
@@ -60,7 +64,6 @@ open class FolderPickerActivity :
     OnSortingOrderListener {
 
     private var mSyncBroadcastReceiver: SyncBroadcastReceiver? = null
-    private var mSyncInProgress = false
     private var mSearchOnlyFolders = false
     var isDoNotEnterEncryptedFolder = false
         private set
@@ -105,7 +108,6 @@ open class FolderPickerActivity :
         }
 
         updateActionBarTitleAndHomeButtonByString(captionText)
-        setBackgroundText()
         handleOnBackPressed()
     }
 
@@ -211,25 +213,6 @@ open class FolderPickerActivity :
         transaction.commit()
     }
 
-    /**
-     * Show a text message on screen view for notifying user if content is loading or folder is empty
-     */
-    private fun setBackgroundText() {
-        val listFragment = listOfFilesFragment
-
-        if (listFragment == null) {
-            Log_OC.e(TAG, "OCFileListFragment is null")
-        }
-
-        listFragment?.let {
-            if (mSyncInProgress) {
-                it.setEmptyListMessage(EmptyListState.LOADING)
-            } else {
-                it.setEmptyListMessage(EmptyListState.ADD_FOLDER)
-            }
-        }
-    }
-
     protected val listOfFilesFragment: OCFileListFragment?
         get() {
             val listOfFiles = supportFragmentManager.findFragmentByTag(TAG_LIST_OF_FOLDERS)
@@ -259,21 +242,33 @@ open class FolderPickerActivity :
     }
 
     private fun startSyncFolderOperation(folder: OCFile?, ignoreETag: Boolean) {
-        val currentSyncTime = System.currentTimeMillis()
-        mSyncInProgress = true
-
-        RefreshFolderOperation(
-            folder,
-            currentSyncTime,
-            false,
-            ignoreETag,
-            storageManager,
-            user.orElseThrow { RuntimeException("User not set") },
-            applicationContext
-        ).also {
-            it.execute(account, this, null, null)
+        val optionalUser = user ?: return
+        if (optionalUser.isEmpty) {
+            return
         }
-        setBackgroundText()
+        val user: User = optionalUser.get()
+        listOfFilesFragment?.setEmptyListMessage(EmptyListState.LOADING)
+
+        lifecycleScope.launch(Dispatchers.IO) {
+            val currentSyncTime = System.currentTimeMillis()
+            val operation = RefreshFolderOperation(
+                folder,
+                currentSyncTime,
+                false,
+                ignoreETag,
+                storageManager,
+                user,
+                applicationContext
+            )
+            operation.execute(
+                account,
+                this@FolderPickerActivity,
+                { _, _ ->
+                    listOfFilesFragment?.setEmptyListMessage(EmptyListState.LOCAL_FILE_LIST_EMPTY_FILE)
+                },
+                null
+            )
+        }
     }
 
     override fun onResume() {
@@ -554,9 +549,7 @@ open class FolderPickerActivity :
                     return
                 }
 
-                if (FileSyncAdapter.EVENT_FULL_SYNC_START == event) {
-                    mSyncInProgress = true
-                } else {
+                if (FileSyncAdapter.EVENT_FULL_SYNC_START != event) {
                     var (currentFile, currentDir) = getCurrentFileAndDirectory()
 
                     if (currentDir == null) {
@@ -572,22 +565,17 @@ open class FolderPickerActivity :
                         file = currentFile
                     }
 
-                    mSyncInProgress = (
-                        FileSyncAdapter.EVENT_FULL_SYNC_END != event &&
-                            RefreshFolderOperation.EVENT_SINGLE_FOLDER_SHARES_SYNCED != event
-                        )
-
                     checkCredentials(syncResult, event)
                 }
 
                 DataHolderUtil.getInstance().delete(intent.getStringExtra(FileSyncAdapter.EXTRA_RESULT))
-                Log_OC.d(TAG, "Setting progress visibility to $mSyncInProgress")
-                setBackgroundText()
             } catch (e: RuntimeException) {
                 Log_OC.e(TAG, "Error on broadcast receiver", e)
                 // avoid app crashes after changing the serial id of RemoteOperationResult
                 // in owncloud library with broadcast notifications pending to process
                 DataHolderUtil.getInstance().delete(intent.getStringExtra(FileSyncAdapter.EXTRA_RESULT))
+            } finally {
+                listOfFilesFragment?.setEmptyListMessage(EmptyListState.LOCAL_FILE_LIST_EMPTY_FILE)
             }
         }
 
