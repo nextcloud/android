@@ -108,7 +108,6 @@ open class FolderPickerActivity :
         }
 
         updateActionBarTitleAndHomeButtonByString(captionText)
-        setBackgroundText()
         handleOnBackPressed()
     }
 
