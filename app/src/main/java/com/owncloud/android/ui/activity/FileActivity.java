@@ -334,6 +334,7 @@ public abstract class FileActivity extends DrawerActivity
      *
      * @return  Main {@link OCFile} handled by the activity.
      */
+    @Nullable
     public OCFile getFile() {
         return mFile;
     }
@@ -654,6 +655,7 @@ public abstract class FileActivity extends DrawerActivity
         return fileUploadHelper;
     }
 
+    @Nullable
     public OCFile getCurrentDir() {
         OCFile file = getFile();
         if (file != null) {
