@@ -32,6 +32,7 @@ fun File?.logFileSize(tag: String) {
  * @receiver String path to a file.
  * @return [File] instance if the file exists, or `null` if the path is null, empty, or non-existent.
  */
+@Suppress("ReturnCount")
 fun String.toFile(): File? {
     if (isNullOrEmpty()) {
         Log_OC.e(TAG, "given path is null or empty")
