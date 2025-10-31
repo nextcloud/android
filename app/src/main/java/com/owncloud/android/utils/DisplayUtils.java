@@ -79,6 +79,7 @@ import java.net.IDN;
 import java.nio.charset.Charset;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -828,7 +829,7 @@ public final class DisplayUtils {
 
     private static void setThumbnailFirstTimeForFile(OCFile file, ImageView thumbnailView, FileDataStorageManager storageManager, List<ThumbnailsCacheManager.ThumbnailGenerationTask> asyncTasks, boolean gridView, LoaderImageView shimmerThumbnail, User user, AppPreferences preferences, Context context, ViewThemeUtils viewThemeUtils) {
         if (file.getRemoteId() != null) {
-            generateNewThumbnail(file, thumbnailView, user, storageManager, asyncTasks, gridView, context, shimmerThumbnail, preferences, viewThemeUtils);
+            generateNewThumbnail(file, thumbnailView, user, storageManager, new ArrayList<>(asyncTasks), gridView, context, shimmerThumbnail, preferences, viewThemeUtils);
             return;
         }
 
@@ -873,7 +874,7 @@ public final class DisplayUtils {
     private static void setThumbnailFromCache(OCFile file, ImageView thumbnailView, FileDataStorageManager storageManager, List<ThumbnailsCacheManager.ThumbnailGenerationTask> asyncTasks, boolean gridView, LoaderImageView shimmerThumbnail, User user, AppPreferences preferences, Context context, ViewThemeUtils viewThemeUtils) {
         final var thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(ThumbnailsCacheManager.PREFIX_THUMBNAIL + file.getRemoteId());
         if (thumbnail == null || file.isUpdateThumbnailNeeded()) {
-            generateNewThumbnail(file, thumbnailView, user, storageManager, asyncTasks, gridView, context, shimmerThumbnail, preferences, viewThemeUtils);
+            generateNewThumbnail(file, thumbnailView, user, storageManager, new ArrayList<>(asyncTasks), gridView, context, shimmerThumbnail, preferences, viewThemeUtils);
             setThumbnailBackgroundForPNGFileIfNeeded(file, context, thumbnailView);
             return;
         }
@@ -901,7 +902,7 @@ public final class DisplayUtils {
                                              ImageView thumbnailView,
                                              User user,
                                              FileDataStorageManager storageManager,
-                                             List<ThumbnailsCacheManager.ThumbnailGenerationTask> asyncTasks,
+                                             ArrayList<ThumbnailsCacheManager.ThumbnailGenerationTask> asyncTasks,
                                              boolean gridView,
                                              Context context,
                                              LoaderImageView shimmerThumbnail,
@@ -986,7 +987,7 @@ public final class DisplayUtils {
                                    new ThumbnailsCacheManager.ThumbnailGenerationTaskObject(file,
                                                                                             file.getRemoteId()));
             thumbnailView.invalidate();
-        } catch (IllegalArgumentException e) {
+        } catch (Exception e) {
             Log_OC.d(TAG, "ThumbnailGenerationTask : " + e.getMessage());
         }
     }
