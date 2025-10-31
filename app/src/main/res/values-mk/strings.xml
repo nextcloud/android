@@ -369,6 +369,7 @@
     <string name="invalid_url">Неправилна URL</string>
     <string name="invisible">Невидливо</string>
     <string name="link">Линк</string>
+    <string name="link_share_editing">Уредување</string>
     <string name="list_layout">Listed layout</string>
     <string name="load_more_results">Вчитај повеќе резултати</string>
     <string name="local_file_list_empty">Нема датотеки во оваа папка.</string>
