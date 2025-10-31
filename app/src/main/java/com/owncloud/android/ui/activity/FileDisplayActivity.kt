@@ -1311,10 +1311,11 @@ class FileDisplayActivity :
         val ocFileListFragment = leftFragment
         syncAndUpdateFolder(ignoreETag = true, ignoreFocus = true)
 
-        var startFile: OCFile? = null
-        if (intent != null) {
-            startFile = getFileFromIntent(intent)
-            file = startFile
+        // Try to get the OCFile from the intent, if one was provided when launching this activity.
+        // 'file' comes from the FileActivity base class and represents the currently opened file or folder.
+        // We update it only when a valid file is found in the intent.
+        val startFile = intent?.let { getFileFromIntent(it) }?.also {
+            file = it
         }
 
         // refresh list of files
