@@ -88,32 +88,39 @@ class FileUploadHelper {
         fun buildRemoteName(accountName: String, remotePath: String): String = accountName + remotePath
     }
 
+    fun getUploadsByStatus(accountName: String, status: UploadStatus, onCompleted: (Array<OCUpload>) -> Unit) {
+        ioScope.launch {
+            val result = uploadsStorageManager.uploadDao.getUploadsByStatus(
+                accountName,
+                status.value
+            ).map { it.toOCUpload(null) }.toTypedArray()
+            onCompleted(result)
+        }
+    }
+
     fun retryFailedUploads(
         uploadsStorageManager: UploadsStorageManager,
         connectivityService: ConnectivityService,
         accountManager: UserAccountManager,
         powerManagementService: PowerManagementService
     ) {
-        if (retryFailedUploadsSemaphore.tryAcquire()) {
-            try {
-                val failedUploads = uploadsStorageManager.failedUploads
-                if (failedUploads == null || failedUploads.isEmpty()) {
-                    Log_OC.d(TAG, "Failed uploads are empty or null")
-                    return
-                }
+        if (!retryFailedUploadsSemaphore.tryAcquire()) {
+            Log_OC.d(TAG, "skipping retryFailedUploads, already running")
+            return
+        }
 
+        try {
+            getUploadsByStatus(accountManager.user.accountName, UploadStatus.UPLOAD_FAILED) {
                 retryUploads(
                     uploadsStorageManager,
                     connectivityService,
                     accountManager,
                     powerManagementService,
-                    failedUploads
+                    uploads = it
                 )
-            } finally {
-                retryFailedUploadsSemaphore.release()
             }
-        } else {
-            Log_OC.d(TAG, "Skip retryFailedUploads since it is already running")
+        } finally {
+            retryFailedUploadsSemaphore.release()
         }
     }
 
@@ -123,18 +130,18 @@ class FileUploadHelper {
         accountManager: UserAccountManager,
         powerManagementService: PowerManagementService
     ): Boolean {
-        val cancelledUploads = uploadsStorageManager.cancelledUploadsForCurrentAccount
-        if (cancelledUploads == null || cancelledUploads.isEmpty()) {
-            return false
+        var result = false
+        getUploadsByStatus(accountManager.user.accountName, UploadStatus.UPLOAD_CANCELLED) {
+            result = retryUploads(
+                uploadsStorageManager,
+                connectivityService,
+                accountManager,
+                powerManagementService,
+                it
+            )
         }
 
-        return retryUploads(
-            uploadsStorageManager,
-            connectivityService,
-            accountManager,
-            powerManagementService,
-            cancelledUploads
-        )
+        return result
     }
 
     @Suppress("ComplexCondition")
@@ -143,35 +150,32 @@ class FileUploadHelper {
         connectivityService: ConnectivityService,
         accountManager: UserAccountManager,
         powerManagementService: PowerManagementService,
-        failedUploads: Array<OCUpload>
+        uploads: Array<OCUpload>
     ): Boolean {
         var showNotExistMessage = false
         val isOnline = checkConnectivity(connectivityService)
         val connectivity = connectivityService.connectivity
         val batteryStatus = powerManagementService.battery
-        val accountNames = accountManager.accounts.filter { account ->
-            accountManager.getUser(account.name).isPresent
-        }.map { account ->
-            account.name
-        }.toHashSet()
 
-        for (failedUpload in failedUploads) {
-            if (!accountNames.contains(failedUpload.accountName)) {
-                uploadsStorageManager.removeUpload(failedUpload)
-                continue
-            }
+        val uploadsToRetry = mutableListOf<Long>()
 
-            val uploadResult =
-                checkUploadConditions(failedUpload, connectivity, batteryStatus, powerManagementService, isOnline)
+        for (upload in uploads) {
+            val uploadResult = checkUploadConditions(
+                upload,
+                connectivity,
+                batteryStatus,
+                powerManagementService,
+                isOnline
+            )
 
             if (uploadResult != UploadResult.UPLOADED) {
-                if (failedUpload.lastResult != uploadResult) {
+                if (upload.lastResult != uploadResult) {
                     // Setting Upload status else cancelled uploads will behave wrong, when retrying
                     // Needs to happen first since lastResult wil be overwritten by setter
-                    failedUpload.uploadStatus = UploadStatus.UPLOAD_FAILED
+                    upload.uploadStatus = UploadStatus.UPLOAD_FAILED
 
-                    failedUpload.lastResult = uploadResult
-                    uploadsStorageManager.updateUpload(failedUpload)
+                    upload.lastResult = uploadResult
+                    uploadsStorageManager.updateUpload(upload)
                 }
                 if (uploadResult == UploadResult.FILE_NOT_FOUND) {
                     showNotExistMessage = true
@@ -179,15 +183,18 @@ class FileUploadHelper {
                 continue
             }
 
-            failedUpload.uploadStatus = UploadStatus.UPLOAD_IN_PROGRESS
-            uploadsStorageManager.updateUpload(failedUpload)
+            // Only uploads that passed checks get marked in progress and are collected for scheduling
+            upload.uploadStatus = UploadStatus.UPLOAD_IN_PROGRESS
+            uploadsStorageManager.updateUpload(upload)
+            uploadsToRetry.add(upload.uploadId)
         }
 
-        accountNames.forEach { accountName ->
-            val user = accountManager.getUser(accountName)
-            if (user.isPresent) {
-                backgroundJobManager.startFilesUploadJob(user.get(), failedUploads.getUploadIds(), false)
-            }
+        if (uploadsToRetry.isNotEmpty()) {
+            backgroundJobManager.startFilesUploadJob(
+                accountManager.user,
+                uploadsToRetry.toLongArray(),
+                false
+            )
         }
 
         return showNotExistMessage
@@ -232,15 +239,6 @@ class FileUploadHelper {
     fun updateUploadStatus(remotePath: String, accountName: String, status: UploadStatus) {
         ioScope.launch {
             uploadsStorageManager.uploadDao.updateStatus(remotePath, accountName, status.value)
-        }
-    }
-
-    fun getUploadsByStatus(accountName: String, status: UploadStatus, onCompleted: (Array<OCUpload>) -> Unit) {
-        ioScope.launch {
-            val result =
-                uploadsStorageManager.uploadDao.getUploadsByStatus(accountName, status.value)
-                    .map { it.toOCUpload(null) }.toTypedArray()
-            onCompleted(result)
         }
     }
 
