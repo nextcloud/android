@@ -620,6 +620,7 @@
     <string name="notification_channel_background_operations_description">バックグラウンド操作の結果に対する通知を表示する</string>
     <string name="notification_channel_background_operations_name">バックグランド処理</string>
     <string name="notification_channel_content_observer_description">ローカルファイルの変更が検出されました。</string>
+    <string name="notification_channel_content_observer_name_short">コンテンツオブザーバー</string>
     <string name="notification_channel_download_description">ダウンロードの進行状況を表示</string>
     <string name="notification_channel_download_name_short">ダウンロード</string>
     <string name="notification_channel_file_sync_description">ファイルの同期の進行状況と結果を表示します</string>
@@ -648,6 +649,7 @@
     <string name="offline_operations_worker_notification_create_folder_conflict_text">%sを作成することができません。サーバーにはすでに同じ名前のフォルダーが存在します。</string>
     <string name="offline_operations_worker_notification_error_text">オフライン操作を完了できません。%s</string>
     <string name="offline_operations_worker_notification_manager_ticker">オフライン操作</string>
+    <string name="offline_operations_worker_notification_remove_conflict_text">%s の削除をキャンセルしました。ファイルはサーバー上で変更されています。</string>
     <string name="offline_operations_worker_notification_rename_conflict_text">名前を%sへ変更することができません。サーバーにはすでに同じ名前のファイルが存在します。</string>
     <string name="offline_operations_worker_notification_start_text">オフライン操作を開始しています</string>
     <string name="oneHour">1時間</string>
