@@ -10,8 +10,8 @@
     <string name="bottom_navigation_menu_favorites_label">Favorites</string>
     <string name="bottom_navigation_menu_assistant_label">Assistant</string>
     <string name="bottom_navigation_menu_media_label">Media</string>
-
-
+    <string name="file_list_error_headline">Poor connection</string>
+    <string name="file_list_error_description">Check your internet connection or try again later</string>
     <string name="about_android">%1$s Android app</string>
     <string name="about_version">version %1$s</string>
     <string name="about_version_with_build">version %1$s, build #%2$s</string>
