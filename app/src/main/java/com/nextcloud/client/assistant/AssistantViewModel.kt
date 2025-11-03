@@ -14,19 +14,27 @@ import com.nextcloud.client.assistant.model.ScreenState
 import com.nextcloud.client.assistant.repository.local.AssistantLocalRepository
 import com.nextcloud.client.assistant.repository.remote.AssistantRemoteRepository
 import com.owncloud.android.R
+import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.lib.resources.assistant.v2.model.Task
 import com.owncloud.android.lib.resources.assistant.v2.model.TaskTypeData
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 
 class AssistantViewModel(
     private val remoteRepository: AssistantRemoteRepository,
     private val localRepository: AssistantLocalRepository
 ) : ViewModel() {
+
+    companion object {
+        private const val TAG = "AssistantViewModel"
+        private const val TASK_LIST_POLLING_INTERVAL_MS = 15_000L
+    }
 
     private val _screenState = MutableStateFlow<ScreenState?>(null)
     val screenState: StateFlow<ScreenState?> = _screenState
@@ -48,8 +56,51 @@ class AssistantViewModel(
     private val _filteredTaskList = MutableStateFlow<List<Task>?>(null)
     val filteredTaskList: StateFlow<List<Task>?> = _filteredTaskList
 
+    private var taskPollingJob: Job? = null
+
     init {
         fetchTaskTypes()
+    }
+
+    // region task polling
+    fun startTaskListPolling() {
+        stopTaskListPolling()
+
+        taskPollingJob = viewModelScope.launch(Dispatchers.IO) {
+            try {
+                while (isActive) {
+                    Log_OC.d(TAG, "Polling task list...")
+                    fetchTaskListSuspending()
+                    delay(TASK_LIST_POLLING_INTERVAL_MS)
+                }
+            } finally {
+                Log_OC.d(TAG, "Polling coroutine cancelled")
+            }
+        }
+    }
+
+    fun stopTaskListPolling() {
+        taskPollingJob?.cancel()
+        taskPollingJob = null
+    }
+    // endregion
+
+    private suspend fun fetchTaskListSuspending() {
+        val cachedTasks = localRepository.getCachedTasks()
+        if (cachedTasks.isNotEmpty()) {
+            _filteredTaskList.value = cachedTasks.sortedByDescending { it.id }
+            updateScreenState()
+        }
+
+        val taskType = _selectedTaskType.value?.id ?: return
+        val result = remoteRepository.getTaskList(taskType)
+        if (result != null) {
+            taskList = result
+            _filteredTaskList.value = taskList?.sortedByDescending { it.id }
+            localRepository.cacheTasks(result)
+        }
+
+        updateScreenState()
     }
 
     @Suppress("MagicNumber")
