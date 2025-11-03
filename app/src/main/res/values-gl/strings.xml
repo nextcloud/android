@@ -94,7 +94,7 @@
     <string name="auth_wrong_connection_title">Non foi posíbel estabelecer a conexión</string>
     <string name="authenticator_activity_cancel_login">Cancelar o acceso</string>
     <string name="authenticator_activity_empty_base_url">Introduza un enderezo de servidor válido.</string>
-    <string name="authenticator_activity_empty_response_message">Non foi posíbel obter os datos do acceso. Ténteo de novo.</string>
+    <string name="authenticator_activity_empty_response_message">Non é posíbel obter os datos do acceso. Ténteo de novo.</string>
     <string name="authenticator_activity_login_error">Houbo un problema ao procesar a súa solicitude de acceso. Ténteo de novo máis tarde.</string>
     <string name="authenticator_activity_no_web_browser_found">Non hai ningún navegador dispoñíbel para abrir esta ligazón.</string>
     <string name="authenticator_activity_please_complete_login_process">Complete o proceso de acceso no seu navegador</string>
@@ -455,7 +455,7 @@
     <string name="file_name_validator_error_reserved_names">%s é un nome prohibido.</string>
     <string name="file_name_validator_rename_before_move_or_copy">%s. Cambie o nome do ficheiro antes de mover ou copiar</string>
     <string name="file_not_found">Non se atopou o ficheiro</string>
-    <string name="file_not_found_cannot_share">Non se atopou o ficheiro. Non foi posíbel crear unha compartición.</string>
+    <string name="file_not_found_cannot_share">Non se atopou o ficheiro. Non é posíbel crear unha compartición.</string>
     <string name="file_not_synced">Non foi posíbel sincronizar o ficheiro. Amosase a última versión dispoñíbel.</string>
     <string name="file_rename">Cambiar o nome</string>
     <string name="file_upload_limit_message">Pode enviar ata %d ficheiros á vez.</string>
@@ -912,7 +912,7 @@
     <string name="ssl_validator_label_validity_to">Ata:</string>
     <string name="ssl_validator_no_info_about_error">- Non hai información sobre este erro</string>
     <string name="ssl_validator_not_saved">Non foi posíbel gardar o certificado</string>
-    <string name="ssl_validator_null_cert">Non é posíbel amosar o certificado.</string>
+    <string name="ssl_validator_null_cert">Non foi posíbel amosar o certificado.</string>
     <string name="ssl_validator_question">Aínda así, quere fiar neste certificado igualmente?</string>
     <string name="ssl_validator_reason_cert_expired">- O certificado do servidor caducou</string>
     <string name="ssl_validator_reason_cert_not_trusted">- O certificado do servidor non é de confianza</string>
