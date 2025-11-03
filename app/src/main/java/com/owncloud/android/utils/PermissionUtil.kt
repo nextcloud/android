@@ -323,6 +323,11 @@ object PermissionUtil {
     @Suppress("ReturnCount")
     @JvmStatic
     fun requestMediaLocationPermission(activity: Activity) {
+        val preferences = AppPreferencesImpl.fromContext(activity)
+        if (preferences.isStoragePermissionRequested) {
+            return
+        }
+
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
             return
         }
