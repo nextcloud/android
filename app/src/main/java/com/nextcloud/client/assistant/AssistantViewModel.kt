@@ -11,7 +11,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.nextcloud.client.assistant.model.ScreenOverlayState
 import com.nextcloud.client.assistant.model.ScreenState
-import com.nextcloud.client.assistant.repository.AssistantRepositoryType
+import com.nextcloud.client.assistant.repository.local.AssistantLocalRepository
+import com.nextcloud.client.assistant.repository.remote.AssistantRemoteRepository
 import com.owncloud.android.R
 import com.owncloud.android.lib.resources.assistant.v2.model.Task
 import com.owncloud.android.lib.resources.assistant.v2.model.TaskTypeData
@@ -22,7 +23,10 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
-class AssistantViewModel(private val repository: AssistantRepositoryType) : ViewModel() {
+class AssistantViewModel(
+    private val remoteRepository: AssistantRemoteRepository,
+    private val localRepository: AssistantLocalRepository
+) : ViewModel() {
 
     private val _screenState = MutableStateFlow<ScreenState?>(null)
     val screenState: StateFlow<ScreenState?> = _screenState
@@ -51,7 +55,7 @@ class AssistantViewModel(private val repository: AssistantRepositoryType) : View
     @Suppress("MagicNumber")
     fun createTask(input: String, taskType: TaskTypeData) {
         viewModelScope.launch(Dispatchers.IO) {
-            val result = repository.createTask(input, taskType)
+            val result = remoteRepository.createTask(input, taskType)
 
             val messageId = if (result.isSuccess) {
                 R.string.assistant_screen_task_create_success_message
@@ -76,7 +80,7 @@ class AssistantViewModel(private val repository: AssistantRepositoryType) : View
 
     private fun fetchTaskTypes() {
         viewModelScope.launch(Dispatchers.IO) {
-            val taskTypesResult = repository.getTaskTypes()
+            val taskTypesResult = remoteRepository.getTaskTypes()
 
             if (taskTypesResult == null) {
                 updateSnackbarMessage(R.string.assistant_screen_task_types_error_state_message)
@@ -98,12 +102,17 @@ class AssistantViewModel(private val repository: AssistantRepositoryType) : View
 
     fun fetchTaskList() {
         viewModelScope.launch(Dispatchers.IO) {
-            _screenState.update {
-                ScreenState.Refreshing
+            // Try cached data first
+            val cachedTasks = localRepository.getCachedTasks()
+            if (cachedTasks.isNotEmpty()) {
+                _filteredTaskList.update {
+                    cachedTasks.sortedByDescending { it.id }
+                }
+                updateScreenState()
             }
 
             val taskType = _selectedTaskType.value?.id ?: return@launch
-            val result = repository.getTaskList(taskType)
+            val result = remoteRepository.getTaskList(taskType)
             if (result != null) {
                 taskList = result
                 _filteredTaskList.update {
@@ -111,6 +120,8 @@ class AssistantViewModel(private val repository: AssistantRepositoryType) : View
                         task.id
                     }
                 }
+
+                localRepository.cacheTasks(result)
                 updateSnackbarMessage(null)
             } else {
                 updateSnackbarMessage(R.string.assistant_screen_task_list_error_state_message)
@@ -132,7 +143,7 @@ class AssistantViewModel(private val repository: AssistantRepositoryType) : View
 
     fun deleteTask(id: Long) {
         viewModelScope.launch(Dispatchers.IO) {
-            val result = repository.deleteTask(id)
+            val result = remoteRepository.deleteTask(id)
 
             val messageId = if (result.isSuccess) {
                 R.string.assistant_screen_task_delete_success_message
@@ -144,6 +155,7 @@ class AssistantViewModel(private val repository: AssistantRepositoryType) : View
 
             if (result.isSuccess) {
                 removeTaskFromList(id)
+                localRepository.deleteTask(id)
             }
         }
     }

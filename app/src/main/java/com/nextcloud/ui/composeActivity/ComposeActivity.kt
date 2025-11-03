@@ -18,7 +18,9 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import com.nextcloud.client.assistant.AssistantScreen
 import com.nextcloud.client.assistant.AssistantViewModel
-import com.nextcloud.client.assistant.repository.AssistantRepository
+import com.nextcloud.client.assistant.repository.local.AssistantLocalRepositoryImpl
+import com.nextcloud.client.assistant.repository.remote.AssistantRemoteRepositoryImpl
+import com.nextcloud.client.database.NextcloudDatabase
 import com.nextcloud.common.NextcloudClient
 import com.nextcloud.utils.extensions.getSerializableArgument
 import com.owncloud.android.R
@@ -79,10 +81,13 @@ class ComposeActivity : DrawerActivity() {
                 isChecked = true
             }
 
+            val dao = NextcloudDatabase.instance().assistantDao()
+
             nextcloudClient?.let { client ->
                 AssistantScreen(
                     viewModel = AssistantViewModel(
-                        repository = AssistantRepository(client, capabilities)
+                        remoteRepository = AssistantRemoteRepositoryImpl(client, capabilities),
+                        localRepository = AssistantLocalRepositoryImpl(dao)
                     ),
                     activity = this,
                     capability = capabilities

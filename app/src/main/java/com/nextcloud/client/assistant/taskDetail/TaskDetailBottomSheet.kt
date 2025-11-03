@@ -95,8 +95,11 @@ fun TaskDetailBottomSheet(task: Task, showTaskActions: () -> Unit, dismiss: () -
                 horizontalArrangement = Arrangement.Center,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Image(painter = painterResource(R.drawable.ic_assistant), contentDescription = "assistant icon",
-                    modifier = Modifier.size(12.dp))
+                Image(
+                    painter = painterResource(R.drawable.ic_assistant),
+                    contentDescription = "assistant icon",
+                    modifier = Modifier.size(12.dp)
+                )
 
                 Spacer(modifier = Modifier.width(4.dp))
 
@@ -107,7 +110,6 @@ fun TaskDetailBottomSheet(task: Task, showTaskActions: () -> Unit, dismiss: () -
                 )
             }
         }
-
     }
 }
 

@@ -41,7 +41,8 @@ import com.nextcloud.client.assistant.component.CenterText
 import com.nextcloud.client.assistant.extensions.getInputTitle
 import com.nextcloud.client.assistant.model.ScreenOverlayState
 import com.nextcloud.client.assistant.model.ScreenState
-import com.nextcloud.client.assistant.repository.AssistantMockRepository
+import com.nextcloud.client.assistant.repository.local.MockAssistantLocalRepository
+import com.nextcloud.client.assistant.repository.remote.MockAssistantRemoteRepository
 import com.nextcloud.client.assistant.task.TaskView
 import com.nextcloud.client.assistant.taskTypes.TaskTypesRow
 import com.nextcloud.ui.composeActivity.ComposeActivity
@@ -72,7 +73,7 @@ fun AssistantScreen(viewModel: AssistantViewModel, capability: OCCapability, act
     @Suppress("MagicNumber")
     Box(
         modifier = Modifier.pullToRefresh(
-            screenState == ScreenState.Refreshing,
+            false,
             pullRefreshState,
             onRefresh = {
                 scope.launch {
@@ -84,7 +85,7 @@ fun AssistantScreen(viewModel: AssistantViewModel, capability: OCCapability, act
     ) {
         ShowScreenState(screenState, selectedTaskType, taskTypes, viewModel, filteredTaskList, capability)
 
-        ShowLinearProgressIndicator(screenState, pullRefreshState)
+        ShowLinearProgressIndicator(pullRefreshState)
 
         AddFloatingActionButton(
             modifier = Modifier
@@ -109,10 +110,6 @@ private fun ShowScreenState(
     capability: OCCapability
 ) {
     when (screenState) {
-        ScreenState.Refreshing -> {
-            CenterText(text = stringResource(id = R.string.assistant_screen_loading))
-        }
-
         ScreenState.EmptyContent -> {
             EmptyTaskList(selectedTaskType, taskTypes, viewModel)
         }
@@ -133,15 +130,11 @@ private fun ShowScreenState(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun ShowLinearProgressIndicator(screenState: ScreenState?, pullToRefreshState: PullToRefreshState) {
-    if (screenState == ScreenState.Refreshing) {
-        LinearProgressIndicator(modifier = Modifier.fillMaxWidth())
-    } else {
-        LinearProgressIndicator(
-            progress = { pullToRefreshState.distanceFraction },
-            modifier = Modifier.fillMaxWidth()
-        )
-    }
+private fun ShowLinearProgressIndicator(pullToRefreshState: PullToRefreshState) {
+    LinearProgressIndicator(
+        progress = { pullToRefreshState.distanceFraction },
+        modifier = Modifier.fillMaxWidth()
+    )
 }
 
 @Composable
@@ -287,11 +280,10 @@ private fun EmptyTaskList(
 @Composable
 @Preview
 private fun AssistantScreenPreview() {
-    val mockRepository = AssistantMockRepository()
     MaterialTheme(
         content = {
             AssistantScreen(
-                viewModel = AssistantViewModel(repository = mockRepository),
+                viewModel = getMockViewModel(false),
                 activity = ComposeActivity(),
                 capability = OCCapability().apply {
                     versionMayor = 30
@@ -305,11 +297,10 @@ private fun AssistantScreenPreview() {
 @Composable
 @Preview
 private fun AssistantEmptyScreenPreview() {
-    val mockRepository = AssistantMockRepository(giveEmptyTasks = true)
     MaterialTheme(
         content = {
             AssistantScreen(
-                viewModel = AssistantViewModel(repository = mockRepository),
+                viewModel = getMockViewModel(true),
                 activity = ComposeActivity(),
                 capability = OCCapability().apply {
                     versionMayor = 30
@@ -317,4 +308,10 @@ private fun AssistantEmptyScreenPreview() {
             )
         }
     )
+}
+
+private fun getMockViewModel(giveEmptyTasks: Boolean): AssistantViewModel {
+    val mockLocalRepository = MockAssistantLocalRepository()
+    val mockRemoteRepository = MockAssistantRemoteRepository(giveEmptyTasks)
+    return AssistantViewModel(remoteRepository = mockRemoteRepository, localRepository = mockLocalRepository)
 }

@@ -1,11 +1,10 @@
 /*
  * Nextcloud - Android Client
  *
- * SPDX-FileCopyrightText: 2024 Alper Ozturk <alper.ozturk@nextcloud.com>
- * SPDX-FileCopyrightText: 2024 Nextcloud GmbH
- * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
+ * SPDX-FileCopyrightText: 2025 Alper Ozturk <alper.ozturk@nextcloud.com>
+ * SPDX-License-Identifier: AGPL-3.0-or-later
  */
-package com.nextcloud.client.assistant.repository
+package com.nextcloud.client.assistant.repository.remote
 
 import com.nextcloud.utils.extensions.getRandomString
 import com.owncloud.android.lib.common.operations.RemoteOperationResult
@@ -16,7 +15,7 @@ import com.owncloud.android.lib.resources.assistant.v2.model.TaskOutput
 import com.owncloud.android.lib.resources.assistant.v2.model.TaskTypeData
 
 @Suppress("MagicNumber")
-class AssistantMockRepository(private val giveEmptyTasks: Boolean = false) : AssistantRepositoryType {
+class MockAssistantRemoteRepository(private val giveEmptyTasks: Boolean = false) : AssistantRemoteRepository {
     override fun getTaskTypes(): List<TaskTypeData> = listOf(
         TaskTypeData(
             id = "core:text2text",

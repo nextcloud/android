@@ -8,7 +8,6 @@
 package com.nextcloud.client.assistant.model
 
 enum class ScreenState {
-    Refreshing,
     EmptyContent,
     Content
 }
