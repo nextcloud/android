@@ -16,24 +16,20 @@ class MockAssistantLocalRepository : AssistantLocalRepository {
     private val tasks = mutableListOf<Task>()
     private val mutex = Mutex()
 
-    override suspend fun cacheTasks(tasks: List<Task>) {
+    override suspend fun cacheTasks(tasks: List<Task>, accountName: String) {
         mutex.withLock {
             this.tasks.clear()
             this.tasks.addAll(tasks)
         }
     }
 
-    override suspend fun getCachedTasks(): List<Task> = mutex.withLock { tasks.toList() }
+    override suspend fun getCachedTasks(accountName: String): List<Task> = mutex.withLock { tasks.toList() }
 
-    override suspend fun insertTask(task: Task) {
+    override suspend fun insertTask(task: Task, accountName: String) {
         mutex.withLock { tasks.add(task) }
     }
 
-    override suspend fun deleteTask(id: Long) {
+    override suspend fun deleteTask(id: Long, accountName: String) {
         mutex.withLock { tasks.removeAll { it.id == id } }
-    }
-
-    override suspend fun clearAll() {
-        mutex.withLock { tasks.clear() }
     }
 }

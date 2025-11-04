@@ -86,6 +86,7 @@ class ComposeActivity : DrawerActivity() {
             nextcloudClient?.let { client ->
                 AssistantScreen(
                     viewModel = AssistantViewModel(
+                        accountName = userAccountManager.user.accountName,
                         remoteRepository = AssistantRemoteRepositoryImpl(client, capabilities),
                         localRepository = AssistantLocalRepositoryImpl(dao)
                     ),

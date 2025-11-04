@@ -15,6 +15,7 @@ import com.owncloud.android.db.ProviderMeta
 data class AssistantEntity(
     @PrimaryKey(autoGenerate = true)
     val id: Long = 0L,
+    val accountName: String?,
     val type: String?,
     val status: String?,
     val userId: String?,

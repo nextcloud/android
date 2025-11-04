@@ -15,32 +15,29 @@ import com.owncloud.android.lib.resources.assistant.v2.model.TaskOutput
 
 class AssistantLocalRepositoryImpl(private val assistantDao: AssistantDao) : AssistantLocalRepository {
 
-    override suspend fun cacheTasks(tasks: List<Task>) {
-        val entities = tasks.map { it.toEntity() }
+    override suspend fun cacheTasks(tasks: List<Task>, accountName: String) {
+        val entities = tasks.map { it.toEntity(accountName) }
         assistantDao.insertAssistantTasks(entities)
     }
 
-    override suspend fun getCachedTasks(): List<Task> {
-        val entities = assistantDao.getAllAssistantTasks()
+    override suspend fun getCachedTasks(accountName: String): List<Task> {
+        val entities = assistantDao.getAssistantTasksByAccount(accountName)
         return entities.map { it.toTask() }
     }
 
-    override suspend fun insertTask(task: Task) {
-        assistantDao.insertAssistantTask(task.toEntity())
+    override suspend fun insertTask(task: Task, accountName: String) {
+        assistantDao.insertAssistantTask(task.toEntity(accountName))
     }
 
-    override suspend fun deleteTask(id: Long) {
-        val cached = assistantDao.getAllAssistantTasks().firstOrNull { it.id == id } ?: return
+    override suspend fun deleteTask(id: Long, accountName: String) {
+        val cached = assistantDao.getAssistantTasksByAccount(accountName).firstOrNull { it.id == id } ?: return
         assistantDao.deleteAssistantTask(cached)
     }
 
-    override suspend fun clearAll() {
-        assistantDao.deleteAllAssistantTasks()
-    }
-
     // region Mapping helpers
-    private fun Task.toEntity(): AssistantEntity = AssistantEntity(
+    private fun Task.toEntity(accountName: String): AssistantEntity = AssistantEntity(
         id = this.id,
+        accountName = accountName,
         type = this.type,
         status = this.status,
         userId = this.userId,

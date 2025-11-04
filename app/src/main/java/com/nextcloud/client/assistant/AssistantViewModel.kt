@@ -27,6 +27,7 @@ import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 
 class AssistantViewModel(
+    private val accountName: String,
     private val remoteRepository: AssistantRemoteRepository,
     private val localRepository: AssistantLocalRepository
 ) : ViewModel() {
@@ -86,10 +87,9 @@ class AssistantViewModel(
     // endregion
 
     private suspend fun fetchTaskListSuspending() {
-        val cachedTasks = localRepository.getCachedTasks()
+        val cachedTasks = localRepository.getCachedTasks(accountName)
         if (cachedTasks.isNotEmpty()) {
             _filteredTaskList.value = cachedTasks.sortedByDescending { it.id }
-            updateTaskListScreenState()
         }
 
         val taskType = _selectedTaskType.value?.id ?: return
@@ -97,10 +97,8 @@ class AssistantViewModel(
         if (result != null) {
             taskList = result
             _filteredTaskList.value = taskList?.sortedByDescending { it.id }
-            localRepository.cacheTasks(result)
+            localRepository.cacheTasks(result, accountName)
         }
-
-        updateTaskListScreenState()
     }
 
     @Suppress("MagicNumber")
@@ -150,7 +148,7 @@ class AssistantViewModel(
     fun fetchTaskList() {
         viewModelScope.launch(Dispatchers.IO) {
             // Try cached data first
-            val cachedTasks = localRepository.getCachedTasks()
+            val cachedTasks = localRepository.getCachedTasks(accountName)
             if (cachedTasks.isNotEmpty()) {
                 _filteredTaskList.update {
                     cachedTasks.sortedByDescending { it.id }
@@ -168,7 +166,7 @@ class AssistantViewModel(
                     }
                 }
 
-                localRepository.cacheTasks(result)
+                localRepository.cacheTasks(result, accountName)
                 updateSnackbarMessage(null)
             } else {
                 updateSnackbarMessage(R.string.assistant_screen_task_list_error_state_message)
@@ -202,7 +200,7 @@ class AssistantViewModel(
 
             if (result.isSuccess) {
                 removeTaskFromList(id)
-                localRepository.deleteTask(id)
+                localRepository.deleteTask(id, accountName)
             }
         }
     }

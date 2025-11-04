@@ -30,9 +30,12 @@ interface AssistantDao {
     @Delete
     suspend fun deleteAssistantTask(task: AssistantEntity)
 
-    @Query("DELETE FROM ${ProviderMeta.ProviderTableMeta.ASSISTANT_TABLE_NAME}")
-    suspend fun deleteAllAssistantTasks()
-
-    @Query("SELECT * FROM ${ProviderMeta.ProviderTableMeta.ASSISTANT_TABLE_NAME} ORDER BY lastUpdated DESC")
-    suspend fun getAllAssistantTasks(): List<AssistantEntity>
+    @Query(
+        """
+    SELECT * FROM ${ProviderMeta.ProviderTableMeta.ASSISTANT_TABLE_NAME}
+    WHERE accountName = :accountName
+    ORDER BY lastUpdated DESC
+"""
+    )
+    suspend fun getAssistantTasksByAccount(accountName: String): List<AssistantEntity>
 }

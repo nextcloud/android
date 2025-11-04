@@ -24,7 +24,7 @@ sealed class ScreenState {
 
         fun emptyTaskList(): ScreenState = EmptyContent(
             descriptionId = R.string.assistant_screen_create_a_new_task_from_bottom_right_text,
-            iconId = R.drawable.ic_plus
+            iconId = null
         )
     }
 }

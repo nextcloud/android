@@ -10,9 +10,8 @@ package com.nextcloud.client.assistant.repository.local
 import com.owncloud.android.lib.resources.assistant.v2.model.Task
 
 interface AssistantLocalRepository {
-    suspend fun cacheTasks(tasks: List<Task>)
-    suspend fun getCachedTasks(): List<Task>
-    suspend fun insertTask(task: Task)
-    suspend fun deleteTask(id: Long)
-    suspend fun clearAll()
+    suspend fun cacheTasks(tasks: List<Task>, accountName: String)
+    suspend fun getCachedTasks(accountName: String): List<Task>
+    suspend fun insertTask(task: Task, accountName: String)
+    suspend fun deleteTask(id: Long, accountName: String)
 }

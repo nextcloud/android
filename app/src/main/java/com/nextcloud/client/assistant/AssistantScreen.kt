@@ -9,6 +9,7 @@ package com.nextcloud.client.assistant
 
 import android.app.Activity
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
@@ -30,6 +31,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
+import androidx.compose.material3.Text
 import androidx.compose.material3.pulltorefresh.pullToRefresh
 import androidx.compose.material3.pulltorefresh.rememberPullToRefreshState
 import androidx.compose.runtime.Composable
@@ -39,15 +41,17 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.nextcloud.client.assistant.component.AddTaskAlertDialog
-import com.nextcloud.client.assistant.component.CenterText
 import com.nextcloud.client.assistant.extensions.getInputTitle
 import com.nextcloud.client.assistant.model.ScreenOverlayState
 import com.nextcloud.client.assistant.model.ScreenState
@@ -237,7 +241,9 @@ private fun AssistantContent(
         modifier = Modifier
             .fillMaxSize()
             .padding(paddingValues)
-            .padding(12.dp)
+            .padding(12.dp),
+        verticalArrangement = Arrangement.Top,
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
         items(taskList, key = { it.id }) { task ->
             TaskView(
@@ -259,20 +265,27 @@ private fun EmptyContent(paddingValues: PaddingValues, iconId: Int?, description
         modifier = Modifier
             .fillMaxSize()
             .padding(paddingValues)
-            .padding(16.dp)
+            .padding(16.dp),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
         iconId?.let {
             Image(
                 painter = painterResource(id = iconId),
-                modifier = Modifier.size(16.dp),
+                modifier = Modifier.size(32.dp),
                 colorFilter = ColorFilter.tint(color = colorResource(R.color.text_color)),
-                contentDescription = "status icon"
+                contentDescription = "empty content icon"
             )
 
             Spacer(modifier = Modifier.height(8.dp))
         }
 
-        CenterText(text = stringResource(id = descriptionId))
+        Text(
+            text = stringResource(descriptionId),
+            fontSize = 18.sp,
+            textAlign = TextAlign.Center,
+            color = colorResource(R.color.text_color)
+        )
     }
 }
 
@@ -313,5 +326,9 @@ private fun AssistantEmptyScreenPreview() {
 private fun getMockViewModel(giveEmptyTasks: Boolean): AssistantViewModel {
     val mockLocalRepository = MockAssistantLocalRepository()
     val mockRemoteRepository = MockAssistantRemoteRepository(giveEmptyTasks)
-    return AssistantViewModel(remoteRepository = mockRemoteRepository, localRepository = mockLocalRepository)
+    return AssistantViewModel(
+        accountName = "test:localhost",
+        remoteRepository = mockRemoteRepository,
+        localRepository = mockLocalRepository
+    )
 }
