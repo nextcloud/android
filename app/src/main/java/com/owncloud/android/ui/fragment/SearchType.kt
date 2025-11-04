@@ -32,5 +32,6 @@ enum class EmptyListState : Parcelable {
     ADD_FOLDER,
     ONLY_ON_DEVICE,
     LOCAL_FILE_LIST_EMPTY_FILE,
-    LOCAL_FILE_LIST_EMPTY_FOLDER
+    LOCAL_FILE_LIST_EMPTY_FOLDER,
+    ERROR
 }
