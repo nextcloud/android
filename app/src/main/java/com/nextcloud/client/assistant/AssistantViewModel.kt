@@ -89,7 +89,7 @@ class AssistantViewModel(
         val cachedTasks = localRepository.getCachedTasks()
         if (cachedTasks.isNotEmpty()) {
             _filteredTaskList.value = cachedTasks.sortedByDescending { it.id }
-            updateScreenState()
+            updateTaskListScreenState()
         }
 
         val taskType = _selectedTaskType.value?.id ?: return
@@ -100,7 +100,7 @@ class AssistantViewModel(
             localRepository.cacheTasks(result)
         }
 
-        updateScreenState()
+        updateTaskListScreenState()
     }
 
     @Suppress("MagicNumber")
@@ -132,14 +132,10 @@ class AssistantViewModel(
     private fun fetchTaskTypes() {
         viewModelScope.launch(Dispatchers.IO) {
             val taskTypesResult = remoteRepository.getTaskTypes()
-
-            if (taskTypesResult == null) {
-                updateSnackbarMessage(R.string.assistant_screen_task_types_error_state_message)
-                return@launch
-            }
-
-            if (taskTypesResult.isEmpty()) {
-                updateSnackbarMessage(R.string.assistant_screen_task_list_empty_message)
+            if (taskTypesResult == null || taskTypesResult.isEmpty()) {
+                _screenState.update {
+                    ScreenState.emptyTaskTypes()
+                }
                 return@launch
             }
 
@@ -159,7 +155,7 @@ class AssistantViewModel(
                 _filteredTaskList.update {
                     cachedTasks.sortedByDescending { it.id }
                 }
-                updateScreenState()
+                updateTaskListScreenState()
             }
 
             val taskType = _selectedTaskType.value?.id ?: return@launch
@@ -178,14 +174,14 @@ class AssistantViewModel(
                 updateSnackbarMessage(R.string.assistant_screen_task_list_error_state_message)
             }
 
-            updateScreenState()
+            updateTaskListScreenState()
         }
     }
 
-    private fun updateScreenState() {
+    private fun updateTaskListScreenState() {
         _screenState.update {
             if (_filteredTaskList.value?.isEmpty() == true) {
-                ScreenState.EmptyContent
+                ScreenState.emptyTaskList()
             } else {
                 ScreenState.Content
             }
@@ -217,7 +213,7 @@ class AssistantViewModel(
         }
     }
 
-    fun updateScreenState(value: ScreenOverlayState?) {
+    fun updateTaskListScreenState(value: ScreenOverlayState?) {
         _screenOverlayState.update {
             value
         }

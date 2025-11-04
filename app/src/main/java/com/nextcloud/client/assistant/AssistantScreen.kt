@@ -8,23 +8,28 @@
 package com.nextcloud.client.assistant
 
 import android.app.Activity
-import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.FabPosition
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.pulltorefresh.PullToRefreshState
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.pulltorefresh.pullToRefresh
 import androidx.compose.material3.pulltorefresh.rememberPullToRefreshState
 import androidx.compose.runtime.Composable
@@ -32,9 +37,12 @@ import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -54,9 +62,10 @@ import com.owncloud.android.R
 import com.owncloud.android.lib.resources.assistant.v2.model.Task
 import com.owncloud.android.lib.resources.assistant.v2.model.TaskTypeData
 import com.owncloud.android.lib.resources.status.OCCapability
-import com.owncloud.android.utils.DisplayUtils
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+
+private const val PULL_TO_REFRESH_DELAY = 1500L
 
 @Suppress("LongMethod")
 @OptIn(ExperimentalMaterial3Api::class)
@@ -71,6 +80,14 @@ fun AssistantScreen(viewModel: AssistantViewModel, capability: OCCapability, act
     val taskTypes by viewModel.taskTypes.collectAsState()
     val scope = rememberCoroutineScope()
     val pullRefreshState = rememberPullToRefreshState()
+    val snackbarHostState = remember { SnackbarHostState() }
+
+    LaunchedEffect(messageId) {
+        messageId?.let {
+            snackbarHostState.showSnackbar(activity.getString(it))
+            viewModel.updateSnackbarMessage(null)
+        }
+    }
 
     LaunchedEffect(Unit) {
         viewModel.startTaskListPolling()
@@ -82,85 +99,79 @@ fun AssistantScreen(viewModel: AssistantViewModel, capability: OCCapability, act
         }
     }
 
-    @Suppress("MagicNumber")
-    Box(
+    Scaffold(
         modifier = Modifier.pullToRefresh(
             false,
             pullRefreshState,
             onRefresh = {
                 scope.launch {
-                    delay(1500)
+                    delay(PULL_TO_REFRESH_DELAY)
                     viewModel.fetchTaskList()
                 }
             }
-        )
-    ) {
-        ShowScreenState(screenState, selectedTaskType, taskTypes, viewModel, filteredTaskList, capability)
-
-        ShowLinearProgressIndicator(pullRefreshState)
-
-        AddFloatingActionButton(
-            modifier = Modifier
-                .align(Alignment.BottomEnd)
-                .padding(16.dp),
-            selectedTaskType,
-            viewModel
-        )
-    }
-
-    showSnackBarMessage(messageId, activity, viewModel)
-    ShowOverlayState(screenOverlayState, activity, viewModel)
-}
-
-@Composable
-private fun ShowScreenState(
-    screenState: ScreenState?,
-    selectedTaskType: TaskTypeData?,
-    taskTypes: List<TaskTypeData>?,
-    viewModel: AssistantViewModel,
-    filteredTaskList: List<Task>?,
-    capability: OCCapability
-) {
-    when (screenState) {
-        ScreenState.EmptyContent -> {
-            EmptyTaskList(selectedTaskType, taskTypes, viewModel)
+        ),
+        topBar = {
+            taskTypes?.let {
+                TaskTypesRow(selectedTaskType, data = it) { task ->
+                    viewModel.selectTaskType(task)
+                }
+            }
+        },
+        floatingActionButton = {
+            if (!taskTypes.isNullOrEmpty()) {
+                AddTaskButton(
+                    selectedTaskType,
+                    viewModel
+                )
+            }
+        },
+        floatingActionButtonPosition = FabPosition.EndOverlay,
+        snackbarHost = {
+            SnackbarHost(snackbarHostState)
         }
+    ) { paddingValues ->
+        when (screenState) {
+            is ScreenState.EmptyContent -> {
+                val state = (screenState as ScreenState.EmptyContent)
+                EmptyContent(
+                    paddingValues,
+                    state.iconId,
+                    state.descriptionId
+                )
+            }
 
-        ScreenState.Content -> {
-            AssistantContent(
-                filteredTaskList ?: listOf(),
-                taskTypes,
-                selectedTaskType,
-                viewModel,
-                capability
+            ScreenState.Content -> {
+                AssistantContent(
+                    paddingValues,
+                    filteredTaskList ?: listOf(),
+                    viewModel,
+                    capability
+                )
+            }
+
+            else -> EmptyContent(
+                paddingValues,
+                R.drawable.spinner_inner,
+                R.string.assistant_screen_loading
             )
         }
 
-        null -> Unit
+        LinearProgressIndicator(
+            progress = { pullRefreshState.distanceFraction },
+            modifier = Modifier.fillMaxWidth()
+        )
+
+        OverlayState(screenOverlayState, activity, viewModel)
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun ShowLinearProgressIndicator(pullToRefreshState: PullToRefreshState) {
-    LinearProgressIndicator(
-        progress = { pullToRefreshState.distanceFraction },
-        modifier = Modifier.fillMaxWidth()
-    )
-}
-
-@Composable
-private fun AddFloatingActionButton(
-    modifier: Modifier,
-    selectedTaskType: TaskTypeData?,
-    viewModel: AssistantViewModel
-) {
+private fun AddTaskButton(selectedTaskType: TaskTypeData?, viewModel: AssistantViewModel) {
     FloatingActionButton(
-        modifier = modifier,
         onClick = {
             selectedTaskType?.let {
                 val newState = ScreenOverlayState.AddTask(it, "")
-                viewModel.updateScreenState(newState)
+                viewModel.updateTaskListScreenState(newState)
             }
         }
     ) {
@@ -168,20 +179,9 @@ private fun AddFloatingActionButton(
     }
 }
 
-private fun showSnackBarMessage(messageId: Int?, activity: Activity, viewModel: AssistantViewModel) {
-    messageId?.let {
-        DisplayUtils.showSnackMessage(
-            activity,
-            activity.getString(it)
-        )
-
-        viewModel.updateSnackbarMessage(null)
-    }
-}
-
 @Suppress("LongMethod")
 @Composable
-private fun ShowOverlayState(state: ScreenOverlayState?, activity: Activity, viewModel: AssistantViewModel) {
+private fun OverlayState(state: ScreenOverlayState?, activity: Activity, viewModel: AssistantViewModel) {
     when (state) {
         is ScreenOverlayState.AddTask -> {
             AddTaskAlertDialog(
@@ -194,7 +194,7 @@ private fun ShowOverlayState(state: ScreenOverlayState?, activity: Activity, vie
                     }
                 },
                 dismiss = {
-                    viewModel.updateScreenState(null)
+                    viewModel.updateTaskListScreenState(null)
                 }
             )
         }
@@ -203,22 +203,22 @@ private fun ShowOverlayState(state: ScreenOverlayState?, activity: Activity, vie
             SimpleAlertDialog(
                 title = stringResource(id = R.string.assistant_screen_delete_task_alert_dialog_title),
                 description = stringResource(id = R.string.assistant_screen_delete_task_alert_dialog_description),
-                dismiss = { viewModel.updateScreenState(null) },
+                dismiss = { viewModel.updateTaskListScreenState(null) },
                 onComplete = { viewModel.deleteTask(state.id) }
             )
         }
 
         is ScreenOverlayState.TaskActions -> {
             val actions = state.getActions(activity, onEditCompleted = { addTask ->
-                viewModel.updateScreenState(addTask)
+                viewModel.updateTaskListScreenState(addTask)
             }, onDeleteCompleted = { deleteTask ->
-                viewModel.updateScreenState(deleteTask)
+                viewModel.updateTaskListScreenState(deleteTask)
             })
 
             MoreActionsBottomSheet(
                 title = state.task.getInputTitle(),
                 actions = actions,
-                dismiss = { viewModel.updateScreenState(null) }
+                dismiss = { viewModel.updateTaskListScreenState(null) }
             )
         }
 
@@ -228,63 +228,51 @@ private fun ShowOverlayState(state: ScreenOverlayState?, activity: Activity, vie
 
 @Composable
 private fun AssistantContent(
+    paddingValues: PaddingValues,
     taskList: List<Task>,
-    taskTypes: List<TaskTypeData>?,
-    selectedTaskType: TaskTypeData?,
     viewModel: AssistantViewModel,
     capability: OCCapability
 ) {
-    Column(modifier = Modifier.fillMaxSize()) {
-        taskTypes?.let {
-            TaskTypesRow(selectedTaskType, data = taskTypes) { task ->
-                viewModel.selectTaskType(task)
-            }
-        }
-
-        LazyColumn(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(12.dp)
-        ) {
-            items(taskList) { task ->
-                TaskView(
-                    task,
-                    capability,
-                    showTaskActions = {
-                        val newState = ScreenOverlayState.TaskActions(task)
-                        viewModel.updateScreenState(newState)
-                    }
-                )
-                Spacer(modifier = Modifier.height(8.dp))
-            }
+    LazyColumn(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(paddingValues)
+            .padding(12.dp)
+    ) {
+        items(taskList, key = { it.id }) { task ->
+            TaskView(
+                task,
+                capability,
+                showTaskActions = {
+                    val newState = ScreenOverlayState.TaskActions(task)
+                    viewModel.updateTaskListScreenState(newState)
+                }
+            )
+            Spacer(modifier = Modifier.height(8.dp))
         }
     }
 }
 
 @Composable
-private fun EmptyTaskList(
-    selectedTaskType: TaskTypeData?,
-    taskTypes: List<TaskTypeData>?,
-    viewModel: AssistantViewModel
-) {
+private fun EmptyContent(paddingValues: PaddingValues, iconId: Int?, descriptionId: Int) {
     Column(
         modifier = Modifier
             .fillMaxSize()
+            .padding(paddingValues)
             .padding(16.dp)
     ) {
-        taskTypes?.let {
-            TaskTypesRow(selectedTaskType, data = taskTypes) { task ->
-                viewModel.selectTaskType(task)
-            }
+        iconId?.let {
+            Image(
+                painter = painterResource(id = iconId),
+                modifier = Modifier.size(16.dp),
+                colorFilter = ColorFilter.tint(color = colorResource(R.color.text_color)),
+                contentDescription = "status icon"
+            )
 
             Spacer(modifier = Modifier.height(8.dp))
         }
 
-        CenterText(
-            text = stringResource(
-                id = R.string.assistant_screen_create_a_new_task_from_bottom_right_text
-            )
-        )
+        CenterText(text = stringResource(id = descriptionId))
     }
 }
 
