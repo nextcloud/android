@@ -97,7 +97,7 @@ class GalleryAdapter(
     }
 
     private fun invalidateCaches() {
-        Log_OC.d(TAG, "invalidateCaches")
+        Log_OC.d(TAG, "invalidating caches")
         cachedAllFiles = null
         updateFilesCount()
         rebuildFilePositionMap()
