@@ -20,6 +20,7 @@ import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.datamodel.VirtualFolderType
 import com.owncloud.android.ui.fragment.FileFragment
+import com.owncloud.android.utils.FileSortOrder
 import com.owncloud.android.utils.FileStorageUtils
 
 /**
@@ -62,7 +63,9 @@ class PreviewImagePagerAdapter : FragmentStateAdapter {
         imageFiles = mStorageManager.getFolderImages(parentFolder, onlyOnDevice)
 
         val sortOrder = preferences.getSortOrderByFolder(parentFolder)
-        imageFiles = sortOrder.sortCloudFiles(imageFiles.toMutableList()).toMutableList()
+        val foldersBeforeFiles = preferences.isSortFoldersBeforeFiles()
+        val favoritesFirst = preferences.isSortFavoritesFirst()
+        imageFiles = sortOrder.sortCloudFiles(imageFiles.toMutableList(), foldersBeforeFiles, favoritesFirst)
 
         mObsoleteFragments = HashSet()
         mObsoletePositions = HashSet()
@@ -82,7 +85,8 @@ class PreviewImagePagerAdapter : FragmentStateAdapter {
         fragmentActivity: FragmentActivity,
         type: VirtualFolderType?,
         user: User,
-        storageManager: FileDataStorageManager
+        storageManager: FileDataStorageManager,
+        preferences: AppPreferences
     ) : super(fragmentActivity) {
         requireNotNull(type) { "NULL parent folder" }
         require(type != VirtualFolderType.NONE) { "NONE virtual folder type" }
@@ -95,6 +99,13 @@ class PreviewImagePagerAdapter : FragmentStateAdapter {
             imageFiles = FileStorageUtils.sortOcFolderDescDateModifiedWithoutFavoritesFirst(imageFiles)
         } else {
             imageFiles = mStorageManager.getVirtualFolderContent(type, true)
+        }
+
+        if (type == VirtualFolderType.FAVORITE) {
+            val sortOrder = preferences.getSortOrderByType(FileSortOrder.Type.favoritesListView)
+            val foldersBeforeFiles = preferences.isSortFoldersBeforeFiles()
+            val favoritesFirst = preferences.isSortFavoritesFirst()
+            imageFiles = sortOrder.sortCloudFiles(imageFiles.toMutableList(), foldersBeforeFiles, favoritesFirst)
         }
 
         mObsoleteFragments = HashSet()
@@ -194,4 +205,11 @@ class PreviewImagePagerAdapter : FragmentStateAdapter {
     override fun createFragment(position: Int): Fragment = getItem(position)
 
     override fun getItemCount(): Int = imageFiles.size
+
+    override fun getItemId(position: Int): Long {
+        // The item ID function is needed to detect whether the deletion of the current item needs a UI update
+        return imageFiles.getOrNull(position)?.fileId ?: position.toLong()
+    }
+
+    override fun containsItem(itemId: Long): Boolean = imageFiles.any { it.fileId == itemId }
 }

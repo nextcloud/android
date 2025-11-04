@@ -38,7 +38,9 @@ import com.owncloud.android.utils.FileExportUtils;
 import com.owncloud.android.utils.FileStorageUtils;
 
 import java.io.File;
+import java.io.IOException;
 import java.lang.ref.WeakReference;
+import java.nio.file.Files;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
@@ -115,7 +117,11 @@ public class DownloadFileOperation extends RemoteOperation {
         if (file.getStoragePath() != null) {
             File parentFile = new File(file.getStoragePath()).getParentFile();
             if (parentFile != null && !parentFile.exists()) {
-                parentFile.mkdirs();
+                try {
+                    Files.createDirectories(parentFile.toPath());
+                } catch (IOException e) {
+                    return FileStorageUtils.getDefaultSavePathFor(user.getAccountName(), file);
+                }
             }
             File path = new File(file.getStoragePath());  // re-downloads should be done over the original file
             if (path.canWrite() || parentFile != null && parentFile.canWrite()) {
@@ -196,10 +202,7 @@ public class DownloadFileOperation extends RemoteOperation {
         downloadOperation = new DownloadFileRemoteOperation(file.getRemotePath(), tmpFolder);
 
         if (downloadType == DownloadType.DOWNLOAD) {
-            Iterator<OnDatatransferProgressListener> listener = dataTransferListeners.iterator();
-            while (listener.hasNext()) {
-                downloadOperation.addDatatransferProgressListener(listener.next());
-            }
+            dataTransferListeners.forEach(downloadOperation::addDatatransferProgressListener);
         }
 
         result = downloadOperation.execute(client);

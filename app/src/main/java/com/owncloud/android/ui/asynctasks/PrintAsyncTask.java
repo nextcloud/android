@@ -28,6 +28,8 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.lang.ref.WeakReference;
+import java.nio.file.Files;
+import java.util.Objects;
 
 import static android.content.Context.PRINT_SERVICE;
 
@@ -56,69 +58,67 @@ public class PrintAsyncTask extends AsyncTask<Void, Void, Boolean> {
 
     @Override
     protected Boolean doInBackground(Void... voids) {
+        if (file == null) return Boolean.FALSE;
+
         HttpClient client = new HttpClient();
         GetMethod getMethod = null;
 
-        FileOutputStream fos = null;
         try {
             getMethod = new GetMethod(url);
             int status = client.executeMethod(getMethod);
-            if (status == HttpStatus.SC_OK) {
-                if (file.exists() && !file.delete()) {
-                    return Boolean.FALSE;
-                }
+            if (status != HttpStatus.SC_OK) return Boolean.FALSE;
 
-                file.getParentFile().mkdirs();
+            if (file.exists() && !file.delete()) return Boolean.FALSE;
 
-                if (!file.getParentFile().exists()) {
-                    Log_OC.d(TAG, file.getParentFile().getAbsolutePath() + " does not exist");
-                    return Boolean.FALSE;
-                }
+            File parentFile = file.getParentFile();
+            if (parentFile == null) return Boolean.FALSE;
 
-                if (!file.createNewFile()) {
-                    Log_OC.d(TAG, file.getAbsolutePath() + " could not be created");
-                    return Boolean.FALSE;
-                }
+            Files.createDirectories(parentFile.toPath());
+            if (!parentFile.exists()) {
+                Log_OC.d(TAG, parentFile.getAbsolutePath() + " does not exist");
+                return Boolean.FALSE;
+            }
 
+            if (!file.createNewFile()) {
+                Log_OC.d(TAG, file.getAbsolutePath() + " could not be created");
+                return Boolean.FALSE;
+            }
+
+            Header contentLengthHeader = getMethod.getResponseHeader("Content-Length");
+            long totalToTransfer = 0;
+            if (contentLengthHeader != null && !contentLengthHeader.getValue().isEmpty()) {
+                totalToTransfer = Long.parseLong(contentLengthHeader.getValue());
+            }
+
+            try (
                 BufferedInputStream bis = new BufferedInputStream(getMethod.getResponseBodyAsStream());
-                fos = new FileOutputStream(file);
+                FileOutputStream fos = new FileOutputStream(file)
+            ) {
+                byte[] buffer = new byte[4096];
                 long transferred = 0;
+                int read;
 
-                Header contentLength = getMethod.getResponseHeader("Content-Length");
-                long totalToTransfer = contentLength != null && contentLength.getValue().length() > 0 ?
-                    Long.parseLong(contentLength.getValue()) : 0;
-
-                byte[] bytes = new byte[4096];
-                int readResult;
-                while ((readResult = bis.read(bytes)) != -1) {
-                    fos.write(bytes, 0, readResult);
-                    transferred += readResult;
+                while ((read = bis.read(buffer)) != -1) {
+                    fos.write(buffer, 0, read);
+                    transferred += read;
                 }
-                // Check if the file is completed
-                if (transferred != totalToTransfer) {
+
+                if (totalToTransfer > 0 && transferred != totalToTransfer) {
+                    Log_OC.d(TAG, "Transferred bytes (" + transferred +
+                        ") != expected (" + totalToTransfer + ")");
                     return Boolean.FALSE;
-                }
-
-                if (getMethod.getResponseBodyAsStream() != null) {
-                    getMethod.getResponseBodyAsStream().close();
                 }
             }
-        } catch (IOException e) {
-            Log_OC.e(TAG, "Error reading file", e);
+
+            return Boolean.TRUE;
+        } catch (Exception e) {
+            Log_OC.e(TAG, "Error downloading file", e);
+            return Boolean.FALSE;
         } finally {
             if (getMethod != null) {
                 getMethod.releaseConnection();
             }
-            if (fos != null) {
-                try {
-                    fos.close();
-                } catch (IOException e) {
-                    Log_OC.e(TAG, "Error closing file output stream", e);
-                }
-            }
         }
-
-        return Boolean.TRUE;
     }
 
     @Override

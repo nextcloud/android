@@ -76,6 +76,7 @@
     <string name="checkbox">Checkbox</string>
     <string name="choose_local_folder">Zgjidhni dosjen lokale…</string>
     <string name="choose_remote_folder">Zhgjidhni dosjen remote…</string>
+    <string name="clear">Pastro</string>
     <string name="clear_notifications_failed">Dështoi pastrimi i njoftimeve.</string>
     <string name="clipboard_label">Tekst i kopjuar prej %1$s</string>
     <string name="clipboard_no_text_to_copy">S’u mor tekst për t’u kopjuar në të papastër</string>
@@ -401,11 +402,6 @@
     <string name="permission_deny">Refuzo</string>
     <string name="permission_storage_access">Që të ngarkoni dhe shkarkoni skedar kërkohen leje shtesë.</string>
     <string name="picture_set_as_no_app">Nuk u gjet asnjë aplikacion për të vendosur foton</string>
-    <string name="placeholder_fileSize">389 KB</string>
-    <string name="placeholder_filename">placeholder.txt</string>
-    <string name="placeholder_media_time">12:23:45</string>
-    <string name="placeholder_sentence">Kjo është një vendmbajtëse</string>
-    <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
     <string name="power_save_check_dialog_message">Çaktivizimi i kontrollit të ruajtjes së energjisë mund të rezultojë në ngarkimin e skedarëve kur gjendeni në gjendje të ulët të baterisë!</string>
     <string name="pref_behaviour_entries_delete_file">të fshira</string>
     <string name="pref_behaviour_entries_keep_file">mbajtur në dosjen origjinale</string>
@@ -415,6 +411,7 @@
     <string name="prefs_category_about">Rreth </string>
     <string name="prefs_category_details">Hollësi</string>
     <string name="prefs_category_dev">Dev</string>
+    <string name="prefs_category_files">Skedarë</string>
     <string name="prefs_category_general">Të përgjithshme</string>
     <string name="prefs_category_more">Më tepër</string>
     <string name="prefs_category_sync">Sinkronizo</string>

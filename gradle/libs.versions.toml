@@ -2,23 +2,177 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
 [versions]
-espressoVersion = "3.6.1"
-glide = "4.16.0"
-media3 = "1.7.1"
-roomVersion = "2.7.2"
-splash-screen = "1.0.1"
-kotlin = "2.2.0"
-composeBom = "2025.07.00"
-spotbugsGradlePlugin = "6.2.3"
+androidCommonLibraryVersion = "0.29.0"
+androidGifDrawableVersion = "1.2.29"
+androidImageCropperVersion = "4.6.0"
+androidLibraryVersion = "8c77f600ac942f6eb4e3c4447143fc949d34acc6"
+androidPluginVersion = '8.13.0'
+androidsvgVersion = "1.4"
+androidxMediaVersion = "1.5.1"
+androidxTestVersion = "1.7.0"
+annotationVersion = "1.9.1"
+annotationsVersion = "3.0.1u2"
+appCompatVersion = "1.7.1"
+bcpkixJdk18onVersion = "1.81"
+cardviewVersion = "1.0.0"
+checker = "3.21.2"
+coilVersion = "2.7.0"
+commonsHttpclient = "3.1"
+commonsIoVersion = "2.20.0"
+composeBom = "2025.10.01"
+conscryptAndroidVersion = "2.5.3"
+constraintlayoutVersion = "2.2.1"
+coreTestingVersion = "2.2.0"
+coreVersion = "0.15.0"
+daggerVersion = "2.57.2"
 detektGradlePlugin = "1.23.8"
+dexopenerVersion = "2.0.5"
+disklrucacheVersion = "2.0.2"
+documentScannerVersion = "1.2.3"
+emojiGoogleVersion = "0.21.0"
+espressoVersion = "3.7.0"
+eventbusVersion = "3.3.1"
+exifinterfaceVersion = "1.4.1"
+ezVcardVersion = "0.12.1"
+fbContribVersion = "7.6.15"
+findsecbugsPluginVersion = "1.14.0"
+firebaseMessagingVersion = "25.0.1"
+flexboxVersion = "3.0.0"
+fragmentKtxVersion = "1.8.9"
+glide = "5.0.5"
+gsonVersion = "2.13.2"
+ical4jVersion = "3.2.19"
+jackrabbitWebdavVersion = "2.13.5"
+jacoco = "0.8.14"
+jsonVersion = "20250517"
+junit = "4.13.2"
+junitVersion = "1.3.0"
+juniversalchardetVersion = "2.5.0"
+kotlin = "2.2.21"
+kotlinxSerializationJson = "1.9.0"
+ksp = "2.3.0"
+leakcanary = "2.14"
+legacySupportV4Version = "1.0.0"
+libraryVersion = "1.3.0"
+lifecycleViewmodelKtxVersion = "2.9.4"
+loaderviewlibraryVersion = "3.0.0"
+markwonVersion = "4.6.2"
+materialIconsCoreVersion = "1.7.8"
+materialVersion = "1.13.0"
+media3 = "1.8.0"
+mockitoKotlinVersion = "4.1.0"
+mockitoVersion = "4.11.0"
+mockkVersion = "1.14.6"
+nnioVersion = "0.3.1"
+objenesis = "3.4"
+orchestratorVersion = "1.6.1"
+orgJbundleUtilOsgiWrappedOrgApacheHttpClientVersion = "4.1.2"
+osmdroidAndroidVersion = "6.1.20"
+photoviewVersion = "2.3.0"
+playServicesBaseVersion = "18.9.0"
+prismVersion = "2.0.0"
+qrcodescannerVersion = "0.1.2.4"
+reviewKtxVersion = "2.0.2"
+roomVersion = "2.8.0"
+screengrabVersion = "2.1.1"
+sectionedRecyclerviewVersion = "0.6.1"
+shotVersion = "6.1.0"
+slfj = "1.7.36"
+splash-screen = "1.0.1"
+spotbugsGradlePlugin = "6.4.4"
 spotless = "7.2.1"
-ksp = "2.2.0-2.0.2"
+stateless4jVersion = "2.6.0"
+webkitVersion = "1.14.0"
+workRuntime = "2.10.4"
 
 [libraries]
-# Splash Screen
-glide = { module = "com.github.bumptech.glide:glide", version.ref = "glide" }
-ksp = { module = "com.github.bumptech.glide:ksp", version.ref = "glide" }
+# Crypto
+android-library = { module = "com.github.nextcloud:android-library", version.ref = "androidLibraryVersion" }
+conscrypt-android = { module = "org.conscrypt:conscrypt-android", version.ref = "conscryptAndroidVersion" }
+bcpkix-jdk18on = { module = "org.bouncycastle:bcpkix-jdk18on", version.ref = "bcpkixJdk18onVersion" }
+
+# UI
+appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appCompatVersion" }
+cardview = { module = "androidx.cardview:cardview", version.ref = "cardviewVersion" }
+core-ktx = { module = "androidx.test:core-ktx", version.ref = "androidxTestVersion" }
+document-scanning-android-sdk = { module = "com.github.Hazzatur:Document-Scanning-Android-SDK", version.ref = "documentScannerVersion" }
+fragment-ktx = { module = "androidx.fragment:fragment-ktx", version.ref = "fragmentKtxVersion" }
+exifinterface = { module = "androidx.exifinterface:exifinterface", version.ref = "exifinterfaceVersion" }
+material-icons-core = { module = "androidx.compose.material:material-icons-core", version.ref = "materialIconsCoreVersion" }
+webkit = { module = "androidx.webkit:webkit", version.ref = "webkitVersion" }
 splashscreen = { module = "androidx.core:core-splashscreen", version.ref = "splash-screen" }
+sectioned-recyclerview = { module = "com.github.nextcloud-deps:sectioned-recyclerview", version.ref = "sectionedRecyclerviewVersion" }
+legacy-support-v4 = { module = "androidx.legacy:legacy-support-v4", version.ref = "legacySupportV4Version" }
+library = { module = "me.zhanghai.android.fastscroll:library", version.ref = "libraryVersion" }
+loaderviewlibrary = { module = "io.github.elye:loaderviewlibrary", version.ref = "loaderviewlibraryVersion" }
+photoview = { module = "com.github.Baseflow:PhotoView", version.ref = "photoviewVersion" }
+material = { module = "com.google.android.material:material", version.ref = "materialVersion" }
+android-gif-drawable = { module = "pl.droidsonroids.gif:android-gif-drawable", version.ref = "androidGifDrawableVersion" }
+android-image-cropper = { module = "com.vanniktech:android-image-cropper", version.ref = "androidImageCropperVersion" }
+androidsvg = { module = "com.caverock:androidsvg", version.ref = "androidsvgVersion" }
+coil = { module = "io.coil-kt:coil", version.ref = "coilVersion" }
+constraintlayout = { module = "androidx.constraintlayout:constraintlayout", version.ref = "constraintlayoutVersion" }
+emoji-google = { module = "com.vanniktech:emoji-google", version.ref = "emojiGoogleVersion" }
+
+# kotlinx
+kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerializationJson" }
+
+# Other
+annotation = { module = "androidx.annotation:annotation", version.ref = "annotationVersion" }
+annotations = { module = "com.google.code.findbugs:annotations", version.ref = "annotationsVersion" }
+commons-httpclient-commons-httpclient = { module = "commons-httpclient:commons-httpclient", version.ref = "commonsHttpclient" }
+commons-io = { module = "commons-io:commons-io", version.ref = "commonsIoVersion" }
+dexopener = { module = "com.github.tmurakami:dexopener", version.ref = "dexopenerVersion" }
+disklrucache = { module = "com.jakewharton:disklrucache", version.ref = "disklrucacheVersion" }
+eventbus = { module = "org.greenrobot:eventbus", version.ref = "eventbusVersion" }
+ext-strikethrough = { module = "io.noties.markwon:ext-strikethrough", version.ref = "markwonVersion" }
+ext-tables = { module = "io.noties.markwon:ext-tables", version.ref = "markwonVersion" }
+ext-tasklist = { module = "io.noties.markwon:ext-tasklist", version.ref = "markwonVersion" }
+ez-vcard = { module = "com.googlecode.ez-vcard:ez-vcard", version.ref = "ezVcardVersion" }
+findsecbugs-plugin = { module = "com.h3xstream.findsecbugs:findsecbugs-plugin", version.ref = "findsecbugsPluginVersion" }
+fb-contrib = { module = "com.mebigfatguy.fb-contrib:fb-contrib", version.ref = "fbContribVersion" }
+firebase-messaging = { module = "com.google.firebase:firebase-messaging", version.ref = "firebaseMessagingVersion" }
+flexbox = { module = "com.google.android.flexbox:flexbox", version.ref = "flexboxVersion" }
+gson = { module = "com.google.code.gson:gson", version.ref = "gsonVersion" }
+html = { module = "io.noties.markwon:html", version.ref = "markwonVersion" }
+ical4j = { module = "org.mnode.ical4j:ical4j", version.ref = "ical4jVersion" }
+jackrabbit-webdav = { module = "org.apache.jackrabbit:jackrabbit-webdav", version.ref = "jackrabbitWebdavVersion" }
+json = { module = "org.json:json", version.ref = "jsonVersion" }
+juniversalchardet = { module = "com.github.albfernandez:juniversalchardet", version.ref = "juniversalchardetVersion" }
+kotlin-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib", version.ref = "kotlin" }
+leakcanary = { module = "com.squareup.leakcanary:leakcanary-android", version.ref = "leakcanary" }
+nnio = { module = "org.lukhnos:nnio", version.ref = "nnioVersion" }
+org-jbundle-util-osgi-wrapped-org-apache-http-client = { module = "org.jbundle.util.osgi.wrapped:org.jbundle.util.osgi.wrapped.org.apache.http.client", version.ref = "orgJbundleUtilOsgiWrappedOrgApacheHttpClientVersion" }
+osmdroid-android = { module = "org.osmdroid:osmdroid-android", version.ref = "osmdroidAndroidVersion" }
+objenesis = { module = "org.objenesis:objenesis", version.ref = "objenesis" }
+play-services-base = { module = "com.google.android.gms:play-services-base", version.ref = "playServicesBaseVersion" }
+review-ktx = { module = "com.google.android.play:review-ktx", version.ref = "reviewKtxVersion" }
+slfj = { module = "org.slf4j:jcl-over-slf4j", version.ref = "slfj" }
+
+# Mockito
+mockito-android = { module = "org.mockito:mockito-android", version.ref = "mockitoVersion" }
+mockito-core = { module = "org.mockito:mockito-core", version.ref = "mockitoVersion" }
+mockito-kotlin = { module = "org.mockito.kotlin:mockito-kotlin", version.ref = "mockitoKotlinVersion" }
+mockk-android = { module = "io.mockk:mockk-android", version.ref = "mockkVersion" }
+mockk = { module = "io.mockk:mockk", version.ref = "mockkVersion" }
+
+# Dagger
+dagger = { module = "com.google.dagger:dagger", version.ref = "daggerVersion" }
+dagger-compiler = { module = "com.google.dagger:dagger-compiler", version.ref = "daggerVersion" }
+dagger-processor = { module = "com.google.dagger:dagger-android-processor", version.ref = "daggerVersion" }
+dagger-android = { module = "com.google.dagger:dagger-android", version.ref = "daggerVersion" }
+dagger-android-support = { module = "com.google.dagger:dagger-android-support", version.ref = "daggerVersion" }
+
+# Glide
+glide = { module = "com.github.bumptech.glide:glide", version.ref = "glide" }
+
+# Lifecycle
+lifecycle-runtime-ktx = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "lifecycleViewmodelKtxVersion" }
+lifecycle-service = { module = "androidx.lifecycle:lifecycle-service", version.ref = "lifecycleViewmodelKtxVersion" }
+lifecycle-viewmodel-ktx = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "lifecycleViewmodelKtxVersion" }
+
+# ksp
+ksp = { module = "com.github.bumptech.glide:ksp", version.ref = "glide" }
 
 # Jetpack Compose
 compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "composeBom" }
@@ -36,6 +190,7 @@ media3-ui = { module = "androidx.media3:media3-ui", version.ref = "media3" }
 
 # Room
 room-runtime = { module = "androidx.room:room-runtime", version.ref = "roomVersion" }
+room-compiler = { module = "androidx.room:room-compiler", version.ref = "roomVersion" }
 room-testing = { module = "androidx.room:room-testing", version.ref = "roomVersion" }
 
 # Espresso
@@ -46,13 +201,91 @@ espresso-idling-resource = { module = "androidx.test.espresso:espresso-idling-re
 espresso-intents = { module = "androidx.test.espresso:espresso-intents", version.ref = "espressoVersion" }
 espresso-web = { module = "androidx.test.espresso:espresso-web", version.ref = "espressoVersion" }
 
+# Test
+junit = { module = "androidx.test.ext:junit", version.ref = "junitVersion" }
+
+core-testing = { module = "androidx.arch.core:core-testing", version.ref = "coreTestingVersion" }
+orchestrator = { module = "androidx.test:orchestrator", version.ref = "orchestratorVersion" }
+rules = { module = "androidx.test:rules", version.ref = "androidxTestVersion" }
+runner = { module = "androidx.test:runner", version.ref = "androidxTestVersion" }
+test-core = { module = "androidx.test:core", version.ref = "androidxTestVersion" }
+junit-junit = { module = "junit:junit", version.ref = "junit" }
+
+# Screenshot Test
+screengrab = { module = "tools.fastlane:screengrab", version.ref = "screengrabVersion" }
+screenshot-core = { module = "com.facebook.testing.screenshot:core", version.ref = "coreVersion" }
+shot = { module = "com.karumi:shot", version.ref = "shotVersion" }
+
 # Gradle Plugins
 spotbugs-gradle-plugin = { module = "com.github.spotbugs.snom:spotbugs-gradle-plugin", version.ref = "spotbugsGradlePlugin" }
 kotlin-gradle-plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
 detekt-gradle-plugin = { module = "io.gitlab.arturbosch.detekt:detekt-gradle-plugin", version.ref = "detektGradlePlugin" }
 
+stateless4j = { module = "com.github.stateless4j:stateless4j", version.ref = "stateless4jVersion" }
+
+# Markwon
+syntax-highlight = { module = "io.noties.markwon:syntax-highlight", version.ref = "markwonVersion" }
+core = { module = "io.noties.markwon:core", version.ref = "markwonVersion" }
+prism4j = { module = "io.noties:prism4j", version.ref = "prismVersion" }
+prism4j-bundler = { module = "io.noties:prism4j-bundler", version.ref = "prismVersion" }
+
+# Nextcloud libraries
+ui = { module = "com.github.nextcloud.android-common:ui", version.ref = "androidCommonLibraryVersion" }
+qrcodescanner = { module = "com.github.nextcloud-deps:qrcodescanner", version.ref = "qrcodescannerVersion" }
+
+# Worker
+work-runtime = { module = "androidx.work:work-runtime", version.ref = "workRuntime" }
+work-runtime-ktx = { module = "androidx.work:work-runtime-ktx", version.ref = "workRuntime" }
+
+[bundles]
+media3 = ["media3-ui", "media3-session", "media3-exoplayer", "media3-datasource"]
+espresso = ["espresso-core", "espresso-contrib", "espresso-web", "espresso-accessibility", "espresso-intents", "espresso-idling-resource"]
+ui = ["appcompat", "webkit", "cardview", "exifinterface", "fragment-ktx"]
+markdown-rendering = [
+    "core",
+    "ext-strikethrough",
+    "ext-tables",
+    "ext-tasklist",
+    "html",
+    "syntax-highlight",
+    "prism4j"
+]
+unit-test = [
+    "junit-junit",
+    "test-core",
+    "json",
+    "mockito-kotlin",
+    "mockk",
+    "mockk-android",
+    "mockito-core",
+    "mockito-android",
+    "core-testing"
+]
+mocking = [
+    "dexopener", # required to allow mocking on API 27 and older
+    "mockito-kotlin",
+    "mockk",
+    "mockk-android",
+    "mockito-core",
+    "mockito-android",
+    "screenshot-core"
+]
+gplay = [
+    "firebase-messaging",
+    "play-services-base",
+    "review-ktx"
+]
+
 [plugins]
+android-application = { id = "com.android.application", version.ref = "androidPluginVersion" }
+android-library = { id = "com.android.library", version.ref = "androidPluginVersion" }
+kotlin-parcelize = { id = "org.jetbrains.kotlin.plugin.parcelize", version.ref = "kotlin" }
+spotbugs = { id = "com.github.spotbugs", version.ref = "spotbugsGradlePlugin" }
+jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 spotless = { id = "com.diffplug.spotless", version.ref = "spotless" }
 kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
+detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detektGradlePlugin" }
+shot = { id = "shot", version.ref = "shotVersion" }
+kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }

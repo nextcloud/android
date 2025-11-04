@@ -130,7 +130,7 @@ import static com.owncloud.android.ui.activity.ContactsPreferenceActivity.PREFER
  */
 public class MainApp extends Application implements HasAndroidInjector, NetworkChangeListener {
     public static final OwnCloudVersion OUTDATED_SERVER_VERSION = NextcloudVersion.nextcloud_29;
-    public static final OwnCloudVersion MINIMUM_SUPPORTED_SERVER_VERSION = OwnCloudVersion.nextcloud_18;
+    public static final OwnCloudVersion MINIMUM_SUPPORTED_SERVER_VERSION = OwnCloudVersion.nextcloud_20;
 
     private static final String TAG = MainApp.class.getSimpleName();
     public static final String DOT = ".";
@@ -636,7 +636,7 @@ public class MainApp extends Application implements HasAndroidInjector, NetworkC
         }
 
         if (!preferences.isAutoUploadInitialized()) {
-            FilesSyncHelper.startFilesSyncForAllFolders(syncedFolderProvider, backgroundJobManager,false, new String[]{});
+            FilesSyncHelper.startAutoUploadImmediately(syncedFolderProvider, backgroundJobManager, false);
             preferences.setAutoUploadInit(true);
         }
 
@@ -679,7 +679,7 @@ public class MainApp extends Application implements HasAndroidInjector, NetworkC
 
                 createChannel(notificationManager, NotificationUtils.NOTIFICATION_CHANNEL_UPLOAD,
                               R.string.notification_channel_upload_name_short,
-                              R.string.notification_channel_upload_description, context);
+                              R.string.notification_channel_upload_description, context, NotificationManager.IMPORTANCE_LOW);
 
                 createChannel(notificationManager, NotificationUtils.NOTIFICATION_CHANNEL_MEDIA,
                               R.string.notification_channel_media_name,
@@ -697,11 +697,22 @@ public class MainApp extends Application implements HasAndroidInjector, NetworkC
 
                 createChannel(notificationManager, NotificationUtils.NOTIFICATION_CHANNEL_BACKGROUND_OPERATIONS,
                               R.string.notification_channel_background_operations_name, R.string
-                                  .notification_channel_background_operations_description, context, NotificationManager.IMPORTANCE_DEFAULT);
+                                  .notification_channel_background_operations_description, context, NotificationManager.IMPORTANCE_LOW);
 
                 createChannel(notificationManager, NotificationUtils.NOTIFICATION_CHANNEL_GENERAL, R.string
                                   .notification_channel_general_name, R.string.notification_channel_general_description,
                               context, NotificationManager.IMPORTANCE_DEFAULT);
+
+                createChannel(notificationManager, NotificationUtils.NOTIFICATION_CHANNEL_OFFLINE_OPERATIONS,
+                              R.string.notification_channel_offline_operations_name_short,
+                              R.string.notification_channel_offline_operations_description, context);
+
+                createChannel(notificationManager,
+                              NotificationUtils.NOTIFICATION_CHANNEL_CONTENT_OBSERVER,
+                              R.string.notification_channel_content_observer_name_short,
+                              R.string.notification_channel_content_observer_description,
+                              context,
+                              NotificationManager.IMPORTANCE_LOW);
             } else {
                 Log_OC.e(TAG, "Notification manager is null");
             }

@@ -43,6 +43,7 @@
     <string name="app_config_proxy_port_title">Прокси порт</string>
     <string name="app_widget_description">Приказује један виџет са контролне табле</string>
     <string name="appbar_search_in">Тражи у %s</string>
+    <string name="appear_offline">Прикажи као ван мреже</string>
     <string name="assistant_screen_add_task_alert_dialog_title">Додај нови задатак</string>
     <string name="assistant_screen_create_a_new_task_from_bottom_right_text">Креирај нови задатак од доњег десног</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Откуцајте неки текст</string>
@@ -92,12 +93,19 @@
     <string name="auth_unsupported_multiaccount">%1$s не подржава вишеструке налоге</string>
     <string name="auth_wrong_connection_title">Не могу да успоставим везу</string>
     <string name="authenticator_activity_cancel_login">Откажи пријављивање</string>
+    <string name="authenticator_activity_empty_base_url">Унесите поново исправну адресу сервера.</string>
+    <string name="authenticator_activity_empty_response_message">Није успело преузимање детаља за пријаву. Молимо вас да покушате поново.</string>
     <string name="authenticator_activity_login_error">Дошло је до проблема при обради вашег захтева за пријаву. Молимо вас да касније покушате поново.</string>
+    <string name="authenticator_activity_no_web_browser_found">Ниједан прегледач не може да отвори овај линк.</string>
     <string name="authenticator_activity_please_complete_login_process">Молимо вас да довршите процес пријаве у интернет прегледачу</string>
+    <string name="auto_upload_battery_saver_mode_warning">Ауто-отпремање је паузирано јер је укључена Штедња батерије.</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">остављен у оригиналној фасцикли јер је само за читање</string>
+    <string name="auto_upload_low_battery_warning_info">Низак ниво батерије, отпремање би могло да потраје дуже</string>
     <string name="auto_upload_on_wifi">Отпремај само на бежичним мрежама без ограничења</string>
     <string name="auto_upload_path">/Аутоматска отпремања</string>
     <string name="auto_upload_sub_folder_warning">Овај фолдер је већ укључен у синхронизацију фолдера родитеља, па се могу јавити двострука отпремања</string>
+    <string name="auto_upload_wifi_only_warning_info">Чека се на Wi-Fi за почетак отпремања</string>
+    <string name="auto_upload_worker_start_text">Отпремају се фајлови са %s на %s</string>
     <string name="autoupload_configure">Подеси</string>
     <string name="autoupload_create_new_custom_folder">Направи нову поставку за посебну фасциклу</string>
     <string name="autoupload_custom_folder">Подесите произвољну фасциклу</string>
@@ -115,6 +123,7 @@
     <string name="bottom_navigation_menu_favorites_label">Омиљене</string>
     <string name="bottom_navigation_menu_files_label">Сви фајлови</string>
     <string name="bottom_navigation_menu_media_label">Медији</string>
+    <string name="busy">Заузет</string>
     <string name="calendar">Календар</string>
     <string name="calendars">Календари</string>
     <string name="certificate_load_problem">Појавио се проблем приликом учитавања сертификата.</string>
@@ -126,9 +135,9 @@
     <string name="choose_template_helper_text">Молимо вас да изаберете шаблон и унесете назив фајла.</string>
     <string name="choose_which_file">Изаберите који фајл желите да задржите!</string>
     <string name="choose_widget">Изаберите виџет</string>
+    <string name="clear">Очисти</string>
     <string name="clear_notifications_failed">Не могу да обришем обавештења.</string>
-    <string name="clear_status_message">Обриши статусну поруку</string>
-    <string name="clear_status_message_after">Обриши статусну поруку након</string>
+    <string name="clear_status_after">Обриши статус након</string>
     <string name="clipboard_label">Текст копиран са %1$s</string>
     <string name="clipboard_no_text_to_copy">Нема текста за копирање у клипборд</string>
     <string name="clipboard_text_copied">Веза ископирана</string>
@@ -247,6 +256,13 @@
     <string name="document_scan_export_dialog_title">Изаберите тип извоза</string>
     <string name="document_scan_pdf_generation_failed">Није успело генерисање PDF фајла</string>
     <string name="document_scan_pdf_generation_in_progress">Генеришем PDF…</string>
+    <string name="document_storage_provider_cannot_create_file_and_folder">Овде не могу да се креирају ставке: недостаје дозвола за креирање.</string>
+    <string name="document_storage_provider_cannot_create_file_inside_folder">Не може да се креира фајл: недостаје дозвола.</string>
+    <string name="document_storage_provider_cannot_create_folder_inside_folder">Не може да се креира фолдер: недостаје дозвола.</string>
+    <string name="document_storage_provider_cannot_delete">Не може да се обрише ставка: недостаје дозвола за брисање.</string>
+    <string name="document_storage_provider_cannot_move">Не може да се премести ставка: недостаје дозвола за премештање.</string>
+    <string name="document_storage_provider_cannot_read">Не може да се отвори ставка: недостаје дозвола за читање.</string>
+    <string name="document_storage_provider_cannot_rename">Не може да се промени име ставке: недостаје дозвола за измену имена.</string>
     <string name="done">Готово</string>
     <string name="dontClear">Не бриши</string>
     <string name="download_cannot_create_file">Не могу да направим локални фајл</string>
@@ -326,12 +342,14 @@
     <string name="error_comment_file">Грешка при коментарисању фајла</string>
     <string name="error_crash_title">%1$s се срушио</string>
     <string name="error_creating_file_from_template">Грешка приликом креирања фајла из шаблона</string>
+    <string name="error_fetching_sharees">Није успело добављање циљева дељења.</string>
     <string name="error_file_actions">Грешка приликом приказивања акција над фајлом</string>
     <string name="error_file_lock">Грешка приликом промене статуса закључавања фајла</string>
     <string name="error_report_issue_action">Пријави</string>
     <string name="error_report_issue_text">Да пријавим проблем пратиоцу? (потребан је GitHub  налог)</string>
     <string name="error_retrieving_file">Грешка при добављању фајла</string>
     <string name="error_retrieving_templates">Грешка при добављању шаблона</string>
+    <string name="error_setting_status_message">Грешка приликом постављања статусне поруке!</string>
     <string name="error_showing_encryption_dialog">Грешка приликом приказа дијалога за подешавање шифрирања!</string>
     <string name="error_starting_direct_camera_upload">Грешка при покретању камере</string>
     <string name="error_starting_doc_scan">Грешка приликом почетка скенирања документа</string>
@@ -360,6 +378,7 @@
     <string name="etm_transfer_type">Пренеси</string>
     <string name="etm_transfer_type_download">Преузми</string>
     <string name="etm_transfer_type_upload">Отпреми</string>
+    <string name="extented_list_fragment_empty_list_message_no_write_permission">Немате дозволу да креирате или отпремите фајлове у овај фолдер.</string>
     <string name="external_shares">Спољна дељења</string>
     <string name="fab_label">Додај или отпреми</string>
     <string name="failed_to_download">Неуспело прослеђивање фајла менаџеру преузимања</string>
@@ -375,6 +394,7 @@
     <string name="file_detail_share_already_active">Не можете да креирате дељење, овај корисник је већ активирао дељење.</string>
     <string name="file_detail_sharing_fragment_no_contact_app_message">Нема апликације којом могу да се изаберу контакти</string>
     <string name="file_details_no_content">Грешка при учитавању детаља</string>
+    <string name="file_details_sharing_fragment_custom_permission_not_selected">Молимо вас да изаберете произвољну дозволу</string>
     <string name="file_icon">Фајл</string>
     <string name="file_keep">Задржи</string>
     <string name="file_list_empty">Отпремите неки садржај или синхронизујте са вашим уређајима.</string>
@@ -392,6 +412,8 @@
     <string name="file_list_empty_shared">Фајлови и фасцикле које делите појавиће се овде.</string>
     <string name="file_list_empty_shared_headline">Још се ништа не дели</string>
     <string name="file_list_empty_unified_search_no_results">Ваш упит није вратио ниједан резултат</string>
+    <string name="file_list_empty_unified_search_start_search">Почните претрагу</string>
+    <string name="file_list_empty_unified_search_start_search_description">Куцајте у траци за претрагу изнад да у вашем налогу пронађете фајлове, контакте, догађаје календара и друго.</string>
     <string name="file_list_folder">фасцикла</string>
     <string name="file_list_live">УЖИВО</string>
     <string name="file_list_loading">Учитавам…</string>
@@ -436,6 +458,7 @@
     <string name="file_not_synced">Фајл не може да се синхронизује. Приказујем последњу доступну верзију.</string>
     <string name="file_rename">Преименуј</string>
     <string name="file_upload_worker_error_notification_title">Отпремање није успело. Нема везе са интернетом</string>
+    <string name="file_upload_worker_same_file_already_exists">%s већ постоји, није откривен конфликт</string>
     <string name="file_version_restored_error">Грешка при враћању верзије фајла!</string>
     <string name="file_version_restored_successfully">Успешно враћена верзија фајла.</string>
     <string name="filedetails_details">Детаљи</string>
@@ -512,6 +535,7 @@
     <string name="last_backup">Последња резервна копија: %1$s</string>
     <string name="link">Веза</string>
     <string name="link_name">Име линка</string>
+    <string name="link_not_followed_due_to_security_settings">Линк се не следи због подешавања безбедности.</string>
     <string name="link_share_editing">Уређивање</string>
     <string name="list_layout">Распоред као листа</string>
     <string name="load_more_results">Учитај још резултата</string>
@@ -541,7 +565,6 @@
     <string name="manage_space_clear_data">Очисти податке</string>
     <string name="manage_space_description">Поставке, база и серверски сертификати од података са %1$s ће бити заувек обрисани. \n\nВећ преузети фајлови неће бити дирани.\n\nОво може потрајати.</string>
     <string name="manage_space_title">Управљање простором</string>
-    <string name="max_file_count_warning_message">Достигли сте границу максималног отпремања фајлова. Молимо вас да отпремате мање од 500 фајлова истовремено.</string>
     <string name="media_err_invalid_progressive_playback">Медијски фајл не може да се пусти</string>
     <string name="media_err_io">Не могу да прочитам медијски фајл</string>
     <string name="media_err_malformed">Медијски фајл има неисправно кодирање знакова</string>
@@ -564,6 +587,7 @@
     <string name="move_file_invalid_into_descendent">Фасцикла се не може преместити у неку од својих потфасцикли.</string>
     <string name="move_file_invalid_overwrite">Фајл већ постоји у одредишној фасцикли</string>
     <string name="move_file_not_found">Не могу да преместим фајл. Проверите да ли постоји.</string>
+    <string name="mute_all_notifications">Искључи сва обавештења</string>
     <string name="network_error_connect_timeout_exception">Десила се грешка при чекању на сервер. Не могу да довршим радњу.</string>
     <string name="network_error_socket_exception">Десила се грешка при повезивању на сервер</string>
     <string name="network_error_socket_timeout_exception">Десила се грешка при чекању на сервер. Не могу да довршим радњу.</string>
@@ -597,6 +621,8 @@
     <string name="notification_channel_general_name">Општа обавештења</string>
     <string name="notification_channel_media_description">Напредак музичког плејера</string>
     <string name="notification_channel_media_name">Медијски плејер</string>
+    <string name="notification_channel_offline_operations_description">Приказује напредак операција над фајловима ван мреже</string>
+    <string name="notification_channel_offline_operations_name_short">Операције ван мреже</string>
     <string name="notification_channel_push_description">Приказуј обавештења која пошаље сервер: помињање у коментарима, пријем новог удаљеног дељења, објаве администратора итд.</string>
     <string name="notification_channel_push_name">Брза обавештења</string>
     <string name="notification_channel_upload_description">Приказ напретка отпремања</string>
@@ -611,8 +637,12 @@
     <string name="offline_mode_info_description">Чак и без везе са интернетом можете да организујете фолдере, креирате фајлове. Када поново будете на мрежи, ваше акције на чекању ће се аутоматски синхронизовати.</string>
     <string name="offline_mode_info_title">Ван мреже сте, али се рад наставља</string>
     <string name="offline_operations_file_does_not_exists_yet">Фајл још увек не постоји. Молимо вас да најпре отпремите фајл.</string>
+    <string name="offline_operations_worker_notification_create_file_conflict_text">Није могао да се креира %s. На серверу постоји фајл са истим именом.</string>
+    <string name="offline_operations_worker_notification_create_folder_conflict_text">Није могао да се креира %s. На серверу постоји фолдер са истим именом.</string>
     <string name="offline_operations_worker_notification_error_text">Операција ван мреже не може да се заврши. %s</string>
     <string name="offline_operations_worker_notification_manager_ticker">Операције ван мреже</string>
+    <string name="offline_operations_worker_notification_remove_conflict_text">Отказано је брисање %s. Фајл је измењен на серверу.</string>
+    <string name="offline_operations_worker_notification_rename_conflict_text">Отказана је промена имена %s. На серверу постоји фајл са истим именом.</string>
     <string name="offline_operations_worker_notification_start_text">Покрећу се операције ван мреже</string>
     <string name="oneHour">1 сат</string>
     <string name="online">На мрежи</string>
@@ -638,11 +668,6 @@
     <string name="picture_set_as_no_app">Нема апликације којом се поставља слика</string>
     <string name="pin_home">Закачи на почетни екран</string>
     <string name="pin_shortcut_label">Отвори %1$s</string>
-    <string name="placeholder_fileSize">389 KB</string>
-    <string name="placeholder_filename">чувамместо.txt</string>
-    <string name="placeholder_media_time">12:23:45</string>
-    <string name="placeholder_sentence">Ово је местодржач</string>
-    <string name="placeholder_timestamp">2012/05/18 12:23 ПоП</string>
     <string name="player_stop">стоп</string>
     <string name="player_toggle">пребацивање</string>
     <string name="please_select_a_server">Молимо вас да изаберете сервер</string>
@@ -664,6 +689,7 @@
     <string name="prefs_category_about">О програму</string>
     <string name="prefs_category_details">Детаљи</string>
     <string name="prefs_category_dev">Развојно</string>
+    <string name="prefs_category_files">Фајлови</string>
     <string name="prefs_category_general">Опште</string>
     <string name="prefs_category_more">Остало</string>
     <string name="prefs_category_sync">Синхронизуј</string>
@@ -719,11 +745,9 @@
     <string name="preview_image_error_no_local_file">Нема локалног фајла за преглед</string>
     <string name="preview_image_error_unknown_format">Не могу да прикажем слику</string>
     <string name="preview_image_file_is_not_downloaded">Фајл није преузет</string>
-    <string name="preview_image_file_is_not_exist">Фајл не постоји</string>
     <string name="preview_media_unhandled_http_code_message">Фајл је тренутно закључао други корисник или процес, па не може да се обрише. Молимо вас покушајте касније.</string>
     <string name="preview_sorry">Извините</string>
     <string name="privacy">Приватност</string>
-    <string name="public_share_name">Ново име</string>
     <string name="push_notifications_not_implemented">Брза обавештења искључена јер зависе од власничког Гугл плеј сервиса.</string>
     <string name="push_notifications_old_login">Нема брзих обавештења јер је сесија застарела. Избришите и додајте поново налог.</string>
     <string name="push_notifications_temp_error">Брза обавештења тренутно нису доступна.</string>
@@ -789,10 +813,10 @@
     <string name="server_not_reachable_content">Изгледа да уређај није повезан са интернетом</string>
     <string name="set_as">Постави као</string>
     <string name="set_download_limit_failed">Не може да се постави ограничење преузимања. Молимо вас да проверите могућности.</string>
+    <string name="set_message">Постави поруку</string>
     <string name="set_note">Постави белешку</string>
+    <string name="set_online_status">Мрежни статус</string>
     <string name="set_picture_as">Постави слику као</string>
-    <string name="set_status">Постави статус</string>
-    <string name="set_status_message">Постављање статусне поруке</string>
     <string name="setup_e2e">Током постављања шифрирања од почетка-до-краја примићете 12 случајних речи за памћење које ће вам бити неопходне да фајлове отворите на осталим уређајима. Ово ће се сачувати само на овом уређају и може поново да се прикаже на овом екрану. Молимо вас да их забележите на неко сигурно место!</string>
     <string name="share">Подели</string>
     <string name="share_allow_download_and_sync_permission">Дозволи преузимање и сихронизацију</string>
@@ -857,6 +881,8 @@
     <string name="signup_with_provider">Пријавите се преко провајдера</string>
     <string name="single_sign_on_request_token" formatted="true">Може ли %1$s да приступи Некстклауд налогу %2$s?</string>
     <string name="sort_by">Разврстај</string>
+    <string name="sort_favorites_first">Сортирај прво омиљене</string>
+    <string name="sort_folders_before_files">Поређај фолдере испред фајлова</string>
     <string name="ssl_validator_btn_details_hide">Сакриј</string>
     <string name="ssl_validator_btn_details_see">Детаљи</string>
     <string name="ssl_validator_header">Идентитет сервера не може да се провери</string>
@@ -967,6 +993,7 @@
     <string name="unified_search_fragment_calendar_event_not_found">Није пронађен догађај, увек можете да сихронизујете да бисте ажурирали. Преусмеравате се на веб</string>
     <string name="unified_search_fragment_contact_not_found">Није пронађен контакт, увек можете да сихронизујете да бисте ажурирали. Преусмеравате се на веб</string>
     <string name="unified_search_fragment_permission_needed">За отварање резултата претраге су неопходне дозволе, у супротном бићете преусмерени на веб</string>
+    <string name="unified_search_fragment_search_in_this_folder">У овом фолдеру</string>
     <string name="unknown">Непознато</string>
     <string name="unlock_file">Откључај фајл</string>
     <string name="unread_comments">Постоје непрочитани коментари</string>
@@ -1015,6 +1042,10 @@
     <string name="upload_local_storage_not_copied">Фајл није могао да се копира на локално складиште</string>
     <string name="upload_lock_failed">Неуспело закључавање фасцикле</string>
     <string name="upload_manually_cancelled">Корисник је прекинуо отпремање</string>
+    <string name="upload_missing_storage_permission_allow_file_access">Дозволи комплетан приступ фајловима</string>
+    <string name="upload_missing_storage_permission_app_permissions">Дозволе апликације</string>
+    <string name="upload_missing_storage_permission_description">Фајлови не могу да се отправе без приступа локалном складишту. Тапните да одобрите приступ.</string>
+    <string name="upload_missing_storage_permission_title">Отпремање је заустављено – Потребна је дозвола за складиште</string>
     <string name="upload_notification_manager_start_text">%1$d / %2$d - %3$s</string>
     <string name="upload_old_android">Шифровање је могуће само са &gt;= Андроидом 5.0</string>
     <string name="upload_query_move_foreign_files">Недостатак простора  спречава копирање фајлова у фасциклу %1$s. Желите ли да их преместите тамо?</string>

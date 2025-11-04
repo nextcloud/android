@@ -45,7 +45,7 @@
             android:layout_height="0dp"
             android:layout_weight="1"
             android:ellipsize="end"
-            tools:text="256 KB"
+            tools:text="@string/placeholder_fileSize"
             android:textColor="?android:attr/textColorSecondary"/>
     </LinearLayout>
 
@@ -67,7 +67,7 @@
         android:layout_weight="1"
         android:ellipsize="end"
         android:textAlignment="textEnd"
-        tools:text="13:24"
+        tools:text="@string/placeholder_media_time"
         android:textColor="?android:attr/textColorSecondary"/>
 
 </LinearLayout>

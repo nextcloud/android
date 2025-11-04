@@ -32,6 +32,7 @@
     <string name="app_widget_description">Прикажува еден виџет од контролната табла</string>
     <string name="appbar_search_in">Барај во %s</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Избриши задача</string>
+    <string name="assistant_screen_top_bar_title">Асистент</string>
     <string name="associated_account_not_found">Не е пронајдена поврзана сметка!</string>
     <string name="auth_access_failed">Неуспешен пристап: %1$s</string>
     <string name="auth_account_does_not_exist">Сметката сеуште не е додадена на овој уред</string>
@@ -76,9 +77,11 @@
     <string name="battery_optimization_disable">Оневозможи</string>
     <string name="battery_optimization_message">Вашиот уред може да има овозможено оптимизација на батеријата. Автоматското прикачување работи само ако соодветно ја исклучите оваа апликација од оптимизацијата на батеријата.</string>
     <string name="battery_optimization_title">Оптимизација на батеријата</string>
+    <string name="bottom_navigation_menu_assistant_label">Асистент</string>
     <string name="bottom_navigation_menu_favorites_label">Омилени</string>
     <string name="bottom_navigation_menu_files_label">Сите датотеки</string>
     <string name="bottom_navigation_menu_media_label">Медија</string>
+    <string name="busy">Зафатен</string>
     <string name="calendar">Календар</string>
     <string name="calendars">Календари</string>
     <string name="certificate_load_problem">Има проблем со вчитување на сертификатот.</string>
@@ -88,9 +91,9 @@
     <string name="choose_remote_folder">Избери папка на серверот…</string>
     <string name="choose_which_file">Избери која датотека да се зачува!</string>
     <string name="choose_widget">Избери виџет</string>
+    <string name="clear">Исчисти</string>
     <string name="clear_notifications_failed">Неуспешно чистење на нотификациите.</string>
-    <string name="clear_status_message">Тргни ја статус пораката</string>
-    <string name="clear_status_message_after">Тргни го статусот после</string>
+    <string name="clear_status_after">Тргни го статусот после</string>
     <string name="clipboard_label">Текст копиран од %1$s</string>
     <string name="clipboard_no_text_to_copy">Нема текст за да се копира во клипборд</string>
     <string name="clipboard_text_copied">Линкот е копиран</string>
@@ -109,6 +112,7 @@
     <string name="common_loading">Се вчитува…</string>
     <string name="common_next">Следна</string>
     <string name="common_no">Не</string>
+    <string name="common_now">Сега</string>
     <string name="common_ok">Во ред</string>
     <string name="common_pending">Чекање</string>
     <string name="common_remove">Избриши</string>
@@ -206,6 +210,7 @@
     <string name="drawer_header_background">Background image of drawer header</string>
     <string name="drawer_item_activities">Активности</string>
     <string name="drawer_item_all_files">Сите датотеки</string>
+    <string name="drawer_item_assistant">Асистент</string>
     <string name="drawer_item_favorites">Омилени</string>
     <string name="drawer_item_gallery">Медија</string>
     <string name="drawer_item_home">Дома</string>
@@ -221,6 +226,7 @@
     <string name="drawer_quota">искористено %1$s од %2$s </string>
     <string name="drawer_quota_unlimited">искористено %1$s</string>
     <string name="drawer_synced_folders">Автоматско прикачување</string>
+    <string name="ecosystem_apps_display_assistant">Асистент</string>
     <string name="encrypted">Постави како енкриптирано</string>
     <string name="end_to_end_encryption_confirm_button">Постави енкрипција</string>
     <string name="end_to_end_encryption_decrypting">Дешифрирање…</string>
@@ -335,6 +341,7 @@
     <string name="folder_list_empty_headline">Тука нема папки</string>
     <string name="folder_picker_choose_button_text">Избери</string>
     <string name="folder_picker_choose_caption_text">Избери папка</string>
+    <string name="folder_picker_copy_button_text">Копирај</string>
     <string name="folder_picker_move_button_text">Премести</string>
     <string name="forbidden_permissions">Вие не сте овластени %s</string>
     <string name="forbidden_permissions_copy">за да ја копирате оваа датотека</string>
@@ -362,6 +369,7 @@
     <string name="invalid_url">Неправилна URL</string>
     <string name="invisible">Невидливо</string>
     <string name="link">Линк</string>
+    <string name="link_share_editing">Уредување</string>
     <string name="list_layout">Listed layout</string>
     <string name="load_more_results">Вчитај повеќе резултати</string>
     <string name="local_file_list_empty">Нема датотеки во оваа папка.</string>
@@ -417,6 +425,7 @@
     <string name="new_media_folder_videos">видео</string>
     <string name="new_version_was_created">Нова верзија е креирана</string>
     <string name="no_browser_available">Нема достапна апликација за линкови</string>
+    <string name="no_items">Нема ставки</string>
     <string name="no_mutliple_accounts_allowed">Само една сметка е дозволена</string>
     <string name="no_pdf_app_available">Нема достапна апликација за PDF датотеки</string>
     <string name="note_could_not_sent">Неможе да се испрати белешката</string>
@@ -456,11 +465,6 @@
     <string name="permission_storage_access">Потебни се дополнителни привилегии за прикачување и превземање на датотеки.</string>
     <string name="picture_set_as_no_app">Не е пронајдена апликација за поставување на слики</string>
     <string name="pin_shortcut_label">Отвори %1$s</string>
-    <string name="placeholder_fileSize">389 KB</string>
-    <string name="placeholder_filename">placeholder.txt</string>
-    <string name="placeholder_media_time">12:23:45</string>
-    <string name="placeholder_sentence">Ова е резервирано место</string>
-    <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
     <string name="player_stop">стоп</string>
     <string name="player_toggle">вклучи</string>
     <string name="power_save_check_dialog_message">Оневозможување на проверката за заштеда на енергијата може да овозможи прикачување на датотеки и кога батеријата е празна</string>
@@ -478,6 +482,7 @@
     <string name="prefs_category_about">За</string>
     <string name="prefs_category_details">Детали:</string>
     <string name="prefs_category_dev">Dev</string>
+    <string name="prefs_category_files">Датотеки</string>
     <string name="prefs_category_general">Општо</string>
     <string name="prefs_category_more">Повеќе</string>
     <string name="prefs_category_sync">Синхронизирај</string>
@@ -512,10 +517,8 @@
     <string name="preview_image_description">Преглед на сликата</string>
     <string name="preview_image_error_no_local_file">Нема локална датотека за прикажување</string>
     <string name="preview_image_error_unknown_format">Неможе да се прикаже сликата</string>
-    <string name="preview_image_file_is_not_exist">Датотеката не постои</string>
     <string name="preview_sorry">Извинете</string>
     <string name="privacy">Приватност</string>
-    <string name="public_share_name">Ново име</string>
     <string name="push_notifications_not_implemented">Push известувањата се оневозможени поради зависноста на Google Play сервисот.</string>
     <string name="push_notifications_old_login">Нема push известувања бидејќи вашата сесија е истечена. Ве молиме повторно најавете се на вашта сметка.</string>
     <string name="push_notifications_temp_error">Не се достапни Push известувања.</string>
@@ -555,9 +558,8 @@
     <string name="send">Испрати</string>
     <string name="sendbutton_description">Икона на копчето за испраќање</string>
     <string name="set_as">Постави како</string>
+    <string name="set_online_status">Присутен</string>
     <string name="set_picture_as">Користи ја сликата како</string>
-    <string name="set_status">Постави статус</string>
-    <string name="set_status_message">Постави статус порака</string>
     <string name="share">Сподели</string>
     <string name="share_allow_download_and_sync_permission">Дозволете преземање и синхронизирање</string>
     <string name="share_create_permission">Креирај</string>
@@ -604,6 +606,8 @@
     <string name="signup_with_provider">Пријавете се преку провајдер</string>
     <string name="single_sign_on_request_token" formatted="true">Дозволи му на %1$s да пристапи на твојата Nextcloud сметка %2$s?</string>
     <string name="sort_by">Сортирај по</string>
+    <string name="sort_favorites_first">Прво омилените</string>
+    <string name="sort_folders_before_files">Подреди ги папките пред датотеките</string>
     <string name="ssl_validator_btn_details_hide">Сокриј</string>
     <string name="ssl_validator_btn_details_see">Детали</string>
     <string name="ssl_validator_header">Идентитетот на серверот не може да се потврди</string>
@@ -792,6 +796,22 @@
     <string name="widgets_not_available_title">Недостапно</string>
     <string name="worker_download">Превземање датотеки…</string>
     <string name="write_email">Испрати е-пошта</string>
+    <plurals name="hours">
+        <item quantity="one">%d час</item>
+        <item quantity="other">%d часа</item>
+    </plurals>
+    <plurals name="minutes">
+        <item quantity="one">%d минута</item>
+        <item quantity="other">%d минути</item>
+    </plurals>
+    <plurals name="time_minutes_ago">
+        <item quantity="one">пред %d минута</item>
+        <item quantity="other">пред %d минути</item>
+    </plurals>
+    <plurals name="time_hours_ago">
+        <item quantity="one">пред %d час</item>
+        <item quantity="other">пред %d часа</item>
+    </plurals>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">Неможе да се синхронизира %1$d датотека (конфликт: %2$d)</item>
         <item quantity="other">Неможе да се синхронизираат %1$d датотеки (конфликти: %2$d)</item>
@@ -807,6 +827,10 @@
     <plurals name="file_list__footer__file">
         <item quantity="one">%1$d датотека</item>
         <item quantity="other">%1$d датотеки</item>
+    </plurals>
+    <plurals name="trashbin_list__footer__file">
+        <item quantity="one">%1$d ставка</item>
+        <item quantity="other">%1$d ставки</item>
     </plurals>
     <plurals name="synced_folders_show_hidden_folders">
         <item quantity="one">Прикажи %1$d сокриена папка</item>

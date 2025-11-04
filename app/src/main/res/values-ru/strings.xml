@@ -43,6 +43,7 @@
     <string name="app_config_proxy_port_title">Порт прокси</string>
     <string name="app_widget_description">Показывает один виджет с главного экрана.</string>
     <string name="appbar_search_in">Искать в %s</string>
+    <string name="appear_offline">\"Не в сети\" для остальных</string>
     <string name="assistant_screen_add_task_alert_dialog_title">Добавить новую задачу</string>
     <string name="assistant_screen_create_a_new_task_from_bottom_right_text">Создайте новую задачу в правом нижнем углу</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Наберите какой-то текст</string>
@@ -115,6 +116,7 @@
     <string name="bottom_navigation_menu_favorites_label">Избранное</string>
     <string name="bottom_navigation_menu_files_label">Все файлы</string>
     <string name="bottom_navigation_menu_media_label">Медиа</string>
+    <string name="busy">Занят</string>
     <string name="calendar">Календарь</string>
     <string name="calendars">Календари</string>
     <string name="certificate_load_problem">Проблема при загрузке сертификата.</string>
@@ -126,9 +128,9 @@
     <string name="choose_template_helper_text">Пожалуйста, выберите шаблон и введите имя файла.</string>
     <string name="choose_which_file">Выберите какой файл оставить!</string>
     <string name="choose_widget">Выбрать виджет</string>
+    <string name="clear">Очистить</string>
     <string name="clear_notifications_failed">Не удалось удалить уведомления.</string>
-    <string name="clear_status_message">Очистить сообщение о состоянии</string>
-    <string name="clear_status_message_after">Очистить сообщение о состоянии через</string>
+    <string name="clear_status_after">Очистить статус после</string>
     <string name="clipboard_label">Текст скопирован из %1$s</string>
     <string name="clipboard_no_text_to_copy">Нет принятого текста для копирования в буфер обмена</string>
     <string name="clipboard_text_copied">Ссылка скопирована</string>
@@ -247,6 +249,13 @@
     <string name="document_scan_export_dialog_title">Выберите тип экспорта</string>
     <string name="document_scan_pdf_generation_failed">Ошибка при создании файла PDF</string>
     <string name="document_scan_pdf_generation_in_progress">Сохранение в PDF…</string>
+    <string name="document_storage_provider_cannot_create_file_and_folder">Невозможно создать элементы тут: отсутствует разрешение на создание.</string>
+    <string name="document_storage_provider_cannot_create_file_inside_folder">Невозможно создать файл: отсутствует разрешение.</string>
+    <string name="document_storage_provider_cannot_create_folder_inside_folder">Невозможно создать папку: отсутствует разрешение.</string>
+    <string name="document_storage_provider_cannot_delete">Невозможно удалить элемент: отсутствует разрешение на удаление.</string>
+    <string name="document_storage_provider_cannot_move">Невозможно переместить элемент: отсутствует разрешение на перемещение.</string>
+    <string name="document_storage_provider_cannot_read">Невозможно прочитать элемент: отсутствует разрешение на чтение.</string>
+    <string name="document_storage_provider_cannot_rename">Невозможно переименовать элемент: отсутствует разрешение на переименование.</string>
     <string name="done">Готово</string>
     <string name="dontClear">Не очищать</string>
     <string name="download_cannot_create_file">Невозможно создать локальный файл</string>
@@ -333,6 +342,7 @@
     <string name="error_report_issue_text">Сообщить о проблеме? (требуется учётная запись на GitHub)</string>
     <string name="error_retrieving_file">Ошибка при получении файла</string>
     <string name="error_retrieving_templates">Ошибка получения шаблона</string>
+    <string name="error_setting_status_message">Ошибка при установке сообщения статуса</string>
     <string name="error_showing_encryption_dialog">Ошибка при отображении диалога настройки шифрования!</string>
     <string name="error_starting_direct_camera_upload">Не удалось открыть камеру</string>
     <string name="error_starting_doc_scan">Ошибка во время запуска сканирования</string>
@@ -361,6 +371,7 @@
     <string name="etm_transfer_type">Передача</string>
     <string name="etm_transfer_type_download">Скачать</string>
     <string name="etm_transfer_type_upload">Отправить</string>
+    <string name="extented_list_fragment_empty_list_message_no_write_permission">У вас нет разрешения на создание или загрузку файлов в эту папку.</string>
     <string name="external_shares">Внешние ссылки</string>
     <string name="fab_label">Добавить или выгрузить</string>
     <string name="failed_to_download">Не удалось передать файл в диспетчер загрузок</string>
@@ -395,6 +406,7 @@
     <string name="file_list_empty_shared_headline">Вы ничем не поделились</string>
     <string name="file_list_empty_unified_search_no_results">По вашему запросу ничего не найдено</string>
     <string name="file_list_empty_unified_search_start_search">Начните ваш поиск</string>
+    <string name="file_list_empty_unified_search_start_search_description">Напишите в поле поиска наверху, чтобы найти файлы, контакты, события календаря и больше в вашей учетной записи.</string>
     <string name="file_list_folder">каталог</string>
     <string name="file_list_live">ТРАНСЛИРУЕТСЯ</string>
     <string name="file_list_loading">Получение данных…</string>
@@ -440,6 +452,7 @@
     <string name="file_not_synced">Не удалось синхронизировать этот файл, показана его последняя доступная версия.</string>
     <string name="file_rename">Переименовать</string>
     <string name="file_upload_worker_error_notification_title">Загрузка не удалась. Нет интернет-соединения</string>
+    <string name="file_upload_worker_same_file_already_exists">%s уже существует, конфликтов не обнаружено</string>
     <string name="file_version_restored_error">Ошибка восстановления версии файла!</string>
     <string name="file_version_restored_successfully">Версия файла успешно восстановлена</string>
     <string name="filedetails_details">Свойства</string>
@@ -516,6 +529,7 @@
     <string name="last_backup">Последняя резервная копия: %1$s</string>
     <string name="link">Ссылка</string>
     <string name="link_name">Название ссылки</string>
+    <string name="link_not_followed_due_to_security_settings">Ссылка не была открыта по настройкам безопасности.</string>
     <string name="link_share_editing">Редактирование</string>
     <string name="list_layout">Вид списком</string>
     <string name="load_more_results">Показать больше результатов</string>
@@ -545,7 +559,6 @@
     <string name="manage_space_clear_data">Очистить данные</string>
     <string name="manage_space_description">Настройки, сертификаты базы данных и сервера из данных %1$s будут удалены навсегда. \n\nЗагруженные файлы будут сохранены нетронутыми. \n\nЭтот процесс может занять некоторое время.</string>
     <string name="manage_space_title">Управление свободным местом</string>
-    <string name="max_file_count_warning_message">Вы достигли максимального лимита на загрузку файлов. Пожалуйста, загружайте не более 500 файлов одновременно.</string>
     <string name="media_err_invalid_progressive_playback">Невозможно организовать потоковую передачу медиафайла</string>
     <string name="media_err_io">Медиафайл не может быть прочитан</string>
     <string name="media_err_malformed">Медиафайл некорректно закодирован</string>
@@ -568,6 +581,7 @@
     <string name="move_file_invalid_into_descendent">Невозможно переместить каталог в его подкаталог</string>
     <string name="move_file_invalid_overwrite">Файл уже существует в каталоге назначения</string>
     <string name="move_file_not_found">Не удалось переместить файл. Убедитесь, что он существует.</string>
+    <string name="mute_all_notifications">Без уведомлений</string>
     <string name="network_error_connect_timeout_exception">Во время ожидания сервера произошла ошибка, действие не может быть завершено.</string>
     <string name="network_error_socket_exception">При подключении к серверу возникла ошибка.</string>
     <string name="network_error_socket_timeout_exception">Во время ожидания сервера произошла ошибка, действие не может быть завершено.</string>
@@ -601,6 +615,8 @@
     <string name="notification_channel_general_name">Общие уведомления</string>
     <string name="notification_channel_media_description">Состояние воспроизведения музыки</string>
     <string name="notification_channel_media_name">Мультимедийный проигрыватель </string>
+    <string name="notification_channel_offline_operations_description">Показать ход оффлайновых файловых операций</string>
+    <string name="notification_channel_offline_operations_name_short">Оффлайновые операции</string>
     <string name="notification_channel_push_description">Показывать push-уведомления, отправляемые на сервер: упоминания в комментариях, прием новых общих ресурсов, объявления, размещаемые администратором и т.д.</string>
     <string name="notification_channel_push_name">Push-уведомления</string>
     <string name="notification_channel_upload_description">Ход выполнения передачи файлов на сервер</string>
@@ -615,8 +631,12 @@
     <string name="offline_mode_info_description">Даже без подключения к Интернету вы можете упорядочивать папки и создавать файлы. Как только вы вернетесь в сеть, ваши действия будут автоматически синхронизированы.</string>
     <string name="offline_mode_info_title">Вы не в сети, но работа продолжается</string>
     <string name="offline_operations_file_does_not_exists_yet">Файл еще не существует. Пожалуйста, сначала загрузите файл.</string>
+    <string name="offline_operations_worker_notification_create_file_conflict_text">Не удалось создать %s. На сервере уже существует файл с таким же именем.</string>
+    <string name="offline_operations_worker_notification_create_folder_conflict_text">Не удалось создать %s. На сервере уже существует папка с таким же имененм.</string>
     <string name="offline_operations_worker_notification_error_text">Операция в автономном режиме не может быть завершена. %s</string>
     <string name="offline_operations_worker_notification_manager_ticker">Автономные операции</string>
+    <string name="offline_operations_worker_notification_remove_conflict_text">Отменено удаление %s. Файл был изменен на сервере.</string>
+    <string name="offline_operations_worker_notification_rename_conflict_text">Отменено переименование %s. Файл с таким же именем существует на сервере.</string>
     <string name="offline_operations_worker_notification_start_text">Запуск автономных операций</string>
     <string name="oneHour">1 час</string>
     <string name="online">На связи</string>
@@ -642,11 +662,6 @@
     <string name="picture_set_as_no_app">Не найдено приложений для обработки изображений</string>
     <string name="pin_home">Закрепить на главном экране</string>
     <string name="pin_shortcut_label">Открыть %1$s</string>
-    <string name="placeholder_fileSize">389 Кбайт</string>
-    <string name="placeholder_filename">placeholder.txt</string>
-    <string name="placeholder_media_time">12:23:45</string>
-    <string name="placeholder_sentence">Это заполнитель</string>
-    <string name="placeholder_timestamp">2012/05/18 12:23</string>
     <string name="player_stop">остановить</string>
     <string name="player_toggle">переключить</string>
     <string name="please_select_a_server">Пожалуйста, выберите сервер...</string>
@@ -668,6 +683,7 @@
     <string name="prefs_category_about">О программе</string>
     <string name="prefs_category_details">Дополнительные</string>
     <string name="prefs_category_dev">Разрабатываемая версия</string>
+    <string name="prefs_category_files">Файлы</string>
     <string name="prefs_category_general">Основные</string>
     <string name="prefs_category_more">Больше</string>
     <string name="prefs_category_sync">Синхронизировать</string>
@@ -723,11 +739,9 @@
     <string name="preview_image_error_no_local_file">Отсутствует локальный файл для создания миниатюры</string>
     <string name="preview_image_error_unknown_format">Это изображение не может быть отображено</string>
     <string name="preview_image_file_is_not_downloaded">Файл не скачан</string>
-    <string name="preview_image_file_is_not_exist">Файл не существует</string>
     <string name="preview_media_unhandled_http_code_message">Файл в настоящее время заблокирован другим пользователем или процессом и поэтому не может быть удален. Пожалуйста, повторите попытку позже.</string>
     <string name="preview_sorry">Приносим извинения</string>
     <string name="privacy">Конфиденциальность</string>
-    <string name="public_share_name">Новое имя</string>
     <string name="push_notifications_not_implemented">Всплывающие уведомления отключены, так как зависят от Google Play сервисов</string>
     <string name="push_notifications_old_login">Нет аккаунтов для уведомлений. Пожалуйста добавьте аккаунт.</string>
     <string name="push_notifications_temp_error">Всплывающие уведомления недоступны</string>
@@ -793,10 +807,10 @@
     <string name="server_not_reachable_content">Возможно, устройство не подключено к интернету.</string>
     <string name="set_as">Установить как</string>
     <string name="set_download_limit_failed">Не удалось задать лимит загрузки. Пожалуйста, проверьте доступные возможности.</string>
+    <string name="set_message">Установить сообщение</string>
     <string name="set_note">Создать заметку</string>
+    <string name="set_online_status">Онлайн подключения</string>
     <string name="set_picture_as">Использовать изображение</string>
-    <string name="set_status">Установить состояние</string>
-    <string name="set_status_message">Установить сообщение о состоянии</string>
     <string name="setup_e2e">При настройке сквозного шифрования будет создана  мнемофраза из 12 слов, которая понадобится для открытия файлов на других устройствах. Мнемофраза будет сохранена  только на этом устройстве и может быть просмотрена повторно. Сохраните мнемофразу в надежном месте!</string>
     <string name="share">Общий ресурс</string>
     <string name="share_allow_download_and_sync_permission">Разрешить загрузку и синхронизацию</string>
@@ -861,6 +875,8 @@
     <string name="signup_with_provider">Подключиться через поставщика услуги</string>
     <string name="single_sign_on_request_token" formatted="true">Разрешить %1$s доступ к вашей учетной записи Nextcloud %2$s?</string>
     <string name="sort_by">Порядок сортировки</string>
+    <string name="sort_favorites_first">Сначала избранное</string>
+    <string name="sort_folders_before_files">Начинать список с папок</string>
     <string name="ssl_validator_btn_details_hide">Скрыть</string>
     <string name="ssl_validator_btn_details_see">Подробно</string>
     <string name="ssl_validator_header">Не удалось проверить подлинность сервера</string>
@@ -886,7 +902,7 @@
     <string name="ssl_validator_reason_cert_not_trusted">- Сертификат сервера не является доверенным</string>
     <string name="ssl_validator_reason_cert_not_yet_valid">- Срок действия сертификата сервера ещё не начался</string>
     <string name="ssl_validator_reason_hostname_not_verified">- URL не совпадает с именем сервера в сертификате</string>
-    <string name="status_message">Сообщение о состоянии</string>
+    <string name="status_message">Описание статуса</string>
     <string name="storage_camera">Камера</string>
     <string name="storage_choose_location">Выбрать расположение хранилища</string>
     <string name="storage_description_default">По умолчанию</string>
@@ -1019,6 +1035,10 @@
     <string name="upload_local_storage_not_copied">Невозможно скопировать файл в локальное хранилище</string>
     <string name="upload_lock_failed">Не удалось заблокировать папку</string>
     <string name="upload_manually_cancelled">Загрузка была отменена пользователем</string>
+    <string name="upload_missing_storage_permission_allow_file_access">Разрешить доступ ко всем файлам</string>
+    <string name="upload_missing_storage_permission_app_permissions">Разрешения для приложения</string>
+    <string name="upload_missing_storage_permission_description">Ваши файлы не могут быть загружены без доступа к локальному хранилищу. Нажмите для получения разрешения.</string>
+    <string name="upload_missing_storage_permission_title">Загрузка остановлена - необходимы разрешения для хранилища</string>
     <string name="upload_notification_manager_start_text">%1$d/%2$d - %3$s</string>
     <string name="upload_old_android">Шифрование возможно только в &gt; Android 5.0</string>
     <string name="upload_query_move_foreign_files">Недостаточно места для копирования выбранных файлов в папку «%1$s». Выполнить перемещение вместо копирования?</string>

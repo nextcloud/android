@@ -37,6 +37,7 @@ import com.nextcloud.client.account.User;
 import com.nextcloud.client.database.NextcloudDatabase;
 import com.nextcloud.client.database.dao.FileDao;
 import com.nextcloud.client.database.dao.OfflineOperationDao;
+import com.nextcloud.client.database.dao.RecommendedFileDao;
 import com.nextcloud.client.database.entity.FileEntity;
 import com.nextcloud.client.database.entity.OfflineOperationEntity;
 import com.nextcloud.client.jobs.offlineOperations.repository.OfflineOperationsRepository;
@@ -108,6 +109,7 @@ public class FileDataStorageManager {
     private final ContentProviderClient contentProviderClient;
     private final User user;
 
+    public final RecommendedFileDao recommendedFileDao = NextcloudDatabase.getInstance(MainApp.getAppContext()).recommendedFileDao();
     public final OfflineOperationDao offlineOperationDao = NextcloudDatabase.getInstance(MainApp.getAppContext()).offlineOperationDao();
     public final FileDao fileDao = NextcloudDatabase.getInstance(MainApp.getAppContext()).fileDao();
     private final Gson gson = new Gson();
@@ -1183,7 +1185,6 @@ public class FileDataStorageManager {
         return folderContent;
     }
 
-
     private OCFile createRootDir() {
         OCFile ocFile = new OCFile(OCFile.ROOT_PATH);
         ocFile.setMimeType(MimeType.DIRECTORY);
@@ -1212,7 +1213,7 @@ public class FileDataStorageManager {
         return (i == null) ? -1L : i;
     }
 
-    private OCFile createFileInstance(FileEntity fileEntity) {
+    public OCFile createFileInstance(FileEntity fileEntity) {
         OCFile ocFile = new OCFile(fileEntity.getPath());
         ocFile.setDecryptedRemotePath(fileEntity.getPathDecrypted());
         ocFile.setFileId(nullToZero(fileEntity.getId()));
@@ -1984,12 +1985,14 @@ public class FileDataStorageManager {
             + ProviderTableMeta.OCSHARES_SHARE_TYPE + " = ? OR "
             + ProviderTableMeta.OCSHARES_SHARE_TYPE + " = ? OR "
             + ProviderTableMeta.OCSHARES_SHARE_TYPE + " = ? OR "
+            + ProviderTableMeta.OCSHARES_SHARE_TYPE + " = ? OR "
             + ProviderTableMeta.OCSHARES_SHARE_TYPE + " = ? ) ";
         String[] selectionArgs = new String[]{filePath, accountName,
             Integer.toString(ShareType.USER.getValue()),
             Integer.toString(ShareType.GROUP.getValue()),
             Integer.toString(ShareType.EMAIL.getValue()),
             Integer.toString(ShareType.FEDERATED.getValue()),
+            Integer.toString(ShareType.FEDERATED_GROUP.getValue()),
             Integer.toString(ShareType.ROOM.getValue()),
             Integer.toString(ShareType.CIRCLE.getValue())
         };
@@ -2395,6 +2398,8 @@ public class FileDataStorageManager {
         contentValues.put(ProviderTableMeta.CAPABILITIES_USER_STATUS, capability.getUserStatus().getValue());
         contentValues.put(ProviderTableMeta.CAPABILITIES_USER_STATUS_SUPPORTS_EMOJI,
                           capability.getUserStatusSupportsEmoji().getValue());
+        contentValues.put(ProviderTableMeta.CAPABILITIES_USER_STATUS_SUPPORTS_BUSY,
+                          capability.getUserStatusSupportsBusy().getValue());
         contentValues.put(ProviderTableMeta.CAPABILITIES_FILES_LOCKING_VERSION,
                           capability.getFilesLockingVersion());
         contentValues.put(ProviderTableMeta.CAPABILITIES_ASSISTANT, capability.getAssistant().getValue());
@@ -2577,6 +2582,8 @@ public class FileDataStorageManager {
             capability.setUserStatus(getBoolean(cursor, ProviderTableMeta.CAPABILITIES_USER_STATUS));
             capability.setUserStatusSupportsEmoji(
                 getBoolean(cursor, ProviderTableMeta.CAPABILITIES_USER_STATUS_SUPPORTS_EMOJI));
+            capability.setUserStatusSupportsBusy(
+                getBoolean(cursor, ProviderTableMeta.CAPABILITIES_USER_STATUS_SUPPORTS_BUSY));
             capability.setFilesLockingVersion(
                 getString(cursor, ProviderTableMeta.CAPABILITIES_FILES_LOCKING_VERSION));
             capability.setAssistant(getBoolean(cursor, ProviderTableMeta.CAPABILITIES_ASSISTANT));

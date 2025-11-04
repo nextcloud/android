@@ -42,13 +42,27 @@ data class OfflineOperationEntity(
     fun isRenameOrRemove(): Boolean =
         (type is OfflineOperationType.RenameFile || type is OfflineOperationType.RemoveFile)
 
-    fun getConflictText(context: Context): String = if (type is OfflineOperationType.RemoveFile) {
-        context.getString(R.string.offline_operations_worker_notification_remove_conflict_text, filename)
-    } else if (type is OfflineOperationType.RenameFile) {
-        context.getString(R.string.offline_operations_worker_notification_rename_conflict_text, filename)
-    } else if (type is OfflineOperationType.CreateFile) {
-        context.getString(R.string.offline_operations_worker_notification_create_file_conflict_text, filename)
-    } else {
-        context.getString(R.string.offline_operations_worker_notification_create_folder_conflict_text, filename)
+    fun isCreate(): Boolean = (type is OfflineOperationType.CreateFile || type is OfflineOperationType.CreateFolder)
+
+    fun getConflictText(context: Context): String {
+        val resId = when (type) {
+            is OfflineOperationType.RemoveFile -> {
+                R.string.offline_operations_worker_notification_remove_conflict_text
+            }
+
+            is OfflineOperationType.RenameFile -> {
+                R.string.offline_operations_worker_notification_rename_conflict_text
+            }
+
+            is OfflineOperationType.CreateFile -> {
+                R.string.offline_operations_worker_notification_create_file_conflict_text
+            }
+
+            else -> {
+                R.string.offline_operations_worker_notification_create_folder_conflict_text
+            }
+        }
+
+        return context.getString(resId, filename)
     }
 }

@@ -23,6 +23,7 @@
     <string name="app_config_base_url_title">URL base</string>
     <string name="app_config_proxy_port_title">Puertu del proxy</string>
     <string name="appbar_search_in">Buscar en: %s</string>
+    <string name="appear_offline">Apaecer desconectáu</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Escribi daqué</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Desaniciar la xera</string>
     <string name="assistant_screen_task_list_error_state_message">Nun ye posible dir en cata de la llista de xeres. Comprueba la conexón a internet.</string>
@@ -59,13 +60,14 @@
     <string name="bottom_navigation_menu_favorites_label">Favoritos</string>
     <string name="bottom_navigation_menu_files_label">Tolos ficheros</string>
     <string name="bottom_navigation_menu_media_label">Multimedia</string>
+    <string name="busy">Ocupáu</string>
     <string name="calendar">Calendariu</string>
     <string name="calendars">Calendarios</string>
     <string name="certificate_load_problem">Hai un problema cargando\'l certificáu</string>
     <string name="checkbox">Caxellu</string>
+    <string name="clear">Borrar</string>
     <string name="clear_notifications_failed">Nun se puen borrar los avisos.</string>
-    <string name="clear_status_message">Borrar el mensaxe del estáu</string>
-    <string name="clear_status_message_after">Borrar el mensaxe l\'estáu dempués de</string>
+    <string name="clear_status_after">Borrar l\'estúa dempués de</string>
     <string name="clipboard_label">Testu copiáu dende %1$s</string>
     <string name="clipboard_text_copied">Copióse l\'enllaz</string>
     <string name="common_back">Atrás</string>
@@ -329,6 +331,7 @@
     <string name="move_file_invalid_into_descendent">Nun ye posible mover una carpeta a les sos soxacentes</string>
     <string name="move_file_invalid_overwrite">El ficheru yá ta presente na carpeta de destín</string>
     <string name="move_file_not_found">Nun ye posible mover el ficheru. Comprueba si esiste.</string>
+    <string name="mute_all_notifications">Desactivar tolos avisos</string>
     <string name="new_comment">Comentariu nuevu…</string>
     <string name="new_media_folder_photos">semeya</string>
     <string name="new_media_folder_videos">videu</string>
@@ -379,11 +382,6 @@
     <string name="permission_deny">Negar</string>
     <string name="permission_storage_access">Ríquense permisos adicionales pa xubir y baxar ficheros.</string>
     <string name="pin_shortcut_label">Abrir «%1$s»</string>
-    <string name="placeholder_fileSize">389 KB</string>
-    <string name="placeholder_filename">MarcadorDePosicion.txt</string>
-    <string name="placeholder_media_time">12:23:45</string>
-    <string name="placeholder_sentence">Esto ye un marcador de posición</string>
-    <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
     <string name="pref_behaviour_entries_delete_file">desanicióse</string>
     <string name="pref_behaviour_entries_keep_file">guardáu en carpeta orixinal</string>
     <string name="pref_behaviour_entries_move">movíu a la carpeta d\'aplicaciones</string>
@@ -395,6 +393,7 @@
     <string name="prefs_add_account">Amestar cuenta</string>
     <string name="prefs_category_about">Tocante a</string>
     <string name="prefs_category_details">Detalles</string>
+    <string name="prefs_category_files">Ficheros</string>
     <string name="prefs_category_general">Xeneral</string>
     <string name="prefs_category_more">Más</string>
     <string name="prefs_category_sync">Sincronizar</string>
@@ -415,10 +414,8 @@
     <string name="prefs_value_theme_light">Claridá</string>
     <string name="preview_image_description">Previsualización d\'imaxe</string>
     <string name="preview_image_error_unknown_format">Nun pue amosase la imaxe</string>
-    <string name="preview_image_file_is_not_exist">El ficheru nun esiste</string>
     <string name="preview_sorry">Sentímoslo</string>
     <string name="privacy">Privacidá</string>
-    <string name="public_share_name">Nome nuevu</string>
     <string name="qr_could_not_be_read">¡Nun se pudo lleer el códigu QR!</string>
     <string name="recommend_subject">¡Prueba %1$s nel preséu!</string>
     <string name="recommend_urls">%1$s o %2$s</string>
@@ -454,8 +451,7 @@
     <string name="search_error">Hebo un error al consiguir los resultaos de busca</string>
     <string name="select_all">Esbillar too</string>
     <string name="send">Unviar</string>
-    <string name="set_status">Afitar l\'estáu</string>
-    <string name="set_status_message">Afitar el mensaxe del estáu</string>
+    <string name="set_online_status">Estáu en llinia</string>
     <string name="share">Compartir</string>
     <string name="share_create_permission">Crear</string>
     <string name="share_custom_permission">Personlizar los permisos</string>
@@ -491,6 +487,8 @@
     <string name="signup_with_provider">Rexistrase con un fornidor</string>
     <string name="single_sign_on_request_token" formatted="true">¿Quies permitr que %1$s acceda a la cuenta de Nextcloud %2$s?</string>
     <string name="sort_by">Ordenar per</string>
+    <string name="sort_favorites_first">Ordenar los favoritos primero</string>
+    <string name="sort_folders_before_files">Ordenar les carpetes enantes que los ficheros</string>
     <string name="ssl_validator_btn_details_hide">Esconder</string>
     <string name="ssl_validator_btn_details_see">Detalles</string>
     <string name="ssl_validator_header">Nun se pudo verificar la identidá del sirvidor</string>

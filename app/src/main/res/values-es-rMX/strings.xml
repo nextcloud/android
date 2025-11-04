@@ -33,6 +33,7 @@
     <string name="app_config_proxy_port_title">Puerto del proxy</string>
     <string name="app_widget_description">Muestra un widget del panel</string>
     <string name="appbar_search_in">Buscar en %s</string>
+    <string name="appear_offline">Aparecer como desconectado</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Escriba algo de texto</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">¿Está seguro de eliminar esta tarea?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Eliminar tarea</string>
@@ -99,6 +100,7 @@
     <string name="bottom_navigation_menu_favorites_label">Favoritos</string>
     <string name="bottom_navigation_menu_files_label">Todos los archivos</string>
     <string name="bottom_navigation_menu_media_label">Multimedia</string>
+    <string name="busy">Ocupado</string>
     <string name="calendar">Calendario</string>
     <string name="calendars">Calendarios</string>
     <string name="certificate_load_problem">Se presentó un problema al cargar el certificado.</string>
@@ -110,9 +112,9 @@
     <string name="choose_template_helper_text">Por favor elige una plantilla e introduce un nombre de archivo.</string>
     <string name="choose_which_file">¡Selecciona el archivo a conservar!</string>
     <string name="choose_widget">Elegir widget</string>
+    <string name="clear">Limpiar</string>
     <string name="clear_notifications_failed">Hubo una falla al intentar limpiar las notificaciones.</string>
-    <string name="clear_status_message">Borrar mensaje de estado</string>
-    <string name="clear_status_message_after">Borrar mensaje de estado después de</string>
+    <string name="clear_status_after">Limpiar el estado después de</string>
     <string name="clipboard_label">Texto copiado desde %1$s</string>
     <string name="clipboard_no_text_to_copy">No se ha recibido texto para copiar al portapapeles</string>
     <string name="clipboard_text_copied">Enlace copiado</string>
@@ -487,7 +489,6 @@
     <string name="manage_space_clear_data">Borrar datos</string>
     <string name="manage_space_description">Las configuraciones, base de datos y certificados del servidor de los datos de %1$s serán eliminados permanentemente.\n\nLos archivos descargados se mantendrán sin cambios.\n\nEste proceso puede tomar algo de tiempo. </string>
     <string name="manage_space_title">Administrar espacio</string>
-    <string name="max_file_count_warning_message">Ha alcanzado el límite de carga máxima de archivos. Por favor, cargue menos de 500 archivos a la vez.</string>
     <string name="media_err_invalid_progressive_playback">No se puede transmitir el archivo multimedia</string>
     <string name="media_err_io">No fue posible leer el archivo de medios</string>
     <string name="media_err_malformed">El archivo de medios tiene una codificación incorrecta</string>
@@ -510,6 +511,7 @@
     <string name="move_file_invalid_into_descendent">No es posible mover una carpeta dentro de una de sus sub carpetas</string>
     <string name="move_file_invalid_overwrite">El archivo ya existe en la carpeta de destino</string>
     <string name="move_file_not_found">No se puede mover el archivo. Por favor, verifique si existe.</string>
+    <string name="mute_all_notifications">Silenciar todas las notificaciones</string>
     <string name="network_error_connect_timeout_exception">Ocurrió un error mientras se esperaba por el servidor. No se pudo completar la operación.</string>
     <string name="network_error_socket_exception">Se presentó un error durante la conexión al servidor</string>
     <string name="network_error_socket_timeout_exception">Ocurrió un error mientras se esperaba por el servidor. No se pudo completar la operación.</string>
@@ -569,11 +571,6 @@
     <string name="permission_storage_access">Se requieren permisos adicionales para cargar y descargar archivos. </string>
     <string name="picture_set_as_no_app">No se encontró una aplicación con la cual establecer la imagen</string>
     <string name="pin_shortcut_label">Abrir %1$s</string>
-    <string name="placeholder_fileSize">389 KB</string>
-    <string name="placeholder_filename">marcadordeposición.txt</string>
-    <string name="placeholder_media_time">12:23:45</string>
-    <string name="placeholder_sentence">Este es un marcador de posición</string>
-    <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
     <string name="player_stop">detener</string>
     <string name="player_toggle">alternar</string>
     <string name="power_save_check_dialog_message">¡Desactivar la comprobación de ahorro de energía podría resultar en la carga de archivos cuando la batería esté baja!</string>
@@ -593,6 +590,7 @@
     <string name="prefs_category_about">Acerca de</string>
     <string name="prefs_category_details">Detalles</string>
     <string name="prefs_category_dev">Desarrollo</string>
+    <string name="prefs_category_files">Archivo</string>
     <string name="prefs_category_general">General</string>
     <string name="prefs_category_more">Más</string>
     <string name="prefs_category_sync">Sincronizar</string>
@@ -642,11 +640,9 @@
     <string name="preview_image_error_no_local_file">No existe un archivo local a previsualizar</string>
     <string name="preview_image_error_unknown_format">No es posible mostrar la imagen</string>
     <string name="preview_image_file_is_not_downloaded">El archivo no está descargado</string>
-    <string name="preview_image_file_is_not_exist">El archivo no existe</string>
     <string name="preview_media_unhandled_http_code_message">El archivo se encuentra bloqueado actualmente por otro usuario o proceso y, por lo tanto, no es posible eliminarlo. Por favor, intente de nuevo más tarde.</string>
     <string name="preview_sorry">Disculpa</string>
     <string name="privacy">Privacidad</string>
-    <string name="public_share_name">Nuevo nombre</string>
     <string name="push_notifications_not_implemented">Las notificaciones push están deshabilitadas debido a dependencias de servicios propietarios de Google Play. </string>
     <string name="push_notifications_old_login">No hay notificaciones push debido a un inicio de sesión caduco. Por favor vuelve a ingresar a tu cuenta. </string>
     <string name="push_notifications_temp_error">En este momento las notificaciones push no están disponibles.</string>
@@ -705,9 +701,8 @@
     <string name="send">Enviar</string>
     <string name="sendbutton_description">Ícono de botón de envío</string>
     <string name="set_as">Establecer Como</string>
+    <string name="set_online_status">Estado en línea</string>
     <string name="set_picture_as">Usar imagen como</string>
-    <string name="set_status">Establecer estado</string>
-    <string name="set_status_message">Establecer mensaje de estado</string>
     <string name="setup_e2e">Durante la configuración del cifrado punto a punto, recibirá un mnemotécnico aleatorio de 12 palabras, que necesitará para abrir sus archivos en otros dispositivos. Esto sólo se almacenará en este dispositivo y se puede volver a mostrar en esta pantalla. ¡Por favor, guárdelo en un lugar seguro!</string>
     <string name="share">Compartir</string>
     <string name="share_create_permission">Crear</string>
@@ -763,6 +758,8 @@
     <string name="signup_with_provider">Registrarse con el proveedor</string>
     <string name="single_sign_on_request_token" formatted="true">¿Permitir que %1$s acceda a su cuenta de Nextcloud %2$s?</string>
     <string name="sort_by">Ordenar por</string>
+    <string name="sort_favorites_first">Ordenar los favoritos primero</string>
+    <string name="sort_folders_before_files">Ordenar carpetas antes que archivos</string>
     <string name="ssl_validator_btn_details_hide">Ocultar</string>
     <string name="ssl_validator_btn_details_see">Detalles</string>
     <string name="ssl_validator_header">La identidad del servidor no pudo ser verificada</string>

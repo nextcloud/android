@@ -22,14 +22,12 @@ import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.AsyncTask
-import android.os.Build
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
-import android.widget.LinearLayout
 import androidx.annotation.OptIn
 import androidx.annotation.StringRes
 import androidx.appcompat.content.res.AppCompatResources
@@ -71,14 +69,12 @@ import com.nextcloud.client.media.ExoplayerListener
 import com.nextcloud.client.media.NextcloudExoPlayer.createNextcloudExoplayer
 import com.nextcloud.client.network.ClientFactory
 import com.nextcloud.client.network.ClientFactory.CreationException
-import com.nextcloud.common.NextcloudClient
 import com.nextcloud.ui.fileactions.FileAction
 import com.nextcloud.ui.fileactions.FileActionsBottomSheet.Companion.newInstance
 import com.nextcloud.ui.fileactions.FileActionsBottomSheet.ResultListener
 import com.nextcloud.utils.extensions.getParcelableArgument
 import com.nextcloud.utils.extensions.logFileSize
 import com.nextcloud.utils.extensions.setTitleColor
-import com.nextcloud.utils.extensions.statusBarHeight
 import com.owncloud.android.R
 import com.owncloud.android.databinding.ActivityPreviewMediaBinding
 import com.owncloud.android.datamodel.OCFile
@@ -146,19 +142,13 @@ class PreviewMediaActivity :
     private var videoMediaSession: MediaSession? = null
     private var audioMediaController: MediaController? = null
     private var mediaControllerFuture: ListenableFuture<MediaController>? = null
-    private var nextcloudClient: NextcloudClient? = null
     private lateinit var windowInsetsController: WindowInsetsControllerCompat
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.O) {
-            setTheme(R.style.Theme_ownCloud_Toolbar)
-        }
-
         binding = ActivityPreviewMediaBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
         setSupportActionBar(binding.materialToolbar)
         WindowCompat.setDecorFitsSystemWindows(window, false)
         applyWindowInsets()
@@ -178,7 +168,6 @@ class PreviewMediaActivity :
         configureSystemBars()
         emptyListView = binding.emptyView.emptyListView
         showProgressLayout()
-        addMarginForEmptyView()
         if (file == null) {
             return
         }
@@ -193,21 +182,6 @@ class PreviewMediaActivity :
             setPackage(packageName)
         }
         sendBroadcast(intent)
-    }
-
-    private fun addMarginForEmptyView() {
-        val layoutParams = emptyListView?.layoutParams ?: return
-        val statusBarHeight = statusBarHeight().toFloat()
-        val marginTop = DisplayUtils.convertDpToPixel(statusBarHeight, this)
-        when (layoutParams) {
-            is LinearLayout.LayoutParams -> layoutParams.setMargins(0, marginTop, 0, 0)
-            is FrameLayout.LayoutParams -> layoutParams.setMargins(0, marginTop, 0, 0)
-            else -> {
-                Log_OC.e(TAG, "Unsupported LayoutParams type: ${layoutParams::class.java.simpleName}")
-                return
-            }
-        }
-        emptyListView?.layoutParams = layoutParams
     }
 
     private fun initArguments(savedInstanceState: Bundle?) {
@@ -598,6 +572,7 @@ class PreviewMediaActivity :
             }
 
             R.id.action_sync_file -> {
+                showSyncLoadingDialog(file.isFolder)
                 fileOperationsHelper.syncFile(file)
             }
 

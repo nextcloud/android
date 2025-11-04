@@ -34,6 +34,7 @@
     <string name="app_config_proxy_port_title">پورت پروکسی</string>
     <string name="app_widget_description">نمایش یک ابزارک از پیشخوان</string>
     <string name="appbar_search_in">جستجو در %s</string>
+    <string name="appear_offline">نمایش آفلاین</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">مقداری متن را تایپ کنید</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">وظیفه را حذف کنید</string>
     <string name="assistant_screen_task_delete_success_message">Task successfully deleted</string>
@@ -86,6 +87,7 @@
     <string name="bottom_navigation_menu_favorites_label">مورد علاقه‌ها</string>
     <string name="bottom_navigation_menu_files_label">تمامی فایل‌ها</string>
     <string name="bottom_navigation_menu_media_label">رسانه‌ها</string>
+    <string name="busy">مشغول</string>
     <string name="calendar">تقویم</string>
     <string name="calendars">تقویم‌ها</string>
     <string name="certificate_load_problem">در حال بارگذاری گواهینامه، یک مشکل وجود دارد.</string>
@@ -97,9 +99,9 @@
     <string name="choose_template_helper_text">لطفا یک قالب را انتخاب و نامی برای پرونده وارد کنید.</string>
     <string name="choose_which_file">انتخاب کنید کدام فایل را نگه‌ دارید!</string>
     <string name="choose_widget">گزینش ابزارک</string>
+    <string name="clear">پاک کردن</string>
     <string name="clear_notifications_failed">ناموفق بودن در پاک کردن اعلانها</string>
-    <string name="clear_status_message">پیام وضعیت را پاک کن</string>
-    <string name="clear_status_message_after">"بعد از آن پیام وضعیت را پاک کن "</string>
+    <string name="clear_status_after">پاک کردن وضعیت بعدی</string>
     <string name="clipboard_label">متن کپی شده از %1$s</string>
     <string name="clipboard_no_text_to_copy">هیچ متنی برای کپی کردن در کلیپ بورد دریافت نشده است</string>
     <string name="clipboard_text_copied">پیوند کپی شد</string>
@@ -490,6 +492,7 @@
     <string name="move_file_invalid_into_descendent">انتقال یک پوشه در یکی از پوشه های زیرین خود امکان پذیر نیست</string>
     <string name="move_file_invalid_overwrite">فایل در حال حاضر در پوشه مقصد موجود است</string>
     <string name="move_file_not_found">انتقال فایل امکان پذیر نمی‌باشد. لطفا موجود بودن فایل را بررسی کنید.</string>
+    <string name="mute_all_notifications">خاموش کردن همه اعلانات</string>
     <string name="network_error_connect_timeout_exception">هنگام اتصال به سرور خطایی روی داد. تکمیل عملیات میسر نیست.</string>
     <string name="network_error_socket_exception">هنگام اتصال به سرور خطایی روی داد</string>
     <string name="network_error_socket_timeout_exception">هنگام اتصال به سرور خطایی روی داد. تکمیل عملیات میسر نیست.</string>
@@ -549,11 +552,6 @@
     <string name="permission_storage_access">نیاز به مجوزهای اضافی برای بارگذاری و دریافت پرونده‌ها می باشد.</string>
     <string name="picture_set_as_no_app">هیچ برنامه ای برای تنظیم عکس یافت نشد</string>
     <string name="pin_shortcut_label">باز کنید %1$s</string>
-    <string name="placeholder_fileSize">۳۸۹ کیلوبایت</string>
-    <string name="placeholder_filename">placeholder.txt</string>
-    <string name="placeholder_media_time">12:23:45</string>
-    <string name="placeholder_sentence">این یک حفره است.</string>
-    <string name="placeholder_timestamp">2012/05/18 12:23 بعد از ظهر</string>
     <string name="player_stop">توقف</string>
     <string name="player_toggle">تغییر وضعیت</string>
     <string name="power_save_check_dialog_message">غیرفعال کردن چک مارک صرفه جویی در مصرف برق ممکن است باعث شود بارگذاری پرونده ها در حالت باتری کم باشد!</string>
@@ -573,6 +571,7 @@
     <string name="prefs_category_about">درباره</string>
     <string name="prefs_category_details">جزئیات</string>
     <string name="prefs_category_dev">توسعه</string>
+    <string name="prefs_category_files">پرونده‌ها</string>
     <string name="prefs_category_general">عمومی</string>
     <string name="prefs_category_more">بیش‌تر</string>
     <string name="prefs_category_sync">همگام‌سازی</string>
@@ -620,10 +619,8 @@
     <string name="preview_image_description">پیش نمایش تصویر</string>
     <string name="preview_image_error_no_local_file">هیچ فایل محلی برای پیش نمایش وجود ندارد</string>
     <string name="preview_image_error_unknown_format">نشان دادن تصویر نامقدور</string>
-    <string name="preview_image_file_is_not_exist">فایل وجود ندارد</string>
     <string name="preview_sorry">ببخشید</string>
     <string name="privacy">حریم خصوصی</string>
-    <string name="public_share_name">اسم جدید</string>
     <string name="push_notifications_not_implemented">ارسال اعلانات به دلیل وابستگی به خدمات اختصاصی Google Play غیرفعال شده است.</string>
     <string name="push_notifications_old_login">امکان ارسال اعلانات، به دلیل منقضی شدن زمان نشست ورود به سیستم وجود ندارد. لطفاً دوباره حساب خود را اضافه کنید.</string>
     <string name="push_notifications_temp_error">ارسال اعلانات در حال حاضر در دسترس نیست.</string>
@@ -680,9 +677,8 @@
     <string name="send">ارسال</string>
     <string name="sendbutton_description">ایکون دکمه ارسال</string>
     <string name="set_as">تنظیم به عنوان</string>
+    <string name="set_online_status">وضعیت برخط</string>
     <string name="set_picture_as">استفاده از تصویر به عنوان</string>
-    <string name="set_status">تنظیم وضعیت</string>
-    <string name="set_status_message">تنظیم پیام وضعیت</string>
     <string name="setup_e2e">در طول راه اندازی رمزگذاری سرتاسری، یک یادگاری تصادفی ۱۲ کلمه‌ای دریافت خواهید کرد که باید فایل‌های خود را در دستگاه‌های دیگر باز کنید. این فقط در این دستگاه ذخیره می شود و می تواند دوباره در این صفحه نمایش داده شود. لطفا آن را در یک مکان امن یادداشت کنید!</string>
     <string name="share">هم‌رسانی</string>
     <string name="share_create_permission">ایجاد</string>
@@ -737,6 +733,8 @@
     <string name="signup_with_provider">ثبت‌نام با ارائه دهنده</string>
     <string name="single_sign_on_request_token" formatted="true">اجازه به %1$s برای دسترسی به حساب نکست‌کلود %2$s؟</string>
     <string name="sort_by">مرتب سازی بر اساس</string>
+    <string name="sort_favorites_first">ابتدا موارد دلخواه را مرتب کنید</string>
+    <string name="sort_folders_before_files">Sort folders before files</string>
     <string name="ssl_validator_btn_details_hide">پنهان کردن</string>
     <string name="ssl_validator_btn_details_see">جزییات</string>
     <string name="ssl_validator_header">هویت کارساز نتوانست تأیید شود</string>

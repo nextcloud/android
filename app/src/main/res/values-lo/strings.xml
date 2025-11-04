@@ -87,8 +87,6 @@
     <string name="choose_template_helper_text">ກະລຸນາເລືອກແບບຟອມ ແລະ ໃສ່ຊື່ຟາຍ</string>
     <string name="choose_which_file">ເລືອກເອົາຟາຍທີ່ຈະເກັບໄວ້!</string>
     <string name="clear_notifications_failed">ລ້າງການແຈ້ງເຕືອນບໍ່ສໍາເລັດ.</string>
-    <string name="clear_status_message">ລ້າງສະຖານະພາບຂໍ້ຄວາມ</string>
-    <string name="clear_status_message_after">ລ້າງສະຖານະພາບຂໍ້ຄວາມພາຍຫຼັງ</string>
     <string name="clipboard_label">ສໍາເນົາຂໍ້ຄວາມຈາກ%1$s</string>
     <string name="clipboard_no_text_to_copy">ບໍ່ໄດ້ຮັບຂໍ້ຄວາມທີ່ຈະສໍາເນົາໄປຍັງຄລິບ</string>
     <string name="clipboard_text_copied">ສຳເນົາລິງ</string>
@@ -436,11 +434,6 @@
     <string name="permission_deny">ປະຕິເສດ</string>
     <string name="permission_storage_access">ການອະນຸຍາດເພີ່ມເຕີມທີ່ຈໍາເປັນເພື່ອອັບໂຫຼດ ແລະ ດາວໂຫລດຟາຍ</string>
     <string name="picture_set_as_no_app">ບໍ່ພົບແອັບພລິເຄຊັນເພື່ອຕັ້ງຮູບດ້ວຍ</string>
-    <string name="placeholder_fileSize">389 KB</string>
-    <string name="placeholder_filename">ຕົວສຳຮອງ.txt</string>
-    <string name="placeholder_media_time">12:23:45</string>
-    <string name="placeholder_sentence">ຕົວສຳຮອງ</string>
-    <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
     <string name="player_stop">ຢຸດ</string>
     <string name="player_toggle">ສະລັບ</string>
     <string name="power_save_check_dialog_message">ການກວດກາການປະຢັດພະລັງງານອາດຈະສົ່ງຜົນໃນອັບໂຫຼດຟາຍເມື່ອແບັດເຕີຣີຕ່ໍາ!</string>
@@ -458,6 +451,7 @@
     <string name="prefs_category_about">ກ່ຽວກັບ</string>
     <string name="prefs_category_details">ລາຍລະອຽດ</string>
     <string name="prefs_category_dev">Dev</string>
+    <string name="prefs_category_files">ຟາຍ</string>
     <string name="prefs_category_general">ທົ່ວໄປ</string>
     <string name="prefs_category_more">ເພີ່ມເຕີມ</string>
     <string name="prefs_category_sync">Sync</string>
@@ -495,7 +489,6 @@
     <string name="preview_image_error_unknown_format">ບໍ່ສາມາດສະແດງຮູບພາບໄດ້</string>
     <string name="preview_sorry">ຂໍໂທດ</string>
     <string name="privacy">ສ່ວນຕົວ</string>
-    <string name="public_share_name">ຊື່ໄໝ່</string>
     <string name="push_notifications_not_implemented"> ປິດການແຈ້ງເຕືອນ         ເນື່ອງຈາກການເພິ່ງພາອາໄສການບໍລິການ Google Play ທີ່ເປັນເຈົ້າຂອງ.</string>
     <string name="push_notifications_old_login">ບໍ່ມີການແຈ້ງ ເຕືອນ ເນື່ອງ ຈາກພາກ ການເຂົ້າລະບົບ ສະໄຫມ. ກະລຸນາພິຈາລະນາການເພີ່ມບັນຊີຂອງທ່ານຄືນໃຫມ່.</string>
     <string name="push_notifications_temp_error">ການແຈ້ງເຕືອນຊຸກຍູ້ໃນປະຈຸບັນຍັງບໍ່ມີ.</string>
@@ -532,9 +525,8 @@
     <string name="send">ສົ່ງ</string>
     <string name="sendbutton_description">ສົ່ງປຸ່ມ icon</string>
     <string name="set_as">ຕັ້ງຄ່າເປັນ</string>
+    <string name="set_online_status">ສະຖານະພາບອອນລາຍ</string>
     <string name="set_picture_as">ໃຊ້ຮູບເປັນ</string>
-    <string name="set_status">ຕັ້ງຄ່າສະຖານະພາບ</string>
-    <string name="set_status_message">ຕັ້ງຄ່າສະຖານະພາບຂໍ້ຄວາມ</string>
     <string name="share">ແບ່ງປັນ</string>
     <string name="share_create_permission">ສ້າງ</string>
     <string name="share_delete_permission">ລຶບ</string>

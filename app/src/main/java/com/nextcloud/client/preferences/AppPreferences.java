@@ -63,6 +63,12 @@ public interface AppPreferences {
 
     boolean isShowHiddenFilesEnabled();
     void setShowHiddenFilesEnabled(boolean enabled);
+    
+    boolean isSortFoldersBeforeFiles();
+    void setSortFoldersBeforeFiles(boolean enabled);
+    
+    boolean isSortFavoritesFirst();
+    void setSortFavoritesFirst(boolean enabled);
 
     boolean isShowEcosystemApps();
     void setShowEcosystemApps(boolean enabled);
@@ -344,10 +350,6 @@ public interface AppPreferences {
 
     long getPhotoSearchTimestamp();
 
-    boolean isPowerCheckDisabled();
-
-    void setPowerCheckDisabled(boolean value);
-
     void increasePinWrongAttempts();
 
     void resetPinWrongAttempts();
@@ -395,4 +397,7 @@ public interface AppPreferences {
 
     int getPassCodeDelay();
     void setPassCodeDelay(int value);
+
+    String getLastDisplayedAccountName();
+    void setLastDisplayedAccountName(String lastDisplayedAccountName);
 }

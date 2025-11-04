@@ -31,6 +31,7 @@ import android.graphics.drawable.PictureDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.PersistableBundle;
 import android.os.SystemClock;
 import android.text.TextUtils;
 import android.view.Menu;
@@ -51,6 +52,7 @@ import com.google.android.material.progressindicator.LinearProgressIndicator;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.files.DeepLinkConstants;
+import com.nextcloud.client.jobs.upload.FileUploadWorker;
 import com.nextcloud.client.network.ClientFactory;
 import com.nextcloud.client.onboarding.FirstRunActivity;
 import com.nextcloud.client.preferences.AppPreferences;
@@ -114,6 +116,7 @@ import java.util.Optional;
 
 import javax.inject.Inject;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -127,8 +130,6 @@ import androidx.fragment.app.Fragment;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import hct.Hct;
 import kotlin.Unit;
-
-import static com.nextcloud.utils.extensions.DrawerActivityExtensionsKt.getMenuItemIdFromTitle;
 
 /**
  * Base class to handle setup of the drawer implementation including user switching and avatar fetching and fallback
@@ -206,6 +207,12 @@ public abstract class DrawerActivity extends ToolbarActivity
 
     @Inject
     ClientFactory clientFactory;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState, @Nullable PersistableBundle persistentState) {
+        super.onCreate(savedInstanceState, persistentState);
+        addOnBackPressedCallback();
+    }
 
     /**
      * Initializes the drawer and its content. This method needs to be called after the content view has been set.
@@ -317,21 +324,6 @@ public abstract class DrawerActivity extends ToolbarActivity
      */
     private void setupDrawerToggle() {
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.drawer_open, R.string.drawer_close) {
-            private boolean isMenuItemChecked = false;
-
-            @Override
-            public void onDrawerSlide(View drawerView, float slideOffset) {
-                super.onDrawerSlide(drawerView, slideOffset);
-                if (slideOffset > 0 && !isMenuItemChecked) {
-                    Integer menuItemIdFromTitle = getMenuItemIdFromTitle(DrawerActivity.this);
-                    if (menuItemIdFromTitle != null && menuItemIdFromTitle != menuItemId) {
-                        menuItemId = menuItemIdFromTitle;
-                    }
-                    setNavigationViewItemChecked();
-                    isMenuItemChecked = true;
-                }
-            }
-
             /** Called when a drawer has settled in a completely closed state. */
             public void onDrawerClosed(View view) {
                 super.onDrawerClosed(view);
@@ -343,7 +335,6 @@ public abstract class DrawerActivity extends ToolbarActivity
                     pendingRunnable = null;
                 }
 
-                isMenuItemChecked = false;
                 closeDrawer();
             }
 
@@ -380,13 +371,12 @@ public abstract class DrawerActivity extends ToolbarActivity
     }
 
     public void updateHeader() {
-        int primaryColor = themeColorUtils.unchangedPrimaryColor(getAccount(), this);
+        final var account = getAccount();
         boolean isClientBranded = getResources().getBoolean(R.bool.is_branded_client);
+        final OCCapability capability = getCapabilities();
 
-        if (getAccount() != null &&
-            getCapabilities().getServerBackground() != null && !isClientBranded) {
-
-            OCCapability capability = getCapabilities();
+        if (capability != null && account != null && capability.getServerBackground() != null && !isClientBranded) {
+            int primaryColor = themeColorUtils.unchangedPrimaryColor(account, this);
             String serverLogoURL = capability.getServerLogo();
 
             // set background to primary color
@@ -413,7 +403,7 @@ public abstract class DrawerActivity extends ToolbarActivity
         if (shouldHideTopBanner) {
             hideTopBanner(banner);
         } else {
-            showTopBanner(banner, primaryColor);
+            showTopBanner(banner);
         }
     }
 
@@ -467,7 +457,7 @@ public abstract class DrawerActivity extends ToolbarActivity
         banner.setVisibility(View.GONE);
     }
 
-    private void showTopBanner(ConstraintLayout banner, int primaryColor) {
+    private void showTopBanner(ConstraintLayout banner) {
         LinearLayout notesView = banner.findViewById(R.id.drawer_ecosystem_notes);
         LinearLayout talkView = banner.findViewById(R.id.drawer_ecosystem_talk);
         LinearLayout moreView = banner.findViewById(R.id.drawer_ecosystem_more);
@@ -489,8 +479,14 @@ public abstract class DrawerActivity extends ToolbarActivity
         List<LinearLayout> views = Arrays.asList(notesView, talkView, moreView, assistantView);
 
         int iconColor;
-        if (Hct.fromInt(primaryColor).getTone() < 80.0) {
-            iconColor = Color.WHITE;
+        final var account = getAccount();
+        if (account != null) {
+            int primaryColor = themeColorUtils.unchangedPrimaryColor(account, this);
+            if (Hct.fromInt(primaryColor).getTone() < 80.0) {
+                iconColor = Color.WHITE;
+            } else {
+                iconColor = getColor(R.color.grey_800_transparent);
+            }
         } else {
             iconColor = getColor(R.color.grey_800_transparent);
         }
@@ -606,7 +602,14 @@ public abstract class DrawerActivity extends ToolbarActivity
             startActivity(ActivitiesActivity.class, Intent.FLAG_ACTIVITY_CLEAR_TOP);
         } else if (itemId == R.id.nav_settings) {
             resetOnlyPersonalAndOnDevice();
-            startActivity(SettingsActivity.class);
+
+            /**
+             * Since pressing the back button in SettingsActivity always returns to the all file list, we can clear the stack.
+             * {@link SettingsActivity#onBackPressed()
+             */
+            final Intent intent = new Intent(this, SettingsActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
         } else if (itemId == R.id.nav_community) {
             resetOnlyPersonalAndOnDevice();
             startActivity(CommunityActivity.class);
@@ -1158,19 +1161,24 @@ public abstract class DrawerActivity extends ToolbarActivity
         }
     }
 
-    @Override
-    public void onBackPressed() {
-        if (isDrawerOpen()) {
-            closeDrawer();
-            return;
-        }
-        Fragment fileDetailsSharingProcessFragment =
-            getSupportFragmentManager().findFragmentByTag(FileDetailsSharingProcessFragment.TAG);
-        if (fileDetailsSharingProcessFragment != null) {
-            ((FileDetailsSharingProcessFragment) fileDetailsSharingProcessFragment).onBackPressed();
-        } else {
-            super.onBackPressed();
-        }
+    public void addOnBackPressedCallback() {
+        getOnBackPressedDispatcher().addCallback(new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                if (isDrawerOpen()) {
+                    closeDrawer();
+                    return;
+                }
+
+                final var fragment = getSupportFragmentManager().findFragmentByTag(FileDetailsSharingProcessFragment.TAG);
+                if (fragment instanceof FileDetailsSharingProcessFragment fileDetailsSharingProcessFragment) {
+                    fileDetailsSharingProcessFragment.onBackPressed();
+                } else {
+                    setEnabled(false);
+                    getOnBackPressedDispatcher().onBackPressed();
+                }
+            }
+        });
     }
 
     @Override

@@ -13,14 +13,18 @@ import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageButton
 import android.widget.PopupMenu
 import androidx.annotation.VisibleForTesting
+import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import com.afollestad.sectionedrecyclerview.SectionedRecyclerViewAdapter
 import com.afollestad.sectionedrecyclerview.SectionedViewHolder
+import com.google.android.material.button.MaterialButton
 import com.nextcloud.android.common.ui.theme.utils.ColorRole
 import com.nextcloud.client.core.Clock
+import com.nextcloud.client.device.PowerManagementService
+import com.nextcloud.client.network.ConnectivityService
+import com.nextcloud.utils.extensions.calculateScanInterval
 import com.nextcloud.utils.extensions.filterEnabledOrWithoutEnabledParent
 import com.nextcloud.utils.extensions.hasEnabledParent
 import com.nextcloud.utils.extensions.setVisibleIf
@@ -30,6 +34,7 @@ import com.owncloud.android.databinding.SyncedFoldersEmptyBinding
 import com.owncloud.android.databinding.SyncedFoldersFooterBinding
 import com.owncloud.android.databinding.SyncedFoldersItemHeaderBinding
 import com.owncloud.android.datamodel.MediaFolderType
+import com.owncloud.android.datamodel.SyncedFolder
 import com.owncloud.android.datamodel.SyncedFolderDisplayItem
 import com.owncloud.android.datamodel.ThumbnailsCacheManager
 import com.owncloud.android.datamodel.ThumbnailsCacheManager.AsyncMediaThumbnailDrawable
@@ -39,6 +44,7 @@ import java.io.File
 import java.util.Locale
 import java.util.concurrent.Executor
 import java.util.concurrent.Executors
+import java.util.concurrent.TimeUnit
 
 /**
  * Adapter to display all auto-synced folders and/or instant upload media folders.
@@ -50,7 +56,9 @@ class SyncedFolderAdapter(
     private val gridWidth: Int,
     private val clickListener: ClickListener,
     private val light: Boolean,
-    private val viewThemeUtils: ViewThemeUtils
+    private val viewThemeUtils: ViewThemeUtils,
+    private val powerManagementService: PowerManagementService,
+    private val connectivityService: ConnectivityService
 ) : SectionedRecyclerViewAdapter<SectionedViewHolder>() {
 
     private val gridTotal = gridWidth * 2
@@ -58,6 +66,14 @@ class SyncedFolderAdapter(
     private val filteredSyncFolderItems: MutableList<SyncedFolderDisplayItem> = ArrayList()
     private var hideItems = true
     private val thumbnailThreadPool: Executor = Executors.newCachedThreadPool()
+
+    private val minimumSizeForTouchableArea
+        by lazy { context.resources.getDimensionPixelSize(R.dimen.minimum_size_for_touchable_area) }
+    private val screenWidth by lazy { context.resources.displayMetrics.widthPixels }
+    private val standardDoubleMargin
+        by lazy { context.resources.getDimensionPixelSize(R.dimen.standard_double_margin) }
+    private val syncedFoldersTitleMargin
+        by lazy { context.resources.getDimensionPixelSize(R.dimen.synced_folders_title_margin) }
 
     init {
         shouldShowHeadersForEmptySections(true)
@@ -234,51 +250,112 @@ class SyncedFolderAdapter(
         return -1
     }
 
+    @Suppress("NestedBlockDepth")
     override fun onBindHeaderViewHolder(commonHolder: SectionedViewHolder, section: Int, expanded: Boolean) {
         if (section < filteredSyncFolderItems.size) {
             val holder = commonHolder as HeaderViewHolder
-            holder.binding.headerContainer.visibility = View.VISIBLE
 
-            holder.binding.title.text = filteredSyncFolderItems[section].folderName
+            holder.binding.run {
+                headerContainer.visibility = View.VISIBLE
 
-            if (MediaFolderType.VIDEO == filteredSyncFolderItems[section].type) {
-                holder.binding.type.setImageResource(R.drawable.video_32dp)
-            } else if (MediaFolderType.IMAGE == filteredSyncFolderItems[section].type) {
-                holder.binding.type.setImageResource(R.drawable.image_32dp)
-            } else {
-                holder.binding.type.setImageResource(R.drawable.folder_star_32dp)
-            }
-
-            holder.binding.syncStatusButton.visibility = View.VISIBLE
-            holder.binding.syncStatusButton.tag = section
-            holder.binding.syncStatusButton.setOnClickListener {
-                filteredSyncFolderItems[section].setEnabled(
-                    !filteredSyncFolderItems[section].isEnabled,
-                    clock.currentTime
-                )
-                setSyncButtonActiveIcon(
-                    holder.binding.syncStatusButton,
-                    filteredSyncFolderItems[section].isEnabled
-                )
-                clickListener.onSyncStatusToggleClick(section, filteredSyncFolderItems[section])
-            }
-            setSyncButtonActiveIcon(holder.binding.syncStatusButton, filteredSyncFolderItems[section].isEnabled)
-
-            if (light) {
-                holder.binding.settingsButton.visibility = View.GONE
-            } else {
-                holder.binding.settingsButton.visibility = View.VISIBLE
-                holder.binding.settingsButton.tag = section
-                holder.binding.settingsButton.setOnClickListener { v: View ->
-                    onOverflowIconClicked(
-                        section,
-                        filteredSyncFolderItems[section],
-                        v
-                    )
+                if (section == 0) {
+                    autoUploadBatterySaverWarningCard.root.run {
+                        setVisibleIf(powerManagementService.isPowerSavingEnabled)
+                        viewThemeUtils.material.themeCardView(this)
+                    }
                 }
-            }
 
-            initSubFolderWarningButton(holder, section)
+                val syncedFolder = filteredSyncFolderItems[section]
+
+                title.text = syncedFolder.folderName
+
+                if (MediaFolderType.VIDEO == syncedFolder.type) {
+                    type.setImageResource(R.drawable.video_32dp)
+                } else if (MediaFolderType.IMAGE == syncedFolder.type) {
+                    type.setImageResource(R.drawable.image_32dp)
+                } else {
+                    type.setImageResource(R.drawable.folder_star_32dp)
+                }
+
+                syncStatusButton.visibility = View.VISIBLE
+                syncStatusButton.tag = section
+                syncStatusButton.setOnClickListener {
+                    syncedFolder.setEnabled(
+                        !syncedFolder.isEnabled,
+                        clock.currentTime
+                    )
+                    setSyncButtonActiveIcon(
+                        syncStatusButton,
+                        syncedFolder.isEnabled
+                    )
+                    clickListener.onSyncStatusToggleClick(section, syncedFolder)
+                }
+                setSyncButtonActiveIcon(syncStatusButton, syncedFolder.isEnabled)
+
+                if (light) {
+                    settingsButton.visibility = View.GONE
+                } else {
+                    settingsButton.visibility = View.VISIBLE
+                    settingsButton.tag = section
+                    settingsButton.setOnClickListener { v: View ->
+                        onOverflowIconClicked(
+                            section,
+                            syncedFolder,
+                            v
+                        )
+                    }
+                }
+
+                initSubFolderWarningButton(holder, section)
+                initNextScanIndicator(holder, syncedFolder)
+            }
+        }
+    }
+
+    private fun initNextScanIndicator(holder: HeaderViewHolder, syncedFolder: SyncedFolder) {
+        val scanIndicatorText = getNextScanIndicatorText(syncedFolder)
+
+        holder.binding.scanIndicatorText.setVisibleIf(syncedFolder.isEnabled && (scanIndicatorText != null))
+
+        if (holder.binding.scanIndicatorText.isVisible) {
+            setMaxWidthOfScanIndicatorText(holder)
+            holder.binding.scanIndicatorText.text = scanIndicatorText
+        } else {
+            setBottomMarginOfTitle(holder)
+        }
+    }
+
+    private fun setMaxWidthOfScanIndicatorText(holder: HeaderViewHolder) {
+        var visibleTrailingIconCount = 2
+        if (holder.binding.subFolderWarningButton.isVisible) {
+            visibleTrailingIconCount += 1
+        }
+
+        val takenTrailingSpace = minimumSizeForTouchableArea * visibleTrailingIconCount
+        val maxWidthInPxOfScanIndicatorText = (screenWidth - takenTrailingSpace) - standardDoubleMargin
+
+        holder.binding.scanIndicatorText.maxWidth = maxWidthInPxOfScanIndicatorText
+    }
+
+    private fun setBottomMarginOfTitle(holder: HeaderViewHolder) {
+        val layoutParams = holder.binding.title.layoutParams as ViewGroup.MarginLayoutParams
+        layoutParams.bottomMargin = syncedFoldersTitleMargin
+        holder.binding.title.layoutParams = layoutParams
+    }
+
+    private fun getNextScanIndicatorText(syncedFolder: SyncedFolder): String? {
+        val scanInterval = syncedFolder.calculateScanInterval(connectivityService, powerManagementService)
+        val nextScanInMillis = scanInterval.first - System.currentTimeMillis()
+        val minutesLeft = TimeUnit.MILLISECONDS
+            .toMinutes(nextScanInMillis)
+            .coerceAtLeast(0)
+            .toInt()
+
+        return if (minutesLeft <= 0) {
+            null
+        } else {
+            val scanIntervalMessageId = scanInterval.second ?: return null
+            context.getString(scanIntervalMessageId)
         }
     }
 
@@ -289,7 +366,6 @@ class SyncedFolderAdapter(
         holder.binding.subFolderWarningButton.run {
             setVisibleIf(isGivenLocalPathHasEnabledParent)
             if (isVisible) {
-                viewThemeUtils.platform.themeImageButton(this)
                 setOnClickListener {
                     clickListener.showSubFolderWarningDialog()
                 }
@@ -448,13 +524,12 @@ class SyncedFolderAdapter(
             binding.root
         )
 
-    private fun setSyncButtonActiveIcon(syncStatusButton: ImageButton, enabled: Boolean) {
+    private fun setSyncButtonActiveIcon(syncStatusButton: MaterialButton, enabled: Boolean) {
         if (enabled) {
-            syncStatusButton.setImageDrawable(
+            syncStatusButton.icon =
                 viewThemeUtils.platform.tintDrawable(context, R.drawable.ic_cloud_sync_on, ColorRole.PRIMARY)
-            )
         } else {
-            syncStatusButton.setImageResource(R.drawable.ic_cloud_sync_off)
+            syncStatusButton.icon = ContextCompat.getDrawable(context, R.drawable.ic_cloud_sync_off)
         }
     }
 

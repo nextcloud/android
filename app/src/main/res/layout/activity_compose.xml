@@ -34,7 +34,7 @@
             android:layout_gravity="bottom"
             app:labelVisibilityMode="labeled"
             app:menu="@menu/bottom_navigation_menu"
-            app:layout_behavior="com.google.android.material.behavior.HideBottomViewOnScrollBehavior" />
+            app:layout_behavior="com.nextcloud.ui.behavior.OnScrollBehavior" />
 
     </LinearLayout>
 

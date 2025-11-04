@@ -63,13 +63,13 @@
                 android:id="@+id/left_timestamp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                tools:text="12. Dec 2020 - 23:10:20" />
+                tools:text="@string/placeholder_date" />
 
             <TextView
                 android:id="@+id/left_file_size"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                tools:text="5 Mb" />
+                tools:text="@string/placeholder_fileSize_2" />
         </LinearLayout>
 
         <LinearLayout
@@ -97,13 +97,13 @@
                 android:id="@+id/right_timestamp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                tools:text="10. Dec 2020 - 10:10:10" />
+                tools:text="@string/placeholder_date_2" />
 
             <TextView
                 android:id="@+id/right_file_size"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                tools:text="3 Mb" />
+                tools:text="@string/placeholder_fileSize_3" />
         </LinearLayout>
     </LinearLayout>
 

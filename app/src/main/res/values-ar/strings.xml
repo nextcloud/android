@@ -43,6 +43,7 @@
     <string name="app_config_proxy_port_title">منفذ البروكسي</string>
     <string name="app_widget_description">عرض أداة واحدة من لوحة المعلومات</string>
     <string name="appbar_search_in">بحث في %s</string>
+    <string name="appear_offline">الحالة غير متصل</string>
     <string name="assistant_screen_add_task_alert_dialog_title">إضافة مهمة جديدة</string>
     <string name="assistant_screen_create_a_new_task_from_bottom_right_text">أنشِئ مهمة جديدة من الأسفل</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">أكتُب أيَّ نص</string>
@@ -115,6 +116,7 @@
     <string name="bottom_navigation_menu_favorites_label">المُفضّلة</string>
     <string name="bottom_navigation_menu_files_label">كل الملفات</string>
     <string name="bottom_navigation_menu_media_label">الوسائط</string>
+    <string name="busy">مشغول</string>
     <string name="calendar">التقويم</string>
     <string name="calendars">التقاويم</string>
     <string name="certificate_load_problem">هناك مشكلة في تحميل الشهادة</string>
@@ -126,9 +128,9 @@
     <string name="choose_template_helper_text">اختر قالب وادخل اسم الملف</string>
     <string name="choose_which_file">اختر أي من أياً من الملفات التالية التي تريد الإحتفاظ بها!</string>
     <string name="choose_widget">أختر عنصر الواجهه</string>
+    <string name="clear">محو</string>
     <string name="clear_notifications_failed">فشلت عملية إزالة التنبيهات.</string>
-    <string name="clear_status_message">مسح رسالة الحالة</string>
-    <string name="clear_status_message_after">مسح رسالة الحالة بعد</string>
+    <string name="clear_status_after">مسح رسالة الحالة بعد</string>
     <string name="clipboard_label">تم نسخ النص من %1$s</string>
     <string name="clipboard_no_text_to_copy">لم يستلم نص لنسخه في الحافظة</string>
     <string name="clipboard_text_copied">تم نسخ الرابط</string>
@@ -542,7 +544,6 @@
 
 قد تستغرق هذه العملية بعض الوقت.</string>
     <string name="manage_space_title">إدارة المساحة</string>
-    <string name="max_file_count_warning_message">تجاوزت الحد الأقصى المسموح به لزمن رفع الملفات. رجاءً، لا تقم برفع عدد يزيد عن 500 ملف في كل مرة.</string>
     <string name="media_err_invalid_progressive_playback">ملف الوسائط لا يمكن بثه</string>
     <string name="media_err_io">تعذرت قراءة ملف الوسائط</string>
     <string name="media_err_malformed">يحتوي ملف الوسائط على ترميز غير صحيح</string>
@@ -565,6 +566,7 @@
     <string name="move_file_invalid_into_descendent">لا يمكن نقل مجلد في مجلدات هوَّ يتضمنها</string>
     <string name="move_file_invalid_overwrite">هذا الملف موجود حالياً في المجلد المُّسّتَقبِل</string>
     <string name="move_file_not_found">غير قادر على نقل الملف. يرجى التحقق مما إذا كان موجوداً.</string>
+    <string name="mute_all_notifications">عدم إظهار جميع التنبيهات</string>
     <string name="network_error_connect_timeout_exception">حدث خطأ أثناء انتظار الخادم. تعذر إكمال العملية.</string>
     <string name="network_error_socket_exception">حدث خطأ أثناء الاتصال بالخادم</string>
     <string name="network_error_socket_timeout_exception">حدث خطأ أثناء انتظار الخادم. تعذر إكمال العملية.</string>
@@ -639,11 +641,6 @@
     <string name="picture_set_as_no_app">لم يتم العثور على تطبيق لتعيين صورة به</string>
     <string name="pin_home">ثبِّت في الشاشة الرئيسية</string>
     <string name="pin_shortcut_label">فتح %1$s</string>
-    <string name="placeholder_fileSize">389 ك.ب</string>
-    <string name="placeholder_filename">placeholder.txt</string>
-    <string name="placeholder_media_time">12:23:45</string>
-    <string name="placeholder_sentence">هذه مساحة محجوزة</string>
-    <string name="placeholder_timestamp">2012/05/18 12:23 مساء</string>
     <string name="player_stop">إيقاف</string>
     <string name="player_toggle">تبديل</string>
     <string name="please_select_a_server">من فضلك، قم بتحديد الخادم...</string>
@@ -664,6 +661,7 @@
     <string name="prefs_category_about">حول</string>
     <string name="prefs_category_details">تفاصيل</string>
     <string name="prefs_category_dev">التطوير</string>
+    <string name="prefs_category_files">الملفّات</string>
     <string name="prefs_category_general">عام</string>
     <string name="prefs_category_more">المزيد</string>
     <string name="prefs_category_sync">زامن</string>
@@ -718,11 +716,9 @@
     <string name="preview_image_error_no_local_file">لا يوجد ملف محلي للمعاينة</string>
     <string name="preview_image_error_unknown_format">تعذرت عملية عرض الصورة</string>
     <string name="preview_image_file_is_not_downloaded">لم يتم تنزيل الملف</string>
-    <string name="preview_image_file_is_not_exist">الملف غير موجود</string>
     <string name="preview_media_unhandled_http_code_message">الملف مقفلٌ حالياً من قِبَل مستخدِمٍ أو عمليةٍ أخرى؛ وبالتالي لا يمكن حذفه. الرجاء معاودة المحاولة في وقتٍ لاحقٍ.</string>
     <string name="preview_sorry">آسف</string>
     <string name="privacy">الخصوصية</string>
-    <string name="public_share_name">اسم جديد</string>
     <string name="push_notifications_not_implemented">تم تعطيل الإشعارات الفورية بسبب التبعيات على خدمات Google Play المملوكة.</string>
     <string name="push_notifications_old_login">لا توجد إشعارات دفع بسبب جلسة تسجيل الدخول القديمة. يرجى النظر في إعادة إضافة حسابك.</string>
     <string name="push_notifications_temp_error">إشعارات الدفع غير متوفرة حاليا.</string>
@@ -786,9 +782,8 @@
     <string name="sendbutton_description">أيقونة زر الإرسال</string>
     <string name="set_as">حفظ كـ</string>
     <string name="set_note">عيِّن الملاحظة</string>
+    <string name="set_online_status">حالة الاتصال</string>
     <string name="set_picture_as">استخدم الصورة كـ</string>
-    <string name="set_status">تعيين الحالة</string>
-    <string name="set_status_message">تعيين رسالة الحالة</string>
     <string name="setup_e2e">خلال تجهيز التشفير الطرفي، سوف تصلك جملة عشوائية مُكوّنة من 12 كلمة ستحتاج إليها لفتح ملفاتك على الأجهزة الأخرى. هذه الجملة سوف يتم تخزينها على هذا الجهاز فقط و يمكنك عرضها على الشاشة مرة أخرى. رجاءً، دوّنها و احفظها في مكانٍ آمنٍ!</string>
     <string name="share">مشاركة </string>
     <string name="share_allow_download_and_sync_permission">السماح بالتنزيل و المزامنة</string>
@@ -851,6 +846,8 @@
     <string name="signup_with_provider">التسجيل عبر مزوّد خدمة</string>
     <string name="single_sign_on_request_token" formatted="true">هل تسمح لـ%1$s بالوصول إلى حسابك %2$s في Nextcloud؟</string>
     <string name="sort_by">ترتيب</string>
+    <string name="sort_favorites_first">فرز المفضلة أولا</string>
+    <string name="sort_folders_before_files">فرز المجلدات قبل الملفات</string>
     <string name="ssl_validator_btn_details_hide">إخفاء</string>
     <string name="ssl_validator_btn_details_see">تفاصيل</string>
     <string name="ssl_validator_header">لا يمكن التحقق من هوية الخادم</string>

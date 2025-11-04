@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 91,
-    "identityHash": "2159d0811e012cc1fadc81bb4714cd8f",
+    "identityHash": "16f8a78a87d896adf01d545ed83142e5",
     "entities": [
       {
         "tableName": "arbitrary_data",
@@ -865,7 +865,7 @@
       },
       {
         "tableName": "synced_folders",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT, `local_path` TEXT, `remote_path` TEXT, `wifi_only` INTEGER, `charging_only` INTEGER, `existing` INTEGER, `enabled` INTEGER, `enabled_timestamp_ms` INTEGER, `subfolder_by_date` INTEGER, `account` TEXT, `upload_option` INTEGER, `name_collision_policy` INTEGER, `upload_min_file_age_ms` INTEGER NOT NULL DEFAULT 0, `type` INTEGER, `hidden` INTEGER, `sub_folder_rule` INTEGER, `exclude_hidden` INTEGER, `last_scan_timestamp_ms` INTEGER)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT, `local_path` TEXT, `remote_path` TEXT, `wifi_only` INTEGER, `charging_only` INTEGER, `existing` INTEGER, `enabled` INTEGER, `enabled_timestamp_ms` INTEGER, `subfolder_by_date` INTEGER, `account` TEXT, `upload_option` INTEGER, `name_collision_policy` INTEGER, `type` INTEGER, `hidden` INTEGER, `sub_folder_rule` INTEGER, `exclude_hidden` INTEGER, `last_scan_timestamp_ms` INTEGER)",
         "fields": [
           {
             "fieldPath": "id",
@@ -926,13 +926,6 @@
             "fieldPath": "nameCollisionPolicy",
             "columnName": "name_collision_policy",
             "affinity": "INTEGER"
-          },
-          {
-            "fieldPath": "uploadMinFileAgeMs",
-            "columnName": "upload_min_file_age_ms",
-            "affinity": "INTEGER",
-            "notNull": true,
-            "defaultValue": "0"
           },
           {
             "fieldPath": "type",
@@ -1132,11 +1125,71 @@
             "_id"
           ]
         }
+      },
+      {
+        "tableName": "recommended_files",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT NOT NULL, `directory` TEXT NOT NULL, `extension` TEXT NOT NULL, `mime_type` TEXT NOT NULL, `has_preview` INTEGER NOT NULL, `reason` TEXT NOT NULL, `timestamp` INTEGER NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "directory",
+            "columnName": "directory",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "extension",
+            "columnName": "extension",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "mimeType",
+            "columnName": "mime_type",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "hasPreview",
+            "columnName": "has_preview",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "reason",
+            "columnName": "reason",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "timestamp",
+            "columnName": "timestamp",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "_id"
+          ]
+        }
       }
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '2159d0811e012cc1fadc81bb4714cd8f')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '16f8a78a87d896adf01d545ed83142e5')"
     ]
   }
 }

@@ -103,6 +103,7 @@ import java.util.concurrent.Executors;
 
 import javax.inject.Inject;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -203,6 +204,8 @@ public class ReceiveExternalFilesActivity extends FileActivity
             fm.beginTransaction()
                 .add(taskRetainerFragment, TaskRetainerFragment.FTAG_TASK_RETAINER_FRAGMENT).commit();
         }   // else, Fragment already created and retained across configuration change
+
+        handleBackPress();
     }
 
     @Override
@@ -636,35 +639,39 @@ public class ReceiveExternalFilesActivity extends FileActivity
 
         @Nullable
         private File createTempFile(String text) {
-            File file = new File(getActivity().getCacheDir(), "tmp.tmp");
-            FileWriter fw = null;
-            try {
-                fw = new FileWriter(file);
+            final var activity = getActivity();
+            if (activity == null) {
+                return null;
+            }
+
+            final var cacheDir = activity.getCacheDir();
+
+            File file = new File(cacheDir, "tmp.tmp");
+
+            try (FileWriter fw = new FileWriter(file)) {
                 fw.write(text);
             } catch (IOException e) {
                 Log_OC.d(TAG, "Error ", e);
                 return null;
-            } finally {
-                if (fw != null) {
-                    try {
-                        fw.close();
-                    } catch (IOException e) {
-                        Log_OC.d(TAG, "Error closing file writer ", e);
-                    }
-                }
             }
+
             return file;
         }
     }
 
-    @Override
-    public void onBackPressed() {
-        if (mParents.size() <= SINGLE_PARENT) {
-            super.onBackPressed();
-        } else {
-            mParents.pop();
-            browseToFolderIfItExists();
-        }
+    private void handleBackPress() {
+        getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                if (mParents.size() <= SINGLE_PARENT) {
+                    setEnabled(false);
+                    getOnBackPressedDispatcher().onBackPressed();
+                } else {
+                    mParents.pop();
+                    browseToFolderIfItExists();
+                }
+            }
+        });
     }
 
     @Override
@@ -875,7 +882,9 @@ public class ReceiveExternalFilesActivity extends FileActivity
 
     private List<OCFile> sortFileList(List<OCFile> files) {
         FileSortOrder sortOrder = preferences.getSortOrderByFolder(mFile);
-        return sortOrder.sortCloudFiles(files);
+        boolean foldersBeforeFiles = preferences.isSortFoldersBeforeFiles();
+        boolean favoritesFirst = preferences.isSortFavoritesFirst();
+        return sortOrder.sortCloudFiles(files, foldersBeforeFiles, favoritesFirst);
     }
 
     private String generatePath(Stack<String> dirs) {
@@ -945,7 +954,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
         }
 
         if (mStreamsToUpload.size() > FileUploadHelper.MAX_FILE_COUNT) {
-            DisplayUtils.showSnackMessage(this, R.string.max_file_count_warning_message);
+            FileUploadHelper.Companion.instance().showFileUploadLimitMessage(this);
             return;
         }
 
@@ -1098,7 +1107,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
             dialog.show(getSupportFragmentManager(), CreateFolderDialogFragment.CREATE_FOLDER_FRAGMENT);
         } else if (itemId == android.R.id.home) {
             if (mParents.size() > SINGLE_PARENT) {
-                onBackPressed();
+                getOnBackPressedDispatcher().onBackPressed();
             }
         } else if (itemId == R.id.action_switch_account) {
             showAccountChooserDialog();

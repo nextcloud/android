@@ -43,6 +43,7 @@
     <string name="app_config_proxy_port_title">Port proxy</string>
     <string name="app_widget_description">Pokazuje jeden widżet z pulpitu nawigacyjnego</string>
     <string name="appbar_search_in">Szukaj w %s</string>
+    <string name="appear_offline">Wyglądaj jako offline</string>
     <string name="assistant_screen_add_task_alert_dialog_title">Dodaj nowe zadanie</string>
     <string name="assistant_screen_create_a_new_task_from_bottom_right_text">Utwórz nowe zadanie w prawym dolnym rogu</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Wpisz jakiś tekst</string>
@@ -92,12 +93,19 @@
     <string name="auth_unsupported_multiaccount">%1$s nie wspiera wielu kont</string>
     <string name="auth_wrong_connection_title">Nie udało się ustanowić połączenia</string>
     <string name="authenticator_activity_cancel_login">Anuluj logowanie</string>
+    <string name="authenticator_activity_empty_base_url">Proszę wprowadzić poprawny adres serwera.</string>
+    <string name="authenticator_activity_empty_response_message">Nie można pobrać danych logowania. Spróbuj ponownie.</string>
     <string name="authenticator_activity_login_error">Wystąpił problem podczas przetwarzania żądania logowania. Spróbuj ponownie później.</string>
+    <string name="authenticator_activity_no_web_browser_found">Brak dostępnej przeglądarki do otwarcia tego linku.</string>
     <string name="authenticator_activity_please_complete_login_process">Dokończ proces logowania w przeglądarce</string>
+    <string name="auto_upload_battery_saver_mode_warning">Automatyczna aktualizacja jest wstrzymana, ponieważ tryb oszczędzania baterii jest włączony.</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">zachowany w oryginalnym katalogu, jak jest tylko do odczytu</string>
+    <string name="auto_upload_low_battery_warning_info">Niski poziom baterii, aktualizacja może potrwać dłużej.</string>
     <string name="auto_upload_on_wifi">Wysyłaj tylko przez Wi-Fi</string>
     <string name="auto_upload_path">/AutoUpload</string>
     <string name="auto_upload_sub_folder_warning">Ten katalog jest już uwzględniony w synchronizacji katalogu nadrzędnego, co może powodować duplikowanie wysyłanych plików</string>
+    <string name="auto_upload_wifi_only_warning_info">Oczekiwanie na Wi-Fi, aby zacząć aktualizowanie</string>
+    <string name="auto_upload_worker_start_text">Przesyłanie plików z %s do %s</string>
     <string name="autoupload_configure">Konfiguruj</string>
     <string name="autoupload_create_new_custom_folder">Utwórz nową niestandardową konfigurację katalogu</string>
     <string name="autoupload_custom_folder">Ustaw własny katalog</string>
@@ -115,6 +123,7 @@
     <string name="bottom_navigation_menu_favorites_label">Ulubione</string>
     <string name="bottom_navigation_menu_files_label">Wszystkie pliki</string>
     <string name="bottom_navigation_menu_media_label">Multimedia</string>
+    <string name="busy">Brak dostępności</string>
     <string name="calendar">Kalendarz</string>
     <string name="calendars">Kalendarze</string>
     <string name="certificate_load_problem">Problem podczas ładowania certyfikatu.</string>
@@ -126,9 +135,9 @@
     <string name="choose_template_helper_text">Wybierz szablon i wprowadź nazwę pliku.</string>
     <string name="choose_which_file">Wybierz, który plik chcesz zachować!</string>
     <string name="choose_widget">Wybierz widżet</string>
+    <string name="clear">Wyczyść</string>
     <string name="clear_notifications_failed">Wyczyszczenie powiadomień nie powiodło się.</string>
-    <string name="clear_status_message">Wyczyść komunikat statusu</string>
-    <string name="clear_status_message_after">Wyczyść komunikat statusu po</string>
+    <string name="clear_status_after">Wyczyść status po</string>
     <string name="clipboard_label">Skopiowano tekst z %1$s</string>
     <string name="clipboard_no_text_to_copy">Nie otrzymano tekstu do skopiowania do schowka</string>
     <string name="clipboard_text_copied">Link skopiowany</string>
@@ -200,6 +209,7 @@
     <string name="contacts_preferences_import_scheduled_fail">Nie udało się rozpocząć importu. Spróbuj ponownie</string>
     <string name="contacts_preferences_no_file_found">Nie znaleziono żadnych plików</string>
     <string name="contacts_preferences_something_strange_happened">Nie odnaleziono Twojej ostatniej kopii zapasowej!</string>
+    <string name="content_observer_work_notification_title">Sprawdzanie zmian treści</string>
     <string name="copied_to_clipboard">Skopiowano do schowka</string>
     <string name="copy_file_error">Wystąpił błąd podczas próby kopiowania tego pliku lub katalogu</string>
     <string name="copy_file_invalid_into_descendent">Nie można skopiować katalogu do jednego z jego podkatalogów</string>
@@ -247,6 +257,13 @@
     <string name="document_scan_export_dialog_title">Wybierz typ eksportu</string>
     <string name="document_scan_pdf_generation_failed">Generowanie pliku PDF nie powiodło się</string>
     <string name="document_scan_pdf_generation_in_progress">Generowanie pliku PDF…</string>
+    <string name="document_storage_provider_cannot_create_file_and_folder">Nie można tworzyć elementów: brak uprawnień do tworzenia.</string>
+    <string name="document_storage_provider_cannot_create_file_inside_folder">Nie można utworzyć pliku: brak uprawnień.</string>
+    <string name="document_storage_provider_cannot_create_folder_inside_folder">Nie można utworzyć folderu: brak uprawnień.</string>
+    <string name="document_storage_provider_cannot_delete">Nie można usunąć elementu: brak uprawnień do usuwania.</string>
+    <string name="document_storage_provider_cannot_move">Nie można przenieść elementu: brak uprawnień do przenoszenia.</string>
+    <string name="document_storage_provider_cannot_read">Nie można otworzyć elementu: brak uprawnień do odczytu.</string>
+    <string name="document_storage_provider_cannot_rename">Nie można zmienić nazwy elementu: brak uprawnień do zmiany nazwy.</string>
     <string name="done">Zrobione</string>
     <string name="dontClear">Nie czyść</string>
     <string name="download_cannot_create_file">Nie można utworzyć pliku lokalnego</string>
@@ -326,12 +343,14 @@
     <string name="error_comment_file">Błąd przy komentowaniu pliku</string>
     <string name="error_crash_title">%1$s zatrzymany</string>
     <string name="error_creating_file_from_template">Błąd podczas tworzenia pliku z szablonu</string>
+    <string name="error_fetching_sharees">Nie można pobrać listy udostępnień.</string>
     <string name="error_file_actions">Błąd podczas wyświetlania aktywności na plikach</string>
     <string name="error_file_lock">Błąd podczas zmiany statusu blokady pliku</string>
     <string name="error_report_issue_action">Raport</string>
     <string name="error_report_issue_text">Chcesz zgłosić problem? (wymaga konta GitHub)</string>
     <string name="error_retrieving_file">Błąd podczas pobierania pliku</string>
     <string name="error_retrieving_templates">Błąd podczas pobierania szablonów</string>
+    <string name="error_setting_status_message">Błąd podczas ustawiania wiadomości o statusie!</string>
     <string name="error_showing_encryption_dialog">Błąd podczas wyświetlania okna dialogowego konfiguracji szyfrowania!</string>
     <string name="error_starting_direct_camera_upload">Błąd podczas uruchamiania aparatu</string>
     <string name="error_starting_doc_scan">Błąd podczas uruchamiania skanowania dokumentu</string>
@@ -360,6 +379,7 @@
     <string name="etm_transfer_type">Transfer</string>
     <string name="etm_transfer_type_download">Pobierz</string>
     <string name="etm_transfer_type_upload">Wyślij</string>
+    <string name="extented_list_fragment_empty_list_message_no_write_permission">Nie masz uprawnień do tworzenia ani przesyłania plików w tym folderze.</string>
     <string name="external_shares">Udostępnienia zewnętrzne</string>
     <string name="fab_label">Dodaj lub wyślij</string>
     <string name="failed_to_download">Nie udało się przekazać pliku do menedżera pobierania</string>
@@ -438,7 +458,9 @@
     <string name="file_not_found_cannot_share">Nie znaleziono pliku. Nie można utworzyć udostępnienia.</string>
     <string name="file_not_synced">Nie można zsynchronizować pliku. Pokazana jest najnowsza dostępna wersja.</string>
     <string name="file_rename">Zmień nazwę</string>
+    <string name="file_upload_limit_message">Możesz wysłać do %d plików na raz.\"</string>
     <string name="file_upload_worker_error_notification_title">Przesyłanie nie powiodło się. Brak połączenia internetowego</string>
+    <string name="file_upload_worker_same_file_already_exists">%s już istnieje, nie znaleziono konfliktów</string>
     <string name="file_version_restored_error">Wystąpił błąd podczas przywracania wersji pliku!</string>
     <string name="file_version_restored_successfully">Pomyślnie przywrócono wersję pliku.</string>
     <string name="filedetails_details">Szczegóły</string>
@@ -458,6 +480,11 @@
     <string name="folder_already_exists">Katalog już istnieje</string>
     <string name="folder_best_viewed_in">Ten katalog najlepiej oglądać w formacie %1$s.</string>
     <string name="folder_confirm_create">Utwórz</string>
+    <string name="folder_download_counter">%1$d z %2$d &#183; %3$s</string>
+    <string name="folder_download_error_notification_title">Wystąpił błąd podczas synchronizacji katalogu %s</string>
+    <string name="folder_download_insufficient_disk_space_notification_title">Brak miejsca na dysku, synchronizacja przewana</string>
+    <string name="folder_download_success_notification_title">%s pomyślnie zsynchronizowany</string>
+    <string name="folder_download_worker_ticker_id">Synchronizacja…</string>
     <string name="folder_list_empty_headline">Brak katalogów</string>
     <string name="folder_name_empty">Nazwa katalogu nie może być pusta</string>
     <string name="folder_picker_choose_button_text">Wybierz</string>
@@ -515,6 +542,7 @@
     <string name="last_backup">Ostatnia kopia zapasowa: %1$s</string>
     <string name="link">Odnośnik</string>
     <string name="link_name">Nazwa linku</string>
+    <string name="link_not_followed_due_to_security_settings">Link nie został otwarty z powodu ustawień zabezpieczeń.</string>
     <string name="link_share_editing">Edytowanie</string>
     <string name="list_layout">Wygląd listy</string>
     <string name="load_more_results">Wczytaj więcej wyników</string>
@@ -544,7 +572,6 @@
     <string name="manage_space_clear_data">Wyczyść dane</string>
     <string name="manage_space_description">Ustawienia, bazy danych i certyfikaty serwera %1$s zostaną trwale usunięte.\n\nPobrane pliki pozostaną na swoich miejscach.\n\nTen proces może trochę potrwać.</string>
     <string name="manage_space_title">Zarządzaj przestrzenią</string>
-    <string name="max_file_count_warning_message">Osiągnięto maksymalny limit upload. Proszę uploadować mniej niż 500 plików w jednym czasie</string>
     <string name="media_err_invalid_progressive_playback">Plik multimedialny nie może być przesyłany strumieniowo</string>
     <string name="media_err_io">Nie można odczytać pliku</string>
     <string name="media_err_malformed">Nieprawidłowe kodowanie pliku multimedialnego</string>
@@ -567,6 +594,7 @@
     <string name="move_file_invalid_into_descendent">Nie można przenieść katalogu do jednego z jego podkatalogów</string>
     <string name="move_file_invalid_overwrite">Plik już istnieje w katalogu docelowym</string>
     <string name="move_file_not_found">Nie można przenieść. Sprawdź, czy plik istnieje.</string>
+    <string name="mute_all_notifications">Wycisz wszystkie powiadomienia</string>
     <string name="network_error_connect_timeout_exception">Wystąpił błąd podczas oczekiwania na serwer. Nie można ukończyć operacji.</string>
     <string name="network_error_socket_exception">Wystąpił błąd podczas połączenia z serwerem</string>
     <string name="network_error_socket_timeout_exception">Wystąpił błąd podczas oczekiwania na serwer. Nie można ukończyć operacji.</string>
@@ -592,6 +620,8 @@
     <string name="notification_action_failed">Wykonanie akcji nie powiodło się.</string>
     <string name="notification_channel_background_operations_description">Pokaż powiadomienia o interakcji z wynikami operacji wykonywanych w tle</string>
     <string name="notification_channel_background_operations_name">Operacje w tle</string>
+    <string name="notification_channel_content_observer_description">Wykryj zmiany lokalne</string>
+    <string name="notification_channel_content_observer_name_short">Monitor zawartości</string>
     <string name="notification_channel_download_description">Pokazuje postęp pobierania</string>
     <string name="notification_channel_download_name_short">Pobrane</string>
     <string name="notification_channel_file_sync_description">Pokazuje postęp synchronizacji plików i jej wynik</string>
@@ -600,6 +630,8 @@
     <string name="notification_channel_general_name">Powiadomienia ogólne</string>
     <string name="notification_channel_media_description">Postęp odtwarzacza muzyki</string>
     <string name="notification_channel_media_name">Odtwarzacz multimedialny</string>
+    <string name="notification_channel_offline_operations_description">Pokazuje postęp operacji plikowych offline</string>
+    <string name="notification_channel_offline_operations_name_short">Operacje offline</string>
     <string name="notification_channel_push_description">Pokaż powiadomienia Push wysyłane przez serwer: wzmianki w komentarzach, otrzymanie nowych zdalnych udostępnień, ogłoszenia publikowane przez administratora itd.</string>
     <string name="notification_channel_push_name">Powiadomienia Push</string>
     <string name="notification_channel_upload_description">Pokazuje postęp wysyłania</string>
@@ -645,11 +677,6 @@
     <string name="picture_set_as_no_app">Nie znaleziono aplikacji do ustawienia obrazu</string>
     <string name="pin_home">Przypnij do ekranu głównego</string>
     <string name="pin_shortcut_label">Otwórz %1$s</string>
-    <string name="placeholder_fileSize">389 KB</string>
-    <string name="placeholder_filename">tekst_zastępczy.txt</string>
-    <string name="placeholder_media_time">12:23:45</string>
-    <string name="placeholder_sentence">Tekst zastępczy</string>
-    <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
     <string name="player_stop">zatrzymaj</string>
     <string name="player_toggle">przełącz</string>
     <string name="please_select_a_server">Wybierz serwer...</string>
@@ -671,6 +698,7 @@
     <string name="prefs_category_about">O aplikacji</string>
     <string name="prefs_category_details">Szczegóły</string>
     <string name="prefs_category_dev">Deweloperskie</string>
+    <string name="prefs_category_files">Pliki</string>
     <string name="prefs_category_general">Ogólne</string>
     <string name="prefs_category_more">Więcej</string>
     <string name="prefs_category_sync">Synchronizuj</string>
@@ -726,11 +754,9 @@
     <string name="preview_image_error_no_local_file">Brak lokalnego pliku do podglądu</string>
     <string name="preview_image_error_unknown_format">Nie można wyświetlić obrazu</string>
     <string name="preview_image_file_is_not_downloaded">Plik nie został pobrany</string>
-    <string name="preview_image_file_is_not_exist">Plik nie istnieje</string>
     <string name="preview_media_unhandled_http_code_message">Plik jest obecnie zablokowany przez innego użytkownika lub proces i dlatego nie można go usunąć. Spróbuj ponownie później.</string>
     <string name="preview_sorry">Przykro nam</string>
     <string name="privacy">Prywatność</string>
-    <string name="public_share_name">Nowa nazwa</string>
     <string name="push_notifications_not_implemented">Powiadomienia Push zostały wyłączone ze względu na zastrzeżenia prawne usług Google Play.</string>
     <string name="push_notifications_old_login">Brak powiadomień Push z powodu nieaktualnej sesji logowania. Rozważ ponowne dodanie swojego konta.</string>
     <string name="push_notifications_temp_error">Powiadomienia Push nie są obecnie dostępne.</string>
@@ -796,10 +822,10 @@
     <string name="server_not_reachable_content">Urządzenie prawdopodobnie nie jest połączone z Internetem</string>
     <string name="set_as">Ustaw jako</string>
     <string name="set_download_limit_failed">Nie można ustawić limitu pobierania. Sprawdź dostępne możliwości.</string>
+    <string name="set_message">Ustaw wiadomość</string>
     <string name="set_note">Ustaw notatkę</string>
+    <string name="set_online_status">Status online</string>
     <string name="set_picture_as">Użyj obrazu jako</string>
-    <string name="set_status">Ustaw status</string>
-    <string name="set_status_message">Ustaw komunikat statusu</string>
     <string name="setup_e2e">Podczas konfigurowania szyfrowania typu end-to-end otrzymasz losowy mnemonik składający się z 12-stu słów, który będzie potrzebny do otwierania plików na innych urządzeniach. Będzie on przechowywany tylko na tym urządzeniu i można go ponownie wyświetlić na tym ekranie. Zapisz go w bezpiecznym miejscu!</string>
     <string name="share">Udostępnij</string>
     <string name="share_allow_download_and_sync_permission">Zezwalaj na pobieranie i synchronizację</string>
@@ -864,6 +890,8 @@
     <string name="signup_with_provider">Zarejestruj się u usługodawcy</string>
     <string name="single_sign_on_request_token" formatted="true">Zezwolić %1$s na dostęp do Twojego konta Nextcloud %2$s?</string>
     <string name="sort_by">Sortuj według</string>
+    <string name="sort_favorites_first">Najpierw sortuj ulubione</string>
+    <string name="sort_folders_before_files">Sortuj katalogi przed plikami</string>
     <string name="ssl_validator_btn_details_hide">Ukryj</string>
     <string name="ssl_validator_btn_details_see">Szczegóły</string>
     <string name="ssl_validator_header">Nie można zweryfikować identyfikacji serwera</string>
@@ -974,6 +1002,7 @@
     <string name="unified_search_fragment_calendar_event_not_found">Nie znaleziono zdarzenia, zawsze możesz zsynchronizować, aby zaktualizować. Przekierowanie do strony internetowej…</string>
     <string name="unified_search_fragment_contact_not_found">Nie znaleziono kontaktu, zawsze możesz zsynchronizować, aby zaktualizować. Przekierowanie do strony internetowej…</string>
     <string name="unified_search_fragment_permission_needed">Aby otworzyć wyniki wyszukiwania, wymagane są uprawnienia, w przeciwnym razie nastąpi przekierowanie do strony internetowej…</string>
+    <string name="unified_search_fragment_search_in_this_folder">W tym katalogu</string>
     <string name="unknown">Nieznana</string>
     <string name="unlock_file">Odblokuj plik</string>
     <string name="unread_comments">Nieprzeczytane komentarze</string>
@@ -1022,6 +1051,10 @@
     <string name="upload_local_storage_not_copied">Nie można skopiować pliku do lokalnej pamięci</string>
     <string name="upload_lock_failed">Nie udało się zablokować katalogu</string>
     <string name="upload_manually_cancelled">Przesyłanie zostało anulowane przez użytkownika</string>
+    <string name="upload_missing_storage_permission_allow_file_access">Zezwól na pełny dostęp do plików</string>
+    <string name="upload_missing_storage_permission_app_permissions">Uprawnienia aplikacji</string>
+    <string name="upload_missing_storage_permission_description">Twoje pliki nie mogą być przesłane bez dostępu do pamięci lokalnej. Kliknij, aby udzielić pozwolenia.</string>
+    <string name="upload_missing_storage_permission_title">Przesyłanie zatrzymane – wymagane uprawnienie do pamięci</string>
     <string name="upload_notification_manager_start_text">%1$d / %2$d - %3$s</string>
     <string name="upload_old_android">Szyfrowanie jest możliwe tylko przy &gt;= Android 5.0</string>
     <string name="upload_query_move_foreign_files">Brak wystarczającego miejsca, aby skopiować wybrane pliki do katalogu %1$s. Czy chcesz je tam przenieść?</string>

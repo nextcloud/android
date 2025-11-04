@@ -47,11 +47,6 @@
             android:textSize="@dimen/splash_text_size" />
     </LinearLayout>
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.5" />
+    <include layout="@layout/launcher_splash_icon_guideline" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -62,7 +62,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/userinfo_icon"
             app:layout_constraintTop_toTopOf="@id/userinfo_icon"
-            tools:text="John Doe" />
+            tools:text="@string/placeholder_first_name_last_name" />
 
         <TextView
             android:id="@+id/userinfo_username"
@@ -80,7 +80,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@id/userinfo_fullName"
             app:layout_constraintTop_toBottomOf="@id/userinfo_fullName"
-            tools:text="john@nextcloud.com" />
+            tools:text="@string/placeholder_example_mail" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

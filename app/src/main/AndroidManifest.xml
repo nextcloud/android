@@ -121,7 +121,7 @@
         android:requestLegacyExternalStorage="true"
         android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
-        android:enableOnBackInvokedCallback="false"
+        android:enableOnBackInvokedCallback="true"
         android:theme="@style/Theme.ownCloud.Toolbar"
         android:usesCleartextTraffic="true"
         tools:ignore="UnusedAttribute"
@@ -270,6 +270,12 @@
             tools:replace="android:exported" />
 
         <receiver
+            android:name="com.nextcloud.client.jobs.offlineOperations.receiver.OfflineOperationReceiver"
+            android:exported="false" />
+        <receiver
+            android:name=".operations.upload.UploadFileBroadcastReceiver"
+            android:exported="false" />
+        <receiver
             android:name="com.nextcloud.client.jobs.MediaFoldersDetectionWork$NotificationReceiver"
             android:exported="false" />
         <receiver
@@ -347,6 +353,7 @@
         <activity
             android:name=".ui.activity.SettingsActivity"
             android:exported="false"
+            android:enableOnBackInvokedCallback="false"
             android:theme="@style/PreferenceTheme" />
         <activity
             android:name=".ui.preview.PreviewImageActivity"
@@ -578,6 +585,8 @@
             </intent-filter>
         </receiver>
 
+        <receiver android:name="com.nextcloud.client.jobs.folderDownload.FolderDownloadWorkerReceiver" android:exported="false" />
+
         <activity
             android:name=".ui.activity.CopyToClipboardActivity"
             android:exported="false"
@@ -610,8 +619,7 @@
         <activity
             android:name=".ui.activity.ManageSpaceActivity"
             android:exported="false"
-            android:label="@string/manage_space_title"
-            android:theme="@style/Theme.ownCloud" />
+            android:label="@string/manage_space_title" />
 
         <service
             android:name=".services.AccountManagerService"

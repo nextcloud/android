@@ -35,6 +35,7 @@
     <string name="app_config_proxy_port_title">Įgaliotojo serverio prievadas</string>
     <string name="app_widget_description">Rodo vieną valdiklį iš skydelio</string>
     <string name="appbar_search_in">Ieškoti %s</string>
+    <string name="appear_offline">Atrodyti atsijungusiu</string>
     <string name="assistant_screen_add_task_alert_dialog_title">Pridėti naują užduotį</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Įrašykite kokį nors tekstą</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Ar tikrai norite ištrinti šią užduotį?</string>
@@ -103,6 +104,7 @@
     <string name="bottom_navigation_menu_favorites_label">Mėgstami</string>
     <string name="bottom_navigation_menu_files_label">Visi failai</string>
     <string name="bottom_navigation_menu_media_label">Medija</string>
+    <string name="busy">Užimtas laikas</string>
     <string name="calendar">Kalendorius</string>
     <string name="calendars">Kalendoriai</string>
     <string name="certificate_load_problem">Klaida, įkeliant liudijimą.</string>
@@ -113,9 +115,9 @@
     <string name="choose_remote_folder">Pasirinkti nuotolinį aplanką…</string>
     <string name="choose_template_helper_text">Pasirinkite šabloną ir įveskite failo pavadinimą.</string>
     <string name="choose_which_file">Pasirinkite, kurį failą palikti!</string>
+    <string name="clear">Išvalyti</string>
     <string name="clear_notifications_failed">Nepavyko išvalyti pranešimų.</string>
-    <string name="clear_status_message">Išvalyti būsenos žinutę</string>
-    <string name="clear_status_message_after">Išvalyti būsenos žinutę po</string>
+    <string name="clear_status_after">Išvalyti būseną po</string>
     <string name="clipboard_label">Tekstas nukopijuotas iš %1$s</string>
     <string name="clipboard_no_text_to_copy">Tekstas nukopijuotas į iškarpinę</string>
     <string name="clipboard_text_copied">Nuoroda nukopijuota</string>
@@ -466,7 +468,6 @@
     <string name="manage_space_clear_data">Išvalyti duomenis</string>
     <string name="manage_space_description">Nustatymai, duomenų bazė ir serverio sertifikatai iš %1$s duomenų bus ištrinti negrįžtamai. \n\nAtsisiųsti failai bus išsaugoti.\n\nŠis procesas gali užtrukti.</string>
     <string name="manage_space_title">Tvarkyti vietą</string>
-    <string name="max_file_count_warning_message">Pasiektas įkeliamų failų limitas. Kelkite mažiau nei 500 failų.</string>
     <string name="media_err_invalid_progressive_playback">Medijos failas negali būti transliuojamas</string>
     <string name="media_err_io">Nepavyko perskaityti medijos failo.
 </string>
@@ -490,12 +491,14 @@
     <string name="move_file_invalid_into_descendent">Neįmanoma perkelti aplanko į poaplankį</string>
     <string name="move_file_invalid_overwrite">Failas jau yra paskirties aplanke</string>
     <string name="move_file_not_found">Nepavyko perkelti failo. Prašome patikrinkite  ar jis egzistuoja.</string>
+    <string name="mute_all_notifications">Išjungti visus pranešimus</string>
     <string name="network_error_connect_timeout_exception">Laukiant serverio įvyko klaida. Nepavyko pabaigti operacijos.</string>
     <string name="network_error_socket_exception">Prisijungimo prie serverio metu įvyko klaida</string>
     <string name="network_error_socket_timeout_exception">Laukiant serverio įvyko klaida. Nepavyko pabaigti operacijos.</string>
     <string name="network_host_not_available">Nepavyko užbaigti operacijos, Serveris nepasiekiamas.</string>
     <string name="new_comment">Naujas komentaras…</string>
     <string name="new_media_folder_detected">Aptiktas naujas %1$s medijos failas.</string>
+    <string name="new_notification">Naujas įspėjimas</string>
     <string name="new_version_was_created">Buvo sukurta nauja versija</string>
     <string name="no_browser_available">Nėra programėlės, skirtos apdoroti nuorodas</string>
     <string name="no_calendar_exists">Nėra jokių kalendorių</string>
@@ -541,11 +544,6 @@
     <string name="permission_storage_access">Papildomos teisės reikalingos įkelti šiuos atsisiųstus failus.</string>
     <string name="picture_set_as_no_app">Nerasta programa, su kuria būtų galima nustatyti nuotrauką</string>
     <string name="pin_shortcut_label">Atverti %1$s</string>
-    <string name="placeholder_fileSize">389 KB</string>
-    <string name="placeholder_filename">rezervas.txt</string>
-    <string name="placeholder_media_time">12:23:45</string>
-    <string name="placeholder_sentence">Rezervas</string>
-    <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
     <string name="player_stop">stabdyti</string>
     <string name="player_toggle">perjungti</string>
     <string name="please_select_a_server">Pasirinkite serverį…</string>
@@ -565,6 +563,7 @@
     <string name="prefs_category_about">Apie</string>
     <string name="prefs_category_details">Informacija</string>
     <string name="prefs_category_dev">Dev</string>
+    <string name="prefs_category_files">Failai</string>
     <string name="prefs_category_general">Bendra</string>
     <string name="prefs_category_more">Daugiau</string>
     <string name="prefs_category_sync">Sinchronizuoti</string>
@@ -606,10 +605,8 @@
     <string name="preview_image_error_no_local_file">Nėra vietinio failo peržiūrai</string>
     <string name="preview_image_error_unknown_format">Nepavyko parodyti paveikslo</string>
     <string name="preview_image_file_is_not_downloaded">Failas nėra atsisiųstas</string>
-    <string name="preview_image_file_is_not_exist">Failo nėra</string>
     <string name="preview_sorry">Atsiprašome</string>
     <string name="privacy">Privatumas</string>
-    <string name="public_share_name">Naujas pavadinimas</string>
     <string name="push_notifications_not_implemented">Push pranešimai išjungti dėl priklausomybės nuo nuosavybinių „Google Play“ paslaugų.</string>
     <string name="push_notifications_old_login">Nėra pranešimų dėl pasenusios prisijungimo sesijos. Pasvarstykite galimybę iš naujo pridėti prisijungimo duomenis.</string>
     <string name="push_notifications_temp_error">Stumti pranešimus funkcija šiuo metu negalima</string>
@@ -660,9 +657,8 @@
     <string name="send">Siųsti</string>
     <string name="sendbutton_description">Siuntimo mygtuko priktograma</string>
     <string name="set_as">Nustatyti kaip</string>
+    <string name="set_online_status">Prisijungimo būsena</string>
     <string name="set_picture_as">Naudoti paveikslėlį kaip</string>
-    <string name="set_status">Nustatyti būseną</string>
-    <string name="set_status_message">Nustatyti būsenos žinutę</string>
     <string name="share">Bendrinti</string>
     <string name="share_create_permission">Sukurti</string>
     <string name="share_custom_permission">Tinkinti leidimai</string>
@@ -686,6 +682,7 @@
     <string name="share_no_expiration_date_label">Nustatyti galiojimo pabaigos datą</string>
     <string name="share_no_password_title">Nustatyti slaptažodį</string>
     <string name="share_permission_can_edit">Galima redaguoti</string>
+    <string name="share_permission_file_request">Failų įkėlimui</string>
     <string name="share_permission_secure_file_drop">Saugus failų įkėlimas</string>
     <string name="share_permission_view_only">Tik peržiūrėti</string>
     <string name="share_re_share_permission">Bendrinti</string>
@@ -849,6 +846,7 @@
     <string name="upload_file_dialog_title">Įrašykite failo pavadinimą ir tipą įkėlimui</string>
     <string name="upload_files">Įkelti failus</string>
     <string name="upload_item_action_button">Įkelti elemento veiksmo mygtuką</string>
+    <string name="upload_list_cancel_upload">Atšaukti įkėlimą</string>
     <string name="upload_list_delete">Ištrinti</string>
     <string name="upload_list_empty_headline">Atnaujinimų nerasta</string>
     <string name="upload_list_empty_text_auto_upload">Įkelkite failus arba sinchronizuokite su savo įrenginiais</string>

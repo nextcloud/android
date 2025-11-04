@@ -43,6 +43,7 @@
     <string name="app_config_proxy_port_title">Порт проксі-сервера</string>
     <string name="app_widget_description">Показувати один віджет з панелі віджетів</string>
     <string name="appbar_search_in">Пошук у %s</string>
+    <string name="appear_offline">Перебуваю поза мережею</string>
     <string name="assistant_screen_add_task_alert_dialog_title">Додати нове завдання</string>
     <string name="assistant_screen_create_a_new_task_from_bottom_right_text">Створити нове завдання праворуч внизу</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Вставте будь-який текст</string>
@@ -92,12 +93,19 @@
     <string name="auth_unsupported_multiaccount">%1$s не підтримує одночасно декілька облікових записів</string>
     <string name="auth_wrong_connection_title">Не вдалося встановити з\'єднання</string>
     <string name="authenticator_activity_cancel_login">Скасувати авторизацію</string>
+    <string name="authenticator_activity_empty_base_url">Зазначте дійсну адресу сервера</string>
+    <string name="authenticator_activity_empty_response_message">Не вдалося отримати дані для входу. Спробуйте ще раз.</string>
     <string name="authenticator_activity_login_error">Помилка під час обробки запиту на вхід. Спробуйте пізніше.</string>
+    <string name="authenticator_activity_no_web_browser_found">Відсутній бравзер для відкриття цього посилання.</string>
     <string name="authenticator_activity_please_complete_login_process">Завершити авторизацію у бравзері</string>
+    <string name="auto_upload_battery_saver_mode_warning">Автозавантаження призупинено, оскільки увімкнено заощадження батареї.</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">залишено у вихідному каталозі, оскільки він доступний лише для читання</string>
+    <string name="auto_upload_low_battery_warning_info">Низький заряд батареї, завантаження може тривати доше</string>
     <string name="auto_upload_on_wifi">Завантаження тільки через WiFi</string>
     <string name="auto_upload_path">/AutoUpload</string>
     <string name="auto_upload_sub_folder_warning">Цей каталог вже включено до синхронізації каталогу вищого рівня, що може призвести до задвоєння завантаження</string>
+    <string name="auto_upload_wifi_only_warning_info">Очікується з\'єднання з WiFi для початку завантаження</string>
+    <string name="auto_upload_worker_start_text">Завантаження файлів з %s до %s</string>
     <string name="autoupload_configure">Налаштування</string>
     <string name="autoupload_create_new_custom_folder">Власний каталог користувача</string>
     <string name="autoupload_custom_folder">Каталог користувача</string>
@@ -115,6 +123,7 @@
     <string name="bottom_navigation_menu_favorites_label">Із зірочкою</string>
     <string name="bottom_navigation_menu_files_label">Усі документи</string>
     <string name="bottom_navigation_menu_media_label">Зображення та відео</string>
+    <string name="busy">Зайнято</string>
     <string name="calendar">Календар</string>
     <string name="calendars">Календарі</string>
     <string name="certificate_load_problem">Помилка завантаження сертифіката.</string>
@@ -126,9 +135,9 @@
     <string name="choose_template_helper_text">Будь ласка, оберіть шаблон і введіть ім\'я файлу.</string>
     <string name="choose_which_file">Виберіть, який файл зберегти!</string>
     <string name="choose_widget">Виберіть віджет</string>
+    <string name="clear">Очистити</string>
     <string name="clear_notifications_failed">Неможливо очистити сповіщення.</string>
-    <string name="clear_status_message">Прибрати статус</string>
-    <string name="clear_status_message_after">Очистити повідомлення про стан після</string>
+    <string name="clear_status_after">Очистити статус після</string>
     <string name="clipboard_label">Текст скопійовано з %1$s</string>
     <string name="clipboard_no_text_to_copy">Відсутній текст для копіювання до буферу обміну</string>
     <string name="clipboard_text_copied">Посилання скопійовано</string>
@@ -200,6 +209,7 @@
     <string name="contacts_preferences_import_scheduled_fail">Не вдалося здійснити імпорт. Спробуйте ще раз</string>
     <string name="contacts_preferences_no_file_found">Файл не знайдено</string>
     <string name="contacts_preferences_something_strange_happened">Неможливо знайти вашу останню резервну копію</string>
+    <string name="content_observer_work_notification_title">Пошук змін у вмісті</string>
     <string name="copied_to_clipboard">Скопійовано</string>
     <string name="copy_file_error">Виникла помилка під час спроби копіювати цей файл або каталог</string>
     <string name="copy_file_invalid_into_descendent">Неможливо скопіювати каталог до одного із вкладених підкаталогів</string>
@@ -340,6 +350,7 @@
     <string name="error_report_issue_text">Надіслати звіт про ваду (потрібна обліковка у GitHub)</string>
     <string name="error_retrieving_file">Помилка під час отримання файлу</string>
     <string name="error_retrieving_templates">Помилка під час отримання шаблонів</string>
+    <string name="error_setting_status_message">Помилка під час встановлення повідмлення про статус!</string>
     <string name="error_showing_encryption_dialog">Помилка з показом діалогу налаштування шифрування!</string>
     <string name="error_starting_direct_camera_upload">Помилка під час запуску камери</string>
     <string name="error_starting_doc_scan">Помилка під час сканування документу</string>
@@ -447,7 +458,9 @@
     <string name="file_not_found_cannot_share">Файл не знайдено. Неможливо поділитися.</string>
     <string name="file_not_synced">Неможливо синхронізувати файл. Буде показано останню доступну версію.</string>
     <string name="file_rename">Перейменувати</string>
+    <string name="file_upload_limit_message">Ви можете одночасно завантажити до %d файлів.\"</string>
     <string name="file_upload_worker_error_notification_title">Не вдалося завантажити. Відсутнє з\'єднання з мережею.</string>
+    <string name="file_upload_worker_same_file_already_exists">%s вже наявний, відсутні конфлікти</string>
     <string name="file_version_restored_error">Помилка під час відновлення версії файлу!</string>
     <string name="file_version_restored_successfully">Успішно відновлено версію файлу.</string>
     <string name="filedetails_details">Деталі</string>
@@ -467,6 +480,11 @@
     <string name="folder_already_exists">Каталог вже існує</string>
     <string name="folder_best_viewed_in">Переглядайте каталог у %1$s.</string>
     <string name="folder_confirm_create">Створити</string>
+    <string name="folder_download_counter">%1$d із %2$d &#183; %3$s</string>
+    <string name="folder_download_error_notification_title">Помилка під час синхронізації каталогу %s</string>
+    <string name="folder_download_insufficient_disk_space_notification_title">Недостатньо місця на диску, синхронізацію скасовано</string>
+    <string name="folder_download_success_notification_title">%s каталог успішно синхронізовано</string>
+    <string name="folder_download_worker_ticker_id">Синхронізація...</string>
     <string name="folder_list_empty_headline">Тут відсутні каталоги</string>
     <string name="folder_name_empty">Ім\'я каталогу не може бути порожнім</string>
     <string name="folder_picker_choose_button_text">Вибрати</string>
@@ -554,7 +572,6 @@
     <string name="manage_space_clear_data">Очистити дані</string>
     <string name="manage_space_description">Налаштування, база даних та дані сертифікатів серверу від %1$s буде вилучено без можливості відновлення.\n\nФайли, які було звантажено, буде збережено.\n\nЦей процес триватиме певний час.</string>
     <string name="manage_space_title">Керувати простором</string>
-    <string name="max_file_count_warning_message">Досягнуто обмеження на кількість завантаження файлів. За раз можна завантажувати не більше 500 файлів.  </string>
     <string name="media_err_invalid_progressive_playback">Неможливо транслювати мультимедійний файл</string>
     <string name="media_err_io">Неможливо відкрити мультимедійний файл</string>
     <string name="media_err_malformed">Мультимедійний файл має неправильно кодування</string>
@@ -577,6 +594,7 @@
     <string name="move_file_invalid_into_descendent">Неможливо перемістити каталог до одного з вкладених підкаталогів</string>
     <string name="move_file_invalid_overwrite">Файл вже присутній у каталозі призначення</string>
     <string name="move_file_not_found">Неможливо перемістити файл. Будь ласка, перевірте, чи він існує.</string>
+    <string name="mute_all_notifications">Вимкнути всі сповіщення</string>
     <string name="network_error_connect_timeout_exception">Помилка під час очікування відповіді від сервера. Неможливо виконати дію.</string>
     <string name="network_error_socket_exception">Помилка під час з\'єднання з сервером</string>
     <string name="network_error_socket_timeout_exception">Помилка під час очікування відповіді від сервера. Неможливо виконати дію.</string>
@@ -602,6 +620,8 @@
     <string name="notification_action_failed">Не вдалося виконати дію.</string>
     <string name="notification_channel_background_operations_description">Показувати сповіщення про результати фонових операцій</string>
     <string name="notification_channel_background_operations_name">Фонові операції</string>
+    <string name="notification_channel_content_observer_description">Пошук змін у файлі на пристрої</string>
+    <string name="notification_channel_content_observer_name_short">Оглядач вмісту</string>
     <string name="notification_channel_download_description">Показує перебіг звантаження</string>
     <string name="notification_channel_download_name_short">Звантаження</string>
     <string name="notification_channel_file_sync_description">Показує перебіг синхронізації файлів та результати</string>
@@ -610,6 +630,8 @@
     <string name="notification_channel_general_name">Загальні сповіщення</string>
     <string name="notification_channel_media_description">Рядок відтворення музики</string>
     <string name="notification_channel_media_name">Мультимедійний програвач</string>
+    <string name="notification_channel_offline_operations_description">Показує поступ операцій з файлами в офлайні</string>
+    <string name="notification_channel_offline_operations_name_short">Офлайнові операції</string>
     <string name="notification_channel_push_description">Показувати push-сповіщення, надіслані сервером: згадки у коментарях, пропозиції про спільні ресурси, оголошення, надіслані адміністратором тощо.</string>
     <string name="notification_channel_push_name">Сповіщення push</string>
     <string name="notification_channel_upload_description">Показує перебіг завантаження</string>
@@ -655,11 +677,6 @@
     <string name="picture_set_as_no_app">Не знайдено застосунків для встановлення зображення для</string>
     <string name="pin_home">Закріпити на домівці</string>
     <string name="pin_shortcut_label">Відкрити %1$s</string>
-    <string name="placeholder_fileSize">389 КБ</string>
-    <string name="placeholder_filename">placeholder.txt</string>
-    <string name="placeholder_media_time">12:23:45</string>
-    <string name="placeholder_sentence">Це заповнювач</string>
-    <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
     <string name="player_stop">стоп</string>
     <string name="player_toggle">переключитися</string>
     <string name="please_select_a_server">Виберіть сервер...</string>
@@ -681,6 +698,7 @@
     <string name="prefs_category_about">Про застосунок</string>
     <string name="prefs_category_details">Деталі</string>
     <string name="prefs_category_dev">Розробка</string>
+    <string name="prefs_category_files">Файли</string>
     <string name="prefs_category_general">Основне</string>
     <string name="prefs_category_more">Більше</string>
     <string name="prefs_category_sync">Синхронізація</string>
@@ -736,11 +754,9 @@
     <string name="preview_image_error_no_local_file">Відсутній файл на пристрої для попереднього показу</string>
     <string name="preview_image_error_unknown_format">Неможливо показати зображення</string>
     <string name="preview_image_file_is_not_downloaded">Файл не звантажено</string>
-    <string name="preview_image_file_is_not_exist">Файл відсутній</string>
     <string name="preview_media_unhandled_http_code_message">Цей файл неможливо вилучити, оскільки його заблоковано іншим користувачем або процесом. Спробуйте пізніше.</string>
     <string name="preview_sorry">Перепрошуємо</string>
     <string name="privacy">Конфіденційність</string>
-    <string name="public_share_name">Нова назва</string>
     <string name="push_notifications_not_implemented">Сповіщення push вимкнено через залежність від служби Google Play</string>
     <string name="push_notifications_old_login">Сповіщення push неактивні, оскільки час сесії вичерпано. Будь ласка, додайте наново ваш обліковий запис.</string>
     <string name="push_notifications_temp_error">Зараз сповіщення push недоступні.</string>
@@ -806,10 +822,10 @@
     <string name="server_not_reachable_content">Схоже, пристрій не під\'єднано до Інтернету</string>
     <string name="set_as">Встановити як</string>
     <string name="set_download_limit_failed">Неможливо встановити обмеження на звантаження. Перевірте доступні вам функції.</string>
+    <string name="set_message">Встановити повідомлення</string>
     <string name="set_note">Додати примітку</string>
+    <string name="set_online_status">Мій статус доступності</string>
     <string name="set_picture_as">Використати як</string>
-    <string name="set_status">Встановити статус</string>
-    <string name="set_status_message">Оновити статус</string>
     <string name="setup_e2e">Під час налаштування наскрізного шифрування ви отримаєте парольну фразу з 12 слів, за допомогою якої ви зможете відкривати ваші файлі на інших пристроях. Її буде збережено лише на цьому пристрої та буде показано знову на цьому екрані. Будь ласка, занотуйте цю фразу та збережіть у безпеченому місці!</string>
     <string name="share">Спільний доступ</string>
     <string name="share_allow_download_and_sync_permission">Дозволити звантаження та синхронізацію</string>
@@ -874,6 +890,8 @@
     <string name="signup_with_provider">Зареєструватися у провайдейра</string>
     <string name="single_sign_on_request_token" formatted="true">Дозволити %1$s мати доступ до вашого облікового запису у Nextcloud %2$s?</string>
     <string name="sort_by">Впорядкувати за</string>
+    <string name="sort_favorites_first">Спочатку показувати із зірочкою</string>
+    <string name="sort_folders_before_files">Показувати каталоги перед файлами</string>
     <string name="ssl_validator_btn_details_hide">Сховати</string>
     <string name="ssl_validator_btn_details_see">Деталі</string>
     <string name="ssl_validator_header">Неможливо перевірити ідентифікатор сервера.</string>
@@ -984,6 +1002,7 @@
     <string name="unified_search_fragment_calendar_event_not_found">Подію не знайдено. Синхронізуйтеся для оновлення. Переспрямування на вебсайт...</string>
     <string name="unified_search_fragment_contact_not_found">Контакт не знайдено. Синхронізуйтеся для оновлення. Переспрямування на вебсайт...</string>
     <string name="unified_search_fragment_permission_needed">Для отримання результатів пошуку потрібні окреми дозволи, або перейти на вебсайт...</string>
+    <string name="unified_search_fragment_search_in_this_folder">У цьому каталозі</string>
     <string name="unknown">Невідомо</string>
     <string name="unlock_file">Розблокувати файл</string>
     <string name="unread_comments">Доступні непрочитані коментарі</string>
@@ -1032,6 +1051,10 @@
     <string name="upload_local_storage_not_copied">Неможливо скопіювати файл до внутрішнього сховища</string>
     <string name="upload_lock_failed">Неможливо заблокувати каталог</string>
     <string name="upload_manually_cancelled">Завантаження скасовано користувачем</string>
+    <string name="upload_missing_storage_permission_allow_file_access">Дозволити повний доступ до файлів</string>
+    <string name="upload_missing_storage_permission_app_permissions">Дозволи застосунків</string>
+    <string name="upload_missing_storage_permission_description">Неможливо завантажити ваші файли без доступу до місця зберігання файлів на вашому пристрої. Натисніть, щоби надати доступ.</string>
+    <string name="upload_missing_storage_permission_title">Завантаження зупинено - потрібний доступ до місця зберігання файлів</string>
     <string name="upload_notification_manager_start_text">%1$d/%2$d-%3$s</string>
     <string name="upload_old_android">Шифрування можливе лише на пристроях з версію Android 5.0+</string>
     <string name="upload_query_move_foreign_files">Нестача місця не дозволяє скопіювати файли до каталогу%1$s. Чи бажаєте перемістити їх замість копіювання?</string>

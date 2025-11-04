@@ -38,6 +38,8 @@ import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCo
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.operations.DownloadFileOperation
 import com.owncloud.android.operations.DownloadType
+import com.owncloud.android.ui.events.EventBusFactory
+import com.owncloud.android.ui.events.FileDownloadProgressEvent
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import java.util.AbstractList
 import java.util.Optional
@@ -149,8 +151,8 @@ class FileDownloadWorker(
         ForegroundServiceType.DataSync
     )
 
-    private fun setWorkerState(user: User?, percent: Int) {
-        WorkerStateLiveData.instance().setWorkState(WorkerState.DownloadStarted(user, currentDownload, percent))
+    private fun setWorkerState(user: User?) {
+        WorkerStateLiveData.instance().setWorkState(WorkerState.DownloadStarted(user, currentDownload))
     }
 
     private fun setIdleWorkerState() {
@@ -247,7 +249,7 @@ class FileDownloadWorker(
             return
         }
 
-        setWorkerState(user, 0)
+        setWorkerState(user)
         Log_OC.e(TAG, "FilesDownloadWorker downloading: $downloadKey")
 
         val isAccountExist = accountManager.exists(currentDownload?.user?.toPlatformAccount())
@@ -410,7 +412,7 @@ class FileDownloadWorker(
         }
 
         lastPercent = percent
-        setWorkerState(user, lastPercent)
+        EventBusFactory.downloadProgressEventBus.post(FileDownloadProgressEvent(percent))
     }
 
     // CHECK: Is this class still needed after conversion from Foreground Services to Worker?

@@ -10,6 +10,7 @@ import androidx.lifecycle.LiveData
 import androidx.work.ListenableWorker
 import com.nextcloud.client.account.User
 import com.owncloud.android.datamodel.OCFile
+import com.owncloud.android.datamodel.SyncedFolder
 import com.owncloud.android.operations.DownloadType
 
 /**
@@ -119,15 +120,12 @@ interface BackgroundJobManager {
 
     fun startImmediateFilesExportJob(files: Collection<OCFile>): LiveData<JobInfo?>
 
-    fun schedulePeriodicFilesSyncJob(syncedFolderID: Long)
+    fun schedulePeriodicFilesSyncJob(syncedFolder: SyncedFolder)
 
-    /**
-     * Immediately start File Sync job for given syncFolderID.
-     */
-    fun startImmediateFilesSyncJob(
-        syncedFolderID: Long,
+    fun startAutoUploadImmediately(
+        syncedFolder: SyncedFolder,
         overridePowerSaving: Boolean = false,
-        changedFiles: Array<String?> = arrayOf<String?>()
+        contentUris: Array<String?> = arrayOf()
     )
 
     fun cancelTwoWaySyncJob()
@@ -139,14 +137,12 @@ interface BackgroundJobManager {
 
     fun startNotificationJob(subject: String, signature: String)
     fun startAccountRemovalJob(accountName: String, remoteWipe: Boolean)
-    fun startFilesUploadJob(user: User, uploadIds: LongArray)
+    fun startFilesUploadJob(user: User, uploadIds: LongArray, showSameFileAlreadyExistsNotification: Boolean)
     fun getFileUploads(user: User): LiveData<List<JobInfo>>
     fun cancelFilesUploadJob(user: User)
-    fun isStartFileUploadJobScheduled(user: User): Boolean
+    fun isStartFileUploadJobScheduled(accountName: String): Boolean
 
     fun cancelFilesDownloadJob(user: User, fileId: Long)
-
-    fun isStartFileDownloadJobScheduled(user: User, fileId: Long): Boolean
 
     @Suppress("LongParameterList")
     fun startFileDownloadJob(
@@ -174,4 +170,7 @@ interface BackgroundJobManager {
     fun startPeriodicallyOfflineOperation()
     fun scheduleInternal2WaySync(intervalMinutes: Long)
     fun cancelAllFilesDownloadJobs()
+    fun startMetadataSyncJob(currentDirPath: String)
+    fun downloadFolder(folder: OCFile, accountName: String)
+    fun cancelFolderDownload()
 }

@@ -29,6 +29,8 @@ import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.theme.ViewThemeUtils;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.content.res.ResourcesCompat;
@@ -168,12 +170,7 @@ public class StorageMigration {
         progressDialog.setButton(
                 ProgressDialog.BUTTON_POSITIVE,
                 mContext.getString(R.string.drawer_close),
-                new OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        dialogInterface.dismiss();
-                    }
-                });
+                (dialogInterface, i) -> dialogInterface.dismiss());
         return progressDialog;
     }
 
@@ -369,10 +366,19 @@ public class StorageMigration {
             try {
                 File dstFile = new File(mStorageTarget + File.separator + MainApp.getDataFolder());
                 deleteRecursive(dstFile);
-                dstFile.delete();
+                try {
+                    Files.delete(dstFile.toPath());
+                } catch (IOException e) {
+                    Log_OC.e(TAG, "Could not delete destination file: " + dstFile.getAbsolutePath(), e);
+                }
 
                 File srcFile = new File(mStorageSource + File.separator + MainApp.getDataFolder());
-                srcFile.mkdirs();
+
+                try {
+                    Files.createDirectories(srcFile.toPath());
+                } catch (IOException e) {
+                    Log_OC.e(TAG, "Could not create directory: " + srcFile.getAbsolutePath(), e);
+                }
 
                 publishProgress(R.string.file_migration_checking_destination);
 
@@ -471,7 +477,11 @@ public class StorageMigration {
             if (!deleteRecursive(srcFile)) {
                 Log_OC.w(TAG, "Migration cleanup step failed");
             }
-            srcFile.delete();
+            try {
+                Files.delete(srcFile.toPath());
+            } catch (IOException e) {
+                Log_OC.e(TAG, "Could not delete source file: " + srcFile.getAbsolutePath(), e);
+            }
         }
 
         private boolean deleteRecursive(File f) {

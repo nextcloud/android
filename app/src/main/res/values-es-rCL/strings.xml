@@ -115,6 +115,7 @@
     <string name="choose_remote_folder">Elige la carpeta remota…</string>
     <string name="choose_template_helper_text">Por favor, elija una plantilla y escriba un nombre de archivo.</string>
     <string name="choose_which_file">¡Selecciona el archivo a conservar!</string>
+    <string name="clear">Limpiar</string>
     <string name="clipboard_label">Texto copiado desde %1$s</string>
     <string name="clipboard_no_text_to_copy">No se ha recibido texto para copiar al portapapeles</string>
     <string name="clipboard_unexpected_error">Se presentó un error inesperado al copiar al portapapeles</string>
@@ -368,11 +369,6 @@
     <string name="permission_storage_access">Se requieren permisos adicionales para cargar y descargar archivos. </string>
     <string name="picture_set_as_no_app">No se encontró una aplicación con la cual establecer la imagen</string>
     <string name="pin_shortcut_label">Abrir %1$s</string>
-    <string name="placeholder_fileSize">389 KB</string>
-    <string name="placeholder_filename">marcadordeposición.txt</string>
-    <string name="placeholder_media_time">12:23:45</string>
-    <string name="placeholder_sentence">Este es un marcador de posición</string>
-    <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
     <string name="pref_behaviour_entries_delete_file">Borrado</string>
     <string name="pref_behaviour_entries_keep_file">mantenido en la carpeta original</string>
     <string name="pref_behaviour_entries_move">movido a la carpeta de la aplicación</string>
@@ -381,6 +377,7 @@
     <string name="prefs_category_about">Acerca de</string>
     <string name="prefs_category_details">Detalles</string>
     <string name="prefs_category_dev">Desarrollo</string>
+    <string name="prefs_category_files">Archivo</string>
     <string name="prefs_category_general">General</string>
     <string name="prefs_category_more">Más</string>
     <string name="prefs_category_sync">Sincronizar</string>

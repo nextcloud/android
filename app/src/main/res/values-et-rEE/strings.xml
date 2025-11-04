@@ -43,6 +43,7 @@
     <string name="app_config_proxy_port_title">Proksiserveri port</string>
     <string name="app_widget_description">Näitab ühte vidinat juhtpaneelilt/töölaualt</string>
     <string name="appbar_search_in">Otsi siin: %s</string>
+    <string name="appear_offline">Sellega paistad olema võrgust väljas</string>
     <string name="assistant_screen_add_task_alert_dialog_title">Lisa uus ülesanne</string>
     <string name="assistant_screen_create_a_new_task_from_bottom_right_text">Loo uus ülesanne all paremal asuvast valikust</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Kirjuta midagi vahvat</string>
@@ -92,12 +93,19 @@
     <string name="auth_unsupported_multiaccount">%1$s ei toeta mitme konto kasutamist</string>
     <string name="auth_wrong_connection_title">Ühenduse loomine ebaõnnestus</string>
     <string name="authenticator_activity_cancel_login">Katkesta sisselogimine</string>
+    <string name="authenticator_activity_empty_base_url">Palun sisesta korrektne serveri aadress.</string>
+    <string name="authenticator_activity_empty_response_message">Sisselogimise üksikasjade laadimine ei õnnestu. Palun proovi uuesti.</string>
     <string name="authenticator_activity_login_error">Sinu sisselogimispäringu töötlemisel tekkis viga. Palun proovi hiljem uuesti.</string>
+    <string name="authenticator_activity_no_web_browser_found">Selle lingi avamiseks ei leidu ühtegi brauserit.</string>
     <string name="authenticator_activity_please_complete_login_process">Palun lõpeta sisselogimisprotsess oma veebibrauseris</string>
+    <string name="auto_upload_battery_saver_mode_warning">Kuna akukasutuse optimeerimine on lülitatud sisse, siis automaatne üleslaadimine pole töös.</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">säilitatud lugemisõigustega algkaustas</string>
+    <string name="auto_upload_low_battery_warning_info">Aku on üsna tühi, üleslaadimine võib kesta kauem</string>
     <string name="auto_upload_on_wifi">Laadi üles ainult mahupiiranguta WiFi võrgus</string>
     <string name="auto_upload_path">/AutoUpload</string>
     <string name="auto_upload_sub_folder_warning">Kuna ülalpool asuv kaust kuulub sünkroonimisele, siis see kaust on juba kaasatud ning nii võivad tekkida topelt üleslaadimised</string>
+    <string name="auto_upload_wifi_only_warning_info">Ootan sünkroonimiseks WiFi ühenduse loomist</string>
+    <string name="auto_upload_worker_start_text">Laadin faile üles: %s kuni %s</string>
     <string name="autoupload_configure">Seadista</string>
     <string name="autoupload_create_new_custom_folder">Loo uus kohandatud kausta seadistus</string>
     <string name="autoupload_custom_folder">Seadista kohandatud kaust</string>
@@ -115,6 +123,7 @@
     <string name="bottom_navigation_menu_favorites_label">Lemmikud</string>
     <string name="bottom_navigation_menu_files_label">Kõik failid</string>
     <string name="bottom_navigation_menu_media_label">Meedia</string>
+    <string name="busy">Hõivatud</string>
     <string name="calendar">Kalender</string>
     <string name="calendars">Kalendrid</string>
     <string name="certificate_load_problem">Sertifikaadi laadimisel tekkis viga.</string>
@@ -126,9 +135,9 @@
     <string name="choose_template_helper_text">Palun vali mall ja sisesta failinimi.</string>
     <string name="choose_which_file">Vali, milline fail alles jätta!</string>
     <string name="choose_widget">Vali vidin</string>
+    <string name="clear">Tühjenda</string>
     <string name="clear_notifications_failed">Teavituste kustutamine ebaõnnestus.</string>
-    <string name="clear_status_message">Eemalda olekuteade</string>
-    <string name="clear_status_message_after">Eemalda olekuteade pärast</string>
+    <string name="clear_status_after">Eemalda olekuteade peale</string>
     <string name="clipboard_label">Tekst on kopeeritud siit: %1$s</string>
     <string name="clipboard_no_text_to_copy">Ei leidunud teksti, mida lõikelauale kopeerida</string>
     <string name="clipboard_text_copied">Link kopeeritud</string>
@@ -200,6 +209,7 @@
     <string name="contacts_preferences_import_scheduled_fail">Ei õnnestunud käivitada importimist. Palun proovi uuesti</string>
     <string name="contacts_preferences_no_file_found">Faili ei leitud</string>
     <string name="contacts_preferences_something_strange_happened">Sinu viimast varukoopiat ei leidu!</string>
+    <string name="content_observer_work_notification_title">Tuvastan sisu muudatusi</string>
     <string name="copied_to_clipboard">Kopeeritud lõikepuhvrisse</string>
     <string name="copy_file_error">Selle faili või kausta kopeerimisel tekkis tõrge</string>
     <string name="copy_file_invalid_into_descendent">Kausta ei saa kopeerida tema enda alamkausta</string>
@@ -340,6 +350,7 @@
     <string name="error_report_issue_text">Kas teatad veast meie veahaldusesse? (eeldab GitHubi kasutajakonto olemasolu)</string>
     <string name="error_retrieving_file">Viga faili laadimisel</string>
     <string name="error_retrieving_templates">Viga mallide laadimisel</string>
+    <string name="error_setting_status_message">Olekuteate lisamisel tekkis viga!</string>
     <string name="error_showing_encryption_dialog">Krüptimise vaate avamisel tekkis viga!</string>
     <string name="error_starting_direct_camera_upload">Viga kaamera käivitamisel</string>
     <string name="error_starting_doc_scan">Ei õnnestu alustada dokumendi skaneerimist</string>
@@ -447,7 +458,9 @@
     <string name="file_not_found_cannot_share">Faili ei leidu. Jaosmeedia loomine ei õnnestu.</string>
     <string name="file_not_synced">Faili ei õnnestunud sünkroniseerida. Näitan viimast saadavalolevat versiooni.</string>
     <string name="file_rename">Muuda nime</string>
+    <string name="file_upload_limit_message">Ühe korraga saad üles laadida kuni %d faili.</string>
     <string name="file_upload_worker_error_notification_title">Üleslaadimine ei õnnestunud. Internetiühendus puudub</string>
+    <string name="file_upload_worker_same_file_already_exists">%s on juba olemas, failikonflikti ei tundu tekkima</string>
     <string name="file_version_restored_error">Viga faili versiooni taastamisel!</string>
     <string name="file_version_restored_successfully">Faili versiooni taastamine õnnestus.</string>
     <string name="filedetails_details">Üksikasjad</string>
@@ -467,6 +480,11 @@
     <string name="folder_already_exists">Kaust on juba olemas</string>
     <string name="folder_best_viewed_in">Kausta on kõige parem vaadata siin: %1$s.</string>
     <string name="folder_confirm_create">Loo</string>
+    <string name="folder_download_counter">%1$d / %2$d &#183; %3$s</string>
+    <string name="folder_download_error_notification_title">„%s“ kausta sünkroonimisel tekkis viga</string>
+    <string name="folder_download_insufficient_disk_space_notification_title">Andmekandjal pole piisavalt ruumi, sünkroonimine on katkestatud</string>
+    <string name="folder_download_success_notification_title">%s kausta sünkroonimine õnnestus</string>
+    <string name="folder_download_worker_ticker_id">Sünkroonin…</string>
     <string name="folder_list_empty_headline">Siin ei ole kaustu</string>
     <string name="folder_name_empty">Kausta nimi ei saa olla tühi.</string>
     <string name="folder_picker_choose_button_text">Vali</string>
@@ -554,7 +572,6 @@
     <string name="manage_space_clear_data">Kustuta andmed</string>
     <string name="manage_space_description">Järgnevaga kustutatakse jäädavalt kõik „%1$s“ andmete seadistused, andmebaasikirjed ja sertifikaadid.\n\nAllalaaditud failid jäävad alles.\n\nKogu toiming võib märgatavalt aega võtta.</string>
     <string name="manage_space_title">Halda andmeruumi</string>
-    <string name="max_file_count_warning_message">Sa üritad laadida üles enam faile kui võimalik on. Palun laadi korraga üles vähem, kui 500 faili.</string>
     <string name="media_err_invalid_progressive_playback">Seda meediafaili ei saa voogedastada</string>
     <string name="media_err_io">Meediafaili lugemine ebaõnnestus</string>
     <string name="media_err_malformed">Sellel meediafailil on vigane kodeering</string>
@@ -577,6 +594,7 @@
     <string name="move_file_invalid_into_descendent">Kausta ei saa teisaldada tema enda alamkausta</string>
     <string name="move_file_invalid_overwrite">See fail on sihtkohas juba olemas.</string>
     <string name="move_file_not_found">Faili ei õnnestu teisaldada. Palun kontrolli, kas fail ikka on olemas.</string>
+    <string name="mute_all_notifications">Sellega summutad teavitused</string>
     <string name="network_error_connect_timeout_exception">Serveriühenduse ootamisel tekkis viga. Toimingut pole võimalik lõpetada.</string>
     <string name="network_error_socket_exception">Ühenduse loomisel serveriga tekkis viga</string>
     <string name="network_error_socket_timeout_exception">Serveriühenduse ootamisel tekkis viga. Toimingut pole võimalik lõpetada.</string>
@@ -602,6 +620,8 @@
     <string name="notification_action_failed">Ei õnnestunud käivitada tegevust.</string>
     <string name="notification_channel_background_operations_description">Näita teavitusi, mis võimaldavad suhelda taustal tehtud toimingutega</string>
     <string name="notification_channel_background_operations_name">Toimingud taustal</string>
+    <string name="notification_channel_content_observer_description">Tuvastab kohalike failide muudatused</string>
+    <string name="notification_channel_content_observer_name_short">Sisuvaatleja</string>
     <string name="notification_channel_download_description">Näitab allalaadimise edenemist</string>
     <string name="notification_channel_download_name_short">Allalaadimised</string>
     <string name="notification_channel_file_sync_description">Näitab failide sünkroniseerimise edenemist ja tulemusi</string>
@@ -610,6 +630,8 @@
     <string name="notification_channel_general_name">Üldised teavitused</string>
     <string name="notification_channel_media_description">Muusikaesitaja edenemine</string>
     <string name="notification_channel_media_name">Meediaesitaja</string>
+    <string name="notification_channel_offline_operations_description">Näitab vallasrežiimis tegevuste edenemist</string>
+    <string name="notification_channel_offline_operations_name_short">Vallasrežiimis tegevused</string>
     <string name="notification_channel_push_description">Näita serveri saadetud tõuketeavitusi: mainimised kommentaarides, uute kaugkaustade vastuvõtmine, peakasutaja postitused, jmt.</string>
     <string name="notification_channel_push_name">Tõuketeavitused</string>
     <string name="notification_channel_upload_description">Näitab üleslaadimise edenemist</string>
@@ -655,11 +677,6 @@
     <string name="picture_set_as_no_app">Ei leidu rakendust pildi määramiseks</string>
     <string name="pin_home">Kinnita avalehele</string>
     <string name="pin_shortcut_label">Ava %1$s </string>
-    <string name="placeholder_fileSize">389 KB</string>
-    <string name="placeholder_filename">placeholder.txt</string>
-    <string name="placeholder_media_time">12:23:45</string>
-    <string name="placeholder_sentence">See on kohahoidja</string>
-    <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
     <string name="player_stop">peata</string>
     <string name="player_toggle">lülita sisse/välja</string>
     <string name="please_select_a_server">Palun vali server…</string>
@@ -681,6 +698,7 @@
     <string name="prefs_category_about">Info</string>
     <string name="prefs_category_details">Üksikasjad</string>
     <string name="prefs_category_dev">Arendusversioon</string>
+    <string name="prefs_category_files">Failid</string>
     <string name="prefs_category_general">Üldine</string>
     <string name="prefs_category_more">Rohkem</string>
     <string name="prefs_category_sync">Sünkrooni</string>
@@ -736,11 +754,9 @@
     <string name="preview_image_error_no_local_file">Eelvaate jaoks ei leidu kohalikku faili</string>
     <string name="preview_image_error_unknown_format">Pildi näitamine ei õnnestu</string>
     <string name="preview_image_file_is_not_downloaded">Fail pole alla laaditud</string>
-    <string name="preview_image_file_is_not_exist">Faili pole olemas</string>
     <string name="preview_media_unhandled_http_code_message">Fail on hetkel lukustatud teise kasutaja või protsessi poolt ja seega pole kustutatav. Palun proovi hiljem uuesti.</string>
     <string name="preview_sorry">Vabandame</string>
     <string name="privacy">Privaatsus</string>
-    <string name="public_share_name">Uus nimi</string>
     <string name="push_notifications_not_implemented">Tõuketeavitused pole hetkel kasutusel, sest nad sõltuvad Google Play mittevabadest teenustest.</string>
     <string name="push_notifications_old_login">Tõuketeavitused ei toimi, sest sisselogimissessioon on aegunud. Palun lisa oma kasutajakonto uuesti.</string>
     <string name="push_notifications_temp_error">Tõuketeavitused pole hetkel saadaval</string>
@@ -806,10 +822,10 @@
     <string name="server_not_reachable_content">Seadmes ilmselt puudub internetiühendus</string>
     <string name="set_as">Määra kui</string>
     <string name="set_download_limit_failed">Allalaadimispiirangu määramine ei õnnestu. Palun kontrolli selle konteksti tegelikke võimalusi.</string>
+    <string name="set_message">Lisa olekuteade</string>
     <string name="set_note">Lisa märge</string>
+    <string name="set_online_status">Olek võrgus</string>
     <string name="set_picture_as">Kasuta pilti kui</string>
-    <string name="set_status">Määra olek</string>
-    <string name="set_status_message">Lisa olekuteade</string>
     <string name="setup_e2e">Läbiva krüptimise kasutuselevõtmisel saad sa juhusliku 12-sõnalise mnemofraasi ehk salafraasi, mille alusel vaid sina saad oma krüptitud faile teistes seadmetes kasutada ja näha. Ta on salvestatud vaid siin seadmes ja on uuesti vaadatav vaid siin vaates. Palun märgi see üles ning hoia turvaliselt kas moodsas digitaalses salasõnalaekas või vana kooli seifis.</string>
     <string name="share">Jaga</string>
     <string name="share_allow_download_and_sync_permission">Luba allalaadimine ja sünkroonimine</string>
@@ -874,6 +890,8 @@
     <string name="signup_with_provider">Või liitu teenusepakkujaga</string>
     <string name="single_sign_on_request_token" formatted="true">Kas lubad „%1$s“ teenusel ligipääsu sinu Nextcloudi kasutajakontole „%2$s“?</string>
     <string name="sort_by">Sorteeri</string>
+    <string name="sort_favorites_first">Järjesta lemmikud esimesena</string>
+    <string name="sort_folders_before_files">Järjesta kaustad enne faile</string>
     <string name="ssl_validator_btn_details_hide">Peida</string>
     <string name="ssl_validator_btn_details_see">Üksikasjad</string>
     <string name="ssl_validator_header">Serveri identiteeti polnud võimalik kontrollida</string>
@@ -984,6 +1002,7 @@
     <string name="unified_search_fragment_calendar_event_not_found">Sündmust ei leidu, sa võid andmete uuendamiseks alati sünkroniseerida. Suunan edasi veebi…</string>
     <string name="unified_search_fragment_contact_not_found">Kontakti ei leidu, sa võid andmete uuendamiseks alati sünkroniseerida. Suunan edasi veebi…</string>
     <string name="unified_search_fragment_permission_needed">Otsingutulemuste avamiseks on vajalikud vastavad õigused, vastasel juhul suunan päringu ümber veebi…</string>
+    <string name="unified_search_fragment_search_in_this_folder">Selles kaustas</string>
     <string name="unknown">Teadmata</string>
     <string name="unlock_file">Eemalda faili lukustus</string>
     <string name="unread_comments">Leidub lugemata kommentaare</string>
@@ -1032,6 +1051,10 @@
     <string name="upload_local_storage_not_copied">Faili ei õnnestunud kopeerida kohalikku andmeruumi</string>
     <string name="upload_lock_failed">Kasuta lukustamine ei õnnestunud</string>
     <string name="upload_manually_cancelled">Kasutaja katkestas üleslaadimise</string>
+    <string name="upload_missing_storage_permission_allow_file_access">Luba juurdepääs kõikidele failidele</string>
+    <string name="upload_missing_storage_permission_app_permissions">Rakenduse õigused</string>
+    <string name="upload_missing_storage_permission_description">Sinu faile ei saa kohalikust andmeruumist üles laadida. Klõpsa õiguste lubamiseks.</string>
+    <string name="upload_missing_storage_permission_title">Üleslaadimine on peatunud - vajalikud on andmeruumi kasutamise õigused</string>
     <string name="upload_notification_manager_start_text">%1$d / %2$d - %3$s</string>
     <string name="upload_old_android">Krüptimine on võimalik vaid &gt;= Android 5.0 puhul</string>
     <string name="upload_query_move_foreign_files">Piisava ruumi puudumisel pole võimalik kopeerida valitud faile „%1$s“ kausta. Kas pigem tahaksid nad sinna teisaldada?</string>

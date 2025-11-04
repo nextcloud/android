@@ -43,6 +43,7 @@
     <string name="app_config_proxy_port_title">Proxy Port</string>
     <string name="app_widget_description">Menampilkan satu gawit dari dasbor</string>
     <string name="appbar_search_in">Cari dalam %s</string>
+    <string name="appear_offline">Tampak offline</string>
     <string name="assistant_screen_add_task_alert_dialog_title">Tambahkan tugas baru</string>
     <string name="assistant_screen_create_a_new_task_from_bottom_right_text">Buat tugas baru dari kanan bawah</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Tulis beberapa teks</string>
@@ -92,12 +93,19 @@
     <string name="auth_unsupported_multiaccount">%1$s tidak mendukung banyak akun </string>
     <string name="auth_wrong_connection_title">Tidak dapat memulai koneksi</string>
     <string name="authenticator_activity_cancel_login">Batalkan Masuk</string>
+    <string name="authenticator_activity_empty_base_url">Silakan masukkan alamat server yang valid.</string>
+    <string name="authenticator_activity_empty_response_message">Tidak dapat mengambil detail masuk. Silakan coba lagi.</string>
     <string name="authenticator_activity_login_error">Ada masalah saat memproses permintaan masuk Anda. Coba lagi nanti.</string>
+    <string name="authenticator_activity_no_web_browser_found">Tidak ada peramban yang tersedia untuk membuka tautan ini.</string>
     <string name="authenticator_activity_please_complete_login_process">Tolong selesaikan proses login Anda di browser</string>
+    <string name="auto_upload_battery_saver_mode_warning">Unggahan otomatis ditunda karena mode Penghemat Baterai aktif.</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">disimpan di folder original karena readonly</string>
+    <string name="auto_upload_low_battery_warning_info">Baterai menipis, proses unggah mungkin memakan waktu lebih lama</string>
     <string name="auto_upload_on_wifi">Hanya unggah di Wi-Fi tak terhitung</string>
     <string name="auto_upload_path">/AutoUpload</string>
     <string name="auto_upload_sub_folder_warning">Folder ini sudah disertakan dalam sinkronisasi folder induk, sehingga dapat menyebabkan unggahan ganda.</string>
+    <string name="auto_upload_wifi_only_warning_info">Menunggu Wi-Fi untuk mulai mengunggah</string>
+    <string name="auto_upload_worker_start_text">Mengunggah berkas dari %s ke %s</string>
     <string name="autoupload_configure">Konfigurasi</string>
     <string name="autoupload_create_new_custom_folder">Buat kostum folder baru.</string>
     <string name="autoupload_custom_folder">Pasang folder kostum.</string>
@@ -116,6 +124,7 @@ Otomatis unggah hanya bekerja dengan baik apabila Anda mengeluarkan aplikasi ini
     <string name="bottom_navigation_menu_favorites_label">Disukai</string>
     <string name="bottom_navigation_menu_files_label">Semua berkas</string>
     <string name="bottom_navigation_menu_media_label">Media</string>
+    <string name="busy">Sibuk</string>
     <string name="calendar">Kalender</string>
     <string name="calendars">Kalender</string>
     <string name="certificate_load_problem">Terjadi permasalahan memuat sertifikat.</string>
@@ -127,9 +136,9 @@ Otomatis unggah hanya bekerja dengan baik apabila Anda mengeluarkan aplikasi ini
     <string name="choose_template_helper_text">Mohon pilih templat dan masukkan nama file.</string>
     <string name="choose_which_file">Pilih file mana yang ditahan!</string>
     <string name="choose_widget">Pilih gawit</string>
+    <string name="clear">Bersihkan</string>
     <string name="clear_notifications_failed">Gagal membersihkan notifikasi</string>
-    <string name="clear_status_message">Kosongkan status pesan</string>
-    <string name="clear_status_message_after">Kosongkan status pesan setelah</string>
+    <string name="clear_status_after">Bersihkan status setelah</string>
     <string name="clipboard_label">Teks tersalin dari %1$s</string>
     <string name="clipboard_no_text_to_copy">Tidak ada teks yang disalin ke papan klip.</string>
     <string name="clipboard_text_copied">Link tersalin</string>
@@ -201,6 +210,7 @@ Otomatis unggah hanya bekerja dengan baik apabila Anda mengeluarkan aplikasi ini
     <string name="contacts_preferences_import_scheduled_fail">Impor gagal dimulai. Coba lagi</string>
     <string name="contacts_preferences_no_file_found">Tidak ada berkas ditemukan.</string>
     <string name="contacts_preferences_something_strange_happened">Tidak dapat menemukan pencadangan terakhir kamu!</string>
+    <string name="content_observer_work_notification_title">Mendeteksi perubahan konten</string>
     <string name="copied_to_clipboard">Disalin ke papan klip</string>
     <string name="copy_file_error">Terjadi kesalahan ketika mencoba menyalin berkas atau folder ini</string>
     <string name="copy_file_invalid_into_descendent">Tidak memungkinkan untuk menyalin folder kedalam turunannya</string>
@@ -248,6 +258,13 @@ Otomatis unggah hanya bekerja dengan baik apabila Anda mengeluarkan aplikasi ini
     <string name="document_scan_export_dialog_title">Pilih jenis ekspor</string>
     <string name="document_scan_pdf_generation_failed">Gagal membuat PDF</string>
     <string name="document_scan_pdf_generation_in_progress">Membuat PDF…</string>
+    <string name="document_storage_provider_cannot_create_file_and_folder">Tidak dapat membuat item di sini: izin buat tidak tersedia.</string>
+    <string name="document_storage_provider_cannot_create_file_inside_folder">Tidak dapat membuat berkas: izin tidak mencukupi.</string>
+    <string name="document_storage_provider_cannot_create_folder_inside_folder">Tidak dapat membuat folder: izin tidak mencukupi.</string>
+    <string name="document_storage_provider_cannot_delete">Tidak dapat menghapus item: izin hapus tidak tersedia.</string>
+    <string name="document_storage_provider_cannot_move">Tidak dapat memindahkan item: izin pemindahan tidak tersedia.</string>
+    <string name="document_storage_provider_cannot_read">Tidak dapat membuka item: izin baca tidak tersedia.</string>
+    <string name="document_storage_provider_cannot_rename">Tidak dapat mengganti nama item: izin penggantian nama tidak tersedia.</string>
     <string name="done">Selesai</string>
     <string name="dontClear">Jangan dihapus</string>
     <string name="download_cannot_create_file">Tidak dapat membuat berkas lokal</string>
@@ -327,12 +344,14 @@ Otomatis unggah hanya bekerja dengan baik apabila Anda mengeluarkan aplikasi ini
     <string name="error_comment_file">Error saat mengomentari file</string>
     <string name="error_crash_title">%1$s crash</string>
     <string name="error_creating_file_from_template">Galat saat membuat berkas dari templat</string>
+    <string name="error_fetching_sharees">Tidak dapat mengambil sharees.</string>
     <string name="error_file_actions">Kesalahan menampilkan aksi berkas</string>
     <string name="error_file_lock">Error saat mengubah status kunci file</string>
     <string name="error_report_issue_action">Laporan</string>
     <string name="error_report_issue_text">Laporkan masalah ke tracker? (membutuhkan akun GitHub)</string>
     <string name="error_retrieving_file">Galat saat menerima file</string>
     <string name="error_retrieving_templates">Error saat mengambil template</string>
+    <string name="error_setting_status_message">Kesalahan saat mengatur pesan status!</string>
     <string name="error_showing_encryption_dialog">Galat saat menampilkan dialog penyiapan enkripsi!</string>
     <string name="error_starting_direct_camera_upload">Galat saat mengaktifkan kamera</string>
     <string name="error_starting_doc_scan">Galat memulai pemindaian dokumen</string>
@@ -361,6 +380,7 @@ Otomatis unggah hanya bekerja dengan baik apabila Anda mengeluarkan aplikasi ini
     <string name="etm_transfer_type">Transfer</string>
     <string name="etm_transfer_type_download">Unduh</string>
     <string name="etm_transfer_type_upload">Unggah</string>
+    <string name="extented_list_fragment_empty_list_message_no_write_permission">Anda tidak memiliki izin untuk membuat atau mengunggah berkas di folder ini.</string>
     <string name="external_shares">Berbagi eksternal</string>
     <string name="fab_label">Tambahkan atau unggah</string>
     <string name="failed_to_download">Gagal memberikan berkas ke pengelola unduhan</string>
@@ -376,6 +396,7 @@ Otomatis unggah hanya bekerja dengan baik apabila Anda mengeluarkan aplikasi ini
     <string name="file_detail_share_already_active">Anda tidak dapat membagi, opsi berbagi sudah aktif dari pengguna ini.</string>
     <string name="file_detail_sharing_fragment_no_contact_app_message">Tidak ada aplikasi yang tersedia untuk memilih kontak</string>
     <string name="file_details_no_content">Gagal memuat detil</string>
+    <string name="file_details_sharing_fragment_custom_permission_not_selected">Silakan pilih izin khusus</string>
     <string name="file_icon">Berkas</string>
     <string name="file_keep">Simpan</string>
     <string name="file_list_empty">Unggah beberapa berkas atau sinkronisasi dengan perangkat anda.</string>
@@ -393,6 +414,8 @@ Otomatis unggah hanya bekerja dengan baik apabila Anda mengeluarkan aplikasi ini
     <string name="file_list_empty_shared">Berkas dan folder yang Anda bagikan akan muncul di sini.</string>
     <string name="file_list_empty_shared_headline">Belum ada yang dibagikan.</string>
     <string name="file_list_empty_unified_search_no_results">Tidak ada hasil yang ditemukan untuk kueri Anda</string>
+    <string name="file_list_empty_unified_search_start_search">Mulai pencarian Anda</string>
+    <string name="file_list_empty_unified_search_start_search_description">Ketik di bilah pencarian di atas untuk mencari berkas, kontak, acara kalender, dan lainnya di seluruh akun Anda.</string>
     <string name="file_list_folder">folder</string>
     <string name="file_list_live">LANGSUNG</string>
     <string name="file_list_loading">Memuat…</string>
@@ -436,7 +459,9 @@ Otomatis unggah hanya bekerja dengan baik apabila Anda mengeluarkan aplikasi ini
     <string name="file_not_found_cannot_share">File tidak ditemukan. Tidak dapat membagikan.</string>
     <string name="file_not_synced">Berkas tidak dapat disinkronkan. Menampilkan versi terbaru yang tersedia.</string>
     <string name="file_rename">Ubah nama</string>
+    <string name="file_upload_limit_message">Anda dapat mengunggah hingga %d berkas sekaligus.\"</string>
     <string name="file_upload_worker_error_notification_title">Unggahan gagal. Tidak ada koneksi internet</string>
+    <string name="file_upload_worker_same_file_already_exists">%s sudah ada, tidak ada konflik yang terdeteksi</string>
     <string name="file_version_restored_error">Kesalahan terjadi saat memulihkan versi file!</string>
     <string name="file_version_restored_successfully">Berhasil memulihkan versi berkas.</string>
     <string name="filedetails_details">Detail</string>
@@ -456,6 +481,11 @@ Otomatis unggah hanya bekerja dengan baik apabila Anda mengeluarkan aplikasi ini
     <string name="folder_already_exists">Direktori sudah ada</string>
     <string name="folder_best_viewed_in">Folder ini lebih baik dilihat di %1$s.</string>
     <string name="folder_confirm_create">Buat</string>
+    <string name="folder_download_counter">%1$d dari %2$d &#183; %3$s</string>
+    <string name="folder_download_error_notification_title">Terjadi kesalahan selama proses sinkronisasi folder %s</string>
+    <string name="folder_download_insufficient_disk_space_notification_title">Ruang disk tidak mencukupi, sinkronisasi dibatalkan</string>
+    <string name="folder_download_success_notification_title">%s folder berhasil disinkronkan</string>
+    <string name="folder_download_worker_ticker_id">Menyinkronkan…</string>
     <string name="folder_list_empty_headline">Tidak ada folder</string>
     <string name="folder_name_empty">Nama folder tidak bisa kosong</string>
     <string name="folder_picker_choose_button_text">Pilih</string>
@@ -513,6 +543,7 @@ Otomatis unggah hanya bekerja dengan baik apabila Anda mengeluarkan aplikasi ini
     <string name="last_backup">Pencadangan terakhir: %1$s</string>
     <string name="link">Tautan</string>
     <string name="link_name">Nama Tautan</string>
+    <string name="link_not_followed_due_to_security_settings">Tautan tidak dapat diakses karena pengaturan keamanan.</string>
     <string name="link_share_editing">Pengeditan</string>
     <string name="list_layout">Daftar tampilan</string>
     <string name="load_more_results">Muat lebih banyak hasil</string>
@@ -542,7 +573,6 @@ Otomatis unggah hanya bekerja dengan baik apabila Anda mengeluarkan aplikasi ini
     <string name="manage_space_clear_data">Bersihkan data</string>
     <string name="manage_space_description">Pengaturan, database dan sertifikat server dari data %1$s akan dihapus secara permanen. \n\nBerkas terunduh akan tetap terjaga.\n\nProses ini dapat memakan waktu lama.</string>
     <string name="manage_space_title">Kelola ruang</string>
-    <string name="max_file_count_warning_message">Anda telah mencapai batas maksimum unggahan file. Silakan unggah kurang dari 500 file dalam satu waktu.</string>
     <string name="media_err_invalid_progressive_playback">File media tidak dapat di-stream</string>
     <string name="media_err_io">Tidak dapat membaca berkas media</string>
     <string name="media_err_malformed">Berkas media tidak di encoding dengan benar</string>
@@ -565,6 +595,7 @@ Otomatis unggah hanya bekerja dengan baik apabila Anda mengeluarkan aplikasi ini
     <string name="move_file_invalid_into_descendent">Tidak memungkinkan untuk memindahkan folder kedalam sub-folder</string>
     <string name="move_file_invalid_overwrite">Berkas sudah ada di dalam folder tujuan</string>
     <string name="move_file_not_found">Tidak dapat memindahkan berkas. Silakan periksa apakah berkas tersebut ada.</string>
+    <string name="mute_all_notifications">Bisukan semua notifikasi</string>
     <string name="network_error_connect_timeout_exception">Terjadi kesalahan saat menunggu server. Tidak dapat menyelesaikan operasi.</string>
     <string name="network_error_socket_exception">Sebuah kesalahan terjadi saat menghubungi server</string>
     <string name="network_error_socket_timeout_exception">Terjadi kesalahan saat menunggu server. Tidak dapat menyelesaikan operasi.</string>
@@ -590,6 +621,8 @@ Otomatis unggah hanya bekerja dengan baik apabila Anda mengeluarkan aplikasi ini
     <string name="notification_action_failed">Gagal menjalankan aksi.</string>
     <string name="notification_channel_background_operations_description">Tampilkan notifikasi untuk berinteraksi dengan hasil operasi latar belakang</string>
     <string name="notification_channel_background_operations_name">Beroperasi di latar belakang</string>
+    <string name="notification_channel_content_observer_description">Mendeteksi perubahan pada berkas lokal</string>
+    <string name="notification_channel_content_observer_name_short">Pemantau konten</string>
     <string name="notification_channel_download_description">Menampilkan progres pengunduhan</string>
     <string name="notification_channel_download_name_short">Unduhan</string>
     <string name="notification_channel_file_sync_description">Menampilkan kemajuan dan hasil sinkronisasi berkas</string>
@@ -598,6 +631,8 @@ Otomatis unggah hanya bekerja dengan baik apabila Anda mengeluarkan aplikasi ini
     <string name="notification_channel_general_name">Notifikasi umum</string>
     <string name="notification_channel_media_description">Kemajuan pemutar musik</string>
     <string name="notification_channel_media_name">Pemutar media</string>
+    <string name="notification_channel_offline_operations_description">Menampilkan kemajuan operasi berkas offline</string>
+    <string name="notification_channel_offline_operations_name_short">Operasi offline</string>
     <string name="notification_channel_push_description">Tampilkan notifikasi push yang dikirim oleh server: Sebutan dalam komentar, penerimaan berbagi jarak jauh baru, pengumuman yang dipos oleh admin, dll.</string>
     <string name="notification_channel_push_name">Notifikasi push</string>
     <string name="notification_channel_upload_description">Tampilkan kemajuan unggahan</string>
@@ -612,8 +647,12 @@ Otomatis unggah hanya bekerja dengan baik apabila Anda mengeluarkan aplikasi ini
     <string name="offline_mode_info_description">Bahkan tanpa koneksi internet, Anda tetap dapat mengatur folder dan membuat file. Setelah Anda kembali online, semua tindakan yang tertunda akan disinkronkan secara otomatis.</string>
     <string name="offline_mode_info_title">Anda offline, tapi kerja tetap lanjut</string>
     <string name="offline_operations_file_does_not_exists_yet">File masih belum tersedia. Tolong unggah filenya terlebih dahulu.</string>
+    <string name="offline_operations_worker_notification_create_file_conflict_text">Tidak dapat membuat %s. Berkas dengan nama yang sama sudah ada di server.</string>
+    <string name="offline_operations_worker_notification_create_folder_conflict_text">Tidak dapat membuat %s. Folder dengan nama yang sama sudah ada di server.</string>
     <string name="offline_operations_worker_notification_error_text">Operasi offline tidak dapat diselesaikan. %s</string>
     <string name="offline_operations_worker_notification_manager_ticker">Operasi Offline</string>
+    <string name="offline_operations_worker_notification_remove_conflict_text">Penghapusan %s dibatalkan. Berkas tersebut telah diubah di server.</string>
+    <string name="offline_operations_worker_notification_rename_conflict_text">Pemberian nama ulang %s dibatalkan. Berkas dengan nama yang sama sudah ada di server.</string>
     <string name="offline_operations_worker_notification_start_text">Memulai operasi offline</string>
     <string name="oneHour">1 jam</string>
     <string name="online">Online</string>
@@ -639,11 +678,6 @@ Otomatis unggah hanya bekerja dengan baik apabila Anda mengeluarkan aplikasi ini
     <string name="picture_set_as_no_app">Tidak ada aplikasi untuk menyetel gambar yang ditemukan.</string>
     <string name="pin_home">Sematkan ke tampilan beranda</string>
     <string name="pin_shortcut_label">Buka %1$s</string>
-    <string name="placeholder_fileSize">389 KB</string>
-    <string name="placeholder_filename">placeholder.txt</string>
-    <string name="placeholder_media_time">12:23:45</string>
-    <string name="placeholder_sentence">Ini adalah placeholder</string>
-    <string name="placeholder_timestamp">18/05/2012 12:23 PM</string>
     <string name="player_stop">hentikan</string>
     <string name="player_toggle">alihkan</string>
     <string name="please_select_a_server">Silahkan pilih server...</string>
@@ -720,11 +754,9 @@ Otomatis unggah hanya bekerja dengan baik apabila Anda mengeluarkan aplikasi ini
     <string name="preview_image_error_no_local_file">Tidak ada berkas lokal untuk dipratinjau</string>
     <string name="preview_image_error_unknown_format">Gambar ini tidak dapat ditampilkan</string>
     <string name="preview_image_file_is_not_downloaded">File tidak terunduh</string>
-    <string name="preview_image_file_is_not_exist">File tidak ada</string>
     <string name="preview_media_unhandled_http_code_message">File sedang dikunci oleh pengguna lain atau sedang diproses sehingga tidak dapat dihapus. Coba lagi nanti.</string>
     <string name="preview_sorry">Maaf</string>
     <string name="privacy">Privasi</string>
-    <string name="public_share_name">Nama baru</string>
     <string name="push_notifications_not_implemented">Notifikasi push dinonaktifkan karena ketergantungan pada layanan Google Play bersumber tertutup.</string>
     <string name="push_notifications_old_login">Tidak ada notifikasi push karena sesi masuk sudah usang. Mohon pertimbangkan untuk menambahkan kembali akun Anda.</string>
     <string name="push_notifications_temp_error">Notifikasi push saat ini tidak tersedia.</string>
@@ -790,10 +822,10 @@ Otomatis unggah hanya bekerja dengan baik apabila Anda mengeluarkan aplikasi ini
     <string name="server_not_reachable_content">Perangkat ini kemungkinan tidak terhubung ke internet</string>
     <string name="set_as">Gunakan sebagai</string>
     <string name="set_download_limit_failed">TIdak dapat mengatur batas unduhan.</string>
+    <string name="set_message">Atur pesan</string>
     <string name="set_note">Atur catatan</string>
+    <string name="set_online_status">Status online</string>
     <string name="set_picture_as">Gunakan gambar sebagai</string>
-    <string name="set_status">Tetapkan status</string>
-    <string name="set_status_message">Tetapkan status pesan</string>
     <string name="setup_e2e">Selama penyiapan enkripsi end-to-end, Anda akan menerima sebuah mnemonik acak berupa 12 kata, yang akan Anda butuhkan untuk membuka berkas Anda di perangkat lain. Mnemonik tersebut hanya akan disimpan di perangkat ini, dan dapat ditampilkan kembali di layar ini. Harap catat di tempat yang aman!</string>
     <string name="share">Bagikan</string>
     <string name="share_allow_download_and_sync_permission">Izinkan unduh dan sinkron</string>
@@ -972,6 +1004,7 @@ Berikut ini adalah daftar berkas lokal, dan berkas jarak jauh di %5$s yang terhu
     <string name="unified_search_fragment_calendar_event_not_found">Acara di kalender tidak ditemukan, Anda selalu dapat menyinkronkan untuk memperbarui. Mengarahkan ke web…</string>
     <string name="unified_search_fragment_contact_not_found">Kontak tidak ditemukan, Anda selalu dapat menyinkronkan untuk memperbarui. Mengarahkan ke web…</string>
     <string name="unified_search_fragment_permission_needed">Izin diperlukan untuk melihat hasil pencarian dan kalau tidak, akan diarahkan ke web...</string>
+    <string name="unified_search_fragment_search_in_this_folder">Di dalam folder ini</string>
     <string name="unknown">Tidak diketahui</string>
     <string name="unlock_file">Buka kunci berkas</string>
     <string name="unread_comments">Ada komentar yang belum dibaca</string>
@@ -1020,6 +1053,10 @@ Berikut ini adalah daftar berkas lokal, dan berkas jarak jauh di %5$s yang terhu
     <string name="upload_local_storage_not_copied">Berkas tidak dapat disalin ke penyimpanan lokal</string>
     <string name="upload_lock_failed">Penguncian folder gagal</string>
     <string name="upload_manually_cancelled">Unggahan dibatalkan oleh pengguna</string>
+    <string name="upload_missing_storage_permission_allow_file_access">Izinkan akses ke semua berkas</string>
+    <string name="upload_missing_storage_permission_app_permissions">Izin aplikasi</string>
+    <string name="upload_missing_storage_permission_description">Berkas Anda tidak dapat diunggah tanpa akses ke penyimpanan lokal. Ketuk untuk memberikan izin.</string>
+    <string name="upload_missing_storage_permission_title">Unggah dihentikan – Izin penyimpanan diperlukan</string>
     <string name="upload_notification_manager_start_text">%1$d / %2$d - %3$s</string>
     <string name="upload_old_android">Enkripsi hanya bisa dengan &gt; = Android 5.0 </string>
     <string name="upload_query_move_foreign_files">Ruang tidak cukup untuk menyalin berkas terpilih ke folder %1$s. Apakah Anda ingin memindahkannya?</string>

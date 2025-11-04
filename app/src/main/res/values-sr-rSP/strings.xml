@@ -27,6 +27,7 @@
     <string name="activity_icon">Aktivnost</string>
     <string name="add_to_cloud">Dodaj u %1$s</string>
     <string name="appbar_search_in">Pretraga u %s</string>
+    <string name="appear_offline">Prikaži kao van mreže</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Da li ste sigurni da želite da izbrišete ovaj zadatak?</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">Izbriši zadatak</string>
     <string name="associated_account_not_found">Pridruženi nalog nije nađen!</string>
@@ -80,7 +81,7 @@
     <string name="choose_local_folder">Odaberite lokalnu fasciklu…</string>
     <string name="choose_remote_folder">Odaberite udaljenu fasciklu…</string>
     <string name="clear_notifications_failed">Greška pri čišćenju obaveštenja.</string>
-    <string name="clear_status_message">Obriši statusnu poruku</string>
+    <string name="clear_status_after">Obriši status nakon</string>
     <string name="clipboard_label">Tekst prekopiran sa %1$s</string>
     <string name="clipboard_no_text_to_copy">Nema teksta za kopiranje u ostavu</string>
     <string name="clipboard_text_copied">Veza iskopirana</string>
@@ -344,6 +345,7 @@
     <string name="move_file_error">Došlo je do greške pri premeštanju fajla ili fascikle</string>
     <string name="move_file_invalid_into_descendent">Ne može da se premesti fascikla u neku od svojih podfascikli</string>
     <string name="move_file_invalid_overwrite">Fajl već postoji u odredišnoj fascikli</string>
+    <string name="mute_all_notifications">Isključi sva obaveštenja</string>
     <string name="network_error_socket_exception">Desila se greška prilikom povezivanja na server</string>
     <string name="new_comment">Novi komentar…</string>
     <string name="new_media_folder_detected">Pronađena je nova multimedijalna fascikla sa %1$s</string>
@@ -389,11 +391,6 @@
     <string name="permission_deny">Odbij</string>
     <string name="permission_storage_access">Dodatne dozvole potrebne da se otpremaju i skidaju fajlovi.</string>
     <string name="picture_set_as_no_app">Nijedna aplikacija nije nađena da se sa njom postavi slika</string>
-    <string name="placeholder_fileSize">389 KB</string>
-    <string name="placeholder_filename">čuvammesto.txt</string>
-    <string name="placeholder_media_time">12:23:45</string>
-    <string name="placeholder_sentence">Ovo je mestodržač</string>
-    <string name="placeholder_timestamp">2012/05/18 12:23 PoP</string>
     <string name="power_save_check_dialog_message">Isključivanje provere uštede baterije može da dovede do toga da otpremate fajlove sa praznom baterijom!</string>
     <string name="pref_behaviour_entries_delete_file">obrisano</string>
     <string name="pref_behaviour_entries_keep_file">ostavljen u izvornoj fascikli</string>
@@ -403,6 +400,7 @@
     <string name="prefs_category_about">O programu</string>
     <string name="prefs_category_details">Podaci</string>
     <string name="prefs_category_dev">Razvojno</string>
+    <string name="prefs_category_files">Fajlovi</string>
     <string name="prefs_category_general">Opšte</string>
     <string name="prefs_category_more">Ostalo</string>
     <string name="prefs_category_sync">Sinhronizuj</string>
@@ -473,9 +471,8 @@
     <string name="send">Pošalji</string>
     <string name="sendbutton_description">Ikona dugma za slanje</string>
     <string name="set_as">Postavi kao</string>
+    <string name="set_online_status">Mrežni status</string>
     <string name="set_picture_as">Postavi sliku kao</string>
-    <string name="set_status">Postavi status</string>
-    <string name="set_status_message">Postavi statusnu poruku</string>
     <string name="share">Podeli</string>
     <string name="share_delete_permission">Obriši</string>
     <string name="share_dialog_title">Deljenje</string>

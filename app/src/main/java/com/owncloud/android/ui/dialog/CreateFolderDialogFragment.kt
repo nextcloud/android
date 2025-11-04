@@ -141,7 +141,7 @@ class CreateFolderDialogFragment :
             FileNameValidator.checkFileName(newFileName, getOCCapability(), requireContext(), fileNames)
 
         val errorMessage = when {
-            newFileName.isEmpty() -> getString(R.string.folder_name_empty)
+            newFileName.isBlank() -> getString(R.string.folder_name_empty)
             fileNameValidatorResult != null -> fileNameValidatorResult
             else -> null
         }
@@ -185,7 +185,7 @@ class CreateFolderDialogFragment :
                 return
             }
 
-            newFolderName = AutoRename.rename(newFolderName, capabilities)
+            newFolderName = AutoRename.rename(newFolderName, capabilities, isFolderPath = true)
 
             val path = parentFolder?.decryptedRemotePath + newFolderName + OCFile.PATH_SEPARATOR
             connectivityService.isNetworkAndServerAvailable { result ->

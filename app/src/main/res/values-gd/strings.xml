@@ -83,8 +83,6 @@
     <string name="choose_template_helper_text">Tagh teamplaid is cuir a-steach ainm faidhle.</string>
     <string name="choose_which_file">Tagh dè am faidhle a chumas tu!</string>
     <string name="clear_notifications_failed">Cha deach leinn na brathan fhalamhachadh.</string>
-    <string name="clear_status_message">Falamhaich teachdaireachd na staid</string>
-    <string name="clear_status_message_after">Falamhaich teachdaireachd na staid às dèidh</string>
     <string name="clipboard_label">Chaidh lethbhreac dhen teacsa a dhèanamh o %1$s</string>
     <string name="clipboard_no_text_to_copy">Cha d’ fhuair sinn teacsa ri chur air an stòr-bhòrd</string>
     <string name="clipboard_text_copied">Chaidh lethbhreac dhen cheangal a dhèanamh</string>
@@ -435,11 +433,6 @@
     <string name="permission_deny">Diùlt</string>
     <string name="permission_storage_access">Tha feum air barrachd cheadan mus gabh faidhlichean a luchdadh suas is a-nuas.</string>
     <string name="picture_set_as_no_app">Cha deach aplacaid a lorg airson dealbhan a chur leatha</string>
-    <string name="placeholder_fileSize">389 KB</string>
-    <string name="placeholder_filename">glèidheadair-àite.txt</string>
-    <string name="placeholder_media_time">12:23:45</string>
-    <string name="placeholder_sentence">Seo glèidheadair-àite</string>
-    <string name="placeholder_timestamp">2012/05/18 12:23f</string>
     <string name="player_stop">cuir stad air</string>
     <string name="player_toggle">toglaich</string>
     <string name="power_save_check_dialog_message">Ma chuireas tu à comas dearbhadh caomhnadh cumhachd, dh’fhaoidte gun dèid faidhlichean a luchdadh suas nuair a bhios am bataraidh fann!</string>
@@ -457,6 +450,7 @@
     <string name="prefs_category_about">Mu dhèidhinn</string>
     <string name="prefs_category_details">Mion-fhiosrachadh</string>
     <string name="prefs_category_dev">Leasachadh</string>
+    <string name="prefs_category_files">Faidhlichean</string>
     <string name="prefs_category_general">Coitcheann</string>
     <string name="prefs_category_more">Barrachd</string>
     <string name="prefs_category_sync">Sioncronaich</string>
@@ -494,7 +488,6 @@
     <string name="preview_image_error_unknown_format">Cha ghabh an dealbh a shealltainn</string>
     <string name="preview_sorry">Duilich</string>
     <string name="privacy">Prìobhaideachd</string>
-    <string name="public_share_name">Ainm ùr</string>
     <string name="push_notifications_not_implemented">Tha na brathan putaidh à comas ri linn eisimeileachd air seirbheisean Google Play fo shealbh.</string>
     <string name="push_notifications_old_login">Chan fhaigh thu brathan putaidh ri linn seisean clàraidh a-steach ro shean. Saoil an cuir thu an cunntas agad ris a-rithist?</string>
     <string name="push_notifications_temp_error">Chan eil brathan putaidh ri fhaighinn an-dràsta.</string>
@@ -531,9 +524,8 @@
     <string name="send">Cuir</string>
     <string name="sendbutton_description">Ìomhaigheag putan a’ chuir</string>
     <string name="set_as">Suidhich mar</string>
+    <string name="set_online_status">Staid air loidhne</string>
     <string name="set_picture_as">Cleachd an dealbh mar</string>
-    <string name="set_status">Suidhich an staid</string>
-    <string name="set_status_message">Suidhich teachdaireachd na staide</string>
     <string name="share">Co-roinn</string>
     <string name="share_create_permission">Cruthaich</string>
     <string name="share_delete_permission">Sguab às</string>

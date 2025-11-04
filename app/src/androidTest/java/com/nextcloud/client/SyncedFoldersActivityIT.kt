@@ -120,7 +120,8 @@ class SyncedFoldersActivityIT : AbstractIT() {
                 onIdleSync {
                     EspressoIdlingResource.increment()
                     val dialog = sut.buildPowerCheckDialog()
-                    dialog.show()
+                    sut.showPowerCheckDialog()
+
                     EspressoIdlingResource.decrement()
 
                     val screenShotName = createName(testClassName + "_" + "showPowerCheckDialog", "")

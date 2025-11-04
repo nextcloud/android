@@ -17,4 +17,4 @@
     android:text="@string/menu_item_sort_by_name_z_a"
     app:icon="@drawable/ic_user_outline"
     app:iconPadding="@dimen/standard_padding"
-    tools:text="DCIM" />
+    tools:text="@string/placeholder_file_path" />

@@ -92,6 +92,7 @@
     <string name="auth_unsupported_multiaccount">%1$s(e)k ez ditu hainbat kontu onartzen</string>
     <string name="auth_wrong_connection_title">Ezin izan da konexioa ezarri</string>
     <string name="authenticator_activity_cancel_login">Utzi saioa hasiera</string>
+    <string name="authenticator_activity_empty_base_url">Mesedez, sartu baliozko zerbitzari baten helbidea</string>
     <string name="authenticator_activity_login_error">Arazo bat egon da zure saioa hasteko eskaera prozesatzean. Mesedez saiatu geroxeago.</string>
     <string name="authenticator_activity_please_complete_login_process">Mesedez, osatu saioa hasteko prozesua zure nabigatzailean</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">Jatorrizko karpetan mantendu da, soilik irakurtzeko delako</string>
@@ -115,6 +116,7 @@
     <string name="bottom_navigation_menu_favorites_label">Gogokoak</string>
     <string name="bottom_navigation_menu_files_label">Fitxategi guztiak</string>
     <string name="bottom_navigation_menu_media_label">Media</string>
+    <string name="busy">Lanpetua</string>
     <string name="calendar">Egutegia</string>
     <string name="calendars">Egutegiak</string>
     <string name="certificate_load_problem">Arazo bat dago ziurtagiria kargatzean.</string>
@@ -126,9 +128,9 @@
     <string name="choose_template_helper_text">Hautatu txantiloia eta sartu fitxategi-izena.</string>
     <string name="choose_which_file">Aukeratu zein fitxategi gorde!</string>
     <string name="choose_widget">Aukeratu trepeta</string>
+    <string name="clear">Garbitu</string>
     <string name="clear_notifications_failed">Huts egin du jakinarazpenak garbitzean.</string>
-    <string name="clear_status_message">Garbitu egoera mezua</string>
-    <string name="clear_status_message_after">Egoera mezua noiz garbitu</string>
+    <string name="clear_status_after">Garbitu egoera honen ondoren</string>
     <string name="clipboard_label">Testua hemendik kopiatua: %1$s</string>
     <string name="clipboard_no_text_to_copy">Ez da jaso testurik arbelera kopiatzeko</string>
     <string name="clipboard_text_copied">Esteka kopiatu da</string>
@@ -391,6 +393,7 @@
     <string name="file_list_empty_shared">Partekatzen dituzun fitxategiak eta karpetak hemen agertuko dira.</string>
     <string name="file_list_empty_shared_headline">Oraindik ez dago ezer partekatuta</string>
     <string name="file_list_empty_unified_search_no_results">Ez da emaitzarik aurkitu zure bilaketarentzat</string>
+    <string name="file_list_empty_unified_search_start_search">Hasi zure bilaketa</string>
     <string name="file_list_folder">karpeta</string>
     <string name="file_list_live">ZUZENEAN</string>
     <string name="file_list_loading">Kargatzen…</string>
@@ -539,7 +542,6 @@
     <string name="manage_space_clear_data">Garbitu datuak</string>
     <string name="manage_space_description">%1$s(r)en ezarpenak, datu-basea eta zerbitzariaren ziurtagiriak betirako ezabatuko dira.\n\n Deskargatutako fitxategiak ez dira ukituko.\n\n Prozesu honek denbora behar du.</string>
     <string name="manage_space_title">Kudeatu lekua</string>
-    <string name="max_file_count_warning_message">Fitxategiak igotzeko gehienezko mugara iritsi zara. Mesedez, ez igo 500 fitxategi baino gutxiago aldi berean.</string>
     <string name="media_err_invalid_progressive_playback">Ezin da multimedia fitxategia transmititu</string>
     <string name="media_err_io">Ezin izan da multimedia fitxategia irakurri</string>
     <string name="media_err_malformed">Multimedia fitxategiak kodeketa desegokia du</string>
@@ -562,6 +564,7 @@
     <string name="move_file_invalid_into_descendent">Ezin da karpeta bat azpikarpeta batera mugitu</string>
     <string name="move_file_invalid_overwrite">Fitxategi hau existitzen da jadanik helburuko karpetan</string>
     <string name="move_file_not_found">Ezin izan da fitxategia mugitu. Mesedez egiaztatu fitxategia existitzen dela.</string>
+    <string name="mute_all_notifications">Isilarazi jakinarazpen guztiak</string>
     <string name="network_error_connect_timeout_exception">Errore bat gertatu da zerbitzariari itxarotean. Ezin izan da eragiketa burutu.</string>
     <string name="network_error_socket_exception">Errore bat gertatu da zerbitzariarekin konektatzean.</string>
     <string name="network_error_socket_timeout_exception">Errore bat gertatu da zerbitzariari itxarotean. Ezin izan da eragiketa burutu.</string>
@@ -636,11 +639,6 @@
     <string name="picture_set_as_no_app">Ez da aplikaziorik aurkitu irudia ezartzeko</string>
     <string name="pin_home">Finkatu pantaila nagusian</string>
     <string name="pin_shortcut_label">Ireki %1$s</string>
-    <string name="placeholder_fileSize">389 KB</string>
-    <string name="placeholder_filename">leku-marka.txt</string>
-    <string name="placeholder_media_time">12:23:45</string>
-    <string name="placeholder_sentence">Hau leku-marka bat da</string>
-    <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
     <string name="player_stop">gelditu</string>
     <string name="player_toggle">txandakatu</string>
     <string name="please_select_a_server">Hautatu zerbitzari bat...</string>
@@ -662,6 +660,7 @@
     <string name="prefs_category_about">Honi buruz</string>
     <string name="prefs_category_details">Xehetasunak</string>
     <string name="prefs_category_dev">Garapena</string>
+    <string name="prefs_category_files">Fitxategiak</string>
     <string name="prefs_category_general">Orokorra</string>
     <string name="prefs_category_more">Gehiago</string>
     <string name="prefs_category_sync">Sinkronizatu</string>
@@ -717,11 +716,9 @@
     <string name="preview_image_error_no_local_file">Ez dago aurreikusteko fitxategi lokalik</string>
     <string name="preview_image_error_unknown_format">Ezin izan da irudia erakutsi</string>
     <string name="preview_image_file_is_not_downloaded">Fitxategia ez da deskargatu</string>
-    <string name="preview_image_file_is_not_exist">Fitxategia ez da existitzen</string>
     <string name="preview_media_unhandled_http_code_message">Fitxategia beste erabiltzaile edo prozesu batek blokeatuta dago eta, beraz, ezin da ezabatzu. Saiatu berriro geroago.</string>
     <string name="preview_sorry">Barkatu</string>
     <string name="privacy">Pribatutasuna</string>
-    <string name="public_share_name">Izen berria</string>
     <string name="push_notifications_not_implemented">Push jakinarazpenak Google Play zerbitzu jabedunen menpekotasunengatik desgaituta.</string>
     <string name="push_notifications_old_login">Ez dago push jakinarazpenik saio zaharkituaren ondorioz. Mesedez, kontua berriz gehitu.</string>
     <string name="push_notifications_temp_error">Push jakinarazpenak ez daude eskuragarri.</string>
@@ -786,8 +783,6 @@
     <string name="set_as">Ezarri honela</string>
     <string name="set_note">Ezarri oharra</string>
     <string name="set_picture_as">Erabili irudia honela</string>
-    <string name="set_status">Ezarri egoera</string>
-    <string name="set_status_message">Ezarri egoera mezua</string>
     <string name="setup_e2e">Muturretik muturrerako enkriptatzea konfiguratzean, ausazko 12 hitz mnemotekniko jasoko dituzu, zure fitxategiak beste gailu batzuetan irekitzeko beharko dituzunak. Hau gailu honetan bakarrik gordeko da eta pantaila honetan berriro ikusi ahal izango duzu. Apuntatu leku seguru batean!</string>
     <string name="share">Partekatu</string>
     <string name="share_allow_download_and_sync_permission">Baimendu deskargatu eta sinkronizatzea</string>
@@ -850,6 +845,8 @@
     <string name="signup_with_provider">Erregistratu hornitzaile batekin</string>
     <string name="single_sign_on_request_token" formatted="true">%1$s zure %2$s Nextcloud kontuan sartzea baimendu nahi duzu?</string>
     <string name="sort_by">Ordenatu honen arabera</string>
+    <string name="sort_favorites_first">Ordenatu gogokoak lehenengo</string>
+    <string name="sort_folders_before_files">Ordenatu karpetak fitxategien aurretik</string>
     <string name="ssl_validator_btn_details_hide">Ezkutatu</string>
     <string name="ssl_validator_btn_details_see">Xehetasunak</string>
     <string name="ssl_validator_header">Ezin izan da zerbitzariaren identitatea egiaztatu</string>
@@ -1008,6 +1005,7 @@
     <string name="upload_local_storage_not_copied">Ezin izan da fitxategia kopiatu biltegiratze lokalera</string>
     <string name="upload_lock_failed">Karpeta blokeatzeak huts egin du</string>
     <string name="upload_manually_cancelled">Igoera bertan behera utzi du erabiltzaileak</string>
+    <string name="upload_missing_storage_permission_app_permissions">Aplikazioaren baimenak</string>
     <string name="upload_notification_manager_start_text">%1$d/%2$d-%3$s</string>
     <string name="upload_old_android">Zifratzea >= Android 5.0 bertsioarekin soilik da posible</string>
     <string name="upload_query_move_foreign_files">Hautatutako fitxategiak ezin dira %1$sra kopiatu ez dagoelako toki nahikorik. Kopiatu ordez bertara mugitu nahi dituzu?</string>

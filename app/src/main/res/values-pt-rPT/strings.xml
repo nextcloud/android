@@ -43,6 +43,7 @@
     <string name="app_config_proxy_port_title">Porta do Proxy</string>
     <string name="app_widget_description">Mostra um \'\'widget\'\' do painel</string>
     <string name="appbar_search_in">Procurar em %s</string>
+    <string name="appear_offline">Aparecer offline</string>
     <string name="assistant_screen_add_task_alert_dialog_title">Adicionar nova tarefa</string>
     <string name="assistant_screen_create_a_new_task_from_bottom_right_text">Criar uma nova tarefa a partir do canto inferior direito</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Digite algum texto</string>
@@ -110,6 +111,7 @@
     <string name="bottom_navigation_menu_favorites_label">Favoritos</string>
     <string name="bottom_navigation_menu_files_label">Todos os ficheiros</string>
     <string name="bottom_navigation_menu_media_label">Media</string>
+    <string name="busy">Ocupado</string>
     <string name="calendar">Calendário</string>
     <string name="calendars">Calendários</string>
     <string name="certificate_load_problem">Ocorreu um problema ao carregar o certificado.</string>
@@ -121,9 +123,9 @@
     <string name="choose_template_helper_text">Por favor, escolha um modelo e insira um nome de ficheiro.</string>
     <string name="choose_which_file">Escolha o ficheiro a manter!</string>
     <string name="choose_widget">Escolher Widget</string>
+    <string name="clear">Limpar</string>
     <string name="clear_notifications_failed">Falha ao limpar notificações.</string>
-    <string name="clear_status_message">Limpar mensagem de estado</string>
-    <string name="clear_status_message_after">Limpar mensagem de estado após</string>
+    <string name="clear_status_after">Limpar mensagem de estado após</string>
     <string name="clipboard_label">Texto copiado a partir de %1$s</string>
     <string name="clipboard_no_text_to_copy">Não existe nada para copiar para o clipboard</string>
     <string name="clipboard_text_copied">Hiperligação copiada</string>
@@ -521,6 +523,7 @@
     <string name="move_file_invalid_into_descendent">Não é possível mover a pasta para uma das suas próprias pastas internas</string>
     <string name="move_file_invalid_overwrite">O ficheiro já existe na pasta de destino</string>
     <string name="move_file_not_found">Não é possível mover o ficheiro. por favor, verifique se este existe.</string>
+    <string name="mute_all_notifications">Desativar todas as notificações</string>
     <string name="network_error_connect_timeout_exception">Ocorreu um erro enquanto aguardava por uma resposta do servidor. Não foi possível concluir a operação.</string>
     <string name="network_error_socket_exception">Ocorreu um erro durante a ligação ao servidor</string>
     <string name="network_error_socket_timeout_exception">Ocorreu um erro enquanto aguardava pelo servidor. Não foi possível concluir a operação.</string>
@@ -579,11 +582,6 @@
     <string name="permission_storage_access">Necessário permissões adicionais para enviar e transferir ficheiros.</string>
     <string name="picture_set_as_no_app">Nenhuma aplicação encontrada para definir a imagem</string>
     <string name="pin_shortcut_label">Abrir %1$s</string>
-    <string name="placeholder_fileSize">389 KB</string>
-    <string name="placeholder_filename">placeholder.txt</string>
-    <string name="placeholder_media_time">12:23:45</string>
-    <string name="placeholder_sentence">Isto é uma variável</string>
-    <string name="placeholder_timestamp">2012/05/18 12:23</string>
     <string name="player_stop">parar</string>
     <string name="player_toggle">alternar</string>
     <string name="power_save_check_dialog_message">Desabilitar a verificação de poupança de energia pode resultar no envio de ficheiros quando a carga da bateria está baixa!</string>
@@ -601,6 +599,7 @@
     <string name="prefs_category_about">Sobre</string>
     <string name="prefs_category_details">Detalhes</string>
     <string name="prefs_category_dev">Desenvolvimento</string>
+    <string name="prefs_category_files">Ficheiros</string>
     <string name="prefs_category_general">Geral</string>
     <string name="prefs_category_more">Mais</string>
     <string name="prefs_category_sync">Sincronizar</string>
@@ -649,7 +648,6 @@
     <string name="preview_image_file_is_not_downloaded">O ficheiro não foi transferido</string>
     <string name="preview_sorry">Desculpa</string>
     <string name="privacy">Privacidade</string>
-    <string name="public_share_name">Novo nome</string>
     <string name="push_notifications_not_implemented">Notificações \"push\" desactivadas devido a dependências sobre serviços proprietários Google Play.</string>
     <string name="push_notifications_old_login">Sem notificações \"push\" devido a sessão de acesso de desatualizada. Por favor, considere readicionar a sua conta.</string>
     <string name="push_notifications_temp_error">Notificações \"push\" actualmente não disponíveis.</string>
@@ -700,9 +698,8 @@
     <string name="sendbutton_description">Botão de envio</string>
     <string name="set_as">Definir como</string>
     <string name="set_note">Definir nota</string>
+    <string name="set_online_status">Estado on-line</string>
     <string name="set_picture_as">Usar imagem como</string>
-    <string name="set_status">Definir estado</string>
-    <string name="set_status_message">Defina a mensagem de estado</string>
     <string name="setup_e2e">Durante a configuração da encriptação ponta-a-ponta, receberá uma mnemónica aleatória de 12 palavras, de que necessitará para abrir os seus ficheiros noutros dispositivos. Ela só será guardada neste dispositivo e pode ser mostrada novamente neste ecrã. Por favor, anote-a num local seguro!</string>
     <string name="share">Partilhar</string>
     <string name="share_allow_download_and_sync_permission">Permitir transferência e sincronizar</string>

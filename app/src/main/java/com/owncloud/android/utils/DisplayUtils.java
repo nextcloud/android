@@ -26,6 +26,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -685,6 +686,14 @@ public final class DisplayUtils {
         return px * (DisplayMetrics.DENSITY_DEFAULT / (float) metrics.densityDpi);
     }
 
+    public static boolean isRTL() {
+        return TextUtils.getLayoutDirectionFromLocale(Locale.getDefault()) == View.LAYOUT_DIRECTION_RTL;
+    }
+
+    public static boolean isOrientationLandscape() {
+        return MainApp.getAppContext().getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
+    }
+
     static public void showServerOutdatedSnackbar(Activity activity, int length) {
         Snackbar.make(activity.findViewById(android.R.id.content),
                       R.string.outdated_server, length)
@@ -919,6 +928,8 @@ public final class DisplayUtils {
             }
         }
 
+        thumbnailView.setTag(file.getFileId());
+
         try {
             final ThumbnailsCacheManager.ThumbnailGenerationTask task =
                 new ThumbnailsCacheManager.ThumbnailGenerationTask(thumbnailView,
@@ -974,6 +985,7 @@ public final class DisplayUtils {
             task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,
                                    new ThumbnailsCacheManager.ThumbnailGenerationTaskObject(file,
                                                                                             file.getRemoteId()));
+            thumbnailView.invalidate();
         } catch (IllegalArgumentException e) {
             Log_OC.d(TAG, "ThumbnailGenerationTask : " + e.getMessage());
         }

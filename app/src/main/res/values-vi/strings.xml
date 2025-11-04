@@ -30,6 +30,7 @@
     <string name="add_to_cloud">Thêm vào %1$s</string>
     <string name="app_widget_description">Hiện thị lối tắt từ dashboard</string>
     <string name="appbar_search_in">Tìm kiếm trong %s</string>
+    <string name="appear_offline">Đang offline</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Xóa nhiệm vụ</string>
     <string name="associated_account_not_found">Không tìm thấy tài khoản được liên kết!</string>
     <string name="auth_access_failed">Lỗi truy cập: %1$s</string>
@@ -79,6 +80,7 @@
     <string name="bottom_navigation_menu_favorites_label">Ưa thích</string>
     <string name="bottom_navigation_menu_files_label">Tất cả tệp tin</string>
     <string name="bottom_navigation_menu_media_label">Phương tiện</string>
+    <string name="busy">Bận</string>
     <string name="calendar">Lịch</string>
     <string name="calendars">Lịch</string>
     <string name="certificate_load_problem">Có vấn đề khi tải chứng chỉ.</string>
@@ -88,9 +90,9 @@
     <string name="choose_remote_folder">Chọn thư mục từ xa...</string>
     <string name="choose_template_helper_text">Vui lòng chọn một mẫu và nhập tên tệp.</string>
     <string name="choose_which_file">Chọn tệp muốn giữ!</string>
+    <string name="clear">Xóa</string>
     <string name="clear_notifications_failed">Xoá thông báo thất bại.</string>
-    <string name="clear_status_message">Xoá thông báo trạng thái</string>
-    <string name="clear_status_message_after">Xoá thông báo trạng thái sau</string>
+    <string name="clear_status_after">Xóa trạng thái sau</string>
     <string name="clipboard_label">Văn bản đã được sao chép từ %1$s</string>
     <string name="clipboard_no_text_to_copy">Không nhận được văn bản nào để sao chép vào khay nhớ tạm</string>
     <string name="clipboard_text_copied">Đã sao chép liên kết</string>
@@ -434,6 +436,7 @@
     <string name="move_file_invalid_into_descendent">Không thể di chuyển một thư mục vào một trong các thư mục của riêng nó</string>
     <string name="move_file_invalid_overwrite">Tập tin đã có trong thư mục đích</string>
     <string name="move_file_not_found">Không thể di chuyển tệp. Vui lòng kiểm tra xem nó có tồn tại không.</string>
+    <string name="mute_all_notifications">Tắt tiếng tất cả thông báo</string>
     <string name="network_error_connect_timeout_exception">Đã xảy ra lỗi khi chờ máy chủ. Không thể hoàn thành hoạt động.</string>
     <string name="network_error_socket_exception">Đã xảy ra lỗi khi kết nối với máy chủ</string>
     <string name="network_error_socket_timeout_exception">Một lỗi đã xảy ra khi đang đợi máy chủ. Không thể hoàn thành hoạt động.</string>
@@ -490,11 +493,6 @@
     <string name="permission_storage_access">Các quyền bổ sung cần thiết để tải lên và tải xuống tệp.</string>
     <string name="picture_set_as_no_app">Không tìm thấy ứng dụng nào để đặt ảnh với</string>
     <string name="pin_shortcut_label">Mở trong %1$s</string>
-    <string name="placeholder_fileSize">389 KB</string>
-    <string name="placeholder_filename">placeholder.txt</string>
-    <string name="placeholder_media_time">12:23:45</string>
-    <string name="placeholder_sentence">Vị trí này đã được đặt chỗ trước</string>
-    <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
     <string name="player_stop">dừng</string>
     <string name="player_toggle">bật/tắt</string>
     <string name="power_save_check_dialog_message">Việc tắt kiểm tra tiết kiệm năng lượng có thể dẫn đến việc tải tệp lên khi ở trạng thái pin yếu!</string>
@@ -512,6 +510,7 @@
     <string name="prefs_category_about">Thông tin</string>
     <string name="prefs_category_details">Chi tiết</string>
     <string name="prefs_category_dev">Phát triển</string>
+    <string name="prefs_category_files">Tệp Tin</string>
     <string name="prefs_category_general">Tổng hợp</string>
     <string name="prefs_category_more">hơn</string>
     <string name="prefs_category_sync">Đồng bộ</string>
@@ -553,7 +552,6 @@
     <string name="preview_image_error_unknown_format">Không thể hiển thị hình ảnh</string>
     <string name="preview_sorry">Xin lỗi</string>
     <string name="privacy">Riêng tư</string>
-    <string name="public_share_name">Tên mới</string>
     <string name="push_notifications_not_implemented">Thông báo bị tắt do phụ thuộc vào các dịch vụ độc quyền của Google Play.</string>
     <string name="push_notifications_old_login">Không có thông báo do phiên đăng nhập đã lỗi thời. Vui lòng xem xét việc thêm lại tài khoản của bạn.</string>
     <string name="push_notifications_temp_error">Thông báo hiện không khả dụng.</string>
@@ -598,9 +596,8 @@
     <string name="send">Gửi</string>
     <string name="sendbutton_description">Biểu tượng nút gửi</string>
     <string name="set_as">Đặt như</string>
+    <string name="set_online_status">Trạng thái trực tuyến</string>
     <string name="set_picture_as">Dùng hình ảnh như</string>
-    <string name="set_status">Đặt trạng thái</string>
-    <string name="set_status_message">Đặt thông báo trạng thái</string>
     <string name="share">Chia sẻ</string>
     <string name="share_create_permission">Tạo</string>
     <string name="share_custom_permission">Quyền tùy chỉnh</string>
@@ -649,6 +646,8 @@
     <string name="signup_with_provider">Đăng ký với nhà cung cấp</string>
     <string name="single_sign_on_request_token" formatted="true">Cho phép %1$s truy cập vào %2$s tài khoản Hệ thống của bạn</string>
     <string name="sort_by">Sắp xếp theo</string>
+    <string name="sort_favorites_first">Sắp xếp mục yêu thích trước</string>
+    <string name="sort_folders_before_files">Sắp xếp thư mục trước tập tin</string>
     <string name="ssl_validator_btn_details_hide">Ẩn</string>
     <string name="ssl_validator_btn_details_see">Chi tiết</string>
     <string name="ssl_validator_header">Không thể xác minh danh tính của máy chủ</string>

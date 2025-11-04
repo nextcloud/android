@@ -43,6 +43,7 @@
     <string name="app_config_proxy_port_title">Proxy Port</string>
     <string name="app_widget_description">Shows one widget from dashboard</string>
     <string name="appbar_search_in">Search in %s</string>
+    <string name="appear_offline">Appear offline</string>
     <string name="assistant_screen_add_task_alert_dialog_title">Add new task</string>
     <string name="assistant_screen_create_a_new_task_from_bottom_right_text">Create a new task from bottom right</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Type some text</string>
@@ -92,12 +93,19 @@
     <string name="auth_unsupported_multiaccount">%1$s does not support multiple accounts</string>
     <string name="auth_wrong_connection_title">Could not establish connection</string>
     <string name="authenticator_activity_cancel_login">Cancel Login</string>
+    <string name="authenticator_activity_empty_base_url">Please enter a valid server address.</string>
+    <string name="authenticator_activity_empty_response_message">Unable to fetch login details. Please try again.</string>
     <string name="authenticator_activity_login_error">There was an issue processing your login request. Please try again later.</string>
+    <string name="authenticator_activity_no_web_browser_found">No browser is available to open this link.</string>
     <string name="authenticator_activity_please_complete_login_process">Please complete login process in your browser</string>
+    <string name="auto_upload_battery_saver_mode_warning">Auto-upload is paused because Battery Saver is on.</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">kept in original folder, as it is readonly</string>
+    <string name="auto_upload_low_battery_warning_info">Low battery, upload might take longer</string>
     <string name="auto_upload_on_wifi">Only upload on unmetered Wi-Fi</string>
     <string name="auto_upload_path">/AutoUpload</string>
     <string name="auto_upload_sub_folder_warning">This folder is already included in the parent folder’s sync, which may cause duplicate uploads</string>
+    <string name="auto_upload_wifi_only_warning_info">Waiting for Wi-Fi to start uploading</string>
+    <string name="auto_upload_worker_start_text">Uploading files from %s to %s</string>
     <string name="autoupload_configure">Configure</string>
     <string name="autoupload_create_new_custom_folder">Create new custom folder setup</string>
     <string name="autoupload_custom_folder">Set up a custom folder</string>
@@ -115,6 +123,7 @@
     <string name="bottom_navigation_menu_favorites_label">Favourites</string>
     <string name="bottom_navigation_menu_files_label">All files</string>
     <string name="bottom_navigation_menu_media_label">Media</string>
+    <string name="busy">Busy</string>
     <string name="calendar">Calendar</string>
     <string name="calendars">Calendars</string>
     <string name="certificate_load_problem">There is a problem loading the certificate.</string>
@@ -126,9 +135,9 @@
     <string name="choose_template_helper_text">Please choose a template and enter a file name.</string>
     <string name="choose_which_file">Choose which file to keep!</string>
     <string name="choose_widget">Choose widget</string>
+    <string name="clear">Clear</string>
     <string name="clear_notifications_failed">Failed to clear notifications.</string>
-    <string name="clear_status_message">Clear status message</string>
-    <string name="clear_status_message_after">Clear status message after</string>
+    <string name="clear_status_after">Clear status after</string>
     <string name="clipboard_label">Text copied from %1$s</string>
     <string name="clipboard_no_text_to_copy">Received no text to copy to clipboard</string>
     <string name="clipboard_text_copied">Link copied</string>
@@ -200,6 +209,7 @@
     <string name="contacts_preferences_import_scheduled_fail">Import failed to start. Please try again</string>
     <string name="contacts_preferences_no_file_found">No file found</string>
     <string name="contacts_preferences_something_strange_happened">Could not find your last backup!</string>
+    <string name="content_observer_work_notification_title">Detecting content changes</string>
     <string name="copied_to_clipboard">Copied to clipboard</string>
     <string name="copy_file_error">An error occurred while trying to copy this file or folder</string>
     <string name="copy_file_invalid_into_descendent">It is not possible to copy a folder into one of its own underlying folders</string>
@@ -247,6 +257,13 @@
     <string name="document_scan_export_dialog_title">Choose export type</string>
     <string name="document_scan_pdf_generation_failed">PDF generation failed</string>
     <string name="document_scan_pdf_generation_in_progress">Generating PDF…</string>
+    <string name="document_storage_provider_cannot_create_file_and_folder">Can’t create items here: missing create permission.</string>
+    <string name="document_storage_provider_cannot_create_file_inside_folder">Can’t create file: missing permission.</string>
+    <string name="document_storage_provider_cannot_create_folder_inside_folder">Can’t create folder: missing permission.</string>
+    <string name="document_storage_provider_cannot_delete">Can’t delete item: missing delete permission.</string>
+    <string name="document_storage_provider_cannot_move">Can’t move item: missing move permission.</string>
+    <string name="document_storage_provider_cannot_read">Can’t open item: missing read permission.</string>
+    <string name="document_storage_provider_cannot_rename">Can’t rename item: missing rename permission.</string>
     <string name="done">Done</string>
     <string name="dontClear">Don\'t clear</string>
     <string name="download_cannot_create_file">Cannot create local file</string>
@@ -333,6 +350,7 @@
     <string name="error_report_issue_text">Report issue to tracker? (requires a GitHub account)</string>
     <string name="error_retrieving_file">Error retrieving file</string>
     <string name="error_retrieving_templates">Error retrieving templates</string>
+    <string name="error_setting_status_message">Error setting status message!</string>
     <string name="error_showing_encryption_dialog">Error showing encryption setup dialogue!</string>
     <string name="error_starting_direct_camera_upload">Error starting camera</string>
     <string name="error_starting_doc_scan">Error starting document scan</string>
@@ -361,6 +379,7 @@
     <string name="etm_transfer_type">Transfer</string>
     <string name="etm_transfer_type_download">Download</string>
     <string name="etm_transfer_type_upload">Upload</string>
+    <string name="extented_list_fragment_empty_list_message_no_write_permission">You don’t have permission to create or upload files in this folder.</string>
     <string name="external_shares">External shares</string>
     <string name="fab_label">Add or upload</string>
     <string name="failed_to_download">Failed to pass file to download manager</string>
@@ -439,7 +458,9 @@
     <string name="file_not_found_cannot_share">File not found. Unable to create a share.</string>
     <string name="file_not_synced">File could not be synced. Showing latest available version.</string>
     <string name="file_rename">Rename</string>
+    <string name="file_upload_limit_message">You can upload up to %d files at once."</string>
     <string name="file_upload_worker_error_notification_title">Upload failed. No internet connection</string>
+    <string name="file_upload_worker_same_file_already_exists">%s already exists, no conflict detected</string>
     <string name="file_version_restored_error">Error restoring file version!</string>
     <string name="file_version_restored_successfully">Successfully restored file version.</string>
     <string name="filedetails_details">Details</string>
@@ -459,6 +480,11 @@
     <string name="folder_already_exists">Folder already exists</string>
     <string name="folder_best_viewed_in">This folder is best viewed in %1$s.</string>
     <string name="folder_confirm_create">Create</string>
+    <string name="folder_download_counter">%1$d of %2$d &#183; %3$s</string>
+    <string name="folder_download_error_notification_title">An error occurred during synchronisation of the %s folder</string>
+    <string name="folder_download_insufficient_disk_space_notification_title">Insufficient disk space, synchronisation cancelled</string>
+    <string name="folder_download_success_notification_title">%s folder successfully synchronised</string>
+    <string name="folder_download_worker_ticker_id">Syncing…</string>
     <string name="folder_list_empty_headline">No folders here</string>
     <string name="folder_name_empty">Folder name cannot be empty</string>
     <string name="folder_picker_choose_button_text">Choose</string>
@@ -516,6 +542,7 @@
     <string name="last_backup">Last backup: %1$s</string>
     <string name="link">Link</string>
     <string name="link_name">Link Name</string>
+    <string name="link_not_followed_due_to_security_settings">Link not followed due to security settings.</string>
     <string name="link_share_editing">Editing</string>
     <string name="list_layout">Listed layout</string>
     <string name="load_more_results">Load more results</string>
@@ -545,7 +572,6 @@
     <string name="manage_space_clear_data">Clear data</string>
     <string name="manage_space_description">Settings, database and server certificates from %1$s\'s data will be deleted permanently. \n\nDownloaded files will be kept untouched.\n\nThis process can take a while.</string>
     <string name="manage_space_title">Manage space</string>
-    <string name="max_file_count_warning_message">You have reached the maximum file upload limit. Please upload fewer than 500 files at a time.</string>
     <string name="media_err_invalid_progressive_playback">The media file cannot be streamed</string>
     <string name="media_err_io">Could not read the media file</string>
     <string name="media_err_malformed">The media file has incorrect encoding</string>
@@ -568,6 +594,7 @@
     <string name="move_file_invalid_into_descendent">It is not possible to move a folder into one of its own underlying folders</string>
     <string name="move_file_invalid_overwrite">The file is already present in the destination folder</string>
     <string name="move_file_not_found">Unable to move file. Please check whether it exists.</string>
+    <string name="mute_all_notifications">Mute all notifications</string>
     <string name="network_error_connect_timeout_exception">An error occurred while waiting for the server. Could not complete operation.</string>
     <string name="network_error_socket_exception">An error occurred during connection to the server</string>
     <string name="network_error_socket_timeout_exception">An error occurred while waiting for the server. Could not complete operation.</string>
@@ -593,6 +620,8 @@
     <string name="notification_action_failed">Failed to execute action.</string>
     <string name="notification_channel_background_operations_description">Show notifications to interact result of background operations</string>
     <string name="notification_channel_background_operations_name">Background operations</string>
+    <string name="notification_channel_content_observer_description">Detects local file changes</string>
+    <string name="notification_channel_content_observer_name_short">Content observer</string>
     <string name="notification_channel_download_description">Shows download progress</string>
     <string name="notification_channel_download_name_short">Downloads</string>
     <string name="notification_channel_file_sync_description">Shows file sync progress and results</string>
@@ -601,6 +630,8 @@
     <string name="notification_channel_general_name">General notifications</string>
     <string name="notification_channel_media_description">Music player progress</string>
     <string name="notification_channel_media_name">Media player</string>
+    <string name="notification_channel_offline_operations_description">Shows progress of offline file operations</string>
+    <string name="notification_channel_offline_operations_name_short">Offline operations</string>
     <string name="notification_channel_push_description">Show push notifications sent by the server: Mentions in comments, reception of new remote shares, announcements posted by an admin etc.</string>
     <string name="notification_channel_push_name">Push notifications</string>
     <string name="notification_channel_upload_description">Shows upload progress</string>
@@ -612,7 +643,7 @@
     <string name="oc_file_list_adapter_offline_operation_description_text">Pending operation</string>
     <string name="oc_file_list_adapter_offline_operation_remove_description_text">Pending Remove Operation</string>
     <string name="offline_mode">No internet connection</string>
-    <string name="offline_mode_info_description">Even without an internet connection, you can organize your folders, create files. Once you\'re back online, your pending actions will automatically sync.</string>
+    <string name="offline_mode_info_description">Even without an internet connection, you can organise your folders, create files. Once you\'re back online, your pending actions will automatically sync.</string>
     <string name="offline_mode_info_title">You\'re offline, but work continues</string>
     <string name="offline_operations_file_does_not_exists_yet">File does not exists, yet. Please upload the file first.</string>
     <string name="offline_operations_worker_notification_create_file_conflict_text">Could not create %s. A file with the same name exists on the server.</string>
@@ -646,11 +677,6 @@
     <string name="picture_set_as_no_app">No app found to set a picture with</string>
     <string name="pin_home">Pin to home screen</string>
     <string name="pin_shortcut_label">Open %1$s</string>
-    <string name="placeholder_fileSize">389 KB</string>
-    <string name="placeholder_filename">placeholder.txt</string>
-    <string name="placeholder_media_time">12:23:45</string>
-    <string name="placeholder_sentence">This is a placeholder</string>
-    <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
     <string name="player_stop">stop</string>
     <string name="player_toggle">toggle</string>
     <string name="please_select_a_server">Please select a server…</string>
@@ -672,6 +698,7 @@
     <string name="prefs_category_about">About</string>
     <string name="prefs_category_details">Details</string>
     <string name="prefs_category_dev">Dev</string>
+    <string name="prefs_category_files">Files</string>
     <string name="prefs_category_general">General</string>
     <string name="prefs_category_more">More</string>
     <string name="prefs_category_sync">Sync</string>
@@ -727,11 +754,9 @@
     <string name="preview_image_error_no_local_file">There is no local file to preview</string>
     <string name="preview_image_error_unknown_format">Unable to show image</string>
     <string name="preview_image_file_is_not_downloaded">File is not downloaded</string>
-    <string name="preview_image_file_is_not_exist">File does not exist</string>
     <string name="preview_media_unhandled_http_code_message">File is currently locked by another user or process and therefore not deletable. Please try again later.</string>
     <string name="preview_sorry">Sorry</string>
     <string name="privacy">Privacy</string>
-    <string name="public_share_name">New name</string>
     <string name="push_notifications_not_implemented">Push notifications disabled due to dependencies on proprietary Google Play services.</string>
     <string name="push_notifications_old_login">No push notifications due to outdated login session. Please consider re-adding your account.</string>
     <string name="push_notifications_temp_error">Push notifications currently not available.</string>
@@ -797,10 +822,10 @@
     <string name="server_not_reachable_content">The device is likely not connected to the internet</string>
     <string name="set_as">Set As</string>
     <string name="set_download_limit_failed">Unable to set download limit. Please check capabilities.</string>
+    <string name="set_message">Set message</string>
     <string name="set_note">Set note</string>
+    <string name="set_online_status">Online status</string>
     <string name="set_picture_as">Use picture as</string>
-    <string name="set_status">Set status</string>
-    <string name="set_status_message">Set status message</string>
     <string name="setup_e2e">During setup of end-to-end encryption, you will receive a random 12 word mnemonic, which you will need to open your files on other devices. This will only be stored on this device, and can be shown again in this screen. Please note it down in a secure place!</string>
     <string name="share">Share</string>
     <string name="share_allow_download_and_sync_permission">Allow download and sync</string>
@@ -865,6 +890,8 @@
     <string name="signup_with_provider">Sign up with provider</string>
     <string name="single_sign_on_request_token" formatted="true">Allow %1$s to access your Nextcloud account %2$s?</string>
     <string name="sort_by">Sort by</string>
+    <string name="sort_favorites_first">Sort favourites first</string>
+    <string name="sort_folders_before_files">Sort folders before files</string>
     <string name="ssl_validator_btn_details_hide">Hide</string>
     <string name="ssl_validator_btn_details_see">Details</string>
     <string name="ssl_validator_header">The identity of the server could not be verified</string>
@@ -975,6 +1002,7 @@
     <string name="unified_search_fragment_calendar_event_not_found">Event not found, you can always sync to update. Redirecting to web…</string>
     <string name="unified_search_fragment_contact_not_found">Contact not found, you can always sync to update. Redirecting to web…</string>
     <string name="unified_search_fragment_permission_needed">Permissions are required to open search result otherwise it will redirected to web…</string>
+    <string name="unified_search_fragment_search_in_this_folder">In this folder</string>
     <string name="unknown">Unknown</string>
     <string name="unlock_file">Unlock file</string>
     <string name="unread_comments">Unread comments exist</string>
@@ -1023,6 +1051,10 @@
     <string name="upload_local_storage_not_copied">File could not be copied to local storage</string>
     <string name="upload_lock_failed">Locking folder failed</string>
     <string name="upload_manually_cancelled">Upload was cancelled by user</string>
+    <string name="upload_missing_storage_permission_allow_file_access">Allow all file access</string>
+    <string name="upload_missing_storage_permission_app_permissions">App permissions</string>
+    <string name="upload_missing_storage_permission_description">Your files cannot be uploaded without access to local storage. Tap to grant permission.</string>
+    <string name="upload_missing_storage_permission_title">Upload Stopped – Storage Permission Required</string>
     <string name="upload_notification_manager_start_text">%1$d / %2$d - %3$s</string>
     <string name="upload_old_android">Encryption is only possible with &gt;= Android 5.0</string>
     <string name="upload_query_move_foreign_files">Insufficient space prevents copying the selected files into the %1$s folder. Would you like to move them there instead?</string>

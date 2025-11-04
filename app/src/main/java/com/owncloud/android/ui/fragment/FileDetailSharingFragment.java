@@ -56,7 +56,6 @@ import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.lib.resources.status.NextcloudVersion;
 import com.owncloud.android.lib.resources.status.OCCapability;
-import com.owncloud.android.lib.resources.status.OwnCloudVersion;
 import com.owncloud.android.providers.UsersAndGroupsSearchConfig;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
@@ -162,7 +161,22 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
     }
 
     private void fetchSharees() {
-        ShareRepository shareRepository = new RemoteShareRepository(fileActivity.getClientRepository(), fileActivity, fileDataStorageManager);
+        final var activity = fileActivity;
+        if (activity == null) {
+            return;
+        }
+
+        final var clientRepository = activity.getClientRepository();
+        if (clientRepository == null) {
+            return;
+        }
+
+        final var storageManager = fileDataStorageManager;
+        if (storageManager == null) {
+            return;
+        }
+
+        ShareRepository shareRepository = new RemoteShareRepository(clientRepository, activity, storageManager);
         shareRepository.fetchSharees(file.getRemotePath(), () -> {
             refreshCapabilitiesFromDB();
             refreshSharesFromDB();
@@ -714,8 +728,7 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
     }
 
     private void modifyExistingShare(OCShare share, int screenTypePermission) {
-        onEditShareListener.editExistingShare(share, screenTypePermission, !isReshareForbidden(share),
-                                              capabilities.getVersion().isNewerOrEqual(OwnCloudVersion.nextcloud_18));
+        onEditShareListener.editExistingShare(share, screenTypePermission, !isReshareForbidden(share));
     }
 
     @Override
@@ -761,8 +774,7 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
                                   });
 
     public interface OnEditShareListener {
-        void editExistingShare(OCShare share, int screenTypePermission, boolean isReshareShown,
-                               boolean isExpiryDateShown);
+        void editExistingShare(OCShare share, int screenTypePermission, boolean isReshareShown);
 
         void onShareProcessClosed();
     }

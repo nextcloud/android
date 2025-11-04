@@ -43,6 +43,7 @@
     <string name="app_config_proxy_port_title">Port proxy</string>
     <string name="app_widget_description">Zobrazuje jeden ovládací prvek z nástěnky</string>
     <string name="appbar_search_in">Hledat v %s</string>
+    <string name="appear_offline">Jevit se offline</string>
     <string name="assistant_screen_add_task_alert_dialog_title">Přidat nový úkol</string>
     <string name="assistant_screen_create_a_new_task_from_bottom_right_text">Z pravého dolního rohu vytvořte nový úkol</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Zadejte nějaký text</string>
@@ -92,12 +93,19 @@
     <string name="auth_unsupported_multiaccount">%1$s nepodporuje vícero účtů</string>
     <string name="auth_wrong_connection_title">Nedaří se navázat spojení</string>
     <string name="authenticator_activity_cancel_login">Zrušit přihlášení</string>
+    <string name="authenticator_activity_empty_base_url">Zadejte platnou adresu serveru.</string>
+    <string name="authenticator_activity_empty_response_message">Nebylo možné získat podrobnosti o přihlášení. Zkuste to znovu.</string>
     <string name="authenticator_activity_login_error">Došlo k problému při zpracovávání vašeho požadavku na přihlášení se. Zkuste to prosím později.</string>
+    <string name="authenticator_activity_no_web_browser_found">Není k dispozici žádný webový prohlížeč pro otevření tohoto odkazu.</string>
     <string name="authenticator_activity_please_complete_login_process">Dokončete proces přihlášení prostřednictvím webového prohlížeče</string>
+    <string name="auto_upload_battery_saver_mode_warning">Automatické nahrávání je pozastaveno, protože je zapnuté šetření energií z akumulátoru.</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">ponechán v původní složce, protože je pouze pro čtení</string>
+    <string name="auto_upload_low_battery_warning_info">Téměř vybitý akumulátor – nahrávání může trvat déle</string>
     <string name="auto_upload_on_wifi">Nahrávat pouze přes neúčtované Wi-Fi připojení</string>
     <string name="auto_upload_path">/AutoUpload</string>
     <string name="auto_upload_sub_folder_warning">Tato složka už je obsažena v synchronizaci nadřazené složky, což může způsobovat duplicitní nahrávání</string>
+    <string name="auto_upload_wifi_only_warning_info">Čeká se na Wi-Fi, aby bylo možné spustit nahrávání</string>
+    <string name="auto_upload_worker_start_text">Jsou nahrávány soubory z %s do %s</string>
     <string name="autoupload_configure">Nastavit</string>
     <string name="autoupload_create_new_custom_folder">Vytvořit nové uživatelsky určené nastavení složky</string>
     <string name="autoupload_custom_folder">Nastavit uživatelsky určenou složku</string>
@@ -115,6 +123,7 @@
     <string name="bottom_navigation_menu_favorites_label">Oblíbené</string>
     <string name="bottom_navigation_menu_files_label">Všechny soubory</string>
     <string name="bottom_navigation_menu_media_label">Média</string>
+    <string name="busy">Zaneprázdněn(a)</string>
     <string name="calendar">Kalendář</string>
     <string name="calendars">Kalendáře</string>
     <string name="certificate_load_problem">Došlo k problému s načtením certifikátu.</string>
@@ -126,9 +135,9 @@
     <string name="choose_template_helper_text">Vyberte šablonu a zadejte název pro soubor.</string>
     <string name="choose_which_file">Zvolte který soubor ponechat!</string>
     <string name="choose_widget">Zvolte ovládací prvek</string>
+    <string name="clear">Vyčistit</string>
     <string name="clear_notifications_failed">Upozornění se nepodařilo vyčistit.</string>
-    <string name="clear_status_message">Vyčistit stavovou zprávu</string>
-    <string name="clear_status_message_after">Vyčistit stavovou zprávu po uplynutí</string>
+    <string name="clear_status_after">Vyčistit stav po uplynutí</string>
     <string name="clipboard_label">Text zkopírován z %1$s</string>
     <string name="clipboard_no_text_to_copy">Neobdržen žádný text pro zkopírování do schránky</string>
     <string name="clipboard_text_copied">Odkaz zkopírován</string>
@@ -200,6 +209,7 @@
     <string name="contacts_preferences_import_scheduled_fail">Import se nepodařilo spustit. Zkuste to znovu</string>
     <string name="contacts_preferences_no_file_found">Nenalezen žádný soubor</string>
     <string name="contacts_preferences_something_strange_happened">Nepodařilo se najít vaši nejaktuálnější zálohu!</string>
+    <string name="content_observer_work_notification_title">Zjišťování změn obsahu</string>
     <string name="copied_to_clipboard">Zkopírováno do schránky</string>
     <string name="copy_file_error">Při pokusu o zkopírování tohoto souboru či složky došlo k chybě</string>
     <string name="copy_file_invalid_into_descendent">Není možné zkopírovat složku do některé z jejích vlastních podsložek</string>
@@ -247,6 +257,13 @@
     <string name="document_scan_export_dialog_title">Zvolte typ exportu</string>
     <string name="document_scan_pdf_generation_failed">Vytvoření PDF se nezdařilo</string>
     <string name="document_scan_pdf_generation_in_progress">Vytváření PDF…</string>
+    <string name="document_storage_provider_cannot_create_file_and_folder">Zde není možné vytvořit položku: chybí oprávnění pro vytváření.</string>
+    <string name="document_storage_provider_cannot_create_file_inside_folder">Nebylo možné vytvořit soubor: chybí oprávnění</string>
+    <string name="document_storage_provider_cannot_create_folder_inside_folder">Nebylo možné vytvořit složku: chybí oprávnění</string>
+    <string name="document_storage_provider_cannot_delete">Položku nebylo možné smazat: chybí oprávnění ke smazání.</string>
+    <string name="document_storage_provider_cannot_move">Položku nebylo možné přesunout: chybí oprávnění k přesouvání.</string>
+    <string name="document_storage_provider_cannot_read">Položku nebylo možné otevřít: chybí oprávnění ke čtení.</string>
+    <string name="document_storage_provider_cannot_rename">Položku nebylo možné přejmenovat: chybí oprávnění k přejmenovávání.</string>
     <string name="done">Hotovo</string>
     <string name="dontClear">Nikdy</string>
     <string name="download_cannot_create_file">Nedaří se vytvořit místní soubor</string>
@@ -326,12 +343,14 @@
     <string name="error_comment_file">Chyba při přidávání komentáře k souboru</string>
     <string name="error_crash_title">%1$s zhavarovalo</string>
     <string name="error_creating_file_from_template">Chyba při vytváření souboru ze šablony</string>
+    <string name="error_fetching_sharees">Nebylo možné získat sdílející.</string>
     <string name="error_file_actions">Chyba při zobrazování akcí ohledně souboru.</string>
     <string name="error_file_lock">Chyba při měnění stavu zámku souboru</string>
     <string name="error_report_issue_action">Hlášení</string>
     <string name="error_report_issue_text">Nahlásit problém? (vyžaduje GitHub účet)</string>
     <string name="error_retrieving_file">Chyba při získávání souboru</string>
     <string name="error_retrieving_templates">Chyba při získávání šablon</string>
+    <string name="error_setting_status_message">Chyba při nastavování stavové zprávy!</string>
     <string name="error_showing_encryption_dialog">Chyba při zobrazování dialogu pro nastavení šifrování!</string>
     <string name="error_starting_direct_camera_upload">Chyba při spouštění kamery</string>
     <string name="error_starting_doc_scan">Chyba při spouštění skenu dokumentu</string>
@@ -360,6 +379,7 @@
     <string name="etm_transfer_type">Přenos</string>
     <string name="etm_transfer_type_download">Stáhnout</string>
     <string name="etm_transfer_type_upload">Nahrát</string>
+    <string name="extented_list_fragment_empty_list_message_no_write_permission">Nemáte oprávnění pro vytváření nebo nahrávání souborů v této složce.</string>
     <string name="external_shares">Externí sdílení</string>
     <string name="fab_label">Přidat nebo nahrát</string>
     <string name="failed_to_download">Předání souboru správci stahování se nezdařilo</string>
@@ -438,7 +458,9 @@
     <string name="file_not_found_cannot_share">Soubor nenalezen. Sdílení proto není možné vytvořit.</string>
     <string name="file_not_synced">Soubor se nepodařilo synchronizovat. Zobrazuje se poslední dostupná verze.</string>
     <string name="file_rename">Přejmenovat</string>
+    <string name="file_upload_limit_message">Je možné nahrávat až %d souborů naráz.“</string>
     <string name="file_upload_worker_error_notification_title">Nahrávání se nezdařilo. Není k dispozici připojení k Internetu</string>
+    <string name="file_upload_worker_same_file_already_exists">%s už existuje – nezjištěny žádné konflikty</string>
     <string name="file_version_restored_error">Chyba při obnovování verze souboru!</string>
     <string name="file_version_restored_successfully">Verze souboru úspěšně obnovena.</string>
     <string name="filedetails_details">Podrobnosti</string>
@@ -458,6 +480,11 @@
     <string name="folder_already_exists">Složka už existuje</string>
     <string name="folder_best_viewed_in">Tuto složku je nejlépe prohlížet si v %1$s.</string>
     <string name="folder_confirm_create">Vytvořit</string>
+    <string name="folder_download_counter">%1$d z %2$d &#183; %3$s</string>
+    <string name="folder_download_error_notification_title">Při synchronizování složky %s došlo k chybě</string>
+    <string name="folder_download_insufficient_disk_space_notification_title">Nedostatek prostoru na disku – synchronizace zrušena</string>
+    <string name="folder_download_success_notification_title">složka %s úspěšně synchronizována</string>
+    <string name="folder_download_worker_ticker_id">Synchronizování…</string>
     <string name="folder_list_empty_headline">Nejsou zde žádné složky</string>
     <string name="folder_name_empty">Název složky je třeba vyplnit</string>
     <string name="folder_picker_choose_button_text">Vybrat</string>
@@ -515,6 +542,7 @@
     <string name="last_backup">Nejnovější záloha: %1$s</string>
     <string name="link">Odkaz</string>
     <string name="link_name">Název odkazu</string>
+    <string name="link_not_followed_due_to_security_settings">Odkaz nenásledován kvůli nastavení zabezpečení.</string>
     <string name="link_share_editing">Upravování</string>
     <string name="list_layout">Zobrazit jako seznam</string>
     <string name="load_more_results">Načíst další výsledky</string>
@@ -544,7 +572,6 @@
     <string name="manage_space_clear_data">Vyčistit data</string>
     <string name="manage_space_description">Nastavení, databáze a certifikáty serverů z dat %1$s budou natrvalo smazány. \n\nStažené soubory zůstanou beze změny.\n\nTento proces může chvíli trvat.</string>
     <string name="manage_space_title">Spravovat úložný prostor</string>
-    <string name="max_file_count_warning_message">Dosáhli jste maximálního limitu počtu nahrávaných souborů. Nahrávejte méně než 500 souborů naráz.</string>
     <string name="media_err_invalid_progressive_playback">Soubor s médii se nedaří proudově vysílat (stream)</string>
     <string name="media_err_io">Nepodařilo se číst soubor média</string>
     <string name="media_err_malformed">Soubor médií nemá platné kódování</string>
@@ -567,6 +594,7 @@
     <string name="move_file_invalid_into_descendent">Není možné přesunout složku do její vlastní podsložky</string>
     <string name="move_file_invalid_overwrite">Soubor už v cílové složce existuje</string>
     <string name="move_file_not_found">Soubor se nedaří přesunout – zkontrolujte zda existuje.</string>
+    <string name="mute_all_notifications">Ztlumit veškerá upozornění</string>
     <string name="network_error_connect_timeout_exception">Při čekání na server se vyskytla chyba. Operace proto nemohla být dokončena.</string>
     <string name="network_error_socket_exception">Při připojování k serveru došlo k chybě</string>
     <string name="network_error_socket_timeout_exception">Při čekání na server se vyskytla chyba. Operace proto nemohla být dokončena.</string>
@@ -592,6 +620,8 @@
     <string name="notification_action_failed">Akci se nepodařilo provést.</string>
     <string name="notification_channel_background_operations_description">Zobrazovat upozornění pro interakci s výsledkem operací na pozadí</string>
     <string name="notification_channel_background_operations_name">Operace na pozadí</string>
+    <string name="notification_channel_content_observer_description">Zjišťovat změny v lokálních souborech</string>
+    <string name="notification_channel_content_observer_name_short">Pozorovatel obsahu</string>
     <string name="notification_channel_download_description">Zobrazuje ukazatel postupu stahování</string>
     <string name="notification_channel_download_name_short">Stažené</string>
     <string name="notification_channel_file_sync_description">Zobrazuje průběh a výsledek synchronizace souborů</string>
@@ -600,6 +630,8 @@
     <string name="notification_channel_general_name">Obecná oznámení</string>
     <string name="notification_channel_media_description">Průběh přehrávače hudby</string>
     <string name="notification_channel_media_name">Přehrávač médií</string>
+    <string name="notification_channel_offline_operations_description">Zobrazit ukazatel postupu operací se soubory offline</string>
+    <string name="notification_channel_offline_operations_name_short">Offline operace</string>
     <string name="notification_channel_push_description">Zobrazit push upozornění poslaná serverem: Zmínění v komentářích, příjem nových vzdálených sdílení, oznámení vydaná správcem, atd.</string>
     <string name="notification_channel_push_name">Push upozorňování</string>
     <string name="notification_channel_upload_description">Zobrazuje ukazatel postupu nahrávání</string>
@@ -645,11 +677,6 @@
     <string name="picture_set_as_no_app">Nenalezena žádná aplikace pro nastavení obrázku</string>
     <string name="pin_home">Připnout na domovskou obrazovku</string>
     <string name="pin_shortcut_label">Otevřít %1$s</string>
-    <string name="placeholder_fileSize">389 KB</string>
-    <string name="placeholder_filename">jen_jako_vypln.txt</string>
-    <string name="placeholder_media_time">12:23:45</string>
-    <string name="placeholder_sentence">Toto je zástupný text</string>
-    <string name="placeholder_timestamp">2012/05/18 12:23</string>
     <string name="player_stop">vypnout</string>
     <string name="player_toggle">přepnout</string>
     <string name="please_select_a_server">Vyberte server…</string>
@@ -671,6 +698,7 @@
     <string name="prefs_category_about">O aplikaci</string>
     <string name="prefs_category_details">Podrobnosti</string>
     <string name="prefs_category_dev">Vývojové</string>
+    <string name="prefs_category_files">Soubory</string>
     <string name="prefs_category_general">Obecné</string>
     <string name="prefs_category_more">Více</string>
     <string name="prefs_category_sync">Synchronizovat</string>
@@ -726,11 +754,9 @@
     <string name="preview_image_error_no_local_file">Není zde žádný místní soubor pro který zobrazit náhled</string>
     <string name="preview_image_error_unknown_format">Obrázek se nedaří zobrazit</string>
     <string name="preview_image_file_is_not_downloaded">Soubor není stažen</string>
-    <string name="preview_image_file_is_not_exist">Soubor neexistuje</string>
     <string name="preview_media_unhandled_http_code_message">Soubor je nyní uzamčen jiným uživatelem nebo procesem a proto ho není možné smazat. Zkuste to později.</string>
     <string name="preview_sorry">Je nám líto</string>
     <string name="privacy">Soukromí</string>
-    <string name="public_share_name">Nový název</string>
     <string name="push_notifications_not_implemented">Push upozorňování je vypnuto kvůli závislostem na proprietárních službách Google Play.</string>
     <string name="push_notifications_old_login">Žádná push upozornění kvůli zastaralé relaci přihlášení. Zvažte odebrání a opětovné přidání svého účtu.</string>
     <string name="push_notifications_temp_error">Push upozornění momentálně nejsou k dispozici.</string>
@@ -796,10 +822,10 @@
     <string name="server_not_reachable_content">Zařízení pravděpodobně není připojené k Internetu</string>
     <string name="set_as">Nastavit jako</string>
     <string name="set_download_limit_failed">Nebylo možné nastavit limit počtu stahování. Zkontrolujte schopnosti.</string>
+    <string name="set_message">Nastavit zprávu</string>
     <string name="set_note">Nastavit poznámku</string>
+    <string name="set_online_status">Stav online</string>
     <string name="set_picture_as">Použít obrázek jako</string>
-    <string name="set_status">Nastavit stav</string>
-    <string name="set_status_message">Nastavit stavovou zprávu</string>
     <string name="setup_e2e">V průběhu nastavování šifrování mezi koncovými body obdržíte náhodnou 12 slovnou mnemotechnickou frázi, které bude zapotřebí pro otevírání souborů na ostatních zařízeních. Ta bude uložena pouze na tomto zařízení a je možné ji na této obrazovce znovu zobrazit. Prosím poznamenejte si jí na bezpečné místo!</string>
     <string name="share">Nasdílet</string>
     <string name="share_allow_download_and_sync_permission">Povolit stahování a synchronizaci</string>
@@ -864,6 +890,8 @@
     <string name="signup_with_provider">Zaregistrovat se u poskytovatele</string>
     <string name="single_sign_on_request_token" formatted="true">Povolit %1$s přístup k vašemu Nextcloud účtu %2$s?</string>
     <string name="sort_by">Řadit podle</string>
+    <string name="sort_favorites_first">Seřadit od oblíbených</string>
+    <string name="sort_folders_before_files">Při řazení zobrazovat složky a pak až soubory</string>
     <string name="ssl_validator_btn_details_hide">Skrýt</string>
     <string name="ssl_validator_btn_details_see">Podrobnosti</string>
     <string name="ssl_validator_header">Totožnost serveru se nepodařilo ověřit</string>
@@ -973,6 +1001,7 @@
     <string name="unified_search_fragment_calendar_event_not_found">Událost nenalezena, ale ještě pořád je možné aktualizovat synchronizací. Přesměrovává se na web…</string>
     <string name="unified_search_fragment_contact_not_found">Kontakt nenalezen, ale ještě pořád je možné aktualizovat synchronizací. Přesměrovává se na web…</string>
     <string name="unified_search_fragment_permission_needed">Pro otevření výsledků vyhledávání je zapotřebí oprávnění – pokud chybí, přesměruje na web…</string>
+    <string name="unified_search_fragment_search_in_this_folder">V této složce</string>
     <string name="unknown">Neznámé</string>
     <string name="unlock_file">Odemknout soubor</string>
     <string name="unread_comments">Existuje nepřečtený komentář</string>
@@ -1021,6 +1050,10 @@
     <string name="upload_local_storage_not_copied">Soubor se nepodařilo zkopírovat na místní úložiště</string>
     <string name="upload_lock_failed">Uzamčení složky se nezdařilo</string>
     <string name="upload_manually_cancelled">Odeslání bylo zrušeno uživatelem</string>
+    <string name="upload_missing_storage_permission_allow_file_access">Umožnit přístup ke všem souborům</string>
+    <string name="upload_missing_storage_permission_app_permissions">Oprávnění aplikace</string>
+    <string name="upload_missing_storage_permission_description">Bez přístupu k lokálnímu úložišti není možné vaše soubory nahrávat. Klepnutím udělte oprávnění.</string>
+    <string name="upload_missing_storage_permission_title">Nahrávání zastaveno – je zapotřebí oprávnění pro úložiště</string>
     <string name="upload_notification_manager_start_text">%1$d / %2$d - %3$s</string>
     <string name="upload_old_android">Šifrování je možné pouze na systému Android verze 5.0 a novějším</string>
     <string name="upload_query_move_foreign_files">Pro zkopírování vybraných souborů do složky %1$s není dostatek volného místa. Chcete je tam namísto toho přesunout?</string>

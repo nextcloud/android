@@ -14,13 +14,22 @@ import com.nextcloud.client.jobs.notification.WorkerNotificationManager
 import com.nextcloud.utils.numberFormatter.NumberFormatter
 import com.owncloud.android.R
 import com.owncloud.android.operations.DownloadFileOperation
+import com.owncloud.android.ui.notifications.NotificationUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import java.io.File
 import java.security.SecureRandom
 
 @Suppress("TooManyFunctions")
 class DownloadNotificationManager(id: Int, private val context: Context, viewThemeUtils: ViewThemeUtils) :
-    WorkerNotificationManager(id, context, viewThemeUtils, R.string.downloader_download_in_progress_ticker) {
+    WorkerNotificationManager(
+        id,
+        context,
+        viewThemeUtils,
+        tickerId = R.string.downloader_download_in_progress_ticker,
+        channelId = NotificationUtils.NOTIFICATION_CHANNEL_DOWNLOAD
+    ) {
+
+    private var lastPercent = -1
 
     @Suppress("MagicNumber")
     fun prepareForStart(operation: DownloadFileOperation) {
@@ -44,6 +53,12 @@ class DownloadNotificationManager(id: Int, private val context: Context, viewThe
 
     @Suppress("MagicNumber")
     fun updateDownloadProgress(percent: Int, totalToTransfer: Long) {
+        // If downloads are so fast, no need to notify again.
+        if (percent == lastPercent) {
+            return
+        }
+        lastPercent = percent
+
         val progressText = NumberFormatter.getPercentageText(percent)
         setProgress(percent, progressText, totalToTransfer < 0)
         showNotification()

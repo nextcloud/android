@@ -40,6 +40,7 @@
     <string name="app_config_proxy_port_title">Proxy-port</string>
     <string name="app_widget_description">Viser en widget fra dashbordet</string>
     <string name="appbar_search_in">Søk i %s</string>
+    <string name="appear_offline">Vis som frakoblet</string>
     <string name="assistant_screen_add_task_alert_dialog_title">Legg til ny oppgave</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Skriv inn litt tekst</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Er du sikker på at du vil slette denne oppgaven?</string>
@@ -107,6 +108,7 @@
     <string name="bottom_navigation_menu_favorites_label">Favoritter</string>
     <string name="bottom_navigation_menu_files_label">Alle filer</string>
     <string name="bottom_navigation_menu_media_label">Media</string>
+    <string name="busy">Opptatt</string>
     <string name="calendar">Kalender</string>
     <string name="calendars">Kalendere</string>
     <string name="certificate_load_problem">Det er et problem med lasting av sertifikatet.</string>
@@ -118,9 +120,9 @@
     <string name="choose_template_helper_text">Velg en mal og oppgi filnavn</string>
     <string name="choose_which_file">Velg filen du ønsker å beholde!</string>
     <string name="choose_widget">Velg widget</string>
+    <string name="clear">Tøm</string>
     <string name="clear_notifications_failed">Kunne ikke fjerne meldinger.</string>
-    <string name="clear_status_message">Fjern statusmelding</string>
-    <string name="clear_status_message_after">Fjern statusmelding etter</string>
+    <string name="clear_status_after">Fjern status etter</string>
     <string name="clipboard_label">Teksten ble kopiert fra %1$s</string>
     <string name="clipboard_no_text_to_copy">Ingen tekst ble mottatt for kopi til utklippstavlen</string>
     <string name="clipboard_text_copied">Lenke kopiert</string>
@@ -513,7 +515,6 @@
     <string name="manage_space_clear_data">Nullstill data</string>
     <string name="manage_space_description">Innstillinger, database og serversertifikater fra %1$s\'s filer vil bli slettet. \n\nNedlastede filer blir urørt.\n\nDette kan ta noe tid.</string>
     <string name="manage_space_title">Håndter plass</string>
-    <string name="max_file_count_warning_message">Du har nådd den maksimale grensen for filopplasting. Vennligst last opp færre enn 500 filer om gangen.</string>
     <string name="media_err_invalid_progressive_playback">Mediafilen kan ikke strømmes</string>
     <string name="media_err_io">Mediafilen kunne ikke leses</string>
     <string name="media_err_malformed">Mediafilen er ikke riktig kodet</string>
@@ -536,6 +537,7 @@
     <string name="move_file_invalid_into_descendent">Det er ikke mulig å flytte en mappe inn i sin egen undermappe</string>
     <string name="move_file_invalid_overwrite">Filen finnes allerede i målmappen</string>
     <string name="move_file_not_found">Kan ikke flytte filen. Sjekk om den eksisterer.</string>
+    <string name="mute_all_notifications">Demp alle varslinger</string>
     <string name="network_error_connect_timeout_exception">Feil oppstått ved venting på server. Kunne ikke fullføre operasjonen.</string>
     <string name="network_error_socket_exception">Feil oppstått ved forbindelsen til serveren</string>
     <string name="network_error_socket_timeout_exception">Feil oppstått ved venting på server. Kunne ikke fullføre operasjonen.</string>
@@ -597,11 +599,6 @@
     <string name="permission_storage_access">Flere tillatelser trengs for å laste opp og ned filer.</string>
     <string name="picture_set_as_no_app">Fant ikke noe app å sette bilde med.</string>
     <string name="pin_shortcut_label">Åpne %1$s</string>
-    <string name="placeholder_fileSize">389 KB</string>
-    <string name="placeholder_filename">plassholder.txt</string>
-    <string name="placeholder_media_time">12:23:45</string>
-    <string name="placeholder_sentence">Dette er en plassholder</string>
-    <string name="placeholder_timestamp">18.05.2012 12:23</string>
     <string name="player_stop">stopp</string>
     <string name="player_toggle">av/på</string>
     <string name="please_select_a_server">Vennligst velg en tjener…</string>
@@ -622,6 +619,7 @@
     <string name="prefs_category_about">Om</string>
     <string name="prefs_category_details">Detaljer</string>
     <string name="prefs_category_dev">Utvikling</string>
+    <string name="prefs_category_files">Filer</string>
     <string name="prefs_category_general">Generelt</string>
     <string name="prefs_category_more">Mer</string>
     <string name="prefs_category_sync">Synkroniser</string>
@@ -674,11 +672,9 @@
     <string name="preview_image_error_no_local_file">Ingen lokal fil å forhåndsvise</string>
     <string name="preview_image_error_unknown_format">Kunne ikke vise bilde</string>
     <string name="preview_image_file_is_not_downloaded">Filen er ikke lastet ned</string>
-    <string name="preview_image_file_is_not_exist">Fil finnes ikke</string>
     <string name="preview_media_unhandled_http_code_message">Filen er for øyeblikket låst av en annen bruker eller prosess og kan derfor ikke slettes. Prøv igjen senere.</string>
     <string name="preview_sorry">Beklager</string>
     <string name="privacy">Personvern</string>
-    <string name="public_share_name">Nytt navn</string>
     <string name="push_notifications_not_implemented">Push-merknader er avskrudd på grunn av avhengigheter til proprietære Google Play-tjenester.</string>
     <string name="push_notifications_old_login">Ingen push-varsler på grunn av utdatert innloggingsøkt. Du bør vurdere å legge til kontoen på nytt.</string>
     <string name="push_notifications_temp_error">Push-merknader er for tiden ikke tilgjengelige.</string>
@@ -737,9 +733,8 @@
     <string name="send">Send</string>
     <string name="sendbutton_description">Ikon for forsendelsesknapp</string>
     <string name="set_as">Bruk som</string>
+    <string name="set_online_status">Online-status</string>
     <string name="set_picture_as">Bruk bilde som</string>
-    <string name="set_status">Velg status</string>
-    <string name="set_status_message">Velg statusmelding</string>
     <string name="setup_e2e">Under oppsett av ende-til-ende -kryptering så vil du motta et tilfeldig 12-ord-krypteringspassord, som du vil trenge for å få åpner filene dine på andre enheter. Dette vil bare bli lagret på denne enheten. og kan bli vist igjen på denne siden. Vennligst noter det ned på et sikkert sted!</string>
     <string name="share">Del</string>
     <string name="share_allow_download_and_sync_permission">Tillat nedlasting og synkronisering</string>
@@ -797,6 +792,8 @@
     <string name="signup_with_provider">Logg på med tilbyder</string>
     <string name="single_sign_on_request_token" formatted="true">Tillat %1$s  adgang til din Nextcloud konto %2$s?</string>
     <string name="sort_by">Sorter etter</string>
+    <string name="sort_favorites_first">Sorter favoritter først</string>
+    <string name="sort_folders_before_files">Sorter mapper før filer</string>
     <string name="ssl_validator_btn_details_hide">Skjul</string>
     <string name="ssl_validator_btn_details_see">Detaljer</string>
     <string name="ssl_validator_header">Serverens identitet kunne ikke bekreftes</string>

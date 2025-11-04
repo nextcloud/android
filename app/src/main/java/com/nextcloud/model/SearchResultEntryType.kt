@@ -18,11 +18,11 @@ enum class SearchResultEntryType {
     Unknown;
 
     fun iconId(): Int = when (this) {
+        CalendarEvent -> R.drawable.file_calendar
         Folder -> R.drawable.folder
         Note -> R.drawable.ic_edit
         Contact -> R.drawable.file_vcard
-        CalendarEvent -> R.drawable.file_calendar
         Deck -> R.drawable.ic_deck
-        else -> R.drawable.ic_find_in_page
+        Unknown -> R.drawable.ic_find_in_page
     }
 }

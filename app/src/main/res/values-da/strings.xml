@@ -7,7 +7,7 @@
     <string name="account_creation_failed">Fejl ved oprettelse af konto</string>
     <string name="account_icon">Kontoikon</string>
     <string name="account_not_found">Konto blev ikke fundet.</string>
-    <string name="action_edit">Rediger</string>
+    <string name="action_edit">Redigér</string>
     <string name="action_empty_notifications">Ryd alle notifikationer</string>
     <string name="action_empty_trashbin">Tøm papirkurv</string>
     <string name="action_send_share">Send/del</string>
@@ -15,7 +15,7 @@
     <string name="action_switch_list_view">List visning</string>
     <string name="actionbar_calendar_contacts_restore">Gendan kontakter og kalender</string>
     <string name="actionbar_mkdir">Ny mappe</string>
-    <string name="actionbar_move_or_copy">Flyt eller kopier</string>
+    <string name="actionbar_move_or_copy">Flyt eller kopiér</string>
     <string name="actionbar_open_with">Åbn med</string>
     <string name="actionbar_search">Søg</string>
     <string name="actionbar_see_details">Detaljer</string>
@@ -43,6 +43,7 @@
     <string name="app_config_proxy_port_title">Proxy port</string>
     <string name="app_widget_description">Viser en widget fra dashboard</string>
     <string name="appbar_search_in">Søg i %s</string>
+    <string name="appear_offline">Er offline</string>
     <string name="assistant_screen_add_task_alert_dialog_title">Tilføj en ny opgave</string>
     <string name="assistant_screen_create_a_new_task_from_bottom_right_text">Opret en ny opgave fra bunden til højre</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Skriv noget tekst</string>
@@ -92,12 +93,16 @@
     <string name="auth_unsupported_multiaccount">%1$s understøtter ikke flere konti</string>
     <string name="auth_wrong_connection_title">Kunne ikke etablere forbindelse</string>
     <string name="authenticator_activity_cancel_login">Annuller log på</string>
+    <string name="authenticator_activity_empty_base_url">Angiv venligst en gyldig serveradresse.</string>
+    <string name="authenticator_activity_empty_response_message">Kan ikke hent log på detaljer. Prøv venligst igen.</string>
     <string name="authenticator_activity_login_error">Der opstod et problem i forbindelse med din log på forespørgsel. Prøv venligst igen senere.</string>
+    <string name="authenticator_activity_no_web_browser_found">Der er ingen browser tilgængelig til at åbne dette link.</string>
     <string name="authenticator_activity_please_complete_login_process">Gennemfør venligst log på processen i din browser</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">Forblevet i oprindelig folder, da den er skrivebeskyttet</string>
     <string name="auto_upload_on_wifi">Upload kun på ubegrænset wifi</string>
     <string name="auto_upload_path">/AutoUpload</string>
     <string name="auto_upload_sub_folder_warning">Denne mappe er allerede inkluderet i den overordnede mappes synkronisering, hvilket kan medføre dobbelt uploads</string>
+    <string name="auto_upload_worker_start_text">Uploader filer fra %s til %s</string>
     <string name="autoupload_configure">Konfigurer</string>
     <string name="autoupload_create_new_custom_folder">Opret en ny brugerdefineret mappeopsætning</string>
     <string name="autoupload_custom_folder">Opsæt en brugerdefineret mappe</string>
@@ -115,6 +120,7 @@
     <string name="bottom_navigation_menu_favorites_label">Favoritter</string>
     <string name="bottom_navigation_menu_files_label">Alle filer</string>
     <string name="bottom_navigation_menu_media_label">Medier</string>
+    <string name="busy">Optaget</string>
     <string name="calendar">Kalender</string>
     <string name="calendars">Kalendere</string>
     <string name="certificate_load_problem">Der er et problem med lagring af certificering.</string>
@@ -126,9 +132,9 @@
     <string name="choose_template_helper_text">Vælg en skabelon og indtast et fil navn.</string>
     <string name="choose_which_file">Vælg hvilken fil du ønsker at beholde!</string>
     <string name="choose_widget">Vælg widget</string>
+    <string name="clear">Ryd</string>
     <string name="clear_notifications_failed">Rydning af alle notifikationer fejlede</string>
-    <string name="clear_status_message">Ryd status notifikation</string>
-    <string name="clear_status_message_after">Ryd status notifikationer efter</string>
+    <string name="clear_status_after">Ryd status efter</string>
     <string name="clipboard_label">Tekst kopieret fra %1$s</string>
     <string name="clipboard_no_text_to_copy">Modtog ingen tekst til kopiering til udklipsholder</string>
     <string name="clipboard_text_copied">Link kopieret</string>
@@ -205,7 +211,7 @@
     <string name="copy_file_invalid_into_descendent">Det er ikke muligt at kopiere en mappe til en af dens egne undermapper</string>
     <string name="copy_file_invalid_overwrite">Filen findes allerede i destinationsmappen</string>
     <string name="copy_file_not_found">Ikke muligt at kopiere. Undersøg venligst om filen eksisterer.</string>
-    <string name="copy_link">Kopier link</string>
+    <string name="copy_link">Kopiér link</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Kopier/flyt til krypteret mappe endnu ikke understøttet.</string>
     <string name="could_not_download_image">Kunne ikke hente hele billedet</string>
     <string name="could_not_retrieve_shares">Kunne ikke hente delte drev</string>
@@ -247,6 +253,13 @@
     <string name="document_scan_export_dialog_title">Vælg eksporttype</string>
     <string name="document_scan_pdf_generation_failed">Dannelse af PDF mislykkedes</string>
     <string name="document_scan_pdf_generation_in_progress">Genererer PDF…</string>
+    <string name="document_storage_provider_cannot_create_file_and_folder">Kan ikke oprette elementer: manglende oprettelsesrettighed.</string>
+    <string name="document_storage_provider_cannot_create_file_inside_folder">Kan ikke oprette fil: mangler rettigheder.</string>
+    <string name="document_storage_provider_cannot_create_folder_inside_folder">Kan ikke oprette mappe: mangler rettigheder.</string>
+    <string name="document_storage_provider_cannot_delete">Kan ikke slette element: manglende sletterettighed.</string>
+    <string name="document_storage_provider_cannot_move">Kan ikke flytte element: manglende flytterettighed.</string>
+    <string name="document_storage_provider_cannot_read">Kan ikke åbne element: manglende læserettighed.</string>
+    <string name="document_storage_provider_cannot_rename">Kan ikke omdøbe element: manglende omdøbningsrettighed.</string>
     <string name="done">Færdig</string>
     <string name="dontClear">Ryd ikke</string>
     <string name="download_cannot_create_file">Kan ikke oprette filen lokalt</string>
@@ -326,12 +339,14 @@
     <string name="error_comment_file">kommentering af fil fejlet</string>
     <string name="error_crash_title">%1$s krakket</string>
     <string name="error_creating_file_from_template">Fejl ved oprettelse af fil fra skabelon</string>
+    <string name="error_fetching_sharees">Kan ikke hente delinger.</string>
     <string name="error_file_actions">Fejl under visning af filhandlinger</string>
     <string name="error_file_lock">Fejl ved ændring af status for fillås</string>
     <string name="error_report_issue_action">Rapporter</string>
     <string name="error_report_issue_text">Rapportere problem til tracker? (kræver en GitHub-konto)</string>
     <string name="error_retrieving_file">Fejl ved modtagelse af fil</string>
     <string name="error_retrieving_templates">Fejl ved indlæsning af modeller</string>
+    <string name="error_setting_status_message">Fejl under angivelse af statusbesked!</string>
     <string name="error_showing_encryption_dialog">Fejl under visning af dialogboks for opsætning af kryptering!</string>
     <string name="error_starting_direct_camera_upload">Fejl ved start af kamera</string>
     <string name="error_starting_doc_scan">Fejl ved start af scanning af dokument</string>
@@ -360,6 +375,7 @@
     <string name="etm_transfer_type">Overførsel</string>
     <string name="etm_transfer_type_download">Download</string>
     <string name="etm_transfer_type_upload">Send</string>
+    <string name="extented_list_fragment_empty_list_message_no_write_permission">Du har ikke tilladelse til at oprette eller uploade filer i denne mappe.</string>
     <string name="external_shares">Eksterne delinger</string>
     <string name="fab_label">Tilføj eller send</string>
     <string name="failed_to_download">Fejl ved overførsel af fil til download manager</string>
@@ -372,8 +388,10 @@
     <string name="file_already_exists">Filnavn findes allerede</string>
     <string name="file_delete">Slet</string>
     <string name="file_detail_activity_error">Fejl ved indlæsning af aktiviteter for fil</string>
+    <string name="file_detail_share_already_active">Du kan ikke slette en deling, deling er allerede aktiv fra denne bruger.</string>
     <string name="file_detail_sharing_fragment_no_contact_app_message">Ingen app tilgængelig til at vælge kontakter</string>
     <string name="file_details_no_content">Fejl ved indlæsning af detaljer</string>
+    <string name="file_details_sharing_fragment_custom_permission_not_selected">Vælg venligst brugerdefineret rettighed</string>
     <string name="file_icon">Fil</string>
     <string name="file_keep">Behold</string>
     <string name="file_list_empty">Upload indhold eller synkroniser med dine enheder.</string>
@@ -391,6 +409,8 @@
     <string name="file_list_empty_shared">Filer og mapper du deler vil blive vist her.</string>
     <string name="file_list_empty_shared_headline">Intet er delt endnu</string>
     <string name="file_list_empty_unified_search_no_results">Ingen resultater fundet for din forespørgsel</string>
+    <string name="file_list_empty_unified_search_start_search">Start din søgning</string>
+    <string name="file_list_empty_unified_search_start_search_description">Indtast i søgebjælken foroven for at finde filer, kontakter, kalenderbegivenheder, og mere på tværs af din konto.</string>
     <string name="file_list_folder">mappe</string>
     <string name="file_list_live">LIVE</string>
     <string name="file_list_loading">Indlæser...</string>
@@ -431,16 +451,18 @@
     <string name="file_name_validator_error_reserved_names">%s er et forbudt navnforbidden name</string>
     <string name="file_name_validator_rename_before_move_or_copy">%s. Omdøb venligst filen inden du flytter eller kopierer</string>
     <string name="file_not_found">Fil ikke fundet</string>
+    <string name="file_not_found_cannot_share">Filen blev ikke fundet. Oprettelse af deling ikke mulig.</string>
     <string name="file_not_synced">Filen kunne ikke synkroniseres. Viser senest tilgængelige version.</string>
     <string name="file_rename">Omdøb</string>
     <string name="file_upload_worker_error_notification_title">Upload mislykkedes. Ingen internetforbindelse</string>
+    <string name="file_upload_worker_same_file_already_exists">%s eksisterer allerede. Ingen konflikt detekteret</string>
     <string name="file_version_restored_error">Fejl ved genskabning af fil version!</string>
     <string name="file_version_restored_successfully">Succes ved genskabning af fil version!</string>
     <string name="filedetails_details">Detaljer</string>
     <string name="filedetails_download">Download</string>
-    <string name="filedetails_export">Eksporter</string>
+    <string name="filedetails_export">Eksportér</string>
     <string name="filedetails_renamed_in_upload_msg">File omdøbt %1$sunder overførelse</string>
-    <string name="filedetails_sync_file">Synkroniser</string>
+    <string name="filedetails_sync_file">Synkronisér</string>
     <string name="filedisplay_no_file_selected">Ingen fil valgt</string>
     <string name="filename_empty">Filnavnet kan ikke stå tomt.</string>
     <string name="filename_forbidden_characters">Ugyldige tegn: / \\ &lt; &gt; : \" | ? *</string>
@@ -457,7 +479,7 @@
     <string name="folder_name_empty">Mappenavnet må ikke være tomt</string>
     <string name="folder_picker_choose_button_text">Vælg</string>
     <string name="folder_picker_choose_caption_text">Vælg destinationsmappe</string>
-    <string name="folder_picker_copy_button_text">Kopier</string>
+    <string name="folder_picker_copy_button_text">Kopiér</string>
     <string name="folder_picker_move_button_text">Flyt</string>
     <string name="forbidden_permissions">Du har ikke tilladelse %s</string>
     <string name="forbidden_permissions_copy">til at kopiere denne fil</string>
@@ -510,6 +532,7 @@
     <string name="last_backup">Seneste backup: %1$s</string>
     <string name="link">Link</string>
     <string name="link_name">Link Navn</string>
+    <string name="link_not_followed_due_to_security_settings">Link ikke fulgt på grund af sikkerhedsindstillinger.</string>
     <string name="link_share_editing">Redigering</string>
     <string name="list_layout">Liste layout</string>
     <string name="load_more_results">Indlæs flere resultater</string>
@@ -528,7 +551,7 @@
     <string name="login">Log ind</string>
     <string name="login_url_helper_text">Linket til dit %1$s web interface når du åbner den i browseren.</string>
     <string name="logs_menu_delete">Slet logs</string>
-    <string name="logs_menu_refresh">Opdater</string>
+    <string name="logs_menu_refresh">Opdatér</string>
     <string name="logs_menu_search">Søg i log</string>
     <string name="logs_menu_send">Send logs på mail</string>
     <string name="logs_status_filtered">Logs: %1$d kB, forespørgsel fandt %2$d / %3$d på  %4$d ms</string>
@@ -539,7 +562,6 @@
     <string name="manage_space_clear_data">Fjern data</string>
     <string name="manage_space_description">Indstillinger, database og server certifikater fra %1$s\'s data vil blive permanent slettede.\n\nHentede filer vil forblive uberørte.\n\n Denne proces kan tage lidt tid.</string>
     <string name="manage_space_title">Håndter plads</string>
-    <string name="max_file_count_warning_message">Du har nået din maksimale uploadgrænse. Upload venligst mindre end 500 filer på samme tid.</string>
     <string name="media_err_invalid_progressive_playback">Medie filen kan ikke streames.</string>
     <string name="media_err_io">Kunne ikke læse mediefil</string>
     <string name="media_err_malformed">Mediefilen har en ugyldig indkodning.</string>
@@ -562,6 +584,7 @@
     <string name="move_file_invalid_into_descendent">Det er ikke muligt at flytte en mappe til en af dens egne undermapper</string>
     <string name="move_file_invalid_overwrite">Filen findes allerede i destinationsmappen</string>
     <string name="move_file_not_found">Kunne ikke kopiere. Undersøg venligst om filen eksisterer.</string>
+    <string name="mute_all_notifications">Vis ikke notifikationer</string>
     <string name="network_error_connect_timeout_exception">Der opstod en fejl mens svar afventedes fra serveren. Kunne ikke fuldføre handlingen.</string>
     <string name="network_error_socket_exception">Der opstod en fejl under tilslutningen til serveren</string>
     <string name="network_error_socket_timeout_exception">Der opstod en fejl mens svar afventedes fra serveren. Kunne ikke fuldføre handlingen.</string>
@@ -577,7 +600,7 @@
     <string name="no_calendar_exists">Ingen kalender eksisterer</string>
     <string name="no_email_app_available">Ingen app tilgængelig til at håndtere mailadresser</string>
     <string name="no_items">Ingen elementer</string>
-    <string name="no_map_app_availble">Ingen App tilgængelig til håndtering af Kort</string>
+    <string name="no_map_app_availble">Ingen App tilgængelig til håndtering af kort</string>
     <string name="no_mutliple_accounts_allowed">kun en konto tilladt</string>
     <string name="no_pdf_app_available">Ingen App tilgængelig til håndtering af PDF</string>
     <string name="no_send_app">Der er ingen tilgængelig app til at sende de valgte filer</string>
@@ -595,6 +618,8 @@
     <string name="notification_channel_general_name">Generalle notifikationer</string>
     <string name="notification_channel_media_description">Music afspiller fremskridt</string>
     <string name="notification_channel_media_name">Media afspiller</string>
+    <string name="notification_channel_offline_operations_description">Viser fremskridt for offline filhandlinger</string>
+    <string name="notification_channel_offline_operations_name_short">Offline handlinger</string>
     <string name="notification_channel_push_description">Vis push notifikationer sent fra serveren: Omtaler, modtagelse a nye fjerne delinger, annonceringer skrevet af en admin etc. </string>
     <string name="notification_channel_push_name">Pushbeskeder</string>
     <string name="notification_channel_upload_description">Viser afsendings fremskridt</string>
@@ -609,8 +634,12 @@
     <string name="offline_mode_info_description">Selv uden internetforbindelse kan du organisere dine mapper, oprette filer. Når du er online igen, synkroniseres dine afventende handlinger automatisk.</string>
     <string name="offline_mode_info_title">Du er offline, men arbejdet fortsætter</string>
     <string name="offline_operations_file_does_not_exists_yet">Filen eksisterer ikke endnu. Upload venligst filen først.</string>
+    <string name="offline_operations_worker_notification_create_file_conflict_text">Kunne ikke oprette %s. En fil med det samme navn eksisterer på serveren.</string>
+    <string name="offline_operations_worker_notification_create_folder_conflict_text">Kunne ikke oprette %s. En mappe med det samme navn eksisterer på serveren.</string>
     <string name="offline_operations_worker_notification_error_text">Offline handlingen kan ikke gennemføres. %s</string>
     <string name="offline_operations_worker_notification_manager_ticker">Offline handlinger</string>
+    <string name="offline_operations_worker_notification_remove_conflict_text">Annullerede sletning af %s. Filen er blevet ændret på serveren.</string>
+    <string name="offline_operations_worker_notification_rename_conflict_text">Annullerede omdøbning af %s. En fil med det samme navn eksisterer på serveren.</string>
     <string name="offline_operations_worker_notification_start_text">Starter offline handlinger</string>
     <string name="oneHour">1 time</string>
     <string name="online">Online</string>
@@ -636,11 +665,6 @@
     <string name="picture_set_as_no_app">Ingen apps fundet til at vælge et billede med</string>
     <string name="pin_home">Fastgør til hjemmeskærm</string>
     <string name="pin_shortcut_label">Åbn %1$s</string>
-    <string name="placeholder_fileSize">389 KB</string>
-    <string name="placeholder_filename">pladsholder.txt</string>
-    <string name="placeholder_media_time">12:23:45</string>
-    <string name="placeholder_sentence">Dette er en pladsholder</string>
-    <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
     <string name="player_stop">stop</string>
     <string name="player_toggle">skift</string>
     <string name="please_select_a_server">Vælg venligst en server...</string>
@@ -662,6 +686,7 @@
     <string name="prefs_category_about">Om</string>
     <string name="prefs_category_details">Detaljer</string>
     <string name="prefs_category_dev">Udvikling</string>
+    <string name="prefs_category_files">Filer</string>
     <string name="prefs_category_general">Generel</string>
     <string name="prefs_category_more">Mere</string>
     <string name="prefs_category_sync">Synkronisér</string>
@@ -718,11 +743,9 @@
     <string name="preview_image_error_no_local_file">Der er ingen lokalfil at forhåndsvise</string>
     <string name="preview_image_error_unknown_format">Kunne ikke vise billede</string>
     <string name="preview_image_file_is_not_downloaded">Fil er ikke downloadet</string>
-    <string name="preview_image_file_is_not_exist">Filen eksisterer ikke</string>
     <string name="preview_media_unhandled_http_code_message">Filen er aktuelt låst af en anden bruger eller proces og derfor ikke mulig at slette. Prøv venligst igen senere.</string>
     <string name="preview_sorry">Undskyld</string>
     <string name="privacy">Privatliv</string>
-    <string name="public_share_name">Nyt navn</string>
     <string name="push_notifications_not_implemented">Push notifikationer deaktiveret på grund af proprietære afhængigheder af Google Play services.</string>
     <string name="push_notifications_old_login">Ingen push notifikationer fordi login sessionen er udløbet. Venligst overvej at genintaste din konto.</string>
     <string name="push_notifications_temp_error">Push notifikationer ikke tilgængelige nu.</string>
@@ -784,15 +807,19 @@
     <string name="send">Send</string>
     <string name="send_share">Send deling</string>
     <string name="sendbutton_description">Send knap ikon</string>
+    <string name="server_not_reachable">Kunne ikke indlæse indhold</string>
+    <string name="server_not_reachable_content">Enheden er sandsynligvis ikke forbundet til internettet</string>
     <string name="set_as">Sæt som</string>
+    <string name="set_download_limit_failed">Kan ikke sætte downloadgrænse. Kontroller venligst mulighederne.</string>
+    <string name="set_message">Indstil besked</string>
     <string name="set_note">Sæt note</string>
+    <string name="set_online_status">Online status</string>
     <string name="set_picture_as">Anvend billede som</string>
-    <string name="set_status">Sæt status</string>
-    <string name="set_status_message">Sæt statusbesked</string>
     <string name="setup_e2e">Undervejs i opsætningen af end-to-end kryptering, så vil du modtage en tilfældig huskeregel på 12 ord, som du får brug for til at åbne dine filer på andre enheder. Denne vil kun blive gemt på denne enhed, og kan blive vist senere i denne visning. Skriv den venligst ned et sikkert sted!</string>
     <string name="share">Del</string>
     <string name="share_allow_download_and_sync_permission">Tillad download og synkronisering</string>
-    <string name="share_copy_link">Del og kopier link</string>
+    <string name="share_cannot_update_empty_note">Vi kunne ikke opdatere delingen. Tilføj en note og prøv igen.</string>
+    <string name="share_copy_link">Del og kopiér link</string>
     <string name="share_create_permission">Opret</string>
     <string name="share_custom_permission">Brugerdefinerede rettigheder</string>
     <string name="share_delete_permission">Slet</string>
@@ -817,6 +844,7 @@
     <string name="share_no_expiration_date_label">Angiv udløbsdato</string>
     <string name="share_no_password_title">Skift adgangskode</string>
     <string name="share_not_allowed_when_file_drop">Gen-deling er ikke tilladt under sikke fil drop</string>
+    <string name="share_option_required">Vælg venligst mindst én delingsmulighed inden du fortsætter.</string>
     <string name="share_permission_can_edit">Kan redigere</string>
     <string name="share_permission_file_request">Filforespørgsler</string>
     <string name="share_permission_secure_file_drop">Sikkert fil drop</string>
@@ -851,6 +879,8 @@
     <string name="signup_with_provider">Indskrivning hos udbyder</string>
     <string name="single_sign_on_request_token" formatted="true">Tillad %1$s adgang til din Nextcloud konto %2$s?</string>
     <string name="sort_by">Sorter efter</string>
+    <string name="sort_favorites_first">Vis favoritter først</string>
+    <string name="sort_folders_before_files">Sorter mapper før filer</string>
     <string name="ssl_validator_btn_details_hide">Gem</string>
     <string name="ssl_validator_btn_details_see">Detaljer</string>
     <string name="ssl_validator_header">Serverens identitet kunne ikke verificeres</string>
@@ -975,7 +1005,7 @@
     <string name="update_link_file_error">Der opstod en fejl under forsøget på opdatering af det delte drev</string>
     <string name="update_link_file_no_exist">Kan ikke opdatere. Undersøg venligst om filen eksisterer.</string>
     <string name="update_link_forbidden_permissions">for at opdatere denne deling</string>
-    <string name="updating_share_failed">Opdater deling fejlet</string>
+    <string name="updating_share_failed">Opdatering af deling mislykkedes</string>
     <string name="upload_action_cancelled_clear">Ryd annullerede uploads</string>
     <string name="upload_action_cancelled_resume">Genoptag annullerede uploads</string>
     <string name="upload_action_failed_clear">Fjern fejlede uploads</string>
@@ -1009,6 +1039,10 @@
     <string name="upload_local_storage_not_copied">Filen kunne ikke kopieres til lokalt lager</string>
     <string name="upload_lock_failed">Lås på mappe fejlede</string>
     <string name="upload_manually_cancelled">Upload var annulleret af bruger</string>
+    <string name="upload_missing_storage_permission_allow_file_access">Tillad adgang til alle filer</string>
+    <string name="upload_missing_storage_permission_app_permissions">App tilladelser</string>
+    <string name="upload_missing_storage_permission_description">Dine filer kan ikke blive uploadet uden adgang til dit lokalt lager. Tryk for at give tilladelse.</string>
+    <string name="upload_missing_storage_permission_title">Upload stoppet - Lagringsrettighed krævet</string>
     <string name="upload_notification_manager_start_text">%1$d / %2$d - %3$s</string>
     <string name="upload_old_android">Kryptering kun mulig med &gt;= Android 5.0</string>
     <string name="upload_query_move_foreign_files">Utilstrækkelig plads til, at kopiere de valgte filer ind i %1$s mappen. Vil du flytte dem i stedet?</string>

@@ -43,6 +43,7 @@
     <string name="app_config_proxy_port_title">프록시 포트</string>
     <string name="app_widget_description">대시보드에 위젯 하나만 표시</string>
     <string name="appbar_search_in">%s에서 검색</string>
+    <string name="appear_offline">접속 안함으로 표시</string>
     <string name="assistant_screen_add_task_alert_dialog_title">새 작업 추가</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">텍스트 입력</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">이 작업을 삭제하시겠습니까?</string>
@@ -113,6 +114,7 @@
     <string name="bottom_navigation_menu_favorites_label">즐겨찾기</string>
     <string name="bottom_navigation_menu_files_label">모든 파일</string>
     <string name="bottom_navigation_menu_media_label">미디어</string>
+    <string name="busy">바쁨</string>
     <string name="calendar">일정</string>
     <string name="calendars">일정</string>
     <string name="certificate_load_problem">인증서를 불러올 수 없습니다.</string>
@@ -124,9 +126,9 @@
     <string name="choose_template_helper_text">템플릿을 선택하고 파일 이름을 입력하세요.</string>
     <string name="choose_which_file">보관할 파일을 선택하세요!</string>
     <string name="choose_widget">위젯 선택</string>
+    <string name="clear">비우기</string>
     <string name="clear_notifications_failed">알림을 지우는데 실패했습니다.</string>
-    <string name="clear_status_message">상태 메시지 지움</string>
-    <string name="clear_status_message_after">상태 메시지 지우기 예약</string>
+    <string name="clear_status_after">상태 메시지 지우기 예약</string>
     <string name="clipboard_label">%1$s에서 텍스트를 복사함</string>
     <string name="clipboard_no_text_to_copy">클립보드에 복사할 텍스트가 없음</string>
     <string name="clipboard_text_copied">링크 복사됨</string>
@@ -532,7 +534,6 @@
     <string name="manage_space_clear_data">데이터 지우기</string>
     <string name="manage_space_description">%1$s의 데이터에서 설정, 데이터베이스, 서버 인증서를 삭제합니다.\n\n다운로드한 파일은 변경되지 않습니다.\n\n이 작업은 시간이 걸릴 수 있습니다.</string>
     <string name="manage_space_title">저장 공간 관리</string>
-    <string name="max_file_count_warning_message">최대 파일 업로드 제한에 도달했습니다. 1회 당 500개 이하의 파일을 업로드해 주세요.</string>
     <string name="media_err_invalid_progressive_playback">미디어 파일을 스트리밍 할 수 없습니다.</string>
     <string name="media_err_io">미디어 파일을 읽을 수 없음</string>
     <string name="media_err_malformed">미디어 파일의 인코딩이 잘못됨</string>
@@ -555,6 +556,7 @@
     <string name="move_file_invalid_into_descendent">폴더를 자기 자신의 하위 폴더로 이동할 수 없음</string>
     <string name="move_file_invalid_overwrite">파일이 대상 폴더에 이미 존재함</string>
     <string name="move_file_not_found">파일을 이동할 수 없습니다. 파일이 존재하는지 확인해주십시오.</string>
+    <string name="mute_all_notifications">모든 알림을 음소거</string>
     <string name="network_error_connect_timeout_exception">서버 응답을 기다리던 중에 오류가 발생했습니다. 동작을 완료할 수 없습니다.</string>
     <string name="network_error_socket_exception">서버에 연결하는 중 오류가 발생했습니다.</string>
     <string name="network_error_socket_timeout_exception">서버 응답을 기다리던 중에 오류가 발생했습니다. 동작을 완료할 수 없습니다.</string>
@@ -624,11 +626,6 @@
     <string name="pick_contact_to_share_with">공유할 연락처를 선택</string>
     <string name="picture_set_as_no_app">사진을 설정할 앱을 찾을 수 없음</string>
     <string name="pin_shortcut_label">%1$s 열기</string>
-    <string name="placeholder_fileSize">389 KB</string>
-    <string name="placeholder_filename">placeholder.txt</string>
-    <string name="placeholder_media_time">12:23:45</string>
-    <string name="placeholder_sentence">이것은 자리 비움자입니다</string>
-    <string name="placeholder_timestamp">2012년 05월 18일 오후 12:23</string>
     <string name="player_stop">멈추기</string>
     <string name="player_toggle">토글</string>
     <string name="please_select_a_server">서버를 선택해 주세요...</string>
@@ -649,6 +646,7 @@
     <string name="prefs_category_about">정보</string>
     <string name="prefs_category_details">자세한 정보</string>
     <string name="prefs_category_dev">개발</string>
+    <string name="prefs_category_files">파일</string>
     <string name="prefs_category_general">일반</string>
     <string name="prefs_category_more">더 보기</string>
     <string name="prefs_category_sync">동기화</string>
@@ -703,11 +701,9 @@
     <string name="preview_image_error_no_local_file">미리 볼 로컬 파일 없음</string>
     <string name="preview_image_error_unknown_format">이 사진을 미리 볼 수 없음</string>
     <string name="preview_image_file_is_not_downloaded">파일이 다운로드되지 않았습니다</string>
-    <string name="preview_image_file_is_not_exist">파일이 존재하지 않음</string>
     <string name="preview_media_unhandled_http_code_message">파일이 현재 다른 사용자나 프로세스에 의해 잠겨 있으므로 삭제할 수 없습니다. 나중에 다시 시도 해주십시오.</string>
     <string name="preview_sorry">죄송합니다</string>
     <string name="privacy">개인 정보</string>
-    <string name="public_share_name">새 이름</string>
     <string name="push_notifications_not_implemented">비자유 Google Play 서비스 의존성 때문에 푸시 알림이 비활성화되었습니다.</string>
     <string name="push_notifications_old_login">로그인 세션이 오래되어 푸시 알림이 비활성화되었습니다. 계정을 다시 추가하십시오.</string>
     <string name="push_notifications_temp_error">푸시 알림을 사용할 수 없습니다.</string>
@@ -769,8 +765,6 @@
     <string name="sendbutton_description">보내기 버튼 아이콘</string>
     <string name="set_as">다음으로 설정</string>
     <string name="set_picture_as">다음으로 사진 사용</string>
-    <string name="set_status">상태 설정</string>
-    <string name="set_status_message">상태 메시지 설정</string>
     <string name="setup_e2e">종단간 암호화를 설정하는 동안, 당신은 다른 장치들에서 당신의 파일들을 열어야 할 무작위의 12 단어 니모닉을 수신할 것입니다. 이것은 당신의 장치에만 저장 될 것이고, 이 스크린에서 다시 보여질 수 있습니다. 이를 안전한 위치에 적어두세요!</string>
     <string name="share">공유</string>
     <string name="share_allow_download_and_sync_permission">다운로드와 동기화 허용</string>
@@ -830,6 +824,8 @@
     <string name="signup_with_provider">공급자로 가입</string>
     <string name="single_sign_on_request_token" formatted="true">%1$s이(가) Nextcloud 계정%2$s에 액세스하도록 허용 하시겠습니까?</string>
     <string name="sort_by">정렬</string>
+    <string name="sort_favorites_first">즐겨찾기를 처음에 나열</string>
+    <string name="sort_folders_before_files">폴더를 파일보다 먼저 정렬</string>
     <string name="ssl_validator_btn_details_hide">숨기기</string>
     <string name="ssl_validator_btn_details_see">자세히</string>
     <string name="ssl_validator_header">서버를 검증할 수 없습니다</string>

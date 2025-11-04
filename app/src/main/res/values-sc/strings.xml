@@ -31,6 +31,7 @@
     <string name="app_config_base_url_title">URL de base</string>
     <string name="app_config_proxy_port_title">Port serbidore intermèdiu</string>
     <string name="appbar_search_in">Chirca in %s</string>
+    <string name="appear_offline">Mustra•ti foras de lìnia</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Cantzella faina</string>
     <string name="associated_account_not_found">Contu assotziadu no agatadu!</string>
     <string name="auth_access_failed">Atzessu faddidu: %1$s</string>
@@ -80,6 +81,7 @@
     <string name="bottom_navigation_menu_favorites_label">Preferidos</string>
     <string name="bottom_navigation_menu_files_label">Totu is archìvios</string>
     <string name="bottom_navigation_menu_media_label">Elementos multimediales</string>
+    <string name="busy">Impinnadu</string>
     <string name="calendar">Calendàriu</string>
     <string name="calendars">Calendàrios</string>
     <string name="certificate_load_problem">Problema in su carrigamentu de su tzertificadu.</string>
@@ -89,9 +91,9 @@
     <string name="choose_remote_folder">Sèbera cartella remota...</string>
     <string name="choose_template_helper_text">Sèbera unu tema e inserta-nche su nùmene de s\'archìviu.</string>
     <string name="choose_which_file">Sèbera cale archìviu boles mantènnere!</string>
+    <string name="clear">Lìmpia</string>
     <string name="clear_notifications_failed">Impossìbile a nche bogare is notìficas.</string>
-    <string name="clear_status_message">Lìmpia su messàgiu de istadu</string>
-    <string name="clear_status_message_after">Lìmpia su messàgiu de istadu a pustis</string>
+    <string name="clear_status_after">Lìmpia s\'istadu a pustis</string>
     <string name="clipboard_label">Testu copiadu dae %1$s</string>
     <string name="clipboard_no_text_to_copy">Testu de copiare in sa punta de billete non retzidu</string>
     <string name="clipboard_text_copied">Ligòngiu copiadu</string>
@@ -418,6 +420,7 @@
     <string name="move_file_invalid_into_descendent">No est possìbile a tramudare una cartella a intro de una de is cartellas in suta</string>
     <string name="move_file_invalid_overwrite">Su documentu est giai presente in sa cartella de destinatzione</string>
     <string name="move_file_not_found">Impossìbile a tramudare su documentu. Controlla si esistit.</string>
+    <string name="mute_all_notifications">Istuda totu is notìficas</string>
     <string name="network_error_connect_timeout_exception">Ddoe at àpidu un\'errore abetende su serbidore. No at fatu a agabbare s\'operatzione.</string>
     <string name="network_error_socket_exception">Ddoe at àpidu un\'errore durante sa connessione cun su serbidore</string>
     <string name="network_error_socket_timeout_exception">Ddoe at àpidu un\'errore abetende su serbidore. No at fatu a agabbare s\'operatzione.</string>
@@ -468,11 +471,6 @@
     <string name="permission_deny">Nega</string>
     <string name="permission_storage_access">Sunt rechertos àteros permissos pro carrigare e iscarrigare documentos.</string>
     <string name="picture_set_as_no_app">Peruna aplicatzione agatada pro cunfigurare un\'immàgine</string>
-    <string name="placeholder_fileSize">389 KB</string>
-    <string name="placeholder_filename">placeholder.txt</string>
-    <string name="placeholder_media_time">12:23:45</string>
-    <string name="placeholder_sentence">Custu est unu sostitutu temporàneu</string>
-    <string name="placeholder_timestamp">18/05/2012 12:23</string>
     <string name="player_stop">firma</string>
     <string name="player_toggle">parti</string>
     <string name="power_save_check_dialog_message">Disativare su controllu de su rispàrmiu de energia podet fàghere chi si carrighent documentos cun sa bateria bàscia!</string>
@@ -492,6 +490,7 @@
     <string name="prefs_category_about">In contu de</string>
     <string name="prefs_category_details">Detàllios</string>
     <string name="prefs_category_dev">Dispositivu</string>
+    <string name="prefs_category_files">Archìvios</string>
     <string name="prefs_category_general">Generale</string>
     <string name="prefs_category_more">Àteru</string>
     <string name="prefs_category_sync">Sincronizatzione</string>
@@ -534,7 +533,6 @@
     <string name="preview_image_error_unknown_format">Impossìbile mustrare s\'immàgine</string>
     <string name="preview_sorry">Nos dispraghet</string>
     <string name="privacy">Riservadesa</string>
-    <string name="public_share_name">Nùmene nou</string>
     <string name="push_notifications_not_implemented">Notìficas push disativadas pro more de dipendèntzias dae serbìtzios propietàrios de Google Play.</string>
     <string name="push_notifications_old_login">Non ddoe sunt notìficas push ca sa sessione de atzessu nch\'est passada. Proa de torrare a agiùnghere su contu tuo.</string>
     <string name="push_notifications_temp_error">Is notìficas push non sunt a disponimentu immoe</string>
@@ -579,9 +577,8 @@
     <string name="send">Imbia</string>
     <string name="sendbutton_description">Imbia s\'icona de su butone</string>
     <string name="set_as">Cunfigura comente</string>
+    <string name="set_online_status">Istadu in lìnia</string>
     <string name="set_picture_as">Imprea immàgine comente</string>
-    <string name="set_status">Cunfigura s\'istadu</string>
-    <string name="set_status_message">Cunfigura unu messàgiu de istadu</string>
     <string name="share">Cumpartzi</string>
     <string name="share_create_permission">Crea</string>
     <string name="share_custom_permission">Permissos personalizados</string>
@@ -630,6 +627,8 @@
     <string name="signup_with_provider">Registra·ti cun su frunidore</string>
     <string name="single_sign_on_request_token" formatted="true">Permìtere a %1$s de intrare in su contu tuo de Nextcloud %2$s?</string>
     <string name="sort_by">Assenta segundu</string>
+    <string name="sort_favorites_first">Assenta cun is preferidos in antis</string>
+    <string name="sort_folders_before_files">Assenta cun is cartellas in antis de is archìvios</string>
     <string name="ssl_validator_btn_details_hide">Cua</string>
     <string name="ssl_validator_btn_details_see">Detàllios</string>
     <string name="ssl_validator_header">No at fatu a averguare s\'identidade de su serbidore</string>

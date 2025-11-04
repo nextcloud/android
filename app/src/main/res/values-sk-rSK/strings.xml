@@ -115,6 +115,7 @@
     <string name="bottom_navigation_menu_favorites_label">Obľúbené</string>
     <string name="bottom_navigation_menu_files_label">Všetky súbory</string>
     <string name="bottom_navigation_menu_media_label">Média</string>
+    <string name="busy">Zaneprázdnený</string>
     <string name="calendar">Kalendár</string>
     <string name="calendars">Kalendáre</string>
     <string name="certificate_load_problem">Nastal problém s načítaním certifikátu.</string>
@@ -126,9 +127,9 @@
     <string name="choose_template_helper_text">Prosím vyberte šablónu a zadajte meno súboru.</string>
     <string name="choose_which_file">Vyberte ktorý súbor zachovať!</string>
     <string name="choose_widget">Vybrať widget</string>
+    <string name="clear">Vyčistiť</string>
     <string name="clear_notifications_failed">Odstránenie upozornení zlyhalo.</string>
-    <string name="clear_status_message">Vyčistiť správu o stave</string>
-    <string name="clear_status_message_after">Vyčistiť správu o stave po</string>
+    <string name="clear_status_after">Vyčistiť správu o stave po</string>
     <string name="clipboard_label">Text kopírovaný z %1$s</string>
     <string name="clipboard_no_text_to_copy">Nebol prijatý žiadny text pri kopírovaní do schránky</string>
     <string name="clipboard_text_copied">Odkaz skopírovaný</string>
@@ -539,7 +540,6 @@
     <string name="manage_space_clear_data">Vyčistiť dáta</string>
     <string name="manage_space_description">Nastavenie, databázové a servrové certifikáty z dát %1$sbudú trvalo vymazané.\n\nStiahnuté súbory budú zachované.\n\nTento proces môže chvíľu trvať.</string>
     <string name="manage_space_title">Spravovať miesto</string>
-    <string name="max_file_count_warning_message">Dosiahli ste maximálny limit počtu súborov pre nahrávanie. Prosím nahrajte menej ako 500 súborov naraz.</string>
     <string name="media_err_invalid_progressive_playback">Multimediálny súbor sa nedá streamovať</string>
     <string name="media_err_io">Nepodarilo sa prečítať súbor médií</string>
     <string name="media_err_malformed">Súbor médií má neplatné kódovanie</string>
@@ -636,11 +636,6 @@
     <string name="picture_set_as_no_app">Aplikácia na nastavenie obrázku sa nenašla</string>
     <string name="pin_home">Pripnúť na domovskú obrazovku</string>
     <string name="pin_shortcut_label">Otvoriť %1$s</string>
-    <string name="placeholder_fileSize">389 KB</string>
-    <string name="placeholder_filename">placeholder.txt</string>
-    <string name="placeholder_media_time">12:23:45</string>
-    <string name="placeholder_sentence">Toto je \"placeholder\"</string>
-    <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
     <string name="player_stop">zastaviť</string>
     <string name="player_toggle">prepnúť</string>
     <string name="please_select_a_server">Prosím vyberte server ...</string>
@@ -661,6 +656,7 @@
     <string name="prefs_category_about">O aplikácii</string>
     <string name="prefs_category_details">Podrobnosti</string>
     <string name="prefs_category_dev">Vývojové</string>
+    <string name="prefs_category_files">Súbory</string>
     <string name="prefs_category_general">Všeobecné</string>
     <string name="prefs_category_more">Viac</string>
     <string name="prefs_category_sync">Synchronizovať</string>
@@ -715,11 +711,9 @@
     <string name="preview_image_error_no_local_file">Nepodarilo sa zobraziť lokálny súbor</string>
     <string name="preview_image_error_unknown_format">Nemožno zobraziť obrázok</string>
     <string name="preview_image_file_is_not_downloaded">Súbor nebol stiahnutý</string>
-    <string name="preview_image_file_is_not_exist">Súbor neexistuje</string>
     <string name="preview_media_unhandled_http_code_message">Súbor je momentálne uzamknutý iným užívateľom alebo procesom, a preto ho nemožno odstrániť. Skúste to znova neskôr.</string>
     <string name="preview_sorry">Prepáčte</string>
     <string name="privacy">Súkromie</string>
-    <string name="public_share_name">Nový názov</string>
     <string name="push_notifications_not_implemented">Push notifikácie sú vypnuté z dôvodu závislosti na proprietárnych službách Google Play</string>
     <string name="push_notifications_old_login">Žiadne push notifikácie z dôvodu zastaraného prihlásenia.  Prosím skúste znova pridať váš účet.</string>
     <string name="push_notifications_temp_error">Push notifikácie sú v súčasnosti nedostupné.</string>
@@ -782,9 +776,8 @@
     <string name="sendbutton_description">Ikona tlačidla na odoslanie</string>
     <string name="set_as">Nastaviť ako</string>
     <string name="set_note">Nastaviť poznámku</string>
+    <string name="set_online_status">Stav pripojenia</string>
     <string name="set_picture_as">Použiť obrázok ako</string>
-    <string name="set_status">Nastaviť stav</string>
-    <string name="set_status_message">Nastaviť správu o stave</string>
     <string name="setup_e2e">Počas nastavovania end-to-end šifrovania dostanete náhodný 12-slovový mnemotechnický záznam, ktorý budete potrebovať na otvorenie svojich súborov na iných zariadeniach. Tento záznam bude uložený iba na tomto zariadení a môže byť znovu zobrazený na tejto obrazovke. Prosím, zapíšte si ho na bezpečné miesto!</string>
     <string name="share">Zdieľať</string>
     <string name="share_allow_download_and_sync_permission">Povoliť sťahovanie a synchronizáciu</string>
@@ -847,6 +840,8 @@
     <string name="signup_with_provider">Zaregistrovať sa u poskytovateľa</string>
     <string name="single_sign_on_request_token" formatted="true">Umožniť %1$s pristupovať k Vášmu Nextcloud účtu %2$s?</string>
     <string name="sort_by">Zoradiť podľa</string>
+    <string name="sort_favorites_first">Zoradiť od najobľúbenejších</string>
+    <string name="sort_folders_before_files">Zoradiť adresáre pred súbormi</string>
     <string name="ssl_validator_btn_details_hide">Skyť</string>
     <string name="ssl_validator_btn_details_see">Podrobnosti</string>
     <string name="ssl_validator_header">Identu servra nemožno overiť</string>

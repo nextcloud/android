@@ -18,6 +18,7 @@ import com.nextcloud.client.account.CurrentAccountProvider;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.account.UserAccountManagerImpl;
+import com.nextcloud.client.database.entity.UploadEntityKt;
 import com.nextcloud.test.RandomStringGenerator;
 import com.owncloud.android.AbstractIT;
 import com.owncloud.android.MainApp;
@@ -108,7 +109,7 @@ public class UploadStorageManagerTest extends AbstractIT {
             OCUpload upload = createUpload(account);
 
             uploads.add(upload);
-            uploadsStorageManager.storeUpload(upload);
+            uploadsStorageManager.uploadDao.insertOrReplace(UploadEntityKt.toUploadEntity(upload));
         }
 
         OCUpload[] storedUploads = uploadsStorageManager.getAllStoredUploads();
@@ -151,17 +152,14 @@ public class UploadStorageManagerTest extends AbstractIT {
                                               account.name);
 
         corruptUpload.setLocalPath(null);
-
-        uploadsStorageManager.storeUpload(corruptUpload);
-
+        uploadsStorageManager.uploadDao.insertOrReplace(UploadEntityKt.toUploadEntity(corruptUpload));
         uploadsStorageManager.getAllStoredUploads();
     }
 
     @Test
     public void getById() {
         OCUpload upload = createUpload(account);
-        long id = uploadsStorageManager.storeUpload(upload);
-
+        long id =  uploadsStorageManager.uploadDao.insertOrReplace(UploadEntityKt.toUploadEntity(upload));
         OCUpload newUpload = uploadsStorageManager.getUploadById(id);
 
         assertNotNull(newUpload);
@@ -178,7 +176,7 @@ public class UploadStorageManagerTest extends AbstractIT {
 
     private void insertUploads(Account account, int rowsToInsert) {
         for (int i = 0; i < rowsToInsert; i++) {
-            uploadsStorageManager.storeUpload(createUpload(account));
+            uploadsStorageManager.uploadDao.insertOrReplace(UploadEntityKt.toUploadEntity(createUpload(account)));
         }
     }
 

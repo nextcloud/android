@@ -12,7 +12,9 @@ import androidx.room.Query
 import androidx.room.Update
 import com.nextcloud.client.database.entity.FileEntity
 import com.owncloud.android.db.ProviderMeta.ProviderTableMeta
+import com.owncloud.android.utils.MimeType
 
+@Suppress("TooManyFunctions")
 @Dao
 interface FileDao {
     @Update
@@ -62,4 +64,51 @@ interface FileDao {
             "ORDER BY internal_two_way_sync_timestamp DESC"
     )
     fun getInternalTwoWaySyncFolders(fileOwner: String): List<FileEntity>
+
+    @Query(
+        """
+    SELECT * 
+    FROM filelist 
+    WHERE parent = :parentId 
+      AND file_owner = :accountName 
+      AND is_encrypted = 0  
+      AND (content_type = :dirType OR content_type = :webdavType)  
+    ORDER BY ${ProviderTableMeta.FILE_DEFAULT_SORT_ORDER}
+    """
+    )
+    fun getNonEncryptedSubfolders(
+        parentId: Long,
+        accountName: String,
+        dirType: String = MimeType.DIRECTORY,
+        webdavType: String = MimeType.WEBDAV_FOLDER
+    ): List<FileEntity>
+
+    @Query(
+        """
+    SELECT * 
+    FROM filelist 
+    WHERE parent = :parentId 
+      AND file_owner = :accountName 
+      AND (content_type != :dirType AND content_type != :webdavType)  
+    ORDER BY ${ProviderTableMeta.FILE_DEFAULT_SORT_ORDER}
+    """
+    )
+    fun getSubfiles(
+        parentId: Long,
+        accountName: String,
+        dirType: String = MimeType.DIRECTORY,
+        webdavType: String = MimeType.WEBDAV_FOLDER
+    ): List<FileEntity>
+
+    @Query(
+        """
+    SELECT * 
+    FROM filelist 
+    WHERE file_owner = :fileOwner 
+      AND parent = :parentId
+      AND ${ProviderTableMeta.FILE_NAME} LIKE '%' || :query || '%'
+    ORDER BY ${ProviderTableMeta.FILE_DEFAULT_SORT_ORDER}
+    """
+    )
+    fun searchFilesInFolder(parentId: Long, fileOwner: String, query: String): List<FileEntity>
 }

@@ -43,6 +43,7 @@
     <string name="app_config_proxy_port_title">Bandari ya Wakala</string>
     <string name="app_widget_description">Inaonyesha wijeti moja kutoka kwa dashibodi</string>
     <string name="appbar_search_in">Tafuta katika %s</string>
+    <string name="appear_offline">Tokea nje ya mtandao</string>
     <string name="assistant_screen_add_task_alert_dialog_title">Ongeza jukumu jipya</string>
     <string name="assistant_screen_create_a_new_task_from_bottom_right_text">Ongeza jukumu jipya kutoka chini kulia</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Andika maandishi kadhaa</string>
@@ -92,12 +93,19 @@
     <string name="auth_unsupported_multiaccount">%1$s haitumii akaunti nyingi</string>
     <string name="auth_wrong_connection_title">Haikuweza kuanzisha muunganisho</string>
     <string name="authenticator_activity_cancel_login">Ghairi uingiaji</string>
+    <string name="authenticator_activity_empty_base_url">Tafadhali weka anwani sahihi ya seva.</string>
+    <string name="authenticator_activity_empty_response_message">Imeshindwa kuleta maelezo ya kuingia. Tafadhali jaribu tena.</string>
     <string name="authenticator_activity_login_error">Kulikuwa na tatizo la kuchakata ombi lako la kuingia. Tafadhali jaribu tena baadaye.</string>
+    <string name="authenticator_activity_no_web_browser_found">Hakuna kivinjari kinachopatikana ili kufungua kiungo hiki.</string>
     <string name="authenticator_activity_please_complete_login_process">Tafadhali kamilisha mchakato wa kuingia katika kivinjari chako</string>
+    <string name="auto_upload_battery_saver_mode_warning">Upakiaji otomatiki umesitishwa kwa sababu Kiokoa Betri kimewashwa.</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">iliyohifadhiwa kwenye folda asili, kwani inasomwa tu</string>
+    <string name="auto_upload_low_battery_warning_info">Betri iko chini, upakiaji unaweza kuchukua muda mrefu</string>
     <string name="auto_upload_on_wifi">Pakia kwenye Wi-Fi isiyopimwa pekee</string>
     <string name="auto_upload_path">/Pakia Kiotomatiki</string>
     <string name="auto_upload_sub_folder_warning">Folda hii tayari imejumuishwa katika usawazishaji wa folda kuu, ambayo inaweza kusababisha upakiaji unaorudiwa</string>
+    <string name="auto_upload_wifi_only_warning_info">Inasubiri Wi-Fi kuanza kupakia</string>
+    <string name="auto_upload_worker_start_text">Inapakia faili kutoka %s hadi %s</string>
     <string name="autoupload_configure">Sanidi</string>
     <string name="autoupload_create_new_custom_folder">Unda usanidi mpya wa folda maalum</string>
     <string name="autoupload_custom_folder">Sanidi folda maalum</string>
@@ -115,6 +123,7 @@
     <string name="bottom_navigation_menu_favorites_label">Vipendwa</string>
     <string name="bottom_navigation_menu_files_label">Faili zote</string>
     <string name="bottom_navigation_menu_media_label">Midia</string>
+    <string name="busy">Bize</string>
     <string name="calendar">Kalenda</string>
     <string name="calendars">Kalenda</string>
     <string name="certificate_load_problem">Kuna tatizo la kupakia cheti.</string>
@@ -126,9 +135,9 @@
     <string name="choose_template_helper_text">Tafadhali chagua kiolezo na uweke jina la faili.</string>
     <string name="choose_which_file">Chagua faili ya kuhifadhi!</string>
     <string name="choose_widget">Chagua wijeti</string>
+    <string name="clear">Futa</string>
     <string name="clear_notifications_failed">Imeshindwa kufuta arifa.</string>
-    <string name="clear_status_message">Futa jumbe za wadhifa</string>
-    <string name="clear_status_message_after">Futa jumbe za wadhifa baada ya </string>
+    <string name="clear_status_after">Futa hali baada ya</string>
     <string name="clipboard_label">Maandishi yamenakiliwa kutoka %1$s</string>
     <string name="clipboard_no_text_to_copy">Haijapokea maandishi ya kunakili kwenye ubao wa kunakili</string>
     <string name="clipboard_text_copied">Kiungo kimenakiliwa</string>
@@ -145,7 +154,7 @@
     <string name="common_error_unknown">Hitilafu isiyojulikana</string>
     <string name="common_leave_this_share">Ondoa ushirikishaji huu</string>
     <string name="common_loading">Inapakia</string>
-    <string name="common_next">Next</string>
+    <string name="common_next">Ijayo</string>
     <string name="common_no">Hapana</string>
     <string name="common_now">Sasa</string>
     <string name="common_ok">SAWA</string>
@@ -200,6 +209,7 @@
     <string name="contacts_preferences_import_scheduled_fail">Imeshindwa kuanza kuleta. Tafadhali jaribu tena</string>
     <string name="contacts_preferences_no_file_found">Hakuna faili iliyopatikana</string>
     <string name="contacts_preferences_something_strange_happened">Haikuweza kupata nakala yako ya mwisho!</string>
+    <string name="content_observer_work_notification_title">Inagundua mabadiliko ya maudhui</string>
     <string name="copied_to_clipboard">Nakili katika ubao wa kunakili</string>
     <string name="copy_file_error">Hitilafu ilitokea wakati wa kujaribu kunakili faili au folda hii</string>
     <string name="copy_file_invalid_into_descendent">Haiwezekani kunakili folda kwenye mojawapo ya folda zake za msingi</string>
@@ -340,6 +350,7 @@
     <string name="error_report_issue_text">Je, ungependa kuripoti tatizo kwa mfuatiliaji? (inahitaji akaunti ya GitHub)</string>
     <string name="error_retrieving_file">Hitilafu katika kurejesha faili</string>
     <string name="error_retrieving_templates">Hitilafu katika kurejesha violezo</string>
+    <string name="error_setting_status_message">Hitilafu katika kuweka ujumbe wa hali!</string>
     <string name="error_showing_encryption_dialog">Hitilafu katika kuonyesha kidirisha cha usanidi wa usimbaji fiche!</string>
     <string name="error_starting_direct_camera_upload">Hitilafu ya kuanzisha kamera</string>
     <string name="error_starting_doc_scan">Hitilafu katika kuanzisha utambazaji wa hati</string>
@@ -447,7 +458,9 @@
     <string name="file_not_found_cannot_share">Faili haijapatikana. Imeshindwa kuunda kushiriki.</string>
     <string name="file_not_synced">Faili haikuweza kusawazishwa. Inaonyesha toleo la hivi punde linalopatikana.</string>
     <string name="file_rename">Ipe jina jipya</string>
+    <string name="file_upload_limit_message">Unaweza kupakia hadi faili %d mara moja.\"</string>
     <string name="file_upload_worker_error_notification_title">Imeshindwa kupakia. Hakuna muunganisho wa mtandao</string>
+    <string name="file_upload_worker_same_file_already_exists">%s tayari ipo, hakuna mzozo uliogunduliwa</string>
     <string name="file_version_restored_error">Hitilafu katika kurejesha toleo la faili!</string>
     <string name="file_version_restored_successfully">Imefaulu kurejesha toleo la faili.</string>
     <string name="filedetails_details">Maelezo ya kina</string>
@@ -467,6 +480,11 @@
     <string name="folder_already_exists">Folda tayari ipo</string>
     <string name="folder_best_viewed_in">Folda hii inatazamwa vyema ndani %1$s.</string>
     <string name="folder_confirm_create">Tengeneza</string>
+    <string name="folder_download_counter">%1$d of %2$d &#183; %3$s</string>
+    <string name="folder_download_error_notification_title">Hitilafu ilitokea wakati wa ulandanishi wa folda ya %s</string>
+    <string name="folder_download_insufficient_disk_space_notification_title">Nafasi ya diski haitoshi, maingiliano yameghairiwa</string>
+    <string name="folder_download_success_notification_title">Folda %s imesawazishwa</string>
+    <string name="folder_download_worker_ticker_id">Inasawazisha...</string>
     <string name="folder_list_empty_headline">Hakuna folda hapa</string>
     <string name="folder_name_empty">Jina la folda haliwezi kuwa tupu</string>
     <string name="folder_picker_choose_button_text">Chagua</string>
@@ -554,7 +572,6 @@
     <string name="manage_space_clear_data">Futa data</string>
     <string name="manage_space_description">Mipangilio, hifadhidata na vyeti vya seva kutoka kwa data ya %1$s vitafutwa kabisa. \n\nFaili zilizopakuliwa zitawekwa bila kuguswa.\n\nMchakato huu unaweza kuchukua muda.</string>
     <string name="manage_space_title">Dhibiti nafasi</string>
-    <string name="max_file_count_warning_message">Umefikia kikomo cha juu zaidi cha kupakia faili. Tafadhali pakia chini ya faili 500 kwa wakati mmoja.</string>
     <string name="media_err_invalid_progressive_playback">Faili ya midia haiwezi kutiririshwa</string>
     <string name="media_err_io">Haikuweza kusoma faili ya midia</string>
     <string name="media_err_malformed">Faili ya midia ina usimbaji usio sahihi</string>
@@ -577,6 +594,7 @@
     <string name="move_file_invalid_into_descendent">Haiwezekani kuhamisha folda kwenye mojawapo ya folda zake za msingi</string>
     <string name="move_file_invalid_overwrite">Faili tayari iko kwenye folda lengwa</string>
     <string name="move_file_not_found">Imeshindwa kuhamisha faili. Tafadhali angalia kama ipo.</string>
+    <string name="mute_all_notifications">Zima arifu zote</string>
     <string name="network_error_connect_timeout_exception">Hitilafu ilitokea wakati wa kusubiri seva. Haikuweza kukamilisha operesheni.</string>
     <string name="network_error_socket_exception">Hitilafu ilitokea wakati wa kuunganisha kwa seva</string>
     <string name="network_error_socket_timeout_exception">Hitilafu ilitokea wakati wa kusubiri seva. Haikuweza kukamilisha operesheni.</string>
@@ -602,6 +620,8 @@
     <string name="notification_action_failed">Imeshindwa kutekeleza kitendo.</string>
     <string name="notification_channel_background_operations_description">Onyesha arifa ili kuingiliana na matokeo ya shughuli za usuli</string>
     <string name="notification_channel_background_operations_name">Shughuli za usuli</string>
+    <string name="notification_channel_content_observer_description">Hutambua mabadiliko ya faili za ndani</string>
+    <string name="notification_channel_content_observer_name_short">Mtazamaji wa maudhui</string>
     <string name="notification_channel_download_description">Inaonyesha maendeleo ya upakuaji</string>
     <string name="notification_channel_download_name_short">Vipakuliwa</string>
     <string name="notification_channel_file_sync_description">Inaonyesha maendeleo ya usawazishaji wa faili na matokeo</string>
@@ -610,6 +630,8 @@
     <string name="notification_channel_general_name">Arifa za jumla</string>
     <string name="notification_channel_media_description">Maendeleo ya kicheza muziki</string>
     <string name="notification_channel_media_name">Kichezaji cha media</string>
+    <string name="notification_channel_offline_operations_description">Inaonyesha maendeleo ya utendakazi wa faili nje ya mtandao</string>
+    <string name="notification_channel_offline_operations_name_short">Shughuli za nje ya mtandao</string>
     <string name="notification_channel_push_description">Onyesha arifa za kushinikiza zinazotumwa na seva: Zinazotajwa kwenye maoni, upokeaji wa shiriki mpya za mbali, matangazo yaliyotumwa na msimamizi n.k.</string>
     <string name="notification_channel_push_name">Arifa za kushinikiza</string>
     <string name="notification_channel_upload_description">Inaonyesha maendeleo ya upakiaji</string>
@@ -655,11 +677,6 @@
     <string name="picture_set_as_no_app">Hakuna programu iliyopatikana ya kuweka picha nayo</string>
     <string name="pin_home">Bandika kwenye skrini ya nyumbani</string>
     <string name="pin_shortcut_label">Fungua %1$s</string>
-    <string name="placeholder_fileSize">389 KB</string>
-    <string name="placeholder_filename">placeholder.txt</string>
-    <string name="placeholder_media_time">12:23:45</string>
-    <string name="placeholder_sentence">Hiki ni kishikilia nafasi</string>
-    <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
     <string name="player_stop">acha</string>
     <string name="player_toggle">geuza</string>
     <string name="please_select_a_server">Tafadhali chagua seva...</string>
@@ -681,6 +698,7 @@
     <string name="prefs_category_about">Kuhusu</string>
     <string name="prefs_category_details">Maelezo ya kina</string>
     <string name="prefs_category_dev">Dev</string>
+    <string name="prefs_category_files">Faili</string>
     <string name="prefs_category_general">Kuu</string>
     <string name="prefs_category_more">Zaidi</string>
     <string name="prefs_category_sync">Sawazisha</string>
@@ -736,11 +754,9 @@
     <string name="preview_image_error_no_local_file">Hakuna faili ya ndani ya kuchungulia</string>
     <string name="preview_image_error_unknown_format">Imeshindwa kuonyesha picha</string>
     <string name="preview_image_file_is_not_downloaded">Faili haijapakuliwa</string>
-    <string name="preview_image_file_is_not_exist">Faili haipo</string>
     <string name="preview_media_unhandled_http_code_message">Faili kwa sasa imefungwa na mtumiaji au mchakato mwingine na kwa hivyo haiwezi kufutwa. Tafadhali jaribu tena baadaye.</string>
     <string name="preview_sorry">Pole</string>
     <string name="privacy">Faragha</string>
-    <string name="public_share_name">Jina jipya</string>
     <string name="push_notifications_not_implemented">Arifa zinazotumwa na programu hata wakati huitumii zimezimwa kutokana na utegemezi kwenye huduma za umiliki za Google Play.</string>
     <string name="push_notifications_old_login">Hakuna arifa kutoka kwa programu kwa sababu ya kipindi cha kuingia cha zamani. Tafadhali zingatia kuongeza tena akaunti yako.</string>
     <string name="push_notifications_temp_error">Arifa zinazotumwa na programu hata wakati huitumii hazipatikani kwa sasa.</string>
@@ -806,10 +822,10 @@
     <string name="server_not_reachable_content">Huenda kifaa hakijaunganishwa kwenye mtandao</string>
     <string name="set_as">Weka Kama</string>
     <string name="set_download_limit_failed">Imeshindwa kuweka kikomo cha upakuaji. Tafadhali angalia uwezo.</string>
+    <string name="set_message">Weka ujumbe</string>
     <string name="set_note">Weka dokezo</string>
+    <string name="set_online_status">Hali ya mtandaoni</string>
     <string name="set_picture_as">Tumia picha kama</string>
-    <string name="set_status">Panglia hali</string>
-    <string name="set_status_message">Pangilia hali ya ujumbe</string>
     <string name="setup_e2e">Wakati wa kusanidi usimbaji fiche kutoka mwanzo hadi mwisho, utapokea maneno 12 ya mnemonic nasibu, ambayo utahitaji kufungua faili zako kwenye vifaa vingine. Hii itahifadhiwa kwenye kifaa hiki pekee, na inaweza kuonyeshwa tena kwenye skrini hii. Tafadhali kumbuka kuwa mahali salama!</string>
     <string name="share">Shirikisha</string>
     <string name="share_allow_download_and_sync_permission">Ruhusu upakuaji na usawazishe</string>
@@ -837,7 +853,7 @@
     <string name="share_link_password_title">Ingiza nenosiri</string>
     <string name="share_link_with_label">Shiriki ya kiungo (%1$s)</string>
     <string name="share_no_expiration_date_label">Panga tarehe ya mwisho wa matumizi</string>
-    <string name="share_no_password_title">Set password</string>
+    <string name="share_no_password_title">Weka nenosiri</string>
     <string name="share_not_allowed_when_file_drop">Kushiriki upya hakuruhusiwi wakati wa kudondosha faili salama</string>
     <string name="share_option_required">Tafadhali chagua angalau chaguo moja la kushiriki kabla ya kuendelea.</string>
     <string name="share_permission_can_edit">Inaweza kuhariri</string>
@@ -874,6 +890,8 @@
     <string name="signup_with_provider">Jisajili na mtoa huduma</string>
     <string name="single_sign_on_request_token" formatted="true">Ruhusu %1$s kufikia akaunti yako ya Nextcloud %2$s?</string>
     <string name="sort_by">Panga kwa </string>
+    <string name="sort_favorites_first">Chagua za upendeleo kwanza</string>
+    <string name="sort_folders_before_files">Chagua vikasha kabla ya mafaili</string>
     <string name="ssl_validator_btn_details_hide">Ficha</string>
     <string name="ssl_validator_btn_details_see">Maelezo ya kina</string>
     <string name="ssl_validator_header">Utambulisho wa seva haukuweza kuthibitishwa</string>
@@ -984,6 +1002,7 @@
     <string name="unified_search_fragment_calendar_event_not_found">Tukio halijapatikana, unaweza kusawazisha kila wakati ili kusasisha. Inaelekeza kwenye wavuti...</string>
     <string name="unified_search_fragment_contact_not_found">Anwani haijapatikana, unaweza kusawazisha kila wakati ili kusasisha. Inaelekeza kwenye wavuti...</string>
     <string name="unified_search_fragment_permission_needed">Ruhusa zinahitajika ili kufungua matokeo ya utafutaji vinginevyo yataelekezwa kwenye wavuti...</string>
+    <string name="unified_search_fragment_search_in_this_folder">Katika folda hii</string>
     <string name="unknown">Haijulikani</string>
     <string name="unlock_file">Fungua faili</string>
     <string name="unread_comments">Kuna maoni ambayo hayajasomwa</string>
@@ -1032,6 +1051,10 @@
     <string name="upload_local_storage_not_copied">Faili haikuweza kunakiliwa kwenye hifadhi ya ndani</string>
     <string name="upload_lock_failed">Imeshindwa kufunga folda</string>
     <string name="upload_manually_cancelled">Upakiaji ulisitishwa na mtumiaji</string>
+    <string name="upload_missing_storage_permission_allow_file_access">Ruhusu ufikiaji wa faili zote</string>
+    <string name="upload_missing_storage_permission_app_permissions">Ruhusa za programu</string>
+    <string name="upload_missing_storage_permission_description">Faili zako haziwezi kupakiwa bila ufikiaji wa hifadhi ya ndani. Gusa ili kutoa ruhusa.</string>
+    <string name="upload_missing_storage_permission_title">Upakiaji Umesimamishwa - Ruhusa ya Kuhifadhi Inahitajika</string>
     <string name="upload_notification_manager_start_text">%1$d / %2$d - %3$s</string>
     <string name="upload_old_android">Usimbaji fiche unawezekana tu kwa &gt;= Android 5.0</string>
     <string name="upload_query_move_foreign_files">Nafasi haitoshi huzuia kunakili faili zilizochaguliwa kwenye folda ya %1$s. Je, ungependa kuzihamishia hapo badala yake?</string>

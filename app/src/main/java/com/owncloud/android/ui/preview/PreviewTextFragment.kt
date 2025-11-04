@@ -165,7 +165,7 @@ abstract class PreviewTextFragment :
      * Finishes the preview
      */
     protected fun finish() {
-        requireActivity().runOnUiThread { requireActivity().onBackPressed() }
+        requireActivity().runOnUiThread { requireActivity().onBackPressedDispatcher.onBackPressed() }
     }
 
     companion object {

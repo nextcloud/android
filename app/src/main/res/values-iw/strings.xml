@@ -33,6 +33,7 @@
     <string name="app_config_proxy_port_title">פתחת מתווך</string>
     <string name="app_widget_description">מצג וידג׳ט אחד מלוח הבקרה</string>
     <string name="appbar_search_in">חפש ב %s</string>
+    <string name="appear_offline">להופיע במצב בלתי מקוון</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">מחיקת משימה</string>
     <string name="associated_account_not_found">לא נמצא חשבון משויך!</string>
     <string name="auth_access_failed">גישה נכשלה: %1$s</string>
@@ -82,6 +83,7 @@
     <string name="bottom_navigation_menu_favorites_label">מועדפים</string>
     <string name="bottom_navigation_menu_files_label">כל הקבצים</string>
     <string name="bottom_navigation_menu_media_label">מדיה</string>
+    <string name="busy">עסוק</string>
     <string name="calendar">לוח שנה</string>
     <string name="calendars">לוחות שנה</string>
     <string name="certificate_load_problem">קיימת בעיה בטעינת האישור.</string>
@@ -90,9 +92,9 @@
     <string name="checkbox">תיבת סימון</string>
     <string name="choose_local_folder">נא לבחור בתיקייה מקומית…</string>
     <string name="choose_remote_folder">בחר תיקייה…</string>
+    <string name="clear">פינוי</string>
     <string name="clear_notifications_failed">פינוי ההתראות נכשל.</string>
-    <string name="clear_status_message">פינוי הודעת המצב</string>
-    <string name="clear_status_message_after">מחיקת הודעת מצב לאחר</string>
+    <string name="clear_status_after">לפנות את המצב לאחר</string>
     <string name="clipboard_label">טקסט הועתק מ- %1$s</string>
     <string name="clipboard_no_text_to_copy">לא התקבל טקסט להעתקה ללוח הגזירים</string>
     <string name="clipboard_text_copied">הקישור הועתק</string>
@@ -401,6 +403,7 @@
     <string name="move_file_error">אירעה שגיאה בזמן ניסיון להעביר את הקובץ או התיקייה</string>
     <string name="move_file_invalid_into_descendent">אי אפשר להעביר תיקייה לתוך אחת התיקיות שתחתיה.</string>
     <string name="move_file_invalid_overwrite">הקובץ כבר קיים בתיקיית היעד</string>
+    <string name="mute_all_notifications">השתקת כל ההתראות</string>
     <string name="network_error_socket_exception">אירעה שגיאה במהלך ההתחברות לשרת</string>
     <string name="new_comment">תגובה חדשה…</string>
     <string name="new_media_folder_detected">זוהתה תיקיית מדיה עם %1$s</string>
@@ -446,11 +449,6 @@
     <string name="permission_deny">לדחות</string>
     <string name="permission_storage_access">נדרשות הרשאות נוספות כדי להעלות ולהוריד קבצים</string>
     <string name="picture_set_as_no_app">לא נמצא יישומון להגדיר אתו תמונה</string>
-    <string name="placeholder_fileSize">389 ק״ב</string>
-    <string name="placeholder_filename">placeholder.txt</string>
-    <string name="placeholder_media_time">12:23:45</string>
-    <string name="placeholder_sentence">זהו ממלא מקום</string>
-    <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
     <string name="power_save_check_dialog_message">השבתת בדיקת חיסכון בחשמל גורמת להעלאת קבצים כשהסוללה חלשה!</string>
     <string name="pref_behaviour_entries_delete_file">נמחק</string>
     <string name="pref_behaviour_entries_keep_file">נשמר בתיקייה מקורית</string>
@@ -465,6 +463,7 @@
     <string name="prefs_category_about">על אודות</string>
     <string name="prefs_category_details">פרטים</string>
     <string name="prefs_category_dev">פיתוח</string>
+    <string name="prefs_category_files">קבצים</string>
     <string name="prefs_category_general">כללי</string>
     <string name="prefs_category_more">יותר</string>
     <string name="prefs_category_sync">סנכרון</string>
@@ -539,9 +538,8 @@
     <string name="send">שליחה</string>
     <string name="sendbutton_description">סמל כפתור שליחה</string>
     <string name="set_as">הגדרה בתור</string>
+    <string name="set_online_status">מצב מקוון</string>
     <string name="set_picture_as">שימוש בתמונה בתור</string>
-    <string name="set_status">הגדרת מצב</string>
-    <string name="set_status_message">הגדרת הודעת מצב</string>
     <string name="share">שיתוף</string>
     <string name="share_delete_permission">מחיקה</string>
     <string name="share_dialog_title">שיתוף</string>

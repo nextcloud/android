@@ -28,6 +28,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.nextcloud.client.appinfo.AppInfo
 import com.nextcloud.client.core.Clock
 import com.nextcloud.client.device.PowerManagementService
 import com.nextcloud.client.di.Injectable
@@ -146,6 +147,9 @@ class SyncedFoldersActivity :
     @Inject
     lateinit var syncedFolderProvider: SyncedFolderProvider
 
+    @Inject
+    lateinit var appInfo: AppInfo
+
     lateinit var binding: SyncedFoldersLayoutBinding
     lateinit var adapter: SyncedFolderAdapter
 
@@ -199,21 +203,6 @@ class SyncedFoldersActivity :
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         val inflater = menuInflater
         inflater.inflate(R.menu.activity_synced_folders, menu)
-        if (powerManagementService.isPowerSavingExclusionAvailable) {
-            val item = menu.findItem(R.id.action_disable_power_save_check)
-            item.isVisible = true
-            item.isChecked = preferences.isPowerCheckDisabled
-            item.setOnMenuItemClickListener { powerCheck -> onDisablePowerSaveCheckClicked(powerCheck) }
-        }
-        return true
-    }
-
-    private fun onDisablePowerSaveCheckClicked(powerCheck: MenuItem): Boolean {
-        if (!powerCheck.isChecked) {
-            showPowerCheckDialog()
-        }
-        preferences.isPowerCheckDisabled = !powerCheck.isChecked
-        powerCheck.isChecked = !powerCheck.isChecked
         return true
     }
 
@@ -245,7 +234,9 @@ class SyncedFoldersActivity :
             gridWidth,
             this,
             lightVersion,
-            viewThemeUtils
+            viewThemeUtils,
+            powerManagementService,
+            connectivityService
         )
         binding.emptyList.emptyListIcon.setImageResource(R.drawable.nav_synced_folders)
         viewThemeUtils.material.colorMaterialButtonPrimaryFilled(binding.emptyList.emptyListViewAction)
@@ -579,7 +570,7 @@ class SyncedFoldersActivity :
             }
         }
         if (syncedFolderDisplayItem.isEnabled) {
-            backgroundJobManager.startImmediateFilesSyncJob(syncedFolderDisplayItem.id, overridePowerSaving = false)
+            backgroundJobManager.startAutoUploadImmediately(syncedFolderDisplayItem, overridePowerSaving = false)
             showBatteryOptimizationInfo()
         }
     }
@@ -744,7 +735,7 @@ class SyncedFoldersActivity :
             // existing synced folder setup to be updated
             syncedFolderProvider.updateSyncFolder(item)
             if (item.isEnabled) {
-                backgroundJobManager.startImmediateFilesSyncJob(item.id, overridePowerSaving = false)
+                backgroundJobManager.startAutoUploadImmediately(item, overridePowerSaving = false)
             } else {
                 val syncedFolderInitiatedKey = KEY_SYNCED_FOLDER_INITIATED_PREFIX + item.id
                 val arbitraryDataProvider =
@@ -761,7 +752,7 @@ class SyncedFoldersActivity :
         if (storedId != -1L) {
             item.id = storedId
             if (item.isEnabled) {
-                backgroundJobManager.startImmediateFilesSyncJob(item.id, overridePowerSaving = false)
+                backgroundJobManager.startAutoUploadImmediately(item, overridePowerSaving = false)
             } else {
                 val syncedFolderInitiatedKey = KEY_SYNCED_FOLDER_INITIATED_PREFIX + item.id
                 arbitraryDataProvider.deleteKeyForAccount("global", syncedFolderInitiatedKey)
@@ -844,7 +835,7 @@ class SyncedFoldersActivity :
     }
 
     private fun showBatteryOptimizationInfo() {
-        if (powerManagementService.isPowerSavingExclusionAvailable || checkIfBatteryOptimizationEnabled()) {
+        if (checkIfBatteryOptimizationEnabled()) {
             val alertDialogBuilder = MaterialAlertDialogBuilder(this, R.style.Theme_ownCloud_Dialog)
                 .setTitle(getString(R.string.battery_optimization_title))
                 .setMessage(getString(R.string.battery_optimization_message))
@@ -880,7 +871,7 @@ class SyncedFoldersActivity :
         val powerManager = getSystemService(POWER_SERVICE) as PowerManager?
         return when {
             powerManager != null -> !powerManager.isIgnoringBatteryOptimizations(BuildConfig.APPLICATION_ID)
-            else -> true
+            else -> !appInfo.isDebugBuild
         }
     }
 }

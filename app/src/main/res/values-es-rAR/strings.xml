@@ -109,9 +109,8 @@
     <string name="choose_template_helper_text">Por favor elegí una plantilla e introducí un nombre de archivo.</string>
     <string name="choose_which_file">Elija que archivo guardar!</string>
     <string name="choose_widget">Elegí un widget</string>
+    <string name="clear">Borrar</string>
     <string name="clear_notifications_failed">Error al borrar las notificaciones.</string>
-    <string name="clear_status_message">Limpiar mensaje de estado</string>
-    <string name="clear_status_message_after">Limpiar mensaje de estado después</string>
     <string name="clipboard_label">Texto copiado desde %1$s</string>
     <string name="clipboard_no_text_to_copy">No se ha recibido texto para copiar al portapapeles</string>
     <string name="clipboard_text_copied">Link copiado</string>
@@ -485,7 +484,6 @@
     <string name="manage_space_clear_data">Borrar datos</string>
     <string name="manage_space_description">Las configuraciones , base de datos y certificados del servidor de los datos de %1$s serán borrados permanentemente.\n\nLos archivos descargados se mantendrán sin cambios.\n\nEste proceso puede tomar algo de tiempo. </string>
     <string name="manage_space_title">Administrar espacio</string>
-    <string name="max_file_count_warning_message">Ha alcanzado el límite de carga máxima de archivos. Por favor, cargue menos de 500 archivos a la vez.</string>
     <string name="media_err_invalid_progressive_playback">No se puede transmitir el archivo multimedia</string>
     <string name="media_err_io">No fue posible leer el archivo de medios</string>
     <string name="media_err_malformed">El archivo de medios tiene una codificacion incorrecta</string>
@@ -567,11 +565,6 @@
     <string name="permission_storage_access">Se requieren permisos adicionales para cargar y descargar archivos. </string>
     <string name="picture_set_as_no_app">No se encontró ninguna aplicación para establecer una imagen con</string>
     <string name="pin_shortcut_label">Abrir %1$s</string>
-    <string name="placeholder_fileSize">389 KB</string>
-    <string name="placeholder_filename">marcadordeposición.txt</string>
-    <string name="placeholder_media_time">12:23:45</string>
-    <string name="placeholder_sentence">Este es un marcador de posición</string>
-    <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
     <string name="player_stop">detener</string>
     <string name="player_toggle">cambiar</string>
     <string name="power_save_check_dialog_message">¡La desactivación de la verificación de ahorro de energía puede provocar la carga de archivos cuando la batería está baja!</string>
@@ -591,6 +584,7 @@
     <string name="prefs_category_about">Acerca de</string>
     <string name="prefs_category_details">Detalles</string>
     <string name="prefs_category_dev">Dev</string>
+    <string name="prefs_category_files">Archivo</string>
     <string name="prefs_category_general">General</string>
     <string name="prefs_category_more">Más</string>
     <string name="prefs_category_sync">Sincronizar</string>
@@ -643,7 +637,6 @@
     <string name="preview_media_unhandled_http_code_message">El archivo se encuentra bloqueado actualmente por otro usuario o proceso y, por lo tanto, no es posible eliminarlo. Por favor, intente de nuevo más tarde.</string>
     <string name="preview_sorry">Disculpe</string>
     <string name="privacy">Privacidad</string>
-    <string name="public_share_name">Nuevo nombre</string>
     <string name="push_notifications_not_implemented">Notificaciones push deshabilitadas debido a dependencias en servicios propietarios de Google Play.</string>
     <string name="push_notifications_old_login">No hay notificaciones push debido a la sesión de inicio de sesión obsoleta. Por favor considere volver a agregar su cuenta.</string>
     <string name="push_notifications_temp_error">Notificaciones push actualmente no disponibles.</string>
@@ -702,9 +695,8 @@
     <string name="send">Enviar</string>
     <string name="sendbutton_description">Icono de botón de enviar</string>
     <string name="set_as">Establecer Como</string>
+    <string name="set_online_status">Estado en línea</string>
     <string name="set_picture_as">Usar imagen como</string>
-    <string name="set_status">Establecer estado</string>
-    <string name="set_status_message">Establecer mensaje de estado</string>
     <string name="setup_e2e">Durante la configuración del cifrado de extremo a extremo, recibirá un mnemónico aleatorio de 12 palabras, que necesitará para abrir sus archivos en otros dispositivos. Esto solo se almacenará en este dispositivo y se puede volver a mostrar en esta pantalla. ¡Por favor anótelo en un lugar seguro!</string>
     <string name="share">Compartir</string>
     <string name="share_delete_permission">Eliminar</string>

@@ -156,19 +156,23 @@ class UnifiedSearchViewModel(application: Application) :
         }
     }
 
-    fun openFile(fileUrl: String) {
+    override fun openFile(remotePath: String) {
         if (isLoading.value == false) {
             isLoading.value = true
-            val user = currentAccountProvider.user
-            val task = GetRemoteFileTask(
-                context,
-                fileUrl,
-                clientFactory.create(currentAccountProvider.user),
-                FileDataStorageManager(user, context.contentResolver),
-                user
-            )
-            runner.postQuickTask(task, onResult = this::onFileRequestResult)
+            getRemoteFile(remotePath)
         }
+    }
+
+    override fun getRemoteFile(remotePath: String) {
+        val user = currentAccountProvider.user
+        val task = GetRemoteFileTask(
+            context,
+            remotePath,
+            clientFactory.create(user),
+            FileDataStorageManager(user, context.contentResolver),
+            user
+        )
+        runner.postQuickTask(task, onResult = this::onFileRequestResult)
     }
 
     fun onError(error: Throwable) {

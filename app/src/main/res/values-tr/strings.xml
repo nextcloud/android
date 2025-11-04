@@ -43,6 +43,7 @@
     <string name="app_config_proxy_port_title">Vekil sunucu bağlantı noktası</string>
     <string name="app_widget_description">Panodan bir pano bileşeni görüntüler</string>
     <string name="appbar_search_in">%s içinde ara</string>
+    <string name="appear_offline">Çevrim dışı görün</string>
     <string name="assistant_screen_add_task_alert_dialog_title">Yeni görev ekle</string>
     <string name="assistant_screen_create_a_new_task_from_bottom_right_text">Sağ alttan yeni bir görev oluşturun</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Bir şeyler yazın</string>
@@ -92,12 +93,19 @@
     <string name="auth_unsupported_multiaccount">%1$s birden çok hesabı desteklemiyor</string>
     <string name="auth_wrong_connection_title">Bağlantı kurulamadı</string>
     <string name="authenticator_activity_cancel_login">Oturum açmaktan vazgeç</string>
+    <string name="authenticator_activity_empty_base_url">Lütfen geçerli bir sunucu adresi yazın.</string>
+    <string name="authenticator_activity_empty_response_message">Oturum açma bilgileri alınamadı. Lütfen yeniden deneyin.</string>
     <string name="authenticator_activity_login_error">Oturum açma isteğiniz işlenirken bir sorun çıktı. Lütfen bir süre sonra yeniden deneyin.</string>
+    <string name="authenticator_activity_no_web_browser_found">Bu bağlantıyı açabilecek bir tarayıcı bulunamadı.</string>
     <string name="authenticator_activity_please_complete_login_process">Lütfen oturum açma işlemini tarayıcınızdan tamamlayın</string>
+    <string name="auto_upload_battery_saver_mode_warning">Pil koruma modu açık olduğundan otomatik yükleme duraklatıldı</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">salt okunur olduğundan özgün klasörde kaldı</string>
+    <string name="auto_upload_low_battery_warning_info">Pil azaldı. Yükleme işlemi uzun sürebilir</string>
     <string name="auto_upload_on_wifi">Yalnızca kotasız kablosuz ağda yüklensin</string>
     <string name="auto_upload_path">/OtomatikYükleme</string>
     <string name="auto_upload_sub_folder_warning">Bu klasör, üst klasörün eşitlemesine zaten katılmış olduğundan yinelenen yüklemelere neden olabilir.</string>
+    <string name="auto_upload_wifi_only_warning_info">Yüklemenin başlatılması için Wi-Fi bağlantısı bekleniyor</string>
+    <string name="auto_upload_worker_start_text">%s üzerindeki dosyalar %s üzerine yükleniyor</string>
     <string name="autoupload_configure">Yapılandır</string>
     <string name="autoupload_create_new_custom_folder">Özel klasör kurulumu ekle</string>
     <string name="autoupload_custom_folder">Bir özel klasör kurun</string>
@@ -115,6 +123,7 @@
     <string name="bottom_navigation_menu_favorites_label">Sık kullanılanlar</string>
     <string name="bottom_navigation_menu_files_label">Tüm dosyalar</string>
     <string name="bottom_navigation_menu_media_label">Ortam</string>
+    <string name="busy">Meşgul</string>
     <string name="calendar">Takvim</string>
     <string name="calendars">Takvimler</string>
     <string name="certificate_load_problem">Sertifika yüklenirken bir sorun çıktı.</string>
@@ -126,11 +135,11 @@
     <string name="choose_template_helper_text">Lütfen bir kalıp seçin ve bir dosya adı yazın.</string>
     <string name="choose_which_file">Korunacak dosyayı seçin!</string>
     <string name="choose_widget">Pano bileşenini seçin</string>
+    <string name="clear">Temizle</string>
     <string name="clear_notifications_failed">Bildirimler temizlenemedi.</string>
-    <string name="clear_status_message">Durum iletisini kaldır</string>
-    <string name="clear_status_message_after">Durum iletisi şu süre sonunda kaldırılsın</string>
-    <string name="clipboard_label">Metin %1$s kaynağından kopyalandı</string>
-    <string name="clipboard_no_text_to_copy">Panoya kopyalanacak bir metin alınamadı</string>
+    <string name="clear_status_after">Durum şu kadar sonra kaldırılsın</string>
+    <string name="clipboard_label">Yazı %1$s kaynağından kopyalandı</string>
+    <string name="clipboard_no_text_to_copy">Panoya kopyalanacak bir yazı alınamadı</string>
     <string name="clipboard_text_copied">Bağlantı kopyalandı</string>
     <string name="clipboard_unexpected_error">Panoya kopyalama sırasında beklenmeyen bir sorun çıktı</string>
     <string name="common_back">Geri</string>
@@ -200,6 +209,7 @@
     <string name="contacts_preferences_import_scheduled_fail">İçe aktarım başlatılamadı. Lütfen yeniden deneyin</string>
     <string name="contacts_preferences_no_file_found">Herhangi bir dosya bulunamadı</string>
     <string name="contacts_preferences_something_strange_happened">Son yedeğiniz bulunamadı!</string>
+    <string name="content_observer_work_notification_title">İçerik değişiklikleri denetleniyor</string>
     <string name="copied_to_clipboard">Panoya kopyalandı</string>
     <string name="copy_file_error">Bu dosya ya da klasör kopyalanmaya çalışılırken bir sorun çıktı</string>
     <string name="copy_file_invalid_into_descendent">Bir klasör kendi alt klasörü olarak kopyalanamaz</string>
@@ -247,6 +257,13 @@
     <string name="document_scan_export_dialog_title">Dışa aktarma türünü seçin</string>
     <string name="document_scan_pdf_generation_failed">PDF dosyası oluşturulamadı</string>
     <string name="document_scan_pdf_generation_in_progress">PDF oluşturuluyor…</string>
+    <string name="document_storage_provider_cannot_create_file_and_folder">Burada ögeler oluşturulamaz: Oluşturma izni verilmemiş.</string>
+    <string name="document_storage_provider_cannot_create_file_inside_folder">Dosya oluşturulamaz: İzin verilmemiş.</string>
+    <string name="document_storage_provider_cannot_create_folder_inside_folder">Klasör oluşturulamaz: İzin verilmemiş.</string>
+    <string name="document_storage_provider_cannot_delete">Öge silinemez: Silme izni verilmemiş.</string>
+    <string name="document_storage_provider_cannot_move">Öge taşınamaz: Taşıma izni verilmemiş.</string>
+    <string name="document_storage_provider_cannot_read">Öge açılamaz: Okuma izni verilmemiş.</string>
+    <string name="document_storage_provider_cannot_rename">Öge yeniden adlandırılamaz: Yeniden adlandırma izni verilmemiş.</string>
     <string name="done">Tamam</string>
     <string name="dontClear">Kaldırılmasın</string>
     <string name="download_cannot_create_file">Yerel dosya oluşturulamadı</string>
@@ -326,12 +343,14 @@
     <string name="error_comment_file">Dosyaya yorum yapılırken sorun çıktı</string>
     <string name="error_crash_title">%1$s çöktü</string>
     <string name="error_creating_file_from_template">Kalıptan dosya oluşturulurken sorun çıktı</string>
+    <string name="error_fetching_sharees">Paylaşımlar alınamadı.</string>
     <string name="error_file_actions">Dosya işlemleri görüntülenirken sorun çıktı</string>
     <string name="error_file_lock">Dosya kilidi durumu değiştirilirken sorun çıktı</string>
     <string name="error_report_issue_action">Hata bildirin</string>
     <string name="error_report_issue_text">İzleyici üzerine bir hata bildirmek ister misiniz? (GitHub hesabı gereklidir)</string>
     <string name="error_retrieving_file">Dosya alınırken sorun çıktı</string>
     <string name="error_retrieving_templates">Kalıplar alınırken sorun çıktı</string>
+    <string name="error_setting_status_message">Durum iletisi ayarlanırken sorun çıktı!</string>
     <string name="error_showing_encryption_dialog">Şifreleme kurulumu penceresi görüntülenirken sorun çıktı!</string>
     <string name="error_starting_direct_camera_upload">Kamera başlatılamadı</string>
     <string name="error_starting_doc_scan">Belge taramasına başlanırken sorun çıktı</string>
@@ -360,6 +379,7 @@
     <string name="etm_transfer_type">Aktarım</string>
     <string name="etm_transfer_type_download">İndirme</string>
     <string name="etm_transfer_type_upload">Yükleme</string>
+    <string name="extented_list_fragment_empty_list_message_no_write_permission">Bu klasörde dosya oluşturma ya da yükleme izniniz yok.</string>
     <string name="external_shares">Dış paylaşımlar</string>
     <string name="fab_label">Ekle ya da yükle</string>
     <string name="failed_to_download">Dosya indirme yöneticisine aktarılamadı</string>
@@ -375,6 +395,7 @@
     <string name="file_detail_share_already_active">Bir paylaşım oluşturamazsınız. Bu kullanıcı için paylaşım zaten etkin.</string>
     <string name="file_detail_sharing_fragment_no_contact_app_message">Kişilerin seçilmesi için kullanılabilecek bir uygulama yok</string>
     <string name="file_details_no_content">Ayrıntılar yüklenemedi</string>
+    <string name="file_details_sharing_fragment_custom_permission_not_selected">Lütfen özel izni seçin</string>
     <string name="file_icon">Dosya</string>
     <string name="file_keep">Tut</string>
     <string name="file_list_empty">Bazı içerikler yükleyin ya da aygıtlarınızla eşitleyin.</string>
@@ -392,6 +413,8 @@
     <string name="file_list_empty_shared">Paylaştığınız dosya ve klasörler burada görüntülenir.</string>
     <string name="file_list_empty_shared_headline">Henüz hiçbir şey paylaşılmamış</string>
     <string name="file_list_empty_unified_search_no_results">Sorgunuzdan bir sonuç alınamadı</string>
+    <string name="file_list_empty_unified_search_start_search">Aramanızı başlatın</string>
+    <string name="file_list_empty_unified_search_start_search_description">Hesabınızdaki dosyaları, kişileri, takvim etkinliklerini ve diğer şeyleri bulmak için yukarıdaki arama çubuğuna yazın.</string>
     <string name="file_list_folder">klasör</string>
     <string name="file_list_live">CANLI</string>
     <string name="file_list_loading">Yükleniyor …</string>
@@ -435,7 +458,9 @@
     <string name="file_not_found_cannot_share">Dosya bulunamadı. Paylaşım oluşturulamadı.</string>
     <string name="file_not_synced">Dosya eşitlenemedi. Kullanılabilen son sürüm görüntüleniyor.</string>
     <string name="file_rename">Yeniden adlandır</string>
+    <string name="file_upload_limit_message">Bir kerede en fazla %d dosya yükleyebilirsiniz.\"</string>
     <string name="file_upload_worker_error_notification_title">Yüklenemedi. İnternet bağlantısı yok</string>
+    <string name="file_upload_worker_same_file_already_exists">%s zaten var. Herhangi bir çakışma bulunmadı</string>
     <string name="file_version_restored_error">Geri yüklenecek dosya sürümünü seçin!</string>
     <string name="file_version_restored_successfully">Dosya sürümü geri yüklendi.</string>
     <string name="filedetails_details">Ayrıntılar</string>
@@ -455,6 +480,11 @@
     <string name="folder_already_exists">Klasör zaten var</string>
     <string name="folder_best_viewed_in">Bu klasör en iyi %1$s ile görüntülenir.</string>
     <string name="folder_confirm_create">Ekle</string>
+    <string name="folder_download_counter">%1$d / %2$d &#183; %3$s</string>
+    <string name="folder_download_error_notification_title">%s klasörü eşitlenirken bir sorun çıktı</string>
+    <string name="folder_download_insufficient_disk_space_notification_title">Disk alanı yetersiz. Eşitleme iptal edildi</string>
+    <string name="folder_download_success_notification_title">%s klasörü eşitlendi</string>
+    <string name="folder_download_worker_ticker_id">Eşitleniyor…</string>
     <string name="folder_list_empty_headline">Burada herhangi bir klasör yok</string>
     <string name="folder_name_empty">Klasör adı boş olamaz</string>
     <string name="folder_picker_choose_button_text">Seçin</string>
@@ -512,6 +542,7 @@
     <string name="last_backup">Son yedekleme: %1$s</string>
     <string name="link">Bağlantı</string>
     <string name="link_name">Bağlantı adı</string>
+    <string name="link_not_followed_due_to_security_settings">Güvenlik ayarları nedeniyle bağlantı açılmadı.</string>
     <string name="link_share_editing">Düzenleniyor</string>
     <string name="list_layout">Liste yerleşimi</string>
     <string name="load_more_results">Diğer sonuçları yükle</string>
@@ -541,7 +572,6 @@
     <string name="manage_space_clear_data">Verileri temizle</string>
     <string name="manage_space_description">%1$s verilerinden ayarlar, veri tabanı ve sunucu sertifikaları kalıcı olarak silinecek. \n\nİndirilen dosyalara dokunulmayacak.\n\nBu işlem biraz zaman alabilir.</string>
     <string name="manage_space_title">Alan yönetimi</string>
-    <string name="max_file_count_warning_message">Yüklenebilecek dosya sayısı sınırına ulaştınız. Lütfen bir seferde 500 taneden az dosya yükleyin.</string>
     <string name="media_err_invalid_progressive_playback">Ortam dosyası akışı sağlanamadı</string>
     <string name="media_err_io">Ortam dosyası okunamadı</string>
     <string name="media_err_malformed">Ortam dosyası doğru şekilde kodlanmamış</string>
@@ -564,6 +594,7 @@
     <string name="move_file_invalid_into_descendent">Bir klasör kendi alt klasörü olarak taşınamaz</string>
     <string name="move_file_invalid_overwrite">Dosya hedef klasörde zaten var</string>
     <string name="move_file_not_found">Dosya taşınamadı. Lütfen dosyanın var olup olmadığını denetleyin.</string>
+    <string name="mute_all_notifications">Tüm bildirimleri kapat</string>
     <string name="network_error_connect_timeout_exception">Sunucu beklenirken bir sorun çıktı, işlem tamamlanamadı.</string>
     <string name="network_error_socket_exception">Sunucu ile bağlantı kurulurken bir sorun çıktı</string>
     <string name="network_error_socket_timeout_exception">Sunucu beklenirken bir sorun çıktı, işlem tamamlanamadı.</string>
@@ -589,6 +620,8 @@
     <string name="notification_action_failed">İşlem yapılamadı.</string>
     <string name="notification_channel_background_operations_description">Arka plan işlemlerinin sonucuyla etkileşim kurmak için bildirimleri görüntüle</string>
     <string name="notification_channel_background_operations_name">Arka plan işlemleri</string>
+    <string name="notification_channel_content_observer_description">Yerel dosya değişikliklerini algılar</string>
+    <string name="notification_channel_content_observer_name_short">İçerik izleyici</string>
     <string name="notification_channel_download_description">İndirme ilerlemesini görüntüler</string>
     <string name="notification_channel_download_name_short">İndirmeler</string>
     <string name="notification_channel_file_sync_description">Dosya eşitleme ilerlemesi ve sonuçlarını görüntüler</string>
@@ -597,6 +630,8 @@
     <string name="notification_channel_general_name">Genel bildirimler</string>
     <string name="notification_channel_media_description">Müzik çalar ilerlemesi</string>
     <string name="notification_channel_media_name">Ortam oynatıcı</string>
+    <string name="notification_channel_offline_operations_description">Çevrim dışı dosya işlemlerinin ilerlemesini görüntüler</string>
+    <string name="notification_channel_offline_operations_name_short">Çevrim dışı işlemler</string>
     <string name="notification_channel_push_description">Yorumlarda anılmanız, yeni bir uzak paylaşım almanız ya da bir yönetici tarafından bir duyuru yapıması gibi durumlarda sunucu tarafından gönderilen anında bildirimler görüntülenir.</string>
     <string name="notification_channel_push_name">Anında bildirimler</string>
     <string name="notification_channel_upload_description">Yükleme ilerlemesini görüntüler</string>
@@ -611,8 +646,12 @@
     <string name="offline_mode_info_description">İnternet bağlantınız olmasa bile klasörlerinizi düzenleyebilir, dosyalar oluşturabilirsiniz. Yeniden çevrim içi olduğunuzda, bekleyen işlemleriniz otomatik olarak eşitlenir.</string>
     <string name="offline_mode_info_title">Çevrim dışınız ancak çalışma sürüyor</string>
     <string name="offline_operations_file_does_not_exists_yet">Dosya bulunamadı. Önce lütfen dosyayı yükleyin.</string>
+    <string name="offline_operations_worker_notification_create_file_conflict_text">%s oluşturulamadı. Sunucuda aynı adlı bir dosya var.</string>
+    <string name="offline_operations_worker_notification_create_folder_conflict_text">%s oluşturulamadı. Sunucuda aynı adlı bir klasör var.</string>
     <string name="offline_operations_worker_notification_error_text">Çevrim dışı işlem tamamlanamadı. %s</string>
     <string name="offline_operations_worker_notification_manager_ticker">Çevrim dışı işlemler</string>
+    <string name="offline_operations_worker_notification_remove_conflict_text">%s silinemedi. Sunucudaki dosya değiştirilmiş.</string>
+    <string name="offline_operations_worker_notification_rename_conflict_text">%s yeniden adlandırılamadı. Sunucuda aynı adlı bir dosya var.</string>
     <string name="offline_operations_worker_notification_start_text">Çevrim dışı işlemleri başlatılıyor</string>
     <string name="oneHour">1 saat</string>
     <string name="online">Çevrim içi</string>
@@ -638,11 +677,6 @@
     <string name="picture_set_as_no_app">Görselin ayarlanabileceği bir uygulama bulunamadı</string>
     <string name="pin_home">Ana sayfaya sabitle</string>
     <string name="pin_shortcut_label">%1$s aç</string>
-    <string name="placeholder_fileSize">389 KB</string>
-    <string name="placeholder_filename">yerbelirleyici.txt</string>
-    <string name="placeholder_media_time">12:23:45</string>
-    <string name="placeholder_sentence">Bu bir yer belirleyicidir</string>
-    <string name="placeholder_timestamp">2012/05/18 12:23 ÖS</string>
     <string name="player_stop">durdur</string>
     <string name="player_toggle">değiştir</string>
     <string name="please_select_a_server">Lütfen bir sunucu seçin…</string>
@@ -664,6 +698,7 @@
     <string name="prefs_category_about">Hakkında</string>
     <string name="prefs_category_details">Ayrıntılar</string>
     <string name="prefs_category_dev">Geliştirici</string>
+    <string name="prefs_category_files">Dosyalar</string>
     <string name="prefs_category_general">Genel</string>
     <string name="prefs_category_more">Daha fazla</string>
     <string name="prefs_category_sync">Eşitle</string>
@@ -719,11 +754,9 @@
     <string name="preview_image_error_no_local_file">Ön izlenebilecek bir yerel dosya yok</string>
     <string name="preview_image_error_unknown_format">Görsel görüntülenemedi</string>
     <string name="preview_image_file_is_not_downloaded">Dosya indirilmedi</string>
-    <string name="preview_image_file_is_not_exist">Dosya bulunamadı</string>
     <string name="preview_media_unhandled_http_code_message">Dosya şu anda başka bir kullanıcı veya işlem tarafından kilitlenmiş olduğundan silinemez. Lütfen bir süre sonra yeniden deneyin.</string>
     <string name="preview_sorry">Ne yazık ki</string>
     <string name="privacy">Gizlilik</string>
-    <string name="public_share_name">Yeni ad</string>
     <string name="push_notifications_not_implemented">Anında bildirimler Google Play hizmetlerine olan bağımlılıklar nedeniyle kapatıldı.</string>
     <string name="push_notifications_old_login">Oturumunuzun süresi dolduğundan anında bildirimler gönderilemez. Lütfen hesabınızı yeniden eklemeyi düşünün.</string>
     <string name="push_notifications_temp_error">Anında bildirimler şu anda kullanılamıyor.</string>
@@ -789,10 +822,10 @@
     <string name="server_not_reachable_content">Bu aygıtın internet bağlantısı yok gibi görünüyor</string>
     <string name="set_as">Farklı ayarla</string>
     <string name="set_download_limit_failed">İndirme sınırı ayarlanamadı. Lütfen yetenekleri denetleyin.</string>
+    <string name="set_message">İletiyi ayarla</string>
     <string name="set_note">Notu ayarla</string>
+    <string name="set_online_status">Çevrim içi durumu</string>
     <string name="set_picture_as">Görsel şunun için kullanılsın</string>
-    <string name="set_status">Durumu ayarla</string>
-    <string name="set_status_message">Durum iletisini ayarla</string>
     <string name="setup_e2e">Uçtan uca şifrelemenin kurulumu sırasında, dosyalarınızı diğer aygıtlarda açabilmeniz için rastgele 12 sözcükten oluşan bir parola alacaksınız. Bu parola yalnızca bu aygıta kaydedilir ve bu sayfadan yeniden görülebilir. Lütfen güvenli bir yere not edin!</string>
     <string name="share">Paylaş</string>
     <string name="share_allow_download_and_sync_permission">İndirmeye izin ver ve eşitle</string>
@@ -857,6 +890,8 @@
     <string name="signup_with_provider">Hizmet sağlayıcı ile hesap aç</string>
     <string name="single_sign_on_request_token" formatted="true">%1$s, %2$s Nextcloud hesabınıza erişebilsin mi?</string>
     <string name="sort_by">Sıralama</string>
+    <string name="sort_favorites_first">Sık kullanılanlar üstte sıralansın</string>
+    <string name="sort_folders_before_files">Klasörler dosyaların üzerinde sıralansın</string>
     <string name="ssl_validator_btn_details_hide">Gizle</string>
     <string name="ssl_validator_btn_details_see">Ayrıntılar</string>
     <string name="ssl_validator_header">Sunucunun kimliği doğrulanamadı</string>
@@ -967,6 +1002,7 @@
     <string name="unified_search_fragment_calendar_event_not_found">Etkinlik bulunamadı, güncellemek için eşitleyebilirsiniz. İnternet üzerine yönlendiriliyor…</string>
     <string name="unified_search_fragment_contact_not_found">Kişi bulunamadı, güncellemek için eşitleyebilirsiniz. İnternet üzerine yönlendiriliyor…</string>
     <string name="unified_search_fragment_permission_needed">Arama sonuçlarını açmak için izinler gereklidir. Yoksa İnternet üzerine yönlendirilir…</string>
+    <string name="unified_search_fragment_search_in_this_folder">Bu klasör içindeki</string>
     <string name="unknown">Bilinmiyor</string>
     <string name="unlock_file">Dosyanın kilidini aç</string>
     <string name="unread_comments">Okunmamış yorumlar var</string>
@@ -1000,7 +1036,7 @@
     <string name="upload_file_dialog_filetype">Dosya türü</string>
     <string name="upload_file_dialog_filetype_googlemap_shortcut">Google haritalar kısayol dosyası(%s)</string>
     <string name="upload_file_dialog_filetype_internet_shortcut">İnternet kısayol dosyası(%s)</string>
-    <string name="upload_file_dialog_filetype_snippet_text">Kod parçası metin dosyası(.txt)</string>
+    <string name="upload_file_dialog_filetype_snippet_text">Kod parçası yazı dosyası(.txt)</string>
     <string name="upload_file_dialog_title">Yüklenecek dosya adını ve dosya türünü belirtin</string>
     <string name="upload_files">Dosyaları yükle</string>
     <string name="upload_global_pause_title">Tüm yüklemeler duraklatıldı</string>
@@ -1015,6 +1051,10 @@
     <string name="upload_local_storage_not_copied">Dosya yerel depolamaya kopyalanamadı</string>
     <string name="upload_lock_failed">Klasör kilitlenemedi</string>
     <string name="upload_manually_cancelled">Kullanıcı yüklemeyi iptal etti</string>
+    <string name="upload_missing_storage_permission_allow_file_access">Tüm dosyalara erişmeye izin ver</string>
+    <string name="upload_missing_storage_permission_app_permissions">Uygulama izinleri</string>
+    <string name="upload_missing_storage_permission_description">Yerel depolama alanına erişme izni olmadan dosyalarınız yüklenemez. İzin vermek için dokunun.</string>
+    <string name="upload_missing_storage_permission_title">Yükleme durdu. Depolama alanına erişme izni gerekli</string>
     <string name="upload_notification_manager_start_text">%1$d / %2$d - %3$s</string>
     <string name="upload_old_android">Şifreleme yalnızca >=Android 5.0 üzerinde kullanılabilir </string>
     <string name="upload_query_move_foreign_files">Seçilmiş dosyaları %1$s klasörüne kopyalamak için yeterli boş alan yok. Bu dosyaları kopyalamak yerine taşımak ister misiniz?</string>

@@ -570,11 +570,7 @@ public class ContactOperations {
                 continue;
             }
 
-            List<T> groupPropertiesList = groupedProperties.get(group);
-            if (groupPropertiesList == null) {
-                groupPropertiesList = new ArrayList<>();
-                groupedProperties.put(group, groupPropertiesList);
-            }
+            List<T> groupPropertiesList = groupedProperties.computeIfAbsent(group, k -> new ArrayList<>());
             groupPropertiesList.add(property);
         }
 

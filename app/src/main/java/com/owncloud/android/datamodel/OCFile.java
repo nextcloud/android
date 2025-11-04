@@ -21,6 +21,7 @@ import android.os.Parcelable;
 import android.text.TextUtils;
 
 import com.nextcloud.utils.BuildHelper;
+import com.nextcloud.utils.extensions.StringExtensionsKt;
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.network.WebdavEntry;
 import com.owncloud.android.lib.common.utils.Log_OC;
@@ -127,6 +128,11 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
     private List<Tag> tags = new ArrayList<>();
     private Long internalFolderSyncTimestamp = -1L;
     private String internalFolderSyncResult = "";
+
+    // region Recommend files variables
+    private boolean recommendedFile = false;
+    private String reason = "";
+    // endregion
 
     /**
      * URI to the local path of the file contents, if stored in the device; cached after first call to
@@ -573,7 +579,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
 
     @Override
     public int hashCode() {
-        return 31 * (int) (fileId ^ (fileId >>> 32)) + (int) (parentId ^ (parentId >>> 32));
+        return Objects.hash(fileId,parentId);
     }
 
     @NonNull
@@ -674,7 +680,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
      * @return true if the user is allowed to either delete or leave the share; false otherwise.
      */
     public boolean canDeleteOrLeaveShare() {
-        return !encrypted && hasPermission(PERMISSION_CAN_DELETE_OR_LEAVE_SHARE);
+        return hasPermission(PERMISSION_CAN_DELETE_OR_LEAVE_SHARE);
     }
 
     public boolean canRename() {
@@ -787,6 +793,10 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
 
     public String getEtagOnServer() {
         return this.etagOnServer;
+    }
+
+    public boolean isEtagChanged() {
+        return !StringExtensionsKt.isNotBlankAndEquals(getEtag(), getEtagOnServer());
     }
 
     public boolean isSharedViaLink() {
@@ -1093,11 +1103,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
     }
 
     public void setE2eCounter(@Nullable Long e2eCounter) {
-        if (e2eCounter == null) {
-            this.e2eCounter = -1;
-        } else {
-            this.e2eCounter = e2eCounter;
-        }
+        this.e2eCounter = Objects.requireNonNullElse(e2eCounter, -1L);
     }
 
     public boolean isInternalFolderSync() {
@@ -1138,5 +1144,26 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
 
     public void setUploadTimestamp(long uploadTimestamp) {
         this.uploadTimestamp = uploadTimestamp;
+    }
+
+    public boolean exists() {
+        final String storagePath = getStoragePath();
+        return storagePath != null && new File(storagePath).exists();
+    }
+
+    public void setReason(String value) {
+        reason = value;
+    }
+
+    public String getReason() {
+        return reason;
+    }
+
+    public void setIsRecommendedFile(boolean value) {
+        recommendedFile = value;
+    }
+
+    public boolean isRecommendedFile() {
+        return recommendedFile;
     }
 }

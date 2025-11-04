@@ -17,13 +17,17 @@ import androidx.work.WorkerFactory
 import androidx.work.WorkerParameters
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.core.Clock
-import com.nextcloud.client.device.DeviceInfo
+import com.nextcloud.client.database.NextcloudDatabase
 import com.nextcloud.client.device.PowerManagementService
 import com.nextcloud.client.documentscan.GeneratePDFUseCase
 import com.nextcloud.client.documentscan.GeneratePdfFromImagesWork
 import com.nextcloud.client.integrations.deck.DeckApi
+import com.nextcloud.client.jobs.autoUpload.AutoUploadWorker
+import com.nextcloud.client.jobs.autoUpload.FileSystemRepository
 import com.nextcloud.client.jobs.download.FileDownloadWorker
+import com.nextcloud.client.jobs.metadata.MetadataWorker
 import com.nextcloud.client.jobs.offlineOperations.OfflineOperationsWorker
+import com.nextcloud.client.jobs.folderDownload.FolderDownloadWorker
 import com.nextcloud.client.jobs.upload.FileUploadWorker
 import com.nextcloud.client.logger.Logger
 import com.nextcloud.client.network.ConnectivityService
@@ -49,7 +53,6 @@ class BackgroundJobFactory @Inject constructor(
     private val clock: Clock,
     private val powerManagementService: PowerManagementService,
     private val backgroundJobManager: Provider<BackgroundJobManager>,
-    private val deviceInfo: DeviceInfo,
     private val accountManager: UserAccountManager,
     private val resources: Resources,
     private val arbitraryDataProvider: ArbitraryDataProvider,
@@ -61,7 +64,8 @@ class BackgroundJobFactory @Inject constructor(
     private val viewThemeUtils: Provider<ViewThemeUtils>,
     private val localBroadcastManager: Provider<LocalBroadcastManager>,
     private val generatePdfUseCase: GeneratePDFUseCase,
-    private val syncedFolderProvider: SyncedFolderProvider
+    private val syncedFolderProvider: SyncedFolderProvider,
+    private val database: NextcloudDatabase
 ) : WorkerFactory() {
 
     @SuppressLint("NewApi")
@@ -83,7 +87,7 @@ class BackgroundJobFactory @Inject constructor(
             when (workerClass) {
                 ContactsBackupWork::class -> createContactsBackupWork(context, workerParameters)
                 ContactsImportWork::class -> createContactsImportWork(context, workerParameters)
-                FilesSyncWork::class -> createFilesSyncWork(context, workerParameters)
+                AutoUploadWorker::class -> createFilesSyncWork(context, workerParameters)
                 OfflineSyncWork::class -> createOfflineSyncWork(context, workerParameters)
                 MediaFoldersDetectionWork::class -> createMediaFoldersDetectionWork(context, workerParameters)
                 NotificationWork::class -> createNotificationWork(context, workerParameters)
@@ -98,6 +102,8 @@ class BackgroundJobFactory @Inject constructor(
                 TestJob::class -> createTestJob(context, workerParameters)
                 OfflineOperationsWorker::class -> createOfflineOperationsWorker(context, workerParameters)
                 InternalTwoWaySyncWork::class -> createInternalTwoWaySyncWork(context, workerParameters)
+                MetadataWorker::class -> createMetadataWorker(context, workerParameters)
+                FolderDownloadWorker::class -> createFolderDownloadWorker(context, workerParameters)
                 else -> null // caller falls back to default factory
             }
         }
@@ -164,16 +170,16 @@ class BackgroundJobFactory @Inject constructor(
             contentResolver
         )
 
-    private fun createFilesSyncWork(context: Context, params: WorkerParameters): FilesSyncWork = FilesSyncWork(
+    private fun createFilesSyncWork(context: Context, params: WorkerParameters): AutoUploadWorker = AutoUploadWorker(
         context = context,
         params = params,
-        contentResolver = contentResolver,
         userAccountManager = accountManager,
         uploadsStorageManager = uploadsStorageManager,
         connectivityService = connectivityService,
         powerManagementService = powerManagementService,
         syncedFolderProvider = syncedFolderProvider,
-        backgroundJobManager = backgroundJobManager.get()
+        backgroundJobManager = backgroundJobManager.get(),
+        repository = FileSystemRepository(dao = database.fileSystemDao())
     )
 
     private fun createOfflineSyncWork(context: Context, params: WorkerParameters): OfflineSyncWork = OfflineSyncWork(
@@ -276,5 +282,19 @@ class BackgroundJobFactory @Inject constructor(
             powerManagementService,
             connectivityService,
             preferences
+        )
+
+    private fun createMetadataWorker(context: Context, params: WorkerParameters): MetadataWorker = MetadataWorker(
+        context,
+        params,
+        accountManager.user
+    )
+
+    private fun createFolderDownloadWorker(context: Context, params: WorkerParameters): FolderDownloadWorker =
+        FolderDownloadWorker(
+            accountManager,
+            context,
+            viewThemeUtils.get(),
+            params
         )
 }

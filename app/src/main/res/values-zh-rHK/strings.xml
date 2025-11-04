@@ -43,6 +43,7 @@
     <string name="app_config_proxy_port_title">proxy代理伺服器連接埠</string>
     <string name="app_widget_description">顯示儀表板中的一個小部件</string>
     <string name="appbar_search_in">%s內搜尋</string>
+    <string name="appear_offline">顯示為離線</string>
     <string name="assistant_screen_add_task_alert_dialog_title">添加新任務</string>
     <string name="assistant_screen_create_a_new_task_from_bottom_right_text">從右下角創建新任務</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">輸入一些文字</string>
@@ -92,12 +93,19 @@
     <string name="auth_unsupported_multiaccount">%1$s 不支援多個帳戶</string>
     <string name="auth_wrong_connection_title">無法建立連線</string>
     <string name="authenticator_activity_cancel_login">取消登入</string>
+    <string name="authenticator_activity_empty_base_url">請輸入有效的伺服器地址。</string>
+    <string name="authenticator_activity_empty_response_message">無法擷取登入詳細信息。請再試一次。</string>
     <string name="authenticator_activity_login_error">處理您的登入請求時出現問題。請稍後再試。</string>
+    <string name="authenticator_activity_no_web_browser_found">沒有瀏覽器可以開啟此連結。</string>
     <string name="authenticator_activity_please_complete_login_process">請在瀏覽器中完成登入流程</string>
+    <string name="auto_upload_battery_saver_mode_warning">因為省電模式已開啟，因此暫停自動上傳。</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">以唯讀模式保留在原本的資料夾</string>
+    <string name="auto_upload_low_battery_warning_info">低電量，上傳可能會需要較長時間</string>
     <string name="auto_upload_on_wifi">僅在未計量的Wi-Fi上傳</string>
     <string name="auto_upload_path">自動上傳</string>
     <string name="auto_upload_sub_folder_warning">此資料夾已包含在父資料夾的同步中，這可能會導致重複上傳</string>
+    <string name="auto_upload_wifi_only_warning_info">等待 Wi-Fi 開始上傳</string>
+    <string name="auto_upload_worker_start_text">從 %s 上傳檔案至 %s</string>
     <string name="autoupload_configure">設定</string>
     <string name="autoupload_create_new_custom_folder">新增自訂資料夾</string>
     <string name="autoupload_custom_folder">設定自訂資料夾</string>
@@ -115,6 +123,7 @@
     <string name="bottom_navigation_menu_favorites_label">最愛</string>
     <string name="bottom_navigation_menu_files_label">所有檔案</string>
     <string name="bottom_navigation_menu_media_label">媒體</string>
+    <string name="busy">忙碌</string>
     <string name="calendar">日曆</string>
     <string name="calendars">日曆</string>
     <string name="certificate_load_problem">憑證載入時發生問題</string>
@@ -126,9 +135,9 @@
     <string name="choose_template_helper_text">請選擇一個模板，然後輸入檔案名。</string>
     <string name="choose_which_file">選擇要保留哪個檔案！</string>
     <string name="choose_widget">選擇小部件</string>
+    <string name="clear">清除</string>
     <string name="clear_notifications_failed">清空通知訊息失敗</string>
-    <string name="clear_status_message">清空狀態列訊息</string>
-    <string name="clear_status_message_after">繼此之後清空狀態訊息</string>
+    <string name="clear_status_after">繼此之後清空狀態</string>
     <string name="clipboard_label">文字已由 %1$s 複製</string>
     <string name="clipboard_no_text_to_copy">無任何文字複製到剪貼板。</string>
     <string name="clipboard_text_copied">連結已複製</string>
@@ -143,7 +152,7 @@
     <string name="common_error">錯誤</string>
     <string name="common_error_out_memory">記憶體不足</string>
     <string name="common_error_unknown">錯誤不詳</string>
-    <string name="common_leave_this_share">保留該共用</string>
+    <string name="common_leave_this_share">保留此共用</string>
     <string name="common_loading">載入中…</string>
     <string name="common_next">下一</string>
     <string name="common_no">否</string>
@@ -200,6 +209,7 @@
     <string name="contacts_preferences_import_scheduled_fail">匯入無法開始。請再試一次</string>
     <string name="contacts_preferences_no_file_found">無檔案</string>
     <string name="contacts_preferences_something_strange_happened">找不到您最新的備份</string>
+    <string name="content_observer_work_notification_title">偵測內容變更</string>
     <string name="copied_to_clipboard">已複製到剪貼板</string>
     <string name="copy_file_error">嘗試複製檔案或資料夾時發生錯誤</string>
     <string name="copy_file_invalid_into_descendent">無法將資料夾複製到自己的子資料夾中。</string>
@@ -247,6 +257,13 @@
     <string name="document_scan_export_dialog_title">選擇導出類型</string>
     <string name="document_scan_pdf_generation_failed">PDF 産生失敗</string>
     <string name="document_scan_pdf_generation_in_progress">正在產生 PDF …</string>
+    <string name="document_storage_provider_cannot_create_file_and_folder">無法在此建立項目：缺少建立權限。</string>
+    <string name="document_storage_provider_cannot_create_file_inside_folder">無法建立檔案：缺少權限。</string>
+    <string name="document_storage_provider_cannot_create_folder_inside_folder">無法建立資料夾：缺少權限。</string>
+    <string name="document_storage_provider_cannot_delete">無法刪除項目：缺少刪除權限。</string>
+    <string name="document_storage_provider_cannot_move">無法移動項目：缺少移動權限。</string>
+    <string name="document_storage_provider_cannot_read">無法開啟項目：缺少讀取權限。</string>
+    <string name="document_storage_provider_cannot_rename">無法重新命名項目：缺少重新命名權限。</string>
     <string name="done">完成</string>
     <string name="dontClear">不要清空</string>
     <string name="download_cannot_create_file">無法建立近端檔案</string>
@@ -333,6 +350,7 @@
     <string name="error_report_issue_text">想舉報問題？（需要GitHub帳戶）</string>
     <string name="error_retrieving_file">檢索檔案時發生錯誤</string>
     <string name="error_retrieving_templates">取得範本時發生錯誤</string>
+    <string name="error_setting_status_message">設定狀態訊息時發生錯誤！</string>
     <string name="error_showing_encryption_dialog">顯示加密設定對話方塊時發生錯誤！</string>
     <string name="error_starting_direct_camera_upload">無法啟動相機</string>
     <string name="error_starting_doc_scan">文件掃描開始時出錯</string>
@@ -361,6 +379,7 @@
     <string name="etm_transfer_type">轉移</string>
     <string name="etm_transfer_type_download">下載</string>
     <string name="etm_transfer_type_upload">上傳</string>
+    <string name="extented_list_fragment_empty_list_message_no_write_permission">您無權在此資料夾建立或上傳檔案。</string>
     <string name="external_shares">外部分享</string>
     <string name="fab_label">新增或上傳</string>
     <string name="failed_to_download">無法下載</string>
@@ -439,7 +458,9 @@
     <string name="file_not_found_cannot_share">找不到檔案。無法創建分享。</string>
     <string name="file_not_synced">檔案不能同步，將顯示最新可用版本。</string>
     <string name="file_rename">重新命名</string>
+    <string name="file_upload_limit_message">您一次最多可以上傳 %d 個檔案。</string>
     <string name="file_upload_worker_error_notification_title">上傳失敗。沒有互聯網連接</string>
+    <string name="file_upload_worker_same_file_already_exists">%s 已存在，未偵測到衝突</string>
     <string name="file_version_restored_error">還原檔案版本失敗！</string>
     <string name="file_version_restored_successfully">成功地還原檔案版本。</string>
     <string name="filedetails_details">細節</string>
@@ -459,6 +480,11 @@
     <string name="folder_already_exists">資料夾已存在</string>
     <string name="folder_best_viewed_in">此資料夾在 %1$s 中顯示效果最佳。</string>
     <string name="folder_confirm_create">建立</string>
+    <string name="folder_download_counter">%1$d / %2$d &#183; %3$s</string>
+    <string name="folder_download_error_notification_title">同步 %s 資料夾時發生錯誤</string>
+    <string name="folder_download_insufficient_disk_space_notification_title">磁碟空間不足，已取消同步</string>
+    <string name="folder_download_success_notification_title">已成功同步 %s 資料夾</string>
+    <string name="folder_download_worker_ticker_id">同步中 ...</string>
     <string name="folder_list_empty_headline">這裡沒有資料夾</string>
     <string name="folder_name_empty">資料夾名稱不能為空</string>
     <string name="folder_picker_choose_button_text">選擇</string>
@@ -516,6 +542,7 @@
     <string name="last_backup">上次備份：%1$s</string>
     <string name="link">連結</string>
     <string name="link_name">連結名稱</string>
+    <string name="link_not_followed_due_to_security_settings">因為安全性設定的關係，因此無法遵循連結</string>
     <string name="link_share_editing">编辑</string>
     <string name="list_layout">清單顯示</string>
     <string name="load_more_results">正在載入更多結果</string>
@@ -545,7 +572,6 @@
     <string name="manage_space_clear_data">清除資料</string>
     <string name="manage_space_description">來自%1$s的設定，數據庫與伺服器憑證相關資料將被永久刪除，已下載的檔案將不會變動，此過程需要花費一些時間。</string>
     <string name="manage_space_title">管理空間</string>
-    <string name="max_file_count_warning_message">您已達最大檔案上傳限制。一次上傳僅能上傳少於 500 個檔案。</string>
     <string name="media_err_invalid_progressive_playback">此媒體檔案無法被串流播放</string>
     <string name="media_err_io">無法讀取媒體檔案</string>
     <string name="media_err_malformed">媒體檔案未被正確的編碼</string>
@@ -568,6 +594,7 @@
     <string name="move_file_invalid_into_descendent">無法將資料夾移動到自己的子資料夾中。</string>
     <string name="move_file_invalid_overwrite">此檔案目前已存在於目標資料夾中。</string>
     <string name="move_file_not_found">無法移動檔案。請確認它是否存在。</string>
+    <string name="mute_all_notifications">所有通知靜音</string>
     <string name="network_error_connect_timeout_exception">等候連接伺服器錯誤。無法完成作業。</string>
     <string name="network_error_socket_exception">連接至伺服器時發生錯誤</string>
     <string name="network_error_socket_timeout_exception">等候連接伺服器錯誤。無法完成作業。</string>
@@ -593,6 +620,8 @@
     <string name="notification_action_failed">無法執行操作。</string>
     <string name="notification_channel_background_operations_description">顯示通知以與背景操作的結果互動</string>
     <string name="notification_channel_background_operations_name">背景操作</string>
+    <string name="notification_channel_content_observer_description">偵測近端檔案變更</string>
+    <string name="notification_channel_content_observer_name_short">內容觀察器</string>
     <string name="notification_channel_download_description">顯示下載進度</string>
     <string name="notification_channel_download_name_short">下載</string>
     <string name="notification_channel_file_sync_description">顯示檔案同步進度和結果</string>
@@ -601,6 +630,8 @@
     <string name="notification_channel_general_name">一般通知</string>
     <string name="notification_channel_media_description">媒體播放器進度</string>
     <string name="notification_channel_media_name">媒體播放器</string>
+    <string name="notification_channel_offline_operations_description">顯示離線檔案操作的進度</string>
+    <string name="notification_channel_offline_operations_name_short">離線操作</string>
     <string name="notification_channel_push_description">顯示伺服器發送的推送通知：評論中的提及，接收新的遠端分享，管理員發佈的公告等。</string>
     <string name="notification_channel_push_name">推送通知</string>
     <string name="notification_channel_upload_description">顯示上傳進度</string>
@@ -646,11 +677,6 @@
     <string name="picture_set_as_no_app">沒有找到編輯圖片的應用程式</string>
     <string name="pin_home">釘選至主畫面</string>
     <string name="pin_shortcut_label">公開 %1$s</string>
-    <string name="placeholder_fileSize">389 KB</string>
-    <string name="placeholder_filename">placeholder.txt</string>
-    <string name="placeholder_media_time">12：23：45</string>
-    <string name="placeholder_sentence">這是佔位內容</string>
-    <string name="placeholder_timestamp">2012/05/18 12：23 PM</string>
     <string name="player_stop">停止</string>
     <string name="player_toggle">切換</string>
     <string name="please_select_a_server">請選擇伺服器 ...</string>
@@ -672,6 +698,7 @@
     <string name="prefs_category_about">關於</string>
     <string name="prefs_category_details">詳細資料</string>
     <string name="prefs_category_dev">開發版</string>
+    <string name="prefs_category_files">檔案</string>
     <string name="prefs_category_general">一般</string>
     <string name="prefs_category_more">更多</string>
     <string name="prefs_category_sync">同步</string>
@@ -727,11 +754,9 @@
     <string name="preview_image_error_no_local_file">沒有可供預覽的近端檔案</string>
     <string name="preview_image_error_unknown_format">無法顯示圖像</string>
     <string name="preview_image_file_is_not_downloaded">檔案未下載</string>
-    <string name="preview_image_file_is_not_exist">檔案不存在</string>
     <string name="preview_media_unhandled_http_code_message">檔案目前已被其他用戶或進程鎖定，因此無法刪除。 請稍後再試。</string>
     <string name="preview_sorry">很抱歉</string>
     <string name="privacy">私隱政策</string>
-    <string name="public_share_name">新名稱</string>
     <string name="push_notifications_not_implemented">由於依賴專有的Google Play服務，推送通知已停用。</string>
     <string name="push_notifications_old_login">由於登入已過期，因此沒有推送通知。請考慮重新添加您的帳戶。</string>
     <string name="push_notifications_temp_error">推送通知目前無法使用。</string>
@@ -797,10 +822,10 @@
     <string name="server_not_reachable_content">裝置似乎無法連線至互聯網</string>
     <string name="set_as">設定為</string>
     <string name="set_download_limit_failed">無法設置下載限制。請檢查功能設置。</string>
+    <string name="set_message">設置訊息</string>
     <string name="set_note">設定備註</string>
+    <string name="set_online_status">線上狀態</string>
     <string name="set_picture_as">使用圖片作為</string>
-    <string name="set_status">設定狀態</string>
-    <string name="set_status_message">設定狀態訊息</string>
     <string name="setup_e2e">在設置端到端加密期間，您將收到一個隨機的 12 字助記碼，您需要在其他設備上打開檔案。這將僅存儲在此設備上，並且可以在此螢幕中再次顯示。請記在安全的地方！</string>
     <string name="share">分享</string>
     <string name="share_allow_download_and_sync_permission">允許下載及同步</string>
@@ -865,6 +890,8 @@
     <string name="signup_with_provider">使用第三方登入</string>
     <string name="single_sign_on_request_token" formatted="true">允許 %1$s 存取您的 Nextcloud 帳戶 %2$s？</string>
     <string name="sort_by">排序方式</string>
+    <string name="sort_favorites_first">先排序最愛</string>
+    <string name="sort_folders_before_files">將資料夾在檔案之前排序</string>
     <string name="ssl_validator_btn_details_hide">隱藏</string>
     <string name="ssl_validator_btn_details_see">細節</string>
     <string name="ssl_validator_header">無法驗證伺服器身分</string>
@@ -975,6 +1002,7 @@
     <string name="unified_search_fragment_calendar_event_not_found">找不到活動，您隨時可以同步更新。正在重新導向至網路 …</string>
     <string name="unified_search_fragment_contact_not_found">找不到聯絡人，您隨時可以同步更新。正在重新導向至網路 …</string>
     <string name="unified_search_fragment_permission_needed">開啟搜尋結果需要權限，否則其將會重新導向至網路 …</string>
+    <string name="unified_search_fragment_search_in_this_folder">在此資料夾</string>
     <string name="unknown">不詳</string>
     <string name="unlock_file">解鎖檔案</string>
     <string name="unread_comments">有未讀留言</string>
@@ -1023,6 +1051,10 @@
     <string name="upload_local_storage_not_copied">無法複製檔案到近端資料夾</string>
     <string name="upload_lock_failed">鎖定資料夾失敗</string>
     <string name="upload_manually_cancelled">用戶已取消上傳</string>
+    <string name="upload_missing_storage_permission_allow_file_access">允許所有檔案存取</string>
+    <string name="upload_missing_storage_permission_app_permissions">應用程式權限</string>
+    <string name="upload_missing_storage_permission_description">您的檔案無法上傳，因為沒有訪問本地存儲的權限。請點擊以授予權限。</string>
+    <string name="upload_missing_storage_permission_title">上傳已停止 – 需要儲存權限</string>
     <string name="upload_notification_manager_start_text">%1$d / %2$d - %3$s</string>
     <string name="upload_old_android">加密功能只適用於 Android 5.0 及以上版本</string>
     <string name="upload_query_move_foreign_files">空間不足導致無法將所選檔案複製到 %1$s 資料夾中。您想改為將檔案移到那裡嗎？</string>

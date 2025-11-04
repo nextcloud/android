@@ -43,6 +43,7 @@
     <string name="app_config_proxy_port_title">代理端口</string>
     <string name="app_widget_description">显示仪表盘中的一个小部件</string>
     <string name="appbar_search_in">在 %s 中搜索</string>
+    <string name="appear_offline">显示为离线</string>
     <string name="assistant_screen_add_task_alert_dialog_title">添加新任务</string>
     <string name="assistant_screen_create_a_new_task_from_bottom_right_text">从右下角创建新任务</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">输入一些文字</string>
@@ -92,12 +93,19 @@
     <string name="auth_unsupported_multiaccount">%1$s 不支持多个账号</string>
     <string name="auth_wrong_connection_title">无法建立连接</string>
     <string name="authenticator_activity_cancel_login">取消登录</string>
-    <string name="authenticator_activity_login_error">处理你的登录请求时出现问题。请稍后再试。</string>
+    <string name="authenticator_activity_empty_base_url">请输入有效的服务器地址。</string>
+    <string name="authenticator_activity_empty_response_message">无法获取登录详情。请重试。</string>
+    <string name="authenticator_activity_login_error">处理您的登录请求时出现问题。请稍后重试。</string>
+    <string name="authenticator_activity_no_web_browser_found">没有浏览器可以打开此链接。</string>
     <string name="authenticator_activity_please_complete_login_process">请在浏览器中完成登录流程</string>
+    <string name="auto_upload_battery_saver_mode_warning">自动上传已暂停，因为省电模式已开启。</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">保持为原始的文件夹，即使它是只读的</string>
+    <string name="auto_upload_low_battery_warning_info">电池电量低，上传可能需要更长时间</string>
     <string name="auto_upload_on_wifi">仅通过无流量限制的 Wi-Fi 上传</string>
     <string name="auto_upload_path">/自动上传</string>
     <string name="auto_upload_sub_folder_warning">此文件夹已包含在上级文件夹的同步中，这可能会导致重复上传</string>
+    <string name="auto_upload_wifi_only_warning_info">正在等待 Wi-Fi 开始上传</string>
+    <string name="auto_upload_worker_start_text">正在将文件从 %s 上传到 %s</string>
     <string name="autoupload_configure">配置</string>
     <string name="autoupload_create_new_custom_folder">创建新的自定义文件夹设定</string>
     <string name="autoupload_custom_folder">设置一个自定义文件夹</string>
@@ -115,6 +123,7 @@
     <string name="bottom_navigation_menu_favorites_label">收藏</string>
     <string name="bottom_navigation_menu_files_label">全部文件</string>
     <string name="bottom_navigation_menu_media_label">媒体文件</string>
+    <string name="busy">忙碌</string>
     <string name="calendar">日历</string>
     <string name="calendars">日历</string>
     <string name="certificate_load_problem">加载证书失败。</string>
@@ -126,9 +135,9 @@
     <string name="choose_template_helper_text">请选择一个模板并输入一个文件名</string>
     <string name="choose_which_file">选择保留的文件！</string>
     <string name="choose_widget">选择小部件</string>
+    <string name="clear">清除</string>
     <string name="clear_notifications_failed">清除通知失败</string>
-    <string name="clear_status_message">清除状态消息</string>
-    <string name="clear_status_message_after">在多久后清除状态消息</string>
+    <string name="clear_status_after">清除状态于</string>
     <string name="clipboard_label">从%1$s复制文本</string>
     <string name="clipboard_no_text_to_copy">没有收到要复制到剪贴板的文本</string>
     <string name="clipboard_text_copied">已复制链接</string>
@@ -200,6 +209,7 @@
     <string name="contacts_preferences_import_scheduled_fail">导入无法开始。请重试</string>
     <string name="contacts_preferences_no_file_found">没有文件被发现</string>
     <string name="contacts_preferences_something_strange_happened">无法找到末次备份</string>
+    <string name="content_observer_work_notification_title">正在检测内容更改</string>
     <string name="copied_to_clipboard">复制到剪贴板</string>
     <string name="copy_file_error">尝试复制这个文件或文件夹时发生了错误</string>
     <string name="copy_file_invalid_into_descendent">将文件夹复制到其自己的底层文件夹中是不可能的</string>
@@ -340,6 +350,7 @@
     <string name="error_report_issue_text">是否向议题跟踪器报告问题？（需要GitHub账号）</string>
     <string name="error_retrieving_file">获取文件时遇到错误</string>
     <string name="error_retrieving_templates">检索模板时出错</string>
+    <string name="error_setting_status_message">设置状态消息时出错！</string>
     <string name="error_showing_encryption_dialog">显示设置加密对话框时出错！</string>
     <string name="error_starting_direct_camera_upload">开启相机时发生错误</string>
     <string name="error_starting_doc_scan">开始文档扫描时出错</string>
@@ -447,7 +458,9 @@
     <string name="file_not_found_cannot_share">未找到文件。无法创建共享。</string>
     <string name="file_not_synced">文件无法同步。显示最新的可用版本。</string>
     <string name="file_rename">重命名</string>
+    <string name="file_upload_limit_message">您一次最多可以上传 %d 个文件。</string>
     <string name="file_upload_worker_error_notification_title">上传失败，没有互联网连接</string>
+    <string name="file_upload_worker_same_file_already_exists">%s 已存在，未检测到冲突</string>
     <string name="file_version_restored_error">恢复文件版本时发生错误！</string>
     <string name="file_version_restored_successfully">成功恢复文件版本。</string>
     <string name="filedetails_details">详情</string>
@@ -467,6 +480,11 @@
     <string name="folder_already_exists">目录已经存在</string>
     <string name="folder_best_viewed_in">此文件夹最好在 %1$s 中查看。</string>
     <string name="folder_confirm_create">创建</string>
+    <string name="folder_download_counter">%1$d / %2$d &#183; %3$s</string>
+    <string name="folder_download_error_notification_title">同步 %s 文件夹时出错</string>
+    <string name="folder_download_insufficient_disk_space_notification_title">磁盘空间不足，同步已取消</string>
+    <string name="folder_download_success_notification_title">%s 文件夹已成功同步</string>
+    <string name="folder_download_worker_ticker_id">正在同步…</string>
     <string name="folder_list_empty_headline">这里没有文件夹</string>
     <string name="folder_name_empty">文件夹名称不能为空</string>
     <string name="folder_picker_choose_button_text">选择</string>
@@ -524,6 +542,7 @@
     <string name="last_backup">上次备份：%1$s</string>
     <string name="link">链接</string>
     <string name="link_name">链接名称</string>
+    <string name="link_not_followed_due_to_security_settings">由于安全设置，无法跟踪链接。</string>
     <string name="link_share_editing">编辑</string>
     <string name="list_layout">列出的布局</string>
     <string name="load_more_results">加载更多结果</string>
@@ -553,7 +572,6 @@
     <string name="manage_space_clear_data">清除数据</string>
     <string name="manage_space_description">来自%1$s数据的设置，数据库和服务器证书将被永久删除。\n\n下载的文件将保持不变。\n\n此过程可能需要一段时间。</string>
     <string name="manage_space_title">管理空间</string>
-    <string name="max_file_count_warning_message">你已达到文件上传数量限制，单次请勿超过500个文件。</string>
     <string name="media_err_invalid_progressive_playback">此媒体文件无法流播</string>
     <string name="media_err_io">无法读取媒体文件</string>
     <string name="media_err_malformed">媒体文件的编码不正确</string>
@@ -576,6 +594,7 @@
     <string name="move_file_invalid_into_descendent">不能将文件夹移动至其子文件夹中。</string>
     <string name="move_file_invalid_overwrite">该文件已存在于目标文件夹中</string>
     <string name="move_file_not_found">无法移动文件。 请检查该文件是否存在。</string>
+    <string name="mute_all_notifications">静音所有通知</string>
     <string name="network_error_connect_timeout_exception">等待服务器时发生错误。 无法完成操作。</string>
     <string name="network_error_socket_exception">连接到服务器时发生错误。</string>
     <string name="network_error_socket_timeout_exception">等待服务器时发生错误。 无法完成操作。</string>
@@ -601,6 +620,8 @@
     <string name="notification_action_failed">执行动作失败。</string>
     <string name="notification_channel_background_operations_description">显示通知以便与后台操作的结果交互</string>
     <string name="notification_channel_background_operations_name">后台操作</string>
+    <string name="notification_channel_content_observer_description">检测本地文件更改</string>
+    <string name="notification_channel_content_observer_name_short">内容观察器</string>
     <string name="notification_channel_download_description">显示下载进度</string>
     <string name="notification_channel_download_name_short">下载</string>
     <string name="notification_channel_file_sync_description">显示文件同步进度和结果</string>
@@ -609,6 +630,8 @@
     <string name="notification_channel_general_name">通用提醒</string>
     <string name="notification_channel_media_description">音乐播放器进度</string>
     <string name="notification_channel_media_name">多媒体播放器</string>
+    <string name="notification_channel_offline_operations_description">显示离线文件操作进度</string>
+    <string name="notification_channel_offline_operations_name_short">离线操作</string>
     <string name="notification_channel_push_description">显示服务端推送的通知，包括：在评论中被提及、收到新的远程共享、管理员发布的公告等</string>
     <string name="notification_channel_push_name">推送通知</string>
     <string name="notification_channel_upload_description">显示上传进度 </string>
@@ -654,11 +677,6 @@
     <string name="picture_set_as_no_app">找不到可以设置图片的应用程序</string>
     <string name="pin_home">固定到主屏幕</string>
     <string name="pin_shortcut_label">打开 1%1$s</string>
-    <string name="placeholder_fileSize">389 KB</string>
-    <string name="placeholder_filename">placeholder.txt</string>
-    <string name="placeholder_media_time">12:23:45</string>
-    <string name="placeholder_sentence">这是一个占位符</string>
-    <string name="placeholder_timestamp">2012/05/18 下午12:23 </string>
     <string name="player_stop">停止</string>
     <string name="player_toggle">切换</string>
     <string name="please_select_a_server">请选择服务器…</string>
@@ -680,6 +698,7 @@
     <string name="prefs_category_about">关于</string>
     <string name="prefs_category_details">详细信息</string>
     <string name="prefs_category_dev">开发</string>
+    <string name="prefs_category_files">文件</string>
     <string name="prefs_category_general">常规</string>
     <string name="prefs_category_more">更多</string>
     <string name="prefs_category_sync">同步</string>
@@ -735,11 +754,9 @@
     <string name="preview_image_error_no_local_file">没有可预览的本地文件</string>
     <string name="preview_image_error_unknown_format">无法显示图像</string>
     <string name="preview_image_file_is_not_downloaded">文件未下载</string>
-    <string name="preview_image_file_is_not_exist">文件不存在</string>
     <string name="preview_media_unhandled_http_code_message">文件当前被其他用户或进程锁定，因此无法删除。请稍后再试。</string>
     <string name="preview_sorry">抱歉</string>
     <string name="privacy">隐私</string>
-    <string name="public_share_name">新名称</string>
     <string name="push_notifications_not_implemented">由于依赖于专有的Google Play服务，推送通知被禁用。</string>
     <string name="push_notifications_old_login">由于登录会话已过期，因此没有推送通知。请考虑重新添加你的账号。</string>
     <string name="push_notifications_temp_error">推送通知目前不可用。</string>
@@ -805,10 +822,10 @@
     <string name="server_not_reachable_content">设备可能未连接到互联网</string>
     <string name="set_as">设置</string>
     <string name="set_download_limit_failed">无法设置下载限制。请检查功能。</string>
+    <string name="set_message">设置消息</string>
     <string name="set_note">设置备注</string>
+    <string name="set_online_status">在线状态</string>
     <string name="set_picture_as">将图片用作</string>
-    <string name="set_status">设定状态</string>
-    <string name="set_status_message">设置状态消息</string>
     <string name="setup_e2e">在端对端加密期间，你将接收一个随机12字助记字串，您需要这个字符串才能在其它设备上开放您的文件。这将只会存储在该设备上，并可以在此画面中再次展示。请记在安全的地方！</string>
     <string name="share">共享</string>
     <string name="share_allow_download_and_sync_permission">允许下载和同步</string>
@@ -873,6 +890,8 @@
     <string name="signup_with_provider">与提供商签约</string>
     <string name="single_sign_on_request_token" formatted="true">是否允许%1$s访问您的 Nextcloud 账号%2$s？</string>
     <string name="sort_by">排序方式</string>
+    <string name="sort_favorites_first">收藏排序优先</string>
+    <string name="sort_folders_before_files">将文件夹排在文件前面</string>
     <string name="ssl_validator_btn_details_hide">隐藏</string>
     <string name="ssl_validator_btn_details_see">详情</string>
     <string name="ssl_validator_header">无法验证服务器身份</string>
@@ -986,6 +1005,7 @@
     <string name="unified_search_fragment_calendar_event_not_found">未找到活动，你随时可以同步更新。正在重定向至网络…</string>
     <string name="unified_search_fragment_contact_not_found">未找到联系人，你可以随时同步更新。正在重定向至网络…</string>
     <string name="unified_search_fragment_permission_needed">打开搜索结果需要权限，否则它将被重定向至网页…</string>
+    <string name="unified_search_fragment_search_in_this_folder">在此文件夹中</string>
     <string name="unknown">未知</string>
     <string name="unlock_file">解锁文件</string>
     <string name="unread_comments">有未读评论</string>
@@ -1034,6 +1054,10 @@
     <string name="upload_local_storage_not_copied">文件无法被复制到本地存储</string>
     <string name="upload_lock_failed">锁定文件夹失败</string>
     <string name="upload_manually_cancelled">用户已取消上传</string>
+    <string name="upload_missing_storage_permission_allow_file_access">允许所有文件访问</string>
+    <string name="upload_missing_storage_permission_app_permissions">应用权限</string>
+    <string name="upload_missing_storage_permission_description">如果无法访问本地存储，则无法上传您的文件。点击即可授予权限。</string>
+    <string name="upload_missing_storage_permission_title">上传已停止 — 需要存储权限</string>
     <string name="upload_notification_manager_start_text">%1$d / %2$d - %3$s</string>
     <string name="upload_old_android">加密功能仅适用于安卓 5.0 及以上版本</string>
     <string name="upload_query_move_foreign_files">空间不足将阻止将所选文件复制到%1$s文件夹中。 你想把它们移到那里吗？</string>
@@ -1115,7 +1139,7 @@
     <string name="what_s_new_image">有什么新图片</string>
     <string name="whats_new_skip">跳过</string>
     <string name="whats_new_title">新建%1$s</string>
-    <string name="whats_your_status">你什么状态？</string>
+    <string name="whats_your_status">您的状态如何？</string>
     <string name="widgets_not_available">启用仪表盘应用程序后，小部件仅在 %1$s 25 或更高版本中可用</string>
     <string name="widgets_not_available_title">不可用</string>
     <string name="worker_download">正在下载文件…</string>

@@ -19,7 +19,13 @@ import com.owncloud.android.ui.notifications.NotificationUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
 
 class UploadNotificationManager(private val context: Context, viewThemeUtils: ViewThemeUtils, id: Int) :
-    WorkerNotificationManager(id, context, viewThemeUtils, R.string.foreground_service_upload) {
+    WorkerNotificationManager(
+        id,
+        context,
+        viewThemeUtils,
+        tickerId = R.string.foreground_service_upload,
+        channelId = NotificationUtils.NOTIFICATION_CHANNEL_UPLOAD
+    ) {
 
     @Suppress("MagicNumber")
     fun prepareForStart(
@@ -79,6 +85,10 @@ class UploadNotificationManager(private val context: Context, viewThemeUtils: Vi
         credentialIntent: PendingIntent?,
         errorMessage: String
     ) {
+        if (uploadFileOperation.isMissingPermissionThrown) {
+            return
+        }
+
         val textId = getFailedResultTitleId(resultCode)
 
         notificationBuilder.run {
@@ -143,6 +153,23 @@ class UploadNotificationManager(private val context: Context, viewThemeUtils: Vi
         notificationManager.notify(
             NotificationUtils.createUploadNotificationTag(operation.file),
             FileUploadWorker.NOTIFICATION_ERROR_ID,
+            notificationBuilder.build()
+        )
+    }
+
+    fun showSameFileAlreadyExistsNotification(filename: String) {
+        notificationBuilder.run {
+            setAutoCancel(true)
+            clearActions()
+            setContentText("")
+            setProgress(0, 0, false)
+            setContentTitle(context.getString(R.string.file_upload_worker_same_file_already_exists, filename))
+        }
+
+        val notificationId = filename.hashCode()
+
+        notificationManager.notify(
+            notificationId,
             notificationBuilder.build()
         )
     }

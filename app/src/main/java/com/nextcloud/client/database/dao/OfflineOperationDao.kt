@@ -40,4 +40,7 @@ interface OfflineOperationDao {
 
     @Query("DELETE FROM offline_operations")
     fun clearTable()
+
+    @Query("DELETE FROM offline_operations WHERE _id = :id")
+    fun deleteById(id: Int)
 }

@@ -31,7 +31,7 @@
         android:layout_gravity="center_vertical"
         android:paddingStart="24dp"
         android:paddingEnd="0dp"
-        tools:text="Compose email"
+        tools:text="@string/placeholder_compose_mail"
         android:textColor="@color/text_color"
         android:textSize="@dimen/bottom_sheet_text_size" />
 </LinearLayout>

@@ -46,7 +46,7 @@
     <string name="auth_no_net_conn_title">Nav tīkla savienojumu</string>
     <string name="auth_nossl_plain_ok_title">Nav pieejams drošs savienojums.</string>
     <string name="auth_not_configured_title">Slikti formatēta servera konfigurācija</string>
-    <string name="auth_oauth_error">Neveiksmīga autorizācija</string>
+    <string name="auth_oauth_error">Nesekmīga pilnvarošana</string>
     <string name="auth_oauth_error_access_denied">Piekļuvi liedza autorizācijas serveris</string>
     <string name="auth_redirect_non_secure_connection_title">Drošais savienojums novirzīts caur nedrošu ceļu.</string>
     <string name="auth_secure_connection">Ir izveidots drošs savienojums</string>
@@ -81,11 +81,13 @@
     <string name="bottom_navigation_menu_favorites_label">Izlases vienumi</string>
     <string name="bottom_navigation_menu_files_label">Visas datnes</string>
     <string name="bottom_navigation_menu_media_label">Informācijas nesēji</string>
+    <string name="busy">Aizņemts</string>
     <string name="calendar">Kalendārs</string>
     <string name="calendars">Kalendāri</string>
     <string name="certificate_load_problem">Radusies problēma, ielādējot sertifikātu.</string>
     <string name="choose_local_folder">Izvēlēties vietēju mapi…</string>
     <string name="choose_remote_folder">Izvēlēties attālu mapi…</string>
+    <string name="clear">Notīrīt</string>
     <string name="clear_notifications_failed">Neizdevās notīrīt paziņojumus.</string>
     <string name="clipboard_label">Teksts kopēts no %1$s</string>
     <string name="clipboard_no_text_to_copy">Nav teksta, ko saglabāt starpliktuvē</string>
@@ -94,7 +96,7 @@
     <string name="common_back">Atpakaļ</string>
     <string name="common_cancel">Atcelt</string>
     <string name="common_cancel_sync">Atcelt sinhronizēšanu</string>
-    <string name="common_choose_account">Izvēlieties kontu</string>
+    <string name="common_choose_account">Izvēlēties kontu</string>
     <string name="common_confirm">Apstiprināt</string>
     <string name="common_copy">Kopēt</string>
     <string name="common_delete">Izdzēst</string>
@@ -104,6 +106,7 @@
     <string name="common_loading">Ielādē …</string>
     <string name="common_next">Nākamā</string>
     <string name="common_no">Nē</string>
+    <string name="common_now">Tagad</string>
     <string name="common_ok">Labi</string>
     <string name="common_pending">Gaida</string>
     <string name="common_remove">Izdzēst</string>
@@ -116,7 +119,7 @@
     <string name="common_switch_to_account">Pārslēgties uz kontu</string>
     <string name="common_yes">Jā</string>
     <string name="community_beta_headline">Testēt dev versiju</string>
-    <string name="community_beta_text">Tas ieskaita visas gaidāmās iespējas un ir pati jaunākā versija. Kļūdas/nepilnības var gadīties, ja un kad tās notiek lūdzu ziņojiet par tām.</string>
+    <string name="community_beta_text">Šis ietver visas gaidāmās iespējas, un tam ir pati jaunākā versija. Kļūdas/nepilnības var gadīties, ja un kad tās notiek, lūgums ziņot par atrasto.</string>
     <string name="community_contribute_forum_forum">forums</string>
     <string name="community_contribute_forum_text">Palīdzi citiem </string>
     <string name="community_contribute_headline">Aktīvi dod iegūldījumu</string>
@@ -178,7 +181,7 @@
     <string name="document_scan_export_dialog_title">Izvēlēties izgūšanas veidu</string>
     <string name="done">Pabeigts</string>
     <string name="downloader_download_failed_content">Nevarēja lejupielādēt %1$s</string>
-    <string name="downloader_download_failed_credentials_error">Lejupielāde neizdevās, piesakieties vēlreiz.</string>
+    <string name="downloader_download_failed_credentials_error">Lejupielāde neizdevās, jāpiesakās vēlreiz</string>
     <string name="downloader_download_failed_ticker">Neizdevās lejupielādēt</string>
     <string name="downloader_download_file_not_found">Datne serverī vairs nav pieejama</string>
     <string name="downloader_download_in_progress_content">%1$d%% lejupielādē %2$s</string>
@@ -213,6 +216,7 @@
     <string name="end_to_end_encryption_enter_passphrase_to_access_files">Ievadi savu paroles vārdkopu, lai piekļūtu savām datnēm</string>
     <string name="end_to_end_encryption_password">Parole…</string>
     <string name="end_to_end_encryption_title">Uzstādīt šifrēšanu</string>
+    <string name="end_to_end_encryption_unexpected_error_occurred">Atslēgu lejupielādēšanas laikā atgadījās neparedzēta kļūda</string>
     <string name="error__upload__local_file_not_copied">%1$s nevarēja pārkopēt uz %2$s vietējo mapi</string>
     <string name="error_cant_bind_to_operations_service">Kritiska kļūda: Nevar veikt darbības</string>
     <string name="error_comment_file">Kļūda komentējot datni</string>
@@ -368,6 +372,7 @@
     <string name="notification_channel_download_name_short">Lejupielādes</string>
     <string name="notification_channel_general_description">Rādīt paziņojumus par jaunām informācijas nesēju mapēm un līdzīgi</string>
     <string name="notification_channel_media_name">Atskaņotājs</string>
+    <string name="notification_channel_push_description">Parādīt servera nosūtītos pašpiegādes paziņojumus: pieminēšanas piebildēs, jaunu attālo koplietojumu saņemšanu, pārvaldītāju ievietotos paziņojumus utt..</string>
     <string name="notification_channel_upload_name_short">Augšupielādes</string>
     <string name="notifications_no_results_headline">Nav paziņojumu</string>
     <string name="offline_mode">Nav interneta savienojuma</string>
@@ -378,9 +383,9 @@
     <string name="open_in_app">Atvērt %1$s</string>
     <string name="pass_code_configure_your_pass_code">Ievadiet piekļuves kodu</string>
     <string name="pass_code_configure_your_pass_code_explanation">Piekļuves kods tiks pieprasīts katrā lietotnes palaišanas reizē</string>
-    <string name="pass_code_enter_pass_code">Lūdzu, ievadiet piekļuves kodu</string>
+    <string name="pass_code_enter_pass_code">Lūgums ievadīt savu piekļuves kodu</string>
     <string name="pass_code_mismatch">Šie piekļuves kodi nav vienādi</string>
-    <string name="pass_code_reenter_your_pass_code">Lūdzu, atkārtoti ievadiet savu piekļuves kodu</string>
+    <string name="pass_code_reenter_your_pass_code">Lūgums atkārtoti ievadīt savu piekļuves kodu</string>
     <string name="pass_code_remove_your_pass_code">Noņemt kodu</string>
     <string name="pass_code_removed">Kods noņemts</string>
     <string name="pass_code_stored">Kods saglabāts</string>
@@ -389,15 +394,10 @@
     <string name="pdf_zoom_tip">Piesist lapai, lai pietuvinātu</string>
     <string name="permission_allow">Atļaut</string>
     <string name="permission_deny">Noraidīt</string>
-    <string name="permission_storage_access">Nepieciešamas papildus tiesības, lai augšupielādētu un lejupielādētu datnes.</string>
+    <string name="permission_storage_access">Nepieciešamas papildu tiesības, lai augšupielādētu un lejupielādētu datnes.</string>
     <string name="picture_set_as_no_app">Nav atrasta neviena lietotne, ar ko iestatīt attēlu</string>
     <string name="pin_home">Piespraust sākuma ekrānam</string>
     <string name="pin_shortcut_label">Atvērt %1$s</string>
-    <string name="placeholder_fileSize">389 KB</string>
-    <string name="placeholder_filename">placeholder.txt</string>
-    <string name="placeholder_media_time">12:23:45</string>
-    <string name="placeholder_sentence">Šis ir viettura teksts</string>
-    <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
     <string name="player_stop">apturēt</string>
     <string name="player_toggle">pārslēgt</string>
     <string name="please_select_a_server">Lūgums atlasīt serveri…</string>
@@ -418,6 +418,7 @@
     <string name="prefs_calendar_contacts_sync_setup_successful">Kalendāra un kontaktpersonu sinhronizēšanas iestatīšana</string>
     <string name="prefs_category_about">Par</string>
     <string name="prefs_category_details">Informācija</string>
+    <string name="prefs_category_files">Datnes</string>
     <string name="prefs_category_general">Vispārīgi</string>
     <string name="prefs_category_more">Vairāk</string>
     <string name="prefs_category_sync">Sinhronizēt</string>
@@ -485,9 +486,8 @@
     <string name="select_all">Atzīmēt visu</string>
     <string name="send">Sūtīt</string>
     <string name="set_as">Saglabāt kā</string>
+    <string name="set_online_status">Tiešsaistes stāvoklis</string>
     <string name="set_picture_as">Izmantot attēlu kā</string>
-    <string name="set_status">Iestatīt stāvokli</string>
-    <string name="set_status_message">Iestatīt stāvokļa ziņojumu</string>
     <string name="share">Kopīgot</string>
     <string name="share_copy_link">Kopīgot saiti un ievietot to starpliktuvē</string>
     <string name="share_delete_permission">Izdzēst</string>
@@ -523,6 +523,7 @@
     <string name="signup_with_provider">Reģistrēties ar pakalpojumu sniedzēju</string>
     <string name="single_sign_on_request_token" formatted="true">Ļaut %1$s piekļūt Tavam Nextcloud kontam %2$s?</string>
     <string name="sort_by">Kārtot pēc</string>
+    <string name="sort_folders_before_files">Kārtot mapes pirms datnēm</string>
     <string name="ssl_validator_btn_details_hide">Paslēpt</string>
     <string name="ssl_validator_btn_details_see">Sīkāka informācija</string>
     <string name="ssl_validator_header">Servera identitāti nevarēja pārbaudīt</string>
@@ -563,7 +564,7 @@
     <string name="sync_current_folder_was_removed">Mape %1$s vairs nepastāv</string>
     <string name="sync_fail_content">Nevarēja sinhronizēt %1$s</string>
     <string name="sync_fail_content_unauthorized">Nepareiza parole kontam %1$s</string>
-    <string name="sync_fail_in_favourites_ticker">Kept-in-sync datnes cieta neveiksmi</string>
+    <string name="sync_fail_in_favourites_ticker">Kept in sync datnes neizdevās</string>
     <string name="sync_fail_ticker">Sinhronizēšana neizdevās</string>
     <string name="sync_fail_ticker_unauthorized">Sinhronizēšana neizdevās, jāpiesakās vēlreiz</string>
     <string name="sync_file_nothing_to_do_msg">Datnes saturs jau ir sinhronizēts</string>
@@ -617,7 +618,7 @@
     <string name="uploader_btn_upload_text">Augšupielādēt</string>
     <string name="uploader_error_message_no_file_to_upload">Saņemtie dati nesatur derīgu datni.</string>
     <string name="uploader_error_message_read_permission_not_granted">%1$s nav atļauts lasīt saņemto datni</string>
-    <string name="uploader_error_message_source_file_not_copied">Nevarēja pārkopēt datni uz pagaidu mapi. Lūdzu mēģini sūtīt vēlreiz.</string>
+    <string name="uploader_error_message_source_file_not_copied">Datni nevarēja kopēt pagaidu mapē. Jāmēģina to vēlreiz nosūtīt.</string>
     <string name="uploader_error_message_source_file_not_found">Augšupielādei atlasītā datne netika atrasta. Lūgums pārbaudīt, vai tā pastāv.</string>
     <string name="uploader_error_title_no_file_to_upload">Nav datņu augšupielādei</string>
     <string name="uploader_file_not_found_message">Datne netika atrasta. Vai tiešām tā pastāv vai arī nav novērsta iepriekšēja nesaderība?</string>
@@ -625,7 +626,7 @@
     <string name="uploader_local_files_uploaded">Atkārto vietējo datņu neizdevušās augšupielādes</string>
     <string name="uploader_top_message">Izvēlēties augšupielāžu mapi</string>
     <string name="uploader_upload_failed_content_single">Nevarēja augšupielādēt %1$s</string>
-    <string name="uploader_upload_failed_credentials_error">Augšupielāde neizdevās, piesakieties vēlreiz.</string>
+    <string name="uploader_upload_failed_credentials_error">Augšupielāde neizdevās, jāpiesakās vēlreiz</string>
     <string name="uploader_upload_failed_ticker">Augšupielāde neizdevās</string>
     <string name="uploader_upload_files_behaviour">Augšupielādes iespējas:</string>
     <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">Pārvietot datni uz %1$s mapi</string>
@@ -677,7 +678,7 @@
     <string name="what_s_new_image">Kas jauns attēls</string>
     <string name="whats_new_skip">Izlaist</string>
     <string name="whats_new_title">Jaunums %1$s</string>
-    <string name="whats_your_status">Kāds ir jūsu statuss?</string>
+    <string name="whats_your_status">Kāds ir Tavs stāvoklis?</string>
     <string name="widgets_not_available_title">Nav pieejams</string>
     <string name="worker_download">Lejupielādē datnes…</string>
     <string name="write_email">Nosūtīt e-pasta ziņojumu</string>

@@ -34,6 +34,7 @@
     <string name="app_config_proxy_port_title">ۋاكالەتچى ئېغىز</string>
     <string name="app_widget_description">باشقۇرۇش تاختىسىدىكى بىر كىچىك قورالنى كۆرسىتىدۇ</string>
     <string name="appbar_search_in">%s دىن ئىزدەڭ</string>
+    <string name="appear_offline">تورسىز كۆرۈنۈش</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">بەزى تېكىستلەرنى كىرگۈزۈڭ</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">بۇ ۋەزىپىنى ئۆچۈرمەكچىمۇ؟</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">ۋەزىپىنى ئۆچۈرۈڭ</string>
@@ -100,6 +101,7 @@
     <string name="bottom_navigation_menu_favorites_label">ياقتۇرىدىغانلار</string>
     <string name="bottom_navigation_menu_files_label">بارلىق ھۆججەتلەر</string>
     <string name="bottom_navigation_menu_media_label">Media</string>
+    <string name="busy">ئالدىراش</string>
     <string name="calendar">كالېندار</string>
     <string name="calendars">كالېندار</string>
     <string name="certificate_load_problem">گۇۋاھنامىنى يۈكلەشتە مەسىلە بار.</string>
@@ -111,9 +113,9 @@
     <string name="choose_template_helper_text">قېلىپنى تاللاڭ ۋە ھۆججەت نامىنى كىرگۈزۈڭ.</string>
     <string name="choose_which_file">قايسى ھۆججەتنى ساقلاشنى تاللاڭ!</string>
     <string name="choose_widget">كىچىك قورالنى تاللاڭ</string>
+    <string name="clear">Clear</string>
     <string name="clear_notifications_failed">ئۇقتۇرۇشنى تازىلاش مەغلۇب بولدى.</string>
-    <string name="clear_status_message">ھالەت ئۇچۇرىنى تازىلاش</string>
-    <string name="clear_status_message_after">ئۇنىڭدىن كېيىنكى ھالەت ئۇچۇرىنى تازىلاڭ</string>
+    <string name="clear_status_after">كېيىنكى ھالەتنى ئېنىقلاش</string>
     <string name="clipboard_label">تېكىست%1$s دىن كۆچۈرۈلگەن</string>
     <string name="clipboard_no_text_to_copy">چاپلاش تاختىسىغا كۆچۈرەلەيدىغان تېكىست تاپشۇرۇۋالمىدى</string>
     <string name="clipboard_text_copied">ئۇلىنىش كۆچۈرۈلدى</string>
@@ -507,7 +509,6 @@
     <string name="manage_space_clear_data">سانلىق مەلۇماتنى تازىلاش</string>
     <string name="manage_space_description">%1$s نىڭ سانلىق مەلۇماتلىرىدىن تەڭشەك ، ساندان ۋە مۇلازىمېتىر گۇۋاھنامىسى مەڭگۈلۈك ئۆچۈرۈلىدۇ. \ n \ n چۈشۈرۈلگەن ھۆججەتلەر تۇتۇلمايدۇ. \ n \ n بۇ جەريانغا بىر ئاز ۋاقىت كېتىدۇ.</string>
     <string name="manage_space_title">بوشلۇقنى باشقۇرۇش</string>
-    <string name="max_file_count_warning_message">ھۆججەت يوللاشنىڭ ئەڭ يۇقىرى چېكىگە يەتتىڭىز. بىر قېتىمدا 500 دىن ئاز ھۆججەت يوللاڭ.</string>
     <string name="media_err_invalid_progressive_playback">مېدىيا ھۆججىتىنى ئاقلاشقا بولمايدۇ</string>
     <string name="media_err_io">مېدىيا ھۆججىتىنى ئوقۇيالمىدى</string>
     <string name="media_err_malformed">مېدىيا ھۆججىتىدە كودلاش خاتا</string>
@@ -530,6 +531,7 @@
     <string name="move_file_invalid_into_descendent">قىسقۇچنى ئۆزىنىڭ ئاستىدىكى قىسقۇچقا يۆتكەش مۇمكىن ئەمەس</string>
     <string name="move_file_invalid_overwrite">مەنزىل ھۆججەت قىسقۇچىدا ھۆججەت بار</string>
     <string name="move_file_not_found">ھۆججەتنى يۆتكىگىلى بولمىدى. ئۇنىڭ بار-يوقلۇقىنى تەكشۈرۈپ بېقىڭ.</string>
+    <string name="mute_all_notifications">بارلىق ئۇقتۇرۇشلارنى ئاۋازسىز قىلىڭ</string>
     <string name="network_error_connect_timeout_exception">مۇلازىمېتىرنى ساقلاۋاتقاندا خاتالىق كۆرۈلدى. مەشغۇلاتنى تاماملىيالمىدى.</string>
     <string name="network_error_socket_exception">مۇلازىمېتىرغا ئۇلىنىش جەريانىدا خاتالىق كۆرۈلدى</string>
     <string name="network_error_socket_timeout_exception">مۇلازىمېتىرنى ساقلاۋاتقاندا خاتالىق كۆرۈلدى. مەشغۇلاتنى تاماملىيالمىدى.</string>
@@ -595,11 +597,6 @@
     <string name="permission_storage_access">ھۆججەتلەرنى يوللاش ۋە چۈشۈرۈش ئۈچۈن قوشۇمچە ئىجازەتلەر.</string>
     <string name="picture_set_as_no_app">رەسىم ئورنىتىدىغان ھېچقانداق دېتال تېپىلمىدى</string>
     <string name="pin_shortcut_label">%1$s نى ئېچىڭ</string>
-    <string name="placeholder_fileSize">389 KB</string>
-    <string name="placeholder_filename">placeholder.txt</string>
-    <string name="placeholder_media_time">12:23:45</string>
-    <string name="placeholder_sentence">بۇ يەر ئىگىسى</string>
-    <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
     <string name="player_stop">توختا</string>
     <string name="player_toggle">toggle</string>
     <string name="please_select_a_server">مۇلازىمېتىرنى تاللاڭ…</string>
@@ -620,6 +617,7 @@
     <string name="prefs_category_about">ھەققىدە</string>
     <string name="prefs_category_details">تەپسىلاتى</string>
     <string name="prefs_category_dev">Dev</string>
+    <string name="prefs_category_files">ھۆججەتلەر</string>
     <string name="prefs_category_general">ئادەتتىكى</string>
     <string name="prefs_category_more">تېخىمۇ كۆپ</string>
     <string name="prefs_category_sync">ماسقەدەملەش</string>
@@ -670,11 +668,9 @@
     <string name="preview_image_error_no_local_file">ئالدىن كۆرۈش ئۈچۈن يەرلىك ھۆججەت يوق</string>
     <string name="preview_image_error_unknown_format">رەسىم كۆرسىتەلمىدى</string>
     <string name="preview_image_file_is_not_downloaded">ھۆججەت چۈشۈرۈلمىدى</string>
-    <string name="preview_image_file_is_not_exist">ھۆججەت مەۋجۇت ئەمەس</string>
     <string name="preview_media_unhandled_http_code_message">ھۆججەت ھازىر باشقا ئىشلەتكۈچى ياكى جەريان تەرىپىدىن قۇلۇپلانغان ، شۇڭا ئۆچۈرگىلى بولمايدۇ. كېيىن قايتا سىناڭ.</string>
     <string name="preview_sorry">كەچۈرۈڭ</string>
     <string name="privacy">مەخپىيەتلىك</string>
-    <string name="public_share_name">يېڭى ئىسىم</string>
     <string name="push_notifications_not_implemented">ئىگىلەش ئۇقتۇرۇشى شەخسىي Google Play مۇلازىمىتىگە بېقىنىش سەۋەبىدىن چەكلەنگەن.</string>
     <string name="push_notifications_old_login">ۋاقتى ئۆتكەن كىرىش ۋاقتى سەۋەبىدىن ئىتتىرىش ئۇقتۇرۇشى يوق. ھېساباتىڭىزنى قايتا قوشۇشنى ئويلىشىڭ.</string>
     <string name="push_notifications_temp_error">ئىتتىرىش ئۇقتۇرۇشى ھازىرچە يوق.</string>
@@ -733,9 +729,8 @@
     <string name="send">ئەۋەتىڭ</string>
     <string name="sendbutton_description">كۇنۇپكا سىنبەلگىسىنى ئەۋەتىڭ</string>
     <string name="set_as">تەڭشەك</string>
+    <string name="set_online_status">توردىكى ئورنى</string>
     <string name="set_picture_as">رەسىمنى ئىشلىتىڭ</string>
-    <string name="set_status">ھالەت بەلگىلەڭ</string>
-    <string name="set_status_message">ھالەت ئۇچۇرىنى بەلگىلەڭ</string>
     <string name="setup_e2e">ئاخىرىدىن ئاخىرىغىچە مەخپىيلەشتۈرۈشنى تەڭشەش جەريانىدا ، ئىختىيارى 12 سۆزلۈك mnemonic تاپشۇرۇۋالىسىز ، بۇ ھۆججەتلەرنى باشقا ئۈسكۈنىلەردە ئېچىشىڭىز كېرەك. بۇ پەقەت بۇ ئۈسكۈنىدە ساقلىنىدۇ ، بۇ ئېكراندا قايتا كۆرسەتكىلى بولىدۇ. ئۇنى بىخەتەر ئورۇنغا خاتىرىلەڭ!</string>
     <string name="share">ھەمبەھىرلەش</string>
     <string name="share_allow_download_and_sync_permission">چۈشۈرۈش ۋە ماسقەدەملەشكە يول قويۇڭ</string>
@@ -793,6 +788,8 @@
     <string name="signup_with_provider">تەمىنلىگۈچى بىلەن تىزىملىتىڭ</string>
     <string name="single_sign_on_request_token" formatted="true">%1$s نىڭ Nextcloud ھېساباتىڭىزنى زىيارەت قىلىشىغا يول قويۇڭ%2$s?</string>
     <string name="sort_by">تەرتىپلەش</string>
+    <string name="sort_favorites_first">ياقتۇرىدىغانلارنى رەتلەڭ</string>
+    <string name="sort_folders_before_files">ھۆججەتلەرنى ھۆججەتتىن بۇرۇن تەرتىپلەڭ</string>
     <string name="ssl_validator_btn_details_hide">يوشۇر</string>
     <string name="ssl_validator_btn_details_see">تەپسىلاتى</string>
     <string name="ssl_validator_header">مۇلازىمېتىرنىڭ سالاھىيىتىنى دەلىللىگىلى بولمىدى</string>

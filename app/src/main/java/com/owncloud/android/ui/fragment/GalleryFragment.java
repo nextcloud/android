@@ -72,7 +72,6 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
 
     protected void setPhotoSearchQueryRunning(boolean value) {
         this.photoSearchQueryRunning = value;
-        this.setLoading(value); // link the photoSearchQueryRunning variable with UI progress loading
     }
 
     public boolean isPhotoSearchQueryRunning() {
@@ -229,17 +228,10 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
     public void onResume() {
         super.onResume();
 
-        setLoading(this.isPhotoSearchQueryRunning());
         if (getActivity() instanceof FileDisplayActivity fileDisplayActivity) {
             fileDisplayActivity.updateActionBarTitleAndHomeButtonByString(getString(R.string.drawer_item_gallery));
             fileDisplayActivity.setMainFabVisible(false);
         }
-    }
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        setupBackButtonRedirectToAllFiles();
     }
 
     @Override
@@ -249,7 +241,7 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
 
     private void handleSearchEvent() {
         prepareCurrentSearch(searchEvent);
-        setEmptyListLoadingMessage();
+        setEmptyListMessage(EmptyListState.LOADING);
 
         // always show first stored items
         showAllGalleryItems();
@@ -303,10 +295,8 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
         // Handle item selection
-        if (item.getItemId() == R.id.action_three_dot_icon && !this.isPhotoSearchQueryRunning()
-            && galleryFragmentBottomSheetDialog != null) {
+        if (item.getItemId() == R.id.action_three_dot_icon && galleryFragmentBottomSheetDialog != null) {
             showBottomSheet();
             return true;
         }

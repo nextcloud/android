@@ -97,6 +97,7 @@
     <string name="bottom_navigation_menu_assistant_label">Skoazeller</string>
     <string name="bottom_navigation_menu_favorites_label">Penndibaboù</string>
     <string name="bottom_navigation_menu_files_label">An holl restroù</string>
+    <string name="busy">O labourat</string>
     <string name="calendar">Deiziataer</string>
     <string name="calendars">Deiziataerioù</string>
     <string name="certificate_load_problem">Ur gudenn zo bet evit kargañ an testeni.</string>
@@ -108,9 +109,8 @@
     <string name="choose_template_helper_text">Dibabit ur patrom ha merkit un anv restr</string>
     <string name="choose_which_file">Dibab ar restr da vezañ miret !</string>
     <string name="choose_widget">Dibab ur widget</string>
+    <string name="clear">Netaat</string>
     <string name="clear_notifications_failed">C\'hwitet dilemel ar c\'hemennadennoù.</string>
-    <string name="clear_status_message">Dilemel statud ar gemennadenn</string>
-    <string name="clear_status_message_after">Dilemel statud ar gemennadenn war-lerc\'h</string>
     <string name="clipboard_label">Testenn eilet diwar %1$s</string>
     <string name="clipboard_no_text_to_copy">N\'eus bet resevet testenn ebet da eilañ d\'ar golver</string>
     <string name="clipboard_text_copied">Liamm eilet</string>
@@ -510,11 +510,6 @@
     <string name="permission_deny">Difennet</string>
     <string name="permission_storage_access">Aotreoù ouzhpenn ez eus ezhomp evit pellkas ha pellgargañ restroù.</string>
     <string name="picture_set_as_no_app">Meziant ebet kavet evit lakaat ur skeudenn gant</string>
-    <string name="placeholder_fileSize">389 KB</string>
-    <string name="placeholder_filename">placeholder.txt</string>
-    <string name="placeholder_media_time">12:23:45</string>
-    <string name="placeholder_sentence">Ur lec\'h miret eo</string>
-    <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
     <string name="power_save_check_dialog_message">Disaotreañ gwiriañ ar saver pod-tredañ a c\'hel lezel an ardivink pellkargañ restroù pa ne vez ket kalz a dredañ kenn !</string>
     <string name="pref_behaviour_entries_delete_file">dilamet</string>
     <string name="pref_behaviour_entries_keep_file">gwarn ar restr orin</string>
@@ -565,7 +560,6 @@
     <string name="preview_image_error_unknown_format">Dibosupl diskwell ar skeudenn</string>
     <string name="preview_sorry">Digarez</string>
     <string name="privacy">Prevezder</string>
-    <string name="public_share_name">Anv nevez</string>
     <string name="push_notifications_not_implemented">Kemenadennoù push disaotreet blam da sujudigezh war perc\'hentiez war servijoù Google Play</string>
     <string name="push_notifications_old_login">Kemenadenn push ebet blam da kozhder ar mont tre evit an dalc\'h. Adlakait o c\'hont mar-plij</string>
     <string name="push_notifications_temp_error">Kemenadennoù push  ebet evit poent</string>

@@ -16,8 +16,6 @@ import android.provider.BaseColumns;
 
 import com.owncloud.android.MainApp;
 
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -25,13 +23,26 @@ import java.util.List;
  */
 public class ProviderMeta {
     public static final String DB_NAME = "filelist";
-    public static final int DB_VERSION = 91;
+    public static final int DB_VERSION = 94;
 
     private ProviderMeta() {
         // No instance
     }
 
     static public class ProviderTableMeta implements BaseColumns {
+        // region Recommended files table
+        public static final String RECOMMENDED_FILE_TABLE_NAME = "recommended_files";
+        public static final String RECOMMENDED_FILE_NAME = "name";
+        public static final String RECOMMENDED_FILE_ACCOUNT_NAME = "account_name";
+        public static final String RECOMMENDED_FILE_DIRECTORY = "directory";
+        public static final String RECOMMENDED_FILE_EXTENSIONS = "extension";
+        public static final String RECOMMENDED_FILE_MIME_TYPE = "mime_type";
+        public static final String RECOMMENDED_FILE_HAS_PREVIEW = "has_preview";
+        public static final String RECOMMENDED_FILE_REASON = "reason";
+        public static final String RECOMMENDED_TIMESTAMP = "timestamp";
+        // endregion
+
+        // region Table names
         public static final String OFFLINE_OPERATION_TABLE_NAME = "offline_operations";
         public static final String FILE_TABLE_NAME = "filelist";
         public static final String OCSHARES_TABLE_NAME = "ocshares";
@@ -44,6 +55,7 @@ public class ProviderMeta {
         public static final String FILESYSTEM_TABLE_NAME = "filesystem";
         public static final String EDITORS_TABLE_NAME = "editors";
         public static final String CREATORS_TABLE_NAME = "creators";
+        // endregion
 
         private static final String CONTENT_PREFIX = "content://";
 
@@ -125,60 +137,59 @@ public class ProviderMeta {
         public static final String FILE_INTERNAL_TWO_WAY_SYNC_TIMESTAMP = "internal_two_way_sync_timestamp";
         public static final String FILE_INTERNAL_TWO_WAY_SYNC_RESULT = "internal_two_way_sync_result";
 
-        public static final List<String> FILE_ALL_COLUMNS = Collections.unmodifiableList(Arrays.asList(
-            _ID,
-            FILE_PARENT,
-            FILE_NAME,
-            FILE_ENCRYPTED_NAME,
-            FILE_UPLOADED,
-            FILE_CREATION,
-            FILE_MODIFIED,
-            FILE_MODIFIED_AT_LAST_SYNC_FOR_DATA,
-            FILE_CONTENT_LENGTH,
-            FILE_CONTENT_TYPE,
-            FILE_STORAGE_PATH,
-            FILE_PATH,
-            FILE_PATH_DECRYPTED,
-            FILE_ACCOUNT_OWNER,
-            FILE_LAST_SYNC_DATE,
-            FILE_LAST_SYNC_DATE_FOR_DATA,
-            FILE_KEEP_IN_SYNC,
-            FILE_ETAG,
-            FILE_ETAG_ON_SERVER,
-            FILE_SHARED_VIA_LINK,
-            FILE_SHARED_WITH_SHAREE,
-            FILE_PERMISSIONS,
-            FILE_REMOTE_ID,
-            FILE_LOCAL_ID,
-            FILE_UPDATE_THUMBNAIL,
-            FILE_IS_DOWNLOADING,
-            FILE_ETAG_IN_CONFLICT,
-            FILE_FAVORITE,
-            FILE_HIDDEN,
-            FILE_IS_ENCRYPTED,
-            FILE_MOUNT_TYPE,
-            FILE_HAS_PREVIEW,
-            FILE_UNREAD_COMMENTS_COUNT,
-            FILE_OWNER_ID,
-            FILE_OWNER_DISPLAY_NAME,
-            FILE_NOTE,
-            FILE_SHAREES,
-            FILE_RICH_WORKSPACE,
-            FILE_LOCKED,
-            FILE_LOCK_TYPE,
-            FILE_LOCK_OWNER,
-            FILE_LOCK_OWNER_DISPLAY_NAME,
-            FILE_LOCK_OWNER_EDITOR,
-            FILE_LOCK_TIMESTAMP,
-            FILE_LOCK_TIMEOUT,
-            FILE_LOCK_TOKEN,
-            FILE_METADATA_SIZE,
-            FILE_METADATA_LIVE_PHOTO,
-            FILE_E2E_COUNTER,
-            FILE_TAGS,
-            FILE_METADATA_GPS,
-            FILE_INTERNAL_TWO_WAY_SYNC_TIMESTAMP,
-            FILE_INTERNAL_TWO_WAY_SYNC_RESULT));
+        public static final List<String> FILE_ALL_COLUMNS = List.of(_ID,
+                                                                    FILE_PARENT,
+                                                                    FILE_NAME,
+                                                                    FILE_ENCRYPTED_NAME,
+                                                                    FILE_UPLOADED,
+                                                                    FILE_CREATION,
+                                                                    FILE_MODIFIED,
+                                                                    FILE_MODIFIED_AT_LAST_SYNC_FOR_DATA,
+                                                                    FILE_CONTENT_LENGTH,
+                                                                    FILE_CONTENT_TYPE,
+                                                                    FILE_STORAGE_PATH,
+                                                                    FILE_PATH,
+                                                                    FILE_PATH_DECRYPTED,
+                                                                    FILE_ACCOUNT_OWNER,
+                                                                    FILE_LAST_SYNC_DATE,
+                                                                    FILE_LAST_SYNC_DATE_FOR_DATA,
+                                                                    FILE_KEEP_IN_SYNC,
+                                                                    FILE_ETAG,
+                                                                    FILE_ETAG_ON_SERVER,
+                                                                    FILE_SHARED_VIA_LINK,
+                                                                    FILE_SHARED_WITH_SHAREE,
+                                                                    FILE_PERMISSIONS,
+                                                                    FILE_REMOTE_ID,
+                                                                    FILE_LOCAL_ID,
+                                                                    FILE_UPDATE_THUMBNAIL,
+                                                                    FILE_IS_DOWNLOADING,
+                                                                    FILE_ETAG_IN_CONFLICT,
+                                                                    FILE_FAVORITE,
+                                                                    FILE_HIDDEN,
+                                                                    FILE_IS_ENCRYPTED,
+                                                                    FILE_MOUNT_TYPE,
+                                                                    FILE_HAS_PREVIEW,
+                                                                    FILE_UNREAD_COMMENTS_COUNT,
+                                                                    FILE_OWNER_ID,
+                                                                    FILE_OWNER_DISPLAY_NAME,
+                                                                    FILE_NOTE,
+                                                                    FILE_SHAREES,
+                                                                    FILE_RICH_WORKSPACE,
+                                                                    FILE_LOCKED,
+                                                                    FILE_LOCK_TYPE,
+                                                                    FILE_LOCK_OWNER,
+                                                                    FILE_LOCK_OWNER_DISPLAY_NAME,
+                                                                    FILE_LOCK_OWNER_EDITOR,
+                                                                    FILE_LOCK_TIMESTAMP,
+                                                                    FILE_LOCK_TIMEOUT,
+                                                                    FILE_LOCK_TOKEN,
+                                                                    FILE_METADATA_SIZE,
+                                                                    FILE_METADATA_LIVE_PHOTO,
+                                                                    FILE_E2E_COUNTER,
+                                                                    FILE_TAGS,
+                                                                    FILE_METADATA_GPS,
+                                                                    FILE_INTERNAL_TWO_WAY_SYNC_TIMESTAMP,
+                                                                    FILE_INTERNAL_TWO_WAY_SYNC_RESULT);
         public static final String FILE_DEFAULT_SORT_ORDER = FILE_NAME + " collate nocase asc";
 
         // Columns of ocshares table
@@ -265,6 +276,7 @@ public class ProviderMeta {
         public static final String CAPABILITIES_ETAG = "etag";
         public static final String CAPABILITIES_USER_STATUS = "user_status";
         public static final String CAPABILITIES_USER_STATUS_SUPPORTS_EMOJI = "user_status_supports_emoji";
+        public static final String CAPABILITIES_USER_STATUS_SUPPORTS_BUSY = "user_status_supports_busy";
         public static final String CAPABILITIES_ASSISTANT = "assistant";
         public static final String CAPABILITIES_GROUPFOLDERS = "groupfolders";
         public static final String CAPABILITIES_DROP_ACCOUNT = "drop_account";

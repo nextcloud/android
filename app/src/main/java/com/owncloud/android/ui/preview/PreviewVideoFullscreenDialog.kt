@@ -7,15 +7,16 @@
  */
 package com.owncloud.android.ui.preview
 
-import android.app.Activity
 import android.app.Dialog
 import android.os.Build
 import android.view.ViewGroup
 import android.view.Window
+import androidx.activity.addCallback
 import androidx.annotation.OptIn
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
+import androidx.fragment.app.FragmentActivity
 import androidx.media3.common.util.UnstableApi
 import androidx.media3.exoplayer.ExoPlayer
 import androidx.media3.ui.PlayerView
@@ -35,7 +36,7 @@ import com.owncloud.android.lib.common.utils.Log_OC
  */
 @OptIn(UnstableApi::class)
 class PreviewVideoFullscreenDialog(
-    private val activity: Activity,
+    private val activity: FragmentActivity,
     nextcloudClient: NextcloudClient,
     private val sourceExoPlayer: ExoPlayer,
     private val sourceView: PlayerView
@@ -69,6 +70,7 @@ class PreviewVideoFullscreenDialog(
             binding.videoPlayer.player = mExoPlayer
             mExoPlayer.prepare()
         }
+        handleOnBackPressed()
     }
 
     private fun isRotatedVideo(): Boolean {
@@ -95,7 +97,7 @@ class PreviewVideoFullscreenDialog(
         setOnShowListener {
             enableImmersiveMode()
             switchTargetViewFromSource()
-            binding.videoPlayer.setFullscreenButtonClickListener { onBackPressed() }
+            binding.videoPlayer.setFullscreenButtonClickListener { activity.onBackPressedDispatcher.onBackPressed() }
             if (isPlaying) {
                 mExoPlayer.play()
             }
@@ -111,23 +113,25 @@ class PreviewVideoFullscreenDialog(
         }
     }
 
-    override fun onBackPressed() {
-        val isPlaying = mExoPlayer.isPlaying
-        if (isPlaying) {
-            mExoPlayer.pause()
-        }
-        setOnDismissListener {
-            disableImmersiveMode()
-            playingStateListener?.let {
-                mExoPlayer.removeListener(it)
-            }
-            switchTargetViewToSource()
+    private fun handleOnBackPressed() {
+        activity.onBackPressedDispatcher.addCallback(activity) {
+            val isPlaying = mExoPlayer.isPlaying
             if (isPlaying) {
-                sourceExoPlayer.play()
+                mExoPlayer.pause()
             }
-            sourceView.showController()
+            setOnDismissListener {
+                disableImmersiveMode()
+                playingStateListener?.let {
+                    mExoPlayer.removeListener(it)
+                }
+                switchTargetViewToSource()
+                if (isPlaying) {
+                    sourceExoPlayer.play()
+                }
+                sourceView.showController()
+            }
+            dismiss()
         }
-        dismiss()
     }
 
     private fun switchTargetViewToSource() {

@@ -24,7 +24,6 @@ import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.ui.activity.FileActivity
 import com.owncloud.android.ui.activity.FileDisplayActivity
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment.ConfirmationDialogFragmentListener
-import com.owncloud.android.ui.preview.PreviewImageActivity
 import javax.inject.Inject
 
 /**
@@ -97,19 +96,24 @@ class RemoveFilesDialogFragment :
 
         val fileActivity = getTypedActivity(FileActivity::class.java)
         val fda = getTypedActivity(FileDisplayActivity::class.java)
-
         fileActivity?.connectivityService?.isNetworkAndServerAvailable { result ->
             if (result) {
+                fileActivity.showLoadingDialog(fileActivity.getString(R.string.wait_a_moment))
+
                 if (files.isNotEmpty()) {
-                    fileActivity.fileOperationsHelper?.removeFiles(files, onlyLocalCopy, false)
+                    // Display the snackbar message only when a single file is deleted.
+                    val inBackground = (files.size != 1)
+                    fileActivity.fileOperationsHelper?.removeFiles(files, onlyLocalCopy, inBackground)
                 }
 
                 if (offlineFiles.isNotEmpty()) {
                     fda?.refreshCurrentDirectory()
                 }
+
+                fileActivity.dismissLoadingDialog()
             } else {
                 if (onlyLocalCopy) {
-                    fileActivity.fileOperationsHelper?.removeFiles(files, true, false)
+                    fileActivity.fileOperationsHelper?.removeFiles(files, true, true)
                 } else {
                     files.forEach { file ->
                         fileDataStorageManager.addRemoveFileOfflineOperation(file)
@@ -120,13 +124,10 @@ class RemoveFilesDialogFragment :
             }
 
             finishActionMode()
-            finishPreviewImageActivity()
         }
     }
 
     override fun onNeutral(callerTag: String?) = Unit
-
-    private fun finishPreviewImageActivity() = getTypedActivity(PreviewImageActivity::class.java)?.finish()
 
     private fun setActionMode(actionMode: ActionMode?) {
         this.actionMode = actionMode

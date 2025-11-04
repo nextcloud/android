@@ -29,18 +29,31 @@
     <dimen name="standard_double_padding">32dp</dimen>
     <dimen name="standard_half_padding">8dp</dimen>
     <dimen name="standard_quarter_padding">4dp</dimen>
+    <dimen name="standard_icon_size">32dp</dimen>
     <dimen name="standard_eight_padding">2dp</dimen>
     <dimen name="standard_margin">16dp</dimen>
     <dimen name="standard_double_margin">32dp</dimen>
+    <dimen name="standard_quadruple_margin">64dp</dimen>
     <dimen name="standard_half_margin">8dp</dimen>
     <dimen name="floating_action_button_bottom_margin">100dp</dimen>
     <dimen name="bottom_navigation_view_margin">100dp</dimen>
     <dimen name="standard_quarter_margin">4dp</dimen>
+
+    <dimen name="synced_folders_title_margin">14dp</dimen>
+
+    <dimen name="grid_recommended_item_reason_text_size">12sp</dimen>
+    <dimen name="grid_bottom_view_height">20dp</dimen>
     <dimen name="grid_layout_item_size">10dp</dimen>
-    <dimen name="grid_layout_file_features_margin_end">24dp</dimen>
     <dimen name="grid_layout_margin_end">2dp</dimen>
-    <dimen name="grid_layout_margin_bottom">16dp</dimen>
     <dimen name="grid_sync_item_layout_next_text_size">22sp</dimen>
+    <dimen name="grid_container_margin">2dp</dimen>
+    <dimen name="selected_grid_container_radius">4dp</dimen>
+    <dimen name="grid_checkbox_size">18dp</dimen>
+    <dimen name="grid_checkbox_margin">6dp</dimen>
+    <dimen name="grid_recommended_file_container_width">160dp</dimen>
+    <dimen name="grid_container_height">120dp</dimen>
+    <dimen name="grid_container_default_max_file_name">80dp</dimen>
+
     <dimen name="button_width">140dp</dimen>
     <dimen name="button_extra_width">180dp</dimen>
     <dimen name="standard_eighth_margin">2dp</dimen>
@@ -65,7 +78,6 @@
     <dimen name="alternate_margin">10dp</dimen>
     <dimen name="alternate_half_margin">5dp</dimen>
     <dimen name="alternate_padding">10dp</dimen>
-    <dimen name="synced_folder_padding_end">10dp</dimen>
     <dimen name="alternate_half_padding">5dp</dimen>
     <dimen name="alternate_padding_right">55dp</dimen>
     <dimen name="display_text_min_height">32dp</dimen>
@@ -102,17 +114,6 @@
     <dimen name="activity_row_layout_height">48dp</dimen>
     <dimen name="notification_icon_width">24dp</dimen>
     <dimen name="notification_icon_height">24dp</dimen>
-    <dimen name="grid_container_margin">4dp</dimen>
-    <dimen name="selected_grid_container_radius">4dp</dimen>
-    <dimen name="grid_checkbox_size">18dp</dimen>
-    <dimen name="grid_checkbox_margin">6dp</dimen>
-    <dimen name="grid_thumbnail_margin_bottom">18dp</dimen>
-    <dimen name="grid_bottom_view_margin_bottom">10dp</dimen>
-    <dimen name="grid_bottom_view_margin_end">6dp</dimen>
-    <dimen name="grid_bottom_view_height">20dp</dimen>
-    <dimen name="grid_container_width">130dp</dimen>
-    <dimen name="grid_container_height">120dp</dimen>
-    <dimen name="grid_filename_width">80dp</dimen>
     <dimen name="notification_icon_layout_right_end_margin">21dp</dimen>
     <dimen name="notification_list_item_grid_layout_left_start_margin">-8dp</dimen>
     <dimen name="contactlist_item_icon_layout_width">40dp</dimen>
@@ -135,13 +136,14 @@
     <dimen name="bottom_sheet_text_size">16sp</dimen>
     <dimen name="permission_dialog_text_size">18sp</dimen>
     <dimen name="button_corner_radius">24dp</dimen>
+    <dimen name="status_corner_radius">12dp</dimen>
     <dimen name="backup_button_width">160dp</dimen>
     <dimen name="settings_activity_padding">24dp</dimen>
     <integer name="media_grid_width">4</integer>
     <dimen name="account_action_button_margin">12dp</dimen>
     <dimen name="account_action_button_height">50dp</dimen>
     <dimen name="account_action_button_vertical_margin">10dp</dimen>
-    <dimen name="online_status_item_height">52dp</dimen>
+    <dimen name="online_status_item_height">60dp</dimen>
     <dimen name="minimum_size_for_touchable_area">48dp</dimen>
     <dimen name="dialog_elevation">24dp</dimen>
     <dimen name="default_login_width">400dp</dimen>

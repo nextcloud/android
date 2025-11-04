@@ -13,7 +13,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Environment;
-import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -90,12 +89,10 @@ public class LocalFileListFragment extends ExtendedListFragment implements
         Log_OC.i(TAG, "onCreateView() start");
         View v = super.onCreateView(inflater, container, savedInstanceState);
 
-        if (!mContainerActivity.isFolderPickerMode()) {
-            setMessageForEmptyList(R.string.file_list_empty_headline, R.string.local_file_list_empty,
-                    R.drawable.ic_list_empty_folder, true);
+        if (mContainerActivity.isFolderPickerMode()) {
+            setEmptyListMessage(EmptyListState.LOCAL_FILE_LIST_EMPTY_FOLDER);
         } else {
-            setMessageForEmptyList(R.string.folder_list_empty_headline, R.string.local_folder_list_empty,
-                    R.drawable.ic_list_empty_folder, true);
+            setEmptyListMessage(EmptyListState.LOCAL_FILE_LIST_EMPTY_FILE);
         }
 
         setSwipeEnabled(false); // Disable pull-to-refresh
@@ -115,7 +112,6 @@ public class LocalFileListFragment extends ExtendedListFragment implements
         super.onActivityCreated(savedInstanceState);
 
         mAdapter = new LocalFileListAdapter(mContainerActivity.isFolderPickerMode(),
-                                            mContainerActivity.getInitialDirectory(),
                                             this,
                                             preferences,
                                             getActivity(),
@@ -259,32 +255,30 @@ public class LocalFileListFragment extends ExtendedListFragment implements
      * @param directory     Directory to be listed
      */
     public void listDirectory(File directory) {
-
-        // Check input parameters for null
         if (directory == null) {
-            if (mDirectory != null) {
-                directory = mDirectory;
-            } else {
-                directory = Environment.getExternalStorageDirectory();
-                // TODO be careful with the state of the storage; could not be available
-                if (directory == null) {
-                    return; // no files to show
-                }
-            }
+            directory = (mDirectory != null) ? mDirectory : Environment.getExternalStorageDirectory();
+            if (directory == null) return;
         }
 
-
-        // if that's not a directory -> List its parent
+        // If input is not a directory, list its parent
         if (!directory.isDirectory()) {
             Log_OC.w(TAG, "You see, that is not a directory -> " + directory);
             directory = directory.getParentFile();
+            if (directory == null) {
+                Log_OC.w(TAG, "parent directory is null, cannot swap directory");
+                return;
+            }
         }
 
-        // by now, only files in the same directory will be kept as selected
         mAdapter.removeAllFilesFromCheckedFiles();
         mAdapter.swapDirectory(directory);
 
         mDirectory = directory;
+
+        final var recyclerView = getRecyclerView();
+        if (recyclerView != null) {
+            recyclerView.scrollToPosition(0);
+        }
     }
 
 
@@ -381,22 +375,6 @@ public class LocalFileListFragment extends ExtendedListFragment implements
         /* Same problem here, see switchToGridView() */
         getRecyclerView().setAdapter(mAdapter);
         super.switchToListView();
-    }
-
-    @Override
-    public void setLoading(boolean enabled) {
-        super.setLoading(enabled);
-        if (enabled) {
-            setEmptyListLoadingMessage();
-        } else {
-            // ugly hack because setEmptyListLoadingMessage also uses a handler and there's a race condition otherwise
-            new Handler().post(() -> {
-                mAdapter.notifyDataSetChanged();
-                if (mAdapter.getFilesCount() == 0) {
-                    setEmptyListMessage(SearchType.LOCAL_SEARCH);
-                }
-            });
-        }
     }
 
     @VisibleForTesting

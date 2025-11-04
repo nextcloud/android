@@ -296,7 +296,7 @@ public abstract class AbstractIT {
         InstrumentationRegistry.getInstrumentation().waitForIdleSync();
     }
 
-    protected void onIdleSync(Runnable recipient) {
+    public void onIdleSync(Runnable recipient) {
         InstrumentationRegistry.getInstrumentation().waitForIdle(recipient);
     }
 
@@ -400,11 +400,6 @@ public abstract class AbstractIT {
             public boolean isPowerSavingEnabled() {
                 return false;
             }
-
-            @Override
-            public boolean isPowerSavingExclusionAvailable() {
-                return false;
-            }
         };
 
         UserAccountManager accountManager = UserAccountManagerImpl.fromContext(targetContext);
@@ -455,7 +450,7 @@ public abstract class AbstractIT {
         screenshot(view, "");
     }
 
-    protected void screenshotViaName(Activity activity, String name) {
+    public void screenshotViaName(Activity activity, String name) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R) {
             Screenshot.snapActivity(activity).setName(name).record();
         }

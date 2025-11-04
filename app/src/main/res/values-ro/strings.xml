@@ -109,6 +109,7 @@
     <string name="bottom_navigation_menu_favorites_label">Favorite</string>
     <string name="bottom_navigation_menu_files_label">Toate fișierele</string>
     <string name="bottom_navigation_menu_media_label">Media</string>
+    <string name="busy">Ocupat</string>
     <string name="calendar">Calendar</string>
     <string name="calendars">Calendare</string>
     <string name="certificate_load_problem">Există o problemă la încărcarea certificatului.</string>
@@ -120,9 +121,9 @@
     <string name="choose_template_helper_text">Te rog alege un șablon și introdu numele fișierului.</string>
     <string name="choose_which_file">Alege care fișier să-l păstrezi!</string>
     <string name="choose_widget">Alege widget</string>
+    <string name="clear">Șterge </string>
     <string name="clear_notifications_failed">Eroare la ștergerea notificărilor.</string>
-    <string name="clear_status_message">Șterge mesajul de stare</string>
-    <string name="clear_status_message_after">Șterge mesajul de stare după</string>
+    <string name="clear_status_after">Șterge statusul după</string>
     <string name="clipboard_label">Text copiat din %1$s</string>
     <string name="clipboard_no_text_to_copy">Nici un text disponibil pentru copiere</string>
     <string name="clipboard_text_copied">Link copiat</string>
@@ -516,7 +517,6 @@
     <string name="manage_space_clear_data">Elimină datele</string>
     <string name="manage_space_description">Setările, bazele de date și certificatele serverului ale %1$s vor fi șterse permanent. \n\nFișierele descărcate vor fi păstrate intacte.\n\nAcest proces poate dura mai mult timp.</string>
     <string name="manage_space_title">Administrare spațiu</string>
-    <string name="max_file_count_warning_message">Ați atins limita maximă de încărcare a fișierelor. Vă rugăm să încărcați mai puțin de 500 de fișiere simultan.</string>
     <string name="media_err_invalid_progressive_playback">Fișierul media nu poate fi difuzat</string>
     <string name="media_err_io">Nu s-a putut citi fișierul media</string>
     <string name="media_err_malformed">Fișierul media are codare incorectă</string>
@@ -598,11 +598,6 @@
     <string name="permission_storage_access">Sunt necesare drepturi adiționale pentru a încărca și descărca fișiere.</string>
     <string name="picture_set_as_no_app">Nu a fost găsită o aplicație pentru a seta imaginea</string>
     <string name="pin_shortcut_label">Deschide %1$s</string>
-    <string name="placeholder_fileSize">389 KO</string>
-    <string name="placeholder_filename">placeholder.txt</string>
-    <string name="placeholder_media_time">12:23:45</string>
-    <string name="placeholder_sentence">Acesta este un substituent</string>
-    <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
     <string name="player_stop">stop</string>
     <string name="player_toggle">comută</string>
     <string name="power_save_check_dialog_message">Dezactivarea modului de economisire a bateriei ar putea rezulta în încărcarea de fișiere când bateria are un nivel scăzut!</string>
@@ -662,7 +657,6 @@
     <string name="preview_image_error_unknown_format">Imposibil de afișat imaginea</string>
     <string name="preview_sorry">Scuze</string>
     <string name="privacy">Confidențialitate</string>
-    <string name="public_share_name">Nume nou</string>
     <string name="push_notifications_not_implemented">Notificările push sunt oprite datorită dependințelor de serviciile proprietare Google Play.</string>
     <string name="push_notifications_old_login">Fără notificări push datorită sesiunilor de login expirate. Vă rugăm considerați să adăugați din nou contul dumneavoastră.</string>
     <string name="push_notifications_temp_error">Notificările push nu sunt disponibile în acest moment.</string>
@@ -711,8 +705,6 @@
     <string name="sendbutton_description">Pictograma butonului de trimite</string>
     <string name="set_as">Setează ca</string>
     <string name="set_picture_as">Folosește imaginea ca</string>
-    <string name="set_status">Setează status</string>
-    <string name="set_status_message">Setează statusul mesajelor</string>
     <string name="share">Partajează</string>
     <string name="share_create_permission">Crează</string>
     <string name="share_custom_permission">Permisiuni particularizate</string>
@@ -761,6 +753,7 @@
     <string name="signup_with_provider">Înscriete cu un furnizor</string>
     <string name="single_sign_on_request_token" formatted="true">Permite %1$s să acceseze contul tău Nextcloud %2$s ?</string>
     <string name="sort_by">Sortare după</string>
+    <string name="sort_favorites_first">Sortați favoritele primele</string>
     <string name="ssl_validator_btn_details_hide">Ascunde</string>
     <string name="ssl_validator_btn_details_see">Detalii</string>
     <string name="ssl_validator_header">Nu s-a putut verifica identitatea serverului</string>

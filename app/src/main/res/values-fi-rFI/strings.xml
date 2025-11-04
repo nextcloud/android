@@ -33,14 +33,17 @@
     <string name="app_config_proxy_port_title">Välityspalvelimen portti</string>
     <string name="app_widget_description">Näyttää yhden pienoissovelluksen konsolista</string>
     <string name="appbar_search_in">Etsi kohteesta %s</string>
+    <string name="appear_offline">Näytä olevan poissa</string>
     <string name="assistant_screen_add_task_alert_dialog_title">Lisää uusi tehtävä</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Syötä tekstiä</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Haluatko varmasti poistaa tämän tehtävän?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Poista tehtävä</string>
+    <string name="assistant_screen_loading">Ladataan tehtävälistaa…</string>
     <string name="assistant_screen_task_create_fail_message">Tehtävän luonti epäonnistui</string>
     <string name="assistant_screen_task_create_success_message">Tehtävä luotu</string>
     <string name="assistant_screen_task_delete_fail_message">Tehtävän poisto epäonnistui</string>
     <string name="assistant_screen_task_delete_success_message">Tehtävä poistettu</string>
+    <string name="assistant_screen_task_list_empty_message">Tehtävälista on tyhjä.</string>
     <string name="assistant_screen_task_list_error_state_message">Tehtävälistan haku epäonnistui, tarkista internetyhteytesi.</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">Poista tehtävä</string>
     <string name="assistant_screen_task_types_error_state_message">Tehtävätyyppen haku epäonnistui, tarkista internetyhteytesi.</string>
@@ -98,6 +101,7 @@
     <string name="bottom_navigation_menu_favorites_label">Suosikit</string>
     <string name="bottom_navigation_menu_files_label">Kaikki tiedostot</string>
     <string name="bottom_navigation_menu_media_label">Media</string>
+    <string name="busy">Varattu</string>
     <string name="calendar">Kalenteri</string>
     <string name="calendars">Kalenterit</string>
     <string name="certificate_load_problem">Varmennetta ladatessa ilmeni ongelmia.</string>
@@ -109,9 +113,9 @@
     <string name="choose_template_helper_text">Valitse mallipohja ja anna tiedostonimi</string>
     <string name="choose_which_file">Valitse säilytettävä tiedosto!</string>
     <string name="choose_widget">Valitse pienoissovellus</string>
+    <string name="clear">Tyhjennä</string>
     <string name="clear_notifications_failed">Ilmoituksia ei voitu tyhjentää</string>
-    <string name="clear_status_message">Tyhjennä tilaviesti</string>
-    <string name="clear_status_message_after">Tyhjennä tilaviesti, kun on kulunut</string>
+    <string name="clear_status_after">Tyhjennä tilatieto</string>
     <string name="clipboard_label">Teksti kopioitu %1$s</string>
     <string name="clipboard_no_text_to_copy">Leikepöydälle ei kopioitunut mitään</string>
     <string name="clipboard_text_copied">Linkki kopioitu</string>
@@ -514,6 +518,7 @@
     <string name="move_file_invalid_into_descendent">Ei ole mahdollista siirtää kansiota yhteen sen alikansiosta.</string>
     <string name="move_file_invalid_overwrite">Tiedosto on jo olemassa kohdekansiossa</string>
     <string name="move_file_not_found">Tiedoston siirtäminen ei onnistunut. Varmista että tiedosto on olemassa.</string>
+    <string name="mute_all_notifications">Mykistä kaikki ilmoitukset</string>
     <string name="network_error_connect_timeout_exception">Palvelinta odottaessa tapahtui virhe. Toimenpidettä ei voitu suorittaa loppuun.</string>
     <string name="network_error_socket_exception">Palvelimeen yhdistäessä tapahtui virhe.</string>
     <string name="network_error_socket_timeout_exception">Palvelinta odottaessa tapahtui virhe. Toimenpidettä ei voitu suorittaa loppuun.</string>
@@ -522,6 +527,7 @@
     <string name="new_media_folder_detected">Uusi mediakansio %1$s löytynyt.</string>
     <string name="new_media_folder_photos">kuva</string>
     <string name="new_media_folder_videos">video</string>
+    <string name="new_notification">Uusi ilmoitus</string>
     <string name="new_version_was_created">Luotiin uusi versio</string>
     <string name="no_actions">Ei tapahtumia tälle käyttäjälle</string>
     <string name="no_browser_available">Linkkien käsittelyyn ei ole sovellusta</string>
@@ -572,11 +578,6 @@
     <string name="permission_storage_access">Tiedostojen lähetys ja lataaminen vaatii lisäoikeuksia.</string>
     <string name="picture_set_as_no_app">Kuvan liittämiseksi ei löytynyt sovellusta</string>
     <string name="pin_shortcut_label">Avaa %1$s</string>
-    <string name="placeholder_fileSize">389 kt</string>
-    <string name="placeholder_filename">paikkamerkki.txt</string>
-    <string name="placeholder_media_time">12:23:45</string>
-    <string name="placeholder_sentence">Tämä on paikkamerkki</string>
-    <string name="placeholder_timestamp">18.05.2012 12:23</string>
     <string name="player_stop">pysäytä</string>
     <string name="player_toggle">vaihda</string>
     <string name="please_select_a_server">Valitse palvelin...</string>
@@ -597,6 +598,7 @@
     <string name="prefs_category_about">Tietoja</string>
     <string name="prefs_category_details">Tiedot</string>
     <string name="prefs_category_dev">Kehittäjä</string>
+    <string name="prefs_category_files">Tiedostot</string>
     <string name="prefs_category_general">Yleiset</string>
     <string name="prefs_category_more">Enemmän</string>
     <string name="prefs_category_sync">Synkronoi</string>
@@ -644,11 +646,9 @@ GNU yleinen lisenssi, versio 2</string>
     <string name="preview_image_error_no_local_file">Paikallista tiedostoa ei ole esikatselua varten</string>
     <string name="preview_image_error_unknown_format">Kuvan näyttäminen ei onnistunut</string>
     <string name="preview_image_file_is_not_downloaded">Tiedostoa ei ole ladattu</string>
-    <string name="preview_image_file_is_not_exist">Tiedostoa ei ole olemassa</string>
     <string name="preview_media_unhandled_http_code_message">Tiedosto on toisen käyttäjän tai prosessin lukitsema eikä sitä voida sen vuoksi poistaa. Yritä myöhemmin uudelleen.</string>
     <string name="preview_sorry">Anteeksi</string>
     <string name="privacy">Yksityisyys</string>
-    <string name="public_share_name">Uusi nimi</string>
     <string name="push_notifications_not_implemented">Push-ilmoitukset ovat pois käytöstä, koska ne riippuvat suljetuista Google Play -palveluista.</string>
     <string name="push_notifications_old_login">Ei puskusanomia johtuen vanhentuneesta kirjautumisistunnosta. Harkitse tilin uudelleenlisäämistä.</string>
     <string name="push_notifications_temp_error">Push-ilmoitukset eivät ole nyt käytettävissä.</string>
@@ -708,8 +708,6 @@ GNU yleinen lisenssi, versio 2</string>
     <string name="sendbutton_description">Lähetä-painikkeen kuvake</string>
     <string name="set_as">Aseta</string>
     <string name="set_picture_as">Käytä kuvaa</string>
-    <string name="set_status">Aseta tilatieto</string>
-    <string name="set_status_message">Aseta tilaviesti</string>
     <string name="share">Jaa</string>
     <string name="share_create_permission">Luo</string>
     <string name="share_custom_permission">Mukautetut oikeudet</string>
@@ -734,6 +732,7 @@ GNU yleinen lisenssi, versio 2</string>
     <string name="share_no_expiration_date_label">Aseta vanhenemispäivä</string>
     <string name="share_no_password_title">Aseta salasana</string>
     <string name="share_permission_can_edit">Voi muokata</string>
+    <string name="share_permission_file_request">Tiedostopyyntö</string>
     <string name="share_permission_view_only">Vain katselu</string>
     <string name="share_re_share_permission">Jaa</string>
     <string name="share_read_permission">Lue</string>
@@ -761,6 +760,8 @@ GNU yleinen lisenssi, versio 2</string>
     <string name="signup_with_provider">Kirjaudu sisään palvelutarjoajan kautta</string>
     <string name="single_sign_on_request_token" formatted="true">Salli käyttäjälle %1$s pääsy Nextcloud -tilillesi %2$s?</string>
     <string name="sort_by">Lajittelujärjestys</string>
+    <string name="sort_favorites_first">Järjestä suosikit ensiksi</string>
+    <string name="sort_folders_before_files">Järjestä kansiot ennen tiedostoja</string>
     <string name="ssl_validator_btn_details_hide">Piilota</string>
     <string name="ssl_validator_btn_details_see">Tiedot</string>
     <string name="ssl_validator_header">Palvelimen identiteettiä ei voitu vahvistaa</string>
@@ -815,6 +816,7 @@ GNU yleinen lisenssi, versio 2</string>
     <string name="subtitle_videos_only">Vain videot</string>
     <string name="suggest">Ehdota</string>
     <string name="sync">Synkronoi</string>
+    <string name="sync_anyway">Synkronoi silti</string>
     <string name="sync_conflicts_in_favourites_ticker">Ristiriitoja löytynyt</string>
     <string name="sync_current_folder_was_removed">Kansiota %1$s ei ole enää olemassa</string>
     <string name="sync_fail_content">Ei voitu synkronoida %1$s</string>
@@ -995,6 +997,18 @@ GNU yleinen lisenssi, versio 2</string>
     <plurals name="minutes">
         <item quantity="one">%d minuutti</item>
         <item quantity="other">%d minuuttia</item>
+    </plurals>
+    <plurals name="time_seconds_ago">
+        <item quantity="one">%d sekunti sitten</item>
+        <item quantity="other">%d sekuntia sitten</item>
+    </plurals>
+    <plurals name="time_minutes_ago">
+        <item quantity="one">%d minuutti sitten</item>
+        <item quantity="other">%d minuuttia sitten</item>
+    </plurals>
+    <plurals name="time_hours_ago">
+        <item quantity="one">%d tunti sitten</item>
+        <item quantity="other">%d tuntia sitten</item>
     </plurals>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">Ei voitu synkronoida %1$d tiedosto (ristiriita: %2$d)</item>

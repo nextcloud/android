@@ -34,6 +34,7 @@
     <string name="app_config_proxy_port_title">Vrata posredniškega strežnika</string>
     <string name="app_widget_description">Pokaži en gradnik iz nadzorne plošče</string>
     <string name="appbar_search_in">Poišči v %s</string>
+    <string name="appear_offline">Pokaže kot brez povezave</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Izbriši nalogo</string>
     <string name="associated_account_not_found">Povezanega računa ni mogoče najti!</string>
     <string name="auth_access_failed">Dostop je spodletel: %1$s</string>
@@ -65,6 +66,7 @@
     <string name="auth_unknown_host_title">Gostitelja ni mogoče najti</string>
     <string name="auth_unsupported_multiaccount">%1$s ne omogoča podpore več računom</string>
     <string name="auth_wrong_connection_title">Ni mogoče vzpostaviti povezave</string>
+    <string name="authenticator_activity_cancel_login">Prekliči prijavo</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">ohranjeno v izvorni mapi, ker je ta le za branje</string>
     <string name="auto_upload_on_wifi">Pošiljaj le na nemerjeni povezavi Wi-Fi</string>
     <string name="auto_upload_path">/SamodejnoPošiljanje</string>
@@ -83,6 +85,7 @@
     <string name="battery_optimization_title">Optimizacija baterije</string>
     <string name="bottom_navigation_menu_favorites_label">Priljubljeno</string>
     <string name="bottom_navigation_menu_files_label">Vse datoteke</string>
+    <string name="busy">Zasedeno</string>
     <string name="calendar">Koledar</string>
     <string name="calendars">Koledarji</string>
     <string name="certificate_load_problem">Prišlo je do težav med nalaganjem potrdila.</string>
@@ -94,9 +97,9 @@
     <string name="choose_template_helper_text">Izbrati je treba predlogo in vpisati ime datoteke.</string>
     <string name="choose_which_file">Izberite, katero datoteko želite obdržati!</string>
     <string name="choose_widget">Izbor gradnika</string>
+    <string name="clear">Počisti</string>
     <string name="clear_notifications_failed">Počiščenje obvestil je spodletelo.</string>
-    <string name="clear_status_message">Počisti sporočilo stanja</string>
-    <string name="clear_status_message_after">Počisti sporočilo stanja po</string>
+    <string name="clear_status_after">Počisti stanje</string>
     <string name="clipboard_label">Besedilo je kopirano iz %1$s</string>
     <string name="clipboard_no_text_to_copy">Ni prejetega besedila za kopiranje v odložišče</string>
     <string name="clipboard_text_copied">Povezava je kopirana</string>
@@ -477,6 +480,7 @@
     <string name="move_file_invalid_into_descendent">Ni mogoče premakniti mape v podrejeno mapo</string>
     <string name="move_file_invalid_overwrite">Datoteka v ciljni mapi že obstaja</string>
     <string name="move_file_not_found">Ni mogoče premakniti datoteke. Preverite, ali obstaja.</string>
+    <string name="mute_all_notifications">Utiša vsa obvestila</string>
     <string name="network_error_connect_timeout_exception">Prišlo je do napake med čakanjem na strežnik. Opravila ni mogoče končati.</string>
     <string name="network_error_socket_exception">Med povezovanjem s strežnikom je prišlo do napake.</string>
     <string name="network_error_socket_timeout_exception">Prišlo je do napake med čakanjem na strežnik. Opravila ni mogoče končati.</string>
@@ -536,11 +540,6 @@
     <string name="permission_storage_access">Za prejemanje oziroma pošiljanje datotek v oblak so zahtevana dodatna dovoljenja.</string>
     <string name="picture_set_as_no_app">Ni najdenega programa za nastavitev slike</string>
     <string name="pin_shortcut_label">Odpri %1$s</string>
-    <string name="placeholder_fileSize">389 KB</string>
-    <string name="placeholder_filename">vsebnik.txt</string>
-    <string name="placeholder_media_time">12:23:45</string>
-    <string name="placeholder_sentence">To je vsebnik predmetov</string>
-    <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
     <string name="player_stop">ustavi</string>
     <string name="player_toggle">preklopi</string>
     <string name="power_save_check_dialog_message">Onemogočanje varčevanja lahko povzroči pošiljanje datotek, ko je napetost baterije že nizka!</string>
@@ -558,6 +557,7 @@
     <string name="prefs_category_about">O projektu</string>
     <string name="prefs_category_details">Podrobnosti</string>
     <string name="prefs_category_dev">Dev</string>
+    <string name="prefs_category_files">Datoteke</string>
     <string name="prefs_category_general">Splošno</string>
     <string name="prefs_category_more">Več</string>
     <string name="prefs_category_sync">Uskladi</string>
@@ -602,10 +602,8 @@
     <string name="preview_image_description">Predogled slike</string>
     <string name="preview_image_error_no_local_file">Ni krajevne datoteke za predogled</string>
     <string name="preview_image_error_unknown_format">Te slike ni mogoče prikazati</string>
-    <string name="preview_image_file_is_not_exist">Datoteka ne obstaja</string>
     <string name="preview_sorry">Na žalost</string>
     <string name="privacy">Zasebnost</string>
-    <string name="public_share_name">Novo ime</string>
     <string name="push_notifications_not_implemented">Potisna obvestila so onemogočena zaradi odvisnosti od storitev Google Play.</string>
     <string name="push_notifications_old_login">Zaradi pretečene prijavne seje ni mogoče prikazati potisnih obvestil. Priporočljivo je ponovno dodati račun med nastavitvami.</string>
     <string name="push_notifications_temp_error">Potisna obvestila trenutno niso na voljo.</string>
@@ -657,8 +655,6 @@
     <string name="sendbutton_description">Ikona gumba za pošiljanje</string>
     <string name="set_as">Nastavi kot</string>
     <string name="set_picture_as">Uporabi sliko kot</string>
-    <string name="set_status">Nastavi stanje</string>
-    <string name="set_status_message">Nastavi sporočilo stanja</string>
     <string name="setup_e2e">Med nastavitvijo šifriranja E2E boste prejeli naključno 12-mestno besedno geslo, brez katerega na drugih napravah datotek ne bo mogoče odpreti. To geslo bo shranjeno izključno na tej napravi in ga bo mogoče ponovno prikazati na tem zaslonu. Priporočljivo ga je zabeležiti na varno mesto!</string>
     <string name="share">Souporaba</string>
     <string name="share_create_permission">Ustvari</string>
@@ -712,6 +708,8 @@
     <string name="signup_with_provider">Prijava prek ponudnika</string>
     <string name="single_sign_on_request_token" formatted="true">Ali dovolite uporabniku %1$s dostop do računa Nextcloud %2$s?</string>
     <string name="sort_by">Razvrsti</string>
+    <string name="sort_favorites_first">Razvrsti najprej priljubljene</string>
+    <string name="sort_folders_before_files">Razvrsti mape pred datotekami</string>
     <string name="ssl_validator_btn_details_hide">Skrij</string>
     <string name="ssl_validator_btn_details_see">Podrobnosti</string>
     <string name="ssl_validator_header">Istovetnosti strežnika ni mogoče preveriti</string>
