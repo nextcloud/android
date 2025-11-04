@@ -29,8 +29,6 @@ import com.nextcloud.client.preferences.AppPreferencesImpl
 import com.nextcloud.utils.extensions.getParcelableArgument
 import com.owncloud.android.R
 import com.owncloud.android.ui.dialog.StoragePermissionDialogFragment
-import com.owncloud.android.utils.PermissionUtil.PERMISSIONS_EXTERNAL_STORAGE
-import com.owncloud.android.utils.PermissionUtil.REQUEST_CODE_MANAGE_ALL_FILES
 import com.owncloud.android.utils.theme.ViewThemeUtils
 
 object PermissionUtil {
