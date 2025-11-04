@@ -37,7 +37,6 @@ import android.widget.ImageView;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.utils.BitmapExtensionsKt;
-import com.nextcloud.utils.extensions.ThumbnailsCacheManagerExtensionsKt;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.OwnCloudAccount;
@@ -1416,7 +1415,7 @@ public final class ThumbnailsCacheManager {
             int pxW = p.x;
             int pxH = p.y;
 
-            if (file.isDown()) {
+            if (file.isDown() && MimeTypeUtil.isImage(file)) {
                 Bitmap bitmap = BitmapUtils.decodeSampledBitmapFromFile(file.getStoragePath(), pxW, pxH);
 
                 if (bitmap != null) {
