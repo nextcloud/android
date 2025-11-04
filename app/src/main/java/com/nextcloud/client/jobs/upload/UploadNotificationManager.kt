@@ -14,6 +14,7 @@ import com.nextcloud.utils.extensions.isFileSpecificError
 import com.nextcloud.utils.numberFormatter.NumberFormatter
 import com.owncloud.android.R
 import com.owncloud.android.lib.common.operations.RemoteOperationResult
+import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode
 import com.owncloud.android.operations.UploadFileOperation
 import com.owncloud.android.ui.notifications.NotificationUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
@@ -152,7 +153,7 @@ class UploadNotificationManager(private val context: Context, viewThemeUtils: Vi
     private fun showNewNotification(operation: UploadFileOperation) {
         notificationManager.notify(
             NotificationUtils.createUploadNotificationTag(operation.file),
-            FileUploadWorker.NOTIFICATION_ERROR_ID,
+            operation.file.hashCode(),
             notificationBuilder.build()
         )
     }
@@ -171,6 +172,17 @@ class UploadNotificationManager(private val context: Context, viewThemeUtils: Vi
         notificationManager.notify(
             notificationId,
             notificationBuilder.build()
+        )
+    }
+
+    fun showQuotaExceedNotification(operation: UploadFileOperation, resultCode: ResultCode) {
+        notifyForFailedResult(
+            operation,
+            resultCode,
+            null,
+            null,
+            null,
+            context.getString(R.string.upload_quota_exceeded)
         )
     }
 
