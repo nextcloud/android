@@ -144,5 +144,7 @@ data class CapabilityEntity(
     @ColumnInfo(name = ProviderTableMeta.CAPABILITIES_USER_STATUS_SUPPORTS_BUSY)
     val userStatusSupportsBusy: Int?,
     @ColumnInfo(name = ProviderTableMeta.CAPABILITIES_WINDOWS_COMPATIBLE_FILENAMES)
-    val isWCFEnabled: Int?
+    val isWCFEnabled: Int?,
+    @ColumnInfo(name = ProviderTableMeta.CAPABILITIES_HAS_VALID_SUBSCRIPTION)
+    val hasValidSubscription: Int?
 )
