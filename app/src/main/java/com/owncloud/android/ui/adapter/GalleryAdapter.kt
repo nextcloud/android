@@ -150,11 +150,6 @@ class GalleryAdapter(
         }
     }
 
-    override fun onBindFooterViewHolder(holder: SectionedViewHolder?, section: Int) {
-        TODO("Not yet implemented")
-    }
-
-    @SuppressLint("NotifyDataSetChanged")
     fun showAllGalleryItems(
         remotePath: String,
         mediaState: GalleryFragmentBottomSheetDialog.MediaState,
@@ -257,24 +252,6 @@ class GalleryAdapter(
         return getAbsolutePosition(item, row)
     }
 
-    override fun swapDirectory(
-        user: User,
-        directory: OCFile,
-        storageManager: FileDataStorageManager,
-        onlyOnDevice: Boolean,
-        mLimitToMimeType: String
-    ) {
-        TODO("Not yet implemented")
-    }
-
-    override fun setHighlightedItem(file: OCFile) {
-        TODO("Not yet implemented")
-    }
-
-    override fun setSortOrder(mFile: OCFile, sortOrder: FileSortOrder) {
-        TODO("Not yet implemented")
-    }
-
     override fun addCheckedFile(file: OCFile) {
         ocFileListDelegate.addCheckedFile(file)
     }
@@ -293,10 +270,8 @@ class GalleryAdapter(
 
     override fun getFilesCount(): Int = files.fold(0) { acc, item -> acc + item.rows.size }
 
-    @SuppressLint("NotifyDataSetChanged")
     override fun setMultiSelect(boolean: Boolean) {
         ocFileListDelegate.isMultiSelect = boolean
-        notifyDataSetChanged()
     }
 
     private fun getAllFiles(): List<OCFile> = files.flatMap { galleryItem ->
@@ -323,21 +298,30 @@ class GalleryAdapter(
         columns = newColumn
     }
 
-    @SuppressLint("NotifyDataSetChanged")
     fun markAsFavorite(remotePath: String, favorite: Boolean) {
         val allFiles = getAllFiles()
-        for (file in allFiles) {
-            if (file.remotePath == remotePath) {
-                file.isFavorite = favorite
-                break
+        allFiles.firstOrNull { it.remotePath == remotePath }?.also { file ->
+            file.isFavorite = favorite
+            Handler(Looper.getMainLooper()).post {
+                files = allFiles.toGalleryItems()
+                notifyItemChanged(file)
             }
         }
-
-        Handler(Looper.getMainLooper()).post {
-            files = allFiles.toGalleryItems()
-            notifyDataSetChanged()
-        }
     }
+
+    override fun onBindFooterViewHolder(holder: SectionedViewHolder?, section: Int) = Unit
+
+    override fun swapDirectory(
+        user: User,
+        directory: OCFile,
+        storageManager: FileDataStorageManager,
+        onlyOnDevice: Boolean,
+        mLimitToMimeType: String
+    ) = Unit
+
+    override fun setHighlightedItem(file: OCFile) = Unit
+
+    override fun setSortOrder(mFile: OCFile, sortOrder: FileSortOrder) = Unit
 
     private fun List<OCFile>.toGalleryItems(): List<GalleryItems> = this
         .groupBy { firstOfMonth(it.modificationTimestamp) }
