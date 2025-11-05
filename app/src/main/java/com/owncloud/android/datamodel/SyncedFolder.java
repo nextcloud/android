@@ -179,6 +179,28 @@ public class SyncedFolder implements Serializable, Cloneable {
         return this.chargingOnly;
     }
 
+    /**
+     * Indicates whether the "Also upload existing files" option is enabled for this folder.
+     *
+     * <p>
+     * This flag controls how files in the folder are treated when auto-upload is enabled:
+     * <ul>
+     *     <li>If {@code true} (existing files are included):
+     *         <ul>
+     *             <li>All files in the folder, regardless of creation date, will be uploaded.</li>
+     *         </ul>
+     *     </li>
+     *     <li>If {@code false} (existing files are skipped):
+     *         <ul>
+     *             <li>Only files created or added after the folder was enabled will be uploaded.</li>
+     *             <li>Files that existed before enabling will be skipped, based on their creation time.</li>
+     *         </ul>
+     *     </li>
+     * </ul>
+     * </p>
+     *
+     * @return {@code true} if existing files should also be uploaded, {@code false} otherwise
+     */
     public boolean isExisting() {
         return this.existing;
     }
