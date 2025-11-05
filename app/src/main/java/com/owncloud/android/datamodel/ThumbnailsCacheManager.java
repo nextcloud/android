@@ -11,6 +11,7 @@
  */
 package com.owncloud.android.datamodel;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -37,7 +38,6 @@ import android.widget.ImageView;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.utils.BitmapExtensionsKt;
-import com.nextcloud.utils.extensions.ThumbnailsCacheManagerExtensionsKt;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.OwnCloudAccount;
@@ -885,7 +885,7 @@ public final class ThumbnailsCacheManager {
         private final WeakReference<ImageView> mImageViewReference;
         private File mFile;
         private String mImageKey;
-        private final Context mContext;
+        @SuppressLint("StaticFieldLeak") private final Context mContext;
         private final ViewThemeUtils viewThemeUtils;
 
         public MediaThumbnailGenerationTask(ImageView imageView,
@@ -1010,7 +1010,7 @@ public final class ThumbnailsCacheManager {
         private final String mUserId;
         private final String displayName;
         private final String mServerName;
-        private final Context mContext;
+        @SuppressLint("StaticFieldLeak") private final Context mContext;
 
 
         public AvatarGenerationTask(AvatarGenerationListener avatarGenerationListener,

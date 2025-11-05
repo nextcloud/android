@@ -8,6 +8,7 @@
  */
 package com.owncloud.android.ui.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.text.format.DateFormat;
 import android.view.LayoutInflater;
@@ -54,6 +55,7 @@ public class ActivityAndVersionListAdapter extends ActivityListAdapter {
         this.versionListInterface = versionListInterface;
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     public void setActivityAndVersionItems(List<Object> items, NextcloudClient newClient, boolean clear) {
         if (client == null) {
             client = newClient;

@@ -6,6 +6,7 @@
  */
 package com.nextcloud.client.etm
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
@@ -20,6 +21,7 @@ class EtmMenuAdapter(context: Context, val onItemClicked: (Int) -> Unit) :
 
     private val layoutInflater = LayoutInflater.from(context)
     var pages: List<EtmMenuEntry> = listOf()
+        @SuppressLint("NotifyDataSetChanged")
         set(value) {
             field = value
             notifyDataSetChanged()

@@ -7,6 +7,7 @@
  */
 package com.owncloud.android.ui.preview;
 
+import android.annotation.SuppressLint;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -146,6 +147,7 @@ public class PreviewTextFileFragment extends PreviewTextFragment {
     /**
      * Reads the file to preview and shows its contents. Too critical to be anonymous.
      */
+    @SuppressLint("StaticFieldLeak")
     private class TextLoadAsyncTask extends AsyncTask<Object, Void, StringWriter> {
         private static final int PARAMS_LENGTH = 1;
         private final WeakReference<TextView> textViewReference;

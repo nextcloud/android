@@ -202,6 +202,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         isRTL = DisplayUtils.isRTL();
 
         activity.registerComponentCallbacks(new ComponentCallbacks() {
+            @SuppressLint("NotifyDataSetChanged")
             @Override
             public void onConfigurationChanged(@NonNull Configuration newConfig) {
                 notifyDataSetChanged(); // force update of orientation-dependent layout (e.g. share button visibility)

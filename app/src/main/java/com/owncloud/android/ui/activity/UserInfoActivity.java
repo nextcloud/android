@@ -12,6 +12,7 @@
  */
 package com.owncloud.android.ui.activity;
 
+import android.annotation.SuppressLint;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
 import android.os.Bundle;
@@ -392,6 +393,7 @@ public class UserInfoActivity extends DrawerActivity implements Injectable {
             this.viewThemeUtils = viewThemeUtils;
         }
 
+        @SuppressLint("NotifyDataSetChanged")
         public void setData(List<UserInfoDetailsItem> displayList) {
             mDisplayList = displayList == null ? new LinkedList<>() : displayList;
             notifyDataSetChanged();
