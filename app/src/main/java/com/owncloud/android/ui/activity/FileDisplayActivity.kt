@@ -429,7 +429,8 @@ class FileDisplayActivity :
             CapabilityUtils.checkOutdatedWarning(
                 getResources(),
                 user.get().server.version,
-                capabilities.extendedSupport.isTrue
+                capabilities.extendedSupport.isTrue,
+                capabilities.hasValidSubscription.isTrue
             )
         ) {
             DisplayUtils.showServerOutdatedSnackbar(this, Snackbar.LENGTH_LONG)
