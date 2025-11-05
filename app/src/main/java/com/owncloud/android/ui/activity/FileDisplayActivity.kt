@@ -586,6 +586,7 @@ class FileDisplayActivity :
         }
     }
 
+    @SuppressLint("UnsafeIntentLaunch")
     private fun handleRestartIntent(intent: Intent) {
         if (intent.action != RESTART) {
             return

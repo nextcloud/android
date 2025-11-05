@@ -172,7 +172,6 @@
     <string name="uploader_error_message_source_file_not_found">File selected for upload not found. Please check whether the file exists.</string>
     <string name="uploader_error_message_source_file_not_copied">Could not copy file to a temporary folder. Try to resend it.</string>
     <string name="uploader_upload_files_behaviour">Upload option:</string>
-    <string name="file_upload_limit_message">You can upload up to %d files at once.</string>
     <string name="file_upload_worker_same_file_already_exists">%s already exists, no conflict detected</string>
     <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">Move file to %1$s folder</string>
     <string name="uploader_upload_files_behaviour_only_upload">Keep file in source folder</string>
@@ -333,6 +332,10 @@
     <plurals name="export_start">
         <item quantity="one">%d file will be exported. See notification for details.</item>
         <item quantity="other">%d files will be exported. See notification for details.</item>
+    </plurals>
+    <plurals name="file_upload_limit_message">
+        <item quantity="one">You can upload only %d file at once.</item>
+        <item quantity="other">You can upload up to %d files at once.</item>
     </plurals>
     <string name="sync_foreign_files_forgotten_explanation">As of version 1.3.16, files uploaded from this device are copied into the local %1$s folder to prevent data loss when a single file is synced with multiple accounts.\n\nDue to this change, all files uploaded with earlier versions of this app were copied into the %2$s folder. However, an error prevented the completion of this operation during account synchronization. You may either leave the file(s) as is and delete the link to %3$s, or move the file(s) into the %1$s folder and retain the link to %4$s.\n\nListed below are the local file(s), and the remote file(s) in %5$s they were linked to.</string>
     <string name="sync_current_folder_was_removed">The folder %1$s does not exist anymore</string>

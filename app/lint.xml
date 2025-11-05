@@ -39,6 +39,10 @@
         <ignore path="**/values-**/strings.xml" />
     </issue>
 
+    <issue id="PluralsCandidate">
+        <ignore path="**/values-**/strings.xml" />
+    </issue>
+
     <issue id="ExtraTranslation">
         <ignore path="**/strings.xml"/>
         <ignore path="**/values-b+en+001/strings.xml"/>

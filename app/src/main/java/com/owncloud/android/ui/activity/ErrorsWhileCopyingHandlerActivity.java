@@ -11,6 +11,7 @@
  */
 package com.owncloud.android.ui.activity;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -194,6 +195,7 @@ public class ErrorsWhileCopyingHandlerActivity  extends AppCompatActivity implem
     /**
      * Asynchronous task performing the move of all the local files to the ownCloud folder.
      */
+    @SuppressLint("StaticFieldLeak")
     private class MoveFilesTask extends AsyncTask<Void, Void, Boolean> {
 
         /**
