@@ -1070,7 +1070,7 @@ class FileDisplayActivity :
                 localBasePath = "$localBasePath/"
             }
 
-            val remotePathBase = getCurrentDir().remotePath
+            val remotePathBase = getCurrentDir()?.remotePath
             val decryptedRemotePaths = getRemotePaths(remotePathBase, filePaths, localBasePath)
 
             val behaviour = when (resultCode) {
@@ -1081,8 +1081,8 @@ class FileDisplayActivity :
 
             connectivityService.isNetworkAndServerAvailable { result: Boolean? ->
                 if (result == true) {
-                    val isValidFolderPath = checkFolderPath(remotePathBase, capabilities, this)
-                    if (!isValidFolderPath) {
+                    val isValidFolderPath = remotePathBase?.let { checkFolderPath(it, capabilities, this) }
+                    if (isValidFolderPath == false) {
                         DisplayUtils.showSnackMessage(
                             this,
                             R.string.file_name_validator_error_contains_reserved_names_or_invalid_characters
@@ -1493,9 +1493,8 @@ class FileDisplayActivity :
             return
         }
 
-        var currentFile = if (file == null) null else storageManager.getFileByPath(file.remotePath)
-        val currentDir =
-            if (getCurrentDir() == null) null else storageManager.getFileByPath(getCurrentDir().remotePath)
+        var currentFile = file?.remotePath?.let { storageManager.getFileByPath(it) }
+        val currentDir = getCurrentDir()?.remotePath?.let { storageManager.getFileByPath(it) }
         val isSyncFolderRemotePathRoot = OCFile.ROOT_PATH == syncFolderRemotePath
 
         if (currentDir == null && !isSyncFolderRemotePathRoot) {
@@ -1519,7 +1518,7 @@ class FileDisplayActivity :
     }
 
     private fun handleRemovedFileFromServer(currentFile: OCFile?, currentDir: OCFile?): OCFile? {
-        if (currentFile == null && !file.isFolder) {
+        if (currentFile == null && file?.isFolder == false) {
             resetTitleBarAndScrolling()
             return currentDir
         }
@@ -1668,8 +1667,8 @@ class FileDisplayActivity :
             var sameFile = false
             if (file != null) {
                 renamedInUpload =
-                    file.remotePath == intent.getStringExtra(FileUploadWorker.EXTRA_OLD_REMOTE_PATH)
-                sameFile = file.remotePath == uploadedRemotePath || renamedInUpload
+                    file?.remotePath == intent.getStringExtra(FileUploadWorker.EXTRA_OLD_REMOTE_PATH)
+                sameFile = file?.remotePath == uploadedRemotePath || renamedInUpload
             }
 
             if (sameAccount && sameFile && this@FileDisplayActivity.leftFragment is FileDetailFragment) {
@@ -1689,7 +1688,7 @@ class FileDisplayActivity :
                     )
                 }
 
-                if (uploadWasFine || file != null && file.fileExists()) {
+                if (uploadWasFine || file?.fileExists() == true) {
                     fileDetailFragment.updateFileDetails(false, true)
                 } else {
                     onBackPressedDispatcher.onBackPressed()
@@ -1697,13 +1696,13 @@ class FileDisplayActivity :
 
                 // Force the preview if the file is an image or text file
                 if (uploadWasFine) {
-                    val ocFile = file
-                    if (PreviewImageFragment.canBePreviewed(ocFile)) {
-                        startImagePreview(file, true)
-                    } else if (PreviewTextFileFragment.canBePreviewed(ocFile)) {
-                        startTextPreview(ocFile, true)
+                    file?.let {
+                        if (PreviewImageFragment.canBePreviewed(it)) {
+                            startImagePreview(it, true)
+                        } else if (PreviewTextFileFragment.canBePreviewed(it)) {
+                            startTextPreview(it, true)
+                        }
                     }
-                    // TODO what about other kind of previews?
                 }
             }
         }
@@ -1961,7 +1960,7 @@ class FileDisplayActivity :
             if (getCurrentDir() !=
                 null
             ) {
-                storageManager.getFileByDecryptedRemotePath(getCurrentDir().remotePath)
+                storageManager.getFileByDecryptedRemotePath(getCurrentDir()?.remotePath)
             } else {
                 null
             }
@@ -2131,17 +2130,17 @@ class FileDisplayActivity :
             val file = getFile()
 
             // delete old local copy
-            if (file.isDown) {
+            if (file?.isDown == true) {
                 val list: MutableList<OCFile?> = ArrayList()
                 list.add(file)
                 fileOperationsHelper.removeFiles(list, true, true)
 
                 // download new version, only if file was previously download
-                showSyncLoadingDialog(file.isFolder)
+                showSyncLoadingDialog(file.isFolder == true)
                 fileOperationsHelper.syncFile(file)
             }
 
-            val parent = storageManager.getFileById(file.parentId)
+            val parent = file?.let { storageManager.getFileById(it.parentId) }
             startSyncFolderOperation(parent, ignoreETag = true, ignoreFocus = true)
 
             val leftFragment = this.leftFragment
@@ -2974,11 +2973,17 @@ class FileDisplayActivity :
     }
 
     fun performUnifiedSearch(query: String, listOfHiddenFiles: ArrayList<String>?) {
+        val path = currentDir?.decryptedRemotePath
+            ?: run {
+                Log_OC.w(TAG, "currentDir is null, using ROOT_PATH")
+                OCFile.ROOT_PATH
+            }
+
         val unifiedSearchFragment =
             UnifiedSearchFragment.Companion.newInstance(
                 query,
                 listOfHiddenFiles,
-                currentDir.decryptedRemotePath
+                path
             )
         setLeftFragment(unifiedSearchFragment, false)
     }
