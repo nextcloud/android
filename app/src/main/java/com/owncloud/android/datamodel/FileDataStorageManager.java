@@ -2420,6 +2420,8 @@ public class FileDataStorageManager {
         contentValues.put(ProviderTableMeta.CAPABILITIES_NOTES_FOLDER_PATH, capability.getNotesFolderPath());
 
         contentValues.put(ProviderTableMeta.CAPABILITIES_DEFAULT_PERMISSIONS, capability.getDefaultPermissions());
+        
+        contentValues.put(ProviderTableMeta.CAPABILITIES_HAS_VALID_SUBSCRIPTION, capability.getHasValidSubscription().getValue());
 
         return contentValues;
     }
@@ -2605,6 +2607,7 @@ public class FileDataStorageManager {
             capability.setNotesFolderPath(getString(cursor, ProviderTableMeta.CAPABILITIES_NOTES_FOLDER_PATH));
 
             capability.setDefaultPermissions(getInt(cursor, ProviderTableMeta.CAPABILITIES_DEFAULT_PERMISSIONS));
+            capability.setHasValidSubscription(getBoolean(cursor, ProviderTableMeta.CAPABILITIES_HAS_VALID_SUBSCRIPTION));
         }
 
         return capability;
