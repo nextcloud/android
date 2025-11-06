@@ -116,13 +116,13 @@ class GalleryAdapter(
         relativePosition: Int,
         absolutePosition: Int
     ) {
-        if (holder != null) {
-            val rowHolder = holder as GalleryRowHolder
-            rowHolder.bind(files[section].rows[relativePosition])
+        if (holder is GalleryRowHolder) {
+            val row = files.getOrNull(section)?.rows?.getOrNull(relativePosition)
+            row?.let { holder.bind(it) }
         }
     }
 
-    override fun getItemCount(section: Int): Int = files[section].rows.size
+    override fun getItemCount(section: Int): Int = files.getOrNull(section)?.rows?.size ?: 0
 
     override fun getSectionCount(): Int = files.size
 
@@ -294,8 +294,16 @@ class GalleryAdapter(
         files = items
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     fun changeColumn(newColumn: Int) {
-        columns = newColumn
+        if (columns != newColumn) {
+            columns = newColumn
+            val allFiles = getAllFiles()
+            if (allFiles.isNotEmpty()) {
+                files = allFiles.toGalleryItems()
+                notifyDataSetChanged()
+            }
+        }
     }
 
     fun markAsFavorite(remotePath: String, favorite: Boolean) {
