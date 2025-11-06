@@ -23,9 +23,11 @@ import com.nextcloud.client.database.entity.toUploadEntity
 import com.nextcloud.client.device.PowerManagementService
 import com.nextcloud.client.jobs.BackgroundJobManager
 import com.nextcloud.client.jobs.upload.FileUploadWorker
+import com.nextcloud.client.jobs.utils.SyncConflictManager
 import com.nextcloud.client.network.ConnectivityService
 import com.nextcloud.client.preferences.SubFolderRule
 import com.nextcloud.utils.ForegroundServiceHelper
+import com.nextcloud.utils.extensions.isFileSpecificError
 import com.nextcloud.utils.extensions.updateStatus
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.ArbitraryDataProviderImpl
@@ -38,6 +40,7 @@ import com.owncloud.android.datamodel.UploadsStorageManager
 import com.owncloud.android.db.OCUpload
 import com.owncloud.android.lib.common.OwnCloudAccount
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory
+import com.owncloud.android.lib.common.operations.RemoteOperationResult
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.operations.UploadFileOperation
 import com.owncloud.android.ui.activity.SettingsActivity
@@ -74,6 +77,7 @@ class AutoUploadWorker(
         private const val CHANNEL_ID = NotificationUtils.NOTIFICATION_CHANNEL_UPLOAD
 
         private const val NOTIFICATION_ID = 266
+        private const val NOTIFICATION_ERROR_ID = 813
     }
 
     private val helper = AutoUploadHelper()
@@ -137,7 +141,9 @@ class AutoUploadWorker(
         setForeground(foregroundInfo)
     }
 
-    private fun createNotification(title: String): Notification = NotificationCompat.Builder(context, CHANNEL_ID)
+    private fun notificationBuilder(): NotificationCompat.Builder = NotificationCompat.Builder(context, CHANNEL_ID)
+
+    private fun createNotification(title: String): Notification = notificationBuilder()
         .setContentTitle(title)
         .setSmallIcon(R.drawable.uploads)
         .setOngoing(true)
@@ -313,6 +319,7 @@ class AutoUploadWorker(
 
                         val result = operation.execute(client)
                         uploadsStorageManager.updateStatus(uploadEntity, result.isSuccess)
+                        handleUploadResult(operation, result)
 
                         if (result.isSuccess) {
                             repository.markFileAsUploaded(localPath, syncedFolder)
@@ -472,9 +479,34 @@ class AutoUploadWorker(
     }
 
     private fun getUploadAction(action: String): Int = when (action) {
-        "LOCAL_BEHAVIOUR_FORGET" -> FileUploadWorker.Companion.LOCAL_BEHAVIOUR_FORGET
-        "LOCAL_BEHAVIOUR_MOVE" -> FileUploadWorker.Companion.LOCAL_BEHAVIOUR_MOVE
-        "LOCAL_BEHAVIOUR_DELETE" -> FileUploadWorker.Companion.LOCAL_BEHAVIOUR_DELETE
-        else -> FileUploadWorker.Companion.LOCAL_BEHAVIOUR_FORGET
+        "LOCAL_BEHAVIOUR_FORGET" -> FileUploadWorker.LOCAL_BEHAVIOUR_FORGET
+        "LOCAL_BEHAVIOUR_MOVE" -> FileUploadWorker.LOCAL_BEHAVIOUR_MOVE
+        "LOCAL_BEHAVIOUR_DELETE" -> FileUploadWorker.LOCAL_BEHAVIOUR_DELETE
+        else -> FileUploadWorker.LOCAL_BEHAVIOUR_FORGET
+    }
+
+    private fun handleUploadResult(operation: UploadFileOperation, result: RemoteOperationResult<Any?>) {
+        Log_OC.d(TAG, "handleUploadResult with resultCode: " + result.code)
+        val notificationBuilder = notificationBuilder()
+
+        val notification = SyncConflictManager.getNotification(
+            context,
+            notificationBuilder,
+            operation,
+            result,
+            notifyOnSameFileExists = {
+                operation.handleLocalBehaviour()
+            }
+        ) ?: return
+
+        if (result.code.isFileSpecificError()) {
+            notificationManager.notify(
+                NotificationUtils.createUploadNotificationTag(operation.file),
+                NOTIFICATION_ERROR_ID,
+                notification
+            )
+        } else {
+            notificationManager.notify(NOTIFICATION_ID, notification)
+        }
     }
 }
