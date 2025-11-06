@@ -12,6 +12,8 @@ import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.utils.DisplayUtils
 import java.io.File
 
+private const val TAG = "FileExtensions"
+
 fun OCFile?.logFileSize(tag: String) {
     val size = DisplayUtils.bytesToHumanReadable(this?.fileLength ?: -1)
     val rawByte = this?.fileLength ?: -1
