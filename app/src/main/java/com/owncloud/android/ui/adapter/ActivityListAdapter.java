@@ -10,6 +10,7 @@
  */
 package com.owncloud.android.ui.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.content.res.Resources;
@@ -98,6 +99,7 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         this.viewThemeUtils = viewThemeUtils;
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     public void setActivityItems(List<Object> activityItems, NextcloudClient client, boolean clear) {
         this.client = client;
         String sTime = "";

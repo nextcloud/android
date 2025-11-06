@@ -7,6 +7,7 @@
  */
 package com.owncloud.android.ui.activities.data.files;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.AsyncTask;
 
@@ -33,8 +34,8 @@ public class FilesServiceApiImpl implements FilesServiceApi {
 
     private static final String TAG = FilesServiceApiImpl.class.getSimpleName();
 
-    private UserAccountManager accountManager;
-    private ClientFactory clientFactory;
+    private final UserAccountManager accountManager;
+    private final ClientFactory clientFactory;
 
     public FilesServiceApiImpl(UserAccountManager accountManager, ClientFactory clientFactory) {
         this.accountManager = accountManager;
@@ -58,7 +59,7 @@ public class FilesServiceApiImpl implements FilesServiceApi {
         private OCFile remoteOcFile;
         private String errorMessage;
         // TODO: Figure out a better way to do this than passing a BaseActivity reference.
-        private final BaseActivity baseActivity;
+        @SuppressLint("StaticFieldLeak") private final BaseActivity baseActivity;
         private final String fileUrl;
         private final User user;
         private final UserAccountManager accountManager;

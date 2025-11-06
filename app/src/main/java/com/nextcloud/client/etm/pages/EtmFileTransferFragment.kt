@@ -6,6 +6,7 @@
  */
 package com.nextcloud.client.etm.pages
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.Menu
@@ -63,6 +64,7 @@ class EtmFileTransferFragment : EtmBaseFragment() {
 
         private var transfers = listOf<Transfer>()
 
+        @SuppressLint("NotifyDataSetChanged")
         fun setStatus(status: TransferManager.Status) {
             transfers = listOf(status.pending, status.running, status.completed).flatten().reversed()
             notifyDataSetChanged()

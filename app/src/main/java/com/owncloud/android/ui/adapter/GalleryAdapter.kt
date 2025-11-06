@@ -31,6 +31,7 @@ import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.GalleryItems
 import com.owncloud.android.datamodel.GalleryRow
 import com.owncloud.android.datamodel.OCFile
+import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.ui.activity.ComponentsGetter
 import com.owncloud.android.ui.fragment.GalleryFragment
 import com.owncloud.android.ui.fragment.GalleryFragmentBottomSheetDialog
@@ -57,7 +58,24 @@ class GalleryAdapter(
 ) : SectionedRecyclerViewAdapter<SectionedViewHolder>(),
     CommonOCFileListAdapterInterface,
     PopupTextProvider {
-    var files: List<GalleryItems> = mutableListOf()
+
+    companion object {
+        private const val TAG = "GalleryAdapter"
+    }
+
+    // fileId -> (section, row)
+    private val filePositionMap = mutableMapOf<Long, Pair<Int, Int>>()
+    private var cachedAllFiles: List<OCFile>? = null
+    private var cachedFilesCount: Int = 0
+
+    private var _files: List<GalleryItems> = mutableListOf()
+    var files: List<GalleryItems>
+        get() = _files
+        private set(value) {
+            _files = value
+            invalidateCaches()
+        }
+
     private val ocFileListDelegate: OCFileListDelegate
     private var storageManager: FileDataStorageManager = transferServiceGetter.storageManager
 
@@ -76,6 +94,28 @@ class GalleryAdapter(
             showShareAvatar = false,
             viewThemeUtils
         )
+    }
+
+    private fun invalidateCaches() {
+        Log_OC.d(TAG, "invalidating caches")
+        cachedAllFiles = null
+        updateFilesCount()
+        rebuildFilePositionMap()
+    }
+
+    private fun updateFilesCount() {
+        cachedFilesCount = files.sumOf { it.rows.size }
+    }
+
+    private fun rebuildFilePositionMap() {
+        filePositionMap.clear()
+        files.forEachIndexed { sectionIndex, galleryItem ->
+            galleryItem.rows.forEachIndexed { rowIndex, row ->
+                row.files.forEach { file ->
+                    filePositionMap[file.fileId] = sectionIndex to rowIndex
+                }
+            }
+        }
     }
 
     override fun getItemId(section: Int, position: Int): Long = files[section].rows[position].calculateHashCode()
@@ -150,10 +190,6 @@ class GalleryAdapter(
         }
     }
 
-    override fun onBindFooterViewHolder(holder: SectionedViewHolder?, section: Int) {
-        TODO("Not yet implemented")
-    }
-
     @SuppressLint("NotifyDataSetChanged")
     fun showAllGalleryItems(
         remotePath: String,
@@ -200,11 +236,14 @@ class GalleryAdapter(
         }
     }
 
-    private fun transformToRows(list: List<OCFile>): List<GalleryRow> = list
-        .sortedBy { it.modificationTimestamp }
-        .reversed()
-        .chunked(columns)
-        .map { entry -> GalleryRow(entry, defaultThumbnailSize, defaultThumbnailSize) }
+    private fun transformToRows(list: List<OCFile>): List<GalleryRow> {
+        if (list.isEmpty()) return emptyList()
+
+        return list
+            .sortedByDescending { it.modificationTimestamp }
+            .chunked(columns)
+            .map { chunk -> GalleryRow(chunk, defaultThumbnailSize, defaultThumbnailSize) }
+    }
 
     @SuppressLint("NotifyDataSetChanged")
     fun clear() {
@@ -245,34 +284,8 @@ class GalleryAdapter(
     }
 
     override fun getItemPosition(file: OCFile): Int {
-        val findResult = files
-            .asSequence()
-            .flatMapIndexed { itemIndex, item ->
-                item.rows.withIndex().map { row -> Triple(itemIndex, row.index, row.value) }
-            }.find {
-                it.third.files.contains(file)
-            }
-
-        val (item, row) = findResult ?: Triple(0, 0, null)
-        return getAbsolutePosition(item, row)
-    }
-
-    override fun swapDirectory(
-        user: User,
-        directory: OCFile,
-        storageManager: FileDataStorageManager,
-        onlyOnDevice: Boolean,
-        mLimitToMimeType: String
-    ) {
-        TODO("Not yet implemented")
-    }
-
-    override fun setHighlightedItem(file: OCFile) {
-        TODO("Not yet implemented")
-    }
-
-    override fun setSortOrder(mFile: OCFile, sortOrder: FileSortOrder) {
-        TODO("Not yet implemented")
+        val (section, row) = filePositionMap[file.fileId] ?: return -1
+        return getAbsolutePosition(section, row)
     }
 
     override fun addCheckedFile(file: OCFile) {
@@ -291,19 +304,15 @@ class GalleryAdapter(
         notifyItemChanged(getItemPosition(file))
     }
 
-    override fun getFilesCount(): Int = files.fold(0) { acc, item -> acc + item.rows.size }
+    override fun getFilesCount(): Int = cachedFilesCount
 
-    @SuppressLint("NotifyDataSetChanged")
     override fun setMultiSelect(boolean: Boolean) {
         ocFileListDelegate.isMultiSelect = boolean
-        notifyDataSetChanged()
     }
 
-    private fun getAllFiles(): List<OCFile> = files.flatMap { galleryItem ->
-        galleryItem.rows.flatMap { row ->
-            row.files
-        }
-    }
+    private fun getAllFiles(): List<OCFile> = cachedAllFiles ?: files.flatMap { galleryItem ->
+        galleryItem.rows.flatMap { row -> row.files }
+    }.also { cachedAllFiles = it }
 
     private fun addAllFilesToCheckedFiles() {
         val allFiles = getAllFiles()
@@ -323,24 +332,38 @@ class GalleryAdapter(
         columns = newColumn
     }
 
-    @SuppressLint("NotifyDataSetChanged")
     fun markAsFavorite(remotePath: String, favorite: Boolean) {
         val allFiles = getAllFiles()
-        for (file in allFiles) {
-            if (file.remotePath == remotePath) {
-                file.isFavorite = favorite
-                break
+        allFiles.firstOrNull { it.remotePath == remotePath }?.also { file ->
+            file.isFavorite = favorite
+            Handler(Looper.getMainLooper()).post {
+                files = allFiles.toGalleryItems()
+                notifyItemChanged(file)
             }
-        }
-
-        Handler(Looper.getMainLooper()).post {
-            files = allFiles.toGalleryItems()
-            notifyDataSetChanged()
         }
     }
 
-    private fun List<OCFile>.toGalleryItems(): List<GalleryItems> = this
-        .groupBy { firstOfMonth(it.modificationTimestamp) }
-        .map { GalleryItems(it.key, transformToRows(it.value)) }
-        .sortedBy { it.date }.reversed()
+    private fun List<OCFile>.toGalleryItems(): List<GalleryItems> {
+        if (isEmpty()) return emptyList()
+
+        return groupBy { firstOfMonth(it.modificationTimestamp) }
+            .map { (date, filesList) ->
+                GalleryItems(date, transformToRows(filesList))
+            }
+            .sortedByDescending { it.date }
+    }
+
+    override fun onBindFooterViewHolder(holder: SectionedViewHolder?, section: Int) = Unit
+
+    override fun swapDirectory(
+        user: User,
+        directory: OCFile,
+        storageManager: FileDataStorageManager,
+        onlyOnDevice: Boolean,
+        mLimitToMimeType: String
+    ) = Unit
+
+    override fun setHighlightedItem(file: OCFile) = Unit
+
+    override fun setSortOrder(mFile: OCFile, sortOrder: FileSortOrder) = Unit
 }

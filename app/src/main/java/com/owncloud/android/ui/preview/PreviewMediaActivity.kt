@@ -384,18 +384,19 @@ class PreviewMediaActivity :
 
     @Suppress("TooGenericExceptionCaught")
     private fun playAudio() {
-        if (file.isDown) {
-            prepareAudioPlayer(file.storageUri)
+        if (file?.isDown == true) {
+            prepareAudioPlayer(file?.storageUri)
         } else {
             try {
-                LoadStreamUrl(this, user, clientFactory).execute(file.localId)
+                LoadStreamUrl(this, user, clientFactory).execute(file?.localId)
             } catch (e: Exception) {
                 Log_OC.e(TAG, "Loading stream url for Audio not possible: $e")
             }
         }
     }
 
-    private fun prepareAudioPlayer(uri: Uri) {
+    private fun prepareAudioPlayer(uri: Uri?) {
+        uri ?: return
         audioMediaController?.let { audioPlayer ->
             audioPlayer.addListener(object : Player.Listener {
 
@@ -434,7 +435,7 @@ class PreviewMediaActivity :
             })
             val mediaItem = MediaItem.Builder()
                 .setUri(uri)
-                .setMediaMetadata(MediaMetadata.Builder().setTitle(file.fileName).build())
+                .setMediaMetadata(MediaMetadata.Builder().setTitle(file?.fileName).build())
                 .build()
             audioPlayer.setMediaItem(mediaItem)
             audioPlayer.playWhenReady = autoplay
@@ -563,8 +564,8 @@ class PreviewMediaActivity :
 
             R.id.action_remove_file -> {
                 videoPlayer?.pause()
-                val dialog = RemoveFilesDialogFragment.newInstance(file)
-                dialog.show(supportFragmentManager, ConfirmationDialogFragment.FTAG_CONFIRMATION)
+                val dialog = file?.let { RemoveFilesDialogFragment.newInstance(it) }
+                dialog?.show(supportFragmentManager, ConfirmationDialogFragment.FTAG_CONFIRMATION)
             }
 
             R.id.action_see_details -> {
@@ -572,7 +573,7 @@ class PreviewMediaActivity :
             }
 
             R.id.action_sync_file -> {
-                showSyncLoadingDialog(file.isFolder)
+                showSyncLoadingDialog(file?.isFolder == true)
                 fileOperationsHelper.syncFile(file)
             }
 
@@ -586,7 +587,7 @@ class PreviewMediaActivity :
 
             R.id.action_export_file -> {
                 val list = ArrayList<OCFile>()
-                list.add(file)
+                file?.let { list.add(it) }
                 fileOperationsHelper.exportFiles(
                     list,
                     this,
@@ -673,18 +674,19 @@ class PreviewMediaActivity :
     private fun playVideo() {
         setupVideoView()
 
-        if (file.isDown) {
-            prepareVideoPlayer(file.storageUri)
+        if (file?.isDown == true) {
+            prepareVideoPlayer(file?.storageUri)
         } else {
             try {
-                LoadStreamUrl(this, user, clientFactory).execute(file.localId)
+                LoadStreamUrl(this, user, clientFactory).execute(file?.localId)
             } catch (e: Exception) {
                 Log_OC.e(TAG, "Loading stream url for Video not possible: $e")
             }
         }
     }
 
-    private fun prepareVideoPlayer(uri: Uri) {
+    private fun prepareVideoPlayer(uri: Uri?) {
+        uri ?: return
         binding.progress.visibility = View.GONE
         val videoMediaItem = MediaItem.fromUri(uri)
         videoPlayer?.run {

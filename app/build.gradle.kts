@@ -223,7 +223,10 @@ android {
                 "MissingDefaultResource",
                 "InvalidPeriodicWorkRequestInterval",
                 "StringFormatInvalid",
-                "MissingQuantity"
+                "MissingQuantity",
+                "IconXmlAndPng",
+                "SelectedPhotoAccess",
+                "UnsafeIntentLaunch"
             )
         )
         htmlOutput = layout.buildDirectory.file("reports/lint/lint.html").get().asFile

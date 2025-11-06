@@ -76,6 +76,7 @@ class AutoUploadWorker(
         private const val NOTIFICATION_ID = 266
     }
 
+    private val helper = AutoUploadHelper()
     private lateinit var syncedFolder: SyncedFolder
     private val notificationManager by lazy {
         context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
@@ -209,7 +210,7 @@ class AutoUploadWorker(
     private suspend fun collectFileChangesFromContentObserverWork(contentUris: Array<String>?) = try {
         withContext(Dispatchers.IO) {
             if (contentUris.isNullOrEmpty()) {
-                FilesSyncHelper.insertAllDBEntriesForSyncedFolder(syncedFolder)
+                FilesSyncHelper.insertAllDBEntriesForSyncedFolder(syncedFolder, helper)
             } else {
                 val isContentUrisStored = FilesSyncHelper.insertChangedEntries(syncedFolder, contentUris)
                 if (!isContentUrisStored) {
@@ -218,7 +219,7 @@ class AutoUploadWorker(
                         "changed content uris not stored, fallback to insert all db entries to not lose files"
                     )
 
-                    FilesSyncHelper.insertAllDBEntriesForSyncedFolder(syncedFolder)
+                    FilesSyncHelper.insertAllDBEntriesForSyncedFolder(syncedFolder, helper)
                 }
             }
             syncedFolder.lastScanTimestampMs = System.currentTimeMillis()
