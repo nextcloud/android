@@ -11,7 +11,6 @@ import android.app.Notification
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
-import android.os.Build
 import androidx.core.app.NotificationCompat
 import com.nextcloud.client.jobs.upload.FileUploadBroadcastReceiver
 import com.nextcloud.client.jobs.upload.FileUploadHelper
@@ -76,14 +75,20 @@ object SyncConflictManager {
         val intent = Intent(context, AuthenticatorActivity::class.java).apply {
             putExtra(AuthenticatorActivity.EXTRA_ACCOUNT, operation.user.toPlatformAccount())
             putExtra(AuthenticatorActivity.EXTRA_ACTION, AuthenticatorActivity.ACTION_UPDATE_EXPIRED_TOKEN)
-            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS or Intent.FLAG_FROM_BACKGROUND)
+            addFlags(
+                Intent.FLAG_ACTIVITY_NEW_TASK or
+                    Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS or
+                    Intent.FLAG_FROM_BACKGROUND
+            )
+            setClass(context, AuthenticatorActivity::class.java)
+            setPackage(context.packageName)
         }
 
         return PendingIntent.getActivity(
             context,
             System.currentTimeMillis().toInt(),
             intent,
-            PendingIntent.FLAG_ONE_SHOT or PendingIntent.FLAG_IMMUTABLE
+            PendingIntent.FLAG_IMMUTABLE
         )
     }
 
@@ -94,11 +99,12 @@ object SyncConflictManager {
             operation.ocUploadId,
             Intent.FLAG_ACTIVITY_CLEAR_TOP,
             context
-        )
-        val flags = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S)
-            PendingIntent.FLAG_MUTABLE else PendingIntent.FLAG_ONE_SHOT or PendingIntent.FLAG_IMMUTABLE
+        ).apply {
+            setClass(context, ConflictsResolveActivity::class.java)
+            setPackage(context.packageName)
+        }
 
-        return PendingIntent.getActivity(context, SecureRandom().nextInt(), intent, flags)
+        return PendingIntent.getActivity(context, SecureRandom().nextInt(), intent, PendingIntent.FLAG_IMMUTABLE)
     }
 
     private fun cancelUploadPendingIntent(context: Context, operation: UploadFileOperation): PendingIntent {
@@ -106,6 +112,8 @@ object SyncConflictManager {
             putExtra(FileUploadBroadcastReceiver.UPLOAD_ID, operation.ocUploadId)
             putExtra(FileUploadBroadcastReceiver.REMOTE_PATH, operation.file.remotePath)
             putExtra(FileUploadBroadcastReceiver.STORAGE_PATH, operation.file.storagePath)
+            setClass(context, FileUploadBroadcastReceiver::class.java)
+            setPackage(context.packageName)
         }
 
         return PendingIntent.getBroadcast(
@@ -116,6 +124,7 @@ object SyncConflictManager {
         )
     }
 
+    @Suppress("ReturnCount", "ComplexCondition")
     private fun shouldShowConflictDialog(
         context: Context,
         operation: UploadFileOperation,
