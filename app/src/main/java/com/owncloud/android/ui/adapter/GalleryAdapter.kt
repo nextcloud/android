@@ -338,16 +338,8 @@ class GalleryAdapter(
         files = items
     }
 
-    @SuppressLint("NotifyDataSetChanged")
     fun changeColumn(newColumn: Int) {
-        if (columns != newColumn) {
-            columns = newColumn
-            val allFiles = getAllFiles()
-            if (allFiles.isNotEmpty()) {
-                files = allFiles.toGalleryItems()
-                notifyDataSetChanged()
-            }
-        }
+        columns = newColumn
     }
 
     fun markAsFavorite(remotePath: String, favorite: Boolean) {
