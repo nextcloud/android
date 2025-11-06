@@ -15,8 +15,6 @@ package com.owncloud.android.ui.adapter
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.os.Handler
-import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -305,10 +303,8 @@ class GalleryAdapter(
         val allFiles = getAllFiles()
         allFiles.firstOrNull { it.remotePath == remotePath }?.also { file ->
             file.isFavorite = favorite
-            Handler(Looper.getMainLooper()).post {
-                files = allFiles.toGalleryItems()
-                notifyItemChanged(file)
-            }
+            files = allFiles.toGalleryItems()
+            notifyItemChanged(file)
         }
     }
 
