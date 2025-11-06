@@ -204,15 +204,12 @@ class GalleryRowHolder(
         frameLayout.requestLayout()
     }
 
-    private fun ViewGroup.LayoutParams?.getFrameLayout(
-        width: Int,
-        height: Int
-    ): FrameLayout.LayoutParams {
-        return (this as? FrameLayout.LayoutParams
-            ?: FrameLayout.LayoutParams(width, height)).apply {
-            this.width = width
-            this.height = height
-        }
+    private fun ViewGroup.LayoutParams?.getFrameLayout(width: Int, height: Int): FrameLayout.LayoutParams = (
+        this as? FrameLayout.LayoutParams
+            ?: FrameLayout.LayoutParams(width, height)
+        ).apply {
+        this.width = width
+        this.height = height
     }
 
     @Suppress("MagicNumber")
