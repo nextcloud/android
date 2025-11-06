@@ -15,8 +15,6 @@ package com.owncloud.android.ui.adapter
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.os.Handler
-import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -68,7 +66,6 @@ class GalleryAdapter(
 
     // (section, row) -> unique stable ID for that row
     private val rowIdMap = mutableMapOf<Pair<Int, Int>, Long>()
-    private var nextRowId = 0L
 
     private var cachedAllFiles: List<OCFile>? = null
     private var cachedFilesCount: Int = 0
@@ -120,11 +117,12 @@ class GalleryAdapter(
             galleryItem.rows.forEachIndexed { rowIndex, row ->
                 val position = sectionIndex to rowIndex
 
-                // Create stable ID for this row
-                val rowStableId = row.files.firstOrNull()?.fileId ?: nextRowId++
-                rowIdMap[position] = rowStableId
+                // since row can contain files two to five use first files id as adapter id
+                row.files.firstOrNull()?.fileId?.let { firstFileId ->
+                    rowIdMap[position] = firstFileId
+                }
 
-                // Map each file to its position
+                // map all row files
                 row.files.forEach { file ->
                     filePositionMap[file.fileId] = position
                 }
@@ -346,10 +344,8 @@ class GalleryAdapter(
         val allFiles = getAllFiles()
         allFiles.firstOrNull { it.remotePath == remotePath }?.also { file ->
             file.isFavorite = favorite
-            Handler(Looper.getMainLooper()).post {
-                files = allFiles.toGalleryItems()
-                notifyItemChanged(file)
-            }
+            files = allFiles.toGalleryItems()
+            notifyItemChanged(file)
         }
     }
 
