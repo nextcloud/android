@@ -65,6 +65,11 @@ class GalleryAdapter(
 
     // fileId -> (section, row)
     private val filePositionMap = mutableMapOf<Long, Pair<Int, Int>>()
+
+    // (section, row) -> unique stable ID for that row
+    private val rowIdMap = mutableMapOf<Pair<Int, Int>, Long>()
+    private var nextRowId = 0L
+
     private var cachedAllFiles: List<OCFile>? = null
     private var cachedFilesCount: Int = 0
 
@@ -104,21 +109,30 @@ class GalleryAdapter(
     }
 
     private fun updateFilesCount() {
-        cachedFilesCount = files.sumOf { it.rows.size }
+        cachedFilesCount = files.fold(0) { acc, item -> acc + item.rows.size }
     }
 
     private fun rebuildFilePositionMap() {
         filePositionMap.clear()
+        rowIdMap.clear()
+
         files.forEachIndexed { sectionIndex, galleryItem ->
             galleryItem.rows.forEachIndexed { rowIndex, row ->
+                val position = sectionIndex to rowIndex
+
+                // Create stable ID for this row
+                val rowStableId = row.files.firstOrNull()?.fileId ?: nextRowId++
+                rowIdMap[position] = rowStableId
+
+                // Map each file to its position
                 row.files.forEach { file ->
-                    filePositionMap[file.fileId] = sectionIndex to rowIndex
+                    filePositionMap[file.fileId] = position
                 }
             }
         }
     }
 
-    override fun getItemId(section: Int, position: Int): Long = files[section].rows[position].calculateHashCode()
+    override fun getItemId(section: Int, position: Int): Long = rowIdMap[section to position] ?: -1L
 
     override fun selectAll(value: Boolean) {
         if (value) {
@@ -156,13 +170,13 @@ class GalleryAdapter(
         relativePosition: Int,
         absolutePosition: Int
     ) {
-        if (holder != null) {
-            val rowHolder = holder as GalleryRowHolder
-            rowHolder.bind(files[section].rows[relativePosition])
+        if (holder is GalleryRowHolder) {
+            val row = files.getOrNull(section)?.rows?.getOrNull(relativePosition)
+            row?.let { holder.bind(it) }
         }
     }
 
-    override fun getItemCount(section: Int): Int = files[section].rows.size
+    override fun getItemCount(section: Int): Int = files.getOrNull(section)?.rows?.size ?: 0
 
     override fun getSectionCount(): Int = files.size
 
@@ -328,8 +342,16 @@ class GalleryAdapter(
         files = items
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     fun changeColumn(newColumn: Int) {
-        columns = newColumn
+        if (columns != newColumn) {
+            columns = newColumn
+            val allFiles = getAllFiles()
+            if (allFiles.isNotEmpty()) {
+                files = allFiles.toGalleryItems()
+                notifyDataSetChanged()
+            }
+        }
     }
 
     fun markAsFavorite(remotePath: String, favorite: Boolean) {
