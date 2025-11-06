@@ -37,4 +37,14 @@ interface FileSystemDao {
     """
     )
     suspend fun markFileAsUploaded(localPath: String, syncedFolderId: String)
+
+    @Query(
+        """
+        UPDATE ${ProviderMeta.ProviderTableMeta.FILESYSTEM_TABLE_NAME}
+        SET ${ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_SENT_FOR_UPLOAD} = 1
+        WHERE ${ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_LOCAL_PATH} = :localPath
+          AND ${ProviderMeta.ProviderTableMeta.FILESYSTEM_SYNCED_FOLDER_ID} = :syncedFolderId
+    """
+    )
+    fun markFileAsUploadedSync(localPath: String, syncedFolderId: String)
 }

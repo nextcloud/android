@@ -8,7 +8,6 @@
 package com.nextcloud.client.jobs.upload
 
 import android.app.Notification
-import android.app.PendingIntent
 import android.content.Context
 import androidx.core.app.NotificationCompat
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
@@ -225,6 +224,7 @@ class FileUploadWorker(
         val uploads = uploadsStorageManager.getUploadsByIds(uploadIds, accountName)
         val ocAccount = OwnCloudAccount(user.toPlatformAccount(), context)
         val client = OwnCloudClientManagerFactory.getDefaultSingleton().getClientFor(ocAccount, context)
+        val storageManager = FileDataStorageManager(user, context.contentResolver)
 
         for ((index, upload) in uploads.withIndex()) {
             ensureActive()
@@ -243,7 +243,7 @@ class FileUploadWorker(
             }
 
             setWorkerState(user)
-            val operation = createUploadFileOperation(upload, user)
+            val operation = createUploadFileOperation(upload, user, storageManager)
             currentUploadFileOperation = operation
 
             val currentIndex = (index + 1)
@@ -260,7 +260,7 @@ class FileUploadWorker(
                 upload(operation, user, client)
             }
             val entity = uploadsStorageManager.uploadDao.getUploadById(upload.uploadId, accountName)
-            uploadsStorageManager.updateStatus(entity, result.isSuccess)
+            uploadsStorageManager.updateStatus(entity, result)
             currentUploadFileOperation = null
             sendUploadFinishEvent(totalUploadSize, currentUploadIndex, operation, result)
         }
@@ -303,7 +303,11 @@ class FileUploadWorker(
         return result
     }
 
-    private fun createUploadFileOperation(upload: OCUpload, user: User): UploadFileOperation = UploadFileOperation(
+    private fun createUploadFileOperation(
+        upload: OCUpload,
+        user: User,
+        storageManager: FileDataStorageManager
+    ): UploadFileOperation = UploadFileOperation(
         uploadsStorageManager,
         connectivityService,
         powerManagementService,
@@ -316,7 +320,7 @@ class FileUploadWorker(
         upload.isUseWifiOnly,
         upload.isWhileChargingOnly,
         true,
-        FileDataStorageManager(user, context.contentResolver)
+        storageManager
     ).apply {
         addDataTransferProgressListener(this@FileUploadWorker)
     }
@@ -414,30 +418,9 @@ class FileUploadWorker(
                 context.resources
             )
 
-            val conflictResolveIntent = if (uploadResult.code == ResultCode.SYNC_CONFLICT) {
-                intents.conflictResolveActionIntents(context, uploadFileOperation)
-            } else {
-                null
-            }
-
-            val credentialIntent: PendingIntent? = if (uploadResult.code == ResultCode.UNAUTHORIZED) {
-                intents.credentialIntent(uploadFileOperation)
-            } else {
-                null
-            }
-
-            val cancelUploadActionIntent = if (conflictResolveIntent != null) {
-                intents.cancelUploadActionIntent(uploadFileOperation)
-            } else {
-                null
-            }
-
             notifyForFailedResult(
                 uploadFileOperation,
                 uploadResult.code,
-                conflictResolveIntent,
-                cancelUploadActionIntent,
-                credentialIntent,
                 errorMessage
             )
         }

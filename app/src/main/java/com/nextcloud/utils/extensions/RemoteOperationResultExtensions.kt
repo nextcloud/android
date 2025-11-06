@@ -24,6 +24,18 @@ fun Pair<RemoteOperationResult<*>?, RemoteOperation<*>?>?.getErrorMessage(): Str
     return ErrorMessageAdapter.getErrorCauseMessage(result, operation, MainApp.getAppContext().resources)
 }
 
+fun ResultCode.failedResultTitleId(): Int {
+    val needsToUpdateCredentials = (this == ResultCode.UNAUTHORIZED)
+
+    return if (needsToUpdateCredentials) {
+        R.string.uploader_upload_failed_credentials_error
+    } else if (this == ResultCode.SYNC_CONFLICT) {
+        R.string.uploader_upload_failed_sync_conflict_error
+    } else {
+        R.string.uploader_upload_failed_ticker
+    }
+}
+
 fun ResultCode.isFileSpecificError(): Boolean {
     val errorCodes = listOf(
         ResultCode.INSTANCE_NOT_CONFIGURED,
