@@ -15,7 +15,6 @@ import android.net.NetworkCapabilities;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
-import android.text.TextUtils;
 
 import com.nextcloud.client.account.Server;
 import com.nextcloud.client.account.UserAccountManager;
@@ -84,7 +83,7 @@ public class ConnectivityServiceImpl implements ConnectivityService {
         updateConnectivity();
     }
 
-    private void updateConnectivity() {
+    public void updateConnectivity() {
         Network activeNetwork = connectivityManager.getActiveNetwork();
         if (activeNetwork == null) {
             currentConnectivity = Connectivity.DISCONNECTED;
@@ -139,7 +138,7 @@ public class ConnectivityServiceImpl implements ConnectivityService {
         Server server = accountManager.getUser().getServer();
         String baseServerAddress = server.getUri().toString();
 
-        if (!currentConnectivity.isConnected() || TextUtils.isEmpty(baseServerAddress)) {
+        if (!currentConnectivity.isConnected() || baseServerAddress.isEmpty()) {
             walledCheckCache.setValue(true);
             return true;
         }
