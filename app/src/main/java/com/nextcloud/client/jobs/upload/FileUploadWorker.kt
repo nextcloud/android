@@ -22,7 +22,7 @@ import com.nextcloud.client.jobs.BackgroundJobManagerImpl
 import com.nextcloud.client.network.ConnectivityService
 import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.model.WorkerState
-import com.nextcloud.model.WorkerStateLiveData
+import com.nextcloud.model.WorkerStateObserver
 import com.nextcloud.utils.ForegroundServiceHelper
 import com.nextcloud.utils.extensions.getPercent
 import com.nextcloud.utils.extensions.updateStatus
@@ -180,11 +180,11 @@ class FileUploadWorker(
     }
 
     private fun setWorkerState(user: User?) {
-        WorkerStateLiveData.instance().setWorkState(WorkerState.UploadStarted(user))
+        WorkerStateObserver.send(WorkerState.FileUploadStarted(user))
     }
 
     private fun setIdleWorkerState() {
-        WorkerStateLiveData.instance().setWorkState(WorkerState.UploadFinished(currentUploadFileOperation?.file))
+        WorkerStateObserver.send(WorkerState.FileUploadCompleted(currentUploadFileOperation?.file))
     }
 
     @Suppress("ReturnCount", "LongMethod")

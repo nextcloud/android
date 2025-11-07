@@ -45,6 +45,7 @@ import com.owncloud.android.utils.MimeTypeUtil
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -71,7 +72,7 @@ class OCFileListDelegate(
     var isMultiSelect = false
     private val asyncTasks: MutableList<ThumbnailsCacheManager.ThumbnailGenerationTask> = ArrayList()
     private val asyncGalleryTasks: MutableList<ThumbnailsCacheManager.GalleryImageGenerationTask> = ArrayList()
-    private val ioScope = CoroutineScope(Dispatchers.IO)
+    private val ioScope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
 
     fun setHighlightedItem(highlightedItem: OCFile?) {
         this.highlightedItem = highlightedItem
@@ -361,19 +362,11 @@ class OCFileListDelegate(
         }
     }
 
-    @Suppress("ReturnCount")
-    private fun isFolderFullyDownloaded(file: OCFile): Boolean {
-        if (!file.isFolder) {
-            return false
-        }
-
-        val subfiles = storageManager.getSubfiles(file.fileId, user.accountName)
-
-        if (subfiles.isEmpty()) {
-            return false
-        }
-
-        return subfiles.all { it.isDown }
+    private suspend fun isFolderFullyDownloaded(file: OCFile): Boolean = withContext(Dispatchers.IO) {
+        file.isFolder &&
+            storageManager.getSubfiles(file.fileId, user.accountName)
+                .takeIf { it.isNotEmpty() }
+                ?.all { it.isDown } == true
     }
 
     private fun isSynchronizing(file: OCFile): Boolean {
@@ -406,18 +399,18 @@ class OCFileListDelegate(
     }
 
     private fun checkLocalFolderIndicatorAsynchronously(file: OCFile, holder: ListViewHolder) {
-        if (file.isFolder) {
-            ioScope.launch {
-                if (isFolderFullyDownloaded(file)) {
-                    withContext(Dispatchers.Main) {
-                        holder.run {
-                            if (thumbnail.tag == file.fileId) {
-                                localFileIndicator.setImageResource(R.drawable.ic_synced)
-                                localFileIndicator.visibility = View.VISIBLE
-                            }
-                        }
-                    }
-                }
+        if (!file.isFolder) {
+            return
+        }
+
+        ioScope.launch {
+            if (!isFolderFullyDownloaded(file)) {
+                return@launch
+            }
+
+            withContext(Dispatchers.Main) {
+                holder.localFileIndicator.setImageResource(R.drawable.ic_synced)
+                holder.localFileIndicator.visibility = View.VISIBLE
             }
         }
     }

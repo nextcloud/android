@@ -22,7 +22,7 @@ import androidx.work.WorkerParameters
 import com.nextcloud.client.account.User
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.model.WorkerState
-import com.nextcloud.model.WorkerStateLiveData
+import com.nextcloud.model.WorkerStateObserver
 import com.nextcloud.utils.ForegroundServiceHelper
 import com.nextcloud.utils.extensions.getPercent
 import com.owncloud.android.R
@@ -152,11 +152,11 @@ class FileDownloadWorker(
     )
 
     private fun setWorkerState(user: User?) {
-        WorkerStateLiveData.instance().setWorkState(WorkerState.DownloadStarted(user, currentDownload))
+        WorkerStateObserver.send(WorkerState.FileDownloadStarted(user, currentDownload))
     }
 
     private fun setIdleWorkerState() {
-        WorkerStateLiveData.instance().setWorkState(WorkerState.DownloadFinished(getCurrentFile()))
+        WorkerStateObserver.send(WorkerState.FileDownloadCompleted(getCurrentFile()))
     }
 
     private fun removePendingDownload(accountName: String?) {
