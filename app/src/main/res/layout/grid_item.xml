@@ -124,6 +124,7 @@
             android:layout_marginEnd="@dimen/grid_layout_margin_end"
             android:contentDescription="@string/synced_icon"
             android:src="@drawable/ic_synced"
+            android:visibility="gone"
             tools:visibility="visible" />
 
     </LinearLayout>
