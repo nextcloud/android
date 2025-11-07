@@ -68,24 +68,19 @@ class GalleryRowHolder(
     private val uncheckedDrawable by lazy {
         ContextCompat.getDrawable(context, R.drawable.ic_checkbox_blank_outline)
     }
+
+    private var lastFileCount = -1
     // endregion
 
     fun bind(row: GalleryRow) {
         currentRow = row
-
-        val currentChildCount = binding.rowLayout.childCount
         val requiredCount = row.files.size
 
-        // re-use existing ones
-        when {
-            currentChildCount < requiredCount -> {
-                repeat(requiredCount - currentChildCount) {
-                    binding.rowLayout.addView(getRowLayout())
-                }
-            }
-            currentChildCount > requiredCount -> {
-                binding.rowLayout.removeViews(requiredCount, currentChildCount - requiredCount)
-            }
+        // Only rebuild if file count changed
+        if (lastFileCount != requiredCount) {
+            binding.rowLayout.removeAllViews()
+            repeat(requiredCount) { binding.rowLayout.addView(getRowLayout()) }
+            lastFileCount = requiredCount
         }
 
         val shrinkRatio = computeShrinkRatio(row)
@@ -93,6 +88,10 @@ class GalleryRowHolder(
         for (i in row.files.indices) {
             adjustFile(i, row.files[i], shrinkRatio, row)
         }
+    }
+
+    fun updateRowVisuals() {
+        bind(currentRow)
     }
 
     private fun getRowLayout(): FrameLayout {
@@ -130,10 +129,6 @@ class GalleryRowHolder(
             addView(rowCellImageView)
             addView(checkbox)
         }
-    }
-
-    fun redraw() {
-        bind(currentRow)
     }
 
     @SuppressWarnings("MagicNumber")
@@ -194,11 +189,19 @@ class GalleryRowHolder(
             width
         )
 
-        thumbnail.layoutParams = thumbnail.layoutParams.getFrameLayout(width, height).apply {
-            val endMargin = if (index < row.files.size - 1) smallMargin else zero
-            this.setMargins(zero, zero, endMargin, smallMargin)
+        // Update layout params only if they differ
+        val thumbLp = thumbnail.layoutParams
+        if (thumbLp.width != width || thumbLp.height != height) {
+            thumbnail.layoutParams = thumbLp.getFrameLayout(width, height).apply {
+                val endMargin = if (index < row.files.size - 1) smallMargin else zero
+                this.setMargins(zero, zero, endMargin, smallMargin)
+            }
         }
-        shimmer.layoutParams = shimmer.layoutParams.getFrameLayout(width, height)
+
+        val shimmerLp = shimmer.layoutParams
+        if (shimmerLp.width != width || shimmerLp.height != height) {
+            shimmer.layoutParams = shimmerLp.getFrameLayout(width, height)
+        }
 
         // Force layout update
         frameLayout.requestLayout()
