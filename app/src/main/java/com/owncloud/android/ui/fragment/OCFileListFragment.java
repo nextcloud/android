@@ -1697,39 +1697,46 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
     @SuppressLint("NotifyDataSetChanged")
     public void switchLayoutManager(boolean grid) {
+        final var recyclerView = getRecyclerView();
+        final var adapter = getAdapter();
+        final var context = getContext();
+
+        if (context == null || adapter == null || recyclerView == null) {
+            Log_OC.e(TAG, "cannot switch layout, arguments are null");
+            return;
+        }
+
         int position = 0;
 
-        if (getRecyclerView() != null && getRecyclerView().getLayoutManager() != null) {
-            position = ((LinearLayoutManager) getRecyclerView().getLayoutManager())
-                .findFirstCompletelyVisibleItemPosition();
+        if (recyclerView.getLayoutManager() instanceof LinearLayoutManager linearLayoutManager) {
+            position = linearLayoutManager.findFirstCompletelyVisibleItemPosition();
         }
 
         RecyclerView.LayoutManager layoutManager;
         if (grid) {
-            layoutManager = new GridLayoutManager(getContext(), getColumnsCount());
-            ((GridLayoutManager) layoutManager).setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+            layoutManager = new GridLayoutManager(context, getColumnsCount());
+            GridLayoutManager gridLayoutManager = (GridLayoutManager) layoutManager;
+            gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
                 @Override
                 public int getSpanSize(int position) {
                     if (position == getAdapter().getItemCount() - 1 ||
                         position == 0 && getAdapter().shouldShowHeader()) {
-                        return ((GridLayoutManager) layoutManager).getSpanCount();
+                        return gridLayoutManager.getSpanCount();
                     } else {
                         return 1;
                     }
                 }
             });
-
         } else {
-            layoutManager = new LinearLayoutManager(getContext());
+            layoutManager = new LinearLayoutManager(context);
         }
 
-        if (getRecyclerView() != null) {
-            getRecyclerView().setLayoutManager(layoutManager);
-            getRecyclerView().scrollToPosition(position);
-            getAdapter().setGridView(grid);
-            getRecyclerView().setAdapter(getAdapter());
-            getAdapter().notifyDataSetChanged();
-        }
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.scrollToPosition(position);
+        adapter.setGridView(grid);
+        recyclerView.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
+        onRefresh();
     }
 
     public CommonOCFileListAdapterInterface getCommonAdapter() {
