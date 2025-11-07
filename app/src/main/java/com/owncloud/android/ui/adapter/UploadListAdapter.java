@@ -223,7 +223,7 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
 
         headerViewHolder.binding.uploadListAction.setOnClickListener(v -> {
             switch (group.type) {
-                case CURRENT -> new Thread(() -> {
+                case CURRENT -> {
                     OCUpload ocUpload = group.getItem(0);
                     if (ocUpload == null) {
                         return;
@@ -239,16 +239,15 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
                         FileUploadWorker.Companion.cancelCurrentUpload(upload.getRemotePath(), accountName, () -> Unit.INSTANCE);
                     }
                     loadUploadItemsFromDb();
-                }).start();
+                }
                 case FINISHED -> {
                     uploadsStorageManager.clearSuccessfulUploads();
                     loadUploadItemsFromDb();
                 }
-                case FAILED -> {
-                    showFailedPopupMenu(headerViewHolder);
-                }
-                case CANCELLED -> {
-                    showCancelledPopupMenu(headerViewHolder);
+                case FAILED -> showFailedPopupMenu(headerViewHolder);
+                case CANCELLED -> showCancelledPopupMenu(headerViewHolder);
+                default -> {
+
                 }
             }
         });
@@ -787,7 +786,7 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
                 } else if (result == UploadResult.FILE_NOT_FOUND) {
                     status = getUploadFailedStatusText(result);
                 } else if (upload.getNameCollisionPolicy() == NameCollisionPolicy.SKIP) {
-                    status = statusRes.getString(R.string.uploads_view_upload_status_skip);
+                    status = statusRes.getString(R.string.uploads_view_upload_status_skip_reason);
                 } else {
                     status = statusRes.getString(R.string.uploads_view_upload_status_succeeded);
                 }
