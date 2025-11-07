@@ -235,11 +235,21 @@ class FileUploadHelper {
         }
     }
 
-    fun getUploadsByStatus(accountName: String, status: UploadStatus, onCompleted: (Array<OCUpload>) -> Unit) {
+    fun getUploadsByStatus(
+        accountName: String,
+        status: UploadStatus,
+        nameCollisionPolicy: NameCollisionPolicy? = null,
+        onCompleted: (Array<OCUpload>) -> Unit
+    ) {
         ioScope.launch {
-            val result =
-                uploadsStorageManager.uploadDao.getUploadsByStatus(accountName, status.value)
-                    .map { it.toOCUpload(null) }.toTypedArray()
+            val result = uploadsStorageManager.uploadDao
+                .getUploadsByStatus(
+                    accountName,
+                    status.value,
+                    nameCollisionPolicy?.serialize()
+                )
+                .map { it.toOCUpload(null) }
+                .toTypedArray()
             onCompleted(result)
         }
     }

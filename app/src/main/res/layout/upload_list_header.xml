@@ -60,7 +60,8 @@
         android:paddingTop="@dimen/standard_half_padding"
         android:paddingEnd="@dimen/zero"
         android:paddingBottom="@dimen/standard_half_padding"
-        android:src="@drawable/nav_trashbin" />
+        android:src="@drawable/ic_delete"
+        app:tint="#757575" />
 
     <include
         android:id="@+id/auto_upload_battery_saver_warning_card"
