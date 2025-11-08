@@ -44,6 +44,7 @@ import com.owncloud.android.datamodel.UploadsStorageManager.UploadStatus;
 import com.owncloud.android.db.OCUpload;
 import com.owncloud.android.db.OCUploadComparator;
 import com.owncloud.android.db.UploadResult;
+import com.owncloud.android.files.services.NameCollisionPolicy;
 import com.owncloud.android.lib.common.operations.OnRemoteOperationListener;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.operations.RefreshFolderOperation;
@@ -81,11 +82,23 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
         final Type type;
         final int titleRes;
         final UploadStatus status;
+        final NameCollisionPolicy nameCollisionPolicy;
 
-        GroupConfig(Type type, int titleRes, UploadStatus status) {
+        GroupConfig(Type type, int titleRes, UploadStatus status, NameCollisionPolicy nameCollisionPolicy) {
             this.type = type;
             this.titleRes = titleRes;
             this.status = status;
+            this.nameCollisionPolicy = nameCollisionPolicy;
+        }
+
+        public static List<GroupConfig> getConfigs() {
+            return List.of(
+                new GroupConfig(Type.CURRENT, R.string.uploads_view_group_current_uploads, UploadStatus.UPLOAD_IN_PROGRESS, null),
+                new GroupConfig(Type.FAILED, R.string.uploads_view_group_failed_uploads, UploadStatus.UPLOAD_FAILED, null),
+                new GroupConfig(Type.CANCELLED, R.string.uploads_view_group_manually_cancelled_uploads, UploadStatus.UPLOAD_CANCELLED, null),
+                new GroupConfig(Type.FINISHED, R.string.uploads_view_group_finished_uploads, UploadStatus.UPLOAD_SUCCEEDED, NameCollisionPolicy.ASK_USER), // ASK_USER default value
+                new GroupConfig(Type.SKIPPED, R.string.uploads_view_upload_status_skip, UploadStatus.UPLOAD_SUCCEEDED, NameCollisionPolicy.SKIP)
+                          );
         }
     }
 
@@ -105,6 +118,8 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
                                                                        0L, TimeUnit.MILLISECONDS,
                                                                        new LinkedBlockingQueue<>(1),
                                                                        new UploadGroupLoadPolicy());
+
+    private final List<GroupConfig> uploadGroupConfigs = GroupConfig.getConfigs();
 
     private final FileUploadHelper uploadHelper = FileUploadHelper.Companion.instance();
 
@@ -127,7 +142,7 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
         this.clock = clock;
         this.viewThemeUtils = viewThemeUtils;
 
-        uploadGroups = new UploadGroup[4];
+        uploadGroups = new UploadGroup[uploadGroupConfigs.size()];
 
         shouldShowHeadersForEmptySections(false);
         initUploadGroups();
@@ -142,15 +157,8 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
 
         final var accountName = optionalUser.get().getAccountName();
 
-        var groups = List.of(
-            new GroupConfig(Type.CURRENT, R.string.uploads_view_group_current_uploads, UploadStatus.UPLOAD_IN_PROGRESS),
-            new GroupConfig(Type.FAILED, R.string.uploads_view_group_failed_uploads, UploadStatus.UPLOAD_FAILED),
-            new GroupConfig(Type.CANCELLED, R.string.uploads_view_group_manually_cancelled_uploads, UploadStatus.UPLOAD_CANCELLED),
-            new GroupConfig(Type.FINISHED, R.string.uploads_view_group_finished_uploads, UploadStatus.UPLOAD_SUCCEEDED)
-                            );
-
-        for (int i = 0; i < groups.size(); i++) {
-            var config = groups.get(i);
+        for (int i = 0; i < uploadGroupConfigs.size(); i++) {
+            final var config = uploadGroupConfigs.get(i);
             uploadGroups[i] = createUploadGroup(config, accountName);
         }
     }
@@ -159,7 +167,7 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
         return new UploadGroup(config.type, parentActivity.getString(config.titleRes)) {
             @Override
             public void refresh(LoadCompleteListener listener) {
-                uploadHelper.getUploadsByStatus(accountName, config.status, ocUploads -> {
+                uploadHelper.getUploadsByStatus(accountName, config.status, config.nameCollisionPolicy,ocUploads -> {
                     fixAndSortItems(ocUploads);
                     listener.onComplete();
                     return Unit.INSTANCE;
@@ -196,6 +204,13 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
                                                                           R.drawable.ic_expand_more);
         });
 
+        headerViewHolder.binding.uploadListStateLayout.setOnClickListener(v -> {{
+            toggleSectionExpanded(section);
+            headerViewHolder.binding.uploadListState.setImageResource(isSectionExpanded(section) ?
+                                                                          R.drawable.ic_expand_less :
+                                                                          R.drawable.ic_expand_more);
+        }});
+
         switch (group.type) {
             case CURRENT, FINISHED -> headerViewHolder.binding.uploadListAction.setImageResource(R.drawable.ic_close);
             case CANCELLED, FAILED ->
@@ -208,7 +223,7 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
 
         headerViewHolder.binding.uploadListAction.setOnClickListener(v -> {
             switch (group.type) {
-                case CURRENT -> new Thread(() -> {
+                case CURRENT -> {
                     OCUpload ocUpload = group.getItem(0);
                     if (ocUpload == null) {
                         return;
@@ -224,16 +239,15 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
                         FileUploadWorker.Companion.cancelCurrentUpload(upload.getRemotePath(), accountName, () -> Unit.INSTANCE);
                     }
                     loadUploadItemsFromDb();
-                }).start();
+                }
                 case FINISHED -> {
                     uploadsStorageManager.clearSuccessfulUploads();
                     loadUploadItemsFromDb();
                 }
-                case FAILED -> {
-                    showFailedPopupMenu(headerViewHolder);
-                }
-                case CANCELLED -> {
-                    showCancelledPopupMenu(headerViewHolder);
+                case FAILED -> showFailedPopupMenu(headerViewHolder);
+                case CANCELLED -> showCancelledPopupMenu(headerViewHolder);
+                default -> {
+
                 }
             }
         });
@@ -750,39 +764,47 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
      */
     private String getStatusText(OCUpload upload) {
         String status;
-        switch (upload.getUploadStatus()) {
+        var statusRes = parentActivity.getResources();
+        var prefs = parentActivity.getAppPreferences();
+        var uploadStatus = upload.getUploadStatus();
+
+        switch (uploadStatus) {
             case UPLOAD_IN_PROGRESS -> {
-                status = parentActivity.getString(R.string.uploads_view_later_waiting_to_upload);
-                if (uploadHelper.isUploadingNow(upload)) {
-                    // really uploading, bind the progress bar to listen for progress updates
-                    status = parentActivity.getString(R.string.uploader_upload_in_progress_ticker);
-                }
-                if (parentActivity.getAppPreferences().isGlobalUploadPaused()) {
-                    status = parentActivity.getString(R.string.upload_global_pause_title);
-                }
-            }
-            case UPLOAD_SUCCEEDED -> {
-                if (upload.getLastResult() == UploadResult.SAME_FILE_CONFLICT) {
-                    status = parentActivity.getString(R.string.uploads_view_upload_status_succeeded_same_file);
-                } else if (upload.getLastResult() == UploadResult.FILE_NOT_FOUND) {
-                    status = getUploadFailedStatusText(upload.getLastResult());
+                if (prefs.isGlobalUploadPaused()) {
+                    status = statusRes.getString(R.string.upload_global_pause_title);
+                } else if (uploadHelper.isUploadingNow(upload)) {
+                    status = statusRes.getString(R.string.uploader_upload_in_progress_ticker);
                 } else {
-                    status = parentActivity.getString(R.string.uploads_view_upload_status_succeeded);
+                    status = statusRes.getString(R.string.uploads_view_later_waiting_to_upload);
                 }
-            }
-            case UPLOAD_FAILED -> {
-                status = getUploadFailedStatusText(upload.getLastResult());
-            }
-            case UPLOAD_CANCELLED -> {
-                status = parentActivity.getString(R.string.upload_manually_cancelled);
             }
 
-            default -> {
-                status = "Uncontrolled status: " + upload.getUploadStatus();
+            case UPLOAD_SUCCEEDED -> {
+                UploadResult result = upload.getLastResult();
+                if (result == UploadResult.SAME_FILE_CONFLICT) {
+                    status = statusRes.getString(R.string.uploads_view_upload_status_succeeded_same_file);
+                } else if (result == UploadResult.FILE_NOT_FOUND) {
+                    status = getUploadFailedStatusText(result);
+                } else if (upload.getNameCollisionPolicy() == NameCollisionPolicy.SKIP) {
+                    status = statusRes.getString(R.string.uploads_view_upload_status_skip_reason);
+                } else {
+                    status = statusRes.getString(R.string.uploads_view_upload_status_succeeded);
+                }
             }
+
+            case UPLOAD_FAILED ->
+                status = getUploadFailedStatusText(upload.getLastResult());
+
+            case UPLOAD_CANCELLED ->
+                status = statusRes.getString(R.string.upload_manually_cancelled);
+
+            default ->
+                status = "Uncontrolled status: " + uploadStatus;
         }
+
         return status;
     }
+
 
     @NonNull
     private String getUploadFailedStatusText(UploadResult result) {
@@ -941,7 +963,7 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
     }
 
     enum Type {
-        CURRENT, FINISHED, FAILED, CANCELLED
+        CURRENT, FINISHED, FAILED, CANCELLED, SKIPPED
     }
 
     abstract class UploadGroup implements Refresh, Apply {

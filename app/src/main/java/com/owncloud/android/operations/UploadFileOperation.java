@@ -1183,11 +1183,13 @@ public class UploadFileOperation extends SyncOperation {
         throws OperationCancelledException {
         Log_OC.d(TAG, "Checking name collision in server");
 
-        if (existsFile(client, mRemotePath, fileNames, encrypted)) {
+        boolean isFileExists = existsFile(client, mRemotePath, fileNames, encrypted);
+
+        if (isFileExists) {
             switch (mNameCollisionPolicy) {
-                case CANCEL:
-                    Log_OC.d(TAG, "File exists; canceling");
-                    throw new OperationCancelledException();
+                case SKIP:
+                    Log_OC.d(TAG, "user choose to skip upload if same file exists");
+                    return new RemoteOperationResult<>(ResultCode.OK);
                 case RENAME:
                     mRemotePath = getNewAvailableRemotePath(client, mRemotePath, fileNames, encrypted);
                     mWasRenamed = true;
@@ -1672,5 +1674,4 @@ public class UploadFileOperation extends SyncOperation {
 
         void onRenameUpload();
     }
-
 }

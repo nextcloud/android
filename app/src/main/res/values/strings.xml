@@ -255,6 +255,9 @@
     <string name="uploads_view_group_manually_cancelled_uploads">Cancelled</string>
     <string name="uploads_view_group_finished_uploads">Uploaded</string>
     <string name="uploads_view_upload_status_succeeded">Completed</string>
+    <string name="uploads_view_upload_status_skip">Skipped</string>
+    <string name="uploads_view_upload_status_skip_reason">A file with the same name already exists.</string>
+
     <string name="uploads_view_upload_status_succeeded_same_file">Same file found on remote, skipping upload</string>
     <string name="uploads_view_upload_status_cancelled">Cancelled</string>
     <string name="uploads_view_upload_status_failed_connection_error">Connection error</string>

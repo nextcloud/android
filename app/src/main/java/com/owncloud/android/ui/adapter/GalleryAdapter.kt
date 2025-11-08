@@ -15,8 +15,6 @@ package com.owncloud.android.ui.adapter
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.os.Handler
-import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -65,6 +63,10 @@ class GalleryAdapter(
 
     // fileId -> (section, row)
     private val filePositionMap = mutableMapOf<Long, Pair<Int, Int>>()
+
+    // (section, row) -> unique stable ID for that row
+    private val rowIdMap = mutableMapOf<Pair<Int, Int>, Long>()
+
     private var cachedAllFiles: List<OCFile>? = null
     private var cachedFilesCount: Int = 0
 
@@ -104,21 +106,42 @@ class GalleryAdapter(
     }
 
     private fun updateFilesCount() {
-        cachedFilesCount = files.sumOf { it.rows.size }
+        cachedFilesCount = files.fold(0) { acc, item -> acc + item.rows.size }
     }
 
     private fun rebuildFilePositionMap() {
         filePositionMap.clear()
+        rowIdMap.clear()
+
         files.forEachIndexed { sectionIndex, galleryItem ->
             galleryItem.rows.forEachIndexed { rowIndex, row ->
+                val position = sectionIndex to rowIndex
+
+                // since row can contain files two to five use first files id as adapter id
+                row.files.firstOrNull()?.fileId?.let { firstFileId ->
+                    rowIdMap[position] = firstFileId
+                }
+
+                // map all row files
                 row.files.forEach { file ->
-                    filePositionMap[file.fileId] = sectionIndex to rowIndex
+                    filePositionMap[file.fileId] = position
                 }
             }
         }
     }
 
-    override fun getItemId(section: Int, position: Int): Long = files[section].rows[position].calculateHashCode()
+    override fun getItemId(section: Int, position: Int): Long = rowIdMap[section to position] ?: -1L
+
+    override fun getItemCount(section: Int): Int = files.getOrNull(section)?.rows?.size ?: 0
+
+    override fun getSectionCount(): Int = files.size
+
+    override fun getFilesCount(): Int = cachedFilesCount
+
+    override fun getItemPosition(file: OCFile): Int {
+        val (section, row) = filePositionMap[file.fileId] ?: return -1
+        return getAbsolutePosition(section, row)
+    }
 
     override fun selectAll(value: Boolean) {
         if (value) {
@@ -156,15 +179,11 @@ class GalleryAdapter(
         relativePosition: Int,
         absolutePosition: Int
     ) {
-        if (holder != null) {
-            val rowHolder = holder as GalleryRowHolder
-            rowHolder.bind(files[section].rows[relativePosition])
+        if (holder is GalleryRowHolder) {
+            val row = files.getOrNull(section)?.rows?.getOrNull(relativePosition)
+            row?.let { holder.bind(it) }
         }
     }
-
-    override fun getItemCount(section: Int): Int = files[section].rows.size
-
-    override fun getSectionCount(): Int = files.size
 
     override fun getPopupText(p0: View, position: Int): CharSequence = DisplayUtils.getDateByPattern(
         files[getRelativePosition(position).section()].date,
@@ -230,10 +249,8 @@ class GalleryAdapter(
             photoFragment.setEmptyListMessage(SearchType.GALLERY_SEARCH)
         }
 
-        Handler(Looper.getMainLooper()).post {
-            files = finalSortedList.toGalleryItems()
-            notifyDataSetChanged()
-        }
+        files = finalSortedList.toGalleryItems()
+        notifyDataSetChanged()
     }
 
     private fun transformToRows(list: List<OCFile>): List<GalleryRow> {
@@ -247,22 +264,17 @@ class GalleryAdapter(
 
     @SuppressLint("NotifyDataSetChanged")
     fun clear() {
-        Handler(Looper.getMainLooper()).post {
-            files = emptyList()
-            notifyDataSetChanged()
-        }
+        files = emptyList()
+        notifyDataSetChanged()
     }
 
-    private fun firstOfMonth(timestamp: Long): Long {
-        val cal = Calendar.getInstance()
-        cal.time = Date(timestamp)
-        cal.set(Calendar.DAY_OF_MONTH, cal.getActualMinimum(Calendar.DAY_OF_MONTH))
-        cal.set(Calendar.HOUR_OF_DAY, 0)
-        cal.set(Calendar.MINUTE, 0)
-        cal.set(Calendar.SECOND, 0)
-
-        return cal.timeInMillis
-    }
+    private fun firstOfMonth(timestamp: Long): Long = Calendar.getInstance().apply {
+        time = Date(timestamp)
+        set(Calendar.DAY_OF_MONTH, getActualMinimum(Calendar.DAY_OF_MONTH))
+        set(Calendar.HOUR_OF_DAY, 0)
+        set(Calendar.MINUTE, 0)
+        set(Calendar.SECOND, 0)
+    }.timeInMillis
 
     fun isEmpty(): Boolean = files.isEmpty()
 
@@ -283,11 +295,6 @@ class GalleryAdapter(
         ocFileListDelegate.cancelAllPendingTasks()
     }
 
-    override fun getItemPosition(file: OCFile): Int {
-        val (section, row) = filePositionMap[file.fileId] ?: return -1
-        return getAbsolutePosition(section, row)
-    }
-
     override fun addCheckedFile(file: OCFile) {
         ocFileListDelegate.addCheckedFile(file)
     }
@@ -301,10 +308,11 @@ class GalleryAdapter(
     }
 
     override fun notifyItemChanged(file: OCFile) {
-        notifyItemChanged(getItemPosition(file))
+        val position = getItemPosition(file)
+        if (position >= 0) {
+            notifyItemChanged(position)
+        }
     }
-
-    override fun getFilesCount(): Int = cachedFilesCount
 
     override fun setMultiSelect(boolean: Boolean) {
         ocFileListDelegate.isMultiSelect = boolean
@@ -336,10 +344,8 @@ class GalleryAdapter(
         val allFiles = getAllFiles()
         allFiles.firstOrNull { it.remotePath == remotePath }?.also { file ->
             file.isFavorite = favorite
-            Handler(Looper.getMainLooper()).post {
-                files = allFiles.toGalleryItems()
-                notifyItemChanged(file)
-            }
+            files = allFiles.toGalleryItems()
+            notifyItemChanged(file)
         }
     }
 
