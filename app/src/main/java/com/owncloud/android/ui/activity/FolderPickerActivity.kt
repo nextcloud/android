@@ -25,6 +25,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.nextcloud.client.account.User
 import com.nextcloud.client.di.Injectable
+import com.nextcloud.utils.extensions.getParcelableArgument
 import com.nextcloud.utils.fileNameValidator.FileNameValidator
 import com.owncloud.android.R
 import com.owncloud.android.databinding.FilesFolderPickerBinding
@@ -275,8 +276,13 @@ open class FolderPickerActivity :
         super.onResume()
         Log_OC.e(TAG, "onResume() start")
 
-        refreshListOfFilesFragment(false)
-        file = listOfFilesFragment?.currentFile
+        val extraFolder = intent.getParcelableArgument(EXTRA_FOLDER.toString(), OCFile::class.java)
+        if (extraFolder != null) {
+            file = extraFolder
+        } else {
+            file = listOfFilesFragment?.currentFile
+        }
+        refreshListOfFilesFragment(file, false)
         updateUiElements()
 
         val intentFilter = getSyncIntentFilter()
@@ -351,8 +357,8 @@ open class FolderPickerActivity :
             }
         }
 
-    private fun refreshListOfFilesFragment(fromSearch: Boolean) {
-        listOfFilesFragment?.listDirectory(false, fromSearch)
+    private fun refreshListOfFilesFragment(directory: OCFile, fromSearch: Boolean) {
+        listOfFilesFragment?.listDirectory(directory, false, fromSearch)
     }
 
     fun browseToRoot() {
