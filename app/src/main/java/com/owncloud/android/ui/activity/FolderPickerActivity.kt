@@ -189,7 +189,7 @@ open class FolderPickerActivity :
             folder = file
         }
 
-        listOfFilesFragment?.listDirectory(folder, false, false)
+        listOfFilesFragment?.listDirectory(folder, false)
         startSyncFolderOperation(folder, false)
         updateUiElements()
     }
@@ -282,7 +282,7 @@ open class FolderPickerActivity :
         } else {
             file = listOfFilesFragment?.currentFile
         }
-        refreshListOfFilesFragment(file, false)
+        refreshListOfFilesFragment(file)
         updateUiElements()
 
         val intentFilter = getSyncIntentFilter()
@@ -357,14 +357,14 @@ open class FolderPickerActivity :
             }
         }
 
-    private fun refreshListOfFilesFragment(directory: OCFile, fromSearch: Boolean) {
-        listOfFilesFragment?.listDirectory(directory, false, fromSearch)
+    private fun refreshListOfFilesFragment(directory: OCFile) {
+        listOfFilesFragment?.listDirectory(directory, false)
     }
 
     fun browseToRoot() {
         listOfFilesFragment?.let {
             val root = storageManager.getFileByEncryptedRemotePath(OCFile.ROOT_PATH)
-            it.listDirectory(root, false, false)
+            it.listDirectory(root, false)
             file = it.currentFile
             updateUiElements()
             startSyncFolderOperation(root, false)
@@ -566,7 +566,7 @@ open class FolderPickerActivity :
                             currentFile = currentDir
                         }
                         if (currentDir.remotePath == syncFolderRemotePath) {
-                            listOfFilesFragment?.listDirectory(currentDir, false, false)
+                            listOfFilesFragment?.listDirectory(currentDir, false)
                         }
                         file = currentFile
                     }
