@@ -254,7 +254,7 @@ open class ExtendedListFragment :
             is FileDisplayActivity -> {
                 if (isBackPressed && query.isEmpty()) {
                     activity.resetSearchView()
-                    activity.updateListOfFilesFragment(true)
+                    activity.updateListOfFilesFragment()
                 } else {
                     Handler(Looper.getMainLooper()).post {
                         if (adapter is OCFileListAdapter) {

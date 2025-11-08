@@ -436,7 +436,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
         if ((fragmentActivity = getActivity()) != null && fragmentActivity instanceof FileDisplayActivity fileDisplayActivity) {
             fileDisplayActivity.updateActionBarTitleAndHomeButton(fileDisplayActivity.getCurrentDir());
         }
-        listDirectory(MainApp.isOnlyOnDevice(), false);
+        listDirectory(MainApp.isOnlyOnDevice());
     }
 
     protected void setAdapter(Bundle args) {
@@ -1095,7 +1095,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
     }
 
     private void updateFileList() {
-        listDirectory(mFile, MainApp.isOnlyOnDevice(), false);
+        listDirectory(mFile, MainApp.isOnlyOnDevice());
         onRefresh(false);
         restoreIndexAndTopPosition();
     }
@@ -1307,7 +1307,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
     private void browseToFolder(OCFile file, int position) {
         setFileDepth(file);
         resetSearchIfBrowsingFromFavorites();
-        listDirectory(file, MainApp.isOnlyOnDevice(), false);
+        listDirectory(file, MainApp.isOnlyOnDevice());
         // then, notify parent activity to let it update its state and view
         mContainerActivity.onBrowsedDownTo(file);
         // save index and top position
@@ -1337,7 +1337,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
             // update state and view of this fragment
             searchFragment = false;
-            listDirectory(file, MainApp.isOnlyOnDevice(), false);
+            listDirectory(file, MainApp.isOnlyOnDevice());
             // then, notify parent activity to let it update its state and view
             mContainerActivity.onBrowsedDownTo(file);
             // save index and top position
@@ -1526,21 +1526,21 @@ public class OCFileListFragment extends ExtendedListFragment implements
     }
 
     /**
-     * Calls {@link OCFileListFragment#listDirectory(OCFile, boolean, boolean)} with a null parameter
+     * Calls {@link OCFileListFragment#listDirectory(OCFile, boolean)} with a null parameter
      */
-    public void listDirectory(boolean onlyOnDevice, boolean fromSearch) {
-        listDirectory(null, onlyOnDevice, fromSearch);
+    public void listDirectory(boolean onlyOnDevice) {
+        listDirectory(null, onlyOnDevice);
     }
 
     public void refreshDirectory() {
         searchFragment = false;
 
         setFabVisible(mFile.canCreateFileAndFolder());
-        listDirectory(getCurrentFile(), MainApp.isOnlyOnDevice(), false);
+        listDirectory(getCurrentFile(), MainApp.isOnlyOnDevice());
     }
 
-    public void listDirectory(OCFile directory, boolean onlyOnDevice, boolean fromSearch) {
-        listDirectory(directory, null, onlyOnDevice, fromSearch);
+    public void listDirectory(OCFile directory, boolean onlyOnDevice) {
+        listDirectory(directory, null, onlyOnDevice);
     }
 
     private OCFile getDirectoryForListDirectory(OCFile directory, FileDataStorageManager storageManager) {
@@ -1567,7 +1567,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
      *
      * @param directory File to be listed
      */
-    public void listDirectory(OCFile directory, OCFile file, boolean onlyOnDevice, boolean fromSearch) {
+    public void listDirectory(OCFile directory, OCFile file, boolean onlyOnDevice) {
         if (!searchFragment) {
             FileDataStorageManager storageManager = mContainerActivity.getStorageManager();
             if (storageManager == null) {
