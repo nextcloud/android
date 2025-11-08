@@ -1437,6 +1437,8 @@ public class OCFileListFragment extends ExtendedListFragment implements
             paths.add(file.getRemotePath());
         }
         action.putStringArrayListExtra(FolderPickerActivity.EXTRA_FILE_PATHS, paths);
+        action.putExtra(FolderPickerActivity.EXTRA_FOLDER, getCurrentFile());
+        action.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION); // No animation since we stay in the same folder
         action.putExtra(FolderPickerActivity.EXTRA_ACTION, extraAction);
         getActivity().startActivityForResult(action, requestCode);
     }
