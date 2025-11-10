@@ -1416,7 +1416,7 @@ public final class ThumbnailsCacheManager {
             int pxW = p.x;
             int pxH = p.y;
 
-            if (file.isDown()) {
+            if (file.isDown() && MimeTypeUtil.isImage(file)) {
                 Bitmap bitmap = BitmapUtils.decodeSampledBitmapFromFile(file.getStoragePath(), pxW, pxH);
 
                 if (bitmap != null) {
