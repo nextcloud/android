@@ -1153,48 +1153,30 @@ public class ReceiveExternalFilesActivity extends FileActivity
                 boolean sameAccount = getAccount() != null && accountName.equals(getAccount().name)
                     && getStorageManager() != null;
 
-                if (sameAccount) {
+                if (sameAccount && !FileSyncAdapter.EVENT_FULL_SYNC_START.equals(event)) {
+                    OCFile currentFile = (mFile == null) ? null : getStorageManager().getFileByPath(mFile.getRemotePath());
+                    OCFile currentDir = (getCurrentFolder() == null) ? null : getStorageManager().getFileByPath(getCurrentFolder().getRemotePath());
 
-                    if (!FileSyncAdapter.EVENT_FULL_SYNC_START.equals(event)) {
-                        OCFile currentFile = (mFile == null) ? null :
-                            getStorageManager().getFileByPath(mFile.getRemotePath());
-                        OCFile currentDir = (getCurrentFolder() == null) ? null :
-                            getStorageManager().getFileByPath(getCurrentFolder().getRemotePath());
-
-                        if (currentDir == null) {
-                            // current folder was removed from the server
-                            DisplayUtils.showSnackMessage(
-                                getActivity(),
-                                R.string.sync_current_folder_was_removed,
-                                getCurrentFolder().getFileName()
-                                                         );
-                            browseToRoot();
-
-                        } else {
-                            if (currentFile == null && !mFile.isFolder()) {
-                                // currently selected file was removed in the server, and now we know it
-                                currentFile = currentDir;
-                            }
-
-                            if (currentDir.getRemotePath().equals(syncFolderRemotePath)) {
-                                populateDirectoryList(currentFile);
-                            }
+                    if (currentDir == null) {
+                        // current folder was removed from the server
+                        DisplayUtils.showSnackMessage(getActivity(), R.string.sync_current_folder_was_removed, getCurrentFolder().getFileName());
+                        browseToRoot();
+                    } else {
+                        if (currentFile == null && !mFile.isFolder()) {
+                            // currently selected file was removed in the server, and now we know it
+                            currentFile = currentDir;
                         }
 
-                        if (RefreshFolderOperation.EVENT_SINGLE_FOLDER_CONTENTS_SYNCED.equals(event)
-                            /// TODO refactor and make common
-                            && syncResult != null && !syncResult.isSuccess()) {
+                        if (currentDir.getRemotePath().equals(syncFolderRemotePath)) {
+                            populateDirectoryList(currentFile);
+                        }
+                    }
 
-                            if (syncResult.getCode() == ResultCode.UNAUTHORIZED ||
-                                (syncResult.isException() && syncResult.getException()
-                                    instanceof AuthenticatorException)) {
-
-                                requestCredentialsUpdate();
-
-                            } else if (ResultCode.SSL_RECOVERABLE_PEER_UNVERIFIED == syncResult.getCode()) {
-
-                                showUntrustedCertDialog(syncResult);
-                            }
+                    if (RefreshFolderOperation.EVENT_SINGLE_FOLDER_CONTENTS_SYNCED.equals(event) && syncResult != null && !syncResult.isSuccess()) {
+                        if (syncResult.getCode() == ResultCode.UNAUTHORIZED || (syncResult.isException() && syncResult.getException() instanceof AuthenticatorException)) {
+                            requestCredentialsUpdate();
+                        } else if (ResultCode.SSL_RECOVERABLE_PEER_UNVERIFIED == syncResult.getCode()) {
+                            showUntrustedCertDialog(syncResult);
                         }
                     }
                 }
