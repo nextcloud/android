@@ -148,7 +148,6 @@ public class ReceiveExternalFilesActivity extends FileActivity
 
     private SyncBroadcastReceiver mSyncBroadcastReceiver;
     private ReceiveExternalFilesAdapter receiveExternalFilesAdapter;
-    private boolean mSyncInProgress;
 
     private final static int REQUEST_CODE__SETUP_ACCOUNT = REQUEST_CODE__LAST_SHARED + 1;
 
@@ -856,7 +855,6 @@ public class ReceiveExternalFilesActivity extends FileActivity
 
         executorService.execute(() -> {
             long currentSyncTime = System.currentTimeMillis();
-            mSyncInProgress = true;
             final var optionalUser = getUser();
             if (optionalUser.isEmpty()) {
                 DisplayUtils.showSnackMessage(this, R.string.user_information_retrieval_error);
@@ -1157,10 +1155,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
 
                 if (sameAccount) {
 
-                    if (FileSyncAdapter.EVENT_FULL_SYNC_START.equals(event)) {
-                        mSyncInProgress = true;
-
-                    } else {
+                    if (!FileSyncAdapter.EVENT_FULL_SYNC_START.equals(event)) {
                         OCFile currentFile = (mFile == null) ? null :
                             getStorageManager().getFileByPath(mFile.getRemotePath());
                         OCFile currentDir = (getCurrentFolder() == null) ? null :
@@ -1186,9 +1181,6 @@ public class ReceiveExternalFilesActivity extends FileActivity
                             }
                         }
 
-                        mSyncInProgress = !FileSyncAdapter.EVENT_FULL_SYNC_END.equals(event) &&
-                            !RefreshFolderOperation.EVENT_SINGLE_FOLDER_SHARES_SYNCED.equals(event);
-
                         if (RefreshFolderOperation.EVENT_SINGLE_FOLDER_CONTENTS_SYNCED.equals(event)
                             /// TODO refactor and make common
                             && syncResult != null && !syncResult.isSuccess()) {
@@ -1205,8 +1197,6 @@ public class ReceiveExternalFilesActivity extends FileActivity
                             }
                         }
                     }
-                    Log_OC.d(TAG, "Setting progress visibility to " + mSyncInProgress);
-
                 }
             } catch (RuntimeException e) {
                 // avoid app crashes after changing the serial id of RemoteOperationResult

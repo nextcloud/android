@@ -8,6 +8,8 @@
  */
 package com.nextcloud.utils.extensions
 
+import android.os.Handler
+import android.os.Looper
 import android.os.SystemClock
 import android.text.Selection
 import android.text.Spannable
@@ -23,6 +25,12 @@ import com.owncloud.android.lib.resources.trashbin.model.TrashbinFile
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
+
+fun mainThread(delay: Long = 1000, action: () -> Unit) {
+    Handler(Looper.getMainLooper()).postDelayed({
+        action()
+    }, delay)
+}
 
 fun clickWithDebounce(view: View, debounceTime: Long = 600L, action: () -> Unit) {
     view.setOnClickListener(object : View.OnClickListener {
