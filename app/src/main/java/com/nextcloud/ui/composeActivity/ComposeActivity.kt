@@ -12,12 +12,14 @@ import android.view.MenuItem
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import com.nextcloud.client.assistant.AssistantScreen
 import com.nextcloud.client.assistant.AssistantViewModel
+import com.nextcloud.client.assistant.conversation.ConversationList
 import com.nextcloud.client.assistant.repository.local.AssistantLocalRepositoryImpl
 import com.nextcloud.client.assistant.repository.remote.AssistantRemoteRepositoryImpl
 import com.nextcloud.client.database.NextcloudDatabase
@@ -41,7 +43,7 @@ class ComposeActivity : DrawerActivity() {
         binding = ActivityComposeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val destination = intent.getSerializableArgument(DESTINATION, ComposeDestination::class.java)
+        val destination = intent.getSerializableArgument(DESTINATION, ComposeDestination::class.java) ?: return
         val titleId = intent.getIntExtra(TITLE, R.string.empty)
 
         setupDrawer()
@@ -69,31 +71,39 @@ class ComposeActivity : DrawerActivity() {
     }
 
     @Composable
-    private fun Content(destination: ComposeDestination?) {
+    private fun Content(destination: ComposeDestination) {
+        val currentScreen by ComposeNavigation.currentScreen.collectAsState()
         var nextcloudClient by remember { mutableStateOf<NextcloudClient?>(null) }
 
         LaunchedEffect(Unit) {
+            ComposeNavigation.navigate(destination)
             nextcloudClient = clientRepository.getNextcloudClient()
         }
 
-        if (destination == ComposeDestination.AssistantScreen) {
-            binding.bottomNavigation.menu.findItem(R.id.nav_assistant).run {
-                isChecked = true
-            }
+        when(currentScreen) {
+            ComposeDestination.AssistantScreen -> {
+                binding.bottomNavigation.menu.findItem(R.id.nav_assistant).run {
+                    isChecked = true
+                }
 
-            val dao = NextcloudDatabase.instance().assistantDao()
+                val dao = NextcloudDatabase.instance().assistantDao()
 
-            nextcloudClient?.let { client ->
-                AssistantScreen(
-                    viewModel = AssistantViewModel(
-                        accountName = userAccountManager.user.accountName,
-                        remoteRepository = AssistantRemoteRepositoryImpl(client, capabilities),
-                        localRepository = AssistantLocalRepositoryImpl(dao)
-                    ),
-                    activity = this,
-                    capability = capabilities
-                )
+                nextcloudClient?.let { client ->
+                    AssistantScreen(
+                        viewModel = AssistantViewModel(
+                            accountName = userAccountManager.user.accountName,
+                            remoteRepository = AssistantRemoteRepositoryImpl(client, capabilities),
+                            localRepository = AssistantLocalRepositoryImpl(dao)
+                        ),
+                        activity = this,
+                        capability = capabilities
+                    )
+                }
             }
+            ComposeDestination.ConversationScreen -> {
+                ConversationList()
+            }
+            else -> Unit
         }
     }
 }

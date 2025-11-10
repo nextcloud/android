@@ -8,6 +8,8 @@
 package com.nextcloud.client.assistant.taskTypes
 
 import android.annotation.SuppressLint
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.PrimaryScrollableTabRow
 import androidx.compose.material3.Tab
 import androidx.compose.material3.TabRowDefaults
@@ -15,14 +17,21 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.nextcloud.ui.composeActivity.ComposeDestination
+import com.nextcloud.ui.composeActivity.ComposeNavigation
 import com.owncloud.android.R
 import com.owncloud.android.lib.resources.assistant.v2.model.TaskTypeData
 
 @SuppressLint("ResourceType")
 @Composable
-fun TaskTypesRow(selectedTaskType: TaskTypeData?, data: List<TaskTypeData>, selectTaskType: (TaskTypeData) -> Unit) {
+fun TaskTypesRow(
+    selectedTaskType: TaskTypeData?,
+    data: List<TaskTypeData>,
+    selectTaskType: (TaskTypeData) -> Unit
+) {
     val selectedTabIndex = data.indexOfFirst { it.id == selectedTaskType?.id }.takeIf { it >= 0 } ?: 0
 
     PrimaryScrollableTabRow(
@@ -45,6 +54,20 @@ fun TaskTypesRow(selectedTaskType: TaskTypeData?, data: List<TaskTypeData>, sele
                     unselectedContentColor = colorResource(R.color.disabled_text),
                     text = { Text(text = taskType.name) }
                 )
+            } else {
+                Tab(
+                    selected = selectedTaskType?.id == taskType.id,
+                    onClick = { ComposeNavigation.navigate(ComposeDestination.ConversationScreen) },
+                    selectedContentColor = colorResource(R.color.text_color),
+                    unselectedContentColor = colorResource(R.color.disabled_text),
+                    icon = {
+                        Icon(
+                            painter = painterResource(id = R.drawable.ic_menu),
+                            contentDescription = "open conversation list button",
+                            tint = MaterialTheme.colorScheme.primary
+                        )
+                    },
+                )
             }
         }
     }
@@ -61,5 +84,7 @@ private fun TaskTypesRowPreview() {
         TaskTypeData("4", "Summarize", "", emptyMap(), emptyMap())
     )
 
-    TaskTypesRow(selectedTaskType, taskTypes) { }
+    TaskTypesRow(selectedTaskType, taskTypes, {
+
+    })
 }

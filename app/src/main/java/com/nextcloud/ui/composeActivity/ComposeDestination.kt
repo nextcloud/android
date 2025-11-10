@@ -10,5 +10,5 @@ package com.nextcloud.ui.composeActivity
 import java.io.Serializable
 
 enum class ComposeDestination : Serializable {
-    AssistantScreen
+    AssistantScreen, ConversationScreen
 }
