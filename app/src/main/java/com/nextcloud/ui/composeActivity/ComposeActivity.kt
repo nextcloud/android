@@ -99,7 +99,7 @@ class ComposeActivity : DrawerActivity() {
                         ),
                         activity = this,
                         capability = capabilities,
-                        sessionId = sessionId
+                        sessionIdArg = sessionId
                     )
                 }
             }

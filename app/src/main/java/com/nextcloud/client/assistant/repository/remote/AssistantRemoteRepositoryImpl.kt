@@ -9,10 +9,12 @@ package com.nextcloud.client.assistant.repository.remote
 import com.nextcloud.common.NextcloudClient
 import com.owncloud.android.lib.common.operations.RemoteOperationResult
 import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode
+import com.owncloud.android.lib.resources.assistant.chat.CreateConversationRemoteOperation
 import com.owncloud.android.lib.resources.assistant.chat.CreateMessageRemoteOperation
 import com.owncloud.android.lib.resources.assistant.chat.GetMessagesRemoteOperation
 import com.owncloud.android.lib.resources.assistant.chat.model.ChatMessage
 import com.owncloud.android.lib.resources.assistant.chat.model.ChatMessageRequest
+import com.owncloud.android.lib.resources.assistant.chat.model.CreateConversation
 import com.owncloud.android.lib.resources.assistant.v1.CreateTaskRemoteOperationV1
 import com.owncloud.android.lib.resources.assistant.v1.DeleteTaskRemoteOperationV1
 import com.owncloud.android.lib.resources.assistant.v1.GetTaskListRemoteOperationV1
@@ -93,6 +95,18 @@ class AssistantRemoteRepositoryImpl(private val client: NextcloudClient, capabil
 
     override fun sendChatMessage(request: ChatMessageRequest): ChatMessage? {
         val result = CreateMessageRemoteOperation(request).execute(client)
+        return if (result.isSuccess) {
+            result.resultData
+        } else {
+            null
+        }
+    }
+
+    @Suppress("MagicNumber")
+    override fun createConversation(title: String): CreateConversation? {
+        val timestamp = (System.currentTimeMillis() / 1000)
+        val result =
+            CreateConversationRemoteOperation(title, timestamp).execute(client)
         return if (result.isSuccess) {
             result.resultData
         } else {

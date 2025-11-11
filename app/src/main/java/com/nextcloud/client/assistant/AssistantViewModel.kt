@@ -45,6 +45,9 @@ class AssistantViewModel(
     private val _screenOverlayState = MutableStateFlow<ScreenOverlayState?>(null)
     val screenOverlayState: StateFlow<ScreenOverlayState?> = _screenOverlayState
 
+    private val _sessionId = MutableStateFlow<Long?>(null)
+    val sessionId: StateFlow<Long?> = _sessionId
+
     private val _snackbarMessageId = MutableStateFlow<Int?>(null)
     val snackbarMessageId: StateFlow<Int?> = _snackbarMessageId
 
@@ -119,8 +122,7 @@ class AssistantViewModel(
         }
     }
 
-    fun sendChatMessage(content: String, sessionId: Long?) {
-        sessionId ?: return
+    fun sendChatMessage(content: String, sessionId: Long) {
         val timestamp = System.currentTimeMillis().div(1000)
         val firstHumanMessage = _chatMessages.value.isEmpty()
         val request =
@@ -144,6 +146,12 @@ class AssistantViewModel(
         }
     }
 
+    fun initSessionId(value: Long) {
+        _sessionId.update {
+            value
+        }
+    }
+
     fun fetchChatMessages(sessionId: Long) {
         viewModelScope.launch(Dispatchers.IO) {
             val result = remoteRepository.fetchChatMessages(sessionId)
@@ -159,6 +167,15 @@ class AssistantViewModel(
                 _snackbarMessageId.update {
                     R.string.assistant_screen_chat_fetch_error
                 }
+            }
+        }
+    }
+
+    fun createConversation(title: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val result = remoteRepository.createConversation(title)
+            if (result != null) {
+                sendChatMessage(content = title, sessionId = result.session.id)
             }
         }
     }

@@ -81,8 +81,9 @@ fun AssistantScreen(
     viewModel: AssistantViewModel,
     capability: OCCapability,
     activity: Activity,
-    sessionId: Long? = null
+    sessionIdArg: Long? = null
 ) {
+    val sessionId by viewModel.sessionId.collectAsState()
     val messageId by viewModel.snackbarMessageId.collectAsState()
     val screenOverlayState by viewModel.screenOverlayState.collectAsState()
 
@@ -101,10 +102,17 @@ fun AssistantScreen(
         }
     }
 
+    // replace polling task for newly created conversation
+    LaunchedEffect(sessionId) {
+        val newSessionId = sessionId ?: return@LaunchedEffect
+        viewModel.startPolling(newSessionId)
+        viewModel.fetchChatMessages(newSessionId)
+    }
+
     LaunchedEffect(Unit) {
-        viewModel.startPolling(sessionId)
-        if (sessionId != null) {
-            viewModel.fetchChatMessages(sessionId)
+        viewModel.startPolling(sessionIdArg)
+        if (sessionIdArg != null) {
+            viewModel.fetchChatMessages(sessionIdArg)
         }
     }
 
@@ -136,7 +144,7 @@ fun AssistantScreen(
         bottomBar = {
             if (!taskTypes.isNullOrEmpty()) {
                 ChatInputBar(
-                    sessionId,
+                    sessionIdArg,
                     selectedTaskType,
                     viewModel
                 )
@@ -234,18 +242,24 @@ private fun ChatInputBar(
 
                 IconButton(
                     onClick = {
-                        if (text.isNotBlank()) {
-                            selectedTaskType?.let {
-                                if (it.isChat) {
-                                    viewModel.sendChatMessage(content = text, sessionId)
-                                } else {
-                                    viewModel.createTask(input = text, taskType = it)
-                                }
+                        if (text.isBlank()) {
+                            return@IconButton
+                        }
+
+                        val taskType = selectedTaskType ?: return@IconButton
+                        if (taskType.isChat) {
+                            if (sessionId != null) {
+                                viewModel.sendChatMessage(content = text, sessionId)
+                            } else {
+                                viewModel.createConversation(text)
                             }
-                            scope.launch {
-                                delay(CHAT_INPUT_DELAY)
-                                text = ""
-                            }
+                        } else {
+                            viewModel.createTask(input = text, taskType = taskType)
+                        }
+
+                        scope.launch {
+                            delay(CHAT_INPUT_DELAY)
+                            text = ""
                         }
                     }
                 ) {
