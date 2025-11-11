@@ -463,8 +463,8 @@ class FileUploadHelper {
     }
 
     fun showFileUploadLimitMessage(activity: Activity) {
-        val message = activity.getString(
-            R.string.file_upload_limit_message,
+        val message = activity.resources.getQuantityString(
+            R.plurals.file_upload_limit_message,
             MAX_FILE_COUNT
         )
         DisplayUtils.showSnackMessage(activity, message)
