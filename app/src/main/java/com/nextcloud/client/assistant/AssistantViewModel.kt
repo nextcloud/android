@@ -24,6 +24,7 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
@@ -68,6 +69,7 @@ class AssistantViewModel(
     private var pollingJob: Job? = null
 
     init {
+        observeScreenState()
         fetchTaskTypes()
     }
 
@@ -122,6 +124,28 @@ class AssistantViewModel(
         }
     }
 
+    private fun observeScreenState() {
+        viewModelScope.launch {
+            combine(
+                _selectedTaskType,
+                _chatMessages,
+                _filteredTaskList
+            ) { selectedTask, chats, tasks ->
+                val isChat = selectedTask?.isChat == true
+
+                when {
+                    selectedTask == null -> AssistantScreenState.Loading
+                    isChat && chats.isEmpty() -> AssistantScreenState.emptyChatList()
+                    isChat -> AssistantScreenState.ChatContent
+                    !isChat && (tasks == null || tasks.isEmpty()) -> AssistantScreenState.emptyTaskList()
+                    else -> AssistantScreenState.TaskContent
+                }
+            }.collect { newState ->
+                _screenState.value = newState
+            }
+        }
+    }
+
     fun sendChatMessage(content: String, sessionId: Long) {
         val timestamp = System.currentTimeMillis().div(1000)
         val firstHumanMessage = _chatMessages.value.isEmpty()
@@ -139,9 +163,7 @@ class AssistantViewModel(
             if (result != null) {
                 fetchChatMessages(sessionId)
             } else {
-                _snackbarMessageId.update {
-                    R.string.assistant_screen_chat_create_error
-                }
+                updateSnackbarMessage(R.string.assistant_screen_chat_create_error)
             }
         }
     }
@@ -150,16 +172,11 @@ class AssistantViewModel(
         viewModelScope.launch(Dispatchers.IO) {
             val result = remoteRepository.fetchChatMessages(sessionId)
             if (result != null) {
-                _screenState.update {
-                    AssistantScreenState.ChatContent
-                }
                 _chatMessages.update {
                     result
                 }
             } else {
-                _snackbarMessageId.update {
-                    R.string.assistant_screen_chat_fetch_error
-                }
+                updateSnackbarMessage(R.string.assistant_screen_chat_fetch_error)
             }
         }
     }
@@ -209,7 +226,7 @@ class AssistantViewModel(
     private fun fetchTaskTypes() {
         viewModelScope.launch(Dispatchers.IO) {
             val taskTypesResult = remoteRepository.getTaskTypes()
-            if (taskTypesResult == null || taskTypesResult.isEmpty()) {
+            if (taskTypesResult.isNullOrEmpty()) {
                 _screenState.update {
                     AssistantScreenState.emptyTaskTypes()
                 }
@@ -232,7 +249,6 @@ class AssistantViewModel(
                 _filteredTaskList.update {
                     cachedTasks.sortedByDescending { it.id }
                 }
-                updateScreenState()
             }
 
             val taskType = _selectedTaskType.value?.id ?: return@launch
@@ -249,24 +265,6 @@ class AssistantViewModel(
                 updateSnackbarMessage(null)
             } else {
                 updateSnackbarMessage(R.string.assistant_screen_task_list_error_state_message)
-            }
-
-            updateScreenState()
-        }
-    }
-
-    private fun updateScreenState() {
-        val isChat = _selectedTaskType.value?.isChat ?: false
-
-        _screenState.update {
-            if (isChat) {
-                AssistantScreenState.ChatContent
-            } else {
-                if (_filteredTaskList.value?.isEmpty() == true) {
-                    AssistantScreenState.emptyChatList()
-                } else {
-                    AssistantScreenState.TaskContent
-                }
             }
         }
     }
@@ -296,7 +294,7 @@ class AssistantViewModel(
         }
     }
 
-    fun updateScreenState(value: ScreenOverlayState?) {
+    fun updateScreenOverlayState(value: ScreenOverlayState?) {
         _screenOverlayState.update {
             value
         }

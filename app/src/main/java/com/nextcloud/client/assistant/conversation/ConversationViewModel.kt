@@ -57,7 +57,7 @@ class ConversationViewModel(
                     null
                 }
                 _errorMessageId.update {
-                    R.string.assistant_screen_conversation_list_fetch_error
+                    R.string.conversation_screen_fetch_error_title
                 }
             }
         }
@@ -73,7 +73,7 @@ class ConversationViewModel(
                 }
             } else {
                 _errorMessageId.update {
-                    R.string.assistant_screen_conversation_create_error
+                    R.string.conversation_screen_create_error_title
                 }
             }
         }
@@ -89,7 +89,7 @@ class ConversationViewModel(
                 }
             } else {
                 _errorMessageId.update {
-                    R.string.assistant_screen_conversation_delete_error
+                    R.string.conversation_screen_delete_error_title
                 }
             }
         }

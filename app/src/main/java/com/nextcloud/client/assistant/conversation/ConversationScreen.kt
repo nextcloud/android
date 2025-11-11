@@ -120,7 +120,7 @@ fun ConversationScreen(
                         .padding(innerPadding),
                     contentAlignment = Alignment.Center
                 ) {
-                    Text(stringResource(R.string.assistant_screen_empty_conversation_text))
+                    Text(stringResource(R.string.conversation_screen_empty_content_title))
                 }
             }
 
@@ -217,7 +217,7 @@ private fun CreateConversationButton(
                     .height(BUTTON_HEIGHT)
             ) {
                 Text(
-                    text = stringResource(R.string.assistant_screen_conversation_create_text),
+                    text = stringResource(R.string.conversation_screen_create_button_title),
                     style = MaterialTheme.typography.bodyLarge
                 )
                 Spacer(modifier = Modifier.width(8.dp))

@@ -219,7 +219,7 @@ fun AssistantScreen(
                             paddingValues,
                             iconId = R.drawable.spinner_inner,
                             titleId = null,
-                            descriptionId = R.string.assistant_screen_loading
+                            descriptionId = R.string.common_loading
                         )
                     }
 
@@ -254,7 +254,7 @@ private fun ChatInputBar(
             .padding(8.dp),
             horizontalAlignment = Alignment.CenterHorizontally) {
             Text(
-                text = stringResource(R.string.assistant_generation_warning),
+                text = stringResource(R.string.assistant_output_generation_warning_text),
                 fontSize = 11.sp,
                 textAlign = TextAlign.Center,
                 color = colorResource(R.color.text_color)
@@ -319,20 +319,20 @@ private fun OverlayState(state: ScreenOverlayState?, activity: Activity, viewMod
             SimpleAlertDialog(
                 title = stringResource(id = R.string.assistant_screen_delete_task_alert_dialog_title),
                 description = stringResource(id = R.string.assistant_screen_delete_task_alert_dialog_description),
-                dismiss = { viewModel.updateScreenState(null) },
+                dismiss = { viewModel.updateScreenOverlayState(null) },
                 onComplete = { viewModel.deleteTask(state.id) }
             )
         }
 
         is ScreenOverlayState.TaskActions -> {
             val actions = state.getActions(activity, onDeleteCompleted = { deleteTask ->
-                viewModel.updateScreenState(deleteTask)
+                viewModel.updateScreenOverlayState(deleteTask)
             })
 
             MoreActionsBottomSheet(
                 title = state.task.getInputTitle(),
                 actions = actions,
-                dismiss = { viewModel.updateScreenState(null) }
+                dismiss = { viewModel.updateScreenOverlayState(null) }
             )
         }
 
@@ -361,7 +361,7 @@ private fun TaskContent(
                 capability,
                 showTaskActions = {
                     val newState = ScreenOverlayState.TaskActions(task)
-                    viewModel.updateScreenState(newState)
+                    viewModel.updateScreenOverlayState(newState)
                 }
             )
             Spacer(modifier = Modifier.height(8.dp))
@@ -370,7 +370,7 @@ private fun TaskContent(
 }
 
 @Composable
-private fun EmptyContent(paddingValues: PaddingValues, iconId: Int?, descriptionId: Int, titleId: Int?) {
+private fun EmptyContent(paddingValues: PaddingValues, iconId: Int?, descriptionId: Int?, titleId: Int?) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -400,12 +400,14 @@ private fun EmptyContent(paddingValues: PaddingValues, iconId: Int?, description
             Spacer(modifier = Modifier.height(8.dp))
         }
 
-        Text(
-            text = stringResource(descriptionId),
-            fontSize = MaterialTheme.typography.bodyMedium.fontSize,
-            textAlign = TextAlign.Center,
-            color = colorResource(R.color.text_color)
-        )
+        descriptionId?.let {
+            Text(
+                text = stringResource(descriptionId),
+                fontSize = MaterialTheme.typography.bodyMedium.fontSize,
+                textAlign = TextAlign.Center,
+                color = colorResource(R.color.text_color)
+            )
+        }
     }
 }
 

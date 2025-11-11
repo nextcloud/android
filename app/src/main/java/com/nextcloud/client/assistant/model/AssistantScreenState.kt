@@ -16,7 +16,7 @@ sealed class AssistantScreenState {
 
     data object ChatContent : AssistantScreenState()
 
-    data class EmptyContent(val iconId: Int?, val titleId: Int?, val descriptionId: Int) : AssistantScreenState()
+    data class EmptyContent(val iconId: Int?, val titleId: Int?, val descriptionId: Int?) : AssistantScreenState()
 
     companion object {
         fun emptyTaskTypes(): AssistantScreenState = EmptyContent(
@@ -27,8 +27,14 @@ sealed class AssistantScreenState {
 
         fun emptyChatList(): AssistantScreenState = EmptyContent(
             iconId = R.drawable.ic_assistant,
-            titleId = R.string.assistant_screen_chat_title,
-            descriptionId = R.string.assistant_screen_chat_description,
+            titleId = R.string.assistant_screen_empty_content_title,
+            descriptionId = R.string.assistant_screen_empty_content_description,
+        )
+
+        fun emptyTaskList(): AssistantScreenState = EmptyContent(
+            iconId = R.drawable.ic_assistant,
+            titleId = R.string.assistant_screen_empty_content_title,
+            descriptionId = null,
         )
     }
 }
