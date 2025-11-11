@@ -12,6 +12,7 @@ import com.owncloud.android.lib.resources.assistant.chat.CreateConversationRemot
 import com.owncloud.android.lib.resources.assistant.chat.DeleteConversationRemoteOperation
 import com.owncloud.android.lib.resources.assistant.chat.GetConversationListRemoteOperation
 import com.owncloud.android.lib.resources.assistant.chat.model.Conversation
+import com.owncloud.android.lib.resources.assistant.chat.model.CreateConversation
 
 class ConversationRemoteRepositoryImpl(private val client: NextcloudClient): ConversationRemoteRepository {
     override suspend fun fetchConversationList(): List<Conversation>? {
@@ -26,7 +27,7 @@ class ConversationRemoteRepositoryImpl(private val client: NextcloudClient): Con
     override suspend fun createConversation(
         title: String?,
         timestamp: Long
-    ): Conversation? {
+    ): CreateConversation? {
         val result = CreateConversationRemoteOperation(title, timestamp).execute(client)
         return if (result.isSuccess) {
             result.resultData

@@ -53,6 +53,9 @@ class ConversationViewModel(
                     }
                 }
             } else {
+                _screenState.update {
+                    null
+                }
                 _errorMessageId.update {
                     R.string.assistant_screen_conversation_list_fetch_error
                 }
@@ -60,12 +63,13 @@ class ConversationViewModel(
         }
     }
 
-    fun createConversation(title: String?, timestamp: Long) {
+    fun createConversation(title: String?) {
         viewModelScope.launch(Dispatchers.IO) {
+            val timestamp = System.currentTimeMillis() / 1000
             val newConversation = remoteRepository.createConversation(title, timestamp)
             if (newConversation != null) {
                 _conversations.update {
-                    it + newConversation
+                    listOf(newConversation.session) + it
                 }
             } else {
                 _errorMessageId.update {

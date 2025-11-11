@@ -8,32 +8,42 @@
 package com.nextcloud.client.assistant.conversation
 
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.Close
+import androidx.compose.material.icons.outlined.Delete
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.nextcloud.client.assistant.conversation.model.ConversationScreenState
+import com.nextcloud.ui.composeActivity.ComposeDestination
+import com.nextcloud.ui.composeActivity.ComposeNavigation
 import com.owncloud.android.lib.resources.assistant.chat.model.Conversation
+import com.owncloud.android.R
+
+private val BUTTON_HEIGHT = 32.dp
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ConversationScreen(
-    viewModel: ConversationViewModel,
-    onConversationClick: (Conversation) -> Unit = {},
-    onCreateConversationClick: () -> Unit = {}
-) {
+fun ConversationScreen(viewModel: ConversationViewModel) {
     val context = LocalContext.current
     val screenState by viewModel.screenState.collectAsState()
     val errorMessageId by viewModel.errorMessageId.collectAsState()
     val conversations by viewModel.conversations.collectAsState()
     val snackbarHostState = remember { SnackbarHostState() }
+
+    LaunchedEffect(Unit) {
+        viewModel.fetchConversations()
+    }
 
     LaunchedEffect(errorMessageId) {
         errorMessageId?.let {
@@ -42,8 +52,28 @@ fun ConversationScreen(
     }
 
     Scaffold(
+        topBar = {
+            Row(modifier = Modifier.fillMaxWidth()) {
+                Spacer(modifier = Modifier.weight(1f))
+                IconButton(
+                    onClick = {
+                        ComposeNavigation.navigate(ComposeDestination.AssistantScreen)
+                    }
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.Close,
+                        contentDescription = "close conversations list"
+                    )
+                }
+            }
+        },
         snackbarHost = {
             SnackbarHost(snackbarHostState)
+        },
+        bottomBar = {
+            CreateConversationButton(onClick = {
+                viewModel.createConversation(null)
+            })
         }
     ) { innerPadding ->
         when (screenState) {
@@ -72,9 +102,7 @@ fun ConversationScreen(
             else -> {
                 ConversationList(
                     conversations = conversations,
-                    onConversationClick = { onConversationClick(it) },
                     onDeleteClick = { viewModel.deleteConversation(it.id.toString()) },
-                    onCreateConversationClick = onCreateConversationClick,
                     modifier = Modifier.padding(innerPadding)
                 )
             }
@@ -85,28 +113,24 @@ fun ConversationScreen(
 @Composable
 private fun ConversationList(
     conversations: List<Conversation>,
-    onConversationClick: (Conversation) -> Unit,
     onDeleteClick: (Conversation) -> Unit,
-    onCreateConversationClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     LazyColumn(
         modifier = modifier
             .fillMaxSize()
             .padding(16.dp),
-        verticalArrangement = Arrangement.spacedBy(12.dp)
+        verticalArrangement = Arrangement.Bottom,
     ) {
         items(conversations) { conversation ->
             ConversationListItem(
                 conversation = conversation,
-                onClick = { onConversationClick(conversation) },
+                onClick = {
+                    // TODO:
+                },
                 onDeleteClick = { onDeleteClick(conversation) }
             )
-        }
-
-        item {
-            Spacer(modifier = Modifier.height(24.dp))
-            CreateConversationButton(onClick = onCreateConversationClick)
+            Spacer(modifier = Modifier.height(8.dp))
         }
     }
 }
@@ -117,27 +141,32 @@ private fun ConversationListItem(
     onClick: () -> Unit,
     onDeleteClick: () -> Unit
 ) {
-    ElevatedButton(
-        onClick = onClick,
-        modifier = Modifier.fillMaxWidth(),
-        contentPadding = PaddingValues(horizontal = 16.dp, vertical = 12.dp)
-    ) {
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceBetween
+    Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.BottomCenter) {
+        FilledTonalButton(
+            onClick = onClick,
+            shape = RoundedCornerShape(8.dp),
+            contentPadding = PaddingValues(vertical = 12.dp, horizontal = 16.dp)
         ) {
-            Text(
-                text = conversation.title,
-                style = MaterialTheme.typography.bodyLarge
-            )
-            IconButton(
-                onClick = onDeleteClick
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier
+                    .height(BUTTON_HEIGHT)
             ) {
-                Icon(
-                    imageVector = Icons.Default.Delete,
-                    contentDescription = "Delete conversation"
+                Text(
+                    text = conversation.titleRepresentation(),
+                    style = MaterialTheme.typography.bodyLarge
                 )
+
+                Spacer(modifier = Modifier.weight(1f))
+
+                IconButton(
+                    onClick = onDeleteClick
+                ) {
+                    Icon(
+                        imageVector = Icons.Outlined.Delete,
+                        contentDescription = "Delete conversation"
+                    )
+                }
             }
         }
     }
@@ -147,27 +176,53 @@ private fun ConversationListItem(
 private fun CreateConversationButton(
     onClick: () -> Unit
 ) {
-    OutlinedButton(
-        onClick = onClick,
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(top = 8.dp),
-        contentPadding = PaddingValues(vertical = 12.dp, horizontal = 16.dp)
-    ) {
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.Center,
-            modifier = Modifier.fillMaxWidth()
+    Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.BottomCenter) {
+        OutlinedButton(
+            onClick = onClick,
+            shape = RoundedCornerShape(8.dp),
+            contentPadding = PaddingValues(vertical = 12.dp, horizontal = 16.dp)
         ) {
-            Text(
-                text = "Create new conversation",
-                style = MaterialTheme.typography.bodyLarge
-            )
-            Spacer(modifier = Modifier.width(8.dp))
-            Icon(
-                imageVector = Icons.Default.Add,
-                contentDescription = "Add conversation"
-            )
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.Center,
+                modifier = Modifier
+                    .fillMaxWidth(0.8f)
+                    .height(BUTTON_HEIGHT)
+            ) {
+                Text(
+                    text = stringResource(R.string.assistant_screen_conversation_create_text),
+                    style = MaterialTheme.typography.bodyLarge
+                )
+                Spacer(modifier = Modifier.width(8.dp))
+                Icon(
+                    imageVector = Icons.Default.Add,
+                    contentDescription = "Add conversation"
+                )
+            }
         }
+    }
+}
+
+@Preview
+@Composable
+private fun ConversationListPreview() {
+    Column {
+        ConversationListItem(Conversation(1L, "User1", "Who is Al Pacino?", 1762847286L, "", null), {
+
+        }, {
+
+        })
+
+        Spacer(modifier = Modifier.height(8.dp))
+
+        ConversationListItem(Conversation(2L, "User1", "What is JetpackCompose?", 1761847286L, "", null), {
+
+        }, {
+
+        })
+
+        Spacer(modifier = Modifier.height(8.dp))
+
+        CreateConversationButton { }
     }
 }
