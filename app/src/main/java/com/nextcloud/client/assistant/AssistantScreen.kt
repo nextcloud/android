@@ -83,7 +83,6 @@ fun AssistantScreen(
     activity: Activity,
     sessionId: Long? = null
 ) {
-    val chatMessages by viewModel.chatMessages.collectAsState()
     val messageId by viewModel.snackbarMessageId.collectAsState()
     val screenOverlayState by viewModel.screenOverlayState.collectAsState()
 
@@ -103,7 +102,7 @@ fun AssistantScreen(
     }
 
     LaunchedEffect(Unit) {
-        viewModel.startTaskListPolling()
+        viewModel.startPolling(sessionId)
         if (sessionId != null) {
             viewModel.fetchChatMessages(sessionId)
         }
@@ -111,7 +110,7 @@ fun AssistantScreen(
 
     DisposableEffect(Unit) {
         onDispose {
-            viewModel.stopTaskListPolling()
+            viewModel.stopPolling()
         }
     }
 
@@ -158,20 +157,20 @@ fun AssistantScreen(
                 )
             }
 
-            AssistantScreenState.Content -> {
-                if (sessionId == null) {
-                    AssistantContent(
-                        paddingValues,
-                        filteredTaskList ?: listOf(),
-                        viewModel,
-                        capability
-                    )
-                } else {
-                    ChatContent(
-                        chatMessages = chatMessages,
-                        modifier = Modifier.padding(paddingValues)
-                    )
-                }
+            AssistantScreenState.TaskContent -> {
+                TaskContent(
+                    paddingValues,
+                    filteredTaskList ?: listOf(),
+                    viewModel,
+                    capability
+                )
+            }
+
+            AssistantScreenState.ChatContent -> {
+                ChatContent(
+                    viewModel = viewModel,
+                    modifier = Modifier.padding(paddingValues)
+                )
             }
 
             else -> EmptyContent(
@@ -269,20 +268,20 @@ private fun OverlayState(state: ScreenOverlayState?, activity: Activity, viewMod
             SimpleAlertDialog(
                 title = stringResource(id = R.string.assistant_screen_delete_task_alert_dialog_title),
                 description = stringResource(id = R.string.assistant_screen_delete_task_alert_dialog_description),
-                dismiss = { viewModel.updateTaskListScreenState(null) },
+                dismiss = { viewModel.updateScreenState(null) },
                 onComplete = { viewModel.deleteTask(state.id) }
             )
         }
 
         is ScreenOverlayState.TaskActions -> {
             val actions = state.getActions(activity, onDeleteCompleted = { deleteTask ->
-                viewModel.updateTaskListScreenState(deleteTask)
+                viewModel.updateScreenState(deleteTask)
             })
 
             MoreActionsBottomSheet(
                 title = state.task.getInputTitle(),
                 actions = actions,
-                dismiss = { viewModel.updateTaskListScreenState(null) }
+                dismiss = { viewModel.updateScreenState(null) }
             )
         }
 
@@ -291,7 +290,7 @@ private fun OverlayState(state: ScreenOverlayState?, activity: Activity, viewMod
 }
 
 @Composable
-private fun AssistantContent(
+private fun TaskContent(
     paddingValues: PaddingValues,
     taskList: List<Task>,
     viewModel: AssistantViewModel,
@@ -311,7 +310,7 @@ private fun AssistantContent(
                 capability,
                 showTaskActions = {
                     val newState = ScreenOverlayState.TaskActions(task)
-                    viewModel.updateTaskListScreenState(newState)
+                    viewModel.updateScreenState(newState)
                 }
             )
             Spacer(modifier = Modifier.height(8.dp))

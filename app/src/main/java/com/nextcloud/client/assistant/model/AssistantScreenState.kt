@@ -12,7 +12,9 @@ import com.owncloud.android.R
 sealed class AssistantScreenState {
     data object Loading : AssistantScreenState()
 
-    data object Content : AssistantScreenState()
+    data object TaskContent : AssistantScreenState()
+
+    data object ChatContent : AssistantScreenState()
 
     data class EmptyContent(val iconId: Int?, val titleId: Int?, val descriptionId: Int) : AssistantScreenState()
 

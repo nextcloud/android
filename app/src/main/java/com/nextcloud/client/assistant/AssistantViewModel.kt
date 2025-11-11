@@ -36,7 +36,7 @@ class AssistantViewModel(
 
     companion object {
         private const val TAG = "AssistantViewModel"
-        private const val TASK_LIST_POLLING_INTERVAL_MS = 15_000L
+        private const val POLLING_INTERVAL_MS = 15_000L
     }
 
     private val _screenState = MutableStateFlow<AssistantScreenState?>(null)
@@ -59,25 +59,29 @@ class AssistantViewModel(
     private val _filteredTaskList = MutableStateFlow<List<Task>?>(null)
     val filteredTaskList: StateFlow<List<Task>?> = _filteredTaskList
 
-    private val _chatMessages = MutableStateFlow<List<ChatMessage>?>(null)
-    val chatMessages: StateFlow<List<ChatMessage>?> = _chatMessages
+    private val _chatMessages = MutableStateFlow<List<ChatMessage>>(listOf())
+    val chatMessages: StateFlow<List<ChatMessage>> = _chatMessages
 
-    private var taskPollingJob: Job? = null
+    private var pollingJob: Job? = null
 
     init {
         fetchTaskTypes()
     }
 
     // region task polling
-    fun startTaskListPolling() {
-        stopTaskListPolling()
+    fun startPolling(sessionId: Long?) {
+        stopPolling()
 
-        taskPollingJob = viewModelScope.launch(Dispatchers.IO) {
+        pollingJob = viewModelScope.launch(Dispatchers.IO) {
             try {
                 while (isActive) {
-                    Log_OC.d(TAG, "Polling task list...")
-                    fetchTaskListSuspending()
-                    delay(TASK_LIST_POLLING_INTERVAL_MS)
+                    Log_OC.d(TAG, "Polling list...")
+                    if (sessionId != null) {
+                        pollChatMessages(sessionId)
+                    } else {
+                        pollTaskList()
+                    }
+                    delay(POLLING_INTERVAL_MS)
                 }
             } finally {
                 Log_OC.d(TAG, "Polling coroutine cancelled")
@@ -85,13 +89,13 @@ class AssistantViewModel(
         }
     }
 
-    fun stopTaskListPolling() {
-        taskPollingJob?.cancel()
-        taskPollingJob = null
+    fun stopPolling() {
+        pollingJob?.cancel()
+        pollingJob = null
     }
     // endregion
 
-    private suspend fun fetchTaskListSuspending() {
+    private suspend fun pollTaskList() {
         val cachedTasks = localRepository.getCachedTasks(accountName)
         if (cachedTasks.isNotEmpty()) {
             _filteredTaskList.value = cachedTasks.sortedByDescending { it.id }
@@ -106,10 +110,19 @@ class AssistantViewModel(
         }
     }
 
+    private fun pollChatMessages(sessionId: Long) {
+        val result = remoteRepository.fetchChatMessages(sessionId)
+        if (result != null) {
+            _chatMessages.update {
+                result
+            }
+        }
+    }
+
     fun sendChatMessage(content: String, sessionId: Long?) {
         sessionId ?: return
         val timestamp = System.currentTimeMillis().div(1000)
-        val firstHumanMessage = _chatMessages.value?.isEmpty() ?: false
+        val firstHumanMessage = _chatMessages.value.isEmpty()
         val request =
             ChatMessageRequest(
                 sessionId = sessionId.toString(),
@@ -135,6 +148,10 @@ class AssistantViewModel(
         viewModelScope.launch(Dispatchers.IO) {
             val result = remoteRepository.fetchChatMessages(sessionId)
             if (result != null) {
+                _screenState.update {
+                    AssistantScreenState.ChatContent
+                }
+
                 _chatMessages.update {
                     result
                 }
@@ -198,7 +215,7 @@ class AssistantViewModel(
                 _filteredTaskList.update {
                     cachedTasks.sortedByDescending { it.id }
                 }
-                updateTaskListScreenState()
+                updateScreenState()
             }
 
             val taskType = _selectedTaskType.value?.id ?: return@launch
@@ -217,16 +234,22 @@ class AssistantViewModel(
                 updateSnackbarMessage(R.string.assistant_screen_task_list_error_state_message)
             }
 
-            updateTaskListScreenState()
+            updateScreenState()
         }
     }
 
-    private fun updateTaskListScreenState() {
+    private fun updateScreenState() {
+        val isChat = _selectedTaskType.value?.isChat ?: false
+
         _screenState.update {
-            if (_filteredTaskList.value?.isEmpty() == true) {
-                AssistantScreenState.emptyTaskList()
+            if (isChat) {
+                AssistantScreenState.ChatContent
             } else {
-                AssistantScreenState.Content
+                if (_filteredTaskList.value?.isEmpty() == true) {
+                    AssistantScreenState.emptyTaskList()
+                } else {
+                    AssistantScreenState.TaskContent
+                }
             }
         }
     }
@@ -256,7 +279,7 @@ class AssistantViewModel(
         }
     }
 
-    fun updateTaskListScreenState(value: ScreenOverlayState?) {
+    fun updateScreenState(value: ScreenOverlayState?) {
         _screenOverlayState.update {
             value
         }
