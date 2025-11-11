@@ -21,6 +21,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.pager.HorizontalPager
+import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -54,6 +56,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.nextcloud.client.assistant.chat.ChatContent
+import com.nextcloud.client.assistant.conversation.ConversationScreen
+import com.nextcloud.client.assistant.conversation.ConversationViewModel
+import com.nextcloud.client.assistant.conversation.repository.MockConversationRemoteRepository
 import com.nextcloud.client.assistant.extensions.getInputTitle
 import com.nextcloud.client.assistant.model.AssistantScreenState
 import com.nextcloud.client.assistant.model.ScreenOverlayState
@@ -79,6 +84,7 @@ private const val PULL_TO_REFRESH_DELAY = 1500L
 @Composable
 fun AssistantScreen(
     viewModel: AssistantViewModel,
+    conversationViewModel: ConversationViewModel,
     capability: OCCapability,
     activity: Activity,
     sessionIdArg: Long? = null
@@ -94,6 +100,7 @@ fun AssistantScreen(
     val scope = rememberCoroutineScope()
     val pullRefreshState = rememberPullToRefreshState()
     val snackbarHostState = remember { SnackbarHostState() }
+    val pagerState = rememberPagerState(initialPage = 1, pageCount = { 2 })
 
     LaunchedEffect(messageId) {
         messageId?.let {
@@ -122,79 +129,109 @@ fun AssistantScreen(
         }
     }
 
-    Scaffold(
-        modifier = Modifier.pullToRefresh(
-            false,
-            pullRefreshState,
-            onRefresh = {
-                scope.launch {
-                    delay(PULL_TO_REFRESH_DELAY)
-                    viewModel.fetchTaskList()
-                }
-            }
-        ),
-        topBar = {
-            taskTypes?.let {
-                val data = listOf(TaskTypeData.conversationList) + it
-                TaskTypesRow(selectedTaskType, data = data, selectTaskType = { task ->
-                    viewModel.selectTaskType(task)
+    HorizontalPager(
+        state = pagerState,
+    ) { page ->
+        when (page) {
+            0 -> {
+                ConversationScreen(viewModel = conversationViewModel, close = {
+                    scope.launch {
+                        pagerState.scrollToPage(1)
+                    }
+                }, openChat = { newSessionId ->
+                    viewModel.initSessionId(newSessionId)
+                    scope.launch {
+                        pagerState.scrollToPage(1)
+                    }
                 })
             }
-        },
-        bottomBar = {
-            if (!taskTypes.isNullOrEmpty()) {
-                ChatInputBar(
-                    sessionIdArg,
-                    selectedTaskType,
-                    viewModel
-                )
+            1 -> {
+                Scaffold(
+                    modifier = Modifier.pullToRefresh(
+                        false,
+                        pullRefreshState,
+                        onRefresh = {
+                            scope.launch {
+                                delay(PULL_TO_REFRESH_DELAY)
+
+                                if (sessionId != null || sessionIdArg != null) {
+                                    val id = sessionId ?: sessionIdArg
+                                    viewModel.fetchChatMessages(id!!)
+                                } else {
+                                    viewModel.fetchTaskList()
+                                }
+                            }
+                        }
+                    ),
+                    topBar = {
+                        taskTypes?.let {
+                            val data = listOf(TaskTypeData.conversationList) + it
+                            TaskTypesRow(selectedTaskType, data = data, selectTaskType = { task ->
+                                viewModel.selectTaskType(task)
+                            }, navigateToConversationList = {
+                                scope.launch {
+                                    pagerState.scrollToPage(0)
+                                }
+                            })
+                        }
+                    },
+                    bottomBar = {
+                        if (!taskTypes.isNullOrEmpty()) {
+                            ChatInputBar(
+                                sessionIdArg ?: sessionId,
+                                selectedTaskType,
+                                viewModel
+                            )
+                        }
+                    },
+                    snackbarHost = {
+                        SnackbarHost(snackbarHostState)
+                    }
+                ) { paddingValues ->
+                    when (screenState) {
+                        is AssistantScreenState.EmptyContent -> {
+                            val state = (screenState as AssistantScreenState.EmptyContent)
+                            EmptyContent(
+                                paddingValues,
+                                iconId = state.iconId,
+                                descriptionId = state.descriptionId,
+                                titleId = state.titleId
+                            )
+                        }
+
+                        AssistantScreenState.TaskContent -> {
+                            TaskContent(
+                                paddingValues,
+                                filteredTaskList ?: listOf(),
+                                viewModel,
+                                capability
+                            )
+                        }
+
+                        AssistantScreenState.ChatContent -> {
+                            ChatContent(
+                                viewModel = viewModel,
+                                modifier = Modifier.padding(paddingValues)
+                            )
+                        }
+
+                        else -> EmptyContent(
+                            paddingValues,
+                            iconId = R.drawable.spinner_inner,
+                            titleId = null,
+                            descriptionId = R.string.assistant_screen_loading
+                        )
+                    }
+
+                    LinearProgressIndicator(
+                        progress = { pullRefreshState.distanceFraction },
+                        modifier = Modifier.fillMaxWidth()
+                    )
+
+                    OverlayState(screenOverlayState, activity, viewModel)
+                }
             }
-        },
-        snackbarHost = {
-            SnackbarHost(snackbarHostState)
         }
-    ) { paddingValues ->
-        when (screenState) {
-            is AssistantScreenState.EmptyContent -> {
-                val state = (screenState as AssistantScreenState.EmptyContent)
-                EmptyContent(
-                    paddingValues,
-                    iconId = state.iconId,
-                    descriptionId = state.descriptionId,
-                    titleId = state.titleId
-                )
-            }
-
-            AssistantScreenState.TaskContent -> {
-                TaskContent(
-                    paddingValues,
-                    filteredTaskList ?: listOf(),
-                    viewModel,
-                    capability
-                )
-            }
-
-            AssistantScreenState.ChatContent -> {
-                ChatContent(
-                    viewModel = viewModel,
-                    modifier = Modifier.padding(paddingValues)
-                )
-            }
-
-            else -> EmptyContent(
-                paddingValues,
-                iconId = R.drawable.spinner_inner,
-                titleId = null,
-                descriptionId = R.string.assistant_screen_loading
-            )
-        }
-
-        LinearProgressIndicator(
-            progress = { pullRefreshState.distanceFraction },
-            modifier = Modifier.fillMaxWidth()
-        )
-
-        OverlayState(screenOverlayState, activity, viewModel)
     }
 }
 
@@ -379,7 +416,8 @@ private fun AssistantScreenPreview() {
     MaterialTheme(
         content = {
             AssistantScreen(
-                viewModel = getMockViewModel(false),
+                conversationViewModel = getMockConversationViewModel(),
+                viewModel = getMockAssistantViewModel(false),
                 activity = ComposeActivity(),
                 capability = OCCapability().apply {
                     versionMayor = 30
@@ -396,7 +434,8 @@ private fun AssistantEmptyScreenPreview() {
     MaterialTheme(
         content = {
             AssistantScreen(
-                viewModel = getMockViewModel(true),
+                conversationViewModel = getMockConversationViewModel(),
+                viewModel = getMockAssistantViewModel(true),
                 activity = ComposeActivity(),
                 capability = OCCapability().apply {
                     versionMayor = 30
@@ -406,7 +445,14 @@ private fun AssistantEmptyScreenPreview() {
     )
 }
 
-private fun getMockViewModel(giveEmptyTasks: Boolean): AssistantViewModel {
+private fun getMockConversationViewModel(): ConversationViewModel {
+    val mockRemoteRepository = MockConversationRemoteRepository()
+    return ConversationViewModel(
+        remoteRepository = mockRemoteRepository,
+    )
+}
+
+private fun getMockAssistantViewModel(giveEmptyTasks: Boolean): AssistantViewModel {
     val mockLocalRepository = MockAssistantLocalRepository()
     val mockRemoteRepository = MockAssistantRemoteRepository(giveEmptyTasks)
     return AssistantViewModel(

@@ -7,8 +7,17 @@
 
 package com.nextcloud.client.assistant.conversation
 
-import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -16,8 +25,22 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.outlined.Delete
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
+import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.FilledTonalButton
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -25,16 +48,18 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.nextcloud.client.assistant.conversation.model.ConversationScreenState
-import com.nextcloud.ui.composeActivity.ComposeDestination
-import com.nextcloud.ui.composeActivity.ComposeNavigation
-import com.owncloud.android.lib.resources.assistant.chat.model.Conversation
 import com.owncloud.android.R
+import com.owncloud.android.lib.resources.assistant.chat.model.Conversation
 
 private val BUTTON_HEIGHT = 32.dp
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ConversationScreen(viewModel: ConversationViewModel) {
+fun ConversationScreen(
+    viewModel: ConversationViewModel,
+    close: () -> Unit,
+    openChat: (Long) -> Unit
+) {
     val context = LocalContext.current
     val screenState by viewModel.screenState.collectAsState()
     val errorMessageId by viewModel.errorMessageId.collectAsState()
@@ -57,7 +82,7 @@ fun ConversationScreen(viewModel: ConversationViewModel) {
                 Spacer(modifier = Modifier.weight(1f))
                 IconButton(
                     onClick = {
-                        ComposeNavigation.navigate(ComposeDestination.AssistantScreen(null))
+                        close()
                     }
                 ) {
                     Icon(
@@ -95,7 +120,7 @@ fun ConversationScreen(viewModel: ConversationViewModel) {
                         .padding(innerPadding),
                     contentAlignment = Alignment.Center
                 ) {
-                    Text("No conversations found.")
+                    Text(stringResource(R.string.assistant_screen_empty_conversation_text))
                 }
             }
 
@@ -103,7 +128,8 @@ fun ConversationScreen(viewModel: ConversationViewModel) {
                 ConversationList(
                     conversations = conversations,
                     onDeleteClick = { viewModel.deleteConversation(it.id.toString()) },
-                    modifier = Modifier.padding(innerPadding)
+                    modifier = Modifier.padding(innerPadding),
+                    openChat = openChat
                 )
             }
         }
@@ -114,7 +140,8 @@ fun ConversationScreen(viewModel: ConversationViewModel) {
 private fun ConversationList(
     conversations: List<Conversation>,
     onDeleteClick: (Conversation) -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    openChat: (Long) -> Unit
 ) {
     LazyColumn(
         modifier = modifier
@@ -126,8 +153,7 @@ private fun ConversationList(
             ConversationListItem(
                 conversation = conversation,
                 onClick = {
-                    val destination = ComposeDestination.AssistantScreen(conversation.id)
-                    ComposeNavigation.navigate(destination)
+                    openChat(conversation.id)
                 },
                 onDeleteClick = { onDeleteClick(conversation) }
             )

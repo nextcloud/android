@@ -20,8 +20,6 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.nextcloud.ui.composeActivity.ComposeDestination
-import com.nextcloud.ui.composeActivity.ComposeNavigation
 import com.owncloud.android.R
 import com.owncloud.android.lib.resources.assistant.v2.model.TaskTypeData
 
@@ -30,7 +28,8 @@ import com.owncloud.android.lib.resources.assistant.v2.model.TaskTypeData
 fun TaskTypesRow(
     selectedTaskType: TaskTypeData?,
     data: List<TaskTypeData>,
-    selectTaskType: (TaskTypeData) -> Unit
+    selectTaskType: (TaskTypeData) -> Unit,
+    navigateToConversationList: () -> Unit
 ) {
     val selectedTabIndex = data.indexOfFirst { it.id == selectedTaskType?.id }.takeIf { it >= 0 } ?: 0
 
@@ -57,7 +56,7 @@ fun TaskTypesRow(
             } else {
                 Tab(
                     selected = selectedTaskType?.id == taskType.id,
-                    onClick = { ComposeNavigation.navigate(ComposeDestination.ConversationScreen) },
+                    onClick = { navigateToConversationList() },
                     selectedContentColor = colorResource(R.color.text_color),
                     unselectedContentColor = colorResource(R.color.disabled_text),
                     icon = {
@@ -85,6 +84,8 @@ private fun TaskTypesRowPreview() {
     )
 
     TaskTypesRow(selectedTaskType, taskTypes, {
+
+    }, {
 
     })
 }
