@@ -458,7 +458,6 @@
     <string name="file_not_found_cannot_share">找不到檔案。無法建立分享。</string>
     <string name="file_not_synced">檔案無法同步。將顯示最新可用版本。</string>
     <string name="file_rename">重新命名</string>
-    <string name="file_upload_limit_message">您一次最多可以上傳 %d 個檔案。</string>
     <string name="file_upload_worker_error_notification_title">上傳失敗。沒有網際網路連線</string>
     <string name="file_upload_worker_same_file_already_exists">%s 已存在，未偵測到衝突</string>
     <string name="file_version_restored_error">檔案版本復原錯誤！</string>

@@ -549,6 +549,7 @@
     <string name="prefs_category_about">Περί</string>
     <string name="prefs_category_details">Λεπτομέρειες</string>
     <string name="prefs_category_dev">Dev</string>
+    <string name="prefs_category_files">Αρχεία</string>
     <string name="prefs_category_general">Γενικά</string>
     <string name="prefs_category_more">Περισσότερα</string>
     <string name="prefs_category_sync">Συγχρονισμός</string>

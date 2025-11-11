@@ -63,6 +63,7 @@
     <string name="auth_unsupported_multiaccount">%1$s neatbalsta vairākus kontus.</string>
     <string name="auth_wrong_connection_title">Neizdevās izveidot savienojumu</string>
     <string name="authenticator_activity_cancel_login">Atcelt pieteikšanos</string>
+    <string name="authenticator_activity_no_web_browser_found">Nav pieejams neviens pārlūks, lai atvērtu šo saiti.</string>
     <string name="authenticator_activity_please_complete_login_process">Lūgums pabeigt pieteikšanos savā pārlūkā</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">glabāts oriģinālajā mapē, jo tā ir tikai lasāma</string>
     <string name="auto_upload_on_wifi">Augšupielādēt tikai neirobežotā Wi-Fi</string>
