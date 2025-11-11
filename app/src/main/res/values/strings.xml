@@ -65,6 +65,7 @@
     <string name="assistant_screen_conversation_list_fetch_error">Failed to fetch conversation list</string>
     <string name="assistant_screen_conversation_create_error">Failed to create conversation</string>
     <string name="assistant_screen_conversation_delete_error">Failed to delete conversation</string>
+    <string name="assistant_screen_conversation_create_text">New conversation</string>
 
     <string name="assistant_screen_chat_title">Hello there! What can I help you with today?</string>
     <string name="assistant_screen_chat_description">Try sending a message to spark a conversation.</string>
