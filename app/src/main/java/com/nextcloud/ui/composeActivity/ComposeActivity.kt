@@ -19,7 +19,9 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import com.nextcloud.client.assistant.AssistantScreen
 import com.nextcloud.client.assistant.AssistantViewModel
-import com.nextcloud.client.assistant.conversation.ConversationList
+import com.nextcloud.client.assistant.conversation.ConversationScreen
+import com.nextcloud.client.assistant.conversation.ConversationViewModel
+import com.nextcloud.client.assistant.conversation.repository.ConversationRemoteRepositoryImpl
 import com.nextcloud.client.assistant.repository.local.AssistantLocalRepositoryImpl
 import com.nextcloud.client.assistant.repository.remote.AssistantRemoteRepositoryImpl
 import com.nextcloud.client.database.NextcloudDatabase
@@ -101,7 +103,11 @@ class ComposeActivity : DrawerActivity() {
                 }
             }
             ComposeDestination.ConversationScreen -> {
-                ConversationList()
+                nextcloudClient?.let { client ->
+                    ConversationScreen(viewModel = ConversationViewModel(
+                        remoteRepository = ConversationRemoteRepositoryImpl(client)
+                    ))
+                }
             }
             else -> Unit
         }

@@ -61,6 +61,10 @@
     <string name="assistant_screen_top_bar_title">Assistant</string>
     <string name="assistant_screen_loading">Loading task list…</string>
     <string name="assistant_screen_task_output_empty_text">The task output is not ready yet.</string>
+    <string name="assistant_screen_no_conversation">No conversations yet</string>
+    <string name="assistant_screen_conversation_list_fetch_error">Failed to fetch conversation list</string>
+    <string name="assistant_screen_conversation_create_error">Failed to create conversation</string>
+    <string name="assistant_screen_conversation_delete_error">Failed to delete conversation</string>
 
     <string name="assistant_screen_chat_title">Hello there! What can I help you with today?</string>
     <string name="assistant_screen_chat_description">Try sending a message to spark a conversation.</string>

@@ -9,21 +9,21 @@ package com.nextcloud.client.assistant.model
 
 import com.owncloud.android.R
 
-sealed class ScreenState {
-    data object Loading : ScreenState()
+sealed class AssistantScreenState {
+    data object Loading : AssistantScreenState()
 
-    data object Content : ScreenState()
+    data object Content : AssistantScreenState()
 
-    data class EmptyContent(val iconId: Int?, val titleId: Int?, val descriptionId: Int) : ScreenState()
+    data class EmptyContent(val iconId: Int?, val titleId: Int?, val descriptionId: Int) : AssistantScreenState()
 
     companion object {
-        fun emptyTaskTypes(): ScreenState = EmptyContent(
+        fun emptyTaskTypes(): AssistantScreenState = EmptyContent(
             titleId = null,
             descriptionId = R.string.assistant_screen_task_list_empty_warning,
             iconId = null
         )
 
-        fun emptyTaskList(): ScreenState = EmptyContent(
+        fun emptyTaskList(): AssistantScreenState = EmptyContent(
             iconId = R.drawable.ic_assistant,
             titleId = R.string.assistant_screen_chat_title,
             descriptionId = R.string.assistant_screen_chat_description,
