@@ -458,7 +458,6 @@
     <string name="file_not_found_cannot_share">共有を作成することができません。ファイルが見つかりませんでした。</string>
     <string name="file_not_synced">ファイルを同期できませんでした。 最新の利用可能なバージョンを表示します。</string>
     <string name="file_rename">名前を変更</string>
-    <string name="file_upload_limit_message">一度にアップロードできるファイルは%d件までです。</string>
     <string name="file_upload_worker_error_notification_title">アップロードに失敗しました。インターネット接続がありません</string>
     <string name="file_upload_worker_same_file_already_exists">%sはすでに存在します。強豪は検出されませんでした。</string>
     <string name="file_version_restored_error">ファイルバージョンの復元中にエラーが発生しました。</string>

@@ -209,6 +209,7 @@
     <string name="contacts_preferences_import_scheduled_fail">Није успело покретање увоза. Молимо вас да покушате поново</string>
     <string name="contacts_preferences_no_file_found">Није нађен фајл</string>
     <string name="contacts_preferences_something_strange_happened">Не могу да нађем последњу резерву!</string>
+    <string name="content_observer_work_notification_title">Откривају се измене садржаја</string>
     <string name="copied_to_clipboard">Копирано у клипборд</string>
     <string name="copy_file_error">Грешка приликом копирања овог фајла или фасцикле</string>
     <string name="copy_file_invalid_into_descendent">Фасцикла се не може копирати у неку од својих потфасцикли.</string>
@@ -478,6 +479,11 @@
     <string name="folder_already_exists">Фасцикла већ постоји</string>
     <string name="folder_best_viewed_in">Овај фолдер се најбоље приказује у %1$s.</string>
     <string name="folder_confirm_create">Направи</string>
+    <string name="folder_download_counter">%1$d од %2$d &#183; %3$s</string>
+    <string name="folder_download_error_notification_title">Дошло је до грешке приликом синхронизације фолдера %s</string>
+    <string name="folder_download_insufficient_disk_space_notification_title">Нема довољно простора на диску, синхронизација је отказана.</string>
+    <string name="folder_download_success_notification_title">%s фолдер је успешно синхронизован</string>
+    <string name="folder_download_worker_ticker_id">Синхронизација…</string>
     <string name="folder_list_empty_headline">Нема фасцикли овде</string>
     <string name="folder_name_empty">Назив фолдера не може да буде празно</string>
     <string name="folder_picker_choose_button_text">Изаберите</string>
@@ -613,6 +619,8 @@
     <string name="notification_action_failed">Не могу да извршим радњу.</string>
     <string name="notification_channel_background_operations_description">Прикажи обавештења за интеракцију са резултатом операција у позадини</string>
     <string name="notification_channel_background_operations_name">Операције у позадини</string>
+    <string name="notification_channel_content_observer_description">Открива локалне измене фајлова</string>
+    <string name="notification_channel_content_observer_name_short">Посматрач садржаја</string>
     <string name="notification_channel_download_description">Приказ напретка преузимања</string>
     <string name="notification_channel_download_name_short">Преузимања</string>
     <string name="notification_channel_file_sync_description">Приказ напретка синхронизације фајла и резултата</string>

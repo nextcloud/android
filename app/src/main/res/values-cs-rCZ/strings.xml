@@ -458,7 +458,6 @@
     <string name="file_not_found_cannot_share">Soubor nenalezen. Sdílení proto není možné vytvořit.</string>
     <string name="file_not_synced">Soubor se nepodařilo synchronizovat. Zobrazuje se poslední dostupná verze.</string>
     <string name="file_rename">Přejmenovat</string>
-    <string name="file_upload_limit_message">Je možné nahrávat až %d souborů naráz.“</string>
     <string name="file_upload_worker_error_notification_title">Nahrávání se nezdařilo. Není k dispozici připojení k Internetu</string>
     <string name="file_upload_worker_same_file_already_exists">%s už existuje – nezjištěny žádné konflikty</string>
     <string name="file_version_restored_error">Chyba při obnovování verze souboru!</string>

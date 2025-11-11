@@ -458,7 +458,6 @@
     <string name="file_not_found_cannot_share">Datei nicht gefunden. Freigabe kann nicht erstellt werden.</string>
     <string name="file_not_synced">Datei konnte nicht synchronisiert werden. Zeige letzte verfügbare Version. </string>
     <string name="file_rename">Umbenennen</string>
-    <string name="file_upload_limit_message">Es können bis zu %d Dateien gleichzeitig hochgeladen werden.</string>
     <string name="file_upload_worker_error_notification_title">Upload fehlgeschlagen. Keine Internetverbindung</string>
     <string name="file_upload_worker_same_file_already_exists">%s existiert bereits, kein Konflikt erkannt</string>
     <string name="file_version_restored_error">Fehler beim Wiederherstellen der Dateiversion!</string>

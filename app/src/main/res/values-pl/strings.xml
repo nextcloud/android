@@ -458,7 +458,6 @@
     <string name="file_not_found_cannot_share">Nie znaleziono pliku. Nie można utworzyć udostępnienia.</string>
     <string name="file_not_synced">Nie można zsynchronizować pliku. Pokazana jest najnowsza dostępna wersja.</string>
     <string name="file_rename">Zmień nazwę</string>
-    <string name="file_upload_limit_message">Możesz wysłać do %d plików na raz.\"</string>
     <string name="file_upload_worker_error_notification_title">Przesyłanie nie powiodło się. Brak połączenia internetowego</string>
     <string name="file_upload_worker_same_file_already_exists">%s już istnieje, nie znaleziono konfliktów</string>
     <string name="file_version_restored_error">Wystąpił błąd podczas przywracania wersji pliku!</string>

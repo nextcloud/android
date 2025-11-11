@@ -458,7 +458,6 @@
     <string name="file_not_found_cannot_share">File not found. Unable to create a share.</string>
     <string name="file_not_synced">File could not be synced. Showing latest available version.</string>
     <string name="file_rename">Rename</string>
-    <string name="file_upload_limit_message">You can upload up to %d files at once.</string>
     <string name="file_upload_worker_error_notification_title">Upload failed. No internet connection</string>
     <string name="file_upload_worker_same_file_already_exists">%s already exists, no conflict detected</string>
     <string name="file_version_restored_error">Error restoring file version!</string>

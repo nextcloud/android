@@ -458,7 +458,6 @@
     <string name="file_not_found_cannot_share">Non se atopou o ficheiro. Non é posíbel crear unha compartición.</string>
     <string name="file_not_synced">Non foi posíbel sincronizar o ficheiro. Amosase a última versión dispoñíbel.</string>
     <string name="file_rename">Cambiar o nome</string>
-    <string name="file_upload_limit_message">Pode enviar ata %d ficheiros á vez.</string>
     <string name="file_upload_worker_error_notification_title">Produciuse un fallo no envío. Non hai conexión a Internet</string>
     <string name="file_upload_worker_same_file_already_exists">%s xa existe, non se detectou ningún conflito</string>
     <string name="file_version_restored_error">Produciuse un erro ao restaurar a versión do ficheiro</string>
@@ -737,7 +736,7 @@
     <string name="prefs_remove_e2e">Retirar o cifrado localmente</string>
     <string name="prefs_setup_e2e">Configurar o cifrado de extremo a extremo</string>
     <string name="prefs_show_ecosystem_apps">Amosar o conmutador de aplicacións</string>
-    <string name="prefs_show_ecosystem_apps_summary">Suxestións da aplicación Nextcloud no título de navegación</string>
+    <string name="prefs_show_ecosystem_apps_summary">Suxestión de aplicacións de Nextcloud na cabeceira de navegación</string>
     <string name="prefs_show_hidden_files">Amosar ficheiros agochados</string>
     <string name="prefs_sourcecode">Obter o código fonte</string>
     <string name="prefs_sycned_folders_summary">Xestionar os cartafoles para a envío automático</string>
