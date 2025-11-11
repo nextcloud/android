@@ -57,7 +57,7 @@ fun ConversationScreen(viewModel: ConversationViewModel) {
                 Spacer(modifier = Modifier.weight(1f))
                 IconButton(
                     onClick = {
-                        ComposeNavigation.navigate(ComposeDestination.AssistantScreen)
+                        ComposeNavigation.navigate(ComposeDestination.AssistantScreen(null))
                     }
                 ) {
                     Icon(
@@ -126,7 +126,8 @@ private fun ConversationList(
             ConversationListItem(
                 conversation = conversation,
                 onClick = {
-                    // TODO:
+                    val destination = ComposeDestination.AssistantScreen(conversation.id)
+                    ComposeNavigation.navigate(destination)
                 },
                 onDeleteClick = { onDeleteClick(conversation) }
             )

@@ -9,12 +9,14 @@ package com.nextcloud.client.assistant
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.nextcloud.client.assistant.model.ScreenOverlayState
 import com.nextcloud.client.assistant.model.AssistantScreenState
+import com.nextcloud.client.assistant.model.ScreenOverlayState
 import com.nextcloud.client.assistant.repository.local.AssistantLocalRepository
 import com.nextcloud.client.assistant.repository.remote.AssistantRemoteRepository
 import com.owncloud.android.R
 import com.owncloud.android.lib.common.utils.Log_OC
+import com.owncloud.android.lib.resources.assistant.chat.model.ChatMessage
+import com.owncloud.android.lib.resources.assistant.chat.model.ChatMessageRequest
 import com.owncloud.android.lib.resources.assistant.v2.model.Task
 import com.owncloud.android.lib.resources.assistant.v2.model.TaskTypeData
 import kotlinx.coroutines.Dispatchers
@@ -57,6 +59,9 @@ class AssistantViewModel(
     private val _filteredTaskList = MutableStateFlow<List<Task>?>(null)
     val filteredTaskList: StateFlow<List<Task>?> = _filteredTaskList
 
+    private val _chatMessages = MutableStateFlow<List<ChatMessage>?>(null)
+    val chatMessages: StateFlow<List<ChatMessage>?> = _chatMessages
+
     private var taskPollingJob: Job? = null
 
     init {
@@ -98,6 +103,46 @@ class AssistantViewModel(
             taskList = result
             _filteredTaskList.value = taskList?.sortedByDescending { it.id }
             localRepository.cacheTasks(result, accountName)
+        }
+    }
+
+    fun sendChatMessage(content: String, sessionId: Long?) {
+        sessionId ?: return
+        val timestamp = System.currentTimeMillis().div(1000)
+        val firstHumanMessage = _chatMessages.value?.isEmpty() ?: false
+        val request =
+            ChatMessageRequest(
+                sessionId = sessionId.toString(),
+                role = "human",
+                content = content,
+                timestamp = timestamp,
+                firstHumanMessage = firstHumanMessage
+            )
+
+        viewModelScope.launch(Dispatchers.IO) {
+            val result = remoteRepository.sendChatMessage(request)
+            if (result != null) {
+                fetchChatMessages(sessionId)
+            } else {
+                _snackbarMessageId.update {
+                    R.string.assistant_screen_chat_create_error
+                }
+            }
+        }
+    }
+
+    fun fetchChatMessages(sessionId: Long) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val result = remoteRepository.fetchChatMessages(sessionId)
+            if (result != null) {
+                _chatMessages.update {
+                    result
+                }
+            } else {
+                _snackbarMessageId.update {
+                    R.string.assistant_screen_chat_fetch_error
+                }
+            }
         }
     }
 

@@ -282,7 +282,7 @@ public abstract class DrawerActivity extends ToolbarActivity
                 setupToolbar();
                 handleSearchEvents(new SearchEvent("", SearchRemoteOperation.SearchType.FAVORITE_SEARCH), menuItemId);
             } else if (menuItemId == R.id.nav_assistant && !(this instanceof ComposeActivity)) {
-                startComposeActivity(ComposeDestination.AssistantScreen, R.string.assistant_screen_top_bar_title);
+                startComposeActivity(new ComposeDestination.AssistantScreen(null), R.string.assistant_screen_top_bar_title);
             } else if (menuItemId == R.id.nav_gallery) {
                 setupToolbar();
                 startPhotoSearch(menuItem.getItemId());
@@ -470,7 +470,7 @@ public abstract class DrawerActivity extends ToolbarActivity
         moreView.setOnClickListener(v -> LinkHelper.INSTANCE.openAppStore("Nextcloud", true, this));
         assistantView.setOnClickListener(v -> {
             DrawerActivity.menuItemId = Menu.NONE;
-            startComposeActivity(ComposeDestination.AssistantScreen, R.string.assistant_screen_top_bar_title);
+            startComposeActivity(new ComposeDestination.AssistantScreen(null), R.string.assistant_screen_top_bar_title);
         });
         if (getCapabilities() != null && getCapabilities().getAssistant().isTrue()) {
             assistantView.setVisibility(View.VISIBLE);
@@ -632,7 +632,7 @@ public abstract class DrawerActivity extends ToolbarActivity
             startRecentlyModifiedSearch(menuItem);
         } else if (itemId == R.id.nav_assistant) {
             resetOnlyPersonalAndOnDevice();
-            startComposeActivity(ComposeDestination.AssistantScreen, R.string.assistant_screen_top_bar_title);
+            startComposeActivity(new ComposeDestination.AssistantScreen(null), R.string.assistant_screen_top_bar_title);
         } else if (itemId == R.id.nav_groupfolders) {
             resetOnlyPersonalAndOnDevice();
             Intent intent = new Intent(getApplicationContext(), FileDisplayActivity.class);
@@ -652,7 +652,7 @@ public abstract class DrawerActivity extends ToolbarActivity
 
     private void startComposeActivity(ComposeDestination destination, int titleId) {
         Intent composeActivity = new Intent(getApplicationContext(), ComposeActivity.class);
-        composeActivity.putExtra(ComposeActivity.DESTINATION, destination);
+        composeActivity.putExtra(ComposeActivity.DESTINATION, destination.getId());
         composeActivity.putExtra(ComposeActivity.TITLE, titleId);
         startActivity(composeActivity);
     }
