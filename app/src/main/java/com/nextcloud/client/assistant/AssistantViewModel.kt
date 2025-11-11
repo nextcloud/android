@@ -146,12 +146,6 @@ class AssistantViewModel(
         }
     }
 
-    fun initSessionId(value: Long) {
-        _sessionId.update {
-            value
-        }
-    }
-
     fun fetchChatMessages(sessionId: Long) {
         viewModelScope.launch(Dispatchers.IO) {
             val result = remoteRepository.fetchChatMessages(sessionId)
@@ -175,6 +169,9 @@ class AssistantViewModel(
         viewModelScope.launch(Dispatchers.IO) {
             val result = remoteRepository.createConversation(title)
             if (result != null) {
+                _sessionId.update {
+                    result.session.id
+                }
                 sendChatMessage(content = title, sessionId = result.session.id)
             }
         }
