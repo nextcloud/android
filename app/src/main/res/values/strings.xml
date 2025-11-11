@@ -68,7 +68,7 @@
     <string name="assistant_screen_conversation_create_text">New conversation</string>
     <string name="assistant_screen_chat_create_error">Failed to send a message</string>
     <string name="assistant_screen_chat_fetch_error">Failed to fetch chat messages</string>
-
+    <string name="assistant_screen_empty_conversation_text">No conversations found</string>
     <string name="assistant_screen_chat_title">Hello there! What can I help you with today?</string>
     <string name="assistant_screen_chat_description">Try sending a message to spark a conversation.</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Delete task</string>

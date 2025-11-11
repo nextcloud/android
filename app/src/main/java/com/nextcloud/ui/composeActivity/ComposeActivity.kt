@@ -19,7 +19,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import com.nextcloud.client.assistant.AssistantScreen
 import com.nextcloud.client.assistant.AssistantViewModel
-import com.nextcloud.client.assistant.conversation.ConversationScreen
 import com.nextcloud.client.assistant.conversation.ConversationViewModel
 import com.nextcloud.client.assistant.conversation.repository.ConversationRemoteRepositoryImpl
 import com.nextcloud.client.assistant.repository.local.AssistantLocalRepositoryImpl
@@ -89,26 +88,21 @@ class ComposeActivity : DrawerActivity() {
             is ComposeDestination.AssistantScreen -> {
                 val dao = NextcloudDatabase.instance().assistantDao()
                 val sessionId = (currentScreen as? ComposeDestination.AssistantScreen)?.sessionId
+                val client = nextcloudClient ?: return
 
-                nextcloudClient?.let { client ->
-                    AssistantScreen(
-                        viewModel = AssistantViewModel(
-                            accountName = userAccountManager.user.accountName,
-                            remoteRepository = AssistantRemoteRepositoryImpl(client, capabilities),
-                            localRepository = AssistantLocalRepositoryImpl(dao)
-                        ),
-                        activity = this,
-                        capability = capabilities,
-                        sessionIdArg = sessionId
-                    )
-                }
-            }
-            ComposeDestination.ConversationScreen -> {
-                nextcloudClient?.let { client ->
-                    ConversationScreen(viewModel = ConversationViewModel(
+                AssistantScreen(
+                    viewModel = AssistantViewModel(
+                        accountName = userAccountManager.user.accountName,
+                        remoteRepository = AssistantRemoteRepositoryImpl(client, capabilities),
+                        localRepository = AssistantLocalRepositoryImpl(dao)
+                    ),
+                    conversationViewModel = ConversationViewModel(
                         remoteRepository = ConversationRemoteRepositoryImpl(client)
-                    ))
-                }
+                    ),
+                    activity = this,
+                    capability = capabilities,
+                    sessionIdArg = sessionId
+                )
             }
             else -> Unit
         }

@@ -78,7 +78,7 @@ class AssistantViewModel(
         pollingJob = viewModelScope.launch(Dispatchers.IO) {
             try {
                 while (isActive) {
-                    Log_OC.d(TAG, "Polling list...")
+                    Log_OC.d(TAG, "Polling list, sessionId: $sessionId")
                     if (sessionId != null) {
                         pollChatMessages(sessionId)
                     } else {
@@ -87,7 +87,7 @@ class AssistantViewModel(
                     delay(POLLING_INTERVAL_MS)
                 }
             } finally {
-                Log_OC.d(TAG, "Polling coroutine cancelled")
+                Log_OC.d(TAG, "Polling coroutine cancelled, sessionId: $sessionId")
             }
         }
     }
@@ -153,7 +153,6 @@ class AssistantViewModel(
                 _screenState.update {
                     AssistantScreenState.ChatContent
                 }
-
                 _chatMessages.update {
                     result
                 }
@@ -169,11 +168,15 @@ class AssistantViewModel(
         viewModelScope.launch(Dispatchers.IO) {
             val result = remoteRepository.createConversation(title)
             if (result != null) {
-                _sessionId.update {
-                    result.session.id
-                }
+                initSessionId(result.session.id)
                 sendChatMessage(content = title, sessionId = result.session.id)
             }
+        }
+    }
+
+    fun initSessionId(value: Long) {
+        _sessionId.update {
+            value
         }
     }
 
@@ -260,7 +263,7 @@ class AssistantViewModel(
                 AssistantScreenState.ChatContent
             } else {
                 if (_filteredTaskList.value?.isEmpty() == true) {
-                    AssistantScreenState.emptyTaskList()
+                    AssistantScreenState.emptyChatList()
                 } else {
                     AssistantScreenState.TaskContent
                 }

@@ -8,9 +8,9 @@
 package com.nextcloud.client.assistant.conversation
 
 import androidx.lifecycle.ViewModel
-import com.nextcloud.client.assistant.conversation.repository.ConversationRemoteRepository
 import androidx.lifecycle.viewModelScope
 import com.nextcloud.client.assistant.conversation.model.ConversationScreenState
+import com.nextcloud.client.assistant.conversation.repository.ConversationRemoteRepository
 import com.owncloud.android.R
 import com.owncloud.android.lib.resources.assistant.chat.model.Conversation
 import kotlinx.coroutines.Dispatchers
@@ -83,7 +83,6 @@ class ConversationViewModel(
         viewModelScope.launch(Dispatchers.IO) {
             val success = remoteRepository.deleteConversation(sessionId)
             if (success) {
-                // TODO: CHECK IF ITS WORKING...
                 val updatedList = _conversations.value.filterNot { it.id == sessionId.toLong() }
                 _conversations.update {
                     updatedList
