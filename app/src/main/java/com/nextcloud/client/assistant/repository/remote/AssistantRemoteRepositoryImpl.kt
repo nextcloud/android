@@ -9,6 +9,10 @@ package com.nextcloud.client.assistant.repository.remote
 import com.nextcloud.common.NextcloudClient
 import com.owncloud.android.lib.common.operations.RemoteOperationResult
 import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode
+import com.owncloud.android.lib.resources.assistant.chat.CreateMessageRemoteOperation
+import com.owncloud.android.lib.resources.assistant.chat.GetMessagesRemoteOperation
+import com.owncloud.android.lib.resources.assistant.chat.model.ChatMessage
+import com.owncloud.android.lib.resources.assistant.chat.model.ChatMessageRequest
 import com.owncloud.android.lib.resources.assistant.v1.CreateTaskRemoteOperationV1
 import com.owncloud.android.lib.resources.assistant.v1.DeleteTaskRemoteOperationV1
 import com.owncloud.android.lib.resources.assistant.v1.GetTaskListRemoteOperationV1
@@ -76,5 +80,23 @@ class AssistantRemoteRepositoryImpl(private val client: NextcloudClient, capabil
         DeleteTaskRemoteOperationV2(id).execute(client)
     } else {
         DeleteTaskRemoteOperationV1(id).execute(client)
+    }
+
+    override fun fetchChatMessages(id: Long): List<ChatMessage>? {
+        val result = GetMessagesRemoteOperation(id.toString()).execute(client)
+        return if (result.isSuccess) {
+             result.resultData
+        } else {
+            null
+        }
+    }
+
+    override fun sendChatMessage(request: ChatMessageRequest): ChatMessage? {
+        val result = CreateMessageRemoteOperation(request).execute(client)
+        return if (result.isSuccess) {
+            result.resultData
+        } else {
+            null
+        }
     }
 }

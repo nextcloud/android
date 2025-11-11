@@ -26,7 +26,6 @@ import com.nextcloud.client.assistant.repository.local.AssistantLocalRepositoryI
 import com.nextcloud.client.assistant.repository.remote.AssistantRemoteRepositoryImpl
 import com.nextcloud.client.database.NextcloudDatabase
 import com.nextcloud.common.NextcloudClient
-import com.nextcloud.utils.extensions.getSerializableArgument
 import com.owncloud.android.R
 import com.owncloud.android.databinding.ActivityComposeBinding
 import com.owncloud.android.ui.activity.DrawerActivity
@@ -45,7 +44,7 @@ class ComposeActivity : DrawerActivity() {
         binding = ActivityComposeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val destination = intent.getSerializableArgument(DESTINATION, ComposeDestination::class.java) ?: return
+        val destinationId = intent.getIntExtra(DESTINATION, -1)
         val titleId = intent.getIntExtra(TITLE, R.string.empty)
 
         setupDrawer()
@@ -58,7 +57,7 @@ class ComposeActivity : DrawerActivity() {
             MaterialTheme(
                 colorScheme = viewThemeUtils.getColorScheme(this),
                 content = {
-                    Content(destination)
+                    Content(ComposeDestination.fromId(destinationId))
                 }
             )
         }
@@ -82,13 +81,14 @@ class ComposeActivity : DrawerActivity() {
             nextcloudClient = clientRepository.getNextcloudClient()
         }
 
-        when(currentScreen) {
-            ComposeDestination.AssistantScreen -> {
-                binding.bottomNavigation.menu.findItem(R.id.nav_assistant).run {
-                    isChecked = true
-                }
+        binding.bottomNavigation.menu.findItem(R.id.nav_assistant).run {
+            isChecked = true
+        }
 
+        when(currentScreen) {
+            is ComposeDestination.AssistantScreen -> {
                 val dao = NextcloudDatabase.instance().assistantDao()
+                val sessionId = (currentScreen as? ComposeDestination.AssistantScreen)?.sessionId
 
                 nextcloudClient?.let { client ->
                     AssistantScreen(
@@ -98,7 +98,8 @@ class ComposeActivity : DrawerActivity() {
                             localRepository = AssistantLocalRepositoryImpl(dao)
                         ),
                         activity = this,
-                        capability = capabilities
+                        capability = capabilities,
+                        sessionId = sessionId
                     )
                 }
             }

@@ -53,9 +53,10 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.nextcloud.client.assistant.chat.ChatContent
 import com.nextcloud.client.assistant.extensions.getInputTitle
-import com.nextcloud.client.assistant.model.ScreenOverlayState
 import com.nextcloud.client.assistant.model.AssistantScreenState
+import com.nextcloud.client.assistant.model.ScreenOverlayState
 import com.nextcloud.client.assistant.repository.local.MockAssistantLocalRepository
 import com.nextcloud.client.assistant.repository.remote.MockAssistantRemoteRepository
 import com.nextcloud.client.assistant.task.TaskView
@@ -79,8 +80,10 @@ private const val PULL_TO_REFRESH_DELAY = 1500L
 fun AssistantScreen(
     viewModel: AssistantViewModel,
     capability: OCCapability,
-    activity: Activity
+    activity: Activity,
+    sessionId: Long? = null
 ) {
+    val chatMessages by viewModel.chatMessages.collectAsState()
     val messageId by viewModel.snackbarMessageId.collectAsState()
     val screenOverlayState by viewModel.screenOverlayState.collectAsState()
 
@@ -101,6 +104,9 @@ fun AssistantScreen(
 
     LaunchedEffect(Unit) {
         viewModel.startTaskListPolling()
+        if (sessionId != null) {
+            viewModel.fetchChatMessages(sessionId)
+        }
     }
 
     DisposableEffect(Unit) {
@@ -131,6 +137,7 @@ fun AssistantScreen(
         bottomBar = {
             if (!taskTypes.isNullOrEmpty()) {
                 ChatInputBar(
+                    sessionId,
                     selectedTaskType,
                     viewModel
                 )
@@ -152,12 +159,19 @@ fun AssistantScreen(
             }
 
             AssistantScreenState.Content -> {
-                AssistantContent(
-                    paddingValues,
-                    filteredTaskList ?: listOf(),
-                    viewModel,
-                    capability
-                )
+                if (sessionId == null) {
+                    AssistantContent(
+                        paddingValues,
+                        filteredTaskList ?: listOf(),
+                        viewModel,
+                        capability
+                    )
+                } else {
+                    ChatContent(
+                        chatMessages = chatMessages,
+                        modifier = Modifier.padding(paddingValues)
+                    )
+                }
             }
 
             else -> EmptyContent(
@@ -179,6 +193,7 @@ fun AssistantScreen(
 
 @Composable
 private fun ChatInputBar(
+    sessionId: Long?,
     selectedTaskType: TaskTypeData?,
     viewModel: AssistantViewModel
 ) {
@@ -222,7 +237,11 @@ private fun ChatInputBar(
                     onClick = {
                         if (text.isNotBlank()) {
                             selectedTaskType?.let {
-                                viewModel.createTask(input = text, taskType = it)
+                                if (it.isChat) {
+                                    viewModel.sendChatMessage(content = text, sessionId)
+                                } else {
+                                    viewModel.createTask(input = text, taskType = it)
+                                }
                             }
                             scope.launch {
                                 delay(CHAT_INPUT_DELAY)
