@@ -355,6 +355,7 @@ dependencies {
     implementation(libs.compose.ui.graphics)
     implementation(libs.compose.material3)
     implementation(libs.compose.ui.tooling.preview)
+    implementation(libs.foundation)
     debugImplementation(libs.compose.ui.tooling)
     // endregion
 

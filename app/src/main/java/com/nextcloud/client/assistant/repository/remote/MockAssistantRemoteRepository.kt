@@ -10,6 +10,7 @@ import com.nextcloud.utils.extensions.getRandomString
 import com.owncloud.android.lib.common.operations.RemoteOperationResult
 import com.owncloud.android.lib.resources.assistant.chat.model.ChatMessage
 import com.owncloud.android.lib.resources.assistant.chat.model.ChatMessageRequest
+import com.owncloud.android.lib.resources.assistant.chat.model.CreateConversation
 import com.owncloud.android.lib.resources.assistant.v2.model.Shape
 import com.owncloud.android.lib.resources.assistant.v2.model.Task
 import com.owncloud.android.lib.resources.assistant.v2.model.TaskInput
@@ -72,6 +73,10 @@ class MockAssistantRemoteRepository(private val giveEmptyTasks: Boolean = false)
     }
 
     override fun sendChatMessage(request: ChatMessageRequest): ChatMessage? {
+        return null
+    }
+
+    override fun createConversation(title: String): CreateConversation? {
         return null
     }
 }
