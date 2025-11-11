@@ -10,7 +10,7 @@ package com.nextcloud.client.assistant
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.nextcloud.client.assistant.model.ScreenOverlayState
-import com.nextcloud.client.assistant.model.ScreenState
+import com.nextcloud.client.assistant.model.AssistantScreenState
 import com.nextcloud.client.assistant.repository.local.AssistantLocalRepository
 import com.nextcloud.client.assistant.repository.remote.AssistantRemoteRepository
 import com.owncloud.android.R
@@ -37,8 +37,8 @@ class AssistantViewModel(
         private const val TASK_LIST_POLLING_INTERVAL_MS = 15_000L
     }
 
-    private val _screenState = MutableStateFlow<ScreenState?>(null)
-    val screenState: StateFlow<ScreenState?> = _screenState
+    private val _screenState = MutableStateFlow<AssistantScreenState?>(null)
+    val screenState: StateFlow<AssistantScreenState?> = _screenState
 
     private val _screenOverlayState = MutableStateFlow<ScreenOverlayState?>(null)
     val screenOverlayState: StateFlow<ScreenOverlayState?> = _screenOverlayState
@@ -132,7 +132,7 @@ class AssistantViewModel(
             val taskTypesResult = remoteRepository.getTaskTypes()
             if (taskTypesResult == null || taskTypesResult.isEmpty()) {
                 _screenState.update {
-                    ScreenState.emptyTaskTypes()
+                    AssistantScreenState.emptyTaskTypes()
                 }
                 return@launch
             }
@@ -179,9 +179,9 @@ class AssistantViewModel(
     private fun updateTaskListScreenState() {
         _screenState.update {
             if (_filteredTaskList.value?.isEmpty() == true) {
-                ScreenState.emptyTaskList()
+                AssistantScreenState.emptyTaskList()
             } else {
-                ScreenState.Content
+                AssistantScreenState.Content
             }
         }
     }

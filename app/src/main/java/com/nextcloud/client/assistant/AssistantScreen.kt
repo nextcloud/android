@@ -55,7 +55,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.nextcloud.client.assistant.extensions.getInputTitle
 import com.nextcloud.client.assistant.model.ScreenOverlayState
-import com.nextcloud.client.assistant.model.ScreenState
+import com.nextcloud.client.assistant.model.AssistantScreenState
 import com.nextcloud.client.assistant.repository.local.MockAssistantLocalRepository
 import com.nextcloud.client.assistant.repository.remote.MockAssistantRemoteRepository
 import com.nextcloud.client.assistant.task.TaskView
@@ -123,8 +123,8 @@ fun AssistantScreen(
         topBar = {
             taskTypes?.let {
                 val data = listOf(TaskTypeData.conversationList) + it
-                TaskTypesRow(selectedTaskType, data = data, selectTaskType = {
-                    viewModel.selectTaskType(it)
+                TaskTypesRow(selectedTaskType, data = data, selectTaskType = { task ->
+                    viewModel.selectTaskType(task)
                 })
             }
         },
@@ -141,8 +141,8 @@ fun AssistantScreen(
         }
     ) { paddingValues ->
         when (screenState) {
-            is ScreenState.EmptyContent -> {
-                val state = (screenState as ScreenState.EmptyContent)
+            is AssistantScreenState.EmptyContent -> {
+                val state = (screenState as AssistantScreenState.EmptyContent)
                 EmptyContent(
                     paddingValues,
                     iconId = state.iconId,
@@ -151,7 +151,7 @@ fun AssistantScreen(
                 )
             }
 
-            ScreenState.Content -> {
+            AssistantScreenState.Content -> {
                 AssistantContent(
                     paddingValues,
                     filteredTaskList ?: listOf(),
