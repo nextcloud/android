@@ -1,6 +1,7 @@
 /*
  * Nextcloud - Android Client
  *
+ * SPDX-FileCopyrightText: 2025 Alper Ozturk <alper.ozturk@nextcloud.com>
  * SPDX-FileCopyrightText: 2022 Tobias Kaminsky <tobias@kaminsky.me>
  * SPDX-FileCopyrightText: 2022 Nextcloud GmbH
  * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
@@ -11,69 +12,89 @@ import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
-import androidx.test.espresso.intent.rule.IntentsTestRule
+import androidx.annotation.UiThread
+import androidx.test.core.app.launchActivity
+import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.IdlingRegistry
+import androidx.test.espresso.assertion.ViewAssertions.matches
+import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
+import androidx.test.espresso.matcher.ViewMatchers.isRoot
 import com.nextcloud.test.TestActivity
 import com.owncloud.android.AbstractIT
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.datamodel.ThumbnailsCacheManager
-import com.owncloud.android.datamodel.ThumbnailsCacheManager.InitDiskCacheTask
 import com.owncloud.android.datamodel.ThumbnailsCacheManager.PREFIX_RESIZED_IMAGE
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.lib.resources.files.model.ImageDimension
+import com.owncloud.android.utils.EspressoIdlingResource
 import com.owncloud.android.utils.ScreenshotTest
 import org.junit.After
 import org.junit.Assert.assertNotNull
 import org.junit.Before
-import org.junit.Rule
 import org.junit.Test
 import java.util.Random
 
 class GalleryFragmentIT : AbstractIT() {
-    @get:Rule
-    val testActivityRule = IntentsTestRule(TestActivity::class.java, true, false)
-
-    lateinit var activity: TestActivity
-    val random = Random(1)
+    private val testClassName = "com.owncloud.android.ui.fragment.GalleryFragmentIT"
+    private val random = Random(1)
 
     @Before
-    fun before() {
-        activity = testActivityRule.launchActivity(null)
+    fun registerIdlingResource() {
+        IdlingRegistry.getInstance().register(EspressoIdlingResource.countingIdlingResource)
 
         // initialise thumbnails cache on background thread
-        InitDiskCacheTask().execute()
+        @Suppress("DEPRECATION")
+        ThumbnailsCacheManager.initDiskCacheAsync()
     }
 
     @After
-    override fun after() {
+    fun unregisterIdlingResource() {
+        IdlingRegistry.getInstance().unregister(EspressoIdlingResource.countingIdlingResource)
         ThumbnailsCacheManager.clearCache()
-
-        super.after()
     }
 
+    @Test
+    @UiThread
     @ScreenshotTest
-    @Test
     fun showEmpty() {
-        val sut = GalleryFragment()
-        activity.addFragment(sut)
+        launchActivity<TestActivity>().use { scenario ->
+            scenario.onActivity { activity ->
+                onIdleSync {
+                    EspressoIdlingResource.increment()
+                    val sut = GalleryFragment()
+                    activity.addFragment(sut)
+                    EspressoIdlingResource.decrement()
 
-        waitForIdleSync()
-
-        screenshot(activity)
+                    val screenShotName = createName(testClassName + "_" + "showEmpty", "")
+                    onView(isRoot()).check(matches(isDisplayed()))
+                    screenshotViaName(activity, screenShotName)
+                }
+            }
+        }
     }
 
     @Test
+    @UiThread
     @ScreenshotTest
     fun showGallery() {
-        createImage(10000001, 700, 300)
-        createImage(10000002, 500, 300)
-        createImage(10000007, 300, 400)
+        launchActivity<TestActivity>().use { scenario ->
+            scenario.onActivity { activity ->
+                onIdleSync {
+                    EspressoIdlingResource.increment()
+                    createImage(10000001, 700, 300)
+                    createImage(10000002, 500, 300)
+                    createImage(10000007, 300, 400)
 
-        val sut = GalleryFragment()
-        activity.addFragment(sut)
+                    val sut = GalleryFragment()
+                    activity.addFragment(sut)
+                    EspressoIdlingResource.decrement()
 
-        waitForIdleSync()
-        shortSleep()
-        screenshot(activity)
+                    val screenShotName = createName(testClassName + "_" + "showGallery", "")
+                    onView(isRoot()).check(matches(isDisplayed()))
+                    screenshotViaName(activity, screenShotName)
+                }
+            }
+        }
     }
 
     private fun createImage(id: Int, width: Int? = null, height: Int? = null) {

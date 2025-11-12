@@ -31,8 +31,6 @@
     <string name="add_new_public_share">إضافة رابط مشاركة عام جديد</string>
     <string name="add_new_secure_file_drop">أضف ملف ألاصل </string>
     <string name="add_to_cloud">إضافة إلى %1$s</string>
-    <string name="advanced_settings">إعدادات متقدمة</string>
-    <string name="allow_resharing">السماح بإعادة المشاركة </string>
     <string name="app_config_base_url_title">عنوان URL الأساسي</string>
     <string name="app_config_disable_clipboard_title">تعطيل الحافظة</string>
     <string name="app_config_disable_intro_title">تعطيل المقدمة</string>
@@ -45,16 +43,18 @@
     <string name="app_config_proxy_port_title">منفذ البروكسي</string>
     <string name="app_widget_description">عرض أداة واحدة من لوحة المعلومات</string>
     <string name="appbar_search_in">بحث في %s</string>
+    <string name="appear_offline">الحالة غير متصل</string>
     <string name="assistant_screen_add_task_alert_dialog_title">إضافة مهمة جديدة</string>
+    <string name="assistant_screen_create_a_new_task_from_bottom_right_text">أنشِئ مهمة جديدة من الأسفل</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">أكتُب أيَّ نص</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">هل أنت متأكد أنك ترغب بحذف هذه المهمة؟</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">حذف المهمّة</string>
     <string name="assistant_screen_loading">تحميل قائمة المهام ...</string>
-    <string name="assistant_screen_no_task_available_text">لا توجد أي مهام متوفرة من النوع %s. يمكنك إنشاء مهمة جديدة من الشريط السفلي الجانبي.</string>
     <string name="assistant_screen_task_create_fail_message">حدث خطأ أثناء إنشاء المهمة</string>
     <string name="assistant_screen_task_create_success_message">تمّ إنشاء المهمة بنجاح</string>
     <string name="assistant_screen_task_delete_fail_message">حدث خطأ أثناء حذف المهمة</string>
     <string name="assistant_screen_task_delete_success_message">تمّ حذف المهمة بنجاح</string>
+    <string name="assistant_screen_task_list_empty_message">قائمة المهام فارغة.</string>
     <string name="assistant_screen_task_list_error_state_message">تعذّر جلب قائمة المهام. قم رجاءً بالتحقُّق من اتصالك بالإنترنت.</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">حذف مهمة</string>
     <string name="assistant_screen_task_output_empty_text">مخرجات المهمة ليست جاهزة بعد.</string>
@@ -96,13 +96,9 @@
     <string name="authenticator_activity_login_error">حدث إشكال عند معالجة طلبك للدخول. يُرجى المحاولة مرةً أخرى.</string>
     <string name="authenticator_activity_please_complete_login_process">يرجى إكمال عملية تسجيل الدخول في المتصفح الخاص بك</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">ترك في مجلد الأصل، بسبب كونه للقرائة فقط</string>
-    <string name="auto_upload_gplay">تمّ تغيير سلوك التحميل التلقائي</string>
-    <string name="auto_upload_gplay_desc">بسبب القيود الجديدة المفروضة من قِبل شركة قوقل، فإن خاصية التحميل التلقائي سوف لن يمكنها بعدُ الحذف التلقائي للملفات المرفوعة.</string>
-    <string name="auto_upload_gplay_desc2">بسبب القيود الجديدة التي فرضتها شركة Google، اضطررنا إلى إزالة إذنٍ مهم. ونتيجة لذلك، ميزة التحميل التلقائي لن تقوم بتحميل سوى ملفات الصور والفيديو. 
-بالإضافة إلى ذلك، يلزم الحصول على إذن جديد للوصول إلى معلومات الموقع للصور التي تم تحميلها. 
-تأكد من تعيين حقل \"الوصول إلى الوسائط\" media access على خيار \"السماح دائمًا للجميع\" Always allow all.</string>
     <string name="auto_upload_on_wifi">قم بالرفع عبر شبكة لاسلكية غير محدودة البيانات فقط</string>
     <string name="auto_upload_path">/رفع تلقائي</string>
+    <string name="auto_upload_sub_folder_warning">هذا المُجلَّد مُضمَّن سَلَفاً في مُزامَنة المُجلَّد الأب؛ الأمر الذي قد يتسبب في تكرار الرفع  </string>
     <string name="autoupload_configure">إعداد</string>
     <string name="autoupload_create_new_custom_folder">أنشئ إعداد مجلد خاص جديد</string>
     <string name="autoupload_custom_folder">إعداد مجلد خاص</string>
@@ -120,6 +116,7 @@
     <string name="bottom_navigation_menu_favorites_label">المُفضّلة</string>
     <string name="bottom_navigation_menu_files_label">كل الملفات</string>
     <string name="bottom_navigation_menu_media_label">الوسائط</string>
+    <string name="busy">مشغول</string>
     <string name="calendar">التقويم</string>
     <string name="calendars">التقاويم</string>
     <string name="certificate_load_problem">هناك مشكلة في تحميل الشهادة</string>
@@ -131,10 +128,9 @@
     <string name="choose_template_helper_text">اختر قالب وادخل اسم الملف</string>
     <string name="choose_which_file">اختر أي من أياً من الملفات التالية التي تريد الإحتفاظ بها!</string>
     <string name="choose_widget">أختر عنصر الواجهه</string>
+    <string name="clear">محو</string>
     <string name="clear_notifications_failed">فشلت عملية إزالة التنبيهات.</string>
-    <string name="clear_status_message">مسح رسالة الحالة</string>
-    <string name="clear_status_message_after">مسح رسالة الحالة بعد</string>
-    <string name="click_to_learn_how_to_re_enable_auto_uploads">يجب التدخل يدويّاً لإعادة تمكين التحميل التلقائي</string>
+    <string name="clear_status_after">مسح رسالة الحالة بعد</string>
     <string name="clipboard_label">تم نسخ النص من %1$s</string>
     <string name="clipboard_no_text_to_copy">لم يستلم نص لنسخه في الحافظة</string>
     <string name="clipboard_text_copied">تم نسخ الرابط</string>
@@ -149,6 +145,7 @@
     <string name="common_error">خطأ</string>
     <string name="common_error_out_memory">لا يوجد ذاكرة عشوائية كافية</string>
     <string name="common_error_unknown">خطأ غير معروف. </string>
+    <string name="common_leave_this_share">مغادرة هذه المشاركة</string>
     <string name="common_loading">التحميل جارٍ …</string>
     <string name="common_next">التالي</string>
     <string name="common_no">لا</string>
@@ -438,7 +435,6 @@
     <string name="file_not_synced">الملف لا يمكن مزامنته. عرض آخر إصدار متوفر.</string>
     <string name="file_rename">إعادة التسمية</string>
     <string name="file_upload_worker_error_notification_title">فشل الرفع. لايوجد اتصال بالإنترنت</string>
-    <string name="file_upload_worker_same_file_already_exists">الملف موجود سلفاً. لم يتم اكتشاف أي تعارض</string>
     <string name="file_version_restored_error">حدث خطأ في استيراد إصدار الملف!</string>
     <string name="file_version_restored_successfully">تم استيراد إصدار الملف بنجاح.</string>
     <string name="filedetails_details">التفاصيل</string>
@@ -515,10 +511,7 @@
     <string name="last_backup">آخر نسخ احتياطي: %1$s</string>
     <string name="link">الرابط</string>
     <string name="link_name">اسم الرابط</string>
-    <string name="link_share_allow_upload_and_editing">السماح بالرفع و التعديل</string>
     <string name="link_share_editing">جارِ التعديل</string>
-    <string name="link_share_file_drop">إسقاط الملف (رفع فقط)</string>
-    <string name="link_share_view_only">لعرضه فقط</string>
     <string name="list_layout">تخطيط مدرج</string>
     <string name="load_more_results">تحميل المزيد من النتائج</string>
     <string name="local_file_list_empty">لا توجد ملفات في هذا المجلد</string>
@@ -551,7 +544,6 @@
 
 قد تستغرق هذه العملية بعض الوقت.</string>
     <string name="manage_space_title">إدارة المساحة</string>
-    <string name="max_file_count_warning_message">تجاوزت الحد الأقصى المسموح به لزمن رفع الملفات. رجاءً، لا تقم برفع عدد يزيد عن 500 ملف في كل مرة.</string>
     <string name="media_err_invalid_progressive_playback">ملف الوسائط لا يمكن بثه</string>
     <string name="media_err_io">تعذرت قراءة ملف الوسائط</string>
     <string name="media_err_malformed">يحتوي ملف الوسائط على ترميز غير صحيح</string>
@@ -574,6 +566,7 @@
     <string name="move_file_invalid_into_descendent">لا يمكن نقل مجلد في مجلدات هوَّ يتضمنها</string>
     <string name="move_file_invalid_overwrite">هذا الملف موجود حالياً في المجلد المُّسّتَقبِل</string>
     <string name="move_file_not_found">غير قادر على نقل الملف. يرجى التحقق مما إذا كان موجوداً.</string>
+    <string name="mute_all_notifications">عدم إظهار جميع التنبيهات</string>
     <string name="network_error_connect_timeout_exception">حدث خطأ أثناء انتظار الخادم. تعذر إكمال العملية.</string>
     <string name="network_error_socket_exception">حدث خطأ أثناء الاتصال بالخادم</string>
     <string name="network_error_socket_timeout_exception">حدث خطأ أثناء انتظار الخادم. تعذر إكمال العملية.</string>
@@ -621,8 +614,6 @@
     <string name="offline_mode_info_description">حتى بدون اتصال بالإنترنت، يمكنك تنظيم مجلداتك وإنشاء ملفات. بمجرد عودة الاتصال بالإنترنت، ستتم مزامنة الإجراءات المعلقة تلقائياً.</string>
     <string name="offline_mode_info_title">أنت غير متصل؛ لكن العمل مستمر</string>
     <string name="offline_operations_file_does_not_exists_yet">الملف لم يتوفر حتى الآن. يرجى رفع الملف أولاً.</string>
-    <string name="offline_operations_worker_notification_conflict_text">مجلد متعارض: %s</string>
-    <string name="offline_operations_worker_notification_delete_offline_folder">حذف مجلد غير متصل</string>
     <string name="offline_operations_worker_notification_error_text">لا يمكن إكمال العملية دون اتصال. %s</string>
     <string name="offline_operations_worker_notification_manager_ticker">عمليات دون اتصال بالإنترنت</string>
     <string name="offline_operations_worker_notification_start_text">بدء عمليات بدون اتصال</string>
@@ -650,11 +641,6 @@
     <string name="picture_set_as_no_app">لم يتم العثور على تطبيق لتعيين صورة به</string>
     <string name="pin_home">ثبِّت في الشاشة الرئيسية</string>
     <string name="pin_shortcut_label">فتح %1$s</string>
-    <string name="placeholder_fileSize">389 ك.ب</string>
-    <string name="placeholder_filename">placeholder.txt</string>
-    <string name="placeholder_media_time">12:23:45</string>
-    <string name="placeholder_sentence">هذه مساحة محجوزة</string>
-    <string name="placeholder_timestamp">2012/05/18 12:23 مساء</string>
     <string name="player_stop">إيقاف</string>
     <string name="player_toggle">تبديل</string>
     <string name="please_select_a_server">من فضلك، قم بتحديد الخادم...</string>
@@ -671,11 +657,11 @@
     <string name="prefs_add_account">أضف حساباً</string>
     <string name="prefs_calendar_contacts">مُزامنة التقويم و جهات الاتصال</string>
     <string name="prefs_calendar_contacts_no_store_error">كلا من تطبيقي أف-دويد و متجر غوغل عير منصبين</string>
-    <string name="prefs_calendar_contacts_summary">قم بإعداد DAVx5 (المعروف سابقًا باسم DAVdroid) (v1.3.0 +) للحساب الجاري</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">التجهيز لمزامنة التقويم و جهات الاتصال</string>
     <string name="prefs_category_about">حول</string>
     <string name="prefs_category_details">تفاصيل</string>
     <string name="prefs_category_dev">التطوير</string>
+    <string name="prefs_category_files">الملفّات</string>
     <string name="prefs_category_general">عام</string>
     <string name="prefs_category_more">المزيد</string>
     <string name="prefs_category_sync">زامن</string>
@@ -683,7 +669,6 @@
     <string name="prefs_daily_contact_backup_summary">نسخ أحتياطي يومي لجهات الإتصال</string>
     <string name="prefs_data_storage_location">موضع تخزين البيانات</string>
     <string name="prefs_data_storage_location_summary">إدارة موضع تخزين البيانات</string>
-    <string name="prefs_davx5_setup_error">خطأ غير متوقع عند تجهيز DAVx5 ( الذي كان معروفاً سابقاً باسم DAVdroid)</string>
     <string name="prefs_e2e_active">التشفير الطرفي E2EE جاهز!</string>
     <string name="prefs_e2e_mnemonic">تذكيري ل E2E</string>
     <string name="prefs_e2e_no_device_credentials">لإظهار الذاكرة ، يرجى تمكين معلومات تسجيل الدخول إلى الجهاز.</string>
@@ -731,23 +716,13 @@
     <string name="preview_image_error_no_local_file">لا يوجد ملف محلي للمعاينة</string>
     <string name="preview_image_error_unknown_format">تعذرت عملية عرض الصورة</string>
     <string name="preview_image_file_is_not_downloaded">لم يتم تنزيل الملف</string>
-    <string name="preview_image_file_is_not_exist">الملف غير موجود</string>
     <string name="preview_media_unhandled_http_code_message">الملف مقفلٌ حالياً من قِبَل مستخدِمٍ أو عمليةٍ أخرى؛ وبالتالي لا يمكن حذفه. الرجاء معاودة المحاولة في وقتٍ لاحقٍ.</string>
     <string name="preview_sorry">آسف</string>
     <string name="privacy">الخصوصية</string>
-    <string name="public_share_name">اسم جديد</string>
+    <string name="push_notifications_not_implemented">تم تعطيل الإشعارات الفورية بسبب التبعيات على خدمات Google Play المملوكة.</string>
     <string name="push_notifications_old_login">لا توجد إشعارات دفع بسبب جلسة تسجيل الدخول القديمة. يرجى النظر في إعادة إضافة حسابك.</string>
     <string name="push_notifications_temp_error">إشعارات الدفع غير متوفرة حاليا.</string>
     <string name="qr_could_not_be_read">لايمكن قراءة رمز QR</string>
-    <string name="re_enable_auto_upload">تغيُّرات في التحميل التلقائي</string>
-    <string name="re_enable_auto_upload_desc">بسبب القيود الجديدة التي فرضتها Google، اضطررنا إلى إزالة إذنٍ مهم. نحن نعمل حالياً مع Google لحل هذه المشكلة واستعادة الوظائف الكاملة.
-
-لإعادة تمكين التحميل التلقائي للصور ومقاطع الفيديو الجديدة:
-- حدد \"السماح للجميع\" في مربع الحوار التالي أو إعدادات النظام.
-- إسمَح بموقع الوسائط عند المطالبة بذلك، حيث يسمح هذا لنكست كلاود بتخزين بيانات الموقع عند تحميل الصور.
-- يتم عرض مربع حوار الأذونات فقط عند الضرورة. في حالة الشك، تحقق من إعدادات النظام.
-- لن يتمكن التحميل التلقائي من تحميل ملفات الصور والفيديو إلا عند استخدام إصدار Google Play من تطبيق نكست كلاود.
-- يرجى التحقق من أي ملفات ربما لم يتم تحميلها منذ ديسمبر 2024.</string>
     <string name="receive_external_files_activity_start_sync_folder_is_not_exists_message">تعذّر إيجاد المجلد. عملية المزامنة تمّ إلغاؤها</string>
     <string name="receive_external_files_activity_unable_to_find_file_to_upload">تعذّر إيجاد ملف لرفعه</string>
     <string name="recommend_subject">جرب %1$s على جهازك !</string>
@@ -795,7 +770,6 @@
     <string name="screenshot_05_autoUpload_heading">تحميل تلقائي</string>
     <string name="screenshot_05_autoUpload_subline">للصور مقاطع الفيديو الخاصة بك</string>
     <string name="screenshot_06_davdroid_heading">القويم و جهات الاتصال</string>
-    <string name="screenshot_06_davdroid_subline">مزامنة مع DAVx5</string>
     <string name="search_error">خطاء في الحصول على نتائج البحث</string>
     <string name="secure_share_not_set_up">المشاركة الآمنة لم يتم إعدادها بالنسبة لهذا المستخدِم</string>
     <string name="secure_share_search">مشاركة آمنة ...</string>
@@ -808,16 +782,19 @@
     <string name="sendbutton_description">أيقونة زر الإرسال</string>
     <string name="set_as">حفظ كـ</string>
     <string name="set_note">عيِّن الملاحظة</string>
+    <string name="set_online_status">حالة الاتصال</string>
     <string name="set_picture_as">استخدم الصورة كـ</string>
-    <string name="set_status">تعيين الحالة</string>
-    <string name="set_status_message">تعيين رسالة الحالة</string>
     <string name="setup_e2e">خلال تجهيز التشفير الطرفي، سوف تصلك جملة عشوائية مُكوّنة من 12 كلمة ستحتاج إليها لفتح ملفاتك على الأجهزة الأخرى. هذه الجملة سوف يتم تخزينها على هذا الجهاز فقط و يمكنك عرضها على الشاشة مرة أخرى. رجاءً، دوّنها و احفظها في مكانٍ آمنٍ!</string>
     <string name="share">مشاركة </string>
+    <string name="share_allow_download_and_sync_permission">السماح بالتنزيل و المزامنة</string>
     <string name="share_copy_link">شارك وانسخ الرابط</string>
+    <string name="share_create_permission">إنشاء</string>
+    <string name="share_custom_permission">أذونات مخصصة</string>
+    <string name="share_delete_permission">حذف</string>
     <string name="share_dialog_title">مشاركة</string>
     <string name="share_download_limit">تعيين حد أقصى للتنزيل</string>
+    <string name="share_edit_permission">تحرير</string>
     <string name="share_expiration_date_format">%1$s</string>
-    <string name="share_expiration_date_label">تنتهي %1$s</string>
     <string name="share_file">شارك %1$s</string>
     <string name="share_group_clarification">%1$s(مجموعة)</string>
     <string name="share_internal_link">شارك الرابط الداخلي</string>
@@ -835,12 +812,13 @@
     <string name="share_no_expiration_date_label">تعيين تاريخ إنتهاء الصلاحية</string>
     <string name="share_no_password_title">تعيين كلمة سرية</string>
     <string name="share_not_allowed_when_file_drop">إعادة المشاركة غير مسموح بها خلال الإفلات الآمن للملف</string>
-    <string name="share_password_title">محمي بكلمة مرور</string>
     <string name="share_permission_can_edit">يمكن تعديله</string>
-    <string name="share_permission_file_drop">اسقاط الملف</string>
+    <string name="share_permission_file_request">طلب الملف</string>
     <string name="share_permission_secure_file_drop">إسقاط آمن للملف</string>
     <string name="share_permission_view_only">للعرض فقط</string>
     <string name="share_permissions">أذونات المشاركة</string>
+    <string name="share_re_share_permission">مُشارَكة</string>
+    <string name="share_read_permission">قراءة</string>
     <string name="share_remote_clarification">%1$s (بعيد)</string>
     <string name="share_room_clarification">%1$s (محادثة)</string>
     <string name="share_search">الاسم أو مُعرِّف السحابة الاتحادية أو عنوان البريد الإلكتروني ...</string>
@@ -868,6 +846,8 @@
     <string name="signup_with_provider">التسجيل عبر مزوّد خدمة</string>
     <string name="single_sign_on_request_token" formatted="true">هل تسمح لـ%1$s بالوصول إلى حسابك %2$s في Nextcloud؟</string>
     <string name="sort_by">ترتيب</string>
+    <string name="sort_favorites_first">فرز المفضلة أولا</string>
+    <string name="sort_folders_before_files">فرز المجلدات قبل الملفات</string>
     <string name="ssl_validator_btn_details_hide">إخفاء</string>
     <string name="ssl_validator_btn_details_see">تفاصيل</string>
     <string name="ssl_validator_header">لا يمكن التحقق من هوية الخادم</string>
@@ -906,26 +886,6 @@
     <string name="storage_permission_full_access">النفاذ الكامل</string>
     <string name="storage_permission_media_read_only">الوسائط للقراءة فقط</string>
     <string name="storage_pictures">الصور</string>
-    <string name="store_full_desc">منصة الإنتاجية المستضافة ذاتياً و التي تبقيك مسيطراً.
-
-الميزات:
-* واجهة سهلة وحديثة ومناسبة لتيمات خادومك
-* تحميل الملفات إلى خادوم نكست كلاود خاصتك
-* مشاركتها مع الآخرين
-* المحافظة على مزامنة الملفات و المجلدات المفضلة لديك
-* البحث عبر كافة المجلدات الموجودة على خادومك
-* التحميل التلقائي للصور و مقاطع الفيديو التي تم التقاطها بواسطة جهازك
-* البقاء على اطلاع دائم من خلال الإشعارات
-* دعم الحسابات المتعددة
-* الوصول الآمن إلى بياناتك باستخدام بصمة الأصابع أو المُعرِّف الشخصي
-* التكامل مع DAVx5 (المعروف سابقًا باسم DAVdroid) لإعداد سهل لمزامنة التقويم و جهات الاتصال
-
-يرجى الإبلاغ عن جميع المشكلات على https://github.com/nextcloud/android/issues  
-كما يمكنك مناقشة هذا التطبيق على https://help.nextcloud.com/c/clients/android\n\nNew 
-
-و إذا كنت جديداً على نكست كلاود، فإننا نُعلِمُك بأنه خادوم لمزامنة الملفات و مشاركتها و اتصالاتها. و هو برنامج مجاني؛ يُمكِّنُك من الاستضافة الذاتية بنفسك أو الدفع لشركة للقيام بذلك نيابةً عنك. و بهذه الطريقة، يمكنك التحكم في صورك و تقويمك و جهاتك اتصالك و مستنداتك و كل شيء آخر.
-
-للمزيد من المعلومات، أنظُر https://nextcloud.com</string>
     <string name="store_full_dev_desc">منصة الإنتاجية ذاتية الاستضافة التي تبقيك تحت السيطرة.\nهذه هي النسخة التطويرية الرسمية ، وتضم عينة يومية من أي وظيفة جديدة غير مختبرة ، والتي قد تسبب عدم الاستقرار وفقدان البيانات. التطبيق مخصص للمستخدمين الراغبين في الاختبار والإبلاغ عن الأخطاء في حالة حدوثها. لا تستخدمه لعملك الإنتاجي!\n\nيتوفر كل من النسخة الرسمية والنسخة التطويرية على F-droid، ويمكن تثبيتهما في نفس الوقت.</string>
     <string name="store_short_desc">منصة إنتاجية ذاتية الاستضافة تبقيك متحكمًا</string>
     <string name="store_short_dev_desc">منصة إنتاجية ذاتية الاستضافة تبقيك متحكمًا (نسخة المطوريين)</string>
@@ -942,8 +902,10 @@
     <string name="subtitle_videos_only">مقاطع الفيديو فقط</string>
     <string name="suggest">اقتراح</string>
     <string name="sync">زامن</string>
+    <string name="sync_anyway">قُم بالمزامنة على أي حالٍ</string>
     <string name="sync_conflicts_in_favourites_ticker">هناك تعارض</string>
     <string name="sync_current_folder_was_removed">المجلد %1$s غير موجود بعد الآن</string>
+    <string name="sync_duplication">تكرار المزامنة</string>
     <string name="sync_fail_content">تعذرت عملية مزامنة %1$s</string>
     <string name="sync_fail_content_unauthorized">رمز سر خاطئ ل%1$s</string>
     <string name="sync_fail_in_favourites_ticker">لم تنجح المزامنة التلقائية للملفات</string>
@@ -960,6 +922,7 @@
     <string name="sync_not_enough_space_dialog_title">مساحة غير كافية</string>
     <string name="sync_status_button">زر حالة المزامنة</string>
     <string name="sync_string_files">الملفات</string>
+    <string name="sync_warning_button">زر تحذير المزامنة</string>
     <string name="synced_folder_settings_button">زر الإعدادات</string>
     <string name="synced_folders_configure_folders">إعداد المجلدات</string>
     <string name="synced_folders_new_info">تم تجديد التحميل الفوري بالكامل. أعد تكوين التحميل التلقائي من القائمة الرئيسية.
@@ -996,6 +959,7 @@
     <string name="unified_search_fragment_calendar_event_not_found">لم يمكن العثور على الحدث. يمكنك دائمًا المزامنة للتحديث. جارٍ إعادة التوجيه إلى الويب...</string>
     <string name="unified_search_fragment_contact_not_found">لم يمكن العثور على جهة الاتصال. يمكنك دائمًا المزامنة للتحديث. جارٍ إعادة التوجيه إلى الويب...</string>
     <string name="unified_search_fragment_permission_needed">مطلوب أذونات لفتح نتيجة البحث و إلّا ستتم إعادة توجيهها إلى الويب...</string>
+    <string name="unknown">غير معروف</string>
     <string name="unlock_file">فتح قفل الملف</string>
     <string name="unread_comments">توجد تعليقات غير مقروءة</string>
     <string name="unset_encrypted">لم يتم تحديد التشفير</string>
@@ -1032,9 +996,8 @@
     <string name="upload_file_dialog_title">إدخال اسم الملف ونوع الملف للرفع</string>
     <string name="upload_files">حمل الملفات</string>
     <string name="upload_global_pause_title">كل عمليات الرفع مجمدة</string>
-    <string name="upload_gplay">تَغيُّرات في الأُذونات</string>
-    <string name="upload_gplay_desc">يلزم إذن جديد للوصول إلى معلومات الموقع للصور التي تم تحميلها. تأكد من تعيين خانة \"الوصول إلى الوسائط\" media access على خيار \"السماح دائمًا للجميع\" Always allow all.</string>
     <string name="upload_item_action_button">زر إجراء رفع العنصر</string>
+    <string name="upload_list_cancel_upload">إلغاء الرفع</string>
     <string name="upload_list_delete">حذف</string>
     <string name="upload_list_empty_headline">لا توجد تحميلات</string>
     <string name="upload_list_empty_text_auto_upload">قم بتحميل بعض الملفات أو قم بتفعيل التحميل التلقائي.</string>
@@ -1148,30 +1111,6 @@
         <item quantity="few">%d دقائق</item>
         <item quantity="many">%d دقيقة</item>
         <item quantity="other">%d دقيقة</item>
-    </plurals>
-    <plurals name="time_seconds_ago">
-        <item quantity="zero">%d ثوانٍ مضت</item>
-        <item quantity="one">1 ثانية مضت</item>
-        <item quantity="two">%d ثوانٍ مضت</item>
-        <item quantity="few">%d ثوانٍ مضت</item>
-        <item quantity="many">%d ثوانٍ مضت</item>
-        <item quantity="other">%d ثوانٍ مضت</item>
-    </plurals>
-    <plurals name="time_minutes_ago">
-        <item quantity="zero">%d دقائق مضت</item>
-        <item quantity="one">1 دقيقة مضت</item>
-        <item quantity="two">%d دقائق مضت</item>
-        <item quantity="few">%d دقائق مضت</item>
-        <item quantity="many">%d دقائق مضت</item>
-        <item quantity="other">%d دقائق مضت</item>
-    </plurals>
-    <plurals name="time_hours_ago">
-        <item quantity="zero">%d ساعات مضت</item>
-        <item quantity="one">1 ساعة مضت</item>
-        <item quantity="two">%d ساعات مضت</item>
-        <item quantity="few">%d ساعات مضت</item>
-        <item quantity="many">%d ساعات مضت</item>
-        <item quantity="other">%d ساعات مضت</item>
     </plurals>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="zero">تعذرت مزامنة الملفات %1$d (التعارضات:%2$d)</item>
@@ -1326,11 +1265,11 @@
         <item quantity="other">%d ثانية</item>
     </plurals>
     <plurals name="share_download_limit_description">
-        <item quantity="zero">مازال %1$d تنزيل</item>
-        <item quantity="one">مازال%1$d تنزيل</item>
-        <item quantity="two">مازال %1$d تنزيل</item>
-        <item quantity="few">مازال %1$d تنزيلات</item>
-        <item quantity="many">مازال %1$d تنزيل</item>
-        <item quantity="other">مازال %1$d تنزيل</item>
+        <item quantity="zero">متبقي %1$d تنزيل</item>
+        <item quantity="one">متبقي %1$d تنزيل</item>
+        <item quantity="two">متبقي %1$d تنزيل</item>
+        <item quantity="few">متبقي %1$d تنزيلات</item>
+        <item quantity="many">متبقي %1$d تنزيل</item>
+        <item quantity="other">متبقي %1$d تنزيل</item>
     </plurals>
 </resources>

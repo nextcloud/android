@@ -10,10 +10,10 @@ Recursos:
 * Mantenha-se atualizado com notificações
 * Suporte para várias contas
 * Acesso seguro aos seus dados com impressão digital ou PIN
-* Integração com DAVx5 (anteriormente conhecido como DAVdroid) para fácil configuração de sincronização de calendário e contatos
+* Integração com DAVx⁵ (anteriormente conhecido como DAVdroid) para facilitar a configuração de sincronização de calendário e contatos
 
-Relate todos os problemas em https://github.com/nextcloud/android/issues e discuta este aplicativo em https://help.nextcloud.com/c/clients/android
+Por favor, relate todos os problemas em https://github.com/nextcloud/android/issues e discuta este aplicativo em https://help.nextcloud.com/c/clients/android
 
- Novo no Nextcloud? Nextcloud é um servidor privado de sincronização, compartilhamento e comunicação de arquivos. É um software gratuito e você pode hospedá-lo sozinho ou pagar uma empresa para fazer isso por você. Dessa forma, você controla suas fotos, sua agenda e dados de contato, seus documentos e tudo mais.
+ Novo no Nextcloud? Nextcloud é um servidor privado de sincronização e compartilhamento de arquivos e de comunicação. É um software livre e você pode hospedá-lo sozinho ou pagar uma empresa para fazer isso por você. Dessa forma, você controla suas fotos, sua agenda e dados de contatos, seus documentos e tudo mais.
 
-Confira Nextcloud em https://nextcloud.com
+Conheça o Nextcloud em https://nextcloud.com

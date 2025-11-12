@@ -54,14 +54,14 @@
                         android:layout_height="wrap_content"
                         android:padding="2dp"
                         android:textStyle="bold"
-                        tools:text="Wednesday • 26 Jul 2023 • 12:27" />
+                        tools:text="@string/placeholder_image_detail_date" />
 
                     <TextView
                         android:id="@+id/fileInformation_details"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:padding="2dp"
-                        tools:text="12 MP • 3024 × 4032 • 923 KB" />
+                        tools:text="@string/placeholder_image_details" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -95,14 +95,14 @@
                         android:layout_height="wrap_content"
                         android:padding="2dp"
                         android:textStyle="bold"
-                        tools:text="Camera Phone (4th generation)" />
+                        tools:text="@string/placeholder_image_detail_model" />
 
                     <TextView
                         android:id="@+id/imgTC_conditions"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:padding="2dp"
-                        tools:text="ƒ/1.8 • 1/374 s • 28 mm • ISO 200" />
+                        tools:text="@string/placeholder_image_detail_condition" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -133,7 +133,7 @@
                     android:textAlignment="center"
                     android:textStyle="bold"
                     android:visibility="gone"
-                    tools:text="Mitte, Berlin, Germany"
+                    tools:text="@string/placeholder_image_detail_location"
                     tools:visibility="visible" />
 
                 <FrameLayout
@@ -151,7 +151,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="bottom|end"
                         android:padding="5dp"
-                        tools:text="© OpenStreetMap contributors" />
+                        tools:text="@string/placeholder_image_detail_example_copyright" />
                 </FrameLayout>
 
             </LinearLayout>

@@ -7,35 +7,64 @@
  */
 package com.nextcloud.client.etm
 
-import android.app.Activity
-import androidx.test.espresso.intent.rule.IntentsTestRule
-import androidx.test.internal.runner.junit4.statement.UiThreadStatement
+import androidx.annotation.UiThread
+import androidx.test.core.app.launchActivity
+import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.IdlingRegistry
+import androidx.test.espresso.assertion.ViewAssertions.matches
+import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
+import androidx.test.espresso.matcher.ViewMatchers.isRoot
 import com.owncloud.android.AbstractIT
+import com.owncloud.android.utils.EspressoIdlingResource
 import com.owncloud.android.utils.ScreenshotTest
-import org.junit.Rule
+import org.junit.After
+import org.junit.Before
 import org.junit.Test
 
 class EtmActivityTest : AbstractIT() {
-    @get:Rule
-    var activityRule = IntentsTestRule(EtmActivity::class.java, true, false)
+    private val testClassName = "com.nextcloud.client.etm.EtmActivityTest"
 
-    @Test
-    @ScreenshotTest
-    fun overview() {
-        val sut: Activity = activityRule.launchActivity(null)
+    @Before
+    fun registerIdlingResource() {
+        IdlingRegistry.getInstance().register(EspressoIdlingResource.countingIdlingResource)
+    }
 
-        waitForIdleSync()
-
-        screenshot(sut)
+    @After
+    fun unregisterIdlingResource() {
+        IdlingRegistry.getInstance().unregister(EspressoIdlingResource.countingIdlingResource)
     }
 
     @Test
+    @UiThread
+    @ScreenshotTest
+    fun overview() {
+        launchActivity<EtmActivity>().use { scenario ->
+            scenario.onActivity { sut ->
+                onIdleSync {
+                    val screenShotName = createName(testClassName + "_" + "overview", "")
+                    onView(isRoot()).check(matches(isDisplayed()))
+                    screenshotViaName(sut, screenShotName)
+                }
+            }
+        }
+    }
+
+    @Test
+    @UiThread
     @ScreenshotTest
     fun accounts() {
-        val sut: EtmActivity = activityRule.launchActivity(null)
+        launchActivity<EtmActivity>().use { scenario ->
+            scenario.onActivity { sut ->
+                onIdleSync {
+                    EspressoIdlingResource.increment()
+                    sut.vm.onPageSelected(1)
+                    EspressoIdlingResource.decrement()
 
-        UiThreadStatement.runOnUiThread { sut.vm.onPageSelected(1) }
-
-        screenshot(sut)
+                    val screenShotName = createName(testClassName + "_" + "accounts", "")
+                    onView(isRoot()).check(matches(isDisplayed()))
+                    screenshotViaName(sut, screenShotName)
+                }
+            }
+        }
     }
 }

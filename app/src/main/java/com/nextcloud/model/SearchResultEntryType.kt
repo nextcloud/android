@@ -17,14 +17,12 @@ enum class SearchResultEntryType {
     Deck,
     Unknown;
 
-    fun iconId(): Int {
-        return when (this) {
-            Folder -> R.drawable.folder
-            Note -> R.drawable.ic_edit
-            Contact -> R.drawable.file_vcard
-            CalendarEvent -> R.drawable.file_calendar
-            Deck -> R.drawable.ic_deck
-            else -> R.drawable.ic_find_in_page
-        }
+    fun iconId(): Int = when (this) {
+        CalendarEvent -> R.drawable.file_calendar
+        Folder -> R.drawable.folder
+        Note -> R.drawable.ic_edit
+        Contact -> R.drawable.file_vcard
+        Deck -> R.drawable.ic_deck
+        Unknown -> R.drawable.ic_find_in_page
     }
 }

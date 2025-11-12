@@ -32,5 +32,5 @@
         android:gravity="center_horizontal"
         android:paddingTop="@dimen/standard_half_padding"
         android:textColor="@color/text_color"
-        tools:text="@string/app_name" />
+        tools:text="@string/placeholder_send_button" />
 </LinearLayout>

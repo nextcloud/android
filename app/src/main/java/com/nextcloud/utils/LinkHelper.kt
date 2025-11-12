@@ -10,15 +10,23 @@ package com.nextcloud.utils
 import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import androidx.core.net.toUri
 import com.nextcloud.client.account.User
+import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.ui.activity.FileDisplayActivity
+import java.util.Locale
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
 object LinkHelper {
     const val APP_NEXTCLOUD_NOTES = "it.niedermann.owncloud.notes"
     const val APP_NEXTCLOUD_TALK = "com.nextcloud.talk2"
+    private const val TAG = "LinkHelper"
+
+    fun isHttpOrHttpsLink(link: String?): Boolean = link?.lowercase(Locale.getDefault())?.let {
+        it.startsWith("http://") || it.startsWith("https://")
+    } == true
 
     /**
      * Open specified app and, if not installed redirect to corresponding download.
@@ -70,4 +78,58 @@ object LinkHelper {
             context.startActivity(intent)
         }
     }
+
+    // region Validation
+    private const val HTTP = "http"
+    private const val HTTPS = "https"
+    private const val FILE = "file"
+    private const val CONTENT = "content"
+
+    /**
+     * Validates if a string can be converted to a valid URI
+     */
+    @Suppress("TooGenericExceptionCaught", "ReturnCount")
+    fun validateAndGetURI(uriString: String?): Uri? {
+        if (uriString.isNullOrBlank()) {
+            Log_OC.w(TAG, "Given uriString is null or blank")
+            return null
+        }
+
+        return try {
+            val uri = uriString.toUri()
+            if (uri.scheme == null) {
+                return null
+            }
+
+            val validSchemes = listOf(HTTP, HTTPS, FILE, CONTENT)
+            if (uri.scheme in validSchemes) uri else null
+        } catch (e: Exception) {
+            Log_OC.e(TAG, "Invalid URI string: $uriString -- $e")
+            null
+        }
+    }
+
+    /**
+     * Validates if a URL string is valid
+     */
+    @Suppress("TooGenericExceptionCaught", "ReturnCount")
+    fun validateAndGetURL(url: String?): String? {
+        if (url.isNullOrBlank()) {
+            Log_OC.w(TAG, "Given url is null or blank")
+            return null
+        }
+
+        return try {
+            val uri = url.toUri()
+            if (uri.scheme == null) {
+                return null
+            }
+            val validSchemes = listOf(HTTP, HTTPS)
+            if (uri.scheme in validSchemes) url else null
+        } catch (e: Exception) {
+            Log_OC.e(TAG, "Invalid URL: $url -- $e")
+            null
+        }
+    }
+    // endregion
 }

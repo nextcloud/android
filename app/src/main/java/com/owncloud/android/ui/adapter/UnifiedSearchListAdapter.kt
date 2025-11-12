@@ -16,16 +16,22 @@ import androidx.core.view.isVisible
 import com.afollestad.sectionedrecyclerview.SectionedRecyclerViewAdapter
 import com.afollestad.sectionedrecyclerview.SectionedViewHolder
 import com.nextcloud.client.account.User
-import com.nextcloud.client.network.ClientFactory
+import com.nextcloud.client.preferences.AppPreferences
+import com.nextcloud.common.NextcloudClient
 import com.owncloud.android.R
+import com.owncloud.android.databinding.UnifiedSearchCurrentDirectoryItemBinding
 import com.owncloud.android.databinding.UnifiedSearchEmptyBinding
 import com.owncloud.android.databinding.UnifiedSearchFooterBinding
 import com.owncloud.android.databinding.UnifiedSearchHeaderBinding
 import com.owncloud.android.databinding.UnifiedSearchItemBinding
 import com.owncloud.android.datamodel.FileDataStorageManager
-import com.owncloud.android.datamodel.ThumbnailsCacheManager.InitDiskCacheTask
+import com.owncloud.android.datamodel.OCFile
+import com.owncloud.android.datamodel.SyncedFolderProvider
+import com.owncloud.android.datamodel.ThumbnailsCacheManager
+import com.owncloud.android.ui.interfaces.UnifiedSearchCurrentDirItemAction
 import com.owncloud.android.ui.interfaces.UnifiedSearchListInterface
 import com.owncloud.android.ui.unifiedsearch.UnifiedSearchSection
+import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
 
 /**
@@ -38,14 +44,19 @@ class UnifiedSearchListAdapter(
     private val listInterface: UnifiedSearchListInterface,
     private val filesAction: UnifiedSearchItemViewHolder.FilesAction,
     private val user: User,
-    private val clientFactory: ClientFactory,
     private val context: Context,
-    private val viewThemeUtils: ViewThemeUtils
+    private val viewThemeUtils: ViewThemeUtils,
+    private val appPreferences: AppPreferences,
+    private val syncedFolderProvider: SyncedFolderProvider,
+    private val nextcloudClient: NextcloudClient,
+    private val currentDirItemAction: UnifiedSearchCurrentDirItemAction
 ) : SectionedRecyclerViewAdapter<SectionedViewHolder>() {
     companion object {
         private const val VIEW_TYPE_EMPTY = Int.MAX_VALUE
+        private const val VIEW_TYPE_CURRENT_DIR = 0
     }
 
+    private var currentDirItems: List<OCFile> = listOf()
     private var sections: List<UnifiedSearchSection> = emptyList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SectionedViewHolder {
@@ -76,13 +87,27 @@ class UnifiedSearchListAdapter(
                 UnifiedSearchItemViewHolder(
                     supportsOpeningCalendarContactsLocally,
                     binding,
-                    user,
-                    clientFactory,
                     storageManager,
                     listInterface,
                     filesAction,
                     context,
+                    nextcloudClient,
                     viewThemeUtils
+                )
+            }
+            VIEW_TYPE_CURRENT_DIR -> {
+                val isRTL = DisplayUtils.isRTL()
+                val binding = UnifiedSearchCurrentDirectoryItemBinding.inflate(layoutInflater, parent, false)
+                UnifiedSearchCurrentDirItemViewHolder(
+                    binding,
+                    context,
+                    viewThemeUtils,
+                    storageManager,
+                    isRTL,
+                    user,
+                    appPreferences,
+                    syncedFolderProvider,
+                    currentDirItemAction
                 )
             }
             VIEW_TYPE_EMPTY -> {
@@ -93,34 +118,67 @@ class UnifiedSearchListAdapter(
         }
     }
 
-    internal class EmptyViewHolder(binding: UnifiedSearchEmptyBinding) :
-        SectionedViewHolder(binding.getRoot())
+    private fun isCurrentDirItem(section: Int): Boolean = (currentDirItems.isNotEmpty() && section == 0)
 
-    override fun getSectionCount(): Int {
-        return sections.size
-    }
+    private fun getSectionIndex(section: Int): Int = if (currentDirItems.isNotEmpty()) section - 1 else section
 
-    override fun getItemCount(section: Int): Int {
-        return sections[section].entries.size
+    internal class EmptyViewHolder(binding: UnifiedSearchEmptyBinding) : SectionedViewHolder(binding.getRoot())
+
+    override fun getSectionCount(): Int = (if (currentDirItems.isNotEmpty()) 1 else 0) + sections.size
+
+    override fun getItemViewType(section: Int, relativePosition: Int, absolutePosition: Int): Int =
+        if (isCurrentDirItem(section)) {
+            VIEW_TYPE_CURRENT_DIR
+        } else {
+            VIEW_TYPE_ITEM
+        }
+
+    override fun getItemCount(section: Int): Int = if (isCurrentDirItem(section)) {
+        currentDirItems.size
+    } else {
+        val index = if (currentDirItems.isNotEmpty()) section - 1 else section
+        sections.getOrNull(index)?.entries?.size ?: 0
     }
 
     override fun onBindHeaderViewHolder(holder: SectionedViewHolder, section: Int, expanded: Boolean) {
-        (holder as UnifiedSearchHeaderViewHolder).run {
-            bind(sections[section])
-        }
-    }
-
-    override fun onBindFooterViewHolder(holder: SectionedViewHolder, section: Int) {
-        if (sections[section].hasMoreResults) {
-            (holder as UnifiedSearchFooterViewHolder).run {
-                bind(sections[section])
+        if (holder is UnifiedSearchHeaderViewHolder) {
+            if (isCurrentDirItem(section)) {
+                val name = context.getString(R.string.unified_search_fragment_search_in_this_folder)
+                val currentDirUnifiedSearchSection = UnifiedSearchSection("", name, listOf(), false)
+                holder.bind(currentDirUnifiedSearchSection)
+            } else {
+                val index = getSectionIndex(section)
+                val sectionData = sections.getOrNull(index) ?: return
+                holder.bind(sectionData)
             }
         }
     }
 
-    override fun getFooterViewType(section: Int): Int = when {
-        sections[section].hasMoreResults -> VIEW_TYPE_FOOTER
-        else -> VIEW_TYPE_EMPTY
+    override fun onBindFooterViewHolder(holder: SectionedViewHolder, section: Int) {
+        if (isCurrentDirItem(section)) {
+            return
+        }
+
+        val index = getSectionIndex(section)
+        val sectionData = sections.getOrNull(index) ?: return
+
+        if (sectionData.hasMoreResults && holder is UnifiedSearchFooterViewHolder) {
+            holder.bind(sectionData)
+        }
+    }
+
+    override fun getFooterViewType(section: Int): Int {
+        if (isCurrentDirItem(section)) {
+            return VIEW_TYPE_EMPTY
+        }
+
+        val index = getSectionIndex(section)
+        val sectionData = sections.getOrNull(index)
+
+        return when {
+            sectionData?.hasMoreResults == true -> VIEW_TYPE_FOOTER
+            else -> VIEW_TYPE_EMPTY
+        }
     }
 
     override fun onBindViewHolder(
@@ -129,10 +187,13 @@ class UnifiedSearchListAdapter(
         relativePosition: Int,
         absolutePosition: Int
     ) {
-        // TODO different binding (and also maybe diff UI) for non-file results
-        (holder as UnifiedSearchItemViewHolder).run {
-            val entry = sections[section].entries[relativePosition]
-            bind(entry)
+        if (isCurrentDirItem(section) && holder is UnifiedSearchCurrentDirItemViewHolder) {
+            val entry = currentDirItems.getOrNull(relativePosition) ?: return
+            holder.bind(entry)
+        } else if (holder is UnifiedSearchItemViewHolder) {
+            val index = getSectionIndex(section)
+            val entry = sections.getOrNull(index)?.entries?.getOrNull(relativePosition) ?: return
+            holder.bind(entry)
         }
     }
 
@@ -153,8 +214,16 @@ class UnifiedSearchListAdapter(
         notifyDataSetChanged()
     }
 
+    @SuppressLint("NotifyDataSetChanged")
+    fun setDataCurrentDirItems(currentDirItems: List<OCFile>) {
+        this.currentDirItems = currentDirItems
+        notifyDataSetChanged()
+    }
+
+    fun isCurrentDirItemsEmpty(): Boolean = currentDirItems.isEmpty()
+
     init {
         // initialise thumbnails cache on background thread
-        InitDiskCacheTask().execute()
+        ThumbnailsCacheManager.initDiskCacheAsync()
     }
 }

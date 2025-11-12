@@ -1,3 +1,95 @@
+## 3.33.0 (September 10, 2025)
+
+- Migrate to Glide 4
+- Performance improvements
+- Fix gallery image scaling
+- Bugfixes
+
+Minimum: NC 18 Server, Android 8.1 Nougat
+
+For a full list, please see https://github.com/nextcloud/android/milestone/112
+
+## 3.32.3 (August 21, 2025)
+
+- Bugfixes
+
+Minimum: NC 18 Server, Android 8.0 Nougat
+
+For a full list, please see https://github.com/nextcloud/android/milestone/114
+
+## 3.32.2 (July 18, 2025)
+
+- Resolved image blurriness issue.
+- Fixed crash occurring in the conflict resolution dialog.
+- Addressed crash in the upload finish receiver event handler.
+
+Minimum: NC 18 Server, Android 8.0 Nougat
+
+For a full list, please see https://github.com/nextcloud/android/milestone/115
+
+## 3.32.1 (July 14, 2025)
+
+- Bug fixes.
+
+Minimum: NC 18 Server, Android 8.0 Nougat
+
+For a full list, please see https://github.com/nextcloud/android/milestone/113
+
+## 3.32.0 (July 2, 2025)
+
+- Minimum supported Android version is 8.0.
+- Scrolling performance has been increased in the media tab.
+- Multi-select feature added to the media tab.
+- Custom share permissions have been added.
+- Bug fixes.
+
+Minimum: NC 18 Server, Android 8.0 Nougat
+
+For a full list, please see https://github.com/nextcloud/android/milestone/107
+
+## 3.31.4 (June 3, 2025)
+
+- Add missing auto migration
+
+Minimum: NC 18 Server, Android 7.1 Nougat
+
+For a full list, please see https://github.com/nextcloud/android/milestone/110
+
+## 3.31.3 (May 28, 2025)
+
+- fix simple sign up
+- bugfixes
+- update translations
+
+Minimum: NC 18 Server, Android 7.1 Nougat
+
+For a full list, please see https://github.com/nextcloud/android/milestone/110
+
+## 3.31.2 (May 20, 2025)
+
+- bring back MANAGE_EXTERNAL_STORAGE permission
+
+Minimum: NC 18 Server, Android 7.1 Nougat
+
+For a full list, please see https://github.com/nextcloud/android/milestone/108
+
+## 3.31.1 (April 3, 2025)
+
+- Various bug fixes and performance enhancements
+
+Minimum: NC 18 Server, Android 7.1 Nougat
+
+For a full list, please see https://github.com/nextcloud/android/milestone/108
+
+## 3.31.0 (February 25, 2025)
+
+- New share layout
+- Various bug fixes and performance enhancements
+
+Minimum: NC 18 Server, Android 7.1 Nougat
+
+For a full list, please see https://github.com/nextcloud/android/milestone/100
+
 ## 3.30.7 (January 6, 2025)
 
 - Fix crash of auto upload settings

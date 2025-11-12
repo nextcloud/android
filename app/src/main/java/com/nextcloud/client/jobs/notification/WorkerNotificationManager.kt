@@ -11,39 +11,35 @@ import android.app.Notification
 import android.app.NotificationManager
 import android.content.Context
 import android.graphics.BitmapFactory
-import android.os.Build
 import android.os.Handler
 import android.os.Looper
 import androidx.core.app.NotificationCompat
 import com.owncloud.android.R
-import com.owncloud.android.ui.notifications.NotificationUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
 
 open class WorkerNotificationManager(
     private val id: Int,
     private val context: Context,
     viewThemeUtils: ViewThemeUtils,
-    private val tickerId: Int
+    private val tickerId: Int,
+    channelId: String
 ) {
     var currentOperationTitle: String? = null
 
     val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
     var notificationBuilder: NotificationCompat.Builder =
-        NotificationUtils.newNotificationBuilder(
-            context,
-            NotificationUtils.NOTIFICATION_CHANNEL_BACKGROUND_OPERATIONS,
-            viewThemeUtils
-        ).apply {
+        NotificationCompat.Builder(context, channelId).apply {
             setTicker(context.getString(tickerId))
             setSmallIcon(R.drawable.notification_icon)
             setLargeIcon(BitmapFactory.decodeResource(context.resources, R.drawable.notification_icon))
             setStyle(NotificationCompat.BigTextStyle())
             priority = NotificationCompat.PRIORITY_LOW
-
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                setChannelId(NotificationUtils.NOTIFICATION_CHANNEL_DOWNLOAD)
-            }
+            setSound(null)
+            setVibrate(null)
+            setOnlyAlertOnce(true)
+            setSilent(true)
+            viewThemeUtils.androidx.themeNotificationCompatBuilder(context, this)
         }
 
     fun showNotification() {
@@ -68,11 +64,7 @@ open class WorkerNotificationManager(
         }, delay)
     }
 
-    fun getId(): Int {
-        return id
-    }
+    fun getId(): Int = id
 
-    fun getNotification(): Notification {
-        return notificationBuilder.build()
-    }
+    fun getNotification(): Notification = notificationBuilder.build()
 }

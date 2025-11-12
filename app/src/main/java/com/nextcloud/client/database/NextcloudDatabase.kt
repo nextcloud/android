@@ -17,18 +17,24 @@ import com.nextcloud.client.core.Clock
 import com.nextcloud.client.core.ClockImpl
 import com.nextcloud.client.database.dao.ArbitraryDataDao
 import com.nextcloud.client.database.dao.FileDao
+import com.nextcloud.client.database.dao.FileSystemDao
 import com.nextcloud.client.database.dao.OfflineOperationDao
+import com.nextcloud.client.database.dao.RecommendedFileDao
+import com.nextcloud.client.database.dao.SyncedFolderDao
+import com.nextcloud.client.database.dao.UploadDao
 import com.nextcloud.client.database.entity.ArbitraryDataEntity
 import com.nextcloud.client.database.entity.CapabilityEntity
 import com.nextcloud.client.database.entity.ExternalLinkEntity
 import com.nextcloud.client.database.entity.FileEntity
 import com.nextcloud.client.database.entity.FilesystemEntity
 import com.nextcloud.client.database.entity.OfflineOperationEntity
+import com.nextcloud.client.database.entity.RecommendedFileEntity
 import com.nextcloud.client.database.entity.ShareEntity
 import com.nextcloud.client.database.entity.SyncedFolderEntity
 import com.nextcloud.client.database.entity.UploadEntity
 import com.nextcloud.client.database.entity.VirtualEntity
 import com.nextcloud.client.database.migrations.DatabaseMigrationUtil
+import com.nextcloud.client.database.migrations.MIGRATION_88_89
 import com.nextcloud.client.database.migrations.Migration67to68
 import com.nextcloud.client.database.migrations.RoomMigration
 import com.nextcloud.client.database.migrations.addLegacyMigrations
@@ -46,7 +52,8 @@ import com.owncloud.android.db.ProviderMeta
         SyncedFolderEntity::class,
         UploadEntity::class,
         VirtualEntity::class,
-        OfflineOperationEntity::class
+        OfflineOperationEntity::class,
+        RecommendedFileEntity::class
     ],
     version = ProviderMeta.DB_VERSION,
     autoMigrations = [
@@ -70,7 +77,15 @@ import com.owncloud.android.db.ProviderMeta
         AutoMigration(from = 83, to = 84),
         AutoMigration(from = 84, to = 85, spec = DatabaseMigrationUtil.DeleteColumnSpec::class),
         AutoMigration(from = 85, to = 86, spec = DatabaseMigrationUtil.ResetCapabilitiesPostMigration::class),
-        AutoMigration(from = 86, to = 87, spec = DatabaseMigrationUtil.ResetCapabilitiesPostMigration::class)
+        AutoMigration(from = 86, to = 87, spec = DatabaseMigrationUtil.ResetCapabilitiesPostMigration::class),
+        AutoMigration(from = 87, to = 88, spec = DatabaseMigrationUtil.ResetCapabilitiesPostMigration::class),
+        // manual migration used for 88 to 89
+        AutoMigration(from = 89, to = 90),
+        AutoMigration(from = 90, to = 91),
+        AutoMigration(from = 91, to = 92),
+        AutoMigration(from = 92, to = 93, spec = DatabaseMigrationUtil.ResetCapabilitiesPostMigration::class),
+        AutoMigration(from = 93, to = 94, spec = DatabaseMigrationUtil.ResetCapabilitiesPostMigration::class),
+        AutoMigration(from = 94, to = 95, spec = DatabaseMigrationUtil.ResetCapabilitiesPostMigration::class)
     ],
     exportSchema = true
 )
@@ -81,6 +96,10 @@ abstract class NextcloudDatabase : RoomDatabase() {
     abstract fun arbitraryDataDao(): ArbitraryDataDao
     abstract fun fileDao(): FileDao
     abstract fun offlineOperationDao(): OfflineOperationDao
+    abstract fun uploadDao(): UploadDao
+    abstract fun recommendedFileDao(): RecommendedFileDao
+    abstract fun fileSystemDao(): FileSystemDao
+    abstract fun syncedFolderDao(): SyncedFolderDao
 
     companion object {
         const val FIRST_ROOM_DB_VERSION = 65
@@ -89,9 +108,7 @@ abstract class NextcloudDatabase : RoomDatabase() {
         @JvmStatic
         @Suppress("DeprecatedCallableAddReplaceWith")
         @Deprecated("Here for legacy purposes, inject this class or use getInstance(context, clock) instead")
-        fun getInstance(context: Context): NextcloudDatabase {
-            return getInstance(context, ClockImpl())
-        }
+        fun getInstance(context: Context): NextcloudDatabase = getInstance(context, ClockImpl())
 
         @JvmStatic
         fun getInstance(context: Context, clock: Clock): NextcloudDatabase {
@@ -103,7 +120,7 @@ abstract class NextcloudDatabase : RoomDatabase() {
                     .addLegacyMigrations(clock, context)
                     .addMigrations(RoomMigration())
                     .addMigrations(Migration67to68())
-                    .fallbackToDestructiveMigration()
+                    .addMigrations(MIGRATION_88_89)
                     .build()
             }
             return instance!!

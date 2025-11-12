@@ -30,7 +30,8 @@ import com.nextcloud.receiver.NetworkChangeReceiver;
 import com.nextcloud.ui.ChooseAccountDialogFragment;
 import com.nextcloud.ui.ChooseStorageLocationDialogFragment;
 import com.nextcloud.ui.ImageDetailFragment;
-import com.nextcloud.ui.SetStatusDialogFragment;
+import com.nextcloud.ui.SetOnlineStatusBottomSheet;
+import com.nextcloud.ui.SetStatusMessageBottomSheet;
 import com.nextcloud.ui.composeActivity.ComposeActivity;
 import com.nextcloud.ui.fileactions.FileActionsBottomSheet;
 import com.nextcloud.ui.trashbinFileActions.TrashbinFileActionsBottomSheet;
@@ -89,7 +90,6 @@ import com.owncloud.android.ui.dialog.LocalStoragePathPickerDialogFragment;
 import com.owncloud.android.ui.dialog.MultipleAccountsDialog;
 import com.owncloud.android.ui.dialog.RemoveFilesDialogFragment;
 import com.owncloud.android.ui.dialog.RenameFileDialogFragment;
-import com.owncloud.android.ui.dialog.RenamePublicShareDialogFragment;
 import com.owncloud.android.ui.dialog.SendFilesDialog;
 import com.owncloud.android.ui.dialog.SendShareDialog;
 import com.owncloud.android.ui.dialog.SharePasswordDialogFragment;
@@ -301,7 +301,7 @@ abstract class ComponentsModule {
     abstract ChooseAccountDialogFragment chooseAccountDialogFragment();
 
     @ContributesAndroidInjector
-    abstract SetStatusDialogFragment setStatusDialogFragment();
+    abstract SetOnlineStatusBottomSheet setOnlineStatusBottomSheet();
 
     @ContributesAndroidInjector
     abstract PreviewTextFileFragment previewTextFileFragment();
@@ -415,9 +415,6 @@ abstract class ComponentsModule {
     abstract RemoveFilesDialogFragment removeFilesDialogFragment();
 
     @ContributesAndroidInjector
-    abstract RenamePublicShareDialogFragment renamePublicShareDialogFragment();
-
-    @ContributesAndroidInjector
     abstract SendShareDialog sendShareDialog();
 
     @ContributesAndroidInjector
@@ -505,4 +502,7 @@ abstract class ComponentsModule {
 
     @ContributesAndroidInjector
     abstract TermsOfServiceDialog termsOfServiceDialog();
+
+    @ContributesAndroidInjector
+    abstract SetStatusMessageBottomSheet setStatusMessageBottomSheet();
 }

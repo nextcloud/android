@@ -1,19 +1,18 @@
-En produktivitetsplattform du kan driva själv och som ger dig kontroll.
-
+Den självhostade produktivitetsplattformen som ger dig full kontroll. n
 Funktioner:
-* Enkelt, modernt gränssnitt, anpassat till temat på din server
+* Enkelt, modernt gränssnitt som passar temat på din server
 * Ladda upp filer till din Nextcloud-server
 * Dela dem med andra
-* Håll dina favoritfiler och mappar synkade
+* Håll dina favoritfiler och mappar synkroniserade
 * Sök i alla mappar på din server
-* Automatisk uppladdning av foton och videor från enheten
+* Automatisk uppladdning av foton och videor som tagits med din enhet
 * Håll dig uppdaterad med aviseringar
 * Stöd för flera konton
-* Säker åtkomst till ditt data med fingeravtryck eller PIN-kod
-* Integration med DAVx5 (tidigare känd som DAVdroid) för att enkelt synkronisering av kalender och kontakter
+* Säker åtkomst till dina data med fingeravtryck eller PIN-kod
+* Integration med DAVx⁵ (tidigare känt som DAVdroid) för enkel konfiguration av synkronisering av kalender och kontakter
 
-Rapportera gärna de problem du upplever på https://github.com/nextcloud/android/issues och diskutera den här appen på https://help.nextcloud.com/c/clients/android
+Rapportera alla problem till https://github.com/nextcloud/android/issues och diskutera denna app på https://help.nextcloud.com/c/clients/android
 
-Ny på Nextcloud? Nextcloud ger integritet på egen server för synkronisering och delning av filer samt kommunikation. Den är fri programvara och du kan driva den själv eller betala ett företag för att göra det åt dig. På så sätt har du kontroll över dina foton, din kalender och dina kontaktuppgifter, dina dokument och allt annat.
+Ny på Nextcloud? Nextcloud är en privat server för synkronisering och delning av filer samt kommunikation. Det är fri programvara, och du kan själv vara värd för den eller betala ett företag för att göra det åt dig. På så sätt har du kontroll över dina foton, din kalender och dina kontaktuppgifter, dina dokument och allt annat.
 
 Kolla in Nextcloud på https://nextcloud.com

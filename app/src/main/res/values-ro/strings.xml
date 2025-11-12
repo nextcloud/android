@@ -30,8 +30,6 @@
     <string name="add_new_public_share">Adaugă un link public partajat nou</string>
     <string name="add_new_secure_file_drop">Adaugă o nouă încărcare securizată de fișier</string>
     <string name="add_to_cloud">Adaugă la 1 %1$s</string>
-    <string name="advanced_settings">Setări avansate</string>
-    <string name="allow_resharing">Permite repartajarea</string>
     <string name="app_config_base_url_title">URL-ul de bază</string>
     <string name="app_config_disable_clipboard_title">Dezactivează clipboard</string>
     <string name="app_config_disable_intro_title">Deactivează introducerea</string>
@@ -47,7 +45,6 @@
     <string name="assistant_screen_add_task_alert_dialog_title"> Adaugă sarcină nouă</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Tastează un text</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Sigur doriți să ștergeți acest task?</string>
-    <string name="assistant_screen_no_task_available_text">Niciun task disponibil pentru tipul de task %s, puteți crea un task nou din dreapta jos.</string>
     <string name="assistant_screen_task_create_fail_message">A apărut o eroare la crearea taskului</string>
     <string name="assistant_screen_task_create_success_message">Task creat cu succes</string>
     <string name="assistant_screen_task_delete_fail_message">A apărut o eroare la ștergerea taskului</string>
@@ -93,9 +90,6 @@
     <string name="authenticator_activity_login_error">A apărut o problemă la procesarea solicitării dvs. de conectare. Vă rugăm să încercați din nou mai târziu.</string>
     <string name="authenticator_activity_please_complete_login_process">Vă rugăm să finalizați procesul de conectare în browser</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">păstrează în directorul original deoarece este disponibil doar pentru citire</string>
-    <string name="auto_upload_gplay">Comportamentul de încărcare automată s-a schimbat</string>
-    <string name="auto_upload_gplay_desc">Din cauza noilor restricții impuse de Google, funcția de încărcare automată nu va mai putea elimina automat fișierele încărcate.</string>
-    <string name="auto_upload_gplay_desc2">Din cauza noilor restricții impuse de Google, am fost forțați să eliminăm o permisiune importantă. Ca rezultat, încărcarea automată va putea încărca numai fișiere de imagine și video.\nÎn plus, este necesară o nouă permisiune pentru a accesa informațiile despre locație pentru imaginile încărcate.\nAsigurați-vă că accesul media este setat la „Permiteți întotdeauna toate”.</string>
     <string name="auto_upload_on_wifi">Se încarcă numai pe Wi-Fi nelimitat</string>
     <string name="auto_upload_path">/AutoÎncărcare</string>
     <string name="autoupload_configure">Configurează</string>
@@ -115,6 +109,7 @@
     <string name="bottom_navigation_menu_favorites_label">Favorite</string>
     <string name="bottom_navigation_menu_files_label">Toate fișierele</string>
     <string name="bottom_navigation_menu_media_label">Media</string>
+    <string name="busy">Ocupat</string>
     <string name="calendar">Calendar</string>
     <string name="calendars">Calendare</string>
     <string name="certificate_load_problem">Există o problemă la încărcarea certificatului.</string>
@@ -126,10 +121,9 @@
     <string name="choose_template_helper_text">Te rog alege un șablon și introdu numele fișierului.</string>
     <string name="choose_which_file">Alege care fișier să-l păstrezi!</string>
     <string name="choose_widget">Alege widget</string>
+    <string name="clear">Șterge </string>
     <string name="clear_notifications_failed">Eroare la ștergerea notificărilor.</string>
-    <string name="clear_status_message">Șterge mesajul de stare</string>
-    <string name="clear_status_message_after">Șterge mesajul de stare după</string>
-    <string name="click_to_learn_how_to_re_enable_auto_uploads">Este necesară intervenția manuală pentru a reactiva încărcarea automată</string>
+    <string name="clear_status_after">Șterge statusul după</string>
     <string name="clipboard_label">Text copiat din %1$s</string>
     <string name="clipboard_no_text_to_copy">Nici un text disponibil pentru copiere</string>
     <string name="clipboard_text_copied">Link copiat</string>
@@ -420,7 +414,6 @@
     <string name="file_not_found">Fișierul nu a fost găsit</string>
     <string name="file_not_synced">Fișierul nu a putut fi sincronizat. Aceastea sunt ultimile versiuni disponibile.</string>
     <string name="file_rename">Redenumire</string>
-    <string name="file_upload_worker_same_file_already_exists">Același fișier există deja, nu a fost detectat niciun conflict</string>
     <string name="file_version_restored_error">Eroare în restaurarea acestei versiuni a fisierului!</string>
     <string name="file_version_restored_successfully">S-a restaurat cu succes versiunea acestui fișier.</string>
     <string name="filedetails_details">Detalii</string>
@@ -495,10 +488,7 @@
     <string name="last_backup">Ultima copie de rezervă: %1$s</string>
     <string name="link">Legătură</string>
     <string name="link_name">Numele legăturii</string>
-    <string name="link_share_allow_upload_and_editing">Permite încărcarea și editarea</string>
     <string name="link_share_editing">Se modifică</string>
-    <string name="link_share_file_drop">Trage fișierul (numai încărcare)</string>
-    <string name="link_share_view_only">Numai se vizualizează</string>
     <string name="list_layout">Aranjare listată</string>
     <string name="load_more_results">Încarcă mai multe rezultate</string>
     <string name="local_file_list_empty">În acest folder nu sunt fișiere.</string>
@@ -527,7 +517,6 @@
     <string name="manage_space_clear_data">Elimină datele</string>
     <string name="manage_space_description">Setările, bazele de date și certificatele serverului ale %1$s vor fi șterse permanent. \n\nFișierele descărcate vor fi păstrate intacte.\n\nAcest proces poate dura mai mult timp.</string>
     <string name="manage_space_title">Administrare spațiu</string>
-    <string name="max_file_count_warning_message">Ați atins limita maximă de încărcare a fișierelor. Vă rugăm să încărcați mai puțin de 500 de fișiere simultan.</string>
     <string name="media_err_invalid_progressive_playback">Fișierul media nu poate fi difuzat</string>
     <string name="media_err_io">Nu s-a putut citi fișierul media</string>
     <string name="media_err_malformed">Fișierul media are codare incorectă</string>
@@ -609,11 +598,6 @@
     <string name="permission_storage_access">Sunt necesare drepturi adiționale pentru a încărca și descărca fișiere.</string>
     <string name="picture_set_as_no_app">Nu a fost găsită o aplicație pentru a seta imaginea</string>
     <string name="pin_shortcut_label">Deschide %1$s</string>
-    <string name="placeholder_fileSize">389 KO</string>
-    <string name="placeholder_filename">placeholder.txt</string>
-    <string name="placeholder_media_time">12:23:45</string>
-    <string name="placeholder_sentence">Acesta este un substituent</string>
-    <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
     <string name="player_stop">stop</string>
     <string name="player_toggle">comută</string>
     <string name="power_save_check_dialog_message">Dezactivarea modului de economisire a bateriei ar putea rezulta în încărcarea de fișiere când bateria are un nivel scăzut!</string>
@@ -628,7 +612,6 @@
     <string name="pref_instant_name_collision_policy_title">Ce să facem dacă fișierul deja există?</string>
     <string name="prefs_add_account">Adaugă cont</string>
     <string name="prefs_calendar_contacts_no_store_error">Nici F-Droid, nici Google Play nu sunt instalate</string>
-    <string name="prefs_calendar_contacts_summary">Setează DAVx5 (cunoscut în trecut ca DAVdroid) (v1.3.0+) pentru acest cont</string>
     <string name="prefs_category_about">Despre</string>
     <string name="prefs_category_details">Detalii</string>
     <string name="prefs_category_dev">Dev</string>
@@ -673,8 +656,8 @@
     <string name="preview_image_error_no_local_file">Nu există niciun fișier local pentru previzualizare</string>
     <string name="preview_image_error_unknown_format">Imposibil de afișat imaginea</string>
     <string name="preview_sorry">Scuze</string>
-    <string name="privacy">Confindențialitate</string>
-    <string name="public_share_name">Nume nou</string>
+    <string name="privacy">Confidențialitate</string>
+    <string name="push_notifications_not_implemented">Notificările push sunt oprite datorită dependințelor de serviciile proprietare Google Play.</string>
     <string name="push_notifications_old_login">Fără notificări push datorită sesiunilor de login expirate. Vă rugăm considerați să adăugați din nou contul dumneavoastră.</string>
     <string name="push_notifications_temp_error">Notificările push nu sunt disponibile în acest moment.</string>
     <string name="qr_could_not_be_read">Codul QR nua putut fi citit!</string>
@@ -713,7 +696,6 @@
     <string name="screenshot_04_accounts_heading">Toate conturile tale</string>
     <string name="screenshot_04_accounts_subline">într-un singur loc</string>
     <string name="screenshot_05_autoUpload_heading">Încărcare automată</string>
-    <string name="screenshot_06_davdroid_subline">Sincronizează folosind DAXx5</string>
     <string name="search_error">Eroare la returnarea rezultatelor căutării</string>
     <string name="select_all">Selectează tot</string>
     <string name="select_media_folder">Setează dosarul pentru media</string>
@@ -723,12 +705,13 @@
     <string name="sendbutton_description">Pictograma butonului de trimite</string>
     <string name="set_as">Setează ca</string>
     <string name="set_picture_as">Folosește imaginea ca</string>
-    <string name="set_status">Setează status</string>
-    <string name="set_status_message">Setează statusul mesajelor</string>
     <string name="share">Partajează</string>
+    <string name="share_create_permission">Crează</string>
+    <string name="share_custom_permission">Permisiuni particularizate</string>
+    <string name="share_delete_permission">Șterge</string>
     <string name="share_dialog_title">Partajare</string>
+    <string name="share_edit_permission">Editează</string>
     <string name="share_expiration_date_format">%1$s</string>
-    <string name="share_expiration_date_label">Expiră %1$s</string>
     <string name="share_file">Partajare %1$s</string>
     <string name="share_group_clarification">%1$s (grup)</string>
     <string name="share_internal_link">Trimite link intern</string>
@@ -745,10 +728,10 @@
     <string name="share_link_with_label">Trimite link (%1$s)</string>
     <string name="share_no_expiration_date_label">Specifică data expirării</string>
     <string name="share_no_password_title">Setare parolă</string>
-    <string name="share_password_title">Protejat cu parolă</string>
     <string name="share_permission_can_edit">Poate edita</string>
-    <string name="share_permission_file_drop">Aducere fișier</string>
     <string name="share_permission_view_only">Numai se vizualizează</string>
+    <string name="share_re_share_permission">Partajează</string>
+    <string name="share_read_permission">Citit</string>
     <string name="share_remote_clarification">%1$s (remote)</string>
     <string name="share_room_clarification">%1$s (conversație)</string>
     <string name="share_send_new_email">Trimite un email nou</string>
@@ -770,6 +753,7 @@
     <string name="signup_with_provider">Înscriete cu un furnizor</string>
     <string name="single_sign_on_request_token" formatted="true">Permite %1$s să acceseze contul tău Nextcloud %2$s ?</string>
     <string name="sort_by">Sortare după</string>
+    <string name="sort_favorites_first">Sortați favoritele primele</string>
     <string name="ssl_validator_btn_details_hide">Ascunde</string>
     <string name="ssl_validator_btn_details_see">Detalii</string>
     <string name="ssl_validator_header">Nu s-a putut verifica identitatea serverului</string>
@@ -867,6 +851,7 @@
     <string name="trashbin_loading_failed">Încărcarea coșului de gunoi a eșuat!</string>
     <string name="trashbin_not_emptied">Fișierele nu au putut fi șterse permanent!</string>
     <string name="two_way_sync_activity_title">Sincronizare internă în două sensuri</string>
+    <string name="unknown">Necunoscut</string>
     <string name="unlock_file">Deblochează fișierul</string>
     <string name="unread_comments">Există comentarii necitite</string>
     <string name="unset_encrypted">Dezactivați criptarea</string>
@@ -892,6 +877,7 @@
     <string name="upload_file_dialog_title">Introdu numele și tipul fișierului de încărcat</string>
     <string name="upload_files">Încarcă fișiere</string>
     <string name="upload_item_action_button">Butonul de încărcare</string>
+    <string name="upload_list_cancel_upload">Anulează încărcarea</string>
     <string name="upload_list_delete">Șterge</string>
     <string name="upload_list_empty_headline">Nu există încărcări disponibile</string>
     <string name="upload_list_empty_text_auto_upload">Încărcați conținut sau activați încărcarea automată.</string>

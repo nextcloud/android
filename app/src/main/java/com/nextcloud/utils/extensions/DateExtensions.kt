@@ -13,6 +13,5 @@ import java.text.SimpleDateFormat
 import java.util.Date
 
 @SuppressLint("SimpleDateFormat")
-fun Date.currentDateRepresentation(formatPattern: DateFormatPattern): String {
-    return SimpleDateFormat(formatPattern.pattern).format(this)
-}
+fun Date.currentDateRepresentation(formatPattern: DateFormatPattern): String =
+    SimpleDateFormat(formatPattern.pattern).format(this)

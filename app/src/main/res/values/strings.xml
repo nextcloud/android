@@ -10,8 +10,8 @@
     <string name="bottom_navigation_menu_favorites_label">Favorites</string>
     <string name="bottom_navigation_menu_assistant_label">Assistant</string>
     <string name="bottom_navigation_menu_media_label">Media</string>
-
-
+    <string name="file_list_error_headline">Poor connection</string>
+    <string name="file_list_error_description">Check your internet connection or try again later</string>
     <string name="about_android">%1$s Android app</string>
     <string name="about_version">version %1$s</string>
     <string name="about_version_with_build">version %1$s, build #%2$s</string>
@@ -43,8 +43,11 @@
     <string name="app_config_proxy_port_title">Proxy Port</string>
     <string name="app_config_enforce_protection_title">Enforce Protection</string>
     <string name="offline_operations_file_does_not_exists_yet">File does not exists, yet. Please upload the file first.</string>
-    <string name="offline_operations_worker_notification_delete_offline_folder">Delete offline folder</string>
-    <string name="offline_operations_worker_notification_conflict_text">Conflicting folder: %s</string>
+
+    <string name="offline_operations_worker_notification_remove_conflict_text">Cancelled deletion of %s. The file has been modified on the server.</string>
+    <string name="offline_operations_worker_notification_rename_conflict_text">Cancelled rename of %s. A file with the same name exists on the server.</string>
+    <string name="offline_operations_worker_notification_create_file_conflict_text">Could not create %s. A file with the same name exists on the server.</string>
+    <string name="offline_operations_worker_notification_create_folder_conflict_text">Could not create %s. A folder with the same name exists on the server.</string>
     <string name="offline_operations_worker_notification_start_text">Starting offline operations</string>
     <string name="offline_operations_worker_notification_error_text">The offline operation cannot be completed. %s</string>
     <string name="offline_operations_worker_notification_manager_ticker">Offline Operations</string>
@@ -53,11 +56,12 @@
 
     <string name="assistant_screen_task_types_error_state_message">Unable to fetch task types, please check your internet connection.</string>
     <string name="assistant_screen_task_list_error_state_message">Unable to fetch task list, please check your internet connection.</string>
+    <string name="assistant_screen_task_list_empty_message">Task list is empty.</string>
 
     <string name="assistant_screen_top_bar_title">Assistant</string>
     <string name="assistant_screen_loading">Loading task list…</string>
     <string name="assistant_screen_task_output_empty_text">The task output is not ready yet.</string>
-    <string name="assistant_screen_no_task_available_text">No task available for %s task type, you can create a new task from bottom right.</string>
+    <string name="assistant_screen_create_a_new_task_from_bottom_right_text">Create a new task from bottom right</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Delete task</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Are you sure you want to delete this task?</string>
     <string name="assistant_screen_add_task_alert_dialog_title">Add new task</string>
@@ -107,8 +111,8 @@
     <string name="prefs_enable_media_scan_notifications">Show media scan notifications</string>
     <string name="prefs_enable_media_scan_notifications_summary">Notify about newly found media folders</string>
     <string name="prefs_calendar_contacts">Sync calendar and contacts</string>
-    <string name="prefs_calendar_contacts_summary">Set up DAVx5 (formerly known as DAVdroid) (v1.3.0+) for current account</string>
-    <string name="prefs_davx5_setup_error">Unexpected error while setting up DAVx5 (formerly known as DAVdroid)</string>
+    <string name="prefs_calendar_contacts_summary">Set up DAVx⁵ (formerly known as DAVdroid) (v1.3.0+) for current account</string>
+    <string name="prefs_davx5_setup_error">Unexpected error while setting up DAVx⁵ (formerly known as DAVdroid)</string>
     <string name="prefs_calendar_contacts_no_store_error">Neither F-Droid nor Google Play is installed</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Calendar and contacts sync set up</string>
     <string name="prefs_daily_backup_summary">Daily backup of your calendar and contacts</string>
@@ -134,17 +138,17 @@
     </plurals>
 
     <plurals name="time_seconds_ago">
-        <item quantity="one">1 second ago</item>
+        <item quantity="one">%d second ago</item>
         <item quantity="other">%d seconds ago</item>
     </plurals>
 
     <plurals name="time_minutes_ago">
-        <item quantity="one">1 minute ago</item>
+        <item quantity="one">%d minute ago</item>
         <item quantity="other">%d minutes ago</item>
     </plurals>
 
     <plurals name="time_hours_ago">
-        <item quantity="one">1 hour ago</item>
+        <item quantity="one">%d hour ago</item>
         <item quantity="other">%d hours ago</item>
     </plurals>
 
@@ -168,7 +172,7 @@
     <string name="uploader_error_message_source_file_not_found">File selected for upload not found. Please check whether the file exists.</string>
     <string name="uploader_error_message_source_file_not_copied">Could not copy file to a temporary folder. Try to resend it.</string>
     <string name="uploader_upload_files_behaviour">Upload option:</string>
-    <string name="max_file_count_warning_message">You have reached the maximum file upload limit. Please upload fewer than 500 files at a time.</string>
+    <string name="file_upload_worker_same_file_already_exists">%s already exists, no conflict detected</string>
     <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">Move file to %1$s folder</string>
     <string name="uploader_upload_files_behaviour_only_upload">Keep file in source folder</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Delete file from source folder</string>
@@ -232,6 +236,12 @@
 
     <string name="upload_notification_manager_start_text">%1$d / %2$d - %3$s</string>
 
+    <string name="folder_download_worker_ticker_id">Syncing…</string>
+    <string name="folder_download_success_notification_title">%s folder successfully synchronized</string>
+    <string name="folder_download_error_notification_title">An error occurred during synchronization of the %s folder</string>
+    <string name="folder_download_counter">%1$d of %2$d &#183; %3$s</string>
+    <string name="folder_download_insufficient_disk_space_notification_title">Insufficient disk space, synchronization canceled</string>
+
     <string name="uploader_upload_in_progress_ticker">Uploading…</string>
     <string name="uploader_upload_in_progress_content">%1$d%% Uploading %2$s</string>
     <string name="uploader_upload_succeeded_content_single">%1$s uploaded</string>
@@ -245,6 +255,9 @@
     <string name="uploads_view_group_manually_cancelled_uploads">Cancelled</string>
     <string name="uploads_view_group_finished_uploads">Uploaded</string>
     <string name="uploads_view_upload_status_succeeded">Completed</string>
+    <string name="uploads_view_upload_status_skip">Skipped</string>
+    <string name="uploads_view_upload_status_skip_reason">A file with the same name already exists.</string>
+
     <string name="uploads_view_upload_status_succeeded_same_file">Same file found on remote, skipping upload</string>
     <string name="uploads_view_upload_status_cancelled">Cancelled</string>
     <string name="uploads_view_upload_status_failed_connection_error">Connection error</string>
@@ -323,6 +336,10 @@
         <item quantity="one">%d file will be exported. See notification for details.</item>
         <item quantity="other">%d files will be exported. See notification for details.</item>
     </plurals>
+    <plurals name="file_upload_limit_message">
+        <item quantity="one">You can upload only %d file at once.</item>
+        <item quantity="other">You can upload up to %d files at once.</item>
+    </plurals>
     <string name="sync_foreign_files_forgotten_explanation">As of version 1.3.16, files uploaded from this device are copied into the local %1$s folder to prevent data loss when a single file is synced with multiple accounts.\n\nDue to this change, all files uploaded with earlier versions of this app were copied into the %2$s folder. However, an error prevented the completion of this operation during account synchronization. You may either leave the file(s) as is and delete the link to %3$s, or move the file(s) into the %1$s folder and retain the link to %4$s.\n\nListed below are the local file(s), and the remote file(s) in %5$s they were linked to.</string>
     <string name="sync_current_folder_was_removed">The folder %1$s does not exist anymore</string>
     <string name="foreign_files_move">Move all</string>
@@ -384,6 +401,9 @@
     <string name="auth_account_does_not_exist">The account is not added on this device yet</string>
     <string name="auth_access_failed">Access failed: %1$s</string>
 
+    <string name="authenticator_activity_empty_response_message">Unable to fetch login details. Please try again.</string>
+    <string name="authenticator_activity_empty_base_url">Please enter a valid server address.</string>
+    <string name="authenticator_activity_no_web_browser_found">No browser is available to open this link.</string>
     <string name="authenticator_activity_cancel_login">Cancel Login</string>
     <string name="authenticator_activity_please_complete_login_process">Please complete login process in your browser</string>
     <string name="authenticator_activity_login_error">There was an issue processing your login request. Please try again later.</string>
@@ -394,6 +414,7 @@
     <string name="unset_encrypted">Unset encryption</string>
     <string name="common_rename">Rename</string>
     <string name="common_remove">Delete</string>
+    <string name="common_leave_this_share">Leave this share</string>
     <string name="confirmation_remove_file_alert">Do you really want to delete %1$s?</string>
     <string name="confirmation_remove_folder_alert">Do you really want to delete %1$s and the contents thereof?</string>
     <string name="confirmation_remove_local">Local only</string>
@@ -442,11 +463,69 @@
     <string name="ssl_validator_null_cert">The certificate could not be shown.</string>
     <string name="ssl_validator_no_info_about_error">- No information about the error</string>
 
-    <string name="placeholder_sentence">This is a placeholder</string>
-    <string name="placeholder_filename">placeholder.txt</string>
-    <string name="placeholder_fileSize">389 KB</string>
-    <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
-    <string name="placeholder_media_time">12:23:45</string>
+    <string name="placeholder_timestamp" translatable="false">2012/05/18 12:23 PM</string>
+    <string name="placeholder_media_time" translatable="false">12:23:45</string>
+    <string name="placeholder_sentence" translatable="false">This is a placeholder</string>
+    <string name="placeholder_filename" translatable="false">Filename</string>
+    <string name="placeholder_reason" translatable="false">Recently edited</string>
+    <string name="placeholder_extension" translatable="false">.txt</string>
+    <string name="placeholder_fileSize" translatable="false">389 KB</string>
+    <string name="placeholder_fileSize_2" translatable="false">5 MB</string>
+    <string name="placeholder_fileSize_3" translatable="false">3 MB</string>
+    <string name="placeholder_current_2" translatable="false">Current (2)</string>
+    <string name="placeholder_send_button" translatable="false">Send button</string>
+    <string name="placeholder_first_name_last_name" translatable="false">Firstname Lastname</string>
+    <string name="placeholder_file_type" translatable="false">Filetype</string>
+    <string name="placeholder_download" translatable="false">Download</string>
+    <string name="placeholder_share_internal_link_text" translatable="false">Internal share link only works for users with access to this folder</string>
+    <string name="placeholder_share_internal_folder_text" translatable="false">Internal share link only works for users with access to this folder</string>
+    <string name="placeholder_share_internal_e2ee_keyword_description" translatable="false">All 12 words together make a very strong password, letting only you view and make use of your encrypted files. Please write it down and keep it somewhere safe.</string>
+    <string name="placeholder_share_no_internet_connection" translatable="false">No internet connection</string>
+    <string name="placeholder_status" translatable="false">☁️ My custom status</string>
+    <string name="placeholder_random_link" translatable="false">https://nextcloud.localhost/nextcloud</string>
+    <string name="placeholder_random_account" translatable="false">firstname@example.nextcloud.com</string>
+    <string name="placeholder_date" translatable="false">12. Dec 2020 - 23:10:20</string>
+    <string name="placeholder_date_2" translatable="false">10. Dec 2020 - 10:10:10</string>
+    <string name="placeholder_sso" translatable="false">Grant Nextcloud News access to your Nextcloud account incrediblyLong_username_with_123456789_number@Nextcloud_dummy.com?</string>
+    <string name="placeholder_example_phone_number" translatable="false">+49 123 456 789 12</string>
+    <string name="placeholder_uuid" translatable="false">d7edb387-0b61-4e4e-a728-ffab3055d700</string>
+    <string name="placeholder_job_name" translatable="false">Job name</string>
+    <string name="placeholder_job_state" translatable="false">ENQUEUED</string>
+    <string name="placeholder_date_3" translatable="false">2020-02-15T20:53:15Z</string>
+    <string name="placeholder_progress" translatable="false">50%</string>
+    <string name="placeholder_random_number" translatable="false">0</string>
+    <string name="placeholder_remaining_downloads" translatable="false">5 downloads remaining</string>
+    <string name="placeholder_view_only" translatable="false">View only</string>
+    <string name="placeholder_time_ago" translatable="false">6 min ago</string>
+    <string name="placeholder_success" translatable="false">Success</string>
+    <string name="placeholder_file_path" translatable="false">/abc/example</string>
+    <string name="placeholder_delete_file" translatable="false">Delete file</string>
+    <string name="placeholder_action_info" translatable="false">Some additional action info</string>
+    <string name="placeholder_open_in_notes" translatable="false">Open in Notes</string>
+    <string name="placeholder_open_in_notes_info" translatable="false">This folder is best viewed in the Notes app</string>
+    <string name="placeholder_year" translatable="false">2025</string>
+    <string name="placeholder_month" translatable="false">October</string>
+    <string name="placeholder_auto_upload_overview_path" translatable="false">For /storage/emulated/0/DCIM/Camera</string>
+    <string name="placeholder_predefined_status_icon" translatable="false">📆</string>
+    <string name="placeholder_predefined_status_name" translatable="false">In a meeting</string>
+    <string name="placeholder_predefined_status_clear_at" translatable="false">an hour</string>
+    <string name="placeholder_image_detail_date" translatable="false">Wednesday • 26 Jul 2023 • 12:27</string>
+    <string name="placeholder_image_details" translatable="false">12 MP • 3024 × 4032 • 923 KB</string>
+    <string name="placeholder_image_detail_model" translatable="false">Camera Phone (4th generation)</string>
+    <string name="placeholder_image_detail_condition" translatable="false">ƒ/1.8 • 1/374 s • 28 mm • ISO 200</string>
+    <string name="placeholder_image_detail_location" translatable="false">Mitte, Berlin, Germany</string>
+    <string name="placeholder_image_detail_example_copyright" translatable="false">© OpenStreetMap contributors</string>
+    <string name="placeholder_compose_mail" translatable="false">Compose email</string>
+    <string name="placeholder_passphrase" translatable="false">passphrase</string>
+    <string name="placeholder_show_hidden_folders" translatable="false">Show 3 hidden folders</string>
+    <string name="placeholder_template" translatable="false">Template</string>
+    <string name="placeholder_widget_first_line" translatable="false">First line</string>
+    <string name="placeholder_widget_second_line" translatable="false">Subline</string>
+    <string name="placeholder_search_in_nextcloud" translatable="false">Search in Nextcloud</string>
+    <string name="placeholder_files" translatable="false">Files</string>
+    <string name="placeholder_in_folder" translatable="false">in TestFolder</string>
+    <string name="placeholder_example_mail" translatable="false">example@nextcloud.com</string>
+    <string name="placeholder_scan_indicator" translatable="false">Low battery, upload might take longer</string>
 
     <string name="auto_upload_on_wifi">Only upload on unmetered Wi-Fi</string>
     <string name="instant_upload_on_charging">Only upload when charging</string>
@@ -454,10 +533,12 @@
     <string name="instant_upload_path">/InstantUpload</string>
     <string name="auto_upload_path">/AutoUpload</string>
 
+    <string name="auto_upload_low_battery_warning_info">Low battery, upload might take longer</string>
+    <string name="auto_upload_wifi_only_warning_info">Waiting for Wi-Fi to start uploading</string>
+
     <string name="preview_media_unhandled_http_code_message">File is currently locked by another user or process and therefore not deletable. Please try again later.</string>
 
     <string name="preview_sorry">Sorry</string>
-    <string name="preview_image_file_is_not_exist">File does not exist</string>
     <string name="preview_image_file_is_not_downloaded">File is not downloaded</string>
     <string name="preview_image_downloading_image_for_edit">Downloading image to start the edit screen, please wait…</string>
     <string name="preview_image_description">Image preview</string>
@@ -615,12 +696,10 @@
 
     <string name="share_dialog_title">Sharing</string>
     <string name="share_file">Share %1$s</string>
-    <string name="share_expiration_date_label">Expires %1$s</string>
     <string name="share_expiration_date_format">%1$s</string>
     <string name="share_no_expiration_date_label">Set expiration date</string>
     <string name="share_via_link_section_title">Share link</string>
     <string name="share_via_link_send_link_label">Send link</string>
-    <string name="share_password_title">Password-protected</string>
     <string name="share_no_password_title">Set password</string>
     <string name="share_with_title">Share with…</string>
     <string name="share_via_link_unset_password">Unset</string>
@@ -735,6 +814,7 @@
     <string name="contacts_preferences_something_strange_happened">Could not find your last backup!</string>
     <string name="contacts_preferences_backup_scheduled">Backup scheduled and will start shortly</string>
     <string name="contacts_preferences_import_scheduled">Import scheduled and will start shortly</string>
+    <string name="contacts_preferences_import_scheduled_fail">Import failed to start. Please try again</string>
     <string name="backup_title">Contacts and calendar backup</string>
     <string name="contact_backup_title">Contacts backup</string>
     <string name="drawer_logout">Log out</string>
@@ -768,7 +848,7 @@
     <string name="sync_in_progress">Fetching most recent version of the file.</string>
 
     <string name="store_short_desc">The self-hosted productivity platform that keeps you in control</string>
-    <string name="store_full_desc">The self-hosted productivity platform that keeps you in control.\n\nFeatures:\n* Easy, modern interface, suited to the theme of your server\n* Upload files to your Nextcloud server\n* Share them with others\n* Keep your favorite files and folders synced\n* Search across all folders on your server\n* Auto Upload for photos and videos taken by your device\n* Keep up to date with notifications\n* Multi-account support\n* Secure access to your data with fingerprint or PIN\n* Integration with DAVx5 (formerly known as DAVdroid) for easy setup of calendar and contacts synchronization\n\nPlease report all issues at https://github.com/nextcloud/android/issues and discuss this app at https://help.nextcloud.com/c/clients/android\n\nNew to Nextcloud? Nextcloud is a private file sync and share and communication server. It is libre software, and you can host it yourself or pay a company to do it for you. That way, you are in control of your photos, your calendar and contact data, your documents and everything else.\n\nCheck out Nextcloud at https://nextcloud.com</string>
+    <string name="store_full_desc">The self-hosted productivity platform that keeps you in control.\n\nFeatures:\n* Easy, modern interface, suited to the theme of your server\n* Upload files to your Nextcloud server\n* Share them with others\n* Keep your favorite files and folders synced\n* Search across all folders on your server\n* Auto Upload for photos and videos taken by your device\n* Keep up to date with notifications\n* Multi-account support\n* Secure access to your data with fingerprint or PIN\n* Integration with DAVx⁵ (formerly known as DAVdroid) for easy setup of calendar and contacts synchronization\n\nPlease report all issues at https://github.com/nextcloud/android/issues and discuss this app at https://help.nextcloud.com/c/clients/android\n\nNew to Nextcloud? Nextcloud is a private file sync and share and communication server. It is libre software, and you can host it yourself or pay a company to do it for you. That way, you are in control of your photos, your calendar and contact data, your documents and everything else.\n\nCheck out Nextcloud at https://nextcloud.com</string>
 
     <string name="contactlist_item_icon">User icon for contact list</string>
     <string name="activity_icon">Activity</string>
@@ -782,7 +862,9 @@
     <string name="shared_icon_shared">shared</string>
     <string name="overflow_menu">More menu</string>
     <string name="synced_folders_type">Type</string>
+
     <string name="sync_status_button">Sync status button</string>
+    <string name="sync_warning_button">Sync warning button</string>
     <string name="synced_folder_settings_button">Settings button</string>
     <string name="upload_item_action_button">Upload item action button</string>
     <string name="forward">Forward</string>
@@ -809,6 +891,12 @@
     <string name="notification_channel_media_description">Music player progress</string>
     <string name="notification_channel_file_sync_name">File sync</string>
     <string name="notification_channel_file_sync_description">Shows file sync progress and results</string>
+    <string name="notification_channel_offline_operations_name_short">Offline operations</string>
+    <string name="notification_channel_offline_operations_description">Shows progress of offline file operations</string>
+
+    <string name="content_observer_work_notification_title">Detecting content changes</string>
+    <string name="notification_channel_content_observer_name_short">Content observer</string>
+    <string name="notification_channel_content_observer_description">Detects local file changes</string>
 
     <string name="account_not_found">Account not found!</string>
 
@@ -828,13 +916,14 @@
     <string name="screenshot_05_autoUpload_subline">for your photos and videos</string>
 
     <string name="screenshot_06_davdroid_heading">Calendar and contacts</string>
-    <string name="screenshot_06_davdroid_subline">Sync with DAVx5</string>
+    <string name="screenshot_06_davdroid_subline">Sync with DAVx⁵</string>
 
     <string name="userinfo_no_info_headline">No personal info set</string>
     <string name="userinfo_no_info_text">Add name, picture and contact details on your profile page.</string>
     <string name="drawer_header_background">Background image of drawer header</string>
     <string name="account_icon">Account icon</string>
     <string name="file_detail_sharing_fragment_no_contact_app_message">No app available to select contacts</string>
+    <string name="file_detail_share_already_active">You cannot create a share, sharing is already active from this user.</string>
 
     <string name="end_to_end_encryption_certificate_verification_failed">Failed to verify public key</string>
     <string name="end_to_end_encryption_server_public_key_unavailable">Unable to retrieve public key</string>
@@ -864,7 +953,7 @@
     <string name="notification_channel_background_operations_description">Show notifications to interact result of background operations</string>
     <string name="notification_channel_push_description">Show push notifications sent by the server: Mentions in comments, reception of new remote shares, announcements posted by an admin etc.</string>
     <string name="sendbutton_description">Send button icon</string>
-
+    <string name="auto_upload_worker_start_text">Uploading files from %s to %s</string>
     <string name="hidden_character" translatable="false">*</string>
     <string name="hint_name">Name</string>
     <string name="hint_password">Password</string>
@@ -880,6 +969,7 @@
     <string name="create_new_folder">New folder</string>
     <string name="uploads_view_upload_status_virus_detected">Virus detected. Upload cannot be completed!</string>
     <string name="tags">Tags</string>
+    <string name="error_fetching_sharees">Unable to fetch sharees.</string>
     <string name="sharee_add_failed">Adding sharee failed</string>
     <string name="sharee_already_added_to_file">Adding share failed. This file or folder has already been shared with this person or group.</string>
     <string name="unsharing_failed">Unsharing failed</string>
@@ -1066,9 +1156,15 @@
     <string name="uploader_upload_failed_sync_conflict_error">File upload conflict</string>
     <string name="uploader_upload_failed_sync_conflict_error_content">Pick which version to keep of %1$s</string>
     <string name="upload_list_resolve_conflict">Resolve conflict</string>
+    <string name="upload_list_cancel_upload">Cancel upload</string>
     <string name="upload_list_delete">Delete</string>
     <string name="create_new">New</string>
     <string name="editor_placeholder" translatable="false">%1$s %2$s</string>
+
+    <string name="share_permission_file_request">File request</string>
+    <string name="share_permission_view_only">View only</string>
+    <string name="share_permission_can_edit">Can edit</string>
+    <string name="share_permission_secure_file_drop">Secure file drop</string>
 
     <string name="sync_not_enough_space_dialog_action_choose">Choose what to sync</string>
     <string name="sync_not_enough_space_dialog_action_free_space">Free up space</string>
@@ -1086,25 +1182,27 @@
     <string name="qr_could_not_be_read">QR code could not be read!</string>
     <string name="note_icon_hint">Note icon</string>
     <string name="add_new_public_share">Add new public share link</string>
-    <string name="public_share_name">New name</string>
     <string name="share_link_with_label">Share link (%1$s)</string>
     <string name="share_link">Share link</string>
-    <string name="allow_resharing">Allow resharing</string>
-    <string name="link_share_view_only">View only</string>
+    <string name="share_custom_permission">Custom permissions</string>
+    <string name="share_read_permission">Read</string>
+    <string name="file_not_found_cannot_share">File not found. Unable to create a share.</string>
+    <string name="share_cannot_update_empty_note">We couldn’t update the share. Please add a note and try again.</string>
+    <string name="share_option_required">Please select at least one sharing option before continuing.</string>
+    <string name="share_allow_download_and_sync_permission">Allow download and sync</string>
+    <string name="share_create_permission">Create</string>
+    <string name="share_edit_permission">Edit</string>
+    <string name="share_re_share_permission">Share</string>
+    <string name="share_delete_permission">Delete</string>
     <string name="link_share_editing">Editing</string>
-    <string name="link_share_allow_upload_and_editing">Allow upload and editing</string>
-    <string name="link_share_file_drop">File drop (upload only)</string>
     <string name="could_not_retrieve_shares">Could not retrieve shares</string>
     <string name="failed_update_ui">Failed to update UI</string>
     <string name="email_pick_failed">Failed to pick email address.</string>
     <string name="remote">(remote)</string>
-    <string name="set_status">Set status</string>
     <string name="online_status">Online status</string>
     <string name="status_message">Status message</string>
     <string name="whats_your_status">What is your status?</string>
-    <string name="clear_status_message_after">Clear status message after</string>
-    <string name="clear_status_message">Clear status message</string>
-    <string name="set_status_message">Set status message</string>
+    <string name="clear_status_after">Clear status after</string>
     <string name="online">Online</string>
     <string name="dnd">Do not disturb</string>
     <string name="away">Away</string>
@@ -1159,12 +1257,7 @@
     <string name="create">Create</string>
     <string name="select_one_template">Please select one template</string>
     <string name="choose_template_helper_text">Please choose a template and enter a file name.</string>
-    <string name="share_permission_view_only">View only</string>
-    <string name="share_permission_can_edit">Can edit</string>
-    <string name="share_permission_file_drop">File drop</string>
-    <string name="share_permission_secure_file_drop">Secure file drop</string>
     <string name="share_permissions">Share permissions</string>
-    <string name="advanced_settings">Advanced settings</string>
     <string name="common_next">Next</string>
     <string name="send_share">Send share</string>
     <string name="no_share_permission_selected">Please select at least one permission to share.</string>
@@ -1200,6 +1293,9 @@
     <string name="file_management_permission_text">%1$s needs file management permissions to upload files. You can choose full access to all files, or read-only access to photos and videos.</string>
     <string name="file_management_permission_optional_text">%1$s works best with permissions to access storage. You can choose full access to all files, or read-only access to photos and videos.</string>
     <string name="file_list_empty_unified_search_no_results">No results found for your query</string>
+    <string name="file_list_empty_unified_search_start_search">Start your search</string>
+    <string name="file_list_empty_unified_search_start_search_description">Type in the search bar above to find files, contacts, calendar events, and more across your account.</string>
+
     <string name="file_list_empty_gallery">Found no images or videos</string>
     <string name="error_creating_file_from_template">Error creating file from template</string>
     <string name="no_send_app">No app available for sending the selected files</string>
@@ -1297,6 +1393,7 @@
     <string name="internal_two_way_sync_not_yet">Not yet, soon to be synced</string>
     <string name="gplay_restriction">Google restricted downloading APK/AAB files!</string>
     <string name="file_list_empty_local_search">No file or folder matching your search</string>
+    <string name="unified_search_fragment_search_in_this_folder">In this folder</string>
     <string name="unified_search_fragment_calendar_event_not_found">Event not found, you can always sync to update. Redirecting to web…</string>
     <string name="unified_search_fragment_contact_not_found">Contact not found, you can always sync to update. Redirecting to web…</string>
     <string name="unified_search_fragment_permission_needed">Permissions are required to open search result otherwise it will redirected to web…</string>
@@ -1317,16 +1414,9 @@
     <string name="two_way_sync_activity_disable_all_button_title">Disable for all folders</string>
     <string name="oc_file_list_adapter_offline_operation_remove_description_text">Pending Remove Operation</string>
     <string name="warn_rename_extension">Changing the extension might cause this file to open in a different application</string>
-    <string name="auto_upload_gplay">Auto upload behaviour changed</string>
-    <string name="auto_upload_gplay_desc">Due to new restrictions imposed by Google, the auto upload feature will no longer be able to automatically remove uploaded files.</string>
     <string name="pick_contact_to_share_with">Pick contact to share with</string>
-    <string name="auto_upload_gplay_desc2">Due to new restrictions imposed by Google, we have been forced to remove an important permission. As a result, auto upload will only be able to upload image and video files.\nAdditionally, a new permission is required to access location information for uploaded images.\nMake sure that media access is set to \"Always allow all\".</string>
-    <string name="upload_gplay">Permission changes</string>
-    <string name="upload_gplay_desc">A new permission is required to access location information for uploaded images.\nMake sure that media access is set to \"Always allow all\".</string>
-    <string name="re_enable_auto_upload">Changes to auto upload</string>
-    <string name="re_enable_auto_upload_desc">Due to new restrictions imposed by Google, we have been forced to remove an important permission. We are currently working with Google to resolve this issue and restore full functionality.\n\nTo re-enable auto upload for new photos and videos:\nSelect \"Allow all\" in the following dialogue or the system settings.\nAllow media location when prompted, as this allows Nextcloud to store location data when uploading images.\n\nThe permissions dialogue is only displayed when necessary. If in doubt, check the system settings.\n\nAuto upload will only be able to upload image and video files when using the Google Play version of the Nextcloud app.\n\nPlease check for any files that may not have been uploaded since December 2024.</string>
-    <string name="click_to_learn_how_to_re_enable_auto_uploads">Manual intervention required to re-enable auto-upload</string>
     <string name="share_download_limit">Set download limit</string>
+    <string name="set_download_limit_failed">Unable to set download limit. Please check capabilities.</string>
     <string name="download_limit">Download limit</string>
     <plurals name="share_download_limit_description">
         <item quantity="one">%1$d download remaining</item>
@@ -1342,6 +1432,37 @@
     <string name="create_link">Create link</string>
     <string name="folder_best_viewed_in">This folder is best viewed in %1$s.</string>
     <string name="open_in_app">Open in %1$s</string>
+    <string name="auto_upload_battery_saver_mode_warning">Auto-upload is paused because Battery Saver is on.</string>
+    <string name="auto_upload_sub_folder_warning">This folder is already included in the parent folder’s sync, which may cause duplicate uploads</string>
+    <string name="sync_anyway">Sync anyway</string>
+    <string name="sync_duplication">Sync duplication</string>
+    <string name="server_not_reachable">Could not load content</string>
+    <string name="server_not_reachable_content">The device is likely not connected to the internet</string>
+    <string name="file_details_sharing_fragment_custom_permission_not_selected">Please select custom permission</string>
+    <string name="unknown">Unknown</string>
+    <string name="upload_missing_storage_permission_title">Upload Stopped – Storage Permission Required</string>
+    <string name="upload_missing_storage_permission_description">Your files cannot be uploaded without access to local storage. Tap to grant permission.</string>
+    <string name="upload_missing_storage_permission_allow_file_access">Allow all file access</string>
+    <string name="upload_missing_storage_permission_app_permissions">App permissions</string>
+    <string name="document_storage_provider_cannot_read">Can’t open item: missing read permission.</string>
+    <string name="document_storage_provider_cannot_delete">Can’t delete item: missing delete permission.</string>
+    <string name="document_storage_provider_cannot_rename">Can’t rename item: missing rename permission.</string>
+    <string name="document_storage_provider_cannot_move">Can’t move item: missing move permission.</string>
+    <string name="document_storage_provider_cannot_create_file_and_folder">Can’t create items here: missing create permission.</string>
+    <string name="document_storage_provider_cannot_create_file_inside_folder">Can’t create file: missing permission.</string>
+    <string name="document_storage_provider_cannot_create_folder_inside_folder">Can’t create folder: missing permission.</string>
+    <string name="link_not_followed_due_to_security_settings">Link not followed due to security settings.</string>
+    <string name="extented_list_fragment_empty_list_message_no_write_permission">You don’t have permission to create or upload files in this folder.</string>
+    <string name="busy">Busy</string>
+    <string name="mute_all_notifications">Mute all notifications</string>
+    <string name="appear_offline">Appear offline</string>
+    <string name="set_online_status">Online status</string>
+    <string name="clear">Clear</string>
+    <string name="set_message">Set message</string>
+    <string name="error_setting_status_message">Error setting status message!</string>
+    <string name="sort_folders_before_files">Sort folders before files</string>
+    <string name="sort_favorites_first">Sort favorites first</string>
+    <string name="prefs_category_files">Files</string>
     <string name="prefs_reset_push_title">Reset push notifications</string>
     <string name="prefs_reset_push_summary">Reset push notifications in case of push messaging issues or changing distributors</string>
     <string name="prefs_reset_push_done">Push notifications reset</string>

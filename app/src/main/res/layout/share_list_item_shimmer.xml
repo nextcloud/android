@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Nextcloud - Android Client
+  ~
+  ~ SPDX-FileCopyrightText: 2025 Alper Ozturk <alper.ozturk@nextcloud.com>
+  ~ SPDX-License-Identifier: AGPL-3.0-or-later
+  -->
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:paddingBottom="@dimen/standard_half_padding"
+    android:paddingEnd="@dimen/standard_padding"
+    android:paddingStart="@dimen/zero"
+    android:paddingTop="@dimen/standard_half_padding"
+    android:layout_weight="1">
+
+    <include layout="@layout/circle_shimmer" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/standard_half_margin"
+        android:orientation="vertical">
+
+        <com.elyeproj.loaderviewlibrary.LoaderTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:layout_marginBottom="4dp" />
+
+        <com.elyeproj.loaderviewlibrary.LoaderTextView
+            android:layout_width="@dimen/sharee_list_item_size"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+</LinearLayout>

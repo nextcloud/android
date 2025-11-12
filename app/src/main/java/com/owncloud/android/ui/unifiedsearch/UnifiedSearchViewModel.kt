@@ -28,21 +28,19 @@ import com.owncloud.android.ui.asynctasks.GetRemoteFileTask
 import javax.inject.Inject
 
 @Suppress("LongParameterList")
-class UnifiedSearchViewModel(application: Application) : AndroidViewModel(application), IUnifiedSearchViewModel {
+class UnifiedSearchViewModel(application: Application) :
+    AndroidViewModel(application),
+    IUnifiedSearchViewModel {
     companion object {
         private const val TAG = "UnifiedSearchViewModel"
         private const val FILES_PROVIDER_ID = "files"
     }
 
-    private data class UnifiedSearchMetadata(
-        var results: MutableList<SearchResult> = mutableListOf()
-    ) {
-        fun nextCursor(): Int? {
-            return try {
-                results.lastOrNull()?.cursor?.toInt()
-            } catch (e: NumberFormatException) {
-                null
-            }
+    private data class UnifiedSearchMetadata(var results: MutableList<SearchResult> = mutableListOf()) {
+        fun nextCursor(): Int? = try {
+            results.lastOrNull()?.cursor?.toInt()
+        } catch (e: NumberFormatException) {
+            null
         }
         fun name(): String? = results.lastOrNull()?.name
     }
@@ -158,19 +156,23 @@ class UnifiedSearchViewModel(application: Application) : AndroidViewModel(applic
         }
     }
 
-    fun openFile(fileUrl: String) {
+    override fun openFile(remotePath: String) {
         if (isLoading.value == false) {
             isLoading.value = true
-            val user = currentAccountProvider.user
-            val task = GetRemoteFileTask(
-                context,
-                fileUrl,
-                clientFactory.create(currentAccountProvider.user),
-                FileDataStorageManager(user, context.contentResolver),
-                user
-            )
-            runner.postQuickTask(task, onResult = this::onFileRequestResult)
+            getRemoteFile(remotePath)
         }
+    }
+
+    override fun getRemoteFile(remotePath: String) {
+        val user = currentAccountProvider.user
+        val task = GetRemoteFileTask(
+            context,
+            remotePath,
+            clientFactory.create(user),
+            FileDataStorageManager(user, context.contentResolver),
+            user
+        )
+        runner.postQuickTask(task, onResult = this::onFileRequestResult)
     }
 
     fun onError(error: Throwable) {

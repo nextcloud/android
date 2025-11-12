@@ -10,6 +10,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
+import androidx.activity.OnBackPressedCallback
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.nextcloud.client.di.Injectable
@@ -18,7 +19,9 @@ import com.owncloud.android.R
 import com.owncloud.android.ui.activity.ToolbarActivity
 import javax.inject.Inject
 
-class EtmActivity : ToolbarActivity(), Injectable {
+class EtmActivity :
+    ToolbarActivity(),
+    Injectable {
 
     companion object {
         @JvmStatic
@@ -44,25 +47,30 @@ class EtmActivity : ToolbarActivity(), Injectable {
                 onPageChanged(it)
             }
         )
+        handleOnBackPressed()
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            android.R.id.home -> {
-                if (!vm.onBackPressed()) {
-                    finish()
-                }
-                true
+    override fun onOptionsItemSelected(item: MenuItem): Boolean = when (item.itemId) {
+        android.R.id.home -> {
+            if (!vm.onBackPressed()) {
+                finish()
             }
-            else -> super.onOptionsItemSelected(item)
+            true
         }
+        else -> super.onOptionsItemSelected(item)
     }
 
-    @Deprecated("Deprecated in Java")
-    override fun onBackPressed() {
-        if (!vm.onBackPressed()) {
-            super.onBackPressed()
-        }
+    private fun handleOnBackPressed() {
+        onBackPressedDispatcher.addCallback(object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                val handledByVm = vm.onBackPressed()
+
+                if (!handledByVm) {
+                    isEnabled = false
+                    onBackPressedDispatcher.onBackPressed()
+                }
+            }
+        })
     }
 
     private fun onPageChanged(page: EtmMenuEntry?) {

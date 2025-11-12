@@ -34,15 +34,28 @@
 			android:key="synced_folders_configure_folders"/>
 	</PreferenceCategory>
 
+    <PreferenceCategory
+        android:title="@string/prefs_category_files"
+        android:key="files">
+        <com.owncloud.android.ui.ThemeableSwitchPreference
+            android:title="@string/prefs_show_hidden_files"
+            android:key="show_hidden_files" />
+        <com.owncloud.android.ui.ThemeableSwitchPreference
+            android:defaultValue="true"
+            android:title="@string/sort_folders_before_files"
+            android:key="sort_folders_before_files" />
+        <com.owncloud.android.ui.ThemeableSwitchPreference
+            android:defaultValue="true"
+            android:title="@string/sort_favorites_first"
+            android:key="sort_favorites_first" />
+    </PreferenceCategory>
+
 	<PreferenceCategory android:title="@string/prefs_category_details" android:key="details">
 		<com.owncloud.android.ui.ListPreferenceDialog
 			android:title="@string/prefs_lock"
 			android:key="lock"
 			android:dialogTitle="@string/prefs_lock_title"
 			android:defaultValue="none"/>
-		<com.owncloud.android.ui.ThemeableSwitchPreference
-			android:title="@string/prefs_show_hidden_files"
-			android:key="show_hidden_files"/>
         <com.owncloud.android.ui.ThemeableSwitchPreference
             android:defaultValue="true"
             android:title="@string/prefs_show_ecosystem_apps"

@@ -10,11 +10,10 @@
  */
 package com.owncloud.android.ui.adapter;
 
-import android.content.Context;
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Typeface;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
@@ -25,20 +24,15 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-import com.bumptech.glide.GenericRequestBuilder;
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.load.model.StreamEncoder;
-import com.bumptech.glide.load.resource.file.FileToStreamDecoder;
-import com.caverock.androidsvg.SVG;
 import com.google.android.material.button.MaterialButton;
 import com.nextcloud.android.common.ui.theme.utils.ColorRole;
 import com.nextcloud.common.NextcloudClient;
+import com.nextcloud.utils.GlideHelper;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.NotificationListItemBinding;
+import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.notifications.models.Action;
 import com.owncloud.android.lib.resources.notifications.models.Notification;
 import com.owncloud.android.lib.resources.notifications.models.RichObject;
@@ -47,12 +41,8 @@ import com.owncloud.android.ui.activity.NotificationsActivity;
 import com.owncloud.android.ui.asynctasks.DeleteNotificationTask;
 import com.owncloud.android.ui.asynctasks.NotificationExecuteActionTask;
 import com.owncloud.android.utils.DisplayUtils;
-import com.owncloud.android.utils.svg.SvgDecoder;
-import com.owncloud.android.utils.svg.SvgDrawableTranscoder;
-import com.owncloud.android.utils.svg.SvgSoftwareLayerSetter;
 import com.owncloud.android.utils.theme.ViewThemeUtils;
 
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -86,6 +76,7 @@ public class NotificationListAdapter extends RecyclerView.Adapter<NotificationLi
             notificationsActivity.getResources().getColor(R.color.text_color));
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     public void setNotificationItems(List<Notification> notificationItems) {
         notificationsList.clear();
         notificationsList.addAll(notificationItems);
@@ -141,7 +132,21 @@ public class NotificationListAdapter extends RecyclerView.Adapter<NotificationLi
         }
 
         if (!TextUtils.isEmpty(notification.getIcon())) {
-            downloadIcon(notification.getIcon(), holder.binding.icon, notificationsActivity);
+            new Thread(() -> {
+                {
+                    try {
+                        notificationsActivity.runOnUiThread(() -> GlideHelper.INSTANCE
+                            .loadIntoImageView(notificationsActivity,
+                                               client,
+                                               notification.getIcon(),
+                                               holder.binding.icon,
+                                               R.drawable.ic_notification,
+                                               false));
+                    } catch (Exception e) {
+                        Log_OC.e("RichDocumentsTemplateAdapter", "Exception setData: " + e);
+                    }
+                }
+            }).start();
         }
 
         viewThemeUtils.platform.colorImageView(holder.binding.icon, ColorRole.ON_SURFACE_VARIANT);
@@ -337,6 +342,7 @@ public class NotificationListAdapter extends RecyclerView.Adapter<NotificationLi
         }
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     public void removeAllNotifications() {
         notificationsList.clear();
         notifyDataSetChanged();
@@ -347,28 +353,6 @@ public class NotificationListAdapter extends RecyclerView.Adapter<NotificationLi
         for (int i = 0; i < holder.binding.buttons.getChildCount(); i++) {
             holder.binding.buttons.getChildAt(i).setEnabled(enabled);
         }
-    }
-
-    private void downloadIcon(String icon, ImageView itemViewType, Context context) {
-        GenericRequestBuilder<Uri, InputStream, SVG, Drawable> requestBuilder = Glide.with(notificationsActivity)
-            .using(Glide.buildStreamModelLoader(Uri.class, notificationsActivity), InputStream.class)
-            .from(Uri.class)
-            .as(SVG.class)
-            .transcode(new SvgDrawableTranscoder(context), Drawable.class)
-            .sourceEncoder(new StreamEncoder())
-            .cacheDecoder(new FileToStreamDecoder<>(new SvgDecoder()))
-            .decoder(new SvgDecoder())
-            .placeholder(R.drawable.ic_notification)
-            .error(R.drawable.ic_notification)
-            .animate(android.R.anim.fade_in)
-            .listener(new SvgSoftwareLayerSetter<>());
-
-
-        Uri uri = Uri.parse(icon);
-        requestBuilder
-            .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-            .load(uri)
-            .into(itemViewType);
     }
 
     @Override

@@ -9,6 +9,7 @@ package com.nextcloud.utils
 
 import android.app.Notification
 import android.app.Service
+import android.content.pm.ServiceInfo
 import android.os.Build
 import android.util.Log
 import androidx.core.app.ServiceCompat
@@ -32,7 +33,7 @@ object ForegroundServiceHelper {
                     service,
                     id,
                     notification,
-                    foregroundServiceType.getId()
+                    ServiceInfo.FOREGROUND_SERVICE_TYPE_DATA_SYNC
                 )
             } catch (e: Exception) {
                 Log.d(TAG, "Exception caught at ForegroundServiceHelper.startService: $e")
@@ -46,11 +47,9 @@ object ForegroundServiceHelper {
         id: Int,
         notification: Notification,
         foregroundServiceType: ForegroundServiceType
-    ): ForegroundInfo {
-        return if (isAboveOrEqualAndroid10) {
-            ForegroundInfo(id, notification, foregroundServiceType.getId())
-        } else {
-            ForegroundInfo(id, notification)
-        }
+    ): ForegroundInfo = if (isAboveOrEqualAndroid10) {
+        ForegroundInfo(id, notification, foregroundServiceType.getId())
+    } else {
+        ForegroundInfo(id, notification)
     }
 }

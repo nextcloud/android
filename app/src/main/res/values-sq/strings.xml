@@ -25,8 +25,6 @@
     <string name="activity_chooser_title">Dërgoni lidhje te…</string>
     <string name="activity_icon">Veprimtari</string>
     <string name="add_to_cloud">Shtojeni tek %1$s</string>
-    <string name="advanced_settings">Rregullime të mëtejshme</string>
-    <string name="allow_resharing">Lejo rindarje</string>
     <string name="appbar_search_in">Kërkoni në %s</string>
     <string name="associated_account_not_found">Llogaria e lidhur nuk u gjet!</string>
     <string name="auth_access_failed">Hyrja dështoi: %1$s</string>
@@ -78,6 +76,7 @@
     <string name="checkbox">Checkbox</string>
     <string name="choose_local_folder">Zgjidhni dosjen lokale…</string>
     <string name="choose_remote_folder">Zhgjidhni dosjen remote…</string>
+    <string name="clear">Pastro</string>
     <string name="clear_notifications_failed">Dështoi pastrimi i njoftimeve.</string>
     <string name="clipboard_label">Tekst i kopjuar prej %1$s</string>
     <string name="clipboard_no_text_to_copy">S’u mor tekst për t’u kopjuar në të papastër</string>
@@ -324,8 +323,6 @@
     <string name="invalid_url">URL e pavlefshme</string>
     <string name="invisible">I padukshëm</string>
     <string name="link">Link</string>
-    <string name="link_share_allow_upload_and_editing">Lejo ngarkim dhe editim</string>
-    <string name="link_share_file_drop">Lësho skedar (vetëm ngarkim)</string>
     <string name="list_layout">Strukturë e listuar</string>
     <string name="local_file_list_empty">Në këtë dosje s’ka skedar.</string>
     <string name="local_file_not_found_message">Skedari s’u gjet te sistemi vendor i skedarëve</string>
@@ -405,21 +402,16 @@
     <string name="permission_deny">Refuzo</string>
     <string name="permission_storage_access">Që të ngarkoni dhe shkarkoni skedar kërkohen leje shtesë.</string>
     <string name="picture_set_as_no_app">Nuk u gjet asnjë aplikacion për të vendosur foton</string>
-    <string name="placeholder_fileSize">389 KB</string>
-    <string name="placeholder_filename">placeholder.txt</string>
-    <string name="placeholder_media_time">12:23:45</string>
-    <string name="placeholder_sentence">Kjo është një vendmbajtëse</string>
-    <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
     <string name="power_save_check_dialog_message">Çaktivizimi i kontrollit të ruajtjes së energjisë mund të rezultojë në ngarkimin e skedarëve kur gjendeni në gjendje të ulët të baterisë!</string>
     <string name="pref_behaviour_entries_delete_file">të fshira</string>
     <string name="pref_behaviour_entries_keep_file">mbajtur në dosjen origjinale</string>
     <string name="pref_behaviour_entries_move">u kalua te dosja e aplikacionit</string>
     <string name="prefs_add_account">Shtoni llogari</string>
     <string name="prefs_calendar_contacts_no_store_error">Nuk janë instaluar as Google Play Store as F-Droid</string>
-    <string name="prefs_calendar_contacts_summary">Konfiguro DAVx5 (i njohur më parë si DAVdroid) (v1.3.0+) për llogarinë rrjedhëse</string>
     <string name="prefs_category_about">Rreth </string>
     <string name="prefs_category_details">Hollësi</string>
     <string name="prefs_category_dev">Dev</string>
+    <string name="prefs_category_files">Skedarë</string>
     <string name="prefs_category_general">Të përgjithshme</string>
     <string name="prefs_category_more">Më tepër</string>
     <string name="prefs_category_sync">Sinkronizo</string>
@@ -486,7 +478,6 @@
     <string name="screenshot_04_accounts_heading">Të gjitha llogaritë tuaja</string>
     <string name="screenshot_04_accounts_subline">në një vend</string>
     <string name="screenshot_05_autoUpload_heading">Ngarkimi automatik</string>
-    <string name="screenshot_06_davdroid_subline">Sinkronizo me DAVx5</string>
     <string name="select_all">Zgjidhi të gjitha</string>
     <string name="select_template">Zgjidh shabllonin</string>
     <string name="send">Dërgo</string>
@@ -494,8 +485,10 @@
     <string name="set_as">Vendos Si</string>
     <string name="set_picture_as">Vendos fotografinë</string>
     <string name="share">Ndaje</string>
+    <string name="share_create_permission">Krijo</string>
+    <string name="share_delete_permission">Fshi</string>
     <string name="share_dialog_title">Ndarje me të tjerët</string>
-    <string name="share_expiration_date_label">Skadon%1$s</string>
+    <string name="share_edit_permission">Përpuno</string>
     <string name="share_file">Ndajeni %1$s</string>
     <string name="share_group_clarification">%1$s (grup)</string>
     <string name="share_internal_link">Shpërnda linkun e brendshëm</string>
@@ -508,8 +501,9 @@
     <string name="share_link_password_title">Jepni një fjalëkalim</string>
     <string name="share_no_expiration_date_label">Caktoni datë skadimi</string>
     <string name="share_no_password_title">Vendos fjalëkalimin</string>
-    <string name="share_password_title">Mbrojtur me fjalëkalim</string>
     <string name="share_permission_can_edit">Can edit</string>
+    <string name="share_re_share_permission">Ndaj</string>
+    <string name="share_read_permission">Lexoni</string>
     <string name="share_remote_clarification">%1$s (i largët)</string>
     <string name="share_room_clarification">%1$s (bisedë)</string>
     <string name="share_send_note">Shënim për marrësin</string>
@@ -612,6 +606,7 @@
     <string name="trashbin_file_not_restored">Skeda %1$snuk mund të rikthehej!</string>
     <string name="trashbin_file_remove">Fshije përgjithmonë</string>
     <string name="trashbin_not_emptied">Skedarët nuk mund të fshihen përgjithmonë!</string>
+    <string name="unknown">I panjohur</string>
     <string name="unread_comments">Ekzistojnë komente të palexuara</string>
     <string name="unset_encrypted">Hiq enkriptimin</string>
     <string name="unset_favorite">Hiqeni nga të parapëlqyerat</string>
@@ -634,6 +629,7 @@
     <string name="upload_file_dialog_title">Vendos emrin dhe tipin e dokumentit të aploduar </string>
     <string name="upload_files">Ngarko skedarët</string>
     <string name="upload_item_action_button">Butoni i veprimit të ngarkimit të një artikulli</string>
+    <string name="upload_list_cancel_upload">Anullo ngarkimin</string>
     <string name="upload_list_delete">Delete</string>
     <string name="upload_list_empty_headline">Nuk ka asnjë ngarkim në gjëndje</string>
     <string name="upload_list_empty_text_auto_upload">Ngarko disa përmbajtje ose aktivizo ngarkimin direkt. </string>

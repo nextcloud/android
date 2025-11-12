@@ -32,9 +32,11 @@ import com.nextcloud.client.jobs.transfer.TransferManagerConnection;
 import com.nextcloud.client.jobs.transfer.TransferState;
 import com.nextcloud.client.network.ClientFactory;
 import com.nextcloud.utils.extensions.BundleExtensionsKt;
+import com.nextcloud.utils.extensions.IntExtensionsKt;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.BackuplistFragmentBinding;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.activity.ContactsPreferenceActivity;
 import com.owncloud.android.ui.asynctasks.LoadContactsTask;
 import com.owncloud.android.ui.events.VCardToggleEvent;
@@ -43,10 +45,12 @@ import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.PermissionUtil;
 import com.owncloud.android.utils.theme.ViewThemeUtils;
 
+import org.apache.commons.io.FileUtils;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -336,20 +340,51 @@ public class BackupListFragment extends FileFragment implements Injectable {
     }
 
     private void importContacts(ContactsAccount account) {
-        backgroundJobManager.startImmediateContactsImport(account.getName(),
-                                                          account.getType(),
+        final var selectedContractsFilePath = writeCheckedContractsInCacheDir();
+        if (selectedContractsFilePath == null) {
+            Snackbar.make(binding.list, R.string.contacts_preferences_import_scheduled_fail, Snackbar.LENGTH_LONG).show();
+            return;
+        }
+
+        String name = null;
+        String type = null;
+        if (account != null) {
+            name = account.getName();
+            type = account.getType();
+        }
+
+        backgroundJobManager.startImmediateContactsImport(name,
+                                                          type,
                                                           getFile().getStoragePath(),
-                                                          listAdapter.getCheckedContactsIntArray());
+                                                          selectedContractsFilePath);
 
-        Snackbar
-            .make(
-                binding.list,
-                R.string.contacts_preferences_import_scheduled,
-                Snackbar.LENGTH_LONG
-                 )
-            .show();
-
+        Snackbar.make(binding.list, R.string.contacts_preferences_import_scheduled, Snackbar.LENGTH_LONG).show();
         closeFragment();
+    }
+
+
+    /**
+     * Writes a HashSet of integers to a temporary file in the app's cache directory.
+     * The file stores the data as a comma-separated string. This is necessary because
+     * WorkManager cannot handle large data directly due to its size limit.
+     *
+     * @return the absolute file path of the temporary cache file
+     */
+    private String writeCheckedContractsInCacheDir() {
+        try {
+            final var filename = "selectedContacts-" + System.currentTimeMillis();
+            File file = new File(requireContext().getCacheDir(), filename + ".txt");
+
+            final var contracts = listAdapter.getCheckedContactsIntArray();
+            final var contractsAsByteArray = IntExtensionsKt.toByteArray(contracts);
+
+            FileUtils.writeByteArrayToFile(file, contractsAsByteArray);
+
+            return file.getAbsolutePath();
+        } catch (Exception e) {
+            Log_OC.e(TAG, "Exception writeCheckedContractsInCacheDir: " + e);
+            return null;
+        }
     }
 
     private void importCalendar() {
@@ -369,7 +404,7 @@ public class BackupListFragment extends FileFragment implements Injectable {
     private void closeFragment() {
         ContactsPreferenceActivity contactsPreferenceActivity = (ContactsPreferenceActivity) getActivity();
         if (contactsPreferenceActivity != null) {
-            contactsPreferenceActivity.onBackPressed();
+            contactsPreferenceActivity.getOnBackPressedDispatcher().onBackPressed();
         }
     }
 

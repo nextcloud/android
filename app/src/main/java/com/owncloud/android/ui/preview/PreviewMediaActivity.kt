@@ -22,16 +22,12 @@ import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.AsyncTask
-import android.os.Build
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
-import android.widget.LinearLayout
 import androidx.annotation.OptIn
 import androidx.annotation.StringRes
 import androidx.appcompat.content.res.AppCompatResources
@@ -47,6 +43,7 @@ import androidx.core.view.WindowInsetsControllerCompat
 import androidx.core.view.marginBottom
 import androidx.core.view.updateLayoutParams
 import androidx.core.view.updatePadding
+import androidx.lifecycle.lifecycleScope
 import androidx.media3.common.MediaItem
 import androidx.media3.common.MediaMetadata
 import androidx.media3.common.PlaybackException
@@ -72,13 +69,12 @@ import com.nextcloud.client.media.ExoplayerListener
 import com.nextcloud.client.media.NextcloudExoPlayer.createNextcloudExoplayer
 import com.nextcloud.client.network.ClientFactory
 import com.nextcloud.client.network.ClientFactory.CreationException
-import com.nextcloud.common.NextcloudClient
+import com.nextcloud.ui.fileactions.FileAction
 import com.nextcloud.ui.fileactions.FileActionsBottomSheet.Companion.newInstance
 import com.nextcloud.ui.fileactions.FileActionsBottomSheet.ResultListener
 import com.nextcloud.utils.extensions.getParcelableArgument
 import com.nextcloud.utils.extensions.logFileSize
 import com.nextcloud.utils.extensions.setTitleColor
-import com.nextcloud.utils.extensions.statusBarHeight
 import com.owncloud.android.R
 import com.owncloud.android.databinding.ActivityPreviewMediaBinding
 import com.owncloud.android.datamodel.OCFile
@@ -101,8 +97,10 @@ import com.owncloud.android.ui.fragment.OCFileListFragment
 import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.ErrorMessageAdapter
 import com.owncloud.android.utils.MimeTypeUtil
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.lang.ref.WeakReference
-import java.util.concurrent.Executors
 import javax.inject.Inject
 
 /**
@@ -144,19 +142,13 @@ class PreviewMediaActivity :
     private var videoMediaSession: MediaSession? = null
     private var audioMediaController: MediaController? = null
     private var mediaControllerFuture: ListenableFuture<MediaController>? = null
-    private var nextcloudClient: NextcloudClient? = null
     private lateinit var windowInsetsController: WindowInsetsControllerCompat
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.O) {
-            setTheme(R.style.Theme_ownCloud_Toolbar)
-        }
-
         binding = ActivityPreviewMediaBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
         setSupportActionBar(binding.materialToolbar)
         WindowCompat.setDecorFitsSystemWindows(window, false)
         applyWindowInsets()
@@ -176,7 +168,6 @@ class PreviewMediaActivity :
         configureSystemBars()
         emptyListView = binding.emptyView.emptyListView
         showProgressLayout()
-        addMarginForEmptyView()
         if (file == null) {
             return
         }
@@ -191,21 +182,6 @@ class PreviewMediaActivity :
             setPackage(packageName)
         }
         sendBroadcast(intent)
-    }
-
-    private fun addMarginForEmptyView() {
-        val layoutParams = emptyListView?.layoutParams ?: return
-        val statusBarHeight = statusBarHeight().toFloat()
-        val marginTop = DisplayUtils.convertDpToPixel(statusBarHeight, this)
-        when (layoutParams) {
-            is LinearLayout.LayoutParams -> layoutParams.setMargins(0, marginTop, 0, 0)
-            is FrameLayout.LayoutParams -> layoutParams.setMargins(0, marginTop, 0, 0)
-            else -> {
-                Log_OC.e(TAG, "Unsupported LayoutParams type: ${layoutParams::class.java.simpleName}")
-                return
-            }
-        }
-        emptyListView?.layoutParams = layoutParams
     }
 
     private fun initArguments(savedInstanceState: Bundle?) {
@@ -285,12 +261,6 @@ class PreviewMediaActivity :
         binding.emptyView.emptyListView.visibility = View.GONE
     }
 
-    private fun hideProgressLayout() {
-        binding.progress.visibility = View.GONE
-        binding.audioControllerView.visibility = View.VISIBLE
-        binding.emptyView.emptyListView.visibility = View.VISIBLE
-    }
-
     private fun setErrorMessage(headline: String, @StringRes message: Int) {
         binding.emptyView.run {
             emptyListViewHeadline.text = headline
@@ -298,9 +268,10 @@ class PreviewMediaActivity :
             emptyListIcon.setImageResource(R.drawable.file_movie)
             emptyListViewText.visibility = View.VISIBLE
             emptyListIcon.visibility = View.VISIBLE
-
-            hideProgressLayout()
+            emptyListView.visibility = View.VISIBLE
         }
+
+        binding.progress.visibility = View.GONE
     }
 
     private fun setGenericThumbnail() {
@@ -357,31 +328,27 @@ class PreviewMediaActivity :
     }
 
     private fun initializeVideoPlayer() {
-        val handler = Handler(Looper.getMainLooper())
-        Executors.newSingleThreadExecutor().execute {
-            try {
-                nextcloudClient = clientFactory.createNextcloudClient(accountManager.user)
+        lifecycleScope.launch(Dispatchers.IO) {
+            val client = clientRepository.getNextcloudClient() ?: return@launch
 
-                nextcloudClient?.let { client ->
-                    handler.post {
-                        videoPlayer = createNextcloudExoplayer(this, client)
-                        videoMediaSession = MediaSession.Builder(this, videoPlayer as Player).build()
+            withContext(Dispatchers.Main) {
+                videoPlayer = createNextcloudExoplayer(this@PreviewMediaActivity, client)
+                val uniqueSessionId = "preview_session_" + System.currentTimeMillis()
+                videoMediaSession = MediaSession.Builder(this@PreviewMediaActivity, videoPlayer as Player)
+                    .setId(uniqueSessionId)
+                    .build()
 
-                        videoPlayer?.let { player ->
-                            player.addListener(
-                                ExoplayerListener(
-                                    this,
-                                    binding.exoplayerView,
-                                    player
-                                )
-                            )
+                videoPlayer?.run {
+                    addListener(
+                        ExoplayerListener(
+                            this@PreviewMediaActivity,
+                            binding.exoplayerView,
+                            this
+                        )
+                    )
 
-                            playVideo()
-                        }
-                    }
+                    playVideo()
                 }
-            } catch (e: CreationException) {
-                handler.post { Log_OC.e(TAG, "error setting up ExoPlayer", e) }
             }
         }
     }
@@ -417,25 +384,27 @@ class PreviewMediaActivity :
 
     @Suppress("TooGenericExceptionCaught")
     private fun playAudio() {
-        if (file.isDown) {
-            prepareAudioPlayer(file.storageUri)
+        if (file?.isDown == true) {
+            prepareAudioPlayer(file?.storageUri)
         } else {
             try {
-                LoadStreamUrl(this, user, clientFactory).execute(file.localId)
+                LoadStreamUrl(this, user, clientFactory).execute(file?.localId)
             } catch (e: Exception) {
                 Log_OC.e(TAG, "Loading stream url for Audio not possible: $e")
             }
         }
     }
 
-    private fun prepareAudioPlayer(uri: Uri) {
+    private fun prepareAudioPlayer(uri: Uri?) {
+        uri ?: return
         audioMediaController?.let { audioPlayer ->
             audioPlayer.addListener(object : Player.Listener {
 
                 override fun onPlaybackStateChanged(playbackState: Int) {
                     super.onPlaybackStateChanged(playbackState)
                     if (playbackState == Player.STATE_READY) {
-                        hideProgressLayout()
+                        binding.progress.visibility = View.GONE
+                        binding.audioControllerView.visibility = View.VISIBLE
                         binding.emptyView.emptyListView.visibility = View.GONE
                     }
                 }
@@ -466,20 +435,13 @@ class PreviewMediaActivity :
             })
             val mediaItem = MediaItem.Builder()
                 .setUri(uri)
-                .setMediaMetadata(MediaMetadata.Builder().setTitle(file.fileName).build())
+                .setMediaMetadata(MediaMetadata.Builder().setTitle(file?.fileName).build())
                 .build()
             audioPlayer.setMediaItem(mediaItem)
             audioPlayer.playWhenReady = autoplay
             audioPlayer.seekTo(savedPlaybackPosition)
             audioPlayer.prepare()
         }
-    }
-
-    private fun releaseAudioPlayer() {
-        audioMediaController?.let { audioPlayer ->
-            audioPlayer.release()
-        }
-        audioMediaController = null
     }
 
     private fun initWindowInsetsController() {
@@ -493,8 +455,8 @@ class PreviewMediaActivity :
 
     private fun applyWindowInsets() {
         val playerView = binding.exoplayerView
-        val exoControls = playerView.findViewById<FrameLayout>(R.id.exo_bottom_bar)
-        val exoProgress = playerView.findViewById<DefaultTimeBar>(R.id.exo_progress)
+        val exoControls = playerView.findViewById<FrameLayout>(androidx.media3.ui.R.id.exo_bottom_bar)
+        val exoProgress = playerView.findViewById<DefaultTimeBar>(androidx.media3.ui.R.id.exo_progress)
         val progressBottomMargin = exoProgress.marginBottom
 
         ViewCompat.setOnApplyWindowInsetsListener(binding.root) { _, windowInsets ->
@@ -572,20 +534,7 @@ class PreviewMediaActivity :
     }
 
     private fun showFileActions(file: OCFile) {
-        val additionalFilter: MutableList<Int> =
-            mutableListOf(
-                R.id.action_rename_file,
-                R.id.action_sync_file,
-                R.id.action_move_or_copy,
-                R.id.action_favorite,
-                R.id.action_unset_favorite,
-                R.id.action_pin_to_homescreen
-            )
-
-        if (getFile() != null && getFile().isSharedWithMe && !getFile().canReshare()) {
-            additionalFilter.add(R.id.action_send_share_file)
-        }
-
+        val additionalFilter = FileAction.getFilePreviewActions(getFile())
         newInstance(file, false, additionalFilter)
             .setResultListener(
                 supportFragmentManager,
@@ -602,7 +551,11 @@ class PreviewMediaActivity :
     private fun onFileActionChosen(itemId: Int) {
         when (itemId) {
             R.id.action_send_share_file -> {
-                sendShareFile()
+                sendShareFile(null)
+            }
+
+            R.id.action_send_file -> {
+                sendShareFile(true)
             }
 
             R.id.action_open_file_with -> {
@@ -611,8 +564,8 @@ class PreviewMediaActivity :
 
             R.id.action_remove_file -> {
                 videoPlayer?.pause()
-                val dialog = RemoveFilesDialogFragment.newInstance(file)
-                dialog.show(supportFragmentManager, ConfirmationDialogFragment.FTAG_CONFIRMATION)
+                val dialog = file?.let { RemoveFilesDialogFragment.newInstance(it) }
+                dialog?.show(supportFragmentManager, ConfirmationDialogFragment.FTAG_CONFIRMATION)
             }
 
             R.id.action_see_details -> {
@@ -620,6 +573,7 @@ class PreviewMediaActivity :
             }
 
             R.id.action_sync_file -> {
+                showSyncLoadingDialog(file?.isFolder == true)
                 fileOperationsHelper.syncFile(file)
             }
 
@@ -633,7 +587,7 @@ class PreviewMediaActivity :
 
             R.id.action_export_file -> {
                 val list = ArrayList<OCFile>()
-                list.add(file)
+                file?.let { list.add(it) }
                 fileOperationsHelper.exportFiles(
                     list,
                     this,
@@ -706,27 +660,33 @@ class PreviewMediaActivity :
         showDetails(file)
     }
 
-    private fun sendShareFile() {
+    private fun sendShareFile(hideNCSharingOption: Boolean?) {
         stopPreview(false)
-        fileOperationsHelper.sendShareFile(file)
+
+        if (hideNCSharingOption != null) {
+            fileOperationsHelper.sendShareFile(file, hideNCSharingOption)
+        } else {
+            fileOperationsHelper.sendShareFile(file)
+        }
     }
 
     @Suppress("TooGenericExceptionCaught")
     private fun playVideo() {
         setupVideoView()
 
-        if (file.isDown) {
-            prepareVideoPlayer(file.storageUri)
+        if (file?.isDown == true) {
+            prepareVideoPlayer(file?.storageUri)
         } else {
             try {
-                LoadStreamUrl(this, user, clientFactory).execute(file.localId)
+                LoadStreamUrl(this, user, clientFactory).execute(file?.localId)
             } catch (e: Exception) {
                 Log_OC.e(TAG, "Loading stream url for Video not possible: $e")
             }
         }
     }
 
-    private fun prepareVideoPlayer(uri: Uri) {
+    private fun prepareVideoPlayer(uri: Uri?) {
+        uri ?: return
         binding.progress.visibility = View.GONE
         val videoMediaItem = MediaItem.fromUri(uri)
         videoPlayer?.run {
@@ -889,8 +849,7 @@ class PreviewMediaActivity :
          * @param file File to test if can be previewed.
          * @return 'True' if the file can be handled by the activity.
          */
-        fun canBePreviewed(file: OCFile?): Boolean {
-            return file != null && (MimeTypeUtil.isAudio(file) || MimeTypeUtil.isVideo(file))
-        }
+        fun canBePreviewed(file: OCFile?): Boolean =
+            file != null && (MimeTypeUtil.isAudio(file) || MimeTypeUtil.isVideo(file))
     }
 }

@@ -41,7 +41,7 @@
                 android:ellipsize="middle"
                 android:maxLines="2"
                 android:textColor="?android:attr/textColorSecondary"
-                tools:text="For /storage/emulated/0/DCIM/Camera" />
+                tools:text="@string/placeholder_auto_upload_overview_path" />
         </LinearLayout>
 
         <LinearLayout
@@ -143,7 +143,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:ellipsize="marquee"
-                        android:maxLines="2"
                         android:text="@string/auto_upload_on_wifi"
                         android:textAppearance="?attr/textAppearanceListItem" />
                 </RelativeLayout>
@@ -182,7 +181,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:ellipsize="marquee"
-                        android:maxLines="2"
                         android:text="@string/instant_upload_on_charging"
                         android:textAppearance="?attr/textAppearanceListItem" />
                 </RelativeLayout>
@@ -259,7 +257,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:ellipsize="marquee"
-                        android:maxLines="2"
                         android:text="@string/prefs_instant_upload_path_use_subfolders_title"
                         android:textAppearance="?attr/textAppearanceListItem" />
 
@@ -270,7 +267,6 @@
                         android:layout_below="@id/setting_instant_upload_path_use_subfolders_label"
                         android:layout_alignStart="@id/setting_instant_upload_path_use_subfolders_label"
                         android:ellipsize="end"
-                        android:maxLines="2"
                         android:text="@string/prefs_instant_upload_path_use_date_subfolders_summary"
                         android:textColor="?android:attr/textColorSecondary" />
                 </RelativeLayout>
@@ -310,7 +306,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:ellipsize="marquee"
-                        android:maxLines="2"
                         android:text="@string/prefs_instant_upload_exclude_hidden_title"
                         android:textAppearance="?attr/textAppearanceListItem" />
 
@@ -321,7 +316,6 @@
                         android:layout_below="@id/setting_instant_upload_exclude_hidden_label"
                         android:layout_alignStart="@id/setting_instant_upload_exclude_hidden_label"
                         android:ellipsize="end"
-                        android:maxLines="2"
                         android:text="@string/prefs_instant_upload_exclude_hidden_summary"
                         android:textColor="?android:attr/textColorSecondary" />
                 </RelativeLayout>
@@ -360,7 +354,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:ellipsize="marquee"
-                    android:maxLines="2"
                     android:text="@string/prefs_instant_upload_subfolder_rule_title"
                     android:textAppearance="?attr/textAppearanceListItem" />
 
@@ -388,7 +381,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:ellipsize="marquee"
-                    android:maxLines="2"
                     android:text="@string/prefs_instant_behaviour_title"
                     android:textAppearance="?attr/textAppearanceListItem" />
 
@@ -397,7 +389,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:ellipsize="end"
-                    android:maxLines="2"
                     android:text="@string/placeholder_filename"
                     android:textColor="?android:attr/textColorSecondary" />
             </LinearLayout>
@@ -418,7 +409,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:ellipsize="marquee"
-                    android:maxLines="2"
                     android:text="@string/pref_instant_name_collision_policy_title"
                     android:textAppearance="?attr/textAppearanceListItem" />
 
@@ -427,7 +417,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:ellipsize="end"
-                    android:maxLines="2"
                     android:text="@string/placeholder_filename"
                     android:textColor="?android:attr/textColorSecondary" />
             </LinearLayout>

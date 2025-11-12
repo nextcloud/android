@@ -43,7 +43,7 @@ class TextEditorWebView : EditorWebView() {
             finish()
         }
 
-        val editor = editorUtils.getEditor(user.get(), file.mimeType)
+        val editor = editorUtils.getEditor(user.get(), file?.mimeType)
 
         if (editor != null && editor.id == "onlyoffice") {
             webView.settings.userAgentString = generateOnlyOfficeUserAgent()
@@ -61,7 +61,7 @@ class TextEditorWebView : EditorWebView() {
             WebSettingsCompat.setForceDark(webView.settings, WebSettingsCompat.FORCE_DARK_ON)
         }
 
-        webView.setDownloadListener { url, _, _, _, _ -> downloadFile(url.toUri()) }
+        webView.setDownloadListener { url, _, _, _, _ -> downloadFile(url.toUri(), fileName) }
 
         loadUrl(intent.getStringExtra(EXTRA_URL))
     }

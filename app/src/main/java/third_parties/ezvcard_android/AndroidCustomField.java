@@ -17,7 +17,7 @@ import ezvcard.property.VCardProperty;
 public class AndroidCustomField extends VCardProperty {
     private String type;
     private boolean dir;
-    private List<String> values = new ArrayList<String>();
+    private List<String> values = new ArrayList<>();
 
     /**
      * Creates an "item" field.

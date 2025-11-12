@@ -170,7 +170,7 @@ class RichDocumentsEditorWebView : EditorWebView() {
                 when (downloadJson.getString(TYPE)) {
                     PRINT -> printFile(url)
                     SLIDESHOW -> showSlideShow(url)
-                    else -> downloadFile(url)
+                    else -> downloadFile(url, fileName)
                 }
             } catch (e: JSONException) {
                 Log_OC.e(this, "Failed to parse download json message: $e")
@@ -185,7 +185,7 @@ class RichDocumentsEditorWebView : EditorWebView() {
                 renameString ?: return
                 val renameJson = JSONObject(renameString)
                 val newName = renameJson.getString(NEW_NAME)
-                file.fileName = newName
+                file?.fileName = newName
             } catch (e: JSONException) {
                 Log_OC.e(this, "Failed to parse rename json message: $e")
             }

@@ -16,6 +16,7 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
 import android.net.Uri;
+import android.os.Environment;
 import android.os.Handler;
 import android.view.View;
 import android.webkit.JavascriptInterface;
@@ -75,7 +76,7 @@ public abstract class EditorWebView extends ExternalSiteWebView {
             new WebViewUtil().setProxyKKPlus(this.getWebView());
             try {
                 Thread.sleep(1000);
-            } catch (InterruptedException e) {
+            } catch (InterruptedException ignored) {
             }
 
             if (!url.equals(this.getWebView().getUrl())) {
@@ -283,7 +284,7 @@ public abstract class EditorWebView extends ExternalSiteWebView {
         }
     }
 
-    protected void downloadFile(Uri url) {
+    protected void downloadFile(Uri url, String fileName) {
         DownloadManager downloadmanager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
 
         if (downloadmanager == null) {
@@ -294,6 +295,10 @@ public abstract class EditorWebView extends ExternalSiteWebView {
         DownloadManager.Request request = new DownloadManager.Request(url);
         request.allowScanningByMediaScanner();
         request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+
+        // change the name file and your current activity.
+        request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, fileName);
+
 
         downloadmanager.enqueue(request);
     }

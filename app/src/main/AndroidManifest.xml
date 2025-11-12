@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ Nextcloud - Android Client
   ~
   ~ SPDX-FileCopyrightText: 2024 TSI-mc <surinder.kumar@t-systems.com>
@@ -53,8 +52,10 @@
     must request the FOREGROUND_SERVICE permission
     -->
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" /> <!-- Runtime permissions introduced in Android 13 (API level 33) -->
-    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
-    <uses-permission android:name="android.permission.READ_MEDIA_VIDEO" /> <!-- Needed for Android 14 (API level 34) -->
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES"
+        tools:ignore="PhotoAndVideoPolicy,SelectedPhotoAccess" />
+    <uses-permission android:name="android.permission.READ_MEDIA_VIDEO"
+        tools:ignore="PhotoAndVideoPolicy,SelectedPhotoAccess" /> <!-- Needed for Android 14 (API level 34) -->
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC" />
     <!--
@@ -112,6 +113,7 @@
         android:name=".MainApp"
         android:allowBackup="false"
         android:dataExtractionRules="@xml/backup_rules"
+        android:enableOnBackInvokedCallback="true"
         android:fullBackupContent="@xml/backup_config"
         android:icon="@mipmap/ic_launcher"
         android:installLocation="internalOnly"
@@ -121,13 +123,13 @@
         android:requestLegacyExternalStorage="true"
         android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
-        android:enableOnBackInvokedCallback="false"
         android:theme="@style/Theme.ownCloud.Toolbar"
         android:usesCleartextTraffic="true"
         tools:ignore="UnusedAttribute"
         tools:replace="android:allowBackup">
 
-        <meta-data android:name="android.content.APP_RESTRICTIONS"
+        <meta-data
+            android:name="android.content.APP_RESTRICTIONS"
             android:resource="@xml/app_config" />
 
         <activity
@@ -159,7 +161,9 @@
                 <category android:name="android.intent.category.BROWSABLE" />
 
                 <data android:scheme="http" />
-                <data android:host="*" />
+                <data
+                    android:host="*"
+                    tools:ignore="AppLinkUrlError" />
                 <data android:pathPattern="/f/..*" />
             </intent-filter>
             <intent-filter android:autoVerify="true">
@@ -169,7 +173,9 @@
                 <category android:name="android.intent.category.BROWSABLE" />
 
                 <data android:scheme="http" />
-                <data android:host="*" />
+                <data
+                    android:host="*"
+                    tools:ignore="AppLinkUrlError" />
                 <data android:pathPattern="/..*/f/..*" />
             </intent-filter>
             <intent-filter android:autoVerify="true">
@@ -179,7 +185,9 @@
                 <category android:name="android.intent.category.BROWSABLE" />
 
                 <data android:scheme="http" />
-                <data android:host="*" />
+                <data
+                    android:host="*"
+                    tools:ignore="AppLinkUrlError" />
                 <data android:pathPattern="/..*/..*/f/..*" />
             </intent-filter>
             <intent-filter android:autoVerify="true">
@@ -189,7 +197,9 @@
                 <category android:name="android.intent.category.BROWSABLE" />
 
                 <data android:scheme="http" />
-                <data android:host="*" />
+                <data
+                    android:host="*"
+                    tools:ignore="AppLinkUrlError" />
                 <data android:pathPattern="/..*/..*/..*/f/..*" />
             </intent-filter>
             <intent-filter android:autoVerify="true">
@@ -199,7 +209,9 @@
                 <category android:name="android.intent.category.BROWSABLE" />
 
                 <data android:scheme="https" />
-                <data android:host="*" />
+                <data
+                    android:host="*"
+                    tools:ignore="AppLinkUrlError" />
                 <data android:pathPattern="/f/..*" />
             </intent-filter>
             <intent-filter android:autoVerify="true">
@@ -209,7 +221,9 @@
                 <category android:name="android.intent.category.BROWSABLE" />
 
                 <data android:scheme="https" />
-                <data android:host="*" />
+                <data
+                    android:host="*"
+                    tools:ignore="AppLinkUrlError" />
                 <data android:pathPattern="/..*/f/..*" />
             </intent-filter>
             <intent-filter android:autoVerify="true">
@@ -219,7 +233,9 @@
                 <category android:name="android.intent.category.BROWSABLE" />
 
                 <data android:scheme="https" />
-                <data android:host="*" />
+                <data
+                    android:host="*"
+                    tools:ignore="AppLinkUrlError" />
                 <data android:pathPattern="/..*/..*/f/..*" />
             </intent-filter>
             <intent-filter android:autoVerify="true">
@@ -229,7 +245,9 @@
                 <category android:name="android.intent.category.BROWSABLE" />
 
                 <data android:scheme="https" />
-                <data android:host="*" />
+                <data
+                    android:host="*"
+                    tools:ignore="AppLinkUrlError" />
                 <data android:pathPattern="/..*/..*/..*/f/..*" />
                 <!-- path pattern to handle deep link -->
                 <data android:pathPattern="/app/..*" />
@@ -270,10 +288,16 @@
             tools:replace="android:exported" />
 
         <receiver
-            android:name="com.nextcloud.receiver.OfflineOperationActionReceiver"
+            android:name="com.nextcloud.client.jobs.offlineOperations.receiver.OfflineOperationReceiver"
+            android:exported="false" />
+        <receiver
+            android:name=".operations.upload.UploadFileBroadcastReceiver"
             android:exported="false" />
         <receiver
             android:name="com.nextcloud.client.jobs.MediaFoldersDetectionWork$NotificationReceiver"
+            android:exported="false" />
+        <receiver
+            android:name="com.nextcloud.client.jobs.upload.FileUploadBroadcastReceiver"
             android:exported="false" />
         <receiver
             android:name="com.nextcloud.client.jobs.NotificationWork$NotificationReceiver"
@@ -346,6 +370,7 @@
         </activity>
         <activity
             android:name=".ui.activity.SettingsActivity"
+            android:enableOnBackInvokedCallback="false"
             android:exported="false"
             android:theme="@style/PreferenceTheme" />
         <activity
@@ -360,11 +385,11 @@
 
         <service
             android:name="com.nextcloud.client.media.BackgroundPlayerService"
-            android:foregroundServiceType="mediaPlayback"
             android:exported="true"
+            android:foregroundServiceType="mediaPlayback"
             tools:ignore="ExportedService">
             <intent-filter>
-                <action android:name="androidx.media3.session.MediaSessionService"/>
+                <action android:name="androidx.media3.session.MediaSessionService" />
             </intent-filter>
         </service>
 
@@ -578,6 +603,10 @@
             </intent-filter>
         </receiver>
 
+        <receiver
+            android:name="com.nextcloud.client.jobs.folderDownload.FolderDownloadWorkerReceiver"
+            android:exported="false" />
+
         <activity
             android:name=".ui.activity.CopyToClipboardActivity"
             android:exported="false"
@@ -610,8 +639,7 @@
         <activity
             android:name=".ui.activity.ManageSpaceActivity"
             android:exported="false"
-            android:label="@string/manage_space_title"
-            android:theme="@style/Theme.ownCloud" />
+            android:label="@string/manage_space_title" />
 
         <service
             android:name=".services.AccountManagerService"

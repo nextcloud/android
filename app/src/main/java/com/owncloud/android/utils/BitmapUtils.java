@@ -16,7 +16,6 @@ import android.graphics.BitmapFactory;
 import android.graphics.BitmapFactory.Options;
 import android.graphics.Canvas;
 import android.graphics.ImageDecoder;
-import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
@@ -26,6 +25,7 @@ import android.graphics.RectF;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
+import android.text.TextUtils;
 import android.widget.ImageView;
 
 import com.owncloud.android.MainApp;
@@ -35,8 +35,8 @@ import com.owncloud.android.lib.resources.users.Status;
 import com.owncloud.android.lib.resources.users.StatusType;
 import com.owncloud.android.ui.StatusDrawable;
 
-
 import java.io.File;
+import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -44,6 +44,7 @@ import java.util.Locale;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.core.graphics.drawable.RoundedBitmapDrawable;
 import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory;
 import androidx.exifinterface.media.ExifInterface;
@@ -75,6 +76,23 @@ public final class BitmapUtils {
         return resultBitmap;
     }
 
+    @Nullable
+    @RequiresApi(Build.VERSION_CODES.P)
+    private static Bitmap decodeSampledBitmapViaImageDecoder(@NonNull File file, int reqWidth, int reqHeight) {
+        try {
+            Log_OC.i(TAG, "Decoding Bitmap via ImageDecoder");
+
+            final var imageDecoderSource = ImageDecoder.createSource(file);
+
+            return ImageDecoder.decodeBitmap(imageDecoderSource, (decoder, info, source1) -> decoder.setTargetSize(reqWidth, reqHeight)
+            );
+
+        } catch (IOException exception) {
+            Log_OC.w(TAG, "Decoding Bitmap via ImageDecoder failed, BitmapFactory.decodeFile will be used");
+            return null;
+        }
+    }
+
     /**
      * Decodes a bitmap from a file containing it minimizing the memory use, known that the bitmap will be drawn in a
      * surface of reqWidth x reqHeight
@@ -84,19 +102,28 @@ public final class BitmapUtils {
      * @param reqHeight Height of the surface where the Bitmap will be drawn on, in pixels.
      * @return decoded bitmap
      */
+    @Nullable
     public static Bitmap decodeSampledBitmapFromFile(String srcPath, int reqWidth, int reqHeight) {
+        if (TextUtils.isEmpty(srcPath)) {
+            Log_OC.e(TAG, "srcPath is null or empty");
+            return null;
+        }
+
+        final var file = new File(srcPath);
+        if (!file.exists()) {
+            Log_OC.e(TAG, "File does not exists, returning null");
+            return null;
+        }
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-            // For API 28 and above, use ImageDecoder
-            try {
-                return ImageDecoder.decodeBitmap(ImageDecoder.createSource(new File(srcPath)),
-                                                 (decoder, info, source) -> {
-                                                     // Set the target size
-                                                     decoder.setTargetSize(reqWidth, reqHeight);
-                                                 });
-            } catch (Exception exception) {
-                Log_OC.e("BitmapUtil", "Error decoding the bitmap from file: " + srcPath + ", exception: " + exception.getMessage());
+            final var result = decodeSampledBitmapViaImageDecoder(file, reqWidth, reqHeight);
+            if (result != null) {
+                return result;
             }
         }
+
+        Log_OC.i(TAG, "Decoding Bitmap via BitmapFactory.decodeFile");
+
         // set desired options that will affect the size of the bitmap
         final Options options = new Options();
 
@@ -134,23 +161,18 @@ public final class BitmapUtils {
             originalHeight = tempWidth;
         }
 
-        var bitmapResult = decodeSampledBitmapFromFile(
-            storagePath, originalWidth, originalHeight);
-
         // Calculate the scaling factors based on screen dimensions
-        var widthScaleFactor = (float) minWidth/ bitmapResult.getWidth();
-        var heightScaleFactor = (float) minHeight / bitmapResult.getHeight();
+        var widthScaleFactor = (float) minWidth/ originalWidth;
+        var heightScaleFactor = (float) minHeight / originalHeight;
 
         // Use the smaller scaling factor to maintain aspect ratio
         var scaleFactor = Math.min(widthScaleFactor, heightScaleFactor);
 
         // Calculate the new scaled width and height
-        var scaledWidth = (int) (bitmapResult.getWidth() * scaleFactor);
-        var scaledHeight = (int) (bitmapResult.getHeight() * scaleFactor);
+        var scaledWidth = (int) (originalWidth * scaleFactor);
+        var scaledHeight = (int) (originalHeight * scaleFactor);
 
-        bitmapResult = scaleBitmap(bitmapResult,scaledWidth,scaledHeight);
-
-        return bitmapResult;
+        return decodeSampledBitmapFromFile(storagePath, scaledWidth, scaledHeight);
     }
     /**
      * Calculates a proper value for options.inSampleSize in order to decode a Bitmap minimizing the memory overload and
@@ -197,86 +219,6 @@ public final class BitmapUtils {
         int w = Math.round(scale * width);
         int h = Math.round(scale * height);
         return Bitmap.createScaledBitmap(bitmap, w, h, true);
-    }
-
-    /**
-     * scales a given bitmap depending on the given size parameters.
-     *
-     * @param bitmap the bitmap to be scaled
-     * @param width  the width
-     * @param height the height
-     * @return the scaled bitmap
-     */
-    public static Bitmap scaleBitmap(Bitmap bitmap, int width, int height) {
-        return Bitmap.createScaledBitmap(bitmap, width, height, true);
-    }
-
-    /**
-     * Rotate bitmap according to EXIF orientation. Cf. http://www.daveperrett.com/articles/2012/07/28/exif-orientation-handling-is-a-ghetto/
-     *
-     * @param bitmap      Bitmap to be rotated
-     * @param storagePath Path to source file of bitmap. Needed for EXIF information.
-     * @return correctly EXIF-rotated bitmap
-     */
-    public static Bitmap rotateImage(Bitmap bitmap, String storagePath) {
-        Bitmap resultBitmap = bitmap;
-
-        try {
-            ExifInterface exifInterface = new ExifInterface(storagePath);
-            int orientation = exifInterface.getAttributeInt(ExifInterface.TAG_ORIENTATION, 1);
-
-            if (orientation != ExifInterface.ORIENTATION_NORMAL) {
-                Matrix matrix = new Matrix();
-                switch (orientation) {
-                    // 2
-                    case ExifInterface.ORIENTATION_FLIP_HORIZONTAL: {
-                        matrix.postScale(-1.0f, 1.0f);
-                        break;
-                    }
-                    // 3
-                    case ExifInterface.ORIENTATION_ROTATE_180: {
-                        matrix.postRotate(180);
-                        break;
-                    }
-                    // 4
-                    case ExifInterface.ORIENTATION_FLIP_VERTICAL: {
-                        matrix.postScale(1.0f, -1.0f);
-                        break;
-                    }
-                    // 5
-                    case ExifInterface.ORIENTATION_TRANSPOSE: {
-                        matrix.postRotate(-90);
-                        matrix.postScale(1.0f, -1.0f);
-                        break;
-                    }
-                    // 6
-                    case ExifInterface.ORIENTATION_ROTATE_90: {
-                        matrix.postRotate(90);
-                        break;
-                    }
-                    // 7
-                    case ExifInterface.ORIENTATION_TRANSVERSE: {
-                        matrix.postRotate(90);
-                        matrix.postScale(1.0f, -1.0f);
-                        break;
-                    }
-                    // 8
-                    case ExifInterface.ORIENTATION_ROTATE_270: {
-                        matrix.postRotate(270);
-                        break;
-                    }
-                }
-
-                // Rotate the bitmap
-                resultBitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
-                if (!resultBitmap.equals(bitmap)) {
-                    bitmap.recycle();
-                }
-            }
-        } catch (Exception exception) {
-            Log_OC.e("BitmapUtil", "Could not rotate the image: " + storagePath);
-        }
-        return resultBitmap;
     }
 
     /**

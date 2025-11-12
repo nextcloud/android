@@ -153,7 +153,7 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
         mLastFailedResult = null;
         mConflictsFound = 0;
         mFailsInFavouritesFound = 0;
-        mForgottenLocalFiles = new HashMap<String, String>();
+        mForgottenLocalFiles = new HashMap<>();
         mSyncResult = syncResult;
         mSyncResult.fullSyncRequested = false;
         mSyncResult.delayUntil = (System.currentTimeMillis()/1000) + 3*60*60; // avoid too many automatic synchronizations
@@ -481,10 +481,8 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
         /// includes a pending intent in the notification showing a more detailed explanation
         Intent explanationIntent = new Intent(getContext(), ErrorsWhileCopyingHandlerActivity.class);
         explanationIntent.putExtra(ErrorsWhileCopyingHandlerActivity.EXTRA_USER, getUser());
-        ArrayList<String> remotePaths = new ArrayList<String>();
-        ArrayList<String> localPaths = new ArrayList<String>();
-        remotePaths.addAll(mForgottenLocalFiles.keySet());
-        localPaths.addAll(mForgottenLocalFiles.values());
+        ArrayList<String> remotePaths = new ArrayList<>(mForgottenLocalFiles.keySet());
+        ArrayList<String> localPaths = new ArrayList<>(mForgottenLocalFiles.values());
         explanationIntent.putExtra(ErrorsWhileCopyingHandlerActivity.EXTRA_LOCAL_PATHS, localPaths);
         explanationIntent.putExtra(ErrorsWhileCopyingHandlerActivity.EXTRA_REMOTE_PATHS, remotePaths);
         explanationIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -525,11 +523,7 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
     private void showNotification(int id, NotificationCompat.Builder builder) {
         NotificationManager notificationManager = (NotificationManager) getContext().
                 getSystemService(Context.NOTIFICATION_SERVICE);
-
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-            builder.setChannelId(NotificationUtils.NOTIFICATION_CHANNEL_FILE_SYNC);
-        }
-
+        builder.setChannelId(NotificationUtils.NOTIFICATION_CHANNEL_FILE_SYNC);
         notificationManager.notify(id, builder.build());
     }
     /**

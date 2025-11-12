@@ -22,8 +22,9 @@
     <issue id="UnusedResources">
         <ignore regexp="store_short_desc|store_full_desc|store_short_dev_desc|store_full_dev_desc" />
         <ignore
-            regexp="screenshot_01_gridView|screenshot_02_listView|screenshot_03_drawer|screenshot_04_accounts|screenshot_05_autoUpload|screenshot_06_davdroid"/>
-        <ignore path="**/raw/encryption_key_words.txt" />
+            regexp="screenshot_01_gridView|screenshot_02_listView|screenshot_03_drawer|screenshot_04_accounts|screenshot_05_autoUpload|screenshot_06_davdroid" />
+        <ignore path="**/drawable/zdc_*.xml" />
+		<ignore path="**/drawable/iconclose.xml" />
     </issue>
 
     <issue id="ImpliedQuantity">
@@ -35,6 +36,10 @@
     </issue>
 
     <issue id="UnusedQuantity">
+        <ignore path="**/values-**/strings.xml" />
+    </issue>
+
+    <issue id="PluralsCandidate">
         <ignore path="**/values-**/strings.xml" />
     </issue>
 
@@ -79,5 +84,9 @@
         <ignore path="**/jetified-annotation-experimental-1.**/**/lint.jar" />
         <ignore path="**/jetified-firebase-installations**/**/lint.jar" />
         <ignore path="**/appcompat-1.**/**/lint.jar" />
+    </issue>
+
+	<issue id="Aligned16KB">
+        <ignore path="**/arm64-v8a/libmockkjvmtiagent.so" />
     </issue>
 </lint>

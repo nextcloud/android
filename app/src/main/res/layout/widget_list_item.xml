@@ -29,5 +29,5 @@
         android:layout_height="32dp"
         android:layout_weight="1"
         android:gravity="center_vertical"
-        tools:text="Widget name" />
+        tools:text="@string/placeholder_first_name_last_name" />
 </LinearLayout>

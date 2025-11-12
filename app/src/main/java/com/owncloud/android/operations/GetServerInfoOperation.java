@@ -77,7 +77,7 @@ public class GetServerInfoOperation extends RemoteOperation {
             // third: merge results
             if (detectAuthResult.isSuccess()) {
                 mResultData.mAuthMethod = (AuthenticationMethod) detectAuthResult.getData().get(0);
-                ArrayList<Object> data = new ArrayList<Object>();
+                ArrayList<Object> data = new ArrayList<>();
                 data.add(mResultData);
                 result.setData(data);
             } else {

@@ -33,6 +33,7 @@ import com.nextcloud.android.common.ui.theme.utils.ColorRole
 import com.nextcloud.client.account.CurrentAccountProvider
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.di.ViewModelFactory
+import com.nextcloud.utils.extensions.setVisibleIf
 import com.owncloud.android.R
 import com.owncloud.android.databinding.FileActionsBottomSheetBinding
 import com.owncloud.android.databinding.FileActionsBottomSheetItemBinding
@@ -44,10 +45,13 @@ import com.owncloud.android.lib.resources.files.model.FileLockType
 import com.owncloud.android.ui.activity.ComponentsGetter
 import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.DisplayUtils.AvatarGenerationListener
+import com.owncloud.android.utils.FileStorageUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import javax.inject.Inject
 
-class FileActionsBottomSheet : BottomSheetDialogFragment(), Injectable {
+class FileActionsBottomSheet :
+    BottomSheetDialogFragment(),
+    Injectable {
 
     @Inject
     lateinit var viewThemeUtils: ViewThemeUtils
@@ -202,11 +206,23 @@ class FileActionsBottomSheet : BottomSheetDialogFragment(), Injectable {
     private fun displayTitle(titleFile: OCFile?) {
         val decryptedFileName = titleFile?.decryptedFileName
         if (decryptedFileName != null) {
-            decryptedFileName.let {
-                binding.title.text = it
+            val isFolder = titleFile.isFolder
+            val isRTL = DisplayUtils.isRTL()
+            val (base, ext) = FileStorageUtils.getFilenameAndExtension(decryptedFileName, isFolder, isRTL)
+            val titleMaxWidth = DisplayUtils.convertDpToPixel(
+                requireContext().resources.configuration.screenWidthDp.times(FILENAME_MAX_WIDTH_PERCENTAGE).toFloat(),
+                context
+            )
+
+            binding.title.maxWidth = titleMaxWidth
+            binding.title.text = base
+            binding.extension.setVisibleIf(!isFolder)
+            if (!isFolder) {
+                binding.extension.text = ext
             }
         } else {
             binding.title.isVisible = false
+            binding.extension.isVisible = false
         }
     }
 
@@ -234,9 +250,7 @@ class FileActionsBottomSheet : BottomSheetDialogFragment(), Injectable {
                 icon.setImageDrawable(avatarDrawable)
             }
 
-            override fun shouldCallGeneratedCallback(tag: String?, callContext: Any?): Boolean {
-                return false
-            }
+            override fun shouldCallGeneratedCallback(tag: String?, callContext: Any?): Boolean = false
         }
         DisplayUtils.setAvatar(
             currentUserProvider.user,
@@ -300,6 +314,7 @@ class FileActionsBottomSheet : BottomSheetDialogFragment(), Injectable {
     companion object {
         private const val REQUEST_KEY = "REQUEST_KEY_ACTION"
         private const val RESULT_KEY_ACTION_ID = "RESULT_KEY_ACTION_ID"
+        private const val FILENAME_MAX_WIDTH_PERCENTAGE = 0.6
 
         @JvmStatic
         @JvmOverloads
@@ -308,9 +323,7 @@ class FileActionsBottomSheet : BottomSheetDialogFragment(), Injectable {
             isOverflow: Boolean,
             @IdRes
             additionalToHide: List<Int>? = null
-        ): FileActionsBottomSheet {
-            return newInstance(1, listOf(file), isOverflow, additionalToHide, true)
-        }
+        ): FileActionsBottomSheet = newInstance(1, listOf(file), isOverflow, additionalToHide, true)
 
         @JvmStatic
         @JvmOverloads
@@ -321,19 +334,17 @@ class FileActionsBottomSheet : BottomSheetDialogFragment(), Injectable {
             @IdRes
             additionalToHide: List<Int>? = null,
             inSingleFileFragment: Boolean = false
-        ): FileActionsBottomSheet {
-            return FileActionsBottomSheet().apply {
-                val argsBundle = bundleOf(
-                    FileActionsViewModel.ARG_ALL_FILES_COUNT to numberOfAllFiles,
-                    FileActionsViewModel.ARG_FILES to ArrayList<OCFile>(files),
-                    FileActionsViewModel.ARG_IS_OVERFLOW to isOverflow,
-                    FileActionsViewModel.ARG_IN_SINGLE_FILE_FRAGMENT to inSingleFileFragment
-                )
-                additionalToHide?.let {
-                    argsBundle.putIntArray(FileActionsViewModel.ARG_ADDITIONAL_FILTER, additionalToHide.toIntArray())
-                }
-                arguments = argsBundle
+        ): FileActionsBottomSheet = FileActionsBottomSheet().apply {
+            val argsBundle = bundleOf(
+                FileActionsViewModel.ARG_ALL_FILES_COUNT to numberOfAllFiles,
+                FileActionsViewModel.ARG_FILES to ArrayList<OCFile>(files),
+                FileActionsViewModel.ARG_IS_OVERFLOW to isOverflow,
+                FileActionsViewModel.ARG_IN_SINGLE_FILE_FRAGMENT to inSingleFileFragment
+            )
+            additionalToHide?.let {
+                argsBundle.putIntArray(FileActionsViewModel.ARG_ADDITIONAL_FILTER, additionalToHide.toIntArray())
             }
+            arguments = argsBundle
         }
     }
 }

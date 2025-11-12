@@ -502,12 +502,15 @@ public class InputStreamBinder extends IInputStreamService.Stub {
 
     @VisibleForTesting
     public static NameValuePair[] convertMapToNVP(Map<String, String> map) {
-        NameValuePair[] nvp = new NameValuePair[map.size()];
+        final var nvp = new NameValuePair[map.size()];
         int i = 0;
-        for (String key : map.keySet()) {
-            nvp[i] = new NameValuePair(key, map.get(key));
+
+        for (Map.Entry<String, String> entry : map.entrySet()) {
+            final var nameValuePair = new NameValuePair(entry.getKey(), entry.getValue());
+            nvp[i] = nameValuePair;
             i++;
         }
+
         return nvp;
     }
 

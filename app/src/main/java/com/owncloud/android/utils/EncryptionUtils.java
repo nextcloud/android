@@ -83,7 +83,6 @@ import java.security.interfaces.RSAPrivateCrtKey;
 import java.security.interfaces.RSAPublicKey;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.InvalidParameterSpecException;
-import java.security.spec.KeySpec;
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -99,11 +98,8 @@ import javax.crypto.CipherOutputStream;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.KeyGenerator;
 import javax.crypto.NoSuchPaddingException;
-import javax.crypto.SecretKey;
-import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.GCMParameterSpec;
 import javax.crypto.spec.IvParameterSpec;
-import javax.crypto.spec.PBEKeySpec;
 import javax.crypto.spec.SecretKeySpec;
 
 import androidx.annotation.Nullable;
@@ -125,8 +121,6 @@ public final class EncryptionUtils {
     public static final String ivDelimiterOld = "fA=="; // "|" base64 encoded
 
     private static final char HASH_DELIMITER = '$';
-    private static final int iterationCount = 1024;
-    private static final int keyStrength = 256;
     private static final String AES_CIPHER = "AES/GCM/NoPadding";
     private static final String AES = "AES";
     public static final String RSA_CIPHER = "RSA/ECB/OAEPWithSHA-256AndMGF1Padding";
@@ -532,7 +526,6 @@ public final class EncryptionUtils {
         }
     }
 
-    @SuppressFBWarnings({"DM", "MDM"})
     public static String encodeBytesToBase64String(byte[] bytes) {
         return Base64.encodeToString(bytes, Base64.NO_WRAP);
     }
@@ -930,13 +923,6 @@ public final class EncryptionUtils {
 
     public static EncryptedMetadata encryptStringSymmetric(
         String string,
-        byte[] encryptionKeyBytes) throws InvalidAlgorithmParameterException, NoSuchPaddingException, IllegalBlockSizeException, NoSuchAlgorithmException, BadPaddingException, InvalidKeyException {
-        return encryptStringSymmetric(string, encryptionKeyBytes, ivDelimiter);
-    }
-
-
-    public static EncryptedMetadata encryptStringSymmetric(
-        String string,
         byte[] encryptionKeyBytes,
         String delimiter) throws InvalidAlgorithmParameterException, NoSuchPaddingException, IllegalBlockSizeException, NoSuchAlgorithmException, BadPaddingException, InvalidKeyException {
 
@@ -1071,106 +1057,6 @@ public final class EncryptionUtils {
         }
 
         return cipher.doFinal(bytes);
-    }
-
-    /**
-     * Encrypt private key with symmetric AES encryption, GCM mode mode and no padding
-     *
-     * @param privateKey byte64 encoded string representation of private key
-     * @param keyPhrase  key used for encryption, e.g. 12 random words
-     *                   {@link EncryptionUtils#getRandomWords(int, Context)}
-     * @return encrypted string, bytes first encoded base64, IV separated with "|", then to string
-     */
-    public static String encryptPrivateKey(String privateKey, String keyPhrase)
-        throws NoSuchPaddingException,
-        NoSuchAlgorithmException,
-        InvalidKeyException,
-        BadPaddingException,
-        IllegalBlockSizeException,
-        InvalidKeySpecException {
-        return encryptPrivateKey(privateKey, keyPhrase, ivDelimiter);
-    }
-
-    @VisibleForTesting
-    public static String encryptPrivateKeyOld(String privateKey, String keyPhrase)
-        throws NoSuchPaddingException,
-        NoSuchAlgorithmException,
-        InvalidKeyException,
-        BadPaddingException,
-        IllegalBlockSizeException,
-        InvalidKeySpecException {
-        return encryptPrivateKey(privateKey, keyPhrase, ivDelimiterOld);
-    }
-
-    private static String encryptPrivateKey(String privateKey, String keyPhrase, String delimiter)
-        throws NoSuchPaddingException,
-        NoSuchAlgorithmException,
-        InvalidKeyException,
-        BadPaddingException,
-        IllegalBlockSizeException,
-        InvalidKeySpecException {
-        Cipher cipher = Cipher.getInstance(AES_CIPHER);
-
-        SecretKeyFactory factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
-        byte[] salt = randomBytes(saltLength);
-        KeySpec spec = new PBEKeySpec(keyPhrase.toCharArray(), salt, iterationCount, keyStrength);
-        SecretKey tmp = factory.generateSecret(spec);
-        SecretKeySpec key = new SecretKeySpec(tmp.getEncoded(), AES);
-
-        cipher.init(Cipher.ENCRYPT_MODE, key);
-        byte[] bytes = encodeStringToBase64Bytes(privateKey);
-        byte[] encrypted = cipher.doFinal(bytes);
-
-        byte[] iv = cipher.getIV();
-        String encodedIV = encodeBytesToBase64String(iv);
-        String encodedSalt = encodeBytesToBase64String(salt);
-        String encodedEncryptedBytes = encodeBytesToBase64String(encrypted);
-
-        return encodedEncryptedBytes + delimiter + encodedIV + delimiter + encodedSalt;
-    }
-
-    /**
-     * Decrypt private key with symmetric AES encryption, GCM mode mode and no padding
-     *
-     * @param privateKey byte64 encoded string representation of private key, IV separated with "|"
-     * @param keyPhrase  key used for encryption, e.g. 12 random words
-     *                   {@link EncryptionUtils#getRandomWords(int, Context)}
-     * @return decrypted string
-     */
-    @SuppressFBWarnings("UCPM_USE_CHARACTER_PARAMETERIZED_METHOD")
-    public static String decryptPrivateKey(String privateKey, String keyPhrase) throws NoSuchPaddingException,
-        NoSuchAlgorithmException, InvalidKeyException, BadPaddingException,
-        IllegalBlockSizeException, InvalidKeySpecException, InvalidAlgorithmParameterException {
-
-        String[] strings;
-
-        // split up iv, salt
-        if (privateKey.lastIndexOf(ivDelimiter) == -1) {
-            // backward compatibility
-            strings = privateKey.split(ivDelimiterOld);
-        } else {
-            strings = privateKey.split("\\" + ivDelimiter);
-        }
-
-        String realPrivateKey = strings[0];
-        byte[] iv = decodeStringToBase64Bytes(strings[1]);
-        byte[] salt = decodeStringToBase64Bytes(strings[2]);
-
-        Cipher cipher = Cipher.getInstance(AES_CIPHER);
-        SecretKeyFactory factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
-        KeySpec spec = new PBEKeySpec(keyPhrase.toCharArray(), salt, iterationCount, keyStrength);
-        SecretKey tmp = factory.generateSecret(spec);
-        SecretKeySpec key = new SecretKeySpec(tmp.getEncoded(), AES);
-
-        cipher.init(Cipher.DECRYPT_MODE, key, new IvParameterSpec(iv));
-
-        byte[] bytes = decodeStringToBase64Bytes(realPrivateKey);
-        byte[] decrypted = cipher.doFinal(bytes);
-
-        String pemKey = decodeBase64BytesToString(decrypted);
-
-        return pemKey.replaceAll("\n", "").replace("-----BEGIN PRIVATE KEY-----", "")
-            .replace("-----END PRIVATE KEY-----", "");
     }
 
     public static String privateKeyToPEM(PrivateKey privateKey) {
@@ -1398,9 +1284,7 @@ public final class EncryptionUtils {
                                                                               User user,
                                                                               Context context,
                                                                               ArbitraryDataProvider arbitraryDataProvider)
-        throws UploadException, Throwable,
-        InvalidAlgorithmParameterException, NoSuchAlgorithmException, NoSuchPaddingException, BadPaddingException,
-        IllegalBlockSizeException, InvalidKeyException, InvalidKeySpecException, CertificateException {
+        throws Throwable {
         long localId = parentFile.getLocalId();
 
         GetMetadataRemoteOperation getMetadataOperation = new GetMetadataRemoteOperation(localId);
@@ -1684,14 +1568,6 @@ public final class EncryptionUtils {
 
     public static byte[] generateIV() {
         return EncryptionUtils.randomBytes(EncryptionUtils.ivLength);
-    }
-
-    public static String byteToHex(byte[] bytes) {
-        StringBuilder sbKey = new StringBuilder();
-        for (byte b : bytes) {
-            sbKey.append(String.format("%02X ", b));
-        }
-        return sbKey.toString();
     }
 
     public static void savePublicKey(User currentUser,

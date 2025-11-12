@@ -14,9 +14,9 @@ import android.os.Build
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
-import android.view.WindowInsets
-import android.view.WindowInsetsController
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.ActionBar
+import androidx.core.content.ContextCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.viewpager2.widget.ViewPager2
@@ -56,12 +56,17 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings
 import java.io.Serializable
 import javax.inject.Inject
 import kotlin.math.max
+import kotlin.math.min
 
 /**
  * Holds a swiping gallery where image files contained in an Nextcloud directory are shown.
  */
 @Suppress("TooManyFunctions")
-class PreviewImageActivity : FileActivity(), FileFragment.ContainerActivity, OnRemoteOperationListener, Injectable {
+class PreviewImageActivity :
+    FileActivity(),
+    FileFragment.ContainerActivity,
+    OnRemoteOperationListener,
+    Injectable {
     private var livePhotoFile: OCFile? = null
     private var viewPager: ViewPager2? = null
     private var previewImagePagerAdapter: PreviewImagePagerAdapter? = null
@@ -85,10 +90,12 @@ class PreviewImageActivity : FileActivity(), FileFragment.ContainerActivity, OnR
 
         actionBar = supportActionBar
 
-        if (savedInstanceState != null && !savedInstanceState.getBoolean(
+        if (savedInstanceState != null &&
+            !savedInstanceState.getBoolean(
                 KEY_SYSTEM_VISIBLE,
                 true
-            ) && actionBar != null
+            ) &&
+            actionBar != null
         ) {
             actionBar?.hide()
         }
@@ -117,6 +124,31 @@ class PreviewImageActivity : FileActivity(), FileFragment.ContainerActivity, OnR
         }
 
         observeWorkerState()
+        applyDisplayCutOutTopPadding()
+        handleBackPress()
+    }
+
+    private fun applyDisplayCutOutTopPadding() {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.P) {
+            return
+        }
+
+        window.decorView.setOnApplyWindowInsetsListener { view, insets ->
+            val displayCutout = insets.displayCutout
+            if (displayCutout != null) {
+                val safeInsetTop = displayCutout.safeInsetTop
+                val viewPager = findViewById<View>(R.id.fragmentPager)
+                viewPager.setPadding(
+                    viewPager.paddingLeft,
+                    safeInsetTop,
+                    viewPager.paddingRight,
+                    viewPager.paddingBottom
+                )
+                viewPager.setBackgroundColor(ContextCompat.getColor(this, R.color.black))
+            }
+
+            view.onApplyWindowInsets(insets)
+        }
     }
 
     fun toggleActionBarVisibility(hide: Boolean) {
@@ -140,11 +172,12 @@ class PreviewImageActivity : FileActivity(), FileFragment.ContainerActivity, OnR
                 this,
                 type,
                 user,
-                storageManager
+                storageManager,
+                preferences
             )
         } else {
             // get parent from path
-            var parentFolder = storageManager.getFileById(file.parentId)
+            var parentFolder = file?.let { storageManager.getFileById(it.parentId) }
 
             if (parentFolder == null) {
                 // should not be necessary
@@ -164,7 +197,13 @@ class PreviewImageActivity : FileActivity(), FileFragment.ContainerActivity, OnR
 
         viewPager = findViewById(R.id.fragmentPager)
 
-        var position = if (savedPosition != null) savedPosition else previewImagePagerAdapter?.getFilePosition(file)
+        var position = if (savedPosition !=
+            null
+        ) {
+            savedPosition
+        } else {
+            file?.let { previewImagePagerAdapter?.getFilePosition(it) }
+        }
         position = position?.toDouble()?.let { max(it, 0.0).toInt() }
 
         viewPager?.adapter = previewImagePagerAdapter
@@ -177,16 +216,32 @@ class PreviewImageActivity : FileActivity(), FileFragment.ContainerActivity, OnR
             viewPager?.setCurrentItem(position, false)
         }
 
-        if (position == 0 && !file.isDown) {
+        if (position == 0 && file?.isDown == false) {
             // this is necessary because mViewPager.setCurrentItem(0) just after setting the
             // adapter does not result in a call to #onPageSelected(0)
             screenState = PreviewImageActivityState.WaitingForBinder
         }
     }
 
-    override fun onBackPressed() {
-        sendRefreshSearchEventBroadcast()
-        super.onBackPressed()
+    private fun updateViewPagerAfterDeletionAndAdvanceForward() {
+        val deletePosition = viewPager?.currentItem ?: return
+        previewImagePagerAdapter?.let { adapter ->
+            val nextPosition = min(deletePosition, adapter.itemCount - 1)
+            viewPager?.setCurrentItem(nextPosition, true)
+            adapter.delete(deletePosition)
+            // Page needs to be reselected after the adapter has been updated. Otherwise, wrong title is shown
+            selectPage(nextPosition)
+        }
+    }
+
+    private fun handleBackPress() {
+        onBackPressedDispatcher.addCallback(object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                sendRefreshSearchEventBroadcast()
+                isEnabled = false
+                onBackPressedDispatcher.onBackPressed()
+            }
+        })
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -226,7 +281,7 @@ class PreviewImageActivity : FileActivity(), FileFragment.ContainerActivity, OnR
             if (file != null) {
                 // / Refresh the activity according to the Account and OCFile set
                 setFile(file) // reset after getting it fresh from storageManager
-                updateActionBarTitle(getFile().fileName)
+                updateActionBarTitle(getFile()?.fileName)
                 // if (!stateWasRecovered) {
                 initViewPager(optionalUser.get())
 
@@ -248,9 +303,6 @@ class PreviewImageActivity : FileActivity(), FileFragment.ContainerActivity, OnR
         super.onRemoteOperationFinish(operation, result)
 
         if (operation is RemoveFileOperation) {
-            val deletePosition = viewPager?.currentItem ?: return
-            val nextPosition = if (deletePosition > 0) deletePosition - 1 else 0
-
             previewImagePagerAdapter?.let {
                 if (it.itemCount <= 1) {
                     backToDisplayActivity()
@@ -258,12 +310,9 @@ class PreviewImageActivity : FileActivity(), FileFragment.ContainerActivity, OnR
                 }
             }
 
-            if (user.isPresent) {
-                initViewPager(user.get())
+            if (result.isSuccess) {
+                updateViewPagerAfterDeletionAndAdvanceForward()
             }
-
-            viewPager?.setCurrentItem(nextPosition, true)
-            previewImagePagerAdapter?.delete(deletePosition)
         } else if (operation is SynchronizeFileOperation) {
             onSynchronizeFileOperationFinish(result)
         }
@@ -310,8 +359,10 @@ class PreviewImageActivity : FileActivity(), FileFragment.ContainerActivity, OnR
         savedPosition?.let { position ->
 
             previewImagePagerAdapter?.run {
-                updateFile(position, file)
-                notifyItemChanged(position)
+                file?.let {
+                    updateFile(position, it)
+                    notifyItemChanged(position)
+                }
             }
 
             if (user.isPresent) {
@@ -335,7 +386,9 @@ class PreviewImageActivity : FileActivity(), FileFragment.ContainerActivity, OnR
         dismissLoadingDialog()
         screenState = PreviewImageActivityState.Idle
         file = downloadedFile
-        startEditImageActivity()
+        file?.let {
+            startEditImageActivity(it)
+        }
     }
 
     override fun onResume() {
@@ -403,7 +456,8 @@ class PreviewImageActivity : FileActivity(), FileFragment.ContainerActivity, OnR
             screenState = PreviewImageActivityState.WaitingForBinder
         } else {
             if (currentFile != null) {
-                if (currentFile.isEncrypted && !currentFile.isDown &&
+                if (currentFile.isEncrypted &&
+                    !currentFile.isDown &&
                     previewImagePagerAdapter?.pendingErrorAt(position) == false
                 ) {
                     requestForDownload(currentFile)
@@ -486,22 +540,19 @@ class PreviewImageActivity : FileActivity(), FileFragment.ContainerActivity, OnR
         get() = supportActionBar == null || supportActionBar?.isShowing == true
 
     fun toggleFullScreen() {
-        if (fullScreenAnchorView == null) return
-        val visible = (
-            fullScreenAnchorView!!.systemUiVisibility
-                and View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-            ) == 0
-
-        if (visible) {
-            hideSystemUI(fullScreenAnchorView!!)
-        } else {
-            showSystemUI(fullScreenAnchorView!!)
+        fullScreenAnchorView?.let {
+            val visible = (it.systemUiVisibility and View.SYSTEM_UI_FLAG_HIDE_NAVIGATION) == 0
+            if (visible) {
+                hideSystemUI(it)
+            } else {
+                showSystemUI(it)
+            }
         }
     }
 
     fun startImageEditor(file: OCFile) {
         if (file.isDown) {
-            startEditImageActivity()
+            startEditImageActivity(file)
         } else {
             showLoadingDialog(getString(R.string.preview_image_downloading_image_for_edit))
             screenState = PreviewImageActivityState.Edit
@@ -509,12 +560,7 @@ class PreviewImageActivity : FileActivity(), FileFragment.ContainerActivity, OnR
         }
     }
 
-    private fun startEditImageActivity() {
-        if (file == null) {
-            DisplayUtils.showSnackMessage(this, R.string.preview_image_file_is_not_exist)
-            return
-        }
-
+    private fun startEditImageActivity(file: OCFile) {
         if (!file.isDown) {
             DisplayUtils.showSnackMessage(this, R.string.preview_image_file_is_not_downloaded)
             return
@@ -534,42 +580,25 @@ class PreviewImageActivity : FileActivity(), FileFragment.ContainerActivity, OnR
         // TODO Auto-generated method stub
     }
 
+    @Suppress("DEPRECATION")
     private fun hideSystemUI(anchorView: View) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            window.insetsController?.let { controller ->
-                controller.hide(WindowInsets.Type.systemBars())
-                controller.systemBarsBehavior = WindowInsetsController.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
-            }
-        } else {
-            @Suppress("DEPRECATION")
-            anchorView.systemUiVisibility = (
-                View.SYSTEM_UI_FLAG_HIDE_NAVIGATION // hides NAVIGATION BAR; Android >= 4.0
-                    or View.SYSTEM_UI_FLAG_FULLSCREEN // hides STATUS BAR;     Android >= 4.1
-                    or View.SYSTEM_UI_FLAG_IMMERSIVE // stays interactive;    Android >= 4.4
-                    or View.SYSTEM_UI_FLAG_LAYOUT_STABLE // draw full window;     Android >= 4.1
-                    or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN // draw full window;     Android >= 4.1
-                    or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                )
-        }
+        anchorView.systemUiVisibility = (
+            View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                or View.SYSTEM_UI_FLAG_FULLSCREEN
+                or View.SYSTEM_UI_FLAG_IMMERSIVE
+                or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+            )
     }
 
+    @Suppress("DEPRECATION")
     private fun showSystemUI(anchorView: View) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            window.insetsController?.let { controller ->
-                controller.show(WindowInsets.Type.systemBars())
-
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-                    controller.systemBarsBehavior = WindowInsetsController.BEHAVIOR_DEFAULT
-                }
-            }
-        } else {
-            @Suppress("DEPRECATION")
-            anchorView.systemUiVisibility = (
-                View.SYSTEM_UI_FLAG_LAYOUT_STABLE // draw full window;     Android >= 4.1
-                    or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN // draw full window;     Android >= 4.1
-                    or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                )
-        }
+        anchorView.systemUiVisibility = (
+            View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+            )
     }
 
     companion object {
@@ -578,11 +607,10 @@ class PreviewImageActivity : FileActivity(), FileFragment.ContainerActivity, OnR
         private const val KEY_WAITING_FOR_BINDER = "WAITING_FOR_BINDER"
         private const val KEY_SYSTEM_VISIBLE = "TRUE"
 
-        fun previewFileIntent(context: Context?, user: User?, file: OCFile?): Intent {
-            return Intent(context, PreviewImageActivity::class.java).apply {
+        fun previewFileIntent(context: Context?, user: User?, file: OCFile?): Intent =
+            Intent(context, PreviewImageActivity::class.java).apply {
                 putExtra(EXTRA_FILE, file)
                 putExtra(EXTRA_USER, user)
             }
-        }
     }
 }

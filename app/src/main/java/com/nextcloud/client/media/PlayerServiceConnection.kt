@@ -10,9 +10,9 @@ import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.content.ServiceConnection
-import android.os.Build
 import android.os.IBinder
 import android.widget.MediaController
+import androidx.core.content.ContextCompat
 import com.nextcloud.client.account.User
 import com.owncloud.android.datamodel.OCFile
 
@@ -86,57 +86,37 @@ class PlayerServiceConnection(private val context: Context) : MediaController.Me
 
     // region Media controller
 
-    override fun isPlaying(): Boolean {
-        return binder?.player?.isPlaying ?: false
-    }
+    override fun isPlaying(): Boolean = binder?.player?.isPlaying ?: false
 
-    override fun canSeekForward(): Boolean {
-        return binder?.player?.canSeekForward() ?: false
-    }
+    override fun canSeekForward(): Boolean = binder?.player?.canSeekForward() ?: false
 
-    override fun getDuration(): Int {
-        return binder?.player?.duration ?: 0
-    }
+    override fun getDuration(): Int = binder?.player?.duration ?: 0
 
     override fun pause() {
         binder?.player?.pause()
     }
 
-    override fun getBufferPercentage(): Int {
-        return binder?.player?.bufferPercentage ?: 0
-    }
+    override fun getBufferPercentage(): Int = binder?.player?.bufferPercentage ?: 0
 
     override fun seekTo(pos: Int) {
         binder?.player?.seekTo(pos)
     }
 
-    override fun getCurrentPosition(): Int {
-        return binder?.player?.currentPosition ?: 0
-    }
+    override fun getCurrentPosition(): Int = binder?.player?.currentPosition ?: 0
 
-    override fun canSeekBackward(): Boolean {
-        return binder?.player?.canSeekBackward() ?: false
-    }
+    override fun canSeekBackward(): Boolean = binder?.player?.canSeekBackward() ?: false
 
     override fun start() {
         binder?.player?.start()
     }
 
-    override fun getAudioSessionId(): Int {
-        return 0
-    }
+    override fun getAudioSessionId(): Int = 0
 
-    override fun canPause(): Boolean {
-        return binder?.player?.canPause() ?: false
-    }
+    override fun canPause(): Boolean = binder?.player?.canPause() ?: false
 
     // endregion
 
     private fun startForegroundService(i: Intent) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            context.startForegroundService(i)
-        } else {
-            context.startService(i)
-        }
+        ContextCompat.startForegroundService(context, i)
     }
 }

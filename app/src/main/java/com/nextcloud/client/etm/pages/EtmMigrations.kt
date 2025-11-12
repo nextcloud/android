@@ -65,14 +65,12 @@ class EtmMigrations : EtmBaseFragment() {
         inflater.inflate(R.menu.fragment_etm_migrations, menu)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            R.id.etm_migrations_delete -> {
-                onDeleteMigrationsClicked()
-                true
-            }
-            else -> super.onOptionsItemSelected(item)
+    override fun onOptionsItemSelected(item: MenuItem): Boolean = when (item.itemId) {
+        R.id.etm_migrations_delete -> {
+            onDeleteMigrationsClicked()
+            true
         }
+        else -> super.onOptionsItemSelected(item)
     }
 
     private fun onDeleteMigrationsClicked() {

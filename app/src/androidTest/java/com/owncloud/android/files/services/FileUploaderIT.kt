@@ -36,9 +36,7 @@ abstract class FileUploaderIT : AbstractOnServerIT() {
     private val connectivityServiceMock: ConnectivityService = object : ConnectivityService {
         override fun isNetworkAndServerAvailable(callback: ConnectivityService.GenericCallback<Boolean>) = Unit
 
-        override fun isConnected(): Boolean {
-            return false
-        }
+        override fun isConnected(): Boolean = false
 
         override fun isInternetWalled(): Boolean = false
         override fun getConnectivity(): Connectivity = Connectivity.CONNECTED_WIFI
@@ -46,9 +44,6 @@ abstract class FileUploaderIT : AbstractOnServerIT() {
 
     private val powerManagementServiceMock: PowerManagementService = object : PowerManagementService {
         override val isPowerSavingEnabled: Boolean
-            get() = false
-
-        override val isPowerSavingExclusionAvailable: Boolean
             get() = false
 
         override val battery: BatteryStatus
@@ -329,7 +324,7 @@ abstract class FileUploaderIT : AbstractOnServerIT() {
                 user,
                 null,
                 ocUpload2,
-                NameCollisionPolicy.CANCEL,
+                NameCollisionPolicy.SKIP,
                 FileUploadWorker.LOCAL_BEHAVIOUR_COPY,
                 targetContext,
                 false,
@@ -378,7 +373,7 @@ abstract class FileUploaderIT : AbstractOnServerIT() {
             user,
             arrayOf(ocFile2),
             FileUploadWorker.LOCAL_BEHAVIOUR_COPY,
-            NameCollisionPolicy.CANCEL
+            NameCollisionPolicy.SKIP
         )
 
         shortSleep()
@@ -405,7 +400,7 @@ abstract class FileUploaderIT : AbstractOnServerIT() {
                 user,
                 null,
                 ocUpload,
-                NameCollisionPolicy.CANCEL,
+                NameCollisionPolicy.SKIP,
                 FileUploadWorker.LOCAL_BEHAVIOUR_COPY,
                 targetContext,
                 false,
@@ -431,7 +426,7 @@ abstract class FileUploaderIT : AbstractOnServerIT() {
             user,
             null,
             ocUpload2,
-            NameCollisionPolicy.CANCEL,
+            NameCollisionPolicy.SKIP,
             FileUploadWorker.LOCAL_BEHAVIOUR_COPY,
             targetContext,
             false,
@@ -482,7 +477,7 @@ abstract class FileUploaderIT : AbstractOnServerIT() {
             user,
             arrayOf(ocFile2),
             FileUploadWorker.LOCAL_BEHAVIOUR_COPY,
-            NameCollisionPolicy.CANCEL
+            NameCollisionPolicy.SKIP
         )
 
         shortSleep()

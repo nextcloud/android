@@ -18,7 +18,9 @@ import javax.inject.Inject
 /**
  * Zoomable preview of a single bitmap
  */
-class PreviewBitmapActivity : AppCompatActivity(), Injectable {
+class PreviewBitmapActivity :
+    AppCompatActivity(),
+    Injectable {
 
     companion object {
         const val EXTRA_BITMAP_PATH = "EXTRA_BITMAP_PATH"
@@ -52,7 +54,7 @@ class PreviewBitmapActivity : AppCompatActivity(), Injectable {
     }
 
     override fun onSupportNavigateUp(): Boolean {
-        onBackPressed()
+        onBackPressedDispatcher.onBackPressed()
         return true
     }
 }

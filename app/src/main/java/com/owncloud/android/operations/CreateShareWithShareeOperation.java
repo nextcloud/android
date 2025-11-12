@@ -56,12 +56,14 @@ public class CreateShareWithShareeOperation extends SyncOperation {
     private String label;
     private final Context context;
     private final User user;
+    private String attributes;
 
     private ArbitraryDataProvider arbitraryDataProvider;
 
     private static final Set<ShareType> supportedShareTypes = new HashSet<>(Arrays.asList(ShareType.USER,
                                                                                           ShareType.GROUP,
                                                                                           ShareType.FEDERATED,
+                                                                                          ShareType.FEDERATED_GROUP,
                                                                                           ShareType.EMAIL,
                                                                                           ShareType.ROOM,
                                                                                           ShareType.CIRCLE));
@@ -85,6 +87,7 @@ public class CreateShareWithShareeOperation extends SyncOperation {
                                           String sharePassword,
                                           long expirationDateInMillis,
                                           boolean hideFileDownload,
+                                          String attributes,
                                           FileDataStorageManager storageManager,
                                           Context context,
                                           User user,
@@ -105,6 +108,7 @@ public class CreateShareWithShareeOperation extends SyncOperation {
         this.context = context;
         this.user = user;
         this.arbitraryDataProvider = arbitraryDataProvider;
+        this.attributes = attributes;
     }
 
     @Override
@@ -124,7 +128,7 @@ public class CreateShareWithShareeOperation extends SyncOperation {
             try {
                 String publicKey = EncryptionUtils.getPublicKey(user, shareeName, arbitraryDataProvider);
 
-                if ("".equals(publicKey)) {
+                if (publicKey.isEmpty()) {
                     NextcloudClient nextcloudClient = new ClientFactoryImpl(context).createNextcloudClient(user);
                     RemoteOperationResult<String> result = new GetPublicKeyRemoteOperation(shareeName).execute(nextcloudClient);
                     if (result.isSuccess()) {
@@ -156,7 +160,8 @@ public class CreateShareWithShareeOperation extends SyncOperation {
             false,
             sharePassword,
             permissions,
-            noteMessage
+            noteMessage,
+            attributes
         );
         operation.setGetShareDetails(true);
         RemoteOperationResult shareResult = operation.execute(client);

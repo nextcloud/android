@@ -12,10 +12,8 @@ import android.widget.ArrayAdapter
 import com.afollestad.sectionedrecyclerview.SectionedViewHolder
 import com.owncloud.android.databinding.BackupListItemHeaderBinding
 
-class BackupListHeaderViewHolder(
-    val binding: BackupListItemHeaderBinding,
-    val context: Context
-) : SectionedViewHolder(binding.root) {
+class BackupListHeaderViewHolder(val binding: BackupListItemHeaderBinding, val context: Context) :
+    SectionedViewHolder(binding.root) {
     val adapter = ArrayAdapter<ContactsAccount?>(
         context,
         android.R.layout.simple_spinner_dropdown_item,

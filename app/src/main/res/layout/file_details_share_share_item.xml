@@ -28,7 +28,7 @@
         android:layout_marginRight="@dimen/standard_margin"
         android:layout_marginBottom="@dimen/standard_half_margin"
         android:contentDescription="@string/user_icon"
-        android:src="@drawable/ic_user" />
+        android:src="@drawable/ic_user_outline" />
 
     <LinearLayout
         android:id="@+id/share_name_layout"
@@ -60,7 +60,7 @@
             app:drawableEndCompat="@drawable/ic_baseline_arrow_drop_down_24"
             app:drawableRightCompat="@drawable/ic_baseline_arrow_drop_down_24"
             app:drawableTint="@color/primary"
-            tools:text="View only" />
+            tools:text="@string/placeholder_view_only" />
     </LinearLayout>
 
     <ImageView

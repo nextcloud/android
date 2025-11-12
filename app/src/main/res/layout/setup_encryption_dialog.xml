@@ -20,7 +20,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/standard_margin"
-        tools:text="@string/end_to_end_encryption_keywords_description" />
+        tools:text="@string/placeholder_share_internal_e2ee_keyword_description" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/encryption_passphrase"
@@ -32,7 +32,7 @@
         android:padding="5dp"
         android:textIsSelectable="true"
         android:visibility="gone"
-        tools:text="passphrase"
+        tools:text="@string/placeholder_passphrase"
         tools:visibility="visible" />
 
     <com.google.android.material.textfield.TextInputLayout

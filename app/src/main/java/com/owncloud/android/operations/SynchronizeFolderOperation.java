@@ -28,7 +28,6 @@ import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.files.ReadFileRemoteOperation;
 import com.owncloud.android.lib.resources.files.ReadFolderRemoteOperation;
 import com.owncloud.android.lib.resources.files.model.RemoteFile;
-import com.owncloud.android.lib.resources.status.E2EVersion;
 import com.owncloud.android.operations.common.SyncOperation;
 import com.owncloud.android.services.OperationsService;
 import com.owncloud.android.utils.FileStorageUtils;
@@ -280,18 +279,7 @@ public class SynchronizeFolderOperation extends SyncOperation {
         }
 
         // get current data about local contents of the folder to synchronize
-        Map<String, OCFile> localFilesMap;
-        E2EVersion e2EVersion;
-
-        if (object instanceof DecryptedFolderMetadataFileV1) {
-            e2EVersion = E2EVersion.V1_2;
-            localFilesMap = RefreshFolderOperation.prefillLocalFilesMap((DecryptedFolderMetadataFileV1) object,
-                                                                        storageManager.getFolderContent(mLocalFolder, false));
-        } else {
-            e2EVersion = E2EVersion.V2_0;
-            localFilesMap = RefreshFolderOperation.prefillLocalFilesMap((DecryptedFolderMetadataFile) object,
-                                                                        storageManager.getFolderContent(mLocalFolder, false));
-        }
+        Map<String, OCFile> localFilesMap = RefreshFolderOperation.prefillLocalFilesMap(object,storageManager.getFolderContent(mLocalFolder, false));
 
         // loop to synchronize every child
         List<OCFile> updatedFiles = new ArrayList<>(folderAndFiles.size() - 1);
@@ -324,14 +312,10 @@ public class SynchronizeFolderOperation extends SyncOperation {
             FileStorageUtils.searchForLocalFileInDefaultPath(updatedFile, user.getAccountName());
 
             // update file name for encrypted files
-            if (e2EVersion == E2EVersion.V1_2) {
-                RefreshFolderOperation.updateFileNameForEncryptedFileV1(storageManager,
-                                                 (DecryptedFolderMetadataFileV1) object,
-                                                 updatedFile);
-            } else {
-                RefreshFolderOperation.updateFileNameForEncryptedFile(storageManager,
-                                               (DecryptedFolderMetadataFile) object,
-                                               updatedFile);
+            if (object instanceof DecryptedFolderMetadataFileV1 metadataFile) {
+                RefreshFolderOperation.updateFileNameForEncryptedFileV1(storageManager, metadataFile, updatedFile);
+            } else if (object instanceof DecryptedFolderMetadataFile metadataFile) {
+                RefreshFolderOperation.updateFileNameForEncryptedFile(storageManager, metadataFile, updatedFile);
             }
 
             // we parse content, so either the folder itself or its direct parent (which we check) must be encrypted
@@ -345,14 +329,10 @@ public class SynchronizeFolderOperation extends SyncOperation {
         }
 
         // update file name for encrypted files
-        if (e2EVersion == E2EVersion.V1_2) {
-            RefreshFolderOperation.updateFileNameForEncryptedFileV1(storageManager,
-                                                                    (DecryptedFolderMetadataFileV1) object,
-                                                                    mLocalFolder);
-        } else {
-            RefreshFolderOperation.updateFileNameForEncryptedFile(storageManager,
-                                                                  (DecryptedFolderMetadataFile) object,
-                                                                  mLocalFolder);
+        if (object instanceof DecryptedFolderMetadataFileV1 metadataFile) {
+            RefreshFolderOperation.updateFileNameForEncryptedFileV1(storageManager, metadataFile, mLocalFolder);
+        } else if (object instanceof DecryptedFolderMetadataFile metadataFile) {
+            RefreshFolderOperation.updateFileNameForEncryptedFile(storageManager, metadataFile, mLocalFolder);
         }
 
         // save updated contents in local database
@@ -455,6 +435,10 @@ public class SynchronizeFolderOperation extends SyncOperation {
     private void updateETag(OwnCloudClient client) {
         ReadFolderRemoteOperation operation = new ReadFolderRemoteOperation(mRemotePath);
         final var result = operation.execute(client);
+        if (!result.isSuccess()) {
+            Log_OC.w(TAG, "Cannot update eTag, read folder operation is failed");
+            return;
+        }
 
         if (result.getData().get(0) instanceof RemoteFile remoteFile) {
             String eTag = remoteFile.getEtag();
@@ -500,7 +484,7 @@ public class SynchronizeFolderOperation extends SyncOperation {
                 Log_OC.d(TAG, "Exception caught at startDirectDownloads" + e);
             }
         } else {
-            mFilesForDirectDownload.forEach(file -> fileDownloadHelper.downloadFile(user, file));
+            fileDownloadHelper.downloadFolder(mLocalFolder, user.getAccountName());
         }
     }
 

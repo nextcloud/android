@@ -82,6 +82,7 @@ public class OperationsService extends Service {
     private static final String TAG = OperationsService.class.getSimpleName();
 
     public static final String EXTRA_ACCOUNT = "ACCOUNT";
+    public static final String EXTRA_POST_DIALOG_EVENT = "EXTRA_POST_DIALOG_EVENT";
     public static final String EXTRA_SERVER_URL = "SERVER_URL";
     public static final String EXTRA_REMOTE_PATH = "REMOTE_PATH";
     public static final String EXTRA_NEWNAME = "NEWNAME";
@@ -98,9 +99,11 @@ public class OperationsService extends Service {
     public static final String EXTRA_SHARE_PUBLIC_LABEL = "SHARE_PUBLIC_LABEL";
     public static final String EXTRA_SHARE_HIDE_FILE_DOWNLOAD = "HIDE_FILE_DOWNLOAD";
     public static final String EXTRA_SHARE_ID = "SHARE_ID";
+    public static final String EXTRA_SHARE_REMOTE_ID = "SHARE_REMOTE_ID";
     public static final String EXTRA_SHARE_NOTE = "SHARE_NOTE";
     public static final String EXTRA_IN_BACKGROUND = "IN_BACKGROUND";
     public static final String EXTRA_FILES_DOWNLOAD_LIMIT = "FILES_DOWNLOAD_LIMIT";
+    public static final String EXTRA_SHARE_ATTRIBUTES = "SHARE_ATTRIBUTES";
 
     public static final String ACTION_CREATE_SHARE_VIA_LINK = "CREATE_SHARE_VIA_LINK";
     public static final String ACTION_CREATE_SECURE_FILE_DROP = "CREATE_SECURE_FILE_DROP";
@@ -437,6 +440,11 @@ public class OperationsService extends Service {
                     // perform the operation
                     try {
                         result = mCurrentOperation.execute(mOwnCloudClient);
+                        if (!result.isSuccess()) {
+                            final var code = "code: " + result.getCode();
+                            final var httpCode = "HTTP_CODE: " + result.getHttpCode();
+                            Log_OC.e(TAG,"Operation failed " + code + httpCode);
+                        }
                     } catch (UnsupportedOperationException e) {
                         // TODO remove - added to aid in transition to NextcloudClient
 
@@ -593,6 +601,8 @@ public class OperationsService extends Service {
                             .getLongExtra(EXTRA_SHARE_EXPIRATION_DATE_IN_MILLIS, 0L);
                         boolean hideFileDownload = operationIntent.getBooleanExtra(EXTRA_SHARE_HIDE_FILE_DOWNLOAD,
                                                                                    false);
+                        String attributes = operationIntent.getStringExtra(EXTRA_SHARE_ATTRIBUTES);
+
                         if (!TextUtils.isEmpty(remotePath)) {
                             CreateShareWithShareeOperation createShareWithShareeOperation =
                                 new CreateShareWithShareeOperation(remotePath,
@@ -603,6 +613,7 @@ public class OperationsService extends Service {
                                                                    sharePassword,
                                                                    expirationDateInMillis,
                                                                    hideFileDownload,
+                                                                   attributes,
                                                                    fileDataStorageManager,
                                                                    getApplicationContext(),
                                                                    user,
@@ -617,9 +628,11 @@ public class OperationsService extends Service {
 
                     case ACTION_UPDATE_SHARE_INFO:
                         shareId = operationIntent.getLongExtra(EXTRA_SHARE_ID, -1);
+                        long shareRemoteId = operationIntent.getLongExtra(EXTRA_SHARE_REMOTE_ID, -1);
 
-                        if (shareId > 0) {
+                        if (shareId > 0 || shareRemoteId > 0) {
                             UpdateShareInfoOperation updateShare = new UpdateShareInfoOperation(shareId,
+                                                                                                shareRemoteId,
                                                                                                 fileDataStorageManager);
 
                             int permissionsToChange = operationIntent.getIntExtra(EXTRA_SHARE_PERMISSIONS, -1);
@@ -640,6 +653,9 @@ public class OperationsService extends Service {
                             if (operationIntent.hasExtra(EXTRA_SHARE_PUBLIC_LABEL)) {
                                 updateShare.setLabel(operationIntent.getStringExtra(EXTRA_SHARE_PUBLIC_LABEL));
                             }
+
+                            String shareAttributes = operationIntent.getStringExtra(EXTRA_SHARE_ATTRIBUTES);
+                            updateShare.setAttributes(shareAttributes);
 
                             operation = updateShare;
                         }
@@ -675,6 +691,11 @@ public class OperationsService extends Service {
                     case ACTION_REMOVE:
                         // Remove file or folder
                         OCFile file = IntentExtensionsKt.getParcelableArgument(operationIntent, EXTRA_FILE, OCFile.class);
+                        if (file == null) {
+                            Log_OC.w(TAG, "file is null cannot remove file");
+                            break;
+                        }
+
                         boolean onlyLocalCopy = operationIntent.getBooleanExtra(EXTRA_REMOVE_ONLY_LOCAL, false);
                         boolean inBackground = operationIntent.getBooleanExtra(EXTRA_IN_BACKGROUND, false);
                         operation = new RemoveFileOperation(file,
@@ -695,13 +716,15 @@ public class OperationsService extends Service {
 
                     case ACTION_SYNC_FILE:
                         remotePath = operationIntent.getStringExtra(EXTRA_REMOTE_PATH);
+                        boolean postDialogEvent = operationIntent.getBooleanExtra(EXTRA_POST_DIALOG_EVENT, true);
                         boolean syncFileContents = operationIntent.getBooleanExtra(EXTRA_SYNC_FILE_CONTENTS, true);
                         operation = new SynchronizeFileOperation(remotePath,
                                                                  user,
                                                                  syncFileContents,
                                                                  getApplicationContext(),
                                                                  fileDataStorageManager,
-                                                                 false);
+                                                                 false,
+                                                                 postDialogEvent);
                         break;
 
                     case ACTION_SYNC_FOLDER:
@@ -733,6 +756,11 @@ public class OperationsService extends Service {
 
                     case ACTION_RESTORE_VERSION:
                         FileVersion fileVersion = IntentExtensionsKt.getParcelableArgument(operationIntent, EXTRA_FILE_VERSION, FileVersion.class);
+                        if (fileVersion == null) {
+                            Log_OC.w(TAG, "file version is null cannot restore file");
+                            break;
+                        }
+
                         operation = new RestoreFileVersionRemoteOperation(fileVersion.getLocalId(),
                                                                           fileVersion.getFileName());
                         break;

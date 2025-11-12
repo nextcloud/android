@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
   ~ Nextcloud - Android Client
-  ~
+  ~ SPDX-FileCopyrightText: 2025 Alper Ozturk <alper.ozturk@nextcloud.com>
   ~ SPDX-FileCopyrightText: 2024 Jonas Mayer
   ~ SPDX-FileCopyrightText: 2018 Andy Scherzinger <info@andy-scherzinger.de>
   ~ SPDX-FileCopyrightText: 2018 Tobias Kaminsky <tobias@kaminsky.me>
   ~ SPDX-FileCopyrightText: 2018 Nextcloud
   ~ SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
 -->
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/ListItemLayout"
     android:layout_width="match_parent"
@@ -46,7 +48,7 @@
         android:paddingTop="@dimen/standard_half_padding"
         android:paddingBottom="@dimen/standard_half_padding"
         android:textColor="@color/color_accent"
-        tools:text="Current (2)" />
+        tools:text="@string/placeholder_current_2" />
 
     <ImageView
         android:id="@+id/upload_list_action"
@@ -58,5 +60,13 @@
         android:paddingTop="@dimen/standard_half_padding"
         android:paddingEnd="@dimen/zero"
         android:paddingBottom="@dimen/standard_half_padding"
-        android:src="@drawable/nav_trashbin" />
+        android:src="@drawable/ic_delete"
+        app:tint="#757575" />
+
+    <include
+        android:id="@+id/auto_upload_battery_saver_warning_card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/upload_list_title"
+        layout="@layout/auto_upload_battery_saver_warning_card" />
 </RelativeLayout>

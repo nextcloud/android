@@ -18,12 +18,14 @@ import com.owncloud.android.operations.UploadFileOperation
 import com.owncloud.android.ui.notifications.NotificationUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
 
-class UploadNotificationManager(private val context: Context, viewThemeUtils: ViewThemeUtils) :
-    WorkerNotificationManager(ID, context, viewThemeUtils, R.string.foreground_service_upload) {
-
-    companion object {
-        private const val ID = 411
-    }
+class UploadNotificationManager(private val context: Context, viewThemeUtils: ViewThemeUtils, id: Int) :
+    WorkerNotificationManager(
+        id,
+        context,
+        viewThemeUtils,
+        tickerId = R.string.foreground_service_upload,
+        channelId = NotificationUtils.NOTIFICATION_CHANNEL_UPLOAD
+    ) {
 
     @Suppress("MagicNumber")
     fun prepareForStart(
@@ -79,9 +81,14 @@ class UploadNotificationManager(private val context: Context, viewThemeUtils: Vi
         uploadFileOperation: UploadFileOperation,
         resultCode: RemoteOperationResult.ResultCode,
         conflictsResolveIntent: PendingIntent?,
+        cancelUploadActionIntent: PendingIntent?,
         credentialIntent: PendingIntent?,
         errorMessage: String
     ) {
+        if (uploadFileOperation.isMissingPermissionThrown) {
+            return
+        }
+
         val textId = getFailedResultTitleId(resultCode)
 
         notificationBuilder.run {
@@ -97,6 +104,14 @@ class UploadNotificationManager(private val context: Context, viewThemeUtils: Vi
                     R.drawable.ic_cloud_upload,
                     R.string.upload_list_resolve_conflict,
                     it
+                )
+            }
+
+            cancelUploadActionIntent?.let {
+                addAction(
+                    R.drawable.ic_delete,
+                    R.string.upload_list_cancel_upload,
+                    cancelUploadActionIntent
                 )
             }
 
@@ -138,6 +153,23 @@ class UploadNotificationManager(private val context: Context, viewThemeUtils: Vi
         notificationManager.notify(
             NotificationUtils.createUploadNotificationTag(operation.file),
             FileUploadWorker.NOTIFICATION_ERROR_ID,
+            notificationBuilder.build()
+        )
+    }
+
+    fun showSameFileAlreadyExistsNotification(filename: String) {
+        notificationBuilder.run {
+            setAutoCancel(true)
+            clearActions()
+            setContentText("")
+            setProgress(0, 0, false)
+            setContentTitle(context.getString(R.string.file_upload_worker_same_file_already_exists, filename))
+        }
+
+        val notificationId = filename.hashCode()
+
+        notificationManager.notify(
+            notificationId,
             notificationBuilder.build()
         )
     }

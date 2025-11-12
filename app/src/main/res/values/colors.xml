@@ -15,7 +15,6 @@
     <color name="white">#ffffff</color>
     <color name="white_helper_text">#B3FFFFFF</color>
     <color name="text_color">#333333</color>
-    <color name="light_grey">#F5F5F5</color>
     <color name="grid_file_features_icon_color">#303034</color>
     <color name="grid_file_features_background_color">#E9E8EB</color>
     <color name="drawer_text_color">@color/secondary_text_color</color>
@@ -40,6 +39,15 @@
     <!-- level colors for info notifications/visualisations -->
     <color name="infolevel_warning">#e9322d</color>
 
+    <!-- Log Colors -->
+    <color name="log_level_verbose">#9E9E9E</color>
+    <color name="log_level_debug">#2196F3</color>
+    <color name="log_level_info">#4CAF50</color>
+    <color name="log_level_warning">#FFA000</color>
+    <color name="log_level_error">#F44336</color>
+    <color name="log_level_assert">#D50000</color>
+    <color name="log_level_unknown">#757575</color>
+
     <!-- Colors -->
     <color name="dark">#000000</color>
     <color name="login_btn_tint">#ffffff</color>
@@ -51,12 +59,15 @@
     <color name="secondary_button_background_color">#D6D7D7</color>
     <color name="secondary_button_text_color">#000000</color>
     <color name="nc_grey">#ededed</color>
+    <color name="task_container">#F4F4F4</color>
     <color name="icon_on_nc_grey">#000000</color>
     <color name="foreground_highlight">#1D1B1E</color>
     <color name="process_dialog_background">#ffffff</color>
     <color name="indicator_dot_selected">#ffffff</color>
     <color name="drawer_shadow">#000000</color>
-    <color name="online">#2d7b41</color>
+    <color name="online">#2D7B41</color>
+    <color name="busy">#DB0606</color>
+    <color name="offline">@color/high_emphasis_text</color>
 
     <color name="background_color_png">#FFFFFF</color>
 

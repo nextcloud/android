@@ -9,10 +9,12 @@ package com.nextcloud.client.jobs.download
 
 import com.nextcloud.client.account.User
 import com.nextcloud.client.jobs.BackgroundJobManager
+import com.nextcloud.client.jobs.folderDownload.FolderDownloadWorker
 import com.owncloud.android.MainApp
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.datamodel.UploadsStorageManager
+import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.operations.DownloadFileOperation
 import com.owncloud.android.operations.DownloadType
 import com.owncloud.android.utils.MimeTypeUtil
@@ -29,11 +31,10 @@ class FileDownloadHelper {
 
     companion object {
         private var instance: FileDownloadHelper? = null
+        private const val TAG = "FileDownloadHelper"
 
-        fun instance(): FileDownloadHelper {
-            return instance ?: synchronized(this) {
-                instance ?: FileDownloadHelper().also { instance = it }
-            }
+        fun instance(): FileDownloadHelper = instance ?: synchronized(this) {
+            instance ?: FileDownloadHelper().also { instance = it }
         }
     }
 
@@ -46,12 +47,8 @@ class FileDownloadHelper {
             return false
         }
 
-        val fileStorageManager = FileDataStorageManager(user, MainApp.getAppContext().contentResolver)
-        val topParentId = fileStorageManager.getTopParentId(file)
-
-        val isJobScheduled = backgroundJobManager.isStartFileDownloadJobScheduled(user, file.fileId)
-        return isJobScheduled || if (file.isFolder) {
-            backgroundJobManager.isStartFileDownloadJobScheduled(user, topParentId)
+        return if (file.isFolder) {
+            FolderDownloadWorker.isDownloading(file.fileId)
         } else {
             FileDownloadWorker.isDownloading(user.accountName, file.fileId)
         }
@@ -141,4 +138,14 @@ class FileDownloadHelper {
             conflictUploadId
         )
     }
+
+    fun downloadFolder(folder: OCFile?, accountName: String) {
+        if (folder == null) {
+            Log_OC.e(TAG, "folder cannot be null, cant sync")
+            return
+        }
+        backgroundJobManager.downloadFolder(folder, accountName)
+    }
+
+    fun cancelFolderDownload() = backgroundJobManager.cancelFolderDownload()
 }

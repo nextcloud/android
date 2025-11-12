@@ -7,6 +7,7 @@
  */
 package com.owncloud.android.ui.preview;
 
+import android.annotation.SuppressLint;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -18,12 +19,14 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.nextcloud.client.account.User;
+import com.nextcloud.ui.fileactions.FileAction;
 import com.nextcloud.ui.fileactions.FileActionsBottomSheet;
 import com.nextcloud.utils.extensions.BundleExtensionsKt;
 import com.nextcloud.utils.extensions.FileExtensionsKt;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment;
 import com.owncloud.android.ui.dialog.RemoveFilesDialogFragment;
 import com.owncloud.android.utils.DisplayUtils;
@@ -37,8 +40,6 @@ import java.io.IOException;
 import java.io.Reader;
 import java.io.StringWriter;
 import java.lang.ref.WeakReference;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
@@ -146,6 +147,7 @@ public class PreviewTextFileFragment extends PreviewTextFragment {
     /**
      * Reads the file to preview and shows its contents. Too critical to be anonymous.
      */
+    @SuppressLint("StaticFieldLeak")
     private class TextLoadAsyncTask extends AsyncTask<Object, Void, StringWriter> {
         private static final int PARAMS_LENGTH = 1;
         private final WeakReference<TextView> textViewReference;
@@ -277,18 +279,7 @@ public class PreviewTextFileFragment extends PreviewTextFragment {
     }
 
     private void showFileActions(OCFile file) {
-        final List<Integer> additionalFilter = new ArrayList<>(
-            Arrays.asList(
-                R.id.action_rename_file,
-                R.id.action_sync_file,
-                R.id.action_move_or_copy,
-                R.id.action_favorite,
-                R.id.action_unset_favorite,
-                R.id.action_pin_to_homescreen
-                         ));
-        if (getFile() != null && getFile().isSharedWithMe() && !getFile().canReshare()) {
-            additionalFilter.add(R.id.action_send_share_file);
-        }
+        final var additionalFilter = FileAction.Companion.getFilePreviewActions(getFile());
         final FragmentManager fragmentManager = getChildFragmentManager();
         FileActionsBottomSheet.newInstance(file, false, additionalFilter)
             .setResultListener(fragmentManager, this, this::onFileActionChosen)
@@ -302,6 +293,8 @@ public class PreviewTextFileFragment extends PreviewTextFragment {
             } else {
                 containerActivity.getFileOperationsHelper().sendShareFile(getFile());
             }
+        } else if (itemId == R.id.action_send_file) {
+            containerActivity.getFileOperationsHelper().sendShareFile(getFile(), true);
         } else if (itemId == R.id.action_open_file_with) {
             openFile();
         } else if (itemId == R.id.action_remove_file) {
@@ -310,6 +303,9 @@ public class PreviewTextFileFragment extends PreviewTextFragment {
         } else if (itemId == R.id.action_see_details) {
             seeDetails();
         } else if (itemId == R.id.action_sync_file) {
+            if (containerActivity instanceof FileActivity activity) {
+                activity.showSyncLoadingDialog(getFile().isFolder());
+            }
             containerActivity.getFileOperationsHelper().syncFile(getFile());
         } else if(itemId == R.id.action_cancel_sync){
             containerActivity.getFileOperationsHelper().cancelTransference(getFile());

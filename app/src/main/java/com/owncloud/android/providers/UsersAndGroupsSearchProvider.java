@@ -100,6 +100,7 @@ public class UsersAndGroupsSearchProvider extends ContentProvider {
     private String DATA_GROUP;
     private String DATA_ROOM;
     private String DATA_REMOTE;
+    private String DATA_REMOTE_GROUP;
     private String DATA_EMAIL;
     private String DATA_CIRCLE;
 
@@ -142,6 +143,7 @@ public class UsersAndGroupsSearchProvider extends ContentProvider {
         DATA_GROUP = AUTHORITY + ".data.group";
         DATA_ROOM = AUTHORITY + ".data.room";
         DATA_REMOTE = AUTHORITY + ".data.remote";
+        DATA_REMOTE_GROUP = AUTHORITY + ".data.remote_group";
         DATA_EMAIL = AUTHORITY + ".data.email";
         DATA_CIRCLE = AUTHORITY + ".data.circle";
 
@@ -149,6 +151,7 @@ public class UsersAndGroupsSearchProvider extends ContentProvider {
         sShareTypes.put(DATA_GROUP, ShareType.GROUP);
         sShareTypes.put(DATA_ROOM, ShareType.ROOM);
         sShareTypes.put(DATA_REMOTE, ShareType.FEDERATED);
+        sShareTypes.put(DATA_REMOTE_GROUP, ShareType.FEDERATED_GROUP);
         sShareTypes.put(DATA_EMAIL, ShareType.EMAIL);
         sShareTypes.put(DATA_CIRCLE, ShareType.CIRCLE);
 
@@ -228,6 +231,7 @@ public class UsersAndGroupsSearchProvider extends ContentProvider {
             Uri groupBaseUri = new Uri.Builder().scheme(CONTENT).authority(DATA_GROUP).build();
             Uri roomBaseUri = new Uri.Builder().scheme(CONTENT).authority(DATA_ROOM).build();
             Uri remoteBaseUri = new Uri.Builder().scheme(CONTENT).authority(DATA_REMOTE).build();
+            Uri remoteGroupBaseUri = new Uri.Builder().scheme(CONTENT).authority(DATA_REMOTE_GROUP).build();
             Uri emailBaseUri = new Uri.Builder().scheme(CONTENT).authority(DATA_EMAIL).build();
             Uri circleBaseUri = new Uri.Builder().scheme(CONTENT).authority(DATA_CIRCLE).build();
 
@@ -282,12 +286,30 @@ public class UsersAndGroupsSearchProvider extends ContentProvider {
 
                         case FEDERATED:
                             if (federatedShareAllowed) {
-                                icon = R.drawable.ic_user;
+                                icon = R.drawable.ic_user_outline;
                                 dataUri = Uri.withAppendedPath(remoteBaseUri, shareWith);
 
                                 if (userName.equals(shareWith)) {
                                     displayName = name;
                                     subline = getContext().getString(R.string.remote);
+                                } else {
+                                    String[] uriSplitted = shareWith.split("@");
+                                    displayName = name;
+                                    subline = getContext().getString(R.string.share_known_remote_on_clarification,
+                                                                     uriSplitted[uriSplitted.length - 1]);
+                                }
+                            }
+                            break;
+
+                        case FEDERATED_GROUP:
+                            if (federatedShareAllowed) {
+                                icon = R.drawable.ic_group;
+                                dataUri = Uri.withAppendedPath(remoteGroupBaseUri, shareWith);
+
+                                if (userName.equals(shareWith)) {
+                                    displayName = name;
+                                    subline = getContext().getString(R.string.remote);
+                                    subline = "";
                                 } else {
                                     String[] uriSplitted = shareWith.split("@");
                                     displayName = name;

@@ -90,6 +90,7 @@ public class TrashbinListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         this.viewThemeUtils = viewThemeUtils;
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     public void setTrashbinFiles(List<TrashbinFile> trashbinFiles, boolean clear) {
         if (clear) {
             files.clear();
@@ -206,6 +207,7 @@ public class TrashbinListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         }
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     public void removeAllFiles() {
         files.clear();
         notifyDataSetChanged();
@@ -345,6 +347,7 @@ public class TrashbinListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         asyncTasks.clear();
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     public void setSortOrder(FileSortOrder sortOrder) {
         preferences.setSortOrder(FileSortOrder.Type.trashBinView, sortOrder);
         files = sortOrder.sortTrashbinFiles(files);

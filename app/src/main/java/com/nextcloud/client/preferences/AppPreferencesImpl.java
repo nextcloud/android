@@ -70,6 +70,8 @@ public final class AppPreferencesImpl implements AppPreferences {
     private static final String PREF__INSTANT_UPLOADING = "instant_uploading";
     private static final String PREF__INSTANT_VIDEO_UPLOADING = "instant_video_uploading";
     private static final String PREF__SHOW_HIDDEN_FILES = "show_hidden_files_pref";
+    private static final String PREF__SORT_FOLDERS_BEFORE_FILES = "sort_folders_before_files";
+    private static final String PREF__SORT_FAVORITES_FIRST = "sort_favorites_first";
     private static final String PREF__SHOW_ECOSYSTEM_APPS = "show_ecosystem_apps";
     private static final String PREF__LEGACY_CLEAN = "legacyClean";
     private static final String PREF__KEYS_MIGRATION = "keysMigration";
@@ -88,7 +90,6 @@ public final class AppPreferencesImpl implements AppPreferences {
     private static final String PREF__SELECTED_ACCOUNT_NAME = "select_oc_account";
     private static final String PREF__MIGRATED_USER_ID = "migrated_user_id";
     private static final String PREF__PHOTO_SEARCH_TIMESTAMP = "photo_search_timestamp";
-    private static final String PREF__POWER_CHECK_DISABLED = "power_check_disabled";
     private static final String PREF__PIN_BRUTE_FORCE_COUNT = "pin_brute_force_count";
     private static final String PREF__UID_PID = "uid_pid";
 
@@ -108,11 +109,9 @@ public final class AppPreferencesImpl implements AppPreferences {
 
     private static final String PREF__STOP_DOWNLOAD_JOBS_ON_START = "stop_download_jobs_on_start";
     
-    private static final String PREF__AUTO_UPLOAD_GPLAY_WARNING_SHOWN = "auto_upload_gplay_warning_shown";
-    private static final String PREF__AUTO_UPLOAD_GPLAY_WARNING2_SHOWN = "auto_upload_gplay_warning2_shown";
-    private static final String PREF__AUTO_UPLOAD_GPLAY_NOTIFICATION_SHOWN = "auto_upload_gplay_notification_shown";
-
     private static final String PREF__PASSCODE_DELAY_IN_SECONDS = "passcode_delay_in_seconds";
+
+    private static final String PREF_LAST_DISPLAYED_ACCOUNT_NAME = "last_displayed_user";
 
     private static final String LOG_ENTRY = "log_entry";
 
@@ -229,6 +228,26 @@ public final class AppPreferencesImpl implements AppPreferences {
     @Override
     public void setShowHiddenFilesEnabled(boolean enabled) {
         preferences.edit().putBoolean(PREF__SHOW_HIDDEN_FILES, enabled).apply();
+    }
+
+    @Override
+    public boolean isSortFoldersBeforeFiles() {
+        return preferences.getBoolean(PREF__SORT_FOLDERS_BEFORE_FILES, true);
+    }
+
+    @Override
+    public void setSortFoldersBeforeFiles(boolean enabled) {
+        preferences.edit().putBoolean(PREF__SORT_FOLDERS_BEFORE_FILES, enabled).apply();
+    }
+
+    @Override
+    public boolean isSortFavoritesFirst() {
+        return preferences.getBoolean(PREF__SORT_FAVORITES_FIRST, true);
+    }
+
+    @Override
+    public void setSortFavoritesFirst(boolean enabled) {
+        preferences.edit().putBoolean(PREF__SORT_FAVORITES_FIRST, enabled).apply();
     }
 
     @Override
@@ -691,16 +710,6 @@ public final class AppPreferencesImpl implements AppPreferences {
         return preferenceName + "_" + folderIdString;
     }
 
-    @Override
-    public boolean isPowerCheckDisabled() {
-        return preferences.getBoolean(PREF__POWER_CHECK_DISABLED, false);
-    }
-
-    @Override
-    public void setPowerCheckDisabled(boolean value) {
-        preferences.edit().putBoolean(PREF__POWER_CHECK_DISABLED, value).apply();
-    }
-
     public void increasePinWrongAttempts() {
         int count = preferences.getInt(PREF__PIN_BRUTE_FORCE_COUNT, 0);
         preferences.edit().putInt(PREF__PIN_BRUTE_FORCE_COUNT, count + 1).apply();
@@ -828,36 +837,6 @@ public final class AppPreferencesImpl implements AppPreferences {
     }
 
     @Override
-    public boolean isAutoUploadGPlayWarningShown() {
-        return preferences.getBoolean(PREF__AUTO_UPLOAD_GPLAY_WARNING_SHOWN, false);
-    }
-
-    @Override
-    public void setAutoUploadGPlayWarningShown(boolean value) {
-        preferences.edit().putBoolean(PREF__AUTO_UPLOAD_GPLAY_WARNING_SHOWN, value).apply();
-    }
-
-    @Override
-    public boolean isAutoUploadGPlayWarning2Shown() {
-        return preferences.getBoolean(PREF__AUTO_UPLOAD_GPLAY_WARNING2_SHOWN, false);
-    }
-
-    @Override
-    public void setAutoUploadGPlayWarning2Shown(boolean value) {
-        preferences.edit().putBoolean(PREF__AUTO_UPLOAD_GPLAY_WARNING2_SHOWN, value).apply();
-    }
-
-    @Override
-    public boolean isAutoUploadGPlayNotificationShown() {
-        return preferences.getBoolean(PREF__AUTO_UPLOAD_GPLAY_NOTIFICATION_SHOWN, false);
-    }
-
-    @Override
-    public void setAutoUploadGPlayNotificationShown(boolean value) {
-        preferences.edit().putBoolean(PREF__AUTO_UPLOAD_GPLAY_NOTIFICATION_SHOWN, value).apply();
-    }
-
-    @Override
     public int getPassCodeDelay() {
         return preferences.getInt(PREF__PASSCODE_DELAY_IN_SECONDS, 0);
     }
@@ -865,5 +844,15 @@ public final class AppPreferencesImpl implements AppPreferences {
     @Override
     public void setPassCodeDelay(int value) {
         preferences.edit().putInt(PREF__PASSCODE_DELAY_IN_SECONDS, value).apply();
+    }
+
+    @Override
+    public String getLastDisplayedAccountName() {
+        return preferences.getString(PREF_LAST_DISPLAYED_ACCOUNT_NAME, null);
+    }
+
+    @Override
+    public void setLastDisplayedAccountName(String lastDisplayedAccountName) {
+        preferences.edit().putString(PREF_LAST_DISPLAYED_ACCOUNT_NAME, lastDisplayedAccountName).apply();
     }
 }

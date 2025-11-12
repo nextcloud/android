@@ -12,6 +12,7 @@
  */
 package com.owncloud.android.ui.activity;
 
+import android.annotation.SuppressLint;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
 import android.os.Bundle;
@@ -26,13 +27,14 @@ import android.view.ViewGroup;
 import android.webkit.URLUtil;
 import android.widget.ImageView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.animation.GlideAnimation;
-import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.target.CustomTarget;
+import com.bumptech.glide.request.target.Target;
+import com.bumptech.glide.request.transition.Transition;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.common.NextcloudClient;
+import com.nextcloud.utils.GlideHelper;
 import com.nextcloud.utils.extensions.BundleExtensionsKt;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.UserInfoDetailsTableItemBinding;
@@ -59,12 +61,14 @@ import javax.inject.Inject;
 
 import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.ActionBar;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Lifecycle;
 import androidx.recyclerview.widget.RecyclerView;
+import kotlin.Unit;
 
 /**
  * This Activity presents the user information.
@@ -158,7 +162,7 @@ public class UserInfoActivity extends DrawerActivity implements Injectable {
         int itemId = item.getItemId();
 
         if (itemId == android.R.id.home) {
-            onBackPressed();
+            getOnBackPressedDispatcher().onBackPressed();
         } else if (itemId == R.id.action_open_account) {
             accountClicked(user.hashCode());
         } else if (itemId == R.id.action_delete_account) {
@@ -187,52 +191,68 @@ public class UserInfoActivity extends DrawerActivity implements Injectable {
     }
 
     private void setHeaderImage() {
-        if (getStorageManager().getCapability(user.getAccountName()).getServerBackground() != null) {
-            ImageView backgroundImageView = findViewById(R.id.userinfo_background);
-
-            if (backgroundImageView != null) {
-
-                String background = getStorageManager().getCapability(user.getAccountName()).getServerBackground();
-
-                if (URLUtil.isValidUrl(background)) {
-                    // background image
-                    SimpleTarget target = new SimpleTarget<Drawable>() {
-                        @Override
-                        public void onResourceReady(Drawable resource, GlideAnimation glideAnimation) {
-                            Drawable[] drawables = {
-                                viewThemeUtils.platform.getPrimaryColorDrawable(backgroundImageView.getContext()),
-                                resource};
-                            LayerDrawable layerDrawable = new LayerDrawable(drawables);
-                            backgroundImageView.setImageDrawable(layerDrawable);
-                        }
-
-                        @Override
-                        public void onLoadFailed(Exception e, Drawable errorDrawable) {
-                            Drawable[] drawables = {
-                                viewThemeUtils.platform.getPrimaryColorDrawable(backgroundImageView.getContext()),
-                                ResourcesCompat.getDrawable(getResources(),
-                                                            R.drawable.background,
-                                                            null)};
-                            LayerDrawable layerDrawable = new LayerDrawable(drawables);
-                            backgroundImageView.setImageDrawable(layerDrawable);
-                        }
-                    };
-
-                    Glide.with(this)
-                            .load(background)
-                            .centerCrop()
-                            .placeholder(R.drawable.background)
-                            .error(R.drawable.background)
-                            .crossFade()
-                            .into(target);
-                } else {
-                    // plain color
-                    backgroundImageView.setImageDrawable(
-                        viewThemeUtils.platform.getPrimaryColorDrawable(backgroundImageView.getContext()));
-                }
-            }
+        if (getStorageManager().getCapability(user.getAccountName()).getServerBackground() == null) {
+            return;
         }
+
+        ImageView backgroundImageView = findViewById(R.id.userinfo_background);
+        if (backgroundImageView == null) {
+            return;
+        }
+
+        String backgroundURL = getStorageManager().getCapability(user.getAccountName()).getServerBackground();
+        if (backgroundURL == null) {
+            return;
+        }
+
+        if (!URLUtil.isValidUrl(backgroundURL)) {
+            final Drawable drawable = viewThemeUtils.platform.getPrimaryColorDrawable(backgroundImageView.getContext());
+            backgroundImageView.setImageDrawable(drawable);
+            return;
+        }
+
+        Target<Drawable> backgroundImageTarget = createBackgroundImageTarget(backgroundImageView);
+        getClientRepository().getNextcloudClient(nextcloudClient -> {
+            GlideHelper.INSTANCE.loadIntoTarget(this,
+                                                nextcloudClient,
+                                                backgroundURL,
+                                                backgroundImageTarget,
+                                                R.drawable.background);
+            return Unit.INSTANCE;
+        });
     }
+
+    private Target<Drawable> createBackgroundImageTarget(ImageView backgroundImageView) {
+        return new CustomTarget<>() {
+            @Override
+            public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
+                Drawable[] drawables = {
+                    viewThemeUtils.platform.getPrimaryColorDrawable(backgroundImageView.getContext()),
+                    resource
+                };
+                LayerDrawable layerDrawable = new LayerDrawable(drawables);
+                backgroundImageView.setImageDrawable(layerDrawable);
+            }
+
+            @Override
+            public void onLoadFailed(@Nullable Drawable errorDrawable) {
+                Drawable fallback = ResourcesCompat.getDrawable(backgroundImageView.getResources(), R.drawable.background, null);
+
+                Drawable[] drawables = {
+                    viewThemeUtils.platform.getPrimaryColorDrawable(backgroundImageView.getContext()),
+                    fallback
+                };
+                LayerDrawable layerDrawable = new LayerDrawable(drawables);
+                backgroundImageView.setImageDrawable(layerDrawable);
+            }
+
+            @Override
+            public void onLoadCleared(@Nullable Drawable placeholder) {
+
+            }
+        };
+    }
+
 
     private void populateUserInfoUi(UserInfo userInfo) {
         binding.userinfoUsername.setText(user.getAccountName());
@@ -256,7 +276,7 @@ public class UserInfoActivity extends DrawerActivity implements Injectable {
             binding.emptyList.emptyListView.setVisibility(View.VISIBLE);
 
             setErrorMessageForMultiList(getString(R.string.userinfo_no_info_headline),
-                                        getString(R.string.userinfo_no_info_text), R.drawable.ic_user);
+                                        getString(R.string.userinfo_no_info_text), R.drawable.ic_user_outline);
         } else {
             binding.loadingContent.setVisibility(View.VISIBLE);
             binding.emptyList.emptyListView.setVisibility(View.GONE);
@@ -376,6 +396,7 @@ public class UserInfoActivity extends DrawerActivity implements Injectable {
             this.viewThemeUtils = viewThemeUtils;
         }
 
+        @SuppressLint("NotifyDataSetChanged")
         public void setData(List<UserInfoDetailsItem> displayList) {
             mDisplayList = displayList == null ? new LinkedList<>() : displayList;
             notifyDataSetChanged();

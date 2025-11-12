@@ -27,11 +27,11 @@ import com.owncloud.android.R;
 import com.owncloud.android.lib.common.utils.Log_OC;
 
 import net.fortuna.ical4j.model.Calendar;
-import net.fortuna.ical4j.model.ComponentList;
 import net.fortuna.ical4j.model.DateTime;
 import net.fortuna.ical4j.model.Dur;
 import net.fortuna.ical4j.model.Parameter;
 import net.fortuna.ical4j.model.Property;
+import net.fortuna.ical4j.model.component.CalendarComponent;
 import net.fortuna.ical4j.model.component.VAlarm;
 import net.fortuna.ical4j.model.component.VEvent;
 import net.fortuna.ical4j.model.parameter.FbType;
@@ -44,6 +44,8 @@ import net.fortuna.ical4j.model.property.Transp;
 import net.fortuna.ical4j.model.property.Trigger;
 
 import java.net.URI;
+import java.time.temporal.TemporalAmount;
+import java.time.temporal.TemporalUnit;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -131,7 +133,7 @@ public class ProcessVEvent {
         final Options options = new Options(context);
         List<Integer> reminders = new ArrayList<>();
 
-        ComponentList events = mICalCalendar.getComponents(VEvent.VEVENT);
+        List<CalendarComponent> events = mICalCalendar.getComponents(VEvent.VEVENT);
 
         ContentResolver resolver = context.getContentResolver();
         int numDel = 0;
@@ -359,18 +361,12 @@ public class ProcessVEvent {
 
         if (hasProperty(e, Property.CLASS)) {
             String access = e.getProperty(Property.CLASS).getValue();
-            int accessLevel = Events.ACCESS_DEFAULT;
-            switch (access) {
-                case "CONFIDENTIAL":
-                    accessLevel = Events.ACCESS_CONFIDENTIAL;
-                    break;
-                case "PRIVATE":
-                    accessLevel = Events.ACCESS_PRIVATE;
-                    break;
-                case "PUBLIC":
-                    accessLevel = Events.ACCESS_PUBLIC;
-                    break;
-            }
+            int accessLevel = switch (access) {
+                case "CONFIDENTIAL" -> Events.ACCESS_CONFIDENTIAL;
+                case "PRIVATE" -> Events.ACCESS_PRIVATE;
+                case "PUBLIC" -> Events.ACCESS_PUBLIC;
+                default -> Events.ACCESS_DEFAULT;
+            };
 
             c.put(Events.ACCESS_LEVEL, accessLevel);
         }
@@ -420,22 +416,13 @@ public class ProcessVEvent {
 
             // FIXME: - Support for repeating alarms
             //        - Check the calendars max number of alarms
-            if (t.getDateTime() != null) {
+            if (t.getDateTime() != null)
                 alarmMs = t.getDateTime().getTime(); // Absolute
-            } else if (t.getDuration() != null && t.getDuration().isNegative()) {
-                //alarm trigger before start of event
+            else if (t.getDuration() != null) {
                 Related rel = (Related) t.getParameter(Parameter.RELATED);
-                if (rel != null && rel == Related.END) {
+                if (rel != null && rel == Related.END)
                     alarmStartMs = e.getEndDate().getDate().getTime();
-                }
-                alarmMs = alarmStartMs - durationToMs(t.getDuration()); // Relative "-"
-            } else if (t.getDuration() != null && !t.getDuration().isNegative()) {
-                //alarm trigger after start of event
-                Related rel = (Related) t.getParameter(Parameter.RELATED);
-                if (rel != null && rel == Related.END) {
-                    alarmStartMs = e.getEndDate().getDate().getTime();
-                }
-                alarmMs = alarmStartMs + durationToMs(t.getDuration()); // Relative "+"
+                alarmMs = alarmStartMs + durationToMs(t.getDuration());
             } else {
                 continue;
             }
@@ -458,6 +445,15 @@ public class ProcessVEvent {
         Duration d = new Duration();
         d.setValue(value);
         return d;
+    }
+
+    private static long durationToMs(TemporalAmount d) {
+        long ms = 0;
+        for (TemporalUnit u : d.getUnits()) {
+            long unit = u.getDuration().toMillis();
+            ms += d.get(u) * unit;
+        }
+        return ms;
     }
 
     private static long durationToMs(Dur d) {
@@ -518,7 +514,7 @@ public class ProcessVEvent {
 
     private Cursor queryEvents(ContentResolver resolver, StringBuilder b, List<String> argsList) {
         final String where = b.toString() + " AND deleted=0";
-        final String[] args = argsList.toArray(new String[argsList.size()]);
+        final String[] args = argsList.toArray(new String[0]);
         return resolver.query(Events.CONTENT_URI, EVENT_QUERY_COLUMNS, where, args, null);
     }
 
@@ -593,13 +589,13 @@ public class ProcessVEvent {
         // This is a test event. Verify it using the embedded meta data.
         Log_OC.i(TAG, "Processing test case " + testName.getValue() + "...");
 
-        String reminderValues = "";
+        StringBuilder reminderValues = new StringBuilder();
         String sep = "";
         for (Integer i : reminders) {
-            reminderValues += sep + i;
+            reminderValues.append(sep).append(i);
             sep = ",";
         }
-        c.put("reminders", reminderValues);
+        c.put("reminders", reminderValues.toString());
 
         for (Object o : e.getProperties()) {
             Property p = (Property) o;

@@ -57,6 +57,7 @@ services:
       - su www-data -c "git clone --depth 1 -b $SERVER_VERSION https://github.com/nextcloud/photos.git /var/www/html/apps/photos/"
       - su www-data -c "cd /var/www/html/apps/photos; composer install --no-dev"
       - su www-data -c "php /var/www/html/occ app:enable -f photos"
+      - su www-data -c "php /var/www/html/occ config:system:set ratelimit.protection.enabled --value false --type bool"
       - /usr/local/bin/run.sh
 
 trigger:
@@ -73,7 +74,7 @@ name: tests-master
 
 steps:
   - name: gplay
-    image: ghcr.io/nextcloud/continuous-integration-android8:3
+    image: ghcr.io/nextcloud/continuous-integration-android8:4
     privileged: true
     environment:
       LOG_USERNAME:
@@ -115,6 +116,7 @@ services:
       - su www-data -c "git clone --depth 1 https://github.com/nextcloud/photos.git /var/www/html/apps/photos/"
       - su www-data -c "cd /var/www/html/apps/photos; composer install --no-dev"
       - su www-data -c "php /var/www/html/occ app:enable -f photos"
+      - su www-data -c "php /var/www/html/occ config:system:set ratelimit.protection.enabled --value false --type bool"
       - /usr/local/bin/run.sh
 
 trigger:
@@ -146,7 +148,7 @@ steps:
     commands:
       - emulator -avd android -no-snapshot -gpu swiftshader_indirect -no-window -no-audio -skin 500x833 &
       - sed -i s'#<bool name="is_beta">false</bool>#<bool name="is_beta">true</bool>#'g app/src/main/res/values/setup.xml
-      - sed -i s'#showOnlyFailingTestsInReports = ciBuild#showOnlyFailingTestsInReports = false#' build.gradle
+      - sed -i s'#showOnlyFailingTestsInReports = ciBuild#showOnlyFailingTestsInReports = false#' build.gradle.kts
       - scripts/wait_for_emulator.sh
       - scripts/runAllScreenshotCombinations noCI false
       - scripts/screenshotSummary.sh
@@ -183,6 +185,6 @@ name: GIT_TOKEN
 data: XIoa9IYq+xQ+N5iln8dlpWv0jV6ROr7HuE24ioUr4uQ8m8SjyH0yognWYLYLqnbTKrFWlFZiEMQTH/sZiWjRFvV1iL0=
 ---
 kind: signature
-hmac: f6cd11c7ddc393ba391ef5e8f468099d9c45e8bbc18ee9b5a8d58e5fc050dfd4
+hmac: ea9432c9317fa6ca12a282bb117c9f3268ddb29b208dbd772795ba19cf395082
 
 ...

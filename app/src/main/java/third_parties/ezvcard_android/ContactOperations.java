@@ -4,7 +4,6 @@
  */
 package third_parties.ezvcard_android;
 
-import android.annotation.SuppressLint;
 import android.content.ContentProviderOperation;
 import android.content.ContentValues;
 import android.content.Context;
@@ -13,11 +12,12 @@ import android.graphics.Bitmap;
 import android.os.RemoteException;
 import android.provider.ContactsContract;
 
-import com.owncloud.android.utils.DisplayUtils;
+import com.nextcloud.utils.GlideHelper;
+import com.owncloud.android.lib.common.utils.Log_OC;
 
 import java.io.ByteArrayOutputStream;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.Temporal;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -56,6 +56,7 @@ public class ContactOperations {
 
     private final Context context;
     private final NonEmptyContentValues account;
+    private final String tag = "ContactOperations";
 
     public ContactOperations(Context context) {
         this(context, null, null);
@@ -72,7 +73,7 @@ public class ContactOperations {
     public void insertContact(VCard vcard) throws RemoteException, OperationApplicationException {
         // TODO handle Raw properties - Raw properties include various extension which start with "X-" like X-ASSISTANT, X-AIM, X-SPOUSE
 
-        List<NonEmptyContentValues> contentValues = new ArrayList<NonEmptyContentValues>();
+        List<NonEmptyContentValues> contentValues = new ArrayList<>();
         convertName(contentValues, vcard);
         convertNickname(contentValues, vcard);
         convertPhones(contentValues, vcard);
@@ -94,7 +95,7 @@ public class ContactOperations {
         convertPhotos(contentValues, vcard);
         convertOrganization(contentValues, vcard);
 
-        ArrayList<ContentProviderOperation> operations = new ArrayList<ContentProviderOperation>(contentValues.size());
+        ArrayList<ContentProviderOperation> operations = new ArrayList<>(contentValues.size());
         ContentValues cv = account.getContentValues();
         //ContactsContract.RawContact.CONTENT_URI needed to add account, backReference is also not needed
         ContentProviderOperation operation =
@@ -124,7 +125,7 @@ public class ContactOperations {
 
     public void updateContact(VCard vcard, Long key) throws RemoteException, OperationApplicationException {
 
-        List<NonEmptyContentValues> contentValues = new ArrayList<NonEmptyContentValues>();
+        List<NonEmptyContentValues> contentValues = new ArrayList<>();
         convertName(contentValues, vcard);
         convertNickname(contentValues, vcard);
         convertPhones(contentValues, vcard);
@@ -146,14 +147,13 @@ public class ContactOperations {
         convertPhotos(contentValues, vcard);
         convertOrganization(contentValues, vcard);
 
-        ArrayList<ContentProviderOperation> operations = new ArrayList<ContentProviderOperation>(contentValues.size());
-        ContentValues cv = account.getContentValues();
+        ArrayList<ContentProviderOperation> operations = new ArrayList<>(contentValues.size());
         //ContactsContract.RawContact.CONTENT_URI needed to add account, backReference is also not needed
         long contactID = key;
         ContentProviderOperation operation;
 
         for (NonEmptyContentValues values : contentValues) {
-            cv = values.getContentValues();
+            ContentValues cv = values.getContentValues();
             if (cv.size() == 0) {
                 continue;
             }
@@ -395,6 +395,8 @@ public class ContactOperations {
             String label = null;
             String val = null;
             int mime = 0;
+            int type;
+
             for (RawProperty property : properties) {
                 String name = property.getPropertyName();
 
@@ -423,7 +425,7 @@ public class ContactOperations {
 
                     cv.put(ContactsContract.CommonDataKinds.Event.START_DATE, label);
 
-                    int type = DataMappings.getDateType(val);
+                    type = DataMappings.getDateType(val);
                     cv.put(ContactsContract.CommonDataKinds.Event.TYPE, type);
 
                     break;
@@ -450,19 +452,29 @@ public class ContactOperations {
     }
 
     private void convertBirthdays(List<NonEmptyContentValues> contentValues, VCard vcard) {
-        @SuppressLint("SimpleDateFormat")
-        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         for (Birthday birthday : vcard.getBirthdays()) {
             Temporal date = birthday.getDate();
             if (date == null) {
+                Log_OC.d(tag,"date is null LocalDate skipping");
                 continue;
             }
 
             NonEmptyContentValues cv = new NonEmptyContentValues(ContactsContract.CommonDataKinds.Event.CONTENT_ITEM_TYPE);
             cv.put(ContactsContract.CommonDataKinds.Event.TYPE, ContactsContract.CommonDataKinds.Event.TYPE_BIRTHDAY);
-            cv.put(ContactsContract.CommonDataKinds.Event.START_DATE, df.format(date));
+            cv.put(ContactsContract.CommonDataKinds.Event.START_DATE, formatBirthday(date));
             contentValues.add(cv);
         }
+    }
+
+    private String formatBirthday(Temporal date) {
+        if (date == null) {
+            return "";
+        }
+
+        final String pattern = "yyyy-MM-dd";
+        final DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern).withZone(ZoneId.systemDefault());
+
+        return formatter.format(date);
     }
 
     private void convertWebsites(List<NonEmptyContentValues> contentValues, VCard vcard) {
@@ -506,14 +518,18 @@ public class ContactOperations {
 
     private void downloadPhoto(Photo photo) {
         String url = photo.getUrl();
-        Bitmap bitmap = DisplayUtils.downloadImageSynchronous(context, url);
-        if (bitmap != null) {
+        new Thread(() -> {{
+            Bitmap bitmap = GlideHelper.INSTANCE.getBitmap(context, url);
+            if (bitmap == null) {
+                return;
+            }
+
             ByteArrayOutputStream stream = new ByteArrayOutputStream();
             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
             byte[] bitmapdata = stream.toByteArray();
             photo.setData(bitmapdata, ImageType.find(null, null,
-                    url.substring(url.lastIndexOf(".") + 1)));
-        }
+                                                     url.substring(url.lastIndexOf(".") + 1)));
+        }}).start();
     }
 
     private void convertOrganization(List<NonEmptyContentValues> contentValues, VCard vcard) {
@@ -546,7 +562,7 @@ public class ContactOperations {
      * belong to that group
      */
     private <T extends VCardProperty> Map<String, List<T>> orderPropertiesByGroup(Iterable<T> properties) {
-        Map<String, List<T>> groupedProperties = new HashMap<String, List<T>>();
+        Map<String, List<T>> groupedProperties = new HashMap<>();
 
         for (T property : properties) {
             String group = property.getGroup();
@@ -554,11 +570,7 @@ public class ContactOperations {
                 continue;
             }
 
-            List<T> groupPropertiesList = groupedProperties.get(group);
-            if (groupPropertiesList == null) {
-                groupPropertiesList = new ArrayList<T>();
-                groupedProperties.put(group, groupPropertiesList);
-            }
+            List<T> groupPropertiesList = groupedProperties.computeIfAbsent(group, k -> new ArrayList<>());
             groupPropertiesList.add(property);
         }
 

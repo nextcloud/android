@@ -22,9 +22,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
-class AssistantViewModel(
-    private val repository: AssistantRepositoryType
-) : ViewModel() {
+class AssistantViewModel(private val repository: AssistantRepositoryType) : ViewModel() {
 
     private val _screenState = MutableStateFlow<ScreenState?>(null)
     val screenState: StateFlow<ScreenState?> = _screenState
@@ -80,8 +78,13 @@ class AssistantViewModel(
         viewModelScope.launch(Dispatchers.IO) {
             val taskTypesResult = repository.getTaskTypes()
 
-            if (taskTypesResult.isNullOrEmpty()) {
+            if (taskTypesResult == null) {
                 updateSnackbarMessage(R.string.assistant_screen_task_types_error_state_message)
+                return@launch
+            }
+
+            if (taskTypesResult.isEmpty()) {
+                updateSnackbarMessage(R.string.assistant_screen_task_list_empty_message)
                 return@launch
             }
 

@@ -23,7 +23,7 @@ import com.owncloud.android.R
 
 @Composable
 fun AddTaskAlertDialog(
-    title: String?,
+    title: String,
     description: String?,
     defaultInput: String = "",
     addTask: (String) -> Unit,
@@ -34,7 +34,7 @@ fun AddTaskAlertDialog(
     }
 
     SimpleAlertDialog(
-        title = title ?: "",
+        title = title,
         description = description ?: "",
         dismiss = { dismiss() },
         onComplete = {

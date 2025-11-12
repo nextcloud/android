@@ -22,13 +22,13 @@ jobs:
             matrix:
                 flavor: [ Generic, Gplay, Huawei ]
         steps:
-            -   uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+            -   uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
             -   name: set up JDK 17
-                uses: actions/setup-java@3a4f6e1af504cf6a31855fa899c6aa5355ba6c12 # v4.7.0
+                uses: actions/setup-java@dded0888837ed1f317902acf8a20df0ad188d165 # v5.0.0
                 with:
                     distribution: "temurin"
                     java-version: 17
-            -   uses: gradle/actions/wrapper-validation@94baf225fe0a508e581a564467443d0e2379123b # v4.3.0
+            -   uses: gradle/actions/wrapper-validation@4d9f0ba0025fe599b4ebab900eb7f3a1d93ef4c2 # v5.0.0
             -   name: Build ${{ matrix.flavor }}
                 run: |
                     echo "org.gradle.jvmargs=-Xmx6g -XX:+HeapDumpOnOutOfMemoryError -Dfile.encoding=UTF-8 -XX:+UseParallelGC -XX:MaxMetaspaceSize=1g" >> gradle.properties

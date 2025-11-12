@@ -174,25 +174,17 @@ public class UploadListActivity extends FileActivity {
         swipeListRefreshLayout.setOnRefreshListener(this::refresh);
 
         loadItems();
-        uploadListAdapter.loadUploadItemsFromDb();
     }
 
     private void loadItems() {
-        uploadListAdapter.loadUploadItemsFromDb();
-
-        if (uploadListAdapter.getItemCount() > 0) {
-            return;
-        }
-
-        swipeListRefreshLayout.setVisibility(View.VISIBLE);
-        swipeListRefreshLayout.setRefreshing(false);
+        swipeListRefreshLayout.setRefreshing(true);
+        uploadListAdapter.loadUploadItemsFromDb(() -> swipeListRefreshLayout.setRefreshing(false));
     }
 
     private void refresh() {
-        FilesSyncHelper.startFilesSyncForAllFolders(syncedFolderProvider,
+        FilesSyncHelper.startAutoUploadImmediately(syncedFolderProvider,
                                                     backgroundJobManager,
-                                                    true,
-                                                    new String[]{});
+                                                    true);
 
         if (uploadsStorageManager.getFailedUploads().length > 0) {
             new Thread(() -> {
@@ -201,17 +193,14 @@ public class UploadListActivity extends FileActivity {
                     connectivityService,
                     accountManager,
                     powerManagementService);
-                this.runOnUiThread(() -> {
-                    uploadListAdapter.loadUploadItemsFromDb();
-                });
+                uploadListAdapter.loadUploadItemsFromDb();
             }).start();
             DisplayUtils.showSnackMessage(this, R.string.uploader_local_files_uploaded);
         }
 
 
         // update UI
-        uploadListAdapter.loadUploadItemsFromDb();
-        swipeListRefreshLayout.setRefreshing(false);
+        uploadListAdapter.loadUploadItemsFromDb(() -> swipeListRefreshLayout.setRefreshing(false));
     }
 
     @Override
@@ -277,7 +266,8 @@ public class UploadListActivity extends FileActivity {
 
         for (User user : accountManager.getAllUsers()) {
             if (user != null) {
-                FileUploadHelper.Companion.instance().cancelAndRestartUploadJob(user);
+                final var uploadIds = uploadsStorageManager.getCurrentUploadIds(user.getAccountName());
+                FileUploadHelper.Companion.instance().cancelAndRestartUploadJob(user, uploadIds);
             }
         }
 
@@ -352,9 +342,7 @@ public class UploadListActivity extends FileActivity {
         @Override
         public void onReceive(Context context, Intent intent) {
 
-            throttler.run("update_upload_list", () -> {
-                uploadListAdapter.loadUploadItemsFromDb();
-            });
+            throttler.run("update_upload_list", () -> uploadListAdapter.loadUploadItemsFromDb());
         }
     }
 }

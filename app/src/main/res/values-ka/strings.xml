@@ -29,8 +29,6 @@
     <string name="add_new_public_share">Add new public share link</string>
     <string name="add_new_secure_file_drop">Add new secure file drop</string>
     <string name="add_to_cloud">Add to %1$s</string>
-    <string name="advanced_settings">Advanced settings</string>
-    <string name="allow_resharing">Allow resharing</string>
     <string name="app_widget_description">Shows one widget from dashboard</string>
     <string name="appbar_search_in">Search in %s</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Delete task</string>
@@ -82,6 +80,7 @@
     <string name="bottom_navigation_menu_favorites_label">Favorites</string>
     <string name="bottom_navigation_menu_files_label">All files</string>
     <string name="bottom_navigation_menu_media_label">Media</string>
+    <string name="busy">Busy</string>
     <string name="calendar">Calendar</string>
     <string name="calendars">Calendars</string>
     <string name="certificate_load_problem">There is a problem loading the certificate.</string>
@@ -93,9 +92,8 @@
     <string name="choose_template_helper_text">Please choose a template and enter a file name.</string>
     <string name="choose_which_file">Choose which file to keep!</string>
     <string name="choose_widget">Choose widget</string>
+    <string name="clear">Clear</string>
     <string name="clear_notifications_failed">Failed to clear notifications.</string>
-    <string name="clear_status_message">Clear status message</string>
-    <string name="clear_status_message_after">Clear status message after</string>
     <string name="clipboard_label">Text copied from %1$s</string>
     <string name="clipboard_no_text_to_copy">Received no text to copy to clipboard</string>
     <string name="clipboard_text_copied">Link copied</string>
@@ -110,6 +108,7 @@
     <string name="common_error">Error</string>
     <string name="common_error_out_memory">Not enough memory</string>
     <string name="common_error_unknown">Unknown error</string>
+    <string name="common_leave_this_share">Leave this share</string>
     <string name="common_loading">Loading…</string>
     <string name="common_next">Next</string>
     <string name="common_no">No</string>
@@ -423,10 +422,7 @@
     <string name="last_backup">Last backup: %1$s</string>
     <string name="link">Link</string>
     <string name="link_name">Link Name</string>
-    <string name="link_share_allow_upload_and_editing">Allow upload and editing</string>
     <string name="link_share_editing">Editing</string>
-    <string name="link_share_file_drop">File drop (upload only)</string>
-    <string name="link_share_view_only">View only</string>
     <string name="list_layout">Listed layout</string>
     <string name="load_more_results">Load more results</string>
     <string name="local_file_list_empty">There are no files in this folder.</string>
@@ -536,11 +532,6 @@
     <string name="permission_storage_access">Additional permissions required to upload and download files.</string>
     <string name="picture_set_as_no_app">No app found to set a picture with</string>
     <string name="pin_shortcut_label">Open %1$s</string>
-    <string name="placeholder_fileSize">389 KB</string>
-    <string name="placeholder_filename">placeholder.txt</string>
-    <string name="placeholder_media_time">12:23:45</string>
-    <string name="placeholder_sentence">This is a placeholder</string>
-    <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
     <string name="player_stop">stop</string>
     <string name="player_toggle">toggle</string>
     <string name="power_save_check_dialog_message">Disabling power save check might result in uploading files when in low battery state!</string>
@@ -555,7 +546,6 @@
     <string name="pref_instant_name_collision_policy_title">What to do if the file already exists?</string>
     <string name="prefs_add_account">Add account</string>
     <string name="prefs_calendar_contacts_no_store_error">Neither F-Droid nor Google Play is installed</string>
-    <string name="prefs_calendar_contacts_summary">Set up DAVx5 (formerly known as DAVdroid) (v1.3.0+) for current account</string>
     <string name="prefs_category_about">About</string>
     <string name="prefs_category_details">Details</string>
     <string name="prefs_category_dev">Dev</string>
@@ -563,7 +553,6 @@
     <string name="prefs_category_more">More</string>
     <string name="prefs_category_sync">Sync</string>
     <string name="prefs_daily_contact_backup_summary">Daily backup of your contacts</string>
-    <string name="prefs_davx5_setup_error">Unexpected error while setting up DAVx5 (formerly known as DAVdroid)</string>
     <string name="prefs_e2e_active">End-to-end encryption is set up!</string>
     <string name="prefs_e2e_mnemonic">E2E mnemonic</string>
     <string name="prefs_e2e_no_device_credentials">To show mnemonic please enable device credentials.</string>
@@ -604,10 +593,9 @@
     <string name="preview_image_description">Image preview</string>
     <string name="preview_image_error_no_local_file">There is no local file to preview</string>
     <string name="preview_image_error_unknown_format">Unable to show image</string>
-    <string name="preview_image_file_is_not_exist">File does not exist</string>
     <string name="preview_sorry">Sorry</string>
     <string name="privacy">Privacy</string>
-    <string name="public_share_name">New name</string>
+    <string name="push_notifications_not_implemented">Push notifications disabled due to dependencies on proprietary Google Play services.</string>
     <string name="push_notifications_old_login">No push notifications due to outdated login session. Please consider re-adding your account.</string>
     <string name="push_notifications_temp_error">Push notifications currently not available.</string>
     <string name="qr_could_not_be_read">QR code could not be read!</string>
@@ -651,7 +639,6 @@
     <string name="screenshot_04_accounts_heading">All your accounts</string>
     <string name="screenshot_04_accounts_subline">in one place</string>
     <string name="screenshot_05_autoUpload_heading">Automatic upload</string>
-    <string name="screenshot_06_davdroid_subline">Sync with DAVx5</string>
     <string name="search_error">Error getting search results</string>
     <string name="select_all">Select all</string>
     <string name="select_media_folder">Set media folder</string>
@@ -660,14 +647,16 @@
     <string name="send">Send</string>
     <string name="sendbutton_description">Send button icon</string>
     <string name="set_as">Set As</string>
+    <string name="set_online_status">Online status</string>
     <string name="set_picture_as">Use picture as</string>
-    <string name="set_status">Set status</string>
-    <string name="set_status_message">Set status message</string>
     <string name="setup_e2e">During setup of end-to-end encryption, you will receive a random 12 word mnemonic, which you will need to open your files on other devices. This will only be stored on this device, and can be shown again in this screen. Please note it down in a secure place!</string>
     <string name="share">Share</string>
+    <string name="share_create_permission">Create</string>
+    <string name="share_custom_permission">Custom permissions</string>
+    <string name="share_delete_permission">წაშლა</string>
     <string name="share_dialog_title">Sharing</string>
+    <string name="share_edit_permission">Edit</string>
     <string name="share_expiration_date_format">%1$s</string>
-    <string name="share_expiration_date_label">Expires %1$s</string>
     <string name="share_file">Share %1$s</string>
     <string name="share_group_clarification">%1$s (group)</string>
     <string name="share_internal_link">Share internal link</string>
@@ -684,11 +673,11 @@
     <string name="share_link_with_label">Share link (%1$s)</string>
     <string name="share_no_expiration_date_label">Set expiration date</string>
     <string name="share_no_password_title">Set password</string>
-    <string name="share_password_title">Password-protected</string>
     <string name="share_permission_can_edit">Can edit</string>
-    <string name="share_permission_file_drop">File drop</string>
     <string name="share_permission_secure_file_drop">Secure file drop</string>
     <string name="share_permission_view_only">View only</string>
+    <string name="share_re_share_permission">გაზიარება</string>
+    <string name="share_read_permission">Read</string>
     <string name="share_remote_clarification">%1$s (remote)</string>
     <string name="share_room_clarification">%1$s (conversation)</string>
     <string name="share_send_new_email">Send new email</string>
@@ -711,6 +700,7 @@
     <string name="signup_with_provider">Sign up with provider</string>
     <string name="single_sign_on_request_token" formatted="true">Allow %1$s to access your Nextcloud account %2$s?</string>
     <string name="sort_by">Sort by</string>
+    <string name="sort_favorites_first">Sort favorites first</string>
     <string name="ssl_validator_btn_details_hide">Hide</string>
     <string name="ssl_validator_btn_details_see">Details</string>
     <string name="ssl_validator_header">The identity of the server could not be verified</string>
@@ -807,6 +797,7 @@
     <string name="trashbin_file_remove">Delete permanently</string>
     <string name="trashbin_loading_failed">Loading trash bin failed!</string>
     <string name="trashbin_not_emptied">Files could not be deleted permanently!</string>
+    <string name="unknown">Unknown</string>
     <string name="unlock_file">Unlock file</string>
     <string name="unread_comments">Unread comments exist</string>
     <string name="unset_encrypted">Unset encryption</string>
@@ -923,6 +914,14 @@
     <string name="write_email">Send email</string>
     <string name="wrong_storage_path">Data storage folder does not exist!</string>
     <string name="wrong_storage_path_desc">This might be due to a backup restore on another device. Falling back to default. Please check settings to adjust data storage folder.</string>
+    <plurals name="time_minutes_ago">
+        <item quantity="one">%d minute ago</item>
+        <item quantity="other">%d minutes ago</item>
+    </plurals>
+    <plurals name="time_hours_ago">
+        <item quantity="one">%d hour ago</item>
+        <item quantity="other">%d hours ago</item>
+    </plurals>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">Could not sync %1$d file (conflicts: %2$d)</item>
         <item quantity="other">Could not sync %1$d files (conflicts: %2$d)</item>

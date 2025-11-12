@@ -14,7 +14,9 @@ import com.nextcloud.client.di.Injectable
 import com.nextcloud.utils.mdm.MDMConfig
 import com.owncloud.android.R
 
-class DeepLinkLoginActivity : AuthenticatorActivity(), Injectable {
+class DeepLinkLoginActivity :
+    AuthenticatorActivity(),
+    Injectable {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,8 +34,8 @@ class DeepLinkLoginActivity : AuthenticatorActivity(), Injectable {
                 val loginText = findViewById<TextView>(R.id.loginInfo)
                 loginText.text = String.format(
                     getString(R.string.direct_login_text),
-                    loginUrlInfo.username,
-                    loginUrlInfo.serverAddress
+                    loginUrlInfo.loginName,
+                    loginUrlInfo.server
                 )
             } catch (e: IllegalArgumentException) {
                 Toast.makeText(this, R.string.direct_login_failed, Toast.LENGTH_LONG).show()

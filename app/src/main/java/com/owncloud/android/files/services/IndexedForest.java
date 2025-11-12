@@ -184,10 +184,7 @@ public class IndexedForest<V> {
     }
 
     private void removeDescendants(Node<V> removed) {
-        Iterator<Node<V>> childrenIt = removed.getChildren().iterator();
-        Node<V> child = null;
-        while (childrenIt.hasNext()) {
-            child = childrenIt.next();
+        for (Node<V> child : removed.getChildren()) {
             mMap.remove(child.getKey());
             removeDescendants(child);
         }
@@ -218,14 +215,7 @@ public class IndexedForest<V> {
      * @param accountName
      */
     public void remove(String accountName){
-        Iterator<String> it = mMap.keySet().iterator();
-        while (it.hasNext()) {
-            String key = it.next();
-            Log_OC.d("IndexedForest", "Number of pending downloads= "  + mMap.size());
-            if (key.startsWith(accountName)) {
-                mMap.remove(key);
-            }
-        }
+        mMap.keySet().removeIf(key -> key.startsWith(accountName));
     }
 
     /**

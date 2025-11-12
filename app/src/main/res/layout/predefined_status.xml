@@ -16,9 +16,9 @@
         android:id="@+id/icon"
         android:layout_width="48dp"
         android:layout_height="match_parent"
-        android:gravity="center"
+        android:gravity="center_vertical"
         android:textSize="25sp"
-        tools:text="📆" />
+        tools:text="@string/placeholder_predefined_status_icon" />
 
     <TextView
         android:id="@+id/name"
@@ -26,7 +26,7 @@
         android:layout_height="match_parent"
         android:gravity="center_vertical"
         android:textAppearance="?android:attr/textAppearanceListItem"
-        tools:text="In a meeting" />
+        tools:text="@string/placeholder_predefined_status_name" />
 
     <TextView
         android:id="@+id/divider"
@@ -45,5 +45,5 @@
         android:gravity="center_vertical"
         android:textAppearance="?android:attr/textAppearanceListItem"
         android:textColor="?android:attr/textColorSecondary"
-        tools:text="an hour" />
+        tools:text="@string/placeholder_predefined_status_clear_at" />
 </LinearLayout>

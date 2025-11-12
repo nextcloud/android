@@ -19,15 +19,16 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.nextcloud.client.account.User;
+import com.nextcloud.utils.extensions.ImageViewExtensionsKt;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.FileDetailsShareShareItemBinding;
+import com.owncloud.android.datamodel.quickPermission.QuickPermissionType;
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.ui.TextDrawable;
-import com.owncloud.android.ui.fragment.util.SharingMenuHelper;
+import com.owncloud.android.ui.fragment.util.SharePermissionManager;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.theme.ViewThemeUtils;
 
-import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -37,6 +38,7 @@ class ShareViewHolder extends RecyclerView.ViewHolder {
     private User user;
     private Context context;
     private ViewThemeUtils viewThemeUtils;
+    private boolean encrypted;
 
     public ShareViewHolder(@NonNull View itemView) {
         super(itemView);
@@ -45,12 +47,14 @@ class ShareViewHolder extends RecyclerView.ViewHolder {
     public ShareViewHolder(FileDetailsShareShareItemBinding binding,
                            User user,
                            Context context,
-                           final ViewThemeUtils viewThemeUtils) {
+                           final ViewThemeUtils viewThemeUtils,
+                           boolean encrypted) {
         this(binding.getRoot());
         this.binding = binding;
         this.user = user;
         this.context = context;
         this.viewThemeUtils = viewThemeUtils;
+        this.encrypted = encrypted;
     }
 
     public void bind(OCShare share,
@@ -60,54 +64,64 @@ class ShareViewHolder extends RecyclerView.ViewHolder {
                      float avatarRadiusDimension) {
         this.avatarRadiusDimension = avatarRadiusDimension;
         String name = share.getSharedWithDisplayName();
-        
+
         if ("".equals(name) && !"".equals(share.getShareWith())) {
             name = share.getShareWith();
         }
-        
+
         binding.icon.setTag(null);
 
-        switch (share.getShareType()) {
-            case GROUP:
-                name = context.getString(R.string.share_group_clarification, name);
-                viewThemeUtils.files.createAvatar(share.getShareType(), binding.icon, context);
-                break;
-            case ROOM:
-                name = context.getString(R.string.share_room_clarification, name);
-                viewThemeUtils.files.createAvatar(share.getShareType(), binding.icon, context);
-                break;
-            case CIRCLE:
-                viewThemeUtils.files.createAvatar(share.getShareType(), binding.icon, context);
-                break;
-            case FEDERATED:
-                name = context.getString(R.string.share_remote_clarification, name);
-                setImage(binding.icon, share.getSharedWithDisplayName(), R.drawable.ic_user);
-                break;
-            case USER:
-                binding.icon.setTag(share.getShareWith());
-                float avatarRadius = context.getResources().getDimension(R.dimen.list_item_avatar_icon_radius);
-                DisplayUtils.setAvatar(user,
-                                       share.getShareWith(),
-                                       share.getSharedWithDisplayName(),
-                                       avatarListener,
-                                       avatarRadius,
-                                       context.getResources(),
-                                       binding.icon,
-                                       context);
+        if (share.getShareType() != null) {
+            switch (share.getShareType()) {
+                case GROUP:
+                    name = context.getString(R.string.share_group_clarification, name);
+                    viewThemeUtils.files.createAvatar(share.getShareType(), binding.icon, context);
+                    break;
+                case ROOM:
+                    name = context.getString(R.string.share_room_clarification, name);
+                    viewThemeUtils.files.createAvatar(share.getShareType(), binding.icon, context);
+                    break;
+                case CIRCLE:
+                    viewThemeUtils.files.createAvatar(share.getShareType(), binding.icon, context);
+                    break;
+                case FEDERATED:
+                    name = context.getString(R.string.share_remote_clarification, name);
+                    setImage(binding.icon, share.getSharedWithDisplayName());
+                    break;
+                case FEDERATED_GROUP:
+                    name = context.getString(R.string.share_remote_clarification, name);
+                    setImage(binding.icon, share.getSharedWithDisplayName());
+                    break;
+                case USER:
+                    binding.icon.setTag(share.getShareWith());
+                    float avatarRadius = context.getResources().getDimension(R.dimen.list_item_avatar_icon_radius);
 
-                binding.icon.setOnClickListener(v -> listener.showProfileBottomSheet(user, share.getShareWith()));
-            default:
-                setImage(binding.icon, name, R.drawable.ic_user);
-                break;
+                    if (share.getShareWith() != null) {
+                        DisplayUtils.setAvatar(user,
+                                               share.getShareWith(),
+                                               share.getSharedWithDisplayName(),
+                                               avatarListener,
+                                               avatarRadius,
+                                               context.getResources(),
+                                               binding.icon,
+                                               context);
+                    }
+
+                    binding.icon.setOnClickListener(v -> listener.showProfileBottomSheet(user, share.getShareWith()));
+                default:
+                    setImage(binding.icon, name);
+                    break;
+            }
         }
 
         binding.name.setText(name);
 
-        if (share.getShareWith().equalsIgnoreCase(userId) || share.getUserId().equalsIgnoreCase(userId)) {
+        if (share.getShareWith() != null && share.getShareWith().equalsIgnoreCase(userId) ||
+            share.getUserId() != null && share.getUserId().equalsIgnoreCase(userId)) {
             binding.overflowMenu.setVisibility(View.VISIBLE);
 
-            String permissionName = SharingMenuHelper.getPermissionName(context, share);
-            setPermissionName(permissionName);
+            QuickPermissionType quickPermissionType = SharePermissionManager.INSTANCE.getSelectedType(share, encrypted);
+            setPermissionName(quickPermissionType.getText(context));
 
             // bind listener to edit privileges
             binding.overflowMenu.setOnClickListener(v -> listener.showSharingMenuActionSheet(share));
@@ -126,11 +140,21 @@ class ShareViewHolder extends RecyclerView.ViewHolder {
         }
     }
 
-    private void setImage(ImageView avatar, String name, @DrawableRes int fallback) {
+    private void setImage(ImageView avatar, String name) {
+        if (TextUtils.isEmpty(name)) {
+            setUserImage(avatar);
+            return;
+        }
+
         try {
             avatar.setImageDrawable(TextDrawable.createNamedAvatar(name, avatarRadiusDimension));
         } catch (StringIndexOutOfBoundsException e) {
-            avatar.setImageResource(fallback);
+            setUserImage(avatar);
         }
+    }
+
+    private void setUserImage(ImageView avatar) {
+        ImageViewExtensionsKt.makeRoundedWithIcon(avatar, context, R.drawable.ic_user_outline);
+        viewThemeUtils.platform.colorImageViewBackgroundAndIcon(avatar);
     }
 }

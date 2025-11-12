@@ -14,7 +14,6 @@ package com.owncloud.android.ui.dialog
 import android.app.Dialog
 import android.content.DialogInterface
 import android.os.Bundle
-import android.text.TextUtils
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
@@ -38,7 +37,9 @@ import javax.inject.Inject
  *
  * Triggers the share when the password is introduced.
  */
-class SharePasswordDialogFragment : DialogFragment(), Injectable {
+class SharePasswordDialogFragment :
+    DialogFragment(),
+    Injectable {
     @JvmField
     @Inject
     var viewThemeUtils: ViewThemeUtils? = null
@@ -67,7 +68,7 @@ class SharePasswordDialogFragment : DialogFragment(), Injectable {
 
                     if (sharePassword != null) {
                         val password = sharePassword.toString()
-                        if (!askForPassword && TextUtils.isEmpty(password)) {
+                        if (!askForPassword && password.isBlank()) {
                             DisplayUtils.showSnackMessage(binding?.root, R.string.share_link_empty_password)
                             return@setOnClickListener
                         }

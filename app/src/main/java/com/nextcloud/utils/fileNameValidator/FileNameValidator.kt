@@ -10,6 +10,7 @@ package com.nextcloud.utils.fileNameValidator
 import android.content.Context
 import android.text.TextUtils
 import com.nextcloud.utils.extensions.StringConstants
+import com.nextcloud.utils.extensions.checkWCFRestrictions
 import com.nextcloud.utils.extensions.forbiddenFilenameBaseNames
 import com.nextcloud.utils.extensions.forbiddenFilenameCharacters
 import com.nextcloud.utils.extensions.forbiddenFilenameExtensions
@@ -17,7 +18,6 @@ import com.nextcloud.utils.extensions.forbiddenFilenames
 import com.nextcloud.utils.extensions.removeFileExtension
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.OCFile
-import com.owncloud.android.lib.resources.status.NextcloudVersion
 import com.owncloud.android.lib.resources.status.OCCapability
 
 object FileNameValidator {
@@ -39,7 +39,7 @@ object FileNameValidator {
         context: Context,
         existedFileNames: Set<String>? = null
     ): String? {
-        if (TextUtils.isEmpty(filename)) {
+        if (filename.isBlank()) {
             return context.getString(R.string.filename_empty)
         }
 
@@ -49,10 +49,11 @@ object FileNameValidator {
             }
         }
 
-        if (!capability.version.isNewerOrEqual(NextcloudVersion.nextcloud_30)) {
+        if (!capability.checkWCFRestrictions()) {
             return null
         }
 
+        // region WCF related checks
         checkInvalidCharacters(filename, capability, context)?.let { return it }
 
         val filenameVariants = setOf(filename.lowercase(), filename.removeFileExtension().lowercase())
@@ -91,6 +92,7 @@ object FileNameValidator {
                 }
             }
         }
+        // endregion
 
         return null
     }
@@ -109,12 +111,10 @@ object FileNameValidator {
         filePaths: List<String>,
         capability: OCCapability,
         context: Context
-    ): Boolean {
-        return checkFolderPath(folderPath, capability, context) && checkFilePaths(filePaths, capability, context)
-    }
+    ): Boolean = checkFolderPath(folderPath, capability, context) && checkFilePaths(filePaths, capability, context)
 
-    fun checkParentRemotePaths(filePaths: List<OCFile>, capability: OCCapability, context: Context): Boolean {
-        return filePaths.all {
+    fun checkParentRemotePaths(filePaths: List<OCFile>, capability: OCCapability, context: Context): Boolean =
+        filePaths.all {
             if (it.parentRemotePath != StringConstants.SLASH) {
                 val parentFolderName = it.parentRemotePath.replace(StringConstants.SLASH, "")
                 checkFileName(parentFolderName, capability, context) == null
@@ -122,16 +122,15 @@ object FileNameValidator {
                 true
             }
         }
-    }
 
-    private fun checkFilePaths(filePaths: List<String>, capability: OCCapability, context: Context): Boolean {
-        return filePaths.all { checkFileName(it, capability, context) == null }
-    }
+    private fun checkFilePaths(filePaths: List<String>, capability: OCCapability, context: Context): Boolean =
+        filePaths.all {
+            checkFileName(it, capability, context) == null
+        }
 
-    fun checkFolderPath(folderPath: String, capability: OCCapability, context: Context): Boolean {
-        return folderPath.split("[/\\\\]".toRegex())
+    fun checkFolderPath(folderPath: String, capability: OCCapability, context: Context): Boolean =
+        folderPath.split("[/\\\\]".toRegex())
             .none { it.isNotEmpty() && checkFileName(it, capability, context) != null }
-    }
 
     @Suppress("ReturnCount")
     private fun checkInvalidCharacters(name: String, capability: OCCapability, context: Context): String? {

@@ -22,6 +22,8 @@ import android.view.View;
 
 import com.facebook.testing.screenshot.Screenshot;
 import com.facebook.testing.screenshot.internal.TestNameDetector;
+import com.nextcloud.android.common.ui.theme.MaterialSchemes;
+import com.nextcloud.android.common.ui.theme.MaterialSchemesImpl;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.account.UserAccountManagerImpl;
@@ -38,7 +40,6 @@ import com.nextcloud.test.RandomStringGenerator;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.ArbitraryDataProviderImpl;
 import com.owncloud.android.datamodel.FileDataStorageManager;
-import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.UploadsStorageManager;
 import com.owncloud.android.db.OCUpload;
 import com.owncloud.android.files.services.NameCollisionPolicy;
@@ -54,6 +55,7 @@ import com.owncloud.android.lib.resources.status.OwnCloudVersion;
 import com.owncloud.android.operations.CreateFolderOperation;
 import com.owncloud.android.operations.UploadFileOperation;
 import com.owncloud.android.utils.FileStorageUtils;
+import com.owncloud.android.utils.theme.MaterialSchemesProvider;
 
 import org.apache.commons.io.FileUtils;
 import org.junit.After;
@@ -254,19 +256,12 @@ public abstract class AbstractIT {
             file.mkdirs();
             return file;
         } else {
-            switch (name) {
-                case "empty.txt":
-                    return createFile("empty.txt", 0);
-
-                case "nonEmpty.txt":
-                    return createFile("nonEmpty.txt", 100);
-
-                case "chunkedFile.txt":
-                    return createFile("chunkedFile.txt", 500000);
-
-                default:
-                    return createFile(name, 0);
-            }
+            return switch (name) {
+                case "empty.txt" -> createFile("empty.txt", 0);
+                case "nonEmpty.txt" -> createFile("nonEmpty.txt", 100);
+                case "chunkedFile.txt" -> createFile("chunkedFile.txt", 500000);
+                default -> createFile(name, 0);
+            };
         }
     }
 
@@ -301,7 +296,7 @@ public abstract class AbstractIT {
         InstrumentationRegistry.getInstrumentation().waitForIdleSync();
     }
 
-    protected void onIdleSync(Runnable recipient) {
+    public void onIdleSync(Runnable recipient) {
         InstrumentationRegistry.getInstrumentation().waitForIdle(recipient);
     }
 
@@ -355,7 +350,7 @@ public abstract class AbstractIT {
         }
     }
 
-    public OCFile createFolder(String remotePath) {
+    public void createFolder(String remotePath) {
         RemoteOperationResult check = new ExistenceCheckRemoteOperation(remotePath, false).execute(client);
 
         if (!check.isSuccess()) {
@@ -363,8 +358,6 @@ public abstract class AbstractIT {
                            .execute(client)
                            .isSuccess());
         }
-
-        return getStorageManager().getFileByDecryptedRemotePath(remotePath.endsWith("/") ? remotePath : remotePath + "/");
     }
 
     public void uploadFile(File file, String remotePath) {
@@ -405,11 +398,6 @@ public abstract class AbstractIT {
 
             @Override
             public boolean isPowerSavingEnabled() {
-                return false;
-            }
-
-            @Override
-            public boolean isPowerSavingExclusionAvailable() {
                 return false;
             }
         };
@@ -462,7 +450,7 @@ public abstract class AbstractIT {
         screenshot(view, "");
     }
 
-    protected void screenshotViaName(Activity activity, String name) {
+    public void screenshotViaName(Activity activity, String name) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R) {
             Screenshot.snapActivity(activity).setName(name).record();
         }
@@ -551,5 +539,39 @@ public abstract class AbstractIT {
 
     protected static boolean removeAccount(Account account) {
         return AccountManager.get(targetContext).removeAccountExplicitly(account);
+    }
+
+    protected MaterialSchemesProvider getMaterialSchemesProvider() {
+        return new MaterialSchemesProvider() {
+            @NonNull
+            @Override
+            public MaterialSchemes getMaterialSchemesForUser(@NonNull User user) {
+                return null;
+            }
+
+            @NonNull
+            @Override
+            public MaterialSchemes getMaterialSchemesForCapability(@NonNull OCCapability capability) {
+                return null;
+            }
+
+            @NonNull
+            @Override
+            public MaterialSchemes getMaterialSchemesForCurrentUser() {
+                return new MaterialSchemesImpl(R.color.primary, false);
+            }
+
+            @NonNull
+            @Override
+            public MaterialSchemes getDefaultMaterialSchemes() {
+                return null;
+            }
+
+            @NonNull
+            @Override
+            public MaterialSchemes getMaterialSchemesForPrimaryBackground() {
+                return null;
+            }
+        };
     }
 }

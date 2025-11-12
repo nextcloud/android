@@ -73,6 +73,10 @@ class FilesSpecificViewThemeUtils @Inject constructor(
                 createAvatarBase(R.drawable.ic_group)
                 androidViewThemeUtils.colorImageViewBackgroundAndIcon(avatar)
             }
+            ShareType.FEDERATED_GROUP -> {
+                createAvatarBase(R.drawable.ic_group)
+                androidViewThemeUtils.colorImageViewBackgroundAndIcon(avatar)
+            }
             ShareType.ROOM -> {
                 createAvatarBase(R.drawable.first_run_talk, AvatarPadding.LARGE)
                 androidViewThemeUtils.colorImageViewBackgroundAndIcon(avatar)
@@ -96,8 +100,8 @@ class FilesSpecificViewThemeUtils @Inject constructor(
         }
     }
 
-    fun themeFastScrollerBuilder(context: Context, builder: FastScrollerBuilder): FastScrollerBuilder {
-        return withScheme(context) { scheme ->
+    fun themeFastScrollerBuilder(context: Context, builder: FastScrollerBuilder): FastScrollerBuilder =
+        withScheme(context) { scheme ->
             builder
                 .useMd2Style()
                 .setThumbDrawable(getThumbDrawable(context))
@@ -106,7 +110,6 @@ class FilesSpecificViewThemeUtils @Inject constructor(
                     it.background = FastScrollPopupBackground(context, scheme.primary)
                 }
         }
-    }
 
     private fun getThumbDrawable(context: Context): Drawable {
         val thumbDrawable =
@@ -193,7 +196,6 @@ class FilesSpecificViewThemeUtils @Inject constructor(
 
     fun themeStatusCardView(cardView: MaterialCardView) {
         withScheme(cardView) { scheme ->
-            val background = cardView.context.getColor(R.color.grey_200)
             cardView.backgroundTintList =
                 ColorStateList(
                     arrayOf(
@@ -201,8 +203,8 @@ class FilesSpecificViewThemeUtils @Inject constructor(
                         intArrayOf(-android.R.attr.state_checked)
                     ),
                     intArrayOf(
-                        scheme.secondaryContainer,
-                        background
+                        scheme.surfaceContainerHighest,
+                        scheme.surface
                     )
                 )
             cardView.setStrokeColor(
@@ -213,7 +215,7 @@ class FilesSpecificViewThemeUtils @Inject constructor(
                     ),
                     intArrayOf(
                         scheme.onSecondaryContainer,
-                        scheme.surface
+                        scheme.outlineVariant
                     )
                 )
             )
@@ -244,10 +246,8 @@ class FilesSpecificViewThemeUtils @Inject constructor(
         }
     }
 
-    fun primaryColorToHexString(context: Context): String {
-        return withScheme(context) { scheme ->
-            colorUtil.colorToHexString(scheme.primary)
-        }
+    fun primaryColorToHexString(context: Context): String = withScheme(context) { scheme ->
+        colorUtil.colorToHexString(scheme.primary)
     }
 
     fun setWhiteBackButton(context: Context, supportActionBar: ActionBar) {

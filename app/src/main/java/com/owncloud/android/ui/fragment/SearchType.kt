@@ -22,6 +22,16 @@ enum class SearchType : Parcelable {
 
     // not a real filter, but nevertheless
     SHARED_FILTER,
-    GROUPFOLDER,
-    OFFLINE_MODE
+    GROUPFOLDER
+}
+
+@Parcelize
+enum class EmptyListState : Parcelable {
+    OFFLINE_MODE,
+    LOADING,
+    ADD_FOLDER,
+    ONLY_ON_DEVICE,
+    LOCAL_FILE_LIST_EMPTY_FILE,
+    LOCAL_FILE_LIST_EMPTY_FOLDER,
+    ERROR
 }

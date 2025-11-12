@@ -30,7 +30,10 @@ import javax.inject.Inject
  * Dialog requiring confirmation before removing a collection of given OCFiles.
  * Triggers the removal according to the user response.
  */
-class RemoveFilesDialogFragment : ConfirmationDialogFragment(), ConfirmationDialogFragmentListener, Injectable {
+class RemoveFilesDialogFragment :
+    ConfirmationDialogFragment(),
+    ConfirmationDialogFragmentListener,
+    Injectable {
     private var mTargetFiles: Collection<OCFile>? = null
     private var actionMode: ActionMode? = null
 
@@ -93,23 +96,28 @@ class RemoveFilesDialogFragment : ConfirmationDialogFragment(), ConfirmationDial
 
         val fileActivity = getTypedActivity(FileActivity::class.java)
         val fda = getTypedActivity(FileDisplayActivity::class.java)
-
         fileActivity?.connectivityService?.isNetworkAndServerAvailable { result ->
             if (result) {
+                fileActivity.showLoadingDialog(fileActivity.getString(R.string.wait_a_moment))
+
                 if (files.isNotEmpty()) {
-                    fileActivity.fileOperationsHelper?.removeFiles(files, onlyLocalCopy, false)
+                    // Display the snackbar message only when a single file is deleted.
+                    val inBackground = (files.size != 1)
+                    fileActivity.fileOperationsHelper?.removeFiles(files, onlyLocalCopy, inBackground)
                 }
 
                 if (offlineFiles.isNotEmpty()) {
                     fda?.refreshCurrentDirectory()
                 }
+
+                fileActivity.dismissLoadingDialog()
             } else {
-                files.forEach { file ->
-                    fileDataStorageManager.addRemoveFileOfflineOperation(
-                        file.decryptedRemotePath,
-                        file.fileName,
-                        file.parentId
-                    )
+                if (onlyLocalCopy) {
+                    fileActivity.fileOperationsHelper?.removeFiles(files, true, true)
+                } else {
+                    files.forEach { file ->
+                        fileDataStorageManager.addRemoveFileOfflineOperation(file)
+                    }
                 }
 
                 fda?.refreshCurrentDirectory()
@@ -139,11 +147,10 @@ class RemoveFilesDialogFragment : ConfirmationDialogFragment(), ConfirmationDial
         private const val ARG_TARGET_FILES = "TARGET_FILES"
 
         @JvmStatic
-        fun newInstance(files: ArrayList<OCFile>, actionMode: ActionMode?): RemoveFilesDialogFragment {
-            return newInstance(files).apply {
+        fun newInstance(files: ArrayList<OCFile>, actionMode: ActionMode?): RemoveFilesDialogFragment =
+            newInstance(files).apply {
                 setActionMode(actionMode)
             }
-        }
 
         @JvmStatic
         fun newInstance(files: ArrayList<OCFile>): RemoveFilesDialogFragment {
@@ -185,7 +192,13 @@ class RemoveFilesDialogFragment : ConfirmationDialogFragment(), ConfirmationDial
                     )
                 }
 
-                putInt(ARG_POSITIVE_BTN_RES, R.string.file_delete)
+                val positiveButtonTextId = if (files.any { it.isSharedWithMe }) {
+                    R.string.common_leave_this_share
+                } else {
+                    R.string.file_delete
+                }
+
+                putInt(ARG_POSITIVE_BTN_RES, positiveButtonTextId)
 
                 val isAnyFileOffline = files.any { it.isOfflineOperation }
                 if ((containsFolder || containsDown) && !isAnyFileOffline) {

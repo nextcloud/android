@@ -8,6 +8,7 @@
 package com.owncloud.android.ui.adapter
 
 import android.content.Context
+import android.content.res.Configuration
 import android.graphics.Color
 import android.os.AsyncTask
 import android.view.View
@@ -21,7 +22,9 @@ import com.nextcloud.client.account.User
 import com.nextcloud.client.jobs.download.FileDownloadHelper
 import com.nextcloud.client.jobs.upload.FileUploadHelper
 import com.nextcloud.client.preferences.AppPreferences
+import com.nextcloud.utils.extensions.getSubfiles
 import com.nextcloud.utils.extensions.makeRounded
+import com.nextcloud.utils.extensions.setVisibleIf
 import com.nextcloud.utils.mdm.MDMConfig
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.FileDataStorageManager
@@ -31,6 +34,7 @@ import com.owncloud.android.datamodel.ThumbnailsCacheManager
 import com.owncloud.android.datamodel.ThumbnailsCacheManager.GalleryImageGenerationTask.GalleryListener
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.ui.activity.ComponentsGetter
+import com.owncloud.android.ui.activity.FolderPickerActivity
 import com.owncloud.android.ui.fragment.GalleryFragment
 import com.owncloud.android.ui.fragment.SearchType
 import com.owncloud.android.ui.interfaces.OCFileListFragmentInterface
@@ -39,6 +43,11 @@ import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.EncryptionUtils
 import com.owncloud.android.utils.MimeTypeUtil
 import com.owncloud.android.utils.theme.ViewThemeUtils
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.cancel
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 @Suppress("LongParameterList", "TooManyFunctions")
 class OCFileListDelegate(
@@ -62,13 +71,13 @@ class OCFileListDelegate(
     var isMultiSelect = false
     private val asyncTasks: MutableList<ThumbnailsCacheManager.ThumbnailGenerationTask> = ArrayList()
     private val asyncGalleryTasks: MutableList<ThumbnailsCacheManager.GalleryImageGenerationTask> = ArrayList()
+    private val ioScope = CoroutineScope(Dispatchers.IO)
+
     fun setHighlightedItem(highlightedItem: OCFile?) {
         this.highlightedItem = highlightedItem
     }
 
-    fun isCheckedFile(file: OCFile): Boolean {
-        return checkedFiles.contains(file)
-    }
+    fun isCheckedFile(file: OCFile): Boolean = checkedFiles.contains(file)
 
     fun addCheckedFile(file: OCFile) {
         checkedFiles.add(file)
@@ -198,11 +207,9 @@ class OCFileListDelegate(
             })
 
             thumbnailView.setImageDrawable(asyncDrawable)
+
             asyncGalleryTasks.add(task)
-            task.executeOnExecutor(
-                AsyncTask.THREAD_POOL_EXECUTOR,
-                file
-            )
+            task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, file)
         } catch (e: IllegalArgumentException) {
             Log_OC.d(tag, "ThumbnailGenerationTask : " + e.message)
         }
@@ -243,11 +250,8 @@ class OCFileListDelegate(
         bindUnreadComments(file, gridViewHolder)
 
         // multiSelect (Checkbox)
-        if (isMultiSelect) {
-            gridViewHolder.checkbox.visibility = View.VISIBLE
-        } else {
-            gridViewHolder.checkbox.visibility = View.GONE
-        }
+        val isFolderPickerActivity = (context is FolderPickerActivity)
+        gridViewHolder.checkbox.setVisibleIf(isMultiSelect && !isFolderPickerActivity)
 
         // download state
         gridViewHolder.localFileIndicator.visibility = View.GONE // default first
@@ -258,12 +262,14 @@ class OCFileListDelegate(
         // shares
         val shouldHideShare = (
             hideItemOptions ||
+                context.resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT ||
                 !file.isFolder &&
                 file.isEncrypted ||
                 file.isEncrypted &&
                 !EncryptionUtils.supportsSecureFiledrop(file, user) ||
                 searchType == SearchType.FAVORITE_SEARCH ||
-                file.isFolder && currentDirectory?.isEncrypted ?: false
+                file.isFolder &&
+                currentDirectory?.isEncrypted ?: false
             ) // sharing an encrypted subfolder is not possible
         if (shouldHideShare) {
             gridViewHolder.shared.visibility = View.GONE
@@ -301,7 +307,7 @@ class OCFileListDelegate(
     private fun setItemLayoutOnClickListeners(file: OCFile, gridViewHolder: ListViewHolder) {
         gridViewHolder.itemLayout.setOnClickListener { ocFileListFragmentInterface.onItemClicked(file) }
 
-        if (!hideItemOptions) {
+        if (!hideItemOptions && gridViewHolder !is OCFileListRecommendedItemViewHolder) {
             gridViewHolder.itemLayout.apply {
                 isLongClickable = true
                 setOnLongClickListener {
@@ -355,35 +361,63 @@ class OCFileListDelegate(
         }
     }
 
-    private fun showLocalFileIndicator(file: OCFile, gridViewHolder: ListViewHolder) {
+    @Suppress("ReturnCount")
+    private fun isFolderFullyDownloaded(file: OCFile): Boolean {
+        if (!file.isFolder) {
+            return false
+        }
+
+        val subfiles = storageManager.getSubfiles(file.fileId, user.accountName)
+
+        if (subfiles.isEmpty()) {
+            return false
+        }
+
+        return subfiles.all { it.isDown }
+    }
+
+    private fun isSynchronizing(file: OCFile): Boolean {
         val operationsServiceBinder = transferServiceGetter.operationsServiceBinder
         val fileDownloadHelper = FileDownloadHelper.instance()
 
-        val icon: Int? = when {
-            operationsServiceBinder?.isSynchronizing(user, file) == true ||
-                fileDownloadHelper.isDownloading(user, file) ||
-                fileUploadHelper.isUploading(user, file) -> {
-                // synchronizing, downloading or uploading
-                R.drawable.ic_synchronizing
-            }
+        return operationsServiceBinder?.isSynchronizing(user, file) == true ||
+            fileDownloadHelper.isDownloading(user, file) ||
+            fileUploadHelper.isUploading(file.remotePath, user.accountName)
+    }
 
-            file.etagInConflict != null -> {
-                R.drawable.ic_synchronizing_error
-            }
+    private fun showLocalFileIndicator(file: OCFile, holder: ListViewHolder) {
+        val icon = when {
+            isSynchronizing(file) -> R.drawable.ic_synchronizing
+            file.etagInConflict != null -> R.drawable.ic_synchronizing_error
+            file.isDown -> R.drawable.ic_synced
+            else -> null
+        }
 
-            file.isDown -> {
-                R.drawable.ic_synced
-            }
-
-            else -> {
-                null
+        holder.localFileIndicator.run {
+            if (icon != null) {
+                setImageResource(icon)
+                visibility = View.VISIBLE
+            } else {
+                visibility = View.GONE
             }
         }
 
-        gridViewHolder.localFileIndicator.run {
-            icon?.let {
-                setImageResource(icon)
-                visibility = View.VISIBLE
+        checkLocalFolderIndicatorAsynchronously(file, holder)
+    }
+
+    private fun checkLocalFolderIndicatorAsynchronously(file: OCFile, holder: ListViewHolder) {
+        if (file.isFolder) {
+            ioScope.launch {
+                if (isFolderFullyDownloaded(file)) {
+                    withContext(Dispatchers.Main) {
+                        holder.run {
+                            if (thumbnail.tag == file.fileId) {
+                                localFileIndicator.setImageResource(R.drawable.ic_synced)
+                                localFileIndicator.visibility = View.VISIBLE
+                            }
+                        }
+                    }
+                }
             }
         }
     }
@@ -437,6 +471,10 @@ class OCFileListDelegate(
 
     fun setShowShareAvatar(bool: Boolean) {
         showShareAvatar = bool
+    }
+
+    fun cleanup() {
+        ioScope.cancel()
     }
 
     companion object {

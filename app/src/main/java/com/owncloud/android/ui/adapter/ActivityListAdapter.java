@@ -10,13 +10,14 @@
  */
 package com.owncloud.android.ui.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.content.res.Resources;
-import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
-import android.net.Uri;
+import android.os.Handler;
+import android.os.Looper;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.TextPaint;
@@ -34,19 +35,15 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.bumptech.glide.GenericRequestBuilder;
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.load.model.StreamEncoder;
-import com.bumptech.glide.load.resource.file.FileToStreamDecoder;
-import com.caverock.androidsvg.SVG;
 import com.nextcloud.client.account.CurrentAccountProvider;
 import com.nextcloud.client.network.ClientFactory;
 import com.nextcloud.common.NextcloudClient;
+import com.nextcloud.utils.GlideHelper;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.ActivityListItemBinding;
 import com.owncloud.android.databinding.ActivityListItemHeaderBinding;
+import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.activities.model.Activity;
 import com.owncloud.android.lib.resources.activities.model.RichElement;
@@ -55,15 +52,12 @@ import com.owncloud.android.lib.resources.activities.models.PreviewObject;
 import com.owncloud.android.ui.interfaces.ActivityListInterface;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
-import com.owncloud.android.utils.glide.CustomGlideStreamLoader;
-import com.owncloud.android.utils.svg.SvgBitmapTranscoder;
-import com.owncloud.android.utils.svg.SvgDecoder;
 import com.owncloud.android.utils.theme.ViewThemeUtils;
 
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.Optional;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -86,6 +80,7 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     protected List<Object> values;
     private boolean isDetailView;
     private ViewThemeUtils viewThemeUtils;
+    private final Handler handler = new Handler(Looper.getMainLooper());
 
     public ActivityListAdapter(
         Context context,
@@ -104,6 +99,7 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         this.viewThemeUtils = viewThemeUtils;
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     public void setActivityItems(List<Object> activityItems, NextcloudClient client, boolean clear) {
         this.client = client;
         String sTime = "";
@@ -170,7 +166,14 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             }
 
             if (!TextUtils.isEmpty(activity.getIcon())) {
-                downloadIcon(activity, activityViewHolder.binding.icon);
+                new Thread(() -> {{
+                    try {
+                        final var client = OwnCloudClientManagerFactory.getDefaultSingleton().getNextcloudClientFor(Optional.of(currentAccountProvider.getUser().toOwnCloudAccount()).get(), context);
+                        handler.post(() -> GlideHelper.INSTANCE.loadIntoImageView(context, client, activity.getIcon(), activityViewHolder.binding.icon, R.drawable.ic_activity, false));
+                    } catch (Exception e) {
+                        Log_OC.e("TemplateAdapter", "Exception setData: " + e);
+                    }
+                }}).start();
             }
 
             int nightModeFlag = context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
@@ -185,7 +188,7 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             }
 
 
-            if (activity.getRichSubjectElement().getRichObjectList().size() > 0) {
+            if (!activity.getRichSubjectElement().getRichObjectList().isEmpty()) {
                 activityViewHolder.binding.list.setVisibility(View.VISIBLE);
                 activityViewHolder.binding.list.removeAllViews();
 
@@ -247,13 +250,17 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             } else {
                 placeholder = R.drawable.file_movie;
             }
-            Glide.with(context).using(new CustomGlideStreamLoader(currentAccountProvider.getUser(), clientFactory))
-                .load(previewObject.getSource())
-                .placeholder(placeholder)
-                .error(placeholder)
-                .diskCacheStrategy(DiskCacheStrategy.NONE)
-                .skipMemoryCache(true)
-                .into(imageView);
+
+            if (previewObject.getSource() != null) {
+                new Thread(() -> {{
+                    try {
+                        final var client = OwnCloudClientManagerFactory.getDefaultSingleton().getNextcloudClientFor(Optional.of(currentAccountProvider.getUser().toOwnCloudAccount()).get(), context);
+                        handler.post(() -> GlideHelper.INSTANCE.loadIntoImageView(context, client, previewObject.getSource(), imageView, placeholder, false));
+                    } catch (Exception e) {
+                        Log_OC.e("TemplateAdapter", "Exception setData: " + e);
+                    }
+                }}).start();
+            }
         } else {
             if (MimeTypeUtil.isFolder(previewObject.getMimeType())) {
                 imageView.setImageDrawable(MimeTypeUtil.getDefaultFolderIcon(context, viewThemeUtils));
@@ -266,26 +273,6 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         }
 
         return imageView;
-    }
-
-    private void downloadIcon(Activity activity, ImageView itemViewType) {
-        GenericRequestBuilder<Uri, InputStream, SVG, Bitmap> requestBuilder = Glide.with(context)
-            .using(Glide.buildStreamModelLoader(Uri.class, context), InputStream.class)
-            .from(Uri.class)
-            .as(SVG.class)
-            .transcode(new SvgBitmapTranscoder(128, 128), Bitmap.class)
-            .sourceEncoder(new StreamEncoder())
-            .cacheDecoder(new FileToStreamDecoder<>(new SvgDecoder()))
-            .decoder(new SvgDecoder())
-            .placeholder(R.drawable.ic_activity)
-            .error(R.drawable.ic_activity)
-            .animate(android.R.anim.fade_in);
-
-        Uri uri = Uri.parse(activity.getIcon());
-        requestBuilder
-            .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-            .load(uri)
-            .into(itemViewType);
     }
 
     private SpannableStringBuilder addClickablePart(RichElement richElement) {

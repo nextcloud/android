@@ -21,9 +21,9 @@ import android.os.Parcelable;
 import android.text.TextUtils;
 
 import com.nextcloud.utils.BuildHelper;
+import com.nextcloud.utils.extensions.StringExtensionsKt;
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.network.WebdavEntry;
-import com.owncloud.android.lib.common.network.WebdavUtils;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.files.model.FileLockType;
 import com.owncloud.android.lib.resources.files.model.GeoLocation;
@@ -40,18 +40,25 @@ import java.util.Objects;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.VisibleForTesting;
 import androidx.core.content.FileProvider;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import third_parties.daveKoeller.AlphanumComparator;
 
 public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterface {
 
-    private final static String PERMISSION_SHARED_WITH_ME = "S";
-    @VisibleForTesting
     public final static String PERMISSION_CAN_RESHARE = "R";
-    private final static String PERMISSION_CAN_WRITE = "CK";
-    private final static String PERMISSION_GROUPFOLDER = "M";
+    private final static String PERMISSION_SHARED = "S";
+    private final static String PERMISSION_MOUNTED = "M";
+    private final static String PERMISSION_CAN_CREATE_FILE_INSIDE_FOLDER = "C";
+    private final static String PERMISSION_CAN_CREATE_FOLDER_INSIDE_FOLDER = "K";
+    private final static String PERMISSION_CAN_READ = "G";
+    private final static String PERMISSION_CAN_WRITE = "W";
+    private final static String PERMISSION_CAN_DELETE_OR_LEAVE_SHARE = "D";
+    private final static String PERMISSION_CAN_RENAME = "N";
+    private final static String PERMISSION_CAN_MOVE = "V";
+    private final static String PERMISSION_CAN_CREATE_FILE_AND_FOLDER = PERMISSION_CAN_CREATE_FILE_INSIDE_FOLDER + PERMISSION_CAN_CREATE_FOLDER_INSIDE_FOLDER;
+
+    private final static int MAX_FILE_SIZE_FOR_IMMEDIATE_PREVIEW_BYTES = 1024000;
 
     public static final String PATH_SEPARATOR = "/";
     public static final String ROOT_PATH = PATH_SEPARATOR;
@@ -122,6 +129,11 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
     private Long internalFolderSyncTimestamp = -1L;
     private String internalFolderSyncResult = "";
 
+    // region Recommend files variables
+    private boolean recommendedFile = false;
+    private String reason = "";
+    // endregion
+
     /**
      * URI to the local path of the file contents, if stored in the device; cached after first call to
      * {@link #getStorageUri()}
@@ -161,6 +173,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
         fileId = source.readLong();
         parentId = source.readLong();
         fileLength = source.readLong();
+        uploadTimestamp = source.readLong();
         creationTimestamp = source.readLong();
         modificationTimestamp = source.readLong();
         modificationTimestampAtLastSyncForData = source.readLong();
@@ -206,6 +219,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
         dest.writeLong(fileId);
         dest.writeLong(parentId);
         dest.writeLong(fileLength);
+        dest.writeLong(uploadTimestamp);
         dest.writeLong(creationTimestamp);
         dest.writeLong(modificationTimestamp);
         dest.writeLong(modificationTimestampAtLastSyncForData);
@@ -384,26 +398,11 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
         return localUri;
     }
 
-
-    public Uri getLegacyExposedFileUri() {
-        if (TextUtils.isEmpty(localPath)) {
-            return null;
-        }
-
-        if (exposedFileUri == null) {
-            return Uri.parse(ContentResolver.SCHEME_FILE + "://" + WebdavUtils.encodePath(localPath));
-        }
-
-        return exposedFileUri;
-
-    }
-    /*
-        Partly disabled because not all apps understand paths that we get via this method for now
-     */
     public Uri getExposedFileUri(Context context) {
         if (TextUtils.isEmpty(localPath)) {
             return null;
         }
+
         if (exposedFileUri == null) {
             try {
                 exposedFileUri = FileProvider.getUriForFile(
@@ -411,9 +410,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
                         context.getString(R.string.file_provider_authority),
                         new File(localPath));
             } catch (IllegalArgumentException ex) {
-                // Could not share file using FileProvider URI scheme.
-                // Fall back to legacy URI parsing.
-                getLegacyExposedFileUri();
+                Log_OC.d(TAG, "Given File is outside the paths supported by the provider");
             }
         }
 
@@ -500,6 +497,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
         localPath = null;
         mimeType = null;
         fileLength = 0;
+        uploadTimestamp = 0;
         creationTimestamp = 0;
         modificationTimestamp = 0;
         modificationTimestampAtLastSyncForData = 0;
@@ -581,7 +579,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
 
     @Override
     public int hashCode() {
-        return 31 * (int) (fileId ^ (fileId >>> 32)) + (int) (parentId ^ (parentId >>> 32));
+        return Objects.hash(fileId,parentId);
     }
 
     @NonNull
@@ -643,27 +641,67 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
     }
 
     public boolean isSharedWithMe() {
-        String permissions = getPermissions();
-        return permissions != null && permissions.contains(PERMISSION_SHARED_WITH_ME);
+        return hasPermission(PERMISSION_SHARED);
     }
 
     public boolean canReshare() {
-        String permissions = getPermissions();
-        return permissions != null && permissions.contains(PERMISSION_CAN_RESHARE);
+        return hasPermission(PERMISSION_CAN_RESHARE);
+    }
+
+    public boolean canCreateFileAndFolder() {
+        return hasPermission(PERMISSION_CAN_CREATE_FILE_AND_FOLDER);
+    }
+
+    public boolean mounted() {
+        return hasPermission(PERMISSION_MOUNTED);
+    }
+
+    public boolean canRead() {
+        return hasPermission(PERMISSION_CAN_READ);
+    }
+
+    public boolean canCreateFileInsideFolder() {
+        return hasPermission(PERMISSION_CAN_CREATE_FILE_INSIDE_FOLDER);
+    }
+
+    public boolean canCreateFolderInsideFolder() {
+        return hasPermission(PERMISSION_CAN_CREATE_FOLDER_INSIDE_FOLDER);
+    }
+
+    /**
+     * Determines whether the current account has the ability to delete the file or leave the share.
+     *
+     * <p>
+     * - If the file is shared with the current account (i.e., the user is the recipient),
+     *   the user cannot delete the file itself but can leave the shared file.
+     * <p>
+     * - If the file is belongs to the current user. User can delete the file.
+     *
+     * @return true if the user is allowed to either delete or leave the share; false otherwise.
+     */
+    public boolean canDeleteOrLeaveShare() {
+        return hasPermission(PERMISSION_CAN_DELETE_OR_LEAVE_SHARE);
+    }
+
+    public boolean canRename() {
+        return hasPermission(PERMISSION_CAN_RENAME);
     }
 
     public boolean canWrite() {
-        String permissions = getPermissions();
-        return permissions != null && permissions.contains(PERMISSION_CAN_WRITE);
+        return hasPermission(PERMISSION_CAN_WRITE);
     }
 
-    public boolean isGroupFolder() {
+    public boolean canMove() {
+        return hasPermission(PERMISSION_CAN_MOVE);
+    }
+
+    private boolean hasPermission(String permission) {
         String permissions = getPermissions();
-        return permissions != null && permissions.contains(PERMISSION_GROUPFOLDER);
+        return permissions != null && permissions.contains(permission);
     }
 
     public Integer getFileOverlayIconId(boolean isAutoUploadFolder) {
-        if (WebdavEntry.MountType.GROUP == mountType || isGroupFolder()) {
+        if (WebdavEntry.MountType.GROUP == mountType || mounted()) {
             return R.drawable.ic_folder_overlay_account_group;
         } else if (sharedViaLink && !encrypted) {
             return R.drawable.ic_folder_overlay_link;
@@ -682,7 +720,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
         }
     }
 
-    public static final Parcelable.Creator<OCFile> CREATOR = new Parcelable.Creator<OCFile>() {
+    public static final Parcelable.Creator<OCFile> CREATOR = new Parcelable.Creator<>() {
 
         @Override
         public OCFile createFromParcel(Parcel source) {
@@ -710,6 +748,10 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
         return this.fileLength;
     }
 
+    public boolean isFileEligibleForImmediatePreview() {
+        return fileLength <= MAX_FILE_SIZE_FOR_IMMEDIATE_PREVIEW_BYTES;
+    }
+
     public long getCreationTimestamp() {
         return this.creationTimestamp;
     }
@@ -719,10 +761,6 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
      */
     public long getModificationTimestamp() {
         return this.modificationTimestamp;
-    }
-
-    public long getUploadTimestamp() {
-        return this.uploadTimestamp;
     }
 
     public long getModificationTimestampAtLastSyncForData() {
@@ -755,6 +793,10 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
 
     public String getEtagOnServer() {
         return this.etagOnServer;
+    }
+
+    public boolean isEtagChanged() {
+        return !StringExtensionsKt.isNotBlankAndEquals(getEtag(), getEtagOnServer());
     }
 
     public boolean isSharedViaLink() {
@@ -1061,11 +1103,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
     }
 
     public void setE2eCounter(@Nullable Long e2eCounter) {
-        if (e2eCounter == null) {
-            this.e2eCounter = -1;
-        } else {
-            this.e2eCounter = e2eCounter;
-        }
+        this.e2eCounter = Objects.requireNonNullElse(e2eCounter, -1L);
     }
 
     public boolean isInternalFolderSync() {
@@ -1098,5 +1136,34 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
         } else {
             return false;
         }
+    }
+
+    public long getUploadTimestamp() {
+        return uploadTimestamp;
+    }
+
+    public void setUploadTimestamp(long uploadTimestamp) {
+        this.uploadTimestamp = uploadTimestamp;
+    }
+
+    public boolean exists() {
+        final String storagePath = getStoragePath();
+        return storagePath != null && new File(storagePath).exists();
+    }
+
+    public void setReason(String value) {
+        reason = value;
+    }
+
+    public String getReason() {
+        return reason;
+    }
+
+    public void setIsRecommendedFile(boolean value) {
+        recommendedFile = value;
+    }
+
+    public boolean isRecommendedFile() {
+        return recommendedFile;
     }
 }

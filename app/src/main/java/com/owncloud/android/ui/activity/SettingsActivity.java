@@ -16,6 +16,7 @@
 package com.owncloud.android.ui.activity;
 
 import android.accounts.Account;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -188,6 +189,9 @@ public class SettingsActivity extends PreferenceActivity
         // Synced folders
         setupAutoUploadCategory(preferenceScreen);
 
+        // Files
+        setupFilesCategory();
+
         // Details
         setupDetailsCategory(preferenceScreen);
 
@@ -359,10 +363,12 @@ public class SettingsActivity extends PreferenceActivity
         }
     }
 
+    @SuppressLint("GestureBackNavigation")
     @Override
     public void onBackPressed() {
+        DrawerActivity.menuItemId = R.id.nav_all_files;
         Intent i = new Intent(this, FileDisplayActivity.class);
-        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         i.setAction(FileDisplayActivity.ALL_FILES);
         startActivity(i);
     }
@@ -688,23 +694,31 @@ public class SettingsActivity extends PreferenceActivity
 
         boolean fPassCodeEnabled = getResources().getBoolean(R.bool.passcode_enabled);
         boolean fDeviceCredentialsEnabled = getResources().getBoolean(R.bool.device_credentials_enabled);
-        boolean fShowHiddenFilesEnabled = getResources().getBoolean(R.bool.show_hidden_files_enabled);
         boolean fShowEcosystemAppsEnabled = !getResources().getBoolean(R.bool.is_branded_client);
         boolean fSyncedFolderLightEnabled = getResources().getBoolean(R.bool.syncedFolder_light);
         boolean fShowMediaScanNotifications = preferences.isShowMediaScanNotifications();
 
         setupLockPreference(preferenceCategoryDetails, fPassCodeEnabled, fDeviceCredentialsEnabled);
 
-        setupHiddenFilesPreference(preferenceCategoryDetails, fShowHiddenFilesEnabled);
-
         setupShowEcosystemAppsPreference(preferenceCategoryDetails, fShowEcosystemAppsEnabled);
 
         setupShowMediaScanNotifications(preferenceCategoryDetails, fShowMediaScanNotifications);
 
-        if (!fPassCodeEnabled && !fDeviceCredentialsEnabled && !fShowHiddenFilesEnabled && fSyncedFolderLightEnabled
+        if (!fPassCodeEnabled && !fDeviceCredentialsEnabled && fSyncedFolderLightEnabled
             && fShowMediaScanNotifications) {
             preferenceScreen.removePreference(preferenceCategoryDetails);
         }
+    }
+
+    private void setupFilesCategory() {
+        PreferenceCategory preferenceCategoryDetails = (PreferenceCategory) findPreference("files");
+        viewThemeUtils.files.themePreferenceCategory(preferenceCategoryDetails);
+
+        boolean fShowHiddenFilesEnabled = getResources().getBoolean(R.bool.show_hidden_files_enabled);
+
+        setupHiddenFilesPreference(preferenceCategoryDetails, fShowHiddenFilesEnabled);
+        setupFoldersBeforeFilesPreference();
+        setupSortFavoritesFirstPreference();
     }
 
     private void setupShowMediaScanNotifications(PreferenceCategory preferenceCategoryDetails,
@@ -728,6 +742,22 @@ public class SettingsActivity extends PreferenceActivity
         } else {
             preferenceCategoryDetails.removePreference(showHiddenFiles);
         }
+    }
+
+    private void setupFoldersBeforeFilesPreference() {
+        ThemeableSwitchPreference preference = (ThemeableSwitchPreference) findPreference("sort_folders_before_files");
+        preference.setOnPreferenceClickListener(p -> {
+                preferences.setSortFoldersBeforeFiles(preference.isChecked());
+                return true;
+            });
+    }
+
+    private void setupSortFavoritesFirstPreference() {
+        ThemeableSwitchPreference preference = (ThemeableSwitchPreference) findPreference("sort_favorites_first");
+        preference.setOnPreferenceClickListener(p -> {
+            preferences.setSortFavoritesFirst(preference.isChecked());
+            return true;
+        });
     }
 
     private void setupShowEcosystemAppsPreference(PreferenceCategory preferenceCategoryDetails, boolean fShowEcosystemAppsEnabled) {

@@ -43,7 +43,6 @@ class ContentResolverHelperIT {
     }
 
     @Test
-    @SdkSuppress(minSdkVersion = Build.VERSION_CODES.O)
     fun contentResolver_onAndroid26_usesNewAPI() {
         ContentResolverHelper
             .queryResolver(resolver, URI, PROJECTION, SELECTION, null, SORT_COLUMN, SORT_DIRECTION, LIMIT)

@@ -38,6 +38,8 @@ import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCo
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.operations.DownloadFileOperation
 import com.owncloud.android.operations.DownloadType
+import com.owncloud.android.ui.events.EventBusFactory
+import com.owncloud.android.ui.events.FileDownloadProgressEvent
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import java.util.AbstractList
 import java.util.Optional
@@ -51,7 +53,9 @@ class FileDownloadWorker(
     private var localBroadcastManager: LocalBroadcastManager,
     private val context: Context,
     params: WorkerParameters
-) : CoroutineWorker(context, params), OnAccountsUpdateListener, OnDatatransferProgressListener {
+) : CoroutineWorker(context, params),
+    OnAccountsUpdateListener,
+    OnDatatransferProgressListener {
 
     companion object {
         private val TAG = FileDownloadWorker::class.java.simpleName
@@ -64,8 +68,8 @@ class FileDownloadWorker(
             }
         }
 
-        fun isDownloading(accountName: String, fileId: Long): Boolean {
-            return pendingDownloads.all.any { it.value?.payload?.isMatching(accountName, fileId) == true }
+        fun isDownloading(accountName: String, fileId: Long): Boolean = pendingDownloads.all.any {
+            it.value?.payload?.isMatching(accountName, fileId) == true
         }
 
         const val FILE_REMOTE_PATH = "FILE_REMOTE_PATH"
@@ -80,13 +84,9 @@ class FileDownloadWorker(
         const val EXTRA_LINKED_TO_PATH = "EXTRA_LINKED_TO_PATH"
         const val EXTRA_ACCOUNT_NAME = "EXTRA_ACCOUNT_NAME"
 
-        fun getDownloadAddedMessage(): String {
-            return FileDownloadWorker::class.java.name + "DOWNLOAD_ADDED"
-        }
+        fun getDownloadAddedMessage(): String = FileDownloadWorker::class.java.name + "DOWNLOAD_ADDED"
 
-        fun getDownloadFinishMessage(): String {
-            return FileDownloadWorker::class.java.name + "DOWNLOAD_FINISH"
-        }
+        fun getDownloadFinishMessage(): String = FileDownloadWorker::class.java.name + "DOWNLOAD_FINISH"
     }
 
     private var currentDownload: DownloadFileOperation? = null
@@ -145,13 +145,11 @@ class FileDownloadWorker(
         }
     }
 
-    private fun createWorkerForegroundInfo(): ForegroundInfo {
-        return ForegroundServiceHelper.createWorkerForegroundInfo(
-            notificationManager.getId(),
-            notificationManager.getNotification(),
-            ForegroundServiceType.DataSync
-        )
-    }
+    private fun createWorkerForegroundInfo(): ForegroundInfo = ForegroundServiceHelper.createWorkerForegroundInfo(
+        notificationManager.getId(),
+        notificationManager.getNotification(),
+        ForegroundServiceType.DataSync
+    )
 
     private fun setWorkerState(user: User?) {
         WorkerStateLiveData.instance().setWorkState(WorkerState.DownloadStarted(user, currentDownload))
@@ -219,12 +217,10 @@ class FileDownloadWorker(
         fileDataStorageManager = FileDataStorageManager(user, context.contentResolver)
     }
 
-    private fun getFiles(file: OCFile): List<OCFile> {
-        return if (file.isFolder) {
-            fileDataStorageManager?.getAllFilesRecursivelyInsideFolder(file) ?: listOf()
-        } else {
-            listOf(file)
-        }
+    private fun getFiles(file: OCFile): List<OCFile> = if (file.isFolder) {
+        fileDataStorageManager?.getAllFilesRecursivelyInsideFolder(file) ?: listOf()
+    } else {
+        listOf(file)
     }
 
     private fun getDownloadType(): DownloadType? {
@@ -416,14 +412,14 @@ class FileDownloadWorker(
         }
 
         lastPercent = percent
+        EventBusFactory.downloadProgressEventBus.post(FileDownloadProgressEvent(percent))
     }
 
+    // CHECK: Is this class still needed after conversion from Foreground Services to Worker?
     inner class FileDownloadProgressListener : OnDatatransferProgressListener {
         private val boundListeners: MutableMap<Long, OnDatatransferProgressListener> = HashMap()
 
-        fun isDownloading(user: User?, file: OCFile?): Boolean {
-            return FileDownloadHelper.instance().isDownloading(user, file)
-        }
+        fun isDownloading(user: User?, file: OCFile?): Boolean = FileDownloadHelper.instance().isDownloading(user, file)
 
         fun addDataTransferProgressListener(listener: OnDatatransferProgressListener?, file: OCFile?) {
             if (file == null || listener == null) {

@@ -118,10 +118,6 @@ class EncryptionUtilsV2 {
                 arbitraryDataProvider
             )
 
-            // do not store metadata key
-            metadataFile.metadata.metadataKey = ByteArray(0)
-            metadataFile.metadata.keyChecksums.clear()
-
             encryptedUsers = emptyList()
             encryptedMetadata = encryptMetadata(metadataFile.metadata, key)
         } else {
@@ -369,19 +365,17 @@ class EncryptionUtilsV2 {
         user: User,
         context: Context,
         arbitraryDataProvider: ArbitraryDataProvider
-    ): ByteArray {
-        return retrieveTopMostMetadata(
-            folder,
-            storageManager,
-            client,
-            userId,
-            privateKey,
-            user,
-            context,
-            arbitraryDataProvider
-        )
-            .metadata.metadataKey
-    }
+    ): ByteArray = retrieveTopMostMetadata(
+        folder,
+        storageManager,
+        client,
+        userId,
+        privateKey,
+        user,
+        context,
+        arbitraryDataProvider
+    )
+        .metadata.metadataKey
 
     @VisibleForTesting
     fun encryptUser(user: DecryptedUser, metadataKey: ByteArray): EncryptedUser {
@@ -398,21 +392,18 @@ class EncryptionUtilsV2 {
     }
 
     @VisibleForTesting
-    fun transformUser(user: EncryptedUser): DecryptedUser {
-        return DecryptedUser(
-            user.userId,
-            user.certificate,
-            user.encryptedMetadataKey
-        )
-    }
+    fun transformUser(user: EncryptedUser): DecryptedUser = DecryptedUser(
+        user.userId,
+        user.certificate,
+        user.encryptedMetadataKey
+    )
 
     @VisibleForTesting
-    fun decryptMetadataKey(user: EncryptedUser, privateKey: String): ByteArray {
-        return EncryptionUtils.decryptStringAsymmetricV2(
+    fun decryptMetadataKey(user: EncryptedUser, privateKey: String): ByteArray =
+        EncryptionUtils.decryptStringAsymmetricV2(
             user.encryptedMetadataKey,
             privateKey
         )
-    }
 
     fun gZipCompress(string: String): ByteArray {
         val outputStream = ByteArrayOutputStream()
@@ -425,13 +416,9 @@ class EncryptionUtilsV2 {
         return outputStream.toByteArray()
     }
 
-    fun gZipDecompress(compressed: String): String {
-        return gZipDecompress(compressed.byteInputStream())
-    }
+    fun gZipDecompress(compressed: String): String = gZipDecompress(compressed.byteInputStream())
 
-    fun gZipDecompress(compressed: ByteArray): String {
-        return gZipDecompress(compressed.inputStream())
-    }
+    fun gZipDecompress(compressed: ByteArray): String = gZipDecompress(compressed.inputStream())
 
     @VisibleForTesting
     fun gZipDecompress(inputStream: InputStream): String {
@@ -856,15 +843,14 @@ class EncryptionUtilsV2 {
     }
 
     @VisibleForTesting
-    fun migrateDecryptedFileV1ToV2(v1: com.owncloud.android.datamodel.e2e.v1.decrypted.DecryptedFile): DecryptedFile {
-        return DecryptedFile(
+    fun migrateDecryptedFileV1ToV2(v1: com.owncloud.android.datamodel.e2e.v1.decrypted.DecryptedFile): DecryptedFile =
+        DecryptedFile(
             v1.encrypted.filename,
             v1.encrypted.mimetype,
             v1.initializationVector,
             v1.authenticationTag ?: "",
             v1.encrypted.key
         )
-    }
 
     @Throws(UploadException::class)
     @Suppress("LongParameterList")
@@ -1080,13 +1066,12 @@ class EncryptionUtilsV2 {
         return BigInteger(1, bytes).toString(16).padStart(32, '0')
     }
 
-    fun getMessageSignature(cert: String, privateKey: String, metadataFile: EncryptedFolderMetadataFile): String {
-        return getMessageSignature(
+    fun getMessageSignature(cert: String, privateKey: String, metadataFile: EncryptedFolderMetadataFile): String =
+        getMessageSignature(
             EncryptionUtils.convertCertFromString(cert),
             EncryptionUtils.PEMtoPrivateKey(privateKey),
             metadataFile
         )
-    }
 
     private fun getMessageSignature(
         cert: X509Certificate,

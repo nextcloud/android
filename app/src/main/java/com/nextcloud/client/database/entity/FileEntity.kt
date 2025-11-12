@@ -50,7 +50,7 @@ data class FileEntity(
     @ColumnInfo(name = ProviderTableMeta.FILE_ETAG_ON_SERVER)
     val etagOnServer: String?,
     @ColumnInfo(name = ProviderTableMeta.FILE_SHARED_VIA_LINK)
-    val sharedViaLink: Int?,
+    var sharedViaLink: Int?,
     @ColumnInfo(name = ProviderTableMeta.FILE_PERMISSIONS)
     val permissions: String?,
     @ColumnInfo(name = ProviderTableMeta.FILE_REMOTE_ID)
@@ -73,7 +73,7 @@ data class FileEntity(
     @ColumnInfo(name = ProviderTableMeta.FILE_ETAG_IN_CONFLICT)
     val etagInConflict: String?,
     @ColumnInfo(name = ProviderTableMeta.FILE_SHARED_WITH_SHAREE)
-    val sharedWithSharee: Int?,
+    var sharedWithSharee: Int?,
     @ColumnInfo(name = ProviderTableMeta.FILE_MOUNT_TYPE)
     val mountType: Int?,
     @ColumnInfo(name = ProviderTableMeta.FILE_HAS_PREVIEW)
@@ -119,5 +119,7 @@ data class FileEntity(
     @ColumnInfo(name = ProviderTableMeta.FILE_INTERNAL_TWO_WAY_SYNC_TIMESTAMP)
     val internalTwoWaySync: Long?,
     @ColumnInfo(name = ProviderTableMeta.FILE_INTERNAL_TWO_WAY_SYNC_RESULT)
-    val internalTwoWaySyncResult: String?
+    val internalTwoWaySyncResult: String?,
+    @ColumnInfo(name = ProviderTableMeta.FILE_UPLOADED)
+    val uploaded: Long?
 )

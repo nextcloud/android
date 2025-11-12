@@ -82,10 +82,9 @@ public class SQLiteTokenizer {
             // Regular token.
             if (isAlpha(ch)) {
                 final int start = pos;
-                pos++;
-                while (isAlNum(peek(sql, pos))) {
+                do {
                     pos++;
-                }
+                } while (isAlNum(peek(sql, pos)));
                 final int end = pos;
 
                 final String token = sql.substring(start, end);
@@ -196,47 +195,23 @@ public class SQLiteTokenizer {
      * keyword</a>.
      */
     public static boolean isKeyword(@NonNull String token) {
-        switch (token.toUpperCase(Locale.US)) {
-            case "ABORT": case "ACTION": case "ADD": case "AFTER":
-            case "ALL": case "ALTER": case "ANALYZE": case "AND":
-            case "AS": case "ASC": case "ATTACH": case "AUTOINCREMENT":
-            case "BEFORE": case "BEGIN": case "BETWEEN": case "BINARY":
-            case "BY": case "CASCADE": case "CASE": case "CAST":
-            case "CHECK": case "COLLATE": case "COLUMN": case "COMMIT":
-            case "CONFLICT": case "CONSTRAINT": case "CREATE": case "CROSS":
-            case "CURRENT": case "CURRENT_DATE": case "CURRENT_TIME": case "CURRENT_TIMESTAMP":
-            case "DATABASE": case "DEFAULT": case "DEFERRABLE": case "DEFERRED":
-            case "DELETE": case "DESC": case "DETACH": case "DISTINCT":
-            case "DO": case "DROP": case "EACH": case "ELSE":
-            case "END": case "ESCAPE": case "EXCEPT": case "EXCLUDE":
-            case "EXCLUSIVE": case "EXISTS": case "EXPLAIN": case "FAIL":
-            case "FILTER": case "FOLLOWING": case "FOR": case "FOREIGN":
-            case "FROM": case "FULL": case "GLOB": case "GROUP":
-            case "GROUPS": case "HAVING": case "IF": case "IGNORE":
-            case "IMMEDIATE": case "IN": case "INDEX": case "INDEXED":
-            case "INITIALLY": case "INNER": case "INSERT": case "INSTEAD":
-            case "INTERSECT": case "INTO": case "IS": case "ISNULL":
-            case "JOIN": case "KEY": case "LEFT": case "LIKE":
-            case "LIMIT": case "MATCH": case "NATURAL": case "NO":
-            case "NOCASE": case "NOT": case "NOTHING": case "NOTNULL":
-            case "NULL": case "OF": case "OFFSET": case "ON":
-            case "OR": case "ORDER": case "OTHERS": case "OUTER":
-            case "OVER": case "PARTITION": case "PLAN": case "PRAGMA":
-            case "PRECEDING": case "PRIMARY": case "QUERY": case "RAISE":
-            case "RANGE": case "RECURSIVE": case "REFERENCES": case "REGEXP":
-            case "REINDEX": case "RELEASE": case "RENAME": case "REPLACE":
-            case "RESTRICT": case "RIGHT": case "ROLLBACK": case "ROW":
-            case "ROWS": case "RTRIM": case "SAVEPOINT": case "SELECT":
-            case "SET": case "TABLE": case "TEMP": case "TEMPORARY":
-            case "THEN": case "TIES": case "TO": case "TRANSACTION":
-            case "TRIGGER": case "UNBOUNDED": case "UNION": case "UNIQUE":
-            case "UPDATE": case "USING": case "VACUUM": case "VALUES":
-            case "VIEW": case "VIRTUAL": case "WHEN": case "WHERE":
-            case "WINDOW": case "WITH": case "WITHOUT":
-                return true;
-            default:
-                return false;
-        }
+        return switch (token.toUpperCase(Locale.US)) {
+            case "ABORT", "ACTION", "ADD", "AFTER", "ALL", "ALTER", "ANALYZE", "AND", "AS", "ASC", "ATTACH",
+                 "AUTOINCREMENT", "BEFORE", "BEGIN", "BETWEEN", "BINARY", "BY", "CASCADE", "CASE", "CAST", "CHECK",
+                 "COLLATE", "COLUMN", "COMMIT", "CONFLICT", "CONSTRAINT", "CREATE", "CROSS", "CURRENT", "CURRENT_DATE",
+                 "CURRENT_TIME", "CURRENT_TIMESTAMP", "DATABASE", "DEFAULT", "DEFERRABLE", "DEFERRED", "DELETE", "DESC",
+                 "DETACH", "DISTINCT", "DO", "DROP", "EACH", "ELSE", "END", "ESCAPE", "EXCEPT", "EXCLUDE", "EXCLUSIVE",
+                 "EXISTS", "EXPLAIN", "FAIL", "FILTER", "FOLLOWING", "FOR", "FOREIGN", "FROM", "FULL", "GLOB", "GROUP",
+                 "GROUPS", "HAVING", "IF", "IGNORE", "IMMEDIATE", "IN", "INDEX", "INDEXED", "INITIALLY", "INNER",
+                 "INSERT", "INSTEAD", "INTERSECT", "INTO", "IS", "ISNULL", "JOIN", "KEY", "LEFT", "LIKE", "LIMIT",
+                 "MATCH", "NATURAL", "NO", "NOCASE", "NOT", "NOTHING", "NOTNULL", "NULL", "OF", "OFFSET", "ON", "OR",
+                 "ORDER", "OTHERS", "OUTER", "OVER", "PARTITION", "PLAN", "PRAGMA", "PRECEDING", "PRIMARY", "QUERY",
+                 "RAISE", "RANGE", "RECURSIVE", "REFERENCES", "REGEXP", "REINDEX", "RELEASE", "RENAME", "REPLACE",
+                 "RESTRICT", "RIGHT", "ROLLBACK", "ROW", "ROWS", "RTRIM", "SAVEPOINT", "SELECT", "SET", "TABLE", "TEMP",
+                 "TEMPORARY", "THEN", "TIES", "TO", "TRANSACTION", "TRIGGER", "UNBOUNDED", "UNION", "UNIQUE", "UPDATE",
+                 "USING", "VACUUM", "VALUES", "VIEW", "VIRTUAL", "WHEN", "WHERE", "WINDOW", "WITH", "WITHOUT" -> true;
+            default -> false;
+        };
     }
 
     /**
@@ -245,20 +220,13 @@ public class SQLiteTokenizer {
      * function</a>.
      */
     public static boolean isFunction(@NonNull String token) {
-        switch (token.toLowerCase(Locale.US)) {
-            case "abs": case "avg": case "char": case "coalesce":
-            case "count": case "glob": case "group_concat": case "hex":
-            case "ifnull": case "instr": case "length": case "like":
-            case "likelihood": case "likely": case "lower": case "ltrim":
-            case "max": case "min": case "nullif": case "random":
-            case "randomblob": case "replace": case "round": case "rtrim":
-            case "substr": case "sum": case "total": case "trim":
-            case "typeof": case "unicode": case "unlikely": case "upper":
-            case "zeroblob":
-                return true;
-            default:
-                return false;
-        }
+        return switch (token.toLowerCase(Locale.US)) {
+            case "abs", "avg", "char", "coalesce", "count", "glob", "group_concat", "hex", "ifnull", "instr", "length",
+                 "like", "likelihood", "likely", "lower", "ltrim", "max", "min", "nullif", "random", "randomblob",
+                 "replace", "round", "rtrim", "substr", "sum", "total", "trim", "typeof", "unicode", "unlikely",
+                 "upper", "zeroblob" -> true;
+            default -> false;
+        };
     }
 
     /**
@@ -266,16 +234,11 @@ public class SQLiteTokenizer {
      * <a href="https://www.sqlite.org/datatype3.html">SQLite reserved type</a>.
      */
     public static boolean isType(@NonNull String token) {
-        switch (token.toUpperCase(Locale.US)) {
-            case "INT": case "INTEGER": case "TINYINT": case "SMALLINT":
-            case "MEDIUMINT": case "BIGINT": case "INT2": case "INT8":
-            case "CHARACTER": case "VARCHAR": case "NCHAR": case "NVARCHAR":
-            case "TEXT": case "CLOB": case "BLOB": case "REAL":
-            case "DOUBLE": case "FLOAT": case "NUMERIC": case "DECIMAL":
-            case "BOOLEAN": case "DATE": case "DATETIME":
-                return true;
-            default:
-                return false;
-        }
+        return switch (token.toUpperCase(Locale.US)) {
+            case "INT", "INTEGER", "TINYINT", "SMALLINT", "MEDIUMINT", "BIGINT", "INT2", "INT8", "CHARACTER", "VARCHAR",
+                 "NCHAR", "NVARCHAR", "TEXT", "CLOB", "BLOB", "REAL", "DOUBLE", "FLOAT", "NUMERIC", "DECIMAL",
+                 "BOOLEAN", "DATE", "DATETIME" -> true;
+            default -> false;
+        };
     }
 }

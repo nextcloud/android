@@ -28,6 +28,7 @@ import com.nextcloud.android.common.ui.theme.utils.ColorRole
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.device.DeviceInfo
 import com.nextcloud.client.di.Injectable
+import com.nextcloud.utils.LinkHelper
 import com.nextcloud.utils.extensions.setHtmlContent
 import com.owncloud.android.MainApp
 import com.owncloud.android.R
@@ -64,7 +65,10 @@ import javax.inject.Inject
     ],
     grammarLocatorClassName = ".MarkwonGrammarLocator"
 )
-abstract class PreviewTextFragment : FileFragment(), SearchView.OnQueryTextListener, Injectable {
+abstract class PreviewTextFragment :
+    FileFragment(),
+    SearchView.OnQueryTextListener,
+    Injectable {
 
     @JvmField
     protected var searchView: SearchView? = null
@@ -161,7 +165,7 @@ abstract class PreviewTextFragment : FileFragment(), SearchView.OnQueryTextListe
      * Finishes the preview
      */
     protected fun finish() {
-        requireActivity().runOnUiThread { requireActivity().onBackPressed() }
+        requireActivity().runOnUiThread { requireActivity().onBackPressedDispatcher.onBackPressed() }
     }
 
     companion object {
@@ -194,11 +198,15 @@ abstract class PreviewTextFragment : FileFragment(), SearchView.OnQueryTextListe
                     }
 
                     override fun configureConfiguration(builder: MarkwonConfiguration.Builder) {
-                        builder.linkResolver { _: View?, link: String? ->
-                            DisplayUtils.startLinkIntent(
-                                activity,
-                                link
-                            )
+                        builder.linkResolver { _, link ->
+                            if (LinkHelper.isHttpOrHttpsLink(link)) {
+                                DisplayUtils.startLinkIntent(activity, link)
+                            } else {
+                                DisplayUtils.showSnackMessage(
+                                    activity,
+                                    activity.getString(R.string.link_not_followed_due_to_security_settings)
+                                )
+                            }
                         }
                     }
                 })

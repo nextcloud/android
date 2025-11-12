@@ -28,7 +28,6 @@
     <string name="activity_icon">işjeňlik we hereket</string>
     <string name="add_new_public_share">Täze köpçülikleýin paýlaşma baglanyşygyny goşuň</string>
     <string name="add_to_cloud">Goşuň%1$s</string>
-    <string name="allow_resharing">Täzeden paýlaşmaga rugsat beriň</string>
     <string name="appbar_search_in">Gözlemek%siçinde</string>
     <string name="associated_account_not_found">Baglanyşyk hasaby tapylmady!</string>
     <string name="auth_access_failed">Şowsuz Giriş%1$s:</string>
@@ -85,8 +84,6 @@
     <string name="choose_template_helper_text">Şablon saýlaň we faýl giriziň</string>
     <string name="choose_which_file">Haýsy faýly gorap saklamalydygyny saýlaň!</string>
     <string name="clear_notifications_failed">Duýduryşlary pozup bolmady</string>
-    <string name="clear_status_message">Status habaryny arassalaň</string>
-    <string name="clear_status_message_after">Soňra statusly habary arassalaň</string>
     <string name="clipboard_label">Tekst göçürildi%1$s-dan</string>
     <string name="clipboard_no_text_to_copy">Paneli göçürmeklik üçin tekst alynmady</string>
     <string name="clipboard_text_copied">Link-yň nusgasy alyndy</string>
@@ -342,8 +339,6 @@
     <string name="invisible">göze görünmeýän</string>
     <string name="label_empty">Bellik boş bolup bilmez</string>
     <string name="link">Baglanyşyk</string>
-    <string name="link_share_allow_upload_and_editing">Ýüklemäge we redaktirlemäge rugsat beriň</string>
-    <string name="link_share_file_drop">Faýlyň düşmegi (diňe ýüklemek)</string>
     <string name="list_layout">Sanawyň tertibi</string>
     <string name="local_file_list_empty">Bu bukjada faýl ýok.</string>
     <string name="local_file_not_found_message">Ýerli faýl ulgamynda faýl tapylmady</string>
@@ -432,11 +427,6 @@
     <string name="permission_deny">inkär et</string>
     <string name="permission_storage_access">Faýllary ýüklemek we göçürip almak üçin goşmaça rugsatlar gerek.</string>
     <string name="picture_set_as_no_app">Surat goýmak üçin hiç bir programma tapylmady</string>
-    <string name="placeholder_fileSize">389 KB</string>
-    <string name="placeholder_filename">placeholder.txt</string>
-    <string name="placeholder_media_time">12:23:45</string>
-    <string name="placeholder_sentence">Bu bir ýer eýesi</string>
-    <string name="placeholder_timestamp">2012/05/18 12:23</string>
     <string name="player_stop">Dur</string>
     <string name="player_toggle">üýtgetmek</string>
     <string name="power_save_check_dialog_message">Kuwwat tygşytlaýyş barlagyny öçürmek, batareýanyň pes ýagdaýynda faýl ýüklemegine sebäp bolup biler!</string>
@@ -451,7 +441,6 @@
     <string name="pref_instant_name_collision_policy_title">Faýl eýýäm bar bolsa näme etmeli?</string>
     <string name="prefs_add_account">Hasap goşuň</string>
     <string name="prefs_calendar_contacts_no_store_error">Ne F-Droid, ne-de Google Play ýüklenmedik</string>
-    <string name="prefs_calendar_contacts_summary">Häzirki hasap üçin DAVx5 (öň DAVdroid ady bilen tanalýardy) (v1.3.0 +) guruň</string>
     <string name="prefs_category_about">Hakynda</string>
     <string name="prefs_category_details">Jikme-jiklikler</string>
     <string name="prefs_category_dev">Dev</string>
@@ -492,7 +481,7 @@
     <string name="preview_image_error_unknown_format">Surat görkezip bolmaýar</string>
     <string name="preview_sorry">Bagyşlaň</string>
     <string name="privacy">Gizlinlik</string>
-    <string name="public_share_name">Täze ady</string>
+    <string name="push_notifications_not_implemented">Hususy Google Play hyzmatlaryna baglylyk sebäpli basma bildirişleri ýapylýar.</string>
     <string name="push_notifications_old_login">Könelen giriş sessiýasy sebäpli itergi habarnamalary ýok. Hasabyňyzy täzeden goşmagy göz öňünde tutmagyňyzy haýyş edýäris.</string>
     <string name="push_notifications_temp_error">Push habarnamalary häzirki wagtda elýeterli däl.</string>
     <string name="recommend_subject">%1$senjamyňyzda synap görüň!</string>
@@ -521,19 +510,19 @@
     <string name="screenshot_04_accounts_heading">Siziň ähli hasaplaryňyz</string>
     <string name="screenshot_04_accounts_subline">bir ýerde</string>
     <string name="screenshot_05_autoUpload_heading">Awtomatiki ýüklemek</string>
-    <string name="screenshot_06_davdroid_subline">DAVx5 bilen sinhronlaň</string>
     <string name="select_all">Hemmesini saýlaň</string>
     <string name="select_one_template">Bir şablon saýlaň</string>
     <string name="select_template">Şablon saýlaň</string>
     <string name="send">Iber</string>
     <string name="sendbutton_description">\"Ibermek\" düwmesiniň nyşanyny</string>
     <string name="set_as">Hökmünde ornaşdyryň</string>
+    <string name="set_online_status">Onlaýn ýagdaýy</string>
     <string name="set_picture_as">Suraty ulanmak hökmünde</string>
-    <string name="set_status">Status ýagdaýy düzüň</string>
-    <string name="set_status_message">Status habaryny düzüň</string>
     <string name="share">Paýlaş</string>
+    <string name="share_create_permission">Dörediň</string>
+    <string name="share_delete_permission">Pozmak</string>
     <string name="share_dialog_title">Paýlaşmak</string>
-    <string name="share_expiration_date_label">Möhleti%1$s-da gutarýar</string>
+    <string name="share_edit_permission">Redaktirläň</string>
     <string name="share_file">Paýlaş%1$s</string>
     <string name="share_group_clarification">%1$s(topar)</string>
     <string name="share_internal_link">Içerki baglanyşygy paýlaşyň</string>
@@ -550,7 +539,7 @@
     <string name="share_link_with_label">(%1$s)Baglanyşyk paýlaş</string>
     <string name="share_no_expiration_date_label">Möhlet möhletini belläň</string>
     <string name="share_no_password_title">Paroly düzüň</string>
-    <string name="share_password_title">Parol bilen goralan</string>
+    <string name="share_re_share_permission">Paýlaş</string>
     <string name="share_remote_clarification">(uzakdan)%1$s</string>
     <string name="share_room_clarification">(söhbetdeşlik)%1$s</string>
     <string name="share_send_note">Alyja bellik</string>
@@ -652,6 +641,7 @@
     <string name="trashbin_file_not_deleted">Faýl %1$söçürilip bilinmedi!</string>
     <string name="trashbin_file_not_restored">Faýl%1$s dikeldip bolmady!</string>
     <string name="trashbin_not_emptied">Faýllary hemişelik pozup bolmaz!</string>
+    <string name="unknown">Näbelli</string>
     <string name="unread_comments">Okalmadyk teswirler bar</string>
     <string name="unset_encrypted">Şifrlemäni açmak</string>
     <string name="unshare_link_file_error">Bu faýly ýa-da bukjany paýlaşmaga synanyşanda ýalňyşlyk ýüze çykdy.</string>

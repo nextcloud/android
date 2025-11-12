@@ -20,6 +20,7 @@ import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.datamodel.VirtualFolderType
 import com.owncloud.android.ui.fragment.FileFragment
+import com.owncloud.android.utils.FileSortOrder
 import com.owncloud.android.utils.FileStorageUtils
 
 /**
@@ -62,7 +63,9 @@ class PreviewImagePagerAdapter : FragmentStateAdapter {
         imageFiles = mStorageManager.getFolderImages(parentFolder, onlyOnDevice)
 
         val sortOrder = preferences.getSortOrderByFolder(parentFolder)
-        imageFiles = sortOrder.sortCloudFiles(imageFiles.toMutableList()).toMutableList()
+        val foldersBeforeFiles = preferences.isSortFoldersBeforeFiles()
+        val favoritesFirst = preferences.isSortFavoritesFirst()
+        imageFiles = sortOrder.sortCloudFiles(imageFiles.toMutableList(), foldersBeforeFiles, favoritesFirst)
 
         mObsoleteFragments = HashSet()
         mObsoletePositions = HashSet()
@@ -82,7 +85,8 @@ class PreviewImagePagerAdapter : FragmentStateAdapter {
         fragmentActivity: FragmentActivity,
         type: VirtualFolderType?,
         user: User,
-        storageManager: FileDataStorageManager
+        storageManager: FileDataStorageManager,
+        preferences: AppPreferences
     ) : super(fragmentActivity) {
         requireNotNull(type) { "NULL parent folder" }
         require(type != VirtualFolderType.NONE) { "NONE virtual folder type" }
@@ -95,6 +99,13 @@ class PreviewImagePagerAdapter : FragmentStateAdapter {
             imageFiles = FileStorageUtils.sortOcFolderDescDateModifiedWithoutFavoritesFirst(imageFiles)
         } else {
             imageFiles = mStorageManager.getVirtualFolderContent(type, true)
+        }
+
+        if (type == VirtualFolderType.FAVORITE) {
+            val sortOrder = preferences.getSortOrderByType(FileSortOrder.Type.favoritesListView)
+            val foldersBeforeFiles = preferences.isSortFoldersBeforeFiles()
+            val favoritesFirst = preferences.isSortFavoritesFirst()
+            imageFiles = sortOrder.sortCloudFiles(imageFiles.toMutableList(), foldersBeforeFiles, favoritesFirst)
         }
 
         mObsoleteFragments = HashSet()
@@ -127,12 +138,10 @@ class PreviewImagePagerAdapter : FragmentStateAdapter {
      * @return OCFile desired image or null if position is not in adapter
      */
     @Suppress("TooGenericExceptionCaught")
-    fun getFileAt(position: Int): OCFile? {
-        return try {
-            imageFiles[position]
-        } catch (exception: IndexOutOfBoundsException) {
-            null
-        }
+    fun getFileAt(position: Int): OCFile? = try {
+        imageFiles[position]
+    } catch (exception: IndexOutOfBoundsException) {
+        null
     }
 
     private fun addVideoOfLivePhoto(file: OCFile) {
@@ -172,9 +181,7 @@ class PreviewImagePagerAdapter : FragmentStateAdapter {
         return fragment
     }
 
-    fun getFilePosition(file: OCFile): Int {
-        return imageFiles.indexOf(file)
-    }
+    fun getFilePosition(file: OCFile): Int = imageFiles.indexOf(file)
 
     fun updateFile(position: Int, file: OCFile) {
         val fragmentToUpdate = mCachedFragments[position]
@@ -193,15 +200,16 @@ class PreviewImagePagerAdapter : FragmentStateAdapter {
         mDownloadErrors.add(position)
     }
 
-    fun pendingErrorAt(position: Int): Boolean {
-        return mDownloadErrors.contains(position)
+    fun pendingErrorAt(position: Int): Boolean = mDownloadErrors.contains(position)
+
+    override fun createFragment(position: Int): Fragment = getItem(position)
+
+    override fun getItemCount(): Int = imageFiles.size
+
+    override fun getItemId(position: Int): Long {
+        // The item ID function is needed to detect whether the deletion of the current item needs a UI update
+        return imageFiles.getOrNull(position)?.fileId ?: position.toLong()
     }
 
-    override fun createFragment(position: Int): Fragment {
-        return getItem(position)
-    }
-
-    override fun getItemCount(): Int {
-        return imageFiles.size
-    }
+    override fun containsItem(itemId: Long): Boolean = imageFiles.any { it.fileId == itemId }
 }

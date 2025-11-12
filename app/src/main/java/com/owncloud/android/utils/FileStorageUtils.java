@@ -11,6 +11,7 @@
 package com.owncloud.android.utils;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
@@ -20,14 +21,16 @@ import android.text.TextUtils;
 import android.webkit.MimeTypeMap;
 
 import com.nextcloud.client.preferences.SubFolderRule;
+import com.nextcloud.utils.extensions.StringConstants;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.files.model.RemoteFile;
-import com.owncloud.android.lib.resources.shares.ShareeUser;
 import com.owncloud.android.ui.helpers.FileOperationsHelper;
+
+import org.apache.commons.io.FilenameUtils;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -35,6 +38,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -52,6 +58,7 @@ import javax.annotation.Nullable;
 import androidx.annotation.VisibleForTesting;
 import androidx.core.app.ActivityCompat;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import kotlin.Pair;
 
 /**
  * Static methods to help in access to local file system.
@@ -66,6 +73,87 @@ public final class FileStorageUtils {
 
     private FileStorageUtils() {
         // utility class -> private constructor
+    }
+
+    public static boolean containsBidiControlCharacters(String filename) {
+        if (filename == null) return false;
+
+        String decoded;
+        try {
+            decoded = URLDecoder.decode(filename, StandardCharsets.UTF_8.toString());
+        } catch (Exception e) {
+            decoded = filename;
+        }
+
+        int[] bidiControlCharacters = {
+            0x202A, 0x202B, 0x202C, 0x202D, 0x202E,
+            0x200E, 0x200F, 0x2066, 0x2067, 0x2068,
+            0x2069, 0x061C
+        };
+
+        for (int i = 0; i < decoded.length(); i++) {
+            int codePoint = decoded.codePointAt(i);
+            for (int chars : bidiControlCharacters) {
+                if (codePoint == chars) {
+                    return true;
+                }
+            }
+        }
+
+        for (char c : decoded.toCharArray()) {
+            if (c < 32) return true;
+        }
+
+        return false;
+    }
+
+    public static Pair<String,String> getFilenameAndExtension(String filename, boolean isFolder, boolean isRTL) {
+        if (isFolder) {
+            return new Pair<>(filename, "");
+        }
+
+        final String base =  FilenameUtils.getBaseName(filename);
+        String extension =  FilenameUtils.getExtension(filename);
+        if (!extension.isEmpty()) {
+            extension =  StringConstants.DOT + extension;
+        }
+
+        if (isRTL) {
+            return new Pair<>(extension, base);
+        } else {
+            return new Pair<>(base, extension);
+        }
+    }
+
+    public static boolean isValidExtFilename(String name) {
+        for (int i = 0; i < name.length(); i++) {
+            char c = name.charAt(i);
+            if (!isValidExtFilenameChar(c)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * Checks whether the given character is valid in an extended file name.
+     * <p>
+     * Reference: <a href="https://cs.android.com/android/platform/superproject/+/master:frameworks/base/core/java/android/os/FileUtils.java;l=997">
+     * android.os.FileUtils#isValidExtFilenameChar(char)
+     * </a> from the Android Open Source Project.
+     *
+     * @param c the character to validate
+     * @return true if the character is valid in a filename, false otherwise
+     */
+    private static boolean isValidExtFilenameChar(char c) {
+        if ((int) c <= 0x1F) {
+            return false;
+        }
+
+        return switch (c) {
+            case '"', '*', ':', '/', '<', '>', '?', '\\', '|', 0x7F -> false;
+            default -> true;
+        };
     }
 
     /**
@@ -99,7 +187,7 @@ public final class FileStorageUtils {
                 + File.separator
                 + MainApp.getDataFolder()
                 + File.separator
-                + "tmp"
+                + StringConstants.TEMP
                 + File.separator
                 + Uri.encode(accountName, "@");
         // URL encoding is an 'easy fix' to overcome that NTFS and FAT32 don't allow ":" in file names,
@@ -121,15 +209,22 @@ public final class FileStorageUtils {
      * Get absolute path to tmp folder inside app folder for given accountName.
      */
     public static String getInternalTemporalPath(String accountName, Context context) {
-        return context.getFilesDir()
-                + File.separator
-                + MainApp.getDataFolder()
-                + File.separator
-                + "tmp"
-                + File.separator
+        return getAppTempDirectoryPath(context)
                 + Uri.encode(accountName, "@");
         // URL encoding is an 'easy fix' to overcome that NTFS and FAT32 don't allow ":" in file names,
         // that can be in the accountName since 0.1.190B
+    }
+
+    /**
+     * @return /data/user/0/com.nextcloud.client/files/nextcloud/tmp/
+     */
+    public static String getAppTempDirectoryPath(Context context) {
+        return context.getFilesDir()
+            + File.separator
+            + MainApp.getDataFolder()
+            + File.separator
+            + StringConstants.TEMP
+            + File.separator;
     }
 
     /**
@@ -137,6 +232,7 @@ public final class FileStorageUtils {
      *
      * @return Optimistic number of available bytes (can be less)
      */
+    @SuppressLint("UsableSpace")
     public static long getUsableSpace() {
         File savePath = new File(MainApp.getStoragePath());
         return savePath.getUsableSpace();
@@ -151,6 +247,7 @@ public final class FileStorageUtils {
      */
     private static String getSubPathFromDate(long date, Locale currentLocale, SubFolderRule subFolderRule) {
         if (date == 0) {
+            Log_OC.w(TAG, "FileStorageUtils:getSubPathFromDate date is zero");
             return "";
         }
         String datePattern = "";
@@ -187,6 +284,7 @@ public final class FileStorageUtils {
         if (subfolderByDate) {
             subfolderByDatePath = getSubPathFromDate(dateTaken, current, subFolderRule);
         }
+        Log_OC.w(TAG, "FileStorageUtils:getInstantUploadFilePath subfolderByDate: " + subfolderByDate);
 
         File parentFile = new File(file.getAbsolutePath().replace(syncedFolderLocalPath, "")).getParentFile();
 
@@ -227,6 +325,7 @@ public final class FileStorageUtils {
         OCFile file = new OCFile(remote.getRemotePath());
         file.setDecryptedRemotePath(remote.getRemotePath());
         file.setCreationTimestamp(remote.getCreationTimestamp());
+        file.setUploadTimestamp(remote.getUploadTimestamp());
         if (MimeType.DIRECTORY.equalsIgnoreCase(remote.getMimeType())) {
             file.setFileLength(remote.getSize());
         } else {
@@ -248,7 +347,7 @@ public final class FileStorageUtils {
         file.setOwnerId(remote.getOwnerId());
         file.setOwnerDisplayName(remote.getOwnerDisplayName());
         file.setNote(remote.getNote());
-        file.setSharees(new ArrayList<ShareeUser>(Arrays.asList(remote.getSharees())));
+        file.setSharees(new ArrayList<>(Arrays.asList(remote.getSharees())));
         file.setRichWorkspace(remote.getRichWorkspace());
         file.setLocked(remote.isLocked());
         file.setLockType(remote.getLockType());
@@ -288,9 +387,7 @@ public final class FileStorageUtils {
 
     public static List<OCFile> sortOcFolderDescDateModifiedWithoutFavoritesFirst(List<OCFile> files) {
         final int multiplier = -1;
-        Collections.sort(files, (o1, o2) -> {
-            return multiplier * Long.compare(o1.getModificationTimestamp(),o2.getModificationTimestamp());
-        });
+        files.sort((o1, o2) -> multiplier * Long.compare(o1.getModificationTimestamp(), o2.getModificationTimestamp()));
 
         return files;
     }
@@ -309,23 +406,27 @@ public final class FileStorageUtils {
      * @return Size in bytes
      */
     public static long getFolderSize(File dir) {
-        if (dir.exists() && dir.isDirectory()) {
-            File[] files = dir.listFiles();
-
-            if (files != null) {
-                long result = 0;
-                for (File f : files) {
-                    if (f.isDirectory()) {
-                        result += getFolderSize(f);
-                    } else {
-                        result += f.length();
-                    }
-                }
-                return result;
-            }
+        if (dir == null || !dir.exists() || !dir.isDirectory()) {
+            return 0;
         }
-        return 0;
+
+        File[] files = dir.listFiles();
+        if (files == null) {
+            return 0;
+        }
+
+        long result = 0;
+        for (File f : files) {
+            if (f.isDirectory()) {
+                result += getFolderSize(f);
+                continue;
+            }
+            result += f.length();
+        }
+
+        return result;
     }
+
 
     /**
      * Mimetype String of a file.
@@ -436,7 +537,11 @@ public final class FileStorageUtils {
         }
 
         storageManager.deleteFileInMediaScan(file.getAbsolutePath());
-        file.delete();
+        try {
+            Files.deleteIfExists(file.toPath());
+        } catch (Exception e) {
+            Log_OC.e("Error deleting file: ", e.getMessage());
+        }
     }
 
     public static boolean deleteRecursive(File file) {

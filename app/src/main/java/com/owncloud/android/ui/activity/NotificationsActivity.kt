@@ -20,6 +20,7 @@ import androidx.annotation.VisibleForTesting
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
+import com.nextcloud.android.common.ui.util.extensions.applyEdgeToEdgeWithSystemBarPadding
 import com.nextcloud.client.account.User
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.di.Injectable
@@ -28,6 +29,7 @@ import com.nextcloud.client.network.ClientFactory
 import com.nextcloud.client.network.ClientFactory.CreationException
 import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.common.NextcloudClient
+import com.nextcloud.utils.BuildHelper.isFlavourGPlay
 import com.owncloud.android.R
 import com.owncloud.android.databinding.NotificationsLayoutBinding
 import com.owncloud.android.datamodel.ArbitraryDataProvider
@@ -49,7 +51,10 @@ import javax.inject.Inject
  * Activity displaying all server side stored notification items.
  */
 @Suppress("TooManyFunctions")
-class NotificationsActivity : AppCompatActivity(), NotificationsContract.View, Injectable {
+class NotificationsActivity :
+    AppCompatActivity(),
+    NotificationsContract.View,
+    Injectable {
 
     lateinit var binding: NotificationsLayoutBinding
 
@@ -73,6 +78,7 @@ class NotificationsActivity : AppCompatActivity(), NotificationsContract.View, I
     override fun onCreate(savedInstanceState: Bundle?) {
         Log_OC.v(TAG, "onCreate() start")
 
+        applyEdgeToEdgeWithSystemBarPadding()
         super.onCreate(savedInstanceState)
 
         binding = NotificationsLayoutBinding.inflate(layoutInflater)
@@ -192,6 +198,12 @@ class NotificationsActivity : AppCompatActivity(), NotificationsContract.View, I
                         Snackbar.LENGTH_INDEFINITE
                     )
             } else {
+                val arbitraryDataProvider: ArbitraryDataProvider = ArbitraryDataProviderImpl(this)
+                val accountName: String = if (optionalUser?.isPresent == true) {
+                    optionalUser?.get()?.accountName ?: ""
+                } else {
+                    ""
+                }
                 val usesOldLogin = arbitraryDataProvider.getBooleanValue(
                     accountName,
                     UserAccountManager.ACCOUNT_USES_STANDARD_PASSWORD

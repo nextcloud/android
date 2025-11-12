@@ -72,7 +72,6 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
 
     protected void setPhotoSearchQueryRunning(boolean value) {
         this.photoSearchQueryRunning = value;
-        this.setLoading(value); // link the photoSearchQueryRunning variable with UI progress loading
     }
 
     public boolean isPhotoSearchQueryRunning() {
@@ -140,12 +139,14 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = super.onCreateView(inflater, container, savedInstanceState);
 
-        getRecyclerView().addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
-                loadMoreWhenEndReached(recyclerView, dy);
-            }
-        });
+        if (getRecyclerView() != null) {
+            getRecyclerView().addOnScrollListener(new RecyclerView.OnScrollListener() {
+                @Override
+                public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                    loadMoreWhenEndReached(recyclerView, dy);
+                }
+            });
+        }
 
         Log_OC.i(this, "onCreateView() in GalleryFragment end");
         return v;
@@ -175,7 +176,7 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
                                       viewThemeUtils,
                                       columnSize,
                                       ThumbnailsCacheManager.getThumbnailDimension());
-
+        mAdapter.setHasStableIds(true);
         setRecyclerViewAdapter(mAdapter);
 
         //update the footer as there is no footer shown in media view
@@ -183,12 +184,14 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
             ((EmptyRecyclerView) getRecyclerView()).setHasFooter(false);
         }
 
-        GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 1);
-        mAdapter.setLayoutManager(layoutManager);
-        getRecyclerView().setLayoutManager(layoutManager);
+        if (getRecyclerView() != null) {
+            GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 1);
+            mAdapter.setLayoutManager(layoutManager);
+            getRecyclerView().setLayoutManager(layoutManager);
 
-        if (lastMediaItemPosition != null) {
-            layoutManager.scrollToPosition(lastMediaItemPosition);
+            if (lastMediaItemPosition != null) {
+                layoutManager.scrollToPosition(lastMediaItemPosition);
+            }
         }
     }
 
@@ -225,7 +228,6 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
     public void onResume() {
         super.onResume();
 
-        setLoading(this.isPhotoSearchQueryRunning());
         if (getActivity() instanceof FileDisplayActivity fileDisplayActivity) {
             fileDisplayActivity.updateActionBarTitleAndHomeButtonByString(getString(R.string.drawer_item_gallery));
             fileDisplayActivity.setMainFabVisible(false);
@@ -239,7 +241,7 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
 
     private void handleSearchEvent() {
         prepareCurrentSearch(searchEvent);
-        setEmptyListLoadingMessage();
+        setEmptyListMessage(EmptyListState.LOADING);
 
         // always show first stored items
         showAllGalleryItems();
@@ -293,10 +295,8 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
         // Handle item selection
-        if (item.getItemId() == R.id.action_three_dot_icon && !this.isPhotoSearchQueryRunning()
-            && galleryFragmentBottomSheetDialog != null) {
+        if (item.getItemId() == R.id.action_three_dot_icon && galleryFragmentBottomSheetDialog != null) {
             showBottomSheet();
             return true;
         }

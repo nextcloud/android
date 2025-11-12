@@ -29,7 +29,9 @@ import javax.inject.Inject
 /**
  * Activity displaying new features after an update.
  */
-class WhatsNewActivity : FragmentActivity(), Injectable {
+class WhatsNewActivity :
+    FragmentActivity(),
+    Injectable {
 
     @JvmField
     @Inject
@@ -130,6 +132,7 @@ class WhatsNewActivity : FragmentActivity(), Injectable {
             object : OnBackPressedCallback(true) {
                 override fun handleOnBackPressed() {
                     onFinish()
+                    isEnabled = false
                     onBackPressedDispatcher.onBackPressed()
                 }
             }

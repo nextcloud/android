@@ -13,8 +13,6 @@ import android.accounts.OperationCanceledException;
 import android.content.ActivityNotFoundException;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.NetworkOnMainThreadException;
-
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.account.UserAccountManagerImpl;
@@ -175,9 +173,7 @@ public abstract class AbstractOnServerIT extends AbstractIT {
                 Assert.fail("Server not ready!");
             }
 
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
+        } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }
     }
@@ -218,11 +214,6 @@ public abstract class AbstractOnServerIT extends AbstractIT {
 
             @Override
             public boolean isPowerSavingEnabled() {
-                return false;
-            }
-
-            @Override
-            public boolean isPowerSavingExclusionAvailable() {
                 return false;
             }
         };

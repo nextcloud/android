@@ -27,9 +27,10 @@ concurrency:
 jobs:
     analysis:
         runs-on: ubuntu-latest
+        timeout-minutes: 60
         steps:
             - name: Disabled on forks
-              if: ${{ github.event.pull_request.head.repo.full_name != github.repository }}
+              if: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name != github.repository }}
               run: |
                   echo 'Can not analyze PRs from forks'
                   exit 1
@@ -51,13 +52,13 @@ jobs:
                             echo "repo=${{ github.event.pull_request.head.repo.full_name }}"
                         } >> "$GITHUB_OUTPUT"
                     fi
-            -   uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+            -   uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
                 with:
                     persist-credentials: false
                     repository: ${{ steps.get-vars.outputs.repo }}
                     ref: ${{ steps.get-vars.outputs.branch }}
             -   name: Set up JDK 17
-                uses: actions/setup-java@3a4f6e1af504cf6a31855fa899c6aa5355ba6c12 # v4.7.0
+                uses: actions/setup-java@dded0888837ed1f317902acf8a20df0ad188d165 # v5.0.0
                 with:
                     distribution: "temurin"
                     java-version: 17
@@ -70,10 +71,9 @@ jobs:
                 run: |
                     mkdir -p "$HOME/.gradle"
                     {
-                        echo "org.gradle.jvmargs=-Xmx6g -XX:+HeapDumpOnOutOfMemoryError -Dfile.encoding=UTF-8 -XX:+UseParallelGC -XX:MaxMetaspaceSize=1g"
-                        echo "org.gradle.caching=true"
-                        echo "org.gradle.parallel=true"
+                        echo "org.gradle.jvmargs=-Xmx5g -XX:+HeapDumpOnOutOfMemoryError -Dfile.encoding=UTF-8 -XX:+UseParallelGC -XX:MaxMetaspaceSize=1g"
                         echo "org.gradle.configureondemand=true"
+                        echo "org.gradle.configuration-cache=false"
                         echo "kapt.incremental.apt=true"
                     } > "$HOME/.gradle/gradle.properties"
                     scripts/analysis/analysis-wrapper.sh "${{ steps.get-vars.outputs.branch }}" "${{ secrets.LOG_USERNAME }}" "${{ secrets.LOG_PASSWORD }}" "$GITHUB_RUN_NUMBER" "${{ steps.get-vars.outputs.pr }}"

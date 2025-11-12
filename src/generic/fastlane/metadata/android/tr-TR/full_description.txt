@@ -10,7 +10,7 @@ Sizin kontrolunuz altında barındırılan üretkenlik platformu.
 * Güncelleme bildirimleri
 * Birden çok hesap desteği
 * Verilere parmak izi ya da PIN kodu ile güvenli erişim
-* Kolay takvim ve kişi eşitleme kurulumu için DAVx5 bütünleştirmesi (eski adı DAVdroid)
+* Kolay takvim ve kişi eşitleme kurulumu için DAVx⁵ bütünleştirmesi (eski adı DAVdroid)
 
 Lütfen olabilecek sorunları https://github.com/nextcloud/android/issues adresine bildirin ve uygulama ile ilgili görüşlerinizi https://help.nextcloud.com/c/clients/android adresine yazın
 

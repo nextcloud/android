@@ -29,7 +29,7 @@
             android:layout_marginStart="@dimen/standard_margin"
             android:layout_marginTop="@dimen/standard_half_margin"
             android:contentDescription="@string/user_icon"
-            android:src="@drawable/ic_user" />
+            android:src="@drawable/ic_user_outline" />
 
         <TextView
             android:id="@+id/displayName"
@@ -38,7 +38,7 @@
             android:layout_gravity="center_vertical"
             android:paddingTop="@dimen/standard_padding"
             android:paddingBottom="@dimen/standard_padding"
-            tools:text="Christine Scott"
+            tools:text="@string/placeholder_first_name_last_name"
             android:textColor="@color/text_color"
             android:textSize="@dimen/bottom_sheet_text_size" />
     </LinearLayout>

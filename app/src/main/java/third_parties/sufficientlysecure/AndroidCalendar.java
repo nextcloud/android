@@ -113,11 +113,9 @@ public class AndroidCalendar {
 
     private static boolean missing(ContentResolver resolver, Uri uri) {
         // Determine if a provider is missing
-        ContentProviderClient provider = resolver.acquireContentProviderClient(uri);
-        if (provider != null) {
-            provider.release();
+        try (ContentProviderClient provider = resolver.acquireContentProviderClient(uri)) {
+            return provider == null;
         }
-        return provider == null;
     }
 
     @Override
@@ -129,7 +127,7 @@ public class AndroidCalendar {
         if (lhs == null) {
             return rhs != null;
         }
-        return rhs == null || !lhs.equals(rhs);
+        return !lhs.equals(rhs);
     }
 
     public boolean differsFrom(AndroidCalendar other) {

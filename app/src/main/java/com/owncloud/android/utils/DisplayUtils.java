@@ -26,6 +26,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -46,19 +47,9 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.bumptech.glide.GenericRequestBuilder;
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.load.model.StreamEncoder;
-import com.bumptech.glide.load.resource.file.FileToStreamDecoder;
-import com.bumptech.glide.request.target.SimpleTarget;
-import com.bumptech.glide.request.target.Target;
-import com.caverock.androidsvg.SVG;
 import com.elyeproj.loaderviewlibrary.LoaderImageView;
 import com.google.android.material.snackbar.Snackbar;
-import com.nextcloud.client.account.CurrentAccountProvider;
 import com.nextcloud.client.account.User;
-import com.nextcloud.client.network.ClientFactory;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.model.OfflineOperationType;
 import com.owncloud.android.MainApp;
@@ -73,16 +64,8 @@ import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.files.model.ServerFileInterface;
 import com.owncloud.android.ui.TextDrawable;
-import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.dialog.SortingOrderDialogFragment;
-import com.owncloud.android.ui.events.SearchEvent;
-import com.owncloud.android.ui.fragment.OCFileListFragment;
-import com.owncloud.android.utils.glide.CustomGlideUriLoader;
-import com.owncloud.android.utils.svg.SvgDecoder;
-import com.owncloud.android.utils.svg.SvgDrawableTranscoder;
 import com.owncloud.android.utils.theme.ViewThemeUtils;
-
-import org.greenrobot.eventbus.EventBus;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -96,6 +79,7 @@ import java.net.IDN;
 import java.nio.charset.Charset;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -113,7 +97,6 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import static com.owncloud.android.ui.dialog.SortingOrderDialogFragment.SORTING_ORDER_FRAGMENT;
-import static com.owncloud.android.utils.FileSortOrder.SORT_A_TO_Z_ID;
 import static com.owncloud.android.utils.FileSortOrder.SORT_BIG_TO_SMALL_ID;
 import static com.owncloud.android.utils.FileSortOrder.SORT_NEW_TO_OLD_ID;
 import static com.owncloud.android.utils.FileSortOrder.SORT_OLD_TO_NEW_ID;
@@ -277,10 +260,10 @@ public final class DisplayUtils {
     public static String convertIdn(String url, boolean toASCII) {
 
         String urlNoDots = url;
-        String dots = "";
+        StringBuilder dots = new StringBuilder();
         while (urlNoDots.length() > 0 && urlNoDots.charAt(0) == '.') {
             urlNoDots = url.substring(1);
-            dots = dots + ".";
+            dots.append(".");
         }
 
         // Find host name after '//' or '@'
@@ -298,7 +281,7 @@ public final class DisplayUtils {
         String host = urlNoDots.substring(hostStart, hostEnd);
         host = toASCII ? IDN.toASCII(host) : IDN.toUnicode(host);
 
-        return dots + urlNoDots.substring(0, hostStart) + host + urlNoDots.substring(hostEnd);
+        return dots.toString() + urlNoDots.substring(0, hostStart) + host + urlNoDots.substring(hostEnd);
     }
 
     /**
@@ -348,7 +331,6 @@ public final class DisplayUtils {
                                                          int flags,
                                                          boolean showFuture) {
 
-        CharSequence dateString = "";
 
         // in Future
         if (!showFuture && time > System.currentTimeMillis()) {
@@ -359,19 +341,19 @@ public final class DisplayUtils {
         if (diff > 0 && diff < 60 * 1000 && minResolution == DateUtils.SECOND_IN_MILLIS) {
             return c.getString(R.string.file_list_seconds_ago);
         } else {
-            dateString = DateUtils.getRelativeDateTimeString(c, time, minResolution, transitionResolution, flags);
-        }
+            CharSequence dateString = DateUtils.getRelativeDateTimeString(c, time, minResolution, transitionResolution, flags);
 
-        String[] parts = dateString.toString().split(",");
-        if (parts.length == DATE_TIME_PARTS_SIZE) {
-            if (parts[1].contains(":") && !parts[0].contains(":")) {
-                return parts[0];
-            } else if (parts[0].contains(":") && !parts[1].contains(":")) {
-                return parts[1];
+            String[] parts = dateString.toString().split(",");
+            if (parts.length == DATE_TIME_PARTS_SIZE) {
+                if (parts[1].contains(":") && !parts[0].contains(":")) {
+                    return parts[0];
+                } else if (parts[0].contains(":") && !parts[1].contains(":")) {
+                    return parts[1];
+                }
             }
+            // dateString contains unexpected format. fallback: use relative date time string from android api as is.
+            return dateString.toString();
         }
-        // dateString contains unexpected format. fallback: use relative date time string from android api as is.
-        return dateString.toString();
     }
 
     /**
@@ -487,30 +469,39 @@ public final class DisplayUtils {
                                  Resources resources,
                                  Object callContext,
                                  Context context) {
-        if (callContext instanceof View) {
-            ((View) callContext).setContentDescription(String.valueOf(user.toPlatformAccount().hashCode()));
+        if (callContext instanceof View v) {
+            v.setContentDescription(String.valueOf(user.toPlatformAccount().hashCode()));
         }
-
-        ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProviderImpl(context);
 
         final String accountName = user.getAccountName();
         String serverName = accountName.substring(accountName.lastIndexOf('@') + 1);
-        String eTag = arbitraryDataProvider.getValue(userId + "@" + serverName, ThumbnailsCacheManager.AVATAR);
-        String avatarKey = "a_" + userId + "_" + serverName + "_" + eTag;
+        Drawable avatar;
 
-        // first show old one
-        Drawable avatar = BitmapUtils.bitmapToCircularBitmapDrawable(resources,
-                                                                     ThumbnailsCacheManager.getBitmapFromDiskCache(avatarKey));
+        if (userId.isEmpty()) {
+            avatar = ContextCompat.getDrawable(context, R.drawable.ic_link);
+            if (avatar != null) {
+                int tintColor = ContextCompat.getColor(context, R.color.icon_on_nc_grey);
+                avatar.setTint(tintColor);
+            }
+        } else {
+            ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProviderImpl(context);
+            String eTag = arbitraryDataProvider.getValue(userId + "@" + serverName, ThumbnailsCacheManager.AVATAR);
+            String avatarKey = "a_" + userId + "_" + serverName + "_" + eTag;
 
-        // if no one exists, show colored icon with initial char
-        if (avatar == null) {
-            try {
-                avatar = TextDrawable.createAvatarByUserId(displayName, avatarRadius);
-            } catch (Exception e) {
-                Log_OC.e(TAG, "Error calculating RGB value for active account icon.", e);
-                avatar = ResourcesCompat.getDrawable(resources,
-                                                     R.drawable.account_circle_white,
-                                                     null);
+            // first show old one
+            avatar = BitmapUtils.bitmapToCircularBitmapDrawable(resources,
+                                                                ThumbnailsCacheManager.getBitmapFromDiskCache(avatarKey));
+
+            // if no one exists, show colored icon with initial char
+            if (avatar == null) {
+                try {
+                    avatar = TextDrawable.createAvatarByUserId(displayName, avatarRadius);
+                } catch (Exception e) {
+                    Log_OC.e(TAG, "Error calculating RGB value for active account icon.", e);
+                    avatar = ResourcesCompat.getDrawable(resources,
+                                                         R.drawable.account_circle_white,
+                                                         null);
+                }
             }
         }
 
@@ -530,87 +521,6 @@ public final class DisplayUtils {
 
         task.execute(userId);
     }
-
-    public static void downloadIcon(CurrentAccountProvider currentAccountProvider,
-                                    ClientFactory clientFactory,
-                                    Context context,
-                                    String iconUrl,
-                                    SimpleTarget imageView,
-                                    int placeholder) {
-        try {
-            if (Uri.parse(iconUrl).getEncodedPath().endsWith(".svg")) {
-                downloadSVGIcon(currentAccountProvider, clientFactory, context, iconUrl, imageView, placeholder);
-            } else {
-                downloadPNGIcon(context, iconUrl, imageView, placeholder);
-            }
-        } catch (Exception e) {
-            Log_OC.d(TAG, "not setting image as activity is destroyed");
-        }
-    }
-
-    private static void downloadPNGIcon(Context context, String iconUrl, SimpleTarget imageView, int placeholder) {
-        Glide
-            .with(context)
-            .load(iconUrl)
-            .centerCrop()
-            .placeholder(placeholder)
-            .error(placeholder)
-            .crossFade()
-            .into(imageView);
-    }
-
-    private static void downloadSVGIcon(CurrentAccountProvider currentAccountProvider,
-                                        ClientFactory clientFactory,
-                                        Context context,
-                                        String iconUrl,
-                                        SimpleTarget imageView,
-                                        int placeholder) {
-        GenericRequestBuilder<Uri, InputStream, SVG, Drawable> requestBuilder = Glide.with(context)
-            .using(new CustomGlideUriLoader(currentAccountProvider.getUser(), clientFactory), InputStream.class)
-            .from(Uri.class)
-            .as(SVG.class)
-            .transcode(new SvgDrawableTranscoder(context), Drawable.class)
-            .sourceEncoder(new StreamEncoder())
-            .cacheDecoder(new FileToStreamDecoder<>(new SvgDecoder()))
-            .decoder(new SvgDecoder())
-            .placeholder(placeholder)
-            .error(placeholder)
-            .animate(android.R.anim.fade_in);
-
-
-        Uri uri = Uri.parse(iconUrl);
-        requestBuilder
-            .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-            .load(uri)
-            .into(imageView);
-    }
-
-    public static Bitmap downloadImageSynchronous(Context context, String imageUrl) {
-        try {
-            return Glide.with(context)
-                .load(imageUrl)
-                .asBitmap()
-                .diskCacheStrategy(DiskCacheStrategy.NONE)
-                .skipMemoryCache(true)
-                .into(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL)
-                .get();
-        } catch (Exception e) {
-            Log_OC.e(TAG, "Could not download image " + imageUrl);
-            return null;
-        }
-    }
-
-    private static void switchToSearchFragment(Activity activity, SearchEvent event) {
-        if (activity instanceof FileDisplayActivity) {
-            EventBus.getDefault().post(event);
-        } else {
-            Intent recentlyAddedIntent = new Intent(activity.getBaseContext(), FileDisplayActivity.class);
-            recentlyAddedIntent.putExtra(OCFileListFragment.SEARCH_EVENT, event);
-            recentlyAddedIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            activity.startActivity(recentlyAddedIntent);
-        }
-    }
-
 
     /**
      * Get String data from a InputStream
@@ -777,6 +687,14 @@ public final class DisplayUtils {
         return px * (DisplayMetrics.DENSITY_DEFAULT / (float) metrics.densityDpi);
     }
 
+    public static boolean isRTL() {
+        return TextUtils.getLayoutDirectionFromLocale(Locale.getDefault()) == View.LAYOUT_DIRECTION_RTL;
+    }
+
+    public static boolean isOrientationLandscape() {
+        return MainApp.getAppContext().getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
+    }
+
     static public void showServerOutdatedSnackbar(Activity activity, int length) {
         Snackbar.make(activity.findViewById(android.R.id.content),
                       R.string.outdated_server, length)
@@ -821,21 +739,14 @@ public final class DisplayUtils {
     }
 
     public static @StringRes int getSortOrderStringId(FileSortOrder sortOrder) {
-        switch (sortOrder.name) {
-            case SORT_Z_TO_A_ID:
-                return R.string.menu_item_sort_by_name_z_a;
-            case SORT_NEW_TO_OLD_ID:
-                return R.string.menu_item_sort_by_date_newest_first;
-            case SORT_OLD_TO_NEW_ID:
-                return R.string.menu_item_sort_by_date_oldest_first;
-            case SORT_BIG_TO_SMALL_ID:
-                return R.string.menu_item_sort_by_size_biggest_first;
-            case SORT_SMALL_TO_BIG_ID:
-                return R.string.menu_item_sort_by_size_smallest_first;
-            case SORT_A_TO_Z_ID:
-            default:
-                return R.string.menu_item_sort_by_name_a_z;
-        }
+        return switch (sortOrder.name) {
+            case SORT_Z_TO_A_ID -> R.string.menu_item_sort_by_name_z_a;
+            case SORT_NEW_TO_OLD_ID -> R.string.menu_item_sort_by_date_newest_first;
+            case SORT_OLD_TO_NEW_ID -> R.string.menu_item_sort_by_date_oldest_first;
+            case SORT_BIG_TO_SMALL_ID -> R.string.menu_item_sort_by_size_biggest_first;
+            case SORT_SMALL_TO_BIG_ID -> R.string.menu_item_sort_by_size_smallest_first;
+            default -> R.string.menu_item_sort_by_name_a_z;
+        };
     }
 
     public static String getDateByPattern(long timestamp, String pattern) {
@@ -918,7 +829,7 @@ public final class DisplayUtils {
 
     private static void setThumbnailFirstTimeForFile(OCFile file, ImageView thumbnailView, FileDataStorageManager storageManager, List<ThumbnailsCacheManager.ThumbnailGenerationTask> asyncTasks, boolean gridView, LoaderImageView shimmerThumbnail, User user, AppPreferences preferences, Context context, ViewThemeUtils viewThemeUtils) {
         if (file.getRemoteId() != null) {
-            generateNewThumbnail(file, thumbnailView, user, storageManager, asyncTasks, gridView, context, shimmerThumbnail, preferences, viewThemeUtils);
+            generateNewThumbnail(file, thumbnailView, user, storageManager, new ArrayList<>(asyncTasks), gridView, context, shimmerThumbnail, preferences, viewThemeUtils);
             return;
         }
 
@@ -963,7 +874,7 @@ public final class DisplayUtils {
     private static void setThumbnailFromCache(OCFile file, ImageView thumbnailView, FileDataStorageManager storageManager, List<ThumbnailsCacheManager.ThumbnailGenerationTask> asyncTasks, boolean gridView, LoaderImageView shimmerThumbnail, User user, AppPreferences preferences, Context context, ViewThemeUtils viewThemeUtils) {
         final var thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(ThumbnailsCacheManager.PREFIX_THUMBNAIL + file.getRemoteId());
         if (thumbnail == null || file.isUpdateThumbnailNeeded()) {
-            generateNewThumbnail(file, thumbnailView, user, storageManager, asyncTasks, gridView, context, shimmerThumbnail, preferences, viewThemeUtils);
+            generateNewThumbnail(file, thumbnailView, user, storageManager, new ArrayList<>(asyncTasks), gridView, context, shimmerThumbnail, preferences, viewThemeUtils);
             setThumbnailBackgroundForPNGFileIfNeeded(file, context, thumbnailView);
             return;
         }
@@ -991,7 +902,7 @@ public final class DisplayUtils {
                                              ImageView thumbnailView,
                                              User user,
                                              FileDataStorageManager storageManager,
-                                             List<ThumbnailsCacheManager.ThumbnailGenerationTask> asyncTasks,
+                                             ArrayList<ThumbnailsCacheManager.ThumbnailGenerationTask> asyncTasks,
                                              boolean gridView,
                                              Context context,
                                              LoaderImageView shimmerThumbnail,
@@ -1017,6 +928,8 @@ public final class DisplayUtils {
                 return;
             }
         }
+
+        thumbnailView.setTag(file.getFileId());
 
         try {
             final ThumbnailsCacheManager.ThumbnailGenerationTask task =
@@ -1073,7 +986,8 @@ public final class DisplayUtils {
             task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,
                                    new ThumbnailsCacheManager.ThumbnailGenerationTaskObject(file,
                                                                                             file.getRemoteId()));
-        } catch (IllegalArgumentException e) {
+            thumbnailView.invalidate();
+        } catch (Exception e) {
             Log_OC.d(TAG, "ThumbnailGenerationTask : " + e.getMessage());
         }
     }

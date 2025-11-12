@@ -8,8 +8,10 @@
 package com.nextcloud.utils.extensions
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.BroadcastReceiver
 import android.content.Context
+import android.content.ContextWrapper
 import android.content.Intent
 import android.content.IntentFilter
 import android.os.Build
@@ -28,33 +30,30 @@ fun Context.hourPlural(hour: Int): String = resources.getQuantityString(R.plural
 fun Context.minPlural(min: Int): String = resources.getQuantityString(R.plurals.minutes, min, min)
 
 @SuppressLint("UnspecifiedRegisterReceiverFlag")
-fun Context.registerBroadcastReceiver(receiver: BroadcastReceiver?, filter: IntentFilter, flag: ReceiverFlag): Intent? {
-    return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+fun Context.registerBroadcastReceiver(receiver: BroadcastReceiver?, filter: IntentFilter, flag: ReceiverFlag): Intent? =
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
         registerReceiver(receiver, filter, flag.getId())
     } else {
         registerReceiver(receiver, filter)
     }
-}
 
-fun Context.statusBarHeight(): Int {
-    return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-        val windowInsets = (getSystemService(Context.WINDOW_SERVICE) as WindowManager)
-            .currentWindowMetrics
-            .windowInsets
-        val insets = windowInsets.getInsets(WindowInsets.Type.statusBars())
-        insets.top
-    } else {
-        @Suppress("DEPRECATION")
-        val decorView = (getSystemService(Context.WINDOW_SERVICE) as WindowManager)
-            .defaultDisplay
-            .let { display ->
-                val decorView = android.view.View(this)
-                display.getRealMetrics(android.util.DisplayMetrics())
-                decorView
-            }
-        val windowInsetsCompat = ViewCompat.getRootWindowInsets(decorView)
-        windowInsetsCompat?.getInsets(WindowInsetsCompat.Type.statusBars())?.top ?: 0
-    }
+fun Context.statusBarHeight(): Int = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+    val windowInsets = (getSystemService(Context.WINDOW_SERVICE) as WindowManager)
+        .currentWindowMetrics
+        .windowInsets
+    val insets = windowInsets.getInsets(WindowInsets.Type.statusBars())
+    insets.top
+} else {
+    @Suppress("DEPRECATION")
+    val decorView = (getSystemService(Context.WINDOW_SERVICE) as WindowManager)
+        .defaultDisplay
+        .let { display ->
+            val decorView = android.view.View(this)
+            display.getRealMetrics(android.util.DisplayMetrics())
+            decorView
+        }
+    val windowInsetsCompat = ViewCompat.getRootWindowInsets(decorView)
+    windowInsetsCompat?.getInsets(WindowInsetsCompat.Type.statusBars())?.top ?: 0
 }
 
 fun Context.showToast(message: String) {
@@ -64,3 +63,9 @@ fun Context.showToast(message: String) {
 }
 
 fun Context.showToast(messageId: Int) = showToast(getString(messageId))
+
+fun Context.getActivity(): Activity? = when (this) {
+    is Activity -> this
+    is ContextWrapper -> baseContext.getActivity()
+    else -> null
+}

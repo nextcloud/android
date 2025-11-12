@@ -30,7 +30,10 @@ import javax.inject.Inject
 /**
  * Dialog requesting a date after today.
  */
-class ExpirationDatePickerDialogFragment : DialogFragment(), OnDateSetListener, Injectable {
+class ExpirationDatePickerDialogFragment :
+    DialogFragment(),
+    OnDateSetListener,
+    Injectable {
 
     @JvmField
     @Inject

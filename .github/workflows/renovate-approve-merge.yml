@@ -29,8 +29,6 @@ jobs:
     permissions:
       # for hmarr/auto-approve-action to approve PRs
       pull-requests: write
-      # for alexwilson/enable-github-automerge-action to approve PRs
-      contents: write
 
     steps:
       - name: Disabled on forks
@@ -46,13 +44,18 @@ jobs:
 
       # GitHub actions bot approve
       - uses: hmarr/auto-approve-action@f0939ea97e9205ef24d872e76833fa908a770363 # v4.0.0
-        if: startsWith(steps.branchname.outputs.branch, 'renovate/')
+        if: github.actor == 'renovate[bot]'
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
-      # Enable GitHub auto merge
-      - name: Auto merge
-        uses: alexwilson/enable-github-automerge-action@56e3117d1ae1540309dc8f7a9f2825bc3c5f06ff # v2.0.0
-        if: startsWith(steps.branchname.outputs.branch, 'renovate/')
+      - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+          ref: ${{ github.head_ref }}
+
+      # Enable GitHub auto merge
+      - name: Enable Pull Request Automerge
+        if: github.actor == 'renovate[bot]'
+        run: gh pr merge --merge --auto
+        env:
+          GH_TOKEN: ${{ secrets.AUTOMERGE }}
+          

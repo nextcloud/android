@@ -58,9 +58,7 @@ class EditImageActivity :
             MimeType.HEIC
         )
 
-        fun canBePreviewed(file: OCFile): Boolean {
-            return file.mimeType in supportedMimeTypes
-        }
+        fun canBePreviewed(file: OCFile): Boolean = file.mimeType in supportedMimeTypes
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -127,9 +125,7 @@ class EditImageActivity :
         }
         menu?.findItem(R.id.custom_menu_placeholder_item)?.apply {
             icon = saveIcon
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                contentDescription = getString(R.string.common_save)
-            }
+            contentDescription = getString(R.string.common_save)
         }
         return true
     }

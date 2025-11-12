@@ -10,6 +10,9 @@ package com.nextcloud.client.database.entity
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.nextcloud.client.preferences.SubFolderRule
+import com.owncloud.android.datamodel.MediaFolderType
+import com.owncloud.android.datamodel.SyncedFolder
 import com.owncloud.android.db.ProviderMeta.ProviderTableMeta
 
 @Entity(tableName = ProviderTableMeta.SYNCED_FOLDERS_TABLE_NAME)
@@ -49,4 +52,41 @@ data class SyncedFolderEntity(
     val excludeHidden: Int?,
     @ColumnInfo(name = ProviderTableMeta.SYNCED_FOLDER_LAST_SCAN_TIMESTAMP_MS)
     val lastScanTimestampMs: Long?
+)
+
+fun SyncedFolderEntity.toSyncedFolder(): SyncedFolder = SyncedFolder(
+    // id
+    (this.id ?: SyncedFolder.UNPERSISTED_ID).toLong(),
+    // localPath
+    this.localPath ?: "",
+    // remotePath
+    this.remotePath ?: "",
+    // wifiOnly
+    this.wifiOnly == 1,
+    // chargingOnly
+    this.chargingOnly == 1,
+    // existing
+    this.existing == 1,
+    // subfolderByDate
+    this.subfolderByDate == 1,
+    // account
+    this.account ?: "",
+    // uploadAction
+    this.uploadAction ?: 0,
+    // nameCollisionPolicy
+    this.nameCollisionPolicy ?: 0,
+    // enabled
+    this.enabled == 1,
+    // timestampMs
+    (this.enabledTimestampMs ?: SyncedFolder.EMPTY_ENABLED_TIMESTAMP_MS).toLong(),
+    // type
+    MediaFolderType.getById(this.type ?: MediaFolderType.CUSTOM.id),
+    // hidden
+    this.hidden == 1,
+    // subFolderRule
+    this.subFolderRule?.let { SubFolderRule.entries[it] },
+    // excludeHidden
+    this.excludeHidden == 1,
+    // lastScanTimestampMs
+    this.lastScanTimestampMs ?: SyncedFolder.NOT_SCANNED_YET
 )

@@ -6,6 +6,7 @@
  */
 package com.nextcloud.client.jobs
 
+import android.Manifest
 import android.accounts.AuthenticatorException
 import android.accounts.OperationCanceledException
 import android.app.Activity
@@ -14,10 +15,12 @@ import android.app.PendingIntent
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.BitmapFactory
 import android.media.RingtoneManager
 import android.text.TextUtils
 import android.util.Base64
+import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.work.Worker
@@ -246,8 +249,17 @@ class NotificationWork constructor(
                 }
                 .build()
         )
-        val notificationManager = NotificationManagerCompat.from(context)
-        notificationManager.notify(notification.getNotificationId(), notificationBuilder.build())
+
+        if (ActivityCompat.checkSelfPermission(
+                context,
+                Manifest.permission.POST_NOTIFICATIONS
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            Log_OC.w(this, "Missing permission to post notifications")
+        } else {
+            val notificationManager = NotificationManagerCompat.from(context)
+            notificationManager.notify(notification.getNotificationId(), notificationBuilder.build())
+        }
     }
 
     @Suppress("TooGenericExceptionCaught") // legacy code

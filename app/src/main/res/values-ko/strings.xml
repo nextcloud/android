@@ -10,6 +10,7 @@
     <string name="action_edit">편집</string>
     <string name="action_empty_notifications">모든 알림 지우기</string>
     <string name="action_empty_trashbin">휴지통 비우기</string>
+    <string name="action_send_share">보내기/공유</string>
     <string name="action_switch_grid_view">바둑판식 보기</string>
     <string name="action_switch_list_view">목록 보기</string>
     <string name="actionbar_calendar_contacts_restore">연락처 및 캘린더 복원</string>
@@ -30,8 +31,6 @@
     <string name="add_new_public_share">새 공개된 공유 링크</string>
     <string name="add_new_secure_file_drop">안전한 파일 공유를 새로 추가</string>
     <string name="add_to_cloud">%1$s(으)로 추가</string>
-    <string name="advanced_settings">고급 설정</string>
-    <string name="allow_resharing">다시 공유 허용</string>
     <string name="app_config_base_url_title">기본 URL</string>
     <string name="app_config_disable_clipboard_title">클립보드 비활성화</string>
     <string name="app_config_disable_intro_title">소개 비활성화</string>
@@ -44,15 +43,17 @@
     <string name="app_config_proxy_port_title">프록시 포트</string>
     <string name="app_widget_description">대시보드에 위젯 하나만 표시</string>
     <string name="appbar_search_in">%s에서 검색</string>
+    <string name="appear_offline">접속 안함으로 표시</string>
     <string name="assistant_screen_add_task_alert_dialog_title">새 작업 추가</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">텍스트 입력</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">이 작업을 삭제하시겠습니까?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">결과 삭제</string>
-    <string name="assistant_screen_no_task_available_text">%s작업 유형을 위해 사용 가능한 작업이 없습니다, 오른쪽 하단에서 새 작업을 만들 수 있습니다.</string>
+    <string name="assistant_screen_loading">작업 목록 불러오는 중...</string>
     <string name="assistant_screen_task_create_fail_message">작업을 생성하는 중에 오류가 발생했습니다.</string>
     <string name="assistant_screen_task_create_success_message">작업이 성공적으로 생성됨</string>
     <string name="assistant_screen_task_delete_fail_message">작업을 삭제하는 중에 오류가 발생했습니다.</string>
     <string name="assistant_screen_task_delete_success_message">작업이 성공적으로 삭제됨</string>
+    <string name="assistant_screen_task_list_empty_message">작업 목록이 비어있습니다.</string>
     <string name="assistant_screen_task_list_error_state_message">작업 목록을 가져올 수 없습니다. 인터넷 연결을 확인하세요.</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">작업 삭제</string>
     <string name="assistant_screen_task_output_empty_text">작업을 출력할 준비가 되지 않았습니다.</string>
@@ -94,9 +95,6 @@
     <string name="authenticator_activity_login_error">로그인 요청을 처리하는 동안 문제가 발생했습니다. 나중에 다시 시도해 주세요.</string>
     <string name="authenticator_activity_please_complete_login_process">브라우저에서 로그인 절차를 완료하세요.</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">읽기 전용 파일이므로 기존 폴더에 유지됩니다.</string>
-    <string name="auto_upload_gplay">자동 업로드 동작이 변경되었습니다</string>
-    <string name="auto_upload_gplay_desc">구글의 새로운 제한 정책에 의해, 자동 업로드 기능이 더 이상 자동으로 업로드된 파일을 삭제할 수 없습니다.</string>
-    <string name="auto_upload_gplay_desc2">구글의 새로운 제한 정책에 의해, 우린 중요한 앱 권한을 삭제할 수밖에 없었습니다. 때문에 자동 업로드는 오직 사진과 영상에 대해서만 가능합니다.\n더하여, 사진 업로드를 위해서는 위치 정보 액세스 권한이 필요합니다.\n미디어 액세스 권한이 \"항상 허용\"으로 설정되어 있는지 확인해 주십시오.</string>
     <string name="auto_upload_on_wifi">Wi-Fi에서만 업로드</string>
     <string name="auto_upload_path">/자동 업로드</string>
     <string name="autoupload_configure">구성</string>
@@ -116,6 +114,7 @@
     <string name="bottom_navigation_menu_favorites_label">즐겨찾기</string>
     <string name="bottom_navigation_menu_files_label">모든 파일</string>
     <string name="bottom_navigation_menu_media_label">미디어</string>
+    <string name="busy">바쁨</string>
     <string name="calendar">일정</string>
     <string name="calendars">일정</string>
     <string name="certificate_load_problem">인증서를 불러올 수 없습니다.</string>
@@ -127,10 +126,9 @@
     <string name="choose_template_helper_text">템플릿을 선택하고 파일 이름을 입력하세요.</string>
     <string name="choose_which_file">보관할 파일을 선택하세요!</string>
     <string name="choose_widget">위젯 선택</string>
+    <string name="clear">비우기</string>
     <string name="clear_notifications_failed">알림을 지우는데 실패했습니다.</string>
-    <string name="clear_status_message">상태 메시지 지움</string>
-    <string name="clear_status_message_after">상태 메시지 지우기 예약</string>
-    <string name="click_to_learn_how_to_re_enable_auto_uploads">자동 업로드 기능을 다시 활성화하기 위해서는 수동 설정이 필요합니다</string>
+    <string name="clear_status_after">상태 메시지 지우기 예약</string>
     <string name="clipboard_label">%1$s에서 텍스트를 복사함</string>
     <string name="clipboard_no_text_to_copy">클립보드에 복사할 텍스트가 없음</string>
     <string name="clipboard_text_copied">링크 복사됨</string>
@@ -145,6 +143,7 @@
     <string name="common_error">오류</string>
     <string name="common_error_out_memory">메모리 부족</string>
     <string name="common_error_unknown">알 수 없는 오류</string>
+    <string name="common_leave_this_share">이 공유에서 떠나기</string>
     <string name="common_loading">불러오는 중…</string>
     <string name="common_next">다음</string>
     <string name="common_no">아니요</string>
@@ -185,6 +184,7 @@
     <string name="confirmation_remove_folders_alert">선택한 항목과 포함된 내용을 삭제하시겠습니까?</string>
     <string name="confirmation_remove_local">로컬만</string>
     <string name="conflict_dialog_error">충돌 해결 프로그램 대화 상자를 만들 수 없습니다.</string>
+    <string name="conflict_folder_headline">폴더 충돌</string>
     <string name="conflict_local_file">로컬 파일</string>
     <string name="conflict_message_description">두 버전을 모두 선택하면 기존 파일 이름에 번호가 추가됩니다.</string>
     <string name="conflict_message_description_for_folder">만약 두 버전을 모두 선택하면, 로컬 폴더 이름 뒤에 숫자가 추가됩니다.</string>
@@ -307,8 +307,11 @@
     <string name="end_to_end_encryption_passphrase_title">12단어 암구호를 기록해 두십시오</string>
     <string name="end_to_end_encryption_password">암호…</string>
     <string name="end_to_end_encryption_retrieving_keys">키 가져오는 중…</string>
+    <string name="end_to_end_encryption_server_private_key_unavailable">개인 키를 가져올 수 없습니다</string>
+    <string name="end_to_end_encryption_server_public_key_unavailable">공개 키를 가져올 수 없습니다</string>
     <string name="end_to_end_encryption_storing_keys">키 저장 중</string>
     <string name="end_to_end_encryption_title">암호화 설정</string>
+    <string name="end_to_end_encryption_unexpected_error_occurred">키를 다운로드하는데 예상치 못한 오류가 발생했습니다</string>
     <string name="end_to_end_encryption_unsuccessful">키를 저장할 수 없습니다. 다시 시도하십시오.</string>
     <string name="end_to_end_encryption_wrong_password">복호화 중 오류가 발생했습니다. 암호가 올바릅니까?</string>
     <string name="enter_destination_filename">대상 파일 이름 입력</string>
@@ -345,6 +348,7 @@
     <string name="etm_background_jobs_stop_test_job">테스트 작업 정지하기</string>
     <string name="etm_migrations">이전 작업 (앱 업그레이드)</string>
     <string name="etm_preferences">환경 설정</string>
+    <string name="etm_title">엔지니어링 테스트 모드</string>
     <string name="etm_transfer">파일 전송</string>
     <string name="etm_transfer_enqueue_test_download">대기열에 테스트 다운로드 넣기</string>
     <string name="etm_transfer_enqueue_test_upload">대기열에 테스트 업로드 넣기</string>
@@ -352,6 +356,7 @@
     <string name="etm_transfer_type">전송</string>
     <string name="etm_transfer_type_download">다운로드</string>
     <string name="etm_transfer_type_upload">업로드</string>
+    <string name="external_shares">외부 공유</string>
     <string name="fab_label">추가 또는 업로드</string>
     <string name="failed_to_download">다운로드 관리자에게 파일을 전달할 수 없음</string>
     <string name="failed_to_print">파일을 출력할 수 없음</string>
@@ -425,7 +430,6 @@
     <string name="file_not_synced">파일을 동기화할 수 없습니다. 마지막으로 불러온 버전을 표시합니다.</string>
     <string name="file_rename">이름 바꾸기</string>
     <string name="file_upload_worker_error_notification_title">업로드 실패. 인터넷에 연결되지 않았습니다</string>
-    <string name="file_upload_worker_same_file_already_exists">동일한 파일이 이미 존재하나 충돌이 감지되지 않음</string>
     <string name="file_version_restored_error">파일 버전을 되돌리는데 오류가 발생했습니다.</string>
     <string name="file_version_restored_successfully">성공적으로 파일 버전을 되돌렸습니다.</string>
     <string name="filedetails_details">세부사항</string>
@@ -491,6 +495,7 @@
     <string name="instant_upload_existing">이미 존재하는 파일도 올리기</string>
     <string name="instant_upload_on_charging">충전 중에만 업로드</string>
     <string name="instant_upload_path">/InstantUpload</string>
+    <string name="internal_shares">내부 공유</string>
     <string name="internal_two_way_sync">내부 양방향 동기화</string>
     <string name="internal_two_way_sync_not_yet">아직 동기화가 완료되지 않았습니다</string>
     <string name="internet_connection_required_for_encrypted_folder_setup">암호화된 폴더를 설정하기 위해서는 인터넷 연결이 필요합니다</string>
@@ -500,10 +505,7 @@
     <string name="last_backup">마지막 백업: %1$s</string>
     <string name="link">링크</string>
     <string name="link_name">링크 이름</string>
-    <string name="link_share_allow_upload_and_editing">업로드와 수정 허용</string>
     <string name="link_share_editing">글 수정</string>
-    <string name="link_share_file_drop">파일 업로드 전용</string>
-    <string name="link_share_view_only">읽기 전용</string>
     <string name="list_layout">목록 보기</string>
     <string name="load_more_results">더 많은 결과 불러오기</string>
     <string name="local_file_list_empty">이 폴더에 파일이 없습니다.</string>
@@ -532,7 +534,6 @@
     <string name="manage_space_clear_data">데이터 지우기</string>
     <string name="manage_space_description">%1$s의 데이터에서 설정, 데이터베이스, 서버 인증서를 삭제합니다.\n\n다운로드한 파일은 변경되지 않습니다.\n\n이 작업은 시간이 걸릴 수 있습니다.</string>
     <string name="manage_space_title">저장 공간 관리</string>
-    <string name="max_file_count_warning_message">최대 파일 업로드 제한에 도달했습니다. 1회 당 500개 이하의 파일을 업로드해 주세요.</string>
     <string name="media_err_invalid_progressive_playback">미디어 파일을 스트리밍 할 수 없습니다.</string>
     <string name="media_err_io">미디어 파일을 읽을 수 없음</string>
     <string name="media_err_malformed">미디어 파일의 인코딩이 잘못됨</string>
@@ -555,6 +556,7 @@
     <string name="move_file_invalid_into_descendent">폴더를 자기 자신의 하위 폴더로 이동할 수 없음</string>
     <string name="move_file_invalid_overwrite">파일이 대상 폴더에 이미 존재함</string>
     <string name="move_file_not_found">파일을 이동할 수 없습니다. 파일이 존재하는지 확인해주십시오.</string>
+    <string name="mute_all_notifications">모든 알림을 음소거</string>
     <string name="network_error_connect_timeout_exception">서버 응답을 기다리던 중에 오류가 발생했습니다. 동작을 완료할 수 없습니다.</string>
     <string name="network_error_socket_exception">서버에 연결하는 중 오류가 발생했습니다.</string>
     <string name="network_error_socket_timeout_exception">서버 응답을 기다리던 중에 오류가 발생했습니다. 동작을 완료할 수 없습니다.</string>
@@ -563,6 +565,7 @@
     <string name="new_media_folder_detected">새 %1$s 미디어 폴더를 발견했습니다.</string>
     <string name="new_media_folder_photos">사진</string>
     <string name="new_media_folder_videos">비디오</string>
+    <string name="new_notification">새 알림</string>
     <string name="new_version_was_created">새 버전 생성됨</string>
     <string name="no_actions">이 사용자를 위한 동작이 없음</string>
     <string name="no_browser_available">이 링크를 실행할 앱이 없습니다.</string>
@@ -578,6 +581,7 @@
     <string name="note_icon_hint">노트 아이콘</string>
     <string name="notification_action_failed">작업을 실행할 수 없음</string>
     <string name="notification_channel_background_operations_description">백그라운드 작업 결과 알림 표시</string>
+    <string name="notification_channel_background_operations_name">백그라운드 작업</string>
     <string name="notification_channel_download_description">다운로드 진행 표시</string>
     <string name="notification_channel_download_name_short">다운로드</string>
     <string name="notification_channel_file_sync_description">파일 동기화 진행 및 결과 표시</string>
@@ -622,11 +626,6 @@
     <string name="pick_contact_to_share_with">공유할 연락처를 선택</string>
     <string name="picture_set_as_no_app">사진을 설정할 앱을 찾을 수 없음</string>
     <string name="pin_shortcut_label">%1$s 열기</string>
-    <string name="placeholder_fileSize">389 KB</string>
-    <string name="placeholder_filename">placeholder.txt</string>
-    <string name="placeholder_media_time">12:23:45</string>
-    <string name="placeholder_sentence">이것은 자리 비움자입니다</string>
-    <string name="placeholder_timestamp">2012년 05월 18일 오후 12:23</string>
     <string name="player_stop">멈추기</string>
     <string name="player_toggle">토글</string>
     <string name="please_select_a_server">서버를 선택해 주세요...</string>
@@ -643,11 +642,11 @@
     <string name="prefs_add_account">계정 추가</string>
     <string name="prefs_calendar_contacts">캘린더 및 연락처 동기화</string>
     <string name="prefs_calendar_contacts_no_store_error">F-Droid 및 Google Play를 사용할 수 없음</string>
-    <string name="prefs_calendar_contacts_summary">현재 계정에 대해 DAVx5 (이전의 DAVdroid) (v1.3.0 +) 설정</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">갤린더와 연락처 동기화 설정</string>
     <string name="prefs_category_about">정보</string>
     <string name="prefs_category_details">자세한 정보</string>
     <string name="prefs_category_dev">개발</string>
+    <string name="prefs_category_files">파일</string>
     <string name="prefs_category_general">일반</string>
     <string name="prefs_category_more">더 보기</string>
     <string name="prefs_category_sync">동기화</string>
@@ -655,7 +654,6 @@
     <string name="prefs_daily_contact_backup_summary">연락처 일간 백업</string>
     <string name="prefs_data_storage_location">데이터 저장소 위치</string>
     <string name="prefs_data_storage_location_summary">데이터 저장소 위치 관리</string>
-    <string name="prefs_davx5_setup_error">DAVx5를 설정하는 동안 발생한 예기치 못한 오류</string>
     <string name="prefs_e2e_active">종단간 암호화가 설정됩니다!</string>
     <string name="prefs_e2e_mnemonic">E2E 연상 기호</string>
     <string name="prefs_e2e_no_device_credentials">연상 기호를 표시하려면 장치 자격 증명을 활성화하십시오.</string>
@@ -703,16 +701,13 @@
     <string name="preview_image_error_no_local_file">미리 볼 로컬 파일 없음</string>
     <string name="preview_image_error_unknown_format">이 사진을 미리 볼 수 없음</string>
     <string name="preview_image_file_is_not_downloaded">파일이 다운로드되지 않았습니다</string>
-    <string name="preview_image_file_is_not_exist">파일이 존재하지 않음</string>
     <string name="preview_media_unhandled_http_code_message">파일이 현재 다른 사용자나 프로세스에 의해 잠겨 있으므로 삭제할 수 없습니다. 나중에 다시 시도 해주십시오.</string>
     <string name="preview_sorry">죄송합니다</string>
     <string name="privacy">개인 정보</string>
-    <string name="public_share_name">새 이름</string>
+    <string name="push_notifications_not_implemented">비자유 Google Play 서비스 의존성 때문에 푸시 알림이 비활성화되었습니다.</string>
     <string name="push_notifications_old_login">로그인 세션이 오래되어 푸시 알림이 비활성화되었습니다. 계정을 다시 추가하십시오.</string>
     <string name="push_notifications_temp_error">푸시 알림을 사용할 수 없습니다.</string>
     <string name="qr_could_not_be_read">QR 코드를 읽을 수 없습니다!</string>
-    <string name="re_enable_auto_upload">자동 업로드 변경</string>
-    <string name="re_enable_auto_upload_desc">구글의 새로운 제한 정책에 의해, 우린 중요한 앱 권한을 삭제할 수밖에 없었습니다. 우린 이 문제를 해결하고 완전한 기능을 복구하기 위해 구글과 협력하고 있습니다.\n\n새로운 사진 및 동영상 자동 업로드 재설정: 아래 창이나 시스템 설정에서 \"모두 허용\"을 선택해 주세요.\nNextcloud가 업로드 된 사진의 위치 정보를 저장할 수 있도록, 메시지가 나타나면 미디어 위치 권한을 허용해 주세요.\n\n권한 허용 알림창은 오직 불가피한 경우에만 표시됩니다. 의심스럽다면 시스템 설정을 확인해 주세요.\n\n자동 업로드는 오직 Google Play에서 Nextcloud를 다운로드 받은 경우에만 가능합니다.\n\n2024년 12월 이후 업로드되지 않은 파일이 있는지 확인해 주시기 바랍니다.</string>
     <string name="receive_external_files_activity_start_sync_folder_is_not_exists_message">폴더를 찾을 수 없습니다. 동기화 작업이 취소되었습니다.</string>
     <string name="receive_external_files_activity_unable_to_find_file_to_upload">업로드할 파일을 찾을 수 없습니다</string>
     <string name="recommend_subject">사용하고 있는 장치에서 %1$s을(를) 사용해 보세요!</string>
@@ -759,7 +754,6 @@
     <string name="screenshot_05_autoUpload_heading">자동 업로드</string>
     <string name="screenshot_05_autoUpload_subline">사진과 동영상을 위해</string>
     <string name="screenshot_06_davdroid_heading">캘린더와 연락처</string>
-    <string name="screenshot_06_davdroid_subline">DAVx5와 동기화</string>
     <string name="search_error">검색 결과 조회 오류</string>
     <string name="secure_share_not_set_up">이 사용자에 대해 보안 공유가 설정되지 않았습니다</string>
     <string name="secure_share_search">보안 공유...</string>
@@ -771,14 +765,16 @@
     <string name="sendbutton_description">보내기 버튼 아이콘</string>
     <string name="set_as">다음으로 설정</string>
     <string name="set_picture_as">다음으로 사진 사용</string>
-    <string name="set_status">상태 설정</string>
-    <string name="set_status_message">상태 메시지 설정</string>
     <string name="setup_e2e">종단간 암호화를 설정하는 동안, 당신은 다른 장치들에서 당신의 파일들을 열어야 할 무작위의 12 단어 니모닉을 수신할 것입니다. 이것은 당신의 장치에만 저장 될 것이고, 이 스크린에서 다시 보여질 수 있습니다. 이를 안전한 위치에 적어두세요!</string>
     <string name="share">공유</string>
+    <string name="share_allow_download_and_sync_permission">다운로드와 동기화 허용</string>
+    <string name="share_create_permission">생성</string>
+    <string name="share_custom_permission">사용자 지정 권한</string>
+    <string name="share_delete_permission">삭제</string>
     <string name="share_dialog_title">공유</string>
     <string name="share_download_limit">다운로드 제한 설정</string>
+    <string name="share_edit_permission">편집</string>
     <string name="share_expiration_date_format">%1$s</string>
-    <string name="share_expiration_date_label">%1$s 에 만료됨</string>
     <string name="share_file">%1$s 공유</string>
     <string name="share_group_clarification">%1$s(그룹)</string>
     <string name="share_internal_link">내부 링크 공유</string>
@@ -796,11 +792,12 @@
     <string name="share_no_expiration_date_label">만료기한 설정</string>
     <string name="share_no_password_title">비밀번호 설정</string>
     <string name="share_not_allowed_when_file_drop">업로드 전용 보안 공유는 재공유가 허용되지 않습니다</string>
-    <string name="share_password_title">비밀번호로 보호</string>
     <string name="share_permission_can_edit">편집 허용</string>
-    <string name="share_permission_file_drop">파일 업로드 전용</string>
+    <string name="share_permission_file_request">파일 요청</string>
     <string name="share_permission_secure_file_drop">안전한 파일 공유</string>
     <string name="share_permission_view_only">읽기 전용</string>
+    <string name="share_re_share_permission">공유하기</string>
+    <string name="share_read_permission">읽기</string>
     <string name="share_remote_clarification">%1$s(원격)</string>
     <string name="share_room_clarification">%1$s (대화)</string>
     <string name="share_search">이름, 연결된 클라우드 ID 또는 이메일 주소...</string>
@@ -827,6 +824,8 @@
     <string name="signup_with_provider">공급자로 가입</string>
     <string name="single_sign_on_request_token" formatted="true">%1$s이(가) Nextcloud 계정%2$s에 액세스하도록 허용 하시겠습니까?</string>
     <string name="sort_by">정렬</string>
+    <string name="sort_favorites_first">즐겨찾기를 처음에 나열</string>
+    <string name="sort_folders_before_files">폴더를 파일보다 먼저 정렬</string>
     <string name="ssl_validator_btn_details_hide">숨기기</string>
     <string name="ssl_validator_btn_details_see">자세히</string>
     <string name="ssl_validator_header">서버를 검증할 수 없습니다</string>
@@ -865,7 +864,6 @@
     <string name="storage_permission_full_access">완전한 접근</string>
     <string name="storage_permission_media_read_only">읽기 전용 미디어 접근</string>
     <string name="storage_pictures">그림</string>
-    <string name="store_full_desc">통제력을 유지하는 자체 호스팅 생산성 플랫폼입니다.\n\n특징:\n* 귀하의 서버 테마에 적합한 쉽고 현대적인 인터페이스\n* Nextcloud 서버에 파일 업로드\n* 다른 사람들과 공유\n*즐겨찾는 파일과 폴더를 동기화 상태로 유지\n* 서버의 모든 폴더에서 검색\n* 기기로 촬영한 사진과 동영상 자동 업로드\n* 알림으로 최신 상태 유지\n* 다중 계정 지원\n* 지문이나 PIN으로 데이터에 안전하게 액세스n*캘린더 및 연락처 동기화를 쉽게 설정할 수 있도록 DAVx5(이전의 DAVdroid)와 통합\n\nhttps://github.com/nextcloud/android/issues에서 모든 문제를 보고하고 https://help.nextcloud.com/c/clients/android\n\nNextcloud에서 이 앱에 대해 토론하세요.?Nextcloud는 개인 파일 동기화, 공유 및 통신 서버입니다. 이는 자유 소프트웨어이므로 직접 호스팅할 수도 있고 비용을 지불하여 회사에 대신 호스팅할 수도 있습니다. 이렇게 하면 사진, 캘린더, 연락처 데이터, 문서 및 기타 모든 것을 제어할 수 있습니다.\n\nhttps://nextcloud.com에서 Nextcloud를 확인하세요.</string>
     <string name="store_full_dev_desc">컨트롤 가능한 자체 호스팅 생산성 플랫폼.\n이는 공식 개발 버전으로, 테스트되지 않은 새로운 기능을 매일 샘플로 제공하므로 불안정과 데이터 손실이 발생할 수 있습니다. 이 애플리케이션은 기꺼이 테스트하고 버그가 발생하면 보고하는 사용자를 대상으로 합니다. 생산적인 작업에는 사용하지 마십시오!\n\n공식 개발 버전 및 일반 버전은 모두 F-droid에서 사용할 수 있으며, 동시에 설치할 수 있습니다.</string>
     <string name="store_short_desc">컨트롤 가능한 자체 호스팅 생산성 플랫폼</string>
     <string name="store_short_dev_desc">컨트롤 가능한 자체 호스팅 생산성 플랫폼 (디바이스 미리 보기 버전)</string>
@@ -934,6 +932,7 @@
     <string name="unified_search_fragment_calendar_event_not_found">이벤트를 찾을 수 없습니다. 언제든지 동기화하여 최신화할 수 있습니다. 웹으로 이동합니다...</string>
     <string name="unified_search_fragment_contact_not_found">연락처를 찾을 수 없습니다. 언제든지 동기화하여 최신화할 수 있습니다. 웹으로 이동합니다...</string>
     <string name="unified_search_fragment_permission_needed">검색 결과를 열기 위해 권한이 필요합니다. 그렇지 않으면 웹으로 이동됩니다...</string>
+    <string name="unknown">알 수 없음</string>
     <string name="unlock_file">파일 잠금해제</string>
     <string name="unread_comments">읽지 않은 댓글 있음</string>
     <string name="unset_encrypted">암호화 해제</string>
@@ -970,9 +969,8 @@
     <string name="upload_file_dialog_title">업로드할 파일 이름과 형식 입력</string>
     <string name="upload_files">파일 업로드</string>
     <string name="upload_global_pause_title">모든 업로드가 일시 정지됨</string>
-    <string name="upload_gplay">권한 변경</string>
-    <string name="upload_gplay_desc">업로드 된 이미지의 위치 정보에 액세스하기 위해서는 새 권한이 필요합니다.\n미디어 액세스 설정이 \"항상 허용\"으로 설정되어 있는지 확인하세요.</string>
     <string name="upload_item_action_button">항목 업로드 동작 단추</string>
+    <string name="upload_list_cancel_upload">업로드 취소</string>
     <string name="upload_list_delete">삭제</string>
     <string name="upload_list_empty_headline">업로드 없음</string>
     <string name="upload_list_empty_text_auto_upload">콘텐츠를 업로드하거나 자동 업로드를 활성화하십시오.</string>
@@ -1075,15 +1073,6 @@
     </plurals>
     <plurals name="minutes">
         <item quantity="other">%d분</item>
-    </plurals>
-    <plurals name="time_seconds_ago">
-        <item quantity="other">%d초 전</item>
-    </plurals>
-    <plurals name="time_minutes_ago">
-        <item quantity="other">%d분 전</item>
-    </plurals>
-    <plurals name="time_hours_ago">
-        <item quantity="other">%d시간 전</item>
     </plurals>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="other">파일 %1$d개의 내용을 동기화할 수 없음(충돌 %2$d개)</item>

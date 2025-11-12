@@ -15,6 +15,8 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.work.WorkerParameters
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.core.Clock
+import com.nextcloud.client.database.NextcloudDatabase
+import com.nextcloud.client.database.dao.FileDao
 import com.nextcloud.client.device.DeviceInfo
 import com.nextcloud.client.device.PowerManagementService
 import com.nextcloud.client.documentscan.GeneratePDFUseCase
@@ -22,10 +24,14 @@ import com.nextcloud.client.integrations.deck.DeckApi
 import com.nextcloud.client.logger.Logger
 import com.nextcloud.client.network.ConnectivityService
 import com.nextcloud.client.preferences.AppPreferences
+import com.owncloud.android.MainApp
 import com.owncloud.android.datamodel.ArbitraryDataProvider
 import com.owncloud.android.datamodel.SyncedFolderProvider
 import com.owncloud.android.datamodel.UploadsStorageManager
 import com.owncloud.android.utils.theme.ViewThemeUtils
+import io.mockk.every
+import io.mockk.mockk
+import io.mockk.mockkStatic
 import org.greenrobot.eventbus.EventBus
 import org.junit.Assert.assertNotNull
 import org.junit.Before
@@ -36,8 +42,7 @@ import org.mockito.kotlin.whenever
 
 class BackgroundJobFactoryTest {
 
-    @Mock
-    private lateinit var context: Context
+    private val context = mockk<Context>(relaxed = true)
 
     @Mock
     private lateinit var params: WorkerParameters
@@ -99,11 +104,22 @@ class BackgroundJobFactoryTest {
     @Mock
     private lateinit var syncedFolderProvider: SyncedFolderProvider
 
+    @Mock
+    private lateinit var db: NextcloudDatabase
+
+    @Mock private lateinit var fileDao: FileDao
+
     private lateinit var factory: BackgroundJobFactory
 
     @Before
     fun setUp() {
-        MockitoAnnotations.initMocks(this)
+        mockkStatic(MainApp::class)
+        every { MainApp.getAppContext() } returns context
+
+        MockitoAnnotations.openMocks(this)
+
+        whenever(db.fileDao()).thenReturn(fileDao)
+
         factory = BackgroundJobFactory(
             logger,
             preferences,
@@ -111,7 +127,6 @@ class BackgroundJobFactoryTest {
             clock,
             powerManagementService,
             { backgroundJobManager },
-            deviceInfo,
             accountManager,
             resources,
             dataProvider,
@@ -123,7 +138,8 @@ class BackgroundJobFactoryTest {
             { viewThemeUtils },
             { localBroadcastManager },
             generatePDFUseCase,
-            syncedFolderProvider
+            syncedFolderProvider,
+            db
         )
     }
 

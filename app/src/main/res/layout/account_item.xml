@@ -43,14 +43,13 @@
                 android:layout_marginEnd="@dimen/account_item_layout_user_image_margin"
                 android:layout_marginBottom="@dimen/account_item_layout_user_image_margin"
                 android:contentDescription="@string/avatar"
-                android:src="@drawable/ic_user" />
+                android:src="@drawable/ic_user_outline" />
 
             <ImageView
                 android:id="@+id/ticker"
                 android:layout_width="18dp"
                 android:layout_height="18dp"
                 android:layout_gravity="bottom|end"
-                android:background="@drawable/round_bgnd"
                 android:contentDescription="@string/active_user"
                 android:src="@drawable/ic_check_circle"
                 tools:visibility="gone" />
@@ -79,7 +78,7 @@
                 android:maxLines="1"
                 android:text="@string/placeholder_filename"
                 android:textAppearance="?android:attr/textAppearanceListItem"
-                tools:text="Firstname Lastname" />
+                tools:text="@string/placeholder_first_name_last_name" />
 
             <TextView
                 android:id="@+id/status"
@@ -94,7 +93,7 @@
                 android:text="@string/placeholder_sentence"
                 android:textColor="?android:attr/textColorSecondary"
                 android:visibility="gone"
-                tools:text="☁️ My custom status" />
+                tools:text="@string/placeholder_status" />
 
             <TextView
                 android:id="@+id/account"
@@ -108,7 +107,7 @@
                 android:maxLines="1"
                 android:text="@string/placeholder_sentence"
                 android:textColor="?android:attr/textColorSecondary"
-                tools:text="https://nextcloud.localhost/nextcloud" />
+                tools:text="@string/placeholder_random_link" />
 
         </LinearLayout>
 

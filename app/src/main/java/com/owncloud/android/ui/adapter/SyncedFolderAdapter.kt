@@ -13,19 +13,28 @@ import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageButton
 import android.widget.PopupMenu
 import androidx.annotation.VisibleForTesting
+import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import com.afollestad.sectionedrecyclerview.SectionedRecyclerViewAdapter
 import com.afollestad.sectionedrecyclerview.SectionedViewHolder
+import com.google.android.material.button.MaterialButton
 import com.nextcloud.android.common.ui.theme.utils.ColorRole
 import com.nextcloud.client.core.Clock
+import com.nextcloud.client.device.PowerManagementService
+import com.nextcloud.client.network.ConnectivityService
+import com.nextcloud.utils.extensions.calculateScanInterval
+import com.nextcloud.utils.extensions.filterEnabledOrWithoutEnabledParent
+import com.nextcloud.utils.extensions.hasEnabledParent
+import com.nextcloud.utils.extensions.setVisibleIf
 import com.owncloud.android.R
 import com.owncloud.android.databinding.GridSyncItemBinding
 import com.owncloud.android.databinding.SyncedFoldersEmptyBinding
 import com.owncloud.android.databinding.SyncedFoldersFooterBinding
 import com.owncloud.android.databinding.SyncedFoldersItemHeaderBinding
 import com.owncloud.android.datamodel.MediaFolderType
+import com.owncloud.android.datamodel.SyncedFolder
 import com.owncloud.android.datamodel.SyncedFolderDisplayItem
 import com.owncloud.android.datamodel.ThumbnailsCacheManager
 import com.owncloud.android.datamodel.ThumbnailsCacheManager.AsyncMediaThumbnailDrawable
@@ -35,18 +44,21 @@ import java.io.File
 import java.util.Locale
 import java.util.concurrent.Executor
 import java.util.concurrent.Executors
+import java.util.concurrent.TimeUnit
 
 /**
  * Adapter to display all auto-synced folders and/or instant upload media folders.
  */
-@Suppress("LongParameterList")
+@Suppress("LongParameterList", "TooManyFunctions")
 class SyncedFolderAdapter(
     private val context: Context,
     private val clock: Clock,
     private val gridWidth: Int,
     private val clickListener: ClickListener,
     private val light: Boolean,
-    private val viewThemeUtils: ViewThemeUtils
+    private val viewThemeUtils: ViewThemeUtils,
+    private val powerManagementService: PowerManagementService,
+    private val connectivityService: ConnectivityService
 ) : SectionedRecyclerViewAdapter<SectionedViewHolder>() {
 
     private val gridTotal = gridWidth * 2
@@ -54,6 +66,14 @@ class SyncedFolderAdapter(
     private val filteredSyncFolderItems: MutableList<SyncedFolderDisplayItem> = ArrayList()
     private var hideItems = true
     private val thumbnailThreadPool: Executor = Executors.newCachedThreadPool()
+
+    private val minimumSizeForTouchableArea
+        by lazy { context.resources.getDimensionPixelSize(R.dimen.minimum_size_for_touchable_area) }
+    private val screenWidth by lazy { context.resources.displayMetrics.widthPixels }
+    private val standardDoubleMargin
+        by lazy { context.resources.getDimensionPixelSize(R.dimen.standard_double_margin) }
+    private val syncedFoldersTitleMargin
+        by lazy { context.resources.getDimensionPixelSize(R.dimen.synced_folders_title_margin) }
 
     init {
         shouldShowHeadersForEmptySections(true)
@@ -71,11 +91,12 @@ class SyncedFolderAdapter(
         }
     }
 
-    fun setSyncFolderItems(syncFolderItems: List<SyncedFolderDisplayItem>) {
-        this.syncFolderItems.clear()
-        this.syncFolderItems.addAll(syncFolderItems)
+    fun setSyncFolderItems(newList: List<SyncedFolderDisplayItem>) {
+        val filteredList = newList.filterEnabledOrWithoutEnabledParent()
+        syncFolderItems.clear()
+        syncFolderItems.addAll(filteredList)
 
-        filterHiddenItems(this.syncFolderItems, hideItems)?.let {
+        filterHiddenItems(syncFolderItems, hideItems)?.let {
             filteredSyncFolderItems.clear()
             filteredSyncFolderItems.addAll(it)
         }
@@ -149,12 +170,10 @@ class SyncedFolderAdapter(
         }
     }
 
-    override fun getSectionCount(): Int {
-        return if (filteredSyncFolderItems.size > 0) {
-            filteredSyncFolderItems.size + 1
-        } else {
-            0
-        }
+    override fun getSectionCount(): Int = if (filteredSyncFolderItems.size > 0) {
+        filteredSyncFolderItems.size + 1
+    } else {
+        0
     }
 
     @VisibleForTesting
@@ -184,42 +203,33 @@ class SyncedFolderAdapter(
         }
     }
 
-    fun get(section: Int): SyncedFolderDisplayItem? {
-        return if (section in filteredSyncFolderItems.indices) {
-            filteredSyncFolderItems[section]
-        } else {
-            null
-        }
+    fun get(section: Int): SyncedFolderDisplayItem? = if (section in filteredSyncFolderItems.indices) {
+        filteredSyncFolderItems[section]
+    } else {
+        null
     }
 
-    override fun getItemViewType(section: Int, relativePosition: Int, absolutePosition: Int): Int {
-        return if (isLastSection(section)) {
+    override fun getItemViewType(section: Int, relativePosition: Int, absolutePosition: Int): Int =
+        if (isLastSection(section)) {
             VIEW_TYPE_EMPTY
         } else {
             VIEW_TYPE_ITEM
         }
+
+    override fun getHeaderViewType(section: Int): Int = if (isLastSection(section)) {
+        VIEW_TYPE_EMPTY
+    } else {
+        VIEW_TYPE_HEADER
     }
 
-    override fun getHeaderViewType(section: Int): Int {
-        return if (isLastSection(section)) {
-            VIEW_TYPE_EMPTY
-        } else {
-            VIEW_TYPE_HEADER
-        }
+    override fun getFooterViewType(section: Int): Int = if (isLastSection(section) && showFooter()) {
+        VIEW_TYPE_FOOTER
+    } else {
+        // only show footer after last item and only if folders have been hidden
+        VIEW_TYPE_EMPTY
     }
 
-    override fun getFooterViewType(section: Int): Int {
-        return if (isLastSection(section) && showFooter()) {
-            VIEW_TYPE_FOOTER
-        } else {
-            // only show footer after last item and only if folders have been hidden
-            VIEW_TYPE_EMPTY
-        }
-    }
-
-    private fun showFooter(): Boolean {
-        return syncFolderItems.size > filteredSyncFolderItems.size
-    }
+    private fun showFooter(): Boolean = syncFolderItems.size > filteredSyncFolderItems.size
 
     /**
      * returns the section of a synced folder for the given local path and type.
@@ -240,47 +250,124 @@ class SyncedFolderAdapter(
         return -1
     }
 
+    @Suppress("NestedBlockDepth")
     override fun onBindHeaderViewHolder(commonHolder: SectionedViewHolder, section: Int, expanded: Boolean) {
         if (section < filteredSyncFolderItems.size) {
             val holder = commonHolder as HeaderViewHolder
-            holder.binding.headerContainer.visibility = View.VISIBLE
 
-            holder.binding.title.text = filteredSyncFolderItems[section].folderName
+            holder.binding.run {
+                headerContainer.visibility = View.VISIBLE
 
-            if (MediaFolderType.VIDEO == filteredSyncFolderItems[section].type) {
-                holder.binding.type.setImageResource(R.drawable.video_32dp)
-            } else if (MediaFolderType.IMAGE == filteredSyncFolderItems[section].type) {
-                holder.binding.type.setImageResource(R.drawable.image_32dp)
-            } else {
-                holder.binding.type.setImageResource(R.drawable.folder_star_32dp)
-            }
+                if (section == 0) {
+                    autoUploadBatterySaverWarningCard.root.run {
+                        setVisibleIf(powerManagementService.isPowerSavingEnabled)
+                        viewThemeUtils.material.themeCardView(this)
+                    }
+                }
 
-            holder.binding.syncStatusButton.visibility = View.VISIBLE
-            holder.binding.syncStatusButton.tag = section
-            holder.binding.syncStatusButton.setOnClickListener {
-                filteredSyncFolderItems[section].setEnabled(
-                    !filteredSyncFolderItems[section].isEnabled,
-                    clock.currentTime
-                )
-                setSyncButtonActiveIcon(
-                    holder.binding.syncStatusButton,
-                    filteredSyncFolderItems[section].isEnabled
-                )
-                clickListener.onSyncStatusToggleClick(section, filteredSyncFolderItems[section])
-            }
-            setSyncButtonActiveIcon(holder.binding.syncStatusButton, filteredSyncFolderItems[section].isEnabled)
+                val syncedFolder = filteredSyncFolderItems[section]
 
-            if (light) {
-                holder.binding.settingsButton.visibility = View.GONE
-            } else {
-                holder.binding.settingsButton.visibility = View.VISIBLE
-                holder.binding.settingsButton.tag = section
-                holder.binding.settingsButton.setOnClickListener { v: View ->
-                    onOverflowIconClicked(
-                        section,
-                        filteredSyncFolderItems[section],
-                        v
+                title.text = syncedFolder.folderName
+
+                if (MediaFolderType.VIDEO == syncedFolder.type) {
+                    type.setImageResource(R.drawable.video_32dp)
+                } else if (MediaFolderType.IMAGE == syncedFolder.type) {
+                    type.setImageResource(R.drawable.image_32dp)
+                } else {
+                    type.setImageResource(R.drawable.folder_star_32dp)
+                }
+
+                syncStatusButton.visibility = View.VISIBLE
+                syncStatusButton.tag = section
+                syncStatusButton.setOnClickListener {
+                    syncedFolder.setEnabled(
+                        !syncedFolder.isEnabled,
+                        clock.currentTime
                     )
+                    setSyncButtonActiveIcon(
+                        syncStatusButton,
+                        syncedFolder.isEnabled
+                    )
+                    clickListener.onSyncStatusToggleClick(section, syncedFolder)
+                }
+                setSyncButtonActiveIcon(syncStatusButton, syncedFolder.isEnabled)
+
+                if (light) {
+                    settingsButton.visibility = View.GONE
+                } else {
+                    settingsButton.visibility = View.VISIBLE
+                    settingsButton.tag = section
+                    settingsButton.setOnClickListener { v: View ->
+                        onOverflowIconClicked(
+                            section,
+                            syncedFolder,
+                            v
+                        )
+                    }
+                }
+
+                initSubFolderWarningButton(holder, section)
+                initNextScanIndicator(holder, syncedFolder)
+            }
+        }
+    }
+
+    private fun initNextScanIndicator(holder: HeaderViewHolder, syncedFolder: SyncedFolder) {
+        val scanIndicatorText = getNextScanIndicatorText(syncedFolder)
+
+        holder.binding.scanIndicatorText.setVisibleIf(syncedFolder.isEnabled && (scanIndicatorText != null))
+
+        if (holder.binding.scanIndicatorText.isVisible) {
+            setMaxWidthOfScanIndicatorText(holder)
+            holder.binding.scanIndicatorText.text = scanIndicatorText
+        } else {
+            setBottomMarginOfTitle(holder)
+        }
+    }
+
+    private fun setMaxWidthOfScanIndicatorText(holder: HeaderViewHolder) {
+        var visibleTrailingIconCount = 2
+        if (holder.binding.subFolderWarningButton.isVisible) {
+            visibleTrailingIconCount += 1
+        }
+
+        val takenTrailingSpace = minimumSizeForTouchableArea * visibleTrailingIconCount
+        val maxWidthInPxOfScanIndicatorText = (screenWidth - takenTrailingSpace) - standardDoubleMargin
+
+        holder.binding.scanIndicatorText.maxWidth = maxWidthInPxOfScanIndicatorText
+    }
+
+    private fun setBottomMarginOfTitle(holder: HeaderViewHolder) {
+        val layoutParams = holder.binding.title.layoutParams as ViewGroup.MarginLayoutParams
+        layoutParams.bottomMargin = syncedFoldersTitleMargin
+        holder.binding.title.layoutParams = layoutParams
+    }
+
+    private fun getNextScanIndicatorText(syncedFolder: SyncedFolder): String? {
+        val scanInterval = syncedFolder.calculateScanInterval(connectivityService, powerManagementService)
+        val nextScanInMillis = scanInterval.first - System.currentTimeMillis()
+        val minutesLeft = TimeUnit.MILLISECONDS
+            .toMinutes(nextScanInMillis)
+            .coerceAtLeast(0)
+            .toInt()
+
+        return if (minutesLeft <= 0) {
+            null
+        } else {
+            val scanIntervalMessageId = scanInterval.second ?: return null
+            context.getString(scanIntervalMessageId)
+        }
+    }
+
+    private fun initSubFolderWarningButton(holder: HeaderViewHolder, section: Int) {
+        val syncFolderItem = filteredSyncFolderItems[section]
+        val isGivenLocalPathHasEnabledParent =
+            filteredSyncFolderItems.hasEnabledParent(syncFolderItem.localPath)
+        holder.binding.subFolderWarningButton.run {
+            setVisibleIf(isGivenLocalPathHasEnabledParent)
+            if (isVisible) {
+                setOnClickListener {
+                    clickListener.showSubFolderWarningDialog()
                 }
             }
         }
@@ -369,50 +456,46 @@ class SyncedFolderAdapter(
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SectionedViewHolder {
-        return when (viewType) {
-            VIEW_TYPE_HEADER -> {
-                HeaderViewHolder(
-                    SyncedFoldersItemHeaderBinding.inflate(
-                        LayoutInflater.from(parent.context),
-                        parent,
-                        false
-                    )
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SectionedViewHolder = when (viewType) {
+        VIEW_TYPE_HEADER -> {
+            HeaderViewHolder(
+                SyncedFoldersItemHeaderBinding.inflate(
+                    LayoutInflater.from(parent.context),
+                    parent,
+                    false
                 )
-            }
-            VIEW_TYPE_FOOTER -> {
-                FooterViewHolder(
-                    SyncedFoldersFooterBinding.inflate(
-                        LayoutInflater.from(parent.context),
-                        parent,
-                        false
-                    )
+            )
+        }
+        VIEW_TYPE_FOOTER -> {
+            FooterViewHolder(
+                SyncedFoldersFooterBinding.inflate(
+                    LayoutInflater.from(parent.context),
+                    parent,
+                    false
                 )
-            }
-            VIEW_TYPE_EMPTY -> {
-                EmptyViewHolder(
-                    SyncedFoldersEmptyBinding.inflate(
-                        LayoutInflater.from(parent.context),
-                        parent,
-                        false
-                    )
+            )
+        }
+        VIEW_TYPE_EMPTY -> {
+            EmptyViewHolder(
+                SyncedFoldersEmptyBinding.inflate(
+                    LayoutInflater.from(parent.context),
+                    parent,
+                    false
                 )
-            }
-            else -> {
-                MainViewHolder(
-                    GridSyncItemBinding.inflate(
-                        LayoutInflater.from(parent.context),
-                        parent,
-                        false
-                    )
+            )
+        }
+        else -> {
+            MainViewHolder(
+                GridSyncItemBinding.inflate(
+                    LayoutInflater.from(parent.context),
+                    parent,
+                    false
                 )
-            }
+            )
         }
     }
 
-    private fun isLastSection(section: Int): Boolean {
-        return section >= sectionCount - 1
-    }
+    private fun isLastSection(section: Int): Boolean = section >= sectionCount - 1
 
     val hiddenFolderCount: Int
         get() = syncFolderItems.size - filteredSyncFolderItems.size
@@ -421,29 +504,32 @@ class SyncedFolderAdapter(
         fun onSyncStatusToggleClick(section: Int, syncedFolderDisplayItem: SyncedFolderDisplayItem?)
         fun onSyncFolderSettingsClick(section: Int, syncedFolderDisplayItem: SyncedFolderDisplayItem?)
         fun onVisibilityToggleClick(section: Int, item: SyncedFolderDisplayItem?)
+        fun showSubFolderWarningDialog()
     }
 
-    internal class HeaderViewHolder(var binding: SyncedFoldersItemHeaderBinding) : SectionedViewHolder(
-        binding.root
-    )
+    internal class HeaderViewHolder(var binding: SyncedFoldersItemHeaderBinding) :
+        SectionedViewHolder(
+            binding.root
+        )
 
-    internal class FooterViewHolder(var binding: SyncedFoldersFooterBinding) : SectionedViewHolder(
-        binding.root
-    )
+    internal class FooterViewHolder(var binding: SyncedFoldersFooterBinding) :
+        SectionedViewHolder(
+            binding.root
+        )
 
     internal class EmptyViewHolder(binding: SyncedFoldersEmptyBinding) : SectionedViewHolder(binding.root)
 
-    internal class MainViewHolder(var binding: GridSyncItemBinding) : SectionedViewHolder(
-        binding.root
-    )
+    internal class MainViewHolder(var binding: GridSyncItemBinding) :
+        SectionedViewHolder(
+            binding.root
+        )
 
-    private fun setSyncButtonActiveIcon(syncStatusButton: ImageButton, enabled: Boolean) {
+    private fun setSyncButtonActiveIcon(syncStatusButton: MaterialButton, enabled: Boolean) {
         if (enabled) {
-            syncStatusButton.setImageDrawable(
+            syncStatusButton.icon =
                 viewThemeUtils.platform.tintDrawable(context, R.drawable.ic_cloud_sync_on, ColorRole.PRIMARY)
-            )
         } else {
-            syncStatusButton.setImageResource(R.drawable.ic_cloud_sync_off)
+            syncStatusButton.icon = ContextCompat.getDrawable(context, R.drawable.ic_cloud_sync_off)
         }
     }
 

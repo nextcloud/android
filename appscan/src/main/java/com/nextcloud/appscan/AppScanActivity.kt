@@ -12,7 +12,7 @@ import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
-import com.nextcloud.android.common.ui.util.extensions.adjustUIForAPILevel35
+import com.nextcloud.android.common.ui.util.extensions.applyEdgeToEdgeWithSystemBarPadding
 import com.zynksoftware.documentscanner.ScanActivity
 import com.zynksoftware.documentscanner.model.DocumentScannerErrorModel
 import com.zynksoftware.documentscanner.model.ScannerResults
@@ -21,7 +21,7 @@ import com.zynksoftware.documentscanner.ui.DocumentScanner
 @Suppress("unused")
 class AppScanActivity : ScanActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
-        adjustUIForAPILevel35()
+        applyEdgeToEdgeWithSystemBarPadding()
         super.onCreate(savedInstanceState)
         DocumentScanner.init(this)
         addFragmentContentLayout()

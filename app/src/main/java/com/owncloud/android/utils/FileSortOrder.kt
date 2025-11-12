@@ -25,7 +25,9 @@ open class FileSortOrder(@JvmField var name: String, var isAscending: Boolean) {
         trashBinView,
 
         @Suppress("ktlint:standard:enum-entry-name-case")
-        localFileListView
+        localFileListView,
+
+        favoritesListView
     }
 
     enum class SortType {
@@ -78,7 +80,7 @@ open class FileSortOrder(@JvmField var name: String, var isAscending: Boolean) {
          * @param files files to sort
          */
         @JvmStatic
-        fun sortCloudFilesByFavourite(files: MutableList<OCFile>): List<OCFile> {
+        fun sortCloudFilesByFavourite(files: MutableList<OCFile>): MutableList<OCFile> {
             files.sortWith { o1: OCFile, o2: OCFile ->
                 when {
                     o1.isFavorite && o2.isFavorite -> 0
@@ -89,32 +91,61 @@ open class FileSortOrder(@JvmField var name: String, var isAscending: Boolean) {
             }
             return files
         }
-    }
 
-    open fun sortCloudFiles(files: MutableList<OCFile>): List<OCFile> {
-        return sortCloudFilesByFavourite(files)
-    }
-
-    open fun sortLocalFiles(files: MutableList<File>): List<File> {
-        return files
-    }
-
-    open fun sortTrashbinFiles(files: MutableList<TrashbinFile>): List<TrashbinFile> {
-        return files
-    }
-
-    open fun getType(): SortType {
-        return when (name) {
-            SORT_Z_TO_A_ID,
-            SORT_A_TO_Z_ID -> SortType.ALPHABET
-
-            SORT_SMALL_TO_BIG_ID,
-            SORT_BIG_TO_SMALL_ID -> SortType.SIZE
-
-            SORT_NEW_TO_OLD_ID,
-            SORT_OLD_TO_NEW_ID -> SortType.DATE
-
-            else -> SortType.ALPHABET
+        /**
+         * Sorts list by Folders.
+         *
+         * @param files files to sort
+         */
+        @JvmStatic
+        fun sortCloudFilesByFolderFirst(files: MutableList<OCFile>): MutableList<OCFile> {
+            files.sortWith { o1: OCFile, o2: OCFile ->
+                when {
+                    o1.isFolder && o2.isFolder -> 0
+                    o1.isFolder -> -1
+                    o2.isFolder -> 1
+                    else -> 0
+                }
+            }
+            return files
         }
+    }
+
+    @Suppress("ReturnCount")
+    open fun sortCloudFiles(
+        files: MutableList<OCFile>,
+        foldersBeforeFiles: Boolean,
+        favoritesFirst: Boolean
+    ): MutableList<OCFile> {
+        if (foldersBeforeFiles && favoritesFirst) {
+            return sortCloudFilesByFavourite(sortCloudFilesByFolderFirst(files))
+        }
+
+        if (foldersBeforeFiles) {
+            return sortCloudFilesByFolderFirst(files)
+        }
+
+        if (favoritesFirst) {
+            return sortCloudFilesByFavourite(files)
+        }
+
+        return files
+    }
+
+    open fun sortLocalFiles(files: MutableList<File>): List<File> = files
+
+    open fun sortTrashbinFiles(files: MutableList<TrashbinFile>): List<TrashbinFile> = files
+
+    open fun getType(): SortType = when (name) {
+        SORT_Z_TO_A_ID,
+        SORT_A_TO_Z_ID -> SortType.ALPHABET
+
+        SORT_SMALL_TO_BIG_ID,
+        SORT_BIG_TO_SMALL_ID -> SortType.SIZE
+
+        SORT_NEW_TO_OLD_ID,
+        SORT_OLD_TO_NEW_ID -> SortType.DATE
+
+        else -> SortType.ALPHABET
     }
 }
