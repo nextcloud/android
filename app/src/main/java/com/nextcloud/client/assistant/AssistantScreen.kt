@@ -139,6 +139,9 @@ fun AssistantScreen(
                         pagerState.scrollToPage(1)
                     }
                 }, openChat = { newSessionId ->
+                    taskTypes?.find { it.isChat }?.let { chatTaskType ->
+                        viewModel.updateTaskType(chatTaskType)
+                    }
                     viewModel.initSessionId(newSessionId)
                     scope.launch {
                         pagerState.scrollToPage(1)

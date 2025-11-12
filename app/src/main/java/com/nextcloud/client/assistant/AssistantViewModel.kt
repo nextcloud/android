@@ -83,9 +83,12 @@ class AssistantViewModel(
                     Log_OC.d(TAG, "Polling list, sessionId: $sessionId")
                     if (sessionId != null) {
                         pollChatMessages(sessionId)
-                    } else {
+                    }
+
+                    if (_selectedTaskType.value?.isChat == false) {
                         pollTaskList()
                     }
+
                     delay(POLLING_INTERVAL_MS)
                 }
             } finally {
@@ -216,10 +219,7 @@ class AssistantViewModel(
     }
 
     fun selectTaskType(task: TaskTypeData) {
-        _selectedTaskType.update {
-            task
-        }
-
+        updateTaskType(task)
         fetchTaskList()
     }
 
@@ -285,6 +285,12 @@ class AssistantViewModel(
                 removeTaskFromList(id)
                 localRepository.deleteTask(id, accountName)
             }
+        }
+    }
+
+    fun updateTaskType(value: TaskTypeData) {
+        _selectedTaskType.update {
+            value
         }
     }
 
