@@ -560,7 +560,11 @@ public abstract class DrawerActivity extends ToolbarActivity
 
     private void onNavigationItemClicked(final MenuItem menuItem) {
         int itemId = menuItem.getItemId();
-        menuItemId = itemId;
+
+        if (itemId != R.id.nav_settings) {
+            menuItemId = itemId;
+        }
+
         setNavigationViewItemChecked();
 
         if (itemId == R.id.nav_all_files || itemId == R.id.nav_personal_files) {
@@ -604,13 +608,7 @@ public abstract class DrawerActivity extends ToolbarActivity
             startActivity(ActivitiesActivity.class, Intent.FLAG_ACTIVITY_CLEAR_TOP);
         } else if (itemId == R.id.nav_settings) {
             resetOnlyPersonalAndOnDevice();
-
-            /**
-             * Since pressing the back button in SettingsActivity always returns to the all file list, we can clear the stack.
-             * {@link SettingsActivity#onBackPressed()
-             */
             final Intent intent = new Intent(this, SettingsActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
         } else if (itemId == R.id.nav_community) {
             resetOnlyPersonalAndOnDevice();
