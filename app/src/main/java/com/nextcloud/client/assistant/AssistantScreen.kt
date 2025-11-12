@@ -132,7 +132,7 @@ fun AssistantScreen(
                     }
                 }, openChat = { newSessionId ->
                     viewModel.initSessionId(newSessionId)
-                    taskTypes?.find { it.isChat }?.let { chatTaskType ->
+                    taskTypes?.find { it.isChat() }?.let { chatTaskType ->
                         viewModel.selectTaskType(chatTaskType)
                     }
                     scope.launch {
@@ -277,7 +277,7 @@ private fun ChatInputBar(sessionId: Long?, selectedTaskType: TaskTypeData?, view
                         }
 
                         val taskType = selectedTaskType ?: return@IconButton
-                        if (taskType.isChat) {
+                        if (taskType.isChat()) {
                             if (sessionId != null) {
                                 viewModel.sendChatMessage(content = text, sessionId)
                             } else {
