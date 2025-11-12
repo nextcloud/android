@@ -91,7 +91,7 @@ class AssistantViewModel(
 
                     val taskType = _selectedTaskType.value ?: continue
 
-                    if (taskType.isChat && sessionId != null) {
+                    if (taskType.isChat() && sessionId != null) {
                         Log_OC.d(TAG, "Polling chat messages, sessionId: $sessionId")
 
                         if (currentChatTaskId == null) {
@@ -101,7 +101,7 @@ class AssistantViewModel(
                         }
 
                         fetchNewChatMessage(sessionId)
-                    } else if (!taskType.isChat) {
+                    } else if (!taskType.isChat()) {
                         Log_OC.d(TAG, "Polling task list")
                         pollTaskList()
                     }
@@ -163,7 +163,7 @@ class AssistantViewModel(
                 _chatMessages,
                 _filteredTaskList
             ) { selectedTask, chats, tasks ->
-                val isChat = selectedTask?.isChat == true
+                val isChat = selectedTask?.isChat() == true
 
                 when {
                     selectedTask == null -> AssistantScreenState.Loading
@@ -239,7 +239,7 @@ class AssistantViewModel(
         updateTaskType(task)
 
         val sessionId = _sessionId.value ?: return
-        if (task.isChat) {
+        if (task.isChat()) {
             if (_chatMessages.value.isEmpty()) {
                 fetchChatMessages(sessionId)
             } else {
