@@ -15,7 +15,6 @@
  */
 package com.owncloud.android.ui.activity;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -360,16 +359,6 @@ public class SettingsActivity extends PreferenceActivity
                 preferenceCategoryAbout.removePreference(sourcecodePreference);
             }
         }
-    }
-
-    @SuppressLint("GestureBackNavigation")
-    @Override
-    public void onBackPressed() {
-        DrawerActivity.menuItemId = R.id.nav_all_files;
-        Intent i = new Intent(this, FileDisplayActivity.class);
-        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        i.setAction(FileDisplayActivity.ALL_FILES);
-        startActivity(i);
     }
 
     private void setupSyncCategory() {
@@ -1078,8 +1067,6 @@ public class SettingsActivity extends PreferenceActivity
             handleMnemonicRequest(data);
         } else if (requestCode == ACTION_E2E && data != null && data.getBooleanExtra(SetupEncryptionDialogFragment.SUCCESS, false)) {
             Intent i = new Intent(this, SettingsActivity.class);
-            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            i.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
             startActivity(i);
         } else if (requestCode == ACTION_SET_STORAGE_LOCATION && data != null) {
             String newPath = data.getStringExtra(ChooseStorageLocationActivity.KEY_RESULT_STORAGE_LOCATION);
