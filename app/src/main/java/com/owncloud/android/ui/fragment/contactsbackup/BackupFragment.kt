@@ -336,7 +336,6 @@ class BackupFragment :
                 contactsPreferenceActivity.finish()
             } else {
                 val settingsIntent = Intent(context, SettingsActivity::class.java)
-                settingsIntent.flags = Intent.FLAG_ACTIVITY_SINGLE_TOP or Intent.FLAG_ACTIVITY_CLEAR_TOP
                 startActivity(settingsIntent)
             }
             return true
