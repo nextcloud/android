@@ -165,8 +165,7 @@ fun AssistantScreen(
                     ),
                     topBar = {
                         taskTypes?.let {
-                            val data = listOf(TaskTypeData.conversationList) + it
-                            TaskTypesRow(selectedTaskType, data = data, selectTaskType = { task ->
+                            TaskTypesRow(selectedTaskType, data = it, selectTaskType = { task ->
                                 viewModel.selectTaskType(task)
                             }, navigateToConversationList = {
                                 scope.launch {

@@ -8,8 +8,13 @@
 package com.nextcloud.client.assistant.taskTypes
 
 import android.annotation.SuppressLint
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.PrimaryScrollableTabRow
 import androidx.compose.material3.Tab
 import androidx.compose.material3.TabRowDefaults
@@ -33,39 +38,40 @@ fun TaskTypesRow(
 ) {
     val selectedTabIndex = data.indexOfFirst { it.id == selectedTaskType?.id }.takeIf { it >= 0 } ?: 0
 
-    PrimaryScrollableTabRow(
-        selectedTabIndex = selectedTabIndex,
-        edgePadding = 0.dp,
-        containerColor = colorResource(R.color.actionbar_color),
-        indicator = {
-            TabRowDefaults.SecondaryIndicator(
-                Modifier.tabIndicatorOffset(selectedTabIndex),
-                color = colorResource(R.color.primary)
+    Row(
+        modifier = Modifier.background(color = colorResource(R.color.actionbar_color)),
+        horizontalArrangement = Arrangement.Center
+    ) {
+        Spacer(modifier = Modifier.width(11.dp))
+
+        IconButton(
+            onClick = { navigateToConversationList() }
+        ) {
+            Icon(
+                painter = painterResource(id = R.drawable.ic_menu_open),
+                contentDescription = "open conversation list button",
+                tint = colorResource(R.color.text_color)
             )
         }
-    ) {
-        data.forEach { taskType ->
-            if (taskType.name.isNotEmpty()) {
+
+        PrimaryScrollableTabRow(
+            selectedTabIndex = selectedTabIndex,
+            edgePadding = 0.dp,
+            containerColor = colorResource(R.color.actionbar_color),
+            indicator = {
+                TabRowDefaults.SecondaryIndicator(
+                    Modifier.tabIndicatorOffset(selectedTabIndex),
+                    color = colorResource(R.color.primary)
+                )
+            }
+        ) {
+            data.forEach { taskType ->
                 Tab(
                     selected = selectedTaskType?.id == taskType.id,
                     onClick = { selectTaskType(taskType) },
                     selectedContentColor = colorResource(R.color.text_color),
                     unselectedContentColor = colorResource(R.color.disabled_text),
                     text = { Text(text = taskType.name) }
-                )
-            } else {
-                Tab(
-                    selected = selectedTaskType?.id == taskType.id,
-                    onClick = { navigateToConversationList() },
-                    selectedContentColor = colorResource(R.color.text_color),
-                    unselectedContentColor = colorResource(R.color.disabled_text),
-                    icon = {
-                        Icon(
-                            painter = painterResource(id = R.drawable.ic_menu),
-                            contentDescription = "open conversation list button",
-                            tint = MaterialTheme.colorScheme.primary
-                        )
-                    },
                 )
             }
         }

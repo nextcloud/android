@@ -39,6 +39,7 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -106,7 +107,8 @@ fun TaskDetailBottomSheet(task: Task, showTaskActions: () -> Unit, dismiss: () -
                 Text(
                     text = stringResource(R.string.assistant_output_generation_warning_text),
                     color = colorResource(R.color.text_color),
-                    fontSize = 12.sp
+                    fontSize = 11.sp,
+                    textAlign = TextAlign.Center
                 )
             }
         }
