@@ -69,7 +69,11 @@ class AssistantViewModel(
     private val _chatMessages = MutableStateFlow<List<ChatMessage>>(listOf())
     val chatMessages: StateFlow<List<ChatMessage>> = _chatMessages
 
+    private val _isAssistantAnswering = MutableStateFlow(false)
+    val isAssistantAnswering: StateFlow<Boolean> = _isAssistantAnswering
+
     private var pollingJob: Job? = null
+    private var currentChatTaskId: String? = null
 
     init {
         observeScreenState()
@@ -83,17 +87,24 @@ class AssistantViewModel(
         pollingJob = viewModelScope.launch(Dispatchers.IO) {
             try {
                 while (isActive) {
-                    val isChat = (_selectedTaskType.value?.isChat == true)
+                    delay(POLLING_INTERVAL_MS)
 
-                    if (isChat && sessionId != null) {
+                    val taskType = _selectedTaskType.value ?: continue
+
+                    if (taskType.isChat && sessionId != null) {
                         Log_OC.d(TAG, "Polling chat messages, sessionId: $sessionId")
-                        pollChatMessages(sessionId)
-                    } else if (!isChat) {
+
+                        if (currentChatTaskId == null) {
+                            remoteRepository.generateSession(sessionId.toString())?.let {
+                                currentChatTaskId = it.taskId.toString()
+                            }
+                        }
+
+                        fetchNewChatMessage(sessionId)
+                    } else if (!taskType.isChat) {
                         Log_OC.d(TAG, "Polling task list")
                         pollTaskList()
                     }
-
-                    delay(POLLING_INTERVAL_MS)
                 }
             } finally {
                 Log_OC.d(TAG, "Polling cancelled, sessionId: $sessionId")
@@ -122,11 +133,25 @@ class AssistantViewModel(
         }
     }
 
-    private fun pollChatMessages(sessionId: Long) {
-        val result = remoteRepository.fetchChatMessages(sessionId)
-        if (result != null) {
-            _chatMessages.update {
-                result
+    fun fetchNewChatMessage(sessionId: Long) = viewModelScope.launch(Dispatchers.IO) {
+        val taskId = currentChatTaskId ?: return@launch
+        val newMessage = remoteRepository.checkGeneration(taskId, sessionId.toString()) ?: return@launch
+
+        _chatMessages.update { current ->
+            val messageExists = current.any {
+                it.id == newMessage.id ||
+                    (it.timestamp == newMessage.timestamp && it.content == newMessage.content)
+            }
+
+            if (messageExists) {
+                current
+            } else {
+                if (!newMessage.isHuman()) {
+                    _isAssistantAnswering.update {
+                        false
+                    }
+                }
+                current + newMessage
             }
         }
     }
@@ -153,154 +178,122 @@ class AssistantViewModel(
         }
     }
 
-    fun sendChatMessage(content: String, sessionId: Long) {
-        val timestamp = System.currentTimeMillis().div(MILLIS_PER_SECOND)
-        val firstHumanMessage = _chatMessages.value.isEmpty()
-        val request =
-            ChatMessageRequest(
-                sessionId = sessionId.toString(),
-                role = "human",
-                content = content,
-                timestamp = timestamp,
-                firstHumanMessage = firstHumanMessage
-            )
+    // region chat
+    fun sendChatMessage(content: String, sessionId: Long) = viewModelScope.launch(Dispatchers.IO) {
+        val request = ChatMessageRequest(
+            sessionId = sessionId.toString(),
+            role = "human",
+            content = content,
+            timestamp = System.currentTimeMillis() / MILLIS_PER_SECOND,
+            firstHumanMessage = _chatMessages.value.isEmpty()
+        )
 
-        viewModelScope.launch(Dispatchers.IO) {
-            val result = remoteRepository.sendChatMessage(request)
-            if (result != null) {
-                fetchChatMessages(sessionId)
-            } else {
-                updateSnackbarMessage(R.string.assistant_screen_chat_create_error)
+        remoteRepository.sendChatMessage(request)?.let { newMessage ->
+            _chatMessages.update { messages ->
+                messages + newMessage
             }
-        }
+            _isAssistantAnswering.update {
+                true
+            }
+        } ?: updateSnackbarMessage(R.string.assistant_screen_chat_create_error)
     }
 
-    fun fetchChatMessages(sessionId: Long) {
-        viewModelScope.launch(Dispatchers.IO) {
-            val result = remoteRepository.fetchChatMessages(sessionId)
-            if (result != null) {
-                _chatMessages.update {
-                    result
-                }
-            } else {
-                updateSnackbarMessage(R.string.assistant_screen_chat_fetch_error)
+    fun fetchChatMessages(sessionId: Long) = viewModelScope.launch(Dispatchers.IO) {
+        remoteRepository.fetchChatMessages(sessionId)?.let { messageList ->
+            _chatMessages.update {
+                messageList
             }
-        }
+        } ?: updateSnackbarMessage(R.string.assistant_screen_chat_fetch_error)
     }
 
-    fun createConversation(title: String) {
-        viewModelScope.launch(Dispatchers.IO) {
-            val result = remoteRepository.createConversation(title)
-            if (result != null) {
-                initSessionId(result.session.id)
-                sendChatMessage(content = title, sessionId = result.session.id)
-            }
+    fun createConversation(title: String) = viewModelScope.launch(Dispatchers.IO) {
+        remoteRepository.createConversation(title)?.let { result ->
+            initSessionId(result.session.id)
+            sendChatMessage(title, result.session.id)
         }
     }
 
     fun initSessionId(value: Long) {
         Log_OC.d(TAG, "session id updated: $value")
-
-        _sessionId.update {
-            value
-        }
+        currentChatTaskId = null
+        _sessionId.update { value }
     }
+    // endregion
 
-    @Suppress("MagicNumber")
-    fun createTask(input: String, taskType: TaskTypeData) {
-        viewModelScope.launch(Dispatchers.IO) {
-            val result = remoteRepository.createTask(input, taskType)
-
-            val messageId = if (result.isSuccess) {
-                R.string.assistant_screen_task_create_success_message
-            } else {
-                R.string.assistant_screen_task_create_fail_message
-            }
-
-            updateSnackbarMessage(messageId)
-
-            delay(2000L)
-            fetchTaskList()
+    // region task
+    fun createTask(input: String, taskType: TaskTypeData) = viewModelScope.launch(Dispatchers.IO) {
+        val result = remoteRepository.createTask(input, taskType)
+        val message = if (result.isSuccess) {
+            R.string.assistant_screen_task_create_success_message
+        } else {
+            R.string.assistant_screen_task_create_fail_message
         }
+
+        updateSnackbarMessage(message)
+        delay(MILLIS_PER_SECOND * 2L)
+        fetchTaskList()
     }
 
     fun selectTaskType(task: TaskTypeData) {
-        Log_OC.d(TAG, "task type changed: ${task.name}, session id: ${_sessionId.value}")
-
+        Log_OC.d(TAG, "Task type changed: ${task.name}, session id: ${_sessionId.value}")
         updateTaskType(task)
 
+        val sessionId = _sessionId.value ?: return
         if (task.isChat) {
-            val sessionId = _sessionId.value ?: return
-            fetchChatMessages(sessionId)
+            if (_chatMessages.value.isEmpty()) {
+                fetchChatMessages(sessionId)
+            } else {
+                fetchNewChatMessage(sessionId)
+            }
         } else {
             fetchTaskList()
         }
     }
 
-    private fun fetchTaskTypes() {
-        viewModelScope.launch(Dispatchers.IO) {
-            val taskTypesResult = remoteRepository.getTaskTypes()
-            if (taskTypesResult.isNullOrEmpty()) {
-                _screenState.update {
-                    AssistantScreenState.emptyTaskTypes()
-                }
-                return@launch
-            }
-
-            _taskTypes.update {
-                taskTypesResult
-            }
-
-            selectTaskType(taskTypesResult.first())
+    private fun fetchTaskTypes() = viewModelScope.launch(Dispatchers.IO) {
+        val result = remoteRepository.getTaskTypes()
+        if (result.isNullOrEmpty()) {
+            _screenState.value = AssistantScreenState.emptyTaskTypes()
+            return@launch
         }
+
+        _taskTypes.update {
+            result
+        }
+        selectTaskType(result.first())
     }
 
-    fun fetchTaskList() {
-        viewModelScope.launch(Dispatchers.IO) {
-            // Try cached data first
-            val cachedTasks = localRepository.getCachedTasks(accountName)
-            if (cachedTasks.isNotEmpty()) {
-                _filteredTaskList.update {
-                    cachedTasks.sortedByDescending { it.id }
-                }
-            }
+    fun fetchTaskList() = viewModelScope.launch(Dispatchers.IO) {
+        val cached = localRepository.getCachedTasks(accountName)
+        if (cached.isNotEmpty()) {
+            _filteredTaskList.value = cached.sortedByDescending { it.id }
+        }
 
-            val taskType = _selectedTaskType.value?.id ?: return@launch
-            val result = remoteRepository.getTaskList(taskType)
-            if (result != null) {
+        _selectedTaskType.value?.id?.let { typeId ->
+            remoteRepository.getTaskList(typeId)?.let { result ->
                 taskList = result
-                _filteredTaskList.update {
-                    taskList?.sortedByDescending { task ->
-                        task.id
-                    }
-                }
-
+                _filteredTaskList.value = result.sortedByDescending { it.id }
                 localRepository.cacheTasks(result, accountName)
                 updateSnackbarMessage(null)
-            } else {
-                updateSnackbarMessage(R.string.assistant_screen_task_list_error_state_message)
-            }
+            } ?: updateSnackbarMessage(R.string.assistant_screen_task_list_error_state_message)
         }
     }
 
-    fun deleteTask(id: Long) {
-        viewModelScope.launch(Dispatchers.IO) {
-            val result = remoteRepository.deleteTask(id)
+    fun deleteTask(id: Long) = viewModelScope.launch(Dispatchers.IO) {
+        val result = remoteRepository.deleteTask(id)
+        val message = if (result.isSuccess) {
+            R.string.assistant_screen_task_delete_success_message
+        } else {
+            R.string.assistant_screen_task_delete_fail_message
+        }
 
-            val messageId = if (result.isSuccess) {
-                R.string.assistant_screen_task_delete_success_message
-            } else {
-                R.string.assistant_screen_task_delete_fail_message
-            }
-
-            updateSnackbarMessage(messageId)
-
-            if (result.isSuccess) {
-                removeTaskFromList(id)
-                localRepository.deleteTask(id, accountName)
-            }
+        updateSnackbarMessage(message)
+        if (result.isSuccess) {
+            removeTaskFromList(id)
+            localRepository.deleteTask(id, accountName)
         }
     }
+    // endregion
 
     private fun updateTaskType(value: TaskTypeData) {
         _selectedTaskType.update {

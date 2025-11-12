@@ -11,6 +11,8 @@ import com.owncloud.android.lib.common.operations.RemoteOperationResult
 import com.owncloud.android.lib.resources.assistant.chat.model.ChatMessage
 import com.owncloud.android.lib.resources.assistant.chat.model.ChatMessageRequest
 import com.owncloud.android.lib.resources.assistant.chat.model.CreateConversation
+import com.owncloud.android.lib.resources.assistant.chat.model.Session
+import com.owncloud.android.lib.resources.assistant.chat.model.SessionTask
 import com.owncloud.android.lib.resources.assistant.v2.model.Shape
 import com.owncloud.android.lib.resources.assistant.v2.model.Task
 import com.owncloud.android.lib.resources.assistant.v2.model.TaskInput
@@ -19,7 +21,7 @@ import com.owncloud.android.lib.resources.assistant.v2.model.TaskTypeData
 
 @Suppress("MagicNumber")
 class MockAssistantRemoteRepository(private val giveEmptyTasks: Boolean = false) : AssistantRemoteRepository {
-    override fun getTaskTypes(): List<TaskTypeData> = listOf(
+    override suspend fun getTaskTypes(): List<TaskTypeData> = listOf(
         TaskTypeData(
             id = "core:text2text",
             name = "Free text to text prompt",
@@ -41,10 +43,10 @@ class MockAssistantRemoteRepository(private val giveEmptyTasks: Boolean = false)
         )
     )
 
-    override fun createTask(input: String, taskType: TaskTypeData): RemoteOperationResult<Void> =
+    override suspend fun createTask(input: String, taskType: TaskTypeData): RemoteOperationResult<Void> =
         RemoteOperationResult<Void>(RemoteOperationResult.ResultCode.OK)
 
-    override fun getTaskList(taskType: String): List<Task> = if (giveEmptyTasks) {
+    override suspend fun getTaskList(taskType: String): List<Task> = if (giveEmptyTasks) {
         listOf()
     } else {
         listOf(
@@ -65,12 +67,13 @@ class MockAssistantRemoteRepository(private val giveEmptyTasks: Boolean = false)
         )
     }
 
-    override fun deleteTask(id: Long): RemoteOperationResult<Void> =
+    override suspend fun deleteTask(id: Long): RemoteOperationResult<Void> =
         RemoteOperationResult<Void>(RemoteOperationResult.ResultCode.OK)
+    override suspend fun fetchChatMessages(id: Long): List<ChatMessage> = emptyList()
+    override suspend fun sendChatMessage(request: ChatMessageRequest): ChatMessage? = null
+    override suspend fun createConversation(title: String): CreateConversation? = null
+    override suspend fun checkSession(sessionId: String): Session? = null
+    override suspend fun generateSession(sessionId: String): SessionTask? = null
 
-    override fun fetchChatMessages(id: Long): List<ChatMessage>? = emptyList()
-
-    override fun sendChatMessage(request: ChatMessageRequest): ChatMessage? = null
-
-    override fun createConversation(title: String): CreateConversation? = null
+    override suspend fun checkGeneration(taskId: String, sessionId: String): ChatMessage? = null
 }

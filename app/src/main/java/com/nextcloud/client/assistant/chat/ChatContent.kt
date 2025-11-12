@@ -5,10 +5,16 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-@file:Suppress("TopLevelPropertyNaming")
+@file:Suppress("TopLevelPropertyNaming", "MagicNumber")
 
 package com.nextcloud.client.assistant.chat
 
+import androidx.compose.animation.core.LinearEasing
+import androidx.compose.animation.core.RepeatMode
+import androidx.compose.animation.core.animateFloat
+import androidx.compose.animation.core.infiniteRepeatable
+import androidx.compose.animation.core.rememberInfiniteTransition
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -35,14 +41,17 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.nextcloud.client.assistant.AssistantViewModel
+import com.nextcloud.utils.TimeConstants
 import com.owncloud.android.R
 import com.owncloud.android.lib.resources.assistant.chat.model.ChatMessage
 
@@ -53,6 +62,7 @@ private val ASSISTANT_ICON_SIZE = 40.dp
 @Composable
 fun ChatContent(viewModel: AssistantViewModel, modifier: Modifier = Modifier) {
     val chatMessages by viewModel.chatMessages.collectAsState()
+    val isAssistantAnswering by viewModel.isAssistantAnswering.collectAsState()
     val listState = rememberLazyListState()
 
     LaunchedEffect(chatMessages) {
@@ -75,6 +85,104 @@ fun ChatContent(viewModel: AssistantViewModel, modifier: Modifier = Modifier) {
             }
             Spacer(modifier = Modifier.height(8.dp))
         }
+
+        if (isAssistantAnswering) {
+            item {
+                AssistantTypingIndicator()
+                Spacer(modifier = Modifier.height(8.dp))
+            }
+        }
+    }
+}
+
+@Composable
+private fun AssistantTypingIndicator() {
+    Box(
+        modifier = Modifier
+            .padding(vertical = 12.dp)
+            .fillMaxWidth(),
+        contentAlignment = Alignment.CenterStart
+    ) {
+        Row(
+            verticalAlignment = Alignment.Bottom
+        ) {
+            AnimatedAssistantIcon()
+
+            Box(
+                modifier = Modifier
+                    .padding(start = 8.dp, end = 16.dp)
+                    .defaultMinSize(minHeight = MIN_CHAT_HEIGHT)
+                    .clip(
+                        RoundedCornerShape(
+                            topEnd = CHAT_BUBBLE_CORNER_RADIUS,
+                            topStart = CHAT_BUBBLE_CORNER_RADIUS,
+                            bottomEnd = CHAT_BUBBLE_CORNER_RADIUS
+                        )
+                    )
+                    .background(color = colorResource(R.color.task_container))
+            ) {
+                TypingAnimation()
+            }
+        }
+    }
+}
+
+@Composable
+private fun AnimatedAssistantIcon() {
+    val infiniteTransition = rememberInfiniteTransition(label = "assistant_icon_animation")
+    val scale by infiniteTransition.animateFloat(
+        initialValue = 1f,
+        targetValue = 1.1f,
+        animationSpec = infiniteRepeatable(
+            animation = tween(TimeConstants.MILLIS_PER_SECOND, easing = LinearEasing),
+            repeatMode = RepeatMode.Reverse
+        ),
+        label = "scale_animation"
+    )
+
+    Box(
+        modifier = Modifier
+            .size(ASSISTANT_ICON_SIZE)
+            .clip(CircleShape)
+            .background(Color.White),
+        contentAlignment = Alignment.Center
+    ) {
+        Image(
+            painter = painterResource(id = R.drawable.ic_assistant),
+            contentDescription = null,
+            contentScale = ContentScale.Crop,
+            alignment = Alignment.Center,
+            modifier = Modifier
+                .scale(scale)
+        )
+    }
+}
+
+@Composable
+private fun TypingAnimation() {
+    val infiniteTransition = rememberInfiniteTransition(label = "typing_animation")
+
+    val alpha by infiniteTransition.animateFloat(
+        initialValue = 0.3f,
+        targetValue = 1f,
+        animationSpec = infiniteRepeatable(
+            animation = tween(600, easing = LinearEasing),
+            repeatMode = RepeatMode.Reverse
+        ),
+        label = "typing_alpha"
+    )
+
+    Column(
+        modifier = Modifier.padding(8.dp),
+        horizontalAlignment = Alignment.Start
+    ) {
+        Text(
+            text = stringResource(R.string.assistant_thinking),
+            style = TextStyle(
+                color = colorResource(R.color.text_color).copy(alpha = alpha),
+                fontSize = 16.sp
+            )
+        )
     }
 }
 
