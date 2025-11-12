@@ -20,9 +20,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
-class ConversationViewModel(
-    private val remoteRepository: ConversationRemoteRepository
-) : ViewModel() {
+class ConversationViewModel(private val remoteRepository: ConversationRemoteRepository) : ViewModel() {
     private val _errorMessageId = MutableStateFlow<Int?>(null)
     val errorMessageId: StateFlow<Int?> = _errorMessageId
 

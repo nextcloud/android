@@ -86,8 +86,7 @@ fun AssistantScreen(
     viewModel: AssistantViewModel,
     conversationViewModel: ConversationViewModel,
     capability: OCCapability,
-    activity: Activity,
-    sessionIdArg: Long? = null
+    activity: Activity
 ) {
     val sessionId by viewModel.sessionId.collectAsState()
     val messageId by viewModel.snackbarMessageId.collectAsState()
@@ -109,17 +108,11 @@ fun AssistantScreen(
         }
     }
 
-    // replace polling task for newly created conversation
     LaunchedEffect(sessionId) {
-        val newSessionId = sessionId ?: return@LaunchedEffect
-        viewModel.startPolling(newSessionId)
-        viewModel.fetchChatMessages(newSessionId)
-    }
+        viewModel.startPolling(sessionId)
 
-    LaunchedEffect(Unit) {
-        viewModel.startPolling(sessionIdArg)
-        if (sessionIdArg != null) {
-            viewModel.fetchChatMessages(sessionIdArg)
+        sessionId?.let {
+            viewModel.fetchChatMessages(it)
         }
     }
 
@@ -130,7 +123,7 @@ fun AssistantScreen(
     }
 
     HorizontalPager(
-        state = pagerState,
+        state = pagerState
     ) { page ->
         when (page) {
             0 -> {
@@ -139,10 +132,10 @@ fun AssistantScreen(
                         pagerState.scrollToPage(1)
                     }
                 }, openChat = { newSessionId ->
-                    taskTypes?.find { it.isChat }?.let { chatTaskType ->
-                        viewModel.updateTaskType(chatTaskType)
-                    }
                     viewModel.initSessionId(newSessionId)
+                    taskTypes?.find { it.isChat }?.let { chatTaskType ->
+                        viewModel.selectTaskType(chatTaskType)
+                    }
                     scope.launch {
                         pagerState.scrollToPage(1)
                     }
@@ -157,9 +150,9 @@ fun AssistantScreen(
                             scope.launch {
                                 delay(PULL_TO_REFRESH_DELAY)
 
-                                if (sessionId != null || sessionIdArg != null) {
-                                    val id = sessionId ?: sessionIdArg
-                                    viewModel.fetchChatMessages(id!!)
+                                val newSessionId = sessionId
+                                if (newSessionId != null) {
+                                    viewModel.fetchChatMessages(newSessionId)
                                 } else {
                                     viewModel.fetchTaskList()
                                 }
@@ -180,7 +173,7 @@ fun AssistantScreen(
                     bottomBar = {
                         if (!taskTypes.isNullOrEmpty()) {
                             ChatInputBar(
-                                sessionIdArg ?: sessionId,
+                                sessionId,
                                 selectedTaskType,
                                 viewModel
                             )
@@ -237,12 +230,9 @@ fun AssistantScreen(
     }
 }
 
+@Suppress("LongMethod")
 @Composable
-private fun ChatInputBar(
-    sessionId: Long?,
-    selectedTaskType: TaskTypeData?,
-    viewModel: AssistantViewModel
-) {
+private fun ChatInputBar(sessionId: Long?, selectedTaskType: TaskTypeData?, viewModel: AssistantViewModel) {
     val scope = rememberCoroutineScope()
     var text by remember { mutableStateOf("") }
 
@@ -251,10 +241,12 @@ private fun ChatInputBar(
         shadowElevation = 4.dp,
         color = MaterialTheme.colorScheme.surface
     ) {
-        Column(modifier = Modifier
-            .fillMaxWidth()
-            .padding(8.dp),
-            horizontalAlignment = Alignment.CenterHorizontally) {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(8.dp),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
             Text(
                 text = stringResource(R.string.assistant_output_generation_warning_text),
                 fontSize = 11.sp,
@@ -452,7 +444,7 @@ private fun AssistantEmptyScreenPreview() {
 private fun getMockConversationViewModel(): ConversationViewModel {
     val mockRemoteRepository = MockConversationRemoteRepository()
     return ConversationViewModel(
-        remoteRepository = mockRemoteRepository,
+        remoteRepository = mockRemoteRepository
     )
 }
 
@@ -462,6 +454,7 @@ private fun getMockAssistantViewModel(giveEmptyTasks: Boolean): AssistantViewMod
     return AssistantViewModel(
         accountName = "test:localhost",
         remoteRepository = mockRemoteRepository,
-        localRepository = mockLocalRepository
+        localRepository = mockLocalRepository,
+        sessionIdArg = null
     )
 }

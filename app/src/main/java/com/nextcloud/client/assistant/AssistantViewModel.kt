@@ -29,15 +29,18 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 
+@Suppress("TooManyFunctions")
 class AssistantViewModel(
     private val accountName: String,
     private val remoteRepository: AssistantRemoteRepository,
-    private val localRepository: AssistantLocalRepository
+    private val localRepository: AssistantLocalRepository,
+    sessionIdArg: Long?
 ) : ViewModel() {
 
     companion object {
         private const val TAG = "AssistantViewModel"
         private const val POLLING_INTERVAL_MS = 15_000L
+        private const val ONE_SECOND_MS = 1000L
     }
 
     private val _screenState = MutableStateFlow<AssistantScreenState?>(null)
@@ -46,7 +49,7 @@ class AssistantViewModel(
     private val _screenOverlayState = MutableStateFlow<ScreenOverlayState?>(null)
     val screenOverlayState: StateFlow<ScreenOverlayState?> = _screenOverlayState
 
-    private val _sessionId = MutableStateFlow<Long?>(null)
+    private val _sessionId = MutableStateFlow(sessionIdArg)
     val sessionId: StateFlow<Long?> = _sessionId
 
     private val _snackbarMessageId = MutableStateFlow<Int?>(null)
@@ -80,19 +83,20 @@ class AssistantViewModel(
         pollingJob = viewModelScope.launch(Dispatchers.IO) {
             try {
                 while (isActive) {
-                    Log_OC.d(TAG, "Polling list, sessionId: $sessionId")
-                    if (sessionId != null) {
-                        pollChatMessages(sessionId)
-                    }
+                    val isChat = (_selectedTaskType.value?.isChat == true)
 
-                    if (_selectedTaskType.value?.isChat == false) {
+                    if (isChat && sessionId != null) {
+                        Log_OC.d(TAG, "Polling chat messages, sessionId: $sessionId")
+                        pollChatMessages(sessionId)
+                    } else if (!isChat) {
+                        Log_OC.d(TAG, "Polling task list")
                         pollTaskList()
                     }
 
                     delay(POLLING_INTERVAL_MS)
                 }
             } finally {
-                Log_OC.d(TAG, "Polling coroutine cancelled, sessionId: $sessionId")
+                Log_OC.d(TAG, "Polling cancelled, sessionId: $sessionId")
             }
         }
     }
@@ -150,7 +154,7 @@ class AssistantViewModel(
     }
 
     fun sendChatMessage(content: String, sessionId: Long) {
-        val timestamp = System.currentTimeMillis().div(1000)
+        val timestamp = System.currentTimeMillis().div(ONE_SECOND_MS)
         val firstHumanMessage = _chatMessages.value.isEmpty()
         val request =
             ChatMessageRequest(
@@ -195,6 +199,8 @@ class AssistantViewModel(
     }
 
     fun initSessionId(value: Long) {
+        Log_OC.d(TAG, "session id updated: $value")
+
         _sessionId.update {
             value
         }
@@ -219,8 +225,16 @@ class AssistantViewModel(
     }
 
     fun selectTaskType(task: TaskTypeData) {
+        Log_OC.d(TAG, "task type changed: ${task.name}, session id: ${_sessionId.value}")
+
         updateTaskType(task)
-        fetchTaskList()
+
+        if (task.isChat) {
+            val sessionId = _sessionId.value ?: return
+            fetchChatMessages(sessionId)
+        } else {
+            fetchTaskList()
+        }
     }
 
     private fun fetchTaskTypes() {
@@ -288,7 +302,7 @@ class AssistantViewModel(
         }
     }
 
-    fun updateTaskType(value: TaskTypeData) {
+    private fun updateTaskType(value: TaskTypeData) {
         _selectedTaskType.update {
             value
         }

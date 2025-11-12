@@ -10,19 +10,10 @@ package com.nextcloud.client.assistant.conversation.repository
 import com.owncloud.android.lib.resources.assistant.chat.model.Conversation
 import com.owncloud.android.lib.resources.assistant.chat.model.CreateConversation
 
-class MockConversationRemoteRepository: ConversationRemoteRepository {
-    override suspend fun fetchConversationList(): List<Conversation>? {
-        return null
-    }
+class MockConversationRemoteRepository : ConversationRemoteRepository {
+    override suspend fun fetchConversationList(): List<Conversation>? = null
 
-    override suspend fun createConversation(
-        title: String?,
-        timestamp: Long
-    ): CreateConversation? {
-        return null
-    }
+    override suspend fun createConversation(title: String?, timestamp: Long): CreateConversation? = null
 
-    override suspend fun deleteConversation(sessionId: String): Boolean {
-        return true
-    }
+    override suspend fun deleteConversation(sessionId: String): Boolean = true
 }

@@ -68,15 +68,9 @@ class MockAssistantRemoteRepository(private val giveEmptyTasks: Boolean = false)
     override fun deleteTask(id: Long): RemoteOperationResult<Void> =
         RemoteOperationResult<Void>(RemoteOperationResult.ResultCode.OK)
 
-    override fun fetchChatMessages(id: Long): List<ChatMessage>? {
-        return emptyList()
-    }
+    override fun fetchChatMessages(id: Long): List<ChatMessage>? = emptyList()
 
-    override fun sendChatMessage(request: ChatMessageRequest): ChatMessage? {
-        return null
-    }
+    override fun sendChatMessage(request: ChatMessageRequest): ChatMessage? = null
 
-    override fun createConversation(title: String): CreateConversation? {
-        return null
-    }
+    override fun createConversation(title: String): CreateConversation? = null
 }
