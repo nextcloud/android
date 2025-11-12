@@ -21,6 +21,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -105,10 +106,11 @@ fun TaskDetailBottomSheet(task: Task, showTaskActions: () -> Unit, dismiss: () -
                 Spacer(modifier = Modifier.width(4.dp))
 
                 Text(
+                    modifier = Modifier.widthIn(max = 200.dp),
                     text = stringResource(R.string.assistant_output_generation_warning_text),
                     color = colorResource(R.color.text_color),
                     fontSize = 11.sp,
-                    textAlign = TextAlign.Center
+                    textAlign = TextAlign.Center,
                 )
             }
         }
