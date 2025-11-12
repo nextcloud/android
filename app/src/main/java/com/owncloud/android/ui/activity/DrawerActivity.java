@@ -561,6 +561,7 @@ public abstract class DrawerActivity extends ToolbarActivity
     private void onNavigationItemClicked(final MenuItem menuItem) {
         int itemId = menuItem.getItemId();
 
+        // Settings screen cannot display drawer menu thus no need to highlight
         if (itemId != R.id.nav_settings) {
             menuItemId = itemId;
         }
