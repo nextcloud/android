@@ -415,6 +415,8 @@
     <string name="file_list_empty_unified_search_no_results">За вашим запитом нічого не знайдено</string>
     <string name="file_list_empty_unified_search_start_search">Почніть пошук</string>
     <string name="file_list_empty_unified_search_start_search_description">Зазначте в полі пошуку для пошуку файлів, контактів, календарних подій тощо серед ваших облікових записів.</string>
+    <string name="file_list_error_description">Перевірте з\'єднання з мережею або спробуйте пізніше</string>
+    <string name="file_list_error_headline">Слабке з\'єднання</string>
     <string name="file_list_folder">каталог</string>
     <string name="file_list_live">НАЖИВО</string>
     <string name="file_list_loading">Завантаження…</string>
@@ -1109,6 +1111,8 @@
     <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">Не довірений сертифікат серверу</string>
     <string name="uploads_view_upload_status_fetching_server_version">Отримую версію сервера...</string>
     <string name="uploads_view_upload_status_service_interrupted">Застосунок зупинено</string>
+    <string name="uploads_view_upload_status_skip">Пропущено</string>
+    <string name="uploads_view_upload_status_skip_reason">Файл з таким саме ім\'ям вже присутній</string>
     <string name="uploads_view_upload_status_succeeded">Завершені</string>
     <string name="uploads_view_upload_status_succeeded_same_file">Такий саме файл знайдено у хмарі, пропускаю завантаження</string>
     <string name="uploads_view_upload_status_unknown_fail">Невідома помилка</string>
@@ -1231,6 +1235,12 @@
         <item quantity="few">%d файлів буде експортовано. Дивіться сповіщення для деталей.</item>
         <item quantity="many">%d файлів буде експортовано. Дивіться сповіщення для деталей.</item>
         <item quantity="other">%d файлів буде експортовано. Дивіться сповіщення для деталей.</item>
+    </plurals>
+    <plurals name="file_upload_limit_message">
+        <item quantity="one">Одночасно можна завантажити лише %d файл.</item>
+        <item quantity="few">Одночасно можна завантажити до %d файлів.</item>
+        <item quantity="many">Одночасно можна завантажити до %d файлів.</item>
+        <item quantity="other">Одночасно можна завантажити до %d файлів.</item>
     </plurals>
     <plurals name="file_list__footer__folder">
         <item quantity="one">%1$d тека</item>

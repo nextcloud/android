@@ -415,6 +415,8 @@
     <string name="file_list_empty_unified_search_no_results">未找到查询的结果</string>
     <string name="file_list_empty_unified_search_start_search">开始搜索</string>
     <string name="file_list_empty_unified_search_start_search_description">在上方搜索栏中输入以查找您账号中的文件、联系人、日历事件等。</string>
+    <string name="file_list_error_description">检查你的网络连接或稍后再试</string>
+    <string name="file_list_error_headline">连接差</string>
     <string name="file_list_folder">文件夹</string>
     <string name="file_list_live">即时</string>
     <string name="file_list_loading">正在加载...</string>
@@ -1112,6 +1114,8 @@
     <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">不受信任的服务器证书</string>
     <string name="uploads_view_upload_status_fetching_server_version">正在获取服务器版本…</string>
     <string name="uploads_view_upload_status_service_interrupted">应用程序已终止</string>
+    <string name="uploads_view_upload_status_skip">跳过</string>
+    <string name="uploads_view_upload_status_skip_reason">相同名称的文件已存在。</string>
     <string name="uploads_view_upload_status_succeeded">已完成</string>
     <string name="uploads_view_upload_status_succeeded_same_file">服务端已存在相同的文件，跳过上传</string>
     <string name="uploads_view_upload_status_unknown_fail">未知错误</string>
@@ -1189,6 +1193,9 @@
     </plurals>
     <plurals name="export_start">
         <item quantity="other">%d个文件将被导出。详情见通知。</item>
+    </plurals>
+    <plurals name="file_upload_limit_message">
+        <item quantity="other">你一次可以最多上传 %d 个文件。</item>
     </plurals>
     <plurals name="file_list__footer__folder">
         <item quantity="other">%1$d个文件夹</item>

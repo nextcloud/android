@@ -415,6 +415,8 @@
     <string name="file_list_empty_unified_search_no_results">Aucun résultat trouvé pour votre requête</string>
     <string name="file_list_empty_unified_search_start_search">Démarrer votre recherche</string>
     <string name="file_list_empty_unified_search_start_search_description">Tapez dans la barre de recherche ci-dessus pour trouver des fichiers, des contacts, des événements de calendrier et plus encore dans votre compte.</string>
+    <string name="file_list_error_description">Vérifiez votre connexion internet ou ré-essayez plus tard</string>
+    <string name="file_list_error_headline">Connexion limitée</string>
     <string name="file_list_folder">dossier</string>
     <string name="file_list_live">EN DIRECT</string>
     <string name="file_list_loading">Chargement…</string>
@@ -1109,6 +1111,8 @@
     <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">Certificat du serveur non approuvé</string>
     <string name="uploads_view_upload_status_fetching_server_version">Récupération de la version serveur …</string>
     <string name="uploads_view_upload_status_service_interrupted">L\'application s\'est arrêtée</string>
+    <string name="uploads_view_upload_status_skip">Ignoré</string>
+    <string name="uploads_view_upload_status_skip_reason">Un fichier portant le même nom existe déjà.</string>
     <string name="uploads_view_upload_status_succeeded">Terminé</string>
     <string name="uploads_view_upload_status_succeeded_same_file">Le même fichier a été trouvé sur le serveur distant, le téléversement est ignoré</string>
     <string name="uploads_view_upload_status_unknown_fail">Erreur inconnue </string>
