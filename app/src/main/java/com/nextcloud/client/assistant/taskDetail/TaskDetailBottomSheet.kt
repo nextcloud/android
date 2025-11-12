@@ -106,7 +106,7 @@ fun TaskDetailBottomSheet(task: Task, showTaskActions: () -> Unit, dismiss: () -
                 Spacer(modifier = Modifier.width(4.dp))
 
                 Text(
-                    modifier = Modifier.widthIn(max = 200.dp),
+                    modifier = Modifier.widthIn(max = 300.dp),
                     text = stringResource(R.string.assistant_output_generation_warning_text),
                     color = colorResource(R.color.text_color),
                     fontSize = 11.sp,

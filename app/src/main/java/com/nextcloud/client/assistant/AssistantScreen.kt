@@ -91,7 +91,6 @@ fun AssistantScreen(
     val sessionId by viewModel.sessionId.collectAsState()
     val messageId by viewModel.snackbarMessageId.collectAsState()
     val screenOverlayState by viewModel.screenOverlayState.collectAsState()
-
     val selectedTaskType by viewModel.selectedTaskType.collectAsState()
     val filteredTaskList by viewModel.filteredTaskList.collectAsState()
     val screenState by viewModel.screenState.collectAsState()
