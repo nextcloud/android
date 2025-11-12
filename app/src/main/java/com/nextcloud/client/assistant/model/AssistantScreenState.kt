@@ -28,13 +28,13 @@ sealed class AssistantScreenState {
         fun emptyChatList(): AssistantScreenState = EmptyContent(
             iconId = R.drawable.ic_assistant,
             titleId = R.string.assistant_screen_empty_content_title,
-            descriptionId = R.string.assistant_screen_empty_content_description,
+            descriptionId = R.string.assistant_screen_empty_content_description
         )
 
         fun emptyTaskList(): AssistantScreenState = EmptyContent(
             iconId = R.drawable.ic_assistant,
             titleId = R.string.assistant_screen_empty_content_title,
-            descriptionId = null,
+            descriptionId = null
         )
     }
 }

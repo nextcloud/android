@@ -16,7 +16,7 @@ sealed class ConversationScreenState {
 
     companion object {
         fun emptyConversationList(): ConversationScreenState = EmptyContent(
-            descriptionId = R.string.conversation_screen_empty_conversation_list_title,
+            descriptionId = R.string.conversation_screen_empty_conversation_list_title
         )
     }
 }

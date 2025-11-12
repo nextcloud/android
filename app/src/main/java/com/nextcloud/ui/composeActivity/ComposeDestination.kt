@@ -11,11 +11,9 @@ sealed class ComposeDestination(val id: Int) {
     data class AssistantScreen(val sessionId: Long?) : ComposeDestination(0)
 
     companion object {
-        fun fromId(id: Int): ComposeDestination {
-            return when (id) {
-                0 -> AssistantScreen(null)
-                else -> throw IllegalArgumentException("Unknown destination: $id")
-            }
+        fun fromId(id: Int): ComposeDestination = when (id) {
+            0 -> AssistantScreen(null)
+            else -> throw IllegalArgumentException("Unknown destination: $id")
         }
     }
 }

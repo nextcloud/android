@@ -5,6 +5,8 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
+@file:Suppress("TopLevelPropertyNaming")
+
 package com.nextcloud.client.assistant.chat
 
 import androidx.compose.foundation.Image
@@ -49,10 +51,7 @@ private val CHAT_BUBBLE_CORNER_RADIUS = 8.dp
 private val ASSISTANT_ICON_SIZE = 40.dp
 
 @Composable
-fun ChatContent(
-    viewModel: AssistantViewModel,
-    modifier: Modifier = Modifier
-) {
+fun ChatContent(viewModel: AssistantViewModel, modifier: Modifier = Modifier) {
     val chatMessages by viewModel.chatMessages.collectAsState()
     val listState = rememberLazyListState()
 
@@ -66,7 +65,7 @@ fun ChatContent(
             .padding(horizontal = 12.dp, vertical = 8.dp),
         verticalArrangement = Arrangement.Bottom,
         reverseLayout = false,
-        state = listState,
+        state = listState
     ) {
         items(chatMessages, key = { it.id }) { message ->
             if (message.isHuman()) {
@@ -84,10 +83,11 @@ private fun AssistantMessageItem(message: ChatMessage) {
     Box(
         modifier = Modifier
             .padding(vertical = 12.dp)
-            .fillMaxWidth(), contentAlignment = Alignment.CenterStart
+            .fillMaxWidth(),
+        contentAlignment = Alignment.CenterStart
     ) {
         Row(
-            verticalAlignment = Alignment.Bottom,
+            verticalAlignment = Alignment.Bottom
         ) {
             Box(
                 modifier = Modifier
@@ -130,10 +130,11 @@ private fun UserMessageItem(message: ChatMessage) {
     Box(
         modifier = Modifier
             .padding(vertical = 12.dp)
-            .fillMaxWidth(), contentAlignment = Alignment.CenterEnd
+            .fillMaxWidth(),
+        contentAlignment = Alignment.CenterEnd
     ) {
         Row(
-            verticalAlignment = Alignment.Bottom,
+            verticalAlignment = Alignment.Bottom
         ) {
             Box(
                 modifier = Modifier
@@ -158,13 +159,13 @@ private fun UserMessageItem(message: ChatMessage) {
 private fun MessageTextItem(message: ChatMessage) {
     Column(
         modifier = Modifier.padding(8.dp),
-        horizontalAlignment = Alignment.Start,
+        horizontalAlignment = Alignment.Start
     ) {
         Text(
             text = message.content,
             style = TextStyle(
                 color = colorResource(R.color.text_color),
-                fontSize = 16.sp,
+                fontSize = 16.sp
             )
         )
         Spacer(modifier = Modifier.height(8.dp))
@@ -172,7 +173,7 @@ private fun MessageTextItem(message: ChatMessage) {
             text = message.timestampRepresentation(),
             style = TextStyle(
                 color = colorResource(R.color.text_color),
-                fontSize = 12.sp,
+                fontSize = 12.sp
             )
         )
     }

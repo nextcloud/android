@@ -87,7 +87,7 @@ class AssistantRemoteRepositoryImpl(private val client: NextcloudClient, capabil
     override fun fetchChatMessages(id: Long): List<ChatMessage>? {
         val result = GetMessagesRemoteOperation(id.toString()).execute(client)
         return if (result.isSuccess) {
-             result.resultData
+            result.resultData
         } else {
             null
         }

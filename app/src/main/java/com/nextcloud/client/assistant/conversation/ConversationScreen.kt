@@ -5,6 +5,8 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
+@file:Suppress("TopLevelPropertyNaming", "MagicNumber")
+
 package com.nextcloud.client.assistant.conversation
 
 import androidx.compose.foundation.layout.Arrangement
@@ -54,12 +56,9 @@ import com.owncloud.android.lib.resources.assistant.chat.model.Conversation
 private val BUTTON_HEIGHT = 32.dp
 
 @OptIn(ExperimentalMaterial3Api::class)
+@Suppress("LongMethod")
 @Composable
-fun ConversationScreen(
-    viewModel: ConversationViewModel,
-    close: () -> Unit,
-    openChat: (Long) -> Unit
-) {
+fun ConversationScreen(viewModel: ConversationViewModel, close: () -> Unit, openChat: (Long) -> Unit) {
     val context = LocalContext.current
     val screenState by viewModel.screenState.collectAsState()
     val errorMessageId by viewModel.errorMessageId.collectAsState()
@@ -147,7 +146,7 @@ private fun ConversationList(
         modifier = modifier
             .fillMaxSize()
             .padding(16.dp),
-        verticalArrangement = Arrangement.Bottom,
+        verticalArrangement = Arrangement.Bottom
     ) {
         items(conversations) { conversation ->
             ConversationListItem(
@@ -163,11 +162,7 @@ private fun ConversationList(
 }
 
 @Composable
-private fun ConversationListItem(
-    conversation: Conversation,
-    onClick: () -> Unit,
-    onDeleteClick: () -> Unit
-) {
+private fun ConversationListItem(conversation: Conversation, onClick: () -> Unit, onDeleteClick: () -> Unit) {
     Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.BottomCenter) {
         FilledTonalButton(
             onClick = onClick,
@@ -200,9 +195,7 @@ private fun ConversationListItem(
 }
 
 @Composable
-private fun CreateConversationButton(
-    onClick: () -> Unit
-) {
+private fun CreateConversationButton(onClick: () -> Unit) {
     Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.BottomCenter) {
         OutlinedButton(
             onClick = onClick,
@@ -235,17 +228,13 @@ private fun CreateConversationButton(
 private fun ConversationListPreview() {
     Column {
         ConversationListItem(Conversation(1L, "User1", "Who is Al Pacino?", 1762847286L, "", null), {
-
         }, {
-
         })
 
         Spacer(modifier = Modifier.height(8.dp))
 
         ConversationListItem(Conversation(2L, "User1", "What is JetpackCompose?", 1761847286L, "", null), {
-
         }, {
-
         })
 
         Spacer(modifier = Modifier.height(8.dp))

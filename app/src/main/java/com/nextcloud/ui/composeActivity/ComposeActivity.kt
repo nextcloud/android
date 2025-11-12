@@ -84,7 +84,7 @@ class ComposeActivity : DrawerActivity() {
             isChecked = true
         }
 
-        when(currentScreen) {
+        when (currentScreen) {
             is ComposeDestination.AssistantScreen -> {
                 val dao = NextcloudDatabase.instance().assistantDao()
                 val sessionId = (currentScreen as? ComposeDestination.AssistantScreen)?.sessionId
@@ -94,14 +94,14 @@ class ComposeActivity : DrawerActivity() {
                     viewModel = AssistantViewModel(
                         accountName = userAccountManager.user.accountName,
                         remoteRepository = AssistantRemoteRepositoryImpl(client, capabilities),
-                        localRepository = AssistantLocalRepositoryImpl(dao)
+                        localRepository = AssistantLocalRepositoryImpl(dao),
+                        sessionIdArg = sessionId
                     ),
                     conversationViewModel = ConversationViewModel(
                         remoteRepository = ConversationRemoteRepositoryImpl(client)
                     ),
                     activity = this,
-                    capability = capabilities,
-                    sessionIdArg = sessionId
+                    capability = capabilities
                 )
             }
             else -> Unit

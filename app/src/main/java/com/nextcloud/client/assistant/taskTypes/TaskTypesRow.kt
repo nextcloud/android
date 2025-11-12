@@ -36,6 +36,10 @@ fun TaskTypesRow(
     selectTaskType: (TaskTypeData) -> Unit,
     navigateToConversationList: () -> Unit
 ) {
+    if (data.isEmpty()) {
+        return
+    }
+
     val selectedTabIndex = data.indexOfFirst { it.id == selectedTaskType?.id }.takeIf { it >= 0 } ?: 0
 
     Row(
@@ -90,8 +94,6 @@ private fun TaskTypesRowPreview() {
     )
 
     TaskTypesRow(selectedTaskType, taskTypes, {
-
     }, {
-
     })
 }
