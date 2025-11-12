@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.nextcloud.client.assistant.conversation.model.ConversationScreenState
 import com.nextcloud.client.assistant.conversation.repository.ConversationRemoteRepository
+import com.nextcloud.utils.TimeConstants.MILLIS_PER_SECOND
 import com.owncloud.android.R
 import com.owncloud.android.lib.resources.assistant.chat.model.Conversation
 import kotlinx.coroutines.Dispatchers
@@ -63,7 +64,7 @@ class ConversationViewModel(private val remoteRepository: ConversationRemoteRepo
 
     fun createConversation(title: String?) {
         viewModelScope.launch(Dispatchers.IO) {
-            val timestamp = System.currentTimeMillis() / 1000
+            val timestamp = System.currentTimeMillis().div(MILLIS_PER_SECOND)
             val newConversation = remoteRepository.createConversation(title, timestamp)
             if (newConversation != null) {
                 _conversations.update {

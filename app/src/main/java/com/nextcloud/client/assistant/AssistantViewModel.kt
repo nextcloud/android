@@ -13,6 +13,7 @@ import com.nextcloud.client.assistant.model.AssistantScreenState
 import com.nextcloud.client.assistant.model.ScreenOverlayState
 import com.nextcloud.client.assistant.repository.local.AssistantLocalRepository
 import com.nextcloud.client.assistant.repository.remote.AssistantRemoteRepository
+import com.nextcloud.utils.TimeConstants.MILLIS_PER_SECOND
 import com.owncloud.android.R
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.lib.resources.assistant.chat.model.ChatMessage
@@ -40,7 +41,6 @@ class AssistantViewModel(
     companion object {
         private const val TAG = "AssistantViewModel"
         private const val POLLING_INTERVAL_MS = 15_000L
-        private const val ONE_SECOND_MS = 1000L
     }
 
     private val _screenState = MutableStateFlow<AssistantScreenState?>(null)
@@ -154,7 +154,7 @@ class AssistantViewModel(
     }
 
     fun sendChatMessage(content: String, sessionId: Long) {
-        val timestamp = System.currentTimeMillis().div(ONE_SECOND_MS)
+        val timestamp = System.currentTimeMillis().div(MILLIS_PER_SECOND)
         val firstHumanMessage = _chatMessages.value.isEmpty()
         val request =
             ChatMessageRequest(
