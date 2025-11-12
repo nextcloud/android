@@ -1792,30 +1792,26 @@ public class OCFileListFragment extends ExtendedListFragment implements
     }
 
     protected void setEmptyView(SearchEvent event) {
-        if (event != null) {
-            switch (event.getSearchType()) {
-                case FILE_SEARCH:
-                    setEmptyListMessage(FILE_SEARCH);
-                    break;
+        if (event == null) {
+            return;
+        }
 
-                case FAVORITE_SEARCH:
-                    setEmptyListMessage(FAVORITE_SEARCH);
-                    break;
+        switch (event.getSearchType()) {
+            case FILE_SEARCH:
+                setEmptyListMessage(FILE_SEARCH);
+                break;
 
-                case RECENTLY_MODIFIED_SEARCH:
-                    setEmptyListMessage(RECENTLY_MODIFIED_SEARCH);
-                    break;
+            case FAVORITE_SEARCH:
+                setEmptyListMessage(FAVORITE_SEARCH);
+                break;
 
-                case SHARED_FILTER:
-                    setEmptyListMessage(SHARED_FILTER);
-                    break;
+            case RECENTLY_MODIFIED_SEARCH:
+                setEmptyListMessage(RECENTLY_MODIFIED_SEARCH);
+                break;
 
-                default:
-                    setEmptyListMessage(NO_SEARCH);
-                    break;
-            }
-        } else {
-            setEmptyListMessage(NO_SEARCH);
+            case SHARED_FILTER:
+                setEmptyListMessage(SHARED_FILTER);
+                break;
         }
     }
 
