@@ -13,6 +13,7 @@ import com.nextcloud.client.assistant.conversation.model.ConversationScreenState
 import com.nextcloud.client.assistant.conversation.repository.ConversationRemoteRepository
 import com.nextcloud.utils.TimeConstants.MILLIS_PER_SECOND
 import com.owncloud.android.R
+import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.lib.resources.assistant.chat.model.Conversation
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -79,6 +80,7 @@ class ConversationViewModel(private val remoteRepository: ConversationRemoteRepo
     }
 
     fun deleteConversation(sessionId: String) {
+        Log_OC.d("","BBBB: $sessionId")
         viewModelScope.launch(Dispatchers.IO) {
             val success = remoteRepository.deleteConversation(sessionId)
             if (success) {

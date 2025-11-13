@@ -57,8 +57,6 @@ import com.nextcloud.ui.composeComponents.bottomSheet.MoreActionsBottomSheet
 import com.owncloud.android.R
 import com.owncloud.android.lib.resources.assistant.chat.model.Conversation
 
-private val BUTTON_HEIGHT = 32.dp
-
 @OptIn(ExperimentalMaterial3Api::class)
 @Suppress("LongMethod")
 @Composable
@@ -172,12 +170,15 @@ private fun ConversationList(
     }
 
     if (selectedConversationId != -1L) {
+        val currentId = selectedConversationId
+
         val bottomSheetAction = listOf(
             Triple(
                 R.drawable.ic_delete,
                 R.string.conversation_screen_delete_button_title
             ) {
-                viewModel.deleteConversation(selectedConversationId.toString())
+                val sessionId: String = currentId.toString()
+                viewModel.deleteConversation(sessionId)
                 selectedConversationId = -1L
             }
         )
