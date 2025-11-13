@@ -1,4 +1,4 @@
-## 3.34.1 RC1 (November 13, 2025)
+## 3.34.1 (November 13, 2025)
 
 - Auto rename and file name validation are now skipped when Windows compatibility enforcement is disabled.
 - Pagination has been added to the local file listing for improved navigation and performance.
