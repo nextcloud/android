@@ -138,30 +138,34 @@ class AvatarGroupLayout @JvmOverloads constructor(
         avatar: ImageView,
         viewThemeUtils: ViewThemeUtils
     ) {
-        // maybe federated share
-        val split = user.split("@".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
-        val userId: String? = split[0]
-        val server = split[1]
+        val split = user.split("@")
+        val userId = split.getOrNull(0) ?: user
+        val server = split.getOrNull(1)
 
-        val url = "https://" + server + "/index.php/avatar/" + userId + "/" +
-            resources.getInteger(R.integer.file_avatar_px)
-        var placeholder: Drawable?
-        try {
-            placeholder = TextDrawable.createAvatarByUserId(userId, avatarRadius)
+        val url = if (server != null) {
+            "https://$server/index.php/avatar/$userId/${resources.getInteger(R.integer.file_avatar_px)}"
+        } else {
+            // fallback: no federated server, maybe use local avatar
+            null
+        }
+
+        val placeholder: Drawable = try {
+            TextDrawable.createAvatarByUserId(userId, avatarRadius)
         } catch (e: Exception) {
             Log_OC.e(TAG, "Error calculating RGB value for active account icon.", e)
-            placeholder = viewThemeUtils.platform.colorDrawable(
-                ResourcesCompat.getDrawable(
-                    resources,
-                    R.drawable.account_circle_white,
-                    null
-                )!!,
+            viewThemeUtils.platform.colorDrawable(
+                ResourcesCompat
+                    .getDrawable(resources, R.drawable.account_circle_white, null)!!,
                 ContextCompat.getColor(context, R.color.black)
             )
         }
 
         avatar.tag = null
-        loadCircularBitmapIntoImageView(context, url, avatar, placeholder)
+        if (url != null) {
+            loadCircularBitmapIntoImageView(context, url, avatar, placeholder)
+        } else {
+            avatar.setImageDrawable(placeholder)
+        }
     }
 
     override fun avatarGenerated(avatarDrawable: Drawable?, callContext: Any) {
