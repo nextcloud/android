@@ -7,7 +7,6 @@
  */
 package com.nextcloud.client.jobs.upload
 
-import android.app.Notification
 import android.app.PendingIntent
 import android.content.Context
 import com.nextcloud.client.jobs.notification.WorkerNotificationManager
@@ -74,14 +73,6 @@ class UploadNotificationManager(private val context: Context, viewThemeUtils: Vi
         setProgress(percent, progressText, false)
         showNotification()
         dismissOldErrorNotification(currentOperation)
-    }
-
-    fun showNewNotification(operation: UploadFileOperation, notification: Notification) {
-        notificationManager.notify(
-            NotificationUtils.createUploadNotificationTag(operation.file),
-            FileUploadWorker.NOTIFICATION_ERROR_ID,
-            notification
-        )
     }
 
     fun showSameFileAlreadyExistsNotification(filename: String) {
