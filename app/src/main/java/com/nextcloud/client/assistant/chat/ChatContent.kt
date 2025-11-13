@@ -48,12 +48,16 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.nextcloud.client.assistant.AssistantViewModel
 import com.nextcloud.utils.TimeConstants
+import com.nextcloud.utils.extensions.isHuman
+import com.nextcloud.utils.extensions.time
 import com.owncloud.android.R
 import com.owncloud.android.lib.resources.assistant.chat.model.ChatMessage
+import java.time.Instant
 
 private val MIN_CHAT_HEIGHT = 60.dp
 private val CHAT_BUBBLE_CORNER_RADIUS = 8.dp
@@ -278,11 +282,55 @@ private fun MessageTextItem(message: ChatMessage) {
         )
         Spacer(modifier = Modifier.height(8.dp))
         Text(
-            text = message.timestampRepresentation(),
+            text = message.time(),
             style = TextStyle(
                 color = colorResource(R.color.text_color),
                 fontSize = 12.sp
             )
         )
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun MessageTextItemPreview() {
+    val mockMessages = listOf(
+        ChatMessage(
+            id = 1,
+            sessionId = 101,
+            role = "human",
+            content = "Hey, how are you?",
+            timestamp = Instant.now().epochSecond,
+            ocpTaskId = null,
+            sources = "",
+            attachments = emptyList()
+        ),
+        ChatMessage(
+            id = 2,
+            sessionId = 101,
+            role = "assistant",
+            content = "I'm good! Here’s a message from yesterday.",
+            timestamp = Instant.now().minusSeconds(86_400).epochSecond, // 1 day ago
+            ocpTaskId = null,
+            sources = "",
+            attachments = emptyList()
+        ),
+        ChatMessage(
+            id = 3,
+            sessionId = 101,
+            role = "human",
+            content = "And an older one from last week.",
+            timestamp = Instant.now().minusSeconds(7 * 86_400).epochSecond, // 7 days ago
+            ocpTaskId = null,
+            sources = "",
+            attachments = emptyList()
+        )
+    )
+
+    Column(modifier = Modifier.padding(16.dp)) {
+        mockMessages.forEach { message ->
+            MessageTextItem(message = message)
+            Spacer(modifier = Modifier.height(16.dp))
+        }
     }
 }
