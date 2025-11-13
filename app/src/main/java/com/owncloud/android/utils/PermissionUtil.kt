@@ -29,6 +29,8 @@ import com.nextcloud.client.preferences.AppPreferencesImpl
 import com.nextcloud.utils.extensions.getParcelableArgument
 import com.owncloud.android.R
 import com.owncloud.android.ui.dialog.StoragePermissionDialogFragment
+import com.owncloud.android.utils.PermissionUtil.PERMISSIONS_EXTERNAL_STORAGE
+import com.owncloud.android.utils.PermissionUtil.REQUEST_CODE_MANAGE_ALL_FILES
 import com.owncloud.android.utils.theme.ViewThemeUtils
 
 object PermissionUtil {
@@ -211,7 +213,7 @@ object PermissionUtil {
     }
 
     @RequiresApi(Build.VERSION_CODES.R)
-    private fun manifestHasAllFilesPermission(context: Context): Boolean {
+    fun manifestHasAllFilesPermission(context: Context): Boolean {
         val packageInfo = context.packageManager.getPackageInfo(context.packageName, PackageManager.GET_PERMISSIONS)
         return packageInfo?.requestedPermissions?.contains(Manifest.permission.MANAGE_EXTERNAL_STORAGE) ?: false
     }
