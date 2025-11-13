@@ -41,7 +41,6 @@ import com.owncloud.android.lib.resources.files.model.RemoteFile
 import com.owncloud.android.ui.dialog.ConflictsResolveDialog
 import com.owncloud.android.ui.dialog.ConflictsResolveDialog.Decision
 import com.owncloud.android.ui.dialog.ConflictsResolveDialog.OnConflictDecisionMadeListener
-import com.owncloud.android.ui.notifications.NotificationUtils
 import com.owncloud.android.utils.FileStorageUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -149,12 +148,13 @@ class ConflictsResolveActivity :
         }
     }
 
+    // notification id must be file id because only if upload failed via SYNC_CONFLICT can create conflict
+    // resolve activity
     private fun dismissConflictResolveNotification(file: OCFile?) {
-        file ?: return
-
-        val notificationManager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
-        val tag = NotificationUtils.createUploadNotificationTag(file)
-        notificationManager.cancel(tag, FileUploadWorker.NOTIFICATION_ERROR_ID)
+        file?.let {
+            val notificationManager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
+            notificationManager.cancel(file.fileId.toInt())
+        }
     }
 
     private fun keepBothFolder(offlineOperation: OfflineOperationEntity?, serverFile: OCFile?) {

@@ -8,10 +8,8 @@
 package com.nextcloud.client.jobs.autoUpload
 
 import android.app.Notification
-import android.app.NotificationManager
 import android.content.Context
 import android.content.res.Resources
-import androidx.core.app.NotificationCompat
 import androidx.exifinterface.media.ExifInterface
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
@@ -22,12 +20,12 @@ import com.nextcloud.client.database.entity.toOCUpload
 import com.nextcloud.client.database.entity.toUploadEntity
 import com.nextcloud.client.device.PowerManagementService
 import com.nextcloud.client.jobs.BackgroundJobManager
+import com.nextcloud.client.jobs.upload.FileUploadHelper
 import com.nextcloud.client.jobs.upload.FileUploadWorker
-import com.nextcloud.client.jobs.utils.SyncConflictManager
+import com.nextcloud.client.jobs.utils.UploadErrorNotificationManager
 import com.nextcloud.client.network.ConnectivityService
 import com.nextcloud.client.preferences.SubFolderRule
 import com.nextcloud.utils.ForegroundServiceHelper
-import com.nextcloud.utils.extensions.isFileSpecificError
 import com.nextcloud.utils.extensions.updateStatus
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.ArbitraryDataProviderImpl
@@ -40,14 +38,13 @@ import com.owncloud.android.datamodel.UploadsStorageManager
 import com.owncloud.android.db.OCUpload
 import com.owncloud.android.lib.common.OwnCloudAccount
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory
-import com.owncloud.android.lib.common.operations.RemoteOperationResult
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.operations.UploadFileOperation
 import com.owncloud.android.ui.activity.SettingsActivity
-import com.owncloud.android.ui.notifications.NotificationUtils
 import com.owncloud.android.utils.FileStorageUtils
 import com.owncloud.android.utils.FilesSyncHelper
 import com.owncloud.android.utils.MimeType
+import com.owncloud.android.utils.theme.ViewThemeUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.io.File
@@ -66,7 +63,8 @@ class AutoUploadWorker(
     private val powerManagementService: PowerManagementService,
     private val syncedFolderProvider: SyncedFolderProvider,
     private val backgroundJobManager: BackgroundJobManager,
-    private val repository: FileSystemRepository
+    private val repository: FileSystemRepository,
+    val viewThemeUtils: ViewThemeUtils,
 ) : CoroutineWorker(context, params) {
 
     companion object {
@@ -74,17 +72,12 @@ class AutoUploadWorker(
         const val OVERRIDE_POWER_SAVING = "overridePowerSaving"
         const val CONTENT_URIS = "content_uris"
         const val SYNCED_FOLDER_ID = "syncedFolderId"
-        private const val CHANNEL_ID = NotificationUtils.NOTIFICATION_CHANNEL_UPLOAD
-
-        private const val NOTIFICATION_ID = 266
-        private const val NOTIFICATION_ERROR_ID = 813
+        const val NOTIFICATION_ID = 266
     }
 
     private val helper = AutoUploadHelper()
     private lateinit var syncedFolder: SyncedFolder
-    private val notificationManager by lazy {
-        context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-    }
+    private val notificationManager = AutoUploadNotificationManager(context, viewThemeUtils, NOTIFICATION_ID)
 
     @Suppress("TooGenericExceptionCaught", "ReturnCount")
     override suspend fun doWork(): Result {
@@ -128,7 +121,7 @@ class AutoUploadWorker(
                 )
             )
 
-            notificationManager.notify(NOTIFICATION_ID, startNotification)
+            notificationManager.showNotification(startNotification)
         }
     }
 
@@ -141,9 +134,7 @@ class AutoUploadWorker(
         setForeground(foregroundInfo)
     }
 
-    private fun notificationBuilder(): NotificationCompat.Builder = NotificationCompat.Builder(context, CHANNEL_ID)
-
-    private fun createNotification(title: String): Notification = notificationBuilder()
+    private fun createNotification(title: String): Notification = notificationManager.notificationBuilder
         .setContentTitle(title)
         .setSmallIcon(R.drawable.uploads)
         .setOngoing(true)
@@ -265,7 +256,7 @@ class AutoUploadWorker(
                 SettingsActivity.SYNCED_FOLDER_LIGHT_UPLOAD_ON_WIFI
             )
             val uploadActionString = context.resources.getString(R.string.syncedFolder_light_upload_behaviour)
-            val uploadAction = getUploadAction(uploadActionString)
+            val uploadAction = FileUploadWorker.getUploadAction(uploadActionString)
             Log_OC.d(TAG, "upload action is: $uploadAction")
             Triple(needsCharging, needsWifi, uploadAction)
         } else {
@@ -319,7 +310,21 @@ class AutoUploadWorker(
 
                         val result = operation.execute(client)
                         uploadsStorageManager.updateStatus(uploadEntity, result.isSuccess)
-                        handleUploadResult(operation, result)
+
+                        val isSameFileOnRemote = FileUploadHelper.instance().isSameFileOnRemote(
+                            operation.user,
+                            File(operation.storagePath),
+                            operation.remotePath,
+                            context
+                        )
+
+                        UploadErrorNotificationManager.handleUploadResult(
+                            context,
+                            notificationManager,
+                            isSameFileOnRemote,
+                            operation,
+                            result
+                        )
 
                         if (result.isSuccess) {
                             repository.markFileAsUploaded(localPath, syncedFolder)
@@ -476,37 +481,5 @@ class AutoUploadWorker(
             }
         }
         return lastModificationTime
-    }
-
-    private fun getUploadAction(action: String): Int = when (action) {
-        "LOCAL_BEHAVIOUR_FORGET" -> FileUploadWorker.LOCAL_BEHAVIOUR_FORGET
-        "LOCAL_BEHAVIOUR_MOVE" -> FileUploadWorker.LOCAL_BEHAVIOUR_MOVE
-        "LOCAL_BEHAVIOUR_DELETE" -> FileUploadWorker.LOCAL_BEHAVIOUR_DELETE
-        else -> FileUploadWorker.LOCAL_BEHAVIOUR_FORGET
-    }
-
-    private fun handleUploadResult(operation: UploadFileOperation, result: RemoteOperationResult<Any?>) {
-        Log_OC.d(TAG, "handleUploadResult with resultCode: " + result.code)
-        val notificationBuilder = notificationBuilder()
-
-        val notification = SyncConflictManager.getNotification(
-            context,
-            notificationBuilder,
-            operation,
-            result,
-            notifyOnSameFileExists = {
-                operation.handleLocalBehaviour()
-            }
-        ) ?: return
-
-        if (result.code.isFileSpecificError()) {
-            notificationManager.notify(
-                NotificationUtils.createUploadNotificationTag(operation.file),
-                NOTIFICATION_ERROR_ID,
-                notification
-            )
-        } else {
-            notificationManager.notify(NOTIFICATION_ID, notification)
-        }
     }
 }

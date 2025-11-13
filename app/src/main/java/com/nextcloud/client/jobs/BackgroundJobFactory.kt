@@ -179,7 +179,8 @@ class BackgroundJobFactory @Inject constructor(
         powerManagementService = powerManagementService,
         syncedFolderProvider = syncedFolderProvider,
         backgroundJobManager = backgroundJobManager.get(),
-        repository = FileSystemRepository(dao = database.fileSystemDao())
+        repository = FileSystemRepository(dao = database.fileSystemDao()),
+        viewThemeUtils = viewThemeUtils.get()
     )
 
     private fun createOfflineSyncWork(context: Context, params: WorkerParameters): OfflineSyncWork = OfflineSyncWork(

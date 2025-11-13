@@ -18,14 +18,13 @@ import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.device.PowerManagementService
 import com.nextcloud.client.jobs.BackgroundJobManager
 import com.nextcloud.client.jobs.BackgroundJobManagerImpl
-import com.nextcloud.client.jobs.utils.SyncConflictManager
+import com.nextcloud.client.jobs.utils.UploadErrorNotificationManager
 import com.nextcloud.client.network.ConnectivityService
 import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.model.WorkerState
 import com.nextcloud.model.WorkerStateLiveData
 import com.nextcloud.utils.ForegroundServiceHelper
 import com.nextcloud.utils.extensions.getPercent
-import com.nextcloud.utils.extensions.isFileSpecificError
 import com.nextcloud.utils.extensions.updateStatus
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.FileDataStorageManager
@@ -117,6 +116,13 @@ class FileUploadWorker(
             }
 
             return false
+        }
+
+        fun getUploadAction(action: String): Int = when (action) {
+            "LOCAL_BEHAVIOUR_FORGET" -> LOCAL_BEHAVIOUR_FORGET
+            "LOCAL_BEHAVIOUR_MOVE" -> LOCAL_BEHAVIOUR_MOVE
+            "LOCAL_BEHAVIOUR_DELETE" -> LOCAL_BEHAVIOUR_DELETE
+            else -> LOCAL_BEHAVIOUR_FORGET
         }
     }
 
@@ -329,61 +335,51 @@ class FileUploadWorker(
     }
 
     @Suppress("TooGenericExceptionCaught", "DEPRECATION")
-    private fun upload(
-        uploadFileOperation: UploadFileOperation,
+    private suspend fun upload(
+        operation: UploadFileOperation,
         user: User,
         client: OwnCloudClient
-    ): RemoteOperationResult<Any?> {
+    ): RemoteOperationResult<Any?> = withContext(Dispatchers.IO) {
         lateinit var result: RemoteOperationResult<Any?>
 
+        val isSameFileOnRemote = FileUploadHelper.instance().isSameFileOnRemote(
+            operation.user,
+            File(operation.storagePath),
+            operation.remotePath,
+            context
+        )
+
         try {
-            val storageManager = uploadFileOperation.storageManager
-            result = uploadFileOperation.execute(client)
+            val storageManager = operation.storageManager
+            result = operation.execute(client)
             val task = ThumbnailsCacheManager.ThumbnailGenerationTask(storageManager, user)
-            val file = File(uploadFileOperation.originalStoragePath)
-            val remoteId: String? = uploadFileOperation.file.remoteId
+            val file = File(operation.originalStoragePath)
+            val remoteId: String? = operation.file.remoteId
             task.execute(ThumbnailsCacheManager.ThumbnailGenerationTaskObject(file, remoteId))
         } catch (e: Exception) {
             Log_OC.e(TAG, "Error uploading", e)
             result = RemoteOperationResult<Any?>(e)
         } finally {
-            cleanupUploadProcess(result, uploadFileOperation)
-        }
-
-        return result
-    }
-
-    private fun cleanupUploadProcess(result: RemoteOperationResult<Any?>, uploadFileOperation: UploadFileOperation) {
-        if (!isStopped || !result.isCancelled) {
-            uploadsStorageManager.updateDatabaseUploadResult(result, uploadFileOperation)
-            handleUploadResult(uploadFileOperation, result)
-        }
-    }
-
-    private fun handleUploadResult(operation: UploadFileOperation, result: RemoteOperationResult<Any?>) {
-        Log_OC.d(TAG, "handleUploadResult with resultCode: " + result.code)
-        val showSameFileAlreadyExistsNotification =
-            inputData.getBoolean(SHOW_SAME_FILE_ALREADY_EXISTS_NOTIFICATION, false)
-
-        val notification = SyncConflictManager.getNotification(
-            context,
-            notificationManager.notificationBuilder,
-            operation,
-            result,
-            notifyOnSameFileExists = {
-                if (showSameFileAlreadyExistsNotification) {
-                    notificationManager.showSameFileAlreadyExistsNotification(operation.fileName)
-                }
-
-                operation.handleLocalBehaviour()
+            if (!isStopped || !result.isCancelled) {
+                uploadsStorageManager.updateDatabaseUploadResult(result, operation)
+                UploadErrorNotificationManager.handleUploadResult(
+                    context,
+                    notificationManager,
+                    isSameFileOnRemote,
+                    operation,
+                    result,
+                    showSameFileAlreadyExistsNotification =  {
+                        val showSameFileAlreadyExistsNotification =
+                            inputData.getBoolean(SHOW_SAME_FILE_ALREADY_EXISTS_NOTIFICATION, false)
+                        if (showSameFileAlreadyExistsNotification) {
+                            notificationManager.showSameFileAlreadyExistsNotification(operation.fileName)
+                        }
+                    }
+                )
             }
-        ) ?: return
-
-        if (result.code.isFileSpecificError()) {
-            notificationManager.showNewNotification(operation, notification)
-        } else {
-            notificationManager.showNotification(notification)
         }
+
+        return@withContext result
     }
 
     @Suppress("MagicNumber")
