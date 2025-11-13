@@ -1,0 +1,9 @@
+## 3.34.1 RC1 (November 13, 2025)
+
+- Auto rename and file name validation are now skipped when Windows compatibility enforcement is disabled.
+- Pagination has been added to the local file listing for improved navigation and performance.
+- Various bug fixes and stability improvements.
+
+Minimum: NC 18 Server, Android 8.1 Nougat
+
+For a full list, please see https://github.com/nextcloud/android/milestone/117
