@@ -191,18 +191,14 @@ private fun ConversationList(
 }
 
 @Composable
-private fun ConversationListItem(
-    conversation: Conversation,
-    onClick: () -> Unit,
-    onLongPressed: () -> Unit
-) {
+private fun ConversationListItem(conversation: Conversation, onClick: () -> Unit, onLongPressed: () -> Unit) {
     Surface(
         modifier = Modifier
             .fillMaxWidth()
             .combinedClickable(
                 onClick = onClick,
                 onLongClick = onLongPressed
-            ),
+            )
     ) {
         Row(
             modifier = Modifier

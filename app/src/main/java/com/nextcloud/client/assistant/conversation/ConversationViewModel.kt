@@ -80,7 +80,7 @@ class ConversationViewModel(private val remoteRepository: ConversationRemoteRepo
     }
 
     fun deleteConversation(sessionId: String) {
-        Log_OC.d("","BBBB: $sessionId")
+        Log_OC.d("", "BBBB: $sessionId")
         viewModelScope.launch(Dispatchers.IO) {
             val success = remoteRepository.deleteConversation(sessionId)
             if (success) {
