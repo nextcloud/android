@@ -14,6 +14,7 @@ import com.nextcloud.client.assistant.model.ScreenOverlayState
 import com.nextcloud.client.assistant.repository.local.AssistantLocalRepository
 import com.nextcloud.client.assistant.repository.remote.AssistantRemoteRepository
 import com.nextcloud.utils.TimeConstants.MILLIS_PER_SECOND
+import com.nextcloud.utils.extensions.isHuman
 import com.owncloud.android.R
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.lib.resources.assistant.chat.model.ChatMessage
