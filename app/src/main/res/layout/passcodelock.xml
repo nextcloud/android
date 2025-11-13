@@ -51,7 +51,7 @@
                     android:id="@+id/explanation"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/pass_code_configure_your_pass_code_explanation"
+                    android:text="@string/pass_code_explanation"
                     android:textAppearance="@android:style/TextAppearance.Small"
                     android:textSize="@dimen/two_line_secondary_text_size" />
 

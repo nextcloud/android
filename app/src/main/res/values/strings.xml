@@ -353,7 +353,7 @@
     <string name="credentials_disabled">Credentials disabled</string>
 
     <string name="pass_code_configure_your_pass_code">Enter your passcode</string>
-    <string name="pass_code_configure_your_pass_code_explanation">The passcode will be requested every time the app is started</string>
+    <string name="pass_code_explanation">The passcode will be requested every time the app is opened or reopened after 5 seconds.</string>
     <string name="pass_code_reenter_your_pass_code">Please reenter your passcode</string>
     <string name="pass_code_remove_your_pass_code">Delete your passcode</string>
     <string name="pass_code_mismatch">The passcodes are not the same</string>
