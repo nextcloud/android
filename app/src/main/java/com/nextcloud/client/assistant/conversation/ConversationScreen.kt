@@ -9,47 +9,51 @@
 
 package com.nextcloud.client.assistant.conversation
 
+import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Close
-import androidx.compose.material.icons.outlined.Delete
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.FilledTonalButton
+import androidx.compose.material3.FabPosition
+import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableLongStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.nextcloud.client.assistant.conversation.model.ConversationScreenState
+import com.nextcloud.ui.composeComponents.bottomSheet.MoreActionsBottomSheet
 import com.owncloud.android.R
 import com.owncloud.android.lib.resources.assistant.chat.model.Conversation
 
@@ -94,11 +98,14 @@ fun ConversationScreen(viewModel: ConversationViewModel, close: () -> Unit, open
         snackbarHost = {
             SnackbarHost(snackbarHostState)
         },
-        bottomBar = {
-            CreateConversationButton(onClick = {
+        floatingActionButton = {
+            FloatingActionButton(onClick = {
                 viewModel.createConversation(null)
-            })
-        }
+            }) {
+                Icon(Icons.Filled.Add, "Floating action button.")
+            }
+        },
+        floatingActionButtonPosition = FabPosition.EndOverlay
     ) { innerPadding ->
         when (screenState) {
             is ConversationScreenState.Loading -> {
@@ -125,8 +132,8 @@ fun ConversationScreen(viewModel: ConversationViewModel, close: () -> Unit, open
 
             else -> {
                 ConversationList(
+                    viewModel = viewModel,
                     conversations = conversations,
-                    onDeleteClick = { viewModel.deleteConversation(it.id.toString()) },
                     modifier = Modifier.padding(innerPadding),
                     openChat = openChat
                 )
@@ -137,11 +144,13 @@ fun ConversationScreen(viewModel: ConversationViewModel, close: () -> Unit, open
 
 @Composable
 private fun ConversationList(
+    viewModel: ConversationViewModel,
     conversations: List<Conversation>,
-    onDeleteClick: (Conversation) -> Unit,
     modifier: Modifier = Modifier,
     openChat: (Long) -> Unit
 ) {
+    var selectedConversationId by remember { mutableLongStateOf(-1L) }
+
     LazyColumn(
         modifier = modifier
             .fillMaxSize()
@@ -154,71 +163,60 @@ private fun ConversationList(
                 onClick = {
                     openChat(conversation.id)
                 },
-                onDeleteClick = { onDeleteClick(conversation) }
-            )
-            Spacer(modifier = Modifier.height(8.dp))
-        }
-    }
-}
-
-@Composable
-private fun ConversationListItem(conversation: Conversation, onClick: () -> Unit, onDeleteClick: () -> Unit) {
-    Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.BottomCenter) {
-        FilledTonalButton(
-            onClick = onClick,
-            shape = RoundedCornerShape(8.dp),
-            contentPadding = PaddingValues(vertical = 12.dp, horizontal = 16.dp)
-        ) {
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier
-                    .height(BUTTON_HEIGHT)
-            ) {
-                Text(
-                    text = conversation.titleRepresentation(),
-                    style = MaterialTheme.typography.bodyLarge
-                )
-
-                Spacer(modifier = Modifier.weight(1f))
-
-                IconButton(
-                    onClick = onDeleteClick
-                ) {
-                    Icon(
-                        imageVector = Icons.Outlined.Delete,
-                        contentDescription = "Delete conversation"
-                    )
+                onLongPressed = {
+                    selectedConversationId = conversation.id
                 }
-            }
+            )
+            Spacer(modifier = Modifier.height(4.dp))
         }
+    }
+
+    if (selectedConversationId != -1L) {
+        val bottomSheetAction = listOf(
+            Triple(
+                R.drawable.ic_delete,
+                R.string.conversation_screen_delete_button_title
+            ) {
+                viewModel.deleteConversation(selectedConversationId.toString())
+                selectedConversationId = -1L
+            }
+        )
+
+        MoreActionsBottomSheet(
+            actions = bottomSheetAction,
+            dismiss = { selectedConversationId = -1L }
+        )
     }
 }
 
 @Composable
-private fun CreateConversationButton(onClick: () -> Unit) {
-    Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.BottomCenter) {
-        OutlinedButton(
-            onClick = onClick,
-            shape = RoundedCornerShape(8.dp),
-            contentPadding = PaddingValues(vertical = 12.dp, horizontal = 16.dp)
+private fun ConversationListItem(
+    conversation: Conversation,
+    onClick: () -> Unit,
+    onLongPressed: () -> Unit
+) {
+    Surface(
+        modifier = Modifier
+            .fillMaxWidth()
+            .combinedClickable(
+                onClick = onClick,
+                onLongClick = onLongPressed
+            ),
+    ) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 8.dp, vertical = 6.dp),
+            verticalAlignment = Alignment.CenterVertically
         ) {
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.Center,
-                modifier = Modifier
-                    .fillMaxWidth(0.8f)
-                    .height(BUTTON_HEIGHT)
-            ) {
-                Text(
-                    text = stringResource(R.string.conversation_screen_create_button_title),
-                    style = MaterialTheme.typography.bodyLarge
-                )
-                Spacer(modifier = Modifier.width(8.dp))
-                Icon(
-                    imageVector = Icons.Default.Add,
-                    contentDescription = "Add conversation"
-                )
-            }
+            Text(
+                text = conversation.titleRepresentation(),
+                style = MaterialTheme.typography.bodyLarge.copy(fontSize = 16.sp),
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis,
+                color = colorResource(R.color.text_color),
+                modifier = Modifier.weight(1f)
+            )
         }
     }
 }
@@ -238,7 +236,5 @@ private fun ConversationListPreview() {
         })
 
         Spacer(modifier = Modifier.height(8.dp))
-
-        CreateConversationButton { }
     }
 }
