@@ -9,27 +9,11 @@
  */
 package com.nextcloud.android.sso;
 
-import org.apache.commons.httpclient.methods.ByteArrayRequestEntity;
 import org.apache.commons.httpclient.methods.EntityEnclosingMethod;
 import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.commons.httpclient.methods.RequestEntity;
-import org.apache.commons.httpclient.util.EncodingUtil;
-
-import java.util.Vector;
 
 public class PatchMethod extends PostMethod {
-
-    /**
-     * The buffered request body consisting of <code>NameValuePair</code>s.
-     */
-    private Vector params = new Vector();
-
-    /**
-     * No-arg constructor.
-     */
-    public PatchMethod() {
-        super();
-    }
 
     /**
      * Constructor specifying a URI.
@@ -58,11 +42,7 @@ public class PatchMethod extends PostMethod {
      * @since 2.0beta1
      */
     protected boolean hasRequestContent() {
-        if (!this.params.isEmpty()) {
-            return true;
-        } else {
-            return super.hasRequestContent();
-        }
+        return super.hasRequestContent();
     }
 
     /**
@@ -71,7 +51,6 @@ public class PatchMethod extends PostMethod {
      * @since 2.0beta1
      */
     protected void clearRequestBody() {
-        this.params.clear();
         super.clearRequestBody();
     }
 
@@ -82,19 +61,6 @@ public class PatchMethod extends PostMethod {
      * @since 3.0
      */
     protected RequestEntity generateRequestEntity() {
-        if (!this.params.isEmpty()) {
-            // Use a ByteArrayRequestEntity instead of a StringRequestEntity.
-            // This is to avoid potential encoding issues.  Form url encoded strings
-            // are ASCII by definition but the content type may not be.  Treating the content
-            // as bytes allows us to keep the current charset without worrying about how
-            // this charset will effect the encoding of the form url encoded string.
-            String content = EncodingUtil.formUrlEncode(getParameters(), getRequestCharSet());
-            return new ByteArrayRequestEntity(
-                EncodingUtil.getAsciiBytes(content),
-                FORM_URL_ENCODED_CONTENT_TYPE
-            );
-        } else {
-            return super.generateRequestEntity();
-        }
+        return super.generateRequestEntity();
     }
 }
