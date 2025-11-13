@@ -78,7 +78,7 @@ configurations.configureEach {
 def versionMajor = 3
 def versionMinor = 34
 def versionPatch = 1
-def versionBuild = 51 // 0-50=Alpha / 51-98=RC / 90-99=stable
+def versionBuild = 90 // 0-50=Alpha / 51-98=RC / 90-99=stable
 
 
 def ndkEnv = new HashMap<String, String>()
@@ -116,7 +116,7 @@ android {
         applicationId = "com.nextcloud.client"
         minSdk = 27
         targetSdk = 35
-        compileSdk = 36
+        compileSdk = 35
 
         buildConfigField "boolean", "CI", ciBuild.toString()
         buildConfigField "boolean", "RUNTIME_PERF_ANALYSIS", perfAnalysis.toString()
