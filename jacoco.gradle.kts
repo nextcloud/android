@@ -26,7 +26,7 @@ configure<JacocoPluginExtension> {
 
 val flavor = "gplay"
 val buildType = "Debug"
-val variant = "${flavor}${buildType.replaceFirstChar(Char::titlecase)}"
+val variant = "${flavor.replaceFirstChar(Char::titlecase)}${buildType.replaceFirstChar(Char::titlecase)}"
 
 val fileFilter = listOf(
     // data binding
