@@ -63,7 +63,7 @@ class ConversationViewModel(private val remoteRepository: ConversationRemoteRepo
         }
     }
 
-    fun createConversation(title: String?) {
+    fun createConversation(title: String?, onResult: (Long) -> Unit) {
         viewModelScope.launch(Dispatchers.IO) {
             val timestamp = System.currentTimeMillis().div(MILLIS_PER_SECOND)
             val newConversation = remoteRepository.createConversation(title, timestamp)
@@ -71,6 +71,7 @@ class ConversationViewModel(private val remoteRepository: ConversationRemoteRepo
                 _conversations.update {
                     listOf(newConversation.session) + it
                 }
+                onResult(newConversation.session.id)
             } else {
                 _errorMessageId.update {
                     R.string.conversation_screen_create_error_title
