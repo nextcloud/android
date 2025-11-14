@@ -40,6 +40,7 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewTreeObserver.OnGlobalLayoutListener
 import android.view.WindowManager.BadTokenException
+import android.view.inputmethod.InputMethodManager
 import androidx.activity.OnBackPressedCallback
 import androidx.annotation.VisibleForTesting
 import androidx.appcompat.widget.SearchView
@@ -888,9 +889,12 @@ class FileDisplayActivity :
         val searchMenuItem = menu.findItem(R.id.action_search)
         searchView = MenuItemCompat.getActionView(searchMenuItem) as SearchView?
         searchMenuItem.isVisible = false
-        mSearchText.setOnClickListener { v: View? ->
+        mSearchText.setOnClickListener {
             showSearchView()
-            searchView?.isIconified = false
+            searchView?.postDelayed({
+                searchView?.isIconified = false
+                searchView?.requestFocusFromTouch()
+            }, 100)
         }
 
         searchView?.let { viewThemeUtils.androidx.themeToolbarSearchView(it) }
@@ -961,7 +965,11 @@ class FileDisplayActivity :
             ) {
                 openDrawer()
             } else {
-                onBackPressedDispatcher.onBackPressed()
+                if (isSearchOpen()) {
+                    resetSearchAction()
+                } else {
+                    onBackPressedDispatcher.onBackPressed()
+                }
             }
         } else if (itemId == R.id.action_select_all) {
             val fragment = this.listOfFilesFragment
@@ -1239,9 +1247,11 @@ class FileDisplayActivity :
             return
         }
 
-        searchView?.setQuery("", true)
-        searchView?.onActionViewCollapsed()
         searchView?.clearFocus()
+        val imm = getSystemService(INPUT_METHOD_SERVICE) as? InputMethodManager
+        imm?.hideSoftInputFromWindow(searchView?.windowToken, 0)
+        searchView?.setQuery("", false)
+        searchView?.onActionViewCollapsed()
 
         if (isRoot(getCurrentDir()) && leftFragment is OCFileListFragment) {
             // Remove the list to the original state
@@ -1249,7 +1259,6 @@ class FileDisplayActivity :
                 val listOfHiddenFiles = adapter.listOfHiddenFiles
                 leftFragment.performSearch("", listOfHiddenFiles, true)
             }
-
             hideSearchView(getCurrentDir())
             setDrawerIndicatorEnabled(isDrawerIndicatorAvailable)
         }
