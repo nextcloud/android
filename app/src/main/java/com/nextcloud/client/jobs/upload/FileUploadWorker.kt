@@ -360,7 +360,7 @@ class FileUploadWorker(
                     notificationManager,
                     operation,
                     result,
-                    showSameFileAlreadyExistsNotification =  {
+                    showSameFileAlreadyExistsNotification = {
                         withContext(Dispatchers.Main) {
                             val showSameFileAlreadyExistsNotification =
                                 inputData.getBoolean(SHOW_SAME_FILE_ALREADY_EXISTS_NOTIFICATION, false)

@@ -27,7 +27,6 @@ import com.owncloud.android.utils.ErrorMessageAdapter
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.io.File
-import java.security.SecureRandom
 
 object UploadErrorNotificationManager {
     private const val TAG = "UploadErrorNotificationManager"
@@ -38,7 +37,7 @@ object UploadErrorNotificationManager {
         operation: UploadFileOperation,
         result: RemoteOperationResult<Any?>,
         showSameFileAlreadyExistsNotification: suspend () -> Unit = {}
-    )  {
+    ) {
         Log_OC.d(TAG, "handle upload result with result code: " + result.code)
 
         val notification = withContext(Dispatchers.IO) {
@@ -66,7 +65,7 @@ object UploadErrorNotificationManager {
 
         withContext(Dispatchers.Main) {
             if (result.code.isFileSpecificError()) {
-                notificationManager.showNotification(operation.file.fileId.toInt(), notification)
+                notificationManager.showNotification(operation.ocUploadId.toInt(), notification)
             } else {
                 notificationManager.showNotification(notification)
             }
@@ -106,7 +105,7 @@ object UploadErrorNotificationManager {
                 addAction(
                     R.drawable.ic_delete,
                     context.getString(R.string.upload_list_cancel_upload),
-                    cancelUploadPendingIntent(context, operation)
+                    FileUploadBroadcastReceiver.getBroadcast(context, operation.ocUploadId.toInt())
                 )
             }
 
@@ -147,7 +146,7 @@ object UploadErrorNotificationManager {
         val intent = ConflictsResolveActivity.createIntent(
             operation.file,
             operation.user,
-            operation.ocUploadId,
+            conflictUploadId = operation.ocUploadId,
             Intent.FLAG_ACTIVITY_CLEAR_TOP,
             context
         ).apply {
@@ -155,23 +154,11 @@ object UploadErrorNotificationManager {
             setPackage(context.packageName)
         }
 
-        return PendingIntent.getActivity(context, SecureRandom().nextInt(), intent, PendingIntent.FLAG_IMMUTABLE)
-    }
-
-    private fun cancelUploadPendingIntent(context: Context, operation: UploadFileOperation): PendingIntent {
-        val intent = Intent(context, FileUploadBroadcastReceiver::class.java).apply {
-            putExtra(FileUploadBroadcastReceiver.UPLOAD_ID, operation.ocUploadId)
-            putExtra(FileUploadBroadcastReceiver.REMOTE_PATH, operation.file.remotePath)
-            putExtra(FileUploadBroadcastReceiver.STORAGE_PATH, operation.file.storagePath)
-            setClass(context, FileUploadBroadcastReceiver::class.java)
-            setPackage(context.packageName)
-        }
-
-        return PendingIntent.getBroadcast(
+        return PendingIntent.getActivity(
             context,
-            operation.file.fileId.toInt(),
+            operation.ocUploadId.toInt(),
             intent,
-            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+            PendingIntent.FLAG_IMMUTABLE
         )
     }
 

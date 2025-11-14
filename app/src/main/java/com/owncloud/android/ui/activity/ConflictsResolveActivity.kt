@@ -130,7 +130,7 @@ class ConflictsResolveActivity :
                 updateThumbnailIfNeeded(decision, file, oldFile)
             }
 
-            dismissConflictResolveNotification(file)
+            dismissConflictResolveNotification()
             finish()
         }
     }
@@ -148,13 +148,9 @@ class ConflictsResolveActivity :
         }
     }
 
-    // notification id must be file id because only if upload failed via SYNC_CONFLICT can create conflict
-    // resolve activity
-    private fun dismissConflictResolveNotification(file: OCFile?) {
-        file?.let {
-            val notificationManager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
-            notificationManager.cancel(file.fileId.toInt())
-        }
+    private fun dismissConflictResolveNotification() {
+        val notificationManager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
+        notificationManager.cancel(conflictUploadId.toInt())
     }
 
     private fun keepBothFolder(offlineOperation: OfflineOperationEntity?, serverFile: OCFile?) {
