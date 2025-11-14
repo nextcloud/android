@@ -264,16 +264,12 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
                 clearTempEncryptedFolder();
                 loadUploadItemsFromDb();
             } else if (itemId == R.id.action_upload_list_failed_retry) {
-
-                // FIXME For e2e resume is not working
-                new Thread(() -> {
-                    uploadHelper.retryFailedUploads(
-                        uploadsStorageManager,
-                        connectivityService,
-                        accountManager,
-                        powerManagementService);
-                    loadUploadItemsFromDb();
-                }).start();
+                uploadHelper.retryFailedUploads(
+                    uploadsStorageManager,
+                    connectivityService,
+                    accountManager,
+                    powerManagementService);
+                loadUploadItemsFromDb();
             }
 
             return true;

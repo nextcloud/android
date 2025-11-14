@@ -24,7 +24,6 @@ import com.nextcloud.client.jobs.upload.FileUploadHelper;
 import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.utils.extensions.UriExtensionsKt;
 import com.owncloud.android.MainApp;
-import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.FilesystemDataProvider;
 import com.owncloud.android.datamodel.MediaFolderType;
 import com.owncloud.android.datamodel.SyncedFolder;
@@ -222,11 +221,11 @@ public final class FilesSyncHelper {
                                               final ConnectivityService connectivityService,
                                               final PowerManagementService powerManagementService) {
         Log_OC.d(TAG, "restartUploadsIfNeeded, called");
-        new Thread(() -> FileUploadHelper.Companion.instance().retryFailedUploads(
+        FileUploadHelper.Companion.instance().retryFailedUploads(
             uploadsStorageManager,
             connectivityService,
             accountManager,
-            powerManagementService)).start();
+            powerManagementService);
     }
 
     public static void scheduleFilesSyncForAllFoldersIfNeeded(Context context, SyncedFolderProvider syncedFolderProvider, BackgroundJobManager jobManager) {
