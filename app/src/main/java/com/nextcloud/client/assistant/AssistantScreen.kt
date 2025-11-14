@@ -69,6 +69,7 @@ import com.nextcloud.client.assistant.taskTypes.TaskTypesRow
 import com.nextcloud.ui.composeActivity.ComposeActivity
 import com.nextcloud.ui.composeComponents.alertDialog.SimpleAlertDialog
 import com.nextcloud.ui.composeComponents.bottomSheet.MoreActionsBottomSheet
+import com.nextcloud.utils.extensions.getChat
 import com.owncloud.android.R
 import com.owncloud.android.lib.resources.assistant.v2.model.Task
 import com.owncloud.android.lib.resources.assistant.v2.model.TaskTypeData
@@ -122,7 +123,8 @@ fun AssistantScreen(
     }
 
     HorizontalPager(
-        state = pagerState
+        state = pagerState,
+        userScrollEnabled = taskTypes.getChat() != null
     ) { page ->
         when (page) {
             0 -> {
@@ -132,7 +134,7 @@ fun AssistantScreen(
                     }
                 }, openChat = { newSessionId ->
                     viewModel.initSessionId(newSessionId)
-                    taskTypes?.find { it.isChat() }?.let { chatTaskType ->
+                    taskTypes.getChat()?.let { chatTaskType ->
                         viewModel.selectTaskType(chatTaskType)
                     }
                     scope.launch {
@@ -386,7 +388,7 @@ private fun EmptyContent(paddingValues: PaddingValues, iconId: Int?, description
         titleId?.let {
             Text(
                 text = stringResource(titleId),
-                fontSize = MaterialTheme.typography.headlineSmall.fontSize,
+                style = MaterialTheme.typography.headlineSmall,
                 textAlign = TextAlign.Center,
                 color = colorResource(R.color.text_color)
             )
@@ -396,7 +398,7 @@ private fun EmptyContent(paddingValues: PaddingValues, iconId: Int?, description
         descriptionId?.let {
             Text(
                 text = stringResource(descriptionId),
-                fontSize = MaterialTheme.typography.bodyMedium.fontSize,
+                style = MaterialTheme.typography.bodyMedium,
                 textAlign = TextAlign.Center,
                 color = colorResource(R.color.text_color)
             )
