@@ -16,6 +16,7 @@ import androidx.room.TypeConverters
 import com.nextcloud.client.core.Clock
 import com.nextcloud.client.core.ClockImpl
 import com.nextcloud.client.database.dao.ArbitraryDataDao
+import com.nextcloud.client.database.dao.AssistantDao
 import com.nextcloud.client.database.dao.FileDao
 import com.nextcloud.client.database.dao.FileSystemDao
 import com.nextcloud.client.database.dao.OfflineOperationDao
@@ -23,6 +24,7 @@ import com.nextcloud.client.database.dao.RecommendedFileDao
 import com.nextcloud.client.database.dao.SyncedFolderDao
 import com.nextcloud.client.database.dao.UploadDao
 import com.nextcloud.client.database.entity.ArbitraryDataEntity
+import com.nextcloud.client.database.entity.AssistantEntity
 import com.nextcloud.client.database.entity.CapabilityEntity
 import com.nextcloud.client.database.entity.ExternalLinkEntity
 import com.nextcloud.client.database.entity.FileEntity
@@ -39,6 +41,7 @@ import com.nextcloud.client.database.migrations.Migration67to68
 import com.nextcloud.client.database.migrations.RoomMigration
 import com.nextcloud.client.database.migrations.addLegacyMigrations
 import com.nextcloud.client.database.typeConverter.OfflineOperationTypeConverter
+import com.owncloud.android.MainApp
 import com.owncloud.android.db.ProviderMeta
 
 @Database(
@@ -53,7 +56,8 @@ import com.owncloud.android.db.ProviderMeta
         UploadEntity::class,
         VirtualEntity::class,
         OfflineOperationEntity::class,
-        RecommendedFileEntity::class
+        RecommendedFileEntity::class,
+        AssistantEntity::class
     ],
     version = ProviderMeta.DB_VERSION,
     autoMigrations = [
@@ -85,7 +89,8 @@ import com.owncloud.android.db.ProviderMeta
         AutoMigration(from = 91, to = 92),
         AutoMigration(from = 92, to = 93, spec = DatabaseMigrationUtil.ResetCapabilitiesPostMigration::class),
         AutoMigration(from = 93, to = 94, spec = DatabaseMigrationUtil.ResetCapabilitiesPostMigration::class),
-        AutoMigration(from = 94, to = 95, spec = DatabaseMigrationUtil.ResetCapabilitiesPostMigration::class)
+        AutoMigration(from = 94, to = 95, spec = DatabaseMigrationUtil.ResetCapabilitiesPostMigration::class),
+        AutoMigration(from = 95, to = 96)
     ],
     exportSchema = true
 )
@@ -100,6 +105,7 @@ abstract class NextcloudDatabase : RoomDatabase() {
     abstract fun recommendedFileDao(): RecommendedFileDao
     abstract fun fileSystemDao(): FileSystemDao
     abstract fun syncedFolderDao(): SyncedFolderDao
+    abstract fun assistantDao(): AssistantDao
 
     companion object {
         const val FIRST_ROOM_DB_VERSION = 65
@@ -125,5 +131,9 @@ abstract class NextcloudDatabase : RoomDatabase() {
             }
             return instance!!
         }
+
+        @Suppress("DEPRECATION")
+        @JvmStatic
+        fun instance(): NextcloudDatabase = getInstance(MainApp.getAppContext())
     }
 }

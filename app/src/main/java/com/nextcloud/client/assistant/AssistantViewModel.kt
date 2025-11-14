@@ -11,18 +11,31 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.nextcloud.client.assistant.model.ScreenOverlayState
 import com.nextcloud.client.assistant.model.ScreenState
-import com.nextcloud.client.assistant.repository.AssistantRepositoryType
+import com.nextcloud.client.assistant.repository.local.AssistantLocalRepository
+import com.nextcloud.client.assistant.repository.remote.AssistantRemoteRepository
 import com.owncloud.android.R
+import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.lib.resources.assistant.v2.model.Task
 import com.owncloud.android.lib.resources.assistant.v2.model.TaskTypeData
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 
-class AssistantViewModel(private val repository: AssistantRepositoryType) : ViewModel() {
+class AssistantViewModel(
+    private val accountName: String,
+    private val remoteRepository: AssistantRemoteRepository,
+    private val localRepository: AssistantLocalRepository
+) : ViewModel() {
+
+    companion object {
+        private const val TAG = "AssistantViewModel"
+        private const val TASK_LIST_POLLING_INTERVAL_MS = 15_000L
+    }
 
     private val _screenState = MutableStateFlow<ScreenState?>(null)
     val screenState: StateFlow<ScreenState?> = _screenState
@@ -44,14 +57,54 @@ class AssistantViewModel(private val repository: AssistantRepositoryType) : View
     private val _filteredTaskList = MutableStateFlow<List<Task>?>(null)
     val filteredTaskList: StateFlow<List<Task>?> = _filteredTaskList
 
+    private var taskPollingJob: Job? = null
+
     init {
         fetchTaskTypes()
+    }
+
+    // region task polling
+    fun startTaskListPolling() {
+        stopTaskListPolling()
+
+        taskPollingJob = viewModelScope.launch(Dispatchers.IO) {
+            try {
+                while (isActive) {
+                    Log_OC.d(TAG, "Polling task list...")
+                    fetchTaskListSuspending()
+                    delay(TASK_LIST_POLLING_INTERVAL_MS)
+                }
+            } finally {
+                Log_OC.d(TAG, "Polling coroutine cancelled")
+            }
+        }
+    }
+
+    fun stopTaskListPolling() {
+        taskPollingJob?.cancel()
+        taskPollingJob = null
+    }
+    // endregion
+
+    private suspend fun fetchTaskListSuspending() {
+        val cachedTasks = localRepository.getCachedTasks(accountName)
+        if (cachedTasks.isNotEmpty()) {
+            _filteredTaskList.value = cachedTasks.sortedByDescending { it.id }
+        }
+
+        val taskType = _selectedTaskType.value?.id ?: return
+        val result = remoteRepository.getTaskList(taskType)
+        if (result != null) {
+            taskList = result
+            _filteredTaskList.value = taskList?.sortedByDescending { it.id }
+            localRepository.cacheTasks(result, accountName)
+        }
     }
 
     @Suppress("MagicNumber")
     fun createTask(input: String, taskType: TaskTypeData) {
         viewModelScope.launch(Dispatchers.IO) {
-            val result = repository.createTask(input, taskType)
+            val result = remoteRepository.createTask(input, taskType)
 
             val messageId = if (result.isSuccess) {
                 R.string.assistant_screen_task_create_success_message
@@ -76,15 +129,11 @@ class AssistantViewModel(private val repository: AssistantRepositoryType) : View
 
     private fun fetchTaskTypes() {
         viewModelScope.launch(Dispatchers.IO) {
-            val taskTypesResult = repository.getTaskTypes()
-
-            if (taskTypesResult == null) {
-                updateSnackbarMessage(R.string.assistant_screen_task_types_error_state_message)
-                return@launch
-            }
-
-            if (taskTypesResult.isEmpty()) {
-                updateSnackbarMessage(R.string.assistant_screen_task_list_empty_message)
+            val taskTypesResult = remoteRepository.getTaskTypes()
+            if (taskTypesResult == null || taskTypesResult.isEmpty()) {
+                _screenState.update {
+                    ScreenState.emptyTaskTypes()
+                }
                 return@launch
             }
 
@@ -98,12 +147,17 @@ class AssistantViewModel(private val repository: AssistantRepositoryType) : View
 
     fun fetchTaskList() {
         viewModelScope.launch(Dispatchers.IO) {
-            _screenState.update {
-                ScreenState.Refreshing
+            // Try cached data first
+            val cachedTasks = localRepository.getCachedTasks(accountName)
+            if (cachedTasks.isNotEmpty()) {
+                _filteredTaskList.update {
+                    cachedTasks.sortedByDescending { it.id }
+                }
+                updateTaskListScreenState()
             }
 
             val taskType = _selectedTaskType.value?.id ?: return@launch
-            val result = repository.getTaskList(taskType)
+            val result = remoteRepository.getTaskList(taskType)
             if (result != null) {
                 taskList = result
                 _filteredTaskList.update {
@@ -111,19 +165,21 @@ class AssistantViewModel(private val repository: AssistantRepositoryType) : View
                         task.id
                     }
                 }
+
+                localRepository.cacheTasks(result, accountName)
                 updateSnackbarMessage(null)
             } else {
                 updateSnackbarMessage(R.string.assistant_screen_task_list_error_state_message)
             }
 
-            updateScreenState()
+            updateTaskListScreenState()
         }
     }
 
-    private fun updateScreenState() {
+    private fun updateTaskListScreenState() {
         _screenState.update {
             if (_filteredTaskList.value?.isEmpty() == true) {
-                ScreenState.EmptyContent
+                ScreenState.emptyTaskList()
             } else {
                 ScreenState.Content
             }
@@ -132,7 +188,7 @@ class AssistantViewModel(private val repository: AssistantRepositoryType) : View
 
     fun deleteTask(id: Long) {
         viewModelScope.launch(Dispatchers.IO) {
-            val result = repository.deleteTask(id)
+            val result = remoteRepository.deleteTask(id)
 
             val messageId = if (result.isSuccess) {
                 R.string.assistant_screen_task_delete_success_message
@@ -144,6 +200,7 @@ class AssistantViewModel(private val repository: AssistantRepositoryType) : View
 
             if (result.isSuccess) {
                 removeTaskFromList(id)
+                localRepository.deleteTask(id, accountName)
             }
         }
     }
@@ -154,7 +211,7 @@ class AssistantViewModel(private val repository: AssistantRepositoryType) : View
         }
     }
 
-    fun updateScreenState(value: ScreenOverlayState?) {
+    fun updateTaskListScreenState(value: ScreenOverlayState?) {
         _screenOverlayState.update {
             value
         }
