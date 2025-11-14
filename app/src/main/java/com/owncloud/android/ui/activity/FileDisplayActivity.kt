@@ -2975,17 +2975,11 @@ class FileDisplayActivity :
     }
 
     fun performUnifiedSearch(query: String, listOfHiddenFiles: ArrayList<String>?) {
-        val path = currentDir?.decryptedRemotePath
-            ?: run {
-                Log_OC.w(TAG, "currentDir is null, using ROOT_PATH")
-                OCFile.ROOT_PATH
-            }
-
         val unifiedSearchFragment =
-            UnifiedSearchFragment.Companion.newInstance(
+            UnifiedSearchFragment.newInstance(
                 query,
                 listOfHiddenFiles,
-                path
+                currentDir?.decryptedRemotePath
             )
         setLeftFragment(unifiedSearchFragment, false)
     }
