@@ -8,12 +8,12 @@
 package com.nextcloud.client.jobs.upload
 
 import android.app.NotificationManager
+import android.app.PendingIntent
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import com.owncloud.android.MainApp
 import com.owncloud.android.datamodel.UploadsStorageManager
-import com.owncloud.android.ui.notifications.NotificationUtils
 import javax.inject.Inject
 
 class FileUploadBroadcastReceiver : BroadcastReceiver() {
@@ -22,17 +22,28 @@ class FileUploadBroadcastReceiver : BroadcastReceiver() {
     lateinit var uploadsStorageManager: UploadsStorageManager
 
     companion object {
-        const val UPLOAD_ID = "UPLOAD_ID"
-        const val REMOTE_PATH = "REMOTE_PATH"
-        const val STORAGE_PATH = "STORAGE_PATH"
+        private const val UPLOAD_ID = "UPLOAD_ID"
+
+        fun getBroadcast(context: Context, id: Int): PendingIntent {
+            val intent = Intent(context, FileUploadBroadcastReceiver::class.java).apply {
+                putExtra(UPLOAD_ID, id)
+                setClass(context, FileUploadBroadcastReceiver::class.java)
+                setPackage(context.packageName)
+            }
+
+            return PendingIntent.getBroadcast(
+                context,
+                id,
+                intent,
+                PendingIntent.FLAG_IMMUTABLE
+            )
+        }
     }
 
     @Suppress("ReturnCount")
     override fun onReceive(context: Context, intent: Intent) {
         MainApp.getAppComponent().inject(this)
 
-        val remotePath = intent.getStringExtra(REMOTE_PATH) ?: return
-        val storagePath = intent.getStringExtra(STORAGE_PATH) ?: return
         val uploadId = intent.getLongExtra(UPLOAD_ID, -1L)
         if (uploadId == -1L) {
             return
@@ -40,9 +51,6 @@ class FileUploadBroadcastReceiver : BroadcastReceiver() {
 
         uploadsStorageManager.removeUpload(uploadId)
         val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-        notificationManager.cancel(
-            NotificationUtils.createUploadNotificationTag(remotePath, storagePath),
-            FileUploadWorker.NOTIFICATION_ERROR_ID
-        )
+        notificationManager.cancel(uploadId.toInt())
     }
 }

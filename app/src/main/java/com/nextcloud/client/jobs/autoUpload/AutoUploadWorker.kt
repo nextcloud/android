@@ -63,7 +63,7 @@ class AutoUploadWorker(
     private val syncedFolderProvider: SyncedFolderProvider,
     private val backgroundJobManager: BackgroundJobManager,
     private val repository: FileSystemRepository,
-    val viewThemeUtils: ViewThemeUtils,
+    val viewThemeUtils: ViewThemeUtils
 ) : CoroutineWorker(context, params) {
 
     companion object {
