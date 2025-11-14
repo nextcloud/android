@@ -415,6 +415,8 @@
     <string name="file_list_empty_unified_search_no_results">No results found for your query</string>
     <string name="file_list_empty_unified_search_start_search">Start your search</string>
     <string name="file_list_empty_unified_search_start_search_description">Type in the search bar above to find files, contacts, calendar events, and more across your account.</string>
+    <string name="file_list_error_description">Check your Internet connection or try again later</string>
+    <string name="file_list_error_headline">Poor connection</string>
     <string name="file_list_folder">folder</string>
     <string name="file_list_live">LIVE</string>
     <string name="file_list_loading">Loading…</string>
@@ -1109,6 +1111,8 @@
     <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">Untrusted server certificate</string>
     <string name="uploads_view_upload_status_fetching_server_version">Fetching server version…</string>
     <string name="uploads_view_upload_status_service_interrupted">App terminated</string>
+    <string name="uploads_view_upload_status_skip">Skipped</string>
+    <string name="uploads_view_upload_status_skip_reason">A file with the same name already exists.</string>
     <string name="uploads_view_upload_status_succeeded">Completed</string>
     <string name="uploads_view_upload_status_succeeded_same_file">Same file found on remote, skipping upload</string>
     <string name="uploads_view_upload_status_unknown_fail">Unknown error</string>
@@ -1201,6 +1205,10 @@
     <plurals name="export_start">
         <item quantity="one">%d file will be exported. See notification for details.</item>
         <item quantity="other">%d files will be exported. See notification for details.</item>
+    </plurals>
+    <plurals name="file_upload_limit_message">
+        <item quantity="one">You can upload only %d file at once.</item>
+        <item quantity="other">You can upload up to %d files at once.</item>
     </plurals>
     <plurals name="file_list__footer__folder">
         <item quantity="one">%1$d folder</item>
