@@ -415,6 +415,8 @@
     <string name="file_list_empty_unified_search_no_results">Níor aimsíodh aon torthaí do do cheist</string>
     <string name="file_list_empty_unified_search_start_search">Tosaigh do chuardach</string>
     <string name="file_list_empty_unified_search_start_search_description">Clóscríobh sa bharra cuardaigh thuas chun comhaid, teagmhálacha, imeachtaí féilire agus tuilleadh a aimsiú ar fud do chuntais.</string>
+    <string name="file_list_error_description">Seiceáil do nasc idirlín nó déan iarracht arís ar ball</string>
+    <string name="file_list_error_headline">Droch-nasc</string>
     <string name="file_list_folder">fillteán</string>
     <string name="file_list_live">BEO</string>
     <string name="file_list_loading">Á lódáil…</string>
@@ -1109,6 +1111,8 @@
     <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">Teastas freastalaí neamhiontaofa</string>
     <string name="uploads_view_upload_status_fetching_server_version">Leagan an fhreastalaí á fháil…</string>
     <string name="uploads_view_upload_status_service_interrupted">Cuireadh deireadh leis an aip</string>
+    <string name="uploads_view_upload_status_skip">Scipeáilte</string>
+    <string name="uploads_view_upload_status_skip_reason">Tá comhad leis an ainm céanna ann cheana féin.</string>
     <string name="uploads_view_upload_status_succeeded">Críochnaithe</string>
     <string name="uploads_view_upload_status_succeeded_same_file">Fuarthas an comhad céanna ar chianchlár, gan bacadh le huaslódáil</string>
     <string name="uploads_view_upload_status_unknown_fail">Earráid anaithnid</string>
@@ -1246,6 +1250,13 @@
         <item quantity="few">easpórtálfar %d comhad. Féach an fógra le haghaidh sonraí.</item>
         <item quantity="many">easpórtálfar %d comhad. Féach an fógra le haghaidh sonraí.</item>
         <item quantity="other">easpórtálfar %d comhad. Féach an fógra le haghaidh sonraí.</item>
+    </plurals>
+    <plurals name="file_upload_limit_message">
+        <item quantity="one">Ní féidir leat ach %d comhad a uaslódáil ag an am céanna.</item>
+        <item quantity="two">Is féidir leat suas le %d comhad a uaslódáil ag an am céanna.</item>
+        <item quantity="few">Is féidir leat suas le %d comhad a uaslódáil ag an am céanna.</item>
+        <item quantity="many">Is féidir leat suas le %d comhad a uaslódáil ag an am céanna.</item>
+        <item quantity="other">Is féidir leat suas le %d comhad a uaslódáil ag an am céanna.</item>
     </plurals>
     <plurals name="file_list__footer__folder">
         <item quantity="one">%1$d fillteán</item>
