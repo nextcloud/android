@@ -20,7 +20,6 @@ import com.nextcloud.client.database.entity.toOCUpload
 import com.nextcloud.client.database.entity.toUploadEntity
 import com.nextcloud.client.device.PowerManagementService
 import com.nextcloud.client.jobs.BackgroundJobManager
-import com.nextcloud.client.jobs.upload.FileUploadHelper
 import com.nextcloud.client.jobs.upload.FileUploadWorker
 import com.nextcloud.client.jobs.utils.UploadErrorNotificationManager
 import com.nextcloud.client.network.ConnectivityService
@@ -311,17 +310,9 @@ class AutoUploadWorker(
                         val result = operation.execute(client)
                         uploadsStorageManager.updateStatus(uploadEntity, result.isSuccess)
 
-                        val isSameFileOnRemote = FileUploadHelper.instance().isSameFileOnRemote(
-                            operation.user,
-                            File(operation.storagePath),
-                            operation.remotePath,
-                            context
-                        )
-
-                        UploadErrorNotificationManager.handleUploadResult(
+                        UploadErrorNotificationManager.handleResult(
                             context,
                             notificationManager,
-                            isSameFileOnRemote,
                             operation,
                             result
                         )

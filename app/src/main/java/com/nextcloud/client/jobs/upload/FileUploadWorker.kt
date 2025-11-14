@@ -342,13 +342,6 @@ class FileUploadWorker(
     ): RemoteOperationResult<Any?> = withContext(Dispatchers.IO) {
         lateinit var result: RemoteOperationResult<Any?>
 
-        val isSameFileOnRemote = FileUploadHelper.instance().isSameFileOnRemote(
-            operation.user,
-            File(operation.storagePath),
-            operation.remotePath,
-            context
-        )
-
         try {
             val storageManager = operation.storageManager
             result = operation.execute(client)
@@ -362,17 +355,18 @@ class FileUploadWorker(
         } finally {
             if (!isStopped || !result.isCancelled) {
                 uploadsStorageManager.updateDatabaseUploadResult(result, operation)
-                UploadErrorNotificationManager.handleUploadResult(
+                UploadErrorNotificationManager.handleResult(
                     context,
                     notificationManager,
-                    isSameFileOnRemote,
                     operation,
                     result,
                     showSameFileAlreadyExistsNotification =  {
-                        val showSameFileAlreadyExistsNotification =
-                            inputData.getBoolean(SHOW_SAME_FILE_ALREADY_EXISTS_NOTIFICATION, false)
-                        if (showSameFileAlreadyExistsNotification) {
-                            notificationManager.showSameFileAlreadyExistsNotification(operation.fileName)
+                        withContext(Dispatchers.Main) {
+                            val showSameFileAlreadyExistsNotification =
+                                inputData.getBoolean(SHOW_SAME_FILE_ALREADY_EXISTS_NOTIFICATION, false)
+                            if (showSameFileAlreadyExistsNotification) {
+                                notificationManager.showSameFileAlreadyExistsNotification(operation.fileName)
+                            }
                         }
                     }
                 )

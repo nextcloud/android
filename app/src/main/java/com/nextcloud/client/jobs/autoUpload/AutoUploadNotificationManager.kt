@@ -13,13 +13,11 @@ import com.owncloud.android.R
 import com.owncloud.android.ui.notifications.NotificationUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
 
-class AutoUploadNotificationManager(private val context: Context, viewThemeUtils: ViewThemeUtils, id: Int) :
+class AutoUploadNotificationManager(context: Context, viewThemeUtils: ViewThemeUtils, id: Int) :
     WorkerNotificationManager(
         id,
         context,
         viewThemeUtils,
         tickerId = R.string.foreground_service_upload,
         channelId = NotificationUtils.NOTIFICATION_CHANNEL_UPLOAD
-    ) {
-
-}
+    )

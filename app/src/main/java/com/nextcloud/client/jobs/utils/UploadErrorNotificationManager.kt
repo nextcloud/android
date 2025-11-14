@@ -1,7 +1,7 @@
 /*
  * Nextcloud - Android Client
  *
- * SPDX-FileCopyrightText: Alper Ozturk <alper.ozturk@nextcloud.com>
+ * SPDX-FileCopyrightText: 2025 Alper Ozturk <alper.ozturk@nextcloud.com>
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
@@ -14,6 +14,7 @@ import android.content.Intent
 import androidx.core.app.NotificationCompat
 import com.nextcloud.client.jobs.notification.WorkerNotificationManager
 import com.nextcloud.client.jobs.upload.FileUploadBroadcastReceiver
+import com.nextcloud.client.jobs.upload.FileUploadHelper
 import com.nextcloud.utils.extensions.isFileSpecificError
 import com.owncloud.android.R
 import com.owncloud.android.authentication.AuthenticatorActivity
@@ -25,47 +26,60 @@ import com.owncloud.android.ui.activity.ConflictsResolveActivity
 import com.owncloud.android.utils.ErrorMessageAdapter
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import java.io.File
 import java.security.SecureRandom
 
 object UploadErrorNotificationManager {
     private const val TAG = "UploadErrorNotificationManager"
 
-    suspend fun handleUploadResult(
+    suspend fun handleResult(
         context: Context,
         notificationManager: WorkerNotificationManager,
-        isSameFileOnRemote: Boolean,
         operation: UploadFileOperation,
         result: RemoteOperationResult<Any?>,
-        showSameFileAlreadyExistsNotification: () -> Unit = {}
-    ) = withContext(Dispatchers.Main) {
+        showSameFileAlreadyExistsNotification: suspend () -> Unit = {}
+    )  {
         Log_OC.d(TAG, "handle upload result with result code: " + result.code)
 
-        val notification = getNotification(
-            isSameFileOnRemote,
-            context,
-            notificationManager.notificationBuilder,
-            operation,
-            result,
-            notifyOnSameFileExists = {
-                showSameFileAlreadyExistsNotification()
-                operation.handleLocalBehaviour()
-            }
-        ) ?: return@withContext
+        val notification = withContext(Dispatchers.IO) {
+            val isSameFileOnRemote = FileUploadHelper.instance().isSameFileOnRemote(
+                operation.user,
+                File(operation.storagePath),
+                operation.remotePath,
+                context
+            )
 
-        if (result.code.isFileSpecificError()) {
-            notificationManager.showNotification(operation.file.fileId.toInt(), notification)
-        } else {
-            notificationManager.showNotification(notification)
+            getNotification(
+                isSameFileOnRemote,
+                context,
+                notificationManager.notificationBuilder,
+                operation,
+                result,
+                notifyOnSameFileExists = {
+                    showSameFileAlreadyExistsNotification()
+                    operation.handleLocalBehaviour()
+                }
+            )
+        } ?: return
+
+        Log_OC.d(TAG, "🔔" + "notification created")
+
+        withContext(Dispatchers.Main) {
+            if (result.code.isFileSpecificError()) {
+                notificationManager.showNotification(operation.file.fileId.toInt(), notification)
+            } else {
+                notificationManager.showNotification(notification)
+            }
         }
     }
 
-    private fun getNotification(
+    private suspend fun getNotification(
         isSameFileOnRemote: Boolean,
         context: Context,
         builder: NotificationCompat.Builder,
         operation: UploadFileOperation,
         result: RemoteOperationResult<Any?>,
-        notifyOnSameFileExists: () -> Unit
+        notifyOnSameFileExists: suspend () -> Unit
     ): Notification? {
         if (!shouldShowConflictDialog(isSameFileOnRemote, operation, result, notifyOnSameFileExists)) return null
 
@@ -162,21 +176,23 @@ object UploadErrorNotificationManager {
     }
 
     @Suppress("ReturnCount", "ComplexCondition")
-    private fun shouldShowConflictDialog(
+    private suspend fun shouldShowConflictDialog(
         isSameFileOnRemote: Boolean,
         operation: UploadFileOperation,
         result: RemoteOperationResult<Any?>,
-        notifyOnSameFileExists: () -> Unit
+        notifyOnSameFileExists: suspend () -> Unit
     ): Boolean {
         if (result.isSuccess ||
             result.isCancelled ||
             result.code == ResultCode.USER_CANCELLED ||
             operation.isMissingPermissionThrown
         ) {
+            Log_OC.w(TAG, "operation is successful, cancelled or lack of storage permission")
             return false
         }
 
         if (result.code == ResultCode.SYNC_CONFLICT && isSameFileOnRemote) {
+            Log_OC.w(TAG, "same file exists on remote")
             notifyOnSameFileExists()
             return false
         }

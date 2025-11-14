@@ -26,7 +26,6 @@ fun Pair<RemoteOperationResult<*>?, RemoteOperation<*>?>?.getErrorMessage(): Str
 
 fun ResultCode.isFileSpecificError(): Boolean {
     val errorCodes = listOf(
-        ResultCode.SYNC_CONFLICT,
         ResultCode.INSTANCE_NOT_CONFIGURED,
         ResultCode.QUOTA_EXCEEDED,
         ResultCode.LOCAL_STORAGE_FULL,
