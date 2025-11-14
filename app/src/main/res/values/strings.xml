@@ -74,6 +74,7 @@
     <string name="assistant_task_detail_screen_output_button_title">Output</string>
 
     <!-- Conversation Screen -->
+    <string name="conversation_screen_title">Conversations</string>
     <string name="conversation_screen_empty_conversation_list_title">No conversations yet</string>
     <string name="conversation_screen_fetch_error_title">Failed to fetch conversation list</string>
     <string name="conversation_screen_empty_content_title">No conversations found</string>
