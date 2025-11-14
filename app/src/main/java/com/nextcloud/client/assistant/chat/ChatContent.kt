@@ -123,7 +123,7 @@ private fun AssistantTypingIndicator() {
                             bottomEnd = CHAT_BUBBLE_CORNER_RADIUS
                         )
                     )
-                    .background(color = colorResource(R.color.task_container))
+                    .background(color = colorResource(R.color.white))
             ) {
                 TypingAnimation()
             }
@@ -228,7 +228,7 @@ private fun AssistantMessageItem(message: ChatMessage) {
                         )
                     )
                     .background(
-                        color = colorResource(R.color.task_container)
+                        color = colorResource(R.color.white)
                     )
             ) {
                 MessageTextItem(message)
@@ -259,7 +259,7 @@ private fun UserMessageItem(message: ChatMessage) {
                             bottomStart = CHAT_BUBBLE_CORNER_RADIUS
                         )
                     )
-                    .background(color = colorResource(R.color.task_container))
+                    .background(color = colorResource(R.color.white))
             ) {
                 MessageTextItem(message)
             }

@@ -22,8 +22,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.outlined.ArrowBack
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.Close
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FabPosition
@@ -80,17 +80,17 @@ fun ConversationScreen(viewModel: ConversationViewModel, close: () -> Unit, open
     Scaffold(
         topBar = {
             Row(modifier = Modifier.fillMaxWidth()) {
-                Spacer(modifier = Modifier.weight(1f))
                 IconButton(
                     onClick = {
                         close()
                     }
                 ) {
                     Icon(
-                        imageVector = Icons.Default.Close,
-                        contentDescription = "close conversations list"
+                        imageVector = Icons.AutoMirrored.Outlined.ArrowBack,
+                        contentDescription = "go back to assistant page"
                     )
                 }
+                Spacer(modifier = Modifier.weight(1f))
             }
         },
         snackbarHost = {
@@ -98,7 +98,9 @@ fun ConversationScreen(viewModel: ConversationViewModel, close: () -> Unit, open
         },
         floatingActionButton = {
             FloatingActionButton(onClick = {
-                viewModel.createConversation(null)
+                viewModel.createConversation(null, onResult = {
+                    openChat(it)
+                })
             }) {
                 Icon(Icons.Filled.Add, "Floating action button.")
             }

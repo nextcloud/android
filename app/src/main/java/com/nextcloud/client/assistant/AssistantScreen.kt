@@ -386,7 +386,7 @@ private fun EmptyContent(paddingValues: PaddingValues, iconId: Int?, description
         titleId?.let {
             Text(
                 text = stringResource(titleId),
-                fontSize = MaterialTheme.typography.bodyMedium.fontSize,
+                fontSize = MaterialTheme.typography.headlineSmall.fontSize,
                 textAlign = TextAlign.Center,
                 color = colorResource(R.color.text_color)
             )

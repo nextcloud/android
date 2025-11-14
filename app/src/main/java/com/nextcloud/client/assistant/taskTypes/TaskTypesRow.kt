@@ -52,7 +52,7 @@ fun TaskTypesRow(
             onClick = { navigateToConversationList() }
         ) {
             Icon(
-                painter = painterResource(id = R.drawable.ic_menu_open),
+                painter = painterResource(id = R.drawable.ic_history_back_arrow),
                 contentDescription = "open conversation list button",
                 tint = colorResource(R.color.text_color)
             )
