@@ -415,6 +415,8 @@
     <string name="file_list_empty_unified_search_no_results">找不到與您的查詢相符的結果</string>
     <string name="file_list_empty_unified_search_start_search">開始搜尋</string>
     <string name="file_list_empty_unified_search_start_search_description">在上方搜尋列輸入以在您的帳號中尋找檔案、聯絡人、日曆事件等。</string>
+    <string name="file_list_error_description">請檢查您的網際網路連線或稍後再試</string>
+    <string name="file_list_error_headline">連線品質不佳</string>
     <string name="file_list_folder">資料夾</string>
     <string name="file_list_live">即時</string>
     <string name="file_list_loading">正在載入…</string>
@@ -458,7 +460,6 @@
     <string name="file_not_found_cannot_share">找不到檔案。無法建立分享。</string>
     <string name="file_not_synced">檔案無法同步。將顯示最新可用版本。</string>
     <string name="file_rename">重新命名</string>
-    <string name="file_upload_limit_message">您一次最多可以上傳 %d 個檔案。</string>
     <string name="file_upload_worker_error_notification_title">上傳失敗。沒有網際網路連線</string>
     <string name="file_upload_worker_same_file_already_exists">%s 已存在，未偵測到衝突</string>
     <string name="file_version_restored_error">檔案版本復原錯誤！</string>
@@ -1110,6 +1111,8 @@
     <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">不信任的伺服器憑證</string>
     <string name="uploads_view_upload_status_fetching_server_version">正在擷取伺服器版本…</string>
     <string name="uploads_view_upload_status_service_interrupted">應用程式已終止</string>
+    <string name="uploads_view_upload_status_skip">略過</string>
+    <string name="uploads_view_upload_status_skip_reason">已有相同名稱的檔案。</string>
     <string name="uploads_view_upload_status_succeeded">已完成</string>
     <string name="uploads_view_upload_status_succeeded_same_file">遠端找到相同的檔案，略過上傳</string>
     <string name="uploads_view_upload_status_unknown_fail">未知的錯誤</string>
@@ -1187,6 +1190,9 @@
     </plurals>
     <plurals name="export_start">
         <item quantity="other">將匯出 %d 個檔案。請查看通知了解更多資訊。</item>
+    </plurals>
+    <plurals name="file_upload_limit_message">
+        <item quantity="other">您一次可以上傳最多 %d 個檔案。</item>
     </plurals>
     <plurals name="file_list__footer__folder">
         <item quantity="other">%1$d 個資料夾</item>

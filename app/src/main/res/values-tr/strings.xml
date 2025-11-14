@@ -458,7 +458,6 @@
     <string name="file_not_found_cannot_share">Dosya bulunamadı. Paylaşım oluşturulamadı.</string>
     <string name="file_not_synced">Dosya eşitlenemedi. Kullanılabilen son sürüm görüntüleniyor.</string>
     <string name="file_rename">Yeniden adlandır</string>
-    <string name="file_upload_limit_message">Bir kerede en fazla %d dosya yükleyebilirsiniz.\"</string>
     <string name="file_upload_worker_error_notification_title">Yüklenemedi. İnternet bağlantısı yok</string>
     <string name="file_upload_worker_same_file_already_exists">%s zaten var. Herhangi bir çakışma bulunmadı</string>
     <string name="file_version_restored_error">Geri yüklenecek dosya sürümünü seçin!</string>

@@ -98,10 +98,13 @@
     <string name="authenticator_activity_login_error">Der opstod et problem i forbindelse med din log på forespørgsel. Prøv venligst igen senere.</string>
     <string name="authenticator_activity_no_web_browser_found">Der er ingen browser tilgængelig til at åbne dette link.</string>
     <string name="authenticator_activity_please_complete_login_process">Gennemfør venligst log på processen i din browser</string>
+    <string name="auto_upload_battery_saver_mode_warning">Autoupload er pauseret for batterisparer er aktiveret.</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">Forblevet i oprindelig folder, da den er skrivebeskyttet</string>
+    <string name="auto_upload_low_battery_warning_info">Lav batteri, upload kan tage længere tid</string>
     <string name="auto_upload_on_wifi">Upload kun på ubegrænset wifi</string>
     <string name="auto_upload_path">/AutoUpload</string>
     <string name="auto_upload_sub_folder_warning">Denne mappe er allerede inkluderet i den overordnede mappes synkronisering, hvilket kan medføre dobbelt uploads</string>
+    <string name="auto_upload_wifi_only_warning_info">Venter på Wi-Fi for at starte upload</string>
     <string name="auto_upload_worker_start_text">Uploader filer fra %s til %s</string>
     <string name="autoupload_configure">Konfigurer</string>
     <string name="autoupload_create_new_custom_folder">Opret en ny brugerdefineret mappeopsætning</string>
@@ -475,6 +478,8 @@
     <string name="folder_already_exists">Mappe findes allerede</string>
     <string name="folder_best_viewed_in">Denne mappe vises bedst i %1$s.</string>
     <string name="folder_confirm_create">Opret</string>
+    <string name="folder_download_counter">%1$d ud af %2$d &#183; %3$s</string>
+    <string name="folder_download_worker_ticker_id">Synkroniserer...</string>
     <string name="folder_list_empty_headline">Ingen mappe her</string>
     <string name="folder_name_empty">Mappenavnet må ikke være tomt</string>
     <string name="folder_picker_choose_button_text">Vælg</string>
@@ -991,6 +996,7 @@
     <string name="unified_search_fragment_calendar_event_not_found">Event ikke fundet. Du kan altid synkronisere for at opdatere. Omdirigerer til web…</string>
     <string name="unified_search_fragment_contact_not_found">Kontakt ikke fundet. Du kan altid synkronisere for at opdatere. Omdirigerer til web…</string>
     <string name="unified_search_fragment_permission_needed">Rettigheder er krævet for at åbne søgeresultat, ellers vil det omdirigere til web...</string>
+    <string name="unified_search_fragment_search_in_this_folder">I denne mappe</string>
     <string name="unknown">Ukendt</string>
     <string name="unlock_file">Lås op filen</string>
     <string name="unread_comments">Der er ulæste kommentarer</string>

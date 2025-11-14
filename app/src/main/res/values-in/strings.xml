@@ -459,7 +459,6 @@ Otomatis unggah hanya bekerja dengan baik apabila Anda mengeluarkan aplikasi ini
     <string name="file_not_found_cannot_share">File tidak ditemukan. Tidak dapat membagikan.</string>
     <string name="file_not_synced">Berkas tidak dapat disinkronkan. Menampilkan versi terbaru yang tersedia.</string>
     <string name="file_rename">Ubah nama</string>
-    <string name="file_upload_limit_message">Anda dapat mengunggah hingga %d berkas sekaligus.\"</string>
     <string name="file_upload_worker_error_notification_title">Unggahan gagal. Tidak ada koneksi internet</string>
     <string name="file_upload_worker_same_file_already_exists">%s sudah ada, tidak ada konflik yang terdeteksi</string>
     <string name="file_version_restored_error">Kesalahan terjadi saat memulihkan versi file!</string>

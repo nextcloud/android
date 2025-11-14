@@ -415,6 +415,8 @@
     <string name="file_list_empty_unified_search_no_results">Aucun résultat trouvé pour votre requête</string>
     <string name="file_list_empty_unified_search_start_search">Démarrer votre recherche</string>
     <string name="file_list_empty_unified_search_start_search_description">Tapez dans la barre de recherche ci-dessus pour trouver des fichiers, des contacts, des événements de calendrier et plus encore dans votre compte.</string>
+    <string name="file_list_error_description">Vérifiez votre connexion internet ou ré-essayez plus tard</string>
+    <string name="file_list_error_headline">Connexion limitée</string>
     <string name="file_list_folder">dossier</string>
     <string name="file_list_live">EN DIRECT</string>
     <string name="file_list_loading">Chargement…</string>
@@ -458,7 +460,6 @@
     <string name="file_not_found_cannot_share">Fichier introuvable. Impossible de créer le partage.</string>
     <string name="file_not_synced">Le fichier ne peut pas être synchronisé. Affichage de la dernière version disponible. </string>
     <string name="file_rename">Renommer</string>
-    <string name="file_upload_limit_message">Vous pouvez téléverser jusqu\'à %d fichiers à la fois.</string>
     <string name="file_upload_worker_error_notification_title">Échec du téléversement. Pas de connexion internet</string>
     <string name="file_upload_worker_same_file_already_exists">%s existe déjà, aucun conflit détecté</string>
     <string name="file_version_restored_error">Erreur, la version du fichier n\'a pas été restaurée !</string>
@@ -480,6 +481,7 @@
     <string name="folder_already_exists">Le dossier existe déjà</string>
     <string name="folder_best_viewed_in">Ce dossier est mieux visualisé dans %1$s.</string>
     <string name="folder_confirm_create">Créer</string>
+    <string name="folder_download_counter">%1$d de %2$d &#183; %3$s</string>
     <string name="folder_download_error_notification_title">Une erreur s\'est produite lors de la synchronisation du dossier %s</string>
     <string name="folder_download_insufficient_disk_space_notification_title">Espace disque insuffisant, synchronisation annulée</string>
     <string name="folder_download_success_notification_title">Dossier %s synchronisé avec succès</string>
@@ -620,6 +622,7 @@
     <string name="notification_channel_background_operations_description">Afficher des notifications pour interagir avec le résultat des opérations en arrière-plan</string>
     <string name="notification_channel_background_operations_name">Opérations en arrière-plan</string>
     <string name="notification_channel_content_observer_description">Détecte les modifications apportées aux fichiers locaux</string>
+    <string name="notification_channel_content_observer_name_short">Observateur de contenu</string>
     <string name="notification_channel_download_description">Afficher la progression de téléchargement</string>
     <string name="notification_channel_download_name_short">Téléchargements</string>
     <string name="notification_channel_file_sync_description">Afficher les résultats et la progression de synchronisation du fichier</string>
@@ -822,7 +825,7 @@
     <string name="set_download_limit_failed">Impossible de définir la limite de téléchargement. Veuillez vérifier les autorisations.</string>
     <string name="set_message">Définir le message</string>
     <string name="set_note">Définir la note</string>
-    <string name="set_online_status">Statut de connexion</string>
+    <string name="set_online_status">Statuts de connexion</string>
     <string name="set_picture_as">Utiliser l\'image comme</string>
     <string name="setup_e2e">Pendant la configuration du chiffrement de bout en bout, vous recevrez une phrase secrète aléatoire de 12 mots dont vous aurez besoin pour ouvrir vos fichiers sur d\'autres appareils. Cette phrase secrète ne sera stockée que sur cet appareil, et pourra être affichée à nouveau sur cet écran. Veuillez la noter en lieu sûr !</string>
     <string name="share">Partager</string>
@@ -1108,6 +1111,8 @@
     <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">Certificat du serveur non approuvé</string>
     <string name="uploads_view_upload_status_fetching_server_version">Récupération de la version serveur …</string>
     <string name="uploads_view_upload_status_service_interrupted">L\'application s\'est arrêtée</string>
+    <string name="uploads_view_upload_status_skip">Ignoré</string>
+    <string name="uploads_view_upload_status_skip_reason">Un fichier portant le même nom existe déjà.</string>
     <string name="uploads_view_upload_status_succeeded">Terminé</string>
     <string name="uploads_view_upload_status_succeeded_same_file">Le même fichier a été trouvé sur le serveur distant, le téléversement est ignoré</string>
     <string name="uploads_view_upload_status_unknown_fail">Erreur inconnue </string>

@@ -458,7 +458,6 @@
     <string name="file_not_found_cannot_share">Níor aimsíodh an comhad. Ní féidir comhroinnt a chruthú.</string>
     <string name="file_not_synced">Níorbh fhéidir an comhad a shioncronú. Ag taispeáint an leagan is déanaí atá ar fáil.</string>
     <string name="file_rename">Athainmnigh</string>
-    <string name="file_upload_limit_message">Is féidir leat suas le %d comhad a uaslódáil ag an am céanna.\"</string>
     <string name="file_upload_worker_error_notification_title">Theip ar an uaslódáil. Gan nasc idirlín</string>
     <string name="file_upload_worker_same_file_already_exists">Tá %s ann cheana féin, níor braitheadh ​​aon choimhlint</string>
     <string name="file_version_restored_error">Earráid agus leagan an chomhaid á athchóiriú!</string>

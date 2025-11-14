@@ -415,6 +415,8 @@
     <string name="file_list_empty_unified_search_no_results">Nenhum resultado encontrado para sua consulta</string>
     <string name="file_list_empty_unified_search_start_search">Inicie sua pesquisa</string>
     <string name="file_list_empty_unified_search_start_search_description">Digite na barra de pesquisa acima para encontrar arquivos, contatos, eventos do calendário e muito mais em sua conta.</string>
+    <string name="file_list_error_description">Verifique sua conexão com a Internet ou tente novamente mais tarde</string>
+    <string name="file_list_error_headline">Conexão fraca</string>
     <string name="file_list_folder">pasta</string>
     <string name="file_list_live">AO VIVO</string>
     <string name="file_list_loading">Carregando…</string>
@@ -458,7 +460,6 @@
     <string name="file_not_found_cannot_share">Arquivo não encontrado. Não é possível criar um compartilhamento.</string>
     <string name="file_not_synced">Arquivo não pôde ser sincronizado. Mostrando a última versão disponível.</string>
     <string name="file_rename">Renomear</string>
-    <string name="file_upload_limit_message">Você pode enviar até %d arquivos de uma só vez.</string>
     <string name="file_upload_worker_error_notification_title">O upload falhou. Sem conexão com a Internet</string>
     <string name="file_upload_worker_same_file_already_exists">%s já existe, nenhum conflito detectado</string>
     <string name="file_version_restored_error">Erro recuperando arquivo!</string>
@@ -1110,6 +1111,8 @@
     <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">Certificado de servidor não confiável</string>
     <string name="uploads_view_upload_status_fetching_server_version">Buscando versão do servidor…</string>
     <string name="uploads_view_upload_status_service_interrupted">Aplicativo finalizado</string>
+    <string name="uploads_view_upload_status_skip">Ignorado</string>
+    <string name="uploads_view_upload_status_skip_reason">Um arquivo com o mesmo nome já existe.</string>
     <string name="uploads_view_upload_status_succeeded">Concluído</string>
     <string name="uploads_view_upload_status_succeeded_same_file">Mesmo arquivo encontrado no servidor remoto, pulando o upload</string>
     <string name="uploads_view_upload_status_unknown_fail">Erro desconhecido</string>
@@ -1217,6 +1220,11 @@
         <item quantity="one">%d arquivo será exportado. Consulte a notificação para obter detalhes.</item>
         <item quantity="many">%d arquivos serão exportados. Consulte a notificação para obter detalhes.</item>
         <item quantity="other">%d arquivos serão exportados. Consulte a notificação para obter detalhes.</item>
+    </plurals>
+    <plurals name="file_upload_limit_message">
+        <item quantity="one">Você pode enviar apenas %d arquivo por vez.</item>
+        <item quantity="many">Você pode enviar até %d de arquivos de uma só vez.</item>
+        <item quantity="other">Você pode enviar até %d arquivos de uma só vez.</item>
     </plurals>
     <plurals name="file_list__footer__folder">
         <item quantity="one">%1$d pasta</item>

@@ -415,6 +415,8 @@
     <string name="file_list_empty_unified_search_no_results">Sinu päringul pole tulemusi</string>
     <string name="file_list_empty_unified_search_start_search">Alusta otsingut</string>
     <string name="file_list_empty_unified_search_start_search_description">Otsimaks faile, kontakte, kalendrisündmusi ja muud sinu kasutajakontoga seotud teavet, sisesta otsitu ülaltoodud otsinguribale.</string>
+    <string name="file_list_error_description">Palun kontrolli oma nutiseadme internetiühenduse toimimist või proovi hiljem uuesti</string>
+    <string name="file_list_error_headline">Kehv ühendus</string>
     <string name="file_list_folder">kaust</string>
     <string name="file_list_live">OTSE</string>
     <string name="file_list_loading">Laadimine…</string>
@@ -458,7 +460,6 @@
     <string name="file_not_found_cannot_share">Faili ei leidu. Jaosmeedia loomine ei õnnestu.</string>
     <string name="file_not_synced">Faili ei õnnestunud sünkroniseerida. Näitan viimast saadavalolevat versiooni.</string>
     <string name="file_rename">Muuda nime</string>
-    <string name="file_upload_limit_message">Ühe korraga saad üles laadida kuni %d faili.</string>
     <string name="file_upload_worker_error_notification_title">Üleslaadimine ei õnnestunud. Internetiühendus puudub</string>
     <string name="file_upload_worker_same_file_already_exists">%s on juba olemas, failikonflikti ei tundu tekkima</string>
     <string name="file_version_restored_error">Viga faili versiooni taastamisel!</string>
@@ -1110,6 +1111,8 @@
     <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">Serveri sertifikaat pole usaldusväärne</string>
     <string name="uploads_view_upload_status_fetching_server_version">Laadin serveris leiduvat versiooni…</string>
     <string name="uploads_view_upload_status_service_interrupted">Rakenduse töö on lõpetatud</string>
+    <string name="uploads_view_upload_status_skip">Vahelejäetud</string>
+    <string name="uploads_view_upload_status_skip_reason">Sellise nimega fail on juba olemas.</string>
     <string name="uploads_view_upload_status_succeeded">Lõpetatud</string>
     <string name="uploads_view_upload_status_succeeded_same_file">Sama fail leidub kaugseadmes, jätan üleslaadimise vahele</string>
     <string name="uploads_view_upload_status_unknown_fail">Tundmatu viga</string>
@@ -1202,6 +1205,10 @@
     <plurals name="export_start">
         <item quantity="one">Eksportimisele kuulub %d fail. Üksikasjalik info leidub teavituses.</item>
         <item quantity="other">Eksportimisele kuulub %d faili. Üksikasjalik info leidub teavituses.</item>
+    </plurals>
+    <plurals name="file_upload_limit_message">
+        <item quantity="one">Ühe korraga saad üles laadida kuni %d faili.</item>
+        <item quantity="other">Ühe korraga saad üles laadida kuni %d faili.</item>
     </plurals>
     <plurals name="file_list__footer__folder">
         <item quantity="one">%1$d kaust</item>

@@ -415,6 +415,8 @@
     <string name="file_list_empty_unified_search_no_results">Non se atopou ningún resultado para a súa consulta</string>
     <string name="file_list_empty_unified_search_start_search">Comezar a súa busca</string>
     <string name="file_list_empty_unified_search_start_search_description">Escribir na barra de busca enriba para atopar ficheiros, contactos, eventos de calendario, e máis na súa conta.</string>
+    <string name="file_list_error_description">Comprobe a súa conexión a Internet ou ténteo de novo máis tarde.</string>
+    <string name="file_list_error_headline">Conexión deficiente</string>
     <string name="file_list_folder">cartafol</string>
     <string name="file_list_live">DIRECTO</string>
     <string name="file_list_loading">Cargando…</string>
@@ -458,7 +460,6 @@
     <string name="file_not_found_cannot_share">Non se atopou o ficheiro. Non é posíbel crear unha compartición.</string>
     <string name="file_not_synced">Non foi posíbel sincronizar o ficheiro. Amosase a última versión dispoñíbel.</string>
     <string name="file_rename">Cambiar o nome</string>
-    <string name="file_upload_limit_message">Pode enviar ata %d ficheiros á vez.</string>
     <string name="file_upload_worker_error_notification_title">Produciuse un fallo no envío. Non hai conexión a Internet</string>
     <string name="file_upload_worker_same_file_already_exists">%s xa existe, non se detectou ningún conflito</string>
     <string name="file_version_restored_error">Produciuse un erro ao restaurar a versión do ficheiro</string>
@@ -643,7 +644,7 @@
     <string name="oc_file_list_adapter_offline_operation_description_text">Operación pendente</string>
     <string name="oc_file_list_adapter_offline_operation_remove_description_text">Operación de retirada pendente</string>
     <string name="offline_mode">Sen conexión a Internet</string>
-    <string name="offline_mode_info_description">Mesmo sen conexión a Internet, pode organizar os seus cartafoles, crear ficheiros. Unha vez que volva estar conectado, as túas accións pendentes sincronizaranse automaticamente.</string>
+    <string name="offline_mode_info_description">Mesmo sen conexión a Internet, pode organizar os seus cartafoles, crear ficheiros. Unha vez que volva estar conectado, as súas accións pendentes sincronizaranse automaticamente.</string>
     <string name="offline_mode_info_title">Está sen conexión, mais o traballo continúa</string>
     <string name="offline_operations_file_does_not_exists_yet">O ficheiro aínda non existe. Envíe primeiro o ficheiro.</string>
     <string name="offline_operations_worker_notification_create_file_conflict_text">Non foi posíbel crear %s. Existe un ficheiro co mesmo nome no servidor.</string>
@@ -737,7 +738,7 @@
     <string name="prefs_remove_e2e">Retirar o cifrado localmente</string>
     <string name="prefs_setup_e2e">Configurar o cifrado de extremo a extremo</string>
     <string name="prefs_show_ecosystem_apps">Amosar o conmutador de aplicacións</string>
-    <string name="prefs_show_ecosystem_apps_summary">Suxestións da aplicación Nextcloud no título de navegación</string>
+    <string name="prefs_show_ecosystem_apps_summary">Suxestión de aplicacións de Nextcloud na cabeceira de navegación</string>
     <string name="prefs_show_hidden_files">Amosar ficheiros agochados</string>
     <string name="prefs_sourcecode">Obter o código fonte</string>
     <string name="prefs_sycned_folders_summary">Xestionar os cartafoles para a envío automático</string>
@@ -959,7 +960,7 @@
     <string name="sync_fail_ticker_unauthorized">Produciuse un fallo na sincronización, acceda de novo.</string>
     <string name="sync_file_nothing_to_do_msg">Os contidos do ficheiro xa están sincronizados</string>
     <string name="sync_folder_failed_content">Non foi posíbel completar a sincronización do cartafol %1$s</string>
-    <string name="sync_foreign_files_forgotten_explanation">A partir da versión 1.3.16, os ficheiros enviados desde este dispositivo cópianse no cartafol local %1$s para evitar a perda de datos cando se sincroniza un único ficheiro con varias contas.\n\nPor mor deste cambio, todos os ficheiros enviados con versións anteriores desta aplicación foron copiados no cartafol %2$s. Porén, un erro impediu que se completara esta operación durante a sincronización da conta. Pode deixar o(s) ficheiro(s) tal e como está(n) e eliminar a ligazón cara a %3$s ou mover o(s) ficheiro(s) para o cartafol %1$s e conservar a ligazón cara a %4$s.\n\nEmbaixo amósanse os ficheiros locais e os ficheiros remotos en %5$s aos que foron enlazados.</string>
+    <string name="sync_foreign_files_forgotten_explanation">A partir da versión 1.3.16, os ficheiros enviados desde este dispositivo cópianse no cartafol local %1$s para evitar a perda de datos cando se sincroniza un único ficheiro con varias contas.\n\nPor mor deste cambio, todos os ficheiros enviados con versións anteriores desta aplicación foron copiados no cartafol %2$s. Porén, un erro impediu que se completara esta operación durante a sincronización da conta. Pode deixar o(s) ficheiro(s) tal e como está(n) e eliminar a ligazón cara a %3$s ou mover o(s) ficheiro(s) para o cartafol %1$s e conservar a ligazón cara a %4$s.\n\nEmbaixo amósanse os ficheiros locais e os ficheiros remotos en %5$s aos que foron ligados.</string>
     <string name="sync_foreign_files_forgotten_ticker">Esquecéronse algúns ficheiros locais</string>
     <string name="sync_in_progress">Recuperando a versión mais recente do ficheiro.</string>
     <string name="sync_not_enough_space_dialog_action_choose">Escoller que sincronizar</string>
@@ -1111,6 +1112,8 @@
     <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">O certificado do servidor non é fiábel</string>
     <string name="uploads_view_upload_status_fetching_server_version">Recuperando a versión do servidor…</string>
     <string name="uploads_view_upload_status_service_interrupted">Aplicación finalizada</string>
+    <string name="uploads_view_upload_status_skip">Omitido</string>
+    <string name="uploads_view_upload_status_skip_reason">Xa existe un ficheiro co mesmo nome</string>
     <string name="uploads_view_upload_status_succeeded">Completado</string>
     <string name="uploads_view_upload_status_succeeded_same_file">Atopouse o mesmo ficheiro en remoto, omitindo o envío</string>
     <string name="uploads_view_upload_status_unknown_fail">Produciuse un erro descoñecido</string>
@@ -1203,6 +1206,10 @@
     <plurals name="export_start">
         <item quantity="one">Exportarase %d ficheiro. Consulte a notificación para obter máis información.</item>
         <item quantity="other">Exportaranse %d ficheiros. Consulte a notificación para obter máis información.</item>
+    </plurals>
+    <plurals name="file_upload_limit_message">
+        <item quantity="one">Pode enviar %d ficheiro cada vez.</item>
+        <item quantity="other">Pode enviar ata %d ficheiros á vez.</item>
     </plurals>
     <plurals name="file_list__footer__folder">
         <item quantity="one">%1$d cartafol</item>

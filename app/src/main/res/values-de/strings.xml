@@ -415,6 +415,8 @@
     <string name="file_list_empty_unified_search_no_results">Keine Ergebnisse für Ihre Suche gefunden</string>
     <string name="file_list_empty_unified_search_start_search">Beginnen Sie Ihre Suche</string>
     <string name="file_list_empty_unified_search_start_search_description">Geben Sie in die Suchleiste oben einen Begriff ein, um Dateien, Kontakte, Kalendertermine und mehr in Ihrem Konto zu finden.</string>
+    <string name="file_list_error_description">Bitte überprüfen Sie Ihre Internetverbindung und versuchen Sie es später erneut.</string>
+    <string name="file_list_error_headline">Schlechte Verbindung</string>
     <string name="file_list_folder">Ordner</string>
     <string name="file_list_live">LIVE</string>
     <string name="file_list_loading">Lade…</string>
@@ -458,7 +460,6 @@
     <string name="file_not_found_cannot_share">Datei nicht gefunden. Freigabe kann nicht erstellt werden.</string>
     <string name="file_not_synced">Datei konnte nicht synchronisiert werden. Zeige letzte verfügbare Version. </string>
     <string name="file_rename">Umbenennen</string>
-    <string name="file_upload_limit_message">Es können bis zu %d Dateien gleichzeitig hochgeladen werden.</string>
     <string name="file_upload_worker_error_notification_title">Upload fehlgeschlagen. Keine Internetverbindung</string>
     <string name="file_upload_worker_same_file_already_exists">%s existiert bereits, kein Konflikt erkannt</string>
     <string name="file_version_restored_error">Fehler beim Wiederherstellen der Dateiversion!</string>
@@ -1110,6 +1111,8 @@
     <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">Serverzertifikat ist nicht vertrauenswürdig</string>
     <string name="uploads_view_upload_status_fetching_server_version">Serverversion wird abgerufen …</string>
     <string name="uploads_view_upload_status_service_interrupted">App beendet</string>
+    <string name="uploads_view_upload_status_skip">Überspringen</string>
+    <string name="uploads_view_upload_status_skip_reason">Eine Datei mit demselben Namen ist bereits vorhanden.</string>
     <string name="uploads_view_upload_status_succeeded">Fertiggestellt</string>
     <string name="uploads_view_upload_status_succeeded_same_file">Gleiche Datei auf dem Remote-Server gefunden, überspringe das Hochladen</string>
     <string name="uploads_view_upload_status_unknown_fail">Unbekannter Fehler</string>
@@ -1202,6 +1205,10 @@
     <plurals name="export_start">
         <item quantity="one">%d Datei wird exportiert. Einzelheiten finden Sie in der Benachrichtigung.</item>
         <item quantity="other">%d Dateien werden exportiert. Einzelheiten finden Sie in der Benachrichtigung.</item>
+    </plurals>
+    <plurals name="file_upload_limit_message">
+        <item quantity="one">Es können bis zu %d Datei gleichzeitig hochgeladen werden.</item>
+        <item quantity="other">Es können bis zu %d Dateien gleichzeitig hochgeladen werden.</item>
     </plurals>
     <plurals name="file_list__footer__folder">
         <item quantity="one">%1$d Ordner</item>
