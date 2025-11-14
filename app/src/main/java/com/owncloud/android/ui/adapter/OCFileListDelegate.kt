@@ -196,8 +196,8 @@ class OCFileListDelegate(
                 }
 
                 override fun onNewGalleryImage() {
-                    Log_OC.d(tag, "setGalleryImage.redraw()")
-                    galleryRowHolder.redraw()
+                    Log_OC.d(tag, "updateRowVisuals")
+                    galleryRowHolder.updateRowVisuals()
                 }
 
                 override fun onError() {
