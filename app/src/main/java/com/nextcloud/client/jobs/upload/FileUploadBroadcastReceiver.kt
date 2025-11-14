@@ -24,7 +24,7 @@ class FileUploadBroadcastReceiver : BroadcastReceiver() {
     companion object {
         private const val UPLOAD_ID = "UPLOAD_ID"
 
-        fun getBroadcast(context: Context, id: Int): PendingIntent {
+        fun getBroadcast(context: Context, id: Long): PendingIntent {
             val intent = Intent(context, FileUploadBroadcastReceiver::class.java).apply {
                 putExtra(UPLOAD_ID, id)
                 setClass(context, FileUploadBroadcastReceiver::class.java)
@@ -33,7 +33,7 @@ class FileUploadBroadcastReceiver : BroadcastReceiver() {
 
             return PendingIntent.getBroadcast(
                 context,
-                id,
+                id.toInt(),
                 intent,
                 PendingIntent.FLAG_IMMUTABLE
             )

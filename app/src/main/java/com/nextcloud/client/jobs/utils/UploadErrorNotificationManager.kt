@@ -85,8 +85,6 @@ object UploadErrorNotificationManager {
         val textId = result.code.toFailedResultTitleId()
         val errorMessage = ErrorMessageAdapter.getErrorCauseMessage(result, operation, context.resources)
 
-        Log_OC.d(TAG, "🔔" + "notification created: ${operation.fileName}")
-
         return builder.apply {
             setTicker(context.getString(textId))
             setContentTitle(context.getString(textId))
@@ -105,7 +103,7 @@ object UploadErrorNotificationManager {
                 addAction(
                     R.drawable.ic_delete,
                     context.getString(R.string.upload_list_cancel_upload),
-                    FileUploadBroadcastReceiver.getBroadcast(context, operation.ocUploadId.toInt())
+                    FileUploadBroadcastReceiver.getBroadcast(context, operation.ocUploadId)
                 )
             }
 
