@@ -36,7 +36,7 @@ services:
     image: ghcr.io/nextcloud/continuous-integration-shallow-server:latest # also change in updateScreenshots.sh
     environment:
       EVAL: true
-      SERVER_VERSION: 'stable30'
+      SERVER_VERSION: 'stable32'
     commands:
       - BRANCH="$SERVER_VERSION" /usr/local/bin/initnc.sh
       - echo 127.0.0.1 server >> /etc/hosts
@@ -57,6 +57,8 @@ services:
       - su www-data -c "git clone --depth 1 -b $SERVER_VERSION https://github.com/nextcloud/photos.git /var/www/html/apps/photos/"
       - su www-data -c "cd /var/www/html/apps/photos; composer install --no-dev"
       - su www-data -c "php /var/www/html/occ app:enable -f photos"
+      - su www-data -c "git clone --depth 1 -b $SERVER_VERSION https://github.com/nextcloud/viewer.git /var/www/html/apps/viewer/"
+      - su www-data -c "php /var/www/html/occ app:enable -f viewer"
       - su www-data -c "php /var/www/html/occ config:system:set ratelimit.protection.enabled --value false --type bool"
       - /usr/local/bin/run.sh
 
@@ -185,6 +187,6 @@ name: GIT_TOKEN
 data: XIoa9IYq+xQ+N5iln8dlpWv0jV6ROr7HuE24ioUr4uQ8m8SjyH0yognWYLYLqnbTKrFWlFZiEMQTH/sZiWjRFvV1iL0=
 ---
 kind: signature
-hmac: ea9432c9317fa6ca12a282bb117c9f3268ddb29b208dbd772795ba19cf395082
+hmac: a6b33faf26e388a3abc0a9c7fd195f13699e3d2cfcae915b5b98d563def5d80b
 
 ...
