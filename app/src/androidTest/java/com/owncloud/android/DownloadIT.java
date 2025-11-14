@@ -29,7 +29,7 @@ import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertTrue;
 
 /**
- * Tests related to file uploads.
+ * Tests related to file downloads.
  */
 public class DownloadIT extends AbstractOnServerIT {
     private static final String FOLDER = "/testUpload/";
@@ -98,10 +98,10 @@ public class DownloadIT extends AbstractOnServerIT {
         assertTrue(new File(file2.getStoragePath()).exists());
 
         // test against hardcoded path to make sure that it is correct
-        assertEquals("/storage/emulated/0/Android/media/com.nextcloud.client/nextcloud/" +
+        assertEquals("/storage/emulated/0/Android/media/"+targetContext.getPackageName()+"/nextcloud/" +
                          Uri.encode(account.name, "@") + "/testUpload/nonEmpty.txt",
                      file1.getStoragePath());
-        assertEquals("/storage/emulated/0/Android/media/com.nextcloud.client/nextcloud/" +
+        assertEquals("/storage/emulated/0/Android/media/"+targetContext.getPackageName()+"/nextcloud/" +
                          Uri.encode(account.name, "@") + "/testUpload/nonEmpty2.txt",
                      file2.getStoragePath());
     }
