@@ -134,7 +134,7 @@ public class UploadListActivity extends FileActivity {
             if (state instanceof WorkerState.FileUploadStarted) {
                 Log_OC.d(TAG, "Upload worker started");
                 uploadListAdapter.loadUploadItemsFromDb();
-            } else if (state instanceof WorkerState.UploadFinished) {
+            } else if (state instanceof WorkerState.FileUploadCompleted) {
                 uploadListAdapter.loadUploadItemsFromDb(() -> swipeListRefreshLayout.setRefreshing(false));
             }
             return Unit.INSTANCE;

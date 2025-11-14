@@ -1882,7 +1882,9 @@ class FileDisplayActivity :
                 }
 
                 is FileUploadCompleted -> {
-                    refreshList()
+                    state.currentFile?.let {
+                        ocFileListFragment?.adapter?.notifyItemChanged(it)
+                    }
                 }
 
                 is OfflineOperationsCompleted -> {
