@@ -1888,7 +1888,7 @@ class FileDisplayActivity :
 
                 is FileUploadCompleted -> {
                     state.currentFile?.let {
-                        ocFileListFragment?.adapter?.notifyItemChanged(it)
+                        ocFileListFragment?.adapter?.insertFile(it)
                     }
                 }
 
