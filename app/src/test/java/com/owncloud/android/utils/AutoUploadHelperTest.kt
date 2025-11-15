@@ -316,4 +316,45 @@ class AutoUploadHelperTest {
             processedCountAll
         )
     }
+
+    @Test
+    fun testLLL() {
+
+        val currentTime = System.currentTimeMillis()
+
+        // Old file (modified before enabling auto-upload)
+        val oldFile = File(tempDir, "old_file.txt").apply {
+            writeText("Old file")
+            setLastModified(currentTime - 60_000) // 1 minute older
+        }
+
+        // New file (modified after enabling auto-upload)
+        val newFile = File(tempDir, "new_file.txt").apply {
+            writeText("New file")
+            setLastModified(currentTime + 1_000) // 1 second newer
+        }
+
+        val folderSkipOld = createTestFolder(
+            localPath = tempDir.absolutePath,
+            type = MediaFolderType.CUSTOM,
+            alsoUploadExistingFiles = false
+        ).apply {
+            setEnabled(true, currentTime)
+        }
+
+        val processedCountSkipOld = helper.insertCustomFolderIntoDB(folderSkipOld, null)
+        assertEquals(1, processedCountSkipOld)
+
+        val folderUploadAll = createTestFolder(
+            localPath = tempDir.absolutePath,
+            type = MediaFolderType.CUSTOM,
+            alsoUploadExistingFiles = true
+        ).apply {
+            setEnabled(true, currentTime)
+        }
+
+        val processedCountAll = helper.insertCustomFolderIntoDB(folderUploadAll, null)
+        assertEquals(2, processedCountAll)
+    }
+
 }
