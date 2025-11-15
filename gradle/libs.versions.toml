@@ -83,7 +83,7 @@ spotbugsGradlePlugin = "6.4.4"
 spotless = "7.2.1"
 stateless4jVersion = "2.6.0"
 webkitVersion = "1.14.0"
-workRuntime = "2.10.4"
+workRuntime = "2.11.0"
 
 [libraries]
 # Crypto
