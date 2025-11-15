@@ -663,10 +663,11 @@
     <string name="pass_code_configure_your_pass_code">Sisesta oma täiendav salasõna</string>
     <string name="pass_code_configure_your_pass_code_explanation">Täiendavat salasõna küsitakse iga kord, kui sa selle rakenduse käivitad</string>
     <string name="pass_code_enter_pass_code">Palun sisesta oma täiendav salasõna</string>
+    <string name="pass_code_explanation">Täiendavat salasõna küsitakse iga kord, kui rakendust avatakse või avatakse uuesti 5 sekundi möödumisel.</string>
     <string name="pass_code_mismatch">Täiendavad salasõnad pole samad</string>
     <string name="pass_code_reenter_your_pass_code">Palun sisesta täiendav salasõna uuesti</string>
     <string name="pass_code_remove_your_pass_code">Kustuta oma täiendav salasõna</string>
-    <string name="pass_code_removed">Täiendav salasõna kustutatud</string>
+    <string name="pass_code_removed">Täiendav salasõna on kustutatud</string>
     <string name="pass_code_stored">Täiendav salasõna on salvestatud</string>
     <string name="pass_code_wrong">Vale täiendav salasõna</string>
     <string name="pdf_password_protected">Ei õnnestu avada salasõnaga kaitstud pdf-faili. Palun kasuta välist pdf-failide vaatamise rakendust.</string>
@@ -731,7 +732,7 @@
     <string name="prefs_lock_none">Pole kasutusel</string>
     <string name="prefs_lock_title">Kaitse rakendust kasutades</string>
     <string name="prefs_lock_using_device_credentials">Nutiseadmepõhist autentimist</string>
-    <string name="prefs_lock_using_passcode">Täiendavat salasõna</string>
+    <string name="prefs_lock_using_passcode">Täiendav salasõna</string>
     <string name="prefs_manage_accounts">Halda kontosid</string>
     <string name="prefs_recommend">Soovita sõbrale</string>
     <string name="prefs_remove_e2e">Eemalda krüptimine kohalikus seadmes</string>

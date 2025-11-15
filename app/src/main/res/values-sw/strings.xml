@@ -415,6 +415,8 @@
     <string name="file_list_empty_unified_search_no_results">Hakuna matokeo yaliyopatikana kwa swali lako</string>
     <string name="file_list_empty_unified_search_start_search">Anza utafutaji wako</string>
     <string name="file_list_empty_unified_search_start_search_description">Andika upau wa kutafutia hapo juu ili kupata faili, anwani, matukio ya kalenda na mengine kwenye akaunti yako.</string>
+    <string name="file_list_error_description">Angalia muunganisho wako wa mtandao au ujaribu tena baadaye</string>
+    <string name="file_list_error_headline">Muunganisho hafifu</string>
     <string name="file_list_folder">folda</string>
     <string name="file_list_live">MUBASHARA</string>
     <string name="file_list_loading">Inapakia</string>
@@ -661,6 +663,7 @@
     <string name="pass_code_configure_your_pass_code">Weka nambari yako ya siri</string>
     <string name="pass_code_configure_your_pass_code_explanation">Nambari ya siri itaombwa kila wakati programu inapoanzishwa</string>
     <string name="pass_code_enter_pass_code">Tafadhali weka nenosiri lako</string>
+    <string name="pass_code_explanation">Nambari ya siri itaombwa kila wakati programu inapofunguliwa au kufunguliwa tena baada ya sekunde 5.</string>
     <string name="pass_code_mismatch">Nambari za siri hazifanani</string>
     <string name="pass_code_reenter_your_pass_code">Tafadhali ingiza tena nambari yako ya siri</string>
     <string name="pass_code_remove_your_pass_code">Futa nambari yako ya siri</string>
@@ -1109,6 +1112,8 @@
     <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">Cheti cha seva isiyoaminika</string>
     <string name="uploads_view_upload_status_fetching_server_version">Inaleta toleo la seva...</string>
     <string name="uploads_view_upload_status_service_interrupted">Programu imekatishwa</string>
+    <string name="uploads_view_upload_status_skip">Imerukwa</string>
+    <string name="uploads_view_upload_status_skip_reason">Faili yenye jina sawa sawa tayari ipo.</string>
     <string name="uploads_view_upload_status_succeeded">Imekamilika</string>
     <string name="uploads_view_upload_status_succeeded_same_file">Faili sawa imepatikana kwenye kidhibiti cha mbali, ikiruka upakiaji</string>
     <string name="uploads_view_upload_status_unknown_fail">Hitilafu isiyojulikana</string>
@@ -1201,6 +1206,10 @@
     <plurals name="export_start">
         <item quantity="one">%d file will be exported. See notification for details.</item>
         <item quantity="other">%d faili zitahamishwa. Tazama arifa kwa maelezo.</item>
+    </plurals>
+    <plurals name="file_upload_limit_message">
+        <item quantity="one">You can upload only %d file at once.</item>
+        <item quantity="other">Unaweza kupakia hadi faili %d mara moja.</item>
     </plurals>
     <plurals name="file_list__footer__folder">
         <item quantity="one">%1$d folder</item>
