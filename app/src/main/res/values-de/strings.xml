@@ -663,6 +663,7 @@
     <string name="pass_code_configure_your_pass_code">PIN eingeben</string>
     <string name="pass_code_configure_your_pass_code_explanation">Die PIN wird jedes mal beim Start der App abgefragt</string>
     <string name="pass_code_enter_pass_code">Bitte geben Sie Ihre PIN ein</string>
+    <string name="pass_code_explanation">Die PIN wird jedes mal beim Start der App oder beim erneuten Öffnen nach 5 Sekunden abgefragt</string>
     <string name="pass_code_mismatch">Die PINs stimmen nicht überein</string>
     <string name="pass_code_reenter_your_pass_code">Bitte Ihre PIN nochmals eingeben</string>
     <string name="pass_code_remove_your_pass_code">Ihre PIN löschen</string>

@@ -93,6 +93,7 @@
     <string name="auth_unsupported_multiaccount">%1$s не поддерживает множественные аккаунты</string>
     <string name="auth_wrong_connection_title">Не удается установить соединение</string>
     <string name="authenticator_activity_cancel_login">Отменить вход</string>
+    <string name="authenticator_activity_empty_base_url">Пожалуйста, введите действующий адрес сервера.</string>
     <string name="authenticator_activity_login_error">При обработке вашего запроса на вход возникла проблема. Пожалуйста, повторите попытку позже.</string>
     <string name="authenticator_activity_please_complete_login_process">Пожалуйста, завершите процесс входа в вашем браузере</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">оставлен в исходном каталоге, т.к. файл только для чтения</string>
@@ -472,6 +473,7 @@
     <string name="folder_already_exists">Папка уже существует</string>
     <string name="folder_best_viewed_in">Эту папку лучше всего просматривать в %1$s.</string>
     <string name="folder_confirm_create">Создать</string>
+    <string name="folder_download_worker_ticker_id">Синхронизация …</string>
     <string name="folder_list_empty_headline">Здесь нет каталогов</string>
     <string name="folder_name_empty">Имя папки не может быть пустым</string>
     <string name="folder_picker_choose_button_text">Выберите</string>
