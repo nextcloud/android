@@ -1177,7 +1177,7 @@ public class SettingsActivity extends PreferenceActivity
 
             for (final ExternalLink link : externalLinksProvider.getExternalLink(ExternalLinkType.SETTINGS)) {
 
-                // only add if it does not exist, in case activity is re-used
+                // only add if it does not exist, in case activity is reused
                 if (findPreference(String.valueOf(link.getId())) == null) {
                     Preference p = new Preference(this);
                     p.setTitle(link.getName());
