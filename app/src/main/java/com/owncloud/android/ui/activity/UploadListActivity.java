@@ -41,7 +41,6 @@ import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.operations.CheckCurrentCredentialsOperation;
 import com.owncloud.android.ui.adapter.UploadListAdapter;
 import com.owncloud.android.ui.decoration.MediaGridItemDecoration;
-import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.FilesSyncHelper;
 
 import javax.inject.Inject;
@@ -133,13 +132,11 @@ public class UploadListActivity extends FileActivity {
         WorkerStateLiveData.Companion.instance().observe(this, state -> {
             if (state instanceof WorkerState.UploadStarted) {
                 Log_OC.d(TAG, "Upload worker started");
-                handleUploadWorkerState();
+                uploadListAdapter.loadUploadItemsFromDb();
+            } else if (state instanceof WorkerState.UploadFinished) {
+                uploadListAdapter.loadUploadItemsFromDb(() -> swipeListRefreshLayout.setRefreshing(false));
             }
         });
-    }
-
-    private void handleUploadWorkerState() {
-        uploadListAdapter.loadUploadItemsFromDb();
     }
 
     private void setupContent() {
@@ -182,25 +179,15 @@ public class UploadListActivity extends FileActivity {
     }
 
     private void refresh() {
-        FilesSyncHelper.startAutoUploadImmediately(syncedFolderProvider,
-                                                    backgroundJobManager,
-                                                    true);
+        boolean isUploadStarted = FileUploadHelper.Companion.instance().retryFailedUploads(
+            uploadsStorageManager,
+            connectivityService,
+            accountManager,
+            powerManagementService);
 
-        if (uploadsStorageManager.getFailedUploads().length > 0) {
-            new Thread(() -> {
-                FileUploadHelper.Companion.instance().retryFailedUploads(
-                    uploadsStorageManager,
-                    connectivityService,
-                    accountManager,
-                    powerManagementService);
-                uploadListAdapter.loadUploadItemsFromDb();
-            }).start();
-            DisplayUtils.showSnackMessage(this, R.string.uploader_local_files_uploaded);
+        if (!isUploadStarted) {
+            uploadListAdapter.loadUploadItemsFromDb(() -> swipeListRefreshLayout.setRefreshing(false));
         }
-
-
-        // update UI
-        uploadListAdapter.loadUploadItemsFromDb(() -> swipeListRefreshLayout.setRefreshing(false));
     }
 
     @Override

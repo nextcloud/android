@@ -1,11 +1,10 @@
 /*
  * Nextcloud - Android Client
  *
- * SPDX-FileCopyrightText: 2024 Alper Ozturk <alper.ozturk@nextcloud.com>
- * SPDX-FileCopyrightText: 2024 Nextcloud GmbH
- * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
+ * SPDX-FileCopyrightText: 2025 Alper Ozturk <alper.ozturk@nextcloud.com>
+ * SPDX-License-Identifier: AGPL-3.0-or-later
  */
-package com.nextcloud.client.assistant.repository
+package com.nextcloud.client.assistant.repository.remote
 
 import com.nextcloud.common.NextcloudClient
 import com.owncloud.android.lib.common.operations.RemoteOperationResult
@@ -24,7 +23,8 @@ import com.owncloud.android.lib.resources.assistant.v2.model.TaskTypeData
 import com.owncloud.android.lib.resources.status.NextcloudVersion
 import com.owncloud.android.lib.resources.status.OCCapability
 
-class AssistantRepository(private val client: NextcloudClient, capability: OCCapability) : AssistantRepositoryType {
+class AssistantRemoteRepositoryImpl(private val client: NextcloudClient, capability: OCCapability) :
+    AssistantRemoteRepository {
 
     private val supportsV2 = capability.version.isNewerOrEqual(NextcloudVersion.nextcloud_30)
 

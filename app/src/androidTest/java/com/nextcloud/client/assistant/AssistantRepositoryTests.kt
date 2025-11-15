@@ -7,7 +7,7 @@
  */
 package com.nextcloud.client.assistant
 
-import com.nextcloud.client.assistant.repository.AssistantRepository
+import com.nextcloud.client.assistant.repository.remote.AssistantRemoteRepositoryImpl
 import com.owncloud.android.AbstractOnServerIT
 import com.owncloud.android.lib.resources.assistant.v2.model.TaskTypeData
 import com.owncloud.android.lib.resources.status.NextcloudVersion
@@ -18,11 +18,11 @@ import org.junit.Test
 @Suppress("MagicNumber")
 class AssistantRepositoryTests : AbstractOnServerIT() {
 
-    private var sut: AssistantRepository? = null
+    private var sut: AssistantRemoteRepositoryImpl? = null
 
     @Before
     fun setup() {
-        sut = AssistantRepository(nextcloudClient, capability)
+        sut = AssistantRemoteRepositoryImpl(nextcloudClient, capability)
     }
 
     @Test

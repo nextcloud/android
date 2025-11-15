@@ -8,10 +8,9 @@
 package com.nextcloud.client.assistant.taskTypes
 
 import android.annotation.SuppressLint
-import androidx.compose.material3.ScrollableTabRow
+import androidx.compose.material3.PrimaryScrollableTabRow
 import androidx.compose.material3.Tab
 import androidx.compose.material3.TabRowDefaults
-import androidx.compose.material3.TabRowDefaults.tabIndicatorOffset
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -26,13 +25,13 @@ import com.owncloud.android.lib.resources.assistant.v2.model.TaskTypeData
 fun TaskTypesRow(selectedTaskType: TaskTypeData?, data: List<TaskTypeData>, selectTaskType: (TaskTypeData) -> Unit) {
     val selectedTabIndex = data.indexOfFirst { it.id == selectedTaskType?.id }.takeIf { it >= 0 } ?: 0
 
-    ScrollableTabRow(
+    PrimaryScrollableTabRow(
         selectedTabIndex = selectedTabIndex,
         edgePadding = 0.dp,
         containerColor = colorResource(R.color.actionbar_color),
         indicator = {
             TabRowDefaults.SecondaryIndicator(
-                Modifier.tabIndicatorOffset(it[selectedTabIndex]),
+                Modifier.tabIndicatorOffset(selectedTabIndex),
                 color = colorResource(R.color.primary)
             )
         }

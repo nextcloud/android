@@ -23,7 +23,7 @@ import java.util.List;
  */
 public class ProviderMeta {
     public static final String DB_NAME = "filelist";
-    public static final int DB_VERSION = 95;
+    public static final int DB_VERSION = 96;
 
     private ProviderMeta() {
         // No instance
@@ -52,6 +52,7 @@ public class ProviderMeta {
         public static final String EXTERNAL_LINKS_TABLE_NAME = "external_links";
         public static final String ARBITRARY_DATA_TABLE_NAME = "arbitrary_data";
         public static final String VIRTUAL_TABLE_NAME = "virtual";
+        public static final String ASSISTANT_TABLE_NAME = "assistant";
         public static final String FILESYSTEM_TABLE_NAME = "filesystem";
         public static final String EDITORS_TABLE_NAME = "editors";
         public static final String CREATORS_TABLE_NAME = "creators";
