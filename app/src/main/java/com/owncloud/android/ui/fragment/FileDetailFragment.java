@@ -33,10 +33,10 @@ import com.nextcloud.client.network.ClientFactory;
 import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.model.WorkerState;
-import com.nextcloud.model.WorkerStateLiveData;
 import com.nextcloud.ui.fileactions.FileAction;
 import com.nextcloud.ui.fileactions.FileActionsBottomSheet;
 import com.nextcloud.utils.MenuUtils;
+import com.nextcloud.utils.extensions.ActivityExtensionsKt;
 import com.nextcloud.utils.extensions.BundleExtensionsKt;
 import com.nextcloud.utils.extensions.FileExtensionsKt;
 import com.nextcloud.utils.mdm.MDMConfig;
@@ -84,6 +84,7 @@ import androidx.annotation.Nullable;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.FragmentManager;
 import androidx.viewpager2.widget.ViewPager2;
+import kotlin.Unit;
 
 /**
  * This Fragment is used to display the details about a file.
@@ -541,7 +542,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
      *
      * @param transferring Flag signaling if the file should be considered as downloading or uploading, although
      *                     {@link FileDownloadHelper#isDownloading(User, OCFile)}  and
-     *                     {@link FileUploadHelper#isUploading(User, OCFile)} return false.
+     *                     {@link FileUploadHelper#isUploading(String, String)} return false.
      * @param refresh      If 'true', try to refresh the whole file from the database
      */
     public void updateFileDetails(boolean transferring, boolean refresh) {
@@ -625,12 +626,13 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
     }
 
     private void observeWorkerState() {
-        WorkerStateLiveData.Companion.instance().observe(getViewLifecycleOwner(), state -> {
-            if (state instanceof WorkerState.UploadStarted) {
+        ActivityExtensionsKt.observeWorker(requireActivity(), state -> {
+            if (state instanceof WorkerState.FileUploadStarted) {
                 binding.progressText.setText(R.string.uploader_upload_in_progress_ticker);
             } else {
                 binding.progressBlock.setVisibility(View.GONE);
             }
+            return Unit.INSTANCE;
         });
     }
 
