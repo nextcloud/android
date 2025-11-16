@@ -44,6 +44,7 @@
     <string name="app_widget_description">Amosa un trebello do taboleiro</string>
     <string name="appbar_search_in">Buscar en %s</string>
     <string name="appear_offline">Aparecer como sen conexión</string>
+    <string name="assistant_generation_warning">Este contido foi xerado por IA e pode conter erros.</string>
     <string name="assistant_screen_add_task_alert_dialog_title">Engadir unha nova tarefa</string>
     <string name="assistant_screen_create_a_new_task_from_bottom_right_text">Crear unha nova tarefa a desde a parte inferior dereita</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Escriba algún texto</string>
@@ -55,6 +56,7 @@
     <string name="assistant_screen_task_delete_fail_message">Produciuse un erro ao eliminar a tarefa</string>
     <string name="assistant_screen_task_delete_success_message">A tarefa foi eliminada satisfactoriamente</string>
     <string name="assistant_screen_task_list_empty_message">A lista de tarefas está baleira</string>
+    <string name="assistant_screen_task_list_empty_warning">A lista de tarefas está baleira. Comprobe a configuración da aplicación do asistente.</string>
     <string name="assistant_screen_task_list_error_state_message">Non é posíbel recuperar a lista de tarefas. Comprobe a conexión a Internet.</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">Eliminar tarefa</string>
     <string name="assistant_screen_task_output_empty_text">A saída da tarefa aínda non está preparada.</string>
