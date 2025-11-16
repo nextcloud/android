@@ -44,6 +44,7 @@
     <string name="app_widget_description">Näitab ühte vidinat juhtpaneelilt/töölaualt</string>
     <string name="appbar_search_in">Otsi siin: %s</string>
     <string name="appear_offline">Sellega paistad olema võrgust väljas</string>
+    <string name="assistant_generation_warning">See sisu on tehisaru koostatud ja võib sisaldada vigu.</string>
     <string name="assistant_screen_add_task_alert_dialog_title">Lisa uus ülesanne</string>
     <string name="assistant_screen_create_a_new_task_from_bottom_right_text">Loo uus ülesanne all paremal asuvast valikust</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Kirjuta midagi vahvat</string>
@@ -55,6 +56,7 @@
     <string name="assistant_screen_task_delete_fail_message">Ülesande kustutamisel tekkis viga</string>
     <string name="assistant_screen_task_delete_success_message">Ülesande kustutamine õnnestus</string>
     <string name="assistant_screen_task_list_empty_message">Ülesannete loend on tühi.</string>
+    <string name="assistant_screen_task_list_empty_warning">Ülesannete loend on tühi. Kontrolli Abilise rakenduse seadistusi.</string>
     <string name="assistant_screen_task_list_error_state_message">Ülesannete loendi laadimine ei õnnestunud. Palun kontrolli oma nutiseadme internetiühenduse toimivust.</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">Kustuta ülesanne</string>
     <string name="assistant_screen_task_output_empty_text">Ülesande väljund pole veel valmis.</string>

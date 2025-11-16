@@ -1029,6 +1029,22 @@
     <string name="write_email">ئېلېكترونلۇق خەت ئەۋەتىڭ</string>
     <string name="wrong_storage_path">سانلىق مەلۇمات ساقلاش قىسقۇچى مەۋجۇت ئەمەس!</string>
     <string name="wrong_storage_path_desc">بۇ بەلكىم باشقا ئۈسكۈنىدە زاپاسلاشنى ئەسلىگە كەلتۈرگەن بولۇشى مۇمكىن. سۈكۈتكە قايتىش. سانلىق مەلۇمات ساقلاش قىسقۇچىنى تەڭشەش ئۈچۈن تەڭشەكلەرنى تەكشۈرۈڭ.</string>
+    <plurals name="hours">
+        <item quantity="one">%d سائەت</item>
+        <item quantity="other">%d سائەت</item>
+    </plurals>
+    <plurals name="minutes">
+        <item quantity="one">%d مىنۇت</item>
+        <item quantity="other">%d مىنۇت</item>
+    </plurals>
+    <plurals name="time_minutes_ago">
+        <item quantity="one">%d مىنۇت ئىلگىرى</item>
+        <item quantity="other">%d مىنۇت ئىلگىرى</item>
+    </plurals>
+    <plurals name="time_hours_ago">
+        <item quantity="one">%d سائەت ئىلگىرى</item>
+        <item quantity="other">%d سائەت ئىلگىرى</item>
+    </plurals>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">Could not sync %1$d file (conflicts: %2$d)</item>
         <item quantity="other">Could not sync %1$d files (conflicts: %2$d)</item>
