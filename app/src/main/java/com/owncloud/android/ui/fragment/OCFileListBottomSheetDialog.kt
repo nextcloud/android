@@ -43,8 +43,7 @@ class OCFileListBottomSheetDialog(
     private val themeUtils: ThemeUtils,
     private val viewThemeUtils: ViewThemeUtils,
     private val editorUtils: EditorUtils,
-    private val appScanOptionalFeature: AppScanOptionalFeature,
-    private val permissionUtil: PermissionUtil
+    private val appScanOptionalFeature: AppScanOptionalFeature
 ) : BottomSheetDialog(fileActivity),
     Injectable {
 
@@ -75,7 +74,7 @@ class OCFileListBottomSheetDialog(
         if (MainApp.isClientBranded() && isFlavourGPlay()) {
             // this way we can have branded clients with that permission
             val hasPermission = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-                permissionUtil.manifestHasAllFilesPermission(context)
+                PermissionUtil.manifestHasAllFilesPermission(context)
             } else {
                 true
             }
