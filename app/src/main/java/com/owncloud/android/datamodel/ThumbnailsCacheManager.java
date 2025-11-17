@@ -1452,9 +1452,7 @@ public final class ThumbnailsCacheManager {
                 }
 
                 if (thumbnail != null) {
-                    synchronized (mThumbnailsDiskCacheLock) {
-                        addBitmapToCache(imageKey, thumbnail);
-                    }
+                    addBitmapToCache(imageKey, thumbnail);
                 }
             } catch (Exception e) {
                 Log_OC.e(TAG, "doResizedBitmap: ", e);
