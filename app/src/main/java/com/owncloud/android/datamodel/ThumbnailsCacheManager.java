@@ -724,109 +724,122 @@ public final class ThumbnailsCacheManager {
 
             boolean updateEnforced = (file instanceof OCFile && ((OCFile) file).isUpdateThumbnailNeeded());
 
-            if (updateEnforced) {
-                thumbnail = null;
-            } else {
-                // Check disk cache in background thread
+            // Try to load thumbnail from disk cache
+            if (!updateEnforced) {
                 thumbnail = getBitmapFromDiskCache(imageKey);
+                if (thumbnail != null) {
+                    Log_OC.d(TAG, "Thumbnail found in disk cache for file: " + file.getFileName());
+                    return thumbnail;
+                } else {
+                    Log_OC.d(TAG, "Thumbnail not found in cache for file: " + file.getFileName());
+                }
+            } else {
+                Log_OC.d(TAG, "Thumbnail update enforced for file: " + file.getFileName());
+                thumbnail = null;
             }
 
-            // Not found in disk cache
+            int pxW;
+            int pxH;
+            pxW = pxH = getThumbnailDimension();
+
+            // Generate thumbnail from local file if available
+            if (file instanceof OCFile ocFile && ocFile.isDown()) {
+                Log_OC.d(TAG, "Generating thumbnail from local file: " + ocFile.getFileName());
+
+                Bitmap bitmap;
+                if (MimeTypeUtil.isVideo(ocFile)) {
+                    bitmap = ThumbnailUtils.createVideoThumbnail(ocFile.getStoragePath(),
+                                                                 MediaStore.Images.Thumbnails.MINI_KIND);
+                } else {
+                    bitmap = BitmapUtils.decodeSampledBitmapFromFile(ocFile.getStoragePath(), pxW, pxH);
+                }
+
+                if (bitmap != null) {
+                    if (PNG_MIMETYPE.equalsIgnoreCase(ocFile.getMimeType())) {
+                        bitmap = handlePNG(bitmap, pxW, pxH);
+                    }
+
+                    thumbnail = addThumbnailToCache(imageKey, bitmap, ocFile.getStoragePath(), pxW, pxH);
+                    ocFile.setUpdateThumbnailNeeded(false);
+                    mStorageManager.saveFile(ocFile);
+                }
+            }
+
+            // Check resized version in disk cache if still null
             if (thumbnail == null) {
-                int pxW;
-                int pxH;
-                pxW = pxH = getThumbnailDimension();
+                String resizedImageKey = PREFIX_RESIZED_IMAGE + file.getRemoteId();
+                Bitmap resizedImage = null;
 
-                if (file instanceof OCFile ocFile) {
-                    if (ocFile.isDown()) {
-                        Bitmap bitmap;
-                        if (MimeTypeUtil.isVideo(ocFile)) {
-                            bitmap = ThumbnailUtils.createVideoThumbnail(ocFile.getStoragePath(),
-                                                                         MediaStore.Images.Thumbnails.MINI_KIND);
-                        } else {
-                            bitmap = BitmapUtils.decodeSampledBitmapFromFile(ocFile.getStoragePath(), pxW, pxH);
-                        }
-
-                        if (bitmap != null) {
-                            // Handle PNG
-                            if (PNG_MIMETYPE.equalsIgnoreCase(ocFile.getMimeType())) {
-                                bitmap = handlePNG(bitmap, pxW, pxH);
-                            }
-
-                            thumbnail = addThumbnailToCache(imageKey, bitmap, ocFile.getStoragePath(), pxW, pxH);
-
-                            ocFile.setUpdateThumbnailNeeded(false);
-                            mStorageManager.saveFile(ocFile);
-                        }
-                    }
+                if (!updateEnforced) {
+                    resizedImage = getBitmapFromDiskCache(resizedImageKey);
                 }
 
-                if (thumbnail == null) {
-                    // check if resized version is available
-                    String resizedImageKey = PREFIX_RESIZED_IMAGE + file.getRemoteId();
+                if (resizedImage != null) {
+                    thumbnail = ThumbnailUtils.extractThumbnail(resizedImage, pxW, pxH);
+                    Log_OC.d(TAG, "Thumbnail generated from resized image cache for file: " + file.getFileName());
+                } else {
+                    Log_OC.d(TAG, "No resized image cache available for file: " + file.getFileName());
+                }
+            }
 
-                    Bitmap resizedImage;
-                    if (updateEnforced) {
-                        resizedImage = null;
+            // Download thumbnail from server if still null
+            if (thumbnail == null && mClient != null) {
+                Log_OC.d(TAG, "Attempting to download thumbnail from server for file: " + file.getFileName());
+                GetMethod getMethod = null;
+
+                try {
+                    String uri;
+                    if (file instanceof OCFile) {
+                        uri = mClient.getBaseUri() + "/index.php/core/preview?fileId="
+                            + file.getLocalId()
+                            + "&x=" + pxW + "&y=" + pxH + "&a=1&mode=cover&forceIcon=0";
                     } else {
-                        resizedImage = getBitmapFromDiskCache(resizedImageKey);
+                        uri = mClient.getBaseUri() + "/index.php/apps/files_trashbin/preview?fileId="
+                            + file.getLocalId() + "&x=" + pxW + "&y=" + pxH;
                     }
 
-                    if (resizedImage != null) {
-                        thumbnail = ThumbnailUtils.extractThumbnail(resizedImage, pxW, pxH);
-                    } else {
-                        // Download thumbnail from server
-                        if (mClient != null) {
-                            getMethod = null;
-                            try {
-                                // thumbnail
-                                String uri;
-                                if (file instanceof OCFile) {
-                                    uri = mClient.getBaseUri() + "/index.php/core/preview?fileId="
-                                        + file.getLocalId()
-                                        + "&x=" + pxW + "&y=" + pxH + "&a=1&mode=cover&forceIcon=0";
-                                } else {
-                                    uri = mClient.getBaseUri() + "/index.php/apps/files_trashbin/preview?fileId=" +
-                                        file.getLocalId() + "&x=" + pxW + "&y=" + pxH;
-                                }
+                    Log_OC.d(TAG, "Downloading thumbnail URI: " + uri);
 
-                                Log_OC.d(TAG, "generate thumbnail: " + file.getFileName() + " URI: " + uri);
-                                getMethod = new GetMethod(uri);
-                                getMethod.setRequestHeader("Cookie",
-                                                           "nc_sameSiteCookielax=true;nc_sameSiteCookiestrict=true");
+                    getMethod = new GetMethod(uri);
+                    getMethod.setRequestHeader("Cookie", "nc_sameSiteCookielax=true;nc_sameSiteCookiestrict=true");
+                    getMethod.setRequestHeader(RemoteOperation.OCS_API_HEADER, RemoteOperation.OCS_API_HEADER_VALUE);
 
-                                getMethod.setRequestHeader(RemoteOperation.OCS_API_HEADER,
-                                                           RemoteOperation.OCS_API_HEADER_VALUE);
+                    int status = mClient.executeMethod(getMethod, READ_TIMEOUT, CONNECTION_TIMEOUT);
 
-                                int status = mClient.executeMethod(getMethod, READ_TIMEOUT, CONNECTION_TIMEOUT);
-                                if (status == HttpStatus.SC_OK) {
-                                    InputStream inputStream = getMethod.getResponseBodyAsStream();
-                                    Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
-                                    thumbnail = ThumbnailUtils.extractThumbnail(bitmap, pxW, pxH);
-                                } else {
-                                    mClient.exhaustResponse(getMethod.getResponseBodyAsStream());
-                                }
-
-                                // Handle PNG
-                                if (PNG_MIMETYPE.equalsIgnoreCase(file.getMimeType())) {
-                                    thumbnail = handlePNG(thumbnail, pxW, pxH);
-                                }
-                            } catch (Exception e) {
-                                Log_OC.d(TAG, e.getMessage(), e);
-                            } finally {
-                                if (getMethod != null) {
-                                    getMethod.releaseConnection();
-                                }
+                    if (status == HttpStatus.SC_OK) {
+                        try (InputStream inputStream = getMethod.getResponseBodyAsStream()) {
+                            Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
+                            if (bitmap != null) {
+                                thumbnail = ThumbnailUtils.extractThumbnail(bitmap, pxW, pxH);
+                                Log_OC.d(TAG, "Thumbnail downloaded and extracted for file: " + file.getFileName());
+                            } else {
+                                Log_OC.w(TAG, "Downloaded thumbnail bitmap is null for file: " + file.getFileName());
                             }
                         }
+                    } else {
+                        mClient.exhaustResponse(getMethod.getResponseBodyAsStream());
+                        Log_OC.w(TAG, "Failed to download thumbnail, HTTP status: " + status);
                     }
 
-                    // Add thumbnail to cache
-                    if (thumbnail != null) {
-                        Log_OC.d(TAG, "add thumbnail to cache: " + file.getFileName());
-                        addBitmapToCache(imageKey, thumbnail);
+                    if (thumbnail != null && PNG_MIMETYPE.equalsIgnoreCase(file.getMimeType())) {
+                        thumbnail = handlePNG(thumbnail, pxW, pxH);
+                        Log_OC.d(TAG, "Handled PNG thumbnail for downloaded file: " + file.getFileName());
+                    }
+                } catch (Exception e) {
+                    Log_OC.e(TAG, "Exception downloading thumbnail for file: " + file.getFileName(), e);
+                } finally {
+                    if (getMethod != null) {
+                        getMethod.releaseConnection();
                     }
                 }
+            }
+
+            // Add to disk cache if obtained
+            if (thumbnail != null) {
+                Log_OC.d(TAG, "Adding final thumbnail to cache for file: " + file.getFileName());
+                addBitmapToCache(imageKey, thumbnail);
+            } else {
+                Log_OC.w(TAG, "Failed to obtain thumbnail for file: " + file.getFileName());
             }
 
             return thumbnail;
