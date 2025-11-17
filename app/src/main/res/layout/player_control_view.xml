@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Nextcloud - Android Client
+  ~
+  ~ SPDX-FileCopyrightText: 2025 STRATO GmbH.
+  ~ SPDX-License-Identifier: GPL-2.0
+  -->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/transparent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/progressPanel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/player_progress_panel_margin_bottom"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="@dimen/player_progress_panel_padding_horizontal"
+        android:paddingEnd="@dimen/player_progress_panel_padding_horizontal">
+
+        <TextView
+            android:id="@+id/tvElapsed"
+            style="@style/PlayerTimeTextViewStyle" />
+
+        <SeekBar
+            android:id="@+id/progressBar"
+            style="@style/PlayerSeekBarStyle"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/player_progressbar_height"
+            android:layout_weight="1"
+            android:indeterminate="false"
+            android:longClickable="false"
+            android:max="100"
+            android:progress="0" />
+
+        <TextView
+            android:id="@+id/tvTotalTime"
+            style="@style/PlayerTimeTextViewStyle" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/bottomBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/player_bottom_bar_margin_bottom"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/ivRepeat"
+            style="@style/PlayerButtonStyle"
+            android:src="@drawable/player_ic_repeat" />
+
+        <ImageView
+            android:id="@+id/ivPrevious"
+            style="@style/PlayerButtonStyle"
+            android:src="@drawable/player_ic_skip_previous" />
+
+        <ImageView
+            android:id="@+id/ivPlayPause"
+            style="@style/PlayerButtonStyle"
+            android:src="@drawable/player_ic_play" />
+
+        <ImageView
+            android:id="@+id/ivNext"
+            style="@style/PlayerButtonStyle"
+            android:src="@drawable/player_ic_skip_next" />
+
+        <ImageView
+            android:id="@+id/ivRandom"
+            style="@style/PlayerButtonStyle"
+            android:src="@drawable/player_ic_shuffle" />
+
+    </LinearLayout>
+
+</LinearLayout>
