@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Nextcloud - Android Client
+  ~
+  ~ SPDX-FileCopyrightText: 2025 STRATO GmbH.
+  ~ SPDX-License-Identifier: GPL-2.0
+  -->
+
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@android:id/background">
+        <shape android:shape="rectangle">
+            <size android:height="@dimen/player_progress_drawable_height" />
+            <corners android:radius="@dimen/player_progress_drawable_radius" />
+            <solid android:color="@color/player_progressbar_background_color" />
+        </shape>
+    </item>
+    <item android:id="@android:id/progress">
+        <clip>
+            <shape android:shape="rectangle">
+                <size android:height="@dimen/player_progress_drawable_height" />
+                <corners android:radius="@dimen/player_progress_drawable_radius" />
+                <solid android:color="@color/player_accent_color" />
+            </shape>
+        </clip>
+    </item>
+</layer-list>
