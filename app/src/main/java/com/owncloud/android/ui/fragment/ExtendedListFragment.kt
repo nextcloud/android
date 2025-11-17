@@ -57,6 +57,7 @@ import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.client.preferences.AppPreferencesImpl
 import com.nextcloud.utils.extensions.getTypedActivity
 import com.nextcloud.utils.extensions.mainThread
+import com.nextcloud.utils.extensions.setVisibleIf
 import com.owncloud.android.MainApp
 import com.owncloud.android.R
 import com.owncloud.android.databinding.ListFragmentBinding
@@ -774,6 +775,17 @@ open class ExtendedListFragment :
                 it.setContentDescription(getString(R.string.action_switch_grid_view))
                 it.icon = ContextCompat.getDrawable(requireContext(), R.drawable.ic_view_module)
             }
+        }
+    }
+
+    protected fun toggleEmptyListView(showEmptyListState: Boolean) {
+        mEmptyListContainer.setVisibleIf(showEmptyListState)
+
+        // clear previous state
+        if (!showEmptyListState) {
+            mEmptyListMessage?.text = ""
+            mEmptyListHeadline?.text = ""
+            mEmptyListIcon?.setImageDrawable(null)
         }
     }
 
