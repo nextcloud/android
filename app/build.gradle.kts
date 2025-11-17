@@ -338,6 +338,10 @@ tasks.named("check").configure {
 }
 
 dependencies {
+    // unified push
+    implementation(libs.unifiedpush.connector)
+    implementation(libs.unifiedpush.connector.ui)
+
     // region Nextcloud library
     implementation(libs.android.library) {
         exclude(group = "org.ogce", module = "xpp3") // unused in Android and brings wrong Junit version
