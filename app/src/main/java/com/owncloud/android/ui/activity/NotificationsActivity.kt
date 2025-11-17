@@ -181,18 +181,22 @@ class NotificationsActivity :
             }
         } else {
             val pushUrl = resources.getString(R.string.push_server_url)
-
-            if (pushUrl.isEmpty() && isFlavourGPlay()) {
-                // branded client without push server
-                return
+            val arbitraryDataProvider: ArbitraryDataProvider = ArbitraryDataProviderImpl(this)
+            val accountName: String = if (optionalUser?.isPresent == true) {
+                optionalUser?.get()?.accountName ?: ""
+            } else {
+                ""
             }
 
+            // if using unified push...
             if (pushUrl.isEmpty()) {
-                snackbar = Snackbar.make(
-                    binding.emptyList.emptyListView,
-                    R.string.push_notifications_not_implemented,
-                    Snackbar.LENGTH_INDEFINITE
-                )
+                // if a unified push distributor is not set, show snackbar alerting user to unified push capability
+                if (arbitraryDataProvider.getValue(accountName, PushUtils.KEY_PUSH).isEmpty())
+                    snackbar = Snackbar.make(
+                        binding.emptyList.emptyListView,
+                        R.string.push_notifications_no_distributor,
+                        Snackbar.LENGTH_INDEFINITE
+                    )
             } else {
                 val arbitraryDataProvider: ArbitraryDataProvider = ArbitraryDataProviderImpl(this)
                 val accountName: String = if (optionalUser?.isPresent == true) {

@@ -9,10 +9,18 @@ package com.owncloud.android.utils;
 
 import android.content.Context;
 
+import android.accounts.Account;
+import android.text.TextUtils;
+
+import com.google.gson.Gson;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.preferences.AppPreferencesImpl;
 import com.owncloud.android.MainApp;
+import com.owncloud.android.datamodel.ArbitraryDataProviderImpl;
+import com.owncloud.android.datamodel.PushConfigurationState;
 import com.owncloud.android.datamodel.SignatureVerification;
+import com.nextcloud.unifiedpush.UnifiedPush;
+import com.owncloud.android.ui.activity.DrawerActivity;
 
 import java.security.Key;
 
@@ -22,13 +30,31 @@ public final class PushUtils {
     private PushUtils() {
     }
 
-    public static void pushRegistrationToServer(final UserAccountManager accountManager, final String pushToken) {
-        // do nothing
+    public static void updateRegistrationsWithServer(
+        final DrawerActivity activity,
+        final UserAccountManager accountManager,
+        final String pushToken) {
+        for (Account account : accountManager.getAccounts()) {
+            String providerValue = new ArbitraryDataProviderImpl(MainApp.getAppContext()).getValue(account.name, KEY_PUSH);
+            PushConfigurationState accountPushData = new Gson().fromJson(providerValue, PushConfigurationState.class);
+
+            if ((accountPushData != null) && accountPushData.isShouldBeDeleted()) {
+                // unregister push notifications
+                UnifiedPush.Companion.unregisterForPushMessaging(MainApp.getAppContext(), account.name);
+            } else {
+                // else, (re-)register for push notifications
+                if (activity != null) {
+                    UnifiedPush.Companion.registerForPushMessaging(
+                        activity,
+                        account.name,
+                        ((accountPushData == null) || TextUtils.isEmpty(accountPushData.getPushToken())));
+                }
+            }
+        }
     }
 
     public static void reinitKeys(UserAccountManager accountManager) {
-        Context context = MainApp.getAppContext();
-        AppPreferencesImpl.fromContext(context).setKeysReInitEnabled();
+        AppPreferencesImpl.fromContext(MainApp.getAppContext()).setKeysReInitEnabled();
     }
 
     public static Key readKeyFromFile(boolean readPublicKey) {
@@ -39,8 +65,7 @@ public final class PushUtils {
         final Context context,
         final UserAccountManager accountManager,
         final byte[] signatureBytes,
-        final byte[] subjectBytes
-    ) {
+        final byte[] subjectBytes) {
         return null;
     }
 

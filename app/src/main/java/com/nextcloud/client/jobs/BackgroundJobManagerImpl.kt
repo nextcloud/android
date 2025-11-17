@@ -611,10 +611,11 @@ internal class BackgroundJobManagerImpl(
         )
     }
 
-    override fun startNotificationJob(subject: String, signature: String) {
+    override fun startNotificationJob(subject: String, signature: String, backendType: Int) {
         val data = Data.Builder()
             .putString(NotificationWork.KEY_NOTIFICATION_SUBJECT, subject)
             .putString(NotificationWork.KEY_NOTIFICATION_SIGNATURE, signature)
+            .putInt(NotificationWork.KEY_NOTIFICATION_TYPE, backendType)
             .build()
 
         val request = oneTimeRequestBuilder(NotificationWork::class, JOB_NOTIFICATION)

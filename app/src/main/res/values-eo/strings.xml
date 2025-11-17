@@ -415,7 +415,6 @@
     <string name="preview_image_error_unknown_format">Ne eblas montri bildon</string>
     <string name="preview_sorry">Pardonu</string>
     <string name="privacy">Privateco</string>
-    <string name="push_notifications_not_implemented">Tujaj sciigoj estas malebligitaj pro dependeco al proprietaj „Google Play“-servoj.</string>
     <string name="push_notifications_old_login">Neniu tuja sciigo pro malaktuala ensaluto-seanco. Bonvolu eble re-aldoni vian konton.</string>
     <string name="push_notifications_temp_error">Tujaj sciigoj momente ne disponeblas.</string>
     <string name="recommend_subject">Provu %1$s sur via aparato!</string>

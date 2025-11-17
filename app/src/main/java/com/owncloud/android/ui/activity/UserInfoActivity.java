@@ -16,6 +16,7 @@ import android.annotation.SuppressLint;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -89,6 +90,8 @@ public class UserInfoActivity extends DrawerActivity implements Injectable {
     public void onCreate(Bundle savedInstanceState) {
         Log_OC.v(TAG, "onCreate() start");
         super.onCreate(savedInstanceState);
+        mHandler = new Handler();
+
         Bundle bundle = getIntent().getExtras();
 
         if (bundle == null) {
@@ -359,7 +362,7 @@ public class UserInfoActivity extends DrawerActivity implements Injectable {
 
     @Subscribe(threadMode = ThreadMode.BACKGROUND)
     public void onMessageEvent(TokenPushEvent event) {
-        PushUtils.pushRegistrationToServer(getUserAccountManager(), preferences.getPushToken());
+        PushUtils.updateRegistrationsWithServer(this, getUserAccountManager(), preferences.getPushToken());
     }
 
 

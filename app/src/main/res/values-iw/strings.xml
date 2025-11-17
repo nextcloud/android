@@ -500,7 +500,6 @@
     <string name="preview_image_error_unknown_format">לא ניתן להציג תמונה</string>
     <string name="preview_sorry">אנו מתנצלים</string>
     <string name="privacy">פרטיות</string>
-    <string name="push_notifications_not_implemented">התראות בדחיפה מושבתות עקב תלות בשירותי Google Play קנייניים.</string>
     <string name="push_notifications_old_login">אין התראות בדחיפה עקב כניסה מיושנת. מוטב לשקול להוסיף את החשבון שלך מחדש.</string>
     <string name="push_notifications_temp_error">כרגע התרעות בדחיפה אינן זמינות.</string>
     <string name="recommend_subject">לנסות את %1$s בהתקן שלך!</string>

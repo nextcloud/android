@@ -2772,7 +2772,7 @@ class FileDisplayActivity :
         if (!preferences.isKeysReInitEnabled()) {
             PushUtils.reinitKeys(userAccountManager)
         } else {
-            PushUtils.pushRegistrationToServer(userAccountManager, preferences.getPushToken())
+            PushUtils.updateRegistrationsWithServer(this, userAccountManager, preferences.getPushToken());
         }
     }
 

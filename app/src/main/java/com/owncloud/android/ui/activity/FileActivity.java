@@ -159,9 +159,6 @@ public abstract class FileActivity extends DrawerActivity
     /** Flag to signal if the activity is launched by a notification */
     private boolean mFromNotification;
 
-    /** Messages handler associated to the main thread and the life cycle of the activity */
-    private Handler mHandler;
-
     private FileOperationsHelper mFileOperationsHelper;
 
     private ServiceConnection mOperationsServiceConnection;

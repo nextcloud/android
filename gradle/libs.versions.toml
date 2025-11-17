@@ -84,8 +84,14 @@ spotless = "7.2.1"
 stateless4jVersion = "2.6.0"
 webkitVersion = "1.14.0"
 workRuntime = "2.10.4"
+unifiedpush-connector = "3.1.2"
+unifiedpush-connector-ui = "1.1.0"
 
 [libraries]
+# unified push
+unifiedpush-connector = { module = "org.unifiedpush.android:connector", version.ref = "unifiedpush-connector" }
+unifiedpush-connector-ui = { module = "org.unifiedpush.android:connector-ui", version.ref = "unifiedpush-connector-ui" }
+
 # Crypto
 android-library = { module = "com.github.nextcloud:android-library", version.ref = "androidLibraryVersion" }
 conscrypt-android = { module = "org.conscrypt:conscrypt-android", version.ref = "conscryptAndroidVersion" }

@@ -448,7 +448,6 @@
     <string name="preview_image_error_unknown_format">Kjo figurë nuk mund të shfaqet</string>
     <string name="preview_sorry">Më vjen keq</string>
     <string name="privacy">Privatësi</string>
-    <string name="push_notifications_not_implemented">Njoftimet push janë të çaktivizuara për shkak të varësive nga shërbimet e patentuara të Google Play. </string>
     <string name="push_notifications_old_login">Nuk ka asnjë njoftim për shkak se sesioni i identifikimit nuk ishte i përditësuar. Ju lutem konsideroni të shtoni përsëri llogarinë tuaj. </string>
     <string name="push_notifications_temp_error">Njoftimet push nuk ofrohen për momentin.</string>
     <string name="recommend_subject">Provojeni %1$s në pajisjen tuaj!</string>
