@@ -15,6 +15,7 @@ import android.widget.TextView
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.elyeproj.loaderviewlibrary.LoaderImageView
+import com.nextcloud.client.player.ui.PlayerProgressIndicator
 import com.owncloud.android.databinding.GridItemBinding
 
 class OCFileListGridItemViewHolder(var binding: GridItemBinding) :
@@ -32,6 +33,8 @@ class OCFileListGridItemViewHolder(var binding: GridItemBinding) :
         } else {
             null
         }
+    override val playerProgressIndicator: PlayerProgressIndicator
+        get() = binding.playerProgressIndicator
     override val thumbnail: ImageView
         get() = binding.thumbnail
 

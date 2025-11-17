@@ -1494,6 +1494,10 @@ public class OCFileListFragment extends ExtendedListFragment implements
         return mFile;
     }
 
+    public SearchType getCurrentSearchType() {
+        return currentSearchType;
+    }
+
     /**
      * Calls {@link OCFileListFragment#listDirectory(OCFile, boolean)} with a null parameter
      */
