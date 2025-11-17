@@ -113,7 +113,6 @@ object PermissionUtil {
      * @param activity The target activity.
      */
     @JvmStatic
-    @JvmOverloads
     fun requestExternalStoragePermission(
         activity: AppCompatActivity,
         viewThemeUtils: ViewThemeUtils,
