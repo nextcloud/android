@@ -138,9 +138,13 @@ public class ConnectivityServiceImpl implements ConnectivityService {
         Server server = accountManager.getUser().getServer();
         String baseServerAddress = server.getUri().toString();
 
-        if (!currentConnectivity.isConnected() || baseServerAddress.isEmpty()) {
-            walledCheckCache.setValue(true);
-            return true;
+        if (!currentConnectivity.isConnected()
+            || baseServerAddress.isEmpty() ||
+            !currentConnectivity.isWifi() ||
+            currentConnectivity.isMetered()) {
+            final var result = !currentConnectivity.isConnected();
+            walledCheckCache.setValue(result);
+            return result;
         }
 
         boolean isWalled;
