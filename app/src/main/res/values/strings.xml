@@ -1465,4 +1465,7 @@
     <string name="sort_folders_before_files">Sort folders before files</string>
     <string name="sort_favorites_first">Sort favorites first</string>
     <string name="prefs_category_files">Files</string>
+    <string name="player_error_source_not_found">Source not found</string>
+    <string name="player_media_controls_close_action_title">Close</string>
+    <string name="player_last_modified">Modified: %s</string>
 </resources>

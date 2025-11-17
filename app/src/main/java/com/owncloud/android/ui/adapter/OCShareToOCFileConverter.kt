@@ -49,6 +49,7 @@ object OCShareToOCFileConverter {
             note = firstShare.note
             fileId = firstShare.fileSource
             remoteId = firstShare.remoteId.toString()
+            localId = firstShare.fileSource
             // use first share timestamp as timestamp
             firstShareTimestamp = shares.minOf { it.sharedDate * MILLIS_PER_SECOND }
             // don't have file length or mod timestamp

@@ -89,4 +89,15 @@
     <color name="fontSecondaryAppbar">#A5A5A5</color>
 
     <color name="actionbar_color">#F7F9FF</color>
+
+    <!-- Player -->
+    <color name="player_accent_color">@color/color_accent</color>
+    <color name="player_background_color">#111111</color>
+    <color name="player_default_text_color">@color/white</color>
+    <color name="player_toolbar_text_color">@color/white</color>
+    <color name="player_default_icon_color">@color/white</color>
+    <color name="player_toolbar_icon_color">@color/white</color>
+    <color name="player_video_toolbar_background_color">#21000000</color>
+    <color name="player_video_control_view_background_color">#21000000</color>
+    <color name="player_progressbar_background_color">#979797</color>
 </resources>

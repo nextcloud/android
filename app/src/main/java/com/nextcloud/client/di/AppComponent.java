@@ -23,6 +23,7 @@ import com.nextcloud.client.jobs.upload.FileUploadHelper;
 import com.nextcloud.client.media.BackgroundPlayerService;
 import com.nextcloud.client.network.NetworkModule;
 import com.nextcloud.client.onboarding.OnboardingModule;
+import com.nextcloud.client.player.PlayerModule;
 import com.nextcloud.client.preferences.PreferencesModule;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.media.MediaControlView;
@@ -53,6 +54,7 @@ import dagger.android.support.AndroidSupportInjectionModule;
     DatabaseModule.class,
     DispatcherModule.class,
     VariantModule.class,
+    PlayerModule.class,
 })
 @Singleton
 public interface AppComponent {

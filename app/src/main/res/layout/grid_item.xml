@@ -230,5 +230,15 @@
         tools:ignore="TouchTargetSizeCheck"
         tools:visibility="visible" />
 
+    <com.nextcloud.client.player.ui.PlayerProgressIndicator
+        android:id="@+id/player_progress_indicator"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintWidth_percent="0.75"
+        tools:visibility="visible" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

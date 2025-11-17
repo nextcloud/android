@@ -382,9 +382,14 @@
             android:configChanges="orientation|screenLayout|screenSize|keyboardHidden"
             android:exported="false"
             android:theme="@style/Theme.ownCloud.Media" />
+        <activity
+            android:name="com.nextcloud.client.player.ui.PlayerActivity"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout|orientation"
+            android:launchMode="singleTask"
+            android:supportsPictureInPicture="true" />
 
         <service
-            android:name="com.nextcloud.client.media.BackgroundPlayerService"
+            android:name="com.nextcloud.client.player.media3.PlaybackService"
             android:exported="true"
             android:foregroundServiceType="mediaPlayback"
             tools:ignore="ExportedService">
@@ -392,6 +397,13 @@
                 <action android:name="androidx.media3.session.MediaSessionService" />
             </intent-filter>
         </service>
+
+        <receiver android:name="androidx.media3.session.MediaButtonReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MEDIA_BUTTON" />
+            </intent-filter>
+        </receiver>
 
         <service
             android:name=".authentication.AccountAuthenticatorService"

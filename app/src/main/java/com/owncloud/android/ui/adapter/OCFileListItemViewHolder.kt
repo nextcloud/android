@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.elyeproj.loaderviewlibrary.LoaderImageView
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
+import com.nextcloud.client.player.ui.PlayerProgressIndicator
 import com.owncloud.android.databinding.ListItemBinding
 import com.owncloud.android.ui.AvatarGroupLayout
 
@@ -45,6 +46,8 @@ class OCFileListItemViewHolder(private var binding: ListItemBinding) :
         get() = binding.Filename
     override val extension: TextView
         get() = binding.extension
+    override val playerProgressIndicator: PlayerProgressIndicator
+        get() = binding.playerProgressIndicator
     override val thumbnail: ImageView
         get() = binding.thumbnailLayout.thumbnail
     override val tagsGroup: ChipGroup

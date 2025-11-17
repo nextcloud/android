@@ -1,0 +1,16 @@
+<!--
+  ~ Nextcloud - Android Client
+  ~
+  ~ SPDX-FileCopyrightText: 2025 STRATO GmbH.
+  ~ SPDX-License-Identifier: GPL-2.0
+  -->
+
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="960"
+    android:viewportHeight="960">
+    <path
+        android:fillColor="@color/player_default_icon_color"
+        android:pathData="M280,880 L120,720l160,-160 46.67,48.67 -78,78h444.66v-160L760,526.67v226.66L248.67,753.33l78,78L280,880ZM200,433.33v-226.66h511.33l-78,-78L680,80l160,160 -160,160 -46.67,-48.67 78,-78L266.67,273.33v160L200,433.33Z" />
+</vector>

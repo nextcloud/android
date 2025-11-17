@@ -499,6 +499,10 @@ dependencies {
 
     // region Kotlin
     implementation(libs.kotlin.stdlib)
+    implementation(libs.kotlinx.coroutines.core)
+    implementation(libs.kotlinx.coroutines.guava)
+    testImplementation(libs.kotlinx.coroutines.test)
+    androidTestImplementation(libs.kotlinx.coroutines.test)
     // endregion
 
     // region Stateless

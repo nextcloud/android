@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Nextcloud - Android Client
+  ~
+  ~ SPDX-FileCopyrightText: 2025 STRATO GmbH.
+  ~ SPDX-License-Identifier: GPL-2.0
+  -->
+
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape>
+            <solid android:color="@color/player_background_color" />
+        </shape>
+    </item>
+    <item android:drawable="@drawable/player_ic_video" />
+</layer-list>

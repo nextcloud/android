@@ -35,7 +35,9 @@ import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.utils.MimeType;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Locale;
+import java.util.Set;
 
 import javax.inject.Inject;
 
@@ -80,6 +82,9 @@ public class FileContentProvider extends ContentProvider {
     private static final String[] PROJECTION_FILE_PATH_AND_OWNER = new String[]{
         ProviderTableMeta._ID, ProviderTableMeta.FILE_PATH, ProviderTableMeta.FILE_ACCOUNT_OWNER
     };
+    private static final String[] PROJECTION_PARENT_ID = new String[]{
+        ProviderTableMeta._ID, ProviderTableMeta.FILE_PARENT
+    };
 
 
     @Inject protected Clock clock;
@@ -95,15 +100,21 @@ public class FileContentProvider extends ContentProvider {
         }
 
         int count;
+        Set<Long> parentIds;
         SupportSQLiteDatabase db = mDbHelper.getWritableDatabase();
         db.beginTransaction();
         try {
+            parentIds = queryParentIds(db, uri, where, whereArgs);
             count = delete(db, uri, where, whereArgs);
             db.setTransactionSuccessful();
         } finally {
             db.endTransaction();
         }
         mContext.getContentResolver().notifyChange(uri, null);
+        for (long parentId : parentIds) {
+            Uri parentUri = ContentUris.withAppendedId(ProviderTableMeta.CONTENT_URI_DIR, parentId);
+            mContext.getContentResolver().notifyChange(parentUri, null);
+        }
         return count;
     }
 
@@ -217,6 +228,11 @@ public class FileContentProvider extends ContentProvider {
             db.endTransaction();
         }
         mContext.getContentResolver().notifyChange(newUri, null);
+        Long parentId = values.getAsLong(ProviderTableMeta.FILE_PARENT);
+        if (parentId != null) {
+            Uri parentUri = ContentUris.withAppendedId(ProviderTableMeta.CONTENT_URI_DIR, parentId);
+            mContext.getContentResolver().notifyChange(parentUri, null);
+        }
         return newUri;
     }
 
@@ -538,15 +554,21 @@ public class FileContentProvider extends ContentProvider {
         }
 
         int count;
+        Set<Long> parentIds;
         SupportSQLiteDatabase db = mDbHelper.getWritableDatabase();
         db.beginTransaction();
         try {
+            parentIds = queryParentIds(db, uri, selection, selectionArgs);
             count = update(db, uri, values, selection, selectionArgs);
             db.setTransactionSuccessful();
         } finally {
             db.endTransaction();
         }
         mContext.getContentResolver().notifyChange(uri, null);
+        for (long parentId : parentIds) {
+            Uri parentUri = ContentUris.withAppendedId(ProviderTableMeta.CONTENT_URI_DIR, parentId);
+            mContext.getContentResolver().notifyChange(parentUri, null);
+        }
         return count;
     }
 
@@ -575,6 +597,27 @@ public class FileContentProvider extends ContentProvider {
             default ->
                 db.update(ProviderTableMeta.FILE_TABLE_NAME, SQLiteDatabase.CONFLICT_REPLACE, values, selection, selectionArgs);
         };
+    }
+
+    private Set<Long> queryParentIds(SupportSQLiteDatabase db, Uri uri, String where, String... whereArgs) {
+        Set<Long> result = new HashSet<>();
+        int uriMatch = mUriMatcher.match(uri);
+        if (uriMatch == ROOT_DIRECTORY || mUriMatcher.match(uri) == DIRECTORY || mUriMatcher.match(uri) == SINGLE_FILE) {
+            try (Cursor cursor = query(db, uri, PROJECTION_PARENT_ID, where, whereArgs, null)) {
+                if (cursor.moveToFirst()) {
+                    do {
+                        int parentIdColumnIndex = cursor.getColumnIndex(ProviderTableMeta.FILE_PARENT);
+                        if (parentIdColumnIndex != -1 && !cursor.isNull(parentIdColumnIndex)) {
+                            long parentId = cursor.getLong(parentIdColumnIndex);
+                            result.add(parentId);
+                        }
+                    } while (cursor.moveToNext());
+                }
+            } catch (Exception e) {
+                Log_OC.d(TAG, "Error querying parent IDs", e);
+            }
+        }
+        return result;
     }
 
     @NonNull

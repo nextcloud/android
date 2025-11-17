@@ -49,6 +49,7 @@ junit = "4.13.2"
 junitVersion = "1.3.0"
 juniversalchardetVersion = "2.5.0"
 kotlin = "2.2.21"
+kotlinxCoroutinesVersion = "1.10.2"
 kotlinxSerializationJson = "1.9.0"
 ksp = "2.3.1"
 leakcanary = "2.14"
@@ -140,6 +141,9 @@ jackrabbit-webdav = { module = "org.apache.jackrabbit:jackrabbit-webdav", versio
 json = { module = "org.json:json", version.ref = "jsonVersion" }
 juniversalchardet = { module = "com.github.albfernandez:juniversalchardet", version.ref = "juniversalchardetVersion" }
 kotlin-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib", version.ref = "kotlin" }
+kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinxCoroutinesVersion" }
+kotlinx-coroutines-guava = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-guava", version.ref = "kotlinxCoroutinesVersion" }
+kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinxCoroutinesVersion" }
 leakcanary = { module = "com.squareup.leakcanary:leakcanary-android", version.ref = "leakcanary" }
 nnio = { module = "org.lukhnos:nnio", version.ref = "nnioVersion" }
 org-jbundle-util-osgi-wrapped-org-apache-http-client = { module = "org.jbundle.util.osgi.wrapped:org.jbundle.util.osgi.wrapped.org.apache.http.client", version.ref = "orgJbundleUtilOsgiWrappedOrgApacheHttpClientVersion" }
@@ -187,6 +191,7 @@ media3-datasource = { module = "androidx.media3:media3-datasource-okhttp", versi
 media3-exoplayer = { module = "androidx.media3:media3-exoplayer", version.ref = "media3" }
 media3-session = { module = "androidx.media3:media3-session", version.ref = "media3" }
 media3-ui = { module = "androidx.media3:media3-ui", version.ref = "media3" }
+media3-common = { module = "androidx.media3:media3-common", version.ref = "media3" }
 
 # Room
 room-runtime = { module = "androidx.room:room-runtime", version.ref = "roomVersion" }
@@ -238,7 +243,7 @@ work-runtime = { module = "androidx.work:work-runtime", version.ref = "workRunti
 work-runtime-ktx = { module = "androidx.work:work-runtime-ktx", version.ref = "workRuntime" }
 
 [bundles]
-media3 = ["media3-ui", "media3-session", "media3-exoplayer", "media3-datasource"]
+media3 = ["media3-ui", "media3-session", "media3-exoplayer", "media3-datasource", "media3-common"]
 espresso = ["espresso-core", "espresso-contrib", "espresso-web", "espresso-accessibility", "espresso-intents", "espresso-idling-resource"]
 ui = ["appcompat", "webkit", "cardview", "exifinterface", "fragment-ktx"]
 markdown-rendering = [

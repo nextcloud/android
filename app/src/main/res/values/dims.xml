@@ -160,4 +160,28 @@
     <dimen name="adaptive_icon_padding">18dp</dimen>
     <dimen name="tag_height">18dp</dimen>
     <dimen name="search_bar_icon_size">24dp</dimen>
+
+    <!-- Player -->
+    <dimen name="player_toolbar_height">56dp</dimen>
+    <dimen name="player_toolbar_text_size">21sp</dimen>
+    <dimen name="player_back_button_margin_start">4dp</dimen>
+    <dimen name="player_back_button_margin_end">12dp</dimen>
+    <dimen name="player_audio_file_fragment_padding_horizontal">16dp</dimen>
+    <dimen name="player_audio_album_cover_margin_vertical">16dp</dimen>
+    <dimen name="player_audio_title_text_size">16sp</dimen>
+    <dimen name="player_audio_title_margin_bottom">8dp</dimen>
+    <dimen name="player_audio_file_details_text_size">12sp</dimen>
+    <dimen name="player_audio_file_details_margin_bottom">32dp</dimen>
+    <dimen name="player_album_cover_size">350dp</dimen>
+    <dimen name="player_file_icon_size">96dp</dimen>
+    <dimen name="player_progressbar_height">20dp</dimen>
+    <dimen name="player_progress_panel_padding_horizontal">8dp</dimen>
+    <dimen name="player_progress_panel_margin_bottom">32dp</dimen>
+    <dimen name="player_progress_drawable_height">2dp</dimen>
+    <dimen name="player_progress_drawable_radius">4dp</dimen>
+    <dimen name="player_progress_thumb_size">10dp</dimen>
+    <dimen name="player_progress_time_text_size">15sp</dimen>
+    <dimen name="player_button_margin_horizontal">16dp</dimen>
+    <dimen name="player_button_margin_vertical">8dp</dimen>
+    <dimen name="player_bottom_bar_margin_bottom">48dp</dimen>
 </resources>

@@ -69,6 +69,7 @@ import com.nextcloud.client.jobs.upload.FileUploadWorker
 import com.nextcloud.client.jobs.upload.FileUploadWorker.Companion.getUploadFinishMessage
 import com.nextcloud.client.media.PlayerServiceConnection
 import com.nextcloud.client.network.ClientFactory.CreationException
+import com.nextcloud.client.player.ui.PlayerLauncher
 import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.client.utils.IntentUtil
 import com.nextcloud.model.ToolbarItem
@@ -235,6 +236,9 @@ class FileDisplayActivity :
 
     @Inject
     lateinit var syncedFolderProvider: SyncedFolderProvider
+
+    @Inject
+    lateinit var playerLauncher: PlayerLauncher
 
     /**
      * Indicates whether the downloaded file should be previewed immediately. Since `FileDownloadWorker` can be
@@ -2542,18 +2546,9 @@ class FileDisplayActivity :
         }
     }
 
-    private fun startMediaActivity(file: OCFile?, startPlaybackPosition: Long, autoplay: Boolean, user: User?) {
-        val previewMediaIntent = Intent(this, PreviewMediaActivity::class.java)
-        previewMediaIntent.putExtra(PreviewMediaActivity.EXTRA_FILE, file)
-
-        // Safely handle the absence of a user
-        if (user != null) {
-            previewMediaIntent.putExtra(PreviewMediaActivity.EXTRA_USER, user)
-        }
-
-        previewMediaIntent.putExtra(PreviewMediaActivity.EXTRA_START_POSITION, startPlaybackPosition)
-        previewMediaIntent.putExtra(PreviewMediaActivity.EXTRA_AUTOPLAY, autoplay)
-        startActivity(previewMediaIntent)
+    private fun startMediaActivity(file: OCFile, startPlaybackPosition: Long, autoplay: Boolean, user: User?) {
+        val searchType = listOfFilesFragment?.currentSearchType
+        playerLauncher.launch(this, file, searchType)
     }
 
     fun configureToolbarForPreview(file: OCFile?) {
