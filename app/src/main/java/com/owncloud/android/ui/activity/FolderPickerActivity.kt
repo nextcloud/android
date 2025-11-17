@@ -52,7 +52,6 @@ import com.owncloud.android.utils.FileSortOrder
 import com.owncloud.android.utils.PathUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import java.io.File
 import javax.inject.Inject
 
@@ -242,7 +241,6 @@ open class FolderPickerActivity :
         startSyncFolderOperation(currentDir, false)
     }
 
-    @Suppress("DEPRECATION", "TooGenericExceptionCaught")
     private fun startSyncFolderOperation(folder: OCFile?, ignoreETag: Boolean) {
         val optionalUser = user ?: return
         if (optionalUser.isEmpty) {
@@ -253,7 +251,6 @@ open class FolderPickerActivity :
 
         lifecycleScope.launch(Dispatchers.IO) {
             val currentSyncTime = System.currentTimeMillis()
-            val client = clientRepository.getOwncloudClient() ?: return@launch
             val operation = RefreshFolderOperation(
                 folder,
                 currentSyncTime,
@@ -263,22 +260,14 @@ open class FolderPickerActivity :
                 user,
                 applicationContext
             )
-
-            val newState = try {
-                val result = operation.execute(client)
-                if (result.isSuccess) {
-                    EmptyListState.LOCAL_FILE_LIST_EMPTY_FILE
-                } else {
-                    EmptyListState.ERROR
-                }
-            } catch (e: Exception) {
-                Log_OC.e(TAG, "Error executing RefreshFolderOperation", e)
-                EmptyListState.ERROR
-            }
-
-            withContext(Dispatchers.Main) {
-                listOfFilesFragment?.setEmptyListMessage(newState)
-            }
+            operation.execute(
+                account,
+                this@FolderPickerActivity,
+                { _, _ ->
+                    listOfFilesFragment?.setEmptyListMessage(EmptyListState.LOCAL_FILE_LIST_EMPTY_FILE)
+                },
+                null
+            )
         }
     }
 
