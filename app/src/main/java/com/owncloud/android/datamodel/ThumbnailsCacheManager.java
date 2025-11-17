@@ -38,6 +38,7 @@ import android.widget.ImageView;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.utils.BitmapExtensionsKt;
+import com.nextcloud.utils.extensions.OwnCloudClientExtensionsKt;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.OwnCloudAccount;
@@ -1404,78 +1405,71 @@ public final class ThumbnailsCacheManager {
 
     private static Bitmap doResizedImageInBackground(OCFile file, FileDataStorageManager storageManager) {
         Bitmap thumbnail;
-
         String imageKey = PREFIX_RESIZED_IMAGE + file.getRemoteId();
 
         // Check disk cache in background thread
         thumbnail = getBitmapFromDiskCache(imageKey);
+        if (thumbnail != null && !file.isUpdateThumbnailNeeded()) {
+            Log_OC.d(TAG, "Thumbnail found in cache");
+            return thumbnail;
+        }
 
-        // Not found in disk cache
-        if (thumbnail == null || file.isUpdateThumbnailNeeded()) {
-            Point p = getScreenDimension();
-            int pxW = p.x;
-            int pxH = p.y;
+        Point p = getScreenDimension();
+        int pxW = p.x;
+        int pxH = p.y;
 
-            if (file.isDown()) {
-                Bitmap bitmap = BitmapUtils.decodeSampledBitmapFromFile(file.getStoragePath(), pxW, pxH);
-
-                if (bitmap != null) {
-                    // Handle PNG
-                    if (PNG_MIMETYPE.equalsIgnoreCase(file.getMimeType())) {
-                        bitmap = handlePNG(bitmap, pxW, pxH);
-                    }
-
-                    thumbnail = addThumbnailToCache(imageKey, bitmap, file.getStoragePath(), pxW, pxH);
-
-                    file.setUpdateThumbnailNeeded(false);
+        if (file.isDown()) {
+            Bitmap bitmap = BitmapUtils.decodeSampledBitmapFromFile(file.getStoragePath(), pxW, pxH);
+            if (bitmap != null) {
+                if (PNG_MIMETYPE.equalsIgnoreCase(file.getMimeType())) {
+                    bitmap = handlePNG(bitmap, pxW, pxH);
                 }
-
-            } else {
-                // Download thumbnail from server
-                if (mClient != null) {
-                    GetMethod getMethod = null;
-                    try {
-                        String uri = mClient.getBaseUri() + "/index.php/core/preview?fileId="
-                            + file.getLocalId()
-                            + "&x=" + (pxW / 2) + "&y=" + (pxH / 2) + "&a=1&mode=cover&forceIcon=0";
-                        Log_OC.d(TAG, "generate resized image: " + file.getFileName() + " URI: " + uri);
-                        getMethod = new GetMethod(uri);
-
-                        int status = mClient.executeMethod(getMethod);
-                        if (status == HttpStatus.SC_OK) {
-                            InputStream inputStream = getMethod.getResponseBodyAsStream();
-                            thumbnail = BitmapFactory.decodeStream(inputStream);
-                        } else {
-                            mClient.exhaustResponse(getMethod.getResponseBodyAsStream());
-                        }
-
-                        // Handle PNG
-                        if (thumbnail != null && PNG_MIMETYPE.equalsIgnoreCase(file.getMimeType())) {
-                            thumbnail = handlePNG(thumbnail, thumbnail.getWidth(), thumbnail.getHeight());
-                        }
-
-                        // Add thumbnail to cache
-                        if (thumbnail != null) {
-                            Log_OC.d(TAG, "add resized image to cache: " + file.getFileName());
-                            addBitmapToCache(imageKey, thumbnail);
-                        }
-
-                    } catch (Exception e) {
-                        Log_OC.d(TAG, e.getMessage(), e);
-                    } finally {
-                        if (getMethod != null) {
-                            getMethod.releaseConnection();
-                        }
-                    }
-                }
-            }
-
-            // resized dimensions and set update thumbnail needed to false to prevent rendering loop
-            if (thumbnail != null) {
-                file.setImageDimension(new ImageDimension(thumbnail.getWidth(), thumbnail.getHeight()));
+                thumbnail = addThumbnailToCache(imageKey, bitmap, file.getStoragePath(), pxW, pxH);
                 file.setUpdateThumbnailNeeded(false);
-                storageManager.saveFile(file);
             }
+        } else if (mClient != null) {
+            GetMethod getMethod = null;
+
+            try {
+                String uri = OwnCloudClientExtensionsKt.getPreviewEndpoint(mClient, file.getLocalId(), pxW, pxH);
+                Log_OC.d(TAG, "generating resized image: " + file.getFileName() + " URI: " + uri);
+
+                getMethod = new GetMethod(uri);
+                getMethod.getParams().setSoTimeout(READ_TIMEOUT);
+
+                int status = mClient.executeMethod(getMethod);
+                if (status == HttpStatus.SC_OK) {
+                    try (InputStream inputStream = getMethod.getResponseBodyAsStream()) {
+                        thumbnail = BitmapFactory.decodeStream(inputStream);
+                        Log_OC.d(TAG, "resized image generated");
+                    }
+                } else {
+                    mClient.exhaustResponse(getMethod.getResponseBodyAsStream());
+                }
+
+                if (thumbnail != null && PNG_MIMETYPE.equalsIgnoreCase(file.getMimeType())) {
+                    thumbnail = handlePNG(thumbnail, thumbnail.getWidth(), thumbnail.getHeight());
+                }
+
+                if (thumbnail != null) {
+                    synchronized (mThumbnailsDiskCacheLock) {
+                        addBitmapToCache(imageKey, thumbnail);
+                    }
+                }
+            } catch (Exception e) {
+                Log_OC.e(TAG, "doResizedBitmap: ", e);
+            } finally {
+                if (getMethod != null) {
+                    getMethod.releaseConnection();
+                }
+            }
+        }
+
+        // resized dimensions and set update thumbnail needed to false to prevent rendering loop
+        if (thumbnail != null) {
+            file.setImageDimension(new ImageDimension(thumbnail.getWidth(), thumbnail.getHeight()));
+            file.setUpdateThumbnailNeeded(false);
+            storageManager.saveFile(file);
         }
 
         return thumbnail;
