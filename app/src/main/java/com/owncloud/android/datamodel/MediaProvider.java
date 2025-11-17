@@ -163,7 +163,7 @@ public final class MediaProvider {
                                          final ViewThemeUtils viewThemeUtils) {
         if (activity != null &&
             !PermissionUtil.checkExternalStoragePermission(activity.getApplicationContext())) {
-            PermissionUtil.requestExternalStoragePermission(activity, viewThemeUtils, true);
+            PermissionUtil.requestExternalStoragePermission(activity, viewThemeUtils);
         }
     }
 

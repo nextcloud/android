@@ -267,10 +267,6 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
         Log_OC.d(TAG, "onCreate() end");
     }
 
-    private void requestPermissions() {
-        PermissionUtil.requestExternalStoragePermission(this, viewThemeUtils, true);
-    }
-
     public void showToolbarSpinner() {
         mToolbarSpinner.setVisibility(View.VISIBLE);
     }
@@ -318,21 +314,13 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
             item.setChecked(mSelectAll);
             mFileListFragment.selectAllFiles(mSelectAll);
             setSelectAllMenuItem(item, mSelectAll);
-        } else if (itemId == R.id.action_choose_storage_path) {
-            checkLocalStoragePathPickerPermission();
+        } else if (itemId == R.id.action_choose_storage_path && PermissionUtil.checkExternalStoragePermission(this)) {
+            showLocalStoragePathPickerDialog();
         } else {
             retval = super.onOptionsItemSelected(item);
         }
 
         return retval;
-    }
-
-    private void checkLocalStoragePathPickerPermission() {
-        if (!PermissionUtil.checkExternalStoragePermission(this)) {
-            requestPermissions();
-        } else {
-            showLocalStoragePathPickerDialog();
-        }
     }
 
     private void showLocalStoragePathPickerDialog() {
@@ -390,8 +378,8 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
                 }
 
                 File parentFolder = mCurrentDir.getParentFile();
-                if (!parentFolder.canRead()) {
-                    checkLocalStoragePathPickerPermission();
+                if (parentFolder != null && !parentFolder.canRead() && PermissionUtil.checkExternalStoragePermission(UploadFilesActivity.this)) {
+                    showLocalStoragePathPickerDialog();
                     return;
                 }
 
@@ -650,34 +638,30 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
             setResult(RESULT_CANCELED);
             finish();
 
-        } else if (v.getId() == R.id.upload_files_btn_upload) {
-            if (PermissionUtil.checkExternalStoragePermission(this)) {
+        } else if (v.getId() == R.id.upload_files_btn_upload && PermissionUtil.checkExternalStoragePermission(this)) {
+            if (mCurrentDir != null) {
+                preferences.setUploadFromLocalLastPath(mCurrentDir.getAbsolutePath());
+            }
+            if (mLocalFolderPickerMode) {
+                Intent data = new Intent();
                 if (mCurrentDir != null) {
-                    preferences.setUploadFromLocalLastPath(mCurrentDir.getAbsolutePath());
+                    data.putExtra(EXTRA_CHOSEN_FILES, mCurrentDir.getAbsolutePath());
                 }
-                if (mLocalFolderPickerMode) {
-                    Intent data = new Intent();
-                    if (mCurrentDir != null) {
-                        data.putExtra(EXTRA_CHOSEN_FILES, mCurrentDir.getAbsolutePath());
-                    }
-                    setResult(RESULT_OK, data);
+                setResult(RESULT_OK, data);
 
-                    if (isGivenLocalPathHasEnabledParent()) {
-                        showSubFolderWarningDialog();
-                    } else {
-                        finish();
-                    }
+                if (isGivenLocalPathHasEnabledParent()) {
+                    showSubFolderWarningDialog();
                 } else {
-                    final var chosenFiles = mFileListFragment.getCheckedFilePaths();
-                    if (chosenFiles.length > FileUploadHelper.MAX_FILE_COUNT) {
-                        FileUploadHelper.Companion.instance().showFileUploadLimitMessage(this);
-                        return;
-                    }
-                    boolean isPositionZero = (binding.uploadFilesSpinnerBehaviour.getSelectedItemPosition() == 0);
-                    new CheckAvailableSpaceTask(this, chosenFiles).execute(isPositionZero);
+                    finish();
                 }
             } else {
-                requestPermissions();
+                final var chosenFiles = mFileListFragment.getCheckedFilePaths();
+                if (chosenFiles.length > FileUploadHelper.MAX_FILE_COUNT) {
+                    FileUploadHelper.Companion.instance().showFileUploadLimitMessage(this);
+                    return;
+                }
+                boolean isPositionZero = (binding.uploadFilesSpinnerBehaviour.getSelectedItemPosition() == 0);
+                new CheckAvailableSpaceTask(this, chosenFiles).execute(isPositionZero);
             }
         }
     }
@@ -750,9 +734,7 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
     protected void onStart() {
         super.onStart();
         final Account account = getAccount();
-        if (mAccountOnCreation != null && mAccountOnCreation.equals(account)) {
-            requestPermissions();
-        } else {
+        if (mAccountOnCreation == null || !mAccountOnCreation.equals(account)) {
             setResult(RESULT_CANCELED);
             finish();
         }
