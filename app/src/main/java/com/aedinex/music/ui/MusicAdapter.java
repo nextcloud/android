@@ -127,6 +127,13 @@ public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.MusicViewHol
     }
 
     /**
+     * Get all items
+     */
+    public List<AudioMetadata> getItems() {
+        return new ArrayList<>(items);
+    }
+
+    /**
      * Set display mode
      */
     public void setDisplayMode(DisplayMode mode) {
