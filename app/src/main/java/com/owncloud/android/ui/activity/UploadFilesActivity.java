@@ -50,7 +50,6 @@ import com.owncloud.android.ui.dialog.LocalStoragePathPickerDialogFragment;
 import com.owncloud.android.ui.dialog.SortingOrderDialogFragment;
 import com.owncloud.android.ui.fragment.ExtendedListFragment;
 import com.owncloud.android.ui.fragment.LocalFileListFragment;
-import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.FileSortOrder;
 import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.PermissionUtil;
@@ -314,7 +313,7 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
             item.setChecked(mSelectAll);
             mFileListFragment.selectAllFiles(mSelectAll);
             setSelectAllMenuItem(item, mSelectAll);
-        } else if (itemId == R.id.action_choose_storage_path && PermissionUtil.checkStoragePermission(this)) {
+        } else if (itemId == R.id.action_choose_storage_path) {
             showLocalStoragePathPickerDialog();
         } else {
             retval = super.onOptionsItemSelected(item);
@@ -324,28 +323,17 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
     }
 
     private void showLocalStoragePathPickerDialog() {
+        if (!PermissionUtil.checkStoragePermission(this)) {
+            setResult(RESULT_CANCELED);
+            finish();
+            return;
+        }
+
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
         ft.addToBackStack(null);
         dialog = LocalStoragePathPickerDialogFragment.newInstance();
         dialog.show(ft, LocalStoragePathPickerDialogFragment.LOCAL_STORAGE_PATH_PICKER_FRAGMENT);
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode,
-                                           @NonNull String[] permissions,
-                                           @NonNull int[] grantResults) {
-
-        if (requestCode == PermissionUtil.PERMISSIONS_EXTERNAL_STORAGE) {
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                // permission was granted
-                showLocalStoragePathPickerDialog();
-            } else {
-                DisplayUtils.showSnackMessage(this, R.string.permission_storage_access);
-            }
-        } else {
-            super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        }
     }
 
     @Override
@@ -378,8 +366,7 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
                 }
 
                 File parentFolder = mCurrentDir.getParentFile();
-                if (parentFolder != null && !parentFolder.canRead() && PermissionUtil.checkStoragePermission(UploadFilesActivity.this)) {
-                    showLocalStoragePathPickerDialog();
+                if (parentFolder != null && !parentFolder.canRead()) {
                     return;
                 }
 

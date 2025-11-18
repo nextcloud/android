@@ -36,7 +36,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:visibility="gone"
-                android:paddingHorizontal="@dimen/standard_padding"
+                android:layout_marginHorizontal="@dimen/standard_margin"
                 tools:visibility="visible" />
 
             <FrameLayout
