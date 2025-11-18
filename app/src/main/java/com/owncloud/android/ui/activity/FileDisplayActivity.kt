@@ -153,7 +153,7 @@ import com.owncloud.android.utils.ErrorMessageAdapter
 import com.owncloud.android.utils.FileSortOrder
 import com.owncloud.android.utils.MimeTypeUtil
 import com.owncloud.android.utils.PermissionUtil
-import com.owncloud.android.utils.PermissionUtil.requestExternalStoragePermission
+import com.owncloud.android.utils.PermissionUtil.requestStoragePermissionIfNeeded
 import com.owncloud.android.utils.PermissionUtil.requestNotificationPermission
 import com.owncloud.android.utils.PushUtils
 import com.owncloud.android.utils.StringUtils
@@ -364,7 +364,7 @@ class FileDisplayActivity :
                 if (dialog != null && dialog.isShowing) {
                     dialog.dismiss()
                     supportFragmentManager.beginTransaction().remove(fragment).commitNowAllowingStateLoss()
-                    requestExternalStoragePermission(this, viewThemeUtils)
+                    requestStoragePermissionIfNeeded(this, viewThemeUtils)
                 }
             }
         }
@@ -379,7 +379,7 @@ class FileDisplayActivity :
             // storage permissions handled in onRequestPermissionsResult
             requestNotificationPermission(this)
         } else {
-            requestExternalStoragePermission(this, viewThemeUtils)
+            requestStoragePermissionIfNeeded(this, viewThemeUtils)
         }
 
         if (intent.getParcelableArgument(
@@ -462,7 +462,7 @@ class FileDisplayActivity :
             // handle notification permission on API level >= 33
             PermissionUtil.PERMISSIONS_POST_NOTIFICATIONS ->
                 // dialogue was dismissed -> prompt for storage permissions
-                requestExternalStoragePermission(this, viewThemeUtils)
+                requestStoragePermissionIfNeeded(this, viewThemeUtils)
 
             // If request is cancelled, result arrays are empty.
             PermissionUtil.PERMISSIONS_EXTERNAL_STORAGE ->

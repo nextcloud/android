@@ -66,7 +66,7 @@ public final class MediaProvider {
 
         // query media/image folders
         Cursor cursorFolders = null;
-        if (activity != null && PermissionUtil.checkExternalStoragePermission(activity.getApplicationContext())
+        if (activity != null && PermissionUtil.checkStoragePermission(activity.getApplicationContext())
             || getWithoutActivity) {
             cursorFolders = ContentResolverHelper.queryResolver(contentResolver, IMAGES_MEDIA_URI,
                                                                 IMAGES_FOLDER_PROJECTION, null, null,
@@ -162,8 +162,8 @@ public final class MediaProvider {
     private static void checkPermissions(@Nullable AppCompatActivity activity,
                                          final ViewThemeUtils viewThemeUtils) {
         if (activity != null &&
-            !PermissionUtil.checkExternalStoragePermission(activity.getApplicationContext())) {
-            PermissionUtil.requestExternalStoragePermission(activity, viewThemeUtils);
+            !PermissionUtil.checkStoragePermission(activity.getApplicationContext())) {
+            PermissionUtil.requestStoragePermissionIfNeeded(activity, viewThemeUtils);
         }
     }
 
@@ -177,7 +177,7 @@ public final class MediaProvider {
 
         // query media/image folders
         Cursor cursorFolders = null;
-        if ((activity != null && PermissionUtil.checkExternalStoragePermission(activity.getApplicationContext()))
+        if ((activity != null && PermissionUtil.checkStoragePermission(activity.getApplicationContext()))
             || getWithoutActivity) {
             cursorFolders = contentResolver.query(MediaStore.Video.Media.EXTERNAL_CONTENT_URI, VIDEOS_FOLDER_PROJECTION,
                                                   null, null, null);

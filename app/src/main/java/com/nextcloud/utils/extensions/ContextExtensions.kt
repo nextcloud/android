@@ -24,6 +24,8 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.ReceiverFlag
+import android.net.Uri
+import android.provider.Settings
 
 fun Context.hourPlural(hour: Int): String = resources.getQuantityString(R.plurals.hours, hour, hour)
 
@@ -68,4 +70,23 @@ fun Context.getActivity(): Activity? = when (this) {
     is Activity -> this
     is ContextWrapper -> baseContext.getActivity()
     else -> null
+}
+
+fun Context.openMediaPermissions() {
+    val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS).apply {
+        data = Uri.fromParts("package", packageName, null)
+    }
+    startActivity(intent)
+}
+
+fun Context.openAllFilesAccessSettings() {
+    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R) {
+        openMediaPermissions()
+        return
+    }
+
+    val intent = Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION).apply {
+        data = Uri.parse("package:$packageName")
+    }
+    startActivity(intent)
 }

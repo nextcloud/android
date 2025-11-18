@@ -20,10 +20,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.nextcloud.client.di.Injectable;
+import com.nextcloud.utils.extensions.ContextExtensionsKt;
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.adapter.LocalFileListAdapter;
 import com.owncloud.android.ui.interfaces.LocalFileListFragmentInterface;
+import com.owncloud.android.ui.interfaces.StoragePermissionWarningListener;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.FileSortOrder;
 
@@ -43,6 +45,7 @@ import static com.owncloud.android.utils.DisplayUtils.openSortingOrderDialogFrag
  */
 public class LocalFileListFragment extends ExtendedListFragment implements
     LocalFileListFragmentInterface,
+    StoragePermissionWarningListener,
     Injectable {
 
     private static final String TAG = LocalFileListFragment.class.getSimpleName();
@@ -116,7 +119,8 @@ public class LocalFileListFragment extends ExtendedListFragment implements
                                             preferences,
                                             getActivity(),
                                             viewThemeUtils,
-                                            mContainerActivity.isWithinEncryptedFolder());
+                                            mContainerActivity.isWithinEncryptedFolder(),
+                                            this);
         setRecyclerViewAdapter(mAdapter);
 
         listDirectory(mContainerActivity.getInitialDirectory());
@@ -380,6 +384,24 @@ public class LocalFileListFragment extends ExtendedListFragment implements
     @VisibleForTesting
     public void setFiles(List<File> newFiles) {
         mAdapter.setFiles(newFiles);
+    }
+
+    @Override
+    public void dontShowStoragePermissionBannerAgain() {
+        preferences.setShowStoragePermissionBanner(false);
+
+        mAdapter.notifyItemRemoved(0);
+        mAdapter.notifyItemRangeChanged(0, mAdapter.getItemCount());
+    }
+
+    @Override
+    public void openMediaPermissions() {
+        ContextExtensionsKt.openMediaPermissions(requireContext());
+    }
+
+    @Override
+    public void openAllFilesAccessSettings() {
+        ContextExtensionsKt.openAllFilesAccessSettings(requireContext());
     }
 
     /**

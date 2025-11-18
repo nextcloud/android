@@ -778,7 +778,7 @@ public final class AppPreferencesImpl implements AppPreferences {
 
     @Override
     public boolean showStoragePermissionBanner() {
-        return preferences.getBoolean(PREF__SHOW_STORAGE_PERMISSION_BANNER, false);
+        return preferences.getBoolean(PREF__SHOW_STORAGE_PERMISSION_BANNER, true);
     }
 
     @Override

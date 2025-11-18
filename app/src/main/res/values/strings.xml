@@ -1290,9 +1290,8 @@
     <string name="no_actions">No actions for this user</string>
     <string name="search_error">Error getting search results</string>
     <string name="load_more_results">Load more results</string>
-    <string name="file_management_permission">Permissions needed</string>
+    <string name="storage_permission_banner_text">Storage permission is required for auto-upload and file uploads.</string>
     <string name="file_management_permission_optional">Storage permissions</string>
-    <string name="file_management_permission_text">%1$s needs file management permissions to upload files. You can choose full access to all files, or read-only access to photos and videos.</string>
     <string name="file_management_permission_optional_text">%1$s works best with permissions to access storage. You can choose full access to all files, or read-only access to photos and videos.</string>
     <string name="file_list_empty_unified_search_no_results">No results found for your query</string>
     <string name="file_list_empty_unified_search_start_search">Start your search</string>
@@ -1302,6 +1301,7 @@
     <string name="error_creating_file_from_template">Error creating file from template</string>
     <string name="no_send_app">No app available for sending the selected files</string>
     <string name="pdf_zoom_tip">Tap on a page to zoom in</string>
+    <string name="storage_permission_dont_show_again">Dont show again</string>
     <string name="storage_permission_full_access">Full access</string>
     <string name="storage_permission_media_read_only">Media read-only</string>
     <string name="storage_permission_dont_ask">Dont ask</string>
