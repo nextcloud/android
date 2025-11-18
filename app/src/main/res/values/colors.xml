@@ -1,15 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-  ~ Nextcloud - Android Client
+  ~ AediNex Music - Android Client
   ~
-  ~ SPDX-FileCopyrightText: 2022 Álvaro Brey  <alvaro@alvarobrey.com>
-  ~ SPDX-FileCopyrightText: 2016-2020 Andy Scherzinger <info@andy-scherzinger.de>
-  ~ SPDX-FileCopyrightText: 2020 Joris Bodin <joris.bodin@infomaniak.com>
-  ~ SPDX-FileCopyrightText: 2018 Tobias Kaminsky <tobias@kaminsky.me>
-  ~ SPDX-FileCopyrightText: 2012 Bartosz Przybylski
+  ~ SPDX-FileCopyrightText: 2025 AediNex
   ~ SPDX-License-Identifier: GPL-2.0-only AND (AGPL-3.0-or-later OR GPL-2.0-only)
+  ~ Based on Nextcloud Android Client
 -->
 <resources>
+    <!-- AediNex Brand Colors -->
+    <color name="aedinex_blue">#1E90FF</color>
+    <color name="aedinex_green">#32CD32</color>
+    <color name="aedinex_cyan">#00FFFF</color>
+    <color name="aedinex_dark_grey">#1C1C1C</color>
+    <color name="aedinex_white">#F0F8FF</color>
+
+    <!-- Primary App Colors -->
+    <color name="color_accent">@color/aedinex_blue</color>
+    <color name="color_primary">@color/aedinex_blue</color>
+    <color name="color_secondary">@color/aedinex_green</color>
+
     <color name="list_item_lastmod_and_filesize_text">@color/secondary_text_color</color>
     <color name="black">#000000</color>
     <color name="white">#ffffff</color>
@@ -50,22 +59,22 @@
 
     <!-- Colors -->
     <color name="dark">#000000</color>
-    <color name="login_btn_tint">#ffffff</color>
-    <color name="login_btn_stroke">#ffffff</color>
+    <color name="login_btn_tint">@color/aedinex_cyan</color>
+    <color name="login_btn_stroke">@color/aedinex_blue</color>
     <color name="bg_default">#FFFFFF</color>
     <color name="background_color_inverse">#000000</color>
-    <color name="primary_button_background_color">@color/color_accent</color>
+    <color name="primary_button_background_color">@color/aedinex_blue</color>
     <color name="primary_button_text_color">#ffffff</color>
-    <color name="secondary_button_background_color">#D6D7D7</color>
+    <color name="secondary_button_background_color">@color/aedinex_green</color>
     <color name="secondary_button_text_color">#000000</color>
     <color name="nc_grey">#ededed</color>
     <color name="task_container">#F4F4F4</color>
     <color name="icon_on_nc_grey">#000000</color>
-    <color name="foreground_highlight">#1D1B1E</color>
+    <color name="foreground_highlight">@color/aedinex_blue</color>
     <color name="process_dialog_background">#ffffff</color>
-    <color name="indicator_dot_selected">#ffffff</color>
+    <color name="indicator_dot_selected">@color/aedinex_cyan</color>
     <color name="drawer_shadow">#000000</color>
-    <color name="online">#2D7B41</color>
+    <color name="online">#32CD32</color>
     <color name="busy">#DB0606</color>
     <color name="offline">@color/high_emphasis_text</color>
 
@@ -79,14 +88,14 @@
     <color name="action_mode_background">@color/fontAppbar</color>
     <color name="selected_item_background">#ECECEC</color>
 
-    <color name="drawer_menu_icon">#757575</color>
+    <color name="drawer_menu_icon">@color/aedinex_blue</color>
     <color name="bg_fallback_highlight">#616161</color>
-    <color name="drawer_active_item_background">#80000000</color>
+    <color name="drawer_active_item_background">#801E90FF</color>
 
     <!-- App bar -->
-    <color name="appbar">@android:color/white</color>
-    <color name="fontAppbar">#666666</color>
-    <color name="fontSecondaryAppbar">#A5A5A5</color>
+    <color name="appbar">@color/aedinex_dark_grey</color>
+    <color name="fontAppbar">@color/aedinex_white</color>
+    <color name="fontSecondaryAppbar">@color/aedinex_cyan</color>
 
-    <color name="actionbar_color">#F7F9FF</color>
+    <color name="actionbar_color">@color/aedinex_dark_grey</color>
 </resources>

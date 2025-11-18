@@ -11,26 +11,26 @@
     <bool name="dev_version_direct_download_enabled">false</bool>
 
     <!-- App name  and other strings-->
-    <string name="app_name">Nextcloud</string>
-    <string name="account_type">nextcloud</string>     <!-- better if was a domain name; but changing it now would require migrate accounts when the app is updated -->
-    <string name="authority">org.nextcloud</string>    <!-- better if was the app package with ".provider" appended ; it identifies the provider -->
-    <string name="users_and_groups_search_authority">com.nextcloud.android.providers.UsersAndGroupsSearchProvider</string>
-    <string name="users_and_groups_share_with">com.nextcloud.android.providers.UsersAndGroupsSearchProvider.action.SHARE_WITH</string>
-    <string name="document_provider_authority">org.nextcloud.documents</string>
-    <string name="file_provider_authority">org.nextcloud.files</string>
-    <string name="image_cache_provider_authority">org.nextcloud.imageCache.provider</string>
-    <string name="db_file">nextcloud.db</string>
-    <string name="db_name">nextcloud</string>
-    <string name="data_folder">nextcloud</string>
-    <string name="default_display_name_for_root_folder">Nextcloud</string>
-    <string name="nextcloud_user_agent">Mozilla/5.0 (Android) Nextcloud-android/%1$s%2$s</string>
-    <string name="only_office_user_agent">Mozilla/5.0 (Android %1$s) Mobile Nextcloud-android/%2$s</string>
-    <string name="name_for_branded_user_agent"></string>
+    <string name="app_name">AediNex Music</string>
+    <string name="account_type">aedinex</string>
+    <string name="authority">com.aedinex</string>
+    <string name="users_and_groups_search_authority">com.aedinex.android.providers.UsersAndGroupsSearchProvider</string>
+    <string name="users_and_groups_share_with">com.aedinex.android.providers.UsersAndGroupsSearchProvider.action.SHARE_WITH</string>
+    <string name="document_provider_authority">com.aedinex.documents</string>
+    <string name="file_provider_authority">com.aedinex.files</string>
+    <string name="image_cache_provider_authority">com.aedinex.imageCache.provider</string>
+    <string name="db_file">aedinex_music.db</string>
+    <string name="db_name">aedinex_music</string>
+    <string name="data_folder">aedinex_music</string>
+    <string name="default_display_name_for_root_folder">AediNex Music</string>
+    <string name="nextcloud_user_agent">Mozilla/5.0 (Android) AediNexMusic-android/%1$s%2$s</string>
+    <string name="only_office_user_agent">Mozilla/5.0 (Android %1$s) Mobile AediNexMusic-android/%2$s</string>
+    <string name="name_for_branded_user_agent">AediNex Music</string>
 
     <!-- URLs and flags related -->
     <bool name="show_server_url_input">true</bool>
-    <bool name="show_provider_or_own_installation">true</bool>
-    <string name="provider_registration_server">https://www.nextcloud.com/register</string>
+    <bool name="show_provider_or_own_installation">false</bool>
+    <string name="provider_registration_server">https://cloud2.aedinex.com</string>
 
     <!-- specify built in proxy -->
     <string name="proxy_host"></string>
@@ -66,11 +66,11 @@
     <array name="whatsnew_urls"></array>
 
     <!-- Colors -->
-    <color name="primary">#0082c9</color>
-    <color name="primary_dark">#006AA3</color>
-    <color name="color_accent">#007cc2</color>
-    <color name="login_text_color">#ffffff</color>
-    <color name="login_text_hint_color">#7fC0E3</color>
+    <color name="primary">@color/aedinex_blue</color>
+    <color name="primary_dark">@color/aedinex_dark_grey</color>
+    <color name="color_accent">@color/aedinex_cyan</color>
+    <color name="login_text_color">@color/aedinex_white</color>
+    <color name="login_text_hint_color">@color/aedinex_cyan</color>
 
     <!-- Multiaccount support -->
     <bool name="multiaccount_support">true</bool>
@@ -131,8 +131,8 @@
     If set, will replace all other login methods available -->
     <string name="webview_login_url" translatable="false"></string>
 
-    <!--    [{\"name\":\"name1\",\"url\":\"url\"},{\"name\":\"name2\",\"url\":\"url1\"}]-->
-    <string name="enforce_servers" translatable="false"></string>
+    <!--    AediNex Cloud Default Server -->
+    <string name="enforce_servers" translatable="false">[{\"name\":\"AediNex Cloud\",\"url\":\"https://cloud2.aedinex.com\"}]</string>
 
     
     <!-- Files becomes Home -->

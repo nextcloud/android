@@ -61,11 +61,11 @@ configurations.configureEach {
     }
 }
 
-// semantic versioning for version code
-val versionMajor = 3
-val versionMinor = 35
+// semantic versioning for version code - AediNex Music
+val versionMajor = 1
+val versionMinor = 0
 val versionPatch = 0
-val versionBuild = 0 // 0-50=Alpha / 51-98=RC / 90-99=stable
+val versionBuild = 1 // 0-50=Alpha / 51-98=RC / 90-99=stable
 
 val ndkEnv = buildMap {
     file("${project.rootDir}/ndk.env").readLines().forEach {
@@ -93,7 +93,7 @@ android {
     androidResources.generateLocaleConfig = true
 
     defaultConfig {
-        applicationId = "com.nextcloud.client"
+        applicationId = "com.aedinex.music"
         minSdk = 27
         targetSdk = 36
         compileSdk = 36

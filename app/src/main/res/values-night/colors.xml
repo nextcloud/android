@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-  ~ Nextcloud - Android Client
+  ~ AediNex Music - Android Client (Dark Mode)
   ~
-  ~ SPDX-FileCopyrightText: 2019 Daniel Bailey <daniel.bailey@grappleit.co.uk>
+  ~ SPDX-FileCopyrightText: 2025 AediNex
   ~ SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
+  ~ Based on Nextcloud Android Client
 -->
 <resources>
 
@@ -21,7 +22,7 @@
     <color name="grey_200">#818181</color>
     <color name="nc_grey">#222222</color>
     <color name="icon_on_nc_grey">#ffffff</color>
-    <color name="foreground_highlight">#EAE0E5</color>
+    <color name="foreground_highlight">@color/aedinex_cyan</color>
 
     <!-- Multiselect backgrounds -->
     <color name="action_mode_background">@color/appbar</color>
@@ -30,13 +31,13 @@
     <color name="filelist_icon_background">#222222</color>
     <color name="standard_grey">#DADADA</color>
 
-    <color name="drawer_menu_icon">#ffffff</color>
+    <color name="drawer_menu_icon">@color/aedinex_cyan</color>
     <color name="bg_fallback_highlight">#737373</color>
-    <color name="drawer_active_item_background">@color/white</color>
+    <color name="drawer_active_item_background">@color/aedinex_blue</color>
 
     <!-- App bar -->
-    <color name="appbar">#1E1E1E</color>
-    <color name="fontAppbar">@android:color/white</color>
+    <color name="appbar">@color/aedinex_dark_grey</color>
+    <color name="fontAppbar">@color/aedinex_white</color>
 
-    <color name="actionbar_color">#101418</color>
+    <color name="actionbar_color">@color/aedinex_dark_grey</color>
 </resources>

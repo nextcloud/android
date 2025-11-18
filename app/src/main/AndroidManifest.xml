@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?><!--
-  ~ Nextcloud - Android Client
+  ~ AediNex Music - Android Client
   ~
-  ~ SPDX-FileCopyrightText: 2024 TSI-mc <surinder.kumar@t-systems.com>
-  ~ SPDX-FileCopyrightText: 2016-2024 Nextcloud GmbH and Nextcloud contributors
+  ~ SPDX-FileCopyrightText: 2025 AediNex
   ~ SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
+  ~ Based on Nextcloud Android Client
 -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
