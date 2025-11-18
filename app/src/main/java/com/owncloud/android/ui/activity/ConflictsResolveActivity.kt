@@ -194,11 +194,6 @@ class ConflictsResolveActivity :
             return
         }
 
-        if (existingFile == null || existingFile?.fileId == -1L) {
-            Log_OC.e(TAG, "existing file is null, cannot be delete.")
-            return
-        }
-
         lifecycleScope.launch {
             val result = withContext(Dispatchers.IO) {
                 fileDataStorageManager.removeFile(existingFile, true, false)
@@ -330,6 +325,7 @@ class ConflictsResolveActivity :
         }
     }
 
+    @Suppress("DEPRECATION")
     private fun resolveExistingFileFromDbOrServer(): OCFile? {
         val candidate = file ?: return null
 
@@ -363,7 +359,6 @@ class ConflictsResolveActivity :
         }
 
         val remoteFile = result.data[0] as? RemoteFile ?: return null
-
         dbFile = fileDataStorageManager.getFileByDecryptedRemotePath(remoteFile.remotePath)
 
         if (dbFile != null && dbFile.fileId != -1L) {
