@@ -66,6 +66,7 @@ import kotlinx.coroutines.withContext
 import java.io.File
 import java.util.Locale
 import javax.inject.Inject
+import com.nextcloud.utils.extensions.setVisibleIf
 
 /**
  * Activity displaying all auto-synced folders and/or instant upload media folders.
@@ -197,7 +198,12 @@ class SyncedFoldersActivity :
             setTheme(R.style.FallbackThemingTheme)
         }
         binding.emptyList.emptyListViewAction.setOnClickListener { showHiddenItems() }
-        PermissionUtil.requestStoragePermissionIfNeeded(this)
+        binding.storagePermissionWarningBanner.root.setVisibleIf(shouldShowStoragePermissionWarningBanner())
+    }
+
+    private fun shouldShowStoragePermissionWarningBanner(): Boolean {
+        return !PermissionUtil.checkStoragePermission(this)
+            && preferences.showStoragePermissionBanner()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
