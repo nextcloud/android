@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ AediNex Music - Android Client
+  ~
+  ~ SPDX-FileCopyrightText: 2025 AediNex
+  ~ SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
+-->
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/aedinex_dark_grey">
+
+    <!-- Main Content -->
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="24dp">
+
+            <!-- Close Button -->
+            <ImageButton
+                android:id="@+id/btn_close"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_gravity="start"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:src="@android:drawable/ic_menu_close_clear_cancel"
+                android:tint="@color/aedinex_white"
+                android:contentDescription="@string/close" />
+
+            <!-- Album Art -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="32dp"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="8dp">
+
+                <ImageView
+                    android:id="@+id/img_album_art"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:src="@android:drawable/ic_menu_gallery"
+                    android:contentDescription="@string/music_info_album" />
+
+            </androidx.cardview.widget.CardView>
+
+            <!-- Track Info -->
+            <TextView
+                android:id="@+id/txt_track_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/aedinex_white"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:maxLines="2"
+                android:ellipsize="end"
+                tools:text="Song Title" />
+
+            <TextView
+                android:id="@+id/txt_track_artist"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:textColor="@color/aedinex_cyan"
+                android:textSize="16sp"
+                android:gravity="center"
+                android:maxLines="1"
+                android:ellipsize="end"
+                tools:text="Artist Name" />
+
+            <TextView
+                android:id="@+id/txt_track_album"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:textColor="@color/aedinex_white"
+                android:alpha="0.7"
+                android:textSize="14sp"
+                android:gravity="center"
+                android:maxLines="1"
+                android:ellipsize="end"
+                tools:text="Album Name" />
+
+            <!-- Progress Bar -->
+            <SeekBar
+                android:id="@+id/seekbar_progress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:progressTint="@color/aedinex_cyan"
+                android:thumbTint="@color/aedinex_white"
+                android:progressBackgroundTint="@color/grey_600"
+                android:max="100" />
+
+            <!-- Time Labels -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/txt_current_time"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textColor="@color/aedinex_white"
+                    android:alpha="0.7"
+                    android:textSize="12sp"
+                    tools:text="0:00" />
+
+                <TextView
+                    android:id="@+id/txt_total_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/aedinex_white"
+                    android:alpha="0.7"
+                    android:textSize="12sp"
+                    tools:text="3:45" />
+
+            </LinearLayout>
+
+            <!-- Playback Controls -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:weightSum="5">
+
+                <!-- Shuffle -->
+                <ImageButton
+                    android:id="@+id/btn_shuffle"
+                    android:layout_width="0dp"
+                    android:layout_height="56dp"
+                    android:layout_weight="1"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:src="@android:drawable/ic_menu_share"
+                    android:tint="@color/aedinex_white"
+                    android:contentDescription="@string/music_player_shuffle" />
+
+                <!-- Previous -->
+                <ImageButton
+                    android:id="@+id/btn_previous"
+                    android:layout_width="0dp"
+                    android:layout_height="56dp"
+                    android:layout_weight="1"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:src="@android:drawable/ic_media_previous"
+                    android:tint="@color/aedinex_white"
+                    android:contentDescription="@string/music_player_previous" />
+
+                <!-- Play/Pause -->
+                <androidx.cardview.widget.CardView
+                    android:layout_width="72dp"
+                    android:layout_height="72dp"
+                    app:cardCornerRadius="36dp"
+                    app:cardBackgroundColor="@color/aedinex_blue"
+                    app:cardElevation="4dp">
+
+                    <ImageButton
+                        android:id="@+id/btn_play_pause"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:src="@android:drawable/ic_media_play"
+                        android:tint="@color/white"
+                        android:contentDescription="@string/music_player_play" />
+
+                </androidx.cardview.widget.CardView>
+
+                <!-- Next -->
+                <ImageButton
+                    android:id="@+id/btn_next"
+                    android:layout_width="0dp"
+                    android:layout_height="56dp"
+                    android:layout_weight="1"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:src="@android:drawable/ic_media_next"
+                    android:tint="@color/aedinex_white"
+                    android:contentDescription="@string/music_player_next" />
+
+                <!-- Repeat -->
+                <ImageButton
+                    android:id="@+id/btn_repeat"
+                    android:layout_width="0dp"
+                    android:layout_height="56dp"
+                    android:layout_weight="1"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:src="@android:drawable/ic_menu_rotate"
+                    android:tint="@color/aedinex_white"
+                    android:contentDescription="@string/music_player_repeat" />
+
+            </LinearLayout>
+
+            <!-- Additional Controls -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:weightSum="3">
+
+                <!-- Queue -->
+                <ImageButton
+                    android:id="@+id/btn_queue"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_weight="1"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:src="@android:drawable/ic_menu_agenda"
+                    android:tint="@color/aedinex_cyan"
+                    android:contentDescription="@string/music_player_queue" />
+
+                <!-- Favorite -->
+                <ImageButton
+                    android:id="@+id/btn_favorite"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_weight="1"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:src="@android:drawable/btn_star_big_off"
+                    android:tint="@color/aedinex_cyan"
+                    android:contentDescription="@string/drawer_item_favorites" />
+
+                <!-- Equalizer -->
+                <ImageButton
+                    android:id="@+id/btn_equalizer"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_weight="1"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:src="@android:drawable/ic_menu_preferences"
+                    android:tint="@color/aedinex_cyan"
+                    android:contentDescription="@string/music_player_equalizer" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
