@@ -38,9 +38,11 @@ import com.nextcloud.client.jobs.upload.FileUploadWorker
 import com.nextcloud.client.preferences.SubFolderRule
 import com.nextcloud.utils.extensions.getParcelableArgument
 import com.nextcloud.utils.extensions.isDialogFragmentReady
+import com.nextcloud.utils.extensions.setVisibleIf
 import com.owncloud.android.BuildConfig
 import com.owncloud.android.MainApp
 import com.owncloud.android.R
+import com.owncloud.android.databinding.StoragePermissionWarningBannerBinding
 import com.owncloud.android.databinding.SyncedFoldersLayoutBinding
 import com.owncloud.android.datamodel.ArbitraryDataProviderImpl
 import com.owncloud.android.datamodel.MediaFolder
@@ -53,6 +55,7 @@ import com.owncloud.android.datamodel.SyncedFolderProvider
 import com.owncloud.android.files.services.NameCollisionPolicy
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.ui.adapter.SyncedFolderAdapter
+import com.owncloud.android.ui.adapter.storagePermissionBanner.setup
 import com.owncloud.android.ui.decoration.MediaGridItemDecoration
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment
 import com.owncloud.android.ui.dialog.SyncedFolderPreferencesDialogFragment
@@ -66,7 +69,6 @@ import kotlinx.coroutines.withContext
 import java.io.File
 import java.util.Locale
 import javax.inject.Inject
-import com.nextcloud.utils.extensions.setVisibleIf
 
 /**
  * Activity displaying all auto-synced folders and/or instant upload media folders.
@@ -198,13 +200,19 @@ class SyncedFoldersActivity :
             setTheme(R.style.FallbackThemingTheme)
         }
         binding.emptyList.emptyListViewAction.setOnClickListener { showHiddenItems() }
-        binding.storagePermissionWarningBanner.root.setVisibleIf(shouldShowStoragePermissionWarningBanner())
+        setupStoragePermissionWarningBanner()
     }
 
-    private fun shouldShowStoragePermissionWarningBanner(): Boolean {
-        return !PermissionUtil.checkStoragePermission(this)
-            && preferences.showStoragePermissionBanner()
+    private fun setupStoragePermissionWarningBanner() {
+        val storagePermissionWarningBanner = binding.storagePermissionWarningBanner.root
+        StoragePermissionWarningBannerBinding.bind(storagePermissionWarningBanner).apply {
+            setup(appPreferences)
+        }
+        storagePermissionWarningBanner.setVisibleIf(shouldShowStoragePermissionWarningBanner())
     }
+
+    private fun shouldShowStoragePermissionWarningBanner(): Boolean = !PermissionUtil.checkStoragePermission(this) &&
+        preferences.showStoragePermissionBanner()
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         val inflater = menuInflater
