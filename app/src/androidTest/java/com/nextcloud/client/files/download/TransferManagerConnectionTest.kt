@@ -202,7 +202,7 @@ class TransferManagerConnectionTest {
         connection.onServiceConnected(componentName, binder)
 
         // WHEN
-        //      is runnign flag accessed
+        //      is running flag accessed
         val isRunning = connection.isRunning
 
         // THEN

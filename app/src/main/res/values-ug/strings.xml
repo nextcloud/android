@@ -337,6 +337,7 @@
     <string name="etm_transfer_type">يۆتكەش</string>
     <string name="etm_transfer_type_download">چۈشۈرۈش</string>
     <string name="etm_transfer_type_upload">يۈكلەش</string>
+    <string name="external_shares">سىرتقى ھەمبەھىر</string>
     <string name="fab_label">قوشۇش ياكى يوللاش</string>
     <string name="failed_to_download">باشقۇرغۇچىنى چۈشۈرۈش ئۈچۈن ھۆججەت يوللىيالمىدى</string>
     <string name="failed_to_print">ھۆججەت بېسىش مەغلۇب بولدى</string>
@@ -471,6 +472,7 @@
     <string name="instant_upload_existing">مەۋجۇت ھۆججەتلەرنىمۇ يۈكلەڭ</string>
     <string name="instant_upload_on_charging">توك قاچىلىغاندا ئاندىن يۈكلەڭ</string>
     <string name="instant_upload_path">/ InstantUpload</string>
+    <string name="internal_shares">ئىچكى ھەمبەھىر</string>
     <string name="internal_two_way_sync">ئىچكى ئىككى خىل ماسقەدەملەش</string>
     <string name="internal_two_way_sync_not_yet">تېخى ئەمەس ، ئۇزۇن ئۆتمەي ماسقەدەملىنىدۇ</string>
     <string name="internet_connection_required_for_encrypted_folder_setup">شىفىرلانغان ھۆججەت قىسقۇچنى ئورنىتىش ئۈچۈن تور ئۇلىنىشى تەلەپ قىلىنىدۇ</string>
@@ -1029,6 +1031,22 @@
     <string name="write_email">ئېلېكترونلۇق خەت ئەۋەتىڭ</string>
     <string name="wrong_storage_path">سانلىق مەلۇمات ساقلاش قىسقۇچى مەۋجۇت ئەمەس!</string>
     <string name="wrong_storage_path_desc">بۇ بەلكىم باشقا ئۈسكۈنىدە زاپاسلاشنى ئەسلىگە كەلتۈرگەن بولۇشى مۇمكىن. سۈكۈتكە قايتىش. سانلىق مەلۇمات ساقلاش قىسقۇچىنى تەڭشەش ئۈچۈن تەڭشەكلەرنى تەكشۈرۈڭ.</string>
+    <plurals name="hours">
+        <item quantity="one">%d سائەت</item>
+        <item quantity="other">%d سائەت</item>
+    </plurals>
+    <plurals name="minutes">
+        <item quantity="one">%d مىنۇت</item>
+        <item quantity="other">%d مىنۇت</item>
+    </plurals>
+    <plurals name="time_minutes_ago">
+        <item quantity="one">%d مىنۇت ئىلگىرى</item>
+        <item quantity="other">%d مىنۇت ئىلگىرى</item>
+    </plurals>
+    <plurals name="time_hours_ago">
+        <item quantity="one">%d سائەت ئىلگىرى</item>
+        <item quantity="other">%d سائەت ئىلگىرى</item>
+    </plurals>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">Could not sync %1$d file (conflicts: %2$d)</item>
         <item quantity="other">Could not sync %1$d files (conflicts: %2$d)</item>

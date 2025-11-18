@@ -44,6 +44,7 @@
     <string name="app_widget_description">Zobrazuje jeden ovládací prvek z nástěnky</string>
     <string name="appbar_search_in">Hledat v %s</string>
     <string name="appear_offline">Jevit se offline</string>
+    <string name="assistant_generation_warning">Tento obsah byl vytvořen pomocí AI a může obsahovat chyby.</string>
     <string name="assistant_screen_add_task_alert_dialog_title">Přidat nový úkol</string>
     <string name="assistant_screen_create_a_new_task_from_bottom_right_text">Z pravého dolního rohu vytvořte nový úkol</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Zadejte nějaký text</string>
@@ -55,6 +56,7 @@
     <string name="assistant_screen_task_delete_fail_message">Při mazání úlohy se vyskytla chyba</string>
     <string name="assistant_screen_task_delete_success_message">Úloha úspěšně smazána</string>
     <string name="assistant_screen_task_list_empty_message">Seznam úkolů je prázdný.</string>
+    <string name="assistant_screen_task_list_empty_warning">Seznam úkolů je prázdný. Zkontrolujte nastavení aplikace Asistent.</string>
     <string name="assistant_screen_task_list_error_state_message">Nedaří se získat seznam úloh – zkontrolujte připojení k Internetu.</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">Smazat úlohu</string>
     <string name="assistant_screen_task_output_empty_text">Výstup z úkolu ještě není připraven.</string>
@@ -415,6 +417,8 @@
     <string name="file_list_empty_unified_search_no_results">Na váš dotaz nic nenalezeno</string>
     <string name="file_list_empty_unified_search_start_search">Zahájit vaše vyhledávání</string>
     <string name="file_list_empty_unified_search_start_search_description">Pište do pruhu vyhledávání výše a hledejte v souborech, kontaktech, událostech v kalendáři a dalším napříč vaším účtem.</string>
+    <string name="file_list_error_description">Zkontrolujte své připojení k Internetu nebo to zkuste znovu</string>
+    <string name="file_list_error_headline">Nekvalitní připojení</string>
     <string name="file_list_folder">složka</string>
     <string name="file_list_live">ŽIVĚ</string>
     <string name="file_list_loading">Načítání…</string>
@@ -661,6 +665,7 @@
     <string name="pass_code_configure_your_pass_code">Zadejte svůj bezpečnostní kód</string>
     <string name="pass_code_configure_your_pass_code_explanation">Bezpečnostní kód bude vyžadován při každém spuštění aplikace</string>
     <string name="pass_code_enter_pass_code">Zadejte svůj bezpečnostní kód</string>
+    <string name="pass_code_explanation">Bezpečnostní kód bude vyžadován při každém spuštění aplikace nebo jejím znovuotevření za déle než 5 sekund.</string>
     <string name="pass_code_mismatch">Zadání bezpečnostního kódu se neshodují</string>
     <string name="pass_code_reenter_your_pass_code">Zopakujte zadání svého bezpečnostního kódu</string>
     <string name="pass_code_remove_your_pass_code">Smazat váš bezpečnostní kód</string>
@@ -1108,6 +1113,8 @@
     <string name="uploads_view_upload_status_failed_ssl_certificate_not_trusted">Nedůvěryhodný certifikát serveru</string>
     <string name="uploads_view_upload_status_fetching_server_version">Zjišťování verze serveru…</string>
     <string name="uploads_view_upload_status_service_interrupted">Aplikace ukončena</string>
+    <string name="uploads_view_upload_status_skip">Přeskočeno</string>
+    <string name="uploads_view_upload_status_skip_reason">Takto nazvaný soubor už existuje.</string>
     <string name="uploads_view_upload_status_succeeded">Dokončeno</string>
     <string name="uploads_view_upload_status_succeeded_same_file">Stejný soubor nalezen na vzdáleném – nahrání bude přeskočeno</string>
     <string name="uploads_view_upload_status_unknown_fail">Neznámá chyba</string>
@@ -1230,6 +1237,12 @@
         <item quantity="few">Budou exportovány %d soubory. Podrobnosti viz upozornění.</item>
         <item quantity="many">Bude exportováno %d souborů. Podrobnosti viz upozornění.</item>
         <item quantity="other">Budou exportovány %d soubory. Podrobnosti viz upozornění.</item>
+    </plurals>
+    <plurals name="file_upload_limit_message">
+        <item quantity="one">Je možné nahrávat pouze %d soubor naráz.</item>
+        <item quantity="few">Je možné nahrávat pouze %d soubory naráz.</item>
+        <item quantity="many">Je možné nahrávat pouze %d souborů naráz.</item>
+        <item quantity="other">Je možné nahrávat pouze %d soubory naráz.</item>
     </plurals>
     <plurals name="file_list__footer__folder">
         <item quantity="one">%1$d složka</item>

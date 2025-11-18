@@ -663,6 +663,7 @@
     <string name="pass_code_configure_your_pass_code">Digite o código de acesso</string>
     <string name="pass_code_configure_your_pass_code_explanation">O código de acesso será solicitado toda vez que o aplicativo for iniciado</string>
     <string name="pass_code_enter_pass_code">Digite sua senha</string>
+    <string name="pass_code_explanation">A senha será solicitada sempre que o aplicativo for aberto ou reaberto após 5 segundos.</string>
     <string name="pass_code_mismatch">Os códigos de acesso não são os mesmos</string>
     <string name="pass_code_reenter_your_pass_code">Por favor, digite seu código de acesso novamente</string>
     <string name="pass_code_remove_your_pass_code">Excluir sua frase secreta</string>

@@ -44,6 +44,7 @@
     <string name="app_widget_description">Näitab ühte vidinat juhtpaneelilt/töölaualt</string>
     <string name="appbar_search_in">Otsi siin: %s</string>
     <string name="appear_offline">Sellega paistad olema võrgust väljas</string>
+    <string name="assistant_generation_warning">See sisu on tehisaru koostatud ja võib sisaldada vigu.</string>
     <string name="assistant_screen_add_task_alert_dialog_title">Lisa uus ülesanne</string>
     <string name="assistant_screen_create_a_new_task_from_bottom_right_text">Loo uus ülesanne all paremal asuvast valikust</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Kirjuta midagi vahvat</string>
@@ -55,6 +56,7 @@
     <string name="assistant_screen_task_delete_fail_message">Ülesande kustutamisel tekkis viga</string>
     <string name="assistant_screen_task_delete_success_message">Ülesande kustutamine õnnestus</string>
     <string name="assistant_screen_task_list_empty_message">Ülesannete loend on tühi.</string>
+    <string name="assistant_screen_task_list_empty_warning">Ülesannete loend on tühi. Kontrolli Abilise rakenduse seadistusi.</string>
     <string name="assistant_screen_task_list_error_state_message">Ülesannete loendi laadimine ei õnnestunud. Palun kontrolli oma nutiseadme internetiühenduse toimivust.</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">Kustuta ülesanne</string>
     <string name="assistant_screen_task_output_empty_text">Ülesande väljund pole veel valmis.</string>
@@ -663,10 +665,11 @@
     <string name="pass_code_configure_your_pass_code">Sisesta oma täiendav salasõna</string>
     <string name="pass_code_configure_your_pass_code_explanation">Täiendavat salasõna küsitakse iga kord, kui sa selle rakenduse käivitad</string>
     <string name="pass_code_enter_pass_code">Palun sisesta oma täiendav salasõna</string>
+    <string name="pass_code_explanation">Täiendavat salasõna küsitakse iga kord, kui rakendust avatakse või avatakse uuesti 5 sekundi möödumisel.</string>
     <string name="pass_code_mismatch">Täiendavad salasõnad pole samad</string>
     <string name="pass_code_reenter_your_pass_code">Palun sisesta täiendav salasõna uuesti</string>
     <string name="pass_code_remove_your_pass_code">Kustuta oma täiendav salasõna</string>
-    <string name="pass_code_removed">Täiendav salasõna kustutatud</string>
+    <string name="pass_code_removed">Täiendav salasõna on kustutatud</string>
     <string name="pass_code_stored">Täiendav salasõna on salvestatud</string>
     <string name="pass_code_wrong">Vale täiendav salasõna</string>
     <string name="pdf_password_protected">Ei õnnestu avada salasõnaga kaitstud pdf-faili. Palun kasuta välist pdf-failide vaatamise rakendust.</string>
@@ -731,7 +734,7 @@
     <string name="prefs_lock_none">Pole kasutusel</string>
     <string name="prefs_lock_title">Kaitse rakendust kasutades</string>
     <string name="prefs_lock_using_device_credentials">Nutiseadmepõhist autentimist</string>
-    <string name="prefs_lock_using_passcode">Täiendavat salasõna</string>
+    <string name="prefs_lock_using_passcode">Täiendav salasõna</string>
     <string name="prefs_manage_accounts">Halda kontosid</string>
     <string name="prefs_recommend">Soovita sõbrale</string>
     <string name="prefs_remove_e2e">Eemalda krüptimine kohalikus seadmes</string>

@@ -44,6 +44,7 @@
     <string name="app_widget_description">Zeigt ein Widget aus dem Dashboard an</string>
     <string name="appbar_search_in">Suche in %s</string>
     <string name="appear_offline">Offline erscheinen</string>
+    <string name="assistant_generation_warning">Dieser Inhalt wurde von KI generiert und kann Fehler enthalten.</string>
     <string name="assistant_screen_add_task_alert_dialog_title">Neue Aufgabe hinzufügen</string>
     <string name="assistant_screen_create_a_new_task_from_bottom_right_text">Unten rechts eine neue Aufgabe erstellen</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Bitte einen Text eingeben</string>
@@ -55,6 +56,7 @@
     <string name="assistant_screen_task_delete_fail_message">Es ist ein Fehler beim Löschen der Aufgabe aufgetreten</string>
     <string name="assistant_screen_task_delete_success_message">Aufgabe gelöscht</string>
     <string name="assistant_screen_task_list_empty_message">Aufgabenliste ist leer.</string>
+    <string name="assistant_screen_task_list_empty_warning">Die Aufgabenliste ist leer. Bitte die Konfiguration der Assistenten-App überprüfen.</string>
     <string name="assistant_screen_task_list_error_state_message">Die Aufgabenliste kann nicht abgerufen werden. Bitte überprüfen Sie Ihre Internetverbindung.</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">Aufgabe löschen</string>
     <string name="assistant_screen_task_output_empty_text">Die Aufgabenausgabe ist noch nicht fertig.</string>
@@ -663,6 +665,7 @@
     <string name="pass_code_configure_your_pass_code">PIN eingeben</string>
     <string name="pass_code_configure_your_pass_code_explanation">Die PIN wird jedes mal beim Start der App abgefragt</string>
     <string name="pass_code_enter_pass_code">Bitte geben Sie Ihre PIN ein</string>
+    <string name="pass_code_explanation">Die PIN wird jedes mal beim Start der App oder beim erneuten Öffnen nach 5 Sekunden abgefragt</string>
     <string name="pass_code_mismatch">Die PINs stimmen nicht überein</string>
     <string name="pass_code_reenter_your_pass_code">Bitte Ihre PIN nochmals eingeben</string>
     <string name="pass_code_remove_your_pass_code">Ihre PIN löschen</string>

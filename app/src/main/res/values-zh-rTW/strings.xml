@@ -44,6 +44,7 @@
     <string name="app_widget_description">顯示儀表板中的一個小工具</string>
     <string name="appbar_search_in">搜尋 %s</string>
     <string name="appear_offline">顯示為離線</string>
+    <string name="assistant_generation_warning">此內容由人工智慧產生，可能會出錯。</string>
     <string name="assistant_screen_add_task_alert_dialog_title">新增任務</string>
     <string name="assistant_screen_create_a_new_task_from_bottom_right_text">從右下角建立新任務</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">輸入一些文字</string>
@@ -55,6 +56,7 @@
     <string name="assistant_screen_task_delete_fail_message">刪除工作項目時發生錯誤</string>
     <string name="assistant_screen_task_delete_success_message">已成功刪除工作項目</string>
     <string name="assistant_screen_task_list_empty_message">任務清單為空。</string>
+    <string name="assistant_screen_task_list_empty_warning">任務清單是空的。請檢查小幫手應用程式設定。</string>
     <string name="assistant_screen_task_list_error_state_message">無法擷取工作項目清單，請檢查您的網際網路連線。</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">刪除工作項目</string>
     <string name="assistant_screen_task_output_empty_text">任務輸出尚未就緒。</string>
@@ -663,6 +665,7 @@
     <string name="pass_code_configure_your_pass_code">請輸入通行碼</string>
     <string name="pass_code_configure_your_pass_code_explanation">每次應用程式開啟時，都需要輸入通行碼</string>
     <string name="pass_code_enter_pass_code">請輸入通行碼</string>
+    <string name="pass_code_explanation">每次應用程式開啟或 5 秒後重新開啟時，都需要輸入通行碼。</string>
     <string name="pass_code_mismatch">兩個通行碼不相符</string>
     <string name="pass_code_reenter_your_pass_code">再次輸入通行碼</string>
     <string name="pass_code_remove_your_pass_code">刪除您的通行碼</string>

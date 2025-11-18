@@ -7,6 +7,7 @@
  */
 package com.owncloud.android.ui.fragment
 
+import android.os.Build
 import android.os.Bundle
 import android.view.View
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -16,7 +17,9 @@ import com.nextcloud.client.account.User
 import com.nextcloud.client.device.DeviceInfo
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.documentscan.AppScanOptionalFeature
+import com.nextcloud.utils.BuildHelper.isFlavourGPlay
 import com.nextcloud.utils.EditorUtils
+import com.owncloud.android.MainApp
 import com.owncloud.android.R
 import com.owncloud.android.databinding.FileListActionsBottomSheetCreatorBinding
 import com.owncloud.android.databinding.FileListActionsBottomSheetFragmentBinding
@@ -26,6 +29,7 @@ import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.lib.common.DirectEditing
 import com.owncloud.android.ui.activity.FileActivity
 import com.owncloud.android.utils.MimeTypeUtil
+import com.owncloud.android.utils.PermissionUtil
 import com.owncloud.android.utils.theme.ThemeUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
 
@@ -66,6 +70,20 @@ class OCFileListBottomSheetDialog(
         createRichWorkspace()
         setupClickListener()
         filterActionsForOfflineOperations()
+
+        if (MainApp.isClientBranded() && isFlavourGPlay()) {
+            // this way we can have branded clients with that permission
+            val hasPermission = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                PermissionUtil.manifestHasAllFilesPermission(context)
+            } else {
+                true
+            }
+
+            if (!hasPermission) {
+                binding.menuUploadFiles.visibility = View.GONE
+                binding.uploadContentFromOtherApps.text = context.getString(R.string.upload_files)
+            }
+        }
     }
 
     private fun applyBranding() {
